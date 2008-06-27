@@ -41,6 +41,8 @@ class SeleniumConnector {
         
         //Works for https and http
         sel = new DefaultSelenium("localhost", port, "*chrome", baseURL);
+        //hardcoded firefox path if it cannot be found from system paht
+        //sel = new DefaultSelenium("localhost", port, "*chrome /usr/lib64/firefox-3.0/firefox", baseURL);
         //make sure firefox-bin in your environment path
 //        sel = new DefaultSelenium("localhost", port, "*firefox", baseURL);
         sel.start();
