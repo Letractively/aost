@@ -1,5 +1,8 @@
+package aost.builder
+
 import aost.builder.UiObjectBuilder
 import aost.locator.BaseLocator
+import aost.object.Table
 
 /**
  * User: Jian Fang (John.Jian.Fang@gmail.com)
