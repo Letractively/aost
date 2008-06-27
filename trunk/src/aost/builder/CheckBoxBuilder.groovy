@@ -10,7 +10,7 @@ class CheckBoxBuilder extends UiObjectBuilder{
        baseClosure(checkbox, map)
 
        BaseLocator locator = new BaseLocator(loc:map.get(UiObjectBuilder.LOCATOR))
-       CheckBox.setLocator(locator)
+       checkbox.setLocator(locator)
 
        return checkbox
    }
