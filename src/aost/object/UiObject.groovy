@@ -41,6 +41,9 @@ abstract class UiObject {
 	def locator
     def feature
 
+    //reference back to its parent
+    def Container parent
+
     def boolean isElementPresent(Closure c){
         return c(locator)
     }

@@ -1,14 +1,6 @@
 package aost.dsl
 
 import aost.object.*
-import aost.builder.ButtonBuilder
-import aost.builder.ContainerBuilder
-import aost.builder.InputBoxBuilder
-import aost.builder.CheckBoxBuilder
-import aost.builder.IconBuilder
-import aost.builder.UrlLinkBuilder
-import aost.builder.TextBoxBuilder
-import aost.builder.SelectorBuilder
 import aost.builder.UiObjectBuilderRegistry
 
 class UiDslParser extends BuilderSupport{
@@ -20,22 +12,50 @@ class UiDslParser extends BuilderSupport{
        //this should return a singleton class with default builders populated
        def UiObjectBuilderRegistry builderRegistry = new UiObjectBuilderRegistry()
 
-       def String getObjectName(String id){
+/*
+       protected String getObjectName(String id){
           OBJECT_PREFIX + id
+       }
+*/
+
+       protected String nestObjectName(UiObject obj){
+          String id
+          if(obj.parent != null && obj.parent instanceof Table){
+              id =  Table.internalId(obj.id)
+          }else{
+              id = obj.id
+          }
+
+          def op = obj
+
+          while(op.parent != null){
+            op = op.parent
+            if(op.parent != null && op.parent instanceof Table){
+                id = Table.internalId(op.id) + "." + id
+            }else{
+                id = op.id + "." + id
+            }            
+           }
+
+          return id
        }
 
        def findUiObjectFromRegistry(String id){
-           registry.get(getObjectName(id))
+           registry.get(id)
        }
 
        def addUiObjectToRegistry(UiObject obj){
-           registry.put(getObjectName(obj.id), obj)
+
+           registry.put(nestObjectName(obj), obj)
        }
 
        protected void setParent(Object parent, Object child) {
            if(parent instanceof Container){
                parent.add(child)
+               child.parent = parent
            }
+
+           addUiObjectToRegistry(child)
        }
 
        protected Object createNode(Object name) {
@@ -43,7 +63,7 @@ class UiDslParser extends BuilderSupport{
 
            if(builder != null){
                 def obj =  builder.build(null, null)
-                addUiObjectToRegistry(obj)
+//                addUiObjectToRegistry(obj)
                 return obj
            }
 
@@ -61,7 +81,7 @@ class UiDslParser extends BuilderSupport{
 
            if(builder != null){
                 def obj =  builder.build(map, null)
-                addUiObjectToRegistry(obj)
+//                addUiObjectToRegistry(obj)
                 return obj
            }   
 
@@ -73,7 +93,7 @@ class UiDslParser extends BuilderSupport{
 
            if(builder != null){
                 def obj =  builder.build(map, (Closure)value)
-                addUiObjectToRegistry(obj)
+//                addUiObjectToRegistry(obj)
                 return obj
            }   
 
