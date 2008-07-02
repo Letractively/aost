@@ -15,6 +15,7 @@ import aost.event.EventHandlerMetaClass
 import aost.locator.LocatorProcessor
 import aost.locator.LocatorProcessorMetaClass
 import aost.server.EmbeddedSeleniumServer
+import aost.builder.UiObjectBuilder
 
 /**
  * Put all initialization and cleanup jobs for the AOST framework here
@@ -61,5 +62,13 @@ class AostFramework {
         if(connector != null){
             connector.disconnectSeleniumServer()
         }
+    }
+
+    //register ui object builder
+    //users can overload the builders or add new builders for new ui objects
+    //by call this method
+    public void registerBuilder(String uiObjectName, UiObjectBuilder builder){
+        UiObjectBuilderRegistry registry = new UiObjectBuilderRegistry()
+        registry.registerBuilder(uiObjectName, builder)
     }
 }
