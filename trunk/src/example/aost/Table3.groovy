@@ -16,8 +16,8 @@ class Table3 extends DslContext {
             Button(id: "button1", locator: "//input[@name='btnG' and @type='submit']")
             Table(id: "table1", locator: "//table"){
                Button(id: "row: 1, column: *", locator: "/input[@type='submit']")
-               InputBox(id: "row 2, column: * ", locator: "/input[@title='Google Search']")
-               UrlLink(id: "row 3", locator: "/link")
+               InputBox(id: "row: 2, column: * ", locator: "/input[@title='Google Search']")
+               UrlLink(id: "row: 3", locator: "/link")
             }
         }
     }

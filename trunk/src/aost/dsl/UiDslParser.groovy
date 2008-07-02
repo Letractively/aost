@@ -7,6 +7,8 @@ class UiDslParser extends BuilderSupport{
 
        public static final String OBJECT_PREFIX = "uo_"
 
+       def root
+    
        def registry = [:]
 
        //this should return a singleton class with default builders populated
@@ -41,7 +43,15 @@ class UiDslParser extends BuilderSupport{
        }
 
        def findUiObjectFromRegistry(String id){
-           registry.get(id)
+
+           if(id.startsWith("${root.id}")){
+
+             return registry.get(id)
+           }else{
+             String t = "${root.id}.${id}"
+
+             return registry.get(t)
+           }
        }
 
        def addUiObjectToRegistry(UiObject obj){
@@ -64,6 +74,11 @@ class UiDslParser extends BuilderSupport{
            if(builder != null){
                 def obj =  builder.build(null, null)
 //                addUiObjectToRegistry(obj)
+                if(registry.isEmpty()){
+                    root = obj
+                    addUiObjectToRegistry(obj)
+                }
+
                 return obj
            }
 
@@ -82,6 +97,12 @@ class UiDslParser extends BuilderSupport{
            if(builder != null){
                 def obj =  builder.build(map, null)
 //                addUiObjectToRegistry(obj)
+                //check if it is the root
+                if(registry.isEmpty()){
+                    root = obj
+                    addUiObjectToRegistry(obj)
+                }
+
                 return obj
            }   
 
@@ -94,7 +115,11 @@ class UiDslParser extends BuilderSupport{
            if(builder != null){
                 def obj =  builder.build(map, (Closure)value)
 //                addUiObjectToRegistry(obj)
-                return obj
+                if(registry.isEmpty()){
+                    root = obj
+                    addUiObjectToRegistry(obj)
+                }
+                 return obj
            }   
 
           return null
