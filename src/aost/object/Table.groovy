@@ -34,18 +34,18 @@ import aost.locator.BaseLocator
  *
  *   The internal representation is
  *
- *   "ROW_i_COLUMN_j"
+ *   "_i_j"
  *
  *   and wild case will be replace by ALL. Thus, for a given i-th row, j-th-column,
  *   the search chain would look as follows,
  *
- *   ROW_i_COLUMN_j
+ *   _i_j
  *
- *   ROW_ALL_COLUMN_j
+ *   _ALL_j
  *
- *   ROW_i_COLUMN_ALL
+ *   _i_ALL
  *
- *   ROW_ALL_COLUMN_ALL
+ *   _ALL_ALL
  *
  *   By default, the UI Object is a text box and there is no need to specify it.
  *   we can always get back the text by specifying the row number and column number.
@@ -97,7 +97,7 @@ class Table extends Container{
             row = "ALL"
             column = "ALL"
 
-            return "ROW_${row}_COLUMN_${column}"
+            return "_${row}_${column}"
         }
 
         String[] parts = upperId.split(ID_SEPARATOR);
@@ -134,21 +134,21 @@ class Table extends Container{
            }
         }
 
-        return "ROW_${row}_COLUMN_${column}"
+        return "_${row}_${column}"
      }
 
      public UiObject findUiObject(int row, int column){
 
-        //first check ROW_i_COLUMN_j format
-        UiObject obj = components.get("ROW_${row}_COLUMN_${column}")
+        //first check _i_j format
+        UiObject obj = components.get("_${row}_${column}")
 
-        //then, check ROW_ALL_COLUMN_j format
+        //then, check _ALL_j format
         if(obj == null)
-          obj = components.get("ROW_ALL_COLUMN_${column}")
+          obj = components.get("_ALL_${column}")
 
-        //thirdly, check ROW_i_COLUMN_ALL format
+        //thirdly, check _i_ALL format
         if(obj == null)
-          obj = components.get("ROW_${row}_COLUMN_ALL")
+          obj = components.get("_${row}_ALL")
 
         //last, check ALL format
         if(obj == null)
@@ -191,8 +191,11 @@ class Table extends Container{
          if(parts.length != 2)
             return false
 
+         parts[0] = parts[0].trim()
+         parts[1] = parts[1].trim()
+         
          //must start with "ROW" or "COLUMN"
-         if(!ROW.equals(parts[0]) && !COLUMN.equals(parts[1]))
+         if(!ROW.equals(parts[0]) && !COLUMN.equals(parts[0]))
             return false
 
          if(ID_WILD_CASE.equals(parts[1]))

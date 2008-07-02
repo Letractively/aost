@@ -94,7 +94,7 @@ abstract class DslContext {
 
     def select(String id, String target){
 //        findObject(id)?.select(target)
-      selectByLabel(id, target)
+        selectByLabel(id, target)
     }
 
     def selectByLabel(String id, String target){
