@@ -5,9 +5,9 @@ import aost.builder.UiObjectBuilderRegistry
 
 class UiDslParser extends BuilderSupport{
 
-       public static final String OBJECT_PREFIX = "uo_"
+//       public static final String OBJECT_PREFIX = "uo_"
 
-       def root
+       UiObject root
     
        def registry = [:]
 
@@ -54,6 +54,29 @@ class UiDslParser extends BuilderSupport{
            }
        }
 
+       public UiObject walk(WorkflowContext context, String id)
+       {
+          if(!id.startsWith("${root.id}")){
+              id = "${root.id}.${id}"
+          }
+
+          UiID uiid = UiID.convertToUiID(id)
+
+          if(uiid.size() > 1){
+              String first = uiid.pop()
+              if(root.id().equals(first)){
+                  return root.walk(context, uiid)
+              }else{
+                  println("Error: expected start id is ${root.id}, but is ${first}")
+                  return null
+              }
+          }
+
+          println("Error: id cannot be empty")
+           
+          return null
+       }
+
        def addUiObjectToRegistry(UiObject obj){
 
            registry.put(nestObjectName(obj), obj)
@@ -65,7 +88,10 @@ class UiDslParser extends BuilderSupport{
                child.parent = parent
            }
 
-           addUiObjectToRegistry(child)
+           //only put the object to the registry when its parent is the root
+           //since the root is special case
+           if(root.id.equals(parent.id))
+               addUiObjectToRegistry(child)
        }
 
        protected Object createNode(Object name) {
@@ -74,10 +100,15 @@ class UiDslParser extends BuilderSupport{
            if(builder != null){
                 def obj =  builder.build(null, null)
 //                addUiObjectToRegistry(obj)
+/*
                 if(registry.isEmpty()){
                     root = obj
                     addUiObjectToRegistry(obj)
                 }
+*/
+                //set the root
+                if(root == null)
+                    root = obj
 
                 return obj
            }
@@ -98,10 +129,15 @@ class UiDslParser extends BuilderSupport{
                 def obj =  builder.build(map, null)
 //                addUiObjectToRegistry(obj)
                 //check if it is the root
+/*
                 if(registry.isEmpty()){
                     root = obj
                     addUiObjectToRegistry(obj)
                 }
+*/
+                //set the root
+                if(root == null)
+                    root = obj
 
                 return obj
            }   
@@ -115,11 +151,16 @@ class UiDslParser extends BuilderSupport{
            if(builder != null){
                 def obj =  builder.build(map, (Closure)value)
 //                addUiObjectToRegistry(obj)
-                if(registry.isEmpty()){
+/*                if(registry.isEmpty()){
                     root = obj
                     addUiObjectToRegistry(obj)
                 }
-                 return obj
+ */
+               //set the root
+               if(root == null)
+                   root = obj
+
+               return obj
            }   
 
           return null

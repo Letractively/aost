@@ -1,5 +1,8 @@
 package aost.object
 
+import aost.dsl.WorkflowContext
+import aost.dsl.UiID
+
 abstract class UiObject {
     /*
       Let UI Object be a pure data structure and only include placeholders for
@@ -58,5 +61,22 @@ abstract class UiObject {
 
     def boolean waitForElementPresent(int timeout, int step, Closure c){
         return c(locator)
+    }
+
+    //walk through the object tree to until the Ui Object is found by the ID
+    public Object walk(WorkflowContext context, UiID uiid){
+        //if not child listed, return itself
+        if(uiid.size() < 1)
+            return this           
+
+        //otherwise,
+        //by default, regular ui objects cannot walk forward to the child
+        // since only Container can have children, override this method
+        // for container or its subclasses
+
+        //cannot find child
+        println("Cannot find UI Object ${child} in ${this.id}")
+
+        return null
     }
 }

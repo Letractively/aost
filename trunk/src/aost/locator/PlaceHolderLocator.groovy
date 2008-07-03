@@ -5,7 +5,7 @@ package aost.locator
  *
  *     "label=${target}"
  *
- *    @author Jian Fang (Jian.Fang@jtv.com)
+ *    @author Jian Fang (John.Jian.Fang@gmail.com)
  */
 class PlaceHolderLocator {
     String template
