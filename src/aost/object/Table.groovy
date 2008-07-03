@@ -2,6 +2,9 @@ package aost.object
 
 import aost.object.UiObject
 import aost.locator.BaseLocator
+import aost.dsl.WorkflowContext
+import aost.dsl.UiID
+import aost.locator.LocatorProcessor
 
 /**
  *   Table should be very generic since each column and row could hold different
@@ -66,6 +69,8 @@ class Table extends Container{
      public static final String ALL_MATCH = "ALL";
      public static final String ROW = "ROW";
      public static final String COLUMN = "COLUMN";
+
+     protected TextBox defaultUi = new TextBox()
 
      @Override
      def add(UiObject component){
@@ -157,6 +162,16 @@ class Table extends Container{
         return obj
      }
 
+ /*   public UiObject findUiObjectByUiID(String uid){
+        String row, column
+
+        [row, column] = uid.replaceFirst('_', '') .split("_")
+        row = row.trim()
+        column = column.trim()
+
+        return findUiObject(row, column)
+    }*/
+
      public boolean validId(String id){
         //ID cannot be empty
         if(id == null || id.trim().isEmpty())
@@ -210,4 +225,45 @@ class Table extends Container{
          BaseLocator bl = new BaseLocator(loc : locator.loc +table_cell_template)
          c(bl)
      }
+
+    //walk through the object tree to until the UI object is found by the ID from the stack
+    @Override
+    public Object walk(WorkflowContext context, UiID uiid){
+
+        //if not child listed, return itself
+        if(uiid.size() < 1)
+            return this
+        
+        String child = uiid.pop()
+
+        String[] parts = child.replaceFirst('_', '') .split("_")
+
+        int nrow = Integer.parseInt(parts[0])
+        int ncolumn = Integer.parseInt(parts[1])
+        //otherwise, try to find its child
+        UiObject cobj = this.findUiObject(nrow, ncolumn)
+
+        //If cannot find the object as the object template, return the TextBox as the default object
+        if(cobj == null){
+            cobj = this.defaultUi
+        }
+
+        //update reference locator by append the relative locator for this container
+        if (this.locator != null) {
+            LocatorProcessor lp = new LocatorProcessor()
+            context.appendReferenceLocator(lp.locate(this.locator))
+        }
+
+        //append relative location, i.e., row, column to the locator
+        String loc = "/tbody/tr[${nrow}]/td[${ncolumn}]"
+        context.appendReferenceLocator(loc)
+
+        if (uiid.size() < 1) {
+            //not more child needs to be found
+            return child
+        } else {
+            //recursively call walk until the object is found
+            return cobj.walk(context, uiid)
+        }
+    }
 }
