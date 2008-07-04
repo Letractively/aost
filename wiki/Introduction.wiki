@@ -179,7 +179,7 @@ class GoogleStartPageTestCase extends StandaloneAostSeleneseTestCase{
 }
 }}}
 
-Optionally, you can also write the DSL script file directly:
+Optionally, you can also write the DSL script file directly:all 
 
 {{{
 ui.Container(id: "google_start_page"){
@@ -202,22 +202,46 @@ The google code hosting page includes nested tables to show labels for
 projects. AOST supports nested IDs. For example XXX.YYY.ZZZ represents the fact that
 the UI object YYY is inside XXX and it holds the ZZZ Ui object. Usually 
 the id of the UI object is the one you specified in the ui.Container block.
-The exceptions are tables and lists, which use [x][y] or [x] to reference
+The exceptions are tables and lists, which use {{{[x][y] or [x]}}} to reference
 its elements inside.
 
 The Ui module for the label tables is defined as
 
 {{{
 ui.Container(id: "googlecodehosting"){
+  //Upper level table 
   Table(id: "labels_table", locator: "//table[descendant::div[contains(text(),\"Example project labels:\")]]"){
+    //Here we defined templates for the elements of the table
+    //id: "row: 1, column: 1" means the TextBox is a template for
+    //row 1, column 1.
     TextBox(id: "row: 1, column: 1", locator: "/div")
+    //inner table, which is a template for (row 2, column 1) of the outer table
     Table(id: "row: 2, column: 1", locator: "/div[@id=\"popular\"]/table"){
+       //"all" means this is the template for all table elements
        UrlLink(id: "all", locator: "/a")
     }
   }
 }
 }}}
 
+The UI objects defined inside a table are actually templates for table elements.
+Note the ids of the templates must follow the name convention:
+
+  # Template for (i row, j column), the id should be "row: i, column: j"
+  # The wild case (i.e., match all) for row or column is {{{"*"}}}, or you do not specify the row or column. For example, {{{"row : *, column: 3"}}} means template for (the 3rd column, all rows). "column: 3" means the same thing
+  # "all" is used for matching all rows and columns
+
+If no template is defined for a (row, column), it is assumed to be a TextBox by default.
+
+When you look for an element's (row i, column j) Object-type in run-time, the following
+rules apply:
+
+  # First, the system will try to find the template defined for (row i, column j),return it if found.
+  # Otherwise, the system will try the template for (all rows, column j), return it if found.
+  # If not, the system will try the template for (row i, all columns), return it if found.
+  # If still cannot find, the system will try the template for "all", return it if found.
+  # Last, if no template could be found. Return the TextBox as the default template.
+  
 The module functions are defined as follows,
 
 {{{
