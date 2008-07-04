@@ -1,5 +1,4 @@
 #labels Featured,Phase-Implementation
-
 = Introduction =
 
 *Abstract Object-based Selenium Test* (_AOST_) framework
@@ -121,6 +120,8 @@ The DslScriptExecutor can be used to run the .dsl files.
 
 == Examples ==
 
+=== Google Start Page ===
+
 First, create the google start page module in Groovy
 {{{
 package example.google
@@ -194,3 +195,119 @@ pause 1000
 }}}
 
 Then use DslScriptExecutor to run it.
+
+=== Google Code Hosting Page ===
+
+The google code hosting page includes nested tables to show labels for 
+projects. AOST supports nested IDs. For example XXX.YYY.ZZZ represents the fact that
+the UI object YYY is inside XXX and it holds the ZZZ Ui object. Usually 
+the id of the UI object is the one you specified in the ui.Container block.
+The exceptions are tables and lists, which use [x][y] or [x] to reference
+its elements inside.
+
+The Ui module for the label tables is defined as
+
+{{{
+ui.Container(id: "googlecodehosting"){
+  Table(id: "labels_table", locator: "//table[descendant::div[contains(text(),\"Example project labels:\")]]"){
+    TextBox(id: "row: 1, column: 1", locator: "/div")
+    Table(id: "row: 2, column: 1", locator: "/div[@id=\"popular\"]/table"){
+       UrlLink(id: "all", locator: "/a")
+    }
+  }
+}
+}}}
+
+The module functions are defined as follows,
+
+{{{
+    public String getModuleLabel(){
+        getText "labels_table[1][1]"
+    }
+
+    public int getLabelTableRowNum(){
+        getTableMaxRowNum "labels_table[2][1]"
+    }
+
+    public int getLabelTableColumnNum(){
+        getTableMaxColumnNum "labels_table[2][1]"
+    }
+
+    def getTableElement(int row, int column){
+        getTableElement "labels_table[2][1].[${row}][${column}]"
+    }
+
+    Map getAllLabels(){
+        int nrow = getTableMaxRowNum("labels_table[2][1]")
+        int ncolumn = getTableMaxColumnNum("labels_table[2][1]")
+
+        def map = [:]
+        for(int i=1; i<=nrow; i++){
+            for(int j=1; j<=ncolumn; j++){
+                String label = getText("labels_table[2][1].[${i}][${j}]")
+                map.put(label, [i, j])
+            }
+        }
+
+        return map
+    }
+
+    void clickOnLable(int row, int column){
+        click  "labels_table[2][1].[${row}][${column}]"
+        pause 5000
+    }
+
+}}}
+
+The actual test case is 
+
+{{{
+class GoogleCodeHostingTestCase extends StandaloneAostSeleneseTestCase {
+
+    protected static GoogleCodeHosting gch
+
+    public void initUi() {
+        gch = new GoogleCodeHosting()
+        gch.defineUi()
+
+    }
+
+    public void setUp(){
+        setUpForClass()
+    }
+
+    public void tearDown(){
+        tearDownForClass()
+    }
+
+    void testCodeLabelTable(){
+        connectUrl("http://code.google.com/hosting/")
+        String label = gch.getModuleLabel()
+        assertEquals("Example project labels:", label)
+        
+        int nrow = gch.getLabelTableRowNum()
+        assertEquals(3, nrow)
+
+        int ncolumn = gch.getLabelTableColumnNum()
+        assertEquals(6, ncolumn)
+        
+        for(int i=1; i<=nrow; i++){
+            for(int j=1; j<=ncolumn; j++){
+               def obj = gch.getTableElement(i, j)
+               assertTrue(obj instanceof UrlLink)
+            }
+        }
+        Map map = gch.getAllLabels()
+        assertEquals(18, map.size())
+
+        int[] index = map.get("Java")
+        assertNotNull(index)
+        assertEquals(2, index.length)
+
+        //click on "Java" link
+        gch.clickOnLable(index[0], index[1])
+    }
+}
+}}}
+
+Please see source code on the subversion trunk for details
