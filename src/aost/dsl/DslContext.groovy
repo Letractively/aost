@@ -31,7 +31,7 @@ abstract class DslContext {
 
     def click(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walk(context, id)?.click(){ loc ->
+        ui.walkTo(context, id)?.click(){ loc ->
             String locator = locatorProcessor.locate(loc)
             if(context.getReferenceLocator() != null)
                 locator = context.getReferenceLocator() + locator
@@ -45,7 +45,7 @@ abstract class DslContext {
 
     def doubleClick(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walk(context, id)?.doubleClick(){ loc ->
+        ui.walkTo(context, id)?.doubleClick(){ loc ->
             String locator = locatorProcessor.locate(loc)
             if(context.getReferenceLocator() != null)
                 locator = context.getReferenceLocator() + locator
@@ -60,7 +60,7 @@ abstract class DslContext {
 
     def clickAt(String id, String coordination){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walk(context, id)?.clickAt(coordination){ loc ->
+        ui.walkTo(context, id)?.clickAt(coordination){ loc ->
             String locator = locatorProcessor.locate(loc)
             if(context.getReferenceLocator() != null)
                 locator = context.getReferenceLocator() + locator
@@ -75,7 +75,7 @@ abstract class DslContext {
 
     def check(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walk(context, id)?.check(){ loc ->
+        ui.walkTo(context, id)?.check(){ loc ->
             String locator = locatorProcessor.locate(loc)
             if(context.getReferenceLocator() != null)
                 locator = context.getReferenceLocator() + locator
@@ -90,7 +90,7 @@ abstract class DslContext {
 
     def uncheck(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walk(context, id)?.uncheck(){ loc ->
+        ui.walkTo(context, id)?.uncheck(){ loc ->
             String locator = locatorProcessor.locate(loc)
             if(context.getReferenceLocator() != null)
                 locator = context.getReferenceLocator() + locator
@@ -105,7 +105,7 @@ abstract class DslContext {
 
     def type(String id, String input){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walk(context, id)?.type(input){ loc ->
+        ui.walkTo(context, id)?.type(input){ loc ->
             String locator = locatorProcessor.locate(loc)
             if(context.getReferenceLocator() != null)
                 locator = context.getReferenceLocator() + locator
@@ -120,7 +120,7 @@ abstract class DslContext {
 
     def keyType(String id, String input){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walk(context, id)?.keyType(input){ loc ->
+        ui.walkTo(context, id)?.keyType(input){ loc ->
             String locator = locatorProcessor.locate(loc)
             if(context.getReferenceLocator() != null)
                 locator = context.getReferenceLocator() + locator
@@ -135,7 +135,7 @@ abstract class DslContext {
 
     def typeAndReturn(String id, String input){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walk(context, id)?.typeAndReturn(input){ loc ->
+        ui.walkTo(context, id)?.typeAndReturn(input){ loc ->
             String locator = locatorProcessor.locate(loc)
             if(context.getReferenceLocator() != null)
                 locator = context.getReferenceLocator() + locator
@@ -150,7 +150,7 @@ abstract class DslContext {
 
     def clearText(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walk(context, id)?.clearText(){ loc ->
+        ui.walkTo(context, id)?.clearText(){ loc ->
             String locator = locatorProcessor.locate(loc)
             if(context.getReferenceLocator() != null)
                 locator = context.getReferenceLocator() + locator
@@ -170,7 +170,7 @@ abstract class DslContext {
 
     def selectByLabel(String id, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walk(context, id)?.selectByLabel(target){ loc, optloc ->
+        ui.walkTo(context, id)?.selectByLabel(target){ loc, optloc ->
             String locator = locatorProcessor.locate(loc)
             if(context.getReferenceLocator() != null)
                 locator = context.getReferenceLocator() + locator
@@ -185,7 +185,7 @@ abstract class DslContext {
 
     def selectByValue(String id, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walk(context, id)?.selectByValue(target){ loc, optloc ->
+        ui.walkTo(context, id)?.selectByValue(target){ loc, optloc ->
             String locator = locatorProcessor.locate(loc)
             if(context.getReferenceLocator() != null)
                 locator = context.getReferenceLocator() + locator
@@ -200,7 +200,7 @@ abstract class DslContext {
 
     def String waitForText(String id, int timeout){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walk(context, id)?.waitForText(timeout){ loc ->
+        ui.walkTo(context, id)?.waitForText(timeout){ loc ->
             String locator = locatorProcessor.locate(loc)
             if(context.getReferenceLocator() != null)
                 locator = context.getReferenceLocator() + locator
@@ -215,7 +215,7 @@ abstract class DslContext {
 
     def boolean isElementPresent(String id){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walk(context, id)
+         def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.isElementPresent(){ loc ->
                 String locator = locatorProcessor.locate(loc)
@@ -240,7 +240,7 @@ abstract class DslContext {
 
     def boolean isVisible(String id){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walk(context, id)
+         def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.isVisible(){ loc ->
                 String locator = locatorProcessor.locate(loc)
@@ -265,7 +265,7 @@ abstract class DslContext {
 
     def boolean isChecked(String id){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walk(context, id)
+         def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.isChecked(){ loc ->
                 String locator = locatorProcessor.locate(loc)
@@ -289,7 +289,7 @@ abstract class DslContext {
 
     def boolean waitForElementPresent(String id, int timeout){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walk(context, id)
+         def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.waitForElementPresent(timeout){ loc ->
                 String locator = locatorProcessor.locate(loc)
@@ -313,7 +313,7 @@ abstract class DslContext {
 
     def boolean waitForElementPresent(String id, int timeout, int step){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walk(context, id)
+         def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.waitForElementPresent(timeout, step){ loc ->
                 String locator = locatorProcessor.locate(loc)
@@ -341,7 +341,7 @@ abstract class DslContext {
 
     def String getText(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walk(context, id)?.getText(){ loc ->
+        ui.walkTo(context, id)?.getText(){ loc ->
             String locator = locatorProcessor.locate(loc)
             if(context.getReferenceLocator() != null)
                 locator = context.getReferenceLocator() + locator
@@ -356,7 +356,7 @@ abstract class DslContext {
 
     def String getValue(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walk(context, id)?.getValue(){ loc ->
+        ui.walkTo(context, id)?.getValue(){ loc ->
             String locator = locatorProcessor.locate(loc)
             if(context.getReferenceLocator() != null)
                 locator = context.getReferenceLocator() + locator

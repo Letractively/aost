@@ -17,9 +17,9 @@ class Container extends UiObject {
         components.get(id)
     }
 
-    //walk through the object tree to until the UI object is found by the ID from the stack
+    //walkTo through the object tree to until the UI object is found by the ID from the stack
     @Override
-    public Object walk(WorkflowContext context, UiID uiid){
+    public UiObject walkTo(WorkflowContext context, UiID uiid){
 
         //if not child listed, return itself
         if(uiid.size() < 1)
@@ -39,10 +39,10 @@ class Container extends UiObject {
             }
             if(uiid.size() < 1){
                 //not more child needs to be found
-                return child
+                return cobj
             }else{
-                //recursively call walk until the object is found
-                return cobj.walk(context, uiid)
+                //recursively call walkTo until the object is found
+                return cobj.walkTo(context, uiid)
             }
         }else{
 

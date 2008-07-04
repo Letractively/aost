@@ -63,14 +63,14 @@ abstract class UiObject {
         return c(locator)
     }
 
-    //walk through the object tree to until the Ui Object is found by the ID
-    public Object walk(WorkflowContext context, UiID uiid){
+    //walkTo through the object tree to until the Ui Object is found by the ID
+    public UiObject walkTo(WorkflowContext context, UiID uiid){
         //if not child listed, return itself
         if(uiid.size() < 1)
             return this           
 
         //otherwise,
-        //by default, regular ui objects cannot walk forward to the child
+        //by default, regular ui objects cannot walkTo forward to the child
         // since only Container can have children, override this method
         // for container or its subclasses
 
