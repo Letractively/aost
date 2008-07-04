@@ -46,5 +46,14 @@ class UiID_UT extends GroovyTestCase{
         assertEquals("list", result.pop())
         assertEquals("_5", result.pop())
         assertEquals(0, result.size())
+
+        id ="main.table1[3][5].[1][2]"
+        result = UiID.convertToUiID(id)
+        assertEquals(4, result.size())
+        assertEquals("main", result.pop())
+        assertEquals("table1", result.pop())
+        assertEquals("_3_5", result.pop())
+        assertEquals("_1_2", result.pop())
+        assertEquals(0, result.size())
     }
 }

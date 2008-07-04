@@ -47,20 +47,24 @@ abstract class UiObject {
     //reference back to its parent
     def Container parent
 
-    def boolean isElementPresent(Closure c){
+    boolean isElementPresent(Closure c){
         return c(locator)
     }
 
-    def boolean isVisible(Closure c){
+    boolean isVisible(Closure c){
         return c(locator)
     }
 
-    def boolean waitForElementPresent(int timeout, Closure c){
+    boolean waitForElementPresent(int timeout, Closure c){
         return c(locator)
     }
 
-    def boolean waitForElementPresent(int timeout, int step, Closure c){
+    boolean waitForElementPresent(int timeout, int step, Closure c){
         return c(locator)
+    }
+
+    String getText(Closure c){
+       return c(locator)
     }
 
     //walkTo through the object tree to until the Ui Object is found by the ID
@@ -75,6 +79,7 @@ abstract class UiObject {
         // for container or its subclasses
 
         //cannot find child
+        String child = uiid.pop()
         println("Cannot find UI Object ${child} in ${this.id}")
 
         return null

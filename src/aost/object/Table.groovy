@@ -5,6 +5,7 @@ import aost.locator.BaseLocator
 import aost.dsl.WorkflowContext
 import aost.dsl.UiID
 import aost.locator.LocatorProcessor
+import aost.access.Accessor
 
 /**
  *   Table should be very generic since each column and row could hold different
@@ -231,11 +232,43 @@ class Table extends Container{
          }
      }
 
-     def String getCellLocator(int row, int column, Closure c){
-         String table_cell_template = "/tbody/tr[${row}]/td[${column}]"
-         BaseLocator bl = new BaseLocator(loc : locator.loc +table_cell_template)
-         c(bl)
+     String getCellLocator(int row, int column){
+         String table_cell_loc = "/tbody/tr[${row}]/td[${column}]"
+
+         return table_cell_loc
      }
+
+    int getTableMaxRowNum(Closure c) {
+        int row = 1
+        int column = 1
+
+        String rl = c(this.locator)
+
+        Accessor accessor = new Accessor()
+
+        while(accessor.isElementPresent(rl + getCellLocator(row, column))){
+            row++
+        }
+
+        row--
+
+        return row
+    }
+
+    int getTableMaxColumnNum(Closure c) {
+        int row = 1
+        int column = 1
+        String rl = c(this.locator)
+        Accessor accessor = new Accessor()
+
+        while(accessor.isElementPresent(rl + getCellLocator(row, column))){
+            column++
+        }
+
+        column--
+
+        return column
+    }
 
     //walkTo through the object tree to until the UI object is found by the ID from the stack
     @Override
