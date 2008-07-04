@@ -5,16 +5,17 @@ import aost.util.Helper
 import aost.event.EventHandler
 import aost.access.Accessor
 import aost.locator.LocatorProcessor
+import aost.object.Table
 
 abstract class DslContext {
-    def UiDslParser ui = new UiDslParser()
+    UiDslParser ui = new UiDslParser()
 
     //decoupling eventhandler, locateProcessor, and accessor from UI objects
     //and let DslContext to handle all of them directly. This will also make
     //the framework reconfiguration much easier.
-    def eventHandler = new EventHandler()
-    def accessor = new Accessor()
-    def locatorProcessor = new LocatorProcessor()
+    EventHandler eventHandler = new EventHandler()
+    Accessor accessor = new Accessor()
+    LocatorProcessor locatorProcessor = new LocatorProcessor()
 
 //    def defUi = ui.&Container
 
@@ -198,7 +199,7 @@ abstract class DslContext {
 //        }
     }
 
-    def String waitForText(String id, int timeout){
+    String waitForText(String id, int timeout){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.waitForText(timeout){ loc ->
             String locator = locatorProcessor.locate(loc)
@@ -213,7 +214,47 @@ abstract class DslContext {
 //        }
     }
 
-    def boolean isElementPresent(String id){
+    int getTableMaxRowNum(String id){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         Table obj = ui.walkTo(context, id)
+         if(obj != null){
+             return obj.getTableMaxRowNum(){ loc ->
+                String locator = locatorProcessor.locate(loc)
+                if(context.getReferenceLocator() != null)
+                    locator = context.getReferenceLocator() + locator
+                locator
+             }
+         }
+         
+         println("Cannot find table ${id}")
+         return 0
+    }
+
+    int getTableMaxColumnNum(String id){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         Table obj = ui.walkTo(context, id)
+         if(obj != null){
+             return obj.getTableMaxColumnNum(){ loc ->
+                String locator = locatorProcessor.locate(loc)
+                if(context.getReferenceLocator() != null)
+                    locator = context.getReferenceLocator() + locator
+                locator
+             }
+         }
+
+         println("Cannot find table ${id}")
+         return 0
+    }
+
+    //id should use the format table2[2][3]
+    def getTableElement(String id){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         def obj = ui.walkTo(context, id)
+
+         return obj
+    }
+
+    boolean isElementPresent(String id){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          def obj = ui.walkTo(context, id)
          if(obj != null){
@@ -238,7 +279,7 @@ abstract class DslContext {
 //        return false
     }
 
-    def boolean isVisible(String id){
+    boolean isVisible(String id){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          def obj = ui.walkTo(context, id)
          if(obj != null){
@@ -263,7 +304,7 @@ abstract class DslContext {
 //        return false
     }
 
-    def boolean isChecked(String id){
+    boolean isChecked(String id){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          def obj = ui.walkTo(context, id)
          if(obj != null){
@@ -287,7 +328,7 @@ abstract class DslContext {
 //        }
     }
 
-    def boolean waitForElementPresent(String id, int timeout){
+    boolean waitForElementPresent(String id, int timeout){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          def obj = ui.walkTo(context, id)
          if(obj != null){
@@ -311,7 +352,7 @@ abstract class DslContext {
 //       }
     }
 
-    def boolean waitForElementPresent(String id, int timeout, int step){
+    boolean waitForElementPresent(String id, int timeout, int step){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          def obj = ui.walkTo(context, id)
          if(obj != null){
@@ -335,11 +376,11 @@ abstract class DslContext {
 //       }
    }
 
-    def boolean waitForCondition(String script, String timeoutInMilliSecond){
+    boolean waitForCondition(String script, String timeoutInMilliSecond){
        Accessor.waitForCondition(script, timeoutInMilliSecond)
     }
 
-    def String getText(String id){
+    String getText(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.getText(){ loc ->
             String locator = locatorProcessor.locate(loc)
@@ -354,7 +395,7 @@ abstract class DslContext {
 //        }
     }
 
-    def String getValue(String id){
+    String getValue(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.getValue(){ loc ->
             String locator = locatorProcessor.locate(loc)

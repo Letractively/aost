@@ -35,10 +35,15 @@ class UiID extends Stack<String>{
     //Pre-Process to convert the table[x][y] to table, _x_y format
     public static String[] preprocess(String id){
        if(id != null && (!id.trim().isEmpty()) && id.contains("[")){
-           int index = id.indexOf("[")
-           String first = id.substring(0, index)
-           String second = id.substring(index).replaceAll('\\[', '_').replaceAll('\\]','')
-           return [first, second]
+           if(id.startsWith("[")){
+                String first = id.replaceAll('\\[', '_').replaceAll('\\]','')
+                return [first]
+           }else{
+                int index = id.indexOf("[")
+                String first = id.substring(0, index)
+                String second = id.substring(index).replaceAll('\\[', '_').replaceAll('\\]','')
+                return [first, second]
+           }
        }else{
            return [id]
        }
