@@ -109,6 +109,8 @@ class Table extends Container{
 
         if(parts.length == 1){
            String[] fields = parts[0].trim().split(ID_FIELD_SEPARATOR)
+           fields[0] = fields[0].trim()
+           fields[1] = fields[1].trim()
            if(ROW.equals(fields[0])){
                row = fields[1]
                if(ID_WILD_CASE.equals(row))
@@ -125,6 +127,8 @@ class Table extends Container{
         }else{
            for(int i=0; i<2; i++){
              String[] fields = parts[i].trim().split(ID_FIELD_SEPARATOR)
+             fields[0] = fields[0].trim()
+             fields[1] = fields[1].trim()
              if(ROW.equals(fields[0])){
                row = fields[1]
                if(ID_WILD_CASE.equals(row))
@@ -145,20 +149,27 @@ class Table extends Container{
      public UiObject findUiObject(int row, int column){
 
         //first check _i_j format
-        UiObject obj = components.get("_${row}_${column}")
+        String key = "_${row}_${column}"
+        UiObject obj = components.get(key)
 
         //then, check _ALL_j format
-        if(obj == null)
-          obj = components.get("_ALL_${column}")
+        if(obj == null){
+          key = "_ALL_${column}"
+          obj = components.get(key)
+        }
 
         //thirdly, check _i_ALL format
-        if(obj == null)
-          obj = components.get("_${row}_ALL")
+        if(obj == null){
+          key = "_${row}_ALL"
+          obj = components.get(key)
+        }
 
         //last, check ALL format
-        if(obj == null)
-          obj = components.get("ALL")
-         
+        if(obj == null){
+          key = "_ALL_ALL"
+          obj = components.get(key)
+        }
+
         return obj
      }
 
@@ -226,9 +237,9 @@ class Table extends Container{
          c(bl)
      }
 
-    //walk through the object tree to until the UI object is found by the ID from the stack
+    //walkTo through the object tree to until the UI object is found by the ID from the stack
     @Override
-    public Object walk(WorkflowContext context, UiID uiid){
+    public UiObject walkTo(WorkflowContext context, UiID uiid){
 
         //if not child listed, return itself
         if(uiid.size() < 1)
@@ -260,10 +271,10 @@ class Table extends Container{
 
         if (uiid.size() < 1) {
             //not more child needs to be found
-            return child
+            return cobj
         } else {
-            //recursively call walk until the object is found
-            return cobj.walk(context, uiid)
+            //recursively call walkTo until the object is found
+            return cobj.walkTo(context, uiid)
         }
     }
 }

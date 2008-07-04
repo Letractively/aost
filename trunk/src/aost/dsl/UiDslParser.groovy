@@ -54,7 +54,7 @@ class UiDslParser extends BuilderSupport{
            }
        }
 
-       public UiObject walk(WorkflowContext context, String id)
+       public UiObject walkTo(WorkflowContext context, String id)
        {
           if(!id.startsWith("${root.id}")){
               id = "${root.id}.${id}"
@@ -64,8 +64,8 @@ class UiDslParser extends BuilderSupport{
 
           if(uiid.size() > 1){
               String first = uiid.pop()
-              if(root.id().equals(first)){
-                  return root.walk(context, uiid)
+              if(root.id.equals(first)){
+                  return root.walkTo(context, uiid)
               }else{
                   println("Error: expected start id is ${root.id}, but is ${first}")
                   return null

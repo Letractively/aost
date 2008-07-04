@@ -31,7 +31,7 @@ class WorkflowContext {
         return context
     }
 
-    public Object getReferenceLocator(){
+    public String getReferenceLocator(){
         
         return context.get(REFERENCE_LOCATOR)
     }
