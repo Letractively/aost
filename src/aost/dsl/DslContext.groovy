@@ -39,10 +39,6 @@ abstract class DslContext {
                 locator = context.getReferenceLocator() + locator
             eventHandler.click(locator)
         }
-//        findObject(id)?.click(){ loc ->
-//            def locator = locatorProcessor.locate(loc)
-//            eventHandler.click(locator)
-//        }
     }
 
     def doubleClick(String id){
@@ -53,11 +49,6 @@ abstract class DslContext {
                 locator = context.getReferenceLocator() + locator
             eventHandler.doubleClick(locator)
         }
-
-//        findObject(id)?.doubleClick(){ loc ->
-//            def locator = locatorProcessor.locate(loc)
-//            eventHandler.doubleClick(locator)
-//        }
     }
 
     def clickAt(String id, String coordination){
@@ -68,11 +59,6 @@ abstract class DslContext {
                 locator = context.getReferenceLocator() + locator
             eventHandler.clickAt(locator, coordination)
         }
-       
-//        findObject(id)?.clickAt(coordination){ loc ->
-//            def locator = locatorProcessor.locate(loc)
-//            eventHandler.clickAt(locator, coordination)
-//        }
     }
 
     def check(String id){
@@ -83,11 +69,6 @@ abstract class DslContext {
                 locator = context.getReferenceLocator() + locator
             eventHandler.check(locator)
         }
-
-//       findObject(id)?.check(){ loc ->
-//            def locator = locatorProcessor.locate(loc)
-//            eventHandler.check(locator)
-//       }
     }
 
     def uncheck(String id){
@@ -98,11 +79,6 @@ abstract class DslContext {
                 locator = context.getReferenceLocator() + locator
             eventHandler.uncheck(locator)
         }
-
-//       findObject(id)?.uncheck(){ loc ->
-//            def locator = locatorProcessor.locate(loc)
-//            eventHandler.uncheck(locator)
-//       }
     }
 
     def type(String id, String input){
@@ -113,11 +89,6 @@ abstract class DslContext {
                 locator = context.getReferenceLocator() + locator
             eventHandler.type(locator, input)
         }
-
-//       findObject(id)?.type(input){ loc ->
-//            def locator = locatorProcessor.locate(loc)
-//            eventHandler.type(locator, input)
-//       }
     }
 
     def keyType(String id, String input){
@@ -128,11 +99,6 @@ abstract class DslContext {
                 locator = context.getReferenceLocator() + locator
             eventHandler.keyType(locator, input)
         }
-
-//       findObject(id)?.keyType(input){ loc ->
-//            def locator = locatorProcessor.locate(loc)
-//            eventHandler.keyType(locator, input)
-//       }
     }
 
     def typeAndReturn(String id, String input){
@@ -143,11 +109,6 @@ abstract class DslContext {
                 locator = context.getReferenceLocator() + locator
             eventHandler.typeAndReturn(locator, input)
         }
-
-///        findObject(id)?.typeAndReturn(input){ loc ->
-//            def locator = locatorProcessor.locate(loc)
-//            eventHandler.typeAndReturn(locator, input)
-//        }
     }
 
     def clearText(String id){
@@ -158,15 +119,9 @@ abstract class DslContext {
                 locator = context.getReferenceLocator() + locator
             eventHandler.clearText(locator)
         }
-
-//        findObject(id)?.clearText(){ loc ->
-//            def locator = locatorProcessor.locate(loc)
-//            eventHandler.clearText(locator)
-//        }
     }
 
     def select(String id, String target){
-//        findObject(id)?.select(target)
         selectByLabel(id, target)
     }
 
@@ -178,11 +133,6 @@ abstract class DslContext {
                 locator = context.getReferenceLocator() + locator
             eventHandler.select(locator, optloc)
         }
-
-//        findObject(id)?.selectByLabel(target){ loc, optloc ->
-//            def locator = locatorProcessor.locate(loc)
-//            eventHandler.select(locator, optloc)
-//        }
     }
 
     def selectByValue(String id, String target){
@@ -193,11 +143,191 @@ abstract class DslContext {
                 locator = context.getReferenceLocator() + locator
             eventHandler.select(locator, optloc)
         }
+    }
 
-//        findObject(id)?.selectByValue(target){ loc, optloc ->
-//            def locator = locatorProcessor.locate(loc)
-//            eventHandler.select(locator, optloc)
-//        }
+    def addSelectionByLabel(String id, String target){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, id)?.addSelectionByLabel(target){ loc, optloc ->
+            String locator = locatorProcessor.locate(loc)
+            if(context.getReferenceLocator() != null)
+                locator = context.getReferenceLocator() + locator
+            eventHandler.addSelection(locator, optloc)
+        }
+    }
+
+    def addSelectionByValue(String id, String target){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, id)?.addSelectionByValue(target){ loc, optloc ->
+            String locator = locatorProcessor.locate(loc)
+            if(context.getReferenceLocator() != null)
+                locator = context.getReferenceLocator() + locator
+            eventHandler.addSelection(locator, optloc)
+        }
+    }
+
+    def removeSelectionByLabel(String id, String target){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, id)?.removeSelectionByLabel(target){ loc, optloc ->
+            String locator = locatorProcessor.locate(loc)
+            if(context.getReferenceLocator() != null)
+                locator = context.getReferenceLocator() + locator
+            eventHandler.removeSelection(locator, optloc)
+        }
+    }
+
+    def removeSelectionByValue(String id, String target){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, id)?.removeSelectionByValue(target){ loc, optloc ->
+            String locator = locatorProcessor.locate(loc)
+            if(context.getReferenceLocator() != null)
+                locator = context.getReferenceLocator() + locator
+            eventHandler.removeSelection(locator, optloc)
+        }
+    }
+
+    def removeAllSelections(String id){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, id)?.removeAllSelections(){ loc ->
+            String locator = locatorProcessor.locate(loc)
+            if(context.getReferenceLocator() != null)
+                locator = context.getReferenceLocator() + locator
+            eventHandler.removeAllSelections(locator)
+        }
+    }
+
+    String[] getSelectedLabels(String id){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         def obj = ui.walkTo(context, id)
+         if(obj != null){
+             return obj.getSelectedLabels(){ loc ->
+                String locator = locatorProcessor.locate(loc)
+                if(context.getReferenceLocator() != null)
+                    locator = context.getReferenceLocator() + locator
+                accessor.getSelectedLabels(locator)
+             }
+         }
+
+        return null
+    }
+
+    String getSelectedLabel(String id){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         def obj = ui.walkTo(context, id)
+         if(obj != null){
+             return obj.getSelectedLabel(){ loc ->
+                String locator = locatorProcessor.locate(loc)
+                if(context.getReferenceLocator() != null)
+                    locator = context.getReferenceLocator() + locator
+                accessor.getSelectedLabel(locator)
+             }
+         }
+
+        return null
+    }
+
+    String[] getSelectedValues(String id){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         def obj = ui.walkTo(context, id)
+         if(obj != null){
+             return obj.getSelectedValues(){ loc ->
+                String locator = locatorProcessor.locate(loc)
+                if(context.getReferenceLocator() != null)
+                    locator = context.getReferenceLocator() + locator
+                accessor.getSelectedValues(locator)
+             }
+         }
+
+        return null
+    }
+
+    String getSelectedValue(String id){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         def obj = ui.walkTo(context, id)
+         if(obj != null){
+             return obj.getSelectedValue(){ loc ->
+                String locator = locatorProcessor.locate(loc)
+                if(context.getReferenceLocator() != null)
+                    locator = context.getReferenceLocator() + locator
+                accessor.getSelectedValue(locator)
+             }
+         }
+
+        return null
+    }
+
+    String[] getSelectedIndexes(String id){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         def obj = ui.walkTo(context, id)
+         if(obj != null){
+             return obj.getSelectedIndexes(){ loc ->
+                String locator = locatorProcessor.locate(loc)
+                if(context.getReferenceLocator() != null)
+                    locator = context.getReferenceLocator() + locator
+                accessor.getSelectedIndexes(locator)
+             }
+         }
+
+        return null
+    }
+
+    String getSelectedIndex(String id){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         def obj = ui.walkTo(context, id)
+         if(obj != null){
+             return obj.getSelectedIndex(){ loc ->
+                String locator = locatorProcessor.locate(loc)
+                if(context.getReferenceLocator() != null)
+                    locator = context.getReferenceLocator() + locator
+                accessor.getSelectedIndex(locator)
+             }
+         }
+
+        return null
+    }
+
+    String[] getSelectedIds(String id){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         def obj = ui.walkTo(context, id)
+         if(obj != null){
+             return obj.getSelectedIds(){ loc ->
+                String locator = locatorProcessor.locate(loc)
+                if(context.getReferenceLocator() != null)
+                    locator = context.getReferenceLocator() + locator
+                accessor.getSelectedIds(locator)
+             }
+         }
+
+        return null
+    }
+
+    String getSelectedId(String id){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         def obj = ui.walkTo(context, id)
+         if(obj != null){
+             return obj.getSelectedId(){ loc ->
+                String locator = locatorProcessor.locate(loc)
+                if(context.getReferenceLocator() != null)
+                    locator = context.getReferenceLocator() + locator
+                accessor.getSelectedId(locator)
+             }
+         }
+
+        return null
+    }
+
+    boolean isSomethingSelected(String id){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         def obj = ui.walkTo(context, id)
+         if(obj != null){
+             return obj.isSomethingSelected(){ loc ->
+                String locator = locatorProcessor.locate(loc)
+                if(context.getReferenceLocator() != null)
+                    locator = context.getReferenceLocator() + locator
+                accessor.isSomethingSelected(locator)
+             }
+         }
+
+        return false
     }
 
     String waitForText(String id, int timeout){
@@ -208,11 +338,6 @@ abstract class DslContext {
                 locator = context.getReferenceLocator() + locator
             eventHandler.waitForText(locator, timeout)
         }
-
-//        findObject(id)?.waitForText(timeout){ loc ->
-//            def locator = locatorProcessor.locate(loc)
-//            eventHandler.waitForText(locator, timeout)
-//        }
     }
 
     int getTableMaxRowNum(String id){
@@ -284,16 +409,6 @@ abstract class DslContext {
          }
 
          return false
-        
-//        def obj = findObject(id)
-//        if(obj != null){
-//            return obj.isElementPresent(){ loc ->
-//                def locator = locatorProcessor.locate(loc)
-//                accessor.isElementPresent(locator)
-//            }
-//        }
-//
-//        return false
     }
 
     boolean isVisible(String id){
@@ -309,16 +424,6 @@ abstract class DslContext {
          }
 
          return false
-
-//        def obj = findObject(id)
-//        if(obj != null){
-//            return obj.isVisible(){ loc ->
-//                def locator = locatorProcessor.locate(loc)
-//                accessor.isVisible(locator)
-//            }
-//        }
-//
-//        return false
     }
 
     boolean isChecked(String id){
@@ -334,15 +439,6 @@ abstract class DslContext {
          }
         
          throw RuntimeException("Cannot find UI Object ${id})")
-
-//        def obj = findObject(id)
-//        if(obj == null)
-//            throw RuntimeException("Cannot find UI Object ${id})")
-//
-//        return obj.isChecked(){ loc ->
-//            def locator = locatorProcessor.locate(loc)
-//            accessor.isChecked(locator)
-//        }
     }
 
     boolean waitForElementPresent(String id, int timeout){
@@ -358,15 +454,6 @@ abstract class DslContext {
          }
 
          return false
-        
-//        def obj = findObject(id)
-//       if(obj == null)
-//            return false
-//
-//       return obj.waitForElementPresent(timeout){ loc ->
-//            def locator = locatorProcessor.locate(loc)
-//            accessor.waitForElementPresent(locator, timeout)
-//       }
     }
 
     boolean waitForElementPresent(String id, int timeout, int step){
@@ -382,15 +469,6 @@ abstract class DslContext {
          }
 
          return false
-
-//       def obj = findObject(id)
-//       if(obj == null)
-//            return false
-//
-//       return obj.waitForElementPresent(timeout, step){ loc ->
-//            def locator = locatorProcessor.locate(loc)
-//            accessor.waitForElementPresent(locator, timeout, step)
-//       }
    }
 
     boolean waitForCondition(String script, String timeoutInMilliSecond){
@@ -405,11 +483,6 @@ abstract class DslContext {
                 locator = context.getReferenceLocator() + locator
             accessor.getText(locator)
         }
-
-//        findObject(id)?.getText(){ loc ->
-//            def locator = locatorProcessor.locate(loc)
-//            accessor.getText(locator)
-//        }
     }
 
     String getValue(String id){
@@ -420,19 +493,7 @@ abstract class DslContext {
                 locator = context.getReferenceLocator() + locator
             accessor.getValue(locator)
         }
-
-//       findObject(id)?.getValue(){ loc ->
-//            def locator = locatorProcessor.locate(loc)
-//            accessor.getValue(locator)
-//       }
     }
-
-//     def getCellValue(String id, int row, int column){
-//        findObject(id)?.getCellLocator(row,column){loc ->
-//            def locator = locatorProcessor.locate(loc)
-//            accessor.getText(locator)
-//        }
-//    }
 
     def pause(int milliseconds){
         Helper.pause(milliseconds)
@@ -440,11 +501,103 @@ abstract class DslContext {
 
     String getLink(String id){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         ui.walkTo(context, id)?.getLink(){ loc ->
+         ui.walkTo(context, id)?.getLink(){ loc, attr ->
             String locator = locatorProcessor.locate(loc)
             if(context.getReferenceLocator() != null)
                 locator = context.getReferenceLocator() + locator
-            accessor.getAttribute(locator + "@href")
+            accessor.getAttribute(locator + attr )
         }
+    }
+
+    String getImageSource(String id){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         ui.walkTo(context, id)?.getImageSource(){ loc, attr ->
+            String locator = locatorProcessor.locate(loc)
+            if(context.getReferenceLocator() != null)
+                locator = context.getReferenceLocator() + locator
+            accessor.getAttribute(locator + attr )
+        }
+    }
+
+    String getImageAlt(String id){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         ui.walkTo(context, id)?.getImageAlt(){ loc, attr ->
+            String locator = locatorProcessor.locate(loc)
+            if(context.getReferenceLocator() != null)
+                locator = context.getReferenceLocator() + locator
+            accessor.getAttribute(locator + attr )
+        }
+    }
+
+    String getImageTitle(String id){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         ui.walkTo(context, id)?.getImageTitle(){ loc, attr ->
+            String locator = locatorProcessor.locate(loc)
+            if(context.getReferenceLocator() != null)
+                locator = context.getReferenceLocator() + locator
+            accessor.getAttribute(locator + attr )
+        }
+    }
+
+    def submit(String id){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, id)?.submit(){ loc ->
+            String locator = locatorProcessor.locate(loc)
+            if(context.getReferenceLocator() != null)
+                locator = context.getReferenceLocator() + locator
+            eventHandler.submit(locator)
+        }
+    }
+
+    def openWindow(String url, String windowID){
+        eventHandler.openWindow(url, windowID)
+    }
+
+    def selectWindow(String windowID){
+        eventHandler.selectWindow(windowID)
+    }
+
+    def selectFrame(String locator){
+        eventHandler.selectFrame(locator)
+    }
+
+    def waitForPopUp(String windowID, String timeout){
+        return accessor.waitForPopUp(windowID, timeout)
+    }
+
+    String getBodyText(){
+        return accessor.getBodyText()
+    }
+
+    boolean isTextPresent(String pattern){
+       return accessor.isTextPresent(pattern)
+    }
+
+    boolean isEditable(String locator){
+        return accessor.isEditable(locator)
+    }
+
+    String getHtmlSource(){
+        return accessor.getHtmlSource()
+    }
+
+    String getExpression(String expression){
+        return accessor.getExpression(expression)
+    }
+
+    Number getXpathCount(String xpath){
+        return accessor.getXpathCount(xpath)
+    }
+
+    String getCookie(){
+        return accessor.getCookie()
+    }
+
+    void runScript(String script){
+        accessor.runScript(script)
+    }
+
+    void captureScreenshot(String filename){
+        accessor.captureScreenshot(filename)
     }
 }

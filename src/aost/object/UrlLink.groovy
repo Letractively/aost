@@ -1,9 +1,9 @@
 package aost.object
 
-class UrlLink  extends UiObject {
+class UrlLink extends UiObject {
 
     String getLink(Closure c){
-        c(locator)
+        c(locator, "@href")
     }
 
     def click(Closure c) {

@@ -176,7 +176,63 @@ class EventHandler{
 		}
 	}
 
-    def String waitForText(String locator, int timeout){
+    def addSelection(String locator, String optionLocator){
+   		if(!dispatcher.isElementPresent(locator)){
+			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
+		}
+
+		if(dispatcher.isElementPresent(locator)){
+			dispatcher.fireEvent(locator, "focus")
+			dispatcher.addSelection(locator, optionLocator)
+		}
+    }
+
+    def removeSelection(String locator,String optionLocator){
+   		if(!dispatcher.isElementPresent(locator)){
+			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
+		}
+
+		if(dispatcher.isElementPresent(locator)){
+			dispatcher.fireEvent(locator, "focus")
+			dispatcher.removeSelection(locator, optionLocator)
+		}
+    }
+
+    def removeAllSelections(String locator){
+  		if(!dispatcher.isElementPresent(locator)){
+			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
+		}
+
+		if(dispatcher.isElementPresent(locator)){
+			dispatcher.fireEvent(locator, "focus")
+			dispatcher.removeAllSelections(locator)
+		}
+    }
+
+    def submit(String formLocator){
+   		if(!dispatcher.isElementPresent(locator)){
+			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
+		}
+
+		if(dispatcher.isElementPresent(locator)){
+			dispatcher.fireEvent(locator, "focus")
+			dispatcher.submit(formLocator)
+		}
+    }
+
+    def openWindow(String url, String windowID){
+        dispatcher.openWindow(url, windowID)
+    }
+
+    def selectWindow(String windowID){
+        dispatcher.selectWindow(windowID)   
+    }
+
+    def selectFrame(String locator){
+        dispatcher.selectFrame(locator)
+    }
+
+    String waitForText(String locator, int timeout){
 
 		if(!dispatcher.isElementPresent(locator)){
 			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)

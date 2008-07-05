@@ -30,5 +30,7 @@ class UiObjectBuilderRegistry{
         registerBuilder("Table", new TableBuilder())
         registerBuilder("UrlLink", new UrlLinkBuilder())
         registerBuilder("List", new ListBuilder())
+        registerBuilder("Image", new ImageBuilder())
+        registerBuilder("Form", new FormBuilder())
     }
 }
