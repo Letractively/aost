@@ -98,7 +98,7 @@ class Accessor{
     		text = dispatcher.getText(locator)
     	}
 
-    	return text;
+    	return text
 	}
 
 	def String getValue(String locator){
@@ -123,20 +123,159 @@ class Accessor{
             return dispatcher.getSelectOptions(locator)
         }
 
-        return null;
+        return null
     }
 
-    String getAttribute(String locator){
-
-/*        if(!dispatcher.isElementPresent(locator)) {
+    String[] getSelectedLabels(String locator){
+        if(!dispatcher.isElementPresent(locator)) {
             waitForElementPresent(locator, ACCESS_WAIT_TIME)
         }
 
         if(dispatcher.isElementPresent(locator)){
-            return dispatcher.getAttribute(locator)
+            return dispatcher.getSelectedLabels(locator)
         }
 
-        return null;*/
+        return null
+    }
+
+    String getSelectedLabel(String locator){
+        if(!dispatcher.isElementPresent(locator)) {
+            waitForElementPresent(locator, ACCESS_WAIT_TIME)
+        }
+
+        if(dispatcher.isElementPresent(locator)){
+            return dispatcher.getSelectedLabel(locator)
+        }
+
+        return null
+    }
+
+    String[] getSelectedValues(String locator){
+        if(!dispatcher.isElementPresent(locator)) {
+            waitForElementPresent(locator, ACCESS_WAIT_TIME)
+        }
+
+        if(dispatcher.isElementPresent(locator)){
+            return dispatcher.getSelectedValues(locator)
+        }
+
+        return null
+    }
+
+    String getSelectedValue(String locator){
+         if(!dispatcher.isElementPresent(locator)) {
+            waitForElementPresent(locator, ACCESS_WAIT_TIME)
+        }
+
+        if(dispatcher.isElementPresent(locator)){
+            return dispatcher.getSelectedValue(locator)
+        }
+
+        return null
+    }
+
+    String[] getSelectedIndexes(String locator){
+        if(!dispatcher.isElementPresent(locator)) {
+            waitForElementPresent(locator, ACCESS_WAIT_TIME)
+        }
+
+        if(dispatcher.isElementPresent(locator)){
+            return dispatcher.getSelectedIndexes(locator)
+        }
+
+        return null
+    }
+
+    String getSelectedIndex(String locator){
+        if(!dispatcher.isElementPresent(locator)) {
+            waitForElementPresent(locator, ACCESS_WAIT_TIME)
+        }
+
+        if(dispatcher.isElementPresent(locator)){
+            return dispatcher.getSelectedIndex(locator)
+        }
+
+        return null
+    }
+
+    String[] getSelectedIds(String locator){
+        if(!dispatcher.isElementPresent(locator)) {
+            waitForElementPresent(locator, ACCESS_WAIT_TIME)
+        }
+
+        if(dispatcher.isElementPresent(locator)){
+            return dispatcher.getSelectedIds(locator)
+        }
+
+        return null
+    }
+
+    String getSelectedId(String selectLocator){
+        if(!dispatcher.isElementPresent(locator)) {
+            waitForElementPresent(locator, ACCESS_WAIT_TIME)
+        }
+
+        if(dispatcher.isElementPresent(locator)){
+            return dispatcher.getSelectedId(locator)
+        }
+
+        return null
+    }
+
+    boolean isSomethingSelected(String locator){
+        if(!dispatcher.isElementPresent(locator)) {
+            waitForElementPresent(locator, ACCESS_WAIT_TIME)
+        }
+
+        if(dispatcher.isElementPresent(locator)){
+            return dispatcher.isSomethingSelected(locator)
+        }
+
+        return false
+    }
+
+    String getAttribute(String locator){
+
         return dispatcher.getAttribute(locator)
+    }
+
+    def waitForPopUp(String windowID, String timeout){
+        return dispatcher.waitForPopUp(windowID, timeout)
+    }
+
+    String getBodyText(){
+        return dispatcher.getBodyText()
+    }
+
+    boolean isTextPresent(String pattern){
+       return dispatcher.isTextPresent(pattern)
+    }
+
+    boolean isEditable(String locator){
+        return dispatcher.isEditable(locator)
+    }
+
+    String getHtmlSource(){
+        return dispatcher.getHtmlSource()
+    }
+
+    String getExpression(String expression){
+        return dispatcher.getExpression(expression)
+    }
+
+    Number getXpathCount(String xpath){
+        return dispatcher.getXpathCount(xpath)
+    }
+
+    String getCookie(){
+        return dispatcher.getCookie()
+    }
+
+    void runScript(String script){
+        dispatcher.runScript(script)
+    }
+
+    void captureScreenshot(String filename){
+        dispatcher.captureScreenshot(filename)
     }
 }
