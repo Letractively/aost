@@ -2,6 +2,10 @@ package aost.object
 
 class UrlLink  extends UiObject {
 
+    String getLink(Closure c){
+        c(locator)
+    }
+
     def click(Closure c) {
         c(locator)
     }

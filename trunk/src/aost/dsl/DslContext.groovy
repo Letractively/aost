@@ -6,6 +6,7 @@ import aost.event.EventHandler
 import aost.access.Accessor
 import aost.locator.LocatorProcessor
 import aost.object.Table
+import aost.object.List
 
 abstract class DslContext {
     UiDslParser ui = new UiDslParser()
@@ -246,8 +247,24 @@ abstract class DslContext {
          return 0
     }
 
-    //id should use the format table2[2][3]
-    def getTableElement(String id){
+    int getListSize(String id){
+          WorkflowContext context = WorkflowContext.getDefaultContext()
+         List obj = ui.walkTo(context, id)
+         if(obj != null){
+             return obj.getListSize(){ loc ->
+                String locator = locatorProcessor.locate(loc)
+                if(context.getReferenceLocator() != null)
+                    locator = context.getReferenceLocator() + locator
+                locator
+             }
+         }
+
+         println("Cannot find list ${id}")
+         return 0
+    }
+
+    //id should use the format table2[2][3] for Table or list[2] for List
+    def getUiElement(String id){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          def obj = ui.walkTo(context, id)
 
@@ -419,5 +436,15 @@ abstract class DslContext {
 
     def pause(int milliseconds){
         Helper.pause(milliseconds)
+    }
+
+    String getLink(String id){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         ui.walkTo(context, id)?.getLink(){ loc ->
+            String locator = locatorProcessor.locate(loc)
+            if(context.getReferenceLocator() != null)
+                locator = context.getReferenceLocator() + locator
+            accessor.getAttribute(locator + "@href")
+        }
     }
 }

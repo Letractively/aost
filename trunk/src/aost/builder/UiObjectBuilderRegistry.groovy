@@ -29,5 +29,6 @@ class UiObjectBuilderRegistry{
         registerBuilder("TextBox", new TextBoxBuilder())
         registerBuilder("Table", new TableBuilder())
         registerBuilder("UrlLink", new UrlLinkBuilder())
+        registerBuilder("List", new ListBuilder())
     }
 }

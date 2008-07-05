@@ -55,6 +55,10 @@ class GoogleCodeHostingTestCase extends StandaloneAostSeleneseTestCase {
         assertNotNull(index)
         assertEquals(2, index.length)
 
+        //find the url link
+        String url = gch.getUrlLink(index[0], index[1])
+        assertEquals("search?q=label%3aJava", url)
+
         //click on "Java" link
         gch.clickOnLable(index[0], index[1])
     }
