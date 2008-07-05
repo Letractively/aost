@@ -40,7 +40,7 @@ class GoogleCodeHosting  extends DslContext{
     }
 
     def getTableElement(int row, int column){
-        getTableElement "labels_table[2][1].[${row}][${column}]"
+        getUiElement "labels_table[2][1].[${row}][${column}]"
     }
 
     Map getAllLabels(){
@@ -61,5 +61,10 @@ class GoogleCodeHosting  extends DslContext{
     void clickOnLable(int row, int column){
         click  "labels_table[2][1].[${row}][${column}]"
         pause 5000
+    }
+
+    String getUrlLink(int row, int column){
+
+        getLink("labels_table[2][1].[${row}][${column}]")
     }
 }

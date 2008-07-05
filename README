@@ -13,3 +13,6 @@ If your test case only include one file, you should use StandaloneAostSeleneseTe
 if you like to create multiple test files and put them in one test suite, you should use
 GroupAostSeleneseTestCase. The sample test suite is SampleAostSeleneseTestSuite. These
 limitations come from the fact that GroovyTestCase does not support JUnit 4 properly. 
+
+Nested Ui objects and ids are supported now.
+

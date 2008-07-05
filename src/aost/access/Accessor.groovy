@@ -125,4 +125,18 @@ class Accessor{
 
         return null;
     }
+
+    String getAttribute(String locator){
+
+/*        if(!dispatcher.isElementPresent(locator)) {
+            waitForElementPresent(locator, ACCESS_WAIT_TIME)
+        }
+
+        if(dispatcher.isElementPresent(locator)){
+            return dispatcher.getAttribute(locator)
+        }
+
+        return null;*/
+        return dispatcher.getAttribute(locator)
+    }
 }
