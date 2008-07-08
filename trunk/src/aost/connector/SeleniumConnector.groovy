@@ -4,7 +4,6 @@ import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 
 import aost.client.SeleniumClient
-import aost.client.SeleniumClient
 
 /**
  * The connector that ties the Selenium server and Selenium Client together
@@ -44,7 +43,7 @@ class SeleniumConnector {
         //hardcoded firefox path if it cannot be found from system paht
         //sel = new DefaultSelenium("localhost", port, "*chrome /usr/lib64/firefox-3.0/firefox", baseURL);
         //make sure firefox-bin in your environment path
-//        sel = new DefaultSelenium("localhost", port, "*firefox", baseURL);
+//        sel = new DefaultSelenium("localhost", port, "*chrome /usr/lib64/firefox-2.0.0.8/firefox-bin", baseURL);
         sel.start();
 
 //        initSeleniumClient()
