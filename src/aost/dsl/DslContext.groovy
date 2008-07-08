@@ -539,6 +539,16 @@ abstract class DslContext {
         }
     }
 
+    def getAttribute(String id, String attribute){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         ui.walkTo(context, id)?.getAttribute(attribute){ loc, attr ->
+             String locator = locatorProcessor.locate(loc)
+            if(context.getReferenceLocator() != null)
+                locator = context.getReferenceLocator() + locator
+            accessor.getAttribute(locator + attr )
+         }
+    }
+
     def submit(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.submit(){ loc ->

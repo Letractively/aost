@@ -67,6 +67,10 @@ abstract class UiObject {
        return c(locator)
     }
 
+    def getAttribute(String attribute, Closure c){
+        return c(locator, "@${attribute}")    
+    }
+
     //walkTo through the object tree to until the Ui Object is found by the ID
     public UiObject walkTo(WorkflowContext context, UiID uiid){
         //if not child listed, return itself
