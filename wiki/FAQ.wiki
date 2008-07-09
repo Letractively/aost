@@ -23,13 +23,26 @@ AOST is tested under Firefox and it should support other browsers since it is bu
 Not really, as long as the locators you specified are correct at run time, you can define UI objects from different pages in one class, which is fine for pure DSL. But for Java test cases, I would suggest you write a UI module as a class to make it easier to maintain and refactor. 
 
 === Q7: Does AOST only focus on  unit testing? ===
-Selenium test itself is kind of functional test or integration test. Although AOST uses JUnit test, it is still functional test or integration test. You can put a lot of tests cases into a test suite and the test suite can be your UAT test. Furthermore, you can also create data-driven tests based on AOST tests.
+Selenium test itself is kind of functional test or integration test. Although AOST uses JUnit test, it is still functional test or integration test. You can put a lot of test cases into a test suite and the test suite can be your UAT test. Furthermore, you can also create data-driven tests based on AOST tests.
 
-=== Q8: Currently I am creating case using selenium-IDE, If I change my work to AOST,  can I get my work some simpler and much more easy with new page? ===
-Sure, AOST has a lot of pre-defined UI Objects, which will handle all the actions and data automatically for you. For example, you can define a template for a table element, the framework will automatically help you to locate table[i][j] elements and the actions for them. 
+=== Q8: Currently I am creating test cases using selenium-IDE, If I change my work to AOST, can I get my work simpler and much easier? ===
+Sure, AOST has a lot of pre-defined UI Objects, which will handle all the actions and data automatically for you. For example, you can define a template for a table element, the framework will automatically help you to locate the table[i][j] element and support the different actions for them. 
 
 === Q9: What is the object to locator mapping (OLM) framework you talked about ===
-The object to locator mapping (OLM) framework is still under development. It includes couple parts. The first one will be to map a UI id in the format of "search1.inputbox1" to the actual object you defined in your object module. The second part will be automatically mapping a certain parameters you provided to its actual locator. For example, you can say the UI object has the tag "input" and other attributes. AOST will try to create the XPath for you to make your life easier. The third will be to utilize the group object concept to locate the UI module in the DOM at run time. 
+The object to locator mapping (OLM) framework is still under development. It includes couple parts. The first one is to map a UI id in the format of "search1.inputbox1" to the actual object you defined in your object module. The second part will be automatically mapping a certain parameters you provided for a UI to its actual locator. For example, you can say the UI object has the tag "input" and other attributes. AOST will try to create the XPath for you to make your life easier. The third will be to utilize the group object concept to locate the UI module in the DOM at run time. 
 
-=== Q10: What IDE for AOST ===
-Since AOST requires Groovy support, you can use Eclipse, netbeans, or IntelliJ. IntelliJ is recommended because its Groovy plugin is excellent.
+=== Q10: What IDE should I use for AOST ===
+Since AOST requires Groovy support, you can use Eclipse, netbeans, or IntelliJ with groovy plugin if you want to work on AOST source code. IntelliJ is recommended because its Groovy plugin is excellent. If you only need to use AOST as a jar file, you can use any IDE that supports JAVA.
+
+=== Q11: Why I cannot start selenium test ===
+Make sure your web browser in your environment path. If you cannot really make it work, you can change the path in aost.connector.SeleniumConnector, although this is not really recommended. Look at the following line:
+{{{
+sel = new DefaultSelenium("localhost", port, "*chrome", baseURL);
+}}}
+
+=== Q12: How do I add my own UI object to AOST ===
+First, you need to create your UI object groovy class by extending aost.object.UiObject or or aost.object.Container if it is a container type object. Then, you need to create your UI object builder by extending aost.builde.UiObjectBuilder. Finally, register your ui builder for your ui object by call the 
+{{{
+public void registerBuilder(String uiObjectName, UiObjectBuilder builder)
+}}}
+method in aost.framework.AostFramework. You can also register your builder in aost.builder.UiObjectBuilderRegistry if you work on AOST source code directly.
