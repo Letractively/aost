@@ -19,8 +19,8 @@ There are a lot of ways, such as Selenium IDE. For firefox, the best way is to u
 
 AOST is tested under Firefox and it should support other browsers since it is built on top of the selenium framework. 
 
-=== Q6: Do I need write a class for every page? ===
-Not really, as long as the locators you specified are correct at run time, you can define UI objects from different pages in one class. This is fine for pure DSL. But for Java test cases, I would suggest you write a UI module as a class to make it better to maintain and refactor. 
+=== Q6: Do I need to write a class for every page? ===
+Not really, as long as the locators you specified are correct at run time, you can define UI objects from different pages in one class, which is fine for pure DSL. But for Java test cases, I would suggest you write a UI module as a class to make it easier to maintain and refactor. 
 
 === Q7: Does AOST only focus on  unit testing? ===
 Selenium test itself is kind of functional test or integration test. Although AOST uses JUnit test, it is still functional test or integration test. You can put a lot of tests cases into a test suite and the test suite can be your UAT test. Furthermore, you can also create data-driven tests based on AOST tests.
