@@ -7,5 +7,26 @@ More than one year ago, two colleagues in my company went to a conference and ca
 AOST is developed mainly for developers who need to write selenium tests and it can also be used by QA people or any one knows about XPATH since AOST includes a DSL executor. You can write your test in pure DSL. But write as Java test cases you have the advantage to  modularize you code.
 
 === Q3: How do I use the AOST framework ===
-The AOST framework is mainly written in Groovy and the code can be compiled as a jar file. You can include the Jar file in your lib directory and write your JUnit tests by extends    
- 
+The AOST framework is mainly written in Groovy and the code can be compiled as a jar file. You can include the Jar file in your lib directory and write your JUnit tests by extending StandaloneAostSeleneseTestCase if you want all your test code in one Java class or by extends GroupAostSeleneseTestCase if your test codes are in multiple test files. You can put them in a test suite. Please see the aost.test.SampleAostSeleneseTestSuite for test suite. The reason why I need to have two test cases is because GroovyTestCase does not support JUnit 4 appropriately. The other reason is for GroupAostSeleneseTestCase, it uses the shared connection to the selenium server.
+  
+=== Q4:  How to run the aost tests ===
+If your tests are Java tests, you just run them like JUnit test cases or test suites. If your test code is written in pure dsl, please use "DslScriptExecutor dsl_file" to run it.
+
+=== Q5:  How do I get the XPath of an UI object ===
+There are a lot of ways. For example, using Selenium IDE. For firefox, the best way is to use the XPATHER plugin, which supports clicking on WEB and showing you the xpath. You may need to refactor the xpath a bit to make it simpler and more robust. Another good plugin for Firefox is web developer, which allows you to look at the DOM at run time.
+AOST is tested under Firefox and it should support other browsers since it is built on top of the selenium framework. 
+
+=== Q6: Do I need write a class for every page? ===
+Not really, as long as the locators you specified are correct at run time, you can define UI objects from different pages in one class. This is fine for pure DSL. But for Java test cases, I would suggest you write a UI module as a class to make it better to maintain and refactor. 
+
+=== Q7: Does AOST only focus on  unit testing? ===
+Selenium test itself is kind of functional test or integration test. Although AOST uses JUnit test, it is still functional test or integration test. You can put a lot of tests cases into a test suite and the test suite can be your UAT test. Furthermore, you can also create data-driven tests based on AOST tests.
+
+=== Q8: Currently I am creating case using selenium-IDE, If I change my work to AOST,  can I get my work some simpler and much more easy with new page? ===
+Sure, AOST has a lot of pre-defined UI Objects, which will handle all the actions and data automatically for you. For example, you can define a template for a table element, the framework will automatically help you to locate table[i][j] elements and the actions for them. 
+
+=== Q9: What is the object to locator mapping (OLM) framework you talked about ===
+The object to locator mapping (OLM) framework is still under development. It includes couple parts. The first one will be to map a UI id in the format of "search1.inputbox1" to the actual object you defined in your object module. The second part will be automatically mapping a certain parameters you provided to its actual locator. For example, you can say the UI object has the tag "input" and other attributes. AOST will try to create the XPath for you to make your life easier. The third will be to utilize the group object concept to locate the UI module in the DOM at run time. 
+
+=== Q10: What IDE for AOST ===
+Since AOST requires Groovy support, you can use Eclipse, netbeans, or IntelliJ. IntelliJ is recommended because its Groovy plugin is excellent.
