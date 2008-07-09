@@ -41,7 +41,7 @@ sel = new DefaultSelenium("localhost", port, "*chrome", baseURL);
 }}}
 
 === Q12: How do I add my own UI object to AOST ===
-First, you need to create your UI object groovy class by extending aost.object.UiObject or or aost.object.Container if it is a container type object. Then, you need to create your UI object builder by extending aost.builde.UiObjectBuilder. Finally, register your ui builder for your ui object by call the 
+First, you need to create your UI object groovy class by extending aost.object.UiObject or aost.object.Container if it is a container type object. Then, you need to create your UI object builder by extending aost.builde.UiObjectBuilder. Finally, register your ui builder for your ui object by call the 
 {{{
 public void registerBuilder(String uiObjectName, UiObjectBuilder builder)
 }}}
