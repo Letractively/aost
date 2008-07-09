@@ -8,13 +8,15 @@ AOST is developed mainly for developers who need to write selenium tests and it 
 
 === Q3: How do I use the AOST framework ===
 The AOST framework is mainly written in Groovy and the code can be compiled as a jar file. You can include the Jar file in your lib directory and write your JUnit tests by extending StandaloneAostSeleneseTestCase if you want all your test code in one Java class or by extends GroupAostSeleneseTestCase if your test codes are in multiple test files. You can put them in a test suite. Please see the aost.test.SampleAostSeleneseTestSuite for test suite. The reason why I need to have two test cases is because GroovyTestCase does not support JUnit 4 appropriately. The other reason is for GroupAostSeleneseTestCase, it uses a shared connection to the selenium server.
-AOST comes with a embedded Selenium server and you do not need to set up an external selenium server. You can still use external selenium server by change the field runSeleniumServerInternally in aost.server.EmbeddedSeleniumServer to be false.
+
+AOST comes with an embedded Selenium server and you do not need to set up an external selenium server. You can still use external selenium server by changing the flag runSeleniumServerInternally in aost.server.EmbeddedSeleniumServer to be false.
   
 === Q4:  How to run the aost tests ===
-If your tests are Java tests, you just run them like JUnit test cases or test suites. If your test code is written in pure dsl, please use "DslScriptExecutor dsl_file" to run it.
+If your tests are written in Java, you just run them like JUnit test cases or test suites. If your test code is written in pure dsl, please use "DslScriptExecutor dsl_file" to run it.
 
-=== Q5:  How do I get the XPath of an UI object ===
-There are a lot of ways. For example, using Selenium IDE. For firefox, the best way is to use the XPATHER plugin, which supports clicking on WEB and showing you the xpath. You may need to refactor the xpath a bit to make it simpler and more robust. Another good plugin for Firefox is web developer, which allows you to look at the DOM at run time.
+=== Q5:  How do I get the XPath of a UI object ===
+There are a lot of ways, such as Selenium IDE. For firefox, the best way is to use the XPather plugin, which supports showing xpath by clicking on WEB. You may need to refactor the xpath a bit to make it simpler and more robust. Another good plugin for Firefox is web developer, which allows you to look at the DOM at run time.
+
 AOST is tested under Firefox and it should support other browsers since it is built on top of the selenium framework. 
 
 === Q6: Do I need write a class for every page? ===
