@@ -40,9 +40,9 @@ abstract class UiObject {
 
     String id
     String namespace
-
-	def locator
-    def feature
+    
+    def locator
+//    def feature
 
     //reference back to its parent
     def Container parent
