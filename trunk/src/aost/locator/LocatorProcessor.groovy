@@ -10,8 +10,8 @@ class LocatorProcessor{
         if(locator instanceof BaseLocator)
             return DefaultLocateStrategy.locate(locator)
 
-        if(locator instanceof PlaceHolderLocator)
-            return PlaceHolderLocateStrategy.locate(locator)
+        if(locator instanceof CompositeLocator)
+            return AutoLocateStrategy.locate(locator)
         
         throw RuntimeException(CANNOT_HANDLE_LOCATOR + " " + locator.getClass())
     }
