@@ -34,9 +34,7 @@ abstract class DslContext {
     def click(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.click(){ loc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             eventHandler.click(locator)
         }
     }
@@ -44,9 +42,7 @@ abstract class DslContext {
     def doubleClick(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.doubleClick(){ loc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+           String locator = locatorMapping(context, loc)
             eventHandler.doubleClick(locator)
         }
     }
@@ -54,9 +50,7 @@ abstract class DslContext {
     def clickAt(String id, String coordination){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.clickAt(coordination){ loc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             eventHandler.clickAt(locator, coordination)
         }
     }
@@ -64,9 +58,7 @@ abstract class DslContext {
     def check(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.check(){ loc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             eventHandler.check(locator)
         }
     }
@@ -74,9 +66,7 @@ abstract class DslContext {
     def uncheck(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.uncheck(){ loc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             eventHandler.uncheck(locator)
         }
     }
@@ -84,9 +74,7 @@ abstract class DslContext {
     def type(String id, String input){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.type(input){ loc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             eventHandler.type(locator, input)
         }
     }
@@ -94,9 +82,7 @@ abstract class DslContext {
     def keyType(String id, String input){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.keyType(input){ loc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             eventHandler.keyType(locator, input)
         }
     }
@@ -104,9 +90,7 @@ abstract class DslContext {
     def typeAndReturn(String id, String input){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.typeAndReturn(input){ loc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             eventHandler.typeAndReturn(locator, input)
         }
     }
@@ -114,9 +98,7 @@ abstract class DslContext {
     def clearText(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.clearText(){ loc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             eventHandler.clearText(locator)
         }
     }
@@ -128,9 +110,7 @@ abstract class DslContext {
     def selectByLabel(String id, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.selectByLabel(target){ loc, optloc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             eventHandler.select(locator, optloc)
         }
     }
@@ -138,9 +118,7 @@ abstract class DslContext {
     def selectByValue(String id, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.selectByValue(target){ loc, optloc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             eventHandler.select(locator, optloc)
         }
     }
@@ -148,9 +126,7 @@ abstract class DslContext {
     def addSelectionByLabel(String id, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.addSelectionByLabel(target){ loc, optloc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             eventHandler.addSelection(locator, optloc)
         }
     }
@@ -158,9 +134,7 @@ abstract class DslContext {
     def addSelectionByValue(String id, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.addSelectionByValue(target){ loc, optloc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             eventHandler.addSelection(locator, optloc)
         }
     }
@@ -168,9 +142,7 @@ abstract class DslContext {
     def removeSelectionByLabel(String id, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.removeSelectionByLabel(target){ loc, optloc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             eventHandler.removeSelection(locator, optloc)
         }
     }
@@ -178,9 +150,7 @@ abstract class DslContext {
     def removeSelectionByValue(String id, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.removeSelectionByValue(target){ loc, optloc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             eventHandler.removeSelection(locator, optloc)
         }
     }
@@ -188,9 +158,7 @@ abstract class DslContext {
     def removeAllSelections(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.removeAllSelections(){ loc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             eventHandler.removeAllSelections(locator)
         }
     }
@@ -200,9 +168,7 @@ abstract class DslContext {
          def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.getSelectedLabels(){ loc ->
-                String locator = locatorProcessor.locate(loc)
-                if(context.getReferenceLocator() != null)
-                    locator = context.getReferenceLocator() + locator
+                String locator = locatorMapping(context, loc)
                 accessor.getSelectedLabels(locator)
              }
          }
@@ -215,9 +181,7 @@ abstract class DslContext {
          def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.getSelectedLabel(){ loc ->
-                String locator = locatorProcessor.locate(loc)
-                if(context.getReferenceLocator() != null)
-                    locator = context.getReferenceLocator() + locator
+                String locator = locatorMapping(context, loc)
                 accessor.getSelectedLabel(locator)
              }
          }
@@ -230,9 +194,7 @@ abstract class DslContext {
          def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.getSelectedValues(){ loc ->
-                String locator = locatorProcessor.locate(loc)
-                if(context.getReferenceLocator() != null)
-                    locator = context.getReferenceLocator() + locator
+                String locator = locatorMapping(context, loc)
                 accessor.getSelectedValues(locator)
              }
          }
@@ -245,9 +207,7 @@ abstract class DslContext {
          def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.getSelectedValue(){ loc ->
-                String locator = locatorProcessor.locate(loc)
-                if(context.getReferenceLocator() != null)
-                    locator = context.getReferenceLocator() + locator
+                String locator = locatorMapping(context, loc)
                 accessor.getSelectedValue(locator)
              }
          }
@@ -260,9 +220,7 @@ abstract class DslContext {
          def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.getSelectedIndexes(){ loc ->
-                String locator = locatorProcessor.locate(loc)
-                if(context.getReferenceLocator() != null)
-                    locator = context.getReferenceLocator() + locator
+                String locator = locatorMapping(context, loc)
                 accessor.getSelectedIndexes(locator)
              }
          }
@@ -275,9 +233,7 @@ abstract class DslContext {
          def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.getSelectedIndex(){ loc ->
-                String locator = locatorProcessor.locate(loc)
-                if(context.getReferenceLocator() != null)
-                    locator = context.getReferenceLocator() + locator
+                String locator = locatorMapping(context, loc)
                 accessor.getSelectedIndex(locator)
              }
          }
@@ -290,9 +246,7 @@ abstract class DslContext {
          def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.getSelectedIds(){ loc ->
-                String locator = locatorProcessor.locate(loc)
-                if(context.getReferenceLocator() != null)
-                    locator = context.getReferenceLocator() + locator
+                String locator = locatorMapping(context, loc)
                 accessor.getSelectedIds(locator)
              }
          }
@@ -305,9 +259,7 @@ abstract class DslContext {
          def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.getSelectedId(){ loc ->
-                String locator = locatorProcessor.locate(loc)
-                if(context.getReferenceLocator() != null)
-                    locator = context.getReferenceLocator() + locator
+                String locator = locatorMapping(context, loc)
                 accessor.getSelectedId(locator)
              }
          }
@@ -320,9 +272,7 @@ abstract class DslContext {
          def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.isSomethingSelected(){ loc ->
-                String locator = locatorProcessor.locate(loc)
-                if(context.getReferenceLocator() != null)
-                    locator = context.getReferenceLocator() + locator
+                String locator = locatorMapping(context, loc) 
                 accessor.isSomethingSelected(locator)
              }
          }
@@ -333,9 +283,7 @@ abstract class DslContext {
     String waitForText(String id, int timeout){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.waitForText(timeout){ loc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             eventHandler.waitForText(locator, timeout)
         }
     }
@@ -345,9 +293,7 @@ abstract class DslContext {
          Table obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.getTableMaxRowNum(){ loc ->
-                String locator = locatorProcessor.locate(loc)
-                if(context.getReferenceLocator() != null)
-                    locator = context.getReferenceLocator() + locator
+                String locator = locatorMapping(context, loc)
                 locator
              }
          }
@@ -361,9 +307,7 @@ abstract class DslContext {
          Table obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.getTableMaxColumnNum(){ loc ->
-                String locator = locatorProcessor.locate(loc)
-                if(context.getReferenceLocator() != null)
-                    locator = context.getReferenceLocator() + locator
+                String locator = locatorMapping(context, loc)
                 locator
              }
          }
@@ -377,9 +321,7 @@ abstract class DslContext {
          List obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.getListSize(){ loc ->
-                String locator = locatorProcessor.locate(loc)
-                if(context.getReferenceLocator() != null)
-                    locator = context.getReferenceLocator() + locator
+                String locator = locatorMapping(context, loc)
                 locator
              }
          }
@@ -401,9 +343,7 @@ abstract class DslContext {
          def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.isElementPresent(){ loc ->
-                String locator = locatorProcessor.locate(loc)
-                if(context.getReferenceLocator() != null)
-                    locator = context.getReferenceLocator() + locator
+                String locator = locatorMapping(context, loc)
                 accessor.isElementPresent(locator)
              }
          }
@@ -416,9 +356,7 @@ abstract class DslContext {
          def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.isVisible(){ loc ->
-                String locator = locatorProcessor.locate(loc)
-                if(context.getReferenceLocator() != null)
-                    locator = context.getReferenceLocator() + locator
+                String locator = locatorMapping(context, loc)
                 accessor.isVisible(locator)
              }
          }
@@ -431,9 +369,7 @@ abstract class DslContext {
          def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.isChecked(){ loc ->
-                String locator = locatorProcessor.locate(loc)
-                if(context.getReferenceLocator() != null)
-                    locator = context.getReferenceLocator() + locator
+                String locator = locatorMapping(context, loc)
                 accessor.isChecked(locator)
              }
          }
@@ -446,9 +382,7 @@ abstract class DslContext {
          def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.waitForElementPresent(timeout){ loc ->
-                String locator = locatorProcessor.locate(loc)
-                if(context.getReferenceLocator() != null)
-                    locator = context.getReferenceLocator() + locator
+                String locator = locatorMapping(context, loc) 
                 accessor.waitForElementPresent(locator, timeout)
              }
          }
@@ -461,9 +395,7 @@ abstract class DslContext {
          def obj = ui.walkTo(context, id)
          if(obj != null){
              return obj.waitForElementPresent(timeout, step){ loc ->
-                String locator = locatorProcessor.locate(loc)
-                if(context.getReferenceLocator() != null)
-                    locator = context.getReferenceLocator() + locator
+                String locator = locatorMapping(context, loc) 
                 accessor.waitForElementPresent(locator, timeout, step)
              }
          }
@@ -478,9 +410,7 @@ abstract class DslContext {
     String getText(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.getText(){ loc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             accessor.getText(locator)
         }
     }
@@ -488,9 +418,7 @@ abstract class DslContext {
     String getValue(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.getValue(){ loc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             accessor.getValue(locator)
         }
     }
@@ -502,9 +430,7 @@ abstract class DslContext {
     String getLink(String id){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          ui.walkTo(context, id)?.getLink(){ loc, attr ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             accessor.getAttribute(locator + attr )
         }
     }
@@ -512,9 +438,7 @@ abstract class DslContext {
     String getImageSource(String id){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          ui.walkTo(context, id)?.getImageSource(){ loc, attr ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             accessor.getAttribute(locator + attr )
         }
     }
@@ -522,9 +446,7 @@ abstract class DslContext {
     String getImageAlt(String id){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          ui.walkTo(context, id)?.getImageAlt(){ loc, attr ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             accessor.getAttribute(locator + attr )
         }
     }
@@ -532,9 +454,7 @@ abstract class DslContext {
     String getImageTitle(String id){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          ui.walkTo(context, id)?.getImageTitle(){ loc, attr ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             accessor.getAttribute(locator + attr )
         }
     }
@@ -542,9 +462,7 @@ abstract class DslContext {
     def getAttribute(String id, String attribute){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          ui.walkTo(context, id)?.getAttribute(attribute){ loc, attr ->
-             String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             accessor.getAttribute(locator + attr )
          }
     }
@@ -552,9 +470,7 @@ abstract class DslContext {
     def submit(String id){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, id)?.submit(){ loc ->
-            String locator = locatorProcessor.locate(loc)
-            if(context.getReferenceLocator() != null)
-                locator = context.getReferenceLocator() + locator
+            String locator = locatorMapping(context, loc)
             eventHandler.submit(locator)
         }
     }
@@ -609,5 +525,21 @@ abstract class DslContext {
 
     void captureScreenshot(String filename){
         accessor.captureScreenshot(filename)
+    }
+
+    String locatorMapping(WorkflowContext context, loc ){
+        //get ui object's locator
+        String locator = locatorProcessor.locate(loc)
+
+        //get the reference locator all the way to the ui object
+        if(context.getReferenceLocator() != null)
+            locator = context.getReferenceLocator() + locator
+
+        //make sure the xpath starts with "//"
+        if(locator != null && (!locator.startsWith("//"))){
+            locator = "/" + locator
+        }
+        
+        return locator
     }
 }
