@@ -4,18 +4,17 @@ import aost.object.Container
 import aost.locator.BaseLocator
 import aost.object.UiObject
 
+/**
+ *    Container builder
+ *
+ *    @author Jian Fang (John.Jian.Fang@gmail.com)
+ */
 class ContainerBuilder extends UiObjectBuilder{
 
     def build(Map map, Closure closure){
-       Container container = new Container()
+       def df = [:]
+       Container container =this.internBuild(new Container(), map, df)
 
-       if(map == null)
-          return container
-        
-       baseClosure(container, map)
-
-       BaseLocator locator = new BaseLocator(loc:map.get(UiObjectBuilder.LOCATOR))
-       container.setLocator(locator)
        if(closure)
           closure(container)
         

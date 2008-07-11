@@ -3,22 +3,19 @@ package aost.builder
 import aost.object.Button
 import aost.locator.BaseLocator
 
+/**
+ *    Button builder
+ *
+ *    @author Jian Fang (John.Jian.Fang@gmail.com)
+ */
 class ButtonBuilder extends UiObjectBuilder{
-
-   def build(Map map){
-       Button button = new Button()
-       baseClosure(button, map)
-
-       BaseLocator locator = new BaseLocator(loc:map.get(UiObjectBuilder.LOCATOR))
-       button.setLocator(locator)
-
-       return button
-   }
-
+    
     public build(Map map, Closure c) {
-        if(map == null)
-            return new Button()
+        //add default parameters so that the builder can use them if not specified
+        def df = [:]
+        df.put(TAG, Button.TAG)
+        Button button = this.internBuild(new Button(), map, df)
 
-        return build(map)
+        return button
     }
 }

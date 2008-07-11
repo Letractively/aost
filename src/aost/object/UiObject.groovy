@@ -3,6 +3,12 @@ package aost.object
 import aost.dsl.WorkflowContext
 import aost.dsl.UiID
 
+/**
+ *  Basic UI object
+ *
+ *  @author Jian Fang (John.Jian.Fang@gmail.com)
+ *
+ */
 abstract class UiObject {
     /*
       Let UI Object be a pure data structure and only include placeholders for

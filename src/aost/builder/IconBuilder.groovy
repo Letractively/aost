@@ -3,22 +3,17 @@ package aost.builder
 import aost.object.Icon
 import aost.locator.BaseLocator
 
+/**
+ *    Icon builder
+ *
+ *    @author Jian Fang (John.Jian.Fang@gmail.com)
+ */
 class IconBuilder extends UiObjectBuilder{
 
-   def build(Map map){
-       Icon icon = new Icon()
-       baseClosure(icon, map)
-
-       BaseLocator locator = new BaseLocator(loc:map.get(UiObjectBuilder.LOCATOR))
-       icon.setLocator(locator)
-
-       return icon
-   }
-
     public build(Map map, Closure c) {
-        if(map == null)
-            return new Icon()
+        def df = [:]
+        Icon icon = this.internBuild( new Icon(), map, df)
 
-        return build(map);
+        return icon
     }
 }

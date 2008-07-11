@@ -1,18 +1,20 @@
 package aost.object
 
- /**
- *  Check Box
+import aost.object.UiObject
+
+/**
+ *  Radio Button
  *
- * you can select one or more options from a set of alternatives.
+ *  only one option is to be selected at a time
  *
  *  @author Jian Fang (John.Jian.Fang@gmail.com)
- *
+ * 
  */
-class CheckBox extends UiObject{
+class RadioButton extends UiObject {
 
     public static final String TAG = "input"
-    public static final String TYPE = "checkbox"
-    
+    public static final String TYPE = "radio"
+
     def check(Closure c){
 
         c(locator)
@@ -27,4 +29,5 @@ class CheckBox extends UiObject{
 
         c(locator)
     }
+
 }

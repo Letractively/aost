@@ -32,5 +32,6 @@ class UiObjectBuilderRegistry{
         registerBuilder("List", new ListBuilder())
         registerBuilder("Image", new ImageBuilder())
         registerBuilder("Form", new FormBuilder())
-    }
+        registerBuilder("RadioButton", new RadioButtonBuilder())
+    }                                 
 }

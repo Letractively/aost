@@ -13,15 +13,11 @@ import aost.locator.BaseLocator
 class FormBuilder extends UiObjectBuilder{
 
     def build(Map map, Closure closure){
-       Form form = new Form()
+        def df = [:]
+        df.put(TAG, Form.TAG)
 
-       if(map == null)
-          return form
-
-       baseClosure(form, map)
-
-       BaseLocator locator = new BaseLocator(loc:map.get(UiObjectBuilder.LOCATOR))
-       form.setLocator(locator)
+        Form form = this.internBuild(new Form(), map, df)
+        
        if(closure)
           closure(form)
 

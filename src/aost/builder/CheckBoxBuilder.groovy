@@ -3,22 +3,20 @@ package aost.builder
 import aost.object.CheckBox
 import aost.locator.BaseLocator
 
+/**
+ *    CheckBox builder
+ *
+ *    @author Jian Fang (John.Jian.Fang@gmail.com)
+ */
 class CheckBoxBuilder extends UiObjectBuilder{
 
-   def build(Map map){
-       CheckBox checkbox = new CheckBox()
-       baseClosure(checkbox, map)
-
-       BaseLocator locator = new BaseLocator(loc:map.get(UiObjectBuilder.LOCATOR))
-       checkbox.setLocator(locator)
-
-       return checkbox
-   }
-
     public build(Map map, Closure c) {
-        if(map == null)
-            return new CheckBox()
+        //add default parameters so that the builder can use them if not specified
+        def df = [:]
+        df.put(TAG, CheckBox.TAG)
+        df.put(TYPE, CheckBox.TAG)
+        CheckBox checkbox = this.internBuild(new CheckBox(), map, df)
 
-        return build(map);
+        return checkbox
     }
 }

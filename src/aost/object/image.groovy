@@ -1,6 +1,13 @@
 package aost.object
 
+/**
+ *  IMAGE
+ *
+ *  @author Jian Fang (John.Jian.Fang@gmail.com)
+ *
+ */
 class Image extends UiObject{
+    public static final String TAG = "img"
 
     String getImageSource(Closure c){
         c(locator, "@src")

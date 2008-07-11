@@ -3,22 +3,19 @@ package aost.builder
 import aost.object.UrlLink
 import aost.locator.BaseLocator
 
+/**
+ *    URL Link builder
+ *
+ *    @author Jian Fang (John.Jian.Fang@gmail.com)
+ */
 class UrlLinkBuilder extends UiObjectBuilder{
 
-   def build(Map map){
-       UrlLink url = new UrlLink()
-       baseClosure(url, map)
-
-       BaseLocator locator = new BaseLocator(loc:map.get(UiObjectBuilder.LOCATOR))
-       url.setLocator(locator)
-
-       return url
-   }
-
     public build(Map map, Closure c) {
-        if(map == null)
-            return new UrlLink()
+        //add default parameters so that the builder can use them if not specified
+        def df = [:]
+        df.put(TAG, UrlLink.TAG)
+        UrlLink link = this.internBuild(new UrlLink(), map, df)
 
-        return build(map);
+        return link
     }
 }
