@@ -1,7 +1,14 @@
 package aost.object
 
+/**
+ *  Input BOX
+ *
+ *  @author Jian Fang (John.Jian.Fang@gmail.com)
+ *
+ */
 class InputBox extends UiObject{
-
+    public static final String TAG = "input"
+    
     def type(String input, Closure c){
         c(locator)
     }

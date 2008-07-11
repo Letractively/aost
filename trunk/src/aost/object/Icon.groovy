@@ -1,5 +1,11 @@
 package aost.object
 
+/**
+ *  ICON
+ *
+ *  @author Jian Fang (John.Jian.Fang@gmail.com)
+ *
+ */
 class Icon extends UiObject {
 
     def click(Closure c) {

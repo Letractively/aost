@@ -14,15 +14,11 @@ import aost.object.UiObject
 class TableBuilder extends UiObjectBuilder{
 
    def build(Map map, Closure closure){
-       Table table = new Table()
+       //add default parameters so that the builder can use them if not specified
+       def df = [:]
+       df.put(TAG, Table.TAG)
+       Table table = this.internBuild(new Table(), map, df)
 
-       if(map == null)
-          return table
-
-       baseClosure(table, map)
-
-       BaseLocator locator = new BaseLocator(loc:map.get(UiObjectBuilder.LOCATOR))
-       table.setLocator(locator)
        if(closure)
           closure(table)
 

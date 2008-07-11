@@ -11,20 +11,11 @@ import aost.locator.BaseLocator
  */
 class ImageBuilder extends UiObjectBuilder{
 
-   def build(Map map){
-       Image url = new Image()
-       baseClosure(url, map)
-
-       BaseLocator locator = new BaseLocator(loc:map.get(UiObjectBuilder.LOCATOR))
-       url.setLocator(locator)
-
-       return url
-   }
-
     public build(Map map, Closure c) {
-        if(map == null)
-            return new Image()
+        def df = [:]
+        df.put(TAG, Image.TAG)
+        Image image = this.internBuild( new Image(), map, df)
 
-        return build(map);
+        return image
     }
 }

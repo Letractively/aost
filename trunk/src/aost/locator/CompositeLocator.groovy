@@ -9,9 +9,10 @@ package aost.locator
  * 
  */
 class CompositeLocator {
-    String leading
+    String lead
     String tag
     String text
-    Map<String, String> attributes = [:]
+    String trail
     def position
+    Map<String, String> attributes = [:]
 }

@@ -4,6 +4,12 @@ import aost.dsl.WorkflowContext
 import aost.dsl.UiID
 import aost.locator.LocatorProcessor
 
+ /**
+ *  container
+ *
+ *  @author Jian Fang (John.Jian.Fang@gmail.com)
+ *
+ */
 class Container extends UiObject {
 
     //since we use map, the component name must be unique

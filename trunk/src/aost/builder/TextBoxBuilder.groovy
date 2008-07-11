@@ -3,22 +3,18 @@ package aost.builder
 import aost.object.TextBox
 import aost.locator.BaseLocator
 
+/**
+ *    Text Box builder
+ *
+ *    @author Jian Fang (John.Jian.Fang@gmail.com)
+ */
 class TextBoxBuilder extends UiObjectBuilder{
 
-   def build(Map map){
-       TextBox textbox = new TextBox()
-       baseClosure(textbox, map)
-
-       BaseLocator locator = new BaseLocator(loc:map.get(UiObjectBuilder.LOCATOR))
-       textbox.setLocator(locator)
-
-       return textbox
-   }
-
     public build(Map map, Closure c) {
-        if(map == null)
-            return new TextBox()
+       //add default parameters so that the builder can use them if not specified
+        def df = [:]
+        TextBox textbox = this.internBuild(new TextBox(), map, df)
 
-        return build(map);  
+        return textbox  
     }
 }

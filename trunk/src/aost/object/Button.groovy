@@ -1,6 +1,14 @@
 package aost.object
 
+/**
+ *  Button
+ *
+ *  @author Jian Fang (John.Jian.Fang@gmail.com)
+ *
+ */
 class Button extends UiObject {
+
+    public static final String TAG = "input"
     
     //TODO: need to add support for isDisabled
     def click(Closure c) {

@@ -1,6 +1,13 @@
 package aost.object
 
+/**
+ *  Selector
+ *
+ *  @author Jian Fang (John.Jian.Fang@gmail.com)
+ *
+ */
 class Selector extends UiObject {
+    public static final String TAG = "select"
 
     def selectByLabel(String target, Closure c){
         c(locator, "label=${target}")

@@ -63,6 +63,7 @@ import aost.access.Accessor
 
 
 class Table extends Container{
+     public static final String TAG = "table"
 
      public static final String ID_SEPARATOR = ",";
      public static final String ID_WILD_CASE = "*";

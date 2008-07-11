@@ -16,10 +16,14 @@ class AutoLocateStrategy {
     }
 
     def static String locate(CompositeLocator locator){
-        
+
         String xpath = XPathBuilder.internBuildXPath(locator.tag, locator.text, locator.position, locator.attributes)
-        if(locator.leading != null && (!locator.leading.trim().isEmpty())){
-            return locator.leading + xpath
+        if(locator.lead != null && (!locator.lead.trim().isEmpty())){
+            xpath = locator.lead + xpath
+        }
+
+        if(locator.trail != null && (!locator.trail.trim().isEmpty())){
+            xpath = xpath + locator.trail    
         }
 
         return xpath
