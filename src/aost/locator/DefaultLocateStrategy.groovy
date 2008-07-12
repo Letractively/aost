@@ -1,7 +1,5 @@
 package aost.locator
 
-import java.lang.RuntimeException
-
 class DefaultLocateStrategy{
 
     def static boolean canHandle(locator){

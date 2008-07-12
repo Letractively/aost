@@ -15,17 +15,17 @@ class UiDslParser extends BuilderSupport{
        def UiObjectBuilderRegistry builderRegistry = new UiObjectBuilderRegistry()
 
 /*
-       protected String getObjectName(String id){
-          OBJECT_PREFIX + id
+       protected String getObjectName(String uid){
+          OBJECT_PREFIX + uid
        }
 */
 
        protected String nestObjectName(UiObject obj){
           String id
           if(obj.parent != null && obj.parent instanceof Table){
-              id =  Table.internalId(obj.id)
+              id =  Table.internalId(obj.uid)
           }else{
-              id = obj.id
+              id = obj.uid
           }
 
           def op = obj
@@ -33,9 +33,9 @@ class UiDslParser extends BuilderSupport{
           while(op.parent != null){
             op = op.parent
             if(op.parent != null && op.parent instanceof Table){
-                id = Table.internalId(op.id) + "." + id
+                id = Table.internalId(op.uid) + "." + id
             }else{
-                id = op.id + "." + id
+                id = op.uid + "." + id
             }            
            }
 
@@ -44,11 +44,11 @@ class UiDslParser extends BuilderSupport{
 
        def findUiObjectFromRegistry(String id){
 
-           if(id.startsWith("${root.id}")){
+           if(id.startsWith("${root.uid}")){
 
              return registry.get(id)
            }else{
-             String t = "${root.id}.${id}"
+             String t = "${root.uid}.${id}"
 
              return registry.get(t)
            }
@@ -56,18 +56,18 @@ class UiDslParser extends BuilderSupport{
 
        public UiObject walkTo(WorkflowContext context, String id)
        {
-          if(!id.startsWith("${root.id}")){
-              id = "${root.id}.${id}"
+          if(!id.startsWith("${root.uid}")){
+              id = "${root.uid}.${id}"
           }
 
           UiID uiid = UiID.convertToUiID(id)
 
           if(uiid.size() > 1){
               String first = uiid.pop()
-              if(root.id.equals(first)){
+              if(root.uid.equals(first)){
                   return root.walkTo(context, uiid)
               }else{
-                  println("Error: expected start id is ${root.id}, but is ${first}")
+                  println("Error: expected start id is ${root.uid}, but is ${first}")
                   return null
               }
           }
@@ -90,7 +90,7 @@ class UiDslParser extends BuilderSupport{
 
            //only put the object to the registry when its parent is the root
            //since the root is special case
-           if(root.id.equals(parent.id))
+           if(root.uid.equals(parent.uid))
                addUiObjectToRegistry(child)
        }
 

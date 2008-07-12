@@ -6,7 +6,7 @@ package aost.locator
  *   @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
-class AutoLocateStrategy {
+class CompositeLocateStrategy {
 
     def static boolean canHandle(locator){
        if(locator instanceof CompositeLocator)
@@ -17,13 +17,13 @@ class AutoLocateStrategy {
 
     def static String locate(CompositeLocator locator){
 
-        String xpath = XPathBuilder.internBuildXPath(locator.tag, locator.text, locator.position, locator.attributes)
-        if(locator.lead != null && (!locator.lead.trim().isEmpty())){
-            xpath = locator.lead + xpath
+        String xpath = XPathBuilder.buildXPath(locator.tag, locator.text, locator.position, locator.attributes)
+        if(locator.header != null && (!locator.header.trim().isEmpty())){
+            xpath = locator.header + xpath
         }
 
-        if(locator.trail != null && (!locator.trail.trim().isEmpty())){
-            xpath = xpath + locator.trail    
+        if(locator.trailer != null && (!locator.trailer.trim().isEmpty())){
+            xpath = xpath + locator.trailer
         }
 
         return xpath

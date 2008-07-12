@@ -9,10 +9,10 @@ package aost.locator
  * 
  */
 class CompositeLocator {
-    String lead
+    String header
     String tag
     String text
-    String trail
+    String trailer
     def position
     Map<String, String> attributes = [:]
 }

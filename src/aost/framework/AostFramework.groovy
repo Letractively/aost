@@ -25,11 +25,13 @@ import aost.builder.UiObjectBuilder
  */
 class AostFramework {
 
-    private EmbeddedSeleniumServer server;
+    private EmbeddedSeleniumServer server
 
-    private SeleniumConnector connector;
+    private SeleniumConnector connector
 
-    private SeleniumClient client;
+    private SeleniumClient client
+
+    private boolean runEmbeddedSeleniumServer = true
 
     AostFramework(){
         
@@ -50,8 +52,14 @@ class AostFramework {
        registry.setMetaClass(SeleniumConnector, new SeleniumConnectorMetaClass())
     }
 
+    public void disableEmbeddedSeleniumServer(){
+       this.runEmbeddedSeleniumServer = false
+    }
+
     public void start(){
         server = new EmbeddedSeleniumServer();
+        server.runSeleniumServerInternally = this.runEmbeddedSeleniumServer
+
         server.runSeleniumServer();
 
         connector  = new SeleniumConnector();

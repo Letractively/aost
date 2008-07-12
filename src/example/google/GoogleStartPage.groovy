@@ -5,10 +5,10 @@ import aost.dsl.DslContext
 class GoogleStartPage extends DslContext{
 
     public void defineUi() {
- //       defUi(id: "google_start_page"){
-        ui.Container(id: "google_start_page"){
-            InputBox(id: "inputbox1", locator: "//input[@title='Google Search']")
-            Button(id: "button1", locator: "//input[@name='btnG' and @type='submit']")
+ //       defUi(uid: "google_start_page"){
+        ui.Container(uid: "google_start_page"){
+            InputBox(uid: "inputbox1", locator: "//input[@title='Google Search']")
+            Button(uid: "button1", locator: "//input[@name='btnG' and @type='submit']")
         }
     }
 

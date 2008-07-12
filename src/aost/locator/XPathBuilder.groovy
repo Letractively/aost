@@ -9,7 +9,7 @@ class XPathBuilder {
     private static final String CHILD = "child"
 
     // Selects all descendants (children, grandchildren, etc.) of the current node
-    private static final String DESCENDANT = "descendan"
+    private static final String DESCENDANT = "descendant"
 
     //  Selects all descendants (children, grandchildren, etc.) of the current node
     // and the current node itself
@@ -30,6 +30,8 @@ class XPathBuilder {
     //the prefix to start get a relative xpath, it is save to start with the following prefix
     private static final String PREFIX ="/descendant-or-self::"
 
+    private static final String DESCENDANT_PREFIX = "descendant::"
+
     private static final String MATCH_ALL ="*"
 
     //represent it is a partial match i.e., contains
@@ -38,24 +40,24 @@ class XPathBuilder {
     private static final int TYPICAL_LENGTH = 64
 
     // example xpaths
-    //  //descendant-or-self::*[@id='hp_table']/tbody/tr/td[1]/descendant-or-self::div/div[2]/p[1]/a
-    //  /html/body/div[5]/center/table[@id='hp_table']/tbody/tr/td[1]/div/div[2]/p[1]/a
-    //  /html/body/div[5]/center/descendant-or-self::table[@id='hp_table']/tbody/tr/td[1]/div/div[2]/p[1]/a
-    //  /html/body/div[5]/center/descendant-or-self::*[@id='hp_table']/tbody/tr/td[1]/div/div[2]/p[1]/a
-    //  /html/body/div[5]/center/descendant-or-self::*[@id='hp_table']/tbody/tr/td[1]/descendant-or-self::div/div[2]/p[1]/a
+    //  //descendant-or-self::*[@uid='hp_table']/tbody/tr/td[1]/descendant-or-self::div/div[2]/p[1]/a
+    //  /html/body/div[5]/center/table[@uid='hp_table']/tbody/tr/td[1]/div/div[2]/p[1]/a
+    //  /html/body/div[5]/center/descendant-or-self::table[@uid='hp_table']/tbody/tr/td[1]/div/div[2]/p[1]/a
+    //  /html/body/div[5]/center/descendant-or-self::*[@uid='hp_table']/tbody/tr/td[1]/div/div[2]/p[1]/a
+    //  /html/body/div[5]/center/descendant-or-self::*[@uid='hp_table']/tbody/tr/td[1]/descendant-or-self::div/div[2]/p[1]/a
 
-    public static String buildXPath(String tag, String text, String position, Map<String, String> attributes){
+    
+    public static String buildDescendantXPath(String tag, String text, String position, Map<String, String> attributes){
         if(position != null && position.isInteger())
-            return internBuildXPath(tag, text, Integer.parseInt(position), attributes)
+            return buildXPathWithPrefix(DESCENDANT_PREFIX, tag, text, Integer.parseInt(position), attributes, null)
 
-        return  internBuildXPath(tag, text, -1 , attributes)
+        return  buildXPathWithPrefix(DESCENDANT_PREFIX, tag, text, -1 , attributes, null)
     }
 
-    protected static String internBuildXPath(String tag, String text, int position, Map<String, String> attributes)
+    private static String buildXPathWithPrefix(String prefix, String tag, String text, int position, Map<String, String> attributes, Closure c)
     {
-
         StringBuffer sb = new StringBuffer(TYPICAL_LENGTH)
-        sb.append(PREFIX)
+        sb.append(prefix)
         if( tag != null && (!tag.isEmpty())){
           //if the tag is available, use it
           sb.append(tag)
@@ -63,7 +65,12 @@ class XPathBuilder {
           //otherwise, use match all
           sb.append(MATCH_ALL)
         }
+        
         List<String> list = new ArrayList<String>()
+
+        if(c != null){
+            c(list)
+        }
 
         String vText = buildText(text)
         if(!vText.isEmpty())
@@ -88,16 +95,35 @@ class XPathBuilder {
         return sb.toString()
     }
 
+    protected static String internBuildXPath(String tag, String text, int position, Map<String, String> attributes, Closure c)
+    {
+        return buildXPathWithPrefix(PREFIX, tag, text, position, attributes, c)
+    }
+
+    public static String buildGroupXPath(String tag, String text, String position, Map<String, String> attributes, Closure c){
+        if(position != null && position.isInteger())
+            return internBuildXPath(tag, text, Integer.parseInt(position), attributes, c)
+
+        return  internBuildXPath(tag, text, -1 , attributes, c)
+    }
+
+    public static String buildXPath(String tag, String text, String position, Map<String, String> attributes){
+        if(position != null && position.isInteger())
+            return internBuildXPath(tag, text, Integer.parseInt(position), attributes, null)
+
+        return  internBuildXPath(tag, text, -1 , attributes, null)
+    }
+
     public static String buildXPath(String tag, int position, Map<String, String> attributes){
-         return internBuildXPath(tag, null, position, attributes)
+         return internBuildXPath(tag, null, position, attributes, null)
     }
 
     public static String buildXPath(String tag, String text, Map<String, String> attributes){
-         return internBuildXPath(tag, text, -1, attributes)
+         return internBuildXPath(tag, text, -1, attributes, null)
     }
 
     public static String buildXPath(String tag, Map<String, String> attributes){
-         return internBuildXPath(tag, null, -1, attributes)
+         return internBuildXPath(tag, null, -1, attributes, null)
     }
   
     protected static String buildPosition(int position){

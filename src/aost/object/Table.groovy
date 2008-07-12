@@ -6,16 +6,17 @@ import aost.dsl.WorkflowContext
 import aost.dsl.UiID
 import aost.locator.LocatorProcessor
 import aost.access.Accessor
+import aost.locator.GroupLocateStrategy
 
 /**
  *   Table should be very generic since each column and row could hold different
  *   UI objects. In that sense, table is also a container
  *
  *   However, all the UI objects inside the table should have related xpath. Also,
- *   the UI object id should carry informatio about table row, table column.
+ *   the UI object uid should carry informatio about table row, table column.
  *   It also has wild case to match all rows, all columns, all both.
  *
- *   That is to say, for the i-th row, j-th column, the id should use the following
+ *   That is to say, for the i-th row, j-th column, the uid should use the following
  *   name conversion:
  *
  *    "row: i, column: j"
@@ -76,22 +77,22 @@ class Table extends Container{
 
      @Override
      def add(UiObject component){
-        if(validId(component.id)){
-            String internId = internalId(component.id)
+        if(validId(component.uid)){
+            String internId = internalId(component.uid)
             components.put(internId, component)
         }else{
-            System.out.println("Warning: Invalid id: ${component.id}")
+            System.out.println("Warning: Invalid id: ${component.uid}")
         }
      }
     
 /*
      @Override
-     def getComponent(String id){
-        components.get(id)
+     def getComponent(String uid){
+        components.get(uid)
      }
 */
 
-     //should validate the id before call this to convert it to internal representation
+     //should validate the uid before call this to convert it to internal representation
      public static String internalId(String id){
         String row
         String column
@@ -186,7 +187,7 @@ class Table extends Container{
     }*/
 
      public boolean validId(String id){
-        //ID cannot be empty
+        //UID cannot be empty
         if(id == null || id.trim().isEmpty())
           return false
 
@@ -271,7 +272,7 @@ class Table extends Container{
         return column
     }
 
-    //walkTo through the object tree to until the UI object is found by the ID from the stack
+    //walkTo through the object tree to until the UI object is found by the UID from the stack
     @Override
     public UiObject walkTo(WorkflowContext context, UiID uiid){
 
@@ -295,8 +296,14 @@ class Table extends Container{
 
         //update reference locator by append the relative locator for this container
         if (this.locator != null) {
-            LocatorProcessor lp = new LocatorProcessor()
-            context.appendReferenceLocator(lp.locate(this.locator))
+            if (this.useGroupInfo) {
+                //need to use group information to help us locate the container xpath
+                context.appendReferenceLocator(GroupLocateStrategy.locate(this))
+            } else {
+                //do not use the group information, process as regular
+                def lp = new LocatorProcessor()
+                context.appendReferenceLocator(lp.locate(this.locator))
+            }
         }
 
         //append relative location, i.e., row, column to the locator
