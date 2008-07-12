@@ -4,6 +4,7 @@ import aost.dsl.WorkflowContext
 import aost.dsl.UiID
 import aost.locator.LocatorProcessor
 import aost.access.Accessor
+import aost.locator.GroupLocateStrategy
 
 /**
  * Abstracted class for a list, which holds one dimension array of Ui objects
@@ -20,18 +21,18 @@ class List  extends Container{
 
      @Override
      def add(UiObject component){
-        if(validId(component.id)){
-            String internId = internalId(component.id)
+        if(validId(component.uid)){
+            String internId = internalId(component.uid)
             components.put(internId, component)
         }else{
-            System.out.println("Warning: Invalid id: ${component.id}")
+            System.out.println("Warning: Invalid id: ${component.uid}")
         }
      }
 
     //the separator for the list, it is empty by default
     String separator = ""
 
-     //should validate the id before call this to convert it to internal representation
+     //should validate the uid before call this to convert it to internal representation
      public static String internalId(String id){
 
          //convert to upper case so that it is case insensitive
@@ -56,7 +57,7 @@ class List  extends Container{
      }
 
      public boolean validId(String id){
-        //ID cannot be empty
+        //UID cannot be empty
         if(id == null || id.trim().isEmpty())
           return false
 
@@ -92,7 +93,7 @@ class List  extends Container{
         return index
     }
 
-    //walkTo through the object tree to until the UI object is found by the ID from the stack
+    //walkTo through the object tree to until the UI object is found by the UID from the stack
     @Override
     public UiObject walkTo(WorkflowContext context, UiID uiid){
 
@@ -116,8 +117,14 @@ class List  extends Container{
 
         //update reference locator by append the relative locator for this container
         if (this.locator != null) {
-            LocatorProcessor lp = new LocatorProcessor()
-            context.appendReferenceLocator(lp.locate(this.locator))
+            if (this.useGroupInfo) {
+                //need to use group information to help us locate the container xpath
+                context.appendReferenceLocator(GroupLocateStrategy.locate(this))
+            } else {
+                //do not use the group information, process as regular
+                def lp = new LocatorProcessor()
+                context.appendReferenceLocator(lp.locate(this.locator))
+            }
         }
 
         //append relative location, i.e., index to the locator

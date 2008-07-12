@@ -29,9 +29,9 @@ abstract class UiObject {
       xpath.
       For example,
         An input box has the xpath
-           //div[contains(@id,'showmanager_modlet_ShowManTaskCoordinator')]/descendant::div[contains(@id,'jupiter_widget_SearchTextbox')]/descendant::input[@type='button' and @dojoattachpoint='dap_findBtn']
+           //div[contains(@uid,'showmanager_modlet_ShowManTaskCoordinator')]/descendant::div[contains(@uid,'jupiter_widget_SearchTextbox')]/descendant::input[@type='button' and @dojoattachpoint='dap_findBtn']
         Here
-           //div[contains(@id,'showmanager_modlet_ShowManTaskCoordinator')]/descendant::div[contains(@id,'jupiter_widget_SearchTextbox')]
+           //div[contains(@uid,'showmanager_modlet_ShowManTaskCoordinator')]/descendant::div[contains(@uid,'jupiter_widget_SearchTextbox')]
 
         is the reference xpath and
            input[@type='button' and @dojoattachpoint='dap_findBtn'] is the inherent xpath, i.e., it is specific for that ui object
@@ -44,7 +44,7 @@ abstract class UiObject {
             
       */
 
-    String id
+    String uid
     String namespace
     
     def locator
@@ -77,7 +77,7 @@ abstract class UiObject {
         return c(locator, "@${attribute}")    
     }
 
-    //walkTo through the object tree to until the Ui Object is found by the ID
+    //walkTo through the object tree to until the Ui Object is found by the UID
     public UiObject walkTo(WorkflowContext context, UiID uiid){
         //if not child listed, return itself
         if(uiid.size() < 1)
@@ -90,7 +90,7 @@ abstract class UiObject {
 
         //cannot find child
         String child = uiid.pop()
-        println("Cannot find UI Object ${child} in ${this.id}")
+        println("Cannot find UI Object ${child} in ${this.uid}")
 
         return null
     }

@@ -24,148 +24,148 @@ abstract class DslContext {
 //    remove this constraint so that DSL script does not need to define this method
 //    public abstract void defineUi()
 
-    def findObject(String id){
-        def obj = ui.findUiObjectFromRegistry(id)
+    def findObject(String uid){
+        def obj = ui.findUiObjectFromRegistry(uid)
         if(obj == null)
-            println("Cannot find UI Object ${id}")
+            println("Cannot find UI Object ${uid}")
         return obj
     }
 
-    def click(String id){
+    def click(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.click(){ loc ->
+        ui.walkTo(context, uid)?.click(){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.click(locator)
         }
     }
 
-    def doubleClick(String id){
+    def doubleClick(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.doubleClick(){ loc ->
+        ui.walkTo(context, uid)?.doubleClick(){ loc ->
            String locator = locatorMapping(context, loc)
             eventHandler.doubleClick(locator)
         }
     }
 
-    def clickAt(String id, String coordination){
+    def clickAt(String uid, String coordination){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.clickAt(coordination){ loc ->
+        ui.walkTo(context, uid)?.clickAt(coordination){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.clickAt(locator, coordination)
         }
     }
 
-    def check(String id){
+    def check(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.check(){ loc ->
+        ui.walkTo(context, uid)?.check(){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.check(locator)
         }
     }
 
-    def uncheck(String id){
+    def uncheck(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.uncheck(){ loc ->
+        ui.walkTo(context, uid)?.uncheck(){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.uncheck(locator)
         }
     }
 
-    def type(String id, String input){
+    def type(String uid, String input){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.type(input){ loc ->
+        ui.walkTo(context, uid)?.type(input){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.type(locator, input)
         }
     }
 
-    def keyType(String id, String input){
+    def keyType(String uid, String input){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.keyType(input){ loc ->
+        ui.walkTo(context, uid)?.keyType(input){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.keyType(locator, input)
         }
     }
 
-    def typeAndReturn(String id, String input){
+    def typeAndReturn(String uid, String input){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.typeAndReturn(input){ loc ->
+        ui.walkTo(context, uid)?.typeAndReturn(input){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.typeAndReturn(locator, input)
         }
     }
 
-    def clearText(String id){
+    def clearText(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.clearText(){ loc ->
+        ui.walkTo(context, uid)?.clearText(){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.clearText(locator)
         }
     }
 
-    def select(String id, String target){
-        selectByLabel(id, target)
+    def select(String uid, String target){
+        selectByLabel(uid, target)
     }
 
-    def selectByLabel(String id, String target){
+    def selectByLabel(String uid, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.selectByLabel(target){ loc, optloc ->
+        ui.walkTo(context, uid)?.selectByLabel(target){ loc, optloc ->
             String locator = locatorMapping(context, loc)
             eventHandler.select(locator, optloc)
         }
     }
 
-    def selectByValue(String id, String target){
+    def selectByValue(String uid, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.selectByValue(target){ loc, optloc ->
+        ui.walkTo(context, uid)?.selectByValue(target){ loc, optloc ->
             String locator = locatorMapping(context, loc)
             eventHandler.select(locator, optloc)
         }
     }
 
-    def addSelectionByLabel(String id, String target){
+    def addSelectionByLabel(String uid, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.addSelectionByLabel(target){ loc, optloc ->
+        ui.walkTo(context, uid)?.addSelectionByLabel(target){ loc, optloc ->
             String locator = locatorMapping(context, loc)
             eventHandler.addSelection(locator, optloc)
         }
     }
 
-    def addSelectionByValue(String id, String target){
+    def addSelectionByValue(String uid, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.addSelectionByValue(target){ loc, optloc ->
+        ui.walkTo(context, uid)?.addSelectionByValue(target){ loc, optloc ->
             String locator = locatorMapping(context, loc)
             eventHandler.addSelection(locator, optloc)
         }
     }
 
-    def removeSelectionByLabel(String id, String target){
+    def removeSelectionByLabel(String uid, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.removeSelectionByLabel(target){ loc, optloc ->
+        ui.walkTo(context, uid)?.removeSelectionByLabel(target){ loc, optloc ->
             String locator = locatorMapping(context, loc)
             eventHandler.removeSelection(locator, optloc)
         }
     }
 
-    def removeSelectionByValue(String id, String target){
+    def removeSelectionByValue(String uid, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.removeSelectionByValue(target){ loc, optloc ->
+        ui.walkTo(context, uid)?.removeSelectionByValue(target){ loc, optloc ->
             String locator = locatorMapping(context, loc)
             eventHandler.removeSelection(locator, optloc)
         }
     }
 
-    def removeAllSelections(String id){
+    def removeAllSelections(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.removeAllSelections(){ loc ->
+        ui.walkTo(context, uid)?.removeAllSelections(){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.removeAllSelections(locator)
         }
     }
 
-    String[] getSelectedLabels(String id){
+    String[] getSelectedLabels(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, id)
+         def obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.getSelectedLabels(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -176,9 +176,9 @@ abstract class DslContext {
         return null
     }
 
-    String getSelectedLabel(String id){
+    String getSelectedLabel(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, id)
+         def obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.getSelectedLabel(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -189,9 +189,9 @@ abstract class DslContext {
         return null
     }
 
-    String[] getSelectedValues(String id){
+    String[] getSelectedValues(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, id)
+         def obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.getSelectedValues(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -202,9 +202,9 @@ abstract class DslContext {
         return null
     }
 
-    String getSelectedValue(String id){
+    String getSelectedValue(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, id)
+         def obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.getSelectedValue(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -215,9 +215,9 @@ abstract class DslContext {
         return null
     }
 
-    String[] getSelectedIndexes(String id){
+    String[] getSelectedIndexes(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, id)
+         def obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.getSelectedIndexes(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -228,9 +228,9 @@ abstract class DslContext {
         return null
     }
 
-    String getSelectedIndex(String id){
+    String getSelectedIndex(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, id)
+         def obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.getSelectedIndex(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -241,9 +241,9 @@ abstract class DslContext {
         return null
     }
 
-    String[] getSelectedIds(String id){
+    String[] getSelectedIds(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, id)
+         def obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.getSelectedIds(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -254,9 +254,9 @@ abstract class DslContext {
         return null
     }
 
-    String getSelectedId(String id){
+    String getSelectedId(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, id)
+         def obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.getSelectedId(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -267,9 +267,9 @@ abstract class DslContext {
         return null
     }
 
-    boolean isSomethingSelected(String id){
+    boolean isSomethingSelected(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, id)
+         def obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.isSomethingSelected(){ loc ->
                 String locator = locatorMapping(context, loc) 
@@ -280,17 +280,17 @@ abstract class DslContext {
         return false
     }
 
-    String waitForText(String id, int timeout){
+    String waitForText(String uid, int timeout){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.waitForText(timeout){ loc ->
+        ui.walkTo(context, uid)?.waitForText(timeout){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.waitForText(locator, timeout)
         }
     }
 
-    int getTableMaxRowNum(String id){
+    int getTableMaxRowNum(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         Table obj = ui.walkTo(context, id)
+         Table obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.getTableMaxRowNum(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -298,13 +298,13 @@ abstract class DslContext {
              }
          }
          
-         println("Cannot find table ${id}")
+         println("Cannot find table ${uid}")
          return 0
     }
 
-    int getTableMaxColumnNum(String id){
+    int getTableMaxColumnNum(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         Table obj = ui.walkTo(context, id)
+         Table obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.getTableMaxColumnNum(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -312,13 +312,13 @@ abstract class DslContext {
              }
          }
 
-         println("Cannot find table ${id}")
+         println("Cannot find table ${uid}")
          return 0
     }
 
-    int getListSize(String id){
+    int getListSize(String uid){
           WorkflowContext context = WorkflowContext.getDefaultContext()
-         List obj = ui.walkTo(context, id)
+         List obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.getListSize(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -326,21 +326,21 @@ abstract class DslContext {
              }
          }
 
-         println("Cannot find list ${id}")
+         println("Cannot find list ${uid}")
          return 0
     }
 
-    //id should use the format table2[2][3] for Table or list[2] for List
-    def getUiElement(String id){
+    //uid should use the format table2[2][3] for Table or list[2] for List
+    def getUiElement(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, id)
+         def obj = ui.walkTo(context, uid)
 
          return obj
     }
 
-    boolean isElementPresent(String id){
+    boolean isElementPresent(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, id)
+         def obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.isElementPresent(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -351,9 +351,9 @@ abstract class DslContext {
          return false
     }
 
-    boolean isVisible(String id){
+    boolean isVisible(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, id)
+         def obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.isVisible(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -364,9 +364,9 @@ abstract class DslContext {
          return false
     }
 
-    boolean isChecked(String id){
+    boolean isChecked(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, id)
+         def obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.isChecked(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -374,12 +374,12 @@ abstract class DslContext {
              }
          }
         
-         throw RuntimeException("Cannot find UI Object ${id})")
+         throw RuntimeException("Cannot find UI Object ${uid})")
     }
 
-    boolean waitForElementPresent(String id, int timeout){
+    boolean waitForElementPresent(String uid, int timeout){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, id)
+         def obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.waitForElementPresent(timeout){ loc ->
                 String locator = locatorMapping(context, loc) 
@@ -390,9 +390,9 @@ abstract class DslContext {
          return false
     }
 
-    boolean waitForElementPresent(String id, int timeout, int step){
+    boolean waitForElementPresent(String uid, int timeout, int step){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, id)
+         def obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.waitForElementPresent(timeout, step){ loc ->
                 String locator = locatorMapping(context, loc) 
@@ -407,17 +407,17 @@ abstract class DslContext {
        Accessor.waitForCondition(script, timeoutInMilliSecond)
     }
 
-    String getText(String id){
+    String getText(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.getText(){ loc ->
+        ui.walkTo(context, uid)?.getText(){ loc ->
             String locator = locatorMapping(context, loc)
             accessor.getText(locator)
         }
     }
 
-    String getValue(String id){
+    String getValue(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.getValue(){ loc ->
+        ui.walkTo(context, uid)?.getValue(){ loc ->
             String locator = locatorMapping(context, loc)
             accessor.getValue(locator)
         }
@@ -427,49 +427,49 @@ abstract class DslContext {
         Helper.pause(milliseconds)
     }
 
-    String getLink(String id){
+    String getLink(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         ui.walkTo(context, id)?.getLink(){ loc, attr ->
+         ui.walkTo(context, uid)?.getLink(){ loc, attr ->
             String locator = locatorMapping(context, loc)
             accessor.getAttribute(locator + attr )
         }
     }
 
-    String getImageSource(String id){
+    String getImageSource(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         ui.walkTo(context, id)?.getImageSource(){ loc, attr ->
+         ui.walkTo(context, uid)?.getImageSource(){ loc, attr ->
             String locator = locatorMapping(context, loc)
             accessor.getAttribute(locator + attr )
         }
     }
 
-    String getImageAlt(String id){
+    String getImageAlt(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         ui.walkTo(context, id)?.getImageAlt(){ loc, attr ->
+         ui.walkTo(context, uid)?.getImageAlt(){ loc, attr ->
             String locator = locatorMapping(context, loc)
             accessor.getAttribute(locator + attr )
         }
     }
 
-    String getImageTitle(String id){
+    String getImageTitle(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         ui.walkTo(context, id)?.getImageTitle(){ loc, attr ->
+         ui.walkTo(context, uid)?.getImageTitle(){ loc, attr ->
             String locator = locatorMapping(context, loc)
             accessor.getAttribute(locator + attr )
         }
     }
 
-    def getAttribute(String id, String attribute){
+    def getAttribute(String uid, String attribute){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         ui.walkTo(context, id)?.getAttribute(attribute){ loc, attr ->
+         ui.walkTo(context, uid)?.getAttribute(attribute){ loc, attr ->
             String locator = locatorMapping(context, loc)
             accessor.getAttribute(locator + attr )
          }
     }
 
-    def submit(String id){
+    def submit(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, id)?.submit(){ loc ->
+        ui.walkTo(context, uid)?.submit(){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.submit(locator)
         }

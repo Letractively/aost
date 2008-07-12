@@ -17,11 +17,11 @@ import aost.object.UrlLink
 class GoogleCodeHosting  extends DslContext{
 
     public void defineUi() {
-       ui.Container(id: "googlecodehosting"){
-           Table(id: "labels_table", locator: "//table[descendant::div[contains(text(),\"Example project labels:\")]]"){
-               TextBox(id: "row: 1, column: 1", locator: "/div")
-               Table(id: "row: 2, column: 1", locator: "/div[@id=\"popular\"]/table"){
-                   UrlLink(id: "all", locator: "/a")
+       ui.Container(uid: "googlecodehosting"){
+           Table(uid: "labels_table", locator: "//table[descendant::div[contains(text(),\"Example project labels:\")]]"){
+               TextBox(uid: "row: 1, column: 1", locator: "/div")
+               Table(uid: "row: 2, column: 1", locator: "/div[@id=\"popular\"]/table"){
+                   UrlLink(uid: "all", locator: "/a")
                }
            }
        }

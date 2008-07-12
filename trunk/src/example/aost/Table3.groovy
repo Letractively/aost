@@ -11,13 +11,13 @@ import aost.dsl.DslContext
  */
 class Table3 extends DslContext {
     public void defineUi() {
-        ui.Container(id: "main"){
-            InputBox(id: "inputbox1", locator: "//input[@title='Google Search']")
-            Button(id: "button1", locator: "//input[@name='btnG' and @type='submit']")
-            Table(id: "table1", locator: "//table"){
-               Button(id: "row: 1, column: *", locator: "/input[@type='submit']")
-               InputBox(id: "row: 2, column: * ", locator: "/input[@title='Google Search']")
-               UrlLink(id: "row: 3", locator: "/link")
+        ui.Container(uid: "main"){
+            InputBox(uid: "inputbox1", locator: "//input[@title='Google Search']")
+            Button(uid: "button1", locator: "//input[@name='btnG' and @type='submit']")
+            Table(uid: "table1", locator: "//table"){
+               Button(uid: "row: 1, column: *", locator: "/input[@type='submit']")
+               InputBox(uid: "row: 2, column: * ", locator: "/input[@title='Google Search']")
+               UrlLink(uid: "row: 3", locator: "/link")
             }
         }
     }

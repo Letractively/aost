@@ -17,10 +17,10 @@ import aost.dsl.DslContext
 class GoogleBooksList  extends DslContext{
 
     public void defineUi() {
-        ui.Container(id: "GoogleBooksList", locator: "//table[@id='hp_table']/tbody/tr/td[1]/div/div[1]"){
-            TextBox(id: "category", locator: "/div")
-            List(id: "subcategory", locator: "", separator: "/p"){
-                UrlLink(id: "all", locator: "/a")
+        ui.Container(uid: "GoogleBooksList", locator: "//table[@id='hp_table']/tbody/tr/td[1]/div/div[1]"){
+            TextBox(uid: "category", locator: "/div")
+            List(uid: "subcategory", locator: "", separator: "/p"){
+                UrlLink(uid: "all", locator: "/a")
             }
         }
     }
