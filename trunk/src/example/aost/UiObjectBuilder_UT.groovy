@@ -12,6 +12,7 @@ class UiObjectBuilder_UT extends GroovyTestCase{
         sample.defineUi()
         Map registry = sample.ui.registry
         assertNotNull(registry)
+        assertEquals(1, registry.size())
     }
 
     public void testCompositeLocator(){
@@ -19,5 +20,14 @@ class UiObjectBuilder_UT extends GroovyTestCase{
         sample.defineCompositeUi()
         Map registry = sample.ui.registry
         assertNotNull(registry)
+        assertEquals(1, registry.size())
+    }
+
+    public void testMultiUiModules(){
+        SampleUI sample = new SampleUI()
+        sample.defineMultipleUiModules()
+        Map registry = sample.ui.registry
+        assertNotNull(registry)
+        assertEquals(4, registry.size())
     }
 }

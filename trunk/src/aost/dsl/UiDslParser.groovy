@@ -5,20 +5,12 @@ import aost.builder.UiObjectBuilderRegistry
 
 class UiDslParser extends BuilderSupport{
 
-//       public static final String OBJECT_PREFIX = "uo_"
-
-       UiObject root
+//       UiObject root
     
        def registry = [:]
 
        //this should return a singleton class with default builders populated
        def UiObjectBuilderRegistry builderRegistry = new UiObjectBuilderRegistry()
-
-/*
-       protected String getObjectName(String uid){
-          OBJECT_PREFIX + uid
-       }
-*/
 
        protected String nestObjectName(UiObject obj){
           String id
@@ -42,7 +34,7 @@ class UiDslParser extends BuilderSupport{
           return id
        }
 
-       def findUiObjectFromRegistry(String id){
+/*       def findUiObjectFromRegistry(String id){
 
            if(id.startsWith("${root.uid}")){
 
@@ -52,22 +44,29 @@ class UiDslParser extends BuilderSupport{
 
              return registry.get(t)
            }
-       }
+       }*/
 
        public UiObject walkTo(WorkflowContext context, String id)
        {
-          if(!id.startsWith("${root.uid}")){
-              id = "${root.uid}.${id}"
+          //if only one ui object in the registry, i.e., user only defined one UI module
+          //in this case, the top id can be omitted, here we need to put it back
+          if(registry.size() == 1){
+            UiObject topobj = registry.values().asList().get(0)
+            if(!id.startsWith("${topobj.uid}")){
+              id = "${topobj.uid}.${id}"
+            }
           }
 
           UiID uiid = UiID.convertToUiID(id)
 
           if(uiid.size() > 1){
               String first = uiid.pop()
-              if(root.uid.equals(first)){
-                  return root.walkTo(context, uiid)
+              //first object (i.e., the top object in a UI module) can be found from the registry
+              UiObject fo = registry.get(first)
+              if(fo != null){
+                  return fo.walkTo(context, uiid)
               }else{
-                  println("Error: expected start id is ${root.uid}, but is ${first}")
+                  println("Error: cannot find the top object ${first}")
                   return null
               }
           }
@@ -90,8 +89,8 @@ class UiDslParser extends BuilderSupport{
 
            //only put the object to the registry when its parent is the root
            //since the root is special case
-           if(root.uid.equals(parent.uid))
-               addUiObjectToRegistry(child)
+//           if(root.uid.equals(parent.uid))
+//               addUiObjectToRegistry(child)
        }
 
        protected Object createNode(Object name) {
@@ -99,16 +98,10 @@ class UiDslParser extends BuilderSupport{
 
            if(builder != null){
                 def obj =  builder.build(null, null)
-//                addUiObjectToRegistry(obj)
-/*
-                if(registry.isEmpty()){
-                    root = obj
-                    addUiObjectToRegistry(obj)
-                }
-*/
+
                 //set the root
-                if(root == null)
-                    root = obj
+//                if(root == null)
+//                    root = obj
 
                 return obj
            }
@@ -116,7 +109,7 @@ class UiDslParser extends BuilderSupport{
            return null  
        }
 
-    //should not come here for Our DSL
+      //should not come here for Our DSL
        protected Object createNode(Object name, Object value) {
 
            return null
@@ -127,17 +120,10 @@ class UiDslParser extends BuilderSupport{
 
            if(builder != null){
                 def obj =  builder.build(map, null)
-//                addUiObjectToRegistry(obj)
-                //check if it is the root
-/*
-                if(registry.isEmpty()){
-                    root = obj
-                    addUiObjectToRegistry(obj)
-                }
-*/
+
                 //set the root
-                if(root == null)
-                    root = obj
+//                if(root == null)
+//                    root = obj
 
                 return obj
            }   
@@ -150,20 +136,25 @@ class UiDslParser extends BuilderSupport{
 
            if(builder != null){
                 def obj =  builder.build(map, (Closure)value)
-//                addUiObjectToRegistry(obj)
-/*                if(registry.isEmpty()){
-                    root = obj
-                    addUiObjectToRegistry(obj)
-                }
- */
+
                //set the root
-               if(root == null)
-                   root = obj
+//               if(root == null)
+//                   root = obj
 
                return obj
            }   
 
           return null
+       }
+
+       protected void nodeCompleted(Object parent, Object node) {
+          //when the node is completed and its parent is null, it means this node is at the top level
+          if(parent == null){
+               UiObject uo = (UiObject)node
+               //only put the top level nodes into the registry 
+               registry.put(uo.uid, node)
+          }
+
        }
 
    }
