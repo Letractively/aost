@@ -1,5 +1,7 @@
 #labels Featured,Phase-Implementation
-== Tutorial for AOST ==
+= Tutorial for AOST =
+
+== How to use AOST ==
 
 There are two ways to use AOST. The first one is first write your UI modules
 in different Groovy files, which extends the DslContext class. Then write 
@@ -334,4 +336,113 @@ class GoogleBooksListTestCase extends StandaloneAostSeleneseTestCase {
 }
 }}}  
 
-Please see the source code on the subversion trunk for details
+== Advanced Examples ==
+
+With the addition of composite locator, group locating, and multiple DSL modules in a single DSL context. The above examples can be changed to demonstrate how easy to write AOST tests. Only the Ui definition parts need to be changed.
+
+=== Google Start Page ===
+
+The new UI module is defined as follows,
+
+{{{
+        ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
+            InputBox(uid: "searchbox", clocator: [title: "Google Search"])
+            SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
+            SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
+        }
+
+}}}
+
+where clocator stands for composite locator, group is the option whether to use group locating.
+
+=== Google Code Hosting Page ===
+
+Similarly, the new UI modules is
+{{{
+       ui.Table(uid: "labels_table", clocator: [:], group: "true"){
+         TextBox(uid: "row: 1, column: 1", clocator: [tag: "div", text: "Example project labels:"])
+         Table(uid: "row: 2, column: 1", clocator: [header: "/div[@id=\"popular\"]"]){
+             UrlLink(uid: "all", locator: "/a")
+           }
+       }
+}}}
+
+=== Google Book List Page ===
+
+The google book list UI module is
+{{{
+        //It is fine to use container for Table if you really do not care what the rows and columns of the elements it holds
+        ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"], group: "true"){
+            TextBox(uid: "category", clocator: [tag: "div", class: "sub_cat_title"])
+            List(uid: "subcategory", clocator: [tag: "div", class:"sub_cat_section"], separator: "/p"){
+                UrlLink(uid: "all", locator: "/a")
+            }
+        }
+}}}
+
+=== AOST project page ===
+
+To demonstrate how to define multiple UI objects, the AOST project page is used as an example:
+{{{
+class AostProjectPage extends DslContext{
+
+    public void defineUi() {
+        //define the menu
+        //It is fine to use Container to abstract Table if you have special table
+        ui.Container(uid: "menu", clocator: [tag: "table", id: "mt", trailer: "/tbody/tr/th"], group: "true"){
+            //since the actual text is  Project&nbsp;Home, we can use partial match here. Note "%%" stands for partial match
+            UrlLink(uid: "project_home", clocator: [text: "%%Home"])
+            UrlLink(uid: "downloads", clocator: [text: "Downloads"])
+            UrlLink(uid: "wiki", clocator: [text: "Wiki"])
+            UrlLink(uid: "issues", clocator: [text: "Issues"])
+            UrlLink(uid: "source", clocator: [text: "Source"])
+        }
+
+        //define the search module, which includes an input box, two search buttons
+        ui.Form(uid: "search", clocator: [:], group: "true"){
+            InputBox(uid: "searchbox", clocator: [name: "q"])
+            SubmitButton(uid: "search_project_button", clocator: [value: "Search Projects"])
+            SubmitButton(uid: "search_web_button", clocator: [value: "Search the Web"])
+        }
+    }
+
+    def clickProjectHome(){
+        click "menu.project_home"
+        pause 5000
+    }
+
+    def clickDownloads(){
+        click "menu.downloads"
+        pause 5000
+    }
+
+    def clickWiki(){
+        click "menu.wiki"
+        pause 5000
+    }
+
+    def clickIssues(){
+        click "menu.issues"
+        pause 5000
+    }
+
+    def clickSource(){
+        click "menu.source"
+        pause 5000
+    }
+
+    def searchProject(String input){
+        type "search.searchbox", input
+        click "search.search_project_button"
+        pause 5000
+    }
+
+    def searchWeb(String input){
+        type "search.searchbox", input
+        click "search.search_web_button"
+        pause 5000
+    }
+}
+}}}
+
+Please see the source code on the subversion trunk for more details
