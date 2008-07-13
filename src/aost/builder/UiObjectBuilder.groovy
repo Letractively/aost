@@ -95,33 +95,6 @@ abstract class UiObjectBuilder{
         BaseLocator locator = new BaseLocator(loc:loc)
         return locator
     }
-    
-/*
-    def buildGroupLocator(Map map, Map df){
-        GroupLocator locator = new GroupLocator()
-        Map<String, String> attributes = [:]
-        locator.header = map.get(HEADER)
-        locator.tag = map.get(TAG)
-        //use default value  if TAG not specified
-        if(locator.tag == null && df != null)
-            locator.tag = df.get(TAG)
-
-        map.each { String key, value ->
-            if(!HEADER.equals(key) && !TAG.equals(key))
-                attributes.put(key, value)
-        }
-        if(df != null && (!df.isEmpty())){
-            df.each { String key, value ->
-                //only apply default value when the attribute is not specified
-                if(!TAG.equals(key) && attributes.get(key) == null){
-                    attributes.put(key, value)
-                }
-            }
-        }
-        locator.attributes = attributes
-
-        return locator
-    }*/
 
     def buildCompositeLocator(Map map, Map df){
         CompositeLocator locator = new CompositeLocator()
@@ -138,7 +111,7 @@ abstract class UiObjectBuilder{
         locator.position = map.get(POSITION)
 
         map.each { String key, value ->
-            if(!HEADER.equals(key) && !TAG.equals(key) && !TEXT.equals(key) && !POSITION.equals(key))
+            if(!HEADER.equals(key) && !TRAILER.equals(key) && !TAG.equals(key) && !TEXT.equals(key) && !POSITION.equals(key))
                 attributes.put(key, value)
         }
         if(df != null && (!df.isEmpty())){
