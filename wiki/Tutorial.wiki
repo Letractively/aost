@@ -1,0 +1,337 @@
+#labels Featured,Phase-Implementation
+== Tutorial for AOST ==
+
+There are two ways to use AOST. The first one is first write your UI modules
+in different Groovy files, which extends the DslContext class. Then write 
+JUnit test cases. You can also include them in a test suite. 
+
+If your test case only includes one file, you should use StandaloneAostSeleneseTestCase, but if you like to create multiple test files and put them in one test suite, you should use GroupAostSeleneseTestCase. The sample test suite is SampleAostSeleneseTestSuite. 
+These limitations come from the fact that GroovyTestCase does not support JUnit 4 properly. Hope I can improve it or use TestNG later.
+
+The other way is to write DSL script directly, which is recommended only for non-developers since you cannot create different modules if write in pure DSL. 
+The DslScriptExecutor can be used to run the .dsl files.
+
+== Examples ==
+
+=== Google Start Page ===
+
+First, create the google start page module in Groovy
+{{{
+package example.google
+
+import aost.dsl.DslContext
+
+class GoogleStartPage extends DslContext{
+
+    public void defineUi() {
+        ui.Container(uid: "google_start_page"){
+            InputBox(uid: "inputbox1", locator: "//input[@title='Google Search']")
+            Button(uid: "button1", locator: "//input[@name='btnG' and @type='submit']")
+        }
+    }
+
+    def type(String input){
+        type "inputbox1", input
+        pause 500
+        click "button1"
+        pause 1000        
+    }
+}
+}}}
+
+Then, write the JUnit test case as follows,
+
+{{{
+package example.test
+
+import example.google.GoogleStartPage
+import aost.test.StandaloneAostSeleneseTestCase
+
+class GoogleStartPageTestCase extends StandaloneAostSeleneseTestCase{
+
+    protected static GoogleStartPage gsp
+
+    public void initUi() {
+        gsp = new GoogleStartPage()
+        gsp.defineUi()
+
+    }
+
+    public void setUp(){
+        setUpForClass()
+    }
+
+    public void tearDown(){
+        tearDownForClass()
+    }
+
+    void testTypeGoogle(){
+        connectUrl("http://www.google.com")
+        gsp.type("google")
+    }
+}
+}}}
+
+Optionally, you can also write the DSL script file directly:all 
+
+{{{
+ui.Container(uid: "google_start_page"){
+    InputBox(uid: "inputbox1", locator: "//input[@title='Google Search']")
+    Button(uid: "button1", locator: "//input[@name='btnG' and @type='submit']")
+}
+
+openUrl "http://www.google.com"
+type "inputbox1", "Cobrakai"
+pause 500
+click "button1"
+pause 1000
+}}}
+
+Then use DslScriptExecutor to run it.
+
+=== Google Code Hosting Page ===
+
+The google code hosting page includes nested tables to show labels for 
+projects. AOST supports nested IDs. For example XXX.YYY.ZZZ represents the fact that
+the UI object YYY is inside XXX and it holds the ZZZ Ui object. Usually 
+the id of the UI object is the one you specified in the ui.Container block.
+The exceptions are tables and lists, which use {{{[x][y] or [x]}}} to reference
+its elements inside.
+
+The Ui module for the label tables is defined as
+
+{{{
+ui.Container(uid: "googlecodehosting"){
+  //Upper level table 
+  Table(id: "labels_table", locator: "//table[descendant::div[contains(text(),\"Example project labels:\")]]"){
+    //Here we defined templates for the elements of the table
+    //id: "row: 1, column: 1" means the TextBox is a template for
+    //row 1, column 1.
+    TextBox(uid: "row: 1, column: 1", locator: "/div")
+    //inner table, which is a template for (row 2, column 1) of the outer table
+    Table(uid: "row: 2, column: 1", locator: "/div[@id=\"popular\"]/table"){
+       //"all" means this is the template for all table elements
+       UrlLink(id: "all", locator: "/a")
+    }
+  }
+}
+}}}
+
+The UI objects defined inside a table are actually templates for table elements.
+Note the ids of the templates must follow the name convention:
+
+  # Template for (i row, j column), the id should be "row: i, column: j"
+  # The wild case (i.e., match all) for row or column is {{{"*"}}}, or you do not specify the row or column. For example, {{{"row : *, column: 3"}}} means template for (the 3rd column, all rows). "column: 3" means the same thing
+
+
+  # "all" is used for matching all rows and columns
+
+If no template is defined for a (row, column), it is assumed to be a TextBox by default.
+
+When you look for an element's (row i, column j) Object-type in run-time, the following
+rules apply:
+
+  # First, the system will try to find the template defined for (row i, column j),return it if found.
+  # Otherwise, the system will try the template for (all rows, column j), return it if found.
+  # If not, the system will try the template for (row i, all columns), return it if found.
+  # If still cannot find, the system will try the template for "all", return it if found.
+  # Last, if no template could be found. Return the TextBox as the default template.
+  
+The module functions are defined as follows,
+
+{{{
+    public String getModuleLabel(){
+        getText "labels_table[1][1]"
+    }
+
+    public int getLabelTableRowNum(){
+        getTableMaxRowNum "labels_table[2][1]"
+    }
+
+    public int getLabelTableColumnNum(){
+        getTableMaxColumnNum "labels_table[2][1]"
+    }
+
+    def getTableElement(int row, int column){
+        getTableElement "labels_table[2][1].[${row}][${column}]"
+    }
+
+    Map getAllLabels(){
+        int nrow = getTableMaxRowNum("labels_table[2][1]")
+        int ncolumn = getTableMaxColumnNum("labels_table[2][1]")
+
+        def map = [:]
+        for(int i=1; i<=nrow; i++){
+            for(int j=1; j<=ncolumn; j++){
+                String label = getText("labels_table[2][1].[${i}][${j}]")
+                map.put(label, [i, j])
+            }
+        }
+
+        return map
+    }
+
+    void clickOnLable(int row, int column){
+        click  "labels_table[2][1].[${row}][${column}]"
+        pause 5000
+    }
+
+}}}
+
+The actual test case is 
+
+{{{
+class GoogleCodeHostingTestCase extends StandaloneAostSeleneseTestCase {
+
+    protected static GoogleCodeHosting gch
+
+    public void initUi() {
+        gch = new GoogleCodeHosting()
+        gch.defineUi()
+
+    }
+
+    public void setUp(){
+        setUpForClass()
+    }
+
+    public void tearDown(){
+        tearDownForClass()
+    }
+
+    void testCodeLabelTable(){
+        connectUrl("http://code.google.com/hosting/")
+        String label = gch.getModuleLabel()
+        assertEquals("Example project labels:", label)
+        
+        int nrow = gch.getLabelTableRowNum()
+        assertEquals(3, nrow)
+
+        int ncolumn = gch.getLabelTableColumnNum()
+        assertEquals(6, ncolumn)
+        
+        for(int i=1; i<=nrow; i++){
+            for(int j=1; j<=ncolumn; j++){
+               def obj = gch.getTableElement(i, j)
+               assertTrue(obj instanceof UrlLink)
+            }
+        }
+        Map map = gch.getAllLabels()
+        assertEquals(18, map.size())
+
+        int[] index = map.get("Java")
+        assertNotNull(index)
+        assertEquals(2, index.length)
+
+        //click on "Java" link
+        gch.clickOnLable(index[0], index[1])
+    }
+}
+}}}
+
+=== Google Book List Page ===
+
+The Google Book List test case is used to demonstrate the List UI object. 
+The List UI object likes the Table, but it is one dimension. For example, you 
+need to use {{{list1[2]}}} format to represent the UI object id inside the list.
+Also, the List comes with an option "separator", which is used to indicate the delimiter for different elements in the list.
+
+The portion of book category "Fiction" is chosen as our demo, which is defined as:
+{{{
+ui.Container(uid: "GoogleBooksList", locator: "//table[@id='hp_table']/tbody/tr/td[1]/div/div[1]"){
+    TextBox(uid: "category", locator: "/div")
+    List(uid: "subcategory", locator: "", separator: "/p"){
+      //"all" means it is the template for all elements in the list
+      UrlLink(uid: "all", locator: "/a")
+    }
+  }
+}
+
+}}}
+
+Similar to the Table example, the UrlLink inside the List "subcategory" defines a template
+for elements in the List. ID "all" means it is for all elements. Otherwise, you should specify the index of the element that template applies for. When the system tries to find the UI object for {{{List[x]}}} in runtime, it first checks if there is a template for index {{{x}}}, if not, it then tries the "all" template. If no template found, it returns a TextBox as the default object.
+
+The actions in the module is defined as
+{{{
+    String getCategory(){
+        getText "GoogleBooksList.category"
+    }
+
+    int getListSize(){
+        getListSize "GoogleBooksList.subcategory"
+    }
+
+    def getAllObjectInList(){
+        int size = getListSize()
+        List list = new ArrayList()
+        for(int i=1; i<=size; i++){
+           list.add(getUiElement("GoogleBooksList.subcategory[${i}]"))
+        }
+
+        return list
+    }
+
+    def clickList(int index){
+        click "GoogleBooksList.subcategory[${index}]"
+        pause 5000
+    }
+
+    String getText(int index){
+        getText "GoogleBooksList.subcategory[${index}]"
+    }
+
+}}}
+
+And the test case is as follows, 
+
+{{{
+class GoogleBooksListTestCase extends StandaloneAostSeleneseTestCase {
+
+    protected GoogleBooksList gbl
+
+    public void initUi() {
+        gbl = new GoogleBooksList()
+        gbl.defineUi()
+
+    }
+
+    public void setUp(){
+        setUpForClass()
+    }
+
+    public void tearDown(){
+        tearDownForClass()
+    }
+
+    void testBookCategory(){
+        connectUrl("http://books.google.com/")
+        String category = gbl.getCategory()
+        assertEquals("Fiction", category)
+
+        int size = gbl.getListSize()
+        
+        assertEquals(8, size)
+
+        List lst = gbl.getAllObjectInList()
+
+        assertNotNull(lst)
+
+        int index
+        String search =  "Poetry"
+        int i = 1
+        for(UiObject obj : lst){
+            assertTrue(obj instanceof UrlLink)
+            if(search.equals(gbl.getText(i))){
+                index = i
+                break
+            }
+            i++
+        }
+
+        gbl.clickList(index)
+    }
+}
+}}}  
+
+Please see the source code on the subversion trunk for details
