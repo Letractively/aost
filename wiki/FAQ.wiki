@@ -47,3 +47,15 @@ First, you need to create your UI object groovy class by extending aost.object.U
 public void registerBuilder(String uiObjectName, UiObjectBuilder builder)
 }}}
 method in aost.framework.AostFramework. You can also register your builder in aost.builder.UiObjectBuilderRegistry if you work on AOST source code directly.
+
+=== Q13: How to build AOST from source ===
+AOST provides the ant build script. You may need to change some of the settings in the build.properties file so that it matches your environment. For example, javahome and javac.compiler. Then in the project root directory, run command: 
+
+{{{
+ant clean
+}}}
+to clean up old build and run
+{{{
+ant dist
+}}}
+to generate a new artifact, which can be found in the dist directory.
