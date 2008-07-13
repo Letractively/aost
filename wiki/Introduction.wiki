@@ -5,7 +5,9 @@
   * Written in *Groovy*, test cases can be written in *Java* or *Groovy* 
   * Include a *Domain Specific Language* (_DSL_) to define UI objects 
   * Can also use the _DSL_ to describe events, actions, or assertions 
-  * Will include an *Object to Locator Mapping framework* (_OLM_)
+  * include an *Object to Locator Mapping framework* (_OLM_)
+  * AOST can automatically generate the UI object locator for you
+  * AOST can implement the *group locating* concept to utilize a group of UI objects to help locating their locators
   * Make it possible for users to write Selenium tests when they start coding
   * Reusable, easier to refactor and maintain
   * Provide _DSL_ script executor so that non-developers can write Selenium tests in DSL
@@ -15,10 +17,11 @@
 == UI Objects ==
 
 The UI Object includes
-  * Id: should be unique in a UI module
-  * Namespace: for future extension
-  * Locator: the locator of the UI object, could be XPATH, CSS selector... The easier way to find the locator would be to use firefox XPather plugin.
+  * uid: should be unique in a UI module
+  * namespace: for future extension
+  * locator: the locator of the UI object, could be XPATH, CSS selector... The easier way to find the locator would be to use firefox XPather plugin.
   * Features: the inherent feature of the UI component, for example, the selection UI component normally comes with “label=?” or “value=?”. Table always has the “table”, “tr”, “td”, “th” tags.
+  * useGroupInfo: this option only applies to a collection type of UI object such as Container, Table, List, Form and so on. By default, this option is turned off. If it is on, the object will use the UI objects to help locating its locator.
 
 Regular UI objects include Button, CheckBox, Icon, InputBox, Selector, TextBox, Table... 
 A container is a special UI object and it could be a pure abstract object to hold and group different UI objects together. The container will make the objects inside searchable since it uses a list to hold them.
@@ -38,22 +41,22 @@ For example, the search module in the google start page can be defined by
 the following DSL.
 
 {{{
-ui.Container(id: "google_search"){
-   InputBox(id: "inputbox1", locator: "//input[@title='Google Search']")
-   Button(id: "button1", locator: "//input[@name='btnG' and @type='submit']")
+ui.Container(uid: "google_search"){
+   InputBox(uid: "inputbox1", locator: "//input[@title='Google Search']")
+   Button(uid: "button1", locator: "//input[@name='btnG' and @type='submit']")
 }
 }}}
 
 The definition can be nested, for example
 {{{
-ui.Container(id: "parent_ui"){
-   InputBox(id: "inputbox1", locator: "...")
-   Button(id: "button1", locator: "...")
-   Container(id: "child_ui){
-     Selector(id: "selector1", locator: "...")
+ui.Container(uid: "parent_ui"){
+   InputBox(uid: "inputbox1", locator: "...")
+   Button(uid: "button1", locator: "...")
+   Container(uid: "child_ui){
+     Selector(uid: "selector1", locator: "...")
      ...
-     Container(id: "grand_child"){
-       TextBox(id: "textbox1", locator: "...")
+     Container(uid: "grand_child"){
+       TextBox(uid: "textbox1", locator: "...")
        ...
      }
    }
@@ -131,9 +134,9 @@ import aost.dsl.DslContext
 class GoogleStartPage extends DslContext{
 
     public void defineUi() {
-        ui.Container(id: "google_start_page"){
-            InputBox(id: "inputbox1", locator: "//input[@title='Google Search']")
-            Button(id: "button1", locator: "//input[@name='btnG' and @type='submit']")
+        ui.Container(uid: "google_start_page"){
+            InputBox(uid: "inputbox1", locator: "//input[@title='Google Search']")
+            Button(uid: "button1", locator: "//input[@name='btnG' and @type='submit']")
         }
     }
 
@@ -182,9 +185,9 @@ class GoogleStartPageTestCase extends StandaloneAostSeleneseTestCase{
 Optionally, you can also write the DSL script file directly:all 
 
 {{{
-ui.Container(id: "google_start_page"){
-    InputBox(id: "inputbox1", locator: "//input[@title='Google Search']")
-    Button(id: "button1", locator: "//input[@name='btnG' and @type='submit']")
+ui.Container(uid: "google_start_page"){
+    InputBox(uid: "inputbox1", locator: "//input[@title='Google Search']")
+    Button(uid: "button1", locator: "//input[@name='btnG' and @type='submit']")
 }
 
 openUrl "http://www.google.com"
@@ -208,15 +211,15 @@ its elements inside.
 The Ui module for the label tables is defined as
 
 {{{
-ui.Container(id: "googlecodehosting"){
+ui.Container(uid: "googlecodehosting"){
   //Upper level table 
   Table(id: "labels_table", locator: "//table[descendant::div[contains(text(),\"Example project labels:\")]]"){
     //Here we defined templates for the elements of the table
     //id: "row: 1, column: 1" means the TextBox is a template for
     //row 1, column 1.
-    TextBox(id: "row: 1, column: 1", locator: "/div")
+    TextBox(uid: "row: 1, column: 1", locator: "/div")
     //inner table, which is a template for (row 2, column 1) of the outer table
-    Table(id: "row: 2, column: 1", locator: "/div[@id=\"popular\"]/table"){
+    Table(uid: "row: 2, column: 1", locator: "/div[@id=\"popular\"]/table"){
        //"all" means this is the template for all table elements
        UrlLink(id: "all", locator: "/a")
     }
@@ -343,11 +346,11 @@ Also, the List comes with an option "separator", which is used to indicate the d
 
 The portion of book category "Fiction" is chosen as our demo, which is defined as:
 {{{
-ui.Container(id: "GoogleBooksList", locator: "//table[@id='hp_table']/tbody/tr/td[1]/div/div[1]"){
-    TextBox(id: "category", locator: "/div")
-    List(id: "subcategory", locator: "", separator: "/p"){
+ui.Container(uid: "GoogleBooksList", locator: "//table[@id='hp_table']/tbody/tr/td[1]/div/div[1]"){
+    TextBox(uid: "category", locator: "/div")
+    List(uid: "subcategory", locator: "", separator: "/p"){
       //"all" means it is the template for all elements in the list
-      UrlLink(id: "all", locator: "/a")
+      UrlLink(uid: "all", locator: "/a")
     }
   }
 }
