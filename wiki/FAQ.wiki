@@ -59,3 +59,13 @@ to clean up old build and run
 ant dist
 }}}
 to generate a new artifact, which can be found in the dist directory.
+
+=== Q14: How to use composite locator ===
+To use composite locator, you need to use "clocator" and its value is a map, i.e., [key1: value1, key2: value2, ...] format in Groovy. The defined keys include "header", "tag", "text", "trailer", and "position". They are all optional. If a UI object has fixed tag and it is defined in object class, you do not need to include "tag". 
+
+You may have additional attributes, define them in the same way as the predefined keys. For example {{{[value: "Aost home"]}}}
+
+=== Q15: How to use group locating ===
+First make sure the UI object is a Container or other classe that extends Container. You can specify {{{group: "true"}}}, which will turn on group locating. That is the only thing you need to do. The group locating will be done by AOST automatically at run time. Right now, the UI object can only use the information provided in its child's composite locator. Other children with base locators will be ignored.  
+
+I suggest you only use the group locating option at the top level object. Once the top level object is found, it is not a big deal to find its descendants. 
