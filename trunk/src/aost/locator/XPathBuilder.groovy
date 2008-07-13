@@ -45,8 +45,12 @@ class XPathBuilder {
     //  /html/body/div[5]/center/descendant-or-self::table[@uid='hp_table']/tbody/tr/td[1]/div/div[2]/p[1]/a
     //  /html/body/div[5]/center/descendant-or-self::*[@uid='hp_table']/tbody/tr/td[1]/div/div[2]/p[1]/a
     //  /html/body/div[5]/center/descendant-or-self::*[@uid='hp_table']/tbody/tr/td[1]/descendant-or-self::div/div[2]/p[1]/a
-
     
+    //  /thead/tr/th[@class]/descendant-or-self::*[normalize-space(text())='?']
+    // /parent::th/following-sibling::th[@group=normalize-space(preceding-sibling::th[@class]
+    // /descendant-or-self::*[normalize-space(text())='?']
+    // /parent::th/following-sibling::th[@group][1]/attribute::group)][?]
+
     public static String buildDescendantXPath(String tag, String text, String position, Map<String, String> attributes){
         if(position != null && position.isInteger())
             return buildXPathWithPrefix(DESCENDANT_PREFIX, tag, text, Integer.parseInt(position), attributes, null)
@@ -133,6 +137,8 @@ class XPathBuilder {
         return "position()=${position}"
     }
 
+    //For string value, need to use double quota "", otherwise, the value will become
+    //invalid for single quota '' once we have the value as "I'm feeling lucky"
     protected static String buildText(String value){
         if(value == null || value.trim().isEmpty())
             return ""
@@ -140,9 +146,9 @@ class XPathBuilder {
         String trimed = value.trim()
         if(trimed.startsWith(CONTAIN_PREFIX)){
             String actual = value.substring(2)
-            return "contains(text(),'${actual}')"
+            return "contains(text(),\"${actual}\")"
         }else{
-            return "text()='${trimed}'"
+            return "text()=\"${trimed}\""
         }
 
     }
@@ -161,9 +167,9 @@ class XPathBuilder {
         //if it is a partial match
         if(trimed.startsWith(CONTAIN_PREFIX)){
             String actual = value.substring(2)
-            return "contains(@${name},'${actual}')"
+            return "contains(@${name},\"${actual}\")"
         }else{
-            return "@${name}='${trimed}'"
+            return "@${name}=\"${trimed}\""
         }
     }
 }

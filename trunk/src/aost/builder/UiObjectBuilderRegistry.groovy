@@ -21,6 +21,7 @@ class UiObjectBuilderRegistry{
     public UiObjectBuilderRegistry(){
         //put default builders into the register
         registerBuilder("Button", new ButtonBuilder())
+        registerBuilder("SubmitButton", new SubmitButtonBuilder())
         registerBuilder("CheckBox", new CheckBoxBuilder())
         registerBuilder("Container", new ContainerBuilder())
         registerBuilder("Icon", new IconBuilder())

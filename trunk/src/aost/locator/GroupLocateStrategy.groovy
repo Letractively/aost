@@ -32,7 +32,7 @@ class GroupLocateStrategy {
         }
 
         CompositeLocator locator = obj.locator
-        String xpath = XPathBuilder.buildXPath(locator.tag, locator.text, locator.position, locator.attributes) {List<String> list ->
+        String xpath = XPathBuilder.buildGroupXPath(locator.tag, locator.text, locator.position, locator.attributes) {List<String> list ->
             if (!groupAttributes.isEmpty()) {
                 list.addAll(groupAttributes)
             }

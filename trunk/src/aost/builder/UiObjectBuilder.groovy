@@ -46,7 +46,7 @@ abstract class UiObjectBuilder{
             return false
         }
 
-        if(map.get(USE_GROUP_INFO) != null && (!obj.getClass().isAssignableFrom(Container.class)) ){
+        if(map.get(USE_GROUP_INFO) != null && (!Container.class.isAssignableFrom(obj.getClass())) ){
            println("Error: only Container or its child classes can use Group information to infer its locator")
            return false
         }
