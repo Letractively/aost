@@ -114,7 +114,9 @@ There are two type of UI object locators:
   * Base Locator: the actual locator at run time. Denoted by "locator".
   * Composite Locator: User specifies a set of parameters for the object and the actual locator will be derived automatically by AOST. Denoted by "clocator".
 
-The Basic Locator is only a String that you can specify the run time locator. But the Composite Locator is more complicated and its definition is as follows:
+The Basic Locator is only a String that you can specify the run time locator, be aware that the basic locator can be a partial locator, AOST will construct the actual run time locator starting from the top level object and all the way to the current object. 
+
+The Composite Locator is more complicated and its definition is as follows:
 {{{
 class CompositeLocator {
     String header
@@ -126,7 +128,19 @@ class CompositeLocator {
 }
 }}}
 
-For most UI object, the html tag is fixed, for example, a Table's tag is always "table". Header and Trailer are used to specify addition xpath related to this UI object and the final xpath is 
+To use composite locator, you need to use "clocator" and its value is a map, i.e.,
+{{{
+clocator: [key1: value1, key2: value2, ...]
+}}}
+format in Groovy. The defined keys include "header", "tag", "text", "trailer", and "position". They are all optional. For most UI object, the html tag is fixed, for example, a Table's tag is always "table". If a UI object has fixed tag and it is defined in object class, you do not need to include "tag".
+
+You may have additional attributes, define them in the same way as the predefined keys. For example:
+ 
+{{{
+value: "Aost home"
+}}} 
+
+Header and Trailer are used to specify addition xpath related to this UI object and the final xpath is 
 {{{
 XPath = header + derived xpath for object + trailer
 }}}
