@@ -69,3 +69,9 @@ You may have additional attributes, define them in the same way as the predefine
 First make sure the UI object is a Container or other classe that extends Container. You can specify {{{group: "true"}}}, which will turn on group locating. That is the only thing you need to do. The group locating will be done by AOST automatically at run time. Right now, the UI object can only use the information provided in its child's composite locator. Other children with base locators will be ignored.  
 
 I suggest you only use the group locating option at the top level object. Once the top level object is found, it is not a big deal to find its descendants. 
+
+=== Q16: Why do you use a programming language to define GUI mapping, not simply use a plain and flat properties file ===
+I used that way to write selenium tests for a whole project one year ago and I know how painful that is. There are drawbacks to use properties file because you have to specifiy the runtime locators, which is painful for developers and may not be robust unless you are xpath expert. The AOST framework can utilize relationship between UI objects to automatically generate the runtime xpath for you. Also It exploits the Group Locating concept to co-locate a group of UI objects. In the future, more advanced features and tools will be developed so that developers do not need to manually find the locators for UI elements. They can simply map their JSP or other mark-up files to the AOST UI definition or use tools to automatically do that.
+
+=== Q17: Is your basic DSL really a DSL ? ===
+The DSL is in the domain of "Selenium Test" and it is a DSL. 
