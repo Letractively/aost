@@ -24,7 +24,7 @@ class GoogleStartPageTestCase extends StandaloneAostSeleneseTestCase{
 //    @Test
     void testTypeGoogle(){
         connectUrl("http://www.google.com")
-        gsp.type("google")
+        gsp.type("aost groovy")
     }
 
 //    public static junit.framework.Test suite(){

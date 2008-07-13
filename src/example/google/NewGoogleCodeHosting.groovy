@@ -1,28 +1,24 @@
 package example.google
 
 import aost.dsl.DslContext
-import aost.object.UrlLink
 
 /**
- *   Sample test for Google Code host page at:
+ *    Sample test for Google Code host page at:
  *
  *       http://code.google.com/hosting/
- *   to demostrate nested Tables
+ *   to demostrate nested Tables and composite locator and the group information power to locate a group of ui objects
  *
  *   The portion of the HTML markup is shown in the file GoogleCodeHosting.xml
- * 
- *   @author Jian Fang (John.Jian.Fang@gmail.com)
  *
+ *   @author Jian Fang (John.Jian.Fang@gmail.com)
  */
-class GoogleCodeHosting extends DslContext{
+class NewGoogleCodeHosting  extends DslContext{
 
     public void defineUi() {
-       ui.Container(uid: "googlecodehosting"){
-           Table(uid: "labels_table", locator: "//table[descendant::div[contains(text(),\"Example project labels:\")]]"){
-               TextBox(uid: "row: 1, column: 1", locator: "/div")
-               Table(uid: "row: 2, column: 1", locator: "/div[@id=\"popular\"]/table"){
-                   UrlLink(uid: "all", locator: "/a")
-               }
+       ui.Table(uid: "labels_table", clocator: [:], group: "true"){
+         TextBox(uid: "row: 1, column: 1", clocator: [tag: "div", text: "Example project labels:"])
+         Table(uid: "row: 2, column: 1", clocator: [header: "/div[@id=\"popular\"]"]){
+             UrlLink(uid: "all", locator: "/a")
            }
        }
     }
@@ -67,4 +63,6 @@ class GoogleCodeHosting extends DslContext{
 
         getLink("labels_table[2][1].[${row}][${column}]")
     }
+
+
 }
