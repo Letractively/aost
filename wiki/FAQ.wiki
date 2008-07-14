@@ -75,3 +75,6 @@ I used that way to write selenium tests for a whole project one year ago and I k
 
 === Q17: Is your basic DSL really a DSL ? ===
 The DSL is in the domain of "Selenium Test" and it is a DSL. 
+
+=== Q18: DO I need to know Groovy before I write AOST test cases ===
+Not really. If you write your test as pure DSL, you only need to know the DSL syntax. If you need to write your test in Java, you only need to define your UI modules in Groovy file by extending the DslContext class. Since Groovy accept all Java syntax, you can in fact write Java code in your Groovy file that defines the UI modules. For the actual TestCase or TestSuite, they are already Java code. As long as you know Java, you know how to write the AOST tests.
