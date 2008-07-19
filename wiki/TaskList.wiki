@@ -8,3 +8,4 @@
   * Design and implement Data Driven Testing
   * Create utilities and tools for creating AOST tests
   * Write detailed documents as AOST user Guide
+  * Export AOST to Ruby AOST
