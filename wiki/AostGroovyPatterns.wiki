@@ -237,12 +237,9 @@ and the above is one of the basic DSLs for AOST.
 The Map definition is also very expressive and useful. AOST locators use map to define xpath or UI component attributes. For example:
 
 {{{
-ui.Container(uid: "main"){
-  InputBox(uid: "inputbox1", locator: "//input[@title='Google Search']")
-  Button(uid: "button1", locator: "//input[@name='btnG' and @type='submit']")
-  Table(uid: "table1", locator: "//table"){
-     Button(uid: "row: *, column: 1", locator: "/input[@type='submit']")
-     InputBox(uid: "column: 2 ", locator: "/input[@title='Google Search']")
-   }
+ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
+   InputBox(uid: "searchbox", clocator: [title: "Google Search"])
+   SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
+   SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
 }
 }}}
