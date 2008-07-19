@@ -1,4 +1,4 @@
-#labels Phase-Design,Featured
+#labels Phase-Design
 == Task List ==
 
   * Refactor Java Test cases to use JUnit 4 or TestNG
