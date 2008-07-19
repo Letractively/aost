@@ -1,0 +1,10 @@
+#labels Phase-Design,Featured
+== Task List ==
+
+  * Refactor Java Test cases to use JUnit 4 or TestNG
+  * Finish DSL examples
+  * Create more examples to demonstrate the usage of different UI objects
+  * Add Maven 2 support
+  * Design and implement Data Driven Testing
+  * Create utilities and tools for creating AOST tests
+  * Write detailed documents as AOST user Guide
