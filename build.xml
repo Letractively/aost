@@ -154,7 +154,8 @@
 			<manifest>
 				<attribute name="Created-at" value="${time.formatted}" />
 				<attribute name="Created-by" value="${user.name}" />
-			</manifest>
+                <attribute name="Main-Class" value="aost.dsl.DslScriptExecutor"/>
+            </manifest>
 		</jar>
 	</target>
 
