@@ -7,7 +7,6 @@ abstract class AostSeleneseTestCase extends GroovyTestCase{
     public abstract SeleniumConnector getConnector()
 
     public void openUrl(String url){
- //       baseURL = url
         getConnector().connectSeleniumServer()
         getConnector().connectUrl(url)
     }

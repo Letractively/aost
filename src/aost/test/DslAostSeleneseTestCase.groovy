@@ -12,7 +12,10 @@ class DslAostSeleneseTestCase extends AostSeleneseTestCase{
     protected SeleniumConnector connector
 
     public SeleniumConnector getConnector() {
-        return connector;  
+        if(connector == null)
+            return new SeleniumConnector()
+        else
+            return connector
     }
 
 }
