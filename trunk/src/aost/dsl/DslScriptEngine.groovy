@@ -4,22 +4,28 @@ import aost.server.EmbeddedSeleniumServer
 import aost.connector.SeleniumConnector
 import aost.bootstrap.AostSupport
 import aost.test.DslAostSeleneseTestCase
+import aost.framework.AostFramework
 
 class DslScriptEngine extends DslContext{
     
     private DslAostSeleneseTestCase aost = new DslAostSeleneseTestCase()
-    private EmbeddedSeleniumServer server;
-    
+//    private EmbeddedSeleniumServer server;
+    protected AostFramework af
+
     protected def init(){
-        AostSupport.addSupport()
-        server.runSeleniumServer()
-        connector = new SeleniumConnector()
-        aost.connector = connector
-        aost.connectSeleniumServer()
+        af = AostSupport.addSupport()
+        //server.runSeleniumServer()
+        af.start()
+//        connector = af.connector
+//        connector = new SeleniumConnector()
+//        aost.connector = connector
+        aost.connector = af.connector
+//        aost.connectSeleniumServer()
    }
 
     protected def openUrl(String url){
-        aost.openUrl(url)
+//        aost.openUrl(url)
+        aost.connectUrl(url)
     }
 
     //try to delegate missing methods to the AostTestCase, if still could not find,

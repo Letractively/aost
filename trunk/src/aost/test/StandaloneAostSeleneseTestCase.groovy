@@ -29,7 +29,7 @@ class StandaloneAostSeleneseTestCase extends AostSeleneseTestCase{
 //    @BeforeClass
     protected void setUpForClass() {
         AostFramework aost = AostSupport.addSupport()
-        aost.start();
+        aost.start()
         connector = aost.connector
         initUi()
     }
