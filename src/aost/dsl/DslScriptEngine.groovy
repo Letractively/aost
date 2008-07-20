@@ -46,6 +46,7 @@ class DslScriptEngine extends DslContext{
      }
 
      protected void shutDown() {
-       aost.disconnectSeleniumServer()
+//       aost.disconnectSeleniumServer()
+         af.stop()
      }
 }
