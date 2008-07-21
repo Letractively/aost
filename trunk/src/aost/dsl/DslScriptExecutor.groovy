@@ -2,7 +2,7 @@ package aost.dsl
 
 class DslScriptExecutor {
 
-    static void main(String[] args){
+    public static void main(String[] args){
        if(args != null && args.length == 1){
             def dsl = new File(args[0]).text
             def script = """
@@ -13,6 +13,7 @@ class DslScriptExecutor {
                         init()
                         ${dsl}
                         shutDown()
+                        println("Dsl test done!")
                     }
                 }
 

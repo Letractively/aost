@@ -69,7 +69,7 @@ class AostFramework {
     public void stop(){
         if(connector != null){
             connector.disconnectSeleniumServer()
-        }
+        }            
     }
 
     //register ui object builder
