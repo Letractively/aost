@@ -9,22 +9,15 @@ import aost.framework.AostFramework
 class DslScriptEngine extends DslContext{
     
     private DslAostSeleneseTestCase aost = new DslAostSeleneseTestCase()
-//    private EmbeddedSeleniumServer server;
     protected AostFramework af
 
     protected def init(){
         af = AostSupport.addSupport()
-        //server.runSeleniumServer()
         af.start()
-//        connector = af.connector
-//        connector = new SeleniumConnector()
-//        aost.connector = connector
         aost.connector = af.connector
-//        aost.connectSeleniumServer()
    }
 
     protected def openUrl(String url){
-//        aost.openUrl(url)
         aost.connectUrl(url)
     }
 
@@ -46,7 +39,7 @@ class DslScriptEngine extends DslContext{
      }
 
      protected void shutDown() {
-//       aost.disconnectSeleniumServer()
-         af.stop()
+        if(af != null)
+            af.stop()
      }
 }

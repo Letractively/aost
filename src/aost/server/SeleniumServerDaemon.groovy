@@ -72,5 +72,4 @@ public class SeleniumServerDaemon {
 			e.printStackTrace();
 		}
 	}
-
 }
