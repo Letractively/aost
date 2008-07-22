@@ -61,6 +61,10 @@ abstract class UiObject {
         return c(locator)
     }
 
+    boolean isDisabled(Closure c){
+        return c(locator)
+    }
+
     boolean waitForElementPresent(int timeout, Closure c){
         return c(locator)
     }
