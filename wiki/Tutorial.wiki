@@ -445,4 +445,87 @@ class AostProjectPage extends DslContext{
 }
 }}}
 
-Please see the source code on the subversion trunk for more details
+Please see the source code on the subversion trunk for more details.
+
+== DSL Examples ==
+
+AOST supports pure dsl tests. The following examples demonstrate how to write pure dsl files as selenium tests.
+
+=== Google Start Page and AOST Project Home ===
+
+We created an example dsl test file in src/example/dsl/google.dsl. In this file we define multiple UI modules. Since we have multiple UI modules, we must use the full path, i.e., the top level UI names such as "google_start_page", "menu", and "search" cannot be omitted. 
+
+In test script, you can use any methods defined in aost.dsl.DslContext and aost.test.AostSeleneseTestCase including assertions, any Groovy code for flow control, or Java code since Groovy is compatible with Java syntax, which is really powerful.
+
+The google.dsl is defined as follows,
+
+{{{
+//define google start page
+ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
+    InputBox(uid: "searchbox", clocator: [title: "Google Search"])
+    SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
+    SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
+}
+
+//define AOST project menu
+ui.Container(uid: "menu", clocator: [tag: "table", id: "mt", trailer: "/tbody/tr/th"], group: "true"){
+    UrlLink(uid: "project_home", clocator: [text: "%%Home"])
+    UrlLink(uid: "downloads", clocator: [text: "Downloads"])
+    UrlLink(uid: "wiki", clocator: [text: "Wiki"])
+    UrlLink(uid: "issues", clocator: [text: "Issues"])
+    UrlLink(uid: "source", clocator: [text: "Source"])
+}
+
+//define the AOST project search module, which includes an input box, two search buttons
+ui.Form(uid: "search", clocator: [:], group: "true"){
+    InputBox(uid: "searchbox", clocator: [name: "q"])
+    SubmitButton(uid: "search_project_button", clocator: [value: "Search Projects"])
+    SubmitButton(uid: "search_web_button", clocator: [value: "Search the Web"])
+}
+
+openUrl "http://www.google.com"
+type "google_start_page.searchbox", "Aost Selenium"
+pause 500
+click "google_start_page.SubmitButton"
+pause 1000
+
+openUrl "http://code.google.com/p/aost/"
+click "menu.project_home"
+pause 1000
+click "menu.downloads"
+pause 1000
+click "menu.wiki"
+pause 1000
+click "menu.issues"
+pause 1000
+
+openUrl "http://code.google.com/p/aost/"
+type "search.searchbox", "Aost Selenium"
+click "search.search_project_button"
+pause 5000
+
+type "search.searchbox", "aost selenium dsl groovy"
+click "search.search_web_button"
+pause 5000
+}}}
+
+In your own .dsl scripts you can put assertions in. 
+
+To run the .dsl file, you can call "DslScriptExecutor dsl_file". For example, in the project directory, you can run google.dsl as follows:
+
+{{{
+java -cp ./lib/junit-3.8.2.jar:./lib/selenium-java-client-driver.jar:./lib/selenium-server.jar:./lib/groovy-all-1.5.6.jar:./dist/aost-0.3.0.jar aost.dsl.DslScriptExecutor src/example/dsl/google.dsl 
+}}}
+
+Here we assume you have created the aost-0.3.0.jar in the "dist/" directory by running 
+{{{
+ant clean; ant dist
+}}}
+ 
+There is a shell script "rundsl.sh" in the project directory and you can simply run
+
+{{{
+./rundsl.sh src/example/dsl/google.dsl 
+}}}
+
+In windows, you should rename runsdl.sh as rundsl.bat and change the directory path using windows path syntax.
