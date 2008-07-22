@@ -10,7 +10,6 @@ class Button extends UiObject {
 
     public static final String TAG = "input"
     
-    //TODO: need to add support for isDisabled
     def click(Closure c) {
 
         c(locator)
