@@ -218,6 +218,32 @@ class CompositeLocator {
 }
 }}}
 
+=== Closure ===
+
+Closure is also used in AOST frequently. For example, in the DslContext class we define the closure as
+
+{{{
+def selectByLabel(String uid, String target){
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    ui.walkTo(context, uid)?.selectByLabel(target){ loc, optloc ->
+        String locator = locatorMapping(context, loc)
+        eventHandler.select(locator, optloc)
+    }
+}
+}}}
+
+In the Selector object, it will run the closure:
+
+{{{
+class Selector extends UiObject {
+    def selectByLabel(String target, Closure c){
+        c(locator, "label=${target}")
+    }
+}
+}}}
+
+i.e, it will pass in UI specific parameters to the closure and run it. What the closure actually does is to create the runtime locator and call the eventhandler to fire the select event to selenium server. Be aware, because the scope of closure, the eventhandler and the WorkflowContext defined in the DslContext class are still available to the closure even the closure is run inside the Selector object. Amazing, right?
+
 === Groovy Syntax ===
 
 In Groovy, the syntax is very expressive, for example, the DslContext class defines a lot of methods such as:
