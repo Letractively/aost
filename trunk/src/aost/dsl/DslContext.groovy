@@ -377,6 +377,22 @@ abstract class DslContext {
          throw RuntimeException("Cannot find UI Object ${uid})")
     }
 
+    def isDisabled(String uid){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        def obj = ui.walkTo(context, uid)
+         if(obj != null){
+             return obj.isDisabled (){loc ->
+                 String locator = locatorMapping(context, loc)
+                 accessor.isDisabled(locator);
+             }
+         }
+    }
+
+    def isEnabled(String uid){
+        return !isDisabled(uid);
+    }
+
+
     boolean waitForElementPresent(String uid, int timeout){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          def obj = ui.walkTo(context, uid)

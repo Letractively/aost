@@ -2,10 +2,13 @@ package aost.access
 
 import aost.util.Helper
 import aost.dispatch.Dispatcher
+import com.thoughtworks.selenium.SeleniumException
 
 class Accessor{
 
     protected static final int ACCESS_WAIT_TIME = 50
+
+    private static final String DISABLED_ATTRIBUTE = "@disabled"
 
     def dispatcher  = new Dispatcher()
 //    def Dispatcher dispatcher
@@ -32,7 +35,16 @@ class Accessor{
 		throw new RuntimeException("Check Box " + locator + " is not visible")
 	}
 
-    def boolean waitForElementPresent(String locator, int timeout){
+    def boolean isDisabled(String locator){
+        if(!dispatcher.isElementPresent(locator)){
+			waitForElementPresent(locator, ACCESS_WAIT_TIME)
+		}
+
+        locator +=DISABLED_ATTRIBUTE 
+        return (getAttribute(locator) != null && (getAttribute(locator) == "true"|| getAttribute(locator) == "disabled"));
+    }
+
+   def boolean waitForElementPresent(String locator, int timeout){
 
 		//boolean result = false
 
@@ -235,8 +247,13 @@ class Accessor{
     }
 
     String getAttribute(String locator){
-
-        return dispatcher.getAttribute(locator)
+        String value = null;
+        try{
+            value = dispatcher.getAttribute(locator)
+        }catch(SeleniumException e){
+            value = null;
+        }
+        return value;
     }
 
     def waitForPopUp(String windowID, String timeout){
