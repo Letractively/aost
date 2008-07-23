@@ -25,7 +25,7 @@ The DSL object definition always comes first with a container type object. An ob
 
 === Object Locator Mapping ===
 
-The Object Locator Mapping (OLM) is the core of the AOST framework and it includes UI ID mapping, XPath builder, Locator Processor, and Group Locating. The UI ID supports nested object, for example, "menu.wiki" stands for a URL Link "wiki" inside a container called "menu". The UI ID also supports one dimension and two dimension index for table and list. For example, "main.table[2][3]" stands the UI object of the 2nd row and the 3rd column of a table inside the container "main".
+The Object Locator Mapping (OLM) is the core of the AOST framework and it includes UI ID mapping, XPath builder, Locator Processor, and Group Locating. The UI ID supports nested object, for example, "menu.wiki" stands for a URL Link "wiki" inside a container called "menu". The UI ID also supports one dimension and two dimension index for table and list. For example, {{{"main.table[2][3]"}}} stands the UI object of the 2nd row and the 3rd column of a table inside the container "main".
 
 XPath builder can build the XPath from relative XPaths or from attributes. The locator processor converts the locator information in the UI object to the XPath. The Group Locating Concept (GLC) is to exploit the group information in side a collection of UI objects to help us find the locator of the collection of UI objects. 
 
@@ -49,6 +49,10 @@ http://aost-users.googlegroups.com/web/aost_sequence_defineui.png?gda=h55hX0sAAA
 
 Figure 2. The sequence diagram for "DefineUI"
 
+When the Test Case calls "DefineUI", the DslContext will call the Dsl Object Parser to parse the UI definition. The Parser will look at each node and call the appropriate builders to build UI objects. The top level object will be stored in the UI Object registry so that we can search for the UI object by UI Id.
+ 
+Note that processing of the pure DSL script is the same.
+ 
 === The Action Operation ===
 
 The processing of actions such as clicking on an UI object is illustrated in Figure 2:
@@ -57,6 +61,19 @@ http://aost-users.googlegroups.com/web/aost_sequence_click.png?gda=P0VAokgAAADJb
 
 Figure 3. The sequence diagram for the "click" action
 
+The action processing includes following two parts. 
+
+==== Search For the UI Object ===
+First, the DslContext will create a WorkflowContext so that we can pass meta data such the relative xpath inside it. Then, we start to look at the UI object registry by calling the walkTo method. Remember, the UI object registry hold all the top level UI objects. If we can find the top level UI object, we can recursively call the WalkTo method on the next UI object until we find the UI Object matching the UI id, or we cannot find the UI object by UI Id. 
+
+During the walkTo method calls, we also start to aggregate relative xpaths into the reference xpath to the next UI object.
+
+==== Construct the Locator and Fire the Event ====
+
+If the UI Object is found, we fire the action such as "click" on the UI object and pass in a closure which can access the eventhandler, the WorkflowContext, and the LocatorProcessor. The WorkflowContext includes the reference xpath to the UI object and the LocatorProcessor can generate the xpath of the UI object itself. In this way, the runtime locator is constructed. 
+
+Then, the UI object will call the Eventhandler to fire the click event. The event will pass all the way down from the dispatcher and Selenium Client to the Selenium Server.
+ 
 === The Data Access Operation ===
 
-The data access operation is very much like the action operation shown in Figure 3 and the only difference is that the Data Accessor will replace the Eventhandler. But be aware, for some data accesses, there is no UI associated with it. For example, you want to get the current DOM html presentation. In this case, you just call the Data Accessor directly.
+The data access operation is very much like the action operation shown in Figure 3 and the only difference is that the Data Accessor will replace the Eventhandler. But be aware, for some data access, there is no UI locator associated with it. For example, you want to get the current DOM html presentation. In this case, you just call the Data Accessor directly.
