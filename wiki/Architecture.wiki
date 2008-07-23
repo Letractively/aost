@@ -1,4 +1,5 @@
 #summary One-sentence summary of this page.
+#labels Featured,Phase-Design,Phase-Implementation
 
 = AOST Architecture =
 
@@ -7,6 +8,34 @@ The AOST framework Architecture is shown as in Figure 1.
 http://aost-users.googlegroups.com/web/aost.new.selenium.test.framework.jpg?gda=E27EuVUAAADJbXmb4PP0id1ZEODyZpCXVEhmx_uoU_q1JrFe98N07WG1qiJ7UbTIup-M2XPURDSEpSfnuYOO2vWmeO5sniM1vYM7QaXHIynK8j5RnPGCp1RWnrkpXV0iahF26Jcp5xE&gsc=w2GdLxYAAADwmNMMmC-vDHCkIM-0xZmGej8lVbdNv4iBUOdbhJ_ucA
 
 Figure 1. AOST Architecture.
+
+The architecture consists of three parts, one is the Selenium Server, on which our AOST framework builds, the AOST framework, and user defined Java test cases or .dsl pure DSL test scripts. Since Java Test cases and pure DSL test scripts have been described in [http://code.google.com/p/aost/wiki/Introduction Introduction] and [http://code.google.com/p/aost/wiki/Tutorial Tutorial], we only focus on the AOST framework.
+
+== The AOST Framework ==
+
+The AOST Framework is based on the DslContext, which defines all DSLs we can use for AOST. We can further divide the AOST Framework into Four parts.
+
+=== UI Object Parser ===
+
+This parts consists of the DSL Object Parser, Object Builders, and the Object Registry.
+
+Thanks to Groovy’s builder pattern, we can define UI object expressively and in a nested fashion. The DSL object parser will parse the DSL object definition recursively and use object builders to build the objects on the fly. An object builder registry is designed to hold all predefined UI object builders in the AOST framework and the DSL object parser will look at the builder registry to find the appropriate builders. Since the registry is a hash map, you can override a builder with a new one using the same UI name. Users can also add their customer builders into the builder registry.
+ 
+The DSL object definition always comes first with a container type object. An object registry (A hash map) is used to stored all top level UI Objects. As a result, for each DSL object definition, the top object ids must be unique in the DslContext. The object registry will be used by the framework to search objects by their ids and fetch objects for different actions.
+
+=== Object Locator Mapping ===
+
+The Object Locator Mapping (OLM) is the core of the AOST framework and it includes UI ID mapping, XPath builder, Locator Processor, and Group Locating. The UI ID supports nested object, for example, "menu.wiki" stands for a URL Link "wiki" inside a container called "menu". The UI ID also supports one dimension and two dimension index for table and list. For example, "main.table[2][3]" stands the UI object of the 2nd row and the 3rd column of a table inside the container "main".
+
+XPath builder can build the XPath from relative XPaths or from attributes. The locator processor converts the locator information in the UI object to the XPath. The Group Locating Concept (GLC) is to exploit the group information in side a collection of UI objects to help us find the locator of the collection of UI objects. 
+
+=== Event and Data Handling ===
+
+The Eventhandler in this part will handle all events like "click", "type", "select", and so on. The Data Accessor is used to fetch data or UI status from the DOM. The dispatcher will delegate all calls it receives from the Eventhandler and the data accessor to the Selenium Client, which will connect to the Selenium Server. The dispatcher is designed to decouple the rest of the AOST framework with the Selenium framework so that we can simply change the dispatcher logic to delegate all calls to other underneath UI test frameworks if we want to switch AOST not to use the Selenium framework someday.  
+
+=== Test Support ===
+
+The Test includes DSL script executor, AOST Java Test Case or Test Suite, and Tools that can help us to create AOST tests.
 
 == HOW AOST works ==
 
