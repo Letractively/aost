@@ -1,5 +1,4 @@
 #labels Featured,Phase-Design,Phase-Implementation
-
 = AOST Architecture =
 
 The AOST framework Architecture is shown as in Figure 1.
@@ -50,7 +49,8 @@ Figure 2. The sequence diagram for "DefineUI"
 
 When the Test Case calls "DefineUI", the DslContext will call the Dsl Object Parser to parse the UI definition. The Parser will look at each node and call the appropriate builders to build UI objects. The top level object will be stored in the UI Object registry so that we can search for the UI object by UI Id.
  
-Note that processing of the pure DSL script is the same.
+
+Note that the processing of the pure DSL script is the same.
  
 === The Action Operation ===
 
