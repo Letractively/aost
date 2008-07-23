@@ -1,4 +1,4 @@
-#labels Featured,Phase-Implementation,Phase-Design
+#labels Phase-Implementation,Phase-Design
 == Groovy Patterns Used in AOST ==
 
 In AOST, we used many Groovy patterns. I like to list some of them as follows,
