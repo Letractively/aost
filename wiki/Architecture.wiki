@@ -1,0 +1,33 @@
+#summary One-sentence summary of this page.
+
+= AOST Architecture =
+
+The AOST framework Architecture is shown as in Figure 1.
+
+http://aost-users.googlegroups.com/web/aost.new.selenium.test.framework.jpg?gda=E27EuVUAAADJbXmb4PP0id1ZEODyZpCXVEhmx_uoU_q1JrFe98N07WG1qiJ7UbTIup-M2XPURDSEpSfnuYOO2vWmeO5sniM1vYM7QaXHIynK8j5RnPGCp1RWnrkpXV0iahF26Jcp5xE&gsc=w2GdLxYAAADwmNMMmC-vDHCkIM-0xZmGej8lVbdNv4iBUOdbhJ_ucA
+
+Figure 1. AOST Architecture.
+
+== HOW AOST works ==
+
+Basically, there are two parts for the AOST framework. The first part is to define UI objects and the second part is working on the UI objects like firing events and getting data or status from the DOM.
+
+=== The "Define UI" Operation ===
+
+The "Define UI" operation can be demonstrated in the following sequence diagram:
+
+http://aost-users.googlegroups.com/web/aost_sequence_defineui.png?gda=h55hX0sAAADJbXmb4PP0id1ZEODyZpCXPO2xU7csFH_yOl1a-h00LWG1qiJ7UbTIup-M2XPURDRalx4T6cOZyoocLzTpPNoT-xRs6kTo9_1MlJqhLlX0VQ&gsc=l7BFeCEAAADwmNMMmC-vDHCkIM-0xZmG-Bw3c68lOeqFZYTDsdYJEUzfKN-m9S9niuHrq-IEXAE
+
+Figure 2. The sequence diagram for "DefineUI"
+
+=== The Action Operation ===
+
+The processing of actions such as clicking on an UI object is illustrated in Figure 2:
+
+http://aost-users.googlegroups.com/web/aost_sequence_click.png?gda=P0VAokgAAADJbXmb4PP0id1ZEODyZpCXPO2xU7csFH_yOl1a-h00LWG1qiJ7UbTIup-M2XPURDSpnGSpq9shp5Nom0pUQ_VQjwc8kMSHiCJV0Te5P6rKfA&gsc=l7BFeCEAAADwmNMMmC-vDHCkIM-0xZmG-Bw3c68lOeqFZYTDsdYJEUzfKN-m9S9niuHrq-IEXAE
+
+Figure 3. The sequence diagram for the "click" action
+
+=== The Data Access Operation ===
+
+The data access operation is very much like the action operation shown in Figure 3 and the only difference is that the Data Accessor will replace the Eventhandler. But be aware, for some data accesses, there is no UI associated with it. For example, you want to get the current DOM html presentation. In this case, you just call the Data Accessor directly.
