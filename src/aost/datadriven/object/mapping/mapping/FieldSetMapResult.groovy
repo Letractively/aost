@@ -1,0 +1,34 @@
+package aost.datadriven.object.mapping.mapping
+/**
+ * The result for the field mapping
+ * 
+ * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ *
+ * Date: Jul 23, 2008
+ *
+ */
+class FieldSetMapResult {
+
+    //the field set id associated with this result
+    private String fieldSetId
+
+    //Hashmap holds the field name and its value
+    def result = [:]
+
+    public void setFieldSetId(String fieldSetId){
+        this.fieldSetId = fieldSetId
+    }
+
+    public String getFieldSetId(){
+        return this.fieldSetId
+    }
+
+    public void addDataField(String name, Object obj){
+        result.put(name, obj)
+    }
+
+    //duck type
+    public def getDataField(String name){
+        return result.get(name)
+    }
+}
