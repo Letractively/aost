@@ -2,6 +2,7 @@
 == Task List ==
 
   * Refactor Java Test cases to use JUnit 4 or TestNG
+  * Add windows run Dsl script
   * Add support for CSS selector
   * Finish DSL examples
   * Create more examples to demonstrate the usage of different UI objects
