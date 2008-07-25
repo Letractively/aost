@@ -10,9 +10,9 @@ package aost.datadriven.object.mapping
 class FieldSetParser extends BuilderSupport{
     protected final static String FIELD_SET = "fieldSet"
     protected final static String FIELD = "field"
+    protected final static String IDENTIFIER = "identifier"
 
     private FieldSetRegistry registry
-    //= new FieldSetRegistry()
 
     public FieldSetParser(FieldSetRegistry registry){
         this.registry = registry
@@ -20,7 +20,8 @@ class FieldSetParser extends BuilderSupport{
     
     private FieldBuilder fb = new FieldBuilder()
     private FieldSetBuilder fsb = new FieldSetBuilder()
-
+    private FieldSetIdentifierBuilder fsi = new FieldSetIdentifierBuilder()
+    
     protected void setParent(Object parent, Object child) {
         if (parent instanceof FieldSet) {
             FieldSet fs = (FieldSet)parent
@@ -33,6 +34,8 @@ class FieldSetParser extends BuilderSupport{
             return new FieldSet()
         if(FIELD.equalsIgnoreCase(name))
             return new Field()
+        if(IDENTIFIER.equalsIgnoreCase(name))
+            return new FieldSetIdentifier()
 
         return null
     }
@@ -46,6 +49,8 @@ class FieldSetParser extends BuilderSupport{
             return fsb.build(map)
         if(FIELD.equalsIgnoreCase(name))
             return fb.build(map)
+        if(IDENTIFIER.equalsIgnoreCase(name))
+            return fsi.build(map)
 
         return null
     }
@@ -60,7 +65,12 @@ class FieldSetParser extends BuilderSupport{
     protected void nodeCompleted(Object parent, Object node) {
         //when the node is completed and it is a FieldSet, put it into the registry
         if (node instanceof FieldSet) {
+            
             FieldSet fs = (FieldSet)node
+
+            //need to check if the identifier is presented
+            fs.checkIfIdentifierPresented()
+
             //only put the top level nodes into the registry
             registry.addFieldSet(fs)
         }

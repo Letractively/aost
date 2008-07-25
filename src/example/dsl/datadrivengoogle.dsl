@@ -8,7 +8,7 @@ ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
 //AOST has already provided default type handlers for regular Java type
 //The users can also define custom data types and their type handlers so that they
 //can read and process special types of data
-defineTypeHandler "phoneNumber", "example.aost.PhoneNumberTypeHandler"
+typeHandler "phoneNumber", "example.aost.PhoneNumberTypeHandler"
 
 //define file data format for each line, always start with "fs."
 fs.FieldSet(id: "fs4googlesearch", description: "example field set for google search"){

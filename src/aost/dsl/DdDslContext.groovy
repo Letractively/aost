@@ -25,10 +25,10 @@ abstract class DdDslContext extends DslContext{
     protected FieldSetParser fs = new FieldSetParser(fsr)
 
     // DSL to define your customer type handler such as
-    // defineTypeHandler "simpleDate", "aost.example.simpleDateTypeHandler"
+    // typeHandler "simpleDate", "aost.example.simpleDateTypeHandler"
     // here we assume that you have defined the aost.example.simpleDateTypeHandler class
     // it extends the TypeHandler interface
-    public void defineTypeHandler(String typeName, String fullClassName){
+    public void typeHandler(String typeName, String fullClassName){
         TypeHandlerRegistryConfigurator.addCustomTypeHandler(thr, typeName, fullClassName)
     }
 

@@ -13,7 +13,7 @@ class FieldSetRegistry {
 
     public void addFieldSet(FieldSet fs){
         if(fs != null)
-            fieldSets.put(fs.getId(), fs)
+            fieldSets.put(fs.getName(), fs)
     }
 
     public FieldSet getFieldSet(String fieldSetId){

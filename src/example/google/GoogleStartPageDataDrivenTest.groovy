@@ -1,19 +1,18 @@
-package example.aost
+package example.google
 
-import aost.dsl.DdDslContext
-import aost.dsl.DslScriptEngine
+import aost.test.AostDataDrivenTest
 
 /**
- * sample DdDslContext to demostrate the usage of DdDslContext
+ * example to writing Data driven test directly in Groovy
  *
  * @author: Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 24, 2008
  *
  */
-class GoogleDdDslContext extends DslScriptEngine{
+class GoogleStartPageDataDrivenTest extends AostDataDrivenTest{
 
-    public void test(){
+    public void testDataDriven() {
         //define google start page
         ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true") {
             InputBox(uid: "searchbox", clocator: [title: "Google Search"])
@@ -60,6 +59,6 @@ class GoogleDdDslContext extends DslScriptEngine{
         }
 
         //close file
-        closeData()
+        closeData()        
     }
 }

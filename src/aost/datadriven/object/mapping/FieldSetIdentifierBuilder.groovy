@@ -1,18 +1,17 @@
 package aost.datadriven.object.mapping
 /**
- * Build Field from a collection of attributes
  *
  * @author: Jian Fang (John.Jian.Fang@gmail.com)
  *
- * Date: Jul 24, 2008
+ * Date: Jul 25, 2008
  *
  */
-class FieldBuilder extends BaseBuilder{
+class FieldSetIdentifierBuilder extends BaseBuilder{
 
-    public build(Map map) {
+    public FieldSetIdentifier build(Map map) {
         map = makeCaseInsensitive(map)
 
-        Field f = new Field()
+        FieldSetIdentifier f = new FieldSetIdentifier()
         f.name = map.get(NAME)
         f.description = map.get(DESCRIPTION)
 
@@ -20,15 +19,15 @@ class FieldBuilder extends BaseBuilder{
         if(map.get(TYPE) != null)
             f.type = map.get(TYPE)
 
-        if(map.get(NULLABLE) != null)
-            f.nullable = map.get(NULLABLE)
-
-        f.nullValue = map.get(NULLVALUE)
+        //field set identifier cannot be null
+        f.nullable = false
 
         if(map.get(LENGTH) != null)
             f.length = map.get(LENGTH)
 
         f.pattern = map.get(PATTERN)
+
+        f.value = map.get(VALUE)
         
         return f
 
