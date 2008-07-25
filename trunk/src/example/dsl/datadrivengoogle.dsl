@@ -36,6 +36,7 @@ driven("fs4googlesearch"){
 
     pause 1000
 
+    openUrl "http://www.google.com"
     type "google_start_page.searchbox", phoneNumber
     click "google_start_page.Imfeelinglucky"
 
@@ -43,4 +44,4 @@ driven("fs4googlesearch"){
 }
 
 //close file
-closeData
+closeData()
