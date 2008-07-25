@@ -5,11 +5,14 @@ ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
     SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
 }
 
-//define custom data type and its type handler
+//AOST has already provided default type handlers for regular Java type
+//The users can also define custom data type and its type handler so that they
+//can read and process different types of data
 defineTypeHandler "phoneNumber", "example.aost.PhoneNumberTypeHandler"
 
 //define file data format
 fs.FieldSet(id: "fs4googlesearch", description: "example field set for google search"){
+    //define fields
     Field(name: "regularSearch", type: "boolean", description: "whether we should use regular search or use I'm feeling lucky")
     Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")
     Field(name: "input", description: "input variable")
@@ -21,7 +24,9 @@ loadData "src/example/dsl/googlesearchinput.txt"
 //data driven test assuming the input data format is defined in FieldSet "fs4googlesearch"
 driven("fs4googlesearch"){
     //bind variables
+    //Since there is only one FieldSet, the fieldSet Id can be omitted
     boolean regularSearch = bind("regularSearch")
+    //But if you have more than one FieldSets, you must specify the FieldSet Id as follows
     def phoneNumber = bind("fs4googlesearch.phoneNumber")
     String input = bind("input")
 
