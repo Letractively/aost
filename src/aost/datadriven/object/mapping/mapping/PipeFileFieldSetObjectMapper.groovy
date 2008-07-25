@@ -3,6 +3,7 @@ package aost.datadriven.object.mapping.mapping
 import aost.datadriven.object.mapping.type.TypeHandlerRegistry
 import aost.datadriven.object.mapping.FieldSetRegistry
 import aost.datadriven.object.mapping.io.PipeFieldSetReader
+import aost.datadriven.object.mapping.type.TypeHandlerRegistryConfigurator
 
 /**
  * Handle Pipe format file
@@ -16,26 +17,36 @@ class PipeFileFieldSetObjectMapper extends BaseFieldSetObjectMapper{
 
     private BufferedReader br
 
-    public PipeFileFieldSetObjectMapper(){
+//    public PipeFileFieldSetObjectMapper(){
+//        reader = new PipeFieldSetReader()
+//        marshaller = new DefaultObjectUnmarshaller()
+//    }
+    
+    public PipeFileFieldSetObjectMapper(FieldSetRegistry fsr, TypeHandlerRegistry thr){
         reader = new PipeFieldSetReader()
         marshaller = new DefaultObjectUnmarshaller()
+        //configurate the default type handlers and put them into the registry
+        TypeHandlerRegistryConfigurator.configure(thr)
+        marshaller.setTypeHandlerRegistry(thr)
+        this.registry = fsr
     }
 
-    public void init(FieldSetRegistry fsr, TypeHandlerRegistry thr){
-       marshaller.setTypeHandlerRegistry(thr)
-       this.registry = fsr
+//    public void init(FieldSetRegistry fsr, TypeHandlerRegistry thr){
+//       TypeHandlerRegistryConfigurator.configure(thr)
+//       marshaller.setTypeHandlerRegistry(thr)
+//       this.registry = fsr
+//    }
+
+    protected void openFile(String filePath){
+        InputStreamReader isr = new InputStreamReader(new FileInputStream (filePath))
+        br = new BufferedReader(isr)
     }
 
-    public void openFile(String filePath){
-        InputStreamReader reader = new InputStreamReader(new FileInputStream (filePath))
-        br = new BufferedReader(reader)
-    }
-
-    public FieldSetMapResult readFieldSet(String fieldSetId){
+    protected FieldSetMapResult readFieldSet(String fieldSetId){
         return this.unmarshalFieldSet(br, fieldSetId)
     }
 
-    public void closeFile(){
+    protected void closeFile(){
         if(br != null)
             br.close()
     }

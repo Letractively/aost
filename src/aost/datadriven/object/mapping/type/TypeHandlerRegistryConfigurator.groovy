@@ -22,5 +22,11 @@ class TypeHandlerRegistryConfigurator {
         registry.addTypeHandler("string", new StringTypeHandler())
 
         //put custom type handler here
-    }                                                    
+    }
+
+    public static void addCustomTypeHandler(TypeHandlerRegistry registry, String handlerName, String fullClassName){
+
+        TypeHandler handler = (TypeHandler) Class.forName(fullClassName).newInstance()
+        registry.addTypeHandler(handlerName, handler)
+    }
 }

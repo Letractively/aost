@@ -40,7 +40,7 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
 
         if(fieldData != null && fieldData.size() > 0){
 			//check all the type maps for this field set
-            if(fieldData.size != fs.getFields().size())
+            if(fieldData.size() != fs.getFields().size())
                 throw new DataMappingException(ERROR_DATA_FIELD_SIZE_NOT_MATCH + fieldSetId)
             
             for(Field df : fs.getFields()){

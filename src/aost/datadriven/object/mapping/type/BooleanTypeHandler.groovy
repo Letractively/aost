@@ -9,7 +9,7 @@ package aost.datadriven.object.mapping.type
  */
 class BooleanTypeHandler implements TypeHandler{
 
-    protected final static String TRUE_VALUE = "true";
+    protected final static String TRUE_VALUE = "true"
 
    // must check if value is null before call the following read methods
     public valueOf(String s) {

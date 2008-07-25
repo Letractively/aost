@@ -22,10 +22,11 @@ class VariableBinder {
     protected ObjectBindRegistry registry = new ObjectBindRegistry()
 
     //use duck type here
-    public def bind(obj, String dataFieldId){
+    public def bind(String dataFieldId){
         if(dataFieldId == null)
             throw new DataMappingException(ERROR_DATA_FIELD_ID_CANNOT_BE_NULL)
 
+        def obj 
         String[] fls = dataFieldId.split(ID_SEPARATOR)
 
         if(fls.length > 2)

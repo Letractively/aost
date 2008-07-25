@@ -11,8 +11,13 @@ class FieldSetParser extends BuilderSupport{
     protected final static String FIELD_SET = "fieldSet"
     protected final static String FIELD = "field"
 
-    private FieldSetRegistry registry = new FieldSetRegistry()
+    private FieldSetRegistry registry
+    //= new FieldSetRegistry()
 
+    public FieldSetParser(FieldSetRegistry registry){
+        this.registry = registry
+    }
+    
     private FieldBuilder fb = new FieldBuilder()
     private FieldSetBuilder fsb = new FieldSetBuilder()
 

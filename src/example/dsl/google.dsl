@@ -25,7 +25,7 @@ ui.Form(uid: "search", clocator: [:], group: "true"){
 openUrl "http://www.google.com"
 type "google_start_page.searchbox", "Aost Selenium"
 pause 500
-click "google_start_page.SubmitButton"
+click "google_start_page.Imfeelinglucky"
 pause 1000
 
 openUrl "http://code.google.com/p/aost/"

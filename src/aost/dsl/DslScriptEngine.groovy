@@ -1,12 +1,10 @@
 package aost.dsl
 
-import aost.server.EmbeddedSeleniumServer
-import aost.connector.SeleniumConnector
 import aost.bootstrap.AostSupport
 import aost.test.DslAostSeleneseTestCase
 import aost.framework.AostFramework
 
-class DslScriptEngine extends DslContext{
+class DslScriptEngine extends DdDslContext{
     
     private DslAostSeleneseTestCase aost = new DslAostSeleneseTestCase()
     protected AostFramework af
