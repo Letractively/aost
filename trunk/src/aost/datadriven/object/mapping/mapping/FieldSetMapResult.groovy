@@ -31,4 +31,8 @@ class FieldSetMapResult {
     public def getDataField(String name){
         return result.get(name)
     }
+
+    public boolean isEmpty(){
+        return result.isEmpty()
+    }
 }

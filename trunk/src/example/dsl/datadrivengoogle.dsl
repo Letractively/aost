@@ -1,0 +1,46 @@
+//define google start page
+ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
+    InputBox(uid: "searchbox", clocator: [title: "Google Search"])
+    SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
+    SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
+}
+
+//define custom data type and its type handler
+defineTypeHandler "phoneNumber", "example.aost.PhoneNumberTypeHandler"
+
+//define file data format
+fs.FieldSet(id: "fs4googlesearch", description: "example field set for google search"){
+    Field(name: "regularSearch", type: "boolean", description: "whether we should use regular search or use I'm feeling lucky")
+    Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")
+    Field(name: "input", description: "input variable")
+}
+
+//load file
+loadData "src/example/dsl/googlesearchinput.txt"
+
+//data driven test assuming the input data format is defined in FieldSet "fs4googlesearch"
+driven("fs4googlesearch"){
+    //bind variables
+    boolean regularSearch = bind("regularSearch")
+    def phoneNumber = bind("fs4googlesearch.phoneNumber")
+    String input = bind("input")
+
+    openUrl "http://www.google.com"
+    type "google_start_page.searchbox", input
+    pause 500
+    
+    if(regularSearch)
+       click "google_start_page.googlesearch"
+    else
+       click "google_start_page.Imfeelinglucky"
+
+    pause 1000
+
+    type "google_start_page.searchbox", phoneNumber
+    click "google_start_page.Imfeelinglucky"
+
+    pause 1000
+}
+
+//close file
+closeData

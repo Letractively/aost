@@ -19,4 +19,8 @@ class FieldSetRegistry {
     public FieldSet getFieldSet(String fieldSetId){
         return fieldSets.get(fieldSetId)
     }
+
+    public int size(){
+        return fieldSets.size()
+    }
 }
