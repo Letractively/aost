@@ -13,7 +13,7 @@ class FieldSetBuilder extends BaseBuilder{
         map = makeCaseInsensitive(map)
 
         FieldSet fs = new FieldSet()
-        fs.id = map.get(ID)
+        fs.name = map.get(ID)
         fs.description = map.get(DESCRIPTION)
 
         return fs

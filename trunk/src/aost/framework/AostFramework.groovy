@@ -79,4 +79,8 @@ class AostFramework {
         UiObjectBuilderRegistry registry = new UiObjectBuilderRegistry()
         registry.registerBuilder(uiObjectName, builder)
     }
+
+    public SeleniumConnector getConnector(){
+        return this.connector
+    }
 }

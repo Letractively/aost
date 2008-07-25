@@ -14,7 +14,7 @@ abstract class UiObject {
       Let UI Object be a pure data structure and only include placeholders for
       methods wich should be responsed to.
 
-      decoupling them and let them be handled by DSL context framework
+      decoupling them and let them be handled by DSL ddc framework
 
 
       TODO: some ui object must be reactive to certain Events such as kekUP,

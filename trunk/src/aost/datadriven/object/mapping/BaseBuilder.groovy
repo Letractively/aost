@@ -10,6 +10,13 @@ package aost.datadriven.object.mapping
 abstract class BaseBuilder {
     protected static final String ID = "id"
     protected static final String DESCRIPTION = "description"
+    protected static final String NAME = "name"
+    protected static final String TYPE = "type"
+    protected static final String NULLABLE = "nullable"
+    protected static final String NULLVALUE = "nullValue"
+    protected static final String LENGTH = "length"
+    protected static final String PATTERN = "pattern"
+    protected static final String VALUE = "value"
     
     Map makeCaseInsensitive(Map map){
         def newmap = [:]

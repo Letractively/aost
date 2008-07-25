@@ -10,11 +10,13 @@ package aost.datadriven.object.mapping
  */
 class FieldSet {
 
-	private String id
-
+	private String name
+    
 	private String description
 
-	private LinkedList<Field> fields = new LinkedList<Field>()
+    private boolean hasIdentifier
+    
+    private LinkedList<Field> fields = new LinkedList<Field>()
 
     public void addField(Field df){
         fields.addLast(df)
@@ -28,12 +30,20 @@ class FieldSet {
 		this.fields = fields;
 	}
 
-    public String getId() {
-		return id;
+    public boolean isHasIdentifier(){
+        return this.hasIdentifier
+    }
+
+    public void setHasIdentifier(boolean identifier){
+        this.hasIdentifier = identifier    
+    }
+
+    public String getName() {
+		return name;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {
@@ -43,4 +53,20 @@ class FieldSet {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+    public boolean checkIfIdentifierPresented(){
+        boolean result = false
+
+        if(!fields.isEmpty()){
+            for(Field f : fields){
+                if(f instanceof FieldSetIdentifier){
+                    result = true
+                }
+            }
+        }
+
+        this.hasIdentifier = result
+
+        return result
+    }
 }
