@@ -10,9 +10,9 @@ ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
 //can read and process different types of data
 defineTypeHandler "phoneNumber", "example.aost.PhoneNumberTypeHandler"
 
-//define file data format
+//define file data format for each line
 fs.FieldSet(id: "fs4googlesearch", description: "example field set for google search"){
-    //define fields
+    //define fields in each line
     Field(name: "regularSearch", type: "boolean", description: "whether we should use regular search or use I'm feeling lucky")
     Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")
     Field(name: "input", description: "input variable")
