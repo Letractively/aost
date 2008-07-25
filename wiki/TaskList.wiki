@@ -10,4 +10,6 @@
   * Design and implement Data Driven Testing
   * Create utilities and tools for creating AOST tests
   * Write detailed documents as AOST user Guide
+  * Add composite UI object such as widgets
+  * Better way to wait or pause during testing
   * Export AOST to Ruby AOST
