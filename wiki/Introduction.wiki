@@ -11,6 +11,7 @@
   * Make it possible for users to write Selenium tests when they start coding
   * Reusable, easier to refactor and maintain
   * Provide _DSL_ script executor so that non-developers can write Selenium tests in DSL
+  * Add *Data Driven* feature for AOST tests
 
 = Details =
 
