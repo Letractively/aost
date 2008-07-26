@@ -1,11 +1,12 @@
 package aost.datadriven.object.mapping.mapping
 
 import aost.datadriven.object.mapping.FieldSetRegistry
-import aost.datadriven.object.mapping.io.FieldSetReader
+import aost.datadriven.object.mapping.io.DataReader
 import aost.datadriven.object.mapping.FieldSet
 import aost.datadriven.object.mapping.Field
 import aost.datadriven.object.mapping.DataMappingException
 import aost.datadriven.object.mapping.validator.FieldSetValidator
+import aost.datadriven.object.mapping.io.DataReader
 
 /**
  * The default implemention of the FieldSet Object Mapper
@@ -22,13 +23,13 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
 
     protected FieldSetRegistry registry
 
-    protected FieldSetReader reader
+    protected DataReader reader
 
     protected ObjectUnmarshaller marshaller
 
     public FieldSetMapResult unmarshalFieldSet(BufferedReader inputReader) {
         //read the data from the input stream
-		List<String, String> fieldData = reader.readFieldSet(inputReader)
+		List<String, String> fieldData = reader.readLine(inputReader)
 
         //end of file
         if(fieldData == null || fieldData.size() < 1)

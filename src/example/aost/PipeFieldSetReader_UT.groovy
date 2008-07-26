@@ -2,7 +2,8 @@ package example.aost
 
 import aost.datadriven.object.mapping.FieldSetRegistry
 import aost.datadriven.object.mapping.FieldSetParser
-import aost.datadriven.object.mapping.io.PipeFieldSetReader
+import aost.datadriven.object.mapping.io.PipeDataReader
+import aost.datadriven.object.mapping.io.PipeDataReader
 
 /**
  *
@@ -31,14 +32,14 @@ class PipeFieldSetReader_UT extends GroovyTestCase {
 
         ByteArrayInputStream bais = new ByteArrayInputStream(data.getBytes());
 		BufferedReader br = new BufferedReader(new InputStreamReader(bais));
-        PipeFieldSetReader reader = new PipeFieldSetReader()
-        List<String, String> list = reader.readFieldSet(br)
+        PipeDataReader reader = new PipeDataReader()
+        List<String, String> list = reader.readLine(br)
         assertNotNull(list)
         assertEquals(3, list.size())
-        list = reader.readFieldSet(br)
+        list = reader.readLine(br)
         assertNotNull(list)
         assertEquals(3, list.size())
-        list = reader.readFieldSet(br)
+        list = reader.readLine(br)
         assertTrue(list.isEmpty())
     }
 

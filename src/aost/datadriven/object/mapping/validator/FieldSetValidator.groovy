@@ -21,7 +21,7 @@ class FieldSetValidator {
 	protected final static String ERROR_FIELD_CANNOT_BE_NULL = "Field cannot be null";
 	protected final static String ERROR_FIELD_PATTERN_NOT_MATCH = "Field does not match pattern ";
 
-    public static boolean validate(FieldSet fs, List<String, String> fields){
+    public static boolean validate(FieldSet fs, List fields){
 
         if(fs == null || fs.getFields() == null || fs.getFields().size() < 1)
 			throw new DataMappingException(ERROR_INVALID_FIELD_SET);
