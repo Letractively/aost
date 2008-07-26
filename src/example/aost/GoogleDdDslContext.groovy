@@ -60,6 +60,6 @@ class GoogleDdDslContext extends DslScriptEngine{
         }
 
         //close file
-        close
+        closeData
     }
 }

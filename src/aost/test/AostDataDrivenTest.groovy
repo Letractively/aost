@@ -68,4 +68,6 @@ abstract class AostDataDrivenTest extends GroovyTestCase{
     public void tearDown(){
         shutDown()
     }
+
+    def closeData = ddc.&closeData
 }
