@@ -10,17 +10,17 @@ package aost.datadriven.object.mapping.mapping
 class FieldSetMapResult {
 
     //the field set id associated with this result
-    private String fieldSetId
+    private String fieldSetName
 
     //Hashmap holds the field name and its value
     def result = [:]
 
-    public void setFieldSetId(String fieldSetId){
-        this.fieldSetId = fieldSetId
+    public void setFieldSetName(String fieldSetName){
+        this.fieldSetName = fieldSetName
     }
 
-    public String getFieldSetId(){
-        return this.fieldSetId
+    public String getFieldSetName(){
+        return this.fieldSetName
     }
 
     public void addDataField(String name, Object obj){

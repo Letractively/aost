@@ -18,6 +18,10 @@ class FieldSet {
     
     private LinkedList<Field> fields = new LinkedList<Field>()
 
+    public int getFieldSize(){
+        return fields.size()
+    }
+    
     public void addField(Field df){
         fields.addLast(df)
     }
@@ -36,6 +40,19 @@ class FieldSet {
 
     public void setHasIdentifier(boolean identifier){
         this.hasIdentifier = identifier    
+    }
+
+    public IdentifierField getIdentifierField(){
+        
+        if(!fields.isEmpty()){
+            for(Field f : fields){
+                if(f instanceof IdentifierField){
+                    return f
+                }
+            }
+        }
+        
+        return null
     }
 
     public String getName() {

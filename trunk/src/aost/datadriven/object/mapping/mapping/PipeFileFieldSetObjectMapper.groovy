@@ -42,8 +42,8 @@ class PipeFileFieldSetObjectMapper extends BaseFieldSetObjectMapper{
         br = new BufferedReader(isr)
     }
 
-    protected FieldSetMapResult readFieldSet(String fieldSetId){
-        return this.unmarshalFieldSet(br, fieldSetId)
+    protected FieldSetMapResult readFieldSetByLine(){
+        return this.unmarshalFieldSet(br)
     }
 
     protected void closeFile(){
