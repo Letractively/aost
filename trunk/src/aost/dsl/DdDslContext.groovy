@@ -67,5 +67,5 @@ abstract class DdDslContext extends DslContext{
         dataProvider.stop()
     }
 
-    def close = this.&closeData
+    def closeData = this.&closeData
 }

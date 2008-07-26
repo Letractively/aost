@@ -24,7 +24,7 @@ class GoogleStartPageDataDrivenTest extends AostDataDrivenTest{
         typeHandler "phoneNumber", "example.aost.PhoneNumberTypeHandler"
 
         //define file data format
-        fs.FieldSet(id: "fs4googlesearch", description: "example field set for google search") {
+        fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search") {
             Field(name: "regularSearch", type: "boolean", description: "whether we should use regular search or use I'm feeling lucky")
             Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")
             Field(name: "input", description: "input variable")
@@ -59,6 +59,6 @@ class GoogleStartPageDataDrivenTest extends AostDataDrivenTest{
         }
 
         //close file
-        close
+        closeData
     }
 }

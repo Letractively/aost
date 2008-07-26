@@ -26,7 +26,7 @@ class PipeDataProvider_UT extends GroovyTestCase{
     public void setUp(){
         TypeHandlerRegistryConfigurator.addCustomTypeHandler(thr, "phoneNumber", "example.aost.PhoneNumberTypeHandler")
 
-        fs.FieldSet(id: "fs4googlesearch", description: "example field set for google search"){
+        fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search"){
             Field(name: "regularSearch", type: "boolean", description: "whether we should use regular search or use I'm feeling lucky")
             Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")
             Field(name: "input", description: "input variable")

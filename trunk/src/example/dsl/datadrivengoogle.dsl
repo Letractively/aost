@@ -49,4 +49,4 @@ driveToEnd {
 }
 
 //close file
-close
+closeData
