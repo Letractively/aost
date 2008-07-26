@@ -21,8 +21,20 @@ fs.FieldSet(name: "fs4googlesearch", description: "example field set for google 
 //load file
 loadData "src/example/dsl/googlesearchinput.txt"
 
-//data driven test assuming the input data format is defined in FieldSet "fs4googlesearch"
-driveToEnd {
+stepOneLine{
+
+    //bind variables
+    String input = bind("input")
+
+    openUrl "http://www.google.com"
+    type "google_start_page.searchbox", input
+    pause 500
+}
+
+stepOverOneLine
+
+//read each line and execute the script until the end of the file
+stepToEnd {
     //bind variables
     //Since there is only one FieldSet, the fieldSet Id can be omitted
     boolean regularSearch = bind("regularSearch")

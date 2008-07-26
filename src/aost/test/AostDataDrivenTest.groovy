@@ -17,7 +17,7 @@ import aost.dsl.DefaultDdDslContext
  */
 abstract class AostDataDrivenTest extends GroovyTestCase{
     //put all your test script here
-    //For data driveToEnd test, you will only have one test method where you should put all
+    //For data stepToEnd test, you will only have one test method where you should put all
     //your test script there
     abstract void testDataDriven()
     
@@ -70,4 +70,6 @@ abstract class AostDataDrivenTest extends GroovyTestCase{
     }
 
     def closeData = ddc.&closeData
+    
+    def stepOverOneLine = ddc.&stepOverOneLine
 }

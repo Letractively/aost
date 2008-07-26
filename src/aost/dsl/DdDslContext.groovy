@@ -41,7 +41,7 @@ abstract class DdDslContext extends DslContext{
 
     //flow control
     //read the file and run the test script until it reaches the end of the file
-    public void driveToEnd(Closure c){
+    public void stepToEnd(Closure c){
         while(dataProvider.nextLine()){
             c()
         }
@@ -58,7 +58,22 @@ abstract class DdDslContext extends DslContext{
 
         return false
     }
-    
+
+    //read one from the file but do not run the test script. This may apply to the scenario
+    //that you need to read multiple lines before you can run the test
+    //If the next line is of the same Field set as the current one, the data reading in will
+    //be overwritten after this command
+    public boolean stepOverOneLine(){
+        if(dataProvider.nextLine())
+            return true
+
+        return false
+    }
+
+    //make DSL more expressive, instead of put stepOverOneLine(), but define the following
+    //you can simply write stepOverOneLine
+    def stepOverOneLine = this.&stepOverOneLine
+
     public void loadData(String filePath){
         dataProvider.start(filePath)
     }
