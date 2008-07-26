@@ -42,15 +42,15 @@ abstract class DdDslContext extends DslContext{
     //flow control
     //read the file and run the test script until it reaches the end of the file
     public void stepToEnd(Closure c){
-        while(dataProvider.nextLine()){
+        while(dataProvider.nextFieldSet()){
             c()
         }
     }
 
     //read one line from the file and run the test script so that you can have different
     //test scripts for each line
-    public boolean stepOneLine(Closure c){
-        if(dataProvider.nextLine()){
+    public boolean step(Closure c){
+        if(dataProvider.nextFieldSet()){
             c()
 
             return true
@@ -63,19 +63,24 @@ abstract class DdDslContext extends DslContext{
     //that you need to read multiple lines before you can run the test
     //If the next line is of the same Field set as the current one, the data reading in will
     //be overwritten after this command
-    public boolean stepOverOneLine(){
-        if(dataProvider.nextLine())
+    public boolean stepOver(){
+        if(dataProvider.nextFieldSet())
             return true
 
         return false
     }
 
-    //make DSL more expressive, instead of put stepOverOneLine(), but define the following
-    //you can simply write stepOverOneLine
-    def stepOverOneLine = this.&stepOverOneLine
+    //make DSL more expressive, instead of put stepOver(), but define the following
+    //you can simply write stepOver
+    def stepOver = this.&stepOver
 
     public void loadData(String filePath){
         dataProvider.start(filePath)
+    }
+
+    //use data defined in the script file
+    public void useData(String data){
+        dataProvider.use(data)
     }
 
     public void closeData(){

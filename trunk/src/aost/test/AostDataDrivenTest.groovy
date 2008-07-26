@@ -71,5 +71,5 @@ abstract class AostDataDrivenTest extends GroovyTestCase{
 
     def closeData = ddc.&closeData
     
-    def stepOverOneLine = ddc.&stepOverOneLine
+    def stepOver = ddc.&stepOver
 }

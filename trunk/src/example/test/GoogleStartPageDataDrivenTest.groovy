@@ -33,7 +33,7 @@ class GoogleStartPageDataDrivenTest extends AostDataDrivenTest{
         //load file
         loadData "src/example/dsl/googlesearchinput.txt"
 
-        stepOneLine{
+        step{
             //bind variables
             boolean regularSearch = bind("regularSearch")
             def phoneNumber = bind("fs4googlesearch.phoneNumber")
@@ -45,7 +45,7 @@ class GoogleStartPageDataDrivenTest extends AostDataDrivenTest{
 
         }
 
-        stepOverOneLine
+        stepOver
 
         //read each line and run the test script until the end of the file
         stepToEnd {
