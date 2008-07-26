@@ -1,4 +1,10 @@
 package aost.datadriven.object.mapping
+
+import aost.datadriven.object.mapping.builder.FieldBuilder
+import aost.datadriven.object.mapping.builder.FieldSetBuilder
+import aost.datadriven.object.mapping.builder.IdentifierFieldBuilder
+import aost.datadriven.object.mapping.builder.IdentifierFieldBuilder
+
 /**
  * parse the Field Set definition
  *
@@ -20,7 +26,7 @@ class FieldSetParser extends BuilderSupport{
     
     private FieldBuilder fb = new FieldBuilder()
     private FieldSetBuilder fsb = new FieldSetBuilder()
-    private FieldSetIdentifierBuilder fsi = new FieldSetIdentifierBuilder()
+    private IdentifierFieldBuilder fsi = new IdentifierFieldBuilder()
     
     protected void setParent(Object parent, Object child) {
         if (parent instanceof FieldSet) {
@@ -35,7 +41,7 @@ class FieldSetParser extends BuilderSupport{
         if(FIELD.equalsIgnoreCase(name))
             return new Field()
         if(IDENTIFIER.equalsIgnoreCase(name))
-            return new FieldSetIdentifier()
+            return new IdentifierField()
 
         return null
     }

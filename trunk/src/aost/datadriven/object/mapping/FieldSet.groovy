@@ -59,7 +59,7 @@ class FieldSet {
 
         if(!fields.isEmpty()){
             for(Field f : fields){
-                if(f instanceof FieldSetIdentifier){
+                if(f instanceof IdentifierField){
                     result = true
                 }
             }
