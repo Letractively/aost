@@ -38,8 +38,8 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
             return true
 
         return false
-
     }
+
     public FieldSetMapResult mapFieldSet(List fieldData){
 
         if(isEnd(fieldData))
