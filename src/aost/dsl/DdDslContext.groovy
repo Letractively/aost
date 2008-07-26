@@ -40,12 +40,25 @@ abstract class DdDslContext extends DslContext{
     }
 
     //flow control
-    public void driven(String fieldSetId, Closure c){
-        while(dataProvider.eachLine(fieldSetId)){
+    //read the file and run the test script until it reaches the end of the file
+    public void driveToEnd(Closure c){
+        while(dataProvider.nextLine()){
             c()
         }
     }
 
+    //read one line from the file and run the test script so that you can have different
+    //test scripts for each line
+    public boolean stepOneLine(Closure c){
+        if(dataProvider.nextLine()){
+            c()
+
+            return true
+        }
+
+        return false
+    }
+    
     public void loadData(String filePath){
         dataProvider.start(filePath)
     }
@@ -53,4 +66,6 @@ abstract class DdDslContext extends DslContext{
     public void closeData(){
         dataProvider.stop()
     }
+
+    def close = this.&closeData
 }

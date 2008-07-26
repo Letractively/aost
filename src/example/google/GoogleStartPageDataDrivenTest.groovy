@@ -3,7 +3,7 @@ package example.google
 import aost.test.AostDataDrivenTest
 
 /**
- * example to writing Data driven test directly in Groovy
+ * example to writing Data driveToEnd test directly in Groovy
  *
  * @author: Jian Fang (John.Jian.Fang@gmail.com)
  *
@@ -33,8 +33,8 @@ class GoogleStartPageDataDrivenTest extends AostDataDrivenTest{
         //load file
         loadData "src/example/dsl/googlesearchinput.txt"
 
-        //data driven test assuming the input data format is defined in FieldSet "fs4googlesearch"
-        driven("fs4googlesearch") {
+        //data driveToEnd test assuming the input data format is defined in FieldSet "fs4googlesearch"
+        driveToEnd {
             //bind variables
             boolean regularSearch = bind("regularSearch")
             def phoneNumber = bind("fs4googlesearch.phoneNumber")
@@ -59,6 +59,6 @@ class GoogleStartPageDataDrivenTest extends AostDataDrivenTest{
         }
 
         //close file
-        closeData()        
+        close
     }
 }

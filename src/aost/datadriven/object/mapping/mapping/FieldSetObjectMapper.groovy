@@ -9,6 +9,6 @@ package aost.datadriven.object.mapping.mapping
  */
 interface FieldSetObjectMapper {
 
-   	public FieldSetMapResult unmarshalFieldSet(BufferedReader inputReader, String fieldSetId)
+   	public FieldSetMapResult unmarshalFieldSet(BufferedReader inputReader)
  
 }

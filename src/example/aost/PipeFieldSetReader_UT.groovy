@@ -2,7 +2,6 @@ package example.aost
 
 import aost.datadriven.object.mapping.FieldSetRegistry
 import aost.datadriven.object.mapping.FieldSetParser
-import aost.datadriven.object.mapping.FieldSet
 import aost.datadriven.object.mapping.io.PipeFieldSetReader
 
 /**
@@ -28,19 +27,19 @@ class PipeFieldSetReader_UT extends GroovyTestCase {
 
         assertNotNull(fsr)
         assertEquals(1, fsr.size())
-        FieldSet fs = fsr.getFieldSet("fs4googlesearch")
+//        FieldSet fs = fsr.getFieldSetByName("fs4googlesearch")
 
         ByteArrayInputStream bais = new ByteArrayInputStream(data.getBytes());
 		BufferedReader br = new BufferedReader(new InputStreamReader(bais));
         PipeFieldSetReader reader = new PipeFieldSetReader()
-        Map<String, String> map = reader.readFieldSet(fs, br)
-        assertNotNull(map)
-        assertEquals(3, map.size())
-        map = reader.readFieldSet(fs, br)
-        assertNotNull(map)
-        assertEquals(3, map.size())
-        map = reader.readFieldSet(fs, br)
-        assertTrue(map.isEmpty())
+        List<String, String> list = reader.readFieldSet(br)
+        assertNotNull(list)
+        assertEquals(3, list.size())
+        list = reader.readFieldSet(br)
+        assertNotNull(list)
+        assertEquals(3, list.size())
+        list = reader.readFieldSet(br)
+        assertTrue(list.isEmpty())
     }
 
 }

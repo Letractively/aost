@@ -35,7 +35,7 @@ class PipeDataProvider_UT extends GroovyTestCase{
 
     public void testFetchData(){
         dataProvider.start("src/example/dsl/googlesearchinput.txt")
-        boolean result = dataProvider.eachLine("fs4googlesearch")
+        boolean result = dataProvider.nextLine()
         assertTrue(result)
         boolean var1 = dataProvider.bind("regularSearch")
         def var2 = dataProvider.bind("fs4googlesearch.phoneNumber")
@@ -43,7 +43,7 @@ class PipeDataProvider_UT extends GroovyTestCase{
         assertTrue(var1)
         assertEquals("8656926000", var2)
         assertEquals("aost", var3)
-        result = dataProvider.eachLine("fs4googlesearch")
+        result = dataProvider.nextLine()
         var1 = dataProvider.bind("regularSearch")
         var2 = dataProvider.bind("fs4googlesearch.phoneNumber")
         var3 = dataProvider.bind("fs4googlesearch.input")
@@ -51,7 +51,7 @@ class PipeDataProvider_UT extends GroovyTestCase{
         assertEquals("8651234444", var2)
         assertEquals("aost selenium test", var3)
         assertTrue(result)
-        result = dataProvider.eachLine("fs4googlesearch")
+        result = dataProvider.nextLine()
         assertFalse(result)
         dataProvider.stop()
     }

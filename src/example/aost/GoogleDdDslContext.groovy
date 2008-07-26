@@ -25,7 +25,7 @@ class GoogleDdDslContext extends DslScriptEngine{
         typeHandler "phoneNumber", "example.aost.PhoneNumberTypeHandler"
 
         //define file data format
-        fs.FieldSet(id: "fs4googlesearch", description: "example field set for google search") {
+        fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search") {
             Field(name: "regularSearch", type: "boolean", description: "whether we should use regular search or use I'm feeling lucky")
             Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")
             Field(name: "input", description: "input variable")
@@ -34,8 +34,8 @@ class GoogleDdDslContext extends DslScriptEngine{
         //load file
         loadData "src/example/dsl/googlesearchinput.txt"
 
-        //data driven test assuming the input data format is defined in FieldSet "fs4googlesearch"
-        driven("fs4googlesearch") {
+        //data driveToEnd test assuming the input data format is defined in FieldSet "fs4googlesearch"
+        driveToEnd {
             //bind variables
             boolean regularSearch = bind("regularSearch")
             def phoneNumber = bind("fs4googlesearch.phoneNumber")
@@ -60,6 +60,6 @@ class GoogleDdDslContext extends DslScriptEngine{
         }
 
         //close file
-        closeData()
+        close
     }
 }

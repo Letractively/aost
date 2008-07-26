@@ -11,7 +11,7 @@ ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
 typeHandler "phoneNumber", "example.aost.PhoneNumberTypeHandler"
 
 //define file data format for each line, always start with "fs."
-fs.FieldSet(id: "fs4googlesearch", description: "example field set for google search"){
+fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search"){
     //define fields for each line
     Field(name: "regularSearch", type: "boolean", description: "whether we should use regular search or use I'm feeling lucky")
     Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")
@@ -22,7 +22,7 @@ fs.FieldSet(id: "fs4googlesearch", description: "example field set for google se
 loadData "src/example/dsl/googlesearchinput.txt"
 
 //data driven test assuming the input data format is defined in FieldSet "fs4googlesearch"
-driven("fs4googlesearch"){
+driveToEnd {
     //bind variables
     //Since there is only one FieldSet, the fieldSet Id can be omitted
     boolean regularSearch = bind("regularSearch")
@@ -49,4 +49,4 @@ driven("fs4googlesearch"){
 }
 
 //close file
-closeData()
+close
