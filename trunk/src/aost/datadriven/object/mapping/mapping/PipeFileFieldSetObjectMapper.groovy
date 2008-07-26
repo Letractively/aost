@@ -2,7 +2,7 @@ package aost.datadriven.object.mapping.mapping
 
 import aost.datadriven.object.mapping.type.TypeHandlerRegistry
 import aost.datadriven.object.mapping.FieldSetRegistry
-import aost.datadriven.object.mapping.io.PipeFieldSetReader
+import aost.datadriven.object.mapping.io.PipeDataReader
 import aost.datadriven.object.mapping.type.TypeHandlerRegistryConfigurator
 
 /**
@@ -18,12 +18,12 @@ class PipeFileFieldSetObjectMapper extends BaseFieldSetObjectMapper{
     private BufferedReader br
 
 //    public PipeFileFieldSetObjectMapper(){
-//        reader = new PipeFieldSetReader()
+//        reader = new PipeDataReader()
 //        marshaller = new DefaultObjectUnmarshaller()
 //    }
     
     public PipeFileFieldSetObjectMapper(FieldSetRegistry fsr, TypeHandlerRegistry thr){
-        reader = new PipeFieldSetReader()
+        reader = new PipeDataReader()
         marshaller = new DefaultObjectUnmarshaller()
         //configurate the default type handlers and put them into the registry
         TypeHandlerRegistryConfigurator.configure(thr)
