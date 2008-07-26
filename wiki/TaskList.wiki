@@ -1,6 +1,7 @@
 #labels Phase-Design
 == Task List ==
 
+  * Number one task would be to let more people know about AOST and use it so that we can improve it
   * Refactor Java Test cases to use JUnit 4 or TestNG
   * Add windows run Dsl script
   * Add support for CSS selector
