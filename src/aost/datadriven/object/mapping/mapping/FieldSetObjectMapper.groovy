@@ -1,4 +1,7 @@
 package aost.datadriven.object.mapping.mapping
+
+import aost.datadriven.object.mapping.FieldSetType
+
 /**
  *  Interface for the field set object mapping
  *
@@ -9,6 +12,8 @@ package aost.datadriven.object.mapping.mapping
  */
 interface FieldSetObjectMapper {
 
-   	public FieldSetMapResult unmarshalFieldSet(BufferedReader inputReader)
+    public FieldSetMapResult mapFieldSet(List data)
+    public FieldSetType checkFieldSetType(List data)
+    public List readNextLine(BufferedReader inputReader)
  
 }

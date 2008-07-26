@@ -3,7 +3,6 @@ package example.aost
 import aost.datadriven.object.mapping.FieldSetRegistry
 import aost.datadriven.object.mapping.FieldSetParser
 import aost.datadriven.object.mapping.io.PipeDataReader
-import aost.datadriven.object.mapping.io.PipeDataReader
 
 /**
  *

@@ -21,7 +21,7 @@ fs.FieldSet(name: "fs4googlesearch", description: "example field set for google 
 //load file
 loadData "src/example/dsl/googlesearchinput.txt"
 
-stepOneLine{
+step {
 
     //bind variables
     String input = bind("input")
@@ -31,7 +31,7 @@ stepOneLine{
     pause 500
 }
 
-stepOverOneLine
+stepOver
 
 //read each line and execute the script until the end of the file
 stepToEnd {

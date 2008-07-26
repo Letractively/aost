@@ -34,7 +34,7 @@ class GoogleDdDslContext extends DslScriptEngine{
         //load file
         loadData "src/example/dsl/googlesearchinput.txt"
 
-        stepOneLine{
+        step{
             //bind variables
             boolean regularSearch = bind("regularSearch")
             def phoneNumber = bind("fs4googlesearch.phoneNumber")
@@ -46,7 +46,7 @@ class GoogleDdDslContext extends DslScriptEngine{
 
         }
 
-        stepOverOneLine
+        stepOver
         
         //data stepToEnd test assuming the input data format is defined in FieldSet "fs4googlesearch"
         stepToEnd {

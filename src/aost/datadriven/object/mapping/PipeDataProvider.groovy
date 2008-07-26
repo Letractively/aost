@@ -25,20 +25,12 @@ class PipeDataProvider extends PipeFileFieldSetObjectMapper{
         openFile(filePath)
     }
 
-    public boolean lineStep(Closure c){
-        FieldSetMapResult result = readFieldSetByLine()
-        if(result != null){
-            binder.updateFieldSetMapResult(result.getFieldSetName(), result)
-            c()
-            //file is not ended
-            return true
-        }
-        //indicate the end of the file
-        return false
+    public void use(String data){
+        this.readData(data)
     }
 
-    public boolean nextLine(){
-        FieldSetMapResult result = readFieldSetByLine()
+    public boolean nextFieldSet(){
+        FieldSetMapResult result = readNextFieldSet()
         if(result != null && (!result.isEmpty())){
             binder.updateFieldSetMapResult(result.getFieldSetName(), result)
             //file is not ended
@@ -53,7 +45,7 @@ class PipeDataProvider extends PipeFileFieldSetObjectMapper{
     }
 
     public void stop(){
-        closeFile()
+        close()
     }
 
 }
