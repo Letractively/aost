@@ -56,7 +56,7 @@ class FieldSetParser_UT extends GroovyTestCase{
         FieldSetParser parser = new FieldSetParser(fsr)
         parser.FieldSet(name: "fs4googlesearch", description: "example field set for google search"){
             Identifier(name: "field set identifier", value: "google")
-            Action(name: "action", value: "search")
+            Action(name: "action")
             Field(name: "regularSearch", type: "boolean", description: "whether we should use regular search or use I'm feeling lucky")
             Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")
             Field(name: "input", description: "input variable")

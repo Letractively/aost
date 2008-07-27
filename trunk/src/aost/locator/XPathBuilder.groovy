@@ -63,10 +63,10 @@ class XPathBuilder {
         StringBuffer sb = new StringBuffer(TYPICAL_LENGTH)
         sb.append(prefix)
         if( tag != null && (!tag.isEmpty())){
-          //if the tag is available, use it
+          //if the tag is available, useString it
           sb.append(tag)
         }else{
-          //otherwise, use match all
+          //otherwise, useString match all
           sb.append(MATCH_ALL)
         }
         
@@ -137,7 +137,7 @@ class XPathBuilder {
         return "position()=${position}"
     }
 
-    //For string value, need to use double quota "", otherwise, the value will become
+    //For string value, need to useString double quota "", otherwise, the value will become
     //invalid for single quota '' once we have the value as "I'm feeling lucky"
     protected static String buildText(String value){
         if(value == null || value.trim().isEmpty())

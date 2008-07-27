@@ -46,7 +46,7 @@ class GoogleDdDslContext extends DslScriptEngine{
 
         }
 
-        stepOver
+        stepOver()
         
         //data stepToEnd test assuming the input data format is defined in FieldSet "fs4googlesearch"
         stepToEnd {
@@ -74,6 +74,6 @@ class GoogleDdDslContext extends DslScriptEngine{
         }
 
         //close file
-        closeData
+        closeData()
     }
 }

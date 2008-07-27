@@ -4,8 +4,10 @@ import aost.datadriven.object.mapping.type.TypeHandlerRegistry
 import aost.datadriven.object.mapping.FieldSetRegistry
 import aost.datadriven.object.mapping.FieldSetParser
 import aost.datadriven.object.mapping.type.TypeHandlerRegistryConfigurator
-import aost.datadriven.object.mapping.DataProvider
-import aost.datadriven.object.mapping.DataProvider
+import aost.datadriven.DataProvider
+import aost.datadriven.object.mapping.mapping.FieldSetMapResult
+import aost.datadriven.object.mapping.FieldSet
+import aost.datadriven.object.mapping.ActionField
 
 /**
  *
@@ -25,6 +27,8 @@ abstract class DdDslContext extends DslContext{
 
     protected FieldSetParser fs = new FieldSetParser(fsr)
 
+    protected ActionRegistry ar = new ActionRegistry()
+    
     // DSL to define your customer type handler such as
     // typeHandler "simpleDate", "aost.example.simpleDateTypeHandler"
     // here we assume that you have defined the aost.example.simpleDateTypeHandler class
@@ -43,50 +47,91 @@ abstract class DdDslContext extends DslContext{
     //flow control
     //read the file and run the test script until it reaches the end of the file
     public void stepToEnd(Closure c){
-        while(dataProvider.nextFieldSet()){
-            c()
+        boolean hasMore = true
+        while(hasMore){
+            hasMore = step(c)
         }
     }
+
+//    def stepToEnd = this.&stepToEnd
 
     //read one line from the file and run the test script so that you can have different
     //test scripts for each line
     public boolean step(Closure c){
-        if(dataProvider.nextFieldSet()){
-            c()
+        //get data from the data stream
+        FieldSetMapResult fsmr = dataProvider.nextFieldSet()
+        //check if we reach the end of data stream
+        if(fsmr != null && (!fsmr.isEmpty())){
+            //check if the field set includes action name
+            String action = getActionForFieldSet(fsmr.getFieldSetName())
+            if(action != null){
+                //if the field set includes action
+                //get the pre-defined action and run it
+                Closure closure = ar.getAction(action)
+                closure()
+            }
+
+            //if there is other user defined closure, run it
+            if(c != null){
+                c()
+            }
 
             return true
         }
 
         return false
     }
+
+//    def step = this.&step
 
     //read one from the file but do not run the test script. This may apply to the scenario
     //that you need to read multiple lines before you can run the test
     //If the next line is of the same Field set as the current one, the data reading in will
     //be overwritten after this command
     public boolean stepOver(){
-        if(dataProvider.nextFieldSet())
+        FieldSetMapResult fsmr = dataProvider.nextFieldSet()
+        //check if we reach the end of data stream
+        if(fsmr != null && (!fsmr.isEmpty())){
+
             return true
+        }
 
         return false
     }
 
     //make DSL more expressive, instead of put stepOver(), but define the following
     //you can simply write stepOver
-    def stepOver = this.&stepOver
+//    def stepOver = this.&stepOver
 
     public void loadData(String filePath){
-        dataProvider.start(filePath)
+        dataProvider.useFile(filePath)
     }
 
-    //use data defined in the script file
+    //useString data defined in the script file
     public void useData(String data){
-        dataProvider.use(data)
+        dataProvider.useString(data)
     }
 
     public void closeData(){
         dataProvider.stop()
     }
 
-    def closeData = this.&closeData
+//    def closeData = this.&closeData
+
+    public void defineAction(String name, Closure c){
+        ar.addAction(name, c)
+    }
+
+    protected String getActionForFieldSet(String fieldSetName){
+        FieldSet tfs = fsr.getFieldSetByName(fieldSetName)
+        if(tfs != null){
+            ActionField taf = tfs.getActionField()
+            if(taf != null){
+                String tid = fieldSetName + "." + taf.getName()
+                return dataProvider.bind(tid)
+            }
+        }
+
+        return null
+    }
 }

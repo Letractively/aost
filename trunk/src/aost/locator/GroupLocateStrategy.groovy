@@ -4,9 +4,9 @@ import aost.object.Container
 import aost.object.UiObject
 
 /**
- *   Use group information, i.e., use its direct descedants' information to form its own locator
+ *   Use group information, i.e., useString its direct descedants' information to form its own locator
  *   In the future, we may consider deeper information such as grandchild descendants'. Note, only
- *   Container and its extended classes can use GroupLocateStrategy
+ *   Container and its extended classes can useString GroupLocateStrategy
  *
  *   @author Jian Fang (John.Jian.Fang@gmail.com)
  * 
@@ -22,8 +22,8 @@ class GroupLocateStrategy {
         List<String> groupAttributes = new ArrayList<String>()
 
         obj.components.each{ String key, UiObject child ->
-            //can only use the child's information in the CompositeLocator
-            //cannot use other Locator type for the timebeing
+            //can only useString the child's information in the CompositeLocator
+            //cannot useString other Locator type for the timebeing
             if(child.locator instanceof CompositeLocator){
                 CompositeLocator cloc = child.locator
                 String gattr = XPathBuilder.buildDescendantXPath(cloc.tag, cloc.text, cloc.position, cloc.attributes)

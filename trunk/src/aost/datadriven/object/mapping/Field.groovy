@@ -25,11 +25,11 @@ class Field {
 	private int length = -1
 
 	//optional String pattern for the value
-	//if specified, we must use it for String validation
+	//if specified, we must useString it for String validation
 	private String pattern
     
   // Java Style
-  //Still use setters and getters so that it is obvious to see if method is not defined in IDE
+  //Still useString setters and getters so that it is obvious to see if method is not defined in IDE
     
     public String getName() {
 		return name;

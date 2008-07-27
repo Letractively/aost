@@ -11,7 +11,7 @@ import aost.locator.BaseLocator
 class ButtonBuilder extends UiObjectBuilder{
     
     public build(Map map, Closure c) {
-        //add default parameters so that the builder can use them if not specified
+        //add default parameters so that the builder can useString them if not specified
         def df = [:]
         df.put(TAG, Button.TAG)
         Button button = this.internBuild(new Button(), map, df)

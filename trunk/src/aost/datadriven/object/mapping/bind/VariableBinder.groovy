@@ -21,7 +21,7 @@ class VariableBinder {
 
     protected ObjectBindRegistry registry = new ObjectBindRegistry()
 
-    //use duck type here
+    //useString duck type here
     public def bind(String dataFieldId){
         if(dataFieldId == null)
             throw new DataMappingException(ERROR_DATA_FIELD_ID_CANNOT_BE_NULL)

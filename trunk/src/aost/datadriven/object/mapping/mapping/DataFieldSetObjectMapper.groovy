@@ -42,7 +42,7 @@ class DataFieldSetObjectMapper extends BaseFieldSetObjectMapper{
         List<String, String> fieldData = this.readNextLine(br)
         FieldSetType type = this.checkFieldSetType(fieldData)
         //TODO: skip the meta data for the timebeing, need to refactor this
-        //part if we decide to use meta data
+        //part if we decide to useString meta data
         while(type != FieldSetType.REGULAR && type != FieldSetType.END){
             fieldData = this.readNextLine(br)
             type = this.checkFieldSetType(fieldData)

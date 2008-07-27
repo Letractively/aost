@@ -12,7 +12,7 @@ import aost.datadriven.object.mapping.Field
  */
 class IdentifierField extends Field{
 
-    //value which we can use it to determine which fieldset we read from a stream or a file
+    //value which we can useString it to determine which fieldset we read from a stream or a file
     private String value
 
     public void setValue(String value){

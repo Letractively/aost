@@ -16,7 +16,7 @@ import aost.locator.GroupLocateStrategy
  *   the UI object uid should carry informatio about table row, table column.
  *   It also has wild case to match all rows, all columns, all both.
  *
- *   That is to say, for the i-th row, j-th column, the uid should use the following
+ *   That is to say, for the i-th row, j-th column, the uid should useString the following
  *   name conversion:
  *
  *    "row: i, column: j"
@@ -24,7 +24,7 @@ import aost.locator.GroupLocateStrategy
  *   note that row and column starts from 1. Uppercase or lowercase would both be fine.
 
  *   The wild case for row or column is "*", or you do not specify the row, or column
- *   and for all, you can use "all" or "ALL".
+ *   and for all, you can useString "all" or "ALL".
  *
  *   As a result, the following names are valid (case insensitive):
  *
@@ -297,10 +297,10 @@ class Table extends Container{
         //update reference locator by append the relative locator for this container
         if (this.locator != null) {
             if (this.useGroupInfo) {
-                //need to use group information to help us locate the container xpath
+                //need to useString group information to help us locate the container xpath
                 context.appendReferenceLocator(GroupLocateStrategy.locate(this))
             } else {
-                //do not use the group information, process as regular
+                //do not useString the group information, process as regular
                 def lp = new LocatorProcessor()
                 context.appendReferenceLocator(lp.locate(this.locator))
             }
