@@ -2,9 +2,10 @@ package example.aost
 
 import aost.datadriven.object.mapping.type.TypeHandlerRegistry
 import aost.datadriven.object.mapping.FieldSetRegistry
-import aost.datadriven.object.mapping.PipeDataProvider
+import aost.datadriven.object.mapping.DataProvider
 import aost.datadriven.object.mapping.FieldSetParser
 import aost.datadriven.object.mapping.type.TypeHandlerRegistryConfigurator
+import aost.datadriven.object.mapping.DataProvider
 
 
 /**
@@ -19,7 +20,7 @@ class PipeDataProvider_UT extends GroovyTestCase{
     protected TypeHandlerRegistry thr  = new TypeHandlerRegistry()
     protected FieldSetRegistry fsr = new FieldSetRegistry()
 
-    protected PipeDataProvider dataProvider = new PipeDataProvider(fsr, thr)
+    protected DataProvider dataProvider = new DataProvider(fsr, thr)
 
     protected FieldSetParser fs = new FieldSetParser(fsr)
 

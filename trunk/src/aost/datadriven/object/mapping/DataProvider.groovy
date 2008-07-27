@@ -1,6 +1,6 @@
 package aost.datadriven.object.mapping
 
-import aost.datadriven.object.mapping.mapping.PipeFileFieldSetObjectMapper
+import aost.datadriven.object.mapping.mapping.DataFieldSetObjectMapper
 import aost.datadriven.object.mapping.type.TypeHandlerRegistry
 import aost.datadriven.object.mapping.bind.VariableBinder
 import aost.datadriven.object.mapping.mapping.FieldSetMapResult
@@ -13,11 +13,11 @@ import aost.datadriven.object.mapping.mapping.FieldSetMapResult
  * Date: Jul 24, 2008
  *
  */
-class PipeDataProvider extends PipeFileFieldSetObjectMapper{
+class DataProvider extends DataFieldSetObjectMapper{
     
     protected VariableBinder binder = new VariableBinder()
 
-    public PipeDataProvider(FieldSetRegistry fsr, TypeHandlerRegistry thr){
+    public DataProvider(FieldSetRegistry fsr, TypeHandlerRegistry thr){
         super(fsr, thr)
     }
 
