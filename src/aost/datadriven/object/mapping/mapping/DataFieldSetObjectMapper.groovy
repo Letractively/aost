@@ -14,11 +14,11 @@ import aost.datadriven.object.mapping.FieldSetType
  * Date: Jul 23, 2008
  *
  */
-class PipeFileFieldSetObjectMapper extends BaseFieldSetObjectMapper{
+class DataFieldSetObjectMapper extends BaseFieldSetObjectMapper{
 
     private BufferedReader br
     
-    public PipeFileFieldSetObjectMapper(FieldSetRegistry fsr, TypeHandlerRegistry thr){
+    public DataFieldSetObjectMapper(FieldSetRegistry fsr, TypeHandlerRegistry thr){
         reader = new PipeDataReader()
         marshaller = new DefaultObjectUnmarshaller()
         //configurate the default type handlers and put them into the registry
