@@ -3,7 +3,7 @@ package aost.datadriven.object.mapping
 import aost.datadriven.object.mapping.builder.FieldBuilder
 import aost.datadriven.object.mapping.builder.FieldSetBuilder
 import aost.datadriven.object.mapping.builder.IdentifierFieldBuilder
-import aost.datadriven.object.mapping.builder.IdentifierFieldBuilder
+import aost.datadriven.object.mapping.builder.ActionFieldBuilder
 
 /**
  * parse the Field Set definition
@@ -17,6 +17,7 @@ class FieldSetParser extends BuilderSupport{
     protected final static String FIELD_SET = "fieldSet"
     protected final static String FIELD = "field"
     protected final static String IDENTIFIER = "identifier"
+    protected final static String ACTION = "action"
 
     private FieldSetRegistry registry
 
@@ -27,7 +28,8 @@ class FieldSetParser extends BuilderSupport{
     private FieldBuilder fb = new FieldBuilder()
     private FieldSetBuilder fsb = new FieldSetBuilder()
     private IdentifierFieldBuilder fsi = new IdentifierFieldBuilder()
-    
+    private ActionFieldBuilder afb = new ActionFieldBuilder()
+
     protected void setParent(Object parent, Object child) {
         if (parent instanceof FieldSet) {
             FieldSet fs = (FieldSet)parent
@@ -42,6 +44,8 @@ class FieldSetParser extends BuilderSupport{
             return new Field()
         if(IDENTIFIER.equalsIgnoreCase(name))
             return new IdentifierField()
+        if(ACTION.equalsIgnoreCase(name))
+            return new ActionField()
 
         return null
     }
@@ -57,6 +61,8 @@ class FieldSetParser extends BuilderSupport{
             return fb.build(map)
         if(IDENTIFIER.equalsIgnoreCase(name))
             return fsi.build(map)
+        if(ACTION.equalsIgnoreCase(name))
+            return afb.build(map)
 
         return null
     }
@@ -75,7 +81,7 @@ class FieldSetParser extends BuilderSupport{
             FieldSet fs = (FieldSet)node
 
             //need to check if the identifier is presented
-            fs.checkIfIdentifierPresented()
+            fs.checkFields()
 
             //only put the top level nodes into the registry
             registry.addFieldSet(fs)
