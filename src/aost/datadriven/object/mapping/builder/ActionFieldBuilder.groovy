@@ -32,8 +32,6 @@ class ActionFieldBuilder extends BaseBuilder{
 
         f.pattern = map.get(PATTERN)
 
-        f.value = map.get(VALUE)
-
         return f
 
     }

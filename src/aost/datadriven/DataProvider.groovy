@@ -1,9 +1,10 @@
-package aost.datadriven.object.mapping
+package aost.datadriven
 
 import aost.datadriven.object.mapping.mapping.DataFieldSetObjectMapper
 import aost.datadriven.object.mapping.type.TypeHandlerRegistry
 import aost.datadriven.object.mapping.bind.VariableBinder
 import aost.datadriven.object.mapping.mapping.FieldSetMapResult
+import aost.datadriven.object.mapping.FieldSetRegistry
 
 /**
  * The data provider for Pipe format flat files
@@ -21,23 +22,21 @@ class DataProvider extends DataFieldSetObjectMapper{
         super(fsr, thr)
     }
 
-    public void start(String filePath){
+    public void useFile(String filePath){
         openFile(filePath)
     }
 
-    public void use(String data){
+    public void useString(String data){
         this.readData(data)
     }
 
-    public boolean nextFieldSet(){
+    public FieldSetMapResult nextFieldSet(){
         FieldSetMapResult result = readNextFieldSet()
         if(result != null && (!result.isEmpty())){
             binder.updateFieldSetMapResult(result.getFieldSetName(), result)
-            //file is not ended
-            return true
         }
-        //indicate the end of the file
-        return false
+
+        return result
     }
 
     public def bind(String dataFieldId){

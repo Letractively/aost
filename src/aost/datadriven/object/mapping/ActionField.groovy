@@ -8,15 +8,4 @@ package aost.datadriven.object.mapping
  * 
  */
 class ActionField extends Field{
-
-    //the action, i.e., method name
-    private String value
-
-    public void setValue(String value){
-        this.value = value
-    }
-
-    public String getValue(){
-        return this.value
-    }
 }

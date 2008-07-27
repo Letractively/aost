@@ -13,7 +13,7 @@ class Dispatcher implements GroovyInterceptable{
 //		return sc.client.metaClass.invokeMethod(this, name, args)
           
        //sometimes, the selenium client is not singleton ??
-       //here reset selenium client to use the new singleton instance which has the client set
+       //here reset selenium client to useString the new singleton instance which has the client set
        if(sc.client == null)
           sc = new SeleniumClient()
 

@@ -46,7 +46,7 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
             return null
 
         //logic to autmoatically detect which field set by its field set identifier
-        //or use the only one that exists in the registry
+        //or useString the only one that exists in the registry
 
         //check the fieldset registry first
         FieldSet fs

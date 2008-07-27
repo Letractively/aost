@@ -37,7 +37,7 @@ class FieldSetValidator {
             
             //check if the field is empty
             if (f.length() == 0) {
-                //use the null value to replace the empty field
+                //useString the null value to replace the empty field
                 if (df.getNullValue() != null)
                     f = df.getNullValue()
             }

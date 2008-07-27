@@ -2,7 +2,7 @@ package aost.builder
 
 class UiObjectBuilderRegistry{
 
-    //use this registry to map the ui object name to its builder
+    //useString this registry to map the ui object name to its builder
     //so that we can let the user customerizes and add new ui objects
     //by simply add the builder to the registry
     def registry = [:]

@@ -330,7 +330,7 @@ abstract class DslContext {
          return 0
     }
 
-    //uid should use the format table2[2][3] for Table or list[2] for List
+    //uid should useString the format table2[2][3] for Table or list[2] for List
     def getUiElement(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          def obj = ui.walkTo(context, uid)

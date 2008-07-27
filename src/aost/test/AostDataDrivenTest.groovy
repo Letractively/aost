@@ -16,6 +16,11 @@ import aost.dsl.DefaultDdDslContext
  *
  */
 abstract class AostDataDrivenTest extends GroovyTestCase{
+    protected static final String STEP = "step"
+    protected static final String STEP_OVER = "stepOver"
+    protected static final String STEP_TO_END = "stepToEnd"
+    protected static final String CLOSE_DATA = "closeData"
+    
     //put all your test script here
     //For data stepToEnd test, you will only have one test method where you should put all
     //your test script there
@@ -48,7 +53,7 @@ abstract class AostDataDrivenTest extends GroovyTestCase{
     //try to delegate missing methods to the DdDslContext, if still could not find,
     //throw a MissingMethodException
      protected def methodMissing(String name, args) {
-
+         
          if(ddc.metaClass.respondsTo(ddc, name, args)){
               return ddc.invokeMethod(name, args)
          }
@@ -68,8 +73,4 @@ abstract class AostDataDrivenTest extends GroovyTestCase{
     public void tearDown(){
         shutDown()
     }
-
-    def closeData = ddc.&closeData
-    
-    def stepOver = ddc.&stepOver
 }
