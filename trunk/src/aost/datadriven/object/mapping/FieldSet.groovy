@@ -15,6 +15,8 @@ class FieldSet {
 	private String description
 
     private boolean hasIdentifier
+
+    private boolean hasAction
     
     private LinkedList<Field> fields = new LinkedList<Field>()
 
@@ -34,12 +36,20 @@ class FieldSet {
 		this.fields = fields;
 	}
 
+    public boolean isHasAction(){
+        return this.hasAction
+    }
+
+    public void setHasAction(boolean hasAction){
+        this.hasAction = hasAction    
+    }
+
     public boolean isHasIdentifier(){
         return this.hasIdentifier
     }
 
-    public void setHasIdentifier(boolean identifier){
-        this.hasIdentifier = identifier    
+    public void setHasIdentifier(boolean hasIdentifier){
+        this.hasIdentifier = hasIdentifier
     }
 
     public IdentifierField getIdentifierField(){
@@ -52,6 +62,18 @@ class FieldSet {
             }
         }
         
+        return null
+    }
+
+    public ActionField getActionField(){
+        if(!fields.isEmpty()){
+            for(Field f : fields){
+                if(f instanceof ActionField){
+                    return f
+                }
+            }
+        }
+
         return null
     }
 
@@ -71,19 +93,17 @@ class FieldSet {
 		this.description = description;
 	}
 
-    public boolean checkIfIdentifierPresented(){
-        boolean result = false
+    public void checkFields(){
 
         if(!fields.isEmpty()){
             for(Field f : fields){
                 if(f instanceof IdentifierField){
-                    result = true
+                    this.hasIdentifier = true
+                }
+                if(f instanceof ActionField){
+                    this.hasAction = true
                 }
             }
         }
-
-        this.hasIdentifier = result
-
-        return result
     }
 }
