@@ -1,4 +1,4 @@
-package example.aost
+package org.aost
 /**
  *
  *  Test all default UI object builder

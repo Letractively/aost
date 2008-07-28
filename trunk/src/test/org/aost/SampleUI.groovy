@@ -1,4 +1,4 @@
-package example.aost
+package org.aost
 
 import org.aost.dsl.DslContext
 
