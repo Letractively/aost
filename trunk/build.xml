@@ -7,8 +7,8 @@
 	<property file="build.properties" />
 
 	<property name="dir.source" value="${dir.project}/src" />
-	<property name="dir.source.aost" value="${dir.source}/aost" />
-	<property name="dir.source.test" value="${dir.source}/example" />
+	<property name="dir.source.aost" value="${dir.source}/main" />
+	<property name="dir.source.test" value="${dir.source}/test" />
 
 	<property name="dir.build" value="${dir.project}/out" />
 	<property name="dir.build.aost" value="${dir.build}/production" />
@@ -154,7 +154,7 @@
 			<manifest>
 				<attribute name="Created-at" value="${time.formatted}" />
 				<attribute name="Created-by" value="${user.name}" />
-                <attribute name="Main-Class" value="aost.dsl.DslScriptExecutor"/>
+                <attribute name="Main-Class" value="org.aost.dsl.DslScriptExecutor"/>
             </manifest>
 		</jar>
 	</target>
@@ -163,7 +163,7 @@
 		<echo message="Distribution created successfully." />
 	</target>
 
-	<target name="compile-test" depends="compile-aost">
+	<target name="compile-test" depends="clean, dist">
 		<echo message="Compiling test.." />
 		<groovyc srcdir="${dir.source.test}" destdir="${dir.build.test}">
 			<classpath refid="aost.classpath" />
