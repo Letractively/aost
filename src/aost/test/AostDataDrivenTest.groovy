@@ -6,6 +6,7 @@ import aost.connector.SeleniumConnector
 import aost.dsl.UiDslParser
 import aost.datadriven.object.mapping.FieldSetParser
 import aost.dsl.DefaultDdDslContext
+import aost.test.helper.TestResult
 
 /**
  * AOST Data Driven test using Groovy.
@@ -52,7 +53,7 @@ abstract class AostDataDrivenTest extends GroovyTestCase{
 
     //try to delegate missing methods to the DdDslContext, if still could not find,
     //throw a MissingMethodException
-     protected def methodMissing(String name, args) {
+    protected def methodMissing(String name, args) {
          
          if(ddc.metaClass.respondsTo(ddc, name, args)){
               return ddc.invokeMethod(name, args)
@@ -73,4 +74,21 @@ abstract class AostDataDrivenTest extends GroovyTestCase{
     public void tearDown(){
         shutDown()
     }
+
+    public boolean compareResult(expected, actual){
+        boolean passed = true
+
+        try{
+            assertEquals(expected, actual)
+        }catch(Exception e){
+            passed = false
+        }
+
+        TestResult result = new TestResult()
+        result.expected = expected
+        result.actual = actual
+        result.passed = passed
+        ddc.listenForResult(result)
+    }
+
 }

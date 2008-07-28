@@ -3,6 +3,7 @@ package aost.dsl
 import aost.bootstrap.AostSupport
 import aost.test.DslAostSeleneseTestCase
 import aost.framework.AostFramework
+import aost.test.helper.TestResult
 
 class DslScriptEngine extends DdDslContext{
     
@@ -40,4 +41,20 @@ class DslScriptEngine extends DdDslContext{
         if(af != null)
             af.stop()
      }
+
+    public boolean compareResult(expected, actual){
+        boolean passed = true
+
+        try{
+            aost.assertEquals(expected, actual)
+        }catch(Exception e){
+            passed = false
+        }
+
+        TestResult result = new TestResult()
+        result.expected = expected
+        result.actual = actual
+        result.passed = passed
+        listenForResult(result)
+    }
 }
