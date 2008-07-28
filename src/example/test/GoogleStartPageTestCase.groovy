@@ -1,7 +1,7 @@
 package example.test
 
 import example.google.GoogleStartPage
-import aost.test.StandaloneAostSeleneseTestCase
+import org.aost.test.StandaloneAostSeleneseTestCase
 
 class GoogleStartPageTestCase extends StandaloneAostSeleneseTestCase{
 

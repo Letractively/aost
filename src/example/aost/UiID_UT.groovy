@@ -1,6 +1,6 @@
 package example.aost
 
-import aost.dsl.UiID
+import org.aost.dsl.UiID
 
 /**
  * Unit tests for UiID

@@ -1,7 +1,7 @@
 package example.google
 
-import aost.dsl.DslContext
-import aost.object.UrlLink
+import org.aost.dsl.DslContext
+import org.aost.object.UrlLink
 
 /**
  *   Sample test for Google Code host page at:

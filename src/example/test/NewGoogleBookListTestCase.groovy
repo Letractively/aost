@@ -1,9 +1,9 @@
 package example.test
 
 import example.google.NewGoogleBooksList
-import aost.test.StandaloneAostSeleneseTestCase
-import aost.object.UiObject
-import aost.object.UrlLink
+import org.aost.test.StandaloneAostSeleneseTestCase
+import org.aost.object.UiObject
+import org.aost.object.UrlLink
 
 /**
  *   Sample test cases for Google book list page at:

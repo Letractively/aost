@@ -1,6 +1,6 @@
 package example.google
 
-import aost.dsl.DslContext
+import org.aost.dsl.DslContext
 
 /**
  *  Google start page with new UI definition features such as composite locator and group information

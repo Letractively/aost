@@ -1,13 +1,13 @@
 package example.aost
 
-import aost.datadriven.object.mapping.type.TypeHandlerRegistry
-import aost.datadriven.object.mapping.FieldSetRegistry
-import aost.datadriven.DataProvider
-import aost.datadriven.object.mapping.FieldSetParser
-import aost.datadriven.object.mapping.type.TypeHandlerRegistryConfigurator
-import aost.datadriven.DataProvider
-import aost.datadriven.DataProvider
-import aost.datadriven.object.mapping.mapping.FieldSetMapResult
+import org.aost.datadriven.object.mapping.type.TypeHandlerRegistry
+import org.aost.datadriven.object.mapping.FieldSetRegistry
+import org.aost.datadriven.DataProvider
+import org.aost.datadriven.object.mapping.FieldSetParser
+import org.aost.datadriven.object.mapping.type.TypeHandlerRegistryConfigurator
+import org.aost.datadriven.DataProvider
+import org.aost.datadriven.DataProvider
+import org.aost.datadriven.object.mapping.mapping.FieldSetMapResult
 
 /**
  *

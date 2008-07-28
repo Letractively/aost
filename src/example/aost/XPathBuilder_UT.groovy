@@ -1,6 +1,6 @@
 package example.aost
 
-import aost.locator.XPathBuilder
+import org.aost.locator.XPathBuilder
 /**
  *   Test case for XPathBuilder
  *
