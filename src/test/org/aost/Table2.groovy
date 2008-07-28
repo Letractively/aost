@@ -1,26 +1,23 @@
-package example.aost
+package org.aost
 
 import org.aost.dsl.DslContext
 
 /**
- * Test scenario for specifying individual (row, column)
+ * Test scenario for ROW ALL MATCHING
  *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jun 30, 2008
  */
-class Table4 extends DslContext{
+class Table2 extends DslContext{
     public void defineUi() {
         ui.Container(uid: "main"){
             InputBox(uid: "inputbox1", locator: "//input[@title='Google Search']")
             Button(uid: "button1", locator: "//input[@name='btnG' and @type='submit']")
             Table(uid: "table1", locator: "//table"){
-               Button(uid: "row: 1, column: 1", locator: "/input[@type='submit']")
-               InputBox(uid: "row: 1, column: 2 ", locator: "/input")
-               UrlLink(uid: "row: 2, column: 1", locator: "/link")
-               Button(uid: "row: 2, column: 2", locator: "/input")
+               Button(uid: "row: *, column: 1", locator: "/input[@type='submit']")
+               InputBox(uid: "column: 2 ", locator: "/input[@title='Google Search']")
             }
         }
     }
-
 }

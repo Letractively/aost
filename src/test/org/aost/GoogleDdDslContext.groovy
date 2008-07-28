@@ -1,4 +1,4 @@
-package example.aost
+package org.aost
 
 import org.aost.dsl.DdDslContext
 import org.aost.dsl.DslScriptEngine
@@ -13,6 +13,13 @@ import org.aost.dsl.DslScriptEngine
  */
 class GoogleDdDslContext extends DslScriptEngine{
 
+    protected String data = """
+        true | 865-692-6000 | aost
+        false| 865-123-4444 | aost selenium test
+        true |755-452-444|aost groovy
+        false|666-784-123 | aost test
+        true |865-123-5555|aost data driven
+    """
     public void test(){
         //define google start page
         ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true") {
@@ -22,7 +29,7 @@ class GoogleDdDslContext extends DslScriptEngine{
         }
 
         //define custom data type and its type handler
-        typeHandler "phoneNumber", "example.aost.PhoneNumberTypeHandler"
+        typeHandler "phoneNumber", "org.aost.PhoneNumberTypeHandler"
 
         //define file data format
         fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search") {
@@ -32,7 +39,9 @@ class GoogleDdDslContext extends DslScriptEngine{
         }
 
         //load file
-        loadData "src/test/example/dsl/googlesearchinput.txt"
+//        loadData "src/test/example/dsl/googlesearchinput.txt"
+        //use String
+        useData data
 
         step{
             //bind variables

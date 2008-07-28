@@ -21,7 +21,7 @@ class GoogleStartPageDataDrivenTest extends AostDataDrivenTest{
         }
 
         //define custom data type and its type handler
-        typeHandler "phoneNumber", "example.aost.PhoneNumberTypeHandler"
+        typeHandler "phoneNumber", "org.aost.PhoneNumberTypeHandler"
 
         //define file data format
         fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search") {

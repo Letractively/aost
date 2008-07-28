@@ -1,4 +1,4 @@
-package example.aost
+package org.aost
 
 import org.aost.datadriven.object.mapping.FieldSetRegistry
 import org.aost.datadriven.object.mapping.FieldSetParser

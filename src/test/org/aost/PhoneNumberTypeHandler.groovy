@@ -1,4 +1,4 @@
-package example.aost
+package org.aost
 
 import java.text.SimpleDateFormat
 import org.aost.datadriven.object.mapping.type.TypeHandler
