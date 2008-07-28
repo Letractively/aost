@@ -1,18 +1,19 @@
-package example.test
+package example.aost
 
-import org.aost.test.AostDataDrivenTest
+import org.aost.dsl.DdDslContext
+import org.aost.dsl.DslScriptEngine
 
 /**
- * example to writing Data driveToEnd test directly in Groovy
+ * sample DdDslContext to demostrate the usage of DdDslContext
  *
  * @author: Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 24, 2008
  *
  */
-class GoogleStartPageDataDrivenTest extends AostDataDrivenTest{
+class GoogleDdDslContext extends DslScriptEngine{
 
-    public void testDataDriven() {
+    public void test(){
         //define google start page
         ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true") {
             InputBox(uid: "searchbox", clocator: [title: "Google Search"])
@@ -31,7 +32,7 @@ class GoogleStartPageDataDrivenTest extends AostDataDrivenTest{
         }
 
         //load file
-        loadData "src/example/dsl/googlesearchinput.txt"
+        loadData "src/test/example/dsl/googlesearchinput.txt"
 
         step{
             //bind variables
@@ -46,8 +47,8 @@ class GoogleStartPageDataDrivenTest extends AostDataDrivenTest{
         }
 
         stepOver()
-
-        //read each line and run the test script until the end of the file
+        
+        //data stepToEnd test assuming the input data format is defined in FieldSet "fs4googlesearch"
         stepToEnd {
             //bind variables
             boolean regularSearch = bind("regularSearch")

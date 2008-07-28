@@ -27,7 +27,7 @@ class NewGoogleStartPageDataDrivenTest extends AostDataDrivenTest{
         }
 
         //load file
-        loadData "src/example/dsl/newgooglesearchinput.txt"
+        loadData "src/test/example/dsl/newgooglesearchinput.txt"
 
         defineAction("search"){
 
