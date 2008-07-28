@@ -1,6 +1,6 @@
 package example.aost
 
-import aost.dsl.DslContext
+import org.aost.dsl.DslContext
 
 /**
  *   A sample UI includes all default UI object types

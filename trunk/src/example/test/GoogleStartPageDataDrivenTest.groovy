@@ -1,6 +1,6 @@
 package example.test
 
-import aost.test.AostDataDrivenTest
+import org.aost.test.AostDataDrivenTest
 
 /**
  * example to writing Data driveToEnd test directly in Groovy

@@ -1,6 +1,6 @@
 package example.google
 
-import aost.dsl.DslContext
+import org.aost.dsl.DslContext
 
 /**
  *    Sample test for Google Code host page at:

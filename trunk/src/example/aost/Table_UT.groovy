@@ -1,9 +1,9 @@
 package example.aost
 
-import aost.dsl.WorkflowContext
-import aost.object.UiObject
-import aost.object.Button
-import aost.object.UrlLink
+import org.aost.dsl.WorkflowContext
+import org.aost.object.UiObject
+import org.aost.object.Button
+import org.aost.object.UrlLink
 
 /**
  * Unit tests for Table

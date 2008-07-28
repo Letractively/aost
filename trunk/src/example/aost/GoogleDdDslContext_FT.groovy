@@ -1,6 +1,6 @@
 package example.aost
 
-import aost.dsl.DdDslContext
+import org.aost.dsl.DdDslContext
 
 /**
  * Functional Test for GoogleDdDslContext

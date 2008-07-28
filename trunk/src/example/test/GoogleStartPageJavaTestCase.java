@@ -1,8 +1,7 @@
 package example.test;
 
-import aost.test.AostJavaTestCase;
+import org.aost.test.AostJavaTestCase;
 import example.google.NewGoogleStartPage;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.BeforeClass;
 

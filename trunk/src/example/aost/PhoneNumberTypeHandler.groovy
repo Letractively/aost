@@ -1,7 +1,7 @@
 package example.aost
 
 import java.text.SimpleDateFormat
-import aost.datadriven.object.mapping.type.TypeHandler
+import org.aost.datadriven.object.mapping.type.TypeHandler
 
 /**
  * Example type handler to illustrate how to add custom type handler

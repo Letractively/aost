@@ -1,6 +1,6 @@
 package example.test
 
-import aost.test.StandaloneAostSeleneseTestCase
+import org.aost.test.StandaloneAostSeleneseTestCase
 import example.google.NewGoogleStartPage
 
 /**

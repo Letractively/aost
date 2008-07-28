@@ -1,6 +1,6 @@
 package example.test
 
-import aost.test.AostDataDrivenTest
+import org.aost.test.AostDataDrivenTest
 
 /**
  * New syntax for data driven test

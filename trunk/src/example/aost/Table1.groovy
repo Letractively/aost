@@ -1,6 +1,6 @@
 package example.aost
 
-import aost.dsl.DslContext
+import org.aost.dsl.DslContext
 
 /**
  * Test scenario for ALL MATCHING

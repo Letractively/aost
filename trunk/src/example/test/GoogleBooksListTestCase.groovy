@@ -1,9 +1,9 @@
 package example.test
 
-import aost.test.StandaloneAostSeleneseTestCase
+import org.aost.test.StandaloneAostSeleneseTestCase
 import example.google.GoogleBooksList
-import aost.object.UiObject
-import aost.object.UrlLink
+import org.aost.object.UiObject
+import org.aost.object.UrlLink
 
 /**
  * 

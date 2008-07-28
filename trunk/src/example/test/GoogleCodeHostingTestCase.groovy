@@ -1,8 +1,8 @@
 package example.test
 
-import aost.test.StandaloneAostSeleneseTestCase
+import org.aost.test.StandaloneAostSeleneseTestCase
 import example.google.GoogleCodeHosting
-import aost.object.UrlLink
+import org.aost.object.UrlLink
 
 /**
  *  Sample test cases for Google Code host page at:

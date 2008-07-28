@@ -1,7 +1,7 @@
 package example.aost
 
-import aost.dsl.DdDslContext
-import aost.dsl.DslScriptEngine
+import org.aost.dsl.DdDslContext
+import org.aost.dsl.DslScriptEngine
 
 /**
  * sample DdDslContext to demostrate the usage of DdDslContext
