@@ -8,6 +8,10 @@ import aost.datadriven.DataProvider
 import aost.datadriven.object.mapping.mapping.FieldSetMapResult
 import aost.datadriven.object.mapping.FieldSet
 import aost.datadriven.object.mapping.ActionField
+import aost.datadriven.ActionRegistry
+import aost.test.helper.DefaultResultListener
+import aost.test.helper.TestResult
+import aost.test.helper.ResultListener
 
 /**
  *
@@ -28,7 +32,9 @@ abstract class DdDslContext extends DslContext{
     protected FieldSetParser fs = new FieldSetParser(fsr)
 
     protected ActionRegistry ar = new ActionRegistry()
-    
+
+    protected ResultListener listener = new DefaultResultListener()
+
     // DSL to define your customer type handler such as
     // typeHandler "simpleDate", "aost.example.simpleDateTypeHandler"
     // here we assume that you have defined the aost.example.simpleDateTypeHandler class
@@ -133,5 +139,9 @@ abstract class DdDslContext extends DslContext{
         }
 
         return null
+    }
+
+    public void listenForResult(TestResult result ){
+        listener.listenForResult(result)    
     }
 }
