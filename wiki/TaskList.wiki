@@ -1,7 +1,7 @@
 #labels Phase-Design
 == Task List ==
 
-  * Number one task would be to let more people know about AOST and use it so that we can improve it
+  * Number one task would be to let more people know about Tellurium and use it so that we can improve it
   * Refactor Java Test cases to use JUnit 4 or TestNG
   * Add windows run Dsl script
   * Add support for CSS selector
@@ -10,8 +10,8 @@
   * Add Maven 2 support
   * Solve HTTPS certificate problem
   * Design and implement Data Driven Testing
-  * Create utilities and tools for creating AOST tests
-  * Write detailed documents as AOST user Guide
+  * Create utilities and tools for creating Tellurium tests
+  * Write detailed documents as Tellurium user Guide
   * Add composite UI object such as widgets
   * Better way to wait or pause during testing
-  * Export AOST to Ruby AOST
+  * Export Tellurium to Ruby Tellurium
