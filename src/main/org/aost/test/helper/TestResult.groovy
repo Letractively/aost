@@ -16,5 +16,13 @@ class TestResult {
     private def actual
 
     private boolean passed
-    
+
+    private Map input
+
+    //identifier for a step
+    private int stepId
+
+    private StepStatus status
+
+    private Exception exception
 }

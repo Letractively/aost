@@ -9,10 +9,23 @@ package org.aost.test.helper
  */
 class DefaultResultListener implements ResultListener {
     
-    private List<TestResult> results = new ArrayList<TestResult>()
+    private Map<Integer, TestResult> results = new HashMap<Integer, TestResult>()
 
     public void listenForResult(TestResult result) {
-        results.add(result)
+        TestResult tr = results.get(result.getProperty("stepId"))
+        if(tr != null){
+            tr.setProperty("expected", result.getProperty("expected"))
+            tr.setProperty("actual", result.getProperty("actual"))
+            tr.setProperty("passed", result.getProperty("passed"))
+        }
+
+        results.put(result.getProperty("stepId"), tr)
+    }
+
+    public void listenForInput(TestResult result) {
+        //TODO: may need to refactor the follow code to address more complicated situations
+        
+        results.put(result.getProperty("stepId"), result)
     }
 
 }

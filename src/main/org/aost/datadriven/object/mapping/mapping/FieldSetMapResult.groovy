@@ -35,4 +35,8 @@ class FieldSetMapResult {
     public boolean isEmpty(){
         return result.isEmpty()
     }
+
+    public Map getResults(){
+        return result
+    }
 }

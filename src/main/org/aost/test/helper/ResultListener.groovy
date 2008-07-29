@@ -9,6 +9,8 @@ package org.aost.test.helper
  */
 interface ResultListener {
 
+    public void listenForInput(TestResult result)
+    
     public void listenForResult(TestResult result)
     
 }
