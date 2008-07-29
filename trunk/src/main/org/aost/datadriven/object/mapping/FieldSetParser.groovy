@@ -14,10 +14,10 @@ import org.aost.datadriven.object.mapping.builder.ActionFieldBuilder
  *
  */
 class FieldSetParser extends BuilderSupport{
-    protected final static String FIELD_SET = "fieldSet"
-    protected final static String FIELD = "field"
-    protected final static String IDENTIFIER = "identifier"
-    protected final static String ACTION = "action"
+    protected final static String FIELD_SET = "FieldSet"
+    protected final static String FIELD = "Field"
+    protected final static String IDENTIFIER = "Identifier"
+    protected final static String ACTION = "Action"
 
     private FieldSetRegistry registry
 

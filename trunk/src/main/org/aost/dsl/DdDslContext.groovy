@@ -12,6 +12,7 @@ import org.aost.datadriven.ActionRegistry
 import org.aost.test.helper.DefaultResultListener
 import org.aost.test.helper.TestResult
 import org.aost.test.helper.ResultListener
+import org.aost.test.helper.StepStatus
 
 /**
  *
@@ -34,6 +35,9 @@ abstract class DdDslContext extends DslContext{
     protected ActionRegistry ar = new ActionRegistry()
 
     protected ResultListener listener = new DefaultResultListener()
+
+    //the count of number of steps can also be used to identify the ith run of the test
+    protected int stepCount = 0
 
     // DSL to define your customer type handler such as
     // typeHandler "simpleDate", "aost.example.simpleDateTypeHandler"
@@ -70,18 +74,28 @@ abstract class DdDslContext extends DslContext{
         if(fsmr != null && (!fsmr.isEmpty())){
             //check if the field set includes action name
             String action = getActionForFieldSet(fsmr.getFieldSetName())
-            if(action != null){
-                //if the field set includes action
-                //get the pre-defined action and run it
-                Closure closure = ar.getAction(action)
-                closure()
-            }
+            TestResult result = new TestResult()
+            result.setProperty("testName", action)
+            result.setProperty("stepId", ++stepCount)
+            try{
+                if(action != null){
+                    //if the field set includes action
+                    //get the pre-defined action and run it
+                    Closure closure = ar.getAction(action)
+                    closure()
+                }
 
-            //if there is other user defined closure, run it
-            if(c != null){
-                c()
-            }
+                //if there is other user defined closure, run it
+                if(c != null){
+                    c()
+                }
 
+                result.setProperty("status", StepStatus.PROCEEDED)
+            }catch(Exception e){
+                result.setProperty("status", StepStatus.EXECPTION)
+                result.setProperty("exception", e)
+            }
+            listener.listenForInput(result)
             return true
         }
 
@@ -98,6 +112,16 @@ abstract class DdDslContext extends DslContext{
         FieldSetMapResult fsmr = dataProvider.nextFieldSet()
         //check if we reach the end of data stream
         if(fsmr != null && (!fsmr.isEmpty())){
+            //check if the field set includes action name
+            String action = getActionForFieldSet(fsmr.getFieldSetName())
+
+            TestResult result = new TestResult()
+            result.setProperty("testName", action)
+            result.setProperty("stepId", ++stepCount)
+            result.setProperty("input", fsmr.getResults())
+            result.setProperty("status", StepStatus.SKIPPED)
+
+            listener.listenForInput(result)
 
             return true
         }
