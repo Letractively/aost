@@ -42,7 +42,7 @@ class DslScriptEngine extends DdDslContext{
             af.stop()
      }
 
-    public boolean compareResult(expected, actual){
+/*    public boolean compareResult(expected, actual){
         boolean passed = true
 
         try{
@@ -56,5 +56,5 @@ class DslScriptEngine extends DdDslContext{
         result.actual = actual
         result.passed = passed
         listenForResult(result)
-    }
+    }*/
 }

@@ -14,6 +14,7 @@ import org.aost.test.helper.TestResult
 import org.aost.test.helper.ResultListener
 import org.aost.test.helper.StepStatus
 
+
 /**
  *
  * Extended DslContext for Data Driven Test
@@ -77,6 +78,10 @@ abstract class DdDslContext extends DslContext{
             TestResult result = new TestResult()
             result.setProperty("testName", action)
             result.setProperty("stepId", ++stepCount)
+            result.setProperty("start", System.nanoTime())
+            result.setProperty("input", fsmr.getResults())
+            result.setProperty("passed", true)
+
             try{
                 if(action != null){
                     //if the field set includes action
@@ -89,13 +94,15 @@ abstract class DdDslContext extends DslContext{
                 if(c != null){
                     c()
                 }
-
                 result.setProperty("status", StepStatus.PROCEEDED)
             }catch(Exception e){
                 result.setProperty("status", StepStatus.EXECPTION)
+                result.setProperty("passed", false)
                 result.setProperty("exception", e)
             }
+            result.setProperty("end", System.nanoTime())
             listener.listenForInput(result)
+
             return true
         }
 
@@ -120,6 +127,7 @@ abstract class DdDslContext extends DslContext{
             result.setProperty("stepId", ++stepCount)
             result.setProperty("input", fsmr.getResults())
             result.setProperty("status", StepStatus.SKIPPED)
+            result.setProperty("passed", true)
 
             listener.listenForInput(result)
 
@@ -144,6 +152,7 @@ abstract class DdDslContext extends DslContext{
 
     public void closeData(){
         dataProvider.stop()
+        listener.report()
     }
 
 //    def closeData = this.&closeData
@@ -168,4 +177,23 @@ abstract class DdDslContext extends DslContext{
     public void listenForResult(TestResult result ){
         listener.listenForResult(result)    
     }
+
+    public boolean compareResult(expected, actual){
+        boolean passed = true
+        
+        TestResult result = new TestResult()
+        result.setProperty("expected", expected)
+        result.setProperty("actual", actual)
+
+        try{
+            junit.framework.Assert.assertEquals(expected, actual)
+        }catch(Exception e){
+            passed = false
+            result.setProperty("exception", e)
+        }
+
+        result.setProperty("passed", passed)
+        listenForResult(result)
+    }
+
 }
