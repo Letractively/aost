@@ -338,7 +338,7 @@ class GoogleBooksListTestCase extends StandaloneAostSeleneseTestCase {
 
 == Advanced Examples ==
 
-With the addition of composite locator, group locating, and multiple DSL modules in a single DSL context. The above examples can be changed to demonstrate how easy to write AOST tests. Only the Ui definition parts need to be changed.
+With the addition of composite locator, group locating, and multiple DSL modules in a single DSL context. The above examples can be changed to demonstrate how easy to write Tellurium tests. Only the Ui definition parts need to be changed.
 
 === Google Start Page ===
 
