@@ -1,39 +1,39 @@
 #labels Featured,Phase-Support
-= FAQs for AOST =
+= FAQs for Tellurium =
 
-=== Q1: Why do you create the AOST framework ===
+=== Q1: Why do you create the Tellurium framework ===
 More than one year ago, two colleagues in my company went to a conference and came back talking about the Selenium test framework, which seems very attractive at the first sight. But soon, we realized that it is very difficult to maintain and refactor, which is often the case in an agile environment. I worked on the selenium tests for a project and came out with the idea of using abstract object modules to add another tier to the selenium framework. The framework was written in Java and later on, couple colleagues from other teams tried to use my framework, but it was quite difficult to use because it lacks of expressiveness. Recently, I re-write my framework using Groovy to make it much easier to use and add a lot of functionalities which are difficult to implement without the dynamic nature of Groovy. I make it open source so that more people can use it and I can improve it with your suggestions and comments.
 
-=== Q2: Who AOST is developed for ===
-AOST is developed mainly for developers who need to write selenium tests, QA people, or any one who knows about XPATH or HTML markup. AOST includes a DSL executor. You can write your test in pure DSL, but by writing Java test cases you have the advantage to modularize you code.
+=== Q2: Who Tellurium is developed for ===
+Tellurium is developed mainly for developers who need to write selenium tests, QA people, or any one who knows about XPATH or HTML markup. Tellurium includes a DSL executor. You can write your test in pure DSL, but by writing Java test cases you have the advantage to modularize you code.
 
-=== Q3: How do I use the AOST framework ===
-The AOST framework is mainly written in Groovy and the code can be compiled as a jar file. You can include the Jar file in your lib directory and write your JUnit tests by extending StandaloneAostSeleneseTestCase if you want all your test code in one Java class or by extends GroupAostSeleneseTestCase if your test codes are in multiple test files. You can put them in a test suite. Please see the aost.test.SampleAostSeleneseTestSuite for test suite. The reason why I need to have two test cases is because GroovyTestCase does not support JUnit 4 appropriately. The other reason is for GroupAostSeleneseTestCase, it uses a shared connection to the selenium server.
+=== Q3: How do I use the Tellurium framework ===
+The Tellurium framework is mainly written in Groovy and the code can be compiled as a jar file. You can include the Jar file in your lib directory and write your JUnit tests by extending StandaloneAostSeleneseTestCase if you want all your test code in one Java class or by extends GroupAostSeleneseTestCase if your test codes are in multiple test files. You can put them in a test suite. Please see the aost.test.SampleAostSeleneseTestSuite for test suite. The reason why I need to have two test cases is because GroovyTestCase does not support JUnit 4 appropriately. The other reason is for GroupAostSeleneseTestCase, it uses a shared connection to the selenium server.
 
-AOST comes with an embedded Selenium server and you do not need to set up an external selenium server. You can still use external selenium server by changing the flag runSeleniumServerInternally in aost.server.EmbeddedSeleniumServer to be false.
+Tellurium comes with an embedded Selenium server and you do not need to set up an external selenium server. You can still use external selenium server by changing the flag runSeleniumServerInternally in aost.server.EmbeddedSeleniumServer to be false.
   
-=== Q4:  How to run the aost tests ===
+=== Q4:  How to run the Tellurium tests ===
 If your tests are written in Java, you just run them like JUnit test cases or test suites. If your test code is written in pure dsl, please use "DslScriptExecutor dsl_file" to run it.
 
 === Q5:  How do I get the XPath of a UI object ===
 There are a lot of ways, such as Selenium IDE. For firefox, the best way is to use the XPather plugin, which supports showing xpath by clicking on WEB. You may need to refactor the xpath a bit to make it simpler and more robust. Another good plugin for Firefox is web developer, which allows you to look at the DOM at run time.
 
-AOST is tested under Firefox and it should support other browsers since it is built on top of the selenium framework. 
+Tellurium is tested under Firefox and it should support other browsers since it is built on top of the selenium framework. 
 
 === Q6: Do I need to write a class for every page? ===
 Not really, as long as the locators you specified are correct at run time, you can define UI objects from different pages in one class, which is fine for pure DSL. But for Java test cases, I would suggest you write a UI module as a class to make it easier to maintain and refactor. 
 
-=== Q7: Does AOST only focus on  unit testing? ===
-Selenium test itself is kind of functional test or integration test. Although AOST uses JUnit test, it is still functional test or integration test. You can put a lot of test cases into a test suite and the test suite can be your UAT test. Furthermore, you can also create data-driven tests based on AOST tests.
+=== Q7: Does Tellurium only focus on unit testing? ===
+Selenium test itself is kind of functional test or integration test. Although Tellurium uses JUnit test, it is still functional test or integration test. You can put a lot of test cases into a test suite and the test suite can be your UAT test. Furthermore, you can also create data-driven tests based on Tellurium tests.
 
-=== Q8: Currently I am creating test cases using selenium-IDE, If I change my work to AOST, can I get my work simpler and much easier? ===
-Sure, AOST has a lot of pre-defined UI Objects, which will handle all the actions and data automatically for you. For example, you can define a template for a table element, the framework will automatically help you to locate the table[i][j] element and support the different actions for them. 
+=== Q8: Currently I am creating test cases using selenium-IDE, If I change my work to Tellurium, can I get my work simpler and much easier? ===
+Sure, Tellurium has a lot of pre-defined UI Objects, which will handle all the actions and data automatically for you. For example, you can define a template for a table element, the framework will automatically help you to locate the table[i][j] element and support the different actions for them. 
 
 === Q9: What is the object to locator mapping (OLM) framework you talked about ===
-The object to locator mapping (OLM) framework is available in AOST 0.3.0. It includes couple parts. The first one is to map a UI id in the format of "search1.inputbox1" to the actual object you defined in your object module. The second part will be automatically mapping a certain parameters you provided for a UI to its actual locator. For example, you can say the UI object has the tag "input" and other attributes. AOST will try to create the XPath for you to make your life easier. The third will be to utilize the group object concept to locate the UI module in the DOM at run time. 
+The object to locator mapping (OLM) framework is available in AOST 0.3.0. It includes couple parts. The first one is to map a UI id in the format of "search1.inputbox1" to the actual object you defined in your object module. The second part will be automatically mapping a certain parameters you provided for a UI to its actual locator. For example, you can say the UI object has the tag "input" and other attributes. Tellurium will try to create the XPath for you to make your life easier. The third will be to utilize the group object concept to locate the UI module in the DOM at run time. 
 
-=== Q10: What IDE should I use for AOST ===
-Since AOST requires Groovy support, you can use Eclipse, netbeans, or IntelliJ with groovy plugin if you want to work on AOST source code. IntelliJ is recommended because its Groovy plugin is excellent. If you only need to use AOST as a jar file, you can use any IDE that supports JAVA.
+=== Q10: What IDE should I use for Tellurium ===
+Since Tellurium requires Groovy support, you can use Eclipse, netbeans, or IntelliJ with groovy plugin if you want to work on Tellurium source code. IntelliJ is recommended because its Groovy plugin is excellent. If you only need to use Tellurium as a jar file, you can use any IDE that supports JAVA.
 
 === Q11: Why I cannot start selenium test ===
 Make sure your web browser in your environment path. If you cannot really make it work, you can change the path in aost.connector.SeleniumConnector, although this is not really recommended. Look at the following line:
@@ -41,15 +41,15 @@ Make sure your web browser in your environment path. If you cannot really make i
 sel = new DefaultSelenium("localhost", port, "*chrome", baseURL);
 }}}
 
-=== Q12: How do I add my own UI object to AOST ===
+=== Q12: How do I add my own UI object to Tellurium ===
 First, you need to create your UI object groovy class by extending aost.object.UiObject or aost.object.Container if it is a container type object. Then, you need to create your UI object builder by extending aost.builde.UiObjectBuilder. Finally, register your ui builder for your ui object by call the 
 {{{
 public void registerBuilder(String uiObjectName, UiObjectBuilder builder)
 }}}
-method in aost.framework.AostFramework. You can also register your builder in aost.builder.UiObjectBuilderRegistry if you work on AOST source code directly.
+method in aost.framework.AostFramework. You can also register your builder in aost.builder.UiObjectBuilderRegistry if you work on Tellurium source code directly.
 
-=== Q13: How to build AOST from source ===
-AOST provides the ant build script. You may need to change some of the settings in the build.properties file so that it matches your environment. For example, javahome and javac.compiler. Then in the project root directory, run command: 
+=== Q13: How to build Tellurium from source ===
+Tellurium provides the ant build script. You may need to change some of the settings in the build.properties file so that it matches your environment. For example, javahome and javac.compiler. Then in the project root directory, run command: 
 
 {{{
 ant clean
@@ -66,15 +66,15 @@ To use composite locator, you need to use "clocator" and its value is a map, i.e
 You may have additional attributes, define them in the same way as the predefined keys. For example {{{[value: "Aost home"]}}}
 
 === Q15: How to use group locating ===
-First make sure the UI object is a Container or other classe that extends Container. You can specify {{{group: "true"}}}, which will turn on group locating. That is the only thing you need to do. The group locating will be done by AOST automatically at run time. Right now, the UI object can only use the information provided in its child's composite locator. Other children with base locators will be ignored.  
+First make sure the UI object is a Container or other classe that extends Container. You can specify {{{group: "true"}}}, which will turn on group locating. That is the only thing you need to do. The group locating will be done by Tellurium automatically at run time. Right now, the UI object can only use the information provided in its child's composite locator. Other children with base locators will be ignored.  
 
 I suggest you only use the group locating option at the top level object. Once the top level object is found, it is not a big deal to find its descendants. 
 
 === Q16: Why do you use a programming language to define GUI mapping, not simply use a plain and flat properties file ===
-I used that way to write selenium tests for a whole project one year ago and I know how painful that is. There are drawbacks to use properties file because you have to specifiy the runtime locators, which is painful for developers and may not be robust unless you are xpath expert. The AOST framework can utilize relationship between UI objects to automatically generate the runtime xpath for you. Also It exploits the Group Locating concept to co-locate a group of UI objects. In the future, more advanced features and tools will be developed so that developers do not need to manually find the locators for UI elements. They can simply map their JSP or other mark-up files to the AOST UI definition or use tools to automatically do that.
+I used that way to write selenium tests for a whole project one year ago and I know how painful that is. There are drawbacks to use properties file because you have to specifiy the runtime locators, which is painful for developers and may not be robust unless you are xpath expert. The Tellurium framework can utilize relationship between UI objects to automatically generate the runtime xpath for you. Also It exploits the Group Locating concept to co-locate a group of UI objects. In the future, more advanced features and tools will be developed so that developers do not need to manually find the locators for UI elements. They can simply map their JSP or other mark-up files to the Tellurium UI definition or use tools to automatically do that.
 
 === Q17: Is your basic DSL really a DSL ? ===
 The DSL is in the domain of "Selenium Test" and it is a DSL. 
 
-=== Q18: DO I need to know Groovy before I write AOST test cases ===
-Not really. If you write your test as pure DSL, you only need to know the DSL syntax. If you need to write your test in Java, you only need to define your UI modules in Groovy file by extending the DslContext class. Since Groovy accept all Java syntax, you can in fact write Java code in your Groovy file that defines the UI modules. For the actual TestCase or TestSuite, they are already Java code. As long as you know Java, you know how to write the AOST tests.
+=== Q18: DO I need to know Groovy before I write Tellurium test cases ===
+Not really. If you write your test as pure DSL, you only need to know the DSL syntax. If you need to write your test in Java, you only need to define your UI modules in Groovy file by extending the DslContext class. Since Groovy accept all Java syntax, you can in fact write Java code in your Groovy file that defines the UI modules. For the actual TestCase or TestSuite, they are already Java code. As long as you know Java, you know how to write the Tellurium tests.
