@@ -1,4 +1,5 @@
 package org.aost.test.helper
+
 /**
  * store, log, or other ways to process the test result
  *
@@ -7,6 +8,8 @@ package org.aost.test.helper
  * Date: Jul 26, 2008
  *
  */
-interface ResultProcessor {
+interface ResultReporter {
 
+    void report(List<TestResult> results)
+    
 }

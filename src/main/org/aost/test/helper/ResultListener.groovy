@@ -12,5 +12,6 @@ interface ResultListener {
     public void listenForInput(TestResult result)
     
     public void listenForResult(TestResult result)
-    
+
+    void report()
 }

@@ -75,7 +75,7 @@ abstract class AostDataDrivenTest extends GroovyTestCase{
         shutDown()
     }
 
-    public boolean compareResult(expected, actual){
+/*    public boolean compareResult(expected, actual){
         boolean passed = true
 
         try{
@@ -89,6 +89,6 @@ abstract class AostDataDrivenTest extends GroovyTestCase{
         result.actual = actual
         result.passed = passed
         ddc.listenForResult(result)
-    }
+    }*/
 
 }
