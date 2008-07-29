@@ -1,9 +1,9 @@
 #labels Featured,Phase-Implementation
-= Tutorial for AOST =
+= Tutorial for Tellurium =
 
-== How to use AOST ==
+== How to use Tellurium ==
 
-There are two ways to use AOST. The first one is first write your UI modules
+There are two ways to use Tellurium. The first one is first write your UI modules
 in different Groovy files, which extends the DslContext class. Then write 
 JUnit test cases. You can also include them in a test suite. 
 
@@ -94,7 +94,7 @@ Then use DslScriptExecutor to run it.
 === Google Code Hosting Page ===
 
 The google code hosting page includes nested tables to show labels for 
-projects. AOST supports nested IDs. For example XXX.YYY.ZZZ represents the fact that
+projects. Tellurium supports nested IDs. For example XXX.YYY.ZZZ represents the fact that
 the UI object YYY is inside XXX and it holds the ZZZ Ui object. Usually 
 the id of the UI object is the one you specified in the ui.Container block.
 The exceptions are tables and lists, which use {{{[x][y] or [x]}}} to reference
@@ -380,9 +380,9 @@ The google book list UI module is
         }
 }}}
 
-=== AOST project page ===
+=== Tellurium project page ===
 
-To demonstrate how to define multiple UI objects, the AOST project page is used as an example:
+To demonstrate how to define multiple UI objects, the Tellurium project page is used as an example:
 {{{
 class AostProjectPage extends DslContext{
 
@@ -449,9 +449,9 @@ Please see the source code on the subversion trunk for more details.
 
 == DSL Examples ==
 
-AOST supports pure dsl tests. The following examples demonstrate how to write pure dsl files as selenium tests.
+Tellurium supports pure dsl tests. The following examples demonstrate how to write pure dsl files as selenium tests.
 
-=== Google Start Page and AOST Project Home ===
+=== Google Start Page and Tellurium Project Home ===
 
 We created an example dsl test file in src/example/dsl/google.dsl. In this file we define multiple UI modules. Since we have multiple UI modules, we must use the full path, i.e., the top level UI names such as "google_start_page", "menu", and "search" cannot be omitted. 
 
