@@ -1,11 +1,11 @@
 #labels Phase-Implementation,Phase-Design
-== Groovy Patterns Used in AOST ==
+== Groovy Patterns Used in Tellurium ==
 
 In AOST, we used many Groovy patterns. I like to list some of them as follows,
 
 === BuildSupport ===
 
-BuildSupport is very powerful for parsing nested definitions, such as XML markup. In AOST, the buildsupport is used as UI object definition parser and it is one of the bases for our internel DSL. 
+BuildSupport is very powerful for parsing nested definitions, such as XML markup. In Tellurium, the buildsupport is used as UI object definition parser and it is one of the bases for our internel DSL. 
 
 {{{
 UiDslParser extends BuilderSupport{
@@ -110,7 +110,7 @@ class DslScriptExecutor {
 
 GroovyInterceptable can intercept all method calls so that you can do some processing before or after the invocation. Or you can delegate the method calls to another class.
 
-For example, The AOST dispatcher will delegate all method calls it received to Selenium Client as follows,
+For example, The Tellurium dispatcher will delegate all method calls it received to Selenium Client as follows,
 
 {{{
 class Dispatcher implements GroovyInterceptable{
@@ -180,7 +180,7 @@ In this way, all
 Eventhandler handler = new EventHandler()
 }}}
 
-will return the same Instance, i.e., it is a singleton. Our AOST framework heavily depends on this pattern so that we do not need to use another framework to wiring different object together.
+will return the same Instance, i.e., it is a singleton. Our Tellurium framework heavily depends on this pattern so that we do not need to use another framework to wiring different object together.
 
 === GString ===
 
@@ -220,7 +220,7 @@ class CompositeLocator {
 
 === Closure ===
 
-Closure is also used in AOST frequently. For example, in the DslContext class we define the closure as
+Closure is also used in Tellurium frequently. For example, in the DslContext class we define the closure as
 
 {{{
 def selectByLabel(String uid, String target){
@@ -258,9 +258,9 @@ and it can be written as
 doubleClick uid
 }}}
 
-and the above is one of the basic DSLs for AOST.
+and the above is one of the basic DSLs for Tellurium.
 
-The Map definition is also very expressive and useful. AOST locators use map to define xpath or UI component attributes. For example:
+The Map definition is also very expressive and useful. Tellurium locators use map to define xpath or UI component attributes. For example:
 
 {{{
 ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
