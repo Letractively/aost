@@ -1,17 +1,17 @@
 #labels Featured,Phase-Design
 = Introduction =
 
-*Abstract Object-based Selenium Test* (_AOST_) framework
+*Tellurium Automated Testing Framework* (_Tellurium_) framework
   * Written in *Groovy*, test cases can be written in *Java* or *Groovy* 
   * Include a *Domain Specific Language* (_DSL_) to define UI objects 
   * Can also use the _DSL_ to describe events, actions, or assertions 
   * include an *Object to Locator Mapping framework* (_OLM_)
-  * AOST can automatically generate the UI object locator for you
-  * AOST implements the *group locating* concept to utilize a group of UI objects to help locating their locators
+  * Tellurium can automatically generate the UI object locator for you
+  * Tellurium implements the *group locating* concept to utilize a group of UI objects to help locating their locators
   * Make it possible for users to write Selenium tests when they start coding
   * Reusable, easier to refactor and maintain
   * Provide _DSL_ script executor so that non-developers can write Selenium tests in DSL
-  * Add *Data Driven* feature for AOST tests
+  * Add *Data Driven* feature for Tellurium tests
 
 = Details =
 
@@ -113,9 +113,9 @@ and other assertions defined in GroovyTestCase.
 === UI Object Locators ===
 There are two type of UI object locators:
   * Base Locator: the actual locator at run time. Denoted by "locator".
-  * Composite Locator: User specifies a set of parameters for the object and the actual locator will be derived automatically by AOST. Denoted by "clocator".
+  * Composite Locator: User specifies a set of parameters for the object and the actual locator will be derived automatically by Tellurium. Denoted by "clocator".
 
-The Basic Locator is only a String that you can specify the run time locator, be aware that the basic locator can be a partial locator, AOST will construct the actual run time locator starting from the top level object and all the way to the current object. 
+The Basic Locator is only a String that you can specify the run time locator, be aware that the basic locator can be a partial locator, Tellurium will construct the actual run time locator starting from the top level object and all the way to the current object. 
 
 The Composite Locator is more complicated and its definition is as follows:
 {{{
@@ -148,7 +148,7 @@ XPath = header + derived xpath for object + trailer
 
 === The Group Locating Concept (GLC) ===
 
-The Group Locating Concept (GLC) concept comes from the simple observation, i.e., it is much easier to locate a collection of UI objects than a single UI object. The reason is multiple UI objects provide more search criteria to help you to locate the UIs. This concept is implemented in AOST. All collection type object, i.e., Container and its extended classes have an option to use the group locating concept. 
+The Group Locating Concept (GLC) concept comes from the simple observation, i.e., it is much easier to locate a collection of UI objects than a single UI object. The reason is multiple UI objects provide more search criteria to help you to locate the UIs. This concept is implemented in Tellurium. All collection type object, i.e., Container and its extended classes have an option to use the group locating concept. 
 
 Let's see the differences between regular locating and group locating. Still take the google start page as an example:
 
@@ -181,10 +181,10 @@ Woo! I have a lot of information to help me to locate the container. Once the co
 
 The direct result of group locating is that for most case, the information defined in the UI module itself is enough for you to locate all UI objects in that UI module. That is to say, your test code only depends on your own UI module, not its location and its outside. Even we change the UI, the test may still work.  
 
-Another advantage is that you may be able to map your JSP, PHP, ASP,..., file directly to the UI module in AOST. This could help developers a lot for writing Selenium tests because they do not need to manually find the locator for an UI object. 
+Another advantage is that you may be able to map your JSP, PHP, ASP,..., file directly to the UI module in Tellurium. This could help developers a lot for writing Selenium tests because they do not need to manually find the locator for an UI object. 
 
 === Define multiple UI modules in a single file ===
-Initially, you can define only one UI module in a file that extends the DslContext class. Now, AOST supports multiple UI modules in a single file. This is extremely important for pure DSL scripts.
+Initially, you can define only one UI module in a file that extends the DslContext class. Now, Tellurium supports multiple UI modules in a single file. This is extremely important for pure DSL scripts.
 
 For example, you can define multiple UI modules as follows:
 {{{
