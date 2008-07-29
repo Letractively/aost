@@ -1,7 +1,7 @@
 #labels Phase-Implementation,Phase-Design
 == Groovy Patterns Used in Tellurium ==
 
-In AOST, we used many Groovy patterns. I like to list some of them as follows,
+In Tellurium, we used many Groovy patterns. I like to list some of them as follows,
 
 === BuildSupport ===
 
