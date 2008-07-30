@@ -19,7 +19,7 @@ class PhoneNumberTypeHandler implements TypeHandler{
     public String valueOf(String s) {
 		String value
 
-		if(s != null && (!s.isEmpty())){
+		if(s != null && (s.length() > 0)){
 			 value = s.replaceAll(PHONE_SEPARATOR, "")
 		}else {
 			value = s

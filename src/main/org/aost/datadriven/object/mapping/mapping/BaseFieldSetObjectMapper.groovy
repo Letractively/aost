@@ -87,7 +87,7 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
 
         String first = fieldData.get(0)
 
-        if(fieldData.size() == 1 && first.isEmpty())
+        if(fieldData.size() == 1 && (first.length() <= 0))
             return FieldSetType.EMPTY
 
         if(first.startsWith(COMMENT_PREFIX))

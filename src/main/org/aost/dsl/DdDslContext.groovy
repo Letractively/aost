@@ -189,7 +189,8 @@ abstract class DdDslContext extends DslContext{
             junit.framework.Assert.assertEquals(expected, actual)
         }catch(Exception e){
             passed = false
-            result.setProperty("exception", e)
+            //do not really need to care about the exception here. Basically, it is an assertation exception
+//            result.setProperty("exception", e)
         }
 
         result.setProperty("passed", passed)

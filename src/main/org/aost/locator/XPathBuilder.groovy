@@ -62,7 +62,7 @@ class XPathBuilder {
     {
         StringBuffer sb = new StringBuffer(TYPICAL_LENGTH)
         sb.append(prefix)
-        if( tag != null && (!tag.isEmpty())){
+        if( tag != null && (tag.length() > 0)){
           //if the tag is available, useString it
           sb.append(tag)
         }else{
@@ -77,16 +77,16 @@ class XPathBuilder {
         }
 
         String vText = buildText(text)
-        if(!vText.isEmpty())
+        if(vText.length() > 0)
             list.add(vText)
         String vPosition = buildPosition(position)
-        if(!vPosition.isEmpty())
+        if(vPosition.length() > 0)
             list.add(vPosition)
 
         if(attributes != null && (!attributes.isEmpty())){
             attributes.each { String key, String value ->
                 String vAttr = buildAttribute(key, value)
-                if(!vAttr.isEmpty())
+                if(vAttr.length() > 0)
                     list.add(vAttr)
             }
         }
@@ -140,7 +140,7 @@ class XPathBuilder {
     //For string value, need to useString double quota "", otherwise, the value will become
     //invalid for single quota '' once we have the value as "I'm feeling lucky"
     protected static String buildText(String value){
-        if(value == null || value.trim().isEmpty())
+        if(value == null || (value.trim().length() <= 0))
             return ""
 
         String trimed = value.trim()
@@ -155,11 +155,11 @@ class XPathBuilder {
 
     protected static String buildAttribute(String name, String value){
         //must have an attribute name
-        if(name == null || name.trim().isEmpty())
+        if(name == null || (name.trim().length() <= 0))
            return ""
 
         //indicate has the attribute
-        if(value == null || value.trim().isEmpty()){
+        if(value == null || (value.trim().length() <= 0)){
            return "@${name}"
         }
 

@@ -15,7 +15,7 @@ class UiID extends Stack<String>{
 
     public static UiID convertToUiID(String id){
         UiID uiid = new UiID()
-        if(id != null && (!id.trim().isEmpty())){
+        if(id != null && (id.trim().length() > 0)){
            String[] ids = id.split(ID_SEPARATOR)
            for(int i=ids.length-1; i>=0; i--)
            {
@@ -35,7 +35,7 @@ class UiID extends Stack<String>{
 
     //Pre-Process to convert the table[x][y] to table, _x_y format
     public static String[] preprocess(String id){
-       if(id != null && (!id.trim().isEmpty()) && id.contains("[")){
+       if(id != null && (id.trim().length() > 0) && id.contains("[")){
            if(id.startsWith("[")){
                 String first = id.replaceAll('\\[', '_').replaceAll('\\]','')
                 return [first]
