@@ -1,6 +1,6 @@
 package example.test
 
-import org.tellurium.test.StandaloneAostSeleneseTestCase
+import org.tellurium.test.StandaloneTelluriumTestCase
 import example.google.NewGoogleStartPage
 
 /**
@@ -9,7 +9,7 @@ import example.google.NewGoogleStartPage
  *  @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
-class NewGoogleStartPageTestCase  extends StandaloneAostSeleneseTestCase{
+class NewGoogleStartPageTestCase  extends StandaloneTelluriumTestCase{
 
     protected static NewGoogleStartPage ngsp
 

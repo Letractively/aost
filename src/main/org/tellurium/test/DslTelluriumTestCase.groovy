@@ -7,7 +7,7 @@ import org.tellurium.connector.SeleniumConnector
  *
  * User: Jian Fang (John.Jian.Fang@gmail.com)
  */
-class DslAostSeleneseTestCase extends AostSeleneseTestCase{
+class DslTelluriumTestCase extends TelluriumTestCase{
     
     protected SeleniumConnector connector
 

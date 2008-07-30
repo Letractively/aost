@@ -1,6 +1,6 @@
 package example.test;
 
-import org.tellurium.test.AostJavaTestCase;
+import org.tellurium.test.TelluriumJavaTestCase;
 import example.google.NewGoogleStartPage;
 import org.junit.Test;
 import org.junit.BeforeClass;
@@ -11,7 +11,7 @@ import org.junit.BeforeClass;
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
-public class GoogleStartPageJavaTestCase extends AostJavaTestCase {
+public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
 
     protected static NewGoogleStartPage ngsp;
 

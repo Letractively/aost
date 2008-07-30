@@ -1,19 +1,26 @@
-package example.test
+package org.tellurium.test
 
-import org.tellurium.test.TelluriumDataDrivenTest
-import org.tellurium.test.TelluriumDataDrivenTest
+import org.tellurium.dsl.DdDslContext
+import org.tellurium.dsl.DslScriptEngine
 
 /**
- * example to writing Data driveToEnd test directly in Groovy
+ * sample DdDslContext to demostrate the usage of DdDslContext
  *
  * @author: Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 24, 2008
  *
  */
-class GoogleStartPageDataDrivenTest extends TelluriumDataDrivenTest{
+class GoogleDdDslContext extends DslScriptEngine{
 
-    public void testDataDriven() {
+    protected String data = """
+        true | 865-692-6000 | tellurium
+        false| 865-123-4444 | tellurium selenium test
+        true |755-452-444|tellurium groovy
+        false|666-784-123 | tellurium user group
+        true |865-123-5555|tellurium data driven
+    """
+    public void test(){
         //define google start page
         ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true") {
             InputBox(uid: "searchbox", clocator: [title: "Google Search"])
@@ -32,7 +39,9 @@ class GoogleStartPageDataDrivenTest extends TelluriumDataDrivenTest{
         }
 
         //load file
-        loadData "src/test/example/dsl/googlesearchinput.txt"
+//        loadData "src/test/example/dsl/googlesearchinput.txt"
+        //use String
+        useData data
 
         step{
             //bind variables
@@ -47,8 +56,8 @@ class GoogleStartPageDataDrivenTest extends TelluriumDataDrivenTest{
         }
 
         stepOver()
-
-        //read each line and run the test script until the end of the file
+        
+        //data stepToEnd test assuming the input data format is defined in FieldSet "fs4googlesearch"
         stepToEnd {
             //bind variables
             boolean regularSearch = bind("regularSearch")

@@ -1,17 +1,19 @@
 package org.tellurium.dsl
 
-import org.tellurium.bootstrap.AostSupport
-import org.tellurium.test.DslAostSeleneseTestCase
-import org.tellurium.framework.AostFramework
+import org.tellurium.bootstrap.TelluriumSupport
+import org.tellurium.test.DslTelluriumTestCase
+import org.tellurium.framework.TelluriumFramework
 import org.tellurium.test.helper.TestResult
+import org.tellurium.test.DslTelluriumTestCase
+import org.tellurium.bootstrap.TelluriumSupport
 
 class DslScriptEngine extends DdDslContext{
     
-    private DslAostSeleneseTestCase aost = new DslAostSeleneseTestCase()
-    protected AostFramework af
+    private DslTelluriumTestCase aost = new DslTelluriumTestCase()
+    protected TelluriumFramework af
 
     protected def init(){
-        af = AostSupport.addSupport()
+        af = TelluriumSupport.addSupport()
         af.start()
         aost.connector = af.connector
    }
@@ -30,7 +32,7 @@ class DslScriptEngine extends DdDslContext{
          if(name == "shutDown")
             return shutDown()
          
-         if(DslAostSeleneseTestCase.metaClass.respondsTo(aost, name, args)){
+         if(DslTelluriumTestCase.metaClass.respondsTo(aost, name, args)){
               return aost.invokeMethod(name, args)
          }
 

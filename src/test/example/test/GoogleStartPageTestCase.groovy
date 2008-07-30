@@ -1,9 +1,10 @@
 package example.test
 
 import example.google.GoogleStartPage
-import org.tellurium.test.StandaloneAostSeleneseTestCase
+import org.tellurium.test.StandaloneTelluriumTestCase
+import org.tellurium.test.StandaloneTelluriumTestCase
 
-class GoogleStartPageTestCase extends StandaloneAostSeleneseTestCase{
+class GoogleStartPageTestCase extends StandaloneTelluriumTestCase{
 
     protected static GoogleStartPage gsp
 

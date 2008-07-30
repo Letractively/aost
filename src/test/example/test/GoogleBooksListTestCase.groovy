@@ -1,9 +1,10 @@
 package example.test
 
-import org.tellurium.test.StandaloneAostSeleneseTestCase
+import org.tellurium.test.StandaloneTelluriumTestCase
 import example.google.GoogleBooksList
 import org.tellurium.object.UiObject
 import org.tellurium.object.UrlLink
+import org.tellurium.test.StandaloneTelluriumTestCase
 
 /**
  * 
@@ -14,7 +15,7 @@ import org.tellurium.object.UrlLink
  *
  *   @author Jian Fang (John.Jian.Fang@gmail.com)
  */
-class GoogleBooksListTestCase extends StandaloneAostSeleneseTestCase {
+class GoogleBooksListTestCase extends StandaloneTelluriumTestCase {
 
     protected GoogleBooksList gbl
 
