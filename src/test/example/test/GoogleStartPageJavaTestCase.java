@@ -1,6 +1,6 @@
 package example.test;
 
-import org.aost.test.AostJavaTestCase;
+import org.tellurium.test.AostJavaTestCase;
 import example.google.NewGoogleStartPage;
 import org.junit.Test;
 import org.junit.BeforeClass;
@@ -24,12 +24,12 @@ public class GoogleStartPageJavaTestCase extends AostJavaTestCase {
     @Test
     public void testGoogleSearch(){
         connectUrl("http://www.google.com");
-        ngsp.doGoogleSearch("aost selenium");
+        ngsp.doGoogleSearch("tellurium selenium");
    }
 
    @Test
    public void testGoogleSearchFeelingLucky(){
         connectUrl("http://www.google.com");
-        ngsp.doImFeelingLucky("aost selenium");
+        ngsp.doImFeelingLucky("tellurium selenium");
    }
 }

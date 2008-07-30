@@ -1,6 +1,6 @@
 package example.test
 
-import org.aost.test.AostDataDrivenTest
+import org.tellurium.test.AostDataDrivenTest
 
 /**
  * example to writing Data driveToEnd test directly in Groovy
@@ -21,7 +21,7 @@ class GoogleStartPageDataDrivenTest extends AostDataDrivenTest{
         }
 
         //define custom data type and its type handler
-        typeHandler "phoneNumber", "org.aost.PhoneNumberTypeHandler"
+        typeHandler "phoneNumber", "org.tellurium.PhoneNumberTypeHandler"
 
         //define file data format
         fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search") {

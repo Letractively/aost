@@ -1,5 +1,5 @@
-search | aost
-search | aost selenium test
-Imfeelinglucky | aost groovy
-search | aost test
-Imfeelinglucky | aost data driven
+search | tellurium
+search | tellurium selenium test
+Imfeelinglucky | tellurium groovy
+search | tellurium user group
+Imfeelinglucky | tellurium data driven

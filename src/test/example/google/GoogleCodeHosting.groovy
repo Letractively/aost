@@ -1,7 +1,7 @@
 package example.google
 
-import org.aost.dsl.DslContext
-import org.aost.object.UrlLink
+import org.tellurium.dsl.DslContext
+import org.tellurium.object.UrlLink
 
 /**
  *   Sample test for Google Code host page at:

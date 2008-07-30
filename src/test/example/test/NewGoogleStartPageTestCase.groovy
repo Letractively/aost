@@ -1,6 +1,6 @@
 package example.test
 
-import org.aost.test.StandaloneAostSeleneseTestCase
+import org.tellurium.test.StandaloneAostSeleneseTestCase
 import example.google.NewGoogleStartPage
 
 /**
@@ -29,9 +29,9 @@ class NewGoogleStartPageTestCase  extends StandaloneAostSeleneseTestCase{
 
     void testGoogleSearch(){
         connectUrl("http://www.google.com")
-        ngsp.doGoogleSearch("aost selenium")
+        ngsp.doGoogleSearch("tellurium selenium")
         connectUrl("http://www.google.com")
-        ngsp.doImFeelingLucky("aost selenium")
+        ngsp.doImFeelingLucky("tellurium selenium")
    }
 
 }

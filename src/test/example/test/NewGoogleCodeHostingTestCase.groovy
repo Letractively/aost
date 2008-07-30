@@ -1,8 +1,8 @@
 package example.test
 
-import org.aost.test.StandaloneAostSeleneseTestCase
+import org.tellurium.test.StandaloneAostSeleneseTestCase
 import example.google.NewGoogleCodeHosting
-import org.aost.object.UrlLink
+import org.tellurium.object.UrlLink
 
 /**
  *    Sample test cases for Google Code host page at:
