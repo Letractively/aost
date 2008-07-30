@@ -31,7 +31,7 @@ step {
     pause 500
 }
 
-stepOver
+stepOver()
 
 //read each line and execute the script until the end of the file
 stepToEnd {
@@ -61,4 +61,4 @@ stepToEnd {
 }
 
 //close file
-closeData
+closeData()
