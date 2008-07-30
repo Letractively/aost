@@ -8,5 +8,5 @@ Please follow the following rules:
     
     Please do not remove existing authors.
   * Please write Unit tests or functional tests before you commit. The unit tests or functional tests for Tellurium itself should be in src/test/org/tellurium/test directory. Examples will be in src/test/example/ directory.
-  * Tellurium is our project, please be actively involved in coding, documenting, testing, answering user questions.  
+  * Tellurium is our project, please be actively involved in coding, documenting, testing, answering user questions, and participating in other forum discussion such Selenium RC forum to attract more people to use Tellurium.  
   * Please use the issue system to track errors, add new functionalities, add new tasks.
