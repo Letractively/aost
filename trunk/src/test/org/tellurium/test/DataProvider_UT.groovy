@@ -1,13 +1,13 @@
 package org.tellurium.test
 
-import org.tellurium.datadriven.object.mapping.type.TypeHandlerRegistry
-import org.tellurium.datadriven.object.mapping.FieldSetRegistry
-import org.tellurium.datadriven.DataProvider
-import org.tellurium.datadriven.object.mapping.FieldSetParser
-import org.tellurium.datadriven.object.mapping.type.TypeHandlerRegistryConfigurator
-import org.tellurium.datadriven.DataProvider
-import org.tellurium.datadriven.DataProvider
-import org.tellurium.datadriven.object.mapping.mapping.FieldSetMapResult
+import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
+import org.tellurium.ddt.object.mapping.FieldSetRegistry
+import org.tellurium.ddt.DataProvider
+import org.tellurium.ddt.object.mapping.FieldSetParser
+import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistryConfigurator
+import org.tellurium.ddt.DataProvider
+import org.tellurium.ddt.DataProvider
+import org.tellurium.ddt.object.mapping.mapping.FieldSetMapResult
 
 /**
  *

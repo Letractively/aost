@@ -1,15 +1,16 @@
 package org.tellurium.dsl
 
 import org.tellurium.bootstrap.TelluriumSupport
-import org.tellurium.test.DslTelluriumTestCase
+import org.tellurium.test.groovy.DslTelluriumGroovyTestCase
 import org.tellurium.framework.TelluriumFramework
 import org.tellurium.test.helper.TestResult
-import org.tellurium.test.DslTelluriumTestCase
+import org.tellurium.test.groovy.DslTelluriumGroovyTestCase
 import org.tellurium.bootstrap.TelluriumSupport
+import org.tellurium.test.groovy.DslTelluriumGroovyTestCase
 
 class DslScriptEngine extends DdDslContext{
     
-    private DslTelluriumTestCase aost = new DslTelluriumTestCase()
+    private DslTelluriumGroovyTestCase aost = new DslTelluriumGroovyTestCase()
     protected TelluriumFramework af
 
     protected def init(){
@@ -32,7 +33,7 @@ class DslScriptEngine extends DdDslContext{
          if(name == "shutDown")
             return shutDown()
          
-         if(DslTelluriumTestCase.metaClass.respondsTo(aost, name, args)){
+         if(DslTelluriumGroovyTestCase.metaClass.respondsTo(aost, name, args)){
               return aost.invokeMethod(name, args)
          }
 
