@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 
-<project name="aost" default="dist" basedir=".">
+<project name="tellurium" default="dist" basedir=".">
 	                            
 	<property name="dir.project" value="${basedir}" />
 
 	<property file="build.properties" />
 
 	<property name="dir.source" value="${dir.project}/src" />
-	<property name="dir.source.aost" value="${dir.source}/main" />
+	<property name="dir.source.tellurium" value="${dir.source}/main" />
 	<property name="dir.source.test" value="${dir.source}/test" />
 
 	<property name="dir.build" value="${dir.project}/out" />
-	<property name="dir.build.aost" value="${dir.build}/production" />
+	<property name="dir.build.tellurium" value="${dir.build}/production" />
 	<property name="dir.build.test" value="${dir.build}/test" />
 
 	<property name="dir.lib" value="${dir.project}/lib" />
@@ -42,13 +42,13 @@
 		</fileset>
 	</path>
 
-	<path id="aost.classpath">
+	<path id="tellurium.classpath">
 		<path refid="lib.path" />
-		<pathelement location="${dir.build.aost}" />
+		<pathelement location="${dir.build.tellurium}" />
 	</path>
 
 	<path id="test.classpath">
-		<path refid="aost.classpath" />
+		<path refid="tellurium.classpath" />
 		<path refid="junit.classpath" />
 		<pathelement location="${dir.build.test}" />
 	</path>
@@ -61,7 +61,7 @@
 
 	<target name="clean">
 		<echo message="Cleaning ..." />
-		<delete dir="${dir.build.aost}" />
+		<delete dir="${dir.build.tellurium}" />
 		<delete dir="${dir.build.test}" />
 		<delete dir="${dir.dist}" />
 	</target>
@@ -90,7 +90,7 @@
 			<format property="time.formatted" pattern="MM/dd/yyyy hh:mm:ss a" unit="hour" />
 		</tstamp>
 		<mkdir dir="${dir.build}" />
-		<mkdir dir="${dir.build.aost}" />
+		<mkdir dir="${dir.build.tellurium}" />
 		<mkdir dir="${dir.build.test}" />
     </target>
 
@@ -134,39 +134,39 @@
 			classpathref="lib.path"
 			/>
 
-	<target name="compile-aost" depends="init">
+	<target name="compile-tellurium" depends="init">
 		<echo message="Compiling java..." />
-		<groovyc srcdir="${dir.source.aost}"
-			destdir="${dir.build.aost}">
+		<groovyc srcdir="${dir.source.tellurium}"
+			destdir="${dir.build.tellurium}">
 			<classpath refid="lib.path" />
         </groovyc>
 	</target>
 
 
-	<target name="dist-init" depends="compile-aost">
+	<target name="dist-init" depends="compile-tellurium">
 		<mkdir dir="${dir.dist}" />
 	</target>
 
-	<target name="jar-aost" depends="dist-init">
-		<jar destfile="${dir.dist}/aost-${version}.jar">
-			<fileset dir="${dir.build.aost}"/>
+	<target name="jar-tellurium" depends="dist-init">
+		<jar destfile="${dir.dist}/tellurium-${version}.jar">
+			<fileset dir="${dir.build.tellurium}"/>
 
 			<manifest>
 				<attribute name="Created-at" value="${time.formatted}" />
 				<attribute name="Created-by" value="${user.name}" />
-                <attribute name="Main-Class" value="org.aost.dsl.DslScriptExecutor"/>
+                <attribute name="Main-Class" value="org.tellurium.dsl.DslScriptExecutor"/>
             </manifest>
 		</jar>
 	</target>
 
-	<target name="dist" depends="jar-aost">
+	<target name="dist" depends="jar-tellurium">
 		<echo message="Distribution created successfully." />
 	</target>
 
 	<target name="compile-test" depends="clean, dist">
 		<echo message="Compiling test.." />
 		<groovyc srcdir="${dir.source.test}" destdir="${dir.build.test}">
-			<classpath refid="aost.classpath" />
+			<classpath refid="tellurium.classpath" />
 			<include name="**" />
 		</groovyc>
 	</target>
