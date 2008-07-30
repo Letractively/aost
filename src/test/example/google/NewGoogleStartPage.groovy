@@ -20,7 +20,7 @@ class NewGoogleStartPage extends DslContext{
         //This is based on the fact that you have more attributes to specify, you are more likely to be
         //able to find the locator. Think about the observation: how difficult is to find a inputbox on the
         //web and how difficult is to find a group of ui elements including one input box, two submit buttons.
-        //of course, this requres that the input box and two submit buttons are indeed the children of the
+        //of course, thisqures that the input box and two submit buttons are indeed the children of the
         //container, i.e., here they must be co-located following the "td" tag in the DOM.
         ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
             InputBox(uid: "searchbox", clocator: [title: "Google Search"])
