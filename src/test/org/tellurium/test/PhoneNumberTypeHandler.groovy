@@ -1,7 +1,7 @@
 package org.tellurium.test
 
 import java.text.SimpleDateFormat
-import org.tellurium.datadriven.object.mapping.type.TypeHandler
+import org.tellurium.ddt.object.mapping.type.TypeHandler
 
 /**
  * Example type handler to illustrate how to add custom type handler
