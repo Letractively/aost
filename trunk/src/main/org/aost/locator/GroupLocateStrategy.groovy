@@ -37,11 +37,11 @@ class GroupLocateStrategy {
                 list.addAll(groupAttributes)
             }
         }
-        if (locator.header != null && (!locator.header.trim().isEmpty())) {
+        if (locator.header != null && (locator.header.trim().length() > 0)) {
             xpath = locator.header + xpath
         }
 
-        if (locator.trailer != null && (!locator.trailer.trim().isEmpty())) {
+        if (locator.trailer != null && (locator.trailer.trim().length() > 0)) {
             xpath = xpath + locator.trailer
         }
 

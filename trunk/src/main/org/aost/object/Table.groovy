@@ -188,7 +188,7 @@ class Table extends Container{
 
      public boolean validId(String id){
         //UID cannot be empty
-        if(id == null || id.trim().isEmpty())
+        if(id == null || (id.trim().length() <= 0))
           return false
 
         //convert to upper case so that it is case insensitive
@@ -213,7 +213,7 @@ class Table extends Container{
      }
 
      protected boolean validateField(String field){
-         if(field == null || field.trim().isEmpty())
+         if(field == null || (field.trim().length() <= 0))
             return false
 
          String[] parts = field.trim().split(ID_FIELD_SEPARATOR)

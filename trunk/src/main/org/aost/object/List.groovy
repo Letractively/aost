@@ -58,7 +58,7 @@ class List  extends Container{
 
      public boolean validId(String id){
         //UID cannot be empty
-        if(id == null || id.trim().isEmpty())
+        if(id == null || (id.trim().length() <= 0))
           return false
 
         //convert to upper case so that it is case insensitive
