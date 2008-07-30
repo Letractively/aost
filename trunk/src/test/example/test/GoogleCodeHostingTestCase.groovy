@@ -1,6 +1,6 @@
 package example.test
 
-import org.tellurium.test.StandaloneAostSeleneseTestCase
+import org.tellurium.test.StandaloneTelluriumTestCase
 import example.google.GoogleCodeHosting
 import org.tellurium.object.UrlLink
 
@@ -13,7 +13,7 @@ import org.tellurium.object.UrlLink
  *   @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
-class GoogleCodeHostingTestCase extends StandaloneAostSeleneseTestCase {
+class GoogleCodeHostingTestCase extends StandaloneTelluriumTestCase {
 
     protected static GoogleCodeHosting gch
 

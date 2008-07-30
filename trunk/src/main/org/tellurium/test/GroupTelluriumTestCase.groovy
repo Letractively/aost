@@ -8,7 +8,7 @@ import org.tellurium.connector.SeleniumConnector
  *
  * User: Jian Fang (John.Jian.Fang@gmail.com)
  */
-abstract class GroupAostSeleneseTestCase extends AostSeleneseTestCase {
+abstract class GroupTelluriumTestCase extends TelluriumTestCase {
 //     abstract protected void initalization()
 //
 //     protected void setUp() {

@@ -1,6 +1,7 @@
 package example.test
 
-import org.tellurium.test.AostDataDrivenTest
+import org.tellurium.test.TelluriumDataDrivenTest
+import org.tellurium.test.TelluriumDataDrivenTest
 
 /**
  * New syntax for data driven test
@@ -10,7 +11,7 @@ import org.tellurium.test.AostDataDrivenTest
  * Date: Jul 27, 2008
  *
  */
-class NewGoogleStartPageDataDrivenTest extends AostDataDrivenTest{
+class NewGoogleStartPageDataDrivenTest extends TelluriumDataDrivenTest{
 
     public void testDataDriven() {
         //define google start page

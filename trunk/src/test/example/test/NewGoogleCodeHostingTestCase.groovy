@@ -1,8 +1,9 @@
 package example.test
 
-import org.tellurium.test.StandaloneAostSeleneseTestCase
+import org.tellurium.test.StandaloneTelluriumTestCase
 import example.google.NewGoogleCodeHosting
 import org.tellurium.object.UrlLink
+import org.tellurium.test.StandaloneTelluriumTestCase
 
 /**
  *    Sample test cases for Google Code host page at:
@@ -13,7 +14,7 @@ import org.tellurium.object.UrlLink
  *   @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
-class NewGoogleCodeHostingTestCase extends StandaloneAostSeleneseTestCase {
+class NewGoogleCodeHostingTestCase extends StandaloneTelluriumTestCase {
 
     protected static NewGoogleCodeHosting ngch
 

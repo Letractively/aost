@@ -5,7 +5,7 @@ ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
     SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
 }
 
-//define AOST project menu
+//define Tellurium project menu
 ui.Container(uid: "menu", clocator: [tag: "table", id: "mt", trailer: "/tbody/tr/th"], group: "true"){
     //since the actual text is  Project&nbsp;Home, we can use partial match here. Note "%%" stands for partial match
     UrlLink(uid: "project_home", clocator: [text: "%%Home"])
@@ -15,7 +15,7 @@ ui.Container(uid: "menu", clocator: [tag: "table", id: "mt", trailer: "/tbody/tr
     UrlLink(uid: "source", clocator: [text: "Source"])
 }
 
-//define the AOST project search module, which includes an input box, two search buttons
+//define the Tellurium project search module, which includes an input box, two search buttons
 ui.Form(uid: "search", clocator: [:], group: "true"){
     InputBox(uid: "searchbox", clocator: [name: "q"])
     SubmitButton(uid: "search_project_button", clocator: [value: "Search Projects"])
@@ -23,7 +23,7 @@ ui.Form(uid: "search", clocator: [:], group: "true"){
 }
 
 openUrl "http://www.google.com"
-type "google_start_page.searchbox", "Aost Selenium"
+type "google_start_page.searchbox", "Tellurium Selenium test"
 pause 500
 click "google_start_page.Imfeelinglucky"
 pause 1000
@@ -39,10 +39,10 @@ click "menu.issues"
 pause 1000
 
 openUrl "http://code.google.com/p/aost/"
-type "search.searchbox", "Aost Selenium"
+type "search.searchbox", "Tellurium Selenium groovy"
 click "search.search_project_button"
 pause 5000
 
-type "search.searchbox", "aost selenium dsl groovy"
+type "search.searchbox", "tellurium selenium dsl groovy"
 click "search.search_web_button"
 pause 5000

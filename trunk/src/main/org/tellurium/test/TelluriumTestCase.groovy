@@ -2,7 +2,7 @@ package org.tellurium.test
 
 import org.tellurium.connector.SeleniumConnector
 
-abstract class AostSeleneseTestCase extends GroovyTestCase{
+abstract class TelluriumTestCase extends GroovyTestCase{
 
     public abstract SeleniumConnector getConnector()
 
