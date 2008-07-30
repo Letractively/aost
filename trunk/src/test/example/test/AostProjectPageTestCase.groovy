@@ -1,6 +1,6 @@
 package example.test
 
-import org.aost.test.StandaloneAostSeleneseTestCase
+import org.tellurium.test.StandaloneAostSeleneseTestCase
 import example.google.AostProjectPage
 
 /**
@@ -39,9 +39,9 @@ class AostProjectPageTestCase  extends StandaloneAostSeleneseTestCase {
         app.clickSource()
 
         app.clickProjectHome()
-        app.searchProject("aost")
+        app.searchProject("tellurium")
         
         connectUrl("http://code.google.com/p/aost/")
-        app.searchWeb("aost selenium dsl groovy")
+        app.searchWeb("tellurium selenium dsl groovy")
     }
 }

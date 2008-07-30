@@ -1,5 +1,5 @@
-true | 865-692-6000 | aost
-false| 865-123-4444 | aost selenium test
-true ||aost groovy
-false| | aost test
-true |865-123-5555|aost data driven
+true | 865-692-6000 | tellurium
+false| 865-123-4444 | tellurium selenium test
+true ||tellurium groovy
+false|111-111-1111 | tellurium automated test framework
+true |865-123-5555| tellurium data driven

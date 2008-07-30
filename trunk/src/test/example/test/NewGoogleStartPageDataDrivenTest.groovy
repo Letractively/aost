@@ -1,6 +1,6 @@
 package example.test
 
-import org.aost.test.AostDataDrivenTest
+import org.tellurium.test.AostDataDrivenTest
 
 /**
  * New syntax for data driven test

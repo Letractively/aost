@@ -1,9 +1,9 @@
 package example.test
 
 import example.google.NewGoogleBooksList
-import org.aost.test.StandaloneAostSeleneseTestCase
-import org.aost.object.UiObject
-import org.aost.object.UrlLink
+import org.tellurium.test.StandaloneAostSeleneseTestCase
+import org.tellurium.object.UiObject
+import org.tellurium.object.UrlLink
 
 /**
  *   Sample test cases for Google book list page at:

@@ -1,7 +1,7 @@
 package example.test
 
 import example.google.GoogleStartPage
-import org.aost.test.StandaloneAostSeleneseTestCase
+import org.tellurium.test.StandaloneAostSeleneseTestCase
 
 class GoogleStartPageTestCase extends StandaloneAostSeleneseTestCase{
 
@@ -24,7 +24,7 @@ class GoogleStartPageTestCase extends StandaloneAostSeleneseTestCase{
 //    @Test
     void testTypeGoogle(){
         connectUrl("http://www.google.com")
-        gsp.type("aost groovy")
+        gsp.type("tellurium groovy")
     }
 
 //    public static junit.framework.Test suite(){
