@@ -3,7 +3,7 @@
 
 The Tellurium framework Architecture is shown as in Figure 1.
 
-http://aost-users.googlegroups.com/web/aost.new.selenium.test.framework.jpg?gda=E27EuVUAAADJbXmb4PP0id1ZEODyZpCXVEhmx_uoU_q1JrFe98N07WG1qiJ7UbTIup-M2XPURDSEpSfnuYOO2vWmeO5sniM1vYM7QaXHIynK8j5RnPGCp1RWnrkpXV0iahF26Jcp5xE&gsc=w2GdLxYAAADwmNMMmC-vDHCkIM-0xZmGej8lVbdNv4iBUOdbhJ_ucA
+http://aost-users.googlegroups.com/web/tellurium.architecture.png?gsc=b9qP-QsAAACJ3BLU5GsUQS9sGq3dgdNh
 
 Figure 1. Tellurium Architecture.
 
