@@ -3,7 +3,7 @@
 
 The Tellurium framework Architecture is shown as in Figure 1.
 
-http://aost-users.googlegroups.com/web/tellurium.architecture.png?gsc=b9qP-QsAAACJ3BLU5GsUQS9sGq3dgdNh
+http://tellurium-users.googlegroups.com/web/tellurium.architecture.png?gda=1NP4x0sAAAAFkHkURP2WlgYU-UhtQDFJganRixm7ZVzXjIzQXs5CXWG1qiJ7UbTIup-M2XPURDThcsDHHqasJHRvnmR6jbzWzHqwysTvAgdPZHbdH4XvXg&gsc=26Y4eBYAAAAkGgIQNXlg3kIha08SEZtI9pmI1qD38G08ONb6YfjJaQ
 
 Figure 1. Tellurium Architecture.
 
@@ -43,7 +43,7 @@ Basically, there are two parts for the Tellurium framework. The first part is to
 
 The "Define UI" operation can be demonstrated in the following sequence diagram:
 
-http://aost-users.googlegroups.com/web/aost_sequence_defineui.png?gda=h55hX0sAAADJbXmb4PP0id1ZEODyZpCXPO2xU7csFH_yOl1a-h00LWG1qiJ7UbTIup-M2XPURDRalx4T6cOZyoocLzTpPNoT-xRs6kTo9_1MlJqhLlX0VQ&gsc=l7BFeCEAAADwmNMMmC-vDHCkIM-0xZmG-Bw3c68lOeqFZYTDsdYJEUzfKN-m9S9niuHrq-IEXAE
+http://tellurium-users.googlegroups.com/web/aost_sequence_defineui.png?gda=ut9Dd0sAAAAFkHkURP2WlgYU-UhtQDFJfFjOBE5aGMxp_hs9PNxhIGG1qiJ7UbTIup-M2XPURDRalx4T6cOZyoocLzTpPNoT-xRs6kTo9_1MlJqhLlX0VQ&gsc=26Y4eBYAAAAkGgIQNXlg3kIha08SEZtI9pmI1qD38G08ONb6YfjJaQ
 
 Figure 2. The sequence diagram for "DefineUI"
 
@@ -54,9 +54,9 @@ Note that the processing of the pure DSL script is the same.
  
 === The Action Operation ===
 
-The processing of actions such as clicking on an UI object is illustrated in Figure 2:
+The processing of actions such as clicking on an UI object is illustrated in Figure 3:
 
-http://aost-users.googlegroups.com/web/aost_sequence_click.png?gda=P0VAokgAAADJbXmb4PP0id1ZEODyZpCXPO2xU7csFH_yOl1a-h00LWG1qiJ7UbTIup-M2XPURDSpnGSpq9shp5Nom0pUQ_VQjwc8kMSHiCJV0Te5P6rKfA&gsc=l7BFeCEAAADwmNMMmC-vDHCkIM-0xZmG-Bw3c68lOeqFZYTDsdYJEUzfKN-m9S9niuHrq-IEXAE
+http://tellurium-users.googlegroups.com/web/aost_sequence_click.png?gda=EuRP9kgAAAAFkHkURP2WlgYU-UhtQDFJfFjOBE5aGMxp_hs9PNxhIGG1qiJ7UbTIup-M2XPURDSpnGSpq9shp5Nom0pUQ_VQjwc8kMSHiCJV0Te5P6rKfA&gsc=26Y4eBYAAAAkGgIQNXlg3kIha08SEZtI9pmI1qD38G08ONb6YfjJaQ
 
 Figure 3. The sequence diagram for the "click" action
 
