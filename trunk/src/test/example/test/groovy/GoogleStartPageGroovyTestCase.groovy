@@ -2,16 +2,11 @@ package example.test.groovy
 
 import example.google.GoogleStartPage
 import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
-import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
+import example.google.NewGoogleStartPage
 
 class GoogleStartPageGroovyTestCase extends StandaloneTelluriumGroovyTestCase{
 
-    protected static GoogleStartPage gsp
-
     public void initUi() {
-        gsp = new GoogleStartPage()
-        gsp.defineUi()
-
     }
 
     public void setUp(){
@@ -22,13 +17,19 @@ class GoogleStartPageGroovyTestCase extends StandaloneTelluriumGroovyTestCase{
         tearDownForClass()
     }
 
-//    @Test
     void testTypeGoogle(){
+        //test google start page using Selenium way, i.e., absolute xpath
+        GoogleStartPage gsp = new GoogleStartPage()
+        gsp.defineUi()
         connectUrl("http://www.google.com")
-        gsp.type("tellurium groovy")
-    }
+        gsp.type("tellurium groovy selenium test")
 
-//    public static junit.framework.Test suite(){
-//	    return new JUnit4TestAdapter(GoogleStartPageGroovyTestCase.class)
-//    }
+        //test google start page using composite locators
+        NewGoogleStartPage ngsp = new NewGoogleStartPage()
+        ngsp.defineUi()
+        connectUrl("http://www.google.com")
+        ngsp.doGoogleSearch("tellurium selenium")
+        connectUrl("http://www.google.com")
+        ngsp.doImFeelingLucky("tellurium selenium")
+    }
 }
