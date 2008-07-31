@@ -13,7 +13,7 @@ import org.junit.AfterClass;
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
-public abstract class TelluriumJavaTestCase extends TelluriumJavaBaseTestCase {
+public abstract class TelluriumJavaTestCase extends BaseTelluriumJavaTestCase {
 
     protected static TelluriumFramework tellurium;
 

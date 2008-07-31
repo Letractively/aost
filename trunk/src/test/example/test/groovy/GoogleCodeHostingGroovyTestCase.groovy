@@ -1,11 +1,11 @@
 package example.test.groovy
 
-import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
+import org.tellurium.test.groovy.TelluriumGroovyTestCase
 import example.google.GoogleCodeHosting
 import org.tellurium.object.UrlLink
-import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
-import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
-import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
+import org.tellurium.test.groovy.TelluriumGroovyTestCase
+import org.tellurium.test.groovy.TelluriumGroovyTestCase
+import org.tellurium.test.groovy.TelluriumGroovyTestCase
 import example.google.NewGoogleCodeHosting
 
 /**
@@ -17,7 +17,7 @@ import example.google.NewGoogleCodeHosting
  *   @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
-class GoogleCodeHostingGroovyTestCase extends StandaloneTelluriumGroovyTestCase {
+class GoogleCodeHostingGroovyTestCase extends TelluriumGroovyTestCase {
 
     public void initUi() {
     }

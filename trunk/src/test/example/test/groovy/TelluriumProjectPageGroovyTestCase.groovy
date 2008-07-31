@@ -1,6 +1,6 @@
 package example.test.groovy
 
-import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
+import org.tellurium.test.groovy.TelluriumGroovyTestCase
 import example.tellurium.TelluriumProjectPage
 
 /**
@@ -13,7 +13,7 @@ import example.tellurium.TelluriumProjectPage
  *   @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
-class TelluriumProjectPageGroovyTestCase  extends StandaloneTelluriumGroovyTestCase {
+class TelluriumProjectPageGroovyTestCase  extends TelluriumGroovyTestCase {
 
     protected TelluriumProjectPage app
 

@@ -1,6 +1,6 @@
 package example.test.groovy
 
-import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
+import org.tellurium.test.groovy.TelluriumGroovyTestCase
 import example.google.GoogleBooksList
 import org.tellurium.object.UiObject
 import org.tellurium.object.UrlLink
@@ -15,7 +15,7 @@ import example.google.NewGoogleBooksList
  *
  *   @author Jian Fang (John.Jian.Fang@gmail.com)
  */
-class GoogleBooksListGroovyTestCase extends StandaloneTelluriumGroovyTestCase {
+class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
 
     public void initUi() {
     }
