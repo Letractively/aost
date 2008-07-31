@@ -37,7 +37,7 @@ class GoogleStartPagePullTest extends TelluriumDataDrivenTest{
         }
 
         //load file
-        loadData "src/test/example/dsl/googlesearchinput.txt"
+        loadData "src/test/example/test/ddt/googlesearchpullinput.txt"
 
         step{
             //bind variables

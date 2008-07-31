@@ -19,7 +19,7 @@ fs.FieldSet(name: "fs4googlesearch", description: "example field set for google 
 }
 
 //load file
-loadData "src/test/example/dsl/googlesearchinput.txt"
+loadData "src/test/example/test/ddt/googlesearchpullinput.txt"
 
 step {
 
