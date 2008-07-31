@@ -38,7 +38,7 @@ class DataProvider_UT extends GroovyTestCase{
             true | 865-692-6000 | tellurium groovy
             false| 865-123-4444 | tellurium selenium test
         """
-//        dataProvider.start("src/example/dsl/googlesearchinput.txt")
+//        dataProvider.start("src/example/test/ddt/googlesearchpullinput.txt")
         dataProvider.useString(data)
         
         FieldSetMapResult result = dataProvider.nextFieldSet()

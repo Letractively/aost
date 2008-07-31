@@ -39,7 +39,7 @@ class GoogleDdDslContext extends DslScriptEngine{
         }
 
         //load file
-//        loadData "src/test/example/dsl/googlesearchinput.txt"
+//        loadData "src/test/example/test/ddt/googlesearchpullinput.txt"
         //use String
         useData data
 
