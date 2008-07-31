@@ -14,4 +14,5 @@
   * Write detailed documents as Tellurium user Guide
   * Add composite UI object such as widgets
   * Better way to wait or pause during testing
+  * Add Tellurium to [http://docs.codehaus.org/display/GROOVY/Modules Groovy Modules] and create a page to summarize Tellurium
   * Export Tellurium to Ruby Tellurium
