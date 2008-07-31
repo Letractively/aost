@@ -4,7 +4,7 @@
 Please follow the following rules:
 
   * Whenever you create or update a file, please add your name and email there in the format of:
-    @author: Your_NAME (Your Email)    
+    @author Your_NAME (Your Email)    
     Please do not remove existing authors.
 
   * Please add comments to your code so that other people can understand your code easily.
