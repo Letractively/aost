@@ -13,7 +13,7 @@ import org.tellurium.ddt.object.mapping.io.PipeDataReader
  */
 class PipeFieldSetReader_UT extends GroovyTestCase {
 
-    protected String data = """true | 865-692-6000 | aost
+    protected String data = """true | 865-692-6000 | tellurium
        false| 865-123-4444 | tellurium selenium test"""
 
     void testReadData(){

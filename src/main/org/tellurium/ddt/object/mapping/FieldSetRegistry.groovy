@@ -1,7 +1,7 @@
 package org.tellurium.ddt.object.mapping
 /**
  *
- * The Registry to hold all FieldSet defined
+ * The Registry to hold all FieldSets defined
  * 
  * @author: Jian Fang (John.Jian.Fang@gmail.com)
  *
@@ -9,12 +9,30 @@ package org.tellurium.ddt.object.mapping
  *
  */
 class FieldSetRegistry {
-
+    
     private Map<String, FieldSet> fieldSets = new HashMap<String, FieldSet>()
 
+    //the index is the mapping from fieldset's internal name, i.e., the first one of identifier and action,
+    //to the fieldset name.
+    //The fieldset name is used for test script and the internal name is used by test data
+    //The index is used to mapping test data to fieldset defined in the test script
+    private Map<String, String> indexes = new HashMap<String, String>()
+
     public void addFieldSet(FieldSet fs){
-        if(fs != null)
+        if(fs != null){
             fieldSets.put(fs.getName(), fs)
+            indexes.put(fs.getInternalName(), fs.getName())
+        }
+    }
+
+    public FieldSet getFieldSetByInternalName(String internalName){
+        FieldSet fs = null
+        String fsname = indexes.get(internalName)
+        if(fsname != null){
+            fs = fieldSets.get(fsname)
+        }
+
+        return fs
     }
 
     public FieldSet getFieldSetByName(String fieldSetName){

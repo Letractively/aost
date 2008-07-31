@@ -8,4 +8,15 @@ package org.tellurium.ddt.object.mapping
  * 
  */
 class ActionField extends Field{
+    //value which we can use it to specify which action the field set is defined for. We can use this field together
+    //with the IdentifierField to handle more general cases
+    private String value
+
+    public void setValue(String value){
+        this.value = value
+    }
+
+    public String getValue(){
+        return this.value
+    }
 }
