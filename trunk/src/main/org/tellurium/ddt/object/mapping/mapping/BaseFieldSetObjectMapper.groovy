@@ -54,9 +54,10 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
             //there is only one field set in the registry
             fs = registry.getUniqueOne()
         }else{
-            //check the identifier and assume it always to be the first one
-            String identifier = fieldData.get(0)
-            fs = registry.getFieldSetByIdentifier(identifier)
+            //check the identifier or action and assume it always to be the first one
+            String id = fieldData.get(0)
+//            fs = registry.getFieldSetByIdentifier(id)
+            fs = registry.getFieldSetByInternalName(id)
         }
 
         if(fs == null)

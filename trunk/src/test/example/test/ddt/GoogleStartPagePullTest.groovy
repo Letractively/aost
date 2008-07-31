@@ -1,17 +1,22 @@
 package example.test.ddt
 
 import org.tellurium.test.ddt.TelluriumDataDrivenTest
-import org.tellurium.test.ddt.TelluriumDataDrivenTest
 
 /**
- * example to writing Data driveToEnd test directly in Groovy
+ * example of writing Data Driven test directly in Groovy
+ *
+ * This example shows how the user can manually control the test flow by specifying the
+ * test script in the step() or stepToEnd() method.
+ *
+ * This is very much like a pull method. You pull data from the file and you have the control
+ * of the execution flow and which row of data maps to which field set
  *
  * @author: Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 24, 2008
  *
  */
-class GoogleStartPageDataDrivenTest extends TelluriumDataDrivenTest{
+class GoogleStartPagePullTest extends TelluriumDataDrivenTest{
 
     public void testDataDriven() {
         //define google start page

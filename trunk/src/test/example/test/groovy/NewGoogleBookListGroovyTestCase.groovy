@@ -4,8 +4,6 @@ import example.google.NewGoogleBooksList
 import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
 import org.tellurium.object.UiObject
 import org.tellurium.object.UrlLink
-import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
-import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
 
 /**
  *   Sample test cases for Google book list page at:
