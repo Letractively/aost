@@ -10,7 +10,7 @@ import org.tellurium.connector.SeleniumConnector;
  *
  *
  */
-public abstract class TelluriumJavaBaseTestCase {
+public abstract class BaseTelluriumJavaTestCase {
     protected static SeleniumConnector connector;
 
     public static void openUrl(String url){

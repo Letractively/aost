@@ -1,26 +1,42 @@
 package org.tellurium.test.groovy
 
 import org.tellurium.connector.SeleniumConnector
+import org.tellurium.bootstrap.TelluriumSupport
+import org.tellurium.framework.TelluriumFramework
 
-abstract class TelluriumGroovyTestCase extends GroovyTestCase{
+/**
+ * This test case only applies to a standalone test case which will be run by itself. Should not use
+ * it if you plan to add the test case to a test suite.
+ *
+ * User: Jian Fang (John.Jian.Fang@gmail.com)
+ */
+class TelluriumGroovyTestCase extends BaseTelluriumGroovyTestCase{
 
-    public abstract SeleniumConnector getConnector()
+//    protected EmbeddedSeleniumServer server;
 
-    public void openUrl(String url){
-        getConnector().connectSeleniumServer()
-        getConnector().connectUrl(url)
+    protected SeleniumConnector connector;
+    protected TelluriumFramework aost
+
+    public SeleniumConnector getConnector() {
+        return connector;
     }
 
-    public void connectUrl(String url) {
-         getConnector().connectUrl(url)
+    public void initUi(){
+
     }
 
-    public void connectSeleniumServer(){
-        getConnector().connectSeleniumServer()
+//    @BeforeClass
+    protected void setUpForClass() {
+        TelluriumFramework aost = TelluriumSupport.addSupport()
+        aost.start()
+        connector = aost.connector
+        initUi()
     }
-    
-    public void disconnectSeleniumServer(){
-         getConnector().disconnectSeleniumServer()
+
+//    @AfterClass
+    protected void tearDownForClass() {
+        if(aost != null)
+            aost.stop()
     }
 
 }

@@ -6,8 +6,7 @@ import org.tellurium.connector.SeleniumConnector
 import org.tellurium.dsl.UiDslParser
 import org.tellurium.ddt.object.mapping.FieldSetParser
 import org.tellurium.dsl.DefaultDdDslContext
-import org.tellurium.test.helper.TestResult
-import org.tellurium.framework.TelluriumFramework
+
 
 /**
  * AOST Data Driven test using Groovy.
@@ -75,21 +74,4 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase{
     public void tearDown(){
         shutDown()
     }
-
-/*    public boolean compareResult(expected, actual){
-        boolean passed = true
-
-        try{
-            assertEquals(expected, actual)
-        }catch(Exception e){
-            passed = false
-        }
-
-        TestResult result = new TestResult()
-        result.expected = expected
-        result.actual = actual
-        result.passed = passed
-        ddc.listenForResult(result)
-    }*/
-
 }

@@ -1,10 +1,10 @@
 package example.test.groovy
 
 import example.google.GoogleStartPage
-import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
+import org.tellurium.test.groovy.TelluriumGroovyTestCase
 import example.google.NewGoogleStartPage
 
-class GoogleStartPageGroovyTestCase extends StandaloneTelluriumGroovyTestCase{
+class GoogleStartPageGroovyTestCase extends TelluriumGroovyTestCase{
 
     public void initUi() {
     }

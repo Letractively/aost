@@ -7,7 +7,7 @@ import org.tellurium.connector.SeleniumConnector
  *
  * User: Jian Fang (John.Jian.Fang@gmail.com)
  */
-class DslTelluriumGroovyTestCase extends TelluriumGroovyTestCase{
+class DslTelluriumGroovyTestCase extends BaseTelluriumGroovyTestCase{
     
     protected SeleniumConnector connector
 
