@@ -1,7 +1,7 @@
 package example.test.groovy
 
 import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
-import example.google.TelluriumProjectPage
+import example.tellurium.TelluriumProjectPage
 
 /**
  * Sample test for the Tellurium project page at:

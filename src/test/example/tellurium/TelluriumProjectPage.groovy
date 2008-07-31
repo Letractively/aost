@@ -1,4 +1,4 @@
-package example.google
+package example.tellurium
 
 import org.tellurium.dsl.DslContext
 

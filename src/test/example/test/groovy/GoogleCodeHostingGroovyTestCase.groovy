@@ -6,6 +6,7 @@ import org.tellurium.object.UrlLink
 import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
 import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
 import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
+import example.google.NewGoogleCodeHosting
 
 /**
  *  Sample test cases for Google Code host page at:
@@ -18,12 +19,7 @@ import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
  */
 class GoogleCodeHostingGroovyTestCase extends StandaloneTelluriumGroovyTestCase {
 
-    protected static GoogleCodeHosting gch
-
     public void initUi() {
-        gch = new GoogleCodeHosting()
-        gch.defineUi()
-
     }
 
     public void setUp(){
@@ -35,6 +31,18 @@ class GoogleCodeHostingGroovyTestCase extends StandaloneTelluriumGroovyTestCase 
     }
 
     void testCodeLabelTable(){
+        //test google code hosting using Selenium way, i.e., absolute xpath
+        GoogleCodeHosting gch = new GoogleCodeHosting()
+        gch.defineUi()
+        codeLabelTableTest(gch)
+
+        //test google code hosting using composite locators
+        NewGoogleCodeHosting ngch =  new NewGoogleCodeHosting()
+        ngch.defineUi()
+        codeLabelTableTest(ngch)
+    }
+
+    void codeLabelTableTest(gch){
         connectUrl("http://code.google.com/hosting/")
         String label = gch.getModuleLabel()
         assertEquals("Example project labels:", label)

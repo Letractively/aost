@@ -4,10 +4,7 @@ import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
 import example.google.GoogleBooksList
 import org.tellurium.object.UiObject
 import org.tellurium.object.UrlLink
-import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
-import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
-import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
-import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
+import example.google.NewGoogleBooksList
 
 /**
  * 
@@ -20,12 +17,7 @@ import org.tellurium.test.groovy.StandaloneTelluriumGroovyTestCase
  */
 class GoogleBooksListGroovyTestCase extends StandaloneTelluriumGroovyTestCase {
 
-    protected GoogleBooksList gbl
-
     public void initUi() {
-        gbl = new GoogleBooksList()
-        gbl.defineUi()
-
     }
 
     public void setUp(){
@@ -37,12 +29,24 @@ class GoogleBooksListGroovyTestCase extends StandaloneTelluriumGroovyTestCase {
     }
 
     void testBookCategory(){
+        //test google book list using Selenium way, i.e., absolute xpath
+        GoogleBooksList gbl = new GoogleBooksList()
+        gbl.defineUi()
+        bookListTest(gbl)
+
+        //test google book list using composite locators
+        NewGoogleBooksList ngbl = new NewGoogleBooksList()
+        ngbl.defineUi()
+        bookListTest(ngbl)
+    }
+
+    void bookListTest(gbl){
         connectUrl("http://books.google.com/")
         String category = gbl.getCategory()
         assertEquals("Fiction", category)
 
         int size = gbl.getListSize()
-        
+
         assertEquals(8, size)
 
         List lst = gbl.getAllObjectInList()
