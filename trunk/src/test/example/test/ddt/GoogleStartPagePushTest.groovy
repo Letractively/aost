@@ -25,6 +25,10 @@ class GoogleStartPagePushTest extends TelluriumDataDrivenTest{
         }
 
         //define file data format
+        //here the value of the action field is not specified and it implies that multiple
+        //actions could use the same data format
+        //But if you specify the value of the action, the data format, i.e, this FieldSet can
+        //be only applied to that action
         fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search") {
             Action(name: "searchaction")
             Field(name: "input", description: "input variable")

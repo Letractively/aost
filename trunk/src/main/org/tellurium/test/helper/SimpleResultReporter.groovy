@@ -22,13 +22,14 @@ class SimpleResultReporter implements ResultReporter{
                     failed++
                 }
             }
-        }
 
-        println "Test Results: \n\n"
+        }
+        println "\n\n------------------------------------------------------------------------\n"
+        println "Test Results: \n"
         println "Total tests: ${total}\n"
         println "Tests succeeded: ${succeeded}\n"
-        println "Tests failed: ${failed}\n\n"
-        println "------------------------------------------------------------------------\n"
+        println "Tests failed: ${failed}\n"
+        println "------------------------------------------------------------------------\n\n"
         if(results != null && (!results.isEmpty())){
             for(TestResult result : results){
                 println "{"
