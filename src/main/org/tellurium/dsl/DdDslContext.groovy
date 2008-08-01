@@ -182,6 +182,7 @@ abstract class DdDslContext extends DslContext{
         boolean passed = true
         
         TestResult result = new TestResult()
+        result.setProperty("stepId", stepCount)
         result.setProperty("expected", expected)
         result.setProperty("actual", actual)
 

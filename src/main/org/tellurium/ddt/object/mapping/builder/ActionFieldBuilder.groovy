@@ -12,12 +12,19 @@ import org.tellurium.ddt.object.mapping.ActionField
  *
  */
 class ActionFieldBuilder extends BaseBuilder{
+    private static final String DEFAULT_ACTION_NAME = "action"
 
     public ActionField build(Map map) {
         map = makeCaseInsensitive(map)
 
         ActionField f = new ActionField()
-        f.name = map.get(NAME)
+
+        //if the action name is not specified, use the default name
+        if(map.get(NAME))
+            f.name = map.get(NAME)
+        else
+            f.name = DEFAULT_ACTION_NAME
+
         f.description = map.get(DESCRIPTION)
 
         //do not override the default type
@@ -31,7 +38,7 @@ class ActionFieldBuilder extends BaseBuilder{
             f.length = map.get(LENGTH)
 
         f.pattern = map.get(PATTERN)
-        
+
         f.value = map.get(VALUE)
 
         return f

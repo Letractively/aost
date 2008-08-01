@@ -3,10 +3,6 @@ package org.tellurium.dsl
 import org.tellurium.bootstrap.TelluriumSupport
 import org.tellurium.test.groovy.DslTelluriumGroovyTestCase
 import org.tellurium.framework.TelluriumFramework
-import org.tellurium.test.helper.TestResult
-import org.tellurium.test.groovy.DslTelluriumGroovyTestCase
-import org.tellurium.bootstrap.TelluriumSupport
-import org.tellurium.test.groovy.DslTelluriumGroovyTestCase
 
 class DslScriptEngine extends DdDslContext{
     
@@ -26,11 +22,11 @@ class DslScriptEngine extends DdDslContext{
     //try to delegate missing methods to the AostTestCase, if still could not find,
     //throw a MissingMethodException
      protected def methodMissing(String name, args) {
-         if(name == "init")
+         if("init".equals(name))
             return init()
-         if(name == "openUrl")
+         if("openUrl".equals(name))
             return openUrl(args)
-         if(name == "shutDown")
+         if("shutDown".equals(name))
             return shutDown()
          
          if(DslTelluriumGroovyTestCase.metaClass.respondsTo(aost, name, args)){
@@ -44,20 +40,4 @@ class DslScriptEngine extends DdDslContext{
         if(af != null)
             af.stop()
      }
-
-/*    public boolean compareResult(expected, actual){
-        boolean passed = true
-
-        try{
-            tellurium.assertEquals(expected, actual)
-        }catch(Exception e){
-            passed = false
-        }
-
-        TestResult result = new TestResult()
-        result.expected = expected
-        result.actual = actual
-        result.passed = passed
-        listenForResult(result)
-    }*/
 }

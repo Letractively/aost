@@ -18,7 +18,7 @@ import org.tellurium.server.EmbeddedSeleniumServer
 import org.tellurium.builder.UiObjectBuilder
 
 /**
- * Put all initialization and cleanup jobs for the AOST framework here
+ * Put all initialization and cleanup jobs for the Tellurium framework here
  *
  * User: Jian Fang (Jian.Fang@jtv.com) 
  * Date: Jun 2, 2008
@@ -69,7 +69,9 @@ class TelluriumFramework {
     public void stop(){
         if(connector != null){
             connector.disconnectSeleniumServer()
-        }            
+        }
+        
+        Thread.currentThread().join(1000)
     }
 
     //register ui object builder

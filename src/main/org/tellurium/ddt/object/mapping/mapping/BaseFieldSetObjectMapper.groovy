@@ -6,7 +6,6 @@ import org.tellurium.ddt.object.mapping.FieldSet
 import org.tellurium.ddt.object.mapping.Field
 import org.tellurium.ddt.object.mapping.DataMappingException
 import org.tellurium.ddt.object.mapping.validator.FieldSetValidator
-import org.tellurium.ddt.object.mapping.io.DataReader
 import org.tellurium.ddt.object.mapping.FieldSetType
 
 /**
@@ -19,7 +18,7 @@ import org.tellurium.ddt.object.mapping.FieldSetType
  */
 abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
     protected final static String ERROR_INVALID_DATA = "Invalid Data "
-    protected final static String CANNOT_FIND_FIELD_SET = "Cannot find a matching field set "
+    protected final static String CANNOT_FIND_FIELD_SET = "Cannot find a matching field set for input: "
     protected final static String ERROR_DATA_FIELD_SIZE_NOT_MATCH = "The data size does not match the size of the Field Set "
     protected final static String COMMENT_PREFIX = "##"
     protected final static String BLOCK_START_PREFIX = "#{"
@@ -61,7 +60,7 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
         }
 
         if(fs == null)
-            throw new DataMappingException(CANNOT_FIND_FIELD_SET)
+            throw new DataMappingException(CANNOT_FIND_FIELD_SET + convString(fieldData))
 
         FieldSetValidator.validate(fs, fieldData)
         FieldSetMapResult result = new FieldSetMapResult()
@@ -113,4 +112,16 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
         return fieldData
     }
 
+    protected String convString(List fieldData){
+        if(fieldData != null && fieldData.size() > 0){
+            StringBuffer sb = new StringBuffer(128)
+            sb.append("[")
+            sb.append(fieldData.join(", "))
+            sb.append("]")
+
+            return sb.toString()
+        }else{
+            return ""
+        }
+    }
 }

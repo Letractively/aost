@@ -1,0 +1,17 @@
+##Action should be always be the first column
+
+##Data for action "checkBookList"
+##ACTION | CATEGORY | SIZE
+checkBookList|Fiction|8
+checkBookList|Fiction|3
+
+##Data for action "getGCHStatus"
+##ACTION | LABEL | Row Number | Column Number
+getGCHStatus |Example project labels:| 3 | 6
+getGCHStatus |Example project| 3 | 6
+
+##Data for action "clickGCHLabel"
+##ACTION | row | column
+clickGCHLabel | 1 | 1
+clickGCHLabel | 2 | 2
+clickGCHLabel | 3 | 3
