@@ -328,4 +328,36 @@ class Accessor{
     String getTitle(){
         return dispatcher.getTitle()
     }
+
+    String[] getAllButtons(){
+       return dispatcher.getAllButtons()
+    }
+
+    String[] getAllLinks(){
+       return dispatcher.getAllLinks()
+    }
+
+    String[] getAllFields(){
+        return dispatcher.getAllFields() 
+    }
+
+    String[] getAllWindowIds(){
+        return dispatcher.getAllWindowIds()
+    }
+
+    String[] getAllWindowNames(){
+        return dispatcher.getAllWindowNames()
+    }
+
+    String[] getAllWindowTitles(){
+        return dispatcher.getAllWindowTitles()
+    }
+
+    void waitForPageToLoad(String timeout){
+         dispatcher.waitForPageToLoad(timeout)
+    }
+
+    void waitForFrameToLoad(String frameAddress, String timeout){
+        dispatcher.waitForFrameToLoa(frameAddress, timeout)
+    }
 }

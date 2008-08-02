@@ -432,7 +432,7 @@ abstract class DslContext {
          return false
    }
 
-    boolean waitForCondition(String script, String timeoutInMilliSecond){
+    boolean waitForCondition(String script, int timeoutInMilliSecond){
        Accessor.waitForCondition(script, timeoutInMilliSecond)
     }
 
@@ -516,7 +516,7 @@ abstract class DslContext {
         eventHandler.selectFrame(locator)
     }
 
-    def waitForPopUp(String windowID, String timeout){
+    def waitForPopUp(String windowID, int timeout){
         return accessor.waitForPopUp(windowID, timeout)
     }
 
@@ -624,5 +624,35 @@ abstract class DslContext {
     String getTitle(){
         return accessor.getTitle()
     }
+    String[] getAllButtons(){
+       return accessor.getAllButtons()
+    }
 
+    String[] getAllLinks(){
+       return accessor.getAllLinks()
+    }
+
+    String[] getAllFields(){
+        return accessor.getAllFields()
+    }
+
+    String[] getAllWindowIds(){
+        return accessor.getAllWindowIds()
+    }
+
+    String[] getAllWindowNames(){
+        return accessor.getAllWindowNames()
+    }
+
+    String[] getAllWindowTitles(){
+        return accessor.getAllWindowTitles()
+    }
+
+    void waitForPageToLoad(int timeout){
+         accessor.waitForPageToLoad(timeout)
+    }
+
+    void waitForFrameToLoad(String frameAddress, int timeout){
+        accessor.waitForFrameToLoad(frameAddress, timeout)
+    }
 }

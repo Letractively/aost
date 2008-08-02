@@ -63,7 +63,7 @@ public class GoogleCodeHostingJavaTestCase extends TelluriumJavaTestCase {
         Map map = ngch.getAllLabels();
         assertEquals(18, map.size());
 
-        List<Integer> index = (List) map.get("Java");
+        List<Integer> index = (List<Integer>) map.get("Java");
         assertNotNull(index);
         assertEquals(2, index.size());
 
