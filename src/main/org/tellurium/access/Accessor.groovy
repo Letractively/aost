@@ -247,13 +247,14 @@ class Accessor{
     }
 
     String getAttribute(String locator){
-        String value = null;
+        String value = null
         try{
             value = dispatcher.getAttribute(locator)
         }catch(SeleniumException e){
             value = null;
         }
-        return value;
+
+        return value
     }
 
     def waitForPopUp(String windowID, String timeout){
@@ -294,5 +295,37 @@ class Accessor{
 
     void captureScreenshot(String filename){
         dispatcher.captureScreenshot(filename)
+    }
+
+    boolean isAlertPresent(){
+        return dispatcher.isAlertPresent()
+    }
+
+    boolean isPromptPresent(){
+        return dispatcher.isPromptPresent()
+    }
+
+    boolean isConfirmationPresent(){
+        return dispatcher.isConfirmationPresent()
+    }
+
+    String getAlert(){
+        return dispatcher.getAlert()
+    }
+
+    String getConfirmation(){
+        return dispatcher.getConfirmation()
+    }
+
+    String getPrompt(){
+        return dispatcher.getPrompt()
+    }
+
+    String getLocation(){
+        return dispatcher.getLocation()
+    }
+
+    String getTitle(){
+        return dispatcher.getTitle()
     }
 }
