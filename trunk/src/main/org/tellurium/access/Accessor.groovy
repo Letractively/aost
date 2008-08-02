@@ -126,7 +126,7 @@ class Accessor{
     	return text
 	}
 
-    def String[] getSelectOption(String locator){
+    def String[] getSelectOptions(String locator){
         if(!dispatcher.isElementPresent(locator)) {
             waitForElementPresent(locator, ACCESS_WAIT_TIME)
         }
