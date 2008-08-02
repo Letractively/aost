@@ -13,6 +13,8 @@ import org.tellurium.test.helper.DefaultResultListener
 import org.tellurium.test.helper.TestResult
 import org.tellurium.test.helper.ResultListener
 import org.tellurium.test.helper.StepStatus
+import org.tellurium.test.helper.AssertionResult
+import junit.framework.AssertionFailedError
 
 
 /**
@@ -80,7 +82,7 @@ abstract class DdDslContext extends DslContext{
             result.setProperty("stepId", ++stepCount)
             result.setProperty("start", System.nanoTime())
             result.setProperty("input", fsmr.getResults())
-            result.setProperty("passed", true)
+ //           result.setProperty("passed", true)
 
             try{
                 if(action != null){
@@ -97,7 +99,7 @@ abstract class DdDslContext extends DslContext{
                 result.setProperty("status", StepStatus.PROCEEDED)
             }catch(Exception e){
                 result.setProperty("status", StepStatus.EXECPTION)
-                result.setProperty("passed", false)
+//                result.setProperty("passed", false)
                 result.setProperty("exception", e)
             }
             result.setProperty("end", System.nanoTime())
@@ -127,7 +129,7 @@ abstract class DdDslContext extends DslContext{
             result.setProperty("stepId", ++stepCount)
             result.setProperty("input", fsmr.getResults())
             result.setProperty("status", StepStatus.SKIPPED)
-            result.setProperty("passed", true)
+//            result.setProperty("passed", true)
 
             listener.listenForInput(result)
 
@@ -180,21 +182,23 @@ abstract class DdDslContext extends DslContext{
 
     public boolean compareResult(expected, actual){
         boolean passed = true
-        
+
         TestResult result = new TestResult()
+        AssertionResult assertResult = new AssertionResult()
+
         result.setProperty("stepId", stepCount)
-        result.setProperty("expected", expected)
-        result.setProperty("actual", actual)
+        assertResult.setProperty("expected", expected)
+        assertResult.setProperty("actual", actual)
 
         try{
             junit.framework.Assert.assertEquals(expected, actual)
-        }catch(Exception e){
+        }catch(AssertionFailedError e){
             passed = false
-            //do not really need to care about the exception here. Basically, it is an assertation exception
-//            result.setProperty("exception", e)
+            assertResult.setProperty("error", e)
         }
 
-        result.setProperty("passed", passed)
+        assertResult.setProperty("passed", passed)
+        result.addAssertationResult(assertResult)
         listenForResult(result)
     }
 
