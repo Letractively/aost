@@ -24,12 +24,12 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
     @Test
     public void testGoogleSearch(){
         connectUrl("http://www.google.com");
-        ngsp.doGoogleSearch("tellurium selenium");
+        ngsp.doGoogleSearch("tellurium selenium Groovy Test");
    }
 
    @Test
    public void testGoogleSearchFeelingLucky(){
         connectUrl("http://www.google.com");
-        ngsp.doImFeelingLucky("tellurium selenium");
+        ngsp.doImFeelingLucky("tellurium selenium DSL Testing");
    }
 }

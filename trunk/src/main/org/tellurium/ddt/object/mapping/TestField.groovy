@@ -7,7 +7,7 @@ package org.tellurium.ddt.object.mapping
  * Date: Jul 27, 2008
  * 
  */
-class ActionField extends Field{
+class TestField extends Field{
     //value which we can use it to specify which action the field set is defined for. We can use this field together
     //with the IdentifierField to handle more general cases
     private String value

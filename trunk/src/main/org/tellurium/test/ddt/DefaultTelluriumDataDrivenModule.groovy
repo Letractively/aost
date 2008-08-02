@@ -5,7 +5,8 @@ import org.tellurium.dsl.UiDslParser
 import org.tellurium.ddt.DataProvider
 import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
 import org.tellurium.ddt.object.mapping.FieldSetRegistry
-import org.tellurium.ddt.ActionRegistry
+import org.tellurium.ddt.TestRegistry
+import org.tellurium.ddt.TestRegistry
 
 /**
  * 
@@ -21,12 +22,11 @@ class DefaultTelluriumDataDrivenModule extends TelluriumDataDrivenModule{
     }
 
     public DefaultTelluriumDataDrivenModule(TypeHandlerRegistry thr, FieldSetRegistry fsr,
-        FieldSetParser fs, ActionRegistry ar, DataProvider dataProvider){
-//        this.ui = ui
+        FieldSetParser fs, TestRegistry tr, DataProvider dataProvider){
         this.thr = thr
         this.fsr = fsr
         this.fs = fs
-        this.ar = ar
+        this.tr = tr
         this.dataProvider = dataProvider
     }
 
@@ -72,12 +72,12 @@ class DefaultTelluriumDataDrivenModule extends TelluriumDataDrivenModule{
        this.fsr = fsr
     }
 
-    public void setActionRegistry(ActionRegistry ar){
-        this.ar = ar
+    public void setTestRegistry(TestRegistry ar){
+        this.tr = ar
     }
 
-    public ActionRegistry getActionRegistry(){
-        return this.ar
+    public TestRegistry getTestRegistry(){
+        return this.tr
     }
 
     public void defineModule() {

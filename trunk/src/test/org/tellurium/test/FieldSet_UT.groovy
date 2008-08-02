@@ -47,7 +47,7 @@ class FieldSet_UT extends GroovyTestCase {
         FieldSetRegistry fsr = new FieldSetRegistry()
         FieldSetParser parser = new FieldSetParser(fsr)
         parser.FieldSet(name: "fs4googlesearch", description: "example field set for google search"){
-            Action(value: "search")
+            Test(value: "search")
             Field(name: "regularSearch", type: "boolean", description: "whether we should use regular search or use I'm feeling lucky")
             Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")
             Field(name: "input", description: "input variable")
@@ -63,7 +63,7 @@ class FieldSet_UT extends GroovyTestCase {
         FieldSetParser parser = new FieldSetParser(fsr)
         parser.FieldSet(name: "fs4googlesearch", description: "example field set for google search") {
             Identifier(name: "id", value: "123")
-            Action(name: "action", value: "search")
+            Test(name: "action", value: "search")
             Field(name: "regularSearch", type: "boolean", description: "whether we should use regular search or use I'm feeling lucky")
             Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")
             Field(name: "input", description: "input variable")
@@ -78,7 +78,7 @@ class FieldSet_UT extends GroovyTestCase {
         FieldSetRegistry fsr = new FieldSetRegistry()
         FieldSetParser parser = new FieldSetParser(fsr)
         parser.FieldSet(name: "fs4googlesearch", description: "example field set for google search") {
-            Action(value: "search")
+            Test(value: "search")
             Identifier(name: "id", value: "123")
             Field(name: "regularSearch", type: "boolean", description: "whether we should use regular search or use I'm feeling lucky")
             Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")

@@ -7,14 +7,15 @@ import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistryConfigurator
 import org.tellurium.ddt.DataProvider
 import org.tellurium.ddt.object.mapping.mapping.FieldSetMapResult
 import org.tellurium.ddt.object.mapping.FieldSet
-import org.tellurium.ddt.object.mapping.ActionField
-import org.tellurium.ddt.ActionRegistry
+import org.tellurium.ddt.object.mapping.TestField
+import org.tellurium.ddt.TestRegistry
 import org.tellurium.test.helper.DefaultResultListener
 import org.tellurium.test.helper.TestResult
 import org.tellurium.test.helper.ResultListener
 import org.tellurium.test.helper.StepStatus
 import org.tellurium.test.helper.AssertionResult
 import junit.framework.AssertionFailedError
+import org.tellurium.ddt.TestRegistry
 
 
 /**
@@ -35,7 +36,7 @@ abstract class DdDslContext extends DslContext{
 
     protected FieldSetParser fs = new FieldSetParser(fsr)
 
-    protected ActionRegistry ar = new ActionRegistry()
+    protected TestRegistry ar = new TestRegistry()
 
     protected ResultListener listener = new DefaultResultListener()
 
@@ -88,7 +89,7 @@ abstract class DdDslContext extends DslContext{
                 if(action != null){
                     //if the field set includes action
                     //get the pre-defined action and run it
-                    Closure closure = ar.getAction(action)
+                    Closure closure = ar.getTest(action)
                     closure()
                 }
 
@@ -160,13 +161,13 @@ abstract class DdDslContext extends DslContext{
 //    def closeData = this.&closeData
 
     public void defineAction(String name, Closure c){
-        ar.addAction(name, c)
+        ar.addTest(name, c)
     }
 
     protected String getActionForFieldSet(String fieldSetName){
         FieldSet tfs = fsr.getFieldSetByName(fieldSetName)
         if(tfs != null){
-            ActionField taf = tfs.getActionField()
+            TestField taf = tfs.getActionField()
             if(taf != null){
                 String tid = fieldSetName + "." + taf.getName()
                 return dataProvider.bind(tid)

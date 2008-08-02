@@ -7,7 +7,7 @@ import org.tellurium.ddt.DataProvider
 import org.tellurium.test.helper.DefaultResultListener
 import org.tellurium.test.helper.StepStatus
 import org.tellurium.ddt.object.mapping.FieldSet
-import org.tellurium.ddt.object.mapping.ActionField
+import org.tellurium.ddt.object.mapping.TestField
 import org.tellurium.framework.TelluriumFramework
 import org.tellurium.connector.SeleniumConnector
 import org.tellurium.dsl.UiDslParser
@@ -15,9 +15,10 @@ import org.tellurium.ddt.object.mapping.FieldSetParser
 import org.tellurium.bootstrap.TelluriumSupport
 import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
 import org.tellurium.ddt.object.mapping.FieldSetRegistry
-import org.tellurium.ddt.ActionRegistry
+import org.tellurium.ddt.TestRegistry
 import junit.framework.AssertionFailedError
 import org.tellurium.test.helper.AssertionResult
+import org.tellurium.ddt.TestRegistry
 
 /**
  * Tellurium Data Driven test and it can include multiple data driven modules so that you do not have
@@ -43,11 +44,11 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
 
     protected FieldSetParser fs = new FieldSetParser(fsr)
 
-    protected ActionRegistry ar = new ActionRegistry()
+    protected TestRegistry testreg = new TestRegistry()
 
     protected ResultListener listener = new DefaultResultListener()
 
-    protected DefaultTelluriumDataDrivenModule dtddm = new DefaultTelluriumDataDrivenModule(thr, fsr, fs, ar, dataProvider)
+    protected DefaultTelluriumDataDrivenModule dtddm = new DefaultTelluriumDataDrivenModule(thr, fsr, fs, testreg, dataProvider)
 
     protected UiDslParser ui = dtddm.getUiDslParser()
 
@@ -137,7 +138,7 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
             tddm.setProperty("thr", this.thr)
             tddm.setProperty("fsr", this.fsr)
             tddm.setProperty("fs", this.fs)
-            tddm.setProperty("ar", this.ar)
+            tddm.setProperty("tr", this.testreg)
             tddm.setProperty("dataProvider", this.dataProvider)
             tddm.belongTo(this)
             
@@ -190,7 +191,7 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
                     //if the field set includes action
                     //get the pre-defined action and run it
 
-                    Closure closure = ar.getAction(action)
+                    Closure closure = testreg.getTest(action)
                     closure()
 /*
                     //use the proxy so that we can intercept calls for openUrl and compareResult
@@ -299,7 +300,7 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
     protected String getActionForFieldSet(String fieldSetName){
         FieldSet tfs = fsr.getFieldSetByName(fieldSetName)
         if(tfs != null){
-            ActionField taf = tfs.getActionField()
+            TestField taf = tfs.getActionField()
             if(taf != null){
                 String tid = fieldSetName + "." + taf.getName()
                 return dataProvider.bind(tid)

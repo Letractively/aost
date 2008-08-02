@@ -23,12 +23,12 @@ class GoogleBookListModule extends TelluriumDataDrivenModule{
 
         //define file data format
         fs.FieldSet(name: "GoogleBookList", description: "Google Book List") {
-            Action(value: "checkBookList")
+            Test(value: "checkBookList")
             Field(name: "category", description: "book category")
             Field(name: "size", type: "int", description: "google book list size ")
         }
 
-        defineAction("checkBookList"){
+        defineTest("checkBookList"){
             def expectedCategory = bind("GoogleBookList.category")
             def expectedSize = bind("GoogleBookList.size")
             openUrl("http://books.google.com/")

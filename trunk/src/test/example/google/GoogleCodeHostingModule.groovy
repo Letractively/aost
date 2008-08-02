@@ -22,19 +22,19 @@ class GoogleCodeHostingModule extends TelluriumDataDrivenModule{
 
         //define file data format
         fs.FieldSet(name: "GCHStatus", description: "Google Code Hosting input") {
-            Action(value: "getGCHStatus")
+            Test(value: "getGCHStatus")
             Field(name: "label")
             Field(name: "rowNum", type: "int")
             Field(name: "columNum", type: "int")
         }
 
         fs.FieldSet(name: "GCHLabel", description: "Google Code Hosting input") {
-            Action(value: "clickGCHLabel")
+            Test(value: "clickGCHLabel")
             Field(name: "row", type: "int")
             Field(name: "column", type: "int")
         }
 
-        defineAction("getGCHStatus"){
+        defineTest("getGCHStatus"){
             def expectedLabel = bind("GCHStatus.label")
             def expectedRowNum = bind("GCHStatus.rowNum")
             def expectedColumnNum = bind("GCHStatus.columNum")
@@ -50,7 +50,7 @@ class GoogleCodeHostingModule extends TelluriumDataDrivenModule{
             pause 2000
        }
 
-       defineAction("clickGCHLabel"){
+       defineTest("clickGCHLabel"){
            def row = bind("GCHLabel.row")
            def column = bind("GCHLabel.column")
            
