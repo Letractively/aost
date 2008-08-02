@@ -106,9 +106,11 @@ In the meantime, we have an idea to use Tellurium project web site as
 an example to implement all Tellurium tests as a reference
 implementation for other users. You are welcome to write Tellurium
 test code for Tellurium web site as follows:
+{{{
 1) Regular Tellurium test cases using TelluriumJavaTestCase
 2) Data driven Tellurium tests using TelluriumDataDrivenTest
 3) Pure Dsl file
+}}}
 
 If you like to contribute on this, we will add your code to our
 examples. 
