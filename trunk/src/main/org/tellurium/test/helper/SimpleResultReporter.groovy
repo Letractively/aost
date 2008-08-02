@@ -15,8 +15,8 @@ class SimpleResultReporter implements ResultReporter{
         int failed = 0
         if(results != null && (!results.isEmpty())){
             total = results.size()
-            results.each{ val ->
-                if(val.getProperty("passed") == true){
+            results.each{ TestResult val ->
+                if(val.isPassed()){
                     succeeded++
                 }else{
                     failed++

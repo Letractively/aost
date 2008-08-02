@@ -1,6 +1,5 @@
 package org.tellurium.test.helper
 
-import java.lang.reflect.UndeclaredThrowableException
 import org.tellurium.util.Helper
 
 /**
@@ -13,29 +12,23 @@ import org.tellurium.util.Helper
  */
 class TestResult {
 
-    private static final String STEP_ID = "stepId"
+    private static final String STEP_ID = "Step"
     //identifier for a step
     private int stepId
 
-    private static final String TEST_NAME = "testName"
+    private static final String TEST_NAME = "TestName"
     private String testName
 
-    private static final String INPUT = "input"
+    private static final String INPUT = "Input"
     private Map input
 
-    private static final String EXPECTED = "expected"
-    private def expected
+    private static final String ASSERTION_RESULT = "assertionResults"
+    private List<AssertionResult> assertionResults = new ArrayList<AssertionResult>()
 
-    private static final String ACTUAL = "actual"
-    private def actual
-
-    private static final String PASSED = "passed"
-    private boolean passed
-
-    private static final String STATUS = "status"
+    private static final String STATUS = "Status"
     private StepStatus status
 
-    private static final String EXCEPTION = "exception"
+    private static final String EXCEPTION = "Exception"
     private Exception exception
 
     private static final String START = "start"
@@ -43,28 +36,69 @@ class TestResult {
 
     private static final String END = "end"
     private long end
+    private static final String ASSERTION = "Assertion"
 
-    private static final String RUN_TIME = "runtime"
+    private static final String RUN_TIME = "Runtime"
+
+    private static final String PASSED = "Passed"
+    public boolean isPassed(){
+        if(assertionResults.size() > 0){
+            for(AssertionResult atr: assertionResults){
+                if(!atr.isPassed()){
+                    return false
+                }
+            }
+        }
+
+        return true
+    }
+
+    public void addAssertationResult(AssertionResult result){
+        assertionResults.add(result)
+    }
+
+    public List<AssertionResult> getAssertionResult(){
+        return this.assertionResults
+    }
     
     public String toString(){
         final int typicalLength = 128
-        final String avpSeparator = ":"
+        final String avpSeparator = ": "
         final String fieldSeparator = "\n"
         final String fieldStart = "\t"
 
         StringBuilder sb = new StringBuilder(typicalLength)
         sb.append(fieldStart).append(STEP_ID).append(avpSeparator).append(stepId).append(fieldSeparator)
         sb.append(fieldStart).append(TEST_NAME).append(avpSeparator).append(testName).append(fieldSeparator)
-        sb.append(fieldStart).append(INPUT).append(avpSeparator).append(convertInput()).append(fieldSeparator)
-        sb.append(fieldStart).append(EXPECTED).append(avpSeparator).append(expected).append(fieldSeparator)
-        sb.append(fieldStart).append(ACTUAL).append(avpSeparator).append(actual).append(fieldSeparator)
-        sb.append(fieldStart).append(PASSED).append(avpSeparator).append(passed).append(fieldSeparator)
+        sb.append(fieldStart).append(PASSED).append(avpSeparator).append(isPassed()).append(fieldSeparator)
+        sb.append(fieldStart).append(INPUT).append(avpSeparator).append(" [ ").append(convertInput()).append(" ]").append(fieldSeparator)
+        if(assertionResults.size() > 0){
+            for(AssertionResult atr : assertionResults){
+                sb.append(fieldStart).append(ASSERTION).append(avpSeparator).append(" [ ").append(atr.toString()).append(" ]").append(fieldSeparator)   
+            }
+        }
+//        sb.append(fieldStart).append(ASSERTION_RESULT).append(avpSeparator).append("[ ").append(convertAssertationResults()).append(" ]").append(fieldSeparator)
         sb.append(fieldStart).append(STATUS).append(avpSeparator).append(status?.toString()).append(fieldSeparator)
         sb.append(fieldStart).append(RUN_TIME).append(avpSeparator).append((end-start)/1E9).append(" secs").append(fieldSeparator)
         if(exception != null)
             sb.append(fieldStart).append(EXCEPTION).append(avpSeparator).append(Helper.logException(exception)).append(fieldSeparator)
 
         return sb.toString()
+    }
+
+    private String convertAssertationResults(){
+        String str = ""
+
+        if (assertionResults.size() > 0) {
+            assertionResults.each{ AssertionResult result ->
+                if(i > 0)
+                    str = str + "\n\t"
+
+                str = str + "\t" + result.toString()
+            }
+        }
+
+        return str
     }
 
     private String convertInput(){
