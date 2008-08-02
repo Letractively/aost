@@ -241,7 +241,7 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
             result.setProperty("stepId", ++stepCount)
             result.setProperty("input", fsmr.getResults())
             result.setProperty("status", StepStatus.SKIPPED)
-            result.setProperty("passed", true)
+//            result.setProperty("passed", true)
 
             listener.listenForInput(result)
 
