@@ -269,4 +269,24 @@ class EventHandler{
         return result
 	}
 
+    void chooseCancelOnNextConfirmation(){
+        dispatcher.chooseCancelOnNextConfirmation()
+    }
+
+    void chooseOkOnNextConfirmation(){
+        dispatcher.chooseOkOnNextConfirmation()
+    }
+
+    void answerOnNextPrompt(String answer){
+        dispatcher.answerOnNextPrompt(answer)
+    }
+
+    void goBack(){
+        dispatcher.goBack()
+    }
+
+    void refresh(){
+        dispatcher.refresh()
+    }
+
 }

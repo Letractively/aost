@@ -558,4 +558,58 @@ abstract class DslContext {
         
         return locator
     }
+
+
+    void chooseCancelOnNextConfirmation(){
+        eventHandler.chooseCancelOnNextConfirmation()
+    }
+
+    void chooseOkOnNextConfirmation(){
+        eventHandler.chooseOkOnNextConfirmation()
+    }
+
+    void answerOnNextPrompt(String answer){
+        eventHandler.answerOnNextPrompt(answer)
+    }
+
+    void goBack(){
+        eventHandler.goBack()
+    }
+
+    void refresh(){
+        eventHandler.refresh()
+    }
+
+    boolean isAlertPresent(){
+        return accessor.isAlertPresent()
+    }
+
+    boolean isPromptPresent(){
+        return accessor.isPromptPresent()
+    }
+
+    boolean isConfirmationPresent(){
+        return accessor.isConfirmationPresent()
+    }
+
+    String getAlert(){
+        return accessor.getAlert()
+    }
+
+    String getConfirmation(){
+        return accessor.getConfirmation()
+    }
+
+    String getPrompt(){
+        return accessor.getPrompt()
+    }
+
+    String getLocation(){
+        return accessor.getLocation()
+    }
+
+    String getTitle(){
+        return accessor.getTitle()
+    }
+
 }
