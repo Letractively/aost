@@ -17,6 +17,7 @@ import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
 import org.tellurium.ddt.object.mapping.FieldSetRegistry
 import org.tellurium.ddt.ActionRegistry
 import junit.framework.AssertionFailedError
+import org.tellurium.test.helper.AssertionResult
 
 /**
  * Tellurium Data Driven test and it can include multiple data driven modules so that you do not have
@@ -183,7 +184,6 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
             result.setProperty("stepId", ++stepCount)
             result.setProperty("start", System.nanoTime())
             result.setProperty("input", fsmr.getResults())
-            result.setProperty("passed", true)
 
             try{
                 if(action != null){
@@ -208,7 +208,6 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
                 result.setProperty("status", StepStatus.PROCEEDED)
             }catch(Exception e){
                 result.setProperty("status", StepStatus.EXECPTION)
-                result.setProperty("passed", false)
                 result.setProperty("exception", e)
             }
             result.setProperty("end", System.nanoTime())
@@ -279,19 +278,21 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
         boolean passed = true
 
         TestResult result = new TestResult()
+        AssertionResult assertResult = new AssertionResult()
+
         result.setProperty("stepId", stepCount)
-        result.setProperty("expected", expected)
-        result.setProperty("actual", actual)
+        assertResult.setProperty("expected", expected)
+        assertResult.setProperty("actual", actual)
 
         try{
             assertEquals(expected, actual)
         }catch(AssertionFailedError e){
             passed = false
-            //do not really need to care about the exception here. Basically, it is an assertation exception
-//            result.setProperty("exception", e)
+            assertResult.setProperty("error", e)
         }
 
-        result.setProperty("passed", passed)
+        assertResult.setProperty("passed", passed)
+        result.addAssertationResult(assertResult)
         listenForResult(result)
     }
 

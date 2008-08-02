@@ -25,13 +25,12 @@ class DefaultResultListener implements ResultListener {
     public void listenForResult(TestResult result) {
         TestResult tr = results.get(result.getProperty("stepId"))
         if(tr != null){
-            tr.setProperty("expected", result.getProperty("expected"))
-            tr.setProperty("actual", result.getProperty("actual"))
-            tr.setProperty("passed", result.getProperty("passed"))
-            if(result.getProperty("exception") != null){
-                tr.setProperty("exception", result.getProperty("exception"))
+            List<AssertionResult> lst = result.getAssertionResult()
+            if(lst != null && lst.size() > 0){
+                lst.each { AssertionResult atr ->
+                    tr.addAssertationResult(atr)
+                }
             }
-
             results.put(result.getProperty("stepId"), tr)
         }else{
             results.put(result.getProperty("stepId"), result)

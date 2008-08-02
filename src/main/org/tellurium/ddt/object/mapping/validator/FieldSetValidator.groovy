@@ -18,18 +18,18 @@ class FieldSetValidator {
 	protected final static String ERROR_INVALID_FIELD_SET = "Invalid field set";
 	protected final static String ERROR_FIELD_SET_SIZE_NOT_MATCH = "Field set size does not match";
 	protected final static String ERROR_INVALID_FIELD_VALUE = "Invalid field value ";
-	protected final static String ERROR_FIELD_CANNOT_BE_NULL = "Field cannot be null";
+	protected final static String ERROR_FIELD_CANNOT_BE_NULL = "Field cannot be null ";
 	protected final static String ERROR_FIELD_PATTERN_NOT_MATCH = "Field does not match pattern ";
 
     public static boolean validate(FieldSet fs, List fields){
 
         if(fs == null || fs.getFields() == null || fs.getFields().size() < 1)
-			throw new DataMappingException(ERROR_INVALID_FIELD_SET);
+			throw new DataMappingException(ERROR_INVALID_FIELD_SET)
 
         int size = fields.size()
         
         if(fields == null || fs == null || fs.getFieldSize() != size)
-				throw new DataMappingException(ERROR_FIELD_SET_SIZE_NOT_MATCH);
+				throw new DataMappingException(ERROR_FIELD_SET_SIZE_NOT_MATCH)
 
         for (int i = 0; i < size; i++) {
             Field df = fs.getFields().get(i)
@@ -48,7 +48,7 @@ class FieldSetValidator {
 
             //Check if the field can be null
             if (f.length() == 0 && (!df.isNullable()))
-                throw new DataMappingException(ERROR_FIELD_CANNOT_BE_NULL)
+                throw new DataMappingException(ERROR_FIELD_CANNOT_BE_NULL + df.getName())
 
             //only check the pattern if the field is not empty
             if (df.getPattern() != null && f.length() > 0) {
@@ -58,7 +58,7 @@ class FieldSetValidator {
                 Matcher matcher = pattern.matcher(f)
                 //if not match
                 if (!matcher.matches())
-                    throw new DataMappingException(ERROR_FIELD_PATTERN_NOT_MATCH + df.getPattern())
+                    throw new DataMappingException(ERROR_FIELD_PATTERN_NOT_MATCH + df.getPattern() + " for Field " + df.getName())
             }
 
             //If custom validator is defined and the field is not empty, we need to call it
