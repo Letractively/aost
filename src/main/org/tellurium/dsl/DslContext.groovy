@@ -163,6 +163,19 @@ abstract class DslContext {
         }
     }
 
+    String[] getSelectOptions(String uid){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         def obj = ui.walkTo(context, uid)
+         if(obj != null){
+             return obj.getSelectOptions(){ loc ->
+                String locator = locatorMapping(context, loc)
+                accessor.getSelectOptions(locator)
+             }
+         }
+
+        return null
+    }
+
     String[] getSelectedLabels(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          def obj = ui.walkTo(context, uid)
