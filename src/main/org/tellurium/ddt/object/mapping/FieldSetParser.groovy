@@ -3,7 +3,8 @@ package org.tellurium.ddt.object.mapping
 import org.tellurium.ddt.object.mapping.builder.FieldBuilder
 import org.tellurium.ddt.object.mapping.builder.FieldSetBuilder
 import org.tellurium.ddt.object.mapping.builder.IdentifierFieldBuilder
-import org.tellurium.ddt.object.mapping.builder.ActionFieldBuilder
+import org.tellurium.ddt.object.mapping.builder.TestFieldBuilder
+import org.tellurium.ddt.object.mapping.builder.TestFieldBuilder
 
 /**
  * parse the Field Set definition
@@ -17,7 +18,7 @@ class FieldSetParser extends BuilderSupport{
     protected final static String FIELD_SET = "FieldSet"
     protected final static String FIELD = "Field"
     protected final static String IDENTIFIER = "Identifier"
-    protected final static String ACTION = "Action"
+    protected final static String TEST = "Test"
 
     private FieldSetRegistry registry
 
@@ -28,7 +29,7 @@ class FieldSetParser extends BuilderSupport{
     private FieldBuilder fb = new FieldBuilder()
     private FieldSetBuilder fsb = new FieldSetBuilder()
     private IdentifierFieldBuilder fsi = new IdentifierFieldBuilder()
-    private ActionFieldBuilder afb = new ActionFieldBuilder()
+    private TestFieldBuilder afb = new TestFieldBuilder()
 
     protected void setParent(Object parent, Object child) {
         if (parent instanceof FieldSet) {
@@ -44,8 +45,8 @@ class FieldSetParser extends BuilderSupport{
             return new Field()
         if(IDENTIFIER.equalsIgnoreCase(name))
             return new IdentifierField()
-        if(ACTION.equalsIgnoreCase(name))
-            return new ActionField()
+        if(TEST.equalsIgnoreCase(name))
+            return new TestField()
 
         return null
     }
@@ -61,7 +62,7 @@ class FieldSetParser extends BuilderSupport{
             return fb.build(map)
         if(IDENTIFIER.equalsIgnoreCase(name))
             return fsi.build(map)
-        if(ACTION.equalsIgnoreCase(name))
+        if(TEST.equalsIgnoreCase(name))
             return afb.build(map)
 
         return null

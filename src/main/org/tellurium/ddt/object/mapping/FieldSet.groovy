@@ -65,10 +65,10 @@ class FieldSet {
         return null
     }
 
-    public ActionField getActionField(){
+    public TestField getActionField(){
         if(!fields.isEmpty()){
             for(Field f : fields){
-                if(f instanceof ActionField){
+                if(f instanceof TestField){
                     return f
                 }
             }
@@ -100,7 +100,7 @@ class FieldSet {
                 if(f instanceof IdentifierField){
                     this.hasIdentifier = true
                 }
-                if(f instanceof ActionField){
+                if(f instanceof TestField){
                     this.hasAction = true
                 }
             }
@@ -140,7 +140,7 @@ class FieldSet {
                 if(f instanceof IdentifierField){
                     return f.getValue()
                 }
-                if(f instanceof ActionField){
+                if(f instanceof TestField){
                     return f.getValue()
                 }
             }

@@ -1,6 +1,7 @@
 package org.tellurium.ddt.object.mapping.builder
 
-import org.tellurium.ddt.object.mapping.ActionField
+import org.tellurium.ddt.object.mapping.TestField
+import org.tellurium.ddt.object.mapping.TestField
 
 /**
  * 
@@ -11,13 +12,13 @@ import org.tellurium.ddt.object.mapping.ActionField
  * Date: Jul 27, 2008
  *
  */
-class ActionFieldBuilder extends BaseBuilder{
-    private static final String DEFAULT_ACTION_NAME = "action"
+class TestFieldBuilder extends BaseBuilder{
+    private static final String DEFAULT_ACTION_NAME = "test"
 
-    public ActionField build(Map map) {
+    public TestField build(Map map) {
         map = makeCaseInsensitive(map)
 
-        ActionField f = new ActionField()
+        TestField f = new TestField()
 
         //if the action name is not specified, use the default name
         if(map.get(NAME))

@@ -28,8 +28,8 @@ class GoogleStartPageGroovyTestCase extends TelluriumGroovyTestCase{
         NewGoogleStartPage ngsp = new NewGoogleStartPage()
         ngsp.defineUi()
         connectUrl("http://www.google.com")
-        ngsp.doGoogleSearch("tellurium selenium")
+        ngsp.doGoogleSearch("tellurium selenium automated testing")
         connectUrl("http://www.google.com")
-        ngsp.doImFeelingLucky("tellurium selenium")
+        ngsp.doImFeelingLucky("tellurium selenium groovy dsl")
     }
 }

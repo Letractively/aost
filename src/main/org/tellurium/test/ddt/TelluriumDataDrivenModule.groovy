@@ -4,7 +4,7 @@ import org.tellurium.dsl.DslContext
 import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
 import org.tellurium.ddt.object.mapping.FieldSetRegistry
 import org.tellurium.ddt.object.mapping.FieldSetParser
-import org.tellurium.ddt.ActionRegistry
+import org.tellurium.ddt.TestRegistry
 import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistryConfigurator
 import org.tellurium.ddt.DataProvider
 
@@ -35,7 +35,7 @@ abstract class TelluriumDataDrivenModule extends DslContext {
 
     protected FieldSetParser fs
 
-    protected ActionRegistry ar 
+    protected TestRegistry tr
 
     protected TelluriumDataDrivenTest runner
 
@@ -60,8 +60,8 @@ abstract class TelluriumDataDrivenModule extends DslContext {
         return dataProvider.bind(dataFieldId)
     }
 
-    public void defineAction(String name, Closure c){
-        ar.addAction(name, c)
+    public void defineTest(String name, Closure c){
+        tr.addTest(name, c)
     }
 
     public void compareResult(expected, actual){

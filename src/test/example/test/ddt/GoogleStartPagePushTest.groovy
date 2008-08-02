@@ -26,18 +26,18 @@ class GoogleStartPagePushTest extends TelluriumDataDrivenTest{
 
         //define file data format
         //here the value of the action field is not specified and it implies that multiple
-        //actions could use the same data format
-        //But if you specify the value of the action, the data format, i.e, this FieldSet can
-        //be only applied to that action
+        //tests could use the same data format
+        //But if you specify the value of the test, the data format, i.e, this FieldSet can
+        //be only applied to that test
         fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search") {
-            Action(name: "searchaction")
+            Test(name: "searchaction")
             Field(name: "input", description: "input variable")
         }
 
         //load file
         loadData "src/test/example/test/ddt/googlesearchpushinput.txt"
 
-        defineAction("search"){
+        defineTest("search"){
 
             //bind variable
             String input = bind("input")
@@ -48,7 +48,7 @@ class GoogleStartPagePushTest extends TelluriumDataDrivenTest{
             pause 1000
         }
 
-        defineAction("Imfeelinglucky"){
+        defineTest("Imfeelinglucky"){
             //bind variable
             String input = bind("input")
 
