@@ -6,6 +6,7 @@ import org.tellurium.dsl.DslContext
  *  Sample test for the Tellurium project page at:
  *
  *      http://code.google.com/p/aost/
+ * 
  *   to demostrate the List UI object, composite locator, group feature, and multiple UI modules in a single file
  *
  *
@@ -36,38 +37,38 @@ class TelluriumProjectPage extends DslContext{
 
     def clickProjectHome(){
         click "menu.project_home"
-        pause 5000
+        waitForPageToLoad 30000
     }
 
     def clickDownloads(){
         click "menu.downloads"
-        pause 5000
+        waitForPageToLoad 30000
     }
 
     def clickWiki(){
         click "menu.wiki"
-        pause 5000
+        waitForPageToLoad 30000
     }
 
     def clickIssues(){
         click "menu.issues"
-        pause 5000
+        waitForPageToLoad 30000
     }
 
     def clickSource(){
         click "menu.source"
-        pause 5000
+        waitForPageToLoad 30000
     }
 
     def searchProject(String input){
         type "search.searchbox", input
         click "search.search_project_button"
-        pause 5000
+        waitForPageToLoad 30000
     }
 
     def searchWeb(String input){
         type "search.searchbox", input
         click "search.search_web_button"
-        pause 5000
+        waitForPageToLoad 30000
     }
 }
