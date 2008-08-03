@@ -23,6 +23,10 @@ public class SeleniumServerDaemon {
 
     private boolean useMultiWindows = false;
 
+    private boolean slowResources = false;
+
+    private SeleniumServer server;
+
     private String [] getParams(){
 		String cmd = "-port " + port + " -log " + logFile;
 
@@ -64,12 +68,26 @@ public class SeleniumServerDaemon {
 	public void run() {
 
 		try {
-			String[] args = getParams();
-			SeleniumServer.main(args);
-			listening = true;
+            server = new SeleniumServer(port);
+            server.multiWindow = useMultiWindows
+            server.start()
+
+            //String[] args = getParams();
+			//SeleniumServer.main(args);
+            listening = true;
 		} catch (Exception e) {
 			
 			e.printStackTrace();
 		}
 	}
+
+    public void stop(){
+       try{
+            if(server != null)
+                server.stop()
+        } catch (Exception e) {
+
+			e.printStackTrace();
+		}
+    }
 }
