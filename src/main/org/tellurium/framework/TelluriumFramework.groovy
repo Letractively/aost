@@ -57,13 +57,13 @@ class TelluriumFramework {
     }
 
     public void start(){
-        server = new EmbeddedSeleniumServer();
+        server = new EmbeddedSeleniumServer()
         server.runSeleniumServerInternally = this.runEmbeddedSeleniumServer
 
-        server.runSeleniumServer();
+        server.runSeleniumServer()
 
-        connector  = new SeleniumConnector();
-        connector.connectSeleniumServer();
+        connector  = new SeleniumConnector()
+        connector.connectSeleniumServer()
     }
 
     public void stop(){
@@ -71,7 +71,9 @@ class TelluriumFramework {
             connector.disconnectSeleniumServer()
         }
         
-        Thread.currentThread().join(1000)
+        if(runEmbeddedSeleniumServer && (server != null)){
+            server.stopSeleniumServer()
+        }
     }
 
     //register ui object builder

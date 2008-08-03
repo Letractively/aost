@@ -50,4 +50,9 @@ class EmbeddedSeleniumServer {
 		return runSeleniumServerInternally;
 	}
 
+    public void stopSeleniumServer(){
+        if(runSeleniumServerInternally && daemon != null){
+              daemon.stop()
+        }
+    }
 }
