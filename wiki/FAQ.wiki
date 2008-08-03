@@ -83,14 +83,14 @@ Not really. If you write your test as pure DSL, you only need to know the DSL sy
 Users are really welcome to contribute to Tellurium in the following
 ways:
 
-1) Use Tellurium and report bugs
-2) Contribute fix to Tellurium
-3) Contribute your Tellurium examples, which all users can run
-4) Help with documents
-5) Participate discussions in Tellurium user group
-6) Introduce Tellurium to other users
-7) Bring in new ideas and code samples
-8) Become project member
+  # Use Tellurium and report bugs
+  # Contribute fix to Tellurium
+  # Contribute your Tellurium examples, which all users can run
+  # Help with documents
+  # Participate discussions in Tellurium user group
+  # Introduce Tellurium to other users
+  # Bring in new ideas and code samples
+  # Become project member
 
 Since Tellurium just became open source for one month, we really
 welcome contributors from different ways.
@@ -106,11 +106,10 @@ In the meantime, we have an idea to use Tellurium project web site as
 an example to implement all Tellurium tests as a reference
 implementation for other users. You are welcome to write Tellurium
 test code for Tellurium web site as follows:
-{{{
-1) Regular Tellurium test cases using TelluriumJavaTestCase
-2) Data driven Tellurium tests using TelluriumDataDrivenTest
-3) Pure Dsl file
-}}}
+
+  # Regular Tellurium test cases using TelluriumJavaTestCase
+  # Data driven Tellurium tests using TelluriumDataDrivenTest
+  # Pure Dsl files
 
 If you like to contribute on this, we will add your code to our
 examples. 
