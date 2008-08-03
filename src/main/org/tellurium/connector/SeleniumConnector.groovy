@@ -9,6 +9,7 @@ import org.tellurium.client.SeleniumClient
  * The connector that ties the Selenium server and Selenium Client together
  *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
+ * 
  */
 class SeleniumConnector {
 
