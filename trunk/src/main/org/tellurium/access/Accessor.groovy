@@ -257,8 +257,8 @@ class Accessor{
         return value
     }
 
-    def waitForPopUp(String windowID, String timeout){
-        return dispatcher.waitForPopUp(windowID, timeout)
+    void waitForPopUp(String windowID, String timeout){
+        dispatcher.waitForPopUp(windowID, timeout)
     }
 
     String getBodyText(){

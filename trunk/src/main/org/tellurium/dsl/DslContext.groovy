@@ -517,7 +517,7 @@ abstract class DslContext {
     }
 
     def waitForPopUp(String windowID, int timeout){
-        return accessor.waitForPopUp(windowID, timeout)
+        accessor.waitForPopUp(windowID, Integer.toString(timeout))
     }
 
     String getBodyText(){
@@ -649,10 +649,10 @@ abstract class DslContext {
     }
 
     void waitForPageToLoad(int timeout){
-         accessor.waitForPageToLoad(timeout)
+         accessor.waitForPageToLoad(Integer.toString(timeout))
     }
 
     void waitForFrameToLoad(String frameAddress, int timeout){
-        accessor.waitForFrameToLoad(frameAddress, timeout)
+        accessor.waitForFrameToLoad(frameAddress, Integer.toString(timeout))
     }
 }

@@ -220,15 +220,15 @@ class EventHandler{
 		}
     }
 
-    def openWindow(String url, String windowID){
+    void openWindow(String url, String windowID){
         dispatcher.openWindow(url, windowID)
     }
 
-    def selectWindow(String windowID){
+    void selectWindow(String windowID){
         dispatcher.selectWindow(windowID)   
     }
 
-    def selectFrame(String locator){
+    void selectFrame(String locator){
         dispatcher.selectFrame(locator)
     }
 
