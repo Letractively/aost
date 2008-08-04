@@ -1,5 +1,8 @@
 package org.tellurium.test.helper
 
+import org.tellurium.config.Configurable
+import org.tellurium.config.TelluriumConfigurator
+
 /**
  * Default implementation of Test Listener
  *
@@ -8,20 +11,25 @@ package org.tellurium.test.helper
  * Date: Jul 27, 2008
  *
  */
-class DefaultResultListener implements ResultListener {
+class DefaultResultListener implements ResultListener, Configurable {
     
     private Map<Integer, TestResult> results = new HashMap<Integer, TestResult>()
 
-    private List<ResultReporter> reporters = new ArrayList<ResultReporter>()
+    //private List<ResultReporter> reporters = new ArrayList<ResultReporter>()
+    protected ResultReporter reporter
+
+    protected ResultOutput output
 
     public DefaultResultListener(){
-        reporters.add(new SimpleResultReporter())
-        reporters.add(new XMLResultReporter())
+//        reporters.add(new SimpleResultReporter())
+//        reporters.add(new XMLResultReporter())
     }
     
+/*
     public void addReporter(ResultReporter reporter){
         reporters.add(reporter)
     }
+*/
 
     public void listenForResult(TestResult result) {
         TestResult tr = results.get(result.getProperty("stepId"))
@@ -57,16 +65,28 @@ class DefaultResultListener implements ResultListener {
     }
 
     public void report() {
+        //get the singleton configurator
+        TelluriumConfigurator configurator = new TelluriumConfigurator()
+        //configure the reader
+        configurator.config(this)
+        
         if(!this.results.isEmpty()){
+
+            //sort the result by step Id
             List<TestResult> trl = this.results.values().sort { x, y ->
                 x.stepId <=> y.stepId
             }
 
+            if(reporter != null && output != null){
+                output.output(reporter.report(trl))
+            }
+/*
             if(!reporters.isEmpty()){
                 for(ResultReporter reporter : reporters){
                     reporter.report(trl)
                 }
             }
+*/
         }
     }
 

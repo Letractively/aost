@@ -17,6 +17,7 @@ import org.tellurium.locator.LocatorProcessorMetaClass
 import org.tellurium.server.EmbeddedSeleniumServer
 import org.tellurium.builder.UiObjectBuilder
 import org.tellurium.config.TelluriumConfigurator
+import org.tellurium.config.TelluriumConfiguratorMetaClass
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
@@ -53,7 +54,8 @@ class TelluriumFramework {
        registry.setMetaClass(LocatorProcessor, new LocatorProcessorMetaClass())
 
        registry.setMetaClass(SeleniumConnector, new SeleniumConnectorMetaClass())
-
+       registry.setMetaClass(TelluriumConfigurator, new TelluriumConfiguratorMetaClass())
+        
        telluriumConfigurator = new TelluriumConfigurator()
        telluriumConfigurator.parse("TelluriumConfig.groovy")
     }

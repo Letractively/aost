@@ -9,7 +9,7 @@ package org.tellurium.test.helper
  *
  */
 interface ResultReporter {
-
-    void report(List<TestResult> results)
+    //change the return value to be string so that we can use decorate pattern to process the result further
+    String report(List<TestResult> results)
     
 }

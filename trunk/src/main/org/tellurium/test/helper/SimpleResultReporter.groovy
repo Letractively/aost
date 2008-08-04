@@ -1,6 +1,6 @@
 package org.tellurium.test.helper
 /**
- * Simply print out the result as String
+ * Simply convert the result as String
  *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
@@ -9,7 +9,7 @@ package org.tellurium.test.helper
  */
 class SimpleResultReporter implements ResultReporter{
 
-    public void report(List<TestResult> results) {
+    public String report(List<TestResult> results) {
         int total = 0
         int succeeded = 0
         int failed = 0
@@ -24,7 +24,24 @@ class SimpleResultReporter implements ResultReporter{
             }
 
         }
-        println "\n\n------------------------------------------------------------------------\n"
+
+        StringBuffer sb = new StringBuffer(512)
+        sb.append("\n\n------------------------------------------------------------------------\n")
+        sb.append( "Test Results: \n")
+        sb.append("Total tests: ${total}\n")
+        sb.append("Tests succeeded: ${succeeded}\n")
+        sb.append("Tests failed: ${failed}\n")
+        sb.append("------------------------------------------------------------------------\n\n")
+        if(results != null && (!results.isEmpty())){
+            for(TestResult result : results){
+                sb.append("{")
+                sb.append(result.toString())
+                sb.append("}\n")
+            }
+        }
+        sb.append("------------------------------------------------------------------------\n")
+
+/*        println "\n\n------------------------------------------------------------------------\n"
         println "Test Results: \n"
         println "Total tests: ${total}\n"
         println "Tests succeeded: ${succeeded}\n"
@@ -37,7 +54,11 @@ class SimpleResultReporter implements ResultReporter{
                 println "}\n"
             }
         }
-        println "------------------------------------------------------------------------\n"
+        println "------------------------------------------------------------------------\n"*/
+
+//        print sb.toString()
+
+        return sb.toString()
     }
 
 }
