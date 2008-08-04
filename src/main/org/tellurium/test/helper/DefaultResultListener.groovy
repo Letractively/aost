@@ -16,6 +16,7 @@ class DefaultResultListener implements ResultListener {
 
     public DefaultResultListener(){
         reporters.add(new SimpleResultReporter())
+        reporters.add(new XMLResultReporter())
     }
     
     public void addReporter(ResultReporter reporter){
