@@ -5,6 +5,7 @@ import org.tellurium.ddt.object.mapping.FieldSetRegistry
 import org.tellurium.ddt.object.mapping.io.PipeDataReader
 import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistryConfigurator
 import org.tellurium.ddt.object.mapping.FieldSetType
+import org.tellurium.ddt.object.mapping.io.DataReader
 
 /**
  * Handle Pipe format file
@@ -19,7 +20,8 @@ class DataFieldSetObjectMapper extends BaseFieldSetObjectMapper{
     private BufferedReader br
     
     public DataFieldSetObjectMapper(FieldSetRegistry fsr, TypeHandlerRegistry thr){
-        reader = new PipeDataReader()
+//        reader = new PipeDataReader()
+//        this.reader = reader
         marshaller = new DefaultObjectUnmarshaller()
         //configurate the default type handlers and put them into the registry
         TypeHandlerRegistryConfigurator.configure(thr)
