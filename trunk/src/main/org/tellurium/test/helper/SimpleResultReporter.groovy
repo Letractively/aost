@@ -1,6 +1,6 @@
 package org.tellurium.test.helper
 /**
- * Simply print out 
+ * Simply print out the result as String
  *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
