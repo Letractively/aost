@@ -16,6 +16,7 @@ import org.tellurium.locator.LocatorProcessor
 import org.tellurium.locator.LocatorProcessorMetaClass
 import org.tellurium.server.EmbeddedSeleniumServer
 import org.tellurium.builder.UiObjectBuilder
+import org.tellurium.config.TelluriumConfigurator
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
@@ -32,6 +33,8 @@ class TelluriumFramework {
     private SeleniumClient client
 
     private boolean runEmbeddedSeleniumServer = true
+
+    private TelluriumConfigurator telluriumConfigurator
 
     TelluriumFramework(){
         
@@ -50,6 +53,9 @@ class TelluriumFramework {
        registry.setMetaClass(LocatorProcessor, new LocatorProcessorMetaClass())
 
        registry.setMetaClass(SeleniumConnector, new SeleniumConnectorMetaClass())
+
+       telluriumConfigurator = new TelluriumConfigurator()
+       telluriumConfigurator.parse("TelluriumConfig.groovy")
     }
 
     public void disableEmbeddedSeleniumServer(){
@@ -58,11 +64,14 @@ class TelluriumFramework {
 
     public void start(){
         server = new EmbeddedSeleniumServer()
-        server.runSeleniumServerInternally = this.runEmbeddedSeleniumServer
+//        server.runSeleniumServerInternally = this.runEmbeddedSeleniumServer
+        telluriumConfigurator.config(server)
 
         server.runSeleniumServer()
 
         connector  = new SeleniumConnector()
+        telluriumConfigurator.config(connector)
+        
         connector.connectSeleniumServer()
     }
 

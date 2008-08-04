@@ -247,11 +247,11 @@ class Accessor{
     }
 
     String getAttribute(String locator){
-        String value = null
+        String value
         try{
             value = dispatcher.getAttribute(locator)
         }catch(SeleniumException e){
-            value = null;
+            value = null
         }
 
         return value
