@@ -9,14 +9,15 @@ package org.tellurium.config
  */
 class TelluriumConfigParser {
 
-    protected def conf = null
+    protected def conf
 
     public void parse(String fileName){
        try{
             println "Parse configuration file: ${fileName}"
             conf = new ConfigSlurper().parse(new File(fileName).toURL())
        }catch(Exception e){
-           println "Cannot open configuration file ${fileName}: \n" + e.getMessage() + "\n"
+            conf = null
+            println "Cannot open configuration file ${fileName}: \n" + e.getMessage() + "\n"
        }
     }
 
