@@ -6,7 +6,6 @@ import org.tellurium.ddt.DataProvider
 import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
 import org.tellurium.ddt.object.mapping.FieldSetRegistry
 import org.tellurium.ddt.TestRegistry
-import org.tellurium.ddt.TestRegistry
 
 /**
  * 

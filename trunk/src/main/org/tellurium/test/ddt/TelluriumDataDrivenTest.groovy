@@ -18,7 +18,7 @@ import org.tellurium.ddt.object.mapping.FieldSetRegistry
 import org.tellurium.ddt.TestRegistry
 import junit.framework.AssertionFailedError
 import org.tellurium.test.helper.AssertionResult
-import org.tellurium.ddt.TestRegistry
+
 
 /**
  * Tellurium Data Driven test and it can include multiple data driven modules so that you do not have

@@ -1,13 +1,14 @@
 package org.tellurium.server
 
 import org.tellurium.util.Helper
+import org.tellurium.config.Configurable
 
 /**
  * Embedded Selenium Server and will be running as a daemon thread
  * 
  * User: Jian Fang (John.Jian.Fang@gmail.com)
  */
-class EmbeddedSeleniumServer {
+class EmbeddedSeleniumServer implements Configurable{
 
     private SeleniumServerDaemon daemon;
 
@@ -20,7 +21,6 @@ class EmbeddedSeleniumServer {
     protected int DEFAULT_DELAY_IN_SECONDS = 5;
 
     protected int serverDelayInSeconds = DEFAULT_DELAY_IN_SECONDS;
-
 
 	protected boolean runSeleniumServerInternally = true;
 

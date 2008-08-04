@@ -4,6 +4,7 @@ import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 
 import org.tellurium.client.SeleniumClient
+import org.tellurium.config.Configurable
 
 /**
  * The connector that ties the Selenium server and Selenium Client together
@@ -11,7 +12,7 @@ import org.tellurium.client.SeleniumClient
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  * 
  */
-class SeleniumConnector {
+class SeleniumConnector implements Configurable {
 
  //   private boolean useDefaultParams = true;
     protected int port = 4444;
@@ -23,6 +24,8 @@ class SeleniumConnector {
 	protected Selenium sel;
 
 	protected String baseURL = HTTP_BASE_URL;
+
+    protected browser = "*chrome";
 
     public void connect(String url){
 		sel.open(baseURL + url);
@@ -40,7 +43,7 @@ class SeleniumConnector {
 //			setUpSeleniumServer();
         
         //Works for https and http
-        sel = new DefaultSelenium("localhost", port, "*chrome", baseURL);
+        sel = new DefaultSelenium("localhost", port, browser, baseURL);
 //        sel = new DefaultSelenium("localhost", port, "*firefox /usr/lib64/firefox-3.0.1/firefox", baseURL)
         //hardcoded firefox path if it cannot be found from system paht
         //sel = new DefaultSelenium("localhost", port, "*chrome /usr/lib64/firefox-3.0/firefox", baseURL);
