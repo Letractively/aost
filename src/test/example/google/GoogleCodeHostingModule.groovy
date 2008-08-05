@@ -47,7 +47,7 @@ class GoogleCodeHostingModule extends TelluriumDataDrivenModule{
             compareResult(expectedLabel, label)
             compareResult(expectedRowNum, rownum)
             compareResult(expectedColumnNum, columnum)
-            pause 2000
+            pause 1000
        }
 
        defineTest("clickGCHLabel"){
@@ -56,7 +56,8 @@ class GoogleCodeHostingModule extends TelluriumDataDrivenModule{
            
            openUrl("http://code.google.com/hosting/")
            click  "labels_table[2][1].[${row}][${column}]"
-           pause 5000
+
+           waitForPageToLoad 30000
        }
     }
 }

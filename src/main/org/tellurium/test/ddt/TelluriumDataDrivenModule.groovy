@@ -39,9 +39,13 @@ abstract class TelluriumDataDrivenModule extends DslContext {
 
     protected TelluriumDataDrivenTest runner
 
+    //add delegator for all assertions
+//    protected GroovyTestCase asserter = new GroovyTestCase()
+
     //this module will belong to which data driven test
     //this method will be used internal only
     public void belongTo(TelluriumDataDrivenTest tddTest){
+//        asserter = (GroovyTestCase)tddTest
         this.runner = tddTest
     }
 
@@ -65,8 +69,11 @@ abstract class TelluriumDataDrivenModule extends DslContext {
     }
 
     public void compareResult(expected, actual){
-        //junit.framework.Assert.assertEquals(expected, actual)
-        runner?.recordResult(expected, actual)
+        runner?.recordResult(expected, actual, null)
+    }
+
+    public void compareResult(expected, actual, Closure c){
+        runner?.recordResult(expected, actual, c)
     }
 
     //here this is only a stub, the actual method execution will be on the TelluriumDataDrivenTest class
@@ -74,4 +81,37 @@ abstract class TelluriumDataDrivenModule extends DslContext {
         runner?.openUrl(url)
     }
 
+    //add assertions here so that user can add custom compare result code in the closure
+    public void assertTrue(boolean condition){
+        runner?.assertTrue(condition)
+//        asserter.assertTrue(condition)
+    }
+
+    public void assertFalse(boolean condition){
+        runner?.assertFalse(condition)
+    }
+
+    public void fail(String message){
+        runner?.fail(message)
+    }
+
+    public void assertEquals(expected, actual){
+        runner?.assertEquals(expected, actual)
+    }
+
+    public void assertNotNull(object){
+        runner?.assertNotNull(object)
+    }
+
+    public void assertNull(object){
+        runner?.assertNull(object)
+    }
+
+    public void assertSame(expected, actual){
+        runner?.assertSame(expected, actual)
+    }
+
+    public void assertNotSame(expected, actual){
+        runner?.assertNotSame(expected, actual)
+    }
 }
