@@ -1,4 +1,7 @@
 package org.tellurium.test.helper
+
+import org.tellurium.util.Helper
+
 /**
  * convert the test results in XML format
  *

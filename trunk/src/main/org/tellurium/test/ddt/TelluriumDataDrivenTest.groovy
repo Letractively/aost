@@ -275,7 +275,7 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
     //-----------------------------------------------------------------------------------------
     // Internal methods
     //-----------------------------------------------------------------------------------------
-    protected void recordResult(expected, actual){
+    protected void recordResult(expected, actual, Closure c){
         boolean passed = true
 
         TestResult result = new TestResult()
@@ -286,7 +286,14 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
         assertResult.setProperty("actual", actual)
 
         try{
-            assertEquals(expected, actual)
+            //allow user to override the default assertion use
+            //closure to define comparison
+            if(c != null){
+                c()
+            }else{
+                //if the closure is not defined, use the default Junit assertion
+                assertEquals(expected, actual)
+            }
         }catch(AssertionFailedError e){
             passed = false
             assertResult.setProperty("error", e)
