@@ -154,7 +154,7 @@ class TelluriumIssuesPage extends DslContext{
 
     public void clickTable(int row, int column){
         click "issueResult[${row}][${column}]"
-        pause 1000
+        waitForPageToLoad 30000
     }
 
     public void clickOnTableHeader(int column){
