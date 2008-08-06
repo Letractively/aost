@@ -84,8 +84,6 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
         tisp.clickTable(1,7);
         connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.clickTable(1,9);
-        connectUrl("http://code.google.com/p/aost/issues/list");
-        tisp.clickTable(1,10);
     }
 
     @Test
@@ -98,7 +96,6 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
         tisp.clickOnTableHeader(6);
         tisp.clickOnTableHeader(7);
         tisp.clickOnTableHeader(9);
-        tisp.clickOnTableHeader(10);
     }
 
 }
