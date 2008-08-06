@@ -48,7 +48,8 @@ class GoogleStartPagePullTest extends TelluriumDataDrivenTest{
             openUrl "http://www.google.com"
             type "google_start_page.searchbox", input
             pause 500
-
+            click "google_start_page.googlesearch"
+            waitForPageToLoad 30000
         }
 
         stepOver()
@@ -69,13 +70,14 @@ class GoogleStartPagePullTest extends TelluriumDataDrivenTest{
             else
                 click "google_start_page.Imfeelinglucky"
 
-            pause 1000
+            waitForPageToLoad 30000
+
 
             openUrl "http://www.google.com"
             type "google_start_page.searchbox", phoneNumber
             click "google_start_page.Imfeelinglucky"
 
-            pause 1000
+            waitForPageToLoad 30000
         }
 
         //close file

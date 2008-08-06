@@ -45,7 +45,7 @@ class GoogleBooksList extends DslContext{
 
     def clickList(int index){
         click "GoogleBooksList.subcategory[${index}]"
-        pause 5000
+        waitForPageToLoad 30000
     }
 
     String getText(int index){

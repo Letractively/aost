@@ -1,5 +1,7 @@
 /**
- * The global place to Tellurium configuration
+ * The global place to Tellurium configuration. This is just a backup copy of the configuration file.
+ * To run tests, please place this file into the directory you start to run the tests. If you run tests
+ * in IDE, please please this file in project directory.
  *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *

@@ -31,6 +31,22 @@ abstract class DslContext {
         return obj
     }
 
+    protected String locatorMapping(WorkflowContext context, loc ){
+        //get ui object's locator
+        String locator = locatorProcessor.locate(loc)
+
+        //get the reference locator all the way to the ui object
+        if(context.getReferenceLocator() != null)
+            locator = context.getReferenceLocator() + locator
+
+        //make sure the xpath starts with "//"
+        if(locator != null && (!locator.startsWith("//"))){
+            locator = "/" + locator
+        }
+
+        return locator
+    }
+
     def click(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, uid)?.click(){ loc ->
@@ -301,6 +317,20 @@ abstract class DslContext {
         }
     }
 
+    int getTableHeaderColumnNum(String uid){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         Table obj = ui.walkTo(context, uid)
+         if(obj != null){
+             return obj.getTableHeaderColumnNum{ loc ->
+                String locator = locatorMapping(context, loc)
+                locator
+             }
+         }
+
+         println("Cannot find table ${uid}")
+         return 0
+    }
+
     int getTableMaxRowNum(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          Table obj = ui.walkTo(context, uid)
@@ -555,23 +585,6 @@ abstract class DslContext {
     void captureScreenshot(String filename){
         accessor.captureScreenshot(filename)
     }
-
-    String locatorMapping(WorkflowContext context, loc ){
-        //get ui object's locator
-        String locator = locatorProcessor.locate(loc)
-
-        //get the reference locator all the way to the ui object
-        if(context.getReferenceLocator() != null)
-            locator = context.getReferenceLocator() + locator
-
-        //make sure the xpath starts with "//"
-        if(locator != null && (!locator.startsWith("//"))){
-            locator = "/" + locator
-        }
-        
-        return locator
-    }
-
 
     void chooseCancelOnNextConfirmation(){
         eventHandler.chooseCancelOnNextConfirmation()

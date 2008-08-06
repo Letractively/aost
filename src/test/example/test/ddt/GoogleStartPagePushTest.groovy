@@ -45,7 +45,7 @@ class GoogleStartPagePushTest extends TelluriumDataDrivenTest{
             openUrl "http://www.google.com"
             type "google_start_page.searchbox", input
             click "google_start_page.googlesearch"
-            pause 1000
+            waitForPageToLoad 30000
         }
 
         defineTest("Imfeelinglucky"){
@@ -55,7 +55,7 @@ class GoogleStartPagePushTest extends TelluriumDataDrivenTest{
             openUrl "http://www.google.com"
             type "google_start_page.searchbox", input
             click "google_start_page.Imfeelinglucky"
-            pause 1000
+            waitForPageToLoad 30000
         }
 
         //read one line of data and execute the action
