@@ -36,6 +36,6 @@ class TelluriumIssuesPage extends DslContext{
     public void searchIssue(String issue){
         type "issueSearch.searchBox", issue
         click "issueSearch.searchButton"
-        pause 2000
+        waitForPageToLoad 30000
     }
 }

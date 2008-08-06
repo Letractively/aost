@@ -34,18 +34,6 @@ class UiDslParser extends BuilderSupport{
           return id
        }
 
-/*       def findUiObjectFromRegistry(String id){
-
-           if(id.startsWith("${root.uid}")){
-
-             return registry.get(id)
-           }else{
-             String t = "${root.uid}.${id}"
-
-             return registry.get(t)
-           }
-       }*/
-
        public UiObject walkTo(WorkflowContext context, String id)
        {
           //if only one ui object in the registry, i.e., user only defined one UI module
@@ -59,7 +47,7 @@ class UiDslParser extends BuilderSupport{
 
           UiID uiid = UiID.convertToUiID(id)
 
-          if(uiid.size() > 1){
+          if(uiid.size() >= 1){
               String first = uiid.pop()
               //first object (i.e., the top object in a UI module) can be found from the registry
               UiObject fo = registry.get(first)

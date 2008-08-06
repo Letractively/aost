@@ -60,7 +60,7 @@ class GoogleCodeHosting extends DslContext{
 
     void clickOnLable(int row, int column){
         click  "labels_table[2][1].[${row}][${column}]"
-        pause 5000
+        waitForPageToLoad 30000
     }
 
     String getUrlLink(int row, int column){

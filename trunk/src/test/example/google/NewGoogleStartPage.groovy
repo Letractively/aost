@@ -33,13 +33,13 @@ class NewGoogleStartPage extends DslContext{
         type "searchbox", input
         pause 500
         click "googlesearch"
-        pause 1000
+        waitForPageToLoad 30000
     }
 
     def doImFeelingLucky(String input){
         type "searchbox", input
         pause 500
         click "Imfeelinglucky"
-        pause 1000 
+        waitForPageToLoad 30000
     }
 }

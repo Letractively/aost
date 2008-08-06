@@ -26,23 +26,23 @@ openUrl "http://www.google.com"
 type "google_start_page.searchbox", "Tellurium Selenium test"
 pause 500
 click "google_start_page.Imfeelinglucky"
-pause 1000
+waitForPageToLoad 30000
 
 openUrl "http://code.google.com/p/aost/"
 click "menu.project_home"
-pause 1000
+waitForPageToLoad 30000
 click "menu.downloads"
-pause 1000
+waitForPageToLoad 30000
 click "menu.wiki"
-pause 1000
+waitForPageToLoad 30000
 click "menu.issues"
-pause 1000
+waitForPageToLoad 30000
 
 openUrl "http://code.google.com/p/aost/"
 type "search.searchbox", "Tellurium Selenium groovy"
 click "search.search_project_button"
-pause 5000
+waitForPageToLoad 30000
 
 type "search.searchbox", "tellurium selenium dsl groovy"
 click "search.search_web_button"
-pause 5000
+waitForPageToLoad 30000

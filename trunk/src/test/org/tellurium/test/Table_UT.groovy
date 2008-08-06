@@ -8,6 +8,7 @@ import org.tellurium.test.Table1
 import org.tellurium.test.Table2
 import org.tellurium.test.Table4
 import org.tellurium.test.Table3
+import org.tellurium.object.TextBox
 
 /**
  * Unit tests for Table
@@ -59,6 +60,65 @@ class Table_UT extends GroovyTestCase{
        assertNotNull(obj)
        assertTrue(obj instanceof UrlLink)
        assertEquals(context.getReferenceLocator(), "//table/tbody/tr[2]/td[1]")
+   }
+
+   void testTable5(){
+       Table5 table5 = new Table5()
+       table5.defineUi()
+       WorkflowContext context = WorkflowContext.getDefaultContext()
+       UiObject obj = table5.ui.walkTo(context, "main.table1.header[1]")
+       assertNotNull(obj)
+       assertTrue(obj instanceof UrlLink)
+       assertEquals("//table/tbody/tr[1]/th[1]", context.getReferenceLocator())
+       context = WorkflowContext.getDefaultContext()
+       obj = table5.ui.walkTo(context, "table1[2][2]")
+       assertNotNull(obj)
+       assertTrue(obj instanceof Button)
+       assertEquals(context.getReferenceLocator(), "//table/tbody/tr[3]/td[2]")
+   }
+
+   void testTable6(){
+       Table6 table6 = new Table6()
+       table6.defineUi()
+       WorkflowContext context = WorkflowContext.getDefaultContext()
+       UiObject obj = table6.ui.walkTo(context, "main.table1.header[1]")
+       assertNotNull(obj)
+       assertTrue(obj instanceof UrlLink)
+       assertEquals("//table/tbody/tr[1]/th[1]", context.getReferenceLocator())
+       
+       context = WorkflowContext.getDefaultContext()
+       obj = table6.ui.walkTo(context, "main.table1.header[2]")
+       assertNotNull(obj)
+       assertTrue(obj instanceof TextBox)
+       assertEquals("//table/tbody/tr[1]/th[2]", context.getReferenceLocator())
+
+       context = WorkflowContext.getDefaultContext()
+       obj = table6.ui.walkTo(context, "table1[2][2]")
+       assertNotNull(obj)
+       assertTrue(obj instanceof Button)
+       assertEquals(context.getReferenceLocator(), "//table/tbody/tr[3]/td[2]")
+   }
+
+   void testTable7(){
+       Table7 table7 = new Table7()
+       table7.defineUi()
+       WorkflowContext context = WorkflowContext.getDefaultContext()
+       UiObject obj = table7.ui.walkTo(context, "main.table1.header[1]")
+       assertNotNull(obj)
+       assertTrue(obj instanceof TextBox)
+       assertEquals("//table/tbody/tr[1]/th[1]", context.getReferenceLocator())
+
+       context = WorkflowContext.getDefaultContext()
+       obj = table7.ui.walkTo(context, "main.table1.header[2]")
+       assertNotNull(obj)
+       assertTrue(obj instanceof UrlLink)
+       assertEquals("//table/tbody/tr[1]/th[2]", context.getReferenceLocator())
+
+       context = WorkflowContext.getDefaultContext()
+       obj = table7.ui.walkTo(context, "table1[2][2]")
+       assertNotNull(obj)
+       assertTrue(obj instanceof Button)
+       assertEquals(context.getReferenceLocator(), "//table/tbody/tr[3]/td[2]")
    }
 
 }

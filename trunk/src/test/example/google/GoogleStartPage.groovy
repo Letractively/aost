@@ -15,6 +15,6 @@ class GoogleStartPage extends DslContext{
         type "inputbox1", input
         pause 500
         click "button1"
-        pause 1000        
+        waitForPageToLoad 30000    
     }
 }

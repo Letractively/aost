@@ -1,7 +1,6 @@
 package org.tellurium.builder
 
 import org.tellurium.builder.UiObjectBuilder
-import org.tellurium.locator.BaseLocator
 import org.tellurium.object.Table
 import org.tellurium.object.UiObject
 
@@ -14,7 +13,7 @@ import org.tellurium.object.UiObject
 class TableBuilder extends UiObjectBuilder{
 
    def build(Map map, Closure closure){
-       //add default parameters so that the builder can useString them if not specified
+       //add default parameters so that the builder can use them if not specified
        def df = [:]
        df.put(TAG, Table.TAG)
        Table table = this.internBuild(new Table(), map, df)
@@ -30,7 +29,7 @@ class TableBuilder extends UiObjectBuilder{
       if(table == null || objects == null || objects.length < 1)
         return table
 
-      objects.each {obj -> table.add(obj)}
+      objects.each {UiObject obj -> table.add(obj)}
 
       return table
    }

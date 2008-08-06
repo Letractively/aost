@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.junit.Before;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -65,6 +67,67 @@ public class TelluriumDownloadsPageJavaTestCase extends TelluriumJavaTestCase{
         downloadPage.selectDownloadType(" All Downloads");
         downloadPage.searchDownload("aost");
         downloadPage.pause(3000);
+    }
+
+    @Test
+    public void testDownloadFileNames(){
+        int mcolumn = downloadPage.getTableHeaderNum();
+        assertEquals(7, mcolumn);
+        List<String> list = downloadPage.getHeaderNames();
+        assertNotNull(list);
+        assertEquals(7, list.size());
+        assertTrue(include(list, "Filename"));
+        list = downloadPage.getDownloadFileNames();
+        assertNotNull(list);
+        assertFalse(list.isEmpty());
+        assertTrue(include(list, "aost-0.3.0.tar.gz"));
+    }
+
+    @Test
+    public void testClickDownload(){
+        downloadPage.clickFileNameColumn(1);
+    }
+
+    @Test
+    public void testClickSummaryLabels(){
+        downloadPage.clickSummaryLabelsColumn(1,1);
+    }
+
+    @Test
+    public void testClickUploaded(){
+        downloadPage.clickUploadedColumn(1);
+    }
+
+    @Test
+    public void testClickSize(){
+        downloadPage.clickSizeColumn(1);
+    }
+
+    @Test
+    public void testClickDownloadedCount(){
+        downloadPage.clickDownloadedCountColumn(1);
+    }
+
+    @Test
+    public void testClickHeader(){
+        downloadPage.clickOnTableHeader(2);
+        downloadPage.clickOnTableHeader(3);
+        downloadPage.clickOnTableHeader(4);
+        downloadPage.clickOnTableHeader(5);
+        downloadPage.clickOnTableHeader(6);
+    }
+
+    protected boolean include(List<String> list, String name){
+        if(list == null || list.isEmpty() || name == null)
+            return false;
+
+        for(String elem: list){
+            if(name.contains(elem)){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
