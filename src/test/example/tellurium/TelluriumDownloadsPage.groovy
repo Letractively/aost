@@ -32,7 +32,8 @@ class TelluriumDownloadsPage extends DslContext{
            UrlLink(uid: "header: 3", clocator: [text: "%%Summary + Labels"])
            UrlLink(uid: "header: 4", clocator: [text: "%%Uploaded"])
            UrlLink(uid: "header: 5", clocator: [text: "%%Size"])
-           UrlLink(uid: "header: 6", clocator: [text: "%%..."])
+           UrlLink(uid: "header: 6", clocator: [text: "%%DownloadCount"])
+           UrlLink(uid: "header: 7", clocator: [text: "%%..."])
 
            //define table elements
            //for the border column
