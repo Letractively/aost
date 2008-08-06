@@ -30,4 +30,16 @@ class Helper{
         return sb.toString();
     }
 
+    public static boolean include(List<String> list, String name){
+        if(list == null || list.isEmpty() || name == null)
+            return false;
+
+        for(String elem: list){
+            if(name.contains(elem)){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -1,6 +1,7 @@
 package example.test.java;
 
 import org.tellurium.test.java.TelluriumJavaTestCase;
+import org.tellurium.util.Helper;
 import example.tellurium.TelluriumDownloadsPage;
 import example.tellurium.TelluriumProjectPage;
 import org.junit.BeforeClass;
@@ -76,11 +77,11 @@ public class TelluriumDownloadsPageJavaTestCase extends TelluriumJavaTestCase{
         List<String> list = downloadPage.getHeaderNames();
         assertNotNull(list);
         assertEquals(7, list.size());
-        assertTrue(include(list, "Filename"));
+        assertTrue(Helper.include(list, "Filename"));
         list = downloadPage.getDownloadFileNames();
         assertNotNull(list);
         assertFalse(list.isEmpty());
-        assertTrue(include(list, "aost-0.3.0.tar.gz"));
+        assertTrue(Helper.include(list, "aost-0.3.0.tar.gz"));
     }
 
     @Test
@@ -115,19 +116,6 @@ public class TelluriumDownloadsPageJavaTestCase extends TelluriumJavaTestCase{
         downloadPage.clickOnTableHeader(4);
         downloadPage.clickOnTableHeader(5);
         downloadPage.clickOnTableHeader(6);
-    }
-
-    protected boolean include(List<String> list, String name){
-        if(list == null || list.isEmpty() || name == null)
-            return false;
-
-        for(String elem: list){
-            if(name.contains(elem)){
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**
