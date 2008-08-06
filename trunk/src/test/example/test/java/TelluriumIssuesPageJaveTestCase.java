@@ -33,4 +33,20 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
         tisp.searchIssue("Alter");
     }
 
+    @Test
+    public void testAdvancedSearch(){
+        connectUrl("http://code.google.com/p/aost/issues/advsearch");
+        String[] ists = tisp.getAdvancedIsssueTypes();
+        assertNotNull(ists);
+        assertTrue(ists[1].contains("All Issues"));
+        tisp.selectIssueType(ists[1]);
+
+        tisp.advancedSearchIssue(ists[1], "table", null, null, null, null, null, null, null);
+    }
+
+    @Test
+    public void testAdvancedSearchTips(){
+        connectUrl("http://code.google.com/p/aost/issues/advsearch");
+        tisp.clickMoreSearchTips();
+    }
 }
