@@ -41,6 +41,26 @@ class TelluriumIssuesPage extends DslContext{
                InputBox(uid: "row:10, column:3", clocator:[name: "commentby"])
            }
        }
+
+       ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], group: "true") {
+           //define table header
+           //for the border column
+           TextBox(uid: "header: 1",  clocator: [:])
+           UrlLink(uid: "header: 2",  clocator: [text: "%%ID"])
+           UrlLink(uid: "header: 3",  clocator: [text: "%%Type"])
+           UrlLink(uid: "header: 4",  clocator: [text: "%%Status"])
+           UrlLink(uid: "header: 5",  clocator: [text: "%%Priority"])
+           UrlLink(uid: "header: 6",  clocator: [text: "%%Milestone"])
+           UrlLink(uid: "header: 7",  clocator: [text: "%%Owner"])
+           UrlLink(uid: "header: 9",  clocator: [text: "%%Summary + Labels"])
+           UrlLink(uid: "header: 10", clocator: [text: "%%..."])
+
+           //define table elements
+           //for the border column
+           TextBox(uid: "row: *, column: 1", clocator: [:])
+           //For the rest, just UrlLink
+           UrlLink(uid: "all", clocator: [:])
+       }
    }
 
     public String[] getIsssueTypes(){
@@ -106,5 +126,39 @@ class TelluriumIssuesPage extends DslContext{
     public void clickMoreSearchTips(){
         click "issueAdvancedSearch.searchTable[6][1].[1][1]"
         waitForPageToLoad 30000
+    }
+
+    public int getTableHeaderNum(){
+        return getTableHeaderColumnNum("issueResult")
+    }
+
+    public List<String> getHeaderNames(){
+        List<String> headernames = new ArrayList<String>()
+        int mcolumn = getTableHeaderColumnNum("issueResult")
+        for(int i=1; i<=mcolumn; i++){
+            headernames.add(getText("issueResult.header[${i}]"))
+        }
+
+        return headernames
+    }
+
+    public List<String> getDataForColumn(int column){
+        int mcolumn = getTableMaxRowNum("issueResult")
+        List<String> lst = new ArrayList<String>()
+        for(int i=1; i<=mcolumn; i++){
+            lst.add(getText("issueResult[${i}][${column}]"))
+        }
+
+        return lst
+    }
+
+    public void clickTable(int row, int column){
+        click "issueResult[${row}][${column}]"
+        pause 1000
+    }
+
+    public void clickOnTableHeader(int column){
+        click "issueResult.header[${column}]"
+        pause 1000
     }
 }
