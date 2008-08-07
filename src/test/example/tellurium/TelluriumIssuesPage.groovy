@@ -61,6 +61,15 @@ class TelluriumIssuesPage extends DslContext{
            //For the rest, just UrlLink
            UrlLink(uid: "all", clocator: [:])
        }
+
+/*
+       ui.Table(uid: "IdMenu", clocator:[header: "/div[@class='popup' and @id='pop_0']"], group: "true"){
+           TextBox(uid: "row:1, column:1", clocator:[text: "Sort Up"])
+           TextBox(uid: "row:2, column:1", clocator:[text: "Sort Down"])
+           TextBox(uid: "row:3, column:1", clocator:[text: "Hide Column"])
+       }
+*/     //items is a map in the format of "alias name" : menu_item
+       ui.SimpleMenu(uid: "IdMenu", clocator:[class: "popup", id: "pop_0"], items: ["SortUp":"Sort Up", "SortDown":"Sort Down", "HideColumn":"Hide Column"])
    }
 
     public String[] getIsssueTypes(){
@@ -72,7 +81,7 @@ class TelluriumIssuesPage extends DslContext{
     }
 
     public void searchIssue(String issue){
-        type "issueSearch.searchBox", issue
+        keyType "issueSearch.searchBox", issue
         click "issueSearch.searchButton"
         waitForPageToLoad 30000
     }
@@ -88,35 +97,35 @@ class TelluriumIssuesPage extends DslContext{
         }
 
         if(words != null){
-            type "issueAdvancedSearch.searchTable[2][3]", words
+            keyType "issueAdvancedSearch.searchTable[2][3]", words
         }
 
         if(without != null){
-            type "issueAdvancedSearch.searchTable[3][3]", without
+            keyType "issueAdvancedSearch.searchTable[3][3]", without
         }
 
         if(labels != null){
-            type "issueAdvancedSearch.searchTable[5][3]", labels
+            keyType "issueAdvancedSearch.searchTable[5][3]", labels
         }
 
         if(statuses != null){
-            type "issueAdvancedSearch.searchTable[6][3]", statuses
+            keyType "issueAdvancedSearch.searchTable[6][3]", statuses
         }
 
         if(reporters != null){
-            type "issueAdvancedSearch.searchTable[7][2]", reporters
+            keyType "issueAdvancedSearch.searchTable[7][2]", reporters
         }
 
         if(owners != null){
-            type "issueAdvancedSearch.searchTable[8][2]", owners
+            keyType "issueAdvancedSearch.searchTable[8][2]", owners
         }
 
         if(cc != null){
-           type "issueAdvancedSearch.searchTable[9][2]", cc
+           keyType "issueAdvancedSearch.searchTable[9][2]", cc
         }
 
         if(commentby != null){
-           type "issueAdvancedSearch.searchTable[10][3]", commentby
+           keyType "issueAdvancedSearch.searchTable[10][3]", commentby
         }
 
         click "issueAdvancedSearch.searchTable[1][4]"
@@ -160,5 +169,47 @@ class TelluriumIssuesPage extends DslContext{
     public void clickOnTableHeader(int column){
         click "issueResult.header[${column}]"
         pause 1000
+    }
+
+    public void mouseMoveIdMenu(){        
+        mouseOver "IdMenu.SortUp"
+        pause 500
+        mouseOut  "IdMenu.SortUp"
+        pause 50
+
+        mouseOver "IdMenu.SortDown"
+        pause 500
+        mouseOut  "IdMenu.SortDown"
+        pause 50
+
+        mouseOver "IdMenu.HideColumn"
+        pause 500
+        mouseOut  "IdMenu.HideColumn"
+        pause 50
+
+        mouseOver "IdMenu.SortDown"
+        pause 500
+        mouseOut  "IdMenu.SortDown"
+        pause 50
+
+        mouseOver "IdMenu.SortUp"
+        pause 500
+        mouseOut  "IdMenu.SortUp"
+        pause 50
+    }
+
+    public void clickIdMenuSortUp(){
+        click "IdMenu.SortUp"
+        waitForPageToLoad 30000
+    }
+
+    public void clickIdMenuSortDown(){
+        click "IdMenu.SortDown"
+        waitForPageToLoad 30000
+    }
+
+    public void clickIdMenuHideColumn(){
+        click "IdMenu.HideColumn"
+        waitForPageToLoad 30000
     }
 }

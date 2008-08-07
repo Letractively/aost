@@ -121,4 +121,13 @@ class Table_UT extends GroovyTestCase{
        assertEquals(context.getReferenceLocator(), "//table/tbody/tr[3]/td[2]")
    }
 
+   void testTable8(){
+       Table8 table8 = new Table8()
+       table8.defineUi()
+       WorkflowContext context = WorkflowContext.getDefaultContext()
+       UiObject obj = table8.ui.walkTo(context, "IdMenu[1][1")
+       assertNotNull(obj)
+       assertTrue(obj instanceof TextBox)
+       assertEquals("/div[@class='popup' and @id='pop_0']/descendant-or-self::table[descendant::*[text()=\"Sort Up\"] and descendant::*[text()=\"Sort Down\"] and descendant::*[text()=\"Hide Column\"]]/tbody/tr[1]/td[1]", context.getReferenceLocator())
+   }
 }

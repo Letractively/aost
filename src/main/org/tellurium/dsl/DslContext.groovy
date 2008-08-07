@@ -47,6 +47,22 @@ abstract class DslContext {
         return locator
     }
 
+    def mouseOver(String uid){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, uid)?.mouseOver(){ loc ->
+            String locator = locatorMapping(context, loc)
+            eventHandler.mouseOver(locator)
+        }
+    }
+
+    def mouseOut(String uid){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, uid)?.mouseOut(){ loc ->
+            String locator = locatorMapping(context, loc)
+            eventHandler.mouseOut(locator)
+        }
+    }
+
     def click(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, uid)?.click(){ loc ->
@@ -360,7 +376,7 @@ abstract class DslContext {
     }
 
     int getListSize(String uid){
-          WorkflowContext context = WorkflowContext.getDefaultContext()
+         WorkflowContext context = WorkflowContext.getDefaultContext()
          List obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.getListSize(){ loc ->

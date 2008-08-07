@@ -35,5 +35,6 @@ class UiObjectBuilderRegistry{
         registerBuilder("Form", new FormBuilder())
         registerBuilder("RadioButton", new RadioButtonBuilder())
         registerBuilder("Div", new DivBuilder())
+        registerBuilder("SimpleMenu", new SimpleMenuBuilder())
     }                                 
 }

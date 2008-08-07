@@ -10,7 +10,30 @@ class EventHandler{
 
     //default is selenium dispatcher
     def dispatcher  = new Dispatcher()
-//    def Dispatcher dispatcher
+
+	def mouseOver(String locator) {
+
+		if(!dispatcher.isElementPresent(locator)){
+			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
+		}
+
+		if(dispatcher.isElementPresent(locator)){
+			dispatcher.fireEvent(locator, "focus")
+			dispatcher.mouseOver(locator)
+		}
+	}
+
+    def mouseOut(String locator) {
+
+		if(!dispatcher.isElementPresent(locator)){
+			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
+		}
+
+		if(dispatcher.isElementPresent(locator)){
+			dispatcher.fireEvent(locator, "focus")
+			dispatcher.mouseOut(locator)
+		}
+	}
 
 	def click(String locator) {
 

@@ -80,7 +80,7 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
         tisp.clickTable(1,5);
         connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.clickTable(1,6);
-         connectUrl("http://code.google.com/p/aost/issues/list");
+        connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.clickTable(1,7);
         connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.clickTable(1,9);
@@ -98,4 +98,12 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
         tisp.clickOnTableHeader(9);
     }
 
+    @Test
+    public void testIdMenu(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
+        tisp.clickOnTableHeader(2);
+        tisp.mouseMoveIdMenu();
+        tisp.clickIdMenuSortDown();
+        tisp.clickIdMenuSortUp();
+    }
 }
