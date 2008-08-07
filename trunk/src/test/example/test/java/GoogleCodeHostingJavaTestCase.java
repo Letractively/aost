@@ -63,16 +63,18 @@ public class GoogleCodeHostingJavaTestCase extends TelluriumJavaTestCase {
         Map map = ngch.getAllLabels();
         assertEquals(18, map.size());
 
-        List<Integer> index = (List<Integer>) map.get("Java");
+        List index = (List) map.get("Java");
         assertNotNull(index);
         assertEquals(2, index.size());
 
         //find the url link
-        String url = ngch.getUrlLink(index.get(0), index.get(1));
+        int first = (Integer)index.get(0);
+        int second = (Integer)index.get(1);
+        String url = ngch.getUrlLink(first, second);
         assertEquals("search?q=label%3aJava", url);
 
         //click on "Java" link
-        ngch.clickOnLable(index.get(0), index.get(1));
+        ngch.clickOnLable(first, second);
 
     }
 

@@ -42,7 +42,10 @@ class AssertionResult {
         sb.append(fieldStart).append(PASSED).append(avpSeparator).append(passed)
         if (error != null){
             sb.append(fieldSeparator)
-            sb.append(fieldStart).append(ASSERTION_ERROR).append(avpSeparator).append("\"" + error.getMessage() + "\"")
+            String errorMsg = error.getMessage()
+            if(errorMsg == null)
+                errorMsg = "Result Comparison Error"
+            sb.append(fieldStart).append(ASSERTION_ERROR).append(avpSeparator).append("\"" + errorMsg + "\"")
         }
 
         return sb.toString()
