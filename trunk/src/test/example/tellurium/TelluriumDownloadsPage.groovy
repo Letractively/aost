@@ -5,7 +5,7 @@ import org.tellurium.dsl.DslContext
 /**
  * Ui Modules for Tellurium Down page at
  *
- *   http://code.google.com/p/aost/issues/list
+ *   http://code.google.com/p/aost/downloads/list
  *
  * @author Quan Bui (Quan.Bui@gmail.com)
  *
