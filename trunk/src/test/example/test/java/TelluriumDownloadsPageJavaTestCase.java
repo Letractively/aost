@@ -3,10 +3,8 @@ package example.test.java;
 import org.tellurium.test.java.TelluriumJavaTestCase;
 import org.tellurium.util.Helper;
 import example.tellurium.TelluriumDownloadsPage;
-import example.tellurium.TelluriumProjectPage;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.Before;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.List;
@@ -22,56 +20,71 @@ import static org.junit.Assert.*;
  *
  */
 public class TelluriumDownloadsPageJavaTestCase extends TelluriumJavaTestCase{
-    private static TelluriumProjectPage  projectPage;
-    private static TelluriumDownloadsPage downloadPage;
+   private static TelluriumDownloadsPage downloadPage;
+
     public static String newline = System.getProperty("line.separator");
     private static Logger logger = Logger.getLogger(TelluriumDownloadsPageJavaTestCase.class.getName());
-    
+
     @BeforeClass
     public static void initUi() {
-        projectPage = new TelluriumProjectPage();        
         downloadPage = new TelluriumDownloadsPage();
-        projectPage.defineUi();
         downloadPage.defineUi();
     }
 
-    @Before
-    public void setUpForTest(){
-       connectUrl("http://code.google.com/p/aost/");
-       
-       // Always make sure we are at the Download page before continue our test       
-       projectPage.clickDownloads();
+    @Test
+    public void testDownloadTypes(){
+        connectUrl("http://code.google.com/p/aost/downloads/list");
+        String[] allTypes = downloadPage.getAllDownloadTypes();
+        assertNotNull(allTypes);
+        assertTrue(allTypes[1].contains("All Downloads"));
+        assertTrue(allTypes[2].contains("Featured Downloads"));
+        assertTrue(allTypes[3].contains("Current Downloads"));
+        assertTrue(allTypes[4].contains("Deprecated Downloads"));
     }
 
-    @Test    
-    public void testGetAllDownloadTypes(){       
-        String[] downloadTypes = downloadPage.getAllDownloadTypes();
-        assertNotNull("Failed to retrieve download options.", downloadTypes);         
-    }
-    
     @Test
-    public void testDefaultOptionForDownloadType(){  
+    public void testDefaultDownloadType(){
+        connectUrl("http://code.google.com/p/aost/downloads/list");
         // Set download type with other value
-        projectPage.clickDownloads();
         downloadPage.selectDownloadType(" All Downloads");
-        
-        // Navigate away from download page       
-        projectPage.clickProjectHome();        
-        projectPage.clickDownloads();
-        String current = downloadPage.getCurrentDownloadType();
-        assertNotNull("Failed to retrieve current selected download option.", current);         
-        assertTrue("Failed to test default value for download types", current.indexOf("Current Downloads") > 0);         
+
+        // Navigate away from download page
+        connectUrl("http://code.google.com/p/aost/downloads/list");
+        String defaultType = downloadPage.getCurrentDownloadType();
+        assertNotNull(defaultType);
+        assertTrue(defaultType.contains("Current Downloads"));
     }
 
     @Test
-    public void testSearchDownload(){
+    public void testSearchByText(){
+        connectUrl("http://code.google.com/p/aost/downloads/list");
+        // Set download type with other value
         downloadPage.selectDownloadType(" All Downloads");
-        downloadPage.searchDownload("aost");
-        downloadPage.pause(3000);
+        downloadPage.searchDownload("aost-0.3.0");
+
+        List<String> list = downloadPage.getDownloadFileNames();
+        assertNotNull(list);
+        assertFalse(list.isEmpty());
+        assertTrue(Helper.include(list, "aost-0.3.0.tar.gz"));
+    }
+
+    @Test
+    public void testSearchByLabel(){
+        connectUrl("http://code.google.com/p/aost/downloads/list");
+        // Set download type with other value
+        downloadPage.selectDownloadType(" All Downloads");
+        downloadPage.searchDownload("label:Featured");
+
+        List<String> list = downloadPage.getDownloadFileNames();
+        assertNotNull(list);
+        assertFalse(list.isEmpty());
+        assertTrue(Helper.include(list, "aost-0.3.0.tar.gz"));
+        assertTrue(Helper.include(list, "aost-0.3.0.jar"));
     }
 
     @Test
     public void testDownloadFileNames(){
+        connectUrl("http://code.google.com/p/aost/downloads/list");
         int mcolumn = downloadPage.getTableHeaderNum();
         assertEquals(7, mcolumn);
         List<String> list = downloadPage.getHeaderNames();
@@ -86,31 +99,37 @@ public class TelluriumDownloadsPageJavaTestCase extends TelluriumJavaTestCase{
 
     @Test
     public void testClickDownload(){
+        connectUrl("http://code.google.com/p/aost/downloads/list");
         downloadPage.clickFileNameColumn(1);
     }
 
     @Test
     public void testClickSummaryLabels(){
+        connectUrl("http://code.google.com/p/aost/downloads/list");
         downloadPage.clickSummaryLabelsColumn(1,1);
     }
 
     @Test
     public void testClickUploaded(){
+        connectUrl("http://code.google.com/p/aost/downloads/list");
         downloadPage.clickUploadedColumn(1);
     }
 
     @Test
     public void testClickSize(){
+        connectUrl("http://code.google.com/p/aost/downloads/list");
         downloadPage.clickSizeColumn(1);
     }
 
     @Test
     public void testClickDownloadedCount(){
+        connectUrl("http://code.google.com/p/aost/downloads/list");
         downloadPage.clickDownloadedCountColumn(1);
     }
 
     @Test
     public void testClickHeader(){
+        connectUrl("http://code.google.com/p/aost/downloads/list");
         downloadPage.clickOnTableHeader(2);
         downloadPage.clickOnTableHeader(3);
         downloadPage.clickOnTableHeader(4);
@@ -120,17 +139,17 @@ public class TelluriumDownloadsPageJavaTestCase extends TelluriumJavaTestCase{
 
     /**
      * Debug the items using Logger.log
-     * @param items
+     *
      */
     private void debug(String[] items)
     {
         if (items != null)
         {
-          StringBuffer sb = new StringBuffer();          
-          for(String item : items) {        
+          StringBuffer sb = new StringBuffer();
+          for(String item : items) {
             sb.append(item);
             sb.append(newline);
-          }          
+          }
           logger.log(Level.INFO, sb.toString());
         }
     }
