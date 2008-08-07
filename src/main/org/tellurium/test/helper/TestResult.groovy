@@ -77,11 +77,14 @@ class TestResult {
                 sb.append(fieldStart).append(ASSERTION).append(avpSeparator).append(" [ ").append(atr.toString()).append(" ]").append(fieldSeparator)   
             }
         }
-//        sb.append(fieldStart).append(ASSERTION_RESULT).append(avpSeparator).append("[ ").append(convertAssertationResults()).append(" ]").append(fieldSeparator)
+
         sb.append(fieldStart).append(STATUS).append(avpSeparator).append(status?.toString()).append(fieldSeparator)
         sb.append(fieldStart).append(RUN_TIME).append(avpSeparator).append((end-start)/1E9).append(" secs").append(fieldSeparator)
-        if(exception != null)
+        if(exception != null){
             sb.append(fieldStart).append(EXCEPTION).append(avpSeparator).append(Helper.logException(exception)).append(fieldSeparator)
+        }else{
+
+        }
 
         return sb.toString()
     }
