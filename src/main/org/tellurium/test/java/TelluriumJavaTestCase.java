@@ -19,7 +19,7 @@ public abstract class TelluriumJavaTestCase extends BaseTelluriumJavaTestCase {
 
     @BeforeClass
     public static void setUpForClass() {
-        TelluriumFramework tellurium = TelluriumSupport.addSupport();
+        tellurium = TelluriumSupport.addSupport();
         tellurium.start();
         connector = (SeleniumConnector) tellurium.getProperty("connector");
     }
