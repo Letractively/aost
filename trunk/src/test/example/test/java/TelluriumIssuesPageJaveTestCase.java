@@ -106,4 +106,12 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
         tisp.clickIdMenuSortDown();
         tisp.clickIdMenuSortUp();
     }
+
+    @Test
+    public void testSelectColumnMenu(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
+        tisp.toggleIdColumn("ID");
+        tisp.toggleIdColumn("Owner");
+        tisp.toggleIdColumn("Closed");
+    }
 }
