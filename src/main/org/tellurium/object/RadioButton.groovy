@@ -30,4 +30,8 @@ class RadioButton extends UiObject {
         c(locator)
     }
 
+    String getValue(Closure c){
+       return c(locator)
+    }
+
 }

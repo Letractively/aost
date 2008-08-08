@@ -26,4 +26,13 @@ class InputBox extends UiObject{
 
         c(locator)
     }
+
+    boolean isEditable(Closure c){
+        return c(locator)
+    }
+
+    String getValue(Closure c){
+       return c(locator)
+    }
+
 }

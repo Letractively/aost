@@ -17,7 +17,7 @@ tellurium{
         //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
         runInternally = true
         //the log file for selenium server
-        logFile = "selenium.log"
+//        logFile = "selenium.log"
     }
     //the configuration for the connector that connects the selenium client to the selenium server
     connector{

@@ -36,6 +36,11 @@ class WorkflowContext {
         return context.get(REFERENCE_LOCATOR)
     }
 
+    public void setReferenceLocator(String loc){
+
+        context.put(REFERENCE_LOCATOR, loc)
+    }
+
     //append the relative locator to the end of the reference locator
     public void appendReferenceLocator(String loc){
 

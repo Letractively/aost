@@ -574,8 +574,14 @@ abstract class DslContext {
        return accessor.isTextPresent(pattern)
     }
 
-    boolean isEditable(String locator){
-        return accessor.isEditable(locator)
+    boolean isEditable(String uid){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, uid)?.isEditable(){ loc ->
+            String locator = locatorMapping(context, loc)
+            return accessor.isEditable(locator)
+        }
+        
+        return false
     }
 
     String getHtmlSource(){

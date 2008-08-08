@@ -62,14 +62,13 @@ class TelluriumIssuesPage extends DslContext{
            UrlLink(uid: "all", clocator: [:])
        }
 
-/*
-       ui.Table(uid: "IdMenu", clocator:[header: "/div[@class='popup' and @id='pop_0']"], group: "true"){
-           TextBox(uid: "row:1, column:1", clocator:[text: "Sort Up"])
-           TextBox(uid: "row:2, column:1", clocator:[text: "Sort Down"])
-           TextBox(uid: "row:3, column:1", clocator:[text: "Hide Column"])
-       }
-*/     //items is a map in the format of "alias name" : menu_item
-       ui.SimpleMenu(uid: "IdMenu", clocator:[class: "popup", id: "pop_0"], items: ["SortUp":"Sort Up", "SortDown":"Sort Down", "HideColumn":"Hide Column"])
+       //items is a map in the format of "alias name" : menu_item
+       ui.SimpleMenu(uid: "IdMenu", clocator:[class: "popup", id: "pop_0"],
+               items: ["SortUp":"Sort Up", "SortDown":"Sort Down", "HideColumn":"Hide Column"])
+
+       //define the dot menu where you can select different column to display
+       ui.SelectMenu(uid: "selectColumnMenu", clocator:[class: "popup",id: "pop__dot"], title: "Show columns:",
+               items: ["ID":"ID", "Type":"Type", "Status":"Status", "Priority":"Priority", "Milestone":"Milestone", "Owner":"Owner", "Summary":"Summary", "Stars":"Stars", "Opened":"Opened", "Closed":"Closed", "Modified":"Modified", "EditColumn":"Edit Column Spec..." ])
    }
 
     public String[] getIsssueTypes(){
@@ -198,6 +197,17 @@ class TelluriumIssuesPage extends DslContext{
         pause 50
     }
 
+    public void toggleIdColumn(String column){
+        click "issueResult.header[10]"
+        pause 1000
+        click "selectColumnMenu.${column}"
+        pause 1000
+        click "issueResult.header[10]"
+        pause 1000
+        click "selectColumnMenu.${column}"
+        pause 1000        
+    }
+
     public void clickIdMenuSortUp(){
         click "IdMenu.SortUp"
         waitForPageToLoad 30000
@@ -212,4 +222,6 @@ class TelluriumIssuesPage extends DslContext{
         click "IdMenu.HideColumn"
         waitForPageToLoad 30000
     }
+
+
 }
