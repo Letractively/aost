@@ -27,7 +27,7 @@ class TelluriumGroovyTestCase extends BaseTelluriumGroovyTestCase{
 
 //    @BeforeClass
     protected void setUpForClass() {
-        TelluriumFramework aost = TelluriumSupport.addSupport()
+        aost = TelluriumSupport.addSupport()
         aost.start()
         connector = aost.connector
         initUi()
