@@ -26,6 +26,8 @@ abstract class UiObjectBuilder{
     public static final String TYPE = "type"
     public static final String USE_GROUP_INFO = "group"
     public static final String TRUE = "TRUE"
+    //direct child of either the header or the parent UI
+    public static final String DIRECT = "direct"
 
     def abstract build(Map map, Closure c);
 
@@ -101,7 +103,10 @@ abstract class UiObjectBuilder{
         Map<String, String> attributes = [:]
         locator.header = map.get(HEADER)
         locator.trailer = map.get(TRAILER)
-
+        
+        if(map.get(DIRECT) != null && TRUE.equalsIgnoreCase(map.get(DIRECT)))
+            locator.direct = true
+        
         locator.tag = map.get(TAG)
         //useString default value  if TAG not specified
         if(locator.tag == null && df != null)
@@ -111,7 +116,7 @@ abstract class UiObjectBuilder{
         locator.position = map.get(POSITION)
 
         map.each { String key, value ->
-            if(!HEADER.equals(key) && !TRAILER.equals(key) && !TAG.equals(key) && !TEXT.equals(key) && !POSITION.equals(key))
+            if(!HEADER.equals(key) && !TRAILER.equals(key) && !TAG.equals(key) && !TEXT.equals(key) && !POSITION.equals(key) && !DIRECT.equals(key))
                 attributes.put(key, value)
         }
         if(df != null && (!df.isEmpty())){

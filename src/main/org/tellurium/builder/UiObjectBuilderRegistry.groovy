@@ -37,5 +37,6 @@ class UiObjectBuilderRegistry{
         registerBuilder("Div", new DivBuilder())
         registerBuilder("SimpleMenu", new SimpleMenuBuilder())
         registerBuilder("SelectMenu", new SelectMenuBuilder())
+        registerBuilder("Option", new OptionBuilder())
     }
 }

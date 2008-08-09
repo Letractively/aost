@@ -11,15 +11,30 @@ package org.tellurium.dsl
 class WorkflowContext {
 
     public static final String REFERENCE_LOCATOR = "Reference_Locator"
+    public static final String OPTION_LOCATOR = "Option_Locator"
+
+    private boolean useOption = false
 
     def context = [:]
 
-    Object getContext(String name){
+    public boolean isUseOption(){
+        return useOption
+    }
+
+    public void setUseOption(boolean useOption){
+        this.useOption = useOption
+    }
+
+    public def getOptionLocator(){
+        return context.get(OPTION_LOCATOR)
+    }
+
+    public Object getContext(String name){
 
         return context.get(name)
     }
 
-    void putContext(String name, Object obj){
+    public void putContext(String name, Object obj){
         context.put(name, obj)
     }
 

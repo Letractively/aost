@@ -69,6 +69,18 @@ class TelluriumIssuesPage extends DslContext{
        //define the dot menu where you can select different column to display
        ui.SelectMenu(uid: "selectColumnMenu", clocator:[class: "popup",id: "pop__dot"], title: "Show columns:",
                items: ["ID":"ID", "Type":"Type", "Status":"Status", "Priority":"Priority", "Milestone":"Milestone", "Owner":"Owner", "Summary":"Summary", "Stars":"Stars", "Opened":"Opened", "Closed":"Closed", "Modified":"Modified", "EditColumn":"Edit Column Spec..." ])
+
+       //The selector to choose the data grid layout as List or Grid
+       ui.Option(uid: "layoutSelector"){
+           Container(uid: "layoutSelector", clocator: [tag: "div"], group: "true") {
+               TextBox(uid: "List", clocator: [tag: "b", text: "List", direct: "true"])
+               UrlLink(uid: "Grid", clocator: [text: "Grid", direct: "true"])
+           }
+           Container(uid: "layoutSelector", clocator: [tag: "div"], group: "true") {
+               UrlLink(uid: "List", clocator: [text: "List", direct: "true"])
+               TextBox(uid: "Grid", clocator: [tag: "b", text: "Grid", direct: "true"])
+           }
+       }
    }
 
     public String[] getIsssueTypes(){
@@ -223,5 +235,14 @@ class TelluriumIssuesPage extends DslContext{
         waitForPageToLoad 30000
     }
 
-
+    public void selectDataLayout(String layout){
+        if("List".equalsIgnoreCase(layout)){
+            click "layoutSelector.List"
+            waitForPageToLoad 30000
+        }
+        if("Grid".equalsIgnoreCase(layout)){
+            click "layoutSelector.Grid"
+            waitForPageToLoad 30000
+        }
+    }
 }
