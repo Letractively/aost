@@ -28,5 +28,7 @@ class XPathBuilder_UT extends GroovyTestCase{
 
         result = XPathBuilder.buildDescendantXPath("input", "Submit", "3", [class : "button"])
         assertEquals("descendant::input[text()=\"Submit\" and position()=3 and @class=\"button\"]", result)
-    }
+        result = XPathBuilder.buildChildXPath("input", "Submit", "3", [class : "button"])
+        assertEquals("child::input[text()=\"Submit\" and position()=3 and @class=\"button\"]", result)
+   }
 }

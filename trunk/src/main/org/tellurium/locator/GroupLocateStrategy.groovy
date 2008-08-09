@@ -26,13 +26,17 @@ class GroupLocateStrategy {
             //cannot useString other Locator type for the timebeing
             if(child.locator instanceof CompositeLocator){
                 CompositeLocator cloc = child.locator
-                String gattr = XPathBuilder.buildDescendantXPath(cloc.tag, cloc.text, cloc.position, cloc.attributes)
+                String gattr
+                if(cloc.direct)
+                    gattr= XPathBuilder.buildChildXPath(cloc.tag, cloc.text, cloc.position, cloc.attributes)
+                else
+                    gattr= XPathBuilder.buildDescendantXPath(cloc.tag, cloc.text, cloc.position, cloc.attributes)
                 groupAttributes.add(gattr)
             }
         }
 
         CompositeLocator locator = obj.locator
-        String xpath = XPathBuilder.buildGroupXPath(locator.tag, locator.text, locator.position, locator.attributes) {List<String> list ->
+        String xpath = XPathBuilder.buildGroupXPath(locator.tag, locator.text, locator.position, locator.direct, locator.attributes) {List<String> list ->
             if (!groupAttributes.isEmpty()) {
                 list.addAll(groupAttributes)
             }

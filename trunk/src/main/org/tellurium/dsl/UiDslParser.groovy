@@ -4,8 +4,6 @@ import org.tellurium.object.*
 import org.tellurium.builder.UiObjectBuilderRegistry
 
 class UiDslParser extends BuilderSupport{
-
-//       UiObject root
     
        def registry = [:]
 
@@ -70,15 +68,13 @@ class UiDslParser extends BuilderSupport{
        }
 
        protected void setParent(Object parent, Object child) {
-           if(parent instanceof Container){
+           if(parent instanceof Container ){
                parent.add(child)
                child.parent = parent
            }
-
-           //only put the object to the registry when its parent is the root
-           //since the root is special case
-//           if(root.uid.equals(parent.uid))
-//               addUiObjectToRegistry(child)
+           if(parent instanceof Option){
+               parent.add(child)
+           }
        }
 
        protected Object createNode(Object name) {
@@ -86,10 +82,6 @@ class UiDslParser extends BuilderSupport{
 
            if(builder != null){
                 def obj =  builder.build(null, null)
-
-                //set the root
-//                if(root == null)
-//                    root = obj
 
                 return obj
            }
@@ -109,10 +101,6 @@ class UiDslParser extends BuilderSupport{
            if(builder != null){
                 def obj =  builder.build(map, null)
 
-                //set the root
-//                if(root == null)
-//                    root = obj
-
                 return obj
            }   
 
@@ -123,11 +111,7 @@ class UiDslParser extends BuilderSupport{
            def builder = builderRegistry.getBuilder(name)
 
            if(builder != null){
-                def obj =  builder.build(map, (Closure)value)
-
-               //set the root
-//               if(root == null)
-//                   root = obj
+               def obj =  builder.build(map, (Closure)value)
 
                return obj
            }   

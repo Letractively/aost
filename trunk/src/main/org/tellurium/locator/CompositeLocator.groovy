@@ -14,5 +14,6 @@ class CompositeLocator {
     String text
     String trailer
     def position
+    boolean direct = false
     Map<String, String> attributes = [:]
 }
