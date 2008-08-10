@@ -288,3 +288,79 @@ When you are done with your testing, please use "closeData" to close the input d
 }}}
 
 === TelluriumDataDrivenModule ===
+TelluriumDataDrivenModule is designed to provide a test module for data driven testing. Users should extend this class to define their own test modules. 
+
+
+TelluriumDataDrivenModule provides one method "defineModule" for users to implement. Since it extends the DslContext class, users can define Ui modules just like in regular Tellurium Ui Module. For example:
+
+{{{
+       ui.Table(uid: "labels_table", clocator: [:], group: "true"){
+         TextBox(uid: "row: 1, column: 1", clocator: [tag: "div", text: "Example project labels:"])
+         Table(uid: "row: 2, column: 1", clocator: [header: "/div[@id=\"popular\"]"]){
+             UrlLink(uid: "all", locator: "/a")
+           }
+       }
+}}}
+
+FieldSet is used to define the format of one line of input data and FieldSet consists of fields, i.e., columns, in the input data. There is a special field "test", which users can specify what test this line of data apply to. For example,
+
+{{{
+        fs.FieldSet(name: "GCHStatus", description: "Google Code Hosting input") {
+            Test(value: "getGCHStatus")
+            Field(name: "label")
+            Field(name: "rowNum", type: "int")
+            Field(name: "columNum", type: "int")
+        }  
+}}}
+
+The above FieldSet defines the input data format for testing google code hosting web page. Note, the Test field must be the first column of the input data. The default name of the test field is "test" and does not need to be specified. If the value attribute of the test field is not specified, it implies this same format, i.e., FieldSet, can used for different tests.
+
+
+For regular field, it includes the following attributes:
+
+{{{
+
+class Field {
+	//Field name
+	private String name
+
+        //Field type, default is String
+        private String type = "String"
+
+        //optional description of the Field
+	private String description
+
+	//If the value can be null, default is true
+	private boolean nullable = true
+
+	//optional null value if the value is null or not specified
+	private String nullValue
+
+	//If the length is not specified, it is -1
+	private int length = -1
+
+	//optional String pattern for the value
+	//if specified, we must use it for String validation
+	private String pattern
+   } 
+
+}}}
+
+Tellurium can automatically handle Java primitive types. Another flexible Tellurium provides is that users can define their own custom type handlers to deal with more complicated data types by using "typeHandler", for example, 
+
+{{{
+        //define custom data type and its type handler
+        typeHandler "phoneNumber", "org.tellurium.test.PhoneNumberTypeHandler"
+
+        //define file data format
+        fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search") {
+            Field(name: "regularSearch", type: "boolean", description: "whether we should use regular search or use I'm feeling lucky")
+            Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")
+            Field(name: "input", description: "input variable")
+        }
+}}}
+
+The above script defined a custom type "PhoneNumber" and the Tellurium will automatically call this type handler to convert the input data to the "PhoneNumber" Java type.
+
+
+
