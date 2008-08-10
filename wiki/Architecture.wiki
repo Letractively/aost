@@ -77,13 +77,13 @@ Then, the UI object will call the Eventhandler to fire the click event. The even
 
 The data access operation is very much like the action operation shown in Figure 3 and the only difference is that the Data Accessor will replace the Eventhandler. But be aware, for some data access, there is no UI locator associated with it. For example, you want to get the current DOM html presentation. In this case, you just call the Data Accessor directly.
 
-== Tellurium Data Driven Test ==
+== Tellurium Data Driven Testing ==
 
-Data driven test is a new feature in Tellurium 0.4.0. The system diagram is shown in Figure 4. 
+Data driven testing is a new feature in Tellurium 0.4.0. The system diagram is shown in Figure 4. 
 
 http://tellurium-users.googlegroups.com/web/tellurium.data.driven.jpg?gda=_1pLcEsAAACjbvY1r0rMz6MRbvC-tSqoysMSW8LOE1CninSxbdL8I2ArWKkWH9uGyxs8H0RkPsAdq11J_EY5XIrmvbkBlJwJBkXa90K8pT5MNmkW1w_4BQ&gsc=httiOwsAAAAISLBF63vg48UkWer0gDjz
 
-Figure 4. System Diagram for Tellurium Data Driven Test
+Figure 4. System Diagram for Tellurium Data Driven Testing
 
 The tellurium data driven test consists of three main parts, i.e., Data Provider, TelluriumDataDrivenModule, and TelluriumDataDrivenTest. 
 
@@ -101,7 +101,7 @@ Figure 5. The Sequence Diagram of defineModule in TelluriumDataDrivenModule
 
 === TelluriumDataDrivenTest ===
  
-TelluriumDataDrivenTest is where users actually run the data driven test. Users can define different test modules and use loadModule command to include the modules in. Then, users can use loadData to read in data from input stream, for example, from a file. Users can also use useData to read in data from a String defined in the test file. After that, use the stepToEnd command to automatically read in data line by line and run the appropriate test specified in the data file. Finally, the test results are recorded and converted to output. The process is shown in Figure 6.
+TelluriumDataDrivenTest is where users actually run the data driven test. Users can define different test modules and use the "loadModule" command to include the modules in. Then, users can use "loadData" to read in data from input stream, for example, from a file. Users can also use "useData" to read in data from a String defined in the test file. After that, use the "stepToEnd" command to automatically read in data line by line and run the appropriate test specified in the data file. Finally, the test results are recorded and converted to output. The process is shown in Figure 6.
  
 http://tellurium-users.googlegroups.com/web/ddt_test_sequence.jpg?gda=M_GJLEcAAACjbvY1r0rMz6MRbvC-tSqoOiEqD7Mi6G5cLzJ9CIeLB-TPT63Q-1cxaIO0tQmR15XiNflBnS90ecEO3zvz3dEqeV4duv6pDMGhhhZdjQlNAw&gsc=httiOwsAAAAISLBF63vg48UkWer0gDjz
 
