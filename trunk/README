@@ -5,6 +5,7 @@ Jian Fang     (John.Jian.Fang@gmail.com)
 Vivek Mongolu (vivekmongolu@gmail.com)
 Adrian Carr   (adriancarr@gmail.com)
 Matt Senter   (matt.senter@gmail.com)
+Quan Bui      (Quan.Bui@gmail.com)
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 The Tellurium Automated Testing Framework (Tellurium), formally known as abstract object based Selenium Test framework (AOST), is a test framework built on
@@ -14,6 +15,10 @@ locator automatically at run-time and it uses the Group Locating Concept (GLC) t
 their locators, AOST is more robust, flexible, modularized, easier to maintain and refactor compared with the locator-based Selenium test framework.
 
 The Tellurium framework defines a new Domain Specific Language (DSL) for object-oriented Selenium test. You can even write your selenium tests in pure DSL format.
+
+Data Driven Test is another feature of Tellurium. You can define data format in an expressive way. In you data file, you can specify which test you want to run,
+the input parameters, and expected results. Tellurium automatically binds the input data to variables defined in your test script and run the tests you specified
+in the input file. The test results will be recorded by a test listener and output in different formats, for example, an XML file.
 
 The Tellurium framework is basically written in Groovy, but the test cases can be written in Java and you do not need to know Groovy before you use it. Detailed
 introudction, Frequent Asked Questions, and illustrative examples are provided.
@@ -56,3 +61,4 @@ NEWS
     * July 22, Welcome Adrian Carr joining our project.
     * July 29, Welcome Matt Senter to our team.
     * July 29, The AOST framework is renamed to be Tellurium Automated Testing Framework (Tellurium).
+    * August 7, Welcome Quan Bui to our team. 
