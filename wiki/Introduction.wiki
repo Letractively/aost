@@ -213,3 +213,8 @@ class AostProjectPage extends DslContext{
 }}}
 
 == Data Driven Testing ==
+Data Driven Testing is a different way to write tests, i.e, separate test data from the test scripts and the test flow is not controlled by the test scripts. It is controlled by the input file instead. In the input file, users can specify which test to run, what are input parameters, and what are expected results.
+ 
+Tellurium provides a data to object mapping framework to convert input data to Java variables. Tellurium provides a class TelluriumDataDrivenModule, which extends DslContext, for user to define Ui modules, input data formats, and tests. The TelluriumDataDrivenTest is the actual test class which loads different TelluriumDataDrivenModules, reads input data, converts data to variables defined in the test scripts, run the tests specified by the input data, and report the test results in an XML file.
+
+
