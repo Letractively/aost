@@ -139,7 +139,7 @@ format in Groovy. The defined keys include "header", "tag", "text", "trailer", "
 You may have additional attributes, define them in the same way as the predefined keys. For example:
  
 {{{
-value: "Aost home"
+value: "Tellurium home"
 }}} 
 
 Header and Trailer are used to specify addition xpath related to this UI object and the final xpath is 
@@ -211,3 +211,5 @@ class AostProjectPage extends DslContext{
   }
 }
 }}}
+
+== Data Driven Test ==
