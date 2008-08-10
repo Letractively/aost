@@ -11,7 +11,7 @@
   * Make it possible for users to write Selenium tests when they start coding
   * Reusable, easier to refactor and maintain
   * Provide _DSL_ script executor so that non-developers can write Selenium tests in DSL
-  * Provide *Data Driven* feature for Tellurium tests. You can specify input data format and define different tests. Then use input data to drive the testing. The test result can be output as an XML file.
+  * Provide *Data Driven Testing* feature for Tellurium tests. You can specify input data format and define different tests. Then use input data to drive the testing. The test result can be output as an XML file.
 
 = Details =
 
@@ -212,4 +212,4 @@ class AostProjectPage extends DslContext{
 }
 }}}
 
-== Data Driven Test ==
+== Data Driven Testing ==
