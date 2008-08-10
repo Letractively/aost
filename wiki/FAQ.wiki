@@ -113,3 +113,17 @@ test code for Tellurium web site as follows:
 
 If you like to contribute on this, we will add your code to our
 examples. 
+
+=== Q20: Why you change the project name from AOST to Tellurium ? ===
+AOST is used as the project prototype name and Tellurium is the official project name. Tellurium means a lot of for us. First, it means the project is full functional and no long a prototype. Second, the project becomes a team project. Third, the project is targeting Automated testing, not just Selenium test. 
+
+=== Q21: What is data driven test? ===
+Data driven test means the testing flow is specified by the input data file and the test framework works as a driven engine to read the input data, do data bind, choose the test specified in the input file, run the test, and compare the expected results with the actual results. This is a total new way of writing tests.
+
+=== Q22: How Tellurium does data driven test? ===
+Tellurium provides an expressive way for you to describe the input file formats starting with "fs.FieldSet", define test using "defineTest". Bind your variables to the field you defined in a field set, i.e., the format of a line of data, using "bind", and use "compareResult" to compare the actual result with the expected one. For input file, Tellurium supports pipe format file, and then use loadData to read the input data from a file. You can also use "useData" to use a String defined in your test script as the input data. 
+
+=== Q23: What is the usage of TelluriumDataDrivenModule and TelluriumDataDrivenTest ===
+TelluriumDataDrivenModule is inherited from DslContext and you should define Ui modules, FieldSets, tests there. TelluriumDataDrivenTest is the actual test class and it can read in multiple test modules using the "loadModule" command and then use "step", "stepOver", and "stepToEnd" to control the testing flow. Please see the introduction wiki page for more details.
+ 
+=== Q24: How do I configure Tellurium framework? ===
