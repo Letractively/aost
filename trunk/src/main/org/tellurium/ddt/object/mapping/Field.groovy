@@ -25,7 +25,7 @@ class Field {
 	private int length = -1
 
 	//optional String pattern for the value
-	//if specified, we must useString it for String validation
+	//if specified, we must use it for String validation
 	private String pattern
     
   // Java Style
