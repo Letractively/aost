@@ -123,7 +123,8 @@ Data driven test means the testing flow is specified by the input data file and 
 === Q22: How Tellurium does data driven test? ===
 Tellurium provides an expressive way for you to describe the input file formats starting with "fs.FieldSet", define test using "defineTest". Bind your variables to the field you defined in a field set, i.e., the format of a line of data, using "bind", and use "compareResult" to compare the actual result with the expected one. For input file, Tellurium supports pipe format file, and then use loadData to read the input data from a file. You can also use "useData" to use a String defined in your test script as the input data. 
 
-=== Q23: What is the usage of TelluriumDataDrivenModule and TelluriumDataDrivenTest ===
-TelluriumDataDrivenModule is inherited from DslContext and you should define Ui modules, FieldSets, tests there. TelluriumDataDrivenTest is the actual test class and it can read in multiple test modules using the "loadModule" command and then use "step", "stepOver", and "stepToEnd" to control the testing flow. Please see the introduction wiki page for more details.
+=== Q23: What are the usages of TelluriumDataDrivenModule and TelluriumDataDrivenTest ===
+TelluriumDataDrivenModule is inherited from DslContext and you should define Ui modules, FieldSets, tests there. TelluriumDataDrivenTest is the actual testing class and it can read in multiple test modules using the "loadModule" command and then use "step", "stepOver", and "stepToEnd" to control the testing flow. Please see the introduction wiki page for more details.
  
 === Q24: How do I configure Tellurium framework? ===
+Tellurium provide a configure file "TelluriumConfig.groovy" and you should put this file in the path you run the tests. In this file, you can change the settings for Tellurium, for example, what port the embedded Selenium server will use, what browser you want to run the Tellurium tests, and what is the output format of your data driven tests. 
