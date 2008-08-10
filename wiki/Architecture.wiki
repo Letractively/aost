@@ -76,3 +76,23 @@ Then, the UI object will call the Eventhandler to fire the click event. The even
 === The Data Access Operation ===
 
 The data access operation is very much like the action operation shown in Figure 3 and the only difference is that the Data Accessor will replace the Eventhandler. But be aware, for some data access, there is no UI locator associated with it. For example, you want to get the current DOM html presentation. In this case, you just call the Data Accessor directly.
+
+== Tellurium Data Driven Test ==
+
+Data driven test is a new feature in Tellurium 0.4.0. The system diagram is shown in Figure 4.
+
+http://tellurium-users.googlegroups.com/web/tellurium.data.driven.jpg?gda=_1pLcEsAAACjbvY1r0rMz6MRbvC-tSqoysMSW8LOE1CninSxbdL8I2ArWKkWH9uGyxs8H0RkPsAdq11J_EY5XIrmvbkBlJwJBkXa90K8pT5MNmkW1w_4BQ&gsc=httiOwsAAAAISLBF63vg48UkWer0gDjz
+
+Figure 4. System Diagram for Tellurium Data Driven Test
+
+=== TelluriumDataDrivenModule ===
+
+http://tellurium-users.googlegroups.com/web/tellurium.ddt.sequence.module.jpg?gda=JfGNJFMAAACjbvY1r0rMz6MRbvC-tSqoysMSW8LOE1CninSxbdL8I2vnDwbH8gszdz4ehPdDgG9Ob8FqU5PL6F5asAt-s2HZMrYifh3RmGHD4v9PaZfDexVi73jmlo822J6Z5KZsXFo&gsc=httiOwsAAAAISLBF63vg48UkWer0gDjz
+
+Figure 5. The Sequence Diagram of defineModule in TelluriumDataDrivenModule
+
+=== TelluriumDataDrivenTest ===
+ 
+http://tellurium-users.googlegroups.com/web/ddt_test_sequence.jpg?gda=M_GJLEcAAACjbvY1r0rMz6MRbvC-tSqoOiEqD7Mi6G5cLzJ9CIeLB-TPT63Q-1cxaIO0tQmR15XiNflBnS90ecEO3zvz3dEqeV4duv6pDMGhhhZdjQlNAw&gsc=httiOwsAAAAISLBF63vg48UkWer0gDjz
+
+Figure 6. The Sequence Diagram of testDataDriven in TelluriumDataDrivenTest
