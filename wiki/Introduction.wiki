@@ -11,7 +11,7 @@
   * Make it possible for users to write Selenium tests when they start coding
   * Reusable, easier to refactor and maintain
   * Provide _DSL_ script executor so that non-developers can write Selenium tests in DSL
-  * Add *Data Driven* feature for Tellurium tests
+  * Provide *Data Driven* feature for Tellurium tests. You can specify input data format and define different tests. Then use input data to drive the testing. The test result can be output as an XML file.
 
 = Details =
 
@@ -125,6 +125,7 @@ class CompositeLocator {
     String text
     String trailer
     def position
+    boolean direct
     Map<String, String> attributes = [:]
 }
 }}}
@@ -133,7 +134,7 @@ To use composite locator, you need to use "clocator" and its value is a map, i.e
 {{{
 clocator: [key1: value1, key2: value2, ...]
 }}}
-format in Groovy. The defined keys include "header", "tag", "text", "trailer", and "position". They are all optional. For most UI object, the html tag is fixed, for example, a Table's tag is always "table". If a UI object has fixed tag and it is defined in object class, you do not need to include "tag".
+format in Groovy. The defined keys include "header", "tag", "text", "trailer", "position", and "direct". They are all optional. For most UI object, the html tag is fixed, for example, a Table's tag is always "table". If a UI object has fixed tag and it is defined in object class, you do not need to include "tag". The "direct" key specifies whether this UI object is a direct child of the header or its parent UI and the default value is "false".
 
 You may have additional attributes, define them in the same way as the predefined keys. For example:
  
