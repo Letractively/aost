@@ -288,6 +288,7 @@ When you are done with your testing, please use "closeData" to close the input d
 }}}
 
 === TelluriumDataDrivenModule ===
+
 TelluriumDataDrivenModule is designed to provide a test module for data driven testing. Users should extend this class to define their own test modules. 
 
 
@@ -362,5 +363,40 @@ Tellurium can automatically handle Java primitive types. Another flexible Tellur
 
 The above script defined a custom type "PhoneNumber" and the Tellurium will automatically call this type handler to convert the input data to the "PhoneNumber" Java type.
 
+The "defineTest" method is used to define a test in the TelluriumDataDrivenModule, for example, the following script defines the "clickGCHLabel" test:
 
+{{{
+       defineTest("clickGCHLabel"){
+           def row = bind("GCHLabel.row")
+           def column = bind("GCHLabel.column")
+           
+           openUrl("http://code.google.com/hosting/")
+           click  "labels_table[2][1].[${row}][${column}]"
 
+           waitForPageToLoad 30000
+       }
+}}}
+
+Note, the bind command is used to bind variables row, column to the fields "row" and "column" in the FieldSet "GCHLabel".
+
+Tellurium also provide the command "compareResult" for users to compare the actual result with the expected result. For example, the following script compares the expected label, row number, and column number with the acutal ones at runtime: 
+
+{{{
+        defineTest("getGCHStatus"){
+            def expectedLabel = bind("GCHStatus.label")
+            def expectedRowNum = bind("GCHStatus.rowNum")
+            def expectedColumnNum = bind("GCHStatus.columNum")
+
+            openUrl("http://code.google.com/hosting/")
+            def label = getText("labels_table[1][1]")
+            def rownum = getTableMaxRowNum("labels_table[2][1]")
+            def columnum = getTableMaxColumnNum("labels_table[2][1]")
+
+            compareResult(expectedLabel, label)
+            compareResult(expectedRowNum, rownum)
+            compareResult(expectedColumnNum, columnum)
+            pause 1000
+       }
+}}}
+
+=== TelluriumDataDrivenTest ===
