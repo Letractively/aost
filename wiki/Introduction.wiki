@@ -237,7 +237,7 @@ Right now, Tellurium supports pipe format input file and will add more file form
 {{{
     datadriven{
         dataprovider{
-            //specify which IO reader you like the data provider to use
+            //specify which data reader you like the data provider to use
             //the valid options include "PipeFileReader" at this point
             reader = "PipeFileReader"
         }
@@ -399,4 +399,15 @@ Tellurium also provide the command "compareResult" for users to compare the actu
        }
 }}}
 
+Sometimes, users may need custom "compareResult" to handle more complicated situation, for example, users want to compare two lists. In such a case, users can override the default "compareResult" behaviour by specifying custom code in the closure:
+
+{{{
+    compareResult(list1, list2){
+        assertTrue(list1.size() == list2.size())
+        for(int i=0; i<list1.size();i++){
+           //put your custom comparison code here
+        }
+    }
+}}}
+   
 === TelluriumDataDrivenTest ===
