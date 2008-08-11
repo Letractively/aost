@@ -627,3 +627,103 @@ clickGCHLabel | 3 | 3
 }}}
 
 When all the above are done, just run the GoogleBookListCodeHostTest class as a regular JUnit test and it will run all the tests for you. 
+
+The test results are shown as follows,
+
+{{{
+<TestResults>
+  <Total>7</Total>
+  <Succeeded>5</Succeeded>
+  <Failed>2</Failed>
+  <Test name='checkBookList'>
+    <Step>1</Step>
+    <Passed>true</Passed>
+    <Input>
+      <test>checkBookList</test>
+      <category>Fiction</category>
+      <size>8</size>
+    </Input>
+    <Assertion Expected='Fiction' Actual='Fiction' Passed='true' />
+    <Assertion Expected='8' Actual='8' Passed='true' />
+    <Status>PROCEEDED</Status>
+    <Runtime>5.602938</Runtime>
+  </Test>
+  <Test name='checkBookList'>
+    <Step>2</Step>
+    <Passed>false</Passed>
+    <Input>
+      <test>checkBookList</test>
+      <category>Fiction</category>
+      <size>3</size>
+    </Input>
+    <Assertion Expected='Fiction' Actual='Fiction' Passed='true' />
+    <Assertion Expected='3' Actual='8' Passed='false' Error='' />
+    <Status>PROCEEDED</Status>
+    <Runtime>1.653998</Runtime>
+  </Test>
+  <Test name='getGCHStatus'>
+    <Step>3</Step>
+    <Passed>true</Passed>
+    <Input>
+      <test>getGCHStatus</test>
+      <label>Example project labels:</label>
+      <rowNum>3</rowNum>
+      <columNum>6</columNum>
+    </Input>
+    <Assertion Expected='Example project labels:' Actual='Example project labels:' Passed='true' />
+    <Assertion Expected='3' Actual='3' Passed='true' />
+    <Assertion Expected='6' Actual='6' Passed='true' />
+    <Status>PROCEEDED</Status>
+    <Runtime>3.163041</Runtime>
+  </Test>
+  <Test name='getGCHStatus'>
+    <Step>4</Step>
+    <Passed>false</Passed>
+    <Input>
+      <test>getGCHStatus</test>
+      <label>Example project</label>
+      <rowNum>3</rowNum>
+      <columNum>6</columNum>
+    </Input>
+    <Assertion Expected='Example project' Actual='Example project labels:' Passed='false' Error='expected:&lt;...&gt; but was:&lt;... labels:&gt;' />
+    <Assertion Expected='3' Actual='3' Passed='true' />
+    <Assertion Expected='6' Actual='6' Passed='true' />
+    <Status>PROCEEDED</Status>
+    <Runtime>2.115711</Runtime>
+  </Test>
+  <Test name='clickGCHLabel'>
+    <Step>5</Step>
+    <Passed>true</Passed>
+    <Input>
+      <test>clickGCHLabel</test>
+      <row>1</row>
+      <column>1</column>
+    </Input>
+    <Status>PROCEEDED</Status>
+    <Runtime>2.664228</Runtime>
+  </Test>
+  <Test name='clickGCHLabel'>
+    <Step>6</Step>
+    <Passed>true</Passed>
+    <Input>
+      <test>clickGCHLabel</test>
+      <row>2</row>
+      <column>2</column>
+    </Input>
+    <Status>PROCEEDED</Status>
+    <Runtime>3.277487</Runtime>
+  </Test>
+  <Test name='clickGCHLabel'>
+    <Step>7</Step>
+    <Passed>true</Passed>
+    <Input>
+      <test>clickGCHLabel</test>
+      <row>3</row>
+      <column>3</column>
+    </Input>
+    <Status>PROCEEDED</Status>
+    <Runtime>0.985857</Runtime>
+  </Test>
+</TestResults>
+
+}}}
