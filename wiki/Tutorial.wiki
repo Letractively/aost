@@ -3,22 +3,80 @@
 
 == How to use Tellurium ==
 
-There are two ways to use Tellurium. The first one is first write your UI modules
-in different Groovy files, which extends the DslContext class. Then write 
-JUnit test cases. You can also include them in a test suite. 
+There are three ways to use Tellurium. The first one is first write your UI modules
+in different Groovy files, which extends the DslContext class. Then write JUnit test cases. You can also include them in a test suite. 
+
 
 Starting from Tellurium 0.4.0, JUnit 4.4 is supported. Usually, users only need to extend TelluriumJavaTestCase to write Tellurium Tests. The TelluriumJavaTestCase has already included the setUp and tearDown methods in class level using JUnit 4 @BeforeClass and
-@AfterClass annotations. If users want to include multiple test cases in one test suite, they should use BaseTelluriumJavaTestCase so that all the test cases can share the same Selenium connection. If users really want to write Tellurium tests in groovy, please use TelluriumGroovyTestCase and TelluriumSuiteGroovyTestCase instead.
+@AfterClass annotations. If users want to include multiple test cases in one test suite, they should use BaseTelluriumJavaTestCase so that all the test cases can share the same Selenium connection. 
 
-The other way is to write DSL script directly, which is recommended only for non-developers since you cannot create different modules if write in pure DSL. 
-The DslScriptExecutor can be used to run the .dsl files.
+
+The second way is to write Tellurium tests in groovy, users can use TelluriumGroovyTestCase for a single test and TelluriumSuiteGroovyTestCase for a test suite.
+
+
+The other way is to write DSL script directly, that is to say, your tests will be pure DSL scripts. This is really good for non-developers or QA people. The DslScriptExecutor can be used to run the .dsl files.
+
+== Tellurium Configuration ==
+
+Tellurium 0.4.0 comes with a global configuration file, TelluriumConfig.groovy, which
+lives in the project root directory and you can change all the settings in this file. If
+this file is missing, the framework will use the default settings specified in Groovy classes. Don't be panic by the fact that is a groovy file. It is treated by Tellurium as an text file and will be parsed by the Tellurium configurator. Please put this file in the directory you run the test if you want to override the default settings. 
+
+The current configuration includes settings for the embedded server, Selenium connector, and data driven testing. The file is listed as follows:
+
+{{{
+tellurium{
+    //embedded selenium server configuration
+    embeddedserver {
+        //port number
+        port = "4444"                                     
+        //whether to use multiple windows
+        useMultiWindows = false
+        //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
+        runInternally = true
+    }
+    //the configuration for the connector that connects the selenium client to the selenium server
+    connector{
+        //server port number the client needs to connect
+        port = "4444"
+        //base URL
+        baseUrl = "http://localhost:8080"
+        //Browser setting, valid options are
+        //  *firefox [absolute path]
+        //  *iexplore [absolute path]
+        //  *chrome
+        browser = "*chrome"
+    }
+    datadriven{
+        dataprovider{
+            //specify which data reader you like the data provider to use
+            //the valid options include "PipeFileReader" at this point
+            reader = "PipeFileReader"
+        }
+    }
+    test{
+        result{
+            //specify what result reporter used for the test result
+            //valid options include "SimpleResultReporter", "XMLResultReporter", and "StreamXMLResultReporter"
+            reporter = "XMLResultReporter"
+            //the output of the result
+            //valid options include "Console", "File" at this point
+            //if the option is "File", you need to specify the file name, other wise it will use the default
+            //file name "TestResults.output"
+            output = "Console"
+            //test result output file name
+            filename = "TestResult.output"
+        }
+    }
+}
+
+}}}
 
 == Examples ==
 
 In this tutorial, the following examples are provided:
 
-  # [http://http://code.google.com/p/aost/wiki/BasicExample Basic Examples], which include Google Start Page, Google Code Hosting Page, and Google Book List Page.
+  # [http://code.google.com/p/aost/wiki/BasicExample Basic Examples], which include Google Start Page, Google Code Hosting Page, and Google Book List Page.
   # [http://code.google.com/p/aost/wiki/AdvancedExample Advanced Examples], which use the Tellurium project website as a reference to guide you how to write non-trivial and more complicated Tellurium Tests.
   # [http://code.google.com/p/aost/wiki/DataDrivenTestingExample Data Driven Testing Examples], which illustrate how to write Tellurium Data Driven Tests and elaborate on the input, testing engine, and output.
   # [http://code.google.com/p/aost/wiki/DSLExample DSL Examples]. DSL is another way to write Tellurium tests. The examples include regular Tellurium tests and Tellurium Data Driven tests Written in pure DSL.
-
