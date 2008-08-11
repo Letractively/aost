@@ -1,3 +1,5 @@
+//This test assume you know all about the input data format because it is unique. Also you have full control of the execution flow
+
 //define google start page
 ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
     InputBox(uid: "searchbox", clocator: [title: "Google Search"])
@@ -5,7 +7,7 @@ ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
     SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
 }
 
-//AOST has already provided default type handlers for regular Java type
+//Tellurium has already provided default type handlers for regular Java type
 //The users can also define custom data types and their type handlers so that they
 //can read and process special types of data
 typeHandler "phoneNumber", "org.tellurium.test.PhoneNumberTypeHandler"
