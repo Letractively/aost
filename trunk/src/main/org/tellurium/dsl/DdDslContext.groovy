@@ -66,6 +66,10 @@ abstract class DdDslContext extends DslContext{
         }
     }
 
+    public void stepToEnd(){
+        stepToEnd(null)
+    }
+
 //    def stepToEnd = this.&stepToEnd
 
     //read one line from the file and run the test script so that you can have different
@@ -75,20 +79,20 @@ abstract class DdDslContext extends DslContext{
         FieldSetMapResult fsmr = dataProvider.nextFieldSet()
         //check if we reach the end of data stream
         if(fsmr != null && (!fsmr.isEmpty())){
-            //check if the field set includes action name
-            String action = getActionForFieldSet(fsmr.getFieldSetName())
+            //check if the field set includes test name
+            String test = getTestForFieldSet(fsmr.getFieldSetName())
             TestResult result = new TestResult()
-            result.setProperty("testName", action)
+            result.setProperty("testName", test)
             result.setProperty("stepId", ++stepCount)
             result.setProperty("start", System.nanoTime())
             result.setProperty("input", fsmr.getResults())
  //           result.setProperty("passed", true)
 
             try{
-                if(action != null){
-                    //if the field set includes action
-                    //get the pre-defined action and run it
-                    Closure closure = ar.getTest(action)
+                if(test != null){
+                    //if the field set includes test
+                    //get the pre-defined test and run it
+                    Closure closure = ar.getTest(test)
                     closure()
                 }
 
@@ -111,6 +115,10 @@ abstract class DdDslContext extends DslContext{
         return false
     }
 
+    public void step(){
+        step(null)
+    }
+
 //    def step = this.&step
 
     //read one from the file but do not run the test script. This may apply to the scenario
@@ -122,7 +130,7 @@ abstract class DdDslContext extends DslContext{
         //check if we reach the end of data stream
         if(fsmr != null && (!fsmr.isEmpty())){
             //check if the field set includes action name
-            String action = getActionForFieldSet(fsmr.getFieldSetName())
+            String action = getTestForFieldSet(fsmr.getFieldSetName())
 
             TestResult result = new TestResult()
             result.setProperty("testName", action)
@@ -159,11 +167,11 @@ abstract class DdDslContext extends DslContext{
 
 //    def closeData = this.&closeData
 
-    public void defineAction(String name, Closure c){
+    public void defineTest(String name, Closure c){
         ar.addTest(name, c)
     }
 
-    protected String getActionForFieldSet(String fieldSetName){
+    protected String getTestForFieldSet(String fieldSetName){
         FieldSet tfs = fsr.getFieldSetByName(fieldSetName)
         if(tfs != null){
             TestField taf = tfs.getActionField()
@@ -181,6 +189,10 @@ abstract class DdDslContext extends DslContext{
     }
 
     public boolean compareResult(expected, actual){
+        return  compareResult(expected, actual, null)
+    }
+
+    public boolean compareResult(expected, actual, Closure c){
         boolean passed = true
 
         TestResult result = new TestResult()
@@ -191,7 +203,14 @@ abstract class DdDslContext extends DslContext{
         assertResult.setProperty("actual", actual)
 
         try{
-            junit.framework.Assert.assertEquals(expected, actual)
+            //allow user to override the default assertion use
+            //closure to define comparison
+            if(c != null){
+                c()
+            }else{
+                //if the closure is not defined, use the default Junit assertion
+                junit.framework.Assert.assertEquals(expected, actual)
+            }
         }catch(AssertionFailedError e){
             passed = false
             assertResult.setProperty("error", e)
@@ -200,6 +219,39 @@ abstract class DdDslContext extends DslContext{
         assertResult.setProperty("passed", passed)
         result.addAssertationResult(assertResult)
         listenForResult(result)
+    }
+
+    //add assertions here so that user can add custom compare result code in the closure
+    public void assertTrue(boolean condition){
+        junit.framework.Assert.assertTrue(condition)
+    }
+
+    public void assertFalse(boolean condition){
+        junit.framework.Assert.assertFalse(condition)
+    }
+
+    public void fail(String message){
+        junit.framework.Assert.fail(message)
+    }
+
+    public void assertEquals(expected, actual){
+        junit.framework.Assert.assertEquals(expected, actual)
+    }
+
+    public void assertNotNull(object){
+        junit.framework.Assert.assertNotNull(object)
+    }
+
+    public void assertNull(object){
+        junit.framework.Assert.assertNull(object)
+    }
+
+    public void assertSame(expected, actual){
+        junit.framework.Assert.assertSame(expected, actual)
+    }
+
+    public void assertNotSame(expected, actual){
+        junit.framework.Assert.assertNotSame(expected, actual)
     }
 
 }
