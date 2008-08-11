@@ -3,8 +3,8 @@ package example.test.ddt
 import org.tellurium.test.ddt.TelluriumDataDrivenTest
 
 /**
- * This is an example to show how to write data driven test. The user defines the actions and the input data specify
- * the test data and which action it applies to. This is a real data driven test in concept.
+ * This is an example to show how to write data driven test. The user defines the tests and the input data specify
+ * the test data and which test it applies to. This is a real data driven test in concept.
  *
  * This is a push way to run the test. The data file control all the input and the execution flow.
  * 
