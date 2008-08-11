@@ -85,7 +85,7 @@ In windows, please run rundsl.bat instead.
 
 === Google Book List and Code Hosting pages ===
 
-The example described in the Data driven testing session, i.e., Google Book List and Google Code Hosting pages, can also be written in pure DSL as follows,
+The example described in the [http://code.google.com/p/aost/wiki/DataDrivenTestingExample Data driven testing examples] session, i.e., Google Book List and Google Code Hosting pages, can also be written in pure DSL as follows,
 
 {{{
 //define UI module
