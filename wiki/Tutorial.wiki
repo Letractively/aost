@@ -102,20 +102,18 @@ its elements inside.
 The Ui module for the label tables is defined as
 
 {{{
-ui.Container(uid: "googlecodehosting"){
-  //Upper level table 
-  Table(id: "labels_table", locator: "//table[descendant::div[contains(text(),\"Example project labels:\")]]"){
+ui.Table(uid: "labels_table", clocator: [:], group: "true"){
     //Here we defined templates for the elements of the table
     //id: "row: 1, column: 1" means the TextBox is a template for
     //row 1, column 1.
-    TextBox(uid: "row: 1, column: 1", locator: "/div")
+    TextBox(uid: "row: 1, column: 1", clocator: [tag: "div", text: "Example project labels:"])
     //inner table, which is a template for (row 2, column 1) of the outer table
-    Table(uid: "row: 2, column: 1", locator: "/div[@id=\"popular\"]/table"){
-       //"all" means this is the template for all table elements
-       UrlLink(id: "all", locator: "/a")
-    }
-  }
+    Table(uid: "row: 2, column: 1", clocator: [header: "/div[@id=\"popular\"]"]){
+        //"all" means this is the template for all table elements
+        UrlLink(uid: "all", locator: "/a")
+   }
 }
+
 }}}
 
 The UI objects defined inside a table are actually templates for table elements.
@@ -141,6 +139,7 @@ rules apply:
 The module functions are defined as follows,
 
 {{{
+
     public String getModuleLabel(){
         getText "labels_table[1][1]"
     }
@@ -154,7 +153,7 @@ The module functions are defined as follows,
     }
 
     def getTableElement(int row, int column){
-        getTableElement "labels_table[2][1].[${row}][${column}]"
+        getUiElement "labels_table[2][1].[${row}][${column}]"
     }
 
     Map getAllLabels(){
@@ -174,7 +173,12 @@ The module functions are defined as follows,
 
     void clickOnLable(int row, int column){
         click  "labels_table[2][1].[${row}][${column}]"
-        pause 5000
+        waitForPageToLoad 30000 
+    }
+
+    String getUrlLink(int row, int column){
+
+        getLink("labels_table[2][1].[${row}][${column}]")
     }
 
 }}}
@@ -257,13 +261,11 @@ Also, the List comes with an option "separator", which is used to indicate the d
 
 The portion of book category "Fiction" is chosen as our demo, which is defined as:
 {{{
-ui.Container(uid: "GoogleBooksList", locator: "//table[@id='hp_table']/tbody/tr/td[1]/div/div[1]"){
-    TextBox(uid: "category", locator: "/div")
-    List(uid: "subcategory", locator: "", separator: "/p"){
-      //"all" means it is the template for all elements in the list
+ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"], group: "true"){
+   TextBox(uid: "category", clocator: [tag: "div", class: "sub_cat_title"])
+   List(uid: "subcategory", clocator: [tag: "div", class:"sub_cat_section"], separator: "/p"){
       UrlLink(uid: "all", locator: "/a")
-    }
-  }
+   }
 }
 
 }}}
@@ -330,7 +332,7 @@ public class GoogleBooksListJavaTestCase extends TelluriumJavaTestCase {
 
 == Advanced Examples ==
 
-Tellurium includes advance examples to use Tellurium project website as a reference and implement test cases for different pages. These are non-trivial and rather complicated Tellurium tests. 
+Tellurium includes advance examples to use Tellurium project website as a reference and implement test cases for different pages. They are non-trivial and rather complicated Tellurium tests. 
 
 === Tellurium project page ===
 
