@@ -15,7 +15,6 @@ import org.tellurium.test.helper.ResultListener
 import org.tellurium.test.helper.StepStatus
 import org.tellurium.test.helper.AssertionResult
 import junit.framework.AssertionFailedError
-import org.tellurium.ddt.TestRegistry
 
 
 /**
