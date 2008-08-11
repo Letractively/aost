@@ -37,6 +37,7 @@ Be aware that each UI object only has predefined set of events or actions. For e
 DSL can only be run in *DslContext*, which defines the basic DSLs. 
 
 === Define UI objects ===
+
 _ui.Container_ is used to define the UI objects on the web and map them to objects.
 For example, the search module in the google start page can be defined by 
 the following DSL.
@@ -62,6 +63,49 @@ ui.Container(uid: "parent_ui"){
      }
    }
 }
+}}}
+
+=== UiID ===
+
+In DSL, the Ui object is referred by the UiID. For nested Ui objects, the UiID of the Ui Object is a concatenated of the Ui objects' uids along its path to the Ui Object. For example, in the above nested Ui Module, the TextBox is referred as "parent_ui.child_ui.grand_child.textbox1". The exceptions are tables and lists, which use [x][y] or [x] to reference its elements inside. For example, {{{labels_table[2][1]}}} and {{{GoogleBooksList.subcategory[2]}}}. Table header can be referred in the format of {{{issueResult.header[2]}}}.
+
+For menu, you need to define an alias name for each item. For instance, the Tellurium issues page includes the following menu,
+
+{{{
+//items is a map in the format of "alias name" : menu_item
+ui.SimpleMenu(uid: "IdMenu", clocator:[class: "popup", id: "pop_0"],
+      items: ["SortUp":"Sort Up", "SortDown":"Sort Down", "HideColumn":"Hide Column"])
+}}} 
+
+You need to use the alias name to refer the menu item, for example, "IdMenu.SortUp".
+
+For the option object, the option uid must be the same as the UI objects it represent
+and in this way, you do not need to include it in the DSL. For example, in the following Ui Module,
+
+{{{
+//The selector to choose the data grid layout as List or Grid
+ui.Option(uid: "layoutSelector"){
+   Container(uid: "layoutSelector", clocator: [tag: "div"], group: "true") {
+      TextBox(uid: "List", clocator: [tag: "b", text: "List", direct: "true"])
+      UrlLink(uid: "Grid", clocator: [text: "Grid", direct: "true"])
+   }
+   Container(uid: "layoutSelector", clocator: [tag: "div"], group: "true") {
+      UrlLink(uid: "List", clocator: [text: "List", direct: "true"])
+      TextBox(uid: "Grid", clocator: [tag: "b", text: "Grid", direct: "true"])
+   }
+}
+}}}
+
+you just use
+
+{{{
+click "layoutSelector.List"
+}}}
+
+instead of
+
+{{{
+click "layoutSelector.layoutSelector.List"
 }}}
 
 === Basic DSLs ===
@@ -232,28 +276,29 @@ The file name should include the file path, for example,
 Right now, Tellurium supports pipe format input file and will add more file format support later on. To change the file reader for different formats, please change the following settings in the configuration file TelluriumConfig.groovy:
 
 {{{
-    datadriven{
-        dataprovider{
-            //specify which data reader you like the data provider to use
-            //the valid options include "PipeFileReader" at this point
-            reader = "PipeFileReader"
-        }
+datadriven{
+    dataprovider{
+        //specify which data reader you like the data provider to use
+        //the valid options include "PipeFileReader" at this point
+        reader = "PipeFileReader"
     }
+}
 
 }}}
 
 Sometimes, you may like to specify test data in the test scripts directly, useData is designed for this purpose and it loads input from a String. The String is usually defined in Groovy style using triple quota, for example:
 
 {{{
-    protected String data = """
-        google_search | true | 865-692-6000 | tellurium
-        google_search | false| 865-123-4444 | tellurium selenium test
-        google_search | true | 755-452-4444 | tellurium groovy
-        google_search | false| 666-784-1233 | tellurium user group
-        google_search | true | 865-123-5555 | tellurium data driven
-    """
+  protected String data = """
+    google_search | true | 865-692-6000 | tellurium
+    google_search | false| 865-123-4444 | tellurium selenium test
+    google_search | true | 755-452-4444 | tellurium groovy
+    google_search | false| 666-784-1233 | tellurium user group
+    google_search | true | 865-123-5555 | tellurium data driven
+"""
     ...
-    useData data
+
+  useData data
 }}}
 
 bind is the command to bind a variable to input Field Set field at runtime. FieldSet is the format of a line of data and it is defined in the next section. For example,
@@ -267,21 +312,20 @@ is used to bind the row variable to the "row" field in the FieldSet "GCHLabel". 
 When you are done with your testing, please use "closeData" to close the input data stream. In the meantime, the result reporter will output the test results in the format you specified in the configuration file, for example, XML file as shown in the TelluriumConfig.groovy file:
 
 {{{
-    test{
-        result{
-            //specify what result reporter used for the test result
-            //valid options include "SimpleResultReporter", "XMLResultReporter", and "StreamXMLResultReporter"
-            reporter = "XMLResultReporter"
-            //the output of the result
-            //valid options include "Console", "File" at this point
-            //if the option is "File", you need to specify the file name, other wise it will use the default
-            //file name "TestResults.output"
-            output = "Console"
-            //test result output file name
-            filename = "TestResult.output"
-        }
+test{
+    result{
+       //specify what result reporter used for the test result
+       //valid options include "SimpleResultReporter", "XMLResultReporter", and "StreamXMLResultReporter"
+       reporter = "XMLResultReporter"
+       //the output of the result
+       //valid options include "Console", "File" at this point
+       //if the option is "File", you need to specify the file name, other wise it will use the default
+       //file name "TestResults.output"
+       output = "Console"
+       //test result output file name
+       filename = "TestResult.output"
     }
-
+}
 }}}
 
 === TelluriumDataDrivenModule ===
@@ -292,23 +336,23 @@ TelluriumDataDrivenModule is designed to provide a test module for data driven t
 TelluriumDataDrivenModule provides one method "defineModule" for users to implement. Since it extends the DslContext class, users can define Ui modules just like in regular Tellurium Ui Module. For example:
 
 {{{
-       ui.Table(uid: "labels_table", clocator: [:], group: "true"){
-         TextBox(uid: "row: 1, column: 1", clocator: [tag: "div", text: "Example project labels:"])
-         Table(uid: "row: 2, column: 1", clocator: [header: "/div[@id=\"popular\"]"]){
-             UrlLink(uid: "all", locator: "/a")
-           }
-       }
+ui.Table(uid: "labels_table", clocator: [:], group: "true"){
+   TextBox(uid: "row: 1, column: 1", clocator: [tag: "div", text: "Example project labels:"])
+   Table(uid: "row: 2, column: 1", clocator: [header: "/div[@id=\"popular\"]"]){
+        UrlLink(uid: "all", locator: "/a")
+   }
+}
 }}}
 
 FieldSet is used to define the format of one line of input data and FieldSet consists of fields, i.e., columns, in the input data. There is a special field "test", which users can specify what test this line of data apply to. For example,
 
 {{{
-        fs.FieldSet(name: "GCHStatus", description: "Google Code Hosting input") {
-            Test(value: "getGCHStatus")
-            Field(name: "label")
-            Field(name: "rowNum", type: "int")
-            Field(name: "columNum", type: "int")
-        }  
+fs.FieldSet(name: "GCHStatus", description: "Google Code Hosting input") {
+    Test(value: "getGCHStatus")
+    Field(name: "label")
+    Field(name: "rowNum", type: "int")
+    Field(name: "columNum", type: "int")
+}  
 }}}
 
 The above FieldSet defines the input data format for testing google code hosting web page. Note, the Test field must be the first column of the input data. The default name of the test field is "test" and does not need to be specified. If the value attribute of the test field is not specified, it implies this same format, i.e., FieldSet, can used for different tests.
@@ -347,15 +391,15 @@ class Field {
 Tellurium can automatically handle Java primitive types. Another flexibility Tellurium provides is that users can define their own custom type handlers to deal with more complicated data types by using "typeHandler", for example, 
 
 {{{
-        //define custom data type and its type handler
-        typeHandler "phoneNumber", "org.tellurium.test.PhoneNumberTypeHandler"
+//define custom data type and its type handler
+typeHandler "phoneNumber", "org.tellurium.test.PhoneNumberTypeHandler"
 
-        //define file data format
-        fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search") {
-            Field(name: "regularSearch", type: "boolean", description: "whether we should use regular search or use I'm feeling lucky")
-            Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")
-            Field(name: "input", description: "input variable")
-        }
+//define file data format
+fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search") {
+    Field(name: "regularSearch", type: "boolean", description: "whether we should use regular search or use I'm feeling lucky")
+    Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")
+    Field(name: "input", description: "input variable")
+}
 }}}
 
 The above script defined a custom type "PhoneNumber" and the Tellurium will automatically call this type handler to convert the input data to the "PhoneNumber" Java type.
@@ -363,15 +407,15 @@ The above script defined a custom type "PhoneNumber" and the Tellurium will auto
 The "defineTest" method is used to define a test in the TelluriumDataDrivenModule, for example, the following script defines the "clickGCHLabel" test:
 
 {{{
-       defineTest("clickGCHLabel"){
-           def row = bind("GCHLabel.row")
-           def column = bind("GCHLabel.column")
+defineTest("clickGCHLabel"){
+    def row = bind("GCHLabel.row")
+    def column = bind("GCHLabel.column")
            
-           openUrl("http://code.google.com/hosting/")
-           click  "labels_table[2][1].[${row}][${column}]"
+    openUrl("http://code.google.com/hosting/")
+    click  "labels_table[2][1].[${row}][${column}]"
 
-           waitForPageToLoad 30000
-       }
+    waitForPageToLoad 30000
+}
 }}}
 
 Note, the bind command is used to bind variables row, column to the fields "row" and "column" in the FieldSet "GCHLabel".
@@ -379,32 +423,32 @@ Note, the bind command is used to bind variables row, column to the fields "row"
 Tellurium also provide the command "compareResult" for users to compare the actual result with the expected result. For example, the following script compares the expected label, row number, and column number with the acutal ones at runtime: 
 
 {{{
-        defineTest("getGCHStatus"){
-            def expectedLabel = bind("GCHStatus.label")
-            def expectedRowNum = bind("GCHStatus.rowNum")
-            def expectedColumnNum = bind("GCHStatus.columNum")
+defineTest("getGCHStatus"){
+    def expectedLabel = bind("GCHStatus.label")
+    def expectedRowNum = bind("GCHStatus.rowNum")
+    def expectedColumnNum = bind("GCHStatus.columNum")
 
-            openUrl("http://code.google.com/hosting/")
-            def label = getText("labels_table[1][1]")
-            def rownum = getTableMaxRowNum("labels_table[2][1]")
-            def columnum = getTableMaxColumnNum("labels_table[2][1]")
+    openUrl("http://code.google.com/hosting/")
+    def label = getText("labels_table[1][1]")
+    def rownum = getTableMaxRowNum("labels_table[2][1]")
+    def columnum = getTableMaxColumnNum("labels_table[2][1]")
 
-            compareResult(expectedLabel, label)
-            compareResult(expectedRowNum, rownum)
-            compareResult(expectedColumnNum, columnum)
-            pause 1000
-       }
+    compareResult(expectedLabel, label)
+    compareResult(expectedRowNum, rownum)
+    compareResult(expectedColumnNum, columnum)
+    pause 1000
+}
 }}}
 
 Sometimes, users may need custom "compareResult" to handle more complicated situation, for example, users want to compare two lists. In such a case, users can override the default "compareResult" behaviour by specifying custom code in the closure:
 
 {{{
-    compareResult(list1, list2){
-        assertTrue(list1.size() == list2.size())
-        for(int i=0; i<list1.size();i++){
-           //put your custom comparison code here
-        }
+compareResult(list1, list2){
+    assertTrue(list1.size() == list2.size())
+    for(int i=0; i<list1.size();i++){
+        //put your custom comparison code here
     }
+}
 }}}
    
 === TelluriumDataDrivenTest ===
@@ -469,18 +513,18 @@ Note that line starting with "##" is comment line and empty line will be ignored
 If some times, users want to control the testing execution flow by themselves, Tellurium also provides this capability even though it is not recommended. Tellurium provides two additional commands, i.e., "step" and "stepOver". "step" is used to read one line of input data and run it, and "stepOver" is used to skip one line of input data. In this meanwhile, Tellurium also allows you to specify additional test script using closure. For example, 
 
 {{{
-        step{
-            //bind variables
-            boolean regularSearch = bind("regularSearch")
-            def phoneNumber = bind("fs4googlesearch.phoneNumber")
-            String input = bind("input")
+step{
+    //bind variables
+    boolean regularSearch = bind("regularSearch")
+    def phoneNumber = bind("fs4googlesearch.phoneNumber")
+    String input = bind("input")
 
-            openUrl "http://www.google.com"
-            type "google_start_page.searchbox", input
-            pause 500
-            click "google_start_page.googlesearch"
-            waitForPageToLoad 30000
-        }
+    openUrl "http://www.google.com"
+    type "google_start_page.searchbox", input
+    pause 500
+    click "google_start_page.googlesearch"
+    waitForPageToLoad 30000
+}
 }}} 
 
 But this usually implies that the input data format is unique or the test script knows about what format the current input data are using.
