@@ -7,8 +7,8 @@ There are two ways to use Tellurium. The first one is first write your UI module
 in different Groovy files, which extends the DslContext class. Then write 
 JUnit test cases. You can also include them in a test suite. 
 
-If your test case only includes one file, you should use StandaloneAostSeleneseTestCase, but if you like to create multiple test files and put them in one test suite, you should use GroupAostSeleneseTestCase. The sample test suite is SampleAostSeleneseTestSuite. 
-These limitations come from the fact that GroovyTestCase does not support JUnit 4 properly. Hope I can improve it or use TestNG later.
+Starting from Tellurium 0.4.0, JUnit 4.4 is supported. Usually, users only need to extend TelluriumJavaTestCase to write Tellurium Tests. The TelluriumJavaTestCase has already included the setUp and tearDown methods in class level using JUnit 4 @BeforeClass and
+@AfterClass annotations. If users want to include multiple test cases in one test suite, they should use BaseTelluriumJavaTestCase so that all the test cases can share the same Selenium connection. If users really want to write Tellurium tests in groovy, please use TelluriumGroovyTestCase and TelluriumSuiteGroovyTestCase instead.
 
 The other way is to write DSL script directly, which is recommended only for non-developers since you cannot create different modules if write in pure DSL. 
 The DslScriptExecutor can be used to run the .dsl files.
@@ -19,24 +19,27 @@ The DslScriptExecutor can be used to run the .dsl files.
 
 First, create the google start page module in Groovy
 {{{
-package example.google
-
-import aost.dsl.DslContext
-
-class GoogleStartPage extends DslContext{
-
+class NewGoogleStartPage extends DslContext{
     public void defineUi() {
-        ui.Container(uid: "google_start_page"){
-            InputBox(uid: "inputbox1", locator: "//input[@title='Google Search']")
-            Button(uid: "button1", locator: "//input[@name='btnG' and @type='submit']")
+        ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
+            InputBox(uid: "searchbox", clocator: [title: "Google Search"])
+            SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
+            SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
         }
     }
 
-    def type(String input){
-        type "inputbox1", input
+    def doGoogleSearch(String input){
+        type "searchbox", input
         pause 500
-        click "button1"
-        pause 1000        
+        click "googlesearch"
+        waitForPageToLoad 30000
+    }
+
+    def doImFeelingLucky(String input){
+        type "searchbox", input
+        pause 500
+        click "Imfeelinglucky"
+        waitForPageToLoad 30000
     }
 }
 }}}
@@ -44,49 +47,45 @@ class GoogleStartPage extends DslContext{
 Then, write the JUnit test case as follows,
 
 {{{
-package example.test
+public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
 
-import example.google.GoogleStartPage
-import aost.test.StandaloneAostSeleneseTestCase
+    protected static NewGoogleStartPage ngsp;
 
-class GoogleStartPageTestCase extends StandaloneAostSeleneseTestCase{
-
-    protected static GoogleStartPage gsp
-
-    public void initUi() {
-        gsp = new GoogleStartPage()
-        gsp.defineUi()
-
+    @BeforeClass
+    public static void initUi() {
+        ngsp = new NewGoogleStartPage();
+        ngsp.defineUi();
     }
 
-    public void setUp(){
-        setUpForClass()
-    }
+    @Test
+    public void testGoogleSearch(){
+        connectUrl("http://www.google.com");
+        ngsp.doGoogleSearch("tellurium selenium Groovy Test");
+   }
 
-    public void tearDown(){
-        tearDownForClass()
-    }
-
-    void testTypeGoogle(){
-        connectUrl("http://www.google.com")
-        gsp.type("google")
-    }
+   @Test
+   public void testGoogleSearchFeelingLucky(){
+        connectUrl("http://www.google.com");
+        ngsp.doImFeelingLucky("tellurium selenium DSL Testing");
+   }
 }
+
 }}}
 
-Optionally, you can also write the DSL script file directly:all 
+Optionally, you can also write the DSL script file directly 
 
 {{{
-ui.Container(uid: "google_start_page"){
-    InputBox(uid: "inputbox1", locator: "//input[@title='Google Search']")
-    Button(uid: "button1", locator: "//input[@name='btnG' and @type='submit']")
+ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
+    InputBox(uid: "searchbox", clocator: [title: "Google Search"])
+    SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
+    SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
 }
 
 openUrl "http://www.google.com"
-type "inputbox1", "Cobrakai"
+type "google_start_page.searchbox", "Tellurium Selenium test"
 pause 500
-click "button1"
-pause 1000
+click "google_start_page.Imfeelinglucky"
+waitForPageToLoad 30000
 }}}
 
 Then use DslScriptExecutor to run it.
@@ -183,52 +182,70 @@ The module functions are defined as follows,
 The actual test case is 
 
 {{{
-class GoogleCodeHostingTestCase extends StandaloneAostSeleneseTestCase {
 
-    protected static GoogleCodeHosting gch
+  public class GoogleCodeHostingJavaTestCase extends TelluriumJavaTestCase {
+    private static NewGoogleCodeHosting ngch;
 
-    public void initUi() {
-        gch = new GoogleCodeHosting()
-        gch.defineUi()
+
+    @BeforeClass
+    public static void initUi() {
+        ngch = new NewGoogleCodeHosting();
+        ngch.defineUi();
+    }
+
+    @AfterClass
+    public static void setUpAfterClass(){
+
+    }
+    
+    @Before
+    public void setUpBeforeTest(){
+        connectUrl("http://code.google.com/hosting/");
+    }
+
+    @After
+    public void tearDownAfterTest(){
 
     }
 
-    public void setUp(){
-        setUpForClass()
-    }
+    @Test
+    public void testCodeLabelTable(){
+        String label = ngch.getModuleLabel();
+        assertEquals("Example project labels:", label);
 
-    public void tearDown(){
-        tearDownForClass()
-    }
+        int nrow = ngch.getLabelTableRowNum();
+        assertEquals(3, nrow);
 
-    void testCodeLabelTable(){
-        connectUrl("http://code.google.com/hosting/")
-        String label = gch.getModuleLabel()
-        assertEquals("Example project labels:", label)
-        
-        int nrow = gch.getLabelTableRowNum()
-        assertEquals(3, nrow)
+        int ncolumn = ngch.getLabelTableColumnNum();
+        assertEquals(6, ncolumn);
 
-        int ncolumn = gch.getLabelTableColumnNum()
-        assertEquals(6, ncolumn)
-        
         for(int i=1; i<=nrow; i++){
             for(int j=1; j<=ncolumn; j++){
-               def obj = gch.getTableElement(i, j)
-               assertTrue(obj instanceof UrlLink)
+               Object obj = ngch.getTableElement(i, j);
+               assertTrue(obj instanceof UrlLink);
             }
         }
-        Map map = gch.getAllLabels()
-        assertEquals(18, map.size())
+    }
 
-        int[] index = map.get("Java")
-        assertNotNull(index)
-        assertEquals(2, index.length)
+    @Test
+    public void testClickOnLabel(){
+        Map map = ngch.getAllLabels();
+        assertEquals(18, map.size());
+
+        List index = (List) map.get("Java");
+        assertNotNull(index);
+        assertEquals(2, index.size());
+
+        //find the url link
+        int first = (Integer)index.get(0);
+        int second = (Integer)index.get(1);
+        String url = ngch.getUrlLink(first, second);
+        assertEquals("search?q=label%3aJava", url);
 
         //click on "Java" link
-        gch.clickOnLable(index[0], index[1])
+        ngch.clickOnLable(first, second);
+
     }
-}
 }}}
 
 === Google Book List Page ===
@@ -288,97 +305,32 @@ The actions in the module is defined as
 And the test case is as follows, 
 
 {{{
-class GoogleBooksListTestCase extends StandaloneAostSeleneseTestCase {
+public class GoogleBooksListJavaTestCase extends TelluriumJavaTestCase {
+    private static NewGoogleBooksList ngbl;
 
-    protected GoogleBooksList gbl
-
-    public void initUi() {
-        gbl = new GoogleBooksList()
-        gbl.defineUi()
-
+    @BeforeClass
+    public static void initUi() {
+        ngbl = new NewGoogleBooksList();
+        ngbl.defineUi();
     }
 
-    public void setUp(){
-        setUpForClass()
-    }
+    @Test
+    public void testBookCategory(){
+        connectUrl("http://books.google.com/");
+        String category = ngbl.getCategory();
+        assertEquals("Fiction", category);
 
-    public void tearDown(){
-        tearDownForClass()
-    }
+        int size = ngbl.getListSize();
 
-    void testBookCategory(){
-        connectUrl("http://books.google.com/")
-        String category = gbl.getCategory()
-        assertEquals("Fiction", category)
-
-        int size = gbl.getListSize()
-        
-        assertEquals(8, size)
-
-        List lst = gbl.getAllObjectInList()
-
-        assertNotNull(lst)
-
-        int index
-        String search =  "Poetry"
-        int i = 1
-        for(UiObject obj : lst){
-            assertTrue(obj instanceof UrlLink)
-            if(search.equals(gbl.getText(i))){
-                index = i
-                break
-            }
-            i++
-        }
-
-        gbl.clickList(index)
+        assertEquals(8, size);           
     }
 }
+
 }}}  
 
 == Advanced Examples ==
 
-With the addition of composite locator, group locating, and multiple DSL modules in a single DSL context. The above examples can be changed to demonstrate how easy to write Tellurium tests. Only the Ui definition parts need to be changed.
-
-=== Google Start Page ===
-
-The new UI module is defined as follows,
-
-{{{
-        ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
-            InputBox(uid: "searchbox", clocator: [title: "Google Search"])
-            SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
-            SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
-        }
-
-}}}
-
-where clocator stands for composite locator, group is the option whether to use group locating.
-
-=== Google Code Hosting Page ===
-
-Similarly, the new UI modules is
-{{{
-       ui.Table(uid: "labels_table", clocator: [:], group: "true"){
-         TextBox(uid: "row: 1, column: 1", clocator: [tag: "div", text: "Example project labels:"])
-         Table(uid: "row: 2, column: 1", clocator: [header: "/div[@id=\"popular\"]"]){
-             UrlLink(uid: "all", locator: "/a")
-           }
-       }
-}}}
-
-=== Google Book List Page ===
-
-The google book list UI module is
-{{{
-        //It is fine to use container for Table if you really do not care what the rows and columns of the elements it holds
-        ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"], group: "true"){
-            TextBox(uid: "category", clocator: [tag: "div", class: "sub_cat_title"])
-            List(uid: "subcategory", clocator: [tag: "div", class:"sub_cat_section"], separator: "/p"){
-                UrlLink(uid: "all", locator: "/a")
-            }
-        }
-}}}
+Tellurium includes advance examples to use Tellurium project website as a reference and implement test cases for different pages. These are non-trivial and rather complicated Tellurium tests. 
 
 === Tellurium project page ===
 
@@ -528,4 +480,4 @@ There is a shell script "rundsl.sh" in the project directory and you can simply 
 ./rundsl.sh src/example/dsl/google.dsl 
 }}}
 
-In windows, you should rename runsdl.sh as rundsl.bat and change the directory path using windows path syntax.
+In windows, please run rundsl.bat instead.
