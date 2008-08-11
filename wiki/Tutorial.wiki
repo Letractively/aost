@@ -19,7 +19,7 @@ The other way is to write DSL script directly, that is to say, your tests will b
 == Tellurium Configuration ==
 
 Tellurium 0.4.0 comes with a global configuration file, TelluriumConfig.groovy, which
-lives in the project root directory and you can change all the settings in this file. If
+sits in the project root directory and you can change all the settings in this file. If
 this file is missing, the framework will use the default settings specified in Groovy classes. Don't be panic by the fact that is a groovy file. It is treated by Tellurium as an text file and will be parsed by the Tellurium configurator. Please put this file in the directory you run the test if you want to override the default settings. 
 
 The current configuration includes settings for the embedded server, Selenium connector, and data driven testing. The file is listed as follows:
