@@ -65,7 +65,6 @@
             openUrl("http://books.google.com/")
             String category = getText("GoogleBooksList.category")
             compareResult(expectedCategory, category)
-            //assertEquals("Fiction", category)
 
             int size = getListSize("GoogleBooksList.subcategory")
             compareResult(expectedSize, size){
