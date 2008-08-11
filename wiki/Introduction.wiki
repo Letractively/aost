@@ -347,7 +347,7 @@ class Field {
 
 }}}
 
-Tellurium can automatically handle Java primitive types. Another flexible Tellurium provides is that users can define their own custom type handlers to deal with more complicated data types by using "typeHandler", for example, 
+Tellurium can automatically handle Java primitive types. Another flexibility Tellurium provides is that users can define their own custom type handlers to deal with more complicated data types by using "typeHandler", for example, 
 
 {{{
         //define custom data type and its type handler
@@ -411,3 +411,80 @@ Sometimes, users may need custom "compareResult" to handle more complicated situ
 }}}
    
 === TelluriumDataDrivenTest ===
+
+TelluriumDataDrivenTest is the class users should extend to run the actual data driven testing and it is more like a data driven testing engine.
+
+
+There is only one method, "testDataDriven", which users need to implement. Usually, users need to do the following steps:
+
+  # use "includeModule" to load defined Modules
+  # use "loadData" or "useData" to load input data stream
+  # use "stepToEnd" to read the input data line by line and pick up the specified test and run it, until reaches the end of the data stream
+  # use "closeData" to close the data stream and output the test results
+
+What the "includeModule" does is to merge in all Ui modules, FieldSets, and tests defined in that module file to the global registry. "stepToEnd" will look at each input line, first to find the test name and pass in all input parameters to it, and then run the test. The whole process can be illustrated in the following example:
+
+{{{
+class GoogleBookListCodeHostTest extends TelluriumDataDrivenTest{
+
+    public void testDataDriven() {
+
+        includeModule  example.google.GoogleBookListModule.class
+        includeModule  example.google.GoogleCodeHostingModule.class
+
+        //load file
+        loadData "src/test/example/test/ddt/GoogleBookListCodeHostInput.txt"
+        
+        //read each line and run the test script until the end of the file
+        stepToEnd()
+
+        //close file
+        closeData()
+    }
+}
+
+}}} 
+
+The input data for this example are as follows,
+
+{{{
+##TEST should be always be the first column
+
+##Data for test "checkBookList"
+##TEST | CATEGORY | SIZE
+checkBookList|Fiction|8
+checkBookList|Fiction|3
+
+##Data for test "getGCHStatus"
+##TEST | LABEL | Row Number | Column Number
+getGCHStatus |Example project labels:| 3 | 6
+getGCHStatus |Example project| 3 | 6
+
+##Data for test "clickGCHLabel"
+##TEST | row | column
+clickGCHLabel | 1 | 1
+clickGCHLabel | 2 | 2
+clickGCHLabel | 3 | 3
+}}}
+
+Note that line starting with "##" is comment line and empty line will be ignored.
+
+If some times, users want to control the testing execution flow by themselves, Tellurium also provides this capability even though it is not recommended. Tellurium provides two additional commands, i.e., "step" and "stepOver". "step" is used to read one line of input data and run it, and "stepOver" is used to skip one line of input data. In this meanwhile, Tellurium also allows you to specify additional test script using closure. For example, 
+
+{{{
+        step{
+            //bind variables
+            boolean regularSearch = bind("regularSearch")
+            def phoneNumber = bind("fs4googlesearch.phoneNumber")
+            String input = bind("input")
+
+            openUrl "http://www.google.com"
+            type "google_start_page.searchbox", input
+            pause 500
+            click "google_start_page.googlesearch"
+            waitForPageToLoad 30000
+        }
+}}} 
+
+But this usually implies that the input data format is unique or the test script knows about what format the current input data are using.
+ 
