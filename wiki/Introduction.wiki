@@ -13,6 +13,12 @@
   * Provide _DSL_ script executor so that non-developers can write Selenium tests in DSL
   * Provide *Data Driven Testing* feature for Tellurium tests. You can specify input data format and define different tests. Then use input data to drive the testing. The test result can be output as an XML file.
 
+= Architecture =
+
+The architecture of Tellurium consists of three parts, one is the Selenium Server, on which our Tellurium framework builds, the Tellurium framework, and user defined Java test cases or .dsl pure DSL test scripts. 
+
+The details of the Tellurium architecture can be found on the [http://code.google.com/p/aost/wiki/Architecture Architecture page].
+
 = Details =
 
 == UI Objects ==
@@ -257,7 +263,7 @@ ui.Form(uid: "search", clocator: [:], group: "true"){
 Data Driven Testing is a different way to write tests, i.e, separate test data from the test scripts and the test flow is not controlled by the test scripts. It is controlled by the input file instead. In the input file, users can specify which test to run, what are input parameters, and what are expected results.
  
 
-Tellurium provides a data to object mapping framework to convert input data to Java variables. Tellurium provides a class TelluriumDataDrivenModule, which extends DslContext, for user to define Ui modules, input data formats, and tests. The TelluriumDataDrivenTest is the actual test class which loads different TelluriumDataDrivenModules, reads input data, converts data to variables defined in the test scripts, run the tests specified by the input data, and report the test results in an XML file.
+The Tellurium Data Driven Testing Architecture is described on [http://code.google.com/p/aost/wiki/DataDrivenArchitecture this wiki page]. Tellurium provides a data to object mapping framework to convert input data to Java variables. Tellurium provides a class TelluriumDataDrivenModule, which extends DslContext, for user to define Ui modules, input data formats, and tests. The TelluriumDataDrivenTest is the actual test class which loads different TelluriumDataDrivenModules, reads input data, converts data to variables defined in the test scripts, run the tests specified by the input data, and report the test results in an XML file.
 
 === Data Provider ===
 The data provider is the key component of the data driven testing. It reads data from input and binds them to variables defined in the test scripts. This part is handled by the data to object mapping framework. Data provider usually works behind the scene and it provides the following methods for users:
