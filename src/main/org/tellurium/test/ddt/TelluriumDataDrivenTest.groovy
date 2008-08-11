@@ -179,7 +179,7 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
         //check if we reach the end of data stream
         if(fsmr != null && (!fsmr.isEmpty())){
             //check if the field set includes action name
-            String action = getActionForFieldSet(fsmr.getFieldSetName())
+            String action = getTestForFieldSet(fsmr.getFieldSetName())
             TestResult result = new TestResult()
             result.setProperty("testName", action)
             result.setProperty("stepId", ++stepCount)
@@ -235,7 +235,7 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
         //check if we reach the end of data stream
         if(fsmr != null && (!fsmr.isEmpty())){
             //check if the field set includes action name
-            String action = getActionForFieldSet(fsmr.getFieldSetName())
+            String action = getTestForFieldSet(fsmr.getFieldSetName())
 
             TestResult result = new TestResult()
             result.setProperty("testName", action)
@@ -304,7 +304,7 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
         listenForResult(result)
     }
 
-    protected String getActionForFieldSet(String fieldSetName){
+    protected String getTestForFieldSet(String fieldSetName){
         FieldSet tfs = fsr.getFieldSetByName(fieldSetName)
         if(tfs != null){
             TestField taf = tfs.getActionField()
