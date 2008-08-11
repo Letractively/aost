@@ -15,8 +15,8 @@ class GoogleBookListCodeHostTest extends TelluriumDataDrivenTest{
 
     public void testDataDriven() {
 
-        includeModule  example.google.GoogleBookListModule.class
-        includeModule  example.google.GoogleCodeHostingModule.class
+        includeModule  example.test.ddt.GoogleBookListModule.class
+        includeModule  example.test.ddt.GoogleCodeHostingModule.class
 
         //load file
         loadData "src/test/example/test/ddt/GoogleBookListCodeHostInput.txt"
