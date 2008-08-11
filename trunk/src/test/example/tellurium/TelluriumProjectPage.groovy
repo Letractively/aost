@@ -17,7 +17,7 @@ class TelluriumProjectPage extends DslContext{
 
     public void defineUi() {
         //define the menu
-        //It is fine to useString Container to abstract Table if you have special table
+        //It is fine to use Container to abstract Table if you have special table
         ui.Container(uid: "menu", clocator: [tag: "table", id: "mt", trailer: "/tbody/tr/th"], group: "true"){
             //since the actual text is  Project&nbsp;Home, we can useString partial match here. Note "%%" stands for partial match
             UrlLink(uid: "project_home", clocator: [text: "%%Home"])
