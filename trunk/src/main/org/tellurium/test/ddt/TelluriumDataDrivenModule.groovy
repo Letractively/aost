@@ -16,7 +16,7 @@ import org.tellurium.ddt.DataProvider
  *    2) FieldSet, i.e., the input data format that applies to the actions defined in this module, using "fs.XXX"
  *       also include user-defined custom typehandler using "typeHandler"
  *
- *    3) Actions using "defineAction"
+ *    3) Tests using "defineTest"
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
