@@ -33,7 +33,7 @@ tellurium{
     }
     datadriven{
         dataprovider{
-            //specify which IO reader you like the data provider to use
+            //specify which data reader you like the data provider to use
             //the valid options include "PipeFileReader" at this point
             reader = "PipeFileReader"
         }
