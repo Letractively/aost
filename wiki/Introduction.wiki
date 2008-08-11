@@ -67,7 +67,7 @@ ui.Container(uid: "parent_ui"){
 
 === UiID ===
 
-In DSL, the Ui object is referred by the UiID. For nested Ui objects, the UiID of the Ui Object is a concatenated of the Ui objects' uids along its path to the Ui Object. For example, in the above nested Ui Module, the TextBox is referred as "parent_ui.child_ui.grand_child.textbox1". The exceptions are tables and lists, which use [x][y] or [x] to reference its elements inside. For example, {{{labels_table[2][1]}}} and {{{GoogleBooksList.subcategory[2]}}}. Table header can be referred in the format of {{{issueResult.header[2]}}}.
+In DSL, the Ui object is referred by the UiID. For nested Ui objects, the UiID of the Ui Object is a concatenated of the Ui objects' uids along its path to the Ui Object. For example, in the above nested Ui Module, the TextBox is referred as "parent_ui.child_ui.grand_child.textbox1". The exceptions are tables and lists, which use {{{[x][y]}}} or {{{[x]}}} to reference its elements inside. For example, {{{labels_table[2][1]}}} and {{{GoogleBooksList.subcategory[2]}}}. Table header can be referred in the format of {{{issueResult.header[2]}}}.
 
 For menu, you need to define an alias name for each item. For instance, the Tellurium issues page includes the following menu,
 
