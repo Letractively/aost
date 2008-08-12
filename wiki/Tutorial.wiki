@@ -80,8 +80,7 @@ For IntelliJ users, you simply open the project and overwrite some configuration
 
 For NetBeans users, you can find a detailed Guide on [http://code.google.com/p/aost/wiki/TelluriumStarterUsingNetBeans the NetBeans Starters' guide page].
 
-For Eclipse users, you need to download Eclipse Groovy Plugin from http://
-dist.codehaus.org/groovy/distributions/update/ to run the Tellurium project. 
+For Eclipse users, you need to download Eclipse Groovy Plugin from http://dist.codehaus.org/groovy/distributions/update/ to run the Tellurium project. 
 
 == Define multiple UI modules in a single file ==
 
