@@ -202,4 +202,20 @@ List(uid: "subcategory", locator: "", separator: "/p"){
 }
 }}} 
 
- 
+=== SimpleMenu ===
+
+The SimpleMenu represent a menu without a header and only contains menu items. The default tag is "div" and user should specify the alias name for each menu item. For example,
+
+{{{
+//items is a map in the format of "alias name" : menu_item
+ui.SimpleMenu(uid: "IdMenu", clocator:[class: "popup", id: "pop_0"],
+    items: ["SortUp":"Sort Up", "SortDown":"Sort Down", "HideColumn":"Hide Column"])
+}}}
+
+The above menu specified the menu item "Sort up", "Sort Down", and "Hiden Column" with their alias names. Users should use the alias name to refer the menu item, for instance, "IdMenu.SortUp".
+
+The SimpleMenu has the following methods:
+
+  * click()
+  * mouseOve()
+  * mouseOut()
