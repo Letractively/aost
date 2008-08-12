@@ -130,3 +130,30 @@ Selector represents the Ui with tag "select" and user can select from a set of o
 Container is an abstract object that can hold a collection of Ui objects. As a result, the  Container has a special attribute "useGroupInfo" and its default value is false. If this attribute is true, the Group Locating is enabled. But make sure all the Ui objects inside the Container are children nodes of the Container in the DOM, otherwise, you should not use the Group Locating capability.
 
 === Table ===
+
+Table is one of the most complicated Ui Object and also the most often used one. Obviously, its tag is "table" and a table could have headers besides rows and columns. Table is a good choice for data grid. Tellurium can handle its header, rows, and columns automatically for users. One important is the Table has different UiID than other Ui objects. For example, if the id of the table is "table1", then its i-th row and j-th column is referred as {{{"table1[i][j]"}}} and its m-th header is {{{"table1.header[m]"}}}.
+
+Another distinguished feature of Table is that you can define Ui template for its elements. For example, the following example defines different table headers and the template for 
+
+
+{{{
+ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"], group: "true"){
+    //define table header
+    //for the border column
+    TextBox(uid: "header: 1", clocator: [:])
+    UrlLink(uid: "header: 2", clocator: [text: "%%Filename"])
+    UrlLink(uid: "header: 3", clocator: [text: "%%Summary + Labels"])
+    UrlLink(uid: "header: 4", clocator: [text: "%%Uploaded"])
+    UrlLink(uid: "header: 5", clocator: [text: "%%Size"])
+    UrlLink(uid: "header: 6", clocator: [text: "%%DownloadCount"])
+    UrlLink(uid: "header: 7", clocator: [text: "%%..."])
+
+    //define Ui object for the second row and the second column
+    InputBox(uid: "row: 2, colum: 2" clocator: [:])
+    //define table elements
+    //for the border column
+    TextBox(uid: "row: *, column: 1", clocator: [:])
+    //For the rest, just UrlLink
+    UrlLink(uid: "all", clocator: [:])
+}
+}}} 
