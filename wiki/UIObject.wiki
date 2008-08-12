@@ -31,6 +31,11 @@ Button represents various Buttons on the web and its default tag is "input". The
   * doubleClick()
   * clickAt(String coordination)
 
+=== SubmitButton ===
+
+SubmitButton is a special Button with its type being "submit".
+
+
 === CheckBox ===
 
 The CheckBox on the web is abstracted as "CheckBox" Ui object. The default tag for CheckBox is "input" and its type is "checkbox". CheckBox comes with the following methods:
@@ -88,3 +93,34 @@ InputBox is the Ui where user types in input data. As its name stands, InputBox'
   * clearText()
   * boolean isEditable()
   * String getValue()
+
+=== UrlLink ===
+
+UrlLink stands for the web url link, i.e., its tag is "a". UrlLink has the following additional methods:
+
+  * String getLink()
+  * click()
+  * doubleClick()
+  * clickAt(String coordination)
+
+=== Selector ===
+
+Selector represents the Ui with tag "select" and user can select from a set of options. Selector has a lot of methods, such as:
+
+  * selectByLabel(String target)
+  * selectByValue(String value)
+  * addSelectionByLabel(String target)
+  * addSelectionByValue(String value)
+  * removeSelectionByLabel(String target)
+  * removeSelectionByValue(String value)
+  * removeAllSelections()
+  * String[] getSelectOptions()
+  * String[] getSelectedLabels()
+  * String getSelectedLabel()
+  * String[] getSelectedValues()
+  * String getSelectedValue()
+  * String[] getSelectedIndexes()
+  * String getSelectedIndex()
+  * String[] getSelectedIds()
+  * String getSelectedId()
+  * boolean isSomethingSelected()
