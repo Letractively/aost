@@ -1,0 +1,22 @@
+#labels Phase-Implementation
+== Ui Objects ==
+
+Tellurium provides a set of predefined Ui objects, which users can use directly. Here we describe them one by one in details.
+
+=== Basic Ui Object ===
+
+The basic Ui object is the base class for all Ui objects and it includes the following attributes:
+
+  # uid: Ui object's identifier
+  # namespace: for future extension
+  # locator: the locator of the UI object, could be a base locator or a composite locator
+
+and the base Ui object also provides the following methods:
+
+  * boolean isElementPresent()
+  * boolean isVisible()
+  * boolean isDisabled()
+  * waitForElementPresent(int timeout), where the time unit is ms.
+  * waitForElementPresent(int timeout, int step)
+  * String getText()
+  * getAttribute(String attribute)
