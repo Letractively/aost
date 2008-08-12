@@ -15,7 +15,7 @@ import org.tellurium.locator.GroupLocateStrategy
  *   the UI object uid should carry informatio about table row, table column.
  *   It also has wild case to match all rows, all columns, all both.
  *
- *   That is to say, for the i-th row, j-th column, the uid should useString the following
+ *   That is to say, for the i-th row, j-th column, the uid should use the following
  *   name conversion:
  *
  *    "row: i, column: j"
