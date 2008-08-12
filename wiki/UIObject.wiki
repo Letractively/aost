@@ -171,6 +171,11 @@ As a result, {{{"row : *, column : 3"}}} refers to the 3rd column for all rows. 
    * If not found either, Tellurium tries to find the template matching all rows and columns. 
    * If still out of luck, Tellurium will use a TextBox as the default element for this element.
 
-Generally speaking, Tellurium always search for special case first, then more general case, and until all matching case. In this way, user can define very flexible templates for tables.
+Generally speaking, Tellurium always searches for the special case first, then more general case, and until the all matching case. In this way, user can define very flexible templates for tables.
 
-  
+Table is a type of Container and thus, it can use the Group Locating feature. Table has the following special methods:
+
+  * boolean hasHeader()
+  * int getTableHeaderColumnNum()
+  * int getTableMaxRowNum()
+  * int getTableMaxColumnNum()
