@@ -359,11 +359,23 @@ The CheckBox on the web is abstracted as "CheckBox" Ui object. The default tag f
   * boolean isChecked()
   * uncheck()
 
+Example:
+
+{{{
+CheckBox(uid: "autoRenewal", clocator: [dojoattachpoint: 'dap_auto_renew'])
+}}}
+
 === Div ===
 
 Div is often used in the Dojo framework and it can represent a lot objects. Obviously, its tag is "div" and it has the following method:
 
   * click()
+
+Example:
+
+{{{
+Div(uid: "dialog", clocator: [class: 'dojoDialog', id: 'loginDialog'])
+}}}
 
 === Image ===
 
@@ -373,6 +385,12 @@ Image is used to abstract the "img" tag and it comes with the following addition
   * getImageAlt()
   * String getImageTitle()
 
+Example:
+
+{{{
+Image(uid: "dropDownArrow", clocator: [src: 'drop_down_arrow.gif'])
+}}}
+
 === Icon ===
 
 Icon is similar to the Image object, but user can perform actions on it. As a result, it can have the following additional methods:
@@ -380,6 +398,12 @@ Icon is similar to the Image object, but user can perform actions on it. As a re
   * click()
   * doubleClick()
   * clickAt(String coordination)
+
+Example:
+
+{{{
+Icon(uid: "taskIcon", clocator:[tag: "p", dojoonclick: 'doClick', img: "Show_icon.gif"] )
+}}}
 
 === RadioButton ===
 
@@ -389,6 +413,12 @@ RadioButton is the abstract object for the Radio Button Ui. As a result, its def
   * boolean isChecked()
   * uncheck()
   * String getValue()
+
+Example:
+
+{{{
+RadioButton(uid: "autoRenewal", clocator: [dojoattachpoint: 'dap_auto_renew'])
+}}}
 
 === TextBox ===
 
