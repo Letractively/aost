@@ -52,3 +52,11 @@ Image is used to abstract the "img" tag and it comes with the following addition
   * getImageSource()
   * getImageAlt()
   * String getImageTitle()
+
+=== Icon ===
+
+Icon is similar to the Image object, but user can perform actions on it. As a result, it can have the following additional methods:
+
+  * click()
+  * doubleClick()
+  * clickAt(String coordination)
