@@ -78,4 +78,13 @@ TextBox is the abstract Ui object from which you can get back the text, i.e., it
 
 Note, TextBox can have various types of tags.
 
+=== InputBox ===
 
+InputBox is the Ui where user types in input data. As its name stands, InputBox's default tag is "input". InputBox has the following additional methods:
+
+  * type(String input)
+  * keyType(String input), used to simulate keyboard typing
+  * typeAndReturn(String input)
+  * clearText()
+  * boolean isEditable()
+  * String getValue()
