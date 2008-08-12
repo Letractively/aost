@@ -13,25 +13,25 @@ class Selector extends UiObject {
         c(locator, "label=${target}")
     }
 
-    def selectByValue(String target, Closure c){
+    def selectByValue(String value, Closure c){
 
-        c(locator, "value=${target}")()
+        c(locator, "value=${value}")()
     }
 
     def addSelectionByLabel(String target, Closure c){
          c(locator, "label=${target}")
     }
 
-    def addSelectionByValue(String target, Closure c){
-          c(locator, "value=${target}")
+    def addSelectionByValue(String value, Closure c){
+          c(locator, "value=${value}")
     }
 
     def removeSelectionByLabel(String target, Closure c){
           c(locator, "label=${target}")
     }
 
-    def removeSelectionByValue(String target, Closure c){
-        c(locator, "value=${target}")
+    def removeSelectionByValue(String value, Closure c){
+        c(locator, "value=${value}")
     }    
 
     def removeAllSelections(Closure c){
