@@ -15,6 +15,12 @@
 
 = Architecture =
 
+The Tellurium framework Architecture is shown as in Figure 1.
+
+http://tellurium-users.googlegroups.com/web/tellurium.architecture.png?gda=1NP4x0sAAAAFkHkURP2WlgYU-UhtQDFJganRixm7ZVzXjIzQXs5CXWG1qiJ7UbTIup-M2XPURDThcsDHHqasJHRvnmR6jbzWzHqwysTvAgdPZHbdH4XvXg&gsc=26Y4eBYAAAAkGgIQNXlg3kIha08SEZtI9pmI1qD38G08ONb6YfjJaQ
+
+Figure 1. Tellurium Architecture.
+
 The architecture of Tellurium consists of three parts, one is the Selenium Server, on which our Tellurium framework builds, the Tellurium framework, and user defined Java test cases or .dsl pure DSL test scripts. 
 
 The details of the Tellurium architecture can be found on the [http://code.google.com/p/aost/wiki/Architecture Architecture page].
