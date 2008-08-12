@@ -219,3 +219,20 @@ The SimpleMenu has the following methods:
   * click()
   * mouseOve()
   * mouseOut()
+
+=== SelectMenu ===
+
+SelectMenu is designed for the selecting column menu on the Tellurium Issues page and it is prototyped to demonstrate how to write Ui object with interaction with the DOM since the Ui elements have different patterns at runtime, hence, it is not a general purpose Ui object. SelectMenu could have a header and its menu item content could keep changing when users select different columns to display. 
+
+The SelectMenu on the Tellurium issues page is expressed as follows,
+
+{{{
+ui.SelectMenu(uid: "selectColumnMenu", clocator:[class: "popup",id: "pop__dot"], title: "Show columns:",
+    items: ["ID":"ID", "Type":"Type", "Status":"Status", "Priority":"Priority", "Milestone":"Milestone", "Owner":"Owner", "Summary":"Summary", "Stars":"Stars", "Opened":"Opened", "Closed":"Closed", "Modified":"Modified", "EditColumn":"Edit Column Spec..." ])
+}}}
+
+Like SimpleMenu, SelectMenu also has the following methods:
+
+  * click()
+  * mouseOve()
+  * mouseOut()
