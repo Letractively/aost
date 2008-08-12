@@ -236,3 +236,35 @@ Like SimpleMenu, SelectMenu also has the following methods:
   * click()
   * mouseOve()
   * mouseOut()
+
+=== Option ===
+
+Option is also designed to be adaptive the dynamic web. Option is a pure abstract object and it holds multiple UIs with each representing a possible UI pattern at runtime. For example, the List/Grid selector on the issue page can described as: 
+
+{{{
+//The selector to choose the data grid layout as List or Grid
+ui.Option(uid: "layoutSelector"){
+    Container(uid: "layoutSelector", clocator: [tag: "div"], group: "true") {
+        TextBox(uid: "List", clocator: [tag: "b", text: "List", direct: "true"])
+        UrlLink(uid: "Grid", clocator: [text: "Grid", direct: "true"])
+    }
+    Container(uid: "layoutSelector", clocator: [tag: "div"], group: "true") {
+        UrlLink(uid: "List", clocator: [text: "List", direct: "true"])
+        TextBox(uid: "Grid", clocator: [tag: "b", text: "Grid", direct: "true"])
+    }
+}
+}}}
+
+Note, the option's uid must be the same as the next UI objects it represent and in this way, you do not need to include option's uid in the UiID. For example,  you can just use
+
+{{{
+click "layoutSelector.List"
+}}}
+
+instead of
+
+{{{
+click "layoutSelector.layoutSelector.List"
+}}}
+
+The option object will automatically detect which UI pattern you need to use at runtime. 
