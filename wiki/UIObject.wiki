@@ -60,3 +60,22 @@ Icon is similar to the Image object, but user can perform actions on it. As a re
   * click()
   * doubleClick()
   * clickAt(String coordination)
+
+=== RadioButton ===
+
+RadioButton is the abstract object for the Radio Button Ui. As a result, its default tag is "input" and its type is "radio". RadioButton has the following additional methods:
+
+  * check()
+  * boolean isChecked()
+  * uncheck()
+  * String getValue()
+
+=== TextBox ===
+
+TextBox is the abstract Ui object from which you can get back the text, i.e., it comes with the method:
+
+  * String waitForText(int timeout)
+
+Note, TextBox can have various types of tags.
+
+
