@@ -93,7 +93,7 @@ The data access operation is very much like the action operation shown in Figure
 The UI Object includes
   * uid: should be unique in a UI module
   * namespace: for future extension
-  * locator: the locator of the UI object, could be XPATH, CSS selector... The easier way to find the locator would be to use firefox XPather plugin.
+  * locator: the locator of the UI object, could be a base locator or a composite locator
   * Features: the inherent feature of the UI component, for example, the selection UI component normally comes with “label=?” or “value=?”. Table always has the “table”, “tr”, “td”, “th” tags.
   * useGroupInfo: this option only applies to a collection type of UI object such as Container, Table, List, Form and so on. By default, this option is turned off. If it is on, the object will use the UI objects to help locating its locator.
 
