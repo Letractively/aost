@@ -258,41 +258,20 @@ click "layoutSelector.layoutSelector.List"
 
 === Basic DSLs ===
 
-Because of the Groovy Syntax, each method in the DslContext is a DSL expression.
-For example, the _click_ method as follows:
-{{{
-def click(String id){
-  ...
-}
-}}}
-is a dsl in the format:
-{{{
-  click id
-}}}
+Because of the Groovy Syntax, each method in the DslContext is a DSL expression. Here we list all the available methods in DslContext and their corresponding DSL syntax. Note the id here refers to the UiID in the format of "issueSearch.issueType" and the time units are all in milliseconds if not specified. Be aware, you can only apply the methods to the Ui Object if it has them defined.
 
-Similarly, we have the following dsls:
-{{{
-doubleClick id
-clickAt id, coordination
-check id
-uncheck id
-type id, input
-keyType id, input
-typeAndReturn id, input
-clearText id
-select id, target
-selectByLabel  id, target
-selectByValue id, target
-waitForText id, timeout
-isElementPresent id
-isVisible id
-isChecked id
-waitForElementPresent id, timeout
-waitForElementPresentid, timeout, step
-getText id
-getValue id
-pause milliseconds
-}}}
+  # mouseOver(String id): Simulates a user hovering a mouse over the specified element. Its DSL format is:
+
+  {{{
+    mouseOver id
+  }}}
+
+  Example:
+
+  {{{
+    mouseOver "IdMenu.SortDown"
+  }}}
+
 
 === Extended DSLs ===
 The DslContext can be extended to include more DSLs. For example, 
