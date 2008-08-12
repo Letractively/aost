@@ -1,3 +1,4 @@
+#labels Phase-Design,Phase-Implementation,Featured
 == Data Driven Testing ==
 
 Data Driven Testing is a different way to write tests, i.e, separate test data from the test scripts and the test flow is not controlled by the test scripts. It is controlled by the input file instead. In the input file, users can specify which test to run, what are input parameters, and what are expected results.
