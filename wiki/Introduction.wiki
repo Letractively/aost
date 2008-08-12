@@ -13,7 +13,7 @@
   * Provide _DSL_ script executor so that non-developers can write Selenium tests in DSL
   * Provide *Data Driven Testing* feature for Tellurium tests. You can specify input data format and define different tests. Then use input data to drive the testing. The test result can be output as an XML file.
 
-= Architecture =
+== Architecture ==
 
 The Tellurium framework Architecture is shown as in Figure 1.
 
@@ -21,13 +21,29 @@ http://tellurium-users.googlegroups.com/web/tellurium.architecture.png?gda=1NP4x
 
 Figure 1. Tellurium Architecture.
 
-The architecture of Tellurium consists of three parts, one is the Selenium Server, on which our Tellurium framework builds, the Tellurium framework, and user defined Java test cases or .dsl pure DSL test scripts. 
+The system diagram of Tellurium consists of three parts, one is the Selenium Server, on which our Tellurium framework builds, the Tellurium framework, and user defined Java test cases or .dsl pure DSL test scripts. 
 
-The details of the Tellurium architecture can be found on the [http://code.google.com/p/aost/wiki/Architecture Architecture page].
+The Tellurium Framework is based on the DslContext, which defines all DSLs we can use for Tellurium. We can further divide the Tellurium Framework into Four parts.
 
-= Details =
+=== UI Object Parser ===
 
-== UI Objects ==
+This parts consists of the DSL Object Parser, Object Builders, and the Object Registry.
+
+Thanks to Groovy’s builder pattern, we can define UI object expressively and in a nested fashion. The DSL object parser will parse the DSL object definition recursively and use object builders to build the objects on the fly. An object builder registry is designed to hold all predefined UI object builders in the Tellurium framework and the DSL object parser will look at the builder registry to find the appropriate builders. Since the registry is a hash map, you can override a builder with a new one using the same UI name. Users can also add their customer builders into the builder registry.
+ 
+The DSL object definition always comes first with a container type object. An object registry (A hash map) is used to stored all top level UI Objects. As a result, for each DSL object definition, the top object ids must be unique in the DslContext. The object registry will be used by the framework to search objects by their ids and fetch objects for different actions.
+
+=== Object Locator Mapping ===
+
+The Object Locator Mapping (OLM) is the core of the Tellurium framework and it includes UI ID mapping, XPath builder, Locator Processor, and Group Locating. The UI ID supports nested object, for example, "menu.wiki" stands for a URL Link "wiki" inside a container called "menu". The UI ID also supports one dimension and two dimension index for table and list. For example, {{{"main.table[2][3]"}}} stands the UI object of the 2nd row and the 3rd column of a table inside the container "main".
+
+XPath builder can build the XPath from relative XPaths or from attributes. The locator processor converts the locator information in the UI object to the XPath. The Group Locating Concept (GLC) is to exploit the group information in side a collection of UI objects to help us find the locator of the collection of UI objects. 
+
+=== Event and Data Handling ===
+
+The Eventhandler in this part will handle all events like "click", "type", "select", and so on. The Data Accessor is used to fetch data or UI status from the DOM. The dispatcher will delegate all calls it receives from the Eventhandler and the data accessor to the Selenium Client, which will connect to the Selenium Server. The dispatcher is designed to decouple the rest of the Tellurium framework with the Selenium framework so that we can simply change the dispatcher logic to delegate all calls to other underneath UI test frameworks if we want to switch Tellurium not to use the Selenium framework someday.  
+
+=== UI Objects ===
 
 The UI Object includes
   * uid: should be unique in a UI module
@@ -44,9 +60,84 @@ object and add it to the UiObjectBuilderRegistry.
 
 Be aware that each UI object only has predefined set of events or actions. For example, the InputBox has the _type_ action, but the Selector does not have that.
 
+=== UI Object Locators ===
+
+There are two type of UI object locators:
+  * Base Locator: the actual locator at run time. Denoted by "locator".
+  * Composite Locator: User specifies a set of parameters for the object and the actual locator will be derived automatically by Tellurium. Denoted by "clocator".
+
+The Basic Locator is only a String that you can specify the run time locator, be aware that the basic locator can be a partial locator, Tellurium will construct the actual run time locator starting from the top level object and all the way to the current object. 
+
+The Composite Locator is more complicated and its definition is as follows:
+{{{
+class CompositeLocator {
+    String header
+    String tag
+    String text
+    String trailer
+    def position
+    boolean direct
+    Map<String, String> attributes = [:]
+}
+}}}
+
+To use composite locator, you need to use "clocator" and its value is a map, i.e.,
+{{{
+clocator: [key1: value1, key2: value2, ...]
+}}}
+format in Groovy. The defined keys include "header", "tag", "text", "trailer", "position", and "direct". They are all optional. For most UI object, the html tag is fixed, for example, a Table's tag is always "table". If a UI object has fixed tag and it is defined in object class, you do not need to include "tag". The "direct" key specifies whether this UI object is a direct child of the header or its parent UI and the default value is "false".
+
+You may have additional attributes, define them in the same way as the predefined keys. For example:
+ 
+{{{
+value: "Tellurium home"
+}}} 
+
+Header and Trailer are used to specify addition xpath related to this UI object and the final xpath is 
+{{{
+XPath = header + derived xpath for object + trailer
+}}}
+
+=== The Group Locating Concept (GLC) ===
+
+The Group Locating Concept (GLC) concept comes from the simple observation, i.e., it is much easier to locate a collection of UI objects than a single UI object. The reason is multiple UI objects provide more search criteria to help you to locate the UIs. This concept is implemented in Tellurium. All collection type object, i.e., Container and its extended classes have an option to use the group locating concept. 
+
+Let's see the differences between regular locating and group locating. Still take the google start page as an example:
+
+{{{
+ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
+  InputBox(uid: "searchbox", clocator: [title: "Google Search"])
+  SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
+  SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
+}
+
+}}}
+
+Here, clocator stands for composite locator. Without group locating, I can only use the given criteria 
+
+{{{
+tag = "td" 
+}}}
+
+to find the container locator, i.e., 
+{{{
+I am looking for a td html tag in the DOM
+}}} 
+which is quite difficult. If we use the group locating, the Container can use the group information provided by its children. Now, the problem becomes: 
+{{{
+  I am looking for a td html tag in the DOM and its children including an input box with
+  title "Google Search", a submit button with name "btnG" and value "Google Search", and
+  another submit button with value "I'm Feeling Lucky"
+}}}
+Woo! I have a lot of information to help me to locate the container. Once the container is found, all its children can be found very easily.
+
+The direct result of group locating is that for most case, the information defined in the UI module itself is enough for you to locate all UI objects in that UI module. That is to say, your test code only depends on your own UI module, not its location and its outside. Even we change the UI, the test may still work.  
+
+Another advantage is that you may be able to map your JSP, PHP, ASP,..., file directly to the UI module in Tellurium. This could help developers a lot for writing Selenium tests because they do not need to manually find the locator for an UI object. 
+
 == DSL ==
  
-DSL can only be run in *DslContext*, which defines the basic DSLs. 
+Domain Specific Language (DSL) indicates a programming language or specification language   dedicated to a particular problem domain, a particular problem representation technique, and/or a particular solution technique. Here the domain refers to UI testing. DSL is specified in the class *DslContext*, which defines the basic DSLs. 
 
 === Define UI objects ===
 
@@ -166,84 +257,8 @@ openUrl url
 }}}
 and other assertions defined in GroovyTestCase.
 
-=== UI Object Locators ===
-There are two type of UI object locators:
-  * Base Locator: the actual locator at run time. Denoted by "locator".
-  * Composite Locator: User specifies a set of parameters for the object and the actual locator will be derived automatically by Tellurium. Denoted by "clocator".
-
-The Basic Locator is only a String that you can specify the run time locator, be aware that the basic locator can be a partial locator, Tellurium will construct the actual run time locator starting from the top level object and all the way to the current object. 
-
-The Composite Locator is more complicated and its definition is as follows:
-{{{
-class CompositeLocator {
-    String header
-    String tag
-    String text
-    String trailer
-    def position
-    boolean direct
-    Map<String, String> attributes = [:]
-}
-}}}
-
-To use composite locator, you need to use "clocator" and its value is a map, i.e.,
-{{{
-clocator: [key1: value1, key2: value2, ...]
-}}}
-format in Groovy. The defined keys include "header", "tag", "text", "trailer", "position", and "direct". They are all optional. For most UI object, the html tag is fixed, for example, a Table's tag is always "table". If a UI object has fixed tag and it is defined in object class, you do not need to include "tag". The "direct" key specifies whether this UI object is a direct child of the header or its parent UI and the default value is "false".
-
-You may have additional attributes, define them in the same way as the predefined keys. For example:
- 
-{{{
-value: "Tellurium home"
-}}} 
-
-Header and Trailer are used to specify addition xpath related to this UI object and the final xpath is 
-{{{
-XPath = header + derived xpath for object + trailer
-}}}
-
-=== The Group Locating Concept (GLC) ===
-
-The Group Locating Concept (GLC) concept comes from the simple observation, i.e., it is much easier to locate a collection of UI objects than a single UI object. The reason is multiple UI objects provide more search criteria to help you to locate the UIs. This concept is implemented in Tellurium. All collection type object, i.e., Container and its extended classes have an option to use the group locating concept. 
-
-Let's see the differences between regular locating and group locating. Still take the google start page as an example:
-
-{{{
-ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
-  InputBox(uid: "searchbox", clocator: [title: "Google Search"])
-  SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
-  SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
-}
-
-}}}
-
-Here, clocator stands for composite locator. Without group locating, I can only use the given criteria 
-
-{{{
-tag = "td" 
-}}}
-
-to find the container locator, i.e., 
-{{{
-I am looking for a td html tag in the DOM
-}}} 
-which is quite difficult. If we use the group locating, the Container can use the group information provided by its children. Now, the problem becomes: 
-{{{
-  I am looking for a td html tag in the DOM and its children including an input box with
-  title "Google Search", a submit button with name "btnG" and value "Google Search", and
-  another submit button with value "I'm Feeling Lucky"
-}}}
-Woo! I have a lot of information to help me to locate the container. Once the container is found, all its children can be found very easily.
-
-The direct result of group locating is that for most case, the information defined in the UI module itself is enough for you to locate all UI objects in that UI module. That is to say, your test code only depends on your own UI module, not its location and its outside. Even we change the UI, the test may still work.  
-
-Another advantage is that you may be able to map your JSP, PHP, ASP,..., file directly to the UI module in Tellurium. This could help developers a lot for writing Selenium tests because they do not need to manually find the locator for an UI object. 
-
 === Define multiple UI modules in a single file ===
-Initially, you can define only one UI module in a file that extends the DslContext class. Now, Tellurium supports multiple UI modules in a single file. This is extremely important for pure DSL scripts.
-
-For example, you can define multiple UI modules as follows:
+Tellurium supports multiple UI modules in a single file. For example, you can define multiple UI modules as follows:
 {{{
 //define the menu
 //It is fine to use Container to abstract Table if you have special table
