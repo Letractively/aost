@@ -43,6 +43,51 @@ XPath builder can build the XPath from relative XPaths or from attributes. The l
 
 The Eventhandler in this part will handle all events like "click", "type", "select", and so on. The Data Accessor is used to fetch data or UI status from the DOM. The dispatcher will delegate all calls it receives from the Eventhandler and the data accessor to the Selenium Client, which will connect to the Selenium Server. The dispatcher is designed to decouple the rest of the Tellurium framework with the Selenium framework so that we can simply change the dispatcher logic to delegate all calls to other underneath UI test frameworks if we want to switch Tellurium not to use the Selenium framework someday.  
 
+== HOW Tellurium works ==
+
+Basically, there are two parts for the Tellurium framework. The first part is to define UI objects and the second part is working on the UI objects like firing events and getting data or status from the DOM.
+
+=== The "Define UI" Operation ===
+
+The "Define UI" operation can be demonstrated in the following sequence diagram:
+
+http://tellurium-users.googlegroups.com/web/aost_sequence_defineui.png?gda=ut9Dd0sAAAAFkHkURP2WlgYU-UhtQDFJfFjOBE5aGMxp_hs9PNxhIGG1qiJ7UbTIup-M2XPURDRalx4T6cOZyoocLzTpPNoT-xRs6kTo9_1MlJqhLlX0VQ&gsc=26Y4eBYAAAAkGgIQNXlg3kIha08SEZtI9pmI1qD38G08ONb6YfjJaQ
+
+Figure 2. The sequence diagram for "DefineUI"
+
+When the Test Case calls "DefineUI", the DslContext will call the Dsl Object Parser to parse the UI definition. The Parser will look at each node and call the appropriate builders to build UI objects. The top level object will be stored in the UI Object registry so that we can search for the UI object by UI Id.
+ 
+
+Note that the processing of the pure DSL script is the same.
+ 
+=== The Action Operation ===
+
+The processing of actions such as clicking on an UI object is illustrated in Figure 3:
+
+http://tellurium-users.googlegroups.com/web/aost_sequence_click.png?gda=EuRP9kgAAAAFkHkURP2WlgYU-UhtQDFJfFjOBE5aGMxp_hs9PNxhIGG1qiJ7UbTIup-M2XPURDSpnGSpq9shp5Nom0pUQ_VQjwc8kMSHiCJV0Te5P6rKfA&gsc=26Y4eBYAAAAkGgIQNXlg3kIha08SEZtI9pmI1qD38G08ONb6YfjJaQ
+
+Figure 3. The sequence diagram for the "click" action
+
+The action processing includes following two parts. 
+
+==== Search For the UI Object ===
+First, the DslContext will create a WorkflowContext so that we can pass meta data such the relative xpath inside it. Then, we start to look at the UI object registry by calling the walkTo method. Remember, the UI object registry hold all the top level UI objects. If we can find the top level UI object, we can recursively call the WalkTo method on the next UI object until we find the UI Object matching the UI id, or we cannot find the UI object by UI Id. 
+
+During the walkTo method calls, we also start to aggregate relative xpaths into the reference xpath to the next UI object.
+
+==== Construct the Locator and Fire the Event ====
+
+If the UI Object is found, we fire the action such as "click" on the UI object and pass in a closure which can access the eventhandler, the WorkflowContext, and the LocatorProcessor. The WorkflowContext includes the reference xpath to the UI object and the LocatorProcessor can generate the xpath of the UI object itself. In this way, the runtime locator is constructed. 
+
+Then, the UI object will call the Eventhandler to fire the click event. The event will pass all the way down from the dispatcher and Selenium Client to the Selenium Server.
+ 
+=== The Data Access Operation ===
+
+The data access operation is very much like the action operation shown in Figure 3 and the only difference is that the Data Accessor will replace the Eventhandler. But be aware, for some data access, there is no UI locator associated with it. For example, you want to get the current DOM html presentation. In this case, you just call the Data Accessor directly.
+
+
+== General Concepts ==
+
 === UI Objects ===
 
 The UI Object includes
