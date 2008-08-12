@@ -3,7 +3,7 @@
 
 Tellurium supports pure dsl tests. The following examples demonstrate how to write pure dsl files as selenium tests.
 
-=== Regular DSL Script ===
+=== Tellurium Testing DSL Script ===
 
 We created an example dsl test file in src/example/dsl/google.dsl. In this file we define multiple UI modules. Since we have multiple UI modules, we must use the full path, i.e., the top level UI names such as "google_start_page", "menu", and "search" cannot be omitted. 
 
@@ -83,7 +83,7 @@ There is a shell script "rundsl.sh" in the project directory and you can simply 
 In windows, please run rundsl.bat instead.
 
 
-=== Data Driven Testing DSL Script ===
+=== Tellurium Data Driven Testing DSL Script ===
 
 The example described in the [http://code.google.com/p/aost/wiki/DataDrivenTestingExample Data driven testing examples] session, i.e., Google Book List and Google Code Hosting pages, can also be written in pure DSL as follows,
 
