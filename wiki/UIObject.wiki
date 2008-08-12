@@ -20,3 +20,21 @@ and the base Ui object also provides the following methods:
   * waitForElementPresent(int timeout, int step)
   * String getText()
   * getAttribute(String attribute)
+
+This also means all Ui Objects will inherit the above attributes and methods.
+
+=== Button ===
+
+Button represents various Buttons on the web and its default tag is "input". The following methods can be applied to Button:
+
+  * click()
+  * doubleClick()
+  * clickAt(String coordination)
+
+=== CheckBox ===
+
+The CheckBox on the web is abstracted as "CheckBox" Ui object. The default tag for CheckBox is "input" and its type is "checkbox". CheckBox comes with the following methods:
+
+  * check()
+  * boolean isChecked()
+  * uncheck()
