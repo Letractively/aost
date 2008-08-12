@@ -124,3 +124,9 @@ Selector represents the Ui with tag "select" and user can select from a set of o
   * String[] getSelectedIds()
   * String getSelectedId()
   * boolean isSomethingSelected()
+
+=== Container ===
+
+Container is an abstract object that can hold a collection of Ui objects. As a result, the  Container has a special attribute "useGroupInfo" and its default value is false. If this attribute is true, the Group Locating is enabled. But make sure all the Ui objects inside the Container are children nodes of the Container in the DOM, otherwise, you should not use the Group Locating capability.
+
+=== Table ===
