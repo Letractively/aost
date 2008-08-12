@@ -133,8 +133,7 @@ Container is an abstract object that can hold a collection of Ui objects. As a r
 
 Table is one of the most complicated Ui Object and also the most often used one. Obviously, its tag is "table" and a table could have headers besides rows and columns. Table is a good choice for data grid. Tellurium can handle its header, rows, and columns automatically for users. One important is the Table has different UiID than other Ui objects. For example, if the id of the table is "table1", then its i-th row and j-th column is referred as {{{"table1[i][j]"}}} and its m-th header is {{{"table1.header[m]"}}}.
 
-Another distinguished feature of Table is that you can define Ui template for its elements. For example, the following example defines different table headers and the template for 
-
+Another distinguished feature of Table is that you can define Ui template for its elements. For example, the following example defines different table headers and the template for the first column, the element on the second row and the second column, and the template for all the other elements in other rows and columns.
 
 {{{
 ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"], group: "true"){
@@ -157,3 +156,11 @@ ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"]
     UrlLink(uid: "all", clocator: [:])
 }
 }}} 
+
+Be aware, the templates inside the Table follow the name convention:
+
+  * For the i-th row, j-th column, the uid should be "row: i, column: j"
+  * The wild case for row or column is "*"
+  * "all" stands for matching all rows and columns
+  
+As a result, "row : *, column : 3" refers to the 3rd column for all rows. 
