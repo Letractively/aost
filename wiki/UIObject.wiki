@@ -38,3 +38,17 @@ The CheckBox on the web is abstracted as "CheckBox" Ui object. The default tag f
   * check()
   * boolean isChecked()
   * uncheck()
+
+=== Div ===
+
+Div is often used in the Dojo framework and it can represent a lot objects. Obviously, its tag is "div" and it has the following method:
+
+  * click()
+
+=== Image ===
+
+Image is used to abstract the "img" tag and it comes with the following additional methods:
+
+  * getImageSource()
+  * getImageAlt()
+  * String getImageTitle()
