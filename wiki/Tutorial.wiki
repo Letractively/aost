@@ -72,6 +72,17 @@ tellurium{
 
 }}}
 
+== How to setup Tellurium Project in IDE ==
+
+Tellurium Project can be run in IntelliJ, NetBeans, Eclipse, or other IDEs which have Groovy support. The Tellurium project code base has already included IntelliJ project file and NetBeans Project file. 
+
+For IntelliJ users, you simply open the project and overwrite some configurations such as Java Home, Groovy Home, and library path. Then you can compile, run, and test the code. IntelliJ is commercial, but you can download a free try version for 30 days from http://www.jetbrains.com/idea/download/index.html. 
+
+For NetBeans users, you can find a detailed Guide on [http://code.google.com/p/aost/wiki/TelluriumStarterUsingNetBeans the NetBeans Starters' guide page].
+
+For Eclipse users, you need to download Eclipse Groovy Plugin from http://
+dist.codehaus.org/groovy/distributions/update/ to run the Tellurium project. 
+
 == Define multiple UI modules in a single file ==
 
 Tellurium supports multiple UI modules in a single file. For example, you can define multiple UI modules as follows:
