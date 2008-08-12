@@ -212,10 +212,9 @@ compareResult(list1, list2){
    
 === TelluriumDataDrivenTest ===
 
-TelluriumDataDrivenTest is the class users should extend to run the actual data driven testing and it is more like a data driven testing engine. 
-
-There is only one method, "testDataDriven", which users need to implement. The testing process is shown in Figure 3.
+TelluriumDataDrivenTest is the class users should extend to run the actual data driven testing and it is more like a data driven testing engine. There is only one method, "testDataDriven", which users need to implement. The testing process is shown in Figure 3.
  
+
 http://tellurium-users.googlegroups.com/web/ddt_test_sequence.jpg?gda=M_GJLEcAAACjbvY1r0rMz6MRbvC-tSqoOiEqD7Mi6G5cLzJ9CIeLB-TPT63Q-1cxaIO0tQmR15XiNflBnS90ecEO3zvz3dEqeV4duv6pDMGhhhZdjQlNAw&gsc=httiOwsAAAAISLBF63vg48UkWer0gDjz
 
 Figure 3. The Sequence Diagram of testDataDriven in TelluriumDataDrivenTest
