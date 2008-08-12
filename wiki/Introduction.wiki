@@ -335,10 +335,21 @@ Button represents various Buttons on the web and its default tag is "input". The
   * doubleClick()
   * clickAt(String coordination)
 
+Example:
+
+{{{
+Button(uid: "searchButton", clocator: [value: "Search", name: "btn"])
+}}}
+
 === SubmitButton ===
 
 SubmitButton is a special Button with its type being "submit".
 
+Example:
+
+{{{
+SubmitButton(uid: "search_web_button", clocator: [value: "Search the Web"])
+}}}
 
 === CheckBox ===
 
@@ -387,6 +398,12 @@ TextBox is the abstract Ui object from which you can get back the text, i.e., it
 
 Note, TextBox can have various types of tags.
 
+Example:
+
+{{{
+TextBox(uid: "searchLabel", clocator: [tag: "span"])
+}}}
+
 === InputBox ===
 
 InputBox is the Ui where user types in input data. As its name stands, InputBox's default tag is "input". InputBox has the following additional methods:
@@ -398,6 +415,12 @@ InputBox is the Ui where user types in input data. As its name stands, InputBox'
   * boolean isEditable()
   * String getValue()
 
+Example:
+
+{{{
+InputBox(uid: "searchBox", clocator: [name: "q"])
+}}}
+
 === UrlLink ===
 
 UrlLink stands for the web url link, i.e., its tag is "a". UrlLink has the following additional methods:
@@ -406,6 +429,12 @@ UrlLink stands for the web url link, i.e., its tag is "a". UrlLink has the follo
   * click()
   * doubleClick()
   * clickAt(String coordination)
+
+Example:
+
+{{{
+UrlLink(uid: "Grid", clocator: [text: "Grid", direct: "true"])
+}}}
 
 === Selector ===
 
@@ -429,9 +458,25 @@ Selector represents the Ui with tag "select" and user can select from a set of o
   * String getSelectedId()
   * boolean isSomethingSelected()
 
+Example:
+
+{{{
+Selector(uid: "issueType", clocator: [name: "can", id: "can"])
+}}}
+
 === Container ===
 
 Container is an abstract object that can hold a collection of Ui objects. As a result, the  Container has a special attribute "useGroupInfo" and its default value is false. If this attribute is true, the Group Locating is enabled. But make sure all the Ui objects inside the Container are children nodes of the Container in the DOM, otherwise, you should not use the Group Locating capability.
+
+Example:
+
+{{{
+ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
+    InputBox(uid: "searchbox", clocator: [title: "Google Search"])
+    SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
+    SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
+}
+}}}
 
 === Form ===
 
@@ -441,6 +486,16 @@ Form is a type of Container with its tag being "form" and it represents web form
 
 This method is useful and can be used to submit input data if the form does not have a submit button.
 
+Example,
+
+{{{
+ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
+    Selector(uid: "downloadType", clocator: [name: "can", id: "can"])
+    TextBox(uid: "searchLabel", clocator: [tag: "span"])
+    InputBox(uid: "searchBox", clocator: [name: "q"])
+    SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+}
+}}}
 
 === Table ===
 
