@@ -138,3 +138,6 @@ TelluriumDataDrivenModule is inherited from DslContext and you should define Ui 
  
 === Q24: How do I configure Tellurium framework? ===
 Tellurium provide a configure file "TelluriumConfig.groovy" and you should put this file in the path you run the tests. In this file, you can change the settings for Tellurium, for example, what port the embedded Selenium server will use, what browser you want to run Tellurium tests, and what is the output format of your data driven tests. 
+
+=== Q25: Firefox version 3.0.1 does not work properly and hang during running a testcase ===
+This is a known Selenium issue. A work-around is to install the 2.0.16 firefox version or change browser type to use iehta. You can make this change in TelluriumConfig.groovy file located at the Tellirium root project folder. 
