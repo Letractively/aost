@@ -92,4 +92,4 @@ NEWS
     * July 29, Welcome Matt Senter to our team.
     * July 29, The AOST framework is renamed to be Tellurium Automated Testing Framework (Tellurium).
     * August 7, Welcome Quan Bui to our team.
-    * August 13, Tellurium 0.4.0 is release. This release includes a lot of new features and enhancements including data driven testing, framework configuration, and JUnit 4 support.
+    * August 13, Tellurium 0.4.0 is released. This release includes a lot of new features and enhancements including data driven testing, framework configuration, and JUnit 4 support.
