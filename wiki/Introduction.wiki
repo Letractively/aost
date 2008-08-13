@@ -470,7 +470,7 @@ waitForPageToLoad. Its DSL format is:
 
   * int getListSize(String id): Gets the item count of a list
 
-  * getUiElement(String id): ???
+  * getUiElement(String id): Gets the UIObject of an element.
   
   * boolean isElementPresent(String id): Verifies that the specified element is somewhere on the page.
 
@@ -481,55 +481,113 @@ element itself or one if its ancestors.  This method will fail if
 the element is not present.
 
   * boolean isChecked(String id):
+
   * boolean isDisabled(String id):
+
   * boolean isEnabled(String id):
+
   * boolean waitForElementPresent(String uid, int timeout):
+
   * boolean waitForElementPresent(String uid, int timeout, int step):
+
   * boolean waitForCondition(String script, int timeoutInMilliSecond):
-  * String getText(String id):
-  * String getValue(String id):
-  * pause(int milliseconds):
-  * String getLink(String id):
-  * String getImageSource(String id):
-  * String getImageAlt(String id):
-  * String getImageTitle(String id):
-  * getAttribute(String uid, String attribute):
-  * submit(String id, String attribute):
-  * openWindow(String url, String windowID):
-  * selectWindow(String windowID):
-  * selectFrame(String locator):
-  * waitForPopUp(String windowID, int timeout):
-  * String getBodyText():
-  * boolean isTextPresent(String pattern):
-  * boolean isEditable(String uid):
-  * String getHtmlSource():
-  * String getExpression(String expression):
-  * Number getXpathCount(String xpath):
-  * String getCookie():
-  * runScript(String script):
-  * captureScreenshot(String filename):
-  * String getCookie():
-  * chooseCancelOnNextConfirmation():
-  * chooseOkOnNextConfirmation():
-  * answerOnNextPrompt():
-  * goBack():
-  * refresh():
-  * boolean isAlertPresent():
-  * boolean isPromptPresent():
-  * boolean isConfirmationPresent():
-  * String getAlert():
-  * String getConfirmation():
-  * String getPrompt():
-  * String getLocation():
-  * String getTitle():
-  * String[] getAllButtons():
-  * String[] getAllLinks():
-  * String[] getAllFields():
-  * String[] getAllWindowIds():
-  * String[] getAllWindowNames():
-  * String[] getAllWindowTitles():
-  * waitForPageToLoad(int timeout):
-  * waitForFrameToLoad(String frameAdddress, int timeout):
+
+  * String getText(String id): Gets the text of an element. This works for any element that contains text. This command uses either the textContent (Mozilla-like browsers) or
+the innerText (IE-like browsers) of the element, which is the rendered text shown to the user.
+
+  * String getValue(String id): Gets the (whitespace-trimmed) value of an input field (or anything else with a value parameter). For checkbox/radio elements, the value will be "on" or "off" depending on whether the element is checked or not.
+
+  * pause(int milliseconds): Suspend the current thread for a specified milliseconds.
+
+  * String getLink(String id): ???
+
+  * String getImageSource(String id): ???
+
+  * String getImageAlt(String id): Get the image alternative text of an element.
+
+  * String getImageTitle(String id): Get the image title of an element.
+
+  * getAttribute(String uid, String attribute): Get an attribute of an element.
+
+  * submit(String id, String attribute): Submit the specified form. This is particularly useful for forms without submit buttons, e.g. single-input "Search" forms.
+
+  * openWindow(String url, String windowID): Opens a popup window (if a window with that ID isn't already open). After opening the window, you'll need to select it using the selectWindow command.
+
+  * selectWindow(String windowID): Selects a popup window; once a popup window has been selected, all commands go to that window. To select the main window again, use null
+as the target.
+
+  * selectFrame(String locator): Selects a frame within the current window.  (You may invoke this command multiple times to select nested frames.)  To select the parent frame, use "relative=parent" as a locator; to select the top frame, use "relative=top".
+You can also select a frame by its 0-based index number; select the first frame with
+"index=0", or the third frame with "index=2".
+
+  * waitForPopUp(String windowID, int timeout): Waits for a popup window to appear and load up.
+
+  * String getBodyText(): Gets the entire text of the page.
+
+  * boolean isTextPresent(String pattern): Verifies that the specified text pattern appears somewhere on the rendered page shown to the user.
+
+  * boolean isEditable(String uid): Determines whether the specified input element is editable, ie hasn't been disabled. This method will fail if the specified element isn't an input element.
+
+  * String getHtmlSource(): Returns the entire HTML source between the opening and
+closing "html" tags.
+
+  * String getExpression(String expression): Returns the specified expression.
+
+  * Number getXpathCount(String xpath): Returns the number of nodes that match the specified xpath, eg. "//table" would give the number of tables.
+
+  * String getCookie(): Return all cookies of the current page under test.
+
+  * runScript(String script): Creates a new "script" tag in the body of the current test window, and adds the specified text into the body of the command.  Scripts run in
+this way can often be debugged more easily than scripts executed using Selenium's "getEval" command.  Beware that JS exceptions thrown in these script tags aren't managed by Selenium, so you should probably wrap your script in try/catch blocks if there is any chance that the script will throw an exception.
+
+  * captureScreenshot(String filename): Captures a PNG screenshot to the specified file.
+
+  * chooseCancelOnNextConfirmation(): By default, Selenium's overridden window.confirm() function will return true, as if the user had manually clicked OK; after running
+this command, the next call to confirm() will return false, as if the user had clicked Cancel.  Selenium will then resume using the default behavior for future confirmations, automatically returning true (OK) unless/until you explicitly call this command for each
+confirmation.
+
+  * chooseOkOnNextConfirmation(): Undo the effect of calling chooseCancelOnNextConfirmation.  Note that Selenium's overridden window.confirm() function will normally automatically return true, as if the user had manually clicked OK, so you shouldn't need to use this command unless for some reason you need to change
+your mind prior to the next confirmation.  After any confirmation, Selenium will resume using the default behavior for future confirmations, automatically returning 
+true (OK) unless/until you explicitly call chooseCancelOnNextConfirmation for each
+confirmation.
+
+  * answerOnNextPrompt(): Instructs Selenium to return the specified answer string in response to the next JavaScript prompt [window.prompt()].
+
+  * goBack(): Simulates the user clicking the "back" button on their browser.
+
+  * refresh(): Simulates the user clicking the "Refresh" button on their browser.
+
+  * boolean isAlertPresent(): Has an alert occurred?
+
+  * boolean isPromptPresent(): Has a prompt occurred?
+
+  * boolean isConfirmationPresent(): Has confirm() been called?
+
+  * String getAlert(): Retrieves the message of a JavaScript alert generated during the previous action, or fail if there were no alerts.
+
+  * String getConfirmation(): Retrieves the message of a JavaScript confirmation dialog generated during the previous action.
+
+  * String getPrompt(): Retrieves the message of a JavaScript question prompt dialog generated during the previous action.
+
+  * String getLocation(): Gets the absolute URL of the current page.
+
+  * String getTitle(): Gets the title of the current page.
+
+  * String[] getAllButtons(): Returns the IDs of all buttons on the page.
+
+  * String[] getAllLinks(): Returns the IDs of all links on the page.
+
+  * String[] getAllFields(): Returns the IDs of all input fields on the page.
+
+  * String[] getAllWindowIds(): Returns the IDs of all windows that the browser knows about.
+
+  * String[] getAllWindowNames(): Returns the names of all windows that the browser knows about.
+
+  * String[] getAllWindowTitles(): Returns the titles of all windows that the browser knows about.
+
+  * waitForPageToLoad(int timeout): Waits for a new page to load.
+
+  * waitForFrameToLoad(String frameAdddress, int timeout): Waits for a new frame to load.
 
 === Extended DSLs ===
 
