@@ -60,12 +60,12 @@ public class TelluriumDownloadsPageJavaTestCase extends TelluriumJavaTestCase{
         connectUrl("http://code.google.com/p/aost/downloads/list");
         // Set download type with other value
         downloadPage.selectDownloadType(" All Downloads");
-        downloadPage.searchDownload("aost-0.3.0");
+        downloadPage.searchDownload("tellurium-0.4.0");
 
         List<String> list = downloadPage.getDownloadFileNames();
         assertNotNull(list);
         assertFalse(list.isEmpty());
-        assertTrue(Helper.include(list, "aost-0.3.0.tar.gz"));
+        assertTrue(Helper.include(list, "tellurium-0.4.0.tar.gz"));
     }
 
     @Test
@@ -78,8 +78,8 @@ public class TelluriumDownloadsPageJavaTestCase extends TelluriumJavaTestCase{
         List<String> list = downloadPage.getDownloadFileNames();
         assertNotNull(list);
         assertFalse(list.isEmpty());
-        assertTrue(Helper.include(list, "aost-0.3.0.tar.gz"));
-        assertTrue(Helper.include(list, "aost-0.3.0.jar"));
+        assertTrue(Helper.include(list, "tellurium-0.4.0.tar.gz"));
+        assertTrue(Helper.include(list, "tellurium-0.4.0.jar"));
     }
 
     @Test
@@ -94,7 +94,7 @@ public class TelluriumDownloadsPageJavaTestCase extends TelluriumJavaTestCase{
         list = downloadPage.getDownloadFileNames();
         assertNotNull(list);
         assertFalse(list.isEmpty());
-        assertTrue(Helper.include(list, "aost-0.3.0.tar.gz"));
+        assertTrue(Helper.include(list, "tellurium-0.4.0.tar.gz"));
     }
 
     @Test
