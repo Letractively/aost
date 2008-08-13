@@ -187,9 +187,9 @@ The direct result of group locating is that for most case, the information defin
 
 Another advantage is that you may be able to map your JSP, PHP, ASP,..., file directly to the UI module in Tellurium. This could help developers a lot for writing Selenium tests because they do not need to manually find the locator for an UI object. 
 
-== DSL ==
+== Domain Specific Language ==
  
-Domain Specific Language (DSL) indicates a programming language or specification language   dedicated to a particular problem domain, a particular problem representation technique, and/or a particular solution technique. Here the domain refers to UI testing. DSL is specified in the class *DslContext*, which defines the basic DSLs. 
+Domain Specific Language (DSL) indicates a programming language or specification language dedicated to a particular problem domain, a particular problem representation technique, and/or a particular solution technique. Here the domain refers to UI testing. DSL is specified in the class *DslContext*, which defines the basic DSLs. 
 
 === Define UI objects ===
 
@@ -267,7 +267,7 @@ click "layoutSelector.layoutSelector.List"
 
 Because of the Groovy Syntax, each method in the DslContext is a DSL expression. Here we list all the available methods in DslContext and their corresponding DSL syntax. Note the id here refers to the UiID in the format of "issueSearch.issueType" and the time units are all in milliseconds if not specified. Be aware, you can only apply the methods to the Ui Object if it has them defined.
 
-  # mouseOver(String id): Simulates a user hovering a mouse over the specified element. Its DSL format is:
+  * mouseOver(String id): Simulates a user hovering a mouse over the specified element. Its DSL format is:
 
   {{{
     mouseOver id
@@ -281,15 +281,77 @@ Because of the Groovy Syntax, each method in the DslContext is a DSL expression.
 
 
 === Extended DSLs ===
-The DslContext can be extended to include more DSLs. For example, 
-the DslScriptEngine extends DslContext to add the following DSL
+
+The DslContext can be extended to include more DSLs. Tellurium also defined a set of DSLs to support Tellurium tests. The most often used ones includes
+
+  * openUrl(String url): establish a new connection to Selenium server for the given url. The DSL format is:
+
+  {{{
+    openUrl url
+  }}}
+
+  Example: 
+
+  {{{
+    openUrl "http://code.google.com/p/aost/"
+  }}}
+
+  * connectUrl(String url): use existing connect for the given url. The DSL format is:
+
+  {{{
+    connectUrl "http://code.google.com/p/aost/" 
+  }}}
+
+In addition, you can also write assertions in JUnit in DSL synatx, for example:
+ 
+  {{{
+    assertEquals rowNum, 8
+  }}}
+
+In Tellurium Data Driven Testing, more DSLs are defined. The first one is the way to define input data format using FieldSet, which represents the format of a line in the input file. 
+
 {{{
-openUrl url
+//define file data format
+fs.FieldSet(name: "GoogleBookList", description: "Google Book List") {
+    Test(value: "checkBookList")
+    Field(name: "category", description: "book category")
+    Field(name: "size", type: "int", description: "google book list size ")
+}
 }}}
-and other assertions defined in GroovyTestCase.
+
+The above FieldSet includes multiple Fields and Test is special Field indicate the test name. To handle custom input data type, Tellurium provide the "typeHandler" DSL for the users to define a custom data type handler.
+
+{{{
+typeHandler "phoneNumber", "org.tellurium.test.PhoneNumberTypeHandler"
+}}}
+
+In addition to that, Tellurium defined the following DSLs to control the testing flow and compare the results:
+  
+  * includeModule: load a user defined Data Driven Module. For example,
+
+  {{{
+    includeModule  example.test.ddt.GoogleBookListModule.class
+  }}}
+
+  * loadData: load input data file. For example,
+
+  {{{
+    loadData "src/test/example/test/ddt/GoogleBookListCodeHostInput.txt"
+  }}}
+
+  * compareResult: compare the expected value with the actual result, for example:
+
+  {{{
+    compareResult "Java", category
+  }}}
+
+  * stepToEnd(): read each line from the input data stream and run the corresponding test until it reaches the end of the stream.
+
+  * closeData(): close the input data stream and output the test results.
+
+More details for Data Driven Testing DSLs can be found on [http://code.google.com/p/aost/wiki/DataDrivenTesting the Tellurium Data Driven Testing page]
 
 == Tellurium UI Objects==
-
 
 Tellurium provides a set of predefined Ui objects, which users can use directly. Here we describe them one by one in details.
 
@@ -358,6 +420,7 @@ Div is often used in the Dojo framework and it can represent a lot objects. Obvi
   * click()
 
 Example:
+
 
 {{{
 Div(uid: "dialog", clocator: [class: 'dojoDialog', id: 'loginDialog'])
@@ -508,6 +571,7 @@ Example,
 ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
     Selector(uid: "downloadType", clocator: [name: "can", id: "can"])
     TextBox(uid: "searchLabel", clocator: [tag: "span"])
+
     InputBox(uid: "searchBox", clocator: [name: "q"])
     SubmitButton(uid: "searchButton", clocator: [value: "Search"])
 }
