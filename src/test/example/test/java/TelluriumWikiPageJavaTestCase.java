@@ -65,8 +65,7 @@ public class TelluriumWikiPageJavaTestCase extends TelluriumJavaTestCase{
         List<String> list = wikiPage.getPageNames();
         assertNotNull(list);
         assertFalse(list.isEmpty());
-        assertTrue(Helper.include(list, "FAQ"));
-        assertTrue(Helper.include(list, "Architecture"));
+        assertTrue(Helper.include(list, "FAQ"));        
         assertTrue(Helper.include(list, "Tutorial"));
         assertTrue(Helper.include(list, "Introduction"));        
     }
