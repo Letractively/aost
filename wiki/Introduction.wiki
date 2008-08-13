@@ -95,7 +95,7 @@ The UI Object includes
   * namespace: for future extension
   * locator: the locator of the UI object, could be a base locator or a composite locator
   * Features: the inherent feature of the UI component, for example, the selection UI component normally comes with “label=?” or “value=?”. Table always has the “table”, “tr”, “td”, “th” tags.
-  * useGroupInfo: this option only applies to a collection type of UI object such as Container, Table, List, Form and so on. By default, this option is turned off. If it is on, the object will use the UI objects to help locating its locator.
+  * useGroupInfo: this option only applies to a collection type of UI object such as Container, Table, List, Form and so on. By default, this option is off and it can be turned on by specifying the "group" attribute to be true, i.e., {{{group: "true"}}}. If it is on, the container type object will use the inside UI objects' attributes to help locating its locator.
 
 Regular UI objects include Button, CheckBox, Icon, InputBox, Selector, TextBox, Table... 
 A container is a special UI object and it could be a pure abstract object to hold and group different UI objects together. The container will make the objects inside searchable since it uses a list to hold them.
@@ -279,196 +279,194 @@ Because of the Groovy Syntax, each method in the DslContext is a DSL expression.
     mouseOver "IdMenu.SortDown"
   }}}
 
-==== Supported Methods ====
+In the similar way, we have the following DSLs or data access methods:
 
-  * mouseOut(String id): Simulates a user moving the mouse pointer away from the specified element. 
+  * {{{mouseOut id}}}: Simulates a user moving the mouse pointer away from the specified element. 
 
-  * mouseDown(String id): Simulates a user pressing the mouse button (without releasing it yet) on the specified element.
+  * {{{mouseDown id}}}: Simulates a user pressing the mouse button (without releasing it yet) on the specified element.
 
-  * click(String id): Clicks on a link, button, checkbox or radio button. If the click action causes a new page to load (like a link usually does), call
+  * {{{click id}}}: Clicks on a link, button, checkbox or radio button. If the click action causes a new page to load (like a link usually does), call
 waitForPageToLoad. 
 
-  * doubleClick(String id): Double clicks on a link, button, checkbox or radio button. If the double click action causes a new page to load (like a link usually does), call waitForPageToLoad. 
+  * {{{doubleClick id}}}: Double clicks on a link, button, checkbox or radio button. If the double click action causes a new page to load (like a link usually does), call waitForPageToLoad. 
 
-  * clickAt(String id, String coordination): Clicks on a link, button, checkbox or radio button. If the click action causes a new page to load (like a link usually does), call
+  * {{{clickAt id, coordination}}}: Clicks on a link, button, checkbox or radio button. If the click action causes a new page to load (like a link usually does), call
 waitForPageToLoad. 
 
-  * check(String id): Clicks on a link, button, checkbox or radio button. If the click action causes a new page to load (like a link usually does), call waitForPageToLoad.
+  * {{{check id}}}: Clicks on a link, button, checkbox or radio button. If the click action causes a new page to load (like a link usually does), call waitForPageToLoad.
 
-  * uncheck(String id): Uncheck a toggle-button (checkbox/radio). 
+  * {{{uncheck id}}}: Uncheck a toggle-button (checkbox/radio). 
 
-  * type(String id, String input): Sets the value of an input field, as though you typed it in. 
+  * {{{type id, input}}}: Sets the value of an input field, as though you typed it in. 
 
-  * keyType(String id, String value): Simulates keystroke events on the specified element, as though you typed the value key-by-key. 
+  * {{{keyType id, value}}}: Simulates keystroke events on the specified element, as though you typed the value key-by-key. 
 
-  * typeAndReturn(String id, String input): Sets the value of an input field followed by <Return> key. 
+  * {{{typeAndReturn id, input}}}: Sets the value of an input field followed by <Return> key. 
 
-  * clearText(String id): Resets input field to an empty value. 
+  * {{{clearText id}}}: Resets input field to an empty value. 
 
-  * select(String id, String optionLocator): Select an option from a drop-down using an option locator. 
+  * {{{select id, optionLocator}}}: Select an option from a drop-down using an option locator. 
 
-  * selectByLabel(String id, String optionLocator): Select an option from a drop-down using an option label. 
+  * {{{selectByLabel id, optionLocator}}}: Select an option from a drop-down using an option label. 
 
-  * selectByValue(String id, String optionLocator): Select an option from a drop-down using an option value. 
+  * {{{selectByValue id, optionLocator}}}: Select an option from a drop-down using an option value. 
 
-  * addSelectionByLabel(String id, String optionLocator): Add a selection to the set of selected options in a multi-select element using an option label.
+  * {{{addSelectionByLabel id, optionLocator}}}: Add a selection to the set of selected options in a multi-select element using an option label.
 
-  * addSelectionByValue(String id, String optionLocator): Add a selection to the set of selected options in a multi-select element using an option value. 
+  * {{{addSelectionByValue id, optionLocator}}}: Add a selection to the set of selected options in a multi-select element using an option value. 
 
-  * removeSelectionByLabel(String id, String optionLocator): Remove a selection from the set of selected options in a multi-select element using an option label. 
+  * {{{removeSelectionByLabel id, optionLocator}}}: Remove a selection from the set of selected options in a multi-select element using an option label. 
 
-  * removeSelectionByValue(String id, String optionLocator): Remove a selection from the set of selected options in a multi-select element using an option value. 
+  * {{{removeSelectionByValue id, optionLocator}}}: Remove a selection from the set of selected options in a multi-select element using an option value. 
 
-  * removeAllSelections(String id): Unselects all of the selected options in a multi-select element. 
+  * {{{removeAllSelections id}}}: Unselects all of the selected options in a multi-select element. 
 
-  * String[] getSelectOptions(String id): Gets all option labels in the specified select drop-down. 
+  *{{{ String[] getSelectOptions(id)}}}: Gets all option labels in the specified select drop-down. 
 
-  * String[] getSelectedLabels(String id): Gets all selected labels in the specified select drop-down. 
+  * {{{String[] getSelectedLabels(id)}}}: Gets all selected labels in the specified select drop-down. 
 
-  * String getSelectedLabel(String id): Gets a single selected label in the specified select drop-down. 
+  * {{{String getSelectedLabel(id)}}}: Gets a single selected label in the specified select drop-down. 
 
-  * String[] getSelectedValues(String id): Gets all selected values in the specified select drop-down. 
+  * {{{String[] getSelectedValues(id)}}}: Gets all selected values in the specified select drop-down. 
 
-  * String getSelectedValue(String id): Gets a single selected value in the specified select drop-down. 
+  * {{{String getSelectedValue(id)}}}: Gets a single selected value in the specified select drop-down. 
 
-  * String[] getSelectedIndexes(String id): Gets all selected indexes in the specified select drop-down. 
+  * {{{String[] getSelectedIndexes(id)}}}: Gets all selected indexes in the specified select drop-down. 
 
-  * String getSelectedIndex(String id): Gets a single selected index in the specified select drop-down. 
+  * {{{String getSelectedIndex(id)}}}: Gets a single selected index in the specified select drop-down. 
 
-  * String[] getSelectedIds(String id): Gets option element ID for selected option in the specified select element. 
+  * {{{String[] getSelectedIds(id)}}}: Gets option element ID for selected option in the specified select element. 
 
-  * String getSelectedId(String id): Gets a single element ID for selected option in the specified select element. 
+  * {{{String getSelectedId(id)}}}: Gets a single element ID for selected option in the specified select element. 
 
-  * boolean isSomethingSelected(String id): Determines whether some option in a drop-down menu is selected. 
+  * {{{boolean isSomethingSelected(id)}}}: Determines whether some option in a drop-down menu is selected. 
 
-  * String waitForText(String id, int timeout): Waits for a text event. 
+  * {{{String waitForText(id, timeout)}}}: Waits for a text event. 
 
-  * int getTableHeaderColumnNum(String id): Gets the column header count of a table
+  * {{{int getTableHeaderColumnNum(id)}}}: Gets the column header count of a table
 
-  * int getTableMaxRowNum(String id): Gets the maxiumn row count of a table
+  * {{{int getTableMaxRowNum(id)}}}: Gets the maxiumn row count of a table
 
-  * int getTableMaxColumnNum(String id): Gets the maxiumn  column count of a table
+  * {{{int getTableMaxColumnNum(id)}}}: Gets the maxiumn  column count of a table
 
-  * int getListSize(String id): Gets the item count of a list
+  * {{{int getListSize(id)}}}: Gets the item count of a list
 
-  * getUiElement(String id): Gets the UIObject of an element.
+  * {{{getUiElement(id)}}}: Gets the UIObject of an element.
   
-  * boolean isElementPresent(String id): Verifies that the specified element is somewhere on the page.
+  * {{{boolean isElementPresent(id)}}}: Verifies that the specified element is somewhere on the page.
 
-  * boolean isVisible(String id): Determines if the specified element is visible. An
+  * {{{boolean isVisible(id)}}}: Determines if the specified element is visible. An
 element can be rendered invisible by setting the CSS "visibility"
 property to "hidden", or the "display" property to "none", either for the
 element itself or one if its ancestors.  This method will fail if
 the element is not present.
 
-  * boolean isChecked(String id): Gets whether a toggle-button (checkbox/radio) is checked.  Fails if the specified element doesn't exist or isn't a toggle-button.
+  * {{{boolean isChecked(id)}}}: Gets whether a toggle-button (checkbox/radio) is checked.  Fails if the specified element doesn't exist or isn't a toggle-button.
 
-  * boolean isDisabled(String id): Determines if an element is disabled or not
+  * {{{boolean isDisabled(id)}}}: Determines if an element is disabled or not
 
-  * boolean isEnabled(String id): Determines if an element is enabled or not
+  * {{{boolean isEnabled(id)}}}: Determines if an element is enabled or not
 
-  * boolean waitForElementPresent(String uid, int timeout): ???
+  * {{{boolean waitForElementPresent(id, timeout)}}}: Wait for the Ui object to be present
 
-  * boolean waitForElementPresent(String uid, int timeout, int step): ???
+  * {{{boolean waitForElementPresent(id, timeout, step)}}}: Wait for the Ui object to be present and check the status by step.
 
-  * boolean waitForCondition(String script, int timeoutInMilliSecond): Runs the specified JavaScript snippet repeatedly until it evaluates to "true". The snippet may have multiple lines, but only the result of the last line will be considered.
+  * {{{boolean waitForCondition(script, timeout)}}}: Runs the specified JavaScript snippet repeatedly until it evaluates to "true". The snippet may have multiple lines, but only the result of the last line will be considered.
 
-  * String getText(String id): Gets the text of an element. This works for any element that contains text. This command uses either the textContent (Mozilla-like browsers) or
+  * {{{String getText(id)}}}: Gets the text of an element. This works for any element that contains text. This command uses either the textContent (Mozilla-like browsers) or
 the innerText (IE-like browsers) of the element, which is the rendered text shown to the user.
 
-  * String getValue(String id): Gets the (whitespace-trimmed) value of an input field (or anything else with a value parameter). For checkbox/radio elements, the value will be "on" or "off" depending on whether the element is checked or not.
+  * {{{String getValue(id)}}}: Gets the (whitespace-trimmed) value of an input field (or anything else with a value parameter). For checkbox/radio elements, the value will be "on" or "off" depending on whether the element is checked or not.
 
-  * pause(int milliseconds): Suspend the current thread for a specified milliseconds.
+  * {{{pause time}}}: Suspend the current thread for a specified milliseconds.
 
-  * String getLink(String id): Get the href of an element.
+  * {{{String getLink(id)}}}: Get the href of an element.
 
-  * String getImageSource(String id): Get the image source element.
+  * {{{String getImageSource(id)}}}: Get the image source element.
 
-  * String getImageAlt(String id): Get the image alternative text of an element.
+  * {{{String getImageAlt(id)}}}: Get the image alternative text of an element.
 
-  * String getImageTitle(String id): Get the image title of an element.
+  * {{{String getImageTitle(id)}}}: Get the image title of an element.
 
-  * getAttribute(String uid, String attribute): Get an attribute of an element.
+  * {{{getAttribute(id, attribute)}}}: Get an attribute of an element.
 
-  * submit(String id, String attribute): Submit the specified form. This is particularly useful for forms without submit buttons, e.g. single-input "Search" forms.
+  * {{{submit id, attribute}}}: Submit the specified form. This is particularly useful for forms without submit buttons, e.g. single-input "Search" forms.
 
-  * openWindow(String url, String windowID): Opens a popup window (if a window with that ID isn't already open). After opening the window, you'll need to select it using the selectWindow command.
+  * {{{openWindow url, windowID}}}: Opens a popup window (if a window with that ID isn't already open). After opening the window, you'll need to select it using the selectWindow command.
 
-  * selectWindow(String windowID): Selects a popup window; once a popup window has been selected, all commands go to that window. To select the main window again, use null
+  * {{{selectWindow windowID}}}: Selects a popup window; once a popup window has been selected, all commands go to that window. To select the main window again, use null
 as the target.
 
-  * selectFrame(String locator): Selects a frame within the current window.  (You may invoke this command multiple times to select nested frames.)  To select the parent frame, use "relative=parent" as a locator; to select the top frame, use "relative=top".
+  * {{{selectFrame locator}}}: Selects a frame within the current window.  (You may invoke this command multiple times to select nested frames.)  To select the parent frame, use "relative=parent" as a locator; to select the top frame, use "relative=top".
 You can also select a frame by its 0-based index number; select the first frame with
 "index=0", or the third frame with "index=2".
 
-  * waitForPopUp(String windowID, int timeout): Waits for a popup window to appear and load up.
+  * {{{waitForPopUp windowID, timeout}}}: Waits for a popup window to appear and load up.
 
-  * String getBodyText(): Gets the entire text of the page.
+  * {{{String getBodyText()}}}: Gets the entire text of the page.
 
-  * boolean isTextPresent(String pattern): Verifies that the specified text pattern appears somewhere on the rendered page shown to the user.
+  * {{{boolean isTextPresent(pattern)}}}: Verifies that the specified text pattern appears somewhere on the rendered page shown to the user.
 
-  * boolean isEditable(String uid): Determines whether the specified input element is editable, ie hasn't been disabled. This method will fail if the specified element isn't an input element.
+  * {{{boolean isEditable(id)}}}: Determines whether the specified input element is editable, ie hasn't been disabled. This method will fail if the specified element isn't an input element.
 
-  * String getHtmlSource(): Returns the entire HTML source between the opening and
+  * {{{String getHtmlSource()}}}: Returns the entire HTML source between the opening and
 closing "html" tags.
 
-  * String getExpression(String expression): Returns the specified expression.
+  * {{{String getExpression(expression)}}}: Returns the specified expression.
 
-  * Number getXpathCount(String xpath): Returns the number of nodes that match the specified xpath, eg. "//table" would give the number of tables.
+  * {{{getXpathCount(xpath)}}}: Returns the number of nodes that match the specified xpath, eg. "//table" would give the number of tables.
 
-  * String getCookie(): Return all cookies of the current page under test.
+  * {{{String getCookie()}}}: Return all cookies of the current page under test.
 
-  * runScript(String script): Creates a new "script" tag in the body of the current test window, and adds the specified text into the body of the command.  Scripts run in
+  * {{{runScript(script)}}}: Creates a new "script" tag in the body of the current test window, and adds the specified text into the body of the command.  Scripts run in
 this way can often be debugged more easily than scripts executed using Selenium's "getEval" command.  Beware that JS exceptions thrown in these script tags aren't managed by Selenium, so you should probably wrap your script in try/catch blocks if there is any chance that the script will throw an exception.
 
-  * captureScreenshot(String filename): Captures a PNG screenshot to the specified file.
+  * {{{captureScreenshot filename}}}: Captures a PNG screenshot to the specified file.
 
-  * chooseCancelOnNextConfirmation(): By default, Selenium's overridden window.confirm() function will return true, as if the user had manually clicked OK; after running
-this command, the next call to confirm() will return false, as if the user had clicked Cancel.  Selenium will then resume using the default behavior for future confirmations, automatically returning true (OK) unless/until you explicitly call this command for each
-confirmation.
+  * {{{chooseCancelOnNextConfirmation}}}: By default, Selenium's overridden window.confirm() function will return true, as if the user had manually clicked OK; after running this command, the next call to confirm() will return false, as if the user had clicked Cancel.  Selenium will then resume using the default behavior for future confirmations, automatically returning true (OK) unless/until you explicitly call this command for each confirmation.
 
-  * chooseOkOnNextConfirmation(): Undo the effect of calling chooseCancelOnNextConfirmation.  Note that Selenium's overridden window.confirm() function will normally automatically return true, as if the user had manually clicked OK, so you shouldn't need to use this command unless for some reason you need to change
+  * {{{chooseOkOnNextConfirmation}}}: Undo the effect of calling chooseCancelOnNextConfirmation.  Note that Selenium's overridden window.confirm() function will normally automatically return true, as if the user had manually clicked OK, so you shouldn't need to use this command unless for some reason you need to change
 your mind prior to the next confirmation.  After any confirmation, Selenium will resume using the default behavior for future confirmations, automatically returning 
 true (OK) unless/until you explicitly call chooseCancelOnNextConfirmation for each
 confirmation.
 
-  * answerOnNextPrompt(): Instructs Selenium to return the specified answer string in response to the next JavaScript prompt [window.prompt()].
+  * {{{answerOnNextPrompt}}}: Instructs Selenium to return the specified answer string in response to the next JavaScript prompt [window.prompt()].
 
-  * goBack(): Simulates the user clicking the "back" button on their browser.
+  * {{{goBack}}}: Simulates the user clicking the "back" button on their browser.
 
-  * refresh(): Simulates the user clicking the "Refresh" button on their browser.
+  * {{{refresh}}}: Simulates the user clicking the "Refresh" button on their browser.
 
-  * boolean isAlertPresent(): Has an alert occurred?
+  * {{{boolean isAlertPresent()}}}: Has an alert occurred?
 
-  * boolean isPromptPresent(): Has a prompt occurred?
+  * {{{boolean isPromptPresent()}}: Has a prompt occurred?
 
-  * boolean isConfirmationPresent(): Has confirm() been called?
+  * {{{boolean isConfirmationPresent()}}}: Has confirm() been called?
 
-  * String getAlert(): Retrieves the message of a JavaScript alert generated during the previous action, or fail if there were no alerts.
+  * {{{String getAlert()}}}: Retrieves the message of a JavaScript alert generated during the previous action, or fail if there were no alerts.
 
-  * String getConfirmation(): Retrieves the message of a JavaScript confirmation dialog generated during the previous action.
+  * {{{String getConfirmation()}}}: Retrieves the message of a JavaScript confirmation dialog generated during the previous action.
 
-  * String getPrompt(): Retrieves the message of a JavaScript question prompt dialog generated during the previous action.
+  * {{{String getPrompt()}}}: Retrieves the message of a JavaScript question prompt dialog generated during the previous action.
 
-  * String getLocation(): Gets the absolute URL of the current page.
+  * {{{String getLocation()}}}: Gets the absolute URL of the current page.
 
-  * String getTitle(): Gets the title of the current page.
+  * {{{String getTitle()}}}: Gets the title of the current page.
 
-  * String[] getAllButtons(): Returns the IDs of all buttons on the page.
+  * {{{String[] getAllButtons()}}}: Returns the IDs of all buttons on the page.
 
-  * String[] getAllLinks(): Returns the IDs of all links on the page.
+  * {{{String[] getAllLinks()}}}: Returns the IDs of all links on the page.
 
-  * String[] getAllFields(): Returns the IDs of all input fields on the page.
+  * {{{String[] getAllFields()}}}: Returns the IDs of all input fields on the page.
 
-  * String[] getAllWindowIds(): Returns the IDs of all windows that the browser knows about.
+  * {{{String[] getAllWindowIds()}}}: Returns the IDs of all windows that the browser knows about.
 
-  * String[] getAllWindowNames(): Returns the names of all windows that the browser knows about.
+  * {{{String[] getAllWindowNames()}}}: Returns the names of all windows that the browser knows about.
 
-  * String[] getAllWindowTitles(): Returns the titles of all windows that the browser knows about.
+  * {{{String[] getAllWindowTitles()}}}: Returns the titles of all windows that the browser knows about.
 
-  * waitForPageToLoad(int timeout): Waits for a new page to load.
+  * {{{waitForPageToLoad timeout}}}: Waits for a new page to load.
 
-  * waitForFrameToLoad(String frameAdddress, int timeout): Waits for a new frame to load.
+  * {{{waitForFrameToLoad frameAdddress, timeout}}}: Waits for a new frame to load.
 
 === Extended DSLs ===
 
@@ -915,6 +913,7 @@ Apart from the above, Tellurium also provides users the capability to write Tell
 Tellurium will continue evolving and more new features will be developed to make it more powerful and easier to use. We are considering the following new features for the next or future releases:
 
   # Add full Maven 2 support for project building, testing, and artifact publishing.
+  # Enhance Data Driven Testing to add data readers for XML files and CSV format files. Also need to consider testing multiple tests in a group and how to pass variables among them.
   # A *Firefox plugin* will be developed to automatically generate UI modules for users. The idea is to provide the "select UI by click" capability in the plugin to select an area of UI. Then the plugin will extract the html source and use a special algorithm to generate Tellurium style UI modules using composite locators and group locating concept.  After that, the plugin will validate the generated UI module to make sure it is unique in the current DOM and output the results. 
   # Tellurium will provide a *Locator Query Language* to get the locators of Ui objects by some search criteria such as their attributes and their relationship to each other, i.e., parent, child, and sibling. That is to say, Tellurium will be interactive with the DOM in runtime so as to be adaptive to dynamic web page. 
   # The *Automated Acceptance Testing* feature will be added to Tellurium. The basic idea is to setup a server and the user can use web browser to browse all available tests defined in the registry at the server side. The user can select any test to run by typing in parameters required by the test and see the actual test result. 
