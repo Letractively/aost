@@ -288,7 +288,7 @@ Tellurium provides a set of predefined Ui objects, which users can use directly.
 
 === Basic Ui Object ===
 
-The basic Ui object is the base class for all Ui objects and it includes the following attributes:
+The basic Ui object is an abstract class and users cannot instantiate it directly. The basic Ui Object works as the base class for all Ui objects and it includes the following attributes:
 
   # uid: Ui object's identifier
   # namespace: for future extension
@@ -641,17 +641,18 @@ The option object will automatically detect which UI pattern you need to use at 
 
 In the package org.tellurium.test, Tellurium provides three different ways to write Tellurium tests:
 
-  # Java Test Cases including "BaseTelluriumJavaTestCase" and "TelluriumJavaTestCase". They are both JUnit 4 test cases, i.e., they support @BeforeClass, @AfterClass, @Before, @After, @Test, and @Ignore JUnit 4 annotations. The only difference between the two is that the "TelluriumJavaTestCase" comes with predefined @BeforeClass and @AfterClass methods to setup the connection to the Selenium server and tear down the connection after all tests are done. If users want to include multiple test cases in one test suite, they should use BaseTelluriumJavaTestCase so that all the test cases can share the same Selenium connection and do not need to set up and tear down connection for each class.  
-  # Groovy Test Cases, i.e., to write Tellurium tests in groovy. Users can use TelluriumGroovyTestCase for a single test and TelluriumSuiteGroovyTestCase for a test suite.
-  # Data Driven Testing. Tellurium provides the class TelluriumDataDrivenModule for users to define data driven testing modules and the class TelluriumDataDrivenTest to drive the actual tests. The details can be found on [http://code.google.com/p/aost/wiki/DataDrivenTesting the Data Driven Testing Wiki page].
+  # Java Test Cases including *BaseTelluriumJavaTestCase* and *TelluriumJavaTestCase*. They are both JUnit 4 test cases, i.e., they support @BeforeClass, @AfterClass, @Before, @After, @Test, and @Ignore JUnit 4 annotations. The only difference between the two is that the "TelluriumJavaTestCase" comes with predefined @BeforeClass and @AfterClass methods to setup the connection to the Selenium server and tear down the connection after all tests are done. If users want to include multiple test cases in one test suite, they should use BaseTelluriumJavaTestCase so that all the test cases can share the same Selenium connection and do not need to set up and tear down connection for each class.  
+  # Groovy Test Cases, i.e., to write Tellurium tests in groovy. Users can use *TelluriumGroovyTestCase* for a single test and *TelluriumSuiteGroovyTestCase* for a test suite.
+  # Data Driven Testing. Tellurium provides the class *TelluriumDataDrivenModule* for users to define data driven testing modules and the class *TelluriumDataDrivenTest* to drive the actual tests. The details can be found on [http://code.google.com/p/aost/wiki/DataDrivenTesting the Data Driven Testing Wiki page].
 
-Apart from the above, Tellurium also provides users the capability to write Tellurium tests and Tellurium data driven tests in pure DSL scripts. The DslScriptExecutor is used to run the .dsl files.
+Apart from the above, Tellurium also provides users the capability to write Tellurium tests and Tellurium data driven tests in pure DSL scripts. The *DslScriptExecutor* is used to run the .dsl files.
 
 
 == Future Directions ==
 
 Tellurium will continue evolving and more new features will be developed to make it more powerful and easier to use. We are considering the following new features for the next or future releases:
 
-  # A Firefox plugin will be developed to automatically generate UI modules for users. The idea is to provide the "select UI by click" capability in the plugin to select an area of UI. Then the plugin will extract the html source and use a special algorithm to generate Tellurium style UI modules using composite locators and group locating concept.  After that, the plugin will validate the generated UI module to make sure it is unique in the current DOM and output the results. 
-  # Tellurium will provide a Locator Query Language to get the locators of Ui objects by some search criteria such as their attributes and their relationship to each other, i.e., parent, child, and sibling. That is to say, Tellurium will be interactive with the DOM in runtime so as to be adaptive to dynamic web page. 
-  # The "Automated Acceptance Testing" feature will be added to Tellurium. The basic idea is to setup a server and the user can use web browser to browse all available tests defined in the registry at the server side. The user can select any test to run by typing in parameters required by the test and see the actual test result. 
+  # Add full Maven 2 support for project building, testing, and artifact publishing.
+  # A *Firefox plugin* will be developed to automatically generate UI modules for users. The idea is to provide the "select UI by click" capability in the plugin to select an area of UI. Then the plugin will extract the html source and use a special algorithm to generate Tellurium style UI modules using composite locators and group locating concept.  After that, the plugin will validate the generated UI module to make sure it is unique in the current DOM and output the results. 
+  # Tellurium will provide a *Locator Query Language* to get the locators of Ui objects by some search criteria such as their attributes and their relationship to each other, i.e., parent, child, and sibling. That is to say, Tellurium will be interactive with the DOM in runtime so as to be adaptive to dynamic web page. 
+  # The *Automated Acceptance Testing* feature will be added to Tellurium. The basic idea is to setup a server and the user can use web browser to browse all available tests defined in the registry at the server side. The user can select any test to run by typing in parameters required by the test and see the actual test result. 
