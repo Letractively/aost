@@ -88,7 +88,7 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
 
     @Test
     public void testClickHeader(){
-        openUrl("http://code.google.com/p/aost/issues/list");
+        connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.clickOnTableHeader(2);
         tisp.clickOnTableHeader(3);
         tisp.clickOnTableHeader(4);
