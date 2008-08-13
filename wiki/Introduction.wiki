@@ -1,4 +1,4 @@
-#labels Featured,Phase-Design
+#labels Phase-Design
 = Introduction =
 
 *Tellurium Automated Testing Framework* (_Tellurium_) framework
@@ -455,6 +455,82 @@ waitForPageToLoad. Its DSL format is:
   {{{
     boolean isSelected = isSomethingSelected id
   }}}
+
+  * String waitForText(String id, int timeout): Waits for a text event. Its DSL format is:
+
+  {{{
+    String myText = waitForText id, 30000
+  }}}
+
+  * int getTableHeaderColumnNum(String id): Gets the column header count of a table
+
+  * int getTableMaxRowNum(String id): Gets the maxiumn row count of a table
+
+  * int getTableMaxColumnNum(String id): Gets the maxiumn  column count of a table
+
+  * int getListSize(String id): Gets the item count of a list
+
+  * getUiElement(String id): ???
+  
+  * boolean isElementPresent(String id): Verifies that the specified element is somewhere on the page.
+
+  * boolean isVisible(String id): Determines if the specified element is visible. An
+element can be rendered invisible by setting the CSS "visibility"
+property to "hidden", or the "display" property to "none", either for the
+element itself or one if its ancestors.  This method will fail if
+the element is not present.
+
+  * boolean isChecked(String id):
+  * boolean isDisabled(String id):
+  * boolean isEnabled(String id):
+  * boolean waitForElementPresent(String uid, int timeout):
+  * boolean waitForElementPresent(String uid, int timeout, int step):
+  * boolean waitForCondition(String script, int timeoutInMilliSecond):
+  * String getText(String id):
+  * String getValue(String id):
+  * pause(int milliseconds):
+  * String getLink(String id):
+  * String getImageSource(String id):
+  * String getImageAlt(String id):
+  * String getImageTitle(String id):
+  * getAttribute(String uid, String attribute):
+  * submit(String id, String attribute):
+  * openWindow(String url, String windowID):
+  * selectWindow(String windowID):
+  * selectFrame(String locator):
+  * waitForPopUp(String windowID, int timeout):
+  * String getBodyText():
+  * boolean isTextPresent(String pattern):
+  * boolean isEditable(String uid):
+  * String getHtmlSource():
+  * String getExpression(String expression):
+  * Number getXpathCount(String xpath):
+  * String getCookie():
+  * runScript(String script):
+  * captureScreenshot(String filename):
+  * String getCookie():
+  * chooseCancelOnNextConfirmation():
+  * chooseOkOnNextConfirmation():
+  * answerOnNextPrompt():
+  * goBack():
+  * refresh():
+  * boolean isAlertPresent():
+  * boolean isPromptPresent():
+  * boolean isConfirmationPresent():
+  * String getAlert():
+  * String getConfirmation():
+  * String getPrompt():
+  * String getLocation():
+  * String getTitle():
+  * String[] getAllButtons():
+  * String[] getAllLinks():
+  * String[] getAllFields():
+  * String[] getAllWindowIds():
+  * String[] getAllWindowNames():
+  * String[] getAllWindowTitles():
+  * waitForPageToLoad(int timeout):
+  * waitForFrameToLoad(String frameAdddress, int timeout):
+
 === Extended DSLs ===
 
 The DslContext can be extended to include more DSLs. Tellurium also defined a set of DSLs to support Tellurium tests. The most often used ones includes
