@@ -138,6 +138,13 @@ You may have additional attributes, define them in the same way as the predefine
 value: "Tellurium home"
 }}} 
 
+If the attribute is a String, you can put "%%" at the begin of the String to indicate that it is a partial matching. For example, in the following clocator, the text attribute is a partial matching and the "%%" indicate that the text should contain "PageName".
+
+{{{
+UrlLink(uid: "header", clocator: [text: "%%PageName"])
+}}}
+
+ 
 Header and Trailer are used to specify addition xpath related to this UI object and the final xpath is 
 {{{
 XPath = header + derived xpath for object + trailer
