@@ -279,7 +279,182 @@ Because of the Groovy Syntax, each method in the DslContext is a DSL expression.
     mouseOver "IdMenu.SortDown"
   }}}
 
+  * mouseOut(String id): Simulates a user moving the mouse pointer away from the specified element. Its DSL format is:
 
+  {{{
+    mouseOut id
+  }}}
+
+  * mouseDown(String id): Simulates a user pressing the mouse button (without releasing it yet) on the specified element. Its DSL format is:
+
+  {{{
+    mouseDown id
+  }}}
+
+  * click(String id): Clicks on a link, button, checkbox or radio button. If the click action causes a new page to load (like a link usually does), call
+waitForPageToLoad. Its DSL format is:
+
+  {{{
+    click id
+  }}}
+
+
+  * doubleClick(String id): Double clicks on a link, button, checkbox or radio button. If the double click action causes a new page to load (like a link usually does), call waitForPageToLoad. Its DSL format is:
+
+  {{{
+    doubleClick id
+  }}}
+
+  * clickAt(String id, String coordination): Clicks on a link, button, checkbox or radio button. If the click action causes a new page to load (like a link usually does), call
+waitForPageToLoad. Its DSL format is:
+
+  {{{
+    clickAt id, coordination
+  }}}
+
+  * check(String id): Clicks on a link, button, checkbox or radio button. If the click action causes a new page to load (like a link usually does), call waitForPageToLoad. Its DSL format is:
+
+  {{{
+    check id
+  }}}
+
+  * uncheck(String id): Uncheck a toggle-button (checkbox/radio). Its DSL format is:
+
+  {{{
+    uncheck id
+  }}}
+
+  * type(String id, String input): Sets the value of an input field, as though you typed it in. Its DSL format is:
+
+  {{{
+    type id, input
+  }}}
+
+  * keyType(String id, String value): Simulates keystroke events on the specified element, as though you typed the value key-by-key. Its DSL format is:
+
+  {{{
+    keyType id, value
+  }}}
+
+  * typeAndReturn(String id, String input): Sets the value of an input field followed by <Return> key. Its DSL format is:
+
+  {{{
+    typeAndReturn id, input
+  }}}
+
+  * clearText(String id): Resets input field to an empty value. Its DSL format is:
+
+  {{{
+    clearText id
+  }}}
+
+  * select(String id, String optionLocator): Select an option from a drop-down using an option locator. Its DSL format is:
+
+  {{{
+    select id, optionLocator
+  }}}
+
+  * selectByLabel(String id, String optionLocator): Select an option from a drop-down using an option label. Its DSL format is:
+
+  {{{
+    selectByLabel id, optionLocator
+  }}}
+
+  * selectByValue(String id, String optionLocator): Select an option from a drop-down using an option value. Its DSL format is:
+
+  {{{
+    selectByValue id, optionLocator
+  }}}
+
+  * addSelectionByLabel(String id, String optionLocator): Add a selection to the set of selected options in a multi-select element using an option label. Its DSL format is:
+
+  {{{
+    addSelectionByLabel id, optionLocator
+  }}}
+
+  * addSelectionByValue(String id, String optionLocator): Add a selection to the set of selected options in a multi-select element using an option value. Its DSL format is:
+
+  {{{
+    addSelectionByValue id, optionLocator
+  }}}
+
+  * removeSelectionByLabel(String id, String optionLocator): Remove a selection from the set of selected options in a multi-select element using an option label. Its DSL format is:
+
+  {{{
+    removeSelectionByLabel id, optionLocator
+  }}}
+
+  * removeSelectionByValue(String id, String optionLocator): Remove a selection from the set of selected options in a multi-select element using an option value. Its DSL format is:
+
+  {{{
+    removeSelectionByValue id, optionLocator
+  }}}
+
+  * removeAllSelections(String id): Unselects all of the selected options in a multi-select element. Its DSL format is:
+
+  {{{
+    removeAllSelections id
+  }}}
+
+  * String[] getSelectOptions(String id): Gets all option labels in the specified select drop-down. Its DSL format is:
+
+  {{{
+    String[] values = getSelectOptions id
+  }}}
+
+  * String[] getSelectedLabels(String id): Gets all selected labels in the specified select drop-down. Its DSL format is:
+
+  {{{
+    String[] selected = getSelectedLabels id
+  }}}
+
+  * String getSelectedLabel(String id): Gets a single selected label in the specified select drop-down. Its DSL format is:
+
+  {{{
+    String selected = getSelectedLabel id
+  }}}
+
+  * String[] getSelectedValues(String id): Gets all selected values in the specified select drop-down. Its DSL format is:
+
+  {{{
+    String[] selected = getSelectedValues id
+  }}}
+
+  * String getSelectedValue(String id): Gets a single selected value in the specified select drop-down. Its DSL format is:
+
+  {{{
+    String selected = getSelectedValue id
+  }}}
+
+  * String[] getSelectedIndexes(String id): Gets all selected indexes in the specified select drop-down. Its DSL format is:
+
+  {{{
+    String[] selected = getSelectedIndexes id
+  }}}
+
+  * String getSelectedIndex(String id): Gets a single selected index in the specified select drop-down. Its DSL format is:
+
+  {{{
+    String selected = getSelectedIndex id
+  }}}
+
+  * String[] getSelectedIds(String id): Gets option element ID for selected option in the specified select element. Its DSL format is:
+
+  {{{
+    String[] ids = getSelectedIds id
+  }}}
+
+  * String getSelectedId(String id): Gets a single element ID for selected option in the specified select element. Its DSL format is:
+
+  {{{
+    String id = getSelectedId id
+  }}}
+
+  * boolean isSomethingSelected(String id): Determines whether some option in a drop-down menu is selected. Its DSL format is:
+
+  {{{
+    boolean isSelected = isSomethingSelected id
+  }}}
 === Extended DSLs ===
 
 The DslContext can be extended to include more DSLs. Tellurium also defined a set of DSLs to support Tellurium tests. The most often used ones includes
