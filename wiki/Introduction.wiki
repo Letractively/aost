@@ -32,15 +32,15 @@ type "google_start_page.searchbox", input
 click "google_start_page.googlesearch"
 }}}
 
-  * Tellurium is compatible with Selenium's locators, you still can use {{{"//input[@title='Google Search']"}}} in your UI module, but Tellurium give you additional advantage to use "google_start_page.searchbox" style syntax to refer the UI object instead of the ugly XPath expressions everywhere.
+  * Tellurium is compatible with Selenium's locators, you still can use XPath like {{{"//input[@title='Google Search']"}}} in your UI module, but Tellurium give you additional advantage to use "google_start_page.searchbox" style syntax to refer the UI object instead of putting the ugly XPath expressions everywhere.
 
   * Tellurium recommends you use composite locator, i.e., use UI object attributes instead of XPath to define the UI. For example, in the above example, you specify an InputBox object with its attribute title to be "Google Search". Once you define UI attributes, Tellurium will automatically create the runtime XPath for you. In this way, the UI module matches better with your UI markup languages such as JSP and ASP.
 
-  * Tellurium exploits the "Group Locating" concept to treat a group of Ui Object as a whole instead of individual ones, which is the case for Selenium. In the above example, by specifying "group" attribute to be "true", Tellurium will try to locate the UI objects in the DOM using all information from the Container, InputBox, and SubmitButton. This can help us a lot to find the UI locators. For most case, the information inside the group of UI objects is enough to locate all of them. That is to say,  your Ui module only depends on attributes inside of itself, not any UI outside. As a result, make it very robust.
+  * Tellurium exploits the "Group Locating" concept to treat a group of Ui Object as a whole instead of individual ones, which is the case for Selenium. In the above example, by specifying the "group" attribute to be "true", Tellurium will try to locate the UI objects in the DOM using all information from the Container, InputBox, and SubmitButton. This can help us a lot to find the UI locators. For most case, the information inside the group of UI objects is enough to locate all of them. That is to say,  your Ui module only depends on attributes inside of itself, not any UI outside. As a result, make it very robust.
 
-  * Tellurium provides many predefined UI objects for you to use directly. In the meanwhile, it also provides you the capability to write your own custom UI objects.
+  * Tellurium provides many predefined UI objects for you to use directly, such as  Button, CheckBox,  InputBox, Selector, TextBox, and Table. In the meanwhile, it also provides you the capability to write your own custom UI objects.
 
-  * Tellurium supports Domain Specific Language (DSL) for Web testing  and you can even write all your tests in pure DSL scripts.
+  * Tellurium supports Domain Specific Language (DSL) for Web testing and you can even write all your tests in pure DSL scripts.
 
   * Tellurium comes with the "Data Driven Testing" feature so that you can use an input file to drive your predefined tests. One example input file is listed as follows:
 
