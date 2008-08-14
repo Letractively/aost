@@ -58,7 +58,7 @@ getGCHStatus |Example project| 3 | 6
 
 Where the TEST column defines your test name and the rest columns are either input data or expected results.
 
-  * Tellurium provides detailed documents on how to use Tellurium including introduction, tutorials, and FAQs. We also use Tellurium project website as a reference to demonstrate how to write real world Tellurium tests.
+  * Tellurium provides detailed documents on how to use Tellurium including introduction, tutorials, user guide, and FAQs. We also use Tellurium project website as an example to demonstrate how to write real world Tellurium tests.
 
 == Architecture ==
 
