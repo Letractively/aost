@@ -1,25 +1,13 @@
 #labels Phase-Design,Featured
-= Introduction =
-
-*Tellurium Automated Testing Framework* (_Tellurium_) framework
-  * Written in Groovy, test cases can be written in Java or Groovy 
-  * Include a *Domain Specific Language* (_DSL_) to define UI objects 
-  * Can also use the _DSL_ to describe events, actions, or assertions 
-  * include an *Object to Locator Mapping framework* (_OLM_)
-  * Tellurium can automatically generate the UI object locator for you
-  * Tellurium implements the *Group Locating* concept to utilize a group of UI objects to help locating their locators
-  * Make it possible for users to write Selenium tests when they start coding
-  * Reusable, easier to refactor and maintain
-  * Provide _DSL_ script executor so that non-developers can write Selenium tests in pure DSL scripts
-  * Provide *Data Driven Testing* feature for Tellurium tests. You can specify input data format and define different tests. Then use input data to drive the testing. The test result can be output as an XML file.
+= Tellurium Automated Testing Framework =
 
 == Why Use Tellurium ==
 
 Tellurium is built on top of Selenium and tries to solve the shortcomings for Selenium., i.e., ugly syntax, not robust, "record and reply" style, difficult to refactor and maintain. Tellurium provides you a totally different way to write Selenium tests. 
 
-The following are the main features for Tellurium:
+The following are some of the reasons why you should use Tellurium:
 
-  * Tellurium is not a "record and reply" style testing framework, but UI module centric. That is to say, you should define your UI module first. Based on your Ui module, you can write as many tests as you like just like writing JUnit tests.
+  * Tellurium is not a "record and reply" style testing framework, but UI module centric. That is to say, you should define your UI module first. Based on your Ui module, you can write as many tests as you like just like writing JUnit tests. Tellurium also make it possible for users to write Tellurium tests when they start coding.
  
   * Tellurium uses very expressive way to define Ui Modules and writes tests. For example, in Selenium, you have to write the following ugly expressions (take Google start page as an example):
 
