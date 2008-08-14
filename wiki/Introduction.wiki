@@ -356,20 +356,29 @@ More details for Data Driven Testing DSLs can be found on [http://code.google.co
 
 In the package org.tellurium.test, Tellurium provides three different ways to write Tellurium tests:
 
-  # Java Test Cases including *BaseTelluriumJavaTestCase* and *TelluriumJavaTestCase*. They are both JUnit 4 test cases, i.e., they support @BeforeClass, @AfterClass, @Before, @After, @Test, and @Ignore JUnit 4 annotations. The only difference between the two is that the "TelluriumJavaTestCase" comes with predefined @BeforeClass and @AfterClass methods to setup the connection to the Selenium server and tear down the connection after all tests are done. If users want to include multiple test cases in one test suite, they should use BaseTelluriumJavaTestCase so that all the test cases can share the same Selenium connection and do not need to set up and tear down connection for each class.  
-  # Groovy Test Cases, i.e., to write Tellurium tests in groovy. Users can use *TelluriumGroovyTestCase* for a single test and *TelluriumSuiteGroovyTestCase* for a test suite.
-  # Data Driven Testing. Tellurium provides the class *TelluriumDataDrivenModule* for users to define data driven testing modules and the class *TelluriumDataDrivenTest* to drive the actual tests. The details can be found on [http://code.google.com/p/aost/wiki/DataDrivenTesting the Data Driven Testing Wiki page].
+  * BaseTelluriumJavaTestCase and TelluriumJavaTestCase: They are both JUnit 4 test cases, i.e., they support the following JUnit 4 annotations:
 
-Apart from the above, Tellurium also provides users the capability to write Tellurium tests and Tellurium data driven tests in pure DSL scripts. The *DslScriptExecutor* is used to run the .dsl files.
+    # @BeforeClass
+    # @AfterClass
+    # @Before
+    # @After
+    # @Test
+    # @Ignore 
+
+The only difference between the two is that the _TelluriumJavaTestCase_ comes with predefined @BeforeClass and @AfterClass methods to set up and tear down the connection to the Selenium server before tests begin and after all tests are done, respectively. If users want to include multiple test cases in one test suite, they should use _BaseTelluriumJavaTestCase_ so that all the test cases can share the same Selenium connection and do not need to set up and tear down connection for each class.  
+  * Groovy Test Cases, i.e., to write Tellurium tests in groovy. Users can use _TelluriumGroovyTestCase_ for a single test and _TelluriumSuiteGroovyTestCase_ for a test suite.
+  * Data Driven Testing. Tellurium provides the class _TelluriumDataDrivenModule_ for users to define data driven testing modules and the class _TelluriumDataDrivenTest_ to drive the actual tests. The details can be found on [http://code.google.com/p/aost/wiki/DataDrivenTesting the Data Driven Testing Wiki page].
+
+Apart from the above, Tellurium also provides users the capability to write Tellurium tests and Tellurium data driven tests in pure DSL scripts. The _DslScriptExecutor_ is used to run the .dsl files. To make things easier for user, Tellurium comes with a shell script rundsl.sh for Unix or Linux systems and rundsl.bat for windows.
 
 
 == Future Directions ==
 
 Tellurium will continue evolving and more new features will be developed to make it more powerful and easier to use. We are considering the following new features for the next or future releases:
 
-  # Add full Maven 2 support for project building, testing, and artifact publishing.
-  # Enhance Data Driven Testing to add data readers for database, XML files, and CSV format files. Also need to consider testing multiple tests in a group and how to pass variables among them.
-  # A *Firefox plugin* will be developed to automatically generate UI modules for users. The idea is to provide the "select UI by click" capability in the plugin to select an area of UI. Then the plugin will extract the html source and use a special algorithm to generate Tellurium style UI modules using composite locators and group locating concept.  After that, the plugin will validate the generated UI module to make sure it is unique in the current DOM and output the results. 
-  # Tellurium will provide a *Locator Query Language* to get the locators of Ui objects by some search criteria such as their attributes and their relationship to each other, i.e., parent, child, and sibling. That is to say, Tellurium will be interactive with the DOM in runtime so as to be adaptive to dynamic web page. 
-  # Provide widget components for some popular JavaScript libraries or frameworks such as Extjs and Dojo.   
-  # The *Automated Acceptance Testing* feature will be added to Tellurium. The basic idea is to setup a server and the user can use web browser to browse all available tests defined in the registry at the server side. The user can select any test to run by typing in parameters required by the test and see the actual test result. 
+  # Add full _Maven_ 2 support for project building, testing, and artifact publishing.
+  # Enhance _Data Driven Testing_ to add data readers for database, XML files, and CSV format files. Also need to consider testing multiple tests in a group and how to pass variables among them.
+  # A _Firefox plugin_ will be developed to automatically generate UI modules for users. The idea is to provide the "select UI by click" capability in the plugin to select an area of UI. Then the plugin will extract the html source and use a special algorithm to generate Tellurium style UI modules using composite locators and group locating concept.  After that, the plugin will validate the generated UI module to make sure it is unique in the current DOM and output the results. 
+  # Tellurium will provide a _Locator Query Language_ to get the locators of Ui objects by some search criteria such as their attributes and their relationship to each other, i.e., parent, child, and sibling. That is to say, Tellurium will be interactive with the DOM in runtime so as to be adaptive to dynamic web page. 
+  # Provide _widget components_ for some popular JavaScript libraries or frameworks such as Extjs and Dojo.   
+  # Add the _Automated Acceptance Testing_ feature to Tellurium. The basic idea is to setup a server and the user can use web browser to browse all available tests defined in the server registry. The user can select any test to run by typing in parameters required by the test and see the actual test result. 
