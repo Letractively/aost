@@ -635,7 +635,6 @@ Example:
 
 {{{
 Icon(uid: "taskIcon", clocator:[tag: "p", dojoonclick: 'doClick', img: "Show_icon.gif"] )
-
 }}}
 
 === RadioButton ===
@@ -795,7 +794,7 @@ Be aware, the templates inside the Table follow the name convention:
   * The wild case for row or column is {{{"*"}}}
   * "all" stands for matching all rows and columns
   
-As a result, {{{"row : *, column : 3"}}} refers to the 3rd column for all rows. Once the templates are defined for the table, Tellurium uses a special way to find a matching for a Ui element {{{table[i][j]}} in the table. i.e., the following rules apply,
+As a result, {{{"row : *, column : 3"}}} refers to the 3rd column for all rows. Once the templates are defined for the table, Tellurium uses a special way to find a matching for a Ui element {{{"table[i][j]"}}} in the table. i.e., the following rules apply,
 
    * First, Tellurium tries to find the template defined for the i-th row, j-th column.
    * If not found, Tellurium tries to search for a general template {{{"row: *, column: j"}}}, i.e., the template for column j.
