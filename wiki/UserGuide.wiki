@@ -3,9 +3,9 @@
 
 == Tellurium APIs ==
 
-Tellurium APIs include basic DSLs, advanced DSLs, and data access methods.
+Tellurium APIs include all methods defined in DslContext.
 
-=== Basic DSLs ===
+=== DSL Methods ===
 
 Here we list all the available methods that can be used as DSLs in DslContext and their corresponding DSL syntax. Note the id here refers to the UiID in the format of "issueSearch.issueType" and the time units are all in milliseconds if not specified. Be aware, you can only apply the methods to the Ui Object if it has these methods defined.
 
@@ -78,77 +78,6 @@ Here we list all the available methods that can be used as DSLs in DslContext an
   * {{{goBack}}}: Simulates the user clicking the "back" button on their browser.
 
   * {{{refresh}}}: Simulates the user clicking the "Refresh" button on their browser.
-
-=== Extended DSLs ===
-
-The DslContext can be extended to include more DSLs. Tellurium also defined a set of DSLs to support Tellurium tests. The most often used ones includes
-
-  * openUrl(String url): establish a new connection to Selenium server for the given url. The DSL format is:
-
-  {{{
-    openUrl url
-  }}}
-
-  Example: 
-
-  {{{
-    openUrl "http://code.google.com/p/aost/"
-  }}}
-
-  * connectUrl(String url): use existing connect for the given url. The DSL format is:
-
-  {{{
-    connectUrl "http://code.google.com/p/aost/" 
-  }}}
-
-In addition, you can also write assertions in JUnit in DSL synatx, for example:
- 
-  {{{
-    assertEquals rowNum, 8
-  }}}
-
-In Tellurium Data Driven Testing, more DSLs are defined. The first one is the way to define input data format using FieldSet, which represents the format of a line in the input file. 
-
-{{{
-//define file data format
-fs.FieldSet(name: "GoogleBookList", description: "Google Book List") {
-    Test(value: "checkBookList")
-    Field(name: "category", description: "book category")
-    Field(name: "size", type: "int", description: "google book list size ")
-}
-}}}
-
-The above FieldSet includes multiple Fields and Test is special Field indicate the test name. To handle custom input data type, Tellurium provide the "typeHandler" DSL for the users to define a custom data type handler.
-
-{{{
-typeHandler "phoneNumber", "org.tellurium.test.PhoneNumberTypeHandler"
-}}}
-
-In addition to that, Tellurium defined the following DSLs to control the testing flow and compare the results:
-  
-  * includeModule: load a user defined Data Driven Module. For example,
-
-  {{{
-    includeModule  example.test.ddt.GoogleBookListModule.class
-  }}}
-
-  * loadData: load input data file. For example,
-
-  {{{
-    loadData "src/test/example/test/ddt/GoogleBookListCodeHostInput.txt"
-  }}}
-
-  * compareResult: compare the expected value with the actual result, for example:
-
-  {{{
-    compareResult "Java", category
-  }}}
-
-  * stepToEnd(): read each line from the input data stream and run the corresponding test until it reaches the end of the stream.
-
-  * closeData(): close the input data stream and output the test results.
-
-More details for Data Driven Testing DSLs can be found on [http://code.google.com/p/aost/wiki/DataDrivenTesting the Tellurium Data Driven Testing page]
 
 ===  Data Access Methods ===
 
