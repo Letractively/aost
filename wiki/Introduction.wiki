@@ -86,9 +86,9 @@ Then, the UI object will call the Eventhandler to fire the click event. The even
 The data access operation is very much like the action operation shown in Figure 3 and the only difference is that the Data Accessor will replace the Eventhandler. But be aware, for some data access, there is no UI locator associated with it. For example, you want to get the current DOM html presentation. In this case, you just call the Data Accessor directly.
 
 
-== General Concepts ==
+== UI Object ==
 
-=== UI Objects ===
+=== UI Object Attributes ===
 
 The UI Object includes
   * uid: should be unique in a UI module
@@ -97,13 +97,12 @@ The UI Object includes
   * Features: the inherent feature of the UI component, for example, the selection UI component normally comes with “label=?” or “value=?”. Table always has the “table”, “tr”, “td”, “th” tags.
   * useGroupInfo: this option only applies to a collection type of UI object such as Container, Table, List, Form and so on. By default, this option is off and it can be turned on by specifying the "group" attribute to be true, i.e., {{{group: "true"}}}. If it is on, the container type object will use the inside UI objects' attributes to help locating its locator.
 
-Regular UI objects include Button, CheckBox, Icon, InputBox, Selector, TextBox, Table... 
+Regular UI objects include Button, CheckBox, Icon, InputBox, Selector, TextBox, Table and so on, The list of predefined Tellurium Ui objects can be found on [http://code.google.com/p/aost/wiki/UserGuide the User Guide page]. 
+
 A container is a special UI object and it could be a pure abstract object to hold and group different UI objects together. The container will make the objects inside searchable since it uses a list to hold them.
 
 Users can also define custom UI objects. They need to create a UI builder for each new UI 
-object and add it to the UiObjectBuilderRegistry.
-
-Be aware that each UI object only has predefined set of events or actions. For example, the InputBox has the _type_ action, but the Selector does not have that.
+object and add it to the UiObjectBuilderRegistry. Be aware that each UI object only has predefined set of events or actions. For example, the InputBox has the _type_ action, but the Selector does not have that. 
 
 === UI Object Locators ===
 
@@ -262,6 +261,96 @@ instead of
 {{{
 click "layoutSelector.layoutSelector.List"
 }}}
+
+=== Extended DSLs ===
+
+Because of the Groovy Syntax, each method in the DslContext can be written using DSL syntax. Take the following mouseOver method as an example,
+
+  * mouseOver(String id): Simulates a user hovering a mouse over the specified element. Its DSL format is:
+
+  {{{
+    mouseOver id
+  }}}
+
+  In your test script, you can write as follows,
+
+  {{{
+    mouseOver "IdMenu.SortDown"
+  }}}
+
+The complete list of methods in DslContext can be found on [http://code.google.com/p/aost/wiki/UserGuide the User Guide page].
+
+
+The DslContext can be extended to include more DSLs. Tellurium also defined a set of DSLs to support Tellurium tests. The most often used ones includes
+
+  * openUrl(String url): establish a new connection to Selenium server for the given url. The DSL format is:
+
+  {{{
+    openUrl url
+  }}}
+
+  Example: 
+
+  {{{
+    openUrl "http://code.google.com/p/aost/"
+  }}}
+
+  * connectUrl(String url): use existing connect for the given url. The DSL format is:
+
+  {{{
+    connectUrl "http://code.google.com/p/aost/" 
+  }}}
+
+In addition, you can also write assertions in JUnit in DSL synatx, for example:
+ 
+  {{{
+    assertEquals rowNum, 8
+  }}}
+
+=== Tellurium Data Driven Testing ===
+
+In Tellurium Data Driven Testing, more DSLs are defined. The first one is the way to define input data format using FieldSet, which represents the format of a line in the input file. 
+
+{{{
+//define file data format
+fs.FieldSet(name: "GoogleBookList", description: "Google Book List") {
+    Test(value: "checkBookList")
+    Field(name: "category", description: "book category")
+    Field(name: "size", type: "int", description: "google book list size ")
+}
+}}}
+
+The above FieldSet includes multiple Fields and Test is special Field indicate the test name. To handle custom input data type, Tellurium provide the "typeHandler" DSL for the users to define a custom data type handler.
+
+{{{
+typeHandler "phoneNumber", "org.tellurium.test.PhoneNumberTypeHandler"
+}}}
+
+In addition to that, Tellurium defined the following DSLs to control the testing flow and compare the results:
+  
+  * includeModule: load a user defined Data Driven Module. For example,
+
+  {{{
+    includeModule  example.test.ddt.GoogleBookListModule.class
+  }}}
+
+  * loadData: load input data file. For example,
+
+  {{{
+    loadData "src/test/example/test/ddt/GoogleBookListCodeHostInput.txt"
+  }}}
+
+  * compareResult: compare the expected value with the actual result, for example:
+
+  {{{
+    compareResult "Java", category
+  }}}
+
+  * stepToEnd(): read each line from the input data stream and run the corresponding test until it reaches the end of the stream.
+
+  * closeData(): close the input data stream and output the test results.
+
+More details for Data Driven Testing DSLs can be found on [http://code.google.com/p/aost/wiki/DataDrivenTesting the Tellurium Data Driven Testing page]
 
 == Testing Support ==
 
