@@ -10,41 +10,41 @@ You will need to be running Maven version 2.0.9, downloadable from http://maven.
 
 = settings.xml =
 
-Here is a sample settings.xml that will allow you to automatically include Tellurium artifacts in your Maven project:
+Here is a sample settings.xml that will allow you to automatically include Tellurium artifacts in your Maven project. This should go in your ~/.m2/settings.xml file:
 
 {{{
 <settings>
-        <profiles>
-                <profile>
-                        <activation>
-                                <activeByDefault>true</activeByDefault>
-                        </activation>
-                        <repositories>
-                               <repository>
-                                        <id>kungfuters-public-snapshots-repo</id>
-                                        <name>Kungfuters.org Public Snapshot Repository</name>
-                                        <releases>
-                                                <enabled>false</enabled>
-                                        </releases>
-                                        <snapshots>
-                                                <enabled>true</enabled>
-                                        </snapshots>
-                                        <url>http://kungfuters.org/maven2/snapshots</url>
-                                </repository>
-                                <repository>
-                                        <id>kungfuters-public-release-repo</id>
-                                        <name>Kungfuters.org Public Release Repository</name>
-                                        <releases>
-                                                <enabled>true</enabled>
-                                        </releases>
-                                        <snapshots>
-                                                <enabled>false</enabled>
-                                        </snapshots>
-                                        <url>http://kungfuters.org/maven2/release</url>
-                                </repository>
-                        </repositories>
-                </profile>
-        </profiles>
+    <profiles>
+        <profile>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                 <repository>  
+                    <id>kungfuters-public-snapshots-repo</id>
+                    <name>Kungfuters.org Public Snapshot Repository</name>
+                    <releases>          
+                        <enabled>false</enabled>
+                    </releases>         
+                    <snapshots>         
+                        <enabled>true</enabled> 
+                    </snapshots>        
+                    <url>http://kungfuters.org/maven2/snapshots</url>
+                </repository>   
+                <repository>    
+                    <id>kungfuters-public-release-repo</id>
+                    <name>Kungfuters.org Public Release Repository</name>
+                    <releases>          
+                        <enabled>true</enabled> 
+                    </releases>         
+                    <snapshots>         
+                        <enabled>false</enabled>
+                    </snapshots>        
+                    <url>http://kungfuters.org/maven2/release</url>
+                </repository>   
+            </repositories>
+        </profile>
+    </profiles>
 </settings>
 }}}
 
@@ -64,3 +64,7 @@ To include Tellurium as a dependency in your project, add the following to your 
     ...
 </dependencies>
 }}}
+
+= Build information =
+
+To find regular build information updates, see http://kungfuters.org/tellurium. There you will find information about the project as well as unit test and coverage reports.
