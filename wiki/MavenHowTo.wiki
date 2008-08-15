@@ -4,14 +4,6 @@
 
 Tellurium has converted its project structure to use Maven. This document will explain the steps necessary to retrieve the Maven artifacts.
 
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
-
 = Prerequisites =
 
 You will need to be running Maven version 2.0.9, downloadable from http://maven.apache.org/download.html.
