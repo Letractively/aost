@@ -1,0 +1,74 @@
+#summary How to obtain Tellurium via Maven.
+
+= Introduction =
+
+Tellurium has converted its project structure to use Maven. This document will explain the steps necessary to retrieve the Maven artifacts.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
+
+= Prerequisites =
+
+You will need to be running Maven version 2.0.9, downloadable from http://maven.apache.org/download.html.
+
+= settings.xml =
+
+Here is a sample settings.xml that will allow you to automatically include Tellurium artifacts in your Maven project:
+
+{{{
+<settings>
+        <profiles>
+                <profile>
+                        <activation>
+                                <activeByDefault>true</activeByDefault>
+                        </activation>
+                        <repositories>
+                               <repository>
+                                        <id>kungfuters-public-snapshots-repo</id>
+                                        <name>Kungfuters.org Public Snapshot Repository</name>
+                                        <releases>
+                                                <enabled>false</enabled>
+                                        </releases>
+                                        <snapshots>
+                                                <enabled>true</enabled>
+                                        </snapshots>
+                                        <url>http://kungfuters.org/maven2/snapshots</url>
+                                </repository>
+                                <repository>
+                                        <id>kungfuters-public-release-repo</id>
+                                        <name>Kungfuters.org Public Release Repository</name>
+                                        <releases>
+                                                <enabled>true</enabled>
+                                        </releases>
+                                        <snapshots>
+                                                <enabled>false</enabled>
+                                        </snapshots>
+                                        <url>http://kungfuters.org/maven2/release</url>
+                                </repository>
+                        </repositories>
+                </profile>
+        </profiles>
+</settings>
+}}}
+
+= Dependency =
+
+To include Tellurium as a dependency in your project, add the following to your pom.xml:
+
+{{{
+<dependencies>
+    ...
+    <dependency>
+      <groupId>tellurium</groupId>
+      <artifactId>tellurium</artifactId>
+      <version>0.5.0-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+    ...
+</dependencies>
+}}}
