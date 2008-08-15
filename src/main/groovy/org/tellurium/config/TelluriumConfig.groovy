@@ -1,3 +1,5 @@
+package org.tellurium.config
+
 /**
  * The global place to Tellurium configuration. This is just a backup copy of the configuration file.
  * To run tests, please place this file into the directory you start to run the tests. If you run tests
@@ -6,14 +8,14 @@
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Aug 2, 2008
- * 
+ *
  */
 
 tellurium{
     //embedded selenium server configuration
     embeddedserver {
         //port number
-        port = "4444"                                     
+        port = "4444"
         //whether to use multiple windows
         useMultiWindows = false
         //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
