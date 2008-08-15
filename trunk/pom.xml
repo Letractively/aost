@@ -3,16 +3,20 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>tellurium</groupId>
 	<artifactId>tellurium</artifactId>
+	<packaging>jar</packaging>
 	<name>Tellurium Automated Testing Framework</name>
 	<version>0.5.0-SNAPSHOT</version>
 	<description>Tellurium is a quick and easy test framework for
 		automated web UI testing.</description>
 	<url>http://code.google.com/p/aost</url>
-	<inceptionYear>2008</inceptionYear>
+	<prerequisites>
+		<maven>2.0.9</maven>
+	</prerequisites>
 	<issueManagement>
 		<system>googlecode</system>
 		<url>http://code.google.com/p/aost/issues/list</url>
 	</issueManagement>
+	<inceptionYear>2008</inceptionYear>
 	<developers>
 		<developer>
 			<name>Jian Fang</name>
@@ -42,6 +46,20 @@
 			<email>adrian.carr@gmail.com</email>
 		</contributor>
 	</contributors>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+			<distribution>repo</distribution>
+			<comments>
+				Unless required by applicable law or agreed to in writing, software
+				distributed under the License is distributed on an "AS IS" BASIS,
+				WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+				See the License for the specific language governing permissions and
+				limitations under the License.
+			</comments>
+		</license>
+	</licenses>
 	<scm>
 		<connection>scm:svn:http://aost.google.code.com/svn/trunk</connection>
 		<developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk</developerConnection>
@@ -128,6 +146,10 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
 	<repositories>
@@ -181,6 +203,14 @@
 			<version>136</version>
 		</dependency>
 	</dependencies>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</reporting>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
