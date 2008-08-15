@@ -21,6 +21,7 @@
 		<developer>
 			<name>Jian Fang</name>
 			<email>John.Jian.Fang@gmail.com</email>
+			<timezone>-4</timezone>
 			<roles>
 				<role>Principle Developer</role>
 			</roles>
@@ -28,12 +29,17 @@
 		<developer>
 			<name>Vivek Mongolu</name>
 			<email>vivekmongolu@gmail.com</email>
+			<timezone>-4</timezone>
 			<roles>
 			</roles>
 		</developer>
 		<developer>
 			<name>Matt Senter</name>
 			<email>matt.senter@gmail.com</email>
+			<url>http://kungfuters.org</url>
+			<organization>Kungfuters, LLC</organization>
+			<organizationUrl>http://kungfuters.com</organizationUrl>
+			<timezone>-5</timezone>
 		</developer>
 		<developer>
 			<name>Quan Bui</name>
