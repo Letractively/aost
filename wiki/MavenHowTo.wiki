@@ -1,4 +1,4 @@
-#summary How to obtain Tellurium via Maven.
+#summary How to obtain and use Tellurium via Maven.
 
 = Introduction =
 
