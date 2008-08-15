@@ -418,6 +418,9 @@ The only difference between the two is that the _TelluriumJavaTestCase_ comes wi
 
 Apart from the above, Tellurium also provides users the capability to write Tellurium tests and Tellurium data driven tests in pure DSL scripts. The _DslScriptExecutor_ is used to run the .dsl files. To make things easier for user, Tellurium comes with a shell script rundsl.sh for Unix or Linux systems and rundsl.bat for windows.
 
+== Maven Support ==
+
+Tellurium starts to support Maven. For details, please see [http://code.google.com/p/aost/wiki/MavenHowTo the Maven HowTo Page]
 
 == Future Directions ==
 
