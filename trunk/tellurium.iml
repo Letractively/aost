@@ -4,10 +4,10 @@
     <containerInfo>
       <containerElement type="module" name="tellurium">
         <attribute name="method" value="6" />
-        <attribute name="URI" value="/Aost.jar" />
+        <attribute name="URI" value="/Tellurium.jar" />
       </containerElement>
     </containerInfo>
-    <setting name="jarUrl" value="file://$MODULE_DIR$/aost.jar" />
+    <setting name="jarUrl" value="file://$MODULE_DIR$/Tellurium.jar" />
     <setting name="buildJar" value="true" />
     <setting name="mainClass" value="" />
   </component>

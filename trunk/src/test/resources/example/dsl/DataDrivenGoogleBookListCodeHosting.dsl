@@ -74,7 +74,7 @@
 
 
         //load file
-        loadData "src/test/example/test/ddt/GoogleBookListCodeHostInput.txt"
+        loadData "src/test/resources/example/test/ddt/GoogleBookListCodeHostInput.txt"
 
         //read each line and run the test script until the end of the file
         stepToEnd()
