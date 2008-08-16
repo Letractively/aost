@@ -73,7 +73,7 @@
    <target name="compile-groovy">
        <echo message="Compiling groovy from main folder ..." />
        <groovyc 
-         srcdir="${src.dir}" 
+         srcdir="${src.groovy.dir}" 
          destdir="${basedir}/out/production">
          <classpath>
             <path path="${javac.classpath}"/>
@@ -81,7 +81,7 @@
       </groovyc>
       <echo message="Compiling groovy from test folder ..." />
       <groovyc 
-         srcdir="${test.src.dir}" 
+         srcdir="${test.groovy.dir}" 
          destdir="${basedir}/out/test">
          <classpath>
             <path path="${javac.classpath}"/>
