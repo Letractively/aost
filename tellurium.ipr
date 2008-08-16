@@ -33,7 +33,7 @@
     <option name="DEFAULT_COMPILER" value="Javac" />
     <option name="DEPLOY_AFTER_MAKE" value="0" />
     <excludeFromCompile>
-      <file url="file:///home/jiafan1/.IntelliJIdea70/system/compiler/aost.aost6b14a345/.generated/Groovy_to_java_source_code_generator/aost.6b14a2e2/production/aost/datadriven/object/mapping/io/FieldSetReader.java" />
+      <file url="file:///home/jiafan1/.IntelliJIdea70/system/compiler/Tellurium.Tellurium6b14a345/.generated/Groovy_to_java_source_code_generator/Tellurium.6b14a2e2/production/Tellurium/datadriven/object/mapping/io/FieldSetReader.java" />
       <file url="file://$PROJECT_DIR$/src/test/example/test/java/GoogleCodeHostingJavaTestCase.java" />
     </excludeFromCompile>
     <resourceExtensions>

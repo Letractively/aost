@@ -35,7 +35,7 @@ class GoogleStartPagePushTest extends TelluriumDataDrivenTest{
         }
 
         //load file
-        loadData "src/test/example/test/ddt/googlesearchpushinput.txt"
+        loadData "src/test/resources/example/test/ddt/googlesearchpushinput.txt"
 
         defineTest("search"){
 
