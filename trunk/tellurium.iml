@@ -13,11 +13,17 @@
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$/src/main">
-      <sourceFolder url="file://$MODULE_DIR$/src/main" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/src/main/groovy">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/groovy" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/src/test">
-      <sourceFolder url="file://$MODULE_DIR$/src/test" isTestSource="true" />
+    <content url="file://$MODULE_DIR$/src/main/resources">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/src/test/groovy">
+      <sourceFolder url="file://$MODULE_DIR$/src/test/groovy" isTestSource="true" />
+    </content>
+    <content url="file://$MODULE_DIR$/src/test/resources">
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
