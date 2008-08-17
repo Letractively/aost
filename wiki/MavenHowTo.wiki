@@ -29,18 +29,18 @@ Here is a sample settings.xml that will allow you to automatically include Tellu
                     <snapshots>         
                         <enabled>true</enabled> 
                     </snapshots>        
-                    <url>http://kungfuters.org/maven2/snapshots</url>
+                    <url>http://kungfuters.org/nexus/content/repositories/snapshots</url>
                 </repository>   
                 <repository>    
-                    <id>kungfuters-public-release-repo</id>
-                    <name>Kungfuters.org Public Release Repository</name>
+                    <id>kungfuters-public-releases-repo</id>
+                    <name>Kungfuters.org Public Releases Repository</name>
                     <releases>          
                         <enabled>true</enabled> 
                     </releases>         
                     <snapshots>         
                         <enabled>false</enabled>
                     </snapshots>        
-                    <url>http://kungfuters.org/maven2/release</url>
+                    <url>http://kungfuters.org/nexus/content/repositories/releases</url>
                 </repository>   
             </repositories>
         </profile>
