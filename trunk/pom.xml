@@ -95,6 +95,14 @@
 					<version>2.0.4</version>
 				</plugin>
 				<plugin>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.4</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>2.0-beta-7</version>
+				</plugin>
+				<plugin>
 					<groupId>org.codehaus.groovy.maven</groupId>
 					<artifactId>gmaven-plugin</artifactId>
 					<version>${gmaven-version}</version>
@@ -139,26 +147,30 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.groovy.maven
-				</groupId>
-				<artifactId>gmaven-plugin</artifactId>
-				<configuration>
-					<debug>true</debug>
-					<verbose>true</verbose>
-					<stacktrace>true</stacktrace>
-				</configuration>
+				<artifactId>maven-javadoc-plugin</artifactId>
 				<executions>
 					<execution>
 						<goals>
-							<goal>compile</goal>
-							<goal>testCompile</goal>
+							<goal>jar</goal>
 						</goals>
 					</execution>
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
+				<groupId>org.codehaus.groovy.maven
+				</groupId>
+				<artifactId>gmaven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<!-- The generateStubs goals are not yet working for enums and generics -->
+<!--							<goal>generateStubs</goal>-->
+							<goal>compile</goal>
+<!--							<goal>generateTestStubs</goal>-->
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -229,6 +241,9 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</reporting>
 	<dependencyManagement>
@@ -270,14 +285,14 @@
 	<distributionManagement>
 		<downloadUrl>http://code.google.com/p/aost/downloads/list</downloadUrl>
 		<repository>
-			<id>kungfuters-public-release-repo</id>
-			<name>Kungfuters.org Public Release Repository</name>
-			<url>scp://kungfuters.org/www/sites/kungfuters.org/public_html/maven2/release</url>
+			<id>kungfuters-public-releases-repo</id>
+			<name>Kungfuters.org Public Releases Repository</name>
+			<url>http://kungfuters.org/nexus/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>kungfuters-public-snapshots-repo</id>
 			<name>Kungfuters.org Public Snapshot Repository</name>
-			<url>scp://kungfuters.org/www/sites/kungfuters.org/public_html/maven2/snapshots</url>
+			<url>http://kungfuters.org/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 		<site>
 			<id>kungfuters-public-site</id>
@@ -286,7 +301,7 @@
 		</site>
 	</distributionManagement>
 	<properties>
-		<gmaven-version>1.0-rc-2</gmaven-version>
+		<gmaven-version>1.0-rc-3</gmaven-version>
 		<java-version>1.6</java-version>
 		<selenium-version>1.0-beta-1</selenium-version>
 	</properties>
