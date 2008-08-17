@@ -141,3 +141,67 @@ Tellurium provide a configure file "TelluriumConfig.groovy" and you should put t
 
 === Q25: Firefox version 3.0.1 does not work properly and hang during running a testcase ===
 This is a known Selenium issue. A work-around is to install the 2.0.16 firefox version or change browser type to use iehta. You can make this change in TelluriumConfig.groovy file located at the Tellirium root project folder. 
+
+=== Q26: what is the problem with Selenium RC XPATH expressions and why there is need to create UI Module? ===
+That is a great question, The problem is not in XPath itself, but the way you use it. 
+
+1) {{{"//input[@name='btnG' and @type='submit"}}} is a very clear XPath expression. Let us look at more general case. Usually, Selenium IDE or XPather created the XPath like
+ 
+{{{
+"//div/table[@id='something']/div[2]/div[3]/div[1]/div[6]"
+}}}
+ 
+See any problem with that? It is not robust. Along the path {{{div -> table -> div -> div ->div -> div}}}, if anything is changed there, your XPath is no longer valid. For example, if you add additional UI elements and the new XPath was changed to
+ 
+{{{
+"//div[2]/table[@id='something']/div[3]/div[3]/div[1]/div[6]"
+}}}
+ 
+You have to keep updating the XPath. For Tellurium, it more focuses on element attributes, not the XPath and it can be adaptive to the changes to some degree.
+
+More importantly, Tellurium uses the group locating concept to use information from a group of UI elements to locate them in the DOM. In most cases, the group of elements themself can be enough to decide their locations in the DOM, that is to say, your UI element's location does not depend on any parent or grandparent elements. For example, in the above example, if you can use the group locating concept to find locators for the following part of UI elements,
+ 
+{{{
+"div[3]/div[1]/div[6]"
+}}}
+
+directly, then they do not depend on the portion {{{"div[2]/table[@id='something']/div[3]"}}}, certainly. your UI elements can address any changes in the portion of {{{"div[2]/table[@id='something']/div[3]"}}}. Note, in Tellurium, you most likely will not use the format of {{{"div[3]/div[1]/div[6]"}}}.
+ 
+2) The syntax of
+
+{{{ 
+selenium.type("//input[@title='Google Search']", input)
+selenium.click("//input[@name='btnG' and @type='submit']")
+
+...
+
+selenium.type("//input[@title='Google Search']", input)
+selenium.click("//input[@name='btnG' and @type='submit']")
+
+...
+ 
+selenium.type("//input[@title='Google Search']", input)
+selenium.click("//input[@name='btnG' and @type='submit']")
+
+...
+}}}
+ 
+everywhere is really ugly to users. Especially if someone needs to take over your code. In Tellurium, the UiID is used and it is very clear to users what you are acting on.
+
+{{{
+click "google_start_page.googlesearch"
+}}}
+ 
+3) The test script created by Selenium IDE is a mess of actions, not modularized. Other people may take quite some time to figure out what the script actually does. And it is quite difficult to refactor and reuse them. Even the UI is not changed, there are data dependence there and for most cases, you simply cannot just "record and replay" in practical tests.
+
+In Tellurium, once you defined the UI module, for example, the Google search module, you can always reuse them and write as many test cases as possible.
+
+4) Selenium is a cool and the idea is brilliant. But seems to me, it is really for low level testing and it only focuses on one element at a time and does not have the whole UI module in mind. That is why we need another tier on top of it so that you can have UI module oriented testing script and not the locator oritented one. Tellurium is one of the frameworks designed for this purpose.
+
+5) As mentioned in 4), Selenium is a quite low level thing and it is really difficult for you to handle more complicated UI components like a data grid. Tellurium can handle them pretty easily, please see our test scripts for our Tellurium project web site. 
+
+=== Q27: How does Tellurium compare to RSpec style DSL tests for Selenium-RC? ===
+Tellurium is still focus on UI modules at this point and all the DSLs are UI module related. Seems to me, RSpec is a bit more abstract than the current Tellurium UI module since it specifies what is the correct behavior for web UI. We do have RSpec in mind and thought of it. Hope we can add similar abstract level testing support in Tellurium later on.
+
+=== Q28: Does Tellurium support TestNG? ===
+Tellurium 0.4.0 supports JUnit 4, you can use all JUnit annotations like @BeforeClass, @AfterClass, and so on. The only important feature missing for JUnit 4 compared with TestNG is test dependence. TestNG was on top of our list, but there may not be too much gain if TestNG does not support passing variables between tests. TestNG supports parameterized testing, not true data driven testing. Tellurium has already included the data driven testing feature. That is why we defer the TestNG support. If more users require TestNG support, sure, we can add that.
