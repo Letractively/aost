@@ -11,6 +11,7 @@ import org.tellurium.test.helper.XMLResultReporter
 import org.tellurium.test.helper.StreamXMLResultReporter
 import org.tellurium.test.helper.ConsoleOutput
 import org.tellurium.test.helper.FileOutput
+import org.tellurium.ddt.object.mapping.io.CSVDataReader
 
 /**
  * Tellurium Configurator
@@ -49,6 +50,8 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     protected void configDataProvider(DataProvider dataProvider){
         if("PipeFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)){
             dataProvider.setProperty("reader", new PipeDataReader())
+        }else if("CVSFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)){
+            dataProvider.setProperty("reader", new CSVDataReader())
         }else{
             println "Unsupported reader ${conf.tellurium.datadriven.dataprovider.reader} for data provider"
         }
