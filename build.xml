@@ -140,6 +140,10 @@
 			destdir="${dir.build.tellurium}">
 			<classpath refid="lib.path" />
         </groovyc>
+        <javac srcdir="${dir.source.tellurium}"
+            destdir="${dir.build.tellurium}">
+            <classpath refid="tellurium.classpath" />
+        </javac>
 	</target>
 
 
@@ -169,6 +173,10 @@
 			<classpath refid="tellurium.classpath" />
 			<include name="**" />
 		</groovyc>
+        <javac srcdir="${dir.source.tellurium}"
+            destdir="${dir.build.tellurium}">
+            <classpath refid="test.classpath" />
+        </javac>
 	</target>
 
 	<target name="run-unit-tests" depends="compile-test">
