@@ -208,3 +208,36 @@ Tellurium 0.4.0 supports JUnit 4, you can use all JUnit annotations like @Before
 
 === Q29: How to set up IntelliJ project for Tellurium? ===
 Tellurium includes IntelliJ project files in its code base. To make Tellurium work properly in IntelliJ, please first check if you have installed IntelliJ Groovy plugin, JetGroovy. To check if JetGroovy is installed, open IDE settings and click on plugins, you will see all installed plugins. If JetGroovy is not on the list, please click on the "available" tab and install it. To check your Groovy setting, please open the "project settings", under the "platform settings", you will see the "Global libraries" item, click on that, you should be able to see GROOVY. If you do not see it, something is wrong and you need to configure Groovy for IntelliJ. Once you get this right, you should be all set. IntelliJ has excellent Groovy support and you can debug groovy code just like Java code.
+
+=== Q30: How to write assertions in Tellurium DSL scripts ===
+
+Tellurium DSL scripts are actually Groovy scripts written in DSL syntax. Thus, Tellurium DSL scripts support all assertions in JUnit 3.8, which GroovyTestCase extends.
+
+But for Tellurium Data Driven testing scripts, it is a bit different. Usually, you should use:
+
+{{{
+compareResult expected, actual
+}}}
+
+and it in turn calls
+
+{{{
+assertEquals(expected, actual)
+}}}
+
+This is because DDT script has to be general enough for different input data. If you want to use your own assertions, Tellurium provides the capability for that. You should use a Groovy closure to replace the default asserEquals. For example, in your DDT DSL script, you can overwrite the default behaviour using
+
+{{{
+compareResult(expected, actual){
+        assertNotNull(expected)
+        assertNotNull(actual)
+        assertTrue(expected.size() == actual.size())
+}
+}}}
+
+This brings up one interesting question "why should I put assertions inside compareResult, not anywhere in the script?"
+
+The answer is that you can put assertions any where in the DDT script, but that will cause different behaviour if the assertion fails.
+
+If you put assertions in compareResult and the assertion fails, the AssertionFailedError will be captured and that comparison fails, but the rest script inside a test will continue executing. But if you put assertions outside of compareResult, the AssertionFailedError will lead to the failure of the current test. The exception will be
+recorded and the current test will be stopped. The next test will take over and execute. 
