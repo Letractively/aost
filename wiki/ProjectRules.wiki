@@ -14,3 +14,4 @@ Please follow the following rules:
   * Please use the issue system to track errors, add new functionalities, add new tasks.
 
   * Tellurium is our project, please be actively involved in coding, documenting, testing, answering user questions, and participating in other forum discussion such Selenium RC forum to attract more people to use Tellurium. 
+  * We have weekly report so that each member knows what the other members are doing and how far we are now.
