@@ -204,7 +204,25 @@ In Tellurium, once you defined the UI module, for example, the Google search mod
 Tellurium is still focus on UI modules at this point and all the DSLs are UI module related. Seems to me, RSpec is a bit more abstract than the current Tellurium UI module since it specifies what is the correct behavior for web UI. We do have RSpec in mind and thought of it. Hope we can add similar abstract level testing support in Tellurium later on.
 
 === Q28: Does Tellurium support TestNG? ===
-Tellurium 0.4.0 supports JUnit 4, you can use all JUnit annotations like @BeforeClass, @AfterClass, and so on. The only important feature missing for JUnit 4 compared with TestNG is test dependence. TestNG was on top of our list, but there may not be too much gain if TestNG does not support passing variables between tests. TestNG supports parameterized testing, not true data driven testing. Tellurium has already included the data driven testing feature. That is why we defer the TestNG support. If more users require TestNG support, sure, we can add that.
+TestNG is supported in Tellurium. Please check the code on SVN trunk. The test case BaseTelluriumJavaTestCase can be extended for both JUnit 4 and TestNG. TelluriumJavaTestCase is for JUnit 4 and TelluriumTestNGTestCase is for TestNG. For TestNG, you can use the following annotations: 
+{{{
+@BeforeSuite
+@AfterSuite
+@BeforeTest
+@AfterTest
+@BeforeGroups
+@AfterGroups
+@BeforeClass
+@AfterClass
+@BeforeMethod
+@AfterMethod
+@DataProvider
+@Parameters
+@Test
+}}}
+for details, please see TestNG document:
+
+http://testng.org/doc/documentation-main.html
 
 === Q29: How to set up IntelliJ project for Tellurium? ===
 Tellurium includes IntelliJ project files in its code base. To make Tellurium work properly in IntelliJ, please first check if you have installed IntelliJ Groovy plugin, JetGroovy. To check if JetGroovy is installed, open IDE settings and click on plugins, you will see all installed plugins. If JetGroovy is not on the list, please click on the "available" tab and install it. To check your Groovy setting, please open the "project settings", under the "platform settings", you will see the "Global libraries" item, click on that, you should be able to see GROOVY. If you do not see it, something is wrong and you need to configure Groovy for IntelliJ. Once you get this right, you should be all set. IntelliJ has excellent Groovy support and you can debug groovy code just like Java code.
