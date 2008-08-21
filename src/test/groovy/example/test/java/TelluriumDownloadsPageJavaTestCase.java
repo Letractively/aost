@@ -79,7 +79,7 @@ public class TelluriumDownloadsPageJavaTestCase extends TelluriumJavaTestCase{
         assertNotNull(list);
         assertFalse(list.isEmpty());
         assertTrue(Helper.include(list, "tellurium-0.4.0.tar.gz"));
-        assertTrue(Helper.include(list, "tellurium-0.4.0.jar"));
+        assertTrue(Helper.include(list, "tellurium-0.4.0-u01.jar"));
     }
 
     @Test
