@@ -13,7 +13,7 @@ import org.testng.annotations.AfterClass;
  *
  *         Date: Aug 20, 2008
  */
-public class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase {
+public abstract class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase {
 
     protected static TelluriumFramework tellurium;
 
