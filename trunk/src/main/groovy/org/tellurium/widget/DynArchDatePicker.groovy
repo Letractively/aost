@@ -13,13 +13,12 @@ import org.tellurium.dsl.UiDslParser
  * Date: Aug 20, 2008
  *
  */
-class DynArchDatePicker extends UiObject {
-    UiDslParser ui = new UiDslParser()
+class DynArchDatePicker extends Widget {
 
-    public void defineDataPicker(){
-        ui.Container(uid: "datapicker", clocator: [tag: "div", class: "calendar"]){
+    public void defineDatePicker(){
+        ui.Container(uid: "datepicker", clocator: [tag: "div", class: "calendar"]){
             Container(uid: "header", clocator:[header: "/table", tag: "thead"], direct: "true"){
-              Div(uid: "about", clocator:[header: "/tr/td[@class='button']", text: "?"], direct: "true")
+              Div(uid: "about", clocator:[header: "/tr/td[@class='button']", text: "%%?"], direct: "true")
               TextBox(uid: "title", clocator:[header: "/tr", tag: "td", class: "title"], direct: "true")
               Div(uid: "prevyear", clocator:[header: "/tr[@class='headrow']/td[@class='button nav']", text: "%%&laquo;"], direct:"true")
               Div(uid: "prevmonth", clocator:[header: "/tr[@class='headrow']/td[@class='button nav']", text: "%%&lsaquo;"], direct:"true")
@@ -39,8 +38,15 @@ class DynArchDatePicker extends UiObject {
                TextBox(uid: "row: *, column: 1", clocator:[:])
                UrlLink(uid: "all", clocator:[:])
            }
+           TextBox(uid: "foot", clocator:[header: "/table/tr[@class='footrow']", tag: "td"], direct: "true") 
         }
     }
 
-    
+    public void clickAbout(){
+        click "datepicker.header.about"
+    }
+
+    public String getTitle(){
+        return getText("datepicker.header.title")
+    }
 }
