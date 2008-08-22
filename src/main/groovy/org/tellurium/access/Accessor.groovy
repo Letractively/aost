@@ -85,8 +85,8 @@ class Accessor{
         //return result;
         return false
     }
-/*
-	def static boolean waitForCondition(String script, String timeoutInMilliSecond){
+
+	boolean waitForCondition(String script, String timeoutInMilliSecond){
 
 		boolean result = true
 
@@ -98,7 +98,6 @@ class Accessor{
 
 		return result
 	}
-*/
 
 	def String getText(String locator){
 		String text = null
