@@ -6,11 +6,12 @@ The the next release, i.e., release 0.5.0, we should achieve the following goals
   * Add full Maven support
   * Add Firefox Plugin to automatically generate UI modules
   * Add widget support so that users can create widgets for Java script frameworks
-  * Create Groovy or Java class to parse html file and generate the UI modules automatically
+  * Create Groovy or Java class to parse html file and generate the UI modules automatically.
   * Add support for TestNG (Done)
   * Enhance Data Driven Testing to add data readers for XML files, CSV format files, and database.
   * Enhance Data Driven Testing to support pass variables between tests so that the result of one test can be part of the input of the next test.
+  * Split the framework code base into multiple sub projects including Core, Reference Project, and Firefox Plugin project.
   * Move the test cases for Tellurium project web site out of the trunk and create a new reference project that will only use tellurium jar. This reference will be an example to demonstrate how to use Tellurium. 
-  * Complete our tests for Tellurium project website on the reference project
-  * Add more support to dynamically query the DOM for the UI object's locator at run time
-  * Reorganize and update documents
+  * Complete our tests for Tellurium project website on the reference project.
+  * Add more support to dynamically query the DOM for the UI object's locator at run time.
+  * Reorganize and update documents.
