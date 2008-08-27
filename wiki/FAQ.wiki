@@ -260,7 +260,7 @@ The answer is that you can put assertions any where in the DDT script, but that 
 If you put assertions in compareResult and the assertion fails, the AssertionFailedError will be captured and that comparison fails, but the rest script inside a test will continue executing. But if you put assertions outside of compareResult, the AssertionFailedError will lead to the failure of the current test. The exception will be
 recorded and the current test will be stopped. The next test will take over and execute. 
 
-=== Q31: Tellurium supports Which version of Selenium RC ===
+=== Q31: Tellurium supports which version of Selenium RC ===
 Tellurium is built on top of Selenium and it is using Selenium RC 0.9.2, the latest stable version. Selenium RC 1.0 is still in Beta and once it becomes stable, Tellurium will start to support that version.
 
 === Q32: How do I use Tellurium for UI that does not have a direct match for its tag in Tellurium UI objects ===
