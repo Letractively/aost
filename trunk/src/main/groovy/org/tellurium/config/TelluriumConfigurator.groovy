@@ -30,7 +30,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     }
 
     protected void configEmbeededServerDefaultValues(EmbeddedSeleniumServer server){
-        server.setProperty("port", "4444")
+        server.setProperty("port", 4444)
         server.setProperty("useMultiWindows", false)
         server.setProperty("runSeleniumServerInternally", true)        
     }
@@ -42,7 +42,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     }
 
     protected void configSeleniumConnectorDefaultValues(SeleniumConnector connector){
-        connector.setProperty("port", "4444")
+        connector.setProperty("port", 4444)
         connector.setProperty("baseURL", "http://localhost:8080")
         connector.setProperty("browser", "*chrome")
     }
