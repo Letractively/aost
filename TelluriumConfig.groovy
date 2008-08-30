@@ -23,7 +23,7 @@ tellurium{
     connector{
         //selenium server host
         //please change the host if you run the Selenium server remotely
-        host = "localhost"
+        serverHost = "localhost"
         //server port number the client needs to connect
         port = "4444"
         //base URL
