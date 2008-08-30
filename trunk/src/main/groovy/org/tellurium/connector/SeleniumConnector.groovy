@@ -27,6 +27,8 @@ class SeleniumConnector implements Configurable {
 
     protected browser = "*chrome";
 
+    protected seleniumServerHost = "localhost"
+
     public void connect(String url){
 		sel.open(baseURL + url);
 	}
@@ -43,7 +45,7 @@ class SeleniumConnector implements Configurable {
 //			setUpSeleniumServer();
         
         //Works for https and http
-        sel = new DefaultSelenium("localhost", port, browser, baseURL);
+        sel = new DefaultSelenium(seleniumServerHost, port, browser, baseURL);
 //        sel = new DefaultSelenium("localhost", port, "*firefox /usr/lib64/firefox-3.0.1/firefox", baseURL)
         //hardcoded firefox path if it cannot be found from system paht
         //sel = new DefaultSelenium("localhost", port, "*chrome /usr/lib64/firefox-3.0/firefox", baseURL);
