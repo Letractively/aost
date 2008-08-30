@@ -36,12 +36,14 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     }
 
     protected void configSeleniumConnector(SeleniumConnector connector){
+        connector.setProperty("seleniumServerHost", conf.tellurium.connector.serverHost)
         connector.setProperty("port", Integer.parseInt(conf.tellurium.connector.port))
         connector.setProperty("baseURL", conf.tellurium.connector.baseUrl)
         connector.setProperty("browser", conf.tellurium.connector.browser)
     }
 
     protected void configSeleniumConnectorDefaultValues(SeleniumConnector connector){
+        connector.setProperty("seleniumServerHost", "localhost")
         connector.setProperty("port", 4444)
         connector.setProperty("baseURL", "http://localhost:8080")
         connector.setProperty("browser", "*chrome")
