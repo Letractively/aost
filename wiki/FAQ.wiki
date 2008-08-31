@@ -265,3 +265,62 @@ Tellurium is built on top of Selenium and it is using Selenium RC 0.9.2, the lat
 
 === Q32: How do I use Tellurium for UI that does not have a direct match for its tag in Tellurium UI objects ===
 Be aware that Container, TextBox, List, and some other UI objects in Tellurium do not have default tags. The reason is that they are abstract UI objects and can represent multiple actual UIs. You can use any tag for them. Also, you can overwrite the default tag of a UI object by specify the "tag" attribute in the composite locator, but of course, such replacement should make sense. If all UI objects do not satisfy your need, you can even define your own UI object. 
+
+=== Q33: How to run Selenium server remotely in Tellurium ===
+The steps to use remote selenium server in Tellurium are as follows,
+
+First, run selenium sever on the remote machine, saying 192.168.1.106
+
+{{{
+java -jar selenium-server.jar -port 4444
+}}}
+
+for more selenium server options, please use the following commands:
+
+{{{
+java -jar selenium-server.jar --help
+}}}
+
+Then, you should modify the TelluriumConfig.groovy as follows,
+
+{{{
+tellurium{
+   //embedded selenium server configuration
+   embeddedserver {
+       //port number
+       port = "4444"
+       //whether to use multiple windows
+       useMultiWindows = false
+       //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
+       runInternally = false
+   }
+   //the configuration for the connector that connects the selenium client to the selenium server
+   connector{
+       //selenium server host
+       //please change the host if you run the Selenium server remotely
+       serverHost = "192.168.1.106"
+
+       //server port number the client needs to connect
+       port = "4444"
+       //base URL
+       baseUrl = "http://localhost:8080"
+       //Browser setting, valid options are
+       //  *firefox [absolute path]
+       //  *iexplore [absolute path]
+       //  *chrome
+       browser = "*iehta"
+   }
+......
+}
+}}}
+
+That is to say, you should disable the embedded selenium server by specifying
+{{{
+runInternally = false
+}}}
+and specify the remote selenium server host as
+{{{
+serverHost = "192.168.1.106"
+}}}
+
+After that, you can run the test just like using the embedded selenium server. But be aware that there are some performance degradation, i.e., the test is slower, with remote selenium server.
