@@ -91,26 +91,4 @@
    <target name="-pre-compile">
      <antcall target="compile-groovy" />
    </target>
-   
-   <target name="-debug-start-debuggee-test"
-        depends="init,compile-test,-testng-debug-single"
-        if="have.tests" />
-
-    <target name="-testng-debug-single">
-      <fail unless="test.class">Must select one file in the IDE or set test.class</fail>
-
-      <j3:debug xmlns:j3="http://www.netbeans.org/ns/j2se-project/3"
-                classname="org.testng.TestNG" classpath="${debug.test.classpath}">
-        <customize>
-          <jvmarg line="-enableassertions"/> <!-- TestNG tests often use assert -->
-          <jvmarg value="-Dtestng.test.classpath=${build.test.classes.dir}"/>
-          <arg line="-d ${build.test.results.dir}"/>
-          <arg line="-log 2 -usedefaultlisteners true"/> <!-- show stack traces -->
-          <arg line="-sourcedir ${test.src.dir}"/> <!-- for jdk1.4 annotations -->
-          <arg line="-suitename ${test.class}"/>
-          <arg line="-testname ${test.class}"/>
-          <arg line="-testclass ${test.class}"/>
-        </customize>
-      </j3:debug>
-    </target>
 </project>
