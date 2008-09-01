@@ -1,0 +1,18 @@
+README
+
+Jian Fang (John.Jian.Fang@gmail.com)
+
+The AOST framework is based on Groovy, Java, and Selenium test framework. Because of the
+excellent Groovy support from IntelliJ, this project is created using IntelliJ. Ant or Maven
+build scripts will be added later.
+
+Currently, the project is only tested for Firefox. Please put Firefox-bin in your
+operating system path when you run the tests.
+
+If your test case only include one file, you should use StandaloneAostSeleneseTestCase, but
+if you like to create multiple test files and put them in one test suite, you should use
+GroupAostSeleneseTestCase. The sample test suite is SampleAostSeleneseTestSuite. These
+limitations come from the fact that GroovyTestCase does not support JUnit 4 properly. 
+
+Nested Ui objects and ids are supported now.
+
