@@ -39,7 +39,7 @@ The object to locator mapping (OLM) framework is available from version 0.3.0. I
 === Q10: What IDE should I use for Tellurium ===
 Since Tellurium requires Groovy support, you can use Eclipse, Netbeans, or IntelliJ with groovy plugin if you want to work on Tellurium source code. IntelliJ is recommended because its Groovy plugin is excellent. If you only need to use Tellurium as a jar file, you can use any IDE that supports JAVA.
 
-=== Q11: Why I cannot start selenium test ===
+=== Q11: Why I cannot start tellurium test ===
 Make sure your web browser in your environment path. If you cannot really make it work, check the settings for the embedded server section in the configuration file TelluriumConfig.groovy. Or change the file SeleniumConnector.groovy, although this is not really recommended. Change the following line:
 {{{
 sel = new DefaultSelenium("localhost", port, "*chrome", baseURL);
@@ -51,6 +51,19 @@ First, you need to create your UI object groovy class by extending class UiObjec
 public void registerBuilder(String uiObjectName, UiObjectBuilder builder)
 }}}
 method in class TelluriumFramework. You can also register your builder in class UiObjectBuilderRegistry if you work on Tellurium source code directly.
+
+From Tellurium 0.4.0, a global configuration file TelluriumConfig.groovy is used for users to customize Tellurium. You can also define your own UI object in this file as follows,
+
+{{{
+    uiobject{
+        builder{
+           Icon="org.tellurium.builder.IconBuilder"
+
+        }
+    }
+}}}
+
+That is to say, you should create the UI object and its builder and then in the configuration file specify the UI object name and its builder full class name. Note, this feature is included in Tellurium 0.5.0, please check the SVN trunk for details.
 
 === Q13: How to build Tellurium from source ===
 Tellurium provides the ant build script. You may need to change some of the settings in the build.properties file so that it matches your environment. For example, the settings for javahome and javac.compiler. Then in the project root directory, run command: 
@@ -130,7 +143,7 @@ AOST is used as the project prototype name and Tellurium is the official project
 === Q21: What is data driven test? ===
 Data driven test means the testing flow is specified by the input data file and the test framework works as a driving engine to read the input data, do data bind, choose the test specified in the input file, run the test, and compare the expected results with the actual results. This is a total new way of writing tests.
 
-=== Q22: How Tellurium does data driven test? ===
+=== Q22: How Tellurium does data driven testing? ===
 Tellurium provides an expressive way for you to describe the input file formats starting with "fs.FieldSet", define test using "defineTest". Bind your variables to the field you defined in a field set, i.e., the format of a line of data, using "bind", and use "compareResult" to compare the actual result with the expected one. For input file, Tellurium supports pipe format file. You can use "loadData" to read the input data from a file. You can also use "useData" to use a String defined in your test script as the input data. 
 
 === Q23: What are the usages of TelluriumDataDrivenModule and TelluriumDataDrivenTest ===
