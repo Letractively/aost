@@ -1,6 +1,8 @@
 package org.tellurium.builder
 
-class UiObjectBuilderRegistry{
+import org.tellurium.config.Configurable
+
+class UiObjectBuilderRegistry implements Configurable{
 
     //useString this registry to map the ui object name to its builder
     //so that we can let the user customerizes and add new ui objects

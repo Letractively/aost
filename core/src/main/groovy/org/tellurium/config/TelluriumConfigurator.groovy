@@ -12,6 +12,8 @@ import org.tellurium.test.helper.StreamXMLResultReporter
 import org.tellurium.test.helper.ConsoleOutput
 import org.tellurium.test.helper.FileOutput
 import org.tellurium.ddt.object.mapping.io.CSVDataReader
+import org.tellurium.builder.UiObjectBuilderRegistry
+import org.tellurium.builder.UiObjectBuilder
 
 /**
  * Tellurium Configurator
@@ -94,6 +96,21 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
         fileOutput.setProperty("fileName", "TestResult.output")
     }
 
+    protected void configUiObjectBuilder(UiObjectBuilderRegistry uobRegistry){
+        Map builders = conf.tellurium.uiobject.builder
+
+        if(builders != null && (!builders.isEmpty())){
+            builders.each { key, value ->
+                UiObjectBuilder builder = (UiObjectBuilder) Class.forName(value).newInstance()
+                uobRegistry.registerBuilder(key, builder)
+            }
+        }
+    }
+
+    protected void configUiObjectBuilderDefaultValues(UiObjectBuilderRegistry uobRegistry){
+
+    }
+    
     public void config(Configurable configurable) {
         //configuration file TelluriumConfig.groovy exists
         if(conf != null){
@@ -112,6 +129,9 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
             }else if(configurable instanceof FileOutput){
                 println "Configure File Output using configuration file"
                 configFileOutput(configurable)
+            }else if(configurable instanceof UiObjectBuilderRegistry){
+                println "Configure UI Object Builders using configuration file"
+                configUiObjectBuilder(configurable)
             }else{
                 println "Unsupported Configurable type!"
             }
@@ -132,7 +152,10 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
             }else if(configurable instanceof FileOutput){
                 println "Configure File Output with default values"
                 configFileOutputDefaultValues(configurable)               
-            }else{
+            }else if(configurable instanceof UiObjectBuilderRegistry){
+                println "Configure UI Object Builders with default values"
+                configUiObjectBuilderDefaultValues(configurable)
+             }else{
                 println "Unsupported Configurable type!"
             }
 

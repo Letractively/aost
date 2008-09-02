@@ -58,6 +58,7 @@ class TelluriumFramework {
         
        telluriumConfigurator = new TelluriumConfigurator()
        telluriumConfigurator.parse("TelluriumConfig.groovy")
+       telluriumConfigurator.config(new UiObjectBuilderRegistry()) 
     }
 
     public void disableEmbeddedSeleniumServer(){

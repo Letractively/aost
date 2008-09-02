@@ -189,7 +189,7 @@ abstract class DdDslContext extends DslContext{
     }
 
     public boolean compareResult(expected, actual){
-        return  compareResult(expected, actual, null)
+        return compareResult(expected, actual, null)
     }
 
     public boolean compareResult(expected, actual, Closure c){
