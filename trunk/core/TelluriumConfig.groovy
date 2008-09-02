@@ -56,4 +56,20 @@ tellurium{
             filename = "TestResult.output"
         }
     }
+    uiobject{
+        builder{
+            //user can specify custom UI objects here by define the builder for each UI object
+            //the custom UI object builder must extend UiObjectBuilder class
+            //and implement the following method:
+            //
+            // public build(Map map, Closure c)
+            //
+            //For container type UI object, the builder is a bit more complicated, please
+            //take the TableBuilder or ListBuilder as an example
+
+            //example:
+//           Icon="org.tellurium.builder.IconBuilder"
+            
+        }
+    }
 }

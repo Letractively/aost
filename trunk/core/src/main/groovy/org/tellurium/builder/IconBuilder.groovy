@@ -1,7 +1,6 @@
 package org.tellurium.builder
 
 import org.tellurium.object.Icon
-import org.tellurium.locator.BaseLocator
 
 /**
  *    Icon builder
