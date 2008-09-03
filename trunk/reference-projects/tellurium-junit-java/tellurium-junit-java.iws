@@ -16,21 +16,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/groovy/example/google" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/example/google/dsl/DataDrivenGoogleStartPage.dsl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/example/google/data/GoogleBookListCodeHostInput.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/example/google" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/example/google/data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/groovy/example/google/ddt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/example/google/dsl/DataDrivenGoogleBookListCodeHosting.dsl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/example/google/dsl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/example/google/data/googlesearchpullinput.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium-junit-java.iws" afterPath="$PROJECT_DIR$/tellurium-junit-java.iws" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/example/google/data/GoogleCodeHosting.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/example/google/data/GoogleBookListCodeHostCSV.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/example/google/data/googlesearchpushinput.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/example/google/dsl/GoogleTellurium.dsl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/example/google/data/GoogleBooksList.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/example/dynarch/test" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/example/dynarch" />
+      <change type="DELETED" beforePath="P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\java\example\tellurium\test\GoogleCodeHostingJavaTestCase.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/example/google" />
+      <change type="DELETED" beforePath="P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\java\example\tellurium\test\GoogleStartPageJavaTestCase.java" afterPath="" />
+      <change type="MOVED" beforePath="P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\java\example\tellurium\test\DynArchPageJavaTestCase.java" afterPath="$PROJECT_DIR$/src/main/java/example/dynarch/test/DynArchPageJavaTestCase.java" />
+      <change type="DELETED" beforePath="P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\java\example\tellurium\test\GoogleBooksListJavaTestCase.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/example/google/test" />
     </list>
     <ignored path="tellurium-junit-java.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -102,10 +95,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GoogleBookListModule.groovy" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="GoogleBookListModule.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/groovy/example/tellurium/module/GoogleBookListModule.groovy">
           <provider selected="true" editor-type-id="text-editor">
             <state line="39" column="8" selection-start="1484" selection-end="1484" vertical-scroll-proportion="0.85901165">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataDrivenGoogleBookListCodeHosting.dsl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/example/google/dsl/DataDrivenGoogleBookListCodeHosting.dsl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="10" selection-start="885" selection-end="885" vertical-scroll-proportion="-0.80377907">
               <folding />
             </state>
           </provider>
@@ -120,10 +122,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DynArchPageJavaTestCase.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/example/tellurium/test/DynArchPageJavaTestCase.java">
+      <file leaf-file-name="DynArchPageJavaTestCase.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/example/dynarch/test/DynArchPageJavaTestCase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="97" selection-start="513" selection-end="513" vertical-scroll-proportion="0.5188953">
+            <state line="15" column="13" selection-start="311" selection-end="311" vertical-scroll-proportion="0.37063953">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -441,7 +443,79 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\java\example" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
           <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\java\example\tellurium\test" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="tellurium-junit-java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="tellurium-junit-java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\java\example" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\java\example\google\test" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="tellurium-junit-java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="tellurium-junit-java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\java\example" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\java\example\dynarch\test" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -476,6 +550,82 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\groovy\example\tellurium" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="tellurium-junit-java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="tellurium-junit-java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\groovy" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\groovy\example" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\groovy\example\tellurium" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\groovy\example\tellurium\module" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="tellurium-junit-java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="tellurium-junit-java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\groovy" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\groovy\example" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\groovy\example\tellurium" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:P:\Projects\tellurium\reference-projects\tellurium-junit-java\src\main\groovy\example\tellurium\ddt" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -644,8 +794,8 @@
       <module name="tellurium-junit-java" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="example.tellurium.test" />
-      <option name="MAIN_CLASS_NAME" value="example.tellurium.test.GoogleStartPageJavaTestCase" />
+      <option name="PACKAGE_NAME" value="example.google.test" />
+      <option name="MAIN_CLASS_NAME" value="example.google.test.GoogleStartPageJavaTestCase" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
@@ -908,21 +1058,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/example/tellurium/test/GoogleBooksListJavaTestCase.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/example/google/test/GoogleBooksListJavaTestCase.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="75" selection-start="597" selection-end="597" vertical-scroll-proportion="0.59736454">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/example/tellurium/test/GoogleCodeHostingJavaTestCase.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/example/google/test/GoogleCodeHostingJavaTestCase.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="26" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/example/tellurium/test/GoogleStartPageJavaTestCase.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/example/google/test/GoogleStartPageJavaTestCase.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="26" selection-start="26" selection-end="26" vertical-scroll-proportion="0.0">
           <folding />
@@ -978,15 +1128,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/example/tellurium/test/DynArchPageJavaTestCase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="97" selection-start="513" selection-end="513" vertical-scroll-proportion="0.5188953">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/groovy/example/tellurium/ddt/GoogleBookListCodeHostTest.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="6" selection-start="309" selection-end="309" vertical-scroll-proportion="0.32122093">
@@ -1005,6 +1146,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="39" column="8" selection-start="1484" selection-end="1484" vertical-scroll-proportion="0.85901165">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/example/google/dsl/DataDrivenGoogleBookListCodeHosting.dsl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="10" selection-start="885" selection-end="885" vertical-scroll-proportion="-0.80377907">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/example/dynarch/test/DynArchPageJavaTestCase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="13" selection-start="311" selection-end="311" vertical-scroll-proportion="0.37063953">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

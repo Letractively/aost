@@ -1,4 +1,4 @@
-package example.tellurium.test;
+package example.google.test;
 
 import org.tellurium.test.java.TelluriumJavaTestCase;
 import example.google.NewGoogleStartPage;
