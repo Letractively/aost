@@ -72,4 +72,11 @@ tellurium{
             
         }
     }
+    widget{
+        module{
+            //define your widget modules here, for example Dojo or ExtJs
+//            included="dojo, extjs"
+            included=""
+        }
+    }
 }
