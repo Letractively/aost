@@ -14,6 +14,7 @@ import org.tellurium.test.helper.FileOutput
 import org.tellurium.ddt.object.mapping.io.CSVDataReader
 import org.tellurium.builder.UiObjectBuilderRegistry
 import org.tellurium.builder.UiObjectBuilder
+import org.tellurium.widget.WidgetConfigurator
 
 /**
  * Tellurium Configurator
@@ -110,7 +111,15 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     protected void configUiObjectBuilderDefaultValues(UiObjectBuilderRegistry uobRegistry){
 
     }
-    
+
+    protected void configWidgetModule(WidgetConfigurator wgConfigurator){
+        wgConfigurator.configWidgetModule(conf.tellurium.widget.module.included)
+    }
+
+    protected void configWidgetModuleDefaultValues(WidgetConfigurator wgConfigurator){
+
+    }
+
     public void config(Configurable configurable) {
         //configuration file TelluriumConfig.groovy exists
         if(conf != null){
@@ -132,6 +141,9 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
             }else if(configurable instanceof UiObjectBuilderRegistry){
                 println "Configure UI Object Builders using configuration file"
                 configUiObjectBuilder(configurable)
+            }else if(configurable instanceof WidgetConfigurator){
+                println "Configure widget modules using configuration file"
+                configWidgetModule(configurable)
             }else{
                 println "Unsupported Configurable type!"
             }
@@ -155,6 +167,9 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
             }else if(configurable instanceof UiObjectBuilderRegistry){
                 println "Configure UI Object Builders with default values"
                 configUiObjectBuilderDefaultValues(configurable)
+            }else if(configurable instanceof WidgetConfigurator){
+                println "Configure widget modules with default values"
+                configWidgetModuleDefaultValues(configurable)
              }else{
                 println "Unsupported Configurable type!"
             }

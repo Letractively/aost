@@ -18,6 +18,7 @@ import org.tellurium.server.EmbeddedSeleniumServer
 import org.tellurium.builder.UiObjectBuilder
 import org.tellurium.config.TelluriumConfigurator
 import org.tellurium.config.TelluriumConfiguratorMetaClass
+import org.tellurium.widget.WidgetConfigurator
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
@@ -58,7 +59,12 @@ class TelluriumFramework {
         
        telluriumConfigurator = new TelluriumConfigurator()
        telluriumConfigurator.parse("TelluriumConfig.groovy")
-       telluriumConfigurator.config(new UiObjectBuilderRegistry()) 
+
+       //configure custom UI ojects
+       telluriumConfigurator.config(new UiObjectBuilderRegistry())
+
+       //configure widgets
+       telluriumConfigurator.config(new WidgetConfigurator()) 
     }
 
     public void disableEmbeddedSeleniumServer(){

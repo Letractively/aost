@@ -23,6 +23,12 @@ import org.tellurium.dsl.UiID
  * 
  */
 abstract class Widget extends UiObject{
+
+    //Note:
+    //we need namespace to differentiate the same widget name from different widget modules
+    //for example, if Dojo and ExtJS both has the widget called Accordion, we have to differentiate
+    //them using name space, i.e., DOJO::Accordion and ExtJS::Accordion
+
     UiDslParser ui = new UiDslParser()
 
     //decoupling eventhandler, locateProcessor, and accessor from UI objects
