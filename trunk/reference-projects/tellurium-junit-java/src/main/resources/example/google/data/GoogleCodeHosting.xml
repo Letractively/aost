@@ -1,0 +1,133 @@
+<DIV style="margin: 2em;">
+
+  <TABLE align="center">
+
+    <TBODY>
+      <TR>
+        <TD>
+          <DIV>
+Example project labels:          </DIV>
+        </TD>
+      </TR>
+
+      <TR>
+        <TD align="center">
+
+          <DIV id="popular">
+
+            <TABLE>
+
+               <TBODY>
+                <TR>
+
+                   <TD width="20%">
+                    <A href="search?q=label%3aPython">
+Python                    </A>
+                  </TD>
+
+                   <TD width="20%">
+                    <A href="search?q=label%3aCPlusPlus">
+CPlusPlus                    </A>
+                  </TD>
+
+                   <TD width="20%">
+                    <A href="search?q=label%3aJava">
+Java                    </A>
+                  </TD>
+
+                   <TD width="20%">
+                    <A href="search?q=label%3aGoogle">
+Google                    </A>
+                  </TD>
+
+                   <TD width="20%">
+                    <A href="search?q=label%3aStudent">
+Student                    </A>
+                  </TD>
+
+                   <TD width="1%">
+                    <A href="search?q=label%3aGraphics">
+Graphics                    </A>
+                  </TD>
+
+                 </TR>
+
+                 <TR>
+
+                   <TD>
+                    <A href="search?q=label%3aUtility">
+Utility                    </A>
+                  </TD>
+
+                   <TD>
+                    <A href="search?q=label%3aLinux">
+Linux                    </A>
+                  </TD>
+
+                   <TD>
+                    <A href="search?q=label%3aWindows">
+Windows                    </A>
+                  </TD>
+
+                   <TD>
+                    <A href="search?q=label%3aPlugIn">
+PlugIn                    </A>
+                  </TD>
+
+                   <TD>
+                    <A href="search?q=label%3aWeb">
+Web                    </A>
+                  </TD>
+
+                   <TD>
+                    <A href="search?q=label%3aDatabase">
+Database                    </A>
+                  </TD>
+
+                 </TR>
+
+                 <TR>
+
+                   <TD>
+                    <A href="search?q=label%3aChat">
+Chat                    </A>
+                  </TD>
+
+                   <TD>
+                    <A href="search?q=label%3aStable">
+Stable                    </A>
+                  </TD>
+
+                   <TD>
+                    <A href="search?q=label%3aAudio">
+Audio                    </A>
+                  </TD>
+
+                   <TD>
+                    <A href="search?q=label%3aDevTool">
+DevTool                    </A>
+                  </TD>
+
+                   <TD>
+                    <A href="search?q=label%3aXML">
+XML                    </A>
+                  </TD>
+
+                   <TD>
+                    <A href="search?q=label%3aCSharp">
+CSharp                    </A>
+                  </TD>
+
+                 </TR>
+
+              </TBODY>
+            </TABLE>
+
+          </DIV>
+
+        </TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+
+</DIV>
