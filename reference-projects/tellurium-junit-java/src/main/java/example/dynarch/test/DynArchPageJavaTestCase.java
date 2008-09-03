@@ -1,4 +1,4 @@
-package example.tellurium.test;
+package example.dynarch.test;
 
 import org.tellurium.test.java.TelluriumJavaTestCase;
 import org.junit.BeforeClass;
