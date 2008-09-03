@@ -1,4 +1,4 @@
-package example.tellurium
+package example.tellurium.ddt
 
 import org.tellurium.test.ddt.TelluriumDataDrivenTest
 
