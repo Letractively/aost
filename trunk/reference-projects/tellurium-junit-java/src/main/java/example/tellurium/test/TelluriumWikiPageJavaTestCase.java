@@ -1,4 +1,4 @@
-package example.tellurium;
+package example.tellurium.test;
 
 import org.tellurium.test.java.TelluriumJavaTestCase;
 import org.tellurium.util.Helper;
