@@ -24,7 +24,7 @@ import org.tellurium.dsl.UiID
  */
 abstract class Widget extends UiObject{
 
-    public final static String NAMESPACE_SUFFIX = "-"
+    public final static String NAMESPACE_SUFFIX = "_"
 
     //Note:
     //we need namespace to differentiate the same widget name from different widget modules
