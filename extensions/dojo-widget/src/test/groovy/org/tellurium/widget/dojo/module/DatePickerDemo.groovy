@@ -19,7 +19,10 @@ class DatePickerDemo extends DslContext{
             TextBox(uid: "label", clocator: [tag: "h4", text: "Dropdown:"])
             InputBox(uid: "input", clocator: [dojoattachpoint: "valueInputNode"])
             Image(uid: "selectDate", clocator: [title: "select a date", dojoattachpoint: "containerDropdownNode", alt: "date"])
-            Container(uid: "datePicker", clocator: [tag: "div", dojoattachpoint: "subWidgetContainerNode"])
+            DOJO_DatePicker(uid: "datePicker", clocator: [tag: "div", dojoattachpoint: "subWidgetContainerNode"])
+//            Container(uid: "widget", clocator: [tag: "div", dojoattachpoint: "subWidgetContainerNode"]){
+//                DOJO_DataPicker(uid: "datePicker", locator: "")
+//            }
         }
     }
 
