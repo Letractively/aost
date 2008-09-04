@@ -11,6 +11,7 @@
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$/src/main">
       <sourceFolder url="file://$MODULE_DIR$/src/main/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/src/test">
       <sourceFolder url="file://$MODULE_DIR$/src/test/groovy" isTestSource="true" />
