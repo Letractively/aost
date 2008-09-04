@@ -1,5 +1,7 @@
 package org.tellurium.dsl
 
+import org.tellurium.widget.Widget
+
 abstract class DslContext extends BaseDslContext{
 
 //    def defUi = ui.&Container
@@ -7,6 +9,34 @@ abstract class DslContext extends BaseDslContext{
     //Must implement this method to define UI
 //    remove this constraint so that DSL script does not need to define this method
 //    public abstract void defineUi()
+
+    def getWidget(String uid){
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         def obj = ui.walkTo(context, uid)
+         if(!(obj instanceof Widget)){
+             println "Warning, Ui object ${uid} is not a widget"
+         }
+
+         return obj
+    }
+
+    def onWidget(String uid, String method, Object[] args){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        def obj = ui.walkTo(context, uid)
+        if (!(obj instanceof Widget)) {
+            println "Error, Ui object ${uid} is not a widget"
+            
+            throw new RuntimeException("Ui object ${uid} is not a widget")
+        } else {
+            if (obj.metaClass.respondsTo(obj, method, args)) {
+
+                return obj.invokeMethod(method, args)
+            }else{
+
+                throw new MissingMethodException(method, obj.metaClass.class, args)
+            }
+        }
+    }
 
     def findObject(String uid){
         def obj = ui.findUiObjectFromRegistry(uid)
