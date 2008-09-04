@@ -18,7 +18,7 @@ class WidgetConfigurator implements Configurable{
 
     public void configWidgetModule(String widgetModules){
         //first check if the string contains any widget module
-        if(widgetModules != null && (!widgetModules.trim().isEmpty())){
+        if(widgetModules != null && (widgetModules.trim().length() > 0)){
             String[] modules = widgetModules.trim().split(WIDGET_MODULE_SEPARATOR)
 
             UiObjectBuilderRegistry registry = new UiObjectBuilderRegistry()
@@ -35,7 +35,7 @@ class WidgetConfigurator implements Configurable{
     }
 
     protected String getWidgetBootstrapClassFullName(String name){
-        if(name == null || name.trim().isEmpty())
+        if(name == null || name.trim().length() == 0)
             return null
 
         String trimed = name.trim()
