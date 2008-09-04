@@ -16,7 +16,7 @@ class DynArchDatePickerBuilder extends UiObjectBuilder{
        //add default parameters so that the builder can useString them if not specified
         def df = [:]
         DynArchDatePicker datepicker = this.internBuild(new DynArchDatePicker(), map, df)
-        datepicker.defineDatePicker()
+        datepicker.defineWidget()
         
         return datepicker
     }

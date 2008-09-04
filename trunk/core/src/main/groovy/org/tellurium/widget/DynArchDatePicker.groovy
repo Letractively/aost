@@ -15,7 +15,7 @@ import org.tellurium.dsl.UiDslParser
  */
 class DynArchDatePicker extends Widget {
 
-    public void defineDatePicker(){
+    public void defineWidget(){
         ui.Container(uid: "datepicker", clocator: [tag: "div", class: "calendar"]){
             Container(uid: "header", clocator:[header: "/table", tag: "thead"], direct: "true"){
               Div(uid: "about", clocator:[header: "/tr/td[@class='button']", text: "%%?"], direct: "true")

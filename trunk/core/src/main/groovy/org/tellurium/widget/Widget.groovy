@@ -31,6 +31,8 @@ abstract class Widget extends UiObject{
     //for example, if Dojo and ExtJS both has the widget called Accordion, we have to differentiate
     //them using name space, i.e., DOJO::Accordion and ExtJS::Accordion
 
+    abstract public void defineWidget()
+    
     UiDslParser ui = new UiDslParser()
 
     //decoupling eventhandler, locateProcessor, and accessor from UI objects
