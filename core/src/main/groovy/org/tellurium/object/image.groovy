@@ -8,6 +8,16 @@ package org.tellurium.object
  */
 class Image extends UiObject{
     public static final String TAG = "img"
+    
+    def click(Closure c) {
+
+        c(locator)
+    }
+
+    def doubleClick(Closure c) {
+
+        c(locator)
+    }
 
     String getImageSource(Closure c){
         c(locator, "@src")
