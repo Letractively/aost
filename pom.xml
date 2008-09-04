@@ -309,7 +309,7 @@
 	</distributionManagement>
 	<properties>
 		<gmaven-version>1.0-rc-3</gmaven-version>
-		<java-version>1.6</java-version>
+		<java-version>1.5</java-version>
 		<selenium-version>1.0-beta-1</selenium-version>
 	</properties>
 </project>
