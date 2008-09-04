@@ -1,8 +1,5 @@
 package org.tellurium.widget
 
-import org.tellurium.object.UiObject
-import org.tellurium.dsl.UiDslParser
-
 /**
  * Widget to module the data picket from
  *
