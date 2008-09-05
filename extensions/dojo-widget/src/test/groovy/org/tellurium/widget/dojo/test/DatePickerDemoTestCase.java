@@ -39,10 +39,16 @@ public class DatePickerDemoTestCase extends TelluriumJavaTestCase {
         List days = (List) dpd.peekDaysForCurrentMonth();
         assertNotNull(days);
         assertFalse(days.isEmpty());
+        for(Object day: days){
+            int dayInMonth = (Integer)day;
+            System.out.println("${dayInMonth}  ");
+        }
         dpd.selectDaysForCurrentMonth((Integer)days.get(0));
         String currentYear = (String) dpd.getCurrentYear();
+        System.out.println(currentYear);
         String currentMonth = (String) dpd.getCurrentMonth();
-
+        System.out.println(currentMonth);
+        dpd.clickWidget();
     }
 
 }
