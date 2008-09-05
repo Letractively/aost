@@ -1,7 +1,8 @@
 #labels Phase-Design,Phase-Implementation
 = Tellurium UI Model Plugin (TrUMP) =
 
-== Set up TrUMP ==
+== Setup TrUMP ==
+
 To start using the Tellurium UI Model Plugin(TrUMP), check out the trump folder in tools/firefox-plugin/trump.
 
 Lets say you have checked it into C:\Project\firefox-plugin\trump
@@ -29,5 +30,11 @@ We are done setting up the plugin.
 == Use TruMP ==
 
 Now open the firefox with the profile “user1”. Open google.com website and right click in the search text box. You’ll see “Show in TrUMP” as one of the items in the menu as shown below.
- 
+
+
+http://tellurium-users.googlegroups.com/web/trump_menu.png?gda=plhpwkAAAABBo5YKz4My4Er929brhwkDRyE1Dk042vfjlBe_WGvx7wvkY6MZBmRIaBntIJcYQ01txVPdW1gYotyj7-X7wDON&gsc=RUNugxYAAABZq3pCURvYM5SZypLYjyd25QzTRg0a_4LqA7LDDLzsAA
+
+
 Click the “Show in TrUMP” and you should see this. Copy that and use it as UI Model for that node.
+
+http://tellurium-users.googlegroups.com/web/trump_clocator.png?gda=5v_UwEQAAABBo5YKz4My4Er929brhwkDRyE1Dk042vfjlBe_WGvx79juREH76Q0d2LOU-UCoyHVV6u9SiETdg0Q2ffAyHU-dzc4BZkLnSFWX59nr5BxGqA&gsc=RUNugxYAAABZq3pCURvYM5SZypLYjyd25QzTRg0a_4LqA7LDDLzsAA
