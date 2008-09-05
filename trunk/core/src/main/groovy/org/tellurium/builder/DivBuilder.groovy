@@ -9,7 +9,7 @@ import org.tellurium.object.Div
  * Time: 5:18:33 PM
  * To change this template use File | Settings | File Templates.
  */
-class DivBuilder  extends UiObjectBuilder{
+class DivBuilder extends UiObjectBuilder{
 
     public build(Map map, Closure c) {
         def df = [:]

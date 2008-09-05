@@ -37,6 +37,7 @@ class UiObjectBuilderRegistry implements Configurable{
         registerBuilder("Form", new FormBuilder())
         registerBuilder("RadioButton", new RadioButtonBuilder())
         registerBuilder("Div", new DivBuilder())
+        registerBuilder("Span", new SpanBuilder())
         registerBuilder("SimpleMenu", new SimpleMenuBuilder())
         registerBuilder("SelectMenu", new SelectMenuBuilder())
         registerBuilder("Option", new OptionBuilder())
