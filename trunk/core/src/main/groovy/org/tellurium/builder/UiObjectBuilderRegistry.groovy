@@ -42,5 +42,6 @@ class UiObjectBuilderRegistry implements Configurable{
         registerBuilder("SelectMenu", new SelectMenuBuilder())
         registerBuilder("Option", new OptionBuilder())
         registerBuilder("StandardTable", new StandardTableBuilder())
+        registerBuilder("ClickableUi", new ClickableUiBuilder())
     }
 }
