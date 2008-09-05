@@ -8,7 +8,18 @@ import org.tellurium.access.Accessor
 import org.tellurium.locator.GroupLocateStrategy
 
 /**
- *   This is a table without header tag "thead' and foot "tfoot"
+ *   This is a table without header tag "thead' and foot "tfoot", but in the format of
+ *
+ *   table
+ *       tbody
+ *          tr
+ *             th
+ *             ...
+ *             th
+ *          tr
+ *             td
+ *             ...
+ *             td
  * 
  *   Table should be very generic since each column and row could hold different
  *   UI objects. In that sense, table is also a container
