@@ -8,6 +8,8 @@ import org.tellurium.access.Accessor
 import org.tellurium.locator.GroupLocateStrategy
 
 /**
+ *   This is a table without header tag "thead' and foot "tfoot"
+ * 
  *   Table should be very generic since each column and row could hold different
  *   UI objects. In that sense, table is also a container
  *
@@ -281,7 +283,7 @@ class Table extends Container{
         }
     }
 
-    String getCellLocator(int row, int column) {
+    protected String getCellLocator(int row, int column) {
         String table_cell_loc
 
         if (hasHeader()) {
@@ -294,7 +296,7 @@ class Table extends Container{
         return table_cell_loc
     }
 
-    String getHeaderLocator(int column) {
+    protected String getHeaderLocator(int column) {
 
         return "/tbody/tr[1]/th[${column}]"
     }
