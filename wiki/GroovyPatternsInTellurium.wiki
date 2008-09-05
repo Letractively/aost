@@ -283,5 +283,5 @@ def onWidget(String uid, String method, Object[] args){
 The onWidget method can be expressed in DSL syntax as follows,
 
 {{{
-onWidget "DOJO::DatePicker", selectYear, 1992
+onWidget "DOJO::DatePicker", "selectYear", 1992
 }}}
