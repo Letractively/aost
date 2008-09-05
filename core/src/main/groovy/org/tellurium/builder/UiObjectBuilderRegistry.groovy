@@ -40,6 +40,6 @@ class UiObjectBuilderRegistry implements Configurable{
         registerBuilder("SimpleMenu", new SimpleMenuBuilder())
         registerBuilder("SelectMenu", new SelectMenuBuilder())
         registerBuilder("Option", new OptionBuilder())
-        registerBuilder("DynArchDatePicker", new DynArchDatePickerBuilder())
+        registerBuilder("StandardTable", new StandardTableBuilder())
     }
 }
