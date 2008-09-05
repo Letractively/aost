@@ -1,0 +1,33 @@
+#labels Phase-Design,Phase-Implementation
+= Tellurium UI Model Plugin (TrUMP) =
+
+== Set up TrUMP ==
+To start using the Tellurium UI Model Plugin(TrUMP), check out the trump folder in tools/firefox-plugin/trump.
+
+Lets say you have checked it into C:\Project\firefox-plugin\trump
+
+First you’ll need to copy the file trump@aost.net inside the extensions-file folder to your firefox profile. 
+
+Profiles for firefox are located in 
+C:\Documents and Settings\$user\Application Data\Mozilla\Firefox\Profiles\
+For Windows OS
+
+For linux,  the firefox user profile lives in
+
+~/.mozilla/firefox/ 
+
+Lets say you want to copy it to user1 profile
+
+Open the user1 profile. Copy the trump@aost.net file to the extensions folder
+
+C:\Documents and Settings\$user\Application Data\Mozilla\Firefox\Profiles\user1\extensions
+
+Edit the trump@aost.net file by opening it in a text editor. This file will contain the path to our trump plugin folder, which is C:\Project\firefox-plugin\trump\. Don’t forget the \ after the trump. Save and close the file.
+
+We are done setting up the plugin. 
+
+== Use TruMP ==
+
+Now open the firefox with the profile “user1”. Open google.com website and right click in the search text box. You’ll see “Show in TrUMP” as one of the items in the menu as shown below.
+ 
+Click the “Show in TrUMP” and you should see this. Copy that and use it as UI Model for that node.
