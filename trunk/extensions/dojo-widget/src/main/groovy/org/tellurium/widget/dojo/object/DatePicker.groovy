@@ -60,9 +60,9 @@ class DatePicker extends DojoWidget{
         for(int i=1; i<=WEEKS; i++){
             for(int j=1; j<=DAYS_PER_WEEK; j++){
                 //get the attribute for the day
-                String tdattr = getAttribute("class", "DatePicker.calendar[i][j]")
+                String tdattr = getAttribute("DatePicker.calendar[${i}][${j}]", "class")
                 if(tdattr != null && tdattr.contains(month)){
-                    String day = getText("DatePicker.calendar[i][j]")
+                    String day = getText("DatePicker.calendar[${i}][${j}]")
                     list.add(Integer.parseInt(day))
                 }
             }
@@ -87,13 +87,13 @@ class DatePicker extends DojoWidget{
         String dayAsString = Integer.toString(dayInMonth)
 
         for(int i=1; i<=WEEKS; i++){
-            for(j=1; j<=DAYS_PER_WEEK; j++){
+            for(int j=1; j<=DAYS_PER_WEEK; j++){
                 //get the attribute for the day
-                String tdattr = getAttribute("class", "DatePicker.calendar[i][j]")
+                String tdattr = getAttribute( "DatePicker.calendar[${i}][${j}]", "class")
                 if(tdattr != null && tdattr.contains(month)){
-                    String day = getText("DatePicker.calendar[i][j]")
+                    String day = getText("DatePicker.calendar[${i}][${j}]")
                     if(dayAsString.equals(day)){
-                        click "DatePicker.calendar[i][j]"
+                        click "DatePicker.calendar[${i}][${j}]"
                     }
                 }
             }
