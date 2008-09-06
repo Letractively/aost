@@ -16,12 +16,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rundsl.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rundsl.bat" afterPath="$PROJECT_DIR$/rundsl.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rundsl.sh" afterPath="$PROJECT_DIR$/rundsl.sh" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium-junit-java.iws" afterPath="$PROJECT_DIR$/tellurium-junit-java.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TelluriumConfig.groovy" afterPath="$PROJECT_DIR$/TelluriumConfig.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rundsl.bat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium-junit-java.iml" afterPath="$PROJECT_DIR$/tellurium-junit-java.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build.xml" />
     </list>
     <ignored path="tellurium-junit-java.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -111,10 +108,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TelluriumConfig.groovy" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="TelluriumConfig.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TelluriumConfig.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="29" selection-start="285" selection-end="285" vertical-scroll-proportion="0.5048077">
+            <state line="14" column="29" selection-start="285" selection-end="285" vertical-scroll-proportion="-0.68509614">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TelluriumProjectPageJavaTestCase.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/groovy/example/tellurium/test/TelluriumProjectPageJavaTestCase.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="13" selection-start="320" selection-end="320" vertical-scroll-proportion="0.33173078">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rundsl.sh" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/rundsl.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="127" selection-start="127" selection-end="127" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rundsl.bat" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rundsl.bat">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="180" selection-start="211" selection-end="211" vertical-scroll-proportion="0.07481297">
               <folding />
             </state>
           </provider>
@@ -275,6 +299,32 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="PsiDirectory:/work/workspace/IntelliJ/individual/tellurium-junit-java/src/test/groovy/example/tellurium/test" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="tellurium-junit-java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="tellurium-junit-java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/work/workspace/IntelliJ/individual/tellurium-junit-java/src/test" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/work/workspace/IntelliJ/individual/tellurium-junit-java/src/test/groovy" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/work/workspace/IntelliJ/individual/tellurium-junit-java/src/test/groovy/example/tellurium" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/work/workspace/IntelliJ/individual/tellurium-junit-java/src/test/groovy/example/tellurium/module" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -650,13 +700,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/groovy/example/tellurium/test/TelluriumProjectPageJavaTestCase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="32" selection-start="119" selection-end="119" vertical-scroll-proportion="0.14825581">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/groovy/example/tellurium/module/TelluriumWikiPage.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="6" selection-start="242" selection-end="242" vertical-scroll-proportion="0.036057692">
@@ -708,7 +751,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TelluriumConfig.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="29" selection-start="285" selection-end="285" vertical-scroll-proportion="0.5048077">
+        <state line="14" column="29" selection-start="285" selection-end="285" vertical-scroll-proportion="-0.68509614">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/groovy/example/tellurium/test/TelluriumProjectPageJavaTestCase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="13" selection-start="320" selection-end="320" vertical-scroll-proportion="0.33173078">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rundsl.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="180" selection-start="211" selection-end="211" vertical-scroll-proportion="0.07481297">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rundsl.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="127" selection-start="127" selection-end="127" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
