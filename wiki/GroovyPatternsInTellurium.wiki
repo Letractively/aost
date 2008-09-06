@@ -302,3 +302,9 @@ That is to say, for the missing property, we will return it as a String. This is
 {{{
 onWidget "DOJO_DatePicker", "selectYear", 1992
 }}}
+
+With the propertyMissing, we can use the method name directly:
+
+{{{
+onWidget "DOJO_DatePicker", selectYear, 1992
+}}}
