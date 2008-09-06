@@ -144,7 +144,7 @@ To make the testing more expressive, Tellurium provides an onWidget method
 In that way, we can call the widget methods as follows:
 
 {{{
-onWidget "dropdown.datePicker", "selectPrevYear"
+onWidget "dropdown.datePicker", selectPrevYear
 }}}
 
 This prototype is on the tellurium trunk/extensions/dojo-widget project. Please see the project for details and try out by yourself. Your feedback is always welcome.
