@@ -39,7 +39,7 @@ class UiObjectBuilderRegistry implements Configurable{
         registerBuilder("Div", new DivBuilder())
         registerBuilder("Span", new SpanBuilder())
         registerBuilder("SimpleMenu", new SimpleMenuBuilder())
-        registerBuilder("SelectMenu", new SelectMenuBuilder())
+//        registerBuilder("SelectMenu", new SelectMenuBuilder())
         registerBuilder("Option", new OptionBuilder())
         registerBuilder("StandardTable", new StandardTableBuilder())
         registerBuilder("ClickableUi", new ClickableUiBuilder())
