@@ -32,8 +32,9 @@ tellurium{
         //  *firefox [absolute path]
         //  *iexplore [absolute path]
         //  *chrome
-        browser = "*iehta"
-        // browser = "*chrome"
+        //   *iehta
+//        browser = "*iehta"
+        browser = "*chrome"
     }
     datadriven{
         dataprovider{
