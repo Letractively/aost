@@ -168,14 +168,14 @@
 		<echo message="Distribution created successfully." />
 	</target>
 
-	<target name="compile-test" depends="clean, dist">
+	<target name="compile-test" depends="clean, compile-tellurium-dojo-widget">
 		<echo message="Compiling test.." />
 		<groovyc srcdir="${dir.source.test}" destdir="${dir.build.test}">
 			<classpath refid="tellurium.classpath" />
 			<include name="**" />
 		</groovyc>
-        <javac srcdir="${dir.source.tellurium}"
-            destdir="${dir.build.tellurium}">
+        <javac srcdir="${dir.source.test}"
+            destdir="${dir.build.test}">
             <classpath refid="test.classpath" />
         </javac>
 	</target>
@@ -188,7 +188,7 @@
 			<formatter type="xml" />
 			<batchtest todir="${dir.build.test}">
 				<fileset dir="${dir.source.test}">
-					<include name="**/**"/>
+					<include name="**/org/tellurium/widget/dojo/test/**"/>
 				</fileset>
 			</batchtest>
 		</junit>
