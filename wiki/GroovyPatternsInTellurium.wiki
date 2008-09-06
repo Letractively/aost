@@ -283,5 +283,22 @@ def onWidget(String uid, String method, Object[] args){
 The onWidget method can be expressed in DSL syntax as follows,
 
 {{{
+onWidget "DOJO_DatePicker", selectYear, 1992
+}}}
+
+=== propertyMissing ===
+
+Groovy also supports propertyMissing for dealing with property resolution attempts. For example, in DslContext, we define
+
+{{{
+    def propertyMissing(String name) {
+        println "Warning: property ${name} is missing, treat it as a String. "
+        name
+    }
+}}}
+
+That is to say, for the missing property, we will return it as a String. This is very useful for the "onWidget" method. Without the propertyMissing, we have to use
+
+{{{
 onWidget "DOJO_DatePicker", "selectYear", 1992
 }}}
