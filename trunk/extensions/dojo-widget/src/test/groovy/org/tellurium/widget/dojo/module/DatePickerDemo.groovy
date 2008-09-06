@@ -29,48 +29,48 @@ class DatePickerDemo extends DslContext{
     }
 
     public void increaseWeek(){
-        onWidget "dropdown.datePicker", "increaseWeek"
+        onWidget "dropdown.datePicker", increaseWeek
         pause 500
     }
 
     public void decreaseWeek(){
-        onWidget "dropdown.datePicker", "decreaseWeek"
+        onWidget "dropdown.datePicker", decreaseWeek
         pause 500
     }
 
     public void increaseMonth(){
-        onWidget "dropdown.datePicker", "increaseMonth"
+        onWidget "dropdown.datePicker", increaseMonth
         pause 500
     }
 
     public void decreaseMonth(){
-        onWidget "dropdown.datePicker", "decreaseMonth"
+        onWidget "dropdown.datePicker", decreaseMonth
         pause 500
     }
 
     public void selectPrevYear(){
-        onWidget "dropdown.datePicker", "selectPrevYear"
+        onWidget "dropdown.datePicker", selectPrevYear
         pause 500
     }
 
     public void selectNextYear(){
-        onWidget "dropdown.datePicker", "selectNextYear"
+        onWidget "dropdown.datePicker", selectNextYear
         pause 500
     }
 
     public String getCurrentYear(){
-        return onWidget("dropdown.datePicker", "getCurrentYear")
+        return onWidget("dropdown.datePicker", getCurrentYear)
     }
 
     public String getCurrentMonth(){
-        return onWidget("dropdown.datePicker", "getCurrentMonth")
+        return onWidget("dropdown.datePicker", getCurrentMonth)
     }
 
     public java.util.List peekDaysForCurrentMonth(){
-        return onWidget("dropdown.datePicker", "peekDaysForCurrentMonth")
+        return onWidget("dropdown.datePicker", peekDaysForCurrentMonth)
     }
 
     public void selectDaysForCurrentMonth(int day){
-        onWidget "dropdown.datePicker", "selectDayForCurrentMonth", day
+        onWidget "dropdown.datePicker", selectDayForCurrentMonth, day
     }
 }
