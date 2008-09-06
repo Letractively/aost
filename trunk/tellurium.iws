@@ -16,18 +16,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/extensions/extjs-widget/tellurium-extjs-widget.iml" afterPath="$PROJECT_DIR$/extensions/extjs-widget/tellurium-extjs-widget.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/extensions/tellurium-extensions.iml" afterPath="$PROJECT_DIR$/extensions/tellurium-extensions.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/extensions/dojo-widget/tellurium-dojo-widget.iml" afterPath="$PROJECT_DIR$/extensions/dojo-widget/tellurium-dojo-widget.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reference-projects/tellurium-reference-projects.iml" afterPath="$PROJECT_DIR$/reference-projects/tellurium-reference-projects.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium.iml" afterPath="$PROJECT_DIR$/tellurium.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reference-projects/tellurium-testng-java/tellurium-testng-java.iml" afterPath="$PROJECT_DIR$/reference-projects/tellurium-testng-java/tellurium-testng-java.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium.iws" afterPath="$PROJECT_DIR$/tellurium.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reference-projects/tellurium-junit-java/tellurium-junit-java.iml" afterPath="$PROJECT_DIR$/reference-projects/tellurium-junit-java/tellurium-junit-java.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/firefox-plugin/tellurium-firefox-plugin.iml" afterPath="$PROJECT_DIR$/tools/firefox-plugin/tellurium-firefox-plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/tellurium-core.iml" afterPath="$PROJECT_DIR$/core/tellurium-core.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/tellurium-tools.iml" afterPath="$PROJECT_DIR$/tools/tellurium-tools.iml" />
     </list>
     <ignored path="tellurium.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -343,7 +332,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="0" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" order="14" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24674267" order="1" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24674267" order="1" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -354,7 +343,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="5" />
       <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980457" order="1" />
       <window_info id="Maven Runner Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="0" />
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32894737" order="5" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="5" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" order="9" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="6" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39983714" order="4" />
