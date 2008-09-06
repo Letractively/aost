@@ -7,8 +7,8 @@
 	<property file="build.properties" />
 
 	<property name="dir.source" value="${dir.project}/src" />
-	<property name="dir.source.tellurium" value="${dir.source}/main" />
-	<property name="dir.source.test" value="${dir.source}/test" />
+	<property name="dir.source.tellurium" value="${dir.source}/main/groovy" />
+	<property name="dir.source.test" value="${dir.source}/test/groovy" />
 
 	<property name="dir.build" value="${dir.project}/out" />
 	<property name="dir.build.tellurium" value="${dir.build}/production" />
@@ -174,8 +174,8 @@
 			<classpath refid="tellurium.classpath" />
 			<include name="**" />
 		</groovyc>
-        <javac srcdir="${dir.source.tellurium}"
-            destdir="${dir.build.tellurium}">
+        <javac srcdir="${dir.source.test}"
+            destdir="${dir.build.test}">
             <classpath refid="test.classpath" />
         </javac>
 	</target>
@@ -187,9 +187,10 @@
 			<formatter type="brief" usefile="false" />
 			<formatter type="xml" />
 			<batchtest todir="${dir.build.test}">
-				<fileset dir="${dir.source.test}/test">
-					<include name="**/**"/>
-				</fileset>
+				<fileset dir="${dir.source.test}">
+					<include name="**/example/test/**"/>
+                    <include name="**/org/tellurium/test/**"/>
+                </fileset>
 			</batchtest>
 		</junit>
 
