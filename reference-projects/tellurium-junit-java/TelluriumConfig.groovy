@@ -69,7 +69,7 @@ tellurium{
             //take the TableBuilder or ListBuilder as an example
 
             //example:
-//           Icon="org.tellurium.builder.IconBuilder"
+           SelectMenu="org.tellurium.builder.SelectMenuBuilder"
 
         }
     }
