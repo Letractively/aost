@@ -30,21 +30,13 @@
     <content url="file://$MODULE_DIR$/src/test/resources">
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" isTestSource="true" />
     </content>
+    <orderEntry type="library" name="groovy-1.5.6" level="application" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/selenium-java-client-driver.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/groovy-all-1.5.6.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -63,15 +55,6 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/junit-3.8.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/groovy-all-1.5.6.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
