@@ -1,7 +1,7 @@
-package example.tellurium.test;
+package org.tellurium.test;
 
 import org.tellurium.test.java.TelluriumJavaTestCase;
-import example.tellurium.module.TelluriumProjectPage;
+import org.tellurium.module.TelluriumProjectPage;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.Before;

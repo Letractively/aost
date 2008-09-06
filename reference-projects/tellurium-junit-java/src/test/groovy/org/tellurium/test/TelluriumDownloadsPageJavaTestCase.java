@@ -1,8 +1,8 @@
-package example.tellurium.test;
+package org.tellurium.test;
 
 import org.tellurium.test.java.TelluriumJavaTestCase;
 import org.tellurium.util.Helper;
-import example.tellurium.module.TelluriumDownloadsPage;
+import org.tellurium.module.TelluriumDownloadsPage;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import java.util.logging.Level;
