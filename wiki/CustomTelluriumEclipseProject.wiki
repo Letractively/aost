@@ -12,7 +12,7 @@
      http://dist.codehaus.org/groovy/distributions/update/
      }}}
 
-  * Download the Tellurium tellurium-0.4.0-java5.jar file from the following location.
+  * Download the Tellurium tellurium-0.4.0-u01.jar file from the following location, which is for Java 6. If you use Java 5, please download the tellurium-0.4.0-java5.jar file.
     {{{
     http://code.google.com/p/aost/downloads/list
     }}}
