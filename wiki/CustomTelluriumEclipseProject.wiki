@@ -12,6 +12,11 @@
      http://dist.codehaus.org/groovy/distributions/update/
      }}}
 
+  * Download Eclipse Subversion client plugin, subclipse, from the following location.
+    {{{
+    http://subclipse.tigris.org/update_1.4.x
+    }}}
+
   * Download the Tellurium tellurium-0.4.0-u01.jar file from the following location, which is for Java 6. If you use Java 5, please download the tellurium-0.4.0-java5.jar file.
     {{{
     http://code.google.com/p/aost/downloads/list
