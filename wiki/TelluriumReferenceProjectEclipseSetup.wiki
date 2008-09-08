@@ -1,7 +1,7 @@
 #labels Phase-Deploy,Phase-Support
-= Set up the Tellurium Reference project tellurium-junit-java with Eclipse =
+== Set up the Tellurium Reference project tellurium-junit-java with Eclipse ==
 
-== Prerequisites ==
+=== Prerequisites ===
   * Download Eclipse from the following location.
       {{{
       http://www.eclipse.org/
@@ -17,7 +17,7 @@
     http://subclipse.tigris.org/update_1.4.x
     }}}
 
-== Checkout Project tellurium-junit-java as an Eclipse Project ===
+=== Checkout Project tellurium-junit-java as an Eclipse Project ===
   * Launch Eclipse and point it to your workspace.
   * File > New > Other > SVN > Checkout projects from SVN
 
