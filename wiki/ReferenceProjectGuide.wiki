@@ -383,3 +383,7 @@ tellurium{
 }
 
 }}}
+
+== Build Scripts ==
+
+The tellurium-junit-java project includes ant build script and Maven POM file so that you can run ant tasks from the command line, or use Maven to build the project.
