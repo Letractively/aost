@@ -8,12 +8,14 @@
       http://www.jetbrains.com/idea/download/index.html
       }}}
 
-  * Download Groovy 1.5.6 from the following location.
+  * Download Groovy 1.5.6 from the following location and unpack to your system.
      {{{
      http://groovy.codehaus.org/Download
      }}}
 
   * Download and install Groovy plugin JetGroovy for IntelliJ using IntelliJ Plugin management GUI.
+
+http://tellurium-users.googlegroups.com/web/JetGroovyPluginInstall.png?gda=dg_HwkwAAABBo5YKz4My4Er929brhwkD2ucJQACD2wYtaZWgGCc7zIEl67BXdTEo51dgWIN_GgVLzz4t2ricMlsfMJNt13gv_Vpvmo5s1aABVJRO3P3wLQ&gsc=CrhfYQsAAADkz0nf0JiQ0myB9uM55KVK
 
 == Checkout Project tellurium-junit-java as an IntelliJ Project ===
   * Version Control > Checkout from Version Control > Subversion
@@ -58,4 +60,3 @@ http://tellurium-users.googlegroups.com/web/intellijtjj9.png
   * Click on any Junit test file and run it.
 
 http://tellurium-users.googlegroups.com/web/intellijtjj10.png
-
