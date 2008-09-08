@@ -1,0 +1,40 @@
+#labels Phase-Deploy,Featured,Phase-Support
+= Guide for the Reference Project =
+
+== Introduction ==
+
+We create reference projects to demonstrate how to use Tellurium for your own testing project. In the reference projects, we use Tellurium project web site as an example to illustrate how to write real-world Tellurium tests. The reference projects only uses tellurium jar files and there are two sub-projects at the time of writing
+
+  * tellurium-junit-java
+  * tellurium-testng-java
+
+Basically, the two sub-projects are the same and the only difference is that tellurium-junit-java uses JUnit 4 and tellurium-testng-java uses TestNG. Hence, here we only focus on the tellurium-junit-java project.
+
+The tellurium-junit-java project illustrates the following usages of Tellurium:
+
+  * How to create your own Tellurium testing project using tellurium jar files.
+  * How to create your own UI Objects and wire them into Tellurium core
+  * How to create UI module files in Groovy
+  * How to create JUnit tellurium testing files in Java
+  * How to create and run DSL scripts
+  * How to create Tellurium Data Driven tests
+  * How to configure Tellurium with the configuration file TelluriumConfig.groovy
+  * Ant build script
+  * Maven support
+  * Support Eclipse, NetBeans, and IntelliJ IDEs
+
+== Check out and Setup the reference project in IDEs ==
+
+The tellurium-junit-java reference project is at SVN trunk and the URL is:
+
+{{{
+http://aost.googlecode.com/svn/trunk/reference-projects/tellurium-junit-java
+}}}
+
+We have already included all Eclipse, NetBeans, and IntelliJ project files in the project code base. What you need to do is just check out the code and twist a bit about the settings.
+
+For detailed step-by-step guides, please see
+
+  * [http://code.google.com/p/aost/wiki/TelluriumReferenceProjectEclipseSetup Eclipse Project Setup]
+  * [http://code.google.com/p/aost/wiki/TelluriumReferenceProjectNetBeansSetup NetBeans Project Setup]
+  * [http://code.google.com/p/aost/wiki/TelluriumReferenceProjectIntelliJSetup IntelliJ Project Setup]
