@@ -145,3 +145,112 @@ You may wonder how to hook the custom objects into Tellurium core so that it can
         }
     }
 }}}
+
+== Create UI modules ==
+
+You should create UI modules in Groovy files, which should extend the DslContext class. In the defineUi method, define your UI and then define all methods for them. Take the Tellurium Downloads page as an example:
+
+{{{
+class TelluriumDownloadsPage extends DslContext{
+
+   public void defineUi() {
+
+       //define UI module of a form include download type selector and download search
+       ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
+           Selector(uid: "downloadType", clocator: [name: "can", id: "can"])
+           TextBox(uid: "searchLabel", clocator: [tag: "span"])
+           InputBox(uid: "searchBox", clocator: [name: "q"])
+           SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+       }
+
+       ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"], group: "true"){
+           //define table header
+           //for the border column
+           TextBox(uid: "header: 1", clocator: [:])
+           UrlLink(uid: "header: 2", clocator: [text: "%%Filename"])
+           UrlLink(uid: "header: 3", clocator: [text: "%%Summary + Labels"])
+           UrlLink(uid: "header: 4", clocator: [text: "%%Uploaded"])
+           UrlLink(uid: "header: 5", clocator: [text: "%%Size"])
+           UrlLink(uid: "header: 6", clocator: [text: "%%DownloadCount"])
+           UrlLink(uid: "header: 7", clocator: [text: "%%..."])
+
+           //define table elements
+           //for the border column
+           TextBox(uid: "row: *, column: 1", clocator: [:])
+           //the summary + labels column consists of a list of UrlLinks
+           List(uid: "row:*, column: 3", clocator: [:]){
+               UrlLink(uid: "all", clocator: [:])
+           }
+           //For the rest, just UrlLink
+           UrlLink(uid: "all", clocator: [:])
+       }
+   }
+
+    public String[] getAllDownloadTypes(){
+        return  getSelectOptions("downloadSearch.downloadType")
+    }
+
+    public String getCurrentDownloadType(){
+        return  getSelectedLabel("downloadSearch.downloadType");
+    }
+
+    public void selectDownloadType(String type){
+        selectByLabel "downloadSearch.downloadType", type
+    }
+
+    public void searchDownload(String keyword){
+        type "downloadSearch.searchBox", keyword
+        click "downloadSearch.searchButton"
+        waitForPageToLoad 30000
+    }
+
+    ......
+
+}
+}}}
+ 
+== Create JUnit Test Cases ==
+
+You can create JUnit Test Cases by extending the TelluriumJavaTestCase class. Nothing special, just like regular JUnit test cases. For instance,
+
+{{{
+public class TelluriumDownloadsPageJavaTestCase extends TelluriumJavaTestCase{
+   private static TelluriumDownloadsPage downloadPage;
+
+    public static String newline = System.getProperty("line.separator");
+    private static Logger logger = Logger.getLogger(TelluriumDownloadsPageJavaTestCase.class.getName());
+
+    @BeforeClass
+    public static void initUi() {
+        downloadPage = new TelluriumDownloadsPage();
+        downloadPage.defineUi();
+    }
+
+    @Test
+    public void testDownloadTypes(){
+        connectUrl("http://code.google.com/p/aost/downloads/list");
+        String[] allTypes = downloadPage.getAllDownloadTypes();
+        assertNotNull(allTypes);
+        assertTrue(allTypes[1].contains("All Downloads"));
+        assertTrue(allTypes[2].contains("Featured Downloads"));
+        assertTrue(allTypes[3].contains("Current Downloads"));
+        assertTrue(allTypes[4].contains("Deprecated Downloads"));
+    }
+
+    @Test
+    public void testSearchByText(){
+        connectUrl("http://code.google.com/p/aost/downloads/list");
+        // Set download type with other value
+        downloadPage.selectDownloadType(" All Downloads");
+        downloadPage.searchDownload("tellurium-0.4.0");
+
+        List<String> list = downloadPage.getDownloadFileNames();
+        assertNotNull(list);
+        assertFalse(list.isEmpty());
+        assertTrue(Helper.include(list, "tellurium-0.4.0.tar.gz"));
+    }
+
+    ......
+
+}
+}}}
