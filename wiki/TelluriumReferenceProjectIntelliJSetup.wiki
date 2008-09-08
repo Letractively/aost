@@ -53,7 +53,7 @@ http://tellurium-users.googlegroups.com/web/intellijtjj7.png
 
 http://tellurium-users.googlegroups.com/web/intellijtjj8.png
 
-  * On the same UI, open the dependencies for module tellurium-junit-java, uncheck "tellurium-core" until you also check out tellurium-core. Add your project library, i.e., the lib directory in, which includes the tellurium jar file. Click "apply" and then "Ok".
+  * On the same UI, open the dependencies for module tellurium-junit-java, uncheck "tellurium-core" until you also check out tellurium-core. Add your project library, i.e., the lib directory in, which includes the tellurium jar file. Click "Apply" and then "Ok".
 
 http://tellurium-users.googlegroups.com/web/intellijtjj9.png
 
