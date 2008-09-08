@@ -3,7 +3,7 @@
 
 == Introduction ==
 
-We create reference projects to demonstrate how to use Tellurium for your own testing project. In the reference projects, we use Tellurium project web site as an example to illustrate how to write real-world Tellurium tests. The reference projects only uses tellurium jar files and there are two sub-projects at the time of writing
+We create reference projects to demonstrate how to use Tellurium for your own testing project. In the reference projects, we use Tellurium project web site as an example to illustrate how to write real-world Tellurium tests. The reference projects only use tellurium jar files and there are two sub-projects at the time of writing
 
   * tellurium-junit-java
   * tellurium-testng-java
@@ -33,7 +33,7 @@ http://aost.googlecode.com/svn/trunk/reference-projects/tellurium-junit-java
 
 We have already included all Eclipse, NetBeans, and IntelliJ project files in the project code base. What you need to do is just check out the code and twist a bit about the settings.
 
-For detailed step-by-step guides, please see
+For detailed step-by-step directions, please see
 
   * [http://code.google.com/p/aost/wiki/TelluriumReferenceProjectEclipseSetup Eclipse Project Setup]
   * [http://code.google.com/p/aost/wiki/TelluriumReferenceProjectNetBeansSetup NetBeans Project Setup]
@@ -74,8 +74,7 @@ Others are project files for Eclipse, NetBeans, and IntelliJ
 
 == Create Custom UI objects ==
 
-Tellurium support custom UI objects defined by users. 
-For most UI objects, they must extend the "UiObject" class and then define actions or methods they support. For container type UI objects, i.e., which hold other UI objects, they should extends the Container class. Please see Tellurium Table and List objects for more details.
+Tellurium supports custom UI objects defined by users. For most UI objects, they must extend the "UiObject" class and then define actions or methods they support. For container type UI objects, i.e., which hold other UI objects, they should extends the Container class. Please see Tellurium Table and List objects for more details.
 
 In the tellurium-junit-java project, we defined the custom UI object "SelectMenu" as follows:
 
@@ -136,7 +135,7 @@ class SelectMenuBuilder extends UiObjectBuilder{
 }
 }}}
 
-You may wonder how to hook the custom objects into Tellurium core so that it can recognize the new type. The answer is simple, you just add the UI object name and its builder class name to Tellurium configuration file TelluriumConfig.groovy. Look at the following section:
+You may wonder how to hook the custom objects into Tellurium core so that it can recognize the new type. The answer is simple, you just add the UI object name and its builder class name to Tellurium configuration file TelluriumConfig.groovy. Update the following section:
 
 {{{
     uiobject{
@@ -148,7 +147,7 @@ You may wonder how to hook the custom objects into Tellurium core so that it can
 
 == Create UI modules ==
 
-You should create UI modules in Groovy files, which should extend the DslContext class. In the defineUi method, define your UI and then define all methods for them. Take the Tellurium Downloads page as an example:
+You should create UI modules in Groovy files, which should extend the DslContext class. In the defineUi method, define your UIs and then define all methods for them. Take the Tellurium Downloads page as an example:
 
 {{{
 class TelluriumDownloadsPage extends DslContext{
@@ -297,7 +296,7 @@ click "search.search_web_button"
 waitForPageToLoad 30000
 }}}
 
-To run the DSL script, you should first compile the code with ant script. In project root, run ant task
+To run the DSL script, you should first compile the code with ant script. In project root, run the following ant task
 
 {{{
 ant compile-test
@@ -312,7 +311,7 @@ Then, use the rundsl.sh to run the DSL script
 For Windows, you should use the rundsl.bat script.
 
 == Data Driven Testing ==
-Data Driven Testing examples will be added later on
+Data Driven Testing examples will be provided later on
 
 == Tellurium Configuration ==
 
@@ -383,6 +382,8 @@ tellurium{
 }
 
 }}}
+
+As a result, Tellurium is very flexible for users to customize. Note, if you want to use widgets, you should include the widget jar files in your class path.
 
 == Build Scripts ==
 
