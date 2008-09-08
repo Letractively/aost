@@ -38,3 +38,36 @@ For detailed step-by-step guides, please see
   * [http://code.google.com/p/aost/wiki/TelluriumReferenceProjectEclipseSetup Eclipse Project Setup]
   * [http://code.google.com/p/aost/wiki/TelluriumReferenceProjectNetBeansSetup NetBeans Project Setup]
   * [http://code.google.com/p/aost/wiki/TelluriumReferenceProjectIntelliJSetup IntelliJ Project Setup]
+
+== Code Structure ==
+
+The code structure for the tellurium-junit-java project is shown as follows
+
+{{{
+src/main/groovy          ---------- source code for custom UI objects
+               org/tellurium/object  ------------- customer UI objects
+               org/tellurium/builder ------------- builders for UI objects
+
+src/test/groovy          ---------- test source code
+               org/tellurium/module  ------------- Tellurium UI module files
+               org/tellurium/test    ------------- JUnit test cases
+               org/tellurium/ddt     ------------- Tellurium Data Driven test cases
+
+src/test/resources       ---------- test resource files
+               org/tellurium/data    ------------- test data files
+               org/tellurium/dsl     ------------- Tellurium DSL scripts
+
+lib/           --------------- library directory holding tellurium jars and other required jar files
+
+build.xml      --------------- ant build script
+build.properties ------------- ant build properties
+
+pom.xml        --------------- Maven POM file
+
+TelluriumConfig.groovy ------- Tellurium configuration file
+
+rundsl.sh      --------------- Unix/Linux script to run Tellurium DSL scripts
+rundsl.bat     --------------- Windows script to run Tellurium DSL scripts
+
+Others are project files for Eclipse, NetBeans, and IntelliJ
+}}}
