@@ -1,7 +1,7 @@
 #labels Phase-Deploy,Phase-Support
-= Set up the Tellurium Reference project tellurium-junit-java with IntelliJ =
+== Set up the Tellurium Reference project tellurium-junit-java with IntelliJ ==
 
-== Prerequisites ==
+=== Prerequisites ===
 
   * Download IntelliJ 7.0 from the following location.
       {{{
@@ -17,7 +17,7 @@
 
 http://tellurium-users.googlegroups.com/web/JetGroovyPluginInstall.png?gda=dg_HwkwAAABBo5YKz4My4Er929brhwkD2ucJQACD2wYtaZWgGCc7zIEl67BXdTEo51dgWIN_GgVLzz4t2ricMlsfMJNt13gv_Vpvmo5s1aABVJRO3P3wLQ&gsc=CrhfYQsAAADkz0nf0JiQ0myB9uM55KVK
 
-== Checkout Project tellurium-junit-java as an IntelliJ Project ===
+=== Checkout Project tellurium-junit-java as an IntelliJ Project ===
   * Version Control > Checkout from Version Control > Subversion
 
 http://tellurium-users.googlegroups.com/web/intellijtjj1.png
