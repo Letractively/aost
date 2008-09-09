@@ -17,4 +17,4 @@ Please follow the following rules:
  
   * We have weekly report so that each member knows what the other members are doing and how far we are now.
 
-Note, Google Code Subversion Repository uses Subversion 1.4, not 1.5. Please select the correct version when you check out code. 
+*Note*, Google Code Subversion Repository uses Subversion _1.4_, not _1.5_. Please select the correct version when you check out code. 
