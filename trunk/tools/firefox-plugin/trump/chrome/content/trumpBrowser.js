@@ -5,7 +5,7 @@ var constants = {
     ANCHOR_NODE : "a"
 }
 
-var blackListAttributes = ["size", "maxlength", "width", "height", "style"]
+var blackListAttributes = ["size", "maxlength", "width", "height", "style", "onclick"]
 
 function init(){
     var nodeState = window.opener.nodeState;
@@ -126,6 +126,7 @@ function createNodeUID(node){
                 break;
         case "table" : uid = "table1"
                 break;
+        case "span" : uid = "textBox1"
          //TODO add more here
     }
     return uid;
@@ -133,7 +134,15 @@ function createNodeUID(node){
 
 function createTextKeyValue(value){
     if(value){
-        return "text : \""+ value + "\"";
+        var textArray;
+        var text = value;
+        if(value.indexOf(" ") != -1 ){
+            textArray = value.split(" ");
+            text = "%%" + textArray[0];
+        }else if(value.indexOf("&nbsp;") != -1){
+            text = "%%"+value.substring(0, value.indexOf("&nbsp;"));
+        }
+        return "text : \""+ text + "\"";
     }
     return "";
 }
@@ -218,6 +227,7 @@ function isNotBlackListed(attribute){
     //alert(blackListAttributes.indexOf(attribute) == -1);
     return blackListAttributes.indexOf(attribute) == -1;        
 }
+
 /**
  * Gets the bunde to use
  */
