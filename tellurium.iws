@@ -16,6 +16,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reference-projects/tellurium-junit-java/tellurium-junit-java.iml" afterPath="$PROJECT_DIR$/reference-projects/tellurium-junit-java/tellurium-junit-java.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/extensions/dojo-widget/tellurium-dojo-widget.iml" afterPath="$PROJECT_DIR$/extensions/dojo-widget/tellurium-dojo-widget.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reference-projects/tellurium-testng-java/tellurium-testng-java.iml" afterPath="$PROJECT_DIR$/reference-projects/tellurium-testng-java/tellurium-testng-java.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/tellurium-core.iml" afterPath="$PROJECT_DIR$/core/tellurium-core.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium.iws" afterPath="$PROJECT_DIR$/tellurium.iws" />
     </list>
     <ignored path="tellurium.iws" />
@@ -99,6 +103,7 @@
   </component>
   <component name="MavenRunner">
     <option name="jreName" value="1.6" />
+    <option name="runMavenInBackground" value="true" />
     <option name="useMavenEmbedder" value="false" />
   </component>
   <component name="ModuleEditorState">
@@ -109,7 +114,7 @@
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
-    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="false" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
     <OptionsSetting value="true" id="Undo Check Out" />
@@ -123,58 +128,6 @@
         <PATH_ELEMENT>
           <option name="myItemId" value="tellurium" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium-firefox-plugin" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium-firefox-plugin" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/tools/firefox-plugin" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium-firefox-plugin" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/tools/firefox-plugin" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/tools/firefox-plugin/trump" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
         </PATH_ELEMENT>
       </PATH>
     </subPane>
@@ -203,6 +156,124 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+  </component>
+  <component name="RestoreUpdateTree">
+    <UpdateInfo date="9/7/08 11:24 PM" ActionInfo="_Update">
+      <UpdatedFiles>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated from server" />
+          <option name="myStatusName" value="Changed on server" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CHANGED_ON_SERVER" />
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Updated" />
+            <option name="myStatusName" value="Changed" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="UPDATED" />
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/extensions/dojo-widget/src/test/groovy/org/tellurium/widget/dojo/module/DatePickerDemo.groovy</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/lib</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/core/src/main/groovy/org/tellurium/dsl/DslContext.groovy</PATH>
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Created" />
+            <option name="myStatusName" value="Created" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="CREATED" />
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-testng-java/lib</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-testng-java/lib/selenium-java-client-driver.jar</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-testng-java/lib/selenium-server.jar</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-testng-java/lib/testng-5.7-jdk15.jar</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-testng-java/lib/groovy-all-1.5.6.jar</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-testng-java/TelluriumConfig.groovy</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/.project</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/nbproject</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/nbproject/project.properties</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/nbproject/project.xml</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/nbproject/genfiles.properties</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/nbproject/build-impl.xml</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/build</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/build/classes</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/.classpath</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/lib/CopyLibs</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/lib/nblibraries.properties</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/lib/junit</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/lib/junit_4</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/manifest.mf</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/.settings</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/.settings/org.eclipse.jdt.core.prefs</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/.settings/org.codehaus.groovy.eclipse.preferences.prefs</PATH>
+            <PATH vcs="svn" revision="507">$PROJECT_DIR$/reference-projects/tellurium-junit-java/nbbuild.xml</PATH>
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Deleted" />
+            <option name="myStatusName" value="Deleted" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="true" />
+            <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Restored" />
+            <option name="myStatusName" value="Will be restored" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="RESTORED" />
+          </FILE-GROUP>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Modified" />
+          <option name="myStatusName" value="Modified" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MODIFIED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Skipped" />
+          <option name="myStatusName" value="Skipped" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="SKIPPED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with conflicts" />
+          <option name="myStatusName" value="Will be merged with conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_CONFLICTS" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged" />
+          <option name="myStatusName" value="Will be merged" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Not in repository" />
+          <option name="myStatusName" value="Not in repository" />
+          <option name="mySupportsDeletion" value="true" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UNKNOWN" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally added" />
+          <option name="myStatusName" value="Locally added" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_ADDED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally removed" />
+          <option name="myStatusName" value="Locally removed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_REMOVED" />
+        </FILE-GROUP>
+      </UpdatedFiles>
+    </UpdateInfo>
   </component>
   <component name="RunManager" selected="JUnit.All in tellurium-core">
     <tempConfiguration default="false" name="All in tellurium-core" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
@@ -374,7 +445,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="0" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="14" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24674267" order="1" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24674267" order="1" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -383,15 +454,15 @@
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="4" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="0" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="5" />
-      <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980457" order="1" />
+      <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32980457" order="1" />
       <window_info id="Maven Runner Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="0" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="5" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32894737" order="5" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" order="9" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="6" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39983714" order="4" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="11" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="6" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="1" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="1" />
       <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="2" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="3" />
