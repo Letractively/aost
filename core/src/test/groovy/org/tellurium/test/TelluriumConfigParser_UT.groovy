@@ -2,6 +2,7 @@ package org.tellurium.test
 
 import org.tellurium.config.TelluriumConfigParser
 import org.tellurium.config.TelluriumConfigParser
+import java.io.File
 
 /**
  *
@@ -14,7 +15,7 @@ class TelluriumConfigParser_UT extends GroovyTestCase{
 
     public void testParse(){
         TelluriumConfigParser parser = new TelluriumConfigParser()
-        parser.parse('TelluriumConfig.groovy')
+        parser.parse(ClassLoader.getSystemResource("TelluriumConfig.groovy").getFile())
         def config = parser.getProperty("conf")
         assertNotNull(config)
         assertEquals("4444", config.tellurium.embeddedserver.port)
