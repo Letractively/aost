@@ -17,18 +17,18 @@ easier to maintain and refactor compared with the locator-based Selenium test fr
 We create reference projects to demonstrate how to use Tellurium for your own testing project. In the reference projects, we use Tellurium project web site as
 an example to illustrate how to write real-world Tellurium tests.
 
-The tellurium-junit-java project illustrates the following usages of Tellurium:
+The tellurium-testng-java project illustrates the following usages of Tellurium:
 
     * How to create your own Tellurium testing project using tellurium jar files.
     * How to create your own UI Objects and wire them into Tellurium core
     * How to create UI module files in Groovy
-    * How to create JUnit tellurium testing files in Java
+    * How to create TestNG tellurium testing files in Java
     * How to create and run DSL scripts
     * How to create Tellurium Data Driven tests
     * How to configure Tellurium with the configuration file TelluriumConfig?.groovy
     * Ant build script
     * Maven support
-    * Support Eclipse, NetBeans?, and IntelliJ IDEs
+    * Support Eclipse, NetBeans, and IntelliJ IDEs
 
 Please check the following wiki page for details:
 
