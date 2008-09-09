@@ -28,7 +28,7 @@ The tellurium-junit-java project illustrates the following usages of Tellurium:
     * How to configure Tellurium with the configuration file TelluriumConfig?.groovy
     * Ant build script
     * Maven support
-    * Support Eclipse, NetBeans?, and IntelliJ IDEs
+    * Support Eclipse, NetBeans, and IntelliJ IDEs
 
 Please check the following wiki page for details:
 
