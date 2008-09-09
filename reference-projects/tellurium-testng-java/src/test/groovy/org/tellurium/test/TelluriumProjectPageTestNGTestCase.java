@@ -4,7 +4,7 @@ import org.tellurium.test.java.TelluriumTestNGTestCase;
 import org.tellurium.module.TelluriumProjectPage;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 
 /**
  *
@@ -23,7 +23,7 @@ public class TelluriumProjectPageTestNGTestCase extends TelluriumTestNGTestCase{
         app.defineUi();
     }
 
-    @BeforeTest
+    @BeforeMethod
     public void setUpForTest(){
        connectUrl("http://code.google.com/p/aost/");
     }
