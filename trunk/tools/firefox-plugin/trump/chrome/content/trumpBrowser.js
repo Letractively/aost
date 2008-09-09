@@ -1,7 +1,11 @@
 var constants = {
     ELEMENT_TYPE_NODE : 1,
-    INPUT_NODE : "INPUT"
+    INPUT_NODE : "input",
+    SELECT_NODE : "select",
+    ANCHOR_NODE : "a"
 }
+
+var blackListAttributes = ["size", "maxlength", "width", "height", "style"]
 
 function init(){
     var nodeState = window.opener.nodeState;
@@ -14,30 +18,41 @@ function init(){
     var uid = null;
     var uiText = null;
     var propertyKey = null;
+    var lowerCaseNodeName = null;
+    var upperCaseNodeName = null;
 
-    //alert("bundle : " + bundle);
+
+
+//    alert("bundle : " + bundle);
 
     var nodeType = getNodeType(clickedNode);
+    var nodeValue = getNodeValue(clickedNode);
+    var nodeName = getNodeName(clickedNode);
 
     //Check if its an ELEMENT TYPE NODE
     if (nodeType == constants.ELEMENT_TYPE_NODE) {
-        var nodeName = getNodeName(clickedNode);
+        lowerCaseNodeName = nodeName.toLowerCase();
+        upperCaseNodeName = nodeName.toUpperCase();
 
-        tag = bundle.getFormattedString("TAG", [nodeName]);
+        tag = bundle.getFormattedString("TAG", [lowerCaseNodeName]);
         attributeString = getAttributesString(clickedNode);
         //alert("attribute : " + attributeString);
 
         //If its an Input node, check the type
-        if(nodeName == constants.INPUT_NODE){
+        if(lowerCaseNodeName == constants.INPUT_NODE){
             uid = createInputUID(getInputNodeType(clickedNode))
             propertyKey = getInputNodeAsProperty(clickedNode);
-            uiText = bundle.getFormattedString(propertyKey, ["\""+uid+"\"", attributeString]);
-        }else{
-            //TODO other node types
-            uid = "otherNode"
-            propertyKey = nodeName;
-            attributeString = tag + attributeString;
             uiText = bundle.getFormattedString(propertyKey, [uid, attributeString]);
+
+        }else{
+            //alert("Other node");
+            uid = createNodeUID(clickedNode);
+            //alert("uid : " + uid);
+            propertyKey = upperCaseNodeName;
+            if(lowerCaseNodeName == constants.SELECT_NODE){
+                nodeValue = null;
+            }
+            uiText = bundle.getFormattedString(propertyKey, [uid, createCLocatorText(tag, attributeString, nodeValue)]);
         }
 
         //alert("string : " + uiText);
@@ -50,6 +65,7 @@ function init(){
  * @param node
  */
 function getNodeType(node){
+    //alert(node.nodeType)
     return node.nodeType;
 }
 
@@ -63,15 +79,20 @@ function getNodeName(node){
 
 function getInputNodeType(node){
     var type = node.getAttribute("type");
-    return (type != null) ? type : "text"
+    return (type != null) ? type : "text";
+}
+
+function getNodeValue(node){
+    //alert(node.innerHTML);
+    return node.nodeValue != null ? node.nodeValue : node.innerHTML;
 }
 
 function createInputUID(type){
     var uid = "inputBox1";
-    switch(type){
+    switch(type.toLowerCase()){
         case "button" :uid = "button1"
             break;
-        case "checkbox" : //TODO
+        case "checkbox" : uid = "checkbox1"
             break;
         case "file" : //TODO
             break;
@@ -81,7 +102,7 @@ function createInputUID(type){
             break;
         case "password" : uid = "password1"
             break;
-        case "radio" : //TODO
+        case "radio" : uid = "radioButton1"
             break;
         case "submit" : uid = "submitButton1"
             break;
@@ -91,6 +112,50 @@ function createInputUID(type){
     return uid;
 }
 
+function createNodeUID(node){
+    var nodeName = getNodeName(node);
+    var uid = "UNKNOWN";
+    switch(nodeName.toLowerCase()){
+        case "a" : uid = "urlLink1";
+                    break;
+        case "select" : uid = "selector1";
+                    break;
+        case "div": uid = "div1";
+                break;
+        case "img" : uid = "image1";
+                break;
+        case "table" : uid = "table1"
+                break;
+         //TODO add more here
+    }
+    return uid;
+}
+
+function createTextKeyValue(value){
+    if(value){
+        return "text : \""+ value + "\"";
+    }
+    return "";
+}
+
+function createCLocatorText(tag, attributeString, nodeValue){
+//    alert(tag);
+//    alert(attributeString);
+//    alert(nodeValue);
+
+    var retValue = tag;
+    var text = createTextKeyValue(nodeValue);
+
+    if(text && text.length > 0){
+        retValue = retValue +", "+ text;
+    }
+
+    if(attributeString){
+         retValue = retValue + ", " + attributeString;
+     }
+    return retValue
+}
+
 function getInputNodeAsProperty(node){
     var inputProperty = "INPUT"
     var type = node.getAttribute("type");
@@ -98,7 +163,7 @@ function getInputNodeAsProperty(node){
         switch(type){
             case "button" ://TODO
                 break;
-            case "checkbox" : //TODO
+            case "checkbox" : inputProperty+=".CHECKBOX"
                 break;
             case "file" : //TODO
                 break;
@@ -108,7 +173,7 @@ function getInputNodeAsProperty(node){
                 break;
             case "password" : //TODO
                 break;
-            case "radio" : //TODO
+            case "radio" : inputProperty+=".RADIO"
                 break;
             case "submit" : inputProperty+=".SUBMIT"
                 break;
@@ -127,7 +192,7 @@ function getInputNodeAsProperty(node){
  * @param node
  */
 function getAttributesString(node){
-    var attributes = node.attributes;
+    var attributes = getNotBlackListedAttributes(node.attributes);
     var attr="";
     for(var i=0; i < attributes.length; ++i){
         if(i != 0){
@@ -138,6 +203,21 @@ function getAttributesString(node){
     return attr;
 }
 
+function getNotBlackListedAttributes(attributes){
+    var wantedAttributes = new Array();
+    for(var i=0; i < attributes.length; ++i){
+        if(isNotBlackListed(attributes[i].name)){
+            wantedAttributes.push(attributes[i]);
+        }
+    }
+    return wantedAttributes;
+}
+
+function isNotBlackListed(attribute){
+    //alert("isNotBlackListed : " + attribute);
+    //alert(blackListAttributes.indexOf(attribute) == -1);
+    return blackListAttributes.indexOf(attribute) == -1;        
+}
 /**
  * Gets the bunde to use
  */
