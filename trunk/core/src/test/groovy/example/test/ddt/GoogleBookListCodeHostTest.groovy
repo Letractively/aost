@@ -11,7 +11,7 @@ import org.tellurium.test.ddt.TelluriumDataDrivenTest
  * Date: Aug 1, 2008
  *
  */
-class GoogleBookListCodeHostTest extends TelluriumDataDrivenTest{
+    class GoogleBookListCodeHostTest extends TelluriumDataDrivenTest{
 
     public void testDataDriven() {
 

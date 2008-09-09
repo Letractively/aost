@@ -203,7 +203,8 @@
 			</groupId>
 			<artifactId>selenium-server</artifactId>
 			<version>${selenium-version}</version>
-		</dependency>
+            <classifier>standalone</classifier>
+        </dependency>
 		<dependency>
 			<groupId>org.openqa.selenium.client-drivers
 			</groupId>

@@ -4,7 +4,7 @@
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Aug 2, 2008
- * 
+ *
  */
 
 tellurium{
@@ -69,7 +69,7 @@ tellurium{
 
             //example:
 //           Icon="org.tellurium.builder.IconBuilder"
-            
+
         }
     }
     widget{
