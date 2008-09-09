@@ -48,7 +48,7 @@ src/main/groovy          ---------- source code for custom UI objects
 
 src/test/groovy          ---------- test source code
                org/tellurium/module  ------------- Tellurium UI module files
-               org/tellurium/test    ------------- JUnit test cases
+               org/tellurium/test    ------------- TestNG test cases
                org/tellurium/ddt     ------------- Tellurium Data Driven test cases
 
 src/test/resources       ---------- test resource files
