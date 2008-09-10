@@ -240,7 +240,7 @@ public class TelluriumDownloadsPageJavaTestCase extends TelluriumJavaTestCase{
     public void testSearchByText(){
         connectUrl("http://code.google.com/p/aost/downloads/list");
         // Set download type with other value
-        downloadPage.selectDownloadType(" All Downloads");
+        downloadPage.selectDownloadType(" All Downloads");
         downloadPage.searchDownload("tellurium-0.4.0");
 
         List<String> list = downloadPage.getDownloadFileNames();
@@ -388,3 +388,10 @@ As a result, Tellurium is very flexible for users to customize. Note, if you wan
 == Build Scripts ==
 
 The tellurium-junit-java project includes ant build script and Maven POM file so that you can run ant tasks from the command line, or use Maven to build the project.
+
+== Create Your Own Project from Scratch ==
+
+Reference projects are good examples to show you how to create your own Tellurium porjects. If you really want to create tellurium projects by your own from scratch. Please follow the wiki pages:
+
+  * [http://code.google.com/p/aost/wiki/CustomTelluriumEclipseProject How to create your own Tellurium testing project with Eclipse]
+  * [http://code.google.com/p/aost/wiki/CustomTelluriumIntelliJProject How to create your own Tellurium testing project with IntelliJ 7.0]
