@@ -5,7 +5,7 @@ var constants = {
     ANCHOR_NODE : "a"
 }
 
-var blackListAttributes = ["size", "maxlength", "width", "height", "style", "onclick"]
+var blackListAttributes = ["size", "maxlength", "width", "height", "style", "align", "onclick"]
 
 function init(){
     var nodeState = window.opener.nodeState;
@@ -45,9 +45,7 @@ function init(){
             uiText = bundle.getFormattedString(propertyKey, [uid, attributeString]);
 
         }else{
-            //alert("Other node");
             uid = createNodeUID(clickedNode);
-            //alert("uid : " + uid);
             propertyKey = upperCaseNodeName;
             if(lowerCaseNodeName == constants.SELECT_NODE){
                 nodeValue = null;
@@ -65,7 +63,7 @@ function init(){
  * @param node
  */
 function getNodeType(node){
-    //alert(node.nodeType)
+//    alert(node.nodeType)
     return node.nodeType;
 }
 
@@ -126,7 +124,16 @@ function createNodeUID(node){
                 break;
         case "table" : uid = "table1"
                 break;
-        case "span" : uid = "textBox1"
+        case "span" :
+        case "p" :
+        case "h1":
+        case "h2":
+        case "h3":
+        case "h4":
+        case "h5":
+        case "h6":
+            uid = "textBox1"
+         
          //TODO add more here
     }
     return uid;
@@ -138,7 +145,12 @@ function createTextKeyValue(value){
         var text = value;
         if(value.indexOf(" ") != -1 ){
             textArray = value.split(" ");
-            text = "%%" + textArray[0];
+            for(var i=0; i< textArray.length ; ++i){
+                if(textArray[i] && trimString(textArray[i]) != ''){
+                    text = "%%" + textArray[i];
+                    break;
+                }
+            }
         }else if(value.indexOf("&nbsp;") != -1){
             text = "%%"+value.substring(0, value.indexOf("&nbsp;"));
         }
@@ -243,4 +255,9 @@ function getBundle(){
 function updateUIModelText(text){
     var textNode = document.getElementById('uiModelText');
     textNode.value= text;
+}
+
+//TODO this is a utility function
+function trimString(str){
+    return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 }
