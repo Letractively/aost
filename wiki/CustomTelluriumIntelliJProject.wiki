@@ -1,0 +1,79 @@
+#labels Phase-Deploy,Phase-Support
+= How to create your own Tellurium testing project with IntelliJ 7.0 =
+
+== Prerequisites ==
+  * Download IntellJ from the following location.
+      {{{
+      http://www.jetbrains.com/idea/download/index.html
+      }}}
+
+  * Download Groovy 1.5.6 from the following location and unpack to your system.
+     {{{
+     http://groovy.codehaus.org/Download
+     }}}
+
+  * Download and install Groovy plugin JetGroovy? for IntelliJ using IntelliJ Plugin management GUI.
+
+http://tellurium-users.googlegroups.com/web/Image001.png?gsc=M_9GdgsAAABK-O78oCxGhlt_R137VKqE
+
+  * Download the Tellurium tellurium-0.4.0-u01.jar file from the following location, which is for Java 6. If you use Java 5, please download the tellurium-0.4.0-java5.jar file.
+    {{{
+    http://code.google.com/p/aost/downloads/list
+    }}}
+
+  * Launch IntelliJ. The workspace in the example is set to C:\Workspace. (You can define any directory based on your preference.)
+  * File > New Project > Create Project From Scratch.
+
+http://tellurium-users.googlegroups.com/web/Image002.png
+
+  * Set the project details as shown below and Click Next.
+
+http://tellurium-users.googlegroups.com/web/Image003.png
+
+  * Set the source directory and Click Next.
+
+http://tellurium-users.googlegroups.com/web/Image004.png
+
+  * Select the Groovy checkbox and the Groovy version. Click Next.
+
+http://tellurium-users.googlegroups.com/web/Image005.png
+
+  * Project Settings > Module > GoogleSearch > Dependencies. Add the jar files for seleinum java client, selenium server, junit4.4 and tellurium.
+
+http://tellurium-users.googlegroups.com/web/Image006.png
+
+  * Create a new groovy file. NewGoogleStartPage
+
+http://tellurium-users.googlegroups.com/web/Image007.png
+
+http://tellurium-users.googlegroups.com/web/Image008.png
+
+http://tellurium-users.googlegroups.com/web/Image009.png
+
+  * Create a new Java file. GoogleStartPageJavaTestCase
+
+http://tellurium-users.googlegroups.com/web/Image010.png
+
+  * Create a new TelluriumConfig.groovy file. C:\workspace\GoogleSearch\TelluriumConfig
+
+http://tellurium-users.googlegroups.com/web/Image011.png
+
+  * Right click on the GoogleStartPageJavaTestCase > Run "GoogleStartPageJavaTestCase"
+
+http://tellurium-users.googlegroups.com/web/Image012.png
+
+The test will result as passed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
