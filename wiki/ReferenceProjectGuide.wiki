@@ -389,6 +389,26 @@ As a result, Tellurium is very flexible for users to customize. Note, if you wan
 
 The tellurium-junit-java project includes ant build script and Maven POM file so that you can run ant tasks from the command line, or use Maven to build the project.
 
+== The tellurium-testng-java Sub-Project ==
+
+The tellurium-testng-java project is basically the same as the tellurium-junit-java project. The difference is that it uses TestNG to write test cases while tellurium-junit-java uses JUnit 4. The difference between JUnit and TestNG is out of scope. You can choose whatever you like.
+
+For IntelliJ 7.0, TestNG support is out of box. You only need to install the JetGroovy plugin, then check out the tellurium-testng-java project and run the tests. No special work here.
+
+For Eclipse, you need first to install the Groovy TestNG support Plugin using software update center and add the site
+
+{{{
+http://dist.codehaus.org/groovy/distributions/update/
+}}}
+
+After that, you should choose "Groovy TestNG Feature" and "Groovy Feature" as shown in the following figure:
+
+http://tellurium-users.googlegroups.com/web/EclipseGroovyTestNG.png?gda=nbnJQEkAAABBo5YKz4My4Er929brhwkD31ryw83LiDdvubdOAW6IJ4jQR-TTDC34HLHCvRcRWDG72uWUHbQH5MG0_R87Wl3khAioEG5q2hncZWbpWmJ7IQ&gsc=2FVKqBYAAAByCct4GoRvJFz1cqlXtmOI5QzTRg0a_4LqA7LDDLzsAA
+
+Then check out the project and you should be able to run the TestNG tests.
+
+Seems NetBeans has very limited support for TestNG and it is really hard to find the TestNG plugin for NetBeans 6. As a result, we do not include the NetBeans project settings at this time.
+
 == Create Your Own Project from Scratch ==
 
 Reference projects are good examples to show you how to create your own Tellurium porjects. If you really want to create tellurium projects by your own from scratch. Please follow the wiki pages:
