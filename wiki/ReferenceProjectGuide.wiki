@@ -418,4 +418,5 @@ Seems NetBeans has very limited support for TestNG and it is really hard to find
 Reference projects are good examples to show you how to create your own Tellurium porjects. If you really want to create tellurium projects by your own from scratch. Please follow the wiki pages:
 
   * [http://code.google.com/p/aost/wiki/CustomTelluriumEclipseProject How to create your own Tellurium testing project with Eclipse]
+  * [http://code.google.com/p/aost/wiki/CustomTelluriumNetBeansProject How to create your own Tellurium testing project with NetBeans 6.5Beta]
   * [http://code.google.com/p/aost/wiki/CustomTelluriumIntelliJProject How to create your own Tellurium testing project with IntelliJ 7.0]
