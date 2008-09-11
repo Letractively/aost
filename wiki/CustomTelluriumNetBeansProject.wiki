@@ -4,7 +4,7 @@
 
 === Prerequisites ===
 
-  * Download NetBeans 6.5 Beta from the following location. Groovy support and Subversion client are bundled in.
+  * Download NetBeans 6.5 Beta from the following location. Groovy support is bundled in.
       {{{
       http://www.netbeans.org/community/releases/65/
       }}}
@@ -51,8 +51,6 @@ http://tellurium-users.googlegroups.com/web/NetBeansCustom010.png?gsc=6OW5IwsAAA
   * The Tellurium test will run and results in pass.
 
 http://tellurium-users.googlegroups.com/web/NetBeansCustom011.png?gsc=6OW5IwsAAAB4k6RHZOaL-6yTLPT2ISsG
-
-
 
 
 
