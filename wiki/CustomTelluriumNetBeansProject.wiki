@@ -1,5 +1,6 @@
 #labels Phase-Deploy
-== Set up the Tellurium Reference project tellurium-junit-java with NetBeans ==
+= How to create your own Tellurium testing project with NetBeans 6.5(Beta) =
+
 
 === Prerequisites ===
 
@@ -50,8 +51,6 @@ http://tellurium-users.googlegroups.com/web/NetBeansCustom010.png?gsc=6OW5IwsAAA
   * The Tellurium test will run and results in pass.
 
 http://tellurium-users.googlegroups.com/web/NetBeansCustom011.png?gsc=6OW5IwsAAAB4k6RHZOaL-6yTLPT2ISsG
-
-
 
 
 
