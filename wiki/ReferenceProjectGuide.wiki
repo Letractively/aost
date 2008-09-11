@@ -391,7 +391,11 @@ The tellurium-junit-java project includes ant build script and Maven POM file so
 
 == The tellurium-testng-java Sub-Project ==
 
-The tellurium-testng-java project is basically the same as the tellurium-junit-java project. The difference is that it uses TestNG to write test cases while tellurium-junit-java uses JUnit 4. The difference between JUnit and TestNG is out of scope. You can choose whatever you like.
+The tellurium-testng-java project is basically the same as the tellurium-junit-java project. The difference is that it uses TestNG to write test cases while tellurium-junit-java uses JUnit 4. The difference between JUnit and TestNG is out of scope. You can choose whatever you like. The subversion URL is at:
+
+{{{
+http://aost.googlecode.com/svn/trunk/reference-projects/tellurium-testng-java
+}}}
 
 For IntelliJ 7.0, TestNG support is out of box. You only need to install the JetGroovy plugin, then check out the tellurium-testng-java project and run the tests. No special work here.
 
