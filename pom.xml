@@ -70,7 +70,26 @@
 		<url>http://aost.google.code.com/svn/trunk</url>
 	</scm>
 	<build>
-		<pluginManagement>
+        <!-- BEGIN GMAVEN RESOURCES -->
+        <!-- These resources are needed to integrate the gmaven plugin with the source plugin -->
+        <resources>
+            <resource>
+                <directory>src/main/groovy</directory>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/groovy</directory>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
+        <!-- END GMAVEN RESOURCES -->
+        <pluginManagement>
 			<plugins>
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -100,7 +119,7 @@
 					<artifactId>maven-site-plugin</artifactId>
 					<version>2.0-beta-7</version>
 				</plugin>
-				<plugin>
+                <plugin>
 					<groupId>org.codehaus.groovy.maven</groupId>
 					<artifactId>gmaven-plugin</artifactId>
 					<version>${gmaven-version}</version>
@@ -137,7 +156,8 @@
 				<artifactId>maven-source-plugin</artifactId>
 				<executions>
 					<execution>
-						<goals>
+                        <phase>package</phase>
+                        <goals>
 							<goal>jar</goal>
 							<goal>test-jar</goal>
 						</goals>
@@ -154,7 +174,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
+            <plugin>
 				<groupId>org.codehaus.groovy.maven
 				</groupId>
 				<artifactId>gmaven-plugin</artifactId>
@@ -177,7 +197,8 @@
 		<module>extensions</module>
 		<module>reference-projects</module>
 		<module>tools</module>
-	</modules>
+        <module>tellurium-assembly</module>
+    </modules>
 	<repositories>
 		<repository>
 			<id>openqa-release-repo</id>

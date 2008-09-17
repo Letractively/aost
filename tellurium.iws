@@ -16,21 +16,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/bin-with-deps.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/extensions/extjs-widget/tellurium-extjs-widget.iml" afterPath="$PROJECT_DIR$/extensions/extjs-widget/tellurium-extjs-widget.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/extensions/tellurium-extensions.iml" afterPath="$PROJECT_DIR$/extensions/tellurium-extensions.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reference-projects/tellurium-reference-projects.iml" afterPath="$PROJECT_DIR$/reference-projects/tellurium-reference-projects.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/extensions/dojo-widget/tellurium-dojo-widget.iml" afterPath="$PROJECT_DIR$/extensions/dojo-widget/tellurium-dojo-widget.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium.iml" afterPath="$PROJECT_DIR$/tellurium.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/test/groovy/org/tellurium/test/TelluriumConfigParser_UT.groovy" afterPath="$PROJECT_DIR$/core/src/test/groovy/org/tellurium/test/TelluriumConfigParser_UT.groovy" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/defaults.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium.ipr" afterPath="$PROJECT_DIR$/tellurium.ipr" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/src-with-deps.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/full.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/rundsl.bat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/dependencies.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium.iws" afterPath="$PROJECT_DIR$/tellurium.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/test/groovy/example/test/ddt/GoogleBookListCodeHostTest.groovy" afterPath="$PROJECT_DIR$/core/src/test/groovy/example/test/ddt/GoogleBookListCodeHostTest.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reference-projects/tellurium-junit-java/tellurium-junit-java.iml" afterPath="$PROJECT_DIR$/reference-projects/tellurium-junit-java/tellurium-junit-java.iml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/TelluriumConfig.groovy" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/firefox-plugin/tellurium-firefox-plugin.iml" afterPath="$PROJECT_DIR$/tools/firefox-plugin/tellurium-firefox-plugin.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/TelluriumConfig.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/tellurium-core.iml" afterPath="$PROJECT_DIR$/core/tellurium-core.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/tellurium-tools.iml" afterPath="$PROJECT_DIR$/tools/tellurium-tools.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/sources.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/LICENSE.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/tellurium-assembly.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/pom.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/src.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/bin.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/README" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/rundsl.sh" />
     </list>
     <ignored path="tellurium.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -93,10 +100,55 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TelluriumConfigParser_UT.groovy" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/core/src/test/groovy/org/tellurium/test/TelluriumConfigParser_UT.groovy">
+      <file leaf-file-name="defaults.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/defaults.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="66" selection-start="386" selection-end="386" vertical-scroll-proportion="0.47761193">
+            <state line="20" column="0" selection-start="595" selection-end="595" vertical-scroll-proportion="0.6217617">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bin-with-deps.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/bin-with-deps.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="0" selection-start="225" selection-end="307" vertical-scroll-proportion="0.27979276">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bin.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/bin.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="0" selection-start="297" selection-end="297" vertical-scroll-proportion="0.27979276">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="full.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/full.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="0" selection-start="298" selection-end="298" vertical-scroll-proportion="0.27979276">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="src-with-deps.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/src-with-deps.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="0" selection-start="307" selection-end="307" vertical-scroll-proportion="0.27979276">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="src.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/src.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="0" selection-start="418" selection-end="418" vertical-scroll-proportion="0.373057">
               <folding />
             </state>
           </provider>
@@ -208,6 +260,30 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
+          <option name="myItemId" value="tellurium-firefox-plugin" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="tellurium" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="tellurium-firefox-plugin" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/tools/firefox-plugin" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="tellurium" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
           <option name="myItemId" value="tellurium-core" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
         </PATH_ELEMENT>
@@ -232,19 +308,21 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium-core" />
+          <option name="myItemId" value="tellurium-assembly" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="tellurium" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="tellurium-assembly" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/core" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/core/src" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/core/src/test" />
+          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/tellurium-assembly" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -254,85 +332,17 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium-core" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/core" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/core/src" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/core/src/test" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/core/src/test/groovy" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/core/src/test/groovy/org/tellurium/test" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
           <option name="myItemId" value="tellurium" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium-core" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/core" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/core/src" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/core/src/test" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/core/src/test/groovy" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium-core" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/core" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/core/src" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/core/src/main" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
     </subPane>
   </component>
   <component name="ProjectReloadState">
-    <option name="STATE" value="1" />
+    <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="0.5843072" version="1" splitterProportion="0.5">
+    <navigator currentView="ProjectPane" proportions="0.5" version="1" splitterProportion="0.5">
       <flattenPackages ProjectPane="true" />
       <showMembers />
       <showModules />
@@ -353,98 +363,6 @@
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
-  </component>
-  <component name="RestoreUpdateTree">
-    <UpdateInfo date="9/8/08 8:37 PM" ActionInfo="_Update">
-      <UpdatedFiles>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated from server" />
-          <option name="myStatusName" value="Changed on server" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CHANGED_ON_SERVER" />
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Updated" />
-            <option name="myStatusName" value="Changed" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="UPDATED" />
-            <PATH vcs="svn" revision="548">$PROJECT_DIR$/reference-projects/tellurium-testng-java/src/test/groovy/org/tellurium/test/TelluriumProjectPageTestNGTestCase.java</PATH>
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Created" />
-            <option name="myStatusName" value="Created" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="CREATED" />
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Deleted" />
-            <option name="myStatusName" value="Deleted" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="true" />
-            <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Restored" />
-            <option name="myStatusName" value="Will be restored" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="RESTORED" />
-          </FILE-GROUP>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Modified" />
-          <option name="myStatusName" value="Modified" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MODIFIED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Skipped" />
-          <option name="myStatusName" value="Skipped" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="SKIPPED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged with conflicts" />
-          <option name="myStatusName" value="Will be merged with conflicts" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED_WITH_CONFLICTS" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged" />
-          <option name="myStatusName" value="Will be merged" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED" />
-          <PATH vcs="svn" revision="548">$PROJECT_DIR$/reference-projects/tellurium-testng-java/tellurium-testng-java.iml</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Not in repository" />
-          <option name="myStatusName" value="Not in repository" />
-          <option name="mySupportsDeletion" value="true" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UNKNOWN" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Locally added" />
-          <option name="myStatusName" value="Locally added" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="LOCALLY_ADDED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Locally removed" />
-          <option name="myStatusName" value="Locally removed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="LOCALLY_REMOVED" />
-        </FILE-GROUP>
-      </UpdatedFiles>
-    </UpdateInfo>
   </component>
   <component name="RunManager" selected="JUnit.TelluriumConfigParser_UT">
     <tempConfiguration default="false" name="TelluriumConfigParser_UT" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
@@ -472,26 +390,6 @@
         <option name="Make" value="true" />
       </method>
     </tempConfiguration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
     <configuration default="true" type="GroovyScriptRunConfigurationType" factoryName="Groovy Script">
       <module name="" />
       <setting name="path" value="" />
@@ -511,28 +409,6 @@
       <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="ADDITIONAL_CLASS_PATH" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <envs />
-      <method>
-        <option name="Make" value="true" />
-      </method>
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false">
       <module name="" />
@@ -559,6 +435,48 @@
       <envs />
       <properties />
       <listeners />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="ADDITIONAL_CLASS_PATH" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <envs />
       <method>
         <option name="Make" value="true" />
       </method>
@@ -625,8 +543,8 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="0" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="14" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24674267" order="1" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32980457" order="1" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="8" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="3" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="13" />
@@ -635,16 +553,16 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="0" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="5" />
       <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980457" order="1" />
-      <window_info id="Maven Runner Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="0" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="5" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32894737" order="5" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="9" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="6" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39983714" order="4" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="11" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="6" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32894737" order="1" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="1" />
       <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="2" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
+      <window_info id="Maven Runner Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="0" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="3" />
       <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="10" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="12" />
@@ -713,107 +631,114 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/tellurium-core.iml">
+    <entry file="file://$PROJECT_DIR$/core/manifest.mf">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tellurium.iws">
+    <entry file="file://$PROJECT_DIR$/core/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="256" column="20" selection-start="12229" selection-end="12232" vertical-scroll-proportion="0.933518">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/test/groovy/example/test/groovy/GoogleCodeHostingGroovyTestCase.groovy">
+    <entry file="file://$PROJECT_DIR$/tellurium-assembly/rundsl.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="37" selection-start="399" selection-end="2001" vertical-scroll-proportion="0.3101777">
+        <state line="1" column="0" selection-start="177" selection-end="177" vertical-scroll-proportion="0.031007752">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/test/groovy/example/test/groovy/GoogleBooksListGroovyTestCase.groovy">
+    <entry file="file://$PROJECT_DIR$/tellurium-assembly/rundsl.bat">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="35" selection-start="437" selection-end="466" vertical-scroll-proportion="0.32956383">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/test/groovy/example/test/ddt/GoogleStartPagePullTest.groovy">
+    <entry file="file://$PROJECT_DIR$/tellurium-assembly/README">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="29" selection-start="544" selection-end="567" vertical-scroll-proportion="0.33279485">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/test/groovy/example/test/ddt/GoogleBookListCodeHostTest.groovy">
+    <entry file="file://$PROJECT_DIR$/tellurium-assembly/LICENSE.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="36" selection-start="308" selection-end="334" vertical-scroll-proportion="0.25201938">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/groovy/org/tellurium/server/SeleniumServerDaemon.groovy">
+    <entry file="file://$PROJECT_DIR$/core/README">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="13" selection-start="254" selection-end="254" vertical-scroll-proportion="0.29850745">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/test/groovy/org/tellurium/test/CSVDataReader_UT.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="22" selection-start="116" selection-end="116" vertical-scroll-proportion="0.17910448">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="282" column="26" selection-start="7511" selection-end="7511" vertical-scroll-proportion="0.25210086">
+        <state line="72" column="28" selection-start="2312" selection-end="2312" vertical-scroll-proportion="0.39181286">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reference-projects/pom.xml">
+    <entry file="file://$PROJECT_DIR$/tellurium-assembly/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="44" column="58" selection-start="1977" selection-end="1977" vertical-scroll-proportion="0.87134504">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/test/groovy/org/tellurium/test/PhoneNumberTypeHandler.groovy">
+    <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/sources.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="6" selection-start="284" selection-end="284" vertical-scroll-proportion="0.24605678">
+        <state line="24" column="94" selection-start="905" selection-end="905" vertical-scroll-proportion="0.746114">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/resources/TelluriumConfig.groovy">
+    <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/bin-with-deps.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="0" selection-start="2804" selection-end="2804" vertical-scroll-proportion="1.5520505">
+        <state line="9" column="0" selection-start="225" selection-end="307" vertical-scroll-proportion="0.27979276">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/groovy/org/tellurium/config/TelluriumConfigParser.groovy">
+    <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/bin.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="23" selection-start="377" selection-end="377" vertical-scroll-proportion="0.47761193">
+        <state line="9" column="0" selection-start="297" selection-end="297" vertical-scroll-proportion="0.27979276">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/test/groovy/org/tellurium/test/Table_UT.groovy">
+    <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/full.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="6" selection-start="438" selection-end="438" vertical-scroll-proportion="0.33333334">
+        <state line="9" column="0" selection-start="298" selection-end="298" vertical-scroll-proportion="0.27979276">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/test/groovy/org/tellurium/test/TelluriumConfigParser_UT.groovy">
+    <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/src-with-deps.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="66" selection-start="386" selection-end="386" vertical-scroll-proportion="0.47761193">
+        <state line="9" column="0" selection-start="307" selection-end="307" vertical-scroll-proportion="0.27979276">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/src.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="0" selection-start="418" selection-end="418" vertical-scroll-proportion="0.373057">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/defaults.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="0" selection-start="595" selection-end="595" vertical-scroll-proportion="0.6217617">
           <folding />
         </state>
       </provider>
