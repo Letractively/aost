@@ -242,6 +242,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/tellurium.iml" filepath="$PROJECT_DIR$/tellurium.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tellurium-assembly/tellurium-assembly.iml" filepath="$PROJECT_DIR$/tellurium-assembly/tellurium-assembly.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/tellurium-core.iml" filepath="$PROJECT_DIR$/core/tellurium-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/extensions/dojo-widget/tellurium-dojo-widget.iml" filepath="$PROJECT_DIR$/extensions/dojo-widget/tellurium-dojo-widget.iml" />
       <module fileurl="file://$PROJECT_DIR$/extensions/tellurium-extensions.iml" filepath="$PROJECT_DIR$/extensions/tellurium-extensions.iml" />
