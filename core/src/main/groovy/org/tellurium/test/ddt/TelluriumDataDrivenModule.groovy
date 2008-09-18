@@ -1,12 +1,12 @@
 package org.tellurium.test.ddt
 
-import org.tellurium.dsl.DslContext
-import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
-import org.tellurium.ddt.object.mapping.FieldSetRegistry
-import org.tellurium.ddt.object.mapping.FieldSetParser
-import org.tellurium.ddt.TestRegistry
-import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistryConfigurator
 import org.tellurium.ddt.DataProvider
+import org.tellurium.ddt.TestRegistry
+import org.tellurium.ddt.object.mapping.FieldSetParser
+import org.tellurium.ddt.object.mapping.FieldSetRegistry
+import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
+import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistryConfigurator
+import org.tellurium.dsl.DslContext
 
 /**
  * In this module, you can define the following things:
@@ -68,8 +68,8 @@ abstract class TelluriumDataDrivenModule extends DslContext {
         this.runner.cacheVariable(name, value)
     }
 
-    public void getCachedVariable(String name){
-        this.runner.getCachedVariable(name)
+    public def getCachedVariable(String name){
+        return this.runner.getCachedVariable(name)
     }
     
     public void defineTest(String name, Closure c){

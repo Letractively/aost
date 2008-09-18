@@ -44,6 +44,9 @@ class GoogleCodeHostingModule extends TelluriumDataDrivenModule{
             def rownum = getTableMaxRowNum("labels_table[2][1]")
             def columnum = getTableMaxColumnNum("labels_table[2][1]")
 
+            cacheVariable "RowNum", rownum
+            cacheVariable "ColumnNum", columnum
+            
             compareResult(expectedLabel, label)
             compareResult(expectedRowNum, rownum)
             compareResult(expectedColumnNum, columnum)
@@ -51,10 +54,19 @@ class GoogleCodeHostingModule extends TelluriumDataDrivenModule{
        }
 
        defineTest("clickGCHLabel"){
+           openUrl("http://code.google.com/hosting/")
+           
+           def erownum = getTableMaxRowNum("labels_table[2][1]")
+           def ecolumnum = getTableMaxColumnNum("labels_table[2][1]")
+           def rownum = getCachedVariable("RowNum")
+           def columnum = getCachedVariable("ColumnNum")
+           compareResult(rownum, erownum)
+           compareResult(columnum, ecolumnum)
+           pause 1000
+
            def row = bind("GCHLabel.row")
            def column = bind("GCHLabel.column")
-           
-           openUrl("http://code.google.com/hosting/")
+
            click  "labels_table[2][1].[${row}][${column}]"
 
            waitForPageToLoad 30000
