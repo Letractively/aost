@@ -18,6 +18,7 @@ import org.tellurium.ddt.object.mapping.FieldSetRegistry
 import org.tellurium.ddt.TestRegistry
 import junit.framework.AssertionFailedError
 import org.tellurium.test.helper.AssertionResult
+import org.tellurium.ddt.TextContext
 
 
 /**
@@ -154,7 +155,8 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
 
     //the count of number of steps can also be used to identify the ith run of the test
     //also acts as the sequence number
-    protected int stepCount = 0
+//    protected int stepCount = 0
+    protected TextContext context = new TextContext()
 
    //flow control
     //read the file and run the test script until it reaches the end of the file
@@ -180,9 +182,10 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
         if(fsmr != null && (!fsmr.isEmpty())){
             //check if the field set includes action name
             String action = getTestForFieldSet(fsmr.getFieldSetName())
+
             TestResult result = new TestResult()
             result.setProperty("testName", action)
-            result.setProperty("stepId", ++stepCount)
+            result.setProperty("stepId",  context.nextStep())
             result.setProperty("start", System.nanoTime())
             result.setProperty("input", fsmr.getResults())
 
@@ -239,7 +242,7 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
 
             TestResult result = new TestResult()
             result.setProperty("testName", action)
-            result.setProperty("stepId", ++stepCount)
+            result.setProperty("stepId", context.nextStep())
             result.setProperty("input", fsmr.getResults())
             result.setProperty("status", StepStatus.SKIPPED)
 //            result.setProperty("passed", true)
@@ -281,7 +284,7 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
         TestResult result = new TestResult()
         AssertionResult assertResult = new AssertionResult()
 
-        result.setProperty("stepId", stepCount)
+        result.setProperty("stepId", context.getStepCount())
         assertResult.setProperty("expected", expected)
         assertResult.setProperty("actual", actual)
 
@@ -321,4 +324,11 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
         listener.listenForResult(result)
     }
 
+    protected void cacheVariable(String name, value){
+        context.putCacheVariable(name, value)
+    }
+
+    protected def getCachedVariable(String name){
+        return context.getCachedVariable(name)
+    }
 }
