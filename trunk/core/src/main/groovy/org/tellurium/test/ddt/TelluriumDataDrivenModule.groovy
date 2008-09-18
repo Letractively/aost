@@ -64,6 +64,14 @@ abstract class TelluriumDataDrivenModule extends DslContext {
         return dataProvider.bind(dataFieldId)
     }
 
+    public void cacheVariable(String name, value){
+        this.runner.cacheVariable(name, value)
+    }
+
+    public void getCachedVariable(String name){
+        this.runner.getCachedVariable(name)
+    }
+    
     public void defineTest(String name, Closure c){
         tr.addTest(name, c)
     }
