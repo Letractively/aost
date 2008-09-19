@@ -1,9 +1,9 @@
 package org.tellurium.access
 
-import org.tellurium.util.Helper
-import org.tellurium.dispatch.Dispatcher
 import com.thoughtworks.selenium.SeleniumException
 import org.tellurium.config.Configurable
+import org.tellurium.dispatch.Dispatcher
+import org.tellurium.util.Helper
 
 class Accessor implements Configurable{
 
@@ -348,6 +348,6 @@ class Accessor implements Configurable{
     }
 
     void waitForFrameToLoad(String frameAddress, String timeout){
-        dispatcher.waitForFrameToLoa(frameAddress, timeout)
+        dispatcher.waitForFrameToLoad(frameAddress, timeout)
     }
 }
