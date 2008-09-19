@@ -1,10 +1,10 @@
 package org.tellurium.dsl
 
-import org.tellurium.event.EventHandler
 import org.tellurium.access.Accessor
+import org.tellurium.event.EventHandler
 import org.tellurium.locator.LocatorProcessor
-import org.tellurium.object.Table
 import org.tellurium.object.List
+import org.tellurium.object.Table
 import org.tellurium.util.Helper
 
 /**
@@ -546,4 +546,7 @@ abstract class BaseDslContext {
         return accessor.getXpathCount(xpath)
     }
 
+    String getEval(String script){
+        return accessor.getEval(script)
+    }
 }

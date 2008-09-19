@@ -1,14 +1,14 @@
 package org.tellurium.widget
 
-import org.tellurium.object.UiObject
-import org.tellurium.dsl.UiDslParser
-import org.tellurium.event.EventHandler
 import org.tellurium.access.Accessor
-import org.tellurium.locator.LocatorProcessor
-import org.tellurium.dsl.WorkflowContext
-import org.tellurium.object.Table
-import org.tellurium.object.List
+import org.tellurium.dsl.UiDslParser
 import org.tellurium.dsl.UiID
+import org.tellurium.dsl.WorkflowContext
+import org.tellurium.event.EventHandler
+import org.tellurium.locator.LocatorProcessor
+import org.tellurium.object.List
+import org.tellurium.object.Table
+import org.tellurium.object.UiObject
 
 /**
  * The base class for Widget objects.
@@ -584,6 +584,10 @@ abstract class Widget extends UiObject{
         return accessor.getXpathCount(xpath)
     }
 
+    String getEval(String script){
+        return accessor.getEval(script)
+    }
+    
     //walkTo through the object tree to until the Ui Object is found by the UID
     public UiObject walkTo(WorkflowContext context, UiID uiid){
         //if not child listed, return itself
