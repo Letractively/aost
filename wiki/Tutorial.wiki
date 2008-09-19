@@ -81,6 +81,28 @@ For NetBeans users, you can find a detailed Guide on [http://code.google.com/p/a
 
 For Eclipse users, you need to download Eclipse Groovy Plugin from http://dist.codehaus.org/groovy/distributions/update/ to run the Tellurium project. 
 
+== Tellurium Trunk Code Structure ==
+
+The trunk holds multiple projects now and the structure is as follows,
+
+{{{
+trunk/
+     core                 ----- Tellurium core framework project
+
+     extensions/          ----- Extensions to core 
+               dojo-widget                   ----- Dojo widget extension project
+               extjs-widget                  ----- ExtJS widget extension project (only placeholder here now)
+     
+     reference-projects/  ----- Projects to demonstrate the usage of tellurium
+                       tellurium-junit-java  ----- Tellurium test project using JUnit 4
+                       tellurium-testng-java ----- Tellurium test project using TestNG
+
+     tools/firefox-plugin/ ----- Tellurium firefox plugin
+                         trump               ---- The Tellurium UI Model Plugin project, which will automatically create tellurium UI modules for you
+
+}}}
+
+
 == Tellurium Project Code Structure ==
 
 The code structure is as follows,
