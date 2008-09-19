@@ -19,6 +19,18 @@ tellurium{
         //the log file for selenium server
 //        logFile = "selenium.log"
     }
+    //event handler
+    eventhandler{
+        //whether we should check if the UI element is presented
+        checkElement = true
+        //wether we add additional events like "mouse over"
+        extraEvent = true
+    }
+    //data accessor
+    accessor{
+        //whether we should check if the UI element is presented
+        checkElement = true
+    }
     //the configuration for the connector that connects the selenium client to the selenium server
     connector{
         //selenium server host
