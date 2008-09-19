@@ -2,8 +2,9 @@ package org.tellurium.event
 
 import org.tellurium.util.Helper
 import org.tellurium.dispatch.Dispatcher
+import org.tellurium.config.Configurable
 
-class EventHandler{
+class EventHandler implements Configurable{
 
     public static final String RETURN_KEY= "BSBS13"
 	public static final int ACTION_WAIT_TIME = 50
@@ -11,154 +12,179 @@ class EventHandler{
     //default is selenium dispatcher
     def dispatcher  = new Dispatcher()
 
-	def mouseOver(String locator) {
+    private boolean checkElement = true
+    private boolean extraEvent = true
 
-		if(!dispatcher.isElementPresent(locator)){
+    public void mustCheckElement(){
+        this.checkElement = true
+    }
+
+    public void notCheckElement(){
+        this.checkElement = false
+    }
+
+    public void useExtraEvent(){
+        this.extraEvent = true
+    }
+
+    public void noExtraEvent(){
+        this.extraEvent = false
+    }
+
+    protected void checkElement(String locator){
+		if(checkElement && (!dispatcher.isElementPresent(locator))){
 			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
 		}
+    }
 
-		if(dispatcher.isElementPresent(locator)){
-			dispatcher.fireEvent(locator, "focus")
+    def mouseOver(String locator) {
+        checkElement(locator)
+
+        if(dispatcher.isElementPresent(locator)){
+            if(extraEvent){
+                dispatcher.fireEvent(locator, "focus")
+            }
 			dispatcher.mouseOver(locator)
 		}
 	}
 
     def mouseOut(String locator) {
-
-		if(!dispatcher.isElementPresent(locator)){
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-		}
+        checkElement(locator)
 
 		if(dispatcher.isElementPresent(locator)){
-			dispatcher.fireEvent(locator, "focus")
+            if(extraEvent){
+			    dispatcher.fireEvent(locator, "focus")
+            }
 			dispatcher.mouseOut(locator)
 		}
 	}
 
 	def click(String locator) {
-
-		if(!dispatcher.isElementPresent(locator)){
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-		}
+        checkElement(locator)
 
 		if(dispatcher.isElementPresent(locator)){
-			dispatcher.fireEvent(locator, "focus")
-			dispatcher.mouseOver(locator)
+            if(extraEvent){
+			    dispatcher.fireEvent(locator, "focus")
+			    dispatcher.mouseOver(locator)
+            }
 			dispatcher.click(locator)
 		}
 	}
 
 	def doubleClick(String locator) {
-
-		if(!dispatcher.isElementPresent(locator)){
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-		}
+        checkElement(locator)
 
 		if(dispatcher.isElementPresent(locator)){
-			dispatcher.fireEvent(locator, "focus")
-			dispatcher.mouseOver(locator)
+            if(extraEvent){
+			    dispatcher.fireEvent(locator, "focus")
+			    dispatcher.mouseOver(locator)
+            }
 			dispatcher.doubleClick(locator)
 		}
 	}
 
 	def clickAt(String locator, String coordination) {
-		if(!dispatcher.isElementPresent(locator)){
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-		}
+        checkElement(locator)
 
 		if(dispatcher.isElementPresent(locator)){
-			dispatcher.fireEvent(locator, "focus")
-			dispatcher.mouseOver(locator)
+            if(extraEvent){
+			    dispatcher.fireEvent(locator, "focus")
+			    dispatcher.mouseOver(locator)
+            }
 			dispatcher.clickAt(locator, coordination)
 		}
 	}
 
 	def check(String locator) {
-		if(!dispatcher.isElementPresent(locator)){
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-		}
+        checkElement(locator)
 
 		if(dispatcher.isElementPresent(locator)){
-			dispatcher.fireEvent(locator, "focus")
+            if(extraEvent){
+			    dispatcher.fireEvent(locator, "focus")
+            }
 			dispatcher.check(locator)
 		}
 	}
 
 	def uncheck(String locator) {
-		if(!dispatcher.isElementPresent(locator)){
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-		}
+        checkElement(locator)
 
 		if(dispatcher.isElementPresent(locator)){
-			dispatcher.fireEvent(locator, "focus")
+            if(extraEvent){
+			    dispatcher.fireEvent(locator, "focus")
+            }
 			dispatcher.uncheck(locator)
 		}
 	}
 
 	def type(String locator, String input) {
-
-		if(!dispatcher.isElementPresent(locator)){
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-		}
-
+        checkElement(locator)
 		if(dispatcher.isElementPresent(locator)){
-			dispatcher.fireEvent(locator, "focus")
-			dispatcher.mouseOver(locator)
-//			dispatcher.setCursorPosition(locator, "0")
-//			simulateKeyType(locator, input)
-			dispatcher.type(locator, input)
-			dispatcher.mouseOut(locator)
-			dispatcher.fireEvent(locator, "blur")
-		}
-	}
+            if(extraEvent){
+			    dispatcher.fireEvent(locator, "focus")
+			    dispatcher.mouseOver(locator)
+//			    dispatcher.setCursorPosition(locator, "0")
+//			    simulateKeyType(locator, input)
+			    dispatcher.type(locator, input)
+			    dispatcher.mouseOut(locator)
+			    dispatcher.fireEvent(locator, "blur")
+		    }else{
+                dispatcher.type(locator, input)
+            }
+        }
+    }
 
     def keyType(String locator, String input) {
-
-		if(!dispatcher.isElementPresent(locator)){
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-		}
+        checkElement(locator)
 
 		if(dispatcher.isElementPresent(locator)){
-			dispatcher.fireEvent(locator, "focus")
-			dispatcher.mouseOver(locator)
-//			dispatcher.setCursorPosition(locator, "0")
-			simulateKeyType(locator, input)
-			dispatcher.mouseOut(locator)
-			dispatcher.fireEvent(locator, "blur")
-		}
+            if(extraEvent){
+                dispatcher.fireEvent(locator, "focus")
+			    dispatcher.mouseOver(locator)
+//			    dispatcher.setCursorPosition(locator, "0")
+			    simulateKeyType(locator, input)
+			    dispatcher.mouseOut(locator)
+			    dispatcher.fireEvent(locator, "blur")
+            }else{
+                simulateKeyType(locator, input)
+            }
+        }
 	}
 
 	def typeAndReturn(String locator, String input) {
-
-		if(!dispatcher.isElementPresent(locator)){
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-		}
+        checkElement(locator)
 
 		if(dispatcher.isElementPresent(locator)){
-			dispatcher.fireEvent(locator, "focus")
-			dispatcher.mouseOver(locator)
-//			dispatcher.setCursorPosition(locator, "0")
-//			simulateKeyType(locator, input)
-            dispatcher.type(locator, input)
-            dispatcher.keyUp(locator,  "\\13")
-			dispatcher.mouseOut(locator)
-			dispatcher.fireEvent(locator, "blur")
-		}
+            if(extraEvent){
+                dispatcher.fireEvent(locator, "focus")
+			    dispatcher.mouseOver(locator)
+//			    dispatcher.setCursorPosition(locator, "0")
+//			    simulateKeyType(locator, input)
+                dispatcher.type(locator, input)
+                dispatcher.keyUp(locator,  "\\13")
+			    dispatcher.mouseOut(locator)
+			    dispatcher.fireEvent(locator, "blur")
+            }else{
+                dispatcher.type(locator, input)
+                dispatcher.keyUp(locator,  "\\13")
+            }
+        }
 	}
 
     def clearText(String locator) {
-
-		if(!dispatcher.isElementPresent(locator)){
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-		}
+        checkElement(locator)
 
 		if(dispatcher.isElementPresent(locator)){
-			dispatcher.mouseOver(locator)
-//			dispatcher.setCursorPosition(locator, "0")
-			dispatcher.type(locator, "")
-			dispatcher.mouseOut(locator)
-			dispatcher.fireEvent(locator, "blur")
-		}
+            if(extraEvent){
+                dispatcher.mouseOver(locator)
+//			    dispatcher.setCursorPosition(locator, "0")
+			    dispatcher.type(locator, "")
+			    dispatcher.mouseOut(locator)
+			    dispatcher.fireEvent(locator, "blur")
+            }else{
+                dispatcher.type(locator, "")
+            }
+        }
 	}
 
     def simulateKeyType(String locator, String input){
@@ -183,63 +209,66 @@ class EventHandler{
     }
 
 	def select(String locator, String target) {
-
-		if(!dispatcher.isElementPresent(locator)){
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-		}
+        checkElement(locator)
 
 		if(dispatcher.isElementPresent(locator)){
-			dispatcher.fireEvent(locator, "focus")
-			dispatcher.mouseOver(locator)
-			dispatcher.click(locator)
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-			dispatcher.select(locator, target)
-			dispatcher.mouseOut(locator)
-			dispatcher.fireEvent(locator, "blur")
-		}
+            if(extraEvent){
+                dispatcher.fireEvent(locator, "focus")
+			    dispatcher.mouseOver(locator)
+			    dispatcher.click(locator)
+			    checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
+			    dispatcher.select(locator, target)
+			    dispatcher.mouseOut(locator)
+			    dispatcher.fireEvent(locator, "blur")
+            }else{
+			    dispatcher.click(locator)
+			    checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
+			    dispatcher.select(locator, target)                
+            }
+        }
 	}
 
     def addSelection(String locator, String optionLocator){
-   		if(!dispatcher.isElementPresent(locator)){
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-		}
+        checkElement(locator)
 
 		if(dispatcher.isElementPresent(locator)){
-			dispatcher.fireEvent(locator, "focus")
-			dispatcher.addSelection(locator, optionLocator)
+            if(extraEvent){
+                dispatcher.fireEvent(locator, "focus")
+            }
+            dispatcher.addSelection(locator, optionLocator)
 		}
     }
 
     def removeSelection(String locator,String optionLocator){
-   		if(!dispatcher.isElementPresent(locator)){
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-		}
+        checkElement(locator)
 
 		if(dispatcher.isElementPresent(locator)){
-			dispatcher.fireEvent(locator, "focus")
-			dispatcher.removeSelection(locator, optionLocator)
+            if(extraEvent){
+                dispatcher.fireEvent(locator, "focus")
+            }
+            dispatcher.removeSelection(locator, optionLocator)
 		}
     }
 
     def removeAllSelections(String locator){
-  		if(!dispatcher.isElementPresent(locator)){
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-		}
+        checkElement(locator)
 
 		if(dispatcher.isElementPresent(locator)){
-			dispatcher.fireEvent(locator, "focus")
-			dispatcher.removeAllSelections(locator)
+            if(extraEvent){
+                dispatcher.fireEvent(locator, "focus")
+            }
+            dispatcher.removeAllSelections(locator)
 		}
     }
 
-    def submit(String formLocator){
-   		if(!dispatcher.isElementPresent(locator)){
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-		}
+    def submit(String locator){
+        checkElement(locator)
 
 		if(dispatcher.isElementPresent(locator)){
-			dispatcher.fireEvent(locator, "focus")
-			dispatcher.submit(formLocator)
+            if(extraEvent){
+                dispatcher.fireEvent(locator, "focus")
+            }
+            dispatcher.submit(locator)
 		}
     }
 
@@ -256,10 +285,7 @@ class EventHandler{
     }
 
     String waitForText(String locator, int timeout){
-
-		if(!dispatcher.isElementPresent(locator)){
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-		}
+        checkElement(locator)
 
 		if(dispatcher.isElementPresent(locator)){
 
@@ -276,7 +302,7 @@ class EventHandler{
 
 		boolean result = false
 
-        for (int second = 0; second < timeout; second+=1000) {
+        for (int second = 0; second < timeout; second+=500) {
             try {
             	if (dispatcher.isElementPresent(locator)){
             		result = true
@@ -286,7 +312,7 @@ class EventHandler{
 
             }
 
-            Helper.pause(1000)
+            Helper.pause(500)
         }
 
         return result
