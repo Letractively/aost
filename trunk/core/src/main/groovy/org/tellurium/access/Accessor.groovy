@@ -350,4 +350,9 @@ class Accessor implements Configurable{
     void waitForFrameToLoad(String frameAddress, String timeout){
         dispatcher.waitForFrameToLoad(frameAddress, timeout)
     }
+
+    String getEval(String script){
+        return dispatcher.getEval(script)
+    }
+
 }
