@@ -64,7 +64,13 @@ class TelluriumFramework {
        telluriumConfigurator.config(new UiObjectBuilderRegistry())
 
        //configure widgets
-       telluriumConfigurator.config(new WidgetConfigurator()) 
+       telluriumConfigurator.config(new WidgetConfigurator())
+
+       //configure Event Handler
+       telluriumConfigurator.config(new EventHandler())
+
+       //configure Data Accessor
+       telluriumConfigurator.config(new Accessor())
     }
 
     public void disableEmbeddedSeleniumServer(){

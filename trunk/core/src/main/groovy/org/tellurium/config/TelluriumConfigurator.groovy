@@ -15,6 +15,8 @@ import org.tellurium.ddt.object.mapping.io.CSVDataReader
 import org.tellurium.builder.UiObjectBuilderRegistry
 import org.tellurium.builder.UiObjectBuilder
 import org.tellurium.widget.WidgetConfigurator
+import org.tellurium.event.EventHandler
+import org.tellurium.access.Accessor
 
 /**
  * Tellurium Configurator
@@ -120,6 +122,36 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
 
     }
 
+    protected void configEventHandler(EventHandler eventHandler){
+        if(conf.tellurium.eventhandler.checkElement){
+            eventHandler.mustCheckElement()
+        }else{
+            eventHandler.notCheckElement()
+        }
+        if(conf.tellurium.eventhandler.extraEvent){
+            eventHandler.useExtraEvent()
+        }else{
+            eventHandler.noExtraEvent()
+        }
+    }
+
+    protected void configEventHandlerDefaultValues(EventHandler eventHandler){
+        eventHandler.mustCheckElement()
+        eventHandler.useExtraEvent()
+    }
+
+    protected void configAccessor(Accessor accessor){
+        if(conf.tellurium.accessor.checkElement){
+            accessor.mustCheckElement()
+        }else{
+            accessor.notCheckElement()
+        }
+    }
+
+    protected void configAccessorDefaultValues(Accessor accessor){
+        accessor.mustCheckElement()
+    }
+
     public void config(Configurable configurable) {
         //configuration file TelluriumConfig.groovy exists
         if(conf != null){
@@ -144,6 +176,12 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
             }else if(configurable instanceof WidgetConfigurator){
                 println "Configure widget modules using configuration file"
                 configWidgetModule(configurable)
+            }else if(configurable instanceof EventHandler){
+                println "Configure event handler using configuration file"
+                configEventHandler(configurable)
+            }else if(configurable instanceof Accessor){
+                println "Configure data accessor using configuration file"
+                configAccessor(configurable)
             }else{
                 println "Unsupported Configurable type!"
             }
@@ -170,6 +208,12 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
             }else if(configurable instanceof WidgetConfigurator){
                 println "Configure widget modules with default values"
                 configWidgetModuleDefaultValues(configurable)
+            }else if(configurable instanceof EventHandler){
+                println "Configure event handler with default values"
+                configEventHandlerDefaultValues(configurable)
+            }else if(configurable instanceof Accessor){
+                println "Configure data accessor with default values"
+                configAccessorDefaultValues(configurable)
              }else{
                 println "Unsupported Configurable type!"
             }

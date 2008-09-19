@@ -3,16 +3,32 @@ package org.tellurium.access
 import org.tellurium.util.Helper
 import org.tellurium.dispatch.Dispatcher
 import com.thoughtworks.selenium.SeleniumException
+import org.tellurium.config.Configurable
 
-class Accessor{
+class Accessor implements Configurable{
 
     protected static final int ACCESS_WAIT_TIME = 50
 
     private static final String DISABLED_ATTRIBUTE = "@disabled"
 
     def dispatcher  = new Dispatcher()
-//    def Dispatcher dispatcher
-    
+
+    private boolean checkElement = true
+
+    public void mustCheckElement(){
+        this.checkElement = true
+    }
+
+    public void notCheckElement(){
+        this.checkElement = false
+    }
+
+    protected void checkElement(String locator){
+		if(checkElement && (!dispatcher.isElementPresent(locator))){
+			waitForElementPresent(locator, ACCESS_WAIT_TIME)
+		}
+    }
+
     def boolean isElementPresent(String locator){
 
 		return dispatcher.isElementPresent(locator)
@@ -24,9 +40,7 @@ class Accessor{
     }
 
 	def boolean isChecked(String locator) {
-		if(!dispatcher.isElementPresent(locator)){
-			waitForElementPresent(locator, ACCESS_WAIT_TIME)
-		}
+        checkElement(locator)
 
 		if(dispatcher.isElementPresent(locator)){
 			return dispatcher.isChecked(locator)
@@ -36,9 +50,8 @@ class Accessor{
 	}
 
     def boolean isDisabled(String locator){
-        if(!dispatcher.isElementPresent(locator)){
-			waitForElementPresent(locator, ACCESS_WAIT_TIME)
-		}
+
+        checkElement(locator)
 
         locator +=DISABLED_ATTRIBUTE 
         return (getAttribute(locator) != null && (getAttribute(locator) == "true"|| getAttribute(locator) == "disabled"));
@@ -48,7 +61,7 @@ class Accessor{
 
 		//boolean result = false
 
-        for (int second = 0; second < timeout; second+=1000) {
+        for (int second = 0; second < timeout; second+=500) {
             try {
             	if (dispatcher.isElementPresent(locator)){
             		//result = true
@@ -58,7 +71,7 @@ class Accessor{
 
             }
 
-            Helper.pause(1000)
+            Helper.pause(500)
         }
 
         //return result;
@@ -102,9 +115,8 @@ class Accessor{
 	def String getText(String locator){
 		String text = null
 
-        if(!dispatcher.isElementPresent(locator)) {
-            waitForElementPresent(locator, ACCESS_WAIT_TIME)
-        }
+        checkElement(locator)
+
     	if (dispatcher.isElementPresent(locator)){
     		text = dispatcher.getText(locator)
     	}
@@ -115,10 +127,9 @@ class Accessor{
 	def String getValue(String locator){
 		String text = null
 
-        if(!dispatcher.isElementPresent(locator)) {
-            waitForElementPresent(locator, ACCESS_WAIT_TIME)
-        }
-    	if (dispatcher.isElementPresent(locator)){
+        checkElement(locator)
+
+        if (dispatcher.isElementPresent(locator)){
     		text = dispatcher.getValue(locator)
     	}
 
@@ -126,9 +137,7 @@ class Accessor{
 	}
 
     def String[] getSelectOptions(String locator){
-        if(!dispatcher.isElementPresent(locator)) {
-            waitForElementPresent(locator, ACCESS_WAIT_TIME)
-        }
+        checkElement(locator)
 
         if(dispatcher.isElementPresent(locator)){
             return dispatcher.getSelectOptions(locator)
@@ -138,9 +147,7 @@ class Accessor{
     }
 
     String[] getSelectedLabels(String locator){
-        if(!dispatcher.isElementPresent(locator)) {
-            waitForElementPresent(locator, ACCESS_WAIT_TIME)
-        }
+        checkElement(locator)
 
         if(dispatcher.isElementPresent(locator)){
             return dispatcher.getSelectedLabels(locator)
@@ -150,9 +157,7 @@ class Accessor{
     }
 
     String getSelectedLabel(String locator){
-        if(!dispatcher.isElementPresent(locator)) {
-            waitForElementPresent(locator, ACCESS_WAIT_TIME)
-        }
+        checkElement(locator)
 
         if(dispatcher.isElementPresent(locator)){
             return dispatcher.getSelectedLabel(locator)
@@ -162,9 +167,7 @@ class Accessor{
     }
 
     String[] getSelectedValues(String locator){
-        if(!dispatcher.isElementPresent(locator)) {
-            waitForElementPresent(locator, ACCESS_WAIT_TIME)
-        }
+        checkElement(locator)
 
         if(dispatcher.isElementPresent(locator)){
             return dispatcher.getSelectedValues(locator)
@@ -174,9 +177,7 @@ class Accessor{
     }
 
     String getSelectedValue(String locator){
-         if(!dispatcher.isElementPresent(locator)) {
-            waitForElementPresent(locator, ACCESS_WAIT_TIME)
-        }
+        checkElement(locator)
 
         if(dispatcher.isElementPresent(locator)){
             return dispatcher.getSelectedValue(locator)
@@ -186,9 +187,7 @@ class Accessor{
     }
 
     String[] getSelectedIndexes(String locator){
-        if(!dispatcher.isElementPresent(locator)) {
-            waitForElementPresent(locator, ACCESS_WAIT_TIME)
-        }
+        checkElement(locator)
 
         if(dispatcher.isElementPresent(locator)){
             return dispatcher.getSelectedIndexes(locator)
@@ -198,9 +197,7 @@ class Accessor{
     }
 
     String getSelectedIndex(String locator){
-        if(!dispatcher.isElementPresent(locator)) {
-            waitForElementPresent(locator, ACCESS_WAIT_TIME)
-        }
+        checkElement(locator)
 
         if(dispatcher.isElementPresent(locator)){
             return dispatcher.getSelectedIndex(locator)
@@ -210,9 +207,7 @@ class Accessor{
     }
 
     String[] getSelectedIds(String locator){
-        if(!dispatcher.isElementPresent(locator)) {
-            waitForElementPresent(locator, ACCESS_WAIT_TIME)
-        }
+        checkElement(locator)
 
         if(dispatcher.isElementPresent(locator)){
             return dispatcher.getSelectedIds(locator)
@@ -221,10 +216,8 @@ class Accessor{
         return null
     }
 
-    String getSelectedId(String selectLocator){
-        if(!dispatcher.isElementPresent(locator)) {
-            waitForElementPresent(locator, ACCESS_WAIT_TIME)
-        }
+    String getSelectedId(String locator){
+        checkElement(locator)
 
         if(dispatcher.isElementPresent(locator)){
             return dispatcher.getSelectedId(locator)
@@ -234,9 +227,7 @@ class Accessor{
     }
 
     boolean isSomethingSelected(String locator){
-        if(!dispatcher.isElementPresent(locator)) {
-            waitForElementPresent(locator, ACCESS_WAIT_TIME)
-        }
+        checkElement(locator)
 
         if(dispatcher.isElementPresent(locator)){
             return dispatcher.isSomethingSelected(locator)
