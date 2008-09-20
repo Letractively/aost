@@ -33,16 +33,17 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
     protected static final String COMPARE_RESULT = "compareResult"
     protected static final String RECORD_RESULT = "recordResult"
 
-    protected TypeHandlerRegistry thr  = new TypeHandlerRegistry()
-    protected FieldSetRegistry fsr = new FieldSetRegistry()
+    protected TypeHandlerRegistry thr
 
-    protected DataProvider dataProvider = new DataProvider(fsr, thr)
+    protected FieldSetRegistry fsr
 
-    protected FieldSetParser fs = new FieldSetParser(fsr)
+    protected DataProvider dataProvider
 
-    protected TestRegistry testreg = new TestRegistry()
+    protected FieldSetParser fs
 
-    protected ResultListener listener = new DefaultResultListener()
+    protected TestRegistry testreg
+
+    protected ResultListener listener
 
     protected DefaultTelluriumDataDrivenModule dtddm
     //= new DefaultTelluriumDataDrivenModule(thr, fsr, fs, testreg, dataProvider)
@@ -84,7 +85,13 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
 
     protected def init(){
         af = TelluriumSupport.addSupport()
-        //should put here, other the UI builder is not updated with customer UI objects
+        //should put here, other the UI builder is not updated with customer settings in TelluriumConfig.groovy       
+        thr  = new TypeHandlerRegistry()
+        fsr = new FieldSetRegistry()
+        dataProvider = new DataProvider(fsr, thr)
+        fs = new FieldSetParser(fsr)
+        testreg = new TestRegistry()
+        listener = new DefaultResultListener()
         dtddm = new DefaultTelluriumDataDrivenModule(thr, fsr, fs, testreg, dataProvider)
         ui = dtddm.getUiDslParser()
         af.start()

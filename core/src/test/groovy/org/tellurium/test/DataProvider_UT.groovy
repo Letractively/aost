@@ -1,11 +1,11 @@
 package org.tellurium.test
 
-import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
-import org.tellurium.ddt.object.mapping.FieldSetRegistry
 import org.tellurium.ddt.DataProvider
 import org.tellurium.ddt.object.mapping.FieldSetParser
-import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistryConfigurator
+import org.tellurium.ddt.object.mapping.FieldSetRegistry
 import org.tellurium.ddt.object.mapping.mapping.FieldSetMapResult
+import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
+import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistryConfigurator
 
 /**
  *
@@ -36,7 +36,7 @@ class DataProvider_UT extends GroovyTestCase{
     public void testFetchData(){
         String data = """
             true | 865-692-6000 | tellurium groovy
-            false| 865-123-4444 | tellurium selenium test
+            false| 865-123-4444 | tellurium selenium.test
         """
 //        dataProvider.start("src/example/test/ddt/googlesearchpullinput.txt")
         dataProvider.useString(data)
@@ -56,7 +56,7 @@ class DataProvider_UT extends GroovyTestCase{
         var3 = dataProvider.bind("fs4googlesearch.input")
         assertFalse(var1)
         assertEquals("8651234444", var2)
-        assertEquals("tellurium selenium test", var3)
+        assertEquals("tellurium selenium.test", var3)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         result = dataProvider.nextFieldSet()
