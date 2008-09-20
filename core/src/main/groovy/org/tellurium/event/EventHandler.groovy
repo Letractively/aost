@@ -1,8 +1,8 @@
 package org.tellurium.event
 
-import org.tellurium.util.Helper
-import org.tellurium.dispatch.Dispatcher
 import org.tellurium.config.Configurable
+import org.tellurium.dispatch.Dispatcher
+import org.tellurium.util.Helper
 
 class EventHandler implements Configurable{
 
@@ -191,14 +191,16 @@ class EventHandler implements Configurable{
 
         if(input == null || input.length() < 1){
     		dispatcher.type(locator, "")
-    	}else{
+        }else if(input.contains('.') || input.contains('(')){
+            dispatcher.type(locator, input)
+        }else{
     		char[] chars = input.toCharArray()
 
             for(char achar: chars){
     			String key = Character.toString(achar)
     			if("\n".equals(key)){
     				dispatcher.keyUp(locator,  "\\13")
-    			}else{
+                }else{
     				dispatcher.keyDown(locator, key)
     				dispatcher.keyPress(locator, key)
     				dispatcher.keyUp(locator, key)

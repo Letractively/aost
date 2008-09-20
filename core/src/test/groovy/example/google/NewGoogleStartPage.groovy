@@ -30,7 +30,8 @@ class NewGoogleStartPage extends DslContext{
     }
 
     def doGoogleSearch(String input){
-        type "searchbox", input
+//        type "searchbox", input
+        keyType "searchbox", input
         pause 500
         click "googlesearch"
         waitForPageToLoad 30000

@@ -1,9 +1,9 @@
 package example.test.java;
 
-import org.tellurium.test.java.TelluriumJavaTestCase;
 import example.google.NewGoogleStartPage;
-import org.junit.Test;
 import org.junit.BeforeClass;
+import org.junit.Test;
+import org.tellurium.test.java.TelluriumJavaTestCase;
 
 /**
  * Use Junit 4 directly for Tellurium test
@@ -22,14 +22,20 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
     }
 
     @Test
-    public void testGoogleSearch(){
+    public void testGoogleSearch() {
         connectUrl("http://www.google.com");
         ngsp.doGoogleSearch("tellurium selenium Groovy Test");
-   }
+    }
 
-   @Test
-   public void testGoogleSearchFeelingLucky(){
+    @Test
+    public void testGoogleSearchFeelingLucky() {
         connectUrl("http://www.google.com");
         ngsp.doImFeelingLucky("tellurium selenium DSL Testing");
-   }
+    }
+
+    @Test
+    public void testSpecialCharacters() {
+        connectUrl("http://www.google.com");
+        ngsp.doGoogleSearch("tellurium.selenium.Groovy @Test) !#$%^& (");
+    }
 }
