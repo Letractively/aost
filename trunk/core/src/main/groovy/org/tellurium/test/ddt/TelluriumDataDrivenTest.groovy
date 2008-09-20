@@ -1,25 +1,20 @@
 package org.tellurium.test.ddt
 
-import org.tellurium.ddt.object.mapping.mapping.FieldSetMapResult
-import org.tellurium.test.helper.TestResult
-import org.tellurium.test.helper.ResultListener
-import org.tellurium.ddt.DataProvider
-import org.tellurium.test.helper.DefaultResultListener
-import org.tellurium.test.helper.StepStatus
-import org.tellurium.ddt.object.mapping.FieldSet
-import org.tellurium.ddt.object.mapping.TestField
-import org.tellurium.framework.TelluriumFramework
-import org.tellurium.connector.SeleniumConnector
-import org.tellurium.dsl.UiDslParser
-import org.tellurium.ddt.object.mapping.FieldSetParser
-import org.tellurium.bootstrap.TelluriumSupport
-import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
-import org.tellurium.ddt.object.mapping.FieldSetRegistry
-import org.tellurium.ddt.TestRegistry
 import junit.framework.AssertionFailedError
-import org.tellurium.test.helper.AssertionResult
+import org.tellurium.bootstrap.TelluriumSupport
+import org.tellurium.connector.SeleniumConnector
+import org.tellurium.ddt.DataProvider
+import org.tellurium.ddt.TestRegistry
 import org.tellurium.ddt.TextContext
-
+import org.tellurium.ddt.object.mapping.FieldSet
+import org.tellurium.ddt.object.mapping.FieldSetParser
+import org.tellurium.ddt.object.mapping.FieldSetRegistry
+import org.tellurium.ddt.object.mapping.TestField
+import org.tellurium.ddt.object.mapping.mapping.FieldSetMapResult
+import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
+import org.tellurium.dsl.UiDslParser
+import org.tellurium.framework.TelluriumFramework
+import org.tellurium.test.helper.*
 
 /**
  * Tellurium Data Driven test and it can include multiple data driven modules so that you do not have
@@ -49,9 +44,11 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
 
     protected ResultListener listener = new DefaultResultListener()
 
-    protected DefaultTelluriumDataDrivenModule dtddm = new DefaultTelluriumDataDrivenModule(thr, fsr, fs, testreg, dataProvider)
+    protected DefaultTelluriumDataDrivenModule dtddm
+    //= new DefaultTelluriumDataDrivenModule(thr, fsr, fs, testreg, dataProvider)
 
-    protected UiDslParser ui = dtddm.getUiDslParser()
+    protected UiDslParser ui
+    //= dtddm.getUiDslParser()
 
     protected TelluriumFramework af
 
@@ -87,6 +84,9 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
 
     protected def init(){
         af = TelluriumSupport.addSupport()
+        //should put here, other the UI builder is not updated with customer UI objects
+        dtddm = new DefaultTelluriumDataDrivenModule(thr, fsr, fs, testreg, dataProvider)
+        ui = dtddm.getUiDslParser()
         af.start()
         this.connector = af.getConnector()
    }
