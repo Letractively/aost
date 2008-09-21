@@ -31,6 +31,9 @@ class TestResult {
     private static final String EXCEPTION = "Exception"
     private Exception exception
 
+    private static final String MESSAGES = "Messages"
+    private List<String> messages = new ArrayList<String>()
+
     private static final String START = "start"
     private long start
 
@@ -41,6 +44,7 @@ class TestResult {
     private static final String RUN_TIME = "Runtime"
 
     private static final String PASSED = "Passed"
+
     public boolean isPassed(){
         if(assertionResults.size() > 0){
             for(AssertionResult atr: assertionResults){
@@ -57,6 +61,10 @@ class TestResult {
         assertionResults.add(result)
     }
 
+    public void addMessage(String message){
+        messages.add(message)
+    }
+    
     public List<AssertionResult> getAssertionResult(){
         return this.assertionResults
     }
@@ -80,6 +88,11 @@ class TestResult {
 
         sb.append(fieldStart).append(STATUS).append(avpSeparator).append(status?.toString()).append(fieldSeparator)
         sb.append(fieldStart).append(RUN_TIME).append(avpSeparator).append((end-start)/1E9).append(" secs").append(fieldSeparator)
+        if(messages != null && (!messages.isEmpty())){
+            for(String message: messages){
+                sb.append(fieldStart).append(MESSAGES).append(avpSeparator).append(message).append(fieldSeparator)  
+            }
+        }
         if(exception != null){
             sb.append(fieldStart).append(EXCEPTION).append(avpSeparator).append(Helper.logException(exception)).append(fieldSeparator)
         }else{

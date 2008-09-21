@@ -314,6 +314,10 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
         listenForResult(result)
     }
 
+    protected void logMessage(String message){
+        listener.listenForMessage(context.getStepCount() ,message)
+    }
+    
     protected String getTestForFieldSet(String fieldSetName){
         FieldSet tfs = fsr.getFieldSetByName(fieldSetName)
         if(tfs != null){
