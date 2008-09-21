@@ -95,7 +95,7 @@ class TelluriumIssuesModule extends TelluriumDataDrivenModule{
         defineTest("OpenTelluriumIssuesPage") {
             openUrl "http://code.google.com/p/aost/issues/list"
             int headernum = getTableHeaderNum()
-            compareResult(7, headernum) {
+            checkResult(headernum) {
                 assertTrue(headernum >= 7)
             }
             //store header number
@@ -119,7 +119,7 @@ class TelluriumIssuesModule extends TelluriumDataDrivenModule{
             List<String> headernames = getCachedVariable("headernames")
             String[] issueTypes = getCachedVariable("issuetypes")
             String issueTypeLabel = getIssueTypeLabel(issueTypes, issueType)
-            compareResult(null, issueTypeLabel) {
+            checkResult(issueTypeLabel) {
                 assertTrue(issueTypeLabel != null)
             }
             //select issue type
