@@ -138,12 +138,18 @@ class TelluriumIssuesModule extends TelluriumDataDrivenModule{
             int rownum = getTableRowNum()
             List<String> list = getDataForColumn(column, rownum)
             if (list != null && list.size() > 0) {
-                println "Found ${list.size()} ${issueTypeLabel} for owner " + issueOwner
+                List<String> actual = new ArrayList<String>()
                 list.each {String element ->
-                    println "Issue: ${element}"
+                    if(element != null)
+                        actual.add(element)
+                }
+
+                logMessage "Found ${actual.size()} ${issueTypeLabel} for owner " + issueOwner
+                actual.each {String element ->
+                    logMessage "Issue: ${element}"
                 }
             }else{
-                println "Did not find any ${issueTypeLabel} for owner " + issueOwner
+                logMessage "Did not find any ${issueTypeLabel} for owner " + issueOwner
             }
         }
 
