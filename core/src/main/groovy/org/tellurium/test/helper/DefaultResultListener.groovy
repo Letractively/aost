@@ -64,6 +64,18 @@ class DefaultResultListener implements ResultListener, Configurable {
         }
     }
 
+    public void listenForMessage(int step, String message) {
+        TestResult tr = results.get(step)
+        if(tr != null){
+            tr.addMessage(message)
+        }else{
+            tr = new TestResult()
+            tr.setProperty("stepId", step)
+            tr.addMessage(message)
+        }
+        results.put(step, tr)
+   }
+
     public void report() {
         //get the singleton configurator
         TelluriumConfigurator configurator = new TelluriumConfigurator()

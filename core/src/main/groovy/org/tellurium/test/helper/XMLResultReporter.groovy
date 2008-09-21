@@ -50,6 +50,11 @@ class XMLResultReporter implements ResultReporter{
                     }
                     Status(result.status.toString())
                     Runtime((result.end - result.start) / 1E9)
+                    if (result.messages != null && (!result.messages.isEmpty())) {
+                        result.messages.each {message ->
+                            Message("${message}")
+                        }
+                    }
                     if (result.exception != null)
                         Exception(Helper.logException(result.exception))
                 }

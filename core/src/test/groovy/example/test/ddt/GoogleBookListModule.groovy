@@ -37,6 +37,7 @@ class GoogleBookListModule extends TelluriumDataDrivenModule{
             //assertEquals("Fiction", category)
 
             int size = getListSize("GoogleBooksList.subcategory")
+            logMessage("Book List Size " + size)
             compareResult(expectedSize, size){
                 assertTrue(expectedSize == size)
             }

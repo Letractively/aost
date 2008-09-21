@@ -13,5 +13,7 @@ interface ResultListener {
     
     public void listenForResult(TestResult result)
 
+    public void listenForMessage(int step, String message)
+
     void report()
 }
