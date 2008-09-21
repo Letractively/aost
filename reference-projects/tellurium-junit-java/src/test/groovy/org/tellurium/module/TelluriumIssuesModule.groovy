@@ -116,6 +116,9 @@ class TelluriumIssuesModule extends TelluriumDataDrivenModule{
             String issueType = bind("IssueForOwner.issueType")
             String issueOwner = bind("IssueForOwner.owner")
             int headernum = getCachedVariable("headernum")
+            int expectedHeaderNum = getTableHeaderNum()
+            compareResult(expectedHeaderNum, headernum)
+            
             List<String> headernames = getCachedVariable("headernames")
             String[] issueTypes = getCachedVariable("issuetypes")
             String issueTypeLabel = getIssueTypeLabel(issueTypes, issueType)
