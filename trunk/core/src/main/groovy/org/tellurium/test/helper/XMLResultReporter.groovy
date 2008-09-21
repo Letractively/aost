@@ -42,11 +42,20 @@ class XMLResultReporter implements ResultReporter{
                             "${key}"(value)
                         }
                     }
-                    result.assertionResults.each {ar ->
-                        if (ar.error != null)
-                            Assertion(Expected: ar.expected, Actual: ar.actual, Passed: ar.passed, Error: ar.error?.getMessage())
-                        else
-                            Assertion(Expected: ar.expected, Actual: ar.actual, Passed: ar.passed)
+                    result.assertionResults.each {AssertionResult ar ->
+                        if (ar.value instanceof ComparisonAssertionValue) {
+                            if (ar.error != null)
+                                Assertion(Expected: ar.value.expected, Actual: ar.value.actual, Passed: ar.passed, Error: ar.error?.getMessage())
+                            else
+                                Assertion(Expected: ar.value.expected, Actual: ar.value.actual, Passed: ar.passed)
+                        } else if (ar.value instanceof EvaulationAssertionValue) {
+                            if (ar.error != null)
+                                Assertion(Value: ar.value.value, Passed: ar.passed, Error: ar.error?.getMessage())
+                            else
+                                Assertion(Value: ar.value.value, Passed: ar.passed)
+                        } else {
+                            //unknown assertion type
+                        }
                     }
                     Status(result.status.toString())
                     Runtime((result.end - result.start) / 1E9)
