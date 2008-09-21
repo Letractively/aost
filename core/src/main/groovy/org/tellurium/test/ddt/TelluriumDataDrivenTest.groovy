@@ -292,8 +292,10 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
         AssertionResult assertResult = new AssertionResult()
 
         result.setProperty("stepId", context.getStepCount())
-        assertResult.setProperty("expected", expected)
-        assertResult.setProperty("actual", actual)
+        ComparisonAssertionValue value = new ComparisonAssertionValue()
+        value.setProperty("expected", expected)
+        value.setProperty("actual", actual)
+        assertResult.setProperty("value", value)
 
         try{
             //allow user to override the default assertion use
@@ -314,6 +316,31 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
         listenForResult(result)
     }
 
+    protected void recordResult(value, Closure c){
+        boolean passed = true
+
+        TestResult result = new TestResult()
+        AssertionResult assertResult = new AssertionResult()
+
+        result.setProperty("stepId", context.getStepCount())
+        EvaulationAssertionValue eav = new EvaulationAssertionValue()
+        eav.setProperty("value", value)
+        assertResult.setProperty("value", eav)
+
+        try{
+            //user must define the closure for actual checking
+            if(c != null){
+                c()
+            }
+        }catch(AssertionFailedError e){
+            passed = false
+            assertResult.setProperty("error", e)
+        }
+
+        assertResult.setProperty("passed", passed)
+        result.addAssertationResult(assertResult)
+        listenForResult(result)
+    }
     protected void logMessage(String message){
         listener.listenForMessage(context.getStepCount() ,message)
     }

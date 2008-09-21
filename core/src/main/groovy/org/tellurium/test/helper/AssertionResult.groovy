@@ -3,9 +3,7 @@ package org.tellurium.test.helper
 import junit.framework.AssertionFailedError
 
 /**
- * Hold the result for the assertion of
- *
- *  compareResult(expected, actual)
+ * Hold the result for the assertions
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
@@ -14,11 +12,8 @@ import junit.framework.AssertionFailedError
  */
 class AssertionResult {
 
-    private static final String EXPECTED = "Expected"
-    private def expected
-
-    private static final String ACTUAL = "Actual"
-    private def actual
+    private static final String VALUE = "value"
+    private AssertionValue value
 
     private static final String PASSED = "Successful"
     private boolean passed
@@ -37,8 +32,7 @@ class AssertionResult {
         final String fieldStart = " "
 
         StringBuilder sb = new StringBuilder(typicalLength)
-        sb.append(EXPECTED).append(avpSeparator).append("\"" + expected + "\"").append(fieldSeparator)
-        sb.append(fieldStart).append(ACTUAL).append(avpSeparator).append("\"" + actual + "\"").append(fieldSeparator)
+        sb.append(value.toString())
         sb.append(fieldStart).append(PASSED).append(avpSeparator).append(passed)
         if (error != null){
             sb.append(fieldSeparator)

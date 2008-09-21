@@ -84,6 +84,10 @@ abstract class TelluriumDataDrivenModule extends DslContext {
         runner?.recordResult(expected, actual, c)
     }
 
+    public void checkResult(value, Closure c){
+        runner?.recordResult(value, c)
+    }
+
     public void logMessage(String message){
         runner?.logMessage(message)
     }
