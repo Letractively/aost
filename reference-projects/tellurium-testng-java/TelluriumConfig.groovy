@@ -29,7 +29,7 @@ tellurium{
     //data accessor
     accessor{
         //whether we should check if the UI element is presented
-        checkElement = true
+        checkElement = false
     }
     //the configuration for the connector that connects the selenium client to the selenium server
     connector{
