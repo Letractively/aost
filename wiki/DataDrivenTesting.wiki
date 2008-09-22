@@ -64,6 +64,18 @@ bind is the command to bind a variable to input Field Set field at runtime. Fiel
 
 is used to bind the row variable to the "row" field in the FieldSet "GCHLabel". Tellurium does not explicitly differentiate input parameters from the expected results in the input data. You only need to bind variables to the input data and then you can use any of them as the expected results for result comparison.
 
+cacheVariable and getCachedVariable are used to pass intermediate variables among tests. cacheVariable is used to put variable into a cache and getCachedVariable is used to get back the variable. For example,
+
+{{{
+int headernum = getTableHeaderNum()
+cacheVariable("headernum", headernum)
+
+...
+
+int headernum = getCachedVariable("headernum")
+...
+}}}
+ 
 When you are done with your testing, please use "closeData" to close the input data stream. In the meantime, the result reporter will output the test results in the format you specified in the configuration file, for example, XML file as shown in the TelluriumConfig.groovy file:
 
 {{{
@@ -210,6 +222,22 @@ compareResult(list1, list2){
 }
 }}}
    
+If users want to check a variable in the test and the "checkResult" method should be used, which comes with a closure where users can define the actually assertions inside. 
+
+{{{
+checkResult(issueTypeLabel) {
+    assertTrue(issueTypeLabel != null)
+}
+}}}
+
+Like "compareResult", "checkResult" will capture all assertion errors. The test will resume even the assertions fail and the result will be reported in the output. 
+
+In addition to that the "logMessage" can be used for users to log any messages in the output.
+
+{{{
+logMessage "Found ${actual.size()} ${issueTypeLabel} for owner " + issueOwner 
+}}}
+
 === TelluriumDataDrivenTest ===
 
 TelluriumDataDrivenTest is the class users should extend to run the actual data driven testing and it is more like a data driven testing engine. There is only one method, "testDataDriven", which users need to implement. The testing process is shown in Figure 3.
