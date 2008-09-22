@@ -56,6 +56,8 @@ tellurium{
         }
     }
     test{
+        //at current stage, the result report is only for tellurium data driven testing
+        //we may add the result report for regular tellurium test case
         result{
             //specify what result reporter used for the test result
             //valid options include "SimpleResultReporter", "XMLResultReporter", and "StreamXMLResultReporter"
