@@ -62,7 +62,7 @@ ui.Container(uid: "GooglePage"){
    Button(uid: "FeelingLucky", locator: "//input[@name='btnI']")
 }
 }}}
-  # You create individual objects such as
+  # Create individual objects such as
 {{{
 InputBox(uid: "InputBox", locator: "//input[@name='q']")
 Button(uid: "GoogleSearch", locator: "//input[@name='btnG']")
