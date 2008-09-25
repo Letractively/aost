@@ -21,6 +21,8 @@ The data provider is the key component of the data driven testing. It reads data
   # useData String_name, load input data from a String in the test script
   # bind("fieldSet field name"), bind a variable to a FieldSet field name
   # closeData, close the input data stream and report the test results
+  # cacheVariable(name, variable), put variable into cache
+  # getCachedVariable(name, variable), get variable from cache
 
 The file name should include the file path, for example,
 
