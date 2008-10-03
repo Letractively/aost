@@ -1,6 +1,7 @@
 package example.google
 
 import org.tellurium.dsl.DslContext
+import org.tellurium.object.UiObject
 
 /**
  *
@@ -25,6 +26,15 @@ class NewGoogleBooksList extends DslContext{
                 UrlLink(uid: "all", locator: "/a")
             }
         }
+
+        ui.Container(uid: "NewGoogleBooksList", clocator: [tag: "table", id: "hp_table"], group: "true"){
+            TextBox(uid: "category", clocator: [tag: "div", class: "sub_cat_title"])
+            List(uid: "subcategory", clocator: [tag: "div", class:"sub_cat_section"]){
+                Container(uid: "all", clocator: [tag: "p"]){
+                   UrlLink(uid: "link", clocator: [:])
+                }
+            }
+        }
     }                                                                                               
 
     String getCategory(){
@@ -33,6 +43,10 @@ class NewGoogleBooksList extends DslContext{
 
     int getListSize(){
         getListSize "GoogleBooksList.subcategory"
+    }
+
+    public UiObject getUiObject(String uid){
+        return getUiElement(uid)
     }
 
     def getAllObjectInList(){
@@ -48,6 +62,11 @@ class NewGoogleBooksList extends DslContext{
     def clickList(int index){
         click "GoogleBooksList.subcategory[${index}]"
         waitForPageToLoad 30000  
+    }
+
+    def clickNewList(int index){
+        click "NewGoogleBooksList.subcategory[${index}].link"
+        waitForPageToLoad 30000
     }
 
     String getText(int index){
