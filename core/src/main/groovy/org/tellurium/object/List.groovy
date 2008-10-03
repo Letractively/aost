@@ -1,10 +1,10 @@
 package org.tellurium.object
 
-import org.tellurium.dsl.WorkflowContext
-import org.tellurium.dsl.UiID
-import org.tellurium.locator.LocatorProcessor
 import org.tellurium.access.Accessor
+import org.tellurium.dsl.UiID
+import org.tellurium.dsl.WorkflowContext
 import org.tellurium.locator.GroupLocateStrategy
+import org.tellurium.locator.LocatorProcessor
 
 /**
  * Abstracted class for a list, which holds one dimension array of Ui objects
@@ -13,69 +13,94 @@ import org.tellurium.locator.GroupLocateStrategy
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
-class List  extends Container{
+class List extends Container {
 
-     public static final String ALL_MATCH = "ALL";
+    public static final String ALL_MATCH = "ALL";
 
-     protected TextBox defaultUi = new TextBox()
+    protected TextBox defaultUi = new TextBox()
 
-     @Override
-     def add(UiObject component){
-        if(validId(component.uid)){
+    @Override
+    def add(UiObject component) {
+        if (validId(component.uid)) {
             String internId = internalId(component.uid)
             components.put(internId, component)
-        }else{
+        } else {
             System.out.println("Warning: Invalid id: ${component.uid}")
         }
-     }
+    }
 
     //the separator for the list, it is empty by default
     String separator = ""
 
-     //should validate the uid before call this to convert it to internal representation
-     public static String internalId(String id){
+    //should validate the uid before call this to convert it to internal representation
+    public static String internalId(String id) {
 
-         //convert to upper case so that it is case insensitive
+        //convert to upper case so that it is case insensitive
         String upperId = id.trim().toUpperCase()
 
         return "_${upperId}"
-     }
+    }
 
-     public UiObject findUiObject(int index){
+    public UiObject findUiObject(int index) {
 
         //first check _index format
         String key = "_${index}"
         UiObject obj = components.get(key)
 
         //then, check _ALL format
-        if(obj == null){
-          key = "_ALL"
-          obj = components.get(key)
+        if (obj == null) {
+            key = "_ALL"
+            obj = components.get(key)
         }
 
         return obj
-     }
+    }
 
-     public boolean validId(String id){
+    public boolean validId(String id) {
         //UID cannot be empty
-        if(id == null || (id.trim().length() <= 0))
-          return false
+        if (id == null || (id.trim().length() <= 0))
+            return false
 
         //convert to upper case so that it is case insensitive
         String upperId = id.trim().toUpperCase()
 
         //check match all case
-        if(ALL_MATCH.equals(upperId))
+        if (ALL_MATCH.equals(upperId))
             return true
         return (upperId ==~ /[0-9]+/)
-     }
+    }
 
-     String getListLocator(int index){
-         if(separator == null)
-            return ""
+    // example:
+    // //div/descendant-or-self::table[2]/descendant-or-self::table
+    protected String deriveListLocator(int index) {
+        Map<String, Integer> tags = new HashMap<String, Integer>()
+        UiObject last = null
+        for (int i = 1; i <= index; i++) {
+            UiObject obj = findUiObject(i)
+            String tag = obj.locator.getTag()
+            Integer occur = tags.get(tag)
+            if (occur == null) {
+                tags.put(tag, 1)
+            } else {
+                tags.put(tag, occur + 1)
+            }
+            if (i == index) {
+                last = obj
+            }
+        }
 
-         return  separator + "[${index}]"
-     }
+        String lastTag = last.locator.getTag()
+        Integer lastOccur = tags.get(lastTag)
+
+        return "/child::${lastTag}[${lastOccur}]"
+    }
+
+    String getListLocator(int index) {
+        if (separator == null || separator.trim().size() == 0)
+            return deriveListLocator(index)
+
+        return separator + "[${index}]"
+    }
 
     int getListSize(Closure c) {
         int index = 1
@@ -84,7 +109,7 @@ class List  extends Container{
 
         Accessor accessor = new Accessor()
 
-        while(accessor.isElementPresent(rl + getListLocator(index))){
+        while (accessor.isElementPresent(rl + getListLocator(index))) {
             index++
         }
 
@@ -95,10 +120,10 @@ class List  extends Container{
 
     //walkTo through the object tree to until the UI object is found by the UID from the stack
     @Override
-    public UiObject walkTo(WorkflowContext context, UiID uiid){
+    public UiObject walkTo(WorkflowContext context, UiID uiid) {
 
         //if not child listed, return itself
-        if(uiid.size() < 1)
+        if (uiid.size() < 1)
             return this
 
         String child = uiid.pop()
@@ -111,7 +136,7 @@ class List  extends Container{
         UiObject cobj = this.findUiObject(nindex)
 
         //If cannot find the object as the object template, return the TextBox as the default object
-        if(cobj == null){
+        if (cobj == null) {
             cobj = this.defaultUi
         }
 

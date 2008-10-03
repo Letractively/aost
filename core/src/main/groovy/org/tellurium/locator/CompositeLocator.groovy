@@ -16,4 +16,8 @@ class CompositeLocator {
     def position
     boolean direct = false
     Map<String, String> attributes = [:]
+
+    public String getTag(){
+        return tag
+    }
 }
