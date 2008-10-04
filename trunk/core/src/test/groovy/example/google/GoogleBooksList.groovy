@@ -19,7 +19,7 @@ class GoogleBooksList extends DslContext{
     public void defineUi() {
         ui.Container(uid: "GoogleBooksList", locator: "//table[@id='hp_table']/tbody/tr/td[1]/div/div[1]"){
             TextBox(uid: "category", locator: "/div")
-            List(uid: "subcategory", locator: "", separator: "/p"){
+            List(uid: "subcategory", locator: "", separator: "p"){
                 UrlLink(uid: "all", locator: "/a")
             }
         }
