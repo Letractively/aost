@@ -45,6 +45,8 @@ class TelluriumDownloadsPage extends DslContext{
            //For the rest, just UrlLink
            UrlLink(uid: "all", clocator: [:])
        }
+
+       ui.ClickableRadioButton(uid: "test", clocator: [:])
    }
 
     public String[] getAllDownloadTypes(){

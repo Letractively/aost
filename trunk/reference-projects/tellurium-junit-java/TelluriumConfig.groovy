@@ -84,7 +84,7 @@ tellurium{
 
             //example:
            SelectMenu="org.tellurium.builder.SelectMenuBuilder"
-
+           ClickableRadioButton="org.tellurium.builder.ClickableRadioButtonBuilder"
         }
     }
     widget{
