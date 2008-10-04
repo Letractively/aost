@@ -92,14 +92,14 @@ class List extends Container {
         String lastTag = last.locator.getTag()
         Integer lastOccur = tags.get(lastTag)
 
-        return "/child::${lastTag}[${lastOccur}]"
+        return "/descendant::${lastTag}[${lastOccur}]"
     }
 
     String getListLocator(int index) {
         if (separator == null || separator.trim().size() == 0)
             return deriveListLocator(index)
 
-        return separator + "[${index}]"
+        return "/" + separator + "[${index}]"
     }
 
     int getListSize(Closure c) {
