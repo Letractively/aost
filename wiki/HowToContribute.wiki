@@ -1,4 +1,4 @@
-#labels Phase-Support,Featured
+#labels Phase-Support
 == How to Contribute to Tellurium ==
 
 Tellurium is like a newborn and he needs your support and contribution. We welcome contributions in many different ways, for example,
