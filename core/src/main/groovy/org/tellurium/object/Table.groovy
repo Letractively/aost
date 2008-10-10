@@ -1,11 +1,11 @@
 package org.tellurium.object
 
-import org.tellurium.object.UiObject
-import org.tellurium.dsl.WorkflowContext
-import org.tellurium.dsl.UiID
-import org.tellurium.locator.LocatorProcessor
 import org.tellurium.access.Accessor
+import org.tellurium.dsl.UiID
+import org.tellurium.dsl.WorkflowContext
 import org.tellurium.locator.GroupLocateStrategy
+import org.tellurium.locator.LocatorProcessor
+import org.tellurium.object.UiObject
 
 /**
  *   This is a table without header tag "thead' and foot "tfoot", but in the format of
@@ -313,6 +313,7 @@ class Table extends Container{
     }
 
     int getTableHeaderColumnNum(Closure c) {
+/*
         int column = 1
 
         String rl = c(this.locator)
@@ -325,10 +326,18 @@ class Table extends Container{
         column--
 
         return column
+        */
+
+        String rl = c(this.locator)
+        Accessor accessor = new Accessor()
+        String xpath = rl + "/tbody/tr[1]/th"
+        int columnum = accessor.getXpathCount(xpath)
+
+        return columnum
     }
 
     int getTableMaxRowNum(Closure c) {
-        int row = 1
+/*        int row = 1
         int column = 1
 
         String rl = c(this.locator)
@@ -342,9 +351,18 @@ class Table extends Container{
         row--
 
         return row
+        */
+
+        String rl = c(this.locator)
+        Accessor accessor = new Accessor()
+        String xpath = rl + "/tbody/tr/td[1]"
+        int rownum = accessor.getXpathCount(xpath)
+
+        return rownum
     }
 
     int getTableMaxColumnNum(Closure c) {
+        /*
         int row = 1
         int column = 1
         String rl = c(this.locator)
@@ -357,6 +375,20 @@ class Table extends Container{
         column--
 
         return column
+        */
+
+        String rl = c(this.locator)
+        Accessor accessor = new Accessor()
+        String xpath = rl 
+        if (hasHeader()) {
+            //if we have header, need to increase the row number by one
+            xpath = xpath + "/tbody/tr[2]/td"
+        } else {
+            xpath = xpath + "/tbody/tr[1]/td"
+        }
+        int columnum = accessor.getXpathCount(xpath)
+
+        return columnum
     }
 
     //walk to a regular UI element in the table

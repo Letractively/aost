@@ -1,10 +1,10 @@
 package org.tellurium.object
 
-import org.tellurium.dsl.WorkflowContext
-import org.tellurium.locator.LocatorProcessor
 import org.tellurium.access.Accessor
 import org.tellurium.dsl.UiID
+import org.tellurium.dsl.WorkflowContext
 import org.tellurium.locator.GroupLocateStrategy
+import org.tellurium.locator.LocatorProcessor
 
 /**
  * Standard table is in the format of
@@ -328,6 +328,7 @@ class StandardTable extends Container{
     }
 
     int getTableHeaderColumnNum(Closure c) {
+        /*
         int column = 1
 
         String rl = c(this.locator)
@@ -340,9 +341,19 @@ class StandardTable extends Container{
         column--
 
         return column
+        */
+
+        String rl = c(this.locator)
+        Accessor accessor = new Accessor()
+        String xpath = rl + "/tbody/thead/tr/td"
+        int columnum = accessor.getXpathCount(xpath)
+
+        return columnum
+
     }
 
     int getTableMaxRowNum(Closure c) {
+/*
         int row = 1
         int column = 1
 
@@ -357,9 +368,18 @@ class StandardTable extends Container{
         row--
 
         return row
+*/
+
+        String rl = c(this.locator)
+        Accessor accessor = new Accessor()
+        String xpath = rl + "/tbody/tr/td[1]"
+        int rownum = accessor.getXpathCount(xpath)
+
+        return rownum
     }
 
     int getTableMaxColumnNum(Closure c) {
+/*
         int row = 1
         int column = 1
         String rl = c(this.locator)
@@ -372,6 +392,15 @@ class StandardTable extends Container{
         column--
 
         return column
+*/
+
+        String rl = c(this.locator)
+        Accessor accessor = new Accessor()
+        String xpath = rl + "/tbody/tr[1]/td"
+
+        int columnum = accessor.getXpathCount(xpath)
+
+        return columnum
     }
 
     //walk to a regular UI element in the table
