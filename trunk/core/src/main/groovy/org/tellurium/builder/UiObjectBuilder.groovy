@@ -1,10 +1,9 @@
 package org.tellurium.builder
 
-import org.tellurium.object.UiObject
 import org.tellurium.locator.BaseLocator
 import org.tellurium.locator.CompositeLocator
-import org.tellurium.locator.GroupLocator
 import org.tellurium.object.Container
+import org.tellurium.object.UiObject
 
 /**
  *  Basic UI object builder
@@ -28,6 +27,7 @@ abstract class UiObjectBuilder{
     public static final String TRUE = "TRUE"
     //direct child of either the header or the parent UI
     public static final String DIRECT = "direct"
+    public static final String RESPOND_TO_EVENTS = "respond"
 
     def abstract build(Map map, Closure c);
 
@@ -88,6 +88,12 @@ abstract class UiObjectBuilder{
         }else{
             //useString default base Locator
             obj.locator = new BaseLocator()
+        }
+
+        //add respond to events
+        if(map.get(RESPOND_TO_EVENTS) != null){
+            obj.respondToEvents = map.get(RESPOND_TO_EVENTS)
+            //TODO: add dynamic method "click" if the Click event is included and is not on the original object
         }
 
         return obj
