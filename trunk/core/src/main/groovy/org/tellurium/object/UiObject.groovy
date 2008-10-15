@@ -2,6 +2,7 @@ package org.tellurium.object
 
 import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
+import org.tellurium.event.Event
 
 /**
  *  Basic UI object
@@ -83,7 +84,33 @@ abstract class UiObject {
     def getAttribute(String attribute, Closure c){
         return c(locator, "@${attribute}")    
     }
-    
+
+    def methodMissing(String name, args) {
+         //check if the click action is used and if the object can respond to the "Click" event
+         //if it is, then call the "click" method, i.e., the innerClick method here
+         if("click".equals(name) && isEventIncluded(Event.Click)){
+             return this.invokeMethod("innerClick", args)
+         }
+
+        throw new MissingMethodException(name, UiObject.class, args)
+    }
+
+    boolean isEventIncluded(Event event){
+
+        if (respondToEvents != null && event != null){
+            for(String resp : respondToEvents){
+                if(event.toString().equalsIgnoreCase(resp))
+                    return true
+            }
+        }
+
+        return false
+    }
+
+    protected innerClick(Closure c){
+        c(locator)
+    }
+
     //walkTo through the object tree to until the Ui Object is found by the UID
     public UiObject walkTo(WorkflowContext context, UiID uiid){
         //if not child listed, return itself

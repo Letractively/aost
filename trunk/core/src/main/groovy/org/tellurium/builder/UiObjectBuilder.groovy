@@ -93,7 +93,8 @@ abstract class UiObjectBuilder{
         //add respond to events
         if(map.get(RESPOND_TO_EVENTS) != null){
             obj.respondToEvents = map.get(RESPOND_TO_EVENTS)
-            //TODO: add dynamic method "click" if the Click event is included and is not on the original object
+            //add dynamic method "click" if the Click event is included and is not on the original object
+            //this will be implemented by the methodMissing method
         }
 
         return obj

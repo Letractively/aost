@@ -37,7 +37,7 @@ class EventHandler implements Configurable{
 		}
     }
 
-    def mouseOver(String locator) {
+    def mouseOver(String locator, String[] events) {
         checkElement(locator)
 
         if(dispatcher.isElementPresent(locator)){
