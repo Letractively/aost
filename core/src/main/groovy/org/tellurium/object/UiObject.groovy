@@ -1,7 +1,7 @@
 package org.tellurium.object
 
-import org.tellurium.dsl.WorkflowContext
 import org.tellurium.dsl.UiID
+import org.tellurium.dsl.WorkflowContext
 
 /**
  *  Basic UI object
@@ -53,6 +53,9 @@ abstract class UiObject {
     //reference back to its parent
     def Container parent
 
+    //respond to JavaScript events
+    String[] respondToEvents
+    
     boolean isElementPresent(Closure c){
         return c(locator)
     }
