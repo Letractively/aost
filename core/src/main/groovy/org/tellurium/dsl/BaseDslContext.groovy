@@ -36,9 +36,9 @@ abstract class BaseDslContext {
 
     def mouseOver(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.mouseOver(){ loc ->
+        ui.walkTo(context, uid)?.mouseOver(){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
-            eventHandler.mouseOver(locator)
+            eventHandler.mouseOver(locator, events)
         }
     }
 

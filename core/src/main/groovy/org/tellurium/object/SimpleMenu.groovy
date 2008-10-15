@@ -1,7 +1,7 @@
 package org.tellurium.object
 
-import org.tellurium.dsl.WorkflowContext
 import org.tellurium.dsl.UiID
+import org.tellurium.dsl.WorkflowContext
 import org.tellurium.locator.LocatorProcessor
 
 /**
@@ -28,7 +28,7 @@ class SimpleMenu extends UiObject{
     }
 
     def mouseOut(Closure c){
-        c(null)
+        c(null, respondToEvents)
     }
 
     public void addMenuItems(Map<String, String> menuItems){
