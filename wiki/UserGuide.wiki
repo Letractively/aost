@@ -198,6 +198,7 @@ The basic Ui object is an abstract class and users cannot instantiate it directl
   # uid: Ui object's identifier
   # namespace: for future extension
   # locator: the locator of the UI object, could be a base locator or a composite locator
+  # respond: the JavaScript events the UI object can respond to. The value is a list.
 
 and the base Ui object also provides the following methods:
 
