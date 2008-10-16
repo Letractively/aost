@@ -143,6 +143,7 @@ The UI Object includes
   * locator: the locator of the UI object, could be a base locator or a composite locator
   * Features: the inherent feature of the UI component, for example, the selection UI component normally comes with “label=?” or “value=?”. Table always has the “table”, “tr”, “td”, “th” tags.
   * useGroupInfo: this option only applies to a collection type of UI object such as Container, Table, List, Form and so on. By default, this option is off and it can be turned on by specifying the "group" attribute to be true, i.e., {{{group: "true"}}}. If it is on, the container type object will use the inside UI objects' attributes to help locating its locator.
+  * respond: define what JavaScript events the UI object could respond to. Right now, the valid events include "Blur", "Click", "Focus", "MouseOver", and "MouseOut". The value is a list of events. If "click" is included, Tellurium will automatically add the click method to the instance of the UI object so that you can use the click method even it is not defined for the original UI object.
 
 Regular UI objects include Button, CheckBox, Icon, InputBox, Selector, TextBox, Table and so on, The list of predefined Tellurium Ui objects can be found on [http://code.google.com/p/aost/wiki/UserGuide the User Guide page]. 
 
