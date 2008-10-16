@@ -1,8 +1,8 @@
 package example.test.groovy
 
 import example.google.GoogleStartPage
-import org.tellurium.test.groovy.TelluriumGroovyTestCase
 import example.google.NewGoogleStartPage
+import org.tellurium.test.groovy.TelluriumGroovyTestCase
 
 class GoogleStartPageGroovyTestCase extends TelluriumGroovyTestCase{
 
@@ -31,5 +31,14 @@ class GoogleStartPageGroovyTestCase extends TelluriumGroovyTestCase{
         ngsp.doGoogleSearch("tellurium selenium automated testing")
         connectUrl("http://www.google.com")
         ngsp.doImFeelingLucky("tellurium selenium groovy dsl")
+    }
+
+    //test the dynamically added event "click"
+    void testClick(){
+         //test google start page using composite locators
+        NewGoogleStartPage ngsp = new NewGoogleStartPage()
+        ngsp.defineUi()
+        connectUrl("http://www.google.com")
+        ngsp.testClick()       
     }
 }

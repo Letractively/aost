@@ -38,4 +38,12 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
         connectUrl("http://www.google.com");
         ngsp.doGoogleSearch("tellurium.selenium.Groovy @Test) !#$%^& (");
     }
+
+    //test the dynamically added event "click"
+    @Test
+    public void testClick(){
+        connectUrl("http://www.google.com");
+        ngsp.testClick();
+    }
+
 }
