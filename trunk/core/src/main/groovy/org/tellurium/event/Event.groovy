@@ -27,9 +27,11 @@ package org.tellurium.event
  * 
  */
 enum Event {
-    Blur,
-    Focus,
-    Click,
-    MouseOver,
-    MouseOut
+    //action is a placeholder for the actual action the event handler needs to handle
+    ACTION,
+    BLUR,
+    FOCUS,
+    CLICK,
+    MOUSEOVER,
+    MOUSEOUT
 }

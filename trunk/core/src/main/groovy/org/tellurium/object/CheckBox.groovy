@@ -15,16 +15,16 @@ class CheckBox extends UiObject{
     
     def check(Closure c){
 
-        c(locator)
+        c(locator, respondToEvents)
     }
 
     def boolean isChecked(Closure c){
 
-        c(locator)
+        c(locator, respondToEvents)
     }
 
     def uncheck(Closure c){
 
-        c(locator)
+        c(locator, respondToEvents)
     }
 }

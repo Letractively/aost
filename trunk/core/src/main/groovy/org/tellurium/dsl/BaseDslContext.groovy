@@ -44,81 +44,81 @@ abstract class BaseDslContext {
 
     def mouseOut(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.mouseOut(){ loc ->
+        ui.walkTo(context, uid)?.mouseOut(){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
-            eventHandler.mouseOut(locator)
+            eventHandler.mouseOut(locator, events)
         }
     }
 
     def click(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.click(){ loc ->
+        ui.walkTo(context, uid)?.click(){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
-            eventHandler.click(locator)
+            eventHandler.click(locator, events)
         }
     }
 
     def doubleClick(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.doubleClick(){ loc ->
+        ui.walkTo(context, uid)?.doubleClick(){ loc, String[] events ->
            String locator = locatorMapping(context, loc)
-            eventHandler.doubleClick(locator)
+            eventHandler.doubleClick(locator, events)
         }
     }
 
     def clickAt(String uid, String coordination){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.clickAt(coordination){ loc ->
+        ui.walkTo(context, uid)?.clickAt(coordination){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
-            eventHandler.clickAt(locator, coordination)
+            eventHandler.clickAt(locator, coordination, events)
         }
     }
 
     def check(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.check(){ loc ->
+        ui.walkTo(context, uid)?.check(){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
-            eventHandler.check(locator)
+            eventHandler.check(locator, events)
         }
     }
 
     def uncheck(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.uncheck(){ loc ->
+        ui.walkTo(context, uid)?.uncheck(){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
-            eventHandler.uncheck(locator)
+            eventHandler.uncheck(locator, events)
         }
     }
 
     def type(String uid, String input){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.type(input){ loc ->
+        ui.walkTo(context, uid)?.type(input){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
-            eventHandler.type(locator, input)
+            eventHandler.type(locator, input, events)
         }
     }
 
     def keyType(String uid, String input){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.keyType(input){ loc ->
+        ui.walkTo(context, uid)?.keyType(input){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
-            eventHandler.keyType(locator, input)
+            eventHandler.keyType(locator, input, events)
         }
     }
 
     def typeAndReturn(String uid, String input){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.typeAndReturn(input){ loc ->
+        ui.walkTo(context, uid)?.typeAndReturn(input){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
-            eventHandler.typeAndReturn(locator, input)
+            eventHandler.typeAndReturn(locator, input, events)
         }
     }
 
     def clearText(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.clearText(){ loc ->
+        ui.walkTo(context, uid)?.clearText(){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
-            eventHandler.clearText(locator)
+            eventHandler.clearText(locator, events)
         }
     }
 
@@ -128,17 +128,17 @@ abstract class BaseDslContext {
 
     def selectByLabel(String uid, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.selectByLabel(target){ loc, optloc ->
+        ui.walkTo(context, uid)?.selectByLabel(target){ loc, optloc, String[] events ->
             String locator = locatorMapping(context, loc)
-            eventHandler.select(locator, optloc)
+            eventHandler.select(locator, optloc, events)
         }
     }
 
     def selectByValue(String uid, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.selectByValue(target){ loc, optloc ->
+        ui.walkTo(context, uid)?.selectByValue(target){ loc, optloc, String[] events ->
             String locator = locatorMapping(context, loc)
-            eventHandler.select(locator, optloc)
+            eventHandler.select(locator, optloc, events)
         }
     }
 

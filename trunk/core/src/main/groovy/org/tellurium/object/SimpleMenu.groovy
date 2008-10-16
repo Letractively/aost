@@ -20,11 +20,11 @@ class SimpleMenu extends UiObject{
     Map<String, String> aliasMap
 
     def click(Closure c){
-        c(null)
+        c(null, respondToEvents)
     }
 
     def mouseOver(Closure c){
-        c(null)
+        c(null, respondToEvents)
     }
 
     def mouseOut(Closure c){

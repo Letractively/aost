@@ -10,6 +10,6 @@ class Div extends UiObject{
     public static final String TAG = "div"
 
     def click(Closure c){
-        c(locator)
+        c(locator, respondToEvents)
     }
 }

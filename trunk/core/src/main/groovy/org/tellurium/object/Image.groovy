@@ -11,12 +11,12 @@ class Image extends UiObject{
     
     def click(Closure c) {
 
-        c(locator)
+        c(locator, respondToEvents)
     }
 
     def doubleClick(Closure c) {
 
-        c(locator)
+        c(locator, respondToEvents)
     }
 
     String getImageSource(Closure c){

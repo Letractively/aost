@@ -11,7 +11,7 @@ class Span extends UiObject{
     public static final String TAG = "span"
 
     def click(Closure c){
-        c(locator)
+        c(locator, respondToEvents)
     }
 
 }
