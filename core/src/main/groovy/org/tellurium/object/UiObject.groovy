@@ -88,7 +88,7 @@ abstract class UiObject {
     def methodMissing(String name, args) {
          //check if the click action is used and if the object can respond to the "Click" event
          //if it is, then call the "click" method, i.e., the innerClick method here
-         if("click".equals(name) && isEventIncluded(Event.Click)){
+         if("click".equals(name) && isEventIncluded(Event.CLICK)){
              return this.invokeMethod("innerClick", args)
          }
 

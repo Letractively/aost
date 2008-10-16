@@ -12,16 +12,16 @@ class Button extends UiObject {
     
     def click(Closure c) {
 
-        c(locator)
+        c(locator, respondToEvents)
     }
 
     def doubleClick(Closure c) {
 
-        c(locator)
+        c(locator, respondToEvents)
     }
 
     def clickAt(String coordination, Closure c) {
 
-        c(locator)
+        c(locator, respondToEvents)
     }
 }

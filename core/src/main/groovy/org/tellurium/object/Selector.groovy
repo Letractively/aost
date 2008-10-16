@@ -10,12 +10,12 @@ class Selector extends UiObject {
     public static final String TAG = "select"
 
     def selectByLabel(String target, Closure c){
-        c(locator, "label=${target}")
+        c(locator, "label=${target}", respondToEvents)
     }
 
     def selectByValue(String value, Closure c){
 
-        c(locator, "value=${value}")()
+        c(locator, "value=${value}", respondToEvents)()
     }
 
     def addSelectionByLabel(String target, Closure c){
