@@ -29,7 +29,7 @@ Here we list all the available methods that can be used as DSLs in DslContext an
 
   * {{{keyType id, value}}}: Simulates keystroke events on the specified element, as though you typed the value key-by-key. 
 
-  * {{{typeAndReturn id, input}}}: Sets the value of an input field followed by <Return> key. 
+  * {{{typeAndReturn id, input}}}: Sets the value of an input field followed by {{{<Return>}}} key. 
 
   * {{{clearText id}}}: Resets input field to an empty value. 
 
