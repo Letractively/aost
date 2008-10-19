@@ -1,22 +1,20 @@
 package org.tellurium.config
 
+import org.tellurium.access.Accessor
+import org.tellurium.builder.UiObjectBuilder
+import org.tellurium.builder.UiObjectBuilderRegistry
 import org.tellurium.config.TelluriumConfigParser
-import org.tellurium.server.EmbeddedSeleniumServer
 import org.tellurium.connector.SeleniumConnector
 import org.tellurium.ddt.DataProvider
-import org.tellurium.ddt.object.mapping.io.PipeDataReader
-import org.tellurium.test.helper.DefaultResultListener
-import org.tellurium.test.helper.SimpleResultReporter
-import org.tellurium.test.helper.XMLResultReporter
-import org.tellurium.test.helper.StreamXMLResultReporter
-import org.tellurium.test.helper.ConsoleOutput
-import org.tellurium.test.helper.FileOutput
 import org.tellurium.ddt.object.mapping.io.CSVDataReader
-import org.tellurium.builder.UiObjectBuilderRegistry
-import org.tellurium.builder.UiObjectBuilder
-import org.tellurium.widget.WidgetConfigurator
+import org.tellurium.ddt.object.mapping.io.PipeDataReader
+import org.tellurium.dispatch.Dispatcher
 import org.tellurium.event.EventHandler
-import org.tellurium.access.Accessor
+import org.tellurium.server.EmbeddedSeleniumServer
+import org.tellurium.test.helper.*
+import org.tellurium.widget.WidgetConfigurator
+
+
 
 /**
  * Tellurium Configurator
@@ -152,6 +150,16 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
         accessor.mustCheckElement()
     }
 
+    protected void configDispatcher(Dispatcher dispatcher){
+        dispatcher.captureScreenshot = conf.tellurium.test.exception.captureScreenshot
+        dispatcher.filenamePattern = conf.tellurium.test.exception.filenamePattern
+    }
+
+    protected void configDispatcherDefaultValues(Dispatcher dispatcher){
+        dispatcher.captureScreenshot = false
+        dispatcher.filenamePattern = "Screenshot?.png"
+    }
+
     public void config(Configurable configurable) {
         //configuration file TelluriumConfig.groovy exists
         if(conf != null){
@@ -182,6 +190,9 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
             }else if(configurable instanceof Accessor){
                 println "Configure data accessor using configuration file"
                 configAccessor(configurable)
+            }else if(configurable instanceof Dispatcher){
+                println "Configure dispatcher using configuration file"
+                configDispatcher(configurable)
             }else{
                 println "Unsupported Configurable type!"
             }
@@ -214,6 +225,9 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
             }else if(configurable instanceof Accessor){
                 println "Configure data accessor with default values"
                 configAccessorDefaultValues(configurable)
+            }else if(configurable instanceof Dispatcher){
+                println "Configure dispatcher with default values"
+                configDispatcherDefaultValues(configurable)
              }else{
                 println "Unsupported Configurable type!"
             }
