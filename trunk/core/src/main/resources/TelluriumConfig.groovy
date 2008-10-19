@@ -69,7 +69,7 @@ tellurium{
         }
         exception{
             //whether Tellurium captures the screenshot when exception occurs.
-            //Note that the exception is the one throws by Selenium Server
+            //Note that the exception is the one thrown by Selenium Server
             //we do not care the test logic errors here
             captureScreenshot = true
             //we may have a series of screenshots, specify the file name pattern here
