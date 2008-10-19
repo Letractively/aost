@@ -2,10 +2,13 @@ package org.tellurium.framework
 
 import org.tellurium.access.Accessor
 import org.tellurium.access.AccessorMetaClass
+import org.tellurium.builder.UiObjectBuilder
 import org.tellurium.builder.UiObjectBuilderRegistry
 import org.tellurium.builder.UiObjectBuilderRegistryMetaClass
 import org.tellurium.client.SeleniumClient
 import org.tellurium.client.SeleniumClientMetaClass
+import org.tellurium.config.TelluriumConfigurator
+import org.tellurium.config.TelluriumConfiguratorMetaClass
 import org.tellurium.connector.SeleniumConnector
 import org.tellurium.connector.SeleniumConnectorMetaClass
 import org.tellurium.dispatch.Dispatcher
@@ -15,10 +18,9 @@ import org.tellurium.event.EventHandlerMetaClass
 import org.tellurium.locator.LocatorProcessor
 import org.tellurium.locator.LocatorProcessorMetaClass
 import org.tellurium.server.EmbeddedSeleniumServer
-import org.tellurium.builder.UiObjectBuilder
-import org.tellurium.config.TelluriumConfigurator
-import org.tellurium.config.TelluriumConfiguratorMetaClass
 import org.tellurium.widget.WidgetConfigurator
+
+
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
@@ -38,64 +40,71 @@ class TelluriumFramework {
 
     private TelluriumConfigurator telluriumConfigurator
 
-    TelluriumFramework(){
-        
-       def registry = GroovySystem.metaClassRegistry
+    TelluriumFramework() {
 
-       registry.setMetaClass(UiObjectBuilderRegistry, new UiObjectBuilderRegistryMetaClass())
+//    By default ExpandoMetaClass doesn't do inheritance. To enable this you must call ExpandoMetaClass.enableGlobally()
+//    before your app starts such as in the main method or servlet bootstrap
+//        ExpandoMetaClass.enableGlobally()
 
-       registry.setMetaClass(SeleniumClient, new SeleniumClientMetaClass())
+        def registry = GroovySystem.metaClassRegistry
 
-       registry.setMetaClass(Dispatcher, new DispatcherMetaClass())
+        registry.setMetaClass(UiObjectBuilderRegistry, new UiObjectBuilderRegistryMetaClass())
 
-       registry.setMetaClass(Accessor, new AccessorMetaClass())
+        registry.setMetaClass(SeleniumClient, new SeleniumClientMetaClass())
 
-       registry.setMetaClass(EventHandler, new EventHandlerMetaClass())
+        registry.setMetaClass(Dispatcher, new DispatcherMetaClass())
 
-       registry.setMetaClass(LocatorProcessor, new LocatorProcessorMetaClass())
+        registry.setMetaClass(Accessor, new AccessorMetaClass())
 
-       registry.setMetaClass(SeleniumConnector, new SeleniumConnectorMetaClass())
-       registry.setMetaClass(TelluriumConfigurator, new TelluriumConfiguratorMetaClass())
-        
-       telluriumConfigurator = new TelluriumConfigurator()
-       telluriumConfigurator.parse("TelluriumConfig.groovy")
+        registry.setMetaClass(EventHandler, new EventHandlerMetaClass())
 
-       //configure custom UI ojects
-       telluriumConfigurator.config(new UiObjectBuilderRegistry())
+        registry.setMetaClass(LocatorProcessor, new LocatorProcessorMetaClass())
 
-       //configure widgets
-       telluriumConfigurator.config(new WidgetConfigurator())
+        registry.setMetaClass(SeleniumConnector, new SeleniumConnectorMetaClass())
+        registry.setMetaClass(TelluriumConfigurator, new TelluriumConfiguratorMetaClass())
 
-       //configure Event Handler
-       telluriumConfigurator.config(new EventHandler())
+        telluriumConfigurator = new TelluriumConfigurator()
+        telluriumConfigurator.parse("TelluriumConfig.groovy")
 
-       //configure Data Accessor
-       telluriumConfigurator.config(new Accessor())
+        //configure custom UI ojects
+        telluriumConfigurator.config(new UiObjectBuilderRegistry())
+
+        //configure widgets
+        telluriumConfigurator.config(new WidgetConfigurator())
+
+        //configure Event Handler
+        telluriumConfigurator.config(new EventHandler())
+
+        //configure Data Accessor
+        telluriumConfigurator.config(new Accessor())
+
+        //configure Dispatcher
+        telluriumConfigurator.config(new Dispatcher())
     }
 
-    public void disableEmbeddedSeleniumServer(){
-       this.runEmbeddedSeleniumServer = false
+    public void disableEmbeddedSeleniumServer() {
+        this.runEmbeddedSeleniumServer = false
     }
 
-    public void start(){
+    public void start() {
         server = new EmbeddedSeleniumServer()
 //        server.runSeleniumServerInternally = this.runEmbeddedSeleniumServer
         telluriumConfigurator.config(server)
 
         server.runSeleniumServer()
 
-        connector  = new SeleniumConnector()
+        connector = new SeleniumConnector()
         telluriumConfigurator.config(connector)
-        
+
         connector.connectSeleniumServer()
     }
 
-    public void stop(){
-        if(connector != null){
+    public void stop() {
+        if (connector != null) {
             connector.disconnectSeleniumServer()
         }
-        
-        if(runEmbeddedSeleniumServer && (server != null)){
+
+        if (runEmbeddedSeleniumServer && (server != null)) {
             server.stopSeleniumServer()
         }
     }
@@ -103,12 +112,12 @@ class TelluriumFramework {
     //register ui object builder
     //users can overload the builders or add new builders for new ui objects
     //by call this method
-    public void registerBuilder(String uiObjectName, UiObjectBuilder builder){
+    public void registerBuilder(String uiObjectName, UiObjectBuilder builder) {
         UiObjectBuilderRegistry registry = new UiObjectBuilderRegistry()
         registry.registerBuilder(uiObjectName, builder)
     }
 
-    public SeleniumConnector getConnector(){
+    public SeleniumConnector getConnector() {
         return this.connector
     }
 }
