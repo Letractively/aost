@@ -1,8 +1,6 @@
 package org.tellurium.connector
 
-import com.thoughtworks.selenium.DefaultSelenium;
-import com.thoughtworks.selenium.Selenium;
-
+import com.thoughtworks.selenium.Selenium
 import org.tellurium.client.SeleniumClient
 import org.tellurium.config.Configurable
 
@@ -14,18 +12,17 @@ import org.tellurium.config.Configurable
  */
 class SeleniumConnector implements Configurable {
 
- //   private boolean useDefaultParams = true;
-    protected int port = 4444;
+    protected int port = 4444
 
-	protected final String HTTPS_BASE_URL = "https://localhost:8443";
+	protected final String HTTPS_BASE_URL = "https://localhost:8443"
 
-    protected final String HTTP_BASE_URL = "http://localhost:8080";
+    protected final String HTTP_BASE_URL = "http://localhost:8080"
 
-	protected Selenium sel;
+	protected Selenium sel
 
-	protected String baseURL = HTTP_BASE_URL;
+	protected String baseURL = HTTP_BASE_URL
 
-    protected browser = "*chrome";
+    protected browser = "*chrome"
 
     protected seleniumServerHost = "localhost"
 
@@ -45,13 +42,14 @@ class SeleniumConnector implements Configurable {
 //			setUpSeleniumServer();
         
         //Works for https and http
-        sel = new DefaultSelenium(seleniumServerHost, port, browser, baseURL);
+//        sel = new DefaultSelenium(seleniumServerHost, port, browser, baseURL);
+        sel = new CustomSelenium(seleniumServerHost, port, browser, baseURL)
 //        sel = new DefaultSelenium("localhost", port, "*firefox /usr/lib64/firefox-3.0.1/firefox", baseURL)
         //hardcoded firefox path if it cannot be found from system paht
         //sel = new DefaultSelenium("localhost", port, "*chrome /usr/lib64/firefox-3.0/firefox", baseURL);
         //make sure firefox-bin in your environment path
 //        sel = new DefaultSelenium("localhost", port, "*chrome /usr/lib64/firefox-2.0.0.8/firefox-bin", baseURL);
-        sel.start();
+        sel.start()
 
 //        initSeleniumClient()
         SeleniumClient sc = new SeleniumClient()
