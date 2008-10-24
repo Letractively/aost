@@ -192,7 +192,7 @@ UrlLink(uid: "header", clocator: [text: "%%PageName"])
 }}}
 
  
-Header and Trailer are used to specify addition xpath related to this UI object and the final xpath is 
+Header and Trailer are used to specify additional xpath related to this UI object and the final xpath is 
 {{{
 XPath = header + derived xpath for object + trailer
 }}}
