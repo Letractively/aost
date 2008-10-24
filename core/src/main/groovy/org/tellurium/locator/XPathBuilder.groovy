@@ -162,7 +162,7 @@ class XPathBuilder {
             String actual = value.substring(2)
             return "contains(text(),\"${actual}\")"
         }else{
-            return "normalize-space(text())=\"${trimed}\""
+            return "normalize-space(text())=normalize-space(\"${trimed}\")"
         }
 
     }
