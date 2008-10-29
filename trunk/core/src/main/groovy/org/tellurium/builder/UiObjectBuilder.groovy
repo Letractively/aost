@@ -28,7 +28,10 @@ abstract class UiObjectBuilder{
     //direct child of either the header or the parent UI
     public static final String DIRECT = "direct"
     public static final String RESPOND_TO_EVENTS = "respond"
-
+    public static final String TITLE = "title"
+    public static final String ID = "id"
+    public static final String NAME = "name"
+    
     def abstract build(Map map, Closure c);
 
     boolean validate(UiObject obj, Map map){

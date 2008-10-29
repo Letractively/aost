@@ -61,16 +61,55 @@ abstract class DslContext extends BaseDslContext{
         return locator
     }
 
+    def selectFrame(String uid) {
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, uid)?.selectFrame() {String loc ->
+            eventHandler.selectFrame(loc)
+        }
+    }
+
+    def selectParentFrameFrom(String uid) {
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, uid)?.selectParentFrame() {String loc ->
+            eventHandler.selectFrame(loc)
+        }
+    }
+
+    def selectTopFrameFrom(String uid) {
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, uid)?.selectTopFrame() {String loc ->
+            eventHandler.selectFrame(loc)
+        }
+    }
+
+    boolean getWhetherThisFrameMatchFrameExpression(String uid, String target) {
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, uid)?.getWhetherThisFrameMatchFrameExpression(target) {String loc ->
+            accessor.getWhetherThisFrameMatchFrameExpression(loc, target)
+        }
+    }
+
+    void waitForFrameToLoad(String uid, int timeout) {
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, uid)?.waitForFrameToLoad(timeout) {String loc ->
+            accessor.waitForFrameToLoad(loc, Integer.toString(timeout))
+        }
+    }
+
+    def mouseOver(String uid){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, uid)?.mouseOver(){ loc, String[] events ->
+            String locator = locatorMapping(context, loc)
+            eventHandler.mouseOver(locator, events)
+        }
+    }
+
     def openWindow(String url, String windowID){
         eventHandler.openWindow(url, windowID)
     }
 
     def selectWindow(String windowID){
         eventHandler.selectWindow(windowID)
-    }
-
-    def selectFrame(String locator){
-        eventHandler.selectFrame(locator)
     }
 
     def waitForPopUp(String windowID, int timeout){
@@ -179,11 +218,7 @@ abstract class DslContext extends BaseDslContext{
     String[] getAllWindowTitles(){
         return accessor.getAllWindowTitles()
     }
-    
-    void waitForFrameToLoad(String frameAddress, int timeout){
-        accessor.waitForFrameToLoad(frameAddress, Integer.toString(timeout))
-    }
-    
+
     //let the missing property return the a string of the properity, this is useful for the onWidget method
     //so that we can pass in widget method directly, instead of passing in the method name as a String
     def propertyMissing(String name) {
