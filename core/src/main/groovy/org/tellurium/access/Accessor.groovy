@@ -355,4 +355,7 @@ class Accessor implements Configurable{
         return dispatcher.getEval(script)
     }
 
+    boolean getWhetherThisFrameMatchFrameExpression(String currentFrameString, String target){
+        return dispatcher.getWhetherThisFrameMatchFrameExpression(currentFrameString, target)
+    }
 }
