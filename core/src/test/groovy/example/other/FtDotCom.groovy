@@ -24,11 +24,11 @@ class FtDotCom extends DslContext{
     }
 
     void selectSubScribeFrame(){
-        selectFrame "SubscribeFram"
+        selectFrame "SubscribeFrame"
     }
 
     void selectParentFrame(){
-        selectParentFrameFrom "SubscribeFram"
+        selectParentFrameFrom "SubscribeFrame"
     }
 
     void checkRememberMe(){
