@@ -1,7 +1,6 @@
 package org.tellurium.builder
 
 import org.tellurium.object.CheckBox
-import org.tellurium.locator.BaseLocator
 
 /**
  *    CheckBox builder
@@ -14,7 +13,7 @@ class CheckBoxBuilder extends UiObjectBuilder{
         //add default parameters so that the builder can useString them if not specified
         def df = [:]
         df.put(TAG, CheckBox.TAG)
-        df.put(TYPE, CheckBox.TAG)
+        df.put(TYPE, CheckBox.TYPE)
         CheckBox checkbox = this.internBuild(new CheckBox(), map, df)
 
         return checkbox
