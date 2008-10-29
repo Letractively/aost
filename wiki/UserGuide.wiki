@@ -520,6 +520,35 @@ Like SimpleMenu, SelectMenu also has the following methods:
   * mouseOve()
   * mouseOut()
 
+=== Frame ===
+
+Frame is a type of Container and is used to mode Frame or IFrame. It includes the
+following attributes:
+  * id
+  * name
+  * title
+
+and the following methods
+
+  * selectFrame(locator)
+  * getWhetherThisFrameMatchFrameExpression(currentFrameString, target)
+  * waitForFrameToLoad(frameAddress, timeout) 
+
+When you test website with IFrames, you should use multiple window mode, i.e., set the option useMultiWindows to be true in TelluriumConfig.groovy.
+
+Example,
+
+{{{
+ui.Frame(uid: "SubscribeFrame", name: "subscrbe"){
+   Form(uid: "LoginForm", clocator: [name: "loginForm"]){
+      InputBox(uid: "UserName", clocator: [id: "username", type: "text"])
+      InputBox(uid: "Password", clocator: [id: "password", type: "password"])
+      Button(uid: "Login", clocator: [type: "image", class: "login"])
+      CheckBox(uid: "RememberMe", clocator: [id: "rememberme"])
+   }
+} 
+}}}
+
 === Option ===
 
 Option is also designed to be adaptive the dynamic web. Option is a pure abstract object and it holds multiple UIs with each representing a possible UI pattern at runtime. For example, the List/Grid selector on the issue page can described as: 
