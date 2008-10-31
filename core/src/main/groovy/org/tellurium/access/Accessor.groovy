@@ -358,4 +358,8 @@ class Accessor implements Configurable{
     boolean getWhetherThisFrameMatchFrameExpression(String currentFrameString, String target){
         return dispatcher.getWhetherThisFrameMatchFrameExpression(currentFrameString, target)
     }
+
+    boolean getWhetherThisWindowMatchWindowExpression(String currentWindowString,String target){
+        return dispatcher.getWhetherThisWindowMatchWindowExpression(currentWindowString, target)
+    }
 }
