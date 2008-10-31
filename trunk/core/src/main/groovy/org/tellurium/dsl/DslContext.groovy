@@ -104,16 +104,32 @@ abstract class DslContext extends BaseDslContext{
         }
     }
 
-    def openWindow(String url, String windowID){
-        eventHandler.openWindow(url, windowID)
+    def openWindow(String uid, String url){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, uid)?.openWindow(url) {String loc, String aurl ->
+            eventHandler.openWindow(aurl, loc)
+        }
     }
 
-    def selectWindow(String windowID){
-        eventHandler.selectWindow(windowID)
+    def selectWindow(String uid){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, uid)?.selectWindow() {String loc ->
+            eventHandler.selectWindow(loc)
+        }
     }
 
-    def waitForPopUp(String windowID, int timeout){
-        accessor.waitForPopUp(windowID, Integer.toString(timeout))
+    def waitForPopUp(String uid, int timeout){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, uid)?.waitForPopUp(timeout) {String loc ->
+            accessor.waitForFrameToLoad(loc, Integer.toString(timeout))
+        }
+    }
+    
+    boolean getWhetherThisWindowMatchWindowExpression(String uid, String target) {
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, uid)?.getWhetherThisWindowMatchWindowExpression(target) {String loc ->
+            accessor.getWhetherThisWindowMatchWindowExpression(loc, target)
+        }
     }
 
     String getBodyText(){
