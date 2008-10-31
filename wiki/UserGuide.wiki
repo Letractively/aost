@@ -549,6 +549,21 @@ ui.Frame(uid: "SubscribeFrame", name: "subscrbe"){
 } 
 }}}
 
+=== Window ===
+
+Window is a type of Container and is used to mode Popup Window. It includes the
+following attributes:
+  * id
+  * name
+  * title
+
+and the following methods
+
+  * openWindow(String url, String windowID)
+  * selectWindow(String windowID)
+  * boolean getWhetherThisWindowMatchWindowExpression(String currentWindowString, String target)
+  * waitForPopup(String windowID, int timeout)
+
 === Option ===
 
 Option is also designed to be adaptive the dynamic web. Option is a pure abstract object and it holds multiple UIs with each representing a possible UI pattern at runtime. For example, the List/Grid selector on the issue page can described as: 
