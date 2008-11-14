@@ -27,7 +27,7 @@ Edit the trump@aost.net file by opening it in a text editor. This file will cont
 
 We are done setting up the plugin. 
 
-== Use TruMP ==
+== Use TrUMP ==
 
 Now open the firefox with the profile “user1”. Open google.com website and right click in the search text box. You’ll see “Show in TrUMP” as one of the items in the menu as shown below.
 
