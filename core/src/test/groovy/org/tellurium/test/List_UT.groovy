@@ -22,7 +22,7 @@ class List_UT extends GroovyTestCase{
         UiObject obj = list.ui.walkTo(context, "sample[1].[1][1]")
         assertNotNull(obj)
         assertTrue(obj instanceof UrlLink)
-        assertEquals(context.getReferenceLocator(), "/descendant-or-self::div/descendant::table[1]/descendant-or-self::table/tbody/tr[1]/td[1]")
+        assertEquals(context.getReferenceLocator(), "/descendant-or-self::div/descendant::table[1]/descendant-or-self::table/tbody/tr[child::td][1]/td[1]")
 
         context = WorkflowContext.getDefaultContext()
         obj = list.ui.walkTo(context, "sample[2].text")
@@ -34,7 +34,7 @@ class List_UT extends GroovyTestCase{
         obj = list.ui.walkTo(context, "sample[3].[1][1]")
         assertNotNull(obj)
         assertTrue(obj instanceof UrlLink)
-        assertEquals(context.getReferenceLocator(), "/descendant-or-self::div/descendant::table[2]/descendant-or-self::table/tbody/tr[1]/td[1]")
+        assertEquals(context.getReferenceLocator(), "/descendant-or-self::div/descendant::table[2]/descendant-or-self::table/tbody/tr[child::td][1]/td[1]")
 
         context = WorkflowContext.getDefaultContext()
         obj = list.ui.walkTo(context, "sample[4]")
@@ -46,7 +46,7 @@ class List_UT extends GroovyTestCase{
         obj = list.ui.walkTo(context, "sample[5].[1][1]")
         assertNotNull(obj)
         assertTrue(obj instanceof UrlLink)
-        assertEquals(context.getReferenceLocator(), "/descendant-or-self::div/descendant::table[3]/descendant-or-self::table/tbody/tr[1]/td[1]")
+        assertEquals(context.getReferenceLocator(), "/descendant-or-self::div/descendant::table[3]/descendant-or-self::table/tbody/tr[child::td][1]/td[1]")
    }
 
 }
