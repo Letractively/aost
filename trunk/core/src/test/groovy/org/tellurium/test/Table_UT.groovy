@@ -1,14 +1,14 @@
 package org.tellurium.test
 
 import org.tellurium.dsl.WorkflowContext
-import org.tellurium.object.UiObject
 import org.tellurium.object.Button
+import org.tellurium.object.TextBox
+import org.tellurium.object.UiObject
 import org.tellurium.object.UrlLink
 import org.tellurium.test.Table1
 import org.tellurium.test.Table2
-import org.tellurium.test.Table4
 import org.tellurium.test.Table3
-import org.tellurium.object.TextBox
+import org.tellurium.test.Table4
 
 /**
  * Unit tests for Table
@@ -26,7 +26,7 @@ class Table_UT extends GroovyTestCase{
        UiObject obj = table1.ui.walkTo(context, "table1[1][1]")
        assertNotNull(obj)
        assertTrue(obj instanceof Button)
-       assertEquals(context.getReferenceLocator(), "//table/tbody/tr[1]/td[1]")
+       assertEquals(context.getReferenceLocator(), "//table/tbody/tr[child::td][1]/td[1]")
    }
 
     void testTable2(){
@@ -37,7 +37,7 @@ class Table_UT extends GroovyTestCase{
        UiObject obj = table2.ui.walkTo(context, "table1[1][1]")
        assertNotNull(obj)
        assertTrue(obj instanceof Button)
-       assertEquals(context.getReferenceLocator(), "//table/tbody/tr[1]/td[1]")
+       assertEquals(context.getReferenceLocator(), "//table/tbody/tr[child::td][1]/td[1]")
    }
 
    void testTable3(){
@@ -48,7 +48,7 @@ class Table_UT extends GroovyTestCase{
        UiObject obj = table3.ui.walkTo(context, "table1[3][4]")
        assertNotNull(obj)
        assertTrue(obj instanceof UrlLink)
-       assertEquals(context.getReferenceLocator(), "//table/tbody/tr[3]/td[4]")
+       assertEquals(context.getReferenceLocator(), "//table/tbody/tr[child::td][3]/td[4]")
    }
 
    void testTable4(){
@@ -59,7 +59,7 @@ class Table_UT extends GroovyTestCase{
        UiObject obj = table4.ui.walkTo(context, "main.table1[2][1]")
        assertNotNull(obj)
        assertTrue(obj instanceof UrlLink)
-       assertEquals(context.getReferenceLocator(), "//table/tbody/tr[2]/td[1]")
+       assertEquals(context.getReferenceLocator(), "//table/tbody/tr[child::td][2]/td[1]")
    }
 
    void testTable5(){
@@ -69,12 +69,12 @@ class Table_UT extends GroovyTestCase{
        UiObject obj = table5.ui.walkTo(context, "main.table1.header[1]")
        assertNotNull(obj)
        assertTrue(obj instanceof UrlLink)
-       assertEquals("//table/tbody/tr[1]/th[1]", context.getReferenceLocator())
+       assertEquals("//table/tbody/tr[child::th]/th[1]", context.getReferenceLocator())
        context = WorkflowContext.getDefaultContext()
        obj = table5.ui.walkTo(context, "table1[2][2]")
        assertNotNull(obj)
        assertTrue(obj instanceof Button)
-       assertEquals(context.getReferenceLocator(), "//table/tbody/tr[3]/td[2]")
+       assertEquals(context.getReferenceLocator(), "//table/tbody/tr[child::td][2]/td[2]")
    }
 
    void testTable6(){
@@ -84,19 +84,19 @@ class Table_UT extends GroovyTestCase{
        UiObject obj = table6.ui.walkTo(context, "main.table1.header[1]")
        assertNotNull(obj)
        assertTrue(obj instanceof UrlLink)
-       assertEquals("//table/tbody/tr[1]/th[1]", context.getReferenceLocator())
+       assertEquals("//table/tbody/tr[child::th]/th[1]", context.getReferenceLocator())
        
        context = WorkflowContext.getDefaultContext()
        obj = table6.ui.walkTo(context, "main.table1.header[2]")
        assertNotNull(obj)
        assertTrue(obj instanceof TextBox)
-       assertEquals("//table/tbody/tr[1]/th[2]", context.getReferenceLocator())
+       assertEquals("//table/tbody/tr[child::th]/th[2]", context.getReferenceLocator())
 
        context = WorkflowContext.getDefaultContext()
        obj = table6.ui.walkTo(context, "table1[2][2]")
        assertNotNull(obj)
        assertTrue(obj instanceof Button)
-       assertEquals(context.getReferenceLocator(), "//table/tbody/tr[3]/td[2]")
+       assertEquals(context.getReferenceLocator(), "//table/tbody/tr[child::td][2]/td[2]")
    }
 
    void testTable7(){
@@ -106,19 +106,19 @@ class Table_UT extends GroovyTestCase{
        UiObject obj = table7.ui.walkTo(context, "main.table1.header[1]")
        assertNotNull(obj)
        assertTrue(obj instanceof TextBox)
-       assertEquals("//table/tbody/tr[1]/th[1]", context.getReferenceLocator())
+       assertEquals("//table/tbody/tr[child::th]/th[1]", context.getReferenceLocator())
 
        context = WorkflowContext.getDefaultContext()
        obj = table7.ui.walkTo(context, "main.table1.header[2]")
        assertNotNull(obj)
        assertTrue(obj instanceof UrlLink)
-       assertEquals("//table/tbody/tr[1]/th[2]", context.getReferenceLocator())
+       assertEquals("//table/tbody/tr[child::th]/th[2]", context.getReferenceLocator())
 
        context = WorkflowContext.getDefaultContext()
        obj = table7.ui.walkTo(context, "table1[2][2]")
        assertNotNull(obj)
        assertTrue(obj instanceof Button)
-       assertEquals(context.getReferenceLocator(), "//table/tbody/tr[3]/td[2]")
+       assertEquals(context.getReferenceLocator(), "//table/tbody/tr[child::td][2]/td[2]")
    }
 
    void testTable8(){
@@ -128,6 +128,6 @@ class Table_UT extends GroovyTestCase{
        UiObject obj = table8.ui.walkTo(context, "IdMenu[1][1")
        assertNotNull(obj)
        assertTrue(obj instanceof TextBox)
-       assertEquals("/div[@class='popup' and @id='pop_0']/descendant-or-self::table[descendant::*[text()=\"Sort Up\"] and descendant::*[text()=\"Sort Down\"] and descendant::*[text()=\"Hide Column\"]]/tbody/tr[1]/td[1]", context.getReferenceLocator())
+       assertEquals("/div[@class='popup' and @id='pop_0']/descendant-or-self::table[descendant::*[normalize-space(text())=normalize-space(\"Sort Up\")] and descendant::*[normalize-space(text())=normalize-space(\"Sort Down\")] and descendant::*[normalize-space(text())=normalize-space(\"Hide Column\")]]/tbody/tr[child::td][1]/td[1]", context.getReferenceLocator())
    }
 }
