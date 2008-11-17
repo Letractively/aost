@@ -25,4 +25,20 @@ ui.Container(uid: "google_search"){
 
 But for most applications, you still want to use a physical upper UI so that you can exploit the relationship among the UI elements.
 
-Why UI module concept is so important? It is the base that Tellurium built on. 
+Why UI module concept is so important? It is the base that Tellurium built on. Let us look a bit closer at why it is important.
+
+First, UI module makes it possible to build UI elements' xpaths at runtime. Because the nested UI elements have relationship among them in the DOM tree. Tellurium can append their relative xpaths together to form the actual runtime xpath, which also makes the clocator possible in Tellurium.
+
+Second, UI module makes Tellurium robust. Remember, each UI element in Tellurium can be defined with clocator, i.e., a set of attributes about the UI element itself. If one UI element is changed, the rest UI elements stays the same since Tellurium will build the new xpath based on the new UI element. Take the Tellurium download search module listed above as an example, if the Form is changed with attribute "method" to be "post", you only need to change that attribute and leave all the rest intact. Image the same scenario for Selenium, you have to change all the xpaths for the included UI elements: Selector, TextBox, InputBox, and SubmitButton. The reason is Selenium uses fixed locators, since the above UI elements have the same parent Form in its locators and once the Form is changed, they are all affected and have to be updated. 
+
+Third, UI module makes Tellurium expressive. Since the UI module actually consist of a nested UI elements, you can define names for each UI element and then you can simply append the name along the path to the specific element to refer the UI element. For example, in the Tellurium download search module, you can refer the Selector element as "downloadSearch.downloadType". This name convention is expressive and you know which UI element you are referring to.
+
+Fourth, UI module makes Group Locating possible. The Group Locating in Tellurium is to exploit relationship among the UI elements. For example, the Tellurium download search module set the group attribute to be true for the Form UI element, which will turn on the Group Locating capability. That is to say, when Tellurium tries to find the Form UI element, the search becomes
+
+{{{
+Find a Form with a child element Selector, a child element TextBox, a child element InputBox, and a child element SubmitButton
+}}}
+
+Once the Form locator is determined, the locators of its child elements can be defined very easily by their relative xpath to the Form. 
+
+ 
