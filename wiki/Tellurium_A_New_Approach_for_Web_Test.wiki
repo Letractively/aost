@@ -41,4 +41,19 @@ Find a Form with a child element Selector, a child element TextBox, a child elem
 
 Once the Form locator is determined, the locators of its child elements can be defined very easily by their relative xpath to the Form. 
 
- 
+Fifth, UI module makes composite objects reusable. In Tellurium, you can define the composite object as a widget object, then you can keep reuse the widget and do not need to define its details for each UI elements it contains. For example, in Tellurium DOJO widget project, we defined the DatePicker widget. Then in the UI module, we can use it directly,
+
+{{{
+ui.Form(uid: "dropdown", clocator: [:], group: "true"){
+   TextBox(uid: "label", clocator: [tag: "h4", text: "Dropdown:"])
+   InputBox(uid: "input", clocator: [dojoattachpoint: "valueInputNode"])
+   Image(uid: "selectDate", clocator: [title: "select a date", dojoattachpoint: "containerDropdownNode", alt: "date"])
+   DOJO_DatePicker(uid: "datePicker", clocator: [tag: "div", dojoattachpoint: "subWidgetContainerNode"])
+}
+}}} 
+
+Sixth, UI module will make Tellurium a different future path from Selenium. Tellurium is born with the composite object in mind, but Selenium is not. At the current stage, Tellurium is built on top of Selenium. There are some drawbacks for this architecture. For example, Tellurium has to build runtime xpath first, and then drive Selenium. This is not really efficient and things can be worse if the composite object needs multiple round trip to Selenium core. In the future, hopefully, we will create our own test driving engine which supports composite objects. Also, the new driving engine will address some dynamic changes in the DOM, which is very important to test Javascript applications.
+
+
+
+  
