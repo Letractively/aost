@@ -16,19 +16,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/extensions/extjs-widget/tellurium-extjs-widget.iml" afterPath="$PROJECT_DIR$/extensions/extjs-widget/tellurium-extjs-widget.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/extensions/tellurium-extensions.iml" afterPath="$PROJECT_DIR$/extensions/tellurium-extensions.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/extensions/dojo-widget/tellurium-dojo-widget.iml" afterPath="$PROJECT_DIR$/extensions/dojo-widget/tellurium-dojo-widget.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reference-projects/tellurium-reference-projects.iml" afterPath="$PROJECT_DIR$/reference-projects/tellurium-reference-projects.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium.ipr" afterPath="$PROJECT_DIR$/tellurium.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium.iml" afterPath="$PROJECT_DIR$/tellurium.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reference-projects/tellurium-testng-java/tellurium-testng-java.iml" afterPath="$PROJECT_DIR$/reference-projects/tellurium-testng-java/tellurium-testng-java.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium.iws" afterPath="$PROJECT_DIR$/tellurium.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reference-projects/tellurium-junit-java/tellurium-junit-java.iml" afterPath="$PROJECT_DIR$/reference-projects/tellurium-junit-java/tellurium-junit-java.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/firefox-plugin/tellurium-firefox-plugin.iml" afterPath="$PROJECT_DIR$/tools/firefox-plugin/tellurium-firefox-plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium-assembly/tellurium-assembly.iml" afterPath="$PROJECT_DIR$/tellurium-assembly/tellurium-assembly.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/tellurium-core.iml" afterPath="$PROJECT_DIR$/core/tellurium-core.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/tellurium-tools.iml" afterPath="$PROJECT_DIR$/tools/tellurium-tools.iml" />
     </list>
     <ignored path="tellurium.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -512,7 +500,7 @@
     <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed selenium dependency and unit tests in core" />
+    <option name="LAST_COMMIT_MESSAGE" value="i think mac reformats these files every time i synch up..." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -527,6 +515,7 @@
     <MESSAGE value="use external maven 2.0.9" />
     <MESSAGE value="changed version of selenium dependency&#9;" />
     <MESSAGE value="fixed selenium dependency and unit tests in core" />
+    <MESSAGE value="i think mac reformats these files every time i synch up..." />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
