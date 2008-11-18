@@ -564,6 +564,18 @@ and the following methods
   * boolean getWhetherThisWindowMatchWindowExpression(String currentWindowString, String target)
   * waitForPopup(String windowID, int timeout)
 
+Example,
+
+{{{
+ui.Window(uid: "HelpWindow", name: "HelpWindow"){
+...
+}
+
+openWindow helpUrl, "HelpWindow"
+waitForPopUp "HelpWindow", 2000
+selectWindow "HelpWindow" 
+}}}
+
 === Option ===
 
 Option is also designed to be adaptive the dynamic web. Option is a pure abstract object and it holds multiple UIs with each representing a possible UI pattern at runtime. For example, the List/Grid selector on the issue page can described as: 
