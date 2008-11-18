@@ -15,29 +15,20 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/bin-with-deps.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/defaults.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/modules.xml" />
+    <list default="true" readonly="true" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/extensions/extjs-widget/tellurium-extjs-widget.iml" afterPath="$PROJECT_DIR$/extensions/extjs-widget/tellurium-extjs-widget.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/extensions/tellurium-extensions.iml" afterPath="$PROJECT_DIR$/extensions/tellurium-extensions.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/extensions/dojo-widget/tellurium-dojo-widget.iml" afterPath="$PROJECT_DIR$/extensions/dojo-widget/tellurium-dojo-widget.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reference-projects/tellurium-reference-projects.iml" afterPath="$PROJECT_DIR$/reference-projects/tellurium-reference-projects.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium.ipr" afterPath="$PROJECT_DIR$/tellurium.ipr" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/src-with-deps.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/full.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/rundsl.bat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/dependencies.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium.iml" afterPath="$PROJECT_DIR$/tellurium.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reference-projects/tellurium-testng-java/tellurium-testng-java.iml" afterPath="$PROJECT_DIR$/reference-projects/tellurium-testng-java/tellurium-testng-java.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium.iws" afterPath="$PROJECT_DIR$/tellurium.iws" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/sources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/LICENSE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/tellurium-assembly.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/src.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/src/main/assembly/bin.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-assembly/rundsl.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reference-projects/tellurium-junit-java/tellurium-junit-java.iml" afterPath="$PROJECT_DIR$/reference-projects/tellurium-junit-java/tellurium-junit-java.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/firefox-plugin/tellurium-firefox-plugin.iml" afterPath="$PROJECT_DIR$/tools/firefox-plugin/tellurium-firefox-plugin.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium-assembly/tellurium-assembly.iml" afterPath="$PROJECT_DIR$/tellurium-assembly/tellurium-assembly.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/tellurium-core.iml" afterPath="$PROJECT_DIR$/core/tellurium-core.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/tellurium-tools.iml" afterPath="$PROJECT_DIR$/tools/tellurium-tools.iml" />
     </list>
     <ignored path="tellurium.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -100,55 +91,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="defaults.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/defaults.xml">
+      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="0" selection-start="595" selection-end="595" vertical-scroll-proportion="0.6217617">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bin-with-deps.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/bin-with-deps.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="0" selection-start="225" selection-end="307" vertical-scroll-proportion="0.27979276">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bin.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/bin.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="0" selection-start="297" selection-end="297" vertical-scroll-proportion="0.27979276">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="full.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/full.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="0" selection-start="298" selection-end="298" vertical-scroll-proportion="0.27979276">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="src-with-deps.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/src-with-deps.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="0" selection-start="307" selection-end="307" vertical-scroll-proportion="0.27979276">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="src.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/src.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="0" selection-start="418" selection-end="418" vertical-scroll-proportion="0.373057">
+            <state line="76" column="49" selection-start="2514" selection-end="2514" vertical-scroll-proportion="0.6792453">
               <folding />
             </state>
           </provider>
@@ -166,17 +112,8 @@
     <option name="SORT_ALPHABETICALLY" value="false" />
     <option name="HIDE_CLASSES_WHERE_METHOD_NOT_IMPLEMENTED" value="false" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="myImporterSettings">
-      <MavenImportSettings>
-        <option name="lookForNested" value="true" />
-      </MavenImportSettings>
-    </option>
-  </component>
   <component name="MavenRunner">
-    <option name="jreName" value="1.6" />
     <option name="runMavenInBackground" value="true" />
-    <option name="useMavenEmbedder" value="false" />
   </component>
   <component name="ModuleEditorState">
     <option name="LAST_EDITED_MODULE_NAME" />
@@ -260,7 +197,7 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium-firefox-plugin" />
+          <option name="myItemId" value="tellurium" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -270,70 +207,12 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium-firefox-plugin" />
+          <option name="myItemId" value="tellurium" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/tools/firefox-plugin" />
+          <option name="myItemId" value="tellurium" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium-core" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium-core" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/core" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium-assembly" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium-assembly" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/Users/matt/Documents/intellij-workspace/tellurium-workspace/tellurium/tellurium-assembly" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="tellurium" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
         </PATH_ELEMENT>
       </PATH>
     </subPane>
@@ -356,17 +235,27 @@
     </navigator>
   </component>
   <component name="PropertiesComponent">
+    <property name="project.structure.proportion" value="0.0" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="GoToClass.includeLibraries" value="false" />
-    <property name="MemberChooser.showClasses" value="true" />
+    <property name="project.structure.last.edited" value="JDKs" />
+    <property name="options.splitter.main.proportions" value="0.3" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="options.searchVisible" value="true" />
     <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="options.lastSelected" value="org.jetbrains.idea.maven.utils.MavenSettings$2" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
   </component>
-  <component name="RunManager" selected="JUnit.TelluriumConfigParser_UT">
-    <tempConfiguration default="false" name="TelluriumConfigParser_UT" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
-      <pattern value="org.tellurium.test.*" />
+  <component name="RunManager">
+    <tempConfiguration default="false" name="TelluriumConfigParser_UT" type="JUnit" factoryName="JUnit" enabled="false" merge="false" runner="emma">
+      <pattern>
+        <option name="PATTERN" value="org.tellurium.test.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
       <module name="tellurium-core" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -386,17 +275,13 @@
       <envs />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
     </tempConfiguration>
-    <configuration default="true" type="GroovyScriptRunConfigurationType" factoryName="Groovy Script">
-      <module name="" />
-      <setting name="path" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workDir" value="." />
-      <setting name="debug" value="false" />
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
@@ -410,7 +295,7 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false">
+    <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false" runner="emma">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -435,31 +320,8 @@
       <envs />
       <properties />
       <listeners />
-      <method>
-        <option name="Make" value="true" />
-      </method>
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
+    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false" runner="emma">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -477,18 +339,88 @@
         <value defaultName="wholeProject" />
       </option>
       <envs />
-      <method>
-        <option name="Make" value="true" />
-      </method>
     </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.TelluriumConfigParser_UT" />
-    </list>
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myCoreSettings">
+          <MavenGeneralSettings>
+            <option name="checksumPolicy" value="fail" />
+            <option name="failureBehavior" value="fail-fast" />
+            <option name="localRepository" value="" />
+            <option name="mavenHome" value="" />
+            <option name="mavenSettingsFile" value="" />
+            <option name="nonRecursive" value="false" />
+            <option name="pluginUpdatePolicy" value="false" />
+            <option name="printErrorStackTraces" value="false" />
+            <option name="usePluginRegistry" value="false" />
+            <option name="workOffline" value="false" />
+          </MavenGeneralSettings>
+        </option>
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="jreName" value="1.6" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="goals">
+              <list />
+            </option>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="workingDirPath" value="" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method />
+    </configuration>
+    <list size="0" />
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+    <configuration default="true" type="GroovyScriptRunConfigurationType" factoryName="Groovy Script">
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workDir" value="." />
+      <setting name="debug" value="false" />
+    </configuration>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
       <Port>5050</Port>
     </configuration>
   </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
   <component name="StarteamConfiguration">
     <option name="SERVER" value="" />
     <option name="PORT" value="49201" />
@@ -510,8 +442,8 @@
     <option name="PASSWORD" value="" />
     <option name="LAST_MERGED_REVISION" />
     <option name="UPDATE_RUN_STATUS" value="false" />
-    <option name="UPDATE_RECURSIVELY" value="true" />
     <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
     <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
     <configuration useDefault="false">$PROJECT_DIR$/../../../../.subversion</configuration>
     <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
@@ -537,35 +469,38 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="4" y="22" width="1276" height="778" extended-state="6" />
+    <frame x="4" y="22" width="1276" height="778" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="0" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="14" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32980457" order="1" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="8" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="3" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="13" />
-      <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="2" />
-      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="4" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="0" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="5" />
-      <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980457" order="1" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32894737" order="5" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="9" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="6" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39983714" order="4" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="11" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="6" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="1" />
-      <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="2" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
-      <window_info id="Maven Runner Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" order="0" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="3" />
-      <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="10" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="12" />
+      <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3355049" sideWeight="0.44005847" order="3" side_tool="false" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="14" side_tool="false" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.6608187" order="1" side_tool="false" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="8" side_tool="false" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="13" side_tool="false" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="3" side_tool="false" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32894737" sideWeight="0.5" order="5" side_tool="false" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5497076" sideWeight="0.5" order="9" side_tool="false" x="28" y="298" width="1228" height="225" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39983714" sideWeight="0.5" order="4" side_tool="false" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="11" side_tool="false" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="1" side_tool="false" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
+      <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980457" sideWeight="0.5" order="1" side_tool="false" />
+      <window_info id="Maven Runner Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="0" side_tool="false" />
+      <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" />
+      <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="10" side_tool="false" />
+      <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="12" side_tool="false" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="6" side_tool="false" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" />
     </layout>
   </component>
   <component name="VcsManagerConfiguration">
@@ -574,6 +509,7 @@
     <option name="PERFORM_UPDATE_IN_BACKGROUND" value="false" />
     <option name="PERFORM_COMMIT_IN_BACKGROUND" value="false" />
     <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="LAST_COMMIT_MESSAGE" value="fixed selenium dependency and unit tests in core" />
@@ -625,6 +561,13 @@
       <option name="RECURSIVE" value="false" />
       <option name="VERSION" />
     </GetOptions>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="XPathView.XPathProjectComponent">
+    <history />
+    <find-history />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -680,13 +623,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="28" selection-start="2312" selection-end="2312" vertical-scroll-proportion="0.39181286">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tellurium-assembly/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="44" column="58" selection-start="1977" selection-end="1977" vertical-scroll-proportion="0.87134504">
@@ -701,48 +637,113 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/defaults.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="0" selection-start="595" selection-end="595" vertical-scroll-proportion="0.5660377">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/bin-with-deps.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="225" selection-end="307" vertical-scroll-proportion="0.27979276">
+        <state line="9" column="0" selection-start="225" selection-end="307" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/bin.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="297" selection-end="297" vertical-scroll-proportion="0.27979276">
+        <state line="9" column="0" selection-start="297" selection-end="297" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/full.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="298" selection-end="298" vertical-scroll-proportion="0.27979276">
+        <state line="9" column="0" selection-start="298" selection-end="298" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/src-with-deps.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="307" selection-end="307" vertical-scroll-proportion="0.27979276">
+        <state line="9" column="0" selection-start="307" selection-end="307" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/src.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="418" selection-end="418" vertical-scroll-proportion="0.373057">
+        <state line="12" column="0" selection-start="418" selection-end="418" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tellurium-assembly/src/main/assembly/defaults.xml">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="595" selection-end="595" vertical-scroll-proportion="0.6217617">
+        <state line="76" column="49" selection-start="2514" selection-end="2514" vertical-scroll-proportion="0.6792453">
           <folding />
         </state>
       </provider>
     </entry>
+  </component>
+  <component name="masterDetails">
+    <option name="states">
+      <map>
+        <entry key="Errors.UI">
+          <value>
+            <UIState>
+              <option name="proportions">
+                <SplitterProportionsDataImpl />
+              </option>
+            </UIState>
+          </value>
+        </entry>
+        <entry key="ScopeChooserConfigurable.UI">
+          <value>
+            <UIState>
+              <option name="proportions">
+                <SplitterProportionsDataImpl>
+                  <option name="proportions">
+                    <list>
+                      <option value="0.2" />
+                    </list>
+                  </option>
+                </SplitterProportionsDataImpl>
+              </option>
+            </UIState>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="myStates">
+      <map>
+        <entry key="Errors.UI">
+          <value>
+            <UIState>
+              <option name="proportions">
+                <SplitterProportionsDataImpl />
+              </option>
+            </UIState>
+          </value>
+        </entry>
+        <entry key="ScopeChooserConfigurable.UI">
+          <value>
+            <UIState>
+              <option name="proportions">
+                <SplitterProportionsDataImpl>
+                  <option name="proportions">
+                    <list>
+                      <option value="0.2" />
+                    </list>
+                  </option>
+                </SplitterProportionsDataImpl>
+              </option>
+            </UIState>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
 
