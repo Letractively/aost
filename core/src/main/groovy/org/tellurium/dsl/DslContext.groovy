@@ -121,7 +121,7 @@ abstract class DslContext extends BaseDslContext{
     def waitForPopUp(String uid, int timeout){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, uid)?.waitForPopUp(timeout) {String loc ->
-            accessor.waitForFrameToLoad(loc, Integer.toString(timeout))
+              accessor.waitForPopUp(loc, Integer.toString(timeout))
         }
     }
     
