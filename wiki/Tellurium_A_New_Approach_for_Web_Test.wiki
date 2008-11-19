@@ -54,7 +54,51 @@ ui.Form(uid: "dropdown", clocator: [:], group: "true"){
 }
 }}} 
 
-Sixth, UI module will make Tellurium move to a different future path from Selenium. Tellurium is born with the composite object in mind, but Selenium is not. At the current stage, Tellurium is built on top of Selenium. There are some drawbacks for this architecture. For example, Tellurium has to build runtime xpath first, and then drive Selenium using the xpath. This is not really efficient and things can be worse if the composite object needs to make multiple round trips to Selenium core. In the future, hopefully, we will create our own test driving engine which supports composite objects. Also, the new driving engine will address some dynamic changes in the DOM, which is very important to test Javascript applications.
+Sixth, UI module makes Tellurium be able to address dynamic web page. For example, Tellurium List and Table objects can use templates to define the UI elements. The actual UI elements could be defined at runtime. Tellurium download page includes a data grid, where the data are dynamic at runtime and which could be described as follows,
+
+{{{
+ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"], group: "true"){
+    //define table header
+    //for the border column
+    TextBox(uid: "header: 1", clocator: [:])
+    UrlLink(uid: "header: 2", clocator: [text: "%%Filename"])
+    UrlLink(uid: "header: 3", clocator: [text: "%%Summary + Labels"])
+    UrlLink(uid: "header: 4", clocator: [text: "%%Uploaded"])
+    UrlLink(uid: "header: 5", clocator: [text: "%%Size"])
+    UrlLink(uid: "header: 6", clocator: [text: "%%DownloadCount"])
+    UrlLink(uid: "header: 7", clocator: [text: "%%..."])
+
+    //define table elements
+    //for the border column
+    TextBox(uid: "row: *, column: 1", clocator: [:])
+    //the summary + labels column consists of a list of UrlLinks
+    List(uid: "row:*, column: 3", clocator: [:]){
+        UrlLink(uid: "all", clocator: [:])
+    }
+    //For the rest, just UrlLink
+    UrlLink(uid: "all", clocator: [:])
+}
+}}}
+
+Furthermore, Tellurium uses the Option object to provide the capability to define multiple UI modules and the actual runtime UI module will be determined by Tellurium. For example, Tellurium issue page includes the following Option objects,
+
+{{{
+//The selector to choose the data grid layout as List or Grid
+ui.Option(uid: "layoutSelector"){
+    Container(uid: "layoutSelector", clocator: [tag: "div"], group: "true") {
+        TextBox(uid: "List", clocator: [tag: "b", text: "List", direct: "true"])
+        UrlLink(uid: "Grid", clocator: [text: "Grid", direct: "true"])
+    }
+    Container(uid: "layoutSelector", clocator: [tag: "div"], group: "true") {
+        UrlLink(uid: "List", clocator: [text: "List", direct: "true"])
+        TextBox(uid: "Grid", clocator: [tag: "b", text: "Grid", direct: "true"])
+    }
+}
+}}}
+
+For Selenium, it is impossible to address the above dynamic web modules.
+
+Finally, UI module will make Tellurium move to a different future path from Selenium. Tellurium is born with the composite object in mind, but Selenium is not. At the current stage, Tellurium is built on top of Selenium. There are some drawbacks for this architecture. For example, Tellurium has to build runtime xpath first, and then drive Selenium using the xpath. This is not really efficient and things can be worse if the composite object needs to make multiple round trips to Selenium core. In the future, hopefully, we will create our own test driving engine which supports composite objects. Also, the new driving engine will address some dynamic changes in the DOM, which is very important to test Javascript applications.
 
 
 
