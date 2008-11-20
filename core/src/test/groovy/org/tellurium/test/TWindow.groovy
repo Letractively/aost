@@ -21,4 +21,11 @@ class TWindow extends DslContext{
         waitForPopUp "windowName", 30000
     }
 
+    public void selectOriginalWindow(){
+        selectMainWindow()
+    }
+
+    public void selectChildWindow(String uid){
+        selectWindow(uid)
+    }
 }

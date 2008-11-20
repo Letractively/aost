@@ -118,6 +118,14 @@ abstract class DslContext extends BaseDslContext{
         }
     }
 
+    def selectMainWindow(){
+        eventHandler.selectWindow(null)
+    }
+
+    def selectParentWindow(){
+        eventHandler.selectWindow(".")
+    }
+    
     def waitForPopUp(String uid, int timeout){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, uid)?.waitForPopUp(timeout) {String loc ->
@@ -130,6 +138,14 @@ abstract class DslContext extends BaseDslContext{
         ui.walkTo(context, uid)?.getWhetherThisWindowMatchWindowExpression(target) {String loc ->
             accessor.getWhetherThisWindowMatchWindowExpression(loc, target)
         }
+    }
+
+    def windowFocus(){
+       eventHandler.windowFocus()
+    }
+
+    def windowMaximize(){
+       eventHandler.windowMaximize()
     }
 
     String getBodyText(){

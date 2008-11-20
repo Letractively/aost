@@ -26,7 +26,12 @@ class Window_UT extends TelluriumGroovyTestCase {
     public void testWaitForPopup(){
         TWindow tw = new TWindow()
         tw.defineUi()
-        tw.waitForPopup()
+        
+ //       tw.waitForPopup()
+
+        tw.selectOriginalWindow()
+
+        tw.selectChildWindow("windowName")
     }
 
 }

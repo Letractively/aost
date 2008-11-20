@@ -269,6 +269,14 @@ class EventHandler implements Configurable{
         dispatcher.selectWindow(windowID)   
     }
 
+    void windowFocus(){
+        dispatcher.windowFocus()
+    }
+
+    void windowMaximize(){
+        dispatcher.windowMaximize()
+    }
+
     void selectFrame(String locator){
         dispatcher.selectFrame(locator)
     }
