@@ -169,3 +169,23 @@ In this tutorial, the following examples are provided:
   # [http://code.google.com/p/aost/wiki/AdvancedExample Advanced Examples], which use the Tellurium project website as a reference to demonstrate how to write non-trivial and very complicated Tellurium tests in real world.
   # [http://code.google.com/p/aost/wiki/DataDrivenTestingExample Data Driven Testing Examples], which illustrate how to write Tellurium Data Driven tests and walk you through all the details including input, test driving engine, and output.
   # [http://code.google.com/p/aost/wiki/DSLExample DSL Examples]. DSL is a very simple way to write Tellurium tests. The examples include regular Tellurium tests and Tellurium Data Driven tests Written in pure DSL.
+
+== Tellurium Tutorial Series ==
+
+The following toturial series could be found in [http://groups.google.com/group/tellurium-users Tellurium User Group],
+
+  * [http://groups.google.com/group/tellurium-users/browse_thread/thread/84dd00605209952d Tellurium objects and their default attributes]
+  * [http://groups.google.com/group/tellurium-users/browse_thread/thread/3533be58a7feb4d3 Tellurium UiDslParser - What is the "ui."]
+  * [http://groups.google.com/group/tellurium-users/browse_thread/thread/9c41abd6470cd697 The UID]
+  * [http://groups.google.com/group/tellurium-users/browse_thread/thread/fa8cd09c77d44626 Groovy or Java]
+  * [http://groups.google.com/group/tellurium-users/browse_thread/thread/51c1ca26e36e5be3 Tellurium configuration]
+  * [http://groups.google.com/group/tellurium-users/browse_thread/thread/d5da3660266b31ba What is wrong with Selenium XPath]
+  * [http://groups.google.com/group/tellurium-users/browse_thread/thread/28f24fe566c2b089 the "group" attribute]
+  * [http://groups.google.com/group/tellurium-users/browse_thread/thread/72a8920c692c2ec5 the secret of the Tellurium runtime XPath]
+  * [http://groups.google.com/group/tellurium-users/browse_thread/thread/96a933eb998dbff8 XPath tools]
+  * [http://groups.google.com/group/tellurium-users/browse_thread/thread/01c8e068f30cab53 UI module]
+  * [http://groups.google.com/group/tellurium-users/browse_thread/thread/db789d42c8796713 Step by Step Guide to create Tellurium UI modules]
+  * [http://groups.google.com/group/tellurium-users/browse_thread/thread/5579a536818cf6be the List object]
+  * [http://groups.google.com/group/tellurium-users/browse_thread/thread/8e011ff9f1f71393# the power of Tellurium UI templates]     
+
+ 
