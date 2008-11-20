@@ -563,7 +563,7 @@ and the following methods
   * selectWindow(String windowID)
   * boolean getWhetherThisWindowMatchWindowExpression(String currentWindowString, String target)
   * waitForPopup(String windowID, int timeout)
-
+ 
 Example,
 
 {{{
@@ -574,6 +574,8 @@ ui.Window(uid: "HelpWindow", name: "HelpWindow"){
 openWindow helpUrl, "HelpWindow"
 waitForPopUp "HelpWindow", 2000
 selectWindow "HelpWindow" 
+...
+selectMainWindow()
 }}}
 
 === Option ===
