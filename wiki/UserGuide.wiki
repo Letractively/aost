@@ -475,13 +475,15 @@ Table is a type of Container and thus, it can use the Group Locating feature. Ta
 
 List is also a Container type abstract Ui object and it can be used to represent any list like Ui objects. Very much like Table, users can define Ui templates for List and following rule of "the special case first and then the general case". The index number is  used to specify an element and "all" is used to match all elements in the List. List also uses TextBox as the default Ui if no template could be found. Since List is a Container type, it can use the Group Locating feature.
 
+List has one special attribute "separator", which is used to indicate the tag used to separate different List UI elements. If "separator" is not specified or "", all UI elements must be under the same DOM node, i.e., they are siblings.
+
 Example:
 
 {{{
 
-List(uid: "subcategory", locator: "", separator: "/p"){
+List(uid: "subcategory", locator: "", separator: "p"){
     InputBox(uid: "2", clocator: [title: "Google Search"])
-    UrlLink(uid: "all", locator: "/a")
+    UrlLink(uid: "all", clocator: [:])
 }
 }}} 
 
