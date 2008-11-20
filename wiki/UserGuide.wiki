@@ -57,6 +57,8 @@ Here we list all the available methods that can be used as DSLs in DslContext an
 
   * {{{selectWindow windowID}}}: Selects a popup window; once a popup window has been selected, all commands go to that window. To select the main window again, use null as the target.
 
+  * {{{selectMainWindow}}}: Select the original window, i.e., the Main window.
+
   * {{{selectFrame locator}}}: Selects a frame within the current window.  (You may invoke this command multiple times to select nested frames.) To select the parent frame, use "relative=parent" as a locator; to select the top frame, use "relative=top". You can also select a frame by its 0-based index number; select the first frame with "index=0", or the third frame with "index=2".
 
   * {{{waitForPopUp windowID, timeout}}}: Waits for a popup window to appear and load up.
