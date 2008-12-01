@@ -1,0 +1,3 @@
+content     trump    chrome/content/
+locale trump en-US chrome/locale/en-US/
+overlay chrome://browser/content/browser.xul chrome://trump/content/browserOverlay.xul
