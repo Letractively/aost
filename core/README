@@ -6,6 +6,7 @@ Vivek Mongolu (vivekmongolu@gmail.com)
 Matt Senter   (matt.senter@gmail.com)
 Quan Bui      (Quan.Bui@gmail.com)
 Haroon Rasheed (haroonzone@gmail.com)
+Mikhail Koryak (koryak@gmail.com)
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 The Tellurium Automated Testing Framework (Tellurium), formally known as AOST, is a test framework built on top of the Selenium test framework and it abstracts
@@ -94,3 +95,4 @@ NEWS
     * August 7, Welcome Quan Bui to our team.
     * August 13, Tellurium 0.4.0 is released. This release includes a lot of new features and enhancements including data driven testing, framework configuration, and JUnit 4 support.
     * August 22, Welcome Haroon Rasheed to our team.
+    * December 2, Welcome Mikhail Koryak to our team
