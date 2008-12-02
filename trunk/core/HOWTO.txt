@@ -23,8 +23,7 @@ The run the ant tasks for
 
 To run dsl in Linux (first run ant compile-test before run the dsl tests)
 
-./rundsl.sh
-src/test/resources/example/dsl/DataDrivenGoogleBookListCodeHosting.dsl 
+./rundsl.sh src/test/resources/example/dsl/DataDrivenGoogleBookListCodeHosting.dsl 
 
 ./rundsl.sh src/test/resources/example/dsl/GoogleStartPage.dsl 
 
