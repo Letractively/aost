@@ -31,7 +31,7 @@ class TelluriumIssuesModule extends TelluriumDataDrivenModule{
                 InputBox(uid: "row:3, column:3", clocator: [name: "without"])
                 InputBox(uid: "row:5, column:3", clocator: [name: "labels"])
                 Table(uid: "row:6, column:1", clocator: [:]) {
-                    UrlLink(uid: "row:1, column:1", clocator: [text: "%%More Search Tips"])
+                    UrlLink(uid: "row:1, column:1", clocator: [text: "%%Search Tips"])
                 }
                 InputBox(uid: "row:6, column:3", clocator: [name: "statuses"])
                 InputBox(uid: "row:7, column:2", clocator: [name: "reporters"])
@@ -68,6 +68,8 @@ class TelluriumIssuesModule extends TelluriumDataDrivenModule{
         //define the dot menu where you can select different column to display
         ui.SelectMenu(uid: "selectColumnMenu", clocator: [class: "popup", id: "pop__dot"], title: "Show columns:",
                 items: ["ID": "ID", "Type": "Type", "Status": "Status", "Priority": "Priority", "Milestone": "Milestone", "Owner": "Owner", "Summary": "Summary", "Stars": "Stars", "Opened": "Opened", "Closed": "Closed", "Modified": "Modified", "EditColumn": "Edit Column Spec..."])
+//        ui.SelectMenu(uid: "selectColumnMenu", clocator:[class: "popup",id: "pop__dot"], title: "Show columns:",
+//               items: ["ID":"ID", "Type":"Type", "Status":"Status", "Priority":"Priority", "Milestone":"Milestone", "Owner":"Owner", "Summary":"Summary", "Stars":"Stars", "Opened":"Opened", "Closed":"Closed", "Modified":"Modified", "EditColumn":"Edit Column Spec..." ])
 
         //The selector to choose the data grid layout as List or Grid
         ui.Option(uid: "layoutSelector") {

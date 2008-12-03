@@ -32,7 +32,7 @@ class TelluriumIssuesPage extends DslContext{
                InputBox(uid: "row:3, column:3", clocator:[name: "without"])
                InputBox(uid: "row:5, column:3", clocator:[name: "labels"])
                Table(uid: "row:6, column:1", clocator:[:]){
-                   UrlLink(uid: "row:1, column:1", clocator:[text: "%%More Search Tips"])
+                   UrlLink(uid: "row:1, column:1", clocator:[text: "%%Search Tips"])
                }
                InputBox(uid: "row:6, column:3", clocator:[name: "statuses"])
                InputBox(uid: "row:7, column:2", clocator:[name: "reporters"])
