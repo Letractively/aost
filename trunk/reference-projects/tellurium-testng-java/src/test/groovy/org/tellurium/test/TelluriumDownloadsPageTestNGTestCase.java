@@ -58,12 +58,12 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
         connectUrl("http://code.google.com/p/aost/downloads/list");
         // Set download type with other value
         downloadPage.selectDownloadType(" All Downloads");
-        downloadPage.searchDownload("Tellurium-0.5.0-RC01");
+        downloadPage.searchDownload("tellurium-0.5.0");
 
         List<String> list = downloadPage.getDownloadFileNames();
         assertNotNull(list);
         assertFalse(list.isEmpty());
-        assertTrue(Helper.include(list, "Tellurium-0.5.0-RC01.tar.gz"));
+        assertTrue(Helper.include(list, "tellurium-core-0.5.0.tar.gz"));
     }
 
     @Test
@@ -76,8 +76,8 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
         List<String> list = downloadPage.getDownloadFileNames();
         assertNotNull(list);
         assertFalse(list.isEmpty());
-        assertTrue(Helper.include(list, "Tellurium-0.5.0-RC01.jar"));
-        assertTrue(Helper.include(list, "Tellurium-0.5.0-RC01.tar.gz"));
+        assertTrue(Helper.include(list, "tellurium-0.5.0.jarr"));
+        assertTrue(Helper.include(list, "tellurium-core-0.5.0.tar.gz"));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
         list = downloadPage.getDownloadFileNames();
         assertNotNull(list);
         assertFalse(list.isEmpty());
-        assertTrue(Helper.include(list, "Tellurium-0.5.0-RC01.tar.gz"));
+        assertTrue(Helper.include(list, "tellurium-core-0.5.0.tar.gz"));
     }
 
     @Test
