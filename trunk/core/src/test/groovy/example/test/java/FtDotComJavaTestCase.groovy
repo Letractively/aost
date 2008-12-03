@@ -2,6 +2,7 @@ package example.test.java
 
 import example.other.FtDotCom
 import org.junit.BeforeClass
+import org.junit.Ignore
 import org.junit.Test
 import org.tellurium.test.java.TelluriumJavaTestCase
 
@@ -21,6 +22,8 @@ class FtDotComJavaTestCase extends TelluriumJavaTestCase {
         ft.defineUi();
     }
 
+    //ignore the test since the web page has been changed
+    @Ignore
     @Test
     public void testLogin() {
         connectUrl("http://www.ft.com/home/us");
