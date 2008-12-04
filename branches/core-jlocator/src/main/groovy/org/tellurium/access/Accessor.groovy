@@ -1,6 +1,8 @@
 package org.tellurium.access
 
 import com.thoughtworks.selenium.SeleniumException
+import org.json.simple.JSONArray
+import org.stringtree.json.JSONReader
 import org.tellurium.config.Configurable
 import org.tellurium.dispatch.Dispatcher
 import org.tellurium.util.Helper
@@ -15,7 +17,10 @@ class Accessor implements Configurable{
 
     private boolean checkElement = true
 
-    public void mustCheckElement(){
+	private JSONReader reader = new JSONReader();
+
+
+	public void mustCheckElement(){
         this.checkElement = true
     }
 
@@ -29,7 +34,37 @@ class Accessor implements Configurable{
 		}
     }
 
-    def boolean isElementPresent(String locator){
+	private Object parseSeleniumJSONReturnValue(String out){
+		if(out.startsWith("OK,")){
+			out = out.substring(3);
+		} else {
+			return null;
+		}
+		return reader.read(out);
+	}
+	def ArrayList getSelectorProperties(String jqSelector, List<String> props){
+		JSONArray arr = new JSONArray();
+		arr.addAll(props);
+		String json = arr.toString();
+		String out = dispatcher.getSelectorProperties(jqSelector, json);
+		return (ArrayList)parseSeleniumJSONReturnValue(out);
+	}
+	def ArrayList getSelectorText(String jqSelector){
+		String out = dispatcher.getSelectorText(jqSelector);
+		return (ArrayList)parseSeleniumJSONReturnValue(out);
+	}
+
+	def Object getSelectorFunctionCall(String jqSelector, String fn){
+		JSONArray arr = new JSONArray();
+		arr.add(fn.replaceAll("[\n\r]",""));
+		String json = arr.toString();
+		String out = dispatcher.getSelectorFunctionCall(jqSelector,json);
+		return parseSeleniumJSONReturnValue(out);
+
+	}
+
+
+	def boolean isElementPresent(String locator){
 
 		return dispatcher.isElementPresent(locator)
 	}

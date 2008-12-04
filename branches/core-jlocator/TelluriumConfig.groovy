@@ -37,13 +37,13 @@ tellurium{
         //server port number the client needs to connect
         port = "4444"
         //base URL
-        baseUrl = "http://localhost:8080"
+        baseUrl = "http://books.google.com/"
         //Browser setting, valid options are
         //  *firefox [absolute path]
         //  *iexplore [absolute path]
         //  *chrome
         //  *iehta
-        browser = "*chrome"
+        browser = "*firefox"
     }
     datadriven{
         dataprovider{

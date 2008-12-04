@@ -17,7 +17,9 @@ import org.tellurium.dsl.DslContext
 class GoogleBooksList extends DslContext{
 
     public void defineUi() {
-        ui.Container(uid: "GoogleBooksList", locator: "//table[@id='hp_table']/tbody/tr/td[1]/div/div[1]"){
+		//jqlocator still needs some work
+		ui.Link(uid: 'jqLink', jqlocator: "#hp_table p:eq(3)");
+		ui.Container(uid: "GoogleBooksList", locator: "//table[@id='hp_table']/tbody/tr/td[1]/div/div[1]"){
             TextBox(uid: "category", locator: "/div")
             List(uid: "subcategory", locator: "", separator: "p"){
                 UrlLink(uid: "all", locator: "/a")
@@ -25,11 +27,44 @@ class GoogleBooksList extends DslContext{
         }
     }
 
-    String getCategory(){
+	List getJQSelectedLinkTest(){
+		getText 'jqLink'
+	}
+
+	List getSubcategoryNames(){
+		getSelectorText(".sub_cat_title");
+	}
+	List getDisplayedBookTitles(){
+		ArrayList arr = this.getSelectorProperties(".thumbocover", ['alt']);
+		List ret = new ArrayList();
+		for(HashMap m : arr){
+			ret.put(m.get("alt"));
+		}
+		return ret;
+	}
+	List getFictionLinks(){
+		List l = this.getSelectorFunctionCall(".sub_cat_title","""
+		function(){
+			var out = [];
+			this.each(function(){
+				if(\$(this).text() === "Fiction"){
+					var sib = \$(this).siblings();
+					sib.each(function(){
+						out.push(\$(this).children()[0].href);
+					});
+				}
+			});
+			return out;
+		}
+		""")
+		return l;
+
+	}
+	String getCategory(){
         getText "GoogleBooksList.category"
     }
 
-    int getListSize(){
+	int getListSize(){
         getListSize "GoogleBooksList.subcategory"
     }
 

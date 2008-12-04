@@ -56,8 +56,20 @@ abstract class UiObject {
 
     //respond to JavaScript events
     String[] respondToEvents
-    
-    boolean isElementPresent(Closure c){
+
+
+	def ArrayList getSelectorProperties(java.util.List<String> props){
+		return accessor.getSelectorProperties(locator, props);
+	}
+	def ArrayList getSelectorText(){
+		return accessor.getSelectorText(locator, props);
+	}
+
+	def Object getSelectorFunctionCall(String fn, java.util.List args){
+		return accessor.getSelectorText(locator, fn, args);
+	}
+
+	boolean isElementPresent(Closure c){
         return c(locator)
     }
 

@@ -1,10 +1,10 @@
 package example.test.groovy
 
-import org.tellurium.test.groovy.TelluriumGroovyTestCase
 import example.google.GoogleBooksList
+import example.google.NewGoogleBooksList
 import org.tellurium.object.UiObject
 import org.tellurium.object.UrlLink
-import example.google.NewGoogleBooksList
+import org.tellurium.test.groovy.TelluriumGroovyTestCase
 
 /**
  * 
@@ -28,7 +28,14 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
         tearDownForClass()
     }
 
-    void testBookCategory(){
+	void testJqueryFunctionality(){
+		connectUrl("http://books.google.com/")
+		GoogleBooksList gbl = new GoogleBooksList();
+	//	assertTrue(gbl.getJQSelectedLinkTest().contains("")
+		assertTrue(gbl.getSubcategoryNames().contains("Non-fiction"));
+		assertTrue(gbl.getFictionLinks().size() > 0);
+	}
+	void testBookCategory(){
         //test google book list using Selenium way, i.e., absolute xpath
         GoogleBooksList gbl = new GoogleBooksList()
         gbl.defineUi()
@@ -40,7 +47,8 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
         bookListTest(ngbl)
     }
 
-    void bookListTest(gbl){
+
+	void bookListTest(gbl){
         connectUrl("http://books.google.com/")
         String category = gbl.getCategory()
         assertEquals("Fiction", category)

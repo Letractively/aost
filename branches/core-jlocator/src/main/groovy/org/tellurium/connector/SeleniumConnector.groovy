@@ -55,7 +55,27 @@ class SeleniumConnector implements Configurable {
         SeleniumClient sc = new SeleniumClient()
         sc.client = sel
 
-    }
+		//MK: add the jquery location strategy
+		sel.addLocationStrategy("jquery", '''
+			var found = $(inDocument).find(locator);
+			if(found.length == 1){
+				//for now only support of selecting 1 element.
+				return found[0];
+			} else {
+				return null;
+			}
+			''');
+
+		sel.addLocationStrategy("jqueryall", '''
+			var found = $(inDocument).find(locator);
+			if(found.length > 0){
+				return found;
+			} else {
+				return null;
+			}
+			''');
+
+	}
 
 	public void disconnectSeleniumServer() {
 
