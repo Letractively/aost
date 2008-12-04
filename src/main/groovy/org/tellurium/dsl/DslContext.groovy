@@ -10,7 +10,34 @@ abstract class DslContext extends BaseDslContext{
 //    remove this constraint so that DSL script does not need to define this method
 //    public abstract void defineUi()
 
-    def getWidget(String uid){
+	/**
+	 * Pass in a jquery selector, and a list of DOM properties to gather from each selected element.
+	 * returns an arraylist of hashmaps with the requested properties as 'key->value'
+	 */
+	def ArrayList getSelectorProperties(String jqSelector, List<String> props){
+		return accessor.getSelectorProperties(jqSelector, props);
+	}
+	/**
+	 * pass in a jquery selector, and get back an arraylist of inner text of all elements selected,
+	 * one string per element
+	 */
+	def ArrayList getSelectorText(String jqSelector){
+		return accessor.getSelectorText(jqSelector);
+	}
+
+	/**
+	 * pass in a jquery selector, and a javascript function as a string. the function will be called within
+	 * the context of the wrapped set, ie, the wrapped set will be 'this' in the function.
+	 * the function must return JSON
+	 *
+	 * NOTE: the function CAN NOT have any comments or you will get a syntax error inside of selenium core.
+	 * NOTE: each line of the function must be ended with a semicolin ';'
+	 */
+	def Object getSelectorFunctionCall(String jqSelector, String fn){
+		return accessor.getSelectorFunctionCall(jqSelector, fn);
+	}
+
+	def getWidget(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          def obj = ui.walkTo(context, uid)
          if(!(obj instanceof Widget)){
@@ -53,8 +80,9 @@ abstract class DslContext extends BaseDslContext{
         if(context.getReferenceLocator() != null)
             locator = context.getReferenceLocator() + locator
 
-        //make sure the xpath starts with "//"
-        if(locator != null && (!locator.startsWith("//"))){
+		//MK: removed this for jquery support
+		//make sure the xpath starts with "//"
+        if(locator != null && (!locator.startsWith("//") && (!locator.startsWith("jquery=")))){
             locator = "/" + locator
         }
 
