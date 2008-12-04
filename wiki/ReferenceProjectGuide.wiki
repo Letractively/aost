@@ -311,7 +311,222 @@ Then, use the rundsl.sh to run the DSL script
 For Windows, you should use the rundsl.bat script.
 
 == Data Driven Testing ==
-Data Driven Testing examples will be provided later on
+
+We use Tellurium Issue page as the data driven testing example, we define tests to search issues assigned to a Tellurium team member and use the input file to define which team members we want the result for.
+
+We first define a TelluriumIssuesModule class that extends TelluriumDataDrivenModule class and includes a method "defineModule". In the "defineModule" method, we define UI modules,  input data format, and different tests. The UI modules are the same as defined before for the Tellurium issue page. 
+
+The input data format is defined as
+
+{{{        
+fs.FieldSet(name: "OpenIssuesPage") {
+   Test(value: "OpenTelluriumIssuesPage")
+}
+
+fs.FieldSet(name: "IssueForOwner", description: "Data format for test SearchIssueForOwner") {
+   Test(value: "SearchIssueForOwner")
+   Field(name: "issueType", description: "Issue Type")
+   Field(name: "owner", description: "Owner")
+}
+}}}
+
+Here we have two different input data formats. The "Test" field defines the test name and the "Field" field define the input data name and description. For example, the input data for the test "SearchIssueForOwner" have two input parameters "issueType" and "owner".
+
+The tests are defined use "defineTest". One of the test "SearchIssueForOwner" is defined as follows,
+
+{{{
+        defineTest("SearchIssueForOwner") {
+            String issueType = bind("IssueForOwner.issueType")
+            String issueOwner = bind("IssueForOwner.owner")
+            int headernum = getCachedVariable("headernum")
+            int expectedHeaderNum = getTableHeaderNum()
+            compareResult(expectedHeaderNum, headernum)
+            
+            List<String> headernames = getCachedVariable("headernames")
+            String[] issueTypes = getCachedVariable("issuetypes")
+            String issueTypeLabel = getIssueTypeLabel(issueTypes, issueType)
+            checkResult(issueTypeLabel) {
+                assertTrue(issueTypeLabel != null)
+            }
+            //select issue type
+            if (issueTypeLabel != null) {
+                selectIssueType(issueTypeLabel)
+            }
+            //search for all owners
+            if ("all".equalsIgnoreCase(issueOwner.trim())) {
+                searchForAllIssues()
+            } else {
+                searchIssue("owner:" + issueOwner)
+            }
+            ......
+        }
+
+    }
+
+}}}
+
+As you can see, we use "bind" to tie the variable to input data field. For example, the variable "issueType" is bound to "IssueForOwner.issueType", i.e., field "issueType" of the  input Fieldset "IssueForOwner". "getCachedVariable" is used to get variables passed from previous tests and "compareResult" is used to compare the actual result with the expected result.
+
+The input file format looks like
+
+{{{
+OpenTelluriumIssuesPage
+## Test Name | Issue Type | Owner
+SearchIssueForOwner | Open | all
+SearchIssueForOwner | All | matt.senter
+SearchIssueForOwner | Open | John.Jian.Fang
+SearchIssueForOwner | All |  vivekmongolu
+SearchIssueForOwner | All |  haroonzone
+}}}
+
+The actual test class is very simple
+
+{{{
+class TelluriumIssuesDataDrivenTest extends TelluriumDataDrivenTest{
+
+
+    public void testDataDriven() {
+
+        includeModule org.tellurium.module.TelluriumIssuesModule.class
+
+        //load file
+        loadData "src/test/resources/org/tellurium/data/TelluriumIssuesInput.txt"
+
+        //read each line and run the test script until the end of the file
+        stepToEnd()
+
+        //close file
+        closeData()
+
+    }
+
+}
+}}}
+
+We first define which Data Driven Module we want to load and then read input data file. After that, we read the input data file line by line and execute the appropriate tests defined in the input file. Finally, close the data file.
+
+The test result looks as follows,
+
+{{{
+<TestResults>
+  <Total>6</Total>
+  <Succeeded>6</Succeeded>
+  <Failed>0</Failed>
+  <Test name='OpenTelluriumIssuesPage'>
+    <Step>1</Step>
+    <Passed>true</Passed>
+    <Input>
+      <test>OpenTelluriumIssuesPage</test>
+    </Input>
+    <Assertion Value='10' Passed='true' />
+    <Status>PROCEEDED</Status>
+    <Runtime>2.579049</Runtime>
+  </Test>
+  <Test name='SearchIssueForOwner'>
+    <Step>2</Step>
+    <Passed>true</Passed>
+    <Input>
+      <test>SearchIssueForOwner</test>
+      <issueType>Open</issueType>
+      <owner>all</owner>
+    </Input>
+    <Assertion Expected='10' Actual='10' Passed='true' />
+    <Assertion Value=' Open Issues' Passed='true' />
+    <Status>PROCEEDED</Status>
+    <Runtime>4.118923</Runtime>
+    <Message>Found 10  Open Issues for owner all</Message>
+    <Message>Issue: Better way to wait or pause during testing</Message>
+    <Message>Issue: Add support for JQuery selector</Message>
+    <Message>Issue: Export Tellurium to Ruby</Message>
+    <Message>Issue: Add check Alter function to Tellurium</Message>
+    <Message>Issue: Firefox plugin to automatically generate UI module for users</Message>
+    <Message>Issue: Create a prototype for container-like Dojo widgets</Message>
+    <Message>Issue: Need to create Wiki page to explain how to setup Maven and use Maven to build multiple projects</Message>
+    <Message>Issue: Configure IntelliJ to properly load one maven sub-project and not look for an IntelliJ project dependency</Message>
+    <Message>Issue: Support nested properties for Tellurium</Message>
+    <Message>Issue: update versions for extensioin dojo-widget and TrUMP projects</Message>
+  </Test>
+  <Test name='SearchIssueForOwner'>
+    <Step>3</Step>
+    <Passed>true</Passed>
+    <Input>
+      <test>SearchIssueForOwner</test>
+      <issueType>All</issueType>
+      <owner>matt.senter</owner>
+    </Input>
+    <Assertion Expected='10' Actual='10' Passed='true' />
+    <Assertion Value=' All Issues' Passed='true' />
+    <Status>PROCEEDED</Status>
+    <Runtime>4.023694</Runtime>
+    <Message>Found 7  All Issues for owner matt.senter</Message>
+    <Message>Issue: Add Maven 2 support</Message>
+    <Message>Issue: Add Maven support for the new code base with multiple sub-projects</Message>
+    <Message>Issue: Cannot find symbol class Selenium</Message>
+    <Message>Issue: Need to create Wiki page to explain how to setup Maven and use Maven to build multiple projects</Message>
+    <Message>Issue: Need to add tar.gz file as artifact in Maven</Message>
+    <Message>Issue: Configure IntelliJ to properly load one maven sub-project and not look for an IntelliJ project dependency</Message>
+    <Message>Issue: update versions for extensioin dojo-widget and TrUMP projects</Message>
+  </Test>
+  <Test name='SearchIssueForOwner'>
+    <Step>4</Step>
+    <Passed>true</Passed>
+    <Input>
+      <test>SearchIssueForOwner</test>
+      <issueType>Open</issueType>
+      <owner>John.Jian.Fang</owner>
+    </Input>
+    <Assertion Expected='10' Actual='10' Passed='true' />
+    <Assertion Value=' Open Issues' Passed='true' />
+    <Status>PROCEEDED</Status>
+    <Runtime>3.542759</Runtime>
+    <Message>Found 5  Open Issues for owner John.Jian.Fang</Message>
+    <Message>Issue: Better way to wait or pause during testing</Message>
+    <Message>Issue: Export Tellurium to Ruby</Message>
+    <Message>Issue: Add check Alter function to Tellurium</Message>
+    <Message>Issue: Create a prototype for container-like Dojo widgets</Message>
+    <Message>Issue: Support nested properties for Tellurium</Message>
+  </Test>
+  <Test name='SearchIssueForOwner'>
+    <Step>5</Step>
+    <Passed>true</Passed>
+    <Input>
+      <test>SearchIssueForOwner</test>
+      <issueType>All</issueType>
+      <owner>vivekmongolu</owner>
+    </Input>
+    <Assertion Expected='10' Actual='10' Passed='true' />
+    <Assertion Value=' All Issues' Passed='true' />
+    <Status>PROCEEDED</Status>
+    <Runtime>3.521415</Runtime>
+    <Message>Found 5  All Issues for owner vivekmongolu</Message>
+    <Message>Issue: Create more examples to demonstrate the usage of different UI objects</Message>
+    <Message>Issue: DslScriptEngine causes NullPointerException when attempt to invoke server.runSeleniumServer() method</Message>
+    <Message>Issue: No such property: connector for class: DslTest</Message>
+    <Message>Issue: Firefox plugin to automatically generate UI module for users</Message>
+    <Message>Issue: Setup Firefox plugin sub-project</Message>
+  </Test>
+  <Test name='SearchIssueForOwner'>
+    <Step>6</Step>
+    <Passed>true</Passed>
+    <Input>
+      <test>SearchIssueForOwner</test>
+      <issueType>All</issueType>
+      <owner>haroonzone</owner>
+    </Input>
+    <Assertion Expected='10' Actual='10' Passed='true' />
+    <Assertion Value=' All Issues' Passed='true' />
+    <Status>PROCEEDED</Status>
+    <Runtime>3.475594</Runtime>
+    <Message>Found 5  All Issues for owner haroonzone</Message>
+    <Message>Issue: Solve HTTPS certificate problem</Message>
+    <Message>Issue: Refactor Tellurium project web site examples using TestNG and put them to the tellurium-testng-java sub-project</Message>
+    <Message>Issue: Create a new wiki page on how to create custom tellurium project for NetBeans</Message>
+    <Message>Issue: Create a new wiki page on how to create custom tellurium project for IntelliJ</Message>
+    <Message>Issue: Table operations for large size one seems to be very slow</Message>
+  </Test>
+</TestResults>
+}}}
+
 
 == Tellurium Configuration ==
 
