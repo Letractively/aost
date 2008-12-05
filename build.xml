@@ -203,5 +203,6 @@
 
 		<fail if="test.failed" />
 	</target>
-
+    <!-- convenience target -->
+    <target name="clean-dist" depends="clean, dist"/>
 </project>
