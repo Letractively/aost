@@ -5,6 +5,7 @@ For the the next release of Tellurium Core 0.6.0, we should achieve the followin
  
   * Add JQuery selector support for Tellurium so that it is much more efficient to get back multiple elements. 
   * Add support for multiple element on Tellurium connector and DslContext
+  * Add support for distributing tests to different browsers and selenium servers
   * Add XML data reader for the Data Driven Testing
   * Upgrade Groovy and Selenium versions
   * Update the reference projects
