@@ -31,7 +31,8 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
 	void testJqueryFunctionality(){
 		connectUrl("http://books.google.com/")
 		GoogleBooksList gbl = new GoogleBooksList();
-	//	assertTrue(gbl.getJQSelectedLinkTest().contains("")
+	//	gbl.defineUi()
+	//	println gbl.getJQSelectedLinkTest();
 		assertTrue(gbl.getSubcategoryNames().contains("Non-fiction"));
 		assertTrue(gbl.getFictionLinks().size() > 0);
 	}
