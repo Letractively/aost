@@ -44,7 +44,6 @@ class GoogleBooksList extends DslContext{
 	}
 	List getFictionLinks(){
 		List l = this.getSelectorFunctionCall(".sub_cat_title","""
-		function(){
 			var out = [];
 			this.each(function(){
 				if(\$(this).text() === "Fiction"){
@@ -55,7 +54,6 @@ class GoogleBooksList extends DslContext{
 				}
 			});
 			return out;
-		}
 		""")
 		return l;
 

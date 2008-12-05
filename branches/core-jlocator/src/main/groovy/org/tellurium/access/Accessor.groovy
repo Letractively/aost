@@ -56,6 +56,7 @@ class Accessor implements Configurable{
 
 	def Object getSelectorFunctionCall(String jqSelector, String fn){
 		JSONArray arr = new JSONArray();
+		fn = "function(){"+fn+"}";
 		arr.add(fn.replaceAll("[\n\r]",""));
 		String json = arr.toString();
 		String out = dispatcher.getSelectorFunctionCall(jqSelector,json);
