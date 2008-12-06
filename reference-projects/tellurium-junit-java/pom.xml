@@ -1,9 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<groupId>tellurium</groupId>
 		<artifactId>tellurium-reference-projects</artifactId>
-		<version>0.5.0-SNAPSHOT</version>
+		<version>0.5.0</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>tellurium-junit-java</artifactId>
@@ -11,8 +10,8 @@
 	<name>Tellurium JUnit Reference Project</name>
 	<description>Tellurium JUnit Reference Project</description>
 	<scm>
-		<connection>scm:svn:http://aost.google.code.com/svn/trunk/reference-projects/tellurium-junit-java</connection>
-		<developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/reference-projects/tellurium-junit-java</developerConnection>
-		<url>http://aost.google.code.com/svn/trunk/reference-projects/tellurium-junit-java</url>
+		<connection>scm:svn:http://aost.google.code.com/svn/tags/tellurium-0.5.0-maven-release-tag/reference-projects/tellurium-junit-java</connection>
+		<developerConnection>scm:svn:https://aost.googlecode.com/svn/tags/tellurium-0.5.0-maven-release-tag/reference-projects/tellurium-junit-java</developerConnection>
+		<url>http://aost.google.code.com/svn/tags/tellurium-0.5.0-maven-release-tag/reference-projects/tellurium-junit-java</url>
 	</scm>
 </project>
