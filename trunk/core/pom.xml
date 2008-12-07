@@ -10,13 +10,11 @@
 	<packaging>jar</packaging>
 	<name>Tellurium Core</name>
 	<description>Core Tellurium Classes</description>
-<!--
 	<scm>
 		<connection>scm:svn:http://aost.google.code.com/svn/trunk/core</connection>
 		<developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/core</developerConnection>
 		<url>http://aost.google.code.com/svn/trunk/core</url>
 	</scm>
--->
 	<dependencies>
 		<dependency>
 			<groupId>org.testng</groupId>

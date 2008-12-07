@@ -11,11 +11,9 @@
 	<packaging>jar</packaging>
 	<name>Tellurium Firefox Plugin</name>
 	<description>A Tellurium plugin for Firefox</description>
-<!--
 	<scm>
 		<connection>scm:svn:http://aost.google.code.com/svn/trunk/tools/firefox-plugin</connection>
 		<developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/tools/firefox-plugin</developerConnection>
 		<url>http://aost.google.code.com/svn/trunk/tools/firefox-plugin</url>
 	</scm>
--->
 </project>

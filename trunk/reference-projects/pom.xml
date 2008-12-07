@@ -10,13 +10,11 @@
 	<packaging>pom</packaging>
 	<name>Tellurium Reference Projects</name>
 	<description>Tellurium Reference Projects</description>
-<!--
 	<scm>
 		<connection>scm:svn:http://aost.google.code.com/svn/trunk/reference-projects</connection>
 		<developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/reference-projects</developerConnection>
 		<url>http://aost.google.code.com/svn/trunk/reference-projects</url>
 	</scm>
--->
 	<dependencies>
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
