@@ -10,13 +10,11 @@
 	<packaging>pom</packaging>
 	<name>Tellurium Assembly</name>
 	<description>Assembles the tellurium tarballs</description>
-<!--
 	<scm>
 		<connection>scm:svn:http://aost.google.code.com/svn/trunk/tellurium-assembly</connection>
 		<developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/tellurium-assembly</developerConnection>
 		<url>http://aost.google.code.com/svn/trunk/tellurium-assembly</url>
 	</scm>
--->
     <build>
         <pluginManagement>
             <plugins>

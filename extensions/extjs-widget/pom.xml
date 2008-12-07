@@ -10,11 +10,9 @@
 	<packaging>jar</packaging>
 	<name>Tellurium Extjs Widget</name>
 	<description>Tellurium Extjs widget</description>
-<!--
 	<scm>
 		<connection>scm:svn:http://aost.google.code.com/svn/trunk/extensions/extjs-widget</connection>
 		<developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/extensions/extjs-widget</developerConnection>
 		<url>http://aost.google.code.com/svn/trunk/extensions/extjs-widget</url>
 	</scm>
--->
 </project>
