@@ -10,9 +10,11 @@
 	<packaging>jar</packaging>
 	<name>Tellurium TestNG Reference Project</name>
 	<description>Tellurium TestNG Reference Project</description>
+<!--
 	<scm>
 		<connection>scm:svn:http://aost.google.code.com/svn/trunk/reference-projects/tellurium-testng-java</connection>
 		<developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/reference-projects/tellurium-testng-java</developerConnection>
 		<url>http://aost.google.code.com/svn/trunk/reference-projects/tellurium-testng-java</url>
 	</scm>
+-->
 </project>

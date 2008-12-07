@@ -10,9 +10,11 @@
 	<packaging>jar</packaging>
 	<name>Tellurium JUnit Reference Project</name>
 	<description>Tellurium JUnit Reference Project</description>
+<!--
 	<scm>
 		<connection>scm:svn:http://aost.google.code.com/svn/trunk/reference-projects/tellurium-junit-java</connection>
 		<developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/reference-projects/tellurium-junit-java</developerConnection>
 		<url>http://aost.google.code.com/svn/trunk/reference-projects/tellurium-junit-java</url>
 	</scm>
+-->
 </project>

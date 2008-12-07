@@ -10,11 +10,13 @@
 	<packaging>pom</packaging>
 	<name>Tellurium Tools</name>
 	<description>Tellurium Tools</description>
+<!--
 	<scm>
 		<connection>scm:svn:http://aost.google.code.com/svn/trunk/tools</connection>
 		<developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/tools</developerConnection>
 		<url>http://aost.google.code.com/svn/trunk/tools</url>
 	</scm>
+-->
 	<dependencies>
 		<dependency>
 			<groupId>${pom.groupId}</groupId>

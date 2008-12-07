@@ -11,9 +11,11 @@
 	<packaging>jar</packaging>
 	<name>Tellurium Dojo Widget</name>
 	<description>Tellurium Dojo widget</description>
+<!--
 	<scm>
 		<connection>scm:svn:http://aost.google.code.com/svn/trunk/extensions/dojo-widget</connection>
 		<developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/extensions/dojo-widget</developerConnection>
 		<url>http://aost.google.code.com/svn/trunk/extensions/dojo-widget</url>
 	</scm>
+-->
 </project>
