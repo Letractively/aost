@@ -80,8 +80,26 @@ class EventHandler implements Configurable{
             dispatcher.mouseOver(locator)
         }
 	}
+	def mouseDown(String locator, String[] events) {
+        String[] defaultEvents = null
+        if(extraEvent)
+            defaultEvents = ["focus"]
 
-    def mouseOut(String locator, String[] events) {
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseDown(locator)
+        }
+	}
+	def mouseUp(String locator, String[] events) {
+        String[] defaultEvents = null
+        if(extraEvent)
+            defaultEvents = ["focus"]
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseUp(locator)
+        }
+	}
+
+	def mouseOut(String locator, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)
             defaultEvents = ["focus"]

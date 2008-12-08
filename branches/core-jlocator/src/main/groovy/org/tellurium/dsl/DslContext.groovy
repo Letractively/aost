@@ -131,8 +131,22 @@ abstract class DslContext extends BaseDslContext{
             eventHandler.mouseOver(locator, events)
         }
     }
+	def mouseDown(String uid){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        ui.walkTo(context, uid)?.mouseDown(){ loc, String[] events ->
+            String locator = locatorMapping(context, loc)
+            eventHandler.mouseDown(locator, events)
+        }
+    }
+	def mouseUp(String uid){
+		WorkflowContext context = WorkflowContext.getDefaultContext()
+		ui.walkTo(context, uid)?.mouseUp(){ loc, String[] events ->
+			String locator = locatorMapping(context, loc)
+			eventHandler.mouseUp(locator, events)
+		}
+	}
 
-    def openWindow(String uid, String url){
+	def openWindow(String uid, String url){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, uid)?.openWindow(url) {String loc, String aurl ->
             eventHandler.openWindow(aurl, loc)
