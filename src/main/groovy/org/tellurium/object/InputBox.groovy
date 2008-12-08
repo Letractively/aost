@@ -35,4 +35,14 @@ class InputBox extends UiObject{
        return c(locator)
     }
 
+	def clickAt(String coordination, Closure c) {
+        c(locator, respondToEvents)
+    }
+	def mouseDown(Closure c){
+        c(locator, respondToEvents)
+    }
+	def mouseUp(Closure c){
+        c(locator, respondToEvents)
+    }
+
 }
