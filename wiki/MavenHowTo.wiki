@@ -68,3 +68,8 @@ To include Tellurium as a dependency in your project, add the following to your 
 = Build information =
 
 To find regular build information updates, see http://kungfuters.org/tellurium. There you will find information about the project as well as unit test and coverage reports.
+
+= Subversion Client =
+To check out code from google code SVN, you should use the SVN client plugins in IDEs or you can use standalone SVN client tools such as
+  * [http://smartsvn.com SmartSVN]: a good cross-platform client that supports Subversion  up to 1.5
+  * [http://tortoisesvn.tigris.org TortoiseSVN]: a good Windows client that supports Subversion up to 1.5
