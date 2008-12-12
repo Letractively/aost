@@ -188,4 +188,4 @@ The following toturial series could be found in [http://groups.google.com/group/
   * [http://groups.google.com/group/tellurium-users/browse_thread/thread/5579a536818cf6be the List object]
   * [http://groups.google.com/group/tellurium-users/browse_thread/thread/8e011ff9f1f71393# the power of Tellurium UI templates]     
   * [http://groups.google.com/group/tellurium-users/browse_thread/thread/93fbae75a6d88624 Javascript Events - the "respond" attribute]
-  * [http://groups.google.com/group/tellurium-users/browse_thread/thread/71cb407be285c242# Tellurium Tutorial Series: HTML Source vs. Runtime HTML Source] 
+  * [http://groups.google.com/group/tellurium-users/browse_thread/thread/71cb407be285c242# HTML Source vs. Runtime HTML Source] 
