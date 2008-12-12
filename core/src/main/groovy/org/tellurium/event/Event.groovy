@@ -33,5 +33,8 @@ enum Event {
     FOCUS,
     CLICK,
     MOUSEOVER,
-    MOUSEOUT
+    MOUSEOUT,
+    KEYDOWN,
+    KEYPRESS,
+    KEYUP
 }
