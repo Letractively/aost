@@ -427,7 +427,6 @@ Tellurium starts to support Maven. For details, please see [http://code.google.c
 
 Tellurium will continue evolving and more new features will be developed to make it more powerful and easier to use. We are considering the following new features for the next or future releases:
 
-  # Add full _Maven_ 2 support for project building, testing, and artifact publishing.
   # Enhance _Data Driven Testing_ to add data readers for database, XML files, and CSV format files. Also need to consider testing multiple tests in a group and how to pass variables among them.
   # A _Firefox plugin_ will be developed to automatically generate UI modules for users. The idea is to provide the "select UI by click" capability in the plugin to select an area of UI. Then the plugin will extract the html source and use a special algorithm to generate Tellurium style UI modules using composite locators and group locating concept.  After that, the plugin will validate the generated UI module to make sure it is unique in the current DOM and output the results. 
   # Tellurium will provide a _Locator Query Language_ to get the locators of Ui objects by some search criteria such as their attributes and their relationship to each other, i.e., parent, child, and sibling. That is to say, Tellurium will be interactive with the DOM in runtime so as to be adaptive to dynamic web page. 
