@@ -22,7 +22,8 @@ class RadioButton extends UiObject {
 
     def boolean isChecked(Closure c){
 
-        c(locator, respondToEvents)
+//        c(locator, respondToEvents)
+        c(locator)
     }
 
     def uncheck(Closure c){
