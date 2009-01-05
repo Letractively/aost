@@ -56,7 +56,15 @@ abstract class UiObject {
 
     //respond to JavaScript events
     String[] respondToEvents
-    
+
+    def mouseOver(Closure c){
+        c(locator)
+    }
+
+    def mouseOut(Closure c){
+        c(locator)
+    }
+
     boolean isElementPresent(Closure c){
         return c(locator)
     }

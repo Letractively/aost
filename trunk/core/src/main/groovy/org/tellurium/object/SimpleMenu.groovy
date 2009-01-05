@@ -24,11 +24,13 @@ class SimpleMenu extends UiObject{
     }
 
     def mouseOver(Closure c){
-        c(null, respondToEvents)
+//        c(null, respondToEvents)
+        c(null)
     }
 
     def mouseOut(Closure c){
-        c(null, respondToEvents)
+//        c(null, respondToEvents)
+        c(null)
     }
 
     public void addMenuItems(Map<String, String> menuItems){
