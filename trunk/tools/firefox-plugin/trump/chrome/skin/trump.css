@@ -6,16 +6,3 @@
     list-style-image: url("chrome://trump/skin/stop.png");
 }
 
-
-#trump_statusbar{
-    background: url("chrome://trump/skin/trump_off.gif") no-repeat;
-}
-
-#trump_statusbar[trumpstatus="off"] {
-   background: url("chrome://trump/skin/trump_off.gif") no-repeat;
-}
-
-#trump_statusbar[trumpstatus="on"] {
-  background: url("chrome://trump/skin/trump_on.gif")  no-repeat;
-}
-
