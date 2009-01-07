@@ -7,10 +7,16 @@ var constants = {
 
 var blackListAttributes = ["size", "maxlength", "width", "height", "style", "align", "onclick"]
 
-function init(){
+function popUpClickInit(){
     var nodeState = window.opener.nodeState;
-
     var clickedNode = nodeState.currentNode ;
+
+    init(clickedNode);
+}
+
+
+function init(clickedNode){
+
     var bundle = getBundle();
 
     var tag = null;
@@ -21,9 +27,7 @@ function init(){
     var lowerCaseNodeName = null;
     var upperCaseNodeName = null;
 
-
-
-//    alert("bundle : " + bundle);
+     debugMessge("bundle : " + bundle);
 
     var nodeType = getNodeType(clickedNode);
     var nodeValue = getNodeValue(clickedNode);
@@ -36,7 +40,8 @@ function init(){
 
         tag = bundle.getFormattedString("TAG", [lowerCaseNodeName]);
         attributeString = getAttributesString(clickedNode);
-        //alert("attribute : " + attributeString);
+
+        debugMessge("attribute : " + attributeString);
 
         //If its an Input node, check the type
         if(lowerCaseNodeName == constants.INPUT_NODE){
@@ -53,7 +58,7 @@ function init(){
             uiText = bundle.getFormattedString(propertyKey, [uid, createCLocatorText(tag, attributeString, nodeValue)]);
         }
 
-        //alert("string : " + uiText);
+        debugMessge("string : " + uiText);
         updateUIModelText(uiText);
     }
 }
@@ -81,7 +86,7 @@ function getInputNodeType(node){
 }
 
 function getNodeValue(node){
-    //alert(node.innerHTML);
+    debugMessge(node.innerHTML);
     return node.nodeValue != null ? node.nodeValue : node.innerHTML;
 }
 
@@ -160,9 +165,9 @@ function createTextKeyValue(value){
 }
 
 function createCLocatorText(tag, attributeString, nodeValue){
-//    alert(tag);
-//    alert(attributeString);
-//    alert(nodeValue);
+    debugMessge(tag);
+    debugMessge(attributeString);
+    debugMessge(nodeValue);
 
     var retValue = tag;
     var text = createTextKeyValue(nodeValue);
@@ -235,8 +240,8 @@ function getNotBlackListedAttributes(attributes){
 }
 
 function isNotBlackListed(attribute){
-    //alert("isNotBlackListed : " + attribute);
-    //alert(blackListAttributes.indexOf(attribute) == -1);
+    debugMessge("isNotBlackListed : " + attribute);
+    debugMessge(blackListAttributes.indexOf(attribute) == -1);
     return blackListAttributes.indexOf(attribute) == -1;        
 }
 
@@ -257,7 +262,9 @@ function updateUIModelText(text){
     textNode.value= text;
 }
 
-//TODO this is a utility function
-function trimString(str){
-    return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+
+function debugMessge(message){
+    if(window.opener.nodeState.debug){
+        alert(message);
+    }
 }

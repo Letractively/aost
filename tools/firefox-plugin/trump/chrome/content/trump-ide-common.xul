@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+Copyright 2008 Vivek Mongolu
+
+-->
+
+<!DOCTYPE window [
+<!ENTITY % trumpIdeDTD SYSTEM "chrome://trump/locale/trump-ide.dtd">
+%trumpIdeDTD;
+]>
+<overlay id="trump-ide-common"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    
+    <script type="application/x-javascript" src="chrome://trump/content/util.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/editor.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/recorder.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/builder.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/tagObject.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/xpather.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/decorator.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/treeView.js"/>
+</overlay>

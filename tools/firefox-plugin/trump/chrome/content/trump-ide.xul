@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://trump/skin/trump.css" type="text/css"?>
+<?xul-overlay href="chrome://trump/content/trump-ide-common.xul"?>
+
+<!DOCTYPE window [
+<!ENTITY % trumpIdeDTD SYSTEM "chrome://trump/locale/trump-ide.dtd">
+%trumpIdeDTD;
+]>
+
+<window id="uiEditor"
+    title="&trump-ide.title;"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    width="300"
+    height="300"
+    onload="new Editor(window)"
+    onunload="window.editor.unload()"
+    onclose="return window.editor.close()">
+
+    <toolbar id="toolbar2">
+      <toolbarbutton id="record-button" label="Record" class="record" tooltiptext="&recordButton.tooltip;" oncommand="window.editor.toggleRecordButton()" checked="true"/>
+      <toolbarbutton id="stop-button" label="Stop" class="icon" tooltiptext="&stopButton.tooltip;" oncommand="window.editor.toggleStopButton()"/>
+    </toolbar>
+
+    <tabbox flex="3" height="250" width="250">
+        <tabs orient="horizontal" id="editorTabs">
+            <tab id="recordTab" label="&recordTab.label;" />
+            <tab id="customizeTab" label="&customizeTab.label;" />
+            <tab id="validateTab" label="&validateTab.label;" />
+            <tab id="sourceTab" label="&sourceTab.label;" />
+            <tab id="settingsTab" label="&settingsTab.label;" />
+        </tabs>
+        <tabpanels>
+            <tabpanel orient="vertical" flex="1">
+                <stack>
+                    <vbox>
+                        <tree id="recordTree" flex="1" rows="2">
+                          <treecols>
+                            <treecol id="selectedElement" label="&element.label;" flex="1"/>
+                            <treecol id="selecetedElementName" label="&element.name.label;" flex="2"/>
+                          </treecols>
+
+                          <treechildren/>
+                            <!--<treeitem>
+                              <treerow>
+                                <treecell label="Selected element"/>
+                                <treecell label="name"/>
+                              </treerow>
+                            </treeitem>
+                          </treechildren>-->
+
+                        </tree>
+
+                        <!--<listbox id="recordListBox">
+                            <listhead>
+                                <listheader label="&element.label;" width="130"/>
+                                <listheader label="&element.name.label;" width="130"/>
+                            </listhead>
+                            <listcols>
+                                <listcol flex="1"/>
+                                <listcol flex="1"/>
+                            </listcols>
+                        </listbox>-->
+                    </vbox>
+                </stack>
+            </tabpanel>
+            <tabpanel orient="vertical">
+              <textbox id="customize" multiline="true" flex="1"/>
+            </tabpanel>
+            <tabpanel orient="vertical">
+              <textbox id="validate" multiline="true" flex="1"/>
+            </tabpanel>
+            <tabpanel orient="vertical">
+              <textbox id="source" multiline="true" flex="1"/>
+            </tabpanel>
+            <tabpanel orient="vertical">
+              <textbox id="settings" multiline="true" flex="1"/>
+            </tabpanel>
+        </tabpanels>
+    </tabbox>
+
+</window>
