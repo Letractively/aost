@@ -4,6 +4,7 @@ import example.google.NewGoogleStartPage;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.tellurium.test.java.TelluriumJavaTestCase;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Use Junit 4 directly for Tellurium test
@@ -46,4 +47,10 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
         ngsp.testClick();
     }
 
+    @Test
+    public void testGetAttribute(){
+        connectUrl("http://www.google.com");
+        String attr = ngsp.getAttribute();
+        assertEquals("Google Search", attr);
+    }
 }
