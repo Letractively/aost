@@ -528,6 +528,16 @@ abstract class BaseDslContext {
          }
     }
 
+    def hasCssClass(String uid, String cssClass){
+      String[] strings = ((String)getAttribute(uid, "class"))?.split(" ")
+      for(i in 0..strings?.length){
+        if(cssClass.equalsIgnoreCase(strings[i])){
+          return true
+        }
+      }
+      return false
+    }
+
     def submit(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, uid)?.submit(){ loc ->
