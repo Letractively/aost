@@ -90,7 +90,8 @@ abstract class UiObject {
     }
 
     def getAttribute(String attribute, Closure c){
-        return c(locator, "@${attribute}")    
+//        return c(locator, "@${attribute}")
+         return c(locator, "/self::node()@${attribute}")
     }
 
     def methodMissing(String name, args) {

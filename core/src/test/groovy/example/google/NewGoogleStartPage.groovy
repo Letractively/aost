@@ -48,4 +48,8 @@ class NewGoogleStartPage extends DslContext{
         click "searchbox"
         pause 500
     }
+
+    String getAttribute(){
+        getAttribute("google_start_page.searchbox", "title")
+    }
 }
