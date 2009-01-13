@@ -529,14 +529,18 @@ abstract class BaseDslContext {
     }
 
     def hasCssClass(String uid, String cssClass){
-      String[] strings = ((String)getAttribute(uid, "class"))?.split(" ")
-      if(strings?.length){
-        for(i in 0..strings?.length){
-          if(cssClass.equalsIgnoreCase(strings[i])){
-            return true
+       WorkflowContext context = WorkflowContext.getDefaultContext()
+        String[] strings = ui.walkTo(context, uid)?.hasCssClass(){ loc, classAttr ->
+            String locator = locatorMapping(context, loc)
+            ((String)accessor.getAttribute(locator + classAttr ))?.split(" ")
+         }
+         if(strings?.length){
+           for(i in 0..strings?.length){
+            if(cssClass.equalsIgnoreCase(strings[i])){
+              return true
+            }
           }
         }
-      }
       return false
     }
 

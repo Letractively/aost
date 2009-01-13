@@ -94,6 +94,10 @@ abstract class UiObject {
          return c(locator, "/self::node()@${attribute}")
     }
 
+    def hasCssClass(Closure c){
+      return c(locator, "/self::node()@class")
+    }
+
     def methodMissing(String name, args) {
          //check if the click action is used and if the object can respond to the "Click" event
          //if it is, then call the "click" method, i.e., the innerClick method here
