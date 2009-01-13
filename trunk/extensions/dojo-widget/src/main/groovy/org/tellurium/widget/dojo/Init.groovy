@@ -3,7 +3,7 @@ package org.tellurium.widget.dojo
 import org.tellurium.widget.WidgetBootstrap
 import org.tellurium.builder.UiObjectBuilderRegistry
 import org.tellurium.widget.dojo.builder.DatePickerBuilder
-import org.tellurium.widget.dojo.object.JtvTabContainer
+import org.tellurium.widget.dojo.builder.JtvTabContainerBuilder
 
 /**
  * The bootstrap class for the Dojo widget module
@@ -18,7 +18,7 @@ class Init implements WidgetBootstrap{
     public void loadWidget(UiObjectBuilderRegistry uiObjectBuilderRegistry) {
         if(uiObjectBuilderRegistry != null){
            uiObjectBuilderRegistry.registerBuilder(getFullName("DatePicker"), new DatePickerBuilder())      
-           uiObjectBuilderRegistry.registerBuilder(getFullName("JtvTabContainer"), new JtvTabContainer())      
+           uiObjectBuilderRegistry.registerBuilder(getFullName("JtvTabContainer"), new JtvTabContainerBuilder())
         }
     }
 
