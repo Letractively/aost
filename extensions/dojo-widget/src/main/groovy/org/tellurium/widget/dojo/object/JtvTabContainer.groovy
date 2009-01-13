@@ -18,7 +18,7 @@ class JtvTabContainer extends DojoWidget{
     private String groupLocate(){
         StringBuffer sb = new StringBuffer()
         for(String tab: tabList){
-            sb.append(" and ").append("child::span[text()=${tab}")
+            sb.append(" and ").append("descendant::span[text()='${tab}']")
         }
 
         return sb.toString()
@@ -26,8 +26,8 @@ class JtvTabContainer extends DojoWidget{
 
     public void defineWidget() {
         String groupLocator = groupLocate()
-        ui.Container(uid: "TabContainer", locator: "/div[contains(@id, 'jtv_widget_JtvTabContainer') and @wairole='tablist' ${groupLocator}"){
-            Container(uid: "dijitTab", locator: "/div[contains(@widgetid, 'jtv_widget_JtvTabButton') and contains(@class, 'dijitTab') and child::span[text()=?]]", respond: ["mouseOver", "mouseOut", "click"]){
+        ui.Container(uid: "TabContainer", locator: "/div[contains(@id, 'jtv_widget_JtvTabContainer') and @wairole='tablist' ${groupLocator}]"){
+            Container(uid: "dijitTab", locator: "/div[contains(@widgetid, 'jtv_widget_JtvTabButton') and contains(@class, 'dijitTab') and descendant::span[text()='?']]", respond: ["mouseOver", "mouseOut", "click"]){
                 Container(uid: "innerTab", clocator: [tag: "div", class: "dijitTabInnerDiv", dojoattachpoint: "innerDiv"]){
                     Span(uid: "tab", clocator: [dojoattachpoint: "%%containerNode"])
                     Span(uid: "Close", clocator: [dojoattachpoint: "closeButtonNode", class: "closeImage"])
