@@ -31,12 +31,16 @@ public class Node {
             hasChildren = true;
         StringBuffer sb = new StringBuffer();
         sb.append(Ui.getType(attributes.get(TAG), hasChildren)).append("(UID: ").append(id).append(", clocator: [:])");
+        if(hasChildren)
+            sb.append("{");
         System.out.println(sb.toString());
         if(hasChildren){
             for(Node node: children){
                 node.printUI();
             }
         }
+        if(hasChildren)
+            System.out.println("}");
     }
 
     public String getId() {
