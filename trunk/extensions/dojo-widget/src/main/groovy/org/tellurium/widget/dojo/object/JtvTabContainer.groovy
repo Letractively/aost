@@ -46,7 +46,29 @@ class JtvTabContainer extends DojoWidget{
         }
     }
 
+    protected boolean isSelectedTab(String uid, String tab, String cssClass){
+      WorkflowContext context = WorkflowContext.getDefaultContext()
+       String[] strings = ui.walkTo(context, uid)?.hasCssClass(){ loc, classAttr ->
+         String locator = locatorMapping(context, loc)
+         locator = locator.replaceFirst(PLACE_HOLDER, tab)
+         ((String)accessor.getAttribute(locator + classAttr ))?.split(" ")
+        }
+
+        if(strings?.length){
+          for(i in 0..strings?.length){
+           if(cssClass.equalsIgnoreCase(strings[i])){
+             return true
+           }
+         }
+       }
+       return false
+    }
+
     public void clickOnTab(String tabName){
         clickTab "TabContainer.dijitTab", tabName
+    }
+
+    public boolean isSelectedTab(String tabName, String className){
+      isSelectedTab "TabContainer.dijitTab", tabName, className
     }
 }

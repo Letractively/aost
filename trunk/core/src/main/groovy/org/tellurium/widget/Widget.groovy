@@ -564,6 +564,23 @@ abstract class Widget extends UiObject{
          }
     }
 
+
+     def hasCssClass(String uid, String cssClass){
+       WorkflowContext context = WorkflowContext.getDefaultContext()
+        String[] strings = ui.walkTo(context, uid)?.hasCssClass(){ loc, classAttr ->
+            String locator = locatorMapping(context, loc)
+            ((String)accessor.getAttribute(locator + classAttr ))?.split(" ")
+         }
+         if(strings?.length){
+           for(i in 0..strings?.length){
+            if(cssClass.equalsIgnoreCase(strings[i])){
+              return true
+            }
+          }
+        }
+      return false
+    }
+
     def submit(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, uid)?.submit(){ loc ->
