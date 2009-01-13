@@ -13,7 +13,7 @@ public class Tree_UT {
     public static final String TAG = "tag";
 
     @Test
-    public void testAddElement(){
+    public void testAddInOrderElement(){
         Tree tree = new Tree();
         Element e1 = new Element();
         e1.setUid("A");
@@ -45,6 +45,52 @@ public class Tree_UT {
         e5.addAttribute(TAG, "a");
         tree.addElement(e5);
 
+        tree.printUI();
+    }
+
+    @Test
+    public void testAddRandomOrderElement(){
+        Tree tree = new Tree();
+        Element e1 = new Element();
+        e1.setUid("A");
+        e1.setXpath("/html/body/table[@id='mt']");
+        e1.addAttribute(TAG, "table");
+        tree.addElement(e1);
+        tree.printUI();
+
+        Element e2 = new Element();
+        e2.setUid("B");
+        e2.setXpath("/html/body/table[@id='mt']/tbody/tr/th[3]");
+        e2.addAttribute(TAG, "th");
+        tree.addElement(e2);
+        tree.printUI();
+
+        Element e3 = new Element();
+        e3.setUid("C");
+        e3.setXpath("/html/body/table[@id='mt']/tbody/tr/th[3]/div");
+        e3.addAttribute(TAG, "div");
+        tree.addElement(e3);
+        tree.printUI();
+
+        Element e4 = new Element();
+        e4.setUid("D");
+        e4.setXpath("/html/body/div[@id='maincol']/div[@id='colcontrol']/div/div[@id='bub']");
+        e4.addAttribute(TAG, "div");
+        tree.addElement(e4);
+        tree.printUI();
+
+        Element e5 = new Element();
+        e5.setUid("E");
+        e5.setXpath("/html/body/div[@id='maincol']/div[@id='colcontrol']/div/div[@id='bub']/table[@id='resultstable']");
+        e5.addAttribute(TAG, "table");
+        tree.addElement(e5);
+        tree.printUI();
+
+        Element e6 = new Element();
+        e6.setUid("E");
+        e6.setXpath("/html/body/div[@id='maincol']/div[@id='colcontrol']/div/div[@id='bub']/table[@id='resultstable']/tbody/tr[2]/td[3]/a");
+        e6.addAttribute(TAG, "a");
+        tree.addElement(e6);
         tree.printUI();
     }
 }
