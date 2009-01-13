@@ -2,7 +2,7 @@ package org.tellurium.dsl
 
 import org.tellurium.widget.Widget
 
-abstract class DslContext extends BaseDslContext{
+abstract class DslContext extends BaseDslContext {
 
 //    def defUi = ui.&Container
 
@@ -10,51 +10,54 @@ abstract class DslContext extends BaseDslContext{
 //    remove this constraint so that DSL script does not need to define this method
 //    public abstract void defineUi()
 
-    def getWidget(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, uid)
-         if(!(obj instanceof Widget)){
-             println "Warning, Ui object ${uid} is not a widget"
-         }
+    def getWidget(String uid) {
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        def obj = ui.walkTo(context, uid)
+        if (!(obj instanceof Widget)) {
+            println "Warning, Ui object ${uid} is not a widget"
+        }
 
-         return obj
+        //add reference xpath for the widget
+        obj.pRef = context.getReferenceLocator()
+
+        return obj
     }
 
-    def onWidget(String uid, String method, Object[] args){
+    def onWidget(String uid, String method, Object[] args) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         def obj = ui.walkTo(context, uid)
         if (!(obj instanceof Widget)) {
             println "Error, Ui object ${uid} is not a widget"
-            
+
             throw new RuntimeException("Ui object ${uid} is not a widget")
         } else {
             if (obj.metaClass.respondsTo(obj, method, args)) {
 
                 return obj.invokeMethod(method, args)
-            }else{
+            } else {
 
                 throw new MissingMethodException(method, obj.metaClass.class, args)
             }
         }
     }
 
-    def findObject(String uid){
+    def findObject(String uid) {
         def obj = ui.findUiObjectFromRegistry(uid)
-        if(obj == null)
+        if (obj == null)
             println("Cannot find UI Object ${uid}")
         return obj
     }
 
-    protected String locatorMapping(WorkflowContext context, loc ){
+    protected String locatorMapping(WorkflowContext context, loc) {
         //get ui object's locator
         String locator = locatorProcessor.locate(loc)
 
         //get the reference locator all the way to the ui object
-        if(context.getReferenceLocator() != null)
+        if (context.getReferenceLocator() != null)
             locator = context.getReferenceLocator() + locator
 
         //make sure the xpath starts with "//"
-        if(locator != null && (!locator.startsWith("//"))){
+        if (locator != null && (!locator.startsWith("//"))) {
             locator = "/" + locator
         }
 
@@ -96,43 +99,43 @@ abstract class DslContext extends BaseDslContext{
         }
     }
 
-    def mouseOver(String uid){
+    def mouseOver(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.mouseOver(){ loc, String[] events ->
+        ui.walkTo(context, uid)?.mouseOver() {loc, String[] events ->
             String locator = locatorMapping(context, loc)
             eventHandler.mouseOver(locator, events)
         }
     }
 
-    def openWindow(String uid, String url){
+    def openWindow(String uid, String url) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, uid)?.openWindow(url) {String loc, String aurl ->
             eventHandler.openWindow(aurl, loc)
         }
     }
 
-    def selectWindow(String uid){
+    def selectWindow(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, uid)?.selectWindow() {String loc ->
             eventHandler.selectWindow(loc)
         }
     }
 
-    def selectMainWindow(){
+    def selectMainWindow() {
         eventHandler.selectWindow(null)
     }
 
-    def selectParentWindow(){
+    def selectParentWindow() {
         eventHandler.selectWindow(".")
     }
-    
-    def waitForPopUp(String uid, int timeout){
+
+    def waitForPopUp(String uid, int timeout) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, uid)?.waitForPopUp(timeout) {String loc ->
-              accessor.waitForPopUp(loc, Integer.toString(timeout))
+            accessor.waitForPopUp(loc, Integer.toString(timeout))
         }
     }
-    
+
     boolean getWhetherThisWindowMatchWindowExpression(String uid, String target) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         ui.walkTo(context, uid)?.getWhetherThisWindowMatchWindowExpression(target) {String loc ->
@@ -140,114 +143,115 @@ abstract class DslContext extends BaseDslContext{
         }
     }
 
-    def windowFocus(){
-       eventHandler.windowFocus()
+    def windowFocus() {
+        eventHandler.windowFocus()
     }
 
-    def windowMaximize(){
-       eventHandler.windowMaximize()
+    def windowMaximize() {
+        eventHandler.windowMaximize()
     }
 
-    String getBodyText(){
+    String getBodyText() {
         return accessor.getBodyText()
     }
 
-    boolean isTextPresent(String pattern){
-       return accessor.isTextPresent(pattern)
+    boolean isTextPresent(String pattern) {
+        return accessor.isTextPresent(pattern)
     }
 
-    String getHtmlSource(){
+    String getHtmlSource() {
         return accessor.getHtmlSource()
     }
 
-    String getExpression(String expression){
+    String getExpression(String expression) {
         return accessor.getExpression(expression)
     }
 
-    String getCookie(){
+    String getCookie() {
         return accessor.getCookie()
     }
 
-    void runScript(String script){
+    void runScript(String script) {
         accessor.runScript(script)
     }
 
-    void captureScreenshot(String filename){
+    void captureScreenshot(String filename) {
         accessor.captureScreenshot(filename)
     }
 
-    void chooseCancelOnNextConfirmation(){
+    void chooseCancelOnNextConfirmation() {
         eventHandler.chooseCancelOnNextConfirmation()
     }
 
-    void chooseOkOnNextConfirmation(){
+    void chooseOkOnNextConfirmation() {
         eventHandler.chooseOkOnNextConfirmation()
     }
 
-    void answerOnNextPrompt(String answer){
+    void answerOnNextPrompt(String answer) {
         eventHandler.answerOnNextPrompt(answer)
     }
 
-    void goBack(){
+    void goBack() {
         eventHandler.goBack()
     }
 
-    void refresh(){
+    void refresh() {
         eventHandler.refresh()
     }
 
-    boolean isAlertPresent(){
+    boolean isAlertPresent() {
         return accessor.isAlertPresent()
     }
 
-    boolean isPromptPresent(){
+    boolean isPromptPresent() {
         return accessor.isPromptPresent()
     }
 
-    boolean isConfirmationPresent(){
+    boolean isConfirmationPresent() {
         return accessor.isConfirmationPresent()
     }
 
-    String getAlert(){
+    String getAlert() {
         return accessor.getAlert()
     }
 
-    String getConfirmation(){
+    String getConfirmation() {
         return accessor.getConfirmation()
     }
 
-    String getPrompt(){
+    String getPrompt() {
         return accessor.getPrompt()
     }
 
-    String getLocation(){
+    String getLocation() {
         return accessor.getLocation()
     }
 
-    String getTitle(){
+    String getTitle() {
         return accessor.getTitle()
     }
-    String[] getAllButtons(){
-       return accessor.getAllButtons()
+
+    String[] getAllButtons() {
+        return accessor.getAllButtons()
     }
 
-    String[] getAllLinks(){
-       return accessor.getAllLinks()
+    String[] getAllLinks() {
+        return accessor.getAllLinks()
     }
 
-    String[] getAllFields(){
+    String[] getAllFields() {
         return accessor.getAllFields()
     }
 
-    String[] getAllWindowIds(){
+    String[] getAllWindowIds() {
         return accessor.getAllWindowIds()
     }
 
-    String[] getAllWindowNames(){
+    String[] getAllWindowNames() {
         return accessor.getAllWindowNames()
     }
 
-    String[] getAllWindowTitles(){
+    String[] getAllWindowTitles() {
         return accessor.getAllWindowTitles()
     }
 

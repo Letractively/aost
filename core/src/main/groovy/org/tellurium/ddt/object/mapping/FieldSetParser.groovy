@@ -4,7 +4,6 @@ import org.tellurium.ddt.object.mapping.builder.FieldBuilder
 import org.tellurium.ddt.object.mapping.builder.FieldSetBuilder
 import org.tellurium.ddt.object.mapping.builder.IdentifierFieldBuilder
 import org.tellurium.ddt.object.mapping.builder.TestFieldBuilder
-import org.tellurium.ddt.object.mapping.builder.TestFieldBuilder
 
 /**
  * parse the Field Set definition

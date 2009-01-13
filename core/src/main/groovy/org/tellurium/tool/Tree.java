@@ -18,6 +18,8 @@ public class Tree {
 
     private Node root;
 
+    private XPathComparator xpc = new XPathComparator();
+
     public void printUI(){
         if(root != null){
             root.printUI();
@@ -28,9 +30,10 @@ public class Tree {
         //case I: root is null, insert the first node
         if(root == null){
             root = new Node();
-            root.setId("root");
+            root.setId(element.getUid());
             root.setParent(null);
             root.setXpath(element.getXpath());
+            root.setAttributes(element.getAttributes());
         }else{
             //not the first node, need to match element's xpath with current node's relative xpath starting from the root
             //First, need to check the root and get the common xpath
@@ -62,7 +65,8 @@ public class Tree {
                 newroot.setXpath(common);
                 newroot.setParent(null);
                 String newxpath = XPathMatcher.remainingXPath(root.getXpath(), common);
-                root.setId("T4"+newxpath);
+                if(root.getId() != null && root.getId().equals("root"))
+                    root.setId(Uid.genUid(newxpath));
                 root.setXpath(newxpath);
                 root.setParent(newroot);
                 newroot.addChild(root);
@@ -94,7 +98,7 @@ public class Tree {
                 current.addChild(child);
             }
         }else{
-            PriorityQueue<XPath> queue = new PriorityQueue<XPath>();
+            PriorityQueue<XPath> queue = new PriorityQueue<XPath>(16, xpc);
             for(Node node: current.getChildren()){
                 XPath xp = new XPath();
                 xp.setXpath(XPathMatcher.match(node.getXpath(), xpath));
@@ -142,7 +146,7 @@ public class Tree {
                 Node extra = new Node();
                 extra.setXpath(common);
                 extra.setParent(current);
-                extra.setId("T4"+common);
+                extra.setId(Uid.genUid(common));
                 current.addChild(extra);
                 for(XPath xp: max){
                     Node cnode = xp.getNode();

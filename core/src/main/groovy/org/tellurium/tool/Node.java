@@ -13,7 +13,8 @@ import java.util.Map;
  */
 public class Node {
     public static final String TAG = "tag";
-    
+    public static final int LENGTH = 64;
+
     private String id;
 
     //relative xpath
@@ -25,12 +26,29 @@ public class Node {
 
     private LinkedList<Node> children = new LinkedList<Node>();
 
+    private int getLevel(){
+        int level = 0;
+        Node current = this;
+        while(current.parent != null){
+            level++;
+            current = current.parent;
+        }
+
+        return level;
+    }
+
     public void printUI(){
         boolean hasChildren = false;
         if(children.size() > 0)
             hasChildren = true;
-        StringBuffer sb = new StringBuffer();
-        sb.append(Ui.getType(attributes.get(TAG), hasChildren)).append("(UID: ").append(id).append(", clocator: [:])");
+        StringBuffer sb = new StringBuffer(LENGTH);
+        //get the current level of the node so that we can do pretty print
+        int level = this.getLevel();
+        for(int i=0; i<level; i++){
+            sb.append("  ");
+        }
+        sb.append(Ui.getType(attributes.get(TAG), hasChildren)).append("(UID: '").append(id).append("', clocator: [:])")
+                .append("[xpath: ").append(xpath).append("]");
         if(hasChildren)
             sb.append("{");
         System.out.println(sb.toString());
@@ -39,8 +57,14 @@ public class Node {
                 node.printUI();
             }
         }
-        if(hasChildren)
-            System.out.println("}");
+        if(hasChildren){
+            StringBuffer indent = new StringBuffer(LENGTH);
+            for(int i=0; i<level; i++){
+                indent.append("  ");
+            }
+            indent.append("}");
+            System.out.println(indent.toString());
+        }
     }
 
     public String getId() {
