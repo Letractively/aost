@@ -42,7 +42,7 @@ public class Tree_UT {
         Element e5 = new Element();
         e5.setUid("E");
         e5.setXpath("/html/body/table[@id='mt']/tbody/tr/th[3]/div/div[4]/a");
-        e4.addAttribute(TAG, "a");
+        e5.addAttribute(TAG, "a");
         tree.addElement(e5);
 
         tree.printUI();
