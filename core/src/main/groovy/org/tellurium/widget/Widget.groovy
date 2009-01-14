@@ -26,6 +26,9 @@ abstract class Widget extends UiObject{
 
     public final static String NAMESPACE_SUFFIX = "_"
 
+    //the reference xpath for widget's parent
+    private String pRef;
+
     //Note:
     //we need namespace to differentiate the same widget name from different widget modules
     //for example, if Dojo and ExtJS both has the widget called Accordion, we have to differentiate
@@ -55,6 +58,10 @@ abstract class Widget extends UiObject{
         //append the object's xpath to widget's xpath
         lcr = wlc + lcr
 
+        //add parent reference xpath
+        if(pRef != null)
+            lcr = pRef + lcr
+
         //make sure the xpath starts with "//"
         if(lcr != null && (!lcr.startsWith("//"))){
             lcr = "/" + lcr
@@ -63,7 +70,7 @@ abstract class Widget extends UiObject{
         return lcr
     }
 
-        def getUiElement(String uid){
+    def getUiElement(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          def obj = ui.walkTo(context, uid)
 
@@ -72,10 +79,7 @@ abstract class Widget extends UiObject{
 
     def mouseOver(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-//        ui.walkTo(context, uid)?.mouseOver(){ loc, String[] events ->
-//            String locator = locatorMapping(context, loc)
-//            eventHandler.mouseOver(locator, events)
-//        }
+
         ui.walkTo(context, uid)?.mouseOver(){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.mouseOver(locator)
@@ -84,10 +88,7 @@ abstract class Widget extends UiObject{
 
     def mouseOut(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-//        ui.walkTo(context, uid)?.mouseOut(){ loc, String[] events ->
-//            String locator = locatorMapping(context, loc)
-//            eventHandler.mouseOut(locator, events)
-//        }
+
         ui.walkTo(context, uid)?.mouseOut(){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.mouseOut(locator)
