@@ -102,7 +102,10 @@ abstract class UiObject {
          //check if the click action is used and if the object can respond to the "Click" event
          //if it is, then call the "click" method, i.e., the innerClick method here
          if("click".equals(name) && isEventIncluded(Event.CLICK)){
-             return this.invokeMethod("innerClick", args)
+             return this.invokeMethod("innerCall", args)
+         }
+         if("doubleClick".equals(name) && isEventIncluded(Event.DOUBLECLICK)){
+             return this.invokeMethod("innerCall", args)
          }
 
         throw new MissingMethodException(name, UiObject.class, args)
@@ -120,7 +123,7 @@ abstract class UiObject {
         return false
     }
 
-    protected innerClick(Closure c){
+    protected innerCall(Closure c){
         c(locator)
     }
 
