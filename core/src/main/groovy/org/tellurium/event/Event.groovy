@@ -32,6 +32,7 @@ enum Event {
     BLUR,
     FOCUS,
     CLICK,
+    DOUBLECLICK,
     MOUSEOVER,
     MOUSEOUT,
     KEYDOWN,

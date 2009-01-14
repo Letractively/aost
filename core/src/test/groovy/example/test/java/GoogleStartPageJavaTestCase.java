@@ -47,6 +47,13 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
         ngsp.testClick();
     }
 
+    //test the dynamically added event "doubleclick"
+    @Test
+    public void testDoubleClick(){
+        connectUrl("http://www.google.com");
+        ngsp.testDoubleClick();
+    }
+
     @Test
     public void testGetAttribute(){
         connectUrl("http://www.google.com");
