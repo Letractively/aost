@@ -11,6 +11,7 @@ import org.tellurium.tool.Tree;
  */
 public class Tree_UT {
     public static final String TAG = "tag";
+    public static final String ID = "id";
 
     @Test
     public void testAddInOrderElement(){
@@ -83,11 +84,12 @@ public class Tree_UT {
         e5.setUid("E");
         e5.setXpath("/html/body/div[@id='maincol']/div[@id='colcontrol']/div/div[@id='bub']/table[@id='resultstable']");
         e5.addAttribute(TAG, "table");
+        e5.addAttribute(ID, "resultstable");
         tree.addElement(e5);
         tree.printUI();
 
         Element e6 = new Element();
-        e6.setUid("E");
+        e6.setUid("F");
         e6.setXpath("/html/body/div[@id='maincol']/div[@id='colcontrol']/div/div[@id='bub']/table[@id='resultstable']/tbody/tr[2]/td[3]/a");
         e6.addAttribute(TAG, "a");
         tree.addElement(e6);

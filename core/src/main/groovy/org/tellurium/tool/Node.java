@@ -47,8 +47,22 @@ public class Node {
         for(int i=0; i<level; i++){
             sb.append("  ");
         }
-        sb.append(Ui.getType(attributes.get(TAG), hasChildren)).append("(UID: '").append(id).append("', clocator: [:])")
-                .append("[xpath: ").append(xpath).append("]");
+        sb.append(Ui.getType(attributes.get(TAG), hasChildren)).append("(UID: '").append(id).append("', clocator: [");
+        if(attributes.size() == 0){
+            sb.append(":");
+        }else{
+            int count = 0;
+            for(String key: attributes.keySet()){
+                if(++count > 1)
+                    sb.append(",");
+                sb.append(key).append(":").append("'").append(attributes.get(key)).append("'");
+            }
+        }
+
+        sb.append("]");
+        //comment this line out if you do not want xpath to display
+//        sb.append("[xpath: ").append(xpath).append("]");
+        sb.append(")");
         if(hasChildren)
             sb.append("{");
         System.out.println(sb.toString());
