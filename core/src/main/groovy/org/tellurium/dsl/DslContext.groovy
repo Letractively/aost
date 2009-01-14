@@ -18,7 +18,8 @@ abstract class DslContext extends BaseDslContext {
         }
 
         //add reference xpath for the widget
-        obj.pRef = context.getReferenceLocator()
+        Widget widget = (Widget)obj
+        widget.updateParentRef(context.getReferenceLocator())
 
         return obj
     }
@@ -32,6 +33,10 @@ abstract class DslContext extends BaseDslContext {
             throw new RuntimeException("Ui object ${uid} is not a widget")
         } else {
             if (obj.metaClass.respondsTo(obj, method, args)) {
+
+                //add reference xpath for the widget
+                Widget widget = (Widget)obj
+                widget.updateParentRef(context.getReferenceLocator())
 
                 return obj.invokeMethod(method, args)
             } else {

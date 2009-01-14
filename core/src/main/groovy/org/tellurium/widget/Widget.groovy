@@ -45,6 +45,10 @@ abstract class Widget extends UiObject{
     Accessor accessor = new Accessor()
     LocatorProcessor locatorProcessor = new LocatorProcessor()
 
+    public void updateParentRef(String ref){
+        this.pRef = ref
+    }
+
     protected String locatorMapping(WorkflowContext context, loc ){
         //get ui object's locator
         String lcr = locatorProcessor.locate(loc)
