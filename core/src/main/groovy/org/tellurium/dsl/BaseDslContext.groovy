@@ -422,8 +422,9 @@ abstract class BaseDslContext {
         def obj = ui.walkTo(context, uid)
          if(obj != null){
              return obj.isDisabled (){loc ->
-                 String locator = locatorMapping(context, loc)
-                 accessor.isDisabled(locator);
+                 String locator = locatorMapping(context, loc) + "/self::node()[@disabled]"
+  //               accessor.isDisabled(locator);
+                 accessor.isElementPresent(locator)
              }
          }
     }
