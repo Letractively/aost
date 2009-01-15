@@ -9,6 +9,8 @@ import org.tellurium.locator.LocatorProcessor
 import org.tellurium.object.List
 import org.tellurium.object.Table
 import org.tellurium.object.UiObject
+import org.tellurium.util.Helper
+
 
 /**
  * The base class for Widget objects.
