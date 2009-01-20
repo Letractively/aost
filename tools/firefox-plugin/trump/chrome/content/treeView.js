@@ -1,20 +1,45 @@
 
 
-var TreeView = {
+var TreeView  = {
+    rowCount : 0,
+    recordIndex : 0,
+    tagObjects : null,
 
-    rowCount : 10000,
+    rowInserted: function() {
+        this.treebox.rowCountChanged(this.rowCount, 1);
+        this.rowCount++;
+        this.treebox.ensureRowIsVisible(this.recordIndex);
+        this.recordIndex++;
+    },
 
-    getCellText : function(row, column){
-            var colId = column.id != null ? column.id : column;
-            var command = this.getCommand(row);
-            if (command.type == 'command') {
-                return command[colId];
-            } else if (command.type == 'comment') {
-                return colId == 'command' ? command.comment : '';
-            } else {
-                return null;
-            }
-        },
+    getRecordIndex: function() {
+        return this.recordIndex;
+    },
+
+    setTagObjects : function(elements){
+        this.tagObjects = elements;
+    },
+
+    deleteRow : function(index){
+        this.treebox.rowCountChanged(index, -1);
+        this.rowCount--;
+        this.recordIndex--;
+    },
+
+    getCellText : function(row, aColumn){
+        var column = (aColumn.id) ? aColumn.id : aColumn; //Firefox pre1.5 compatibility
+        var tagObject = this.tagObjects[row];
+
+        if(column == "selectedElement" ){
+            return tagObject.tag;
+        }
+
+        if(column == "selecetedElementName"){
+            return tagObject.name;
+        }
+
+        return "todo.."
+    },
     setTree: function(treebox){
         this.treebox = treebox;
     },
@@ -41,5 +66,12 @@ var TreeView = {
     },
     getColumnProperties: function(colid,col,props){
 
+    },
+
+    cycleHeader: function(colid,elt){
+
+    },
+    cycleCell: function(rowid,colid){
+        
     }
 };

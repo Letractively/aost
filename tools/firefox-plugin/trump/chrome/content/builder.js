@@ -25,23 +25,25 @@ Builder.prototype.createTagObject = function(node){
     var attributes;
     var parent;
     var xpath;
+    var name;
     //Check if its an ELEMENT TYPE NODE
     if (getNodeType(node) == constants.ELEMENT_TYPE_NODE) {
         lowerCaseNodeName = getNodeName(node).toLowerCase();
         attributes = getNotBlackListedAttributes(node.attributes);
         parent = node.parentNode;
-
+        name = getAttributeNameOrId(node)
         //TODO xpath creation
         xpath = createXPath(node);
 
-        return this.buildTagObject(node, lowerCaseNodeName, attributes, parent, xpath);
+        return this.buildTagObject(node, lowerCaseNodeName, name, attributes, parent, xpath);
     }
 
     return null;
 }
 
-Builder.prototype.buildTagObject = function(node, tag, attributes, parent, xpath){
+Builder.prototype.buildTagObject = function(node, tag, name, attributes, parent, xpath){
     var tagObject = new TagObject();
+    tagObject.name = name;
     tagObject.node = node;
     tagObject.tag = tag;
     tagObject.attributes = attributes;
