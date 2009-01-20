@@ -6,10 +6,6 @@ function Editor(window) {
     var self = this;
     window.editor = this;
     this.document = document;
-    this.treeView = new TreeView();
-
-    document.getElementById('recordTree').view=this.treeView;
-
     this.registerRecorder();
 }
 

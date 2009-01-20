@@ -32,37 +32,18 @@
             <tab id="sourceTab" label="&sourceTab.label;" />
             <tab id="settingsTab" label="&settingsTab.label;" />
         </tabs>
-        <tabpanels>
+        <tabpanels flex="1">
             <tabpanel orient="vertical" flex="1">
                 <stack>
-                    <vbox>
-                        <tree id="recordTree" flex="1" rows="2">
+                    <vbox flex="1">
+                        <tree id="recordTree" flex="1" rows="10">
                           <treecols>
                             <treecol id="selectedElement" label="&element.label;" flex="1"/>
                             <treecol id="selecetedElementName" label="&element.name.label;" flex="2"/>
                           </treecols>
 
                           <treechildren/>
-                            <!--<treeitem>
-                              <treerow>
-                                <treecell label="Selected element"/>
-                                <treecell label="name"/>
-                              </treerow>
-                            </treeitem>
-                          </treechildren>-->
-
                         </tree>
-
-                        <!--<listbox id="recordListBox">
-                            <listhead>
-                                <listheader label="&element.label;" width="130"/>
-                                <listheader label="&element.name.label;" width="130"/>
-                            </listhead>
-                            <listcols>
-                                <listcol flex="1"/>
-                                <listcol flex="1"/>
-                            </listcols>
-                        </listbox>-->
                     </vbox>
                 </stack>
             </tabpanel>

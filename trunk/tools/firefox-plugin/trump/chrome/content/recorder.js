@@ -8,7 +8,10 @@ function Recorder(window) {
     this.listener = null;
     this.selectedElements = new Array();
     this.tagObjectArray = new Array();
-    this.recordListBox = document.getElementById("recordListBox");
+
+    this.treeView = TreeView;
+    document.getElementById('recordTree').view=this.treeView;
+
 }
 
 Recorder.WINDOW_RECORDER_PROPERTY = "_TrUMP_IDE_Recorder";
@@ -34,22 +37,18 @@ Recorder.prototype.registerClickListener = function(){
                 self.selectedElements.push(element);
 
                 var tagObject = self.builder.createTagObject(element);
-                var name = getAttributeNameOrId(element)
-
-                var cellOne = createListCell(tagObject.tag);
-                var cellTwo = createListCell(name);
-                var listItem = document.createElement("listitem");
-                listItem.appendChild(cellOne);
-                listItem.appendChild(cellTwo);
 
                 self.tagObjectArray.push(tagObject);
-                self.recordListBox.appendItem(listItem);
+
+                self.treeView.setTagObjects(self.tagObjectArray);
+                self.treeView.rowInserted();
+
             }else{
                 //we are assuming to remove the element
                 self.decorator.removeBackground(element);
                 self.selectedElements.splice(index, 1);
                 self.tagObjectArray.splice(index, 1);
-                self.recordListBox.removeItemAt(index);
+                self.treeView.deleteRow(index);
             }
 
         };
@@ -69,6 +68,5 @@ Recorder.prototype.unregisterClickListener = function(){
 Recorder.prototype.stopRecording = function(){
     
 }
-
 
 

@@ -36,14 +36,14 @@ function getNodeValue(node){
 
 
 function getAttributeNameOrId(node){
-    alert("getAttributeNameOrId()");
+//    alert("getAttributeNameOrId()");
     var attributes = node.attributes;
     var val = "";
      for(var i=0; i < attributes.length; ++i){
-         alert(attributes[i].name);
+//         alert(attributes[i].name);
         if(attributes[i].name == 'name' || attributes[i].name == 'id'){
             val = attributes[i].value;
-            alert(val);
+//            alert(val);
             break;
         }
     }

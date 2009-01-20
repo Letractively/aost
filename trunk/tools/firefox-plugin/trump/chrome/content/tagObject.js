@@ -1,6 +1,7 @@
 
 
 function TagObject(){
+    this.name = "";
     this.parent = null;
     this.node = null;
     this.tag = null;
