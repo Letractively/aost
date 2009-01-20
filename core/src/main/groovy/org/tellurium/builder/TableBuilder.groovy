@@ -12,35 +12,40 @@ import org.tellurium.object.UiObject
 
 class TableBuilder extends UiObjectBuilder{
 
-   def build(Map map, Closure closure){
-       //add default parameters so that the builder can use them if not specified
-       def df = [:]
-       df.put(TAG, Table.TAG)
-       Table table = this.internBuild(new Table(), map, df)
+    protected static final String INCLUDE_TBODY = "tbody"
 
-       if(closure)
-          closure(table)
+    def build(Map map, Closure closure) {
+        //add default parameters so that the builder can use them if not specified
+        def df = [:]
+        df.put(TAG, Table.TAG)
+        Table table = this.internBuild(new Table(), map, df)
+        String includeTbody = map.get(INCLUDE_TBODY)
+        if (includeTbody != null && FALSE.equalsIgnoreCase(includeTbody)) {
+            table.tbody = ""
+        }
+        if (closure)
+            closure(table)
 
-       return table
-   }
-
-   def build(Table table, UiObject[] objects){
-
-      if(table == null || objects == null || objects.length < 1)
         return table
+    }
 
-      objects.each {UiObject obj -> table.add(obj)}
+    def build(Table table, UiObject[] objects) {
 
-      return table
-   }
+        if (table == null || objects == null || objects.length < 1)
+            return table
 
-   def build(Table table, UiObject object){
+        objects.each {UiObject obj -> table.add(obj)}
 
-      if(table == null || object == null)
         return table
+    }
 
-      table.add(object)
+    def build(Table table, UiObject object) {
 
-      return table
-   }
+        if (table == null || object == null)
+            return table
+
+        table.add(object)
+
+        return table
+    }
 }

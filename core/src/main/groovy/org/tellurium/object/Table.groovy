@@ -85,9 +85,12 @@ class Table extends Container{
      public static final String ROW = "ROW";
      public static final String COLUMN = "COLUMN";
      public static final String HEADER = "HEADER";
-    
+     public static final String TBODY = "/tbody"
      protected TextBox defaultUi = new TextBox()
      //add a map to hold all the header elements
+
+     protected String tbody = TBODY
+    
      def headers = [:]
 
      @Override
@@ -306,13 +309,13 @@ class Table extends Container{
 
         return table_cell_loc
         */
-        return "/tbody/tr[child::td][${row}]/td[${column}]"
+        return tbody + "/tr[child::td][${row}]/td[${column}]"
     }
 
     protected String getHeaderLocator(int column) {
 
 //        return "/tbody/tr[1]/th[${column}]"
-        return "/tbody/tr[child::th]/th[${column}]"
+        return tbody + "/tr[child::th]/th[${column}]"
     }
 
     int getTableHeaderColumnNum(Closure c) {
@@ -334,7 +337,7 @@ class Table extends Container{
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
 //        String xpath = rl + "/tbody/tr[1]/th"
-        String xpath = rl + "/tbody/tr[child::th]/th"
+        String xpath = rl + tbody + "/tr[child::th]/th"
         int columnum = accessor.getXpathCount(xpath)
 
         return columnum
@@ -359,7 +362,7 @@ class Table extends Container{
 
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
-        String xpath = rl + "/tbody/tr[child::td]/td[1]"
+        String xpath = rl + tbody + "/tr[child::td]/td[1]"
         int rownum = accessor.getXpathCount(xpath)
 
         return rownum
@@ -392,7 +395,7 @@ class Table extends Container{
             xpath = xpath + "/tbody/tr[1]/td"
         }
 */
-        xpath = xpath + "/tbody/tr[child::td][1]/td"
+        xpath = xpath + tbody + "/tr[child::td][1]/td"
         int columnum = accessor.getXpathCount(xpath)
 
         return columnum
@@ -426,7 +429,7 @@ class Table extends Container{
         }
 
         //append relative location, i.e., row, column to the locator
-        String loc = "/tbody/tr[child::td][${nrow}]/td[${ncolumn}]"
+        String loc = tbody + "/tr[child::td][${nrow}]/td[${ncolumn}]"
 /*
         String loc
         if (hasHeader()) {
@@ -480,7 +483,7 @@ class Table extends Container{
 
         //append relative location, i.e., row, column to the locator
 //        String loc = "/tbody/tr[1]/th[${index}]"
-        String loc = "/tbody/tr[child::th]/th[${index}]"
+        String loc = tbody + "/tr[child::th]/th[${index}]"
         context.appendReferenceLocator(loc)
 
         if (uiid.size() < 1) {
