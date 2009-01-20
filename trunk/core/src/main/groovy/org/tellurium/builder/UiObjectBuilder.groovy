@@ -25,6 +25,7 @@ abstract class UiObjectBuilder{
     public static final String TYPE = "type"
     public static final String USE_GROUP_INFO = "group"
     public static final String TRUE = "TRUE"
+    public static final String FALSE = "FALSE"
     //direct child of either the header or the parent UI
     public static final String DIRECT = "direct"
     public static final String RESPOND_TO_EVENTS = "respond"
