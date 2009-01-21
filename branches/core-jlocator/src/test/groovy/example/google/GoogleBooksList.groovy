@@ -18,7 +18,7 @@ class GoogleBooksList extends DslContext{
 
     public void defineUi() {
 		//jqlocator still needs some work
-		ui.Link(uid: 'jqLink', jqlocator: "#hp_table p:eq(3)");
+		ui.UrlLink(uid: 'jqLink', jqlocator: "#hp_table p:eq(3)");
 		ui.Container(uid: "GoogleBooksList", locator: "//table[@id='hp_table']/tbody/tr/td[1]/div/div[1]"){
             TextBox(uid: "category", locator: "/div")
             List(uid: "subcategory", locator: "", separator: "p"){
@@ -27,7 +27,7 @@ class GoogleBooksList extends DslContext{
         }
     }
 
-	List getJQSelectedLinkTest(){
+	String getJQSelectedLinkTest(){
 		getText 'jqLink'
 	}
 
