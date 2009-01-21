@@ -23,7 +23,7 @@ class NewGoogleStartPage extends DslContext{
         //of course, thisqures that the input box and two submit buttons are indeed the children of the
         //container, i.e., here they must be co-located following the "td" tag in the DOM.
         ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
-            InputBox(uid: "searchbox", clocator: [title: "Google Search"], respond: ["click", "focus", "mouseOver", "mouseOut", "blur"])
+            InputBox(uid: "searchbox", clocator: [title: "Google Search"], respond: ["click", "focus", "mouseOver", "mouseOut", "blur", "keyDown"])
             SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
             SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
         }
@@ -31,7 +31,7 @@ class NewGoogleStartPage extends DslContext{
 
     def doGoogleSearch(String input){
 //        type "searchbox", input
-        keyType "searchbox", input
+        type "searchbox", input
         pause 500
         click "googlesearch"
         waitForPageToLoad 30000

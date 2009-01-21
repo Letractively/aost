@@ -14,6 +14,7 @@ class CustomSelenium extends DefaultSelenium {
     
     CustomSelenium(String host, int port, String browser, String url) {
         super(host, port, browser, url)
+
 	}
 
     /*Please add custom methods here for Selenium RC after you add user extension to Selenium Core

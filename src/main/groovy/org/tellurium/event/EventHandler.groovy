@@ -165,7 +165,11 @@ class EventHandler implements Configurable{
            defaultEvents = ["focus", "mouseOver", "mouseOut", "blur"]
 
         processEvents(locator, events, defaultEvents){
-           dispatcher.type(locator, input)
+           if(includeKeyEvents(events)){
+               processKeyEvent(locator, input, events)
+           }else{
+               dispatcher.type(locator, input)
+           }
         }
     }
 
@@ -223,7 +227,42 @@ class EventHandler implements Configurable{
     	}
     }
 
-	def select(String locator, String target, String[] events) {
+    def processKeyEvent(String locator, String input, String[] events){
+        boolean hasKeyDown = includeKeyDown(events)
+        boolean hasKeyPress = includeKeyPress(events)
+        boolean hasKeyUp = includeKeyUp(events)
+
+        if(input == null || input.length() < 1){
+    		dispatcher.type(locator, "")
+        }else if(input.contains(".") || input.contains("(") || input.contains("y")){
+                    dispatcher.type(locator,input)
+                    if(hasKeyDown)
+                       dispatcher.fireEvent(locator, "keydown")
+                    if(hasKeyPress)
+                       dispatcher.fireEvent(locator, "keypress")
+                    if(hasKeyUp)
+                       dispatcher.fireEvent(locator, "keyup")
+        }else{
+    		char[] chars = input.toCharArray()
+
+            for(char achar: chars){
+    			String key = Character.toString(achar)
+    			if("\n".equals(key)){
+    				dispatcher.keyUp(locator,  "\\13")
+                }else{
+                    if(hasKeyDown)
+                        dispatcher.keyDown(locator, key)
+
+                    dispatcher.keyPress(locator, key)
+                    if(hasKeyUp)
+                        dispatcher.keyUp(locator, key)
+    			}
+    		}
+    	}
+    }
+
+
+    def select(String locator, String target, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)
            defaultEvents = ["focus", "mouseOver", "mouseOut", "blur"]
@@ -353,4 +392,64 @@ class EventHandler implements Configurable{
         dispatcher.refresh()
     }
 
+    protected boolean includeKeyEvents(String[] events){
+        boolean result = false
+
+        if(events != null){
+            for(String event : events){
+                if(Event.KEYDOWN.toString().equalsIgnoreCase(event) || Event.KEYPRESS.toString().equalsIgnoreCase(event)
+                    || Event.KEYUP.toString().equalsIgnoreCase(event)){
+                    result = true
+                    break
+                }
+            }
+        }
+
+        return result
+    }
+
+    protected boolean includeKeyDown(String[] events){
+        boolean result = false
+
+        if(events != null){
+            for(String event : events){
+                if(Event.KEYDOWN.toString().equalsIgnoreCase(event)){
+                    result = true
+                    break
+                }
+            }
+        }
+
+        return result
+    }
+
+    protected boolean includeKeyPress(String[] events){
+        boolean result = false
+
+        if(events != null){
+            for(String event : events){
+                if(Event.KEYPRESS.toString().equalsIgnoreCase(event)){
+                    result = true
+                    break
+                }
+            }
+        }
+
+        return result
+    }
+
+    protected boolean includeKeyUp(String[] events){
+        boolean result = false
+
+        if(events != null){
+            for(String event : events){
+                if(Event.KEYUP.toString().equalsIgnoreCase(event)){
+                    result = true
+                    break
+                }
+            }
+        }
+
+        return result
+    }
 }

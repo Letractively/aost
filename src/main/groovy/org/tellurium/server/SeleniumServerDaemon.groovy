@@ -1,5 +1,6 @@
-package org.tellurium.server;
+package org.tellurium.server
 
+import org.openqa.selenium.server.RemoteControlConfiguration
 import org.openqa.selenium.server.SeleniumServer;
 
 /**
@@ -67,12 +68,16 @@ public class SeleniumServerDaemon {
 
 	public void run() {
 
+		RemoteControlConfiguration config = new RemoteControlConfiguration();
+		config.port = port;
+		config.multiWindow = useMultiWindows;
+		File userExt = new File("./lib/user-extensions.js");
+		config.setUserExtensions(userExt);
 		try {
-            server = new SeleniumServer(port);
-            server.multiWindow = useMultiWindows
-            server.start()
+            server = new SeleniumServer(config);
+			server.boot()
 
-            //String[] args = getParams();
+			//String[] args = getParams();
 			//SeleniumServer.main(args);
             listening = true;
 		} catch (Exception e) {
