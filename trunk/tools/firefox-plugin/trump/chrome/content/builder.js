@@ -29,7 +29,10 @@ Builder.prototype.createTagObject = function(node){
     //Check if its an ELEMENT TYPE NODE
     if (getNodeType(node) == constants.ELEMENT_TYPE_NODE) {
         lowerCaseNodeName = getNodeName(node).toLowerCase();
+
         attributes = getNotBlackListedAttributes(node.attributes);
+        attributes.push("tag", lowerCaseNodeName)
+
         parent = node.parentNode;
         name = getAttributeNameOrId(node)
         //TODO xpath creation
