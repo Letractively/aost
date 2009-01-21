@@ -1,7 +1,7 @@
 package org.tellurium.server
 
 import org.openqa.selenium.server.RemoteControlConfiguration
-import org.openqa.selenium.server.SeleniumServer;
+import org.openqa.selenium.server.SeleniumServer
 
 /**
  * Programmatically run Selenium Server so that we do not have to
@@ -71,6 +71,7 @@ public class SeleniumServerDaemon {
 		RemoteControlConfiguration config = new RemoteControlConfiguration();
 		config.port = port;
 		config.multiWindow = useMultiWindows;
+		config.setProxyInjectionModeArg(true); //this may not be needed, or atleast needs to be configurable
 		File userExt = new File("./lib/user-extensions.js");
 		config.setUserExtensions(userExt);
 		try {
