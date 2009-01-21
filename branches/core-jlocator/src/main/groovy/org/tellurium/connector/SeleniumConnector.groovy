@@ -49,7 +49,7 @@ class SeleniumConnector implements Configurable {
         //sel = new DefaultSelenium("localhost", port, "*chrome /usr/lib64/firefox-3.0/firefox", baseURL);
         //make sure firefox-bin in your environment path
 //        sel = new DefaultSelenium("localhost", port, "*chrome /usr/lib64/firefox-2.0.0.8/firefox-bin", baseURL);
-        sel.start()
+        sel.start();
 
 //        initSeleniumClient()
         SeleniumClient sc = new SeleniumClient()
