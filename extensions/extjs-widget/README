@@ -1,0 +1,99 @@
+                        README
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+Jian Fang     (John.Jian.Fang@gmail.com)
+Vivek Mongolu (vivekmongolu@gmail.com)
+Matt Senter   (matt.senter@gmail.com)
+Quan Bui      (Quan.Bui@gmail.com)
+Haroon Rasheed (haroonzone@gmail.com)
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+The Tellurium Automated Testing Framework (Tellurium) is a UI module-based web automated testing framework. The UI module is a
+collection of UI elements you group together. Usually, the UI module represents a composite UI object in the format of nested
+basic UI elements. The UI module makes it possible to build UI elements' locators at run time. The framework does object to
+locator mapping (OLM) automatically at run time so that you can define UI objects simply by their attributes and write your
+Tellurium tests just like writing JUnit or TestNG tests. Furthermore, Tellurium uses the Group Locating Concept (GLC) to
+exploit information inside a collection of UI components to help finding their locators, Tellurium is more robust, flexible,
+and reusable compared with the Selenium testing framework.
+
+We created the extJS widget project as an extension for the Tellurium Core framework so that we can define extJS widgets and then use
+them directly in test classes simply by including tellurium extjs jar file. Please check the following wiki page for more details 
+
+http://code.google.com/p/aost/wiki/TelluriumWidget
+
+Your feedback and comments are very important to us. Please post your comments and suggestions on Tellurium user group or write directly to us.
+
+Thanks.
+
+--------------------------------------------------Project Structure----------------------------------------------------------------
+
+src/main/groovy              ---------------- Tellurium extjs source code
+
+         org/tellurium/widget/extjs/
+                                  builder/    --------- extJS widget builders
+                                  object/     --------- extJS widgets
+                                  Init.groovy ---------    bootstrap class for the extJS widget module  
+              
+src/test/groovy              ---------------- Tellurium extjs testing code
+
+        org/tellurium/widget/extjs/  
+                                 module/      ---------- UI modules for extJS examples
+                                 test/        ---------- Tellurium test cases for extJS widgets 
+
+src/test/resources
+
+        org/tellurium/widget/extjs/prototype/  ---------- XML files for extJS Widget prototypes         
+
+lib/                 ---------------------- Lib directory including all required jars
+
+build.properties     ---------------------- configuration file for ant build.xml
+build.xml            ---------------------- ant build script
+LICENSE.txt          ---------------------- License file
+README               ---------------------- This file
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+RESOURCES
+
+Tellurium Project Home
+http://code.google.com/p/aost/
+
+Tellurium User Group
+http://groups.google.com/group/tellurium-users
+
+Tellurium Introduction
+http://code.google.com/p/aost/wiki/Introduction
+
+Tellurium Tutorial
+http://code.google.com/p/aost/wiki/Tutorial
+
+Tellurium Data Driven Testing
+http://code.google.com/p/aost/wiki/DataDrivenTesting
+
+Tellurium FAQs
+http://code.google.com/p/aost/wiki/FAQ
+
+Groovy Patterns Used in Tellurium
+http://code.google.com/p/aost/wiki/GroovyPatternsInTellurium
+
+Reference Project Guide
+http://code.google.com/p/aost/wiki/ReferenceProjectGuide
+
+NEWS
+
+    * December 3, Tellurium core 0.5.0 and reference projects are released
+    * December 2, Welcome Mikhail Koryak to our team
+    * November 15, Tellurium 0.5.0 Release Candidate RC01 is out
+    * August 22, Welcome Haroon Rasheed to our team.
+    * August 13, Tellurium 0.4.0 is released and this release includes a lot of new features and enhancements such as
+      data driven testing, framework configuration, and JUnit 4 support.
+    * August 7, Welcome Quan Bui to our team.
+    * July 29, The AOST framework is officially renamed to the Tellurium Automated Testing framework (Tellurium).
+    * July 29, Welcome Matt Senter to our team.
+    * July 22, Welcome Adrian Carr as a contributor to our project.
+    * July 18, Welcome Vivek Mongolu to our team.
+    * July 17, AOST user group is created. Please join and post your questions, comments, and suggestions there.
+    * July 12, AOST 0.3.0 is out and it comes with significant feature enhancement including Composite Locator,
+      Group Locating Concept, and Multiple UI Modules in one DslContext?.
+    * July 02, UI Object ID is refactored to support nested UI objects.
+    * June 25, The AOST framework became public with version 0.2.0. The framework has gone through two phases of
+      prototype and has already been used for couple internal projects at the release time.
