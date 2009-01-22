@@ -7,24 +7,24 @@ function Ui(){
                 SUBMIT : "submit"
     }
 
-    this.map = new Hash();
-        this.map.set("divN", "DIV");
-        this.map.set("divY", "Container");
-        this.map.set("aN", "UrlLink");
-        this.map.set("inputN", "InputBox");
-        this.map.set("imgN", "Image");
-        this.map.set("selectN", "Selector");
-        this.map.set("formN", "Form");
-        this.map.set("formY", "Form");
-        this.map.set("tableN", "Table");
-        this.map.set("tableY", "Table");
+    this.map = new HashMap();
+    this.map.set("divN", "DIV");
+    this.map.set("divY", "Container");
+    this.map.set("aN", "UrlLink");
+    this.map.set("inputN", "InputBox");
+    this.map.set("imgN", "Image");
+    this.map.set("selectN", "Selector");
+    this.map.set("formN", "Form");
+    this.map.set("formY", "Form");
+    this.map.set("tableN", "Table");
+    this.map.set("tableY", "Table");
 }
 
 Ui.prototype.getType = function(tag, hasChildren){
-    return this.getType(tag, null, hasChildren);
+    return this.getTypeWithExtra(tag, null, hasChildren);
 }
 
-Ui.prototype.getType = function(tag, extra, hasChildren){
+Ui.prototype.getTypeWithExtra = function(tag, extra, hasChildren){
     var addition = "N";
         if(hasChildren)
             addition = "Y";
@@ -38,6 +38,7 @@ Ui.prototype.getType = function(tag, extra, hasChildren){
         }
 
         if(this.constants.INPUT == tag && extra != null){
+            alert("extra : " + extra);
             var type = extra.get(this.constants.TYPE);
             if(type != null){
                 if(this.constants.CHECKBOX == type){

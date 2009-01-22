@@ -1,7 +1,8 @@
 <!ENTITY trump-ide.title "TrUMP IDE">
 
 <!ENTITY recordButton.tooltip "Record">
-<!ENTITY stopButton.tooltip "Record">
+<!ENTITY stopButton.tooltip "Stop">
+<!ENTITY generate.tooltip "Generate">
 
 <!ENTITY recordTab.label "Record">
 <!ENTITY customizeTab.label "Customize">

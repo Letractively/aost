@@ -31,7 +31,7 @@ Builder.prototype.createTagObject = function(node){
         lowerCaseNodeName = getNodeName(node).toLowerCase();
 
         attributes = getNotBlackListedAttributes(node.attributes);
-        attributes.push("tag", lowerCaseNodeName)
+        attributes.set("tag", lowerCaseNodeName);
 
         parent = node.parentNode;
         name = getAttributeNameOrId(node)
@@ -79,12 +79,15 @@ function getAttributesString(node){
 }
 
 function getNotBlackListedAttributes(attributes){
-    var wantedAttributes = new Array();
+    var wantedAttributes = new HashMap();
     for(var i=0; i < attributes.length; ++i){
         if(isNotBlackListed(attributes[i].name)){
-            wantedAttributes.push(attributes[i]);
+            wantedAttributes.set(attributes[i].name, attributes[i].value);
         }
     }
+    alert("wantedAttr - keyset : " + wantedAttributes.keySet());
+    alert("wantedAttr - valueset : " + wantedAttributes.valSet());
+    alert("wantedAttr : " + wantedAttributes.showMe());
     return wantedAttributes;
 }
 

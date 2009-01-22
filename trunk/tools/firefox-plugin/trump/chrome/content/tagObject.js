@@ -5,7 +5,7 @@ function TagObject(){
     this.parent = null;
     this.node = null;
     this.tag = null;
-    this.attributes = null;
+    this.attributes = new HashMap();
     this.xpath = null;
 }
 
