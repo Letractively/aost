@@ -16,16 +16,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-extjs-widget.ipr" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TelluriumConfig.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/LICENSE.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium-extjs-widget.iml" afterPath="$PROJECT_DIR$/tellurium-extjs-widget.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-extjs-widget.iws" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium-extjs-widget.iws" afterPath="$PROJECT_DIR$/tellurium-extjs-widget.iws" />
     </list>
     <ignored path="tellurium-extjs-widget.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -144,19 +136,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TelluriumConfig.groovy" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="TelluriumConfig.groovy" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TelluriumConfig.groovy">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.2196262">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="27" selection-start="264" selection-end="264" vertical-scroll-proportion="0.077186964">
               <folding />
             </state>
           </provider>
@@ -599,7 +582,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1440" height="846" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="-1" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="-1" />
@@ -611,7 +594,7 @@
       <window_info id="ConsoleMavenPlugin" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="-1" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
       <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="-1" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29841042" order="0" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29841042" order="0" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294964" order="2" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
       <window_info id="Archetypes" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="-1" />
@@ -640,7 +623,7 @@
     <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="setup tellurium extjs widget project" />
+    <option name="LAST_COMMIT_MESSAGE" value="add project settings for extjs widget" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -652,6 +635,7 @@
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="setup tellurium extjs widget project" />
+    <MESSAGE value="add project settings for extjs widget" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -750,16 +734,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TelluriumConfig.groovy">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.2196262">
+        <state line="3" column="27" selection-start="264" selection-end="264" vertical-scroll-proportion="0.077186964">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/tellurium-extjs-widget.iws">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="27" selection-start="264" selection-end="264" vertical-scroll-proportion="0.077186964">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-17.157894">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TelluriumConfig.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.2196262">
           <folding />
         </state>
       </provider>
