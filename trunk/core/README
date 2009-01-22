@@ -80,19 +80,27 @@ Tellurium FAQs
 http://code.google.com/p/aost/wiki/FAQ
 
 Groovy Patterns Used in Tellurium
-http://code.google.com/p/aost/wiki/AostGroovyPatterns
+http://code.google.com/p/aost/wiki/GroovyPatternsInTellurium
+
+Reference Project Guide
+http://code.google.com/p/aost/wiki/ReferenceProjectGuide
 
 NEWS
 
-    * June 25, The AOST framework became open source. The framework has gone through two phases of prototype and has already been used for couple internal projects at the release time.
-    * July 02, UI Object ID is refactored to support nested UI objects.
-    * July 12, AOST 0.3.0 is out and it comes with significant feature enhancement including Composite Locator, Group Locating Concept, and Multiple UI Modules in one DslContext?.
-    * July 17, AOST user group is created. Please join and post your questions, comments, and suggestions there.
-    * July 18, Welcome Vivek Mongolu to our team.
-    * July 22, Welcome Adrian Carr as a contributor.
-    * July 29, Welcome Matt Senter to our team.
-    * July 29, The AOST framework is renamed to be Tellurium Automated Testing Framework (Tellurium).
-    * August 7, Welcome Quan Bui to our team.
-    * August 13, Tellurium 0.4.0 is released. This release includes a lot of new features and enhancements including data driven testing, framework configuration, and JUnit 4 support.
-    * August 22, Welcome Haroon Rasheed to our team.
+    * December 3, Tellurium core 0.5.0 and reference projects are released
     * December 2, Welcome Mikhail Koryak to our team
+    * November 15, Tellurium 0.5.0 Release Candidate RC01 is out
+    * August 22, Welcome Haroon Rasheed to our team.
+    * August 13, Tellurium 0.4.0 is released and this release includes a lot of new features and enhancements such as
+      data driven testing, framework configuration, and JUnit 4 support.
+    * August 7, Welcome Quan Bui to our team.
+    * July 29, The AOST framework is officially renamed to the Tellurium Automated Testing framework (Tellurium).
+    * July 29, Welcome Matt Senter to our team.
+    * July 22, Welcome Adrian Carr as a contributor to our project.
+    * July 18, Welcome Vivek Mongolu to our team.
+    * July 17, AOST user group is created. Please join and post your questions, comments, and suggestions there.
+    * July 12, AOST 0.3.0 is out and it comes with significant feature enhancement including Composite Locator,
+      Group Locating Concept, and Multiple UI Modules in one DslContext.
+    * July 02, UI Object ID is refactored to support nested UI objects.
+    * June 25, The AOST framework became public with version 0.2.0. The framework has gone through two phases of
+      prototype and has already been used for couple internal projects at the release time.
