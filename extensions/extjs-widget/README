@@ -6,6 +6,7 @@ Vivek Mongolu (vivekmongolu@gmail.com)
 Matt Senter   (matt.senter@gmail.com)
 Quan Bui      (Quan.Bui@gmail.com)
 Haroon Rasheed (haroonzone@gmail.com)
+Mikhail Koryak (koryak@gmail.com)
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 The Tellurium Automated Testing Framework (Tellurium) is a UI module-based web automated testing framework. The UI module is a
 collection of UI elements you group together. Usually, the UI module represents a composite UI object in the format of nested
