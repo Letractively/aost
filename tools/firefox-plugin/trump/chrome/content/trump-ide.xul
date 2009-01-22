@@ -22,15 +22,16 @@
     <toolbar id="toolbar2">
       <toolbarbutton id="record-button" label="Record" class="record" tooltiptext="&recordButton.tooltip;" oncommand="window.editor.toggleRecordButton()" checked="true"/>
       <toolbarbutton id="stop-button" label="Stop" class="icon" tooltiptext="&stopButton.tooltip;" oncommand="window.editor.toggleStopButton()"/>
+      <toolbarbutton id="generate-button" label="Generate" tooltiptext="&generate.tooltip;" oncommand="window.editor.generateButton()"/>
     </toolbar>
 
     <tabbox flex="3" height="250" width="250">
         <tabs orient="horizontal" id="editorTabs">
             <tab id="recordTab" label="&recordTab.label;" />
-            <tab id="customizeTab" label="&customizeTab.label;" />
-            <tab id="validateTab" label="&validateTab.label;" />
+            <!--<tab id="customizeTab" label="&customizeTab.label;" />-->
+            <!--<tab id="validateTab" label="&validateTab.label;" />-->
             <tab id="sourceTab" label="&sourceTab.label;" />
-            <tab id="settingsTab" label="&settingsTab.label;" />
+            <!--<tab id="settingsTab" label="&settingsTab.label;" />-->
         </tabs>
         <tabpanels flex="1">
             <tabpanel orient="vertical" flex="1">
@@ -47,18 +48,18 @@
                     </vbox>
                 </stack>
             </tabpanel>
-            <tabpanel orient="vertical">
+           <!-- <tabpanel orient="vertical">
               <textbox id="customize" multiline="true" flex="1"/>
             </tabpanel>
             <tabpanel orient="vertical">
               <textbox id="validate" multiline="true" flex="1"/>
-            </tabpanel>
+            </tabpanel>-->
             <tabpanel orient="vertical">
               <textbox id="source" multiline="true" flex="1"/>
             </tabpanel>
-            <tabpanel orient="vertical">
+           <!-- <tabpanel orient="vertical">
               <textbox id="settings" multiline="true" flex="1"/>
-            </tabpanel>
+            </tabpanel>-->
         </tabpanels>
     </tabbox>
 

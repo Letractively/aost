@@ -50,6 +50,16 @@ function getAttributeNameOrId(node){
     return val;
 }
 
+function findAttributeInList(attributes, attr){
+    for(var i=0; i < attributes.length; ++i){
+//         alert(attributes[i].name);
+        if(attributes[i].name == attr ){
+            val = attributes[i].value;
+//            alert(val);
+            break;
+        }
+    }
+}
 
 function createListCell(value){
     var cell = document.createElement("listcell");

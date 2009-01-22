@@ -47,6 +47,24 @@ Editor.prototype.toggleStopButton = function(){
 
         this.recorder.unregisterListener();
     }
+}
 
+Editor.prototype.generateButton = function(){
+    var sourceTextNode = document.getElementById("source");
+    var tagArrays = this.recorder.tagObjectArray;
 
+    var tagObject;
+    var element;
+    var tree = new Tree();
+    for(var i=0; i<tagArrays.length; ++i){
+        tagObject = tagArrays[i];
+        element = new ElementObject();
+        element.uid = tagObject.tag+i;
+        element.xpath = tagObject.xpath;
+        element.attributes = tagObject.attributes;
+        tree.addElement(element);
+    }
+    var uiModel = tree.printUI();
+    alert(uiModel);
+    sourceTextNode.value = uiModel;
 }

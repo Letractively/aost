@@ -1,5 +1,5 @@
-function Element(){
+function ElementObject(){
     this.uid = null;
     this.xpath = null;
-    this.attributes = null;
+    this.attributes = new HashMap();
 }

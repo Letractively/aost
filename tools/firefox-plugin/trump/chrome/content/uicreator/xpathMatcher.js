@@ -43,7 +43,7 @@ XPathMatcher.prototype.match = function(src, dst){
 XPathMatcher.prototype.remainingXPath = function(original, prefix){
     if(original == null || prefix == null)
             return original;
-    if(original.startsWith(prefix)){
-        return original.substring(prefix.length());
+    if(original.indexOf(prefix) != -1){
+        return original.substring(prefix.length);
     }
 }
