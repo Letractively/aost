@@ -32,7 +32,6 @@ Builder.prototype.createTagObject = function(node){
 
         attributes = getNotBlackListedAttributes(node.attributes);
         attributes.set("tag", lowerCaseNodeName);
-
         parent = node.parentNode;
         name = getAttributeNameOrId(node)
         //TODO xpath creation
@@ -85,9 +84,6 @@ function getNotBlackListedAttributes(attributes){
             wantedAttributes.set(attributes[i].name, attributes[i].value);
         }
     }
-    alert("wantedAttr - keyset : " + wantedAttributes.keySet());
-    alert("wantedAttr - valueset : " + wantedAttributes.valSet());
-    alert("wantedAttr : " + wantedAttributes.showMe());
     return wantedAttributes;
 }
 
