@@ -26,19 +26,22 @@ Ui.prototype.getType = function(tag, hasChildren){
 
 Ui.prototype.getTypeWithExtra = function(tag, extra, hasChildren){
     var addition = "N";
-        if(hasChildren)
+        if(hasChildren){
             addition = "Y";
+        }
         var uitype = this.map.get(tag + addition);
-
-        if(this.map.get(tag) == null){
-            if(hasChildren)
+//        alert("uitype : " + uitype) ;
+        if(this.map.get(tag + addition) == null){
+            if(hasChildren){
                 uitype = "Container";
-            else
+            }
+            else{
                 uitype = "TextBox";
+            }
         }
 
         if(this.constants.INPUT == tag && extra != null){
-            alert("extra : " + extra);
+//            alert("extra : " + extra);
             var type = extra.get(this.constants.TYPE);
             if(type != null){
                 if(this.constants.CHECKBOX == type){

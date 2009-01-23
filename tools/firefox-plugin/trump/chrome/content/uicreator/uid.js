@@ -7,7 +7,7 @@ function Uid(){
 }
 
 Uid.prototype.genUid = function(input){
-    if(input == null || input.strip().length == 0){
+    if(input == null || trimString(input).length == 0){
         return this.constants.UNDEFINED;
     }
 

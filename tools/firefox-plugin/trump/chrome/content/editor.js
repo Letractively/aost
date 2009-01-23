@@ -64,7 +64,11 @@ Editor.prototype.generateButton = function(){
         element.attributes = tagObject.attributes;
         tree.addElement(element);
     }
-    var uiModel = tree.printUI();
+    var uiModelArray = tree.printUI();
+    var uiModel = new StringBuffer();
+    for(var j=0; j<uiModelArray.length; ++j){
+        uiModel.append(uiModelArray[j]);
+    }
     alert(uiModel);
     sourceTextNode.value = uiModel;
 }

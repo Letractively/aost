@@ -58,7 +58,7 @@ Recorder.prototype.registerClickListener = function(){
 Recorder.prototype.unregisterClickListener = function(){
 //    alert("unregisterClickListener()")
     for(var i=0; i< this.selectedElements.length ; ++i){
-        alert(this.tagObjectArray[i]);
+//        alert(this.tagObjectArray[i].xpath);
         this.decorator.removeBackground(this.selectedElements[i]);
     }
     this.parentWindow.document.removeEventListener("click", this.listener, false);

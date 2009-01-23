@@ -20,10 +20,11 @@ NodeObject.prototype.getLevel = function(){
     }
 }
 
-NodeObject.prototype.printUI = function(){
+NodeObject.prototype.printUI = function(layout){
     var hasChildren = false;
-        if(this.children.length > 0)
+        if(this.children.length > 0){
             hasChildren = true;
+        }
 
         var sb = new StringBuffer();
 
@@ -33,22 +34,21 @@ NodeObject.prototype.printUI = function(){
         for(var i=0; i<level; i++){
             sb.append("  ");
         }
-        sb.append(this.ui.getType(this.attributes.get(this.constants.TAG), hasChildren)).append("(UID: '").append(this.id).append("', clocator: [");
+        var type = this.ui.getType(this.attributes.get(this.constants.TAG), hasChildren);
+        sb.append(type).append("(UID: '").append(this.id).append("', clocator: [");
 
         if(this.attributes.size() == 0){
             sb.append(":");
         }else{
             var count = 0;
-            var attr;
             var keySet = this.attributes.keySet();
+            var valueSet = this.attributes.valSet();
+
             for(var s=0; s < keySet.length; ++s){
-                attr = this.attributes.get[keySet[s]];
-                alert("keySet[s] : " + keySet[s]);
-                alert("attr : " + attr);
                 if(++count > 1){
                      sb.append(",");
                 }
-                sb.append(keySet[s]).append(":").append("'").append(attr).append("'");
+                sb.append(keySet[s]).append(":").append("\"").append(valueSet[s]).append("\"");
             }
         }
 
@@ -59,26 +59,31 @@ NodeObject.prototype.printUI = function(){
 
         sb.append(")");
 
-        if(hasChildren)
+        if(hasChildren){
             sb.append("{");
+        }
 
-        alert(sb.toString());
-
+//        alert(sb.toString());
+        layout.push(sb.toString());
         if(hasChildren){
             for(var a=0; a<this.children.length; ++a){
-                this.children[a].printUI();
+//                alert("layout before recursion: "+ layout);
+                this.children[a].printUI(layout);
             }
 
         }
+//        alert("layout after recursion : " + layout);
+
         var indent = new StringBuffer();
         if(hasChildren){
             for(var i=0; i<level; i++){
                 indent.append("  ");
             }
             indent.append("}");
-            alert(indent.toString());
+//            alert(indent.toString());
         }
-    return sb.toString() + indent.toString();
+        layout.push(indent.toString());
+//        alert("layout : " + layout);
 }
 
 NodeObject.prototype.isEmpty = function(){
@@ -107,3 +112,10 @@ NodeObject.prototype.findChild = function(uid){
     }
     return null;
 }
+
+/*
+NodeObject.prototype.toString = function(child){
+   alert("NodeObject : [ id " + this.id + " xpath : " + this.xpath + " parent : " + this.parent + " attributes : " +this.attributes.showMe()+ " ]");
+}
+*/
+
