@@ -1,10 +1,10 @@
-function Ui(){
+function Ui() {
     this.constants = {
-                INPUT : "input",
-                TYPE : "type",
-                CHECKBOX : "checkbox",
-                RADIO : "radio",
-                SUBMIT : "submit"
+        INPUT : "input",
+        TYPE : "type",
+        CHECKBOX : "checkbox",
+        RADIO : "radio",
+        SUBMIT : "submit"
     }
 
     this.map = new HashMap();
@@ -20,39 +20,39 @@ function Ui(){
     this.map.set("tableY", "Table");
 }
 
-Ui.prototype.getType = function(tag, hasChildren){
+Ui.prototype.getType = function(tag, hasChildren) {
     return this.getTypeWithExtra(tag, null, hasChildren);
 }
 
-Ui.prototype.getTypeWithExtra = function(tag, extra, hasChildren){
+Ui.prototype.getTypeWithExtra = function(tag, extra, hasChildren) {
     var addition = "N";
-        if(hasChildren){
-            addition = "Y";
+    if (hasChildren) {
+        addition = "Y";
+    }
+    var uitype = this.map.get(tag + addition);
+    //        alert("uitype : " + uitype) ;
+    if (this.map.get(tag + addition) == null) {
+        if (hasChildren) {
+            uitype = "Container";
         }
-        var uitype = this.map.get(tag + addition);
-//        alert("uitype : " + uitype) ;
-        if(this.map.get(tag + addition) == null){
-            if(hasChildren){
-                uitype = "Container";
-            }
-            else{
-                uitype = "TextBox";
-            }
+        else {
+            uitype = "TextBox";
         }
+    }
 
-        if(this.constants.INPUT == tag && extra != null){
-//            alert("extra : " + extra);
-            var type = extra.get(this.constants.TYPE);
-            if(type != null){
-                if(this.constants.CHECKBOX == type){
-                    uitype = "CheckBox";
-                }else if(this.constants.RADIO == type){
-                    uitype = "RadioButton";
-                }else if(this.constants.SUBMIT == type){
-                    uitype = "SubmitButton";
-                }
+    if (this.constants.INPUT == tag && extra != null) {
+        //            alert("extra : " + extra);
+        var type = extra.get(this.constants.TYPE);
+        if (type != null) {
+            if (this.constants.CHECKBOX == type) {
+                uitype = "CheckBox";
+            } else if (this.constants.RADIO == type) {
+                uitype = "RadioButton";
+            } else if (this.constants.SUBMIT == type) {
+                uitype = "SubmitButton";
             }
         }
+    }
 
-        return uitype;
+    return uitype;
 }
