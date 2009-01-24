@@ -1,6 +1,6 @@
 <project name="trump" default="xpi" basedir=".">
 	<property name="src" location="src"/>
-	<property name="dst" location="dst"/>
+	<property name="dst" location="dist"/>
 	<tstamp>
 		<format property="time" pattern="yy.MM.dd_HHmm"/>
 	</tstamp>
