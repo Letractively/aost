@@ -3,7 +3,7 @@ var constants = {
     ELEMENT_TYPE_NODE : 1
 }
 
-var blackListAttributes = ["size", "maxlength", "width", "height", "style", "align", "onclick"]
+var blackListAttributes = ["size", "maxlength", "width", "height", "style", "align", "onclick", "href"]
 
 function Builder(){
     this.bundle = $("string");
