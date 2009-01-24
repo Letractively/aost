@@ -24,9 +24,9 @@ Tree.prototype.addElement = function(element){
             //not the first node, need to match element's xpath with current node's relative xpath starting from the root
             //First, need to check the root and get the common xpath
             var common = this.xpathMatcher.match(this.root.xpath, element.xpath);
-//            alert("common : " + common);
+            alert("common : " + common);
             var leftover = this.xpathMatcher.remainingXPath(element.xpath, common);
-//            alert("leftover : " + leftover);
+            alert("leftover : " + leftover);
 
             if(this.root.xpath == common){
                 //the current node shares the same common xpath as the new node
@@ -58,11 +58,11 @@ Tree.prototype.addElement = function(element){
 //                alert("newxpath : " + newxpath);
                 if(this.root.id != null && this.root.id == "root"){
                     this.root.id = this.uid.genUid(newxpath);
-//                    alert("this.root.id : " + this.root.id);
+                    alert("this.root.id : " + this.root.id);
                 }
                 this.root.xpath = newxpath;
                 this.root.parent = newroot;
-//                alert("adding child : " + this.root);
+                alert("adding child : " + this.root);
                 newroot.addChild(this.root);
 
                 this.root = newroot;
@@ -74,7 +74,7 @@ Tree.prototype.addElement = function(element){
                     child.xpath = this.xpathMatcher.remainingXPath(element.xpath, common);
                     child.attributes = element.attributes;
                     child.parent = this.root;
-//                    alert("adding child : " + child);
+                    alert("adding child : " + child);
                     this.root.addChild(child);
                 }
             }
@@ -95,23 +95,39 @@ Tree.prototype.walk = function(current, uid, xpath, attribute) {
             current.addChild(child);
         }
     } else {
-        var queue = new PriorityQueue();
-        //            alert("Iterating child nodes");
-        for (var l = 0; l < current.children.length; ++l) {
+        var cmp = new Array();
+        var maxlen = 0;
+        for(var l=0; l < current.children.length; ++l){
             var nd = current.children[l];
-            //                alert("child node " + nd + " xpath : " + nd.xpath);
-
             var xpt = new XPath();
-            //                alert("matching xpath : " + nd.xpath +" , " + xpath);
             xpt.xpath = this.xpathMatcher.match(nd.xpath, xpath);
             xpt.node = nd;
-            //                alert("Inserting into the queue : node : "+ nd + " priority : " + xpt.xpath.length);
+            if(xpt.xpath.length > maxlen){
+                maxlen = xpt.xpath.length;
+            }
+            cmp.push(xpt);
+        }
+        alert("max common xpath lenth: " + maxlen);
+
+ /*
+        var queue = new PriorityQueue();
+                    alert("Iterating child nodes");
+        for (var l = 0; l < current.children.length; ++l) {
+            var nd = current.children[l];
+                            alert("child node " + nd + " xpath : " + nd.xpath);
+
+            var xpt = new XPath();
+                            alert("matching xpath : " + nd.xpath +" , " + xpath);
+            xpt.xpath = this.xpathMatcher.match(nd.xpath, xpath);
+            xpt.node = nd;
+                            alert("Inserting into the queue : node : "+ nd + " priority : " + xpt.xpath.length);
             queue.insert(xpt, xpt.xpath.length);
         }
 
         var max = new Array();
 
         var maxlen = queue.peek().priority;
+ */
 
         //need to handle the situation where there is no common xpath
         if (maxlen == 0) {
@@ -124,18 +140,26 @@ Tree.prototype.walk = function(current, uid, xpath, attribute) {
             current.addChild(child);
         } else {
             //there are shared common xpath
+            var max = new Array();
+            for(var m=0; m<cmp.length; m++){
+                if(cmp[m].xpath.length == maxlen){
+                    max.push(cmp[m])
+                }
+            }
 
+
+/*
             var length;
-            //            alert("queue size : " + queue.size());
-            //            alert("queue : " + queue.display());
+                        alert("queue size : " + queue.size());
+                        alert("queue : " + queue.display());
 
             for (var i = 0; i < queue.size(); i++) {
                 var mxp = queue.remove();
-                //                alert("mxp : " + mxp);
-                //                alert("mxp.xpath : " + mxp.xpath);
+                                alert("mxp : " + mxp);
+                                alert("mxp.xpath : " + mxp.xpath);
                 if (mxp) {
                     length = mxp.xpath.length;
-                    //                    alert("length : "+length);
+                                        alert("length : "+length);
                     if (length == maxlen) {
                         max.push(mxp);
                     }
@@ -143,7 +167,8 @@ Tree.prototype.walk = function(current, uid, xpath, attribute) {
                     break;
                 }
             }
-
+  */
+            
             var mx = max[0];
 
             var common = mx.xpath;
