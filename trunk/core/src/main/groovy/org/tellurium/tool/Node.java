@@ -47,7 +47,7 @@ public class Node {
         for(int i=0; i<level; i++){
             sb.append("  ");
         }
-        sb.append(Ui.getType(attributes.get(TAG), hasChildren)).append("(UID: '").append(id).append("', clocator: [");
+        sb.append(Ui.getType(attributes.get(TAG), attributes, hasChildren)).append("(UID: '").append(id).append("', clocator: [");
         if(attributes.size() == 0){
             sb.append(":");
         }else{
