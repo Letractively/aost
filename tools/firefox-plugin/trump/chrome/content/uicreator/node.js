@@ -32,7 +32,7 @@ NodeObject.prototype.printUI = function(layout){
         var level = this.getLevel();
 
         for(var i=0; i<level; i++){
-            sb.append("  ");
+            sb.append("\t");
         }
         var type = this.ui.getTypeWithExtra(this.attributes.get(this.constants.TAG), this.attributes, hasChildren);
         sb.append(type).append("(UID: '").append(this.id).append("', clocator: [");
@@ -62,6 +62,7 @@ NodeObject.prototype.printUI = function(layout){
         if(hasChildren){
             sb.append("{");
         }
+        sb.append("\n");
 
 //        alert(sb.toString());
         layout.push(sb.toString());
@@ -77,9 +78,9 @@ NodeObject.prototype.printUI = function(layout){
         var indent = new StringBuffer();
         if(hasChildren){
             for(var i=0; i<level; i++){
-                indent.append("  ");
+                indent.append("\t");
             }
-            indent.append("}");
+            indent.append("}\n");
 //            alert(indent.toString());
         }
         layout.push(indent.toString());
