@@ -1,0 +1,15 @@
+<project name="trump" default="xpi" basedir=".">
+	<property name="src" location="src"/>
+	<property name="dst" location="dst"/>
+	<tstamp>
+		<format property="time" pattern="yy.MM.dd_HHmm"/>
+	</tstamp>
+	<property name="dstFile" value="${dst}/TrUMP_${time}.xpi"/>
+
+	<target name="xpi">
+		<zip update="true" compress="true"
+			comment="MyExtension development build"
+			destfile="${dstFile}"
+			basedir="${src}" excludes="trump.kpf"/>
+	</target>
+</project>
