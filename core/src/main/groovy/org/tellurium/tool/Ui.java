@@ -39,7 +39,7 @@ public class Ui {
         if(hasChildren)
             addition = "Y";
         String uitype = map.get(tag + addition);
-        if(map.get(tag) == null){
+        if(uitype == null){
             if(hasChildren)
                 uitype = "Container";
             else
