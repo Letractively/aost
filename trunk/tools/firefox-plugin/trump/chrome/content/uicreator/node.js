@@ -34,7 +34,7 @@ NodeObject.prototype.printUI = function(layout){
         for(var i=0; i<level; i++){
             sb.append("  ");
         }
-        var type = this.ui.getType(this.attributes.get(this.constants.TAG), hasChildren);
+        var type = this.ui.getTypeWithExtra(this.attributes.get(this.constants.TAG), this.attributes, hasChildren);
         sb.append(type).append("(UID: '").append(this.id).append("', clocator: [");
 
         if(this.attributes.size() == 0){
