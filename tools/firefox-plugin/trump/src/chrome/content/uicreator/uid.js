@@ -12,17 +12,17 @@ Uid.prototype.genUid = function(input){
     }
 
     var parts = input.split(this.constants.SLASH);
-
     var sb = new StringBuffer();
     sb.append("T4");
 
-    var part;
+//    var part;
     for(var i=0; i< parts.length ; ++i){
-        part = parts[i];
-        if(part.strip().length > 0){
+        var part = parts[i];
+        if(trimString(part).length > 0){
             sb.append(part.substring(0,1));
         }
     }
 
+    alert("Generated UID: " + sb.toString());
     return sb.toString();
 }
