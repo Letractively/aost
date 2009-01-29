@@ -1,10 +1,12 @@
 <project name="trump" default="xpi" basedir=".">
+    
+    <property file="build.properties" />
 	<property name="src" location="src"/>
 	<property name="dst" location="dist"/>
 	<tstamp>
 		<format property="time" pattern="yy.MM.dd_HHmm"/>
 	</tstamp>
-	<property name="dstFile" value="${dst}/TrUMP_${time}.xpi"/>
+	<property name="dstFile" value="${dst}/TrUMP-${version}.xpi"/>
 
     <target name="clean">
 		<echo message="Cleaning ..." />
