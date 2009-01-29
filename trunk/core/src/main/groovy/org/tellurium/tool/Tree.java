@@ -163,6 +163,7 @@ public class Tree {
                         Node cnode = xp.getNode();
                         cnode.setXpath(XPathMatcher.remainingXPath(cnode.getXpath(), common));
                         cnode.setParent(extra);
+                        extra.addChild(cnode);
                         current.removeChild(cnode.getId());
                     }
 
