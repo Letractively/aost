@@ -37,7 +37,7 @@ class UiParser_UT extends GroovyTestCase{
 
     public void testGoogleMore() {
         String google = """
-        Gmail | tag: a | /html/body/div[@id='gbar']/nobr/a[5]
+        Gmail | tag: a | /html/body/div[@id='gbar']/nobr/a[@class='gb1' and position()=5]
         InputBox | tag: input, name: q |  /html/body/center/form/table[1]/tbody/tr/td[2]/input[4]
         GoogleSearch | tag: input, type: submit, name: btnG | /html/body/center/form/table[1]/tbody/tr/td[2]/input[5]
         FeelingLucky | tag: input, type: submit, name: btnI | /html/body/center/form/table[1]/tbody/tr/td[2]/input[6]
