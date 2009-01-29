@@ -84,7 +84,7 @@ NodeObject.prototype.printUI = function(layout){
 //            alert(indent.toString());
         }
         layout.push(indent.toString());
-        alert("layout : " + layout);
+//        alert("layout : " + layout);
 }
 
 NodeObject.prototype.isEmpty = function(){

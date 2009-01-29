@@ -23,6 +23,6 @@ Uid.prototype.genUid = function(input){
         }
     }
 
-    alert("Generated UID: " + sb.toString());
+//    alert("Generated UID: " + sb.toString());
     return sb.toString();
 }
