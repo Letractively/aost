@@ -3,6 +3,7 @@ function Tree(){
     this.xpathMatcher = new XPathMatcher();
     this.uiModel = new Array();
     this.uid = new Uid();
+//    this.logger = new Log(Log.DEBUG, Log.popupLogger);    
 }
 
 Tree.prototype.printUI = function(){
@@ -13,7 +14,9 @@ Tree.prototype.printUI = function(){
 }
 
 Tree.prototype.addElement = function(element){
+
     alert("add Element UID: " + element.uid + " XPATH:" + element.xpath);
+    
     //case I: root is null, insert the first node
         if(this.root == null){
             this.root = new NodeObject();
@@ -83,6 +86,9 @@ Tree.prototype.addElement = function(element){
 }
 
 Tree.prototype.walk = function(current, uid, xpath, attribute) {
+
+    alert("walk from " + current.id + " for UID:" + uid + " XPATH:" + xpath);
+
     if (current.children.length == 0) {
         //there is no children
 //        if (xpath.trim().length > 0) {
@@ -109,7 +115,6 @@ Tree.prototype.walk = function(current, uid, xpath, attribute) {
             }
             cmp.push(xpt);
         }
-        alert("walk for UID:" + uid + " XPATH:" + xpath + " max common lenth: " + maxlen);
 
  /*
         var queue = new PriorityQueue();
@@ -177,12 +182,17 @@ Tree.prototype.walk = function(current, uid, xpath, attribute) {
 
             var common = mx.xpath;
 
-            alert("Shared common XPATH:" + common)
-
+            alert("Shared common XPATH:" + common + " Max size:" + max.length);
+//            alert("Shared common XPATH:" + common);
+ //           this.logger.debug("Shared Common XPATH:" + common);
+            
             if (mx.node.xpath == common) {
+                alert("Node xpath:" + mx.node.xpath + " equals common, need to walk down");
+
                 //The xpath includes the common part, that is to say, we need to walk down to the child
-                if (max.size() > 1) {
+                if (max.length > 1) {
                     //we need to merge multiple nodes into one
+                    
                     for (var t = 1; t < max.length; t++) {
                         var cnode = max[t].node;
 
