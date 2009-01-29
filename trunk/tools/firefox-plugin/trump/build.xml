@@ -6,10 +6,22 @@
 	</tstamp>
 	<property name="dstFile" value="${dst}/TrUMP_${time}.xpi"/>
 
+    <target name="clean">
+		<echo message="Cleaning ..." />
+        <delete>
+            <fileset dir="${dst}" includes="*.xpi"/>
+        </delete>
+	</target>
+
 	<target name="xpi">
 		<zip update="true" compress="true"
 			comment="MyExtension development build"
 			destfile="${dstFile}"
 			basedir="${src}" excludes="trump.kpf"/>
 	</target>
+
+	<target name="dist" depends="xpi">
+		<echo message="Distribution created successfully." />
+	</target>
+
 </project>
