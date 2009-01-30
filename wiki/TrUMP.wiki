@@ -13,11 +13,11 @@ http://tellurium-users.googlegroups.com/web/trump010b.png?gda=sK2vfz8AAACXZPxEX7
 
 You will see the following Firefox plugin installation page, click "Install Now",
 
-http://tellurium-users.googlegroups.com/web/trump010c.png?gda=IhoYoT8AAACXZPxEX7Ki-M5C2JpeBoXXpbNhTBGwKHnla96SFPZ5YjR9gBHXghM37Bu9znXlN4qccyFKn-rNKC-d1pM_IdV0&gsc=z7xdXxYAAACUfwRI-f7WsvI5RgWLBanlg-kXU5InE09W2o0GCSVgCQ
+http://tellurium-users.googlegroups.com/web/trump010c.png?gsc=SFByKyEAAABLVOUDT2cdv7ra_0ycW_ZgqZVUwDwSP-t0DSViQRBi7EzfKN-m9S9niuHrq-IEXAE
 
 After that, restart Firefox to make the TrUMP plugin take effect.
 
-http://tellurium-users.googlegroups.com/web/trump010d.png?gda=7q0j_D8AAACXZPxEX7Ki-M5C2JpeBoXXpbNhTBGwKHnla96SFPZ5Yvd84QH-oNAEOpLRWK6SmWSccyFKn-rNKC-d1pM_IdV0&gsc=z7xdXxYAAACUfwRI-f7WsvI5RgWLBanlg-kXU5InE09W2o0GCSVgCQ
+http://tellurium-users.googlegroups.com/web/trump010d.png?gsc=SFByKyEAAABLVOUDT2cdv7ra_0ycW_ZgqZVUwDwSP-t0DSViQRBi7EzfKN-m9S9niuHrq-IEXAE
 
 == Setup TrUMP From Project Source==
 
@@ -68,17 +68,16 @@ Then, you can click on the "Generate" button to create the Tellurium UI Module,
 http://tellurium-users.googlegroups.com/web/trump010h.png?gda=WwV8UT8AAACXZPxEX7Ki-M5C2JpeBoXXGvl4Gd4uFZh4sOybBRtMekGLp6dQXNkqlGzJQvNUMXKccyFKn-rNKC-d1pM_IdV0&gsc=jTelIRYAAAC0nhYDa9gni8Uq6-kI4oX7g-kXU5InE09W2o0GCSVgCQ
 
 You will see the generated UI module in a popup window,
-
-http://tellurium-users.googlegroups.com/web/trump010i.png?gda=acHXHD8AAACXZPxEX7Ki-M5C2JpeBoXXGvl4Gd4uFZh4sOybBRtMeuhL8QrIH1Eq53eR_Um4ZeyccyFKn-rNKC-d1pM_IdV0&gsc=jTelIRYAAAC0nhYDa9gni8Uq6-kI4oX7g-kXU5InE09W2o0GCSVgCQ
+http://tellurium-users.googlegroups.com/web/trump010i.png?gsc=SFByKyEAAABLVOUDT2cdv7ra_0ycW_ZgqZVUwDwSP-t0DSViQRBi7EzfKN-m9S9niuHrq-IEXAE
 
 Click on "OK". You can review the UI module in the "Source" tab as follows,
 
-http://tellurium-users.googlegroups.com/web/trump010j.png?gda=2dcZ8D8AAACXZPxEX7Ki-M5C2JpeBoXXGvl4Gd4uFZh4sOybBRtMevpsZrGZKFo9kWSEMUPqT5WccyFKn-rNKC-d1pM_IdV0&gsc=jTelIRYAAAC0nhYDa9gni8Uq6-kI4oX7g-kXU5InE09W2o0GCSVgCQ
+http://tellurium-users.googlegroups.com/web/trump010j.png?gsc=SFByKyEAAABLVOUDT2cdv7ra_0ycW_ZgqZVUwDwSP-t0DSViQRBi7EzfKN-m9S9niuHrq-IEXAE
 
-Right now, the format does not look good. If we reformat the UI module, we will see the actual UI module as follows,
+We will see the actual UI module as follows,
 
 {{{
-Container(UID: 'root', clocator: [:]){
+ui.Container(UID: 'root', clocator: [:]){
   Container(UID: 'T4t', clocator: [:]){
     InputBox(UID: 'input0', clocator: [onkeydown:"okd()",value:"",title:"Google Search",name:"q",autocomplete:"off",tag:"input"])
     SubmitButton(UID: 'input1', clocator: [type:"submit",value:"Google Search",name:"btnG",tag:"input"])
