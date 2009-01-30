@@ -47,6 +47,18 @@ We are done setting up the plugin.
 
 After that, open the firefox with the profile “user1”. You are ready to use TrUMP IDE
 
+== Build TrUMP From Source ==
+
+Check out TrUMP source code from Tellurium trunk/tools/firefox-plugin/trump.
+
+Then run the following ant tasks,
+{{{
+ant clean
+ant dist
+}}}
+
+The generated .xpi file is under the /dist directory
+
 == Use TrUMP ==
 
 In Firefox, select "Tools" > "TrUMP IDE"
