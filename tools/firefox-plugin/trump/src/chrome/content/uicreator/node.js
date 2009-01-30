@@ -9,6 +9,8 @@ function NodeObject(){
     this.children = new Array();
     this.ui = new Ui();
 
+    //flag to indicate whether this node is a new generated during the grouping process, i.e., by the Tree algorithm
+    this.newNode = false;
 }
 
 NodeObject.prototype.getLevel = function(){
@@ -18,6 +20,8 @@ NodeObject.prototype.getLevel = function(){
         level++;
         current = current.parent;
     }
+
+    return level;
 }
 
 NodeObject.prototype.printUI = function(layout){
@@ -81,7 +85,6 @@ NodeObject.prototype.printUI = function(layout){
                 indent.append("\t");
             }
             indent.append("}\n");
-//            alert(indent.toString());
         }
         layout.push(indent.toString());
 //        alert("layout : " + layout);
@@ -113,6 +116,11 @@ NodeObject.prototype.findChild = function(uid){
     }
     return null;
 }
+
+NodeObject.prototype.isNewNode = function(){
+    return this.newNode;
+}
+
 
 /*
 NodeObject.prototype.toString = function(child){

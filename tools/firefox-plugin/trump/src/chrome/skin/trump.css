@@ -6,3 +6,6 @@
     list-style-image: url("chrome://trump/skin/stop.png");
 }
 
+#source Pre {
+    white-space: normal; 
+}
