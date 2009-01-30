@@ -5,7 +5,7 @@
 
 Go to the Tellurium project download page and download the TrUMP xpi file as shown in the Figure,
 
-http://tellurium-users.googlegroups.com/web/trump010a.png?gda=AF7L6j8AAACXZPxEX7Ki-M5C2JpeBoXXpbNhTBGwKHnla96SFPZ5YkEgmkyL90XZhy9bPH53G1WccyFKn-rNKC-d1pM_IdV0&gsc=z7xdXxYAAACUfwRI-f7WsvI5RgWLBanlg-kXU5InE09W2o0GCSVgCQ
+http://tellurium-users.googlegroups.com/web/trump010a.png?gsc=0vNJlyEAAACF2t5lGVNdE2hK0VYlHmvlCYPur5CjAFJWdX_UuIwXcEzfKN-m9S9niuHrq-IEXAE
 
 Then, open the xpi file with Firefox,
 
