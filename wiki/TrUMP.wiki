@@ -3,7 +3,7 @@
 
 == Install TrUMP IDE ==
 
-Go to Tellurium project download page and download the TrUMP xpi file as shown in the Figure,
+Go to the Tellurium project download page and download the TrUMP xpi file as shown in the Figure,
 
 http://tellurium-users.googlegroups.com/web/trump010a.png?gda=AF7L6j8AAACXZPxEX7Ki-M5C2JpeBoXXpbNhTBGwKHnla96SFPZ5YkEgmkyL90XZhy9bPH53G1WccyFKn-rNKC-d1pM_IdV0&gsc=z7xdXxYAAACUfwRI-f7WsvI5RgWLBanlg-kXU5InE09W2o0GCSVgCQ
 
@@ -50,3 +50,44 @@ After that, open the firefox with the profile “user1”. You are ready to use 
 == Use TrUMP ==
 
 In Firefox, select "Tools" > "TrUMP IDE"
+
+http://tellurium-users.googlegroups.com/web/trump010e.png?gsc=jTelIRYAAAC0nhYDa9gni8Uq6-kI4oX7g-kXU5InE09W2o0GCSVgCQ
+
+You will see the TrUMP IDE as follows,
+
+http://tellurium-users.googlegroups.com/web/trump010f.png?gda=IF9OXz8AAACXZPxEX7Ki-M5C2JpeBoXXGvl4Gd4uFZh4sOybBRtMejKXHS9twXs2d3PI5PCtpFCccyFKn-rNKC-d1pM_IdV0&gsc=jTelIRYAAAC0nhYDa9gni8Uq6-kI4oX7g-kXU5InE09W2o0GCSVgCQ
+
+The "Record" is on by default, you can click on "Stop" to stop recording. Now, you can start to use the TrUMP IDE to record whatever UI elements you click on the WEB. For example, you can open Google search page and click on the search elements and the tree links,
+
+http://tellurium-users.googlegroups.com/web/trump010g.png?gda=0hMSFz8AAACXZPxEX7Ki-M5C2JpeBoXXGvl4Gd4uFZh4sOybBRtMevEOLvEQPr9lnZXEWcnY2r-ccyFKn-rNKC-d1pM_IdV0&gsc=jTelIRYAAAC0nhYDa9gni8Uq6-kI4oX7g-kXU5InE09W2o0GCSVgCQ
+
+The blue color indicates selected element, you can click on the selected element again to un-select it.
+
+Then, you can click on the "Generate" button to create the Tellurium UI Module,
+
+http://tellurium-users.googlegroups.com/web/trump010h.png?gda=WwV8UT8AAACXZPxEX7Ki-M5C2JpeBoXXGvl4Gd4uFZh4sOybBRtMekGLp6dQXNkqlGzJQvNUMXKccyFKn-rNKC-d1pM_IdV0&gsc=jTelIRYAAAC0nhYDa9gni8Uq6-kI4oX7g-kXU5InE09W2o0GCSVgCQ
+
+You will see the generated UI module in a popup window,
+
+http://tellurium-users.googlegroups.com/web/trump010i.png?gda=acHXHD8AAACXZPxEX7Ki-M5C2JpeBoXXGvl4Gd4uFZh4sOybBRtMeuhL8QrIH1Eq53eR_Um4ZeyccyFKn-rNKC-d1pM_IdV0&gsc=jTelIRYAAAC0nhYDa9gni8Uq6-kI4oX7g-kXU5InE09W2o0GCSVgCQ
+
+Click on "OK". You can review the UI module in the "Source" tab as follows,
+
+http://tellurium-users.googlegroups.com/web/trump010j.png?gda=2dcZ8D8AAACXZPxEX7Ki-M5C2JpeBoXXGvl4Gd4uFZh4sOybBRtMevpsZrGZKFo9kWSEMUPqT5WccyFKn-rNKC-d1pM_IdV0&gsc=jTelIRYAAAC0nhYDa9gni8Uq6-kI4oX7g-kXU5InE09W2o0GCSVgCQ
+
+Right now, the format does not look good. If we reformat the UI module, we will see the actual UI module as follows,
+
+{{{
+Container(UID: 'root', clocator: [:]){
+  Container(UID: 'T4t', clocator: [:]){
+    InputBox(UID: 'input0', clocator: [onkeydown:"okd()",value:"",title:"Google Search",name:"q",autocomplete:"off",tag:"input"])
+    SubmitButton(UID: 'input1', clocator: [type:"submit",value:"Google Search",name:"btnG",tag:"input"])
+    SubmitButton(UID: 'input2', clocator: [type:"submit",value:"I'm Feeling Lucky",name:"btnI",tag:"input"])
+  }
+  Container(UID: 'T4tf', clocator: [:]){
+    UrlLink(UID: 'a3', clocator: [tag:"a"])
+    UrlLink(UID: 'a4', clocator: [tag:"a"])
+    UrlLink(UID: 'a5', clocator: [tag:"a"])
+  }
+}
+}}}
