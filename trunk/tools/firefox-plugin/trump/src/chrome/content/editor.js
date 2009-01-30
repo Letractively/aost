@@ -71,4 +71,5 @@ Editor.prototype.generateButton = function(){
     }
     alert(uiModel);
     sourceTextNode.value = uiModel;
+//    sourceTextNode.innerHTML = "<Pre>" + uiModel + "</Pre>";
 }

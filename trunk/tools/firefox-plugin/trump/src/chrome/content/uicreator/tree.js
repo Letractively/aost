@@ -32,9 +32,8 @@ Tree.prototype.addElement = function(element){
             //not the first node, need to match element's xpath with current node's relative xpath starting from the root
             //First, need to check the root and get the common xpath
             var common = this.xpathMatcher.match(this.root.xpath, element.xpath);
-//            alert("common : " + common);
+
             var leftover = this.xpathMatcher.remainingXPath(element.xpath, common);
-//            alert("leftover : " + leftover);
 
             if(this.root.xpath == common){
                 //the current node shares the same common xpath as the new node
@@ -62,6 +61,7 @@ Tree.prototype.addElement = function(element){
                 newroot.id = "root";
                 newroot.xpath = common;
                 newroot.parent = null;
+                newroot.newNode = true;
                 var newxpath = this.xpathMatcher.remainingXPath(this.root.xpath, common);
 
                 if(this.root.id != null && this.root.id == "root"){
@@ -103,7 +103,7 @@ Tree.prototype.walk = function(current, uid, xpath, attribute) {
             child.xpath = xpath;
             child.attributes = attribute;
             child.parent = current;
-            //                alert("adding child : " + child);
+
             current.addChild(child);
         }
     } else {
@@ -119,26 +119,6 @@ Tree.prototype.walk = function(current, uid, xpath, attribute) {
             }
             cmp.push(xpt);
         }
-
- /*
-        var queue = new PriorityQueue();
-                    alert("Iterating child nodes");
-        for (var l = 0; l < current.children.length; ++l) {
-            var nd = current.children[l];
-                            alert("child node " + nd + " xpath : " + nd.xpath);
-
-            var xpt = new XPath();
-                            alert("matching xpath : " + nd.xpath +" , " + xpath);
-            xpt.xpath = this.xpathMatcher.match(nd.xpath, xpath);
-            xpt.node = nd;
-                            alert("Inserting into the queue : node : "+ nd + " priority : " + xpt.xpath.length);
-            queue.insert(xpt, xpt.xpath.length);
-        }
-
-        var max = new Array();
-
-        var maxlen = queue.peek().priority;
- */
 
         //need to handle the situation where there is no common xpath
         if (maxlen == 0) {
@@ -159,29 +139,7 @@ Tree.prototype.walk = function(current, uid, xpath, attribute) {
                     max.push(cmp[m])
                 }
             }
-
-
-/*
-            var length;
-                        alert("queue size : " + queue.size());
-                        alert("queue : " + queue.display());
-
-            for (var i = 0; i < queue.size(); i++) {
-                var mxp = queue.remove();
-                                alert("mxp : " + mxp);
-                                alert("mxp.xpath : " + mxp.xpath);
-                if (mxp) {
-                    length = mxp.xpath.length;
-                                        alert("length : "+length);
-                    if (length == maxlen) {
-                        max.push(mxp);
-                    }
-                } else {
-                    break;
-                }
-            }
-  */
-            
+    
             var mx = max[0];
 
             var common = mx.xpath;
@@ -220,8 +178,8 @@ Tree.prototype.walk = function(current, uid, xpath, attribute) {
                 var extra = new NodeObject();
                 extra.xpath = common;
                 extra.parent = current;
-//                alert("Add extra node: common " + common + " max size " + max.length );
                 extra.id = this.uid.genUid(common);
+                extra.newNode = true;
 //                alert("Extra ID:" + extra.id + " XPATH:" + extra.xpath);
                 current.addChild(extra);
                 for (var k = 0; k < max.length; ++k) {
@@ -231,7 +189,6 @@ Tree.prototype.walk = function(current, uid, xpath, attribute) {
                     cn.parent = extra;
                     extra.addChild(cn);
                     current.removeChild(cn.id);
-//                    alert("Node XPATH:" + cn.xpath + " ID:" + cn.id);
                 }
 
                 var ch = new NodeObject();
@@ -240,7 +197,6 @@ Tree.prototype.walk = function(current, uid, xpath, attribute) {
                 ch.attributes = attribute;
                 ch.parent = extra;
                 extra.addChild(ch);
-//                alert("Add extra node: extra " + extra.xpath );
             }
 
         }

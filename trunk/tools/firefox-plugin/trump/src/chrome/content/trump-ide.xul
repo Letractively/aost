@@ -55,7 +55,7 @@
               <textbox id="validate" multiline="true" flex="1"/>
             </tabpanel>-->
             <tabpanel orient="vertical">
-              <textbox id="source" multiline="true" flex="1"/>
+              <textbox id="source" multiline="true" wrap="off" flex="1"/>
             </tabpanel>
            <!-- <tabpanel orient="vertical">
               <textbox id="settings" multiline="true" flex="1"/>
