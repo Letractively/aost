@@ -16,6 +16,14 @@ Tree.prototype.printUI = function(){
     }
 }
 
+//Do some post processing work
+Tree.prototype.postProcess = function(){
+    if(this.root != null){
+        //get the tag and attributes for auto generated nodes
+        this.root.processNewNode();
+    }
+}
+
 Tree.prototype.addElement = function(element){
 
 //    alert("add Element UID: " + element.uid + " XPATH:" + element.xpath);

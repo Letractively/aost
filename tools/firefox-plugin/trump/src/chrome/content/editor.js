@@ -64,6 +64,9 @@ Editor.prototype.generateButton = function(){
         element.attributes = tagObject.attributes;
         tree.addElement(element);
     }
+    //do some post processing work
+    tree.postProcess();
+    
     var uiModelArray = tree.printUI();
     var uiModel = new StringBuffer();
     for(var j=0; j<uiModelArray.length; ++j){
@@ -71,5 +74,4 @@ Editor.prototype.generateButton = function(){
     }
     alert(uiModel);
     sourceTextNode.value = uiModel;
-//    sourceTextNode.innerHTML = "<Pre>" + uiModel + "</Pre>";
 }
