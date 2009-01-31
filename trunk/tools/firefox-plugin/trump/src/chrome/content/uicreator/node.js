@@ -7,21 +7,21 @@ function NodeObject(){
     this.attributes = new HashMap();
     this.parent = null;
     this.children = new Array();
-    this.ui = new Ui();
+    this.ui = new UiType();
 
     //flag to indicate whether this node is a new generated during the grouping process, i.e., by the Tree algorithm
     this.newNode = false;
     //tag selection state machine
-//    this.tagState = null;
     this.tagState = new TagState();
     //common methods to process xpath
-//    this.xpathProcessor = null;
     this.xpathProcessor = new XPathProcessor();
     //The filter to remove unwanted attributes
-//    this.filter = null;
     this.filter = new Filter();
     //used to store the element tag
     this.tag = null;
+
+    //The UI object associated with this node
+    this.uiobject = new UiObject();
 }
 
 NodeObject.prototype.getLevel = function(){
@@ -35,70 +35,41 @@ NodeObject.prototype.getLevel = function(){
     return level;
 }
 
+NodeObject.prototype.buildUiObject = function(){
+    var hasChildren = false;
+    if (this.children.length > 0) {
+        hasChildren = true;
+    }
+
+    this.uiobject.buildUiObject(this.id, this.attributes, hasChildren);
+
+    if (hasChildren) {
+        for (var a = 0; a < this.children.length; ++a) {
+            this.children[a].buildUiObject();
+        }
+    }
+}
+
 NodeObject.prototype.printUI = function(layout){
     var hasChildren = false;
-        if(this.children.length > 0){
-            hasChildren = true;
+    if (this.children.length > 0) {
+        hasChildren = true;
+    }
+
+    //get the current level of the node so that we can do pretty print
+    var level = this.getLevel();
+
+    var strobj = this.uiobject.strUiObject(level);
+    layout.push(strobj);
+
+    if (hasChildren) {
+        for (var a = 0; a < this.children.length; ++a) {
+            this.children[a].printUI(layout);
         }
 
-        var sb = new StringBuffer();
-
-        //get the current level of the node so that we can do pretty print
-        var level = this.getLevel();
-
-        for(var i=0; i<level; i++){
-            sb.append("\t");
-        }
-        var type = this.ui.getTypeWithExtra(this.attributes.get(this.constants.TAG), this.attributes, hasChildren);
-        sb.append(type).append("(UID: '").append(this.id).append("', clocator: [");
-
-        if(this.attributes.size() == 0){
-            sb.append(":");
-        }else{
-            var count = 0;
-            var keySet = this.attributes.keySet();
-            var valueSet = this.attributes.valSet();
-
-            for(var s=0; s < keySet.length; ++s){
-                if(++count > 1){
-                     sb.append(",");
-                }
-                sb.append(keySet[s]).append(":").append("\"").append(valueSet[s]).append("\"");
-            }
-        }
-
-        sb.append("]");
-
-        //comment this line out if you do not want xpath to display
-//        sb.append("[xpath: ").append(xpath).append("]");
-
-        sb.append(")");
-
-        if(hasChildren){
-            sb.append("{");
-        }
-        sb.append("\n");
-
-//        alert(sb.toString());
-        layout.push(sb.toString());
-        if(hasChildren){
-            for(var a=0; a<this.children.length; ++a){
-//                alert("layout before recursion: "+ layout);
-                this.children[a].printUI(layout);
-            }
-
-        }
-//        alert("layout after recursion : " + layout);
-
-        var indent = new StringBuffer();
-        if(hasChildren){
-            for(var l=0; l<level; l++){
-                indent.append("\t");
-            }
-            indent.append("}\n");
-        }
-        layout.push(indent.toString());
-//        alert("layout : " + layout);
+        var strobjft = this.uiobject.strUiObjectFooter(level);
+        layout.push(strobjft);
+    }
 }
 
 NodeObject.prototype.isEmpty = function(){

@@ -1,4 +1,4 @@
-function Ui() {
+function UiType() {
     this.constants = {
         INPUT : "input",
         TYPE : "type",
@@ -22,11 +22,11 @@ function Ui() {
     this.map.set("tableN", "Container");
     this.map.set("tableY", "Container");}
 
-Ui.prototype.getType = function(tag, hasChildren) {
+UiType.prototype.getType = function(tag, hasChildren) {
     return this.getTypeWithExtra(tag, null, hasChildren);
 }
 
-Ui.prototype.getTypeWithExtra = function(tag, extra, hasChildren) {
+UiType.prototype.getTypeWithExtra = function(tag, extra, hasChildren) {
     var addition = "N";
     if (hasChildren) {
         addition = "Y";
