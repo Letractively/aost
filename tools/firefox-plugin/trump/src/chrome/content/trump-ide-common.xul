@@ -24,7 +24,7 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/element.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/node.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/tree.js"/>
-    <script type="application/x-javascript" src="chrome://trump/content/uicreator/ui.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/uitype.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/uid.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/xpath.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/xpathComparator.js"/>
@@ -32,6 +32,8 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/tagState.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/xpathProcessor.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/filter.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/uiobject.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/locator.js"/>
 
     <script type="application/x-javascript" src="chrome://trump/content/utils/stringBuffer.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/utils/hashMap.js"/>
