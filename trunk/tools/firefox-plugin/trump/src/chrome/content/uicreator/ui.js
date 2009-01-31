@@ -16,9 +16,11 @@ function Ui() {
     this.map.set("selectN", "Selector");
     this.map.set("formN", "Form");
     this.map.set("formY", "Form");
-    this.map.set("tableN", "Table");
-    this.map.set("tableY", "Table");
-}
+//    this.map.set("tableN", "Table");
+//    this.map.set("tableY", "Table");
+    //for table, use Container for the timebeing until we can do the post processing to handle UI templates
+    this.map.set("tableN", "Container");
+    this.map.set("tableY", "Container");}
 
 Ui.prototype.getType = function(tag, hasChildren) {
     return this.getTypeWithExtra(tag, null, hasChildren);
