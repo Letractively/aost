@@ -13,6 +13,10 @@ function UiType() {
     this.map.set("divY", "Container");
     this.map.set("aN", "UrlLink");
     this.map.set("aY", "Container");
+    this.map.set("linkN", "UrlLink");
+    this.map.set("linkY", "UrlLink");
+    this.map.set("labelN", "TextBox");
+    this.map.set("labelY", "Container");
     this.map.set("inputN", "InputBox");
     this.map.set("imgN", "Image");
     this.map.set("selectN", "Selector");
