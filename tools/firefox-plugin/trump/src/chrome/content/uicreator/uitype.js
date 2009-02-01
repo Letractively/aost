@@ -4,16 +4,22 @@ function UiType() {
         TYPE : "type",
         CHECKBOX : "checkbox",
         RADIO : "radio",
-        SUBMIT : "submit"
+        SUBMIT : "submit",
+        BUTTON : "button"
     }
 
     this.map = new HashMap();
     this.map.set("divN", "DIV");
     this.map.set("divY", "Container");
     this.map.set("aN", "UrlLink");
+    this.map.set("aY", "Container");
     this.map.set("inputN", "InputBox");
     this.map.set("imgN", "Image");
     this.map.set("selectN", "Selector");
+    this.map.set("buttonN", "Button");
+    this.map.set("buttonY", "Button");
+    this.map.set("spanN", "Span");
+    this.map.set("spanY", "Container");
     this.map.set("formN", "Form");
     this.map.set("formY", "Form");
 //    this.map.set("tableN", "Table");
