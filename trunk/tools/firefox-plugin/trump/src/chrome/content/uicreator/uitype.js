@@ -18,6 +18,8 @@ function UiType() {
     this.map.set("labelN", "TextBox");
     this.map.set("labelY", "Container");
     this.map.set("inputN", "InputBox");
+    this.map.set("textareaN", "InputBox");
+    this.map.set("textareaY", "Container");
     this.map.set("imgN", "Image");
     this.map.set("selectN", "Selector");
     this.map.set("buttonN", "Button");
