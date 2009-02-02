@@ -47,6 +47,11 @@ UiObject.prototype.buildXPath = function(groupAttributes){
     return "";
 }
 
+UiObject.prototype.getGroupAttributes = function(){
+
+    return "";
+}
+
 UiObject.prototype.strUiObject = function(level){
     var sb = new StringBuffer();
     for (var i = 0; i < level; i++) {
