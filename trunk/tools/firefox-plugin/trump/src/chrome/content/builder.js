@@ -29,9 +29,14 @@ Builder.prototype.createTagObject = function(node){
     //Check if its an ELEMENT TYPE NODE
     if (getNodeType(node) == constants.ELEMENT_TYPE_NODE) {
         lowerCaseNodeName = getNodeName(node).toLowerCase();
-
         attributes = getNotBlackListedAttributes(node.attributes);
         attributes.set("tag", lowerCaseNodeName);
+        var txt = this.getText(node);
+
+        if(txt != null && trimString(txt).length > 0){
+            attributes.set("text", txt);
+        }
+
         parent = node.parentNode;
         name = getAttributeNameOrId(node)
         //TODO xpath creation
@@ -41,6 +46,22 @@ Builder.prototype.createTagObject = function(node){
     }
 
     return null;
+}
+
+Builder.prototype.getText = function(node){
+    var txt = null;
+    if (getNodeType(node) == constants.ELEMENT_TYPE_NODE) {
+        if(node.childNodes.length > 0){
+            for (var i=0; i < node.childNodes.length; i++ ) {
+              if ( node.childNodes[i].nodeType == Node.TEXT_NODE ) {
+                txt = node.childNodes[i].nodeValue;
+                break;
+              }
+            }
+        }
+    }
+
+    return txt;
 }
 
 Builder.prototype.buildTagObject = function(node, tag, name, attributes, parent, xpath){
