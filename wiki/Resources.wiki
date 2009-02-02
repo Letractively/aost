@@ -4,3 +4,18 @@
 Useful resources:
 
   * [https://developer.mozilla.org/en/Setting_up_extension_development_environment Setting up extension development environment]
+  * [http://groovy.codehaus.org/ Groovy]
+  * [http://jquery.com/ JQuery]
+  * [http://www.junit.org/ JUnit]
+  * [http://testng.org/ TestNG]
+  * [http://htmlunit.sourceforge.net HtmlUnit]
+  * [http://seleniumhq.org/ Selenium]
+  * [http://webtest.canoo.com Canoo WebTest]
+  * [http://twill.idyll.org/ Twill]
+  * [http://clearspace.openqa.org/community/selenium Selenium Community]
+
+
+
+
+
+
