@@ -1,9 +1,11 @@
+
 function UiObject(){
     this.constants = {
         TAG : "tag",
         RESPOND : "respond",
         GROUP : "group"
-    }
+    };
+    
     this.uid = null;
     this.uiType = null;
     this.clocator = new Locator();
@@ -13,6 +15,8 @@ function UiObject(){
 
     this.classifier = new UiType();
     this.filter = new Filter();
+
+    this.locatorStrategy = new LocatorStrategy();
 }
 
 UiObject.prototype.buildUiObject = function(id, attributes, hasChildren){
@@ -34,6 +38,13 @@ UiObject.prototype.buildUiObject = function(id, attributes, hasChildren){
     this.clocator.buildLocator(whiteListAttributes);
     
     return this;
+}
+
+//build relative xpath from UiObject's locator
+//If group is true, we need to use its children attributes
+UiObject.prototype.buildXPath = function(groupAttributes){
+
+    return "";
 }
 
 UiObject.prototype.strUiObject = function(level){

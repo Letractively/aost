@@ -24,6 +24,10 @@ function NodeObject(){
     this.uiobject = new UiObject();
 }
 
+NodeObject.prototype.walkUp = function(){
+
+}
+
 NodeObject.prototype.getLevel = function(){
     var level = 0;
     var current = this;

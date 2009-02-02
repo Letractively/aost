@@ -34,6 +34,9 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/filter.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/uiobject.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/locator.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/locatorStrategy.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/xpathBuilder.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/xpathDom.js"/>
 
     <script type="application/x-javascript" src="chrome://trump/content/utils/stringBuffer.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/utils/hashMap.js"/>
