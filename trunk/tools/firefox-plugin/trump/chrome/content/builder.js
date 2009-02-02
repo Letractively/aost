@@ -41,7 +41,7 @@ Builder.prototype.createTagObject = function(node){
         name = getAttributeNameOrId(node)
         //TODO xpath creation
         xpath = createXPath(node);
-
+ //       alert("XPATH:" + xpath);
         return this.buildTagObject(node, lowerCaseNodeName, name, attributes, parent, xpath);
     }
 

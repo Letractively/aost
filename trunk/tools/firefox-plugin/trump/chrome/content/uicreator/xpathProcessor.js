@@ -3,6 +3,9 @@ function XPathProcessor(){
     this.DELIMITER = "/";
     //separator for tag and attributes
     this.SEPARATOR = "[";
+    //the separator for xpath prefix such as
+    //  /default:html/default:body[@class='homepage']/default:div[@id='container']/default:div[@id='header']/default:ul/default:li[@id='menu_projects']/default:a
+    this.PREFIX = ":";
 }
 
 XPathProcessor.prototype.splitXPath = function(xpath){
@@ -27,6 +30,11 @@ XPathProcessor.prototype.getTag = function(str){
     if(str != null){
         var lst = str.split(this.SEPARATOR);
         tag = lst[0];
+        var inx = tag.indexOf(this.PREFIX);
+        if(inx != -1){
+            //We have name space or prefix in the tag
+            tag = tag.substring(inx + 1, tag.length);
+        }
     }
 //    alert("Get tag " + tag + " from " + str);
     return tag;

@@ -30,7 +30,7 @@ Tree.prototype.postProcess = function(){
 
 Tree.prototype.addElement = function(element){
 
-    //    alert("add Element UID: " + element.uid + " XPATH:" + element.xpath);
+//        alert("add Element UID: " + element.uid + " XPATH:" + element.xpath);
     //    this.logger.debug("add Element UID: " + element.uid + " XPATH:" + element.xpath);
 
     //case I: root is null, insert the first node
@@ -78,7 +78,6 @@ Tree.prototype.addElement = function(element){
 
             if (this.root.id != null && this.root.id == "root") {
                 this.root.id = this.uid.genUid(newxpath);
-                //                    alert("this.root.id : " + this.root.id);
             }
             this.root.xpath = newxpath;
             this.root.parent = newroot;
