@@ -21,9 +21,9 @@ http://tellurium-users.googlegroups.com/web/trump010d.png?gsc=SFByKyEAAABLVOUDT2
 
 == Setup TrUMP From Project Source==
 
-Sometime, you may want to work on TrUMP source. To do this, check out the trump folder in tools/firefox-plugin/trump.
+Sometime, you may want to work on TrUMP source. To do this, check out the firefox-plugin folder in tools/firefox-plugin.
 
-Lets say you have checked it into C:\Project\firefox-plugin\trump
+Lets say you have checked it into C:\Project\firefox-plugin
 
 First you’ll need to copy the file trump@aost.net inside the extensions-file folder to your firefox profile. 
 
@@ -49,7 +49,7 @@ After that, open the firefox with the profile “user1”. You are ready to use 
 
 == Build TrUMP From Source ==
 
-Check out TrUMP source code from Tellurium trunk/tools/firefox-plugin/trump.
+Check out TrUMP source code from Tellurium trunk/tools/firefox-plugin.
 
 Then run the following ant tasks,
 {{{
