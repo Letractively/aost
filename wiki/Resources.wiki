@@ -1,0 +1,6 @@
+#labels Phase-Support
+= Resources =
+
+Useful resources:
+
+  * [https://developer.mozilla.org/en/Setting_up_extension_development_environment Setting up extension development environment]
