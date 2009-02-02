@@ -41,7 +41,7 @@ Open the user1 profile. Copy the trump@aost.net file to the extensions folder
 
 C:\Documents and Settings\$user\Application Data\Mozilla\Firefox\Profiles\user1\extensions
 
-Edit the trump@aost.net file by opening it in a text editor. This file will contain the path to our trump plugin folder, which is C:\Project\firefox-plugin\trump\src. Don’t forget the \ after the src. Save and close the file.
+Edit the trump@aost.net file by opening it in a text editor. This file will contain the path to our trump plugin folder, which is C:\Project\firefox-plugin\trump\. Don’t forget the \ after the trump. Save and close the file.
 
 We are done setting up the plugin.
 
