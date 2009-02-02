@@ -25,12 +25,43 @@ function NodeObject(){
 }
 
 NodeObject.prototype.walkUp = function(){
+    var gattrs;
 
+    if(this.uiobject.group){
+        gattrs = this.uiobject.getGroupAttributes();
+    }else{
+        gattrs = new Array();    
+    }
+
+    var rxp = this.uiobject.buildXPath(gattrs);
+
+    var xp;
+
+    if(this.parent != null){
+        xp = this.parent.walkUp() + rxp;
+    }else{
+        xp = rxp;
+    }
+
+    return xp;
+}
+
+NodeObject.prototype.getGroupAttributes = function(){
+    var gattrs = new Array();
+    
+    if(this.children != null && this.children.length() > 0){
+        for(var nd in this.children){
+            gattrs.push(nd.getGroupAttributes());
+        }
+    }
+
+    return gattrs;
 }
 
 NodeObject.prototype.getLevel = function(){
     var level = 0;
     var current = this;
+    
     while(current.parent != null){
         level++;
         current = current.parent;
@@ -41,6 +72,7 @@ NodeObject.prototype.getLevel = function(){
 
 NodeObject.prototype.buildUiObject = function(){
     var hasChildren = false;
+
     if (this.children.length > 0) {
         hasChildren = true;
     }
@@ -56,6 +88,7 @@ NodeObject.prototype.buildUiObject = function(){
 
 NodeObject.prototype.printUI = function(layout){
     var hasChildren = false;
+
     if (this.children.length > 0) {
         hasChildren = true;
     }
@@ -86,6 +119,7 @@ NodeObject.prototype.addChild = function(child){
 
 NodeObject.prototype.removeChild = function(uid){
     var child = this.findChild(uid);
+
     if (child != null) {
         var index = this.children.indexOf(child);
         this.children.splice(index, 1);
@@ -94,6 +128,7 @@ NodeObject.prototype.removeChild = function(uid){
 
 NodeObject.prototype.findChild = function(uid){
     var current;
+
     for(var i=0; i<this.children.length ; ++i){
         current = this.children[i];
         if(current.id == uid){
@@ -108,8 +143,8 @@ NodeObject.prototype.isNewNode = function(){
 }
 
 NodeObject.prototype.getAbsoluateXPath = function(lastXPath){
-
     var axp = lastXPath;
+
     if(axp == null)
         axp = "";
     var current = this;
@@ -126,6 +161,7 @@ NodeObject.prototype.selectTag = function(){
 //    alert("Get tags for xpath " + this.xpath);
 
     var tags = this.xpathProcessor.getTags(this.xpath);
+
     if(tags != null && tags.length > 0){
         //revese the tag list so that we start to search from the last one 
         var rtags = this.xpathProcessor.reverseList(tags);
@@ -174,6 +210,7 @@ NodeObject.prototype.getNodeAttributes = function(absoluateXPath){
 //      var attrs = this.filter.getNotBlackListedAttributes(nd.attributes);
   */
     var attrs = new HashMap();
+    
     if(this.tag != null){
         //add TAG to the attribute set
         attrs.set(this.constants.TAG, this.tag);
