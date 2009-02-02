@@ -1,7 +1,7 @@
 <project name="trump" default="xpi" basedir=".">
     
     <property file="build.properties" />
-	<property name="src" location="src"/>
+	<property name="src" location="trump"/>
 	<property name="dst" location="dist"/>
 	<tstamp>
 		<format property="time" pattern="yy.MM.dd_HHmm"/>
