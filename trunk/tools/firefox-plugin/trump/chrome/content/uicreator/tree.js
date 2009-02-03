@@ -3,10 +3,6 @@ function Tree(){
     this.xpathMatcher = new XPathMatcher();
     this.uiModel = new Array();
     this.uid = new Uid();
-
-//    this.logger = new Log4js.Logger("trumplog");
-//	this.logger.setLevel(Log4js.Level.DEBUG);
-//    this.logger.addAppender(new Log4js.FileAppender(this.logger, "trumplog4js.log"));
 }
 
 Tree.prototype.printUI = function(){
@@ -30,8 +26,7 @@ Tree.prototype.postProcess = function(){
 
 Tree.prototype.addElement = function(element){
 
-//        alert("add Element UID: " + element.uid + " XPATH:" + element.xpath);
-    //    this.logger.debug("add Element UID: " + element.uid + " XPATH:" + element.xpath);
+    logger.debug("Building Inner Tree -> add Element UID:"+element.uid + " XPATH:" + element.xpath);
 
     //case I: root is null, insert the first node
     if (this.root == null) {
