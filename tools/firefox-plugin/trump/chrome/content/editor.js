@@ -50,6 +50,8 @@ Editor.prototype.toggleStopButton = function(){
 }
 
 Editor.prototype.generateButton = function(){
+    this.switchToSourceTab();
+
     var sourceTextNode = document.getElementById("source");
     var tagArrays = this.recorder.tagObjectArray;
 
@@ -78,8 +80,14 @@ Editor.prototype.generateButton = function(){
     }
     logger.debug("ui model:"+uiModel);
     sourceTextNode.value = uiModel;
+
+}
+
+Editor.prototype.switchToSourceTab = function(){
+    document.getElementById("editorTabs").selectedItem = document.getElementById("sourceTab");
 }
 
 Editor.prototype.selectedTreeItem = function(event){
     this.recorder.showSelectedNode();  
 }
+
