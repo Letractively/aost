@@ -27,7 +27,7 @@ function init(clickedNode){
     var lowerCaseNodeName = null;
     var upperCaseNodeName = null;
 
-     debugMessge("bundle : " + bundle);
+    logger.debug("bundle : " + bundle);
 
     var nodeType = getNodeType(clickedNode);
     var nodeValue = getNodeValue(clickedNode);
@@ -41,7 +41,7 @@ function init(clickedNode){
         tag = bundle.getFormattedString("TAG", [lowerCaseNodeName]);
         attributeString = getAttributesString(clickedNode);
 
-        debugMessge("attribute : " + attributeString);
+        logger.debug("attribute : " + attributeString);
 
         //If its an Input node, check the type
         if(lowerCaseNodeName == constants.INPUT_NODE){
@@ -58,7 +58,7 @@ function init(clickedNode){
             uiText = bundle.getFormattedString(propertyKey, [uid, createCLocatorText(tag, attributeString, nodeValue)]);
         }
 
-        debugMessge("string : " + uiText);
+        logger.debug("string : " + uiText);
         updateUIModelText(uiText);
     }
 }
@@ -86,7 +86,7 @@ function getInputNodeType(node){
 }
 
 function getNodeValue(node){
-    debugMessge(node.innerHTML);
+    logger.debug(node.innerHTML);
     return node.nodeValue != null ? node.nodeValue : node.innerHTML;
 }
 
@@ -165,9 +165,9 @@ function createTextKeyValue(value){
 }
 
 function createCLocatorText(tag, attributeString, nodeValue){
-    debugMessge(tag);
-    debugMessge(attributeString);
-    debugMessge(nodeValue);
+    logger.debug(tag);
+    logger.debug(attributeString);
+    logger.debug(nodeValue);
 
     var retValue = tag;
     var text = createTextKeyValue(nodeValue);
@@ -240,8 +240,8 @@ function getNotBlackListedAttributes(attributes){
 }
 
 function isNotBlackListed(attribute){
-    debugMessge("isNotBlackListed : " + attribute);
-    debugMessge(blackListAttributes.indexOf(attribute) == -1);
+    logger.debug("isNotBlackListed : " + attribute);
+    logger.debug(blackListAttributes.indexOf(attribute) == -1);
     return blackListAttributes.indexOf(attribute) == -1;        
 }
 
@@ -260,11 +260,4 @@ function getBundle(){
 function updateUIModelText(text){
     var textNode = document.getElementById('uiModelText');
     textNode.value= text;
-}
-
-
-function debugMessge(message){
-    if(window.opener.nodeState.debug){
-        alert(message);
-    }
 }

@@ -69,9 +69,13 @@ Editor.prototype.generateButton = function(){
     
     var uiModelArray = tree.printUI();
     var uiModel = new StringBuffer();
-    for(var j=0; j<uiModelArray.length; ++j){
-        uiModel.append(uiModelArray[j]);
+    if(uiModelArray != undefined){
+        for(var j=0; j<uiModelArray.length; ++j){
+            uiModel.append(uiModelArray[j]);
+        }
+    } else {
+        logger.error("uiModelArray is not defined, cannot generate!");
     }
-    alert(uiModel);
+    logger.debug("ui model:"+uiModel);
     sourceTextNode.value = uiModel;
 }
