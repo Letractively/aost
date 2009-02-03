@@ -11,3 +11,11 @@ Decorator.prototype.addBackground = function(node){
 Decorator.prototype.removeBackground = function(node){
     node.style.backgroundColor = this.noBgColor;    
 }
+
+Decorator.prototype.addOutline = function(node){
+    node.style.outline = "2px solid #000";
+}
+
+Decorator.prototype.removeOutline = function(node){
+    node.style.outline = "";
+}

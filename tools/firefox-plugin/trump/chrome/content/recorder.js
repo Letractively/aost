@@ -10,7 +10,8 @@ function Recorder(window) {
     this.tagObjectArray = new Array();
 
     this.treeView = TreeView;
-    document.getElementById('recordTree').view=this.treeView;
+    this.tree = document.getElementById('recordTree');
+    this.tree.view=this.treeView;
 
 }
 
@@ -56,11 +57,12 @@ Recorder.prototype.registerClickListener = function(){
 }
 
 Recorder.prototype.unregisterClickListener = function(){
-//    alert("unregisterClickListener()")
     for(var i=0; i< this.selectedElements.length ; ++i){
-//        alert(this.tagObjectArray[i].xpath);
         this.decorator.removeBackground(this.selectedElements[i]);
     }
+
+    this.removeOutlineForSelectedNodes();
+
     this.parentWindow.document.removeEventListener("click", this.listener, false);
     this.listener = null;
 }
@@ -69,4 +71,18 @@ Recorder.prototype.stopRecording = function(){
     
 }
 
+Recorder.prototype.showSelectedNode = function(){
+
+    this.removeOutlineForSelectedNodes();
+    
+    var node = this.selectedElements[this.tree.currentIndex];
+    this.decorator.addOutline(node);
+
+}
+
+Recorder.prototype.removeOutlineForSelectedNodes = function(){
+    for(var i=0; i< this.selectedElements.length ; ++i){
+        this.decorator.removeOutline(this.selectedElements[i]);
+    }
+}
 
