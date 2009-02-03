@@ -23,3 +23,126 @@ function XPathBuilder(){
     };
 
 }
+
+XPathBuilder.prototype.buildPosition = function(position){
+    if(position < 1)
+        return "";
+
+    return "position()=" + position;
+}
+
+XPathBuilder.prototype.startsWith = function(str, pattern) {
+    return str.indexOf(pattern) === 0;
+}
+
+XPathBuilder.prototype.buildText = function(value){
+    if(value == null || trimString(value).length <= 0)
+        return "";
+
+    var trimed = trimString(value);
+    //start with "%%"
+    if(trimed.indexOf(this.constants.CONTAIN_PREFIX) == 0){
+        var actual = value.substring(2, value.length-1);
+        return "contains(text(), '" + actual + "')";
+    }else{
+        return "normalize-space(text())=normalize-space('" + trimed + "')";
+    }
+}
+
+XPathBuilder.prototype.buildAttribute = function(name, value){
+    if(name == null || trimString(name).length <= 0)
+        return "";
+
+    if(value == null || trimString(value).length <= 0){
+        return "@" + name;
+    }
+
+    var trimed = trimString(value);
+    if(trimed.indexOf(this.constants.CONTAIN_PREFIX)){
+        var actual = value.substring(2, value.length-1);
+        return "contains(@" + name + "'" + actual + "')";
+    }else{
+        return "@" + name + "='" + trimed + "'";
+    }
+}
+
+XPathBuilder.prototype.buildXPathWithPrefix = function(prefix, tag, text, position, attributes, groupattrs){
+    var sb = new StringBuffer();
+    sb.append(prefix);
+
+    if(tag != null && tag.length > 0){
+        sb.append(tag);
+    }else{
+        sb.append(this.constants.MATCH_ALL);
+    }
+
+    var list = new Array();
+    if(groupattrs != null && groupattrs.length > 0){
+        for(var attr in groupattrs){
+            list.push(attr);
+        }
+    }
+
+    var vText = this.buildText(text);
+    if(vText.length > 0){
+        list.push(vText);
+    }
+
+    var vPosition = this.buildPosition(position);
+    if(vPosition.length > 0){
+        list.add(vPosition);
+    }
+
+    if(attributes != null && attributes.size() > 0){
+        var keys = attributes.keySet();
+        for(var key in keys){
+            var value = attributes.get(key);
+            var vAttr = this.buildAttribute(key, value);
+            if(vAttr.length > 0){
+                list.add(vAttr);
+            }
+        }
+    }
+
+    if(list.length == 0){
+        var attri = list.join(" and ");
+        sb.append("[").append(attri).append("]")
+    }
+
+    return sb.toString();
+}
+
+XPathBuilder.prototype.buildDescendantXPath = function(tag, text, position, attributes){
+    if(position != null && position >= 0)
+        return this.buildXPathWithPrefix(this.constants.DESCENDANT_PREFIX, tag, text, position, attributes, null);
+
+    return  this.buildXPathWithPrefix(this.constants.DESCENDANT_PREFIX, tag, text, -1 , attributes, null);
+}
+
+XPathBuilder.prototype.buildChildXPath = function(tag, text, position, attributes){
+    if(position != null && position >= 0)
+        return this.buildXPathWithPrefix(this.constants.CHILD_PREFIX, tag, text, position, attributes, null);
+
+    return  this.buildXPathWithPrefix(this.constants.CHILD_PREFIX, tag, text, -1 , attributes, null);
+}
+
+XPathBuilder.prototype.internBuildXPath = function(tag, text, position, direct, attributes, groupattrs){
+    if(direct)
+        return this.buildXPathWithPrefix(this.constants.CHILD_PATH, tag, text, position, attributes, groupattrs);
+    else
+        return this.buildXPathWithPrefix(this.constants.DESCENDANT_OR_SELF_PATH, tag, text, position, attributes, groupattrs);
+}
+
+XPathBuilder.prototype.buildGroupXPath = function(tag, text, position, direct, attributes, groupattrs){
+    if(position != null && position >= 0)
+        return this.internBuildXPath(tag, text, position, direct, attributes, groupattrs);
+
+    return  this.internBuildXPath(tag, text, -1 , direct, attributes, groupattrs);
+}
+
+XPathBuilder.prototype.buildXPath = function(tag, text, position, attributes) {
+    if (position != null && position >= 0)
+        return this.internBuildXPath(tag, text, position, false, attributes, null);
+
+    return  this.internBuildXPath(tag, text, -1, false, attributes, null);
+}
