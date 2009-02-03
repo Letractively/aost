@@ -79,3 +79,7 @@ Editor.prototype.generateButton = function(){
     logger.debug("ui model:"+uiModel);
     sourceTextNode.value = uiModel;
 }
+
+Editor.prototype.selectedTreeItem = function(event){
+    this.recorder.showSelectedNode();  
+}
