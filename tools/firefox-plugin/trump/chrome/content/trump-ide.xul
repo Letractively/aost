@@ -23,6 +23,7 @@
       <toolbarbutton id="record-button" label="Record" class="record" tooltiptext="&recordButton.tooltip;" oncommand="window.editor.toggleRecordButton()" checked="true"/>
       <toolbarbutton id="stop-button" label="Stop" class="icon" tooltiptext="&stopButton.tooltip;" oncommand="window.editor.toggleStopButton()"/>
       <toolbarbutton id="generate-button" label="Generate" tooltiptext="&generate.tooltip;" oncommand="window.editor.generateButton()"/>
+      <toolbarbutton id="showLogs-button" label="Show Logs"  oncommand="showLogWindow();"/>
     </toolbar>
 
     <tabbox flex="3" height="250" width="250">
