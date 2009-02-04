@@ -2,12 +2,17 @@
 function NodeObject(){
 
     this.constants = {TAG : "tag"};
+    //hold the dom Node associated to the current tree node 
+    this.domNode = null;
     this.id = null;
     this.xpath = null;
     this.attributes = new HashMap();
     this.parent = null;
     this.children = new Array();
     this.ui = new UiType();
+    
+    this.header = null;
+    this.tailer = null;
 
     //flag to indicate whether this node is a new generated during the grouping process, i.e., by the Tree algorithm
     this.newNode = false;
@@ -138,6 +143,14 @@ NodeObject.prototype.findChild = function(uid){
     return null;
 }
 
+//based on the xpath for the node, set the header and trailer
+//i.e,
+//     header + node's tag + trailer
+NodeObject.prototype.setHeaderTrailerForRegularNode = function(){
+    this.header = this.xpathProcessor.popXPath(this.xpath);
+    this.trailer = null;
+}
+
 NodeObject.prototype.isNewNode = function(){
     return this.newNode;
 }
@@ -156,7 +169,81 @@ NodeObject.prototype.getAbsoluateXPath = function(lastXPath){
     return axp;
 }
 
+//reverse tag list, the tag of the node you want to find
+NodeObject.prototype.findSelectedNode = function(rtaglist, tag){
+//    alert("Try to find the DOM Node for selected tag " + tag + " XPath: " + this.xpath);
+    
+    if(this.children == null || this.children.length <0){
+        logger.error("The Node " + this.id + " does not have any children");
+//        alert("The Node " + this.id + " does not have any children");
+        return null;
+    }else{
+        var tags = this.xpathProcessor.getTags(this.xpath + this.children[0].header);
+        var rtags = this.xpathProcessor.reverseList(tags);
+
+        //For child 0, we need to walk up extra nodes to account for its own xpath 
+        var inx = this.xpathProcessor.findTagIndex(rtaglist, tag) + (rtags.length - rtaglist.length);
+        
+        var current = this.children[0].domNode;
+        if(current == null){
+            alert("Child" + this.children[0].id + " DomNode is null");
+        }
+        for(var i=0; i<=inx; i++){
+            if(current.parentNode != null){
+                current = current.parentNode;
+                var lowerCaseNodeName = getNodeName(current).toLowerCase();
+                if(lowerCaseNodeName != rtags[i]){
+                    logger.error("Node tag " + lowerCaseNodeName + " does not match expected tag " + rtags[i]);
+//                    alert("Loop " + i + ", Node tag " + lowerCaseNodeName + " does not match expected tag " + rtags[i]);
+                    return null;
+                }
+            }else{
+                logger.error("Cannot find the node for tag " + rtags[i]);
+//                alert("Cannot find the node for tag " + rtags[i]);
+                return null;
+            }
+        }
+        this.domNode = current;
+        //set the header and trailer
+        var rinx = rtaglist.length - this.xpathProcessor.findTagIndex(rtaglist, tag) - 2;
+        this.header = this.xpathProcessor.getSubXPath(this.xpath, rinx);
+        
+        return this.domNode;
+    }
+}
+
+NodeObject.prototype.populateAttributes = function(){
+    this.attributes = this.filter.getNotBlackListedAttributes(this.domNode.attributes);
+    this.attributes.set(this.constants.TAG, this.tag);
+}
+
+NodeObject.prototype.selectTag = function(){
+
+    var tags = this.xpathProcessor.getTags(this.xpath);
+
+    if(tags != null && tags.length > 0){
+        //revese the tag list so that we start to search from the last one
+        var rtags = this.xpathProcessor.reverseList(tags);
+
+        var tag = this.tagState.selectTagByPriority(rtags);
+
+        if(tag != null){
+            //if we found the high priority tag, return the relative xpath upto that tag
+            this.tag = tag;
+
+        }else{
+            //cannot find the tag, use the last one
+            this.tag = tags[tags.length - 1];
+        }
+        
+//        alert("Find tag " + this.tag + " from a tag list" + tags.length);
+        this.findSelectedNode(rtags, this.tag);
+        this.populateAttributes();
+    }
+}
+
 //select the approporiate tag from the object's xpath and return the relative xpath upto the selected tag
+/*
 NodeObject.prototype.selectTag = function(){
 //    alert("Get tags for xpath " + this.xpath);
 
@@ -208,7 +295,7 @@ NodeObject.prototype.getNodeAttributes = function(absoluateXPath){
 //      var nd = nodesSnapshot.snapshotItem(0);
 
 //      var attrs = this.filter.getNotBlackListedAttributes(nd.attributes);
-  */
+
     var attrs = new HashMap();
     
     if(this.tag != null){
@@ -218,24 +305,25 @@ NodeObject.prototype.getNodeAttributes = function(absoluateXPath){
     
     return attrs;
 }
+*/
 
 NodeObject.prototype.processNewNode = function(){
-//    alert("Process new node " + this.id);
-    if(this.newNode){
-        var rxp = this.selectTag();
-//        alert("Find tag " + this.tag + " relative xpath " + rxp);
-
-        var axp = this.getAbsoluateXPath(rxp);
-//        alert("Find absoluate xpath " + axp);
-        this.attributes = this.getNodeAttributes(axp)
-//        alert("Set attributes size: " + this.attributes.length);
-    }
-
+    //should process children first so that leaf node will be processed first
+    //otherwise, we cannot walk from any child to the tag node we select
     for(var i=0; i<this.children.length ; ++i){
         //walk all subtree to process each child node
         var current = this.children[i];
         current.processNewNode();
     }
+
+    if(this.newNode){
+        this.selectTag();
+//        alert("Find tag " + this.tag + " relative xpath " + rxp);
+
+    }else{
+        this.setHeaderTrailerForRegularNode();
+    }
+
 }
 
 /*

@@ -36,7 +36,7 @@ XPathProcessor.prototype.getTag = function(str){
             tag = tag.substring(inx + 1, tag.length);
         }
     }
-//    alert("Get tag " + tag + " from " + str);
+
     return tag;
 }
 
@@ -51,7 +51,6 @@ XPathProcessor.prototype.getTags = function(xpath){
             }
         }
     }
-//    alert("Found tags size " + tags.length);
     
     return tags;
 }
@@ -62,7 +61,8 @@ XPathProcessor.prototype.getSubXPath = function(xpath, inx){
         var splited = this.splitXPath(xpath);
         if(inx > splited.length-1){
             //change to warning/error to log later
-            alert("XPath " + xpath + "Index " + inx + " out of bound");
+            //alert("XPath " + xpath + "Index " + inx + " out of bound");
+            logger.warn("XPath " + xpath + "Index " + inx + " out of bound");
             inx = splited.length-1;
         }
 
@@ -72,6 +72,21 @@ XPathProcessor.prototype.getSubXPath = function(xpath, inx){
         }
     }
     
+    return subxp.toString();
+}
+
+//remove the last portion from the XPath
+XPathProcessor.prototype.popXPath = function(xpath){
+    var subxp = new StringBuffer();
+    if(xpath != null){
+        var splited = this.splitXPath(xpath);
+
+        for(var i=0; i<splited.length-1; i++){
+            subxp.append(this.DELIMITER);
+            subxp.append(splited[i])
+        }
+    }
+
     return subxp.toString();
 }
 
@@ -85,7 +100,7 @@ XPathProcessor.prototype.findTagIndex = function(tagList, tag){
             }
         }
     }
-
+    
     return inx;
 }
 

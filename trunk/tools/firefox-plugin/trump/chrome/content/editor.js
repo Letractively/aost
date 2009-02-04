@@ -64,6 +64,7 @@ Editor.prototype.generateButton = function(){
         element.uid = tagObject.tag+i;
         element.xpath = tagObject.xpath;
         element.attributes = tagObject.attributes;
+        element.domNode = tagObject.node;
         tree.addElement(element);
     }
     //do some post processing work
