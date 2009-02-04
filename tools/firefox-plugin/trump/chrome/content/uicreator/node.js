@@ -114,6 +114,32 @@ NodeObject.prototype.printUI = function(layout){
     }
 }
 
+NodeObject.prototype.checkNodeId = function(){
+    //Children's names must be unique
+    if(this.children != null && this.children.length > 1){
+        var map = new HashMap();
+        var count = 2;
+        for(var i=0; i<this.children.length; ++i){
+            var cid = this.children[i].id;
+
+            if(map.get(cid) != null){
+                //found duplicated ids
+                this.children[i].id = this.children[i].id + new String(count);
+                count++;
+                logger.warn("Found duplicated name " + cid + " change the second one to " + this.children[i].id);
+ //               alert("Found duplicated name " + cid + " change the second one to " + this.children[i].id);
+            }
+            map.set(this.children[i].id,  "1");
+        }
+    }
+
+    if(this.children != null && this.children.length > 0){
+        for(var c=0; c<this.children.length; ++c){
+            this.children[c].checkNodeId();
+        }
+    }
+}
+
 NodeObject.prototype.isEmpty = function(){
     return (this.children != null && this.children.length > 0);
 }
@@ -186,7 +212,8 @@ NodeObject.prototype.findSelectedNode = function(rtaglist, tag){
         
         var current = this.children[0].domNode;
         if(current == null){
-            alert("Child" + this.children[0].id + " DomNode is null");
+//            alert("Child" + this.children[0].id + " DomNode is null");
+            logger.error("Child" + this.children[0].id + " DomNode is null");
         }
         for(var i=0; i<=inx; i++){
             if(current.parentNode != null){

@@ -17,6 +17,10 @@ Tree.prototype.postProcess = function(){
     if(this.root != null){
         //get the tag and attributes for auto generated nodes
         this.root.processNewNode();
+
+        //check duplicated node ids
+        this.root.checkNodeId();
+
         //build the UiObject
         this.root.buildUiObject();
     }
