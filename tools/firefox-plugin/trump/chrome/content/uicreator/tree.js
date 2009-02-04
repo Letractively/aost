@@ -16,23 +16,23 @@ Tree.prototype.printUI = function(){
 Tree.prototype.postProcess = function(){
     if(this.root != null){
         //get the tag and attributes for auto generated nodes
-//        alert("Process new nodes");
         this.root.processNewNode();
         //build the UiObject
-//        alert("Build UI objects");
         this.root.buildUiObject();
     }
 }
 
 Tree.prototype.addElement = function(element){
 
-    logger.debug("Building Inner Tree -> add Element UID:"+element.uid + " XPATH:" + element.xpath);
-
+    logger.debug("Building Inner Tree -> add Element UID: "+element.uid + " XPATH: " + element.xpath + " DomNode: " + element.domNode.tagName);
+    
+//    alert("Building Inner Tree -> add Element UID: "+element.uid + " XPATH: " + element.xpath + " DomNode: " + element.domNode.tagName);
     //case I: root is null, insert the first node
     if (this.root == null) {
         this.root = new NodeObject();
         this.root.id = element.uid;
         this.root.parent = null;
+        this.root.domNode = element.domNode;
         this.root.xpath = element.xpath;
         this.root.attributes = element.attributes;
     } else {
@@ -54,13 +54,14 @@ Tree.prototype.addElement = function(element){
                     son.id = element.uid();
                     son.xpath = this.xpathMatcher.remainingXPath(element.xpath, common);
                     son.attributes = element.attributes;
+                    son.domNode = element.domNode;
                     son.parent = this.root;
                     alert("son : " + son);
                     this.root.addChild(son);
                 }
             } else {
                 //there are children
-                this.walk(this.root, element.uid, leftover, element.attributes);
+                this.walk(this.root, element.uid, leftover, element.attributes, element.domNode);
             }
 
         } else {
@@ -87,6 +88,7 @@ Tree.prototype.addElement = function(element){
                 child.id = element.uid;
                 child.xpath = this.xpathMatcher.remainingXPath(element.xpath, common);
                 child.attributes = element.attributes;
+                child.domNode = element.domNode;
                 child.parent = this.root;
                 //                    alert("adding child ID:" + child.id + " XPATH:" + child.xpath);
                 this.root.addChild(child);
@@ -95,7 +97,7 @@ Tree.prototype.addElement = function(element){
     }
 }
 
-Tree.prototype.walk = function(current, uid, xpath, attribute) {
+Tree.prototype.walk = function(current, uid, xpath, attributes, domnode) {
 
     //    alert("walk from " + current.id + " for UID:" + uid + " XPATH:" + xpath);
 
@@ -107,7 +109,8 @@ Tree.prototype.walk = function(current, uid, xpath, attribute) {
             var child = new NodeObject();
             child.id = uid;
             child.xpath = xpath;
-            child.attributes = attribute;
+            child.attributes = attributes;
+            child.domNode = domnode;
             child.parent = current;
 
             current.addChild(child);
@@ -134,7 +137,8 @@ Tree.prototype.walk = function(current, uid, xpath, attribute) {
             var child = new NodeObject();
             child.id = uid;
             child.xpath = xpath;
-            child.attributes = attribute;
+            child.attributes = attributes;
+            child.domNode = domnode;
             child.parent = current;
             current.addChild(child);
         } else {
@@ -176,7 +180,7 @@ Tree.prototype.walk = function(current, uid, xpath, attribute) {
                         }
                     }
                 }
-                this.walk(mx.node, uid, this.xpathMatcher.remainingXPath(xpath, common), attribute);
+                this.walk(mx.node, uid, this.xpathMatcher.remainingXPath(xpath, common), attributes, domnode);
             } else {
                 //need to create extra node
                 var extra = new NodeObject();
@@ -197,7 +201,8 @@ Tree.prototype.walk = function(current, uid, xpath, attribute) {
                 var ch = new NodeObject();
                 ch.id = uid;
                 ch.xpath = this.xpathMatcher.remainingXPath(xpath, common);
-                ch.attributes = attribute;
+                ch.attributes = attributes;
+                ch.domNode = domnode;
                 ch.parent = extra;
                 extra.addChild(ch);
             }
