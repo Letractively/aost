@@ -76,9 +76,9 @@ Editor.prototype.generateButton = function(){
             uiModel.append(uiModelArray[j]);
         }
     } else {
-        logger.error("uiModelArray is not defined, cannot generate!");
+        logger.error("uiModelArray is not defined, cannot generate source!");
     }
-    logger.debug("ui model:"+uiModel);
+    logger.debug("ui model generated:"+uiModel);
     sourceTextNode.value = uiModel;
 
 }
