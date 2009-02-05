@@ -40,14 +40,17 @@ NodeObject.prototype.walkUp = function(){
         xp = rxp;
     }
 
-     //check if the xpath starts with "//"
-//    if(xp != null && (!this.xpathProcessor.startWith(xp, "//"))){
-//        xp = "/" + xp;
-//    }
-
     return xp;
 }
 
+NodeObject.prototype.normalizeXPath = function(xpath) {
+    //check if the xpath starts with "//"
+    if (xpath != null && (!this.xpathProcessor.startWith(xpath, "//"))) {
+        xpath = "/" + xpath;
+    }
+
+    return xpath;
+}
 /*
 NodeObject.prototype.getGroupAttributes = function(){
     var gattrs = new Array();
