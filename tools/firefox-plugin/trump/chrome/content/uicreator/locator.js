@@ -12,6 +12,7 @@ function Locator(){
     this.trailer = null;
     this.position = null;
     this.attributes = new HashMap();
+    this.direct = false;
 }
 
 Locator.prototype.buildLocator = function(attributes){
