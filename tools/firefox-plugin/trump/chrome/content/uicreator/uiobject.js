@@ -12,6 +12,8 @@ function UiObject(){
     this.respond = new Array();
     this.container = false;
     this.group = false;
+    //the node associated with this UiObject
+    this.node = null;
 
     this.classifier = new UiType();
     this.filter = new Filter();
@@ -19,8 +21,12 @@ function UiObject(){
     this.locatorStrategy = new LocatorStrategy();
 }
 
-UiObject.prototype.buildUiObject = function(id, attributes, hasChildren){
-    this.uid = id;
+UiObject.prototype.buildUiObject = function(node, hasChildren){
+    this.node = node;
+
+    var attributes = node.attributes;
+    
+    this.uid = node.id;
 
     var tag = attributes.get(this.constants.TAG);
 
@@ -42,15 +48,22 @@ UiObject.prototype.buildUiObject = function(id, attributes, hasChildren){
 
 //build relative xpath from UiObject's locator
 //If group is true, we need to use its children attributes
-UiObject.prototype.buildXPath = function(groupAttributes){
+UiObject.prototype.buildXPath = function(){
+    var xp;
 
-    return "";
+    if(this.group){
+        xp = this.locatorStrategy.groupLocate(this.node);
+    }else{
+        xp = this.locatorStrategy.compositeLocate(this.node);
+    }
+
+    return xp;
 }
 
-UiObject.prototype.getGroupAttributes = function(){
+//UiObject.prototype.getGroupAttributes = function(){
 
-    return "";
-}
+//    return "";
+//}
 
 UiObject.prototype.strUiObject = function(level){
     var sb = new StringBuffer();

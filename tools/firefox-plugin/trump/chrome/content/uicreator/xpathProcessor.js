@@ -116,3 +116,16 @@ XPathProcessor.prototype.reverseList = function (lst){
 
     return result;
 }
+
+
+XPathProcessor.prototype.startWith = function(xpath, prefix){
+    if(xpath == null || prefix == null || xpath.length < prefix.length){
+        return false;
+    }
+
+    if(xpath.substring(0, prefix.length-1) == prefix){
+        return true;
+    }
+
+    return false;
+}

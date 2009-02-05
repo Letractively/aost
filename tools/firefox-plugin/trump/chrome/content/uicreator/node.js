@@ -30,15 +30,7 @@ function NodeObject(){
 }
 
 NodeObject.prototype.walkUp = function(){
-    var gattrs;
-
-    if(this.uiobject.group){
-        gattrs = this.uiobject.getGroupAttributes();
-    }else{
-        gattrs = new Array();    
-    }
-
-    var rxp = this.uiobject.buildXPath(gattrs);
+    var rxp = this.uiobject.buildXPath();
 
     var xp;
 
@@ -48,9 +40,15 @@ NodeObject.prototype.walkUp = function(){
         xp = rxp;
     }
 
+     //check if the xpath starts with "//"
+//    if(xp != null && (!this.xpathProcessor.startWith(xp, "//"))){
+//        xp = "/" + xp;
+//    }
+
     return xp;
 }
 
+/*
 NodeObject.prototype.getGroupAttributes = function(){
     var gattrs = new Array();
     
@@ -62,6 +60,7 @@ NodeObject.prototype.getGroupAttributes = function(){
 
     return gattrs;
 }
+*/
 
 NodeObject.prototype.getLevel = function(){
     var level = 0;
@@ -82,7 +81,8 @@ NodeObject.prototype.buildUiObject = function(){
         hasChildren = true;
     }
 
-    this.uiobject.buildUiObject(this.id, this.attributes, hasChildren);
+//    this.uiobject.buildUiObject(this.id, this.attributes, hasChildren);
+    this.uiobject.buildUiObject(this, hasChildren);
 
     if (hasChildren) {
         for (var a = 0; a < this.children.length; ++a) {
