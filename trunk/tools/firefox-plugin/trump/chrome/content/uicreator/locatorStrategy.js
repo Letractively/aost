@@ -10,8 +10,9 @@ function LocatorStrategy(){
     
 }
 
-LocatorStrategy.prototype.compositeLocate = function(locator){
-
+LocatorStrategy.prototype.compositeLocate = function(cnode){
+    var locator = cnode.uiobject.clocator;
+    
     var xp = this.xpathBuilder.buildXPath(locator.tag, locator.text, locator.position, locator.attributes);
 
     if (locator.header != null && (trimString(locator.header).length() > 0)) {
