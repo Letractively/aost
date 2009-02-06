@@ -1,6 +1,8 @@
 #labels Phase-Design,Phase-Implementation
 = Tellurium UI Model Plugin (TrUMP) =
 
+Tellurium UI Model Plugin (TrUMP) is the Firefox plugin to automatically create UI modules for users. 
+
 == Install TrUMP IDE ==
 
 Go to the Tellurium project download page and download the TrUMP xpi file as shown in the Figure,
