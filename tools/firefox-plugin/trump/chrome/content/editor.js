@@ -79,7 +79,7 @@ Editor.prototype.generateButton = function(){
     } else {
         logger.error("uiModelArray is not defined, cannot generate source!");
     }
-    logger.debug("ui model generated:"+uiModel);
+    logger.debug("ui model generated:\n"+uiModel);
     sourceTextNode.value = uiModel;
 
     logger.debug("start to validate UI object's xpath");
