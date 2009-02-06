@@ -129,3 +129,109 @@ function findDefautNS(aContextNode){
     }
     return null;
 }
+
+// get the best possible context node to be used as NameSpace Resolver
+function getNSResolutionNode(node){
+    //var nsnode =  lastXPathGeneration.selectedNode;
+//    var nsnode =  expatState.getCurrentNode();
+    var nsnode = node;
+    if (nsnode.nodeType == Node.DOCUMENT_NODE) nsnode=nsnode.documentElement;
+    //if not found, try its elementDocument
+    if(!nsnode){
+ //       var ctxtNode = expatState.getContextNode();
+        var  ctxtNode = document;
+        nsnode = ctxtNode.ownerDocument == null
+                    ? ctxtNode.documentElement
+                    : ctxtNode.ownerDocument.documentElement;
+    }
+    return nsnode;
+}
+
+//var xpathEvaluator; //shared XPath evaluator
+
+//validates given XPath, returns nsXPathExpression if valid, null otherwise
+function getValidXpath(anXpath, aContextNode, aDefaultNS){
+    if (!anXpath || anXpath=='/' || anXpath=='.') return;
+
+    // if (!xpathEvaluator)
+    var xpathEvaluator = new XPathEvaluator(); //lazy creation of global evaluator
+
+    try {
+        var nsResolver;
+        if (aContextNode || aDefaultNS){
+            var originalResolver = xpathEvaluator.createNSResolver(aContextNode);
+            //nsResolver=originalResolver;
+            //var defNs=findDefautNS(aContextNode);
+            if (aDefaultNS){
+                nsResolver = function lookupNamespaceURI(aPrefix) {
+                        //log('prefix:'+aPrefix);
+                        if (aPrefix=='default') {
+                            return aDefaultNS;
+                        }
+                        return originalResolver.lookupNamespaceURI(aPrefix);
+                    }
+            }
+            else nsResolver = originalResolver;
+            //log("foo:"+nsResolver.lookupNamespaceURI("foo"));
+            //log("bar:"+nsResolver.lookupNamespaceURI("bar"));
+            //log("alias:"+nsResolver.lookupNamespaceURI("alias"));
+        }
+        else log("no context node");
+        //log('expression:'+anXpath+'   '+aContextNode+ '    res:'+nsResolver);
+        return xpathEvaluator.createExpression(anXpath, nsResolver);
+    }
+    catch(ex) {
+        //log(ex);  //swallow any exception
+        return null
+    }
+}
+
+function evaluateXPath(aContextNode, aXPath, node) {
+    try{
+//        var nsNode  = getNSResolutionNode();
+        var nsNode  = getNSResolutionNode(node); 
+//        var expr = getValidXpath(aXPath, nsNode, expatState.getDefaultNS());
+        var expr = getValidXpath(aXPath, nsNode, findDefautNS(node));
+        if (expr){
+            //log('EVAL:'+aContextNode);
+            var res =  expr.evaluate(aContextNode, XPathResult.ANY_TYPE, null);
+        }
+        else return null;
+        /*var nsResolver;
+        xpathEvaluator = new XPathEvaluator();
+        if (aContextNode){
+            nsResolver = xpathEvaluator.createNSResolver(
+                aContextNode.ownerDocument == null
+                    ? aContextNode.documentElement
+                    : aContextNode.ownerDocument.documentElement);
+        }
+        var res = xpathEvaluator.evaluate(aXPath, aContextNode, nsResolver, XPathResult.ANY_TYPE, null);*/
+    }
+    catch (e){
+        alert( getBundle().getFormattedString("xpather.wrnRegexpSyntax2", [e.message]) );
+        return null;
+    }
+    //dispatch type
+    switch (res.resultType) {
+        case XPathResult.STRING_TYPE:{
+            window.alert(getBundle().getFormattedString("msgRetString", [res.stringValue]) );
+            return null;
+        }
+        case XPathResult.NUMBER_TYPE:{
+            window.alert(getBundle().getFormattedString("msgRetNumber", [res.numberValue]) );
+            return null;
+        }
+        case XPathResult.BOOLEAN_TYPE:{
+            window.alert(getBundle().getFormattedString("msgRetBoolean", [res.booleanValue]) );
+             return null;
+        }
+    }
+    //loadthem
+    var foundNodes = new Array();
+    var item = res.iterateNext()
+    while (item){
+        foundNodes.push(item);
+        item = res.iterateNext()
+    }
+    return foundNodes;
+}
