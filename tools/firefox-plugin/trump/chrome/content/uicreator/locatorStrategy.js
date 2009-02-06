@@ -43,7 +43,7 @@ LocatorStrategy.prototype.groupLocate = function(cnode){
             }else{
                 gattr = this.xpathBuilder.buildDescendantXPath(cloc.tag, cloc.text, cloc.position, cloc.attributes);
             }
-
+      
             groupAttributes.push(gattr);
         }
     }

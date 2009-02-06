@@ -65,7 +65,7 @@ Tree.prototype.addElement = function(element){
                     son.attributes = element.attributes;
                     son.domNode = element.domNode;
                     son.parent = this.root;
-                    alert("son : " + son);
+ //                   alert("son : " + son);
                     this.root.addChild(son);
                 }
             } else {
