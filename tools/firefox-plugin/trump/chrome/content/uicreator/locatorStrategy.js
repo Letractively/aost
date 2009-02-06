@@ -12,14 +12,15 @@ function LocatorStrategy(){
 
 LocatorStrategy.prototype.compositeLocate = function(cnode){
     var locator = cnode.uiobject.clocator;
+//    alert("UI object " + cnode.uiobject.uid + "'s clocator has attribute " + locator.strLocator());
     
     var xp = this.xpathBuilder.buildXPath(locator.tag, locator.text, locator.position, locator.attributes);
 
-    if (locator.header != null && (trimString(locator.header).length() > 0)) {
+    if (locator.header != null && (trimString(locator.header).length > 0)) {
         xp = locator.header + xp;
     }
 
-    if (locator.trailer != null && (trimString(locator.trailer).length() > 0)) {
+    if (locator.trailer != null && (trimString(locator.trailer).length > 0)) {
         xp = xp + locator.trailer
     }
 

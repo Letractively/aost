@@ -26,6 +26,11 @@ Tree.prototype.postProcess = function(){
     }
 }
 
+Tree.prototype.validate = function() {
+    //validate UI object's XPath
+    this.root.validateXPath();
+}
+
 Tree.prototype.addElement = function(element){
 
     logger.debug("Building Inner Tree -> add Element UID: "+element.uid + " XPATH: " + element.xpath + " DomNode: " + element.domNode.tagName);
@@ -55,7 +60,7 @@ Tree.prototype.addElement = function(element){
                 if (leftover != null && leftover.length > 0) {
                     //only create the child if there are extra xpath
                     var son = new NodeObject();
-                    son.id = element.uid();
+                    son.id = element.uid;
                     son.xpath = this.xpathMatcher.remainingXPath(element.xpath, common);
                     son.attributes = element.attributes;
                     son.domNode = element.domNode;

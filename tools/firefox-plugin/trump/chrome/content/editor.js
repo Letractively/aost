@@ -82,6 +82,9 @@ Editor.prototype.generateButton = function(){
     logger.debug("ui model generated:"+uiModel);
     sourceTextNode.value = uiModel;
 
+    logger.debug("start to validate UI object's xpath");
+    tree.validate();
+    logger.debug("Done validating UI object's XPath");
 }
 
 Editor.prototype.switchToSourceTab = function(){
