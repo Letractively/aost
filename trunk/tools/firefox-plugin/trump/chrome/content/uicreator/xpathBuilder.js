@@ -58,9 +58,9 @@ XPathBuilder.prototype.buildAttribute = function(name, value){
     }
 
     var trimed = trimString(value);
-    if(trimed.indexOf(this.constants.CONTAIN_PREFIX)){
-        var actual = value.substring(2, value.length-1);
-        return "contains(@" + name + "'" + actual + "')";
+    if(trimed.indexOf(this.constants.CONTAIN_PREFIX) == 0){
+        var actual = trimed.substring(2, trimed.length);
+        return "contains(@" + name + ", '" + actual + "')";
     }else{
         return "@" + name + "='" + trimed + "'";
     }
@@ -95,16 +95,17 @@ XPathBuilder.prototype.buildXPathWithPrefix = function(prefix, tag, text, positi
 
     if(attributes != null && attributes.size() > 0){
         var keys = attributes.keySet();
-        for(var key in keys){
+        for(var i=0; i<keys.length; i++){
+            var key = keys[i];
             var value = attributes.get(key);
             var vAttr = this.buildAttribute(key, value);
             if(vAttr.length > 0){
-                list.add(vAttr);
+                list.push(vAttr);
             }
         }
     }
 
-    if(list.length == 0){
+    if(list.length > 0){
         var attri = list.join(" and ");
         sb.append("[").append(attri).append("]")
     }

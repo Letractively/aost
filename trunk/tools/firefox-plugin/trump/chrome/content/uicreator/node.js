@@ -51,19 +51,27 @@ NodeObject.prototype.normalizeXPath = function(xpath) {
 
     return xpath;
 }
-/*
-NodeObject.prototype.getGroupAttributes = function(){
-    var gattrs = new Array();
+
+NodeObject.prototype.findNodeXPath = function(){
+    var xp = this.walkUp();
+    xp = this.normalizeXPath(xp);
+    logger.debug("The XPath for Node " + this.ui + " is " + xp);
+ //   alert("The XPath for Node " + this.ui + " is " + xp);
+
+    return xp;
+}
+
+NodeObject.prototype.validateXPath = function(){
+    this.findNodeXPath();
+    //TODO: validate the generated xpath from the DOM
     
-    if(this.children != null && this.children.length() > 0){
-        for(var nd in this.children){
-            gattrs.push(nd.getGroupAttributes());
+    if (this.children.length > 0) {
+        for (var a = 0; a < this.children.length; ++a) {
+            this.children[a].validateXPath();
         }
     }
-
-    return gattrs;
 }
-*/
+
 
 NodeObject.prototype.getLevel = function(){
     var level = 0;
@@ -272,35 +280,7 @@ NodeObject.prototype.selectTag = function(){
     }
 }
 
-//select the approporiate tag from the object's xpath and return the relative xpath upto the selected tag
 /*
-NodeObject.prototype.selectTag = function(){
-//    alert("Get tags for xpath " + this.xpath);
-
-    var tags = this.xpathProcessor.getTags(this.xpath);
-
-    if(tags != null && tags.length > 0){
-        //revese the tag list so that we start to search from the last one 
-        var rtags = this.xpathProcessor.reverseList(tags);
-
-        var tag = this.tagState.selectTagByPriority(rtags);
-
-        if(tag != null){
-            var inx = this.xpathProcessor.findTagIndex(rtags, tag);
-            //if we found the high priority tag, return the relative xpath upto that tag
-            this.tag = tag;
-            var rinx = tags.length - inx - 1;
-//            alert("Find the index for tag " + tag + " as " + rinx);
-            return this.xpathProcessor.getSubXPath(this.xpath, rinx);
-        }
-        //cannot find the tag, use the last one
-        this.tag = tags[tags.length - 1];
-    }
-    
-    //otherwise, return the whole xpath, i.e, use the last tag in the xpath tag chain
-//    alert("Use the last tag");
-    return this.xpath;
-}
 
 NodeObject.prototype.getNodeAttributes = function(absoluateXPath){
 //    alert("Start to get attributes for xpath " + absoluateXPath);
