@@ -3,8 +3,29 @@ var getStackTrace = function() {
         return e.stack.replace(/^.*?\n/,'').replace(/(?:\n@:0)?\s+$/m,'').replace(/^\(/gm,'{anon}(').split("\n");
     }
 }
+var getLogDetails = function(line){
+     //{anon}()@chrome://trump/content/editor.js:85
+    var re1='(\\(.*\\))';	// Round Braces 1
+    var re2='.*?';	// Non-greedy match on filler
+    var re3='((?:\\/[\\w\\.\\-]+)+)';	// Unix Path 1
+    var re4='.*?';	// Non-greedy match on filler
+    var re5='(\\d+)';	// Integer Number 1
+
+    var p = new RegExp(re1+re2+re3+re4+re5,["i"]);
+    var m = p.exec(line);
+    if (m.length>0)
+    {
+      var rbraces1=m[1];
+      var path="chrome:/"+m[2];
+      var line=m[3];
+      return [path, line];
+    }
+    return ["", -1];
+
+}
 var addLineNumber = function(loggingEvent){
     var stack = getStackTrace()[6];  //assuming that this is called from the appender this 6 is what we want!
+    getLogDetails(stack);
     stack = stack.substring(stack.indexOf("chrome://trump/content/") + "chrome://trump/content/".length, stack.length);
     //we need to clone the event because otherwise the same event will be used in all appenders and we wont know if the line number
     //was added to it or not, and we dont want to use an expando.
@@ -22,10 +43,15 @@ Log4js.MozillaLineNumberJSConsoleAppender.prototype = Log4js.extend(new Log4js.A
 	 * @see Log4js.Appender#doAppend
 	 */
 
-
     doAppend: function(loggingEvent) {
-        loggingEvent = addLineNumber(loggingEvent);
-        this.consoleService.logStringMessage(loggingEvent.message);
+        var pl = getLogDetails(getStackTrace()[6]);
+        var consoleService = Components.classes["@mozilla.org/consoleservice;1"]
+                        .getService(Components.interfaces.nsIConsoleService);
+        var scriptError = Components.classes["@mozilla.org/scripterror;1"]
+                                     .createInstance(Components.interfaces.nsIScriptError);
+
+        scriptError.init(loggingEvent.message, pl[0], null, pl[1], 0, this.getFlag(loggingEvent), "trump");
+        consoleService.logMessage(scriptError);
     },
 	toString: function() {
 	    return "Log4js.MozillaLineNumberJSConsoleAppender";
@@ -79,4 +105,4 @@ var showLogWindow = function(){
 var logger = new Log4js.getLogger("root");
 logger.setLevel(Log4js.Level.ALL);
 logger.addAppender(new Log4js.MozillaLineNumberJSConsoleAppender());
-//logger.addAppender(new Log4js.TrumpLogAppender());
+logger.addAppender(new Log4js.TrumpLogAppender());
