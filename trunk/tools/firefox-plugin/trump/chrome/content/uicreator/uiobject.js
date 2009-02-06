@@ -39,6 +39,8 @@ UiObject.prototype.buildUiObject = function(node, hasChildren){
 //    alert("Build UI object UID:" + this.uid + " tag:" + tag + " respond:" + this.respond.length);
 
     this.container = hasChildren;
+//    this.group = hasChildren;
+
     var whiteListAttributes = this.filter.getWhiteListedAttributes(attributes);
     
     this.clocator.buildLocator(whiteListAttributes);

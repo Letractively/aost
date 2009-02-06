@@ -78,8 +78,8 @@ XPathBuilder.prototype.buildXPathWithPrefix = function(prefix, tag, text, positi
 
     var list = new Array();
     if(groupattrs != null && groupattrs.length > 0){
-        for(var attr in groupattrs){
-            list.push(attr);
+        for(var j=0; j<groupattrs.length; j++){
+            list.push(groupattrs[j]);
         }
     }
 
