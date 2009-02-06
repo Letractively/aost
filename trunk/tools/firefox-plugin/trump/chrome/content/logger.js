@@ -13,29 +13,20 @@ var addLineNumber = function(loggingEvent){
 }
 Log4js.MozillaLineNumberJSConsoleAppender = function() {
 	this.layout = new Log4js.SimpleLayout();
-	try {
-		netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
-		this.jsConsole = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces.nsIConsoleService);
-		this.scriptError = Components.classes["@mozilla.org/scripterror;1"].createInstance(Components.interfaces.nsIScriptError);
-	} catch (e) {
-		log4jsLogger.error(e);
-	}
+    this.consoleService = Components.classes["@mozilla.org/consoleservice;1"]
+                                         .getService(Components.interfaces.nsIConsoleService);
 };
 
 Log4js.MozillaLineNumberJSConsoleAppender.prototype = Log4js.extend(new Log4js.Appender(), {
 	/**
 	 * @see Log4js.Appender#doAppend
 	 */
-	doAppend: function(loggingEvent) {
+
+
+    doAppend: function(loggingEvent) {
         loggingEvent = addLineNumber(loggingEvent);
-        try {
-			netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
-			this.scriptError.init(this.layout.format(loggingEvent), null, null, null, null, this.getFlag(loggingEvent), loggingEvent.categoryName);
-			this.jsConsole.logMessage(this.scriptError);
-		} catch (e) {
-			log4jsLogger.error(e);
-		}
-	},
+        this.consoleService.logStringMessage(loggingEvent.message);
+    },
 	toString: function() {
 	    return "Log4js.MozillaLineNumberJSConsoleAppender";
 	},
@@ -88,4 +79,4 @@ var showLogWindow = function(){
 var logger = new Log4js.getLogger("root");
 logger.setLevel(Log4js.Level.ALL);
 logger.addAppender(new Log4js.MozillaLineNumberJSConsoleAppender());
-logger.addAppender(new Log4js.TrumpLogAppender());
+//logger.addAppender(new Log4js.TrumpLogAppender());
