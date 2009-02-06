@@ -44,6 +44,8 @@ Log4js.MozillaLineNumberJSConsoleAppender.prototype = Log4js.extend(new Log4js.A
 	 */
 
     doAppend: function(loggingEvent) {
+        loggingEvent.message = TRUMP_LOG_ID + loggingEvent.message;
+
         var pl = getLogDetails(getStackTrace()[6]);
         var consoleService = Components.classes["@mozilla.org/consoleservice;1"]
                         .getService(Components.interfaces.nsIConsoleService);
@@ -86,7 +88,7 @@ Log4js.TrumpLogAppender.prototype = Log4js.extend(new Log4js.Appender(), {
         if(logWindow && logWindow.document){
             loggingEvent = addLineNumber(loggingEvent);
             var textbox = logWindow.document.getElementById("uiModelText");
-            logText += loggingEvent.message +"\n";
+            logText += TRUMP_LOG_ID + loggingEvent.message +"\n";
             textbox.value = logText;
         }
     },
@@ -106,3 +108,6 @@ var logger = new Log4js.getLogger("root");
 logger.setLevel(Log4js.Level.ALL);
 logger.addAppender(new Log4js.MozillaLineNumberJSConsoleAppender());
 logger.addAppender(new Log4js.TrumpLogAppender());
+
+//TRUMP log Identifier to make it easier to parse
+const TRUMP_LOG_ID = "[TrUMP 0.1.0] ";

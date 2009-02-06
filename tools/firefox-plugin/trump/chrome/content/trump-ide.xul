@@ -29,7 +29,7 @@
     <tabbox flex="3" height="250" width="250">
         <tabs orient="horizontal" id="editorTabs">
             <tab id="recordTab" label="&recordTab.label;" />
-            <!--<tab id="customizeTab" label="&customizeTab.label;" />-->
+            <!--<tab id="customizeTab" label="&customizeTab.label;" /> -->
             <!--<tab id="validateTab" label="&validateTab.label;" />-->
             <tab id="sourceTab" label="&sourceTab.label;" />
             <!--<tab id="settingsTab" label="&settingsTab.label;" />-->
@@ -49,7 +49,7 @@
                     </vbox>
                 </stack>
             </tabpanel>
-           <!-- <tabpanel orient="vertical">
+          <!-- <tabpanel orient="vertical">
               <textbox id="customize" multiline="true" flex="1"/>
             </tabpanel>
             <tabpanel orient="vertical">
