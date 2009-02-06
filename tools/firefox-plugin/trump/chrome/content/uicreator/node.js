@@ -55,7 +55,7 @@ NodeObject.prototype.normalizeXPath = function(xpath) {
 NodeObject.prototype.findNodeXPath = function(){
     var xp = this.walkUp();
     xp = this.normalizeXPath(xp);
-    logger.debug("The XPath for Node " + this.ui + " is " + xp);
+    logger.debug("The XPath for Node " + this.id + " is " + xp);
 //    alert("The XPath for Node " + this.ui + " is " + xp);
 
     return xp;
