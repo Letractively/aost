@@ -159,7 +159,8 @@ class XPathBuilder {
 
         String trimed = value.trim()
         if(trimed.startsWith(CONTAIN_PREFIX)){
-            String actual = value.substring(2)
+//            String actual = value.substring(2)
+            String actual = trimed.substring(2)
             return "contains(text(),\"${actual}\")"
         }else{
             return "normalize-space(text())=normalize-space(\"${trimed}\")"
