@@ -65,10 +65,10 @@ NodeObject.prototype.validateXPath = function(){
     var xp = this.findNodeXPath();
     //validate the generated xpath from the DOM
     var num = this.xpathProcessor.checkXPathCount(xp);
-    if(num > 1){
-        logger.warn("The XPath for Node " + this.id + " " + xp + " returned " + num + " nodes");
+    if(num != 1){
+        logger.warn("The XPath for Node " + this.id + " " + xp + " returned " + num + " nodes, failed validation");
     }else{
-        logger.debug("The XPath for Node " + this.id + " " + xp + " passed validation");
+        logger.debug("The XPath for Node " + this.id + " " + xp + " returned " + num + " nodes, passed validation");
     }
     
     if (this.children.length > 0) {
