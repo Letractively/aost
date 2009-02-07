@@ -131,7 +131,7 @@ XPathProcessor.prototype.startWith = function(xpath, prefix){
 }
 
 XPathProcessor.prototype.checkXPathCount = function(xpath) {
-    var nodesSnapshot = document.evaluate(xpath, document, null, XPathResult.UNORDERED_NODE_ITERATOR_TYPE, null);
-
+    var nodesSnapshot = document.evaluate(xpath, document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+//    alert("Get object for XPath: " + xpath + " " + nodesSnapshot);
     return nodesSnapshot.snapshotLength;
 }
