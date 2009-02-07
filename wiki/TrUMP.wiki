@@ -72,7 +72,7 @@ You will see the TrUMP IDE as follows,
 
 http://tellurium-users.googlegroups.com/web/trump010f.png?gda=IF9OXz8AAACXZPxEX7Ki-M5C2JpeBoXXGvl4Gd4uFZh4sOybBRtMejKXHS9twXs2d3PI5PCtpFCccyFKn-rNKC-d1pM_IdV0&gsc=jTelIRYAAAC0nhYDa9gni8Uq6-kI4oX7g-kXU5InE09W2o0GCSVgCQ
 
-The "Record" button is on by default, you can click on "Stop" to stop recording. Now, you can start to use the TrUMP IDE to record whatever UI elements you click on the WEB. For example, you can open Google search page and click on the search elements and the tree links,
+The "Record" button is on by default, you can click on "Stop" to stop recording. Now, you can start to use the TrUMP IDE to record whatever UI elements you click on the WEB. For example, you can open Google search page and click on the search elements and the three links,
 
 http://tellurium-users.googlegroups.com/web/trump010g.png?gda=0hMSFz8AAACXZPxEX7Ki-M5C2JpeBoXXGvl4Gd4uFZh4sOybBRtMevEOLvEQPr9lnZXEWcnY2r-ccyFKn-rNKC-d1pM_IdV0&gsc=jTelIRYAAAC0nhYDa9gni8Uq6-kI4oX7g-kXU5InE09W2o0GCSVgCQ
 
