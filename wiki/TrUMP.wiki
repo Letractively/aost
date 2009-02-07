@@ -89,17 +89,17 @@ http://tellurium-users.googlegroups.com/web/TrUMPSource.png?gsc=N4jWPhYAAACC-9YB
 We will see the actual UI module as follows,
 
 {{{
-ui.Container(UID: 'root', clocator: [:]){
-  Container(UID: 'T4t', clocator: [:]){
-    InputBox(UID: 'input0', clocator: [onkeydown:"okd()",value:"",title:"Google Search",name:"q",autocomplete:"off",tag:"input"])
-    SubmitButton(UID: 'input1', clocator: [type:"submit",value:"Google Search",name:"btnG",tag:"input"])
-    SubmitButton(UID: 'input2', clocator: [type:"submit",value:"I'm Feeling Lucky",name:"btnI",tag:"input"])
-  }
-  Container(UID: 'T4tf', clocator: [:]){
-    UrlLink(UID: 'a3', clocator: [tag:"a"])
-    UrlLink(UID: 'a4', clocator: [tag:"a"])
-    UrlLink(UID: 'a5', clocator: [tag:"a"])
-  }
+ui.Container(UID: 'root', clocator: [tag: 'table']){
+	Container(UID: 'T4t', clocator: [tag: 'td']){
+		InputBox(UID: 'input0', clocator: [tag: 'input', title: 'Google Search', name: 'q'], respond: ['keyDown'])
+		SubmitButton(UID: 'input1', clocator: [tag: 'input', type: 'submit', value: 'Google Search', name: 'btnG'])
+		SubmitButton(UID: 'input2', clocator: [tag: 'input', type: 'submit', value: 'I'm Feeling Lucky', name: 'btnI'])
+	}
+	Container(UID: 'T4tf', clocator: [tag: 'td']){
+		UrlLink(UID: 'a3', clocator: [tag: 'a', text: 'Advanced Search', href: '/advanced_search?hl=en'])
+		UrlLink(UID: 'a4', clocator: [tag: 'a', text: 'Preferences', href: '/preferences?hl=en'])
+		UrlLink(UID: 'a5', clocator: [tag: 'a', text: 'Language Tools', href: '/language_tools?hl=en'])
+	}
 }
 }}}
 
