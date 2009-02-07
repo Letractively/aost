@@ -7,7 +7,7 @@ Tellurium UI Model Plugin (TrUMP) is the Firefox plugin to automatically create 
 
 Go to the Tellurium project download page and download the TrUMP xpi file as shown in the Figure,
 
-http://tellurium-users.googlegroups.com/web/trump010a.png?gsc=0vNJlyEAAACF2t5lGVNdE2hK0VYlHmvlCYPur5CjAFJWdX_UuIwXcEzfKN-m9S9niuHrq-IEXAE
+http://tellurium-users.googlegroups.com/web/TrUMPDownload.png?gsc=N4jWPhYAAACC-9YBMpIljZK8WE-abHrag-kXU5InE09W2o0GCSVgCQ
 
 Then, open the xpi file with Firefox,
 
@@ -19,7 +19,7 @@ http://tellurium-users.googlegroups.com/web/trump010c.png?gsc=SFByKyEAAABLVOUDT2
 
 After that, restart Firefox to make the TrUMP plugin take effect.
 
-http://tellurium-users.googlegroups.com/web/trump010d.png?gsc=SFByKyEAAABLVOUDT2cdv7ra_0ycW_ZgqZVUwDwSP-t0DSViQRBi7EzfKN-m9S9niuHrq-IEXAE
+http://tellurium-users.googlegroups.com/web/RestartFirefox.png?gsc=N4jWPhYAAACC-9YBMpIljZK8WE-abHrag-kXU5InE09W2o0GCSVgCQ
 
 == Setup TrUMP From Project Source==
 
@@ -81,12 +81,10 @@ Then, you can click on the "Generate" button to create the Tellurium UI Module,
 
 http://tellurium-users.googlegroups.com/web/trump010h.png?gda=WwV8UT8AAACXZPxEX7Ki-M5C2JpeBoXXGvl4Gd4uFZh4sOybBRtMekGLp6dQXNkqlGzJQvNUMXKccyFKn-rNKC-d1pM_IdV0&gsc=jTelIRYAAAC0nhYDa9gni8Uq6-kI4oX7g-kXU5InE09W2o0GCSVgCQ
 
-You will see the generated UI module in a popup window,
-http://tellurium-users.googlegroups.com/web/trump010i.png?gsc=SFByKyEAAABLVOUDT2cdv7ra_0ycW_ZgqZVUwDwSP-t0DSViQRBi7EzfKN-m9S9niuHrq-IEXAE
+You will see the generated UI module in the "Source" window,
 
-Click on "OK". You can review the UI module in the "Source" tab as follows,
+http://tellurium-users.googlegroups.com/web/TrUMPSource.png?gsc=N4jWPhYAAACC-9YBMpIljZK8WE-abHrag-kXU5InE09W2o0GCSVgCQ
 
-http://tellurium-users.googlegroups.com/web/trump010j.png?gsc=SFByKyEAAABLVOUDT2cdv7ra_0ycW_ZgqZVUwDwSP-t0DSViQRBi7EzfKN-m9S9niuHrq-IEXAE
 
 We will see the actual UI module as follows,
 
@@ -104,6 +102,12 @@ ui.Container(UID: 'root', clocator: [:]){
   }
 }
 }}}
+
+
+http://tellurium-users.googlegroups.com/web/AboutConfig.png
+
+http://tellurium-users.googlegroups.com/web/ErrorConsole.png
+
 
 == Known Issues ==
 
