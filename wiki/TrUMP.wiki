@@ -104,12 +104,20 @@ ui.Container(UID: 'root', clocator: [tag: 'table']){
 }
 }}}
 
+== Additional Features ==
+TrUMP provides the ability for users to check which UI element the recorded UI actually mapps to. As shown in the following figure, in the "Record" window, click on any UI recorded, the corresponding UI element will be marked with a black box.
 
+http://tellurium-users.googlegroups.com/web/CheckUiElement.png?gsc=tMf2vBYAAAAKrp4o2HOPFnb0UWCE3cHWg-kXU5InE09W2o0GCSVgCQ
+
+TrUMP also adds logs to Javascript Error Console. To turn on the log, please first type "about:config" on Firefox address box, then select "javascript.options.showInConsole" and double click it to flip its value to be true.
+ 
 http://tellurium-users.googlegroups.com/web/AboutConfig.png
+
+After you click the "Generate" button, you can find the log message in Javascript console as follow (Tools > Error Console),
 
 http://tellurium-users.googlegroups.com/web/ErrorConsole.png
 
 
 == Known Issues ==
 
-Please see Issues 80-87 on the issue page.
+Please see Issues 80-96 on the issue page.
