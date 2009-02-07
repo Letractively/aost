@@ -43,9 +43,9 @@ XPathBuilder.prototype.buildText = function(value){
     //start with "%%"
     if(trimed.indexOf(this.constants.CONTAIN_PREFIX) == 0){
         var actual = value.substring(2, value.length-1);
-        return "contains(text(), '" + actual + "')";
+        return "contains(text(), \"" + actual + "\")";
     }else{
-        return "normalize-space(text())=normalize-space('" + trimed + "')";
+        return "normalize-space(text())=normalize-space(\"" + trimed + "\")";
     }
 }
 
@@ -60,9 +60,9 @@ XPathBuilder.prototype.buildAttribute = function(name, value){
     var trimed = trimString(value);
     if(trimed.indexOf(this.constants.CONTAIN_PREFIX) == 0){
         var actual = trimed.substring(2, trimed.length);
-        return "contains(@" + name + ", '" + actual + "')";
+        return "contains(@" + name + ", \"" + actual + "\")";
     }else{
-        return "@" + name + "='" + trimed + "'";
+        return "@" + name + "=\"" + trimed + "\"";
     }
 }
 
