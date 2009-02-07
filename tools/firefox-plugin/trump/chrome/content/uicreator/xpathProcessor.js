@@ -129,3 +129,9 @@ XPathProcessor.prototype.startWith = function(xpath, prefix){
 
     return false;
 }
+
+XPathProcessor.prototype.checkXPathCount = function(xpath) {
+    var nodesSnapshot = document.evaluate(xpath, document, null, XPathResult.UNORDERED_NODE_ITERATOR_TYPE, null);
+
+    return nodesSnapshot.snapshotLength;
+}

@@ -56,14 +56,20 @@ NodeObject.prototype.findNodeXPath = function(){
     var xp = this.walkUp();
     xp = this.normalizeXPath(xp);
     logger.debug("The XPath for Node " + this.id + " is " + xp);
-//    alert("The XPath for Node " + this.ui + " is " + xp);
+    alert("The XPath for Node " + this.id + " is " + xp);
 
     return xp;
 }
 
 NodeObject.prototype.validateXPath = function(){
-    this.findNodeXPath();
-    //TODO: validate the generated xpath from the DOM
+    var xp = this.findNodeXPath();
+    //validate the generated xpath from the DOM
+    var num = this.xpathProcessor.checkXPathCount(xp);
+    if(num > 1){
+        logger.warn("The XPath for Node " + this.id + " " + xp + " returned " + num + " nodes");
+    }else{
+        logger.debug("The XPath for Node " + this.id + " " + xp + " passed validation");
+    }
     
     if (this.children.length > 0) {
         for (var a = 0; a < this.children.length; ++a) {
@@ -71,7 +77,6 @@ NodeObject.prototype.validateXPath = function(){
         }
     }
 }
-
 
 NodeObject.prototype.getLevel = function(){
     var level = 0;
