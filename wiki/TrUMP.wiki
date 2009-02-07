@@ -15,7 +15,8 @@ http://tellurium-users.googlegroups.com/web/trump010b.png?gda=sK2vfz8AAACXZPxEX7
 
 You will see the following Firefox plugin installation page, click "Install Now",
 
-http://tellurium-users.googlegroups.com/web/trump010c.png?gsc=SFByKyEAAABLVOUDT2cdv7ra_0ycW_ZgqZVUwDwSP-t0DSViQRBi7EzfKN-m9S9niuHrq-IEXAE
+http://tellurium-users.googlegroups.com/web/SoftwareInstallation.png?gsc=zCT_fBYAAACQz_B0Pa_Ea1pLiVja5Z6ag-kXU5InE09W2o0GCSVgCQ
+
 
 After that, restart Firefox to make the TrUMP plugin take effect.
 
