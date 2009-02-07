@@ -131,7 +131,12 @@ XPathProcessor.prototype.startWith = function(xpath, prefix){
 }
 
 XPathProcessor.prototype.checkXPathCount = function(xpath) {
-    var nodesSnapshot = document.evaluate(xpath, document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+//    var nodesSnapshot = document.evaluate(xpath, document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
 //    alert("Get object for XPath: " + xpath + " " + nodesSnapshot);
-    return nodesSnapshot.snapshotLength;
+//    return nodesSnapshot.snapshotLength;
+    var xpct = "count(" + xpath + ")";
+    var result = document.evaluate(xpct, document, null, XPathResult.NUMBER_TYPE, null);
+//    alert("Get XPath evalution result " + result.numberValue + " for xpath " + xpath);
+    logger.debug("Get XPath evalution result " + result.numberValue + " for xpath " + xpath);
+    return result.numberValue;
 }
