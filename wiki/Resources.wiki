@@ -22,4 +22,5 @@
  
 == Presentations and Videos ==
 
+   * [http://code.google.com/p/aost/downloads/list How to use TrUMP to Create Tellurium Test Cases]
    * [http://groups.google.com/group/ltac/browse_thread/thread/3954f77fba89816f?hl=en Google Test Automation Conference 2008 Slides and Videos] 
