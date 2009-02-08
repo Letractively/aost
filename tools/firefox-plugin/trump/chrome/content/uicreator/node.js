@@ -55,7 +55,7 @@ NodeObject.prototype.normalizeXPath = function(xpath) {
 NodeObject.prototype.findNodeXPath = function(){
     var xp = this.walkUp();
     xp = this.normalizeXPath(xp);
-    logger.debug("The XPath for Node " + this.id + " is " + xp);
+//    logger.debug("The XPath for Node " + this.id + " is " + xp);
 //    alert("The XPath for Node " + this.id + " is " + xp);
 
     return xp;
@@ -64,7 +64,7 @@ NodeObject.prototype.findNodeXPath = function(){
 NodeObject.prototype.validateXPath = function(){
     var xp = this.findNodeXPath();
     //validate the generated xpath from the DOM
-    var num = this.xpathProcessor.checkXPathCount(xp);
+    var num = this.xpathProcessor.checkXPathCount(this.domNode.ownerDocument, xp);
     if(num != 1){
         logger.warn("The XPath for Node " + this.id + " " + xp + " returned " + num + " nodes, failed validation");
     }else{
@@ -284,43 +284,6 @@ NodeObject.prototype.selectTag = function(){
         this.populateAttributes();
     }
 }
-
-/*
-
-NodeObject.prototype.getNodeAttributes = function(absoluateXPath){
-//    alert("Start to get attributes for xpath " + absoluateXPath);
- //   var nd = document.evaluate('/html/body/center/forma', document, null,  XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-//    var nd = document.evaluate('//table', document, null,  XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-
-
-    //var nd = document.evaluate('//a', document, null,  XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-
-/*
-    var nodesSnapshot = document.evaluate(absoluateXPath, document, null,  XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-//    var nodesSnapshot = document.evaluate('/html/body/center/form', document, null,  XPathResult.ANY_TYPE, null);
-
-    alert("Found node snapshots " + nodesSnapshot.snapshotLength);
-    if (nodesSnapshot.snapshotLength > 1) {
-        alert("XPath " + absoluateXPath + " returned " + nodesSnapshot.snapshotLength + " nodes instead of one");
-        for (var i = 0; i < nodesSnapshot.snapshotLength; i++)
-        {
-            dump(nodesSnapshot.snapshotItem(i).textContent);
-        }
-    }
-//      var nd = nodesSnapshot.snapshotItem(0);
-
-//      var attrs = this.filter.getNotBlackListedAttributes(nd.attributes);
-
-    var attrs = new HashMap();
-    
-    if(this.tag != null){
-        //add TAG to the attribute set
-        attrs.set(this.constants.TAG, this.tag);
-    }
-    
-    return attrs;
-}
-*/
 
 NodeObject.prototype.processNewNode = function(){
     //should process children first so that leaf node will be processed first
