@@ -72,7 +72,7 @@ UiObject.prototype.strUiObject = function(level){
     for (var i = 0; i < level; i++) {
         sb.append("\t");
     }
-    sb.append(this.uiType).append("(UID: \"").append(this.uid).append("\", ");
+    sb.append(this.uiType).append("(uid: \"").append(this.uid).append("\", ");
     sb.append(this.clocator.strLocator());
 
     if(this.respond != null && this.respond.length > 0){
