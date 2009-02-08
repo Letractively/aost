@@ -19,7 +19,7 @@
 
   * [https://developer.mozilla.org/en/Setting_up_extension_development_environment Setting up extension development environment]
   * [https://developer.mozilla.org/en/Introduction_to_using_XPath_in_JavaScript Introduction to using XPath in JavaScript]
-  * [http://groups.google.com/group/ltac/browse_thread/thread/3954f77fba89816f?hl=en Google Test Automation Conference 2008 Slides and Videos] 
-
+ 
 == Presentations and Videos ==
-  * [http://video.google.com/videoplay?docid=8928601993601161134 A Step by Step Guide on How to use TrUMP to Create Tellurium Test Cases] 
+
+   * [http://groups.google.com/group/ltac/browse_thread/thread/3954f77fba89816f?hl=en Google Test Automation Conference 2008 Slides and Videos] 
