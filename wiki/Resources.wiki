@@ -22,4 +22,4 @@
   * [http://groups.google.com/group/ltac/browse_thread/thread/3954f77fba89816f?hl=en Google Test Automation Conference 2008 Slides and Videos] 
 
 == Presentations and Videos ==
-  *[http://video.google.com/videoplay?docid=8928601993601161134 A Step by Step Guide on How to use TrUMP to Create Tellurium Test Cases] 
+  * [http://video.google.com/videoplay?docid=8928601993601161134 A Step by Step Guide on How to use TrUMP to Create Tellurium Test Cases] 
