@@ -11,9 +11,9 @@
   * [http://testng.org/ TestNG]
   * [http://htmlunit.sourceforge.net HtmlUnit]
   * [http://seleniumhq.org/ Selenium]
+  * [http://clearspace.openqa.org/community/selenium Selenium Community]
   * [http://webtest.canoo.com Canoo WebTest]
   * [http://twill.idyll.org/ Twill]
-  * [http://clearspace.openqa.org/community/selenium Selenium Community]
 
 == Others ==
 
