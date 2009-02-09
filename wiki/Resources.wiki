@@ -12,6 +12,8 @@
   * [http://jquery.com/ JQuery]
   * [http://www.dojotoolkit.org/ Dojo]
   * [http://extjs.com/products/extjs/ Ext JS]
+  * [http://log4js.berlios.de/ Log4js]
+  * [http://www.prototypejs.org/ Prototype]
 
 == Testing ==
 
@@ -33,6 +35,22 @@
   * [http://chrispederick.com/work/web-developer/ Web Developer]
   * [https://addons.mozilla.org/en-US/firefox/addon/1192 XPather]
   * [http://ted.mielczarek.org/code/mozilla/extensiondev/ Extension Developer's Extension] 
+
+== IDEs ==
+
+  * [http://www.jetbrains.com/idea/ IntelliJ]
+  * [http://www.netbeans.org/ NetBeans]
+  * [http://www.eclipse.org/ Eclipse]
+
+== Subversion Clients ==
+
+  * [http://www.syntevo.com/smartsvn/index.html SmartSVN]
+  * [http://tortoisesvn.tigris.org/ TortoiseSVN]
+
+== Build ==
+
+  * [http://ant.apache.org/ Ant]
+  * [http://maven.apache.org/ Maven]
 
 == Articles ==
 
