@@ -5,6 +5,7 @@
 
   * [http://groovy.codehaus.org/ Groovy]
   * [http://www.ruby-lang.org/en/ Ruby]
+  * [http://www.w3.org/TR/xpath XPath]
 
 == Javascript Frameworks ==
 
