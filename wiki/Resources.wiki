@@ -1,12 +1,21 @@
 #labels Phase-Support
 = Resources =
 
-==Useful Resources on Testing==
+== Languages ==
+
+  * [http://groovy.codehaus.org/ Groovy]
+  * [http://www.ruby-lang.org/en/ Ruby]
+
+== Javascript Frameworks ==
+
+  * [http://jquery.com/ JQuery]
+  * [http://www.dojotoolkit.org/ Dojo]
+  * [http://extjs.com/products/extjs/ Ext JS]
+
+== Testing ==
 
   * [http://code.google.com/p/aost Tellurium]
   * [http://groups.google.com/group/tellurium-users Tellurium user group]
-  * [http://groovy.codehaus.org/ Groovy]
-  * [http://jquery.com/ JQuery]
   * [http://www.junit.org/ JUnit]
   * [http://testng.org/ TestNG]
   * [http://htmlunit.sourceforge.net HtmlUnit]
