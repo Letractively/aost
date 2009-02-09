@@ -27,7 +27,8 @@ function init(clickedNode){
     var lowerCaseNodeName = null;
     var upperCaseNodeName = null;
 
-    logger.debug("bundle : " + bundle);
+//    logger.debug("bundle : " + bundle);
+    LOG.debug("bundle : " + bundle);
 
     var nodeType = getNodeType(clickedNode);
     var nodeValue = getNodeValue(clickedNode);
@@ -41,7 +42,8 @@ function init(clickedNode){
         tag = bundle.getFormattedString("TAG", [lowerCaseNodeName]);
         attributeString = getAttributesString(clickedNode);
 
-        logger.debug("attribute : " + attributeString);
+//        logger.debug("attribute : " + attributeString);
+        LOG.debug("attribute : " + attributeString);
 
         //If its an Input node, check the type
         if(lowerCaseNodeName == constants.INPUT_NODE){
@@ -58,7 +60,8 @@ function init(clickedNode){
             uiText = bundle.getFormattedString(propertyKey, [uid, createCLocatorText(tag, attributeString, nodeValue)]);
         }
 
-        logger.debug("string : " + uiText);
+//        logger.debug("string : " + uiText);
+        LOG.debug("string : " + uiText);
         updateUIModelText(uiText);
     }
 }
@@ -165,9 +168,9 @@ function createTextKeyValue(value){
 }
 
 function createCLocatorText(tag, attributeString, nodeValue){
-    logger.debug(tag);
-    logger.debug(attributeString);
-    logger.debug(nodeValue);
+    LOG.debug(tag);
+    LOG.debug(attributeString);
+    LOG.debug(nodeValue);
 
     var retValue = tag;
     var text = createTextKeyValue(nodeValue);
@@ -240,8 +243,8 @@ function getNotBlackListedAttributes(attributes){
 }
 
 function isNotBlackListed(attribute){
-    logger.debug("isNotBlackListed : " + attribute);
-    logger.debug(blackListAttributes.indexOf(attribute) == -1);
+    LOG.debug("isNotBlackListed : " + attribute);
+    LOG.debug(blackListAttributes.indexOf(attribute) == -1);
     return blackListAttributes.indexOf(attribute) == -1;        
 }
 

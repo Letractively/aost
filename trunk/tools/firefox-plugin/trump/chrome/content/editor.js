@@ -6,6 +6,11 @@ function Editor(window) {
     var self = this;
     window.editor = this;
     this.document = document;
+
+    this.logView = new LogView(this);
+    this.logView.setLog(LOG);
+
+    LOG.info("Test");
     this.registerRecorder();
 }
 
@@ -77,18 +82,35 @@ Editor.prototype.generateButton = function(){
             uiModel.append(uiModelArray[j]);
         }
     } else {
-        logger.error("uiModelArray is not defined, cannot generate source!");
+//        logger.error("uiModelArray is not defined, cannot generate source!");
+        LOG.error("uiModelArray is not defined, cannot generate source!");
     }
-    logger.debug("ui model generated:\n"+uiModel);
+
+//    logger.debug("ui model generated:\n"+uiModel);
+    LOG.debug("ui model generated:\n"+uiModel);
     sourceTextNode.value = uiModel;
 
-    logger.debug("start to validate UI object's xpath");
+//    logger.debug("start to validate UI object's xpath");
+    LOG.debug("start to validate UI object's xpath");
+
     tree.validate();
-    logger.debug("Done validating UI object's XPath");
+//    logger.debug("Done validating UI object's XPath");
+    LOG.debug("Done validating UI object's XPath");
+}
+
+Editor.prototype.clearButton = function(){
+    this.recorder.clearAll();
+    this.clearSourceTabContent();
+    this.logView.clear();
+
 }
 
 Editor.prototype.switchToSourceTab = function(){
     document.getElementById("editorTabs").selectedItem = document.getElementById("sourceTab");
+}
+
+Editor.prototype.clearSourceTabContent = function(){
+    document.getElementById("source").value = "";    
 }
 
 Editor.prototype.selectedTreeItem = function(event){
