@@ -52,10 +52,16 @@
   * [http://ant.apache.org/ Ant]
   * [http://maven.apache.org/ Maven]
 
+== Desktop Recorders ==
+
+  * [http://camstudio.org/blog/camstudio-25-beta-1-released CamStudio 2.5 Beta 1 Released]
+  * [http://live.gnome.org/Istanbul Istanbul]
+
 == Articles ==
 
   * [https://developer.mozilla.org/en/Setting_up_extension_development_environment Setting up extension development environment]
   * [https://developer.mozilla.org/en/Introduction_to_using_XPath_in_JavaScript Introduction to using XPath in JavaScript]
+  * [http://news.softpedia.com/news/Screencast-Guide-Capure-Your-Linux-Desktop-on-Video-42626.shtml Capure Your Linux Desktop on Video!]
  
 == Presentations and Videos ==
 
