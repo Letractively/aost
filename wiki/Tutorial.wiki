@@ -24,7 +24,7 @@ this file is missing, the framework will use the default settings specified in G
 The current configuration includes settings for the embedded server, Selenium connector, and data driven testing. The file is listed as follows:
 
 {{{
-ellurium{
+tellurium{
     //embedded selenium server configuration
     embeddedserver {
         //port number
