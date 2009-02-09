@@ -66,9 +66,11 @@ NodeObject.prototype.validateXPath = function(){
     //validate the generated xpath from the DOM
     var num = this.xpathProcessor.checkXPathCount(this.domNode.ownerDocument, xp);
     if(num != 1){
-        logger.warn("The XPath for Node " + this.id + " " + xp + " returned " + num + " nodes, failed validation");
+//        logger.warn("The XPath for Node " + this.id + " " + xp + " returned " + num + " nodes, failed validation");
+        LOG.warn("The XPath for Node " + this.id + " " + xp + " returned " + num + " nodes, failed validation");
     }else{
-        logger.debug("The XPath for Node " + this.id + " " + xp + " returned " + num + " nodes, passed validation");
+//        logger.debug("The XPath for Node " + this.id + " " + xp + " returned " + num + " nodes, passed validation");
+        LOG.debug("The XPath for Node " + this.id + " " + xp + " returned " + num + " nodes, passed validation");
     }
     
     if (this.children.length > 0) {
@@ -142,8 +144,8 @@ NodeObject.prototype.checkNodeId = function(){
                 //found duplicated ids
                 this.children[i].id = this.children[i].id + new String(count);
                 count++;
-                logger.warn("Found duplicated name " + cid + " change the second one to " + this.children[i].id);
- //               alert("Found duplicated name " + cid + " change the second one to " + this.children[i].id);
+//                logger.warn("Found duplicated name " + cid + " change the second one to " + this.children[i].id);
+                LOG.warn("Found duplicated name " + cid + " change the second one to " + this.children[i].id);
             }
             map.set(this.children[i].id,  "1");
         }
@@ -216,8 +218,8 @@ NodeObject.prototype.findSelectedNode = function(rtaglist, tag){
 //    alert("Try to find the DOM Node for selected tag " + tag + " XPath: " + this.xpath);
     
     if(this.children == null || this.children.length <0){
-        logger.error("The Node " + this.id + " does not have any children");
-//        alert("The Node " + this.id + " does not have any children");
+//        logger.error("The Node " + this.id + " does not have any children");
+        LOG.error("The Node " + this.id + " does not have any children");
         return null;
     }else{
         var tags = this.xpathProcessor.getTags(this.xpath + this.children[0].header);
@@ -228,21 +230,21 @@ NodeObject.prototype.findSelectedNode = function(rtaglist, tag){
         
         var current = this.children[0].domNode;
         if(current == null){
-//            alert("Child" + this.children[0].id + " DomNode is null");
-            logger.error("Child" + this.children[0].id + " DomNode is null");
+//            logger.error("Child" + this.children[0].id + " DomNode is null");
+            LOG.error("Child" + this.children[0].id + " DomNode is null");
         }
         for(var i=0; i<=inx; i++){
             if(current.parentNode != null){
                 current = current.parentNode;
                 var lowerCaseNodeName = getNodeName(current).toLowerCase();
                 if(lowerCaseNodeName != rtags[i]){
-                    logger.error("Node tag " + lowerCaseNodeName + " does not match expected tag " + rtags[i]);
-//                    alert("Loop " + i + ", Node tag " + lowerCaseNodeName + " does not match expected tag " + rtags[i]);
+//                    logger.error("Node tag " + lowerCaseNodeName + " does not match expected tag " + rtags[i]);
+                    LOG.error("Node tag " + lowerCaseNodeName + " does not match expected tag " + rtags[i]);
                     return null;
                 }
             }else{
-                logger.error("Cannot find the node for tag " + rtags[i]);
-//                alert("Cannot find the node for tag " + rtags[i]);
+//                logger.error("Cannot find the node for tag " + rtags[i]);
+                LOG.error("Cannot find the node for tag " + rtags[i]);
                 return null;
             }
         }

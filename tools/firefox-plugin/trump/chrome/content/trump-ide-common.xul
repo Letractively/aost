@@ -21,6 +21,8 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://trump/content/xpather.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/decorator.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/treeView.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/logView.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/trumpLogger.js"/>
 
     <!--<script type="application/x-javascript" src="chrome://trump/content/extlib/prototype.js"/>-->
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/element.js"/>

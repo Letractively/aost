@@ -13,8 +13,8 @@
     title="&trump-ide.title;"
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
     xmlns:html="http://www.w3.org/1999/xhtml"
-    width="300"
-    height="300"
+    width="620"
+    height="550"
     onload="new Editor(window)"
     onunload="window.editor.unload()"
     onclose="return window.editor.close()">
@@ -23,13 +23,14 @@
       <toolbarbutton id="record-button" label="Record" class="record" tooltiptext="&recordButton.tooltip;" oncommand="window.editor.toggleRecordButton()" checked="true"/>
       <toolbarbutton id="stop-button" label="Stop" class="icon" tooltiptext="&stopButton.tooltip;" oncommand="window.editor.toggleStopButton()"/>
       <toolbarbutton id="generate-button" label="Generate" tooltiptext="&generate.tooltip;" oncommand="window.editor.generateButton()"/>
-      <!--toolbarbutton id="showLogs-button" label="Show Logs"  oncommand="showLogWindow();"/-->
+      <toolbarbutton id="clear-button" label="Clear" tooltiptext="&generate.tooltip;" oncommand="window.editor.clearButton()"/>
+      <!--<toolbarbutton id="showLogs-button" label="Show Logs"  oncommand="showLogWindow();"/>-->
     </toolbar>
 
     <tabbox flex="3" height="250" width="250">
         <tabs orient="horizontal" id="editorTabs">
             <tab id="recordTab" label="&recordTab.label;" />
-            <!--<tab id="customizeTab" label="&customizeTab.label;" /> -->
+            <!--<tab id="customizeTab" label="&customizeTab.label;" />-->
             <!--<tab id="validateTab" label="&validateTab.label;" />-->
             <tab id="sourceTab" label="&sourceTab.label;" />
             <!--<tab id="settingsTab" label="&settingsTab.label;" />-->
@@ -51,7 +52,8 @@
             </tabpanel>
           <!-- <tabpanel orient="vertical">
               <textbox id="customize" multiline="true" flex="1"/>
-            </tabpanel>
+            </tabpanel>-->
+            <!--
             <tabpanel orient="vertical">
               <textbox id="validate" multiline="true" flex="1"/>
             </tabpanel>-->
@@ -63,5 +65,26 @@
             </tabpanel>-->
         </tabpanels>
     </tabbox>
-
+    <vbox id="logBox" height="250" width="250">
+        <hbox id="logMenu" align="center">
+            <toolbarbutton id="logTab" label="&logConsole.label;"
+                           class="console-tab" selected="true"/>
+            <spacer flex="1"/>
+            <hbox align="center" id="logButtons">
+                <toolbarbutton id="logFilter" label="Debug" type="menu" class="console-button">
+                    <menupopup id="logFilterPopup"
+                               oncommand="window.editor.logView.changeLogLevel(event.target.value, true)">
+                        <menuitem label="&logFilter.debug.label;" value="0"/>
+                        <menuitem label="&logFilter.info.label;" value="1" selected="true"/>
+                        <menuitem label="&logFilter.warn.label;" value="2"/>
+                        <menuitem label="&logFilter.error.label;" value="3"/>
+                    </menupopup>
+                </toolbarbutton>
+                <toolbarbutton id="logClear" label="&logClear.label;"
+                               oncommand="window.editor.logView.clear()" class="console-button"/>
+            </hbox>
+        </hbox>
+        <iframe flex="1" id="logView" src="LogFrame.html">
+        </iframe>
+    </vbox>
 </window>

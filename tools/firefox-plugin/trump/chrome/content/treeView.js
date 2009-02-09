@@ -26,6 +26,12 @@ var TreeView  = {
         this.recordIndex--;
     },
 
+    clearAll : function(){
+        this.treebox.rowCountChanged(this.rowCount, -this.rowCount);
+        this.rowCount = 0;
+        this.recordIndex = 0;    
+    },
+
     getCellText : function(row, aColumn){
         var column = (aColumn.id) ? aColumn.id : aColumn; //Firefox pre1.5 compatibility
         var tagObject = this.tagObjects[row];

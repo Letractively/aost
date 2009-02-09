@@ -57,9 +57,7 @@ Recorder.prototype.registerClickListener = function(){
 }
 
 Recorder.prototype.unregisterClickListener = function(){
-    for(var i=0; i< this.selectedElements.length ; ++i){
-        this.decorator.removeBackground(this.selectedElements[i]);
-    }
+    this.removeBackgroundForSelectedNodes();
 
     this.removeOutlineForSelectedNodes();
 
@@ -80,9 +78,24 @@ Recorder.prototype.showSelectedNode = function(){
 
 }
 
+Recorder.prototype.removeBackgroundForSelectedNodes = function(){
+    for(var i=0; i< this.selectedElements.length ; ++i){
+        this.decorator.removeBackground(this.selectedElements[i]);
+    }
+}
+
 Recorder.prototype.removeOutlineForSelectedNodes = function(){
     for(var i=0; i< this.selectedElements.length ; ++i){
         this.decorator.removeOutline(this.selectedElements[i]);
     }
+}
+
+Recorder.prototype.clearAll = function(){
+    this.removeOutlineForSelectedNodes();
+    this.removeBackgroundForSelectedNodes();
+    
+    this.selectedElements = new Array();
+    this.tagObjectArray = new Array();
+    this.treeView.clearAll();    
 }
 

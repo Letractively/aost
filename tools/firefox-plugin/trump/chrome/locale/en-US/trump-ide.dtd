@@ -11,3 +11,10 @@
 <!ENTITY settingsTab.label "Settings">
 <!ENTITY element.label "DOM Node">
 <!ENTITY element.name.label "DOM Node Name">
+
+<!ENTITY logConsole.label "Log">
+<!ENTITY logFilter.debug.label "Debug">
+<!ENTITY logFilter.info.label "Info">
+<!ENTITY logFilter.error.label "Error">
+<!ENTITY logFilter.warn.label "Warn">
+<!ENTITY logClear.label "Clear">

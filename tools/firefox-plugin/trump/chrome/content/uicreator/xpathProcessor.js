@@ -61,8 +61,8 @@ XPathProcessor.prototype.getSubXPath = function(xpath, inx){
         var splited = this.splitXPath(xpath);
         if(inx > splited.length-1){
             //change to warning/error to log later
-            //alert("XPath " + xpath + "Index " + inx + " out of bound");
-            logger.warn("XPath " + xpath + "Index " + inx + " out of bound");
+//            logger.warn("XPath " + xpath + "Index " + inx + " out of bound");
+            LOG.warn("XPath " + xpath + "Index " + inx + " out of bound");
             inx = splited.length-1;
         }
 
@@ -138,8 +138,8 @@ XPathProcessor.prototype.checkXPathCount = function(doc, xpath) {
 
 //    alert("Current document " + doc);
     var result = doc.evaluate(xpct,  doc, null, XPathResult.NUMBER_TYPE, null);
-//    alert("Get XPath evalution result " + result.numberValue + " for xpath " + xpath);
 //    logger.debug("Get XPath evalution result " + result.numberValue + " for xpath " + xpath);
+//    LOG.debug("Get XPath evalution result " + result.numberValue + " for xpath " + xpath);
 
     return result.numberValue;
 }
