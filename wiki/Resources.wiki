@@ -15,7 +15,16 @@
   * [http://webtest.canoo.com Canoo WebTest]
   * [http://twill.idyll.org/ Twill]
 
-== Others ==
+== Tools ==
+  
+  * [http://www.mozilla.org/projects/venkman/ Venkman JavaScript Debugger]
+  * [https://addons.mozilla.org/en-US/firefox/addon/6622 Dom Inspector]
+  * [https://addons.mozilla.org/en-US/firefox/addon/1843 Firebug]
+  * [http://chrispederick.com/work/web-developer/ Web Developer]
+  * [https://addons.mozilla.org/en-US/firefox/addon/1192 XPather]
+  * [http://ted.mielczarek.org/code/mozilla/extensiondev/ Extension Developer's Extension] 
+
+== Articles ==
 
   * [https://developer.mozilla.org/en/Setting_up_extension_development_environment Setting up extension development environment]
   * [https://developer.mozilla.org/en/Introduction_to_using_XPath_in_JavaScript Introduction to using XPath in JavaScript]
