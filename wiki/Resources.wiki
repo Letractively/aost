@@ -57,6 +57,10 @@
   * [http://camstudio.org/blog/camstudio-25-beta-1-released CamStudio 2.5 Beta 1 Released]
   * [http://live.gnome.org/Istanbul Istanbul]
 
+== Media Players ==
+
+  * [http://www.videolan.org/vlc/ VLC media player]
+
 == Articles ==
 
   * [https://developer.mozilla.org/en/Setting_up_extension_development_environment Setting up extension development environment]
