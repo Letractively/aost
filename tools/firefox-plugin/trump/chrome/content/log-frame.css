@@ -6,6 +6,7 @@
     height: 100%;
     overflow: auto;
     border-collapse: collapse;
+    border-left: 1em solid #fff;
 }
 
 #logging-console ul {
