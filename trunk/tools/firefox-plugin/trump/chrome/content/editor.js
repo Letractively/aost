@@ -10,7 +10,7 @@ function Editor(window) {
     this.logView = new LogView(this);
     this.logView.setLog(LOG);
 
-    LOG.info("Test");
+//    LOG.info("Test");
     this.registerRecorder();
 }
 
