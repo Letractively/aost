@@ -14,7 +14,7 @@
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
     xmlns:html="http://www.w3.org/1999/xhtml"
     width="620"
-    height="450"
+    height="480"
     onload="new Editor(window)"
     onunload="window.editor.unload()"
     onclose="return window.editor.close()">
