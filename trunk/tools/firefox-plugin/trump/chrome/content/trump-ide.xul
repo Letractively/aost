@@ -84,7 +84,10 @@
                                oncommand="window.editor.logView.clear()" class="console-button"/>
             </hbox>
         </hbox>
-        <iframe flex="1" id="logView" src="LogFrame.html">
-        </iframe>
+        <hbox>
+            <spacer flex="0" width="15"/>
+            <iframe flex="1" id="logView" src="LogFrame.html" height="250" width="235">
+            </iframe>
+        </hbox>
     </vbox>
 </window>

@@ -4,9 +4,9 @@
     border: 2px;
     width: 100%;
     height: 100%;
-    overflow: auto;
+    font-size: 75%;
+    display: block;
     border-collapse: collapse;
-    border-left: 1em solid #fff;
 }
 
 #logging-console ul {
@@ -23,7 +23,6 @@
 #logging-console li {
     margin: 2px;
     border-top: 1px solid #ccc;
-    font-size: smaller;
     white-space: nowrap;
 }
 
