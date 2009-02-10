@@ -61,12 +61,13 @@
 
   * [http://www.videolan.org/vlc/ VLC media player]
 
-== Articles ==
+== Documents ==
 
   * [https://developer.mozilla.org/en/Setting_up_extension_development_environment Setting up extension development environment]
   * [https://developer.mozilla.org/en/Introduction_to_using_XPath_in_JavaScript Introduction to using XPath in JavaScript]
   * [http://news.softpedia.com/news/Screencast-Guide-Capure-Your-Linux-Desktop-on-Video-42626.shtml Capure Your Linux Desktop on Video!]
- 
+  * [https://developer.mozilla.org/en/XUL_Reference XUL Reference]
+
 == Presentations and Videos ==
 
    * [http://code.google.com/p/aost/downloads/list How to use TrUMP to Create Tellurium Test Cases] ([http://doesthatevencompile.com/flv/ Flash Version])
