@@ -23,7 +23,7 @@
       <toolbarbutton id="record-button" label="Record" class="record" tooltiptext="&recordButton.tooltip;" oncommand="window.editor.toggleRecordButton()" checked="true"/>
       <toolbarbutton id="stop-button" label="Stop" class="icon" tooltiptext="&stopButton.tooltip;" oncommand="window.editor.toggleStopButton()"/>
       <toolbarbutton id="generate-button" label="Generate" tooltiptext="&generate.tooltip;" oncommand="window.editor.generateButton()"/>
-      <toolbarbutton id="clear-button" label="Clear" tooltiptext="&generate.tooltip;" oncommand="window.editor.clearButton()"/>
+      <toolbarbutton id="clear-button" label="Clear" tooltiptext="&clear.tooltip;" oncommand="window.editor.clearButton()"/>
       <!--<toolbarbutton id="showLogs-button" label="Show Logs"  oncommand="showLogWindow();"/>-->
     </toolbar>
 
