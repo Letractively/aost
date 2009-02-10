@@ -14,7 +14,7 @@
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
     xmlns:html="http://www.w3.org/1999/xhtml"
     width="620"
-    height="550"
+    height="450"
     onload="new Editor(window)"
     onunload="window.editor.unload()"
     onclose="return window.editor.close()">
@@ -27,7 +27,7 @@
       <!--<toolbarbutton id="showLogs-button" label="Show Logs"  oncommand="showLogWindow();"/>-->
     </toolbar>
 
-    <tabbox flex="3" height="250" width="250">
+    <tabbox flex="3" height="300" width="250">
         <tabs orient="horizontal" id="editorTabs">
             <tab id="recordTab" label="&recordTab.label;" />
             <!--<tab id="customizeTab" label="&customizeTab.label;" />-->
@@ -65,7 +65,7 @@
             </tabpanel>-->
         </tabpanels>
     </tabbox>
-    <vbox id="logBox" height="250" width="250">
+    <vbox id="logBox" height="100" width="250">
         <hbox id="logMenu" align="center">
             <toolbarbutton id="logTab" label="&logConsole.label;"
                            class="console-tab" selected="true"/>
@@ -86,7 +86,7 @@
         </hbox>
         <hbox>
             <spacer flex="0" width="15"/>
-            <iframe flex="1" id="logView" src="LogFrame.html" height="250" width="235">
+            <iframe flex="1" id="logView" src="LogFrame.html" height="100" width="235">
             </iframe>
         </hbox>
     </vbox>
