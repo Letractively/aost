@@ -22,6 +22,8 @@
 #logging-console li {
     margin: 2px;
     border-top: 1px solid #ccc;
+    font-size: smaller;
+    white-space: nowrap;
 }
 
 #logging-console li.error {
@@ -36,6 +38,7 @@
 #logging-console li.debug {
     color: green;
 }
+
 /
 *
  * Log Console
@@ -52,7 +55,7 @@
 
 .console-tab {
   height: 20px;
-  border-width: 0 1px 0 0;
+  border-width: 0 5px 0 0;
   border-style: solid;
   border-color: #AAA;
   margin: 0;
