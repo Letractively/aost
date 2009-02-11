@@ -534,6 +534,8 @@ following attributes:
 
 and the following methods
 
+  * selectParentFrame() (corresponding method in DslContext, selectParentFrameFrom(String uid)) 
+  * selectTopFrame() (corresponding method in DslContext, selectTopFrameFrom(String uid))
   * selectFrame(locator)
   * getWhetherThisFrameMatchFrameExpression(currentFrameString, target)
   * waitForFrameToLoad(frameAddress, timeout) 
