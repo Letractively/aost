@@ -59,7 +59,11 @@ Here we list all the available methods that can be used as DSLs in DslContext an
 
   * {{{selectMainWindow}}}: Select the original window, i.e., the Main window.
 
-  * {{{selectFrame locator}}}: Selects a frame within the current window.  (You may invoke this command multiple times to select nested frames.) To select the parent frame, use "relative=parent" as a locator; to select the top frame, use "relative=top". You can also select a frame by its 0-based index number; select the first frame with "index=0", or the third frame with "index=2".
+  * {{{selectFrame frameName}}}: Selects a frame within the current window.
+
+  * {{{selectParentFrameFrom frameName}}}: Select the parent frame from the frame identified by the "frameName".
+
+  * {{{selectTopFrameFrom}}}: Select the main frame from the frame identified by the "frameName".
 
   * {{{waitForPopUp windowID, timeout}}}: Waits for a popup window to appear and load up.
 
@@ -534,8 +538,8 @@ following attributes:
 
 and the following methods
 
-  * selectParentFrame() (corresponding method in DslContext, selectParentFrameFrom(String uid)) 
-  * selectTopFrame() (corresponding method in DslContext, selectTopFrameFrom(String uid))
+  * selectParentFrame() 
+  * selectTopFrame() 
   * selectFrame(locator)
   * getWhetherThisFrameMatchFrameExpression(currentFrameString, target)
   * waitForFrameToLoad(frameAddress, timeout) 
