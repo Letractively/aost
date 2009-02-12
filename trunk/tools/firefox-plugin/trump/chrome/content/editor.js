@@ -12,6 +12,7 @@ function Editor(window) {
 
 //    LOG.info("Test");
     this.registerRecorder();
+    this.innerTree = null;
 }
 
 Editor.prototype.registerRecorder = function(){
@@ -63,6 +64,8 @@ Editor.prototype.generateButton = function(){
     var tagObject;
     var element;
     var tree = new Tree();
+    this.innerTree = tree;
+
     for(var i=0; i<tagArrays.length; ++i){
         tagObject = tagArrays[i];
         element = new ElementObject();
@@ -102,7 +105,7 @@ Editor.prototype.clearButton = function(){
     this.recorder.clearAll();
     this.clearSourceTabContent();
     this.logView.clear();
-
+    this.innerTree = null;
 }
 
 Editor.prototype.switchToSourceTab = function(){
@@ -110,10 +113,14 @@ Editor.prototype.switchToSourceTab = function(){
 }
 
 Editor.prototype.clearSourceTabContent = function(){
-    document.getElementById("source").value = "";    
+    document.getElementById("source").value = "";
 }
 
 Editor.prototype.selectedTreeItem = function(event){
     this.recorder.showSelectedNode();  
+}
+
+Editor.prototype.customizeButton = function(){
+
 }
 

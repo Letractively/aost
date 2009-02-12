@@ -23,7 +23,7 @@
       <toolbarbutton id="record-button" label="Record" class="record" tooltiptext="&recordButton.tooltip;" oncommand="window.editor.toggleRecordButton()" checked="true"/>
       <toolbarbutton id="stop-button" label="Stop" class="icon" tooltiptext="&stopButton.tooltip;" oncommand="window.editor.toggleStopButton()"/>
       <toolbarbutton id="generate-button" label="Generate" tooltiptext="&generate.tooltip;" oncommand="window.editor.generateButton()"/>
-      <toolbarbutton id="customize-button" label="Customize" tooltiptext="&customize.tooltip;" oncommand=""/>
+      <toolbarbutton id="customize-button" label="Customize" tooltiptext="&customize.tooltip;" oncommand="window.editor.customizeButton()"/>
       <toolbarbutton id="clear-button" label="Clear" tooltiptext="&clear.tooltip;" oncommand="window.editor.clearButton()"/>
       <!--<toolbarbutton id="showLogs-button" label="Show Logs"  oncommand="showLogWindow();"/>-->
     </toolbar>
@@ -31,9 +31,9 @@
     <tabbox flex="3" height="300" width="250">
         <tabs orient="horizontal" id="editorTabs">
             <tab id="recordTab" label="&recordTab.label;" />
-            <!--<tab id="customizeTab" label="&customizeTab.label;" />-->
             <!--<tab id="validateTab" label="&validateTab.label;" />-->
             <tab id="sourceTab" label="&sourceTab.label;" />
+            <tab id="customizeTab" label="&customizeTab.label;" />
             <!--<tab id="settingsTab" label="&settingsTab.label;" />-->
         </tabs>
         <tabpanels flex="1">
