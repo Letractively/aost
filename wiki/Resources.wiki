@@ -71,6 +71,10 @@
   * [http://pastebin.mozilla.org/621834 XUL template example]
   * [https://developer.mozilla.org/en/Gecko Gecko Layout Engine]
 
+== Algorithms ==
+
+  * [http://en.wikipedia.org/wiki/Rete_algorithm Rete algorithm]
+
 == Presentations and Videos ==
 
    * [http://code.google.com/p/aost/downloads/list How to use TrUMP to Create Tellurium Test Cases] ([http://doesthatevencompile.com/flv/ Flash Version])
