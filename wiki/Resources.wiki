@@ -66,8 +66,9 @@
   * [https://developer.mozilla.org/en/Setting_up_extension_development_environment Setting up extension development environment]
   * [https://developer.mozilla.org/en/Introduction_to_using_XPath_in_JavaScript Introduction to using XPath in JavaScript]
   * [http://news.softpedia.com/news/Screencast-Guide-Capure-Your-Linux-Desktop-on-Video-42626.shtml Capure Your Linux Desktop on Video!]
-  * [https://developer.mozilla.org/en/XUL_Reference XUL Reference]
+  * [https://developer.mozilla.org/en/XUL XUL Reference]
   * [http://docs.huihoo.com/xul/xul-tutorial/ XUL Tutorial]
+  * [http://pastebin.mozilla.org/621834 XUL template example]
   * [https://developer.mozilla.org/en/Gecko Gecko Layout Engine]
 
 == Presentations and Videos ==
