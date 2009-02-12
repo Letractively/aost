@@ -3,6 +3,7 @@
 <!ENTITY recordButton.tooltip "Record">
 <!ENTITY stopButton.tooltip "Stop">
 <!ENTITY generate.tooltip "Generate">
+<!ENTITY customize.tooltip "Customize">
 <!ENTITY clear.tooltip "Clear">
 
 <!ENTITY recordTab.label "Record">

@@ -23,6 +23,7 @@
       <toolbarbutton id="record-button" label="Record" class="record" tooltiptext="&recordButton.tooltip;" oncommand="window.editor.toggleRecordButton()" checked="true"/>
       <toolbarbutton id="stop-button" label="Stop" class="icon" tooltiptext="&stopButton.tooltip;" oncommand="window.editor.toggleStopButton()"/>
       <toolbarbutton id="generate-button" label="Generate" tooltiptext="&generate.tooltip;" oncommand="window.editor.generateButton()"/>
+      <toolbarbutton id="customize-button" label="Customize" tooltiptext="&customize.tooltip;" oncommand=""/>
       <toolbarbutton id="clear-button" label="Clear" tooltiptext="&clear.tooltip;" oncommand="window.editor.clearButton()"/>
       <!--<toolbarbutton id="showLogs-button" label="Show Logs"  oncommand="showLogWindow();"/>-->
     </toolbar>
@@ -50,9 +51,6 @@
                     </vbox>
                 </stack>
             </tabpanel>
-          <!-- <tabpanel orient="vertical">
-              <textbox id="customize" multiline="true" flex="1"/>
-            </tabpanel>-->
             <!--
             <tabpanel orient="vertical">
               <textbox id="validate" multiline="true" flex="1"/>
@@ -60,6 +58,9 @@
             <tabpanel orient="vertical">
               <textbox id="source" multiline="true" wrap="off" flex="1"/>
             </tabpanel>
+          <tabpanel orient="vertical">
+              <textbox id="customize" multiline="true" flex="1"/>
+          </tabpanel>
            <!-- <tabpanel orient="vertical">
               <textbox id="settings" multiline="true" flex="1"/>
             </tabpanel>-->
