@@ -3,7 +3,6 @@ function Tree(){
     this.xpathMatcher = new XPathMatcher();
     this.uiModel = new Array();
     this.uid = new Uid();
-    this.xmlArray = new Array();
 }
 
 Tree.prototype.printUI = function(){
@@ -15,9 +14,10 @@ Tree.prototype.printUI = function(){
 
 Tree.prototype.buildXML = function(){
     if(this.root != null){
-        this.root.buildXML(this.xmlArray);
+        var xmlArray = new Array();
+        this.root.buildXML(xmlArray);
         var xml = "<?xml version=\"1.0\"?>\n<UIs id=\"customize_tree_xml\" xmlns=\"\">\n";
-        xml += this.formatXML(this.xmlArray);
+        xml += this.formatXML(xmlArray);
         xml += "</UIs>"
         logger.debug("Generated XML: \n" + xml);
         return xml;
