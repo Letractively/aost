@@ -27,7 +27,6 @@ function init(clickedNode){
     var lowerCaseNodeName = null;
     var upperCaseNodeName = null;
 
-//    logger.debug("bundle : " + bundle);
     logger.debug("bundle : " + bundle);
 
     var nodeType = getNodeType(clickedNode);
@@ -42,7 +41,6 @@ function init(clickedNode){
         tag = bundle.getFormattedString("TAG", [lowerCaseNodeName]);
         attributeString = getAttributesString(clickedNode);
 
-//        logger.debug("attribute : " + attributeString);
         logger.debug("attribute : " + attributeString);
 
         //If its an Input node, check the type
@@ -60,7 +58,6 @@ function init(clickedNode){
             uiText = bundle.getFormattedString(propertyKey, [uid, createCLocatorText(tag, attributeString, nodeValue)]);
         }
 
-//        logger.debug("string : " + uiText);
         logger.debug("string : " + uiText);
         updateUIModelText(uiText);
     }

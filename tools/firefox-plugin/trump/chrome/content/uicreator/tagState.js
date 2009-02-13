@@ -27,7 +27,7 @@ TagState.prototype.includeTag = function(tagList, tag){
 TagState.prototype.selectOneTag = function(choiceTags, tags){
     for (var i = 0; i < tags.length; i++) {
         if (this.includeTag(choiceTags, tags[i])) {
-//            alert("Found included tag " +  tags[i]);
+
             return tags[i];
         }
     }

@@ -44,7 +44,7 @@ UiType.prototype.getTypeWithExtra = function(tag, extra, hasChildren) {
         addition = "Y";
     }
     var uitype = this.map.get(tag + addition);
-    //        alert("uitype : " + uitype) ;
+
     if (this.map.get(tag + addition) == null) {
         if (hasChildren) {
             uitype = "Container";
