@@ -173,7 +173,8 @@ NodeObject.prototype.buildXML = function(xml){
     var descobj = this.uiobject.descObject();
 
     var myclass = "class=\"" + MYCLASS + level + "\"";
-    var myUID = "id=\"" + UID_PREFIX + this.canonUID() + "\"";
+//    var myUID = "id=\"" + UID_PREFIX + this.canonUID() + "\"";
+    var myUID = "id=\"" + this.canonUID() + "\"";
 
     if (hasChildren) {
         xml.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + " " + myUID + ">\n");
