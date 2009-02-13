@@ -72,6 +72,8 @@
   * [http://pastebin.mozilla.org/621834 XUL template example]
   * [https://developer.mozilla.org/en/Gecko Gecko Layout Engine]
   * [http://www.w3schools.com/XML/ XML Tutorial]
+  * [http://psacake.com/web/jb.asp Javascript Form Validation]
+  * [http://tecfa.unige.ch/guides/js/ex-intro/angus_strings.html STRING MATCHING AND REPLACING IN JAVASCRIPT 1.2]
 
 == Algorithms ==
 
