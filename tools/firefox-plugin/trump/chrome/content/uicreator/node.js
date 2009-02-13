@@ -118,18 +118,20 @@ NodeObject.prototype.buildUiObject = function(){
     }
 }
 
-NodeObject.prototype.refUiObject = function(uiArray){
+NodeObject.prototype.refUiObject = function(uiMap){
     var hasChildren = false;
 
     if (this.children.length > 0) {
         hasChildren = true;
     }
 
-    uiArray.push(this.uiobject);
+    var canonuid = this.canonUID();
+
+    uiMap.set(canonuid, this.uiobject);
 
     if (hasChildren) {
         for (var i = 0; i < this.children.length; ++i) {
-            this.children[i].refUiObject(uiArray);
+            this.children[i].refUiObject(uiMap);
         }
     }
 }
