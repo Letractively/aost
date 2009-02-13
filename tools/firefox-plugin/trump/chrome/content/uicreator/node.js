@@ -62,13 +62,16 @@ NodeObject.prototype.findNodeXPath = function(){
     return xp;
 }
 
+//validate itself and its descendants
 NodeObject.prototype.validateXPath = function(){
     var xp = this.findNodeXPath();
     //validate the generated xpath from the DOM
     var num = this.xpathProcessor.checkXPathCount(this.domNode.ownerDocument, xp);
     if(num != 1){
+        this.uiobject.isLocatorValid = false;
         logger.warn("The XPath for Node " + this.id + " " + xp + " returned " + num + " nodes, failed validation");
     }else{
+        this.uiobject.isLocatorValid = true;
         logger.debug("The XPath for Node " + this.id + " " + xp + " returned " + num + " nodes, passed validation");
     }
     
@@ -76,6 +79,20 @@ NodeObject.prototype.validateXPath = function(){
         for (var i = 0; i < this.children.length; ++i) {
             this.children[i].validateXPath();
         }
+    }
+}
+
+//only validate itself's xpath
+NodeObject.prototype.validateNodeXPath = function(){
+    var xp = this.findNodeXPath();
+    //validate the generated xpath from the DOM
+    var num = this.xpathProcessor.checkXPathCount(this.domNode.ownerDocument, xp);
+    if(num != 1){
+        this.uiobject.isLocatorValid = false;
+        logger.warn("The XPath for Node " + this.id + " " + xp + " returned " + num + " nodes, failed validation");
+    }else{
+        this.uiobject.isLocatorValid = true;
+        logger.debug("The XPath for Node " + this.id + " " + xp + " returned " + num + " nodes, passed validation");
     }
 }
 
@@ -172,19 +189,22 @@ NodeObject.prototype.buildXML = function(xml){
     var padding = this.uiobject.paddingByLevel(level+1);
     var descobj = this.uiobject.descObject();
 
+    this.validateNodeXPath();
+    var isXPathValid = this.uiobject.isLocatorValid ? "" : "X";
+    var valid = "valid=\"" + isXPathValid + "\"";
     var myclass = "class=\"" + MYCLASS + level + "\"";
 //    var myUID = "id=\"" + UID_PREFIX + this.canonUID() + "\"";
     var myUID = "id=\"" + this.canonUID() + "\"";
 
     if (hasChildren) {
-        xml.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + " " + myUID + ">\n");
+        xml.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + " " + myUID + " " + valid + ">\n");
 
         for (var i = 0; i < this.children.length; ++i) {
             this.children[i].buildXML(xml);
         }
         xml.push(padding + "</UiObject>\n");
     }else{
-        xml.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + " " + myUID + "/>\n");
+        xml.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + " " + myUID + " " + valid + "/>\n");
     }
 }
 

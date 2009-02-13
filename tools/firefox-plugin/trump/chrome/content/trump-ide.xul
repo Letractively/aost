@@ -106,7 +106,10 @@
                         <query expr="*"/>
                         <action>
                             <vbox uri="?" class="indent">
-                                <button uid="?id" label="?desc" myclass="?class" align="left" oncommand="window.editor.processCustomizeEvent(event)"/>
+                                <hbox>
+                                    <button uid="?id" label="?desc" myclass="?class" align="left" oncommand="window.editor.processCustomizeEvent(event)"/>
+                                    <label value="?valid" align="left" style="color: red;"/>
+                                </hbox>
                             </vbox>
                         </action>
                     </template>
