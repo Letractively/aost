@@ -120,12 +120,36 @@ NodeObject.prototype.printUI = function(layout){
     layout.push(strobj);
 
     if (hasChildren) {
-        for (var a = 0; a < this.children.length; ++a) {
-            this.children[a].printUI(layout);
+        for (var i = 0; i < this.children.length; ++i) {
+            this.children[i].printUI(layout);
         }
 
         var strobjft = this.uiobject.strUiObjectFooter(level);
         layout.push(strobjft);
+    }
+}
+
+NodeObject.prototype.buildXML = function(xml){
+    var hasChildren = false;
+
+    if (this.children.length > 0) {
+        hasChildren = true;
+    }
+
+    //get the current level of the node so that we can do pretty print
+    var level = this.getLevel();
+    var padding = this.uiobject.paddingByLevel(level+1);
+    var descobj = this.uiobject.descObject();
+
+    if (hasChildren) {
+        xml.push(padding + "<UiObject desc=\"" + descobj + "\">\n");
+
+        for (var i = 0; i < this.children.length; ++i) {
+            this.children[i].buildXML(xml);
+        }
+        xml.push(padding + "</UiObject>\n");
+    }else{
+        xml.push(padding + "<UiObject desc=\"" + descobj + "\"/>\n");
     }
 }
 
