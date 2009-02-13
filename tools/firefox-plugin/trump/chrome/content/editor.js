@@ -1,6 +1,8 @@
 /*
  * An UI of TrUMP IDE.
  */
+
+const DEFAULT_XML = "<?xml version=\"1.0\"?><UIs id=\"customize_tree_xml\" xmlns=\"\"></UIs>";
 function Editor(window) {
     this.window = window;
     var self = this;
@@ -10,11 +12,10 @@ function Editor(window) {
     this.logView = new LogView(this);
     this.logView.setLog(logger);
 
-//    LOG.info("Test");
     this.registerRecorder();
     this.innerTree = null;
-    var initial_xml = "<?xml version=\"1.0\"?><UIs id=\"customize_tree_xml\" xmlns=\"\"><UiObject desc=\"Test\"><UiObject desc=\"Inner\"/></UiObject></UIs>";
-    this.buildCustomizeTree(initial_xml);
+//    var initial_xml = "<?xml version=\"1.0\"?><UIs id=\"customize_tree_xml\" xmlns=\"\"><UiObject desc=\"Test\"><UiObject desc=\"Inner\"/></UiObject></UIs>";
+    this.buildCustomizeTree(DEFAULT_XML);
 }
 
 Editor.prototype.registerRecorder = function(){
@@ -120,8 +121,13 @@ Editor.prototype.selectedTreeItem = function(event){
 
 Editor.prototype.customizeButton = function(){
     this.switchToCustomizeTab();
-    var test_xml = "<?xml version=\"1.0\"?><UIs id=\"customize_tree_xml\" xmlns=\"\"><UiObject desc=\"rebuild\"/></UIs>";
-    this.buildCustomizeTree(test_xml);
+    var xml = DEFAULT_XML;
+    if(this.innerTree != null){
+        xml = this.innerTree.buildXML();
+    }
+
+//    var test_xml = "<?xml version=\"1.0\"?><UIs id=\"customize_tree_xml\" xmlns=\"\"><UiObject desc=\"rebuild\"/></UIs>";
+    this.buildCustomizeTree(xml);
 }
 
 Editor.prototype.switchToCustomizeTab = function(){

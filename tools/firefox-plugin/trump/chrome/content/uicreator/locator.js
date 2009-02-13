@@ -58,6 +58,19 @@ Locator.prototype.attributesToString = function(){
     return sb.toString();
 }
 
+Locator.prototype.descAttributes = function(){
+    var sb = new StringBuffer();
+
+    if(this.attributes.size() >0 ){
+        var keys = this.attributes.keySet();
+        for(var i=0; i< keys.length; i++){
+            sb.append(", ").append(keys[i]).append(": ").append(this.attributes.get(keys[i]));
+        }
+    }
+
+    return sb.toString();
+}
+
 Locator.prototype.strLocator = function(){
     var sb = new StringBuffer();
 
@@ -101,6 +114,56 @@ Locator.prototype.strLocator = function(){
         }
         if(this.attributes != null && this.attributes.size() > 0){
             sb.append(this.attributesToString())
+        }
+    }
+    sb.append("]")
+
+    return sb.toString();
+}
+
+Locator.prototype.descLocator = function(){
+    var sb = new StringBuffer();
+
+    sb.append("clocator: [");
+    if(this.header == null && this.tag == null && this.text == null && this.trailer == null && this.position == null && this.attributes.size() ==0){
+        //if empty locator
+        sb.append(":");
+    }else{
+        var count = 0;
+        if(this.tag != null && this.tag.length > 0){
+            sb.append(this.constants.TAG).append(": ").append(this.tag);
+            ++count;
+        }
+        if(this.text != null && this.text.length > 0){
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append(this.constants.TEXT).append(": ").append(this.text);
+            ++count;
+        }
+        if(this.position != null){
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append(this.constants.POSITION).append(": ").append(this.position);
+            ++count;
+        }
+        if(this.header != null && this.header.length > 0){
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append(this.constants.HEADER).append(": ").append(this.header);
+            ++count;
+        }
+        if(this.trailer != null && this.trailer.length > 0){
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append(this.constants.HEADER).append(": ").append(this.header);
+            ++count;
+        }
+        if(this.attributes != null && this.attributes.size() > 0){
+            sb.append(this.descAttributes())
         }
     }
     sb.append("]")

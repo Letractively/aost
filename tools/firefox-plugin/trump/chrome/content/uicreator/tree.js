@@ -3,6 +3,7 @@ function Tree(){
     this.xpathMatcher = new XPathMatcher();
     this.uiModel = new Array();
     this.uid = new Uid();
+    this.xmlArray = new Array();
 }
 
 Tree.prototype.printUI = function(){
@@ -10,6 +11,30 @@ Tree.prototype.printUI = function(){
         this.root.printUI(this.uiModel);
         return this.uiModel;
     }
+}
+
+Tree.prototype.buildXML = function(){
+    if(this.root != null){
+        this.root.buildXML(this.xmlArray);
+        var xml = "<?xml version=\"1.0\"?>\n<UIs id=\"customize_tree_xml\" xmlns=\"\">\n";
+        xml += this.formatXML(this.xmlArray);
+        xml += "</UIs>"
+        logger.debug("Generated XML: \n" + xml);
+        return xml;
+    }
+
+    return DEFAULT_XML;
+}
+
+Tree.prototype.formatXML = function(xmlArray){
+    var xml = new StringBuffer();
+    if(xmlArray != null){
+        for(var i=0; i<xmlArray.length; ++i){
+            xml.append(xmlArray[i]);
+        }
+    }
+
+    return xml.toString();
 }
 
 //Do some post processing work

@@ -92,6 +92,31 @@ UiObject.prototype.strUiObject = function(level){
     return sb.toString();
 }
 
+UiObject.prototype.descObject = function(){
+    var sb = new StringBuffer();
+    sb.append(this.uiType).append("(uid: ").append(this.uid).append(", ");
+    sb.append(this.clocator.descLocator());
+
+    if(this.respond != null && this.respond.length > 0){
+        sb.append(", respond: [");
+        for(var j=0; j<this.respond.length; j++){
+            if(j>0){
+                sb.append(", ");
+            }
+            sb.append(this.respond[j]);
+        }
+        sb.append("]");
+    }
+    if(this.group == true){
+        sb.append(", group: true");
+    }
+
+    sb.append(")");
+
+    return sb.toString();
+}
+
+
 UiObject.prototype.strUiObjectFooter = function(level){
     var sb = new StringBuffer();
     
@@ -100,6 +125,16 @@ UiObject.prototype.strUiObjectFooter = function(level){
             sb.append("\t");
         }
         sb.append("}\n");
+    }
+
+    return sb.toString();
+}
+
+UiObject.prototype.paddingByLevel = function(level) {
+    var sb = new StringBuffer();
+
+    for (var l = 0; l < level; l++) {
+        sb.append("\t");
     }
 
     return sb.toString();

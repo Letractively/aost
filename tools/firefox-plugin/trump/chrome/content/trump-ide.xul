@@ -85,7 +85,7 @@
                         <query expr="*"/>
                         <action>
                             <vbox uri="?" class="indent">
-                                <button label="?desc" oncommand="alert('You pressed me!');"/>
+                                <button label="?desc" crop="end" oncommand="alert('Customize me!');"/>
                             </vbox>
                         </action>
                     </template>
