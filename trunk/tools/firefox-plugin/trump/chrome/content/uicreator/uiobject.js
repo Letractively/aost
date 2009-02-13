@@ -19,6 +19,8 @@ function UiObject(){
     this.filter = new Filter();
 
     this.locatorStrategy = new LocatorStrategy();
+
+    this.isLocatorValid = false;
 }
 
 UiObject.prototype.buildUiObject = function(node, hasChildren){
