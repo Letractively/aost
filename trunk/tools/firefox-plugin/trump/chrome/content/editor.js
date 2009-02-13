@@ -8,11 +8,13 @@ function Editor(window) {
     this.document = document;
 
     this.logView = new LogView(this);
-    this.logView.setLog(LOG);
+    this.logView.setLog(logger);
 
 //    LOG.info("Test");
     this.registerRecorder();
     this.innerTree = null;
+    var initial_xml = "<?xml version=\"1.0\"?><UIs id=\"customize_xml_dat\" xmlns=\"\"><UiObject uid=\"Test\" uitype=\"TextBox\"/></UIs>";
+    this.buildCustomizeTree(initial_xml);
 }
 
 Editor.prototype.registerRecorder = function(){
@@ -63,8 +65,7 @@ Editor.prototype.generateButton = function(){
 
     var tagObject;
     var element;
-    var tree = new Tree();
-    this.innerTree = tree;
+    this.innerTree = new Tree();
 
     for(var i=0; i<tagArrays.length; ++i){
         tagObject = tagArrays[i];
@@ -73,32 +74,29 @@ Editor.prototype.generateButton = function(){
         element.xpath = tagObject.xpath;
         element.attributes = tagObject.attributes;
         element.domNode = tagObject.node;
-        tree.addElement(element);
+        this.innerTree.addElement(element);
     }
     //do some post processing work
-    tree.postProcess();
+    this.innerTree.postProcess();
     
-    var uiModelArray = tree.printUI();
+    var uiModelArray = this.innerTree.printUI();
     var uiModel = new StringBuffer();
     if(uiModelArray != undefined){
         for(var j=0; j<uiModelArray.length; ++j){
             uiModel.append(uiModelArray[j]);
         }
     } else {
-//        logger.error("uiModelArray is not defined, cannot generate source!");
-        LOG.error("uiModelArray is not defined, cannot generate source!");
+        logger.error("uiModelArray is not defined, cannot generate source!");
     }
 
-//    logger.debug("ui model generated:\n"+uiModel);
-    LOG.debug("ui model generated:\n"+uiModel);
+    logger.debug("ui model generated:\n"+uiModel);
     sourceTextNode.value = uiModel;
 
-//    logger.debug("start to validate UI object's xpath");
-    LOG.debug("start to validate UI object's xpath");
+    logger.debug("start to validate UI object's xpath");
 
-    tree.validate();
-//    logger.debug("Done validating UI object's XPath");
-    LOG.debug("Done validating UI object's XPath");
+    this.innerTree.validate();
+
+    logger.debug("Done validating UI object's XPath");
 }
 
 Editor.prototype.clearButton = function(){
@@ -121,6 +119,16 @@ Editor.prototype.selectedTreeItem = function(event){
 }
 
 Editor.prototype.customizeButton = function(){
-
+    var test_xml = "<?xml version=\"1.0\"?><configuratie><config uid=\"test\" uitype=\"TextBox\"/></configuratie>";
+    this.buildCustomizeTree(test_xml);
 }
 
+Editor.prototype.buildCustomizeTree = function(xml) {
+    if (xml != null) {
+        var parser = new DOMParser();
+        var customize_tree = document.getElementById("customize_tree");
+        var pxml = parser.parseFromString(xml, "text/xml");
+        customize_tree.builder.datasource = pxml;
+        customize_tree.builder.rebuild();
+    }
+}

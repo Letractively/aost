@@ -104,10 +104,10 @@ var showLogWindow = function(){
 }
 
 //and here is the logger!
-var logger = new Log4js.getLogger("root");
-logger.setLevel(Log4js.Level.ALL);
-logger.addAppender(new Log4js.MozillaLineNumberJSConsoleAppender());
-logger.addAppender(new Log4js.TrumpLogAppender());
+var jslogger = new Log4js.getLogger("root");
+jslogger.setLevel(Log4js.Level.ALL);
+jslogger.addAppender(new Log4js.MozillaLineNumberJSConsoleAppender());
+//jslogger.addAppender(new Log4js.TrumpLogAppender());
 
 //TRUMP log Identifier to make it easier to parse
 const TRUMP_LOG_ID = "[TrUMP 0.1.0] ";

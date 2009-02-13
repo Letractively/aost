@@ -8,7 +8,7 @@ function TrumpLogger() {
 					   self[level] = function(message) {
 						   self.log(message, level);
                            //also log to Javascript Console, can comment it out if we do not want it
-                           self.logToConsole(message, level);
+                           self.logToJsConsole(message, level);
 					   }
 				   });
 
@@ -37,20 +37,20 @@ function TrumpLogger() {
 		this.observers.forEach(function(o) { o.onClear() });
 	}
 
-    this.logToConsole = function(message, level){
+    this.logToJsConsole = function(message, level){
         if(level == "debug"){
-            logger.debug(message);
+            jslogger.debug(message);
         }
         if(level == "info"){
-            logger.info(message);
+            jslogger.info(message);
         }
         if(level == "warn"){
-            logger.warn(message);
+            jslogger.warn(message);
         }
         if(level == "error"){
-            logger.error(message);
+            jslogger.error(message);
         }
     }
 }
 
-var LOG = new TrumpLogger();
+var logger = new TrumpLogger();
