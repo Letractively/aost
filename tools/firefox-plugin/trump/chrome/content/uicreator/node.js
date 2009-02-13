@@ -90,6 +90,17 @@ NodeObject.prototype.getLevel = function(){
     return level;
 }
 
+//canonical ID start from the root
+NodeObject.prototype.canonUID = function(){
+    var current = this;
+
+    if(current.parent != null){
+        return current.parent.canonUID() + "." + this.id;
+    }
+
+    return this.id;
+}
+
 NodeObject.prototype.buildUiObject = function(){
     var hasChildren = false;
 
@@ -159,16 +170,17 @@ NodeObject.prototype.buildXML = function(xml){
     var descobj = this.uiobject.descObject();
 
     var myclass = "class=\"" + MYCLASS + level + "\"";
-    
+    var myUID = "id=\"" + this.canonUID() + "\"";
+
     if (hasChildren) {
-        xml.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + ">\n");
+        xml.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + " " + myUID + ">\n");
 
         for (var i = 0; i < this.children.length; ++i) {
             this.children[i].buildXML(xml);
         }
         xml.push(padding + "</UiObject>\n");
     }else{
-        xml.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + "/>\n");
+        xml.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + " " + myUID + "/>\n");
     }
 }
 
