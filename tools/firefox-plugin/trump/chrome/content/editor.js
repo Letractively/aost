@@ -3,6 +3,7 @@
  */
 
 const DEFAULT_XML = "<?xml version=\"1.0\"?><UIs id=\"customize_tree_xml\" xmlns=\"\"></UIs>";
+const UIOBJECT_ATTRIBUTES_XML = "<?xml version=\"1.0\"?><attributes id=\"attributes_tree_xml\" xmlns=\"\"><attribute name=\"attr1\" value=\"val1\" /></attributes>";
 function Editor(window) {
     this.window = window;
     var self = this;
@@ -16,6 +17,8 @@ function Editor(window) {
     this.innerTree = null;
 
     this.buildCustomizeTree(DEFAULT_XML);
+
+    this.currentUid = null;
 }
 
 Editor.prototype.registerRecorder = function(){
@@ -61,7 +64,7 @@ Editor.prototype.toggleStopButton = function(){
 Editor.prototype.generateButton = function(){
     this.switchToSourceTab();
 
-    var sourceTextNode = document.getElementById("source");
+
     var tagArrays = this.recorder.tagObjectArray;
 
     var tagObject;
@@ -79,7 +82,20 @@ Editor.prototype.generateButton = function(){
     }
     //do some post processing work
     this.innerTree.postProcess();
-    
+
+     this.updateSource();
+
+    logger.debug("start to validate UI object's xpath");
+
+    this.innerTree.validate();
+
+    logger.debug("Done validating UI object's XPath");
+}
+
+Editor.prototype.updateSource = function(){
+    this.clearSourceTabContent();
+    var sourceTextNode = document.getElementById("source");
+
     var uiModelArray = this.innerTree.printUI();
     var uiModel = new StringBuffer();
     if(uiModelArray != undefined){
@@ -92,12 +108,6 @@ Editor.prototype.generateButton = function(){
 
     logger.debug("ui model generated:\n"+uiModel);
     sourceTextNode.value = uiModel;
-
-    logger.debug("start to validate UI object's xpath");
-
-    this.innerTree.validate();
-
-    logger.debug("Done validating UI object's XPath");
 }
 
 Editor.prototype.clearButton = function(){
@@ -127,6 +137,7 @@ Editor.prototype.customizeButton = function(){
     }
 
     this.buildCustomizeTree(xml);
+
 }
 
 Editor.prototype.switchToCustomizeTab = function(){
@@ -144,7 +155,73 @@ Editor.prototype.buildCustomizeTree = function(xml) {
 }
 
 Editor.prototype.processCustomizeEvent = function(event){
-    alert('Customize ' + event.target.getAttribute("label"));
-//    alert('Customize ' + event.target.getAttribute("myclass"));
-//    alert('Customize ' + event.target.getAttribute("uid"));
+    logger.debug('Customize ' + event.target.getAttribute("label"));
+    this.currentUid = event.target.getAttribute("uid");
+    var uiObject = this.innerTree.uiObjectMap.get(this.currentUid);
+    logger.debug("uiObject : " + uiObject);
+
+    this.fillUiObjectFields(uiObject);
+    this.enableUiObjectFields();
+//    this.buildUiAttributeTree(UIOBJECT_ATTRIBUTES_XML);
+
+}
+
+Editor.prototype.fillUiObjectFields = function(uiObject){
+    document.getElementById("uid").value= uiObject.uid;
+    document.getElementById("uiType").value = uiObject.uiType;
+    var xml = this.buildAttributeXml(uiObject.node);
+    this.buildUiAttributeTree(xml);
+}
+
+Editor.prototype.enableUiObjectFields = function(){
+    document.getElementById("uid").removeAttribute("disabled")
+    document.getElementById("uiType").removeAttribute("disabled");
+}
+
+Editor.prototype.disableUiObjectFields = function(){
+    document.getElementById("uid").setAttribute("disabled", "true");
+    document.getElementById("uiType").setAttribute("disabled", "true");   
+}
+
+Editor.prototype.buildAttributeXml = function(node){
+    var keySet = node.attributes.keySet();
+    var xmlArray = new Array();
+    var xmlBuffer = new StringBuffer();
+
+    for(var i=0 ; i < keySet.length; ++i){
+        xmlArray.push("<attribute name=\""+ keySet[i] + "\""+ " value=\""+node.attributes.get(keySet[i]) + "\"" + ">\n");
+    }
+
+    var xml = "<?xml version=\"1.0\"?>\n<attributes id=\"attributes_tree_xml\" xmlns=\"\">\n";
+
+    if(xmlArray != null){
+        for(var i=0; i<xmlArray.length; ++i){
+            xmlBuffer.append(xmlArray[i]);
+        }
+    }
+
+
+    xml += xmlBuffer.toString();
+    xml += "</attributes>"
+
+    return xml;
+}
+
+Editor.prototype.buildUiAttributeTree = function(xml) {
+    if (xml != null) {
+        var parser = new DOMParser();
+        var ui_attribute_tree = document.getElementById("ui_attribute_tree");
+        var pxml = parser.parseFromString(xml, "text/xml");
+        ui_attribute_tree.builder.datasource = pxml;
+        ui_attribute_tree.builder.rebuild();
+    }
+}
+
+Editor.prototype.updateUiObject = function(){
+    var uiObject = this.innerTree.uiObjectMap.get(this.currentUid);
+    uiObject.setUID(document.getElementById("uid").value);
+    uiObject.setUiType(document.getElementById("uiType").value);
+
+    this.customizeButton();
+    this.updateSource();
 }
