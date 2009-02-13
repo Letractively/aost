@@ -5,7 +5,8 @@ function Tree(){
     this.uid = new Uid();
     
     //An Array to hold reference to all the UI objects in the Tree
-    this.uiObjectRefArray = null;
+    //change it to a HashMap so that we can access it by key
+    this.uiObjectMap = null;
 }
 
 Tree.prototype.printUI = function(){
@@ -53,9 +54,9 @@ Tree.prototype.postProcess = function(){
         this.root.buildUiObject();
 
         //get UI Object reference
-        this.uiObjectRefArray = new Array();
-        this.root.refUiObject(this.uiObjectRefArray);
-        logger.debug("There are " + this.uiObjectRefArray.length + " UI objects in the Tree");
+        this.uiObjectMap = new HashMap();
+        this.root.refUiObject(this.uiObjectMap);
+        logger.debug("There are " + this.uiObjectMap.size() + " UI objects in the Tree");
     }
 }
 
