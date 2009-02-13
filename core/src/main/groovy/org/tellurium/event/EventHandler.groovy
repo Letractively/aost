@@ -91,6 +91,26 @@ class EventHandler implements Configurable{
         }
 	}
 
+   def dragAndDrop(String locator, String movementsString, String[] events) {
+        String[] defaultEvents = null
+        if(extraEvent)
+            defaultEvents = []
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.dragAndDrop(locator, movementsString)
+        }
+	}
+
+   def dragAndDropToObject(String srcLocator, String targetLocator, String[] events) {
+        String[] defaultEvents = null
+        if(extraEvent)
+            defaultEvents = []
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.dragAndDropToObject(srcLocator, targetLocator)
+        }
+	}
+
 	def click(String locator, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)

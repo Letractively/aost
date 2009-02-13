@@ -52,6 +52,29 @@ abstract class BaseDslContext {
             eventHandler.mouseOut(locator)
         }
     }
+  
+    def dragAndDrop(String uid, String movementsString){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+
+        ui.walkTo(context, uid)?.dragAndDrop(movementsString){ loc ->
+            String locator = locatorMapping(context, loc)
+            eventHandler.dragAndDrop(locator, movementsString)
+        }
+    }
+
+    def dragAndDropTo(String sourceUid, String targetUid){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        def src = ui.walkTo(context, sourceUid)
+
+        WorkflowContext ncontext = WorkflowContext.getDefaultContext()
+        def target = ui.walkTo(ncontext, targetUid)
+
+        if(src != null && target != null){
+          String srcLocator = locatorMapping(context, src.locator)
+          String targetLocator = locatorMapping(ncontext, target.locator)
+          eventHandler.dragAndDropToObject(srcLocator, targetLocator)
+        }
+    }
 
     def click(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
