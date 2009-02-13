@@ -873,7 +873,7 @@ Log4js.ConsoleAppender.prototype = Log4js.extend(new Log4js.Appender(), {
 		if(!this.inline) {
 			var doc = null;	
 			var win = null;
-			window.top.consoleWindow = window.open("", this.logger.category, 
+			window.top.consoleWindow = window.open("", this.logger.category,
 				"left=0,top=0,width=700,height=700,scrollbars=no,status=no,resizable=yes;toolbar=no");
 			window.top.consoleWindow.opener = self;
 			win = window.top.consoleWindow;
@@ -1152,7 +1152,7 @@ Log4js.ConsoleAppender.prototype = Log4js.extend(new Log4js.Appender(), {
 			
 			switch(command) {
 				case "clear":
-					this.logger.clear();  
+					this.logger.clear();
 					break;
 					
 				default:        

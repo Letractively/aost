@@ -58,15 +58,12 @@
               <textbox id="source" multiline="true" wrap="off" flex="1"/>
             </tabpanel>
             <tabpanel orient="vertical">
-                <!--tree id="customize_tree" datasources="rdf:null" ref="*" querytype="xml" rows="10" flags="dont-build-content"-->
-                <tree id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml" rows="10">
+                <!--tree id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml" rows="10">
                     <treecols>
                         <treecol id="UID" primary="true" label="UID" sort="?uid" flex="1"/>
                         <treecol id="UIType" label="UI Type" flex="1" sort="?uitype"/>
                     </treecols>
                     <template>
-                        <!--query id="cond" expr="config"/-->
-
                         <query expr="UiObject">
                             <assign var="?uid" expr="@uid"/>
                             <assign var="?uitype" expr="@uitype"/>
@@ -82,7 +79,17 @@
                             </treechildren>
                         </action>
                     </template>
-                </tree>
+                </tree-->
+                <groupbox id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml">
+                    <template>
+                        <query expr="*"/>
+                        <action>
+                            <vbox uri="?" class="indent">
+                                <button label="?desc" oncommand="alert('You pressed me!');"/>
+                            </vbox>
+                        </action>
+                    </template>
+                </groupbox>
 
             </tabpanel>
            <!-- <tabpanel orient="vertical">
