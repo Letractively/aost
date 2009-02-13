@@ -114,7 +114,66 @@
                         </action>
                     </template>
                 </groupbox>
+                <separator class="thin"/>
+            <!-- command editing -->
+                <vbox id="uiObjectEdit" persist="height">
+                    <grid>
+                        <columns>
+                            <column/>
+                            <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <row align="center">
+                                <!-- do drop down that depends upon the element type -->
+                                <label control="commandAction" value="&uid.label;"/>
+                                <textbox disabled="true" id="uid"
+                                         oninput=""/>
+                            </row>
+                            <row align="center">
+                                <!-- show different options collected by the client. Allow user to override -->
+                                <label control="commandTarget" value="&type.label;"/>
+                                <hbox flex="1">
+                                    <textbox flex="1" disabled="true" id="uiType"
+                                             oninput=""/>
 
+                                </hbox>
+                            </row>
+                            <row align="center">
+                                <label control="commandValue" value="&clocator.label; - &attributes.label; "/>
+                                <tree id="ui_attribute_tree" datasources="#attributes_tree_xml" ref="*" querytype="xml" rows="10">
+                                    <treecols>
+                                        <treecol id="checkBoxId" primary="true" label="" flex="1"/>
+                                        <treecol id="attributeName" primary="true" label="attributeName" sort="?name" flex="1"/>
+                                        <treecol id="attributeValue" label="attributeValue" flex="1" sort="?value"/>
+                                    </treecols>
+                                    <template>
+                                        <query expr="attribute">
+                                            <assign var="?name" expr="@name"/>
+                                            <assign var="?value" expr="@value"/>
+                                        </query>
+                                        <action>
+                                            <treechildren>
+                                                <treeitem uri="?">
+                                                    <treerow>
+                                                        <treecell label="" />
+                                                        <treecell label="?name"/>
+                                                        <treecell label="?value"/>
+                                                    </treerow>
+                                                </treeitem>
+                                            </treechildren>
+                                        </action>
+                                    </template>
+                                </tree>
+                            </row>
+
+                            <row align="center">
+                                <button label="&save.label;"
+                                            oncommand="window.editor.updateUiObject()"/>
+                            </row>
+
+                        </rows>
+                    </grid>
+                </vbox>
             </tabpanel>
            <!-- <tabpanel orient="vertical">
               <textbox id="settings" multiline="true" flex="1"/>

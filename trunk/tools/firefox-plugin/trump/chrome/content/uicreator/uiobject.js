@@ -169,3 +169,7 @@ UiObject.prototype.useGroupLocating = function(){
 UiObject.prototype.noGroupLocating = function(){
     this.group = false;
 }
+
+UiObject.prototype.toString = function(){
+    return "uid : " + this.uid + " uiType : " + this.uiType;
+}

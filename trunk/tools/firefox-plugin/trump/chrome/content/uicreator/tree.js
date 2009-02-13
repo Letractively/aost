@@ -10,6 +10,7 @@ function Tree(){
 }
 
 Tree.prototype.printUI = function(){
+    this.uiModel = new Array();
     if(this.root != null){
         this.root.printUI(this.uiModel);
         return this.uiModel;
