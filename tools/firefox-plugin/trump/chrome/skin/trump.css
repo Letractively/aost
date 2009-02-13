@@ -28,18 +28,18 @@ button .myClass3 {
 }
 */
 
-.myClass0 {
+button[myclass="myClass0"] {
      background-color: #EDFF64;
 }
 
-.myClass1 {
+button[myclass="myClass1"]{
      background-color: #666666;
 }
 
-.myClass2 {
+button[myclass="myClass2"]{
      background-color: SlateBlue;
 }
 
-.myClass3 {
+button[myclass="myClass3"]{
      background-color: SkyBlue;
 }
