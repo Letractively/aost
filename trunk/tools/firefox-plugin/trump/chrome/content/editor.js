@@ -144,6 +144,8 @@ Editor.prototype.buildCustomizeTree = function(xml) {
     }
 }
 
+
+/*
 Editor.prototype.initializeCustomizeListener = function() {
     if (this.innerTree != null) {
         var map = this.innerTree.uiObjectMap;
@@ -170,6 +172,7 @@ Editor.prototype.initializeCustomizeListener = function() {
         }
     }
 }
+*/
 
 Editor.prototype.processCustomizeEvent = function(event){
     alert('Customize ' + event.target.getAttribute("label"));
