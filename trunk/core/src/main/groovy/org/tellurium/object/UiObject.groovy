@@ -65,6 +65,10 @@ abstract class UiObject {
         c(locator)
     }
 
+    def dragAndDrop(String movementsString, Closure c){
+        c(locator)
+    }
+
     boolean isElementPresent(Closure c){
         return c(locator)
     }
@@ -127,6 +131,11 @@ abstract class UiObject {
         c(locator)
     }
 
+    public getLocator(Closure c){
+
+      return c(locator)
+    }
+  
     //walkTo through the object tree to until the Ui Object is found by the UID
     public UiObject walkTo(WorkflowContext context, UiID uiid){
         //if not child listed, return itself
