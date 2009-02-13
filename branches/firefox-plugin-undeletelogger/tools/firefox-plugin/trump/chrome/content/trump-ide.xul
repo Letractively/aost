@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://trump/skin/trump.css" type="text/css"?>
+<?xul-overlay href="chrome://trump/content/trump-ide-common.xul"?>
+
+<!DOCTYPE window [
+<!ENTITY % trumpIdeDTD SYSTEM "chrome://trump/locale/trump-ide.dtd">
+%trumpIdeDTD;
+]>
+
+<window id="uiEditor"
+    title="&trump-ide.title;"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    width="620"
+    height="480"
+    onload="new Editor(window)"
+    onunload="window.editor.unload()"
+    onclose="return window.editor.close()">
+
+    <toolbar id="toolbar2">
+      <toolbarbutton id="record-button" label="Record" class="record" tooltiptext="&recordButton.tooltip;" oncommand="window.editor.toggleRecordButton()" checked="true"/>
+      <toolbarbutton id="stop-button" label="Stop" class="icon" tooltiptext="&stopButton.tooltip;" oncommand="window.editor.toggleStopButton()"/>
+      <toolbarbutton id="generate-button" label="Generate" tooltiptext="&generate.tooltip;" oncommand="window.editor.generateButton()"/>
+      <toolbarbutton id="customize-button" label="Customize" tooltiptext="&customize.tooltip;" oncommand="window.editor.customizeButton()"/>
+      <toolbarbutton id="clear-button" label="Clear" tooltiptext="&clear.tooltip;" oncommand="window.editor.clearButton()"/>
+      <!--<toolbarbutton id="showLogs-button" label="Show Logs"  oncommand="showLogWindow();"/>-->
+    </toolbar>
+
+    <tabbox flex="3" height="300" width="250">
+        <tabs orient="horizontal" id="editorTabs">
+            <tab id="recordTab" label="&recordTab.label;" />
+            <!--<tab id="validateTab" label="&validateTab.label;" />-->
+            <tab id="sourceTab" label="&sourceTab.label;" />
+            <tab id="customizeTab" label="&customizeTab.label;" />
+            <!--<tab id="settingsTab" label="&settingsTab.label;" />-->
+        </tabs>
+        <tabpanels flex="1">
+            <tabpanel orient="vertical" flex="1">
+                <stack>
+                    <vbox flex="1">
+                        <tree id="recordTree" flex="1" rows="10" onselect="window.editor.selectedTreeItem() ">
+                          <treecols>
+                            <treecol id="selectedElement" label="&element.label;" flex="1"/>
+                            <treecol id="selecetedElementName" label="&element.name.label;" flex="2"/>
+                          </treecols>
+                          <treechildren/>
+                        </tree>
+                    </vbox>
+                </stack>
+            </tabpanel>
+            <!--
+            <tabpanel orient="vertical">
+              <textbox id="validate" multiline="true" flex="1"/>
+            </tabpanel>-->
+            <tabpanel orient="vertical">
+              <textbox id="source" multiline="true" wrap="off" flex="1"/>
+            </tabpanel>
+            <tabpanel orient="vertical">
+                <!--tree id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml" rows="10">
+                    <treecols>
+                        <treecol id="UID" primary="true" label="UID" sort="?uid" flex="1"/>
+                        <treecol id="UIType" label="UI Type" flex="1" sort="?uitype"/>
+                    </treecols>
+                    <template>
+                        <query expr="UiObject">
+                            <assign var="?uid" expr="@uid"/>
+                            <assign var="?uitype" expr="@uitype"/>
+                        </query>
+                        <action>
+                            <treechildren>
+                                <treeitem uri="?">
+                                    <treerow>
+                                        <treecell label="?uid"/>
+                                        <treecell label="?uitype"/>
+                                    </treerow>
+                                </treeitem>
+                            </treechildren>
+                        </action>
+                    </template>
+                </tree-->
+                <groupbox id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml">
+                    <template>
+                        <query expr="*"/>
+                        <action>
+                            <vbox uri="?" class="indent">
+                                <button label="?desc" align="left" crop="end" oncommand="alert('Customize me!');"/>
+                            </vbox>
+                        </action>
+                    </template>
+                </groupbox>
+
+            </tabpanel>
+           <!-- <tabpanel orient="vertical">
+              <textbox id="settings" multiline="true" flex="1"/>
+            </tabpanel>-->
+        </tabpanels>
+    </tabbox>
+    <vbox id="logBox" height="100" width="250">
+        <hbox id="logMenu" align="center">
+            <toolbarbutton id="logTab" label="&logConsole.label;"
+                           class="console-tab" selected="true"/>
+            <spacer flex="1"/>
+            <hbox align="center" id="logButtons">
+                <toolbarbutton id="logFilter" label="Debug" type="menu" class="console-button">
+                    <menupopup id="logFilterPopup"
+                               oncommand="window.editor.logView.changeLogLevel(event.target.value, true)">
+                        <menuitem label="&logFilter.debug.label;" value="0"/>
+                        <menuitem label="&logFilter.info.label;" value="1" selected="true"/>
+                        <menuitem label="&logFilter.warn.label;" value="2"/>
+                        <menuitem label="&logFilter.error.label;" value="3"/>
+                    </menupopup>
+                </toolbarbutton>
+                <toolbarbutton id="logClear" label="&logClear.label;"
+                               oncommand="window.editor.logView.clear()" class="console-button"/>
+            </hbox>
+        </hbox>
+        <hbox>
+            <spacer flex="0" width="15"/>
+            <iframe flex="1" id="logView" src="LogFrame.html" height="100" width="235">
+            </iframe>
+        </hbox>
+    </vbox>
+</window>

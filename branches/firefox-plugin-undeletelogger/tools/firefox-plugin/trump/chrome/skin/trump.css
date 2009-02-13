@@ -1,0 +1,11 @@
+#record-button {
+    list-style-image: url("chrome://trump/skin/record_microphone.png");
+}
+
+#stop-button {
+    list-style-image: url("chrome://trump/skin/stop.png");
+}
+
+#source Pre {
+    white-space: normal; 
+}
