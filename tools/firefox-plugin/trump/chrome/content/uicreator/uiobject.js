@@ -94,7 +94,7 @@ UiObject.prototype.strUiObject = function(level){
 
 UiObject.prototype.descObject = function(){
     var sb = new StringBuffer();
-    sb.append(this.uiType).append("(uid: ").append(this.uid).append(", ");
+    sb.append(this.uiType).append("(uid: '").append(this.uid).append("', ");
     sb.append(this.clocator.descLocator());
 
     if(this.respond != null && this.respond.length > 0){
@@ -103,12 +103,12 @@ UiObject.prototype.descObject = function(){
             if(j>0){
                 sb.append(", ");
             }
-            sb.append(this.respond[j]);
+            sb.append("'").append(this.respond[j]).append("'");
         }
         sb.append("]");
     }
     if(this.group == true){
-        sb.append(", group: true");
+        sb.append(", group: 'true'");
     }
 
     sb.append(")");
