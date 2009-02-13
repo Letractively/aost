@@ -5,6 +5,7 @@
 
   * [http://groovy.codehaus.org/ Groovy]
   * [http://www.ruby-lang.org/en/ Ruby]
+  * [http://www.w3.org/XML/ XML]
   * [http://www.w3.org/TR/xpath XPath]
 
 == Javascript Frameworks ==
@@ -70,6 +71,7 @@
   * [http://docs.huihoo.com/xul/xul-tutorial/ XUL Tutorial]
   * [http://pastebin.mozilla.org/621834 XUL template example]
   * [https://developer.mozilla.org/en/Gecko Gecko Layout Engine]
+  * [http://www.w3schools.com/XML/ XML Tutorial]
 
 == Algorithms ==
 
