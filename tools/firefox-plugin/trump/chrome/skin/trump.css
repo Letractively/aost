@@ -9,3 +9,37 @@
 #source Pre {
     white-space: normal; 
 }
+
+/*
+button .myClass0 {
+     background-color: #EDFF64;
+}
+
+button .myClass1 {
+     background-color: #666666;
+}
+
+button .myClass2 {
+     background-color: SlateBlue;
+}
+
+button .myClass3 {
+     background-color: SkyBlue;
+}
+*/
+
+.myClass0 {
+     background-color: #EDFF64;
+}
+
+.myClass1 {
+     background-color: #666666;
+}
+
+.myClass2 {
+     background-color: SlateBlue;
+}
+
+.myClass3 {
+     background-color: SkyBlue;
+}

@@ -1,3 +1,4 @@
+const MYCLASS = "myClass";
 
 function NodeObject(){
 
@@ -157,15 +158,17 @@ NodeObject.prototype.buildXML = function(xml){
     var padding = this.uiobject.paddingByLevel(level+1);
     var descobj = this.uiobject.descObject();
 
+    var myclass = "class=\"" + MYCLASS + level + "\"";
+    
     if (hasChildren) {
-        xml.push(padding + "<UiObject desc=\"" + descobj + "\">\n");
+        xml.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + ">\n");
 
         for (var i = 0; i < this.children.length; ++i) {
             this.children[i].buildXML(xml);
         }
         xml.push(padding + "</UiObject>\n");
     }else{
-        xml.push(padding + "<UiObject desc=\"" + descobj + "\"/>\n");
+        xml.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + "/>\n");
     }
 }
 
