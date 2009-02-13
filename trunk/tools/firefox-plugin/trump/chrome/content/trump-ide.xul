@@ -59,7 +59,7 @@
             </tabpanel>
             <tabpanel orient="vertical">
                 <!--tree id="customize_tree" datasources="rdf:null" ref="*" querytype="xml" rows="10" flags="dont-build-content"-->
-                <tree id="customize_tree" datasources="#customize_xml_data" ref="*" querytype="xml" rows="10" flags="dont-build-content">
+                <tree id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml" rows="10">
                     <treecols>
                         <treecol id="UID" primary="true" label="UID" sort="?uid" flex="1"/>
                         <treecol id="UIType" label="UI Type" flex="1" sort="?uitype"/>
