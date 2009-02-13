@@ -64,7 +64,7 @@ Locator.prototype.descAttributes = function(){
     if(this.attributes.size() >0 ){
         var keys = this.attributes.keySet();
         for(var i=0; i< keys.length; i++){
-            sb.append(", ").append(keys[i]).append(": ").append(this.attributes.get(keys[i]));
+            sb.append(", ").append(keys[i]).append(": '").append(this.attributes.get(keys[i])).append("'");
         }
     }
 
@@ -131,35 +131,35 @@ Locator.prototype.descLocator = function(){
     }else{
         var count = 0;
         if(this.tag != null && this.tag.length > 0){
-            sb.append(this.constants.TAG).append(": ").append(this.tag);
+            sb.append(this.constants.TAG).append(": '").append(this.tag).append("'");
             ++count;
         }
         if(this.text != null && this.text.length > 0){
             if(count > 0){
                 sb.append(", ");
             }
-            sb.append(this.constants.TEXT).append(": ").append(this.text);
+            sb.append(this.constants.TEXT).append(": '").append(this.text).append("'");
             ++count;
         }
         if(this.position != null){
             if(count > 0){
                 sb.append(", ");
             }
-            sb.append(this.constants.POSITION).append(": ").append(this.position);
+            sb.append(this.constants.POSITION).append(": '").append(this.position).append("'");
             ++count;
         }
         if(this.header != null && this.header.length > 0){
             if(count > 0){
                 sb.append(", ");
             }
-            sb.append(this.constants.HEADER).append(": ").append(this.header);
+            sb.append(this.constants.HEADER).append(": '").append(this.header).append("'");
             ++count;
         }
         if(this.trailer != null && this.trailer.length > 0){
             if(count > 0){
                 sb.append(", ");
             }
-            sb.append(this.constants.HEADER).append(": ").append(this.header);
+            sb.append(this.constants.HEADER).append(": '").append(this.header).append("'");
             ++count;
         }
         if(this.attributes != null && this.attributes.size() > 0){
