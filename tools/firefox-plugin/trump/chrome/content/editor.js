@@ -14,7 +14,7 @@ function Editor(window) {
 
     this.registerRecorder();
     this.innerTree = null;
-//    var initial_xml = "<?xml version=\"1.0\"?><UIs id=\"customize_tree_xml\" xmlns=\"\"><UiObject desc=\"Test\"><UiObject desc=\"Inner\"/></UiObject></UIs>";
+
     this.buildCustomizeTree(DEFAULT_XML);
 }
 
@@ -126,7 +126,6 @@ Editor.prototype.customizeButton = function(){
         xml = this.innerTree.buildXML();
     }
 
-//    var test_xml = "<?xml version=\"1.0\"?><UIs id=\"customize_tree_xml\" xmlns=\"\"><UiObject desc=\"rebuild\"/></UIs>";
     this.buildCustomizeTree(xml);
 }
 
@@ -141,5 +140,39 @@ Editor.prototype.buildCustomizeTree = function(xml) {
         var pxml = parser.parseFromString(xml, "text/xml");
         customize_tree.builder.datasource = pxml;
         customize_tree.builder.rebuild();
+//        this.initializeCustomizeListener();
     }
+}
+
+Editor.prototype.initializeCustomizeListener = function() {
+    if (this.innerTree != null) {
+        var map = this.innerTree.uiObjectMap;
+        if (map != null && map.size() > 0) {
+            var keys = map.keySet();
+            for (var i = 0; i < keys.length; i++) {
+                var key = keys[i];
+                var uiid = UID_PREFIX + key;
+                logger.debug("Get element " + uiid);
+                var buttons = document.getElementsByTagName("button");
+                var sb = new StringBuffer();
+                for(var j=0; j<buttons.length; j++){
+                    var id = buttons[j].getAttribute("id");
+                    sb.append(" id= "+id);
+                }
+                logger.debug("Buttons in Current document: " + sb.toString());
+                try {
+                    document.getElementById(uiid).addEventListener("command", this.processCustomizeEvent, true);
+                }
+                catch (e) {
+                    logger.error("Exception: " + e);
+                }
+            }
+        }
+    }
+}
+
+Editor.prototype.processCustomizeEvent = function(event){
+    alert('Customize ' + event.target.getAttribute("label"));
+//    alert('Customize ' + event.target.getAttribute("myclass"));
+//    alert('Customize ' + event.target.getAttribute("uid"));
 }

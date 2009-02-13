@@ -1,4 +1,5 @@
 const MYCLASS = "myClass";
+const UID_PREFIX = "UI_";
 
 function NodeObject(){
 
@@ -172,7 +173,7 @@ NodeObject.prototype.buildXML = function(xml){
     var descobj = this.uiobject.descObject();
 
     var myclass = "class=\"" + MYCLASS + level + "\"";
-    var myUID = "id=\"" + this.canonUID() + "\"";
+    var myUID = "id=\"" + UID_PREFIX + this.canonUID() + "\"";
 
     if (hasChildren) {
         xml.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + " " + myUID + ">\n");
