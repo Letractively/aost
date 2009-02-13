@@ -33,10 +33,8 @@ Tree.prototype.validate = function() {
 
 Tree.prototype.addElement = function(element){
 
-//    logger.debug("Building Inner Tree -> add Element UID: "+element.uid + " XPATH: " + element.xpath + " DomNode: " + element.domNode.tagName);
-    LOG.debug("Building Inner Tree -> add Element UID: "+element.uid + " XPATH: " + element.xpath + " DomNode: " + element.domNode.tagName);
+    logger.debug("Building Inner Tree -> add Element UID: "+element.uid + " XPATH: " + element.xpath + " DomNode: " + element.domNode.tagName);
 
-//    alert("Building Inner Tree -> add Element UID: "+element.uid + " XPATH: " + element.xpath + " DomNode: " + element.domNode.tagName);
     //case I: root is null, insert the first node
     if (this.root == null) {
         this.root = new NodeObject();
@@ -87,7 +85,6 @@ Tree.prototype.addElement = function(element){
             }
             this.root.xpath = newxpath;
             this.root.parent = newroot;
-            //                alert("adding child ID: " + this.root + this.root.id + " XPATH:" + this.root.xpath);
             newroot.addChild(this.root);
 
             this.root = newroot;
@@ -100,7 +97,6 @@ Tree.prototype.addElement = function(element){
                 child.attributes = element.attributes;
                 child.domNode = element.domNode;
                 child.parent = this.root;
-                //                    alert("adding child ID:" + child.id + " XPATH:" + child.xpath);
                 this.root.addChild(child);
             }
         }
@@ -109,11 +105,9 @@ Tree.prototype.addElement = function(element){
 
 Tree.prototype.walk = function(current, uid, xpath, attributes, domnode) {
 
-    //    alert("walk from " + current.id + " for UID:" + uid + " XPATH:" + xpath);
 
     if (current.children.length == 0) {
         //there is no children
-        //        if (xpath.trim().length > 0) {
         if (trimString(xpath).length > 0) {
             //only create the child if there are extra xpath
             var child = new NodeObject();
@@ -142,7 +136,6 @@ Tree.prototype.walk = function(current, uid, xpath, attributes, domnode) {
         //need to handle the situation where there is no common xpath
         if (maxlen == 0) {
 
-            //            alert("No shared common xpath, add child UID:" + uid + " XPATH:" + xpath + " directly");
             //there is no shared common xpath, add the node directly
             var child = new NodeObject();
             child.id = uid;
@@ -165,7 +158,6 @@ Tree.prototype.walk = function(current, uid, xpath, attributes, domnode) {
             var common = mx.xpath;
 
             if (mx.node.xpath == common) {
-                //                alert("Node xpath:" + mx.node.xpath + " equals common, need to walk down");
 
                 //The xpath includes the common part, that is to say, we need to walk down to the child
                 if (max.length > 1) {

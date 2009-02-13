@@ -19,7 +19,6 @@ XPathProcessor.prototype.splitXPath = function(xpath){
                 result.push(trimString(splited[i]));
             }
         }
-//        alert("xpath " + xpath + " is splited to " + result.length);
     }
     
     return result;
@@ -61,8 +60,7 @@ XPathProcessor.prototype.getSubXPath = function(xpath, inx){
         var splited = this.splitXPath(xpath);
         if(inx > splited.length-1){
             //change to warning/error to log later
-//            logger.warn("XPath " + xpath + "Index " + inx + " out of bound");
-            LOG.warn("XPath " + xpath + "Index " + inx + " out of bound");
+            logger.warn("XPath " + xpath + "Index " + inx + " out of bound");
             inx = splited.length-1;
         }
 
@@ -132,14 +130,11 @@ XPathProcessor.prototype.startWith = function(xpath, prefix){
 
 XPathProcessor.prototype.checkXPathCount = function(doc, xpath) {
 //    var nodesSnapshot = document.evaluate(xpath, document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
-//    alert("Get object for XPath: " + xpath + " " + nodesSnapshot);
 //    return nodesSnapshot.snapshotLength;
     var xpct = "count(" + xpath + ")";
 
-//    alert("Current document " + doc);
     var result = doc.evaluate(xpct,  doc, null, XPathResult.NUMBER_TYPE, null);
 //    logger.debug("Get XPath evalution result " + result.numberValue + " for xpath " + xpath);
-//    LOG.debug("Get XPath evalution result " + result.numberValue + " for xpath " + xpath);
 
     return result.numberValue;
 }

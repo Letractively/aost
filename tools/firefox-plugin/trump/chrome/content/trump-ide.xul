@@ -45,7 +45,6 @@
                             <treecol id="selectedElement" label="&element.label;" flex="1"/>
                             <treecol id="selecetedElementName" label="&element.name.label;" flex="2"/>
                           </treecols>
-
                           <treechildren/>
                         </tree>
                     </vbox>
@@ -58,9 +57,34 @@
             <tabpanel orient="vertical">
               <textbox id="source" multiline="true" wrap="off" flex="1"/>
             </tabpanel>
-          <tabpanel orient="vertical">
-              <textbox id="customize" multiline="true" flex="1"/>
-          </tabpanel>
+            <tabpanel orient="vertical">
+                <!--tree id="customize_tree" datasources="rdf:null" ref="*" querytype="xml" rows="10" flags="dont-build-content"-->
+                <tree id="customize_tree" datasources="#customize_xml_data" ref="*" querytype="xml" rows="10" flags="dont-build-content">
+                    <treecols>
+                        <treecol id="UID" primary="true" label="UID" sort="?uid" flex="1"/>
+                        <treecol id="UIType" label="UI Type" flex="1" sort="?uitype"/>
+                    </treecols>
+                    <template>
+                        <!--query id="cond" expr="config"/-->
+
+                        <query expr="UiObject">
+                            <assign var="?uid" expr="@uid"/>
+                            <assign var="?uitype" expr="@uitype"/>
+                        </query>
+                        <action>
+                            <treechildren>
+                                <treeitem uri="?">
+                                    <treerow>
+                                        <treecell label="?uid"/>
+                                        <treecell label="?uitype"/>
+                                    </treerow>
+                                </treeitem>
+                            </treechildren>
+                        </action>
+                    </template>
+                </tree>
+
+            </tabpanel>
            <!-- <tabpanel orient="vertical">
               <textbox id="settings" multiline="true" flex="1"/>
             </tabpanel>-->

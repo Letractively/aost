@@ -32,14 +32,9 @@ UiObject.prototype.buildUiObject = function(node, hasChildren){
 
     this.uiType = this.classifier.getTypeWithExtra(tag, attributes, hasChildren);
 
-//    alert("With attributes " + attributes.size() + attributes.showMe() + " UID" + this.uid + " type:" + this.uiType);
-
     this.respond = this.filter.processEventAttributes(attributes);
 
-//    alert("Build UI object UID:" + this.uid + " tag:" + tag + " respond:" + this.respond.length);
-
     this.container = hasChildren;
-//    this.group = hasChildren;
 
     var whiteListAttributes = this.filter.getWhiteListedAttributes(attributes);
     
@@ -62,10 +57,6 @@ UiObject.prototype.buildXPath = function(){
     return xp;
 }
 
-//UiObject.prototype.getGroupAttributes = function(){
-
-//    return "";
-//}
 
 UiObject.prototype.strUiObject = function(level){
     var sb = new StringBuffer();
