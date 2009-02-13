@@ -19,6 +19,25 @@
     onunload="window.editor.unload()"
     onclose="return window.editor.close()">
 
+    <menubar id="sample-menubar">
+        <menu id="menu-file" label="File">
+          <menupopup id="file-popup">
+         <!--   <menuitem label="New"/>
+            <menuitem label="Open"/>
+            <menuitem label="Save"/> -->
+            <menuseparator/>
+            <menuitem label="Exit" oncommand="window.close()" />
+          </menupopup>
+        </menu>
+        <menu id="menu-help" label="Help">
+          <menupopup id="edit-popup">
+            <menuitem label="Project Wiki"  oncommand="window.open('http://code.google.com/p/aost/w/list')" />
+            <menuitem label="About" oncommand="window.open('chrome://trump/content/trumpAbout.xul','trump_about','chrome,centerscreen,resizable')"/>
+          </menupopup>
+        </menu>
+      </menubar>
+    
+    
     <toolbar id="toolbar2">
       <toolbarbutton id="record-button" label="Record" class="record" tooltiptext="&recordButton.tooltip;" oncommand="window.editor.toggleRecordButton()" checked="true"/>
       <toolbarbutton id="stop-button" label="Stop" class="icon" tooltiptext="&stopButton.tooltip;" oncommand="window.editor.toggleStopButton()"/>
