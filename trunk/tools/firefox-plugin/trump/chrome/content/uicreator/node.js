@@ -71,8 +71,8 @@ NodeObject.prototype.validateXPath = function(){
     }
     
     if (this.children.length > 0) {
-        for (var a = 0; a < this.children.length; ++a) {
-            this.children[a].validateXPath();
+        for (var i = 0; i < this.children.length; ++i) {
+            this.children[i].validateXPath();
         }
     }
 }
@@ -100,8 +100,24 @@ NodeObject.prototype.buildUiObject = function(){
     this.uiobject.buildUiObject(this, hasChildren);
 
     if (hasChildren) {
-        for (var a = 0; a < this.children.length; ++a) {
-            this.children[a].buildUiObject();
+        for (var i = 0; i < this.children.length; ++i) {
+            this.children[i].buildUiObject();
+        }
+    }
+}
+
+NodeObject.prototype.refUiObject = function(uiArray){
+    var hasChildren = false;
+
+    if (this.children.length > 0) {
+        hasChildren = true;
+    }
+
+    uiArray.push(this.uiobject);
+
+    if (hasChildren) {
+        for (var i = 0; i < this.children.length; ++i) {
+            this.children[i].refUiObject(uiArray);
         }
     }
 }

@@ -3,6 +3,9 @@ function Tree(){
     this.xpathMatcher = new XPathMatcher();
     this.uiModel = new Array();
     this.uid = new Uid();
+    
+    //An Array to hold reference to all the UI objects in the Tree
+    this.uiObjectRefArray = null;
 }
 
 Tree.prototype.printUI = function(){
@@ -48,6 +51,11 @@ Tree.prototype.postProcess = function(){
 
         //build the UiObject
         this.root.buildUiObject();
+
+        //get UI Object reference
+        this.uiObjectRefArray = new Array();
+        this.root.refUiObject(this.uiObjectRefArray);
+        logger.debug("There are " + this.uiObjectRefArray.length + " UI objects in the Tree");
     }
 }
 
