@@ -13,7 +13,7 @@ function Editor(window) {
 //    LOG.info("Test");
     this.registerRecorder();
     this.innerTree = null;
-    var initial_xml = "<?xml version=\"1.0\"?><UIs id=\"customize_xml_dat\" xmlns=\"\"><UiObject uid=\"Test\" uitype=\"TextBox\"/></UIs>";
+    var initial_xml = "<?xml version=\"1.0\"?><UIs id=\"ustomize_tree_xml\" xmlns=\"\"><UiObject uid=\"Test\" uitype=\"TextBox\"/></UIs>";
     this.buildCustomizeTree(initial_xml);
 }
 
@@ -119,8 +119,13 @@ Editor.prototype.selectedTreeItem = function(event){
 }
 
 Editor.prototype.customizeButton = function(){
-    var test_xml = "<?xml version=\"1.0\"?><configuratie><config uid=\"test\" uitype=\"TextBox\"/></configuratie>";
+    this.switchToCustomizeTab();
+    var test_xml = "<?xml version=\"1.0\"?><UIs id=\"ustomize_tree_xml\" xmlns=\"\"><UiObject uid=\"rebuild\" uitype=\"InputBox\"/></UIs>";
     this.buildCustomizeTree(test_xml);
+}
+
+Editor.prototype.switchToCustomizeTab = function(){
+    document.getElementById("editorTabs").selectedItem = document.getElementById("customizeTab");
 }
 
 Editor.prototype.buildCustomizeTree = function(xml) {
