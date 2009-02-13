@@ -15,7 +15,6 @@ Uid.prototype.genUid = function(input){
     var sb = new StringBuffer();
     sb.append("T4");
 
-//    var part;
     for(var i=0; i< parts.length ; ++i){
         var part = parts[i];
         if(trimString(part).length > 0){
@@ -23,6 +22,5 @@ Uid.prototype.genUid = function(input){
         }
     }
 
-//    alert("Generated UID: " + sb.toString());
     return sb.toString();
 }
