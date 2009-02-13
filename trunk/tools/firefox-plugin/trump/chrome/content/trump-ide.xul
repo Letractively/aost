@@ -104,7 +104,7 @@
                         <query expr="*"/>
                         <action>
                             <vbox uri="?" class="indent">
-                                <button label="?desc" id="?id" class="?class" align="left" crop="end" oncommand="alert('Customize me!');"/>
+                                <button uid="?id" label="?desc" myclass="?class" align="left" oncommand="window.editor.processCustomizeEvent(event)"/>
                             </vbox>
                         </action>
                     </template>
