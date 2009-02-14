@@ -19,6 +19,8 @@ function Editor(window) {
     this.buildCustomizeTree(DEFAULT_XML);
 
     this.currentUid = null;
+
+    this.decorator = new Decorator();
 }
 
 Editor.prototype.registerRecorder = function(){
@@ -28,6 +30,7 @@ Editor.prototype.registerRecorder = function(){
 
 Editor.prototype.unload = function(){
     this.recorder.unregisterListener();
+    this.decorator.cleanShowNode();
 }
 
 Editor.prototype.close = function(){
@@ -235,6 +238,19 @@ Editor.prototype.getElementsByTagValue = function(tag, attr, val){
     }
 
     return null;
+}
+
+Editor.prototype.showNodeOnWeb = function(){
+    var uiObject = this.innerTree.uiObjectMap.get(this.currentUid);
+    if(uiObject != null){
+        if(uiObject.node != null && uiObject.node.domNode != null){
+            this.decorator.showNode(uiObject.node.domNode);
+        }else{
+            logger.error("UI Object " + this.currentUid + " does not point to a Dom Node");
+        }
+    }else{
+        logger.error("Cannot find UI object " + this.currentUid);
+    }
 }
 
 Editor.prototype.updateUiObject = function(){
