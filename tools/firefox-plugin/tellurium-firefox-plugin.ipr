@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project relativePaths="true" version="4">
+  <component name="AntConfiguration">
+    <defaultAnt bundledAnt="true" />
+  </component>
   <component name="BuildJarProjectSettings">
     <option name="BUILD_JARS_ON_MAKE" value="false" />
   </component>
@@ -265,6 +268,24 @@
     <option name="ADDITIONAL_OPTIONS_STRING" value="" />
   </component>
   <component name="SvnBranchConfigurationManager">
+    <option name="myConfigurationMap">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchUrls">
+                <list>
+                  <option value="https://aost.googlecode.com/svn/branches" />
+                  <option value="https://aost.googlecode.com/svn/tags" />
+                  <option value="https://aost.googlecode.com/svn/wiki" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="https://aost.googlecode.com/svn/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="myVersion" value="124" />
   </component>
   <component name="VcsDirectoryMappings">

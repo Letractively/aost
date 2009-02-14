@@ -18,6 +18,7 @@
 <!ENTITY type.label "Type">
 <!ENTITY clocator.label "clocator">
 <!ENTITY attributes.label "Attributes">
+<!ENTITY group.label "Group">
 <!ENTITY save.label "Save">
 
 

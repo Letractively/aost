@@ -174,6 +174,11 @@ Editor.prototype.processCheckEvent = function(event){
 Editor.prototype.fillUiObjectFields = function(uiObject){
     document.getElementById("uid").value= uiObject.uid;
     document.getElementById("uiType").value = uiObject.uiType;
+    if(uiObject.isContainer()){
+        document.getElementById("group_Check_Box").disabled = false;
+    }
+    document.getElementById("group_Check_Box").checked = uiObject.group;
+
     if(uiObject.node != null){
        var xml = uiObject.node.buildAttributeXml();
         this.buildUiAttributeTree(xml);
