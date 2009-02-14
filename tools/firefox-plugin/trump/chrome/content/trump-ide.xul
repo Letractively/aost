@@ -149,14 +149,14 @@
                                                 <assign var="?sel" expr="@sel"/>
                                                 <assign var="?name" expr="@name"/>
                                                 <assign var="?value" expr="@value"/>
-                                                <assign var="?cid" expr="concat('CID_',@name)"/>
-                                                <assign var="?vid" expr="concat('VID_',@name)"/>
+                                                <assign var="?cid" expr="concat('CID',@name)"/>
+                                                <assign var="?vid" expr="concat('VID',@name)"/>
                                             </query>
                                             <action>
                                                 <richlistitem uri="?">
-                                                    <checkbox checked="?sel" id="?cid" align="center" minwidth="10"/>
+                                                    <checkbox checked="?sel" cid="?cid" align="center" minwidth="10"/>
                                                     <label value="?name" align="center"  minwidth="50" flex="1"/>
-                                                    <textbox id="?vid" value="?value" oninput="" align="center" minwidth="50" flex="1"/>
+                                                    <textbox vid="?vid" value="?value" oninput="" align="center" minwidth="50" flex="1"/>
                                                 </richlistitem>
                                             </action>
                                         </template>

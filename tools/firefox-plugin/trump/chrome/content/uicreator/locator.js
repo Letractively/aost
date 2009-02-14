@@ -21,18 +21,35 @@ Locator.prototype.buildLocator = function(attributes){
         this.text = attributes.get(this.constants.TEXT);
         this.position = attributes.get(this.constants.POSITION);
 
+        this.buildLocatorFromAttributes(attributes);
+    }
+
+    return this;
+}
+
+Locator.prototype.buildLocatorFromAttributes = function(attributes) {
+    if (attributes != null && attributes.size() > 0) {
         var keys = attributes.keySet();
-        for(var i=0; i<keys.length; i++){
+        for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
-//            if(key != this.constants.TAG && key != this.constants.TEXT && key != this.constants.POSITION && key != this.constants.HEADER && key != this.constants.TRAILER){
-            if(key != this.constants.TAG && key != this.constants.HEADER && key != this.constants.TRAILER){
+            //            if(key != this.constants.TAG && key != this.constants.TEXT && key != this.constants.POSITION && key != this.constants.HEADER && key != this.constants.TRAILER){
+            if (key != this.constants.TAG && key != this.constants.HEADER && key != this.constants.TRAILER) {
                 var value = attributes.get(key);
-                if(value != null && trimString(value).length >0 ){
+                if (value != null && trimString(value).length > 0) {
                     this.attributes.set(key, value);
                 }
             }
         }
+    }
+}
 
+Locator.prototype.updateLocator = function(attributes){
+     this.attributes = new HashMap();
+     if(attributes != null && attributes.size() > 0){
+        this.text = attributes.get(this.constants.TEXT);
+        this.position = attributes.get(this.constants.POSITION);
+
+        this.buildLocatorFromAttributes(attributes);
     }
 
     return this;

@@ -148,7 +148,6 @@ Editor.prototype.customizeButton = function(){
     }
 
     this.buildCustomizeTree(xml);
-
 }
 
 Editor.prototype.switchToCustomizeTab = function(){
@@ -225,9 +224,56 @@ Editor.prototype.buildUiAttributeTree = function(xml) {
 
 Editor.prototype.updateUiObject = function(){
     var uiObject = this.innerTree.uiObjectMap.get(this.currentUid);
-    uiObject.setUID(document.getElementById("uid").value);
-    uiObject.setUiType(document.getElementById("uiType").value);
+    if(uiObject != null){
+        logger.debug("Update UI object " + this.currentUid);
+        //update UID
+        uiObject.setUID(document.getElementById("uid").value);
+        //update UI Type
+        uiObject.setUiType(document.getElementById("uiType").value);
 
-    this.customizeButton();
-    this.updateSource();
+        //update Group attribute
+        if(document.getElementById("group_Check_Box").disabled = false){
+            uiObject.group = document.getElementById("group_Check_Box").checked;
+        }
+
+        //update attributes
+        var attrmap = new HashMap();
+        var keys = uiObject.node.attributes.keySet();
+        for (var i = 0; i < keys.length; i++) {
+            var key = keys[i];
+            if (key != "tag") {
+                //check each attribute, first look at the check box by the name conversion
+                var cid = "CID" + key;
+
+//                var elem = $(':checkbox[cid=' + cid + ']')[0];
+                var elem = $(':checkbox[cid]')[0];
+//                var elem = document.getElementById(cid);
+                if (elem != null) {
+                    //if the attribute is selected
+                    if (document.getElementById(cid).checked) {
+                        //get the id of the value of the attribute
+                        var vid = "VID" + key;
+//                        var velem = document.getElementById(vid);
+//                        var velem = $("textbox[vid="+vid+"]")[0];
+                        var velem = $(':text[vid='+vid+']')[0];
+                        if(velem != null){
+                            var val = velem.value;
+                            attrmap.set(key, val);
+                        }else{
+                            logger.error("Cannot find value node " + vid + " for attribute " + key);
+                        }
+                    }
+
+                } else {
+                    logger.warn("Cannot Find CheckBox " + cid + " for attribute " + key);
+                }
+            }
+        }
+        uiObject.updateAttributes(attrmap);
+        
+        this.customizeButton();
+        this.updateSource();
+    }else{
+        logger.error("Cannot find UI object " + this.currentUid);
+    }
 }

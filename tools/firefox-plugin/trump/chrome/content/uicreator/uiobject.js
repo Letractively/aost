@@ -142,6 +142,10 @@ UiObject.prototype.paddingByLevel = function(level) {
     return sb.toString();
 }
 
+UiObject.prototype.updateAttributes = function(attributeMap){
+    this.clocator.updateLocator(attributeMap);
+}
+
 UiObject.prototype.addRespond = function(event){
     this.respond.push(event);
 }
