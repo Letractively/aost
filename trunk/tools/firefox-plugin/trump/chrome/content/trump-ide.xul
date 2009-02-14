@@ -127,9 +127,13 @@
                                     </hbox>
                                 </row>
                                 <row align="center">
+                                    <label control="commandAction" value="&group.label;"/>
+                                    <checkbox id="group_Check_Box" disabled="true" checked="false"/>
+                                </row>
+                                <row align="center">
                                     <label control="commandValue" value="&attributes.label;"/>
 
-                                    <listbox id="ui_attribute_tree" datasources="#attributes_tree_xml" ref="*" querytype="xml" rows="10">
+                                    <richlistbox id="ui_attribute_tree" datasources="#attributes_tree_xml" ref="*" querytype="xml" rows="10">
                                         <listhead>
                                             <listheader id="checkBoxId" label="" sort="?sel"/>
                                             <listheader id="attributeName" primary="true" label="Name" sort="?name" flex="1"/>
@@ -148,17 +152,17 @@
                                                 <assign var="?cid" expr="concat('CSL_',@name)"/>
                                             </query>
                                             <action>
-                                                <listitem uri="?">
+                                                <richlistitem uri="?">
                                                     <listcell label="">
                                                         <!--checkbox checked="?sel" label="?cid" oncommand="window.editor.processCheckEvent(event)"/-->
                                                         <checkbox checked="?sel" cid="?cid" oncommand="window.editor.processCheckEvent(event)"/>
                                                     </listcell>
                                                     <listcell label="?name"/>
                                                     <listcell label="?value"/>
-                                                </listitem>
+                                                </richlistitem>
                                             </action>
                                         </template>
-                                    </listbox>
+                                    </richlistbox>
 
                                 </row>
                                 <!--row align="center">
