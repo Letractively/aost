@@ -246,9 +246,11 @@ Editor.prototype.updateUiObject = function(){
         //update UI Type
         uiObject.setUiType(document.getElementById("uiType").value);
 
+//        alert("Before update group " + document.getElementById("group_Check_Box").disabled);
         //update Group attribute
-        if(document.getElementById("group_Check_Box").disabled = false){
+        if(document.getElementById("group_Check_Box").disabled == false){
             uiObject.group = document.getElementById("group_Check_Box").checked;
+//            alert("After update group " + uiObject.group);
         }
 
         //update attributes
