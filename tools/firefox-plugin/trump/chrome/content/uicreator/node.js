@@ -210,13 +210,21 @@ NodeObject.prototype.buildXML = function(xml){
 
 NodeObject.prototype.buildAttributeXml = function(){
     var keySet = this.attributes.keySet();
+    var locator = this.uiobject.clocator;
     var xmlArray = new Array();
     var xmlBuffer = new StringBuffer();
 
     for(var i=0 ; i < keySet.length; ++i){
         //should not change tag, thus, remove tag from the list
-        if(keySet[i] != "tag"){
-            xmlArray.push("<attribute name=\""+ keySet[i] + "\""+ " value=\""+this.attributes.get(keySet[i]) + "\"" + "/>\n");
+        var key = keySet[i];
+        if(key != "tag"){
+            var included = false;
+
+            if(locator.isAttributeIncluded(key)){
+                included = true;
+            }
+
+            xmlArray.push("<attribute name=\""+ key + "\""+ " value=\""+this.attributes.get(key) + "\"" + " sel=\"" + included + "\"" + "/>\n");
         }
     }
 

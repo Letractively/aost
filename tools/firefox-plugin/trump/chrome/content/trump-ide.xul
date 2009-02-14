@@ -82,6 +82,7 @@
               <hbox>
                     <vbox id="customize_tree_view" flex="1" style="overflow:auto">
                         <groupbox id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml">
+                            <!--caption label="UI Module"/-->
                             <template>
                                 <query expr="*"/>
                                 <action>
@@ -128,12 +129,13 @@
                                     <label control="commandValue" value="&attributes.label;"/>
                                     <tree id="ui_attribute_tree" datasources="#attributes_tree_xml" ref="*" querytype="xml" rows="10">
                                         <treecols>
-                                            <treecol id="checkBoxId" primary="true" label="Select" flex="1"/>
+                                            <treecol id="checkBoxId" primary="true" label="" sort="?sel" flex="1"/>
                                             <treecol id="attributeName" primary="true" label="Name" sort="?name" flex="1"/>
                                             <treecol id="attributeValue" label="Value" flex="1" sort="?value"/>
                                         </treecols>
                                         <template>
                                             <query expr="attribute">
+                                                <assign var="?sel" expr="@sel"/>
                                                 <assign var="?name" expr="@name"/>
                                                 <assign var="?value" expr="@value"/>
                                             </query>
@@ -141,7 +143,9 @@
                                                 <treechildren>
                                                     <treeitem uri="?">
                                                         <treerow>
-                                                            <treecell label=""/>
+                                                            <treecell label="?sel">
+                                                                <!--checkbox label="" checked="?sel"/-->
+                                                            </treecell>
                                                             <treecell label="?name"/>
                                                             <treecell label="?value"/>
                                                         </treerow>
