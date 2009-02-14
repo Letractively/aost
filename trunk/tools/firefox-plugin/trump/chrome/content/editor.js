@@ -229,7 +229,6 @@ Editor.prototype.buildUiAttributeTree = function(xml) {
 Editor.prototype.getElementsByTagValue = function(tag, attr, val){
     var elements = document.getElementsByTagName(tag);
     if(elements != null){
-//        alert("Elements size " + elements.length);
         for(var i=0; i<elements.length; i++){
             var attrval = elements[i].getAttribute(attr);
             if(attrval == val){
@@ -258,16 +257,16 @@ Editor.prototype.updateUiObject = function(){
     var uiObject = this.innerTree.uiObjectMap.get(this.currentUid);
     if(uiObject != null){
         logger.debug("Update UI object " + this.currentUid);
+
         //update UID
         uiObject.setUID(document.getElementById("uid").value);
+
         //update UI Type
         uiObject.setUiType(document.getElementById("uiType").value);
 
-//        alert("Before update group " + document.getElementById("group_Check_Box").disabled);
         //update Group attribute
         if(document.getElementById("group_Check_Box").disabled == false){
             uiObject.group = document.getElementById("group_Check_Box").checked;
-//            alert("After update group " + uiObject.group);
         }
 
         //update attributes
@@ -306,6 +305,7 @@ Editor.prototype.updateUiObject = function(){
             }
         }
         uiObject.updateAttributes(attrmap);
+        
         //validate xpath again
         this.innerTree.validate();
         this.customizeButton();

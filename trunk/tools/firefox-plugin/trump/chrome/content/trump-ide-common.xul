@@ -46,5 +46,6 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://trump/content/utils/stringBuffer.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/utils/hashMap.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/utils/priorityQueue.js"/>
-
+    <script type="application/x-javascript" src="chrome://trump/content/utils/xmlUtil.js"/>
+    
 </overlay>

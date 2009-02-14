@@ -29,6 +29,8 @@ function NodeObject(){
 
     //The UI object associated with this node
     this.uiobject = new UiObject();
+
+    this.xmlutil = new XmlUtil();
 }
 
 NodeObject.prototype.walkUp = function(){
@@ -126,7 +128,6 @@ NodeObject.prototype.buildUiObject = function(){
         hasChildren = true;
     }
 
-//    this.uiobject.buildUiObject(this.id, this.attributes, hasChildren);
     this.uiobject.buildUiObject(this, hasChildren);
 
     if (hasChildren) {
@@ -193,7 +194,7 @@ NodeObject.prototype.buildXML = function(xml){
     var isXPathValid = this.uiobject.isLocatorValid ? "" : "X";
     var valid = "valid=\"" + isXPathValid + "\"";
     var myclass = "class=\"" + MYCLASS + level + "\"";
-//    var myUID = "id=\"" + UID_PREFIX + this.canonUID() + "\"";
+
     var myUID = "id=\"" + this.canonUID() + "\"";
 
     if (hasChildren) {
@@ -224,7 +225,7 @@ NodeObject.prototype.buildAttributeXml = function(){
                 included = true;
             }
 
-            xmlArray.push("<attribute name=\""+ key + "\""+ " value=\""+this.attributes.get(key) + "\"" + " sel=\"" + included + "\"" + "/>\n");
+            xmlArray.push("<attribute name=\""+ key + "\""+ " value=\""+ this.xmlutil.specialCharacterProof(this.attributes.get(key)) + "\"" + " sel=\"" + included + "\"" + "/>\n");
         }
     }
 
