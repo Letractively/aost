@@ -29,19 +29,23 @@ button .myClass3 {
 */
 
 button[myclass="myClass0"] {
-     background-color: #EDFF64;
+     color: #0000FF;
 }
 
 button[myclass="myClass1"]{
-     background-color: #666666;
+     color: #00CCCC;
 }
                                                         .p.
 button[myclass="myClass2"]{
-     background-color: SlateBlue;
+     color: #330033;
 }
 
 button[myclass="myClass3"]{
-     background-color: SkyBlue;
+     color: #CC9933;
+}
+
+button[myclass="myClass4"]{
+     color: #FFFF00;
 }
 
 .titled-splitte{
