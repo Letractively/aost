@@ -154,9 +154,9 @@
                                             </query>
                                             <action>
                                                 <richlistitem uri="?">
-                                                    <checkbox checked="?sel" cid="?cid" align="center" minwidth="10"/>
+                                                    <checkbox name="?cid" checked="?sel" align="center" minwidth="10"/>
                                                     <label value="?name" align="center"  minwidth="50" flex="1"/>
-                                                    <textbox vid="?vid" value="?value" oninput="" align="center" minwidth="50" flex="1"/>
+                                                    <textbox name="?vid" value="?value" oninput="" align="center" minwidth="50" flex="1"/>
                                                 </richlistitem>
                                             </action>
                                         </template>
