@@ -71,6 +71,7 @@
   * [http://docs.huihoo.com/xul/xul-tutorial/ XUL Tutorial]
   * [http://pastebin.mozilla.org/621834 XUL template example]
   * [http://www.hevanet.com/acorbin/xul/top.xul XUL Periodic Table]
+  * [http://www.mozilla.org/rdf/doc/xul-template-reference.html XUL template Ignored Attributes]
   * [https://developer.mozilla.org/en/Mozilla_CSS_Extensions Mozilla CSS Extensions]
   * [http://www.rietta.com/firefox/Tutorial/prefs.html Firefox Extension Development Tutorial: Preferences]
   * [https://developer.mozilla.org/en/Gecko Gecko Layout Engine]
