@@ -172,17 +172,23 @@ Editor.prototype.processCheckEvent = function(event){
 }
 
 Editor.prototype.fillUiObjectFields = function(uiObject){
-    document.getElementById("uid").value= uiObject.uid;
+    document.getElementById("uid").value = uiObject.uid;
     document.getElementById("uiType").value = uiObject.uiType;
-    if(uiObject.isContainer()){
+//    alert("Is UI Object a Container " + uiObject.container);
+    
+    if (uiObject.container) {
         document.getElementById("group_Check_Box").disabled = false;
+        document.getElementById("group_Check_Box").checked = uiObject.group;
+    } else {
+        document.getElementById("group_Check_Box").disabled = false;
+        document.getElementById("group_Check_Box").checked = false;
+        document.getElementById("group_Check_Box").disabled = true;
     }
-    document.getElementById("group_Check_Box").checked = uiObject.group;
 
-    if(uiObject.node != null){
-       var xml = uiObject.node.buildAttributeXml();
+    if (uiObject.node != null) {
+        var xml = uiObject.node.buildAttributeXml();
         this.buildUiAttributeTree(xml);
-    }else{
+    } else {
         logger.warn("Ui object " + uiObject.uid + " does not point to a Node in the tree")
     }
 }
