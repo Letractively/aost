@@ -127,7 +127,36 @@
                                 </row>
                                 <row align="center">
                                     <label control="commandValue" value="&attributes.label;"/>
-                                    <tree id="ui_attribute_tree" datasources="#attributes_tree_xml" ref="*" querytype="xml" rows="10">
+
+                                    <listbox id="ui_attribute_tree" datasources="#attributes_tree_xml" ref="*" querytype="xml" rows="10">
+                                        <listhead>
+                                            <listheader id="checkBoxId" label="" sort="?sel"/>
+                                            <listheader id="attributeName" primary="true" label="Name" sort="?name" flex="1"/>
+                                            <listheader id="attributeValue" label="Value" sort="?value" flex="1"/>
+                                        </listhead>
+                                        <listcols>
+                                            <listcol/>
+                                            <listcol/>
+                                            <listcol flex="1"/>
+                                        </listcols>
+                                        <template>
+                                            <query expr="attribute">
+                                                <assign var="?sel" expr="@sel"/>
+                                                <assign var="?name" expr="@name"/>
+                                                <assign var="?value" expr="@value"/>
+                                            </query>
+                                            <action>
+                                                <listitem uri="?">
+                                                    <listcell label="">
+                                                        <checkbox checked="?sel"/>
+                                                    </listcell>
+                                                    <listcell label="?name"/>
+                                                    <listcell label="?value"/>
+                                                </listitem>
+                                            </action>
+                                        </template>
+                                    </listbox>
+                                    <!--tree id="ui_attribute_tree" datasources="#attributes_tree_xml" ref="*" querytype="xml" rows="10">
                                         <treecols>
                                             <treecol id="checkBoxId" primary="true" label="" sort="?sel" flex="1"/>
                                             <treecol id="attributeName" primary="true" label="Name" sort="?name" flex="1"/>
@@ -143,8 +172,7 @@
                                                 <treechildren>
                                                     <treeitem uri="?">
                                                         <treerow>
-                                                            <treecell label="?sel">
-                                                                <!--checkbox label="" checked="?sel"/-->
+                                                            <treecell label="?sel">                                                                
                                                             </treecell>
                                                             <treecell label="?name"/>
                                                             <treecell label="?value"/>
@@ -153,7 +181,8 @@
                                                 </treechildren>
                                             </action>
                                         </template>
-                                    </tree>
+                                    </tree-->
+
                                 </row>
                                 <!--row align="center">
                                 </row-->
