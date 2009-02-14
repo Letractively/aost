@@ -3,7 +3,7 @@
  */
 
 const DEFAULT_XML = "<?xml version=\"1.0\"?><UIs id=\"customize_tree_xml\" xmlns=\"\"></UIs>";
-const UIOBJECT_ATTRIBUTES_XML = "<?xml version=\"1.0\"?><attributes id=\"attributes_tree_xml\" xmlns=\"\"><attribute name=\"attr1\" value=\"val1\" /></attributes>";
+const DEFAULT_ATTRIBUTES_XML = "<?xml version=\"1.0\"?><attributes id=\"attributes_tree_xml\" xmlns=\"\"></attributes>";
 function Editor(window) {
     this.window = window;
     var self = this;
@@ -114,7 +114,18 @@ Editor.prototype.clearButton = function(){
     this.recorder.clearAll();
     this.clearSourceTabContent();
     this.logView.clear();
+    this.clearCustomizeTabContext();
     this.innerTree = null;
+}
+
+Editor.prototype.clearCustomizeTabContext = function(){
+    document.getElementById("uid").value = "";
+    document.getElementById("uiType").value = "";
+    document.getElementById("uid").setAttribute("disabled", "true");
+    document.getElementById("uiType").setAttribute("disabled", "true");
+    document.getElementById("group_Check_Box").disabled = true;
+    this.buildCustomizeTree(DEFAULT_XML);
+    this.buildUiAttributeTree(DEFAULT_ATTRIBUTES_XML);
 }
 
 Editor.prototype.switchToSourceTab = function(){
@@ -174,7 +185,6 @@ Editor.prototype.processCheckEvent = function(event){
 Editor.prototype.fillUiObjectFields = function(uiObject){
     document.getElementById("uid").value = uiObject.uid;
     document.getElementById("uiType").value = uiObject.uiType;
-//    alert("Is UI Object a Container " + uiObject.container);
     
     if (uiObject.container) {
         document.getElementById("group_Check_Box").disabled = false;
@@ -202,34 +212,6 @@ Editor.prototype.disableUiObjectFields = function(){
     document.getElementById("uid").setAttribute("disabled", "true");
     document.getElementById("uiType").setAttribute("disabled", "true");   
 }
-
-/*
-Editor.prototype.buildAttributeXml = function(node){
-    var keySet = node.attributes.keySet();
-    var xmlArray = new Array();
-    var xmlBuffer = new StringBuffer();
-
-    for(var i=0 ; i < keySet.length; ++i){
-        xmlArray.push("<attribute name=\""+ keySet[i] + "\""+ " value=\""+node.attributes.get(keySet[i]) + "\"" + "/>\n");
-    }
-
-    var xml = "<?xml version=\"1.0\"?>\n<attributes id=\"attributes_tree_xml\" xmlns=\"\">\n";
-
-    if(xmlArray != null){
-        for(var i=0; i<xmlArray.length; ++i){
-            xmlBuffer.append(xmlArray[i]);
-        }
-    }
-
-
-    xml += xmlBuffer.toString();
-    xml += "</attributes>\n";
-
-    logger.debug("Attributes XML: \n" + xml);
-
-    return xml;
-}
-*/
 
 Editor.prototype.buildUiAttributeTree = function(xml) {
     if (xml != null) {
