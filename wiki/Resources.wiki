@@ -78,6 +78,8 @@
   * [http://www.w3schools.com/XML/ XML Tutorial]
   * [http://psacake.com/web/jb.asp Javascript Form Validation]
   * [http://tecfa.unige.ch/guides/js/ex-intro/angus_strings.html STRING MATCHING AND REPLACING IN JAVASCRIPT 1.2]
+  * [http://www.comptechdoc.org/independent/web/cgi/javamanual/javastyle.html JavaScript Style Attributes]
+  * [http://www.w3schools.com/Css/css_colors.asp CSS Colors]
 
 == Algorithms ==
 
