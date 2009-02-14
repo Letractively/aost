@@ -153,12 +153,11 @@
                                             </query>
                                             <action>
                                                 <richlistitem uri="?">
-                                                    <listcell label="">
-                                                        <!--checkbox checked="?sel" cid="?cid" oncommand="window.editor.processCheckEvent(event)"/-->
+                                                    <listcell label="" align="center" flex="1">
                                                         <checkbox checked="?sel" cid="?cid"/>
                                                     </listcell>
-                                                    <listcell label="?name"/>
-                                                    <listcell label="?value"/>
+                                                    <listcell label="?name" align="left" flex="1"/>
+                                                    <listcell label="?value" align="left" flex="1"/>
                                                 </richlistitem>
                                             </action>
                                         </template>
