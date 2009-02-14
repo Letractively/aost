@@ -70,6 +70,7 @@
   * [https://developer.mozilla.org/en/XUL XUL Reference]
   * [http://docs.huihoo.com/xul/xul-tutorial/ XUL Tutorial]
   * [http://pastebin.mozilla.org/621834 XUL template example]
+  * [http://www.rietta.com/firefox/Tutorial/prefs.html Firefox Extension Development Tutorial: Preferences]
   * [https://developer.mozilla.org/en/Gecko Gecko Layout Engine]
   * [http://www.w3schools.com/XML/ XML Tutorial]
   * [http://psacake.com/web/jb.asp Javascript Form Validation]
