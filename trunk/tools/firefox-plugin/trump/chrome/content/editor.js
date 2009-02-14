@@ -222,6 +222,21 @@ Editor.prototype.buildUiAttributeTree = function(xml) {
     }
 }
 
+Editor.prototype.getElementsByTagValue = function(tag, attr, val){
+    var elements = document.getElementsByTagName(tag);
+    if(elements != null){
+//        alert("Elements size " + elements.length);
+        for(var i=0; i<elements.length; i++){
+            var attrval = elements[i].getAttribute(attr);
+            if(attrval == val){
+                return elements[i];
+            }
+        }
+    }
+
+    return null;
+}
+
 Editor.prototype.updateUiObject = function(){
     var uiObject = this.innerTree.uiObjectMap.get(this.currentUid);
     if(uiObject != null){
@@ -246,16 +261,18 @@ Editor.prototype.updateUiObject = function(){
                 var cid = "CID" + key;
 
 //                var elem = $(':checkbox[cid=' + cid + ']')[0];
-                var elem = $(':checkbox[cid]')[0];
+//                var elem = $('input[name=' + cid + ']')[0];
+                var elem = this.getElementsByTagValue("checkbox", "name", cid);
 //                var elem = document.getElementById(cid);
                 if (elem != null) {
                     //if the attribute is selected
-                    if (document.getElementById(cid).checked) {
+                    if (elem.checked) {
                         //get the id of the value of the attribute
                         var vid = "VID" + key;
 //                        var velem = document.getElementById(vid);
 //                        var velem = $("textbox[vid="+vid+"]")[0];
-                        var velem = $(':text[vid='+vid+']')[0];
+//                        var velem = $(':text[vid='+vid+']')[0];
+                        var velem = this.getElementsByTagValue("textbox", "name", vid);
                         if(velem != null){
                             var val = velem.value;
                             attrmap.set(key, val);
@@ -270,7 +287,8 @@ Editor.prototype.updateUiObject = function(){
             }
         }
         uiObject.updateAttributes(attrmap);
-        
+        //validate xpath again
+        this.innerTree.validate();
         this.customizeButton();
         this.updateSource();
     }else{
