@@ -103,9 +103,10 @@
                     <!--splitter collapse="before" class="splitter" resizeafter="farthest"/-->
                     <!-- command editing -->
                     <vbox id="uiObjectEdit" persist="height" flex="3">
+                        <hbox pack="center">
+                            <button label="&save.label;" oncommand="window.editor.updateUiObject()"/>
+                        </hbox>
 
-                        <button label="&save.label;" oncommand="window.editor.updateUiObject()"/>
-                        
                         <grid>
                             <columns>
                                 <column/>
@@ -156,32 +157,6 @@
                                             </action>
                                         </template>
                                     </listbox>
-                                    <!--tree id="ui_attribute_tree" datasources="#attributes_tree_xml" ref="*" querytype="xml" rows="10">
-                                        <treecols>
-                                            <treecol id="checkBoxId" primary="true" label="" sort="?sel" flex="1"/>
-                                            <treecol id="attributeName" primary="true" label="Name" sort="?name" flex="1"/>
-                                            <treecol id="attributeValue" label="Value" flex="1" sort="?value"/>
-                                        </treecols>
-                                        <template>
-                                            <query expr="attribute">
-                                                <assign var="?sel" expr="@sel"/>
-                                                <assign var="?name" expr="@name"/>
-                                                <assign var="?value" expr="@value"/>
-                                            </query>
-                                            <action>
-                                                <treechildren>
-                                                    <treeitem uri="?">
-                                                        <treerow>
-                                                            <treecell label="?sel">                                                                
-                                                            </treecell>
-                                                            <treecell label="?name"/>
-                                                            <treecell label="?value"/>
-                                                        </treerow>
-                                                    </treeitem>
-                                                </treechildren>
-                                            </action>
-                                        </template>
-                                    </tree-->
 
                                 </row>
                                 <!--row align="center">
