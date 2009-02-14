@@ -11,7 +11,7 @@ Copyright 2008 Vivek Mongolu
 <overlay id="trump-ide-common"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
     <script type="application/x-javascript" src="chrome://trump/content/extlib/log4js.js"/>
-    <script type="application/x-javascript" src="chrome://trump/content/extlib/javascript-xpath.js"/>
+    <!--script type="application/x-javascript" src="chrome://trump/content/extlib/javascript-xpath.js"/-->
     <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery-1.3.1.js "/>
     <script type="application/x-javascript" src="chrome://trump/content/util.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/editor.js"/>
