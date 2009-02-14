@@ -125,12 +125,12 @@
                                     </hbox>
                                 </row>
                                 <row align="center">
-                                    <label control="commandValue" value="&clocator.label; - &attributes.label; "/>
+                                    <label control="commandValue" value="&attributes.label;"/>
                                     <tree id="ui_attribute_tree" datasources="#attributes_tree_xml" ref="*" querytype="xml" rows="10">
                                         <treecols>
                                             <treecol id="checkBoxId" primary="true" label="Select" flex="1"/>
-                                            <treecol id="attributeName" primary="true" label="attributeName" sort="?name" flex="1"/>
-                                            <treecol id="attributeValue" label="attributeValue" flex="1" sort="?value"/>
+                                            <treecol id="attributeName" primary="true" label="Name" sort="?name" flex="1"/>
+                                            <treecol id="attributeValue" label="Value" flex="1" sort="?value"/>
                                         </treecols>
                                         <template>
                                             <query expr="attribute">
