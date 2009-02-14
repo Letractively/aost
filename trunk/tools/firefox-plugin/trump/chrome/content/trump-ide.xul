@@ -127,8 +127,8 @@
                                     </hbox>
                                 </row>
                                 <row align="center">
-                                    <label control="commandAction" value="&group.label;"/>
-                                    <checkbox id="group_Check_Box" disabled="true" checked="false"/>
+                                    <label control="commandValue" value="&group.label;"/>
+                                    <checkbox id="group_Check_Box" disabled="false" checked="false"/>
                                 </row>
                                 <row align="center">
                                     <label control="commandValue" value="&attributes.label;"/>
@@ -154,8 +154,8 @@
                                             <action>
                                                 <richlistitem uri="?">
                                                     <listcell label="">
-                                                        <!--checkbox checked="?sel" label="?cid" oncommand="window.editor.processCheckEvent(event)"/-->
-                                                        <checkbox checked="?sel" cid="?cid" oncommand="window.editor.processCheckEvent(event)"/>
+                                                        <!--checkbox checked="?sel" cid="?cid" oncommand="window.editor.processCheckEvent(event)"/-->
+                                                        <checkbox checked="?sel" cid="?cid"/>
                                                     </listcell>
                                                     <listcell label="?name"/>
                                                     <listcell label="?value"/>
