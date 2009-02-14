@@ -128,7 +128,7 @@
                                     <label control="commandValue" value="&clocator.label; - &attributes.label; "/>
                                     <tree id="ui_attribute_tree" datasources="#attributes_tree_xml" ref="*" querytype="xml" rows="10">
                                         <treecols>
-                                            <treecol id="checkBoxId" primary="true" label="" flex="1"/>
+                                            <treecol id="checkBoxId" primary="true" label="Select" flex="1"/>
                                             <treecol id="attributeName" primary="true" label="attributeName" sort="?name" flex="1"/>
                                             <treecol id="attributeValue" label="attributeValue" flex="1" sort="?value"/>
                                         </treecols>
