@@ -104,6 +104,7 @@
                     <!-- command editing -->
                     <vbox id="uiObjectEdit" persist="height" flex="1">
                         <hbox pack="center">
+                            <button label="&show.label;" oncommand="window.editor.showNodeOnWeb()"/>
                             <button label="&save.label;" oncommand="window.editor.updateUiObject()"/>
                         </hbox>
 
