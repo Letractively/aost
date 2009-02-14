@@ -37,6 +37,11 @@ Locator.prototype.buildLocator = function(attributes){
     return this;
 }
 
+Locator.prototype.isAttributeIncluded = function(attribute){
+
+    return (this.attributes.get(attribute) != null);
+}
+
 Locator.prototype.addAttribute = function(key, value) {
     this.attributes.set(key, value);
 }
