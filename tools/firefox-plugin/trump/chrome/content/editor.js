@@ -118,6 +118,7 @@ Editor.prototype.clearButton = function(){
     this.clearSourceTabContent();
     this.logView.clear();
     this.clearCustomizeTabContext();
+    this.decorator.cleanShowNode();
     this.innerTree = null;
 }
 
