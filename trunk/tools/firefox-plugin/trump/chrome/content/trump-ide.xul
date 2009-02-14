@@ -141,7 +141,7 @@
                                         </listhead>
                                         <listcols>
                                             <listcol/>
-                                            <listcol/>
+                                            <listcol flex="1"/>
                                             <listcol flex="1"/>
                                         </listcols>
                                         <template>
@@ -150,14 +150,17 @@
                                                 <assign var="?name" expr="@name"/>
                                                 <assign var="?value" expr="@value"/>
                                                 <assign var="?cid" expr="concat('CSL_',@name)"/>
+                                                <assign var="?vid" expr="concat('VID_',@name)"/>
                                             </query>
                                             <action>
                                                 <richlistitem uri="?">
-                                                    <listcell label="" align="center" flex="1">
+                                                    <listcell label="" align="center" minwidth="10">
                                                         <checkbox checked="?sel" cid="?cid"/>
                                                     </listcell>
-                                                    <listcell label="?name" align="left" flex="1"/>
-                                                    <listcell label="?value" align="left" flex="1"/>
+                                                    <listcell label="?name" align="center"  minwidth="50" flex="1"/>
+                                                    <listcell label="" align="center" minwidth="50" flex="1">
+                                                        <textbox id="?vid" value="?value" oninput=""/>
+                                                    </listcell>
                                                 </richlistitem>
                                             </action>
                                         </template>
