@@ -159,18 +159,23 @@ Editor.prototype.processCustomizeEvent = function(event){
     this.currentUid = event.target.getAttribute("uid");
     var uiObject = this.innerTree.uiObjectMap.get(this.currentUid);
     logger.debug("uiObject : " + uiObject.descObject());
-
-    this.fillUiObjectFields(uiObject);
-    this.enableUiObjectFields();
-//    this.buildUiAttributeTree(UIOBJECT_ATTRIBUTES_XML);
-
+    if(uiObject != null){
+        this.fillUiObjectFields(uiObject);
+        this.enableUiObjectFields();
+    }else{
+        logger.warn("Cannot find UI object " + this.currentUid);   
+    }
 }
 
 Editor.prototype.fillUiObjectFields = function(uiObject){
     document.getElementById("uid").value= uiObject.uid;
     document.getElementById("uiType").value = uiObject.uiType;
-    var xml = this.buildAttributeXml(uiObject.node);
-    this.buildUiAttributeTree(xml);
+    if(uiObject.node != null){
+       var xml = uiObject.node.buildAttributeXml();
+        this.buildUiAttributeTree(xml);
+    }else{
+        logger.warn("Ui object " + uiObject.uid + " does not point to a Node in the tree")
+    }
 }
 
 Editor.prototype.enableUiObjectFields = function(){
@@ -183,6 +188,7 @@ Editor.prototype.disableUiObjectFields = function(){
     document.getElementById("uiType").setAttribute("disabled", "true");   
 }
 
+/*
 Editor.prototype.buildAttributeXml = function(node){
     var keySet = node.attributes.keySet();
     var xmlArray = new Array();
@@ -208,6 +214,7 @@ Editor.prototype.buildAttributeXml = function(node){
 
     return xml;
 }
+*/
 
 Editor.prototype.buildUiAttributeTree = function(xml) {
     if (xml != null) {

@@ -14,10 +14,10 @@
 <!ENTITY element.label "DOM Node">
 <!ENTITY element.name.label "DOM Node Name">
 
-<!ENTITY uid.label "uid">
+<!ENTITY uid.label "UID">
 <!ENTITY type.label "Type">
 <!ENTITY clocator.label "clocator">
-<!ENTITY attributes.label "attributes">
+<!ENTITY attributes.label "Attributes">
 <!ENTITY save.label "Save">
 
 

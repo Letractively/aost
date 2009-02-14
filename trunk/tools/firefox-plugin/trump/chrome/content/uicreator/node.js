@@ -208,6 +208,35 @@ NodeObject.prototype.buildXML = function(xml){
     }
 }
 
+NodeObject.prototype.buildAttributeXml = function(){
+    var keySet = this.attributes.keySet();
+    var xmlArray = new Array();
+    var xmlBuffer = new StringBuffer();
+
+    for(var i=0 ; i < keySet.length; ++i){
+        //should not change tag, thus, remove tag from the list
+        if(keySet[i] != "tag"){
+            xmlArray.push("<attribute name=\""+ keySet[i] + "\""+ " value=\""+this.attributes.get(keySet[i]) + "\"" + "/>\n");
+        }
+    }
+
+    var xml = "<?xml version=\"1.0\"?>\n<attributes id=\"attributes_tree_xml\" xmlns=\"\">\n";
+
+    if(xmlArray != null){
+        for(var i=0; i<xmlArray.length; ++i){
+            xmlBuffer.append(xmlArray[i]);
+        }
+    }
+
+
+    xml += xmlBuffer.toString();
+    xml += "</attributes>\n";
+
+    logger.debug("Attributes XML: \n" + xml);
+
+    return xml;
+}
+
 NodeObject.prototype.checkNodeId = function(){
     //Children's names must be unique
     if(this.children != null && this.children.length > 1){
