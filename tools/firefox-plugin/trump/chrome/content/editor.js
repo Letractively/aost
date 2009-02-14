@@ -158,7 +158,7 @@ Editor.prototype.processCustomizeEvent = function(event){
     logger.debug('Customize ' + event.target.getAttribute("label"));
     this.currentUid = event.target.getAttribute("uid");
     var uiObject = this.innerTree.uiObjectMap.get(this.currentUid);
-    logger.debug("uiObject : " + uiObject);
+    logger.debug("uiObject : " + uiObject.descObject());
 
     this.fillUiObjectFields(uiObject);
     this.enableUiObjectFields();
@@ -189,7 +189,7 @@ Editor.prototype.buildAttributeXml = function(node){
     var xmlBuffer = new StringBuffer();
 
     for(var i=0 ; i < keySet.length; ++i){
-        xmlArray.push("<attribute name=\""+ keySet[i] + "\""+ " value=\""+node.attributes.get(keySet[i]) + "\"" + ">\n");
+        xmlArray.push("<attribute name=\""+ keySet[i] + "\""+ " value=\""+node.attributes.get(keySet[i]) + "\"" + "/>\n");
     }
 
     var xml = "<?xml version=\"1.0\"?>\n<attributes id=\"attributes_tree_xml\" xmlns=\"\">\n";
@@ -202,7 +202,9 @@ Editor.prototype.buildAttributeXml = function(node){
 
 
     xml += xmlBuffer.toString();
-    xml += "</attributes>"
+    xml += "</attributes>\n";
+
+    logger.debug("Attributes XML: \n" + xml);
 
     return xml;
 }
