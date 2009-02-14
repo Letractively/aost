@@ -80,7 +80,7 @@
             </tabpanel>
             <tabpanel orient="vertical">
               <hbox>
-                    <vbox id="customize_tree_view" flex="3" style="overflow:auto">
+                    <vbox id="customize_tree_view" flex="3">
                         <groupbox id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml">
                             <!--caption label="UI Module"/-->
                             <template>
