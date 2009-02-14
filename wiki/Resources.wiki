@@ -70,6 +70,8 @@
   * [https://developer.mozilla.org/en/XUL XUL Reference]
   * [http://docs.huihoo.com/xul/xul-tutorial/ XUL Tutorial]
   * [http://pastebin.mozilla.org/621834 XUL template example]
+  * [http://www.hevanet.com/acorbin/xul/top.xul XUL Periodic Table]
+  * [https://developer.mozilla.org/en/Mozilla_CSS_Extensions Mozilla CSS Extensions]
   * [http://www.rietta.com/firefox/Tutorial/prefs.html Firefox Extension Development Tutorial: Preferences]
   * [https://developer.mozilla.org/en/Gecko Gecko Layout Engine]
   * [http://www.w3schools.com/XML/ XML Tutorial]
