@@ -4,7 +4,7 @@ function Decorator(){
     this.showBgColor = "#00FFFF";
 //    this.showBgColor = "#FF00FF";
     this.outLine = "2px solid #000";
-    this.showLine = "2px solid #0000FF";
+    this.showLine = "3px solid #0000FF";
     this.noBgColor = "";
     this.lastShownNode = null;
     this.currentShownNode = null;
@@ -29,14 +29,14 @@ Decorator.prototype.removeOutline = function(node){
 Decorator.prototype.showNode = function(node){
     this.cleanShowNode(node);
 
-    node.style.backgroundColor = this.showBgColor;
+//    node.style.backgroundColor = this.showBgColor;
     node.style.outline = this.showLine;
     this.currentShownNode = node;
 }
 
 Decorator.prototype.cleanShowNode = function(node){
     if(this.currentShownNode != null){
-        this.currentShownNode.style.backgroundColor = this.noBgColor;
+//        this.currentShownNode.style.backgroundColor = this.noBgColor;
         this.currentShownNode.style.outline = "";
     }
 }
