@@ -80,7 +80,7 @@
             </tabpanel>
             <tabpanel orient="vertical">
               <hbox>
-                    <vbox id="customize_tree_view" flex="1" style="overflow:auto">
+                    <vbox id="customize_tree_view" flex="3" style="overflow:auto">
                         <groupbox id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml">
                             <!--caption label="UI Module"/-->
                             <template>
@@ -102,7 +102,7 @@
                     <!--separator class="thin"/-->
                     <!--splitter collapse="before" class="splitter" resizeafter="farthest"/-->
                     <!-- command editing -->
-                    <vbox id="uiObjectEdit" persist="height" flex="3">
+                    <vbox id="uiObjectEdit" persist="height" flex="1">
                         <hbox pack="center">
                             <button label="&save.label;" oncommand="window.editor.updateUiObject()"/>
                         </hbox>
@@ -145,11 +145,13 @@
                                                 <assign var="?sel" expr="@sel"/>
                                                 <assign var="?name" expr="@name"/>
                                                 <assign var="?value" expr="@value"/>
+                                                <assign var="?cid" expr="concat('CSL_',@name)"/>
                                             </query>
                                             <action>
                                                 <listitem uri="?">
                                                     <listcell label="">
-                                                        <checkbox checked="?sel"/>
+                                                        <!--checkbox checked="?sel" label="?cid" oncommand="window.editor.processCheckEvent(event)"/-->
+                                                        <checkbox checked="?sel" cid="?cid" oncommand="window.editor.processCheckEvent(event)"/>
                                                     </listcell>
                                                     <listcell label="?name"/>
                                                     <listcell label="?value"/>
