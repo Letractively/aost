@@ -167,6 +167,10 @@ Editor.prototype.processCustomizeEvent = function(event){
     }
 }
 
+Editor.prototype.processCheckEvent = function(event){
+    alert("You selected " + event.target.getAttribute("cid"));
+}
+
 Editor.prototype.fillUiObjectFields = function(uiObject){
     document.getElementById("uid").value= uiObject.uid;
     document.getElementById("uiType").value = uiObject.uiType;

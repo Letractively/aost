@@ -43,3 +43,10 @@ button[myclass="myClass2"]{
 button[myclass="myClass3"]{
      background-color: SkyBlue;
 }
+
+.titled-splitte{
+    background-color: #808080;
+    border-color:black;
+    border-style:solid;
+    border-width: thin;
+}

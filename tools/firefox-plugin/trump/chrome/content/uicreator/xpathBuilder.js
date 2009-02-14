@@ -19,7 +19,9 @@ function XPathBuilder(){
         DESCENDANT_PREFIX : "descendant::",
         CHILD_PREFIX : "child::",
         MATCH_ALL : "*",
-        CONTAIN_PREFIX : "%%"
+        CONTAIN_PREFIX : "%%",
+        TEXT : "text",
+        POSITION: "position"
     };
 
 }
@@ -98,9 +100,11 @@ XPathBuilder.prototype.buildXPathWithPrefix = function(prefix, tag, text, positi
         for(var i=0; i<keys.length; i++){
             var key = keys[i];
             var value = attributes.get(key);
-            var vAttr = this.buildAttribute(key, value);
-            if(vAttr.length > 0){
-                list.push(vAttr);
+            if(key != this.constants.TEXT && key != this.constants.POSITION){
+                var vAttr = this.buildAttribute(key, value);
+                if(vAttr.length > 0){
+                    list.push(vAttr);
+                }
             }
         }
     }
