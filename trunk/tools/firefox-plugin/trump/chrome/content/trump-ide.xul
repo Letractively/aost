@@ -206,7 +206,7 @@
         </hbox>
         <hbox>
             <spacer flex="0" width="15"/>
-            <iframe flex="1" id="logView" src="LogFrame.html" height="100" width="235">
+            <iframe flex="1" id="logView" name="logViewFrame" src="LogFrame.html" height="100" width="235">
             </iframe>
         </hbox>
     </vbox>
