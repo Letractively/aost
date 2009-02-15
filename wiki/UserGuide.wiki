@@ -85,6 +85,11 @@ Here we list all the available methods that can be used as DSLs in DslContext an
 
   * {{{refresh}}}: Simulates the user clicking the "Refresh" button on their browser.
 
+  * {{{dragAndDrop(uid, movementsString)}}}:  Drags an element a certain distance and then drops it.
+
+  * {{{dragAndDropTo(sourceUid, targetUid)}}}: Drags an element and drops it on another element.
+
+
 ===  Data Access Methods ===
 
 In addition to the above DSLs, Tellurium provides Selenium-compatible data access methods so that you can get data or Ui statuses from the web. The methods are listed here:
