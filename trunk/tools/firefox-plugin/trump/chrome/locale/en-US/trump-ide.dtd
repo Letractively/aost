@@ -22,6 +22,7 @@
 <!ENTITY save.label "Save">
 <!ENTITY show.label "Show">
 <!ENTITY exportUiModule.label "Export">
+<!ENTITY options.label "Options">
 
 <!ENTITY logConsole.label "Log">
 <!ENTITY logFilter.debug.label "Debug">
