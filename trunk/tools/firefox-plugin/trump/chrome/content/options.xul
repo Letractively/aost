@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<!DOCTYPE window [
+<!ENTITY % trumpIdeDTD SYSTEM "chrome://trump/locale/trump-ide.dtd">
+%trumpIdeDTD;
+]>
+<dialog buttons="accept,cancel"
+        id="trump-ide-options"
+        ondialogaccept="return saveOptions()"
+        onload="loadOptions()"
+        title="TrUMP IDE Options"
+        width="520"
+        height="600"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <script type="application/x-javascript" src="chrome://trump/content/options.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/preferences.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/extlib/log4js.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/trumpLogger.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/jslogger.js"/>
+
+    <stringbundle id="strings" src="chrome://trump/locale/string.properties"/>
+    <tabbox flex="1">
+        <tabs orient="horizontal">
+            <tab label="&options.general.label;"/>
+        </tabs>
+        <tabpanels flex="1">
+            <tabpanel orient="vertical">
+                <description>&options.directory.description;</description>
+                <hbox align="center">
+                    <textbox id="trump-options-directory" multiline="false" oninput=""/>
+                </hbox>
+
+                <separator class="thin"/>
+                <description>&options.jslog.description;</description>
+                <hbox align="center">
+                    <checkbox id="trump-option-jslog" disabled="false" checked="true"/>
+                </hbox>
+            </tabpanel>
+        </tabpanels>
+    </tabbox>
+</dialog>    
