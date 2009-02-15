@@ -30,6 +30,9 @@
       <entry name="?*.ftl" />
     </wildcardResourcePatterns>
   </component>
+  <component name="CopyrightManager" default="">
+    <module2copyright />
+  </component>
   <component name="DependenciesAnalyzeManager">
     <option name="myForwardDirection" value="false" />
   </component>
@@ -245,6 +248,9 @@
     <option name="projectName" value="tellurium-firefox-plugin" />
   </component>
   <component name="ProjectFileVersion" converted="true" />
+  <component name="ProjectKey">
+    <option name="state" value="https://aost.googlecode.com/svn/trunk/tools/firefox-plugin/tellurium-firefox-plugin.ipr" />
+  </component>
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/tellurium-firefox-plugin.iml" filepath="$PROJECT_DIR$/tellurium-firefox-plugin.iml" />
@@ -287,6 +293,7 @@
       </map>
     </option>
     <option name="myVersion" value="124" />
+    <option name="mySupportsUserInfoFilter" value="true" />
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="svn" />
@@ -614,7 +621,7 @@
     </library>
   </component>
   <UsedPathMacros>
-    <macro name="MAVEN_REPOSITORY" />
+    <macro name="MAVEN_REPOSITORY" description="Maven Local Repostiry" />
   </UsedPathMacros>
 </project>
 
