@@ -8,8 +8,8 @@
 ]>
 <dialog buttons="accept,cancel"
         id="trump-ide-options"
-        ondialogaccept="return saveOptions()"
-        onload="loadOptions()"
+        ondialogaccept="return OPTIONS.saveOptions()"
+        onload="OPTIONS.loadOptions()"
         title="TrUMP IDE Options"
         width="520"
         height="600"
@@ -33,6 +33,7 @@
                 </hbox>
 
                 <separator class="thin"/>
+                
                 <description>&options.jslog.description;</description>
                 <hbox align="center">
                     <checkbox id="trump-option-jslog" disabled="false" checked="true"/>

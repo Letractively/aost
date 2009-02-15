@@ -21,6 +21,8 @@ function Editor(window) {
     this.currentUid = null;
 
     this.decorator = new Decorator();
+
+    this.options = new Preferences();
 }
 
 Editor.prototype.registerRecorder = function(){
@@ -326,5 +328,5 @@ Editor.prototype.exportUiModule = function(){
 }
 
 Editor.prototype.updateOptions = function(){
-    window.openDialog("chrome://trump/content/options.xul", "options", "chrome,modal,resizable", TrUMPOption);
+    window.openDialog("chrome://trump/content/options.xul", "options", "chrome,modal,resizable", this.options);
 }
