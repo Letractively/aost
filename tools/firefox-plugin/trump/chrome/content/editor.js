@@ -334,13 +334,15 @@ Editor.prototype.updateOptions = function(){
     //check Javascript Logging
     logger.jslog = this.options.jslog;
     
-    var elem = document.getElementById("logging-console");
+
+//    var elem = document.getElementById("logging-console");
+    var elem = window.frames["logViewFrame"].document.getElementById("logging-console");
     if(elem != null){
         if(this.options.logWrap){
-            alert("Update log window to " + this.options.logWrap);
+//            alert("Update log window to " + this.options.logWrap);
             elem.style.whiteSpace = "normal";
         }else{
-            alert("Update log window to " + this.options.logWrap);
+//            alert("Update log window to " + this.options.logWrap);
             elem.style.whiteSpac = "nowrap";
         }
     }
