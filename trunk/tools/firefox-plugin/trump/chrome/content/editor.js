@@ -333,4 +333,15 @@ Editor.prototype.updateOptions = function(){
     //later on, it is better to use Observers later
     //check Javascript Logging
     logger.jslog = this.options.jslog;
+    
+    var elem = document.getElementById("logging-console");
+    if(elem != null){
+        if(this.options.logWrap){
+            alert("Update log window to " + this.options.logWrap);
+            elem.style.whiteSpace = "normal";
+        }else{
+            alert("Update log window to " + this.options.logWrap);
+            elem.style.whiteSpac = "nowrap";
+        }
+    }
 }

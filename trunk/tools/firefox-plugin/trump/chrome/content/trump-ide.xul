@@ -185,7 +185,7 @@
             </tabpanel>-->
         </tabpanels>
     </tabbox>
-    <vbox id="logBox" height="100" width="250">
+    <vbox id="logBox" height="100" width="250" flex="1">
         <hbox id="logMenu" align="center">
             <toolbarbutton id="logTab" label="&logConsole.label;"
                            class="console-tab" selected="true"/>

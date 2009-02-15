@@ -23,10 +23,11 @@
 <!ENTITY show.label "Show">
 <!ENTITY exportUiModule.label "Export">
 
-<!ENTITY options.label "Options">
+<!ENTITY options.label "Settings">
 <!ENTITY options.general.label "General">
 <!ENTITY options.directory.description "Export Directory">
 <!ENTITY options.jslog.description "Javascript Logging">
+<!ENTITY options.logwrap.description "Wrap Logging">
 
 <!ENTITY logConsole.label "Log">
 <!ENTITY logFilter.debug.label "Debug">

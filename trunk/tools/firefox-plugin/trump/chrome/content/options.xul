@@ -38,6 +38,13 @@
                 <hbox align="center">
                     <checkbox id="trump-option-jslog" disabled="false" checked="true"/>
                 </hbox>
+
+                <separator class="thin"/>
+
+                <description>&options.logwrap.description;</description>
+                <hbox align="center">
+                    <checkbox id="trump-option-logwrap" disabled="false" checked="false"/>
+                </hbox>
             </tabpanel>
         </tabpanels>
     </tabbox>
