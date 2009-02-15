@@ -88,7 +88,7 @@
             <tabpanel orient="vertical">
               <hbox>
                     <vbox id="customize_tree_view" flex="3">
-                        <groupbox id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml" style="overflow: auto;" flex="1">
+                        <groupbox id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml" flex="3" resizable="true">
                             <!--caption label="UI Module"/-->
                             <template>
                                 <query expr="*"/>
@@ -179,6 +179,7 @@
 
                     </vbox>
                    </hbox>
+                   
             </tabpanel>
            <!-- <tabpanel orient="vertical">
               <textbox id="settings" multiline="true" flex="1"/>

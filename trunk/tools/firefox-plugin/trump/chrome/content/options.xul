@@ -11,8 +11,8 @@
         ondialogaccept="return OPTIONS.saveOptions()"
         onload="OPTIONS.loadOptions()"
         title="TrUMP IDE Options"
-        width="520"
-        height="600"
+        width="400"
+        height="450"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
     <script type="application/x-javascript" src="chrome://trump/content/options.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/preferences.js"/>
