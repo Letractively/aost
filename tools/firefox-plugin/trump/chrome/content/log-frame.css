@@ -21,7 +21,8 @@
 #logging-console li {
     margin: 2px;
     border-top: 1px solid #ccc;
-    white-space: nowrap;
+    white-space: normal;
+/*    white-space: nowrap; */
 }
 
 #logging-console li.error {
