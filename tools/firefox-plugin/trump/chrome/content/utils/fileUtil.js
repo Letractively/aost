@@ -1,4 +1,3 @@
-var DEFAULT_EXPORT_DIRECTORY = "/";
 
 var FileUtils = {
 
@@ -10,7 +9,7 @@ var FileUtils = {
         //        if (defaultDir) {
         //            fp.displayDirectory = FileUtils.getFile(defaultDir);
         //        }
-        var defaultDir = DEFAULT_EXPORT_DIRECTORY;
+        var defaultDir = defaultDirPrefName;
         fp.displayDirectory = FileUtils.getFile(defaultDir);
         fp.appendFilters(nsIFilePicker.filterHTML | nsIFilePicker.filterAll);
         var res = fp.show();
@@ -32,11 +31,11 @@ var FileUtils = {
         return unicodeConverter;
     },
 
-    saveAs: function(text) {
+    saveAs: function(defaultDirPrefName, text) {
         try {
             var file = this.showFilePicker(window, "Save as...",
                     Components.interfaces.nsIFilePicker.modeSave,
-                    DEFAULT_EXPORT_DIRECTORY,
+                    defaultDirPrefName,
                     function(fp) {
                         return fp.file;
                     });

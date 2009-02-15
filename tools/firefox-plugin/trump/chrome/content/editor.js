@@ -322,7 +322,7 @@ Editor.prototype.exportUiModule = function(){
         var txt = this.innerTree.createUiModule();
         logger.debug("Create UI Module:\n" + txt);
 
-        FileUtils.saveAs(txt);
+        FileUtils.saveAs(this.options.directry, txt);
         logger.debug("UI Module is exported to file");
     }
 }
