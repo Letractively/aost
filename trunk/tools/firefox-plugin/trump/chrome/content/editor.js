@@ -329,4 +329,8 @@ Editor.prototype.exportUiModule = function(){
 
 Editor.prototype.updateOptions = function(){
     window.openDialog("chrome://trump/content/options.xul", "options", "chrome,modal,resizable", this.options);
+    //need to update the objects that use the preferences
+    //later on, it is better to use Observers later
+    //check Javascript Logging
+    logger.jslog = this.options.jslog;
 }
