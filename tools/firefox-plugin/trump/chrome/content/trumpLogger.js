@@ -3,12 +3,15 @@ function TrumpLogger() {
 	var levels = ["log","debug","info","warn","error"];
     this.maxEntries = 2000;
 	this.entries = [];
+    this.jslog = true;
 
 	levels.forEach(function(level) {
 					   self[level] = function(message) {
 						   self.log(message, level);
-                           //also log to Javascript Console, can comment it out if we do not want it
-                           self.logToJsConsole(message, level);
+                           //check if we also log to Javascript Console
+                           if (this.jslog) {
+                               self.logToJsConsole(message, level);
+                           }
 					   }
 				   });
 
