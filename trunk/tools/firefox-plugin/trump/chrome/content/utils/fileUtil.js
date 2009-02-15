@@ -1,4 +1,4 @@
-var DEFAULT_EXPORT_DIRECTORY = ".";
+var DEFAULT_EXPORT_DIRECTORY = "/";
 
 var FileUtils = {
 
@@ -10,7 +10,7 @@ var FileUtils = {
         //        if (defaultDir) {
         //            fp.displayDirectory = FileUtils.getFile(defaultDir);
         //        }
-        var defaultDir = ".";
+        var defaultDir = DEFAULT_EXPORT_DIRECTORY;
         fp.displayDirectory = FileUtils.getFile(defaultDir);
         fp.appendFilters(nsIFilePicker.filterHTML | nsIFilePicker.filterAll);
         var res = fp.show();
