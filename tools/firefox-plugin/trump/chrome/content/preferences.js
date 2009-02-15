@@ -1,4 +1,4 @@
-function TrUMP(){
+function Preferences(){
 
     //default options for TrUMP
     this.DEFAULT_OPTIONS = {
@@ -11,5 +11,3 @@ function TrUMP(){
     this.directry = this.DEFAULT_OPTIONS.optionDirectory;
     this.jslog = this.DEFAULT_OPTIONS.optionJslog;
 };
-
-var TrUMPOption = new TrUMP();
