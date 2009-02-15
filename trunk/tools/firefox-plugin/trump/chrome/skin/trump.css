@@ -10,24 +10,6 @@
     white-space: normal; 
 }
 
-/*
-button .myClass0 {
-     background-color: #EDFF64;
-}
-
-button .myClass1 {
-     background-color: #666666;
-}
-
-button .myClass2 {
-     background-color: SlateBlue;
-}
-
-button .myClass3 {
-     background-color: SkyBlue;
-}
-*/
-
 button[myclass="myClass0"] {
      color: #0000FF;
 }
