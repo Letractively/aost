@@ -324,3 +324,7 @@ Editor.prototype.exportUiModule = function(){
         logger.debug("UI Module is exported to file");
     }
 }
+
+Editor.prototype.updateOptions = function(){
+    
+}

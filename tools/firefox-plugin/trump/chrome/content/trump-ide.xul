@@ -30,11 +30,17 @@
             <menuitem label="Exit" oncommand="window.close()" />
           </menupopup>
         </menu>
+        <menu id="menu-options" label="Options">
+          <menupopup id="options-popup">
+             <menuitem label="&options.label;" oncommand="window.editor.updateOptions();"/>  
+          </menupopup>
+        </menu>
         <menu id="menu-help" label="Help">
           <menupopup id="edit-popup">
             <menuitem label="Wiki"  oncommand="window.open('http://code.google.com/p/aost/w/list')" />
             <menuitem label="Update"  oncommand="window.open('http://code.google.com/p/aost/downloads/list')" />
-            <menuitem label="Support"  oncommand="window.open('http://groups.google.com/group/tellurium-users')" />   
+            <menuitem label="Support"  oncommand="window.open('http://groups.google.com/group/tellurium-users')" />
+            <menuseparator/>
             <menuitem label="About" oncommand="window.open('chrome://trump/content/trumpAbout.xul','trump_about','chrome,centerscreen,resizable')"/>
           </menupopup>
         </menu>
