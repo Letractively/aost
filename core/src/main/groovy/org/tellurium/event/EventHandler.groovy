@@ -2,6 +2,8 @@ package org.tellurium.event
 
 import org.tellurium.config.Configurable
 import org.tellurium.dispatch.Dispatcher
+import org.tellurium.event.Event
+import org.tellurium.event.EventSorter
 import org.tellurium.util.Helper
 
 class EventHandler implements Configurable{
@@ -106,7 +108,7 @@ class EventHandler implements Configurable{
         if(extraEvent)
             defaultEvents = []
 
-        processEvents(locator, events, defaultEvents){
+        processEvents(srcLocator, events, defaultEvents){
             dispatcher.dragAndDropToObject(srcLocator, targetLocator)
         }
 	}
