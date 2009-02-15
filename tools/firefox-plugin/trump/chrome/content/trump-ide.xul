@@ -25,6 +25,7 @@
          <!--   <menuitem label="New"/>
             <menuitem label="Open"/>
             <menuitem label="Save"/> -->
+            <menuitem label="&exportUiModule.label;" oncommand="window.editor.exportUiModule();"/>  
             <menuseparator/>
             <menuitem label="Exit" oncommand="window.close()" />
           </menupopup>

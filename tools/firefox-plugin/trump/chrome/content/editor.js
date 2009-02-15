@@ -314,3 +314,7 @@ Editor.prototype.updateUiObject = function(){
         logger.error("Cannot find UI object " + this.currentUid);
     }
 }
+
+Editor.prototype.exportUiModule = function(){
+
+}
