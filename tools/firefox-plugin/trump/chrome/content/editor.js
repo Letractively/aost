@@ -326,5 +326,5 @@ Editor.prototype.exportUiModule = function(){
 }
 
 Editor.prototype.updateOptions = function(){
-    
+    window.openDialog("chrome://trump/content/options.xul", "options", "chrome,modal,resizable", TrUMPOption);
 }
