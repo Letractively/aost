@@ -92,11 +92,11 @@ the new customized UI as follows,
 
 http://tellurium-users.googlegroups.com/web/TrUMPCustomized.png?gda=eLPBKkUAAACXZPxEX7Ki-M5C2JpeBoXXTJUqAjHYSxXv6NWi-vE8yWpSkAEfxrsCm-JxAmInjVlzlqnWZQD3y6jZqCMfSFQ6Gu1iLHeqhw4ZZRj3RjJ_-A&gsc=8bpDhBYAAADelCD9Y452tE9McTfxJEayg-kXU5InE09W2o0GCSVgCQ
 
-Note that the red "X" mark is removed because we turn on the group locating and the element's xpath is unique now. In the meanwhile, the UI module in the source tab will be automated updated.
+Note that the red "X" mark is removed because we turn on the group locating and the element's xpath is unique now. In the meanwhile, the UI module in the source tab will be automated updated once you click the "Save" button. The "Show" button will show the actual Web element on the web that the UI element is represented for.
 
 http://tellurium-users.googlegroups.com/web/TrUMPCustomizedSource.png?gda=Des1l0sAAACXZPxEX7Ki-M5C2JpeBoXXTJUqAjHYSxXv6NWi-vE8yQl-ge40lZM5QmFCqlPrr94UUFmPu5RmzzCCYEsK7dk1BkXa90K8pT5MNmkW1w_4BQ&gsc=8bpDhBYAAADelCD9Y452tE9McTfxJEayg-kXU5InE09W2o0GCSVgCQ
 
-At this point, you export the UI module to a groovy file.
+At this point, you export the UI module to a groovy file. Be aware that in window system, you should first change the "export directory" in Options > Settings to "C:\" or other windows directory before you export the file. 
 
 http://tellurium-users.googlegroups.com/web/ExportToGroovy.png?gda=XKq84kQAAACXZPxEX7Ki-M5C2JpeBoXXSb7HI-NonvaTuJe2neIoZFD6zIowMVUmhwc1DN0qlZJV6u9SiETdg0Q2ffAyHU-dzc4BZkLnSFWX59nr5BxGqA&gsc=8bpDhBYAAADelCD9Y452tE9McTfxJEayg-kXU5InE09W2o0GCSVgCQ
 
