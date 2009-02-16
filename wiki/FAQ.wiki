@@ -359,3 +359,8 @@ List is similar to the Table, but it is one dimension. As a result, its UID uses
   # "all": all elements
 
 the rule is {{{1) > 2)}}}.
+
+=== Q35: Why the "OK" button does not show on the TrUMP preference panel in Linux ===
+
+This is for Linux, the configure "browser.preferences.instantApply" is set to true by default. You can point your firefox to "about:config" and change the option to false.
+After that, you will see the "OK" button.
