@@ -333,13 +333,6 @@ Editor.prototype.exportUiModule = function(){
 }
 
 Editor.prototype.updateOptions = function(){
-//    window.openDialog("chrome://trump/content/options.xul", "options", "chrome,modal,resizable", this.options);
-//    window.openDialog("chrome://trump/content/options.xul", "options", "chrome,modal,resizable", null);
-    //need to update the objects that use the preferences
-    //later on, it is better to use Observers later
-    //check Javascript Logging
-//    logger.jslog = this.options.jslog;
-
     window.openDialog("chrome://trump/content/preferences.xul", "options", "chrome,modal,resizable", this.os);
     logger.jslog = Preferences.getPref("extensions.trump.jslog");
 
@@ -353,18 +346,4 @@ Editor.prototype.updateOptions = function(){
             elem.style.whiteSpac = "nowrap";
         }
     }
-/*
-//    var elem = document.getElementById("logging-console");
-    var elem = window.frames["logViewFrame"].document.getElementById("logging-console");
-    if(elem != null){
-        if(this.options.logWrap){
-//            alert("Update log window to " + this.options.logWrap);
-            elem.style.whiteSpace = "normal";
-        }else{
-//            alert("Update log window to " + this.options.logWrap);
-            elem.style.whiteSpac = "nowrap";
-        }
-    }
-*/
-
 }
