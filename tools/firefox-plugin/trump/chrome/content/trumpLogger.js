@@ -9,6 +9,7 @@ function TrumpLogger() {
 					   self[level] = function(message) {
 						   self.log(message, level);
                            //check if we also log to Javascript Console
+
                            if (this.jslog) {
                                self.logToJsConsole(message, level);
                            }
