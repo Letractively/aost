@@ -63,7 +63,11 @@ Tree.prototype.postProcess = function(){
 
 Tree.prototype.validate = function() {
     //validate UI object's XPath
-    this.root.validateXPath();
+    if(this.root != null){
+        this.root.validateXPath();
+    }else{
+        logger.warn("The root node in the Tree is null");
+    }
 }
 
 Tree.prototype.addElement = function(element){
