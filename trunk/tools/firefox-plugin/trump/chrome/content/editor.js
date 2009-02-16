@@ -22,7 +22,11 @@ function Editor(window) {
 
     this.decorator = new Decorator();
 
-    this.options = new Preferences();
+//    this.options = new Preferences();
+    
+    //Detect the browser properties
+    BrowserDetect.init();
+    this.os = BrowserDetect.OS;
 }
 
 Editor.prototype.registerRecorder = function(){
@@ -322,19 +326,34 @@ Editor.prototype.exportUiModule = function(){
         var txt = this.innerTree.createUiModule();
         logger.debug("Create UI Module:\n" + txt);
 
-        FileUtils.saveAs(this.options.directry, txt);
+        var dir = Preferences.getPref("extensions.trump.exportdirectory");
+        FileUtils.saveAs(dir, txt);
         logger.debug("UI Module is exported to file");
     }
 }
 
 Editor.prototype.updateOptions = function(){
-    window.openDialog("chrome://trump/content/options.xul", "options", "chrome,modal,resizable", this.options);
+//    window.openDialog("chrome://trump/content/options.xul", "options", "chrome,modal,resizable", this.options);
+//    window.openDialog("chrome://trump/content/options.xul", "options", "chrome,modal,resizable", null);
     //need to update the objects that use the preferences
     //later on, it is better to use Observers later
     //check Javascript Logging
-    logger.jslog = this.options.jslog;
-    
+//    logger.jslog = this.options.jslog;
 
+    window.openDialog("chrome://trump/content/preferences.xul", "options", "chrome,modal,resizable", this.os);
+    logger.jslog = Preferences.getPref("extensions.trump.jslog");
+
+    var elem = document.getElementById("logging-console");
+    var elem = window.frames["logViewFrame"].document.getElementById("logging-console");
+    if (elem != null) {
+        var logWrap = Preferences.getPref("extensions.trump.logwrap");
+        if (logWrap) {
+            elem.style.whiteSpace = "normal";
+        } else {
+            elem.style.whiteSpac = "nowrap";
+        }
+    }
+/*
 //    var elem = document.getElementById("logging-console");
     var elem = window.frames["logViewFrame"].document.getElementById("logging-console");
     if(elem != null){
@@ -346,4 +365,6 @@ Editor.prototype.updateOptions = function(){
             elem.style.whiteSpac = "nowrap";
         }
     }
+*/
+
 }
