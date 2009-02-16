@@ -88,7 +88,7 @@
               <resizer dir="bottomright" height="2" style="cursor: se-resize;"/>  
             </tabpanel>
             <tabpanel orient="vertical">
-              <vbox id="customizeContent">
+              <hbox id="customizeContent">
                     <vbox id="customize_tree_view" flex="3">
                         <groupbox id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml" flex="3" style="overflow: auto;">
                             <!--caption label="UI Module"/-->
@@ -179,7 +179,7 @@
                         </grid>
 
                     </vbox>
-                   </vbox>
+                   </hbox>
 
             </tabpanel>
            <!-- <tabpanel orient="vertical">
