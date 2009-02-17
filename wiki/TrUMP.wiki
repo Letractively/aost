@@ -135,6 +135,81 @@ class NewUiModule extends DslContext{
 
 }}}
 
+
+== Create Tellurium Tests ==
+
+We can add the following methods to the NewUiModule.groovy class
+
+{{{
+  public void searchDownload(String keyword) {
+    keyType "Tellurium.Form.Input", keyword
+    click "Tellurium.Form.Search"
+    waitForPageToLoad 30000
+  }
+
+  public String[] getAllDownloadTypes() {
+    return getSelectOptions("Tellurium.Form.DownloadType")
+  }
+
+  public void selectDownloadType(String type) {
+    selectByLabel "Tellurium.Form.DownloadType", type
+  }
+
+  public void clickIssuesPage() {
+    click "Tellurium.Title.Issues"
+    waitForPageToLoad 30000
+  }
+}}}
+
+Then you can use reference project as a template to create Tellurium Test project, or you can create your own new Tellurium Test project using Tellurium jar and configuration file TelluriumConfig.groovy.
+
+If we choose JUnit, the test case looks like as follows,
+
+{{{
+
+public class NewTestCase extends TelluriumJavaTestCase {
+    private static NewUiModule app;
+
+    @BeforeClass
+    public static void initUi() {
+        app = new NewUiModule();
+        app.defineUi();
+    }
+
+    @Before
+    public void setUpForTest() {
+        connectUrl("http://code.google.com/p/aost/downloads/list");
+    }
+
+    @Test
+    public void testDownloadTypes() {
+        String[] allTypes = app.getAllDownloadTypes();
+        assertNotNull(allTypes);
+        assertTrue(allTypes[1].contains("All Downloads"));
+        assertTrue(allTypes[2].contains("Featured Downloads"));
+        assertTrue(allTypes[3].contains("Current Downloads"));
+        assertTrue(allTypes[4].contains("Deprecated Downloads"));
+    }
+
+    @Test
+    public void testTelluriumProjectPage() {
+        String[] allTypes = app.getAllDownloadTypes();
+        assertNotNull(allTypes);
+        assertTrue(allTypes[1].contains("All Downloads"));
+        app.selectDownloadType(allTypes[1]);
+        app.searchDownload("TrUMP");
+    }    
+    
+    @Test
+    public void testClickIssuePage(){
+        app.clickIssuesPage();
+    }
+}
+
+}}}
+
+For TestNG, it is similar and please check the TestNG reference project for details.
+
 == Additional Features ==
 
 TrUMP provides the ability for users to change the TrUMP settings,
