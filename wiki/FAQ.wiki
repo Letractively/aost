@@ -364,3 +364,9 @@ the rule is {{{1) > 2)}}}.
 
 This is for Linux, the configure "browser.preferences.instantApply" is set to true by default. You can point your firefox to "about:config" and change the option to false.
 After that, you will see the "OK" button.
+
+=== Q36: How to play the Demo Videos in ogg format ===
+
+Most media players should support ogg format, if you cannot find a media player for it, you can download the free media player VLC at
+
+http://www.videolan.org/vlc/
