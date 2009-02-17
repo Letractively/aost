@@ -82,6 +82,8 @@
   * [http://www.comptechdoc.org/independent/web/cgi/javamanual/javastyle.html JavaScript Style Attributes]
   * [http://www.w3schools.com/Css/css_colors.asp CSS Colors]
   * [http://www.quirksmode.org/js/detect.html Browser detect]
+  * [http://www.javascriptkit.com/javatutors/redev2.shtml Javascript Regular Expressions patterns]
+  * [http://www.regular-expressions.info/javascriptexample.html Javascript Regular Expression Tester]
 
 == Algorithms ==
 
