@@ -17,10 +17,10 @@ class NewUiModule extends DslContext {
         Selector(uid: "DownloadType", clocator: [tag: "select", name: "can", id: "can"])
       }
       Container(uid: "Title", clocator: [tag: "table", id: "mt"]) {
-        UrlLink(uid: "a2", clocator: [tag: "a", text: "Issues"], respond: ["click"])
-        UrlLink(uid: "a3", clocator: [tag: "a", text: "Wiki"], respond: ["click"])
-        UrlLink(uid: "a5", clocator: [tag: "a", text: "Downloads"], respond: ["click"])
-        UrlLink(uid: "a6", clocator: [tag: "a", text: "Source"], respond: ["click"])
+        UrlLink(uid: "Issues", clocator: [tag: "a", text: "Issues"], respond: ["click"])
+        UrlLink(uid: "Wiki", clocator: [tag: "a", text: "Wiki"], respond: ["click"])
+        UrlLink(uid: "Downloads", clocator: [tag: "a", text: "Downloads"], respond: ["click"])
+        UrlLink(uid: "Source", clocator: [tag: "a", text: "Source"], respond: ["click"])
       }
     }
   }
@@ -41,7 +41,7 @@ class NewUiModule extends DslContext {
   }
 
   public void clickIssuesPage() {
-    click "Tellurium.Title.a2"
+    click "Tellurium.Title.Issues"
     waitForPageToLoad 30000
   }
 }
