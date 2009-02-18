@@ -138,3 +138,27 @@ XPathProcessor.prototype.checkXPathCount = function(doc, xpath) {
 
     return result.numberValue;
 }
+
+XPathProcessor.prototype.checkPosition = function(str){
+    if(str != null){
+        //check the pattern such as "//a/td[13]/" and "table[@class='st' and position()=3]"
+        var mcs = str.match(/(position\(\)=[\d]+|\[[\d]+\])/);
+        if(mcs != null){
+            var pos = new String(mcs).match(/[\d]+/);
+
+            return pos;
+        }
+    }
+
+    return null;
+}
+
+XPathProcessor.prototype.checkPositionForlastXPath = function(xpath){
+    var parts = this.splitXPath(xpath);
+    if(parts != null || parts.length > 0){
+        var last = parts[parts.length-1];
+        return this.checkPosition(last);
+    }
+
+    return null;
+}

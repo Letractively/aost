@@ -88,10 +88,10 @@
               <resizer dir="bottomright" height="2" style="cursor: se-resize;"/>  
             </tabpanel>
             <tabpanel orient="vertical">
-                <vbox id="customizeContent">
+                <hbox id="customizeContent">
                     <vbox id="customize_tree_view" flex="3" style="overflow:auto;">
 
-                        <groupbox>
+                        <groupbox maxheight="600">
                             <caption label="UI"/>
                             <columns>
                                 <column flex="1"/>
@@ -158,7 +158,7 @@
                         </grid>
 
                     </vbox>
-                   </vbox>
+                   </hbox>
 
             </tabpanel>
            <!-- <tabpanel orient="vertical">

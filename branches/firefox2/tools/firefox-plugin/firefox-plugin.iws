@@ -2,16 +2,16 @@
 <project relativePaths="false" version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/LICENSE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/firefox-plugin.iws" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/firefox-plugin.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/firefox-plugin.ipr" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/TrUMP-0.1.0.xpi" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/TrUMP-0.1.0.xpi" afterPath="$PROJECT_DIR$/dist/TrUMP-0.1.0.xpi" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/uicreator/node.js" afterPath="$PROJECT_DIR$/trump/chrome/content/uicreator/node.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/uicreator/xpathProcessor.js" afterPath="$PROJECT_DIR$/trump/chrome/content/uicreator/xpathProcessor.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/firefox-plugin.iws" afterPath="$PROJECT_DIR$/firefox-plugin.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/trump-ide.xul" afterPath="$PROJECT_DIR$/trump/chrome/content/trump-ide.xul" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/uicreator/xpathBuilder.js" afterPath="$PROJECT_DIR$/trump/chrome/content/uicreator/xpathBuilder.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/firefox-plugin.ipr" afterPath="$PROJECT_DIR$/firefox-plugin.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/editor.js" afterPath="$PROJECT_DIR$/trump/chrome/content/editor.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/uicreator/tree.js" afterPath="$PROJECT_DIR$/trump/chrome/content/uicreator/tree.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/uicreator/filter.js" afterPath="$PROJECT_DIR$/trump/chrome/content/uicreator/filter.js" />
     </list>
     <ignored path=".idea/workspace.xml" />
     <ignored path="firefox-plugin.iws" />
@@ -67,6 +67,82 @@
   </component>
   <component name="FavoritesManager">
     <favorites_list name="firefox-plugin" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="trump-ide.xul" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trump/chrome/content/trump-ide.xul">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="94" column="73" selection-start="4707" selection-end="4707" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tree.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/tree.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="42" column="2" selection-start="1166" selection-end="1166" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="editor.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trump/chrome/content/editor.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="414" column="89" selection-start="13916" selection-end="13916" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="options.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/trump/chrome/content/options.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="node.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/node.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="391" column="2" selection-start="11236" selection-end="11236" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="filter.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/filter.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="2" selection-start="114" selection-end="114" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="xpathBuilder.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/xpathBuilder.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="94" column="17" selection-start="2522" selection-end="2522" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="xpathProcessor.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/xpathProcessor.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="152" column="48" selection-start="4135" selection-end="4135" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -196,6 +272,36 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
+          <option name="myItemId" value="trump" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="chrome" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="content" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="uicreator" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="firefox-plugin" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="firefox-plugin" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="firefox-plugin" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
           <option name="myItemId" value="dist" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
@@ -234,6 +340,32 @@
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="ADDITIONAL_CLASS_PATH" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
@@ -342,7 +474,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27962428" sideWeight="0.5" order="0" side_tool="false" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29118496" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" />
@@ -360,7 +492,7 @@
     <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add build scripts and other documents" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -371,6 +503,7 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
+    <MESSAGE value="Add build scripts and other documents" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -382,6 +515,64 @@
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/xpathBuilder.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="94" column="17" selection-start="2522" selection-end="2522" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/xpathProcessor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="152" column="48" selection-start="4135" selection-end="4135" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/trump-ide.xul">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="94" column="73" selection-start="4707" selection-end="4707" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/tree.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="2" selection-start="1166" selection-end="1166" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/node.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="391" column="2" selection-start="11236" selection-end="11236" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/filter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="2" selection-start="114" selection-end="114" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/editor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="414" column="89" selection-start="13916" selection-end="13916" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/options.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
 

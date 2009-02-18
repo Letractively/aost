@@ -3,11 +3,16 @@ const UID_PREFIX = "UI_";
 
 function NodeObject(){
 
-    this.constants = {TAG : "tag"};
+    this.constants = {
+        TAG : "tag",
+        POSITION: "position"
+    };
     //hold the dom Node associated to the current tree node 
     this.domNode = null;
     this.id = null;
     this.xpath = null;
+    this.nodexpath = null;
+
     this.attributes = new HashMap();
     this.parent = null;
     this.children = new Array();
@@ -271,6 +276,7 @@ NodeObject.prototype.findChild = function(uid){
 NodeObject.prototype.setHeaderTrailerForRegularNode = function(){
     this.header = this.xpathProcessor.popXPath(this.xpath);
     this.trailer = null;
+    this.nodexpath = this.xpath;
 }
 
 NodeObject.prototype.isNewNode = function(){
@@ -325,6 +331,7 @@ NodeObject.prototype.findSelectedNode = function(rtaglist, tag){
         //set the header and trailer
         var rinx = rtaglist.length - this.xpathProcessor.findTagIndex(rtaglist, tag) - 2;
         this.header = this.xpathProcessor.getSubXPath(this.xpath, rinx);
+        this.nodexpath = this.xpathProcessor.getSubXPath(this.xpath, rinx + 1);
         
         return this.domNode;
     }
@@ -375,11 +382,21 @@ NodeObject.prototype.processNewNode = function(){
         this.setHeaderTrailerForRegularNode();
     }
 
+    var pos = this.checkNodePosition();
+    if (pos != null) {
+        this.attributes.set(this.constants.POSITION, new String(pos));
+    }
 }
 
-/*
-NodeObject.prototype.toString = function(child){
-   alert("NodeObject : [ id " + this.id + " xpath : " + this.xpath + " parent : " + this.parent + " attributes : " +this.attributes.showMe()+ " ]");
+NodeObject.prototype.checkNodePosition = function() {
+//    var pos = this.xpathProcessor.checkPositionForlastXPath(this.xpath);
+    var pos = this.xpathProcessor.checkPositionForlastXPath(this.nodexpath);
+    return pos;
 }
-*/
+
+    /*
+    NodeObject.prototype.toString = function(child){
+       alert("NodeObject : [ id " + this.id + " xpath : " + this.xpath + " parent : " + this.parent + " attributes : " +this.attributes.showMe()+ " ]");
+    }
+    */
 
