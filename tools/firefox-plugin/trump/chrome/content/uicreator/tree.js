@@ -40,7 +40,7 @@ Tree.prototype.postProcess = function(){
         //get UI Object reference
         this.uiObjectMap = new HashMap();
         this.root.refUiObject(this.uiObjectMap);
-        logger.debug("There are " + this.uiObjectMap.size() + " UI objects in the Tree");
+//        logger.debug("There are " + this.uiObjectMap.size() + " UI objects in the Tree");
     }
 }
 
