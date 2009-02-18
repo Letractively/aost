@@ -16,14 +16,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/utils/fileUtil.js" afterPath="$PROJECT_DIR$/trump/chrome/content/utils/fileUtil.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/TrUMP-0.1.0.xpi" afterPath="$PROJECT_DIR$/dist/TrUMP-0.1.0.xpi" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/uicreator/tree.js" afterPath="$PROJECT_DIR$/trump/chrome/content/uicreator/tree.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/editor.js" afterPath="$PROJECT_DIR$/trump/chrome/content/editor.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/TrUMP-0.1.0.xpi" afterPath="$PROJECT_DIR$/dist/TrUMP-0.1.0.xpi" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium-firefox-plugin.iws" afterPath="$PROJECT_DIR$/tellurium-firefox-plugin.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium-firefox-plugin.ipr" afterPath="$PROJECT_DIR$/tellurium-firefox-plugin.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/uicreator/node.js" afterPath="$PROJECT_DIR$/trump/chrome/content/uicreator/node.js" />
     </list>
-    <ignored path="tellurium-firefox-plugin.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path="tellurium-firefox-plugin.iws" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="Commander">
@@ -82,61 +82,43 @@
       <file leaf-file-name="node.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/node.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="260" column="0" selection-start="7313" selection-end="7313" vertical-scroll-proportion="0.0">
+            <state line="248" column="2" selection-start="6853" selection-end="6853" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="options.xul" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trump/chrome/content/options.xul">
+      <file leaf-file-name="uiobject.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/uiobject.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="63" selection-start="1507" selection-end="1507" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fileUtil.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trump/chrome/content/utils/fileUtil.js">
+      <file leaf-file-name="trump-ide.xul" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trump/chrome/content/trump-ide.xul">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="50" selection-start="1666" selection-end="1666" vertical-scroll-proportion="0.0">
+            <state line="92" column="135" selection-start="4716" selection-end="4716" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="trump-ide.dtd" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trump/chrome/locale/en-US/trump-ide.dtd">
+      <file leaf-file-name="xpathBuilder.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/xpathBuilder.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="50" selection-start="375" selection-end="375" vertical-scroll-proportion="0.0">
+            <state line="93" column="36" selection-start="2504" selection-end="2504" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="options.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trump/chrome/content/options.js">
+      <file leaf-file-name="util.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trump/chrome/content/util.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="25" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="preferences.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trump/chrome/content/preferences.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="0" selection-start="260" selection-end="260" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="trump-ide-common.xul" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trump/chrome/content/trump-ide-common.xul">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="0" selection-start="1352" selection-end="1529" vertical-scroll-proportion="0.0">
+            <state line="3" column="2" selection-start="31" selection-end="31" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -145,16 +127,34 @@
       <file leaf-file-name="editor.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/trump/chrome/content/editor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="324" column="48" selection-start="10681" selection-end="10681" vertical-scroll-proportion="5.9167953">
+            <state line="117" column="2" selection-start="3213" selection-end="3213" vertical-scroll-proportion="0.44952682">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="log-frame.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trump/chrome/content/log-frame.css">
+      <file leaf-file-name="tree.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/tree.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="40" selection-start="558" selection-end="558" vertical-scroll-proportion="0.0">
+            <state line="59" column="2" selection-start="1578" selection-end="1578" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="trump.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trump/chrome/skin/trump.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="59" selection-start="451" selection-end="451" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="trumpLogger.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trump/chrome/content/trumpLogger.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="0" selection-start="144" selection-end="144" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -268,6 +268,10 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="chrome" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="skin" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -600,11 +604,11 @@
     <frame x="0" y="28" width="1440" height="844" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" />
+      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295129" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
@@ -615,7 +619,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31236443" sideWeight="0.0" order="0" side_tool="false" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34537572" sideWeight="0.66045845" order="0" side_tool="false" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" />
@@ -634,7 +638,7 @@
     <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix the preferences" />
+    <option name="LAST_COMMIT_MESSAGE" value="add max height for the customize tab" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -645,11 +649,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="check for duplicate sibling names" />
-    <MESSAGE value="add javascript-xpath.js" />
-    <MESSAGE value="implement the xpath validator" />
-    <MESSAGE value="Fix the single quota problem" />
-    <MESSAGE value="Fix the &quot;Clear&quot; tooltip text" />
     <MESSAGE value="add more menu items" />
     <MESSAGE value="remove UI prefix since we are not using id attribute but a custom attribute. Also escape special characters in the xml." />
     <MESSAGE value="clean up logs and alerts" />
@@ -657,6 +656,24 @@
     <MESSAGE value="add a marker to show if the xpath for a UI object is valid or not" />
     <MESSAGE value="add options dialog" />
     <MESSAGE value="fix the preferences" />
+    <MESSAGE value="change fire directory to use preferences" />
+    <MESSAGE value="change Javascript logging to use preference" />
+    <MESSAGE value="update about" />
+    <MESSAGE value="update log wrap option" />
+    <MESSAGE value="access element in the iframe document" />
+    <MESSAGE value="change the log window to text wrap" />
+    <MESSAGE value="update about window size" />
+    <MESSAGE value="add resizer" />
+    <MESSAGE value="add Browser Detector and refactor the option to use Firefox's Preference system" />
+    <MESSAGE value="fix the bool type problem" />
+    <MESSAGE value="remove javascript-xpath lib and safeguard the tree root" />
+    <MESSAGE value="revert the change to make the customize still show in two columns" />
+    <MESSAGE value="update the customize view color" />
+    <MESSAGE value="update the customize view size" />
+    <MESSAGE value="add position attribute" />
+    <MESSAGE value="clean up code" />
+    <MESSAGE value="Fix the position problem for created nodes" />
+    <MESSAGE value="add max height for the customize tab" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -704,114 +721,114 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/locator.js">
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/preferences.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="229" column="55" selection-start="7361" selection-end="7361" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trump/chrome/content/trumpBrowser.js">
+    <entry file="file://$PROJECT_DIR$/trump/defaults/preferences/trump.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="0" selection-start="1841" selection-end="1841" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trump/chrome/content/trump-ide.xul">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="138" column="104" selection-start="7299" selection-end="7364" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/uiobject.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="32" selection-start="515" selection-end="515" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/node.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="260" column="0" selection-start="7313" selection-end="7313" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trump/chrome/content/log-frame.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="40" selection-start="558" selection-end="558" vertical-scroll-proportion="0.0">
+        <state line="2" column="0" selection-start="90" selection-end="90" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trump/chrome/content/trump-ide-common.xul">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="0" selection-start="1352" selection-end="1529" vertical-scroll-proportion="0.0">
+        <state line="8" column="95" selection-start="163" selection-end="163" vertical-scroll-proportion="0.18489985">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trump/chrome/locale/en-US/trump-ide.dtd">
+    <entry file="file://$PROJECT_DIR$/trump/chrome/skin/trump.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="50" selection-start="375" selection-end="375" vertical-scroll-proportion="0.0">
+        <state line="24" column="59" selection-start="451" selection-end="451" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trump/chrome/content/preferences.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="260" selection-end="260" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trump/chrome/content/options.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="25" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trump/chrome/content/options.xul">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="63" selection-start="1507" selection-end="1507" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trump/chrome/content/utils/fileUtil.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="50" selection-start="1666" selection-end="1666" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trump/chrome/content/recorder.js">
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/xpathMatcher.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trump/chrome/content/trump.js">
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/preferences.xul">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="66" selection-start="416" selection-end="416" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/xpathProcessor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="25" selection-start="1571" selection-end="1571" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/xpathBuilder.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="93" column="36" selection-start="2504" selection-end="2504" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/tree.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="2" selection-start="1578" selection-end="1578" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/util.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="2" selection-start="31" selection-end="31" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/trumpLogger.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="0" selection-start="144" selection-end="144" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/locator.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trump/chrome/content/builder.js">
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/node.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="248" column="2" selection-start="6853" selection-end="6853" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/uiobject.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/trump-ide.xul">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="92" column="135" selection-start="4716" selection-end="4716" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trump/chrome/content/editor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="324" column="48" selection-start="10681" selection-end="10681" vertical-scroll-proportion="5.9167953">
+        <state line="117" column="2" selection-start="3213" selection-end="3213" vertical-scroll-proportion="0.44952682">
           <folding />
         </state>
       </provider>
@@ -820,6 +837,15 @@
   <component name="masterDetails">
     <option name="states">
       <map>
+        <entry key="Copyright.UI">
+          <value>
+            <UIState>
+              <option name="proportions">
+                <SplitterProportionsDataImpl />
+              </option>
+            </UIState>
+          </value>
+        </entry>
         <entry key="Errors.UI">
           <value>
             <UIState>
@@ -858,6 +884,15 @@
     </option>
     <option name="myStates">
       <map>
+        <entry key="Copyright.UI">
+          <value>
+            <UIState>
+              <option name="proportions">
+                <SplitterProportionsDataImpl />
+              </option>
+            </UIState>
+          </value>
+        </entry>
         <entry key="Errors.UI">
           <value>
             <UIState>

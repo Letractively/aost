@@ -246,7 +246,7 @@ NodeObject.prototype.buildAttributeXml = function(){
     xml += xmlBuffer.toString();
     xml += "</attributes>\n";
 
-    logger.debug("Attributes XML: \n" + xml);
+//    logger.debug("Attributes XML: \n" + xml);
 
     return xml;
 }

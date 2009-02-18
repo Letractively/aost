@@ -24,7 +24,7 @@ Tree.prototype.buildXML = function(){
         var xml = "<?xml version=\"1.0\"?>\n<UIs id=\"customize_tree_xml\" xmlns=\"\">\n";
         xml += this.formatXML(xmlArray);
         xml += "</UIs>"
-        logger.debug("Generated XML: \n" + xml);
+//        logger.debug("Generated XML: \n" + xml);
         return xml;
     }
 
@@ -57,7 +57,7 @@ Tree.prototype.postProcess = function(){
         //get UI Object reference
         this.uiObjectMap = new HashMap();
         this.root.refUiObject(this.uiObjectMap);
-        logger.debug("There are " + this.uiObjectMap.size() + " UI objects in the Tree");
+//        logger.debug("There are " + this.uiObjectMap.size() + " UI objects in the Tree");
     }
 }
 
