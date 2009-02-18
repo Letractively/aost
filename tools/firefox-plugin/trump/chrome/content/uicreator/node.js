@@ -19,7 +19,8 @@ function NodeObject(){
     
     this.header = null;
     this.tailer = null;
-
+    this.nodexpath = null;
+    
     //flag to indicate whether this node is a new generated during the grouping process, i.e., by the Tree algorithm
     this.newNode = false;
     //tag selection state machine
@@ -310,6 +311,7 @@ NodeObject.prototype.findChild = function(uid){
 NodeObject.prototype.setHeaderTrailerForRegularNode = function(){
     this.header = this.xpathProcessor.popXPath(this.xpath);
     this.trailer = null;
+    this.nodexpath = this.xpath;
 }
 
 NodeObject.prototype.isNewNode = function(){
@@ -364,6 +366,8 @@ NodeObject.prototype.findSelectedNode = function(rtaglist, tag){
         //set the header and trailer
         var rinx = rtaglist.length - this.xpathProcessor.findTagIndex(rtaglist, tag) - 2;
         this.header = this.xpathProcessor.getSubXPath(this.xpath, rinx);
+        this.nodexpath = this.xpathProcessor.getSubXPath(this.xpath, rinx + 1);
+//        logger.debug("Select tag " + this.tag + " and its node xpath " + this.nodexpath);
         
         return this.domNode;
     }
@@ -421,7 +425,8 @@ NodeObject.prototype.processNewNode = function(){
 }
 
 NodeObject.prototype.checkNodePosition = function(){
-    var pos = this.xpathProcessor.checkPositionForlastXPath(this.xpath);
+//    var pos = this.xpathProcessor.checkPositionForlastXPath(this.xpath);
+    var pos = this.xpathProcessor.checkPositionForlastXPath(this.nodexpath);
 
     return pos;
 }
