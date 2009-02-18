@@ -1,6 +1,7 @@
 
 
 function trimString(str) {
+//    logger.debug("Str to be trimed " + str);
     return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 }
 
