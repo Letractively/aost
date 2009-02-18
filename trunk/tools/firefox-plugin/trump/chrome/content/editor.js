@@ -115,7 +115,7 @@ Editor.prototype.updateSource = function(){
         logger.error("uiModelArray is not defined, cannot generate source!");
     }
 
-    logger.debug("ui model generated:\n"+uiModel);
+//    logger.debug("ui model generated:\n"+uiModel);
     sourceTextNode.value = uiModel;
 }
 
@@ -175,10 +175,10 @@ Editor.prototype.buildCustomizeTree = function(xml) {
 }
 
 Editor.prototype.processCustomizeEvent = function(event){
-    logger.debug('Customize ' + event.target.getAttribute("label"));
+//    logger.debug('Customize ' + event.target.getAttribute("label"));
     this.currentUid = event.target.getAttribute("uid");
     var uiObject = this.innerTree.uiObjectMap.get(this.currentUid);
-    logger.debug("uiObject : " + uiObject.descObject());
+//    logger.debug("uiObject : " + uiObject.descObject());
     if(uiObject != null){
         this.fillUiObjectFields(uiObject);
         this.enableUiObjectFields();
@@ -188,7 +188,7 @@ Editor.prototype.processCustomizeEvent = function(event){
 }
 
 Editor.prototype.processCheckEvent = function(event){
-    alert("You selected " + event.target.getAttribute("cid"));
+//    alert("You selected " + event.target.getAttribute("cid"));
 }
 
 Editor.prototype.fillUiObjectFields = function(uiObject){
@@ -324,7 +324,7 @@ Editor.prototype.updateUiObject = function(){
 Editor.prototype.exportUiModule = function(){
     if(this.innerTree != null){
         var txt = this.innerTree.createUiModule();
-        logger.debug("Create UI Module:\n" + txt);
+//        logger.debug("Create UI Module:\n" + txt);
 
         var dir = Preferences.getPref("extensions.trump.exportdirectory");
         FileUtils.saveAs(dir, txt);
