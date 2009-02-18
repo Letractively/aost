@@ -17,29 +17,12 @@ Tree.prototype.printUI = function(){
     }
 }
 
-Tree.prototype.buildXML = function(){
+Tree.prototype.buildCustomizeContent = function(){
+    this.custNodeArray = new Array();
     if(this.root != null){
-        var xmlArray = new Array();
-        this.root.buildXML(xmlArray);
-        var xml = "<?xml version=\"1.0\"?>\n<UIs id=\"customize_tree_xml\" xmlns=\"\">\n";
-        xml += this.formatXML(xmlArray);
-        xml += "</UIs>"
-        logger.debug("Generated XML: \n" + xml);
-        return xml;
+        this.root.buildCustomizeRowsContent(this.custNodeArray);
+        return this.custNodeArray;
     }
-
-    return DEFAULT_XML;
-}
-
-Tree.prototype.formatXML = function(xmlArray){
-    var xml = new StringBuffer();
-    if(xmlArray != null){
-        for(var i=0; i<xmlArray.length; ++i){
-            xml.append(xmlArray[i]);
-        }
-    }
-
-    return xml.toString();
 }
 
 //Do some post processing work
