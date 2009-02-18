@@ -92,7 +92,7 @@ XPathBuilder.prototype.buildXPathWithPrefix = function(prefix, tag, text, positi
 
     var vPosition = this.buildPosition(position);
     if(vPosition.length > 0){
-        list.add(vPosition);
+        list.push(vPosition);
     }
 
     if(attributes != null && attributes.size() > 0){

@@ -3,7 +3,11 @@ const UID_PREFIX = "UI_";
 
 function NodeObject(){
 
-    this.constants = {TAG : "tag"};
+    this.constants = {
+        TAG : "tag",
+        POSITION: "position"
+    };
+    
     //hold the dom Node associated to the current tree node 
     this.domNode = null;
     this.id = null;
@@ -410,6 +414,16 @@ NodeObject.prototype.processNewNode = function(){
         this.setHeaderTrailerForRegularNode();
     }
 
+    var pos = this.checkNodePosition();
+    if(pos != null){
+        this.attributes.set(this.constants.POSITION, new String(pos));
+    }
+}
+
+NodeObject.prototype.checkNodePosition = function(){
+    var pos = this.xpathProcessor.checkPositionForlastXPath(this.xpath);
+
+    return pos;
 }
 
 /*
