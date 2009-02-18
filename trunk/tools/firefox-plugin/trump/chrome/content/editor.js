@@ -91,7 +91,7 @@ Editor.prototype.generateButton = function(){
     }
     //do some post processing work
     this.innerTree.postProcess();
-    alert("start to update source");
+//    alert("start to update source");
     this.updateSource();
 
     logger.debug("start to validate UI object's xpath");
