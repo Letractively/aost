@@ -178,7 +178,8 @@ NodeObject.prototype.printUI = function(layout){
     }
 }
 
-NodeObject.prototype.buildXML = function(xml){
+NodeObject.prototype.buildCustomizeRowsContent = function(custNodeArray){
+    var custNode = new CustomizeNode();
     var hasChildren = false;
 
     if (this.children.length > 0) {
@@ -192,58 +193,22 @@ NodeObject.prototype.buildXML = function(xml){
 
     this.validateNodeXPath();
     var isXPathValid = this.uiobject.isLocatorValid ? "" : "X";
-    var valid = "valid=\"" + isXPathValid + "\"";
-    var myclass = "class=\"" + MYCLASS + level + "\"";
 
-    var myUID = "id=\"" + this.canonUID() + "\"";
+    custNode.uid = this.canonUID();
+    custNode.padding = padding;
+    custNode.level = level;
+    custNode.objectDesc = descobj;
+    custNode.cssClass = MYCLASS + level;
+    custNode.valid = isXPathValid;
+    custNodeArray.push(custNode);
+    
+    logger.debug(custNode);
 
     if (hasChildren) {
-        xml.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + " " + myUID + " " + valid + ">\n");
-
         for (var i = 0; i < this.children.length; ++i) {
-            this.children[i].buildXML(xml);
-        }
-        xml.push(padding + "</UiObject>\n");
-    }else{
-        xml.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + " " + myUID + " " + valid + "/>\n");
-    }
-}
-
-NodeObject.prototype.buildAttributeXml = function(){
-    var keySet = this.attributes.keySet();
-    var locator = this.uiobject.clocator;
-    var xmlArray = new Array();
-    var xmlBuffer = new StringBuffer();
-
-    for(var i=0 ; i < keySet.length; ++i){
-        //should not change tag, thus, remove tag from the list
-        var key = keySet[i];
-        if(key != "tag"){
-            var included = false;
-
-            if(locator.isAttributeIncluded(key)){
-                included = true;
-            }
-
-            xmlArray.push("<attribute name=\""+ key + "\""+ " value=\""+ this.xmlutil.specialCharacterProof(this.attributes.get(key)) + "\"" + " sel=\"" + included + "\"" + "/>\n");
+            this.children[i].buildCustomizeRowsContent(custNodeArray);
         }
     }
-
-    var xml = "<?xml version=\"1.0\"?>\n<attributes id=\"attributes_tree_xml\" xmlns=\"\">\n";
-
-    if(xmlArray != null){
-        for(var i=0; i<xmlArray.length; ++i){
-            xmlBuffer.append(xmlArray[i]);
-        }
-    }
-
-
-    xml += xmlBuffer.toString();
-    xml += "</attributes>\n";
-
-    logger.debug("Attributes XML: \n" + xml);
-
-    return xml;
 }
 
 NodeObject.prototype.checkNodeId = function(){

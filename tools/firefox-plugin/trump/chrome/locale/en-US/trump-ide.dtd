@@ -18,6 +18,8 @@
 <!ENTITY type.label "Type">
 <!ENTITY clocator.label "clocator">
 <!ENTITY attributes.label "Attributes">
+<!ENTITY attributes.name "Name">
+<!ENTITY attributes.value "Value">
 <!ENTITY group.label "Group">
 <!ENTITY save.label "Save">
 <!ENTITY cancel.label "Cancel">
