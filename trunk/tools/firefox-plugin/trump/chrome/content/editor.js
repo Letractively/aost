@@ -327,8 +327,16 @@ Editor.prototype.exportUiModule = function(){
 //        logger.debug("Create UI Module:\n" + txt);
 
         var dir = Preferences.getPref("extensions.trump.exportdirectory");
+        if (dir == undefined || dir == null) {
+            if (this.os == "Windows") {
+                dir = Preferences.DEFAULT_OPTIONS.defaultWinDirectory;
+            } else {
+                dir = Preferences.DEFAULT_OPTIONS.defaultDirectory;
+            }
+        }
+
         FileUtils.saveAs(dir, txt);
-        logger.debug("UI Module is exported to file");
+        logger.debug("UI Module is exported to directory " + dir);
     }
 }
 
