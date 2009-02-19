@@ -27,6 +27,7 @@
   * [http://www.junit.org/ JUnit]
   * [http://testng.org/ TestNG]
   * [http://htmlunit.sourceforge.net HtmlUnit]
+  * [http://www.jsunit.net/ JsUnit]
 
 == Tools ==
   
