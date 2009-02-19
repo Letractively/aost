@@ -132,7 +132,7 @@ XPathProcessor.prototype.checkXPathCount = function(doc, xpath) {
 //    var nodesSnapshot = document.evaluate(xpath, document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
 //    return nodesSnapshot.snapshotLength;
     var xpct = "count(" + xpath + ")";
-
+     logger.debug("xpath " + xpath);
     var result = doc.evaluate(xpct,  doc, null, XPathResult.NUMBER_TYPE, null);
 //    logger.debug("Get XPath evalution result " + result.numberValue + " for xpath " + xpath);
 
