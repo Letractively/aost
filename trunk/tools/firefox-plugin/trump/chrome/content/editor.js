@@ -342,12 +342,20 @@ Editor.prototype.exportUiModule = function(){
 
 Editor.prototype.updateOptions = function(){
     window.openDialog("chrome://trump/content/preferences.xul", "options", "chrome,modal,resizable", this.os);
-    logger.jslog = Preferences.getPref("extensions.trump.jslog");
-
+    var jslog = Preferences.getPref("extensions.trump.jslog");
+    if(jslog ==undefined){
+        jslog = true;
+    }
+    logger.jslog = jslog;
+    
     var elem = document.getElementById("logging-console");
     var elem = window.frames["logViewFrame"].document.getElementById("logging-console");
     if (elem != null) {
         var logWrap = Preferences.getPref("extensions.trump.logwrap");
+        if(logWrap == undefined){
+            logWrap = true;    
+        }
+
         if (logWrap) {
             elem.style.whiteSpace = "normal";
         } else {
