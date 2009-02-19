@@ -3,15 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/TrUMP-0.1.0.xpi" afterPath="$PROJECT_DIR$/dist/TrUMP-0.1.0.xpi" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/uicreator/node.js" afterPath="$PROJECT_DIR$/trump/chrome/content/uicreator/node.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/uicreator/xpathProcessor.js" afterPath="$PROJECT_DIR$/trump/chrome/content/uicreator/xpathProcessor.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/firefox-plugin.iws" afterPath="$PROJECT_DIR$/firefox-plugin.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/trump-ide.xul" afterPath="$PROJECT_DIR$/trump/chrome/content/trump-ide.xul" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/uicreator/xpathBuilder.js" afterPath="$PROJECT_DIR$/trump/chrome/content/uicreator/xpathBuilder.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/firefox-plugin.ipr" afterPath="$PROJECT_DIR$/firefox-plugin.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/editor.js" afterPath="$PROJECT_DIR$/trump/chrome/content/editor.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/uicreator/tree.js" afterPath="$PROJECT_DIR$/trump/chrome/content/uicreator/tree.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/uicreator/filter.js" afterPath="$PROJECT_DIR$/trump/chrome/content/uicreator/filter.js" />
     </list>
     <ignored path=".idea/workspace.xml" />
     <ignored path="firefox-plugin.iws" />
@@ -100,7 +92,7 @@
       <file leaf-file-name="options.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/trump/chrome/content/options.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="23" column="35" selection-start="788" selection-end="788" vertical-scroll-proportion="0.5164671">
               <folding />
             </state>
           </provider>
@@ -492,7 +484,7 @@
     <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add build scripts and other documents" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge changes from trunk" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -504,6 +496,7 @@
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="Add build scripts and other documents" />
+    <MESSAGE value="merge changes from trunk" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -566,9 +559,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trump/chrome/content/options.js">
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/preferences.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/options.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="35" selection-start="788" selection-end="788" vertical-scroll-proportion="0.5164671">
           <folding />
         </state>
       </provider>
