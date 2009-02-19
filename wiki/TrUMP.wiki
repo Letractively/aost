@@ -96,7 +96,8 @@ Note that the red "X" mark is removed because we turn on the group locating and 
 
 http://tellurium-users.googlegroups.com/web/TrUMPCustomizedSource.png?gda=Des1l0sAAACXZPxEX7Ki-M5C2JpeBoXXTJUqAjHYSxXv6NWi-vE8yQl-ge40lZM5QmFCqlPrr94UUFmPu5RmzzCCYEsK7dk1BkXa90K8pT5MNmkW1w_4BQ&gsc=8bpDhBYAAADelCD9Y452tE9McTfxJEayg-kXU5InE09W2o0GCSVgCQ
 
-At this point, you export the UI module to a groovy file. Be aware that in window system, you should first change the "export directory" in Options > Settings to "C:\" or other windows directory before you export the file. 
+At this point, you export the UI module to a groovy file. Be aware that if you see any error complaining about the directory, you should first check the "export directory" in Options > Settings and set it to "C:\" or other windows directory for Windows system before you export the file. For Linux, you may find there is no "OK" buton on the option tab, which is caused by the fact that the configure "browser.preferences.instantApply" is set to true by default. You can point your firefox to "about:config" and change the option to false. After that, you will see the "OK" button.
+
 
 http://tellurium-users.googlegroups.com/web/ExportToGroovy.png?gda=XKq84kQAAACXZPxEX7Ki-M5C2JpeBoXXSb7HI-NonvaTuJe2neIoZFD6zIowMVUmhwc1DN0qlZJV6u9SiETdg0Q2ffAyHU-dzc4BZkLnSFWX59nr5BxGqA&gsc=8bpDhBYAAADelCD9Y452tE9McTfxJEayg-kXU5InE09W2o0GCSVgCQ
 
@@ -226,4 +227,7 @@ http://tellurium-users.googlegroups.com/web/ErrorConsole.png?gsc=ECfkzxYAAACkNoH
 
 == Known Issues ==
 
-Please see Issues 80-107 on the issue page.
+The known issues include
+  * Cannot record popup/dialog window, which is also a problem for many other Firefox plugins, for instance, Dom inspector and Selenium IDE.
+  * TrUMP does not support UI template yet. This feature will be provided in later versions because it requires an inference engine.
+
