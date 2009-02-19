@@ -84,6 +84,7 @@
   * [http://www.quirksmode.org/js/detect.html Browser detect]
   * [http://www.javascriptkit.com/javatutors/redev2.shtml Javascript Regular Expressions patterns]
   * [http://www.regular-expressions.info/javascriptexample.html Javascript Regular Expression Tester]
+  * [http://www.xml.com/pub/a/2004/09/01/tr.html Converting XML to RDF]
 
 == Algorithms ==
 
