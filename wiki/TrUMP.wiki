@@ -228,6 +228,5 @@ http://tellurium-users.googlegroups.com/web/ErrorConsole.png?gsc=ECfkzxYAAACkNoH
 == Known Issues ==
 
 The known issues include
-  * Cannot record popup/dialog window, which is also a problem for many other Firefox plugins, for instance, Dom inspector and Selenium IDE.
+  * Cannot record popup/dialog window, which is also a problem for many other Firefox plugins, for instance, Selenium IDE
   * TrUMP does not support UI template yet. This feature will be provided in later versions because it requires an inference engine.
-
