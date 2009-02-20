@@ -47,15 +47,25 @@ Builder.prototype.createTagObject = function(node){
     return null;
 }
 
-Builder.prototype.getText = function(node){
+Builder.prototype.getText = function(node) {
     var txt = null;
     if (getNodeType(node) == constants.ELEMENT_TYPE_NODE) {
-        if(node.childNodes.length > 0){
-            for (var i=0; i < node.childNodes.length; i++ ) {
-              if ( node.childNodes[i].nodeType == Node.TEXT_NODE ) {
-                txt = node.childNodes[i].nodeValue;
-                break;
-              }
+        if (node.childNodes.length > 0) {
+            for (var i = 0; i < node.childNodes.length; i++) {
+                if (node.childNodes[i].nodeType == Node.TEXT_NODE) {
+                    txt = node.childNodes[i].nodeValue;
+                    if (txt != null) {
+                        //test if the regular expression includes "
+                        var regexp = new RegExp(/\"/);
+                        if(regexp.test(txt)){
+                            //if we do have double quota " inside
+                            //throw away the text attribute because if it is way too difficult to escape
+                            txt = null;
+                        }
+                    }
+
+                    break;
+                }
             }
         }
     }
