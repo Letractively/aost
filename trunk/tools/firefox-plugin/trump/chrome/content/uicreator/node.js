@@ -136,13 +136,14 @@ NodeObject.prototype.buildUiObject = function(){
     }
 
     this.uiobject.buildUiObject(this, hasChildren);
-    this.checkUiDirectAttribute();
-    
+
     if (hasChildren) {
-        for (var i = 0; i < this.children.length; ++i) {
+        for (var i = 0; i < this.children.length; i++) {
             this.children[i].buildUiObject();
         }
     }
+    
+    this.checkUiDirectAttribute();
 }
 
 NodeObject.prototype.checkUiDirectAttribute = function(){
@@ -150,16 +151,10 @@ NodeObject.prototype.checkUiDirectAttribute = function(){
         if(this.children.length > 0){
             var valid = true;
             for(var i=0; i<this.children.length; i++){
-                //direct means no trailer and no headers for all children
-                if(this.children[i].header != null && trimString(this.header).length > 0){
-                    valid = false;
-                    break;
+                //check direct child
+                if(this.children[i].header == null || trimString(this.header).length == 0){
+                    this.children[i].uiobject.clocator.direct = true;
                 }
-            }
-                         
-            if(valid){
-                alert("UI object direct attribute is true: " + this.uiobject.uid);
-                this.uiobject.clocator.direct = true;
             }
         }
     }

@@ -14,8 +14,8 @@ LocatorStrategy.prototype.compositeLocate = function(cnode){
     var locator = cnode.uiobject.clocator;
 //    alert("UI object " + cnode.uiobject.uid + "'s clocator has attribute " + locator.strLocator());
     
-    var xp = this.xpathBuilder.buildXPath(locator.tag, locator.text, locator.position, locator.attributes);
-
+    var xp = this.xpathBuilder.buildOptionalXPath(locator.tag, locator.text, locator.position, locator.direct, locator.attributes);
+    
     if (locator.header != null && (trimString(locator.header).length > 0)) {
         xp = locator.header + xp;
     }
