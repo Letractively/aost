@@ -78,6 +78,16 @@ Locator.prototype.updateLocator = function(attributes){
 
 Locator.prototype.isAttributeIncluded = function(attribute){
 
+    if(attribute == this.constants.TEXT && this.text != null && trimString(this.text).length > 0){
+        return true;
+    }
+    if(attribute == this.constants.TRAILER && this.trailer != null && trimString(this.trailer).length > 0){
+        return true;
+    }
+    if(attribute == this.constants.HEADER && this.header != null && trimString(this.header).length > 0){
+        return true;
+    }
+
     return (this.attributes.get(attribute) != null);
 }
 

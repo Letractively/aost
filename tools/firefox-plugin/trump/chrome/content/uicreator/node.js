@@ -149,7 +149,6 @@ NodeObject.prototype.buildUiObject = function(){
 NodeObject.prototype.checkUiDirectAttribute = function(){
     if(this.trailer == null || trimString(this.trailer).length == 0){
         if(this.children.length > 0){
-            var valid = true;
             for(var i=0; i<this.children.length; i++){
                 //check direct child
                 if(this.children[i].header == null || trimString(this.header).length == 0){
@@ -264,7 +263,7 @@ NodeObject.prototype.buildAttributeXml = function(){
     xml += xmlBuffer.toString();
     xml += "</attributes>\n";
 
-//    logger.debug("Attributes XML: \n" + xml);
+    logger.debug("Attributes XML: \n" + xml);
 
     return xml;
 }
@@ -400,7 +399,7 @@ NodeObject.prototype.findSelectedNode = function(rtaglist, tag){
         logger.debug("Select tag " + this.tag + " xpath " + this.xpath + " and its node xpath " + this.nodexpath + " header " + this.header + " trailer " + this.trailer);
 
         if(this.header != null && trimString(this.header).length > 0){
-            this.attributes.set(this.constants.HEADER, this.header);
+//            this.attributes.set(this.constants.HEADER, this.header);
         }
         if(this.trailer != null && trimString(this.trailer).length > 0){
             this.attributes.set(this.constants.TRAILER, this.trailer);
