@@ -132,6 +132,13 @@ class XPathBuilder {
         return  internBuildXPath(tag, text, -1 , false, attributes, null)
     }
 
+    public static String buildOptionalXPath(String tag, String text, String position, boolean direct, Map<String, String> attributes){
+        if(position != null && position.isInteger())
+            return internBuildXPath(tag, text, Integer.parseInt(position), direct, attributes, null)
+
+        return  internBuildXPath(tag, text, -1 , direct, attributes, null)
+    }
+
     public static String buildXPath(String tag, int position, Map<String, String> attributes){
          return internBuildXPath(tag, null, position, false, attributes, null)
     }
