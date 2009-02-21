@@ -95,4 +95,5 @@
 
    * [http://code.google.com/p/aost/downloads/list How to use TrUMP to Create Tellurium Test Cases] ([http://doesthatevencompile.com/flv/ Flash Version])
    * [http://code.google.com/p/aost/downloads/list Tellurium Demo Video] (Online Version [http://video.google.com/videoplay?docid=-7547683963743870970 Part I] [http://video.google.com/videoplay?docid=2145192284694104042 Part II])
+   * [http://www.slideshare.net/John.Jian.Fang/tellurium-a-new-approach-for-web-testing-presentation Online Presentation: Tellurium - A New Approach For Web Testing]
    * [http://groups.google.com/group/ltac/browse_thread/thread/3954f77fba89816f?hl=en Google Test Automation Conference 2008 Slides and Videos] 
