@@ -73,6 +73,26 @@ XPathProcessor.prototype.getSubXPath = function(xpath, inx){
     return subxp.toString();
 }
 
+XPathProcessor.prototype.getLastXPath = function(xpath, inx){
+    var subxp = new StringBuffer();
+    if(xpath != null){
+        var splited = this.splitXPath(xpath);
+        if(inx > splited.length-1){
+            //change to warning/error to log later
+//            logger.warn("XPath " + xpath + "Index " + inx + " out of bound");
+//            inx = splited.length-1;
+            return null;
+        }
+
+        for(var i=inx; i<splited.length; i++){
+            subxp.append(this.DELIMITER);
+            subxp.append(splited[i])
+        }
+    }
+
+    return subxp.toString();
+}
+
 //remove the last portion from the XPath
 XPathProcessor.prototype.popXPath = function(xpath){
     var subxp = new StringBuffer();
@@ -132,7 +152,7 @@ XPathProcessor.prototype.checkXPathCount = function(doc, xpath) {
 //    var nodesSnapshot = document.evaluate(xpath, document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
 //    return nodesSnapshot.snapshotLength;
     var xpct = "count(" + xpath + ")";
-     logger.debug("xpath " + xpath);
+//     logger.debug("xpath " + xpath);
     var result = doc.evaluate(xpct,  doc, null, XPathResult.NUMBER_TYPE, null);
 //    logger.debug("Get XPath evalution result " + result.numberValue + " for xpath " + xpath);
 

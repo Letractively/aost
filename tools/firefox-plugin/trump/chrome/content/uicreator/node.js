@@ -5,7 +5,9 @@ function NodeObject(){
 
     this.constants = {
         TAG : "tag",
-        POSITION: "position"
+        POSITION: "position",
+        HEADER : "header",
+        TRAILER: "trailer"
     };
     
     //hold the dom Node associated to the current tree node 
@@ -134,10 +136,30 @@ NodeObject.prototype.buildUiObject = function(){
     }
 
     this.uiobject.buildUiObject(this, hasChildren);
-
+    this.checkUiDirectAttribute();
+    
     if (hasChildren) {
         for (var i = 0; i < this.children.length; ++i) {
             this.children[i].buildUiObject();
+        }
+    }
+}
+
+NodeObject.prototype.checkUiDirectAttribute = function(){
+    if(this.trailer == null){
+        if(this.children.length > 0){
+            var valid = true;
+            for(var i=0; i<this.children.length; i++){
+                //direct means no trailer and no headers for all children
+                if(this.children[i].header != null){
+                    valid = false;
+                    break;
+                }
+            }
+                         
+            if(valid){
+                this.uiobject.direct = true;
+            }
         }
     }
 }
@@ -308,10 +330,19 @@ NodeObject.prototype.findChild = function(uid){
 //based on the xpath for the node, set the header and trailer
 //i.e,
 //     header + node's tag + trailer
-NodeObject.prototype.setHeaderTrailerForRegularNode = function(){
+NodeObject.prototype.setHeaderTrailerForRegularNode = function() {
     this.header = this.xpathProcessor.popXPath(this.xpath);
     this.trailer = null;
     this.nodexpath = this.xpath;
+    
+    if (this.header != null && trimString(this.header).length > 0) {
+//        logger.debug("XPath " + this.xpath + "Header: " + this.header);
+//        this.attributes.set(this.constants.HEADER, this.header);
+    }
+    if (this.trailer != null && trimString(this.trailer).length > 0) {
+        logger.debug("XPath " + this.xpath + "Trailer: " + this.trailer);
+        this.attributes.set(this.constants.TRAILER, this.trailer);
+    }
 }
 
 NodeObject.prototype.isNewNode = function(){
@@ -367,7 +398,17 @@ NodeObject.prototype.findSelectedNode = function(rtaglist, tag){
         var rinx = rtaglist.length - this.xpathProcessor.findTagIndex(rtaglist, tag) - 2;
         this.header = this.xpathProcessor.getSubXPath(this.xpath, rinx);
         this.nodexpath = this.xpathProcessor.getSubXPath(this.xpath, rinx + 1);
-//        logger.debug("Select tag " + this.tag + " and its node xpath " + this.nodexpath);
+//        this.trailer = this.xpath.substring(this.nodexpath.length+1, this.xpath.length-1);
+        this.trailer = this.xpathProcessor.getLastXPath(this.xpath, rinx + 2);
+
+        logger.debug("Select tag " + this.tag + " xpath " + this.xpath + " and its node xpath " + this.nodexpath + " header " + this.header + " trailer " + this.trailer);
+
+        if(this.header != null && trimString(this.header).length > 0){
+            this.attributes.set(this.constants.HEADER, this.header);
+        }
+        if(this.trailer != null && trimString(this.trailer).length > 0){
+            this.attributes.set(this.constants.TRAILER, this.trailer);
+        }
         
         return this.domNode;
     }
