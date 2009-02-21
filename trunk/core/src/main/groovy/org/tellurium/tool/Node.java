@@ -61,7 +61,7 @@ public class Node {
 
         sb.append("]");
         //comment this line out if you do not want xpath to display
-//        sb.append("[xpath: ").append(xpath).append("]");
+        sb.append("[xpath: ").append(xpath).append("]");
         sb.append(")");
         if(hasChildren)
             sb.append("{");

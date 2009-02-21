@@ -1,4 +1,8 @@
 package org.tellurium.locator
+
+import org.tellurium.locator.CompositeLocator
+import org.tellurium.locator.XPathBuilder
+
 /**
  *   Automcatically generate relate xpath based on composite elements in the
  *   UI object
@@ -17,7 +21,8 @@ class CompositeLocateStrategy {
 
     def static String locate(CompositeLocator locator){
 
-        String xpath = XPathBuilder.buildXPath(locator.tag, locator.text, locator.position, locator.attributes)
+//        String xpath = XPathBuilder.buildXPath(locator.tag, locator.text, locator.position, locator.attributes)
+        String xpath = XPathBuilder.buildOptionalXPath(locator.tag, locator.text, locator.position, locator.direct, locator.attributes)
         if(locator.header != null && (locator.header.trim().length() > 0)){
             xpath = locator.header + xpath
         }
