@@ -168,7 +168,7 @@ Locator.prototype.strLocator = function(){
             if(count > 0){
                 sb.append(", ");
             }
-            sb.append(this.constants.HEADER).append(": ").append("\"").append(this.header).append("\"");
+            sb.append(this.constants.TRAILER).append(": ").append("\"").append(this.trailer).append("\"");
             ++count;
         }
         if (this.direct) {
@@ -226,7 +226,7 @@ Locator.prototype.descLocator = function(){
             if(count > 0){
                 sb.append(", ");
             }
-            sb.append(this.constants.HEADER).append(": '").append(this.header).append("'");
+            sb.append(this.constants.TRAILER).append(": '").append(this.trailer).append("'");
             ++count;
         }
         if (this.direct) {

@@ -85,7 +85,7 @@ NodeObject.prototype.validateXPath = function(){
     }
     
     if (this.children.length > 0) {
-        for (var i = 0; i < this.children.length; ++i) {
+        for (var i = 0; i < this.children.length; i++) {
             this.children[i].validateXPath();
         }
     }
@@ -171,7 +171,7 @@ NodeObject.prototype.refUiObject = function(uiMap){
     uiMap.set(canonuid, this.uiobject);
 
     if (hasChildren) {
-        for (var i = 0; i < this.children.length; ++i) {
+        for (var i = 0; i < this.children.length; i++) {
             this.children[i].refUiObject(uiMap);
         }
     }
@@ -191,7 +191,7 @@ NodeObject.prototype.printUI = function(layout){
     layout.push(strobj);
 
     if (hasChildren) {
-        for (var i = 0; i < this.children.length; ++i) {
+        for (var i = 0; i < this.children.length; i++) {
             this.children[i].printUI(layout);
         }
 
@@ -222,7 +222,7 @@ NodeObject.prototype.buildXML = function(xml){
     if (hasChildren) {
         xml.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + " " + myUID + " " + valid + ">\n");
 
-        for (var i = 0; i < this.children.length; ++i) {
+        for (var i = 0; i < this.children.length; i++) {
             this.children[i].buildXML(xml);
         }
         xml.push(padding + "</UiObject>\n");
@@ -237,7 +237,7 @@ NodeObject.prototype.buildAttributeXml = function(){
     var xmlArray = new Array();
     var xmlBuffer = new StringBuffer();
 
-    for(var i=0 ; i < keySet.length; ++i){
+    for(var i=0 ; i < keySet.length; i++){
         //should not change tag, thus, remove tag from the list
         var key = keySet[i];
         if(key != "tag"){
@@ -254,7 +254,7 @@ NodeObject.prototype.buildAttributeXml = function(){
     var xml = "<?xml version=\"1.0\"?>\n<attributes id=\"attributes_tree_xml\" xmlns=\"\">\n";
 
     if(xmlArray != null){
-        for(var i=0; i<xmlArray.length; ++i){
+        for(var i=0; i<xmlArray.length; i++){
             xmlBuffer.append(xmlArray[i]);
         }
     }
@@ -273,7 +273,7 @@ NodeObject.prototype.checkNodeId = function(){
     if(this.children != null && this.children.length > 1){
         var map = new HashMap();
         var count = 2;
-        for(var i=0; i<this.children.length; ++i){
+        for(var i=0; i<this.children.length; i++){
             var cid = this.children[i].id;
 
             if(map.get(cid) != null){
@@ -287,13 +287,13 @@ NodeObject.prototype.checkNodeId = function(){
     }
 
     if(this.children != null && this.children.length > 0){
-        for(var c=0; c<this.children.length; ++c){
+        for(var c=0; c<this.children.length; c++){
             this.children[c].checkNodeId();
         }
     }
 }
 
-NodeObject.prototype.isEmpty = function(){
+NodeObject.prototype.notEmpty = function(){
     return (this.children != null && this.children.length > 0);
 }
 
@@ -313,7 +313,7 @@ NodeObject.prototype.removeChild = function(uid){
 NodeObject.prototype.findChild = function(uid){
     var current;
 
-    for(var i=0; i<this.children.length ; ++i){
+    for(var i=0; i<this.children.length ; i++){
         current = this.children[i];
         if(current.id == uid){
             return current;
@@ -331,11 +331,9 @@ NodeObject.prototype.setHeaderTrailerForRegularNode = function() {
     this.nodexpath = this.xpath;
     
     if (this.header != null && trimString(this.header).length > 0) {
-//        logger.debug("XPath " + this.xpath + "Header: " + this.header);
 //        this.attributes.set(this.constants.HEADER, this.header);
     }
     if (this.trailer != null && trimString(this.trailer).length > 0) {
-        logger.debug("XPath " + this.xpath + "Trailer: " + this.trailer);
         this.attributes.set(this.constants.TRAILER, this.trailer);
     }
 }
@@ -398,13 +396,6 @@ NodeObject.prototype.findSelectedNode = function(rtaglist, tag){
 
         logger.debug("Select tag " + this.tag + " xpath " + this.xpath + " and its node xpath " + this.nodexpath + " header " + this.header + " trailer " + this.trailer);
 
-        if(this.header != null && trimString(this.header).length > 0){
-//            this.attributes.set(this.constants.HEADER, this.header);
-        }
-        if(this.trailer != null && trimString(this.trailer).length > 0){
-            this.attributes.set(this.constants.TRAILER, this.trailer);
-        }
-        
         return this.domNode;
     }
 }
@@ -412,6 +403,13 @@ NodeObject.prototype.findSelectedNode = function(rtaglist, tag){
 NodeObject.prototype.populateAttributes = function(){
     this.attributes = this.filter.getNotBlackListedAttributes(this.domNode.attributes);
     this.attributes.set(this.constants.TAG, this.tag);
+    
+    if (this.header != null && trimString(this.header).length > 0) {
+        //            this.attributes.set(this.constants.HEADER, this.header);
+    }
+    if (this.trailer != null && trimString(this.trailer).length > 0) {
+        this.attributes.set(this.constants.TRAILER, this.trailer);
+    }
 }
 
 NodeObject.prototype.selectTag = function(){
@@ -441,7 +439,7 @@ NodeObject.prototype.selectTag = function(){
 NodeObject.prototype.processNewNode = function(){
     //should process children first so that leaf node will be processed first
     //otherwise, we cannot walk from any child to the tag node we select
-    for(var i=0; i<this.children.length ; ++i){
+    for(var i=0; i<this.children.length ; i++){
         //walk all subtree to process each child node
         var current = this.children[i];
         current.processNewNode();
