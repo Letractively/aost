@@ -151,3 +151,10 @@ XPathBuilder.prototype.buildXPath = function(tag, text, position, attributes) {
 
     return  this.internBuildXPath(tag, text, -1, false, attributes, null);
 }
+
+XPathBuilder.prototype.buildOptionalXPath = function(tag, text, position, direct, attributes) {
+    if (position != null && position >= 0)
+        return this.internBuildXPath(tag, text, position, direct, attributes, null);
+
+    return  this.internBuildXPath(tag, text, -1, direct, attributes, null);
+}
