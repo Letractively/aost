@@ -146,19 +146,20 @@ NodeObject.prototype.buildUiObject = function(){
 }
 
 NodeObject.prototype.checkUiDirectAttribute = function(){
-    if(this.trailer == null){
+    if(this.trailer == null || trimString(this.trailer).length == 0){
         if(this.children.length > 0){
             var valid = true;
             for(var i=0; i<this.children.length; i++){
                 //direct means no trailer and no headers for all children
-                if(this.children[i].header != null){
+                if(this.children[i].header != null && trimString(this.header).length > 0){
                     valid = false;
                     break;
                 }
             }
                          
             if(valid){
-                this.uiobject.direct = true;
+                alert("UI object direct attribute is true: " + this.uiobject.uid);
+                this.uiobject.clocator.direct = true;
             }
         }
     }
