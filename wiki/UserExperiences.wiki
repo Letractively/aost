@@ -1,0 +1,7 @@
+#summary What users said about Tellurium
+#labels Phase-Support
+
+== Users' Experiences ==
+
+Here is the list of experiences provided by Tellurium users
+  * [http://groups.google.com/group/tellurium-users/browse_thread/thread/c4bcdc2666a7bc4d Feedback on Tellurium Usage by Harihara Vinayakaram]
