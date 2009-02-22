@@ -1,4 +1,6 @@
+#summary Frequently Asked Questions
 #labels Featured,Phase-Support
+
 = FAQs for Tellurium =
 
 === Q1: Why do you create the Tellurium framework ===
