@@ -14,11 +14,12 @@ LocatorStrategy.prototype.compositeLocate = function(cnode){
     var locator = cnode.uiobject.clocator;
 //    alert("UI object " + cnode.uiobject.uid + "'s clocator has attribute " + locator.strLocator());
     
-    var xp = this.xpathBuilder.buildOptionalXPath(locator.tag, locator.text, locator.position, locator.direct, locator.attributes);
-    
-    if (locator.header != null && (trimString(locator.header).length > 0)) {
-        xp = locator.header + xp;
-    }
+//    var xp = this.xpathBuilder.buildOptionalXPath(locator.tag, locator.text, locator.position, locator.direct, locator.attributes);
+    var xp = this.xpathBuilder.buildOptionalXPathVHeader(locator.tag, locator.text, locator.position, locator.direct, locator.attributes, locator.header);
+
+//    if (locator.header != null && (trimString(locator.header).length > 0)) {
+//        xp = locator.header + xp;
+//    }
 
     if (locator.trailer != null && (trimString(locator.trailer).length > 0)) {
         xp = xp + locator.trailer
@@ -49,7 +50,8 @@ LocatorStrategy.prototype.groupLocate = function(cnode){
     }
     
     var cloc = cnode.uiobject.clocator;
-    var xp = this.xpathBuilder.buildGroupXPath(cloc.tag, cloc.text, cloc.position, cloc.direct, cloc.attributes, groupAttributes);
+//    var xp = this.xpathBuilder.buildGroupXPath(cloc.tag, cloc.text, cloc.position, cloc.direct, cloc.attributes, groupAttributes);
+    var xp = this.xpathBuilder.buildGroupXPath(cloc.tag, cloc.text, cloc.position, cloc.direct, cloc.attributes, groupAttributes, cloc.header);
     if(cloc.header != null && trimString(cloc.header).length > 0){
         xp = cloc.header + xp;
     }

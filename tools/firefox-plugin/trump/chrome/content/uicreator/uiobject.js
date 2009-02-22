@@ -56,6 +56,7 @@ UiObject.prototype.buildXPath = function(){
         xp = this.locatorStrategy.compositeLocate(this.node);
     }
 
+//    alert("Build xpath for " + this.uid + " XPath: " + xp);
     return xp;
 }
 

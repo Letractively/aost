@@ -331,10 +331,10 @@ NodeObject.prototype.setHeaderTrailerForRegularNode = function() {
     this.nodexpath = this.xpath;
     
     if (this.header != null && trimString(this.header).length > 0) {
-//        this.attributes.set(this.constants.HEADER, this.header);
+        this.attributes.set(this.constants.HEADER, this.header);
     }
     if (this.trailer != null && trimString(this.trailer).length > 0) {
-        this.attributes.set(this.constants.TRAILER, this.trailer);
+//        this.attributes.set(this.constants.TRAILER, this.trailer);
     }
 }
 
@@ -405,10 +405,10 @@ NodeObject.prototype.populateAttributes = function(){
     this.attributes.set(this.constants.TAG, this.tag);
     
     if (this.header != null && trimString(this.header).length > 0) {
-        //            this.attributes.set(this.constants.HEADER, this.header);
+           this.attributes.set(this.constants.HEADER, this.header);
     }
     if (this.trailer != null && trimString(this.trailer).length > 0) {
-        this.attributes.set(this.constants.TRAILER, this.trailer);
+//        this.attributes.set(this.constants.TRAILER, this.trailer);
     }
 }
 
