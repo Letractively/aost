@@ -1,5 +1,9 @@
 package org.tellurium.locator
 
+import org.tellurium.locator.BaseLocator
+import org.tellurium.locator.CompositeLocator
+import org.tellurium.locator.DefaultLocateStrategy
+import org.tellurium.locator.XPathBuilder
 import org.tellurium.object.Container
 import org.tellurium.object.UiObject
 
@@ -36,14 +40,15 @@ class GroupLocateStrategy {
         }
 
         CompositeLocator locator = obj.locator
-        String xpath = XPathBuilder.buildGroupXPath(locator.tag, locator.text, locator.position, locator.direct, locator.attributes) {List<String> list ->
+//        String xpath = XPathBuilder.buildGroupXPath(locator.tag, locator.text, locator.position, locator.direct, locator.attributes) {List<String> list ->
+        String xpath = XPathBuilder.buildGroupXPathWithHeader(locator.tag, locator.text, locator.position, locator.direct, locator.attributes, locator.header) {List<String> list ->
             if (!groupAttributes.isEmpty()) {
                 list.addAll(groupAttributes)
             }
         }
-        if (locator.header != null && (locator.header.trim().length() > 0)) {
-            xpath = locator.header + xpath
-        }
+//        if (locator.header != null && (locator.header.trim().length() > 0)) {
+//            xpath = locator.header + xpath
+ //       }
 
         if (locator.trailer != null && (locator.trailer.trim().length() > 0)) {
             xpath = xpath + locator.trailer
