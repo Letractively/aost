@@ -53,6 +53,8 @@ Recorder.prototype.registerClickListener = function(){
             }
 
         };
+
+//    this.parentWindow.document.addEventListener("click", this.listener, false);
     this.parentWindow.content.document.body.addEventListener("click", this.listener, false);
 }
 
@@ -61,6 +63,7 @@ Recorder.prototype.unregisterClickListener = function(){
 
     this.removeOutlineForSelectedNodes();
 
+//    this.parentWindow.document.removeEventListener("click", this.listener, false);
     this.parentWindow.content.document.body.removeEventListener("click", this.listener, false);
     this.listener = null;
 }

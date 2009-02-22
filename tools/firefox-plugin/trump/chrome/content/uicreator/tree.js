@@ -20,6 +20,7 @@ Tree.prototype.printUI = function(){
 Tree.prototype.buildCustomizeContent = function(){
     this.custNodeArray = new Array();
     if(this.root != null){
+
         this.root.buildCustomizeRowsContent(this.custNodeArray);
         return this.custNodeArray;
     }

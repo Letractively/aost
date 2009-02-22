@@ -5,8 +5,11 @@ function NodeObject(){
 
     this.constants = {
         TAG : "tag",
-        POSITION: "position"
+        POSITION: "position",
+        HEADER : "header",
+        TRAILER: "trailer"
     };
+    
     //hold the dom Node associated to the current tree node 
     this.domNode = null;
     this.id = null;
@@ -20,7 +23,8 @@ function NodeObject(){
     
     this.header = null;
     this.tailer = null;
-
+    this.nodexpath = null;
+    
     //flag to indicate whether this node is a new generated during the grouping process, i.e., by the Tree algorithm
     this.newNode = false;
     //tag selection state machine
@@ -83,7 +87,7 @@ NodeObject.prototype.validateXPath = function(){
     }
     
     if (this.children.length > 0) {
-        for (var i = 0; i < this.children.length; ++i) {
+        for (var i = 0; i < this.children.length; i++) {
             this.children[i].validateXPath();
         }
     }
@@ -136,8 +140,23 @@ NodeObject.prototype.buildUiObject = function(){
     this.uiobject.buildUiObject(this, hasChildren);
 
     if (hasChildren) {
-        for (var i = 0; i < this.children.length; ++i) {
+        for (var i = 0; i < this.children.length; i++) {
             this.children[i].buildUiObject();
+        }
+    }
+    
+    this.checkUiDirectAttribute();
+}
+
+NodeObject.prototype.checkUiDirectAttribute = function(){
+    if(this.trailer == null || trimString(this.trailer).length == 0){
+        if(this.children.length > 0){
+            for(var i=0; i<this.children.length; i++){
+                //check direct child
+                if(this.children[i].header == null || trimString(this.header).length == 0){
+                    this.children[i].uiobject.clocator.direct = true;
+                }
+            }
         }
     }
 }
@@ -154,7 +173,7 @@ NodeObject.prototype.refUiObject = function(uiMap){
     uiMap.set(canonuid, this.uiobject);
 
     if (hasChildren) {
-        for (var i = 0; i < this.children.length; ++i) {
+        for (var i = 0; i < this.children.length; i++) {
             this.children[i].refUiObject(uiMap);
         }
     }
@@ -174,7 +193,7 @@ NodeObject.prototype.printUI = function(layout){
     layout.push(strobj);
 
     if (hasChildren) {
-        for (var i = 0; i < this.children.length; ++i) {
+        for (var i = 0; i < this.children.length; i++) {
             this.children[i].printUI(layout);
         }
 
@@ -210,7 +229,7 @@ NodeObject.prototype.buildCustomizeRowsContent = function(custNodeArray){
     logger.debug(custNode);
 
     if (hasChildren) {
-        for (var i = 0; i < this.children.length; ++i) {
+        for (var i = 0; i < this.children.length; i++) {
             this.children[i].buildCustomizeRowsContent(custNodeArray);
         }
     }
@@ -221,7 +240,7 @@ NodeObject.prototype.checkNodeId = function(){
     if(this.children != null && this.children.length > 1){
         var map = new HashMap();
         var count = 2;
-        for(var i=0; i<this.children.length; ++i){
+        for(var i=0; i<this.children.length; i++){
             var cid = this.children[i].id;
 
             if(map.get(cid) != null){
@@ -235,13 +254,13 @@ NodeObject.prototype.checkNodeId = function(){
     }
 
     if(this.children != null && this.children.length > 0){
-        for(var c=0; c<this.children.length; ++c){
+        for(var c=0; c<this.children.length; c++){
             this.children[c].checkNodeId();
         }
     }
 }
 
-NodeObject.prototype.isEmpty = function(){
+NodeObject.prototype.notEmpty = function(){
     return (this.children != null && this.children.length > 0);
 }
 
@@ -261,7 +280,7 @@ NodeObject.prototype.removeChild = function(uid){
 NodeObject.prototype.findChild = function(uid){
     var current;
 
-    for(var i=0; i<this.children.length ; ++i){
+    for(var i=0; i<this.children.length ; i++){
         current = this.children[i];
         if(current.id == uid){
             return current;
@@ -273,10 +292,18 @@ NodeObject.prototype.findChild = function(uid){
 //based on the xpath for the node, set the header and trailer
 //i.e,
 //     header + node's tag + trailer
-NodeObject.prototype.setHeaderTrailerForRegularNode = function(){
+NodeObject.prototype.setHeaderTrailerForRegularNode = function() {
     this.header = this.xpathProcessor.popXPath(this.xpath);
     this.trailer = null;
+
     this.nodexpath = this.xpath;
+    
+    if (this.header != null && trimString(this.header).length > 0) {
+        this.attributes.set(this.constants.HEADER, this.header);
+    }
+    if (this.trailer != null && trimString(this.trailer).length > 0) {
+//        this.attributes.set(this.constants.TRAILER, this.trailer);
+    }
 }
 
 NodeObject.prototype.isNewNode = function(){
@@ -331,8 +358,13 @@ NodeObject.prototype.findSelectedNode = function(rtaglist, tag){
         //set the header and trailer
         var rinx = rtaglist.length - this.xpathProcessor.findTagIndex(rtaglist, tag) - 2;
         this.header = this.xpathProcessor.getSubXPath(this.xpath, rinx);
+
         this.nodexpath = this.xpathProcessor.getSubXPath(this.xpath, rinx + 1);
-        
+//        this.trailer = this.xpath.substring(this.nodexpath.length+1, this.xpath.length-1);
+        this.trailer = this.xpathProcessor.getLastXPath(this.xpath, rinx + 2);
+
+        logger.debug("Select tag " + this.tag + " xpath " + this.xpath + " and its node xpath " + this.nodexpath + " header " + this.header + " trailer " + this.trailer);
+
         return this.domNode;
     }
 }
@@ -340,6 +372,13 @@ NodeObject.prototype.findSelectedNode = function(rtaglist, tag){
 NodeObject.prototype.populateAttributes = function(){
     this.attributes = this.filter.getNotBlackListedAttributes(this.domNode.attributes);
     this.attributes.set(this.constants.TAG, this.tag);
+    
+    if (this.header != null && trimString(this.header).length > 0) {
+           this.attributes.set(this.constants.HEADER, this.header);
+    }
+    if (this.trailer != null && trimString(this.trailer).length > 0) {
+//        this.attributes.set(this.constants.TRAILER, this.trailer);
+    }
 }
 
 NodeObject.prototype.selectTag = function(){
@@ -369,7 +408,7 @@ NodeObject.prototype.selectTag = function(){
 NodeObject.prototype.processNewNode = function(){
     //should process children first so that leaf node will be processed first
     //otherwise, we cannot walk from any child to the tag node we select
-    for(var i=0; i<this.children.length ; ++i){
+    for(var i=0; i<this.children.length ; i++){
         //walk all subtree to process each child node
         var current = this.children[i];
         current.processNewNode();
@@ -383,20 +422,20 @@ NodeObject.prototype.processNewNode = function(){
     }
 
     var pos = this.checkNodePosition();
-    if (pos != null) {
+    if(pos != null){
         this.attributes.set(this.constants.POSITION, new String(pos));
     }
 }
 
-NodeObject.prototype.checkNodePosition = function() {
+NodeObject.prototype.checkNodePosition = function(){
 //    var pos = this.xpathProcessor.checkPositionForlastXPath(this.xpath);
     var pos = this.xpathProcessor.checkPositionForlastXPath(this.nodexpath);
+
     return pos;
 }
 
-    /*
-    NodeObject.prototype.toString = function(child){
-       alert("NodeObject : [ id " + this.id + " xpath : " + this.xpath + " parent : " + this.parent + " attributes : " +this.attributes.showMe()+ " ]");
-    }
-    */
-
+/*
+NodeObject.prototype.toString = function(child){
+   alert("NodeObject : [ id " + this.id + " xpath : " + this.xpath + " parent : " + this.parent + " attributes : " +this.attributes.showMe()+ " ]");
+}
+*/
