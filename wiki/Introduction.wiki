@@ -1,4 +1,6 @@
+#summary Introduction
 #labels Phase-Design,Featured
+
 = Tellurium Automated Testing Framework =
 
 == Why Use Tellurium ==
