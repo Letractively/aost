@@ -1,4 +1,4 @@
-#summary Tellurium UI Model Firefox Plugin (TrUMP) Old
+#summary Tellurium UI Model Firefox Plugin (TrUMP) Preview Version
 #labels Phase-Implementation
 = Tellurium UI Model Plugin (TrUMP) =
 
