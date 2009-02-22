@@ -1,4 +1,6 @@
+#summary Tellurium Tutorial
 #labels Featured,Phase-Implementation
+
 = Tutorial for Tellurium =
 
 == How to use Tellurium ==
