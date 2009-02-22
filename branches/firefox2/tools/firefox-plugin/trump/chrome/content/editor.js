@@ -87,8 +87,8 @@ Editor.prototype.generateButton = function(){
     }
     //do some post processing work
     this.innerTree.postProcess();
-
-     this.updateSource();
+//    alert("start to update source");
+    this.updateSource();
 
     logger.debug("start to validate UI object's xpath");
 
@@ -236,7 +236,7 @@ Editor.prototype.processCustomizeEvent = function(event){
 }
 
 Editor.prototype.processCheckEvent = function(event){
-    alert("You selected " + event.target.getAttribute("cid"));
+//    alert("You selected " + event.target.getAttribute("cid"));
 }
 
 Editor.prototype.fillUiObjectFields = function(uiObject){
@@ -407,19 +407,35 @@ Editor.prototype.exportUiModule = function(){
 //        logger.debug("Create UI Module:\n" + txt);
 
         var dir = Preferences.getPref("extensions.trump.exportdirectory");
+        if (dir == undefined || dir == null) {
+            if (this.os == "Windows") {
+                dir = Preferences.DEFAULT_OPTIONS.defaultWinDirectory;
+            } else {
+                dir = Preferences.DEFAULT_OPTIONS.defaultDirectory;
+            }
+        }
+
         FileUtils.saveAs(dir, txt);
-        logger.debug("UI Module is exported to file");
+        logger.debug("UI Module is exported to directory " + dir);
     }
 }
 
 Editor.prototype.updateOptions = function(){
     window.openDialog("chrome://trump/content/preferences.xul", "options", "chrome,modal,resizable", this.os);
-    logger.jslog = Preferences.getPref("extensions.trump.jslog");
-
+    var jslog = Preferences.getPref("extensions.trump.jslog");
+    if(jslog ==undefined){
+        jslog = true;
+    }
+    logger.jslog = jslog;
+    
     var elem = document.getElementById("logging-console");
     var elem = window.frames["logViewFrame"].document.getElementById("logging-console");
     if (elem != null) {
         var logWrap = Preferences.getPref("extensions.trump.logwrap");
+        if(logWrap == undefined){
+            logWrap = true;    
+        }
+
         if (logWrap) {
             elem.style.whiteSpace = "normal";
         } else {

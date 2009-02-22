@@ -19,7 +19,7 @@ button[myclass="myClass1"]{
 }
                                                         
 button[myclass="myClass2"]{
-     color: #330033;
+     color: #003366
 }
 
 button[myclass="myClass3"]{
@@ -27,7 +27,7 @@ button[myclass="myClass3"]{
 }
 
 button[myclass="myClass4"]{
-     color: #FFFF00;
+     color: #00FF00
 }
 
 .titled-splitte{
