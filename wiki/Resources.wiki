@@ -28,6 +28,7 @@
   * [http://testng.org/ TestNG]
   * [http://htmlunit.sourceforge.net HtmlUnit]
   * [http://www.jsunit.net/ JsUnit]
+  * [http://en.wikipedia.org/wiki/Behavior_Driven_Development Behavior Driven Development]
 
 == Tools ==
   
