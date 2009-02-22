@@ -1,5 +1,7 @@
+#summary Guide for the Reference Projects
 #labels Phase-Deploy,Featured,Phase-Support
-= Guide for the Reference Project =
+
+= Guide for the Reference Projects =
 
 == Introduction ==
 
