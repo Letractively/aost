@@ -1,4 +1,6 @@
+#summary Tellurium User Guide
 #labels Featured,Phase-Implementation
+
 = Tellurium User Guide =
 
 == Tellurium APIs ==
