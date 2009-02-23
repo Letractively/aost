@@ -225,6 +225,10 @@ After you click the "Generate" button, you can find the log message in Javascrip
 
 http://tellurium-users.googlegroups.com/web/ErrorConsole.png?gsc=ECfkzxYAAACkNoHhoJXKpjewPqNZCHesg-kXU5InE09W2o0GCSVgCQ
 
+== How TrUMP Works ==
+
+[http://code.google.com/p/aost/wiki/HowTrUMPWorks How TrUMP Works]
+
 == Known Issues ==
 
 The known issues include
