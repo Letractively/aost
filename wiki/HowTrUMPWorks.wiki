@@ -28,4 +28,4 @@ User should choose the appropriate attributes. But how to select attributes?
 
 After user clicks the "Save" button, the UI module is saved and the corresponding UI module source is updated automatically in the "Source" tab as shown in the following figure.
 
-http://tellurium-users.googlegroups.com/web/TrUMPCustomizedSource.png?gda=Des1l0sAAACXZPxEX7Ki-M5C2JpeBoXXTJUqAjHYSxXv6NWi-vE8yQl-ge40lZM5QmFCqlPrr94UUFmPu5RmzzCCYEsK7dk1BkXa90K8pT5MNmkW1w_4BQ&gsc=8bpDhBYAAADelCD9Y452tE9McTfxJEayg-kXU5InE09W2o0GCSVgCQ
+http://tellurium-users.googlegroups.com/web/CustomizedUIModuleSource.png?gda=7zGZ904AAACXZPxEX7Ki-M5C2JpeBoXXA82FCWBYNCpX_2n25rbNalAlSwAoF2mY9vkB9iR3-cmX3AsZqbUllDyREqDLbjbX47Cl1bPl-23V2XOW7kn5sQ&gsc=bZgR_wsAAABkmVcjJdAtJbsdYoUTRcP2
