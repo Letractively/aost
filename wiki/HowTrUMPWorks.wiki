@@ -5,22 +5,27 @@
 
 Tellurium UI Model Plugin (TrUMP) 0.1.0 will be out soon. You may wonder how TrUMP works. To make you better understand TrUMP, we like to explain a bit about the TrUMP implementation, which is shown as in the following diagram.
 
- http://tellurium-users.googlegroups.com/web/TrUMPDiagram.png?gda=IBhDd0IAAACXZPxEX7Ki-M5C2JpeBoXXKYlcbin6jkD4uckakcDc8vtXpJrTaqHt15X9LsoNgO5V4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=ZPMergsAAAA4z4zn6PrjP4diMW6KP3nz
+http://tellurium-users.googlegroups.com/web/TrUMPDiagram.png?gda=z9c6akIAAACXZPxEX7Ki-M5C2JpeBoXXNNsWUUeNpRmu8lZe2uRUO_tXpJrTaqHt15X9LsoNgO5V4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=7G1DIwsAAAA979IKua9Zpup1dtNhA4-P
 
-First, user clicks on the web and the corresponding UI element is pushed into an array. If user clicks the element one more time, the UI element is removed from the array. Once the user clicks on the "Generate" button, TrUMP generates an internal tree to represent the UI elements using a grouping algorithm. During the tree generating procedure, extra nodes are generated to group UI elements together based on their corresponding location on the web DOM tree. The internal tree is very useful and holds all original data that can be used for customization.
+First, user clicks on the web and the corresponding UI element is pushed into an array. If user clicks the element one more time, the UI element is removed from the array. 
 
-Once the internal tree is built, TrUMP starts to build the default UI module. That is to say, for each node in the internal tree, TrUMP generates a UI object based on its tag and if it is a parent node. There are some rules here,
+Once the user clicks on the "Generate" button, TrUMP does the following two steps: first, TrUMP generates an internal tree to represent the UI elements using a grouping algorithm. During the tree generating procedure, extra nodes are generated to group UI elements together based on their corresponding location on the web DOM tree. The internal tree is very useful and holds all original data that can be used for customization.
+
+Once the internal tree is built, TrUMP starts the second step, i.e., to build the default UI module. That is to say, for each node in the internal tree, TrUMP generates a UI object based on its tag and if it is a parent node. There are some rules here,
  
   # TrUMP uses a mapping rule to map the node to a UI object
-  # TrUMP uses a white list and only uses attributes in the white list in the UI object
+  # TrUMP uses a white list and only uses attributes in the white list to construct the UI object
   # Group option is turned off by default
 
-When user clicks on the "Customize" button and user clicks on an element, TrUMP lists all available optional attributes in the view as follows,
+When user clicks on the "Customize" button, TrUMP will pull out the original data hold in the internal tree and the current attributes utilized by the UI module to build the "Customize" view. When user clicks on an element, TrUMP lists all available optional attributes in the view as follows,
 
 http://tellurium-users.googlegroups.com/web/CustomizeDownloadUI.png?gda=VlIDLkkAAACXZPxEX7Ki-M5C2JpeBoXXPO9eiOgUctaZvXxBMxZ6QTMbZM5wSMyxXHKfFXT4v2f6WZzO_TE9YttwbhictT3lhAioEG5q2hncZWbpWmJ7IQ&gsc=ULe1FQsAAADS90EDiskdDnLGwxfR4hma
 
 User should choose the appropriate attributes. But how to select attributes?
   # If the UI element does not come with a red "X" mark, you can just leave it alone.
-  # Try to avoid attributes that may change. for example, CSS style.
+  # Try to avoid attributes that may change. for example, CSS style and position.
   # The header attribute includes relative xpath and try to avoid it unless it is necessary.
 
+After user clicks the "Save" button, the UI module is saved and the corresponding UI module source is updated automatically in the "Source" tab as shown in the following figure.
+
+http://tellurium-users.googlegroups.com/web/TrUMPCustomizedSource.png?gda=Des1l0sAAACXZPxEX7Ki-M5C2JpeBoXXTJUqAjHYSxXv6NWi-vE8yQl-ge40lZM5QmFCqlPrr94UUFmPu5RmzzCCYEsK7dk1BkXa90K8pT5MNmkW1w_4BQ&gsc=8bpDhBYAAADelCD9Y452tE9McTfxJEayg-kXU5InE09W2o0GCSVgCQ
