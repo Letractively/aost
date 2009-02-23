@@ -104,7 +104,7 @@
                     <!--separator class="thin"/-->
                     <!--splitter collapse="before" class="splitter" resizeafter="farthest"/-->
                     <!-- command editing -->
-                    <vbox id="uiObjectEdit" flex="1" >
+                    <vbox id="uiObjectEdit" flex="1" minwidth="200">
                         <hbox pack="center">
                             <button label="&show.label;" oncommand="window.editor.showNodeOnWeb()"/>
                             <button label="&save.label;" oncommand="window.editor.updateUiObject()"/>
