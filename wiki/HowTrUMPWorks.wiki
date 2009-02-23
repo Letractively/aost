@@ -52,3 +52,5 @@ The UI object consists of the following fields,
 After user clicks the "Save" button, the UI module is saved and the corresponding UI module source is updated automatically in the "Source" tab as shown in the following figure.
 
 http://tellurium-users.googlegroups.com/web/CustomizedUIModuleSource.png?gda=7zGZ904AAACXZPxEX7Ki-M5C2JpeBoXXA82FCWBYNCpX_2n25rbNalAlSwAoF2mY9vkB9iR3-cmX3AsZqbUllDyREqDLbjbX47Cl1bPl-23V2XOW7kn5sQ&gsc=bZgR_wsAAABkmVcjJdAtJbsdYoUTRcP2
+
+In the meanwhile, TrUMP will evaluate each UI element's xpath by the same way that Tellurium generates the runtime xpath from the UI module and check if the generated runtime xpath is unique in the current web page. If it is not unique, you will see a red "X" mark and you need to modify the element's attribute to make it disappear. If not red "X", you are done. You can export the generated UI module to a groovy file and start to write Tellurium tests based on the generated UI module.
