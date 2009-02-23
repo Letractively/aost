@@ -1,4 +1,6 @@
+#summary Resources Related to Tellurium
 #labels Phase-Support
+
 = Resources =
 
 == Languages ==
@@ -87,6 +89,9 @@
   * [http://www.javascriptkit.com/javatutors/redev2.shtml Javascript Regular Expressions patterns]
   * [http://www.regular-expressions.info/javascriptexample.html Javascript Regular Expression Tester]
   * [http://www.xml.com/pub/a/2004/09/01/tr.html Converting XML to RDF]
+  * [http://wiki.foochal.org/index.php/Maven_Selenium Maven Selenium]
+  * [http://mojo.codehaus.org/selenium-maven-plugin/examples/headless-with-xvfb.html Headless X11 with Xvfb] 
+  * [http://www.jroller.com/carlossg/entry/functional_testing_with_maven_cargo Functional testing with Maven, Cargo and Selenium]
 
 == Algorithms ==
 
