@@ -68,7 +68,7 @@
             <tabpanel orient="vertical" flex="1">
                 <stack>
                     <vbox flex="3">
-                        <tree id="recordTree" flex="1" rows="20" onselect="window.editor.selectedTreeItem() ">
+                        <tree id="recordTree" flex="1" rows="15" onselect="window.editor.selectedTreeItem() ">
                           <treecols>
                             <treecol id="selectedElement" label="&element.label;" flex="1"/>
                             <treecol id="selecetedElementName" label="&element.name.label;" flex="2"/>
