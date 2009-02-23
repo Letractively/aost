@@ -248,3 +248,4 @@ The following toturial series could be found in [http://groups.google.com/group/
   * [http://groups.google.com/group/tellurium-users/browse_thread/thread/7ebe2b9988a3299f Groovy Closure]
   * [http://groups.google.com/group/tellurium-users/browse_thread/thread/2c823f55abe5745f What TrUMP log can tell you]
   * [http://code.google.com/p/aost/wiki/LogicalContainer Logical Container, empty != nothing]
+  * [http://code.google.com/p/aost/wiki/HowTrUMPWorks How TrUMP works?]
