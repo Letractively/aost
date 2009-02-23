@@ -5,7 +5,7 @@
 
 Tellurium UI Model Plugin (TrUMP) 0.1.0 will be out soon. You may wonder how TrUMP works. To make you better understand TrUMP, we like to explain a bit about the TrUMP implementation, which is shown as in the following diagram.
 
-http://tellurium-users.googlegroups.com/web/TrUMPDiagram.png?gda=Md2zikIAAACXZPxEX7Ki-M5C2JpeBoXXU1pY-yAuybPm6RzuP3qkD_tXpJrTaqHt15X9LsoNgO5V4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=oaBhnQsAAACipU-xwyMgbblZTQhInPzz
+http://tellurium-users.googlegroups.com/web/TrUMPDiagram.png?gda=rTWjlUIAAACXZPxEX7Ki-M5C2JpeBoXXyCeWpY-bZ6aKw-b0YTCbUftXpJrTaqHt15X9LsoNgO5V4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=agyN3wsAAAAOrHs-a3SMZGTxZHwLoHz4
 
 First, user clicks on the web and the corresponding UI element is pushed into an array. If user clicks the element one more time, the UI element is removed from the array. 
 
