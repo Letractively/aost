@@ -230,6 +230,7 @@ In this tutorial, the following examples are provided:
 
 The following toturial series could be found in [http://groups.google.com/group/tellurium-users Tellurium User Group],
 
+  * [http://code.google.com/p/aost/wiki/HowToConvertSeleniumTestToTellurium How to convert selenium test cases to Tellurium test cases]
   * [http://groups.google.com/group/tellurium-users/browse_thread/thread/84dd00605209952d Tellurium objects and their default attributes]
   * [http://groups.google.com/group/tellurium-users/browse_thread/thread/3533be58a7feb4d3 Tellurium UiDslParser - What is the "ui."]
   * [http://groups.google.com/group/tellurium-users/browse_thread/thread/9c41abd6470cd697 The UID]
