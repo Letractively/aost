@@ -95,6 +95,13 @@
   * [http://www.jroller.com/carlossg/entry/functional_testing_with_maven_cargo Functional testing with Maven, Cargo and Selenium]
   * [http://www.grails.org/The+Plug-in+Developers+Guide The Grails Plug-in Developers Guide]
 
+== Cheat Sheets ==
+
+  * [http://techcheatsheets.com/tag/java/ Java Cheat Sheets]
+  * [http://refcardz.dzone.com/refcardz/groovy Groovy Cheat Sheet]
+  * [http://www.nbtconsulting.com/cheat-sheets/maven-cheat-sheet.html Maven 2 Cheat Sheet]
+  * [http://www.scribd.com/tag/cheatsheet More Cheat Sheets]
+
 == Algorithms ==
 
   * [http://en.wikipedia.org/wiki/Rete_algorithm Rete algorithm]
