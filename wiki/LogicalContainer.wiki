@@ -95,7 +95,7 @@ Container(uid: "tables", clocator:[:]){
 
 }}}
 
-If the tbody IDs are assigned dynamic at runtime, you can use position instead,
+If the tbody IDs are assigned dynamically at runtime, you can use the position attribute instead,
 
 {{{
 Container(uid: "tables", clocator:[:]){
