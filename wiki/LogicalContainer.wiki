@@ -16,6 +16,8 @@ Container(uid: "logical", clocator: [:]){
 
 But empty != nothing, there are some scenarios that the logical container can play an important role. The reason is the Container includes a uid for you to refer and it can logically group UI element together.
 
+=== Logically Grouping ===
+
 We can look at two typical examples. The first example comes from Harihara and he wants to use Tellurium List to represent the UI shown as follows,
 
 {{{
@@ -111,6 +113,9 @@ Container(uid: "tables", clocator:[:]){
 
 }}}
 
+Then, you can use "tables.first[i][j]" to reference the first table and "tables.second[i][j]" for the second one and so on. 
+
+=== Convert Selenium IDE test cases to Tellurium test cases ===
 
 Another usage of the logical Container is to convert the test case recorded by Selenium IDE to Tellurium test cases. Let us take the search UI on Tellurium download page as an example. 
 
