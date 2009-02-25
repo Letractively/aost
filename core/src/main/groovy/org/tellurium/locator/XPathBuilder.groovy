@@ -41,6 +41,14 @@ class XPathBuilder {
   //represent it is a partial match i.e., contains
   private static final String CONTAIN_PREFIX = "%%"
 
+  private static final String TAG = "tag"
+
+  private static final String POSITION = "position"
+
+  private static final String TEXT = "text"
+
+  private static final String SEPARATOR = "/"
+
   private static final int TYPICAL_LENGTH = 64
 
   // example xpaths
@@ -73,10 +81,10 @@ class XPathBuilder {
     StringBuffer sb = new StringBuffer(TYPICAL_LENGTH)
     sb.append(prefix)
     if (tag != null && (tag.length() > 0)) {
-      //if the tag is available, useString it
+      //if the tag is available, use it
       sb.append(tag)
     } else {
-      //otherwise, useString match all
+      //otherwise, use match all
       sb.append(MATCH_ALL)
     }
 
@@ -222,4 +230,44 @@ class XPathBuilder {
       return "@${name}=\"${trimed}\""
     }
   }
+
+  public static String buidXPathFromAttributes(Map<String, String> attributes) {
+    StringBuffer sb = new StringBuffer(TYPICAL_LENGTH)
+
+    List<String> list = new ArrayList<String>()
+
+    if (attributes != null && attributes.size() > 0) {
+      attributes.each {String key, value ->
+        if (TAG.equalsIgnoreCase(key)) {
+          String tag = value
+          if (tag == null || tag.length() == 0) {
+            tag = MATCH_ALL
+          }
+
+          sb.append(SEPARATOR).append(tag)
+        } else if (TEXT.equalsIgnoreCase(key)) {
+          String vText = buildText(value)
+          if (vText.length() > 0)
+            list.add(vText)
+        } else if (POSITION.equalsIgnoreCase(key)) {
+          String vPosition = buildPosition(value)
+          if (vPosition.length() > 0)
+            list.add(vPosition)
+        } else {
+          String vAttr = buildAttribute(key, value)
+          if (vAttr.length() > 0)
+            list.add(vAttr)
+
+        }
+      }
+    }
+
+    if (!list.isEmpty()) {
+      String attr = list.join(" and ")
+      sb.append("[").append(attr).append("]")
+    }
+
+    return sb.toString()
+  }
+
 }
