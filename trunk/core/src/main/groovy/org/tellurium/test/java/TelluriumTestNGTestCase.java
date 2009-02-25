@@ -1,10 +1,10 @@
 package org.tellurium.test.java;
 
-import org.tellurium.framework.TelluriumFramework;
-import org.tellurium.connector.SeleniumConnector;
 import org.tellurium.bootstrap.TelluriumSupport;
-import org.testng.annotations.BeforeClass;
+import org.tellurium.connector.SeleniumConnector;
+import org.tellurium.framework.TelluriumFramework;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 
 /**
  * Tellurium Test Case to support TestNG
@@ -21,7 +21,8 @@ public abstract class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase 
     public static void setUpForClass() {
         tellurium = TelluriumSupport.addSupport();
         tellurium.start();
-        connector = (SeleniumConnector) tellurium.getProperty("connector");
+//        connector = (SeleniumConnector) tellurium.getProperty("connector");
+        connector = (SeleniumConnector) tellurium.getConnector();
     }
 
     @AfterClass
