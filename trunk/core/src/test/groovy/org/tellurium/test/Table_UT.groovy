@@ -5,10 +5,7 @@ import org.tellurium.object.Button
 import org.tellurium.object.TextBox
 import org.tellurium.object.UiObject
 import org.tellurium.object.UrlLink
-import org.tellurium.test.Table1
-import org.tellurium.test.Table2
-import org.tellurium.test.Table3
-import org.tellurium.test.Table4
+import org.tellurium.test.*
 
 /**
  * Unit tests for Table
@@ -128,6 +125,16 @@ class Table_UT extends GroovyTestCase{
        UiObject obj = table8.ui.walkTo(context, "IdMenu[1][1")
        assertNotNull(obj)
        assertTrue(obj instanceof TextBox)
-       assertEquals("/div[@class='popup' and @id='pop_0']/descendant-or-self::table[descendant::*[normalize-space(text())=normalize-space(\"Sort Up\")] and descendant::*[normalize-space(text())=normalize-space(\"Sort Down\")] and descendant::*[normalize-space(text())=normalize-space(\"Hide Column\")]]/tbody/tr[child::td][1]/td[1]", context.getReferenceLocator())
+       assertEquals("/descendant-or-self::div[@class='popup' and @id='pop_0']/table[descendant::*[normalize-space(text())=normalize-space(\"Sort Up\")] and descendant::*[normalize-space(text())=normalize-space(\"Sort Down\")] and descendant::*[normalize-space(text())=normalize-space(\"Hide Column\")]]/tbody/tr[child::td][1]/td[1]", context.getReferenceLocator())
    }
+
+  void testTable9(){
+      Table9 table9 = new Table9()
+      table9.defineUi()
+       WorkflowContext context = WorkflowContext.getDefaultContext()
+       UiObject obj = table9.ui.walkTo(context, "IdMenu[1][1")
+       assertNotNull(obj)
+       assertTrue(obj instanceof TextBox)
+       assertEquals("/descendant-or-self::table[@id=\"someId\"]/tbody[@id=\"tbody1_Id\"]/tr[child::td][1]/td[1]", context.getReferenceLocator())     
+  }
 }
