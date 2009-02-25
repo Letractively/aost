@@ -12,17 +12,22 @@ import org.tellurium.object.UiObject
 
 class TableBuilder extends UiObjectBuilder{
 
-    protected static final String INCLUDE_TBODY = "tbody"
+  protected static final String TBODY = "tbody"
 
     def build(Map map, Closure closure) {
         //add default parameters so that the builder can use them if not specified
         def df = [:]
         df.put(TAG, Table.TAG)
-        Table table = this.internBuild(new Table(), map, df)
-        String includeTbody = map.get(INCLUDE_TBODY)
-        if (includeTbody != null && FALSE.equalsIgnoreCase(includeTbody)) {
-            table.tbody = ""
+
+        Map clocator = map.get(CLOCATOR)
+
+        Map tbody = null
+        if(clocator != null && clocator.size() > 0){
+            tbody = clocator.remove(TBODY)
         }
+        Table table = this.internBuild(new Table(), map, df)
+        table.setBodyAttributes(tbody)
+      
         if (closure)
             closure(table)
 

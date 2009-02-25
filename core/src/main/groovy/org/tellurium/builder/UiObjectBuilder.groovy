@@ -84,13 +84,13 @@ abstract class UiObjectBuilder{
         }
 
         if(map.get(LOCATOR) != null){
-            //useString base locator
+            //use base locator
             obj.locator = buildBaseLocator(map.get(LOCATOR))
         }else if (map.get(CLOCATOR) != null){
-            //useString composite locator, it must be a map
+            //use composite locator, it must be a map
             obj.locator = buildCompositeLocator(map.get(CLOCATOR), df)
         }else{
-            //useString default base Locator
+            //use default base Locator
             obj.locator = new BaseLocator()
         }
 
@@ -119,7 +119,7 @@ abstract class UiObjectBuilder{
             locator.direct = true
         
         locator.tag = map.get(TAG)
-        //useString default value  if TAG not specified
+        //use default value  if TAG not specified
         if(locator.tag == null && df != null)
             locator.tag = df.get(TAG)
 

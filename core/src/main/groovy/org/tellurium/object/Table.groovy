@@ -5,6 +5,9 @@ import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.locator.GroupLocateStrategy
 import org.tellurium.locator.LocatorProcessor
+import org.tellurium.locator.XPathBuilder
+import org.tellurium.object.Container
+import org.tellurium.object.TextBox
 import org.tellurium.object.UiObject
 
 /**
@@ -75,441 +78,387 @@ import org.tellurium.object.UiObject
  */
 
 
-class Table extends Container{
-     public static final String TAG = "table"
+class Table extends Container {
+  public static final String TAG = "table"
 
-     public static final String ID_SEPARATOR = ",";
-     public static final String ID_WILD_CASE = "*";
-     public static final String ID_FIELD_SEPARATOR = ":";
-     public static final String ALL_MATCH = "ALL";
-     public static final String ROW = "ROW";
-     public static final String COLUMN = "COLUMN";
-     public static final String HEADER = "HEADER";
-     public static final String TBODY = "/tbody"
-     protected TextBox defaultUi = new TextBox()
-     //add a map to hold all the header elements
+  public static final String ID_SEPARATOR = ",";
+  public static final String ID_WILD_CASE = "*";
+  public static final String ID_FIELD_SEPARATOR = ":";
+  public static final String ALL_MATCH = "ALL";
+  public static final String ROW = "ROW";
+  public static final String COLUMN = "COLUMN";
+  public static final String HEADER = "HEADER";
+  public static final String TBODY = "/tbody"
+  protected TextBox defaultUi = new TextBox()
+  //add a map to hold all the header elements
 
-     protected String tbody = TBODY
-    
-     def headers = [:]
+  protected String tbody = TBODY
 
-     @Override
-     def add(UiObject component){
-        if(validId(component.uid)){
-            if(component.uid.toUpperCase().trim().startsWith(HEADER)){
-                //this is a header
-                String internHeaderId = internalHeaderId(component.uid)
-                headers.put(internHeaderId, component)
-            }else{
-                //this is a regular element
-                String internId = internalId(component.uid)
-                components.put(internId, component)
-            }
-        }else{
-            System.out.println("Warning: Invalid id: ${component.uid}")
-        }
-     }
+  def headers = [:]
+  def bodyAttributes = [:]
 
-     public boolean hasHeader(){
-         return (headers.size() > 0)
-     }
+  @Override
+  def add(UiObject component) {
+    if (validId(component.uid)) {
+      if (component.uid.toUpperCase().trim().startsWith(HEADER)) {
+        //this is a header
+        String internHeaderId = internalHeaderId(component.uid)
+        headers.put(internHeaderId, component)
+      } else {
+        //this is a regular element
+        String internId = internalId(component.uid)
+        components.put(internId, component)
+      }
+    } else {
+      System.out.println("Warning: Invalid id: ${component.uid}")
+    }
+  }
 
-     public static String internalHeaderId(String id){
-         String[] parts = id.trim().split(ID_FIELD_SEPARATOR)
-         parts[0] = parts[0].trim()
-         parts[1] = parts[1].trim()
-         if(ID_WILD_CASE.equalsIgnoreCase(parts[1]) || ALL_MATCH.equalsIgnoreCase(parts[1]))
-            return "_ALL"
-         else
-            return "_${parts[1].toUpperCase()}"
-     }
+  public setBodyAttributes(Map attributes) {
+    if (attributes != null && attributes.size() > 0) {
+      this.bodyAttributes.putAll(attributes);
+    }
+    this.bodyAttributes.put("tag", "tbody")
+    this.tbody = this.getTBodyXPath()
+  }
 
-     //should validate the uid before call this to convert it to internal representation
-     public static String internalId(String id){
-        String row
-        String column
-         
-         //convert to upper case so that it is case insensitive
-        String upperId = id.trim().toUpperCase()
+  public String getTBodyXPath() {
 
-         //check match all case
-        if(ALL_MATCH.equals(upperId)){
+    return XPathBuilder.buidXPathFromAttributes(this.bodyAttributes)
+  }
+
+  public boolean hasHeader() {
+    return (headers.size() > 0)
+  }
+
+  public static String internalHeaderId(String id) {
+    String[] parts = id.trim().split(ID_FIELD_SEPARATOR)
+    parts[0] = parts[0].trim()
+    parts[1] = parts[1].trim()
+    if (ID_WILD_CASE.equalsIgnoreCase(parts[1]) || ALL_MATCH.equalsIgnoreCase(parts[1]))
+      return "_ALL"
+    else
+      return "_${parts[1].toUpperCase()}"
+  }
+
+  //should validate the uid before call this to convert it to internal representation
+  public static String internalId(String id) {
+    String row
+    String column
+
+    //convert to upper case so that it is case insensitive
+    String upperId = id.trim().toUpperCase()
+
+    //check match all case
+    if (ALL_MATCH.equals(upperId)) {
+      row = "ALL"
+      column = "ALL"
+
+      return "_${row}_${column}"
+    }
+
+    String[] parts = upperId.split(ID_SEPARATOR);
+
+    if (parts.length == 1) {
+      String[] fields = parts[0].trim().split(ID_FIELD_SEPARATOR)
+      fields[0] = fields[0].trim()
+      fields[1] = fields[1].trim()
+      if (ROW.equals(fields[0])) {
+        row = fields[1]
+        if (ID_WILD_CASE.equalsIgnoreCase(row))
+          row = "ALL"
+        column = "ALL"
+      }
+
+      if (COLUMN.equals(fields[0])) {
+        column = fields[1]
+        if (ID_WILD_CASE.equalsIgnoreCase(column))
+          column = "ALL"
+        row = "ALL"
+      }
+    } else {
+      for (int i = 0; i < 2; i++) {
+        String[] fields = parts[i].trim().split(ID_FIELD_SEPARATOR)
+        fields[0] = fields[0].trim()
+        fields[1] = fields[1].trim()
+        if (ROW.equals(fields[0])) {
+          row = fields[1]
+          if (ID_WILD_CASE.equals(row))
             row = "ALL"
+        }
+
+        if (COLUMN.equals(fields[0])) {
+          column = fields[1]
+          if (ID_WILD_CASE.equals(column))
             column = "ALL"
-
-            return "_${row}_${column}"
         }
-
-        String[] parts = upperId.split(ID_SEPARATOR);
-
-        if(parts.length == 1){
-           String[] fields = parts[0].trim().split(ID_FIELD_SEPARATOR)
-           fields[0] = fields[0].trim()
-           fields[1] = fields[1].trim()
-           if(ROW.equals(fields[0])){
-               row = fields[1]
-               if(ID_WILD_CASE.equalsIgnoreCase(row))
-                row = "ALL"
-               column = "ALL"
-           }
-
-           if(COLUMN.equals(fields[0])){
-               column = fields[1]
-               if(ID_WILD_CASE.equalsIgnoreCase(column))
-                column = "ALL"
-               row = "ALL"
-           }
-        }else{
-           for(int i=0; i<2; i++){
-             String[] fields = parts[i].trim().split(ID_FIELD_SEPARATOR)
-             fields[0] = fields[0].trim()
-             fields[1] = fields[1].trim()
-             if(ROW.equals(fields[0])){
-               row = fields[1]
-               if(ID_WILD_CASE.equals(row))
-                row = "ALL"
-             }
-
-             if(COLUMN.equals(fields[0])){
-               column = fields[1]
-               if(ID_WILD_CASE.equals(column))
-                column = "ALL"
-             }             
-           }
-        }
-
-        return "_${row}_${column}"
-     }
-
-    public UiObject findHeaderUiObject(int index) {
-        //first check _i format
-        String key = "_${index}"
-        UiObject obj = headers.get(key)
-
-        //then, check _ALL format
-        if (obj == null) {
-            key = "_ALL"
-            obj = headers.get(key)
-        }
-
-        return obj
+      }
     }
 
-    public UiObject findUiObject(int row, int column) {
+    return "_${row}_${column}"
+  }
 
-        //first check _i_j format
-        String key = "_${row}_${column}"
-        UiObject obj = components.get(key)
+  public UiObject findHeaderUiObject(int index) {
+    //first check _i format
+    String key = "_${index}"
+    UiObject obj = headers.get(key)
 
-        //then, check _ALL_j format
-        if (obj == null) {
-            key = "_ALL_${column}"
-            obj = components.get(key)
-        }
-
-        //thirdly, check _i_ALL format
-        if (obj == null) {
-            key = "_${row}_ALL"
-            obj = components.get(key)
-        }
-
-        //last, check ALL format
-        if (obj == null) {
-            key = "_ALL_ALL"
-            obj = components.get(key)
-        }
-
-        return obj
+    //then, check _ALL format
+    if (obj == null) {
+      key = "_ALL"
+      obj = headers.get(key)
     }
 
-    public boolean validId(String id) {
-        //UID cannot be empty
-        if (id == null || (id.trim().length() <= 0))
-            return false
+    return obj
+  }
 
-        //convert to upper case so that it is case insensitive
-        String upperId = id.trim().toUpperCase()
-        //check if this object is for the header in the format of
-        // "header: 2", "header: all"
-        if (upperId.startsWith(HEADER)) {
-            return validateHeader(id)
-        }
+  public UiObject findUiObject(int row, int column) {
 
-        //check match all case
-        if (ALL_MATCH.equals(upperId))
-            return true
+    //first check _i_j format
+    String key = "_${row}_${column}"
+    UiObject obj = components.get(key)
 
-        String[] parts = upperId.split(ID_SEPARATOR)
-        //should not be more than two parts, i.e., column part and row part
-        if (parts.length > 2)
-            return false
-
-        if (parts.length <= 1) {
-            //If only one part is specified
-            return validateField(parts[0])
-        } else {
-            return validateField(parts[0]) && validateField(parts[1])
-        }
-
+    //then, check _ALL_j format
+    if (obj == null) {
+      key = "_ALL_${column}"
+      obj = components.get(key)
     }
 
-    protected boolean validateHeader(String id) {
-        if (id == null || (id.trim().length() <= 0))
-            return false
-
-        String[] parts = id.trim().split(ID_FIELD_SEPARATOR)
-        if (parts.length != 2)
-            return false
-
-        parts[0] = parts[0].trim()
-        parts[1] = parts[1].trim()
-
-        if (!HEADER.equalsIgnoreCase(parts[0]))
-            return false
-
-        //check the template, which could either be "*", "all", or numbers
-        if (ID_WILD_CASE.equalsIgnoreCase(parts[1]) || ALL_MATCH.equalsIgnoreCase(parts[1]))
-            return true
-        else {
-            return (parts[1] ==~ /[0-9]+/)
-        }
+    //thirdly, check _i_ALL format
+    if (obj == null) {
+      key = "_${row}_ALL"
+      obj = components.get(key)
     }
 
-    protected boolean validateField(String field) {
-        if (field == null || (field.trim().length() <= 0))
-            return false
-
-        String[] parts = field.trim().split(ID_FIELD_SEPARATOR)
-        if (parts.length != 2)
-            return false
-
-        parts[0] = parts[0].trim()
-        parts[1] = parts[1].trim()
-
-        //must start with "ROW" or "COLUMN"
-        if (!ROW.equals(parts[0]) && !COLUMN.equals(parts[0]))
-            return false
-
-        if (ID_WILD_CASE.equals(parts[1]) )
-            return true
-        else {
-            return (parts[1] ==~ /[0-9]+/)
-        }
+    //last, check ALL format
+    if (obj == null) {
+      key = "_ALL_ALL"
+      obj = components.get(key)
     }
 
-    protected String getCellLocator(int row, int column) {
-/*      String table_cell_loc =
+    return obj
+  }
 
-       if (hasHeader()) {
-            //if we have header, need to increase the row number by one
-            table_cell_loc = "/tbody/tr[${row + 1}]/td[${column}]"
-        } else {
-            table_cell_loc = "/tbody/tr[${row}]/td[${column}]"
-        }
+  public boolean validId(String id) {
+    //UID cannot be empty
+    if (id == null || (id.trim().length() <= 0))
+      return false
 
-        return table_cell_loc
-        */
-        return tbody + "/tr[child::td][${row}]/td[${column}]"
+    //convert to upper case so that it is case insensitive
+    String upperId = id.trim().toUpperCase()
+    //check if this object is for the header in the format of
+    // "header: 2", "header: all"
+    if (upperId.startsWith(HEADER)) {
+      return validateHeader(id)
     }
 
-    protected String getHeaderLocator(int column) {
+    //check match all case
+    if (ALL_MATCH.equals(upperId))
+      return true
+
+    String[] parts = upperId.split(ID_SEPARATOR)
+    //should not be more than two parts, i.e., column part and row part
+    if (parts.length > 2)
+      return false
+
+    if (parts.length <= 1) {
+      //If only one part is specified
+      return validateField(parts[0])
+    } else {
+      return validateField(parts[0]) && validateField(parts[1])
+    }
+
+  }
+
+  protected boolean validateHeader(String id) {
+    if (id == null || (id.trim().length() <= 0))
+      return false
+
+    String[] parts = id.trim().split(ID_FIELD_SEPARATOR)
+    if (parts.length != 2)
+      return false
+
+    parts[0] = parts[0].trim()
+    parts[1] = parts[1].trim()
+
+    if (!HEADER.equalsIgnoreCase(parts[0]))
+      return false
+
+    //check the template, which could either be "*", "all", or numbers
+    if (ID_WILD_CASE.equalsIgnoreCase(parts[1]) || ALL_MATCH.equalsIgnoreCase(parts[1]))
+      return true
+    else {
+      return (parts[1] ==~ /[0-9]+/)
+    }
+  }
+
+  protected boolean validateField(String field) {
+    if (field == null || (field.trim().length() <= 0))
+      return false
+
+    String[] parts = field.trim().split(ID_FIELD_SEPARATOR)
+    if (parts.length != 2)
+      return false
+
+    parts[0] = parts[0].trim()
+    parts[1] = parts[1].trim()
+
+    //must start with "ROW" or "COLUMN"
+    if (!ROW.equals(parts[0]) && !COLUMN.equals(parts[0]))
+      return false
+
+    if (ID_WILD_CASE.equals(parts[1]))
+      return true
+    else {
+      return (parts[1] ==~ /[0-9]+/)
+    }
+  }
+
+  protected String getCellLocator(int row, int column) {
+
+    return tbody + "/tr[child::td][${row}]/td[${column}]"
+  }
+
+  protected String getHeaderLocator(int column) {
 
 //        return "/tbody/tr[1]/th[${column}]"
-        return tbody + "/tr[child::th]/th[${column}]"
-    }
+    return tbody + "/tr[child::th]/th[${column}]"
+  }
 
-    int getTableHeaderColumnNum(Closure c) {
-/*
-        int column = 1
+  int getTableHeaderColumnNum(Closure c) {
 
-        String rl = c(this.locator)
-        Accessor accessor = new Accessor()
-
-        while (accessor.isElementPresent(rl + getHeaderLocator(column))) {
-            column++
-        }
-
-        column--
-
-        return column
-        */
-
-        String rl = c(this.locator)
-        Accessor accessor = new Accessor()
+    String rl = c(this.locator)
+    Accessor accessor = new Accessor()
 //        String xpath = rl + "/tbody/tr[1]/th"
-        String xpath = rl + tbody + "/tr[child::th]/th"
-        int columnum = accessor.getXpathCount(xpath)
+    String xpath = rl + tbody + "/tr[child::th]/th"
+    int columnum = accessor.getXpathCount(xpath)
 
-        return columnum
+    return columnum
+  }
+
+  int getTableMaxRowNum(Closure c) {
+
+    String rl = c(this.locator)
+    Accessor accessor = new Accessor()
+    String xpath = rl + tbody + "/tr[child::td]/td[1]"
+    int rownum = accessor.getXpathCount(xpath)
+
+    return rownum
+  }
+
+  int getTableMaxColumnNum(Closure c) {
+
+    String rl = c(this.locator)
+    Accessor accessor = new Accessor()
+    String xpath = rl
+
+    xpath = xpath + tbody + "/tr[child::td][1]/td"
+    int columnum = accessor.getXpathCount(xpath)
+
+    return columnum
+  }
+
+  //walk to a regular UI element in the table
+  protected walkToElement(WorkflowContext context, UiID uiid) {
+    String child = uiid.pop()
+    String[] parts = child.replaceFirst('_', '').split("_")
+
+    int nrow = Integer.parseInt(parts[0])
+    int ncolumn = Integer.parseInt(parts[1])
+    //otherwise, try to find its child
+    UiObject cobj = this.findUiObject(nrow, ncolumn)
+
+    //If cannot find the object as the object template, return the TextBox as the default object
+    if (cobj == null) {
+      cobj = this.defaultUi
     }
 
-    int getTableMaxRowNum(Closure c) {
-/*        int row = 1
-        int column = 1
-
-        String rl = c(this.locator)
-
-        Accessor accessor = new Accessor()
-
-        while (accessor.isElementPresent(rl + getCellLocator(row, column))) {
-            row++
-        }
-
-        row--
-
-        return row
-        */
-
-        String rl = c(this.locator)
-        Accessor accessor = new Accessor()
-        String xpath = rl + tbody + "/tr[child::td]/td[1]"
-        int rownum = accessor.getXpathCount(xpath)
-
-        return rownum
+    //update reference locator by append the relative locator for this container
+    if (this.locator != null) {
+      if (this.useGroupInfo) {
+        //need to useString group information to help us locate the container xpath
+        context.appendReferenceLocator(GroupLocateStrategy.locate(this))
+      } else {
+        //do not useString the group information, process as regular
+        def lp = new LocatorProcessor()
+        context.appendReferenceLocator(lp.locate(this.locator))
+      }
     }
 
-    int getTableMaxColumnNum(Closure c) {
-        /*
-        int row = 1
-        int column = 1
-        String rl = c(this.locator)
-        Accessor accessor = new Accessor()
+    //append relative location, i.e., row, column to the locator
+    String loc = tbody + "/tr[child::td][${nrow}]/td[${ncolumn}]"
 
-        while (accessor.isElementPresent(rl + getCellLocator(row, column))) {
-            column++
-        }
+    context.appendReferenceLocator(loc)
 
-        column--
-
-        return column
-        */
-
-        String rl = c(this.locator)
-        Accessor accessor = new Accessor()
-        String xpath = rl 
-/*
-        if (hasHeader()) {
-            //if we have header, need to increase the row number by one
-            xpath = xpath + "/tbody/tr[2]/td"
-        } else {
-            xpath = xpath + "/tbody/tr[1]/td"
-        }
-*/
-        xpath = xpath + tbody + "/tr[child::td][1]/td"
-        int columnum = accessor.getXpathCount(xpath)
-
-        return columnum
+    if (uiid.size() < 1) {
+      //not more child needs to be found
+      return cobj
+    } else {
+      //recursively call walkTo until the object is found
+      return cobj.walkTo(context, uiid)
     }
 
-    //walk to a regular UI element in the table
-    protected walkToElement(WorkflowContext context, UiID uiid) {
-        String child = uiid.pop()
-        String[] parts = child.replaceFirst('_', '').split("_")
+  }
 
-        int nrow = Integer.parseInt(parts[0])
-        int ncolumn = Integer.parseInt(parts[1])
-        //otherwise, try to find its child
-        UiObject cobj = this.findUiObject(nrow, ncolumn)
+  //walk to a header UI element in the table
+  protected walkToHeader(WorkflowContext context, UiID uiid) {
+    //pop up the "header" indicator
+    uiid.pop()
+    //reach the actual uiid for the header element
+    String child = uiid.pop()
 
-        //If cannot find the object as the object template, return the TextBox as the default object
-        if (cobj == null) {
-            cobj = this.defaultUi
-        }
+    child = child.replaceFirst('_', '')
+    int index = Integer.parseInt(child.trim())
 
-        //update reference locator by append the relative locator for this container
-        if (this.locator != null) {
-            if (this.useGroupInfo) {
-                //need to useString group information to help us locate the container xpath
-                context.appendReferenceLocator(GroupLocateStrategy.locate(this))
-            } else {
-                //do not useString the group information, process as regular
-                def lp = new LocatorProcessor()
-                context.appendReferenceLocator(lp.locate(this.locator))
-            }
-        }
+    //try to find its child
+    UiObject cobj = this.findHeaderUiObject(index)
 
-        //append relative location, i.e., row, column to the locator
-        String loc = tbody + "/tr[child::td][${nrow}]/td[${ncolumn}]"
-/*
-        String loc
-        if (hasHeader()) {
-            loc = "/tbody/tr[${nrow + 1}]/td[${ncolumn}]"
-        } else {
-            loc = "/tbody/tr[${nrow}]/td[${ncolumn}]"
-        }
-*/
-
-        context.appendReferenceLocator(loc)
-
-        if (uiid.size() < 1) {
-            //not more child needs to be found
-            return cobj
-        } else {
-            //recursively call walkTo until the object is found
-            return cobj.walkTo(context, uiid)
-        }
-
+    //If cannot find the object as the object template, return the TextBox as the default object
+    if (cobj == null) {
+      cobj = this.defaultUi
     }
 
-    //walk to a header UI element in the table
-    protected walkToHeader(WorkflowContext context, UiID uiid) {
-        //pop up the "header" indicator
-        uiid.pop()
-        //reach the actual uiid for the header element
-        String child = uiid.pop()
+    //update reference locator by append the relative locator for this container
+    if (this.locator != null) {
+      if (this.useGroupInfo) {
+        //need to useString group information to help us locate the container xpath
+        context.appendReferenceLocator(GroupLocateStrategy.locate(this))
+      } else {
+        //do not useString the group information, process as regular
+        def lp = new LocatorProcessor()
+        context.appendReferenceLocator(lp.locate(this.locator))
+      }
+    }
 
-        child = child.replaceFirst('_', '')
-        int index = Integer.parseInt(child.trim())
-
-        //try to find its child
-        UiObject cobj = this.findHeaderUiObject(index)
-
-        //If cannot find the object as the object template, return the TextBox as the default object
-        if (cobj == null) {
-            cobj = this.defaultUi
-        }
-
-        //update reference locator by append the relative locator for this container
-        if (this.locator != null) {
-            if (this.useGroupInfo) {
-                //need to useString group information to help us locate the container xpath
-                context.appendReferenceLocator(GroupLocateStrategy.locate(this))
-            } else {
-                //do not useString the group information, process as regular
-                def lp = new LocatorProcessor()
-                context.appendReferenceLocator(lp.locate(this.locator))
-            }
-        }
-
-        //append relative location, i.e., row, column to the locator
+    //append relative location, i.e., row, column to the locator
 //        String loc = "/tbody/tr[1]/th[${index}]"
-        String loc = tbody + "/tr[child::th]/th[${index}]"
-        context.appendReferenceLocator(loc)
+    String loc = tbody + "/tr[child::th]/th[${index}]"
+    context.appendReferenceLocator(loc)
 
-        if (uiid.size() < 1) {
-            //not more child needs to be found
-            return cobj
-        } else {
-            //recursively call walkTo until the object is found
-            return cobj.walkTo(context, uiid)
-        }
-
+    if (uiid.size() < 1) {
+      //not more child needs to be found
+      return cobj
+    } else {
+      //recursively call walkTo until the object is found
+      return cobj.walkTo(context, uiid)
     }
 
-    //walkTo through the object tree to until the UI object is found by the UID from the stack
-    @Override
-    public UiObject walkTo(WorkflowContext context, UiID uiid) {
+  }
 
-        //if not child listed, return itself
-        if (uiid.size() < 1)
-            return this
+  //walkTo through the object tree to until the UI object is found by the UID from the stack
+  @Override
+  public UiObject walkTo(WorkflowContext context, UiID uiid) {
 
-        String child = uiid.peek()
+    //if not child listed, return itself
+    if (uiid.size() < 1)
+      return this
 
-        if (child.trim().equalsIgnoreCase(HEADER)) {
-            return walkToHeader(context, uiid)
-        } else {
-            return walkToElement(context, uiid)
-        }
+    String child = uiid.peek()
+
+    if (child.trim().equalsIgnoreCase(HEADER)) {
+      return walkToHeader(context, uiid)
+    } else {
+      return walkToElement(context, uiid)
     }
+  }
 }
