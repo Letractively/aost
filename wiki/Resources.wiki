@@ -97,6 +97,8 @@
   * [http://maven.apache.org/pom.html POM Reference]
   * [http://groovy.codehaus.org/GMaven+-+Implementing+Maven+Plugins GMaven - Implementing Maven Plugins]
   * [http://css.dzone.com/news/rapid-web-application-prototyp Rapid Web Application Prototyping with Maven and Groovy]
+  * [http://maven.apache.org/guides/mini/guide-creating-archetypes.html Guide to Creating Archetypes]
+  * [http://maven.apache.org/general.html Maven FAQ]
 
 == Cheat Sheets ==
 
