@@ -250,6 +250,9 @@ class XPathBuilder {
           if (vText.length() > 0)
             list.add(vText)
         } else if (POSITION.equalsIgnoreCase(key)) {
+          if (value != null && value.isInteger()) {
+            value = Integer.parseInt(value)
+          }
           String vPosition = buildPosition(value)
           if (vPosition.length() > 0)
             list.add(vPosition)
