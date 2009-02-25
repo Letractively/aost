@@ -51,7 +51,7 @@ class XPathBuilder_UT extends GroovyTestCase{
     result = XPathBuilder.buidXPathFromAttributes(attributes)
     assertEquals("/tbody[normalize-space(text())=normalize-space(\"goodwill\")]", result)
 
-    attributes.put("position", 3)
+    attributes.put("position", "3")
     result = XPathBuilder.buidXPathFromAttributes(attributes)
     assertEquals("/tbody[normalize-space(text())=normalize-space(\"goodwill\") and position()=3]", result)
 
