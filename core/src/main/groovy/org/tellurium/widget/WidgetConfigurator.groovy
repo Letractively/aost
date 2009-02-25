@@ -1,7 +1,8 @@
 package org.tellurium.widget
 
-import org.tellurium.config.Configurable
 import org.tellurium.builder.UiObjectBuilderRegistry
+import org.tellurium.config.Configurable
+import org.tellurium.widget.WidgetBootstrap
 
 /**
  * Configure widgets
@@ -44,7 +45,7 @@ class WidgetConfigurator implements Configurable{
             return trimed
         }else{
             //use the name conversion org.tellurium.widget.MODULE.Init
-            //where Bootstrape should implement the interface WidgetBootstrap
+            //where Bootstrap should implement the interface WidgetBootstrap
             return "org.tellurium.widget.${trimed}.Init"
         }        
     }

@@ -1,7 +1,7 @@
 package org.tellurium.builder
 
+import org.tellurium.builder.UiObjectBuilder
 import org.tellurium.object.RadioButton
-import org.tellurium.locator.BaseLocator
 
 /**
  *  Radio Button Builder
@@ -15,7 +15,7 @@ class RadioButtonBuilder extends UiObjectBuilder{
         //add default parameters so that the builder can useString them if not specified
         def df = [:]
         df.put(TAG, RadioButton.TAG)
-        df.put(TYPE, RadioButton.TAG)
+        df.put(TYPE, RadioButton.TYPE)
         RadioButton radiobutton = this.internBuild(new RadioButton(), map, df)
 
         return radiobutton
