@@ -94,6 +94,9 @@
   * [http://mojo.codehaus.org/selenium-maven-plugin/examples/headless-with-xvfb.html Headless X11 with Xvfb] 
   * [http://www.jroller.com/carlossg/entry/functional_testing_with_maven_cargo Functional testing with Maven, Cargo and Selenium]
   * [http://www.grails.org/The+Plug-in+Developers+Guide The Grails Plug-in Developers Guide]
+  * [http://maven.apache.org/pom.html POM Reference]
+  * [http://groovy.codehaus.org/GMaven+-+Implementing+Maven+Plugins GMaven - Implementing Maven Plugins]
+  * [http://css.dzone.com/news/rapid-web-application-prototyp Rapid Web Application Prototyping with Maven and Groovy]
 
 == Cheat Sheets ==
 
