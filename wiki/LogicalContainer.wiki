@@ -63,6 +63,55 @@ ui.Container(uid: "content", clocator: [tag: "div", class: "block_content"]){
 } 
 }}}
 
+dominicm provided another good example, i.e., a table with multiple tbody elements as follows,
+
+{{{
+<table id="someId">
+  <tbody id="tbody1_Id>
+     <tr><td></td></tr>
+     <tr><td></td></tr>
+   <tbody id="tbody2_Id>
+      <tr><td></td></tr>
+      <tr><td></td></tr>
+   <tbody id="tbody3_Id>
+       <tr><td></td></tr>
+       <tr><td></td></tr>
+
+}}}
+
+You could use the logical Container to describe it as
+
+{{{
+Container(uid: "tables", clocator:[:]){
+     Table(uid: "first", clocator: [id: "someId", tbody: [id: "tbody1_Id"]]){
+          ......
+      }
+     Table(uid: "second", clocator: [id: "someId", tbody: [id: "tbody2_Id"]]){
+          ......
+      }
+
+      ...
+}
+
+}}}
+
+If the tbody IDs are assigned dynamic at runtime, you can use position instead,
+
+{{{
+Container(uid: "tables", clocator:[:]){
+     Table(uid: "first", clocator: [id: "someId", tbody: [position: "1"]]){
+          ......
+      }
+     Table(uid: "second", clocator: [id: "someId", tbody: [position: "2"]]){
+          ......
+      }
+
+      ...
+} 
+
+}}}
+
+
 Another usage of the logical Container is to convert the test case recorded by Selenium IDE to Tellurium test cases. Let us take the search UI on Tellurium download page as an example. 
 
 First, I recorded the following Selenium test case using Selenium IDE,
@@ -122,7 +171,7 @@ public class TelluriumDownloadPageTestCase extends TelluriumJavaTestCase {
     @Test
     public void testSearchDownload(){
         connectUrl("http://code.google.com/p/aost/downloads/list");
-        ngsp.searchDownload(" All Downloads", "TrUMP");
+        ngsp.searchDownload(" All Downloads", "TrUMP");
     }
 }
 }}}
