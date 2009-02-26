@@ -484,6 +484,23 @@ Table is a type of Container and thus, it can use the Group Locating feature. Ta
   * int getTableMaxRowNum()
   * int getTableMaxColumnNum()
 
+From Tellurium 0.6.0, you can also specify the tbody attribute for the Table object and this may be helpful if you have multiple tbody elements inside a single table tab. For example, you can specify tbody as follows,
+
+{{{
+Container(uid: "tables", clocator:[:]){
+     Table(uid: "first", clocator: [id: "someId", tbody: [position: "1"]]){
+          ......
+      }
+     Table(uid: "second", clocator: [id: "someId", tbody: [position: "2"]]){
+          ......
+      }
+
+      ...
+
+} 
+
+}}}
+
 === List ===
 
 List is also a Container type abstract Ui object and it can be used to represent any list like Ui objects. Very much like Table, users can define Ui templates for List and following rule of "the special case first and then the general case". The index number is  used to specify an element and "all" is used to match all elements in the List. List also uses TextBox as the default Ui if no template could be found. Since List is a Container type, it can use the Group Locating feature.
