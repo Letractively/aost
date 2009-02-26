@@ -10,6 +10,7 @@ class GoogleStartPageGroovyTestCase extends TelluriumGroovyTestCase{
     }
 
     public void setUp(){
+        setCustomConfig(true, 5555, "*chrome", true, null)
         setUpForClass()
     }
 

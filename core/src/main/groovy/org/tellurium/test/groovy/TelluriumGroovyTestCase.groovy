@@ -1,8 +1,9 @@
 package org.tellurium.test.groovy
 
-import org.tellurium.connector.SeleniumConnector
 import org.tellurium.bootstrap.TelluriumSupport
+import org.tellurium.connector.SeleniumConnector
 import org.tellurium.framework.TelluriumFramework
+import org.tellurium.test.groovy.BaseTelluriumGroovyTestCase
 
 /**
  * This test case only applies to a standalone test case which will be run by itself. Should not use
@@ -28,7 +29,7 @@ class TelluriumGroovyTestCase extends BaseTelluriumGroovyTestCase{
 //    @BeforeClass
     protected void setUpForClass() {
         aost = TelluriumSupport.addSupport()
-        aost.start()
+        aost.start(customConfig)
         connector = aost.connector
         initUi()
     }
