@@ -373,7 +373,25 @@ Most media players should support ogg format, if you cannot find a media player 
 
 http://www.videolan.org/vlc/
 
-=== Q37: How to overwrite Tellurium settings in my test class ===
+=== Q37: How do I use a Firefox profile in Tellurium ===
+
+You can specify the profile in Tellurium Configuration file TelluriumConfig.groovy as follows,
+
+{{{
+ embeddedserver {
+       //port number
+       port = "4444"
+       //whether to use multiple windows
+       useMultiWindows = false
+       //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
+       runInternally = true
+       //profile location
+       profile = ""
+   }
+}}}
+
+=== Q38: How to overwrite Tellurium settings in my test class ===
+
 TelluriumConfig.groovy acts like a global setting file if you do not want to manually change it. Now, the  BaseTelluriumJavaTestCase provides two methods for you to overwrite the default settings,
 
 {{{
