@@ -13,6 +13,9 @@ import static org.testng.Assert.assertEquals;
  *
  */
 public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
+    static{
+        setCustomConfig(true, 5555, "*chrome", true, null);
+    }
 
     protected static NewGoogleStartPage ngsp;
 
