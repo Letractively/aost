@@ -1,7 +1,8 @@
 package org.tellurium.server
 
-import org.tellurium.util.Helper
 import org.tellurium.config.Configurable
+import org.tellurium.server.SeleniumServerDaemon
+import org.tellurium.util.Helper
 
 /**
  * Embedded Selenium Server and will be running as a daemon thread
@@ -24,6 +25,8 @@ class EmbeddedSeleniumServer implements Configurable{
 
 	protected boolean runSeleniumServerInternally = true;
 
+    protected String profileLocation = null;
+
     public final boolean isUseMultiWindows() {
 		return useMultiWindows;
 	}
@@ -31,7 +34,7 @@ class EmbeddedSeleniumServer implements Configurable{
     public void setUpSeleniumServer(){
 
 		try {
-			daemon = new SeleniumServerDaemon (port, logFile, useMultiWindows);
+			daemon = new SeleniumServerDaemon (port, logFile, useMultiWindows, this.profileLocation);
 			daemon.run();
             Helper.pause(serverDelayInSeconds*1000)
 		} catch (Exception e) {
