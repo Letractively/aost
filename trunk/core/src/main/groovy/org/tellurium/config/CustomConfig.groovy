@@ -1,4 +1,4 @@
-package org.tellurium.config;
+package org.tellurium.config
 
 /**
  * Class for users to pass in custom settings
@@ -10,6 +10,7 @@ package org.tellurium.config;
  */
 
 public class CustomConfig {
+
     protected boolean useMultiWindows = false;
 
     protected int port = 4444;
