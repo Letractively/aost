@@ -113,7 +113,7 @@ class TelluriumFramework {
       server.setProperty("port", customConfig.getPort())
       server.setProperty("useMultiWindows", customConfig.isUseMultiWindows())
       server.setProperty("profileLocation", customConfig.getProfileLocation())
-      println "Overwrite Selenium server settings with custom configuration"
+      println "Overwrite Selenium server settings with custom configurations"
 
       server.runSeleniumServer()
 
@@ -127,7 +127,7 @@ class TelluriumFramework {
         //only overwrite the server host if it is set
         connector.setProperty("seleniumServerHost", customConfig.getServerHost())
       }
-      println "Overwrite Selenium connector settings with custom configuration"
+      println "Overwrite Selenium connector settings with custom configurations"
 
       connector.connectSeleniumServer()
 
