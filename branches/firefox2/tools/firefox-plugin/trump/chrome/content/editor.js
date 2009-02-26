@@ -170,7 +170,6 @@ Editor.prototype.customizeButton = function(){
             button.setAttribute("oncommand", "window.editor.processCustomizeEvent(event)");
 
             var label = document.createElement("label");
-            logger.debug("label : " + custNode.valid);
             label.setAttribute("style", "color:red");
             label.setAttribute("align", "right");
             label.setAttribute("value", custNode.valid);

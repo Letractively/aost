@@ -9,7 +9,7 @@ function UiType() {
     }
 
     this.map = new HashMap();
-    this.map.set("divN", "DIV");
+    this.map.set("divN", "Div");
     this.map.set("divY", "Container");
     this.map.set("aN", "UrlLink");
     this.map.set("aY", "Container");
