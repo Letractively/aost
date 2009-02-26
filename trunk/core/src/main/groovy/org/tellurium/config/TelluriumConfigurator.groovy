@@ -3,6 +3,8 @@ package org.tellurium.config
 import org.tellurium.access.Accessor
 import org.tellurium.builder.UiObjectBuilder
 import org.tellurium.builder.UiObjectBuilderRegistry
+import org.tellurium.config.Configurable
+import org.tellurium.config.Configurator
 import org.tellurium.config.TelluriumConfigParser
 import org.tellurium.connector.SeleniumConnector
 import org.tellurium.ddt.DataProvider
@@ -11,10 +13,8 @@ import org.tellurium.ddt.object.mapping.io.PipeDataReader
 import org.tellurium.dispatch.Dispatcher
 import org.tellurium.event.EventHandler
 import org.tellurium.server.EmbeddedSeleniumServer
-import org.tellurium.test.helper.*
 import org.tellurium.widget.WidgetConfigurator
-
-
+import org.tellurium.test.helper.*
 
 /**
  * Tellurium Configurator
@@ -30,6 +30,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
         server.setProperty("port", Integer.parseInt(conf.tellurium.embeddedserver.port))
         server.setProperty("useMultiWindows", conf.tellurium.embeddedserver.useMultiWindows)
         server.setProperty("runSeleniumServerInternally", conf.tellurium.embeddedserver.runInternally)
+        server.setProperty("profileLocation", conf.tellurium.embeddedserver.profile)
     }
 
     protected void configEmbeededServerDefaultValues(EmbeddedSeleniumServer server){

@@ -1,7 +1,7 @@
 package org.tellurium.server
 
 import org.openqa.selenium.server.RemoteControlConfiguration
-import org.openqa.selenium.server.SeleniumServer;
+import org.openqa.selenium.server.SeleniumServer
 
 /**
  * Programmatically run Selenium Server so that we do not have to
@@ -28,6 +28,8 @@ public class SeleniumServerDaemon {
 
     private SeleniumServer server;
 
+    private String profileLocation = null;
+
     private String [] getParams(){
 		String cmd = "-port " + port + " -log " + logFile;
 
@@ -38,7 +40,7 @@ public class SeleniumServerDaemon {
 		return cmd.split(" ");
     }
 
-	public SeleniumServerDaemon(int port, String logFile, boolean useMultiWindows) {
+	public SeleniumServerDaemon(int port, String logFile, boolean useMultiWindows, String profileLocation) {
 		super();
 		this.port = port;
 		this.logFile = logFile;
@@ -48,6 +50,9 @@ public class SeleniumServerDaemon {
 			port = DEFAULT_PORT;
 		if(this.logFile == null)
 			this.logFile = DEFAULT_LOG_FILE;
+        if(profileLocation != null && profileLocation.trim().length() > 0){
+          this.profileLocation = profileLocation;
+        }
 	}
 
 	public final int getPort() {
@@ -71,6 +76,10 @@ public class SeleniumServerDaemon {
 		config.port = port;
 		config.multiWindow = useMultiWindows;
 		config.setProxyInjectionModeArg(true); //this may not be needed, or atleast needs to be configurable
+        if(this.profileLocation != null && this.profileLocation.trim().length() > 0){
+          config.setProfilesLocation(new File(this.profileLocation));
+        }
+      
 //		File userExt = new File("./lib/user-extensions.js");
 //		config.setUserExtensions(userExt);
 		try {
