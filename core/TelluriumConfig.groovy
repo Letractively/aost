@@ -16,11 +16,13 @@ tellurium{
         useMultiWindows = false
         //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
         runInternally = true
+        //profile location
+        profile = ""
     }
     //event handler
     eventhandler{
         //whether we should check if the UI element is presented
-        checkElement = true
+        checkElement = false
         //wether we add additional events like "mouse over"
         extraEvent = true
     }

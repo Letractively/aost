@@ -3,6 +3,7 @@ package org.tellurium.connector
 import com.thoughtworks.selenium.Selenium
 import org.tellurium.client.SeleniumClient
 import org.tellurium.config.Configurable
+import org.tellurium.connector.CustomSelenium
 
 /**
  * The connector that ties the Selenium server and Selenium Client together
@@ -22,7 +23,7 @@ class SeleniumConnector implements Configurable {
 
 	protected String baseURL = HTTP_BASE_URL
 
-    protected browser = "*chrome"
+    protected String browser = "*chrome"
 
     protected seleniumServerHost = "localhost"
 

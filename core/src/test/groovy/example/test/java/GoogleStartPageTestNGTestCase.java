@@ -1,10 +1,10 @@
 package example.test.java;
 
+import example.google.NewGoogleStartPage;
 import org.tellurium.test.java.TelluriumTestNGTestCase;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
-import example.google.NewGoogleStartPage;
+import org.testng.annotations.Test;
 
 /**
  * Test NG test case
@@ -14,7 +14,10 @@ import example.google.NewGoogleStartPage;
  *         Date: Aug 20, 2008
  */
 public class GoogleStartPageTestNGTestCase extends TelluriumTestNGTestCase {
-
+    static{
+        setCustomConfig(true, 5555, "*chrome", true, null, "localhost");
+    }
+    
     protected static NewGoogleStartPage ngsp;
 
     @BeforeClass
