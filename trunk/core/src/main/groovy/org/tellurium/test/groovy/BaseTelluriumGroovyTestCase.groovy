@@ -1,8 +1,11 @@
 package org.tellurium.test.groovy
 
+import org.tellurium.config.CustomConfig
 import org.tellurium.connector.SeleniumConnector
 
 abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
+    //custom configuration
+    protected CustomConfig customConfig = null
 
     public abstract SeleniumConnector getConnector()
 
@@ -23,4 +26,13 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
          getConnector().disconnectSeleniumServer()
     }
 
+    public void setCustomConfig(boolean runInternally, int port, String browser,
+                                       boolean useMultiWindows, String profileLocation){
+        customConfig = new CustomConfig(runInternally, port, browser, useMultiWindows, profileLocation)
+    }
+
+    public void setCustomConfig(boolean runInternally, int port, String browser,
+                                       boolean useMultiWindows, String profileLocation, String serverHost){
+        customConfig = new CustomConfig(runInternally, port, browser, useMultiWindows, profileLocation, serverHost)
+    }
 }
