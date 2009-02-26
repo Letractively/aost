@@ -372,3 +372,28 @@ After that, you will see the "OK" button.
 Most media players should support ogg format, if you cannot find a media player for it, you can download the free media player VLC at
 
 http://www.videolan.org/vlc/
+
+=== Q37: How to overwrite Tellurium settings in my test class ===
+TelluriumConfig.groovy acts like a global setting file if you do not want to manually change it. Now, the  BaseTelluriumJavaTestCase provides two methods for you to overwrite the default settings,
+
+{{{
+public static void setCustomConfig(boolean runInternally, int port, String browser,
+                      boolean useMultiWindows, String profileLocation)
+
+public static void setCustomConfig(boolean runInternally, int port, String browser,
+                      boolean useMultiWindows, String profileLocation, String serverHost)
+}}}
+
+As you result, if you want to use your custom settings for your specific test class, you can use the following way taking the Google test case as an example,
+
+{{{
+public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase
+{
+   static{
+       setCustomConfig(true, 5555, "*chrome", true, null);
+   }
+
+...
+
+}
+}}}
