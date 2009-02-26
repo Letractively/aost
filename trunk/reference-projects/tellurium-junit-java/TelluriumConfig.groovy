@@ -18,6 +18,8 @@ tellurium{
         runInternally = true
         //the log file for selenium server
 //        logFile = "selenium.log"
+        //profile location
+        profile = ""
     }
     //event handler
     eventhandler{
