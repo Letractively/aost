@@ -65,7 +65,7 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
         assertEquals("Google Search", attr);
     }
 
-    @Test(expected= UiObjectNotFoundException.class)
+    @Test(expected = UiObjectNotFoundException.class)
     public void testUiObjectNotFoundException(){
         ngsp.clickWrongButton();
     }
