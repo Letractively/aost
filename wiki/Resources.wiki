@@ -100,6 +100,8 @@
   * [http://maven.apache.org/guides/mini/guide-creating-archetypes.html Guide to Creating Archetypes]
   * [http://maven.apache.org/general.html Maven FAQ]
   * [http://docs.codehaus.org/display/GROOVY/GMaven+-+Building+Groovy+Projects GMaven - Building Groovy Projects]
+  * [http://groovy.codehaus.org/Documentation Groovy Document]
+  * [http://www.ibm.com/developerworks/java/library/j-pg02155/ MVC programming with Groovy templates]
 
 == Cheat Sheets ==
 
