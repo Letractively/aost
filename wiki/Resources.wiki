@@ -99,6 +99,7 @@
   * [http://css.dzone.com/news/rapid-web-application-prototyp Rapid Web Application Prototyping with Maven and Groovy]
   * [http://maven.apache.org/guides/mini/guide-creating-archetypes.html Guide to Creating Archetypes]
   * [http://maven.apache.org/general.html Maven FAQ]
+  * [http://docs.codehaus.org/display/GROOVY/GMaven+-+Building+Groovy+Projects GMaven - Building Groovy Projects]
 
 == Cheat Sheets ==
 
