@@ -1,5 +1,7 @@
 package org.tellurium.dsl
 
+import org.tellurium.dsl.BaseDslContext
+import org.tellurium.dsl.WorkflowContext
 import org.tellurium.widget.Widget
 
 abstract class DslContext extends BaseDslContext {
@@ -46,12 +48,12 @@ abstract class DslContext extends BaseDslContext {
         }
     }
 
-    def findObject(String uid) {
+/*    def findObject(String uid) {
         def obj = ui.findUiObjectFromRegistry(uid)
         if (obj == null)
             println("Cannot find UI Object ${uid}")
         return obj
-    }
+    }*/
 
     protected String locatorMapping(WorkflowContext context, loc) {
         //get ui object's locator
