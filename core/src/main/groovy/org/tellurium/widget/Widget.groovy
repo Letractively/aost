@@ -5,12 +5,12 @@ import org.tellurium.dsl.UiDslParser
 import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.event.EventHandler
+import org.tellurium.exception.UiObjectNotFoundException
 import org.tellurium.locator.LocatorProcessor
 import org.tellurium.object.List
 import org.tellurium.object.Table
 import org.tellurium.object.UiObject
 import org.tellurium.util.Helper
-
 
 /**
  * The base class for Widget objects.
@@ -83,10 +83,18 @@ abstract class Widget extends UiObject{
          return obj
     }
 
+    def UiObject walkToWithException(WorkflowContext context, String uid){
+        UiObject obj = ui.walkTo(context, uid)
+        if(obj != null)
+          return obj
+
+         throw new UiObjectNotFoundException(uid)
+    }
+
     def mouseOver(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
 
-        ui.walkTo(context, uid)?.mouseOver(){ loc ->
+        walkToWithException(context, uid)?.mouseOver(){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.mouseOver(locator)
         }
@@ -95,7 +103,7 @@ abstract class Widget extends UiObject{
     def mouseOut(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
 
-        ui.walkTo(context, uid)?.mouseOut(){ loc ->
+        walkToWithException(context, uid)?.mouseOut(){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.mouseOut(locator)
         }
@@ -103,7 +111,7 @@ abstract class Widget extends UiObject{
 
     def click(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.click(){ loc, String[] events ->
+        walkToWithException(context, uid)?.click(){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
             eventHandler.click(locator, events)
         }
@@ -111,7 +119,7 @@ abstract class Widget extends UiObject{
 
     def doubleClick(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.doubleClick(){ loc, String[] events ->
+        walkToWithException(context, uid)?.doubleClick(){ loc, String[] events ->
            String locator = locatorMapping(context, loc)
             eventHandler.doubleClick(locator, events)
         }
@@ -119,7 +127,7 @@ abstract class Widget extends UiObject{
 
     def clickAt(String uid, String coordination){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.clickAt(coordination){ loc, String[] events ->
+        walkToWithException(context, uid)?.clickAt(coordination){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
             eventHandler.clickAt(locator, coordination, events)
         }
@@ -127,7 +135,7 @@ abstract class Widget extends UiObject{
 
     def check(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.check(){ loc, String[] events ->
+        walkToWithException(context, uid)?.check(){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
             eventHandler.check(locator, events)
         }
@@ -135,7 +143,7 @@ abstract class Widget extends UiObject{
 
     def uncheck(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.uncheck(){ loc, String[] events ->
+        walkToWithException(context, uid)?.uncheck(){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
             eventHandler.uncheck(locator, events)
         }
@@ -143,7 +151,7 @@ abstract class Widget extends UiObject{
 
     def type(String uid, String input){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.type(input){ loc, String[] events ->
+        walkToWithException(context, uid)?.type(input){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
             eventHandler.type(locator, input, events)
         }
@@ -151,7 +159,7 @@ abstract class Widget extends UiObject{
 
     def keyType(String uid, String input){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.keyType(input){ loc, String[] events ->
+        walkToWithException(context, uid)?.keyType(input){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
             eventHandler.keyType(locator, input, events)
         }
@@ -159,7 +167,7 @@ abstract class Widget extends UiObject{
 
     def typeAndReturn(String uid, String input){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.typeAndReturn(input){ loc, String[] events ->
+        walkToWithException(context, uid)?.typeAndReturn(input){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
             eventHandler.typeAndReturn(locator, input, events)
         }
@@ -167,7 +175,7 @@ abstract class Widget extends UiObject{
 
     def clearText(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.clearText(){ loc, String[] events ->
+        walkToWithException(context, uid)?.clearText(){ loc, String[] events ->
             String locator = locatorMapping(context, loc)
             eventHandler.clearText(locator, events)
         }
@@ -179,7 +187,7 @@ abstract class Widget extends UiObject{
 
     def selectByLabel(String uid, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.selectByLabel(target){ loc, optloc, String[] events ->
+        walkToWithException(context, uid)?.selectByLabel(target){ loc, optloc, String[] events ->
             String locator = locatorMapping(context, loc)
             eventHandler.select(locator, optloc, events)
         }
@@ -187,7 +195,7 @@ abstract class Widget extends UiObject{
 
     def selectByValue(String uid, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.selectByValue(target){ loc, optloc, String[] events ->
+        walkToWithException(context, uid)?.selectByValue(target){ loc, optloc, String[] events ->
             String locator = locatorMapping(context, loc)
             eventHandler.select(locator, optloc, events)
         }
@@ -195,7 +203,7 @@ abstract class Widget extends UiObject{
 
     def addSelectionByLabel(String uid, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.addSelectionByLabel(target){ loc, optloc ->
+        walkToWithException(context, uid)?.addSelectionByLabel(target){ loc, optloc ->
             String locator = locatorMapping(context, loc)
             eventHandler.addSelection(locator, optloc)
         }
@@ -203,7 +211,7 @@ abstract class Widget extends UiObject{
 
     def addSelectionByValue(String uid, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.addSelectionByValue(target){ loc, optloc ->
+        walkToWithException(context, uid)?.addSelectionByValue(target){ loc, optloc ->
             String locator = locatorMapping(context, loc)
             eventHandler.addSelection(locator, optloc)
         }
@@ -211,7 +219,7 @@ abstract class Widget extends UiObject{
 
     def removeSelectionByLabel(String uid, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.removeSelectionByLabel(target){ loc, optloc ->
+        walkToWithException(context, uid)?.removeSelectionByLabel(target){ loc, optloc ->
             String locator = locatorMapping(context, loc)
             eventHandler.removeSelection(locator, optloc)
         }
@@ -219,7 +227,7 @@ abstract class Widget extends UiObject{
 
     def removeSelectionByValue(String uid, String target){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.removeSelectionByValue(target){ loc, optloc ->
+        walkToWithException(context, uid)?.removeSelectionByValue(target){ loc, optloc ->
             String locator = locatorMapping(context, loc)
             eventHandler.removeSelection(locator, optloc)
         }
@@ -227,7 +235,7 @@ abstract class Widget extends UiObject{
 
     def removeAllSelections(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.removeAllSelections(){ loc ->
+        walkToWithException(context, uid)?.removeAllSelections(){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.removeAllSelections(locator)
         }
@@ -235,7 +243,7 @@ abstract class Widget extends UiObject{
 
     String[] getSelectOptions(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, uid)
+         def obj = walkToWithException(context, uid)
          if(obj != null){
              return obj.getSelectOptions(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -248,7 +256,7 @@ abstract class Widget extends UiObject{
 
     String[] getSelectedLabels(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, uid)
+         def obj = walkToWithException(context, uid)
          if(obj != null){
              return obj.getSelectedLabels(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -261,7 +269,7 @@ abstract class Widget extends UiObject{
 
     String getSelectedLabel(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, uid)
+         def obj = walkToWithException(context, uid)
          if(obj != null){
              return obj.getSelectedLabel(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -274,7 +282,7 @@ abstract class Widget extends UiObject{
 
     String[] getSelectedValues(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, uid)
+         def obj = walkToWithException(context, uid)
          if(obj != null){
              return obj.getSelectedValues(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -287,7 +295,7 @@ abstract class Widget extends UiObject{
 
     String getSelectedValue(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, uid)
+         def obj = walkToWithException(context, uid)
          if(obj != null){
              return obj.getSelectedValue(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -300,7 +308,7 @@ abstract class Widget extends UiObject{
 
     String[] getSelectedIndexes(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, uid)
+         def obj = walkToWithException(context, uid)
          if(obj != null){
              return obj.getSelectedIndexes(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -313,7 +321,7 @@ abstract class Widget extends UiObject{
 
     String getSelectedIndex(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, uid)
+         def obj = walkToWithException(context, uid)
          if(obj != null){
              return obj.getSelectedIndex(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -326,7 +334,7 @@ abstract class Widget extends UiObject{
 
     String[] getSelectedIds(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, uid)
+         def obj = walkToWithException(context, uid)
          if(obj != null){
              return obj.getSelectedIds(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -339,7 +347,7 @@ abstract class Widget extends UiObject{
 
     String getSelectedId(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, uid)
+         def obj = walkToWithException(context, uid)
          if(obj != null){
              return obj.getSelectedId(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -352,7 +360,7 @@ abstract class Widget extends UiObject{
 
     boolean isSomethingSelected(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, uid)
+         def obj = walkToWithException(context, uid)
          if(obj != null){
              return obj.isSomethingSelected(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -365,7 +373,7 @@ abstract class Widget extends UiObject{
 
     String waitForText(String uid, int timeout){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.waitForText(timeout){ loc ->
+        walkToWithException(context, uid)?.waitForText(timeout){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.waitForText(locator, timeout)
         }
@@ -373,7 +381,7 @@ abstract class Widget extends UiObject{
 
     int getTableHeaderColumnNum(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         Table obj = (Table)ui.walkTo(context, uid)
+         Table obj = (Table)walkToWithException(context, uid)
          if(obj != null){
              return obj.getTableHeaderColumnNum{ loc ->
                 String locator = locatorMapping(context, loc)
@@ -387,7 +395,7 @@ abstract class Widget extends UiObject{
 
     int getTableMaxRowNum(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         Table obj = (Table)ui.walkTo(context, uid)
+         Table obj = (Table)walkToWithException(context, uid)
          if(obj != null){
              return obj.getTableMaxRowNum(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -401,7 +409,7 @@ abstract class Widget extends UiObject{
 
     int getTableMaxColumnNum(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         Table obj = (Table)ui.walkTo(context, uid)
+         Table obj = (Table)walkToWithException(context, uid)
          if(obj != null){
              return obj.getTableMaxColumnNum(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -415,7 +423,7 @@ abstract class Widget extends UiObject{
 
     int getListSize(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         List obj = (List)ui.walkTo(context, uid)
+         List obj = (List)walkToWithException(context, uid)
          if(obj != null){
              return obj.getListSize(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -429,7 +437,7 @@ abstract class Widget extends UiObject{
 
     boolean isElementPresent(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, uid)
+         def obj = walkToWithException(context, uid)
          if(obj != null){
              return obj.isElementPresent(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -442,7 +450,7 @@ abstract class Widget extends UiObject{
 
     boolean isVisible(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, uid)
+         def obj = walkToWithException(context, uid)
          if(obj != null){
              return obj.isVisible(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -455,7 +463,7 @@ abstract class Widget extends UiObject{
 
     boolean isChecked(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, uid)
+         def obj = walkToWithException(context, uid)
          if(obj != null){
              return obj.isChecked(){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -468,7 +476,7 @@ abstract class Widget extends UiObject{
 
     def isDisabled(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        def obj = ui.walkTo(context, uid)
+        def obj = walkToWithException(context, uid)
          if(obj != null){
              return obj.isDisabled (){loc ->
 //                 String locator = locatorMapping(context, loc)
@@ -485,7 +493,7 @@ abstract class Widget extends UiObject{
 
     boolean waitForElementPresent(String uid, int timeout){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, uid)
+         def obj = walkToWithException(context, uid)
          if(obj != null){
              return obj.waitForElementPresent(timeout){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -498,7 +506,7 @@ abstract class Widget extends UiObject{
 
     boolean waitForElementPresent(String uid, int timeout, int step){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, uid)
+         def obj = walkToWithException(context, uid)
          if(obj != null){
              return obj.waitForElementPresent(timeout, step){ loc ->
                 String locator = locatorMapping(context, loc)
@@ -515,7 +523,7 @@ abstract class Widget extends UiObject{
 
     String getText(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.getText(){ loc ->
+        walkToWithException(context, uid)?.getText(){ loc ->
             String locator = locatorMapping(context, loc)
             accessor.getText(locator)
         }
@@ -523,7 +531,7 @@ abstract class Widget extends UiObject{
 
     String getValue(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.getValue(){ loc ->
+        walkToWithException(context, uid)?.getValue(){ loc ->
             String locator = locatorMapping(context, loc)
             accessor.getValue(locator)
         }
@@ -535,7 +543,7 @@ abstract class Widget extends UiObject{
 
     String getLink(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         ui.walkTo(context, uid)?.getLink(){ loc, attr ->
+         walkToWithException(context, uid)?.getLink(){ loc, attr ->
             String locator = locatorMapping(context, loc)
             accessor.getAttribute(locator + attr )
         }
@@ -543,7 +551,7 @@ abstract class Widget extends UiObject{
 
     String getImageSource(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         ui.walkTo(context, uid)?.getImageSource(){ loc, attr ->
+         walkToWithException(context, uid)?.getImageSource(){ loc, attr ->
             String locator = locatorMapping(context, loc)
             accessor.getAttribute(locator + attr )
         }
@@ -551,7 +559,7 @@ abstract class Widget extends UiObject{
 
     String getImageAlt(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         ui.walkTo(context, uid)?.getImageAlt(){ loc, attr ->
+         walkToWithException(context, uid)?.getImageAlt(){ loc, attr ->
             String locator = locatorMapping(context, loc)
             accessor.getAttribute(locator + attr )
         }
@@ -559,7 +567,7 @@ abstract class Widget extends UiObject{
 
     String getImageTitle(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         ui.walkTo(context, uid)?.getImageTitle(){ loc, attr ->
+         walkToWithException(context, uid)?.getImageTitle(){ loc, attr ->
             String locator = locatorMapping(context, loc)
             accessor.getAttribute(locator + attr )
         }
@@ -567,7 +575,7 @@ abstract class Widget extends UiObject{
 
     def getAttribute(String uid, String attribute){
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         ui.walkTo(context, uid)?.getAttribute(attribute){ loc, attr ->
+         walkToWithException(context, uid)?.getAttribute(attribute){ loc, attr ->
             String locator = locatorMapping(context, loc)
             accessor.getAttribute(locator + attr )
          }
@@ -576,7 +584,7 @@ abstract class Widget extends UiObject{
 
      def hasCssClass(String uid, String cssClass){
        WorkflowContext context = WorkflowContext.getDefaultContext()
-        String[] strings = ui.walkTo(context, uid)?.hasCssClass(){ loc, classAttr ->
+        String[] strings = walkToWithException(context, uid)?.hasCssClass(){ loc, classAttr ->
             String locator = locatorMapping(context, loc)
             ((String)accessor.getAttribute(locator + classAttr ))?.split(" ")
          }
@@ -592,7 +600,7 @@ abstract class Widget extends UiObject{
 
     def submit(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.submit(){ loc ->
+        walkToWithException(context, uid)?.submit(){ loc ->
             String locator = locatorMapping(context, loc)
             eventHandler.submit(locator)
         }
@@ -600,7 +608,7 @@ abstract class Widget extends UiObject{
 
     boolean isEditable(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.isEditable(){ loc ->
+        walkToWithException(context, uid)?.isEditable(){ loc ->
             String locator = locatorMapping(context, loc)
             return accessor.isEditable(locator)
         }

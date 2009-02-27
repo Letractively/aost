@@ -57,4 +57,8 @@ class NewGoogleStartPage extends DslContext{
     String getAttribute(){
         getAttribute("google_start_page.searchbox", "title")
     }
+  
+    def clickWrongButton(){
+      click "google_start_page.search"
+    }
 }
