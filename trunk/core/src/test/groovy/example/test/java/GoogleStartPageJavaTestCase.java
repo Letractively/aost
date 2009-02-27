@@ -3,6 +3,7 @@ package example.test.java;
 import example.google.NewGoogleStartPage;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.tellurium.exception.UiObjectNotFoundException;
 import org.tellurium.test.java.TelluriumJavaTestCase;
 import static org.testng.Assert.assertEquals;
 
@@ -62,5 +63,10 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
         connectUrl("http://www.google.com");
         String attr = ngsp.getAttribute();
         assertEquals("Google Search", attr);
+    }
+
+    @Test(expected= UiObjectNotFoundException.class)
+    public void testUiObjectNotFoundException(){
+        ngsp.clickWrongButton();
     }
 }

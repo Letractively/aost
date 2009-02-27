@@ -2,6 +2,7 @@ package org.tellurium.dsl
 
 import org.tellurium.dsl.BaseDslContext
 import org.tellurium.dsl.WorkflowContext
+import org.tellurium.exception.NotWidgetObjectException
 import org.tellurium.widget.Widget
 
 abstract class DslContext extends BaseDslContext {
@@ -14,9 +15,11 @@ abstract class DslContext extends BaseDslContext {
 
     def getWidget(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        def obj = ui.walkTo(context, uid)
+        def obj = walkToWithException(context, uid)
         if (!(obj instanceof Widget)) {
             println "Warning, Ui object ${uid} is not a widget"
+
+            throw new NotWidgetObjectException(uid)
         }
 
         //add reference xpath for the widget
@@ -28,11 +31,12 @@ abstract class DslContext extends BaseDslContext {
 
     def onWidget(String uid, String method, Object[] args) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        def obj = ui.walkTo(context, uid)
+        def obj = walkToWithException(context, uid)
         if (!(obj instanceof Widget)) {
             println "Error, Ui object ${uid} is not a widget"
 
-            throw new RuntimeException("Ui object ${uid} is not a widget")
+//            throw new RuntimeException("Ui object ${uid} is not a widget")
+            throw new NotWidgetObjectException(uid)
         } else {
             if (obj.metaClass.respondsTo(obj, method, args)) {
 
@@ -73,42 +77,42 @@ abstract class DslContext extends BaseDslContext {
 
     def selectFrame(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.selectFrame() {String loc ->
+        walkToWithException(context, uid)?.selectFrame() {String loc ->
             eventHandler.selectFrame(loc)
         }
     }
 
     def selectParentFrameFrom(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.selectParentFrame() {String loc ->
+        walkToWithException(context, uid)?.selectParentFrame() {String loc ->
             eventHandler.selectFrame(loc)
         }
     }
 
     def selectTopFrameFrom(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.selectTopFrame() {String loc ->
+        walkToWithException(context, uid)?.selectTopFrame() {String loc ->
             eventHandler.selectFrame(loc)
         }
     }
 
     boolean getWhetherThisFrameMatchFrameExpression(String uid, String target) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.getWhetherThisFrameMatchFrameExpression(target) {String loc ->
+        walkToWithException(context, uid)?.getWhetherThisFrameMatchFrameExpression(target) {String loc ->
             accessor.getWhetherThisFrameMatchFrameExpression(loc, target)
         }
     }
 
     void waitForFrameToLoad(String uid, int timeout) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.waitForFrameToLoad(timeout) {String loc ->
+        walkToWithException(context, uid)?.waitForFrameToLoad(timeout) {String loc ->
             accessor.waitForFrameToLoad(loc, Integer.toString(timeout))
         }
     }
 
     def mouseOver(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.mouseOver() {loc, String[] events ->
+        walkToWithException(context, uid)?.mouseOver() {loc, String[] events ->
             String locator = locatorMapping(context, loc)
             eventHandler.mouseOver(locator, events)
         }
@@ -116,14 +120,14 @@ abstract class DslContext extends BaseDslContext {
 
     def openWindow(String uid, String url) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.openWindow(url) {String loc, String aurl ->
+        walkToWithException(context, uid)?.openWindow(url) {String loc, String aurl ->
             eventHandler.openWindow(aurl, loc)
         }
     }
 
     def selectWindow(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.selectWindow() {String loc ->
+        walkToWithException(context, uid)?.selectWindow() {String loc ->
             eventHandler.selectWindow(loc)
         }
     }
@@ -138,14 +142,14 @@ abstract class DslContext extends BaseDslContext {
 
     def waitForPopUp(String uid, int timeout) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.waitForPopUp(timeout) {String loc ->
+        walkToWithException(context, uid)?.waitForPopUp(timeout) {String loc ->
             accessor.waitForPopUp(loc, Integer.toString(timeout))
         }
     }
 
     boolean getWhetherThisWindowMatchWindowExpression(String uid, String target) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        ui.walkTo(context, uid)?.getWhetherThisWindowMatchWindowExpression(target) {String loc ->
+        walkToWithException(context, uid)?.getWhetherThisWindowMatchWindowExpression(target) {String loc ->
             accessor.getWhetherThisWindowMatchWindowExpression(loc, target)
         }
     }
