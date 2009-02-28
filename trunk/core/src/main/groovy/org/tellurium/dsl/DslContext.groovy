@@ -5,7 +5,6 @@ import org.tellurium.dsl.WorkflowContext
 import org.tellurium.exception.NotWidgetObjectException
 import org.tellurium.widget.Widget
 
-
 abstract class DslContext extends BaseDslContext {
 
     //later on, may need to refactor it to use resource file so that we can show message for different localities
@@ -69,8 +68,11 @@ abstract class DslContext extends BaseDslContext {
         String locator = locatorProcessor.locate(loc)
 
         //get the reference locator all the way to the ui object
-        if (context.getReferenceLocator() != null)
-            locator = context.getReferenceLocator() + locator
+        if (context.getReferenceLocator() != null){
+//            locator = context.getReferenceLocator() + locator
+            context.appendReferenceLocator(locator)
+            locator = context.getReferenceLocator() 
+        }
 
         //make sure the xpath starts with "//"
         if (locator != null && (!locator.startsWith("//"))) {
@@ -113,6 +115,15 @@ abstract class DslContext extends BaseDslContext {
         walkToWithException(context, uid)?.waitForFrameToLoad(timeout) {String loc ->
             accessor.waitForFrameToLoad(loc, Integer.toString(timeout))
         }
+    }
+
+    String getLocator(String uid){
+      WorkflowContext context = WorkflowContext.getDefaultContext()
+      walkToWithException(context, uid)?.getLocator() {loc ->
+            locatorMapping(context, loc)
+      }
+
+      return context.getReferenceLocator()
     }
 
     def mouseOver(String uid) {
