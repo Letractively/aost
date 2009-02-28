@@ -94,4 +94,19 @@ public class XPathProcesssor_UT extends GroovyTestCase{
     assertNotNull(result)
     assertEquals("th[@class='mt' and position()=2]", result)    
   }
+
+  public void testGetTagFromXPath(){
+    String xpath =  "child::td[@id='good']"
+    String result = XPathProcessor.getTagFromXPath(xpath)
+    assertNotNull(result)
+    assertEquals("td", result)
+    xpath = "td"
+    result = XPathProcessor.getTagFromXPath(xpath)
+    assertNotNull(result)
+    assertEquals("td", result)
+    xpath = "td[@id='good']"
+    result = XPathProcessor.getTagFromXPath(xpath)
+    assertNotNull(result)
+    assertEquals("td", result)   
+  }
 }
