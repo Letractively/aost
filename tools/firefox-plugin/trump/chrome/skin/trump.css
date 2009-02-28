@@ -37,23 +37,27 @@ button[myclass="myClass4"]{
     border-width: thin;
 }
 
-#customize_tree_view{
+#customize_tree{
     overflow: auto;
     margin-top: -2px;
+/*
     border-top: 2px solid #999999;
     border-right: 2px solid #999999;
     border-bottom: 2px solid #999999;
-    margin-left: -2px;
     border-left: 2px solid #999999;
+*/
+    margin-left: -2px;
 }
 
 #uiObjectEdit{
     overflow: scroll;
     margin-top:2px;
+    /*
     border-top: 2px solid #999999;
     border-right: 2px solid #999999;
     border-bottom: 2px solid #999999;
-    margin-left: -2px;
     border-left: 2px solid #999999;
+    */
+    margin-left: -2px;
     height:180px;
 }

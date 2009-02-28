@@ -88,9 +88,10 @@
               <resizer dir="bottomright" height="2" style="cursor: se-resize;"/>  
             </tabpanel>
             <tabpanel orient="vertical">
-              <hbox id="customizeContent">
-                    <vbox id="customize_tree_view" flex="3">
-                        <groupbox id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml" flex="3" minwidth="400" minheight="350" maxheight="600" style="overflow: auto;">
+              <groupbox orient="horizontal" flex="1">
+              <groupbox flex="1">
+                  
+                    <vbox id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml" flex="3" minwidth="400" minheight="350" maxheight="600" style="overflow: auto;">
                             <!--caption label="UI Module"/-->
                             <template>
                                 <query expr="*"/>
@@ -103,86 +104,91 @@
                                         </hbox>
                                     </vbox>
                                 </action>
-                            </template>
-                        </groupbox>
-                        <resizer dir="bottom" height="2" style="cursor: se-resize;"/>                        
+                            </template>                    
                     </vbox>
+                    </groupbox>
+                    <splitter collapse="after" ><grippy /></splitter>
+                    <groupbox flex="1">
                     <!--separator class="thin"/-->
                     <!--splitter collapse="before" class="splitter" resizeafter="farthest"/-->
                     <!-- command editing -->
-                    <vbox id="uiObjectEdit" flex="1" style="overflow: auto" minwidth="200">
-                        <hbox pack="center">
-                            <button label="&show.label;" oncommand="window.editor.showNodeOnWeb()"/>
-                            <button label="&save.label;" oncommand="window.editor.updateUiObject()"/>
-                        </hbox>
+                        <vbox id="uiObjectEdit" flex="1" style="overflow: auto" minwidth="200">
+                            <hbox pack="center">
+                                <button label="&show.label;" oncommand="window.editor.showNodeOnWeb()"/>
+                                <button label="&save.label;" oncommand="window.editor.updateUiObject()"/>
+                            </hbox>
 
-                        <grid >
-                            <columns>
-                                <column/>
-                                <column flex="1"/>
-                            </columns>
-                            <rows>
-                                <row align="center">
-                                    <!-- do drop down that depends upon the element type -->
-                                    <label control="commandAction" value="&uid.label;"/>
-                                    <textbox disabled="true" id="uid" oninput=""/>
-                                </row>
-                                <row align="center">
-                                    <!-- show different options collected by the client. Allow user to override -->
-                                    <label control="commandTarget" value="&type.label;"/>
-                                    <hbox flex="1">
-                                        <textbox flex="1" disabled="true" id="uiType" oninput=""/>
+                            <grid>
+                                <columns>
+                                    <column/>
+                                    <column flex="1"/>
+                                </columns>
+                                <rows>
+                                    <row align="center">
+                                        <!-- do drop down that depends upon the element type -->
+                                        <label control="commandAction" value="&uid.label;"/>
+                                        <textbox disabled="true" id="uid" oninput=""/>
+                                    </row>
+                                    <row align="center">
+                                        <!-- show different options collected by the client. Allow user to override -->
+                                        <label control="commandTarget" value="&type.label;"/>
+                                        <hbox flex="1">
+                                            <textbox flex="1" disabled="true" id="uiType" oninput=""/>
 
-                                    </hbox>
-                                </row>
-                                <row align="center">
-                                    <label control="commandValue" value="&group.label;"/>
-                                    <checkbox id="group_Check_Box" disabled="false" checked="false"/>
-                                </row>
-                                <row align="center">
-                                    <label control="commandValue" value="&attributes.label;"/>
+                                        </hbox>
+                                    </row>
+                                    <row align="center">
+                                        <label control="commandValue" value="&group.label;"/>
+                                        <checkbox id="group_Check_Box" disabled="false" checked="false"/>
+                                    </row>
+                                    <row align="center">
+                                        <label control="commandValue" value="&attributes.label;"/>
 
-                                    <richlistbox id="ui_attribute_tree" datasources="#attributes_tree_xml" ref="*" querytype="xml" rows="10">
-                                        <listhead>
-                                            <listheader id="checkBoxId" label="" sort="?sel"/>
-                                            <listheader id="attributeName" primary="true" label="Name" sort="?name" flex="1"/>
-                                            <listheader id="attributeValue" label="Value" sort="?value" flex="1"/>
-                                        </listhead>
-                                        <listcols>
-                                            <listcol/>
-                                            <listcol flex="1"/>
-                                            <listcol flex="1"/>
-                                        </listcols>
-                                        <template>
-                                            <query expr="attribute">
-                                                <assign var="?sel" expr="@sel"/>
-                                                <assign var="?name" expr="@name"/>
-                                                <assign var="?value" expr="@value"/>
-                                                <assign var="?cid" expr="concat('CID',@name)"/>
-                                                <assign var="?vid" expr="concat('VID',@name)"/>
-                                            </query>
-                                            <action>
-                                                <richlistitem uri="?">
-                                                    <checkbox name="?cid" checked="?sel" align="center" minwidth="10"/>
-                                                    <label value="?name" align="center"  minwidth="50" flex="1"/>
-                                                    <textbox name="?vid" value="?value" oninput="" align="center" minwidth="50" flex="1"/>
-                                                </richlistitem>
-                                            </action>
-                                        </template>
-                                    </richlistbox>
+                                        <richlistbox id="ui_attribute_tree" datasources="#attributes_tree_xml" ref="*"
+                                                     querytype="xml" rows="10">
+                                            <listhead>
+                                                <listheader id="checkBoxId" label="" sort="?sel"/>
+                                                <listheader id="attributeName" primary="true" label="Name" sort="?name"
+                                                            flex="1"/>
+                                                <listheader id="attributeValue" label="Value" sort="?value" flex="1"/>
+                                            </listhead>
+                                            <listcols>
+                                                <listcol/>
+                                                <listcol flex="1"/>
+                                                <listcol flex="1"/>
+                                            </listcols>
+                                            <template>
+                                                <query expr="attribute">
+                                                    <assign var="?sel" expr="@sel"/>
+                                                    <assign var="?name" expr="@name"/>
+                                                    <assign var="?value" expr="@value"/>
+                                                    <assign var="?cid" expr="concat('CID',@name)"/>
+                                                    <assign var="?vid" expr="concat('VID',@name)"/>
+                                                </query>
+                                                <action>
+                                                    <richlistitem uri="?">
+                                                        <checkbox name="?cid" checked="?sel" align="center"
+                                                                  minwidth="10"/>
+                                                        <label value="?name" align="center" minwidth="50" flex="1"/>
+                                                        <textbox name="?vid" value="?value" oninput="" align="center"
+                                                                 minwidth="50" flex="1"/>
+                                                    </richlistitem>
+                                                </action>
+                                            </template>
+                                        </richlistbox>
 
-                                </row>
-                                <!--row align="center">
-                                </row-->
+                                    </row>
+                                    <!--row align="center">
+                                    </row-->
 
-                            </rows>
-                        </grid>
+                                </rows>
+                            </grid>
 
-                    </vbox>
-                   </hbox>
-
+                        </vbox>
+                    </groupbox>
+              </groupbox>
             </tabpanel>
-           <!-- <tabpanel orient="vertical">
+            <!-- <tabpanel orient="vertical">
               <textbox id="settings" multiline="true" flex="1"/>
             </tabpanel>-->
         </tabpanels>
