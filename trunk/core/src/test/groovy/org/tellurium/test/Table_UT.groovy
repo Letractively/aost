@@ -129,8 +129,8 @@ class Table_UT extends GroovyTestCase{
    }
 
   void testTable9(){
-      Table9 table9 = new Table9()
-      table9.defineUi()
+       Table9 table9 = new Table9()
+       table9.defineUi()
        WorkflowContext context = WorkflowContext.getDefaultContext()
        UiObject obj = table9.ui.walkTo(context, "IdMenu[1][1")
        assertNotNull(obj)
