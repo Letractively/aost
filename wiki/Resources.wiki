@@ -69,39 +69,59 @@
 
 == Documents ==
 
-  * [https://developer.mozilla.org/en/Setting_up_extension_development_environment Setting up extension development environment]
+=== Javascript ===
+
   * [https://developer.mozilla.org/en/Introduction_to_using_XPath_in_JavaScript Introduction to using XPath in JavaScript]
-  * [http://news.softpedia.com/news/Screencast-Guide-Capure-Your-Linux-Desktop-on-Video-42626.shtml Capure Your Linux Desktop on Video!]
+  * [http://psacake.com/web/jb.asp Javascript Form Validation]
+  * [http://tecfa.unige.ch/guides/js/ex-intro/angus_strings.html STRING MATCHING AND REPLACING IN JAVASCRIPT 1.2]
+  * [http://www.comptechdoc.org/independent/web/cgi/javamanual/javastyle.html JavaScript Style Attributes]
+  * [http://www.quirksmode.org/js/detect.html Browser detect]
+  * [http://www.javascriptkit.com/javatutors/redev2.shtml Javascript Regular Expressions patterns]
+  * [http://www.regular-expressions.info/javascriptexample.html Javascript Regular Expression Tester]
+
+=== CSS ===
+
+  * [https://developer.mozilla.org/en/Mozilla_CSS_Extensions Mozilla CSS Extensions]
+  * [http://www.w3schools.com/Css/css_colors.asp CSS Colors]
+
+=== XUL ===
+
   * [https://developer.mozilla.org/en/XUL XUL Reference]
   * [http://docs.huihoo.com/xul/xul-tutorial/ XUL Tutorial]
   * [http://pastebin.mozilla.org/621834 XUL template example]
   * [http://www.hevanet.com/acorbin/xul/top.xul XUL Periodic Table]
   * [http://www.mozilla.org/rdf/doc/xul-template-reference.html XUL template Ignored Attributes]
   * [http://www.xul.fr/tutorial/ XUL Tutorial with Examples]
-  * [https://developer.mozilla.org/en/Mozilla_CSS_Extensions Mozilla CSS Extensions]
   * [http://www.rietta.com/firefox/Tutorial/prefs.html Firefox Extension Development Tutorial: Preferences]
   * [https://developer.mozilla.org/en/Gecko Gecko Layout Engine]
+
+=== XML ===
+
   * [http://www.w3schools.com/XML/ XML Tutorial]
-  * [http://psacake.com/web/jb.asp Javascript Form Validation]
-  * [http://tecfa.unige.ch/guides/js/ex-intro/angus_strings.html STRING MATCHING AND REPLACING IN JAVASCRIPT 1.2]
-  * [http://www.comptechdoc.org/independent/web/cgi/javamanual/javastyle.html JavaScript Style Attributes]
-  * [http://www.w3schools.com/Css/css_colors.asp CSS Colors]
-  * [http://www.quirksmode.org/js/detect.html Browser detect]
-  * [http://www.javascriptkit.com/javatutors/redev2.shtml Javascript Regular Expressions patterns]
-  * [http://www.regular-expressions.info/javascriptexample.html Javascript Regular Expression Tester]
   * [http://www.xml.com/pub/a/2004/09/01/tr.html Converting XML to RDF]
-  * [http://wiki.foochal.org/index.php/Maven_Selenium Maven Selenium]
-  * [http://mojo.codehaus.org/selenium-maven-plugin/examples/headless-with-xvfb.html Headless X11 with Xvfb] 
-  * [http://www.jroller.com/carlossg/entry/functional_testing_with_maven_cargo Functional testing with Maven, Cargo and Selenium]
-  * [http://www.grails.org/The+Plug-in+Developers+Guide The Grails Plug-in Developers Guide]
+
+=== Maven ===
+
   * [http://maven.apache.org/pom.html POM Reference]
   * [http://groovy.codehaus.org/GMaven+-+Implementing+Maven+Plugins GMaven - Implementing Maven Plugins]
   * [http://css.dzone.com/news/rapid-web-application-prototyp Rapid Web Application Prototyping with Maven and Groovy]
   * [http://maven.apache.org/guides/mini/guide-creating-archetypes.html Guide to Creating Archetypes]
   * [http://maven.apache.org/general.html Maven FAQ]
   * [http://docs.codehaus.org/display/GROOVY/GMaven+-+Building+Groovy+Projects GMaven - Building Groovy Projects]
+  * [http://wiki.foochal.org/index.php/Maven_Selenium Maven Selenium]
+  * [http://www.jroller.com/carlossg/entry/functional_testing_with_maven_cargo Functional testing with Maven, Cargo and Selenium]
+
+=== Groovy ===
+
+  * [http://www.grails.org/The+Plug-in+Developers+Guide The Grails Plug-in Developers Guide]
   * [http://groovy.codehaus.org/Documentation Groovy Document]
   * [http://www.ibm.com/developerworks/java/library/j-pg02155/ MVC programming with Groovy templates]
+
+=== Misc ===
+
+  * [https://developer.mozilla.org/en/Setting_up_extension_development_environment Setting up extension development environment]
+  * [http://mojo.codehaus.org/selenium-maven-plugin/examples/headless-with-xvfb.html Headless X11 with Xvfb] 
+  * [http://news.softpedia.com/news/Screencast-Guide-Capure-Your-Linux-Desktop-on-Video-42626.shtml Capure Your Linux Desktop on Video!]
 
 == Cheat Sheets ==
 
@@ -118,5 +138,5 @@
 
    * [http://code.google.com/p/aost/downloads/list How to use TrUMP to Create Tellurium Test Cases] ([http://doesthatevencompile.com/flv/ Flash Version])
    * [http://code.google.com/p/aost/downloads/list Tellurium Demo Video] (Online Version [http://video.google.com/videoplay?docid=-7547683963743870970 Part I] [http://video.google.com/videoplay?docid=2145192284694104042 Part II])
-   * [http://www.slideshare.net/John.Jian.Fang/tellurium-a-new-approach-for-web-testing-presentation Online Presentation: Tellurium - A New Approach For Web Testing]
+   * [http://www.slideshare.net/John.Jian.Fang/telluriumanewapproachforwebtesting Online Presentation: Tellurium - A New Approach For Web Testing]
    * [http://groups.google.com/group/ltac/browse_thread/thread/3954f77fba89816f?hl=en Google Test Automation Conference 2008 Slides and Videos] 
