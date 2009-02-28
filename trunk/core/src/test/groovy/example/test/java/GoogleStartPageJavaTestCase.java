@@ -3,8 +3,8 @@ package example.test.java;
 import example.google.NewGoogleStartPage;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.tellurium.exception.UiObjectNotFoundException;
 import org.tellurium.test.java.TelluriumJavaTestCase;
-import org.tellurium.test.java.exception.UiObjectNotFoundException;
 import static org.testng.Assert.assertEquals;
 
 /**

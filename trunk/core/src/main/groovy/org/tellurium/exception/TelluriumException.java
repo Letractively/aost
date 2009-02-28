@@ -1,4 +1,4 @@
-package org.tellurium.test.java.exception;
+package org.tellurium.exception;
 
 /**
  * Base class for Tellurium exception hierarchy
@@ -17,12 +17,6 @@ public class TelluriumException extends RuntimeException{
   public TelluriumException(String message) {
     super(message);
   }
-
-/*
-  public TelluriumException() {
-    super();
-  }
-*/
 
   public String getErrorCode(){
 
