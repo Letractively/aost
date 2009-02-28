@@ -4,11 +4,11 @@ import org.tellurium.access.Accessor
 import org.tellurium.dsl.UiDslParser
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.event.EventHandler
-import org.tellurium.exception.UiObjectNotFoundException
 import org.tellurium.locator.LocatorProcessor
 import org.tellurium.object.List
 import org.tellurium.object.Table
 import org.tellurium.object.UiObject
+import org.tellurium.test.java.exception.UiObjectNotFoundException
 import org.tellurium.util.Helper
 
 /**
@@ -19,6 +19,9 @@ import org.tellurium.util.Helper
  * 
  */
 abstract class BaseDslContext {
+    //later on, may need to refactor it to use resource file so that we can show message for different localities
+    protected static final String ERROR_MESSAGE = "Cannot find UI Object";
+
     UiDslParser ui = new UiDslParser()
 
     //decoupling eventhandler, locateProcessor, and accessor from UI objects
@@ -43,7 +46,7 @@ abstract class BaseDslContext {
         if(obj != null)
           return obj
 
-         throw new UiObjectNotFoundException(uid)
+         throw new UiObjectNotFoundException("${ERROR_MESSAGE} ${uid}")
     }
 
     def mouseOver(String uid){

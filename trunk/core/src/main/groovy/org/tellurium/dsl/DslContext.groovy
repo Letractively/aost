@@ -2,10 +2,15 @@ package org.tellurium.dsl
 
 import org.tellurium.dsl.BaseDslContext
 import org.tellurium.dsl.WorkflowContext
-import org.tellurium.exception.NotWidgetObjectException
+import org.tellurium.test.java.exception.NotWidgetObjectException
 import org.tellurium.widget.Widget
 
+
 abstract class DslContext extends BaseDslContext {
+
+    //later on, may need to refactor it to use resource file so that we can show message for different localities
+    protected static final String ERROR_MESSAGE1 = "UI Object";
+    protected static final String ERROR_MESSAGE2 = "is not a Widget";
 
 //    def defUi = ui.&Container
 
@@ -19,7 +24,7 @@ abstract class DslContext extends BaseDslContext {
         if (!(obj instanceof Widget)) {
             println "Warning, Ui object ${uid} is not a widget"
 
-            throw new NotWidgetObjectException(uid)
+            throw new NotWidgetObjectException("${ERROR_MESSAGE1} ${uid} ${ERROR_MESSAGE2}")
         }
 
         //add reference xpath for the widget
@@ -36,7 +41,7 @@ abstract class DslContext extends BaseDslContext {
             println "Error, Ui object ${uid} is not a widget"
 
 //            throw new RuntimeException("Ui object ${uid} is not a widget")
-            throw new NotWidgetObjectException(uid)
+            throw new NotWidgetObjectException("${ERROR_MESSAGE1} ${uid} ${ERROR_MESSAGE2}")
         } else {
             if (obj.metaClass.respondsTo(obj, method, args)) {
 
