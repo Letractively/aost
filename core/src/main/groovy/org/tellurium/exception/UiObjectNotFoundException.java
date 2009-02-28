@@ -1,4 +1,4 @@
-package org.tellurium.test.java.exception;
+package org.tellurium.exception;
 
 /**
  *  Base class for Tellurium exception hierarchy

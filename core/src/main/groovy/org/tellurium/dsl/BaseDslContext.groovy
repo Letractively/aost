@@ -4,11 +4,11 @@ import org.tellurium.access.Accessor
 import org.tellurium.dsl.UiDslParser
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.event.EventHandler
+import org.tellurium.exception.UiObjectNotFoundException
 import org.tellurium.locator.LocatorProcessor
 import org.tellurium.object.List
 import org.tellurium.object.Table
 import org.tellurium.object.UiObject
-import org.tellurium.test.java.exception.UiObjectNotFoundException
 import org.tellurium.util.Helper
 
 /**

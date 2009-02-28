@@ -1,4 +1,4 @@
-package org.tellurium.test.java.exception;
+package org.tellurium.exception;
 
 /**
  *  Base class for Tellurium exception hierarchy
@@ -12,12 +12,6 @@ package org.tellurium.test.java.exception;
 public class NotWidgetObjectException extends TelluriumException{
 
   protected static final String ERROR_CODE = "TELLURIUM_NOT_WIDGET_OBJECT";
-
-/*
-  public NotWidgetObjectExceptionn() {
-    this.errorCode = ERROR_CODE;
-  }
-*/
 
   public NotWidgetObjectException(String message) {
     super(message);

@@ -2,7 +2,7 @@ package org.tellurium.dsl
 
 import org.tellurium.dsl.BaseDslContext
 import org.tellurium.dsl.WorkflowContext
-import org.tellurium.test.java.exception.NotWidgetObjectException
+import org.tellurium.exception.NotWidgetObjectException
 import org.tellurium.widget.Widget
 
 
