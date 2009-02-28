@@ -21,11 +21,13 @@ public class UiObjectNotFoundException extends TelluriumException{
 
   def UiObjectNotFoundException() {
     this.errorCode = ERROR_CODE;
+    super(getErrorMessage());
   }
 
   def UiObjectNotFoundException(String uid) {
     this.errorCode = ERROR_CODE;
     this.uid = uid;
+    super(getErrorMessage());
   }
 
   public String getErrorMessage() {

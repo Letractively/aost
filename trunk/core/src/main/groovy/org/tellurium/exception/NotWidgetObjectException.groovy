@@ -22,11 +22,13 @@ public class NotWidgetObjectException extends TelluriumException{
 
   def NotWidgetObjectExceptionn() {
     this.errorCode = ERROR_CODE;
+    super(getErrorMessage());
   }
 
   def NotWidgetObjectExceptionn(String uid) {
     this.errorCode = ERROR_CODE;
     this.uid = uid;
+    super(getErrorMessage());
   }
 
   public String getErrorMessage() {
