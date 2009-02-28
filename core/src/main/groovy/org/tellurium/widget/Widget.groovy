@@ -5,12 +5,13 @@ import org.tellurium.dsl.UiDslParser
 import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.event.EventHandler
-import org.tellurium.exception.UiObjectNotFoundException
 import org.tellurium.locator.LocatorProcessor
 import org.tellurium.object.List
 import org.tellurium.object.Table
 import org.tellurium.object.UiObject
+import org.tellurium.test.java.exception.UiObjectNotFoundException
 import org.tellurium.util.Helper
+
 
 /**
  * The base class for Widget objects.
@@ -24,9 +25,12 @@ import org.tellurium.util.Helper
  * Date: Aug 21, 2008
  * 
  */
+//@Mixin(BaseDslContext)
 abstract class Widget extends UiObject{
 
     public final static String NAMESPACE_SUFFIX = "_"
+
+    protected static final String ERROR_MESSAGE = "Cannot find UI Object";
 
     //the reference xpath for widget's parent
     private String pRef;
@@ -36,8 +40,12 @@ abstract class Widget extends UiObject{
     //for example, if Dojo and ExtJS both has the widget called Accordion, we have to differentiate
     //them using name space, i.e., DOJO::Accordion and ExtJS::Accordion
 
+    public void updateParentRef(String ref){
+        this.pRef = ref
+    }
+
     abstract public void defineWidget()
-    
+
     UiDslParser ui = new UiDslParser()
 
     //decoupling eventhandler, locateProcessor, and accessor from UI objects
@@ -46,10 +54,6 @@ abstract class Widget extends UiObject{
     EventHandler eventHandler = new EventHandler()
     Accessor accessor = new Accessor()
     LocatorProcessor locatorProcessor = new LocatorProcessor()
-
-    public void updateParentRef(String ref){
-        this.pRef = ref
-    }
 
     protected String locatorMapping(WorkflowContext context, loc ){
         //get ui object's locator
@@ -88,7 +92,7 @@ abstract class Widget extends UiObject{
         if(obj != null)
           return obj
 
-         throw new UiObjectNotFoundException(uid)
+         throw new UiObjectNotFoundException("${ERROR_MESSAGE} ${uid}")
     }
 
     def mouseOver(String uid){
