@@ -107,4 +107,15 @@ public class XPathProcessor {
 
     return null
   }
+
+  public static String getTagFromXPath(String xpath){
+    if(xpath != null){
+       String xp = removePrefix(xpath)
+       String[] splited = xp.split(/\[/)
+       
+       return splited[0].trim()
+    }
+
+    return null
+  }
 }
