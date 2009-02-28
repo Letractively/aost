@@ -3,6 +3,7 @@ package org.tellurium.object
 import org.tellurium.access.Accessor
 import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
+import org.tellurium.locator.CompositeLocator
 import org.tellurium.locator.GroupLocateStrategy
 import org.tellurium.locator.LocatorProcessor
 import org.tellurium.locator.XPathBuilder
@@ -390,6 +391,15 @@ class Table extends Container {
 
     context.appendReferenceLocator(loc)
 
+    if(cobj.locator != null){
+      if(cobj.locator instanceof CompositeLocator){
+        CompositeLocator cl = (CompositeLocator)cobj.locator
+        if("td".equals(cl.tag) && cl.header == null){
+          context.setTableDuplicateTag()
+        }
+      }
+    }
+
     if (uiid.size() < 1) {
       //not more child needs to be found
       return cobj
@@ -434,7 +444,15 @@ class Table extends Container {
 //        String loc = "/tbody/tr[1]/th[${index}]"
     String loc = tbody + "/tr[child::th]/th[${index}]"
     context.appendReferenceLocator(loc)
-
+    if(cobj.locator != null){
+      if(cobj.locator instanceof CompositeLocator){
+        CompositeLocator cl = (CompositeLocator)cobj.locator
+        if("th".equals(cl.tag) && cl.header == null){
+          context.setTableDuplicateTag()
+        }
+      }
+    }
+    
     if (uiid.size() < 1) {
       //not more child needs to be found
       return cobj

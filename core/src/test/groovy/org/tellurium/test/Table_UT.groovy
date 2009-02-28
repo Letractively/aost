@@ -137,4 +137,20 @@ class Table_UT extends GroovyTestCase{
        assertTrue(obj instanceof TextBox)
        assertEquals("/descendant-or-self::table[@id=\"someId\"]/tbody[@id=\"tbody1_Id\"]/tr[child::td][1]/td[1]", context.getReferenceLocator())     
   }
+
+  void testTablbe10(){
+      Table10 table10 = new Table10()
+      table10.defineUi()
+      String result = table10.getTableLocator("Actions.header[1]")
+      assertNotNull(result)
+      assertEquals("/descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::th]/descendant-or-self::th[1]", result)
+      result = table10.getTableLocator("Actions[1][1]")
+      assertEquals("/descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][1]/td[1]/descendant-or-self::input[@type=\"checkbox\" and @name=\"EntityKey\"]", result)
+      result = table10.getTableLocator("Actions[2][2]")
+      assertEquals("/descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][2]/td[2]/descendant-or-self::a[normalize-space(text())=normalize-space(\"Y100000542\")]", result)
+      result = table10.getTableLocator("Actions[2][3]")
+      assertEquals("/descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][2]/descendant-or-self::td[@class=\"abc\" and position()=3]", result)
+      result = table10.getTableLocator("Actions[3][4]")
+      assertEquals("/descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][3]/descendant-or-self::td[@class=\"abc\" and position()=4]", result)
+  }
 }

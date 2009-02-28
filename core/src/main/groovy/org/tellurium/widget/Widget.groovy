@@ -12,7 +12,6 @@ import org.tellurium.object.Table
 import org.tellurium.object.UiObject
 import org.tellurium.util.Helper
 
-
 /**
  * The base class for Widget objects.
  *
@@ -62,8 +61,11 @@ abstract class Widget extends UiObject{
         String wlc = locatorProcessor.locate(this.locator)
 
         //get the reference locator all the way to the ui object
-        if(context.getReferenceLocator() != null)
-            lcr = context.getReferenceLocator() + lcr
+        if(context.getReferenceLocator() != null){
+//            lcr = context.getReferenceLocator() + lcr
+            context.appendReferenceLocator(lcr)
+            lcr = context.getReferenceLocator()
+        }
 
         //append the object's xpath to widget's xpath
         lcr = wlc + lcr
