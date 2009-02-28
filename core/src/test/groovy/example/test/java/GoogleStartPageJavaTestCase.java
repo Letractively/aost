@@ -66,6 +66,7 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
     }
 
     @Test(expected = UiObjectNotFoundException.class)
+//    @Test
     public void testUiObjectNotFoundException(){
         ngsp.clickWrongButton();
     }
