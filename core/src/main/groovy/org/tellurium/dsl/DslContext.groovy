@@ -10,6 +10,15 @@ abstract class DslContext extends BaseDslContext {
     //later on, may need to refactor it to use resource file so that we can show message for different localities
     protected static final String ERROR_MESSAGE1 = "UI Object";
     protected static final String ERROR_MESSAGE2 = "is not a Widget";
+  
+    protected static final String XML_DOCUMENT_SCRIPT = """var doc = window.document;
+        var xml = null;
+        if(doc instanceof XMLDocument){
+           xml = new XMLSerializer().serializeToString(doc);
+        }else{
+           xml = getText(doc.body);
+        }
+        xml; """
 
 //    def defUi = ui.&Container
 
@@ -285,16 +294,7 @@ abstract class DslContext extends BaseDslContext {
 
     public String getXMLDocument(){
 
-      String script = """var doc = window.document;
-        var xml = null;
-        if(doc instanceof XMLDocument){
-           xml = new XMLSerializer().serializeToString(doc);
-        }else{
-           xml = getText(doc.body);
-        }
-        xml; """
-
-      String xml =  getEval(script)
+      String xml =  getEval(XML_DOCUMENT_SCRIPT)
 
       return xml
     }
