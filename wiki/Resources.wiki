@@ -78,6 +78,7 @@
   * [http://www.quirksmode.org/js/detect.html Browser detect]
   * [http://www.javascriptkit.com/javatutors/redev2.shtml Javascript Regular Expressions patterns]
   * [http://www.regular-expressions.info/javascriptexample.html Javascript Regular Expression Tester]
+  * [http://webfx.eae.net/ WebFX]
 
 === CSS ===
 
