@@ -89,9 +89,9 @@
             </tabpanel>
             <tabpanel orient="vertical">
               <groupbox orient="horizontal" flex="1">
-              <groupbox flex="1">
+                 <groupbox flex="1">
                   
-                    <vbox id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml" flex="3" minwidth="400" minheight="350" maxheight="600" style="overflow: auto;">
+                      <vbox id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml" flex="3" minwidth="400" minheight="350" maxheight="600" style="overflow: auto;">
                             <!--caption label="UI Module"/-->
                             <template>
                                 <query expr="*"/>
@@ -105,7 +105,7 @@
                                     </vbox>
                                 </action>
                             </template>                    
-                    </vbox>
+                        </vbox>
                     </groupbox>
                     <splitter collapse="after" ><grippy /></splitter>
                     <groupbox flex="1">
@@ -144,12 +144,10 @@
                                     <row align="center">
                                         <label control="commandValue" value="&attributes.label;"/>
 
-                                        <richlistbox id="ui_attribute_tree" datasources="#attributes_tree_xml" ref="*"
-                                                     querytype="xml" rows="10">
+                                        <richlistbox id="ui_attribute_tree" datasources="#attributes_tree_xml" ref="*" querytype="xml" rows="10">
                                             <listhead>
                                                 <listheader id="checkBoxId" label="" sort="?sel"/>
-                                                <listheader id="attributeName" primary="true" label="Name" sort="?name"
-                                                            flex="1"/>
+                                                <listheader id="attributeName" primary="true" label="Name" sort="?name" flex="1"/>
                                                 <listheader id="attributeValue" label="Value" sort="?value" flex="1"/>
                                             </listhead>
                                             <listcols>

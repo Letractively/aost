@@ -3,7 +3,7 @@ var blackListAttributes = ["size", "maxlength", "width", "height", "style", "ali
 //var whiteListAttributes = ["id", "name", "value", "tag", "type", "class", "action", "method", "title", "text", "href", "src", "position"]
 var whiteListAttributes = ["id", "name", "value", "tag", "type", "class", "action", "method", "title", "text", "href", "src"]
 
-var eventListAttributes = ["onclick", "ondoubleclick", "onkeyup", "onkeydown", "onkeypress", "onfocus", "onblur", "onmousedown","onmouseup", "onmouseover", "onmouseout", "onchange", "onsubmit", "onselect"]
+var eventListAttributes = ["onclick", "ondoubleclick", "onkeyup", "onkeydown", "onkeypress", "onfocus", "onblur", "onmousedown", "onmouseup", "onmouseover", "onmouseout", "onchange", "onsubmit", "onselect"]
 
 //filter out do not wanted Node attributes, most copied from builder.js
 function Filter(){
