@@ -24,6 +24,7 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
     public static void initUi() {
         ngsp = new NewGoogleStartPage();
         ngsp.defineUi();
+        ngsp.setJavascriptXPathLibrary();
     }
 
     @Test

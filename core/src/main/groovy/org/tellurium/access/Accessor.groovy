@@ -362,4 +362,8 @@ class Accessor implements Configurable{
     boolean getWhetherThisWindowMatchWindowExpression(String currentWindowString,String target){
         return dispatcher.getWhetherThisWindowMatchWindowExpression(currentWindowString, target)
     }
+
+    void useXpathLibrary(String libraryName){
+        dispatcher.useXpathLibrary(libraryName)
+    }
 }
