@@ -607,4 +607,17 @@ abstract class BaseDslContext {
     String getEval(String script){
         return accessor.getEval(script)
     }
+
+    public void useDefaultXPathLibrary(){
+      accessor.useXpathLibrary("default")
+    }
+
+    public void useJavascriptXPathLibrary(){
+      accessor.useXpathLibrary("javascript")
+    }
+
+    public void useAjaxsltXPathLibrary(){
+      accessor.useXpathLibrary("ajaxslt")
+    }
+    
 }
