@@ -15,14 +15,14 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" readonly="true" name="Default" comment="fix the Div tag type mapping">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/skin/trump.css" afterPath="$PROJECT_DIR$/trump/chrome/skin/trump.css" />
+    <list default="true" readonly="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/TrUMP-0.1.0.xpi" afterPath="$PROJECT_DIR$/dist/TrUMP-0.1.0.xpi" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/uicreator/filter.js" afterPath="$PROJECT_DIR$/trump/chrome/content/uicreator/filter.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium-firefox-plugin.iws" afterPath="$PROJECT_DIR$/tellurium-firefox-plugin.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/trump-ide.xul" afterPath="$PROJECT_DIR$/trump/chrome/content/trump-ide.xul" />
     </list>
-    <ignored path="tellurium-firefox-plugin.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path="tellurium-firefox-plugin.iws" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="Commander">
@@ -78,15 +78,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="uitype.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/uitype.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="72" selection-start="739" selection-end="739" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="xpathMatcher.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/xpathMatcher.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -105,10 +96,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="trump-ide.xul" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="trump-ide.xul" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trump/chrome/content/trump-ide.xul">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="184" column="61" selection-start="10734" selection-end="10734" vertical-scroll-proportion="1.1182965">
+            <state line="170" column="52" selection-start="10012" selection-end="10012" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="filter.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/filter.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="57" selection-start="1034" selection-end="1034" vertical-scroll-proportion="0.37795275">
               <folding />
             </state>
           </provider>
@@ -117,7 +117,7 @@
       <file leaf-file-name="trump.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trump/chrome/skin/trump.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="6" selection-start="1103" selection-end="1103" vertical-scroll-proportion="0.0">
+            <state line="43" column="59" selection-start="746" selection-end="746" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -256,10 +256,6 @@
           <option name="myItemId" value="chrome" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="skin" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
       </PATH>
       <PATH>
         <PATH_ELEMENT>
@@ -280,6 +276,10 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="chrome" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="content" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -306,6 +306,10 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="content" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="uicreator" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -456,7 +460,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="28" width="1440" height="844" extended-state="0" />
+    <frame x="0" y="27" width="1440" height="846" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
@@ -493,7 +497,7 @@
     <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix the Div tag type mapping" />
+    <option name="LAST_COMMIT_MESSAGE" value="add mouse up event" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -504,8 +508,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="revert the change to make the customize still show in two columns" />
-    <MESSAGE value="update the customize view color" />
     <MESSAGE value="update the customize view size" />
     <MESSAGE value="add position attribute" />
     <MESSAGE value="clean up code" />
@@ -529,6 +531,8 @@
     <MESSAGE value="remove prototype lib" />
     <MESSAGE value="update the record row number" />
     <MESSAGE value="fix the Div tag type mapping" />
+    <MESSAGE value="update the customize view" />
+    <MESSAGE value="add mouse up event" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -590,13 +594,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/filter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="94" selection-start="1626" selection-end="1626" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/tagState.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -639,6 +636,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/trump/chrome/skin/trump.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="59" selection-start="746" selection-end="746" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/node.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="54" column="82" selection-start="1330" selection-end="1330" vertical-scroll-proportion="0.0">
@@ -674,16 +678,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trump/chrome/skin/trump.css">
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/trump-ide.xul">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="6" selection-start="1103" selection-end="1103" vertical-scroll-proportion="0.0">
+        <state line="170" column="52" selection-start="10012" selection-end="10012" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trump/chrome/content/trump-ide.xul">
+    <entry file="file://$PROJECT_DIR$/trump/chrome/content/uicreator/filter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="184" column="61" selection-start="10734" selection-end="10734" vertical-scroll-proportion="1.1182965">
+        <state line="16" column="57" selection-start="1034" selection-end="1034" vertical-scroll-proportion="0.37795275">
           <folding />
         </state>
       </provider>
