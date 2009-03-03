@@ -48,6 +48,12 @@ class EventHandler implements Configurable{
             case Event.MOUSEOVER:
                 dispatcher.mouseOver(locator)
                 break
+            case Event.MOUSEDOWN:
+                dispatcher.mouseDown(locator)
+                break
+            case Event.MOUSEUP:
+                dispatcher.mouseUp(locator)
+                break
             default:
                 println "Warning: Unknown Event ${event.toString()}"
         }        
@@ -456,4 +462,69 @@ class EventHandler implements Configurable{
 
         return result
     }
+
+
+    def mouseDown(String locator, String[] events) {
+        String[] defaultEvents = null
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseDown(locator)
+        }
+	}
+
+    def mouseDownRight(String locator, String[] events) {
+        String[] defaultEvents = null
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseDownRight(locator)
+        }
+	}
+
+    def mouseDownRightAt(String locator, String coordinate, String[] events) {
+        String[] defaultEvents = null
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseDownRightAt(locator, coordinate)
+        }
+	}
+
+    def mouseUp(String locator, String[] events) {
+        String[] defaultEvents = null
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseUp(locator)
+        }
+	}
+
+    def mouseUpRight(String locator, String[] events) {
+        String[] defaultEvents = null
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseUpRight(locator)
+        }
+	}
+
+    def mouseUpRightAt(String locator, String coordinate, String[] events) {
+        String[] defaultEvents = null
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseUpRightAt(locator, coordinate)
+        }
+	}
+
+    def mouseMove(String locator, String[] events) {
+        String[] defaultEvents = null
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseMove(locator)
+        }
+	}
+
+    def mouseMoveAt(String locator, String coordinate, String[] events) {
+        String[] defaultEvents = null
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseMoveAt(locator, coordinate)
+        }
+	}
 }

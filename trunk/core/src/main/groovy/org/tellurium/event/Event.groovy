@@ -35,6 +35,8 @@ enum Event {
     DOUBLECLICK,
     MOUSEOVER,
     MOUSEOUT,
+    MOUSEDOWN,
+    MOUSEUP,
     KEYDOWN,
     KEYPRESS,
     KEYUP

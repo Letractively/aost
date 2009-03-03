@@ -1,5 +1,7 @@
 package org.tellurium.event
 
+import org.tellurium.event.Event
+
 /**
  * Us algorithm to sort given lists of events so that it satisifies the execution flow constraint
  *
@@ -11,8 +13,8 @@ package org.tellurium.event
 class EventSorter {
     //define events for before method invocation
     //the array defines the event occurring order
-    Event[] left = [Event.MOUSEOVER, Event.FOCUS]
-    Event[] right = [Event.MOUSEOUT, Event.BLUR]
+    Event[] left = [Event.MOUSEOVER, Event.FOCUS, Event.MOUSEDOWN]
+    Event[] right = [Event.MOUSEUP, Event.MOUSEOUT, Event.BLUR]
     Map<String, Integer> indices = new HashMap<String, Integer>()
 
     public EventSorter(){
