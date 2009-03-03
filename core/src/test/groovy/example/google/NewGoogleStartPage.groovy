@@ -61,8 +61,4 @@ class NewGoogleStartPage extends DslContext{
     def clickWrongButton(){
       click "google_start_page.search"
     }
-
-    def setJavascriptXPathLibrary(){
-      useJavascriptXPathLibrary()      
-    }
 }
