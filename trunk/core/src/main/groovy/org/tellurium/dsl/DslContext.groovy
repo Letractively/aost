@@ -282,6 +282,23 @@ abstract class DslContext extends BaseDslContext {
         return accessor.getAllWindowTitles()
     }
 
+
+    public String getXMLDocument(){
+
+      String script = """var doc = window.document;
+        var xml = null;
+        if(doc instanceof XMLDocument){
+           xml = new XMLSerializer().serializeToString(doc);
+        }else{
+           xml = getText(doc.body);
+        }
+        xml; """
+
+      String xml =  getEval(script)
+
+      return xml
+    }
+
     //let the missing property return the a string of the properity, this is useful for the onWidget method
     //so that we can pass in widget method directly, instead of passing in the method name as a String
     def propertyMissing(String name) {
