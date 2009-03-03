@@ -619,5 +619,85 @@ abstract class BaseDslContext {
     public void useAjaxsltXPathLibrary(){
       accessor.useXpathLibrary("ajaxslt")
     }
-    
+
+    def mouseDown(String uid){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+
+        walkToWithException(context, uid)?.mouseDown(){ loc ->
+            String locator = locatorMapping(context, loc)
+            eventHandler.mouseDown(locator)
+        }
+    }
+
+    def mouseDownRight(String uid){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+
+        walkToWithException(context, uid)?.mouseDownRight(){ loc ->
+            String locator = locatorMapping(context, loc)
+            eventHandler.mouseDownRight(locator)
+        }
+    }
+
+    def mouseDownAt(String uid, String coordinate){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+
+        walkToWithException(context, uid)?.mouseDownAt(){ loc ->
+            String locator = locatorMapping(context, loc)
+            eventHandler.mouseDownAt(locator, coordinate)
+        }
+    }
+
+    def mouseDownRightAt(String uid, String coordinate){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+
+        walkToWithException(context, uid)?.mouseDownRightAt(){ loc ->
+            String locator = locatorMapping(context, loc)
+            eventHandler.mouseDownRightAt(locator, coordinate)
+        }
+    }
+  
+    def mouseUp(String uid){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+
+        walkToWithException(context, uid)?.mouseUp(){ loc ->
+            String locator = locatorMapping(context, loc)
+            eventHandler.mouseUp(locator)
+        }
+    }
+
+    def mouseUpRight(String uid){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+
+        walkToWithException(context, uid)?.mouseUpRight(){ loc ->
+            String locator = locatorMapping(context, loc)
+            eventHandler.mouseUpRight(locator)
+        }
+    }
+
+    def mouseUpRightAt(String uid, String coordinate){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+
+        walkToWithException(context, uid)?.mouseUpRightAt(){ loc ->
+            String locator = locatorMapping(context, loc)
+            eventHandler.mouseUpRightAt(locator, coordinate)
+        }
+    }
+
+    def mouseMove(String uid){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+
+        walkToWithException(context, uid)?.mouseMove(){ loc ->
+            String locator = locatorMapping(context, loc)
+            eventHandler.mouseMove(locator)
+        }
+    }
+
+    def mouseMoveAt(String uid, String coordinate){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+
+        walkToWithException(context, uid)?.mouseMoveAt(){ loc ->
+            String locator = locatorMapping(context, loc)
+            eventHandler.mouseMoveAt(locator, coordinate)
+        }
+    }
 }
