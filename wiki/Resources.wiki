@@ -80,6 +80,7 @@
   * [http://www.regular-expressions.info/javascriptexample.html Javascript Regular Expression Tester]
   * [http://webfx.eae.net/dhtml/ieemu/index.html IE Emu for Moz]
   * [http://www.scottandrew.com/weblog/articles/cbs-events Crossbrowser DOM Scripting: Event Handlers]
+  * [http://getfirebug.com/js.html Firebug JavaScript Debugging]
 
 === CSS ===
 
