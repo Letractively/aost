@@ -116,6 +116,7 @@
   * [http://www.grails.org/The+Plug-in+Developers+Guide The Grails Plug-in Developers Guide]
   * [http://groovy.codehaus.org/Documentation Groovy Document]
   * [http://www.ibm.com/developerworks/java/library/j-pg02155/ MVC programming with Groovy templates]
+  * [http://www.infoq.com/articles/groovy-1-6 What's New in Groovy 1.6]
 
 === Misc ===
 
