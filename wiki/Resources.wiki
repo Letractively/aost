@@ -78,7 +78,8 @@
   * [http://www.quirksmode.org/js/detect.html Browser detect]
   * [http://www.javascriptkit.com/javatutors/redev2.shtml Javascript Regular Expressions patterns]
   * [http://www.regular-expressions.info/javascriptexample.html Javascript Regular Expression Tester]
-  * [http://webfx.eae.net/ WebFX]
+  * [http://webfx.eae.net/dhtml/ieemu/index.html IE Emu for Moz]
+  * [http://www.scottandrew.com/weblog/articles/cbs-events Crossbrowser DOM Scripting: Event Handlers]
 
 === CSS ===
 
