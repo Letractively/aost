@@ -1,0 +1,49 @@
+#summary Announcements.
+#labels Phase-Support
+<wiki:toc max_depth="2" />
+
+= Tellurium Announcements =
+
+== Tellurium UI Model Plugin (TrUMP) 0.1.0 is released ==
+
+We are glad to announce that TrUMP 0.1.0 Release is out and please download it from Tellurium download page at
+
+http://code.google.com/p/aost/downloads/list
+
+
+The release includes two xpi files, one for Firefox 3 and one for firefox 2. Basically there are the same, the firefox 3 one utilized some advanced features provided by Firefox 3 to display UI.
+
+The main features of TrUMP 0.1.0 include
+
+  # Record user's clicks to automatically generate UI module
+  # Validate the UI module
+  # Customize the UI module
+  # Export the generated UI module to a groovy file
+  # Logging support
+  # Preference support
+
+The known issues or limitations include
+
+  # Cannot record popup/dialog window
+  # Does not support UI template yet. This feature will be provided in later versions.
+
+The detailed steps on how to install and use TrUMP could be found at,
+
+ http://code.google.com/p/aost/wiki/TrUMP
+
+
+On the download page, we provide video demos on how to use TrUMP to create UI modules and how to write Tellurium tests using the generated UI module. We also provide a presentation about Tellurium there. 
+
+If you are interested in how TrUMP is implemented, you can find the following tutorial,
+
+  http://code.google.com/p/aost/wiki/HowTrUMPWorks 
+
+
+It would be really helpful for us to improve TrUMP if you could try it and post your problems and suggestions to Tellurium user group at
+
+  http://groups.google.com/group/tellurium-users
+
+
+Thanks in advance,
+
+Tellurium team
