@@ -1,7 +1,8 @@
 #summary Frequently Asked Questions
 #labels Featured,Phase-Support
+<wiki:toc max_depth="3" />
 
-= FAQs for Tellurium =
+== FAQs for Tellurium ==
 
 === Q1: Why do you create the Tellurium framework ===
 More than one year ago, two colleagues in my company went to a conference and came back talking about the Selenium test framework, which seems very attractive at the first sight. But soon, we realized that it is very difficult to maintain and refactor, which is often the case in an agile environment. I worked on the selenium tests for a project and came out with the idea of using abstract object modules to add another tier to the selenium framework. The framework was written in Java and later on, couple colleagues from other teams tried to use my framework, but it was quite difficult to use because it lacks of expressiveness. Recently, I re-write my framework using Groovy to make it much easier to use and add a lot of functionalities which are difficult to implement without the dynamic nature of Groovy. I make it open source so that more people can use it and I can improve it with your suggestions and comments.
