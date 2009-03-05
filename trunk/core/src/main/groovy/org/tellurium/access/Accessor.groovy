@@ -366,4 +366,17 @@ class Accessor implements Configurable{
     void useXpathLibrary(String libraryName){
         dispatcher.useXpathLibrary(libraryName)
     }
+
+    String waitForText(String locator, int timeout){
+       waitForElementPresent(locator, timeout)
+	   if(dispatcher.isElementPresent(locator)){
+
+//			dispatch.isTextPresent((new Integer(timeout)).toString())
+//            dispatcher.isTextPresent(timeout)
+
+            return dispatcher.getText(locator)
+		}
+
+		return null
+	}
 }
