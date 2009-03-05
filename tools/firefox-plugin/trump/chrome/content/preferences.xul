@@ -40,16 +40,14 @@
 
         <separator class="thin"/>
 
-        <description>&options.jslog.description;</description>
         <hbox align="center">
-            <checkbox id="trump-option-jslog" preference="trumpJSLog" disabled="false" checked="true"/>
+            <checkbox id="trump-option-jslog" label= "&options.jslog.description;" preference="trumpJSLog" disabled="false" checked="true"/>
         </hbox>
 
         <separator class="thin"/>
 
-        <description>&options.logwrap.description;</description>
         <hbox align="center">
-            <checkbox id="trump-option-logwrap" preference="trumpLogWrap" disabled="false" checked="false"/>
+            <checkbox id="trump-option-logwrap" label= "&options.logwrap.description;" preference="trumpLogWrap" disabled="false" checked="false"/>
         </hbox>
         <hbox pack="center">
           <!--button id="saveButton" label="&save.label;" oncommand="saveOptions();" /-->

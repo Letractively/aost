@@ -2,8 +2,6 @@
  * An UI of TrUMP IDE.
  */
 
-const DEFAULT_XML = "<?xml version=\"1.0\"?><UIs id=\"customize_tree_xml\" xmlns=\"\"></UIs>";
-const DEFAULT_ATTRIBUTES_XML = "<?xml version=\"1.0\"?><attributes id=\"attributes_tree_xml\" xmlns=\"\"></attributes>";
 function Editor(window) {
     this.window = window;
     var self = this;
@@ -15,8 +13,6 @@ function Editor(window) {
 
     this.registerRecorder();
     this.innerTree = null;
-
-    this.buildCustomizeTree(DEFAULT_XML);
 
     this.currentUid = null;
 
@@ -134,8 +130,8 @@ Editor.prototype.clearCustomizeTabContext = function(){
     document.getElementById("uid").setAttribute("disabled", "true");
     document.getElementById("uiType").setAttribute("disabled", "true");
     document.getElementById("group_Check_Box").disabled = true;
-    this.buildCustomizeTree(DEFAULT_XML);
-    this.buildUiAttributeTree(DEFAULT_ATTRIBUTES_XML);
+    this.clearCustomizeRows();
+    this.clearAttributes();
 }
 
 Editor.prototype.switchToSourceTab = function(){
@@ -151,26 +147,77 @@ Editor.prototype.selectedTreeItem = function(event){
 }
 
 Editor.prototype.customizeButton = function(){
+    this.clearCustomizeRows();
+    this.clearAttributes();
     this.switchToCustomizeTab();
-    var xml = DEFAULT_XML;
-    if(this.innerTree != null){
-        xml = this.innerTree.buildXML();
-    }
 
-    this.buildCustomizeTree(xml);
+    var custNodeArray = null;
+    if(this.innerTree != null){
+        if(this.innerTree != null){
+            custNodeArray = this.innerTree.buildCustomizeContent();
+        }
+    }
+    var rows = document.getElementById("customizeContentRows");
+
+    if (custNodeArray != null) {
+        for (var i = 0; i < custNodeArray.length; ++i) {
+            var custNode = custNodeArray[i];
+
+            var button = document.createElement("button");
+            button.setAttribute("myclass", custNode.cssClass);
+            button.setAttribute("label", custNode.objectDesc);
+            button.setAttribute("uid", custNode.uid);
+            button.setAttribute("oncommand", "window.editor.processCustomizeEvent(event)");
+
+            var label = document.createElement("label");
+            label.setAttribute("style", "color:red");
+            label.setAttribute("align", "right");
+            label.setAttribute("value", custNode.valid);
+
+            var spacer = document.createElement("spacer");
+            spacer.setAttribute("flex", "1");
+
+            var hbox = document.createElement("hbox");
+            hbox.appendChild(button);
+            hbox.appendChild(spacer);
+            hbox.appendChild(label);
+
+            var row = document.createElement("row");
+            row.setAttribute("style", "padding-left : "+ (custNode.level * 20) +"px");
+            row.appendChild(hbox);
+
+            rows.appendChild(row);
+        }
+    } else {
+        logger.debug("custNodeArray is null");
+    }
 }
 
 Editor.prototype.switchToCustomizeTab = function(){
     document.getElementById("editorTabs").selectedItem = document.getElementById("customizeTab");
 }
 
-Editor.prototype.buildCustomizeTree = function(xml) {
-    if (xml != null) {
-        var parser = new DOMParser();
-        var customize_tree = document.getElementById("customize_tree");
-        var pxml = parser.parseFromString(xml, "text/xml");
-        customize_tree.builder.datasource = pxml;
-        customize_tree.builder.rebuild();
+Editor.prototype.clearCustomizeRows = function(){
+    var rows = document.getElementById("customizeContentRows");
+    if(rows.hasChildNodes()){
+        while(rows.firstChild){
+            rows.removeChild(rows.firstChild);
+        }
+    }
+}
+
+Editor.prototype.clearAttributes = function(){
+    var richListBox = document.getElementById("ui_attribute_tree");
+    if(richListBox.hasChildNodes()){
+        var doneDeleting = false;
+        while(richListBox.lastChild && !doneDeleting){
+            var child = richListBox.lastChild;
+            if(child.nodeName != "richlistitem"){
+                doneDeleting = true;
+            }else{
+                richListBox.removeChild(child);
+            }
+        }
     }
 }
 
@@ -199,14 +246,56 @@ Editor.prototype.fillUiObjectFields = function(uiObject){
         document.getElementById("group_Check_Box").disabled = false;
         document.getElementById("group_Check_Box").checked = uiObject.group;
     } else {
-        document.getElementById("group_Check_Box").disabled = false;
         document.getElementById("group_Check_Box").checked = false;
         document.getElementById("group_Check_Box").disabled = true;
     }
+    this.clearAttributes();
 
+    var richListBox = document.getElementById("ui_attribute_tree");
+
+    
     if (uiObject.node != null) {
-        var xml = uiObject.node.buildAttributeXml();
-        this.buildUiAttributeTree(xml);
+        var nd = uiObject.node;
+        var keySet = nd.attributes.keySet();
+//        logger.debug("keySet : " + keySet);
+        var locator = nd.uiobject.clocator;
+
+        for(var i=0 ; i < keySet.length; ++i){
+            //should not change tag, thus, remove tag from the list
+            var key = keySet[i];
+            if(key != "tag"){
+//                logger.debug("key : "+ key);
+                var richListItem = document.createElement("richlistitem");
+                
+                var checkbox = document.createElement("checkbox");
+                checkbox.setAttribute("name", "CID"+key);
+                if(locator.isAttributeIncluded(key)){
+                    checkbox.setAttribute("checked", true);
+                }else{
+                    checkbox.setAttribute("checked", false);
+                }
+                checkbox.setAttribute("align", "center");
+                checkbox.setAttribute("minwidth", "10");
+                richListItem.appendChild(checkbox);
+
+                var label = document.createElement("label");
+                label.setAttribute("value", key);
+                label.setAttribute("align", "center");
+                label.setAttribute("minwidth", "50");
+                label.setAttribute("flex", "1");
+                richListItem.appendChild(label);
+
+                var textbox = document.createElement("textbox");
+                textbox.setAttribute("name", "VID"+key);
+                textbox.setAttribute("value", nd.xmlutil.specialCharacterProof(nd.attributes.get(key)));
+                textbox.setAttribute("align", "center");
+                textbox.setAttribute("minwidth", "50");
+                textbox.setAttribute("flex", "1");
+                richListItem.appendChild(textbox);
+                richListBox.appendChild(richListItem);
+            }
+        }
+
     } else {
         logger.warn("Ui object " + uiObject.uid + " does not point to a Node in the tree")
     }
@@ -220,16 +309,6 @@ Editor.prototype.enableUiObjectFields = function(){
 Editor.prototype.disableUiObjectFields = function(){
     document.getElementById("uid").setAttribute("disabled", "true");
     document.getElementById("uiType").setAttribute("disabled", "true");   
-}
-
-Editor.prototype.buildUiAttributeTree = function(xml) {
-    if (xml != null) {
-        var parser = new DOMParser();
-        var ui_attribute_tree = document.getElementById("ui_attribute_tree");
-        var pxml = parser.parseFromString(xml, "text/xml");
-        ui_attribute_tree.builder.datasource = pxml;
-        ui_attribute_tree.builder.rebuild();
-    }
 }
 
 Editor.prototype.getElementsByTagValue = function(tag, attr, val){

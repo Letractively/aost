@@ -53,6 +53,7 @@ Recorder.prototype.registerClickListener = function(){
             }
 
         };
+
 //    this.parentWindow.document.addEventListener("click", this.listener, false);
     this.parentWindow.content.document.body.addEventListener("click", this.listener, false);
 }
