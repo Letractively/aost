@@ -25,6 +25,7 @@ The main features of TrUMP 0.1.0 include
 The known issues or limitations include
 
   # Cannot record popup/dialog window
+  # Does not support Frames
   # Does not support UI template yet. This feature will be provided in later versions.
 
 The detailed steps on how to install and use TrUMP could be found at,
