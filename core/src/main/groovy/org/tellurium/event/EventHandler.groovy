@@ -348,20 +348,6 @@ class EventHandler implements Configurable{
         dispatcher.selectFrame(locator)
     }
 
-    String waitForText(String locator, int timeout){
-        checkElement(locator)
-
-		if(dispatcher.isElementPresent(locator)){
-
-//			dispatch.isTextPresent((new Integer(timeout)).toString())
-            dispatcher.isTextPresent(timeout)
-
-            return dispatcher.getText(locator)
-		}
-
-		return null
-	}
-
     def private boolean checkAndWaitForElementPresent(String locator, int timeout){
 
 		boolean result = false

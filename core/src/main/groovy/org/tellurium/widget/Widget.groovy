@@ -377,14 +377,6 @@ abstract class Widget extends UiObject{
         return false
     }
 
-    String waitForText(String uid, int timeout){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.waitForText(timeout){ loc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.waitForText(locator, timeout)
-        }
-    }
-
     int getTableHeaderColumnNum(String uid){
          WorkflowContext context = WorkflowContext.getDefaultContext()
          Table obj = (Table)walkToWithException(context, uid)
@@ -480,18 +472,15 @@ abstract class Widget extends UiObject{
          throw RuntimeException("Cannot find UI Object ${uid})")
     }
 
-    def isDisabled(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        def obj = walkToWithException(context, uid)
-         if(obj != null){
-             return obj.isDisabled (){loc ->
+  def isDisabled(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return walkToWithException(context, uid)?.isDisabled() {loc ->
 //                 String locator = locatorMapping(context, loc)
 //                 accessor.isDisabled(locator)
-                 String locator = locatorMapping(context, loc) + "/self::node()[@disabled]"
-                 accessor.isElementPresent(locator)
-             }
-         }
+      String locator = locatorMapping(context, loc) + "/self::node()[@disabled]"
+      accessor.isElementPresent(locator)
     }
+  }
 
     def isEnabled(String uid){
         return !isDisabled(uid);
@@ -726,7 +715,15 @@ abstract class Widget extends UiObject{
             eventHandler.mouseMoveAt(locator, coordinate)
         }
     }
-   
+
+    String waitForText(String uid, int timeout){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return walkToWithException(context, uid)?.waitForText(timeout){ loc, int timeout ->
+            String locator = locatorMapping(context, loc)
+            accessor.waitForText(locator, timeout)
+        }
+    }
+
     //walkTo through the object tree to until the Ui Object is found by the UID
     public UiObject walkTo(WorkflowContext context, UiID uiid){
         //if not child listed, return itself

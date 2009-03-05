@@ -114,14 +114,14 @@ abstract class DslContext extends BaseDslContext {
 
     boolean getWhetherThisFrameMatchFrameExpression(String uid, String target) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.getWhetherThisFrameMatchFrameExpression(target) {String loc ->
+        walkToWithException(context, uid)?.getWhetherThisFrameMatchFrameExpression(target) {String loc, String target ->
             accessor.getWhetherThisFrameMatchFrameExpression(loc, target)
         }
     }
 
     void waitForFrameToLoad(String uid, int timeout) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.waitForFrameToLoad(timeout) {String loc ->
+        walkToWithException(context, uid)?.waitForFrameToLoad(timeout) {String loc, int timeout ->
             accessor.waitForFrameToLoad(loc, Integer.toString(timeout))
         }
     }

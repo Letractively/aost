@@ -354,9 +354,9 @@ abstract class BaseDslContext {
 
     String waitForText(String uid, int timeout){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.waitForText(timeout){ loc ->
+        return walkToWithException(context, uid)?.waitForText(timeout){ loc, int timeout ->
             String locator = locatorMapping(context, loc)
-            eventHandler.waitForText(locator, timeout)
+            accessor.waitForText(locator, timeout)
         }
     }
 
@@ -457,14 +457,12 @@ abstract class BaseDslContext {
 
     def isDisabled(String uid){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        def obj = walkToWithException(context, uid)
-         if(obj != null){
-             return obj.isDisabled (){loc ->
+
+        return walkToWithException(context, uid).isDisabled (){loc ->
 //                String locator = locatorMapping(context, loc)
 //                accessor.isDisabled(locator)
                  String locator = locatorMapping(context, loc) + "/self::node()[@disabled]"
                  accessor.isElementPresent(locator)
-             }
          }
     }
 

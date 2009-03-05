@@ -3,6 +3,7 @@ package org.tellurium.object
 import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.event.Event
+import org.tellurium.object.Container
 
 /**
  *  Basic UI object
@@ -134,6 +135,10 @@ abstract class UiObject {
     public getLocator(Closure c){
 
       return c(locator)
+    }
+
+    public String waitForText(int timeout, Closure c){
+      return c(locator, timeout)
     }
   
     //walkTo through the object tree to until the Ui Object is found by the UID
