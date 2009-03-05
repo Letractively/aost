@@ -354,9 +354,9 @@ abstract class BaseDslContext {
 
     String waitForText(String uid, int timeout){
         WorkflowContext context = WorkflowContext.getDefaultContext()
-        return walkToWithException(context, uid)?.waitForText(timeout){ loc, int timeout ->
+        return walkToWithException(context, uid)?.waitForText(timeout){ loc, int tmo ->
             String locator = locatorMapping(context, loc)
-            accessor.waitForText(locator, timeout)
+            accessor.waitForText(locator, tmo)
         }
     }
 
