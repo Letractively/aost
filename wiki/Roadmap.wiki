@@ -10,10 +10,10 @@ For the the next release of Tellurium Core 0.6.0, we should achieve the followin
   * Upgrade Groovy and Selenium versions
   * Update the reference projects
 
-For the TrUMP project 0.1.0, we should
-  * Prototype the plugin UI with multiple tabs
-  * Implement algorithms to automatically group selected UI elements into a composite object.
-  * Add build script to make the artifact easy to download and install
+For the TrUMP project 0.2.0, we should
+  * Add support for IFrames/Frames
+  * Add support to record dialogs/popups
+  * Add Inference engine to derive UI templates
 
 For the DOJO widget 0.1.0, we should 
   * Make the Widget reconfigurable in definition
