@@ -4,12 +4,14 @@ import org.tellurium.config.Configurable
 import org.tellurium.dispatch.Dispatcher
 import org.tellurium.event.Event
 import org.tellurium.event.EventSorter
+import org.tellurium.exception.ElementNotPresentException
 import org.tellurium.util.Helper
 
 class EventHandler implements Configurable{
 
     public static final String RETURN_KEY= "BSBS13"
 	public static final int ACTION_WAIT_TIME = 50
+    protected static final String ELEMENT_NOT_PRESENT_ERROR_MESSAGE = "Element is not present"
 
     //default is selenium dispatcher
     def dispatcher  = new Dispatcher()
@@ -70,6 +72,8 @@ class EventHandler implements Configurable{
                   processingEvent(locator, event)
             }
 
+        }else{
+          throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
         }
     }
 
@@ -292,7 +296,9 @@ class EventHandler implements Configurable{
                 dispatcher.fireEvent(locator, "focus")
             }
             dispatcher.addSelection(locator, optionLocator)
-		}
+		}else{
+          throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        }
     }
 
     def removeSelection(String locator,String optionLocator){
@@ -303,7 +309,9 @@ class EventHandler implements Configurable{
                 dispatcher.fireEvent(locator, "focus")
             }
             dispatcher.removeSelection(locator, optionLocator)
-		}
+		}else{
+          throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        }
     }
 
     def removeAllSelections(String locator){
@@ -314,7 +322,9 @@ class EventHandler implements Configurable{
                 dispatcher.fireEvent(locator, "focus")
             }
             dispatcher.removeAllSelections(locator)
-		}
+		}else{
+          throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        }
     }
 
     def submit(String locator){
@@ -325,7 +335,9 @@ class EventHandler implements Configurable{
                 dispatcher.fireEvent(locator, "focus")
             }
             dispatcher.submit(locator)
-		}
+		}else{
+          throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        }
     }
 
     void openWindow(String url, String windowID){
