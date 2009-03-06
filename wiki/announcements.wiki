@@ -11,7 +11,7 @@ We are glad to announce that TrUMP 0.1.0 Release is out and please download it f
 http://code.google.com/p/aost/downloads/list
 
 
-The release includes two xpi files, one for Firefox 3 and one for firefox 2. Basically there are the same, the firefox 3 one utilized some advanced features provided by Firefox 3 to display UI.
+The release includes two xpi files, one for Firefox 3 and one for firefox 2. Basically they are the same, the firefox 3 one utilized some advanced features provided by Firefox 3 to display UI.
 
 The main features of TrUMP 0.1.0 include
 
