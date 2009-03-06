@@ -1,7 +1,7 @@
 package org.tellurium.exception;
 
 /**
- *  Base class for Tellurium exception hierarchy
+ *  Not a widget object exception
  *
  *  John.jian.fang@gmail.com
  *

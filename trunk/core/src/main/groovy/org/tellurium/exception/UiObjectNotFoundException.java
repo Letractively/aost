@@ -1,7 +1,7 @@
 package org.tellurium.exception;
 
 /**
- *  Base class for Tellurium exception hierarchy
+ *  UI object not found exception
  *
  *  John.jian.fang@gmail.com
  *

@@ -3,6 +3,7 @@ package org.tellurium.access
 import com.thoughtworks.selenium.SeleniumException
 import org.tellurium.config.Configurable
 import org.tellurium.dispatch.Dispatcher
+import org.tellurium.exception.ElementNotPresentException
 import org.tellurium.util.Helper
 
 class Accessor implements Configurable{
@@ -10,6 +11,8 @@ class Accessor implements Configurable{
     protected static final int ACCESS_WAIT_TIME = 50
 
     private static final String DISABLED_ATTRIBUTE = "@disabled"
+
+    protected static final String ELEMENT_NOT_PRESENT_ERROR_MESSAGE = "Element is not present"
 
     def dispatcher  = new Dispatcher()
 
@@ -46,7 +49,9 @@ class Accessor implements Configurable{
 			return dispatcher.isChecked(locator)
 		}
 
-		throw new RuntimeException("Check Box " + locator + " is not visible")
+//		throw new RuntimeException("Check Box " + locator + " is not visible")
+      throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+
 	}
 
     def boolean isDisabled(String locator){
@@ -113,27 +118,27 @@ class Accessor implements Configurable{
 	}
 
 	def String getText(String locator){
-		String text = null
+//		String text = null
 
         checkElement(locator)
 
     	if (dispatcher.isElementPresent(locator)){
-    		text = dispatcher.getText(locator)
+    		return dispatcher.getText(locator)
     	}
 
-    	return text
+        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
 	}
 
 	def String getValue(String locator){
-		String text = null
+//		String text = null
 
         checkElement(locator)
 
         if (dispatcher.isElementPresent(locator)){
-    		text = dispatcher.getValue(locator)
+    		return dispatcher.getValue(locator)
     	}
 
-    	return text
+       throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
 	}
 
     def String[] getSelectOptions(String locator){
@@ -143,7 +148,7 @@ class Accessor implements Configurable{
             return dispatcher.getSelectOptions(locator)
         }
 
-        return null
+        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
     }
 
     String[] getSelectedLabels(String locator){
@@ -153,7 +158,7 @@ class Accessor implements Configurable{
             return dispatcher.getSelectedLabels(locator)
         }
 
-        return null
+        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
     }
 
     String getSelectedLabel(String locator){
@@ -163,7 +168,7 @@ class Accessor implements Configurable{
             return dispatcher.getSelectedLabel(locator)
         }
 
-        return null
+        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
     }
 
     String[] getSelectedValues(String locator){
@@ -173,7 +178,7 @@ class Accessor implements Configurable{
             return dispatcher.getSelectedValues(locator)
         }
 
-        return null
+        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
     }
 
     String getSelectedValue(String locator){
@@ -183,7 +188,7 @@ class Accessor implements Configurable{
             return dispatcher.getSelectedValue(locator)
         }
 
-        return null
+        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
     }
 
     String[] getSelectedIndexes(String locator){
@@ -193,7 +198,7 @@ class Accessor implements Configurable{
             return dispatcher.getSelectedIndexes(locator)
         }
 
-        return null
+        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
     }
 
     String getSelectedIndex(String locator){
@@ -203,7 +208,7 @@ class Accessor implements Configurable{
             return dispatcher.getSelectedIndex(locator)
         }
 
-        return null
+        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
     }
 
     String[] getSelectedIds(String locator){
@@ -213,7 +218,7 @@ class Accessor implements Configurable{
             return dispatcher.getSelectedIds(locator)
         }
 
-        return null
+       throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
     }
 
     String getSelectedId(String locator){
@@ -223,7 +228,7 @@ class Accessor implements Configurable{
             return dispatcher.getSelectedId(locator)
         }
 
-        return null
+        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
     }
 
     boolean isSomethingSelected(String locator){
@@ -233,7 +238,7 @@ class Accessor implements Configurable{
             return dispatcher.isSomethingSelected(locator)
         }
 
-        return false
+        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
     }
 
     String getAttribute(String locator){
@@ -377,6 +382,6 @@ class Accessor implements Configurable{
             return dispatcher.getText(locator)
 		}
 
-		return null
+		throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
 	}
 }
