@@ -465,3 +465,53 @@ public class ExtendUiModule extends BaseUiModule {
 }}}
 
 Note that the "Include" must have the uid attribute to refer to the element it wants to include. 
+
+=== Q40: How to handle Table with multiple tbody elements ===
+
+The StandardTable is designed for this purpose and it has the following format
+
+{{{
+
+table
+      thead
+         tr
+           td
+           ...
+           td
+      tbody
+         tr
+           td
+           ...
+           td
+         ...
+       tbody (multiple tbodies)
+         tr
+           td
+           ...
+           td
+         ...
+      tfoot
+         tr
+           td
+           ...
+           td 
+}}}
+
+For a StandardTable, you can specify UI templates for different tbodies. For Example:
+
+{{{
+ui.StandardTable(uid: "table", clocator: [id: "std"]) {
+   UrlLink(uid: "header: 2", clocator: [text: "%%Filename"])
+   UrlLink(uid: "header: 3", clocator: [text: "%%Uploaded"])
+   UrlLink(uid: "header: 4", clocator: [text: "%%Size"])
+   TextBox(uid: "header: all", clocator: [:])
+
+   Selector(uid: "tbody: 1, row:1, column: 3", clocator: [name: "can"])
+   SubmitButton(uid: "tbody: 1, row:1, column:4", clocator: [value: "Search", name: "btn"])
+   InputBox(uid: "tbody: 1, row:2, column:3", clocator: [name: "words"])
+   InputBox(uid: "tbody: 2, row:2, column:3", clocator: [name: "without"])
+   InputBox(uid: "tbody: 2, row:*, column:1", clocator: [name: "labels"])
+
+   TextBox(uid: "foot: all", clocator: [tag: "td"])
+}
+}}}
