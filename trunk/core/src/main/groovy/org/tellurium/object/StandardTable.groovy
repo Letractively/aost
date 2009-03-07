@@ -3,8 +3,13 @@ package org.tellurium.object
 import org.tellurium.access.Accessor
 import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
+import org.tellurium.exception.InvalidUidException
+import org.tellurium.locator.CompositeLocator
 import org.tellurium.locator.GroupLocateStrategy
 import org.tellurium.locator.LocatorProcessor
+import org.tellurium.object.Container
+import org.tellurium.object.TextBox
+import org.tellurium.object.UiObject
 
 /**
  * Standard table is in the format of
@@ -16,6 +21,12 @@ import org.tellurium.locator.LocatorProcessor
  *          ...
  *          td
  *     tbody
+ *        tr
+ *          td
+ *          ...
+ *          td
+ *        ...
+ *     tbody (multiple tbodies)
  *        tr
  *          td
  *          ...
@@ -45,7 +56,10 @@ class StandardTable extends Container{
      public static final String COLUMN = "COLUMN"
      public static final String HEADER = "HEADER"
      public static final String FOOT = "FOOT"
-    
+     public static final String TBODY = "TBODY"
+
+     protected static final String INVALID_UID_ERROR_MESSAGE = "Invalid UID "
+
      protected TextBox defaultUi = new TextBox()
      //add a map to hold all the header elements
      def headers = [:]
@@ -69,7 +83,7 @@ class StandardTable extends Container{
                 components.put(internId, component)
             }
         }else{
-            System.out.println("Warning: Invalid id: ${component.uid}")
+            throw new InvalidUidException("${INVALID_UID_ERROR_MESSAGE} ${component.uid}")
         }
      }
 
@@ -101,6 +115,7 @@ class StandardTable extends Container{
      public static String internalId(String id){
         String row
         String column
+        String tbody
 
          //convert to upper case so that it is case insensitive
         String upperId = id.trim().toUpperCase()
@@ -109,49 +124,31 @@ class StandardTable extends Container{
         if(ALL_MATCH.equals(upperId)){
             row = "ALL"
             column = "ALL"
+            tbody = "ALL"
 
-            return "_${row}_${column}"
+            return "${tbody}_${row}_${column}"
         }
 
         String[] parts = upperId.split(ID_SEPARATOR);
-
-        if(parts.length == 1){
-           String[] fields = parts[0].trim().split(ID_FIELD_SEPARATOR)
+        def ids = [:]
+        parts.each { String part ->
+           String[] fields = part.trim().split(ID_FIELD_SEPARATOR)
            fields[0] = fields[0].trim()
            fields[1] = fields[1].trim()
-           if(ROW.equals(fields[0])){
-               row = fields[1]
-               if(ID_WILD_CASE.equalsIgnoreCase(row))
-                row = "ALL"
-               column = "ALL"
+           if(ID_WILD_CASE.equalsIgnoreCase(fields[1])){
+             fields[1] = "ALL"
            }
-
-           if(COLUMN.equals(fields[0])){
-               column = fields[1]
-               if(ID_WILD_CASE.equalsIgnoreCase(column))
-                column = "ALL"
-               row = "ALL"
-           }
-        }else{
-           for(int i=0; i<2; i++){
-             String[] fields = parts[i].trim().split(ID_FIELD_SEPARATOR)
-             fields[0] = fields[0].trim()
-             fields[1] = fields[1].trim()
-             if(ROW.equals(fields[0])){
-               row = fields[1]
-               if(ID_WILD_CASE.equals(row))
-                row = "ALL"
-             }
-
-             if(COLUMN.equals(fields[0])){
-               column = fields[1]
-               if(ID_WILD_CASE.equals(column))
-                column = "ALL"
-             }
-           }
+           ids.put(fields[0], fields[1])
+        }
+        row = ids.get(ROW)
+        column = ids.get(COLUMN)
+        tbody = ids.get(TBODY)
+        if(tbody == null){
+          //if tbody is not defined, assume it is the first one
+          tbody = "1"
         }
 
-        return "_${row}_${column}"
+        return "${tbody}_${row}_${column}"
      }
 
     public UiObject findHeaderUiObject(int index) {
@@ -182,32 +179,56 @@ class StandardTable extends Container{
         return obj
     }
 
-    public UiObject findUiObject(int row, int column) {
+  public UiObject findUiObject(int tbody, int row, int column) {
 
-        //first check _i_j format
-        String key = "_${row}_${column}"
-        UiObject obj = components.get(key)
+    //first check _i_j_k format
+    String key = "${tbody}_${row}_${column}"
+    UiObject obj = components.get(key)
 
-        //then, check _ALL_j format
-        if (obj == null) {
-            key = "_ALL_${column}"
-            obj = components.get(key)
-        }
-
-        //thirdly, check _i_ALL format
-        if (obj == null) {
-            key = "_${row}_ALL"
-            obj = components.get(key)
-        }
-
-        //last, check ALL format
-        if (obj == null) {
-            key = "_ALL_ALL"
-            obj = components.get(key)
-        }
-
-        return obj
+    //thirdly, check _i_j_ALL format
+    if (obj == null) {
+      key = "${tbody}_${row}_ALL"
+      obj = components.get(key)
     }
+
+    //then, check _i_ALL_K format
+    if (obj == null) {
+      key = "${tbody}_ALL_${column}"
+      obj = components.get(key)
+    }
+
+    //check _ALL_j_k format
+    if (obj == null) {
+      key = "_ALL_${row}_${column}"
+      obj = components.get(key)
+    }
+
+    //check _i_ALL_ALL
+    if(obj == null){
+      key = "${tbody}_ALL_ALL"
+      obj = components.get(key)
+    }
+
+    //check _ALL_j_ALL
+    if(obj == null){
+      key = "_ALL_${row}_ALL"
+      obj = components.get(key)
+    }
+
+    //check _ALL_ALL_k
+    if(obj == null){
+      key = "_ALL_ALL_${column}"
+      obj = components.get(key)
+    }
+
+    //last, check ALL format
+    if (obj == null) {
+      key = "_ALL_ALL_ALL"
+      obj = components.get(key)
+    }
+
+    return obj
+  }
 
     public boolean validId(String id) {
         //UID cannot be empty
@@ -233,17 +254,17 @@ class StandardTable extends Container{
             return true
 
         String[] parts = upperId.split(ID_SEPARATOR)
-        //should not be more than two parts, i.e., column part and row part
-        if (parts.length > 2)
+        //should not be more than three parts, i.e., column, row, and tbody
+        if (parts.length > 3)
             return false
 
-        if (parts.length <= 1) {
-            //If only one part is specified
-            return validateField(parts[0])
-        } else {
-            return validateField(parts[0]) && validateField(parts[1])
+        parts.each { String part ->
+          if(!validateField(part)){
+            return false
+          }
         }
 
+        return true
     }
 
     protected boolean validateFoot(String id) {
@@ -257,7 +278,7 @@ class StandardTable extends Container{
         parts[0] = parts[0].trim()
         parts[1] = parts[1].trim()
 
-        if (!HEADER.equalsIgnoreCase(parts[0]))
+        if (!FOOT.equalsIgnoreCase(parts[0]))
             return false
 
         //check the template, which could either be "*", "all", or numbers
@@ -301,8 +322,8 @@ class StandardTable extends Container{
         parts[0] = parts[0].trim()
         parts[1] = parts[1].trim()
 
-        //must start with "ROW" or "COLUMN"
-        if (!ROW.equals(parts[0]) && !COLUMN.equals(parts[0]))
+        //must start with "ROW", "COLUMN", or "TBODY"
+        if (!ROW.equals(parts[0]) && !COLUMN.equals(parts[0]) && !TBODY.equals(parts[0]))
             return false
 
         if (ID_WILD_CASE.equals(parts[1]) )
@@ -312,40 +333,35 @@ class StandardTable extends Container{
         }
     }
 
-    protected String getCellLocator(int row, int column) {
+    protected String getCellLocator(int tbody, int row, int column) {
 
-        return "/tbody/tr[${row}]/td[${column}]"
+        return "/tbody[${tbody}]/tr[${row}]/td[${column}]"
     }
 
     protected String getHeaderLocator(int column) {
 
-        return "/tbody/thead/tr/td[${column}]"
+        return "/thead/tr/td[${column}]"
     }
 
     protected String getFootLocator(int column) {
 
-        return "/tbody/tfoot/tr/td[${column}]"
+        return "/tfoot/tr/td[${column}]"
     }
 
     int getTableHeaderColumnNum(Closure c) {
-        /*
-        int column = 1
-
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
+        String xpath = rl + "/thead/tr/td"
+        int columnum = accessor.getXpathCount(xpath)
 
-        while (accessor.isElementPresent(rl + getHeaderLocator(column))) {
-            column++
-        }
+        return columnum
 
-        column--
+    }
 
-        return column
-        */
-
+    int getTableFootColumnNum(Closure c) {
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
-        String xpath = rl + "/tbody/thead/tr/td"
+        String xpath = rl + "/tfoot/tr/td"
         int columnum = accessor.getXpathCount(xpath)
 
         return columnum
@@ -353,65 +369,76 @@ class StandardTable extends Container{
     }
 
     int getTableMaxRowNum(Closure c) {
-/*
-        int row = 1
-        int column = 1
-
-        String rl = c(this.locator)
-
-        Accessor accessor = new Accessor()
-
-        while (accessor.isElementPresent(rl + getCellLocator(row, column))) {
-            row++
-        }
-
-        row--
-
-        return row
-*/
 
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
-        String xpath = rl + "/tbody/tr/td[1]"
+        String xpath = rl + "/tbody[1]/tr/td[1]"
+        int rownum = accessor.getXpathCount(xpath)
+
+        return rownum
+    }
+
+    int getTableMaxRowNumForTbody(int ntbody, Closure c) {
+
+        String rl = c(this.locator)
+        Accessor accessor = new Accessor()
+        String xpath = rl + "/tbody[${ntbody}]/tr/td[1]"
         int rownum = accessor.getXpathCount(xpath)
 
         return rownum
     }
 
     int getTableMaxColumnNum(Closure c) {
-/*
-        int row = 1
-        int column = 1
-        String rl = c(this.locator)
-        Accessor accessor = new Accessor()
-
-        while (accessor.isElementPresent(rl + getCellLocator(row, column))) {
-            column++
-        }
-
-        column--
-
-        return column
-*/
 
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
-        String xpath = rl + "/tbody/tr[1]/td"
+        String xpath = rl + "/tbody[1]/tr[1]/td"
 
         int columnum = accessor.getXpathCount(xpath)
 
         return columnum
     }
 
+    int getTableMaxColumnNumForTbody(int ntbody, Closure c) {
+
+        String rl = c(this.locator)
+        Accessor accessor = new Accessor()
+        String xpath = rl + "/tbody[${ntbody}]/tr[1]/td"
+
+        int columnum = accessor.getXpathCount(xpath)
+
+        return columnum
+    }
+
+    int getTableMaxTbodyNum(Closure c){
+        String rl = c(this.locator)
+        Accessor accessor = new Accessor()
+        String xpath = rl + "/tbody"
+
+        int tbodynum = accessor.getXpathCount(xpath)
+
+        return tbodynum
+    }
+
     //walk to a regular UI element in the table
     protected walkToElement(WorkflowContext context, UiID uiid) {
         String child = uiid.pop()
         String[] parts = child.replaceFirst('_', '').split("_")
-
-        int nrow = Integer.parseInt(parts[0])
-        int ncolumn = Integer.parseInt(parts[1])
+        int nrow
+        int ncolumn
+        int ntbody
+        if(parts.length == 3){
+          ntbody = Integer.parseInt(parts[0])
+          nrow = Integer.parseInt(parts[1])
+          ncolumn = Integer.parseInt(parts[2])
+        }else{
+          ntbody = 1
+          nrow = Integer.parseInt(parts[0])
+          ncolumn = Integer.parseInt(parts[1])
+        }
+      
         //otherwise, try to find its child
-        UiObject cobj = this.findUiObject(nrow, ncolumn)
+        UiObject cobj = this.findUiObject(ntbody, nrow, ncolumn)
 
         //If cannot find the object as the object template, return the TextBox as the default object
         if (cobj == null) {
@@ -430,10 +457,19 @@ class StandardTable extends Container{
             }
         }
 
-        //append relative location, i.e., row, column to the locator
-        String loc = getCellLocator(nrow, ncolumn)
+        //append relative location, i.e., tbody, row, column to the locator
+        String loc = getCellLocator(ntbody, nrow, ncolumn)
 
         context.appendReferenceLocator(loc)
+      
+        if(cobj.locator != null){
+           if(cobj.locator instanceof CompositeLocator){
+              CompositeLocator cl = (CompositeLocator)cobj.locator
+              if("td".equals(cl.tag) && cl.header == null){
+                context.setTableDuplicateTag()
+              }
+            }
+        }
 
         if (uiid.size() < 1) {
             //not more child needs to be found
@@ -479,6 +515,15 @@ class StandardTable extends Container{
         String loc =  getHeaderLocator(index)
         context.appendReferenceLocator(loc)
 
+        if(cobj.locator != null){
+          if(cobj.locator instanceof CompositeLocator){
+            CompositeLocator cl = (CompositeLocator)cobj.locator
+            if("td".equals(cl.tag) && cl.header == null){
+              context.setTableDuplicateTag()
+            }
+          }
+        }
+
         if (uiid.size() < 1) {
             //not more child needs to be found
             return cobj
@@ -500,7 +545,7 @@ class StandardTable extends Container{
         int index = Integer.parseInt(child.trim())
 
         //try to find its child
-        UiObject cobj = this.findHeaderUiObject(index)
+        UiObject cobj = this.findFootUiObject(index)
 
         //If cannot find the object as the object template, return the TextBox as the default object
         if (cobj == null) {
@@ -523,6 +568,15 @@ class StandardTable extends Container{
         String loc =  getFootLocator(index)
         context.appendReferenceLocator(loc)
 
+        if(cobj.locator != null){
+          if(cobj.locator instanceof CompositeLocator){
+            CompositeLocator cl = (CompositeLocator)cobj.locator
+            if("td".equals(cl.tag) && cl.header == null){
+              context.setTableDuplicateTag()
+            }
+          }
+        }
+ 
         if (uiid.size() < 1) {
             //not more child needs to be found
             return cobj

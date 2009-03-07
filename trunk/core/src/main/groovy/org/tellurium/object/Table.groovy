@@ -3,6 +3,7 @@ package org.tellurium.object
 import org.tellurium.access.Accessor
 import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
+import org.tellurium.exception.InvalidUidException
 import org.tellurium.locator.CompositeLocator
 import org.tellurium.locator.GroupLocateStrategy
 import org.tellurium.locator.LocatorProcessor
@@ -93,6 +94,8 @@ class Table extends Container {
   protected TextBox defaultUi = new TextBox()
   //add a map to hold all the header elements
 
+  protected static final String INVALID_UID_ERROR_MESSAGE = "Invalid UID "
+
   protected String tbody = TBODY
 
   def headers = [:]
@@ -111,7 +114,7 @@ class Table extends Container {
         components.put(internId, component)
       }
     } else {
-      System.out.println("Warning: Invalid id: ${component.uid}")
+      throw new InvalidUidException("${INVALID_UID_ERROR_MESSAGE} ${component.uid}")
     }
   }
 
