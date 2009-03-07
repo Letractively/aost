@@ -1,10 +1,14 @@
 package org.tellurium.dsl
 
-import org.tellurium.object.*
 import org.tellurium.builder.UiObjectBuilderRegistry
+import org.tellurium.dsl.UiID
+import org.tellurium.dsl.WorkflowContext
+import org.tellurium.object.*
 
 class UiDslParser extends BuilderSupport{
-    
+       public static final String UID = "uid"
+       public static final String INCLUDE = "INCLUDE"
+  
        def registry = [:]
 
        //this should return a singleton class with default builders populated
@@ -14,6 +18,8 @@ class UiDslParser extends BuilderSupport{
           String id
           if(obj.parent != null && obj.parent instanceof Table){
               id =  Table.internalId(obj.uid)
+          }else if(obj.parent != null && obj.parent instanceof StandardTable){
+              id =  StandardTable.internalId(obj.uid)
           }else{
               id = obj.uid
           }
@@ -24,6 +30,8 @@ class UiDslParser extends BuilderSupport{
             op = op.parent
             if(op.parent != null && op.parent instanceof Table){
                 id = Table.internalId(op.uid) + "." + id
+            }else if(op.parent != null && op.parent instanceof StandardTable){
+                id = StandardTable.internalId(op.uid) + "." + id
             }else{
                 id = op.uid + "." + id
             }            
@@ -67,6 +75,14 @@ class UiDslParser extends BuilderSupport{
            registry.put(nestObjectName(obj), obj)
        }
 
+       UiObject findIncludedUiObject(Map map){
+         String uid = map.get(UID)
+         WorkflowContext context = WorkflowContext.getDefaultContext()
+         UiObject obj = walkTo(context, uid)
+
+         return obj
+       }
+
        protected void setParent(Object parent, Object child) {
            if(parent instanceof Container ){
                parent.add(child)
@@ -78,15 +94,17 @@ class UiDslParser extends BuilderSupport{
        }
 
        protected Object createNode(Object name) {
+
            def builder = builderRegistry.getBuilder(name)
 
-           if(builder != null){
-                def obj =  builder.build(null, null)
+           if (builder != null) {
+             def obj = builder.build(null, null)
 
-                return obj
+             return obj
            }
 
-           return null  
+           return null
+
        }
 
       //should not come here for Our DSL
@@ -96,6 +114,11 @@ class UiDslParser extends BuilderSupport{
        }
 
        protected Object createNode(Object name, Map map) {
+         if (INCLUDE.equalsIgnoreCase(name)) {
+
+           return this.findIncludedUiObject(map)
+           
+         }else {
            def builder = builderRegistry.getBuilder(name)
 
            if(builder != null){
@@ -105,6 +128,7 @@ class UiDslParser extends BuilderSupport{
            }   
 
            return null
+         }
        }
 
        protected Object createNode(Object name, Map map, Object value) {
