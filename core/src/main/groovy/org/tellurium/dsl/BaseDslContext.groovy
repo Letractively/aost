@@ -7,7 +7,7 @@ import org.tellurium.event.EventHandler
 import org.tellurium.exception.UiObjectNotFoundException
 import org.tellurium.locator.LocatorProcessor
 import org.tellurium.object.List
-import org.tellurium.object.Table
+import org.tellurium.object.StandardTable
 import org.tellurium.object.UiObject
 import org.tellurium.util.Helper
 
@@ -19,683 +19,655 @@ import org.tellurium.util.Helper
  * 
  */
 abstract class BaseDslContext {
-    //later on, may need to refactor it to use resource file so that we can show message for different localities
-    protected static final String ERROR_MESSAGE = "Cannot find UI Object";
+  //later on, may need to refactor it to use resource file so that we can show message for different localities
+  protected static final String ERROR_MESSAGE = "Cannot find UI Object";
 
-    UiDslParser ui = new UiDslParser()
+  UiDslParser ui = new UiDslParser()
 
-    //decoupling eventhandler, locateProcessor, and accessor from UI objects
-    //and let DslContext to handle all of them directly. This will also make
-    //the framework reconfiguration much easier.
-    EventHandler eventHandler = new EventHandler()
-    Accessor accessor = new Accessor()
-    LocatorProcessor locatorProcessor = new LocatorProcessor()
+  //decoupling eventhandler, locateProcessor, and accessor from UI objects
+  //and let DslContext to handle all of them directly. This will also make
+  //the framework reconfiguration much easier.
+  EventHandler eventHandler = new EventHandler()
+  Accessor accessor = new Accessor()
+  LocatorProcessor locatorProcessor = new LocatorProcessor()
 
-    abstract protected String locatorMapping(WorkflowContext context, loc )
+  abstract protected String locatorMapping(WorkflowContext context, loc)
 
-    //uid should use the format table2[2][3] for Table or list[2] for List
-    def getUiElement(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = ui.walkTo(context, uid)
+  //uid should use the format table2[2][3] for Table or list[2] for List
+  def getUiElement(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = ui.walkTo(context, uid)
 
-         return obj
+    return obj
+  }
+
+  def UiObject walkToWithException(WorkflowContext context, String uid) {
+    UiObject obj = ui.walkTo(context, uid)
+    if (obj != null)
+      return obj
+
+    throw new UiObjectNotFoundException("${ERROR_MESSAGE} ${uid}")
+  }
+
+  def mouseOver(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+
+    walkToWithException(context, uid)?.mouseOver() {loc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.mouseOver(locator)
     }
+  }
 
-    def UiObject walkToWithException(WorkflowContext context, String uid){
-        UiObject obj = ui.walkTo(context, uid)
-        if(obj != null)
-          return obj
+  def mouseOut(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
 
-         throw new UiObjectNotFoundException("${ERROR_MESSAGE} ${uid}")
+    walkToWithException(context, uid)?.mouseOut() {loc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.mouseOut(locator)
     }
+  }
 
-    def mouseOver(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
+  def dragAndDrop(String uid, String movementsString) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
 
-        walkToWithException(context, uid)?.mouseOver(){ loc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.mouseOver(locator)
-        }
+    walkToWithException(context, uid)?.dragAndDrop(movementsString) {loc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.dragAndDrop(locator, movementsString)
     }
+  }
 
-    def mouseOut(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
+  def dragAndDropTo(String sourceUid, String targetUid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def src = walkToWithException(context, sourceUid)
 
-        walkToWithException(context, uid)?.mouseOut(){ loc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.mouseOut(locator)
-        }
+    WorkflowContext ncontext = WorkflowContext.getDefaultContext()
+    def target = walkToWithException(ncontext, targetUid)
+
+    if (src != null && target != null) {
+      String srcLocator = locatorMapping(context, src.locator)
+      String targetLocator = locatorMapping(ncontext, target.locator)
+      eventHandler.dragAndDropToObject(srcLocator, targetLocator)
     }
-  
-    def dragAndDrop(String uid, String movementsString){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
+  }
 
-        walkToWithException(context, uid)?.dragAndDrop(movementsString){ loc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.dragAndDrop(locator, movementsString)
-        }
+  def click(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.click() {loc, String[] events ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.click(locator, events)
     }
+  }
 
-    def dragAndDropTo(String sourceUid, String targetUid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        def src = walkToWithException(context, sourceUid)
-
-        WorkflowContext ncontext = WorkflowContext.getDefaultContext()
-        def target = walkToWithException(ncontext, targetUid)
-
-        if(src != null && target != null){
-          String srcLocator = locatorMapping(context, src.locator)
-          String targetLocator = locatorMapping(ncontext, target.locator)
-          eventHandler.dragAndDropToObject(srcLocator, targetLocator)
-        }
+  def doubleClick(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.doubleClick() {loc, String[] events ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.doubleClick(locator, events)
     }
+  }
 
-    def click(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.click(){ loc, String[] events ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.click(locator, events)
-        }
+  def clickAt(String uid, String coordination) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.clickAt(coordination) {loc, String[] events ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.clickAt(locator, coordination, events)
     }
+  }
 
-    def doubleClick(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.doubleClick(){ loc, String[] events ->
-           String locator = locatorMapping(context, loc)
-            eventHandler.doubleClick(locator, events)
-        }
+  def check(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.check() {loc, String[] events ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.check(locator, events)
     }
+  }
 
-    def clickAt(String uid, String coordination){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.clickAt(coordination){ loc, String[] events ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.clickAt(locator, coordination, events)
-        }
+  def uncheck(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.uncheck() {loc, String[] events ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.uncheck(locator, events)
     }
+  }
 
-    def check(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.check(){ loc, String[] events ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.check(locator, events)
-        }
+  def type(String uid, String input) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.type(input) {loc, String[] events ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.type(locator, input, events)
     }
+  }
 
-    def uncheck(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.uncheck(){ loc, String[] events ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.uncheck(locator, events)
-        }
+  def keyType(String uid, String input) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.keyType(input) {loc, String[] events ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.keyType(locator, input, events)
     }
+  }
 
-    def type(String uid, String input){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.type(input){ loc, String[] events ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.type(locator, input, events)
-        }
+  def typeAndReturn(String uid, String input) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.typeAndReturn(input) {loc, String[] events ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.typeAndReturn(locator, input, events)
     }
+  }
 
-    def keyType(String uid, String input){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.keyType(input){ loc, String[] events ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.keyType(locator, input, events)
-        }
+  def clearText(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.clearText() {loc, String[] events ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.clearText(locator, events)
     }
+  }
 
-    def typeAndReturn(String uid, String input){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.typeAndReturn(input){ loc, String[] events ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.typeAndReturn(locator, input, events)
-        }
+  def select(String uid, String target) {
+    selectByLabel(uid, target)
+  }
+
+  def selectByLabel(String uid, String target) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.selectByLabel(target) {loc, optloc, String[] events ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.select(locator, optloc, events)
     }
+  }
 
-    def clearText(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.clearText(){ loc, String[] events ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.clearText(locator, events)
-        }
+  def selectByValue(String uid, String target) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.selectByValue(target) {loc, optloc, String[] events ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.select(locator, optloc, events)
     }
+  }
 
-    def select(String uid, String target){
-        selectByLabel(uid, target)
+  def addSelectionByLabel(String uid, String target) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.addSelectionByLabel(target) {loc, optloc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.addSelection(locator, optloc)
     }
+  }
 
-    def selectByLabel(String uid, String target){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.selectByLabel(target){ loc, optloc, String[] events ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.select(locator, optloc, events)
-        }
+  def addSelectionByValue(String uid, String target) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.addSelectionByValue(target) {loc, optloc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.addSelection(locator, optloc)
     }
+  }
 
-    def selectByValue(String uid, String target){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.selectByValue(target){ loc, optloc, String[] events ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.select(locator, optloc, events)
-        }
+  def removeSelectionByLabel(String uid, String target) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.removeSelectionByLabel(target) {loc, optloc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.removeSelection(locator, optloc)
     }
+  }
 
-    def addSelectionByLabel(String uid, String target){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.addSelectionByLabel(target){ loc, optloc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.addSelection(locator, optloc)
-        }
+  def removeSelectionByValue(String uid, String target) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.removeSelectionByValue(target) {loc, optloc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.removeSelection(locator, optloc)
     }
+  }
 
-    def addSelectionByValue(String uid, String target){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.addSelectionByValue(target){ loc, optloc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.addSelection(locator, optloc)
-        }
+  def removeAllSelections(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.removeAllSelections() {loc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.removeAllSelections(locator)
     }
+  }
 
-    def removeSelectionByLabel(String uid, String target){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.removeSelectionByLabel(target){ loc, optloc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.removeSelection(locator, optloc)
-        }
+  String[] getSelectOptions(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
+
+    return obj.getSelectOptions() {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.getSelectOptions(locator)
     }
+  }
 
-    def removeSelectionByValue(String uid, String target){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.removeSelectionByValue(target){ loc, optloc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.removeSelection(locator, optloc)
-        }
+  String[] getSelectedLabels(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
+
+    return obj.getSelectedLabels() {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.getSelectedLabels(locator)
     }
+  }
 
-    def removeAllSelections(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.removeAllSelections(){ loc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.removeAllSelections(locator)
-        }
+  String getSelectedLabel(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
+
+    return obj.getSelectedLabel() {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.getSelectedLabel(locator)
     }
+  }
 
-    String[] getSelectOptions(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = walkToWithException(context, uid)
-         if(obj != null){
-             return obj.getSelectOptions(){ loc ->
-                String locator = locatorMapping(context, loc)
-                accessor.getSelectOptions(locator)
-             }
-         }
+  String[] getSelectedValues(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
 
-        return null
+    return obj.getSelectedValues() {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.getSelectedValues(locator)
     }
+  }
 
-    String[] getSelectedLabels(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = walkToWithException(context, uid)
-         if(obj != null){
-             return obj.getSelectedLabels(){ loc ->
-                String locator = locatorMapping(context, loc)
-                accessor.getSelectedLabels(locator)
-             }
-         }
+  String getSelectedValue(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
 
-        return null
+    return obj.getSelectedValue() {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.getSelectedValue(locator)
     }
+  }
 
-    String getSelectedLabel(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = walkToWithException(context, uid)
-         if(obj != null){
-             return obj.getSelectedLabel(){ loc ->
-                String locator = locatorMapping(context, loc)
-                accessor.getSelectedLabel(locator)
-             }
-         }
+  String[] getSelectedIndexes(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
 
-        return null
+    return obj.getSelectedIndexes() {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.getSelectedIndexes(locator)
     }
+  }
 
-    String[] getSelectedValues(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = walkToWithException(context, uid)
-         if(obj != null){
-             return obj.getSelectedValues(){ loc ->
-                String locator = locatorMapping(context, loc)
-                accessor.getSelectedValues(locator)
-             }
-         }
+  String getSelectedIndex(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
 
-        return null
+    return obj.getSelectedIndex() {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.getSelectedIndex(locator)
     }
+  }
 
-    String getSelectedValue(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = walkToWithException(context, uid)
-         if(obj != null){
-             return obj.getSelectedValue(){ loc ->
-                String locator = locatorMapping(context, loc)
-                accessor.getSelectedValue(locator)
-             }
-         }
+  String[] getSelectedIds(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
 
-        return null
+    return obj.getSelectedIds() {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.getSelectedIds(locator)
     }
+  }
 
-    String[] getSelectedIndexes(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = walkToWithException(context, uid)
-         if(obj != null){
-             return obj.getSelectedIndexes(){ loc ->
-                String locator = locatorMapping(context, loc)
-                accessor.getSelectedIndexes(locator)
-             }
-         }
+  String getSelectedId(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
 
-        return null
+    return obj.getSelectedId() {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.getSelectedId(locator)
     }
+  }
 
-    String getSelectedIndex(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = walkToWithException(context, uid)
-         if(obj != null){
-             return obj.getSelectedIndex(){ loc ->
-                String locator = locatorMapping(context, loc)
-                accessor.getSelectedIndex(locator)
-             }
-         }
+  boolean isSomethingSelected(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
 
-        return null
+    return obj.isSomethingSelected() {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.isSomethingSelected(locator)
     }
+  }
 
-    String[] getSelectedIds(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = walkToWithException(context, uid)
-         if(obj != null){
-             return obj.getSelectedIds(){ loc ->
-                String locator = locatorMapping(context, loc)
-                accessor.getSelectedIds(locator)
-             }
-         }
-
-        return null
+  String waitForText(String uid, int timeout) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return walkToWithException(context, uid)?.waitForText(timeout) {loc, int tmo ->
+      String locator = locatorMapping(context, loc)
+      accessor.waitForText(locator, tmo)
     }
+  }
 
-    String getSelectedId(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = walkToWithException(context, uid)
-         if(obj != null){
-             return obj.getSelectedId(){ loc ->
-                String locator = locatorMapping(context, loc)
-                accessor.getSelectedId(locator)
-             }
-         }
+  int getTableHeaderColumnNum(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
 
-        return null
+    return obj.getTableHeaderColumnNum {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
     }
+  }
 
-    boolean isSomethingSelected(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = walkToWithException(context, uid)
-         if(obj != null){
-             return obj.isSomethingSelected(){ loc ->
-                String locator = locatorMapping(context, loc)
-                accessor.isSomethingSelected(locator)
-             }
-         }
+  int getTableFootColumnNum(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
 
-        return false
+    return obj.getTableFootColumnNum {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
     }
+  }
 
-    String waitForText(String uid, int timeout){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return walkToWithException(context, uid)?.waitForText(timeout){ loc, int tmo ->
-            String locator = locatorMapping(context, loc)
-            accessor.waitForText(locator, tmo)
-        }
+  int getTableMaxRowNum(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
+
+    return obj.getTableMaxRowNum() {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
     }
+  }
 
-    int getTableHeaderColumnNum(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         Table obj = (Table)walkToWithException(context, uid)
-         if(obj != null){
-             return obj.getTableHeaderColumnNum{ loc ->
-                String locator = locatorMapping(context, loc)
-                locator
-             }
-         }
+  int getTableMaxColumnNum(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
 
-         println("Cannot find table ${uid}")
-         return 0
+    return obj.getTableMaxColumnNum() {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
     }
+  }
 
-    int getTableMaxRowNum(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         Table obj = (Table)walkToWithException(context, uid)
-         if(obj != null){
-             return obj.getTableMaxRowNum(){ loc ->
-                String locator = locatorMapping(context, loc)
-                locator
-             }
-         }
+  int getTableMaxRowNumForTbody(String uid, int ntbody) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    StandardTable obj = (StandardTable) walkToWithException(context, uid)
 
-         println("Cannot find table ${uid}")
-         return 0
+    return obj.getTableMaxRowNumForTbody(ntbody) {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
     }
+  }
 
-    int getTableMaxColumnNum(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         Table obj = (Table)walkToWithException(context, uid)
-         if(obj != null){
-             return obj.getTableMaxColumnNum(){ loc ->
-                String locator = locatorMapping(context, loc)
-                locator
-             }
-         }
+  int getTableMaxColumnNumForTbody(String uid, int ntbody) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    StandardTable obj = (StandardTable) walkToWithException(context, uid)
 
-         println("Cannot find table ${uid}")
-         return 0
+    return obj.getTableMaxColumnNumForTbody(ntbody) {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
     }
+  }
 
-    int getListSize(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         List obj = (List)walkToWithException(context, uid)
-         if(obj != null){
-             return obj.getListSize(){ loc ->
-                String locator = locatorMapping(context, loc)
-                locator
-             }
-         }
+  int getTableMaxTbodyNum(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    StandardTable obj = (StandardTable) walkToWithException(context, uid)
 
-         println("Cannot find list ${uid}")
-         return 0
+    return obj.getTableMaxTbodyNum() {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
     }
+  }
 
-    boolean isElementPresent(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = walkToWithException(context, uid)
-         if(obj != null){
-             return obj.isElementPresent(){ loc ->
-                String locator = locatorMapping(context, loc)
-                accessor.isElementPresent(locator)
-             }
-         }
-
-         return false
+  int getListSize(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    List obj = (List) walkToWithException(context, uid)
+    return obj.getListSize() {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
     }
+  }
 
-    boolean isVisible(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = walkToWithException(context, uid)
-         if(obj != null){
-             return obj.isVisible(){ loc ->
-                String locator = locatorMapping(context, loc)
-                accessor.isVisible(locator)
-             }
-         }
-
-         return false
+  boolean isElementPresent(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
+    return obj.isElementPresent() {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.isElementPresent(locator)
     }
+  }
 
-    boolean isChecked(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = walkToWithException(context, uid)
-         if(obj != null){
-             return obj.isChecked(){ loc ->
-                String locator = locatorMapping(context, loc)
-                accessor.isChecked(locator)
-             }
-         }
-
-         throw RuntimeException("Cannot find UI Object ${uid})")
+  boolean isVisible(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
+    return obj.isVisible() {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.isVisible(locator)
     }
+  }
 
-    def isDisabled(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
+  boolean isChecked(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
+    return obj.isChecked() {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.isChecked(locator)
+    }
+  }
 
-        return walkToWithException(context, uid).isDisabled (){loc ->
+  def isDisabled(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+
+    return walkToWithException(context, uid).isDisabled() {loc ->
 //                String locator = locatorMapping(context, loc)
 //                accessor.isDisabled(locator)
-                 String locator = locatorMapping(context, loc) + "/self::node()[@disabled]"
-                 accessor.isElementPresent(locator)
-         }
+      String locator = locatorMapping(context, loc) + "/self::node()[@disabled]"
+      accessor.isElementPresent(locator)
     }
+  }
 
-    def isEnabled(String uid){
-        return !isDisabled(uid);
+  def isEnabled(String uid) {
+    return !isDisabled(uid);
+  }
+
+  boolean waitForElementPresent(String uid, int timeout) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
+    return obj.waitForElementPresent(timeout) {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.waitForElementPresent(locator, timeout)
     }
+  }
 
-    boolean waitForElementPresent(String uid, int timeout){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = walkToWithException(context, uid)
-         if(obj != null){
-             return obj.waitForElementPresent(timeout){ loc ->
-                String locator = locatorMapping(context, loc)
-                accessor.waitForElementPresent(locator, timeout)
-             }
-         }
-
-         return false
+  boolean waitForElementPresent(String uid, int timeout, int step) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
+    return obj.waitForElementPresent(timeout, step) {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.waitForElementPresent(locator, timeout, step)
     }
+  }
 
-    boolean waitForElementPresent(String uid, int timeout, int step){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         def obj = walkToWithException(context, uid)
-         if(obj != null){
-             return obj.waitForElementPresent(timeout, step){ loc ->
-                String locator = locatorMapping(context, loc)
-                accessor.waitForElementPresent(locator, timeout, step)
-             }
-         }
+  boolean waitForCondition(String script, int timeoutInMilliSecond) {
+    accessor.waitForCondition(script, Integer.toString(timeoutInMilliSecond))
+  }
 
-         return false
-   }
-
-    boolean waitForCondition(String script, int timeoutInMilliSecond){
-       accessor.waitForCondition(script, Integer.toString(timeoutInMilliSecond))
+  String getText(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.getText() {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.getText(locator)
     }
+  }
 
-    String getText(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.getText(){ loc ->
-            String locator = locatorMapping(context, loc)
-            accessor.getText(locator)
+  String getValue(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.getValue() {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.getValue(locator)
+    }
+  }
+
+  def pause(int milliseconds) {
+    Helper.pause(milliseconds)
+  }
+
+  String getLink(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.getLink() {loc, attr ->
+      String locator = locatorMapping(context, loc)
+      accessor.getAttribute(locator + attr)
+    }
+  }
+
+  String getImageSource(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.getImageSource() {loc, attr ->
+      String locator = locatorMapping(context, loc)
+      accessor.getAttribute(locator + attr)
+    }
+  }
+
+  String getImageAlt(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.getImageAlt() {loc, attr ->
+      String locator = locatorMapping(context, loc)
+      accessor.getAttribute(locator + attr)
+    }
+  }
+
+  String getImageTitle(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.getImageTitle() {loc, attr ->
+      String locator = locatorMapping(context, loc)
+      accessor.getAttribute(locator + attr)
+    }
+  }
+
+  def getAttribute(String uid, String attribute) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.getAttribute(attribute) {loc, attr ->
+      String locator = locatorMapping(context, loc)
+      accessor.getAttribute(locator + attr)
+    }
+  }
+
+  def hasCssClass(String uid, String cssClass) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    String[] strings = walkToWithException(context, uid)?.hasCssClass() {loc, classAttr ->
+      String locator = locatorMapping(context, loc)
+      ((String) accessor.getAttribute(locator + classAttr))?.split(" ")
+    }
+    if (strings?.length) {
+      for (i in 0..strings?.length) {
+        if (cssClass.equalsIgnoreCase(strings[i])) {
+          return true
         }
+      }
     }
+    return false
+  }
 
-    String getValue(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.getValue(){ loc ->
-            String locator = locatorMapping(context, loc)
-            accessor.getValue(locator)
-        }
+  def submit(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.submit() {loc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.submit(locator)
     }
+  }
 
-    def pause(int milliseconds){
-        Helper.pause(milliseconds)
+  boolean isEditable(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+
+    return walkToWithException(context, uid)?.isEditable() {loc ->
+      String locator = locatorMapping(context, loc)
+      return accessor.isEditable(locator)
     }
+  }
 
-    String getLink(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         walkToWithException(context, uid)?.getLink(){ loc, attr ->
-            String locator = locatorMapping(context, loc)
-            accessor.getAttribute(locator + attr )
-        }
+  void waitForPageToLoad(int timeout) {
+    accessor.waitForPageToLoad(Integer.toString(timeout))
+  }
+
+  Number getXpathCount(String xpath) {
+    return accessor.getXpathCount(xpath)
+  }
+
+  String getEval(String script) {
+    return accessor.getEval(script)
+  }
+
+  public void useDefaultXPathLibrary() {
+    accessor.useXpathLibrary("default")
+  }
+
+  public void useJavascriptXPathLibrary() {
+    accessor.useXpathLibrary("javascript")
+  }
+
+  public void useAjaxsltXPathLibrary() {
+    accessor.useXpathLibrary("ajaxslt")
+  }
+
+  def mouseDown(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+
+    walkToWithException(context, uid)?.mouseDown() {loc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.mouseDown(locator)
     }
+  }
 
-    String getImageSource(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         walkToWithException(context, uid)?.getImageSource(){ loc, attr ->
-            String locator = locatorMapping(context, loc)
-            accessor.getAttribute(locator + attr )
-        }
+  def mouseDownRight(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+
+    walkToWithException(context, uid)?.mouseDownRight() {loc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.mouseDownRight(locator)
     }
+  }
 
-    String getImageAlt(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         walkToWithException(context, uid)?.getImageAlt(){ loc, attr ->
-            String locator = locatorMapping(context, loc)
-            accessor.getAttribute(locator + attr )
-        }
+  def mouseDownAt(String uid, String coordinate) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+
+    walkToWithException(context, uid)?.mouseDownAt() {loc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.mouseDownAt(locator, coordinate)
     }
+  }
 
-    String getImageTitle(String uid){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         walkToWithException(context, uid)?.getImageTitle(){ loc, attr ->
-            String locator = locatorMapping(context, loc)
-            accessor.getAttribute(locator + attr )
-        }
+  def mouseDownRightAt(String uid, String coordinate) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+
+    walkToWithException(context, uid)?.mouseDownRightAt() {loc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.mouseDownRightAt(locator, coordinate)
     }
+  }
 
-    def getAttribute(String uid, String attribute){
-         WorkflowContext context = WorkflowContext.getDefaultContext()
-         walkToWithException(context, uid)?.getAttribute(attribute){ loc, attr ->
-            String locator = locatorMapping(context, loc)
-            accessor.getAttribute(locator + attr )
-         }
+  def mouseUp(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+
+    walkToWithException(context, uid)?.mouseUp() {loc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.mouseUp(locator)
     }
+  }
 
-    def hasCssClass(String uid, String cssClass){
-       WorkflowContext context = WorkflowContext.getDefaultContext()
-        String[] strings = walkToWithException(context, uid)?.hasCssClass(){ loc, classAttr ->
-            String locator = locatorMapping(context, loc)
-            ((String)accessor.getAttribute(locator + classAttr ))?.split(" ")
-         }
-         if(strings?.length){
-           for(i in 0..strings?.length){
-            if(cssClass.equalsIgnoreCase(strings[i])){
-              return true
-            }
-          }
-        }
-      return false
+  def mouseUpRight(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+
+    walkToWithException(context, uid)?.mouseUpRight() {loc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.mouseUpRight(locator)
     }
+  }
 
-    def submit(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.submit(){ loc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.submit(locator)
-        }
+  def mouseUpRightAt(String uid, String coordinate) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+
+    walkToWithException(context, uid)?.mouseUpRightAt() {loc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.mouseUpRightAt(locator, coordinate)
     }
+  }
 
-    boolean isEditable(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.isEditable(){ loc ->
-            String locator = locatorMapping(context, loc)
-            return accessor.isEditable(locator)
-        }
+  def mouseMove(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
 
-        return false
+    walkToWithException(context, uid)?.mouseMove() {loc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.mouseMove(locator)
     }
+  }
 
-    void waitForPageToLoad(int timeout){
-         accessor.waitForPageToLoad(Integer.toString(timeout))
+  def mouseMoveAt(String uid, String coordinate) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+
+    walkToWithException(context, uid)?.mouseMoveAt() {loc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.mouseMoveAt(locator, coordinate)
     }
-
-    Number getXpathCount(String xpath){
-        return accessor.getXpathCount(xpath)
-    }
-
-    String getEval(String script){
-        return accessor.getEval(script)
-    }
-
-    public void useDefaultXPathLibrary(){
-      accessor.useXpathLibrary("default")
-    }
-
-    public void useJavascriptXPathLibrary(){
-      accessor.useXpathLibrary("javascript")
-    }
-
-    public void useAjaxsltXPathLibrary(){
-      accessor.useXpathLibrary("ajaxslt")
-    }
-
-    def mouseDown(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-
-        walkToWithException(context, uid)?.mouseDown(){ loc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.mouseDown(locator)
-        }
-    }
-
-    def mouseDownRight(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-
-        walkToWithException(context, uid)?.mouseDownRight(){ loc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.mouseDownRight(locator)
-        }
-    }
-
-    def mouseDownAt(String uid, String coordinate){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-
-        walkToWithException(context, uid)?.mouseDownAt(){ loc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.mouseDownAt(locator, coordinate)
-        }
-    }
-
-    def mouseDownRightAt(String uid, String coordinate){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-
-        walkToWithException(context, uid)?.mouseDownRightAt(){ loc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.mouseDownRightAt(locator, coordinate)
-        }
-    }
-  
-    def mouseUp(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-
-        walkToWithException(context, uid)?.mouseUp(){ loc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.mouseUp(locator)
-        }
-    }
-
-    def mouseUpRight(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-
-        walkToWithException(context, uid)?.mouseUpRight(){ loc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.mouseUpRight(locator)
-        }
-    }
-
-    def mouseUpRightAt(String uid, String coordinate){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-
-        walkToWithException(context, uid)?.mouseUpRightAt(){ loc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.mouseUpRightAt(locator, coordinate)
-        }
-    }
-
-    def mouseMove(String uid){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-
-        walkToWithException(context, uid)?.mouseMove(){ loc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.mouseMove(locator)
-        }
-    }
-
-    def mouseMoveAt(String uid, String coordinate){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-
-        walkToWithException(context, uid)?.mouseMoveAt(){ loc ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.mouseMoveAt(locator, coordinate)
-        }
-    }
+  }
 }
