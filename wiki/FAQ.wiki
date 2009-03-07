@@ -416,3 +416,52 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase
 
 }
 }}}
+
+=== Q39: How to reuse a frequently used set of elements ===
+
+The "Include" syntax in Ui module definition can be used for this purpose. You can put frequently used UI modules into a base class, for example,
+
+{{{
+public class BaseUiModule extends DslContext {
+  public void defineBaseUi() {
+    ui.Container(uid: "SearchModule", clocator: [tag: "td"], group: "true") {
+      InputBox(uid: "Input", clocator: [title: "Google Search"])
+      SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+      SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
+    }
+
+    ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"], group: "true") {
+      TextBox(uid: "category", clocator: [tag: "div", class: "sub_cat_title"])
+      List(uid: "subcategory", clocator: [tag: "div", class: "sub_cat_section"], separator: "p") {
+        UrlLink(uid: "all", clocator: [:])
+      }
+    }
+  }
+}
+}}}
+
+Then you can extend this base Ui module as follows,
+
+{{{
+public class ExtendUiModule extends BaseUiModule {
+  public void defineUi() {
+    defineBaseUi()
+
+    ui.Container(uid: "Google", clocator: [tag: "table"]) {
+      Include(uid:"SearchModule")
+      Container(uid: "Options", clocator: [tag: "td", position: "3"],group: "true") {
+        UrlLink(uid: "LanguageTools", clocator: [tag: "a", text: "Language Tools"])
+        UrlLink(uid: "SearchPreferences", clocator: [tag: "a", text:"Search Preferences"])
+        UrlLink(uid: "AdvancedSearch", clocator: [tag: "a", text:"Advanced Search"])
+      }
+    }
+
+    ui.Container(uid: "Test", clocator: [tag: "div"]) {
+      Include(uid: "GoogleBooksList.category")
+      Include(uid: "GoogleBooksList.subcategory")
+    }
+  }
+}
+}}}
+
+Note that the "Include" must have the uid attribute to refer to the element it wants to include. 
