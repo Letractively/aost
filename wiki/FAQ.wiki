@@ -444,27 +444,29 @@ Then you can extend this base Ui module as follows,
 
 {{{
 public class ExtendUiModule extends BaseUiModule {
+
   public void defineUi() {
     defineBaseUi()
 
     ui.Container(uid: "Google", clocator: [tag: "table"]) {
-      Include(uid:"SearchModule")
-      Container(uid: "Options", clocator: [tag: "td", position: "3"],group: "true") {
+      Include(ref: "SearchModule")
+      Container(uid: "Options", clocator: [tag: "td", position: "3"], group: "true") {
         UrlLink(uid: "LanguageTools", clocator: [tag: "a", text: "Language Tools"])
-        UrlLink(uid: "SearchPreferences", clocator: [tag: "a", text:"Search Preferences"])
-        UrlLink(uid: "AdvancedSearch", clocator: [tag: "a", text:"Advanced Search"])
+        UrlLink(uid: "SearchPreferences", clocator: [tag: "a", text: "Search Preferences"])
+        UrlLink(uid: "AdvancedSearch", clocator: [tag: "a", text: "Advanced Search"])
       }
     }
 
     ui.Container(uid: "Test", clocator: [tag: "div"]) {
-      Include(uid: "GoogleBooksList.category")
-      Include(uid: "GoogleBooksList.subcategory")
+      Include(uid: "newcategory", ref: "GoogleBooksList.category")
+      Include(uid: "secondcategory", ref: "GoogleBooksList.category")
+      Include(uid: "newsubcategory", ref: "GoogleBooksList.subcategory")
     }
   }
 }
 }}}
 
-Note that the "Include" must have the uid attribute to refer to the element it wants to include. 
+Note that the "Include" must have the ref attribute to refer to the element it wants to include. You can still specify the uid for the object (if you do not need a different uid, you do not need the uid), if the object uid is not equal to the original one, Tellurium will clone a new object for you so that you can have multiple objects with different uids.
 
 === Q40: How to handle Table with multiple tbody elements ===
 
