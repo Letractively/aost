@@ -11,7 +11,7 @@ import org.tellurium.object.Container
  *  @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
-abstract class UiObject {
+abstract class UiObject implements Cloneable{
     /*
       Let UI Object be a pure data structure and only include placeholders for
       methods wich should be responsed to.
