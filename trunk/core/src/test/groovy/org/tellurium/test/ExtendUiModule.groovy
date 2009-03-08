@@ -18,6 +18,7 @@ public class ExtendUiModule extends BaseUiModule {
 
     ui.Container(uid: "Test", clocator: [tag: "div"]) {
       Include(uid: "newcategory", ref: "GoogleBooksList.category")
+      Include(uid: "secondcategory", ref: "GoogleBooksList.category")
       Include(uid: "newsubcategory", ref: "GoogleBooksList.subcategory")
     }
   }
