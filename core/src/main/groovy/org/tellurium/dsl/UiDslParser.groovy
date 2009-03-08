@@ -3,12 +3,16 @@ package org.tellurium.dsl
 import org.tellurium.builder.UiObjectBuilderRegistry
 import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
+import org.tellurium.exception.UiObjectNotFoundException
 import org.tellurium.object.*
 
 class UiDslParser extends BuilderSupport{
        public static final String UID = "uid"
-       public static final String INCLUDE = "INCLUDE"
-  
+       public static final String REF = "ref"
+       public static final String INCLUDE = "Include"
+      //later on, may need to refactor it to use resource file so that we can show message for different localities
+      protected static final String ERROR_MESSAGE = "Cannot find UI Object";
+
        def registry = [:]
 
        //this should return a singleton class with default builders populated
@@ -77,8 +81,18 @@ class UiDslParser extends BuilderSupport{
 
        UiObject findIncludedUiObject(Map map){
          String uid = map.get(UID)
+         String ref = map.get(REF)
          WorkflowContext context = WorkflowContext.getDefaultContext()
-         UiObject obj = walkTo(context, uid)
+         UiObject obj = walkTo(context, ref)
+         if(obj == null)
+             throw new UiObjectNotFoundException("${ERROR_MESSAGE} ${ref}")
+
+         if(uid != null && (!uid.equalsIgnoreCase(obj.uid))){
+         //IF UID is specified and is not equals to the referenced obj uid, we need to clone 
+         //the object
+           obj = obj.clone()
+           obj.uid = uid
+         }
 
          return obj
        }

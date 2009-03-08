@@ -17,10 +17,10 @@ public class IncludeUiModule_UT extends GroovyTestCase {
     result = module.getLocator("GoogleBooksList.category")
     assertEquals("/descendant-or-self::table[descendant::div[@class=\"sub_cat_title\"] and descendant::div[@class=\"sub_cat_section\"] and @id=\"hp_table\"]/descendant-or-self::div[@class=\"sub_cat_title\"]", result)
 
-    result = module.getLocator("Test.category")
+    result = module.getLocator("Test.newcategory")
     assertEquals("/descendant-or-self::div/descendant-or-self::div[@class=\"sub_cat_title\"]", result)
 
-    result = module.getLocator("Test.subcategory")
+    result = module.getLocator("Test.newsubcategory")
     assertEquals("/descendant-or-self::div/descendant-or-self::div[@class=\"sub_cat_section\"]", result)
   }
 

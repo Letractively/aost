@@ -8,7 +8,7 @@ public class ExtendUiModule extends BaseUiModule {
     defineBaseUi()
 
     ui.Container(uid: "Google", clocator: [tag: "table"]) {
-      Include(uid: "SearchModule")
+      Include(ref: "SearchModule")
       Container(uid: "Options", clocator: [tag: "td", position: "3"], group: "true") {
         UrlLink(uid: "LanguageTools", clocator: [tag: "a", text: "Language Tools"])
         UrlLink(uid: "SearchPreferences", clocator: [tag: "a", text: "Search Preferences"])
@@ -17,8 +17,8 @@ public class ExtendUiModule extends BaseUiModule {
     }
 
     ui.Container(uid: "Test", clocator: [tag: "div"]) {
-      Include(uid: "GoogleBooksList.category")
-      Include(uid: "GoogleBooksList.subcategory")
+      Include(uid: "newcategory", ref: "GoogleBooksList.category")
+      Include(uid: "newsubcategory", ref: "GoogleBooksList.subcategory")
     }
   }
 }
