@@ -517,3 +517,30 @@ ui.StandardTable(uid: "table", clocator: [id: "std"]) {
    TextBox(uid: "foot: all", clocator: [tag: "td"])
 }
 }}}
+
+=== Q41: How to use the new XPath library in Selenium ===
+
+There are three methods in DslContext for you to select different XPath Library,
+
+{{{
+    public void useDefaultXPathLibrary()
+
+    public void useJavascriptXPathLibrary()
+
+    public void useAjaxsltXPathLibrary()
+}}}
+
+The default one is the same as the "Ajaxslt" one. To use faster xpathlibrary, please call useJavascriptXPathLibrary().
+
+For example, in the test case file,
+
+{{{
+    protected static NewGoogleStartPage ngsp;
+
+    @BeforeClass
+    public static void initUi() {
+        ngsp = new NewGoogleStartPage();
+        ngsp.defineUi();
+        ngsp.useJavascriptXPathLibrary();
+    } 
+}}}
