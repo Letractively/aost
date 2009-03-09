@@ -126,6 +126,7 @@
   * [https://developer.mozilla.org/en/Setting_up_extension_development_environment Setting up extension development environment]
   * [http://mojo.codehaus.org/selenium-maven-plugin/examples/headless-with-xvfb.html Headless X11 with Xvfb] 
   * [http://news.softpedia.com/news/Screencast-Guide-Capure-Your-Linux-Desktop-on-Video-42626.shtml Capure Your Linux Desktop on Video!]
+  * [http://googletesting.blogspot.com/ Google Testing Blog]
 
 == Cheat Sheets ==
 
