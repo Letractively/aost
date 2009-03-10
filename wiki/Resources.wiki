@@ -120,6 +120,7 @@
   * [http://groovy.codehaus.org/Documentation Groovy Document]
   * [http://www.ibm.com/developerworks/java/library/j-pg02155/ MVC programming with Groovy templates]
   * [http://www.infoq.com/articles/groovy-1-6 What's New in Groovy 1.6]
+  * [http://groovy.codehaus.org/Using+TestNG+with+Groovy Using TestNG with Groovy]
 
 === Misc ===
 
