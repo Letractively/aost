@@ -46,6 +46,7 @@ public class GoogleStartPageGroovyTestNGTestCase extends TelluriumGroovyTestNGTe
     def testng = new TestNG()
     testng.setTestClasses(example.test.groovy.GoogleStartPageGroovyTestNGTestCase)
     testng.addListener(new TestListenerAdapter())
+    testng.run()
   }
 
 }
