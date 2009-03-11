@@ -113,6 +113,8 @@
   * [http://docs.codehaus.org/display/GROOVY/GMaven+-+Building+Groovy+Projects GMaven - Building Groovy Projects]
   * [http://wiki.foochal.org/index.php/Maven_Selenium Maven Selenium]
   * [http://www.jroller.com/carlossg/entry/functional_testing_with_maven_cargo Functional testing with Maven, Cargo and Selenium]
+  * [http://www.gridshore.nl/blog/index.php?/archives/55-Creating-a-maven-archetype-for-acegi-and-springframework.html Creating a maven archetype for acegi and springframework]
+  * [http://maven.apache.org/guides/mini/guide-creating-archetypes.html Guide to Creating Archetypes]
 
 === Groovy ===
 
