@@ -23,5 +23,6 @@
 	</dependencies>
 	<modules>
 		<module>firefox-plugin</module>
+        <module>tellurium-junit-archetype</module>
 	</modules>
 </project>
