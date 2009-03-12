@@ -1,0 +1,13 @@
+<archetype>
+    <id>tellurium-junit-archetype</id>
+    <sources>
+    </sources>
+    <testSources>
+    </testSources>
+    <resources>
+        <resource>TelluriumConfig.groovy</resource>
+        <resource>src/main/groovy/example/module/TelluriumDownloadPageModule.groovy</resource>
+        <resource>src/test/groovy/example/TelluriumDownloadPageTestCase.java</resource>
+    </resources>
+
+</archetype>
