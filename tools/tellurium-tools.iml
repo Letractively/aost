@@ -42,7 +42,7 @@
     <orderEntry type="library" exported="" name="Maven: jline:jline:0.9.94" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy:groovy-all:1.6.0" level="project" />
     <orderEntry type="library" exported="" name="Maven: bouncycastle:bcprov-jdk16:136" level="project" />
-    <orderEntry type="module" module-name="tellurium-core" exported="" />
+    <orderEntry type="library" exported="" name="Maven: tellurium:tellurium-core:0.6.0-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.testng:testng:jdk15:5.8" level="project" />
   </component>
 </module>
