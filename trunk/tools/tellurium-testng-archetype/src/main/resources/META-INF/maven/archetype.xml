@@ -1,0 +1,13 @@
+<archetype>
+    <id>tellurium-testng-archetype</id>
+    <sources>
+    </sources>
+    <testSources>
+    </testSources>
+    <resources>
+        <resource>TelluriumConfig.groovy</resource>
+        <resource>src/test/groovy/module/GoogleSearchModule.groovy</resource>
+        <resource>src/test/groovy/test/GoogleSearchTestCase.java</resource>
+    </resources>
+
+</archetype>
