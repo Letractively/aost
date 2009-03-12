@@ -15,33 +15,7 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" readonly="true" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/test/resources" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/test/groovy/test" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/maven/archetype.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/test/groovy/module" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-testng-archetype.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/test" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/main/resources" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/META-INF" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-testng-archetype.ipr" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/test/groovy/test/GoogleSearchTestCase.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/test/groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/test/groovy/module/GoogleSearchModule.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/TelluriumConfig.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/main/groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/main" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-testng-archetype.iws" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/maven" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test" />
-    </list>
+    <list default="true" readonly="true" name="Default" comment="" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="tellurium-testng-archetype.iws" />
   </component>
@@ -121,9 +95,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/resources/archetype-resources/src/test/groovy/test/GoogleSearchTestCase.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="15" column="33" selection-start="325" selection-end="345" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -131,7 +103,7 @@
       <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/archetype-resources/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="128" column="56" selection-start="4561" selection-end="4561" vertical-scroll-proportion="0.6044177">
+            <state line="128" column="56" selection-start="4561" selection-end="4561" vertical-scroll-proportion="0.019379845">
               <folding />
             </state>
           </provider>
@@ -265,13 +237,13 @@
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.lastSelected" value="com.intellij.openapi.vcs.configurable.VcsManagerConfigurable$4" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="options.lastSelected" value="com.intellij.openapi.vcs.configurable.VcsManagerConfigurable$4" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="Remote" factoryName="Remote">
@@ -281,7 +253,7 @@
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
     </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false">
+    <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false" runner="emma">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -428,7 +400,7 @@
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32844934" sideWeight="0.5" order="7" side_tool="false" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32740214" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" />
@@ -509,6 +481,13 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="21" selection-start="1013" selection-end="1013" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/archetype-resources/src/test/groovy/module/GoogleSearchModule.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="31" selection-start="201" selection-end="219" vertical-scroll-proportion="0.0">
@@ -519,9 +498,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/archetype-resources/src/test/groovy/test/GoogleSearchTestCase.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="33" selection-start="325" selection-end="345" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -532,16 +509,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="21" selection-start="1013" selection-end="1013" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/archetype-resources/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="128" column="56" selection-start="4561" selection-end="4561" vertical-scroll-proportion="0.6044177">
+        <state line="128" column="56" selection-start="4561" selection-end="4561" vertical-scroll-proportion="0.019379845">
           <folding />
         </state>
       </provider>
