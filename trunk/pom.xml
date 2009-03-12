@@ -125,11 +125,16 @@
 					<artifactId>maven-release-plugin</artifactId>
 					<version>2.0-beta-8</version>
 				</plugin>
-                		<plugin>
+                <plugin>
+                    <groupId>org.codehaus.groovy.maven</groupId>
+                    <artifactId>gmaven-plugin</artifactId>
+                    <version>1.0-rc-5</version>
+                </plugin>
+                <!--plugin>
 					<groupId>org.codehaus.groovy.maven</groupId>
 					<artifactId>gmaven-plugin</artifactId>
 					<version>${gmaven-version}</version>
-				</plugin>
+				</plugin-->
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -145,19 +150,26 @@
 				<configuration>
 					<includes>
 						<include>**/*_UT.java</include>
+                        <include>**/*TestCase.java</include>
 					</includes>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-jar-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>test-jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*.java</exclude>
+                        <exclude>**/*.groovy</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 			<plugin>
 				<artifactId>maven-source-plugin</artifactId>
 				<executions>
@@ -184,17 +196,17 @@
 				<groupId>org.codehaus.groovy.maven
 				</groupId>
 				<artifactId>gmaven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<!-- The generateStubs goals are not yet working for enums and generics -->
-<!--							<goal>generateStubs</goal>-->
-							<goal>compile</goal>
-<!--							<goal>generateTestStubs</goal>-->
-<!--							<goal>testCompile</goal> -->
-						</goals>
-					</execution>
-				</executions>
+                <executions>
+                    <execution>
+                        <goals>
+                            <!-- The generateStubs goals are not yet working for enums and generics -->
+                            <!--goal>generateStubs</goal-->
+                            <goal>compile</goal>
+                            <!--goal>generateTestStubs</goal-->
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -282,7 +294,17 @@
 	</reporting>
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
+            <dependency>
+                <groupId>org.codehaus.groovy.maven</groupId>
+                <artifactId>gmaven-mojo</artifactId>
+                <version>1.0-rc-5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.groovy.maven.runtime</groupId>
+                <artifactId>gmaven-runtime-1.6</artifactId>
+                <version>1.0-rc-5</version>
+            </dependency>
+			<!--dependency>
 				<groupId>org.codehaus.groovy.maven
 				</groupId>
 				<artifactId>gmaven-mojo</artifactId>
@@ -294,7 +316,7 @@
 				<artifactId>gmaven-runtime-${java-version}
 				</artifactId>
 				<version>${gmaven-version}</version>
-			</dependency>
+			</dependency-->
 			<dependency>
 				<groupId>org.codehaus.plexus</groupId>
 				<artifactId>plexus-container-default
