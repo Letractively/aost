@@ -24,5 +24,6 @@
 	<modules>
 		<module>firefox-plugin</module>
         <module>tellurium-junit-archetype</module>
+        <module>tellurium-testng-archetype</module>
 	</modules>
 </project>

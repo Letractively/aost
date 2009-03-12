@@ -15,13 +15,7 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" readonly="true" name="Default" comment="fix double click event">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trump/chrome/content/about.html" afterPath="$PROJECT_DIR$/trump/chrome/content/about.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/TrUMP-0.1.0.xpi" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.properties" afterPath="$PROJECT_DIR$/build.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium-firefox-plugin.iws" afterPath="$PROJECT_DIR$/tellurium-firefox-plugin.iws" />
-    </list>
+    <list default="true" readonly="true" name="Default" comment="" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="tellurium-firefox-plugin.iws" />
   </component>
@@ -517,7 +511,7 @@
     <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix double click event" />
+    <option name="LAST_COMMIT_MESSAGE" value="update TrUMP version" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -528,7 +522,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="add position attribute" />
     <MESSAGE value="clean up code" />
     <MESSAGE value="Fix the position problem for created nodes" />
     <MESSAGE value="add max height for the customize tab" />
@@ -553,6 +546,7 @@
     <MESSAGE value="update the customize view" />
     <MESSAGE value="add mouse up event" />
     <MESSAGE value="fix double click event" />
+    <MESSAGE value="update TrUMP version" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
