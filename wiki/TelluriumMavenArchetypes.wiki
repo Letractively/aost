@@ -36,7 +36,7 @@ To create a test project from the local repository, you should use the offline o
 
 == Use Tellurium JUnit Archetype to Create A New Project ==
 
-First, you should modify your maven setting.xml file to allow you to automatically include Tellurium artifacts in your Maven project. This should go in your ~/.m2/settings.xml file:
+First, you should modify your maven setting.xml file to allow you to automatically include Tellurium artifacts in your Maven project. This should go in your ~/.m2/settings.xml file for Linux:
 
 {{{
 <settings>
@@ -97,7 +97,7 @@ src/test/resources
 TelluriumConfig.groovy
 }}}
 
-The GoogleSearchModule UI module is created using Trump plugin and the GoogleSearchTestCase is an example Tellurium JUnit Test case. 
+The GoogleSearchModule UI module is created using the Trump plugin and the GoogleSearchTestCase is an example Tellurium JUnit Test case. 
 
 You should use your IDE to open the project, for example, in IntelliJ IDEA, do the following steps
 
@@ -105,7 +105,7 @@ You should use your IDE to open the project, for example, in IntelliJ IDEA, do t
 New Project > Import project from external model > Maven > Project directory > Finish
 }}}
 
-You will open up a Maven project and make sure your project Groovy is using 1.6.0 version. After that, compile the project and run the example test GoogleSearchTestCase.
+You will open up a Maven project and make sure you are using Groovy 1.6.0 in your project. After that, compile the project and run the example test GoogleSearchTestCase.
 
 == Use Tellurium TestNG Archetype to Create A New Project ==
 
