@@ -17,6 +17,24 @@
         </developerConnection>
         <url>http://aost.google.code.com/svn/trunk/tools/tellurium-junit-archetype</url>
     </scm>
+     <distributionManagement>
+		<downloadUrl>http://code.google.com/p/aost/downloads/list</downloadUrl>
+		<repository>
+			<id>kungfuters-public-releases-repo</id>
+			<name>Kungfuters.org Public Releases Repository</name>
+			<url>http://kungfuters.org/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>kungfuters-public-snapshots-repo</id>
+			<name>Kungfuters.org Public Snapshot Repository</name>
+			<url>http://kungfuters.org/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<site>
+			<id>kungfuters-public-site</id>
+			<name>Kungfuters.org Public Sites</name>
+			<url>scp://kungfuters.org/www/sites/kungfuters.org/public_html/tellurium</url>
+		</site>
+	</distributionManagement>
     <!--build>
         <plugins>
             <plugin>
