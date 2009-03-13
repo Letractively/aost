@@ -16,6 +16,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium-testng-archetype.iml" afterPath="$PROJECT_DIR$/tellurium-testng-archetype.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium-testng-archetype.iws" afterPath="$PROJECT_DIR$/tellurium-testng-archetype.iws" />
     </list>
     <ignored path=".idea/workspace.xml" />
@@ -105,7 +106,7 @@
       <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/archetype-resources/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="167" column="52" selection-start="5954" selection-end="5954" vertical-scroll-proportion="0.7751938">
+            <state line="167" column="52" selection-start="5954" selection-end="5954" vertical-scroll-proportion="1.3565892">
               <folding />
             </state>
           </provider>
@@ -452,7 +453,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/archetype-resources/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="167" column="52" selection-start="5954" selection-end="5954" vertical-scroll-proportion="0.7751938">
+        <state line="167" column="52" selection-start="5954" selection-end="5954" vertical-scroll-proportion="1.3565892">
           <folding />
         </state>
       </provider>
