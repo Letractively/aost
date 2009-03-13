@@ -34,4 +34,83 @@ mvn install
 
 To create a test project from the local repository, you should use the offline option "-o".
 
+== Use Tellurium JUnit Archetype to Create A New Project ==
 
+First, you should modify your maven setting.xml file to allow you to automatically include Tellurium artifacts in your Maven project. This should go in your ~/.m2/settings.xml file:
+
+{{{
+<settings>
+    <profiles>
+        <profile>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                 <repository>  
+                    <id>kungfuters-public-snapshots-repo</id>
+                    <name>Kungfuters.org Public Snapshot Repository</name>
+                    <releases>          
+                        <enabled>false</enabled>
+                    </releases>         
+                    <snapshots>         
+                        <enabled>true</enabled> 
+                    </snapshots>        
+                    <url>http://kungfuters.org/nexus/content/repositories/snapshots</url>
+                </repository>   
+                <repository>    
+                    <id>kungfuters-public-releases-repo</id>
+                    <name>Kungfuters.org Public Releases Repository</name>
+                    <releases>          
+                        <enabled>true</enabled> 
+                    </releases>         
+                    <snapshots>         
+                        <enabled>false</enabled>
+                    </snapshots>        
+                    <url>http://kungfuters.org/nexus/content/repositories/releases</url>
+                </repository>   
+            </repositories>
+        </profile>
+    </profiles>
+</settings>
+}}}
+
+Then, run the following maven command to create your new project
+
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT
+}}}
+
+After the project is created, you will find the following files
+{{{
+pom.xml
+src
+src/main
+src/main/groovy
+src/main/resources
+src/test
+src/test/groovy
+src/test/groovy/module
+src/test/groovy/module/GoogleSearchModule.groovy
+src/test/groovy/test
+src/test/groovy/test/GoogleSearchTestCase.java
+src/test/resources
+TelluriumConfig.groovy
+}}}
+
+The GoogleSearchModule UI module is created using Trump plugin and the GoogleSearchTestCase is an example Tellurium JUnit Test case. 
+
+You should use your IDE to open the project, for example, in IntelliJ IDEA, do the following steps
+
+{{{
+New Project > Import project from external model > Maven > Project directory > Finish
+}}}
+
+You will open up a Maven project and make sure your project Groovy is using 1.6.0 version. After that, compile the project and run the example test GoogleSearchTestCase.
+
+== Use Tellurium TestNG Archetype to Create A New Project ==
+
+This is the same as the JUnit archetype, except that you should use a different archetype
+
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT
+}}}
