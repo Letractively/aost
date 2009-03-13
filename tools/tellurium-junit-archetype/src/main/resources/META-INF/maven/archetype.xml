@@ -6,8 +6,8 @@
     </testSources>
     <resources>
         <resource>TelluriumConfig.groovy</resource>
-        <resource>src/main/groovy/example/module/TelluriumDownloadPageModule.groovy</resource>
-        <resource>src/test/groovy/example/TelluriumDownloadPageTestCase.java</resource>
+        <resource>src/test/groovy/module/GoogleSearchModule.groovy</resource>
+        <resource>src/test/groovy/test/GoogleSearchTestCase.java</resource>
     </resources>
 
 </archetype>

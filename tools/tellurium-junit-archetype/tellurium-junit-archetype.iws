@@ -91,19 +91,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="0" selection-start="1008" selection-end="1008" vertical-scroll-proportion="0.3952569">
+            <state line="19" column="27" selection-start="1007" selection-end="1007" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TelluriumDownloadPageTestCase.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="TelluriumDownloadPageTestCase.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/archetype-resources/src/test/groovy/example/TelluriumDownloadPageTestCase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="52" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0">
+            <state line="28" column="61" selection-start="679" selection-end="679" vertical-scroll-proportion="0.5426357">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -549,15 +549,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/archetype-resources/src/test/groovy/example/TelluriumDownloadPageTestCase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="52" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/maven/archetype.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="8" selection-start="12" selection-end="384" vertical-scroll-proportion="0.0">
@@ -574,8 +565,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="1008" selection-end="1008" vertical-scroll-proportion="0.3952569">
+        <state line="19" column="27" selection-start="1007" selection-end="1007" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/archetype-resources/src/test/groovy/example/TelluriumDownloadPageTestCase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="61" selection-start="679" selection-end="679" vertical-scroll-proportion="0.5426357">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
