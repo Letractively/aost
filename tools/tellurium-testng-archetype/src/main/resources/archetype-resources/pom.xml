@@ -169,7 +169,7 @@
                             <!-- <goal>generateStubs</goal>-->
                             <goal>compile</goal>
                             <!--<goal>generateTestStubs</goal>-->
-                            <!-- <goal>testCompile</goal> -->
+                            <goal>testCompile</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -180,7 +180,7 @@
     <properties>
         <java-version>1.5</java-version>
         <groovy-version>1.6.0</groovy-version>
-        <gmaven-version>1.0-rc-4</gmaven-version>
+        <gmaven-version>1.0-rc-5</gmaven-version>
         <selenium-version>1.0-beta-2</selenium-version>
     </properties>
 
