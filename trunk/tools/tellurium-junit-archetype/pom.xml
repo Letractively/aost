@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <parent>
+    <!--parent>
         <groupId>tellurium</groupId>
         <artifactId>tellurium-tools</artifactId>
         <version>0.6.0-SNAPSHOT</version>
-    </parent>
+    </parent-->
     <modelVersion>4.0.0</modelVersion>
     <groupId>tellurium</groupId>
     <artifactId>tellurium-junit-archetype</artifactId>
@@ -13,8 +13,32 @@
     <description>A Tellurium plugin for Firefox</description>
     <scm>
         <connection>scm:svn:http://aost.google.code.com/svn/trunk/tools/tellurium-junit-archetype</connection>
-        <developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/tools/tellurium-junit-archetype</developerConnection>
+        <developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/tools/tellurium-junit-archetype
+        </developerConnection>
         <url>http://aost.google.code.com/svn/trunk/tools/tellurium-junit-archetype</url>
     </scm>
+    <!--build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>**/*.java</include>
+                        <include>**/*.groovy</include>
+                        <include>**/*.xml</include>
+                        <include>**/*.properties</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar</goal>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build-->
 
 </project>
