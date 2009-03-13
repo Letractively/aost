@@ -1,0 +1,37 @@
+#summary Tellurium Maven Archetypes
+#labels Phase-Support
+
+= Tellurium Maven Archetypes =
+
+== How Tellurium Maven Archetypes Are Created ==
+
+Tellurium includes two maven archetypes, i.e., tellurium-junit-archetype and tellurium-testng-archetype for Tellurium JUnit test project and Tellurium TestNG test project, respectively.
+
+The procedures to create tellurium Maven archetypes are surprisingly simple. Take the tellurium-junit-archetype as an example.
+
+First, create a maven archetype project using the following maven command
+
+{{{
+mvn archetype:create -DgroupId=tellurium -DartifactId=tellurium-junit-archetype -DarchetypeArtifactId=maven-archetype-archetype
+}}} 
+
+Then, you need to copy the prototype files to the archetype directory: {{{src/main/resources/archetype-resources/}}}, including pom file, example UI module file, and example Tellurium JUnit test file.
+
+After that, you need to customize the archetype descriptor, archetype.xml in directory: {{{src/main/resources/META-INF/}}}. Notice that GMaven uses {{{src/main/groovy}}} and {{{src/test/groovy}}} directories and you must put them under the resources tag.
+
+The last step is to build and deploy the archetype using the following command
+
+{{{
+mvn package deploy
+}}}
+
+Sometimes, you may like to first try to test it on your local repository, then you can 
+run 
+
+{{{
+mvn install
+}}}
+
+To create a test project from the local repository, you should use the offline option "-o".
+
+
