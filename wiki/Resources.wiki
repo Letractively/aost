@@ -142,7 +142,7 @@
 
   * [http://en.wikipedia.org/wiki/Rete_algorithm Rete algorithm]
 
-== Tellurium Blogs ==
+== Blogs ==
 
   * [http://notetodogself.blogspot.com/2009/02/functional-testing-with-tellurium.html Functional Testing with Tellurium]
 
