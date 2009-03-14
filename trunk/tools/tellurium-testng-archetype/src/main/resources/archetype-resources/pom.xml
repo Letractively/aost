@@ -6,8 +6,21 @@
     <version>$version</version>
     <name>Tellurium TestNG Test Project</name>
 
+    <repositories>
+            <repository>
+                    <id>openqa-release-repo</id>
+                    <releases>
+                            <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                            <enabled>false</enabled>
+                    </snapshots>
+                    <url>http://archiva.openqa.org/repository/releases
+                    </url>
+            </repository>
+    </repositories>
+    
     <dependencies>
-
         <dependency>
             <groupId>org.codehaus.groovy.maven</groupId>
             <artifactId>gmaven-mojo</artifactId>
