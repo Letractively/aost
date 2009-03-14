@@ -1,0 +1,24 @@
+#summary Ten Minutes To Tellurium
+
+= Ten Minutes To Tellurium =
+
+== Introduction ==
+
+Tellurium is an automated web testing framework. Although it is built on top of Selenium at the current stage, there are many conceptual differences between the two:
+  * Not a "record and replay" style
+  * UI module-based, i.e., it focuses more on a set of UI elements
+  * Enforce the decoupling between UI and testing code so that you have structured code
+  * Robust to change, Tellurium achieves this by using composite locator to build locator at runtime and group locating to remove the dependency among UI elements inside the UI module and external UI elements
+  * Expressive by using Groovy dynamic language feature and DSL
+  * Reusable, UI modules are reusable for the same application and Tellurium widgets can be used for different applications
+  * Address dynamic factors on the web. UI templates are used for data grid and the respond attribute in Tellurium UI object can address Javascript events
+  * Core framework is implemented in Groovy and tests can be written in Groovy, JUnit, TestNG, or pure dsl scripts
+  * Support data driven testing
+  * Provide Maven archetypes
+
+This tutorial tries to achieve the following goals,
+  * Walk you the steps for creating Tellurium test cases
+  * Illustrate how to use Tellurium Firefox Plugin (TrUMP) to create your own UI modules
+  * How to create your own Tellurium test cases and run the tests
+  * Experience the features in Tellurium
+
