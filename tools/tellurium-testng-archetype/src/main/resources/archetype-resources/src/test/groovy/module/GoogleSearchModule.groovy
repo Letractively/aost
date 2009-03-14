@@ -21,14 +21,14 @@ public class GoogleSearchModule extends DslContext {
   }
 
   public void doGoogleSearch(String input) {
-    keyType "Google.Input", input
+    type "Google.Input", input
     pause 500
     click "Google.Search"
     waitForPageToLoad 30000
   }
 
   public void doImFeelingLucky(String input) {
-    type "Google.Input", input
+    keyType "Google.Input", input
     pause 500
     click "Google.ImFeelingLucky"
     waitForPageToLoad 30000
