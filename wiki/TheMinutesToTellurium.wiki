@@ -1,4 +1,5 @@
 #summary Ten Minutes To Tellurium
+#labels Phase-Implementation
 
 = Ten Minutes To Tellurium =
 
@@ -70,21 +71,7 @@ mvn archetype:create -DgroupId=example -DartifactId=demo -DarchetypeArtifactId=t
 
 Go the demo project directory and you will find the following files
 
-{{{
-pom.xml
-src
-src/main
-src/main/groovy
-src/main/resources
-src/test
-src/test/groovy
-src/test/groovy/module
-src/test/groovy/module/GoogleSearchModule.groovy
-src/test/groovy/test
-src/test/groovy/test/GoogleSearchTestCase.java
-src/test/resources
-TelluriumConfig.groovy
-}}}
+http://tellurium-users.googlegroups.com/web/DemoProject.png?gda=qhBwG0EAAACXZPxEX7Ki-M5C2JpeBoXX9HoFXmXm3ZOiZ8BOudMmn0neq6aN9azf0H_SSjmmHAdTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=r5ESUAsAAAB_6XgBAY-OTO2KhvY2ZJUe
 
 where the TelluriumConfig.groovy includes Tellurium project settings and you can customize them to you need
 
@@ -254,3 +241,115 @@ New Project > Import project from external model > Maven > Project directory > F
 
 Since it is a Maven project, the IDE will automatically try to solve the project dependency for you and download appropriate jars. Then, click on module settings to make sure the Groovy version is 1.6.0 as shown in the following picture
 
+http://tellurium-users.googlegroups.com/web/ProjectStructureGroovy.png?gda=k5uZoEwAAACXZPxEX7Ki-M5C2JpeBoXXZm5kowxpyCZNxUPkbt5Zzzcv-xQ6fkRsOQF4PGv8Pa9yoU_yua7gn0-5looe3wHr_Vpvmo5s1aABVJRO3P3wLQ&gsc=r5ESUAsAAAB_6XgBAY-OTO2KhvY2ZJUe
+
+After that, you are read to run the sampel test file GoogleSearchTestCase.
+
+== Create Your own UI modules and Test Cases ==
+
+Tellurium provides TrUMP for you to automatically create UI modules. TrUMP can be download from Tellurium project site 
+
+http://code.google.com/p/aost/downloads/list
+
+Choose the Firefox 2 or Firefox 3 version depending on your Firefox version. Or you can download the Firefox 3 version directly from Firefox addons site at
+
+https://addons.mozilla.org/en-US/firefox/addon/11035
+
+Once you install it and restart Firefox, you are ready to record your UI modules by simply clicking on the UI element on the web and then click the "generate" button. You may like to customize your UI a bit by clicking the "Customize" button. More detailed TrUMP introductions can be found at
+
+http://code.google.com/p/aost/wiki/TrUMP
+
+and
+
+http://code.google.com/p/aost/wiki/HowTrUMPWorks
+
+In our example, we open up Tellurium download page 
+
+http://code.google.com/p/aost/downloads/list
+
+and record the download search module as follows
+
+http://tellurium-users.googlegroups.com/web/TrUMPRecordDownloadPage.png?gda=OlvnAU0AAACXZPxEX7Ki-M5C2JpeBoXX_AfRGjKOg8bfAG7WWa1zzr3MhpfIdLRuVAwbLjuTZtSqonpmmrv0I-p7nCVZQmP65Tb_vjspK02CR95VRrtmeQ&gsc=r5ESUAsAAAB_6XgBAY-OTO2KhvY2ZJUe
+
+After we customize the UI module, we export it as the module file NewUiModule.groovy to the demo project and add couple methods to the class.
+
+{{{
+class NewUiModule extends DslContext {
+
+  public void defineUi() {
+    ui.Form(uid: "TelluriumDownload", clocator: [tag: "form", method: "get", action: "list"], group: "true") {
+      Selector(uid: "DownloadType", clocator: [tag: "select", name: "can", id: "can"])
+      InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "q", id: "q"])
+      SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit", value: "Search"])
+    }
+  }
+
+  //Add your methods here
+  public void searchDownload(String keyword) {
+    keyType "TelluriumDownload.Input", keyword
+    click "TelluriumDownload.Search"
+    waitForPageToLoad 30000
+  }
+
+  public String[] getAllDownloadTypes() {
+    return getSelectOptions("TelluriumDownload.DownloadType")
+  }
+
+  public void selectDownloadType(String type) {
+    selectByLabel "TelluriumDownload.DownloadType", type
+  }
+}
+}}}
+
+Then, create a new Tellurium test case NewTestCase by extending TelluriumJavaTestCase class.
+
+{{{
+public class NewTestCase extends TelluriumJavaTestCase {
+    private static NewUiModule app;
+
+    @BeforeClass
+    public static void initUi() {
+        app = new NewUiModule();
+        app.defineUi();
+    }
+
+    @Before
+    public void setUpForTest() {
+        connectUrl("http://code.google.com/p/aost/downloads/list");
+    }
+
+    @Test
+    public void testTelluriumProjectPage() {
+        String[] allTypes = app.getAllDownloadTypes();
+        assertNotNull(allTypes);
+        assertTrue(allTypes[1].contains("All Downloads"));
+        app.selectDownloadType(allTypes[1]);
+        app.searchDownload("TrUMP");
+    }
+}
+}}}
+
+Compile the project and run the new test case.
+
+== Tellurium TestNG Project==
+
+If you want to create a new Tellurium TestNG project, simply use a different Maven archetype as follows,
+
+{{{
+mvn archetype:create -DgroupId=example -DartifactId=demo -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT
+}}}
+
+and the new Tellurium test case should extend TelluriumTestNGTestCase class. The rest are the same as the JUnit ones.
+
+== Resources ==
+
+The slides for this tutorial is available at
+
+http://aost.googlecode.com/files/Ten.Minutes.To.Tellurium.pdf
+
+The Screencast video is available at
+
+http://aost.googlecode.com/files/TenMinutesToTellurium.ogg
+
+The generated Demo project can be downloaded from [http://tellurium-users.googlegroups.com/web/demo.tar.gz?gda=KLuc0T0AAACXZPxEX7Ki-M5C2JpeBoXX9cV6LjM02yQQsSwuuEiWqhlX3Fx9UEqM2hr2qeRv5GDlNv--OykrTYJH3lVGu2Z5&gsc=r5ESUAsAAAB_6XgBAY-OTO2KhvY2ZJUe here]
+ 
