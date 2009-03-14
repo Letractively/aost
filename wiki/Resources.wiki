@@ -142,6 +142,10 @@
 
   * [http://en.wikipedia.org/wiki/Rete_algorithm Rete algorithm]
 
+== Tellurium Blogs ==
+
+  * [http://notetodogself.blogspot.com/2009/02/functional-testing-with-tellurium.html Functional Testing with Tellurium]
+
 == Presentations and Videos ==
 
    * [http://code.google.com/p/aost/downloads/list How to use TrUMP to Create Tellurium Test Cases] ([http://doesthatevencompile.com/flv/ Flash Version])
