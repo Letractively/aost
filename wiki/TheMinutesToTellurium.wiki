@@ -4,7 +4,7 @@
 
 == Introduction ==
 
-Tellurium is an automated web testing framework. Although it is built on top of Selenium at the current stage, there are many conceptual differences between the two:
+Tellurium is an automated web testing framework. Although it is built on top of Selenium at the current stage, there are many conceptual differences between the two. The main features of Tellurium are list as follows:
   * Not a "record and replay" style
   * UI module-based, i.e., it focuses more on a set of UI elements
   * Enforce the decoupling between UI and testing code so that you have structured code
@@ -22,3 +22,42 @@ This tutorial tries to achieve the following goals,
   * How to create your own Tellurium test cases and run the tests
   * Experience the features in Tellurium
 
+== Create a New Tellurium Test Project using Maven ==
+
+First, you need to have Maven 2.0.9 installed and make sure you have M2_HOME environment set in your system. 
+
+Then, add Tellurium Maven repository into your Maven settings.xml, usually it is at Your_HOME/.m2/. Cut and post the following profile between the <settings> and </settings> tags in your settings.xml
+
+{{{
+   <profiles>
+        <profile>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                 <repository>  
+                    <id>kungfuters-public-snapshots-repo</id>
+                    <name>Kungfuters.org Public Snapshot Repository</name>
+                    <releases>          
+                        <enabled>false</enabled>
+                    </releases>         
+                    <snapshots>         
+                        <enabled>true</enabled> 
+                    </snapshots>        
+                    <url>http://kungfuters.org/nexus/content/repositories/snapshots</url>
+                </repository>   
+                <repository>    
+                    <id>kungfuters-public-releases-repo</id>
+                    <name>Kungfuters.org Public Releases Repository</name>
+                    <releases>          
+                        <enabled>true</enabled> 
+                    </releases>         
+                    <snapshots>         
+                        <enabled>false</enabled>
+                    </snapshots>        
+                    <url>http://kungfuters.org/nexus/content/repositories/releases</url>
+                </repository>   
+            </repositories>
+        </profile>
+ </profiles>
+}}} 
