@@ -102,6 +102,7 @@
 
   * [http://www.w3schools.com/XML/ XML Tutorial]
   * [http://www.xml.com/pub/a/2004/09/01/tr.html Converting XML to RDF]
+  * [http://www.faqts.com/knowledge_base/view.phtml/aid/34022/fid/616 Questions about XPath]
 
 === XHTML ===
 
