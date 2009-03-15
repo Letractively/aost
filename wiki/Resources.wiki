@@ -103,6 +103,11 @@
   * [http://www.w3schools.com/XML/ XML Tutorial]
   * [http://www.xml.com/pub/a/2004/09/01/tr.html Converting XML to RDF]
 
+=== XHTML ===
+
+  * [http://www.w3.org/TR/xhtml1/ XHTML™ 1.0 The Extensible HyperText Markup Language]
+  * [http://www.w3schools.com/Xhtml/ XHTML Tutorial]
+
 === Maven ===
 
   * [http://maven.apache.org/pom.html POM Reference]
