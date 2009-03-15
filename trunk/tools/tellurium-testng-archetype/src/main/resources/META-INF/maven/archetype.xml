@@ -5,6 +5,7 @@
     <testSources>
     </testSources>
     <resources>
+        <resource>README</resource>
         <resource>TelluriumConfig.groovy</resource>
         <resource>src/test/groovy/module/GoogleSearchModule.groovy</resource>
         <resource>src/test/groovy/test/GoogleSearchTestCase.java</resource>
