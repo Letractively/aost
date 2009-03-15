@@ -108,6 +108,7 @@
 
   * [http://www.w3.org/TR/xhtml1/ XHTML™ 1.0 The Extensible HyperText Markup Language]
   * [http://www.w3schools.com/Xhtml/ XHTML Tutorial]
+  * [http://cfis.savagexi.com/2006/08/02/selenium-and-xhtml Selenium and XHTML]
 
 === Maven ===
 
