@@ -122,6 +122,9 @@
   * [http://www.jroller.com/carlossg/entry/functional_testing_with_maven_cargo Functional testing with Maven, Cargo and Selenium]
   * [http://www.gridshore.nl/blog/index.php?/archives/55-Creating-a-maven-archetype-for-acegi-and-springframework.html Creating a maven archetype for acegi and springframework]
   * [http://maven.apache.org/guides/mini/guide-creating-archetypes.html Guide to Creating Archetypes]
+  * [http://maven.apache.org/plugin-developers/index.html Maven Plugin Developers Centre]
+  * [http://maven.apache.org/guides/introduction/introduction-to-plugins.html Introduction to Maven 2.0 Plugin Development]
+  * [http://docs.codehaus.org/display/MAVENUSER/Write+your+own+report+plugin Write your own report plugin]
 
 === Groovy ===
 
