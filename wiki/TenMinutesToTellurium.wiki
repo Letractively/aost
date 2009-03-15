@@ -18,7 +18,7 @@ Tellurium is an automated web testing framework. Although it is built on top of 
   * Provide Maven archetypes
 
 This tutorial tries to achieve the following goals,
-  * Walk you the steps for creating Tellurium test cases
+  * Walk you through the steps for creating Tellurium test cases
   * Illustrate how to use Tellurium Firefox Plugin (TrUMP) to create your own UI modules
   * How to create your own Tellurium test cases and run the tests
   * Experience the features in Tellurium
