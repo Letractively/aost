@@ -351,5 +351,7 @@ The Screencast video is available at
 
 http://aost.googlecode.com/files/TenMinutesToTellurium.ogg
 
+The online version is [http://www.youtube.com/watch?v=DyUPeg-Y-Yg hosted on YouTube]
+
 The generated Demo project can be downloaded from [http://tellurium-users.googlegroups.com/web/demo.tar.gz?gda=KLuc0T0AAACXZPxEX7Ki-M5C2JpeBoXX9cV6LjM02yQQsSwuuEiWqhlX3Fx9UEqM2hr2qeRv5GDlNv--OykrTYJH3lVGu2Z5&gsc=r5ESUAsAAAB_6XgBAY-OTO2KhvY2ZJUe here]
  
