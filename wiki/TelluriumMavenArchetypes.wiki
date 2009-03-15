@@ -36,7 +36,7 @@ To create a test project from the local repository, you should use the offline o
 
 == Use Tellurium JUnit Archetype to Create A New Project ==
 
-First, you should modify your maven setting.xml file to allow you to automatically include Tellurium artifacts in your Maven project. This should go in your ~/.m2/settings.xml file for Linux:
+First, you should modify your maven setting.xml file to allow you to automatically include Tellurium artifacts in your Maven project. This should go in your_home/.m2/settings.xml file:
 
 {{{
 <settings>
@@ -79,6 +79,13 @@ Then, run the following maven command to create your new project
 {{{
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT
 }}}
+
+Without adding the Tellurium Maven repository, you can specify it in the command line as
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
+}}}
+
+But you still need to put the Tellurium repository into your settings.xml later since the Tellurium test project needs to download other Tellurium artifacts from the repository, for example, the tellurium core jar file.
 
 After the project is created, you will find the following files
 {{{
