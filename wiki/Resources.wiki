@@ -125,6 +125,7 @@
   * [http://maven.apache.org/plugin-developers/index.html Maven Plugin Developers Centre]
   * [http://maven.apache.org/guides/introduction/introduction-to-plugins.html Introduction to Maven 2.0 Plugin Development]
   * [http://docs.codehaus.org/display/MAVENUSER/Write+your+own+report+plugin Write your own report plugin]
+  * [http://docs.codehaus.org/display/MAVENUSER/Archetypes+List Maven Archetype List]
 
 === Groovy ===
 
