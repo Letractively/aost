@@ -153,4 +153,15 @@ class Table_UT extends GroovyTestCase{
       result = table10.getTableLocator("Actions[3][4]")
       assertEquals("/descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][3]/descendant-or-self::td[@class=\"abc\" and position()=4]", result)
   }
+
+  void testTable11(){
+    Table11 table11 = new Table11()
+    table11.defineUi()
+    String result = table11.getLocator("Actions.header[1]")
+    assertNotNull(result)
+    assertEquals("/descendant-or-self::*[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::th]/descendant-or-self::th[1]", result)
+
+    result = table11.getLocator("Test")
+    assertEquals("/descendant-or-self::*[@id=\"xyz\"]", result)
+  }
 }
