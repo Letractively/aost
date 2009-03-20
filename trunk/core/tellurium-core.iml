@@ -17,32 +17,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library" exported="">
-      <library name="org.openqa.selenium.server:selenium-server:0.9.2:standalone">
-        <CLASSES>
-          <root url="jar://$MAVEN_REPOSITORY$/org/openqa/selenium/server/selenium-server/0.9.2/selenium-server-0.9.2-standalone.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MAVEN_REPOSITORY$/org/openqa/selenium/server/selenium-server/0.9.2/selenium-server-0.9.2-standalone-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MAVEN_REPOSITORY$/org/openqa/selenium/server/selenium-server/0.9.2/selenium-server-0.9.2-standalone-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="org.testng:testng:5.8:jdk15">
-        <CLASSES>
-          <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.8/testng-5.8-jdk15.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.8/testng-5.8-jdk15-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.8/testng-5.8-jdk15-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
     <orderEntry type="library" exported="" name="Maven: junit:junit:4.4" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.seleniumhq.selenium.server:selenium-server:1.0-beta-2" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.seleniumhq.selenium.server:selenium-server-coreless:1.0-beta-2" level="project" />
@@ -57,19 +31,20 @@
     <orderEntry type="library" exported="" name="Maven: org.seleniumhq.selenium.server:selenium-server:standalone:1.0-beta-2" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy.maven.runtime:gmaven-runtime-default:1.0-rc-3" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.slf4j:slf4j-api:1.5.6" level="project" />
-    <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy.maven.runtime:gmaven-runtime-1.5:1.0-rc-4" level="project" />
-    <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy.maven.feature:gmaven-feature-support:1.0-rc-4" level="project" />
-    <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy.maven.feature:gmaven-feature-api:1.0-rc-4" level="project" />
-    <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy.maven.runtime:gmaven-runtime-support:1.0-rc-4" level="project" />
-    <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy.maven.runtime:gmaven-runtime-api:1.0-rc-4" level="project" />
-    <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy.maven:gmaven-common:1.0-rc-4" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy.maven.runtime:gmaven-runtime-1.5:1.0-rc-3" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy.maven.feature:gmaven-feature-support:1.0-rc-5" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy.maven.feature:gmaven-feature-api:1.0-rc-5" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy.maven.runtime:gmaven-runtime-support:1.0-rc-5" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy.maven.runtime:gmaven-runtime-api:1.0-rc-5" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy.maven:gmaven-common:1.0-rc-5" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.codehaus.plexus:plexus-utils:1.5.5" level="project" />
-    <orderEntry type="library" exported="" name="Maven: com.thoughtworks.qdox:qdox:1.6.3" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.thoughtworks.qdox:qdox:1.8" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy:groovy-all-minimal:1.5.6" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.apache.ant:ant:1.7.1" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.apache.ant:ant-launcher:1.7.1" level="project" />
     <orderEntry type="library" exported="" name="Maven: jline:jline:0.9.94" level="project" />
-    <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy:groovy-all:1.6-RC-2" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy:groovy-all:1.6.0" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy.maven.runtime:gmaven-runtime-1.6:1.0-rc-5" level="project" />
     <orderEntry type="library" exported="" name="Maven: bouncycastle:bcprov-jdk16:136" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.testng:testng:jdk15:5.8" level="project" />
   </component>
