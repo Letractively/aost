@@ -58,6 +58,20 @@ abstract class UiObject implements Cloneable{
     //respond to JavaScript events
     String[] respondToEvents
 
+/*
+    def ArrayList getSelectorProperties(java.util.List<String> props){
+        return accessor.getSelectorProperties(locator, props);
+    }
+
+    def ArrayList getSelectorText(){
+        return accessor.getSelectorText(locator, props);
+    }
+
+    def Object getSelectorFunctionCall(String fn, java.util.List args){
+        return accessor.getSelectorText(locator, fn, args);
+    }
+*/
+
     def mouseOver(Closure c){
         c(locator)
     }
