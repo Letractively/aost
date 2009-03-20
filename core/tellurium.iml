@@ -30,7 +30,7 @@
     <content url="file://$MODULE_DIR$/src/test/resources">
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" isTestSource="true" />
     </content>
-    <orderEntry type="library" name="groovy-1.5.6" level="application" />
+    <orderEntry type="library" name="groovy-1.6.0" level="application" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
@@ -63,13 +63,30 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$APPLICATION_HOME_DIR$/lib/junit-4.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/junit-4.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntryProperties />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../IntelliJ/core-jlocator/lib/json_simple.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../IntelliJ/core-jlocator/lib/stringtree-json-2.0.9.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
 
