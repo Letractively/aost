@@ -14,4 +14,13 @@
 		<developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/reference-projects/tellurium-testng-java</developerConnection>
 		<url>http://aost.google.code.com/svn/trunk/reference-projects/tellurium-testng-java</url>
 	</scm>
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>5.8</version>
+            <classifier>jdk15</classifier>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
 </project>
