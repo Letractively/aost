@@ -87,8 +87,11 @@ public class SeleniumServerDaemon {
         }
 
         if(this.userExtension != null && this.userExtension.trim().length() > 0){
-		  File userExt = new File(userExtension);
+		  File userExt = new File(this.userExtension);
 		  config.setUserExtensions(userExt);
+          println("Use user extension file " + this.userExtension)
+        }else{
+          println "Warning: No user-extensions.js found!"
         }
 		try {
             server = new SeleniumServer(config);
