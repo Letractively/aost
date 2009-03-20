@@ -127,6 +127,7 @@
   * [http://docs.codehaus.org/display/MAVENUSER/Write+your+own+report+plugin Write your own report plugin]
   * [http://docs.codehaus.org/display/MAVENUSER/Archetypes+List Maven Archetype List]
   * [http://maven.apache.org/plugins/maven-dependency-plugin/usage.html Maven Dependency Plugin Usage]
+  * [http://www.mvnrepository.com Maven Repo Search Engine]
 
 === Groovy ===
 
