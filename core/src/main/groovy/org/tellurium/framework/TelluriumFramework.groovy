@@ -16,6 +16,8 @@ import org.tellurium.dispatch.Dispatcher
 import org.tellurium.dispatch.DispatcherMetaClass
 import org.tellurium.event.EventHandler
 import org.tellurium.event.EventHandlerMetaClass
+import org.tellurium.extend.Extension
+import org.tellurium.extend.ExtensionMetaClass
 import org.tellurium.locator.LocatorProcessor
 import org.tellurium.locator.LocatorProcessorMetaClass
 import org.tellurium.server.EmbeddedSeleniumServer
@@ -52,6 +54,8 @@ class TelluriumFramework {
     registry.setMetaClass(SeleniumClient, new SeleniumClientMetaClass())
 
     registry.setMetaClass(Dispatcher, new DispatcherMetaClass())
+
+    registry.setMetaClass(Extension, new ExtensionMetaClass())
 
     registry.setMetaClass(Accessor, new AccessorMetaClass())
 
