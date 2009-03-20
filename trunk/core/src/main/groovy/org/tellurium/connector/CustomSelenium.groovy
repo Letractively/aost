@@ -26,5 +26,22 @@ class CustomSelenium extends DefaultSelenium {
 
        }
     */
+  
+	def String getSelectorProperties(String jqSelector, String props){
+		String[] arr = [jqSelector, props];
+		String st = commandProcessor.doCommand("getSelectorProperties", arr);
+		return st;
+	}
 
+	def String getSelectorText(String jqSelector){
+		String[] arr = [jqSelector];
+		String st = commandProcessor.doCommand("getSelectorText", arr);
+		return st;
+	}
+
+	def String getSelectorFunctionCall(String jqSelector, String args){
+		String[] arr = [jqSelector, args];
+		String st = commandProcessor.doCommand("getSelectorFunctionCall", arr);
+		return st;
+	}
 }
