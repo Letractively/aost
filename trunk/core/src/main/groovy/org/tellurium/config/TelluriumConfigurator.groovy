@@ -31,6 +31,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
         server.setProperty("useMultiWindows", conf.tellurium.embeddedserver.useMultiWindows)
         server.setProperty("runSeleniumServerInternally", conf.tellurium.embeddedserver.runInternally)
         server.setProperty("profileLocation", conf.tellurium.embeddedserver.profile)
+        server.setProperty("userExtension", conf.tellurium.embeddedserver.userExtension)
     }
 
     protected void configEmbeededServerDefaultValues(EmbeddedSeleniumServer server){

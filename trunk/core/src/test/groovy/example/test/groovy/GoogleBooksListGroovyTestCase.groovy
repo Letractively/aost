@@ -1,10 +1,10 @@
 package example.test.groovy
 
-import org.tellurium.test.groovy.TelluriumGroovyTestCase
 import example.google.GoogleBooksList
+import example.google.NewGoogleBooksList
 import org.tellurium.object.UiObject
 import org.tellurium.object.UrlLink
-import example.google.NewGoogleBooksList
+import org.tellurium.test.groovy.TelluriumGroovyTestCase
 
 /**
  * 
@@ -26,6 +26,15 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
 
     public void tearDown(){
         tearDownForClass()
+    }
+
+    void testJqueryFunctionality() {
+      connectUrl("http://books.google.com/")
+      GoogleBooksList gbl = new GoogleBooksList();
+      gbl.defineUi()
+      println gbl.getJQSelectedLinkTest();
+      assertTrue(gbl.getSubcategoryNames().contains("Non-fiction"));
+      assertTrue(gbl.getFictionLinks().size() > 0);
     }
 
     void testBookCategory(){
