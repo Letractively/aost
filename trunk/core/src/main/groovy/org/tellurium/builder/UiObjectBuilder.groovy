@@ -2,6 +2,7 @@ package org.tellurium.builder
 
 import org.tellurium.locator.BaseLocator
 import org.tellurium.locator.CompositeLocator
+import org.tellurium.locator.JQLocator
 import org.tellurium.object.Container
 import org.tellurium.object.UiObject
 
@@ -16,6 +17,7 @@ abstract class UiObjectBuilder{
     public static final String NAMESPACE = "namespace"
     public static final String LOCATOR = "locator"
     public static final String CLOCATOR = "clocator"
+    public static final String JQLOCATOR = "jqlocator"
 //    public static final String GLOCATOR = "glocator"
     public static final String HEADER = "header"
     public static final String TRAILER = "trailer"
@@ -89,6 +91,9 @@ abstract class UiObjectBuilder{
         }else if (map.get(CLOCATOR) != null){
             //use composite locator, it must be a map
             obj.locator = buildCompositeLocator(map.get(CLOCATOR), df)
+        }else if (map.get(JQLOCATOR) != null){
+            //useString jquery locator
+            obj.locator = buildJQueryLocator(map.get(JQLOCATOR))
         }else{
             //use default base Locator
             obj.locator = new BaseLocator()
@@ -106,6 +111,12 @@ abstract class UiObjectBuilder{
 
     def buildBaseLocator(String loc){
         BaseLocator locator = new BaseLocator(loc:loc)
+        return locator
+    }
+
+    def buildJQueryLocator(String loc){
+        JQLocator locator = new JQLocator(loc:loc)
+
         return locator
     }
 
