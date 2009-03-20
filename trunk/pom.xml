@@ -254,6 +254,12 @@
 			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
 			<artifactId>selenium-java-client-driver</artifactId>
 			<version>${selenium-version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.groovy.maven.runtime</groupId>
+                    <artifactId>gmaven-runtime-default</artifactId>
+                </exclusion>
+            </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>
@@ -308,6 +314,12 @@
                 <groupId>org.codehaus.groovy.maven</groupId>
                 <artifactId>gmaven-mojo</artifactId>
                 <version>1.0-rc-5</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.codehaus.groovy.maven.runtime</groupId>
+                        <artifactId>gmaven-runtime-1.5</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.groovy.maven.runtime</groupId>
