@@ -27,6 +27,8 @@ class EmbeddedSeleniumServer implements Configurable{
 
     protected String profileLocation = null;
 
+    protected String userExtension = null;
+
     public final boolean isUseMultiWindows() {
 		return useMultiWindows;
 	}
@@ -34,7 +36,8 @@ class EmbeddedSeleniumServer implements Configurable{
     public void setUpSeleniumServer(){
 
 		try {
-			daemon = new SeleniumServerDaemon (port, logFile, useMultiWindows, this.profileLocation);
+			daemon = new SeleniumServerDaemon (port, logFile, useMultiWindows,
+                    this.profileLocation, this.userExtension);
 			daemon.run();
             Helper.pause(serverDelayInSeconds*1000)
 		} catch (Exception e) {

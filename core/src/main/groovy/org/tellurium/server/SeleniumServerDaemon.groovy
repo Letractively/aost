@@ -30,6 +30,8 @@ public class SeleniumServerDaemon {
 
     private String profileLocation = null;
 
+    private String userExtension = null;
+
     private String [] getParams(){
 		String cmd = "-port " + port + " -log " + logFile;
 
@@ -40,7 +42,8 @@ public class SeleniumServerDaemon {
 		return cmd.split(" ");
     }
 
-	public SeleniumServerDaemon(int port, String logFile, boolean useMultiWindows, String profileLocation) {
+	public SeleniumServerDaemon(int port, String logFile, boolean useMultiWindows,
+                                String profileLocation, String userExtension) {
 		super();
 		this.port = port;
 		this.logFile = logFile;
@@ -52,6 +55,9 @@ public class SeleniumServerDaemon {
 			this.logFile = DEFAULT_LOG_FILE;
         if(profileLocation != null && profileLocation.trim().length() > 0){
           this.profileLocation = profileLocation;
+        }
+        if(userExtension != null && userExtension.trim().length() > 0){
+          this.userExtension = userExtension;
         }
 	}
 
@@ -79,9 +85,11 @@ public class SeleniumServerDaemon {
         if(this.profileLocation != null && this.profileLocation.trim().length() > 0){
           config.setProfilesLocation(new File(this.profileLocation));
         }
-      
-//		File userExt = new File("./lib/user-extensions.js");
-//		config.setUserExtensions(userExt);
+
+        if(this.userExtension != null && this.userExtension.trim().length() > 0){
+		  File userExt = new File(userExtension);
+		  config.setUserExtensions(userExt);
+        }
 		try {
             server = new SeleniumServer(config);
 			server.boot()
