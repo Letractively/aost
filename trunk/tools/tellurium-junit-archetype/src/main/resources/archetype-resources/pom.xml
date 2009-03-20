@@ -19,12 +19,18 @@
                     </url>
             </repository>
     </repositories>
-
+        
     <dependencies>
         <dependency>
             <groupId>org.codehaus.groovy.maven</groupId>
             <artifactId>gmaven-mojo</artifactId>
             <version>1.0-rc-5</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.groovy.maven.runtime</groupId>
+                    <artifactId>gmaven-runtime-1.5</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         
         <dependency>
@@ -61,6 +67,7 @@
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
             <version>1.6.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
