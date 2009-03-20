@@ -1,5 +1,6 @@
 package org.tellurium.locator
 
+import org.tellurium.locator.*
 
 /**
  * convert different locator data structures to actual locators or partial locators
@@ -21,6 +22,10 @@ class LocatorProcessor{
         if(locator instanceof CompositeLocator)
             return CompositeLocateStrategy.locate(locator)
 
+		if(locator instanceof JQLocator){
+			  return JQueryLocateStrategy.locate(locator);
+		}
+      
         //should not process here, let the walkTo() method to handle that since it can handle
         //the relationship along its path and it has more information about objects and its children
 //        if(locator instanceof GroupLocator)
