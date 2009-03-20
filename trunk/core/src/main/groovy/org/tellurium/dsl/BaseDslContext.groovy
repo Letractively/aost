@@ -1,10 +1,13 @@
 package org.tellurium.dsl
 
+import org.json.simple.JSONArray
+import org.stringtree.json.JSONReader
 import org.tellurium.access.Accessor
 import org.tellurium.dsl.UiDslParser
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.event.EventHandler
 import org.tellurium.exception.UiObjectNotFoundException
+import org.tellurium.extend.Extension
 import org.tellurium.locator.LocatorProcessor
 import org.tellurium.object.List
 import org.tellurium.object.StandardTable
@@ -30,22 +33,50 @@ abstract class BaseDslContext {
   EventHandler eventHandler = new EventHandler()
   Accessor accessor = new Accessor()
   LocatorProcessor locatorProcessor = new LocatorProcessor()
-
-  abstract protected String locatorMapping(WorkflowContext context, loc)
+  Extension extension = new Extension()
   
+  abstract protected String locatorMapping(WorkflowContext context, loc)
+
+  private JSONReader reader = new JSONReader()
+
+  private Object parseSeleniumJSONReturnValue(String out){
+    if(out.startsWith("OK,")){
+      out = out.substring(3);
+    } else {
+      return null;
+    }
+
+    return reader.read(out);
+  }
+
   /**
    * Pass in a jquery selector, and a list of DOM properties to gather from each selected element.
    * returns an arraylist of hashmaps with the requested properties as 'key->value'
    */
-  def ArrayList getSelectorProperties(String jqSelector, java.util.List<String> props){
-      return accessor.getSelectorProperties(jqSelector, props);
+//  def ArrayList getSelectorProperties(String jqSelector, java.util.List<String> props){
+//      return accessor.getSelectorProperties(jqSelector, props);
+//  }
+
+  def ArrayList getSelectorProperties(String jqSelector, java.util.List<String> props) {
+    JSONArray arr = new JSONArray();
+    arr.addAll(props);
+    String json = arr.toString();
+    String out = extension.getSelectorProperties(jqSelector, json);
+    return (ArrayList) parseSeleniumJSONReturnValue(out);
   }
+
   /**
    * pass in a jquery selector, and get back an arraylist of inner text of all elements selected,
    * one string per element
    */
-  def ArrayList getSelectorText(String jqSelector){
-      return accessor.getSelectorText(jqSelector);
+
+//  def ArrayList getSelectorText(String jqSelector){
+//      return accessor.getSelectorText(jqSelector);
+//  }
+
+  def ArrayList getSelectorText(String jqSelector) {
+    String out = extension.getSelectorText(jqSelector);
+    return (ArrayList) parseSeleniumJSONReturnValue(out);
   }
 
   /**
@@ -56,8 +87,18 @@ abstract class BaseDslContext {
    * NOTE: the function CAN NOT have any comments or you will get a syntax error inside of selenium core.
    * NOTE: each line of the function must be ended with a semicolin ';'
    */
-  def Object getSelectorFunctionCall(String jqSelector, String fn){
-      return accessor.getSelectorFunctionCall(jqSelector, fn);
+//  def Object getSelectorFunctionCall(String jqSelector, String fn){
+//      return accessor.getSelectorFunctionCall(jqSelector, fn);
+//  }
+
+  def Object getSelectorFunctionCall(String jqSelector, String fn) {
+      JSONArray arr = new JSONArray();
+      fn = "function(){" + fn + "}";
+      arr.add(fn.replaceAll("[\n\r]", ""));
+      String json = arr.toString();
+      String out = extension.getSelectorFunctionCall(jqSelector, json);
+
+      return parseSeleniumJSONReturnValue(out);
   }
 
   //uid should use the format table2[2][3] for Table or list[2] for List
