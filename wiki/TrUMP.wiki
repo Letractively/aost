@@ -10,6 +10,10 @@ Go to the Tellurium project download page and download the TrUMP xpi file as sho
 
 http://tellurium-users.googlegroups.com/web/TrUMPDownload.png?gsc=N4jWPhYAAACC-9YBMpIljZK8WE-abHrag-kXU5InE09W2o0GCSVgCQ
 
+Or you can download the Firefox 3 version directly from Firefox addons site at
+
+https://addons.mozilla.org/en-US/firefox/addon/11035 
+
 Then, open the xpi file with Firefox,
 
 http://tellurium-users.googlegroups.com/web/trump010b.png?gda=sK2vfz8AAACXZPxEX7Ki-M5C2JpeBoXXpbNhTBGwKHnla96SFPZ5YrYvoqxkO5DC4aYRH_5SRSSccyFKn-rNKC-d1pM_IdV0&gsc=z7xdXxYAAACUfwRI-f7WsvI5RgWLBanlg-kXU5InE09W2o0GCSVgCQ
