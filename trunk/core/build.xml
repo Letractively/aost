@@ -136,21 +136,21 @@
 
 	<target name="compile-tellurium" depends="init">
 		<echo message="Compiling java..." />
-        <javac srcdir="${dir.source.tellurium}"
+        <!--javac srcdir="${dir.source.tellurium}"
             destdir="${dir.build.tellurium}">
             <include name="**/org/tellurium/exception/*.java" />
             <classpath refid="lib.path" />
-        </javac>
+        </javac-->
 
 		<groovyc srcdir="${dir.source.tellurium}"
 			destdir="${dir.build.tellurium}">
 			<classpath refid="tellurium.classpath" />
-           <!--javac source="1.5" target="1.5" debug="on" /-->
+           <javac source="1.5" target="1.5" debug="on" />
         </groovyc>
-        <javac srcdir="${dir.source.tellurium}"
+        <!--javac srcdir="${dir.source.tellurium}"
             destdir="${dir.build.tellurium}">
             <classpath refid="tellurium.classpath" />
-        </javac>
+        </javac-->
 	</target>
 
 
