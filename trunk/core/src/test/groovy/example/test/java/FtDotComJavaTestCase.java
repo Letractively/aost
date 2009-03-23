@@ -1,10 +1,10 @@
-package example.test.java
+package example.test.java;
 
-import example.other.FtDotCom
-import org.junit.BeforeClass
-import org.junit.Ignore
-import org.junit.Test
-import org.tellurium.test.java.TelluriumJavaTestCase
+import example.other.FtDotCom;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.tellurium.test.java.TelluriumJavaTestCase;
 
 /**
  * 
@@ -29,7 +29,7 @@ class FtDotComJavaTestCase extends TelluriumJavaTestCase {
         connectUrl("http://www.ft.com/home/us");
         ft.selectSubScribeFrame();
         ft.uncheckRememberMe();
-        ft.login("test", "password")
+        ft.login("test", "password");
     }
 
 }
