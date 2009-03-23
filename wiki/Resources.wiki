@@ -130,6 +130,10 @@
   * [http://www.mvnrepository.com Maven Repo Search Engine]
   * [http://maven.apache.org/guides/plugin/guide-ant-plugin-development.html Developing Ant Plugins for Maven 2.x]
 
+=== Java ===
+
+  * [http://www.rgagnon.com/javadetails/java-0544.html Check the class version]
+
 === Groovy ===
 
   * [http://www.grails.org/The+Plug-in+Developers+Guide The Grails Plug-in Developers Guide]
