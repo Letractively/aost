@@ -19,8 +19,7 @@ tellurium{
         //profile location
         profile = ""
         //user-extension.js file
-//        userExtension = "resources/extension/user-extensions.js"
-        userExtension = "./lib/user-extensions.js"
+        userExtension = "extension/user-extensions.js"
     }
     //event handler
     eventhandler{
