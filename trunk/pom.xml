@@ -233,9 +233,15 @@
             <url>http://google-caja.googlecode.com/svn/maven</url>
         </repository>
         <repository>
-            <id>stringtree</id>
-            <url>http://stringtree.org/repository</url>
-        </repository>        
+            <id>kungfuters-thirdparty-releases-repo</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://kungfuters.org/nexus/content/repositories/thirdparty</url>
+        </repository>
 	</repositories>
 	<dependencies>
 		<dependency>
