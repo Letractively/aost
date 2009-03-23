@@ -31,6 +31,7 @@
 
                 <executions>
                     <execution>
+                        <id>execution1</id>
                         <phase>generate-sources</phase>
                         <configuration>
                             <tasks>
@@ -38,6 +39,45 @@
                                 <javac srcdir="${basedir}/src/main/groovy"
                                     destdir="${basedir}/target/classes" classpathref="maven.plugin.classpath">
                                     <include name="**/org/tellurium/exception/*.java" />
+                                    <include name="**/org/tellurium/tool/*.java" />
+                                </javac>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>execution2</id>                         
+                        <phase>compile</phase>
+                        <configuration>
+                            <tasks>
+                                <!--mkdir dir="${basedir}/target/classes"/-->
+                                <javac srcdir="${basedir}/src/main/groovy"
+                                    destdir="${basedir}/target/classes" classpathref="maven.compile.classpath">
+                                    <include name="**/org/tellurium/test/java/*.java" />
+                                </javac>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>execution3</id>
+                        <phase>test-compile</phase>
+                        <configuration>
+                            <tasks>
+                                <!--mkdir dir="${basedir}/target/classes"/-->
+                                <path id="project.test.classpath">
+                                    <path refid="maven.compile.classpath"/>
+                                    <pathelement location="${basedir}/target/classes"/>
+                                    <pathelement location="${basedir}/target/test-classes"/>
+                                </path>
+                                <javac srcdir="${basedir}/src/test/groovy"
+                                    destdir="${basedir}/target/test-classes">
+                                    <include name="**/example/test/java/*.java" />
+                                    <classpath refid="project.test.classpath" />
                                 </javac>
                             </tasks>
                         </configuration>
@@ -62,10 +102,10 @@
             <artifactId>json_simple</artifactId>
             <version>r1</version>
         </dependency>
-        <!--dependency>
+        <dependency>
             <groupId>org.stringtree</groupId>
-            <artifactId>stringtree</artifactId>
+            <artifactId>stringtree-json</artifactId>
             <version>2.0.10</version>
-        </dependency-->
+        </dependency>
 	</dependencies>
 </project>
