@@ -114,6 +114,12 @@ New Project > Import project from external model > Maven > Project directory > F
 
 You will open up a Maven project and make sure you are using Groovy 1.6.0 in your project. After that, compile the project and run the example test GoogleSearchTestCase.
 
+If you want to run the tests in command line, you can use the following command
+
+{{{
+mvn test
+}}}
+
 == Use Tellurium TestNG Archetype to Create A New Project ==
 
 This is the same as the JUnit archetype, except that you should use a different archetype
