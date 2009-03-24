@@ -245,6 +245,12 @@ http://tellurium-users.googlegroups.com/web/ProjectStructureGroovy.png?gda=k5uZo
 
 After that, you are read to run the sampel test file GoogleSearchTestCase.
 
+If you want to run the sample tests in command line, you can use the following command
+
+{{{
+mvn test
+}}}
+
 == Create Your own UI modules and Test Cases ==
 
 Tellurium provides TrUMP for you to automatically create UI modules. TrUMP can be download from Tellurium project site 
