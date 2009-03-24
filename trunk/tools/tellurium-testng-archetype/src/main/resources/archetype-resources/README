@@ -82,6 +82,10 @@ http://code.google.com/p/aost/wiki/HowTrUMPWorks
 
 Then, create a new Tellurium test case by extending TelluriumJavaTestCase or TelluriumTestNGTestCase.
 
+Run Tellurium tests from command line,
+
+mvn test
+
 If you have any problems, please post to Tellurium user group at
 
 http://groups.google.com/group/tellurium-users
