@@ -19,7 +19,23 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.3</version>
                 <dependencies>
+          <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.7.1</version>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-launcher</artifactId>
+            <version>1.7.1</version>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-nodeps</artifactId>
+            <version>1.7.1</version>
+          </dependency>
                   <dependency>
                     <groupId>sun.jdk</groupId>
                     <artifactId>tools</artifactId>
@@ -31,7 +47,7 @@
 
                 <executions>
                     <execution>
-                        <id>execution1</id>
+                        <id>compile-exceptions</id>
                         <phase>generate-sources</phase>
                         <configuration>
                             <tasks>
@@ -48,7 +64,7 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>execution2</id>                         
+                        <id>compile-test</id>                         
                         <phase>compile</phase>
                         <configuration>
                             <tasks>
@@ -68,17 +84,37 @@
                         <phase>test-compile</phase>
                         <configuration>
                             <tasks>
-                                <!--mkdir dir="${basedir}/target/classes"/-->
-                                <path id="project.test.classpath">
+                                <path id="project.testcompile.classpath">
                                     <path refid="maven.compile.classpath"/>
                                     <pathelement location="${basedir}/target/classes"/>
                                     <pathelement location="${basedir}/target/test-classes"/>
                                 </path>
-                                <javac srcdir="${basedir}/src/test/groovy"
-                                    destdir="${basedir}/target/test-classes">
-                                    <include name="**/example/test/java/*.java" />
-                                    <classpath refid="project.test.classpath" />
-                                </javac>
+                                
+                                 <taskdef name="groovyc"
+                                    classname="org.codehaus.groovy.ant.Groovyc"
+                                    classpathref="maven.compile.classpath"/>
+
+                                 <property name="compile_classpath" refid="maven.compile.classpath"/>
+                                 <property name="runtime_classpath" refid="maven.runtime.classpath"/>
+                                 <property name="test_classpath" refid="maven.test.classpath"/>
+                                 <property name="plugin_classpath" refid="maven.plugin.classpath"/>
+                                 <property name="testcompile_classpath" refid="project.testcompile.classpath"/>
+
+                                 <!--echo message="compile classpath: ${compile_classpath}"/>
+                                 <echo message="runtime classpath: ${runtime_classpath}"/>
+                                 <echo message="test classpath:    ${test_classpath}"/>
+                                 <echo message="plugin classpath:  ${plugin_classpath}"/>
+                                 <echo message="project test classpath:  ${testcompile_classpath}"/>
+
+                                 <groovyc srcdir="${basedir}/src/test/groovy"
+                                          destdir="${basedir}/target/test-classes">
+                                    <classpath refid="project.testcompile.classpath" />
+                                    <javac source="1.5" target="1.5" debug="on" />
+                                </groovyc-->
+                                <!--ant antfile="${basedir}/mavenbuild.xml">
+                                    <target name="compile-maven-test"/>
+                                </ant-->
+
                             </tasks>
                         </configuration>
                         <goals>
