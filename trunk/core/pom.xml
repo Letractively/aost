@@ -111,9 +111,9 @@
                                     <classpath refid="project.testcompile.classpath" />
                                     <javac source="1.5" target="1.5" debug="on" />
                                 </groovyc-->
-                                <!--ant antfile="${basedir}/mavenbuild.xml">
+                                <ant antfile="${basedir}/mavenbuild.xml">
                                     <target name="compile-maven-test"/>
-                                </ant-->
+                                </ant>
 
                             </tasks>
                         </configuration>

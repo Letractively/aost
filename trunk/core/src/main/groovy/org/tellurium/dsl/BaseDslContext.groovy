@@ -23,7 +23,7 @@ import org.tellurium.util.Helper
  */
 abstract class BaseDslContext {
   //later on, may need to refactor it to use resource file so that we can show message for different localities
-  protected static final String ERROR_MESSAGE = "Cannot find UI Object";
+  protected static final String ERROR_MESSAGE = "Cannot find UI Object"
 
   UiDslParser ui = new UiDslParser()
 
@@ -37,6 +37,7 @@ abstract class BaseDslContext {
   
   abstract protected String locatorMapping(WorkflowContext context, loc)
 
+/*
   private JSONReader reader = new JSONReader()
 
   private Object parseSeleniumJSONReturnValue(String out){
@@ -48,15 +49,14 @@ abstract class BaseDslContext {
 
     return reader.read(out);
   }
+*/
 
   /**
    * Pass in a jquery selector, and a list of DOM properties to gather from each selected element.
    * returns an arraylist of hashmaps with the requested properties as 'key->value'
    */
-//  def ArrayList getSelectorProperties(String jqSelector, java.util.List<String> props){
-//      return accessor.getSelectorProperties(jqSelector, props);
-//  }
 
+/*
   def ArrayList getSelectorProperties(String jqSelector, java.util.List<String> props) {
     JSONArray arr = new JSONArray();
     arr.addAll(props);
@@ -64,20 +64,18 @@ abstract class BaseDslContext {
     String out = extension.getSelectorProperties(jqSelector, json);
     return (ArrayList) parseSeleniumJSONReturnValue(out);
   }
+*/
 
   /**
    * pass in a jquery selector, and get back an arraylist of inner text of all elements selected,
    * one string per element
    */
 
-//  def ArrayList getSelectorText(String jqSelector){
-//      return accessor.getSelectorText(jqSelector);
-//  }
-
+/*
   def ArrayList getSelectorText(String jqSelector) {
     String out = extension.getSelectorText(jqSelector);
     return (ArrayList) parseSeleniumJSONReturnValue(out);
-  }
+  }*/
 
   /**
    * pass in a jquery selector, and a javascript function as a string. the function will be called within
@@ -87,10 +85,8 @@ abstract class BaseDslContext {
    * NOTE: the function CAN NOT have any comments or you will get a syntax error inside of selenium core.
    * NOTE: each line of the function must be ended with a semicolin ';'
    */
-//  def Object getSelectorFunctionCall(String jqSelector, String fn){
-//      return accessor.getSelectorFunctionCall(jqSelector, fn);
-//  }
 
+/*
   def Object getSelectorFunctionCall(String jqSelector, String fn) {
       JSONArray arr = new JSONArray();
       fn = "function(){" + fn + "}";
@@ -100,6 +96,7 @@ abstract class BaseDslContext {
 
       return parseSeleniumJSONReturnValue(out);
   }
+*/
 
   //uid should use the format table2[2][3] for Table or list[2] for List
   def getUiElement(String uid) {
