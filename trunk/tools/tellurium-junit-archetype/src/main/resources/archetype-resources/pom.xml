@@ -230,8 +230,8 @@
                                 <path id="testcompile.classpath">
                                     <path refid="maven.compile.classpath"/>
                                     <path refid="maven.test.classpath"/>
-                                    <pathelement location="${basedir}/target/classes"/>
-                                    <pathelement location="${basedir}/target/test-classes"/>
+                                    <pathelement location="target/classes"/>
+                                    <pathelement location="target/test-classes"/>
                                 </path>
                                 <javac srcdir="src/test/groovy"
                                        destdir="target/test-classes" classpathref="testcompile.classpath">
