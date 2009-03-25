@@ -129,6 +129,7 @@
   * [http://maven.apache.org/plugins/maven-dependency-plugin/usage.html Maven Dependency Plugin Usage]
   * [http://www.mvnrepository.com Maven Repo Search Engine]
   * [http://maven.apache.org/guides/plugin/guide-ant-plugin-development.html Developing Ant Plugins for Maven 2.x]
+  * [http://codeforfun.wordpress.com/2006/05/19/groovy-and-maven2-in-action/ Groovy and Maven 2 in action]
 
 === Java ===
 
