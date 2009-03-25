@@ -22,9 +22,9 @@ tellurium{
     //event handler
     eventhandler{
         //whether we should check if the UI element is presented
-        checkElement = true
+        checkElement = false
         //wether we add additional events like "mouse over"
-        extraEvent = true
+        extraEvent = false
     }
     //data accessor
     accessor{
