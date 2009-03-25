@@ -80,7 +80,7 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>execution3</id>
+                        <id>compile-java-testfile</id>
                         <phase>test-compile</phase>
                         <configuration>
                             <tasks>
@@ -104,16 +104,16 @@
                                  <echo message="runtime classpath: ${runtime_classpath}"/>
                                  <echo message="test classpath:    ${test_classpath}"/>
                                  <echo message="plugin classpath:  ${plugin_classpath}"/>
-                                 <echo message="project test classpath:  ${testcompile_classpath}"/>
+                                 <echo message="project test classpath:  ${testcompile_classpath}"/-->
 
                                  <groovyc srcdir="${basedir}/src/test/groovy"
                                           destdir="${basedir}/target/test-classes">
                                     <classpath refid="project.testcompile.classpath" />
                                     <javac source="1.5" target="1.5" debug="on" />
-                                </groovyc-->
-                                <ant antfile="${basedir}/mavenbuild.xml">
+                                </groovyc>
+                                <!--ant antfile="${basedir}/mavenbuild.xml">
                                     <target name="compile-maven-test"/>
-                                </ant>
+                                </ant-->
 
                             </tasks>
                         </configuration>
