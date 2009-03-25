@@ -130,6 +130,7 @@
   * [http://www.mvnrepository.com Maven Repo Search Engine]
   * [http://maven.apache.org/guides/plugin/guide-ant-plugin-development.html Developing Ant Plugins for Maven 2.x]
   * [http://codeforfun.wordpress.com/2006/05/19/groovy-and-maven2-in-action/ Groovy and Maven 2 in action]
+  * [http://maxpi.sourceforge.net/goals.html Maven XPI Plugin]
 
 === Java ===
 
