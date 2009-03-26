@@ -1,4 +1,4 @@
-package org.tellurium.widget.dojo.module
+package module
 
 import org.tellurium.dsl.DslContext
 
