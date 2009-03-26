@@ -1,6 +1,7 @@
 package module
 
 import org.tellurium.dsl.DslContext
+import java.util.List
 
 /**
  * Example to demonstrate the Date Picker widget at
@@ -66,7 +67,7 @@ class DatePickerDemo extends DslContext{
         return onWidget("dropdown.datePicker", getCurrentMonth)
     }
 
-    public java.util.List peekDaysForCurrentMonth(){
+    public List peekDaysForCurrentMonth(){
         return onWidget("dropdown.datePicker", peekDaysForCurrentMonth)
     }
 
