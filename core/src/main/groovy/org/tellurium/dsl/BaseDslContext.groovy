@@ -9,10 +9,10 @@ import org.tellurium.event.EventHandler
 import org.tellurium.exception.UiObjectNotFoundException
 import org.tellurium.extend.Extension
 import org.tellurium.locator.LocatorProcessor
-import org.tellurium.object.List
 import org.tellurium.object.StandardTable
 import org.tellurium.object.UiObject
 import org.tellurium.util.Helper
+import java.util.List
 
 /**
  * 
@@ -37,7 +37,6 @@ abstract class BaseDslContext {
   
   abstract protected String locatorMapping(WorkflowContext context, loc)
 
-/*
   private JSONReader reader = new JSONReader()
 
   private Object parseSeleniumJSONReturnValue(String out){
@@ -49,33 +48,29 @@ abstract class BaseDslContext {
 
     return reader.read(out);
   }
-*/
 
   /**
    * Pass in a jquery selector, and a list of DOM properties to gather from each selected element.
    * returns an arraylist of hashmaps with the requested properties as 'key->value'
    */
 
-/*
-  def ArrayList getSelectorProperties(String jqSelector, java.util.List<String> props) {
+  def ArrayList getSelectorProperties(String jqSelector, List<String> props) {
     JSONArray arr = new JSONArray();
     arr.addAll(props);
     String json = arr.toString();
     String out = extension.getSelectorProperties(jqSelector, json);
     return (ArrayList) parseSeleniumJSONReturnValue(out);
   }
-*/
 
   /**
    * pass in a jquery selector, and get back an arraylist of inner text of all elements selected,
    * one string per element
    */
 
-/*
   def ArrayList getSelectorText(String jqSelector) {
     String out = extension.getSelectorText(jqSelector);
     return (ArrayList) parseSeleniumJSONReturnValue(out);
-  }*/
+  }
 
   /**
    * pass in a jquery selector, and a javascript function as a string. the function will be called within
@@ -86,7 +81,6 @@ abstract class BaseDslContext {
    * NOTE: each line of the function must be ended with a semicolin ';'
    */
 
-/*
   def Object getSelectorFunctionCall(String jqSelector, String fn) {
       JSONArray arr = new JSONArray();
       fn = "function(){" + fn + "}";
@@ -96,7 +90,6 @@ abstract class BaseDslContext {
 
       return parseSeleniumJSONReturnValue(out);
   }
-*/
 
   //uid should use the format table2[2][3] for Table or list[2] for List
   def getUiElement(String uid) {
@@ -467,7 +460,7 @@ abstract class BaseDslContext {
 
   int getListSize(String uid) {
     WorkflowContext context = WorkflowContext.getDefaultContext()
-    List obj = (List) walkToWithException(context, uid)
+    org.tellurium.object.List obj = (org.tellurium.object.List) walkToWithException(context, uid)
     return obj.getListSize() {loc ->
       String locator = locatorMapping(context, loc)
       locator
