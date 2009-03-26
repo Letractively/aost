@@ -1,7 +1,7 @@
-package org.tellurium.widget.dojo.test;
+package test;
 
 import org.tellurium.test.java.TelluriumJavaTestCase;
-import org.tellurium.widget.dojo.module.DatePickerDemo;
+import module.DatePickerDemo;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
