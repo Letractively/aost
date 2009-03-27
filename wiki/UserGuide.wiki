@@ -55,9 +55,9 @@ Here we list all the available methods that can be used as DSLs in DslContext an
 
   * {{{submit id, attribute}}}: Submit the specified form. This is particularly useful for forms without submit buttons, e.g. single-input "Search" forms.
 
-  * {{{openWindow url, windowID}}}: Opens a popup window (if a window with that ID isn't already open). After opening the window, you'll need to select it using the selectWindow command.
+  * {{{openWindow UID, url}}}: Opens a popup window (if a window with that ID isn't already open). After opening the window, you'll need to select it using the selectWindow command.
 
-  * {{{selectWindow windowID}}}: Selects a popup window; once a popup window has been selected, all commands go to that window. To select the main window again, use null as the target.
+  * {{{selectWindow UID}}}: Selects a popup window; once a popup window has been selected, all commands go to that window. To select the main window again, use null as the target.
 
   * {{{selectMainWindow}}}: Select the original window, i.e., the Main window.
 
@@ -67,7 +67,7 @@ Here we list all the available methods that can be used as DSLs in DslContext an
 
   * {{{selectTopFrameFrom}}}: Select the main frame from the frame identified by the "frameName".
 
-  * {{{waitForPopUp windowID, timeout}}}: Waits for a popup window to appear and load up.
+  * {{{waitForPopUp UID, timeout}}}: Waits for a popup window to appear and load up.
 
   * {{{waitForPageToLoad timeout}}}: Waits for a new page to load.
 
