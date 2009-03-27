@@ -189,7 +189,7 @@ The sub-projects under the tools directory include Tellurium Maven archetypes an
 
 The assembly project just creates a set of tar files and you may not need to build it either. 
 
-= Create a New Tellurium Test Project using Maven =
+= Create a New Tellurium Test Project using Tellurium Maven Archetype =
 
 Tellurium provides [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes two maven archetypes], i.e., tellurium-junit-archetype and tellurium-testng-archetype for Tellurium JUnit test project and Tellurium TestNG test project, respectively.
 
