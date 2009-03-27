@@ -58,7 +58,7 @@ Netbeans does not come with automatic support for Maven, you will need to instal
   # Click on the check box next to this plug in and then select Install.
   # Follow the instructions to install the plug in. 
 
-=== Configuring Maven Plugin ===
+=== Configure Maven Plugin ===
  
   # Bring up the preferences dialog.
   # Select Miscellaneous and then click on the Maven tab.
@@ -147,15 +147,6 @@ To include Tellurium as a dependency in your project, add the following to your 
 </dependencies>
 }}}
 
-= Build information =
-
-To find regular build information updates, see http://kungfuters.org/tellurium. There you will find information about the project as well as unit test and coverage reports.
-
-= Subversion Clients =
-To check out code from google code SVN, you should use SVN client plugins in IDEs or you can use a standalone SVN client tools such as
-  * [http://smartsvn.com SmartSVN]: a good cross-platform client that supports Subversion  up to 1.5
-  * [http://tortoisesvn.tigris.org TortoiseSVN]: a good Windows client that supports Subversion up to 1.5
-
 = Build Tellurium from Source =
 
 If you want to build Tellurium from source, you can check out the trunk code using subversion command,
@@ -221,6 +212,16 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -Darc
 }}}
 
 If you want to see a detailed example on how to create a new Tellurium test project, you can read [http://code.google.com/p/aost/w/edit/TenMinutesToTellurium Ten Minutes To Tellurium]
+
+= Build information =
+
+To find regular build information updates, see http://kungfuters.org/tellurium. There you will find information about the project as well as unit test and coverage reports.
+
+= Subversion Clients =
+
+To check out code from google code SVN, you should use SVN client plugins in IDEs or you can use a standalone SVN client tools such as
+  * [http://smartsvn.com SmartSVN]: a good cross-platform client that supports Subversion  up to 1.5
+  * [http://tortoisesvn.tigris.org TortoiseSVN]: a good Windows client that supports Subversion up to 1.5
 
 = Reference Material =
 
