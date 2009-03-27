@@ -658,10 +658,10 @@ following attributes:
 
 and the following methods
 
-  * openWindow(String url, String windowID)
-  * selectWindow(String windowID)
+  * openWindow(String UID, String url)
+  * selectWindow(String UID)
   * boolean getWhetherThisWindowMatchWindowExpression(String currentWindowString, String target)
-  * waitForPopup(String windowID, int timeout)
+  * waitForPopup(String UID, int timeout)
  
 Example,
 
