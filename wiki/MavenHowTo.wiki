@@ -77,7 +77,7 @@ To check out code from google code SVN, you should use SVN client plugins in IDE
   * [http://smartsvn.com SmartSVN]: a good cross-platform client that supports Subversion  up to 1.5
   * [http://tortoisesvn.tigris.org TortoiseSVN]: a good Windows client that supports Subversion up to 1.5
 
-== Build Tellurium Subprojects ==
+= Build Tellurium Subprojects =
 
 If you want to build Tellurium from source, you can check out the trunk code using subversion command,
 
@@ -118,3 +118,8 @@ mvn test
 The sub-projects under the tools directory include Tellurium Maven archetypes and trump code, you may not really want to build them by yourself. For trump, the artifacts include a .xpi file.
 
 The assembly project just creates a set of tar files and you may not need to build it either. 
+
+= Reference Material =
+
+  * [http://www.sonatype.com/books/maven-book/reference/public-book.html Maven: The Definitive Guide]
+  * [http://repo.exist.com/dist/maestro/1.7.0/BetterBuildsWithMaven.pdf Better Builds with maven]
