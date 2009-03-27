@@ -9,6 +9,8 @@ Tellurium has converted its project structure to use Maven. This document will e
 
 You will need to be running Maven version 2.0.9, downloadable from http://maven.apache.org/download.html.
 
+If you never installed Maven before, please follow [http://maven.apache.org/download.html#Installation the official Maven Installation Guide].
+
 = settings.xml =
 
 Here is a sample settings.xml that will allow you to automatically include Tellurium artifacts in your Maven project. This should go in your ~/.m2/settings.xml file:
