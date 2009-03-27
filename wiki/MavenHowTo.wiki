@@ -48,7 +48,7 @@ If you never installed Maven before, please follow [http://maven.apache.org/down
 
 == Netbeans ==
 
-=== Install the Maven Plugin ===
+=== Install Maven Plugin ===
 
 Netbeans does not come with automatic support for Maven, you will need to install the plugin.
 
@@ -58,7 +58,7 @@ Netbeans does not come with automatic support for Maven, you will need to instal
   # Click on the check box next to this plug in and then select Install.
   # Follow the instructions to install the plug in. 
 
-=== Configuring the Maven Plugin ===
+=== Configuring Maven Plugin ===
  
   # Bring up the preferences dialog.
   # Select Miscellaneous and then click on the Maven tab.
@@ -76,7 +76,7 @@ Netbeans does not come with automatic support for Maven, you will need to instal
   
 IntelliJ IDEA has Maven Plugin installed by default.
 
-=== Configure Maven ===
+=== Configure Maven Plug-in ===
  
   # Click File | Settings to bring up the IDE settings window.
   # Click the Maven node.
