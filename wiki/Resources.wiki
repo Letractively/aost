@@ -81,6 +81,8 @@
   * [http://webfx.eae.net/dhtml/ieemu/index.html IE Emu for Moz]
   * [http://www.scottandrew.com/weblog/articles/cbs-events Crossbrowser DOM Scripting: Event Handlers]
   * [http://getfirebug.com/js.html Firebug JavaScript Debugging]
+  * [http://jamescrisp.org/2008/12/20/review-javascript-the-good-parts-by-douglas-crockford/ Review: JavaScript - The Good Parts by Douglas Crockford]
+  * [http://docs.jquery.com/QUnit QUnit: the unit testrunner for the jQuery project]
 
 === CSS ===
 
