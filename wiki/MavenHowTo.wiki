@@ -12,6 +12,84 @@ You will need to be running Maven version 2.0.9, downloadable from http://maven.
 
 If you never installed Maven before, please follow [http://maven.apache.org/download.html#Installation the official Maven Installation Guide].
 
+= Maven IDE Configuration =
+
+== Eclipse ==
+
+=== Install Maven Plug-in ===
+
+  # Click the Add Site button.
+  # Enter the following URL: http://m2eclipse.sonatype.org/update/
+  # Click OK.
+  # Expand the Maven Integration for Eclipse Update Site node.
+  # Select the Maven Integration check box.
+  # Click the Install button and follow the wizard.
+  # Restart Eclipse. 
+
+=== Configure Maven Plug-in ===
+
+  # Click Window | Preferences.
+  # Expand the Maven node.
+  # Select the Installations node.
+  # Click the Add button.
+  # Navigate the the Maven 2.0.9 installation folder.
+  # Click OK.
+  # Click the check box next to the new Maven installation.
+ 
+=== Import Projects ===
+
+  # Click File | Import.
+  # Type Maven in the filter text field.
+  # Under the General node, select the Maven Projects node.
+  # Click Next.
+  # Click the Browse button and navigate to the ide-settings folder.
+  # Click OK.
+  # Click Finish.
+
+== Netbeans ==
+
+=== Install the Maven Plugin ===
+
+Netbeans does not come with automatic support for Maven, you will need to install the plugin.
+
+  # From the menu select Tools/Plugins
+  # In the plugins screen, click on the Installed tab and Click on the Reload Catalog tab to get the list of available plugins. 
+  # Select the Available Plugins tab and scroll down until you see the Maven plugin in.
+  # Click on the check box next to this plug in and then select Install.
+  # Follow the instructions to install the plug in. 
+
+=== Configuring the Maven Plugin ===
+ 
+  # Bring up the preferences dialog.
+  # Select Miscellaneous and then click on the Maven tab.
+  # Tools=>Options for Windows users.
+  # Click on the Browse button next to the entry for External Maven Home. Navigate to the directory where you installed Maven and click Open.
+  # Update the frequency with which your local repository is indexed
+
+=== Import Projects ===
+
+  # Click File | Open Project
+  # Navigate to the ide-settings folder. 
+  # Choose the pom.xml file and click open.
+  
+== IntelliJ ==
+  
+IntelliJ IDEA has Maven Plugin installed by default.
+
+=== Configure Maven ===
+ 
+  # Click File | Settings to bring up the IDE settings window.
+  # Click the Maven node.
+  # Click the Override check box next to the Maven Home Directory text field.
+  # Click the ... button.
+  # Navigate to the Maven 2.0.9 installation directory.
+  # Click OK.
+
+=== Import Projects ===
+
+  # Click File | Open Project
+  # Choose the pom.xml file and click OK.
+
 = settings.xml =
 
 Here is a sample settings.xml that will allow you to automatically include Tellurium artifacts in your Maven project. This should go in your ~/.m2/settings.xml file:
