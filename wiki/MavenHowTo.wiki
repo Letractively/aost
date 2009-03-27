@@ -156,6 +156,11 @@ If you want to see a detailed example on how to create a new Tellurium test proj
   * _dependency:analyze_ analyzes the dependencies of this project and determines which are: used and declared; used and undeclared; unused and declared.
   * _dependency:tree_ displays the dependency tree for this project.
 
+== Maven Archetype Plugin ==
+
+  * _archetype:create_  creates a Maven 2 project from an archetype. 
+  * _archetype:generate_ ask the user to choose an archetype from the archetype catalog, and retrieves it from the remote repository. Once retrieved, it is processed to create a working Maven project.
+  * _archetype:create-from-project_ creates an archetype from an existing project.
 
 = Maven IDE Configuration =
 
