@@ -135,6 +135,10 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -Darc
 
 If you want to see a detailed example on how to create a new Tellurium test project, you can read [http://code.google.com/p/aost/w/edit/TenMinutesToTellurium Ten Minutes To Tellurium]
 
+= Build information =
+
+To find regular build information updates, see http://kungfuters.org/tellurium. There you will find information about the project as well as unit test and coverage reports.
+
 = Useful Maven Plugins and Commands =
 
 == Maven Help Plugin ==
@@ -239,10 +243,6 @@ IntelliJ IDEA has Maven Plugin installed by default.
 
   # Click File | Open Project
   # Choose the pom.xml file and click OK.
-
-= Build information =
-
-To find regular build information updates, see http://kungfuters.org/tellurium. There you will find information about the project as well as unit test and coverage reports.
 
 = Subversion Clients =
 
