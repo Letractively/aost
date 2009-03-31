@@ -274,6 +274,11 @@
             </exclusions>
         </dependency>
         <dependency>
+          <groupId>org.openqa.selenium.grid</groupId>
+          <artifactId>selenium-grid-tools</artifactId>
+          <version>1.0.2</version>
+        </dependency>
+        <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
             <version>${groovy-version}</version>
