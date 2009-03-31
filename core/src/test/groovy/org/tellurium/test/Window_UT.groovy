@@ -31,7 +31,9 @@ class Window_UT extends TelluriumGroovyTestCase {
 
  //       tw.selectOriginalWindow()
 
- //       tw.selectChildWindow("windowName")
+//        tw.selectChildWindow("windowName")
+//        tw.openWindow("windowName", "www.google.com")
+      tw.openWindow("moreInfo", "www.google.com")
     }
 
 }
