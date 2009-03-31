@@ -12,9 +12,13 @@ import org.tellurium.dsl.DslContext
 class TWindow extends DslContext{
 
     public void defineUi() {
-         ui.Window(uid: "windowName", name: "windowName"){
+         ui.Window(uid: "windowName", name: "windowName", id: "windowName"){
              InputBox(uid: "UserName", clocator: [id: "username", type: "text"])             
          }
+
+        ui.Window(uid:'moreInfo',clocator:[name:'moreInfoChart',id:'moreInfoChart']){
+            InputBox(uid: "UserName", clocator: [id: "username", type: "text"])
+        } 
     }
 
     public void waitForPopup(){
