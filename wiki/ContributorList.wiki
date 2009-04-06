@@ -10,7 +10,7 @@ Tellurium Contributors are categorized into development team, support team, evan
 
   * *Vivek Mongolu* (vivekmongolu@gmail.com):
 
-  * *Mikhail Koryak* (koryak@gmail.com):
+  * *Mikhail Koryak* (me@dogself.com):
 
   * *Matt Senter* (matt.senter@gmail.com): 
 
