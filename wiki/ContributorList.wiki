@@ -12,7 +12,7 @@ Tellurium Contributors are categorized into development team, support team, evan
 
   * *Mikhail Koryak* (me@dogself.com):
 
-  * *Matt Senter* (matt.senter@gmail.com): 
+  * *Matt Senter* : 
 
   * *Haroon Rasheed* (haroonzone@gmail.com):
 
