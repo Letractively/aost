@@ -22,6 +22,14 @@ Tellurium Contributors are categorized into development team, support team, evan
 
 == Evangelism Team ==
 
+== Tellurium Users ==
+
+=== 2008 - 2009 ===
+
+  * Most Active User: 
+
+  * Most Valuable User: 
+
 == Past Members ==
 
   * *Adrian Carr*: Adrian used Tellurium prototype for an internal project and brought up many good suggestions. He also proposed the name "Tellurium Automated Testing Framework".
