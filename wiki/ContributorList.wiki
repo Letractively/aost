@@ -6,17 +6,17 @@ Tellurium Contributors are categorized into development team, support team, evan
 
 == Development Team ==
 
-  * *Jian Fang* (John.Jian.Fang@gmail.com): Jian graduated from Georgia Institue of Technology with a Ph.D. degree. He works as a senior software engineer in a company and mainly focuses on architecting, desigining, and implementing enterprise applications. He is both a researcher and a developer. He is the Tellurium project owner and works on Tellurium Core, Reference projects, Widget Extension projects, TrUMP, and Tellurium Maven archetypes.
+  * *Jian Fang*: Jian graduated from Georgia Institue of Technology with a Ph.D. degree. He works as a senior software engineer in a company and mainly focuses on architecting, desigining, and implementing enterprise applications. He is both a researcher and a developer. He is the Tellurium project owner and works on Tellurium Core, Reference projects, Widget Extension projects, TrUMP, and Tellurium Maven archetypes.
 
-  * *Vivek Mongolu* (vivekmongolu@gmail.com):
+  * *Vivek Mongolu*:
 
-  * *Mikhail Koryak* (me@dogself.com):
+  * *Mikhail Koryak*:
 
-  * *Matt Senter* : 
+  * *Matt Senter*: 
 
-  * *Haroon Rasheed* (haroonzone@gmail.com):
+  * *Haroon Rasheed*:
 
-  * *Quan Bui* (Quan.Bui@gmail.com):
+  * *Quan Bui*:
 
 == Support Team ==
 
