@@ -84,6 +84,7 @@
   * [http://jamescrisp.org/2008/12/20/review-javascript-the-good-parts-by-douglas-crockford/ Review: JavaScript - The Good Parts by Douglas Crockford]
   * [http://docs.jquery.com/QUnit QUnit: the unit testrunner for the jQuery project]
   * [http://docs.jquery.com/Events/trigger jQuery event trigger]
+  * [http://groups.google.com/group/jquery-en jQuery Group]
 
 === CSS ===
 
@@ -154,6 +155,7 @@
   * [http://mojo.codehaus.org/selenium-maven-plugin/examples/headless-with-xvfb.html Headless X11 with Xvfb] 
   * [http://news.softpedia.com/news/Screencast-Guide-Capure-Your-Linux-Desktop-on-Video-42626.shtml Capure Your Linux Desktop on Video!]
   * [http://googletesting.blogspot.com/ Google Testing Blog]
+  * [http://github.com/ GitHub]
 
 == Cheat Sheets ==
 
