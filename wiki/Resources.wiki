@@ -18,7 +18,7 @@
   * [http://www.prototypejs.org/ Prototype]
   * [http://log4js.berlios.de/ Log4js]
 
-== Testing ==
+ == Testing ==
 
   * [http://code.google.com/p/aost Tellurium]
   * [http://groups.google.com/group/tellurium-users Tellurium user group]
@@ -137,6 +137,7 @@
   * [http://maven.apache.org/guides/plugin/guide-ant-plugin-development.html Developing Ant Plugins for Maven 2.x]
   * [http://codeforfun.wordpress.com/2006/05/19/groovy-and-maven2-in-action/ Groovy and Maven 2 in action]
   * [http://maxpi.sourceforge.net/goals.html Maven XPI Plugin]
+  * [http://www.mvnbrowser.com/index.html Maven Repository Browser]
 
 === Java ===
 
