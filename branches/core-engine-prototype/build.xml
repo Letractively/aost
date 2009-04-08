@@ -15,6 +15,7 @@
 	<property name="dir.build.test" value="${dir.build}/test" />
 
 	<property name="dir.lib" value="${dir.project}/lib" />
+    <property name="dir.source.resources" value="${dir.source}/main/resources" />
 
 	<property name="dir.dist" value="${dir.project}/dist" />
 
@@ -168,6 +169,12 @@
                 <attribute name="Main-Class" value="org.tellurium.dsl.DslScriptExecutor"/>
             </manifest>
 		</jar>
+	</target>
+
+    <target name="update-selenium-server" >
+		<jar destfile="${dir.lib}/selenium-server.jar"
+             basedir="${dir.source.resources}/server"
+             update="true" />
 	</target>
 
 	<target name="dist" depends="jar-tellurium">

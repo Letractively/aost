@@ -84,7 +84,7 @@ abstract class DslContext extends BaseDslContext {
         }
 
         //make sure the xpath starts with "//"
-        if (locator != null && (!locator.startsWith("//"))) {
+        if(locator != null && (!locator.startsWith("//") && (!locator.startsWith("jquery=")))){
             locator = "/" + locator
         }
 
