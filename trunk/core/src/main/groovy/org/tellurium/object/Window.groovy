@@ -2,6 +2,8 @@ package org.tellurium.object
 
 import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
+import org.tellurium.object.Container
+import org.tellurium.object.UiObject
 
 /**
  *  Prototype for windows
@@ -22,6 +24,10 @@ class Window  extends Container{
     }
 
     void selectWindow(Closure c){
+        c(name)
+    }
+
+    void closeWindow(Closure c){
         c(name)
     }
 
