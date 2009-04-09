@@ -59,6 +59,8 @@ Here we list all the available methods that can be used as DSLs in DslContext an
 
   * {{{selectWindow UID}}}: Selects a popup window; once a popup window has been selected, all commands go to that window. To select the main window again, use null as the target.
 
+  * {{{closeWindow UID}}}: Close the popup window. 
+
   * {{{selectMainWindow}}}: Select the original window, i.e., the Main window.
 
   * {{{selectFrame frameName}}}: Selects a frame within the current window.
@@ -660,6 +662,7 @@ and the following methods
 
   * openWindow(String UID, String url)
   * selectWindow(String UID)
+  * closeWindow(String UID)
   * boolean getWhetherThisWindowMatchWindowExpression(String currentWindowString, String target)
   * waitForPopup(String UID, int timeout)
  
