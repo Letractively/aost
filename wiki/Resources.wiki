@@ -17,6 +17,7 @@
   * [http://extjs.com/products/extjs/ Ext JS]
   * [http://www.prototypejs.org/ Prototype]
   * [http://log4js.berlios.de/ Log4js]
+  * [http://www.json.org/json2.js JSON 2]
 
  == Testing ==
 
