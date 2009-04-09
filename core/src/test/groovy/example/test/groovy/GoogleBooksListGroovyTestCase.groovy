@@ -62,7 +62,7 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
 
         assertNotNull(lst)
 
-        int index
+        int index = -1
         String search =  "Poetry"
         int i = 1
         for(UiObject obj : lst){
