@@ -157,6 +157,13 @@ abstract class DslContext extends BaseDslContext {
         }
     }
 
+    def closeWindow(String uid) {
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        walkToWithException(context, uid)?.closeWindow() {String loc ->
+            eventHandler.closeWindow(loc)
+        }
+    }
+
     def selectMainWindow() {
         eventHandler.selectWindow(null)
     }

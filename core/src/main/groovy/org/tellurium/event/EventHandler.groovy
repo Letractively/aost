@@ -352,6 +352,11 @@ class EventHandler implements Configurable{
         dispatcher.windowFocus()
     }
 
+    def closeWindow(String windowID){
+        dispatcher.selectWindow(windowID)
+        dispatcher.close()
+    }
+
     void windowMaximize(){
         dispatcher.windowMaximize()
     }
@@ -525,4 +530,5 @@ class EventHandler implements Configurable{
             dispatcher.mouseMoveAt(locator, coordinate)
         }
 	}
+
 }
