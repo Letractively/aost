@@ -447,14 +447,17 @@ class StandardTable extends Container{
 
         //update reference locator by append the relative locator for this container
         if (this.locator != null) {
-            if (this.useGroupInfo) {
+//          context.appendReferenceLocatorForUiObject(this)
+          groupLocating(context)
+/*            if (this.useGroupInfo) {
                 //need to useString group information to help us locate the container xpath
                 context.appendReferenceLocator(GroupLocateStrategy.locate(this))
             } else {
                 //do not useString the group information, process as regular
                 def lp = new LocatorProcessor()
                 context.appendReferenceLocator(lp.locate(this.locator))
-            }
+            }*/
+          
         }
 
         //append relative location, i.e., tbody, row, column to the locator
@@ -501,14 +504,17 @@ class StandardTable extends Container{
 
         //update reference locator by append the relative locator for this container
         if (this.locator != null) {
-            if (this.useGroupInfo) {
+//          context.appendReferenceLocatorForUiObject(this)
+          groupLocating(context)
+/*            if (this.useGroupInfo) {
                 //need to useString group information to help us locate the container xpath
                 context.appendReferenceLocator(GroupLocateStrategy.locate(this))
             } else {
                 //do not useString the group information, process as regular
                 def lp = new LocatorProcessor()
                 context.appendReferenceLocator(lp.locate(this.locator))
-            }
+            }*/
+
         }
 
         //append relative location, i.e., row, column to the locator
@@ -554,14 +560,17 @@ class StandardTable extends Container{
 
         //update reference locator by append the relative locator for this container
         if (this.locator != null) {
-            if (this.useGroupInfo) {
+//          context.appendReferenceLocatorForUiObject(this)
+          groupLocating(context)
+/*            if (this.useGroupInfo) {
                 //need to useString group information to help us locate the container xpath
                 context.appendReferenceLocator(GroupLocateStrategy.locate(this))
             } else {
                 //do not useString the group information, process as regular
                 def lp = new LocatorProcessor()
                 context.appendReferenceLocator(lp.locate(this.locator))
-            }
+            }*/
+
         }
 
         //append relative location, i.e., row, column to the locator
