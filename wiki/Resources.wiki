@@ -94,6 +94,7 @@
 === CSS ===
 
   * [http://www.w3.org/Style/CSS/#specs CSS Specs]
+  * [http://www.w3.org/TR/css3-selectors Selectors Level 3]
   * [https://developer.mozilla.org/en/Mozilla_CSS_Extensions Mozilla CSS Extensions]
   * [http://www.w3schools.com/Css/css_colors.asp CSS Colors]
 
