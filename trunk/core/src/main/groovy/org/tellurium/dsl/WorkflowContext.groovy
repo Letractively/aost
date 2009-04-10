@@ -20,6 +20,8 @@ class WorkflowContext {
   //For example, /table/tr/td + /td/input
   private boolean tableDuplicateTag = false
 
+  private boolean exploreJQuerySelector = false
+
   def context = [:]
 
   public void setTableDuplicateTag() {
@@ -55,6 +57,29 @@ class WorkflowContext {
     return context
   }
 
+  public static WorkflowContext getContextByStrategy(boolean useJQuerySelector){
+    WorkflowContext context = new WorkflowContext()
+
+    context.setJQuerySelector(useJQuerySelector)
+
+    context.putContext(REFERENCE_LOCATOR, "")
+
+    return context
+  }
+
+  public boolean useJQuerySelector(){
+
+    return this.exploreJQuerySelector
+  }
+
+  public void disableJQuerySelector(){
+    this.exploreJQuerySelector = false
+  }
+
+  public void setJQuerySelector(boolean useJQuerySelector){
+    this.exploreJQuerySelector = useJQuerySelector
+  }
+
   public String getReferenceLocator() {
 
     return context.get(REFERENCE_LOCATOR)
@@ -74,7 +99,7 @@ class WorkflowContext {
       if (rl == null) {
         rl = loc
       } else {
-        if (this.tableDuplicateTag) {
+        if (this.tableDuplicateTag && (!this.exploreJQuerySelector)) {
           this.tableDuplicateTag = false
           rl = this.checkTableDuplicateTag(rl, loc)
         } else {

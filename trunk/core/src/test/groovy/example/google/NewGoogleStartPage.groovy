@@ -11,6 +11,7 @@ import org.tellurium.dsl.DslContext
 class NewGoogleStartPage extends DslContext{
 
     public void defineUi() {
+
         //clocator stands for composite locator, i.e., the attributes specified in its map will be
         //used to construct the xpath. Group: "true" means we will useString group information to specifiy
         //the container's locator, i.e., the whole UI module's locator. Only container and its extended

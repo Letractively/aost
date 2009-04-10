@@ -57,6 +57,8 @@ class SeleniumConnector implements Configurable {
         sc.client = sel
 
         //MK: add the jquery location strategy
+
+      /*
         sel.addLocationStrategy("jquery", '''
           var found = $(inDocument).find(locator);
           if(found.length == 1){
@@ -66,6 +68,19 @@ class SeleniumConnector implements Configurable {
               return null;
           }
           ''')
+
+        */
+
+      //use Get to return the DOM reference.
+      sel.addLocationStrategy("jquery", '''
+        var found = $(inDocument).find(locator);
+        if(found.length == 1 ){
+            return found[0];
+        }else if(found.length > 1){
+            return found.get();
+        }else{
+            return null;
+        }''')
 
         sel.addLocationStrategy("jqueryall", '''
           var found = $(inDocument).find(locator);

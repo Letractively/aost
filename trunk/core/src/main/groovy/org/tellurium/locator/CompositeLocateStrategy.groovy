@@ -19,7 +19,7 @@ class CompositeLocateStrategy {
       return false
   }
 
-  def static String locate(CompositeLocator locator) {
+  public static String locate(CompositeLocator locator) {
 
 //    String xpath = XPathBuilder.buildXPath(locator.tag, locator.text, locator.position, locator.attributes)
 //    String xpath = XPathBuilder.buildOptionalXPath(locator.tag, locator.text, locator.position, locator.direct, locator.attributes)
@@ -33,6 +33,14 @@ class CompositeLocateStrategy {
     }
 
     return xpath
+  }
+
+  //use jQuery Selector instead of xpath
+  public static String select(CompositeLocator locator){
+
+    String jqsel = JQueryBuilder.buildJQuerySelector(locator.tag, locator.text, locator.position, locator.direct, locator.attributes)
+
+    return jqsel
   }
 
 }
