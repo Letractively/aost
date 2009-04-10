@@ -89,6 +89,7 @@
   * [http://jquery-howto.blogspot.com/2009/02/5-easy-tips-on-how-to-improve-code.html 5 easy tips on how to improve code performance with huge data sets in jQuery]
   * [http://jsbin.com/ Javascript test site]
   * [http://dogself.com/telluriumTest/index2.htm Tellurium jQuery test page]
+  * [http://james.padolsey.com/javascript/extending-jquerys-selector-capabilities/ Extending jQuery’s selector capabilities]
 
 === CSS ===
 
