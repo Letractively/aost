@@ -21,7 +21,8 @@ public class JQueryBuilder {
   protected static final String MATCH_ALL = "*"
   protected static final String CONTAINS_FILTER = ":contains"
   protected static final String SINGLE_QUOTE = "'"
-
+  protected static final String SPACE = " "
+  
   //represent it is a partial match i.e., contains
   private static final String CONTAIN_PREFIX = "%%"
 
@@ -40,7 +41,14 @@ public class JQueryBuilder {
   }
 
   protected static String attrText(String text){
-    return "[text()=${guardQuote(text)}]"
+    String val = text
+    if(includeSingleQuote(text)){
+      SplitInfo info = getLargestPortion(text)
+      val = info.val
+      return "${CONTAINS_FILTER}(${val})"
+    }
+
+    return "[text()=${val}]"
   }
 
   //starts from zero
@@ -49,11 +57,33 @@ public class JQueryBuilder {
   }
 
   protected static String attrId(String id){
-    return "${ID_SELECTOR_PREFIX}${id}"
+    if(id != null && id.trim().length()){
+      return "${ID_SELECTOR_PREFIX}${id}"
+    }
+
+    return "[id]"
   }
 
   protected static String attrClass(String clazz){
-    return "${CLASS_SELECTOR_PREFIX}${clazz}"
+    //need to consider the multiple-class syntax, for example, $('.myclass.otherclass')
+    //As a CSS selector, the multiple-class syntax of example 3 is supported by all modern
+    //web browsers, but not by Internet Explorer versions 6 and below
+    if(clazz != null && clazz.trim().length() > 0){
+      String[] parts = clazz.split(SPACE)
+      if(parts.length == 1){
+        //only only 1 class
+         return "${CLASS_SELECTOR_PREFIX}${clazz}"
+      }else{
+        StringBuffer sb = new StringBuffer()
+        for(String part: parts){
+          sb.append("${CLASS_SELECTOR_PREFIX}${part}")
+        }
+        return sb.toString()
+      }
+    }
+
+//    return "${CLASS_SELECTOR_PREFIX}${clazz}"
+    return "[class]"
   }
 
   protected static String attrPairs(String attr, String val){
@@ -148,7 +178,7 @@ public class JQueryBuilder {
 
     if(text != null && text.trim().length() > 0){
       if(text.startsWith(CONTAIN_PREFIX))
-        sb.append(containText(text))
+        sb.append(containText(text.substring(2)))
       else
         sb.append(attrText(text))
     }
