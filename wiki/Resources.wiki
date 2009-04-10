@@ -87,7 +87,7 @@
   * [http://docs.jquery.com/Events/trigger jQuery event trigger]
   * [http://groups.google.com/group/jquery-en jQuery Group]
   * [http://jquery-howto.blogspot.com/2009/02/5-easy-tips-on-how-to-improve-code.html 5 easy tips on how to improve code performance with huge data sets in jQuery]
-  * [http://jsbin.com/ jQuery test site]
+  * [http://jsbin.com/ Javascript test site]
 
 === CSS ===
 
