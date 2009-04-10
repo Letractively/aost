@@ -1,7 +1,5 @@
 package org.tellurium.locator
 
-import org.tellurium.locator.*
-
 /**
  * convert different locator data structures to actual locators or partial locators
  * delegate to different locate strategies, like a handler chain.
@@ -12,6 +10,16 @@ import org.tellurium.locator.*
 class LocatorProcessor{
     public static final String CANNOT_HANDLE_LOCATOR= "Cannot handle locator"
 
+    private boolean exploreJQuerySelector = false
+
+    public void useJQuerySelector(){
+      this.exploreJQuerySelector = true
+    }
+
+    public void disableJQuerySelector(){
+      this.exploreJQuerySelector = false
+    }
+  
     def String locate(locator){
         if(locator == null)
             return ""
@@ -19,8 +27,13 @@ class LocatorProcessor{
         if(locator instanceof BaseLocator)
             return DefaultLocateStrategy.locate(locator)
 
-        if(locator instanceof CompositeLocator)
+        if(locator instanceof CompositeLocator){
+            if(this.exploreJQuerySelector)
+              return CompositeLocateStrategy.select(locator)
+
             return CompositeLocateStrategy.locate(locator)
+
+        }
 
 		if(locator instanceof JQLocator){
 			  return JQueryLocateStrategy.locate(locator);

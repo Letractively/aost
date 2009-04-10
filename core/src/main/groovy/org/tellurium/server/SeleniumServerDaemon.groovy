@@ -80,10 +80,13 @@ public class SeleniumServerDaemon {
 	public void run() {
 		RemoteControlConfiguration config = new RemoteControlConfiguration();
 		config.port = port;
-		config.multiWindow = useMultiWindows;
-		config.setProxyInjectionModeArg(true); //this may not be needed, or atleast needs to be configurable
+//		config.multiWindow = useMultiWindows;
+        config.setSingleWindow(!this.useMultiWindows);
+      
+//		config.setProxyInjectionModeArg(true); //this may not be needed, or atleast needs to be configurable
         if(this.profileLocation != null && this.profileLocation.trim().length() > 0){
-          config.setProfilesLocation(new File(this.profileLocation));
+//          config.setProfilesLocation(new File(this.profileLocation));
+          config.setFirefoxProfileTemplate(new File(this.profileLocation));
         }
 
         if(this.userExtension != null && this.userExtension.trim().length() > 0){

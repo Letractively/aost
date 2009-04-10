@@ -18,4 +18,17 @@ public class Extension implements GroovyInterceptable{
      
       return dispatcher.metaClass.invokeMethod(dispatcher, name, args)
     }
+/*
+   String getSelectorProperties(String jqSelector, String props){
+     return dispatcher.getSelectorProperties(jqSelector,props)
+   }
+
+   String getSelectorText(String jqSelector){
+     return dispatcher.getSelectorText(jqSelector)
+   }
+
+   String getSelectorFunctionCall(String jqSelector, String args){
+     return dispatcher.getSelectorFunctionCall(jqSelector, args)
+   }
+*/
 }
