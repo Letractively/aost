@@ -31,6 +31,12 @@ public class JQueryBuilder {
 
   protected static final int LENGTH = 64
 
+  protected static def ATTR_BLACK_LIST = ['action']
+
+  protected static boolean inBlackList(String attr){
+    return ATTR_BLACK_LIST.contains(attr)
+  }
+
   protected static String containText(String text){
     String val = text
     if(includeSingleQuote(text)){
@@ -48,7 +54,15 @@ public class JQueryBuilder {
       return "${CONTAINS_FILTER}(${val})"
     }
 
-    return "[text()=${val}]"
+    //need the following custom selector ":text()" support
+    /*
+      $.extend($.expr[':'],{
+        text: function(a,i,m) {
+           return $(a).text() === m[3];
+        }
+      });
+     */
+    return ":text(${val})"
   }
 
   //starts from zero
@@ -57,7 +71,7 @@ public class JQueryBuilder {
   }
 
   protected static String attrId(String id){
-    if(id != null && id.trim().length()){
+    if(id != null && id.trim().length() > 0){
       return "${ID_SELECTOR_PREFIX}${id}"
     }
 
@@ -161,8 +175,14 @@ public class JQueryBuilder {
     sb.append(tag)
     if(attributes != null && attributes.size() > 0){
       String id = attributes.get(ID)
-      if(id != null)
+      if(id != null && id.trim().length() > 0){
+        //should not add other attributes if the ID is presented since jQuery will only select the first element for
+        // the ID and additional attributes will not help at all
         sb.append(attrId(id))
+
+        return sb.toString()
+      }
+
       String clazz = attributes.get(CLASS)
       if(clazz != null)
         sb.append(attrClass(clazz))
@@ -170,7 +190,7 @@ public class JQueryBuilder {
       Set keys = attributes.keySet()
       for (String key: keys) {
         String val = attributes.get(key)
-        if (!(key.equals(ID) || key.equals(CLASS))) {
+        if ((!key.equals(ID)) && (!key.equals(CLASS)) && (!inBlackList(key))) {
           sb.append(attrPairs(key, val))
         }
       }

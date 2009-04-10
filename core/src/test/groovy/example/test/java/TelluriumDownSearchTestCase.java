@@ -23,11 +23,16 @@ public class TelluriumDownSearchTestCase extends TelluriumJavaTestCase {
     }
 
     @Test
-    public void testTelluriumProjectPage() {
+    public void testDownloadSearch() {
         String[] allTypes = app.getAllDownloadTypes();
         assertNotNull(allTypes);
         assertTrue(allTypes[1].contains("All downloads"));
         app.selectDownloadType(allTypes[1]);
         app.searchDownload("TrUMP");
+    }
+
+    @Test
+    public void testHelp(){
+        app.clickHelp();    
     }
 }
