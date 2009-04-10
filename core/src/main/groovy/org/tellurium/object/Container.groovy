@@ -16,7 +16,7 @@ class Container extends UiObject {
     //if it uses group informtion to infer its locator
     protected boolean useGroupInfo = false
     
-    //since we useString map, the component name must be unique
+    //since we use map, the component name must be unique
     def components = [:]
 
     def add(UiObject component){
@@ -25,6 +25,25 @@ class Container extends UiObject {
 
     def getComponent(String id){
         components.get(id)
+    }
+
+    public boolean useGroup(){
+      return this.useGroupInfo
+    }
+
+    protected void groupLocating(WorkflowContext context){
+      if (this.useGroupInfo) {
+        if(context.useJQuerySelector()){
+          context.appendReferenceLocator(GroupLocateStrategy.select(this))
+        }else{
+          //need to use group information to help us locate the container xpath
+          context.appendReferenceLocator(GroupLocateStrategy.locate(this))
+        }
+      } else {
+        //do not use the group information, process as regular
+        def lp = new LocatorProcessor()
+        context.appendReferenceLocator(lp.locate(this.locator))
+      }
     }
 
     //walkTo through the object tree to until the UI object is found by the UID from the stack
@@ -44,14 +63,18 @@ class Container extends UiObject {
         if(cobj != null){
             //update reference locator by append the relative locator for this container
             if(this.locator != null){
-                if(this.useGroupInfo){
-                    //need to useString group information to help us locate the container xpath
+//              context.appendReferenceLocatorForUiObject(this)
+                groupLocating(context)
+
+/*                if(this.useGroupInfo){
+                    //need to use group information to help us locate the container xpath
                     context.appendReferenceLocator(GroupLocateStrategy.locate(this))
                 }else{
-                    //do not useString the group information, process as regular
+                    //do not use the group information, process as regular
                     def lp = new LocatorProcessor()
                     context.appendReferenceLocator(lp.locate(this.locator))
-                }
+                }*/
+              
             }
             if(uiid.size() < 1){
                 //not more child needs to be found

@@ -6,19 +6,52 @@ import org.tellurium.locator.DefaultLocateStrategy
 import org.tellurium.locator.XPathBuilder
 import org.tellurium.object.Container
 import org.tellurium.object.UiObject
+import org.tellurium.exception.InvalidLocatorException
 
 /**
- *   Use group information, i.e., useString its direct descedants' information to form its own locator
+ *   Use group information, i.e., use its direct descedants' information to form its own locator
  *   In the future, we may consider deeper information such as grandchild descendants'. Note, only
- *   Container and its extended classes can useString GroupLocateStrategy
+ *   Container and its extended classes can use GroupLocateStrategy
  *
  *   @author Jian Fang (John.Jian.Fang@gmail.com)
  * 
  */
 class GroupLocateStrategy {
 
+    protected static final String ERROR_MESSAGE = "Required Composite Locator, Invalid locator"
+    protected static final String HAS = ":has"
+    protected static final String SELECTOR_SEPARATOR = ", "
+    protected static final int LENGTH = 64
+  
+    def static String select(Container obj){
+      if(!obj.locator instanceof CompositeLocator)
+        throw new InvalidLocatorException("${ERROR_MESSAGE} ${obj.uid}")
+
+        List<String> groupAttributes = new ArrayList<String>()
+
+        obj.components.each{ String key, UiObject child ->
+            //can only use the child's information in the CompositeLocator
+            //cannot use other Locator type for the timebeing
+            if(child.locator instanceof CompositeLocator){
+                CompositeLocator cloc = child.locator
+                String gattr = JQueryBuilder.buildJQuerySelector(cloc.tag, cloc.text, cloc.position, cloc.direct, cloc.attributes)
+                groupAttributes.add(gattr.trim())
+            }
+        }
+
+        CompositeLocator locator = obj.locator
+        String self = JQueryBuilder.buildJQuerySelector(locator.tag, locator.text, locator.position, locator.direct, locator.attributes)
+        StringBuffer sb = new StringBuffer(LENGTH)
+        sb.append(self)
+        if(groupAttributes.size() > 0){
+          sb.append(HAS).append("(").append(groupAttributes.join(SELECTOR_SEPARATOR)).append(")")
+        }
+
+        return sb.toString()
+    }
+
     //group locate strategy is kind of special since it requires the object and its children which it holds
-    //must be a container or its child classes to call this
+    //must be a container or its inherited classes to call this
     def static String locate(Container obj){
         if(obj.locator instanceof BaseLocator)
             return DefaultLocateStrategy.locate(obj.locator)
@@ -26,8 +59,8 @@ class GroupLocateStrategy {
         List<String> groupAttributes = new ArrayList<String>()
 
         obj.components.each{ String key, UiObject child ->
-            //can only useString the child's information in the CompositeLocator
-            //cannot useString other Locator type for the timebeing
+            //can only use the child's information in the CompositeLocator
+            //cannot use other Locator type for the timebeing
             if(child.locator instanceof CompositeLocator){
                 CompositeLocator cloc = child.locator
                 String gattr

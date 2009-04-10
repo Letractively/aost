@@ -6,7 +6,7 @@ package org.tellurium.object
  *  @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
-class Form  extends Container{
+class Form extends Container{
 
     public static final String TAG = "form"
 

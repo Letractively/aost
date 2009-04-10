@@ -1,6 +1,10 @@
 package org.tellurium.dsl
 
 import org.tellurium.locator.XPathProcessor
+import org.tellurium.object.UiObject
+import org.tellurium.object.Container
+import org.tellurium.locator.LocatorProcessor
+import org.tellurium.locator.GroupLocateStrategy
 
 /**
  * Hold metadata for execution workflow
@@ -110,6 +114,21 @@ class WorkflowContext {
     
     context.put(REFERENCE_LOCATOR, rl)
   }
+
+/*  public void appendReferenceLocatorForUiObject(UiObject obj) {
+    if (obj instanceof Container && obj.useGroup()) {
+        if(this.exploreJQuerySelector){
+          appendReferenceLocator(GroupLocateStrategy.select(obj))
+        }else{
+          //need to use group information to help us locate the container xpath
+          appendReferenceLocator(GroupLocateStrategy.locate(obj))
+        }
+    } else {
+        //do not use the group information, process as regular
+        def lp = new LocatorProcessor()
+        appendReferenceLocator(lp.locate(obj.locator))
+    }
+  }*/
 
   protected String checkTableDuplicateTag(String rl, String loc) {
 
