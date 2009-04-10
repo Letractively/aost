@@ -90,6 +90,7 @@
   * [http://jsbin.com/ Javascript test site]
   * [http://dogself.com/telluriumTest/index2.htm Tellurium jQuery test page]
   * [http://james.padolsey.com/javascript/extending-jquerys-selector-capabilities/ Extending jQuery’s selector capabilities]
+  * [http://www.queness.com/post/126/useful-and-handy-jquery-tips-and-tricks Useful and Handy jQuery Tips and Tricks]
 
 === CSS ===
 
