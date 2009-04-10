@@ -36,10 +36,27 @@ public class JQueryBuilder_UT extends GroovyTestCase {
 
     text = "good"
     result = JQueryBuilder.attrText(text)
-    assertEquals("[text()=good]", result)
+    assertEquals(":text(good)", result)
 
     text = "I'm Feeling Lucky"
     result = JQueryBuilder.attrText(text)
     assertEquals(":contains(m Feeling Lucky)", result)
+  }
+
+  public void testAttrPairs(){
+    String key="method"
+    String val="list"
+
+    String result = JQueryBuilder.attrPairs(key, val)
+    assertEquals("[method=list]", result)
+    assertFalse(JQueryBuilder.inBlackList(key))
+
+    key = "action"
+    assertTrue(JQueryBuilder.inBlackList(key))
+
+    key = "mclazz"
+    val = " good' sugges'tion "
+    result = JQueryBuilder.attrPairs(key, val)
+    assertEquals("[mclazz*=sugges]", result)
   }
 }
