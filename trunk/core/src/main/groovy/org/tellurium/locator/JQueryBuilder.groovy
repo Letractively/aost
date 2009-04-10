@@ -37,6 +37,14 @@ public class JQueryBuilder {
     return ATTR_BLACK_LIST.contains(attr)
   }
 
+  protected static String checkTag(String tag){
+    if(tag != null && tag.trim().length() > 0){
+      return tag
+    }
+
+    return MATCH_ALL
+  }
+
   protected static String containText(String text){
     String val = text
     if(includeSingleQuote(text)){
@@ -172,7 +180,7 @@ public class JQueryBuilder {
     }
 
     //put the tag name first
-    sb.append(tag)
+    sb.append(checkTag(tag))
     if(attributes != null && attributes.size() > 0){
       String id = attributes.get(ID)
       if(id != null && id.trim().length() > 0){

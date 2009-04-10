@@ -4,6 +4,20 @@ import org.tellurium.locator.JQueryBuilder
 
 public class JQueryBuilder_UT extends GroovyTestCase {
 
+  public void testCheckTag(){
+    String tag = null
+    String result = JQueryBuilder.checkTag(tag)
+    assertEquals("*", result)
+
+    tag = " "
+    result = JQueryBuilder.checkTag(tag)
+    assertEquals("*", result)
+
+    tag = "div"
+    result = JQueryBuilder.checkTag(tag)
+    assertEquals("div", result)
+  }
+
   public void testAttrId(){
     String id = null
     String result = JQueryBuilder.attrId(id)
