@@ -16,6 +16,7 @@ public class GoogleSearchModule extends DslContext {
   public void defineUi() {
 
     useJQuerySelector()
+    //TODO: need to check while the following src does not work
 //    ui.Image(uid: "Logo", clocator: [tag: "img", src: "/intl/en_ALL/images/logo.gif"])
     ui.Image(uid: "Logo", clocator: [tag: "img", alt: "Google"])
 
@@ -40,6 +41,7 @@ public class GoogleSearchModule extends DslContext {
     waitForPageToLoad 30000
   }
 
+  //Test jQuery selector for attributes 
   public String getLogoAlt(){
     return getImageAlt("Logo")
   }
