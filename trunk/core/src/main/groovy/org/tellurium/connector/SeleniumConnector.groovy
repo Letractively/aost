@@ -71,13 +71,32 @@ class SeleniumConnector implements Configurable {
 
         */
 
-      //use Get to return the DOM reference.
+      //use Get to return the DOM reference.  
+      //need to check if it is an attribute locator in the format of locator@attr
+      //  alert("locator: " + locator + " loc: " + loc + " attr: " + attr);
       sel.addLocationStrategy("jquery", '''
-        var found = $(inDocument).find(locator);
+        var loc = locator;
+        var attr = null;
+        var isattr = false;         
+        var inx = locator.lastIndexOf('@');
+        if(inx != -1){
+          loc = locator.substring(0, inx);
+          attr = locator.substring(inx + 1);
+          isattr = true;
+        }
+        var found = $(inDocument).find(loc);
         if(found.length == 1 ){
-            return found[0];
+            if(isattr){
+              return found[0].getAttributeNode(attr);
+            }else{
+              return found[0];
+            }
         }else if(found.length > 1){
-            return found.get();
+            if(isattr){
+              return found.get().getAttributeNode(attr);
+            }else{
+              return found.get();
+            }
         }else{
             return null;
         }''')

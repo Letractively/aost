@@ -16,6 +16,8 @@ public class GoogleSearchModule extends DslContext {
   public void defineUi() {
 
     useJQuerySelector()
+//    ui.Image(uid: "Logo", clocator: [tag: "img", src: "/intl/en_ALL/images/logo.gif"])
+    ui.Image(uid: "Logo", clocator: [tag: "img", alt: "Google"])
 
     ui.Container(uid: "Google", clocator: [tag: "table"]) {
       InputBox(uid: "Input", clocator: [tag: "input", title: "Google Search", name: "q"])
@@ -36,6 +38,10 @@ public class GoogleSearchModule extends DslContext {
     pause 500
     click "Google.ImFeelingLucky"
     waitForPageToLoad 30000
+  }
+
+  public String getLogoAlt(){
+    return getImageAlt("Logo")
   }
 
 }
