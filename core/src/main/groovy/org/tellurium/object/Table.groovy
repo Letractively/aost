@@ -339,6 +339,10 @@ class Table extends Container {
     return " > tbody tr:has(th) > th:eq(${column})"
   }
 
+  String[] getAllTableCellText(Closure c){
+    return c(this.locator, " > tbody > tr > td")  
+  }
+
   int getTableHeaderColumnNum(Closure c) {
 
     String rl = c(this.locator)

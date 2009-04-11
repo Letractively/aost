@@ -43,7 +43,7 @@ abstract class BaseDslContext {
 
   private JSONReader reader = new JSONReader()
 
-  private Object parseSeleniumJSONReturnValue(String out){
+  public Object parseSeleniumJSONReturnValue(String out){
     if(out.startsWith("OK,")){
       out = out.substring(3);
     } else {
@@ -402,6 +402,18 @@ abstract class BaseDslContext {
     }
   }
 
+  //This only works for jQuery selector
+  String[] getAllTableCellText(String uid){
+    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    return walkToWithException(context, uid)?.getAllTableCellText(){loc, cell ->
+      String locator = locatorMapping(context, loc)
+      locator = locator + cell
+      String out = extension.getAllText(locator)
+
+      return (ArrayList) parseSeleniumJSONReturnValue(out)
+    }
+  }
+
   int getTableHeaderColumnNum(String uid) {
 //    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
     //for get counter, still force to use xpath
@@ -621,7 +633,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
     String[] strings = walkToWithException(context, uid)?.hasCssClass() {loc, classAttr ->
       String locator = locatorMapping(context, loc)
-      String clazz = null
+      String clazz
       if(this.exploreJQuerySelector){
         clazz = accessor.getAttribute(locator + "@${classAttr}")
       }else{

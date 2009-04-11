@@ -44,4 +44,10 @@ class CustomSelenium extends DefaultSelenium {
 		String st = commandProcessor.doCommand("getSelectorFunctionCall", arr);
 		return st;
 	}
+
+    def String getAllText(String locator){
+		String[] arr = [locator];
+		String st = commandProcessor.doCommand("getAllText", arr);
+		return st;
+	}
 }
