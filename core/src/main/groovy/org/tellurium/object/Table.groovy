@@ -323,10 +323,20 @@ class Table extends Container {
     return tbody + "/tr[child::td][${row}]/td[${column}]"
   }
 
+  protected String getCellSelector(int row, int column) {
+    //TODO: :has(td) is not the same as child::td, for example, if we have another embedded table. Need to address this case
+    return " > tbody > tr:has(td):eq(${row}) > td:eq(${column})"
+  }
+
   protected String getHeaderLocator(int column) {
 
 //        return "/tbody/tr[1]/th[${column}]"
     return tbody + "/tr[child::th]/th[${column}]"
+  }
+
+  protected String getHeaderSelector(int column) {
+
+    return " > tbody tr:has(th) > th:eq(${column})"
   }
 
   int getTableHeaderColumnNum(Closure c) {
@@ -383,7 +393,12 @@ class Table extends Container {
     }
 
     //append relative location, i.e., row, column to the locator
-    String loc = tbody + "/tr[child::td][${nrow}]/td[${ncolumn}]"
+    String loc = null
+    if(context.useJQuerySelector()){
+      loc = getCellSelector(nrow, ncolumn)
+    }else{
+      loc = getCellLocator(nrow, ncolumn)
+    }
 
     context.appendReferenceLocator(loc)
 
@@ -430,9 +445,15 @@ class Table extends Container {
     }
 
     //append relative location, i.e., row, column to the locator
-//        String loc = "/tbody/tr[1]/th[${index}]"
-    String loc = tbody + "/tr[child::th]/th[${index}]"
+    String loc = null
+    if(context.useJQuerySelector()){
+      loc = getHeaderSelector(index)
+    }else{
+      loc = getHeaderLocator(index)
+    }
+
     context.appendReferenceLocator(loc)
+
     if(cobj.locator != null){
       if(cobj.locator instanceof CompositeLocator){
         CompositeLocator cl = (CompositeLocator)cobj.locator
