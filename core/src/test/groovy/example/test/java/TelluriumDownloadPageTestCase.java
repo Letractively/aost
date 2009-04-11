@@ -23,6 +23,6 @@ public class TelluriumDownloadPageTestCase extends TelluriumJavaTestCase {
     @Test
     public void testSearchDownload(){
         connectUrl("http://code.google.com/p/aost/downloads/list");
-        ngsp.searchDownload(" All Downloads", "TrUMP");
+        ngsp.searchDownload(" All downloads", "TrUMP");
     }
 }

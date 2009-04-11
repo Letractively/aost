@@ -51,6 +51,12 @@ class XPathBuilder {
 
   private static final int TYPICAL_LENGTH = 64
 
+  private static final String START_PREFIX = "^"
+
+  private static final String END_PREFIX = "\$"
+
+  private static final String ANY_PREFIX = "*"
+
   // example xpaths
   //  //descendant-or-self::*[@uid='hp_table']/tbody/tr/td[1]/descendant-or-self::div/div[2]/p[1]/a
   //  /html/body/div[5]/center/table[@uid='hp_table']/tbody/tr/td[1]/div/div[2]/p[1]/a
@@ -201,9 +207,15 @@ class XPathBuilder {
       return ""
 
     String trimed = value.trim()
-    if (trimed.startsWith(CONTAIN_PREFIX)) {
-//            String actual = value.substring(2)
+    //TODO: for backward compatiblity, still keep "%%" here, but will remove it later
+    if (trimed.startsWith(CONTAIN_PREFIX)){
       String actual = trimed.substring(2)
+      return "contains(text(),\"${actual}\")"
+    }else if(trimed.startsWith(START_PREFIX)){
+      String actual = trimed.substring(1)
+      return "starts-with(text(),\"${actual}\")"
+    }else if(trimed.startsWith(END_PREFIX) || trimed.startsWith(ANY_PREFIX)) {
+      String actual = trimed.substring(1)
       return "contains(text(),\"${actual}\")"
     } else {
       return "normalize-space(text())=normalize-space(\"${trimed}\")"
@@ -225,6 +237,12 @@ class XPathBuilder {
     //if it is a partial match
     if (trimed.startsWith(CONTAIN_PREFIX)) {
       String actual = value.substring(2)
+      return "contains(@${name},\"${actual}\")"
+    }else if(trimed.startsWith(START_PREFIX)){
+      String actual = value.substring(1)
+      return "starts-with(@${name},\"${actual}\")"
+    }else if(trimed.startsWith(END_PREFIX) || trimed.startsWith(ANY_PREFIX)){
+      String actual = value.substring(1)
       return "contains(@${name},\"${actual}\")"
     } else {
       return "@${name}=\"${trimed}\""

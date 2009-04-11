@@ -22,7 +22,10 @@ public class JQueryBuilder {
   protected static final String CONTAINS_FILTER = ":contains"
   protected static final String SINGLE_QUOTE = "'"
   protected static final String SPACE = " "
-  
+  private static final String START_PREFIX = "^"
+  private static final String END_PREFIX = "\$"
+  private static final String ANY_PREFIX = "*"
+
   //represent it is a partial match i.e., contains
   private static final String CONTAIN_PREFIX = "%%"
 
@@ -126,7 +129,15 @@ public class JQueryBuilder {
       return result
     }
 
-    return "[${attr}=${val}]"
+    if(val.startsWith(START_PREFIX)){
+      return "[${attr}^=${val.substring(1)}]"
+    }else if(val.startsWith(END_PREFIX)){
+      return "[${attr}\$=${val.substring(1)}]"
+    }else if(val.startsWith(ANY_PREFIX)){
+      return "[${attr}*=${val.substring(1)}]"
+    }else{
+      return "[${attr}=${val}]"
+    }
   }
 
   //not really working if we convert String multiple times
@@ -205,10 +216,14 @@ public class JQueryBuilder {
     }
 
     if(text != null && text.trim().length() > 0){
-      if(text.startsWith(CONTAIN_PREFIX))
+      if(text.startsWith(CONTAIN_PREFIX)){
         sb.append(containText(text.substring(2)))
-      else
+      }else if(text.startsWith(START_PREFIX) || text.startsWith(END_PREFIX) || text.startsWith(ANY_PREFIX)){
+        //TODO: need to refact this to use start, end, any partial match
+        sb.append(containText(text.substring(2)))
+      }else{
         sb.append(attrText(text))
+      }
     }
 
     if(position != null && position.trim().length() > 0){
