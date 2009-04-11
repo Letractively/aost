@@ -129,32 +129,14 @@ abstract class DslContext extends BaseDslContext {
             accessor.waitForFrameToLoad(loc, Integer.toString(tmo))
         }
     }
-
-    String getLocator(String uid){
-      WorkflowContext context = WorkflowContext.getDefaultContext()
-      walkToWithException(context, uid)?.getLocator() {loc ->
-            locatorMapping(context, loc)
-      }
-
-      return context.getReferenceLocator()
-    }
-
-    String getSelector(String uid){
-      WorkflowContext context = WorkflowContext.getContextByStrategy(true)
-      walkToWithException(context, uid)?.getSelector() {loc ->
-            locatorMapping(context, loc)
-      }
-
-      return context.getReferenceLocator()
-    }
-
+/*
     def mouseOver(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.mouseOver() {loc, String[] events ->
             String locator = locatorMapping(context, loc)
             eventHandler.mouseOver(locator, events)
         }
-    }
+    }*/
 
     def openWindow(String uid, String url) {
         WorkflowContext context = WorkflowContext.getDefaultContext()

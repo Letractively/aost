@@ -685,8 +685,11 @@ abstract class BaseDslContext {
 
   Number getJQuerySelectorCount(String jQuerySelector){
     String jq = jQuerySelector
-    if(jq.startsWith(JQUERY_SELECTOR))
-    return extension.getJQuerySelectorCount(JQUERY_SELECTOR + jQuerySelector)
+    if(!jq.startsWith(JQUERY_SELECTOR)){
+      jq=JQUERY_SELECTOR + jQuerySelector
+    }
+    
+    return extension.getJQuerySelectorCount(jq)
   }
   
   String getEval(String script) {
@@ -784,5 +787,23 @@ abstract class BaseDslContext {
       String locator = locatorMapping(context, loc)
       eventHandler.mouseMoveAt(locator, coordinate)
     }
+  }
+
+  String getLocator(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.getLocator() {loc ->
+      locatorMapping(context, loc)
+    }
+
+    return context.getReferenceLocator()
+  }
+
+  String getSelector(String uid) {
+    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    walkToWithException(context, uid)?.getSelector() {loc ->
+      locatorMapping(context, loc)
+    }
+
+    return context.getReferenceLocator()
   }
 }
