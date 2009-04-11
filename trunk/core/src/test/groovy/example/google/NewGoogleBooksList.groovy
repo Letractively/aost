@@ -19,17 +19,19 @@ import org.tellurium.object.UiObject
 class NewGoogleBooksList extends DslContext{
 
     public void defineUi() {
+        useJQuerySelector()
+
         //It is fine to use container for Table if you really do not care what the rows and columns of the elements it holds
         ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"], group: "true"){
             TextBox(uid: "category", clocator: [tag: "div", class: "sub_cat_title"])
-            List(uid: "subcategory", clocator: [tag: "div", class:"sub_cat_section"], separator: "p"){
-                UrlLink(uid: "all", locator: "/a")
+            List(uid: "subcategory", clocator: [tag: "div", class: "sub_cat_section"], separator: "p"){
+                UrlLink(uid: "all", clocator: [:])
             }
         }
 
         ui.Container(uid: "NewGoogleBooksList", clocator: [tag: "table", id: "hp_table"], group: "true"){
             TextBox(uid: "category", clocator: [tag: "div", class: "sub_cat_title"])
-            List(uid: "subcategory", clocator: [tag: "div", class:"sub_cat_section"]){
+            List(uid: "subcategory", clocator: [tag: "div", class: "sub_cat_section"]){
                 Container(uid: "all", clocator: [tag: "p"]){
                    UrlLink(uid: "link", clocator: [:])
                 }

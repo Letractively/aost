@@ -95,11 +95,41 @@ class List extends Container {
         return "/descendant::${lastTag}[${lastOccur}]"
     }
 
+    protected String deriveListSelector(int index) {
+        Map<String, Integer> tags = new HashMap<String, Integer>()
+        UiObject last = null
+        for (int i = 1; i <= index; i++) {
+            UiObject obj = findUiObject(i)
+            String tag = obj.locator.getTag()
+            Integer occur = tags.get(tag)
+            if (occur == null) {
+                tags.put(tag, 1)
+            } else {
+                tags.put(tag, occur + 1)
+            }
+            if (i == index) {
+                last = obj
+            }
+        }
+
+        String lastTag = last.locator.getTag()
+        Integer lastOccur = tags.get(lastTag)
+
+        return " ${lastTag}:eq(${lastOccur})"
+    }
+
     String getListLocator(int index) {
         if (separator == null || separator.trim().size() == 0)
             return deriveListLocator(index)
 
         return "/" + separator + "[${index}]"
+    }
+
+    String getListSelector(int index) {
+        if (separator == null || separator.trim().size() == 0)
+            return deriveListSelector(index)
+
+        return " > " + separator + ":eq(${index})"
     }
 
     int getListSize(Closure c) {
@@ -146,7 +176,12 @@ class List extends Container {
         }
 
         //append relative location, i.e., index to the locator
-        String loc = getListLocator(nindex)
+        String loc = null
+        if(context.useJQuerySelector()){
+          loc = getListSelector(nindex)
+        }else{
+          loc = getListLocator(nindex)
+        }
         context.appendReferenceLocator(loc)
 
         if (uiid.size() < 1) {
