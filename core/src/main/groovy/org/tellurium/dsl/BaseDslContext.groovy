@@ -418,6 +418,18 @@ abstract class BaseDslContext {
     }
   }
 
+  //This only works for jQuery selector and Standard Table
+  String[] getAllTableCellTextForTbody(String uid, int index){
+    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    return walkToWithException(context, uid)?.getAllTableCellTextForTbody(index){loc, cell ->
+      String locator = locatorMapping(context, loc)
+      locator = locator + cell
+      String out = extension.getAllText(locator)
+
+      return (ArrayList) parseSeleniumJSONReturnValue(out)
+    }
+  }
+
   int getTableHeaderColumnNum(String uid) {
 //    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
     //for get counter, still force to use xpath
@@ -795,7 +807,12 @@ abstract class BaseDslContext {
       locatorMapping(context, loc)
     }
 
-    return context.getReferenceLocator()
+    String locator = context.getReferenceLocator()
+    if (locator != null && (!locator.startsWith("//")) && (!locator.startsWith(JQUERY_SELECTOR))) {
+      locator = "/" + locator
+    }
+
+    return locator
   }
 
   String getSelector(String uid) {
@@ -804,6 +821,9 @@ abstract class BaseDslContext {
       locatorMapping(context, loc)
     }
 
-    return context.getReferenceLocator()
+    String locator = context.getReferenceLocator()
+    locator = JQUERY_SELECTOR + locator.trim()
+    
+    return locator
   }
 }

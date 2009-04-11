@@ -129,14 +129,6 @@ abstract class DslContext extends BaseDslContext {
             accessor.waitForFrameToLoad(loc, Integer.toString(tmo))
         }
     }
-/*
-    def mouseOver(String uid) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.mouseOver() {loc, String[] events ->
-            String locator = locatorMapping(context, loc)
-            eventHandler.mouseOver(locator, events)
-        }
-    }*/
 
     def openWindow(String uid, String url) {
         WorkflowContext context = WorkflowContext.getDefaultContext()

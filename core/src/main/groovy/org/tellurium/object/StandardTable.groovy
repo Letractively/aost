@@ -363,6 +363,14 @@ class StandardTable extends Container{
         return " > tfoot > tr > td:eq(${column})"
     }
 
+    String[] getAllTableCellText(Closure c) {
+        return c(this.locator, " > tbody > tr > td")
+    }
+
+    String[] getAllTableCellTextForTbody(int index, Closure c) {
+        return c(this.locator, " > tbody:eq(${index}) > tr > td")
+    }
+
     int getTableHeaderColumnNum(Closure c) {
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
