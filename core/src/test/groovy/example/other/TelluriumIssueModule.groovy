@@ -43,4 +43,10 @@ public class TelluriumIssueModule extends DslContext {
   public String[] getAllText(){
     return getAllTableCellText("issueResult")
   }
+
+  public int getTableCellCount(){
+    String sel = getSelector("issueResult")
+    sel = sel + " > tbody > tr > td"
+    return getJQuerySelectorCount(sel)
+  }
 }

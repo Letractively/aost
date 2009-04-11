@@ -25,7 +25,11 @@ abstract class BaseDslContext {
 
   //later on, may need to refactor it to use resource file so that we can show message for different localities
   protected static final String ERROR_MESSAGE = "Cannot find UI Object"
-
+  protected static final String JQUERY_SELECTOR = "jquery="
+  protected static final String DEFAULT_XPATH = "default"
+  protected static final String JAVASCRIPT_XPATH = "javascript"
+  protected static final String AJAXSLT_XPATH = "ajaxslt"
+    
   //flag to decide whether we should use jQuery Selector
   protected boolean exploreJQuerySelector = false
 
@@ -679,20 +683,26 @@ abstract class BaseDslContext {
     return accessor.getXpathCount(xpath)
   }
 
+  Number getJQuerySelectorCount(String jQuerySelector){
+    String jq = jQuerySelector
+    if(jq.startsWith(JQUERY_SELECTOR))
+    return extension.getJQuerySelectorCount(JQUERY_SELECTOR + jQuerySelector)
+  }
+  
   String getEval(String script) {
     return accessor.getEval(script)
   }
 
   public void useDefaultXPathLibrary() {
-    accessor.useXpathLibrary("default")
+    accessor.useXpathLibrary(DEFAULT_XPATH)
   }
 
   public void useJavascriptXPathLibrary() {
-    accessor.useXpathLibrary("javascript")
+    accessor.useXpathLibrary(JAVASCRIPT_XPATH)
   }
 
   public void useAjaxsltXPathLibrary() {
-    accessor.useXpathLibrary("ajaxslt")
+    accessor.useXpathLibrary(AJAXSLT_XPATH)
   }
 
   def mouseDown(String uid) {
