@@ -403,7 +403,9 @@ abstract class BaseDslContext {
   }
 
   int getTableHeaderColumnNum(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+//    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    //for get counter, still force to use xpath
+    WorkflowContext context = WorkflowContext.getDefaultContext()
     def obj = walkToWithException(context, uid)
 
     return obj.getTableHeaderColumnNum {loc ->
@@ -413,7 +415,8 @@ abstract class BaseDslContext {
   }
 
   int getTableFootColumnNum(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    //WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
     def obj = walkToWithException(context, uid)
 
     return obj.getTableFootColumnNum {loc ->
@@ -423,7 +426,8 @@ abstract class BaseDslContext {
   }
 
   int getTableMaxRowNum(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+//    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getDefaultContext()
     def obj = walkToWithException(context, uid)
 
     return obj.getTableMaxRowNum() {loc ->
@@ -433,7 +437,8 @@ abstract class BaseDslContext {
   }
 
   int getTableMaxColumnNum(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+//    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getDefaultContext()
     def obj = walkToWithException(context, uid)
 
     return obj.getTableMaxColumnNum() {loc ->
@@ -443,7 +448,8 @@ abstract class BaseDslContext {
   }
 
   int getTableMaxRowNumForTbody(String uid, int ntbody) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    //WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
 
     return obj.getTableMaxRowNumForTbody(ntbody) {loc ->
@@ -453,7 +459,8 @@ abstract class BaseDslContext {
   }
 
   int getTableMaxColumnNumForTbody(String uid, int ntbody) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+//    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
 
     return obj.getTableMaxColumnNumForTbody(ntbody) {loc ->
@@ -463,7 +470,8 @@ abstract class BaseDslContext {
   }
 
   int getTableMaxTbodyNum(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+//    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
 
     return obj.getTableMaxTbodyNum() {loc ->
@@ -601,7 +609,11 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
     walkToWithException(context, uid)?.getAttribute(attribute) {loc, attr ->
       String locator = locatorMapping(context, loc)
-      accessor.getAttribute(locator + attr)
+      if(this.exploreJQuerySelector){
+        return accessor.getAttribute(locator + "@${attr}")
+      }else{
+        return accessor.getAttribute(locator + "/self::node()@${attr}")
+      }
     }
   }
 
@@ -609,7 +621,16 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
     String[] strings = walkToWithException(context, uid)?.hasCssClass() {loc, classAttr ->
       String locator = locatorMapping(context, loc)
-      ((String) accessor.getAttribute(locator + classAttr))?.split(" ")
+      String clazz = null
+      if(this.exploreJQuerySelector){
+        clazz = accessor.getAttribute(locator + "@${classAttr}")
+      }else{
+        clazz = accessor.getAttribute(locator + "/self::node()@${classAttr}")
+      }
+      if(clazz != null && clazz.trim().length() > 0){
+        return clazz.split(" ")
+      }
+      return null
     }
     if (strings?.length) {
       for (i in 0..strings?.length) {

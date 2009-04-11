@@ -338,14 +338,29 @@ class StandardTable extends Container{
         return "/tbody[${tbody}]/tr[${row}]/td[${column}]"
     }
 
+    protected String getCellSelector(int tbody, int row, int column) {
+
+        return " > tbody:eq(${tbody}) > tr:eq(${row}) > td:eq(${column})"
+    }
+  
     protected String getHeaderLocator(int column) {
 
         return "/thead/tr/td[${column}]"
     }
 
+    protected String getHeaderSelector(int column) {
+
+        return " > thread > tr > td:eq(${column})"
+    }
+
     protected String getFootLocator(int column) {
 
         return "/tfoot/tr/td[${column}]"
+    }
+
+    protected String getFootSelector(int column) {
+
+        return " > tfoot > tr > td:eq(${column})"
     }
 
     int getTableHeaderColumnNum(Closure c) {
@@ -451,7 +466,12 @@ class StandardTable extends Container{
         }
 
         //append relative location, i.e., tbody, row, column to the locator
-        String loc = getCellLocator(ntbody, nrow, ncolumn)
+        String loc = null
+        if(context.useJQuerySelector()){
+          loc = getCellSelector(ntbody, nrow, ncolumn)
+        }else{
+          loc = getCellLocator(ntbody, nrow, ncolumn)
+        }
 
         context.appendReferenceLocator(loc)
       
@@ -498,7 +518,13 @@ class StandardTable extends Container{
         }
 
         //append relative location, i.e., row, column to the locator
-        String loc =  getHeaderLocator(index)
+        String loc =  null
+        if(context.useJQuerySelector()){
+          loc = getHeaderSelector(index)
+        }else{
+          loc = getHeaderLocator(index)
+        }
+      
         context.appendReferenceLocator(loc)
 
         if(cobj.locator != null){
@@ -544,7 +570,13 @@ class StandardTable extends Container{
         }
 
         //append relative location, i.e., row, column to the locator
-        String loc =  getFootLocator(index)
+        String loc =  null
+        if(context.useJQuerySelector()){
+          loc = getFootSelector(index)
+        }else{
+          loc = getFootLocator(index)
+        }
+      
         context.appendReferenceLocator(loc)
 
         if(cobj.locator != null){

@@ -110,11 +110,13 @@ abstract class UiObject implements Cloneable{
 
     def getAttribute(String attribute, Closure c){
 //        return c(locator, "@${attribute}")
-         return c(locator, "/self::node()@${attribute}")
+//         return c(locator, "/self::node()@${attribute}")
+      return c(locator, attribute)
     }
 
     def hasCssClass(Closure c){
-      return c(locator, "/self::node()@class")
+//      return c(locator, "/self::node()@class")
+      return c(locator, "class")
     }
 
     def methodMissing(String name, args) {
