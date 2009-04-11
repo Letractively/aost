@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import org.tellurium.test.java.TelluriumJavaTestCase;
 import example.other.TelluriumIssueModule;
 
@@ -36,6 +37,8 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         int count = tisp.getTableCellCount();
         assertTrue(count > 0);
         System.out.println("Cell size: " + count);
-    }
-    
+        String[] details = tisp.getAllText();
+        assertNotNull(details);
+        assertEquals(details.length, count);
+    }  
 }
