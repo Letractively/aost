@@ -49,7 +49,7 @@ public class JQueryBuilder_UT extends GroovyTestCase {
     assertEquals(":contains(good)", result)
 
     text = "*good"
-    result = JQueryBuilder.containText(text.substring(2))
+    result = JQueryBuilder.containText(text.substring(1))
     assertEquals(":contains(good)", result)
 
     text = "good"
