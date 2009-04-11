@@ -4760,9 +4760,19 @@ Selenium.prototype.getSelectorText = function(jq){
 	}
 	return JSON.stringify(out);
 };
+
 //generic function call. best hope the function returns json, or we are going to be sad
 Selenium.prototype.getSelectorFunctionCall = function(jq, fn){
 	var e = this.browserbot.findElement("jqueryall="+jq);
 	fn = eval('(' + eval('(' +fn+')')[0]+')');
 	return JSON.stringify(fn.apply(e));
+};
+
+Selenium.prototype.getAllText = function(locator){
+	var e = this.browserbot.findElement(locator);
+	var out = [];
+	for(var i = 0; i < e.length; i++){
+		out.push($(e[i]).text());
+	}
+	return JSON.stringify(out);
 };
