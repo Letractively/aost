@@ -148,11 +148,15 @@ abstract class UiObject implements Cloneable{
         c(locator)
     }
 
-    public getLocator(Closure c){
+    public String getLocator(Closure c){
 
       return c(locator)
     }
 
+    public String getSelector(Closure c){
+      return c(locator)
+    }
+  
     public String waitForText(int timeout, Closure c){
       return c(locator, timeout)
     }

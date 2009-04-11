@@ -4776,3 +4776,11 @@ Selenium.prototype.getAllText = function(locator){
 	}
 	return JSON.stringify(out);
 };
+
+Selenium.prototype.getJQuerySelectorCount = function(locator){
+	var e = this.browserbot.findElement(locator);
+    if(e == null)
+        return 0;
+
+	return e.length;
+};

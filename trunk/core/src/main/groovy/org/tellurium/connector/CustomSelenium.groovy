@@ -50,4 +50,10 @@ class CustomSelenium extends DefaultSelenium {
 		String st = commandProcessor.doCommand("getAllText", arr);
 		return st;
 	}
+
+    def Number getJQuerySelectorCount(String locator){
+		String[] arr = [locator];
+		Number num = commandProcessor.getNumber("getJQuerySelectorCount", arr);
+		return num;
+	}
 }

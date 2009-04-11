@@ -84,10 +84,10 @@ abstract class DslContext extends BaseDslContext {
         }
 
         if(this.exploreJQuerySelector){
-          locator = "jquery=" + locator.trim()
+          locator = JQUERY_SELECTOR + locator.trim()
         } else {
           //make sure the xpath starts with "//"
-          if (locator != null && (!locator.startsWith("//")) && (!locator.startsWith("jquery="))) {
+          if (locator != null && (!locator.startsWith("//")) && (!locator.startsWith(JQUERY_SELECTOR))) {
             locator = "/" + locator
           }
         }
@@ -133,6 +133,15 @@ abstract class DslContext extends BaseDslContext {
     String getLocator(String uid){
       WorkflowContext context = WorkflowContext.getDefaultContext()
       walkToWithException(context, uid)?.getLocator() {loc ->
+            locatorMapping(context, loc)
+      }
+
+      return context.getReferenceLocator()
+    }
+
+    String getSelector(String uid){
+      WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+      walkToWithException(context, uid)?.getSelector() {loc ->
             locatorMapping(context, loc)
       }
 
