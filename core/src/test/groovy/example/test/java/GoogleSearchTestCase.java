@@ -4,6 +4,8 @@ import org.tellurium.test.java.TelluriumJavaTestCase;
 import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 import example.google.GoogleSearchModule;
 
 /**
@@ -37,5 +39,12 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
     @Test
     public void testGoogleSearchFeelingLucky() {
         gsm.doImFeelingLucky("tellurium automated Testing");
+    }
+
+    @Test
+    public void testLogo(){
+        String alt = gsm.getLogoAlt();
+        assertNotNull(alt);
+        assertEquals("Google", alt);
     }
 }

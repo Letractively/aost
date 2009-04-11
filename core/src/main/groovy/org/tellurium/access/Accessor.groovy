@@ -242,14 +242,15 @@ class Accessor implements Configurable{
     }
 
     String getAttribute(String locator){
-        String value
+/*        String value
         try{
             value = dispatcher.getAttribute(locator)
         }catch(SeleniumException e){
             value = null
         }
 
-        return value
+        return value*/
+      return dispatcher.getAttribute(locator)
     }
 
     void waitForPopUp(String windowID, String timeout){
