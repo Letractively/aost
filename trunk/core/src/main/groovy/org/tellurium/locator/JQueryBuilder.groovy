@@ -220,7 +220,7 @@ public class JQueryBuilder {
         sb.append(containText(text.substring(2)))
       }else if(text.startsWith(START_PREFIX) || text.startsWith(END_PREFIX) || text.startsWith(ANY_PREFIX)){
         //TODO: need to refact this to use start, end, any partial match
-        sb.append(containText(text.substring(2)))
+        sb.append(containText(text.substring(1)))
       }else{
         sb.append(attrText(text))
       }
