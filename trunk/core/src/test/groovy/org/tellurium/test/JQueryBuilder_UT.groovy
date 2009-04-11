@@ -48,6 +48,10 @@ public class JQueryBuilder_UT extends GroovyTestCase {
     String result = JQueryBuilder.containText(text.substring(2))
     assertEquals(":contains(good)", result)
 
+    text = "*good"
+    result = JQueryBuilder.containText(text.substring(2))
+    assertEquals(":contains(good)", result)
+
     text = "good"
     result = JQueryBuilder.attrText(text)
     assertEquals(":text(good)", result)
@@ -72,5 +76,20 @@ public class JQueryBuilder_UT extends GroovyTestCase {
     val = " good' sugges'tion "
     result = JQueryBuilder.attrPairs(key, val)
     assertEquals("[mclazz*=sugges]", result)
+
+    key = "mclazz"
+    val = "^good"
+    result = JQueryBuilder.attrPairs(key, val)
+    assertEquals("[mclazz^=good]", result)
+
+    key = "mclazz"
+    val = "\$good"
+    result = JQueryBuilder.attrPairs(key, val)
+    assertEquals("[mclazz\$=good]", result)
+
+    key = "mclazz"
+    val = "*good"
+    result = JQueryBuilder.attrPairs(key, val)
+    assertEquals("[mclazz*=good]", result)
   }
 }

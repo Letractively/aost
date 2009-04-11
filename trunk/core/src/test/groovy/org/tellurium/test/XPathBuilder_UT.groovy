@@ -64,4 +64,19 @@ class XPathBuilder_UT extends GroovyTestCase{
     assertEquals("/tbody[normalize-space(text())=normalize-space(\"goodwill\") and position()=3 and @id=\"tbodyID1\" and @class]", result)
 
   }
+
+  void testPartialMatch(){
+
+    String result = XPathBuilder.buildXPath(null, "%%Submit", null, null)
+    assertEquals("/descendant-or-self::*[contains(text(),\"Submit\")]", result)
+
+    result =  XPathBuilder.buildXPath(null, "^Submit", null, null)
+    assertEquals("/descendant-or-self::*[starts-with(text(),\"Submit\")]", result)
+
+    result =  XPathBuilder.buildXPath(null, "\$Submit", null, null)
+    assertEquals("/descendant-or-self::*[contains(text(),\"Submit\")]", result)
+
+    result =  XPathBuilder.buildXPath(null, "*Submit", null, null)
+    assertEquals("/descendant-or-self::*[contains(text(),\"Submit\")]", result)    
+  }
 }
