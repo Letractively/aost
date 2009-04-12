@@ -89,37 +89,17 @@
   <component name="DependencyValidationManager">
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
-  <component name="EclipseCompilerSettings">
-    <option name="DEBUGGING_INFO" value="true" />
-    <option name="GENERATE_NO_WARNINGS" value="true" />
-    <option name="DEPRECATION" value="false" />
-    <option name="ADDITIONAL_OPTIONS_STRING" value="" />
-    <option name="MAXIMUM_HEAP_SIZE" value="128" />
-  </component>
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
   <component name="FacetAutodetectingManager">
     <autodetection-disabled>
       <facet-type id="Groovy">
         <modules>
-          <module name="tellurium" />
-          <module name="tellurium-core" />
-          <module name="tellurium-extensions" />
-          <module name="tellurium-extjs-widget" />
-          <module name="tellurium-dojo-widget" />
-          <module name="tellurium-assembly" />
-          <module name="tellurium-tools" />
-          <module name="tellurium-junit-archetype" />
-          <module name="tellurium-testng-archetype" />
-          <module name="tellurium-firefox-plugin" />
-          <module name="tellurium-reference-projects" />
-          <module name="tellurium-junit-java" />
-          <module name="tellurium-testng-java" />
           <module name="engine" />
         </modules>
       </facet-type>
     </autodetection-disabled>
   </component>
-  <component name="IdProvider" IDEtalkID="16B93A46BDAA065155D68428D3B29079" />
+  <component name="IdProvider" IDEtalkID="BB9EA5F93FDE1A776BAAE2C56F5F661C" />
   <component name="InspectionProjectProfileManager">
     <option name="PROJECT_PROFILE" value="Project Default" />
     <option name="USE_PROJECT_LEVEL_SETTINGS" value="false" />
@@ -155,14 +135,6 @@
     <option name="HEAP_SIZE" />
     <option name="LOCALE" />
     <option name="OPEN_IN_BROWSER" value="true" />
-  </component>
-  <component name="JikesSettings">
-    <option name="JIKES_PATH" value="" />
-    <option name="DEBUGGING_INFO" value="true" />
-    <option name="DEPRECATION" value="true" />
-    <option name="GENERATE_NO_WARNINGS" value="false" />
-    <option name="IS_EMACS_ERRORS_MODE" value="true" />
-    <option name="ADDITIONAL_OPTIONS_STRING" value="" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
@@ -297,11 +269,11 @@
     </group>
   </component>
   <component name="ProjectDetails">
-    <option name="projectName" value="tellurium" />
+    <option name="projectName" value="engine" />
   </component>
   <component name="ProjectFileVersion" converted="true" />
   <component name="ProjectKey">
-    <option name="state" value="https://aost.googlecode.com/svn/trunk/tellurium.ipr" />
+    <option name="state" value="https://aost.googlecode.com/svn/trunk/engine/engine.ipr" />
   </component>
   <component name="ProjectLevelVcsManager">
     <OptionsSetting value="true" id="Add" />
@@ -315,26 +287,13 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/engine/engine.iml" filepath="$PROJECT_DIR$/engine/engine.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tellurium.iml" filepath="$PROJECT_DIR$/tellurium.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tellurium-assembly/tellurium-assembly.iml" filepath="$PROJECT_DIR$/tellurium-assembly/tellurium-assembly.iml" />
-      <module fileurl="file://$PROJECT_DIR$/core/tellurium-core.iml" filepath="$PROJECT_DIR$/core/tellurium-core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/extensions/dojo-widget/tellurium-dojo-widget.iml" filepath="$PROJECT_DIR$/extensions/dojo-widget/tellurium-dojo-widget.iml" />
-      <module fileurl="file://$PROJECT_DIR$/extensions/tellurium-extensions.iml" filepath="$PROJECT_DIR$/extensions/tellurium-extensions.iml" />
-      <module fileurl="file://$PROJECT_DIR$/extensions/extjs-widget/tellurium-extjs-widget.iml" filepath="$PROJECT_DIR$/extensions/extjs-widget/tellurium-extjs-widget.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tools/firefox-plugin/tellurium-firefox-plugin.iml" filepath="$PROJECT_DIR$/tools/firefox-plugin/tellurium-firefox-plugin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tools/tellurium-junit-archetype/tellurium-junit-archetype.iml" filepath="$PROJECT_DIR$/tools/tellurium-junit-archetype/tellurium-junit-archetype.iml" />
-      <module fileurl="file://$PROJECT_DIR$/reference-projects/tellurium-junit-java/tellurium-junit-java.iml" filepath="$PROJECT_DIR$/reference-projects/tellurium-junit-java/tellurium-junit-java.iml" />
-      <module fileurl="file://$PROJECT_DIR$/reference-projects/tellurium-reference-projects.iml" filepath="$PROJECT_DIR$/reference-projects/tellurium-reference-projects.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tools/tellurium-testng-archetype/tellurium-testng-archetype.iml" filepath="$PROJECT_DIR$/tools/tellurium-testng-archetype/tellurium-testng-archetype.iml" />
-      <module fileurl="file://$PROJECT_DIR$/reference-projects/tellurium-testng-java/tellurium-testng-java.iml" filepath="$PROJECT_DIR$/reference-projects/tellurium-testng-java/tellurium-testng-java.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tools/tellurium-tools.iml" filepath="$PROJECT_DIR$/tools/tellurium-tools.iml" />
+      <module fileurl="file://$PROJECT_DIR$/engine.iml" filepath="$PROJECT_DIR$/engine.iml" />
     </modules>
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.5" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/classes" />
   </component>
   <component name="ResourceManagerContainer">
@@ -344,12 +303,63 @@
       </value>
     </option>
   </component>
-  <component name="RmicSettings">
-    <option name="IS_EANABLED" value="false" />
-    <option name="DEBUGGING_INFO" value="true" />
-    <option name="GENERATE_NO_WARNINGS" value="false" />
-    <option name="GENERATE_IIOP_STUBS" value="false" />
-    <option name="ADDITIONAL_OPTIONS_STRING" value="" />
+  <component name="RunManager">
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false" runner="emma">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="ADDITIONAL_CLASS_PATH" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+    </configuration>
+    <list size="0" />
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="StarteamConfiguration">
@@ -364,24 +374,6 @@
     <option name="UNLOCK_ON_CHECKIN" value="false" />
   </component>
   <component name="SvnBranchConfigurationManager">
-    <option name="myConfigurationMap">
-      <map>
-        <entry key="$PROJECT_DIR$">
-          <value>
-            <SvnBranchConfiguration>
-              <option name="branchUrls">
-                <list>
-                  <option value="https://aost.googlecode.com/svn/branches" />
-                  <option value="https://aost.googlecode.com/svn/tags" />
-                  <option value="https://aost.googlecode.com/svn/wiki" />
-                </list>
-              </option>
-              <option name="trunkUrl" value="https://aost.googlecode.com/svn/trunk" />
-            </SvnBranchConfiguration>
-          </value>
-        </entry>
-      </map>
-    </option>
     <option name="myVersion" value="124" />
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>
@@ -440,17 +432,6 @@
     <find-history />
   </component>
   <component name="libraryTable">
-    <library name="Maven: junit:junit:4.4">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.4/junit-4.4.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.4/junit-4.4-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.4/junit-4.4-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Maven: org.seleniumhq.selenium.server:selenium-server:1.0-beta-2">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0-beta-2/selenium-server-1.0-beta-2.jar!/" />
@@ -517,6 +498,17 @@
         <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/servlet-api/2.4/servlet-api-2.4-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: bouncycastle:bcprov-jdk15:140">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/bouncycastle/bcprov-jdk15/140/bcprov-jdk15-140.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/bouncycastle/bcprov-jdk15/140/bcprov-jdk15-140-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/bouncycastle/bcprov-jdk15/140/bcprov-jdk15-140-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: org.seleniumhq.selenium.core:selenium-core:1.0-beta-2">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/core/selenium-core/1.0-beta-2/selenium-core-1.0-beta-2.jar!/" />
@@ -550,26 +542,37 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0-beta-2/selenium-server-1.0-beta-2-standalone-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.slf4j:slf4j-api:1.5.6">
+    <library name="Maven: junit:junit:3.8.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.codehaus.plexus:plexus-utils:1.5.5">
+    <library name="Maven: org.openqa.selenium.grid:selenium-grid-tools:1.0.2">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/1.5.5/plexus-utils-1.5.5.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/openqa/selenium/grid/selenium-grid-tools/1.0.2/selenium-grid-tools-1.0.2.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/1.5.5/plexus-utils-1.5.5-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/openqa/selenium/grid/selenium-grid-tools/1.0.2/selenium-grid-tools-1.0.2-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/1.5.5/plexus-utils-1.5.5-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/openqa/selenium/grid/selenium-grid-tools/1.0.2/selenium-grid-tools-1.0.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.codehaus.groovy:groovy-all:1.6.0">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/groovy-all/1.6.0/groovy-all-1.6.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/groovy-all/1.6.0/groovy-all-1.6.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/groovy-all/1.6.0/groovy-all-1.6.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.apache.ant:ant:1.7.1">
@@ -605,26 +608,26 @@
         <root url="jar://$MAVEN_REPOSITORY$/jline/jline/0.9.94/jline-0.9.94-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.codehaus.groovy:groovy-all:1.6.0">
+    <library name="Maven: org.codehaus.groovy.maven.runtime:gmaven-runtime-1.6:1.0-rc-5">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/groovy-all/1.6.0/groovy-all-1.6.0.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/runtime/gmaven-runtime-1.6/1.0-rc-5/gmaven-runtime-1.6-1.0-rc-5.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/groovy-all/1.6.0/groovy-all-1.6.0-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/runtime/gmaven-runtime-1.6/1.0-rc-5/gmaven-runtime-1.6-1.0-rc-5-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/groovy-all/1.6.0/groovy-all-1.6.0-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/runtime/gmaven-runtime-1.6/1.0-rc-5/gmaven-runtime-1.6-1.0-rc-5-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.testng:testng:jdk15:5.8">
+    <library name="Maven: org.slf4j:slf4j-api:1.5.6">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.8/testng-5.8-jdk15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.8/testng-5.8-jdk15-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.8/testng-5.8-jdk15-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.codehaus.groovy.maven.feature:gmaven-feature-support:1.0-rc-5">
@@ -682,6 +685,17 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/gmaven-common/1.0-rc-5/gmaven-common-1.0-rc-5-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: org.codehaus.plexus:plexus-utils:1.5.5">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/1.5.5/plexus-utils-1.5.5.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/1.5.5/plexus-utils-1.5.5-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/1.5.5/plexus-utils-1.5.5-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: com.thoughtworks.qdox:qdox:1.8">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/com/thoughtworks/qdox/qdox/1.8/qdox-1.8.jar!/" />
@@ -693,15 +707,15 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/thoughtworks/qdox/qdox/1.8/qdox-1.8-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.codehaus.groovy.maven.runtime:gmaven-runtime-1.6:1.0-rc-5">
+    <library name="Maven: tellurium:tellurium-core:0.6.0-SNAPSHOT">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/runtime/gmaven-runtime-1.6/1.0-rc-5/gmaven-runtime-1.6-1.0-rc-5.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-core/0.6.0-SNAPSHOT/tellurium-core-0.6.0-SNAPSHOT.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/runtime/gmaven-runtime-1.6/1.0-rc-5/gmaven-runtime-1.6-1.0-rc-5-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-core/0.6.0-SNAPSHOT/tellurium-core-0.6.0-SNAPSHOT-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/runtime/gmaven-runtime-1.6/1.0-rc-5/gmaven-runtime-1.6-1.0-rc-5-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-core/0.6.0-SNAPSHOT/tellurium-core-0.6.0-SNAPSHOT-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: caja:json_simple:r1">
@@ -724,39 +738,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/stringtree/stringtree-json/2.0.10/stringtree-json-2.0.10-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: bouncycastle:bcprov-jdk15:140">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/bouncycastle/bcprov-jdk15/140/bcprov-jdk15-140.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/bouncycastle/bcprov-jdk15/140/bcprov-jdk15-140-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/bouncycastle/bcprov-jdk15/140/bcprov-jdk15-140-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: junit:junit:3.8.1">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.openqa.selenium.grid:selenium-grid-tools:1.0.2">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/openqa/selenium/grid/selenium-grid-tools/1.0.2/selenium-grid-tools-1.0.2.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/openqa/selenium/grid/selenium-grid-tools/1.0.2/selenium-grid-tools-1.0.2-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/openqa/selenium/grid/selenium-grid-tools/1.0.2/selenium-grid-tools-1.0.2-sources.jar!/" />
       </SOURCES>
     </library>
   </component>
