@@ -54,7 +54,7 @@ public class JQueryBuilder_UT extends GroovyTestCase {
 
     text = "good"
     result = JQueryBuilder.attrText(text)
-    assertEquals(":text(good)", result)
+    assertEquals(":te_text(good)", result)
 
     text = "I'm Feeling Lucky"
     result = JQueryBuilder.attrText(text)

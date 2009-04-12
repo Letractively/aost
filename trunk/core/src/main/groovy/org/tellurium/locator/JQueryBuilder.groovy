@@ -28,7 +28,8 @@ public class JQueryBuilder {
 
   //represent it is a partial match i.e., contains
   private static final String CONTAIN_PREFIX = "%%"
-
+  protected static final String TEXT_PSEUDO_CLASS = ":te_text"
+  
   protected static final String ID = "id"
   protected static final String CLASS = "class"
 
@@ -68,12 +69,12 @@ public class JQueryBuilder {
     //need the following custom selector ":text()" support
     /*
       $.extend($.expr[':'],{
-        text: function(a,i,m) {
+        te_text: function(a,i,m) {
            return $(a).text() === m[3];
         }
       });
      */
-    return ":text(${val})"
+    return "${TEXT_PSEUDO_CLASS}(${val})"
   }
 
   //starts from zero
