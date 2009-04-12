@@ -80,8 +80,8 @@ public class SeleniumServerDaemon {
 	public void run() {
 		RemoteControlConfiguration config = new RemoteControlConfiguration();
 		config.port = port;
-//		config.multiWindow = useMultiWindows;
-        config.setSingleWindow(!this.useMultiWindows);
+		config.multiWindow = useMultiWindows;
+//        config.setSingleWindow(!this.useMultiWindows);
       
 //		config.setProxyInjectionModeArg(true); //this may not be needed, or atleast needs to be configurable
         if(this.profileLocation != null && this.profileLocation.trim().length() > 0){
