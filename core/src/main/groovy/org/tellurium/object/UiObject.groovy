@@ -156,7 +156,11 @@ abstract class UiObject implements Cloneable{
     public String getSelector(Closure c){
       return c(locator)
     }
-  
+
+    public String[] getCSS(String cssName, Closure c){
+      return c(locator)
+    }
+
     public String waitForText(int timeout, Closure c){
       return c(locator, timeout)
     }

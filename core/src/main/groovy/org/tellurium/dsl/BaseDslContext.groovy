@@ -826,4 +826,15 @@ abstract class BaseDslContext {
     
     return locator
   }
+
+  String[] getCSS(String uid, String cssName){
+    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+
+    walkToWithException(context, uid)?.getCSS(cssName) {loc ->
+      String locator = locatorMapping(context, loc)
+      String out = extension.getCSS(locator, cssName)
+
+      return (ArrayList) parseSeleniumJSONReturnValue(out)
+    }
+  }
 }

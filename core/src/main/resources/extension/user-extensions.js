@@ -68,3 +68,13 @@ Selenium.prototype.getJQuerySelectorCount = function(locator){
 
 	return e.length;
 };
+
+
+Selenium.prototype.getCSS = function(locator, cssName){
+	var e = this.browserbot.findElement(locator);
+	var out = [];
+	for(var i = 0; i < e.length; i++){
+		out.push($(e[i]).css(cssName));
+	}
+	return JSON.stringify(out);
+};
