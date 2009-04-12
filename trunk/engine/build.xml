@@ -96,7 +96,7 @@
 
     <target name="update-selenium-server" >
 		<jar destfile="${dir.lib}/selenium-server.jar"
-             basedir="${dir.source.resources}/core"
+             basedir="${dir.source.resources}"
              update="true" />
 	</target>
 
