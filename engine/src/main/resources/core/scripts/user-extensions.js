@@ -2,11 +2,11 @@
 //
 // Keep this file to avoid  mystifying "Invalid Character" error in IE
 
-//add custom jQuery Selector :text()
+//add custom jQuery Selector :te_text()
 //
 
 $.extend($.expr[':'],{
-  text: function(a,i,m) {
+  te_text: function(a,i,m) {
             return $(a).text() === m[3];
         }
 });
