@@ -35,4 +35,10 @@ public class TelluriumDownSearchTestCase extends TelluriumJavaTestCase {
     public void testHelp(){
         app.clickHelp();    
     }
+
+    @Test
+    public void testCSS(){
+        String[] css = app.getTableCSS("color");
+        assertNotNull(css);
+    }
 }
