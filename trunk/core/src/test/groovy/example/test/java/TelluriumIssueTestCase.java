@@ -40,5 +40,11 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         String[] details = tisp.getAllText();
         assertNotNull(details);
         assertEquals(details.length, count);
-    }  
+    }
+
+    @Test
+    public void testCSS(){
+        String[] css = tisp.getTableCSS("font-size");
+        assertNotNull(css);
+    }
 }

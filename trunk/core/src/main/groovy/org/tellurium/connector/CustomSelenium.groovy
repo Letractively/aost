@@ -51,6 +51,12 @@ class CustomSelenium extends DefaultSelenium {
 		return st;
 	}
 
+    def String getCSS(String locator, String cssName){
+		String[] arr = [locator, cssName];
+		String st = commandProcessor.doCommand("getCSS", arr);
+		return st;
+	}
+
     def Number getJQuerySelectorCount(String locator){
 		String[] arr = [locator];
 		Number num = commandProcessor.getNumber("getJQuerySelectorCount", arr);
