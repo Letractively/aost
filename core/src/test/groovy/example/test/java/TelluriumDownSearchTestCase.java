@@ -38,7 +38,7 @@ public class TelluriumDownSearchTestCase extends TelluriumJavaTestCase {
 
     @Test
     public void testCSS(){
-        String[] css = app.getTableCSS("color");
+        String[] css = app.getTableCSS("font-size");
         assertNotNull(css);
     }
 }
