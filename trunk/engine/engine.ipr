@@ -374,6 +374,301 @@
     <option name="UNLOCK_ON_CHECKIN" value="false" />
   </component>
   <component name="SvnBranchConfigurationManager">
+    <option name="myConfigurationMap">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchMap">
+                <map>
+                  <entry key="https://aost.googlecode.com/svn/branches">
+                    <value>
+                      <list>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1239149388661" />
+                          <option name="revision" value="1338" />
+                          <option name="url" value="https://aost.googlecode.com/svn/branches/core-engine-prototype" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1236286348222" />
+                          <option name="revision" value="1166" />
+                          <option name="url" value="https://aost.googlecode.com/svn/branches/firefox2" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1234501435783" />
+                          <option name="revision" value="943" />
+                          <option name="url" value="https://aost.googlecode.com/svn/branches/firefox-plugin-undeletelogger" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1232561594536" />
+                          <option name="revision" value="785" />
+                          <option name="url" value="https://aost.googlecode.com/svn/branches/core-jlocator" />
+                        </SvnBranchItem>
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="https://aost.googlecode.com/svn/tags">
+                    <value>
+                      <list>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1236219533417" />
+                          <option name="revision" value="1161" />
+                          <option name="url" value="https://aost.googlecode.com/svn/tags/trump-0.1.0-FF2" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1236219403409" />
+                          <option name="revision" value="1159" />
+                          <option name="url" value="https://aost.googlecode.com/svn/tags/trump-0.1.0-FF3" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1232773556078" />
+                          <option name="revision" value="818" />
+                          <option name="url" value="https://aost.googlecode.com/svn/tags/trump-0124" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1228672353323" />
+                          <option name="revision" value="743" />
+                          <option name="url" value="https://aost.googlecode.com/svn/tags/tellurium-0.5.0-maven-release" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1228279750345" />
+                          <option name="revision" value="711" />
+                          <option name="url" value="https://aost.googlecode.com/svn/tags/reference-projects-0.5.0" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1228279591121" />
+                          <option name="revision" value="710" />
+                          <option name="url" value="https://aost.googlecode.com/svn/tags/tellurium-0.5.0" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1228168520843" />
+                          <option name="revision" value="701" />
+                          <option name="url" value="https://aost.googlecode.com/svn/tags/pre-trump-ide" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1220302409739" />
+                          <option name="revision" value="387" />
+                          <option name="url" value="https://aost.googlecode.com/svn/tags/aost-0.3.0" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1220300760066" />
+                          <option name="revision" value="386" />
+                          <option name="url" value="https://aost.googlecode.com/svn/tags/tellurium-pre-split" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1220300572796" />
+                          <option name="revision" value="385" />
+                          <option name="url" value="https://aost.googlecode.com/svn/tags/aost-0.2.2" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1220300517275" />
+                          <option name="revision" value="383" />
+                          <option name="url" value="https://aost.googlecode.com/svn/tags/aost-0.2.0" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1218596357582" />
+                          <option name="revision" value="305" />
+                          <option name="url" value="https://aost.googlecode.com/svn/tags/tellurium-0.4.0" />
+                        </SvnBranchItem>
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="https://aost.googlecode.com/svn/wiki">
+                    <value>
+                      <list>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1239420091557" />
+                          <option name="revision" value="1363" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/Resources.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1239284600478" />
+                          <option name="revision" value="1345" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/UserGuide.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1239045920954" />
+                          <option name="revision" value="1336" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/ContributorList.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1238204818752" />
+                          <option name="revision" value="1320" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/MavenHowTo.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1237871491099" />
+                          <option name="revision" value="1290" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/TenMinutesToTellurium.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1237871445251" />
+                          <option name="revision" value="1289" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/TelluriumMavenArchetypes.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1237612718305" />
+                          <option name="revision" value="1274" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/TrUMP.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1237080024750" />
+                          <option name="revision" value="1248" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/Tutorial.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1236571678042" />
+                          <option name="revision" value="1179" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/FAQ.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1236317057239" />
+                          <option name="revision" value="1167" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/announcements.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1236217081093" />
+                          <option name="revision" value="1157" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/Roadmap.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1235586132726" />
+                          <option name="revision" value="1105" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/LogicalContainer.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1235435441853" />
+                          <option name="revision" value="1088" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/HowTrUMPWorks.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1235345347339" />
+                          <option name="revision" value="1070" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/ReferenceProjectGuide.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1235339966669" />
+                          <option name="revision" value="1068" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/Introduction.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1235339790116" />
+                          <option name="revision" value="1065" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/TrUMP_Old.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1235339158758" />
+                          <option name="revision" value="1063" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/UserExperiences.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1230788981613" />
+                          <option name="revision" value="752" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/TelluriumWidget.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1227153000499" />
+                          <option name="revision" value="692" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/BasicExample.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1227078536043" />
+                          <option name="revision" value="687" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/Tellurium_A_New_Approach_for_Web_Test.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1223218999209" />
+                          <option name="revision" value="630" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/HowToContribute.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1222313741805" />
+                          <option name="revision" value="622" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/DataDrivenTesting.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1222293865903" />
+                          <option name="revision" value="620" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/HowToConvertSeleniumTestToTellurium.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1221175330776" />
+                          <option name="revision" value="569" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/CustomTelluriumNetBeansProject.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1221085040700" />
+                          <option name="revision" value="560" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/CustomTelluriumIntelliJProject.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1220929091295" />
+                          <option name="revision" value="556" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/ProjectRules.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1220843692908" />
+                          <option name="revision" value="501" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/TelluriumReferenceProjectEclipseSetup.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1220843642269" />
+                          <option name="revision" value="500" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/TelluriumReferenceProjectNetBeansSetup.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1220843031190" />
+                          <option name="revision" value="499" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/TelluriumReferenceProjectIntelliJSetup.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1220822242007" />
+                          <option name="revision" value="492" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/CustomTelluriumEclipseProject.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1220731327845" />
+                          <option name="revision" value="483" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/GroovyPatternsInTellurium.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1218566971025" />
+                          <option name="revision" value="292" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/TelluriumStarterUsingNetBeans.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1218503172273" />
+                          <option name="revision" value="257" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/DSLExample.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1218486230733" />
+                          <option name="revision" value="238" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/DataDrivenTestingExample.wiki" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
+                          <option name="creationDateMillis" value="1218486116871" />
+                          <option name="revision" value="237" />
+                          <option name="url" value="https://aost.googlecode.com/svn/wiki/AdvancedExample.wiki" />
+                        </SvnBranchItem>
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="branchUrls">
+                <list>
+                  <option value="https://aost.googlecode.com/svn/branches" />
+                  <option value="https://aost.googlecode.com/svn/tags" />
+                  <option value="https://aost.googlecode.com/svn/wiki" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="https://aost.googlecode.com/svn/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="myVersion" value="124" />
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>

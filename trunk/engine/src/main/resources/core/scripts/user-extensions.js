@@ -46,27 +46,27 @@ Selenium.prototype.getSelectorFunctionCall = function(jq, fn){
 };
 
 Selenium.prototype.getAllText = function(locator){
-	var e = this.browserbot.findElement(locator);
+	var $e = $(this.browserbot.findElement(locator));
 	var out = [];
-	for(var i = 0; i < e.length; i++){
-		out.push($(e[i]).text());
-	}
+	$e.each(function(){
+		out.push($(this).text());
+	});
 	return JSON.stringify(out);
 };
 
 Selenium.prototype.getJQuerySelectorCount = function(locator){
-	var e = this.browserbot.findElement(locator);
-    if(e == null)
+	var $e = $(this.browserbot.findElement(locator));
+    if($e == null)
         return 0;
 
-	return e.length;
+	return $e.length;
 };
 
 Selenium.prototype.getCSS = function(locator, cssName){
-	var e = this.browserbot.findElement(locator);
+	var $e = $(this.browserbot.findElement(locator));
 	var out = [];
-	for(var i = 0; i < e.length; i++){
-		out.push($(e[i]).css(cssName));
-	}
+	$e.each(function(){
+		out.push($(this).css(cssName));
+	});
 	return JSON.stringify(out);
 };
