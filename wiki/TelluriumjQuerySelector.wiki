@@ -1,0 +1,35 @@
+#summary Tellurium jQuery Selector.
+#labels Phase-Design,Phase-Support
+
+= Introduction =
+
+Start from version 0.6.0, Tellurium adds support for jQuery selector to address the problem that xpath is way too slow in IE web browser. 
+
+Tellurium automatically builds runtime xpath or jQuery selector based on a flag _exploreJQuerySelector_ in DslContext, which is false by default. To use jQuery selector, you should call 
+
+{{{
+useJQuerySelector()
+}}}
+
+and use
+
+{{{
+disableJQuerySelector()
+}}}
+
+to go back to XPath as shown in the following diagram.
+
+
+http://tellurium-users.googlegroups.com/web/jqueryxpath.png?gda=6PAnKEEAAACXZPxEX7Ki-M5C2JpeBoXXSeCZLNZLSTKezjdQbQSZ7bErkxyCRchkHxw6zyngrBhTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=yWkUQBYAAABg2sP7OurkFA0-Ab9h6nxKaKk2tFLs90LD5qOQGCC3Kw
+
+Be aware that jQuery selector only works for composite locator, i.e., _clocator_. If you have base locator, which is xpath, then the jQuery selector will not work for you.
+
+
+= How jQuery Selector Works ? =
+
+= New Features provided by jQuery Selector =
+
+= Performance Comparison =
+
+= Reference Materials =
+
