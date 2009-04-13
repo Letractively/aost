@@ -53,7 +53,7 @@ Selenium.prototype.getSelectorFunctionCall = function(jq, fn){
 };
 
 Selenium.prototype.getAllText = function(locator){
-	var $e = $(this.browserbot.findElement(locator)_;
+	var $e = $(this.browserbot.findElement(locator);
 	var out = [];
 	$e.each(function(){
 		out.push($(this).text());
