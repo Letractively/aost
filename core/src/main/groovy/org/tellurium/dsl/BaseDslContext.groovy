@@ -108,7 +108,19 @@ abstract class BaseDslContext {
     this.exploreJQuerySelector = false
     locatorProcessor.disableJQuerySelector()
   }
-  
+
+  public void useDefaultXPathLibrary() {
+    accessor.useXpathLibrary(DEFAULT_XPATH)
+  }
+
+  public void useJavascriptXPathLibrary() {
+    accessor.useXpathLibrary(JAVASCRIPT_XPATH)
+  }
+
+  public void useAjaxsltXPathLibrary() {
+    accessor.useXpathLibrary(AJAXSLT_XPATH)
+  }
+
   //uid should use the format table2[2][3] for Table or list[2] for List
   def getUiElement(String uid) {
     WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
@@ -123,47 +135,6 @@ abstract class BaseDslContext {
       return obj
 
     throw new UiObjectNotFoundException("${ERROR_MESSAGE} ${uid}")
-  }
-
-  def mouseOver(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
-
-    walkToWithException(context, uid)?.mouseOver() {loc ->
-      String locator = locatorMapping(context, loc)
-      eventHandler.mouseOver(locator)
-    }
-  }
-
-  def mouseOut(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
-
-    walkToWithException(context, uid)?.mouseOut() {loc ->
-      String locator = locatorMapping(context, loc)
-      eventHandler.mouseOut(locator)
-    }
-  }
-
-  def dragAndDrop(String uid, String movementsString) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
-
-    walkToWithException(context, uid)?.dragAndDrop(movementsString) {loc ->
-      String locator = locatorMapping(context, loc)
-      eventHandler.dragAndDrop(locator, movementsString)
-    }
-  }
-
-  def dragAndDropTo(String sourceUid, String targetUid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
-    def src = walkToWithException(context, sourceUid)
-
-    WorkflowContext ncontext = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
-    def target = walkToWithException(ncontext, targetUid)
-
-    if (src != null && target != null) {
-      String srcLocator = locatorMapping(context, src.locator)
-      String targetLocator = locatorMapping(ncontext, target.locator)
-      eventHandler.dragAndDropToObject(srcLocator, targetLocator)
-    }
   }
 
   def click(String uid) {
@@ -520,43 +491,6 @@ abstract class BaseDslContext {
     }
   }
 
-  def getAttribute(String uid, String attribute) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
-    walkToWithException(context, uid)?.getAttribute(attribute) {loc, attr ->
-      String locator = locatorMapping(context, loc)
-      if(this.exploreJQuerySelector){
-        return accessor.getAttribute(locator + "@${attr}")
-      }else{
-        return accessor.getAttribute(locator + "/self::node()@${attr}")
-      }
-    }
-  }
-
-  def hasCssClass(String uid, String cssClass) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
-    String[] strings = walkToWithException(context, uid)?.hasCssClass() {loc, classAttr ->
-      String locator = locatorMapping(context, loc)
-      String clazz
-      if(this.exploreJQuerySelector){
-        clazz = accessor.getAttribute(locator + "@${classAttr}")
-      }else{
-        clazz = accessor.getAttribute(locator + "/self::node()@${classAttr}")
-      }
-      if(clazz != null && clazz.trim().length() > 0){
-        return clazz.split(" ")
-      }
-      return null
-    }
-    if (strings?.length) {
-      for (i in 0..strings?.length) {
-        if (cssClass.equalsIgnoreCase(strings[i])) {
-          return true
-        }
-      }
-    }
-    return false
-  }
-
   def submit(String uid) {
     WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
     walkToWithException(context, uid)?.submit() {loc ->
@@ -578,33 +512,49 @@ abstract class BaseDslContext {
     accessor.waitForPageToLoad(Integer.toString(timeout))
   }
 
-  Number getXpathCount(String xpath) {
-    return accessor.getXpathCount(xpath)
-  }
-
-  Number getJQuerySelectorCount(String jQuerySelector){
-    String jq = jQuerySelector
-    if(!jq.startsWith(JQUERY_SELECTOR)){
-      jq=JQUERY_SELECTOR + jQuerySelector
-    }
-    
-    return extension.getJQuerySelectorCount(jq)
-  }
-  
   String getEval(String script) {
     return accessor.getEval(script)
   }
 
-  public void useDefaultXPathLibrary() {
-    accessor.useXpathLibrary(DEFAULT_XPATH)
+  def mouseOver(String uid) {
+    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+
+    walkToWithException(context, uid)?.mouseOver() {loc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.mouseOver(locator)
+    }
   }
 
-  public void useJavascriptXPathLibrary() {
-    accessor.useXpathLibrary(JAVASCRIPT_XPATH)
+  def mouseOut(String uid) {
+    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+
+    walkToWithException(context, uid)?.mouseOut() {loc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.mouseOut(locator)
+    }
   }
 
-  public void useAjaxsltXPathLibrary() {
-    accessor.useXpathLibrary(AJAXSLT_XPATH)
+  def dragAndDrop(String uid, String movementsString) {
+    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+
+    walkToWithException(context, uid)?.dragAndDrop(movementsString) {loc ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.dragAndDrop(locator, movementsString)
+    }
+  }
+
+  def dragAndDropTo(String sourceUid, String targetUid) {
+    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    def src = walkToWithException(context, sourceUid)
+
+    WorkflowContext ncontext = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    def target = walkToWithException(ncontext, targetUid)
+
+    if (src != null && target != null) {
+      String srcLocator = locatorMapping(context, src.locator)
+      String targetLocator = locatorMapping(ncontext, target.locator)
+      eventHandler.dragAndDropToObject(srcLocator, targetLocator)
+    }
   }
 
   def mouseDown(String uid) {
@@ -688,6 +638,26 @@ abstract class BaseDslContext {
     }
   }
 
+  Number getXpathCount(String xpath) {
+    return accessor.getXpathCount(xpath)
+  }
+
+  Number getJQuerySelectorCount(String jQuerySelector){
+    String jq = jQuerySelector
+    if(!jq.startsWith(JQUERY_SELECTOR)){
+      jq=JQUERY_SELECTOR + jQuerySelector
+    }
+
+    return extension.getJQuerySelectorCount(jq)
+  }
+
+  Number getLocatorCount(String locator){
+    if(this.exploreJQuerySelector)
+      return getJQuerySelectorCount(locator)
+
+    return getXpathCount(locator)
+  }
+  
   String getXPath(String uid) {
     WorkflowContext context = WorkflowContext.getDefaultContext()
     walkToWithException(context, uid)?.getXPath() {loc ->
@@ -971,4 +941,41 @@ abstract class BaseDslContext {
 
       return isDisabledByXPath(uid)
     }
+
+  def getAttribute(String uid, String attribute) {
+    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    walkToWithException(context, uid)?.getAttribute(attribute) {loc, attr ->
+      String locator = locatorMapping(context, loc)
+      if(this.exploreJQuerySelector){
+        return accessor.getAttribute(locator + "@${attr}")
+      }else{
+        return accessor.getAttribute(locator + "/self::node()@${attr}")
+      }
+    }
+  }
+
+  def hasCssClass(String uid, String cssClass) {
+    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    String[] strings = walkToWithException(context, uid)?.hasCssClass() {loc, classAttr ->
+      String locator = locatorMapping(context, loc)
+      String clazz
+      if(this.exploreJQuerySelector){
+        clazz = accessor.getAttribute(locator + "@${classAttr}")
+      }else{
+        clazz = accessor.getAttribute(locator + "/self::node()@${classAttr}")
+      }
+      if(clazz != null && clazz.trim().length() > 0){
+        return clazz.split(" ")
+      }
+      return null
+    }
+    if (strings?.length) {
+      for (i in 0..strings?.length) {
+        if (cssClass.equalsIgnoreCase(strings[i])) {
+          return true
+        }
+      }
+    }
+    return false
+  }
 }
