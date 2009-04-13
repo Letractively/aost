@@ -62,13 +62,12 @@ Selenium.prototype.getAllText = function(locator){
 };
 
 Selenium.prototype.getJQuerySelectorCount = function(locator){
-	var e = this.browserbot.findElement(locator);
-    if(e == null)
+	var $e = $(this.browserbot.findElement(locator));
+    if($e == null)
         return 0;
 
-	return e.length;
+	return $e.length;
 };
-
 
 Selenium.prototype.getCSS = function(locator, cssName){
 	var $e = $(this.browserbot.findElement(locator));
