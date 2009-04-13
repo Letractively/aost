@@ -157,11 +157,11 @@ class Table_UT extends GroovyTestCase{
   void testTable11(){
     Table11 table11 = new Table11()
     table11.defineUi()
-    String result = table11.getLocator("Actions.header[1]")
+    String result = table11.getXPath("Actions.header[1]")
     assertNotNull(result)
     assertEquals("/descendant-or-self::*[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::th]/descendant-or-self::th[1]", result)
 
-    result = table11.getLocator("Test")
+    result = table11.getXPath("Test")
     assertEquals("/descendant-or-self::*[@id=\"xyz\"]", result)
   }
 }

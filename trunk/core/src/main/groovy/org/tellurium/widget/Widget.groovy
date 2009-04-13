@@ -382,7 +382,7 @@ abstract class Widget extends UiObject {
     WorkflowContext context = WorkflowContext.getDefaultContext()
     def obj = walkToWithException(context, uid)
 
-    return obj.getTableHeaderColumnNum {loc ->
+    return obj.getTableHeaderColumnNumByXPath {loc ->
       String locator = locatorMapping(context, loc)
       locator
     }
@@ -392,7 +392,7 @@ abstract class Widget extends UiObject {
     WorkflowContext context = WorkflowContext.getDefaultContext()
     def obj = walkToWithException(context, uid)
 
-    return obj.getTableFootColumnNum {loc ->
+    return obj.getTableFootColumnNumByXPath {loc ->
       String locator = locatorMapping(context, loc)
       locator
     }
@@ -402,7 +402,7 @@ abstract class Widget extends UiObject {
     WorkflowContext context = WorkflowContext.getDefaultContext()
     def obj = walkToWithException(context, uid)
 
-    return obj.getTableMaxRowNum() {loc ->
+    return obj.getTableMaxRowNumByXPath() {loc ->
       String locator = locatorMapping(context, loc)
       locator
     }
@@ -412,7 +412,7 @@ abstract class Widget extends UiObject {
     WorkflowContext context = WorkflowContext.getDefaultContext()
     def obj = walkToWithException(context, uid)
 
-    return obj.getTableMaxColumnNum() {loc ->
+    return obj.getTableMaxColumnNumByXPath() {loc ->
       String locator = locatorMapping(context, loc)
       locator
     }
@@ -422,7 +422,7 @@ abstract class Widget extends UiObject {
     WorkflowContext context = WorkflowContext.getDefaultContext()
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
 
-    return obj.getTableMaxRowNumForTbody(ntbody) {loc ->
+    return obj.getTableMaxRowNumForTbodyByXPath(ntbody) {loc ->
       String locator = locatorMapping(context, loc)
       locator
     }
@@ -432,7 +432,7 @@ abstract class Widget extends UiObject {
     WorkflowContext context = WorkflowContext.getDefaultContext()
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
 
-    return obj.getTableMaxColumnNumForTbody(ntbody) {loc ->
+    return obj.getTableMaxColumnNumForTbodyByXPath(ntbody) {loc ->
       String locator = locatorMapping(context, loc)
       locator
     }
@@ -442,7 +442,7 @@ abstract class Widget extends UiObject {
     WorkflowContext context = WorkflowContext.getDefaultContext()
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
 
-    return obj.getTableMaxTbodyNum() {loc ->
+    return obj.getTableMaxTbodyNumByXPath() {loc ->
       String locator = locatorMapping(context, loc)
       locator
     }

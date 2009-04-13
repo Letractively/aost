@@ -12,39 +12,40 @@ import org.tellurium.object.Container
  *
  */
 abstract class UiObject implements Cloneable{
-    /*
-      Let UI Object be a pure data structure and only include placeholders for
-      methods wich should be responsed to.
 
-      decoupling them and let them be handled by DSL ddc framework
+  /*
+  Let UI Object be a pure data structure and only include placeholders for
+  methods wich should be responsed to.
+
+  decoupling them and let them be handled by DSL ddc framework
 
 
-      TODO: some ui object must be reactive to certain Events such as kekUP,
-       We must add that feature in so that the UI object will automatically add
-       the event during the simulation.
+  TODO: some ui object must be reactive to certain Events such as kekUP,
+   We must add that feature in so that the UI object will automatically add
+   the event during the simulation.
 
-      Another good idea is to let the ui object to be specific in the last element
-      in the xpath, the element before it should be just a reference xpath.
-      For example, an input box should be //input[@attribute] for the last part of
-      the xpath. A url link usually should be //a[@attribute]
-      In that way, we can have (reference xpath + inherent xpath) to be the actual
-      xpath.
-      For example,
-        An input box has the xpath
-           //div[contains(@uid,'showmanager_modlet_ShowManTaskCoordinator')]/descendant::div[contains(@uid,'jupiter_widget_SearchTextbox')]/descendant::input[@type='button' and @dojoattachpoint='dap_findBtn']
-        Here
-           //div[contains(@uid,'showmanager_modlet_ShowManTaskCoordinator')]/descendant::div[contains(@uid,'jupiter_widget_SearchTextbox')]
+  Another good idea is to let the ui object to be specific in the last element
+  in the xpath, the element before it should be just a reference xpath.
+  For example, an input box should be //input[@attribute] for the last part of
+  the xpath. A url link usually should be //a[@attribute]
+  In that way, we can have (reference xpath + inherent xpath) to be the actual
+  xpath.
+  For example,
+    An input box has the xpath
+       //div[contains(@uid,'showmanager_modlet_ShowManTaskCoordinator')]/descendant::div[contains(@uid,'jupiter_widget_SearchTextbox')]/descendant::input[@type='button' and @dojoattachpoint='dap_findBtn']
+    Here
+       //div[contains(@uid,'showmanager_modlet_ShowManTaskCoordinator')]/descendant::div[contains(@uid,'jupiter_widget_SearchTextbox')]
 
-        is the reference xpath and
-           input[@type='button' and @dojoattachpoint='dap_findBtn'] is the inherent xpath, i.e., it is specific for that ui object
+    is the reference xpath and
+       input[@type='button' and @dojoattachpoint='dap_findBtn'] is the inherent xpath, i.e., it is specific for that ui object
 
-       The same idea can be applied to a group of composited ui objects.
+   The same idea can be applied to a group of composited ui objects.
 
-       The composited ui objects always come with a reference xpath and each ui object inside the composited ui object
-       has the xpath in the format:
-            group reference xpath + reference xpath (related the the group reference xpath) + inherent xpath
-            
-      */
+   The composited ui objects always come with a reference xpath and each ui object inside the composited ui object
+   has the xpath in the format:
+        group reference xpath + reference xpath (related the the group reference xpath) + inherent xpath
+
+  */
 
     String uid
     String namespace
@@ -148,7 +149,7 @@ abstract class UiObject implements Cloneable{
         c(locator)
     }
 
-    public String getLocator(Closure c){
+    public String getXPath(Closure c){
 
       return c(locator)
     }

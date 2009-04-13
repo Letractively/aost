@@ -406,108 +406,6 @@ abstract class BaseDslContext {
     }
   }
 
-  //This only works for jQuery selector
-  String[] getAllTableCellText(String uid){
-    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
-    return walkToWithException(context, uid)?.getAllTableCellText(){loc, cell ->
-      String locator = locatorMapping(context, loc)
-      locator = locator + cell
-      String out = extension.getAllText(locator)
-
-      return (ArrayList) parseSeleniumJSONReturnValue(out)
-    }
-  }
-
-  //This only works for jQuery selector and Standard Table
-  String[] getAllTableCellTextForTbody(String uid, int index){
-    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
-    return walkToWithException(context, uid)?.getAllTableCellTextForTbody(index){loc, cell ->
-      String locator = locatorMapping(context, loc)
-      locator = locator + cell
-      String out = extension.getAllText(locator)
-
-      return (ArrayList) parseSeleniumJSONReturnValue(out)
-    }
-  }
-
-  int getTableHeaderColumnNum(String uid) {
-//    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
-    //for get counter, still force to use xpath
-    WorkflowContext context = WorkflowContext.getDefaultContext()
-    def obj = walkToWithException(context, uid)
-
-    return obj.getTableHeaderColumnNum {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
-    }
-  }
-
-  int getTableFootColumnNum(String uid) {
-    WorkflowContext context = WorkflowContext.getDefaultContext()
-    //WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
-    def obj = walkToWithException(context, uid)
-
-    return obj.getTableFootColumnNum {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
-    }
-  }
-
-  int getTableMaxRowNum(String uid) {
-//    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
-    WorkflowContext context = WorkflowContext.getDefaultContext()
-    def obj = walkToWithException(context, uid)
-
-    return obj.getTableMaxRowNum() {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
-    }
-  }
-
-  int getTableMaxColumnNum(String uid) {
-//    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
-    WorkflowContext context = WorkflowContext.getDefaultContext()
-    def obj = walkToWithException(context, uid)
-
-    return obj.getTableMaxColumnNum() {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
-    }
-  }
-
-  int getTableMaxRowNumForTbody(String uid, int ntbody) {
-    WorkflowContext context = WorkflowContext.getDefaultContext()
-    //WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
-    StandardTable obj = (StandardTable) walkToWithException(context, uid)
-
-    return obj.getTableMaxRowNumForTbody(ntbody) {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
-    }
-  }
-
-  int getTableMaxColumnNumForTbody(String uid, int ntbody) {
-    WorkflowContext context = WorkflowContext.getDefaultContext()
-//    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
-    StandardTable obj = (StandardTable) walkToWithException(context, uid)
-
-    return obj.getTableMaxColumnNumForTbody(ntbody) {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
-    }
-  }
-
-  int getTableMaxTbodyNum(String uid) {
-    WorkflowContext context = WorkflowContext.getDefaultContext()
-//    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
-    StandardTable obj = (StandardTable) walkToWithException(context, uid)
-
-    return obj.getTableMaxTbodyNum() {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
-    }
-  }
-
   int getListSize(String uid) {
     WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
     org.tellurium.object.List obj = (org.tellurium.object.List) walkToWithException(context, uid)
@@ -801,9 +699,9 @@ abstract class BaseDslContext {
     }
   }
 
-  String getLocator(String uid) {
+  String getXPath(String uid) {
     WorkflowContext context = WorkflowContext.getDefaultContext()
-    walkToWithException(context, uid)?.getLocator() {loc ->
+    walkToWithException(context, uid)?.getXPath() {loc ->
       locatorMapping(context, loc)
     }
 
@@ -827,6 +725,14 @@ abstract class BaseDslContext {
     return locator
   }
 
+  String getLocator(String uid){
+    if(this.exploreJQuerySelector){
+      return getSelector(uid)
+    }
+
+    return getXPath(uid)
+  }
+
   String[] getCSS(String uid, String cssName){
     WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
 
@@ -836,5 +742,219 @@ abstract class BaseDslContext {
 
       return (ArrayList) parseSeleniumJSONReturnValue(out)
     }
+  }
+
+  //This only works for jQuery selector
+  String[] getAllTableCellText(String uid){
+    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    return walkToWithException(context, uid)?.getAllTableCellText(){loc, cell ->
+      String locator = locatorMapping(context, loc)
+      locator = locator + cell
+      String out = extension.getAllText(locator)
+
+      return (ArrayList) parseSeleniumJSONReturnValue(out)
+    }
+  }
+
+  //This only works for jQuery selector and Standard Table
+  String[] getAllTableCellTextForTbody(String uid, int index){
+    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    return walkToWithException(context, uid)?.getAllTableCellTextForTbody(index){loc, cell ->
+      String locator = locatorMapping(context, loc)
+      locator = locator + cell
+      String out = extension.getAllText(locator)
+
+      return (ArrayList) parseSeleniumJSONReturnValue(out)
+    }
+  }
+
+  int getTableHeaderColumnNumByXPath(String uid) {
+    //force to use xpath
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
+
+    return obj.getTableHeaderColumnNumByXPath {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
+    }
+  }
+
+  int getTableFootColumnNumByXPath(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
+
+    return obj.getTableFootColumnNumByXPath {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
+    }
+  }
+
+  int getTableMaxRowNumByXPath(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
+
+    return obj.getTableMaxRowNumByXPath() {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
+    }
+  }
+
+  int getTableMaxColumnNumByXPath(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
+
+    return obj.getTableMaxColumnNumByXPath() {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
+    }
+  }
+
+  int getTableMaxRowNumForTbodyByXPath(String uid, int ntbody) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    StandardTable obj = (StandardTable) walkToWithException(context, uid)
+
+    return obj.getTableMaxRowNumForTbodyByXPath(ntbody) {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
+    }
+  }
+
+  int getTableMaxColumnNumForTbodyByXPath(String uid, int ntbody) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    StandardTable obj = (StandardTable) walkToWithException(context, uid)
+
+    return obj.getTableMaxColumnNumForTbodyByXPath(ntbody) {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
+    }
+  }
+
+  int getTableMaxTbodyNumByXPath(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    StandardTable obj = (StandardTable) walkToWithException(context, uid)
+
+    return obj.getTableMaxTbodyNumByXPath() {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
+    }
+  }
+  int getTableHeaderColumnNumBySelector(String uid) {
+    //force to use jQuery selector
+    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    def obj = walkToWithException(context, uid)
+
+    return obj.getTableHeaderColumnNumBySelector {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
+    }
+  }
+
+  int getTableFootColumnNumBySelector(String uid) {
+    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    def obj = walkToWithException(context, uid)
+
+    return obj.getTableFootColumnNumBySelector {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
+    }
+  }
+
+  int getTableMaxRowNumBySelector(String uid) {
+    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    def obj = walkToWithException(context, uid)
+
+    return obj.getTableMaxRowNumBySelector() {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
+    }
+  }
+
+  int getTableMaxColumnNumBySelector(String uid) {
+    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    def obj = walkToWithException(context, uid)
+
+    return obj.getTableMaxColumnNumBySelector() {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
+    }
+  }
+
+  int getTableMaxRowNumForTbodyBySelector(String uid, int ntbody) {
+    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    StandardTable obj = (StandardTable) walkToWithException(context, uid)
+
+    return obj.getTableMaxRowNumForTbodyBySelector(ntbody) {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
+    }
+  }
+
+  int getTableMaxColumnNumForTbodyBySelector(String uid, int ntbody) {
+    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    StandardTable obj = (StandardTable) walkToWithException(context, uid)
+
+    return obj.getTableMaxColumnNumForTbodyBySelector(ntbody) {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
+    }
+  }
+
+  int getTableMaxTbodyNumBySelector(String uid) {
+    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    StandardTable obj = (StandardTable) walkToWithException(context, uid)
+
+    return obj.getTableMaxTbodyNumByXPath() {loc ->
+      String locator = locatorMapping(context, loc)
+      locator
+    }
+  }
+
+  int getTableHeaderColumnNum(String uid) {
+      if(this.exploreJQuerySelector)
+        return getTableHeaderColumnNumBySelector(uid)
+
+      return getTableHeaderColumnNumByXPath(uid)
+  }
+
+  int getTableFootColumnNum(String uid) {
+    if(this.exploreJQuerySelector)
+      return getTableFootColumnNumBySelector(uid)
+
+    return getTableFootColumnNumByXPath(uid)
+  }
+
+  int getTableMaxRowNum(String uid) {
+    if(this.exploreJQuerySelector)
+      return getTableMaxRowNumBySelector(uid)
+
+    return getTableMaxRowNumByXPath(uid)
+  }
+
+  int getTableMaxColumnNum(String uid) {
+    if(this.exploreJQuerySelector)
+       return getTableMaxColumnNumBySelector(uid)
+
+    return getTableMaxColumnNumByXPath(uid)
+  }
+
+  int getTableMaxRowNumForTbody(String uid, int ntbody) {
+    if(this.exploreJQuerySelector)
+      return getTableMaxRowNumForTbodyBySelector(uid, ntbody)
+
+    return getTableMaxRowNumForTbodyByXPath(uid, ntbody)
+  }
+
+  int getTableMaxColumnNumForTbody(String uid, int ntbody) {
+    if(this.exploreJQuerySelector)
+      return getTableMaxColumnNumForTbodyBySelector(uid, ntbody)
+
+    return getTableMaxColumnNumForTbodyByXPath(uid, ntbody)
+  }
+
+  int getTableMaxTbodyNum(String uid) {
+    if(this.exploreJQuerySelector)
+      return getTableMaxTbodyNumBySelector(uid)
+
+    return getTableMaxTbodyNumByXPath(uid)
   }
 }
