@@ -62,4 +62,10 @@ class CustomSelenium extends DefaultSelenium {
 		Number num = commandProcessor.getNumber("getJQuerySelectorCount", arr);
 		return num;
 	}
+
+    def boolean isDisabled(String locator){
+      String[] arr = [locator];
+      boolean result = commandProcessor.getBoolean("isDisabled", arr);
+      return result;
+    }
 }

@@ -442,18 +442,7 @@ abstract class BaseDslContext {
     }
   }
 
-  def isDisabled(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
-
-    return walkToWithException(context, uid).isDisabled() {loc ->
-//                String locator = locatorMapping(context, loc)
-//                accessor.isDisabled(locator)
-      String locator = locatorMapping(context, loc) + "/self::node()[@disabled]"
-      accessor.isElementPresent(locator)
-    }
-  }
-
-  def isEnabled(String uid) {
+  def boolean isEnabled(String uid) {
     return !isDisabled(uid);
   }
 
@@ -957,4 +946,29 @@ abstract class BaseDslContext {
 
     return getTableMaxTbodyNumByXPath(uid)
   }
+
+   def boolean isDisabledByXPath(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext()
+
+      return walkToWithException(context, uid).isDisabled() {loc ->
+        String locator = locatorMapping(context, loc) + "/self::node()[@disabled]"
+        accessor.isElementPresent(locator)
+      }
+    }
+
+    def boolean isDisabledBySelector(String uid) {
+      WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+
+      return walkToWithException(context, uid).isDisabled() {loc ->
+        String locator = locatorMapping(context, loc)
+        extension.isDisabled(locator)
+      }
+    }
+
+    def boolean isDisabled(String uid){
+      if(this.exploreJQuerySelector)
+        return isDisabledBySelector(uid)
+
+      return isDisabledByXPath(uid)
+    }
 }
