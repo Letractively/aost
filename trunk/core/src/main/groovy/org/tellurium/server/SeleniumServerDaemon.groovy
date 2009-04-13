@@ -91,8 +91,12 @@ public class SeleniumServerDaemon {
 
         if(this.userExtension != null && this.userExtension.trim().length() > 0){
 		  File userExt = new File(this.userExtension);
-		  config.setUserExtensions(userExt);
-          println("Use user extension file " + this.userExtension)
+		  if(userExt.exists()){
+            config.setUserExtensions(userExt);
+            println("Use user extension file " + this.userExtension)
+          } else {
+            println "Error: No user-extensions.js found at given path: "+userExt.getAbsolutePath();
+          }
         }else{
           println "Warning: No user-extensions.js found!"
         }

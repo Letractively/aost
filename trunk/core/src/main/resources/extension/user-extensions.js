@@ -53,11 +53,11 @@ Selenium.prototype.getSelectorFunctionCall = function(jq, fn){
 };
 
 Selenium.prototype.getAllText = function(locator){
-	var e = this.browserbot.findElement(locator);
+	var $e = $(this.browserbot.findElement(locator)_;
 	var out = [];
-	for(var i = 0; i < e.length; i++){
-		out.push($(e[i]).text());
-	}
+	$e.each(function(){
+		out.push($(this).text());
+	});
 	return JSON.stringify(out);
 };
 
@@ -71,10 +71,10 @@ Selenium.prototype.getJQuerySelectorCount = function(locator){
 
 
 Selenium.prototype.getCSS = function(locator, cssName){
-	var e = this.browserbot.findElement(locator);
+	var $e = $(this.browserbot.findElement(locator));
 	var out = [];
-	for(var i = 0; i < e.length; i++){
-		out.push($(e[i]).css(cssName));
-	}
+	$e.each(function(){
+		out.push($(this).css(cssName));
+	});
 	return JSON.stringify(out);
 };

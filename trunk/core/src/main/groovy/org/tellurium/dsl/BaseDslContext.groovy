@@ -86,7 +86,7 @@ abstract class BaseDslContext {
    * the function must return JSON
    *
    * NOTE: the function CAN NOT have any comments or you will get a syntax error inside of selenium core.
-   * NOTE: each line of the function must be ended with a semicolin ';'
+   * NOTE: each line of the function must be terminated with a semicolin ';'
    */
 
   def Object getSelectorFunctionCall(String jqSelector, String fn) {

@@ -87,7 +87,7 @@ class SeleniumConnector implements Configurable {
         var found = $(inDocument).find(loc);
         if(found.length == 1 ){
             if(isattr){
-              return found[0].getAttributeNode(attr);
+              return found.attr(attr);
             }else{
               return found[0];
             }
