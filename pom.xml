@@ -254,7 +254,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium.server</groupId>
             <artifactId>selenium-server</artifactId>
-            <version>${selenium-version}</version>
+            <version>${selenium-server-version}</version>
             <!--classifier>standalone</classifier-->
             <exclusions>
                 <exclusion>
@@ -271,6 +271,14 @@
                 <exclusion>
                     <groupId>org.codehaus.groovy.maven.runtime</groupId>
                     <artifactId>gmaven-runtime-default</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium.core</groupId>
+                    <artifactId>selenium-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium.server</groupId>
+                    <artifactId>selenium-server</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -364,7 +372,7 @@
                 </artifactId>
                 <version>1.0-alpha-9</version>
             </dependency>
-            <dependency>
+            <!--dependency>
                 <groupId>org.openqa.selenium.server
                 </groupId>
                 <artifactId>selenium-server-coreless
@@ -376,7 +384,12 @@
                         <artifactId>bcprov-jdk15</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
+            </dependency-->
+        <dependency>
+            <groupId>org.openqa.selenium.server</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>${selenium-server-version}</version>
+          </dependency>
         </dependencies>
     </dependencyManagement>
     <distributionManagement>
@@ -402,5 +415,6 @@
         <groovy-version>1.6.0</groovy-version>
         <gmaven-version>1.0-rc-5</gmaven-version>
         <selenium-version>1.0-beta-2</selenium-version>
+        <selenium-server-version>1.0-te-2</selenium-server-version>
     </properties>
 </project>
