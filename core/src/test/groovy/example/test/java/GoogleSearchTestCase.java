@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import example.google.GoogleSearchModule;
 
 /**
@@ -46,5 +47,15 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
         String alt = gsm.getLogoAlt();
         assertNotNull(alt);
         assertEquals("Google", alt);
+    }
+
+    @Test
+    public void testIsDisabled(){
+        gsm.useJQuerySelector();
+        boolean result = gsm.isInputDisabled();
+        assertFalse(result);
+        gsm.disableJQuerySelector();
+        result = gsm.isInputDisabled();
+        assertFalse(result);
     }
 }

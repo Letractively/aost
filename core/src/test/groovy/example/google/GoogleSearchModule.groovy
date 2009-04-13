@@ -46,4 +46,7 @@ public class GoogleSearchModule extends DslContext {
     return getImageAlt("Logo")
   }
 
+  boolean isInputDisabled() {
+    return isDisabled("Google.Input")
+  }
 }
