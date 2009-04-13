@@ -10,6 +10,7 @@ import org.tellurium.locator.LocatorProcessor
 import org.tellurium.object.Container
 import org.tellurium.object.TextBox
 import org.tellurium.object.UiObject
+import org.tellurium.extend.Extension
 
 /**
  * Standard table is in the format of
@@ -46,7 +47,8 @@ import org.tellurium.object.UiObject
  * 
  */
 class StandardTable extends Container{
-     public static final String TAG = "table"
+
+  public static final String TAG = "table"
 
      public static final String ID_SEPARATOR = ","
      public static final String ID_WILD_CASE = "*"
@@ -371,7 +373,7 @@ class StandardTable extends Container{
         return c(this.locator, " > tbody:eq(${index}) > tr > td")
     }
 
-    int getTableHeaderColumnNum(Closure c) {
+    int getTableHeaderColumnNumByXPath(Closure c) {
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
         String xpath = rl + "/thead/tr/td"
@@ -381,7 +383,7 @@ class StandardTable extends Container{
 
     }
 
-    int getTableFootColumnNum(Closure c) {
+    int getTableFootColumnNumByXPath(Closure c) {
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
         String xpath = rl + "/tfoot/tr/td"
@@ -391,7 +393,7 @@ class StandardTable extends Container{
 
     }
 
-    int getTableMaxRowNum(Closure c) {
+    int getTableMaxRowNumByXPath(Closure c) {
 
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
@@ -401,7 +403,7 @@ class StandardTable extends Container{
         return rownum
     }
 
-    int getTableMaxRowNumForTbody(int ntbody, Closure c) {
+    int getTableMaxRowNumForTbodyByXPath(int ntbody, Closure c) {
 
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
@@ -411,7 +413,7 @@ class StandardTable extends Container{
         return rownum
     }
 
-    int getTableMaxColumnNum(Closure c) {
+    int getTableMaxColumnNumByXPath(Closure c) {
 
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
@@ -422,7 +424,7 @@ class StandardTable extends Container{
         return columnum
     }
 
-    int getTableMaxColumnNumForTbody(int ntbody, Closure c) {
+    int getTableMaxColumnNumForTbodyByXPath(int ntbody, Closure c) {
 
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
@@ -433,12 +435,91 @@ class StandardTable extends Container{
         return columnum
     }
 
-    int getTableMaxTbodyNum(Closure c){
+    int getTableMaxTbodyNumByXPath(Closure c){
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
         String xpath = rl + "/tbody"
 
         int tbodynum = accessor.getXpathCount(xpath)
+
+        return tbodynum
+    }
+
+    int getTableHeaderColumnNumBySelector(Closure c) {
+        String r1 = c(this.locator)
+        Extension extension = new Extension()
+
+        String sel = r1 + " > thead > tr:eq(0) > td"
+
+        int columnum = extension.getJQuerySelectorCount(sel)
+
+        return columnum
+
+    }
+
+    int getTableFootColumnNumBySelector(Closure c) {
+        String r1 = c(this.locator)
+        Extension extension = new Extension()
+
+        String sel = r1 + " > tfoot > tr:eq(0) > td"
+
+        int columnum = extension.getJQuerySelectorCount(sel)
+
+        return columnum
+
+    }
+
+    int getTableMaxRowNumBySelector(Closure c) {
+        String r1 = c(this.locator)
+        Extension extension = new Extension()
+
+        String sel = r1 + " > tbody:eq(0) > tr:has(td)"
+
+        int rownum = extension.getJQuerySelectorCount(sel)
+
+        return rownum
+    }
+
+    int getTableMaxRowNumForTbodyBySelector(int ntbody, Closure c) {
+        String r1 = c(this.locator)
+        Extension extension = new Extension()
+
+        String sel = r1 + " > tbody:eq(${ntbody}) > tr:has(td)"
+
+        int rownum = extension.getJQuerySelectorCount(sel)
+
+        return rownum
+    }
+
+    int getTableMaxColumnNumBySelector(Closure c) {
+        String r1 = c(this.locator)
+        Extension extension = new Extension()
+
+        String sel = r1 + " > tbody:eq(0) > tr:eq(0) > td"
+
+        int columnum = extension.getJQuerySelectorCount(sel)
+
+        return columnum
+    }
+
+    int getTableMaxColumnNumForTbodyBySelector(int ntbody, Closure c) {
+        String r1 = c(this.locator)
+        Extension extension = new Extension()
+
+        String sel = r1 + " > tbody:eq(${ntbody}) > tr:eq(0) > td"
+
+        int columnum = extension.getJQuerySelectorCount(sel)
+
+        return columnum
+    }
+
+    int getTableMaxTbodyNumBySelector(Closure c){
+        String r1 = c(this.locator)
+        Extension extension = new Extension()
+
+        String sel = r1 + " > tbody"
+
+        int tbodynum = extension.getJQuerySelectorCount(sel)
 
         return tbodynum
     }
@@ -476,7 +557,8 @@ class StandardTable extends Container{
         //append relative location, i.e., tbody, row, column to the locator
         String loc = null
         if(context.useJQuerySelector()){
-          loc = getCellSelector(ntbody, nrow, ncolumn)
+          //jquery eq() starts from zero, while xpath starts from one
+          loc = getCellSelector(ntbody-1, nrow-1, ncolumn-1)
         }else{
           loc = getCellLocator(ntbody, nrow, ncolumn)
         }
@@ -528,7 +610,7 @@ class StandardTable extends Container{
         //append relative location, i.e., row, column to the locator
         String loc =  null
         if(context.useJQuerySelector()){
-          loc = getHeaderSelector(index)
+          loc = getHeaderSelector(index-1)
         }else{
           loc = getHeaderLocator(index)
         }
@@ -580,7 +662,7 @@ class StandardTable extends Container{
         //append relative location, i.e., row, column to the locator
         String loc =  null
         if(context.useJQuerySelector()){
-          loc = getFootSelector(index)
+          loc = getFootSelector(index-1)
         }else{
           loc = getFootLocator(index)
         }

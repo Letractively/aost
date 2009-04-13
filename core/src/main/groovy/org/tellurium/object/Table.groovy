@@ -11,6 +11,7 @@ import org.tellurium.locator.XPathBuilder
 import org.tellurium.object.Container
 import org.tellurium.object.TextBox
 import org.tellurium.object.UiObject
+import org.tellurium.extend.Extension
 
 /**
  *   This is a table without header tag "thead' and foot "tfoot", but in the format of
@@ -81,6 +82,7 @@ import org.tellurium.object.UiObject
 
 
 class Table extends Container {
+
   public static final String TAG = "table"
 
   public static final String ID_SEPARATOR = ",";
@@ -343,7 +345,7 @@ class Table extends Container {
     return c(this.locator, " > tbody > tr > td")  
   }
 
-  int getTableHeaderColumnNum(Closure c) {
+  int getTableHeaderColumnNumByXPath(Closure c) {
 
     String rl = c(this.locator)
     Accessor accessor = new Accessor()
@@ -354,7 +356,7 @@ class Table extends Container {
     return columnum
   }
 
-  int getTableMaxRowNum(Closure c) {
+  int getTableMaxRowNumByXPath(Closure c) {
 
     String rl = c(this.locator)
     Accessor accessor = new Accessor()
@@ -364,7 +366,7 @@ class Table extends Container {
     return rownum
   }
 
-  int getTableMaxColumnNum(Closure c) {
+  int getTableMaxColumnNumByXPath(Closure c) {
 
     String rl = c(this.locator)
     Accessor accessor = new Accessor()
@@ -376,6 +378,41 @@ class Table extends Container {
     return columnum
   }
 
+  int getTableHeaderColumnNumBySelector(Closure c) {
+
+    String r1 = c(this.locator)
+    Extension extension = new Extension()
+
+    String sel = r1 + " > tbody > tr:has(th):eq(0) > th"
+
+    int columnum = extension.getJQuerySelectorCount(sel)
+
+    return columnum
+  }
+
+  int getTableMaxRowNumBySelector(Closure c) {
+
+    String r1 = c(this.locator)
+    Extension extension = new Extension()
+
+    String sel = r1 + " > tbody > tr:has(td)"
+    int rownum = extension.getJQuerySelectorCount(sel)
+
+    return rownum
+  }
+
+  int getTableMaxColumnNumBySelector(Closure c) {
+
+    String r1 = c(this.locator)
+    Extension extension = new Extension()
+
+    String sel = r1 + " > tbody > tr:has(td):eq(0) > td"
+
+    int columnum = extension.getJQuerySelectorCount(sel)
+
+    return columnum
+  }
+  
   //walk to a regular UI element in the table
   protected walkToElement(WorkflowContext context, UiID uiid) {
     String child = uiid.pop()
@@ -399,7 +436,8 @@ class Table extends Container {
     //append relative location, i.e., row, column to the locator
     String loc = null
     if(context.useJQuerySelector()){
-      loc = getCellSelector(nrow, ncolumn)
+      //jquery eq() starts from zero, while xpath starts from one
+      loc = getCellSelector(nrow-1, ncolumn-1)
     }else{
       loc = getCellLocator(nrow, ncolumn)
     }
@@ -451,7 +489,7 @@ class Table extends Container {
     //append relative location, i.e., row, column to the locator
     String loc = null
     if(context.useJQuerySelector()){
-      loc = getHeaderSelector(index)
+      loc = getHeaderSelector(index-1)
     }else{
       loc = getHeaderLocator(index)
     }

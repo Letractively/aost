@@ -26,7 +26,7 @@ public class Table10 extends DslContext{
   }
 
   public String getTableLocator(String uid) {
-    return getLocator(uid)
+    return getXPath(uid)
   }
 
 }
