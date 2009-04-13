@@ -17,8 +17,8 @@ public class GoogleSearchModule extends DslContext {
 
     useJQuerySelector()
     //TODO: need to check while the following src does not work
-//    ui.Image(uid: "Logo", clocator: [tag: "img", src: "/intl/en_ALL/images/logo.gif"])
-    ui.Image(uid: "Logo", clocator: [tag: "img", alt: "Google"])
+    ui.Image(uid: "Logo", clocator: [tag: "img", src: "*/intl/en_ALL/images/logo.gif"])
+//    ui.Image(uid: "Logo", clocator: [tag: "img", alt: "Google"])
 
     ui.Container(uid: "Google", clocator: [tag: "table"]) {
       InputBox(uid: "Input", clocator: [tag: "input", title: "Google Search", name: "q"])
