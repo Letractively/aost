@@ -27,12 +27,30 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
     }
 
     @Test
-    public void testGoogleSearch() {
+    public void testGoogleSearchWithXPath() {
+        //turn off jQuery Selector
+        gsm.disableJQuerySelector();
         gsm.doGoogleSearch("tellurium Groovy Test");
     }
 
     @Test
-    public void testGoogleSearchFeelingLucky() {
+    public void testGoogleSearchFeelingLuckyWithXPath() {
+        //turn off jQuery Selector
+        gsm.disableJQuerySelector();
+        gsm.doImFeelingLucky("tellurium automated Testing");
+    }
+
+    @Test
+    public void testGoogleSearchWithSelector() {
+        //turn on jQuery Selector
+        gsm.useJQuerySelector();
+        gsm.doGoogleSearch("tellurium Groovy Test");
+    }
+
+    @Test
+    public void testGoogleSearchFeelingLuckyWithSelector() {
+        //turn on jQuery Selector
+        gsm.useJQuerySelector();
         gsm.doImFeelingLucky("tellurium automated Testing");
     }
 }
