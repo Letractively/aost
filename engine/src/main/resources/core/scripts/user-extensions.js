@@ -70,3 +70,12 @@ Selenium.prototype.getCSS = function(locator, cssName){
 	});
 	return JSON.stringify(out);
 };
+
+Selenium.prototype.isDisabled = function(locator){
+    var $e = $(this.browserbot.findElement(locator));
+    if($e == null || $e.length < 1)
+        Assert.fail("Cannot find Element for " + locator);
+    if($e.length > 1)
+        Assert.fail("Element for " + locator + " is not unique.");
+    return $e.attr('disabled') == true
+};
