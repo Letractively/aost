@@ -19,10 +19,9 @@ disableJQuerySelector()
 
 to go back to XPath as shown in the following diagram.
 
+http://tellurium-users.googlegroups.com/web/xpathjqsel.png?gda=o07mfEAAAACXZPxEX7Ki-M5C2JpeBoXX-342SVaM0_p5hbgfrIqyEtY-98qTaiNg3Pwb0MuStQFtxVPdW1gYotyj7-X7wDON&gsc=8ywh5hYAAABnQo_VNvRt4Ig75nwv1WMbaKk2tFLs90LD5qOQGCC3Kw
 
-http://tellurium-users.googlegroups.com/web/jqueryxpath.png?gda=6PAnKEEAAACXZPxEX7Ki-M5C2JpeBoXXSeCZLNZLSTKezjdQbQSZ7bErkxyCRchkHxw6zyngrBhTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=yWkUQBYAAABg2sP7OurkFA0-Ab9h6nxKaKk2tFLs90LD5qOQGCC3Kw
-
-Be aware that jQuery selector only works for composite locator, i.e., _clocator_. If you have base locator, which is xpath, then the jQuery selector will not work for you.
+Some of the jQuery functions are provided by the custom selenium server, which is created by our Tellurium Engine project. Be aware that jQuery selector only works for composite locator, i.e., _clocator_. If you have base locator, which is xpath, then the jQuery selector will not work for you.
 
 
 == How jQuery Selector Works ? ==
