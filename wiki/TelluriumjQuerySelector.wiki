@@ -102,8 +102,42 @@ class CustomSelenium extends DefaultSelenium {
 }
 }}}
 
-= New Features provided by jQuery Selector =
+= New Features Provided by jQuery Selector =
 
+The most important feature is that Tellurium automatically generates the runtime jQuery selector based on your UI module definition, more specifically, the composite locator _clocator_. Tellurium also supports group locating for jQuery Selector by using jQuery :has() pseudo class and multiple selectors. For example, the following UI module
+
+{{{
+ui.Container(uid: "Google", clocator: [tag: "table"], group: "true") {
+   InputBox(uid: "Input", clocator: [tag: "input", title: "Google Search", name: "q"])
+   SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit", value: "Google Search", name: "btnG"])
+   SubmitButton(uid: "ImFeelingLucky", clocator: [tag: "input", type: "submit", value: "I'm Feeling Lucky", name: "btnI"])
+    }
+
+}}}
+
+could produce the jQuery selector with group locating as follows,
+
+{{{
+jquery=table:has(input[title=Google Search][name=q], input[type=submit][value=Google Search][name=btnG], input[type=submit][value$=m Feeling Lucky][name=btnI]) input[title=Google Search][name=q]
+}}}
+
+jQuery Selector provides the following additional Selenium methods, which are utilized in DslContext to form a set of new DSL methods:
+
+  # _String getAllText(String locator)_: Get all text from the set of elements corresponding to the jQuery Selector.
+  # _String getCSS(String locator, String cssName)_: Get the CSS properties for the set of elements corresponding to the jQuery Selector. 
+  # _Number getJQuerySelectorCount(String locator)_: Get the number of elements matching the corresponding jQuery Selector
+  # _boolean isDisabled(String locator)_: Test if an element is disabled.
+
+jQuery supports the following attribute selectors
+  * _[attribute]_: have the specified attribute
+  * _[attribute=value]_: have the specified attribute with a certain value
+  * _[attribute!=value]_: either don't have the specified attribute or do have the specified attribute but not with a certain value.
+  * _[attribute^=value]_: have the specified attribute and it starts with a certain value.
+  * _[attribute$=value]_: have the specified attribute and it ends with a certain value.
+  * _[attribute*=value]_: have the specified attribute and it contains a certain value.
+
+Tellurium supports all the attribute selectors, that is to say, it looks at the prefix of the value and converts them to the appropriate attribute selectors if the values include either '!', '^', '$', or '`*`'. Be aware Tellurium partial matching symbol "%%" is depreciated. Please use the new symbols.
+ 
 = Performance Comparison =
 
 = Reference Materials =
