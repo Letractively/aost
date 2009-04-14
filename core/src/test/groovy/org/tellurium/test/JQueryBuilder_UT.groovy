@@ -91,6 +91,21 @@ public class JQueryBuilder_UT extends GroovyTestCase {
     val = "*good"
     result = JQueryBuilder.attrPairs(key, val)
     assertEquals("[mclazz*=good]", result)
+
+    key = "mclazz"
+    val = null
+    result = JQueryBuilder.attrPairs(key, val)
+    assertEquals("[mclazz]", result)
+
+    key = "mclazz"
+    val = " "
+    result = JQueryBuilder.attrPairs(key, val)
+    assertEquals("[mclazz]", result)
+
+    key = "mclazz"
+    val = "!bad"
+    result = JQueryBuilder.attrPairs(key, val)
+    assertEquals("[mclazz!=bad]", result)    
   }
 
   public void testConvHeader(){

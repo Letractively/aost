@@ -22,6 +22,7 @@ public class JQueryBuilder {
   protected static final String CONTAINS_FILTER = ":contains"
   protected static final String SINGLE_QUOTE = "'"
   protected static final String SPACE = " "
+  private static final String NOT_PREFIX = "!"
   private static final String START_PREFIX = "^"
   private static final String END_PREFIX = "\$"
   private static final String ANY_PREFIX = "*"
@@ -66,14 +67,7 @@ public class JQueryBuilder {
       return "${CONTAINS_FILTER}(${val})"
     }
 
-    //need the following custom selector ":text()" support
-    /*
-      $.extend($.expr[':'],{
-        te_text: function(a,i,m) {
-           return $(a).text() === m[3];
-        }
-      });
-     */
+    //need the following custom selector ":te_text()" support
     return "${TEXT_PSEUDO_CLASS}(${val})"
   }
 
@@ -113,6 +107,10 @@ public class JQueryBuilder {
   }
 
   protected static String attrPairs(String attr, String val){
+    if(val == null || val.trim().length() == 0){
+      return "[${attr}]"
+    }
+    
     if(includeSingleQuote(val)){
       SplitInfo info = getLargestPortion(val)
       String result = null
@@ -136,6 +134,8 @@ public class JQueryBuilder {
       return "[${attr}\$=${val.substring(1)}]"
     }else if(val.startsWith(ANY_PREFIX)){
       return "[${attr}*=${val.substring(1)}]"
+    }else if(val.startsWith(NOT_PREFIX)){
+      return "[${attr}!=${val.substring(1)}]"
     }else{
       return "[${attr}=${val}]"
     }
