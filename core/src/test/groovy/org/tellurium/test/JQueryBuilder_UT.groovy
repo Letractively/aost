@@ -92,4 +92,43 @@ public class JQueryBuilder_UT extends GroovyTestCase {
     result = JQueryBuilder.attrPairs(key, val)
     assertEquals("[mclazz*=good]", result)
   }
+
+  public void testConvHeader(){
+    String header = null
+    String result = JQueryBuilder.convHeader(header)
+    assertEquals("", result)
+
+    header = "/div"
+    result = JQueryBuilder.convHeader(header)
+    assertEquals(" div", result)
+
+    header = "//div"
+    result = JQueryBuilder.convHeader(header)
+    assertEquals(" div", result)
+
+    header = "/div[3]"
+    result = JQueryBuilder.convHeader(header)
+    assertEquals(" div", result)
+
+    header = "/div[@id]"
+    result = JQueryBuilder.convHeader(header)
+    assertEquals(" div", result)
+
+    header = "/div[@id]/p[1]/span[@class='test']"
+    result = JQueryBuilder.convHeader(header)
+    assertEquals(" div > p > span", result)
+    
+  }
+
+  public void testModuleWithHeader(){
+    ModuleWithHeader mwh = new ModuleWithHeader()
+    mwh.defineUi()
+    mwh.useJQuerySelector()
+    String jqsel = mwh.getLocator("SearchModule.Input")
+    assertEquals("jquery=td div input[title=Google Search]", jqsel)
+    jqsel = mwh.getLocator("SearchModule.Search")
+    assertEquals("jquery=td div > p input[name=btnG][value=Google Search][type=submit]", jqsel)
+    jqsel = mwh.getLocator("SearchModule.ImFeelingLucky")
+    assertEquals("jquery=td input[value\$=m Feeling Lucky][type=submit]", jqsel)
+  }
 }

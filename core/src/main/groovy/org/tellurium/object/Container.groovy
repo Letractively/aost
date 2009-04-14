@@ -42,6 +42,8 @@ class Container extends UiObject {
       } else {
         //do not use the group information, process as regular
         def lp = new LocatorProcessor()
+        if(context.useJQuerySelector())
+          lp.useJQuerySelector()
         context.appendReferenceLocator(lp.locate(this.locator))
       }
     }
