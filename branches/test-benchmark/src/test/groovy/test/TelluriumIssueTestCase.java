@@ -29,6 +29,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         connectUrl("http://code.google.com/p/aost/issues/advsearch");
         tim.testAdvancedSearchTips();
         tim.waitPageLod();
+        connectUrl("http://code.google.com/p/aost/issues/list");
         tim.testIssueData(3);
         connectUrl("http://code.google.com/p/aost/issues/list");
         tim.testClickIssueResult(3, 2);
