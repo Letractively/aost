@@ -138,6 +138,111 @@ jQuery supports the following attribute selectors
 
 Tellurium supports all the attribute selectors, that is to say, it looks at the prefix of the value and converts them to the appropriate attribute selectors if the values include either '!', '^', '$', or '`*`'. Be aware Tellurium partial matching symbol "%%" is depreciated. Please use the new symbols.
  
+The are something you should be aware of for jQuery Selector:
+  * If you have duplicated "tag" + "id" on the page, jQuery selector always returns the first one.
+  * Some attribute may not working in jQuery, for example, the "action" attribute in a form. Tellurium has a black list to automatically filter out the attributes that are not honored by jQuery selector.
+  * Seems the "src" attribute in Image has to be full URL such as http://www.google.com. One workaround is to put '`*`' before the URL.
+
+= New DslContext Methods =
+
+Tellurium provides a set of locator agnostic methods, i.e., the method will automatically decide to use XPath or jQuery dependent on the _exploreJQuerySelector_ flag, which can be turn on and off by the following two methods:
+
+{{{
+
+public void useJQuerySelector()
+
+public void disableJQuerySelector()
+
+}}}
+
+In the meanwhile, Tellurium also provides the corresponding XPath specific and jQuery selector specific methods for your convenience. However, we recommend you to use the locator agnostic methods until you have a good reason not to. 
+
+The new methods are listed here:
+
+==== Get the Generated locator from the UI module ====
+
+Locator agnostic:
+  * String getLocator(String uid)
+
+JQuery selector specific:
+  * String getSelector(String uid)
+
+XPath specific: 
+  * String getXPath(String uid) 
+
+==== Get the Number of Elements matching the Locator ====
+
+Locator agnostic:
+  * Number getLocatorCount(String locator)
+
+JQuery selector specific:
+  * Number getJQuerySelectorCount(String jQuerySelector)
+
+XPath specific: 
+  * Number getXpathCount(String xpath) 
+ 
+==== Table methods ====
+
+Locator agnostic:
+  * int getTableHeaderColumnNum(String uid) 
+  * int getTableFootColumnNum(String uid)
+  * int getTableMaxRowNum(String uid)
+  * int getTableMaxColumnNum(String uid)
+  * int getTableMaxRowNumForTbody(String uid, int ntbody)
+  * int getTableMaxColumnNumForTbody(String uid, int ntbody)
+  * int getTableMaxTbodyNum(String uid)
+
+JQuery selector specific:
+  * int getTableHeaderColumnNumBySelector(String uid)
+  * int getTableFootColumnNumBySelector(String uid)
+  * int getTableMaxRowNumBySelector(String uid)
+  * int getTableMaxColumnNumBySelector(String uid)
+  * int getTableMaxRowNumForTbodyBySelector(String uid, int ntbody)
+  * int getTableMaxColumnNumForTbodyBySelector(String uid, int ntbody)
+  * int getTableMaxTbodyNumBySelector(String uid)
+  * 
+
+XPath specific:  
+  * int getTableHeaderColumnNumByXPath(String uid) 
+  * int getTableFootColumnNumByXPath(String uid)
+  * int getTableMaxRowNumByXPath(String uid)
+  * int getTableMaxColumnNumByXPath(String uid)
+  * int getTableMaxRowNumForTbodyByXPath(String uid, int ntbody)
+  * int getTableMaxColumnNumForTbodyByXPath(String uid, int ntbody)
+  * int getTableMaxTbodyNumByXPath(String uid) 
+
+==== Check if an Element is Disabled ====
+
+Locator agnostic:
+  * boolean isDisabled(String uid)
+
+JQuery selector specific:
+  * boolean isDisabledBySelector(String uid)
+
+XPath specific: 
+  * boolean isDisabledByXPath(String uid)
+
+==== Get the Attribute ====
+
+Locator agnostic:
+  * def getAttribute(String uid, String attribute)
+
+==== Check the CSS Class  ====
+
+Locator agnostic
+  * def hasCssClass(String uid, String cssClass)
+
+==== Get CSS Properties ====
+
+JQuery selector specific:
+  * String[] getCSS(String uid, String cssName)
+
+==== Get All Data from a Table ====
+
+JQuery selector specific:
+  * String[] getAllTableCellText(String uid)
+  * String[] getAllTableCellTextForTbody(String uid, int index)
+
 = Performance Comparison =
 
 = Reference Materials =
