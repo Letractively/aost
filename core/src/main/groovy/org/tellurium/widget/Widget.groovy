@@ -912,7 +912,7 @@ abstract class Widget extends UiObject {
     WorkflowContext context = WorkflowContext.getContextByStrategy(true)
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
 
-    return obj.getTableMaxTbodyNumByXPath() {loc ->
+    return obj.getTableMaxTbodyNumBySelector() {loc ->
       String locator = locatorMapping(context, loc)
       locator
     }
