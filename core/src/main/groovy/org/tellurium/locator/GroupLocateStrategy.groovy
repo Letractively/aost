@@ -20,6 +20,7 @@ class GroupLocateStrategy {
 
     protected static final String ERROR_MESSAGE = "Required Composite Locator, Invalid locator"
     protected static final String HAS = ":has"
+    protected static final String MATCH_ALL = "*"
     protected static final String SELECTOR_SEPARATOR = ", "
     protected static final int LENGTH = 64
   
@@ -35,7 +36,8 @@ class GroupLocateStrategy {
             if(child.locator instanceof CompositeLocator){
                 CompositeLocator cloc = child.locator
                 String gattr = JQueryBuilder.buildJQuerySelector(cloc.tag, cloc.text, cloc.position, cloc.direct, cloc.attributes)
-                groupAttributes.add(gattr.trim())
+                if(!MATCH_ALL.equals(gattr.trim()))
+                  groupAttributes.add(gattr.trim())
             }
         }
 

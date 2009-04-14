@@ -18,6 +18,7 @@ class WorkflowContext {
 
   public static final String REFERENCE_LOCATOR = "Reference_Locator"
   public static final String OPTION_LOCATOR = "Option_Locator"
+  public static final String MATCH_ALL = "*"
 
   private boolean useOption = false
   //Table's child object's tag will be duplicated with the current relative xpath provided by xpath
@@ -97,6 +98,11 @@ class WorkflowContext {
   //append the relative locator to the end of the reference locator
   public void appendReferenceLocator(String loc) {
 
+    //matching all does not work for jQuery selector, skip it
+    if(this.exploreJQuerySelector && MATCH_ALL.equals(loc.trim())){
+      return
+    }
+
     String rl = context.get(REFERENCE_LOCATOR)
 
     if (loc != null) {
@@ -114,21 +120,6 @@ class WorkflowContext {
     
     context.put(REFERENCE_LOCATOR, rl)
   }
-
-/*  public void appendReferenceLocatorForUiObject(UiObject obj) {
-    if (obj instanceof Container && obj.useGroup()) {
-        if(this.exploreJQuerySelector){
-          appendReferenceLocator(GroupLocateStrategy.select(obj))
-        }else{
-          //need to use group information to help us locate the container xpath
-          appendReferenceLocator(GroupLocateStrategy.locate(obj))
-        }
-    } else {
-        //do not use the group information, process as regular
-        def lp = new LocatorProcessor()
-        appendReferenceLocator(lp.locate(obj.locator))
-    }
-  }*/
 
   protected String checkTableDuplicateTag(String rl, String loc) {
 
