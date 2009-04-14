@@ -15,7 +15,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.5" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy.maven:gmaven-mojo:1.0-rc-5" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy.maven.runtime:gmaven-runtime-api:1.0-rc-5" level="project" />

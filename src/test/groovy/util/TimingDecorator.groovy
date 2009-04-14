@@ -32,7 +32,6 @@ public class TimingDecorator {
     }
 
     def invokeMethod(String name, args) {
-        println "Calling $name$args"
         long beforeTime = System.currentTimeMillis()
         def result = delegate.invokeMethod(name, args)
         long duration = System.currentTimeMillis() - beforeTime
@@ -41,7 +40,7 @@ public class TimingDecorator {
           accumulatedTime += duration
         }
 
-        println "Got $result in ${duration} ms"
+        println "Calling $name($args) in ${duration} ms"
 
         result
     }
