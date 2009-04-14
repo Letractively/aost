@@ -16,11 +16,19 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     public static void initUi() {
         tisp = new TelluriumIssueModule();
         tisp.defineUi();
+        tisp.useJQuerySelector();
     }
 
     @Before
     public void setUp(){
         connectUrl("http://code.google.com/p/aost/issues/list");
+    }
+
+    @Test
+    public void testSearchIssueTypes(){
+        String[] ists = tisp.getIsssueTypes();
+        tisp.selectIssueType(ists[2]);
+        tisp.searchIssue("Alter");
     }
 
     @Test

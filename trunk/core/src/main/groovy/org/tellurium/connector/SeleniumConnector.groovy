@@ -58,50 +58,39 @@ class SeleniumConnector implements Configurable {
 
         //MK: add the jquery location strategy
 
-      /*
-        sel.addLocationStrategy("jquery", '''
-          var found = $(inDocument).find(locator);
-          if(found.length == 1){
-              //for now only support of selecting 1 element.
-              return found[0];
-          } else {
-              return null;
-          }
-          ''')
-
-        */
 
       //use Get to return the DOM reference.  
       //need to check if it is an attribute locator in the format of locator@attr
       sel.addLocationStrategy("jquery", '''
-        var loc = locator;
-        var attr = null;
-        var isattr = false;         
-        var inx = locator.lastIndexOf('@');
-        if(inx != -1){
-          loc = locator.substring(0, inx);
-          attr = locator.substring(inx + 1);
-          isattr = true;
-        }
-        var found = $(inDocument).find(loc);
-        if(found.length == 1 ){
+          var loc = locator;
+          var attr = null;
+          var isattr = false;
+          var inx = locator.lastIndexOf('@');
+          if(inx != -1){
+            loc = locator.substring(0, inx);
+            attr = locator.substring(inx + 1);
+            isattr = true;
+          }
+          var found = jQuery(inDocument).find(loc);
+          if(found.length == 1 ){
             if(isattr){
                return found[0].getAttributeNode(attr);
             }else{
               return found[0];
-            }
-        }else if(found.length > 1){
+             }
+          }else if(found.length > 1){
             if(isattr){
               return found.get().getAttributeNode(attr);
             }else{
               return found.get();
             }
-        }else{
+          }else{
             return null;
-        }''')
+          }
+        ''')
 
         sel.addLocationStrategy("jqueryall", '''
-          var found = $(inDocument).find(locator);
+          var found = jQuery(inDocument).find(locator);
           if(found.length > 0){
               return found;
           } else {
