@@ -27,9 +27,83 @@ Be aware that jQuery selector only works for composite locator, i.e., _clocator_
 
 = How jQuery Selector Works ? =
 
+The basic idea is to customize Selenium Core to load jQuery library at startup time. You can put jquery.js to the TestRunner.html and RemoteRunner.html. Another way is dump all jquery.js into user-extensions.js. Since our Engine prototype customizes Selenium core anyway, we use the first method.
+
+After that, we register a custom locate strategy "jquery". By Selenium definition:
+
+{{{
+addLocationStrategy ( strategyName,functionDefinition )
+
+}}}
+    Defines a new function for Selenium to locate elements on the page. For example,
+if you define the strategy "foo", and someone runs click("foo=blah"), we'll run your
+function, passing you the string "blah", and click on the element that your function
+returns, or throw an "Element not found" error if your function returns null. We'll
+pass three arguments to your function:
+
+  * locator: the string the user passed in
+  * inWindow: the currently selected window
+  * inDocument: the currently selected document
+
+The function must return null if the element can't be found.
+
+Arguments:
+
+  * strategyName - the name of the strategy to define; this should use only letters [a-zA-Z] with no spaces or other punctuation.
+  * functionDefinition - a string defining the body of a function in JavaScript. For example: return inDocument.getElementById(locator);
+
+Accordingly, we define the custom locate strategy as follows,
+
+{{{
+addLocationStrategy("jquery", '''
+  var found = $(inDocument).find(locator);
+  if(found.length == 1 ){
+    return found[0];
+  }else if(found.length > 1){
+    return found.get();
+  }else{
+    return null;
+  }
+''')
+}}}
+
+The code is pretty straightforward. When we found one element, return its DOM reference (Note: Selenium does not accept returning an array with only one element) and if we found multiple elements, we use jQuery get() method to return the DOM references. Otherwise, return null.
+
+The actual code is a bit more complicated because we need to consider the attribute locator. We use the same format of attribute locator as the XPath one, i.e.,
+ 
+{{{
+locator@attribute
+}}}
+
+Apart from that, we need to create a set of custom Selenium methods and add the appropriate Selenium RC Java methods. For example, we create the following Selenium method 
+
+{{{
+Selenium.prototype.getAllText = function(locator){
+  var $e = $(this.browserbot.findElement(locator));
+  var out = [];
+  $e.each(function(){
+     out.push($(this).text());
+  });
+
+  return JSON.stringify(out);
+};
+}}} 
+
+Then, create the corresponding Java method by extending Selenium
+
+{{{
+class CustomSelenium extends DefaultSelenium {
+
+  def String getAllText(String locator){
+     String[] arr = [locator];
+     String st = commandProcessor.doCommand("getAllText", arr);
+     return st;
+  }
+}
+}}}
+
 = New Features provided by jQuery Selector =
 
 = Performance Comparison =
 
 = Reference Materials =
-
