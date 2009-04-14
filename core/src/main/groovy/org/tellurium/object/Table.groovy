@@ -338,7 +338,7 @@ class Table extends Container {
 
   protected String getHeaderSelector(int column) {
 
-    return " > tbody tr:has(th) > th:eq(${column})"
+    return " > tbody > tr:has(th) > th:eq(${column})"
   }
 
   String[] getAllTableCellText(Closure c){

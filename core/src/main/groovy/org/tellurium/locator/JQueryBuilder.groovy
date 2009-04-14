@@ -20,6 +20,7 @@ public class JQueryBuilder {
   protected static final String CLASS_SELECTOR_PREFIX = "."
   protected static final String MATCH_ALL = "*"
   protected static final String CONTAINS_FILTER = ":contains"
+  protected static final String NOT_FILTER = ":not"
   protected static final String SINGLE_QUOTE = "'"
   protected static final String SPACE = " "
   private static final String NOT_PREFIX = "!"
@@ -222,6 +223,8 @@ public class JQueryBuilder {
       }else if(text.startsWith(START_PREFIX) || text.startsWith(END_PREFIX) || text.startsWith(ANY_PREFIX)){
         //TODO: need to refact this to use start, end, any partial match
         sb.append(containText(text.substring(1)))
+      }else if(text.startsWith(NOT_PREFIX)){
+        sb.append(":not(${containText(text.substring(1))})")
       }else{
         sb.append(attrText(text))
       }

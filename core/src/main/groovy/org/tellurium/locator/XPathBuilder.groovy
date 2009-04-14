@@ -51,6 +51,8 @@ class XPathBuilder {
 
   private static final int TYPICAL_LENGTH = 64
 
+  private static final String NOT_PREFIX = "!"
+
   private static final String START_PREFIX = "^"
 
   private static final String END_PREFIX = "\$"
@@ -217,6 +219,9 @@ class XPathBuilder {
     }else if(trimed.startsWith(END_PREFIX) || trimed.startsWith(ANY_PREFIX)) {
       String actual = trimed.substring(1)
       return "contains(text(),\"${actual}\")"
+    }else if(trimed.startsWith(NOT_PREFIX)){
+      String actual = trimed.substring(1)
+      return "not(contains(text(),\"${actual}\"))"
     } else {
       return "normalize-space(text())=normalize-space(\"${trimed}\")"
     }
@@ -244,6 +249,9 @@ class XPathBuilder {
     }else if(trimed.startsWith(END_PREFIX) || trimed.startsWith(ANY_PREFIX)){
       String actual = value.substring(1)
       return "contains(@${name},\"${actual}\")"
+    }else if(trimed.startsWith(NOT_PREFIX)){
+      String actual = value.substring(1)
+      return "not(contains(@${name},\"${actual}\"))"      
     } else {
       return "@${name}=\"${trimed}\""
     }
