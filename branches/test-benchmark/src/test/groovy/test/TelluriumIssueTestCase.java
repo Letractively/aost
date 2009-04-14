@@ -23,10 +23,10 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         connectUrl("http://code.google.com/p/aost/issues/list");
         tim.testGetIssueTypes(1);
         tim.waitPageLod();
-        connectUrl("http://code.google.com/p/aost/issues/list");
+        connectUrl("http://code.google.com/p/aost/issues/advsearch");
         tim.testAdvancedSearch(2);
         tim.waitPageLod();
-        connectUrl("http://code.google.com/p/aost/issues/list");
+        connectUrl("http://code.google.com/p/aost/issues/advsearch");
         tim.testAdvancedSearchTips();
         tim.waitPageLod();
         tim.testIssueData(3);
@@ -36,11 +36,11 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         connectUrl("http://code.google.com/p/aost/issues/list");
         tim.testClickHeader(3);
         tim.pauseTest();
-        connectUrl("http://code.google.com/p/aost/issues/list");
-        tim.testSelectDataLayout("Grid");
-        tim.waitPageLod();
-        tim.testSelectDataLayout("List");
-        tim.waitPageLod();
+//        connectUrl("http://code.google.com/p/aost/issues/list");
+//        tim.testSelectDataLayout("Grid");
+//        tim.waitPageLod();
+//        tim.testSelectDataLayout("List");
+//        tim.waitPageLod();
     }
 
     @Test
