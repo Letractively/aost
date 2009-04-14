@@ -236,4 +236,23 @@ public class JQueryBuilder {
 
     return sb.toString()
   }
+
+  public static String convHeader(String header){
+    if (header != null && header.trim().length() > 0){
+      String[] xps = XPathProcessor.splitXPath(header)
+      StringBuffer sb = new StringBuffer(LENGTH)
+
+      String tag = XPathProcessor.getTagFromXPath(xps[0])
+
+      sb.append(DESCENDANT_SEPARATOR).append(tag)
+      for(int i=1; i<xps.length; i++){
+        tag = XPathProcessor.getTagFromXPath(xps[i])
+        sb.append(CHILD_SEPARATOR).append(tag)
+      }
+
+      return sb.toString()
+    }
+    
+    return ""
+  }
 }

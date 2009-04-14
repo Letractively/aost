@@ -39,6 +39,9 @@ class CompositeLocateStrategy {
   public static String select(CompositeLocator locator){
 
     String jqsel = JQueryBuilder.buildJQuerySelector(locator.tag, locator.text, locator.position, locator.direct, locator.attributes)
+    if(locator.header != null && locator.header.trim().length() > 0){
+      jqsel = JQueryBuilder.convHeader(locator.header) + jqsel  
+    }
 
     return jqsel
   }
