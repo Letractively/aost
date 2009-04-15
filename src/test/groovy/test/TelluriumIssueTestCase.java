@@ -13,7 +13,7 @@ import java.util.List;
 public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     private static TelluriumIssueModuleDecorator tim;
     private static List<String> results = new ArrayList<String>();
-    private static int repeatCount = 5;
+    private static int repeatCount = 1;
 
     @BeforeClass
     public static void initUi() {
@@ -62,7 +62,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         for(int i=0; i<repeatCount; i++)
             testFlow();
         long accumulatedTime = tim.getAccumulatedTime();
-        String msg = "Test Flow: Use default XPath, the accumulated time is " + accumulatedTime + " ms";
+        String msg = "Test Flow: Default XPath, the accumulated time is " + accumulatedTime + " ms";
         System.out.println(msg);
         results.add(msg);
     }
@@ -74,7 +74,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         for(int i=0; i<repeatCount; i++)
             testFlow();
         long accumulatedTime = tim.getAccumulatedTime();
-        String msg = "Test Flow: Use Javascript XPath, the accumulated time is " + accumulatedTime + " ms";
+        String msg = "Test Flow: Javascript XPath, the accumulated time is " + accumulatedTime + " ms";
         System.out.println(msg);
         results.add(msg);
     }
@@ -86,7 +86,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         for(int i=0; i<repeatCount; i++)
             testFlow();
         long accumulatedTime = tim.getAccumulatedTime();
-        String msg = "Test Flow: Use jQuery selector, the accumulated time is " + accumulatedTime + " ms";
+        String msg = "Test Flow: jQuery selector, the accumulated time is " + accumulatedTime + " ms";
         System.out.println(msg);
         results.add(msg);
     }
@@ -98,7 +98,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         for(int i=0; i<repeatCount; i++)
             testGetData();
         long accumulatedTime = tim.getAccumulatedTime();
-        String msg = "Bulk Data: Use default XPath, the accumulated Time for get Table data is " + accumulatedTime + "ms";
+        String msg = "Bulk Data: Default XPath, the accumulated Time is " + accumulatedTime + "ms";
         System.out.println(msg);
         results.add(msg);
     }
@@ -110,7 +110,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         for(int i=0; i<repeatCount; i++)
             testGetData();
         long accumulatedTime = tim.getAccumulatedTime();
-        String msg = "Bulk Data: Use Javascript XPath, the accumulated Time for get Table data is " + accumulatedTime + "ms";
+        String msg = "Bulk Data: Javascript XPath, the accumulated Time is " + accumulatedTime + "ms";
         System.out.println(msg);
         results.add(msg);
     }
@@ -122,7 +122,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         for(int i=0; i<repeatCount; i++)
             testGetData();
         long accumulatedTime = tim.getAccumulatedTime();
-        String msg = "Bulk Data: Use jQuery Selector, the accumulated Time for get Table data is " + accumulatedTime + "ms";
+        String msg = "Bulk Data: jQuery Selector, the accumulated Time is " + accumulatedTime + "ms";
         System.out.println(msg);
         results.add(msg);
     }
