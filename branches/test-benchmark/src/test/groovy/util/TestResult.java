@@ -7,6 +7,8 @@ public class TestResult {
     private static final String TOTAL_TIME = " TotalTime: ";
     private static final String ACCUMULATED_TIME = " AverageAccumulatedTime: ";
     private static final String REPEAT_COUNT = " RepeatCount: ";
+    private static final String TIME_UNIT = "ms";
+
     private static final String SEPARATOR = ",";
 
     private long startTime;
@@ -31,10 +33,10 @@ public class TestResult {
     public String strResult(){
         StringBuffer sb = new StringBuffer(LENGTH);
         sb.append(TEST_NAME).append(testName).append(SEPARATOR)
-                .append(TOTAL_TIME).append(getTotalTime()).append(SEPARATOR)
+                .append(TOTAL_TIME).append(getTotalTime()).append(TIME_UNIT).append(SEPARATOR)
                 .append(REPEAT_COUNT).append(repeatCount).append(SEPARATOR)
-                .append(ACCUMULATED_TIME).append(getAverageTime());
-        if(message != null){
+                .append(ACCUMULATED_TIME).append(getAverageTime()).append(TIME_UNIT);
+        if(message != null && message.trim().length() > 0){
             sb.append(SEPARATOR).append(MESSAGE).append(message);
         }
 

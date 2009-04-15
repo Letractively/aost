@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.AfterClass;
 import module.TelluriumIssueModuleDecorator;
+import module.TelluriumIssueModule;
+import module.TelluriumIssueModuleNoGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +21,13 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
 
     @BeforeClass
     public static void initUi() {
-        tim = new TelluriumIssueModuleDecorator();
+//        tim = new TelluriumIssueModuleDecorator(new TelluriumIssueModule());
     }
 
     @Before
     public void resetTime(){
-        tim.resetAccumulatedTime();
+        tim = new TelluriumIssueModuleDecorator(new TelluriumIssueModule());
+//        tim.resetAccumulatedTime();
     }
 
     public void testFlow(){
@@ -91,7 +94,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Test Flow: Javascript XPath, the accumulated time is " + accumulatedTime + " ms";
         System.out.println(msg);
-        storeResult("testFlowByDefaultXPath", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
+        storeResult("testFlowByJavascriptXPath", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
     @Test
@@ -103,7 +106,46 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Test Flow: jQuery selector, the accumulated time is " + accumulatedTime + " ms";
         System.out.println(msg);
-        storeResult("testFlowByDefaultXPath", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
+        storeResult("testFlowByJQuerySelector", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
+    }
+
+    @Test
+    public void testFlowByDefaultXPathNoGroup(){
+        tim = new TelluriumIssueModuleDecorator(new TelluriumIssueModuleNoGroup());
+        tim.disableJQuerySelector();
+        tim.useDefaultXPathLibrary();
+        for(int i=0; i<repeatCount; i++)
+            testFlow();
+        long accumulatedTime = tim.getAccumulatedTime();
+        String msg = "Test Flow No Group: Default XPath, the accumulated time is " + accumulatedTime + " ms";
+        System.out.println(msg);
+        storeResult("testFlowByDefaultXPathNoGroup", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
+    }
+
+    @Test
+    public void testFlowByJavascriptXPathNoGroup(){
+        tim = new TelluriumIssueModuleDecorator(new TelluriumIssueModuleNoGroup());
+        tim.disableJQuerySelector();
+        tim.useJavascriptXPathLibrary();
+        for(int i=0; i<repeatCount; i++)
+            testFlow();
+        long accumulatedTime = tim.getAccumulatedTime();
+        String msg = "Test Flow No Group: Javascript XPath, the accumulated time is " + accumulatedTime + " ms";
+        System.out.println(msg);
+        storeResult("testFlowByJavascriptXPathNoGroup", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
+    }
+
+    @Test
+    public void testFlowByJQuerySelectorNoGroup(){
+        tim = new TelluriumIssueModuleDecorator(new TelluriumIssueModuleNoGroup());
+        tim.useJQuerySelector();
+        tim.useDefaultXPathLibrary();
+        for(int i=0; i<repeatCount; i++)
+            testFlow();
+        long accumulatedTime = tim.getAccumulatedTime();
+        String msg = "Test Flow No Group: jQuery selector, the accumulated time is " + accumulatedTime + " ms";
+        System.out.println(msg);
+        storeResult("testFlowByJQuerySelectorNoGroup", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
     @Test
@@ -115,7 +157,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Bulk Data: Default XPath, the accumulated Time is " + accumulatedTime + "ms";
         System.out.println(msg);
-        storeResult("testFlowByDefaultXPath", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
+        storeResult("testGetDataByDefaultXPath", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
     @Test
@@ -127,7 +169,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Bulk Data: Javascript XPath, the accumulated Time is " + accumulatedTime + "ms";
         System.out.println(msg);
-        storeResult("testFlowByDefaultXPath", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
+        storeResult("testGetDataByJavascriptXPath", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
     @Test
@@ -139,7 +181,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Bulk Data: jQuery Selector, the accumulated Time is " + accumulatedTime + "ms";
         System.out.println(msg);
-        storeResult("testFlowByDefaultXPath", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
+        storeResult("testGetDataByJQuerySelector", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
     @AfterClass
