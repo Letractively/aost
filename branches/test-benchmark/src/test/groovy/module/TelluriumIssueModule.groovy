@@ -17,7 +17,7 @@ public class TelluriumIssueModule extends DslContext{
        ui.Form(uid: "issueSearch", clocator: [action: "list", method: "get"], group: "true") {
            Selector(uid: "issueType", clocator: [name: "can", id: "can"])
            TextBox(uid: "searchLabel", clocator: [tag: "span", text: "*for"])
-           InputBox(uid: "searchBox", clocator: [type: "text", name: "q"])
+           InputBox(uid: "searchBox", clocator: [type: "text", name: "q", id: "q"])
            SubmitButton(uid: "searchButton", clocator: [value: "Search"])
        }
 
@@ -136,7 +136,7 @@ public class TelluriumIssueModule extends DslContext{
     public List<String> getHeaderNames(){
         List<String> headernames = new ArrayList<String>()
         int mcolumn = getTableHeaderColumnNum("issueResult")
-        for(int i=1; i<=mcolumn; i++){
+        for(int i=1; i<mcolumn-1; i++){
             headernames.add(getText("issueResult.header[${i}]"))
         }
 
@@ -146,7 +146,7 @@ public class TelluriumIssueModule extends DslContext{
     public List<String> getDataForColumn(int column){
         int mcolumn = getTableMaxRowNum("issueResult")
         List<String> lst = new ArrayList<String>()
-        for(int i=1; i<=mcolumn; i++){
+        for(int i=1; i<mcolumn-1; i++){
             lst.add(getText("issueResult[${i}][${column}]"))
         }
 
@@ -156,8 +156,8 @@ public class TelluriumIssueModule extends DslContext{
     public void getIssueDataByCells(){
         int mcolumn =  getTableHeaderColumnNum("issueResult");
         int mrow = getTableMaxRowNum("issueResult")
-        for(int i=1; i<=mrow; i++){
-          for(int j=1; j<=mcolumn; j++){
+        for(int i=1; i<mrow-1; i++){
+          for(int j=1; j<mcolumn-1; j++){
             getText("issueResult[${i}][${j}]")
           }
         }
