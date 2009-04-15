@@ -132,11 +132,12 @@ public class TelluriumIssueModuleNoGroup extends DslContext{
     public int getTableHeaderNum(){
         return getTableHeaderColumnNum("issueResult")
     }
-
-    public List<String> getHeaderNames(){
+     public List<String> getHeaderNames(){
         List<String> headernames = new ArrayList<String>()
         int mcolumn = getTableHeaderColumnNum("issueResult")
-        for(int i=1; i<mcolumn-1; i++){
+        if(mcolumn > 10)
+           mcolumn = 10
+        for(int i=1; i<mcolumn; i++){
             headernames.add(getText("issueResult.header[${i}]"))
         }
 
@@ -144,9 +145,10 @@ public class TelluriumIssueModuleNoGroup extends DslContext{
     }
 
     public List<String> getDataForColumn(int column){
-        int mcolumn = getTableMaxRowNum("issueResult")
+        int nrow = getTableMaxRowNum("issueResult")
+        if(nrow > 20) nrow = 20
         List<String> lst = new ArrayList<String>()
-        for(int i=1; i<mcolumn-1; i++){
+        for(int i=1; i<nrow; i++){
             lst.add(getText("issueResult[${i}][${column}]"))
         }
 
@@ -155,9 +157,11 @@ public class TelluriumIssueModuleNoGroup extends DslContext{
 
     public void getIssueDataByCells(){
         int mcolumn =  getTableHeaderColumnNum("issueResult");
+        if(mcolumn > 10) mcolumn = 10
         int mrow = getTableMaxRowNum("issueResult")
-        for(int i=1; i<mrow-1; i++){
-          for(int j=1; j<mcolumn-1; j++){
+        if(mrow > 20) mrow = 20
+        for(int i=1; i<mrow; i++){
+          for(int j=1; j<mcolumn; j++){
             getText("issueResult[${i}][${j}]")
           }
         }
