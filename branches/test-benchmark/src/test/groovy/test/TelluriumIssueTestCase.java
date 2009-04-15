@@ -10,9 +10,11 @@ import module.TelluriumIssueModuleDecorator;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.TestResult;
+
 public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     private static TelluriumIssueModuleDecorator tim;
-    private static List<String> results = new ArrayList<String>();
+    private static List<TestResult> results = new ArrayList<TestResult>();
     private static int repeatCount = 1;
 
     @BeforeClass
@@ -55,6 +57,19 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         tim.testGetData();
     }
 
+    protected TestResult storeResult(String testName, long startTime, long endTime, long accumulatedTime, int repeatCount, String msg){
+        TestResult result = new TestResult();
+        result.setStartTime(startTime);
+        result.setEndTime(endTime);
+        result.setAccumulatedTime(accumulatedTime);
+        result.setTestName(testName);
+        result.setRepeatCount(repeatCount);
+        result.setMessage(msg);
+        results.add(result);
+
+        return result;
+    }
+
     @Test
     public void testFlowByDefaultXPath(){
         tim.disableJQuerySelector();
@@ -64,7 +79,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Test Flow: Default XPath, the accumulated time is " + accumulatedTime + " ms";
         System.out.println(msg);
-        results.add(msg);
+        storeResult("testFlowByDefaultXPath", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
     @Test
@@ -76,7 +91,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Test Flow: Javascript XPath, the accumulated time is " + accumulatedTime + " ms";
         System.out.println(msg);
-        results.add(msg);
+        storeResult("testFlowByDefaultXPath", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
     @Test
@@ -88,7 +103,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Test Flow: jQuery selector, the accumulated time is " + accumulatedTime + " ms";
         System.out.println(msg);
-        results.add(msg);
+        storeResult("testFlowByDefaultXPath", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
     @Test
@@ -100,7 +115,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Bulk Data: Default XPath, the accumulated Time is " + accumulatedTime + "ms";
         System.out.println(msg);
-        results.add(msg);
+        storeResult("testFlowByDefaultXPath", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
     @Test
@@ -112,7 +127,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Bulk Data: Javascript XPath, the accumulated Time is " + accumulatedTime + "ms";
         System.out.println(msg);
-        results.add(msg);
+        storeResult("testFlowByDefaultXPath", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
     @Test
@@ -124,14 +139,14 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Bulk Data: jQuery Selector, the accumulated Time is " + accumulatedTime + "ms";
         System.out.println(msg);
-        results.add(msg);
+        storeResult("testFlowByDefaultXPath", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
     @AfterClass
     public static void outputResult(){
         System.out.println("\n\nFinal results:");
-        for(String str: results){
-            System.out.println(str);
+        for(TestResult result: results){
+            System.out.println(result.strResult());
         }
     }
 }

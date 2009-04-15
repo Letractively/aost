@@ -4,6 +4,10 @@ public class TimingDecorator {
 
     private delegate
 
+    private long startTime = -1
+
+    private long endTime = -1
+
     private long accumulatedTime = 0
 
     private List<String> whiteList = []
@@ -18,6 +22,16 @@ public class TimingDecorator {
 
     public void resetAccumulatedTime(){
       this.accumulatedTime = 0
+      this.startTime = -1
+      this.endTime = -1
+    }
+
+    public long getStartTime(){
+      return this.startTime
+    }
+
+    public long getEndTime(){
+      return this.endTime
     }
 
     protected boolean methodInWhiteList(String methodName){
@@ -32,16 +46,19 @@ public class TimingDecorator {
     }
 
     def invokeMethod(String name, args) {
+        if(startTime == -1)
+          startTime = System.currentTimeMillis()
         long beforeTime = System.currentTimeMillis()
         def result = delegate.invokeMethod(name, args)
         long duration = System.currentTimeMillis() - beforeTime
 
+        endTime = System.currentTimeMillis()
         if(methodInWhiteList(name)){
           accumulatedTime += duration
+          println "Calling $name($args) in ${duration} ms <-- Accumulated "
+        }else{
+          println "Calling $name($args) in ${duration} ms"
         }
-
-        println "Calling $name($args) in ${duration} ms"
-
         result
     }
 }
