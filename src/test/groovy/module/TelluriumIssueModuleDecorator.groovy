@@ -11,13 +11,21 @@ public class TelluriumIssueModuleDecorator {
   
   private TimingDecorator decorator
 
+/*
   public TelluriumIssueModuleDecorator() {
     decorator = new TimingDecorator(new TelluriumIssueModule());
     List<String> whiteList = ["getIsssueTypes", "selectIssueType", "searchIssue", "getAdvancedIsssueTypes", "advancedSearchIssue", "clickMoreSearchTips", "getTableHeaderNum", "getHeaderNames", "getDataForColumn", "clickTable", "clickOnTableHeade", "selectDataLayout", "getIssueData"];
     decorator.setWhiteList(whiteList);
     decorator.defineUi();
   }
+*/
 
+  public TelluriumIssueModuleDecorator(module) {
+    decorator = new TimingDecorator(module);
+    List<String> whiteList = ["getIsssueTypes", "selectIssueType", "searchIssue", "getAdvancedIsssueTypes", "advancedSearchIssue", "clickMoreSearchTips", "getTableHeaderNum", "getHeaderNames", "getDataForColumn", "clickTable", "clickOnTableHeade", "selectDataLayout", "getIssueData"];
+    decorator.setWhiteList(whiteList);
+    decorator.defineUi();
+  }
 
   public long getAccumulatedTime(){
     return decorator.getAccumulatedTime();
