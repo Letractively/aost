@@ -55,6 +55,8 @@ public class TelluriumIssueModule extends DslContext{
            //define table elements
            //for the border column
            TextBox(uid: "row: *, column: 1", clocator: [:])
+           TextBox(uid: "row: *, column: 8", clocator: [:])
+           TextBox(uid: "row: *, column: 10", clocator: [:])
            //For the rest, just UrlLink
            UrlLink(uid: "all", clocator: [:])
        }
@@ -149,6 +151,27 @@ public class TelluriumIssueModule extends DslContext{
         }
 
         return lst
+    }
+
+    public void getIssueDataByCells(){
+        int mcolumn =  getTableHeaderColumnNum("issueResult");
+        int mrow = getTableMaxRowNum("issueResult")
+        for(int i=1; i<=mrow; i++){
+          for(int j=1; j<=mcolumn; j++){
+            getText("issueResult[${i}][${j}]")
+          }
+        }
+    }
+
+    public String[] getAllText(){
+      return getAllTableCellText("issueResult")
+    }
+
+    public void getIssueData(){
+      if(this.exploreJQuerySelector)
+        getAllText()
+      else
+        getIssueDataByCells()
     }
 
     public void clickTable(int row, int column){

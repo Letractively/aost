@@ -13,7 +13,7 @@ public class TelluriumIssueModuleDecorator {
 
   public TelluriumIssueModuleDecorator() {
     decorator = new TimingDecorator(new TelluriumIssueModule());
-    List<String> whiteList = ["getIsssueTypes", "selectIssueType", "searchIssue", "getAdvancedIsssueTypes", "advancedSearchIssue", "clickMoreSearchTips", "getTableHeaderNum", "getHeaderNames", "getDataForColumn", "clickTable", "clickOnTableHeade", "selectDataLayout"];
+    List<String> whiteList = ["getIsssueTypes", "selectIssueType", "searchIssue", "getAdvancedIsssueTypes", "advancedSearchIssue", "clickMoreSearchTips", "getTableHeaderNum", "getHeaderNames", "getDataForColumn", "clickTable", "clickOnTableHeade", "selectDataLayout", "getIssueData"];
     decorator.setWhiteList(whiteList);
     decorator.defineUi();
   }
@@ -50,6 +50,11 @@ public class TelluriumIssueModuleDecorator {
         int mcolumn = decorator.getTableHeaderNum();
         List<String> list = decorator.getHeaderNames();
         list = decorator.getDataForColumn(column);
+    }
+
+
+    public void testGetData(){
+      decorator.getIssueData();
     }
 
     public void testClickIssueResult(int row, int column){
