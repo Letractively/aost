@@ -27,6 +27,14 @@ public class TelluriumIssueModuleDecorator {
      decorator.resetAccumulatedTime();
   }
 
+  public long getStartTime(){
+     return decorator.getStartTime();
+  }
+
+  public long getEndTime(){
+    return decorator.getEndTime();
+  }
+
   public void testGetIssueTypes(int issueTypeIndex){
         String[] ists = decorator.getIsssueTypes();
         decorator.selectIssueType(ists[issueTypeIndex]);
