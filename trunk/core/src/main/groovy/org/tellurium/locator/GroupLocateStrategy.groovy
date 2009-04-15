@@ -48,7 +48,8 @@ class GroupLocateStrategy {
         String self = JQueryBuilder.buildJQuerySelector(locator.tag, locator.text, locator.position, locator.direct, locator.attributes)
         StringBuffer sb = new StringBuffer(LENGTH)
         sb.append(self)
-        if(groupAttributes.size() > 0){
+        //Do not need group locating if there is ID attribute in itself since ID is uniquely defined in jQuery
+        if(locator.noIdIncluded() && groupAttributes.size() > 0){
           sb.append(HAS).append("(").append(groupAttributes.join(SELECTOR_SEPARATOR)).append(")")
         }
 

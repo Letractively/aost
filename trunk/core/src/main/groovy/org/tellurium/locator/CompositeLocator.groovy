@@ -9,6 +9,8 @@ package org.tellurium.locator
  * 
  */
 class CompositeLocator {
+    public static final String ID = "id"
+
     String header
     String tag
     String text
@@ -19,5 +21,21 @@ class CompositeLocator {
 
     public String getTag(){
         return tag
+    }
+
+    public boolean isIdIncluded(){
+      boolean result = false
+      String id = attributes.get(ID)
+      if(id != null && id.trim().length() > 0){
+        //only consider ID included if there are really id provided
+        result = true
+      }
+
+      return result
+    }
+
+   //handy method
+    public boolean noIdIncluded(){
+      return !isIdIncluded()
     }
 }
