@@ -22,6 +22,9 @@ class GroupLocateStrategy {
     protected static final String HAS = ":has"
     protected static final String MATCH_ALL = "*"
     protected static final String SELECTOR_SEPARATOR = ", "
+    protected static final String ANY_DESCENDANT = "descendant::*"
+    protected static final String ANY_CHILD = "child::*"
+
     protected static final int LENGTH = 64
   
     def static String select(Container obj){
@@ -70,6 +73,7 @@ class GroupLocateStrategy {
                     gattr= XPathBuilder.buildChildXPath(cloc.tag, cloc.text, cloc.position, cloc.attributes)
                 else
                     gattr= XPathBuilder.buildDescendantXPath(cloc.tag, cloc.text, cloc.position, cloc.attributes)
+              if(!(ANY_DESCENDANT.equals(gattr.trim()) || ANY_CHILD.equals(gattr.trim())))
                 groupAttributes.add(gattr)
             }
         }
