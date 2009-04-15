@@ -4,10 +4,16 @@ import org.tellurium.test.java.TelluriumJavaTestCase;
 import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.AfterClass;
 import module.TelluriumIssueModuleDecorator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     private static TelluriumIssueModuleDecorator tim;
+    private static List<String> results = new ArrayList<String>();
+
 
     @BeforeClass
     public static void initUi() {
@@ -51,7 +57,9 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         for(int i=0; i<10; i++)
             testFlow();
         long accumulatedTime = tim.getAccumulatedTime();
-        System.out.println("Use default XPath, the accumulated time is " + accumulatedTime + " ms");
+        String msg = "Use default XPath, the accumulated time is " + accumulatedTime + " ms";
+        System.out.println(msg);
+        results.add(msg);
     }
 
     @Test
@@ -61,7 +69,9 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         for(int i=0; i<10; i++)
             testFlow();
         long accumulatedTime = tim.getAccumulatedTime();
-        System.out.println("Use Javascript XPath, the accumulated time is " + accumulatedTime + " ms");
+        String msg = "Use Javascript XPath, the accumulated time is " + accumulatedTime + " ms";
+        System.out.println(msg);
+        results.add(msg);
     }
 
     @Test
@@ -71,7 +81,16 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         for(int i=0; i<10; i++)
             testFlow();
         long accumulatedTime = tim.getAccumulatedTime();
-        System.out.println("Use jQuery selector, the accumulated time is " + accumulatedTime + " ms");
+        String msg = "Use jQuery selector, the accumulated time is " + accumulatedTime + " ms";
+        System.out.println(msg);
+        results.add(msg);
     }
 
+    @AfterClass
+    public static void outputResult(){
+        System.out.println("Final results:");
+        for(String str: results){
+            System.out.println(str);
+        }
+    }
 }
