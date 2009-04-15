@@ -13,7 +13,7 @@ import java.util.List;
 public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     private static TelluriumIssueModuleDecorator tim;
     private static List<String> results = new ArrayList<String>();
-
+    private static int repeatCount = 10;
 
     @BeforeClass
     public static void initUi() {
@@ -50,11 +50,16 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
 //        tim.waitPageLod();
     }
 
+    public void testGetData(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
+        tim.testGetData();
+    }
+
     @Test
     public void testDefaultXPath(){
         tim.disableJQuerySelector();
         tim.useDefaultXPathLibrary();
-        for(int i=0; i<10; i++)
+        for(int i=0; i<repeatCount; i++)
             testFlow();
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Use default XPath, the accumulated time is " + accumulatedTime + " ms";
@@ -66,7 +71,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     public void testJavascriptXPath(){
         tim.disableJQuerySelector();
         tim.useJavascriptXPathLibrary();
-        for(int i=0; i<10; i++)
+        for(int i=0; i<repeatCount; i++)
             testFlow();
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Use Javascript XPath, the accumulated time is " + accumulatedTime + " ms";
@@ -78,7 +83,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     public void testJQuerySelector(){
         tim.useJQuerySelector();
         tim.useDefaultXPathLibrary();
-        for(int i=0; i<10; i++)
+        for(int i=0; i<repeatCount; i++)
             testFlow();
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Use jQuery selector, the accumulated time is " + accumulatedTime + " ms";
@@ -86,9 +91,45 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         results.add(msg);
     }
 
+    @Test
+    public void testGetDataByDefaultXPath(){
+        tim.useDefaultXPathLibrary();
+        tim.disableJQuerySelector();
+        for(int i=0; i<repeatCount; i++)
+            testGetData();
+        long accumulatedTime = tim.getAccumulatedTime();
+        String msg = "Use default XPath, the accumulated Time for get Table data is " + accumulatedTime + "ms";
+        System.out.println(msg);
+        results.add(msg);
+    }
+
+    @Test
+    public void testGetDataByJavascriptXPath(){
+        tim.useJavascriptXPathLibrary();
+        tim.disableJQuerySelector();
+        for(int i=0; i<repeatCount; i++)
+            testGetData();
+        long accumulatedTime = tim.getAccumulatedTime();
+        String msg = "Use Javascript XPath, the accumulated Time for get Table data is " + accumulatedTime + "ms";
+        System.out.println(msg);
+        results.add(msg);
+    }
+
+    @Test
+    public void testGetDataByJQuerySelector(){
+        tim.useDefaultXPathLibrary();
+        tim.useJQuerySelector();
+        for(int i=0; i<repeatCount; i++)
+            testGetData();
+        long accumulatedTime = tim.getAccumulatedTime();
+        String msg = "Use jQuery Selector, the accumulated Time for get Table data is " + accumulatedTime + "ms";
+        System.out.println(msg);
+        results.add(msg);
+    }
+
     @AfterClass
     public static void outputResult(){
-        System.out.println("Final results:");
+        System.out.println("\n\nFinal results:");
         for(String str: results){
             System.out.println(str);
         }
