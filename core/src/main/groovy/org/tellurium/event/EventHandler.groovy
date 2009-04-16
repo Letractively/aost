@@ -6,6 +6,7 @@ import org.tellurium.event.Event
 import org.tellurium.event.EventSorter
 import org.tellurium.exception.ElementNotPresentException
 import org.tellurium.util.Helper
+import java.awt.event.KeyEvent
 
 class EventHandler implements Configurable{
 
@@ -222,8 +223,6 @@ class EventHandler implements Configurable{
 
         if(input == null || input.length() < 1){
     		dispatcher.type(locator, "")
-        }else if(input.contains('.') || input.contains('(')){
-            dispatcher.type(locator, input)
         }else{
     		char[] chars = input.toCharArray()
 
@@ -231,6 +230,21 @@ class EventHandler implements Configurable{
     			String key = Character.toString(achar)
     			if("\n".equals(key)){
     				dispatcher.keyUp(locator,  "\\13")
+                }else if(".".equals(key)){
+                    String keycode = Integer.toString(KeyEvent.VK_PERIOD)
+//                    dispatcher.keyDownNative(keycode)
+                    dispatcher.keyPressNative(keycode)
+//                    dispatcher.keyUpNative(keycode)
+                }else if("(".equals(key)){
+                    String keycode = Integer.toString(KeyEvent.VK_LEFT_PARENTHESIS)
+//                    dispatcher.keyDownNative(keycode)
+                    dispatcher.keyPressNative(keycode)
+//                    dispatcher.keyUpNative(keycode)
+                }else if("y".equals(key)){
+                    String keycode = Integer.toString(KeyEvent.VK_Y)
+//                    dispatcher.keyDownNative(keycode)
+                    dispatcher.keyPressNative(keycode)
+//                    dispatcher.keyUpNative(keycode)
                 }else{
     				dispatcher.keyDown(locator, key)
     				dispatcher.keyPress(locator, key)
@@ -248,14 +262,6 @@ class EventHandler implements Configurable{
 
         if(input == null || input.length() < 1){
     		dispatcher.type(locator, "")
-        }else if(input.contains(".") || input.contains("(") || input.contains("y")){
-                    dispatcher.type(locator,input)
-                    if(hasKeyDown)
-                       dispatcher.fireEvent(locator, "keydown")
-                    if(hasKeyPress)
-                       dispatcher.fireEvent(locator, "keypress")
-                    if(hasKeyUp)
-                       dispatcher.fireEvent(locator, "keyup")
         }else{
     		char[] chars = input.toCharArray()
 
@@ -263,11 +269,39 @@ class EventHandler implements Configurable{
     			String key = Character.toString(achar)
     			if("\n".equals(key)){
     				dispatcher.keyUp(locator,  "\\13")
+                }else if(".".equals(key)){
+                    String keycode = Integer.toString(KeyEvent.VK_PERIOD)
+                    if(hasKeyDown)
+                      dispatcher.keyDownNative(keycode)
+
+                    dispatcher.keyPressNative(keycode)
+
+                    if(hasKeyUp)
+                      dispatcher.keyUpNative(keycode)
+                }else if("(".equals(key)){
+                    String keycode = Integer.toString(KeyEvent.VK_LEFT_PARENTHESIS)
+                    if(hasKeyDown)
+                      dispatcher.keyDownNative(keycode)
+
+                    dispatcher.keyPressNative(keycode)
+
+                    if(hasKeyUp)
+                      dispatcher.keyUpNative(keycode)
+                }else if("y".equals(key)){
+                    String keycode = Integer.toString(KeyEvent.VK_Y)
+                    if(hasKeyDown)
+                      dispatcher.keyDownNative(keycode)
+
+                    dispatcher.keyPressNative(keycode)
+
+                    if(hasKeyUp)
+                      dispatcher.keyUpNative(keycode)
                 }else{
                     if(hasKeyDown)
                         dispatcher.keyDown(locator, key)
 
                     dispatcher.keyPress(locator, key)
+
                     if(hasKeyUp)
                         dispatcher.keyUp(locator, key)
     			}

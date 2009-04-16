@@ -34,7 +34,7 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
 
     @Test
     public void testGoogleSearch() {
-        gsm.doGoogleSearch("tellurium Groovy Test");
+        gsm.doGoogleSearch("tellurium . ( Groovy ) Test");
     }
 
     @Test
