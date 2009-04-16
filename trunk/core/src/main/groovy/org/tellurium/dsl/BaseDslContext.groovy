@@ -13,6 +13,7 @@ import org.tellurium.object.StandardTable
 import org.tellurium.object.UiObject
 import org.tellurium.util.Helper
 import java.util.List
+import org.tellurium.locator.JQueryOptimizer
 
 /**
  * 
@@ -32,6 +33,7 @@ abstract class BaseDslContext {
     
   //flag to decide whether we should use jQuery Selector
   protected boolean exploreJQuerySelector = false
+  protected JQueryOptimizer optimizer = new JQueryOptimizer()
 
   UiDslParser ui = new UiDslParser()
 
@@ -679,7 +681,7 @@ abstract class BaseDslContext {
     }
 
     String locator = context.getReferenceLocator()
-    locator = JQUERY_SELECTOR + locator.trim()
+    locator = optimizer.optimize(JQUERY_SELECTOR + locator.trim())
     
     return locator
   }

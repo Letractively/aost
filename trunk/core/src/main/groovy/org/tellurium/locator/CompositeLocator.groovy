@@ -9,7 +9,12 @@ package org.tellurium.locator
  * 
  */
 class CompositeLocator {
+  //TODO: need to move the constants to a central place 
     public static final String ID = "id"
+    private static final String NOT_PREFIX = "!"
+    private static final String START_PREFIX = "^"
+    private static final String END_PREFIX = "\$"
+    private static final String ANY_PREFIX = "*"
 
     String header
     String tag
@@ -28,7 +33,9 @@ class CompositeLocator {
       String id = attributes.get(ID)
       if(id != null && id.trim().length() > 0){
         //only consider ID included if there are really id provided
-        result = true
+        if(!(id.startsWith(NOT_PREFIX) || id.startsWith(START_PREFIX) || id.startsWith(END_PREFIX) ||  id.startsWith(ANY_PREFIX))){
+          result = true
+        }
       }
 
       return result
