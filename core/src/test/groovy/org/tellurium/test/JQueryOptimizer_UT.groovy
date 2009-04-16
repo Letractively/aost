@@ -22,6 +22,24 @@ public class JQueryOptimizer_UT extends GroovyTestCase{
     assertEquals("table#resultstable > tbody > tr > td", result)
   }
 
+  public void testContainIdSelector(){
+    String jqs = "select#scan"
+    boolean result = jqp.containIdSelector(jqs)
+    assertTrue(result)
+
+    jqs="select:has(div#scan)"
+    result = jqp.containIdSelector(jqs)
+    assertFalse(result)
+
+    jqs="select>div#scan"
+    result = jqp.containIdSelector(jqs)
+    assertFalse(result)
+
+    jqs="select,div#scan"
+    result = jqp.containIdSelector(jqs)
+    assertFalse(result)     
+  }
+
   public void testPickIdSelector(){
     String jqs = "form[method=get]:has(select#can, span:contains(for), input[type=text][name=q], input[value=Search][type=submit]) select#can"
     String result = jqp.pickIdSelector(jqs)
