@@ -7,8 +7,6 @@ public class TelluriumDownSearchModule extends DslContext {
 
   public void defineUi() {
     
-    useJQuerySelector()
-    
     ui.Form(uid: "TelluriumDownload", clocator: [tag: "form", method: "get", action: "list"], group: "true") {
       Selector(uid: "DownloadType", clocator: [tag: "select", name: "can", id: "can"])
       InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "q", id: "q"])
