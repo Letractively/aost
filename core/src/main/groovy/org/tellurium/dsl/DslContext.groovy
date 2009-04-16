@@ -83,7 +83,8 @@ abstract class DslContext extends BaseDslContext {
             locator = context.getReferenceLocator() 
         }
 
-        if(this.exploreJQuerySelector){
+//        if(this.exploreJQuerySelector){
+        if(context.isUseJQuerySelector()){
           locator = JQUERY_SELECTOR + locator.trim()
         } else {
           //make sure the xpath starts with "//"

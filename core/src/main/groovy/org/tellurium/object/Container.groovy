@@ -33,7 +33,7 @@ class Container extends UiObject {
 
     protected void groupLocating(WorkflowContext context){
       if (this.useGroupInfo) {
-        if(context.useJQuerySelector()){
+        if(context.isUseJQuerySelector()){
           context.appendReferenceLocator(GroupLocateStrategy.select(this))
         }else{
           //need to use group information to help us locate the container xpath
@@ -42,7 +42,7 @@ class Container extends UiObject {
       } else {
         //do not use the group information, process as regular
         def lp = new LocatorProcessor()
-        if(context.useJQuerySelector())
+        if(context.isUseJQuerySelector())
           lp.useJQuerySelector()
         context.appendReferenceLocator(lp.locate(this.locator))
       }

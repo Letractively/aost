@@ -556,7 +556,7 @@ class StandardTable extends Container{
 
         //append relative location, i.e., tbody, row, column to the locator
         String loc = null
-        if(context.useJQuerySelector()){
+        if(context.isUseJQuerySelector()){
           //jquery eq() starts from zero, while xpath starts from one
           loc = getCellSelector(ntbody-1, nrow-1, ncolumn-1)
         }else{
@@ -609,7 +609,7 @@ class StandardTable extends Container{
 
         //append relative location, i.e., row, column to the locator
         String loc =  null
-        if(context.useJQuerySelector()){
+        if(context.isUseJQuerySelector()){
           loc = getHeaderSelector(index-1)
         }else{
           loc = getHeaderLocator(index)
@@ -661,7 +661,7 @@ class StandardTable extends Container{
 
         //append relative location, i.e., row, column to the locator
         String loc =  null
-        if(context.useJQuerySelector()){
+        if(context.isUseJQuerySelector()){
           loc = getFootSelector(index-1)
         }else{
           loc = getFootLocator(index)
