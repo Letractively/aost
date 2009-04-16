@@ -47,7 +47,7 @@ public class JQueryOptimizer {
   }
 
   protected boolean containIdSelector(String jqs){
-    return  jqs ==~ /^(\w)+#/
+    return  jqs ==~ /^(\w)+#(\w)+(.)*/
   }
 
   protected String removePrefix(String jqs){

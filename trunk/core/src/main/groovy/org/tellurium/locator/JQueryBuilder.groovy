@@ -232,8 +232,8 @@ public class JQueryBuilder {
 
     if(position != null && position.trim().length() > 0){
       int index = Integer.parseInt(position)
-      if(index >= 0){
-        sb.append(attrPosition(index))
+      if(index > 0){
+        sb.append(attrPosition(index - 1))
       }
     }
 
