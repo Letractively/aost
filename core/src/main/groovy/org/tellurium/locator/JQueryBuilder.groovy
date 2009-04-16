@@ -23,6 +23,7 @@ public class JQueryBuilder {
   protected static final String NOT_FILTER = ":not"
   protected static final String SINGLE_QUOTE = "'"
   protected static final String SPACE = " "
+  
   private static final String NOT_PREFIX = "!"
   private static final String START_PREFIX = "^"
   private static final String END_PREFIX = "\$"
@@ -78,11 +79,26 @@ public class JQueryBuilder {
   }
 
   protected static String attrId(String id){
-    if(id != null && id.trim().length() > 0){
-      return "${ID_SELECTOR_PREFIX}${id}"
+    if(id == null)
+       return "[id]"
+    
+    if (id.startsWith(START_PREFIX)) {
+      return "[id^=${id.substring(1)}]"
+    } else if (id.startsWith(END_PREFIX)) {
+      return "[id\$=${id.substring(1)}]"
+    } else if (id.startsWith(ANY_PREFIX)) {
+      return "[id*=${id.substring(1)}]"
+    } else if (id.startsWith(NOT_PREFIX)) {
+      return "[id!=${id.substring(1)}]"
+    } else {
+      //should never come here
+      return "[id]"
     }
+//    if(id != null && id.trim().length() > 0){
+//      return "${ID_SELECTOR_PREFIX}${id}"
+//    }
 
-    return "[id]"
+//    return "[id]"
   }
 
   protected static String attrClass(String clazz){
@@ -197,11 +213,15 @@ public class JQueryBuilder {
     if(attributes != null && attributes.size() > 0){
       String id = attributes.get(ID)
       if(id != null && id.trim().length() > 0){
+        id = id.trim()
+        if(id.startsWith(START_PREFIX) || id.startsWith(END_PREFIX) || id.startsWith(ANY_PREFIX) || id.startsWith(NOT_PREFIX)){
+               sb.append(attrId(id))
+        }else{
         //should not add other attributes if the ID is presented since jQuery will only select the first element for
         // the ID and additional attributes will not help at all
-        sb.append(attrId(id))
-
-        return sb.toString()
+        //also since id is unique, we do not need to include tag here
+          return " #${id}"
+        }
       }
 
       String clazz = attributes.get(CLASS)

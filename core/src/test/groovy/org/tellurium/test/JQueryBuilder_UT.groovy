@@ -23,9 +23,21 @@ public class JQueryBuilder_UT extends GroovyTestCase {
     String result = JQueryBuilder.attrId(id)
     assertEquals("[id]", result)
 
-    id = "hp_table"
+    id = "*hp_table"
     result = JQueryBuilder.attrId(id)
-    assertEquals("#hp_table", result)    
+    assertEquals("[id*=hp_table]", result)
+    
+    id = "^hp_table"
+    result = JQueryBuilder.attrId(id)
+    assertEquals("[id^=hp_table]", result)
+
+    id = "\$hp_table"
+    result = JQueryBuilder.attrId(id)
+    assertEquals("[id\$=hp_table]", result)
+
+    id = "!hp_table"
+    result = JQueryBuilder.attrId(id)
+    assertEquals("[id!=hp_table]", result)
   }
 
   public void testAttrClass(){

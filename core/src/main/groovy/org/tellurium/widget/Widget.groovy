@@ -14,6 +14,7 @@ import org.tellurium.util.Helper
 import org.tellurium.extend.Extension
 import org.stringtree.json.JSONReader
 import org.json.simple.JSONArray
+import org.tellurium.locator.JQueryOptimizer
 
 /**
  * The base class for Widget objects.
@@ -39,6 +40,8 @@ abstract class Widget extends UiObject {
 
   //flag to decide whether we should use jQuery Selector
   protected boolean exploreJQuerySelector = false
+  
+  protected JQueryOptimizer optimizer = new JQueryOptimizer()
 
   //the reference xpath for widget's parent
   private String pRef;
@@ -86,7 +89,7 @@ abstract class Widget extends UiObject {
       lcr = pRef + lcr
     if(context.isUseJQuerySelector()){
 //    if (this.exploreJQuerySelector) {
-      lcr = JQUERY_SELECTOR + lcr.trim()
+      lcr = optimizer.optimize(JQUERY_SELECTOR + lcr.trim())
     } else {
       //make sure the xpath starts with "//"
       if (lcr != null && (!lcr.startsWith("//")) && (!lcr.startsWith(JQUERY_SELECTOR))) {
@@ -729,7 +732,7 @@ abstract class Widget extends UiObject {
     }
 
     String locator = context.getReferenceLocator()
-    locator = JQUERY_SELECTOR + locator.trim()
+    locator = optimizer.optimize(JQUERY_SELECTOR + locator.trim())
 
     return locator
   }
