@@ -1,4 +1,7 @@
 package org.tellurium.locator
+
+import static org.tellurium.Const.*
+
 /**
  *
  *
@@ -12,29 +15,7 @@ package org.tellurium.locator
 
 public class JQueryBuilder {
 
-  protected static final String CHILD_SEPARATOR = " > "
-  protected static final String DESCENDANT_SEPARATOR = " "
-  protected static final String NEXT_SEPARATOR = " + "
-  protected static final String SIBLING_SEPARATOR = " ~ "
-  protected static final String ID_SELECTOR_PREFIX = "#"
-  protected static final String CLASS_SELECTOR_PREFIX = "."
-  protected static final String MATCH_ALL = "*"
-  protected static final String CONTAINS_FILTER = ":contains"
-  protected static final String NOT_FILTER = ":not"
-  protected static final String SINGLE_QUOTE = "'"
-  protected static final String SPACE = " "
-  
-  private static final String NOT_PREFIX = "!"
-  private static final String START_PREFIX = "^"
-  private static final String END_PREFIX = "\$"
-  private static final String ANY_PREFIX = "*"
-
-  //represent it is a partial match i.e., contains
-  private static final String CONTAIN_PREFIX = "%%"
   protected static final String TEXT_PSEUDO_CLASS = ":te_text"
-  
-  protected static final String ID = "id"
-  protected static final String CLASS = "class"
 
   protected static final int LENGTH = 64
 

@@ -1,5 +1,7 @@
 package org.tellurium.locator
 
+import static org.tellurium.Const.*
+
 /**
  *  The composite locator which is used to automatically generate the relative
  *  xpath by given attributes and parameters.
@@ -9,13 +11,7 @@ package org.tellurium.locator
  * 
  */
 class CompositeLocator {
-  //TODO: need to move the constants to a central place 
-    public static final String ID = "id"
-    private static final String NOT_PREFIX = "!"
-    private static final String START_PREFIX = "^"
-    private static final String END_PREFIX = "\$"
-    private static final String ANY_PREFIX = "*"
-
+  
     String header
     String tag
     String text

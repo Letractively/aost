@@ -7,6 +7,7 @@ import org.tellurium.locator.XPathBuilder
 import org.tellurium.object.Container
 import org.tellurium.object.UiObject
 import org.tellurium.exception.InvalidLocatorException
+import static org.tellurium.Const.*
 
 /**
  *   Use group information, i.e., use its direct descedants' information to form its own locator
@@ -19,11 +20,11 @@ import org.tellurium.exception.InvalidLocatorException
 class GroupLocateStrategy {
 
     protected static final String ERROR_MESSAGE = "Required Composite Locator, Invalid locator"
-    protected static final String HAS = ":has"
+/*    protected static final String HAS = ":has"
     protected static final String MATCH_ALL = "*"
     protected static final String SELECTOR_SEPARATOR = ", "
     protected static final String ANY_DESCENDANT = "descendant::*"
-    protected static final String ANY_CHILD = "child::*"
+    protected static final String ANY_CHILD = "child::*"*/
 
     protected static final int LENGTH = 64
   
