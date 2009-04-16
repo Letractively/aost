@@ -435,7 +435,7 @@ class Table extends Container {
 
     //append relative location, i.e., row, column to the locator
     String loc = null
-    if(context.useJQuerySelector()){
+    if(context.isUseJQuerySelector()){
       //jquery eq() starts from zero, while xpath starts from one
       loc = getCellSelector(nrow-1, ncolumn-1)
     }else{
@@ -488,7 +488,7 @@ class Table extends Container {
 
     //append relative location, i.e., row, column to the locator
     String loc = null
-    if(context.useJQuerySelector()){
+    if(context.isUseJQuerySelector()){
       loc = getHeaderSelector(index-1)
     }else{
       loc = getHeaderLocator(index)

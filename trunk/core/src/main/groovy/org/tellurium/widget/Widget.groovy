@@ -84,8 +84,8 @@ abstract class Widget extends UiObject {
     //add parent reference xpath
     if (pRef != null)
       lcr = pRef + lcr
-
-    if (this.exploreJQuerySelector) {
+    if(context.isUseJQuerySelector()){
+//    if (this.exploreJQuerySelector) {
       lcr = JQUERY_SELECTOR + lcr.trim()
     } else {
       //make sure the xpath starts with "//"

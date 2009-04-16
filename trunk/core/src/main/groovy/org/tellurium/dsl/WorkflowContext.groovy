@@ -72,7 +72,7 @@ class WorkflowContext {
     return context
   }
 
-  public boolean useJQuerySelector(){
+  public boolean isUseJQuerySelector(){
 
     return this.exploreJQuerySelector
   }
