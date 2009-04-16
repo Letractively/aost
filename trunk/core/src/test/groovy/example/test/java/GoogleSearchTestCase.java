@@ -25,10 +25,12 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
     public static void initUi() {
         gsm = new GoogleSearchModule();
         gsm.defineUi();
+        gsm.useJQuerySelector();
     }
 
     @Before
     public void connectToGoogle() {
+
         connectUrl("http://www.google.com");
     }
 
