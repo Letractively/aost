@@ -1,75 +1,15 @@
 package org.tellurium.locator
+
+import static org.tellurium.Const.*
+
 /**
  *   A utility class to build xpath from a given parameter set
  *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  */
 class XPathBuilder {
-  // Selects all children of the current node
-  private static final String CHILD = "child"
-
-  // Selects all descendants (children, grandchildren, etc.) of the current node
-  private static final String DESCENDANT = "descendant"
-
-  //  Selects all descendants (children, grandchildren, etc.) of the current node
-  // and the current node itself
-  private static final String DESCENDANT_OR_SELF = "descendant-or-self"
-
-  //  Selects the current node
-  private static final String SELF = "self"
-
-  //  Selects everything in the document after the closing tag of the current node
-  private static final String FOLLOWING = "following"
-
-  //  Selects all siblings after the current node
-  private static final String FOLLOWING_SIBLING = "following-sibling"
-
-  //  Selects the parent of the current node
-  private static final String PARENT = "parent"
-
-  //the prefix to start get a relative xpath, it is save to start with the following prefix
-  private static final String DESCENDANT_OR_SELF_PATH = "/descendant-or-self::"
-
-  private static final String CHILD_PATH = "/child::"
-
-  private static final String DESCENDANT_PREFIX = "descendant::"
-
-  private static final String CHILD_PREFIX = "child::"
-
-  private static final String MATCH_ALL = "*"
-
-  //represent it is a partial match i.e., contains
-  private static final String CONTAIN_PREFIX = "%%"
-
-  private static final String TAG = "tag"
-
-  private static final String POSITION = "position"
-
-  private static final String TEXT = "text"
-
-  private static final String SEPARATOR = "/"
 
   private static final int TYPICAL_LENGTH = 64
-
-  private static final String NOT_PREFIX = "!"
-
-  private static final String START_PREFIX = "^"
-
-  private static final String END_PREFIX = "\$"
-
-  private static final String ANY_PREFIX = "*"
-
-  // example xpaths
-  //  //descendant-or-self::*[@uid='hp_table']/tbody/tr/td[1]/descendant-or-self::div/div[2]/p[1]/a
-  //  /html/body/div[5]/center/table[@uid='hp_table']/tbody/tr/td[1]/div/div[2]/p[1]/a
-  //  /html/body/div[5]/center/descendant-or-self::table[@uid='hp_table']/tbody/tr/td[1]/div/div[2]/p[1]/a
-  //  /html/body/div[5]/center/descendant-or-self::*[@uid='hp_table']/tbody/tr/td[1]/div/div[2]/p[1]/a
-  //  /html/body/div[5]/center/descendant-or-self::*[@uid='hp_table']/tbody/tr/td[1]/descendant-or-self::div/div[2]/p[1]/a
-
-  //  /thead/tr/th[@class]/descendant-or-self::*[normalize-space(text())='?']
-  // /parent::th/following-sibling::th[@group=normalize-space(preceding-sibling::th[@class]
-  // /descendant-or-self::*[normalize-space(text())='?']
-  // /parent::th/following-sibling::th[@group][1]/attribute::group)][?]
 
   public static String buildDescendantXPath(String tag, String text, String position, Map<String, String> attributes) {
     if (position != null && position.isInteger())

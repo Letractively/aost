@@ -12,29 +12,28 @@ import org.tellurium.object.UiObject
  *  @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
-abstract class UiObjectBuilder{
-    public static final String UID = "uid"
-    public static final String NAMESPACE = "namespace"
-    public static final String LOCATOR = "locator"
-    public static final String CLOCATOR = "clocator"
-    public static final String JQLOCATOR = "jqlocator"
-//    public static final String GLOCATOR = "glocator"
-    public static final String HEADER = "header"
-    public static final String TRAILER = "trailer"
+abstract class UiObjectBuilder {
     public static final String TAG = "tag"
     public static final String TEXT = "text"
     public static final String POSITION = "position"
     public static final String TYPE = "type"
     public static final String USE_GROUP_INFO = "group"
-    public static final String TRUE = "TRUE"
-    public static final String FALSE = "FALSE"
-    //direct child of either the header or the parent UI
+    public static final String UID = "uid"
+    public static final String NAMESPACE = "namespace"
+    public static final String LOCATOR = "locator"
+    public static final String CLOCATOR = "clocator"
+    public static final String JQLOCATOR = "jqlocator"
+    public static final String HEADER = "header"
+    public static final String TRAILER = "trailer"
     public static final String DIRECT = "direct"
     public static final String RESPOND_TO_EVENTS = "respond"
     public static final String TITLE = "title"
     public static final String ID = "id"
     public static final String NAME = "name"
-    
+    public static final String CLASS = "class"
+    public static final String TRUE = "TRUE"
+    public static final String FALSE = "FALSE"
+  
     def abstract build(Map map, Closure c);
 
     boolean validate(UiObject obj, Map map){
