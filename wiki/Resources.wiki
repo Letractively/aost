@@ -166,6 +166,7 @@
   * [http://news.softpedia.com/news/Screencast-Guide-Capure-Your-Linux-Desktop-on-Video-42626.shtml Capure Your Linux Desktop on Video!]
   * [http://googletesting.blogspot.com/ Google Testing Blog]
   * [http://github.com/ GitHub]
+  * [http://www.fileformat.info/tool/regex.htm Regular Expression Test Page]
 
 == Cheat Sheets ==
 
