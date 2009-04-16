@@ -15,6 +15,18 @@ public class JQueryOptimizer {
   protected static final String JQUERY_SEPARATOR = " "
   protected static final int LENGTH = 64
 
+  private ContextAwareSplitter splitter = new ContextAwareSplitter()
+   
+  public String optimize(String jqs){
+    if(jqs == null || jqs.trim().length() == 0)
+      return jqs
+
+    String jsel = removePrefix(jqs)
+    String selected = pickIdSelector(jsel)
+
+    return addPrefix(selected)
+  }
+
 //example:
 //
 // CASE 1:
@@ -28,26 +40,35 @@ public class JQueryOptimizer {
   //For example in
   //  jquery=form[method=get]:has(select#can, span:contains(for), input[type=text][name=q], input[value=Search][type=submit]) select#can
   //select#can is the real useful part, everything before it can be ignored/removed.
-  public String pickIdSelector(String jqs){
+  protected String pickIdSelector(String jqs){
     Stack<String> stack = new Stack<String>()
-    String[] splitted = jqs.split(JQUERY_SEPARATOR)
+    Stack<String> reverse = new Stack<String>()
+
+//    String[] splitted = jqs.split(JQUERY_SEPARATOR)
+    String[] splitted = splitter.split(jqs)
     for(String str: splitted){
       stack.push(str)
     }
 
-    StringBuffer sb = new StringBuffer(LENGTH)
     for(int i=0; i<splitted.length; i++){
       String sel = stack.pop()
-      sb.append(JQUERY_SEPARATOR).append(sel)
+      reverse.push(sel)
       if(containIdSelector(sel))
         break
+    }
+
+    StringBuffer sb = new StringBuffer(LENGTH)
+
+    while(reverse.size() > 0){
+      String sel = reverse.pop()
+      sb.append(JQUERY_SEPARATOR).append(sel)
     }
 
     return sb.toString().trim()
   }
 
   protected boolean containIdSelector(String jqs){
-    return  jqs ==~ /^(\w)+#(\w)+(.)*/
+    return  jqs ==~ /^(\w)*#(\w)+(.)*/
   }
 
   protected String removePrefix(String jqs){
@@ -58,5 +79,9 @@ public class JQueryOptimizer {
     }
 
     return input
+  }
+
+  protected String addPrefix(String jqs){
+    return JQUERY_PREFIX + jqs
   }
 }
