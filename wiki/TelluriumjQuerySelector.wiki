@@ -584,6 +584,18 @@ If you want to manually add Maven dependencies, use the following POM as a refer
 
 == Performance Comparison ==
 
+|| *Locator* || *Browser* || *TestFlow* || *NoGroup* || *Bulk Data||
+|| Ajaxslt XPath || FF 3 || 64.78 || 58.95 || 165.93 ||
+|| Ajaxslt XPath || IE 7 || 138.23 || 133.13 || 475.82 ||
+|| Javascript XPath || FF 3 || 62.39 || 59.82 || 164.23 ||
+|| Javascript XPath || IE 7 || 132.89 || 131.20 || 470.57 ||
+|| jQuery Selector || FF 3 || 61.75 || 59.60 || 0.159 ||
+|| jQuery Selector || IE 7 || 78.60 || 72.97 || 0.239 ||
+
+http://tellurium-users.googlegroups.com/web/PerformanceBenchmark4FF3.png?gda=DkeGhU4AAACXZPxEX7Ki-M5C2JpeBoXXbmPP2IOUAOTRTov5lVDl_MGjXFE8SoUS0fQzaoQIemTXUvAzVT6AsIST1RAkZXW447Cl1bPl-23V2XOW7kn5sQ&gsc=fH0GGQsAAABpzsTfYnuWMiH1pJztxNDi
+
+http://tellurium-users.googlegroups.com/web/PerformanceBenchMark4IE7.png?gda=_eqOLE4AAACXZPxEX7Ki-M5C2JpeBoXXbmPP2IOUAOTRTov5lVDl_O7yb5RiFGiNxJbRnD1MA8Xw_aztFVOYTtJDmLj5K5sC47Cl1bPl-23V2XOW7kn5sQ&gsc=fH0GGQsAAABpzsTfYnuWMiH1pJztxNDi
+
 == Reference Materials ==
 
   * [http://jquery.com/ JQuery]
