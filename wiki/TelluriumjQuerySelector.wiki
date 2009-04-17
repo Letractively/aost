@@ -313,7 +313,7 @@ and chart for IE 7 is as follows,
 
 http://tellurium-users.googlegroups.com/web/PerformanceBenchMark4IE7.png?gda=_eqOLE4AAACXZPxEX7Ki-M5C2JpeBoXXbmPP2IOUAOTRTov5lVDl_O7yb5RiFGiNxJbRnD1MA8Xw_aztFVOYTtJDmLj5K5sC47Cl1bPl-23V2XOW7kn5sQ&gsc=fH0GGQsAAABpzsTfYnuWMiH1pJztxNDi
 
-Although, the results only show the results for our Benchmark, we can still observe that:
+Although, the results only show the performance for our Benchmark, we can still observe that:
 
   # jQuery selector is as fast as Ajaxslt XPath and Javascript XPath in Firefox 3.
   # jQuery selector is much faster in IE 7 than the two XPath libraries
