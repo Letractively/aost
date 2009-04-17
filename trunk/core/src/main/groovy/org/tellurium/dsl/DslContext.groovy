@@ -74,7 +74,7 @@ abstract class DslContext extends BaseDslContext {
 
     protected String locatorMapping(WorkflowContext context, loc) {
         //get ui object's locator
-        String locator = locatorProcessor.locate(loc)
+        String locator = locatorProcessor.locate(context, loc)
 
         //get the reference locator all the way to the ui object
         if (context.getReferenceLocator() != null){
