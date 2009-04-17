@@ -277,6 +277,24 @@ If you want to manually add Maven dependencies, use [http://code.google.com/p/ao
 
 == Performance Comparison ==
 
+To test the performance of our jQuery Selector, we create a Benchmark project at
+
+{{{
+http://aost.googlecode.com/svn/branches/test-benchmark
+}}}
+
+We use the following three different locators in the project
+  # XPath using Ajaxslt library
+  # XPath using Javascript library
+  # jQuery Selector
+
+The tests are created from Tellurium Issues page and include three sets
+  # A series of test flow including issue search and issue data access
+  # Similar to the first one but without group locating in UI modules
+  # Access data from the issue table (limit the size to 20 rows and 10 columns)
+
+To reduce the effects from network latency and page loading, we only accumulate the time from a white list of methods.
+
 || *Locator* || *Browser* || *TestFlow* || *NoGroup* || *Bulk Data||
 || Ajaxslt XPath || FF 3 || 64.78 || 58.95 || 165.93 ||
 || Ajaxslt XPath || IE 7 || 138.23 || 133.13 || 475.82 ||
