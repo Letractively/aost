@@ -317,7 +317,7 @@ Although, the results only show the performance for our Benchmark, we can still 
 
   # jQuery selector is as fast as Ajaxslt XPath and Javascript XPath in Firefox 3.
   # jQuery selector is much faster in IE 7 than the two XPath libraries
-  # jQuery selector uses only one method call to get back data for all table cells and thus it is the most fastest one for bulk data access.
+  # jQuery selector uses only one method call to get back data for all table cells and thus it is the fastest one for bulk data access.
 
 == Reference Materials ==
 
