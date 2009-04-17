@@ -3,7 +3,7 @@
 
 == Introduction ==
 
-Start from version 0.6.0, Tellurium adds support for jQuery selector to address the problem that xpath is way too slow in IE web browser. 
+Starting from version 0.6.0, Tellurium is adding support for jQuery selector to address the problem of poor performance of xpath in Internet Explorer. 
 
 Tellurium automatically builds runtime xpath or jQuery selector based on a flag _exploreJQuerySelector_ in DslContext, which is false by default. To use jQuery selector, you should call 
 
@@ -24,21 +24,20 @@ http://tellurium-users.googlegroups.com/web/xpathjqsel.png?gda=BNGlpUAAAACXZPxEX
 Some of the jQuery functions are provided by the custom selenium server, which is created by our Tellurium Engine project. Be aware that jQuery selector only works for composite locator, i.e., _clocator_. If you have base locator, which is xpath, then the jQuery selector will not work for you.
 
 
-== How jQuery Selector Works ? ==
+== How Does the jQuery Selector Work ? ==
 
-The basic idea is to customize Selenium Core to load jQuery library at startup time. You can put jquery.js to the TestRunner.html and RemoteRunner.html. Another way is dump all jquery.js into user-extensions.js. Since our Engine prototype customizes Selenium core anyway, we use the first method.
+The basic idea is to customize Selenium Core to load the jQuery library at startup time. You can add jquery.js in to the TestRunner.html and RemoteRunner.html. Another way is dump all jquery.js into user-extensions.js. Since our Engine prototype customizes Selenium core anyway, we used the former method.
 
-After that, we register a custom locate strategy "jquery". By Selenium definition:
+After that, we register a custom locate strategy "jquery", using the following Selenium API call:
 
 {{{
 addLocationStrategy ( strategyName,functionDefinition )
 
 }}}
-    Defines a new function for Selenium to locate elements on the page. For example,
+    This defines a new function for Selenium to locate elements on the page. For example,
 if you define the strategy "foo", and someone runs click("foo=blah"), we'll run your
 function, passing you the string "blah", and click on the element that your function
-returns, or throw an "Element not found" error if your function returns null. We'll
-pass three arguments to your function:
+returns, or throw an "Element not found" error if your function returns null. Selenium passed three arguments to the location strategy function:
 
   * locator: the string the user passed in
   * inWindow: the currently selected window
@@ -66,15 +65,15 @@ addLocationStrategy("jquery", '''
 ''')
 }}}
 
-The code is pretty straightforward. When we found one element, return its DOM reference (Note: Selenium does not accept returning an array with only one element) and if we found multiple elements, we use jQuery get() method to return the DOM references. Otherwise, return null.
+The code is pretty straightforward. When we find one element, return its DOM reference (Note: Selenium does not accept returning an array with only one element) and if we find multiple elements, we use jQuery get() method to return an array of DOM references. Otherwise, return null.
 
-The actual code is a bit more complicated because we need to consider the attribute locator. We use the same format of attribute locator as the XPath one, i.e.,
+The actual code is a bit more complicated because we need to consider our custom attribute locator. We use the same format of attribute locator as the XPath one, i.e.,
  
 {{{
 locator@attribute
 }}}
 
-Apart from that, we need to create a set of custom Selenium methods and add the appropriate Selenium RC Java methods. For example, we create the following Selenium method 
+Apart from that, we need to create a set of custom Selenium methods and add the appropriate Selenium RC Java methods. For example, we created the following Selenium method 
 
 {{{
 Selenium.prototype.getAllText = function(locator){
@@ -88,7 +87,7 @@ Selenium.prototype.getAllText = function(locator){
 };
 }}} 
 
-Then, create the corresponding Java method by extending Selenium
+Then, created the corresponding Java method by extending Selenium
 
 {{{
 class CustomSelenium extends DefaultSelenium {
@@ -142,7 +141,7 @@ jQuery supports the following attribute selectors
 Tellurium supports all the attribute selectors, that is to say, it looks at the prefix of the value and converts them to the appropriate attribute selectors if the values include either '!', '^', '$', or '`*`'. Be aware Tellurium partial matching symbol "%%" is depreciated. Please use the new symbols.
  
 The are something you should be aware of for jQuery Selector:
-  * If you have duplicated "id" on the page, jQuery selector always returns the first one.
+  * If you have a duplicate "id" attribute on the page, jQuery selector always returns the first DOM reference, ignoring other DOM references with the same "id" attribute.
   * Some attribute may not working in jQuery, for example, the "action" attribute in a form. Tellurium has a black list to automatically filter out the attributes that are not honored by jQuery selector.
   * Seems the "src" attribute in Image has to be full URL such as http://www.google.com. One workaround is to put '`*`' before the URL.
 
