@@ -114,7 +114,7 @@ ui.Container(uid: "Google", clocator: [tag: "table"], group: "true") {
    InputBox(uid: "Input", clocator: [tag: "input", title: "Google Search", name: "q"])
    SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit", value: "Google Search", name: "btnG"])
    SubmitButton(uid: "ImFeelingLucky", clocator: [tag: "input", type: "submit", value: "I'm Feeling Lucky", name: "btnI"])
-    }
+}
 
 }}}
 
