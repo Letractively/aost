@@ -98,6 +98,9 @@ class WorkflowContext {
   //append the relative locator to the end of the reference locator
   public void appendReferenceLocator(String loc) {
 
+    if(loc == null || loc.trim().length() == 0)
+      return
+    
     //matching all does not work for jQuery selector, skip it
     if(this.exploreJQuerySelector && MATCH_ALL.equals(loc.trim())){
       return
