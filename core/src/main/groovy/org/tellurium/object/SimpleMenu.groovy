@@ -78,7 +78,7 @@ class SimpleMenu extends UiObject{
         if (this.locator != null) {
 
             def lp = new LocatorProcessor()
-                context.appendReferenceLocator(lp.locate(this.locator))
+                context.appendReferenceLocator(lp.locate(context, this.locator))
         }
 
         //append relative location to the locator

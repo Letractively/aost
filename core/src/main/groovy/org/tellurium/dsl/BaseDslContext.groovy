@@ -103,12 +103,10 @@ abstract class BaseDslContext {
 
   public void useJQuerySelector(){
     this.exploreJQuerySelector = true
-    locatorProcessor.useJQuerySelector()
   }
 
   public void disableJQuerySelector(){
     this.exploreJQuerySelector = false
-    locatorProcessor.disableJQuerySelector()
   }
 
   public void useDefaultXPathLibrary() {

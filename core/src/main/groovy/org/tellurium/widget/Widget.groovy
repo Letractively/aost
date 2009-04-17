@@ -70,9 +70,9 @@ abstract class Widget extends UiObject {
 
   protected String locatorMapping(WorkflowContext context, loc) {
     //get ui object's locator
-    String lcr = locatorProcessor.locate(loc)
+    String lcr = locatorProcessor.locate(context, loc)
     //widget's locator
-    String wlc = locatorProcessor.locate(this.locator)
+    String wlc = locatorProcessor.locate(context, this.locator)
 
     //get the reference locator all the way to the ui object
     if (context.getReferenceLocator() != null) {

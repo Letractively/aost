@@ -1,5 +1,8 @@
 package org.tellurium.locator
 
+import org.tellurium.dsl.WorkflowContext
+import org.tellurium.exception.InvalidLocatorException
+
 /**
  * convert different locator data structures to actual locators or partial locators
  * delegate to different locate strategies, like a handler chain.
@@ -10,17 +13,8 @@ package org.tellurium.locator
 class LocatorProcessor{
     public static final String CANNOT_HANDLE_LOCATOR= "Cannot handle locator"
 
-    private boolean exploreJQuerySelector = false
-
-    public void useJQuerySelector(){
-      this.exploreJQuerySelector = true
-    }
-
-    public void disableJQuerySelector(){
-      this.exploreJQuerySelector = false
-    }
   
-    def String locate(locator){
+    def String locate(WorkflowContext context, locator){
         if(locator == null)
             return ""
 
@@ -28,7 +22,7 @@ class LocatorProcessor{
             return DefaultLocateStrategy.locate(locator)
 
         if(locator instanceof CompositeLocator){
-            if(this.exploreJQuerySelector)
+            if(context.isUseJQuerySelector())
               return CompositeLocateStrategy.select(locator)
 
             return CompositeLocateStrategy.locate(locator)
@@ -43,7 +37,7 @@ class LocatorProcessor{
         //the relationship along its path and it has more information about objects and its children
 //        if(locator instanceof GroupLocator)
 //            return GroupLocateStrategy.locate(locator)
-        
-        throw RuntimeException(CANNOT_HANDLE_LOCATOR + " " + locator.getClass())
+
+        throw new InvalidLocatorException(CANNOT_HANDLE_LOCATOR + " " + locator.getClass())
     }
 }

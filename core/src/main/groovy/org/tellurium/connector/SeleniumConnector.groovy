@@ -58,7 +58,6 @@ class SeleniumConnector implements Configurable {
 
         //MK: add the jquery location strategy
 
-
       //use Get to return the DOM reference.  
       //need to check if it is an attribute locator in the format of locator@attr
       sel.addLocationStrategy("jquery", '''
@@ -88,6 +87,48 @@ class SeleniumConnector implements Configurable {
             return null;
           }
         ''')
+
+/*
+      sel.addLocationStrategy("jquery", '''
+          var loc = locator;
+          var attr = null;
+          var isattr = false;
+          var inx = locator.lastIndexOf('@');
+          if(inx != -1){
+            loc = locator.substring(0, inx);
+            attr = locator.substring(inx + 1);
+            isattr = true;
+          }
+          if(telluriumCache[loc]){
+            return telluriumCache[loc];
+          }else{
+            var found = jQuery(inDocument).find(loc);
+            if(found.length == 1 ){
+              if(isattr){
+                var vf = found[0].getAttributeNode(attr);
+                telluriumCache[locator] = vf;
+                return vf;
+              }else{
+                var vf = found[0];
+                telluriumCache[locator] = vf;
+                return vf;
+              }
+            }else if(found.length > 1){
+              if(isattr){
+                var vf = found.get().getAttributeNode(attr);
+                telluriumCache[locator] = vf;
+                return vf;
+              }else{
+                var vf = found.get();
+                telluriumCache[locator] = vf;
+                return vf;
+              }
+            }else{
+              return null;
+            }
+        }
+        ''')
+*/
 
         sel.addLocationStrategy("jqueryall", '''
           var found = jQuery(inDocument).find(locator);
