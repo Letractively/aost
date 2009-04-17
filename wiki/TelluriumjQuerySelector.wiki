@@ -293,7 +293,7 @@ The tests are created from Tellurium Issues page and include three sets
   # Similar to the first one but without group locating in UI modules
   # Access data from the issue table (limit the size to 20 rows and 10 columns)
 
-We run the benchmark in Firefox 3 and IE 7. To reduce the effects from network latency and page loading, we do not count the time for methods such as opening page and waitForPageLoad. The test results are listed in the following table,
+We run the benchmark in Firefox 3 and IE 7 ten times and calculate the average times. To reduce the effects from network latency and page loading, we do not count the time for methods such as opening page and waitForPageLoad. The test results are listed in the following table,
 
 || *Locator* || *Browser* || *TestFlow* || *NoGroup* || *Bulk Data||
 || Ajaxslt XPath || FF 3 || 64.78 || 58.95 || 165.93 ||
