@@ -142,7 +142,7 @@ jQuery supports the following attribute selectors
 Tellurium supports all the attribute selectors, that is to say, it looks at the prefix of the value and converts them to the appropriate attribute selectors if the values include either '!', '^', '$', or '`*`'. Be aware Tellurium partial matching symbol "%%" is depreciated. Please use the new symbols.
  
 The are something you should be aware of for jQuery Selector:
-  * If you have duplicated "tag" + "id" on the page, jQuery selector always returns the first one.
+  * If you have duplicated "id" on the page, jQuery selector always returns the first one.
   * Some attribute may not working in jQuery, for example, the "action" attribute in a form. Tellurium has a black list to automatically filter out the attributes that are not honored by jQuery selector.
   * Seems the "src" attribute in Image has to be full URL such as http://www.google.com. One workaround is to put '`*`' before the URL.
 
