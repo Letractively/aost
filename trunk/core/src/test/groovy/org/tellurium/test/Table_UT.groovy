@@ -143,15 +143,15 @@ class Table_UT extends GroovyTestCase{
       table10.defineUi()
       String result = table10.getTableLocator("Actions.header[1]")
       assertNotNull(result)
-      assertEquals("/descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::th]/descendant-or-self::th[1]", result)
+      assertEquals("//descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::th]/th[1]", result)
       result = table10.getTableLocator("Actions[1][1]")
-      assertEquals("/descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][1]/td[1]/descendant-or-self::input[@type=\"checkbox\" and @name=\"EntityKey\"]", result)
+      assertEquals("//descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][1]/td[1]/descendant-or-self::input[@type=\"checkbox\" and @name=\"EntityKey\"]", result)
       result = table10.getTableLocator("Actions[2][2]")
-      assertEquals("/descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][2]/td[2]/descendant-or-self::a[normalize-space(text())=normalize-space(\"Y100000542\")]", result)
+      assertEquals("//descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][2]/td[2]/descendant-or-self::a[normalize-space(text())=normalize-space(\"Y100000542\")]", result)
       result = table10.getTableLocator("Actions[2][3]")
-      assertEquals("/descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][2]/descendant-or-self::td[@class=\"abc\" and position()=3]", result)
+      assertEquals("//descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][2]/td[3]", result)
       result = table10.getTableLocator("Actions[3][4]")
-      assertEquals("/descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][3]/descendant-or-self::td[@class=\"abc\" and position()=4]", result)
+      assertEquals("//descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][3]/td[4]", result)
   }
 
   void testTable11(){
@@ -159,9 +159,22 @@ class Table_UT extends GroovyTestCase{
     table11.defineUi()
     String result = table11.getXPath("Actions.header[1]")
     assertNotNull(result)
-    assertEquals("/descendant-or-self::*[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::th]/descendant-or-self::th[1]", result)
+    assertEquals("//descendant-or-self::*[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::th]/th[1]", result)
 
     result = table11.getXPath("Test")
-    assertEquals("/descendant-or-self::*[@id=\"xyz\"]", result)
+    assertEquals("//descendant-or-self::*[@id=\"xyz\"]", result)
+  }
+
+  void testTable12(){
+    Table12 table12 = new Table12()
+    table12.defineUI()
+    table12.disableJQuerySelector()
+    String result = table12.getLocator("OrderDetail[1][1]")
+    assertNotNull(result)
+    assertEquals("//descendant-or-self::table[@class=\"table\"]/tbody/tr[child::td][1]/td[1]", result)
+    table12.useJQuerySelector()
+    result = table12.getLocator("OrderDetail[1][1]")
+    assertNotNull(result)
+    assertEquals("jquery=table.table > tbody > tr:has(td):eq(0) > td:eq(0)", result)
   }
 }
