@@ -108,17 +108,22 @@ class WorkflowContext {
 
     String rl = context.get(REFERENCE_LOCATOR)
 
-    if (loc != null) {
-      if (rl == null) {
-        rl = loc
-      } else {
-        if (this.tableDuplicateTag && (!this.exploreJQuerySelector)) {
-          this.tableDuplicateTag = false
-          rl = this.checkTableDuplicateTag(rl, loc)
-        } else {
-          rl = rl + loc
-        }
+    if (rl == null) {
+      rl = loc
+    } else {
+      if(this.tableDuplicateTag){
+        this.tableDuplicateTag = false
+        //simply skip the next loc because position unquely defines the location
+      }else{
+        //regular routine 
+        rl = rl + loc
       }
+/*      if (this.tableDuplicateTag && (!this.exploreJQuerySelector)) {
+        this.tableDuplicateTag = false
+        rl = this.checkTableDuplicateTag(rl, loc)
+      } else {
+        rl = rl + loc
+      }*/
     }
     
     context.put(REFERENCE_LOCATOR, rl)
