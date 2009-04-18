@@ -322,3 +322,4 @@ Although, the results only show the performance for our Benchmark, we can still 
 
   * [http://jquery.com/ JQuery]
   * [http://groups.google.com/group/jquery-en JQuery User Group]
+  * [http://groups.google.com/group/jquery-dev JQuery Development Group]
