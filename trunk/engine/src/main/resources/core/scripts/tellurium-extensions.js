@@ -2,14 +2,21 @@
 //
 // Keep this file to avoid  mystifying "Invalid Character" error in IE
 
-//add custom jQuery Selector :te_text()
-//
-
-jQuery.extend(jQuery.expr[':'], {
-    te_text: function(a, i, m) {
-        return jQuery(a).text() === m[3];
+BrowserBot.prototype.registerLocateStrategy = function (strategyName, strategyFunction) {
+    alert("Register " + strategyName);
+    
+    if (!/^[a-zA-Z]+$/.test(strategyName)) {
+        throw new SeleniumError("Invalid strategy name: " + strategyName);
     }
-});
+    var safeStrategyFunction = function() {
+        try {
+            return strategyFunction.apply(this, arguments);
+        } catch (ex) {
+            throw new SeleniumError("Error executing strategy function " + strategyName + ": " + extractExceptionMessage(ex));
+        }
+    }
+    this.locationStrategies[strategyName] = safeStrategyFunction;
+};
 
 Selenium.prototype.getSelectorProperties = function(jq, p) {
     var p = eval('(' + p + ')'); //eval json
@@ -79,3 +86,5 @@ Selenium.prototype.isDisabled = function(locator) {
         Assert.fail("Element for " + locator + " is not unique.");
     return $e.attr('disabled') == true
 };
+
+
