@@ -1388,6 +1388,21 @@ BrowserBot.prototype.locateElementByXPath = function(xpath, inDocument, inWindow
     return (results.length > 0) ? results[0] : null;
 };
 
+/*
+    Tellurium Extension
+
+BrowserBot.prototype.locateElementByJquery = function(xpath, inDocument, inWindow) {
+    var strategyName = "jquery";
+    var safeStrategyFunction = function() {
+        try {
+            return Tellurium.locateElementByJquery.apply(this, arguments);
+        } catch (ex) {
+            throw new SeleniumError("Error executing strategy function " + strategyName + ": " + extractExceptionMessage(ex));
+        }
+    }
+    this.locationStrategies[strategyName] = safeStrategyFunction;
+};*/
+
 BrowserBot.prototype._namespaceResolver = function(prefix) {
     if (prefix == 'html' || prefix == 'xhtml' || prefix == 'x') {
         return 'http://www.w3.org/1999/xhtml';
