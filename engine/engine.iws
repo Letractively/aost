@@ -18,14 +18,15 @@
     <list default="true" readonly="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/selenium-server.jar" afterPath="$PROJECT_DIR$/lib/selenium-server.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js" afterPath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js" afterPath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/core/RemoteRunner.html" afterPath="$PROJECT_DIR$/src/main/resources/core/RemoteRunner.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/core/scripts/selenium-browserbot.js" afterPath="$PROJECT_DIR$/src/main/resources/core/scripts/selenium-browserbot.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/core/TestRunner.html" afterPath="$PROJECT_DIR$/src/main/resources/core/TestRunner.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine.iws" afterPath="$PROJECT_DIR$/engine.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine.iml" afterPath="$PROJECT_DIR$/engine.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/core/scripts/utils.js" />
     </list>
-    <ignored path="engine.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path="engine.iws" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="Commander">
@@ -111,7 +112,7 @@
       <file leaf-file-name="selenium-api.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1751" column="34" selection-start="68276" selection-end="68333" vertical-scroll-proportion="0.0">
+            <state line="1728" column="11" selection-start="67359" selection-end="67359" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -135,10 +136,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tellurium.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="tellurium.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="3" selection-start="162" selection-end="162" vertical-scroll-proportion="0.12293853">
+            <state line="51" column="44" selection-start="1239" selection-end="1239" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tellurium-extensions.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="97" column="24" selection-start="3018" selection-end="3018" vertical-scroll-proportion="0.7873652">
               <folding />
             </state>
           </provider>
@@ -314,10 +324,13 @@
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="project.structure.proportion" value="0.0" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="MemberChooser.copyJavadoc" value="false" />
   </component>
   <component name="RunManager">
@@ -446,7 +459,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27962428" sideWeight="0.6599424" order="0" side_tool="false" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29768786" sideWeight="0.6599424" order="0" side_tool="false" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" />
@@ -464,7 +477,7 @@
     <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="add isDisabled()" />
+    <option name="LAST_COMMIT_MESSAGE" value="move locateStrategy code to engine project" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -481,6 +494,7 @@
     <MESSAGE value="add deployment file" />
     <MESSAGE value="fixing the array problem for getCSS()" />
     <MESSAGE value="add isDisabled()" />
+    <MESSAGE value="move locateStrategy code to engine project" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -528,13 +542,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/xmlextras.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-browserdetect.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -577,6 +584,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/TestRunner.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.50239235">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/RemoteRunner.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="14.318182">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="40" selection-start="1032" selection-end="1032" vertical-scroll-proportion="0.0">
@@ -600,7 +621,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-api.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1751" column="34" selection-start="68276" selection-end="68333" vertical-scroll-proportion="0.0">
+        <state line="1728" column="11" selection-start="67359" selection-end="67359" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -621,7 +642,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="3" selection-start="162" selection-end="162" vertical-scroll-proportion="0.12293853">
+        <state line="51" column="44" selection-start="1239" selection-end="1239" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="97" column="24" selection-start="3018" selection-end="3018" vertical-scroll-proportion="0.7873652">
           <folding />
         </state>
       </provider>

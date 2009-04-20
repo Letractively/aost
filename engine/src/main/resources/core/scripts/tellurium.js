@@ -9,7 +9,11 @@ jQuery.extend(jQuery.expr[':'], {
 
 function Tellurium (){
 
+    //global flag to decide whether to cache jQuery selectors
+    this.cacheSelector = false;
+    
     this.telluriumCache  = {}; //global variable
+
 
 };
 
@@ -43,4 +47,8 @@ Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWind
     } else {
         return null;
     }
+};
+
+Tellurium.prototype.setCacheState = function(flag){
+    this.cacheSelector = flag;
 };
