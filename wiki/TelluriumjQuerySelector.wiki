@@ -3,7 +3,55 @@
 
 == Introduction ==
 
-Starting from version 0.6.0, Tellurium is adding support for jQuery selector to address the problem of poor performance of xpath in Internet Explorer. 
+Starting with version 0.6.0, Tellurium is will support a jQuery selector to address the problem of poor performance of xpath in Internet Explorer. Auto-generating jQuery instead of xpath has the following advantages:
+  # Faster performance in IE
+  # We are able to use the power of jQuery to call methods on jQuery collections to retrieve bulk data
+
+== Performance Comparison ==
+
+To test the performance of our jQuery Selector, we create a Benchmark project at
+
+{{{
+http://aost.googlecode.com/svn/branches/test-benchmark
+}}}
+
+We use the following three different locators in the project
+  # XPath using Ajaxslt library
+  # XPath using Javascript library
+  # jQuery Selector
+
+The tests are created from Tellurium Issues page and include three sets
+  # A series of test flow including issue search and issue data access
+  # Similar to the first one but without group locating in UI modules
+  # Access data from the issue table (limit the size to 20 rows and 10 columns)
+
+We run the benchmark in Firefox 3 and IE 7 ten times and calculate the average times. To reduce the effects from network latency and page loading, we do not count the time for methods such as opening page and waitForPageLoad. The test results are listed in the following table,
+
+|| *Locator* || *Browser* || *TestFlow* || *NoGroup* || *Bulk Data||
+|| Ajaxslt XPath || FF 3 || 64.78 || 58.95 || 165.93 ||
+|| Ajaxslt XPath || IE 7 || 138.23 || 133.13 || 475.82 ||
+|| Javascript XPath || FF 3 || 62.39 || 59.82 || 164.23 ||
+|| Javascript XPath || IE 7 || 132.89 || 131.20 || 470.57 ||
+|| jQuery Selector || FF 3 || 61.75 || 59.60 || 0.159 ||
+|| jQuery Selector || IE 7 || 78.60 || 72.97 || 0.239 ||
+
+where the time unit is second.
+
+The following chart shows the results for Firefox 3,
+
+http://tellurium-users.googlegroups.com/web/PerformanceBenchmark4FF3.png?gda=DkeGhU4AAACXZPxEX7Ki-M5C2JpeBoXXbmPP2IOUAOTRTov5lVDl_MGjXFE8SoUS0fQzaoQIemTXUvAzVT6AsIST1RAkZXW447Cl1bPl-23V2XOW7kn5sQ&gsc=fH0GGQsAAABpzsTfYnuWMiH1pJztxNDi
+
+and chart for IE 7 is as follows,
+
+http://tellurium-users.googlegroups.com/web/PerformanceBenchMark4IE7.png?gda=_eqOLE4AAACXZPxEX7Ki-M5C2JpeBoXXbmPP2IOUAOTRTov5lVDl_O7yb5RiFGiNxJbRnD1MA8Xw_aztFVOYTtJDmLj5K5sC47Cl1bPl-23V2XOW7kn5sQ&gsc=fH0GGQsAAABpzsTfYnuWMiH1pJztxNDi
+
+Although, the results only show the performance for our Benchmark, we can still observe that:
+
+  # jQuery selector is as fast as Ajaxslt XPath and Javascript XPath in Firefox 3.
+  # jQuery selector is much faster in IE 7 than the two XPath libraries
+  # jQuery selector uses only one method call to get back data for all table cells and thus it is the fastest one for bulk data access.
+
+== Brief Overview of how to Use the jQuery Selector ==
 
 Tellurium automatically builds runtime xpath or jQuery selector based on a flag _exploreJQuerySelector_ in DslContext, which is false by default. To use jQuery selector, you should call 
 
@@ -273,50 +321,6 @@ mvn archetype:create -DgroupId=Your_Group_ID -DartifactId=Your_Artifact_ID \
 
 If you want to manually add Maven dependencies, use [http://code.google.com/p/aost/wiki/TelluriumTestProjectMavenSamplePom this sample POM] as a reference.
 
-
-== Performance Comparison ==
-
-To test the performance of our jQuery Selector, we create a Benchmark project at
-
-{{{
-http://aost.googlecode.com/svn/branches/test-benchmark
-}}}
-
-We use the following three different locators in the project
-  # XPath using Ajaxslt library
-  # XPath using Javascript library
-  # jQuery Selector
-
-The tests are created from Tellurium Issues page and include three sets
-  # A series of test flow including issue search and issue data access
-  # Similar to the first one but without group locating in UI modules
-  # Access data from the issue table (limit the size to 20 rows and 10 columns)
-
-We run the benchmark in Firefox 3 and IE 7 ten times and calculate the average times. To reduce the effects from network latency and page loading, we do not count the time for methods such as opening page and waitForPageLoad. The test results are listed in the following table,
-
-|| *Locator* || *Browser* || *TestFlow* || *NoGroup* || *Bulk Data||
-|| Ajaxslt XPath || FF 3 || 64.78 || 58.95 || 165.93 ||
-|| Ajaxslt XPath || IE 7 || 138.23 || 133.13 || 475.82 ||
-|| Javascript XPath || FF 3 || 62.39 || 59.82 || 164.23 ||
-|| Javascript XPath || IE 7 || 132.89 || 131.20 || 470.57 ||
-|| jQuery Selector || FF 3 || 61.75 || 59.60 || 0.159 ||
-|| jQuery Selector || IE 7 || 78.60 || 72.97 || 0.239 ||
-
-where the time unit is second.
-
-The following chart shows the results for Firefox 3,
-
-http://tellurium-users.googlegroups.com/web/PerformanceBenchmark4FF3.png?gda=DkeGhU4AAACXZPxEX7Ki-M5C2JpeBoXXbmPP2IOUAOTRTov5lVDl_MGjXFE8SoUS0fQzaoQIemTXUvAzVT6AsIST1RAkZXW447Cl1bPl-23V2XOW7kn5sQ&gsc=fH0GGQsAAABpzsTfYnuWMiH1pJztxNDi
-
-and chart for IE 7 is as follows,
-
-http://tellurium-users.googlegroups.com/web/PerformanceBenchMark4IE7.png?gda=_eqOLE4AAACXZPxEX7Ki-M5C2JpeBoXXbmPP2IOUAOTRTov5lVDl_O7yb5RiFGiNxJbRnD1MA8Xw_aztFVOYTtJDmLj5K5sC47Cl1bPl-23V2XOW7kn5sQ&gsc=fH0GGQsAAABpzsTfYnuWMiH1pJztxNDi
-
-Although, the results only show the performance for our Benchmark, we can still observe that:
-
-  # jQuery selector is as fast as Ajaxslt XPath and Javascript XPath in Firefox 3.
-  # jQuery selector is much faster in IE 7 than the two XPath libraries
-  # jQuery selector uses only one method call to get back data for all table cells and thus it is the fastest one for bulk data access.
 
 == Reference Materials ==
 
