@@ -6,6 +6,7 @@
 Starting with version 0.6.0, Tellurium is will support a jQuery selector to address the problem of poor performance of xpath in Internet Explorer. Auto-generating jQuery instead of xpath has the following advantages:
   # Faster performance in IE
   # We are able to use the power of jQuery to call methods on jQuery collections to retrieve bulk data
+  # We will eventually be able to convert selenium browser-bot to use jQuery
 
 == Performance Comparison ==
 
