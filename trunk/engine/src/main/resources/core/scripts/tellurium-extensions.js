@@ -2,6 +2,7 @@
 //
 // Keep this file to avoid  mystifying "Invalid Character" error in IE
 
+/*
 BrowserBot.prototype.registerLocateStrategy = function (strategyName, strategyFunction) {
     alert("Register " + strategyName);
     
@@ -51,6 +52,7 @@ Selenium.prototype.getSelectorFunctionCall = function(jq, fn) {
     fn = eval('(' + eval('(' + fn + ')')[0] + ')');
     return JSON.stringify(fn.apply(e));
 };
+*/
 
 Selenium.prototype.getAllText = function(locator) {
     var out = [];
@@ -84,7 +86,18 @@ Selenium.prototype.isDisabled = function(locator) {
         Assert.fail("Cannot find Element for " + locator);
     if ($e.length > 1)
         Assert.fail("Element for " + locator + " is not unique.");
-    return $e.attr('disabled') == true
+    return $e.attr('disabled');
 };
 
+Selenium.prototype.getCacheState = function(){
 
+    return tellurium.cacheSelector;
+};
+
+Selenium.prototype.doUseCache = function(){
+    tellurium.cacheSelector = true;
+};
+
+Selenium.prototype.doDisableCache = function(){
+    tellurium.cacheSelector = false;
+};
