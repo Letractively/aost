@@ -4,9 +4,7 @@ import org.tellurium.test.java.TelluriumJavaTestCase;
 import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 import example.google.GoogleSearchModule;
 
 /**
@@ -58,6 +56,17 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
         assertFalse(result);
         gsm.disableJQuerySelector();
         result = gsm.isInputDisabled();
+        assertFalse(result);
+    }
+
+    @Test
+    public void testUseSelectorCache(){
+        gsm.useSelectorCache();
+        boolean result = gsm.getSelectorCacheState();
+        assertTrue(result);
+
+        gsm.disableSelectorCache();
+        result = gsm.getSelectorCacheState();
         assertFalse(result);
     }
 }

@@ -64,6 +64,10 @@ abstract class UiObjectBuilder extends Const {
         if(useGroup != null && TRUE.equals(useGroup.toUpperCase())){
             ((Container)obj).useGroupInfo = true
         }
+        String cache = map.get(CACHEABLE)
+        if(cache != null && TRUE.equals(cache.toUpperCase())){
+          obj.cacheable = true
+        }
 
         if(map.get(LOCATOR) != null){
             //use base locator

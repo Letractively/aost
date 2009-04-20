@@ -101,6 +101,18 @@ abstract class BaseDslContext {
       return parseSeleniumJSONReturnValue(out);
   }
 
+  public void useSelectorCache(){
+      extension.useSelectorCache()
+  }
+
+  public boolean disableSelectorCache(){
+      extension.disableSelectorCache()
+  }
+
+  public boolean getSelectorCacheState(){
+      return extension.getCacheState();
+  }
+
   public void useJQuerySelector(){
     this.exploreJQuerySelector = true
   }

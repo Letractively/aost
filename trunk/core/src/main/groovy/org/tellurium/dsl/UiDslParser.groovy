@@ -10,8 +10,9 @@ class UiDslParser extends BuilderSupport{
        public static final String UID = "uid"
        public static final String REF = "ref"
        public static final String INCLUDE = "Include"
-      //later on, may need to refactor it to use resource file so that we can show message for different localities
-      protected static final String ERROR_MESSAGE = "Cannot find UI Object";
+  
+       //later on, may need to refactor it to use resource file so that we can show message for different localities
+       protected static final String ERROR_MESSAGE = "Cannot find UI Object";
 
        def registry = [:]
 

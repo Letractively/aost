@@ -49,7 +49,9 @@ abstract class UiObject implements Cloneable{
 
     String uid
     String namespace
-    
+    //do not cache by default
+    boolean cacheable = false
+  
     def locator
 //    def feature
 
@@ -165,7 +167,14 @@ abstract class UiObject implements Cloneable{
     public String waitForText(int timeout, Closure c){
       return c(locator, timeout)
     }
-  
+
+    public boolean isCacheable(){
+      //check its parent and do not cache if its parent is not cacheable
+      //If an object is cacheable, the path from the root to itself should
+      //be all cacheable
+      return this.cacheable && parent?.isCacheable()
+    }
+
     //walkTo through the object tree to until the Ui Object is found by the UID
     public UiObject walkTo(WorkflowContext context, UiID uiid){
         //if not child listed, return itself
