@@ -342,7 +342,7 @@ class StandardTable extends Container{
 
     protected String getCellSelector(int tbody, int row, int column) {
 
-        return " > tbody:eq(${tbody}) > tr:eq(${row}) > td:eq(${column})"
+        return " > tbody:eq(${tbody}) > tr:eq(${row-1}) > td:eq(${column-1})"
     }
   
     protected String getHeaderLocator(int column) {
@@ -352,7 +352,7 @@ class StandardTable extends Container{
 
     protected String getHeaderSelector(int column) {
 
-        return " > thread > tr > td:eq(${column})"
+        return " > thread > tr > td:eq(${column-1})"
     }
 
     protected String getFootLocator(int column) {
@@ -362,7 +362,7 @@ class StandardTable extends Container{
 
     protected String getFootSelector(int column) {
 
-        return " > tfoot > tr > td:eq(${column})"
+        return " > tfoot > tr > td:eq(${column-1})"
     }
 
     String[] getAllTableCellText(Closure c) {
@@ -370,7 +370,7 @@ class StandardTable extends Container{
     }
 
     String[] getAllTableCellTextForTbody(int index, Closure c) {
-        return c(this.locator, " > tbody:eq(${index}) > tr > td")
+        return c(this.locator, " > tbody:eq(${index-1}) > tr > td")
     }
 
     int getTableHeaderColumnNumByXPath(Closure c) {
@@ -484,7 +484,7 @@ class StandardTable extends Container{
         String r1 = c(this.locator)
         Extension extension = new Extension()
 
-        String sel = r1 + " > tbody:eq(${ntbody}) > tr:has(td)"
+        String sel = r1 + " > tbody:eq(${ntbody-1}) > tr:has(td)"
 
         int rownum = extension.getJQuerySelectorCount(sel)
 
@@ -506,7 +506,7 @@ class StandardTable extends Container{
         String r1 = c(this.locator)
         Extension extension = new Extension()
 
-        String sel = r1 + " > tbody:eq(${ntbody}) > tr:eq(0) > td"
+        String sel = r1 + " > tbody:eq(${ntbody-1}) > tr:eq(0) > td"
 
         int columnum = extension.getJQuerySelectorCount(sel)
 

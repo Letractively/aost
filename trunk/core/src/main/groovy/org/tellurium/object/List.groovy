@@ -115,7 +115,7 @@ class List extends Container {
         String lastTag = last.locator.getTag()
         Integer lastOccur = tags.get(lastTag)
 
-        return " ${lastTag}:eq(${lastOccur})"
+        return " ${lastTag}:eq(${lastOccur-1})"
     }
 
     String getListLocator(int index) {
@@ -129,7 +129,7 @@ class List extends Container {
         if (separator == null || separator.trim().size() == 0)
             return deriveListSelector(index)
 
-        return " > " + separator + ":eq(${index})"
+        return " > " + separator + ":eq(${index-1})"
     }
 
     int getListSize(Closure c) {
@@ -138,7 +138,7 @@ class List extends Container {
         String rl = c(this.locator)
 
         Accessor accessor = new Accessor()
-
+        //TODO: need to optimize this using jQuery selector
         while (accessor.isElementPresent(rl + getListLocator(index))) {
             index++
         }
