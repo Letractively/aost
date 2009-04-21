@@ -4,6 +4,7 @@ import com.thoughtworks.selenium.Selenium
 import org.tellurium.client.SeleniumClient
 import org.tellurium.config.Configurable
 import org.tellurium.connector.CustomSelenium
+import com.thoughtworks.selenium.CommandProcessor
 
 /**
  * The connector that ties the Selenium server and Selenium Client together
@@ -20,6 +21,10 @@ class SeleniumConnector implements Configurable {
     protected final String HTTP_BASE_URL = "http://localhost:8080"
 
 	protected Selenium sel
+
+    protected CustomSelenium customSelenium
+
+    protected CommandProcessor commandProcessor
 
 	protected String baseURL = HTTP_BASE_URL
 
@@ -44,17 +49,24 @@ class SeleniumConnector implements Configurable {
         
         //Works for https and http
 //        sel = new DefaultSelenium(seleniumServerHost, port, browser, baseURL);
-        sel = new CustomSelenium(seleniumServerHost, port, browser, baseURL)
+//        sel = new CustomSelenium(seleniumServerHost, port, browser, baseURL)
+          // CustomSelenium with the new argument CommandProcess
+          // This is done to make sure that implementing the Selenium Grid does
+        // not break the inheritance model for CustomSelenium.
+          customSelenium = new CustomSelenium (commandProcessor)
+          customSelenium.startSeleniumSession(seleniumServerHost, port, browser, baseURL)
+          sel = customSelenium.getActiveSeleniumSession()
 //        sel = new DefaultSelenium("localhost", port, "*firefox /usr/lib64/firefox-3.0.1/firefox", baseURL)
         //hardcoded firefox path if it cannot be found from system paht
         //sel = new DefaultSelenium("localhost", port, "*chrome /usr/lib64/firefox-3.0/firefox", baseURL);
         //make sure firefox-bin in your environment path
 //        sel = new DefaultSelenium("localhost", port, "*chrome /usr/lib64/firefox-2.0.0.8/firefox-bin", baseURL);
-        sel.start()
+          // No need to start the selenium session.
+//        sel.start()
 
 //        initSeleniumClient()
         SeleniumClient sc = new SeleniumClient()
-        sc.client = sel
+        sc.client = customSelenium
 
         //MK: add the jquery location strategy
 
@@ -108,13 +120,13 @@ class SeleniumConnector implements Configurable {
 
 	public void disconnectSeleniumServer() {
 
-		if(sel != null)
-			sel.stop();
+		if(customSelenium.getActiveSeleniumSession() != null)
+			customSelenium.closeSeleniumSession();
 	}
 
     protected void initSeleniumClient(){
         SeleniumClient sc = new SeleniumClient()
-        sc.client = sel
+        sc.client = customSelenium;
     }
 
 }
