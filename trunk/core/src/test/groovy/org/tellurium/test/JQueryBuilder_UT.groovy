@@ -52,7 +52,31 @@ public class JQueryBuilder_UT extends GroovyTestCase {
 
     clazz = "test demo"
     result =  JQueryBuilder.attrClass(clazz)
-    assertEquals(".test.demo", result)    
+    assertEquals(".test.demo", result)
+
+    clazz = "^good"
+    result =  JQueryBuilder.attrClass(clazz)
+    assertEquals("[class^=good]", result)
+
+    clazz = "*good"
+    result =  JQueryBuilder.attrClass(clazz)
+    assertEquals("[class*=good]", result)
+
+    clazz = "!good"
+    result =  JQueryBuilder.attrClass(clazz)
+    assertEquals("[class!=good]", result)
+
+    clazz = "\$good"
+    result =  JQueryBuilder.attrClass(clazz)
+    assertEquals("[class\$=good]", result)
+
+    clazz = "demo \$good"
+    result =  JQueryBuilder.attrClass(clazz)
+    assertEquals(".demo[class\$=good]", result)
+
+    clazz = "demo \$good *bad"
+    result =  JQueryBuilder.attrClass(clazz)
+    assertEquals(".demo[class\$=good][class*=bad]", result)  
   }
 
   public void testAttrText(){
