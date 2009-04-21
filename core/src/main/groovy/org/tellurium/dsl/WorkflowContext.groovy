@@ -5,6 +5,7 @@ import org.tellurium.object.UiObject
 import org.tellurium.object.Container
 import org.tellurium.locator.LocatorProcessor
 import org.tellurium.locator.GroupLocateStrategy
+import org.tellurium.locator.MetaCmd
 
 /**
  * Hold metadata for execution workflow
@@ -27,7 +28,22 @@ class WorkflowContext {
 
   private boolean exploreJQuerySelector = false
 
+  private boolean exploreSelectorCache = false
+
+  private MetaCmd metaCmd;
+
   def context = [:]
+
+  public void attachMetaCmd(String uid, boolean isCacheable, boolean unique){
+    this.metaCmd = new MetaCmd()
+    this.metaCmd.setProperty(MetaCmd.UID, uid)
+    this.metaCmd.setProperty(MetaCmd.CACHEABLE, isCacheable)
+    this.metaCmd.setProperty(MetaCmd.UNIQUE, unique)
+  }
+
+  public MetaCmd extraMetaCmd(){
+    return this.metaCmd
+  }
 
   public void setTableDuplicateTag() {
     this.tableDuplicateTag = true
@@ -62,11 +78,11 @@ class WorkflowContext {
     return context
   }
 
-  public static WorkflowContext getContextByStrategy(boolean useJQuerySelector){
+  public static WorkflowContext getContextByEnvironment(boolean useJQuerySelector, boolean useSelectorCache){
     WorkflowContext context = new WorkflowContext()
 
     context.setJQuerySelector(useJQuerySelector)
-
+    context.setSelectorCache(useSelectorCache)
     context.putContext(REFERENCE_LOCATOR, "")
 
     return context
@@ -83,6 +99,18 @@ class WorkflowContext {
 
   public void setJQuerySelector(boolean useJQuerySelector){
     this.exploreJQuerySelector = useJQuerySelector
+  }
+
+  public boolean isUseSelectorCache(){
+    return this.exploreSelectorCache
+  }
+
+  public void disableSelectorCache(){
+    this.exploreSelectorCache = false
+  }
+
+  public void setSelectorCache(boolean useSelectorCache){
+    this.exploreSelectorCache = useSelectorCache
   }
 
   public String getReferenceLocator() {

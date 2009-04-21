@@ -49,8 +49,8 @@ abstract class UiObject implements Cloneable{
 
     String uid
     String namespace
-    //do not cache by default
-    boolean cacheable = false
+    //UI object is cacheable by default
+    boolean cacheable = true
   
     def locator
 //    def feature

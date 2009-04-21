@@ -35,6 +35,9 @@ abstract class BaseDslContext {
   protected boolean exploreJQuerySelector = false
   protected JQueryOptimizer optimizer = new JQueryOptimizer()
 
+  //flag to decide whether we should cache jQuery selector
+  protected boolean exploreSelectorCache = false
+
   UiDslParser ui = new UiDslParser()
 
   //decoupling eventhandler, locateProcessor, and accessor from UI objects
@@ -102,10 +105,12 @@ abstract class BaseDslContext {
   }
 
   public void useSelectorCache(){
+      this.exploreSelectorCache = true
       extension.useSelectorCache()
   }
 
   public boolean disableSelectorCache(){
+      this.exploreSelectorCache = false
       extension.disableSelectorCache()
   }
 
@@ -135,7 +140,7 @@ abstract class BaseDslContext {
 
   //uid should use the format table2[2][3] for Table or list[2] for List
   def getUiElement(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = ui.walkTo(context, uid)
 
     return obj
@@ -143,14 +148,17 @@ abstract class BaseDslContext {
 
   def UiObject walkToWithException(WorkflowContext context, String uid) {
     UiObject obj = ui.walkTo(context, uid)
-    if (obj != null)
+    if (obj != null){
+      context.attachMetaCmd(uid, obj.amICacheable(), true)
+      
       return obj
+    }
 
     throw new UiObjectNotFoundException("${ERROR_MESSAGE} ${uid}")
   }
 
   def click(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.click() {loc, String[] events ->
       String locator = locatorMapping(context, loc)
       eventHandler.click(locator, events)
@@ -158,7 +166,7 @@ abstract class BaseDslContext {
   }
 
   def doubleClick(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.doubleClick() {loc, String[] events ->
       String locator = locatorMapping(context, loc)
       eventHandler.doubleClick(locator, events)
@@ -166,7 +174,7 @@ abstract class BaseDslContext {
   }
 
   def clickAt(String uid, String coordination) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.clickAt(coordination) {loc, String[] events ->
       String locator = locatorMapping(context, loc)
       eventHandler.clickAt(locator, coordination, events)
@@ -174,7 +182,7 @@ abstract class BaseDslContext {
   }
 
   def check(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.check() {loc, String[] events ->
       String locator = locatorMapping(context, loc)
       eventHandler.check(locator, events)
@@ -182,7 +190,7 @@ abstract class BaseDslContext {
   }
 
   def uncheck(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.uncheck() {loc, String[] events ->
       String locator = locatorMapping(context, loc)
       eventHandler.uncheck(locator, events)
@@ -190,7 +198,7 @@ abstract class BaseDslContext {
   }
 
   def type(String uid, String input) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.type(input) {loc, String[] events ->
       String locator = locatorMapping(context, loc)
       eventHandler.type(locator, input, events)
@@ -198,7 +206,7 @@ abstract class BaseDslContext {
   }
 
   def keyType(String uid, String input) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.keyType(input) {loc, String[] events ->
       String locator = locatorMapping(context, loc)
       eventHandler.keyType(locator, input, events)
@@ -206,7 +214,7 @@ abstract class BaseDslContext {
   }
 
   def typeAndReturn(String uid, String input) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.typeAndReturn(input) {loc, String[] events ->
       String locator = locatorMapping(context, loc)
       eventHandler.typeAndReturn(locator, input, events)
@@ -214,7 +222,7 @@ abstract class BaseDslContext {
   }
 
   def clearText(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.clearText() {loc, String[] events ->
       String locator = locatorMapping(context, loc)
       eventHandler.clearText(locator, events)
@@ -226,7 +234,7 @@ abstract class BaseDslContext {
   }
 
   def selectByLabel(String uid, String target) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.selectByLabel(target) {loc, optloc, String[] events ->
       String locator = locatorMapping(context, loc)
       eventHandler.select(locator, optloc, events)
@@ -234,7 +242,7 @@ abstract class BaseDslContext {
   }
 
   def selectByValue(String uid, String target) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.selectByValue(target) {loc, optloc, String[] events ->
       String locator = locatorMapping(context, loc)
       eventHandler.select(locator, optloc, events)
@@ -242,7 +250,7 @@ abstract class BaseDslContext {
   }
 
   def addSelectionByLabel(String uid, String target) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.addSelectionByLabel(target) {loc, optloc ->
       String locator = locatorMapping(context, loc)
       eventHandler.addSelection(locator, optloc)
@@ -250,7 +258,7 @@ abstract class BaseDslContext {
   }
 
   def addSelectionByValue(String uid, String target) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.addSelectionByValue(target) {loc, optloc ->
       String locator = locatorMapping(context, loc)
       eventHandler.addSelection(locator, optloc)
@@ -258,7 +266,7 @@ abstract class BaseDslContext {
   }
 
   def removeSelectionByLabel(String uid, String target) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.removeSelectionByLabel(target) {loc, optloc ->
       String locator = locatorMapping(context, loc)
       eventHandler.removeSelection(locator, optloc)
@@ -266,7 +274,7 @@ abstract class BaseDslContext {
   }
 
   def removeSelectionByValue(String uid, String target) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.removeSelectionByValue(target) {loc, optloc ->
       String locator = locatorMapping(context, loc)
       eventHandler.removeSelection(locator, optloc)
@@ -274,7 +282,7 @@ abstract class BaseDslContext {
   }
 
   def removeAllSelections(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.removeAllSelections() {loc ->
       String locator = locatorMapping(context, loc)
       eventHandler.removeAllSelections(locator)
@@ -282,7 +290,7 @@ abstract class BaseDslContext {
   }
 
   String[] getSelectOptions(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
 
     return obj.getSelectOptions() {loc ->
@@ -292,7 +300,7 @@ abstract class BaseDslContext {
   }
 
   String[] getSelectedLabels(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
 
     return obj.getSelectedLabels() {loc ->
@@ -302,7 +310,7 @@ abstract class BaseDslContext {
   }
 
   String getSelectedLabel(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
 
     return obj.getSelectedLabel() {loc ->
@@ -312,7 +320,7 @@ abstract class BaseDslContext {
   }
 
   String[] getSelectedValues(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
 
     return obj.getSelectedValues() {loc ->
@@ -322,7 +330,7 @@ abstract class BaseDslContext {
   }
 
   String getSelectedValue(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
 
     return obj.getSelectedValue() {loc ->
@@ -332,7 +340,7 @@ abstract class BaseDslContext {
   }
 
   String[] getSelectedIndexes(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
 
     return obj.getSelectedIndexes() {loc ->
@@ -342,7 +350,7 @@ abstract class BaseDslContext {
   }
 
   String getSelectedIndex(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
 
     return obj.getSelectedIndex() {loc ->
@@ -352,7 +360,7 @@ abstract class BaseDslContext {
   }
 
   String[] getSelectedIds(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
 
     return obj.getSelectedIds() {loc ->
@@ -362,7 +370,7 @@ abstract class BaseDslContext {
   }
 
   String getSelectedId(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
 
     return obj.getSelectedId() {loc ->
@@ -372,7 +380,7 @@ abstract class BaseDslContext {
   }
 
   boolean isSomethingSelected(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
 
     return obj.isSomethingSelected() {loc ->
@@ -382,7 +390,7 @@ abstract class BaseDslContext {
   }
 
   String waitForText(String uid, int timeout) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     return walkToWithException(context, uid)?.waitForText(timeout) {loc, int tmo ->
       String locator = locatorMapping(context, loc)
       accessor.waitForText(locator, tmo)
@@ -390,7 +398,7 @@ abstract class BaseDslContext {
   }
 
   int getListSize(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     org.tellurium.object.List obj = (org.tellurium.object.List) walkToWithException(context, uid)
     return obj.getListSize() {loc ->
       String locator = locatorMapping(context, loc)
@@ -399,7 +407,7 @@ abstract class BaseDslContext {
   }
 
   boolean isElementPresent(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
     return obj.isElementPresent() {loc ->
       String locator = locatorMapping(context, loc)
@@ -408,7 +416,7 @@ abstract class BaseDslContext {
   }
 
   boolean isVisible(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
     return obj.isVisible() {loc ->
       String locator = locatorMapping(context, loc)
@@ -417,7 +425,7 @@ abstract class BaseDslContext {
   }
 
   boolean isChecked(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
     return obj.isChecked() {loc ->
       String locator = locatorMapping(context, loc)
@@ -430,7 +438,7 @@ abstract class BaseDslContext {
   }
 
   boolean waitForElementPresent(String uid, int timeout) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
     return obj.waitForElementPresent(timeout) {loc ->
       String locator = locatorMapping(context, loc)
@@ -439,7 +447,7 @@ abstract class BaseDslContext {
   }
 
   boolean waitForElementPresent(String uid, int timeout, int step) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
     return obj.waitForElementPresent(timeout, step) {loc ->
       String locator = locatorMapping(context, loc)
@@ -452,7 +460,7 @@ abstract class BaseDslContext {
   }
 
   String getText(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.getText() {loc ->
       String locator = locatorMapping(context, loc)
       accessor.getText(locator)
@@ -460,7 +468,7 @@ abstract class BaseDslContext {
   }
 
   String getValue(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.getValue() {loc ->
       String locator = locatorMapping(context, loc)
       accessor.getValue(locator)
@@ -472,7 +480,7 @@ abstract class BaseDslContext {
   }
 
   String getLink(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.getLink() {loc, attr ->
       String locator = locatorMapping(context, loc)
       accessor.getAttribute(locator + attr)
@@ -480,7 +488,7 @@ abstract class BaseDslContext {
   }
 
   String getImageSource(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.getImageSource() {loc, attr ->
       String locator = locatorMapping(context, loc)
       accessor.getAttribute(locator + attr)
@@ -488,7 +496,7 @@ abstract class BaseDslContext {
   }
 
   String getImageAlt(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.getImageAlt() {loc, attr ->
       String locator = locatorMapping(context, loc)
       accessor.getAttribute(locator + attr)
@@ -496,7 +504,7 @@ abstract class BaseDslContext {
   }
 
   String getImageTitle(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.getImageTitle() {loc, attr ->
       String locator = locatorMapping(context, loc)
       accessor.getAttribute(locator + attr)
@@ -504,7 +512,7 @@ abstract class BaseDslContext {
   }
 
   def submit(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.submit() {loc ->
       String locator = locatorMapping(context, loc)
       eventHandler.submit(locator)
@@ -512,7 +520,7 @@ abstract class BaseDslContext {
   }
 
   boolean isEditable(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
 
     return walkToWithException(context, uid)?.isEditable() {loc ->
       String locator = locatorMapping(context, loc)
@@ -529,7 +537,7 @@ abstract class BaseDslContext {
   }
 
   def mouseOver(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
 
     walkToWithException(context, uid)?.mouseOver() {loc ->
       String locator = locatorMapping(context, loc)
@@ -538,7 +546,7 @@ abstract class BaseDslContext {
   }
 
   def mouseOut(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
 
     walkToWithException(context, uid)?.mouseOut() {loc ->
       String locator = locatorMapping(context, loc)
@@ -547,7 +555,7 @@ abstract class BaseDslContext {
   }
 
   def dragAndDrop(String uid, String movementsString) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
 
     walkToWithException(context, uid)?.dragAndDrop(movementsString) {loc ->
       String locator = locatorMapping(context, loc)
@@ -556,10 +564,10 @@ abstract class BaseDslContext {
   }
 
   def dragAndDropTo(String sourceUid, String targetUid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def src = walkToWithException(context, sourceUid)
 
-    WorkflowContext ncontext = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext ncontext = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def target = walkToWithException(ncontext, targetUid)
 
     if (src != null && target != null) {
@@ -570,7 +578,7 @@ abstract class BaseDslContext {
   }
 
   def mouseDown(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
 
     walkToWithException(context, uid)?.mouseDown() {loc ->
       String locator = locatorMapping(context, loc)
@@ -579,7 +587,7 @@ abstract class BaseDslContext {
   }
 
   def mouseDownRight(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
 
     walkToWithException(context, uid)?.mouseDownRight() {loc ->
       String locator = locatorMapping(context, loc)
@@ -588,7 +596,7 @@ abstract class BaseDslContext {
   }
 
   def mouseDownAt(String uid, String coordinate) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
 
     walkToWithException(context, uid)?.mouseDownAt() {loc ->
       String locator = locatorMapping(context, loc)
@@ -597,7 +605,7 @@ abstract class BaseDslContext {
   }
 
   def mouseDownRightAt(String uid, String coordinate) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
 
     walkToWithException(context, uid)?.mouseDownRightAt() {loc ->
       String locator = locatorMapping(context, loc)
@@ -606,7 +614,7 @@ abstract class BaseDslContext {
   }
 
   def mouseUp(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
 
     walkToWithException(context, uid)?.mouseUp() {loc ->
       String locator = locatorMapping(context, loc)
@@ -615,7 +623,7 @@ abstract class BaseDslContext {
   }
 
   def mouseUpRight(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
 
     walkToWithException(context, uid)?.mouseUpRight() {loc ->
       String locator = locatorMapping(context, loc)
@@ -624,7 +632,7 @@ abstract class BaseDslContext {
   }
 
   def mouseUpRightAt(String uid, String coordinate) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
 
     walkToWithException(context, uid)?.mouseUpRightAt() {loc ->
       String locator = locatorMapping(context, loc)
@@ -633,7 +641,7 @@ abstract class BaseDslContext {
   }
 
   def mouseMove(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
 
     walkToWithException(context, uid)?.mouseMove() {loc ->
       String locator = locatorMapping(context, loc)
@@ -642,7 +650,7 @@ abstract class BaseDslContext {
   }
 
   def mouseMoveAt(String uid, String coordinate) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
 
     walkToWithException(context, uid)?.mouseMoveAt() {loc ->
       String locator = locatorMapping(context, loc)
@@ -685,7 +693,7 @@ abstract class BaseDslContext {
   }
 
   String getSelector(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     walkToWithException(context, uid)?.getSelector() {loc ->
       locatorMapping(context, loc)
     }
@@ -705,7 +713,7 @@ abstract class BaseDslContext {
   }
 
   String[] getCSS(String uid, String cssName){
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
 
     walkToWithException(context, uid)?.getCSS(cssName) {loc ->
       String locator = locatorMapping(context, loc)
@@ -717,7 +725,7 @@ abstract class BaseDslContext {
 
   //This only works for jQuery selector
   String[] getAllTableCellText(String uid){
-    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     return walkToWithException(context, uid)?.getAllTableCellText(){loc, cell ->
       String locator = locatorMapping(context, loc)
       locator = locator + cell
@@ -729,7 +737,7 @@ abstract class BaseDslContext {
 
   //This only works for jQuery selector and Standard Table
   String[] getAllTableCellTextForTbody(String uid, int index){
-    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     return walkToWithException(context, uid)?.getAllTableCellTextForTbody(index){loc, cell ->
       String locator = locatorMapping(context, loc)
       locator = locator + cell
@@ -811,7 +819,7 @@ abstract class BaseDslContext {
   }
   int getTableHeaderColumnNumBySelector(String uid) {
     //force to use jQuery selector
-    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
 
     return obj.getTableHeaderColumnNumBySelector {loc ->
@@ -821,7 +829,7 @@ abstract class BaseDslContext {
   }
 
   int getTableFootColumnNumBySelector(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
 
     return obj.getTableFootColumnNumBySelector {loc ->
@@ -831,7 +839,7 @@ abstract class BaseDslContext {
   }
 
   int getTableMaxRowNumBySelector(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
 
     return obj.getTableMaxRowNumBySelector() {loc ->
@@ -841,7 +849,7 @@ abstract class BaseDslContext {
   }
 
   int getTableMaxColumnNumBySelector(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
 
     return obj.getTableMaxColumnNumBySelector() {loc ->
@@ -851,7 +859,7 @@ abstract class BaseDslContext {
   }
 
   int getTableMaxRowNumForTbodyBySelector(String uid, int ntbody) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
 
     return obj.getTableMaxRowNumForTbodyBySelector(ntbody) {loc ->
@@ -861,7 +869,7 @@ abstract class BaseDslContext {
   }
 
   int getTableMaxColumnNumForTbodyBySelector(String uid, int ntbody) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
 
     return obj.getTableMaxColumnNumForTbodyBySelector(ntbody) {loc ->
@@ -871,7 +879,7 @@ abstract class BaseDslContext {
   }
 
   int getTableMaxTbodyNumBySelector(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(true)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
 
     return obj.getTableMaxTbodyNumBySelector() {loc ->
@@ -939,7 +947,7 @@ abstract class BaseDslContext {
     }
 
     def boolean isDisabledBySelector(String uid) {
-      WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+      WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
 
       return walkToWithException(context, uid).isDisabled() {loc ->
         String locator = locatorMapping(context, loc)
@@ -955,7 +963,7 @@ abstract class BaseDslContext {
     }
 
   def getAttribute(String uid, String attribute) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.getAttribute(attribute) {loc, attr ->
       String locator = locatorMapping(context, loc)
       if(this.exploreJQuerySelector){
@@ -967,7 +975,7 @@ abstract class BaseDslContext {
   }
 
   def hasCssClass(String uid, String cssClass) {
-    WorkflowContext context = WorkflowContext.getContextByStrategy(this.exploreJQuerySelector)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     String[] strings = walkToWithException(context, uid)?.hasCssClass() {loc, classAttr ->
       String locator = locatorMapping(context, loc)
       String clazz
