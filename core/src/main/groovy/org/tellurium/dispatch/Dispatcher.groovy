@@ -20,16 +20,16 @@ class Dispatcher implements GroovyInterceptable, Configurable {
 
         //sometimes, the selenium client is not singleton ??
         //here reset selenium client to use the new singleton instance which has the client set
-        if (sc.client == null)
+        if (sc.client.getActiveSeleniumSession() == null)
             sc = new SeleniumClient()
 
         try {
-            return sc.client.metaClass.invokeMethod(sc.client, name, args)
+            return sc.client.getActiveSeleniumSession().metaClass.invokeMethod(sc.client.getActiveSeleniumSession(), name, args)
         } catch (Exception e) {
             if (this.captureScreenshot) {
                 long timestamp = System.currentTimeMillis()
                 String filename = filenamePattern.replaceFirst(PLACE_HOLDER, "${timestamp}")
-                sc.client.captureScreenshot(filename)
+                sc.client.getActiveSeleniumSession().captureScreenshot(filename)
                 println "Screenshot for exception <<" + e.getMessage() + ">> is saved to file ${filename}"
             }
             throw e
