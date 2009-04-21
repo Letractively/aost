@@ -8,7 +8,7 @@ The Container object in Tellurium is used to hold child objects that are in the 
 What is a logic Container? It is a Container with empty locator, for instance,
 
 {{{
-Container(uid: "logical", clocator: [:]){
+Container(uid: "logical"){
 
 }
 }}}
@@ -56,7 +56,7 @@ the UI module could be written as
 {{{
 ui.Container(uid: "content", clocator: [tag: "div", class: "block_content"]){
      List(uid: "list", clocator: [tag: "ul"], separator:"li") {
-         Container("all", clocator: [:]){
+         Container("all"){
              UrlLink(uid: "title", clocator: [title: "View"])
                       ......
                       other elements inside the li tag
@@ -84,7 +84,7 @@ dominicm provided another good example, i.e., a table with multiple tbody elemen
 You could use the logical Container to describe it as
 
 {{{
-Container(uid: "tables", clocator:[:]){
+Container(uid: "tables"){
      Table(uid: "first", clocator: [id: "someId", tbody: [id: "tbody1_Id"]]){
           ......
       }
@@ -100,7 +100,7 @@ Container(uid: "tables", clocator:[:]){
 If the tbody IDs are assigned dynamically at runtime, you can use the position attribute instead,
 
 {{{
-Container(uid: "tables", clocator:[:]){
+Container(uid: "tables"){
      Table(uid: "first", clocator: [id: "someId", tbody: [position: "1"]]){
           ......
       }
@@ -144,7 +144,7 @@ Don't be confused by the locator "can" and "q", they are just UI element ids and
 public class TelluriumDownloadPage extends DslContext {
 
   public void defineUi() {
-    ui.Container(uid: "downloads", clocator: [:]) {
+    ui.Container(uid: "downloads") {
       Selector(uid: "downloadType", locator: "//*[@id='can']")
       InputBox(uid: "input", locator: "//*[@id='q']")
       SubmitButton(uid: "search", locator: "//input[@value='Search']")
