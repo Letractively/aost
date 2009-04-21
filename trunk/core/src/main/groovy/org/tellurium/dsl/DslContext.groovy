@@ -83,7 +83,6 @@ abstract class DslContext extends BaseDslContext {
             locator = context.getReferenceLocator() 
         }
 
-//        if(this.exploreJQuerySelector){
         if(context.isUseJQuerySelector()){
           locator = optimizer.optimize(JQUERY_SELECTOR + locator.trim())
         } else {
