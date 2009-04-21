@@ -91,18 +91,40 @@ public class JQueryBuilder {
       String[] parts = clazz.split(SPACE)
       if(parts.length == 1){
         //only only 1 class
-         return "${CLASS_SELECTOR_PREFIX}${clazz}"
+        
+         return attrSingleClass(parts[0])
       }else{
         StringBuffer sb = new StringBuffer()
         for(String part: parts){
-          sb.append("${CLASS_SELECTOR_PREFIX}${part}")
+//          sb.append("${CLASS_SELECTOR_PREFIX}${part}")
+          sb.append(attrSingleClass(part))
         }
+
         return sb.toString()
       }
     }
 
 //    return "${CLASS_SELECTOR_PREFIX}${clazz}"
     return "[class]"
+  }
+
+  protected static String attrSingleClass(String clazz){
+    String val = clazz
+    if(val == null || val.trim().length() == 0){
+      return "[class]"
+    }
+
+    if(val.startsWith(START_PREFIX)){
+      return "[class^=${val.substring(1)}]"
+    }else if(val.startsWith(END_PREFIX)){
+      return "[class\$=${val.substring(1)}]"
+    }else if(val.startsWith(ANY_PREFIX)){
+      return "[class*=${val.substring(1)}]"
+    }else if(val.startsWith(NOT_PREFIX)){
+      return "[class!=${val.substring(1)}]"
+    }else{
+      return "${CLASS_SELECTOR_PREFIX}${val}"
+    }
   }
 
   protected static String attrPairs(String attr, String val){
@@ -207,8 +229,10 @@ public class JQueryBuilder {
       }
 
       String clazz = attributes.get(CLASS)
-      if(clazz != null)
-        sb.append(attrClass(clazz))
+      if(clazz != null){
+          clazz = clazz.trim()
+          sb.append(attrClass(clazz))
+      }
 
       Set keys = attributes.keySet()
       for (String key: keys) {
