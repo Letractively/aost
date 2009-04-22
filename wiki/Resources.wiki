@@ -24,6 +24,7 @@
   * [http://code.google.com/p/aost Tellurium]
   * [http://groups.google.com/group/tellurium-users Tellurium user group]
   * [http://seleniumhq.org/ Selenium]
+  * [http://selenium-grid.seleniumhq.org/ Selenium Grid]
   * [http://clearspace.openqa.org/community/selenium Selenium Community]
   * [http://webtest.canoo.com Canoo WebTest]
   * [http://twill.idyll.org/ Twill]
