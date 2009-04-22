@@ -17,8 +17,10 @@ import org.tellurium.exception.*
  * 
  */
 class CustomSelenium extends DefaultSelenium {
-    
-    CustomSelenium(CommandProcessor commandProcessor) {
+
+
+
+  CustomSelenium(CommandProcessor commandProcessor) {
       super (commandProcessor)     
 
     }
@@ -109,14 +111,14 @@ class CustomSelenium extends DefaultSelenium {
       return result;
     }
 
-    public void useSelectorCache(){
+    public void enableSelectorCache(){
       String[] arr = [];
-      commandProcessor.doCommand("doUseCache", arr);
+      commandProcessor.doCommand("enableCache", arr);
     }
 
     public void disableSelectorCache(){
       String[] arr = [];
-      commandProcessor.doCommand("doDisableCache", arr);
+      commandProcessor.doCommand("disableCache",  arr);
     }
 
     def boolean getCacheState(){
