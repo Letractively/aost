@@ -1,5 +1,6 @@
 package org.tellurium.dsl
 
+import org.json.simple.JSONObject
 import org.json.simple.JSONArray
 import org.stringtree.json.JSONReader
 import org.tellurium.access.Accessor
@@ -14,6 +15,7 @@ import org.tellurium.object.UiObject
 import org.tellurium.util.Helper
 import java.util.List
 import org.tellurium.locator.JQueryOptimizer
+import org.tellurium.locator.MetaCmd
 
 /**
  * 
@@ -30,13 +32,14 @@ abstract class BaseDslContext {
   protected static final String DEFAULT_XPATH = "default"
   protected static final String JAVASCRIPT_XPATH = "javascript"
   protected static final String AJAXSLT_XPATH = "ajaxslt"
-    
+  protected static final String LOCATOR = "locator"
+
   //flag to decide whether we should use jQuery Selector
   protected boolean exploreJQuerySelector = false
   protected JQueryOptimizer optimizer = new JQueryOptimizer()
 
   //flag to decide whether we should cache jQuery selector
-  protected boolean exploreSelectorCache = false
+  protected boolean exploreSelectorCache = true
 
   UiDslParser ui = new UiDslParser()
 
@@ -49,6 +52,34 @@ abstract class BaseDslContext {
   Extension extension = new Extension()
   
   abstract protected String locatorMapping(WorkflowContext context, loc)
+  abstract protected String locatorMappingWithOption(WorkflowContext context, loc, optLoc)
+
+  protected String postProcessSelector(WorkflowContext context, String jqs) {
+    String locator = jqs
+
+    if (!context.isUseSelectorCache()) {
+      //if not use cache, use optimizer
+      locator = optimizer.optimize(jqs)
+    }
+
+    JSONObject obj = new JSONObject()
+    //meta command shoud not be null for locators
+    MetaCmd metaCmd = context.extraMetaCmd()
+    obj.put(LOCATOR, locator)
+    if(metaCmd != null){
+      obj.put(MetaCmd.UID, metaCmd.uid)
+      obj.put(MetaCmd.CACHEABLE, metaCmd.cacheable)
+      obj.put(MetaCmd.UNIQUE, metaCmd.unique)
+    }else{
+      obj.put(MetaCmd.UID, "")
+      obj.put(MetaCmd.CACHEABLE, false)
+      obj.put(MetaCmd.UNIQUE, false)
+    }
+
+    String jsonjqs = obj.toString()
+
+    return JQUERY_SELECTOR + jsonjqs
+  }
 
   private JSONReader reader = new JSONReader()
 
@@ -397,6 +428,7 @@ abstract class BaseDslContext {
     }
   }
 
+  //TODO: use jQuery Selector to optimize the list operations
   int getListSize(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     org.tellurium.object.List obj = (org.tellurium.object.List) walkToWithException(context, uid)
@@ -526,10 +558,6 @@ abstract class BaseDslContext {
       String locator = locatorMapping(context, loc)
       return accessor.isEditable(locator)
     }
-  }
-
-  void waitForPageToLoad(int timeout) {
-    accessor.waitForPageToLoad(Integer.toString(timeout))
   }
 
   String getEval(String script) {
@@ -663,11 +691,12 @@ abstract class BaseDslContext {
   }
 
   Number getJQuerySelectorCount(String jQuerySelector){
-    String jq = jQuerySelector
+/*    String jq = jQuerySelector
     if(!jq.startsWith(JQUERY_SELECTOR)){
       jq=JQUERY_SELECTOR + jQuerySelector
-    }
-
+    }*/
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(true, false)
+    String jq = postProcessSelector(context, jQuerySelector.trim())
     return extension.getJQuerySelectorCount(jq)
   }
 
@@ -685,7 +714,8 @@ abstract class BaseDslContext {
     }
 
     String locator = context.getReferenceLocator()
-    if (locator != null && (!locator.startsWith("//")) && (!locator.startsWith(JQUERY_SELECTOR))) {
+//    if (locator != null && (!locator.startsWith("//")) && (!locator.startsWith(JQUERY_SELECTOR))) {
+    if (locator != null && (!locator.startsWith("//"))){
       locator = "/" + locator
     }
 
@@ -699,9 +729,9 @@ abstract class BaseDslContext {
     }
 
     String locator = context.getReferenceLocator()
-    locator = optimizer.optimize(JQUERY_SELECTOR + locator.trim())
+    locator = optimizer.optimize(locator.trim())
     
-    return locator
+    return JQUERY_SELECTOR + locator
   }
 
   String getLocator(String uid){
@@ -727,8 +757,10 @@ abstract class BaseDslContext {
   String[] getAllTableCellText(String uid){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     return walkToWithException(context, uid)?.getAllTableCellText(){loc, cell ->
-      String locator = locatorMapping(context, loc)
-      locator = locator + cell
+      //for bulk data, the selector will not return a unique element
+      context.updateUniqueForMetaCmd(false) 
+      String locator = locatorMappingWithOption(context, loc, cell)
+//      locator = locator + cell
       String out = extension.getAllText(locator)
 
       return (ArrayList) parseSeleniumJSONReturnValue(out)
@@ -739,8 +771,9 @@ abstract class BaseDslContext {
   String[] getAllTableCellTextForTbody(String uid, int index){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     return walkToWithException(context, uid)?.getAllTableCellTextForTbody(index){loc, cell ->
-      String locator = locatorMapping(context, loc)
-      locator = locator + cell
+      context.updateUniqueForMetaCmd(false)
+      String locator = locatorMappingWithOption(context, loc, cell)
+//      locator = locator + cell
       String out = extension.getAllText(locator)
 
       return (ArrayList) parseSeleniumJSONReturnValue(out)
@@ -821,7 +854,8 @@ abstract class BaseDslContext {
     //force to use jQuery selector
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
-
+    context.updateUniqueForMetaCmd(false)
+    
     return obj.getTableHeaderColumnNumBySelector {loc ->
       String locator = locatorMapping(context, loc)
       locator
@@ -831,6 +865,7 @@ abstract class BaseDslContext {
   int getTableFootColumnNumBySelector(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
+    context.updateUniqueForMetaCmd(false)
 
     return obj.getTableFootColumnNumBySelector {loc ->
       String locator = locatorMapping(context, loc)
@@ -841,6 +876,7 @@ abstract class BaseDslContext {
   int getTableMaxRowNumBySelector(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
+    context.updateUniqueForMetaCmd(false)
 
     return obj.getTableMaxRowNumBySelector() {loc ->
       String locator = locatorMapping(context, loc)
@@ -851,6 +887,7 @@ abstract class BaseDslContext {
   int getTableMaxColumnNumBySelector(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
+    context.updateUniqueForMetaCmd(false)
 
     return obj.getTableMaxColumnNumBySelector() {loc ->
       String locator = locatorMapping(context, loc)
@@ -861,6 +898,7 @@ abstract class BaseDslContext {
   int getTableMaxRowNumForTbodyBySelector(String uid, int ntbody) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
+    context.updateUniqueForMetaCmd(false)
 
     return obj.getTableMaxRowNumForTbodyBySelector(ntbody) {loc ->
       String locator = locatorMapping(context, loc)
@@ -871,6 +909,7 @@ abstract class BaseDslContext {
   int getTableMaxColumnNumForTbodyBySelector(String uid, int ntbody) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
+    context.updateUniqueForMetaCmd(false)
 
     return obj.getTableMaxColumnNumForTbodyBySelector(ntbody) {loc ->
       String locator = locatorMapping(context, loc)
@@ -881,7 +920,8 @@ abstract class BaseDslContext {
   int getTableMaxTbodyNumBySelector(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
-
+    context.updateUniqueForMetaCmd(false)
+    
     return obj.getTableMaxTbodyNumBySelector() {loc ->
       String locator = locatorMapping(context, loc)
       locator
