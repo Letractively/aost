@@ -8,8 +8,8 @@ import org.tellurium.widget.Widget
 abstract class DslContext extends BaseDslContext {
 
     //later on, may need to refactor it to use resource file so that we can show message for different localities
-    protected static final String ERROR_MESSAGE1 = "UI Object";
-    protected static final String ERROR_MESSAGE2 = "is not a Widget";
+    protected static final String ERROR_MESSAGE1 = "UI Object"
+    protected static final String ERROR_MESSAGE2 = "is not a Widget"
   
     protected static final String XML_DOCUMENT_SCRIPT = """var doc = window.document;
         var xml = null;
@@ -65,14 +65,11 @@ abstract class DslContext extends BaseDslContext {
         }
     }
 
-/*    def findObject(String uid) {
-        def obj = ui.findUiObjectFromRegistry(uid)
-        if (obj == null)
-            println("Cannot find UI Object ${uid}")
-        return obj
-    }*/
-
     protected String locatorMapping(WorkflowContext context, loc) {
+      return locatorMappingWithOption(context, loc, null)
+    }
+
+    protected String locatorMappingWithOption(WorkflowContext context, loc, optLoc) {
         //get ui object's locator
         String locator = locatorProcessor.locate(context, loc)
 
@@ -83,12 +80,17 @@ abstract class DslContext extends BaseDslContext {
             locator = context.getReferenceLocator() 
         }
 
+        if(optLoc != null)
+          locator = locator + optLoc
+
         if(context.isUseJQuerySelector()){
-          locator = optimizer.optimize(JQUERY_SELECTOR + locator.trim())
+//          locator = optimizer.optimize(JQUERY_SELECTOR + locator.trim())
+            locator = postProcessSelector(context, locator.trim())
         } else {
           //make sure the xpath starts with "//"
-          if (locator != null && (!locator.startsWith("//")) && (!locator.startsWith(JQUERY_SELECTOR))) {
-            locator = "/" + locator
+//          if (locator != null && (!locator.startsWith("//")) && (!locator.startsWith(JQUERY_SELECTOR))) {
+            if (locator != null && (!locator.startsWith("//"))){
+              locator = "/" + locator
           }
         }
       
@@ -285,6 +287,9 @@ abstract class DslContext extends BaseDslContext {
         return accessor.getAllWindowTitles()
     }
 
+    void waitForPageToLoad(int timeout) {
+      accessor.waitForPageToLoad(Integer.toString(timeout))
+    }
 
     public String getXMLDocument(){
 

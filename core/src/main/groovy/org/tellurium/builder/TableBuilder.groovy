@@ -39,7 +39,11 @@ class TableBuilder extends UiObjectBuilder{
         if (table == null || objects == null || objects.length < 1)
             return table
 
-        objects.each {UiObject obj -> table.add(obj)}
+        objects.each {UiObject obj ->
+          //Force to not cache Table cell elements
+          obj.cacheable = false
+          table.add(obj)
+        }
 
         return table
     }
@@ -49,6 +53,8 @@ class TableBuilder extends UiObjectBuilder{
         if (table == null || object == null)
             return table
 
+        //Force to not cache Table cell elements
+        object.cacheable = false
         table.add(object)
 
         return table

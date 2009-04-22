@@ -172,7 +172,10 @@ abstract class UiObject implements Cloneable{
       //check its parent and do not cache if its parent is not cacheable
       //If an object is cacheable, the path from the root to itself should
       //be all cacheable
-      return this.cacheable && parent?.amICacheable()
+      if(parent != null)
+        return this.cacheable && parent.amICacheable()
+
+      return this.cacheable
     }
 
     //walkTo through the object tree to until the Ui Object is found by the UID
