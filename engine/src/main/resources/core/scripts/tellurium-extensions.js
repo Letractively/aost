@@ -94,7 +94,7 @@ Selenium.prototype.getCacheState = function(){
     return tellurium.cacheSelector;
 };
 
-Selenium.prototype.doUseCache = function(){
+Selenium.prototype.doEnableCache = function(){
     tellurium.cacheSelector = true;
 };
 
