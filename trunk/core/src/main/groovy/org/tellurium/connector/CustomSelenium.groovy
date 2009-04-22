@@ -1,7 +1,7 @@
 package org.tellurium.connector
 
 import com.thoughtworks.selenium.DefaultSelenium
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.*
+//import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.*
 import com.thoughtworks.selenium.Selenium
 import com.thoughtworks.selenium.CommandProcessor
 import org.tellurium.exception.*
@@ -28,7 +28,7 @@ class CustomSelenium extends DefaultSelenium {
     // and register the selenium rc with Selenium HUB
     def void startSeleniumSession(String host, int port, String browser, String url) throws Exception{
       try{
-        startSeleniumSession(host, port, browser, url)
+        com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.startSeleniumSession(host, port, browser, url)
       }catch (Exception e){
         throw new TelluriumException ("Cannot start selenium:"+e.getMessage())
       }
@@ -40,7 +40,7 @@ class CustomSelenium extends DefaultSelenium {
     // from Selenium Hub
     def void closeSeleniumSession() throws Exception{
       try{
-        closeSeleniumSession()
+        com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.closeSeleniumSession()
       }catch (Exception e){
         throw new TelluriumException ("Cannot close selenium:"+e.getMessage())        
       }
@@ -50,7 +50,7 @@ class CustomSelenium extends DefaultSelenium {
 
     // Get the active Selenium RC session
     def Selenium getActiveSeleniumSession(){
-      return session()
+      return com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session()
     }
 
     /*Please add custom methods here for Selenium RC after you add user extension to Selenium Core
