@@ -39,7 +39,7 @@ abstract class BaseDslContext {
   protected JQueryOptimizer optimizer = new JQueryOptimizer()
 
   //flag to decide whether we should cache jQuery selector
-  protected boolean exploreSelectorCache = true
+  protected boolean exploreSelectorCache = false
 
   UiDslParser ui = new UiDslParser()
 
@@ -135,9 +135,9 @@ abstract class BaseDslContext {
       return parseSeleniumJSONReturnValue(out);
   }
 
-  public void useSelectorCache(){
+  public void enableSelectorCache(){
       this.exploreSelectorCache = true
-      extension.useSelectorCache()
+      extension.enableSelectorCache()
   }
 
   public boolean disableSelectorCache(){

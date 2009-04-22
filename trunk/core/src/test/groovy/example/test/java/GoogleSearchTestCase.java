@@ -61,7 +61,7 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
 
     @Test
     public void testUseSelectorCache(){
-        gsm.useSelectorCache();
+        gsm.enableSelectorCache();
         boolean result = gsm.getSelectorCacheState();
         assertTrue(result);
 
