@@ -16,10 +16,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine.ipr" afterPath="$PROJECT_DIR$/engine.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js" afterPath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/selenium-server.jar" afterPath="$PROJECT_DIR$/lib/selenium-server.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js" afterPath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine.iws" afterPath="$PROJECT_DIR$/engine.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/selenium-server.jar" afterPath="$PROJECT_DIR$/lib/selenium-server.jar" />
     </list>
     <ignored path="engine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -87,10 +86,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tellurium.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="tellurium.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="145" column="34" selection-start="4252" selection-end="4252" vertical-scroll-proportion="0.0">
+            <state line="79" column="30" selection-start="1851" selection-end="1851" vertical-scroll-proportion="0.3876923">
               <folding />
             </state>
           </provider>
@@ -150,10 +149,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tellurium-extensions.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="tellurium-extensions.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="103" column="0" selection-start="3125" selection-end="3125" vertical-scroll-proportion="0.8582677">
+            <state line="103" column="0" selection-start="3125" selection-end="3125" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -500,7 +499,7 @@
     <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="add selector cache to engine" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix the command name issue" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -519,6 +518,7 @@
     <MESSAGE value="add isDisabled()" />
     <MESSAGE value="move locateStrategy code to engine project" />
     <MESSAGE value="add selector cache to engine" />
+    <MESSAGE value="Fix the command name issue" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -615,13 +615,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="145" column="34" selection-start="4252" selection-end="4252" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-commandhandlers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="264" column="97" selection-start="12078" selection-end="12078" vertical-scroll-proportion="0.0">
@@ -673,7 +666,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="0" selection-start="3125" selection-end="3125" vertical-scroll-proportion="0.8582677">
+        <state line="103" column="0" selection-start="3125" selection-end="3125" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="79" column="30" selection-start="1851" selection-end="1851" vertical-scroll-proportion="0.3876923">
           <folding />
         </state>
       </provider>

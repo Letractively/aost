@@ -77,7 +77,7 @@ function CacheData(){
 function Tellurium (){
 
     //global flag to decide whether to cache jQuery selectors
-    this.cacheSelector = true;
+    this.cacheSelector = false;
 
     //cache for jQuery selectors
 //    this.sCache  = {}; //global variable
