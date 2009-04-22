@@ -1,4 +1,4 @@
-#summary How to obtain and use Tellurium via Maven.
+#summary Tellurium Maven Guide.
 #labels Phase-Support
 <wiki:toc max_depth="3" />
 
@@ -159,6 +159,8 @@ To find regular build information updates, see http://kungfuters.org/tellurium. 
   * _dependency:build-classpath_ tells Maven to output the path of the dependencies from the local repository in a classpath format to be used in java -cp. The classpath file may also be attached and installed/deployed along with the main artifact.
   * _dependency:analyze_ analyzes the dependencies of this project and determines which are: used and declared; used and undeclared; unused and declared.
   * _dependency:tree_ displays the dependency tree for this project.
+  * _dependency:purge-local-repository -Dexclude=ARTIFACT_ delete all of the dependencies for the current project and re-resolved afterwards. You can disable this by specifying -DreResolve=false.
+
 
 == Maven Archetype Plugin ==
 
