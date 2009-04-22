@@ -108,4 +108,12 @@ public class TelluriumIssueModuleDecorator {
     public void useJavascriptXPathLibrary(){
         decorator.useJavascriptXPathLibrary();
     }
+
+    public void enableSelectorCache(){
+        decorator.enableSelectorCache();
+    }
+
+    public void disableSelectorCache(){
+        decorator.disableSelectorCache();
+    }
 }
