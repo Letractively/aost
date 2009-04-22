@@ -446,82 +446,31 @@ class StandardTable extends Container{
     }
 
     int getTableHeaderColumnNumBySelector(Closure c) {
-        String r1 = c(this.locator)
-        Extension extension = new Extension()
-
-        String sel = r1 + " > thead > tr:eq(0) > td"
-
-        int columnum = extension.getJQuerySelectorCount(sel)
-
-        return columnum
-
+        return c(this.locator, " > thead > tr:eq(0) > td")
     }
 
     int getTableFootColumnNumBySelector(Closure c) {
-        String r1 = c(this.locator)
-        Extension extension = new Extension()
-
-        String sel = r1 + " > tfoot > tr:eq(0) > td"
-
-        int columnum = extension.getJQuerySelectorCount(sel)
-
-        return columnum
-
+        return c(this.locator, " > tfoot > tr:eq(0) > td")
     }
 
     int getTableMaxRowNumBySelector(Closure c) {
-        String r1 = c(this.locator)
-        Extension extension = new Extension()
-
-        String sel = r1 + " > tbody:eq(0) > tr:has(td)"
-
-        int rownum = extension.getJQuerySelectorCount(sel)
-
-        return rownum
+        return c(this.locator, " > tbody:eq(0) > tr:has(td)")
     }
 
     int getTableMaxRowNumForTbodyBySelector(int ntbody, Closure c) {
-        String r1 = c(this.locator)
-        Extension extension = new Extension()
-
-        String sel = r1 + " > tbody:eq(${ntbody-1}) > tr:has(td)"
-
-        int rownum = extension.getJQuerySelectorCount(sel)
-
-        return rownum
+        return c(this.locator, " > tbody:eq(${ntbody-1}) > tr:has(td)")
     }
 
     int getTableMaxColumnNumBySelector(Closure c) {
-        String r1 = c(this.locator)
-        Extension extension = new Extension()
-
-        String sel = r1 + " > tbody:eq(0) > tr:eq(0) > td"
-
-        int columnum = extension.getJQuerySelectorCount(sel)
-
-        return columnum
+        return c(this.locator, " > tbody:eq(0) > tr:eq(0) > td")
     }
 
     int getTableMaxColumnNumForTbodyBySelector(int ntbody, Closure c) {
-        String r1 = c(this.locator)
-        Extension extension = new Extension()
-
-        String sel = r1 + " > tbody:eq(${ntbody-1}) > tr:eq(0) > td"
-
-        int columnum = extension.getJQuerySelectorCount(sel)
-
-        return columnum
+         return c(this.locator, " > tbody:eq(${ntbody-1}) > tr:eq(0) > td")
     }
 
     int getTableMaxTbodyNumBySelector(Closure c){
-        String r1 = c(this.locator)
-        Extension extension = new Extension()
-
-        String sel = r1 + " > tbody"
-
-        int tbodynum = extension.getJQuerySelectorCount(sel)
-
-        return tbodynum
+         return c(this.locator, " > tbody")
     }
 
     //walk to a regular UI element in the table

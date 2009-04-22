@@ -379,38 +379,16 @@ class Table extends Container {
   }
 
   int getTableHeaderColumnNumBySelector(Closure c) {
-
-    String r1 = c(this.locator)
-    Extension extension = new Extension()
-
-    String sel = r1 + " > tbody > tr:has(th):eq(0) > th"
-
-    int columnum = extension.getJQuerySelectorCount(sel)
-
-    return columnum
+    return c(this.locator, " > tbody > tr:has(th):eq(0) > th")
   }
 
   int getTableMaxRowNumBySelector(Closure c) {
 
-    String r1 = c(this.locator)
-    Extension extension = new Extension()
-
-    String sel = r1 + " > tbody > tr:has(td)"
-    int rownum = extension.getJQuerySelectorCount(sel)
-
-    return rownum
+    return c(this.locator, " > tbody > tr:has(td)")
   }
 
   int getTableMaxColumnNumBySelector(Closure c) {
-
-    String r1 = c(this.locator)
-    Extension extension = new Extension()
-
-    String sel = r1 + " > tbody > tr:has(td):eq(0) > td"
-
-    int columnum = extension.getJQuerySelectorCount(sel)
-
-    return columnum
+     return c(this.locator, " > tbody > tr:has(td):eq(0) > td")
   }
   
   //walk to a regular UI element in the table
