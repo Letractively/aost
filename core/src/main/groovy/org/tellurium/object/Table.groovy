@@ -327,7 +327,7 @@ class Table extends Container {
 
   protected String getCellSelector(int row, int column) {
     //TODO: :has(td) is not the same as child::td, for example, if we have another embedded table. Need to address this case
-    return " > tbody > tr:has(td):eq(${row}) > td:eq(${column})"
+    return " > tbody > tr:has(td):eq(${row-1}) > td:eq(${column-1})"
   }
 
   protected String getHeaderLocator(int column) {
@@ -338,7 +338,7 @@ class Table extends Container {
 
   protected String getHeaderSelector(int column) {
 
-    return " > tbody > tr:has(th) > th:eq(${column})"
+    return " > tbody > tr:has(th) > th:eq(${column-1})"
   }
 
   String[] getAllTableCellText(Closure c){
@@ -437,7 +437,7 @@ class Table extends Container {
     String loc = null
     if(context.isUseJQuerySelector()){
       //jquery eq() starts from zero, while xpath starts from one
-      loc = getCellSelector(nrow-1, ncolumn-1)
+      loc = getCellSelector(nrow, ncolumn)
     }else{
       loc = getCellLocator(nrow, ncolumn)
     }
@@ -489,7 +489,7 @@ class Table extends Container {
     //append relative location, i.e., row, column to the locator
     String loc = null
     if(context.isUseJQuerySelector()){
-      loc = getHeaderSelector(index-1)
+      loc = getHeaderSelector(index)
     }else{
       loc = getHeaderLocator(index)
     }
