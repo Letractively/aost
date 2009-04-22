@@ -49,8 +49,11 @@ class CustomSelenium extends DefaultSelenium {
     }
 
     // Get the active Selenium RC session
-    def Selenium getActiveSeleniumSession(){
-      return com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session()
+    def CustomSelenium getActiveSeleniumSession(){
+      DefaultSelenium sel =  com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session()
+      CustomSelenium csel = new CustomSelenium(sel.commandProcessor)
+
+      return csel
     }
 
     /*Please add custom methods here for Selenium RC after you add user extension to Selenium Core
