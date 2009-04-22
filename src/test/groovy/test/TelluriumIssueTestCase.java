@@ -17,7 +17,7 @@ import util.TestResult;
 public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     private static TelluriumIssueModuleDecorator tim;
     private static List<TestResult> results = new ArrayList<TestResult>();
-    private static int repeatCount = 2;
+    private static int repeatCount = 1;
 
     @BeforeClass
     public static void initUi() {
@@ -76,6 +76,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     @Test
     public void testFlowByDefaultXPath(){
         tim.disableJQuerySelector();
+        tim.disableSelectorCache();
         tim.useDefaultXPathLibrary();
         for(int i=0; i<repeatCount; i++)
             testFlow();
@@ -88,6 +89,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     @Test
     public void testFlowByJavascriptXPath(){
         tim.disableJQuerySelector();
+        tim.disableSelectorCache();
         tim.useJavascriptXPathLibrary();
         for(int i=0; i<repeatCount; i++)
             testFlow();
@@ -100,6 +102,20 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     @Test
     public void testFlowByJQuerySelector(){
         tim.useJQuerySelector();
+        tim.disableSelectorCache();
+        tim.useDefaultXPathLibrary();
+        for(int i=0; i<repeatCount; i++)
+            testFlow();
+        long accumulatedTime = tim.getAccumulatedTime();
+        String msg = "Test Flow: jQuery selector, the accumulated time is " + accumulatedTime + " ms";
+        System.out.println(msg);
+        storeResult("testFlowByJQuerySelector", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
+    }
+
+    @Test
+    public void testFlowByJQuerySelectorCacheEnabled(){
+        tim.useJQuerySelector();
+        tim.enableSelectorCache();
         tim.useDefaultXPathLibrary();
         for(int i=0; i<repeatCount; i++)
             testFlow();
@@ -113,6 +129,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     public void testFlowByDefaultXPathNoGroup(){
         tim = new TelluriumIssueModuleDecorator(new TelluriumIssueModuleNoGroup());
         tim.disableJQuerySelector();
+        tim.disableSelectorCache();
         tim.useDefaultXPathLibrary();
         for(int i=0; i<repeatCount; i++)
             testFlow();
@@ -126,6 +143,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     public void testFlowByJavascriptXPathNoGroup(){
         tim = new TelluriumIssueModuleDecorator(new TelluriumIssueModuleNoGroup());
         tim.disableJQuerySelector();
+        tim.disableSelectorCache();
         tim.useJavascriptXPathLibrary();
         for(int i=0; i<repeatCount; i++)
             testFlow();
@@ -139,6 +157,21 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     public void testFlowByJQuerySelectorNoGroup(){
         tim = new TelluriumIssueModuleDecorator(new TelluriumIssueModuleNoGroup());
         tim.useJQuerySelector();
+        tim.disableSelectorCache();
+        tim.useDefaultXPathLibrary();
+        for(int i=0; i<repeatCount; i++)
+            testFlow();
+        long accumulatedTime = tim.getAccumulatedTime();
+        String msg = "Test Flow No Group: jQuery selector, the accumulated time is " + accumulatedTime + " ms";
+        System.out.println(msg);
+        storeResult("testFlowByJQuerySelectorNoGroup", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
+    }
+
+    @Test
+    public void testFlowByJQuerySelectorNoGroupCacheEnabled(){
+        tim = new TelluriumIssueModuleDecorator(new TelluriumIssueModuleNoGroup());
+        tim.useJQuerySelector();
+        tim.enableSelectorCache();
         tim.useDefaultXPathLibrary();
         for(int i=0; i<repeatCount; i++)
             testFlow();
