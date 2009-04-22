@@ -16,6 +16,7 @@ public class TelluriumDownSearchTestCase extends TelluriumJavaTestCase {
         app = new TelluriumDownSearchModule();
         app.defineUi();
         app.useJQuerySelector();
+        app.enableSelectorCache();
     }
 
     @Before
