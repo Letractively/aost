@@ -15,7 +15,7 @@ class Selector extends UiObject {
 
     def selectByValue(String value, Closure c){
 
-        c(locator, "value=${value}", respondToEvents)()
+        c(locator, "value=${value}", respondToEvents)
     }
 
     def addSelectionByLabel(String target, Closure c){
