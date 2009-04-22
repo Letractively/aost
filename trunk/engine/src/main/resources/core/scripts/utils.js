@@ -5,7 +5,7 @@ function HashMap()
     // members
     this.keyArray = new Array(); // Keys
     this.valArray = new Array(); // Values
-}
+};
 
 HashMap.prototype.put = function(key, val){
     var elementIndex = this.findIt( key );
@@ -19,7 +19,7 @@ HashMap.prototype.put = function(key, val){
     {
         this.valArray[ elementIndex ] = val;
     }
-}
+};
 
 HashMap.prototype.get = function( key ){
     var result = null;
@@ -31,7 +31,7 @@ HashMap.prototype.get = function( key ){
     }
 
     return result;
-}
+};
 
 HashMap.prototype.remove = function ( key )
 {
@@ -45,12 +45,12 @@ HashMap.prototype.remove = function ( key )
     }
 
     return ;
-}
+};
 
 HashMap.prototype.size = function()
 {
     return (this.keyArray.length);
-}
+};
 
 HashMap.prototype.clear = function()
 {
@@ -58,17 +58,17 @@ HashMap.prototype.clear = function()
     {
         this.keyArray.pop(); this.valArray.pop();
     }
-}
+};
 
 HashMap.prototype.keySet = function()
 {
     return (this.keyArray);
-}
+};
 
 HashMap.prototype.valSet = function()
 {
     return (this.valArray);
-}
+};
 
 HashMap.prototype.showMe = function()
 {
@@ -79,7 +79,7 @@ HashMap.prototype.showMe = function()
         result += "Key: " + this.keyArray[ i ] + "\tValues: " + this.valArray[ i ] + "\n";
     }
     return result;
-}
+};
 
 HashMap.prototype.findIt = function( key )
 {
@@ -94,7 +94,7 @@ HashMap.prototype.findIt = function( key )
         }
     }
     return result;
-}
+};
 
  HashMap.prototype.removeAt = function( index )
 {
@@ -102,5 +102,22 @@ HashMap.prototype.findIt = function( key )
   var part2 = this.slice( index+1 );
 
   return( part1.concat( part2 ) );
-}
+};
+
+function StringBuffer() {
+    this.buffer = [];
+};
+
+StringBuffer.prototype.append = function append(string) {
+    this.buffer.push(string);
+    return this;
+};
+
+StringBuffer.prototype.toString = function toString() {
+    return this.buffer.join("");
+};
+
+function trimString(str) {
+    return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+};
 
