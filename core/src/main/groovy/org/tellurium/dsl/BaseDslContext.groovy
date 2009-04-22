@@ -856,9 +856,11 @@ abstract class BaseDslContext {
     def obj = walkToWithException(context, uid)
     context.updateUniqueForMetaCmd(false)
     
-    return obj.getTableHeaderColumnNumBySelector {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
+    return obj.getTableHeaderColumnNumBySelector() {loc, optloc ->
+      String locator = locatorMappingWithOption(context, loc, optloc)
+//      locator = locator + optloc
+//      String jq = postProcessSelector(context, locator.trim())
+      return extension.getJQuerySelectorCount(locator)
     }
   }
 
@@ -867,9 +869,11 @@ abstract class BaseDslContext {
     def obj = walkToWithException(context, uid)
     context.updateUniqueForMetaCmd(false)
 
-    return obj.getTableFootColumnNumBySelector {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
+    return obj.getTableFootColumnNumBySelector() {loc, optloc ->
+      String locator = locatorMappingWithOption(context, loc, optloc)
+//      locator = locator + optloc
+//      String jq = postProcessSelector(context, locator.trim())
+      return extension.getJQuerySelectorCount(locator)
     }
   }
 
@@ -878,9 +882,11 @@ abstract class BaseDslContext {
     def obj = walkToWithException(context, uid)
     context.updateUniqueForMetaCmd(false)
 
-    return obj.getTableMaxRowNumBySelector() {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
+    return obj.getTableMaxRowNumBySelector() {loc, optloc ->
+      String locator = locatorMappingWithOption(context, loc, optloc)
+//      locator = locator + optloc
+//      String jq = postProcessSelector(context, locator.trim())
+      return extension.getJQuerySelectorCount(locator)
     }
   }
 
@@ -889,9 +895,11 @@ abstract class BaseDslContext {
     def obj = walkToWithException(context, uid)
     context.updateUniqueForMetaCmd(false)
 
-    return obj.getTableMaxColumnNumBySelector() {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
+    return obj.getTableMaxColumnNumBySelector() {loc, optloc ->
+      String locator = locatorMappingWithOption(context, loc, optloc)
+//      locator = locator + optloc
+//      String jq = postProcessSelector(context, locator.trim())
+      return extension.getJQuerySelectorCount(locator)
     }
   }
 
@@ -900,9 +908,11 @@ abstract class BaseDslContext {
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
     context.updateUniqueForMetaCmd(false)
 
-    return obj.getTableMaxRowNumForTbodyBySelector(ntbody) {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
+    return obj.getTableMaxRowNumForTbodyBySelector(ntbody) {loc, optloc ->
+      String locator = locatorMappingWithOption(context, loc, optloc)
+//      locator = locator + optloc
+//      String jq = postProcessSelector(context, locator.trim())
+      return extension.getJQuerySelectorCount(locator)
     }
   }
 
@@ -911,9 +921,11 @@ abstract class BaseDslContext {
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
     context.updateUniqueForMetaCmd(false)
 
-    return obj.getTableMaxColumnNumForTbodyBySelector(ntbody) {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
+    return obj.getTableMaxColumnNumForTbodyBySelector(ntbody) {loc, optloc ->
+      String locator = locatorMappingWithOption(context, loc, optloc)
+//      locator = locator + optloc
+//      String jq = postProcessSelector(context, locator.trim())
+      return extension.getJQuerySelectorCount(locator)
     }
   }
 
@@ -922,9 +934,11 @@ abstract class BaseDslContext {
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
     context.updateUniqueForMetaCmd(false)
     
-    return obj.getTableMaxTbodyNumBySelector() {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
+    return obj.getTableMaxTbodyNumBySelector() {loc, optloc ->
+      String locator = locatorMappingWithOption(context, loc, optloc)
+//      locator = locator + optloc
+//      String jq = postProcessSelector(context, locator.trim())
+      return extension.getJQuerySelectorCount(locator)
     }
   }
 
