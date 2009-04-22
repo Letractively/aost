@@ -16,17 +16,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/selenium-server.jar" afterPath="$PROJECT_DIR$/lib/selenium-server.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine.ipr" afterPath="$PROJECT_DIR$/engine.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js" afterPath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js" afterPath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/core/RemoteRunner.html" afterPath="$PROJECT_DIR$/src/main/resources/core/RemoteRunner.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/core/TestRunner.html" afterPath="$PROJECT_DIR$/src/main/resources/core/TestRunner.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/selenium-server.jar" afterPath="$PROJECT_DIR$/lib/selenium-server.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine.iws" afterPath="$PROJECT_DIR$/engine.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine.iml" afterPath="$PROJECT_DIR$/engine.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/core/scripts/utils.js" />
     </list>
-    <ignored path=".idea/workspace.xml" />
     <ignored path="engine.iws" />
+    <ignored path=".idea/workspace.xml" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="Commander">
@@ -82,51 +78,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="40" selection-start="1032" selection-end="1032" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.properties" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="0" selection-start="961" selection-end="961" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="98" column="64" selection-start="3118" selection-end="3118" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="selenium-api.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-api.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1728" column="11" selection-start="67359" selection-end="67359" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="selenium-browserbot.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-browserbot.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2332" column="29" selection-start="84622" selection-end="84622" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="selenium-testrunner.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-testrunner.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -139,7 +90,61 @@
       <file leaf-file-name="tellurium.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="44" selection-start="1239" selection-end="1239" vertical-scroll-proportion="0.0">
+            <state line="145" column="34" selection-start="4252" selection-end="4252" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="selenium-api.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-api.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="400" column="74" selection-start="16028" selection-end="16028" vertical-scroll-proportion="-10.2">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="selenium-commandhandlers.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-commandhandlers.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="264" column="97" selection-start="12078" selection-end="12078" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="selenium-logging.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-logging.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="141" column="5" selection-start="5146" selection-end="5149" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="selenium-executionloop.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-executionloop.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="101" column="8" selection-start="3271" selection-end="3271" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utils.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/utils.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="123" column="0" selection-start="2353" selection-end="2353" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="log4js.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/log4js.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2505" column="2" selection-start="65997" selection-end="65997" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -148,7 +153,16 @@
       <file leaf-file-name="tellurium-extensions.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="97" column="24" selection-start="3018" selection-end="3018" vertical-scroll-proportion="0.7873652">
+            <state line="103" column="0" selection-start="3125" selection-end="3125" vertical-scroll-proportion="0.8582677">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="json2.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/json2.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="472" column="27" selection-start="17194" selection-end="17194" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -323,15 +337,19 @@
     </navigator>
   </component>
   <component name="PropertiesComponent">
-    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="project.structure.last.edited" value="Modules" />
-    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="project.structure.proportion" value="0.0" />
+    <property name="options.splitter.main.proportions" value="0.3" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="MemberChooser.showClasses" value="true" />
-    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="options.lastSelected" value="com.intellij.openapi.vcs.configurable.VcsManagerConfigurable$4" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="Remote" factoryName="Remote">
@@ -365,6 +383,11 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="" />
       <envs />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false" runner="emma">
       <module name="" />
@@ -441,25 +464,25 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="28" width="1440" height="844" extended-state="0" />
+    <frame x="0" y="27" width="1440" height="846" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294964" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="7" side_tool="false" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294964" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29768786" sideWeight="0.6599424" order="0" side_tool="false" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33959538" sideWeight="0.6604317" order="0" side_tool="false" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" />
@@ -477,7 +500,7 @@
     <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="move locateStrategy code to engine project" />
+    <option name="LAST_COMMIT_MESSAGE" value="add selector cache to engine" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -495,6 +518,7 @@
     <MESSAGE value="fixing the array problem for getCSS()" />
     <MESSAGE value="add isDisabled()" />
     <MESSAGE value="move locateStrategy code to engine project" />
+    <MESSAGE value="add selector cache to engine" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -542,62 +566,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-browserdetect.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-commandhandlers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-executionloop.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-logging.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-remoterunner.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/deployfile.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="278" selection-end="278" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/core/TestRunner.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.50239235">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/core/RemoteRunner.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="14.318182">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="40" selection-start="1032" selection-end="1032" vertical-scroll-proportion="0.0">
@@ -619,16 +587,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-api.js">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/TestRunner.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1728" column="11" selection-start="67359" selection-end="67359" vertical-scroll-proportion="0.0">
+        <state line="38" column="13" selection-start="2234" selection-end="2320" vertical-scroll-proportion="-9.545455">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/RemoteRunner.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="86" selection-start="1700" selection-end="1700" vertical-scroll-proportion="0.41598696">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-browserbot.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2332" column="29" selection-start="84622" selection-end="84622" vertical-scroll-proportion="0.0">
+        <state line="2340" column="13" selection-start="84879" selection-end="84882" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -642,14 +617,63 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="44" selection-start="1239" selection-end="1239" vertical-scroll-proportion="0.0">
+        <state line="145" column="34" selection-start="4252" selection-end="4252" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-commandhandlers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="264" column="97" selection-start="12078" selection-end="12078" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-logging.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="141" column="5" selection-start="5146" selection-end="5149" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-executionloop.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="101" column="8" selection-start="3271" selection-end="3271" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="123" column="0" selection-start="2353" selection-end="2353" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/log4js.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2505" column="2" selection-start="65997" selection-end="65997" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/json2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="472" column="27" selection-start="17194" selection-end="17194" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="400" column="74" selection-start="16028" selection-end="16028" vertical-scroll-proportion="-10.2">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="97" column="24" selection-start="3018" selection-end="3018" vertical-scroll-proportion="0.7873652">
+        <state line="103" column="0" selection-start="3125" selection-end="3125" vertical-scroll-proportion="0.8582677">
           <folding />
         </state>
       </provider>
@@ -696,7 +720,13 @@
           <value>
             <UIState>
               <option name="proportions">
-                <SplitterProportionsDataImpl />
+                <SplitterProportionsDataImpl>
+                  <option name="proportions">
+                    <list>
+                      <option value="0.2" />
+                    </list>
+                  </option>
+                </SplitterProportionsDataImpl>
               </option>
             </UIState>
           </value>
@@ -743,7 +773,13 @@
           <value>
             <UIState>
               <option name="proportions">
-                <SplitterProportionsDataImpl />
+                <SplitterProportionsDataImpl>
+                  <option name="proportions">
+                    <list>
+                      <option value="0.2" />
+                    </list>
+                  </option>
+                </SplitterProportionsDataImpl>
               </option>
             </UIState>
           </value>
