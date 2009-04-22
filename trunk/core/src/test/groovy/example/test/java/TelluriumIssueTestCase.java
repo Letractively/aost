@@ -17,6 +17,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         tisp = new TelluriumIssueModule();
         tisp.defineUi();
         tisp.useJQuerySelector();
+//        tisp.useSelectorCache();
     }
 
     @Before

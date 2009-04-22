@@ -24,7 +24,9 @@ public class JQueryOptimizer {
     String jsel = removePrefix(jqs)
     String selected = pickIdSelector(jsel)
 
-    return addPrefix(selected)
+    //do not add prefix so that DslContext can handle it
+    return selected
+//    return addPrefix(selected)
   }
 
 //example:

@@ -45,6 +45,10 @@ class WorkflowContext {
     return this.metaCmd
   }
 
+  public void updateUniqueForMetaCmd(boolean isUnique){
+    this.metaCmd.setProperty(MetaCmd.UNIQUE, isUnique)
+  }
+
   public void setTableDuplicateTag() {
     this.tableDuplicateTag = true
   }
