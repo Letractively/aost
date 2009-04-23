@@ -122,7 +122,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Test Flow: jQuery selector, the accumulated time is " + accumulatedTime + " ms";
         System.out.println(msg);
-        storeResult("testFlowByJQuerySelector", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
+        storeResult("testFlowByJQuerySelectorCacheEnabled", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
     @Test
@@ -178,7 +178,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Test Flow No Group: jQuery selector, the accumulated time is " + accumulatedTime + " ms";
         System.out.println(msg);
-        storeResult("testFlowByJQuerySelectorNoGroup", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
+        storeResult("testFlowByJQuerySelectorNoGroupCacheEnabled", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
     @Test
