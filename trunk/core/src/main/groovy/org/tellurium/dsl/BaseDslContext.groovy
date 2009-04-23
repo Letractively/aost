@@ -145,6 +145,10 @@ abstract class BaseDslContext {
       extension.disableSelectorCache()
   }
 
+  public boolean cleanSelectorCache(){
+      extension.cleanSelectorCache()
+  }
+
   public boolean getSelectorCacheState(){
       return extension.getCacheState();
   }

@@ -23,6 +23,8 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     @Before
     public void setUp(){
         connectUrl("http://code.google.com/p/aost/issues/list");
+        //manually clean up cache until we get cache clean up piece in
+        tisp.cleanSelectorCache();
     }
 
     @Test

@@ -121,6 +121,11 @@ class CustomSelenium extends DefaultSelenium {
       commandProcessor.doCommand("disableCache",  arr);
     }
 
+    public void cleanSelectorCache(){
+      String[] arr = [];
+      commandProcessor.doCommand("cleanCache", arr);
+    }
+  
     def boolean getCacheState(){
       String[] arr = [];
       boolean result = commandProcessor.getBoolean("getCacheState", arr);
