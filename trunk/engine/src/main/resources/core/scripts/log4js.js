@@ -2499,9 +2499,3 @@ Log4js.DateFormatter.prototype = {
 var log4Log = Log4js.getLogger("Log4js");
 log4Log.addAppender(new Log4js.ConsoleAppender());
 log4Log.setLevel(Log4js.Level.ALL);
-
-//and here is the logger!
-var jslogger = new Log4js.getLogger("TeEngine");
-jslogger.setLevel(Log4js.Level.ALL);
-//jslogger.addAppender(new Log4js.MozillaJSConsoleAppender());
-jslogger.addAppender(new Log4js.ConsoleAppender());
