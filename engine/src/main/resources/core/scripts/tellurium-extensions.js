@@ -101,3 +101,7 @@ Selenium.prototype.doEnableCache = function(){
 Selenium.prototype.doDisableCache = function(){
     tellurium.cacheSelector = false;
 };
+
+Selenium.prototype.doCleanCache = function(){
+    tellurium.cleanCache();
+};

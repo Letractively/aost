@@ -17,8 +17,10 @@
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js" afterPath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine.iws" afterPath="$PROJECT_DIR$/engine.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/core/scripts/log4js.js" afterPath="$PROJECT_DIR$/src/main/resources/core/scripts/log4js.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js" afterPath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/selenium-server.jar" afterPath="$PROJECT_DIR$/lib/selenium-server.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine.iws" afterPath="$PROJECT_DIR$/engine.iws" />
     </list>
     <ignored path="engine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -89,7 +91,7 @@
       <file leaf-file-name="tellurium.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="79" column="30" selection-start="1851" selection-end="1851" vertical-scroll-proportion="0.3876923">
+            <state line="101" column="7" selection-start="2356" selection-end="2356" vertical-scroll-proportion="0.5153846">
               <folding />
             </state>
           </provider>
@@ -98,7 +100,7 @@
       <file leaf-file-name="selenium-api.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="400" column="74" selection-start="16028" selection-end="16028" vertical-scroll-proportion="-10.2">
+            <state line="400" column="74" selection-start="16028" selection-end="16028" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -143,7 +145,7 @@
       <file leaf-file-name="log4js.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/log4js.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2505" column="2" selection-start="65997" selection-end="65997" vertical-scroll-proportion="0.0">
+            <state line="2495" column="76" selection-start="65740" selection-end="65740" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -152,7 +154,7 @@
       <file leaf-file-name="tellurium-extensions.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="103" column="0" selection-start="3125" selection-end="3125" vertical-scroll-proportion="0.0">
+            <state line="106" column="62" selection-start="3202" selection-end="3202" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -499,7 +501,7 @@
     <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix the command name issue" />
+    <option name="LAST_COMMIT_MESSAGE" value="disable the cache by default" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -519,6 +521,7 @@
     <MESSAGE value="move locateStrategy code to engine project" />
     <MESSAGE value="add selector cache to engine" />
     <MESSAGE value="Fix the command name issue" />
+    <MESSAGE value="disable the cache by default" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -615,6 +618,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="400" column="74" selection-start="16028" selection-end="16028" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-commandhandlers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="264" column="97" selection-start="12078" selection-end="12078" vertical-scroll-proportion="0.0">
@@ -636,6 +646,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/json2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="472" column="27" selection-start="17194" selection-end="17194" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/utils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="123" column="0" selection-start="2353" selection-end="2353" vertical-scroll-proportion="0.0">
@@ -645,35 +662,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/log4js.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2505" column="2" selection-start="65997" selection-end="65997" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/json2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="472" column="27" selection-start="17194" selection-end="17194" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="400" column="74" selection-start="16028" selection-end="16028" vertical-scroll-proportion="-10.2">
+        <state line="2495" column="76" selection-start="65740" selection-end="65740" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="0" selection-start="3125" selection-end="3125" vertical-scroll-proportion="0.0">
+        <state line="106" column="62" selection-start="3202" selection-end="3202" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="30" selection-start="1851" selection-end="1851" vertical-scroll-proportion="0.3876923">
+        <state line="101" column="7" selection-start="2356" selection-end="2356" vertical-scroll-proportion="0.5153846">
           <folding />
         </state>
       </provider>
