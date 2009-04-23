@@ -5,26 +5,41 @@ import com.thoughtworks.selenium.DefaultSelenium
 import com.thoughtworks.selenium.Selenium
 import com.thoughtworks.selenium.CommandProcessor
 import org.tellurium.exception.*
+import org.tellurium.config.Configurable
 
 /**
  * Customize Selenium RC so that we can add custom methods to Selenium RC
  * Added Selenium Grid support.
  *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
- * @author Haroon Rasheed (haroonzone@gmail.com
+ * @author Haroon Rasheed (haroonzone@gmail.com)
  *
  * Date: Oct 21, 2008
  * 
  */
 class CustomSelenium extends DefaultSelenium {
 
+    protected CustomCommand customClass = null
 
-
-  CustomSelenium(CommandProcessor commandProcessor) {
-      super (commandProcessor)     
-
+    CustomSelenium(CommandProcessor commandProcessor) {
+      super (commandProcessor)
     }
 
+    protected void passCommandProcessor(CommandProcessor commandProcessor){
+      if(customClass != null){
+        customClass.setProcessor(this.commandProcessor) 
+      }
+    }
+
+    protected def methodMissing(String name, args) {
+
+         if(customClass != null && customClass.metaClass.respondsTo(customClass, name, args)){
+              return customClass.invokeMethod(name, args)
+         }
+
+        throw new MissingMethodException(name, CustomSelenium.class, args)
+    }
+  
     // Added for the selenium grid support.
     // Start the selenium session specified by the arguments.
     // and register the selenium rc with Selenium HUB
@@ -54,6 +69,8 @@ class CustomSelenium extends DefaultSelenium {
     def CustomSelenium getActiveSeleniumSession(){
       DefaultSelenium sel =  com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session()
       CustomSelenium csel = new CustomSelenium(sel.commandProcessor)
+      csel.customClass = this.customClass
+      csel.passCommandProcessor(sel.commandProcessor)
 
       return csel
     }

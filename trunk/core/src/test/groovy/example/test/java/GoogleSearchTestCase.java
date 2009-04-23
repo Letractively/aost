@@ -69,4 +69,9 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
         result = gsm.getSelectorCacheState();
         assertFalse(result);
     }
+
+    @Test
+    public void testTypeRepeated(){
+        gsm.doTypeRepeated("tellurium jQuery");
+    }
 }
