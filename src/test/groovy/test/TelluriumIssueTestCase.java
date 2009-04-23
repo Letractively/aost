@@ -17,7 +17,7 @@ import util.TestResult;
 public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     private static TelluriumIssueModuleDecorator tim;
     private static List<TestResult> results = new ArrayList<TestResult>();
-    private static int repeatCount = 1;
+    private static int repeatCount = 2;
 
     @BeforeClass
     public static void initUi() {
@@ -117,8 +117,11 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         tim.useJQuerySelector();
         tim.enableSelectorCache();
         tim.useDefaultXPathLibrary();
-        for(int i=0; i<repeatCount; i++)
+        for(int i=0; i<repeatCount; i++){
+            //manual clean up the cache for the time being
+            tim.cleanSelectorCache();
             testFlow();
+        }
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Test Flow: jQuery selector, the accumulated time is " + accumulatedTime + " ms";
         System.out.println(msg);
@@ -173,8 +176,11 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         tim.useJQuerySelector();
         tim.enableSelectorCache();
         tim.useDefaultXPathLibrary();
-        for(int i=0; i<repeatCount; i++)
+        for(int i=0; i<repeatCount; i++){
+            //manual clean up the cache for the time being
+            tim.cleanSelectorCache();
             testFlow();
+        }
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "Test Flow No Group: jQuery selector, the accumulated time is " + accumulatedTime + " ms";
         System.out.println(msg);
