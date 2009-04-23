@@ -32,6 +32,8 @@ class SeleniumConnector implements Configurable {
 
     protected seleniumServerHost = "localhost"
 
+    protected String userExtension = null
+  
     protected def customClass = null
   
     public void connect(String url){
@@ -56,6 +58,7 @@ class SeleniumConnector implements Configurable {
           // This is done to make sure that implementing the Selenium Grid does
         // not break the inheritance model for CustomSelenium.
           customSelenium = new CustomSelenium (commandProcessor)
+          customSelenium.setUserExt(this.userExtension)
           customSelenium.customClass = this.customClass 
           customSelenium.startSeleniumSession(seleniumServerHost, port, browser, baseURL)
           sel = customSelenium.getActiveSeleniumSession()
