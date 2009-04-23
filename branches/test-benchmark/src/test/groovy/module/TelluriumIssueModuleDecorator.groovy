@@ -116,4 +116,8 @@ public class TelluriumIssueModuleDecorator {
     public void disableSelectorCache(){
         decorator.disableSelectorCache();
     }
+
+    public void cleanSelectorCache(){
+        decorator.cleanSelectorCache();
+    }
 }
