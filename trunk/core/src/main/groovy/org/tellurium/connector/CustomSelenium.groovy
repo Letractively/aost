@@ -20,11 +20,16 @@ import org.tellurium.config.Configurable
 class CustomSelenium extends DefaultSelenium {
 
     protected CustomCommand customClass = null
+    protected String userExtension = null
 
     CustomSelenium(CommandProcessor commandProcessor) {
       super (commandProcessor)
     }
 
+    public void setUserExt(String userExt){
+      this.userExtension = userExt
+    }
+  
     protected void passCommandProcessor(CommandProcessor commandProcessor){
       if(customClass != null){
         customClass.setProcessor(this.commandProcessor) 
@@ -68,9 +73,15 @@ class CustomSelenium extends DefaultSelenium {
     // Get the active Selenium RC session
     def CustomSelenium getActiveSeleniumSession(){
       DefaultSelenium sel =  com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session()
-      CustomSelenium csel = new CustomSelenium(sel.commandProcessor)
+      CommandProcessor processor = sel.commandProcessor
+      CustomSelenium csel = new CustomSelenium(processor)
+      if(this.userExtension != null && this.userExtension.trim().length() > 0){
+        File userExt = new File(this.userExtension);
+        processor.setExtensionJs(userExt.getAbsolutePath())
+        println "Add user-extensions.js found at given path: " + userExt.getAbsolutePath() + " to Command Processor";
+      }
       csel.customClass = this.customClass
-      csel.passCommandProcessor(sel.commandProcessor)
+      csel.passCommandProcessor(processor)
 
       return csel
     }

@@ -46,6 +46,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
         connector.setProperty("port", Integer.parseInt(conf.tellurium.connector.port))
         connector.setProperty("baseURL", conf.tellurium.connector.baseUrl)
         connector.setProperty("browser", conf.tellurium.connector.browser)
+        connector.setProperty("userExtension", conf.tellurium.embeddedserver.userExtension)
         String clazz = conf.tellurium.connector.customClass
         if(clazz != null && clazz.trim().length() > 0)
           connector.setProperty("customClass", Class.forName(clazz).newInstance())
