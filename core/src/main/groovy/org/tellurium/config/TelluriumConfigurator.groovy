@@ -15,6 +15,7 @@ import org.tellurium.event.EventHandler
 import org.tellurium.server.EmbeddedSeleniumServer
 import org.tellurium.widget.WidgetConfigurator
 import org.tellurium.test.helper.*
+import org.tellurium.connector.CustomSelenium
 
 /**
  * Tellurium Configurator
@@ -45,6 +46,9 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
         connector.setProperty("port", Integer.parseInt(conf.tellurium.connector.port))
         connector.setProperty("baseURL", conf.tellurium.connector.baseUrl)
         connector.setProperty("browser", conf.tellurium.connector.browser)
+        String clazz = conf.tellurium.connector.customClass
+        if(clazz != null && clazz.trim().length() > 0)
+          connector.setProperty("customClass", Class.forName(clazz).newInstance())
     }
 
     protected void configSeleniumConnectorDefaultValues(SeleniumConnector connector){
@@ -52,6 +56,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
         connector.setProperty("port", 4444)
         connector.setProperty("baseURL", "http://localhost:8080")
         connector.setProperty("browser", "*chrome")
+        connector.setProperty("customClass", null)
     }
 
     protected void configDataProvider(DataProvider dataProvider){
@@ -230,7 +235,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
             }else if(configurable instanceof Dispatcher){
                 println "Configure dispatcher with default values"
                 configDispatcherDefaultValues(configurable)
-             }else{
+            }else{
                 println "Unsupported Configurable type!"
             }
 

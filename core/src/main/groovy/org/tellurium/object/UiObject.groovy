@@ -151,6 +151,10 @@ abstract class UiObject implements Cloneable{
         c(locator)
     }
 
+    public customMethod(Closure c){
+       c(locator)
+    }
+
     public String getXPath(Closure c){
 
       return c(locator)

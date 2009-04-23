@@ -48,4 +48,11 @@ public class GoogleSearchModule extends DslContext {
   boolean isInputDisabled() {
     return isDisabled("Google.Input")
   }
+
+  public void doTypeRepeated(String input){
+    customUiCall "Google.Input", "typeRepeated", input
+    pause 500
+    click "Google.Search"
+    waitForPageToLoad 30000
+  }
 }

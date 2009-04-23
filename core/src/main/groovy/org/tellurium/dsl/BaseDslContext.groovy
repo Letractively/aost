@@ -173,6 +173,19 @@ abstract class BaseDslContext {
     accessor.useXpathLibrary(AJAXSLT_XPATH)
   }
 
+  def customUiCall(String uid, String method, Object[] args){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    return walkToWithException(context, uid).customMethod(){ loc ->
+      String locator = locatorMapping(context, loc)
+      Object[] list = [locator, args].flatten()    
+      return extension.invokeMethod(method, list)
+    }
+  }
+
+  def customDirectCall(String method, Object[] args){
+    return extension.invokeMethod(method, args)
+  }
+
   //uid should use the format table2[2][3] for Table or list[2] for List
   def getUiElement(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
