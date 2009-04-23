@@ -88,6 +88,12 @@
         </dependency>
 
         <dependency>
+          <groupId>org.openqa.selenium.grid</groupId>
+          <artifactId>selenium-grid-tools</artifactId>
+          <version>1.0.2</version>
+        </dependency> 
+
+        <dependency>
             <groupId>tellurium</groupId>
             <artifactId>tellurium-core</artifactId>
             <version>0.6.0-SNAPSHOT</version>
