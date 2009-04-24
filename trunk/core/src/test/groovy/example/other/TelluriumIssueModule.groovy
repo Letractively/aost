@@ -1,6 +1,7 @@
 package example.other
 
 import org.tellurium.dsl.DslContext
+import org.tellurium.object.UiObject
 
 public class TelluriumIssueModule extends DslContext {
 
@@ -76,5 +77,11 @@ public class TelluriumIssueModule extends DslContext {
 //        type "issueSearch.searchBox", issue
     click "issueSearch.searchButton"
     waitForPageToLoad 30000
+  }
+
+  public boolean checkamICacheable(String uid){
+    UiObject obj = getUiElement(uid)
+    boolean cacheable = obj.amICacheable()
+    return cacheable
   }
 }

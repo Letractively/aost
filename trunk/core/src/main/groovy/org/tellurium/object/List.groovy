@@ -23,6 +23,8 @@ class List extends Container {
     def add(UiObject component) {
         if (validId(component.uid)) {
             String internId = internalId(component.uid)
+            //force to not use cache for List elements
+            component.cacheable = false
             components.put(internId, component)
         } else {
             System.out.println("Warning: Invalid id: ${component.uid}")

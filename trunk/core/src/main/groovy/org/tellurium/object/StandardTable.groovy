@@ -82,6 +82,8 @@ class StandardTable extends Container{
             }else{
                 //this is a regular element
                 String internId = internalId(component.uid)
+                //force to not use cache for table cell elements
+                component.cacheable = false
                 components.put(internId, component)
             }
         }else{

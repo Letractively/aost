@@ -4,9 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import org.tellurium.test.java.TelluriumJavaTestCase;
 import example.other.TelluriumIssueModule;
 
@@ -65,6 +63,14 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         tisp.disableSelectorCache();
         String[] css = tisp.getTableCSS("font-size");
         assertNotNull(css);
+    }
+    
+    @Test
+    public void checkCacheable(){
+        boolean result = tisp.checkamICacheable("issueResult[1][1]");
+        assertFalse(result);
+        result = tisp.checkamICacheable("issueResult");
+        assertTrue(result);
     }
 
     @After
