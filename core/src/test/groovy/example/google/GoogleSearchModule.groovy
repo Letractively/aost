@@ -50,7 +50,7 @@ public class GoogleSearchModule extends DslContext {
   }
 
   public void doTypeRepeated(String input){
-    customUiCall "Google.Input", "typeRepeated", input
+    customUiCall "Google.Input", typeRepeated, input
     pause 500
     click "Google.Search"
     waitForPageToLoad 30000
