@@ -120,4 +120,15 @@ public class TelluriumIssueModuleDecorator {
     public void cleanSelectorCache(){
         decorator.cleanSelectorCache();
     }
+
+    public void showCacheUsage(){
+        int size = decorator.getCacheSize();
+        int maxSize = decorator.getCacheMaxSize();
+        System.out.println("Cache Size: " + size + ", Cache Max Size: " + maxSize);
+        System.out.println("Cache Usage: ");
+        Map<String, Long> usages = decorator.getCacheUsage();
+        usages.each {key, val ->
+            System.out.println("UID: " + key + ", Count: " + val);
+        }
+    }
 }
