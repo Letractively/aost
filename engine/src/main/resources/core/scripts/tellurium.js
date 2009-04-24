@@ -52,8 +52,8 @@ function Uiid(){
     this.stack = new Array();
 };
 
-Uiid.prototype.push = function(id){
-    this.stack.push(id);
+Uiid.prototype.push = function(uid){
+    this.stack.push(uid);
 };
 
 Uiid.prototype.pop = function(){
@@ -68,9 +68,9 @@ Uiid.prototype.size = function(){
     return this.stack.length;
 };
 
-Uiid.prototype.convertToUiid = function(id){
-    if(id != null && trimString(id).length > 0){
-        var ids = id.split(".");
+Uiid.prototype.convertToUiid = function(uid){
+    if(uid != null && trimString(uid).length > 0){
+        var ids = uid.split(".");
         for(var i= 0; i<ids.length; i++){
             var pp = this.preprocess(ids[i]);
             if(pp.length == 1){
@@ -83,20 +83,20 @@ Uiid.prototype.convertToUiid = function(id){
     }
 };
 
-Uiid.prototype.preprocess = function(id){
-    if(id != null && trimString(id).length > 0 && id.indexOf("[") != -1){
-        if(id.indexOf("[") == 0){
-            var single = id.replace(/\[/g, "_").replace(/\]/g, '');
+Uiid.prototype.preprocess = function(uid){
+    if(uid != null && trimString(uid).length > 0 && uid.indexOf("[") != -1){
+        if(uid.indexOf("[") == 0){
+            var single = uid.replace(/\[/g, "_").replace(/\]/g, '');
             return [single];
         }else{
-            var index = id.indexOf("[");
-            var first = id.substring(0, index);
-            var second = id.substring(index).replace(/\[/g, "_").replace(/\]/g, '');
+            var index = uid.indexOf("[");
+            var first = uid.substring(0, index);
+            var second = uid.substring(index).replace(/\[/g, "_").replace(/\]/g, '');
             return [second, first];
         }
     }
 
-    return [id];
+    return [uid];
 };
 
 
@@ -112,7 +112,7 @@ function CacheData(){
     //without optimization so that it is easier to the the reminding selector for its children
     this.selector = null;
     //optimized selector for actual DOM search
-    this.optimzed = null;
+    this.optimized = null;
     //DOM reference
     this.reference = null;
 
@@ -165,7 +165,7 @@ Tellurium.prototype.getCachedSelector = function(key){
 
 //cache eviction policies
 //simply discard new selector
-Tellurium.prototype.skipNewPolicy = function(key, data){
+Tellurium.prototype.discardNewPolicy = function(key, data){
     jslogger.warn("Reached maximum cache size " + this.maxCacheSize + ", not able to cache selector for " + key);
 };
 
@@ -188,12 +188,17 @@ Tellurium.prototype.discardLeastCountPolicy = function(key, data){
     jslogger.debug("Cache selector for " + key);        
 };
 
-Tellurium.prototype.addCachedSelector = function(key, data){
+//central entry to change policy
+Tellurium.prototype.applyPolicy = function(key, data){
+    this.discardNewPolicy(key, data);
+};
+
+Tellurium.prototype.addSelectorToCache = function(key, data){
     if(this.sCache.size() < this.maxCacheSize){
         this.sCache.put(key, data);
         jslogger.debug("Cache selector for " + key);
     }else{
-        this.skipNewPolicy(key, data);
+        this.applyPolicy(key, data);
     }
 };
 
@@ -221,14 +226,14 @@ Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWind
         isattr = true;
     }
 
-    var command = JSON.parse(purged, null);
+    var tecmd = JSON.parse(purged, null);
 
-    var loc = command.locator;
-    var optimized = command.optimized;
+    var loc = tecmd.locator;
+    var optimized = tecmd.optimized;
     var metaCmd = new MetaCmd();
-    metaCmd.uid = command.uid;
-    metaCmd.cacheable = command.cacheable;
-    metaCmd.unique = command.unique;
+    metaCmd.uid = tecmd.uid;
+    metaCmd.cacheable = tecmd.cacheable;
+    metaCmd.unique = tecmd.unique;
 
     jslogger.debug("Tellurium received locator: " + loc + ", optimized: " + optimized);
 
@@ -254,18 +259,18 @@ Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWind
         }else{
             while(uiid.size() > 1){
                 uiid.pop();
-                var parent = uiid.getUid();
-                var cachedParent = this.getCachedSelector(parent);
-                if(cachedParent != null){
-                    //parent's jQuery Selector
-                    var pjqs = cachedParent.selector;
+                var ancestor = uiid.getUid();
+                var cachedAncestor = this.getCachedSelector(ancestor);
+                if(cachedAncestor != null){
+                    //ancestor's jQuery Selector
+                    var pjqs = cachedAncestor.selector;
                     if(loc.length > pjqs.length){
                         var start = loc.substring(0, pjqs.length);
                         if(start == pjqs){
                             //the start part of loc matches the parent's selector
                             var leftover = trimString(loc.substring(pjqs.length));
-                            $found = jQuery(cachedParent.reference).find(leftover);
-                            jslogger.debug("Locator not cacheable, found parent cached selector " + parent);
+                            $found = jQuery(cachedAncestor.reference).find(leftover);
+                            jslogger.debug("Locator not cacheable, found cached ancestor selector " + ancestor);
                             break;
                         }
                     }
@@ -301,11 +306,11 @@ Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWind
     if (noskip && this.cacheSelector && metaCmd.cacheable && needUpdate) {
         var cachedata = new CacheData();
         cachedata.selector = loc;
-        cachedata.optimzed = optimized;
+        cachedata.optimized = optimized;
         cachedata.reference = $found;
         var nuid = new Uiid();
         nuid.convertToUiid(metaCmd.uid);
-        this.addCachedSelector(nuid.getUid(), cachedata); 
+        this.addSelectorToCache(nuid.getUid(), cachedata);
     }
 
     if ($found.length == 1) {
