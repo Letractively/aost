@@ -20,6 +20,8 @@ tellurium{
 //        logFile = "selenium.log"
         //profile location
         profile = ""
+        //user-extension.js file
+        userExtension = ""
     }
     //event handler
     eventhandler{

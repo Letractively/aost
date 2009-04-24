@@ -18,6 +18,8 @@ tellurium{
         runInternally = true
         //profile location
         profile = ""
+        //user-extension.js file
+        userExtension = ""
     }
     //event handler
     eventhandler{
