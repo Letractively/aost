@@ -247,19 +247,19 @@ Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWind
 
     if(noskip && this.cacheSelector){
         jslogger.debug("Tellurium jQuery Selector Cache is turned on");
-        var uiid = new Uiid();
-        uiid.convertToUiid(metaCmd.uid);
+        var sid = new Uiid();
+        sid.convertToUiid(metaCmd.uid);
         if(metaCmd.cacheable){
             //the locator could be cached
-            var cached = this.getCachedSelector(uiid.getUid());
+            var cached = this.getCachedSelector(sid.getUid());
             if(cached != null){
                 $found = cached.reference;
-                jslogger.debug("Locator cacheable, found cached selector for " + uiid.getUid());
+                jslogger.debug("Locator cacheable, found cached selector for " + sid.getUid());
             }
         }else{
-            while(uiid.size() > 1){
-                uiid.pop();
-                var ancestor = uiid.getUid();
+            while(sid.size() > 1){
+                sid.pop();
+                var ancestor = sid.getUid();
                 var cachedAncestor = this.getCachedSelector(ancestor);
                 if(cachedAncestor != null){
                     //ancestor's jQuery Selector
