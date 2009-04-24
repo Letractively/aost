@@ -18,6 +18,8 @@ tellurium{
         runInternally = true
         //profile location
         profile = ""
+        //user-extension.js file
+        userExtension = ""
     }
     //event handler
     eventhandler{
@@ -47,6 +49,9 @@ tellurium{
         //   *iehta
 //        browser = "*iehta"
         browser = "*chrome"
+        //user's class to hold custom selenium methods associated with user-extensions.js
+        //should in full class name, for instance, "org.tellurium.test.MyCommand"
+        customClass = ""
     }
     datadriven{
         dataprovider{
