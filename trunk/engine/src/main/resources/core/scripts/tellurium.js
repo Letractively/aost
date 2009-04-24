@@ -7,6 +7,7 @@ jQuery.extend(jQuery.expr[':'], {
     }
 });
 
+//dump logging message to dummy device, which sallows all messages == no logging
 function DummyLogger(){
 
 };
@@ -36,7 +37,8 @@ DummyLogger.prototype.trace = function(msg){
 };
 
 /*
- //and here is the logger!
+ //uncomment this and comment the next line if you want to see the logging message in window
+ //but it would slow down the testing dramatically, for debugging purpose only.
 var jslogger = new Log4js.getLogger("TeEngine");
 jslogger.setLevel(Log4js.Level.ALL);
 //jslogger.addAppender(new Log4js.MozillaJSConsoleAppender());
@@ -106,10 +108,15 @@ function MetaCmd(){
 
 //Cached Data, use uid as the key to reference it
 function CacheData(){
-    //jQuery selector associated with the DOM reference
+    //jQuery selector associated with the DOM reference, which is a whole selector
+    //without optimization so that it is easier to the the reminding selector for its children
     this.selector = null;
+    //optimized selector for actual DOM search
+    this.optimzed = null;
     //DOM reference
     this.reference = null;
+
+    this.count = 0;
 };
 
 function Tellurium (){
@@ -118,8 +125,9 @@ function Tellurium (){
     this.cacheSelector = false;
 
     //cache for jQuery selectors
-//    this.sCache  = {}; //global variable
     this.sCache = new HashMap();
+    
+    this.maxCacheSize = 50;
 
     this.currentWindow = null;
 
@@ -133,6 +141,60 @@ var tellurium = new Tellurium();
 Tellurium.prototype.cleanCache = function(){
     this.sCache = new HashMap();
     jslogger.debug("Clean up selector cache");
+};
+
+Tellurium.prototype.getCacheSize = function(){
+    return this.sCache.size();
+};
+
+Tellurium.prototype.updateUseCount = function(key, data){
+    if(key != null && data != null){
+        data.count++;
+        this.sCache.put(key, data);
+    }
+};
+
+Tellurium.prototype.getCachedSelector = function(key){
+    var data = this.sCache.get(key);
+    if(data != null){
+        data.count++;
+        this.sCache.put(key, data);
+    }
+    return data;
+};
+
+//cache eviction policies
+//simply discard new selector
+Tellurium.prototype.skipNewPolicy = function(key, data){
+    jslogger.warn("Reached maximum cache size " + this.maxCacheSize + ", not able to cache selector for " + key);
+};
+
+//remove the cached select that is used least
+Tellurium.prototype.discardLeastCountPolicy = function(key, data){
+    var keys = this.sCache.keySet();
+    var toBeRemoved = keys[0];
+    var leastCount = this.sCache.get(toBeRemoved).count;
+    for(var i=1; i< keys.length; i++){
+        var akey = keys[i];
+        var val = this.sCache.get(akey).count;
+        if(val < leastCount){
+            toBeRemoved = akey;
+            leastCount = val;
+        }
+    }
+    this.sCache.remove(toBeRemoved);
+    jslogger.debug("Selector for " + toBeRemoved + " is removed from the cache");
+    this.sCache.put(key, data);
+    jslogger.debug("Cache selector for " + key);        
+};
+
+Tellurium.prototype.addCachedSelector = function(key, data){
+    if(this.sCache.size() < this.maxCacheSize){
+        this.sCache.put(key, data);
+        jslogger.debug("Cache selector for " + key);
+    }else{
+        this.skipNewPolicy(key, data);
+    }
 };
 
 Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWindow){
@@ -149,29 +211,32 @@ Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWind
         this.currentDocument = inDocument;
     }
 
-    var command = JSON.parse(locator, null);
-
-    var loc = command.locator;
-    var metaCmd = new MetaCmd();
-    metaCmd.uid = command.uid;
-    metaCmd.cacheable = command.cacheable;
-    metaCmd.unique = command.unique;
-    
+    var purged = locator;
     var attr = null;
     var isattr = false;
     var inx = locator.lastIndexOf('@');
     if (inx != -1) {
-        loc = locator.substring(0, inx);
+        purged = locator.substring(0, inx);
         attr = locator.substring(inx + 1);
         isattr = true;
     }
 
-    jslogger.debug("Tellurium received locator: " + loc);
+    var command = JSON.parse(purged, null);
+
+    var loc = command.locator;
+    var optimized = command.optimized;
+    var metaCmd = new MetaCmd();
+    metaCmd.uid = command.uid;
+    metaCmd.cacheable = command.cacheable;
+    metaCmd.unique = command.unique;
+
+    jslogger.debug("Tellurium received locator: " + loc + ", optimized: " + optimized);
 
     var $found = null;
     //If we use Cache, need to first check the cache
     var needUpdate = false;
     var noskip = true;
+    //cannot cache selector without a uid
     if(metaCmd.uid == null || trimString(metaCmd.uid).length == 0)
         noskip = false;
 
@@ -181,7 +246,7 @@ Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWind
         uiid.convertToUiid(metaCmd.uid);
         if(metaCmd.cacheable){
             //the locator could be cached
-            var cached = this.sCache.get(uiid.getUid());
+            var cached = this.getCachedSelector(uiid.getUid());
             if(cached != null){
                 $found = cached.reference;
                 jslogger.debug("Locator cacheable, found cached selector for " + uiid.getUid());
@@ -190,7 +255,7 @@ Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWind
             while(uiid.size() > 1){
                 uiid.pop();
                 var parent = uiid.getUid();
-                var cachedParent = this.sCache.get(parent);
+                var cachedParent = this.getCachedSelector(parent);
                 if(cachedParent != null){
                     //parent's jQuery Selector
                     var pjqs = cachedParent.selector;
@@ -216,7 +281,8 @@ Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWind
 
     //if could not find from cache partially or wholely, search the DOM
     if($found == null){
-         $found = jQuery(inDocument).find(loc);
+//         $found = jQuery(inDocument).find(loc);
+        $found = jQuery(inDocument).find(optimized);
         if($found == null){
             jslogger.debug("Search the DOM, but could not find any element");
         }else{
@@ -235,13 +301,12 @@ Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWind
     if (noskip && this.cacheSelector && metaCmd.cacheable && needUpdate) {
         var cachedata = new CacheData();
         cachedata.selector = loc;
+        cachedata.optimzed = optimized;
         cachedata.reference = $found;
         var nuid = new Uiid();
         nuid.convertToUiid(metaCmd.uid);
-        this.sCache.put(nuid.getUid(), cachedata);
-        jslogger.debug("Need to cache the selector for " + nuid.getUid());
+        this.addCachedSelector(nuid.getUid(), cachedata); 
     }
-//    var found = jQuery(inDocument).find(loc);
 
     if ($found.length == 1) {
         if (isattr) {
@@ -262,4 +327,18 @@ Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWind
 
 Tellurium.prototype.setCacheState = function(flag){
     this.cacheSelector = flag;
+};
+
+Tellurium.prototype.getCacheUsage = function(){
+    var out = [];
+    var keys = this.sCache.keySet();
+    for(var i=0; i< keys.length; i++){
+        var key = keys[i];
+        var val = this.sCache.get(key);
+        var usage = {};
+        usage[key] = val.count;
+        out.push(usage);
+    }
+
+    return JSON.stringify(out);
 };
