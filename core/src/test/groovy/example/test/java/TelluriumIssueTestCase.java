@@ -3,11 +3,17 @@ package example.test.java;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.Before;
+import org.junit.After;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import org.tellurium.test.java.TelluriumJavaTestCase;
 import example.other.TelluriumIssueModule;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     private static TelluriumIssueModule tisp;
@@ -18,6 +24,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         tisp.defineUi();
         tisp.useJQuerySelector();
         tisp.enableSelectorCache();
+        tisp.setCacheMaxSize(30);
     }
 
     @Before
@@ -58,5 +65,18 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         tisp.disableSelectorCache();
         String[] css = tisp.getTableCSS("font-size");
         assertNotNull(css);
+    }
+
+    @After
+    public void showCacheUsage(){
+        int size = tisp.getCacheSize();
+        int maxSize = tisp.getCacheMaxSize();
+        System.out.println("Cache Size: " + size + ", Cache Max Size: " + maxSize);
+        System.out.println("Cache Usage: ");
+        Map<String, Long> usages = tisp.getCacheUsage();
+        Set<String> keys = usages.keySet();
+        for(String key: keys){
+            System.out.println("UID: " + key + ", Count: " + usages.get(key));
+        }
     }
 }
