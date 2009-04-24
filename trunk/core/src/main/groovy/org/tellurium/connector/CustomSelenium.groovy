@@ -75,11 +75,14 @@ class CustomSelenium extends DefaultSelenium {
       DefaultSelenium sel =  com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session()
       CommandProcessor processor = sel.commandProcessor
       CustomSelenium csel = new CustomSelenium(processor)
+/*
       if(this.userExtension != null && this.userExtension.trim().length() > 0){
         File userExt = new File(this.userExtension);
-        processor.setExtensionJs(userExt.getAbsolutePath())
+//        processor.setExtensionJs(userExt.getAbsolutePath())
+        processor.setExtensionJs(this.userExtension)
         println "Add user-extensions.js found at given path: " + userExt.getAbsolutePath() + " to Command Processor";
       }
+ */
       csel.customClass = this.customClass
       csel.passCommandProcessor(processor)
 
@@ -158,5 +161,29 @@ class CustomSelenium extends DefaultSelenium {
       String[] arr = [];
       boolean result = commandProcessor.getBoolean("getCacheState", arr);
       return result;
+    }
+
+    public void setCacheMaxSize(int size){
+//      String[] arr = [Integer.toString(size)];
+      String[] arr = [size];
+      commandProcessor.doCommand("setCacheMaxSize",  arr);
+    }
+
+    public Number getCacheSize(){
+    	String[] arr = [];
+        Number num = commandProcessor.getNumber("getCacheSize", arr);
+		return num;
+    }
+
+    public Number getCacheMaxSize(){
+    	String[] arr = [];
+        Number num = commandProcessor.getNumber("getCacheMaxSize", arr);
+		return num;
+    }
+
+    public String getCacheUsage(){
+       	String[] arr = [];
+		String st = commandProcessor.doCommand("getCacheUsage", arr);
+		return st;
     }
 }

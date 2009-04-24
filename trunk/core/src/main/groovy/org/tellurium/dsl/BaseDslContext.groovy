@@ -33,6 +33,7 @@ abstract class BaseDslContext {
   protected static final String JAVASCRIPT_XPATH = "javascript"
   protected static final String AJAXSLT_XPATH = "ajaxslt"
   protected static final String LOCATOR = "locator"
+  protected static final String OPTIMIZED_LOCATOR = "optimized"
 
   //flag to decide whether we should use jQuery Selector
   protected boolean exploreJQuerySelector = false
@@ -57,19 +58,25 @@ abstract class BaseDslContext {
   protected String postProcessSelector(WorkflowContext context, String jqs) {
     String locator = jqs
 
+/*
     if (!context.isUseSelectorCache()) {
       //if not use cache, use optimizer
       locator = optimizer.optimize(jqs)
     }
+*/
+
+    String optimized = optimizer.optimize(jqs)
 
     JSONObject obj = new JSONObject()
     //meta command shoud not be null for locators
     MetaCmd metaCmd = context.extraMetaCmd()
     obj.put(LOCATOR, locator)
+    obj.put(OPTIMIZED_LOCATOR, optimized)
+    
     if(metaCmd != null){
-      obj.put(MetaCmd.UID, metaCmd.uid)
-      obj.put(MetaCmd.CACHEABLE, metaCmd.cacheable)
-      obj.put(MetaCmd.UNIQUE, metaCmd.unique)
+      obj.put(MetaCmd.UID, metaCmd.getProperty(MetaCmd.UID))
+      obj.put(MetaCmd.CACHEABLE, metaCmd.getProperty(MetaCmd.CACHEABLE))
+      obj.put(MetaCmd.UNIQUE, metaCmd.getProperty(MetaCmd.UNIQUE))
     }else{
       obj.put(MetaCmd.UID, "")
       obj.put(MetaCmd.CACHEABLE, false)
@@ -150,7 +157,32 @@ abstract class BaseDslContext {
   }
 
   public boolean getSelectorCacheState(){
-      return extension.getCacheState();
+      return extension.getCacheState()
+  }
+
+  public void setCacheMaxSize(int size){
+      extension.setCacheMaxSize(size)
+  }
+
+  public int getCacheSize(){
+      return extension.getCacheSize().intValue()
+  }
+
+  public int getCacheMaxSize(){
+      return extension.getCacheMaxSize().intValue()
+  }
+
+  public Map<String, Long> getCacheUsage() {
+    String out = extension.getCacheUsage();
+    ArrayList list = (ArrayList) parseSeleniumJSONReturnValue(out)
+    Map<String, Long> usages = new HashMap<String, Long>()
+    list.each {Map elem ->
+      elem.each {key, value ->
+        usages.put(key, value)
+      }
+    }
+
+    return usages
   }
 
   public void useJQuerySelector(){
