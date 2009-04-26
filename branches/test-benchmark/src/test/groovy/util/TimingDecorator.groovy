@@ -1,5 +1,7 @@
 package util
 
+import com.thoughtworks.selenium.SeleniumException
+
 public class TimingDecorator {
 
     private delegate
@@ -49,7 +51,14 @@ public class TimingDecorator {
         if(startTime == -1)
           startTime = System.currentTimeMillis()
         long beforeTime = System.currentTimeMillis()
-        def result = delegate.invokeMethod(name, args)
+        def result
+        try{
+          result = delegate.invokeMethod(name, args)
+        }catch(SeleniumException e){
+//          e.getStackTrace().dump();
+          this.delegate.cleanSelectorCache();
+          result = delegate.invokeMethod(name, args)
+        }
         long duration = System.currentTimeMillis() - beforeTime
 
         endTime = System.currentTimeMillis()
