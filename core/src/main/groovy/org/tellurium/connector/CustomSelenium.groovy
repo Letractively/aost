@@ -186,4 +186,16 @@ class CustomSelenium extends DefaultSelenium {
 		String st = commandProcessor.doCommand("getCacheUsage", arr);
 		return st;
     }
+
+    public void addNamespace(String prefix, String namespace){
+       String[] arr = [prefix, namespace];
+       commandProcessor.doCommand("addNamespace", arr);
+    }
+
+    public String getNamespace(String prefix){
+       String[] arr = [prefix];
+       String st = commandProcessor.getString("getNamespace", arr);
+
+       return st;
+    }
 }
