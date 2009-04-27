@@ -83,6 +83,7 @@
   * [http://www.regular-expressions.info/javascriptexample.html Javascript Regular Expression Tester]
   * [http://webfx.eae.net/dhtml/ieemu/index.html IE Emu for Moz]
   * [http://www.scottandrew.com/weblog/articles/cbs-events Crossbrowser DOM Scripting: Event Handlers]
+  * [http://www.robertnyman.com/2008/05/04/event-delegation-with-javascript/ Event delegation with JavaScript]
   * [http://getfirebug.com/js.html Firebug JavaScript Debugging]
   * [http://jamescrisp.org/2008/12/20/review-javascript-the-good-parts-by-douglas-crockford/ Review: JavaScript - The Good Parts by Douglas Crockford]
   * [http://docs.jquery.com/QUnit QUnit: the unit testrunner for the jQuery project]
