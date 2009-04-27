@@ -740,10 +740,6 @@ abstract class BaseDslContext {
   }
 
   Number getJQuerySelectorCount(String jQuerySelector){
-/*    String jq = jQuerySelector
-    if(!jq.startsWith(JQUERY_SELECTOR)){
-      jq=JQUERY_SELECTOR + jQuerySelector
-    }*/
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, false)
     String jq = postProcessSelector(context, jQuerySelector.trim())
     return extension.getJQuerySelectorCount(jq)

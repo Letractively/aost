@@ -25,5 +25,9 @@ public class MetaCmd {
   //Whether the element/elements matching the locator should be unique or multiple
   protected boolean unique 
 
+  //force to clean up cache
+  public static final String CLEAN = "clean"
+
+  protected boolean clean
 
 }
