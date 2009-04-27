@@ -65,7 +65,7 @@ public class TelluriumIssueModuleDecorator {
     public void testIssueData(int column){
         int mcolumn = decorator.getTableHeaderNum();
         List<String> list = decorator.getHeaderNames();
-        list = decorator.getDataForColumn(column);
+//        list = decorator.getDataForColumn(column);
     }
 
 
