@@ -1,6 +1,6 @@
 package org.tellurium.connector
 
-import com.thoughtworks.selenium.Selenium
+//import com.thoughtworks.selenium.Selenium
 import org.tellurium.client.SeleniumClient
 import org.tellurium.config.Configurable
 import org.tellurium.connector.CustomSelenium
@@ -20,7 +20,7 @@ class SeleniumConnector implements Configurable {
 
     protected final String HTTP_BASE_URL = "http://localhost:8080"
 
-	protected Selenium sel
+	protected CustomSelenium sel
 
     protected CustomSelenium customSelenium
 
@@ -38,10 +38,12 @@ class SeleniumConnector implements Configurable {
   
     public void connect(String url){
 		sel.open(baseURL + url);
+        sel.cleanSelectorCache();
 	}
 
     public void connectUrl(String url){
 		sel.open(url);
+        sel.cleanSelectorCache();
 	}
 
     public void connectSeleniumServer() {
@@ -83,21 +85,24 @@ class SeleniumConnector implements Configurable {
         return tellurium.locateElementByJQuery(locator, inDocument, inWindow);
      ''')
 
-        sel.addLocationStrategy("jqueryall", '''
+/*        sel.addLocationStrategy("jqueryall", '''
           var found = jQuery(inDocument).find(locator);
           if(found.length > 0){
               return found;
           } else {
               return null;
           }
-          ''')
+          ''')*/
 
     }
 
 	public void disconnectSeleniumServer() {
-
-		if(customSelenium.getActiveSeleniumSession() != null)
+        CustomSelenium aseles = customSelenium.getActiveSeleniumSession();
+		if(aseles != null){
+            //clean up cache before close the connection
+            aseles.cleanSelectorCache();
 			customSelenium.closeSeleniumSession();
+        }
 	}
 
     protected void initSeleniumClient(){

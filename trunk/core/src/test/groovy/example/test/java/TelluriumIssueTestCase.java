@@ -8,8 +8,6 @@ import static org.junit.Assert.*;
 import org.tellurium.test.java.TelluriumJavaTestCase;
 import example.other.TelluriumIssueModule;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,8 +26,6 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     @Before
     public void setUp(){
         connectUrl("http://code.google.com/p/aost/issues/list");
-        //manually clean up cache until we get cache clean up piece in
-        tisp.cleanSelectorCache();
     }
 
     @Test
