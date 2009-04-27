@@ -74,4 +74,13 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
     public void testTypeRepeated(){
         gsm.doTypeRepeated("tellurium jQuery");
     }
+
+    @Test
+    public void testAddNamespace(){
+        String te_ns = "http://tellurium.org/ns";
+        gsm.addNamespace("te", te_ns);
+        String ns = gsm.getNamespace("te");
+        assertNotNull(ns);
+        assertEquals(te_ns, ns);
+    }
 }

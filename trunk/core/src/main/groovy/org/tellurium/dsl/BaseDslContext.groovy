@@ -202,6 +202,14 @@ abstract class BaseDslContext {
     accessor.useXpathLibrary(AJAXSLT_XPATH)
   }
 
+  public void addNamespace(String prefix, String namespace){
+    extension.addNamespace(prefix, namespace)
+  }
+
+  public String getNamespace(String prefix){
+    return extension.getNamespace(prefix)
+  }
+
   def customUiCall(String uid, String method, Object[] args){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     return walkToWithException(context, uid).customMethod(){ loc ->
