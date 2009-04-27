@@ -66,6 +66,13 @@ var BrowserBot = function(topLevelApplicationWindow) {
     // DGF for backwards compatibility
     this.browserbot = this;
 
+    //Added to support custom namespace
+    this.namespaceMap =  new HashMap();
+    this.namespaceMap.put("html", "http://www.w3.org/1999/xhtml");
+    this.namespaceMap.put("xhtml", "http://www.w3.org/1999/xhtml");
+    this.namespaceMap.put("x", "http://www.w3.org/1999/xhtml");
+    this.namespaceMap.put("mathml", "http://www.w3.org/1998/Math/MathML");
+      
     var self = this;
 
     objectExtend(this, PageBot.prototype);
@@ -1403,14 +1410,27 @@ BrowserBot.prototype.locateElementByJquery = function(xpath, inDocument, inWindo
     this.locationStrategies[strategyName] = safeStrategyFunction;
 };*/
 
+//modified to support custom namespaces
+BrowserBot.prototype.addNamespace = function(prefix, namespace) {
+    this.namespaceMap.put(prefix, namespace) ;
+};
+
 BrowserBot.prototype._namespaceResolver = function(prefix) {
-    if (prefix == 'html' || prefix == 'xhtml' || prefix == 'x') {
+    //modified to support custom namespaces
+    var nsFromMap = this.namespaceMap.get(prefix);
+    if(nsFromMap == null){
+       throw new Error("Unknown namespace: " + prefix + ".");
+    }
+
+    return nsFromMap;
+    
+/*    if (prefix == 'html' || prefix == 'xhtml' || prefix == 'x') {
         return 'http://www.w3.org/1999/xhtml';
     } else if (prefix == 'mathml') {
         return 'http://www.w3.org/1998/Math/MathML';
     } else {
         throw new Error("Unknown namespace: " + prefix + ".");
-    }
+    }*/
 }
 
 /**
