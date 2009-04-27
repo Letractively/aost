@@ -13,6 +13,11 @@ import org.tellurium.test.ddt.TelluriumDataDrivenTest
  */
     class GoogleBookListCodeHostTest extends TelluriumDataDrivenTest{
 
+    public void setUp() {
+      setCustomConfig( true, 4444, "*chrome",  true, null, "localhost")
+      init()
+    }
+
     public void testDataDriven() {
 
         includeModule  example.test.ddt.GoogleBookListModule.class
