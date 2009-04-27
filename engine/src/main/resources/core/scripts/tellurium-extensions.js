@@ -121,3 +121,11 @@ Selenium.prototype.getCacheMaxSize = function(){
 Selenium.prototype.getCacheUsage = function(){
     return tellurium.getCacheUsage();
 };
+
+Selenium.prototype.doAddNamespace = function(prefix, namespace){
+    this.browserbot.addNamespace(prefix, namespace);
+};
+
+Selenium.prototype.getNamespace = function(prefix){
+   return this.browserbot._namespaceResolver(prefix);
+};
