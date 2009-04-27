@@ -140,7 +140,7 @@ var tellurium = new Tellurium();
 
 Tellurium.prototype.cleanCache = function(){
     this.sCache = new HashMap();
-    jslogger.debug("Clean up selector cache");
+//    jslogger.debug("Clean up selector cache");
 };
 
 Tellurium.prototype.getCacheSize = function(){
@@ -166,7 +166,7 @@ Tellurium.prototype.getCachedSelector = function(key){
 //cache eviction policies
 //simply discard new selector
 Tellurium.prototype.discardNewPolicy = function(key, data){
-    jslogger.warn("Reached maximum cache size " + this.maxCacheSize + ", not able to cache selector for " + key);
+//    jslogger.warn("Reached maximum cache size " + this.maxCacheSize + ", not able to cache selector for " + key);
 };
 
 //remove the cached select that is used least
@@ -183,9 +183,9 @@ Tellurium.prototype.discardLeastCountPolicy = function(key, data){
         }
     }
     this.sCache.remove(toBeRemoved);
-    jslogger.debug("Selector for " + toBeRemoved + " is removed from the cache");
+//    jslogger.debug("Selector for " + toBeRemoved + " is removed from the cache");
     this.sCache.put(key, data);
-    jslogger.debug("Cache selector for " + key);        
+//    jslogger.debug("Cache selector for " + key);
 };
 
 //central entry to change policy
@@ -196,7 +196,7 @@ Tellurium.prototype.applyPolicy = function(key, data){
 Tellurium.prototype.addSelectorToCache = function(key, data){
     if(this.sCache.size() < this.maxCacheSize){
         this.sCache.put(key, data);
-        jslogger.debug("Cache selector for " + key);
+//        jslogger.debug("Cache selector for " + key);
     }else{
         this.applyPolicy(key, data);
     }
@@ -205,7 +205,7 @@ Tellurium.prototype.addSelectorToCache = function(key, data){
 Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWindow){
 
     if(inWindow != this.currentWindow){
-        jslogger.debug("Bind cleaning cache to window unload envent " + inWindow);
+//        jslogger.debug("Bind cleaning cache to window unload envent " + inWindow);
         jQuery(inWindow).unload(this.cleanCache);
         this.currentWindow = inWindow;
     }
@@ -235,7 +235,7 @@ Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWind
     metaCmd.cacheable = tecmd.cacheable;
     metaCmd.unique = tecmd.unique;
 
-    jslogger.debug("Tellurium received locator: " + loc + ", optimized: " + optimized);
+//    jslogger.debug("Tellurium received locator: " + loc + ", optimized: " + optimized);
 
     var $found = null;
     //If we use Cache, need to first check the cache
@@ -246,7 +246,7 @@ Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWind
         noskip = false;
 
     if(noskip && this.cacheSelector){
-        jslogger.debug("Tellurium jQuery Selector Cache is turned on");
+//        jslogger.debug("Tellurium jQuery Selector Cache is turned on");
         var sid = new Uiid();
         sid.convertToUiid(metaCmd.uid);
         if(metaCmd.cacheable){
@@ -254,7 +254,7 @@ Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWind
             var cached = this.getCachedSelector(sid.getUid());
             if(cached != null){
                 $found = cached.reference;
-                jslogger.debug("Locator cacheable, found cached selector for " + sid.getUid());
+//                jslogger.debug("Locator cacheable, found cached selector for " + sid.getUid());
             }
         }else{
             while(sid.size() > 1){
@@ -270,7 +270,7 @@ Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWind
                             //the start part of loc matches the parent's selector
                             var leftover = trimString(loc.substring(pjqs.length));
                             $found = jQuery(cachedAncestor.reference).find(leftover);
-                            jslogger.debug("Locator not cacheable, found cached ancestor selector " + ancestor);
+//                            jslogger.debug("Locator not cacheable, found cached ancestor selector " + ancestor);
                             break;
                         }
                     }
@@ -278,10 +278,10 @@ Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWind
             }
         }
     }else{
-        if(!noskip)
-          jslogger.debug("Skip Tellurium jQuery Selector Cache");
-        else
-          jslogger.debug("Tellurium jQuery Selector Cache is turned off");
+//        if(!noskip)
+//          jslogger.debug("Skip Tellurium jQuery Selector Cache");
+//        else
+//          jslogger.debug("Tellurium jQuery Selector Cache is turned off");
     }
 
     //if could not find from cache partially or wholely, search the DOM
@@ -289,16 +289,16 @@ Tellurium.prototype.locateElementByJQuery = function(locator, inDocument, inWind
 //         $found = jQuery(inDocument).find(loc);
         $found = jQuery(inDocument).find(optimized);
         if($found == null){
-            jslogger.debug("Search the DOM, but could not find any element");
+//            jslogger.debug("Search the DOM, but could not find any element");
         }else{
             needUpdate = true;
-            jslogger.debug("Search the DOM and found " + $found.length + " elements");
+//            jslogger.debug("Search the DOM and found " + $found.length + " elements");
         }
     }
     //Need to do validation first
     if(metaCmd.unique){
         if($found != null && $found.length > 1){
-            jslogger.error("Element is not unique, Found " + $found.length + " elements for " + loc);
+//            jslogger.error("Element is not unique, Found " + $found.length + " elements for " + loc);
             throw new SeleniumError("Element is not unique, Found " + $found.length + " elements for " + loc);
         }
     }
