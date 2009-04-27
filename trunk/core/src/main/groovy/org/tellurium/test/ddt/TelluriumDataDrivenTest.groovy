@@ -15,6 +15,7 @@ import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
 import org.tellurium.dsl.UiDslParser
 import org.tellurium.framework.TelluriumFramework
 import org.tellurium.test.helper.*
+import org.tellurium.test.groovy.BaseTelluriumGroovyTestCase
 
 /**
  * Tellurium Data Driven test and it can include multiple data driven modules so that you do not have
@@ -25,7 +26,7 @@ import org.tellurium.test.helper.*
  * Date: Jul 31, 2008
  *
  */
-abstract class TelluriumDataDrivenTest extends GroovyTestCase {
+abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     protected static final String STEP = "step"
     protected static final String STEP_OVER = "stepOver"
     protected static final String STEP_TO_END = "stepToEnd"
@@ -94,7 +95,7 @@ abstract class TelluriumDataDrivenTest extends GroovyTestCase {
         listener = new DefaultResultListener()
         dtddm = new DefaultTelluriumDataDrivenModule(thr, fsr, fs, testreg, dataProvider)
         ui = dtddm.getUiDslParser()
-        af.start()
+        af.start(customConfig)
         this.connector = af.getConnector()
    }
 
