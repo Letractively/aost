@@ -81,9 +81,15 @@ class SeleniumConnector implements Configurable {
       //use Get to return the DOM reference.  
       //need to check if it is an attribute locator in the format of locator@attr
 
-     sel.addLocationStrategy("jquery", '''
-        return tellurium.locateElementByJQuery(locator, inDocument, inWindow);
-     ''')
+      //jQuery selector without any Cache mechanism
+      sel.addLocationStrategy("jquery", '''
+          return tellurium.locateElementByJQuerySelector(locator, inDocument, inWindow);
+      ''')
+
+      //Cache Aware jQuery selector 
+      sel.addLocationStrategy("jquerycache", '''
+          return tellurium.locateElementByCacheAwareJQuerySelector(locator, inDocument, inWindow);
+      ''')
 
 /*        sel.addLocationStrategy("jqueryall", '''
           var found = jQuery(inDocument).find(locator);

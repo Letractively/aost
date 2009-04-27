@@ -29,6 +29,7 @@ abstract class BaseDslContext {
   //later on, may need to refactor it to use resource file so that we can show message for different localities
   protected static final String ERROR_MESSAGE = "Cannot find UI Object"
   protected static final String JQUERY_SELECTOR = "jquery="
+  protected static final String JQUERY_SELECTOR_CACHE = "jquerycache="
   protected static final String DEFAULT_XPATH = "default"
   protected static final String JAVASCRIPT_XPATH = "javascript"
   protected static final String AJAXSLT_XPATH = "ajaxslt"
@@ -58,34 +59,30 @@ abstract class BaseDslContext {
   protected String postProcessSelector(WorkflowContext context, String jqs) {
     String locator = jqs
 
-/*
-    if (!context.isUseSelectorCache()) {
-      //if not use cache, use optimizer
-      locator = optimizer.optimize(jqs)
-    }
-*/
-
     String optimized = optimizer.optimize(jqs)
 
-    JSONObject obj = new JSONObject()
-    //meta command shoud not be null for locators
-    MetaCmd metaCmd = context.extraMetaCmd()
-    obj.put(LOCATOR, locator)
-    obj.put(OPTIMIZED_LOCATOR, optimized)
-    
-    if(metaCmd != null){
-      obj.put(MetaCmd.UID, metaCmd.getProperty(MetaCmd.UID))
-      obj.put(MetaCmd.CACHEABLE, metaCmd.getProperty(MetaCmd.CACHEABLE))
-      obj.put(MetaCmd.UNIQUE, metaCmd.getProperty(MetaCmd.UNIQUE))
-    }else{
-      obj.put(MetaCmd.UID, "")
-      obj.put(MetaCmd.CACHEABLE, false)
-      obj.put(MetaCmd.UNIQUE, false)
-    }
+    if (context.isUseSelectorCache()) {
+      JSONObject obj = new JSONObject()
+      //meta command shoud not be null for locators
+      MetaCmd metaCmd = context.extraMetaCmd()
+      obj.put(LOCATOR, locator)
+      obj.put(OPTIMIZED_LOCATOR, optimized)
 
-    String jsonjqs = obj.toString()
+      if (metaCmd != null) {
+        obj.put(MetaCmd.UID, metaCmd.getProperty(MetaCmd.UID))
+        obj.put(MetaCmd.CACHEABLE, metaCmd.getProperty(MetaCmd.CACHEABLE))
+        obj.put(MetaCmd.UNIQUE, metaCmd.getProperty(MetaCmd.UNIQUE))
+      } else {
+        obj.put(MetaCmd.UID, "")
+        obj.put(MetaCmd.CACHEABLE, false)
+        obj.put(MetaCmd.UNIQUE, false)
+      }
 
-    return JQUERY_SELECTOR + jsonjqs
+      String jsonjqs = obj.toString()
+
+      return JQUERY_SELECTOR_CACHE + jsonjqs
+    } 
+      return JQUERY_SELECTOR + optimized
   }
 
   private JSONReader reader = new JSONReader()
