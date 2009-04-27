@@ -17,7 +17,7 @@ import util.TestResult;
 public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     private static TelluriumIssueModuleDecorator tim;
     private static List<TestResult> results = new ArrayList<TestResult>();
-    private static int repeatCount = 1;
+    private static int repeatCount = 10;
 
     @BeforeClass
     public static void initUi() {
@@ -117,6 +117,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         tim.useJQuerySelector();
         tim.enableSelectorCache();
         tim.useDefaultXPathLibrary();
+//        tim.useJavascriptXPathLibrary();
         for(int i=0; i<repeatCount; i++){
             //manual clean up the cache for the time being
             tim.cleanSelectorCache();
@@ -225,6 +226,22 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         storeResult("testGetDataByJQuerySelector", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
+    @Test
+    public void testGetDataByJQuerySelectorCacheEnabled(){
+        tim.useDefaultXPathLibrary();
+        tim.useJQuerySelector();
+        tim.enableSelectorCache();
+        for(int i=0; i<repeatCount; i++){
+            tim.cleanSelectorCache();
+            testGetData();
+            tim.showCacheUsage();
+        }
+        long accumulatedTime = tim.getAccumulatedTime();
+        String msg = "Bulk Data: jQuery Selector, the accumulated Time is " + accumulatedTime + "ms";
+        System.out.println(msg);
+        storeResult("testGetDataByJQuerySelectorCacheEnabled", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
+    }
+    
     @AfterClass
     public static void outputResult(){
         System.out.println("\n\nFinal results:");
