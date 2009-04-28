@@ -76,9 +76,9 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
     }
 
     @Test
-    public void testAddNamespace(){
+    public void testRegisterNamespace(){
         String te_ns = "http://tellurium.org/ns";
-        gsm.addNamespace("te", te_ns);
+        gsm.registerNamespace("te", te_ns);
         String ns = gsm.getNamespace("te");
         assertNotNull(ns);
         assertEquals(te_ns, ns);

@@ -79,4 +79,11 @@ class XPathBuilder_UT extends GroovyTestCase{
     result =  XPathBuilder.buildXPath(null, "*Submit", null, null)
     assertEquals("/descendant-or-self::*[contains(text(),\"Submit\")]", result)    
   }
+
+  void testNamespace(){
+    String result = XPathBuilder.buildDescendantXPath("te:input", "Submit", "3", [class: "button"])
+    assertEquals("descendant::te:input[normalize-space(text())=normalize-space(\"Submit\") and position()=3 and @class=\"button\"]", result)
+    result = XPathBuilder.buildChildXPath("te:input", "Submit", "3", [class: "button"])
+    assertEquals("child::te:input[normalize-space(text())=normalize-space(\"Submit\") and position()=3 and @class=\"button\"]", result)
+  }
 }

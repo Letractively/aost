@@ -23,7 +23,11 @@ class CompositeLocateStrategy {
 
 //    String xpath = XPathBuilder.buildXPath(locator.tag, locator.text, locator.position, locator.attributes)
 //    String xpath = XPathBuilder.buildOptionalXPath(locator.tag, locator.text, locator.position, locator.direct, locator.attributes)
-    String xpath = XPathBuilder.buildOptionalXPathWithHeader(locator.tag, locator.text, locator.position, locator.direct, locator.attributes, locator.header)
+    String tagvns = locator.tag
+    if(locator.namespace != null){
+      tagvns = "${locator.namespace}:${locator.tag}"
+    }
+    String xpath = XPathBuilder.buildOptionalXPathWithHeader(tagvns, locator.text, locator.position, locator.direct, locator.attributes, locator.header)
 //    if (locator.header != null && (locator.header.trim().length() > 0)) {
 //      xpath = locator.header + xpath
 //    }

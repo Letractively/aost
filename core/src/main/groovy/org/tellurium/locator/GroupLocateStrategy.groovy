@@ -66,19 +66,27 @@ class GroupLocateStrategy {
             //cannot use other Locator type for the timebeing
             if(child.locator instanceof CompositeLocator){
                 CompositeLocator cloc = child.locator
+                String tagvns = cloc.tag
+                if(cloc.namespace != null){
+                  tagvns = "${cloc.namespace}:${cloc.tag}"
+                }
                 String gattr
                 if(cloc.direct)
-                    gattr= XPathBuilder.buildChildXPath(cloc.tag, cloc.text, cloc.position, cloc.attributes)
+                    gattr= XPathBuilder.buildChildXPath(tagvns, cloc.text, cloc.position, cloc.attributes)
                 else
-                    gattr= XPathBuilder.buildDescendantXPath(cloc.tag, cloc.text, cloc.position, cloc.attributes)
+                    gattr= XPathBuilder.buildDescendantXPath(tagvns, cloc.text, cloc.position, cloc.attributes)
               if(!(ANY_DESCENDANT.equals(gattr.trim()) || ANY_CHILD.equals(gattr.trim())))
                 groupAttributes.add(gattr)
             }
         }
 
         CompositeLocator locator = obj.locator
+        String otagns = locator.tag
+        if(locator.namespace != null){
+          otagns = "${locator.namespace}:${locator.tag}"
+        }
 //        String xpath = XPathBuilder.buildGroupXPath(locator.tag, locator.text, locator.position, locator.direct, locator.attributes) {List<String> list ->
-        String xpath = XPathBuilder.buildGroupXPathWithHeader(locator.tag, locator.text, locator.position, locator.direct, locator.attributes, locator.header) {List<String> list ->
+        String xpath = XPathBuilder.buildGroupXPathWithHeader(otagns, locator.text, locator.position, locator.direct, locator.attributes, locator.header) {List<String> list ->
             if (!groupAttributes.isEmpty()) {
                 list.addAll(groupAttributes)
             }

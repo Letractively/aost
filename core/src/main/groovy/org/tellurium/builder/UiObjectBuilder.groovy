@@ -59,7 +59,11 @@ abstract class UiObjectBuilder extends Const {
         map = makeCaseInsensitive(map)
 
         obj.uid = map.get(UID)
-        obj.namespace = map.get(NAMESPACE)
+        String ns = map.get(NAMESPACE)
+        if(ns != null && ns.trim().length() > 0){
+          obj.namespace = ns.trim()
+        }
+      
         String useGroup = map.get(USE_GROUP_INFO)
         if(useGroup != null && TRUE.equals(useGroup.toUpperCase())){
             ((Container)obj).useGroupInfo = true
@@ -75,6 +79,9 @@ abstract class UiObjectBuilder extends Const {
         }else if (map.get(CLOCATOR) != null){
             //use composite locator, it must be a map
             obj.locator = buildCompositeLocator(map.get(CLOCATOR), df)
+            if(obj.namespace != null && obj.namespace.trim().length() > 0){
+              obj.locator.namespace = obj.namespace
+            }
         }else if (map.get(JQLOCATOR) != null){
             //useString jquery locator
             obj.locator = buildJQueryLocator(map.get(JQLOCATOR))
