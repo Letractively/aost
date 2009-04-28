@@ -200,3 +200,4 @@
   * [http://www.slideshare.net/John.Jian.Fang/ten-minutes-to-tellurium Online Presentation: 10 Minutes to Tellurium] 
   * [http://aost.googlecode.com/files/TenMinutesToTellurium.ogg Screencast video: 10 Minutes to Tellurium] ([http://www.youtube.com/watch?v=DyUPeg-Y-Yg  online version])
   * [http://groups.google.com/group/ltac/browse_thread/thread/3954f77fba89816f?hl=en Google Test Automation Conference 2008 Slides and Videos] 
+  * [http://www.slideshare.net/glaforge/whats-new-in-groovy-16 What's New in Groovy 1.6]
