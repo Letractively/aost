@@ -6,6 +6,7 @@ import org.tellurium.locator.JQLocator
 import org.tellurium.object.Container
 import org.tellurium.object.UiObject
 import org.tellurium.Const
+import org.tellurium.object.Table
 
 /**
  *  Basic UI object builder
@@ -71,6 +72,20 @@ abstract class UiObjectBuilder extends Const {
         String cache = map.get(CACHEABLE)
         if(cache != null && TRUE.equals(cache.toUpperCase())){
           obj.cacheable = true
+        }
+
+        String nocachechildren = map.get(NO_CACHE_FOR_CHILDREN)
+        if(nocachechildren != null && nocachechildren.trim().length() > 0){
+          if(obj instanceof Container){
+            if(TRUE.equalsIgnoreCase(nocachechildren)){
+              obj.noCacheForChildren = true
+            }
+          }
+        }else{
+           if(obj instanceof org.tellurium.object.Table || obj instanceof org.tellurium.object.List){
+              //not to use cache for children for all tables and Lists by default
+              obj.noCacheForChildren = true
+           }
         }
 
         if(map.get(LOCATOR) != null){

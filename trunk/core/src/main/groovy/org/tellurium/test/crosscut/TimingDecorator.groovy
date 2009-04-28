@@ -9,7 +9,7 @@ package org.tellurium.test.crosscut
  */
 
 public class TimingDecorator {
-    @Delegate
+//    @Delegate
     private delegate
 
     private Logger logger
