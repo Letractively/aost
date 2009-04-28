@@ -40,8 +40,6 @@ class TableBuilder extends UiObjectBuilder{
             return table
 
         objects.each {UiObject obj ->
-          //Force to not cache Table cell elements
-          obj.cacheable = false
           table.add(obj)
         }
 
@@ -53,8 +51,6 @@ class TableBuilder extends UiObjectBuilder{
         if (table == null || object == null)
             return table
 
-        //Force to not cache Table cell elements
-        object.cacheable = false
         table.add(object)
 
         return table

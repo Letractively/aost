@@ -34,9 +34,6 @@ class ListBuilder extends UiObjectBuilder{
         return list
 
       objects.each {UiObject obj ->
-         //Force to not cache Table cell elements
-         //TODO: how to honor user's setting for cacheable
-         obj.cacheable = false
 
         list.add(obj)
       }
@@ -49,8 +46,6 @@ class ListBuilder extends UiObjectBuilder{
       if(list == null || object == null)
         return list
 
-      //Force to not cache Table cell elements
-      object.cacheable = false
       list.add(object)
 
       return list

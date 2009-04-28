@@ -26,6 +26,7 @@ public class Const {
     public static final String TRUE = "TRUE"
     public static final String FALSE = "FALSE"
     public static final String CACHEABLE = "cacheable"
+    public static final String NO_CACHE_FOR_CHILDREN = "nocacheforchildren"
   
     //direct child of either the header or the parent UI
     public static final String DIRECT = "direct"

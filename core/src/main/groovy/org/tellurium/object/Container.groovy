@@ -15,7 +15,11 @@ class Container extends UiObject {
 
     //if it uses group informtion to infer its locator
     protected boolean useGroupInfo = false
-    
+
+    //If you have Ajax application and the container's children keep changing
+    //It is wise to force the children not to use cache
+    protected boolean noCacheForChildren = false
+
     //since we use map, the component name must be unique
     def components = [:]
 
