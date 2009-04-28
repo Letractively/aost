@@ -1,6 +1,7 @@
 package example.test.java;
 
 import org.tellurium.test.java.TelluriumJavaTestCase;
+import org.tellurium.test.crosscut.TimingDecorator;
 import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
