@@ -48,7 +48,7 @@ abstract class UiObject implements Cloneable{
   */
 
     String uid
-    String namespace
+    String namespace = null
     //UI object is cacheable by default
     boolean cacheable = true
   

@@ -11,7 +11,8 @@ import static org.tellurium.Const.*
  * 
  */
 class CompositeLocator {
-  
+    //obtained from UI object and should not be specified in clocator
+    String namespace
     String header
     String tag
     String text

@@ -202,7 +202,7 @@ abstract class BaseDslContext {
     accessor.useXpathLibrary(AJAXSLT_XPATH)
   }
 
-  public void addNamespace(String prefix, String namespace){
+  public void registerNamespace(String prefix, String namespace){
     extension.addNamespace(prefix, namespace)
   }
 

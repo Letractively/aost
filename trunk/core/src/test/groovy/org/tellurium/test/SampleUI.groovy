@@ -89,4 +89,18 @@ class SampleUI extends DslContext {
                 UrlLink(uid: "all", clocator: [tag: "a"])
         }
     }
+
+    public void defineUIWithNamespace() {
+//        registerNamespace("xform", XFORM_URI)
+/*
+        <xforms:submit....>
+               ...
+           <xforms:input model="clinicalExaminationModel" ref="/root/ClinicalExamination/GeneralExamination/Weight">
+           <xforms:label>Weight </xforms:label>
+*/
+        ui.Form(uid: "SubmitForm", namespace: "xforms", clocator:[:]){
+          InputBox(uid: "Input", namespace: "xforms", clocator:[module: "clinicalExaminationModel"])
+          TextBox(uid: "Label", namespace: "xforms", clocator: [tag: "label"])
+        }
+    }
 }
