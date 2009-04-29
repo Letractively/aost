@@ -36,16 +36,16 @@ DummyLogger.prototype.trace = function(msg){
 
 };
 
-/*
+
  //uncomment this and comment the next line if you want to see the logging message in window
  //but it would slow down the testing dramatically, for debugging purpose only.
 var jslogger = new Log4js.getLogger("TeEngine");
 jslogger.setLevel(Log4js.Level.ALL);
 //jslogger.addAppender(new Log4js.MozillaJSConsoleAppender());
 jslogger.addAppender(new Log4js.ConsoleAppender());
-*/
 
-var jslogger = new DummyLogger();
+
+//var jslogger = new DummyLogger();
 
 //Tellurium Internal ID presentation
 function Uiid(){
@@ -129,6 +129,9 @@ function Tellurium (){
     
     this.maxCacheSize = 50;
 
+    this.cachePolicy = discardNewCachePolicy;
+    this.cachePolicyName = "DiscardNewPolicy";
+
     this.currentWindow = null;
 
     this.currentDocument = null;
@@ -162,51 +165,65 @@ Tellurium.prototype.getCachedSelector = function(key){
 
 //cache eviction policies
 //simply discard new selector
-Tellurium.prototype.discardNewPolicy = function(key, data){
+function DiscardNewPolicy(){
+
 };
 
-//remove the cached select that is used least
-Tellurium.prototype.discardLeastUsedPolicy = function(key, data){
-    var keys = this.sCache.keySet();
+DiscardNewPolicy.prototype.applyPolicy = function (cache, key, data){
+
+};
+
+var discardNewCachePolicy = new DiscardNewPolicy();
+
+//remove the least used select in the cache
+function DiscardLeastUsedPolicy (){
+
+};
+
+DiscardLeastUsedPolicy.prototype.applyPolicy = function(cache, key, data){
+    var keys = cache.keySet();
     var toBeRemoved = keys[0];
-    var leastCount = this.sCache.get(toBeRemoved).count;
+    var leastCount = cache.get(toBeRemoved).count;
     for(var i=1; i<keys.length; i++){
         var akey = keys[i];
-        var val = this.sCache.get(akey).count;
+        var val = cache.get(akey).count;
         if(val < leastCount){
             toBeRemoved = akey;
             leastCount = val;
         }
     }
-    this.sCache.remove(toBeRemoved);
-    this.sCache.put(key, data);
+    cache.remove(toBeRemoved);
+    cache.put(key, data);
 };
+
+var discardLeastUsedCachePolicy = new DiscardLeastUsedPolicy();
 
 //If found invalid selector, remove it and put the new one in
 //otherwise, discard the new one
-Tellurium.prototype.discardInvalidPolicy = function(key, data){
-    var keys = this.sCache.keySet();
+function DiscardInvalidPolicy(){
+    this.validator = tellurium;
+};
+
+DiscardInvalidPolicy.prototype.applyPolicy = function(cache, key, data){
+    var keys = cache.keySet();
     for(var i=0; i<keys.length; i++){
         var akey = keys[i];
-        var $ref = this.sCache.get(akey).reference;
-        if(!this.validateCache($ref)){
-            this.sCache.remove(akey);
-            this.sCache.put(key, data);
+        var $ref = cache.get(akey).reference;
+        if(!this.validator.validateCache($ref)){
+            cache.remove(akey);
+            cache.put(key, data);
             break;
         }
     }
 };
 
-//central entry to change policy
-Tellurium.prototype.applyPolicy = function(key, data){
-    this.discardNewPolicy(key, data);
-};
+var discardInvalidCachePolicy = new DiscardInvalidPolicy();
 
 Tellurium.prototype.addSelectorToCache = function(key, data){
     if(this.sCache.size() < this.maxCacheSize){
         this.sCache.put(key, data);
     }else{
-        this.applyPolicy(key, data);
+        this.cachePolicy.applyPolicy(this.sCache, key, data);
     }
 };
 
@@ -217,7 +234,12 @@ Tellurium.prototype.updateSelectorToCache = function(key, data){
 
 Tellurium.prototype.validateCache = function(reference){
     //This may impose some problem if the DOM element becomes invisable instead of being removed
-    return jQuery(reference).is(':visible');
+    try{
+        return jQuery(reference).is(':visible');
+    }catch(e){
+        //seems for IE, it throws exception
+        return false;
+    }
 };
 
 Tellurium.prototype.locateElementByJQuerySelector = function(locator, inDocument, inWindow){
@@ -311,20 +333,26 @@ Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, 
                 var cachedAncestor = this.getCachedSelector(ancestor);
                 if(cachedAncestor != null){
                     //check if the ancestor's DOM reference is still valid
+                    jslogger.info("Found ancestor " + ancestor + " for " + metaCmd.uid);
                     if(!this.validateCache(cachedAncestor)){
                         //if not valid, try to select it using jQuery
                         cachedAncestor.reference = jQuery(cachedAncestor.optimized);
                         this.updateSelectorToCache(ancestor, cachedAncestor);
+                        jslogger.info("Ancestor is invalid and update it " + ancestor);
                     }
                     //ancestor's jQuery Selector
                     var pjqs = cachedAncestor.selector;
 
                     if(loc.length > pjqs.length){
                         var start = loc.substring(0, pjqs.length);
+                        jslogger.info("current selector: " + loc + ", ancestor selector: " + pjqs);
+                        jslogger.info("Shared selector between ancestor " + ancestor + " and " + metaCmd.uid + " is " + start);
                         if(start == pjqs){
                             //the start part of loc matches the parent's selector
                             var leftover = trimString(loc.substring(pjqs.length));
+                            jslogger.info("Left over selector is " + leftover);
                             $found = jQuery(cachedAncestor.reference).find(leftover);
+                            jslogger.info("Found element " + $found.length + " for " + leftover);
                             break;
                         }
                     }
@@ -391,4 +419,23 @@ Tellurium.prototype.getCacheUsage = function(){
     }
 
     return JSON.stringify(out);
+};
+
+Tellurium.prototype.useDiscardNewPolicy = function(){
+    this.cachePolicy = discardNewCachePolicy;
+    this.cachePolicyName = "DiscardNewPolicy";
+};
+
+Tellurium.prototype.useDiscardLeastUsedPolicy = function(){
+    this.cachePolicy = discardLeastUsedCachePolicy;
+    this.cachePolicyName = "DiscardLeastUsedPolicy";
+};
+
+Tellurium.prototype.useDiscardInvalidPolicy = function(){
+    this.cachePolicy = discardInvalidCachePolicy;
+    this.cachePolicyName = "DiscardInvalidPolicy";
+};
+
+Tellurium.prototype.getCachePolicyName = function(){
+    return this.cachePolicyName;
 };

@@ -129,3 +129,19 @@ Selenium.prototype.doAddNamespace = function(prefix, namespace){
 Selenium.prototype.getNamespace = function(prefix){
    return this.browserbot._namespaceResolver(prefix);
 };
+
+Selenium.prototype.doUseDiscardNewPolicy = function(){
+    tellurium.useDiscardNewPolicy();
+};
+
+Selenium.prototype.doUseDiscardLeastUsedPolicy = function(){
+    tellurium.useDiscardLeastUsedPolicy();
+};
+
+Selenium.prototype.doUseDiscardInvalidPolicy = function(){
+    tellurium.useDiscardInvalidPolicy();
+};
+
+Selenium.prototype.getCachePolicyName = function(){
+    return tellurium.getCachePolicyName();
+};
