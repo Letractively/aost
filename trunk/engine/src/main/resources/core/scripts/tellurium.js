@@ -136,11 +136,8 @@ function Tellurium (){
 
 var tellurium = new Tellurium();
 
-//$(window).unload( function () { Tellurium.sCache  = {}; } );
-
 Tellurium.prototype.cleanCache = function(){
     this.sCache = new HashMap();
-//    jslogger.debug("Clean up selector cache");
 };
 
 Tellurium.prototype.getCacheSize = function(){
@@ -169,11 +166,11 @@ Tellurium.prototype.discardNewPolicy = function(key, data){
 };
 
 //remove the cached select that is used least
-Tellurium.prototype.discardLeastCountPolicy = function(key, data){
+Tellurium.prototype.discardLeastUsedPolicy = function(key, data){
     var keys = this.sCache.keySet();
     var toBeRemoved = keys[0];
     var leastCount = this.sCache.get(toBeRemoved).count;
-    for(var i=1; i< keys.length; i++){
+    for(var i=1; i<keys.length; i++){
         var akey = keys[i];
         var val = this.sCache.get(akey).count;
         if(val < leastCount){
@@ -182,9 +179,22 @@ Tellurium.prototype.discardLeastCountPolicy = function(key, data){
         }
     }
     this.sCache.remove(toBeRemoved);
-//    jslogger.debug("Selector for " + toBeRemoved + " is removed from the cache");
     this.sCache.put(key, data);
-//    jslogger.debug("Cache selector for " + key);
+};
+
+//If found invalid selector, remove it and put the new one in
+//otherwise, discard the new one
+Tellurium.prototype.discardInvalidPolicy = function(key, data){
+    var keys = this.sCache.keySet();
+    for(var i=0; i<keys.length; i++){
+        var akey = keys[i];
+        var $ref = this.sCache.get(akey).reference;
+        if(!this.validateCache($ref)){
+            this.sCache.remove(akey);
+            this.sCache.put(key, data);
+            break;
+        }
+    }
 };
 
 //central entry to change policy
@@ -195,7 +205,6 @@ Tellurium.prototype.applyPolicy = function(key, data){
 Tellurium.prototype.addSelectorToCache = function(key, data){
     if(this.sCache.size() < this.maxCacheSize){
         this.sCache.put(key, data);
-//        jslogger.debug("Cache selector for " + key);
     }else{
         this.applyPolicy(key, data);
     }
@@ -241,6 +250,7 @@ Tellurium.prototype.locateElementByJQuerySelector = function(locator, inDocument
 
 Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, inDocument, inWindow){
 
+/*
     if(inWindow != this.currentWindow){
 //        jslogger.debug("Bind cleaning cache to window unload envent " + inWindow);
         jQuery(inWindow).unload(this.cleanCache);
@@ -252,6 +262,7 @@ Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, 
         this.cleanCache();
         this.currentDocument = inDocument;
     }
+*/
 
     var purged = locator;
     var attr = null;
@@ -314,7 +325,6 @@ Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, 
                             //the start part of loc matches the parent's selector
                             var leftover = trimString(loc.substring(pjqs.length));
                             $found = jQuery(cachedAncestor.reference).find(leftover);
-//                            jslogger.debug("Locator not cacheable, found cached ancestor selector " + ancestor);
                             break;
                         }
                     }
@@ -325,13 +335,9 @@ Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, 
 
     //if could not find from cache partially or wholely, search the DOM
     if($found == null){
-//         $found = jQuery(inDocument).find(loc);
         $found = jQuery(inDocument).find(optimized);
-        if($found == null){
-//            jslogger.debug("Search the DOM, but could not find any element");
-        }else{
+        if($found != null){
             needUpdate = true;
-//            jslogger.debug("Search the DOM and found " + $found.length + " elements");
         }
     }
     //Need to do validation first
@@ -340,6 +346,7 @@ Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, 
             throw new SeleniumError("Element is not unique, Found " + $found.length + " elements for " + loc);
         }
     }
+    
     //cache the data if the option is on, the locator is cacheable, and we need to update the cache
     if (noskip && this.cacheSelector && metaCmd.cacheable && needUpdate) {
         var cachedata = new CacheData();
