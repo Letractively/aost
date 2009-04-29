@@ -84,6 +84,17 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         System.out.println("Time with all cache " + (endTime-beforeTime) + "ms");
     }
 
+    @Test
+    public void testCachePolicy(){
+        tisp.setCacheMaxSize(2);
+        tisp.useDiscardNewCachePolicy();
+        tisp.searchIssue("Alter");
+        tisp.getTableCSS("font-size");
+        tisp.getIsssueTypes();
+        tisp.searchIssue("Alter");
+        tisp.setCacheMaxSize(30);
+    }
+
     @After
     public void showCacheUsage(){
         int size = tisp.getCacheSize();

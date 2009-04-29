@@ -31,7 +31,8 @@ abstract class BaseDslContext {
   protected static final String JQUERY_SELECTOR = "jquery="
   protected static final String JQUERY_SELECTOR_CACHE = "jquerycache="
   protected static final String DEFAULT_XPATH = "default"
-  protected static final String JAVASCRIPT_XPATH = "javascript"
+  //protected static final String JAVASCRIPT_XPATH = "javascript"
+  protected static final String JAVASCRIPT_XPATH = "javascript-xpath"  
   protected static final String AJAXSLT_XPATH = "ajaxslt"
   protected static final String LOCATOR = "locator"
   protected static final String OPTIMIZED_LOCATOR = "optimized"
@@ -67,16 +68,10 @@ abstract class BaseDslContext {
       MetaCmd metaCmd = context.extraMetaCmd()
       obj.put(LOCATOR, locator)
       obj.put(OPTIMIZED_LOCATOR, optimized)
-
-      if (metaCmd != null) {
-        obj.put(MetaCmd.UID, metaCmd.getProperty(MetaCmd.UID))
-        obj.put(MetaCmd.CACHEABLE, metaCmd.getProperty(MetaCmd.CACHEABLE))
-        obj.put(MetaCmd.UNIQUE, metaCmd.getProperty(MetaCmd.UNIQUE))
-      } else {
-        obj.put(MetaCmd.UID, "")
-        obj.put(MetaCmd.CACHEABLE, false)
-        obj.put(MetaCmd.UNIQUE, false)
-      }
+      
+      obj.put(MetaCmd.UID, metaCmd.getProperty(MetaCmd.UID))
+      obj.put(MetaCmd.CACHEABLE, metaCmd.getProperty(MetaCmd.CACHEABLE))
+      obj.put(MetaCmd.UNIQUE, metaCmd.getProperty(MetaCmd.UNIQUE))
 
       String jsonjqs = obj.toString()
 
@@ -180,6 +175,22 @@ abstract class BaseDslContext {
     }
 
     return usages
+  }
+
+  public void useDiscardNewCachePolicy(){
+    extension.useDiscardNewCachePolicy()
+  }
+
+  public void useDiscardLeastUsedCachePolicy(){
+    extension.useDiscardLeastUsedCachePolicy()
+  }
+
+  public void useDiscardInvalidCachePolicy(){
+    extension.useDiscardInvalidCachePolicy()
+  }
+
+  public String getCurrentCachePolicy(){
+    return extension.getCurrentCachePolicy()
   }
 
   public void useJQuerySelector(){
@@ -746,6 +757,8 @@ abstract class BaseDslContext {
 
   Number getJQuerySelectorCount(String jQuerySelector){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, false)
+    //do not cache any selectors for counting
+    context.updateCacheableForMetaCmd(false);
     String jq = postProcessSelector(context, jQuerySelector.trim())
     return extension.getJQuerySelectorCount(jq)
   }
@@ -808,7 +821,9 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     return walkToWithException(context, uid)?.getAllTableCellText(){loc, cell ->
       //for bulk data, the selector will not return a unique element
-      context.updateUniqueForMetaCmd(false) 
+      context.updateUniqueForMetaCmd(false)
+      //force not to cache the selector
+      context.updateCacheableForMetaCmd(false)
       String locator = locatorMappingWithOption(context, loc, cell)
 //      locator = locator + cell
       String out = extension.getAllText(locator)
@@ -822,6 +837,8 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     return walkToWithException(context, uid)?.getAllTableCellTextForTbody(index){loc, cell ->
       context.updateUniqueForMetaCmd(false)
+      //force not to cache the selector
+      context.updateCacheableForMetaCmd(false)
       String locator = locatorMappingWithOption(context, loc, cell)
 //      locator = locator + cell
       String out = extension.getAllText(locator)
@@ -905,7 +922,9 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
     context.updateUniqueForMetaCmd(false)
-    
+    //force not to cache the selector
+    context.updateCacheableForMetaCmd(false)
+
     return obj.getTableHeaderColumnNumBySelector() {loc, optloc ->
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
@@ -918,6 +937,8 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
     context.updateUniqueForMetaCmd(false)
+    //force not to cache the selector
+    context.updateCacheableForMetaCmd(false)
 
     return obj.getTableFootColumnNumBySelector() {loc, optloc ->
       String locator = locatorMappingWithOption(context, loc, optloc)
@@ -931,6 +952,8 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
     context.updateUniqueForMetaCmd(false)
+    //force not to cache the selector
+    context.updateCacheableForMetaCmd(false)
 
     return obj.getTableMaxRowNumBySelector() {loc, optloc ->
       String locator = locatorMappingWithOption(context, loc, optloc)
@@ -944,6 +967,8 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
     context.updateUniqueForMetaCmd(false)
+    //force not to cache the selector
+    context.updateCacheableForMetaCmd(false)
 
     return obj.getTableMaxColumnNumBySelector() {loc, optloc ->
       String locator = locatorMappingWithOption(context, loc, optloc)
@@ -957,6 +982,8 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
     context.updateUniqueForMetaCmd(false)
+    //force not to cache the selector
+    context.updateCacheableForMetaCmd(false)
 
     return obj.getTableMaxRowNumForTbodyBySelector(ntbody) {loc, optloc ->
       String locator = locatorMappingWithOption(context, loc, optloc)
@@ -970,6 +997,8 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
     context.updateUniqueForMetaCmd(false)
+    //force not to cache the selector
+    context.updateCacheableForMetaCmd(false)
 
     return obj.getTableMaxColumnNumForTbodyBySelector(ntbody) {loc, optloc ->
       String locator = locatorMappingWithOption(context, loc, optloc)
@@ -983,6 +1012,8 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
     context.updateUniqueForMetaCmd(false)
+    //force not to cache the selector
+    context.updateCacheableForMetaCmd(false)
     
     return obj.getTableMaxTbodyNumBySelector() {loc, optloc ->
       String locator = locatorMappingWithOption(context, loc, optloc)
