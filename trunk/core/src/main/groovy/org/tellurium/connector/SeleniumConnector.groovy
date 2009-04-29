@@ -38,12 +38,12 @@ class SeleniumConnector implements Configurable {
   
     public void connect(String url){
 		sel.open(baseURL + url);
-        sel.cleanSelectorCache();
+//        sel.cleanSelectorCache();
 	}
 
     public void connectUrl(String url){
 		sel.open(url);
-        sel.cleanSelectorCache();
+//        sel.cleanSelectorCache();
 	}
 
     public void connectSeleniumServer() {

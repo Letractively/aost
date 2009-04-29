@@ -30,12 +30,11 @@ class WorkflowContext {
 
   private boolean exploreSelectorCache = false
 
-  private MetaCmd metaCmd;
+  private MetaCmd metaCmd = new MetaCmd();
 
   def context = [:]
 
   public void attachMetaCmd(String uid, boolean isCacheable, boolean unique){
-    this.metaCmd = new MetaCmd()
     this.metaCmd.setProperty(MetaCmd.UID, uid)
     this.metaCmd.setProperty(MetaCmd.CACHEABLE, isCacheable)
     this.metaCmd.setProperty(MetaCmd.UNIQUE, unique)
@@ -47,6 +46,10 @@ class WorkflowContext {
 
   public void updateUniqueForMetaCmd(boolean isUnique){
     this.metaCmd.setProperty(MetaCmd.UNIQUE, isUnique)
+  }
+
+  public void updateCacheableForMetaCmd(boolean cacheable){
+    this.metaCmd.setProperty(MetaCmd.CACHEABLE, cacheable) 
   }
 
   public void setTableDuplicateTag() {
