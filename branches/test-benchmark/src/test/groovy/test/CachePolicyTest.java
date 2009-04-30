@@ -36,6 +36,7 @@ public class CachePolicyTest extends TelluriumJavaTestCase {
         tim.enableSelectorCache();
         tim.useDefaultXPathLibrary();
         tim.setCacheMaxSize(5);
+        tim.cleanSelectorCache();
     }
 
     public void testFlow(){
