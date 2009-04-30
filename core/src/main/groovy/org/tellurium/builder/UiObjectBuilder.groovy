@@ -81,12 +81,16 @@ abstract class UiObjectBuilder extends Const {
               obj.noCacheForChildren = true
             }
           }
-        }else{
+        }
+        
+/*
+        else{
            if(obj instanceof org.tellurium.object.Table || obj instanceof org.tellurium.object.List){
               //not to use cache for children for all tables and Lists by default
               obj.noCacheForChildren = true
            }
         }
+*/
 
         if(map.get(LOCATOR) != null){
             //use base locator
