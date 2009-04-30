@@ -41,6 +41,14 @@ HashMap.prototype.get = function( key ){
   return( part1.concat( part2 ) );
 };
 
+ HashMap.prototype.removeArrayAt = function(ar, index )
+{
+  var part1 = ar.slice( 0, index);
+  var part2 = ar.slice( index+1 );
+
+  return( part1.concat( part2 ) );
+};
+
 HashMap.prototype.remove = function ( key )
 {
     var result = null;
@@ -48,8 +56,8 @@ HashMap.prototype.remove = function ( key )
 
     if( elementIndex != -1 )
     {
-        this.keyArray.slice(elementIndex, 1);
-        this.valArray.slice(elementIndex, 1);
+        this.keyArray = this.removeArrayAt(this.keyArray, elementIndex);
+        this.valArray = this.removeArrayAt(this.valArray, elementIndex);
 //        this.keyArray = this.keyArray.removeAt(elementIndex);
 //        this.valArray = this.valArray.removeAt(elementIndex);
     }
