@@ -1,10 +1,7 @@
 package test;
 
 import org.tellurium.test.java.TelluriumJavaTestCase;
-import org.junit.BeforeClass;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.AfterClass;
+import org.junit.*;
 import module.TelluriumIssueModuleDecorator;
 import module.TelluriumIssueModule;
 import module.TelluriumIssueModuleNoGroup;
@@ -17,7 +14,7 @@ import util.TestResult;
 public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     private static TelluriumIssueModuleDecorator tim;
     private static List<TestResult> results = new ArrayList<TestResult>();
-    private static int repeatCount = 10;
+    private static int repeatCount = 1;
 
     @BeforeClass
     public static void initUi() {
@@ -32,22 +29,55 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
 
     public void testFlow(){
         connectUrl("http://code.google.com/p/aost/issues/list");
-        tim.testGetIssueTypes(1);
+        tim.testGetIssueTypes(1, "TrUMP");
+        tim.waitPageLod();
+        tim.testGetIssueTypes(1, "jQuery");
+        tim.waitPageLod();
+        tim.testGetIssueTypes(1, "Maven");
+        tim.waitPageLod();
+        tim.testGetIssueTypes(1, "core");
+        tim.waitPageLod();        
+        connectUrl("http://code.google.com/p/aost/issues/advsearch");
+        tim.testAdvancedSearch(1, "TrUMP", "John.Jian.Fang", "John.Jian.Fang");
         tim.waitPageLod();
         connectUrl("http://code.google.com/p/aost/issues/advsearch");
-        tim.testAdvancedSearch(2);
+        tim.testAdvancedSearch(1, "Maven", "John.Jian.Fang", "matter.senter");
+        tim.waitPageLod();
+        connectUrl("http://code.google.com/p/aost/issues/advsearch");
+        tim.testAdvancedSearch(1, "jQuery", "John.Jian.Fang", "koryak");
+        tim.waitPageLod();
+        connectUrl("http://code.google.com/p/aost/issues/advsearch");
+        tim.testAdvancedSearch(1, "core", "John.Jian.Fang", "koryak");
         tim.waitPageLod();
         connectUrl("http://code.google.com/p/aost/issues/advsearch");
         tim.testAdvancedSearchTips();
         tim.waitPageLod();
         connectUrl("http://code.google.com/p/aost/issues/list");
-        tim.testIssueData(3);
-        connectUrl("http://code.google.com/p/aost/issues/list");
         tim.testClickIssueResult(3, 2);
+        tim.waitPageLod();
+        connectUrl("http://code.google.com/p/aost/issues/list");
+        tim.testClickIssueResult(3, 3);
+        tim.waitPageLod();
+        connectUrl("http://code.google.com/p/aost/issues/list");
+        tim.testClickIssueResult(3, 4);
+        tim.waitPageLod();
+        connectUrl("http://code.google.com/p/aost/issues/list");
+        tim.testClickIssueResult(3, 5);
         tim.waitPageLod();
         connectUrl("http://code.google.com/p/aost/issues/list");
         tim.testClickHeader(3);
         tim.pauseTest();
+        tim.testClickHeader(4);
+        tim.pauseTest();
+        tim.testClickHeader(5);
+        tim.pauseTest();
+        tim.testClickHeader(6);
+        tim.pauseTest();
+        tim.testClickHeader(7);
+        tim.pauseTest();
+        connectUrl("http://code.google.com/p/aost/issues/list");
+        tim.testIssueData(3);
+
 //        connectUrl("http://code.google.com/p/aost/issues/list");
 //        tim.testSelectDataLayout("Grid");
 //        tim.waitPageLod();
@@ -190,6 +220,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         storeResult("testFlowByJQuerySelectorNoGroupCacheEnabled", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
+    @Ignore
     @Test
     public void testGetDataByDefaultXPath(){
         tim.useDefaultXPathLibrary();
@@ -202,6 +233,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         storeResult("testGetDataByDefaultXPath", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
+    @Ignore
     @Test
     public void testGetDataByJavascriptXPath(){
         tim.useJavascriptXPathLibrary();
@@ -214,6 +246,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         storeResult("testGetDataByJavascriptXPath", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
+    @Ignore
     @Test
     public void testGetDataByJQuerySelector(){
         tim.useDefaultXPathLibrary();
@@ -226,6 +259,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         storeResult("testGetDataByJQuerySelector", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
+    @Ignore
     @Test
     public void testGetDataByJQuerySelectorCacheEnabled(){
         tim.useDefaultXPathLibrary();
