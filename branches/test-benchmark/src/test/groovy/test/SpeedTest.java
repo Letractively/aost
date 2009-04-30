@@ -21,7 +21,7 @@ import org.tellurium.test.java.TelluriumJavaTestCase;
 public class SpeedTest extends TelluriumJavaTestCase {
      private static TelluriumIssueModuleDecorator tim;
     private static List<TestResult> results = new ArrayList<TestResult>();
-    private static int repeatCount = 2;
+    private static int repeatCount = 1;
 
     @BeforeClass
     public static void initUi() {
@@ -38,16 +38,36 @@ public class SpeedTest extends TelluriumJavaTestCase {
         connectUrl("http://code.google.com/p/aost/issues/list");
         tim.testGetIssueTypes(1, "TrUMP");
         tim.waitPageLod();
-        tim.testGetIssueTypes(1, "jQuery");
+        tim.testGetIssueTypes(2, "jQuery");
         tim.waitPageLod();
         tim.testGetIssueTypes(1, "Maven");
         tim.waitPageLod();
         tim.testGetIssueTypes(1, "core");
         tim.waitPageLod();
-        tim.testGetIssueTypes(1, "dojo");
+        tim.testGetIssueTypes(2, "dojo");
         tim.waitPageLod();
         tim.testGetIssueTypes(2, "xpath");
         tim.waitPageLod();
+        tim.testGetIssueTypes(1, "widget");
+        tim.waitPageLod();
+        tim.testGetIssueTypes(2, "selector");
+        tim.waitPageLod();
+/*        connectUrl("http://code.google.com/p/aost/issues/advsearch");
+        tim.testAdvancedSearch(1, "TrUMP", "John.Jian.Fang", "John.Jian.Fang");
+        tim.waitPageLod();
+        connectUrl("http://code.google.com/p/aost/issues/advsearch");
+        tim.testAdvancedSearch(1, "Maven", "John.Jian.Fang", "matter.senter");
+        tim.waitPageLod();
+        connectUrl("http://code.google.com/p/aost/issues/advsearch");
+        tim.testAdvancedSearch(1, "jQuery", "John.Jian.Fang", "koryak");
+        tim.waitPageLod();
+        connectUrl("http://code.google.com/p/aost/issues/advsearch");
+        tim.testAdvancedSearch(1, "core", "John.Jian.Fang", "koryak");
+        tim.waitPageLod();
+        connectUrl("http://code.google.com/p/aost/issues/advsearch");
+        tim.testAdvancedSearch(1, "core", "John.Jian.Fang", "haroonzone");
+        tim.waitPageLod();
+        */
     }
 
     protected TestResult storeResult(String testName, long startTime, long endTime, long accumulatedTime, int repeatCount, String msg){
@@ -110,7 +130,7 @@ public class SpeedTest extends TelluriumJavaTestCase {
 //        tim.useJavascriptXPathLibrary();
         for(int i=0; i<repeatCount; i++){
             //manual clean up the cache for the time being
-            tim.cleanSelectorCache();
+//y            tim.cleanSelectorCache();
             testFlow();
             tim.showCacheUsage();
         }
