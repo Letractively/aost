@@ -39,13 +39,15 @@ DummyLogger.prototype.trace = function(msg){
 
  //uncomment this and comment the next line if you want to see the logging message in window
  //but it would slow down the testing dramatically, for debugging purpose only.
+/*
 var jslogger = new Log4js.getLogger("TeEngine");
 jslogger.setLevel(Log4js.Level.ALL);
 //jslogger.addAppender(new Log4js.MozillaJSConsoleAppender());
 jslogger.addAppender(new Log4js.ConsoleAppender());
+*/
 
 
-//var jslogger = new DummyLogger();
+var jslogger = new DummyLogger();
 
 //Tellurium Internal ID presentation
 function Uiid(){
@@ -333,26 +335,20 @@ Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, 
                 var cachedAncestor = this.getCachedSelector(ancestor);
                 if(cachedAncestor != null){
                     //check if the ancestor's DOM reference is still valid
-                    jslogger.info("Found ancestor " + ancestor + " for " + metaCmd.uid);
                     if(!this.validateCache(cachedAncestor)){
                         //if not valid, try to select it using jQuery
                         cachedAncestor.reference = jQuery(cachedAncestor.optimized);
                         this.updateSelectorToCache(ancestor, cachedAncestor);
-                        jslogger.info("Ancestor is invalid and update it " + ancestor);
                     }
                     //ancestor's jQuery Selector
                     var pjqs = cachedAncestor.selector;
 
                     if(loc.length > pjqs.length){
                         var start = loc.substring(0, pjqs.length);
-                        jslogger.info("current selector: " + loc + ", ancestor selector: " + pjqs);
-                        jslogger.info("Shared selector between ancestor " + ancestor + " and " + metaCmd.uid + " is " + start);
                         if(start == pjqs){
                             //the start part of loc matches the parent's selector
                             var leftover = trimString(loc.substring(pjqs.length));
-                            jslogger.info("Left over selector is " + leftover);
                             $found = jQuery(cachedAncestor.reference).find(leftover);
-                            jslogger.info("Found element " + $found.length + " for " + leftover);
                             break;
                         }
                     }
