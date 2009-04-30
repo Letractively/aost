@@ -121,7 +121,7 @@ public class CachePolicyTest extends TelluriumJavaTestCase {
 
     @Test
     public void testFlowWithDiscardInvalidPolicy(){
-        tim.useDiscardNewCachePolicy();
+        tim.useDiscardInvalidCachePolicy();
         String policy = tim.getCurrentCachePolicy();
         assertEquals("DiscardInvalidPolicy", policy);
         for(int i=0; i<repeatCount; i++){
