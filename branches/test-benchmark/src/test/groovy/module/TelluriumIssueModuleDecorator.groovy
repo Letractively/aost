@@ -129,7 +129,7 @@ public class TelluriumIssueModuleDecorator {
     }
 
     public String getCurrentCachePolicy(){
-        decorator.etCurrentCachePolicy();
+        decorator.getCurrentCachePolicy();
     }
 
     public void showCacheUsage(){
