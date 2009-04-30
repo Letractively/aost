@@ -112,6 +112,26 @@ public class TelluriumIssueModuleDecorator {
         decorator.cleanSelectorCache();
     }
 
+    public void setCacheMaxSize(int size){
+        decorator.setCacheMaxSize(size);
+    }
+
+    public void useDiscardNewCachePolicy(){
+        decorator.useDiscardNewCachePolicy();
+    }
+
+    public void useDiscardLeastUsedCachePolicy(){
+        decorator.useDiscardLeastUsedCachePolicy();
+    }
+
+    public void useDiscardInvalidCachePolicy(){
+        decorator.useDiscardInvalidCachePolicy();
+    }
+
+    public String getCurrentCachePolicy(){
+        decorator.etCurrentCachePolicy();
+    }
+
     public void showCacheUsage(){
         int size = decorator.getCacheSize();
         int maxSize = decorator.getCacheMaxSize();
