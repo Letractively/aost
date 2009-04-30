@@ -33,15 +33,25 @@ HashMap.prototype.get = function( key ){
     return result;
 };
 
+ HashMap.prototype.removeAt = function( index )
+{
+  var part1 = this.slice( 0, index);
+  var part2 = this.slice( index+1 );
+
+  return( part1.concat( part2 ) );
+};
+
 HashMap.prototype.remove = function ( key )
 {
     var result = null;
     var elementIndex = this.findIt( key );
 
-    if( elementIndex != (-1) )
+    if( elementIndex != -1 )
     {
-        this.keyArray = this.keyArray.removeAt(elementIndex);
-        this.valArray = this.valArray.removeAt(elementIndex);
+        this.keyArray.slice(elementIndex, 1);
+        this.valArray.slice(elementIndex, 1);
+//        this.keyArray = this.keyArray.removeAt(elementIndex);
+//        this.valArray = this.valArray.removeAt(elementIndex);
     }
 
     return ;
@@ -94,14 +104,6 @@ HashMap.prototype.findIt = function( key )
         }
     }
     return result;
-};
-
- HashMap.prototype.removeAt = function( index )
-{
-  var part1 = this.slice( 0, index);
-  var part2 = this.slice( index+1 );
-
-  return( part1.concat( part2 ) );
 };
 
 function StringBuffer() {
