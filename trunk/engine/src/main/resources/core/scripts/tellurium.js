@@ -168,7 +168,6 @@ var discardLeastUsedCachePolicy = new DiscardLeastUsedPolicy();
 //otherwise, discard the new one
 function DiscardInvalidPolicy(){
     this.name = "DiscardInvalidPolicy";
-    this.validator = tellurium;
 };
 
 DiscardInvalidPolicy.prototype.applyPolicy = function(cache, key, data){
@@ -176,7 +175,13 @@ DiscardInvalidPolicy.prototype.applyPolicy = function(cache, key, data){
     for(var i=0; i<keys.length; i++){
         var akey = keys[i];
         var $ref = cache.get(akey).reference;
-        if(!this.validator.validateCache($ref)){
+        var isVisible = false;
+        try{
+            isVisible = jQuery($ref).is(':visible');
+        }catch(e){
+            isVisible = false;
+        }
+        if(!isVisible){
             cache.remove(akey);
             cache.put(key, data);
             break;
@@ -246,10 +251,10 @@ Tellurium.prototype.updateSelectorToCache = function(key, data){
     this.sCache.put(key, data);
 };
 
-Tellurium.prototype.validateCache = function(reference){
+Tellurium.prototype.validateCache = function($reference){
     //This may impose some problem if the DOM element becomes invisable instead of being removed
     try{
-        return jQuery(reference).is(':visible');
+        return jQuery($reference).is(':visible');
     }catch(e){
         //seems for IE, it throws exception
         return false;
