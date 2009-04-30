@@ -1,10 +1,7 @@
 package test;
 
 import org.tellurium.test.java.TelluriumJavaTestCase;
-import org.junit.BeforeClass;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.AfterClass;
+import org.junit.*;
 import static org.junit.Assert.assertEquals;
 import module.TelluriumIssueModuleDecorator;
 import module.TelluriumIssueModule;
@@ -86,6 +83,20 @@ public class CachePolicyTest extends TelluriumJavaTestCase {
         return result;
     }
 
+    @Ignore
+    @Test
+    public void testFlowByJQuerySelector(){
+        tim.useJQuerySelector();
+        tim.disableSelectorCache();
+        tim.useDefaultXPathLibrary();
+        for(int i=0; i<repeatCount; i++)
+            testFlow();
+        long accumulatedTime = tim.getAccumulatedTime();
+        String msg = "testFlowByJQuerySelector: jQuery selector, the accumulated time is " + accumulatedTime + " ms";
+        System.out.println(msg);
+        storeResult("testFlowByJQuerySelector", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
+    }
+
     @Test
     public void testFlowWithDiscardNewPolicy(){
         tim.useDiscardNewCachePolicy();
@@ -126,7 +137,7 @@ public class CachePolicyTest extends TelluriumJavaTestCase {
         String policy = tim.getCurrentCachePolicy();
         assertEquals("DiscardInvalidPolicy", policy);
         for(int i=0; i<repeatCount; i++){
-            //manual clean up the cache for the time being
+            //manual clean up the cache for the time being                        y
 //            tim.cleanSelectorCache();
             testFlow();
             tim.showCacheUsage();
