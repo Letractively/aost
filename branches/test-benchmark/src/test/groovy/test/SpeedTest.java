@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.AfterClass;
 import org.tellurium.test.java.TelluriumJavaTestCase;
 
 /**
@@ -119,5 +120,11 @@ public class SpeedTest extends TelluriumJavaTestCase {
         storeResult("testFlowByJQuerySelectorCacheEnabled", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
-
+    @AfterClass
+    public static void outputResult(){
+        System.out.println("\n\nFinal results:");
+        for(TestResult result: results){
+            System.out.println(result.strResult());
+        }
+    }
 }
