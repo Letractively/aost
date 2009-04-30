@@ -14,7 +14,7 @@ import util.TestResult;
 public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     private static TelluriumIssueModuleDecorator tim;
     private static List<TestResult> results = new ArrayList<TestResult>();
-    private static int repeatCount = 1;
+    private static int repeatCount = 10;
 
     @BeforeClass
     public static void initUi() {
@@ -36,7 +36,9 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         tim.testGetIssueTypes(1, "Maven");
         tim.waitPageLod();
         tim.testGetIssueTypes(1, "core");
-        tim.waitPageLod();        
+        tim.waitPageLod();
+        tim.testGetIssueTypes(1, "dojo");
+        tim.waitPageLod();
         connectUrl("http://code.google.com/p/aost/issues/advsearch");
         tim.testAdvancedSearch(1, "TrUMP", "John.Jian.Fang", "John.Jian.Fang");
         tim.waitPageLod();
@@ -48,6 +50,9 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         tim.waitPageLod();
         connectUrl("http://code.google.com/p/aost/issues/advsearch");
         tim.testAdvancedSearch(1, "core", "John.Jian.Fang", "koryak");
+        tim.waitPageLod();
+        connectUrl("http://code.google.com/p/aost/issues/advsearch");
+        tim.testAdvancedSearch(1, "core", "John.Jian.Fang", "haroonzone");
         tim.waitPageLod();
         connectUrl("http://code.google.com/p/aost/issues/advsearch");
         tim.testAdvancedSearchTips();
@@ -65,6 +70,11 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         tim.testClickIssueResult(3, 5);
         tim.waitPageLod();
         connectUrl("http://code.google.com/p/aost/issues/list");
+        tim.testClickIssueResult(3, 6);
+        tim.waitPageLod();
+        connectUrl("http://code.google.com/p/aost/issues/list");
+        tim.testClickHeader(2);
+        tim.pauseTest();
         tim.testClickHeader(3);
         tim.pauseTest();
         tim.testClickHeader(4);
