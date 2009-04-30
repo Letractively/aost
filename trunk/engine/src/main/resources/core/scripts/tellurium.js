@@ -132,7 +132,7 @@ function Tellurium (){
     this.maxCacheSize = 50;
 
     this.cachePolicy = discardNewCachePolicy;
-    this.cachePolicyName = "DiscardNewPolicy";
+//    this.cachePolicyName = "DiscardNewPolicy";
 
     this.currentWindow = null;
 
@@ -175,6 +175,10 @@ DiscardNewPolicy.prototype.applyPolicy = function (cache, key, data){
 
 };
 
+DiscardNewPolicy.prototype.myName = function(){
+    return "DiscardNewPolicy";
+};
+
 var discardNewCachePolicy = new DiscardNewPolicy();
 
 //remove the least used select in the cache
@@ -198,6 +202,10 @@ DiscardLeastUsedPolicy.prototype.applyPolicy = function(cache, key, data){
     cache.put(key, data);
 };
 
+DiscardLeastUsedPolicy.prototype.myName = function(){
+    return "DiscardLeastUsedPolicy";
+};
+
 var discardLeastUsedCachePolicy = new DiscardLeastUsedPolicy();
 
 //If found invalid selector, remove it and put the new one in
@@ -217,6 +225,10 @@ DiscardInvalidPolicy.prototype.applyPolicy = function(cache, key, data){
             break;
         }
     }
+};
+
+DiscardInvalidPolicy.prototype.myName = function(){
+    return "DiscardInvalidPolicy";
 };
 
 var discardInvalidCachePolicy = new DiscardInvalidPolicy();
@@ -419,19 +431,19 @@ Tellurium.prototype.getCacheUsage = function(){
 
 Tellurium.prototype.useDiscardNewPolicy = function(){
     this.cachePolicy = discardNewCachePolicy;
-    this.cachePolicyName = "DiscardNewPolicy";
+//    this.cachePolicyName = "DiscardNewPolicy";
 };
 
 Tellurium.prototype.useDiscardLeastUsedPolicy = function(){
     this.cachePolicy = discardLeastUsedCachePolicy;
-    this.cachePolicyName = "DiscardLeastUsedPolicy";
+//    this.cachePolicyName = "DiscardLeastUsedPolicy";
 };
 
 Tellurium.prototype.useDiscardInvalidPolicy = function(){
     this.cachePolicy = discardInvalidCachePolicy;
-    this.cachePolicyName = "DiscardInvalidPolicy";
+//    this.cachePolicyName = "DiscardInvalidPolicy";
 };
 
 Tellurium.prototype.getCachePolicyName = function(){
-    return this.cachePolicyName;
+    return this.cachePolicy.myName();
 };
