@@ -19,19 +19,18 @@ import org.tellurium.test.java.TelluriumJavaTestCase;
  *         Date: Apr 30, 2009
  */
 public class SpeedTest extends TelluriumJavaTestCase {
-     private static TelluriumIssueModuleDecorator tim;
+    private static TelluriumIssueModuleDecorator tim;
     private static List<TestResult> results = new ArrayList<TestResult>();
     private static int repeatCount = 1;
 
     @BeforeClass
     public static void initUi() {
-//        tim = new TelluriumIssueModuleDecorator(new TelluriumIssueModule());
     }
 
     @Before
     public void resetTime(){
         tim = new TelluriumIssueModuleDecorator(new TelluriumIssueModule());
-//        tim.resetAccumulatedTime();
+        tim.resetAccumulatedTime();
     }
 
     public void testFlow(){
@@ -52,22 +51,6 @@ public class SpeedTest extends TelluriumJavaTestCase {
         tim.waitPageLod();
         tim.testGetIssueTypes(2, "selector");
         tim.waitPageLod();
-/*        connectUrl("http://code.google.com/p/aost/issues/advsearch");
-        tim.testAdvancedSearch(1, "TrUMP", "John.Jian.Fang", "John.Jian.Fang");
-        tim.waitPageLod();
-        connectUrl("http://code.google.com/p/aost/issues/advsearch");
-        tim.testAdvancedSearch(1, "Maven", "John.Jian.Fang", "matter.senter");
-        tim.waitPageLod();
-        connectUrl("http://code.google.com/p/aost/issues/advsearch");
-        tim.testAdvancedSearch(1, "jQuery", "John.Jian.Fang", "koryak");
-        tim.waitPageLod();
-        connectUrl("http://code.google.com/p/aost/issues/advsearch");
-        tim.testAdvancedSearch(1, "core", "John.Jian.Fang", "koryak");
-        tim.waitPageLod();
-        connectUrl("http://code.google.com/p/aost/issues/advsearch");
-        tim.testAdvancedSearch(1, "core", "John.Jian.Fang", "haroonzone");
-        tim.waitPageLod();
-        */
     }
 
     protected TestResult storeResult(String testName, long startTime, long endTime, long accumulatedTime, int repeatCount, String msg){
