@@ -11,15 +11,6 @@ public class TelluriumIssueModuleDecorator {
   
   private TimingDecorator decorator
 
-/*
-  public TelluriumIssueModuleDecorator() {
-    decorator = new TimingDecorator(new TelluriumIssueModule());
-    List<String> whiteList = ["getIsssueTypes", "selectIssueType", "searchIssue", "getAdvancedIsssueTypes", "advancedSearchIssue", "clickMoreSearchTips", "getTableHeaderNum", "getHeaderNames", "getDataForColumn", "clickTable", "clickOnTableHeade", "selectDataLayout", "getIssueData"];
-    decorator.setWhiteList(whiteList);
-    decorator.defineUi();
-  }
-*/
-
   public TelluriumIssueModuleDecorator(module) {
     decorator = new TimingDecorator(module);
     List<String> whiteList = ["getIsssueTypes", "selectIssueType", "searchIssue", "getAdvancedIsssueTypes", "advancedSearchIssue", "clickMoreSearchTips", "getTableHeaderNum", "getHeaderNames", "getDataForColumn", "clickTable", "clickOnTableHeade", "selectDataLayout", "getIssueData"];
@@ -43,18 +34,18 @@ public class TelluriumIssueModuleDecorator {
     return decorator.getEndTime();
   }
 
-  public void testGetIssueTypes(int issueTypeIndex){
+  public void testGetIssueTypes(int issueTypeIndex, String key){
         String[] ists = decorator.getIsssueTypes();
         decorator.selectIssueType(ists[issueTypeIndex]);
-        decorator.searchIssue("Alter");
+        decorator.searchIssue(key);
     }
 
 
-    public void testAdvancedSearch(int issueTypeIndex){
+    public void testAdvancedSearch(int issueTypeIndex,String words, String reporters, String owners){
         String[] ists = decorator.getAdvancedIsssueTypes();
         decorator.selectIssueType(ists[issueTypeIndex]);
 
-        decorator.advancedSearchIssue(ists[issueTypeIndex], "table", null, null, null, null, null, null, null);
+        decorator.advancedSearchIssue(ists[issueTypeIndex], words, null, null, null, reporters, owners, null, null);
     }
 
 
@@ -90,7 +81,7 @@ public class TelluriumIssueModuleDecorator {
     }
 
     public void pauseTest(){
-        decorator.pauseTest(1000);
+        decorator.pauseTest(200);
     }
 
     public void disableJQuerySelector(){

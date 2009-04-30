@@ -39,7 +39,7 @@ public class TelluriumIssueModule extends DslContext{
            }
        }
 
-       ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], group: "true") {
+       ui.Table(uid: "issueResult", noCacheForChildren: "true", clocator: [id: "resultstable", class: "results"], group: "true") {
            //define table header
            //for the border column
            TextBox(uid: "header: 1",  clocator: [:])
@@ -71,6 +71,7 @@ public class TelluriumIssueModule extends DslContext{
     }
 
     public void searchIssue(String issue){
+        clearText "issueSearch.searchBox"
         keyType "issueSearch.searchBox", issue
 //        type "issueSearch.searchBox", issue
         click "issueSearch.searchButton"
@@ -91,35 +92,35 @@ public class TelluriumIssueModule extends DslContext{
         }
 
         if(words != null){
-            keyType "issueAdvancedSearch.searchTable[2][3]", words
+            type "issueAdvancedSearch.searchTable[2][3]", words
         }
 
         if(without != null){
-            keyType "issueAdvancedSearch.searchTable[3][3]", without
+            type "issueAdvancedSearch.searchTable[3][3]", without
         }
 
         if(labels != null){
-            keyType "issueAdvancedSearch.searchTable[5][3]", labels
+            type "issueAdvancedSearch.searchTable[5][3]", labels
         }
 
         if(statuses != null){
-            keyType "issueAdvancedSearch.searchTable[6][3]", statuses
+            type "issueAdvancedSearch.searchTable[6][3]", statuses
         }
 
         if(reporters != null){
-            keyType "issueAdvancedSearch.searchTable[7][2]", reporters
+            type "issueAdvancedSearch.searchTable[7][2]", reporters
         }
 
         if(owners != null){
-            keyType "issueAdvancedSearch.searchTable[8][2]", owners
+            type "issueAdvancedSearch.searchTable[8][2]", owners
         }
 
         if(cc != null){
-           keyType "issueAdvancedSearch.searchTable[9][2]", cc
+           type "issueAdvancedSearch.searchTable[9][2]", cc
         }
 
         if(commentby != null){
-           keyType "issueAdvancedSearch.searchTable[10][3]", commentby
+           type "issueAdvancedSearch.searchTable[10][3]", commentby
         }
 
         click "issueAdvancedSearch.searchTable[1][4]"
