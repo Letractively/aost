@@ -21,7 +21,7 @@ import org.tellurium.test.java.TelluriumJavaTestCase;
 public class SpeedTest extends TelluriumJavaTestCase {
      private static TelluriumIssueModuleDecorator tim;
     private static List<TestResult> results = new ArrayList<TestResult>();
-    private static int repeatCount = 1;
+    private static int repeatCount = 2;
 
     @BeforeClass
     public static void initUi() {
