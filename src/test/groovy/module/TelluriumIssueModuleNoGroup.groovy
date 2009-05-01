@@ -72,8 +72,8 @@ public class TelluriumIssueModuleNoGroup extends DslContext{
 
     public void searchIssue(String issue){
         clearText "issueSearch.searchBox"
-        keyType "issueSearch.searchBox", issue
-//        type "issueSearch.searchBox", issue
+//        keyType "issueSearch.searchBox", issue
+        type "issueSearch.searchBox", issue
         click "issueSearch.searchButton"
     }
 
