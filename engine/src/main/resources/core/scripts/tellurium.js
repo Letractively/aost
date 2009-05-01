@@ -7,6 +7,12 @@ jQuery.extend(jQuery.expr[':'], {
     }
 });
 
+/*
+jQuery.fn.extend({
+  inDOM = function() { return !!$(this).parents('html').length; }
+});
+*/
+
 //dump logging message to dummy device, which sallows all messages == no logging
 function DummyLogger(){
 
@@ -45,7 +51,6 @@ var jslogger = new Log4js.getLogger("TeEngine");
 jslogger.setLevel(Log4js.Level.ALL);
 //jslogger.addAppender(new Log4js.MozillaJSConsoleAppender());
 jslogger.addAppender(new Log4js.ConsoleAppender());
-
 */
 
 
@@ -156,12 +161,9 @@ DiscardLeastUsedPolicy.prototype.applyPolicy = function(cache, key, data){
             leastCount = val;
         }
     }
-//    jslogger.info("Cache element " + toBeRemoved + " will be removed, and cache size " + cache.size())
 
     cache.remove(toBeRemoved);
-//    jslogger.info("After remove cache element " + toBeRemoved + ", cache size " + cache.size())
     cache.put(key, data);
-//    jslogger.info("Add cache element " + key + ", cache size " + cache.size())
 };
 
 DiscardLeastUsedPolicy.prototype.myName = function(){
@@ -183,7 +185,7 @@ DiscardInvalidPolicy.prototype.applyPolicy = function(cache, key, data){
         var $ref = cache.get(akey).reference;
         var isVisible = false;
         try{
-            isVisible = jQuery($ref).is(':visible');
+           isVisible = $ref.is(':visible'); 
         }catch(e){
             isVisible = false;
         }
@@ -260,9 +262,15 @@ Tellurium.prototype.updateSelectorToCache = function(key, data){
 Tellurium.prototype.validateCache = function($reference){
     //This may impose some problem if the DOM element becomes invisable instead of being removed
     try{
-        return jQuery($reference).is(':visible');
+        return $reference.is(':visible');
+//        return ($reference.eq(0).parent().length > 0);
+//        return jQuery($reference).is(':visible');
+//        return jQuery($reference).parents('html').length > 0;
+//        return $reference.parents('html').length > 0;
+//        return true;
     }catch(e){
         //seems for IE, it throws exception
+//        jslogger.error("Validate exception " + e.message);
         return false;
     }
 };
@@ -343,13 +351,18 @@ Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, 
         sid.convertToUiid(metaCmd.uid);
         if(metaCmd.cacheable){
             //the locator could be cached
-            var cached = this.getCachedSelector(sid.getUid());
+            var currentUid = sid.getUid();
+            var cached = this.getCachedSelector(currentUid);
+//            jslogger.info("Found cached selector " + currentUid);
             if(cached != null){
                 $found = cached.reference;
                 //validate the DOM reference
                 if(!this.validateCache($found)){
                     $found = null;
+//                    jslogger.warn("Cached selector " + currentUid + " is not valid, removing...");
+                    this.sCache.remove(currentUid);
                 }
+                //TODO: seems if not found, we may also be able to use its parent node to speed up the search
             }
         }else{
             while(sid.size() > 1){
@@ -357,22 +370,38 @@ Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, 
                 var ancestor = sid.getUid();
                 var cachedAncestor = this.getCachedSelector(ancestor);
                 if(cachedAncestor != null){
-                    //check if the ancestor's DOM reference is still valid
+                    var validAncestor = true;
+                   //check if the ancestor's DOM reference is still valid
+//                    jslogger.info("Found ancestor selector " + ancestor);
                     if(!this.validateCache(cachedAncestor)){
                         //if not valid, try to select it using jQuery
-                        cachedAncestor.reference = jQuery(cachedAncestor.optimized);
-                        this.updateSelectorToCache(ancestor, cachedAncestor);
+                        var $newancestorsel = jQuery(cachedAncestor.optimized);
+                        if($newancestorsel.length > 0){
+                            cachedAncestor.reference = $newancestorsel;
+                            this.updateSelectorToCache(ancestor, cachedAncestor);
+//                            jslogger.warn("Ancestor selector " + ancestor + " is not valid, re-select and update");
+                        }else{
+                            validAncestor = false;
+//                            jslogger.warn("Cannot find ancestor selector " + ancestor + ", removing...");
+                            //remove invalid selector
+                            this.sCache.remove(ancestor);
+                        }
                     }
-                    //ancestor's jQuery Selector
-                    var pjqs = cachedAncestor.selector;
 
-                    if(loc.length > pjqs.length){
-                        var start = loc.substring(0, pjqs.length);
-                        if(start == pjqs){
-                            //the start part of loc matches the parent's selector
-                            var leftover = trimString(loc.substring(pjqs.length));
-                            $found = jQuery(cachedAncestor.reference).find(leftover);
-                            break;
+                    if (validAncestor) {
+                        //ancestor's jQuery Selector
+                        var pjqs = cachedAncestor.selector;
+
+                        if (loc.length > pjqs.length) {
+                            var start = loc.substring(0, pjqs.length);
+                            if (start == pjqs) {
+                                //the start part of loc matches the parent's selector
+                                var leftover = trimString(loc.substring(pjqs.length));
+//                                $found = jQuery(cachedAncestor.reference).find(leftover);
+                                $found = cachedAncestor.reference.find(leftover);
+//                                jslogger.info("Use ancestor and leftover selector " + leftover + " to find element with size " + $found.length);
+                                break;
+                            }
                         }
                     }
                 }
@@ -383,7 +412,8 @@ Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, 
     //if could not find from cache partially or wholely, search the DOM
     if($found == null){
         $found = jQuery(inDocument).find(optimized);
-        if($found != null){
+//        jslogger.info("Not found selector " + metaCmd.uid + ", re-select and get element with size " + $found.length);
+        if($found != null && $found.length > 0){
             needUpdate = true;
         }
     }
@@ -403,6 +433,7 @@ Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, 
         var nuid = new Uiid();
         nuid.convertToUiid(metaCmd.uid);
         this.addSelectorToCache(nuid.getUid(), cachedata);
+//        jslogger.info("Add selector " + nuid.getUid() + " to cache");
     }
 
     if ($found.length == 1) {
