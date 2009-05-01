@@ -21,7 +21,7 @@ import org.tellurium.test.java.TelluriumJavaTestCase;
 public class SpeedTest extends TelluriumJavaTestCase {
     private static TelluriumIssueModuleDecorator tim;
     private static List<TestResult> results = new ArrayList<TestResult>();
-    private static int repeatCount = 10;
+    private static int repeatCount = 4;
 
     @BeforeClass
     public static void initUi() {
@@ -115,7 +115,7 @@ public class SpeedTest extends TelluriumJavaTestCase {
 //        tim.useJavascriptXPathLibrary();
 //        for(int i=0; i<repeatCount; i++){
             //manual clean up the cache for the time being
-//y            tim.cleanSelectorCache();
+//            tim.cleanSelectorCache(;
             testFlow();
             tim.showCacheUsage();
  //       }
