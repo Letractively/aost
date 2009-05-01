@@ -83,7 +83,7 @@ public class CachePolicyTest extends TelluriumJavaTestCase {
         return result;
     }
 
-    @Ignore
+//    @Ignore
     @Test
     public void testFlowByJQuerySelector(){
         tim.useJQuerySelector();
