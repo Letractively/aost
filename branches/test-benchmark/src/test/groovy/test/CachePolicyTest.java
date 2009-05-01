@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class CachePolicyTest extends TelluriumJavaTestCase {
     private static TelluriumIssueModuleDecorator tim;
     private static List<TestResult> results = new ArrayList<TestResult>();
-    private static int repeatCount = 1;
+    private static int repeatCount = 5;
 
     @BeforeClass
     public static void initUi() {
@@ -36,39 +36,41 @@ public class CachePolicyTest extends TelluriumJavaTestCase {
         tim.cleanSelectorCache();
     }
 
-    public void testFlow(){
-        connectUrl("http://code.google.com/p/aost/issues/list");
-        tim.testGetIssueTypes(1, "TrUMP");
-        tim.waitPageLod();
-        tim.testGetIssueTypes(1, "jQuery");
-        tim.waitPageLod();
-        tim.testGetIssueTypes(1, "Maven");
-        tim.waitPageLod();
-        tim.testGetIssueTypes(1, "core");
-        tim.waitPageLod();
-        tim.testGetIssueTypes(1, "dojo");
-        tim.waitPageLod();
-        tim.testGetIssueTypes(2, "xpath");
-        tim.waitPageLod();
-        connectUrl("http://code.google.com/p/aost/issues/advsearch");
-        tim.testAdvancedSearch(1, "TrUMP", "John.Jian.Fang", "John.Jian.Fang");
-        tim.waitPageLod();
-        connectUrl("http://code.google.com/p/aost/issues/advsearch");
-        tim.testAdvancedSearch(1, "Maven", "John.Jian.Fang", "matter.senter");
-        tim.waitPageLod();
-        connectUrl("http://code.google.com/p/aost/issues/advsearch");
-        tim.testAdvancedSearch(1, "jQuery", "John.Jian.Fang", "koryak");
-        tim.waitPageLod();
-        connectUrl("http://code.google.com/p/aost/issues/advsearch");
-        tim.testAdvancedSearch(1, "core", "John.Jian.Fang", "koryak");
-        tim.waitPageLod();
-        connectUrl("http://code.google.com/p/aost/issues/advsearch");
-        tim.testAdvancedSearch(1, "core", "John.Jian.Fang", "haroonzone");
-        tim.waitPageLod();
-        connectUrl("http://code.google.com/p/aost/issues/advsearch");
-        tim.testAdvancedSearchTips();
-        tim.waitPageLod();
-     }
+    public void testFlow() {
+        for (int i = 0; i < repeatCount; i++) {
+            connectUrl("http://code.google.com/p/aost/issues/list");
+            tim.testGetIssueTypes(1, "TrUMP");
+            tim.waitPageLod();
+            tim.testGetIssueTypes(1, "jQuery");
+            tim.waitPageLod();
+            tim.testGetIssueTypes(1, "Maven");
+            tim.waitPageLod();
+            tim.testGetIssueTypes(1, "core");
+            tim.waitPageLod();
+            tim.testGetIssueTypes(1, "dojo");
+            tim.waitPageLod();
+            tim.testGetIssueTypes(2, "xpath");
+            tim.waitPageLod();
+            connectUrl("http://code.google.com/p/aost/issues/advsearch");
+            tim.testAdvancedSearch(1, "TrUMP", "John.Jian.Fang", "John.Jian.Fang");
+            tim.waitPageLod();
+            connectUrl("http://code.google.com/p/aost/issues/advsearch");
+            tim.testAdvancedSearch(1, "Maven", "John.Jian.Fang", "matter.senter");
+            tim.waitPageLod();
+            connectUrl("http://code.google.com/p/aost/issues/advsearch");
+            tim.testAdvancedSearch(1, "jQuery", "John.Jian.Fang", "koryak");
+            tim.waitPageLod();
+            connectUrl("http://code.google.com/p/aost/issues/advsearch");
+            tim.testAdvancedSearch(1, "core", "John.Jian.Fang", "koryak");
+            tim.waitPageLod();
+            connectUrl("http://code.google.com/p/aost/issues/advsearch");
+            tim.testAdvancedSearch(1, "core", "John.Jian.Fang", "haroonzone");
+            tim.waitPageLod();
+            connectUrl("http://code.google.com/p/aost/issues/advsearch");
+            tim.testAdvancedSearchTips();
+            tim.waitPageLod();
+        }
+    }
 
     protected TestResult storeResult(String testName, long startTime, long endTime, long accumulatedTime, int repeatCount, String msg){
         TestResult result = new TestResult();
@@ -89,7 +91,7 @@ public class CachePolicyTest extends TelluriumJavaTestCase {
         tim.useJQuerySelector();
         tim.disableSelectorCache();
         tim.useDefaultXPathLibrary();
-        for(int i=0; i<repeatCount; i++)
+//        for(int i=0; i<repeatCount; i++)
             testFlow();
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "testFlowByJQuerySelector: jQuery selector, the accumulated time is " + accumulatedTime + " ms";
@@ -102,12 +104,12 @@ public class CachePolicyTest extends TelluriumJavaTestCase {
         tim.useDiscardNewCachePolicy();
         String policy = tim.getCurrentCachePolicy();
         assertEquals("DiscardNewPolicy", policy);
-        for(int i=0; i<repeatCount; i++){
+//        for(int i=0; i<repeatCount; i++){
             //manual clean up the cache for the time being
 //            tim.cleanSelectorCache();
             testFlow();
             tim.showCacheUsage();
-        }
+ //       }
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "TestFlowWithDiscardNewPolic: jQuery selector, the accumulated time is " + accumulatedTime + " ms";
         System.out.println(msg);
@@ -119,12 +121,12 @@ public class CachePolicyTest extends TelluriumJavaTestCase {
         tim.useDiscardLeastUsedCachePolicy();
         String policy = tim.getCurrentCachePolicy();
         assertEquals("DiscardLeastUsedPolicy", policy);
-        for(int i=0; i<repeatCount; i++){
+//        for(int i=0; i<repeatCount; i++){
             //manual clean up the cache for the time being
 //            tim.cleanSelectorCache();
             testFlow();
             tim.showCacheUsage();
-        }
+ //       }
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "TestFlowWithDiscardLeastUsedPolic: jQuery selector, the accumulated time is " + accumulatedTime + " ms";
         System.out.println(msg);
@@ -136,12 +138,12 @@ public class CachePolicyTest extends TelluriumJavaTestCase {
         tim.useDiscardInvalidCachePolicy();
         String policy = tim.getCurrentCachePolicy();
         assertEquals("DiscardInvalidPolicy", policy);
-        for(int i=0; i<repeatCount; i++){
+//        for(int i=0; i<repeatCount; i++){
             //manual clean up the cache for the time being                        y
 //            tim.cleanSelectorCache();
             testFlow();
             tim.showCacheUsage();
-        }
+//        }
         long accumulatedTime = tim.getAccumulatedTime();
         String msg = "TestFlowWithDiscardInvalidPolic: jQuery selector, the accumulated time is " + accumulatedTime + " ms";
         System.out.println(msg);
