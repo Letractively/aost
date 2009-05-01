@@ -115,6 +115,14 @@ function MetaCmd(){
     this.unique = true;
 };
 
+function TeInput(){
+    this.metaCmd = null;
+    this.selector = null;
+    this.optimized = null;
+    this.isAttribute = false;
+    this.attribute = null;
+};
+
 //Cached Data, use uid as the key to reference it
 function CacheData(){
     //jQuery selector associated with the DOM reference, which is a whole selector
@@ -126,6 +134,8 @@ function CacheData(){
     this.reference = null;
 
     this.count = 0;
+
+    this.timestamp = Number(new Date());
 };
 
 //cache eviction policies
@@ -238,12 +248,8 @@ Tellurium.prototype.updateUseCount = function(key, data){
 };
 
 Tellurium.prototype.getCachedSelector = function(key){
-    var data = this.sCache.get(key);
-    if(data != null){
-        data.count++;
-        this.sCache.put(key, data);
-    }
-    return data;
+
+    return this.sCache.get(key);
 };
 
 Tellurium.prototype.addSelectorToCache = function(key, data){
@@ -256,6 +262,8 @@ Tellurium.prototype.addSelectorToCache = function(key, data){
 
 //update existing selector to the cache
 Tellurium.prototype.updateSelectorToCache = function(key, data){
+    data.count++;
+    data.timestamp = Number(new Date());
     this.sCache.put(key, data);
 };
 
@@ -303,9 +311,206 @@ Tellurium.prototype.locateElementByJQuerySelector = function(locator, inDocument
     }
 };
 
+Tellurium.prototype.checkSelectorFromCache = function(key){
+    var $found = null;
+
+    var cached = this.getCachedSelector(key);
+    if (cached != null) {
+        $found = cached.reference;
+        //validate the DOM reference
+        if (!this.validateCache($found)) {
+            $found = null;
+            this.sCache.remove(key);
+        }else{
+            this.updateSelectorToCache(key, cached);
+        }
+    }
+
+    return $found;
+};
+
+Tellurium.prototype.checkAncestorSelector = function(akey){
+    var cached = this.getCachedSelector(akey);
+    
+    if (cached != null) {
+        //check if the ancestor's DOM reference is still valid
+        if (!this.validateCache(cached)) {
+            //if not valid, try to select it using jQuery
+            var $newsel = jQuery(cached.optimized);
+            if ($newsel.length > 0) {
+                cached.reference = $newsel;
+                cached.count = 0;
+                this.updateSelectorToCache(akey, cached);
+            } else {
+                //remove invalid selector
+                this.sCache.remove(akey);
+                cached = null;
+            }
+        }else{
+            this.updateSelectorToCache(akey, cached);
+        }
+    }
+
+    return cached;
+};
+
+Tellurium.prototype.findFromAncestor = function(ancestor, sel){
+    var asel = ancestor.selector;
+    var $found = null;
+
+    if(sel.length > asel.length){
+        var start = sel.substring(0, asel.length);
+        if(start == asel){
+            var leftover = trimString(sel.substring(asel.length));
+            $found = ancestor.reference.find(leftover);
+        }
+    }
+
+    return $found;
+};
+
+Tellurium.prototype.getDOMElement = function($found){
+    if ($found.length == 1) {
+        return $found[0];
+    } else if ($found.length > 1) {
+        return $found.get();
+    } else {
+        return null;
+    }
+};
+
+Tellurium.prototype.getDOMAttributeNode = function($found, attr) {
+    if ($found.length == 1) {
+        return $found[0].getAttributeNode(attr);
+
+    } else if ($found.length > 1) {
+        return $found.get().getAttributeNode(attr);
+    } else {
+        return null;
+    }
+};
+
+//convert jQuery result to DOM reference
+Tellurium.prototype.convResult = function($result, input){
+    if(input.isAttribute){
+        return this.getDOMAttributeNode($result, input.attribute);
+    }
+
+    return this.getDOMElement($result);
+};
+
+Tellurium.prototype.parseLocator = function(locator){
+    var input = new TeInput();
+    
+    var purged = locator;
+    var inx = locator.lastIndexOf('@');
+    if (inx != -1) {
+        purged = locator.substring(0, inx);
+        input.attribute = locator.substring(inx + 1);
+        input.isAttribute = true;
+    }
+
+    var tecmd = JSON.parse(purged, null);
+
+    input.selector = tecmd.locator;
+    input.optimized = tecmd.optimized;
+    var metaCmd = new MetaCmd();
+    metaCmd.uid = tecmd.uid;
+    metaCmd.cacheable = tecmd.cacheable;
+    metaCmd.unique = tecmd.unique;
+    input.metaCmd = metaCmd;
+
+    return input;
+};
+
+Tellurium.prototype.validateResult = function($result, unique, selector){
+    if(unique){
+        if($result != null && $result.length > 1){
+            throw new SeleniumError("Element is not unique, Found " + $result.length + " elements for " + selector);
+        }
+    }
+};
+
 Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, inDocument, inWindow){
+    var input = this.parseLocator(locator);
+    var $found = null;
+    
+    //If do not cache selector or meta command without UID, directly find jQuery selector
+    if((!this.cacheSelector) || input.metaCmd.uid == null || trimString(input.metaCmd.uid).length == 0){
+        //cannot cache without uid, thus, go directly to find the element using jQuery
+         $found = jQuery(inDocument).find(input.optimized);
+         this.validateResult($found);
+         return this.convResult($found, input);
+    }else{
+        var sid = new Uiid();
+        sid.convertToUiid(input.metaCmd.uid);
+        var key = sid.getUid();
+        //if this selector is cacheable, need to check the cache first
+        if(input.metaCmd.cacheable){
+            $found = this.checkSelectorFromCache(key);
+            
+            if($found == null){
+                //could not find from cache or the cached one is invalid
+                while(sid.size() > 1){
+                    //try to find from its ancestor
+                    sid.pop();
+                    var akey = sid.getUid();
+                    var ancestor = this.checkAncestorSelector(akey);
+                    if(ancestor != null){
+                        $found = this.findFromAncestor(ancestor, input.selector);
+                        break;
+                    }
+                }
+
+                //if still could not find do jQuery select
+                if($found == null){
+                    $found = jQuery(inDocument).find(input.optimized);
+                }
+
+                //validate the result before storing it
+                this.validateResult($found);
+
+                //If find valid selector, update to cache
+                if($found != null && $found.length > 0){
+                    var cachedata = new CacheData();
+                    cachedata.selector = input.selector;
+                    cachedata.optimized = input.optimized;
+                    cachedata.reference = $found;
+                    this.addSelectorToCache(key, cachedata);  
+                }
+            }
+
+            return this.convResult($found, input);
+        } else {
+            //cannot cache the selector directly, try to find the DOM elements using ancestor first
+            while (sid.size() > 1) {
+                //try to find from its ancestor
+                sid.pop();
+                var ckey = sid.getUid();
+                var ancester = this.checkAncestorSelector(ckey);
+                if (ancester != null) {
+                    $found = this.findFromAncestor(ancester, input.selector);
+                    break;
+                }
+            }
+            
+            //if still could not find do jQuery select
+            if ($found == null) {
+                $found = jQuery(inDocument).find(input.optimized);
+            }
+
+            //validate the result before storing it
+            this.validateResult($found);
+
+            return this.convResult($found, input);
+        }
+    }   
+};
 
 /*
+Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, inDocument, inWindow){
+
+*//*
     if(inWindow != this.currentWindow){
 //        jslogger.debug("Bind cleaning cache to window unload envent " + inWindow);
         jQuery(inWindow).unload(this.cleanCache);
@@ -317,7 +522,7 @@ Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, 
         this.cleanCache();
         this.currentDocument = inDocument;
     }
-*/
+*//*
 
     var purged = locator;
     var attr = null;
@@ -362,7 +567,7 @@ Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, 
 //                    jslogger.warn("Cached selector " + currentUid + " is not valid, removing...");
                     this.sCache.remove(currentUid);
                 }
-                //TODO: seems if not found, we may also be able to use its parent node to speed up the search
+                
             }
         }else{
             while(sid.size() > 1){
@@ -452,6 +657,7 @@ Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, 
         return null;
     }
 };
+*/
 
 Tellurium.prototype.setCacheState = function(flag){
     this.cacheSelector = flag;
