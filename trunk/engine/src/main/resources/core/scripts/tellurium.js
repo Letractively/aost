@@ -39,11 +39,13 @@ DummyLogger.prototype.trace = function(msg){
 
  //uncomment this and comment the next line if you want to see the logging message in window
  //but it would slow down the testing dramatically, for debugging purpose only.
+
 /*
 var jslogger = new Log4js.getLogger("TeEngine");
 jslogger.setLevel(Log4js.Level.ALL);
 //jslogger.addAppender(new Log4js.MozillaJSConsoleAppender());
 jslogger.addAppender(new Log4js.ConsoleAppender());
+
 */
 
 
@@ -154,8 +156,12 @@ DiscardLeastUsedPolicy.prototype.applyPolicy = function(cache, key, data){
             leastCount = val;
         }
     }
+//    jslogger.info("Cache element " + toBeRemoved + " will be removed, and cache size " + cache.size())
+
     cache.remove(toBeRemoved);
+//    jslogger.info("After remove cache element " + toBeRemoved + ", cache size " + cache.size())
     cache.put(key, data);
+//    jslogger.info("Add cache element " + key + ", cache size " + cache.size())
 };
 
 DiscardLeastUsedPolicy.prototype.myName = function(){
