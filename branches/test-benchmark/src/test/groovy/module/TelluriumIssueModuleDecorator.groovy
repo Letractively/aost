@@ -120,6 +120,10 @@ public class TelluriumIssueModuleDecorator {
         decorator.useDiscardNewCachePolicy();
     }
 
+    public void useDiscardOldCachePolicy(){
+        decorator.useDiscardOldCachePolicy();
+    }
+  
     public void useDiscardLeastUsedCachePolicy(){
         decorator.useDiscardLeastUsedCachePolicy();
     }

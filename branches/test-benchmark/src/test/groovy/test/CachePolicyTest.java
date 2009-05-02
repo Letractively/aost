@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class CachePolicyTest extends TelluriumJavaTestCase {
     private static TelluriumIssueModuleDecorator tim;
     private static List<TestResult> results = new ArrayList<TestResult>();
-    private static int repeatCount = 5;
+    private static int repeatCount = 1;
 
     @BeforeClass
     public static void initUi() {
@@ -85,7 +85,7 @@ public class CachePolicyTest extends TelluriumJavaTestCase {
         return result;
     }
 
-//    @Ignore
+    @Ignore
     @Test
     public void testFlowByJQuerySelector(){
         tim.useJQuerySelector();
@@ -116,6 +116,23 @@ public class CachePolicyTest extends TelluriumJavaTestCase {
         storeResult("testFlowWithDiscardNewPolicy", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
+    @Test
+    public void testFlowWithDiscardOldPolicy(){
+        tim.useDiscardOldCachePolicy();
+        String policy = tim.getCurrentCachePolicy();
+        assertEquals("DiscardOldPolicy", policy);
+//        for(int i=0; i<repeatCount; i++){
+            //manual clean up the cache for the time being
+//            tim.cleanSelectorCache();
+            testFlow();
+            tim.showCacheUsage();
+ //       }
+        long accumulatedTime = tim.getAccumulatedTime();
+        String msg = "TestFlowWithDiscardOldPolic: jQuery selector, the accumulated time is " + accumulatedTime + " ms";
+        System.out.println(msg);
+        storeResult("testFlowWithDiscardOldPolicy", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
+    }
+    
     @Test
     public void testFlowWithDiscardLeastUsedPolicy(){
         tim.useDiscardLeastUsedCachePolicy();
