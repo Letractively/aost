@@ -76,6 +76,12 @@ public class TelluriumIssueModule extends DslContext{
         type "issueSearch.searchBox", issue
         click "issueSearch.searchButton"
     }
+    public void selectIssue(String issue){
+        clearText "issueSearch.searchBox"
+//        keyType "issueSearch.searchBox", issue
+        type "issueSearch.searchBox", issue
+//        click "issueSearch.searchButton"
+    }
 
     public void waitPageLod(){
         waitForPageToLoad 30000      

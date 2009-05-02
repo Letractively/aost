@@ -120,7 +120,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         storeResult("testFlowByDefaultXPath", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
-    @Ignore
+//    @Ignore
     @Test
     public void testFlowByJavascriptXPath(){
         tim.disableJQuerySelector();
@@ -179,7 +179,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         storeResult("testFlowByDefaultXPathNoGroup", tim.getStartTime(), tim.getEndTime(), tim.getAccumulatedTime(), repeatCount, "");
     }
 
-    @Ignore
+//    @Ignore
     @Test
     public void testFlowByJavascriptXPathNoGroup(){
         tim = new TelluriumIssueModuleDecorator(new TelluriumIssueModuleNoGroup());
