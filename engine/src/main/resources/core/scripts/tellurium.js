@@ -154,6 +154,33 @@ DiscardNewPolicy.prototype.myName = function(){
 
 var discardNewCachePolicy = new DiscardNewPolicy();
 
+function DiscardOldPolicy(){
+    this.name = "DiscardOldPolicy";
+};
+
+DiscardOldPolicy.prototype.applyPolicy = function (cache, key, data){
+    var keys = cache.keySet();
+    var toBeRemoved = keys[0];
+    var oldest = cache.get(toBeRemoved).timestamp;
+    for(var i=1; i<keys.length; i++){
+        var akey = keys[i];
+        var val = cache.get(akey).timestamp;
+        if(val < oldest){
+            toBeRemoved = akey;
+            oldest = val;
+        }
+    }
+
+    cache.remove(toBeRemoved);
+    cache.put(key, data);
+};
+
+DiscardOldPolicy.prototype.myName = function(){
+    return this.name;
+};
+
+var discardOldCachePolicy = new DiscardOldPolicy();
+
 //remove the least used select in the cache
 function DiscardLeastUsedPolicy (){
     this.name = "DiscardLeastUsedPolicy";
@@ -679,6 +706,10 @@ Tellurium.prototype.getCacheUsage = function(){
 
 Tellurium.prototype.useDiscardNewPolicy = function(){
     this.cachePolicy = discardNewCachePolicy;
+};
+
+Tellurium.prototype.useDiscardOldPolicy = function(){
+    this.cachePolicy = discardOldCachePolicy;
 };
 
 Tellurium.prototype.useDiscardLeastUsedPolicy = function(){

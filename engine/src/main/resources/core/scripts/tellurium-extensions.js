@@ -134,6 +134,10 @@ Selenium.prototype.doUseDiscardNewPolicy = function(){
     tellurium.useDiscardNewPolicy();
 };
 
+Selenium.prototype.doUseDiscardOldPolicy = function(){
+    tellurium.useDiscardOldPolicy();
+};
+
 Selenium.prototype.doUseDiscardLeastUsedPolicy = function(){
     tellurium.useDiscardLeastUsedPolicy();
 };
