@@ -181,6 +181,10 @@ abstract class BaseDslContext {
     extension.useDiscardNewCachePolicy()
   }
 
+  public void useDiscardOldCachePolicy(){
+    extension.useDiscardOldCachePolicy()
+  }
+
   public void useDiscardLeastUsedCachePolicy(){
     extension.useDiscardLeastUsedCachePolicy()
   }
