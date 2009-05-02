@@ -100,5 +100,8 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
         gsm.useDiscardNewCachePolicy();
         policy = gsm.getCurrentCachePolicy();
         assertEquals("DiscardNewPolicy", policy);
+        gsm.useDiscardOldCachePolicy();
+        policy = gsm.getCurrentCachePolicy();
+        assertEquals("DiscardOldPolicy", policy);
     }
 }
