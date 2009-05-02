@@ -13,7 +13,7 @@ public class TelluriumIssueModuleDecorator {
 
   public TelluriumIssueModuleDecorator(module) {
     decorator = new TimingDecorator(module);
-    List<String> whiteList = ["getIsssueTypes", "selectIssueType", "searchIssue", "getAdvancedIsssueTypes", "advancedSearchIssue", "clickMoreSearchTips", "getTableHeaderNum", "getHeaderNames", "getDataForColumn", "clickTable", "clickOnTableHeade", "selectDataLayout", "getIssueData"];
+    List<String> whiteList = ["getIsssueTypes", "selectIssueType", "searchIssue", "selectIssue", "getAdvancedIsssueTypes", "advancedSearchIssue", "clickMoreSearchTips", "getTableHeaderNum", "getHeaderNames", "getDataForColumn", "clickTable", "clickOnTableHeade", "selectDataLayout", "getIssueData"];
     decorator.setWhiteList(whiteList);
     decorator.defineUi();
   }
@@ -34,13 +34,17 @@ public class TelluriumIssueModuleDecorator {
     return decorator.getEndTime();
   }
 
-  public void testGetIssueTypes(int issueTypeIndex, String key){
+    public void testGetIssueTypes(int issueTypeIndex, String key){
         String[] ists = decorator.getIsssueTypes();
         decorator.selectIssueType(ists[issueTypeIndex]);
         decorator.searchIssue(key);
     }
 
-
+   public void testSelectIssueOnly(int issueTypeIndex, String key){
+     String[] ists = decorator.getIsssueTypes();
+     decorator.selectIssueType(ists[issueTypeIndex]);
+     decorator.selectIssue(key);
+   }
     public void testAdvancedSearch(int issueTypeIndex,String words, String reporters, String owners){
         String[] ists = decorator.getAdvancedIsssueTypes();
         decorator.selectIssueType(ists[issueTypeIndex]);
