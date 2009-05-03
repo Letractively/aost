@@ -51,7 +51,7 @@ HashMap.prototype.get = function( key ){
 
 HashMap.prototype.remove = function ( key )
 {
-    var result = null;
+//    var result = null;
     var elementIndex = this.findIt( key );
 
     if( elementIndex != -1 )
@@ -62,7 +62,7 @@ HashMap.prototype.remove = function ( key )
 //        this.valArray = this.valArray.removeAt(elementIndex);
     }
 
-    return ;
+//    return ;
 };
 
 HashMap.prototype.size = function()
@@ -118,12 +118,12 @@ function StringBuffer() {
     this.buffer = [];
 };
 
-StringBuffer.prototype.append = function append(string) {
+StringBuffer.prototype.append = function(string) {
     this.buffer.push(string);
     return this;
 };
 
-StringBuffer.prototype.toString = function toString() {
+StringBuffer.prototype.toString = function() {
     return this.buffer.join("");
 };
 
@@ -131,3 +131,77 @@ function trimString(str) {
     return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 };
 
+function PriorityQueue(){  
+    //assume the added data should include a key field
+    this.A = new Array();
+};
+
+PriorityQueue.prototype.size = function(){
+    return this.A.length;
+};
+
+PriorityQueue.prototype.parent = function(val){
+    return Math.floor((val-1)/2)
+};
+
+PriorityQueue.prototype.left = function(val){
+    return 2*val+1;
+};
+
+PriorityQueue.prototype.right = function(val){
+    return 2*val+2;
+};
+
+PriorityQueue.prototype.heapify = function(index){
+    var l = this.left(index);
+    var r = this.right(index);
+
+    var largest;
+    if(l < this.A.length && this.A[l].key > this.A[index].key){
+        largest = l;
+    }else{
+        largest = index;
+    }
+
+    if(r < this.A.length && this.A[r].key > this.A[largest].key){
+        largest = r;
+    }
+
+    if(largest != index){
+        //exchange A[index] and A[largest]
+        var tmp = this.A[index];
+        this.A[index] = this.A[largest];
+        this.A[largest] = tmp;
+        this.heapify(largest);
+    }
+};
+
+PriorityQueue.prototype.insert = function(elem){
+    this.A.push(elem);
+    var i = this.A.length-1;
+    while(i > 0 && this.A[this.parent(i)].key < elem.key){
+        this.A[i] = this.A[this.parent(i)];
+        i = this.parent(i);
+    }
+    this.A[i] = elem;
+};
+
+PriorityQueue.prototype.extractMax = function(){
+    if(this.A.length < 1)
+        return null;
+
+    var max = this.A[0];
+    var last = this.A.pop();
+    if(this.A.length > 0){
+        this.A[0] = last;
+        this.heapify(0);
+    }
+    
+    return max;
+};
+
+PriorityQueue.prototype.buildHeap = function(){
+    for(var i=Math.floor(this.A.length/2)-1; i>=0; i--){
+        this.heapify(i);
+    }
+};
