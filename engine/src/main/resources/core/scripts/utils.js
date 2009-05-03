@@ -141,7 +141,7 @@ PriorityQueue.prototype.size = function(){
 };
 
 PriorityQueue.prototype.parent = function(val){
-    return Math.floor((val-1)/2)
+    return Math.floor((val-1)/2);
 };
 
 PriorityQueue.prototype.left = function(val){
@@ -204,4 +204,74 @@ PriorityQueue.prototype.buildHeap = function(){
     for(var i=Math.floor(this.A.length/2)-1; i>=0; i--){
         this.heapify(i);
     }
+};
+
+
+//since Javascript associate array is actually an object with key as attribute
+//and no length information, need to manually trace the size
+function Hashtable(){
+    this.map = {};
+    this.length = 0;
+};
+
+Hashtable.prototype.exist = function(key){
+    return typeof this.map[key] !== "undefined";
+};
+
+Hashtable.prototype.put = function(key, val){
+    if(!this.exist(key)){
+        this.length++;
+    }
+    this.map[key] = val;
+};
+
+Hashtable.prototype.get = function(key){
+    if(this.exist(key)){
+        return this.map[key];
+    }
+
+    return null;
+};
+
+Hashtable.prototype.remove = function(key){
+    if(this.exist(key)){
+        this.length--;
+        delete this.map[key];
+    }
+};
+
+Hashtable.prototype.clear = function(){
+    this.map = {};
+    this.length = 0;
+};
+
+Hashtable.prototype.size = function(){
+    return this.length;
+};
+
+Hashtable.prototype.keySet = function(){
+    var keys = new Array();
+    for(var key in this.map){
+        keys.push(key);
+    }
+
+    return keys;
+};
+
+Hashtable.prototype.valSet = function(){
+    var vals = new Array();
+    for(var key in this.map){
+        vals.push(this.map[key]);
+    }
+
+    return vals;
+};
+
+Hashtable.prototype.showMe = function(){
+    var sb = "";
+    for(var key in this.map){
+        sb = sb + " [" + key + "]=" + this.map[key];
+    }
+
+    return sb;
 };
