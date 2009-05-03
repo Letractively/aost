@@ -246,7 +246,8 @@ function Tellurium (){
     this.cacheSelector = false;
 
     //cache for jQuery selectors
-    this.sCache = new HashMap();
+//    this.sCache = new HashMap();
+    this.sCache = new Hashtable();
     
     this.maxCacheSize = 50;
 
@@ -260,7 +261,8 @@ function Tellurium (){
 var tellurium = new Tellurium();
 
 Tellurium.prototype.cleanCache = function(){
-    this.sCache = new HashMap();
+//    this.sCache = new HashMap();
+    this.sCache.clear();
 };
 
 Tellurium.prototype.getCacheSize = function(){
