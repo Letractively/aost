@@ -1,0 +1,19 @@
+#summary The Cache Mechanism of jQuery Selector.
+#labels Phase-Design,Phase-Support
+
+= Introduction =
+
+jQuery selector improves the speed performance in IE. jQuery cache is a mechanism to further improve the speed by reusing the found DOM reference for a given selector. But you should keep in mind that the jQuery locating time may be just a small portion of the round trip time from Tellurium core to Selenium core, thus, the improvement of jQuery cache over regular jQuery selector has upper bound. However, jQuery cache is fundamental to Tellurium because it is the first step for us to create our own Tellurium Engine.
+
+= Performance =
+
+The test results are listed in the following table,
+
+|| *Locator* || *Group* || *NoGroup* || *Issue Search* || *Issue Select*||
+|| Ajaxslt XPath || 30.886 || 33.035 || 11.859 || 11.329 ||
+|| jQuery Selector || 18.756 || 20.355 || 7.941 || 7.181 ||
+|| Cached Selector || 16.975 || 18.882 || 6.821 || 5.215 ||
+
+http://tellurium-users.googlegroups.com/web/jQueryCachePerformance4IE.png?gda=YG0VRE8AAAD5mhXrH3CK0rVx4StVj0LYVJZmquJiAgwBG5vtpupPemH3_cwn9m4Fn1M7z_Uoi71BFv4kq5hHqoCvWumv4MuFnHMhSp_qzSgvndaTPyHVdA&gsc=TF3_DwsAAACSjCyx_KLYdV7x32Mb1NjE
+
+ 
