@@ -225,7 +225,7 @@ function Hashtable(){
 };
 
 Hashtable.prototype.exist = function(key){
-    return typeof this.map[key] !== "undefined";
+    return typeof this.map[key] != "undefined";
 };
 
 Hashtable.prototype.put = function(key, val){
