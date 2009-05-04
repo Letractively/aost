@@ -5,6 +5,77 @@
 
 jQuery selector improves the speed performance in IE. jQuery cache is a mechanism to further improve the speed by reusing the found DOM reference for a given selector. But you should keep in mind that the jQuery locating time may be just a small portion of the round trip time from Tellurium core to Selenium core, thus, the improvement of jQuery cache over regular jQuery selector has upper bound. However, jQuery cache is fundamental to Tellurium because it is the first step for us to create our own Tellurium Engine.
 
+= The Cache Mechanism =
+
+When you choose to use jQuery Cache mechanism, Tellurium core will pass the jQuery selector and a meta command to Tellurium Engine, which is embedded inside Selenium core at the current stage. The format is as follows taking the Tellurium issue searching UI as an example,
+
+{{{
+jquerycache={
+  "locator":"form[method=get]:has(#can, span:contains(for), input[type=text][name=q], input[value=Search][type=submit]) #can",
+  "optimized":"#can",
+  "uid":"issueSearch.issueType",
+  "cacheable":true,
+  "unique":true
+}
+}}}
+ 
+where _locator_ is the regular jQuery selector and _optimized_ is the optimized jQuery selector by the jQuery selector optimizer in Tellurium core. The _locator_ is used for child UI element to derive a partial jQuery selector from its parent. The _optimized_ will be used for actual DOM searching. 
+
+The rest three parameters are meta commands. _uid_ is the UID for the corresponding jQuery selector and _cacheable_ tells the Engine whether to cache the selector or not. The reason is that some UI element on the web is dynamic, for instance, the UI element inside a data grid, as a result, it may not be useful to cache the jQuery selector.
+
+The last one, _unique_, tells the Engine whether the jQuery selector expects multiple elements or not. This is very useful to handle the case that jQuery selector is expected to return one element, but actually returns multiple ones. In such a case, a Selenium Error will be thrown.
+
+On the Engine side the cache is defined as
+
+{{{
+    //global flag to decide whether to cache jQuery selectors
+    this.cacheSelector = false;
+
+    //cache for jQuery selectors
+    this.sCache = new Hashtable();
+    
+    this.maxCacheSize = 50;
+
+    this.cachePolicy = discardOldCachePolicy;
+}}}
+
+The cache system includes a global flag to decide whether to use the cache capability, a hashtable to store the cached data, a cache size limit, and a cache eviction policy once the cache is filled up. 
+
+The cached data structure is defined as 
+
+{{{
+//Cached Data, use uid as the key to reference it
+function CacheData(){
+    //jQuery selector associated with the DOM reference, which is a whole selector
+    //without optimization so that it is easier to find the reminding selector for its children
+    this.selector = null;
+    //optimized selector for actual DOM search
+    this.optimized = null;
+    //jQuery object for DOM reference
+    this.reference = null;
+    //number of reuse
+    this.count = 0;
+    //last use time
+    this.timestamp = Number(new Date());
+};
+}}}
+
+Tellurium Engine provides the following cache eviction policies:
+
+  * DiscardNewPolicy: discard new jQuery selector.
+  * DiscardOldPolicy: discard the oldest jQuery selector since the last update.
+  * DiscardLeastUsedPolicy: discard the least used jQuery selector.
+  * DiscardInvalidPolicy: discard the invalid jQuery selector first.
+
+It is important to know when the cached data becomes invalid. There are three ways here:
+  # Listen for page refresh event and invalidate the corresponding cache data
+  # Intercept Ajax response to decide when the web is update
+  # Validate the cached jQuery selector before using it.
+
+Right now, Tellurium Engine uses the 3rd mechanism to check if the cached data is valid or not. The first two mechanisms are still under development.
+
+Whenever Tellurium Core passes a locator to the Engine, the Engine will first look at the meta command _cacheable_. If this flag is true, it will first try to look up the DOM reference from the cache. If no cached DOM reference is available, do a fresh jQuery search and cache the DOM reference, otherwise, validate the cached DOM reference and use it directly. If the _cacheable_ flag is false, the Engine will look for the UI element's ancestor by UID and do a jQuery search starting from its ancestor if possible.   
+
 = Performance =
 
 The test results are listed in the following table,
@@ -15,5 +86,7 @@ The test results are listed in the following table,
 || Cached Selector || 16.975 || 18.882 || 6.821 || 5.215 ||
 
 http://tellurium-users.googlegroups.com/web/jQueryCachePerformance4IE.png?gda=YG0VRE8AAAD5mhXrH3CK0rVx4StVj0LYVJZmquJiAgwBG5vtpupPemH3_cwn9m4Fn1M7z_Uoi71BFv4kq5hHqoCvWumv4MuFnHMhSp_qzSgvndaTPyHVdA&gsc=TF3_DwsAAACSjCyx_KLYdV7x32Mb1NjE
+
+http://tellurium-users.googlegroups.com/web/jQueryCachePolicyPerformance4IE.png?gda=LDvGu1UAAAD5mhXrH3CK0rVx4StVj0LYQUEeNsp3TbIKkdXGThnPyu0KMCVt8pBgyksNWzxEYx1pD13jRZarYmmgVWF-bdp9c5ap1mUA98uo2agjH0hUOhrtYix3qocOGWUY90Yyf_g&gsc=6qDg_QsAAABfJKqj6CAYYfcNy0ZOBIOX
 
  
