@@ -21,7 +21,7 @@ jquerycache={
  
 where _locator_ is the regular jQuery selector and _optimized_ is the optimized jQuery selector by the jQuery selector optimizer in Tellurium core. The _locator_ is used for child UI element to derive a partial jQuery selector from its parent. The _optimized_ will be used for actual DOM searching. 
 
-The rest three parameters are meta commands. _uid_ is the UID for the corresponding jQuery selector and _cacheable_ tells the Engine whether to cache the selector or not. The reason is that some UI element on the web is dynamic, for instance, the UI element inside a data grid, as a result, it may not be useful to cache the jQuery selector.
+The rest three parameters are meta commands. _uid_ is the UID for the corresponding jQuery selector and _cacheable_ tells the Engine whether to cache the selector or not. The reason is that some UI element on the web is dynamic, for instance, the UI element inside a data grid. As a result, it may not be useful to cache the jQuery selector.
 
 The last one, _unique_, tells the Engine whether the jQuery selector expects multiple elements or not. This is very useful to handle the case that jQuery selector is expected to return one element, but actually returns multiple ones. In such a case, a Selenium Error will be thrown.
 
@@ -39,7 +39,7 @@ On the Engine side the cache is defined as
     this.cachePolicy = discardOldCachePolicy;
 }}}
 
-The cache system includes a global flag to decide whether to use the cache capability, a hashtable to store the cached data, a cache size limit, and a cache eviction policy once the cache is filled up. 
+The cache system includes a global flag to decide whether to use the cache capability, a hash table to store the cached data, a cache size limit, and a cache eviction policy once the cache is filled up. 
 
 The cached data structure is defined as 
 
@@ -63,18 +63,18 @@ function CacheData(){
 Tellurium Engine provides the following cache eviction policies:
 
   * DiscardNewPolicy: discard new jQuery selector.
-  * DiscardOldPolicy: discard the oldest jQuery selector since the last update.
+  * DiscardOldPolicy: discard the oldest jQuery selector measured by the last update time.
   * DiscardLeastUsedPolicy: discard the least used jQuery selector.
   * DiscardInvalidPolicy: discard the invalid jQuery selector first.
 
-It is important to know when the cached data becomes invalid. There are three ways here:
-  # Listen for page refresh event and invalidate the corresponding cache data
-  # Intercept Ajax response to decide when the web is update
+It is important to know when the cached data become invalid. There are three mechanisms we can utilize here:
+  # Listen for page refresh event and invalidate the cache data accordingly
+  # Intercept Ajax response to decide when the web is update and if the cache needs to be updated.
   # Validate the cached jQuery selector before using it.
 
 Right now, Tellurium Engine uses the 3rd mechanism to check if the cached data is valid or not. The first two mechanisms are still under development.
 
-Whenever Tellurium Core passes a locator to the Engine, the Engine will first look at the meta command _cacheable_. If this flag is true, it will first try to look up the DOM reference from the cache. If no cached DOM reference is available, do a fresh jQuery search and cache the DOM reference, otherwise, validate the cached DOM reference and use it directly. If the _cacheable_ flag is false, the Engine will look for the UI element's ancestor by UID and do a jQuery search starting from its ancestor if possible. 
+Whenever Tellurium Core passes a locator to the Engine, the Engine will first look at the meta command _cacheable_. If this flag is true, it will first try to look up the DOM reference from the cache. If no cached DOM reference is available, do a fresh jQuery search and cache the DOM reference, otherwise, validate the cached DOM reference and use it directly. If the _cacheable_ flag is false, the Engine will look for the UI element's ancestor by its UID and do a jQuery search starting from its ancestor if possible. 
 
 = jQuery Selector Cache APIs =
 
@@ -115,7 +115,7 @@ To see how the cache eviction policies will affect the test speed, we run tests 
 
 http://tellurium-users.googlegroups.com/web/jQueryCachePolicyPerformance4IE.png?gda=LDvGu1UAAAD5mhXrH3CK0rVx4StVj0LYQUEeNsp3TbIKkdXGThnPyu0KMCVt8pBgyksNWzxEYx1pD13jRZarYmmgVWF-bdp9c5ap1mUA98uo2agjH0hUOhrtYix3qocOGWUY90Yyf_g&gsc=6qDg_QsAAABfJKqj6CAYYfcNy0ZOBIOX
 
-It looks like the DiscardOldPolicy performance the best and thus, the Engine sets the default policy as DiscardOldPolicy. For different web tests, you may like to select different cache eviction policy to fit for your need.
+It looks like the DiscardOldPolicy cache policy performans the best and thus, the Engine sets the default policy as DiscardOldPolicy. For different web tests, you may like to select different cache eviction policy to fit for your need.
 
 == Speed Performance of jQuery Selector Cache ==
 
