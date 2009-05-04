@@ -45,7 +45,7 @@ class GoogleCodeHostingGroovyTestCase extends TelluriumGroovyTestCase {
         assertEquals("Example project labels:", label)
         
         int nrow = gch.getLabelTableRowNum()
-        assertEquals(3, nrow)
+        assertEquals(4, nrow)
 
         int ncolumn = gch.getLabelTableColumnNum()
         assertEquals(6, ncolumn)

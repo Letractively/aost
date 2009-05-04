@@ -45,13 +45,7 @@ class Accessor implements Configurable{
 	def boolean isChecked(String locator) {
         checkElement(locator)
 
-		if(dispatcher.isElementPresent(locator)){
-			return dispatcher.isChecked(locator)
-		}
-
-//		throw new RuntimeException("Check Box " + locator + " is not visible")
-      throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
-
+		return dispatcher.isChecked(locator)
 	}
 
     def boolean isDisabled(String locator){
@@ -118,138 +112,81 @@ class Accessor implements Configurable{
 	}
 
 	def String getText(String locator){
-//		String text = null
 
         checkElement(locator)
 
-    	if (dispatcher.isElementPresent(locator)){
-    		return dispatcher.getText(locator)
-    	}
-
-        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+    	return dispatcher.getText(locator)
 	}
 
 	def String getValue(String locator){
-//		String text = null
 
         checkElement(locator)
 
-        if (dispatcher.isElementPresent(locator)){
-    		return dispatcher.getValue(locator)
-    	}
-
-       throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        return dispatcher.getValue(locator)
 	}
 
     def String[] getSelectOptions(String locator){
         checkElement(locator)
 
-        if(dispatcher.isElementPresent(locator)){
-            return dispatcher.getSelectOptions(locator)
-        }
-
-        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        return dispatcher.getSelectOptions(locator)
     }
 
     String[] getSelectedLabels(String locator){
         checkElement(locator)
 
-        if(dispatcher.isElementPresent(locator)){
-            return dispatcher.getSelectedLabels(locator)
-        }
-
-        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        return dispatcher.getSelectedLabels(locator)
     }
 
     String getSelectedLabel(String locator){
         checkElement(locator)
 
-        if(dispatcher.isElementPresent(locator)){
-            return dispatcher.getSelectedLabel(locator)
-        }
-
-        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        return dispatcher.getSelectedLabel(locator)
     }
 
     String[] getSelectedValues(String locator){
         checkElement(locator)
 
-        if(dispatcher.isElementPresent(locator)){
-            return dispatcher.getSelectedValues(locator)
-        }
-
-        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        return dispatcher.getSelectedValues(locator)
     }
 
     String getSelectedValue(String locator){
         checkElement(locator)
 
-        if(dispatcher.isElementPresent(locator)){
-            return dispatcher.getSelectedValue(locator)
-        }
-
-        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        return dispatcher.getSelectedValue(locator)
     }
 
     String[] getSelectedIndexes(String locator){
         checkElement(locator)
 
-        if(dispatcher.isElementPresent(locator)){
-            return dispatcher.getSelectedIndexes(locator)
-        }
-
-        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        return dispatcher.getSelectedIndexes(locator)
     }
 
     String getSelectedIndex(String locator){
         checkElement(locator)
 
-        if(dispatcher.isElementPresent(locator)){
-            return dispatcher.getSelectedIndex(locator)
-        }
-
-        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        return dispatcher.getSelectedIndex(locator)
     }
 
     String[] getSelectedIds(String locator){
         checkElement(locator)
 
-        if(dispatcher.isElementPresent(locator)){
-            return dispatcher.getSelectedIds(locator)
-        }
-
-       throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        return dispatcher.getSelectedIds(locator)
     }
 
     String getSelectedId(String locator){
         checkElement(locator)
 
-        if(dispatcher.isElementPresent(locator)){
-            return dispatcher.getSelectedId(locator)
-        }
-
-        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        return dispatcher.getSelectedId(locator)
     }
 
     boolean isSomethingSelected(String locator){
         checkElement(locator)
 
-        if(dispatcher.isElementPresent(locator)){
-            return dispatcher.isSomethingSelected(locator)
-        }
-
-        throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        return dispatcher.isSomethingSelected(locator)
     }
 
     String getAttribute(String locator){
-/*        String value
-        try{
-            value = dispatcher.getAttribute(locator)
-        }catch(SeleniumException e){
-            value = null
-        }
 
-        return value*/
       return dispatcher.getAttribute(locator)
     }
 
@@ -375,14 +312,7 @@ class Accessor implements Configurable{
 
     String waitForText(String locator, int timeout){
        waitForElementPresent(locator, timeout)
-	   if(dispatcher.isElementPresent(locator)){
 
-//			dispatch.isTextPresent((new Integer(timeout)).toString())
-//            dispatcher.isTextPresent(timeout)
-
-            return dispatcher.getText(locator)
-		}
-
-		throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+       return dispatcher.getText(locator)
 	}
 }

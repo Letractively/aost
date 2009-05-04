@@ -90,7 +90,7 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
         gsm.useJQuerySelector();
         gsm.enableSelectorCache();
         String policy = gsm.getCurrentCachePolicy();
-        assertEquals("DiscardNewPolicy", policy);
+        assertEquals("DiscardOldPolicy", policy);
         gsm.useDiscardLeastUsedCachePolicy();
         policy = gsm.getCurrentCachePolicy();
         assertEquals("DiscardLeastUsedPolicy", policy);
