@@ -64,6 +64,19 @@ class EventHandler implements Configurable{
 
     protected void processEvents(String locator, String[] events, String[] defaultEvents, Closure action){
         checkElement(locator)
+
+        Event[] evns = alg.sort(events, defaultEvents)
+        evns.each {Event event ->
+          if (event == Event.ACTION)
+            action()
+          else
+            processingEvent(locator, event)
+        }
+    }
+
+/*    protected void processEvents(String locator, String[] events, String[] defaultEvents, Closure action){
+        checkElement(locator)
+
         if(dispatcher.isElementPresent(locator)){
             Event[] evns = alg.sort(events, defaultEvents)
             evns.each { Event event ->
@@ -77,6 +90,7 @@ class EventHandler implements Configurable{
           throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
         }
     }
+    */
 
     protected void checkElement(String locator){
 		if(checkElement && (!dispatcher.isElementPresent(locator))){
@@ -324,54 +338,35 @@ class EventHandler implements Configurable{
 
     def addSelection(String locator, String optionLocator){
         checkElement(locator)
-
-		if(dispatcher.isElementPresent(locator)){
-            if(extraEvent){
-                dispatcher.fireEvent(locator, "focus")
-            }
-            dispatcher.addSelection(locator, optionLocator)
-		}else{
-          throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        if(extraEvent){
+          dispatcher.fireEvent(locator, "focus")
         }
+
+        dispatcher.addSelection(locator, optionLocator)
     }
 
     def removeSelection(String locator,String optionLocator){
         checkElement(locator)
-
-		if(dispatcher.isElementPresent(locator)){
-            if(extraEvent){
-                dispatcher.fireEvent(locator, "focus")
-            }
-            dispatcher.removeSelection(locator, optionLocator)
-		}else{
-          throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        if (extraEvent) {
+          dispatcher.fireEvent(locator, "focus")
         }
+        dispatcher.removeSelection(locator, optionLocator)
     }
 
     def removeAllSelections(String locator){
         checkElement(locator)
-
-		if(dispatcher.isElementPresent(locator)){
-            if(extraEvent){
-                dispatcher.fireEvent(locator, "focus")
-            }
-            dispatcher.removeAllSelections(locator)
-		}else{
-          throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        if (extraEvent) {
+          dispatcher.fireEvent(locator, "focus")
         }
+        dispatcher.removeAllSelections(locator)
     }
 
     def submit(String locator){
         checkElement(locator)
-
-		if(dispatcher.isElementPresent(locator)){
-            if(extraEvent){
-                dispatcher.fireEvent(locator, "focus")
-            }
-            dispatcher.submit(locator)
-		}else{
-          throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+        if (extraEvent) {
+          dispatcher.fireEvent(locator, "focus")
         }
+        dispatcher.submit(locator)
     }
 
     void openWindow(String url, String windowID){

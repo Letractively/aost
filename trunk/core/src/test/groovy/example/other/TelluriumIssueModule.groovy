@@ -35,7 +35,7 @@ public class TelluriumIssueModule extends DslContext {
       UrlLink(uid: "all", clocator: [:])
     }
 
-    ui.Table(uid: "issueResultWithCache", noCacheForChildren: "false", clocator: [id: "resultstable", class: "results"], group: "true") {
+    ui.Table(uid: "issueResultWithCache", cacheable: "true", noCacheForChildren: "false", clocator: [id: "resultstable", class: "results"], group: "true") {
       //define table header
       //for the border column
       TextBox(uid: "header: 1", clocator: [:])
