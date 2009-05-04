@@ -7,6 +7,8 @@ jQuery selector improves the speed performance in IE. jQuery cache is a mechanis
 
 = The Cache Mechanism =
 
+== Tellurium Core Cache Support ==
+
 When you choose to use jQuery Cache mechanism, Tellurium core will pass the jQuery selector and a meta command to Tellurium Engine, which is embedded inside Selenium core at the current stage. The format is as follows taking the Tellurium issue searching UI as an example,
 
 {{{
@@ -24,6 +26,29 @@ where _locator_ is the regular jQuery selector and _optimized_ is the optimized 
 The rest three parameters are meta commands. _uid_ is the UID for the corresponding jQuery selector and _cacheable_ tells the Engine whether to cache the selector or not. The reason is that some UI element on the web is dynamic, for instance, the UI element inside a data grid. As a result, it may not be useful to cache the jQuery selector.
 
 The last one, _unique_, tells the Engine whether the jQuery selector expects multiple elements or not. This is very useful to handle the case that jQuery selector is expected to return one element, but actually returns multiple ones. In such a case, a Selenium Error will be thrown.
+
+To make the cache option configurable in tellurium UI module, Tellurium introduces an attribute _cacheable_ to UI object, which is set to be true by default. For a Container type object, it has an extra attribute _noCacheForChildren_ to control whether to cache its children. 
+
+One example UI module is defined as follows,
+
+{{{
+  ui.Table(uid: "issueResultWithCache", cacheable: "true", noCacheForChildren: "true", clocator: [id: "resultstable", class: "results"], group: "true") {
+ 
+       ......
+
+      //define table elements
+      //for the border column
+      TextBox(uid: "row: *, column: 1", clocator: [:])
+      TextBox(uid: "row: *, column: 8", clocator: [:])
+      TextBox(uid: "row: *, column: 10", clocator: [:])
+      //For the rest, just UrlLink
+      UrlLink(uid: "all", clocator: [:])
+    }
+}}}
+
+Where the _cacheable_ can overwrite the default value in the UI object and _noCacheForChildren _ in the above example will force Tellurium to not cache its children.
+
+== Tellurium Engine Cache Definition ==
 
 On the Engine side the cache is defined as
 
@@ -60,6 +85,8 @@ function CacheData(){
 };
 }}}
 
+== Cache Eviction Policies ==
+
 Tellurium Engine provides the following cache eviction policies:
 
   * DiscardNewPolicy: discard new jQuery selector.
@@ -67,12 +94,16 @@ Tellurium Engine provides the following cache eviction policies:
   * DiscardLeastUsedPolicy: discard the least used jQuery selector.
   * DiscardInvalidPolicy: discard the invalid jQuery selector first.
 
+== Cache Data Validation ==
+
 It is important to know when the cached data become invalid. There are three mechanisms we can utilize here:
   # Listen for page refresh event and invalidate the cache data accordingly
   # Intercept Ajax response to decide when the web is update and if the cache needs to be updated.
   # Validate the cached jQuery selector before using it.
 
 Right now, Tellurium Engine uses the 3rd mechanism to check if the cached data is valid or not. The first two mechanisms are still under development.
+
+== Cache Work Flow ==
 
 Whenever Tellurium Core passes a locator to the Engine, the Engine will first look at the meta command _cacheable_. If this flag is true, it will first try to look up the DOM reference from the cache. If no cached DOM reference is available, do a fresh jQuery search and cache the DOM reference, otherwise, validate the cached DOM reference and use it directly. If the _cacheable_ flag is false, the Engine will look for the UI element's ancestor by its UID and do a jQuery search starting from its ancestor if possible. 
 
