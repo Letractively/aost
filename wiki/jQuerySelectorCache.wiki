@@ -145,6 +145,6 @@ We can observe the following facts
   * The jQuery selector cache can improve the Tellurium Issue search speed up to 14% over the regular jQuery selector.
   * For the extreme case, the jQuery select cache can improve the speed by 27% over the regular jQuery selector.
   
-As we said in the introduction section, the jQuery DOM search may be only a small portion of selenium command round trip time, thus, the jQuery selector cache can improve the speed for that portion. For better speed improvement, please wait for our new Tellurium Engine.  
+As we said in the introduction section, the jQuery DOM search may be only a small portion of selenium command round trip time, thus, the speed improvement of jQuery selector cache is limited by that upper bound. However, jQuery selector cache is critical to Tellurium Engine and it lays the ground for Tellurium new test driving Engine. For further speed improvement, please wait for our new Tellurium Engine.  
 
  
