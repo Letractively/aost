@@ -109,6 +109,25 @@ Tellurium Core provides the following methods for jQuery Selector cache control,
 
 = Performance =
 
+== The Cache Eviction Policies ==
+
+To see how the cache eviction policies will affect the test speed, we run tests based on the Tellurium Issue Page using different cache policies. The results are illustrated in the following chart.
+
+http://tellurium-users.googlegroups.com/web/jQueryCachePolicyPerformance4IE.png?gda=LDvGu1UAAAD5mhXrH3CK0rVx4StVj0LYQUEeNsp3TbIKkdXGThnPyu0KMCVt8pBgyksNWzxEYx1pD13jRZarYmmgVWF-bdp9c5ap1mUA98uo2agjH0hUOhrtYix3qocOGWUY90Yyf_g&gsc=6qDg_QsAAABfJKqj6CAYYfcNy0ZOBIOX
+
+It looks like the DiscardOldPolicy performance the best and thus, the Engine sets the default policy as DiscardOldPolicy. For different web tests, you may like to select different cache eviction policy to fit for your need.
+
+== Speed Performance of jQuery Selector Cache ==
+
+We choose Ajaxslt, regular jQuery selector without cache, and jQuery selector with cache for speed comparison. The tests are categorized into four:
+
+  # Tellurium Issue page test with group locating
+  # Tellurium Issue page test without group locating
+  # Tellurium Issue search 
+  # Tellurium Issue select
+
+Where the last one is an extreme case to test the speed performance for reusable jQuery selectors. All tests are run in IE 6.
+
 The test results are listed in the following table,
 
 || *Locator* || *Group* || *NoGroup* || *Issue Search* || *Issue Select*||
@@ -116,8 +135,16 @@ The test results are listed in the following table,
 || jQuery Selector || 18.756 || 20.355 || 7.941 || 7.181 ||
 || Cached Selector || 16.975 || 18.882 || 6.821 || 5.215 ||
 
+And the results can be charted as follows,
+
 http://tellurium-users.googlegroups.com/web/jQueryCachePerformance4IE.png?gda=YG0VRE8AAAD5mhXrH3CK0rVx4StVj0LYVJZmquJiAgwBG5vtpupPemH3_cwn9m4Fn1M7z_Uoi71BFv4kq5hHqoCvWumv4MuFnHMhSp_qzSgvndaTPyHVdA&gsc=TF3_DwsAAACSjCyx_KLYdV7x32Mb1NjE
 
-http://tellurium-users.googlegroups.com/web/jQueryCachePolicyPerformance4IE.png?gda=LDvGu1UAAAD5mhXrH3CK0rVx4StVj0LYQUEeNsp3TbIKkdXGThnPyu0KMCVt8pBgyksNWzxEYx1pD13jRZarYmmgVWF-bdp9c5ap1mUA98uo2agjH0hUOhrtYix3qocOGWUY90Yyf_g&gsc=6qDg_QsAAABfJKqj6CAYYfcNy0ZOBIOX
+We can observe the following facts
+
+  * The jQuery selector cache can further improve the test speed
+  * The jQuery selector cache can improve the Tellurium Issue search speed up to 14% over the regular jQuery selector.
+  * For the extreme case, the jQuery select cache can improve the speed by 27% over the regular jQuery selector.
+  
+As we said in the introduction section, the jQuery DOM search may be only a small portion of selenium command round trip time, thus, the jQuery selector cache can improve the speed for that portion. For better speed improvement, please wait for our new Tellurium Engine.  
 
  
