@@ -126,15 +126,15 @@ function TeInput(){
 //Cached Data, use uid as the key to reference it
 function CacheData(){
     //jQuery selector associated with the DOM reference, which is a whole selector
-    //without optimization so that it is easier to the the reminding selector for its children
+    //without optimization so that it is easier to find the reminding selector for its children
     this.selector = null;
     //optimized selector for actual DOM search
     this.optimized = null;
     //jQuery object for DOM reference
     this.reference = null;
-
+    //number of reuse
     this.count = 0;
-
+    //last use time
     this.timestamp = Number(new Date());
 };
 
@@ -251,7 +251,7 @@ function Tellurium (){
     
     this.maxCacheSize = 50;
 
-    this.cachePolicy = discardNewCachePolicy;
+    this.cachePolicy = discardOldCachePolicy;
 
     this.currentWindow = null;
 
