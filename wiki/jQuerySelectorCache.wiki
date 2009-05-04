@@ -74,7 +74,38 @@ It is important to know when the cached data becomes invalid. There are three wa
 
 Right now, Tellurium Engine uses the 3rd mechanism to check if the cached data is valid or not. The first two mechanisms are still under development.
 
-Whenever Tellurium Core passes a locator to the Engine, the Engine will first look at the meta command _cacheable_. If this flag is true, it will first try to look up the DOM reference from the cache. If no cached DOM reference is available, do a fresh jQuery search and cache the DOM reference, otherwise, validate the cached DOM reference and use it directly. If the _cacheable_ flag is false, the Engine will look for the UI element's ancestor by UID and do a jQuery search starting from its ancestor if possible.   
+Whenever Tellurium Core passes a locator to the Engine, the Engine will first look at the meta command _cacheable_. If this flag is true, it will first try to look up the DOM reference from the cache. If no cached DOM reference is available, do a fresh jQuery search and cache the DOM reference, otherwise, validate the cached DOM reference and use it directly. If the _cacheable_ flag is false, the Engine will look for the UI element's ancestor by UID and do a jQuery search starting from its ancestor if possible. 
+
+= jQuery Selector Cache APIs =
+
+Tellurium Core provides the following methods for jQuery Selector cache control,
+
+  * _public void enableSelectorCache()_: Enable jQuery selector cache
+
+  * _public boolean disableSelectorCache()_: Disable jQuery selector cache
+
+  * _public boolean cleanSelectorCache()_: Cleanup the whole jQuery selector cache
+
+  * _public boolean getSelectorCacheState()_: Test if the cache is enabled or not in Engine
+
+  * _public void setCacheMaxSize(int size)_: Set the cache maximum size
+
+  * _public int getCacheSize()_: Get the cache current size
+
+  * _public int getCacheMaxSize()_: Get the cache maximum size 
+
+  * _public Map<String, Long> getCacheUsage()_: Get the cache usage
+
+  * _public void useDiscardNewCachePolicy()_: Use DiscardNewCachePolicy 
+
+  * _public void useDiscardOldCachePolicy()_: Use DiscardOldCachePolicy
+
+  * _public void useDiscardLeastUsedCachePolicy()_: Use DiscardLeastUsedCachePolicy
+
+  * _public void useDiscardInvalidCachePolicy()_: Use DiscardInvalidCachePolicy
+
+  * _public String getCurrentCachePolicy()_: Get the current cache policy
+ 
 
 = Performance =
 
