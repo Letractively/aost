@@ -159,7 +159,7 @@ We choose Ajaxslt, regular jQuery selector without cache, and jQuery selector wi
 
 Where the last one is an extreme case to test the speed performance for reusable jQuery selectors. All tests are run in IE 6.
 
-The test results are listed in the following table,
+The test results are listed in the following table (Unit: second),
 
 || *Locator* || *Group* || *NoGroup* || *Issue Search* || *Issue Select*||
 || Ajaxslt XPath || 30.886 || 33.035 || 11.859 || 11.329 ||
