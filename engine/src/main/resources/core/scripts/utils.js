@@ -131,9 +131,19 @@ function trimString(str) {
     return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 };
 
+function SimpleCompare(){
+
+};
+
+SimpleCompare.prototype.compare = function(a, b){
+    return a > b;    
+};
+
 function PriorityQueue(){  
-    //assume the added data should include a key field
+
     this.A = new Array();
+    //you define your own comparator and overwrite this for our data
+    this.comparator = new SimpleCompare();
 };
 
 PriorityQueue.prototype.size = function(){
@@ -157,13 +167,13 @@ PriorityQueue.prototype.heapify = function(index){
     var r = this.right(index);
 
     var largest;
-    if(l < this.A.length && this.A[l].key > this.A[index].key){
+    if(l < this.A.length && this.comparator.compare(this.A[l], this.A[index])){
         largest = l;
     }else{
         largest = index;
     }
 
-    if(r < this.A.length && this.A[r].key > this.A[largest].key){
+    if(r < this.A.length && this.comparator.compare(this.A[r], this.A[largest])){    
         largest = r;
     }
 
@@ -179,7 +189,7 @@ PriorityQueue.prototype.heapify = function(index){
 PriorityQueue.prototype.insert = function(elem){
     this.A.push(elem);
     var i = this.A.length-1;
-    while(i > 0 && this.A[this.parent(i)].key < elem.key){
+    while(i > 0 && this.comparator.compare(elem, this.A[this.parent(i)])){
         this.A[i] = this.A[this.parent(i)];
         i = this.parent(i);
     }
