@@ -92,48 +92,6 @@ abstract class BaseDslContext {
     return reader.read(out);
   }
 
-  /**
-   * Pass in a jquery selector, and a list of DOM properties to gather from each selected element.
-   * returns an arraylist of hashmaps with the requested properties as 'key->value'
-   */
-
-  def ArrayList getSelectorProperties(String jqSelector, List<String> props) {
-    JSONArray arr = new JSONArray();
-    arr.addAll(props);
-    String json = arr.toString();
-    String out = extension.getSelectorProperties(jqSelector, json);
-    return (ArrayList) parseSeleniumJSONReturnValue(out);
-  }
-
-  /**
-   * pass in a jquery selector, and get back an arraylist of inner text of all elements selected,
-   * one string per element
-   */
-
-  def ArrayList getSelectorText(String jqSelector) {
-    String out = extension.getSelectorText(jqSelector);
-    return (ArrayList) parseSeleniumJSONReturnValue(out);
-  }
-
-  /**
-   * pass in a jquery selector, and a javascript function as a string. the function will be called within
-   * the context of the wrapped set, ie, the wrapped set will be 'this' in the function.
-   * the function must return JSON
-   *
-   * NOTE: the function CAN NOT have any comments or you will get a syntax error inside of selenium core.
-   * NOTE: each line of the function must be terminated with a semicolin ';'
-   */
-
-  def Object getSelectorFunctionCall(String jqSelector, String fn) {
-      JSONArray arr = new JSONArray();
-      fn = "function(){" + fn + "}";
-      arr.add(fn.replaceAll("[\n\r]", ""));
-      String json = arr.toString();
-      String out = extension.getSelectorFunctionCall(jqSelector, json);
-
-      return parseSeleniumJSONReturnValue(out);
-  }
-
   public void enableSelectorCache(){
       this.exploreSelectorCache = true
       extension.enableSelectorCache()

@@ -6,13 +6,10 @@ import org.junit.Before;
 import org.junit.After;
 import static org.junit.Assert.*;
 import org.tellurium.test.java.TelluriumJavaTestCase;
-import org.tellurium.test.crosscut.TimingDecorator;
 import example.other.TelluriumIssueModule;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     private static TelluriumIssueModule tisp;

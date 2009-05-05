@@ -59,20 +59,12 @@ class SeleniumConnector implements Configurable {
           // CustomSelenium with the new argument CommandProcess
           // This is done to make sure that implementing the Selenium Grid does
         // not break the inheritance model for CustomSelenium.
-          customSelenium = new CustomSelenium (commandProcessor)
-          customSelenium.setUserExt(this.userExtension)
-          customSelenium.customClass = this.customClass 
-          customSelenium.startSeleniumSession(seleniumServerHost, port, browser, baseURL)
-          sel = customSelenium.getActiveSeleniumSession()
-//        sel = new DefaultSelenium("localhost", port, "*firefox /usr/lib64/firefox-3.0.1/firefox", baseURL)
-        //hardcoded firefox path if it cannot be found from system paht
-        //sel = new DefaultSelenium("localhost", port, "*chrome /usr/lib64/firefox-3.0/firefox", baseURL);
-        //make sure firefox-bin in your environment path
-//        sel = new DefaultSelenium("localhost", port, "*chrome /usr/lib64/firefox-2.0.0.8/firefox-bin", baseURL);
-          // No need to start the selenium session.
-//        sel.start()
+        customSelenium = new CustomSelenium (commandProcessor)
+        customSelenium.setUserExt(this.userExtension)
+        customSelenium.customClass = this.customClass
+        customSelenium.startSeleniumSession(seleniumServerHost, port, browser, baseURL)
+        sel = customSelenium.getActiveSeleniumSession()
 
-//        initSeleniumClient()
         SeleniumClient sc = new SeleniumClient()
         sc.client = customSelenium
 
@@ -90,16 +82,6 @@ class SeleniumConnector implements Configurable {
       sel.addLocationStrategy("jquerycache", '''
           return tellurium.locateElementByCacheAwareJQuerySelector(locator, inDocument, inWindow);
       ''')
-
-/*        sel.addLocationStrategy("jqueryall", '''
-          var found = jQuery(inDocument).find(locator);
-          if(found.length > 0){
-              return found;
-          } else {
-              return null;
-          }
-          ''')*/
-
     }
 
 	public void disconnectSeleniumServer() {
