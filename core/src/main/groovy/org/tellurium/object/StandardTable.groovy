@@ -130,7 +130,7 @@ class StandardTable extends Container{
             column = "ALL"
             tbody = "ALL"
 
-            return "${tbody}_${row}_${column}"
+            return "_${tbody}_${row}_${column}"
         }
 
         String[] parts = upperId.split(ID_SEPARATOR);
@@ -152,7 +152,7 @@ class StandardTable extends Container{
           tbody = "1"
         }
 
-        return "${tbody}_${row}_${column}"
+        return "_${tbody}_${row}_${column}"
      }
 
     public UiObject findHeaderUiObject(int index) {
@@ -186,18 +186,18 @@ class StandardTable extends Container{
   public UiObject findUiObject(int tbody, int row, int column) {
 
     //first check _i_j_k format
-    String key = "${tbody}_${row}_${column}"
+    String key = "_${tbody}_${row}_${column}"
     UiObject obj = components.get(key)
 
     //thirdly, check _i_j_ALL format
     if (obj == null) {
-      key = "${tbody}_${row}_ALL"
+      key = "_${tbody}_${row}_ALL"
       obj = components.get(key)
     }
 
     //then, check _i_ALL_K format
     if (obj == null) {
-      key = "${tbody}_ALL_${column}"
+      key = "_${tbody}_ALL_${column}"
       obj = components.get(key)
     }
 
@@ -209,7 +209,7 @@ class StandardTable extends Container{
 
     //check _i_ALL_ALL
     if(obj == null){
-      key = "${tbody}_ALL_ALL"
+      key = "_${tbody}_ALL_ALL"
       obj = components.get(key)
     }
 
@@ -718,7 +718,7 @@ class StandardTable extends Container{
     int cmax = 0
     this.components.each {key, component ->
 //      String[] parts = key.replaceFirst('_', '').split("_")
-      String[] parts = key.split("_")
+      String[] parts = key.replaceFirst('_', '').split("_")
       if (parts.length == 2) {
         if (parts[0] ==~ /[0-9]+/ && rmax < Integer.parseInt(parts[0])) {
           rmax = Integer.parseInt(parts[0])
@@ -745,7 +745,7 @@ class StandardTable extends Container{
     boolean includeMatchAll = false
 
     this.components.each {key, component ->
-      String[] parts = key.split("_")
+      String[] parts = key.replaceFirst('_', '').split("_")
       
       if (parts.length == 2) {
         String part0 = processField(parts[0], rmax)
