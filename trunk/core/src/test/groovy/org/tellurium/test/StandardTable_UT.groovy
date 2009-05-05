@@ -39,4 +39,19 @@ public class StandardTable_UT extends GroovyTestCase {
       result = table2.getTableLocator("table2[4][1]")
       assertEquals("/descendant-or-self::table[@id=\"normal\"]/tbody[1]/tr[4]/td[1]/descendant-or-self::input[@value=\"Search\" and @type=\"submit\"]", result)
   }
+
+   void testDump(){
+     StandardTable1 table = new StandardTable1()
+     table.defineUi()
+     
+     table.dump("table1")
+     table.dump("table2")
+     table.useJQuerySelector();
+     table.exploreSelectorCache = false
+     table.dump("table1")
+     table.dump("table2")
+     table.exploreSelectorCache = true
+     table.dump("table1")
+     table.dump("table2")
+   }
 }

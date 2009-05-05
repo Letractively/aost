@@ -509,7 +509,8 @@ class StandardTable extends Container{
         String loc = null
         if(context.isUseJQuerySelector()){
           //jquery eq() starts from zero, while xpath starts from one
-          loc = getCellSelector(ntbody-1, nrow-1, ncolumn-1)
+//          loc = getCellSelector(ntbody-1, nrow-1, ncolumn-1)
+          loc = getCellSelector(ntbody, nrow, ncolumn)
         }else{
           loc = getCellLocator(ntbody, nrow, ncolumn)
         }
@@ -561,7 +562,7 @@ class StandardTable extends Container{
         //append relative location, i.e., row, column to the locator
         String loc =  null
         if(context.isUseJQuerySelector()){
-          loc = getHeaderSelector(index-1)
+          loc = getHeaderSelector(index)
         }else{
           loc = getHeaderLocator(index)
         }
@@ -613,7 +614,7 @@ class StandardTable extends Container{
         //append relative location, i.e., row, column to the locator
         String loc =  null
         if(context.isUseJQuerySelector()){
-          loc = getFootSelector(index-1)
+          loc = getFootSelector(index)
         }else{
           loc = getFootLocator(index)
         }
@@ -658,5 +659,125 @@ class StandardTable extends Container{
         }
     }
 
+  @Override
+  public void traverse(WorkflowContext context) {
+    context.appendToUidList(context.getUid())
 
+    traverseHeader(context)
+    traverseElement(context)
+    traverseFoot(context)
+  }
+
+  protected void traverseHeader(WorkflowContext context){
+    if(this.hasHeader()){
+      int max = 0
+      this.headers.each {key, component ->
+        String aid = key.replaceFirst('_', '')
+        if (aid ==~ /[0-9]+/) {
+          context.pushUid("header[${aid}]")
+          component.traverse(context)
+          if (max < Integer.parseInt(aid))
+            max = Integer.parseInt(aid)
+        }
+      }
+
+      UiObject obj = this.headers.get("_ALL")
+      if(obj != null){
+        max++
+        context.pushUid("header[${max}]")
+        obj.traverse(context)
+      }
+    }
+  }
+
+  protected void traverseFoot(WorkflowContext context){
+    if(this.foots.size() > 0){
+      int max = 0
+      this.foots.each {key, component ->
+        String aid = key.replaceFirst('_', '')
+        if (aid ==~ /[0-9]+/) {
+          context.pushUid("foot[${aid}]")
+          component.traverse(context)
+          if (max < Integer.parseInt(aid))
+            max = Integer.parseInt(aid)
+        }
+      }
+
+      UiObject obj = this.foots.get("_ALL")
+      if(obj != null){
+        max++
+        context.pushUid("foot[${max}]")
+        obj.traverse(context)
+      }
+    }
+  }
+
+  protected void traverseElement(WorkflowContext context) {
+    int tmax = 0
+    int rmax = 0
+    int cmax = 0
+    this.components.each {key, component ->
+//      String[] parts = key.replaceFirst('_', '').split("_")
+      String[] parts = key.split("_")
+      if (parts.length == 2) {
+        if (parts[0] ==~ /[0-9]+/ && rmax < Integer.parseInt(parts[0])) {
+          rmax = Integer.parseInt(parts[0])
+        }
+        if (parts[1] ==~ /[0-9]+/ && cmax < Integer.parseInt(parts[1])) {
+          cmax = Integer.parseInt(parts[1])
+        }
+      } else {
+        if (parts[0] ==~ /[0-9]+/ && tmax < Integer.parseInt(parts[0])) {
+          tmax = Integer.parseInt(parts[0])
+        }
+        if (parts[1] ==~ /[0-9]+/ && rmax < Integer.parseInt(parts[1])) {
+          rmax = Integer.parseInt(parts[1])
+        }
+        if (parts[2] ==~ /[0-9]+/ && cmax < Integer.parseInt(parts[2])) {
+          cmax = Integer.parseInt(parts[2])
+        }
+      }
+    }
+
+    tmax++
+    rmax++
+    cmax++
+    boolean includeMatchAll = false
+
+    this.components.each {key, component ->
+      String[] parts = key.split("_")
+      
+      if (parts.length == 2) {
+        String part0 = processField(parts[0], rmax)
+        String part1 = processField(parts[1], cmax)
+        context.directPushUid("[${tmax}][${part0}][${part1}]")
+        if (ALL_MATCH.equalsIgnoreCase(parts[0]) && ALL_MATCH.equalsIgnoreCase(parts[1])) {
+          includeMatchAll = true
+        }
+      } else {
+        String part0 = processField(parts[0], tmax)
+        String part1 = processField(parts[1], rmax)
+        String part2 = processField(parts[2], cmax)
+        context.directPushUid("[${part0}][${part1}][${part2}]")
+        if (ALL_MATCH.equalsIgnoreCase(parts[0]) && ALL_MATCH.equalsIgnoreCase(parts[1]) && ALL_MATCH.equalsIgnoreCase(parts[2])) {
+          includeMatchAll = true
+        }
+      }
+
+      component.traverse(context)
+    }
+
+    if (!includeMatchAll) {
+      context.directPushUid("[${tmax}][${rmax}][${cmax}]")
+      defaultUi.traverse(context)
+    }
+  }
+
+  protected String processField(String field, int max){
+    if(field ==~ /[0-9]+/){
+      return field
+    }else{
+      return "${max}"
+    }
+  }
 }
