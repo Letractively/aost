@@ -8,13 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by IntelliJ IDEA.
- * User: jiafan1
- * Date: Feb 15, 2009
- * Time: 11:11:17 PM
- * To change this template use File | Settings | File Templates.
- */
+
 public class NewTestCase extends TelluriumJavaTestCase {
     private static NewUiModule app;
 
