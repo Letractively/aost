@@ -245,4 +245,15 @@ class TelluriumIssuesPage extends DslContext{
             waitForPageToLoad 30000
         }
     }
+
+    public String[] getAllText(){
+      return getAllTableCellText("issueResult")
+    }
+
+    public int getTableCellCount(){
+      String sel = getSelector("issueResult")
+      sel = sel + " > tbody > tr > td"
+
+      return getJQuerySelectorCount(sel)
+    }
 }
