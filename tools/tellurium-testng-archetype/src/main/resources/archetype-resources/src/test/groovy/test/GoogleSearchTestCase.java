@@ -42,16 +42,41 @@ public class GoogleSearchTestCase extends TelluriumTestNGTestCase{
    }
 
     @Test
-    public void testGoogleSearchWithSelector(){
+    public void testGoogleSearchWithSelector() {
         //turn on jQuery Selector
         gsm.useJQuerySelector();
+        gsm.disableSelectorCache();
         gsm.doGoogleSearch("tellurium Groovy Test");
-   }
+    }
 
-   @Test
-   public void testGoogleSearchFeelingLuckyWithSelector(){
+    @Test
+    public void testGoogleSearchFeelingLuckyWithSelector() {
         //turn on jQuery Selector
-         gsm.useJQuerySelector();
+        gsm.useJQuerySelector();
+        gsm.disableSelectorCache();
         gsm.doImFeelingLucky("tellurium automated Testing");
-   }
+    }
+
+    @Test
+    public void testGoogleSearchWithSelectorCached() {
+        //turn on jQuery Selector
+        gsm.useJQuerySelector();
+        gsm.enableSelectorCache();
+        gsm.setCacheMaxSize(10);
+        gsm.doGoogleSearch("tellurium Groovy Test");
+    }
+
+    @Test
+    public void testGoogleSearchFeelingLuckyWithSelectorCached() {
+        //turn on jQuery Selector
+        gsm.useJQuerySelector();
+        gsm.enableSelectorCache();
+        gsm.setCacheMaxSize(10);
+        gsm.doImFeelingLucky("tellurium automated Testing");
+    }
+
+    @Test
+    public void testDump(){
+        gsm.dump("Google");
+    }
 }
