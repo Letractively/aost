@@ -17,6 +17,8 @@ tellurium{
         //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
         runInternally = true
         //profile location
+//        profile = "/home/jiafan1/.mozilla/firefox/820j3ca9.default"
+//        profile = "/home/jiafan1/.mozilla/firefox/1my8aaxx.Default User2"
         profile = ""  
         //user-extension.js file
         userExtension = "target/test-classes/extension/user-extensions.js"

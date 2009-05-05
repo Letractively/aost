@@ -50,6 +50,14 @@ class Container extends UiObject {
       }
     }
 
+    public void traverse(WorkflowContext context){
+      context.appendToUidList(context.getUid())
+      components.each {key, component->
+        context.pushUid(key)
+        component.traverse(context)
+      }
+    }
+
     //walkTo through the object tree to until the UI object is found by the UID from the stack
     @Override
     public UiObject walkTo(WorkflowContext context, UiID uiid){

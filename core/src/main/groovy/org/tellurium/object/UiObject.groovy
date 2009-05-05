@@ -182,6 +182,11 @@ abstract class UiObject implements Cloneable{
       return this.cacheable
     }
 
+    public void traverse(WorkflowContext context){
+       context.appendToUidList(context.getUid())
+       context.popUid()
+    }
+
     //walkTo through the object tree to until the Ui Object is found by the UID
     public UiObject walkTo(WorkflowContext context, UiID uiid){
         //if not child listed, return itself

@@ -56,4 +56,11 @@ class UiID_UT extends GroovyTestCase{
         assertEquals("_1_2", result.pop())
         assertEquals(0, result.size())
     }
+
+    public void testGetUiID(){
+      String id ="main.table1[3][5].[1][2]"
+      UiID result = UiID.convertToUiID(id)
+      assertEquals(4, result.size())
+      assertEquals("main.table1._3_5._1_2", result.getUiID())
+    }
 }
