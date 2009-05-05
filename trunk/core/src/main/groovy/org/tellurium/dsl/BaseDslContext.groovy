@@ -1150,6 +1150,9 @@ abstract class BaseDslContext {
       println("-------------------------------------------------------")
       list.each {String key->
         String loc = getLocator(key)
+        context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+        walkToWithException(context, key)
+
         if(this.exploreJQuerySelector){
           loc = this.postProcessSelector(context, loc)
         }
