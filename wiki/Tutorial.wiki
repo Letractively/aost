@@ -328,3 +328,4 @@ The following toturial series could be found in [http://groups.google.com/group/
   * [http://code.google.com/p/aost/wiki/LogicalContainer Logical Container, empty != nothing]
   * [http://code.google.com/p/aost/wiki/HowTrUMPWorks How TrUMP works?]
   * [http://code.google.com/p/aost/wiki/TenMinutesToTellurium Ten Minutes to Tellurium]
+  * [http://code.google.com/p/aost/wiki/TheDumpMethod The Cool Dump() Method]
