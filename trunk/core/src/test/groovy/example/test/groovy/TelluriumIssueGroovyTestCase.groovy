@@ -19,16 +19,30 @@ public class TelluriumIssueGroovyTestCase extends TelluriumGroovyTestCase{
     setUpForClass()
     tisp = new TelluriumIssueModule();
     tisp.defineUi();
-    tisp.useJQuerySelector();
-    tisp.enableSelectorCache();
-    tisp.setCacheMaxSize(30);
   }
 
   public void tearDown() {
     tearDownForClass()
   }
 
-  public void testDump() {
+  public void testDumpWithXPath() {
+    tisp.disableJQuerySelector();
+    tisp.dump("issueSearch");
+    tisp.dump("issueSearch.searchButton");
+    tisp.dump("issueResult");
+  }
+
+  public void testDumpWithJQuerySelector() {
+    tisp.useJQuerySelector();
+    tisp.disableSelectorCache();
+    tisp.dump("issueSearch");
+    tisp.dump("issueSearch.searchButton");
+    tisp.dump("issueResult");
+  }
+
+  public void testDumpWithJQuerySelectorCacheEnabled() {
+    tisp.useJQuerySelector();
+    tisp.enableSelectorCache();
     tisp.dump("issueSearch");
     tisp.dump("issueSearch.searchButton");
     tisp.dump("issueResult");
