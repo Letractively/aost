@@ -1,6 +1,7 @@
 package org.tellurium.test
 
-import org.tellurium.util.PriorityQueue
+import org.tellurium.tool.PriorityQueue
+import org.tellurium.tool.PriorityQueue
 
 /**
  * 
