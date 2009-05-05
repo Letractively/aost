@@ -1145,10 +1145,17 @@ abstract class BaseDslContext {
       context.setNewUid(uid)
       obj.traverse(context)
       ArrayList list = context.getUidList()
+
+      println("\nDump locator information for " + uid)
+      println("-------------------------------------------------------")
       list.each {String key->
         String loc = getLocator(key)
+        if(this.exploreJQuerySelector){
+          loc = this.postProcessSelector(context, loc)
+        }
         println("${key}: ${loc}")          
       }
+      println("-------------------------------------------------------\n")
     }
   }
 }
