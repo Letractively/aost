@@ -1,4 +1,4 @@
-#summary The Cool Dump() Method.
+#summary Tellurium Tutorial Series: The Cool Dump() Method.
 #labels Phase-Design,Phase-Support
 
 = Introduction =
