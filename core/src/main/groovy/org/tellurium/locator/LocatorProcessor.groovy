@@ -29,9 +29,9 @@ class LocatorProcessor{
 
         }
 
-		if(locator instanceof JQLocator){
+/*		if(locator instanceof JQLocator){
 			  return JQueryLocateStrategy.locate(locator);
-		}
+		}*/
       
         //should not process here, let the walkTo() method to handle that since it can handle
         //the relationship along its path and it has more information about objects and its children

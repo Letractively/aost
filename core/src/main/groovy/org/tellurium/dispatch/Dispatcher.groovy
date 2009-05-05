@@ -12,7 +12,6 @@ class Dispatcher implements GroovyInterceptable, Configurable {
     private String filenamePattern = "Screenshot?.png"
 
     private SeleniumClient sc = new SeleniumClient()
-//    private SeleniumClient sc
 
     def invokeMethod(String name, args) {
         // If this class automatically throws MissingMethodException, then we only need the following one line
