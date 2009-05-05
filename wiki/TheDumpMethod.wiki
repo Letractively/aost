@@ -3,7 +3,7 @@
 
 = Introduction =
 
-Have you ever wondered if you could know the runtime locators Tellurium generates for your UI module before you actually run your test? This feature is now supported in Tellurium Core by the dump() method.  
+Have you ever wondered if you could know the runtime locators that Tellurium generates for your UI module before you actually run your test? This feature is now supported in Tellurium Core by the dump() method.  
 
 = The Cool Dump Method ==
 
@@ -13,15 +13,15 @@ The dump() method is defined in DslContext as follows,
 public void dump(String uid)
 }}}
  
-where the _uid_ is the UI object id you want to dump. This method will print out the UI object's and its descendants' runtime locators Tellurium Core generates for you. As a result, you could inspect the generated xpath or jQuery selector right after you define your UI module and do not need to dig this out from your runtime log. Isn't this cool?
+where the _uid_ is the UI object id you want to dump. This method will print out the UI object's and its descendants' runtime locators that Tellurium Core generates for you. As a result, you could inspect the generated xpath or jQuery selector right after you define your UI module and do not need to dig them out from your runtime log. Isn't this cool?
 
-Another cool feature of the dump() method does not require you to run the actual tests, that is to say, you do not need to run selenium server and do not need to launch the web browser. Just simply define the UI module and call the dump() method.
+Another cool feature of the dump() method is that it does not require you to run the actual tests, that is to say, you do not need to run selenium server and do not need to launch the web browser. Just simply define the UI module and then call the dump() method.
 
 = How does it work =
 
 When you call the dump() method, Tellurium core will first find the object you want to dump and then traverse the internal object tree to get all locators for the object itself and its descendants. 
 
-It would become more complicated if you have UI templates defined in the UI module. Tellurium Core will try to go over all templates and replace the matching all symbol for the template with an appropriate sample number so that you can see all different scenarios for your UI templates. With that has been said, Tellurium Table, Standard Table, and List  objects will handle the UI templates automatically for you.
+It would become more complicated if you have UI templates defined in your UI module. Tellurium Core will try to go over all templates and replace the matching-all symbol in the template with an appropriate sample number so that you can see all different scenarios for your UI templates. With that has been said, Tellurium Table, Standard Table, and List  objects will automatically handle the UI templates for you.
 
 = How to Use ==
 
@@ -66,7 +66,7 @@ public class TelluriumIssueModule extends DslContext {
 }
 }}}
  
-Then you can write the test cases calling the dump() method on the above UI module, for instance, we could define a Groovy test case as follows,
+Once the UI modules are define, you can write the test cases calling the dump() method on the above UI modules, for instance, we could define a Groovy test class as follows,
 
 {{{
 public class TelluriumIssueGroovyTestCase extends GroovyTestCase{
@@ -103,7 +103,7 @@ public class TelluriumIssueGroovyTestCase extends GroovyTestCase{
 }
 }}}
 
-Note that, you should not call enableSelectorCache() or disableSelectorCache() here because they need to talk to the Selenium server. As a result, we specify the _exploreSelectorCache_ attribute directly.
+Note that, you should not call enableSelectorCache() or disableSelectorCache() here, because they need to talk to the Selenium server. As a result, we specify the _exploreSelectorCache_ attribute directly.
 
 Run the tests and you would see the output as follows.
 
