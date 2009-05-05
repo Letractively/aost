@@ -7,6 +7,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 import java.util.List;
+import java.util.Set;
+import java.util.Map;
 
 /**
  * Test case for Tellurium project issues page
@@ -24,6 +26,7 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
     public static void initUi() {
         tisp = new TelluriumIssuesPage();
         tisp.defineUi();
+        tisp.disableJQuerySelector();
     }
 
     @Test
@@ -120,5 +123,53 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
         connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.selectDataLayout("Grid");
         tisp.selectDataLayout("List");
+    }
+
+    @Test
+    public void testGetCellCount(){
+        tisp.useJQuerySelector();
+        int count = tisp.getTableCellCount();
+        assertTrue(count > 0);
+        System.out.println("Cell size: " + count);
+        String[] details = tisp.getAllText();
+        assertNotNull(details);
+        assertEquals(details.length, count);
+    }
+
+    @Test
+    public void testSearchIssueTypes(){
+        tisp.useJQuerySelector();
+        tisp.enableSelectorCache();
+        tisp.setCacheMaxSize(10);
+        String[] ists = tisp.getIsssueTypes();
+        tisp.selectIssueType(ists[2]);
+        tisp.searchIssue("Alter");
+        showCacheUsage();
+    }
+
+    @Test
+    public void testDump(){
+        tisp.disableJQuerySelector();
+        tisp.dump("issueAdvancedSearch");
+
+        tisp.useJQuerySelector();
+        tisp.disableSelectorCache();
+        tisp.dump("issueAdvancedSearch");
+
+        tisp.useJQuerySelector();
+        tisp.enableSelectorCache();
+        tisp.dump("issueAdvancedSearch");
+    }
+
+    protected void showCacheUsage(){
+        int size = tisp.getCacheSize();
+        int maxSize = tisp.getCacheMaxSize();
+        System.out.println("Cache Size: " + size + ", Cache Max Size: " + maxSize);
+        System.out.println("Cache Usage: ");
+        Map<String, Long> usages = tisp.getCacheUsage();
+        Set<String> keys = usages.keySet();
+        for(String key: keys){
+            System.out.println("UID: " + key + ", Count: " + usages.get(key));
+        }
     }
 }
