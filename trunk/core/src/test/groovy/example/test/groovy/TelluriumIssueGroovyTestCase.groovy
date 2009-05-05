@@ -16,13 +16,13 @@ public class TelluriumIssueGroovyTestCase extends TelluriumGroovyTestCase{
   private TelluriumIssueModule tisp;
 
   public void setUp() {
-    setUpForClass()
+//    setUpForClass()
     tisp = new TelluriumIssueModule();
     tisp.defineUi();
   }
 
   public void tearDown() {
-    tearDownForClass()
+//    tearDownForClass()
   }
 
   public void testDumpWithXPath() {
@@ -34,7 +34,8 @@ public class TelluriumIssueGroovyTestCase extends TelluriumGroovyTestCase{
 
   public void testDumpWithJQuerySelector() {
     tisp.useJQuerySelector();
-    tisp.disableSelectorCache();
+//    tisp.disableSelectorCache();
+    tisp.exploreSelectorCache = false;
     tisp.dump("issueSearch");
     tisp.dump("issueSearch.searchButton");
     tisp.dump("issueResult");
@@ -42,7 +43,8 @@ public class TelluriumIssueGroovyTestCase extends TelluriumGroovyTestCase{
 
   public void testDumpWithJQuerySelectorCacheEnabled() {
     tisp.useJQuerySelector();
-    tisp.enableSelectorCache();
+//    tisp.enableSelectorCache();
+    tisp.exploreSelectorCache = true;
     tisp.dump("issueSearch");
     tisp.dump("issueSearch.searchButton");
     tisp.dump("issueResult");
