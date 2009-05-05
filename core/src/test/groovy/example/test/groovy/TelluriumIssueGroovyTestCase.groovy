@@ -11,18 +11,16 @@ import org.tellurium.test.groovy.TelluriumGroovyTestCase
  * 
  */
 
-public class TelluriumIssueGroovyTestCase extends TelluriumGroovyTestCase{
+public class TelluriumIssueGroovyTestCase extends GroovyTestCase{
 
   private TelluriumIssueModule tisp;
 
   public void setUp() {
-//    setUpForClass()
     tisp = new TelluriumIssueModule();
     tisp.defineUi();
   }
 
   public void tearDown() {
-//    tearDownForClass()
   }
 
   public void testDumpWithXPath() {
