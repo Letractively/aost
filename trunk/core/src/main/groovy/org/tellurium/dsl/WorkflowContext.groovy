@@ -1,10 +1,6 @@
 package org.tellurium.dsl
 
 import org.tellurium.locator.XPathProcessor
-import org.tellurium.object.UiObject
-import org.tellurium.object.Container
-import org.tellurium.locator.LocatorProcessor
-import org.tellurium.locator.GroupLocateStrategy
 import org.tellurium.locator.MetaCmd
 
 /**
@@ -20,6 +16,7 @@ class WorkflowContext {
   public static final String REFERENCE_LOCATOR = "Reference_Locator"
   public static final String OPTION_LOCATOR = "Option_Locator"
   public static final String MATCH_ALL = "*"
+  public static final String UID_LIST = "UID_List"
 
   private boolean useOption = false
   //Table's child object's tag will be duplicated with the current relative xpath provided by xpath
@@ -32,7 +29,82 @@ class WorkflowContext {
 
   private MetaCmd metaCmd = new MetaCmd();
 
+  private Stack<String> uiid = new Stack<String>();
+
   def context = [:]
+
+  public ArrayList getUidList(){
+    return context.get(UID_LIST)
+  }
+
+  public void setUidList(ArrayList list){
+    context.put(UID_LIST, list)
+  }
+
+  public ArrayList appendToUidList(String uid){
+    ArrayList list = context.get(UID_LIST)
+    if(list == null){
+      list = new ArrayList()
+    }
+    list.add(uid)
+    context.put(UID_LIST, list)
+
+    return list
+  }
+
+  public void setNewUid(String uid){
+    this.uiid = new Stack();
+    if(uid != null && (uid.trim().length() > 0)){
+      String[] ids = uid.split(UiID.ID_SEPARATOR)
+//      for(int i=ids.length-1; i>=0; i--){
+      for(int i=0; i<ids.length; i++){
+        String[] pp = preprocess(ids[i])
+        if(pp.length == 1){
+          this.uiid.push(pp[0])
+        }else{
+          this.uiid.push(pp[0])
+          this.uiid.push(pp[1])
+        }
+      }
+    }
+  }
+
+  public void pushUid(String uid){
+    this.uiid.push(uid)
+  }
+
+  //List or Table element should use this to push uid
+  public void directPushUid(String uid){
+    this.uiid.push("_" + uid)
+  }
+
+  public String popUid(){
+    return this.uiid.pop().replaceAll("_\\[","\\[")
+  }
+
+  public String peekUid(){
+    return this.uiid.peek().replaceAll("_\\[","\\[")
+  }
+
+  public String getUid(){
+//    return this.uiid.reverse().join(".").replaceAll("\\._\\[","\\[")
+    return this.uiid.join(".").replaceAll("\\._\\[","\\[")
+  }
+
+  protected String[] preprocess(String id) {
+    if (id != null && (id.trim().length() > 0) && id.contains("[")) {
+      if (id.startsWith("[")) {
+        return [id]
+      } else {
+        int index = id.indexOf("[")
+        String first = id.substring(0, index)
+        String second = "_" + id.substring(index)
+        return [first, second]
+      }
+    } else {
+      return [id]
+    }
+  }
 
   public void attachMetaCmd(String uid, boolean isCacheable, boolean unique){
     this.metaCmd.setProperty(MetaCmd.UID, uid)

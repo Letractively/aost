@@ -1,4 +1,4 @@
-package org.tellurium.test
+package org.tellurium.util
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)

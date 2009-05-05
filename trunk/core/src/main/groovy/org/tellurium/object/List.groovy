@@ -3,8 +3,6 @@ package org.tellurium.object
 import org.tellurium.access.Accessor
 import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
-import org.tellurium.locator.GroupLocateStrategy
-import org.tellurium.locator.LocatorProcessor
 
 /**
  * Abstracted class for a list, which holds one dimension array of Ui objects
@@ -150,6 +148,29 @@ class List extends Container {
         return index
     }
 
+    @Override
+    public void traverse(WorkflowContext context){
+      context.appendToUidList(context.getUid())
+
+      int max = 0
+      components.each {key, component->
+        String aid = key.replaceFirst('_', '')
+        if(aid ==~ /[0-9]+/){
+          context.directPushUid("[${aid}]")
+          component.traverse(context)
+          if(max < Integer.parseInt(aid))
+            max = Integer.parseInt(aid)
+        }
+      }
+
+      UiObject obj = components.get("_ALL")
+      max++;
+      if(obj == null)
+        obj = defaultUi
+      context.directPushUid("[${max}]")
+      obj.traverse(context)
+    }
+  
     //walkTo through the object tree to until the UI object is found by the UID from the stack
     @Override
     public UiObject walkTo(WorkflowContext context, UiID uiid) {

@@ -1137,4 +1137,18 @@ abstract class BaseDslContext {
     }
     return false
   }
+
+  public void dump(String uid){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    def obj = walkToWithException(context, uid)
+    if(obj != null){
+      context.setNewUid(uid)
+      obj.traverse(context)
+      ArrayList list = context.getUidList()
+      list.each {String key->
+        String loc = getLocator(key)
+        println("${key}: ${loc}")          
+      }
+    }
+  }
 }

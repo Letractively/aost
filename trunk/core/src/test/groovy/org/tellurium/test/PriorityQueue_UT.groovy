@@ -1,4 +1,7 @@
 package org.tellurium.test
+
+import org.tellurium.util.PriorityQueue
+
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)

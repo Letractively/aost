@@ -49,4 +49,9 @@ class UiID extends Stack<String>{
            return [id]
        }
     }
+
+    public String getUiID(){
+      
+      return this.reverse().join(".")
+    }
 }
