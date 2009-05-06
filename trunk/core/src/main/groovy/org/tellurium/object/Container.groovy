@@ -56,6 +56,7 @@ class Container extends UiObject {
         context.pushUid(key)
         component.traverse(context)
       }
+      context.popUid()
     }
 
     //walkTo through the object tree to until the UI object is found by the UID from the stack

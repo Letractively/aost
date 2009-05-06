@@ -666,6 +666,7 @@ class StandardTable extends Container{
     traverseHeader(context)
     traverseElement(context)
     traverseFoot(context)
+    context.popUid()
   }
 
   protected void traverseHeader(WorkflowContext context){
