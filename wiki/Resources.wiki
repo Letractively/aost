@@ -102,6 +102,8 @@
   * [http://www.tvidesign.co.uk/blog/improve-your-jquery-25-excellent-tips.aspx Improve your jQuery - 25 excellent tips]
   * [http://net.tutsplus.com/tutorials/javascript-ajax/everything-you-need-to-know-about-jquery-13/ What You Need to Know About jQuery 1.3]
   * [http://james.padolsey.com/javascript/things-you-may-not-know-about-jquery/ Things you may not know about jQuery]
+  * [http://marcgrabanski.com/article/jquery-google-maps-tutorial-basics jQuery and Google Maps Tutorial: #1 Basics]
+  * [http://marcgrabanski.com/category/javascript-jquery jQuery and Google Maps #2: AJAX Storing and Retrieving Points]
 
 === CSS ===
 
