@@ -189,6 +189,11 @@
                     <artifactId>gmaven-plugin</artifactId>
                     <version>1.0-rc-5</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jxr-plugin</artifactId>
+                    <version>2.1</version>
+                </plugin>                
             </plugins>
         </pluginManagement>
         
@@ -312,7 +317,24 @@
             </plugin>
         </plugins>
     </build>
-
+    <reporting>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report-only</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
     <properties>
         <java-version>1.5</java-version>
         <groovy-version>1.6.0</groovy-version>
