@@ -122,14 +122,14 @@ class List extends Container {
         if (separator == null || separator.trim().size() == 0)
             return deriveListLocator(index)
 
-        return "/" + separator + "[${index}]"
+        return "/descendant::" + separator + "[${index}]"
     }
 
     String getListSelector(int index) {
         if (separator == null || separator.trim().size() == 0)
             return deriveListSelector(index)
 
-        return " > " + separator + ":eq(${index-1})"
+        return " " + separator + ":eq(${index-1})"
     }
 
     int getListSize(Closure c) {
