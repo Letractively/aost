@@ -24,4 +24,11 @@ public class IncludeUiModule_UT extends GroovyTestCase {
     assertEquals("/descendant-or-self::div/descendant-or-self::div[@class=\"sub_cat_section\"]", result)
   }
 
+  public void testDump(){
+    IncludeUiModule module = new IncludeUiModule()
+    module.defineUi()
+    module.dump("Google")
+    module.dump("Test")
+  }
+
 }

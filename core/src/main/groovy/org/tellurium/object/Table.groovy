@@ -518,6 +518,7 @@ class Table extends Container {
 
     traverseHeader(context)
     traverseElement(context)
+    context.popUid()
   }
 
   protected void traverseHeader(WorkflowContext context){
