@@ -295,6 +295,17 @@ JQuery selector specific:
   * String[] getAllTableCellText(String uid)
   * String[] getAllTableCellTextForTbody(String uid, int index)
 
+==== Get List Size ====
+
+Locator agnostic:
+  * int getListSize(String uid)
+
+JQuery selector specific:
+  * getListSizeBySelector(String uid)
+
+XPath specific: 
+  * getListSizeByXPath(String uid)
+
 == jQuery Selector Cache Option ==
 
 Tellurium offers jQuery selector cache option to further improve the test speed. You can find more details in [http://code.google.com/p/aost/wiki/jQuerySelectorCache The Cache Mechanism of jQuery Selector].
