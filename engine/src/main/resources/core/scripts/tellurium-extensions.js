@@ -89,6 +89,20 @@ Selenium.prototype.isDisabled = function(locator) {
     return $e.attr('disabled');
 };
 
+Selenium.prototype.getListSize = function(locator, separators) {
+    var $e = jQuery(this.browserbot.findElement(locator));
+    if ($e == null || $e.length < 1)
+        Assert.fail("Cannot find Element for " + locator);
+
+    //TODO: this may not be correct for example we have div/div/div span/span, what would $(().find("div, span") return? 
+//    var jq = separators.join(",")
+
+    var list = $e.find(separators);
+
+    return list.length;
+};
+
+
 Selenium.prototype.getCacheState = function(){
 
     return tellurium.cacheSelector;
