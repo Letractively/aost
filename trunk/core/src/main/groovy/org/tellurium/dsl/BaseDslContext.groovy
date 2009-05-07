@@ -455,16 +455,6 @@ abstract class BaseDslContext {
     }
   }
 
-  //TODO: use jQuery Selector to optimize the list operations
-  int getListSize(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
-    org.tellurium.object.List obj = (org.tellurium.object.List) walkToWithException(context, uid)
-    return obj.getListSize() {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
-    }
-  }
-
   boolean isElementPresent(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
@@ -1034,7 +1024,36 @@ abstract class BaseDslContext {
     return getTableMaxTbodyNumByXPath(uid)
   }
 
-   def boolean isDisabledByXPath(String uid) {
+    int getListSizeByXPath(String uid) {
+      WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      org.tellurium.object.List obj = (org.tellurium.object.List) walkToWithException(context, uid)
+      return obj.getListSizeByXPath() {loc ->
+        String locator = locatorMapping(context, loc)
+        locator
+      }
+    }
+
+    //use jQuery Selector to optimize the list operations
+    int getListSizeByJQuerySelector(String uid) {
+      WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
+      org.tellurium.object.List obj = (org.tellurium.object.List) walkToWithException(context, uid)
+      context.updateUniqueForMetaCmd(false)
+      //force not to cache the selector
+      context.updateCacheableForMetaCmd(false)
+      return obj.getListSizeByJQuerySelector() {loc, separators ->
+        String locator = locatorMapping(context, loc)
+        return extension.getListSize(locator, separators)
+      }
+    }
+
+    int getListSize(String uid){
+        if(this.exploreJQuerySelector)
+          return getListSizeByJQuerySelector(uid)
+
+      return  getListSizeByXPath(uid)
+    }
+
+    def boolean isDisabledByXPath(String uid) {
       WorkflowContext context = WorkflowContext.getDefaultContext()
 
       return walkToWithException(context, uid).isDisabled() {loc ->

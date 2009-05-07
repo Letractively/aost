@@ -24,7 +24,8 @@ class NewGoogleBooksList extends DslContext{
         //It is fine to use container for Table if you really do not care what the rows and columns of the elements it holds
         ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"], group: "true"){
             TextBox(uid: "category", clocator: [tag: "div", class: "sub_cat_title"])
-            List(uid: "subcategory", clocator: [tag: "div", class: "sub_cat_section"], separator: "p"){
+ //           List(uid: "subcategory", clocator: [tag: "div", class: "sub_cat_section"], separator: "p"){
+            List(uid: "subcategory", separator: "p"){
                 UrlLink(uid: "all", clocator: [:])
             }
         }
@@ -43,7 +44,7 @@ class NewGoogleBooksList extends DslContext{
         getText "GoogleBooksList.category"
     }
 
-    int getListSize(){
+    int getBookListSize(){
         getListSize "GoogleBooksList.subcategory"
     }
 

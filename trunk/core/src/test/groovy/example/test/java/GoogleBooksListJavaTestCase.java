@@ -28,7 +28,7 @@ public class GoogleBooksListJavaTestCase extends TelluriumJavaTestCase {
         String category = ngbl.getCategory();
         assertEquals("Fiction", category);
 
-        int size = ngbl.getListSize();
+        int size = ngbl.getBookListSize();
 
         assertEquals(8, size);           
     }
