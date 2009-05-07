@@ -132,7 +132,7 @@ class List extends Container {
         return " " + separator + ":eq(${index-1})"
     }
 
-    int getListSize(Closure c) {
+    int getListSizeByXPath(Closure c) {
         int index = 1
 
         String rl = c(this.locator)
@@ -146,6 +146,19 @@ class List extends Container {
         index--
 
         return index
+    }
+
+    int getListSizeByJQuerySelector(Closure c){
+      java.util.List separators = new ArrayList()
+      if(separator != null  && this.separator.trim().size() > 0){
+        separators.add(this.separator)
+      }else{
+        this.components.each {key, component->
+          separators.add(component.locator.tag)
+        }
+      }
+
+      return c(this.locator, separators.join(","))
     }
 
     @Override

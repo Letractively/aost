@@ -118,6 +118,12 @@ class CustomSelenium extends DefaultSelenium {
 		return num;
 	}
 
+    def Number getListSize(String locator, String separators){
+      String[] arr = [locator, separators];
+      Number num = commandProcessor.getNumber("getListSize", arr);
+      return num;
+    }
+
     def boolean isDisabled(String locator){
       String[] arr = [locator];
       boolean result = commandProcessor.getBoolean("isDisabled", arr);

@@ -40,12 +40,23 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
         bookListTest(ngbl)
     }
 
+    void testGetListSize(){
+        NewGoogleBooksList ngbl = new NewGoogleBooksList()
+        ngbl.defineUi()
+        connectUrl("http://books.google.com/")
+        ngbl.disableJQuerySelector()
+        int xsize = ngbl.getBookListSize()
+        ngbl.useJQuerySelector()
+        int jsize = ngbl.getBookListSize()
+        assertEquals(jsize, xsize)
+    }
+
     void bookListTest(gbl){
         connectUrl("http://books.google.com/")
         String category = gbl.getCategory()
         assertEquals("Fiction", category)
 
-        int size = gbl.getListSize()
+        int size = gbl.getBookListSize()
 
         assertEquals(8, size)
 
