@@ -1,6 +1,7 @@
 package org.tellurium.test
 
 import org.tellurium.test.groovy.TelluriumGroovyTestCase
+import org.junit.Ignore
 
 /**
  * Test class to find the problem for issue 64
@@ -33,7 +34,7 @@ class Window_UT extends TelluriumGroovyTestCase {
 
 //        tw.selectChildWindow("windowName")
 //        tw.openWindow("windowName", "www.google.com")
-      tw.openWindow("moreInfo", "www.google.com")
+//      tw.openWindow("moreInfo", "www.google.com")
     }
 
 }
