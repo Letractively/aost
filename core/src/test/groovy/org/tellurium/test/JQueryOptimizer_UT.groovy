@@ -55,10 +55,10 @@ public class JQueryOptimizer_UT extends GroovyTestCase{
     String jqs = "jquery=form[method=get]:has(select#can, span:contains(for), input[type=text][name=q], input[value=Search][type=submit]) select#can"
     String result = jqp.optimize(jqs)
     assertNotNull(result)
-    assertEquals("jquery=select#can", result)
+    assertEquals("select#can", result)
     jqs = "jquery=table#resultstable > tbody > tr > td"
     result = jqp.optimize(jqs)
     assertNotNull(result)
-    assertEquals("jquery=table#resultstable > tbody > tr > td", result)
+    assertEquals("table#resultstable > tbody > tr > td", result)
   }
 }
