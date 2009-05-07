@@ -1034,7 +1034,7 @@ abstract class BaseDslContext {
     }
 
     //use jQuery Selector to optimize the list operations
-    int getListSizeByJQuerySelector(String uid) {
+    int getListSizeBySelector(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
       org.tellurium.object.List obj = (org.tellurium.object.List) walkToWithException(context, uid)
       context.updateUniqueForMetaCmd(false)
@@ -1048,7 +1048,7 @@ abstract class BaseDslContext {
 
     int getListSize(String uid){
         if(this.exploreJQuerySelector)
-          return getListSizeByJQuerySelector(uid)
+          return getListSizeBySelector(uid)
 
       return  getListSizeByXPath(uid)
     }
