@@ -19,15 +19,17 @@ import org.tellurium.object.UiObject
 class NewGoogleBooksList extends DslContext{
 
     public void defineUi() {
-        useJQuerySelector()
 
         //It is fine to use container for Table if you really do not care what the rows and columns of the elements it holds
-        ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"], group: "true"){
-            TextBox(uid: "category", clocator: [tag: "div", class: "sub_cat_title"])
- //           List(uid: "subcategory", clocator: [tag: "div", class: "sub_cat_section"], separator: "p"){
-            List(uid: "subcategory", separator: "p"){
+        ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"]) {
+          List(uid: "subcategory", clocator: [tag: "div", class: "sbr"], separator: "div") {
+            Container(uid: "all") {
+              TextBox(uid: "title", clocator: [tag: "div", class: "sub_cat_title"])
+              List(uid: "links", separator: "p") {
                 UrlLink(uid: "all", clocator: [:])
+              }
             }
+          }
         }
 
         ui.Container(uid: "NewGoogleBooksList", clocator: [tag: "table", id: "hp_table"], group: "true"){
@@ -41,11 +43,11 @@ class NewGoogleBooksList extends DslContext{
     }                                                                                               
 
     String getCategory(){
-        getText "GoogleBooksList.category"
+        getText "GoogleBooksList.subcategory[1].title"
     }
 
     int getBookListSize(){
-        getListSize "GoogleBooksList.subcategory"
+        getListSize "GoogleBooksList.subcategory[1].links"
     }
 
     public UiObject getUiObject(String uid){
@@ -53,17 +55,17 @@ class NewGoogleBooksList extends DslContext{
     }
 
     def getAllObjectInList(){
-        int size = getListSize()
+        int size = getBookListSize()
         List list = new ArrayList()
         for(int i=1; i<=size; i++){
-           list.add(getUiElement("GoogleBooksList.subcategory[${i}]"))
+           list.add(getUiElement("GoogleBooksList.subcategory[1].links[${i}]"))
         }
 
         return list
     }
 
     def clickList(int index){
-        click "GoogleBooksList.subcategory[${index}]"
+        click "GoogleBooksList.subcategory[1].links[${index}]"
         waitForPageToLoad 30000  
     }
 
@@ -73,8 +75,6 @@ class NewGoogleBooksList extends DslContext{
     }
 
     String getText(int index){
-        getText "GoogleBooksList.subcategory[${index}]"
+        getText "GoogleBooksList.subcategory[1].links[${index}]"
     }
-
-
 }

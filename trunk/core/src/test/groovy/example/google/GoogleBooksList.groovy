@@ -30,12 +30,12 @@ class GoogleBooksList extends DslContext{
         getText "GoogleBooksList.category"
     }
 
-    int getListSize(){
+    int getBookListSize(){
         getListSize "GoogleBooksList.subcategory"
     }
 
     def getAllObjectInList(){
-        int size = getListSize()
+        int size = getBookListSize()
         List list = new ArrayList()
         for(int i=1; i<=size; i++){
            list.add(getUiElement("GoogleBooksList.subcategory[${i}]"))
