@@ -5,7 +5,7 @@
 
 == Tellurium APIs ==
 
-Tellurium APIs include all methods defined in DslContext. The time here is in miliseconds unless specified. 
+Tellurium APIs include all methods defined in DslContext. The time here is in miliseconds unless otherwise specified. 
 
 === DSL Methods ===
 
