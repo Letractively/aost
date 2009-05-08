@@ -92,7 +92,7 @@
                         <configuration>
                             <tasks>
                                 <!--mkdir dir="${basedir}/target/classes"/-->
-                                <javac srcdir="${basedir}/src/main/groovy"
+                                <javac srcdir="${basedir}/src/main/groovy" debug="${javac-debug}"
                                     destdir="${basedir}/target/classes" classpathref="maven.compile.classpath">
                                     <include name="**/org/tellurium/test/java/*.java" />
                                 </javac>
