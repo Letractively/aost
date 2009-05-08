@@ -428,7 +428,8 @@ class Table extends Container {
       if(cobj.locator instanceof CompositeLocator){
         CompositeLocator cl = (CompositeLocator)cobj.locator
         if("td".equals(cl.tag) && cl.header == null){
-          context.setTableDuplicateTag()
+          //context.setTableDuplicateTag()
+          context.skipNext()
         }
       }
     }
@@ -480,7 +481,8 @@ class Table extends Container {
       if(cobj.locator instanceof CompositeLocator){
         CompositeLocator cl = (CompositeLocator)cobj.locator
         if("th".equals(cl.tag) && cl.header == null){
-          context.setTableDuplicateTag()
+//          context.setTableDuplicateTag()
+          context.skipNext()
         }
       }
     }
