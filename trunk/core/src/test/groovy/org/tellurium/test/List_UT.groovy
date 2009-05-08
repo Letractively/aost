@@ -49,4 +49,15 @@ class List_UT extends GroovyTestCase{
         assertEquals(context.getReferenceLocator(), "/descendant-or-self::div/descendant::table[3]/descendant-or-self::table/tbody/tr[child::td][1]/td[1]")
    }
 
+    public void testUserProfileList(){
+      UserProfileList upl = new UserProfileList();
+      upl.defineUi();
+      upl.useJQuerySelector();
+      upl.dump("MainPanel1")
+      upl.dump("MainPanel2")
+//      upl.getListSize("MainPanel1.UserProfileDetails")
+//      upl.getListSize("MainPanel2.UserProfileDetails")
+      println upl.getLocator("MainPanel2.UserProfileDetails[2].Name")
+    }
+
 }

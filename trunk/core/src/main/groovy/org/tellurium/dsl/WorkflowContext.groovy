@@ -17,6 +17,8 @@ class WorkflowContext {
   public static final String OPTION_LOCATOR = "Option_Locator"
   public static final String MATCH_ALL = "*"
   public static final String UID_LIST = "UID_List"
+  public static final String SKIP_NEXT = "SKIP_NEXT"
+  public static final String TRUE = "true"
 
   private boolean useOption = false
   //Table's child object's tag will be duplicated with the current relative xpath provided by xpath
@@ -32,6 +34,20 @@ class WorkflowContext {
   private Stack<String> uiid = new Stack<String>();
 
   def context = [:]
+
+  public void skipNext(){
+    context.put(SKIP_NEXT, "true");
+  }
+
+  protected boolean isSkipNext(){
+    String skip = context.get(SKIP_NEXT)
+    if(skip != null && TRUE.equalsIgnoreCase(skip)){
+      context.put(SKIP_NEXT, "false");
+      return true
+    }else{
+      return false
+    }
+  }
 
   public ArrayList getUidList(){
     return context.get(UID_LIST)
@@ -204,36 +220,37 @@ class WorkflowContext {
 
   //append the relative locator to the end of the reference locator
   public void appendReferenceLocator(String loc) {
+    if(!this.isSkipNext()){
+      if (loc == null || loc.trim().length() == 0)
+        return
 
-    if(loc == null || loc.trim().length() == 0)
-      return
-    
-    //matching all does not work for jQuery selector, skip it
-    if(this.exploreJQuerySelector && MATCH_ALL.equals(loc.trim())){
-      return
-    }
-
-    String rl = context.get(REFERENCE_LOCATOR)
-
-    if (rl == null) {
-      rl = loc
-    } else {
-      if(this.tableDuplicateTag){
-        this.tableDuplicateTag = false
-        //simply skip the next loc because position unquely defines the location
-      }else{
-        //regular routine 
-        rl = rl + loc
+      //matching all does not work for jQuery selector, skip it
+      if (this.exploreJQuerySelector && MATCH_ALL.equals(loc.trim())) {
+        return
       }
+
+      String rl = context.get(REFERENCE_LOCATOR)
+
+      if (rl == null) {
+        rl = loc
+      } else {
+        if (this.tableDuplicateTag) {
+          this.tableDuplicateTag = false
+          //simply skip the next loc because position unquely defines the location
+        } else {
+          //regular routine
+          rl = rl + loc
+        }
 /*      if (this.tableDuplicateTag && (!this.exploreJQuerySelector)) {
         this.tableDuplicateTag = false
         rl = this.checkTableDuplicateTag(rl, loc)
       } else {
         rl = rl + loc
       }*/
+      }
+
+      context.put(REFERENCE_LOCATOR, rl)
     }
-    
-    context.put(REFERENCE_LOCATOR, rl)
   }
 
   protected String checkTableDuplicateTag(String rl, String loc) {

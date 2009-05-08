@@ -50,6 +50,10 @@ class NewGoogleBooksList extends DslContext{
         getListSize "GoogleBooksList.subcategory[1].links"
     }
 
+    int getSubcategoryListSize(){
+        getListSize "GoogleBooksList.subcategory"
+    }
+
     public UiObject getUiObject(String uid){
         return getUiElement(uid)
     }

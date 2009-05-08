@@ -91,8 +91,11 @@ class List extends Container {
 
         String lastTag = last.locator.getTag()
         Integer lastOccur = tags.get(lastTag)
-
-        return "/descendant::${lastTag}[${lastOccur}]"
+        if(last.locator.direct){
+          return "/${lastTag}[${lastOccur}]"
+        }else{
+          return "/descendant::${lastTag}[${lastOccur}]"
+        }
     }
 
     protected String deriveListSelector(int index) {
@@ -114,8 +117,11 @@ class List extends Container {
 
         String lastTag = last.locator.getTag()
         Integer lastOccur = tags.get(lastTag)
-
-        return " ${lastTag}:eq(${lastOccur-1})"
+        if(last.locator.direct){
+          return " > ${lastTag}:eq(${lastOccur-1})"
+        }else{
+          return " ${lastTag}:eq(${lastOccur-1})"
+        }
     }
 
     String getListLocator(int index) {
@@ -182,6 +188,7 @@ class List extends Container {
         obj = defaultUi
       context.directPushUid("[${max}]")
       obj.traverse(context)
+      context.popUid()
     }
   
     //walkTo through the object tree to until the UI object is found by the UID from the stack
@@ -219,6 +226,11 @@ class List extends Container {
           loc = getListLocator(nindex)
         }
         context.appendReferenceLocator(loc)
+        //If the List does not have a separator
+        //tell WorkflowContext not to process the next object's locator because List has already added that
+        if(this.separator == null || this.separator.trim().length() == 0){
+          context.skipNext()
+        }
 
         if (uiid.size() < 1) {
             //not more child needs to be found
