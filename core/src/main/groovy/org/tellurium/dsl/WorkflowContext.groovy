@@ -220,7 +220,7 @@ class WorkflowContext {
 
   //append the relative locator to the end of the reference locator
   public void appendReferenceLocator(String loc) {
-    if(!this.isSkipNext()){
+    if (!this.isSkipNext()) {
       if (loc == null || loc.trim().length() == 0)
         return
 
@@ -234,19 +234,16 @@ class WorkflowContext {
       if (rl == null) {
         rl = loc
       } else {
-        if (this.tableDuplicateTag) {
-          this.tableDuplicateTag = false
-          //simply skip the next loc because position unquely defines the location
-        } else {
-          //regular routine
-          rl = rl + loc
-        }
-/*      if (this.tableDuplicateTag && (!this.exploreJQuerySelector)) {
-        this.tableDuplicateTag = false
-        rl = this.checkTableDuplicateTag(rl, loc)
-      } else {
         rl = rl + loc
-      }*/
+
+      /*        if (this.tableDuplicateTag) {
+        this.tableDuplicateTag = false
+        //simply skip the next loc because position unquely defines the location
+      } else {
+        //regular routine
+        rl = rl + loc
+      }
+      */
       }
 
       context.put(REFERENCE_LOCATOR, rl)
