@@ -305,7 +305,7 @@
                                     <pathelement location="target/classes"/>
                                     <pathelement location="target/test-classes"/>
                                 </path>
-                                <javac srcdir="src/test/groovy"
+                                <javac srcdir="src/test/groovy" debug="${dollar}{javac-debug}"
                                        destdir="target/test-classes" classpathref="testcompile.classpath">
                                     <include name="**/*.java"/>
                                 </javac>
@@ -342,6 +342,7 @@
         <groovy-version>1.6.0</groovy-version>
         <gmaven-version>1.0-rc-5</gmaven-version>
         <selenium-version>1.0-beta-2</selenium-version>
+        <javac-debug>true</javac-debug>
     </properties>
 
 </project>
