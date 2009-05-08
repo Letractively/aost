@@ -5,7 +5,7 @@
 
 == Tellurium APIs ==
 
-Tellurium APIs include all methods defined in DslContext.
+Tellurium APIs include all methods defined in DslContext. The time here is in miliseconds unless specified. 
 
 === DSL Methods ===
 
@@ -83,7 +83,7 @@ Here we list all the available methods that can be used as DSLs in DslContext an
 
   * {{{chooseOkOnNextConfirmation}}}: Undo the effect of calling chooseCancelOnNextConfirmation.  Note that Selenium's overridden window.confirm() function will normally automatically return true, as if the user had manually clicked OK, so you shouldn't need to use this command unless for some reason you need to change your mind prior to the next confirmation.  After any confirmation, Selenium will resume using the default behavior for future confirmations, automatically returning true (OK) unless/until you explicitly call chooseCancelOnNextConfirmation for each confirmation.
 
-  * {{{answerOnNextPrompt}}}: Instructs Selenium to return the specified answer string in response to the next JavaScript prompt [window.prompt()].
+  * {{{answerOnNextPrompt(String answer))}}}: Instructs Selenium to return the specified answer string in response to the next JavaScript prompt [window.prompt()].
 
   * {{{goBack}}}: Simulates the user clicking the "back" button on their browser.
 
