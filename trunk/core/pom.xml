@@ -75,7 +75,7 @@
                         <configuration>
                             <tasks>
                                 <mkdir dir="${basedir}/target/classes"/>
-                                <javac srcdir="${basedir}/src/main/groovy"
+                                <javac srcdir="${basedir}/src/main/groovy" debug="${javac-debug}"
                                     destdir="${basedir}/target/classes" classpathref="maven.plugin.classpath">
                                     <include name="**/org/tellurium/exception/*.java" />
                                     <include name="**/org/tellurium/tool/*.java" />
@@ -172,7 +172,7 @@
                         <goals>
                             <goal>attached</goal>
                         </goals-->
-                        <phase>assembly</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
@@ -206,4 +206,7 @@
             <version>2.0.10</version>
         </dependency>
 	</dependencies>
+    <properties>
+        <javac-debug>true</javac-debug>
+    </properties>
 </project>
