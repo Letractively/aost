@@ -31,7 +31,6 @@ public class TelluriumProjectPageTestNGTestCase extends TelluriumTestNGTestCase{
     @Test
     public void testTelluriumProjectPage(){
         app.clickDownloads();
-        app.clickWiki();
         app.clickIssues();
         app.clickSource();
     }
@@ -41,9 +40,5 @@ public class TelluriumProjectPageTestNGTestCase extends TelluriumTestNGTestCase{
         app.clickProjectHome();
         app.searchProject("tellurium");
     }
-
-    @Test
-    public void testSeachWeb(){
-        app.searchWeb("tellurium selenium dsl groovy");
-    }
+   
 }

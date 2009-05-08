@@ -30,8 +30,7 @@ class TelluriumProjectPage extends DslContext{
         //define the search module, which includes an input box, two search buttons
         ui.Form(uid: "search", clocator: [:], group: "true"){
             InputBox(uid: "searchbox", clocator: [name: "q"])
-            SubmitButton(uid: "search_project_button", clocator: [value: "Search Projects"])
-            SubmitButton(uid: "search_web_button", clocator: [value: "Search the Web"])
+            SubmitButton(uid: "search_project_button", clocator: [name : "projectsearch"])
         }
     }
 
@@ -66,9 +65,4 @@ class TelluriumProjectPage extends DslContext{
         waitForPageToLoad 30000
     }
 
-    def searchWeb(String input){
-        type "search.searchbox", input
-        click "search.search_web_button"
-        waitForPageToLoad 30000
-    }
 }
