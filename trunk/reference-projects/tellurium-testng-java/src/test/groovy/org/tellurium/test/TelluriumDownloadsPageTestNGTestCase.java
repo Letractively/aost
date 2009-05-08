@@ -34,30 +34,30 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
         connectUrl("http://code.google.com/p/aost/downloads/list");
         String[] allTypes = downloadPage.getAllDownloadTypes();
         assertNotNull(allTypes);
-        assertTrue(allTypes[1].contains("All Downloads"));
-        assertTrue(allTypes[2].contains("Featured Downloads"));
-        assertTrue(allTypes[3].contains("Current Downloads"));
-        assertTrue(allTypes[4].contains("Deprecated Downloads"));
+        assertTrue(allTypes[1].contains("All downloads"));
+        assertTrue(allTypes[2].contains("Featured downloads"));
+        assertTrue(allTypes[3].contains("Current downloads"));
+        assertTrue(allTypes[4].contains("Deprecated downloads"));
     }
 
     @Test
     public void testDefaultDownloadType(){
         connectUrl("http://code.google.com/p/aost/downloads/list");
         // Set download type with other value
-        downloadPage.selectDownloadType(" All Downloads");
+        downloadPage.selectDownloadType(" All downloads");
 
         // Navigate away from download page
         connectUrl("http://code.google.com/p/aost/downloads/list");
         String defaultType = downloadPage.getCurrentDownloadType();
         assertNotNull(defaultType);
-        assertTrue(defaultType.contains("Current Downloads"));
+        assertTrue(defaultType.contains("Current downloads"));
     }
 
     @Test
     public void testSearchByText(){
         connectUrl("http://code.google.com/p/aost/downloads/list");
         // Set download type with other value
-        downloadPage.selectDownloadType(" All Downloads");
+        downloadPage.selectDownloadType(" All downloads");
         downloadPage.searchDownload("tellurium-0.5.0");
 
         List<String> list = downloadPage.getDownloadFileNames();
@@ -70,7 +70,7 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
     public void testSearchByLabel(){
         connectUrl("http://code.google.com/p/aost/downloads/list");
         // Set download type with other value
-        downloadPage.selectDownloadType(" All Downloads");
+        downloadPage.selectDownloadType(" All downloads");
         downloadPage.searchDownload("label:Featured");
 
         List<String> list = downloadPage.getDownloadFileNames();

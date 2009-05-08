@@ -34,17 +34,17 @@ public class TelluriumWikiPageTestNGTestCase extends TelluriumTestNGTestCase{
         connectUrl("http://code.google.com/p/aost/w/list");
         String[] types = wikiPage.getSearchOptions();
         assertNotNull(types);
-        assertTrue(types[1].contains("All Wiki Pages"));
-        assertTrue(types[2].contains("Featured Pages"));
-        assertTrue(types[3].contains("Current Pages"));
-        assertTrue(types[4].contains("Deprecated Pages"));
+        assertTrue(types[1].contains("All wiki pages"));
+        assertTrue(types[2].contains("Featured pages"));
+        assertTrue(types[3].contains("Current pages"));
+        assertTrue(types[4].contains("Deprecated pages"));
     }
 
     @Test
     public void testSearchPageByText(){
         connectUrl("http://code.google.com/p/aost/w/list");
         // Set download type with other value
-        wikiPage.selectSearchType(" All Wiki Pages");
+        wikiPage.selectSearchType(" All wiki pages");
         wikiPage.searchForKeyword("Tutorial");
 
         List<String> list = wikiPage.getPageNames();
@@ -57,7 +57,7 @@ public class TelluriumWikiPageTestNGTestCase extends TelluriumTestNGTestCase{
     public void testSearchByLabel(){
         connectUrl("http://code.google.com/p/aost/w/list");
         // Set download type with other value
-        wikiPage.selectSearchType(" All Wiki Pages");
+        wikiPage.selectSearchType(" All wiki pages");
         wikiPage.searchForKeyword("label:Featured");
 
         List<String> list = wikiPage.getPageNames();
