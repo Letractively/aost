@@ -284,4 +284,23 @@ public class JQueryBuilder {
     
     return ""
   }
+
+    public static String convTrailer(String trailer){
+    if (trailer != null && trailer.trim().length() > 0){
+      String[] xps = XPathProcessor.splitXPath(trailer)
+      StringBuffer sb = new StringBuffer(LENGTH)
+
+      String tag = XPathProcessor.getTagFromXPath(xps[0])
+
+      sb.append(CHILD_SEPARATOR).append(tag)
+      for(int i=1; i<xps.length; i++){
+        tag = XPathProcessor.getTagFromXPath(xps[i])
+        sb.append(CHILD_SEPARATOR).append(tag)
+      }
+
+      return sb.toString()
+    }
+
+    return ""
+  }
 }
