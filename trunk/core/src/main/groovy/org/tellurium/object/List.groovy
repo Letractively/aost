@@ -91,11 +91,16 @@ class List extends Container {
 
         String lastTag = last.locator.getTag()
         Integer lastOccur = tags.get(lastTag)
-        if(last.locator.direct){
+      
+/*        if(last.locator.direct){
           return "/${lastTag}[${lastOccur}]"
         }else{
           return "/descendant::${lastTag}[${lastOccur}]"
         }
+*/
+
+        //force to be direct child (if consider List trailer)
+        return "/${lastTag}[${lastOccur}]"
     }
 
     protected String deriveListSelector(int index) {
@@ -117,41 +122,51 @@ class List extends Container {
 
         String lastTag = last.locator.getTag()
         Integer lastOccur = tags.get(lastTag)
-        if(last.locator.direct){
+
+/*        if(last.locator.direct){
           return " > ${lastTag}:eq(${lastOccur-1})"
         }else{
           return " ${lastTag}:eq(${lastOccur-1})"
         }
+*/
+
+        //force to be direct child (if consider List trailer)
+        return " > ${lastTag}:eq(${lastOccur-1})"
     }
 
     String getListLocator(int index) {
         if (separator == null || separator.trim().size() == 0)
             return deriveListLocator(index)
 
-        return "/descendant::" + separator + "[${index}]"
+//        return "/descendant::" + separator + "[${index}]"
+        return "/" + separator + "[${index}]"
     }
 
     String getListSelector(int index) {
         if (separator == null || separator.trim().size() == 0)
             return deriveListSelector(index)
 
-        return " " + separator + ":eq(${index-1})"
+//        return " " + separator + ":eq(${index-1})"
+        return " > " + separator + ":eq(${index-1})"
     }
 
     int getListSizeByXPath(Closure c) {
+
+      String rl = c(this.locator)
+
+      Accessor accessor = new Accessor()
+      if (this.separator != null && this.separator.trim().length() > 0) {
+        return accessor.getXpathCount(rl + "/${this.separator}")
+      } else {
         int index = 1
-
-        String rl = c(this.locator)
-
-        Accessor accessor = new Accessor()
-        //TODO: need to optimize this using jQuery selector
         while (accessor.isElementPresent(rl + getListLocator(index))) {
-            index++
+          index++
         }
 
         index--
 
         return index
+      }
     }
 
     int getListSizeByJQuerySelector(Closure c){
