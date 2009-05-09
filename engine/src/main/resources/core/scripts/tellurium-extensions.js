@@ -97,7 +97,8 @@ Selenium.prototype.getListSize = function(locator, separators) {
     //TODO: this may not be correct for example we have div/div/div span/span, what would $(().find("div, span") return? 
 //    var jq = separators.join(",")
 
-    var list = $e.find(separators);
+//    var list = $e.find(separators);
+    var list = $e.children(separators);
 
     return list.length;
 };
