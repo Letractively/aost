@@ -9,11 +9,56 @@ Haroon Rasheed (haroonzone@gmail.com)
 Mikhail Koryak (koryak@gmail.com)
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-The Tellurium Automated Testing Framework (Tellurium), formally known as AOST, is a test framework built on top of the Selenium test framework and it abstracts
-UI components to Java objects and does object to locator mapping (OLM) automatically at run time so that you can define UI objects simply by their attributes
-and write your selenium tests just like writing Java tests. Since the framework constructs the actual locator automatically at run-time and it uses the Group
-Locating Concept (GLC) to exploit information inside a collection of UI components to help finding their locators, Tellurium is more robust, flexible, modularized,
-easier to maintain and refactor compared with the locator-based Selenium test framework.
+The Tellurium Automated Testing Framework (Tellurium) is a UI module-based automated testing framework for web
+applications. The UI module is a collection of UI elements you group together. Usually, the UI module represents
+a composite UI object in the format of nested basic UI elements. For example, the Google search UI module can be
+expressed as follows,
+
+ui.Container(uid: "GoogleSearchModule", clocator: [tag: "td"], group: "true"){
+ InputBox(uid: "Input", clocator: [title: "Google Search"])
+ SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+ SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
+}
+
+The UI module makes it possible to build UI elements' locators at run time. The framework does Object to Locator
+Mapping (OLM) automatically at run time so that you can define UI objects simply by their attributes, i.e., Composite
+Locators denoted by the "clocator". Furthermore, Tellurium uses the Group Locating Concept (GLC) to exploit
+information inside a collection of UI components to help finding their locators and the GLC is denoted by the "group"
+attribute in the above UI module.
+
+The Tellurium framework defines a new Domain Specific Language (DSL) for web testing. Still take the above Google
+search module as an example, you can use the following DSLs to do a Google search,
+
+type "GoogleSearchModule.Input", "Tellurium test"
+click "GoogleSearchModule.Search"
+waitForPageToLoad 30000
+
+One very powerful feature of Tellurium is that you can use UI templates to represent many identical UI elements or
+dynamic size of different UI elements at runtime, which are extremely useful to test dynamic web such as a data grid.
+One typical data grid example is as follows,
+
+ui.Table(uid: "table", clocator: [:]){
+ InputBox(uid: "row: 1, column: 1", clocator: [:])
+ Selector(uid: "row: *, column: 2", clocator: [:])
+ UrlLink(uid: "row: 3, column: *", clocator: [:])
+ TextBox(uid: "all", clocator: [:])
+}
+
+Data Driven Testing is another important feature of Tellurium. You can define data format in an expressive way.
+In you data file, you can specify which test you want to run, the input parameters, and expected results. Tellurium
+automatically binds the input data to variables defined in your test script and run the tests you specified in the
+input file. The test results will be recorded by a test listener and output in different formats, for example,
+an XML file.
+
+Tellurium UI Model Plugin (TrUMP) is a Firefox plugin to automatically create UI modules for users. In addition,
+Tellurium provides you the capability to composite UI objects into a Tellurium widget object. You can pack Tellurium
+widgets as a jar file and then use a Tellurium widget just like a single tellurium UI object once you include the
+jar file. As a result, Tellurium is robust, expressive, flexible, and reusable.
+
+The Tellurium framework is written in Groovy and Java. The test cases can be written in Java, Groovy, or pure DSL.
+You do not really need to know Groovy before you use it because the UI module definition and actions on UIs are
+written in DSLs and the rest could be written in Java syntax. Tellurium also supports JUnit and TestNG. Detailed
+Introduction, User Guide, Frequent Asked Questions, and illustrative examples are provided.
 
 We create reference projects to demonstrate how to use Tellurium for your own testing project. In the reference projects, we use Tellurium project web site as
 an example to illustrate how to write real-world Tellurium tests.
@@ -80,17 +125,29 @@ http://code.google.com/p/aost/
 Tellurium User Group
 http://groups.google.com/group/tellurium-users
 
+Tellurium User Guide
+http://code.google.com/p/aost/wiki/UserGuide
+
 Tellurium Introduction
 http://code.google.com/p/aost/wiki/Introduction
 
 Tellurium Tutorial
 http://code.google.com/p/aost/wiki/Tutorial
 
+Tellurium UI Model Plugin (TrUMP) 0.1.0
+http://code.google.com/p/aost/wiki/TrUMP
+
+Tellurium Maven Guide
+http://code.google.com/p/aost/wiki/MavenHowTo
+
+Tellurium jQuery Selector Guide
+http://code.google.com/p/aost/wiki/TelluriumjQuerySelector
+
+Reference Project Guide
+http://code.google.com/p/aost/wiki/ReferenceProjectGuide
+
 Tellurium Data Driven Testing
 http://code.google.com/p/aost/wiki/DataDrivenTesting
 
 Tellurium FAQs
 http://code.google.com/p/aost/wiki/FAQ
-
-Guide for the Reference Project
-http://code.google.com/p/aost/wiki/ReferenceProjectGuide
