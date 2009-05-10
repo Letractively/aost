@@ -21,11 +21,17 @@ The run the ant tasks for
 
   ant compile-test
 
-To run dsl in Linux (first run ant compile-test before run the dsl tests)
+
+4) To run dsl in Linux (first run ant compile-test before run the dsl tests)
 
 ./rundsl.sh src/test/resources/example/dsl/DataDrivenGoogleBookListCodeHosting.dsl 
 
 ./rundsl.sh src/test/resources/example/dsl/GoogleStartPage.dsl 
 
-./rundsl.sh src/test/resources/example/dsl/DataDrivenGoogleStartPage.dsl 
+./rundsl.sh src/test/resources/example/dsl/DataDrivenGoogleStartPage.dsl
+
+5) Use Maven, you need to run
+
+mvn test
+
 
