@@ -2,6 +2,7 @@ package org.tellurium.test;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
 import org.tellurium.tool.UiDataReader;
 
@@ -36,6 +37,6 @@ public class UiDataReader_UT {
             assertEquals(3, map.size());
         }
         map = reader.readData(br);
-        assertEquals(0, map.size());
+        assertNull(map);
     }
 }

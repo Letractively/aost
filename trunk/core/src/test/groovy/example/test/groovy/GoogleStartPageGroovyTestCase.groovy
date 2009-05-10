@@ -4,21 +4,28 @@ import example.google.GoogleStartPage
 import example.google.NewGoogleStartPage
 import org.tellurium.test.groovy.TelluriumGroovyTestCase
 import org.tellurium.test.crosscut.TimingDecorator
+import org.junit.Test
+import org.junit.BeforeClass
+import org.junit.AfterClass
+import org.junit.Ignore
 
 class GoogleStartPageGroovyTestCase extends TelluriumGroovyTestCase{
 
     public void initUi() {
     }
 
+//    @BeforeClass
     public void setUp(){
-        setCustomConfig(true, 5555, "*chrome", true, null)
+//        setCustomConfig(true, 5555, "*chrome", true, null)
         setUpForClass()
     }
 
+//    @AfterClass
     public void tearDown(){
         tearDownForClass()
     }
 
+    @Test
     void testTypeGoogle(){
         //test google start page using composite locators
         NewGoogleStartPage ngsp = new NewGoogleStartPage()
@@ -29,6 +36,9 @@ class GoogleStartPageGroovyTestCase extends TelluriumGroovyTestCase{
         ngsp.doImFeelingLucky("tellurium selenium groovy dsl")
     }
 
+/*
+    @Ignore
+    @Test
     void testTimingDecorator(){
       //test google start page using Selenium way, i.e., absolute xpath
       TimingDecorator decorator = new TimingDecorator( new GoogleStartPage())
@@ -38,9 +48,10 @@ class GoogleStartPageGroovyTestCase extends TelluriumGroovyTestCase{
       decorator.type("tellurium groovy selenium test")
       decorator.storeResult("testTimingDecorator", 1, "Test")
       decorator.outputResult()
-
     }
+*/
 
+/*    @Test
     //test the dynamically added event "click"
     void testClick(){
          //test google start page using composite locators
@@ -48,5 +59,5 @@ class GoogleStartPageGroovyTestCase extends TelluriumGroovyTestCase{
         ngsp.defineUi()
         connectUrl("http://www.google.com")
         ngsp.testClick()       
-    }
+    }*/
 }

@@ -4,6 +4,7 @@ import example.other.DogselfDemosPage;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.Ignore;
 import org.tellurium.test.java.TelluriumJavaTestCase;
 import static org.testng.Assert.assertTrue;
 
@@ -33,6 +34,7 @@ public class DogselfDemosPageJavaTestCase extends TelluriumJavaTestCase {
         assertTrue(attr != null, "the disabled attribute must exist, it is:" + attr);
     }
 
+    @Ignore
     @Test
     public void testNoDisabledAttrValue() {
         String attr = d.getDisabledNoAttrValue();

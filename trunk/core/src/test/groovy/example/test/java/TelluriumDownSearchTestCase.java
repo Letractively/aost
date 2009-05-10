@@ -4,6 +4,7 @@ import org.tellurium.test.java.TelluriumJavaTestCase;
 import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Ignore;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import example.other.TelluriumDownSearchModule;
@@ -33,6 +34,7 @@ public class TelluriumDownSearchTestCase extends TelluriumJavaTestCase {
         app.searchDownload("TrUMP");
     }
 
+    @Ignore
     @Test
     public void testHelp(){
         app.clickHelp();    
