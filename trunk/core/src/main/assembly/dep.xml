@@ -10,8 +10,8 @@
             <unpack>true</unpack>
             <scope>runtime</scope>
             <excludes>
-                <exclude>junit:junit</exclude>
-                <exclude>org.testng:testng</exclude>
+                <!--exclude>junit:junit</exclude>
+                <exclude>org.testng:testng</exclude-->
                 <exclude>org.apache.ant:ant</exclude>
                 <exclude>org.apache.ant:ant-launcher</exclude>
                 <exclude>gmaven*.jar</exclude>
