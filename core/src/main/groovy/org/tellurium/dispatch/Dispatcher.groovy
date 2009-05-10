@@ -19,7 +19,7 @@ class Dispatcher implements GroovyInterceptable, Configurable {
 
         //sometimes, the selenium client is not singleton ??
         //here reset selenium client to use the new singleton instance which has the client set
-        if (sc.client.getActiveSeleniumSession() == null)
+        if (sc.client == null || sc.client.getActiveSeleniumSession() == null)
             sc = new SeleniumClient()
 
         try {
