@@ -64,7 +64,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     @Test
     public void checkCacheable(){
         boolean result = tisp.checkamICacheable("issueResult[1][1]");
-        assertFalse(result);
+        assertTrue(result);
         result = tisp.checkamICacheable("issueResult");
         assertTrue(result);
     }
