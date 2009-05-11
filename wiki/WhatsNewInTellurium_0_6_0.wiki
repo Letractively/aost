@@ -240,7 +240,7 @@ The _customUiCall_ method handles all the UI to locator mapping for users. Tellu
 customDirectCall(String method, Object[] args)
 }}}
 
-=== StandardTable ===
+=== Standard Table ===
 
 StandardTable is a table with one thead, one tfoot, and multiple tbodies. For example, you can define a StandardTable as follows,
 
@@ -267,3 +267,54 @@ Tellurium provides the following additional methods for StandardTable
   * int getTableMaxTbodyNum()
   * int getTableMaxRowNumForTbody(int tbody_index)
   * int getTableMaxColumnNumForTbody(int body_index) 
+
+=== The Dump Method ===
+
+Tellurium Core added a dump method to print out the UI object's and its descendants' runtime locators that Tellurium Core generates for you.
+
+{{{
+public void dump(String uid)
+}}}
+ 
+where the _uid_ is the UI object id you want to dump. The cool feature of the dump() method is that it does not require you to run the actual tests, that is to say, you do not need to run selenium server and do not need to launch the web browser. Just simply define the UI module and then call the dump() method.
+
+For example, we can define the UI module for Tellurium Issue Search module as follows,
+
+{{{
+public class TelluriumIssueModule extends DslContext {
+
+  public void defineUi() {
+
+    //define UI module of a form include issue type selector and issue search
+    ui.Form(uid: "issueSearch", clocator: [action: "list", method: "get"], group: "true"){
+      Selector(uid: "issueType", clocator: [name: "can", id: "can"])
+      TextBox(uid: "searchLabel", clocator: [tag: "span", text: "*for"])
+      InputBox(uid: "searchBox", clocator: [type: "text", name: "q"])
+      SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+    }
+  }
+}
+}}}
+
+Then you can use the dump method in the following way,
+
+{{{
+  TelluriumIssueModule tisp = new TelluriumIssueModule();
+  tisp.defineUi();
+  tisp.dump("issueSearch");
+}}}
+
+The above code will print out the runtime XPath locators
+
+{{{
+Dump locator information for issueSearch
+-------------------------------------------------------
+issueSearch: //descendant-or-self::form[@action="list" and @method="get"]
+issueSearch.issueType: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::select[@name="can" and @id="can"]
+issueSearch.searchLabel: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::span[contains(text(),"for")]
+issueSearch.searchBox: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::input[@type="text" and @name="q"]
+issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::input[@value="Search" and @type="submit"]
+-------------------------------------------------------
+
+
+}}}
