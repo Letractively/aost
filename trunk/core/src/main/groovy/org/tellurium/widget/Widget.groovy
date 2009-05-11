@@ -15,6 +15,8 @@ import org.tellurium.extend.Extension
 import org.stringtree.json.JSONReader
 import org.json.simple.JSONArray
 import org.tellurium.locator.JQueryOptimizer
+import org.json.simple.JSONObject
+import org.tellurium.locator.MetaCmd
 
 /**
  * The base class for Widget objects.
@@ -33,14 +35,17 @@ abstract class Widget extends UiObject {
  //later on, may need to refactor it to use resource file so that we can show message for different localities
   protected static final String ERROR_MESSAGE = "Cannot find UI Object"
   protected static final String JQUERY_SELECTOR = "jquery="
+  protected static final String JQUERY_SELECTOR_CACHE = "jquerycache="
   protected static final String DEFAULT_XPATH = "default"
-  protected static final String JAVASCRIPT_XPATH = "javascript"
+  protected static final String JAVASCRIPT_XPATH = "javascript-xpath"
   protected static final String AJAXSLT_XPATH = "ajaxslt"
   public final static String NAMESPACE_SUFFIX = "_"
 
+  protected static final String LOCATOR = "locator"
+  protected static final String OPTIMIZED_LOCATOR = "optimized"
+
   //flag to decide whether we should use jQuery Selector
   protected boolean exploreJQuerySelector = false
-  
   protected JQueryOptimizer optimizer = new JQueryOptimizer()
 
   //the reference xpath for widget's parent
@@ -68,7 +73,7 @@ abstract class Widget extends UiObject {
 
   private JSONReader reader = new JSONReader()
 
-  protected String locatorMapping(WorkflowContext context, loc) {
+/*  protected String locatorMapping(WorkflowContext context, loc) {
     //get ui object's locator
     String lcr = locatorProcessor.locate(context, loc)
     //widget's locator
@@ -98,6 +103,68 @@ abstract class Widget extends UiObject {
     }
     
     return lcr
+  }*/
+  
+  protected String locatorMapping(WorkflowContext context, loc) {
+    return locatorMappingWithOption(context, loc, null)
+  }
+
+  protected String locatorMappingWithOption(WorkflowContext context, loc, optLoc) {
+    //get ui object's locator
+    String lcr = locatorProcessor.locate(context, loc)
+
+    //widget's locator
+    String wlc = locatorProcessor.locate(context, this.locator)
+
+    //get the reference locator all the way to the ui object
+    if (context.getReferenceLocator() != null) {
+      context.appendReferenceLocator(lcr)
+      lcr = context.getReferenceLocator()
+    }
+
+    if(optLoc != null)
+        lcr = lcr + optLoc
+
+    //append the object's locator to widget's locator
+    lcr = wlc + lcr
+
+    //add parent reference xpath
+    if (pRef != null)
+      lcr = pRef + lcr
+    if(context.isUseJQuerySelector()){
+//      lcr = optimizer.optimize(JQUERY_SELECTOR + lcr.trim())
+      lcr = postProcessSelector(context, lcr.trim())
+    } else {
+      //make sure the xpath starts with "//"
+      if (lcr != null && (!lcr.startsWith("//"))) {
+        lcr = "/" + lcr
+      }
+    }
+
+    return lcr
+  }
+
+    protected String postProcessSelector(WorkflowContext context, String jqs) {
+    String locator = jqs
+
+    String optimized = optimizer.optimize(jqs)
+
+    if (context.isUseSelectorCache()) {
+      JSONObject obj = new JSONObject()
+      //meta command shoud not be null for locators
+      MetaCmd metaCmd = context.extraMetaCmd()
+      obj.put(LOCATOR, locator)
+      obj.put(OPTIMIZED_LOCATOR, optimized)
+
+      obj.put(MetaCmd.UID, metaCmd.getProperty(MetaCmd.UID))
+      obj.put(MetaCmd.CACHEABLE, metaCmd.getProperty(MetaCmd.CACHEABLE))
+      obj.put(MetaCmd.UNIQUE, metaCmd.getProperty(MetaCmd.UNIQUE))
+
+      String jsonjqs = obj.toString()
+
+      return JQUERY_SELECTOR_CACHE + jsonjqs
+    }
+      return JQUERY_SELECTOR + optimized
   }
 
   public Object parseSeleniumJSONReturnValue(String out){
@@ -110,56 +177,75 @@ abstract class Widget extends UiObject {
     return reader.read(out);
   }
 
-  /**
-   * Pass in a jquery selector, and a list of DOM properties to gather from each selected element.
-   * returns an arraylist of hashmaps with the requested properties as 'key->value'
-   */
-
-  def ArrayList getSelectorProperties(String jqSelector, List<String> props) {
-    JSONArray arr = new JSONArray();
-    arr.addAll(props);
-    String json = arr.toString();
-    String out = extension.getSelectorProperties(jqSelector, json);
-    return (ArrayList) parseSeleniumJSONReturnValue(out);
+  public void enableSelectorCache(){
+      this.exploreSelectorCache = true
+      extension.enableSelectorCache()
   }
 
-  /**
-   * pass in a jquery selector, and get back an arraylist of inner text of all elements selected,
-   * one string per element
-   */
-
-  def ArrayList getSelectorText(String jqSelector) {
-    String out = extension.getSelectorText(jqSelector);
-    return (ArrayList) parseSeleniumJSONReturnValue(out);
+  public boolean disableSelectorCache(){
+      this.exploreSelectorCache = false
+      extension.disableSelectorCache()
   }
 
-  /**
-   * pass in a jquery selector, and a javascript function as a string. the function will be called within
-   * the context of the wrapped set, ie, the wrapped set will be 'this' in the function.
-   * the function must return JSON
-   *
-   * NOTE: the function CAN NOT have any comments or you will get a syntax error inside of selenium core.
-   * NOTE: each line of the function must be terminated with a semicolin ';'
-   */
+  public boolean cleanSelectorCache(){
+      extension.cleanSelectorCache()
+  }
 
-  def Object getSelectorFunctionCall(String jqSelector, String fn) {
-      JSONArray arr = new JSONArray();
-      fn = "function(){" + fn + "}";
-      arr.add(fn.replaceAll("[\n\r]", ""));
-      String json = arr.toString();
-      String out = extension.getSelectorFunctionCall(jqSelector, json);
+  public boolean getSelectorCacheState(){
+      return extension.getCacheState()
+  }
 
-      return parseSeleniumJSONReturnValue(out);
+  public void setCacheMaxSize(int size){
+      extension.setCacheMaxSize(size)
+  }
+
+  public int getCacheSize(){
+      return extension.getCacheSize().intValue()
+  }
+
+  public int getCacheMaxSize(){
+      return extension.getCacheMaxSize().intValue()
+  }
+
+  public Map<String, Long> getCacheUsage() {
+    String out = extension.getCacheUsage();
+    ArrayList list = (ArrayList) parseSeleniumJSONReturnValue(out)
+    Map<String, Long> usages = new HashMap<String, Long>()
+    list.each {Map elem ->
+      elem.each {key, value ->
+        usages.put(key, value)
+      }
+    }
+
+    return usages
+  }
+
+  public void useDiscardNewCachePolicy(){
+    extension.useDiscardNewCachePolicy()
+  }
+
+  public void useDiscardOldCachePolicy(){
+    extension.useDiscardOldCachePolicy()
+  }
+
+  public void useDiscardLeastUsedCachePolicy(){
+    extension.useDiscardLeastUsedCachePolicy()
+  }
+
+  public void useDiscardInvalidCachePolicy(){
+    extension.useDiscardInvalidCachePolicy()
+  }
+
+  public String getCurrentCachePolicy(){
+    return extension.getCurrentCachePolicy()
   }
 
   public void useJQuerySelector(){
     this.exploreJQuerySelector = true
-    locatorProcessor.useJQuerySelector()
   }
 
   public void disableJQuerySelector(){
     this.exploreJQuerySelector = false
-    locatorProcessor.disableJQuerySelector()
   }
 
   public void useDefaultXPathLibrary() {
@@ -174,6 +260,27 @@ abstract class Widget extends UiObject {
     accessor.useXpathLibrary(AJAXSLT_XPATH)
   }
 
+  public void registerNamespace(String prefix, String namespace){
+    extension.addNamespace(prefix, namespace)
+  }
+
+  public String getNamespace(String prefix){
+    return extension.getNamespace(prefix)
+  }
+
+  def customUiCall(String uid, String method, Object[] args){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    return walkToWithException(context, uid).customMethod(){ loc ->
+      String locator = locatorMapping(context, loc)
+      Object[] list = [locator, args].flatten()
+      return extension.invokeMethod(method, list)
+    }
+  }
+
+  def customDirectCall(String method, Object[] args){
+    return extension.invokeMethod(method, args)
+  }
+
   //uid should use the format table2[2][3] for Table or list[2] for List
   def getUiElement(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
@@ -184,8 +291,11 @@ abstract class Widget extends UiObject {
 
   def UiObject walkToWithException(WorkflowContext context, String uid) {
     UiObject obj = ui.walkTo(context, uid)
-    if (obj != null)
+    if (obj != null){
+      context.attachMetaCmd(uid, obj.amICacheable(), true)
+
       return obj
+    }
 
     throw new UiObjectNotFoundException("${ERROR_MESSAGE} ${uid}")
   }
@@ -430,15 +540,6 @@ abstract class Widget extends UiObject {
     }
   }
 
-  int getListSize(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
-    org.tellurium.object.List obj = (org.tellurium.object.List) walkToWithException(context, uid)
-    return obj.getListSize() {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
-    }
-  }
-
   boolean isElementPresent(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
@@ -559,10 +660,6 @@ abstract class Widget extends UiObject {
       String locator = locatorMapping(context, loc)
       return accessor.isEditable(locator)
     }
-  }
-
-  void waitForPageToLoad(int timeout) {
-    accessor.waitForPageToLoad(Integer.toString(timeout))
   }
 
   String getEval(String script) {
@@ -696,11 +793,10 @@ abstract class Widget extends UiObject {
   }
 
   Number getJQuerySelectorCount(String jQuerySelector){
-    String jq = jQuerySelector
-    if(!jq.startsWith(JQUERY_SELECTOR)){
-      jq=JQUERY_SELECTOR + jQuerySelector
-    }
-
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(true, false)
+    //do not cache any selectors for counting
+    context.updateCacheableForMetaCmd(false);
+    String jq = postProcessSelector(context, jQuerySelector.trim())
     return extension.getJQuerySelectorCount(jq)
   }
 
@@ -718,7 +814,8 @@ abstract class Widget extends UiObject {
     }
 
     String locator = context.getReferenceLocator()
-    if (locator != null && (!locator.startsWith("//")) && (!locator.startsWith(JQUERY_SELECTOR))) {
+//    if (locator != null && (!locator.startsWith("//")) && (!locator.startsWith(JQUERY_SELECTOR))) {
+    if (locator != null && (!locator.startsWith("//"))){
       locator = "/" + locator
     }
 
@@ -732,9 +829,9 @@ abstract class Widget extends UiObject {
     }
 
     String locator = context.getReferenceLocator()
-    locator = optimizer.optimize(JQUERY_SELECTOR + locator.trim())
+    locator = optimizer.optimize(locator.trim())
 
-    return locator
+    return JQUERY_SELECTOR + locator
   }
 
   String getLocator(String uid){
@@ -760,8 +857,12 @@ abstract class Widget extends UiObject {
   String[] getAllTableCellText(String uid){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     return walkToWithException(context, uid)?.getAllTableCellText(){loc, cell ->
-      String locator = locatorMapping(context, loc)
-      locator = locator + cell
+      //for bulk data, the selector will not return a unique element
+      context.updateUniqueForMetaCmd(false)
+      //force not to cache the selector
+      context.updateCacheableForMetaCmd(false)
+      String locator = locatorMappingWithOption(context, loc, cell)
+//      locator = locator + cell
       String out = extension.getAllText(locator)
 
       return (ArrayList) parseSeleniumJSONReturnValue(out)
@@ -772,8 +873,11 @@ abstract class Widget extends UiObject {
   String[] getAllTableCellTextForTbody(String uid, int index){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     return walkToWithException(context, uid)?.getAllTableCellTextForTbody(index){loc, cell ->
-      String locator = locatorMapping(context, loc)
-      locator = locator + cell
+      context.updateUniqueForMetaCmd(false)
+      //force not to cache the selector
+      context.updateCacheableForMetaCmd(false)
+      String locator = locatorMappingWithOption(context, loc, cell)
+//      locator = locator + cell
       String out = extension.getAllText(locator)
 
       return (ArrayList) parseSeleniumJSONReturnValue(out)
@@ -854,70 +958,105 @@ abstract class Widget extends UiObject {
     //force to use jQuery selector
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
+    context.updateUniqueForMetaCmd(false)
+    //force not to cache the selector
+    context.updateCacheableForMetaCmd(false)
 
-    return obj.getTableHeaderColumnNumBySelector {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
+    return obj.getTableHeaderColumnNumBySelector() {loc, optloc ->
+      String locator = locatorMappingWithOption(context, loc, optloc)
+//      locator = locator + optloc
+//      String jq = postProcessSelector(context, locator.trim())
+      return extension.getJQuerySelectorCount(locator)
     }
   }
 
   int getTableFootColumnNumBySelector(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
+    context.updateUniqueForMetaCmd(false)
+    //force not to cache the selector
+    context.updateCacheableForMetaCmd(false)
 
-    return obj.getTableFootColumnNumBySelector {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
+    return obj.getTableFootColumnNumBySelector() {loc, optloc ->
+      String locator = locatorMappingWithOption(context, loc, optloc)
+//      locator = locator + optloc
+//      String jq = postProcessSelector(context, locator.trim())
+      return extension.getJQuerySelectorCount(locator)
     }
   }
 
   int getTableMaxRowNumBySelector(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
+    context.updateUniqueForMetaCmd(false)
+    //force not to cache the selector
+    context.updateCacheableForMetaCmd(false)
 
-    return obj.getTableMaxRowNumBySelector() {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
+    return obj.getTableMaxRowNumBySelector() {loc, optloc ->
+      String locator = locatorMappingWithOption(context, loc, optloc)
+//      locator = locator + optloc
+//      String jq = postProcessSelector(context, locator.trim())
+      return extension.getJQuerySelectorCount(locator)
     }
   }
 
   int getTableMaxColumnNumBySelector(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     def obj = walkToWithException(context, uid)
+    context.updateUniqueForMetaCmd(false)
+    //force not to cache the selector
+    context.updateCacheableForMetaCmd(false)
 
-    return obj.getTableMaxColumnNumBySelector() {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
+    return obj.getTableMaxColumnNumBySelector() {loc, optloc ->
+      String locator = locatorMappingWithOption(context, loc, optloc)
+//      locator = locator + optloc
+//      String jq = postProcessSelector(context, locator.trim())
+      return extension.getJQuerySelectorCount(locator)
     }
   }
 
   int getTableMaxRowNumForTbodyBySelector(String uid, int ntbody) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
+    context.updateUniqueForMetaCmd(false)
+    //force not to cache the selector
+    context.updateCacheableForMetaCmd(false)
 
-    return obj.getTableMaxRowNumForTbodyBySelector(ntbody) {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
+    return obj.getTableMaxRowNumForTbodyBySelector(ntbody) {loc, optloc ->
+      String locator = locatorMappingWithOption(context, loc, optloc)
+//      locator = locator + optloc
+//      String jq = postProcessSelector(context, locator.trim())
+      return extension.getJQuerySelectorCount(locator)
     }
   }
 
   int getTableMaxColumnNumForTbodyBySelector(String uid, int ntbody) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
+    context.updateUniqueForMetaCmd(false)
+    //force not to cache the selector
+    context.updateCacheableForMetaCmd(false)
 
-    return obj.getTableMaxColumnNumForTbodyBySelector(ntbody) {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
+    return obj.getTableMaxColumnNumForTbodyBySelector(ntbody) {loc, optloc ->
+      String locator = locatorMappingWithOption(context, loc, optloc)
+//      locator = locator + optloc
+//      String jq = postProcessSelector(context, locator.trim())
+      return extension.getJQuerySelectorCount(locator)
     }
   }
 
   int getTableMaxTbodyNumBySelector(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
     StandardTable obj = (StandardTable) walkToWithException(context, uid)
+    context.updateUniqueForMetaCmd(false)
+    //force not to cache the selector
+    context.updateCacheableForMetaCmd(false)
 
-    return obj.getTableMaxTbodyNumBySelector() {loc ->
-      String locator = locatorMapping(context, loc)
-      locator
+    return obj.getTableMaxTbodyNumBySelector() {loc, optloc ->
+      String locator = locatorMappingWithOption(context, loc, optloc)
+//      locator = locator + optloc
+//      String jq = postProcessSelector(context, locator.trim())
+      return extension.getJQuerySelectorCount(locator)
     }
   }
 
@@ -970,7 +1109,36 @@ abstract class Widget extends UiObject {
     return getTableMaxTbodyNumByXPath(uid)
   }
 
-   def boolean isDisabledByXPath(String uid) {
+    int getListSizeByXPath(String uid) {
+      WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      org.tellurium.object.List obj = (org.tellurium.object.List) walkToWithException(context, uid)
+      return obj.getListSizeByXPath() {loc ->
+        String locator = locatorMapping(context, loc)
+        locator
+      }
+    }
+
+    //use jQuery Selector to optimize the list operations
+    int getListSizeBySelector(String uid) {
+      WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
+      org.tellurium.object.List obj = (org.tellurium.object.List) walkToWithException(context, uid)
+      context.updateUniqueForMetaCmd(false)
+      //force not to cache the selector
+      context.updateCacheableForMetaCmd(false)
+      return obj.getListSizeByJQuerySelector() {loc, separators ->
+        String locator = locatorMapping(context, loc)
+        return extension.getListSize(locator, separators)
+      }
+    }
+
+    int getListSize(String uid){
+        if(this.exploreJQuerySelector)
+          return getListSizeBySelector(uid)
+
+      return  getListSizeByXPath(uid)
+    }
+
+    def boolean isDisabledByXPath(String uid) {
       WorkflowContext context = WorkflowContext.getDefaultContext()
 
       return walkToWithException(context, uid).isDisabled() {loc ->
@@ -1030,6 +1198,30 @@ abstract class Widget extends UiObject {
       }
     }
     return false
+  }
+
+  public void dump(String uid){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    def obj = walkToWithException(context, uid)
+    if(obj != null){
+      context.setNewUid(uid)
+      obj.traverse(context)
+      ArrayList list = context.getUidList()
+
+      println("\nDump locator information for " + uid)
+      println("-------------------------------------------------------")
+      list.each {String key->
+        String loc = getLocator(key)
+        context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+        walkToWithException(context, key)
+
+        if(this.exploreJQuerySelector){
+          loc = this.postProcessSelector(context, loc)
+        }
+        println("${key}: ${loc}")
+      }
+      println("-------------------------------------------------------\n")
+    }
   }
 
   //walkTo through the object tree to until the Ui Object is found by the UID
