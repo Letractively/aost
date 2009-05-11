@@ -327,6 +327,8 @@ Other updates and enhancements include
   * Added _registerNamespace_ and _getNamespace_ for XHTML
   * Added a simple logger to Tellurium Core
   * Removed isElementPresent before every command
+  * Added profile location in Tellurium configuration file
+  * Implemented a keyType method using jQuery to process special key sequences such as ".", "(", and "y", which could not be handled correctly in Selenium.
   * Many bug fixes and other small enhancements
 
 == Tellurium Maven Archetypes ==
