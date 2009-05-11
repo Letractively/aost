@@ -121,6 +121,16 @@ tellurium{
     }
 }}}
 
+=== "Include" Frequently Used Sets of elements in UI Modules ===
+
+Sometimes, you have a frequently used set of elements, which you do not want to redefined them over and over again in your UI module. Now, you can use the "Include" syntax to re-use pre-defined UI elements,
+
+{{{
+Include(uid: UID, ref: REFERRED_UID)
+}}}  
+
+You should use "ref" to reference the object you want to include, you can still specify the uid for the object (if you do not need a different UID, you do not need to specify it), if the object uid is not the same as the original one, Tellurium will clone a new object for you so that you can have multiple objects with different UIDs. 
+
 
 
  
