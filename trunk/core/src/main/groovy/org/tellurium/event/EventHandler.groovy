@@ -245,6 +245,46 @@ class EventHandler implements Configurable{
     			if("\n".equals(key)){
     				dispatcher.keyUp(locator,  "\\13")
                 }else if(".".equals(key)){
+//                    String keycode = Integer.toString(KeyEvent.VK_PERIOD)
+//                    dispatcher.keyDownNative(keycode)
+//                    dispatcher.keyPressNative(keycode)
+//                    dispatcher.keyUpNative(keycode)
+                    dispatcher.typeKey(locator, key)
+                }else if("(".equals(key)){
+//                    String keycode = Integer.toString(KeyEvent.VK_LEFT_PARENTHESIS)
+//                    dispatcher.keyDownNative(keycode)
+//                    dispatcher.keyPressNative(keycode)
+//                    dispatcher.keyUpNative(keycode)
+                    dispatcher.typeKey(locator, key)
+                }else if("y".equals(key)){
+//                    String keycode = Integer.toString(KeyEvent.VK_Y)
+//                    dispatcher.keyDownNative(keycode)
+//                    dispatcher.keyPressNative(keycode)
+//                    dispatcher.keyUpNative(keycode)
+                    dispatcher.typeKey(locator, key)
+                }else{
+    				dispatcher.keyDown(locator, key)
+    				dispatcher.keyPress(locator, key)
+    				dispatcher.keyUp(locator, key)
+    			}
+    			Helper.pause(15)
+    		}
+    	}
+    }
+
+/*
+    def simulateKeyType(String locator, String input){
+
+        if(input == null || input.length() < 1){
+    		dispatcher.type(locator, "")
+        }else{
+    		char[] chars = input.toCharArray()
+
+            for(char achar: chars){
+    			String key = Character.toString(achar)
+    			if("\n".equals(key)){
+    				dispatcher.keyUp(locator,  "\\13")
+                }else if(".".equals(key)){
                     String keycode = Integer.toString(KeyEvent.VK_PERIOD)
 //                    dispatcher.keyDownNative(keycode)
                     dispatcher.keyPressNative(keycode)
@@ -268,7 +308,9 @@ class EventHandler implements Configurable{
     		}
     	}
     }
+    */
 
+/*
     def processKeyEvent(String locator, String input, String[] events){
         boolean hasKeyDown = includeKeyDown(events)
         boolean hasKeyPress = includeKeyPress(events)
@@ -322,7 +364,65 @@ class EventHandler implements Configurable{
     		}
     	}
     }
+*/
 
+
+    def processKeyEvent(String locator, String input, String[] events){
+        boolean hasKeyDown = includeKeyDown(events)
+        boolean hasKeyPress = includeKeyPress(events)
+        boolean hasKeyUp = includeKeyUp(events)
+
+        if(input == null || input.length() < 1){
+    		dispatcher.type(locator, "")
+        }else{
+    		char[] chars = input.toCharArray()
+
+            for(char achar: chars){
+    			String key = Character.toString(achar)
+    			if("\n".equals(key)){
+    				dispatcher.keyUp(locator,  "\\13")
+                }else if(".".equals(key)){
+//                    String keycode = Integer.toString(KeyEvent.VK_PERIOD)
+//                    if(hasKeyDown)
+//                      dispatcher.keyDownNative(keycode)
+//
+//                    dispatcher.keyPressNative(keycode)
+//
+//                    if(hasKeyUp)
+//                      dispatcher.keyUpNative(keycode)
+                    dispatcher.typeKey(locator, key)
+                }else if("(".equals(key)){
+//                    String keycode = Integer.toString(KeyEvent.VK_LEFT_PARENTHESIS)
+//                    if(hasKeyDown)
+//                      dispatcher.keyDownNative(keycode)
+//
+//                    dispatcher.keyPressNative(keycode)
+//
+//                    if(hasKeyUp)
+//                      dispatcher.keyUpNative(keycode)
+                    dispatcher.typeKey(locator, key)
+                }else if("y".equals(key)){
+//                    String keycode = Integer.toString(KeyEvent.VK_Y)
+//                    if(hasKeyDown)
+//                      dispatcher.keyDownNative(keycode)
+//
+//                    dispatcher.keyPressNative(keycode)
+//
+//                    if(hasKeyUp)
+//                      dispatcher.keyUpNative(keycode)
+                    dispatcher.typeKey(locator, key)
+                }else{
+                    if(hasKeyDown)
+                        dispatcher.keyDown(locator, key)
+
+                    dispatcher.keyPress(locator, key)
+
+                    if(hasKeyUp)
+                        dispatcher.keyUp(locator, key)
+    			}
+    		}
+    	}
+    }
 
     def select(String locator, String target, String[] events) {
         String[] defaultEvents = null

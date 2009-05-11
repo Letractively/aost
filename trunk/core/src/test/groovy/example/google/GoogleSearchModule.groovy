@@ -15,7 +15,6 @@ public class GoogleSearchModule extends DslContext {
 
   public void defineUi() {
 
-    //TODO: need to check while the following src does not work
     ui.Image(uid: "Logo", clocator: [tag: "img", src: "*/intl/en_ALL/images/logo.gif"])
 //    ui.Image(uid: "Logo", clocator: [tag: "img", alt: "Google"])
 
