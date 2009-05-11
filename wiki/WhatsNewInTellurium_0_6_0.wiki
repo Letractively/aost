@@ -13,6 +13,7 @@ Tellurium 0.6.0 is a feature rich release and it includes the following modules
 In the following sections, we will go over main features in each module.
 
 = New Features =
+
 == Tellurium Core 0.6.0 ==
 
 The biggest move from Tellurium core 0.5.0 to 0.6.0 is the addition of jQuery selector support together with jQuery Selector Cache option, Selenium Grid support, New APIs for bulk data retrival and css styles, and numerous other enhancements.
@@ -378,7 +379,7 @@ However, we recommend you to use Tellurium Maven archetype to create your own pr
 The Maven archetype project has everything you need for a new Tellurium including a 
 Maven POM file, a Tellurium Configuration file, and a sample test file. 
 
-Alternatively, you could also create your own project manually by using [http://code.google.com/p/aost/wiki/TelluriumTestProjectMavenSamplePom the sample Pom file].
+Alternatively, you could also create your own project manually by using [http://code.google.com/p/aost/wiki/TelluriumTestProjectMavenSamplePom the sample Pom file] and [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile the sample configuration file].
 
 = Resources = 
 
