@@ -164,3 +164,15 @@ Selenium.prototype.doUseDiscardInvalidPolicy = function(){
 Selenium.prototype.getCachePolicyName = function(){
     return tellurium.getCachePolicyName();
 };
+
+var getEvent = function(name, key){
+    var e = jQuery.Event(name);
+    e.which = key.charCodeAt(0);
+    return e;
+};
+
+Selenium.prototype.doTypeKey = function(locator, key){
+    var $elem = jQuery(this.browserbot.findElement(locator));
+
+	$elem.val($elem.val()+key).trigger(getEvent("keydown", key)).trigger(getEvent("keypress", key)).trigger(getEvent("keyup", key));
+};
