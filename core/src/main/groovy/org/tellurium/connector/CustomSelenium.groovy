@@ -211,4 +211,9 @@ class CustomSelenium extends DefaultSelenium {
         String[] arr = [];
         return commandProcessor.getString("getCachePolicyName", arr);
     }
+
+    public void typeKey(String locator, String key){
+        String[] arr = [locator, key];
+        commandProcessor.doCommand("typeKey", arr);
+    }
 }
