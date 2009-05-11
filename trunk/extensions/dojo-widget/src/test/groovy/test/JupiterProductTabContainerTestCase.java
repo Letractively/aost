@@ -4,6 +4,7 @@ import org.tellurium.test.java.TelluriumJavaTestCase;
 import module.JupiterProductTabContainer;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.Ignore;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -19,6 +20,7 @@ public class JupiterProductTabContainerTestCase extends TelluriumJavaTestCase {
         jptc.defineUi();
     }
 
+    @Ignore
     @Test
     public void testClickTabs(){
         connectUrl("https://qa.jupiter.jewelry.qa:8083/jupiter/");
