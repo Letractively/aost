@@ -32,3 +32,89 @@ disableJQuerySelector()
 }}}
 
 Be aware that jQuery selector only works for *composite locator*, i.e., _clocator_. If you cannot have *base locator*, i.e., XPath, in your UI module.
+
+jQuery Selector provides the following additional Selenium methods, which are utilized in DslContext to form a set of new DSL methods:
+
+  # _String getAllText(String locator)_: Get all text from the set of elements corresponding to the jQuery Selector. This is a fast bulk data retrieval API to get back all data in one method call. 
+  # _String getCSS(String locator, String cssName)_: Get the CSS properties for the set of elements corresponding to the jQuery Selector. 
+  # _Number getJQuerySelectorCount(String locator)_: Get the number of elements matching the corresponding jQuery Selector
+
+jQuery supports the following attribute selectors
+  * _[attribute]_: have the specified attribute
+  * _[attribute=value]_: have the specified attribute with a certain value
+  * _[attribute!=value]_: either don't have the specified attribute or do have the specified attribute but not with a certain value.
+  * _[attribute^=value]_: have the specified attribute and it starts with a certain value.
+  * _[attribute$=value]_: have the specified attribute and it ends with a certain value.
+  * _[attribute*=value]_: have the specified attribute and it contains a certain value.
+
+Apart from the above, jQuery selector also provides the jQuery selector version of many DSL methods, for instance,
+
+{{{
+int getTableHeaderColumnNumBySelector(String uid)
+}}}
+
+But you should use locator agnostic API, such as
+
+{{{
+int getTableHeaderColumnNum(String uid) 
+}}}
+
+Under the hood, Tellurium core will call the appropriate API based on what locator you are currently using. For more details, please see [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector Tellurium jQuery Selector Guide]. 
+
+=== jQuery Selector Cache Option ===
+
+jQuery cache is a mechanism to further improve the speed by reusing the found DOM reference for a given jQuery selector. Our benchmark results show that the jQuery cache could improve the speed up to 14% over the regular jQuery selector and over 27% for some extreme cases. But the improvement of jQuery cache over regular jQuery selector has upper bound, which is the portion of jQuery locating time out of the round trip time from Tellurium core to Selenium core. jQuery cache is still considered to be experimental at the current stage. Use it at your own discretion.
+
+To make the cache option configurable in tellurium UI module, Tellurium introduces an attribute _cacheable_ to UI object, which is set to be true by default. For a Container type object, it has an extra attribute _noCacheForChildren_ to control whether to cache its children. 
+
+One example UI module is defined as follows,
+
+{{{
+  ui.Table(uid: "issueResultWithCache", cacheable: "true", noCacheForChildren: "true", clocator: [id: "resultstable", class: "results"], group: "true") {
+ 
+       ......
+
+      //define table elements
+      //for the border column
+      TextBox(uid: "row: *, column: 1", clocator: [:])
+      TextBox(uid: "row: *, column: 8", clocator: [:])
+      TextBox(uid: "row: *, column: 10", clocator: [:])
+      //For the rest, just UrlLink
+      UrlLink(uid: "all", clocator: [:])
+    }
+}}}
+
+Where the _cacheable_ can overwrite the default value in the UI object and _noCacheForChildren _ in the above example will force Tellurium to not cache its children.
+
+Tellurium Core provides the following methods for jQuery Selector cache control,
+
+  * _public void enableSelectorCache()_: Enable jQuery selector cache
+
+  * _public boolean disableSelectorCache()_: Disable jQuery selector cache
+
+  * _public boolean cleanSelectorCache()_: Cleanup the whole jQuery selector cache
+
+  * _public boolean getSelectorCacheState()_: Test if the cache is enabled or not in Engine
+
+  * _public void setCacheMaxSize(int size)_: Set the cache maximum size
+
+  * _public int getCacheSize()_: Get the cache current size
+
+  * _public int getCacheMaxSize()_: Get the cache maximum size 
+
+  * _public Map<String, Long> getCacheUsage()_: Get the cache usage
+
+  * _public void useDiscardNewCachePolicy()_: Use DiscardNewCachePolicy 
+
+  * _public void useDiscardOldCachePolicy()_: Use DiscardOldCachePolicy
+
+  * _public void useDiscardLeastUsedCachePolicy()_: Use DiscardLeastUsedCachePolicy
+
+  * _public void useDiscardInvalidCachePolicy()_: Use DiscardInvalidCachePolicy
+
+  * _public String getCurrentCachePolicy()_: Get the current cache policy
+ 
+For more details about the cache option, please read [http://code.google.com/p/aost/wiki/jQuerySelectorCache The Cache Mechanism of jQuery Selector]
+
+
+ 
