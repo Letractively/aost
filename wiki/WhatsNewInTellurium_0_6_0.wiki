@@ -10,7 +10,7 @@ Tellurium 0.6.0 is a feature rich release and it includes the following modules
   * Tellurium JUnit Reference Project 0.6.0 and Tellurium TestNG Reference Project 0.6.0
   * Customized Selenium server 1.0-te-2 with Tellurium Engine jQuery selector module
 
-In the following sections, we will go over main features in each module.
+The following sections, cover the main features in each module.
 
 = New Features =
 
@@ -32,7 +32,7 @@ in you code. To switch back to XPath locator, you should call
 disableJQuerySelector()
 }}}
 
-Be aware that jQuery selector only works for *composite locator*, i.e., _clocator_. If you cannot have *base locator*, i.e., XPath, in your UI module.
+Be aware that jQuery selector only works for *composite locator*, i.e., _clocator_. You cannot have *base locator*, i.e., XPath, in your UI module.
 
 jQuery Selector provides the following additional Selenium methods, which are utilized in DslContext to form a set of new DSL methods:
 
@@ -48,7 +48,7 @@ jQuery supports the following attribute selectors
   * _[attribute$=value]_: have the specified attribute and it ends with a certain value.
   * _[attribute*=value]_: have the specified attribute and it contains a certain value.
 
-Apart from the above, jQuery selector also provides the jQuery selector version of many DSL methods, for instance,
+Apart from the above, jQuery selector also provides a jQuery selector version of many existing DSL methods, for instance,
 
 {{{
 int getTableHeaderColumnNumBySelector(String uid)
@@ -64,7 +64,7 @@ Under the hood, Tellurium core will call the appropriate API based on what locat
 
 === jQuery Selector Cache Option ===
 
-jQuery cache is a mechanism to further improve the speed by reusing the found DOM reference for a given jQuery selector. Our benchmark results show that the jQuery cache could improve the speed up to 14% over the regular jQuery selector and over 27% for some extreme cases. But the improvement of jQuery cache over regular jQuery selector has upper bound, which is the portion of jQuery locating time out of the round trip time from Tellurium core to Selenium core. jQuery cache is still considered to be experimental at the current stage. Use it at your own discretion.
+jQuery cache is a mechanism to further improve the speed by reusing the found DOM reference for a given jQuery selector. Our benchmark results show that the jQuery cache could improve the speed by up to 14% over the regular jQuery selector and over 27% for some extreme cases. But the improvement of jQuery cache over regular jQuery selector has upper bound, which is the portion of jQuery locating time out of the round trip time from Tellurium core to Selenium core. jQuery cache is still considered to be experimental at the current stage. Use it at your own discretion.
 
 To make the cache option configurable in tellurium UI module, Tellurium introduces an attribute _cacheable_ to UI object, which is set to be true by default. For a Container type object, it has an extra attribute _noCacheForChildren_ to control whether to cache its children. 
 
@@ -101,7 +101,7 @@ For a complete list of cache control APIs, please check  [http://code.google.com
 
 === Selenium Grid Support ===
 
-Selenium Grid transparently distributes your tests on multiple machines so that you can run your tests in parallel. We recently added support for Selenium Grid to the Tellurium. Now you can run the Tellurium tests against different browsers using Selenium Grid. Tellurium core is updated to support Selenium Grid sessions. You should following the details guide [http://code.google.com/p/aost/wiki/SeleniumGridAndTellurium Using Selenium Grid with Tellurium].
+Selenium Grid transparently distributes your tests on multiple machines so that you can run your tests in parallel. We recently added support for Selenium Grid to the Tellurium. Now you can run the Tellurium tests against different browsers using Selenium Grid. Tellurium core is updated to support Selenium Grid sessions. You should read the following the details guide [http://code.google.com/p/aost/wiki/SeleniumGridAndTellurium Using Selenium Grid with Tellurium].
 
 Make sure you do not run Selenium server internally and you should configure this in the  TelluriumConfig.groovy file as follows,
 
@@ -324,9 +324,9 @@ Other updates and enhancements include
 
   * Upgraded to Selenium 1.0 Beta 2 and Groovy 1.6 
   * Support Javascript XPath library by calling useJavascriptXPathLibrary()
-  * Add _registerNamespace_ and _getNamespace_ for XHTML
-  * Add a simple logger to Tellurium Core
-  * Remove isElementPresent before every command
+  * Added _registerNamespace_ and _getNamespace_ for XHTML
+  * Added a simple logger to Tellurium Core
+  * Removed isElementPresent before every command
   * Many bug fixes and other small enhancements
 
 == Tellurium Maven Archetypes ==
