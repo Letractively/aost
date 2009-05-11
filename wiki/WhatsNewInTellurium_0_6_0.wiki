@@ -315,6 +315,37 @@ issueSearch.searchLabel: //descendant-or-self::form[descendant::select[@name="ca
 issueSearch.searchBox: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::input[@type="text" and @name="q"]
 issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::input[@value="Search" and @type="submit"]
 -------------------------------------------------------
-
-
 }}}
+
+=== Other Enhancements ===
+ 
+Other updates and enhancements include
+
+  * Upgraded to Selenium 1.0 Beta 2 and Groovy 1.6 
+  * Support Javascript XPath library by calling useJavascriptXPathLibrary()
+  * Add _registerNamespace_ and _getNamespace_ for XHTML
+  * Add a simple logger to Tellurium Core
+  * Remove isElementPresent before every command
+  * Many bug fixes and other small enhancements
+
+== Tellurium Maven Archetypes ==
+
+Tellurium includes two maven archetypes, i.e., tellurium-junit-archetype and tellurium-testng-archetype for Tellurium JUnit test project and Tellurium TestNG test project, respectively.
+
+To create a JUnit Tellurium test project, run
+
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT
+}}}
+
+For a TestNG Tellurium test project, use the following command instead
+
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT
+}}}
+
+Please check Tellurium the following documents for more details about Maven archetypes.
+
+  * [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven Archetypes]
+  * [http://code.google.com/p/aost/wiki/MavenHowTo Tellurium Maven Guide]
+  * [http://code.google.com/p/aost/wiki/TenMinutesToTellurium Ten Minutes To Tellurium]
