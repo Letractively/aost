@@ -131,6 +131,111 @@ Include(uid: UID, ref: REFERRED_UID)
 
 You should use "ref" to reference the object you want to include, you can still specify the uid for the object (if you do not need a different UID, you do not need to specify it), if the object uid is not the same as the original one, Tellurium will clone a new object for you so that you can have multiple objects with different UIDs. 
 
+For example, you first define the following reused UI module
 
+{{{
+   ui.Container(uid: "SearchModule", clocator: [tag: "td"], group: "true") {
+     InputBox(uid: "Input", clocator: [title: "Google Search"])
+     SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+     SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
+   }
+}}}
 
+Then, you can include it into your new UI module as follows,
+
+{{{
+   ui.Container(uid: "Google", clocator: [tag: "table"]) {
+     Include(ref: "SearchModule")
+     Include(uid: "MySearchModule", ref: "SearchModule")
+     Container(uid: "Options", clocator: [tag: "td", position: "3"], group: "true") {
+       UrlLink(uid: "LanguageTools", clocator: [tag: "a", text: "Language Tools"])
+       UrlLink(uid: "SearchPreferences", clocator: [tag: "a", text: "Search Preferences"])
+       UrlLink(uid: "AdvancedSearch", clocator: [tag: "a", text: "Advanced Search"])
+     }
+   }
+}}}
  
+=== Customize Individual Test settings Using setCustomConfig ===
+
+TelluriumConfig.groovy provides project level test settings, you can use setCustomConfig to custmoize individual testing settings.
+
+{{{
+public void setCustomConfig(boolean runInternally, int port, String browser, boolean useMultiWindows, String profileLocation)
+}}}
+
+For example, you can specify your custom settings as follows,
+
+{{{
+static{
+   setCustomConfig(true, 5555, "*chrome", true, null);
+}
+}}}
+ 
+=== User Custom Selenium Extensions ===
+
+To support user custom selenium extensions, Tellurium Core added the following configurations to TelluriumConfig.groovy 
+
+{{{
+    embeddedserver {
+
+        ......
+
+        //user-extension.js file, for example "target/test-classes/extension/user-extensions.js"
+        userExtension = ""
+    }
+    connector{
+
+        ......
+
+        //user's class to hold custom selenium methods associated with user-extensions.js
+        //should in full class name, for instance, "com.mycom.CustomSelenium"
+        customClass = ""
+    }
+
+}}}
+
+Where the _userExtension_ points to user's user-extensions.js file, for example, you have the following user-extensions.js 
+
+{{{
+Selenium.prototype.doTypeRepeated = function(locator, text) {
+    // All locator-strategies are automatically handled by "findElement"
+    var element = this.page().findElement(locator);
+
+    // Create the text to type
+    var valueToType = text + text;
+
+    // Replace the element text with the new text
+    this.page().replaceText(element, valueToType);
+};
+}}}
+
+The _customClass_ is user's class for custom selenium methods, which should extend Tellurium org.tellurium.connector.CustomCommand class:
+
+{{{
+public class MyCommand extends CustomCommand{
+
+    public void typeRepeated(String locator, String text){
+                String[] arr = [locator, text];
+                commandProcessor.doCommand("typeRepeated", arr);
+        }
+   } 
+}
+}}}  
+
+Tellurium core will automatically load up your user-extensions.js and custom commands. The n, user can use 
+
+{{{
+customUiCall(String uid, String method, Object[] args)
+}}}
+
+to call the custom methods, for instance,
+
+{{{
+customUiCall "Google.Input", typeRepeated, "Tellurium Groovy" 
+}}}
+
+The _customUiCall_ method handles all the UI to locator mapping for users. Tellurium also provides the following method for users to make direct calls to Selenium server. 
+ 
+{{{
+customDirectCall(String method, Object[] args)
+}}}
