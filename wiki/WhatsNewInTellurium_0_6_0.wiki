@@ -1,0 +1,34 @@
+#summary What's New in Tellurium 0.6.0.
+#labels Phase-Implementation,Phase-Support
+<wiki:toc max_depth="4" />
+
+= Introduction =
+
+Tellurium 0.6.0 is a feature rich release and it includes the following modules
+  * Telluirum core 0.6.0
+  * Tellurium Maven JUnit Archetype 1.0 and Tellurium Maven TestNG Archetype 1.0
+  * Tellurium JUnit Reference Project 0.6.0 and Tellurium TestNG Reference Project 0.6.0
+  * Customized Selenium server 1.0-te-2 with Tellurium Engine jQuery selector module
+
+In the following sections, we will go over main features in each module.
+
+= New Features =
+== Tellurium Core 0.6.0 ==
+
+The biggest move from Tellurium core 0.5.0 to 0.6.0 is the addition of jQuery selector support together with jQuery Selector Cache option, Selenium Grid support, New APIs for bulk data retrival and css styles, and numerous other enhancements.
+
+=== jQuery Selector ===
+
+The motivation behind the jQuery Selector is to improve the test speed in IE since IE lacks of native XPath support and the XPath is very slow. Tellurium exploits jQuery selector capability to improve the test speed dramatically. As a result, Tellurium Core 0.6.0 supports both XPath and jQuery selector and still uses XPath as the default locator. To use jQuery selector, simply call 
+
+{{{
+useJQuerySelector()
+}}} 
+
+in you code. To switch back to XPath locator, you should call
+
+{{{
+disableJQuerySelector()
+}}}
+
+Be aware that jQuery selector only works for *composite locator*, i.e., _clocator_. If you cannot have *base locator*, i.e., XPath, in your UI module.
