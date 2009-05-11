@@ -363,6 +363,31 @@ Basically, the two sub-projects are the same and the only difference is that tel
 
 The two reference projects are updated to use Tellurium Core 0.6.0 and please see more details on [http://code.google.com/p/aost/wiki/ReferenceProjectGuide the Reference Project Guide].
 
+== Customized Selenium Server ==
 
+We customized selenium-core 1.0 beta 2 and embedded our Engine code into it. The Engine mainly provide jQuery selector support, jQuery selector caching, and a set of new APIs. 
 
+= How to Obtain Tellurium 0.6.0 =
 
+The Release candidate will be out soon, you can download the artifacts from Tellurium download page directly,
+
+http://code.google.com/p/aost/downloads/list
+
+However, we recommend you to use Tellurium Maven archetype to create your own project.
+
+The Maven archetype project has everything you need for a new Tellurium including a 
+Maven POM file, a Tellurium Configuration file, and a sample test file. 
+
+Alternatively, you could also create your own project manually by using [http://code.google.com/p/aost/wiki/TelluriumTestProjectMavenSamplePom the sample Pom file].
+
+= Resources = 
+
+  * [http://code.google.com/p/aost/ Tellurium Project Web Site]
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group]
+  * [http://code.google.com/p/aost/wiki/Introduction Tellurium Introduction]
+  * [http://code.google.com/p/aost/wiki/UserGuide Tellurium User Guide]
+  * [http://code.google.com/p/aost/wiki/Tutorial Tellurium Tutorials]
+  * [http://code.google.com/p/aost/wiki/FAQ Tellurium Frequently Asked Questions]
+  * [http://code.google.com/p/aost/wiki/MavenHowTo Tellurium Maven Guide]
+  * [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector Tellurium jQuery Selector Guide]
+  * [http://code.google.com/p/aost/wiki/TrUMP Tellurium UI Model Firefox Plugin (TrUMP) 0.1.0]
