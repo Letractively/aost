@@ -86,35 +86,17 @@ One example UI module is defined as follows,
 
 Where the _cacheable_ can overwrite the default value in the UI object and _noCacheForChildren _ in the above example will force Tellurium to not cache its children.
 
-Tellurium Core provides the following methods for jQuery Selector cache control,
+Tellurium Core provides a set of methods for jQuery Selector cache control, for example,
 
   * _public void enableSelectorCache()_: Enable jQuery selector cache
 
   * _public boolean disableSelectorCache()_: Disable jQuery selector cache
 
-  * _public boolean cleanSelectorCache()_: Cleanup the whole jQuery selector cache
-
-  * _public boolean getSelectorCacheState()_: Test if the cache is enabled or not in Engine
-
   * _public void setCacheMaxSize(int size)_: Set the cache maximum size
 
-  * _public int getCacheSize()_: Get the cache current size
-
-  * _public int getCacheMaxSize()_: Get the cache maximum size 
-
-  * _public Map<String, Long> getCacheUsage()_: Get the cache usage
-
-  * _public void useDiscardNewCachePolicy()_: Use DiscardNewCachePolicy 
-
   * _public void useDiscardOldCachePolicy()_: Use DiscardOldCachePolicy
-
-  * _public void useDiscardLeastUsedCachePolicy()_: Use DiscardLeastUsedCachePolicy
-
-  * _public void useDiscardInvalidCachePolicy()_: Use DiscardInvalidCachePolicy
-
-  * _public String getCurrentCachePolicy()_: Get the current cache policy
  
-For more details about the cache option, please read [http://code.google.com/p/aost/wiki/jQuerySelectorCache The Cache Mechanism of jQuery Selector]
+For a complete list of cache control APIs, please check  [http://code.google.com/p/aost/wiki/jQuerySelectorCache The Cache Mechanism of jQuery Selector]
 
 
  
