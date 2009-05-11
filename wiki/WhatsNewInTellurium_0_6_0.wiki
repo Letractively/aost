@@ -349,3 +349,20 @@ Please check Tellurium the following documents for more details about Maven arch
   * [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven Archetypes]
   * [http://code.google.com/p/aost/wiki/MavenHowTo Tellurium Maven Guide]
   * [http://code.google.com/p/aost/wiki/TenMinutesToTellurium Ten Minutes To Tellurium]
+
+== Tellurium Reference Projects ==
+
+Tellurium reference projects include two sub-projects,
+
+    * tellurium-junit-java
+    * tellurium-testng-java 
+
+We use Tellurium project web site as an example to illustrate how to write real-world Tellurium tests. 
+
+Basically, the two sub-projects are the same and the only difference is that tellurium-junit-java uses JUnit 4 and tellurium-testng-java uses TestNG. 
+
+The two reference projects are updated to use Tellurium Core 0.6.0 and please see more details on [http://code.google.com/p/aost/wiki/ReferenceProjectGuide the Reference Project Guide].
+
+
+
+
