@@ -43,6 +43,26 @@ class TelluriumIssuesPage extends DslContext{
        }
 
        ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], group: "true") {
+         TextBox(uid: "header: 1", clocator: [:])
+         UrlLink(uid: "header: 2", clocator: [text: "*ID"])
+         UrlLink(uid: "header: 3", clocator: [text: "*Type"])
+         UrlLink(uid: "header: 4", clocator: [text: "*Status"])
+         UrlLink(uid: "header: 5", clocator: [text: "*Priority"])
+         UrlLink(uid: "header: 6", clocator: [text: "*Milestone"])
+         UrlLink(uid: "header: 7", clocator: [text: "*Owner"])
+         UrlLink(uid: "header: 9", clocator: [text: "*Summary + Labels"])
+         UrlLink(uid: "header: 10", clocator: [text: "*..."])
+
+         //define table elements
+         //for the border column
+         TextBox(uid: "row: *, column: 1", clocator: [:])
+         TextBox(uid: "row: *, column: 8", clocator: [:])
+         TextBox(uid: "row: *, column: 10", clocator: [:])
+         //For the rest, just UrlLink
+         UrlLink(uid: "all", clocator: [:])
+       }
+
+/*       ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], group: "true") {
            //define table header
            //for the border column
            TextBox(uid: "header: 1",  clocator: [:])
@@ -60,7 +80,7 @@ class TelluriumIssuesPage extends DslContext{
            TextBox(uid: "row: *, column: 1", clocator: [:])
            //For the rest, just UrlLink
            UrlLink(uid: "all", clocator: [:])
-       }
+       }*/
 
        //items is a map in the format of "alias name" : menu_item
        ui.SimpleMenu(uid: "IdMenu", clocator:[class: "popup", id: "pop_0"],
@@ -93,6 +113,7 @@ class TelluriumIssuesPage extends DslContext{
 
     public void searchIssue(String issue){
         keyType "issueSearch.searchBox", issue
+//        type  "issueSearch.searchBox", issue
         click "issueSearch.searchButton"
         waitForPageToLoad 30000
     }
@@ -210,11 +231,11 @@ class TelluriumIssuesPage extends DslContext{
     }
 
     public void toggleIdColumn(String column){
-        click "issueResult.header[10]"
+        click "issueResult.header[2]"
         pause 1000
         click "selectColumnMenu.${column}"
         pause 1000
-        click "issueResult.header[10]"
+        click "issueResult.header[2]"
         pause 1000
         click "selectColumnMenu.${column}"
         pause 1000        
