@@ -16,7 +16,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/groovy/org/tellurium/test/TelluriumIssuesPageJaveTestCase.java" afterPath="$PROJECT_DIR$/src/test/groovy/org/tellurium/test/TelluriumIssuesPageJaveTestCase.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/groovy/org/tellurium/module/TelluriumIssuesPage.groovy" afterPath="$PROJECT_DIR$/src/test/groovy/org/tellurium/module/TelluriumIssuesPage.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium-junit-java.iws" afterPath="$PROJECT_DIR$/tellurium-junit-java.iws" />
     </list>
@@ -116,7 +115,7 @@
       <file leaf-file-name="TelluriumIssuesPage.groovy" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/groovy/org/tellurium/module/TelluriumIssuesPage.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="53" selection-start="2815" selection-end="2815" vertical-scroll-proportion="-7.7984495">
+            <state line="74" column="97" selection-start="3865" selection-end="3865" vertical-scroll-proportion="0.503876">
               <folding />
             </state>
           </provider>
@@ -376,6 +375,10 @@
           <option name="myItemId" value="tellurium" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ddt" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
       </PATH>
       <PATH>
         <PATH_ELEMENT>
@@ -499,17 +502,17 @@
       <recent name="org.tellurium" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TelluriumDownloadsPageJavaTestCase">
-    <tempConfiguration default="false" name="TelluriumDownloadsPageJavaTestCase" type="JUnit" factoryName="JUnit" enabled="false" merge="false" runner="emma">
+  <component name="RunManager" selected="JUnit.TelluriumIssuesDataDrivenTest">
+    <tempConfiguration default="false" name="TelluriumIssuesDataDrivenTest" type="JUnit" factoryName="JUnit" enabled="false" merge="false" runner="emma">
       <pattern>
-        <option name="PATTERN" value="org.tellurium.test.*" />
+        <option name="PATTERN" value="org.tellurium.ddt.*" />
         <option name="ENABLED" value="true" />
       </pattern>
       <module name="tellurium-junit-java" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.tellurium.test" />
-      <option name="MAIN_CLASS_NAME" value="org.tellurium.test.TelluriumDownloadsPageJavaTestCase" />
+      <option name="PACKAGE_NAME" value="org.tellurium.ddt" />
+      <option name="MAIN_CLASS_NAME" value="org.tellurium.ddt.TelluriumIssuesDataDrivenTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
@@ -612,7 +615,7 @@
       </method>
     </configuration>
     <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.TelluriumDownloadsPageJavaTestCase" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.TelluriumIssuesDataDrivenTest" />
     </list>
     <configuration default="true" type="GroovyScriptRunConfigurationType" factoryName="Groovy Script">
       <module name="" />
@@ -882,7 +885,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/groovy/org/tellurium/module/TelluriumIssuesPage.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="53" selection-start="2815" selection-end="2815" vertical-scroll-proportion="-7.7984495">
+        <state line="74" column="97" selection-start="3865" selection-end="3865" vertical-scroll-proportion="0.503876">
           <folding />
         </state>
       </provider>
