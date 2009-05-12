@@ -117,20 +117,21 @@
 		<echo message="Compiling java..." />
 		<groovyc srcdir="${dir.source.tellurium}"
 			destdir="${dir.build.tellurium}">
-			<classpath refid="lib.path" />
-           <!--javac source="1.5" target="1.5" debug="on" /-->
+			<classpath refid="tellurium.classpath" />  
+           <javac source="1.5" target="1.5" debug="on" />
         </groovyc>
-        <javac srcdir="${dir.source.tellurium}"
+        <!--javac srcdir="${dir.source.tellurium}"
             destdir="${dir.build.tellurium}">
             <classpath refid="tellurium.classpath" />
-        </javac>
+        </javac-->
 	</target>
 
 	<target name="compile-test" depends="clean, compile-tellurium">
 		<echo message="Compiling test.." />
 		<groovyc srcdir="${dir.source.test}" destdir="${dir.build.test}">
-			<classpath refid="tellurium.classpath" />
+			<classpath refid="tellurium.classpath" />     
 			<include name="**" />
+            <!--javac source="1.5" target="1.5" debug="on" /-->
 		</groovyc>
         <javac srcdir="${dir.source.test}"
             destdir="${dir.build.test}">
