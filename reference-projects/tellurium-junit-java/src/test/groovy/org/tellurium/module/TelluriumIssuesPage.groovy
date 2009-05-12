@@ -17,12 +17,12 @@ class TelluriumIssuesPage extends DslContext{
    public void defineUi() {
 
        //define UI module of a form include issue type selector and issue search
-       ui.Form(uid: "issueSearch", clocator: [action: "list", method: "get"], group: "true") {
-           Selector(uid: "issueType", clocator: [name: "can", id: "can"])
-           TextBox(uid: "searchLabel", clocator: [tag: "span"])
-           InputBox(uid: "searchBox", clocator: [name: "q"])
-           SubmitButton(uid: "searchButton", clocator: [value: "Search"])
-       }
+        ui.Form(uid: "issueSearch", clocator: [action: "list", method: "get"], group: "true") {
+          Selector(uid: "issueType", clocator: [name: "can", id: "can"])
+          TextBox(uid: "searchLabel", clocator: [tag: "span", text: "*for"])
+          InputBox(uid: "searchBox", clocator: [type: "text", name: "q"])
+          SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+        }
 
        ui.Form(uid: "issueAdvancedSearch", clocator: [action: "advsearch.do", method: "post"], group: "true"){
            Table(uid: "searchTable", clocator: [class: "advquery"]){
@@ -51,7 +51,7 @@ class TelluriumIssuesPage extends DslContext{
          UrlLink(uid: "header: 6", clocator: [text: "*Milestone"])
          UrlLink(uid: "header: 7", clocator: [text: "*Owner"])
          UrlLink(uid: "header: 9", clocator: [text: "*Summary + Labels"])
-         UrlLink(uid: "header: 10", clocator: [text: "*..."])
+         UrlLink(uid: "header: 10", clocator: [text: "...", href: "#columnprefs"])
 
          //define table elements
          //for the border column
@@ -231,11 +231,11 @@ class TelluriumIssuesPage extends DslContext{
     }
 
     public void toggleIdColumn(String column){
-        click "issueResult.header[2]"
+        click "issueResult.header[10]"
         pause 1000
         click "selectColumnMenu.${column}"
         pause 1000
-        click "issueResult.header[2]"
+        click "issueResult.header[10]"
         pause 1000
         click "selectColumnMenu.${column}"
         pause 1000        

@@ -115,7 +115,7 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
         connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.toggleIdColumn("ID");
         tisp.toggleIdColumn("Owner");
-        tisp.toggleIdColumn("Closed");
+//        tisp.toggleIdColumn("Closed");
     }
 
     @Test
