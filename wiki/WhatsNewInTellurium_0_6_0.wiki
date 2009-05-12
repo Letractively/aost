@@ -394,3 +394,4 @@ Alternatively, you could also create your own project manually by using [http://
   * [http://code.google.com/p/aost/wiki/MavenHowTo Tellurium Maven Guide]
   * [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector Tellurium jQuery Selector Guide]
   * [http://code.google.com/p/aost/wiki/TrUMP Tellurium UI Model Firefox Plugin (TrUMP) 0.1.0]
+  * [http://code.google.com/p/aost/wiki/TenMinutesToTellurium Ten Minutes To Tellurium]
