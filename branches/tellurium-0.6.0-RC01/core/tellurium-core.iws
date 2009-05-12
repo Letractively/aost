@@ -16,16 +16,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium.iml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tellurium-core.ipr" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rundsl.sh" afterPath="$PROJECT_DIR$/rundsl.sh" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium.ipr" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tellurium-core.iml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rundsl.bat" afterPath="$PROJECT_DIR$/rundsl.bat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$" afterPath="$PROJECT_DIR$" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/selenium-grid-tools-1.0.2.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-core.iml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/tellurium.iws" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tellurium-core.ipr" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/tellurium.ipr" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/tellurium.iml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium-core.iws" afterPath="$PROJECT_DIR$/tellurium-core.iws" />
     </list>
     <ignored path="tellurium-core.iws" />
@@ -133,7 +128,7 @@
       <file leaf-file-name="rundsl.bat" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rundsl.bat">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="334" selection-start="365" selection-end="365" vertical-scroll-proportion="0.07874016">
+            <state line="2" column="334" selection-start="365" selection-end="365" vertical-scroll-proportion="0.048622366">
               <folding />
             </state>
           </provider>
@@ -826,13 +821,13 @@
       <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3294964" sideWeight="0.5" order="7" side_tool="false" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294964" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32805756" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39595374" sideWeight="0.6604317" order="0" side_tool="false" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39595374" sideWeight="0.6618705" order="0" side_tool="false" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" />
@@ -974,7 +969,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/rundsl.bat">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="334" selection-start="365" selection-end="365" vertical-scroll-proportion="0.07874016">
+        <state line="2" column="334" selection-start="365" selection-end="365" vertical-scroll-proportion="0.048622366">
           <folding />
         </state>
       </provider>
