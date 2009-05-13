@@ -164,6 +164,8 @@ If you want to manually add Tellurium 0.6.0 RC1 to your Maven project, please in
         </dependency>
 }}}
 
+Here is the latest Tellurium Configuration file, [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile TelluriumConfig.groovy].
+
 Please report any problems back to Tellurium User Group at
 
 http://groups.google.com/group/tellurium-users
