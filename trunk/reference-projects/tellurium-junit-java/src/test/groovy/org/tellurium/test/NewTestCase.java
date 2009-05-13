@@ -27,17 +27,17 @@ public class NewTestCase extends TelluriumJavaTestCase {
     public void testDownloadTypes() {
         String[] allTypes = app.getAllDownloadTypes();
         assertNotNull(allTypes);
-        assertTrue(allTypes[1].contains("All Downloads"));
-        assertTrue(allTypes[2].contains("Featured Downloads"));
-        assertTrue(allTypes[3].contains("Current Downloads"));
-        assertTrue(allTypes[4].contains("Deprecated Downloads"));
+        assertTrue(allTypes[1].contains("All downloads"));
+        assertTrue(allTypes[2].contains("Featured downloads"));
+        assertTrue(allTypes[3].contains("Current downloads"));
+        assertTrue(allTypes[4].contains("Deprecated downloads"));
     }
 
     @Test
     public void testTelluriumProjectPage() {
         String[] allTypes = app.getAllDownloadTypes();
         assertNotNull(allTypes);
-        assertTrue(allTypes[1].contains("All Downloads"));
+        assertTrue(allTypes[1].contains("All downloads"));
         app.selectDownloadType(allTypes[1]);
         app.searchDownload("TrUMP");
     }
