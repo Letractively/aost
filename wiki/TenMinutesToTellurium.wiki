@@ -364,5 +364,9 @@ http://aost.googlecode.com/files/TenMinutesToTellurium.ogg
 
 Here is [http://www.youtube.com/watch?v=DyUPeg-Y-Yg the online version]
 
-The generated Demo project can be downloaded from [http://tellurium-users.googlegroups.com/web/demo.tar.gz?gda=KLuc0T0AAACXZPxEX7Ki-M5C2JpeBoXX9cV6LjM02yQQsSwuuEiWqhlX3Fx9UEqM2hr2qeRv5GDlNv--OykrTYJH3lVGu2Z5&gsc=r5ESUAsAAAB_6XgBAY-OTO2KhvY2ZJUe here]
+The generated Demo project can be downloaded from [http://tellurium-users.googlegroups.com/web/demo.tar.gz?gda=KLuc0T0AAACXZPxEX7Ki-M5C2JpeBoXX9cV6LjM02yQQsSwuuEiWqhlX3Fx9UEqM2hr2qeRv5GDlNv--OykrTYJH3lVGu2Z5&gsc=r5ESUAsAAAB_6XgBAY-OTO2KhvY2ZJUe here] or check it out from Subversion 
+
+{{{
+http://aost.googlecode.com/svn/branches/ten-minutes-to-tellurium/
+}}}
  
