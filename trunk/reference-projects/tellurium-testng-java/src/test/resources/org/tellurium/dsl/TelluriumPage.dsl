@@ -11,8 +11,8 @@ ui.Container(uid: "menu", clocator: [tag: "table", id: "mt", trailer: "/tbody/tr
 //define the Tellurium project search module, which includes an input box, two search buttons
 ui.Form(uid: "search", clocator: [:], group: "true"){
     InputBox(uid: "searchbox", clocator: [name: "q"])
-    SubmitButton(uid: "search_project_button", clocator: [value: "Search Projects"])
-    SubmitButton(uid: "search_web_button", clocator: [value: "Search the Web"])
+    SubmitButton(uid: "search_project_button", clocator: [value: "Search projects"])
+//    SubmitButton(uid: "search_web_button", clocator: [value: "Search the Web"])
 }
 
 openUrl "http://code.google.com/p/aost/"
@@ -30,6 +30,6 @@ type "search.searchbox", "Tellurium Selenium groovy"
 click "search.search_project_button"
 waitForPageToLoad 30000
 
-type "search.searchbox", "tellurium selenium dsl groovy"
-click "search.search_web_button"
-waitForPageToLoad 30000
+//type "search.searchbox", "tellurium selenium dsl groovy"
+//click "search.search_web_button"
+//waitForPageToLoad 30000
