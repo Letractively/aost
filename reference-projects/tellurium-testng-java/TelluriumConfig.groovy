@@ -11,7 +11,7 @@ tellurium{
     //embedded selenium server configuration
     embeddedserver {
         //port number
-        port = "4445"
+        port = "4444"
         //whether to use multiple windows
         useMultiWindows = false
         //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
@@ -39,7 +39,7 @@ tellurium{
         //please change the host if you run the Selenium server remotely
         serverHost = "localhost"
         //server port number the client needs to connect
-        port = "4445"
+        port = "4444"
         //base URL
         baseUrl = "http://localhost:8080"
         //Browser setting, valid options are
