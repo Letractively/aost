@@ -5,6 +5,7 @@ import org.tellurium.module.TelluriumProjectPage;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.Before;
+import org.junit.Ignore;
 
 /**
  * 
@@ -41,6 +42,7 @@ public class TelluriumProjectPageJavaTestCase extends TelluriumJavaTestCase{
         app.searchProject("tellurium");
     }
 
+    @Ignore
     @Test
     public void testSeachWeb(){
         app.searchWeb("tellurium selenium dsl groovy");

@@ -34,7 +34,7 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
         connectUrl("http://code.google.com/p/aost/issues/list");
         String[] ists = tisp.getIsssueTypes();
         assertNotNull(ists);
-        assertTrue(ists[2].contains("Open Issues"));
+        assertTrue(ists[2].contains("Open issues"));
         tisp.selectIssueType(ists[2]);
         tisp.searchIssue("Alter");
     }
@@ -44,7 +44,7 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
         connectUrl("http://code.google.com/p/aost/issues/advsearch");
         String[] ists = tisp.getAdvancedIsssueTypes();
         assertNotNull(ists);
-        assertTrue(ists[1].contains("All Issues"));
+        assertTrue(ists[1].contains("All issues"));
         tisp.selectIssueType(ists[1]);
 
         tisp.advancedSearchIssue(ists[1], "table", null, null, null, null, null, null, null);
@@ -115,7 +115,7 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
         connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.toggleIdColumn("ID");
         tisp.toggleIdColumn("Owner");
-        tisp.toggleIdColumn("Closed");
+//        tisp.toggleIdColumn("Closed");
     }
 
     @Test
