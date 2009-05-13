@@ -91,7 +91,7 @@ java -cp tellurium-core-0.6.0.RC1-with-dependencies.jar:. org.tellurium.dsl.DslS
 
 to run DSL scripts.
 
-The best way to get Tellurium 0.6.0 RC1 is to use Tellurium Maven Archetype. For a JUnit project, use the following command
+The best way to get Tellurium 0.6.0 RC1 is to use Tellurium Maven Archetypes. For a JUnit project, use the following Maven command
 
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
 -DarchetypeArtifactId=tellurium-junit-archetype \
