@@ -164,6 +164,59 @@ If you want to manually add Tellurium 0.6.0 RC1 to your Maven project, please in
         </dependency>
 }}}
 
+and the following repositories,
+
+{{{
+   <repositories>
+        <repository>
+            <id>caja</id>
+            <url>http://google-caja.googlecode.com/svn/maven</url>
+        </repository>
+        <repository>
+            <id>kungfuters-public-snapshots-repo</id>
+            <name>Kungfuters.org Public Snapshot Repository</name>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <url>http://kungfuters.org/nexus/content/repositories/snapshots</url>
+        </repository>
+        <repository>
+            <id>kungfuters-public-releases-repo</id>
+            <name>Kungfuters.org Public Releases Repository</name>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://kungfuters.org/nexus/content/repositories/releases</url>
+        </repository>
+        <repository>
+            <id>kungfuters-thirdparty-releases-repo</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://kungfuters.org/nexus/content/repositories/thirdparty</url>
+        </repository>
+        <repository>
+            <id>openqa-release-repo</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://archiva.openqa.org/repository/releases</url>
+        </repository>
+    </repositories>
+}}}
+
 Here is the latest Tellurium Configuration file, [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile TelluriumConfig.groovy].
 
 Please report any problems back to Tellurium User Group at
