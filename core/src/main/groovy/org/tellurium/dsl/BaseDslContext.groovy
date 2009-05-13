@@ -82,7 +82,7 @@ abstract class BaseDslContext {
 
   private JSONReader reader = new JSONReader()
 
-  public Object parseSeleniumJSONReturnValue(String out){
+  protected Object parseSeleniumJSONReturnValue(String out){
     if(out.startsWith("OK,")){
       out = out.substring(3);
     } else {

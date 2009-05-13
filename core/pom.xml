@@ -172,7 +172,7 @@
                         <goals>
                             <goal>attached</goal>
                         </goals-->
-                        <phase>install</phase>
+                        <phase>assembly</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
