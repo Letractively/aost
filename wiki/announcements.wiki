@@ -60,7 +60,7 @@ Tellurium 0.6.0 RC1 includes the following modules:
   * Tellurium TestNG Maven Archetype 1.0 RC1
   * Customized Selenium Server 1.0-te-2
 
-Tellurium 0.6.0 is a feature rich release and please check [http://code.google.com/p/aost/wiki/WhatsNewInTellurium_0_6_0 Whats New in Tellurium 0.6.0] for detailed introduction of them. For RC1, please replace 0.6.0 with 0.6.0.RC1 and 1.0 with 1.0.RC1.
+Tellurium 0.6.0 is a feature rich release and please check [http://code.google.com/p/aost/wiki/WhatsNewInTellurium_0_6_0 Whats New in Tellurium 0.6.0] for a detailed introduction of them. For RC1, please replace 0.6.0 with 0.6.0.RC1 and 1.0 with 1.0.RC1 for the configurations in the wiki page.
  
 The Tellurium 0.6.0 RC1 Code base is at 
 
