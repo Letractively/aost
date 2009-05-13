@@ -60,5 +60,114 @@ Tellurium 0.6.0 RC1 includes the following modules:
   * Tellurium TestNG Maven Archetype 1.0 RC1
   * Customized Selenium Server 1.0-te-2
 
-Tellurium 0.6.0 is a feature rich release and please check [http://code.google.com/p/aost/wiki/WhatsNewInTellurium_0_6_0 Whats New in Tellurium 0.6.0] for details. For RC1, please replace 0.6.0 with 0.6.0.RC1 and 1.0 with 1.0.RC1.
+Tellurium 0.6.0 is a feature rich release and please check [http://code.google.com/p/aost/wiki/WhatsNewInTellurium_0_6_0 Whats New in Tellurium 0.6.0] for detailed introduction of them. For RC1, please replace 0.6.0 with 0.6.0.RC1 and 1.0 with 1.0.RC1.
  
+The Tellurium 0.6.0 RC1 Code base is at 
+
+http://aost.googlecode.com/svn/branches/tellurium-0.6.0-RC01
+
+Please go to Tellurium Download page 
+
+http://code.google.com/p/aost/downloads/list
+
+to download the following artifacts
+
+  * tellurium-core.0.6.0.RC1.jar:  Tellurium Core 0.6.0 RC1 jar file
+  * tellurium-core.0.6.0.RC1-with-dependencies.jar: Tellurium Core 0.6.0 RC1 jar with Dependencies, one jar file includes all dependent jars
+  * reference-junit-0.6.0.RC1.tar.gz: Tellurium 0.6.0 RC1 JUnit Reference Project
+  * reference-testng-0.6.0.RC1.tar.gz: Tellurium 0.6.0 RC1 TestNG Reference Project
+
+If you use ant to build project, you can simply include tellurium-core.0.6.0.RC1-with-dependencies.jar in your build path. You can also run the customized selenium server using the following command,
+
+{{{
+ java -jar tellurium-core-0.6.0.RC1-with-dependencies.jar 
+}}}
+
+and use
+
+{{{
+java -cp tellurium-core-0.6.0.RC1-with-dependencies.jar:. org.tellurium.dsl.DslScriptExecutor dsl_script_file
+}}}
+
+to run DSL scripts.
+
+The best way to get Tellurium 0.6.0 RC1 is to use Tellurium Maven Archetype. For a JUnit project, use the following command
+
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
+-DarchetypeArtifactId=tellurium-junit-archetype \
+-DarchetypeGroupId=tellurium -DarchetypeVersion=1.0.RC1-SNAPSHOT \
+-DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
+
+and use 
+
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
+-DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium \
+-DarchetypeVersion=1.0.RC1-SNAPSHOT \
+-DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
+
+to create a TestNG project.
+
+If you want to manually add Tellurium 0.6.0 RC1 to your Maven project, please include the following dependencies:
+
+{{{
+      <dependency>
+          <groupId>org.openqa.selenium.grid</groupId>
+          <artifactId>selenium-grid-tools</artifactId>
+          <version>1.0.2</version>
+        </dependency> 
+
+        <dependency>
+            <groupId>tellurium</groupId>
+            <artifactId>tellurium-core</artifactId>
+            <version>0.6.0.RC1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium.server</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>1.0-te-2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium.client-drivers</groupId>
+            <artifactId>selenium-java-client-driver</artifactId>
+            <version>1.0-beta-2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.groovy.maven.runtime</groupId>
+                    <artifactId>gmaven-runtime-default</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium.core</groupId>
+                    <artifactId>selenium-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium.server</groupId>
+                    <artifactId>selenium-server</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>1.6.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>caja</groupId>
+            <artifactId>json_simple</artifactId>
+            <version>r1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.stringtree</groupId>
+            <artifactId>stringtree-json</artifactId>
+            <version>2.0.10</version>
+        </dependency>
+}}}
+
+Please report any problems back to Tellurium User Group at
+
+http://groups.google.com/group/tellurium-users
+
+Thanks,
+
+Tellurium Team
