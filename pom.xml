@@ -226,7 +226,7 @@
         <module>engine</module>
         <module>extensions</module>
         <module>reference-projects</module>
-        <module>tools</module>
+        <!--module>tools</module-->
         <module>tellurium-assembly</module>
     </modules>
     <repositories>
