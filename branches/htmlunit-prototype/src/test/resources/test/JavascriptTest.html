@@ -1,0 +1,18 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><title>Table sample</title></head>
+<body>
+<form action='/foo' name='form1'>
+    <table id="table1">
+        <script type="text/javascript">
+            for (i = 1; i <= 5; i++) {
+                document.write("<tr><td>" + i
+                        + "</td><td><input name='textfield" + i
+                        + "' type='text'></td></tr>");
+            }
+        </script>
+    </table>
+</form>
+</body>
+</html>
