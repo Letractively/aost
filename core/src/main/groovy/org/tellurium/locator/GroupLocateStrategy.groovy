@@ -35,7 +35,8 @@ class GroupLocateStrategy {
             //cannot use other Locator type for the timebeing
             if(child.locator instanceof CompositeLocator){
                 CompositeLocator cloc = child.locator
-                String gattr = JQueryBuilder.buildJQuerySelector(cloc.tag, cloc.text, cloc.position, cloc.direct, cloc.attributes)
+//                String gattr = JQueryBuilder.buildJQuerySelector(cloc.tag, cloc.text, cloc.position, cloc.direct, cloc.attributes)
+                String gattr = JQueryBuilder.buildJQuerySelector(cloc.tag, cloc.text, null, cloc.direct, cloc.attributes)
                 if(!MATCH_ALL.equals(gattr.trim()))
                   groupAttributes.add(gattr.trim())
             }
