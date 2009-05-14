@@ -35,6 +35,7 @@
   * [http://www.jsunit.net/ JsUnit]
   * [http://en.wikipedia.org/wiki/Behavior_Driven_Development Behavior Driven Development]
   * [http://dogself.com/telluriumTest/ Tellurium Testing Page]
+  * [http://groups.google.com/group/SoftwareQA-Testing?hl=en Software Testing (QC) & Software Quality Assurance (QA)]
 
 == Tools ==
   
