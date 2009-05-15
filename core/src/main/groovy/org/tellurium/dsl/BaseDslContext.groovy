@@ -1025,7 +1025,7 @@ abstract class BaseDslContext {
   }
 
     int getListSizeByXPath(String uid) {
-      WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      WorkflowContext context = WorkflowContext.getDefaultContext()
       org.tellurium.object.List obj = (org.tellurium.object.List) walkToWithException(context, uid)
       return obj.getListSizeByXPath() {loc ->
         String locator = locatorMapping(context, loc)
