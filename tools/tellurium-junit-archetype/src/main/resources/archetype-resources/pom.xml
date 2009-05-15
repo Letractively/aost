@@ -292,6 +292,26 @@
                     </dependency>
                 </dependencies>
                 <executions>
+                   <execution>
+                        <id>compile-java</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <tasks>
+                                <path id="compile.classpath">
+                                    <path refid="maven.compile.classpath"/>
+                                    <pathelement location="target/classes"/>
+                                </path>
+                                <mkdir dir="target/classes"/>
+                                <javac srcdir="src/main/groovy" debug="${dollar}{javac-debug}"
+                                       destdir="target/classes" classpathref="compile.classpath">
+                                    <include name="**/*.java"/>
+                                </javac>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>                                        
                     <execution>
                         <id>compile-java-test</id>
                         <phase>test-compile</phase>
