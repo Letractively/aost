@@ -18,7 +18,7 @@ public class HtmlUnitJavascriptTestCase {
     public void documentWrite() throws Exception {
         final WebClient webClient = new WebClient();
 
-        final HtmlPage page = webClient.getPage("http://myserver/test.html");
+        final HtmlPage page = webClient.getPage("http://localhost:8080/JavascriptTest.html");
         final HtmlForm form = page.getFormByName("form1");
         for (int i = 1; i <= 5; i++) {
             final String expectedName = "textfield" + i;
