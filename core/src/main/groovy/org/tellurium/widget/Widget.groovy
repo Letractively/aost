@@ -46,6 +46,10 @@ abstract class Widget extends UiObject {
 
   //flag to decide whether we should use jQuery Selector
   protected boolean exploreJQuerySelector = false
+
+  //flag to decide whether we should cache jQuery selector
+  protected boolean exploreSelectorCache = false
+  
   protected JQueryOptimizer optimizer = new JQueryOptimizer()
 
   //the reference xpath for widget's parent
