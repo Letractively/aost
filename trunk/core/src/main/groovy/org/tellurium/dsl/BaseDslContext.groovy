@@ -31,7 +31,6 @@ abstract class BaseDslContext {
   protected static final String JQUERY_SELECTOR = "jquery="
   protected static final String JQUERY_SELECTOR_CACHE = "jquerycache="
   protected static final String DEFAULT_XPATH = "default"
-  //protected static final String JAVASCRIPT_XPATH = "javascript"
   protected static final String JAVASCRIPT_XPATH = "javascript-xpath"  
   protected static final String AJAXSLT_XPATH = "ajaxslt"
   protected static final String LOCATOR = "locator"
