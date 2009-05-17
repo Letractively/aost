@@ -26,6 +26,25 @@
 
 // The window to which the commands will be sent.  For example, to click on a
 // popup window, first select that window, and then do a normal click command.
+
+function NamespaceMap(){
+    this.namespaceMap =  new Hashtable();
+    this.namespaceMap.put("html", "http://www.w3.org/1999/xhtml");
+    this.namespaceMap.put("xhtml", "http://www.w3.org/1999/xhtml");
+    this.namespaceMap.put("x", "http://www.w3.org/1999/xhtml");
+    this.namespaceMap.put("mathml", "http://www.w3.org/1998/Math/MathML");
+};
+
+NamespaceMap.prototype.put = function(prefix, namespace){
+    this.namespaceMap.put(prefix, namespace);
+};
+
+NamespaceMap.prototype.get = function(prefix){
+    return this.namespaceMap.get(prefix);
+};
+
+var globalNamespaceMap = new NamespaceMap();
+
 var BrowserBot = function(topLevelApplicationWindow) {
     this.topWindow = topLevelApplicationWindow;
     this.topFrame = this.topWindow;
@@ -67,12 +86,16 @@ var BrowserBot = function(topLevelApplicationWindow) {
     this.browserbot = this;
 
     //Added to support custom namespace
+//    this.namespaceMap = globalNamespaceMap;
+
+/*
     this.namespaceMap =  new HashMap();
     this.namespaceMap.put("html", "http://www.w3.org/1999/xhtml");
     this.namespaceMap.put("xhtml", "http://www.w3.org/1999/xhtml");
     this.namespaceMap.put("x", "http://www.w3.org/1999/xhtml");
     this.namespaceMap.put("mathml", "http://www.w3.org/1998/Math/MathML");
-      
+*/
+
     var self = this;
 
     objectExtend(this, PageBot.prototype);
@@ -1412,12 +1435,14 @@ BrowserBot.prototype.locateElementByJquery = function(xpath, inDocument, inWindo
 
 //modified to support custom namespaces
 BrowserBot.prototype.addNamespace = function(prefix, namespace) {
-    this.namespaceMap.put(prefix, namespace) ;
+//    this.namespaceMap.put(prefix, namespace) ;
+    globalNamespaceMap.put(prefix, namespace);
 };
 
 BrowserBot.prototype._namespaceResolver = function(prefix) {
     //modified to support custom namespaces
-    var nsFromMap = this.namespaceMap.get(prefix);
+//    var nsFromMap = this.namespaceMap.get(prefix);
+    var nsFromMap = globalNamespaceMap.get(prefix);
     if(nsFromMap == null){
        throw new Error("Unknown namespace: " + prefix + ".");
     }
