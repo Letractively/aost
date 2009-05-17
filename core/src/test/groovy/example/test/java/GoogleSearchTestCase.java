@@ -19,12 +19,14 @@ import example.google.GoogleSearchModule;
 
 public class GoogleSearchTestCase extends TelluriumJavaTestCase {
     private static GoogleSearchModule gsm;
-
+    private static String te_ns = "http://tellurium.org/ns";
+    
     @BeforeClass
     public static void initUi() {
         gsm = new GoogleSearchModule();
         gsm.defineUi();
         gsm.useJQuerySelector();
+        gsm.registerNamespace("te", te_ns);
     }
 
     @Before
@@ -78,8 +80,7 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
 
     @Test
     public void testRegisterNamespace(){
-        String te_ns = "http://tellurium.org/ns";
-        gsm.registerNamespace("te", te_ns);
+//        gsm.registerNamespace("te", te_ns);
         String ns = gsm.getNamespace("te");
         assertNotNull(ns);
         assertEquals(te_ns, ns);
