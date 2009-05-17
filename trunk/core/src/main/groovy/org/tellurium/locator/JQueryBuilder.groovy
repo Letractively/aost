@@ -285,7 +285,7 @@ public class JQueryBuilder {
     return ""
   }
 
-    public static String convTrailer(String trailer){
+  public static String convTrailer(String trailer){
     if (trailer != null && trailer.trim().length() > 0){
       String[] xps = XPathProcessor.splitXPath(trailer)
       StringBuffer sb = new StringBuffer(LENGTH)

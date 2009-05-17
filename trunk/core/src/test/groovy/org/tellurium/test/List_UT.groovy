@@ -60,4 +60,14 @@ class List_UT extends GroovyTestCase{
       println upl.getLocator("MainPanel2.UserProfileDetails[2].Name")
     }
 
+    public void testListSeparator(){
+      List1 list = new List1()
+      list.defineList()
+      list.exploreJQuerySelector = false
+      list.dump("A")
+      list.dump("B")
+      list.exploreJQuerySelector = true
+      list.dump("A")
+      list.dump("B")      
+    }
 }
