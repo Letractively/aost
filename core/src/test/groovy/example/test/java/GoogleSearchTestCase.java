@@ -84,6 +84,12 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
         String ns = gsm.getNamespace("te");
         assertNotNull(ns);
         assertEquals(te_ns, ns);
+        ns = gsm.getNamespace("x");
+        assertNotNull(ns);
+        assertEquals("http://www.w3.org/1999/xhtml", ns);
+        ns = gsm.getNamespace("mathml");
+        assertNotNull(ns);
+        assertEquals("http://www.w3.org/1998/Math/MathML", ns);
     }
 
     @Test
