@@ -1,9 +1,9 @@
 //add custom jQuery Selector :te_text()
 //
 
-jQuery.extend(jQuery.expr[':'], {
+teJQuery.extend(teJQuery.expr[':'], {
     te_text: function(a, i, m) {
-        return jQuery(a).text() === m[3];
+        return teJQuery(a).text() === m[3];
     }
 });
 
@@ -322,7 +322,7 @@ Tellurium.prototype.locateElementByJQuerySelector = function(locator, inDocument
         attr = locator.substring(inx + 1);
         isattr = true;
     }
-    var found = jQuery(inDocument).find(loc);
+    var found = teJQuery(inDocument).find(loc);
     if (found.length == 1) {
         if (isattr) {
             return found[0].getAttributeNode(attr);
@@ -365,7 +365,7 @@ Tellurium.prototype.checkAncestorSelector = function(akey){
         //check if the ancestor's DOM reference is still valid
         if (!this.validateCache(cached)) {
             //if not valid, try to select it using jQuery
-            var $newsel = jQuery(cached.optimized);
+            var $newsel = teJQuery(cached.optimized);
             if ($newsel.length > 0) {
                 cached.reference = $newsel;
                 cached.count = 0;
@@ -467,7 +467,7 @@ Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, 
     //If do not cache selector or meta command without UID, directly find jQuery selector
     if((!this.cacheSelector) || input.metaCmd.uid == null || trimString(input.metaCmd.uid).length == 0){
         //cannot cache without uid, thus, go directly to find the element using jQuery
-         $found = jQuery(inDocument).find(input.optimized);
+         $found = teJQuery(inDocument).find(input.optimized);
          this.validateResult($found);
          return this.convResult($found, input);
     }else{
@@ -493,7 +493,7 @@ Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, 
 
                 //if still could not find do jQuery select
                 if($found == null){
-                    $found = jQuery(inDocument).find(input.optimized);
+                    $found = teJQuery(inDocument).find(input.optimized);
                 }
 
                 //validate the result before storing it
@@ -525,7 +525,7 @@ Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, 
             
             //if still could not find do jQuery select
             if ($found == null) {
-                $found = jQuery(inDocument).find(input.optimized);
+                $found = teJQuery(inDocument).find(input.optimized);
             }
 
             //validate the result before storing it
