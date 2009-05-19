@@ -244,7 +244,7 @@
   </component>
   <component name="ProjectFileVersion" converted="true" />
   <component name="ProjectKey">
-    <option name="state" value="https://aost.googlecode.com/svn/trunk/tellurium.ipr" />
+    <option name="state" value="https://aost.googlecode.com/svn/branches/tellurium-0.7.0-prototype/tellurium.ipr" />
   </component>
   <component name="ProjectModuleManager">
     <modules>
@@ -625,6 +625,61 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0-te-2/selenium-server-1.0-te-2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: tellurium:tellurium-junit-java:0.7.0-SNAPSHOT">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-junit-java/0.7.0-SNAPSHOT/tellurium-junit-java-0.7.0-SNAPSHOT.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-junit-java/0.7.0-SNAPSHOT/tellurium-junit-java-0.7.0-SNAPSHOT-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-junit-java/0.7.0-SNAPSHOT/tellurium-junit-java-0.7.0-SNAPSHOT-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: tellurium:tellurium-testng-java:0.7.0-SNAPSHOT">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-testng-java/0.7.0-SNAPSHOT/tellurium-testng-java-0.7.0-SNAPSHOT.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-testng-java/0.7.0-SNAPSHOT/tellurium-testng-java-0.7.0-SNAPSHOT-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-testng-java/0.7.0-SNAPSHOT/tellurium-testng-java-0.7.0-SNAPSHOT-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: tellurium:tellurium-junit-java:sources:0.7.0-SNAPSHOT">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-junit-java/0.7.0-SNAPSHOT/tellurium-junit-java-0.7.0-SNAPSHOT-sources.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-junit-java/0.7.0-SNAPSHOT/tellurium-junit-java-0.7.0-SNAPSHOT-sources-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-junit-java/0.7.0-SNAPSHOT/tellurium-junit-java-0.7.0-SNAPSHOT-sources-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: tellurium:tellurium-testng-java:sources:0.7.0-SNAPSHOT">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-testng-java/0.7.0-SNAPSHOT/tellurium-testng-java-0.7.0-SNAPSHOT-sources.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-testng-java/0.7.0-SNAPSHOT/tellurium-testng-java-0.7.0-SNAPSHOT-sources-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-testng-java/0.7.0-SNAPSHOT/tellurium-testng-java-0.7.0-SNAPSHOT-sources-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: tellurium:tellurium-core:0.6.0-SNAPSHOT">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-core/0.6.0-SNAPSHOT/tellurium-core-0.6.0-SNAPSHOT.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-core/0.6.0-SNAPSHOT/tellurium-core-0.6.0-SNAPSHOT-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/tellurium/tellurium-core/0.6.0-SNAPSHOT/tellurium-core-0.6.0-SNAPSHOT-sources.jar!/" />
       </SOURCES>
     </library>
   </component>

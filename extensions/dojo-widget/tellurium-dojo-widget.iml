@@ -34,7 +34,7 @@
     <orderEntry type="library" exported="" name="Maven: org.codehaus.plexus:plexus-utils:1.5.5" level="project" />
     <orderEntry type="library" exported="" name="Maven: com.thoughtworks.qdox:qdox:1.8" level="project" />
     <orderEntry type="library" exported="" name="Maven: bouncycastle:bcprov-jdk15:140" level="project" />
-    <orderEntry type="library" exported="" name="Maven: tellurium:tellurium-core:0.6.0-SNAPSHOT" level="project" />
+    <orderEntry type="module" module-name="tellurium-core" exported="" />
     <orderEntry type="library" exported="" name="Maven: caja:json_simple:r1" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.stringtree:stringtree-json:2.0.10" level="project" />
   </component>
