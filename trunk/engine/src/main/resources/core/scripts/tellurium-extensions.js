@@ -56,15 +56,15 @@ Selenium.prototype.getSelectorFunctionCall = function(jq, fn) {
 
 Selenium.prototype.getAllText = function(locator) {
     var out = [];
-    var $e = jQuery(this.browserbot.findElement(locator));
+    var $e = teJQuery(this.browserbot.findElement(locator));
     $e.each(function() {
-        out.push(jQuery(this).text());
+        out.push(teJQuery(this).text());
     });
     return JSON.stringify(out);
 };
 
 Selenium.prototype.getJQuerySelectorCount = function(locator) {
-    var $e = jQuery(this.browserbot.findElement(locator));
+    var $e = teJQuery(this.browserbot.findElement(locator));
     if ($e == null)
         return 0;
 
@@ -73,15 +73,15 @@ Selenium.prototype.getJQuerySelectorCount = function(locator) {
 
 Selenium.prototype.getCSS = function(locator, cssName) {
     var out = [];
-    var $e = jQuery(this.browserbot.findElement(locator));
+    var $e = teJQuery(this.browserbot.findElement(locator));
     $e.each(function() {
-        out.push(jQuery(this).css(cssName));
+        out.push(teJQuery(this).css(cssName));
     });
     return JSON.stringify(out);
 };
 
 Selenium.prototype.isDisabled = function(locator) {
-    var $e = jQuery(this.browserbot.findElement(locator));
+    var $e = teJQuery(this.browserbot.findElement(locator));
     if ($e == null || $e.length < 1)
         Assert.fail("Cannot find Element for " + locator);
     if ($e.length > 1)
@@ -90,7 +90,7 @@ Selenium.prototype.isDisabled = function(locator) {
 };
 
 Selenium.prototype.getListSize = function(locator, separators) {
-    var $e = jQuery(this.browserbot.findElement(locator));
+    var $e = teJQuery(this.browserbot.findElement(locator));
     if ($e == null || $e.length < 1)
         Assert.fail("Cannot find Element for " + locator);
 
@@ -166,13 +166,13 @@ Selenium.prototype.getCachePolicyName = function(){
 };
 
 var getEvent = function(name, key){
-    var e = jQuery.Event(name);
+    var e = teJQuery.Event(name);
     e.which = key.charCodeAt(0);
     return e;
 };
 
 Selenium.prototype.doTypeKey = function(locator, key){
-    var $elem = jQuery(this.browserbot.findElement(locator));
+    var $elem = teJQuery(this.browserbot.findElement(locator));
 
 	$elem.val($elem.val()+key).trigger(getEvent("keydown", key)).trigger(getEvent("keypress", key)).trigger(getEvent("keyup", key));
 };
