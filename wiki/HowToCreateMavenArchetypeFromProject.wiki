@@ -7,7 +7,8 @@
 Maven archetype provides you the capability to create a new project using *ONE* maven command. For example, the following Maven command will create a Tellurium JUnit Test project for you. 
 
 {{{
-mvn archetype:create -DgroupId=example -DartifactId=myproject -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT \                    -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
+mvn archetype:create -DgroupId=example -DartifactId=myproject -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT \
+                 -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
 }}}
 
 If you check the created the project, you will see the new project includes all the code skeleton you need to write Tellurium tests.
