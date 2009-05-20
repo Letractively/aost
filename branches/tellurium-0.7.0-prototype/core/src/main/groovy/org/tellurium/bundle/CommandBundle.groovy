@@ -1,0 +1,58 @@
+package org.tellurium.bundle
+
+import org.json.simple.JSONArray
+
+/**
+ *
+ * Command bundle
+ *
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
+ *
+ * Date: May 19, 2009
+ * 
+ */
+
+public class CommandBundle implements BundleStrategy{
+  public static final String BUNDLE = "bundle";
+
+
+  private List<SelenCmd> bundle = new ArrayList<SelenCmd>();
+
+  private String parentUid = null;
+  
+  public int addToBundle(SelenCmd newcmd){
+    bundle.add(newcmd);
+    parentUid = newcmd.getParentUid();
+  }
+
+  public List<SelenCmd> getAllCmds(){
+    return this.bundle;
+  }
+
+  public List<SelenCmd> extractAllCmds(){
+    List<SelenCmd> result = new ArrayList<SelenCmd>();
+    result.addAll(bundle);
+
+    bundle.clear();
+
+    return result;
+  }
+
+  public String extractAllAndConvertToJson(){
+    JSONArray arr = new JSONArray();
+    arr.add(bundle)
+    String json = arr.toString();
+    
+    return json;
+  }
+
+  public boolean shouldAppend(SelenCmd newcmd) {
+    String puid = newcmd.getParentUid();
+
+    return parentUid.equalsIgnoreCase(puid);  
+  }
+
+  public int size(){
+    return bundle.size();
+  }
+}

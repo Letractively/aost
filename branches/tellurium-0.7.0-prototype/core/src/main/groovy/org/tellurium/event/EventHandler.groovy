@@ -74,24 +74,6 @@ class EventHandler implements Configurable{
         }
     }
 
-/*    protected void processEvents(String locator, String[] events, String[] defaultEvents, Closure action){
-        checkElement(locator)
-
-        if(dispatcher.isElementPresent(locator)){
-            Event[] evns = alg.sort(events, defaultEvents)
-            evns.each { Event event ->
-                if(event == Event.ACTION)
-                  action()
-                else
-                  processingEvent(locator, event)
-            }
-
-        }else{
-          throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
-        }
-    }
-    */
-
     protected void checkElement(String locator){
 		if(checkElement && (!dispatcher.isElementPresent(locator))){
 			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
@@ -272,101 +254,6 @@ class EventHandler implements Configurable{
     	}
     }
 
-/*
-    def simulateKeyType(String locator, String input){
-
-        if(input == null || input.length() < 1){
-    		dispatcher.type(locator, "")
-        }else{
-    		char[] chars = input.toCharArray()
-
-            for(char achar: chars){
-    			String key = Character.toString(achar)
-    			if("\n".equals(key)){
-    				dispatcher.keyUp(locator,  "\\13")
-                }else if(".".equals(key)){
-                    String keycode = Integer.toString(KeyEvent.VK_PERIOD)
-//                    dispatcher.keyDownNative(keycode)
-                    dispatcher.keyPressNative(keycode)
-//                    dispatcher.keyUpNative(keycode)
-                }else if("(".equals(key)){
-                    String keycode = Integer.toString(KeyEvent.VK_LEFT_PARENTHESIS)
-//                    dispatcher.keyDownNative(keycode)
-                    dispatcher.keyPressNative(keycode)
-//                    dispatcher.keyUpNative(keycode)
-                }else if("y".equals(key)){
-                    String keycode = Integer.toString(KeyEvent.VK_Y)
-//                    dispatcher.keyDownNative(keycode)
-                    dispatcher.keyPressNative(keycode)
-//                    dispatcher.keyUpNative(keycode)
-                }else{
-    				dispatcher.keyDown(locator, key)
-    				dispatcher.keyPress(locator, key)
-    				dispatcher.keyUp(locator, key)
-    			}
-    			Helper.pause(15)
-    		}
-    	}
-    }
-    */
-
-/*
-    def processKeyEvent(String locator, String input, String[] events){
-        boolean hasKeyDown = includeKeyDown(events)
-        boolean hasKeyPress = includeKeyPress(events)
-        boolean hasKeyUp = includeKeyUp(events)
-
-        if(input == null || input.length() < 1){
-    		dispatcher.type(locator, "")
-        }else{
-    		char[] chars = input.toCharArray()
-
-            for(char achar: chars){
-    			String key = Character.toString(achar)
-    			if("\n".equals(key)){
-    				dispatcher.keyUp(locator,  "\\13")
-                }else if(".".equals(key)){
-                    String keycode = Integer.toString(KeyEvent.VK_PERIOD)
-                    if(hasKeyDown)
-                      dispatcher.keyDownNative(keycode)
-
-                    dispatcher.keyPressNative(keycode)
-
-                    if(hasKeyUp)
-                      dispatcher.keyUpNative(keycode)
-                }else if("(".equals(key)){
-                    String keycode = Integer.toString(KeyEvent.VK_LEFT_PARENTHESIS)
-                    if(hasKeyDown)
-                      dispatcher.keyDownNative(keycode)
-
-                    dispatcher.keyPressNative(keycode)
-
-                    if(hasKeyUp)
-                      dispatcher.keyUpNative(keycode)
-                }else if("y".equals(key)){
-                    String keycode = Integer.toString(KeyEvent.VK_Y)
-                    if(hasKeyDown)
-                      dispatcher.keyDownNative(keycode)
-
-                    dispatcher.keyPressNative(keycode)
-
-                    if(hasKeyUp)
-                      dispatcher.keyUpNative(keycode)
-                }else{
-                    if(hasKeyDown)
-                        dispatcher.keyDown(locator, key)
-
-                    dispatcher.keyPress(locator, key)
-
-                    if(hasKeyUp)
-                        dispatcher.keyUp(locator, key)
-    			}
-    		}
-    	}
-    }
-*/
-
-
     def processKeyEvent(String locator, String input, String[] events){
         boolean hasKeyDown = includeKeyDown(events)
         boolean hasKeyPress = includeKeyPress(events)
@@ -423,6 +310,70 @@ class EventHandler implements Configurable{
     		}
     	}
     }
+
+    def mouseDown(String locator, String[] events) {
+        String[] defaultEvents = null
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseDown(locator)
+        }
+	}
+
+    def mouseDownRight(String locator, String[] events) {
+        String[] defaultEvents = null
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseDownRight(locator)
+        }
+	}
+
+    def mouseDownRightAt(String locator, String coordinate, String[] events) {
+        String[] defaultEvents = null
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseDownRightAt(locator, coordinate)
+        }
+	}
+
+    def mouseUp(String locator, String[] events) {
+        String[] defaultEvents = null
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseUp(locator)
+        }
+	}
+
+    def mouseUpRight(String locator, String[] events) {
+        String[] defaultEvents = null
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseUpRight(locator)
+        }
+	}
+
+    def mouseUpRightAt(String locator, String coordinate, String[] events) {
+        String[] defaultEvents = null
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseUpRightAt(locator, coordinate)
+        }
+	}
+
+    def mouseMove(String locator, String[] events) {
+        String[] defaultEvents = null
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseMove(locator)
+        }
+	}
+
+    def mouseMoveAt(String locator, String coordinate, String[] events) {
+        String[] defaultEvents = null
+
+        processEvents(locator, events, defaultEvents){
+            dispatcher.mouseMoveAt(locator, coordinate)
+        }
+	}
 
     def select(String locator, String target, String[] events) {
         String[] defaultEvents = null
@@ -594,70 +545,5 @@ class EventHandler implements Configurable{
 
         return result
     }
-
-
-    def mouseDown(String locator, String[] events) {
-        String[] defaultEvents = null
-
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseDown(locator)
-        }
-	}
-
-    def mouseDownRight(String locator, String[] events) {
-        String[] defaultEvents = null
-
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseDownRight(locator)
-        }
-	}
-
-    def mouseDownRightAt(String locator, String coordinate, String[] events) {
-        String[] defaultEvents = null
-
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseDownRightAt(locator, coordinate)
-        }
-	}
-
-    def mouseUp(String locator, String[] events) {
-        String[] defaultEvents = null
-
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseUp(locator)
-        }
-	}
-
-    def mouseUpRight(String locator, String[] events) {
-        String[] defaultEvents = null
-
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseUpRight(locator)
-        }
-	}
-
-    def mouseUpRightAt(String locator, String coordinate, String[] events) {
-        String[] defaultEvents = null
-
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseUpRightAt(locator, coordinate)
-        }
-	}
-
-    def mouseMove(String locator, String[] events) {
-        String[] defaultEvents = null
-
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseMove(locator)
-        }
-	}
-
-    def mouseMoveAt(String locator, String coordinate, String[] events) {
-        String[] defaultEvents = null
-
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseMoveAt(locator, coordinate)
-        }
-	}
 
 }

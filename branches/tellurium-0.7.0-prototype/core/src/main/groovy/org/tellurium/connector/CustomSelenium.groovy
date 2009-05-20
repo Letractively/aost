@@ -152,7 +152,6 @@ class CustomSelenium extends DefaultSelenium {
     }
 
     public void setCacheMaxSize(int size){
-//      String[] arr = [Integer.toString(size)];
       String[] arr = [size];
       commandProcessor.doCommand("setCacheMaxSize",  arr);
     }
@@ -215,5 +214,12 @@ class CustomSelenium extends DefaultSelenium {
     public void typeKey(String locator, String key){
         String[] arr = [locator, key];
         commandProcessor.doCommand("typeKey", arr);
+    }
+
+    public String issueBundle(String json){
+        String[] arr = [json];
+        String st = commandProcessor.doCommand("issueBundle", arr);
+
+        return st;
     }
 }
