@@ -1,5 +1,6 @@
+#summary How to Create a Maven Archetype From an Existing Project.
 #labels Phase-Support
-#How to Create a Maven Archetype From an Existing Project.
+<wiki:toc max_depth="5" />
 
 == Introduction ==
 
