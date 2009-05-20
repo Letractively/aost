@@ -577,7 +577,7 @@ The new project includes everything you need for a Spring web application. You c
 mvn test
 }}}
 
-=== Deploy the app Server Maven Archetype ===
+=== Deploy the Maven Archetype ===
 
 Run the following maven command to deploy the artifacts.
 
