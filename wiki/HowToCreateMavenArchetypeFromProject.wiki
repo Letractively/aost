@@ -381,7 +381,7 @@ The _filtered_ option controls whether to process the file set and another optio
 
 After all this, you have to cleanup the code and replace ${package} in the template files with your fixed package name.
 
-==== Test the Maven Archetype ====
+=== Test the Maven Archetype ===
 
 Since the sample project code includes velocity templates, you cannot test directly in the Maven archetype project. You need to install the Maven archetype to your local repository and create a new project from it to test your code.
 
@@ -577,7 +577,7 @@ The new project includes everything you need for a Spring web application. You c
 mvn test
 }}}
 
-== Deploy the app Server Maven Archetype ==
+=== Deploy the app Server Maven Archetype ===
 
 Run the following maven command to deploy the artifacts.
 
