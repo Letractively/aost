@@ -76,7 +76,8 @@ abstract class BaseDslContext {
 
       return JQUERY_SELECTOR_CACHE + jsonjqs
     } 
-      return JQUERY_SELECTOR + optimized
+
+    return JQUERY_SELECTOR + optimized
   }
 
   private JSONReader reader = new JSONReader()
