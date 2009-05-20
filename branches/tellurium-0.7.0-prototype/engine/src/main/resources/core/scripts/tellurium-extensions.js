@@ -176,3 +176,9 @@ Selenium.prototype.doTypeKey = function(locator, key){
 
 	$elem.val($elem.val()+key).trigger(getEvent("keydown", key)).trigger(getEvent("keypress", key)).trigger(getEvent("keyup", key));
 };
+
+Selenium.prototype.doIssueBundle = function(bundle){
+    var out = [];
+
+    return JSON.stringify(out);
+};
