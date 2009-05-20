@@ -585,7 +585,7 @@ Run the following maven command to deploy the artifacts.
 mvn clean install deploy
 }}}
 
-== How to Use the app Server Maven Archetype ==
+== How to Use the Maven Archetype ==
 
 Once the app server Maven archetype is deployed to either your local repository or a public repository, you can
 run the following Maven command to create a new project
