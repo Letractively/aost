@@ -1440,14 +1440,21 @@ BrowserBot.prototype.addNamespace = function(prefix, namespace) {
 };
 
 BrowserBot.prototype._namespaceResolver = function(prefix) {
-    //modified to support custom namespaces
-//    var nsFromMap = this.namespaceMap.get(prefix);
-    var nsFromMap = globalNamespaceMap.get(prefix);
-    if(nsFromMap == null){
-       throw new Error("Unknown namespace: " + prefix + ".");
-    }
+    if (prefix == 'html' || prefix == 'xhtml' || prefix == 'x') {
+        return 'http://www.w3.org/1999/xhtml';
+    } else if (prefix == 'mathml') {
+        return 'http://www.w3.org/1998/Math/MathML';
+    }else if(prefix == 'xforms'){
+        return 'http://www.w3.org/2002/xforms';
+    } else {
+        //modified to support custom namespaces
+        var nsFromMap = globalNamespaceMap.get(prefix);
+        if(nsFromMap == null){
+            throw new Error("Unknown namespace: " + prefix + ".");
+        }
 
-    return nsFromMap;
+        return nsFromMap; 
+    }
     
 /*    if (prefix == 'html' || prefix == 'xhtml' || prefix == 'x') {
         return 'http://www.w3.org/1999/xhtml';
