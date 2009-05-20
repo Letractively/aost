@@ -35,7 +35,7 @@ If you check the created the project, you will see the new project includes all 
 
 == How to Create a Maven Archetype From an Existing Project ==
 
-You can create a Maven archetype from scratch, for example, [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven Archetypes] are created in this way. But in some cases, your project may be pretty complicated and you want to create the Maven archetype from a template project. Here, we use the app-templateproject project as a template to create a Maven archetype for it.
+You can create a Maven archetype from scratch, for example, [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven Archetypes] are created in this way. But in some cases, your project may be pretty complicated and you want to create the Maven archetype from a template project. Here, we use the app-templateproject project, which is a Spring project with iBatis, as a template to create a Maven archetype for it.
 
 === Skeletonize the Template Project ===
 
@@ -52,7 +52,7 @@ After cleanup code in the template project, run the following Maven command to c
 [INFO] Searching repository for plugin with prefix: 'archetype'.
 [INFO] org.apache.maven.plugins: checking for updates from mycompany-thirdparty-repo
 [INFO] ------------------------------------------------------------------------
-[INFO] Building app Server for Security Check
+[INFO] Building app Server
 [INFO]    task-segment: [archetype:create-from-project] (aggregator-style)
 [INFO] ------------------------------------------------------------------------
 [INFO] Preparing archetype:create-from-project
@@ -133,9 +133,6 @@ Take a look at the code structure
 |                   |   |               |               `-- ibatis
 |                   |   |               |                   `-- hello
 |                   |   |               |                       `-- HelloDAOImpl.java
-|                   |   |               |-- entity
-|                   |   |               |   `-- transfer
-|                   |   |               |       `-- TransferObject.java
 |                   |   |               |-- job
 |                   |   |               |   `-- impl
 |                   |   |               |       `-- spring
@@ -157,27 +154,9 @@ Take a look at the code structure
 |                   |       |               |   `-- fsom
 |                   |       |               |       `-- FsoMapConfig.xml
 |                   |       |               |-- messages
-|                   |       |               |   |-- ConnectorTier_en.properties
-|                   |       |               |   |-- ConverterTier_en.properties
-|                   |       |               |   |-- Crosscut_en.properties
-|                   |       |               |   |-- FeedTier_en.properties
-|                   |       |               |   |-- PersistenceTier_en.properties
-|                   |       |               |   |-- ProcessorTier.properties
-|                   |       |               |   |-- ProcessorTier_en.properties
-|                   |       |               |   |-- ProcessorTier_es.properties
-|                   |       |               |   |-- RemotingTier_en.properties
-|                   |       |               |   |-- ResourceTier_en.properties
-|                   |       |               |   |-- ServiceTier.properties
-|                   |       |               |   |-- ServiceTier_en.properties
-|                   |       |               |   |-- ServiceTier_es.properties
-|                   |       |               |   |-- external.properties
-|                   |       |               |   |-- external_en.properties
-|                   |       |               |   `-- external_es.properties
 |                   |       |               |-- persistence
 |                   |       |               |   `-- ibatis
-|                   |       |               |       |-- SqlFragments.xml
 |                   |       |               |       |-- SqlHello.xml
-|                   |       |               |       |-- SqlInstrumentation.xml
 |                   |       |               |       `-- SqlMapConfig.xml
 |                   |       |               `-- wiring
 |                   |       |                   |-- __artifactId__.xml
@@ -188,7 +167,7 @@ Take a look at the code structure
 |                   |       |                   |-- coordinator
 |                   |       |                   |   |-- coordinator.xml
 |                   |       |                   |   `-- hello-coordinator.xml
-|                   |       |                   |-- core_app_server.properties
+|                   |       |                   |-- web_app_server.properties
 |                   |       |                   |-- job
 |                   |       |                   |   |-- hello-job.xml
 |                   |       |                   |   `-- job.xml
@@ -250,167 +229,7 @@ Take a look at the code structure
 |                                               `-- spring
 |                                                   `-- hello
 |                                                       `-- HelloProcessorImpl_FuncTest.xml
-`-- target
-    |-- app-server-archetype-1.0.0.0.jar
-    `-- classes
-        |-- META-INF
-        |   `-- maven
-        |       |-- archetype-metadata.xml
-        |       `-- archetype.xml
-        `-- archetype-resources
-            |-- WebContent
-            |   |-- META-INF
-            |   |   `-- MANIFEST.MF
-            |   |-- WEB-INF
-            |   |   |-- jax-ws-catalog.xml
-            |   |   |-- sun-jaxws.xml
-            |   |   `-- web.xml
-            |   `-- index.jsp
-            |-- archetype-resources.iml
-            |-- pom.xml
-            `-- src
-                |-- main
-                |   |-- java
-                |   |   `-- com
-                |   |       `-- mycompany
-                |   |           `-- app
-                |   |               |-- data
-                |   |               |   |-- coordinator
-                |   |               |   |   |-- iface
-                |   |               |   |   |   `-- hello
-                |   |               |   |   |       `-- HelloCoordinator.java
-                |   |               |   |   `-- impl
-                |   |               |   |       `-- spring
-                |   |               |   |           `-- hello
-                |   |               |   |               `-- HelloCoordinatorImpl.java
-                |   |               |   `-- dao
-                |   |               |       |-- iface
-                |   |               |       |   `-- hello
-                |   |               |       |       `-- HelloDAO.java
-                |   |               |       `-- impl
-                |   |               |           `-- spring
-                |   |               |               `-- ibatis
-                |   |               |                   `-- hello
-                |   |               |                       `-- HelloDAOImpl.java
-                |   |               |-- entity
-                |   |               |   `-- transfer
-                |   |               |       `-- TransferObject.java
-                |   |               |-- job
-                |   |               |   `-- impl
-                |   |               |       `-- spring
-                |   |               |           `-- HelloappJobImpl.java
-                |   |               `-- processor
-                |   |                   |-- iface
-                |   |                   |   `-- hello
-                |   |                   |       `-- HelloProcessor.java
-                |   |                   `-- impl
-                |   |                       `-- spring
-                |   |                           `-- hello
-                |   |                               `-- HelloProcessorImpl.java
-                |   `-- resources
-                |       |-- com
-                |       |   `-- mycompany
-                |       |       `-- app
-                |       |           `-- config
-                |       |               |-- data
-                |       |               |   `-- fsom
-                |       |               |       `-- FsoMapConfig.xml
-                |       |               |-- messages
-                |       |               |   |-- ConnectorTier_en.properties
-                |       |               |   |-- ConverterTier_en.properties
-                |       |               |   |-- Crosscut_en.properties
-                |       |               |   |-- FeedTier_en.properties
-                |       |               |   |-- PersistenceTier_en.properties
-                |       |               |   |-- ProcessorTier.properties
-                |       |               |   |-- ProcessorTier_en.properties
-                |       |               |   |-- ProcessorTier_es.properties
-                |       |               |   |-- RemotingTier_en.properties
-                |       |               |   |-- ResourceTier_en.properties
-                |       |               |   |-- ServiceTier.properties
-                |       |               |   |-- ServiceTier_en.properties
-                |       |               |   |-- ServiceTier_es.properties
-                |       |               |   |-- external.properties
-                |       |               |   |-- external_en.properties
-                |       |               |   `-- external_es.properties
-                |       |               |-- persistence
-                |       |               |   `-- ibatis
-                |       |               |       |-- SqlFragments.xml
-                |       |               |       |-- SqlHello.xml
-                |       |               |       |-- SqlInstrumentation.xml
-                |       |               |       `-- SqlMapConfig.xml
-                |       |               `-- wiring
-                |       |                   |-- __artifactId__.xml
-                |       |                   |-- connector
-                |       |                   |   `-- connector.xml
-                |       |                   |-- converter
-                |       |                   |   `-- converter.xml
-                |       |                   |-- coordinator
-                |       |                   |   |-- coordinator.xml
-                |       |                   |   `-- hello-coordinator.xml
-                |       |                   |-- core_app_server.properties
-                |       |                   |-- job
-                |       |                   |   |-- hello-job.xml
-                |       |                   |   `-- job.xml
-                |       |                   |-- persistence
-                |       |                   |   |-- datasource.xml
-                |       |                   |   |-- hello-dao.xml
-                |       |                   |   `-- persistence.xml
-                |       |                   |-- processor
-                |       |                   |   |-- hello-processor.xml
-                |       |                   |   `-- processor.xml
-                |       |                   `-- server
-                |       |                       `-- app-job-registry.xml
-                |       `-- log4j.xml
-                `-- test
-                    |-- java
-                    |   `-- com
-                    |       `-- mycompany
-                    |           `-- app
-                    |               |-- config
-                    |               |   `-- wiring
-                    |               |       `-- Wiring_FuncTest.java
-                    |               |-- data
-                    |               |   `-- dao
-                    |               |       `-- impl
-                    |               |           `-- spring
-                    |               |               `-- ibatis
-                    |               |                   `-- hello
-                    |               |                       `-- HelloDAOImpl_DataTest.java
-                    |               |-- job
-                    |               |   `-- impl
-                    |               |       `-- spring
-                    |               |           `-- HelloappJobImpl_DataTest.java
-                    |               `-- processor
-                    |                   `-- impl
-                    |                       `-- spring
-                    |                           `-- hello
-                    |                               `-- HelloProcessorImpl_FuncTest.java
-                    `-- resources
-                        `-- com
-                            `-- mycompany
-                                `-- app
-                                    |-- config
-                                    |   `-- wiring
-                                    |       |-- Wiring_FuncTest.xml
-                                    |       `-- test-__artifactId__.xml
-                                    |-- data
-                                    |   `-- dao
-                                    |       `-- impl
-                                    |           `-- spring
-                                    |               `-- ibatis
-                                    |                   `-- hello
-                                    |                       `-- HelloDAOImpl_DataTest.xml
-                                    |-- job
-                                    |   `-- impl
-                                    |       `-- spring
-                                    |           `-- HelloappJobImpl_DataTest.xml
-                                    `-- processor
-                                        `-- impl
-                                            `-- spring
-                                                `-- hello
-                                                    `-- HelloProcessorImpl_FuncTest.xml
 
-197 directories, 129 files
 }}}
 
 As you can see, all templates for the new project are under src/main/resources/archetype-resources/. There
@@ -422,11 +241,10 @@ This file lists all source, test source, resource, and test resource you want to
 
 {{{
 <?xml version="1.0" encoding="UTF-8"?><archetype>
-  <id>core-app-server</id>
+  <id>web-app-server</id>
   <sources>
     <source>src/main/java/com/mycompany/app/processor/iface/hello/HelloProcessor.java</source>
     <source>src/main/java/com/mycompany/app/processor/impl/spring/hello/HelloProcessorImpl.java</source>
-    <source>src/main/java/com/mycompany/app/entity/transfer/TransferObject.java</source>
     <source>src/main/java/com/mycompany/app/job/impl/spring/HelloappJobImpl.java</source>
     <source>src/main/java/com/mycompany/app/data/coordinator/iface/hello/HelloCoordinator.java</source>
     <source>src/main/java/com/mycompany/app/data/coordinator/impl/spring/hello/HelloCoordinatorImpl.java</source>
@@ -441,22 +259,7 @@ This file lists all source, test source, resource, and test resource you want to
   </testSources>
   <resources>
     <resource>src/main/resources/log4j.xml</resource>
-    <resource>src/main/resources/com/mycompany/app/config/messages/ProcessorTier_en.properties</resource>
-    <resource>src/main/resources/com/mycompany/app/config/messages/ResourceTier_en.properties</resource>
-    <resource>src/main/resources/com/mycompany/app/config/messages/ConverterTier_en.properties</resource>
-    <resource>src/main/resources/com/mycompany/app/config/messages/external_en.properties</resource>
-    <resource>src/main/resources/com/mycompany/app/config/messages/external_es.properties</resource>
-    <resource>src/main/resources/com/mycompany/app/config/messages/ServiceTier.properties</resource>
-    <resource>src/main/resources/com/mycompany/app/config/messages/FeedTier_en.properties</resource>
-    <resource>src/main/resources/com/mycompany/app/config/messages/external.properties</resource>
-    <resource>src/main/resources/com/mycompany/app/config/messages/ServiceTier_en.properties</resource>
-    <resource>src/main/resources/com/mycompany/app/config/messages/PersistenceTier_en.properties</resource>
-    <resource>src/main/resources/com/mycompany/app/config/messages/Crosscut_en.properties</resource>
-    <resource>src/main/resources/com/mycompany/app/config/messages/ProcessorTier.properties</resource>
-    <resource>src/main/resources/com/mycompany/app/config/messages/ConnectorTier_en.properties</resource>
-    <resource>src/main/resources/com/mycompany/app/config/messages/ProcessorTier_es.properties</resource>
-    <resource>src/main/resources/com/mycompany/app/config/messages/ServiceTier_es.properties</resource>
-    <resource>src/main/resources/com/mycompany/app/config/messages/RemotingTier_en.properties</resource>
+    <resource>src/main/resources/com/mycompany/app/config/messages</resource>
     <resource>src/main/resources/com/mycompany/app/config/wiring/processor/hello-processor.xml</resource>
     <resource>src/main/resources/com/mycompany/app/config/wiring/processor/processor.xml</resource>
     <resource>src/main/resources/com/mycompany/app/config/wiring/converter/converter.xml</resource>
@@ -470,11 +273,9 @@ This file lists all source, test source, resource, and test resource you want to
     <resource>src/main/resources/com/mycompany/app/config/wiring/persistence/persistence.xml</resource>
     <resource>src/main/resources/com/mycompany/app/config/wiring/persistence/datasource.xml</resource>
     <resource>src/main/resources/com/mycompany/app/config/wiring/persistence/hello-dao.xml</resource>
-    <resource>src/main/resources/com/mycompany/app/config/wiring/core_app_server.properties</resource>
+    <resource>src/main/resources/com/mycompany/app/config/wiring/web_app_server.properties</resource>
     <resource>src/main/resources/com/mycompany/app/config/data/fsom/FsoMapConfig.xml</resource>
     <resource>src/main/resources/com/mycompany/app/config/persistence/ibatis/SqlHello.xml</resource>
-    <resource>src/main/resources/com/mycompany/app/config/persistence/ibatis/SqlFragments.xml</resource>
-    <resource>src/main/resources/com/mycompany/app/config/persistence/ibatis/SqlInstrumentation.xml</resource>
     <resource>src/main/resources/com/mycompany/app/config/persistence/ibatis/SqlMapConfig.xml</resource>
     <resource>WebContent/META-INF/MANIFEST.MF</resource>
     <resource>WebContent/WEB-INF/jax-ws-catalog.xml</resource>
@@ -496,12 +297,12 @@ Sometimes, you may want a file name matching your new project name. The trick is
 in a filename will be replaced with the artifactId you specify when create a new project from this Maven archetype,
 as a result you can achieve your goal to include "__artifactId__" as part of your file name. For example, the file
 src/test/resources/com/mycompany/app/config/wiring/test-__artifactId__.xml will be replaced with
-src/test/resources/com/mycompany/app/config/wiring/test-app-warranty.xml if we specify the artifactId as app-warranty.
+src/test/resources/com/mycompany/app/config/wiring/test-app-new.xml if we specify the artifactId as app-new.
 
 ==== archetype-metadata.xml ====
 
-This file is used to control how to process the template file. Maven archetype plugin use velocity as a template engine
-to process the template files. For example, the Wiring_FuncTest.xml looks as follows,
+This file is used to control how to process the template file. Maven archetype plugin uses velocity as a template engine
+to process the template files. For example, the Wiring_FuncTest.xml is shown as follows,
 
 {{{
 #set( $symbol_pound = '#' )
@@ -512,13 +313,12 @@ to process the template files. For example, the Wiring_FuncTest.xml looks as fol
 
 <beans>
 
-    <!--  Import all the usual beans and check... -->
     <import resource="classpath:/com/mycompany/app/config/wiring/${artifactId}.xml" />
 
 </beans>
 }}}
 
-The ${artifactId} will be replaced with the artifactId you specify when create a new project.
+The ${artifactId} will be replaced with the artifactId you specify when you create a new project.
 
 The archetype-metadata.xml file specifies the filter rules for different file sets.
 
@@ -579,47 +379,19 @@ The archetype-metadata.xml file specifies the filter rules for different file se
 
 The "filtered" option controls whether to process the file set and another option "packaged" determines whether
 to change your project package name. For a company project, most likely you do not want to change the package
-name, as a result, I removed all the "packaged" options. 
+name. As a result, you may need to removed all the "packaged" options. 
 
 After all this, you have to cleanup the code and replace ${package} in the template file with your fixed package name.
 
 ==== Test the Maven Archetype ====
 
-Since the sample project code include velocity templates, you cannot test directly in the Maven archetype project. 
+Since the sample project code includes velocity templates, you cannot test directly in the Maven archetype project. 
 You need to install the Maven archetype to your local repository and create a new project from it to test your code.
 
 To install the Maven archetype to your local repository, run
 
 {{{
 [jfang@localhost app-server-archetype]$ mvn clean install
-[INFO] Scanning for projects...
-[INFO] ------------------------------------------------------------------------
-[INFO] Building app-server-archetype
-[INFO]    task-segment: [clean, install]
-[INFO] ------------------------------------------------------------------------
-[INFO] [clean:clean]
-[INFO] Deleting directory /mnt/disk/fc8/workspace/phoenix/app-server-archetype/target
-[INFO] [resources:resources]
-[INFO] Using default encoding to copy filtered resources.
-[INFO] [resources:testResources]
-[INFO] Using default encoding to copy filtered resources.
-[INFO] Setting property: classpath.resource.loader.class => 'org.codehaus.plexus.velocity.ContextClassLoaderResourceLoader'.
-[INFO] Setting property: velocimacro.messages.on => 'false'.
-[INFO] Setting property: resource.loader => 'classpath'.
-[INFO] Setting property: resource.manager.logwhenfound => 'false'.
-[INFO] [archetype:jar]
-[INFO] [archetype:add-archetype-metadata]
-[INFO] [archetype:integration-test]
-[INFO] [install:install]
-[INFO] Installing /workspace/phoenix/app-server-archetype/target/app-server-archetype-1.0.0.0.jar to /home/jfang/.m2/repository/mycompany/app/web/app-server-archetype/1.0.0.0/app-server-archetype-1.0.0.0.jar
-[INFO] [archetype:update-local-catalog]
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESSFUL
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time: 3 seconds
-[INFO] Finished at: Mon May 18 11:51:00 GMT-05:00 2009
-[INFO] Final Memory: 18M/327M
-[INFO] ------------------------------------------------------------------------
 }}}
 
 To create a new project from the installed Maven archetype, you can use the following Maven command,
@@ -650,7 +422,7 @@ Define value for version:  1.0-SNAPSHOT: :
 Define value for package:  mycompany.app: : 
 Confirm properties configuration:
 groupId: mycompany.app
-artifactId: app-warranty
+artifactId: app-new
 version: 1.0-SNAPSHOT
 package: mycompany.app
  Y: : Y
@@ -664,12 +436,10 @@ package: mycompany.app
 [INFO] ------------------------------------------------------------------------
 }}}
 
-Ignore all the WARNINGs, they will be specified by the app server parent POM.
-
-Look at what we got for the new app-warranty project
+Look at what we got for the new app-new project
 
 {{{
-[jfang@localhost app-warranty]$ tree .
+[jfang@localhost app-new]$ tree .
 .
 |-- WebContent
 |   |-- META-INF
@@ -704,9 +474,6 @@ Look at what we got for the new app-warranty project
     |   |               |               `-- ibatis
     |   |               |                   `-- hello
     |   |               |                       `-- HelloDAOImpl.java
-    |   |               |-- entity
-    |   |               |   `-- transfer
-    |   |               |       `-- TransferObject.java
     |   |               |-- job
     |   |               |   `-- impl
     |   |               |       `-- spring
@@ -728,30 +495,12 @@ Look at what we got for the new app-warranty project
     |       |               |   `-- fsom
     |       |               |       `-- FsoMapConfig.xml
     |       |               |-- messages
-    |       |               |   |-- ConnectorTier_en.properties
-    |       |               |   |-- ConverterTier_en.properties
-    |       |               |   |-- Crosscut_en.properties
-    |       |               |   |-- FeedTier_en.properties
-    |       |               |   |-- PersistenceTier_en.properties
-    |       |               |   |-- ProcessorTier.properties
-    |       |               |   |-- ProcessorTier_en.properties
-    |       |               |   |-- ProcessorTier_es.properties
-    |       |               |   |-- RemotingTier_en.properties
-    |       |               |   |-- ResourceTier_en.properties
-    |       |               |   |-- ServiceTier.properties
-    |       |               |   |-- ServiceTier_en.properties
-    |       |               |   |-- ServiceTier_es.properties
-    |       |               |   |-- external.properties
-    |       |               |   |-- external_en.properties
-    |       |               |   `-- external_es.properties
     |       |               |-- persistence
     |       |               |   `-- ibatis
-    |       |               |       |-- SqlFragments.xml
     |       |               |       |-- SqlHello.xml
-    |       |               |       |-- SqlInstrumentation.xml
     |       |               |       `-- SqlMapConfig.xml
     |       |               `-- wiring
-    |       |                   |-- app-warranty.xml
+    |       |                   |-- app-new.xml
     |       |                   |-- connector
     |       |                   |   `-- connector.xml
     |       |                   |-- converter
@@ -759,7 +508,7 @@ Look at what we got for the new app-warranty project
     |       |                   |-- coordinator
     |       |                   |   |-- coordinator.xml
     |       |                   |   `-- hello-coordinator.xml
-    |       |                   |-- core_app_server.properties
+    |       |                   |-- web_app_server.properties
     |       |                   |-- job
     |       |                   |   |-- hello-job.xml
     |       |                   |   `-- job.xml
@@ -804,7 +553,7 @@ Look at what we got for the new app-warranty project
                         |-- config
                         |   `-- wiring
                         |       |-- Wiring_FuncTest.xml
-                        |       `-- test-app-warranty.xml
+                        |       `-- test-app-new.xml
                         |-- data
                         |   `-- dao
                         |       `-- impl
@@ -825,32 +574,24 @@ Look at what we got for the new app-warranty project
 91 directories, 59 files
 }}}
 
-The new project includes everything you need for a app web application. You can load this project up to an IDE, or 
+The new project includes everything you need for a Spring web application. You can load this project up to an IDE, or 
 run the tests by Maven directly,
 
 {{{
 mvn test
 }}}
 
-The tests include Wiring_FuncTest, HelloDAOImpl_DataTest, HelloappJobImpl_DataTest, and HelloProcessorImpl_FuncTest
-and they should all pass.
-
 == Deploy the app Server Maven Archetype ==
 
-The app server Maven Archetype is in Subversion at
-
-http://svn.jewelry.acn/svn/mycompany/dev-team/transformers/dev/main/archetypes/app/app-server-archetype
-
-Whoever has the privilege to deploy artifacts should check out this project and then run the following maven command
-to deploy the artifacts.
+Run the following maven command to deploy the artifacts.
 
 {{{
 mvn clean install deploy
 }}}
 
-== How to Use the app Server Maven Archetype? ==
+== How to Use the app Server Maven Archetype ==
 
-Once the app server Maven archetype is deployed to either your local repository or mycompany public repository, you can
+Once the app server Maven archetype is deployed to either your local repository or a public repository, you can
 run the following Maven command to create a new project
 
 {{{
@@ -865,13 +606,14 @@ For example, the following command will create a new project "app-new",
      -DgroupId=mycompany.app.web -Dpackage=mycompany.app -DartifactId=app-new -Dversion=1.0-SNAPSHOT
 }}}
 
-Be aware that you need to specify the package to be "mycompany.app" and DO NOT use the following Maven command to create a new project
+Be aware that you need to specify the package to be "mycompany.app" to keep the package name consistent with the template project
+and *DO NOT* use the following Maven command to create a new project
 
 {{{
 mvn archetype:create
 }}}
 
-The reason is that the "archetype:create" command cannot replace the filenames.
+The reason is that the "archetype:create" command cannot replace "__artifactId__" in the filenames.
 
 After the new project is created, go to the project directory and run tests to check if everything is fine.
 
@@ -881,7 +623,7 @@ mvn test
 
 == Resources ==
 
-*[http://maven.apache.org/plugins/maven-archetype-plugin/ Maven 2 Archetype Plugin]
-*[http://appfuse.org/display/APF/AppFuse+QuickStart AppFuse Quick Start]
-*[http://maven.apache.org/guides/mini/guide-creating-archetypes.html Guide to Creating Archetypes]
-*[http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven Archetypes]
+  * [http://maven.apache.org/plugins/maven-archetype-plugin/ Maven 2 Archetype Plugin]
+  * [http://appfuse.org/display/APF/AppFuse+QuickStart AppFuse Quick Start]
+  * [http://maven.apache.org/guides/mini/guide-creating-archetypes.html Guide to Creating Archetypes]
+  * [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven Archetypes]
