@@ -36,12 +36,12 @@ If you check the created the project, you will see the new project includes all 
 
 == How to Create a Maven Archetype From an Existing Project ==
 
-You can create a Maven archetype from scratch, for example, [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven Archetypes] are created in this way. But in some cases, your project may be pretty complicated and you want to create the Maven archetype from a template project. Here, we use the app-templateproject project, which is a Spring project with iBatis, as a template to create a Maven archetype for it.
+You can create a Maven archetype from scratch, for example, [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven Archetypes] are created in this way. But in some cases, your project may be pretty complicated and you want to create the Maven archetype from a template project. Here, we use the app-template project project, which is a Spring project with iBatis, as a template to create a Maven archetype for it.
 
 === Skeletonize the Template Project ===
 
-Make a copy of the app-templateproject project and remove all unnecessary code and keep general code structure. Usually, Maven archetype will include some sample code for you to follow. Hence, I create a sample app "hello", which includes an entry in the job registry,
-processor, coordinator, and down to DAO as well as all the XML wiring. In this way, users   can simply follow the same code to create new business functions.
+Make a copy of the app-template project project and remove all unnecessary code. Usually, Maven archetype will include some sample code for you to follow. Hence, I create a sample app "hello", which includes an entry in the job registry,
+processor, coordinator, and down to DAO as well as all the XML wiring files. In this way, users   can simply follow the same code to create new business functions.
 
 === Create the Maven Archetype ===
 
@@ -294,16 +294,15 @@ This file lists all source, test source, resource, and test resource you want to
 </archetype>
 }}}
 
-Sometimes, you may want a file name matching your new project name. The trick is the portion "__artifactId__"
+Sometimes, you may want a file name matching your new project name. The trick is the portion `__artifactId__`
 in a filename will be replaced with the artifactId you specify when create a new project from this Maven archetype,
-as a result you can achieve your goal to include "__artifactId__" as part of your file name. For example, the file
-src/test/resources/com/mycompany/app/config/wiring/test-__artifactId__.xml will be replaced with
+as a result you can achieve your goal to include `__artifactId__` as part of your file name. For example, the file
+src/test/resources/com/mycompany/app/config/wiring/`test-__artifactId__.xml` will be replaced with
 src/test/resources/com/mycompany/app/config/wiring/test-app-new.xml if we specify the artifactId as app-new.
 
 ==== archetype-metadata.xml ====
 
-This file is used to control how to process the template file. Maven archetype plugin uses velocity as a template engine
-to process the template files. For example, the Wiring_FuncTest.xml is shown as follows,
+This file is used to control how to process the template files. Maven archetype plugin uses velocity as a template engine to process the template files. For example, the Wiring_FuncTest.xml is shown as follows,
 
 {{{
 #set( $symbol_pound = '#' )
@@ -378,21 +377,18 @@ The archetype-metadata.xml file specifies the filter rules for different file se
 </archetype-descriptor>
 }}}
 
-The "filtered" option controls whether to process the file set and another option "packaged" determines whether
-to change your project package name. For a company project, most likely you do not want to change the package
-name. As a result, you may need to removed all the "packaged" options. 
+The _filtered_ option controls whether to process the file set and another option _packaged_ determines whether to change your project package name. For a company project, most likely you do not want to change the package name. As a result, you may need to removed all the _packaged_ options. 
 
-After all this, you have to cleanup the code and replace ${package} in the template file with your fixed package name.
+After all this, you have to cleanup the code and replace ${package} in the template files with your fixed package name.
 
 ==== Test the Maven Archetype ====
 
-Since the sample project code includes velocity templates, you cannot test directly in the Maven archetype project. 
-You need to install the Maven archetype to your local repository and create a new project from it to test your code.
+Since the sample project code includes velocity templates, you cannot test directly in the Maven archetype project. You need to install the Maven archetype to your local repository and create a new project from it to test your code.
 
 To install the Maven archetype to your local repository, run
 
 {{{
-[jfang@localhost app-server-archetype]$ mvn clean install
+mvn clean install
 }}}
 
 To create a new project from the installed Maven archetype, you can use the following Maven command,
@@ -575,8 +571,7 @@ Look at what we got for the new app-new project
 91 directories, 59 files
 }}}
 
-The new project includes everything you need for a Spring web application. You can load this project up to an IDE, or 
-run the tests by Maven directly,
+The new project includes everything you need for a Spring web application. You can load this project up to an IDE, or run the tests using Maven directly,
 
 {{{
 mvn test
@@ -607,14 +602,13 @@ For example, the following command will create a new project "app-new",
      -DgroupId=mycompany.app.web -Dpackage=mycompany.app -DartifactId=app-new -Dversion=1.0-SNAPSHOT
 }}}
 
-Be aware that you need to specify the package to be "mycompany.app" to keep the package name consistent with the template project
-and *DO NOT* use the following Maven command to create a new project
+Be aware that you need to specify the package to be "mycompany.app" to keep the package name consistent with the template project and *DO NOT* use the following Maven command to create a new project
 
 {{{
 mvn archetype:create
 }}}
 
-The reason is that the "archetype:create" command cannot replace "__artifactId__" in the filenames.
+The reason is that the "archetype:create" command cannot replace `__artifactId__` in filenames.
 
 After the new project is created, go to the project directory and run tests to check if everything is fine.
 
@@ -625,6 +619,6 @@ mvn test
 == Resources ==
 
   * [http://maven.apache.org/plugins/maven-archetype-plugin/ Maven 2 Archetype Plugin]
-  * [http://appfuse.org/display/APF/AppFuse+QuickStart AppFuse Quick Start]
   * [http://maven.apache.org/guides/mini/guide-creating-archetypes.html Guide to Creating Archetypes]
+  * [http://code.google.com/p/aost/wiki/MavenHowTo Tellurium Maven Guide]
   * [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven Archetypes]
