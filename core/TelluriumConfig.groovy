@@ -35,6 +35,11 @@ tellurium{
         //whether we should check if the UI element is presented
         checkElement = true
     }
+    //the bundling tier
+    bundle{
+        maxBundleCmds = 5
+        useCommandBundle = true
+    }
     //the configuration for the connector that connects the selenium client to the selenium server
     connector{
         //selenium server host

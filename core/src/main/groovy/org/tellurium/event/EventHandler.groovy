@@ -67,7 +67,7 @@ class EventHandler implements Configurable{
 
         Event[] evns = alg.sort(events, defaultEvents)
         //For event processing, it is ok to use bundle
-        context.makeBundlingAble()
+        context.makeBundlingable()
         evns.each {Event event ->
           if (event == Event.ACTION)
             action()
@@ -77,6 +77,7 @@ class EventHandler implements Configurable{
     }
 
     protected void checkElement(WorkflowContext context, String locator){
+        context.notBundlingable()
 		if(checkElement && (!cbp.isElementPresent(context, locator))){
 			checkAndWaitForElementPresent(context, locator, ACTION_WAIT_TIME)
 		}
@@ -229,22 +230,10 @@ class EventHandler implements Configurable{
     			if("\n".equals(key)){
     				cbp.keyUp(context, locator,  "\\13")
                 }else if(".".equals(key)){
-//                    String keycode = Integer.toString(KeyEvent.VK_PERIOD)
-//                    cbp.keyDownNative(keycode)
-//                    cbp.keyPressNative(keycode)
-//                    cbp.keyUpNative(keycode)
                     cbp.typeKey(context, locator, key)
                 }else if("(".equals(key)){
-//                    String keycode = Integer.toString(KeyEvent.VK_LEFT_PARENTHESIS)
-//                    cbp.keyDownNative(keycode)
-//                    cbp.keyPressNative(keycode)
-//                    cbp.keyUpNative(keycode)
                     cbp.typeKey(context, locator, key)
                 }else if("y".equals(key)){
-//                    String keycode = Integer.toString(KeyEvent.VK_Y)
-//                    cbp.keyDownNative(keycode)
-//                    cbp.keyPressNative(keycode)
-//                    cbp.keyUpNative(keycode)
                     cbp.typeKey(context, locator, key)
                 }else{
     				cbp.keyDown(context, locator, key)

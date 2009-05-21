@@ -2,6 +2,8 @@ package org.tellurium.bundle
 
 import org.tellurium.dispatch.Dispatcher
 import org.tellurium.config.Configurable
+import org.tellurium.dsl.WorkflowContext
+import org.tellurium.locator.MetaCmd
 
 /**
  * Command Bundle Processor
@@ -14,13 +16,14 @@ import org.tellurium.config.Configurable
 
 @Singleton
 public class CommandBundleProcessor implements GroovyInterceptable, Configurable {
+
   public static final String OK = "ok";
 
   //sequence number for each command
   private int sequence = 0;
 
   //maximum number of commands in a bundle
-  private int bundleMaxCmds = 5;
+  private int maxBundleCmds = 5;
 
   private Dispatcher dispatcher = new Dispatcher();
 
@@ -50,7 +53,7 @@ public class CommandBundleProcessor implements GroovyInterceptable, Configurable
     SelenCmd cmd = new SelenCmd(nextSeq(), uid, name, args);
     if(bundle.shouldAppend(cmd)){
       bundle.addToBundle(cmd);
-      if(bundle.size() >= this.bundleMaxCmds){
+      if(bundle.size() >= this.maxBundleCmds){
         //need to issue the command bundle since it reaches the maximum limit
         String json = bundle.extractAllAndConvertToJson();
 
@@ -82,8 +85,41 @@ public class CommandBundleProcessor implements GroovyInterceptable, Configurable
       return parseReturnValue(val);
     }
   }
-  
-  def invokeMethod(String name, args) {
 
+  //push remaining commands in the bundle to the Engine before disconnect from it
+  def flush(){
+    if(bundle.size() > 0){
+      String json = bundle.extractAllAndConvertToJson();
+
+      String val = dispatcher.issueBundle(json);
+      return parseReturnValue(val);      
+    }
+  }
+
+  protected Object[] removeWorkflowContext(Object[] args){
+    List list = new ArrayList();
+    for(int i=1; i<args.length; i++){
+      list.add(args[i]);
+    }
+
+    if(list.size() > 0)
+      return list.toArray();
+
+    return null;
+  }
+
+  def invokeMethod(String name, args) {
+    WorkflowContext context = args[0]
+    String uid = null;
+    MetaCmd cmd = context.extraMetaCmd();
+    if(cmd != null)
+      uid = cmd.uid;
+    Object[] params = this.removeWorkflowContext(args);
+
+    if(context.isBundlingable()){
+      return issueCommand(uid, name, params);
+    }
+
+    return passThrough(uid, name, params);  
   }
 }

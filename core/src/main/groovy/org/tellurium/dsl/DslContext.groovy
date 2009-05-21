@@ -4,6 +4,7 @@ import org.tellurium.dsl.BaseDslContext
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.exception.NotWidgetObjectException
 import org.tellurium.widget.Widget
+import org.tellurium.bundle.CommandBundleProcessor
 
 abstract class DslContext extends BaseDslContext {
 
@@ -296,6 +297,16 @@ abstract class DslContext extends BaseDslContext {
       String xml =  getEval(XML_DOCUMENT_SCRIPT)
 
       return xml
+    }
+
+    public void useCommandBundle(){
+      CommandBundleProcessor processor = new CommandBundleProcessor()
+      processor.useBundleFeature()
+    }
+
+    public void disableCommandBundle(){
+      CommandBundleProcessor processor = new CommandBundleProcessor()
+      processor.disableBundleFeature()
     }
 
     //let the missing property return the a string of the properity, this is useful for the onWidget method

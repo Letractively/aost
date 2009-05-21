@@ -37,7 +37,11 @@ class WorkflowContext {
 
   def context = [:]
 
-  public void makeBundlingAble(){
+  public void notBundlingable(){
+    this.bundlingable = false
+  }
+  
+  public void makeBundlingable(){
     this.bundlingable = true
   }
 
