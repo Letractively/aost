@@ -16,6 +16,7 @@ import org.tellurium.server.EmbeddedSeleniumServer
 import org.tellurium.widget.WidgetConfigurator
 import org.tellurium.test.helper.*
 import org.tellurium.connector.CustomSelenium
+import org.tellurium.bundle.CommandBundleProcessor
 
 /**
  * Tellurium Configurator
@@ -39,6 +40,16 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
         server.setProperty("port", 4444)
         server.setProperty("useMultiWindows", false)
         server.setProperty("runSeleniumServerInternally", true)        
+    }
+
+    protected configCommandBundleProcessor(CommandBundleProcessor processor){
+        processor.setProperty("maxBundleCmds", Integer.parseInt(conf.tellurium.bundle.maxBundleCmds))
+        processor.setProperty("exploitBundle", conf.tellurium.bundle.useCommandBundle)
+    }
+
+    protected configCommandBundleProcessorDefaultValues(CommandBundleProcessor processor){
+        processor.setProperty("maxBundleCmds", 5)
+        processor.setProperty("exploitBundle", true)
     }
 
     protected void configSeleniumConnector(SeleniumConnector connector){
@@ -201,6 +212,9 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
             }else if(configurable instanceof Dispatcher){
                 println "Configure dispatcher using configuration file"
                 configDispatcher(configurable)
+            }else if(configurable instanceof CommandBundleProcessor){
+                println "Configure CommandBundleProcessor using configuration file"
+                configCommandBundleProcessor(configurable)
             }else{
                 println "Unsupported Configurable type!"
             }
@@ -236,12 +250,13 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
             }else if(configurable instanceof Dispatcher){
                 println "Configure dispatcher with default values"
                 configDispatcherDefaultValues(configurable)
+            }else if(configurable instanceof CommandBundleProcessor){
+                println "Configure CommandBundleProcessor with default values"
+                configCommandBundleProcessorDefaultValues(configurable)
             }else{
                 println "Unsupported Configurable type!"
             }
-
         }
-
     }
 
 }
