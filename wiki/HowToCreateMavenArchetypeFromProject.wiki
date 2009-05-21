@@ -41,7 +41,7 @@ You can create a Maven archetype from scratch, for example, [http://code.google.
 === Skeletonize the Template Project ===
 
 Make a copy of the app-template project project and remove all unnecessary code. Usually, Maven archetype will include some sample code for you to follow. Hence, I create a sample app "hello", which includes an entry in the job registry,
-processor, coordinator, and down to DAO as well as all the XML wiring files. In this way, users   can simply follow the same code to create new business functions.
+processor, coordinator, and down to DAO as well as all the XML wiring files. In this way, users   can simply follow the sample code to create new business functions.
 
 === Create the Maven Archetype ===
 
