@@ -14,7 +14,7 @@ import org.tellurium.bundle.CommandBundleProcessor
 
 public class Extension implements GroovyInterceptable {
 
-   private CommandBundleProcessor cbp  = new CommandBundleProcessor()
+   private CommandBundleProcessor cbp  = CommandBundleProcessor.instance
 
    def invokeMethod(String name, args) {
      
