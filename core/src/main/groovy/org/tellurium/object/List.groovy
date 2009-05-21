@@ -155,11 +155,12 @@ class List extends Container {
       String rl = c(this.locator)
 
       Accessor accessor = new Accessor()
+      WorkflowContext context = WorkflowContext.getDefaultContext()
       if (this.separator != null && this.separator.trim().length() > 0) {
-        return accessor.getXpathCount(rl + "/${this.separator}")
+        return accessor.getXpathCount(context, rl + "/${this.separator}")
       } else {
         int index = 1
-        while (accessor.isElementPresent(rl + getListLocator(index))) {
+        while (accessor.isElementPresent(context, rl + getListLocator(index))) {
           index++
         }
 

@@ -23,11 +23,13 @@ class WorkflowContext {
   private boolean useOption = false
   //Table's child object's tag will be duplicated with the current relative xpath provided by xpath
   //For example, /table/tr/td + /td/input
-  private boolean tableDuplicateTag = false
+//  private boolean tableDuplicateTag = false
 
   private boolean exploreJQuerySelector = false
 
   private boolean exploreSelectorCache = false
+
+  private boolean bundlingable = false
 
   private MetaCmd metaCmd = new MetaCmd();
 
@@ -35,6 +37,14 @@ class WorkflowContext {
 
   def context = [:]
 
+  public void makeBundlingAble(){
+    this.bundlingable = true
+  }
+
+  public boolean isBundlingable(){
+    return this.bundlingable
+  }
+  
   public void skipNext(){
     context.put(SKIP_NEXT, "true");
   }
@@ -235,21 +245,13 @@ class WorkflowContext {
         rl = loc
       } else {
         rl = rl + loc
-
-      /*        if (this.tableDuplicateTag) {
-        this.tableDuplicateTag = false
-        //simply skip the next loc because position unquely defines the location
-      } else {
-        //regular routine
-        rl = rl + loc
-      }
-      */
       }
 
       context.put(REFERENCE_LOCATOR, rl)
     }
   }
 
+/*
   protected String checkTableDuplicateTag(String rl, String loc) {
 
     String xp = XPathProcessor.lastXPath(rl)
@@ -271,4 +273,5 @@ class WorkflowContext {
 
     return rl
   }
+  */
 }

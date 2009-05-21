@@ -1,10 +1,9 @@
 package org.tellurium.access
 
-import com.thoughtworks.selenium.SeleniumException
 import org.tellurium.config.Configurable
-import org.tellurium.dispatch.Dispatcher
-import org.tellurium.exception.ElementNotPresentException
 import org.tellurium.util.Helper
+import org.tellurium.dsl.WorkflowContext
+import org.tellurium.bundle.CommandBundleProcessor
 
 class Accessor implements Configurable{
 
@@ -14,7 +13,7 @@ class Accessor implements Configurable{
 
     protected static final String ELEMENT_NOT_PRESENT_ERROR_MESSAGE = "Element is not present"
 
-    def dispatcher  = new Dispatcher()
+    private CommandBundleProcessor cbp  = new CommandBundleProcessor()
 
     private boolean checkElement = true
 
@@ -26,43 +25,44 @@ class Accessor implements Configurable{
         this.checkElement = false
     }
 
-    protected void checkElement(String locator){
-		if(checkElement && (!dispatcher.isElementPresent(locator))){
-			waitForElementPresent(locator, ACCESS_WAIT_TIME)
+    protected void checkElement(WorkflowContext context, String locator){
+		if(checkElement && (!cbp.isElementPresent(context, locator))){
+			waitForElementPresent(context, locator, ACCESS_WAIT_TIME)
 		}
     }
 
-    def boolean isElementPresent(String locator){
+    def boolean isElementPresent(WorkflowContext context, String locator){
 
-		return dispatcher.isElementPresent(locator)
+		return cbp.isElementPresent(context, locator)
 	}
 
-    def boolean isVisible(String locator){
+    def boolean isVisible(WorkflowContext context, String locator){
 
-    	return dispatcher.isVisible(locator)
+    	return cbp.isVisible(context, locator)
     }
 
-	def boolean isChecked(String locator) {
-        checkElement(locator)
+	def boolean isChecked(WorkflowContext context, String locator) {
+        checkElement(context, locator)
 
-		return dispatcher.isChecked(locator)
+		return cbp.isChecked(context, locator)
 	}
 
-    def boolean isDisabled(String locator){
+    def boolean isDisabled(WorkflowContext context, String locator){
 
-        checkElement(locator)
+        checkElement(context, locator)
 
-        locator +=DISABLED_ATTRIBUTE 
-        return (getAttribute(locator) != null && (getAttribute(locator) == "true"|| getAttribute(locator) == "disabled"));
+        locator +=DISABLED_ATTRIBUTE
+        String attr = getAttribute(context, locator)
+        return ( attr!= null && (attr == "true"|| attr == "disabled"));
     }
 
-   def boolean waitForElementPresent(String locator, int timeout){
+   def boolean waitForElementPresent(WorkflowContext context, String locator, int timeout){
 
 		//boolean result = false
 
         for (int second = 0; second < timeout; second+=500) {
             try {
-            	if (dispatcher.isElementPresent(locator)){
+            	if (cbp.isElementPresent(context, locator)){
             		//result = true
             		return true
             		}
@@ -77,13 +77,13 @@ class Accessor implements Configurable{
         return false
     }
 
-    def boolean waitForElementPresent(String locator, int timeout, int step){
+    def boolean waitForElementPresent(WorkflowContext context, String locator, int timeout, int step){
 
 		//boolean result = false
 
         for (int second = 0; second < timeout; second += step) {
             try {
-            	if (dispatcher.isElementPresent(locator)){
+            	if (cbp.isElementPresent(context, locator)){
             		//result = true
             		return true
                 }
@@ -98,12 +98,12 @@ class Accessor implements Configurable{
         return false
     }
 
-	boolean waitForCondition(String script, String timeoutInMilliSecond){
+	boolean waitForCondition(WorkflowContext context, String script, String timeoutInMilliSecond){
 
 		boolean result = true
 
 		try {
-			dispatcher.waitForCondition(script, timeoutInMilliSecond)
+			cbp.waitForCondition(context, script, timeoutInMilliSecond)
 		} catch (Exception e) {
 			result = false
 		}
@@ -111,208 +111,208 @@ class Accessor implements Configurable{
 		return result
 	}
 
-	def String getText(String locator){
+	def String getText(WorkflowContext context, String locator){
 
-        checkElement(locator)
+        checkElement(context, locator)
 
-    	return dispatcher.getText(locator)
+    	return cbp.getText(context, locator)
 	}
 
-	def String getValue(String locator){
+	def String getValue(WorkflowContext context, String locator){
 
-        checkElement(locator)
+        checkElement(context, locator)
 
-        return dispatcher.getValue(locator)
+        return cbp.getValue(context, locator)
 	}
 
-    def String[] getSelectOptions(String locator){
-        checkElement(locator)
+    def String[] getSelectOptions(WorkflowContext context, String locator){
+        checkElement(context, locator)
 
-        return dispatcher.getSelectOptions(locator)
+        return cbp.getSelectOptions(context, locator)
     }
 
-    String[] getSelectedLabels(String locator){
-        checkElement(locator)
+    String[] getSelectedLabels(WorkflowContext context, String locator){
+        checkElement(context, locator)
 
-        return dispatcher.getSelectedLabels(locator)
+        return cbp.getSelectedLabels(context, locator)
     }
 
-    String getSelectedLabel(String locator){
-        checkElement(locator)
+    String getSelectedLabel(WorkflowContext context, String locator){
+        checkElement(context, locator)
 
-        return dispatcher.getSelectedLabel(locator)
+        return cbp.getSelectedLabel(context, locator)
     }
 
-    String[] getSelectedValues(String locator){
-        checkElement(locator)
+    String[] getSelectedValues(WorkflowContext context, String locator){
+        checkElement(context, locator)
 
-        return dispatcher.getSelectedValues(locator)
+        return cbp.getSelectedValues(context, locator)
     }
 
-    String getSelectedValue(String locator){
-        checkElement(locator)
+    String getSelectedValue(WorkflowContext context, String locator){
+        checkElement(context, locator)
 
-        return dispatcher.getSelectedValue(locator)
+        return cbp.getSelectedValue(context, locator)
     }
 
-    String[] getSelectedIndexes(String locator){
-        checkElement(locator)
+    String[] getSelectedIndexes(WorkflowContext context, String locator){
+        checkElement(context, locator)
 
-        return dispatcher.getSelectedIndexes(locator)
+        return cbp.getSelectedIndexes(context, locator)
     }
 
-    String getSelectedIndex(String locator){
-        checkElement(locator)
+    String getSelectedIndex(WorkflowContext context, String locator){
+        checkElement(context, locator)
 
-        return dispatcher.getSelectedIndex(locator)
+        return cbp.getSelectedIndex(context, locator)
     }
 
-    String[] getSelectedIds(String locator){
-        checkElement(locator)
+    String[] getSelectedIds(WorkflowContext context, String locator){
+        checkElement(context, locator)
 
-        return dispatcher.getSelectedIds(locator)
+        return cbp.getSelectedIds(context, locator)
     }
 
-    String getSelectedId(String locator){
-        checkElement(locator)
+    String getSelectedId(WorkflowContext context, String locator){
+        checkElement(context, locator)
 
-        return dispatcher.getSelectedId(locator)
+        return cbp.getSelectedId(context, locator)
     }
 
-    boolean isSomethingSelected(String locator){
-        checkElement(locator)
+    boolean isSomethingSelected(WorkflowContext context, String locator){
+        checkElement(context, locator)
 
-        return dispatcher.isSomethingSelected(locator)
+        return cbp.isSomethingSelected(context, locator)
     }
 
-    String getAttribute(String locator){
+    String getAttribute(WorkflowContext context, String locator){
 
-      return dispatcher.getAttribute(locator)
+      return cbp.getAttribute(context, locator)
     }
 
-    void waitForPopUp(String windowID, String timeout){
-        dispatcher.waitForPopUp(windowID, timeout)
+    void waitForPopUp(WorkflowContext context, String windowID, String timeout){
+        cbp.waitForPopUp(context, windowID, timeout)
     }
 
-    String getBodyText(){
-        return dispatcher.getBodyText()
+    String getBodyText(WorkflowContext context){
+        return cbp.getBodyText(context)
     }
 
-    boolean isTextPresent(String pattern){
-       return dispatcher.isTextPresent(pattern)
+    boolean isTextPresent(WorkflowContext context, String pattern){
+       return cbp.isTextPresent(context, pattern)
     }
 
-    boolean isEditable(String locator){
-        return dispatcher.isEditable(locator)
+    boolean isEditable(WorkflowContext context, String locator){
+        return cbp.isEditable(context, locator)
     }
 
-    String getHtmlSource(){
-        return dispatcher.getHtmlSource()
+    String getHtmlSource(WorkflowContext context){
+        return cbp.getHtmlSource(context)
     }
 
-    String getExpression(String expression){
-        return dispatcher.getExpression(expression)
+    String getExpression(WorkflowContext context, String expression){
+        return cbp.getExpression(context, expression)
     }
 
-    Number getXpathCount(String xpath){
-        return dispatcher.getXpathCount(xpath)
+    Number getXpathCount(WorkflowContext context, String xpath){
+        return cbp.getXpathCount(context, xpath)
     }
 
-    String getCookie(){
-        return dispatcher.getCookie()
+    String getCookie(WorkflowContext context){
+        return cbp.getCookie(context)
     }
 
-    void runScript(String script){
-        dispatcher.runScript(script)
+    void runScript(WorkflowContext context, String script){
+        cbp.runScript(context, script)
     }
 
-    void captureScreenshot(String filename){
-        dispatcher.captureScreenshot(filename)
+    void captureScreenshot(WorkflowContext context, String filename){
+        cbp.captureScreenshot(context, filename)
     }
 
-    boolean isAlertPresent(){
-        return dispatcher.isAlertPresent()
+    boolean isAlertPresent(WorkflowContext context){
+        return cbp.isAlertPresent(context)
     }
 
-    boolean isPromptPresent(){
-        return dispatcher.isPromptPresent()
+    boolean isPromptPresent(WorkflowContext context){
+        return cbp.isPromptPresent(context)
     }
 
-    boolean isConfirmationPresent(){
-        return dispatcher.isConfirmationPresent()
+    boolean isConfirmationPresent(WorkflowContext context){
+        return cbp.isConfirmationPresent(context)
     }
 
-    String getAlert(){
-        return dispatcher.getAlert()
+    String getAlert(WorkflowContext context){
+        return cbp.getAlert(context)
     }
 
-    String getConfirmation(){
-        return dispatcher.getConfirmation()
+    String getConfirmation(WorkflowContext context){
+        return cbp.getConfirmation(context)
     }
 
-    String getPrompt(){
-        return dispatcher.getPrompt()
+    String getPrompt(WorkflowContext context){
+        return cbp.getPrompt(context)
     }
 
-    String getLocation(){
-        return dispatcher.getLocation()
+    String getLocation(WorkflowContext context){
+        return cbp.getLocation(context)
     }
 
-    String getTitle(){
-        return dispatcher.getTitle()
+    String getTitle(WorkflowContext context){
+        return cbp.getTitle(context)
     }
 
-    String[] getAllButtons(){
-       return dispatcher.getAllButtons()
+    String[] getAllButtons(WorkflowContext context){
+       return cbp.getAllButtons(context)
     }
 
-    String[] getAllLinks(){
-       return dispatcher.getAllLinks()
+    String[] getAllLinks(WorkflowContext context){
+       return cbp.getAllLinks(context)
     }
 
-    String[] getAllFields(){
-        return dispatcher.getAllFields() 
+    String[] getAllFields(WorkflowContext context){
+        return cbp.getAllFields(context)
     }
 
-    String[] getAllWindowIds(){
-        return dispatcher.getAllWindowIds()
+    String[] getAllWindowIds(WorkflowContext context){
+        return cbp.getAllWindowIds(context)
     }
 
-    String[] getAllWindowNames(){
-        return dispatcher.getAllWindowNames()
+    String[] getAllWindowNames(WorkflowContext context){
+        return cbp.getAllWindowNames(context)
     }
 
-    String[] getAllWindowTitles(){
-        return dispatcher.getAllWindowTitles()
+    String[] getAllWindowTitles(WorkflowContext context){
+        return cbp.getAllWindowTitles(context)
     }
 
-    void waitForPageToLoad(String timeout){
-         dispatcher.waitForPageToLoad(timeout)
+    void waitForPageToLoad(WorkflowContext context, String timeout){
+         cbp.waitForPageToLoad(context, timeout)
     }
 
-    void waitForFrameToLoad(String frameAddress, String timeout){
-        dispatcher.waitForFrameToLoad(frameAddress, timeout)
+    void waitForFrameToLoad(WorkflowContext context, String frameAddress, String timeout){
+        cbp.waitForFrameToLoad(context, frameAddress, timeout)
     }
 
-    String getEval(String script){
-        return dispatcher.getEval(script)
+    String getEval(WorkflowContext context, String script){
+        return cbp.getEval(context, script)
     }
 
-    boolean getWhetherThisFrameMatchFrameExpression(String currentFrameString, String target){
-        return dispatcher.getWhetherThisFrameMatchFrameExpression(currentFrameString, target)
+    boolean getWhetherThisFrameMatchFrameExpression(WorkflowContext context, String currentFrameString, String target){
+        return cbp.getWhetherThisFrameMatchFrameExpression(context, currentFrameString, target)
     }
 
-    boolean getWhetherThisWindowMatchWindowExpression(String currentWindowString,String target){
-        return dispatcher.getWhetherThisWindowMatchWindowExpression(currentWindowString, target)
+    boolean getWhetherThisWindowMatchWindowExpression(WorkflowContext context, String currentWindowString,String target){
+        return cbp.getWhetherThisWindowMatchWindowExpression(context, currentWindowString, target)
     }
 
-    void useXpathLibrary(String libraryName){
-        dispatcher.useXpathLibrary(libraryName)
+    void useXpathLibrary(WorkflowContext context, String libraryName){
+        cbp.useXpathLibrary(context, libraryName)
     }
 
-    String waitForText(String locator, int timeout){
-       waitForElementPresent(locator, timeout)
+    String waitForText(WorkflowContext context, String locator, int timeout){
+       waitForElementPresent(context, locator, timeout)
 
-       return dispatcher.getText(locator)
+       return cbp.getText(context, locator)
 	}
 }

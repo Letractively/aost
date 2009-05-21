@@ -46,6 +46,7 @@ public class CommandBundle implements BundleStrategy{
     return json;
   }
 
+  //only append to the bundle if they are in the same UI module
   public boolean shouldAppend(SelenCmd newcmd) {
     String puid = newcmd.getParentUid();
 
