@@ -300,12 +300,12 @@ abstract class DslContext extends BaseDslContext {
     }
 
     public void useCommandBundle(){
-      CommandBundleProcessor processor = new CommandBundleProcessor()
+      CommandBundleProcessor processor = CommandBundleProcessor.instance
       processor.useBundleFeature()
     }
 
     public void disableCommandBundle(){
-      CommandBundleProcessor processor = new CommandBundleProcessor()
+      CommandBundleProcessor processor = CommandBundleProcessor.instance
       processor.disableBundleFeature()
     }
 

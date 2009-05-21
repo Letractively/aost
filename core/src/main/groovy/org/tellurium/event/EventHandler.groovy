@@ -14,7 +14,7 @@ class EventHandler implements Configurable{
 	public static final int ACTION_WAIT_TIME = 50
     protected static final String ELEMENT_NOT_PRESENT_ERROR_MESSAGE = "Element is not present"
 
-    private CommandBundleProcessor cbp  = new CommandBundleProcessor()
+    private CommandBundleProcessor cbp  = CommandBundleProcessor.instance
   
     private EventSorter alg = new EventSorter()
 

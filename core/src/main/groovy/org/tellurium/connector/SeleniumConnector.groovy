@@ -89,7 +89,7 @@ class SeleniumConnector implements Configurable {
         CustomSelenium aseles = customSelenium.getActiveSeleniumSession();
 		if(aseles != null){
             //flush out remaining commands in the command bundle before disconnection
-            CommandBundleProcessor processor = new CommandBundleProcessor()
+            CommandBundleProcessor processor = CommandBundleProcessor.instance
             processor.flush()
             //clean up cache before close the connection
             aseles.cleanSelectorCache();
