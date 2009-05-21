@@ -30,7 +30,7 @@ Tellurium Contributors are categorized into development team, support team, evan
 
 == Past Members ==
 
-  * *Adrian Carr*: Adrian used Tellurium prototype for an internal project and brought up many good suggestions. He also proposed the name "Tellurium Automated Testing Framework".
+  * *Adrian Carr*: Adrian used Tellurium prototype for an internal project and provided us   many good suggestions. He also proposed the name "Tellurium Automated Testing Framework".
   * *Quan Bui*: Quan worked on Tellurium reference projects and proposed the ExtJs widget project.
 
 == Want to Contribute ? ==
