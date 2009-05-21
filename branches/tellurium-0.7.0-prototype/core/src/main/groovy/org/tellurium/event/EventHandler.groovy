@@ -1,12 +1,12 @@
 package org.tellurium.event
 
 import org.tellurium.config.Configurable
-import org.tellurium.dispatch.Dispatcher
 import org.tellurium.event.Event
 import org.tellurium.event.EventSorter
 import org.tellurium.exception.ElementNotPresentException
 import org.tellurium.util.Helper
-import java.awt.event.KeyEvent
+import org.tellurium.dsl.WorkflowContext
+import org.tellurium.bundle.CommandBundleProcessor
 
 class EventHandler implements Configurable{
 
@@ -14,8 +14,8 @@ class EventHandler implements Configurable{
 	public static final int ACTION_WAIT_TIME = 50
     protected static final String ELEMENT_NOT_PRESENT_ERROR_MESSAGE = "Element is not present"
 
-    //default is selenium dispatcher
-    def dispatcher  = new Dispatcher()
+    private CommandBundleProcessor cbp  = new CommandBundleProcessor()
+  
     private EventSorter alg = new EventSorter()
 
     private boolean checkElement = true
@@ -37,421 +37,423 @@ class EventHandler implements Configurable{
         this.extraEvent = false
     }
 
-    protected void processingEvent(String locator, Event event){
+    protected void processingEvent(WorkflowContext context, String locator, Event event){
         switch (event){
             case Event.BLUR:
-                dispatcher.fireEvent(locator, "blur")
+                cbp.fireEvent(context, locator, "blur")
                 break
             case Event.FOCUS:
-                dispatcher.fireEvent(locator, "focus")
+                cbp.fireEvent(context, locator, "focus")
                 break
             case Event.MOUSEOUT:
-                dispatcher.mouseOut(locator)
+                cbp.mouseOut(context, locator)
                 break
             case Event.MOUSEOVER:
-                dispatcher.mouseOver(locator)
+                cbp.mouseOver(context, locator)
                 break
             case Event.MOUSEDOWN:
-                dispatcher.mouseDown(locator)
+                cbp.mouseDown(context, locator)
                 break
             case Event.MOUSEUP:
-                dispatcher.mouseUp(locator)
+                cbp.mouseUp(context, locator)
                 break
             default:
                 println "Warning: Unknown Event ${event.toString()}"
         }        
     }
 
-    protected void processEvents(String locator, String[] events, String[] defaultEvents, Closure action){
-        checkElement(locator)
+    protected void processEvents(WorkflowContext context, String locator, String[] events, String[] defaultEvents, Closure action){
+        checkElement(context, locator)
 
         Event[] evns = alg.sort(events, defaultEvents)
+        //For event processing, it is ok to use bundle
+        context.makeBundlingAble()
         evns.each {Event event ->
           if (event == Event.ACTION)
             action()
           else
-            processingEvent(locator, event)
+            processingEvent(context, locator, event)
         }
     }
 
-    protected void checkElement(String locator){
-		if(checkElement && (!dispatcher.isElementPresent(locator))){
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
+    protected void checkElement(WorkflowContext context, String locator){
+		if(checkElement && (!cbp.isElementPresent(context, locator))){
+			checkAndWaitForElementPresent(context, locator, ACTION_WAIT_TIME)
 		}
     }
 
-    def mouseOver(String locator, String[] events) {
+    def mouseOver(WorkflowContext context, String locator, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)
             defaultEvents = ["focus"]
 
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseOver(locator)
+        processEvents(context, locator, events, defaultEvents){
+            cbp.mouseOver(context, locator)
         }
 	}
 
-    def mouseOut(String locator, String[] events) {
+    def mouseOut(WorkflowContext context, String locator, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)
             defaultEvents = ["focus"]
 
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseOut(locator)
+        processEvents(context, locator, events, defaultEvents){
+            cbp.mouseOut(context, locator)
         }
 	}
 
-   def dragAndDrop(String locator, String movementsString, String[] events) {
+   def dragAndDrop(WorkflowContext context, String locator, String movementsString, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)
             defaultEvents = []
 
-        processEvents(locator, events, defaultEvents){
-            dispatcher.dragAndDrop(locator, movementsString)
+        processEvents(context, locator, events, defaultEvents){
+            cbp.dragAndDrop(context, locator, movementsString)
         }
 	}
 
-   def dragAndDropToObject(String srcLocator, String targetLocator, String[] events) {
+   def dragAndDropToObject(WorkflowContext context, String srcLocator, String targetLocator, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)
             defaultEvents = []
 
-        processEvents(srcLocator, events, defaultEvents){
-            dispatcher.dragAndDropToObject(srcLocator, targetLocator)
+        processEvents(context, srcLocator, events, defaultEvents){
+            cbp.dragAndDropToObject(context, srcLocator, targetLocator)
         }
 	}
 
-	def click(String locator, String[] events) {
+	def click(WorkflowContext context, String locator, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)
            defaultEvents = ["focus", "mouseOver"]
 
-        processEvents(locator, events, defaultEvents){
-           dispatcher.click(locator)
+        processEvents(context, locator, events, defaultEvents){
+           cbp.click(context, locator)
         }
 	}
 
-	def doubleClick(String locator, String[] events) {
+	def doubleClick(WorkflowContext context, String locator, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)
            defaultEvents = ["focus", "mouseOver"]
 
-        processEvents(locator, events, defaultEvents){
-           dispatcher.doubleClick(locator)
+        processEvents(context, locator, events, defaultEvents){
+           cbp.doubleClick(context, locator)
         }
 	}
 
-	def clickAt(String locator, String coordination, String[] events) {
+	def clickAt(WorkflowContext context, String locator, String coordination, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)
            defaultEvents = ["focus", "mouseOver"]
 
-        processEvents(locator, events, defaultEvents){
-           dispatcher.clickAt(locator, coordination)
+        processEvents(context, locator, events, defaultEvents){
+           cbp.clickAt(context, locator, coordination)
         }
 	}
 
-	def check(String locator, String[] events) {
+	def check(WorkflowContext context, String locator, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)
            defaultEvents = ["focus", "mouseOver"]
 
-        processEvents(locator, events, defaultEvents){
-           dispatcher.check(locator)
+        processEvents(context, locator, events, defaultEvents){
+           cbp.check(context, locator)
         }
 	}
 
-	def uncheck(String locator, String[] events) {
+	def uncheck(WorkflowContext context, String locator, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)
            defaultEvents = ["focus", "mouseOver"]
 
-        processEvents(locator, events, defaultEvents){
-           dispatcher.uncheck(locator)
+        processEvents(context, locator, events, defaultEvents){
+           cbp.uncheck(context, locator)
         }
     }
 
-	def type(String locator, String input, String[] events) {
+	def type(WorkflowContext context, String locator, String input, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)
            defaultEvents = ["focus", "mouseOver", "mouseOut", "blur"]
 
-        processEvents(locator, events, defaultEvents){
+        processEvents(context, locator, events, defaultEvents){
            if(includeKeyEvents(events)){
-               processKeyEvent(locator, input, events)
+               processKeyEvent(context, locator, input, events)
            }else{
-               dispatcher.type(locator, input)
+               cbp.type(context, locator, input)
            }
         }
     }
 
-    def keyType(String locator, String input, String[] events) {
+    def keyType(WorkflowContext context, String locator, String input, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)
            defaultEvents = ["focus", "mouseOver", "mouseOut", "blur"]
 
-        processEvents(locator, events, defaultEvents){
-           simulateKeyType(locator, input)
+        processEvents(context, locator, events, defaultEvents){
+           simulateKeyType(context, locator, input)
         }
 	}
 
-	def typeAndReturn(String locator, String input, String[] events) {
+	def typeAndReturn(WorkflowContext context, String locator, String input, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)
            defaultEvents = ["focus", "mouseOver", "mouseOut", "blur"]
 
-        processEvents(locator, events, defaultEvents){
-            dispatcher.type(locator, input)
-            dispatcher.keyUp(locator,  "\\13")
+        processEvents(context, locator, events, defaultEvents){
+            cbp.type(context, locator, input)
+            cbp.keyUp(context, locator,  "\\13")
         }
 	}
 
-    def clearText(String locator, String[] events) {
+    def clearText(WorkflowContext context, String locator, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)
            defaultEvents = ["focus", "mouseOver", "mouseOut", "blur"]
 
-        processEvents(locator, events, defaultEvents){
-           dispatcher.type(locator, "")
+        processEvents(context, locator, events, defaultEvents){
+           cbp.type(context, locator, "")
         }
 	}
 
-    def simulateKeyType(String locator, String input){
+    def simulateKeyType(WorkflowContext context, String locator, String input){
 
         if(input == null || input.length() < 1){
-    		dispatcher.type(locator, "")
+    		cbp.type(context, locator, "")
         }else{
     		char[] chars = input.toCharArray()
 
             for(char achar: chars){
     			String key = Character.toString(achar)
     			if("\n".equals(key)){
-    				dispatcher.keyUp(locator,  "\\13")
+    				cbp.keyUp(context, locator,  "\\13")
                 }else if(".".equals(key)){
 //                    String keycode = Integer.toString(KeyEvent.VK_PERIOD)
-//                    dispatcher.keyDownNative(keycode)
-//                    dispatcher.keyPressNative(keycode)
-//                    dispatcher.keyUpNative(keycode)
-                    dispatcher.typeKey(locator, key)
+//                    cbp.keyDownNative(keycode)
+//                    cbp.keyPressNative(keycode)
+//                    cbp.keyUpNative(keycode)
+                    cbp.typeKey(context, locator, key)
                 }else if("(".equals(key)){
 //                    String keycode = Integer.toString(KeyEvent.VK_LEFT_PARENTHESIS)
-//                    dispatcher.keyDownNative(keycode)
-//                    dispatcher.keyPressNative(keycode)
-//                    dispatcher.keyUpNative(keycode)
-                    dispatcher.typeKey(locator, key)
+//                    cbp.keyDownNative(keycode)
+//                    cbp.keyPressNative(keycode)
+//                    cbp.keyUpNative(keycode)
+                    cbp.typeKey(context, locator, key)
                 }else if("y".equals(key)){
 //                    String keycode = Integer.toString(KeyEvent.VK_Y)
-//                    dispatcher.keyDownNative(keycode)
-//                    dispatcher.keyPressNative(keycode)
-//                    dispatcher.keyUpNative(keycode)
-                    dispatcher.typeKey(locator, key)
+//                    cbp.keyDownNative(keycode)
+//                    cbp.keyPressNative(keycode)
+//                    cbp.keyUpNative(keycode)
+                    cbp.typeKey(context, locator, key)
                 }else{
-    				dispatcher.keyDown(locator, key)
-    				dispatcher.keyPress(locator, key)
-    				dispatcher.keyUp(locator, key)
+    				cbp.keyDown(context, locator, key)
+    				cbp.keyPress(context, locator, key)
+    				cbp.keyUp(context, locator, key)
     			}
     			Helper.pause(15)
     		}
     	}
     }
 
-    def processKeyEvent(String locator, String input, String[] events){
+    def processKeyEvent(WorkflowContext context, String locator, String input, String[] events){
         boolean hasKeyDown = includeKeyDown(events)
         boolean hasKeyPress = includeKeyPress(events)
         boolean hasKeyUp = includeKeyUp(events)
 
         if(input == null || input.length() < 1){
-    		dispatcher.type(locator, "")
+    		cbp.type(context, locator, "")
         }else{
     		char[] chars = input.toCharArray()
 
             for(char achar: chars){
     			String key = Character.toString(achar)
     			if("\n".equals(key)){
-    				dispatcher.keyUp(locator,  "\\13")
+    				cbp.keyUp(context, locator,  "\\13")
                 }else if(".".equals(key)){
 //                    String keycode = Integer.toString(KeyEvent.VK_PERIOD)
 //                    if(hasKeyDown)
-//                      dispatcher.keyDownNative(keycode)
+//                      cbp.keyDownNative(keycode)
 //
-//                    dispatcher.keyPressNative(keycode)
+//                    cbp.keyPressNative(keycode)
 //
 //                    if(hasKeyUp)
-//                      dispatcher.keyUpNative(keycode)
-                    dispatcher.typeKey(locator, key)
+//                      cbp.keyUpNative(keycode)
+                    cbp.typeKey(context, locator, key)
                 }else if("(".equals(key)){
 //                    String keycode = Integer.toString(KeyEvent.VK_LEFT_PARENTHESIS)
 //                    if(hasKeyDown)
-//                      dispatcher.keyDownNative(keycode)
+//                      cbp.keyDownNative(keycode)
 //
-//                    dispatcher.keyPressNative(keycode)
+//                    cbp.keyPressNative(keycode)
 //
 //                    if(hasKeyUp)
-//                      dispatcher.keyUpNative(keycode)
-                    dispatcher.typeKey(locator, key)
+//                      cbp.keyUpNative(keycode)
+                    cbp.typeKey(context, locator, key)
                 }else if("y".equals(key)){
 //                    String keycode = Integer.toString(KeyEvent.VK_Y)
 //                    if(hasKeyDown)
-//                      dispatcher.keyDownNative(keycode)
+//                      cbp.keyDownNative(keycode)
 //
-//                    dispatcher.keyPressNative(keycode)
+//                    cbp.keyPressNative(keycode)
 //
 //                    if(hasKeyUp)
-//                      dispatcher.keyUpNative(keycode)
-                    dispatcher.typeKey(locator, key)
+//                      cbp.keyUpNative(keycode)
+                    cbp.typeKey(context, locator, key)
                 }else{
                     if(hasKeyDown)
-                        dispatcher.keyDown(locator, key)
+                        cbp.keyDown(context, locator, key)
 
-                    dispatcher.keyPress(locator, key)
+                    cbp.keyPress(context, locator, key)
 
                     if(hasKeyUp)
-                        dispatcher.keyUp(locator, key)
+                        cbp.keyUp(context, locator, key)
     			}
     		}
     	}
     }
 
-    def mouseDown(String locator, String[] events) {
+    def mouseDown(WorkflowContext context, String locator, String[] events) {
         String[] defaultEvents = null
 
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseDown(locator)
+        processEvents(context, locator, events, defaultEvents){
+            cbp.mouseDown(context, locator)
         }
 	}
 
-    def mouseDownRight(String locator, String[] events) {
+    def mouseDownRight(WorkflowContext context, String locator, String[] events) {
         String[] defaultEvents = null
 
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseDownRight(locator)
+        processEvents(context, locator, events, defaultEvents){
+            cbp.mouseDownRight(context, locator)
         }
 	}
 
-    def mouseDownRightAt(String locator, String coordinate, String[] events) {
+    def mouseDownRightAt(WorkflowContext context, String locator, String coordinate, String[] events) {
         String[] defaultEvents = null
 
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseDownRightAt(locator, coordinate)
+        processEvents(context, locator, events, defaultEvents){
+            cbp.mouseDownRightAt(context, locator, coordinate)
         }
 	}
 
-    def mouseUp(String locator, String[] events) {
+    def mouseUp(WorkflowContext context, String locator, String[] events) {
         String[] defaultEvents = null
 
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseUp(locator)
+        processEvents(context, locator, events, defaultEvents){
+            cbp.mouseUp(context, locator)
         }
 	}
 
-    def mouseUpRight(String locator, String[] events) {
+    def mouseUpRight(WorkflowContext context, String locator, String[] events) {
         String[] defaultEvents = null
 
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseUpRight(locator)
+        processEvents(context, locator, events, defaultEvents){
+            cbp.mouseUpRight(context, locator)
         }
 	}
 
-    def mouseUpRightAt(String locator, String coordinate, String[] events) {
+    def mouseUpRightAt(WorkflowContext context, String locator, String coordinate, String[] events) {
         String[] defaultEvents = null
 
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseUpRightAt(locator, coordinate)
+        processEvents(context, locator, events, defaultEvents){
+            cbp.mouseUpRightAt(context, locator, coordinate)
         }
 	}
 
-    def mouseMove(String locator, String[] events) {
+    def mouseMove(WorkflowContext context, String locator, String[] events) {
         String[] defaultEvents = null
 
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseMove(locator)
+        processEvents(context, locator, events, defaultEvents){
+            cbp.mouseMove(context, locator)
         }
 	}
 
-    def mouseMoveAt(String locator, String coordinate, String[] events) {
+    def mouseMoveAt(WorkflowContext context, String locator, String coordinate, String[] events) {
         String[] defaultEvents = null
 
-        processEvents(locator, events, defaultEvents){
-            dispatcher.mouseMoveAt(locator, coordinate)
+        processEvents(context, locator, events, defaultEvents){
+            cbp.mouseMoveAt(context, locator, coordinate)
         }
 	}
 
-    def select(String locator, String target, String[] events) {
+    def select(WorkflowContext context, String locator, String target, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)
            defaultEvents = ["focus", "mouseOver", "mouseOut", "blur"]
 
-        processEvents(locator, events, defaultEvents){
-	        dispatcher.click(locator)
-			checkAndWaitForElementPresent(locator, ACTION_WAIT_TIME)
-			dispatcher.select(locator, target)
+        processEvents(context, locator, events, defaultEvents){
+	        cbp.click(context, locator)
+			checkAndWaitForElementPresent(context, locator, ACTION_WAIT_TIME)
+			cbp.select(context, locator, target)
         }
     }
 
-    def addSelection(String locator, String optionLocator){
-        checkElement(locator)
+    def addSelection(WorkflowContext context, String locator, String optionLocator){
+        checkElement(context, locator)
         if(extraEvent){
-          dispatcher.fireEvent(locator, "focus")
+          cbp.fireEvent(context, locator, "focus")
         }
 
-        dispatcher.addSelection(locator, optionLocator)
+        cbp.addSelection(context, locator, optionLocator)
     }
 
-    def removeSelection(String locator,String optionLocator){
-        checkElement(locator)
+    def removeSelection(WorkflowContext context, String locator,String optionLocator){
+        checkElement(context, locator)
         if (extraEvent) {
-          dispatcher.fireEvent(locator, "focus")
+          cbp.fireEvent(context, locator, "focus")
         }
-        dispatcher.removeSelection(locator, optionLocator)
+        cbp.removeSelection(context, locator, optionLocator)
     }
 
-    def removeAllSelections(String locator){
-        checkElement(locator)
+    def removeAllSelections(WorkflowContext context, String locator){
+        checkElement(context, locator)
         if (extraEvent) {
-          dispatcher.fireEvent(locator, "focus")
+          cbp.fireEvent(context, locator, "focus")
         }
-        dispatcher.removeAllSelections(locator)
+        cbp.removeAllSelections(context, locator)
     }
 
-    def submit(String locator){
-        checkElement(locator)
+    def submit(WorkflowContext context, String locator){
+        checkElement(context, locator)
         if (extraEvent) {
-          dispatcher.fireEvent(locator, "focus")
+          cbp.fireEvent(context, locator, "focus")
         }
-        dispatcher.submit(locator)
+        cbp.submit(context, locator)
     }
 
-    void openWindow(String url, String windowID){
-        dispatcher.openWindow(url, windowID)
+    void openWindow(WorkflowContext context, String url, String windowID){
+        cbp.openWindow(context, url, windowID)
     }
 
-    void selectWindow(String windowID){
-        dispatcher.selectWindow(windowID)   
+    void selectWindow(WorkflowContext context, String windowID){
+        cbp.selectWindow(context, windowID)
     }
 
-    void windowFocus(){
-        dispatcher.windowFocus()
+    void windowFocus(WorkflowContext context){
+        cbp.windowFocus(context)
     }
 
-    def closeWindow(String windowID){
-        dispatcher.selectWindow(windowID)
-        dispatcher.close()
+    def closeWindow(WorkflowContext context, String windowID){
+        cbp.selectWindow(context, windowID)
+        cbp.close(context)
     }
 
-    void windowMaximize(){
-        dispatcher.windowMaximize()
+    void windowMaximize(WorkflowContext context){
+        cbp.windowMaximize(context)
     }
 
-    void selectFrame(String locator){
-        dispatcher.selectFrame(locator)
+    void selectFrame(WorkflowContext context, String locator){
+        cbp.selectFrame(context, locator)
     }
 
-    def private boolean checkAndWaitForElementPresent(String locator, int timeout){
+    def private boolean checkAndWaitForElementPresent(WorkflowContext context, String locator, int timeout){
 
 		boolean result = false
 
         for (int second = 0; second < timeout; second+=500) {
             try {
-            	if (dispatcher.isElementPresent(locator)){
+            	if (cbp.isElementPresent(context, locator)){
             		result = true
             		break
             		}
@@ -465,24 +467,24 @@ class EventHandler implements Configurable{
         return result
 	}
 
-    void chooseCancelOnNextConfirmation(){
-        dispatcher.chooseCancelOnNextConfirmation()
+    void chooseCancelOnNextConfirmation(WorkflowContext context){
+        cbp.chooseCancelOnNextConfirmation(context)
     }
 
-    void chooseOkOnNextConfirmation(){
-        dispatcher.chooseOkOnNextConfirmation()
+    void chooseOkOnNextConfirmation(WorkflowContext context){
+        cbp.chooseOkOnNextConfirmation(context)
     }
 
-    void answerOnNextPrompt(String answer){
-        dispatcher.answerOnNextPrompt(answer)
+    void answerOnNextPrompt(WorkflowContext context, String answer){
+        cbp.answerOnNextPrompt(context, answer)
     }
 
-    void goBack(){
-        dispatcher.goBack()
+    void goBack(WorkflowContext context){
+        cbp.goBack(context)
     }
 
-    void refresh(){
-        dispatcher.refresh()
+    void refresh(WorkflowContext context){
+        cbp.refresh(context)
     }
 
     protected boolean includeKeyEvents(String[] events){

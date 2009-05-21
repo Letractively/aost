@@ -52,7 +52,7 @@ abstract class BaseDslContext {
   Accessor accessor = new Accessor()
   LocatorProcessor locatorProcessor = new LocatorProcessor()
   Extension extension = new Extension()
-  
+
   abstract protected String locatorMapping(WorkflowContext context, loc)
   abstract protected String locatorMappingWithOption(WorkflowContext context, loc, optLoc)
 
@@ -92,110 +92,6 @@ abstract class BaseDslContext {
     return reader.read(out);
   }
 
-  public void enableSelectorCache(){
-      this.exploreSelectorCache = true
-      extension.enableSelectorCache()
-  }
-
-  public boolean disableSelectorCache(){
-      this.exploreSelectorCache = false
-      extension.disableSelectorCache()
-  }
-
-  public boolean cleanSelectorCache(){
-      extension.cleanSelectorCache()
-  }
-
-  public boolean getSelectorCacheState(){
-      return extension.getCacheState()
-  }
-
-  public void setCacheMaxSize(int size){
-      extension.setCacheMaxSize(size)
-  }
-
-  public int getCacheSize(){
-      return extension.getCacheSize().intValue()
-  }
-
-  public int getCacheMaxSize(){
-      return extension.getCacheMaxSize().intValue()
-  }
-
-  public Map<String, Long> getCacheUsage() {
-    String out = extension.getCacheUsage();
-    ArrayList list = (ArrayList) parseSeleniumJSONReturnValue(out)
-    Map<String, Long> usages = new HashMap<String, Long>()
-    list.each {Map elem ->
-      elem.each {key, value ->
-        usages.put(key, value)
-      }
-    }
-
-    return usages
-  }
-
-  public void useDiscardNewCachePolicy(){
-    extension.useDiscardNewCachePolicy()
-  }
-
-  public void useDiscardOldCachePolicy(){
-    extension.useDiscardOldCachePolicy()
-  }
-
-  public void useDiscardLeastUsedCachePolicy(){
-    extension.useDiscardLeastUsedCachePolicy()
-  }
-
-  public void useDiscardInvalidCachePolicy(){
-    extension.useDiscardInvalidCachePolicy()
-  }
-
-  public String getCurrentCachePolicy(){
-    return extension.getCurrentCachePolicy()
-  }
-
-  public void useJQuerySelector(){
-    this.exploreJQuerySelector = true
-  }
-
-  public void disableJQuerySelector(){
-    this.exploreJQuerySelector = false
-  }
-
-  public void useDefaultXPathLibrary() {
-    accessor.useXpathLibrary(DEFAULT_XPATH)
-  }
-
-  public void useJavascriptXPathLibrary() {
-    accessor.useXpathLibrary(JAVASCRIPT_XPATH)
-  }
-
-  public void useAjaxsltXPathLibrary() {
-    accessor.useXpathLibrary(AJAXSLT_XPATH)
-  }
-
-  public void registerNamespace(String prefix, String namespace){
-    extension.addNamespace(prefix, namespace)
-  }
-
-  public String getNamespace(String prefix){
-    return extension.getNamespace(prefix)
-  }
-
-  def customUiCall(String uid, String method, Object[] args){
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
-    return walkToWithException(context, uid).customMethod(){ loc ->
-      String locator = locatorMapping(context, loc)
-      Object[] list = [locator, args].flatten()    
-      return extension.invokeMethod(method, list)
-    }
-  }
-
-  def customDirectCall(String method, Object[] args){
-    return extension.invokeMethod(method, args)
-  }
-
   //uid should use the format table2[2][3] for Table or list[2] for List
   def getUiElement(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
@@ -208,18 +104,142 @@ abstract class BaseDslContext {
     UiObject obj = ui.walkTo(context, uid)
     if (obj != null){
       context.attachMetaCmd(uid, obj.amICacheable(), true)
-      
+
       return obj
     }
 
     throw new UiObjectNotFoundException("${ERROR_MESSAGE} ${uid}")
+  }
+  
+  public void enableSelectorCache(){
+      this.exploreSelectorCache = true
+      WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      extension.enableSelectorCache(context)
+  }
+
+  public boolean disableSelectorCache(){
+      this.exploreSelectorCache = false
+      WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      extension.disableSelectorCache(context)
+  }
+
+  public boolean cleanSelectorCache(){
+      WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      extension.cleanSelectorCache(context)
+  }
+
+  public boolean getSelectorCacheState(){
+      WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      return extension.getCacheState(context)
+  }
+
+  public void setCacheMaxSize(int size){
+      WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      extension.setCacheMaxSize(context, size)
+  }
+
+  public int getCacheSize(){
+      WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      return extension.getCacheSize(context).intValue()
+  }
+
+  public int getCacheMaxSize(){
+      WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      return extension.getCacheMaxSize(context).intValue()
+  }
+
+  public Map<String, Long> getCacheUsage() {
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    String out = extension.getCacheUsage(context);
+    ArrayList list = (ArrayList) parseSeleniumJSONReturnValue(out)
+    Map<String, Long> usages = new HashMap<String, Long>()
+    list.each {Map elem ->
+      elem.each {key, value ->
+        usages.put(key, value)
+      }
+    }
+
+    return usages
+  }
+
+  public void useDiscardNewCachePolicy(){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    extension.useDiscardNewCachePolicy(context)
+  }
+
+  public void useDiscardOldCachePolicy(){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    extension.useDiscardOldCachePolicy(context)
+  }
+
+  public void useDiscardLeastUsedCachePolicy(){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    extension.useDiscardLeastUsedCachePolicy(context)
+  }
+
+  public void useDiscardInvalidCachePolicy(){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    extension.useDiscardInvalidCachePolicy(context)
+  }
+
+  public String getCurrentCachePolicy(){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    return extension.getCurrentCachePolicy(context)
+  }
+
+  public void useJQuerySelector(){
+    this.exploreJQuerySelector = true
+  }
+
+  public void disableJQuerySelector(){
+    this.exploreJQuerySelector = false
+  }
+
+  public void useDefaultXPathLibrary() {
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    accessor.useXpathLibrary(context, DEFAULT_XPATH)
+  }
+
+  public void useJavascriptXPathLibrary() {
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    accessor.useXpathLibrary(context, JAVASCRIPT_XPATH)
+  }
+
+  public void useAjaxsltXPathLibrary() {
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    accessor.useXpathLibrary(context, AJAXSLT_XPATH)
+  }
+
+  public void registerNamespace(String prefix, String namespace){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    extension.addNamespace(context, prefix, namespace)
+  }
+
+  public String getNamespace(String prefix){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    return extension.getNamespace(context, prefix)
+  }
+
+  def customUiCall(String uid, String method, Object[] args){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    return walkToWithException(context, uid).customMethod(){ loc ->
+      String locator = locatorMapping(context, loc)
+      Object[] list = [context, locator, args].flatten()    
+      return extension.invokeMethod(method, list)
+    }
+  }
+
+  def customDirectCall(String method, Object[] args){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    Object[] list = [context, args].flatten()
+    return extension.invokeMethod(method, list)
   }
 
   def click(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.click() {loc, String[] events ->
       String locator = locatorMapping(context, loc)
-      eventHandler.click(locator, events)
+      eventHandler.click(context, locator, events)
     }
   }
 
@@ -227,7 +247,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.doubleClick() {loc, String[] events ->
       String locator = locatorMapping(context, loc)
-      eventHandler.doubleClick(locator, events)
+      eventHandler.doubleClick(context, locator, events)
     }
   }
 
@@ -235,7 +255,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.clickAt(coordination) {loc, String[] events ->
       String locator = locatorMapping(context, loc)
-      eventHandler.clickAt(locator, coordination, events)
+      eventHandler.clickAt(context, locator, coordination, events)
     }
   }
 
@@ -243,7 +263,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.check() {loc, String[] events ->
       String locator = locatorMapping(context, loc)
-      eventHandler.check(locator, events)
+      eventHandler.check(context, locator, events)
     }
   }
 
@@ -251,7 +271,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.uncheck() {loc, String[] events ->
       String locator = locatorMapping(context, loc)
-      eventHandler.uncheck(locator, events)
+      eventHandler.uncheck(context, locator, events)
     }
   }
 
@@ -259,7 +279,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.type(input) {loc, String[] events ->
       String locator = locatorMapping(context, loc)
-      eventHandler.type(locator, input, events)
+      eventHandler.type(context, locator, input, events)
     }
   }
 
@@ -267,7 +287,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.keyType(input) {loc, String[] events ->
       String locator = locatorMapping(context, loc)
-      eventHandler.keyType(locator, input, events)
+      eventHandler.keyType(context, locator, input, events)
     }
   }
 
@@ -275,7 +295,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.typeAndReturn(input) {loc, String[] events ->
       String locator = locatorMapping(context, loc)
-      eventHandler.typeAndReturn(locator, input, events)
+      eventHandler.typeAndReturn(context, locator, input, events)
     }
   }
 
@@ -283,7 +303,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.clearText() {loc, String[] events ->
       String locator = locatorMapping(context, loc)
-      eventHandler.clearText(locator, events)
+      eventHandler.clearText(context, locator, events)
     }
   }
 
@@ -295,7 +315,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.selectByLabel(target) {loc, optloc, String[] events ->
       String locator = locatorMapping(context, loc)
-      eventHandler.select(locator, optloc, events)
+      eventHandler.select(context, locator, optloc, events)
     }
   }
 
@@ -303,7 +323,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.selectByValue(target) {loc, optloc, String[] events ->
       String locator = locatorMapping(context, loc)
-      eventHandler.select(locator, optloc, events)
+      eventHandler.select(context, locator, optloc, events)
     }
   }
 
@@ -311,7 +331,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.addSelectionByLabel(target) {loc, optloc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.addSelection(locator, optloc)
+      eventHandler.addSelection(context, locator, optloc)
     }
   }
 
@@ -319,7 +339,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.addSelectionByValue(target) {loc, optloc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.addSelection(locator, optloc)
+      eventHandler.addSelection(context, locator, optloc)
     }
   }
 
@@ -327,7 +347,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.removeSelectionByLabel(target) {loc, optloc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.removeSelection(locator, optloc)
+      eventHandler.removeSelection(context, locator, optloc)
     }
   }
 
@@ -335,7 +355,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.removeSelectionByValue(target) {loc, optloc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.removeSelection(locator, optloc)
+      eventHandler.removeSelection(context, locator, optloc)
     }
   }
 
@@ -343,7 +363,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.removeAllSelections() {loc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.removeAllSelections(locator)
+      eventHandler.removeAllSelections(context, locator)
     }
   }
 
@@ -353,7 +373,7 @@ abstract class BaseDslContext {
 
     return obj.getSelectOptions() {loc ->
       String locator = locatorMapping(context, loc)
-      accessor.getSelectOptions(locator)
+      accessor.getSelectOptions(context, locator)
     }
   }
 
@@ -363,7 +383,7 @@ abstract class BaseDslContext {
 
     return obj.getSelectedLabels() {loc ->
       String locator = locatorMapping(context, loc)
-      accessor.getSelectedLabels(locator)
+      accessor.getSelectedLabels(context, locator)
     }
   }
 
@@ -373,7 +393,7 @@ abstract class BaseDslContext {
 
     return obj.getSelectedLabel() {loc ->
       String locator = locatorMapping(context, loc)
-      accessor.getSelectedLabel(locator)
+      accessor.getSelectedLabel(context, locator)
     }
   }
 
@@ -383,7 +403,7 @@ abstract class BaseDslContext {
 
     return obj.getSelectedValues() {loc ->
       String locator = locatorMapping(context, loc)
-      accessor.getSelectedValues(locator)
+      accessor.getSelectedValues(context, locator)
     }
   }
 
@@ -393,7 +413,7 @@ abstract class BaseDslContext {
 
     return obj.getSelectedValue() {loc ->
       String locator = locatorMapping(context, loc)
-      accessor.getSelectedValue(locator)
+      accessor.getSelectedValue(context, locator)
     }
   }
 
@@ -403,7 +423,7 @@ abstract class BaseDslContext {
 
     return obj.getSelectedIndexes() {loc ->
       String locator = locatorMapping(context, loc)
-      accessor.getSelectedIndexes(locator)
+      accessor.getSelectedIndexes(context, locator)
     }
   }
 
@@ -413,7 +433,7 @@ abstract class BaseDslContext {
 
     return obj.getSelectedIndex() {loc ->
       String locator = locatorMapping(context, loc)
-      accessor.getSelectedIndex(locator)
+      accessor.getSelectedIndex(context, locator)
     }
   }
 
@@ -423,7 +443,7 @@ abstract class BaseDslContext {
 
     return obj.getSelectedIds() {loc ->
       String locator = locatorMapping(context, loc)
-      accessor.getSelectedIds(locator)
+      accessor.getSelectedIds(context, locator)
     }
   }
 
@@ -433,7 +453,7 @@ abstract class BaseDslContext {
 
     return obj.getSelectedId() {loc ->
       String locator = locatorMapping(context, loc)
-      accessor.getSelectedId(locator)
+      accessor.getSelectedId(context, locator)
     }
   }
 
@@ -443,7 +463,7 @@ abstract class BaseDslContext {
 
     return obj.isSomethingSelected() {loc ->
       String locator = locatorMapping(context, loc)
-      accessor.isSomethingSelected(locator)
+      accessor.isSomethingSelected(context, locator)
     }
   }
 
@@ -451,7 +471,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     return walkToWithException(context, uid)?.waitForText(timeout) {loc, int tmo ->
       String locator = locatorMapping(context, loc)
-      accessor.waitForText(locator, tmo)
+      accessor.waitForText(context, locator, tmo)
     }
   }
 
@@ -460,7 +480,7 @@ abstract class BaseDslContext {
     def obj = walkToWithException(context, uid)
     return obj.isElementPresent() {loc ->
       String locator = locatorMapping(context, loc)
-      accessor.isElementPresent(locator)
+      accessor.isElementPresent(context, locator)
     }
   }
 
@@ -469,7 +489,7 @@ abstract class BaseDslContext {
     def obj = walkToWithException(context, uid)
     return obj.isVisible() {loc ->
       String locator = locatorMapping(context, loc)
-      accessor.isVisible(locator)
+      accessor.isVisible(context, locator)
     }
   }
 
@@ -478,7 +498,7 @@ abstract class BaseDslContext {
     def obj = walkToWithException(context, uid)
     return obj.isChecked() {loc ->
       String locator = locatorMapping(context, loc)
-      accessor.isChecked(locator)
+      accessor.isChecked(context, locator)
     }
   }
 
@@ -491,7 +511,7 @@ abstract class BaseDslContext {
     def obj = walkToWithException(context, uid)
     return obj.waitForElementPresent(timeout) {loc ->
       String locator = locatorMapping(context, loc)
-      accessor.waitForElementPresent(locator, timeout)
+      accessor.waitForElementPresent(context, locator, timeout)
     }
   }
 
@@ -500,19 +520,19 @@ abstract class BaseDslContext {
     def obj = walkToWithException(context, uid)
     return obj.waitForElementPresent(timeout, step) {loc ->
       String locator = locatorMapping(context, loc)
-      accessor.waitForElementPresent(locator, timeout, step)
+      accessor.waitForElementPresent(context, locator, timeout, step)
     }
   }
 
   boolean waitForCondition(String script, int timeoutInMilliSecond) {
-    accessor.waitForCondition(script, Integer.toString(timeoutInMilliSecond))
+    accessor.waitForCondition(context, script, Integer.toString(timeoutInMilliSecond))
   }
 
   String getText(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.getText() {loc ->
       String locator = locatorMapping(context, loc)
-      accessor.getText(locator)
+      accessor.getText(context, locator)
     }
   }
 
@@ -520,7 +540,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.getValue() {loc ->
       String locator = locatorMapping(context, loc)
-      accessor.getValue(locator)
+      accessor.getValue(context, locator)
     }
   }
 
@@ -532,7 +552,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.getLink() {loc, attr ->
       String locator = locatorMapping(context, loc)
-      accessor.getAttribute(locator + attr)
+      accessor.getAttribute(context, locator + attr)
     }
   }
 
@@ -540,7 +560,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.getImageSource() {loc, attr ->
       String locator = locatorMapping(context, loc)
-      accessor.getAttribute(locator + attr)
+      accessor.getAttribute(context, locator + attr)
     }
   }
 
@@ -548,7 +568,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.getImageAlt() {loc, attr ->
       String locator = locatorMapping(context, loc)
-      accessor.getAttribute(locator + attr)
+      accessor.getAttribute(context, locator + attr)
     }
   }
 
@@ -556,7 +576,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.getImageTitle() {loc, attr ->
       String locator = locatorMapping(context, loc)
-      accessor.getAttribute(locator + attr)
+      accessor.getAttribute(context, locator + attr)
     }
   }
 
@@ -564,7 +584,7 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.submit() {loc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.submit(locator)
+      eventHandler.submit(context, locator)
     }
   }
 
@@ -573,12 +593,12 @@ abstract class BaseDslContext {
 
     return walkToWithException(context, uid)?.isEditable() {loc ->
       String locator = locatorMapping(context, loc)
-      return accessor.isEditable(locator)
+      return accessor.isEditable(context, locator)
     }
   }
 
   String getEval(String script) {
-    return accessor.getEval(script)
+    return accessor.getEval(context, script)
   }
 
   def mouseOver(String uid) {
@@ -586,7 +606,7 @@ abstract class BaseDslContext {
 
     walkToWithException(context, uid)?.mouseOver() {loc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.mouseOver(locator)
+      eventHandler.mouseOver(context, locator)
     }
   }
 
@@ -595,7 +615,7 @@ abstract class BaseDslContext {
 
     walkToWithException(context, uid)?.mouseOut() {loc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.mouseOut(locator)
+      eventHandler.mouseOut(context, locator)
     }
   }
 
@@ -604,7 +624,7 @@ abstract class BaseDslContext {
 
     walkToWithException(context, uid)?.dragAndDrop(movementsString) {loc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.dragAndDrop(locator, movementsString)
+      eventHandler.dragAndDrop(context, locator, movementsString)
     }
   }
 
@@ -618,7 +638,7 @@ abstract class BaseDslContext {
     if (src != null && target != null) {
       String srcLocator = locatorMapping(context, src.locator)
       String targetLocator = locatorMapping(ncontext, target.locator)
-      eventHandler.dragAndDropToObject(srcLocator, targetLocator)
+      eventHandler.dragAndDropToObject(context, srcLocator, targetLocator)
     }
   }
 
@@ -627,7 +647,7 @@ abstract class BaseDslContext {
 
     walkToWithException(context, uid)?.mouseDown() {loc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.mouseDown(locator)
+      eventHandler.mouseDown(context, locator)
     }
   }
 
@@ -636,7 +656,7 @@ abstract class BaseDslContext {
 
     walkToWithException(context, uid)?.mouseDownRight() {loc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.mouseDownRight(locator)
+      eventHandler.mouseDownRight(context, locator)
     }
   }
 
@@ -645,7 +665,7 @@ abstract class BaseDslContext {
 
     walkToWithException(context, uid)?.mouseDownAt() {loc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.mouseDownAt(locator, coordinate)
+      eventHandler.mouseDownAt(context, locator, coordinate)
     }
   }
 
@@ -654,7 +674,7 @@ abstract class BaseDslContext {
 
     walkToWithException(context, uid)?.mouseDownRightAt() {loc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.mouseDownRightAt(locator, coordinate)
+      eventHandler.mouseDownRightAt(context, locator, coordinate)
     }
   }
 
@@ -663,7 +683,7 @@ abstract class BaseDslContext {
 
     walkToWithException(context, uid)?.mouseUp() {loc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.mouseUp(locator)
+      eventHandler.mouseUp(context, locator)
     }
   }
 
@@ -672,7 +692,7 @@ abstract class BaseDslContext {
 
     walkToWithException(context, uid)?.mouseUpRight() {loc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.mouseUpRight(locator)
+      eventHandler.mouseUpRight(context, locator)
     }
   }
 
@@ -681,7 +701,7 @@ abstract class BaseDslContext {
 
     walkToWithException(context, uid)?.mouseUpRightAt() {loc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.mouseUpRightAt(locator, coordinate)
+      eventHandler.mouseUpRightAt(context, locator, coordinate)
     }
   }
 
@@ -690,7 +710,7 @@ abstract class BaseDslContext {
 
     walkToWithException(context, uid)?.mouseMove() {loc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.mouseMove(locator)
+      eventHandler.mouseMove(context, locator)
     }
   }
 
@@ -699,12 +719,13 @@ abstract class BaseDslContext {
 
     walkToWithException(context, uid)?.mouseMoveAt() {loc ->
       String locator = locatorMapping(context, loc)
-      eventHandler.mouseMoveAt(locator, coordinate)
+      eventHandler.mouseMoveAt(context, locator, coordinate)
     }
   }
 
   Number getXpathCount(String xpath) {
-    return accessor.getXpathCount(xpath)
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    return accessor.getXpathCount(context, xpath)
   }
 
   Number getJQuerySelectorCount(String jQuerySelector){
@@ -712,7 +733,7 @@ abstract class BaseDslContext {
     //do not cache any selectors for counting
     context.updateCacheableForMetaCmd(false);
     String jq = postProcessSelector(context, jQuerySelector.trim())
-    return extension.getJQuerySelectorCount(jq)
+    return extension.getJQuerySelectorCount(context, jq)
   }
 
   Number getLocatorCount(String locator){
@@ -762,7 +783,7 @@ abstract class BaseDslContext {
 
     walkToWithException(context, uid)?.getCSS(cssName) {loc ->
       String locator = locatorMapping(context, loc)
-      String out = extension.getCSS(locator, cssName)
+      String out = extension.getCSS(context, locator, cssName)
 
       return (ArrayList) parseSeleniumJSONReturnValue(out)
     }
@@ -778,7 +799,7 @@ abstract class BaseDslContext {
       context.updateCacheableForMetaCmd(false)
       String locator = locatorMappingWithOption(context, loc, cell)
 //      locator = locator + cell
-      String out = extension.getAllText(locator)
+      String out = extension.getAllText(context, locator)
 
       return (ArrayList) parseSeleniumJSONReturnValue(out)
     }
@@ -793,7 +814,7 @@ abstract class BaseDslContext {
       context.updateCacheableForMetaCmd(false)
       String locator = locatorMappingWithOption(context, loc, cell)
 //      locator = locator + cell
-      String out = extension.getAllText(locator)
+      String out = extension.getAllText(context, locator)
 
       return (ArrayList) parseSeleniumJSONReturnValue(out)
     }
@@ -881,7 +902,7 @@ abstract class BaseDslContext {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
-      return extension.getJQuerySelectorCount(locator)
+      return extension.getJQuerySelectorCount(context, locator)
     }
   }
 
@@ -896,7 +917,7 @@ abstract class BaseDslContext {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
-      return extension.getJQuerySelectorCount(locator)
+      return extension.getJQuerySelectorCount(context, locator)
     }
   }
 
@@ -911,7 +932,7 @@ abstract class BaseDslContext {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
-      return extension.getJQuerySelectorCount(locator)
+      return extension.getJQuerySelectorCount(context, locator)
     }
   }
 
@@ -926,7 +947,7 @@ abstract class BaseDslContext {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
-      return extension.getJQuerySelectorCount(locator)
+      return extension.getJQuerySelectorCount(context, locator)
     }
   }
 
@@ -941,7 +962,7 @@ abstract class BaseDslContext {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
-      return extension.getJQuerySelectorCount(locator)
+      return extension.getJQuerySelectorCount(context, locator)
     }
   }
 
@@ -956,7 +977,7 @@ abstract class BaseDslContext {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
-      return extension.getJQuerySelectorCount(locator)
+      return extension.getJQuerySelectorCount(context, locator)
     }
   }
 
@@ -971,7 +992,7 @@ abstract class BaseDslContext {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
-      return extension.getJQuerySelectorCount(locator)
+      return extension.getJQuerySelectorCount(context, locator)
     }
   }
 
@@ -1042,7 +1063,7 @@ abstract class BaseDslContext {
       context.updateCacheableForMetaCmd(false)
       return obj.getListSizeByJQuerySelector() {loc, separators ->
         String locator = locatorMapping(context, loc)
-        return extension.getListSize(locator, separators)
+        return extension.getListSize(context, locator, separators)
       }
     }
 
@@ -1058,7 +1079,7 @@ abstract class BaseDslContext {
 
       return walkToWithException(context, uid).isDisabled() {loc ->
         String locator = locatorMapping(context, loc) + "/self::node()[@disabled]"
-        accessor.isElementPresent(locator)
+        accessor.isElementPresent(context, locator)
       }
     }
 
@@ -1067,7 +1088,7 @@ abstract class BaseDslContext {
 
       return walkToWithException(context, uid).isDisabled() {loc ->
         String locator = locatorMapping(context, loc)
-        extension.isDisabled(locator)
+        extension.isDisabled(context, locator)
       }
     }
 
@@ -1083,9 +1104,9 @@ abstract class BaseDslContext {
     walkToWithException(context, uid)?.getAttribute(attribute) {loc, attr ->
       String locator = locatorMapping(context, loc)
       if(this.exploreJQuerySelector){
-        return accessor.getAttribute(locator + "@${attr}")
+        return accessor.getAttribute(context, locator + "@${attr}")
       }else{
-        return accessor.getAttribute(locator + "/self::node()@${attr}")
+        return accessor.getAttribute(context, locator + "/self::node()@${attr}")
       }
     }
   }
@@ -1096,9 +1117,9 @@ abstract class BaseDslContext {
       String locator = locatorMapping(context, loc)
       String clazz
       if(this.exploreJQuerySelector){
-        clazz = accessor.getAttribute(locator + "@${classAttr}")
+        clazz = accessor.getAttribute(context, locator + "@${classAttr}")
       }else{
-        clazz = accessor.getAttribute(locator + "/self::node()@${classAttr}")
+        clazz = accessor.getAttribute(context, locator + "/self::node()@${classAttr}")
       }
       if(clazz != null && clazz.trim().length() > 0){
         return clazz.split(" ")

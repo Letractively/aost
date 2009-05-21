@@ -353,7 +353,8 @@ class Table extends Container {
     Accessor accessor = new Accessor()
 //        String xpath = rl + "/tbody/tr[1]/th"
     String xpath = rl + tbody + "/tr[child::th]/th"
-    int columnum = accessor.getXpathCount(xpath)
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    int columnum = accessor.getXpathCount(context, xpath)
 
     return columnum
   }
@@ -363,7 +364,8 @@ class Table extends Container {
     String rl = c(this.locator)
     Accessor accessor = new Accessor()
     String xpath = rl + tbody + "/tr[child::td]/td[1]"
-    int rownum = accessor.getXpathCount(xpath)
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    int rownum = accessor.getXpathCount(context, xpath)
 
     return rownum
   }
@@ -375,7 +377,8 @@ class Table extends Container {
     String xpath = rl
 
     xpath = xpath + tbody + "/tr[child::td][1]/td"
-    int columnum = accessor.getXpathCount(xpath)
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    int columnum = accessor.getXpathCount(context, xpath)
 
     return columnum
   }

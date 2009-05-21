@@ -1,6 +1,7 @@
 package org.tellurium.bundle
 
 import org.tellurium.dispatch.Dispatcher
+import org.tellurium.config.Configurable
 
 /**
  * Command Bundle Processor
@@ -12,7 +13,7 @@ import org.tellurium.dispatch.Dispatcher
  */
 
 @Singleton
-public class CommandBundleProcessor {
+public class CommandBundleProcessor implements GroovyInterceptable, Configurable {
   public static final String OK = "ok";
 
   //sequence number for each command
@@ -24,6 +25,17 @@ public class CommandBundleProcessor {
   private Dispatcher dispatcher = new Dispatcher();
 
   private CommandBundle bundle = new CommandBundle();
+
+  //whether to use the bundle feature
+  private boolean exploitBundle = true;
+
+  public void useBundleFeature(){
+    this.exploitBundle = true;
+  }
+
+  public void disableBundleFeature(){
+    this.exploitBundle = false;
+  }
 
   public int nextSeq(){
     return ++sequence;
@@ -70,5 +82,8 @@ public class CommandBundleProcessor {
       return parseReturnValue(val);
     }
   }
+  
+  def invokeMethod(String name, args) {
 
+  }
 }
