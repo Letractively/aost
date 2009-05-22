@@ -43,7 +43,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     }
 
     protected configCommandBundleProcessor(CommandBundleProcessor processor){
-        processor.setProperty("maxBundleCmds", Integer.parseInt(conf.tellurium.bundle.maxBundleCmds))
+        processor.setProperty("maxBundleCmds", conf.tellurium.bundle.maxBundleCmds)
         processor.setProperty("exploitBundle", conf.tellurium.bundle.useCommandBundle)
     }
 
@@ -172,11 +172,13 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     protected void configDispatcher(Dispatcher dispatcher){
         dispatcher.captureScreenshot = conf.tellurium.test.exception.captureScreenshot
         dispatcher.filenamePattern = conf.tellurium.test.exception.filenamePattern
+        dispatcher.trace = conf.tellurium.test.execution.trace
     }
 
     protected void configDispatcherDefaultValues(Dispatcher dispatcher){
         dispatcher.captureScreenshot = false
         dispatcher.filenamePattern = "Screenshot?.png"
+        dispatcher.trace = true
     }
 
     public void config(Configurable configurable) {

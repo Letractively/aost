@@ -5,6 +5,7 @@ import org.tellurium.test.crosscut.TimingDecorator;
 import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import example.google.GoogleSearchModule;
 
@@ -110,5 +111,10 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
         gsm.useDiscardOldCachePolicy();
         policy = gsm.getCurrentCachePolicy();
         assertEquals("DiscardOldPolicy", policy);
+    }
+
+    @AfterClass
+    public static void showTrace(){
+        gsm.showTrace();
     }
 }
