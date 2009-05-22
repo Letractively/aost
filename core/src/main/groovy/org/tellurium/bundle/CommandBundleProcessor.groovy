@@ -15,7 +15,7 @@ import org.tellurium.locator.MetaCmd
  */
 
 @Singleton
-public class CommandBundleProcessor implements GroovyInterceptable, Configurable {
+public class CommandBundleProcessor implements Configurable {
 
   public static final String OK = "ok";
 
@@ -74,7 +74,7 @@ public class CommandBundleProcessor implements GroovyInterceptable, Configurable
   def passThrough(String uid, String name, args){
     //if no command on the bundle, call directly
     if(bundle.size() == 0){
-      return dispatcher.metaClass.invokeMethod(name, args);
+      return dispatcher.metaClass.invokeMethod(dispatcher, name, args);
     }else{
       //there are commands in the bundle, pigback this command with the commands in a bundle and issue it
       SelenCmd cmd = new SelenCmd(nextSeq(), uid, name, args);
@@ -94,6 +94,8 @@ public class CommandBundleProcessor implements GroovyInterceptable, Configurable
       String val = dispatcher.issueBundle(json);
       return parseReturnValue(val);      
     }
+
+    return null;
   }
 
   protected Object[] removeWorkflowContext(Object[] args){
@@ -108,7 +110,7 @@ public class CommandBundleProcessor implements GroovyInterceptable, Configurable
     return null;
   }
 
-  def invokeMethod(String name, args) {
+  def process(String name, args) {
     WorkflowContext context = args[0]
     String uid = null;
     MetaCmd cmd = context.extraMetaCmd();
@@ -116,10 +118,14 @@ public class CommandBundleProcessor implements GroovyInterceptable, Configurable
       uid = cmd.uid;
     Object[] params = this.removeWorkflowContext(args);
 
-    if(context.isBundlingable()){
+    if(this.exploitBundle && context.isBundlingable()){
       return issueCommand(uid, name, params);
     }
 
     return passThrough(uid, name, params);  
+  }
+
+  protected def methodMissing(String name, args) {
+    return process(name, args)
   }
 }

@@ -22,6 +22,7 @@ import org.tellurium.locator.LocatorProcessor
 import org.tellurium.locator.LocatorProcessorMetaClass
 import org.tellurium.server.EmbeddedSeleniumServer
 import org.tellurium.widget.WidgetConfigurator
+import org.tellurium.bundle.CommandBundleProcessor
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
@@ -80,6 +81,9 @@ class TelluriumFramework {
 
     //configure Data Accessor
     telluriumConfigurator.config(new Accessor())
+
+    //configure Command Bundle Processor
+    telluriumConfigurator.config(CommandBundleProcessor.instance)
 
     //configure Dispatcher
     telluriumConfigurator.config(new Dispatcher())

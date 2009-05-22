@@ -5,6 +5,7 @@ import org.tellurium.dsl.WorkflowContext
 import org.tellurium.exception.NotWidgetObjectException
 import org.tellurium.widget.Widget
 import org.tellurium.bundle.CommandBundleProcessor
+import org.tellurium.dispatch.Dispatcher
 
 abstract class DslContext extends BaseDslContext {
 
@@ -101,202 +102,233 @@ abstract class DslContext extends BaseDslContext {
     def selectFrame(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.selectFrame() {String loc ->
-            eventHandler.selectFrame(loc)
+            eventHandler.selectFrame(context, loc)
         }
     }
 
     def selectParentFrameFrom(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.selectParentFrame() {String loc ->
-            eventHandler.selectFrame(loc)
+            eventHandler.selectFrame(context, loc)
         }
     }
 
     def selectTopFrameFrom(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.selectTopFrame() {String loc ->
-            eventHandler.selectFrame(loc)
+            eventHandler.selectFrame(context, loc)
         }
     }
 
     boolean getWhetherThisFrameMatchFrameExpression(String uid, String target) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.getWhetherThisFrameMatchFrameExpression(target) {String loc, String tgt ->
-            accessor.getWhetherThisFrameMatchFrameExpression(loc, tgt)
+            accessor.getWhetherThisFrameMatchFrameExpression(context, loc, tgt)
         }
     }
 
     void waitForFrameToLoad(String uid, int timeout) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.waitForFrameToLoad(timeout) {String loc, int tmo ->
-            accessor.waitForFrameToLoad(loc, Integer.toString(tmo))
+            accessor.waitForFrameToLoad(context, loc, Integer.toString(tmo))
         }
     }
 
     def openWindow(String uid, String url) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.openWindow(url) {String loc, String aurl ->
-            eventHandler.openWindow(aurl, loc)
+            eventHandler.openWindow(context, aurl, loc)
         }
     }
 
     def selectWindow(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.selectWindow() {String loc ->
-            eventHandler.selectWindow(loc)
+            eventHandler.selectWindow(context, loc)
         }
     }
 
     def closeWindow(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.closeWindow() {String loc ->
-            eventHandler.closeWindow(loc)
+            eventHandler.closeWindow(context, loc)
         }
     }
 
     def selectMainWindow() {
-        eventHandler.selectWindow(null)
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        eventHandler.selectWindow(context, null)
     }
 
     def selectParentWindow() {
-        eventHandler.selectWindow(".")
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        eventHandler.selectWindow(context, ".")
     }
 
     def waitForPopUp(String uid, int timeout) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.waitForPopUp(timeout) {String loc ->
-            accessor.waitForPopUp(loc, Integer.toString(timeout))
+            accessor.waitForPopUp(context, loc, Integer.toString(timeout))
         }
     }
 
     boolean getWhetherThisWindowMatchWindowExpression(String uid, String target) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.getWhetherThisWindowMatchWindowExpression(target) {String loc ->
-            accessor.getWhetherThisWindowMatchWindowExpression(loc, target)
+            accessor.getWhetherThisWindowMatchWindowExpression(context, loc, target)
         }
     }
 
     def windowFocus() {
-        eventHandler.windowFocus()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        eventHandler.windowFocus(context)
     }
 
     def windowMaximize() {
-        eventHandler.windowMaximize()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        eventHandler.windowMaximize(context)
     }
 
     String getBodyText() {
-        return accessor.getBodyText()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.getBodyText(context)
     }
 
     boolean isTextPresent(String pattern) {
-        return accessor.isTextPresent(pattern)
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.isTextPresent(context, pattern)
     }
 
     String getHtmlSource() {
-        return accessor.getHtmlSource()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.getHtmlSource(context)
     }
 
     String getExpression(String expression) {
-        return accessor.getExpression(expression)
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.getExpression(context, expression)
     }
 
     String getCookie() {
-        return accessor.getCookie()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.getCookie(context)
     }
 
     void runScript(String script) {
-        accessor.runScript(script)
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        accessor.runScript(context, script)
     }
 
     void captureScreenshot(String filename) {
-        accessor.captureScreenshot(filename)
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        accessor.captureScreenshot(context, filename)
     }
 
     void chooseCancelOnNextConfirmation() {
-        eventHandler.chooseCancelOnNextConfirmation()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        eventHandler.chooseCancelOnNextConfirmation(context)
     }
 
     void chooseOkOnNextConfirmation() {
-        eventHandler.chooseOkOnNextConfirmation()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        eventHandler.chooseOkOnNextConfirmation(context)
     }
 
     void answerOnNextPrompt(String answer) {
-        eventHandler.answerOnNextPrompt(answer)
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        eventHandler.answerOnNextPrompt(context, answer)
     }
 
     void goBack() {
-        eventHandler.goBack()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        eventHandler.goBack(context)
     }
 
     void refresh() {
-        eventHandler.refresh()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        eventHandler.refresh(context)
     }
 
     boolean isAlertPresent() {
-        return accessor.isAlertPresent()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.isAlertPresent(context)
     }
 
     boolean isPromptPresent() {
-        return accessor.isPromptPresent()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.isPromptPresent(context)
     }
 
     boolean isConfirmationPresent() {
-        return accessor.isConfirmationPresent()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.isConfirmationPresent(context)
     }
 
     String getAlert() {
-        return accessor.getAlert()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.getAlert(context)
     }
 
     String getConfirmation() {
-        return accessor.getConfirmation()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.getConfirmation(context)
     }
 
     String getPrompt() {
-        return accessor.getPrompt()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.getPrompt(context)
     }
 
     String getLocation() {
-        return accessor.getLocation()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.getLocation(context)
     }
 
     String getTitle() {
-        return accessor.getTitle()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.getTitle(context)
     }
 
     String[] getAllButtons() {
-        return accessor.getAllButtons()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.getAllButtons(context)
     }
 
     String[] getAllLinks() {
-        return accessor.getAllLinks()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.getAllLinks(context)
     }
 
     String[] getAllFields() {
-        return accessor.getAllFields()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.getAllFields(context)
     }
 
     String[] getAllWindowIds() {
-        return accessor.getAllWindowIds()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.getAllWindowIds(context)
     }
 
     String[] getAllWindowNames() {
-        return accessor.getAllWindowNames()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.getAllWindowNames(context)
     }
 
     String[] getAllWindowTitles() {
-        return accessor.getAllWindowTitles()
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        return accessor.getAllWindowTitles(context)
     }
 
     void waitForPageToLoad(int timeout) {
-      accessor.waitForPageToLoad(Integer.toString(timeout))
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        accessor.waitForPageToLoad(context, Integer.toString(timeout))
     }
 
     public String getXMLDocument(){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        String xml =  getEval(context, XML_DOCUMENT_SCRIPT)
 
-      String xml =  getEval(XML_DOCUMENT_SCRIPT)
-
-      return xml
+        return xml
     }
 
     public void useCommandBundle(){
@@ -307,6 +339,11 @@ abstract class DslContext extends BaseDslContext {
     public void disableCommandBundle(){
       CommandBundleProcessor processor = CommandBundleProcessor.instance
       processor.disableBundleFeature()
+    }
+
+    public void showTrace(){
+      Dispatcher dispatcher = new Dispatcher();
+      dispatcher.showTrace()
     }
 
     //let the missing property return the a string of the properity, this is useful for the onWidget method

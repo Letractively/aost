@@ -38,7 +38,7 @@ tellurium{
     //the bundling tier
     bundle{
         maxBundleCmds = 5
-        useCommandBundle = true
+        useCommandBundle = false
     }
     //the configuration for the connector that connects the selenium client to the selenium server
     connector{
@@ -67,6 +67,10 @@ tellurium{
         }
     }
     test{
+        execution{
+            //whether to trace the execution timing
+            trace = true
+        }
         //at current stage, the result report is only for tellurium data driven testing
         //we may add the result report for regular tellurium test case
         result{

@@ -2,6 +2,7 @@ package org.tellurium.test.java;
 
 import org.tellurium.config.CustomConfig;
 import org.tellurium.connector.SeleniumConnector;
+import org.tellurium.dispatch.Dispatcher;
 
 /**
  *  The base Java Testcase class for Tellurium and it will not include the before class and after class methods

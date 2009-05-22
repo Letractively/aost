@@ -12,12 +12,18 @@ import org.tellurium.bundle.CommandBundleProcessor
  *
  */
 
-public class Extension implements GroovyInterceptable {
+//public class Extension implements GroovyInterceptable {
+public class Extension {
 
    private CommandBundleProcessor cbp  = CommandBundleProcessor.instance
 
+   def methodMissing(String name, args) {
+      return cbp.metaClass.invokeMethod(cbp, name, args)
+   }
+
+/*
    def invokeMethod(String name, args) {
      
       return cbp.metaClass.invokeMethod(cbp, name, args)
-   }
+   }*/
 }
