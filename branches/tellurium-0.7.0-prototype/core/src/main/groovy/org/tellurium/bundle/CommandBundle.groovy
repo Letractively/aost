@@ -20,7 +20,7 @@ public class CommandBundle implements BundleStrategy{
 
   private String parentUid = null;
   
-  public int addToBundle(SelenCmd newcmd){
+  public void addToBundle(SelenCmd newcmd){
     bundle.add(newcmd);
     parentUid = newcmd.getParentUid();
   }
@@ -48,14 +48,15 @@ public class CommandBundle implements BundleStrategy{
 
   //only append to the bundle if they are in the same UI module
   public boolean shouldAppend(SelenCmd newcmd) {
-    String puid = newcmd.getParentUid();
     if(bundle.size() == 0){
       return true;
     }
 
     if(parentUid == null)
       return false;
-    
+
+    String puid = newcmd.getParentUid();
+
     return parentUid.equalsIgnoreCase(puid);  
   }
 

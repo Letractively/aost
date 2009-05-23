@@ -38,7 +38,7 @@ tellurium{
     //the bundling tier
     bundle{
         maxBundleCmds = 5
-        useCommandBundle = false
+        useCommandBundle = true
     }
     //the configuration for the connector that connects the selenium client to the selenium server
     connector{

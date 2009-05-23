@@ -1,9 +1,6 @@
 package example.test.java;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.Before;
-import org.junit.After;
+import org.junit.*;
 import static org.junit.Assert.*;
 import org.tellurium.test.java.TelluriumJavaTestCase;
 import example.other.TelluriumIssueModule;
@@ -103,5 +100,10 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         for(String key: keys){
             System.out.println("UID: " + key + ", Count: " + usages.get(key));
         }
+    }
+
+    @AfterClass
+    public static void showTrace(){
+        tisp.showTrace();
     }
 }
