@@ -2,10 +2,7 @@ package example.test.java;
 
 import org.tellurium.test.java.TelluriumJavaTestCase;
 import org.tellurium.test.crosscut.TimingDecorator;
-import org.junit.BeforeClass;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.AfterClass;
+import org.junit.*;
 import static org.junit.Assert.*;
 import example.google.GoogleSearchModule;
 
@@ -46,6 +43,7 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
         gsm.doImFeelingLucky("tellurium automated Testing");
     }
 
+    @Ignore
     @Test
     public void testLogo(){
         String alt = gsm.getLogoAlt();
