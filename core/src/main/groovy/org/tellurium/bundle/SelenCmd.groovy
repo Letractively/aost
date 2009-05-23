@@ -14,6 +14,7 @@ import org.tellurium.dsl.UiID
 public class SelenCmd {
   
   //sequence number for this command
+  public static final String SEQUENCE = "sequ";
   private int sequ;
 
   //The element UID associated with this command
@@ -21,9 +22,11 @@ public class SelenCmd {
   private String uid;
 
   //the command name
+  public static final String NAME = "name";
   private String name;
 
   //arguments for this command
+  public static final String ARGS = "args";
   private def args;
 
   public String getParentUid(){

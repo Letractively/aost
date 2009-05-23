@@ -1,6 +1,7 @@
 package org.tellurium.bundle
 
 import org.json.simple.JSONArray
+import org.json.simple.JSONObject
 
 /**
  *
@@ -40,8 +41,23 @@ public class CommandBundle implements BundleStrategy{
 
   public String extractAllAndConvertToJson(){
     JSONArray arr = new JSONArray();
-    arr.add(bundle)
+    bundle.each {SelenCmd cmd ->
+      JSONObject obj = new JSONObject()
+      obj.put(SelenCmd.SEQUENCE, cmd.sequ);
+      obj.put(SelenCmd.UID, cmd.uid);
+      obj.put(SelenCmd.NAME, cmd.name);
+      JSONArray arglist = new JSONArray();
+      if(cmd.args != null){
+        cmd.args.each {param ->
+          arglist.add(param);
+        }
+      }
+      obj.put(SelenCmd.ARGS, arglist);
+      arr.add(obj);
+    }
+
     String json = arr.toString();
+    bundle.clear();
     
     return json;
   }
