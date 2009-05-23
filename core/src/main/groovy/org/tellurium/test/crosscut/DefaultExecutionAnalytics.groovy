@@ -43,8 +43,9 @@ public class DefaultExecutionAnalytics implements ExecutionAnalytics, ExecutionR
       .append("Total Runtime: ").append(endTime-startTime).append("ms\n");
     map.each {String key, ExecutionResult value ->
       sb.append("Name: ").append(value.name).append(", count: ").append(value.count)
-              .append(", total: ").append(value.total).append("ms, average: ")
-              .append(value.total/value.count).append("ms\n");
+              .append(", total: ").append(value.total).append("ms, average: ");
+      int average = value.total/value.count;
+      sb.append(average).append("ms\n");
     }
 
     return sb.toString();
