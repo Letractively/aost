@@ -108,6 +108,34 @@ Uiid.prototype.preprocess = function(uid){
     return [uid];
 };
 
+//Selenium Command for Command bundle
+function SelenCmd(){
+    this.sequ = 0;
+    this.uid = null;
+    this.name = null;
+    this.args = null;
+};
+
+function CommandBundle(){
+    this.bundle = new Array();
+    
+};
+
+CommandBundle.prototype.addCmd = function(sequ, uid, name, args){
+    var cmd = new SelenCmd();
+    cmd.sequ = sequ;
+    cmd.uid = uid;
+    cmd.name = name;
+    cmd.args = args;
+    this.bundle.push(cmd);
+};
+
+CommandBundle.prototype.parse = function(json){
+    var cmdbundle = JSON.parse(json, null);
+    for(var i=0; i<cmdbundle.length; i++){
+        this.addCmd(cmdbundle[i].sequ,  cmdbundle[i].uid, cmdbundle[i].name, cmdbundle[i].args);
+    }
+};
 
 function MetaCmd(){
     this.uid = null;
@@ -256,9 +284,21 @@ function Tellurium (){
     this.currentWindow = null;
 
     this.currentDocument = null;
+
+    //command bundle for Tellurium
+    this.commandbundle = new CommandBundle();
+
 };
 
 var tellurium = new Tellurium();
+
+Tellurium.prototype.parseCommandBundle = function(json){
+    this.commandbundle.parse(json);
+};
+
+Tellurium.prototype.processCommandBundle = function(){
+    
+};
 
 Tellurium.prototype.cleanCache = function(){
 //    this.sCache = new HashMap();
