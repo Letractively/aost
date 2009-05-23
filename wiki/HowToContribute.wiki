@@ -1,4 +1,4 @@
-#summary : How to Contribute
+#summary How to Contribute
 #labels Phase-Support
 
 == How to Contribute to Tellurium ==
