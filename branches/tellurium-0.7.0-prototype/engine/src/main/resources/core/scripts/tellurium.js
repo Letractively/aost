@@ -121,6 +121,14 @@ function CommandBundle(){
     
 };
 
+CommandBundle.prototype.size = function(){
+    return this.bundle.length;
+};
+
+CommandBundle.prototype.first = function(){
+    return this.bundle.shift();
+};
+
 CommandBundle.prototype.addCmd = function(sequ, uid, name, args){
     var cmd = new SelenCmd();
     cmd.sequ = sequ;
@@ -288,6 +296,8 @@ function Tellurium (){
     //command bundle for Tellurium
     this.commandbundle = new CommandBundle();
 
+    //cache to hold the element corresponding to a UID in command bundle
+    this.cbCache = new Hashtable();
 };
 
 var tellurium = new Tellurium();
@@ -296,8 +306,93 @@ Tellurium.prototype.parseCommandBundle = function(json){
     this.commandbundle.parse(json);
 };
 
-Tellurium.prototype.processCommandBundle = function(){
+Tellurium.prototype.dispatchCommand = function(cmd, element){
     
+    switch(cmd.name)
+    {
+        case "blur":
+            this.blur(element);
+            break;
+        case "click":
+            this.click(element);
+            break;
+        case "dblclick":
+            this.dblclick(element);
+            break;
+        case "fireEvent":
+            this.fireEvent(element, cmd.args[1]);
+            break;
+        case "focus":
+            this.focus(element);
+            break;
+        case "typeKey":
+            this.typeKey(element, cmd.args[1]);
+            break;
+        case "keyDown":
+            this.keyDown(element, cmd.args[1]);
+            break;
+        case "keyPress":
+            this.keyPress(element, cmd.args[1]);
+            break;
+        case "keyUp":
+            this.keyUp(element, cmd.args[1]);
+            break;
+        case "mouseOver":
+            this.mouseOver(element);
+            break;
+        case "mouseDown":
+            this.mouseDown(element);
+            break;
+        case "mouseEnter":
+            this.mouseEnter(element);
+            break;
+        case "mouseOut":
+            this.mouseOut(element);
+            break;
+        case "mouseLeave":
+            this.mouseLeave(element);
+            break;
+        case "submit":
+            this.submit(element);
+            break;
+        case "check":
+            this.check(element);
+            break;
+        case "uncheck":
+            this.uncheck(element);
+            break;
+    }
+};
+
+Tellurium.prototype.locate = function(locator){
+//TODO: How to pass in document and window
+    
+};
+
+Tellurium.prototype.processCommandBundle = function(){
+    this.cbCache.clear();
+
+    while(this.commandbundle.size() > 0){
+        var cmd = this.commandbundle.first();
+        var element = null;
+        if(cmd.uid == null){
+            //TODO: more complicated if the method call does not include locator
+            element = this.locate(cmd.args[0]);
+        }else{
+            element = this.cbCache.get(cmd.uid);
+            if(element == null){
+                this.locate(cmd.args[0]);
+            }
+        }
+        if(element != null){
+            //TODO: How to construct the return results
+            if("isElementPresent" == cmd.name){
+                this.isElementPresent(element);
+            }
+
+            this.dispatchCommand(cmd, element);
+        }
+    }
 };
 
 Tellurium.prototype.cleanCache = function(){
