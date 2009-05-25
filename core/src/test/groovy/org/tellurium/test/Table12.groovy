@@ -24,5 +24,11 @@ public class Table12 extends DslContext{
       TextBox(uid: "row: 4, column: 4", clocator: [tag: "td", text: "Days from ", class: "tablecolumnheader"])
       TextBox(uid: "row: 5, column: 5", clocator: [tag: "td", text: "Status", class: "tablecolumnheader"])
     }
+
+    ui.Table(uid: "Test", clocator: [cellspacing: "0", cellpadding: "0", border: "0"]){
+      UrlLink(uid: "row: 1, column: 1", clocator: [:])
+      Div(uid: "row: 2, column: 1", clocator: [:])
+      Selector(uid: "row: 2, column: 2", clocator: [:])
+    }
   }
 }

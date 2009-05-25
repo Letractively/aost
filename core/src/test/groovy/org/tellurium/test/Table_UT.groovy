@@ -177,4 +177,13 @@ class Table_UT extends GroovyTestCase{
     assertNotNull(result)
     assertEquals("jquery=table.table > tbody > tr:has(td):eq(0) > td:eq(0)", result)
   }
+
+  void testTableIndex(){
+    Table12 table12 = new Table12()
+    table12.defineUI()
+    table12.exploreJQuerySelector = false
+    table12.dump("Test")
+    table12.exploreJQuerySelector = true
+    table12.dump("Test")
+  }
 }
