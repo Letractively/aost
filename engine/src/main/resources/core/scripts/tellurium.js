@@ -108,12 +108,64 @@ Uiid.prototype.preprocess = function(uid){
     return [uid];
 };
 
-//Selenium Command for Command bundle
-function SelenCmd(){
+// Command Request for Command bundle
+function CmdRequest(){
     this.sequ = 0;
     this.uid = null;
     this.name = null;
+    this.locatorSpecific = true;
+    this.returnType = null;   
     this.args = null;
+};
+
+// Command Request for Command bundle
+function CmdResponse(){
+    this.sequ = 0;
+    this.name = null;
+    this.returnType = null;
+    this.returnResult = null;
+};
+
+function BundleResponse(){
+    this.response = new Array();
+};
+
+BundleResponse.prototype.addVoidResponse = function(sequ, name){
+    var resp = new CmdResponse();
+    resp.sequ = sequ;
+    resp.name = name;
+    resp.returnType = "VOID";
+    resp.returnResult = null;
+
+    this.response.push(resp);
+};
+
+BundleResponse.prototype.addResponse = function(sequ, name, returnType, returnResult){
+    var resp = new CmdResponse();
+    resp.sequ = sequ;
+    resp.name = name;
+    resp.returnType = returnType;
+    resp.returnResult = returnResult;
+
+    this.response.push(resp);
+};
+
+BundleResponse.prototype.getResponse = function(){
+    return this.response;
+};
+
+BundleResponse.prototype.toJSon = function(){
+    var out = [];
+    for(var i=0; i<this.response.length; i++){
+        var resp = {};
+        resp["sequ"] = this.response[i].sequ;
+        resp["name"] = this.response[i].name;
+        resp["returnType"] = this.response[i].returnType;
+        resp["returnResult"] = this.response[i].returnResult;
+        out.push(resp);
+    }
+
+    return JSON.stringify(out);
 };
 
 function CommandBundle(){
@@ -129,10 +181,12 @@ CommandBundle.prototype.first = function(){
     return this.bundle.shift();
 };
 
-CommandBundle.prototype.addCmd = function(sequ, uid, name, args){
-    var cmd = new SelenCmd();
+CommandBundle.prototype.addCmd = function(sequ, uid, locatorSpecific, returnType, name, args){
+    var cmd = new CmdRequest();
     cmd.sequ = sequ;
     cmd.uid = uid;
+    cmd.locatorSpecific = locatorSpecific;
+    cmd.returnType = returnType;
     cmd.name = name;
     cmd.args = args;
     this.bundle.push(cmd);
@@ -141,7 +195,7 @@ CommandBundle.prototype.addCmd = function(sequ, uid, name, args){
 CommandBundle.prototype.parse = function(json){
     var cmdbundle = JSON.parse(json, null);
     for(var i=0; i<cmdbundle.length; i++){
-        this.addCmd(cmdbundle[i].sequ,  cmdbundle[i].uid, cmdbundle[i].name, cmdbundle[i].args);
+        this.addCmd(cmdbundle[i].sequ,  cmdbundle[i].uid, cmdbundle[i].locatorSpecific, cmdbundle[i].returnType, cmdbundle[i].name, cmdbundle[i].args);
     }
 };
 
@@ -306,10 +360,14 @@ Tellurium.prototype.parseCommandBundle = function(json){
     this.commandbundle.parse(json);
 };
 
-Tellurium.prototype.dispatchCommand = function(cmd, element){
+Tellurium.prototype.dispatchCommand = function(response, cmd, element){
+    var result = null;
     
     switch(cmd.name)
-    {
+    {   case "isElementPresent":
+            result = this.isElementPresent(element);
+            response.addResponse(cmd.sequ, cmd.name, "BOOLEAN", result);
+            break;
         case "blur":
             this.blur(element);
             break;
@@ -361,12 +419,15 @@ Tellurium.prototype.dispatchCommand = function(cmd, element){
         case "uncheck":
             this.uncheck(element);
             break;
+        case "waitForPageToLoad":
+            selenium.doWaitForPageToLoad(cmd.args[1]);
+            break;
     }
 };
 
 Tellurium.prototype.locate = function(locator){
-//TODO: How to pass in document and window
-     var element = selenium.browserbot.findElement(locator);
+
+    var element = selenium.browserbot.findElement(locator);
 
     return element;
 };
@@ -374,27 +435,26 @@ Tellurium.prototype.locate = function(locator){
 Tellurium.prototype.processCommandBundle = function(){
     this.cbCache.clear();
 
+    var response = new BundleResponse();
+    
     while(this.commandbundle.size() > 0){
         var cmd = this.commandbundle.first();
         var element = null;
         if(cmd.uid == null){
-            //TODO: more complicated if the method call does not include locator
-            element = this.locate(cmd.args[0]);
+            if(cmd.locatorSpecific){
+                element = this.locate(cmd.args[0]);
+            }
         }else{
             element = this.cbCache.get(cmd.uid);
-            if(element == null){
+            if(element == null && cmd.locatorSpecific){
                 element = this.locate(cmd.args[0]);
             }
         }
-        if(element != null){
-            //TODO: How to construct the return results
-            if("isElementPresent" == cmd.name){
-                this.isElementPresent(element);
-            }
-
-            this.dispatchCommand(cmd, element);
-        }
+        
+        this.dispatchCommand(response, cmd, element);
     }
+
+    return response.toJSon();
 };
 
 Tellurium.prototype.cleanCache = function(){
