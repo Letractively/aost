@@ -21,11 +21,12 @@
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine.iws" afterPath="$PROJECT_DIR$/engine.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js" afterPath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js" afterPath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/selenium-server.jar" afterPath="$PROJECT_DIR$/lib/selenium-server.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js" afterPath="$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js" />
     </list>
-    <ignored path="engine.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path="engine.iws" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="Commander">
@@ -84,7 +85,16 @@
       <file leaf-file-name="selenium-executionloop.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-executionloop.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="108" column="31" selection-start="3600" selection-end="3608" vertical-scroll-proportion="0.0">
+            <state line="114" column="37" selection-start="3893" selection-end="3893" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="selenium-api.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-api.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2377" column="24" selection-start="92777" selection-end="92793" vertical-scroll-proportion="-4.52">
               <folding />
             </state>
           </provider>
@@ -93,7 +103,7 @@
       <file leaf-file-name="selenium-commandhandlers.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-commandhandlers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="82" column="34" selection-start="3651" selection-end="3651" vertical-scroll-proportion="0.0">
+            <state line="320" column="62" selection-start="14113" selection-end="14113" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -102,7 +112,7 @@
       <file leaf-file-name="tellurium.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="370" column="19" selection-start="8869" selection-end="8869" vertical-scroll-proportion="0.32357472">
+            <state line="437" column="23" selection-start="10710" selection-end="10710" vertical-scroll-proportion="-4.4094486">
               <folding />
             </state>
           </provider>
@@ -111,7 +121,7 @@
       <file leaf-file-name="tellurium-extensions.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="174" column="20" selection-start="4978" selection-end="5038" vertical-scroll-proportion="0.0">
+            <state line="37" column="67" selection-start="1291" selection-end="1291" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -121,51 +131,6 @@
         <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-testrunner.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="46" column="61" selection-start="1575" selection-end="1575" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tellurium-api.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-api.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="46" selection-start="2040" selection-end="2040" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="htmlutils.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/htmlutils.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="99" selection-start="1510" selection-end="1510" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="selenium-browserbot.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-browserbot.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1328" column="21" selection-start="49658" selection-end="49658" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RemoteRunner.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/core/RemoteRunner.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="6" selection-start="1795" selection-end="1888" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestRunner.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/core/TestRunner.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="35" selection-start="4701" selection-end="4701" vertical-scroll-proportion="-12.818182">
               <folding />
             </state>
           </provider>
@@ -353,16 +318,16 @@
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth1" value="134" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth0" value="80" />
     <property name="project.structure.last.edited" value="Modules" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth0" value="80" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth3" value="35" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth2" value="100" />
     <property name="project.structure.proportion" value="0.0" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth2" value="100" />
     <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder0" value="0" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder3" value="3" />
     <property name="RunManagerConfig.showSettingsBeforeRunnig" value="true" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder3" value="3" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder2" value="2" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth2" value="88" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder5" value="5" />
@@ -376,19 +341,19 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth4" value="95" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth5" value="894" />
     <property name="GoToClass.includeLibraries" value="false" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth5" value="894" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="options.lastSelected" value="com.intellij.openapi.vcs.configurable.VcsManagerConfigurable$4" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder5" value="5" />
+    <property name="options.lastSelected" value="com.intellij.openapi.vcs.configurable.VcsManagerConfigurable$4" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder4" value="4" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder1" value="1" />
-    <property name="project.structure.side.proportion" value="0.0" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder2" value="2" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder0" value="0" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager" selected="JavaScript Debug.localhost">
@@ -547,7 +512,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="28" width="1440" height="844" extended-state="0" />
+    <frame x="0" y="27" width="1440" height="846" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
@@ -565,13 +530,13 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32947975" sideWeight="0.5" order="-1" side_tool="false" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29696533" sideWeight="0.6599424" order="0" side_tool="false" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294964" sideWeight="0.5" order="2" side_tool="false" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" />
+      <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32947975" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" />
     </layout>
   </component>
@@ -584,7 +549,7 @@
     <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="add Tellurium API" />
+    <option name="LAST_COMMIT_MESSAGE" value="disable return result for the time being" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -595,8 +560,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="add deployment file" />
-    <MESSAGE value="fixing the array problem for getCSS()" />
     <MESSAGE value="add isDisabled()" />
     <MESSAGE value="move locateStrategy code to engine project" />
     <MESSAGE value="add selector cache to engine" />
@@ -620,6 +583,8 @@
     <MESSAGE value="add issueBundle method" />
     <MESSAGE value="add CommandBundle parser in Engine" />
     <MESSAGE value="add Tellurium API" />
+    <MESSAGE value="try to access selenium directly in Tellurium" />
+    <MESSAGE value="disable return result for the time being" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -674,13 +639,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/tellurium/scripts/commandbundle-ut.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="792" selection-end="792" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-remoterunner.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="387" column="9" selection-start="12249" selection-end="12249" vertical-scroll-proportion="0.0">
@@ -691,13 +649,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/json2.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="472" column="27" selection-start="17194" selection-end="17194" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1652" column="75" selection-start="64634" selection-end="64634" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -737,16 +688,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-commandhandlers.js">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-executionloop.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="34" selection-start="3651" selection-end="3651" vertical-scroll-proportion="0.0">
+        <state line="114" column="37" selection-start="3893" selection-end="3893" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-executionloop.js">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-commandhandlers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="31" selection-start="3600" selection-end="3608" vertical-scroll-proportion="0.0">
+        <state line="320" column="62" selection-start="14113" selection-end="14113" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -758,23 +709,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-api.js">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/selenium-api.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="46" selection-start="2040" selection-end="2040" vertical-scroll-proportion="0.0">
+        <state line="2377" column="24" selection-start="92777" selection-end="92793" vertical-scroll-proportion="-4.52">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium-extensions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="174" column="20" selection-start="4978" selection-end="5038" vertical-scroll-proportion="0.0">
+        <state line="37" column="67" selection-start="1291" selection-end="1291" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/core/scripts/tellurium.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="370" column="19" selection-start="8869" selection-end="8869" vertical-scroll-proportion="0.32357472">
+        <state line="437" column="23" selection-start="10710" selection-end="10710" vertical-scroll-proportion="-4.4094486">
           <folding />
         </state>
       </provider>

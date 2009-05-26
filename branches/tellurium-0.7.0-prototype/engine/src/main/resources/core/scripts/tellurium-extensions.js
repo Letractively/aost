@@ -179,9 +179,7 @@ Selenium.prototype.doTypeKey = function(locator, key){
 
 Selenium.prototype.doIssueBundle = function(bundle){
     tellurium.parseCommandBundle(bundle);
-    tellurium.processCommandBundle();
-    
-//    var out = [];
+    var response = tellurium.processCommandBundle();
 
-//    return JSON.stringify(out);
+    return response;
 };
