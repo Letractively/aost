@@ -6,7 +6,7 @@ Tellurium Contributors are categorized into development team, support team, evan
 
 == Development Team ==
 
-  * *Jian Fang*: Jian graduated from Georgia Institue of Technology with a Ph.D. degree. He works as a senior software engineer in a company and mainly focuses on architecting, desigining, and implementing enterprise applications. He is both a researcher and a developer. He is the Tellurium project owner and the principal developer.
+  * *Jian Fang*: Jian graduated from Georgia Institue of Technology with a Ph.D. degree. He works as a senior software engineer in a company and mainly focuses on architecting, desigining, and implementing enterprise applications. He is both a researcher and a developer. He is the Tellurium project owner and the principal developer. Tellurium Core, TrUMP 0.1.0, jQuery Selector, Reference Projects, Widget Projects, Tellurium Maven Archetypes, and Engine 0.1.0.
 
   * *Vivek Mongolu*: TrUMP prototype and TrUMP 0.1.0.
 
