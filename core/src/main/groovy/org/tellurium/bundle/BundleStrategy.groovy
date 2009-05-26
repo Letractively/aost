@@ -9,6 +9,6 @@ package org.tellurium.bundle
  */
 public interface BundleStrategy {
 
-  public boolean shouldAppend(SelenCmd newcmd);
+  public boolean shouldAppend(CmdRequest newcmd);
 
 }

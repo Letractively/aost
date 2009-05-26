@@ -16,6 +16,7 @@ import org.tellurium.util.Helper
 import java.util.List
 import org.tellurium.locator.JQueryOptimizer
 import org.tellurium.locator.MetaCmd
+import org.tellurium.bundle.ReturnType
 
 /**
  * 
@@ -114,42 +115,64 @@ abstract class BaseDslContext {
   public void enableSelectorCache(){
       this.exploreSelectorCache = true
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      context.setCallLocatorSpecific(false)
+      context.setCallReturnType(ReturnType.VOID)
+
       extension.enableSelectorCache(context)
   }
 
   public boolean disableSelectorCache(){
       this.exploreSelectorCache = false
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      context.setCallLocatorSpecific(false)
+      context.setCallReturnType(ReturnType.BOOLEAN)
+
       extension.disableSelectorCache(context)
   }
 
   public boolean cleanSelectorCache(){
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      context.setCallLocatorSpecific(false)
+      context.setCallReturnType(ReturnType.BOOLEAN)
+
       extension.cleanSelectorCache(context)
   }
 
   public boolean getSelectorCacheState(){
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      context.setCallLocatorSpecific(false)
+      context.setCallReturnType(ReturnType.BOOLEAN)
+
       return extension.getCacheState(context)
   }
 
   public void setCacheMaxSize(int size){
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      context.setCallLocatorSpecific(false)
+      context.setCallReturnType(ReturnType.VOID)
+
       extension.setCacheMaxSize(context, size)
   }
 
   public int getCacheSize(){
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      context.setCallLocatorSpecific(false)
+      context.setCallReturnType(ReturnType.NUMBER)
       return extension.getCacheSize(context).intValue()
   }
 
   public int getCacheMaxSize(){
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      context.setCallLocatorSpecific(false)
+      context.setCallReturnType(ReturnType.NUMBER)
       return extension.getCacheMaxSize(context).intValue()
   }
 
   public Map<String, Long> getCacheUsage() {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+
+    context.setCallLocatorSpecific(false)
+    context.setCallReturnType(ReturnType.STRING)
     String out = extension.getCacheUsage(context);
     ArrayList list = (ArrayList) parseSeleniumJSONReturnValue(out)
     Map<String, Long> usages = new HashMap<String, Long>()
@@ -164,26 +187,36 @@ abstract class BaseDslContext {
 
   public void useDiscardNewCachePolicy(){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    context.setCallLocatorSpecific(false)
+    context.setCallReturnType(ReturnType.VOID)
     extension.useDiscardNewCachePolicy(context)
   }
 
   public void useDiscardOldCachePolicy(){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    context.setCallLocatorSpecific(false)
+    context.setCallReturnType(ReturnType.VOID)
     extension.useDiscardOldCachePolicy(context)
   }
 
   public void useDiscardLeastUsedCachePolicy(){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    context.setCallLocatorSpecific(false)
+    context.setCallReturnType(ReturnType.VOID)
     extension.useDiscardLeastUsedCachePolicy(context)
   }
 
   public void useDiscardInvalidCachePolicy(){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    context.setCallLocatorSpecific(false)
+    context.setCallReturnType(ReturnType.VOID)
     extension.useDiscardInvalidCachePolicy(context)
   }
 
   public String getCurrentCachePolicy(){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    context.setCallLocatorSpecific(false)
+    context.setCallReturnType(ReturnType.STRING)
     return extension.getCurrentCachePolicy(context)
   }
 
@@ -212,11 +245,15 @@ abstract class BaseDslContext {
 
   public void registerNamespace(String prefix, String namespace){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    context.setCallLocatorSpecific(false)
+    context.setCallReturnType(ReturnType.VOID)
     extension.addNamespace(context, prefix, namespace)
   }
 
   public String getNamespace(String prefix){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    context.setCallLocatorSpecific(false)
+    context.setCallReturnType(ReturnType.STRING)
     return extension.getNamespace(context, prefix)
   }
 
@@ -733,6 +770,8 @@ abstract class BaseDslContext {
     //do not cache any selectors for counting
     context.updateCacheableForMetaCmd(false);
     String jq = postProcessSelector(context, jQuerySelector.trim())
+    context.setCallLocatorSpecific(true)
+    context.setCallReturnType(ReturnType.NUMBER)
     return extension.getJQuerySelectorCount(context, jq)
   }
 
@@ -783,6 +822,9 @@ abstract class BaseDslContext {
 
     walkToWithException(context, uid)?.getCSS(cssName) {loc ->
       String locator = locatorMapping(context, loc)
+      context.setCallLocatorSpecific(true)
+      context.setCallReturnType(ReturnType.STRING)
+      
       String out = extension.getCSS(context, locator, cssName)
 
       return (ArrayList) parseSeleniumJSONReturnValue(out)
@@ -799,6 +841,8 @@ abstract class BaseDslContext {
       context.updateCacheableForMetaCmd(false)
       String locator = locatorMappingWithOption(context, loc, cell)
 //      locator = locator + cell
+      context.setCallLocatorSpecific(true)
+      context.setCallReturnType(ReturnType.STRING)
       String out = extension.getAllText(context, locator)
 
       return (ArrayList) parseSeleniumJSONReturnValue(out)
@@ -814,6 +858,8 @@ abstract class BaseDslContext {
       context.updateCacheableForMetaCmd(false)
       String locator = locatorMappingWithOption(context, loc, cell)
 //      locator = locator + cell
+      context.setCallLocatorSpecific(true)
+      context.setCallReturnType(ReturnType.STRING)
       String out = extension.getAllText(context, locator)
 
       return (ArrayList) parseSeleniumJSONReturnValue(out)
@@ -902,6 +948,8 @@ abstract class BaseDslContext {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
+      context.setCallLocatorSpecific(true)
+      context.setCallReturnType(ReturnType.NUMBER)
       return extension.getJQuerySelectorCount(context, locator)
     }
   }
@@ -917,6 +965,8 @@ abstract class BaseDslContext {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
+      context.setCallLocatorSpecific(true)
+      context.setCallReturnType(ReturnType.NUMBER)
       return extension.getJQuerySelectorCount(context, locator)
     }
   }
@@ -932,6 +982,8 @@ abstract class BaseDslContext {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
+      context.setCallLocatorSpecific(true)
+      context.setCallReturnType(ReturnType.NUMBER)
       return extension.getJQuerySelectorCount(context, locator)
     }
   }
@@ -947,6 +999,8 @@ abstract class BaseDslContext {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
+      context.setCallLocatorSpecific(true)
+      context.setCallReturnType(ReturnType.NUMBER)
       return extension.getJQuerySelectorCount(context, locator)
     }
   }
@@ -962,6 +1016,8 @@ abstract class BaseDslContext {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
+      context.setCallLocatorSpecific(true)
+      context.setCallReturnType(ReturnType.NUMBER)
       return extension.getJQuerySelectorCount(context, locator)
     }
   }
@@ -977,6 +1033,8 @@ abstract class BaseDslContext {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
+      context.setCallLocatorSpecific(true)
+      context.setCallReturnType(ReturnType.NUMBER)
       return extension.getJQuerySelectorCount(context, locator)
     }
   }
@@ -992,6 +1050,8 @@ abstract class BaseDslContext {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
+      context.setCallLocatorSpecific(true)
+      context.setCallReturnType(ReturnType.NUMBER)
       return extension.getJQuerySelectorCount(context, locator)
     }
   }
@@ -1063,6 +1123,8 @@ abstract class BaseDslContext {
       context.updateCacheableForMetaCmd(false)
       return obj.getListSizeByJQuerySelector() {loc, separators ->
         String locator = locatorMapping(context, loc)
+        context.setCallLocatorSpecific(true)
+        context.setCallReturnType(ReturnType.NUMBER)
         return extension.getListSize(context, locator, separators)
       }
     }
@@ -1088,6 +1150,8 @@ abstract class BaseDslContext {
 
       return walkToWithException(context, uid).isDisabled() {loc ->
         String locator = locatorMapping(context, loc)
+        context.setCallLocatorSpecific(true)
+        context.setCallReturnType(ReturnType.BOOLEAN)
         extension.isDisabled(context, locator)
       }
     }
