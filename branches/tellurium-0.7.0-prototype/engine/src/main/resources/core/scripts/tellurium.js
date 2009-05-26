@@ -366,7 +366,9 @@ Tellurium.prototype.dispatchCommand = function(cmd, element){
 
 Tellurium.prototype.locate = function(locator){
 //TODO: How to pass in document and window
-    
+     var element = selenium.browserbot.findElement(locator);
+
+    return element;
 };
 
 Tellurium.prototype.processCommandBundle = function(){
@@ -381,7 +383,7 @@ Tellurium.prototype.processCommandBundle = function(){
         }else{
             element = this.cbCache.get(cmd.uid);
             if(element == null){
-                this.locate(cmd.args[0]);
+                element = this.locate(cmd.args[0]);
             }
         }
         if(element != null){
