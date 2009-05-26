@@ -7,6 +7,7 @@ import org.tellurium.exception.ElementNotPresentException
 import org.tellurium.util.Helper
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.bundle.CommandBundleProcessor
+import org.tellurium.bundle.ReturnType
 
 class EventHandler implements Configurable{
 
@@ -68,6 +69,9 @@ class EventHandler implements Configurable{
         Event[] evns = alg.sort(events, defaultEvents)
         //For event processing, it is ok to use bundle
         context.makeBundlingable()
+        context.setCallLocatorSpecific(true)
+        context.setCallReturnType(ReturnType.VOID)
+
         evns.each {Event event ->
           if (event == Event.ACTION)
             action()
@@ -78,6 +82,9 @@ class EventHandler implements Configurable{
 
     protected void checkElement(WorkflowContext context, String locator){
         context.notBundlingable()
+        context.setCallLocatorSpecific(true)
+        context.setCallReturnType(ReturnType.BOOLEAN)
+
 		if(checkElement && (!cbp.isElementPresent(context, locator))){
 			checkAndWaitForElementPresent(context, locator, ACTION_WAIT_TIME)
 		}
@@ -380,6 +387,8 @@ class EventHandler implements Configurable{
 
     def addSelection(WorkflowContext context, String locator, String optionLocator){
         checkElement(context, locator)
+        context.setCallLocatorSpecific(true)
+        context.setCallReturnType(ReturnType.VOID)
         if(extraEvent){
           cbp.fireEvent(context, locator, "focus")
         }
@@ -389,6 +398,8 @@ class EventHandler implements Configurable{
 
     def removeSelection(WorkflowContext context, String locator,String optionLocator){
         checkElement(context, locator)
+        context.setCallLocatorSpecific(true)
+        context.setCallReturnType(ReturnType.VOID)
         if (extraEvent) {
           cbp.fireEvent(context, locator, "focus")
         }
@@ -397,6 +408,8 @@ class EventHandler implements Configurable{
 
     def removeAllSelections(WorkflowContext context, String locator){
         checkElement(context, locator)
+        context.setCallLocatorSpecific(true)
+        context.setCallReturnType(ReturnType.VOID)
         if (extraEvent) {
           cbp.fireEvent(context, locator, "focus")
         }
@@ -405,6 +418,8 @@ class EventHandler implements Configurable{
 
     def submit(WorkflowContext context, String locator){
         checkElement(context, locator)
+        context.setCallLocatorSpecific(true)
+        context.setCallReturnType(ReturnType.VOID)
         if (extraEvent) {
           cbp.fireEvent(context, locator, "focus")
         }
@@ -412,34 +427,48 @@ class EventHandler implements Configurable{
     }
 
     void openWindow(WorkflowContext context, String url, String windowID){
+        context.setCallLocatorSpecific(false)
+        context.setCallReturnType(ReturnType.VOID)
         cbp.openWindow(context, url, windowID)
     }
 
     void selectWindow(WorkflowContext context, String windowID){
+        context.setCallLocatorSpecific(false)
+        context.setCallReturnType(ReturnType.VOID)
         cbp.selectWindow(context, windowID)
     }
 
     void windowFocus(WorkflowContext context){
+        context.setCallLocatorSpecific(false)
+        context.setCallReturnType(ReturnType.VOID)
         cbp.windowFocus(context)
     }
 
     def closeWindow(WorkflowContext context, String windowID){
+        context.setCallLocatorSpecific(false)
+        context.setCallReturnType(ReturnType.VOID)
         cbp.selectWindow(context, windowID)
         cbp.close(context)
     }
 
     void windowMaximize(WorkflowContext context){
+        context.setCallLocatorSpecific(false)
+        context.setCallReturnType(ReturnType.VOID)
         cbp.windowMaximize(context)
     }
 
     void selectFrame(WorkflowContext context, String locator){
+        context.setCallLocatorSpecific(true)
+        context.setCallReturnType(ReturnType.VOID)
         cbp.selectFrame(context, locator)
     }
 
     def private boolean checkAndWaitForElementPresent(WorkflowContext context, String locator, int timeout){
 
 		boolean result = false
+        ReturnType type = context.getCallReturnType()
 
+        context.setCallReturnType(ReturnType.BOOLEAN)
         for (int second = 0; second < timeout; second+=500) {
             try {
             	if (cbp.isElementPresent(context, locator)){
@@ -453,26 +482,38 @@ class EventHandler implements Configurable{
             Helper.pause(500)
         }
 
+        context.setCallReturnType(type)
+      
         return result
 	}
 
     void chooseCancelOnNextConfirmation(WorkflowContext context){
+        context.setCallLocatorSpecific(false)
+        context.setCallReturnType(ReturnType.VOID)
         cbp.chooseCancelOnNextConfirmation(context)
     }
 
     void chooseOkOnNextConfirmation(WorkflowContext context){
+        context.setCallLocatorSpecific(false)
+        context.setCallReturnType(ReturnType.VOID)
         cbp.chooseOkOnNextConfirmation(context)
     }
 
     void answerOnNextPrompt(WorkflowContext context, String answer){
+        context.setCallLocatorSpecific(false)
+        context.setCallReturnType(ReturnType.VOID)
         cbp.answerOnNextPrompt(context, answer)
     }
 
     void goBack(WorkflowContext context){
+        context.setCallLocatorSpecific(false)
+        context.setCallReturnType(ReturnType.VOID)
         cbp.goBack(context)
     }
 
     void refresh(WorkflowContext context){
+        context.setCallLocatorSpecific(false)
+        context.setCallReturnType(ReturnType.VOID)
         cbp.refresh(context)
     }
 

@@ -3,7 +3,7 @@ package org.tellurium.bundle
 import org.tellurium.dsl.UiID
 
 /**
- * Selenium Command sending to the Engine
+ * Selenium Command (Request) sending to the Engine
  *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
@@ -11,23 +11,20 @@ import org.tellurium.dsl.UiID
  * 
  */
 
-public class SelenCmd {
-  
-  //sequence number for this command
-  public static final String SEQUENCE = "sequ";
-  private int sequ;
+public class CmdRequest extends BaseCmd {
 
   //The element UID associated with this command
   public static final String UID = "uid";
   private String uid;
 
-  //the command name
-  public static final String NAME = "name";
-  private String name;
+  //does this method call require the locator parameter?
+  public static final String LOCATOR_SPECIFIC = "locatorSpecific";
+  private boolean locatorSpecific = true;
 
   //arguments for this command
   public static final String ARGS = "args";
   private def args;
+
 
   public String getParentUid(){
     if(uid != null && uid.trim().length() > 0){
@@ -40,10 +37,12 @@ public class SelenCmd {
     return null;
   }
 
-  public SelenCmd(int sequ, String uid, String name, args) {
+  public CmdRequest(int sequ, String uid, boolean locatorSpecific, ReturnType type, String name, args) {
     this.name = name;
     this.sequ = sequ;
     this.uid = uid;
+    this.locatorSpecific = locatorSpecific;
+    this.returnType = type;
     this.args = args;
   }
 }

@@ -15,13 +15,13 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-all:1.6.0" level="project" />
-    <orderEntry type="jdk" jdkName="1.5" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="Maven: org.seleniumhq.selenium.server:selenium-server:1.0-te-3" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.seleniumhq.selenium.client-drivers:selenium-java-client-driver:1.0-beta-2" level="project" />
     <orderEntry type="library" name="Maven: junit:junit:4.4" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.openqa.selenium.grid:selenium-grid-tools:1.0.2" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.codehaus.groovy:groovy-all:1.6.0" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.apache.ant:ant:1.7.1" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.apache.ant:ant-launcher:1.7.1" level="project" />
     <orderEntry type="library" exported="" name="Maven: jline:jline:0.9.94" level="project" />

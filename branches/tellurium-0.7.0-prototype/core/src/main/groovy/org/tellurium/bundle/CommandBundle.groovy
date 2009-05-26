@@ -17,21 +17,21 @@ public class CommandBundle implements BundleStrategy{
   public static final String BUNDLE = "bundle";
 
 
-  private List<SelenCmd> bundle = new ArrayList<SelenCmd>();
+  private List<CmdRequest> bundle = new ArrayList<CmdRequest>();
 
   private String parentUid = null;
   
-  public void addToBundle(SelenCmd newcmd){
+  public void addToBundle(CmdRequest newcmd){
     bundle.add(newcmd);
     parentUid = newcmd.getParentUid();
   }
 
-  public List<SelenCmd> getAllCmds(){
+  public List<CmdRequest> getAllCmds(){
     return this.bundle;
   }
 
-  public List<SelenCmd> extractAllCmds(){
-    List<SelenCmd> result = new ArrayList<SelenCmd>();
+  public List<CmdRequest> extractAllCmds(){
+    List<CmdRequest> result = new ArrayList<CmdRequest>();
     result.addAll(bundle);
 
     bundle.clear();
@@ -41,18 +41,20 @@ public class CommandBundle implements BundleStrategy{
 
   public String extractAllAndConvertToJson(){
     JSONArray arr = new JSONArray();
-    bundle.each {SelenCmd cmd ->
+    bundle.each {CmdRequest cmd ->
       JSONObject obj = new JSONObject()
-      obj.put(SelenCmd.SEQUENCE, cmd.sequ);
-      obj.put(SelenCmd.UID, cmd.uid);
-      obj.put(SelenCmd.NAME, cmd.name);
+      obj.put(CmdRequest.SEQUENCE, cmd.sequ);
+      obj.put(CmdRequest.UID, cmd.uid);
+      obj.put(CmdRequest.LOCATOR_SPECIFIC, cmd.locatorSpecific);
+      obj.put(CmdRequest.RETURN_TYPE, cmd.returnType.toString());
+      obj.put(CmdRequest.NAME, cmd.name);
       JSONArray arglist = new JSONArray();
       if(cmd.args != null){
         cmd.args.each {param ->
           arglist.add(param);
         }
       }
-      obj.put(SelenCmd.ARGS, arglist);
+      obj.put(CmdRequest.ARGS, arglist);
       arr.add(obj);
     }
 
@@ -63,7 +65,7 @@ public class CommandBundle implements BundleStrategy{
   }
 
   //only append to the bundle if they are in the same UI module
-  public boolean shouldAppend(SelenCmd newcmd) {
+  public boolean shouldAppend(CmdRequest newcmd) {
     if(bundle.size() == 0){
       return true;
     }

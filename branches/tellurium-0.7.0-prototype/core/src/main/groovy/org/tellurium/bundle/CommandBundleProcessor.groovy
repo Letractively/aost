@@ -4,6 +4,7 @@ import org.tellurium.dispatch.Dispatcher
 import org.tellurium.config.Configurable
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.locator.MetaCmd
+import org.stringtree.json.JSONReader
 
 /**
  * Command Bundle Processor
@@ -32,6 +33,8 @@ public class CommandBundleProcessor implements Configurable {
   //whether to use the bundle feature
   private boolean exploitBundle = true;
 
+  private JSONReader reader = new JSONReader();
+
   public void useBundleFeature(){
     this.exploitBundle = true;
   }
@@ -47,10 +50,41 @@ public class CommandBundleProcessor implements Configurable {
   //TODO: how to parse the returning result?
   protected def parseReturnValue(String value){
 
+    if(value.startsWith("OK,")){
+      value = value.substring(3);
+    } else {
+      return null;
+    }
+
+    List list = reader.read(value);
+    if(list != null && list.size() > 0){
+      //only return one result for the time being since call is always sychronized
+      CmdResponse resp = list.get(0);
+      ReturnType type = resp.returnType;
+      switch(type){
+        case ReturnType.VOID:
+          break;
+        case ReturnType.BOOLEAN:
+          return "true".equals(resp.returnResult);
+          break;
+        case ReturnType.NUMBER:
+          return Integer.parseInt(resp.returnResult);
+          break;
+        case ReturnType.STRING:
+          return resp.returnResult;
+          break;
+        case ReturnType.ARRAY:
+          //TODO: need to really convert the String array to the object array 
+          return resp.returnResult;
+          break;
+      }
+    }
+
+    return null;
   }
 
-  def issueCommand(String uid, String name, args){
-    SelenCmd cmd = new SelenCmd(nextSeq(), uid, name, args);
+  def issueCommand(WorkflowContext context, String uid, String name, args){
+    CmdRequest cmd = new CmdRequest(nextSeq(), uid, context.isCallLocatorSpecific(), context.getCallReturnType(), name, args);
     if(bundle.shouldAppend(cmd)){
       bundle.addToBundle(cmd);
       if(bundle.size() >= this.maxBundleCmds){
@@ -71,13 +105,13 @@ public class CommandBundleProcessor implements Configurable {
     }
   }
 
-  def passThrough(String uid, String name, args){
+  def passThrough(WorkflowContext context, String uid, String name, args){
     //if no command on the bundle, call directly
     if(bundle.size() == 0){
       return dispatcher.metaClass.invokeMethod(dispatcher, name, args);
     }else{
       //there are commands in the bundle, pigback this command with the commands in a bundle and issue it
-      SelenCmd cmd = new SelenCmd(nextSeq(), uid, name, args);
+      CmdRequest cmd = new CmdRequest(nextSeq(), uid, context.isCallLocatorSpecific(), context.getCallReturnType(), name, args);
       bundle.addToBundle(cmd);
       String json = bundle.extractAllAndConvertToJson();
       
@@ -119,10 +153,10 @@ public class CommandBundleProcessor implements Configurable {
     Object[] params = this.removeWorkflowContext(args);
 
     if(this.exploitBundle && context.isBundlingable()){
-      return issueCommand(uid, name, params);
+      return issueCommand(context, uid, name, params);
     }
 
-    return passThrough(uid, name, params);  
+    return passThrough(context, uid, name, params);  
   }
 
   protected def methodMissing(String name, args) {

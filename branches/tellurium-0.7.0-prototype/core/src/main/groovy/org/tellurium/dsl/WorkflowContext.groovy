@@ -2,6 +2,7 @@ package org.tellurium.dsl
 
 import org.tellurium.locator.XPathProcessor
 import org.tellurium.locator.MetaCmd
+import org.tellurium.bundle.ReturnType
 
 /**
  * Hold metadata for execution workflow
@@ -21,9 +22,6 @@ class WorkflowContext {
   public static final String TRUE = "true"
 
   private boolean useOption = false
-  //Table's child object's tag will be duplicated with the current relative xpath provided by xpath
-  //For example, /table/tr/td + /td/input
-//  private boolean tableDuplicateTag = false
 
   private boolean exploreJQuerySelector = false
 
@@ -31,11 +29,31 @@ class WorkflowContext {
 
   private boolean bundlingable = false
 
+  private boolean locatorSpecific = true
+
+  private ReturnType returnType;
+
   private MetaCmd metaCmd = new MetaCmd();
 
   private Stack<String> uiid = new Stack<String>();
 
   def context = [:]
+
+  public boolean isCallLocatorSpecific(){
+    return this.locatorSpecific
+  }
+
+  public void setCallLocatorSpecific(boolean isLocatorSpecific){
+    this.locatorSpecific = isLocatorSpecific
+  }
+
+  public void setCallReturnType(ReturnType returnType){
+    this.returnType = returnType
+  }
+
+  public ReturnType getCallReturnType(){
+    return this.returnType
+  }
 
   public void notBundlingable(){
     this.bundlingable = false
@@ -254,28 +272,4 @@ class WorkflowContext {
       context.put(REFERENCE_LOCATOR, rl)
     }
   }
-
-/*
-  protected String checkTableDuplicateTag(String rl, String loc) {
-
-    String xp = XPathProcessor.lastXPath(rl)
-    String tag = XPathProcessor.getTagFromXPath(xp)
-    
-    //assume loc is only the xpath for one element
-    String ntag = XPathProcessor.getTagFromXPath(loc)
-    if (tag.equals(ntag)) {
-      int pos = XPathProcessor.checkPosition(xp)
-      if (pos != -1) {
-        String nloc = XPathProcessor.addPositionAttribute(loc, pos)
-        rl = XPathProcessor.popXPath(rl) + nloc
-      }else{
-        rl = XPathProcessor.popXPath(rl) + loc
-      }
-    }else{
-      rl = rl + loc
-    }
-
-    return rl
-  }
-  */
 }

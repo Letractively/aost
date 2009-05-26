@@ -1,7 +1,10 @@
 package org.tellurium.test
 
-import org.tellurium.bundle.SelenCmd
+import org.tellurium.bundle.CmdRequest
 import org.tellurium.bundle.CommandBundle
+import org.tellurium.bundle.CmdRequest
+import org.tellurium.bundle.CmdRequest
+import org.tellurium.bundle.CmdRequest
 
 /**
  * 
@@ -20,11 +23,11 @@ public class CommandBundle_UT extends GroovyTestCase {
 //  {"uid":"Google.Input","args":["jquery=table input[title=Google Search][name=q]","t"],"name":"keyUp","sequ":5}
 
   public void testExtractAllAndConvertToJson(){
-    SelenCmd cmd1 = new SelenCmd(1, "Google.Input", "mouseOver", ["jquery=table input[title=Google Search][name=q"]);
-    SelenCmd cmd2 = new SelenCmd(2, "Google.Input", "fireEvent", ["jquery=table input[title=Google Search][name=q", "focus"]);
-    SelenCmd cmd3 = new SelenCmd(3, "Google.Input", "keyDown", ["jquery=table input[title=Google Search][name=q", "t"]);
-    SelenCmd cmd4 = new SelenCmd(4, "Google.Input", "keyPress", ["jquery=table input[title=Google Search][name=q", "t"]);
-    SelenCmd cmd5 = new SelenCmd(5, "Google.Input", "keyUp", ["jquery=table input[title=Google Search][name=q", "t"]);
+    CmdRequest cmd1 = new CmdRequest(1, "Google.Input", "mouseOver", ["jquery=table input[title=Google Search][name=q"]);
+    CmdRequest cmd2 = new CmdRequest(2, "Google.Input", "fireEvent", ["jquery=table input[title=Google Search][name=q", "focus"]);
+    CmdRequest cmd3 = new CmdRequest(3, "Google.Input", "keyDown", ["jquery=table input[title=Google Search][name=q", "t"]);
+    CmdRequest cmd4 = new CmdRequest(4, "Google.Input", "keyPress", ["jquery=table input[title=Google Search][name=q", "t"]);
+    CmdRequest cmd5 = new CmdRequest(5, "Google.Input", "keyUp", ["jquery=table input[title=Google Search][name=q", "t"]);
 
     CommandBundle bundle = new CommandBundle();
     bundle.addToBundle(cmd1);
