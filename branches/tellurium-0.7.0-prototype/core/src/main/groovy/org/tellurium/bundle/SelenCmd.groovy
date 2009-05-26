@@ -30,10 +30,14 @@ public class SelenCmd {
   private def args;
 
   public String getParentUid(){
-    UiID uid = UiID.convertToUiID(uid);
-    String parentUid = uid.pop();
+    if(uid != null && uid.trim().length() > 0){
+      UiID uid = UiID.convertToUiID(uid);
+      String parentUid = uid.pop();
 
-    return parentUid;
+      return parentUid;
+    }
+
+    return null;
   }
 
   public SelenCmd(int sequ, String uid, String name, args) {
