@@ -218,7 +218,7 @@ class CustomSelenium extends DefaultSelenium {
 
     public String issueBundle(String json){
         String[] arr = [json];
-        String st = commandProcessor.doCommand("issueBundle", arr);
+        String st = commandProcessor.doCommand("getBundleResponse", arr);
 
         return st;
     }
