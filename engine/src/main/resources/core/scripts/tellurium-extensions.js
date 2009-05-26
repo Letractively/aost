@@ -181,7 +181,7 @@ Selenium.prototype.doIssueBundle = function(bundle){
     tellurium.parseCommandBundle(bundle);
     tellurium.processCommandBundle();
     
-    var out = [];
+//    var out = [];
 
-    return JSON.stringify(out);
+//    return JSON.stringify(out);
 };
