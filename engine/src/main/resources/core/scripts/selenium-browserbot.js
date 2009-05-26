@@ -29,10 +29,10 @@
 
 function NamespaceMap(){
     this.namespaceMap =  new Hashtable();
-    this.namespaceMap.put("html", "http://www.w3.org/1999/xhtml");
-    this.namespaceMap.put("xhtml", "http://www.w3.org/1999/xhtml");
-    this.namespaceMap.put("x", "http://www.w3.org/1999/xhtml");
-    this.namespaceMap.put("mathml", "http://www.w3.org/1998/Math/MathML");
+    this.namespaceMap.put('html', 'http://www.w3.org/1999/xhtml');
+    this.namespaceMap.put('xhtml', 'http://www.w3.org/1999/xhtml');
+    this.namespaceMap.put('x', 'http://www.w3.org/1999/xhtml');
+    this.namespaceMap.put('mathml', 'http://www.w3.org/1998/Math/MathML');
 };
 
 NamespaceMap.prototype.put = function(prefix, namespace){
