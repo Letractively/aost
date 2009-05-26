@@ -177,9 +177,9 @@ Selenium.prototype.doTypeKey = function(locator, key){
 	$elem.val($elem.val()+key).trigger(getEvent("keydown", key)).trigger(getEvent("keypress", key)).trigger(getEvent("keyup", key));
 };
 
-Selenium.prototype.doIssueBundle = function(bundle){
+Selenium.prototype.getBundleResponse = function(bundle){
     tellurium.parseCommandBundle(bundle);
-    var response = tellurium.processCommandBundle();
+    var result = tellurium.processCommandBundle();
 
-    return response;
+    return result;
 };

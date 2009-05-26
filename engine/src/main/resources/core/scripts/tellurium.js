@@ -448,6 +448,9 @@ Tellurium.prototype.processCommandBundle = function(){
             element = this.cbCache.get(cmd.uid);
             if(element == null && cmd.locatorSpecific){
                 element = this.locate(cmd.args[0]);
+                if(element != null){
+                    this.cbCache.put(cmd.uid, element);
+                }
             }
         }
         
