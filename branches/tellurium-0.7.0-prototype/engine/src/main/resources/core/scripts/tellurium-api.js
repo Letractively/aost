@@ -83,6 +83,9 @@ Tellurium.prototype.isElementPresent = function(element){
     return true;
 };
 
+Tellurium.prototype.getAttribute = function(element, attributeName){
+    return teJQuery(element).attr(attributeName);
+};
 
 
 
