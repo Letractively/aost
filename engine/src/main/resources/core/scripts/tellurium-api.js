@@ -27,7 +27,7 @@ Tellurium.prototype.typeKey = function(element, key){
 
 Tellurium.prototype.keyDown = function(element, key){
     var $elem = teJQuery(element);
-    $elem.val($elem.val()+key).trigger(getEvent("keydown", key));
+    $elem.val($elem.val()).trigger(getEvent("keydown", key));
 };
 
 Tellurium.prototype.keyPress = function(element, key){
@@ -37,7 +37,7 @@ Tellurium.prototype.keyPress = function(element, key){
 
 Tellurium.prototype.keyUp = function(element, key){
     var $elem = teJQuery(element);
-    $elem.val($elem.val()+key).trigger(getEvent("keyup", key));
+    $elem.val($elem.val()).trigger(getEvent("keyup", key));
 };
 
 Tellurium.prototype.mouseOver = function(element){

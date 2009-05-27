@@ -374,7 +374,7 @@ Tellurium.prototype.dispatchCommand = function(response, cmd, element){
         case "click":
             this.click(element);
             break;
-        case "dblclick":
+        case "doubleClick":
             this.dblclick(element);
             break;
         case "fireEvent":
