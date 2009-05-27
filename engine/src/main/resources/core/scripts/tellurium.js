@@ -426,7 +426,8 @@ Tellurium.prototype.dispatchCommand = function(response, cmd, element){
             selenium.doWaitForPageToLoad(cmd.args[1]);
             break;
         case "getAttribute":
-            this.getAttribute(element, cmd.args[1]);
+            result = this.getAttribute(element, cmd.args[1]);
+            response.addResponse(cmd.sequ, cmd.name, "String", result);    
             break;
     }
 };
