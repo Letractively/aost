@@ -157,12 +157,15 @@ BundleResponse.prototype.getResponse = function(){
 BundleResponse.prototype.toJSon = function(){
     var out = [];
     for(var i=0; i<this.response.length; i++){
+/*
         var resp = {};
         resp["sequ"] = this.response[i].sequ;
         resp["name"] = this.response[i].name;
         resp["returnType"] = this.response[i].returnType;
         resp["returnResult"] = this.response[i].returnResult;
         out.push(resp);
+*/
+        out.push(this.response[i]);
     }
 
     return JSON.stringify(out);
@@ -422,6 +425,9 @@ Tellurium.prototype.dispatchCommand = function(response, cmd, element){
         case "waitForPageToLoad":
             selenium.doWaitForPageToLoad(cmd.args[1]);
             break;
+        case "getAttribute":
+            this.getAttribute(element, cmd.args[1]);
+            break;
     }
 };
 
@@ -439,15 +445,22 @@ Tellurium.prototype.processCommandBundle = function(){
     
     while(this.commandbundle.size() > 0){
         var cmd = this.commandbundle.first();
+        var locator = cmd.args[0];
+        if(cmd.name == "getAttribute"){
+            var attributePos = locator.lastIndexOf("@");
+            var attributeName = locator.slice(attributePos + 1);
+            cmd.args.push(attributeName);
+            locator = locator.slice(0, attributePos);
+        }
         var element = null;
         if(cmd.uid == null){
             if(cmd.locatorSpecific){
-                element = this.locate(cmd.args[0]);
+                element = this.locate(locator);
             }
         }else{
             element = this.cbCache.get(cmd.uid);
             if(element == null && cmd.locatorSpecific){
-                element = this.locate(cmd.args[0]);
+                element = this.locate(locator);
                 if(element != null){
                     this.cbCache.put(cmd.uid, element);
                 }
