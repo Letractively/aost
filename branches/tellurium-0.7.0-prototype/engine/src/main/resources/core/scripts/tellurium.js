@@ -113,8 +113,8 @@ function CmdRequest(){
     this.sequ = 0;
     this.uid = null;
     this.name = null;
-    this.locatorSpecific = true;
-    this.returnType = null;   
+//    this.locatorSpecific = true;
+//    this.returnType = null;   
     this.args = null;
 };
 
@@ -157,14 +157,6 @@ BundleResponse.prototype.getResponse = function(){
 BundleResponse.prototype.toJSon = function(){
     var out = [];
     for(var i=0; i<this.response.length; i++){
-/*
-        var resp = {};
-        resp["sequ"] = this.response[i].sequ;
-        resp["name"] = this.response[i].name;
-        resp["returnType"] = this.response[i].returnType;
-        resp["returnResult"] = this.response[i].returnResult;
-        out.push(resp);
-*/
         out.push(this.response[i]);
     }
 
@@ -184,12 +176,10 @@ CommandBundle.prototype.first = function(){
     return this.bundle.shift();
 };
 
-CommandBundle.prototype.addCmd = function(sequ, uid, locatorSpecific, returnType, name, args){
+CommandBundle.prototype.addCmd = function(sequ, uid, name, args){
     var cmd = new CmdRequest();
     cmd.sequ = sequ;
     cmd.uid = uid;
-    cmd.locatorSpecific = locatorSpecific;
-    cmd.returnType = returnType;
     cmd.name = name;
     cmd.args = args;
     this.bundle.push(cmd);
@@ -198,7 +188,7 @@ CommandBundle.prototype.addCmd = function(sequ, uid, locatorSpecific, returnType
 CommandBundle.prototype.parse = function(json){
     var cmdbundle = JSON.parse(json, null);
     for(var i=0; i<cmdbundle.length; i++){
-        this.addCmd(cmdbundle[i].sequ,  cmdbundle[i].uid, cmdbundle[i].locatorSpecific, cmdbundle[i].returnType, cmdbundle[i].name, cmdbundle[i].args);
+        this.addCmd(cmdbundle[i].sequ,  cmdbundle[i].uid, cmdbundle[i].name, cmdbundle[i].args);
     }
 };
 
@@ -423,7 +413,7 @@ Tellurium.prototype.dispatchCommand = function(response, cmd, element){
             this.uncheck(element);
             break;
         case "waitForPageToLoad":
-            selenium.doWaitForPageToLoad(cmd.args[1]);
+            selenium.doWaitForPageToLoad(cmd.args[0]);
             break;
         case "getAttribute":
             result = this.getAttribute(element, cmd.args[1]);
@@ -434,9 +424,11 @@ Tellurium.prototype.dispatchCommand = function(response, cmd, element){
 
 Tellurium.prototype.locate = function(locator){
 
-    var element = selenium.browserbot.findElement(locator);
+    return selenium.browserbot.findElement(locator);
+};
 
-    return element;
+Tellurium.prototype.isLocator = function(locator){
+    return locator.startsWith('//') || locator.startsWith('jquery=') || locator.startsWith('jquerycache=') || locator.startsWith('document.');
 };
 
 Tellurium.prototype.processCommandBundle = function(){
@@ -446,28 +438,36 @@ Tellurium.prototype.processCommandBundle = function(){
     
     while(this.commandbundle.size() > 0){
         var cmd = this.commandbundle.first();
-        var locator = cmd.args[0];
-        if(cmd.name == "getAttribute"){
-            var attributePos = locator.lastIndexOf("@");
-            var attributeName = locator.slice(attributePos + 1);
-            cmd.args.push(attributeName);
-            locator = locator.slice(0, attributePos);
-        }
         var element = null;
-        if(cmd.uid == null){
-            if(cmd.locatorSpecific){
-                element = this.locate(locator);
-            }
-        }else{
-            element = this.cbCache.get(cmd.uid);
-            if(element == null && cmd.locatorSpecific){
-                element = this.locate(locator);
-                if(element != null){
-                    this.cbCache.put(cmd.uid, element);
+        var locator = cmd.args[0];
+        //some commands do not have any arguments, null guard args
+        if(locator != null){
+            var isLoc = this.isLocator(locator);
+            //if the first argument is a locator
+            if(isLoc){
+                //handle attribute locator for the getAttribute call
+                if(cmd.name == "getAttribute"){
+                    var attributePos = locator.lastIndexOf("@");
+                    var attributeName = locator.slice(attributePos + 1);
+                    cmd.args.push(attributeName);
+                    locator = locator.slice(0, attributePos);
+                }
+
+                if (cmd.uid == null) {
+                    element = this.locate(locator);
+                } else {
+                    element = this.cbCache.get(cmd.uid);
+                    if (element == null) {
+                        element = this.locate(locator);
+                        if (element != null) {
+                            this.cbCache.put(cmd.uid, element);
+                        }
+
+                    }
                 }
             }
         }
-        
+
         this.dispatchCommand(response, cmd, element);
     }
 
