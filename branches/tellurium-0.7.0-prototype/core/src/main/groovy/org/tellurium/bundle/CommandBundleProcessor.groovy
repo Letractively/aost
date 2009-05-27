@@ -59,23 +59,28 @@ public class CommandBundleProcessor implements Configurable {
     List list = reader.read(value);
     if(list != null && list.size() > 0){
       //only return one result for the time being since call is always sychronized
-      CmdResponse resp = list.get(0);
-      ReturnType type = resp.returnType;
+      //The result type is a map from JSON
+//      CmdResponse resp = list.get(0);
+      def resp = list.get(0);
+      def result = resp.get(CmdResponse.RETURN_RESULT);
+
+      ReturnType type = ReturnType.valueOf(resp.get(CmdResponse.RETURN_TYPE).toUpperCase());
+
       switch(type){
         case ReturnType.VOID:
           break;
         case ReturnType.BOOLEAN:
-          return "true".equals(resp.returnResult);
+          return "true".equals(result);
           break;
         case ReturnType.NUMBER:
-          return Integer.parseInt(resp.returnResult);
+          return Integer.parseInt(result);
           break;
         case ReturnType.STRING:
-          return resp.returnResult;
+          return result;
           break;
         case ReturnType.ARRAY:
           //TODO: need to really convert the String array to the object array 
-          return resp.returnResult;
+          return result;
           break;
       }
     }
