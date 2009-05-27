@@ -32,26 +32,26 @@ class NewGoogleStartPage extends DslContext{
 
     def doGoogleSearch(String input){
 //        type "searchbox", input
-        keyType "searchbox", input
+        keyType "google_start_page.searchbox", input
         pause 500
-        click "googlesearch"
+        click "google_start_page.googlesearch"
         waitForPageToLoad 30000
     }
 
     def doImFeelingLucky(String input){
-        type "searchbox", input
+        type "google_start_page.searchbox", input
         pause 500
-        click "Imfeelinglucky"
+        click "google_start_page.Imfeelinglucky"
         waitForPageToLoad 30000
     }
 
     def testClick(){
-        click "searchbox"
+        click "google_start_page.searchbox"
         pause 500
     }
 
     def testDoubleClick(){
-        doubleClick "searchbox"
+        doubleClick "google_start_page.searchbox"
         pause 500
     }
     

@@ -3,6 +3,7 @@ package example.test.java;
 import example.google.NewGoogleStartPage;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.AfterClass;
 import org.tellurium.exception.UiObjectNotFoundException;
 import org.tellurium.test.java.TelluriumJavaTestCase;
 import static org.testng.Assert.assertEquals;
@@ -70,5 +71,10 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
 //    @Test
     public void testUiObjectNotFoundException(){
         ngsp.clickWrongButton();
+    }
+
+    @AfterClass
+    public static void showTrace(){
+        ngsp.showTrace();
     }
 }
