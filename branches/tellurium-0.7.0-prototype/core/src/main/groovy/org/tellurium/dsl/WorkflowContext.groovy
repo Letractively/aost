@@ -29,9 +29,9 @@ class WorkflowContext {
 
   private boolean bundlingable = false
 
-  private boolean locatorSpecific = true
+//  private boolean locatorSpecific = true
 
-  private ReturnType returnType;
+//  private ReturnType returnType;
 
   private MetaCmd metaCmd = new MetaCmd();
 
@@ -39,6 +39,7 @@ class WorkflowContext {
 
   def context = [:]
 
+/*
   public boolean isCallLocatorSpecific(){
     return this.locatorSpecific
   }
@@ -54,6 +55,7 @@ class WorkflowContext {
   public ReturnType getCallReturnType(){
     return this.returnType
   }
+*/
 
   public void notBundlingable(){
     this.bundlingable = false

@@ -11,6 +11,10 @@ package org.tellurium.bundle
 
 public class CmdResponse extends BaseCmd{
 
+  //return type
+  public static final String RETURN_TYPE = "returnType";
+  protected ReturnType returnType;
+
   //return result
   public static final String RETURN_RESULT = "returnResult";
   def returnResult;

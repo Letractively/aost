@@ -45,8 +45,8 @@ public class CommandBundle implements BundleStrategy{
       JSONObject obj = new JSONObject()
       obj.put(CmdRequest.SEQUENCE, cmd.sequ);
       obj.put(CmdRequest.UID, cmd.uid);
-      obj.put(CmdRequest.LOCATOR_SPECIFIC, cmd.locatorSpecific);
-      obj.put(CmdRequest.RETURN_TYPE, cmd.returnType.toString());
+//      obj.put(CmdRequest.LOCATOR_SPECIFIC, cmd.locatorSpecific);
+//      obj.put(CmdRequest.RETURN_TYPE, cmd.returnType.toString());
       obj.put(CmdRequest.NAME, cmd.name);
       JSONArray arglist = new JSONArray();
       if(cmd.args != null){

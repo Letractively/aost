@@ -17,8 +17,4 @@ abstract public class BaseCmd {
   public static final String NAME = "name";
   protected String name;
 
-  //return type
-  public static final String RETURN_TYPE = "returnType";
-  protected ReturnType returnType;
-
 }
