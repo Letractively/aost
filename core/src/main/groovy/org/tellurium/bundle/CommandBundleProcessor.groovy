@@ -89,7 +89,7 @@ public class CommandBundleProcessor implements Configurable {
   }
 
   def issueCommand(WorkflowContext context, String uid, String name, args){
-    CmdRequest cmd = new CmdRequest(nextSeq(), uid, context.isCallLocatorSpecific(), context.getCallReturnType(), name, args);
+    CmdRequest cmd = new CmdRequest(nextSeq(), uid, name, args);
     if(bundle.shouldAppend(cmd)){
       bundle.addToBundle(cmd);
       if(bundle.size() >= this.maxBundleCmds){
@@ -116,7 +116,7 @@ public class CommandBundleProcessor implements Configurable {
       return dispatcher.metaClass.invokeMethod(dispatcher, name, args);
     }else{
       //there are commands in the bundle, pigback this command with the commands in a bundle and issue it
-      CmdRequest cmd = new CmdRequest(nextSeq(), uid, context.isCallLocatorSpecific(), context.getCallReturnType(), name, args);
+      CmdRequest cmd = new CmdRequest(nextSeq(), uid, name, args);
       bundle.addToBundle(cmd);
       String json = bundle.extractAllAndConvertToJson();
       

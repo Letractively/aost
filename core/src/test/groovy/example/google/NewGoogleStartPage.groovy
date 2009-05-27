@@ -13,7 +13,7 @@ class NewGoogleStartPage extends DslContext{
     public void defineUi() {
 
         //clocator stands for composite locator, i.e., the attributes specified in its map will be
-        //used to construct the xpath. Group: "true" means we will useString group information to specifiy
+        //used to construct the xpath. Group: "true" means we will use group information to specifiy
         //the container's locator, i.e., the whole UI module's locator. Only container and its extended
         //classes has this attribute and it is false by default.
         //Since group information will be used, the attributes in inputbox and two submit buttons will

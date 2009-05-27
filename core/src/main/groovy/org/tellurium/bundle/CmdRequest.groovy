@@ -18,8 +18,8 @@ public class CmdRequest extends BaseCmd {
   private String uid;
 
   //does this method call require the locator parameter?
-  public static final String LOCATOR_SPECIFIC = "locatorSpecific";
-  private boolean locatorSpecific = true;
+//  public static final String LOCATOR_SPECIFIC = "locatorSpecific";
+//  private boolean locatorSpecific = true;
 
   //arguments for this command
   public static final String ARGS = "args";
@@ -37,12 +37,12 @@ public class CmdRequest extends BaseCmd {
     return null;
   }
 
-  public CmdRequest(int sequ, String uid, boolean locatorSpecific, ReturnType type, String name, args) {
+  public CmdRequest(int sequ, String uid, String name, args) {
     this.name = name;
     this.sequ = sequ;
     this.uid = uid;
-    this.locatorSpecific = locatorSpecific;
-    this.returnType = type;
+//    this.locatorSpecific = locatorSpecific;
+//    this.returnType = type;
     this.args = args;
   }
 }
