@@ -427,7 +427,7 @@ Tellurium.prototype.dispatchCommand = function(response, cmd, element){
             break;
         case "getAttribute":
             result = this.getAttribute(element, cmd.args[1]);
-            response.addResponse(cmd.sequ, cmd.name, "String", result);    
+            response.addResponse(cmd.sequ, cmd.name, "STRING", result);    
             break;
     }
 };
