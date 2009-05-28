@@ -95,3 +95,13 @@ Tellurium.prototype.type = function(element, val){
     teJQuery(element).val(val);
 };
 
+Tellurium.prototype.select = function(element, optionLocator){
+    var $sel = teJQuery(element);
+    //first, remove all selected element
+    $sel.find("option").removeAttr("selected");
+    //construct the select option
+    var opt = "option[" + optionLocator + "]";
+    //select the approporiate option
+    $sel.find(opt).attr("selected","selected");
+};
+

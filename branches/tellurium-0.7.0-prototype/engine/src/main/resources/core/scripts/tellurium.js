@@ -385,6 +385,7 @@ Tellurium.prototype.initialize = function(){
     this.registerApi("uncheck", true, "VOID");
     this.registerApi("waitForPageToLoad", false, "VOID");
     this.registerApi("getAttribute", true, "STRING");
+    this.registerApi("select", true, "VOID");
     
 };
 
