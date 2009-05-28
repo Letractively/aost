@@ -165,12 +165,6 @@ Selenium.prototype.getCachePolicyName = function(){
     return tellurium.cache.getCachePolicyName();
 };
 
-var getEvent = function(name, key){
-    var e = teJQuery.Event(name);
-    e.which = key.charCodeAt(0);
-    return e;
-};
-
 Selenium.prototype.doTypeKey = function(locator, key){
     var $elem = teJQuery(this.browserbot.findElement(locator));
 

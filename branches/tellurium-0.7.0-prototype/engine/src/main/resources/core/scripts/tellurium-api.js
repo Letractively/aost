@@ -1,4 +1,21 @@
-//Tellurium APIs to replace selenium APIs
+//Tellurium APIs to replace selenium APIs or new APIs
+
+function getTargetXY(element, coordString) {
+   // Parse coordString
+   var coords = null;
+   var x;
+   var y;
+   if (coordString) {
+      coords = coordString.split(/,/);
+      x = Number(coords[0]);
+      y = Number(coords[1]);
+   }
+   else {
+      x = y = 0;
+   }
+   var offset = teJQuery(element).offset();
+   return [offset.left + x, offset.top + y];
+};
 
 function TelluriumApi(cache){
     this.cache = cache;
@@ -9,6 +26,12 @@ TelluriumApi.prototype.blur = function(element) {
 };
 
 TelluriumApi.prototype.click = function(element) {
+    teJQuery(element).click();
+};
+
+TelluriumApi.prototype.clickAt = function(element, coordString) {
+    var clientXY = getTargetXY(element, coordString);
+    //TODO: how to do click at using jQuery
     teJQuery(element).click();
 };
 
@@ -52,6 +75,11 @@ TelluriumApi.prototype.mouseDown = function(element){
    teJQuery(element).trigger('mousedown');
 };
 
+TelluriumApi.prototype.mouseDownRight = function(element){
+    //TODO: how to fire right mouse down in jQuery?
+    //   teJQuery(element).trigger('mousedown');
+};
+
 TelluriumApi.prototype.mouseEnter = function(element){
    teJQuery(element).trigger('mouseenter');
 };
@@ -62,11 +90,6 @@ TelluriumApi.prototype.mouseLeave = function(element){
 
 TelluriumApi.prototype.mouseOut = function(element){
    teJQuery(element).trigger('mouseout');
-};
-
-TelluriumApi.prototype.select = function(element){
-    //TODO: need to add option selection piece
-   teJQuery(element).select();
 };
 
 TelluriumApi.prototype.submit = function(element){
@@ -109,6 +132,72 @@ TelluriumApi.prototype.select = function(element, optionLocator){
     $sel.find(opt).attr("selected","selected");
 };
 
+TelluriumApi.prototype.addSelection = function(element, optionLocator){
+    var $sel = teJQuery(element);
+    //construct the select option
+    var opt = "option[" + optionLocator + "]";
+    //select the approporiate option
+    $sel.find(opt).attr("selected","selected");
+};
+
+TelluriumApi.prototype.removeSelection = function(element, optionLocator){
+    var $sel = teJQuery(element);
+    //construct the select option
+    var opt = "option[" + optionLocator + "]";
+    //select the approporiate option
+    $sel.find(opt).removeAttr("selected");
+};
+
+TelluriumApi.prototype.removeAllSelections = function(element){
+    var $sel = teJQuery(element);
+    //first, remove all selected element
+    $sel.find("option").removeAttr("selected");        
+};
+
+TelluriumApi.prototype.open = function(url){
+    selenium.open(url);    
+};
+
+TelluriumApi.prototype.getText = function(element) {
+    return teJQuery(element).text();    
+};
+
+TelluriumApi.prototype.isChecked = function(element) {
+    if (element.checked == null) {
+        throw new SeleniumError("Element is not a toggle-button.");
+    }
+    return element.checked;
+};
+
+TelluriumApi.prototype.isVisible = function(element) {
+    return teJQuery(element).is(':visible');
+};
+
+TelluriumApi.prototype.isEditable = function(element) {
+    if (element.value == undefined) {
+        Assert.fail("Element " + locator + " is not an input.");
+    }
+    if (element.disabled) {
+        return false;
+    }
+
+    var readOnlyNode = element.getAttributeNode('readonly');
+    if (readOnlyNode) {
+        // DGF on IE, every input element has a readOnly node, but it may be false
+        if (typeof(readOnlyNode.nodeValue) == "boolean") {
+            var readOnly = readOnlyNode.nodeValue;
+            if (readOnly) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    return true;
+};
+
+
+//// NEW APIS
 TelluriumApi.prototype.getAllText = function(element) {
     var out = [];
     var $e = teJQuery(element);

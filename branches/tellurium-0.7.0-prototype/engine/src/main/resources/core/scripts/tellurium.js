@@ -1,3 +1,8 @@
+var getEvent = function(name, key){
+    var e = teJQuery.Event(name);
+    e.which = key.charCodeAt(0);
+    return e;
+};
 
 var tellurium = null;
 
@@ -253,6 +258,14 @@ Tellurium.prototype.initialize = function(){
     this.registerApi("waitForPageToLoad", false, "VOID");
     this.registerApi("getAttribute", true, "STRING");
     this.registerApi("select", true, "VOID");
+    this.registerApi("addSelection", true, "VOID");
+    this.registerApi("removeSelection", true, "VOID");
+    this.registerApi("removeAllSelections", true, "VOID");
+    this.registerApi("open", false, "VOID");
+    this.registerApi("getText", true, "STRING");
+    this.registerApi("isChecked", true, "BOOLEAN");
+    this.registerApi("isVisible", true, "BOOLEAN");
+    this.registerApi("isEditable", true, "BOOLEAN");
     
     //converted from custom selenium apis, tellurium-extensions.js
     this.registerApi("getAllText", true, "STRING");
@@ -284,6 +297,11 @@ Tellurium.prototype.registerApi = function(apiName, requireElement, returnType){
     if (typeof(api) == 'function') {
         this.apiMap.put(apiName, new TelluriumCommandHandler(api, requireElement, returnType));
     }
+};
+
+Tellurium.prototype.isApiMissing =function(apiName){
+
+    return this.apiMap.get(apiName) == null;
 };
 
 Tellurium.prototype.parseCommandBundle = function(json){
@@ -347,45 +365,54 @@ Tellurium.prototype.isLocator = function(locator){
     return locator.startsWith('//') || locator.startsWith('jquery=') || locator.startsWith('jquerycache=') || locator.startsWith('document.');
 };
 
+Tellurium.prototype.delegateToSelenium = function(cmd){
+    selenium[cmd.name].apply(this, cmd.args);
+};
+
 Tellurium.prototype.processCommandBundle = function(){
 
     this.cbCache.clear();
 
     var response = new BundleResponse();
-    
-    while(this.commandbundle.size() > 0){
+
+    while (this.commandbundle.size() > 0) {
         var cmd = this.commandbundle.first();
-        var element = null;
-        var locator = cmd.args[0];
-        //some commands do not have any arguments, null guard args
-        if(locator != null){
-            var isLoc = this.isLocator(locator);
-            //if the first argument is a locator
-            if(isLoc){
-                //handle attribute locator for the getAttribute call
-                if(cmd.name == "getAttribute"){
-                    var attributePos = locator.lastIndexOf("@");
-                    var attributeName = locator.slice(attributePos + 1);
-                    cmd.args.push(attributeName);
-                    locator = locator.slice(0, attributePos);
-                }
+        //if counld not find from Tellurium APIs, delete to selenium directly
+        if (this.isApiMissing(cmd.name)) {
+            this.delegateToSelenium(cmd);
+        } else {
+            var element = null;
+            var locator = cmd.args[0];
+            //some commands do not have any arguments, null guard args
+            if (locator != null) {
+                var isLoc = this.isLocator(locator);
+                //if the first argument is a locator
+                if (isLoc) {
+                    //handle attribute locator for the getAttribute call
+                    if (cmd.name == "getAttribute") {
+                        var attributePos = locator.lastIndexOf("@");
+                        var attributeName = locator.slice(attributePos + 1);
+                        cmd.args.push(attributeName);
+                        locator = locator.slice(0, attributePos);
+                    }
 
-                if (cmd.uid == null) {
-                    element = this.locate(locator);
-                } else {
-                    element = this.cbCache.get(cmd.uid);
-                    if (element == null) {
+                    if (cmd.uid == null) {
                         element = this.locate(locator);
-                        if (element != null) {
-                            this.cbCache.put(cmd.uid, element);
-                        }
+                    } else {
+                        element = this.cbCache.get(cmd.uid);
+                        if (element == null) {
+                            element = this.locate(locator);
+                            if (element != null) {
+                                this.cbCache.put(cmd.uid, element);
+                            }
 
+                        }
                     }
                 }
             }
-        }
 
-        this.dispatchCommand(response, cmd, element);
+            this.dispatchCommand(response, cmd, element);
+        }
     }
 
     return response.toJSon();
