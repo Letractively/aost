@@ -27,6 +27,7 @@
 // The window to which the commands will be sent.  For example, to click on a
 // popup window, first select that window, and then do a normal click command.
 
+//Added to support custom namespace
 function NamespaceMap(){
     this.namespaceMap =  new Hashtable();
     this.namespaceMap.put('html', 'http://www.w3.org/1999/xhtml');
@@ -84,18 +85,7 @@ var BrowserBot = function(topLevelApplicationWindow) {
     this.windowPollers = new Array();
     // DGF for backwards compatibility
     this.browserbot = this;
-
-    //Added to support custom namespace
-//    this.namespaceMap = globalNamespaceMap;
-
-/*
-    this.namespaceMap =  new HashMap();
-    this.namespaceMap.put("html", "http://www.w3.org/1999/xhtml");
-    this.namespaceMap.put("xhtml", "http://www.w3.org/1999/xhtml");
-    this.namespaceMap.put("x", "http://www.w3.org/1999/xhtml");
-    this.namespaceMap.put("mathml", "http://www.w3.org/1998/Math/MathML");
-*/
-
+    
     var self = this;
 
     objectExtend(this, PageBot.prototype);

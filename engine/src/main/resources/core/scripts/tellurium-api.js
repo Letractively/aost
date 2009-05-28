@@ -8,7 +8,7 @@ Tellurium.prototype.click = function(element) {
     teJQuery(element).click();
 };
 
-Tellurium.prototype.dblclick = function(element){
+Tellurium.prototype.doubleClick = function(element){
     teJQuery(element).dblclick();
 };
 
@@ -87,7 +87,11 @@ Tellurium.prototype.getAttribute = function(element, attributeName){
     return teJQuery(element).attr(attributeName);
 };
 
+Tellurium.prototype.waitForPageToLoad = function(timeout){
+    selenium.doWaitForPageToLoad(timeout);
+};
 
-
-
+Tellurium.prototype.type = function(element, val){
+    teJQuery(element).val(val);
+};
 
