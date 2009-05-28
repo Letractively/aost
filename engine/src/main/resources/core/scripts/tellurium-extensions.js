@@ -106,35 +106,35 @@ Selenium.prototype.getListSize = function(locator, separators) {
 
 Selenium.prototype.getCacheState = function(){
 
-    return tellurium.cacheSelector;
+    return tellurium.cache.cacheSelector;
 };
 
 Selenium.prototype.doEnableCache = function(){
-    tellurium.cacheSelector = true;
+    tellurium.cache.cacheSelector = true;
 };
 
 Selenium.prototype.doDisableCache = function(){
-    tellurium.cacheSelector = false;
+    tellurium.cache.cacheSelector = false;
 };
 
 Selenium.prototype.doCleanCache = function(){
-    tellurium.cleanCache();
+    tellurium.cache.cleanCache();
 };
 
 Selenium.prototype.doSetCacheMaxSize = function(size){
-    tellurium.maxCacheSize = size;
+    tellurium.cache.maxCacheSize = size;
 };
 
 Selenium.prototype.getCacheSize = function(){
-    return tellurium.getCacheSize();
+    return tellurium.cache.getCacheSize();
 };
 
 Selenium.prototype.getCacheMaxSize = function(){
-    return tellurium.maxCacheSize;
+    return tellurium.cache.maxCacheSize;
 };
 
 Selenium.prototype.getCacheUsage = function(){
-    return tellurium.getCacheUsage();
+    return tellurium.cache.getCacheUsage();
 };
 
 Selenium.prototype.doAddNamespace = function(prefix, namespace){
@@ -146,23 +146,23 @@ Selenium.prototype.getNamespace = function(prefix){
 };
 
 Selenium.prototype.doUseDiscardNewPolicy = function(){
-    tellurium.useDiscardNewPolicy();
+    tellurium.cache.useDiscardNewPolicy();
 };
 
 Selenium.prototype.doUseDiscardOldPolicy = function(){
-    tellurium.useDiscardOldPolicy();
+    tellurium.cache.useDiscardOldPolicy();
 };
 
 Selenium.prototype.doUseDiscardLeastUsedPolicy = function(){
-    tellurium.useDiscardLeastUsedPolicy();
+    tellurium.cache.useDiscardLeastUsedPolicy();
 };
 
 Selenium.prototype.doUseDiscardInvalidPolicy = function(){
-    tellurium.useDiscardInvalidPolicy();
+    tellurium.cache.useDiscardInvalidPolicy();
 };
 
 Selenium.prototype.getCachePolicyName = function(){
-    return tellurium.getCachePolicyName();
+    return tellurium.cache.getCachePolicyName();
 };
 
 var getEvent = function(name, key){
