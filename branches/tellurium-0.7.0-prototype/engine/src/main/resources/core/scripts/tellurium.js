@@ -108,6 +108,8 @@ Uiid.prototype.preprocess = function(uid){
     return [uid];
 };
 
+//var tellurium = null;
+
 // Command Request for Command bundle
 function CmdRequest(){
     this.sequ = 0;
@@ -323,8 +325,17 @@ DiscardInvalidPolicy.prototype.myName = function(){
 
 var discardInvalidCachePolicy = new DiscardInvalidPolicy();
 
-function Tellurium (){
+function TelluriumCommandHandler(api, requireElement, returnType) {
+    //api method
+    this.api = api;
+    //whether it requires an element/elements to act on
+    this.requireElement = requireElement;
+    //return type
+    this.returnType = returnType;
+};
 
+function Tellurium (){
+    
     //global flag to decide whether to cache jQuery selectors
     this.cacheSelector = false;
 
@@ -345,80 +356,98 @@ function Tellurium (){
 
     //cache to hold the element corresponding to a UID in command bundle
     this.cbCache = new Hashtable();
+
+    //api name to method mapping for command bundle processing
+    this.apiMap = new Hashtable();
+
+};
+
+//TODO: How to handle custom calls?
+Tellurium.prototype.initialize = function(){
+    this.registerApi("isElementPresent", true, "BOOLEAN");
+    this.registerApi("blur", true, "VOID");
+    this.registerApi("click", true, "VOID");
+    this.registerApi("doubleClick", true, "VOID");
+    this.registerApi("fireEvent", true, "VOID");
+    this.registerApi("focus", true, "VOID");
+    this.registerApi("type", true, "VOID");
+    this.registerApi("typeKey", true, "VOID");
+    this.registerApi("keyDown", true, "VOID");
+    this.registerApi("keyPress", true, "VOID");
+    this.registerApi("keyUp", true, "VOID");
+    this.registerApi("mouseOver", true, "VOID");
+    this.registerApi("mouseDown", true, "VOID");
+    this.registerApi("mouseEnter", true, "VOID");
+    this.registerApi("mouseOut", true, "VOID");
+    this.registerApi("mouseLeave", true, "VOID");
+    this.registerApi("submit", true, "VOID");
+    this.registerApi("check", true, "VOID");
+    this.registerApi("uncheck", true, "VOID");
+    this.registerApi("waitForPageToLoad", false, "VOID");
+    this.registerApi("getAttribute", true, "STRING");
+    
 };
 
 var tellurium = new Tellurium();
+
+Tellurium.prototype.registerApi = function(apiName, requireElement, returnType){
+    var api =  this[apiName];
+
+    if (typeof(api) == 'function') {
+//         this.apiMap[apiName] = new TelluriumCommandHandler(api, requireElement, returnType);
+        this.apiMap.put(apiName, new TelluriumCommandHandler(api, requireElement, returnType));
+    }
+};
 
 Tellurium.prototype.parseCommandBundle = function(json){
     this.commandbundle.parse(json);
 };
 
+Tellurium.prototype.prepareArgumentList = function(handler, args, element){
+    if(args == null)
+        return [];
+    
+    var params = [];
+
+    if (handler.requireElement) {
+        params.push(element);
+        for (var i = 1; i < args.length; i++) {
+            params.push(args[i]);
+        }
+    } else {
+        params = args;
+    }
+
+    return params;
+};
+
 Tellurium.prototype.dispatchCommand = function(response, cmd, element){
     var result = null;
-    
-    switch(cmd.name)
-    {   case "isElementPresent":
-            result = this.isElementPresent(element);
-            response.addResponse(cmd.sequ, cmd.name, "BOOLEAN", result);
-            break;
-        case "blur":
-            this.blur(element);
-            break;
-        case "click":
-            this.click(element);
-            break;
-        case "doubleClick":
-            this.dblclick(element);
-            break;
-        case "fireEvent":
-            this.fireEvent(element, cmd.args[1]);
-            break;
-        case "focus":
-            this.focus(element);
-            break;
-        case "typeKey":
-            this.typeKey(element, cmd.args[1]);
-            break;
-        case "keyDown":
-            this.keyDown(element, cmd.args[1]);
-            break;
-        case "keyPress":
-            this.keyPress(element, cmd.args[1]);
-            break;
-        case "keyUp":
-            this.keyUp(element, cmd.args[1]);
-            break;
-        case "mouseOver":
-            this.mouseOver(element);
-            break;
-        case "mouseDown":
-            this.mouseDown(element);
-            break;
-        case "mouseEnter":
-            this.mouseEnter(element);
-            break;
-        case "mouseOut":
-            this.mouseOut(element);
-            break;
-        case "mouseLeave":
-            this.mouseLeave(element);
-            break;
-        case "submit":
-            this.submit(element);
-            break;
-        case "check":
-            this.check(element);
-            break;
-        case "uncheck":
-            this.uncheck(element);
-            break;
-        case "waitForPageToLoad":
-            selenium.doWaitForPageToLoad(cmd.args[0]);
-            break;
-        case "getAttribute":
-            result = this.getAttribute(element, cmd.args[1]);
-            response.addResponse(cmd.sequ, cmd.name, "STRING", result);    
-            break;
+
+    var handler = this.apiMap.get(cmd.name);
+
+    if(handler != null){
+        var api = handler.api;
+        //prepare the argument list
+        var params = this.prepareArgumentList(handler, cmd.args, element);
+        if(params != null && params.length > 0){
+            if(handler.returnType == "VOID"){
+                api.apply(this, params);
+            }else{
+                result = api.apply(this, params);
+                response.addResponse(cmd.sequ, cmd.name, handler.returnType, result);
+            }
+        }else{
+            if(handler.returnType == "VOID"){
+                api.apply(this, params);
+            }else{
+                result = api.apply(this, params);
+                response.addResponse(cmd.sequ, cmd.name, handler.returnType, result);
+            }
+        }
+
+    }else{
+        throw SeleniumError("Unknown command " + cmd.name + " in Command Bundle.");
     }
 };
 
@@ -432,6 +461,10 @@ Tellurium.prototype.isLocator = function(locator){
 };
 
 Tellurium.prototype.processCommandBundle = function(){
+    if(this.apiMap.size() == 0){
+        this.initialize();
+    }
+
     this.cbCache.clear();
 
     var response = new BundleResponse();
@@ -787,3 +820,12 @@ Tellurium.prototype.useDiscardInvalidPolicy = function(){
 Tellurium.prototype.getCachePolicyName = function(){
     return this.cachePolicy.name;
 };
+
+/*
+function TelluriumBootstrap(){
+    tellurium = new Tellurium();
+    tellurium.initialize();
+};
+
+var telluriumBootstrap = new TelluriumBootstrap();
+*/
