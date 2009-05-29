@@ -366,9 +366,30 @@ Tellurium.prototype.isLocator = function(locator){
     return locator.startsWith('//') || locator.startsWith('jquery=') || locator.startsWith('jquerycache=') || locator.startsWith('document.');
 };
 
-Tellurium.prototype.delegateToSelenium = function(cmd){
-    //TODO: need to use selenium api name conversion to find the api 
-    selenium[cmd.name].apply(this, cmd.args);
+Tellurium.prototype.camelizeApiName = function(apiName){
+    return "do" + apiName.charAt(0).toUpperCase() + apiName.substring(1);
+};
+
+Tellurium.prototype.delegateToSelenium = function(response, cmd) {
+    // need to use selenium api name conversion to find the api
+    var apiName = cmd.name;
+    var result = null;
+    if (apiName.startsWith("is")) {
+        result = selenium[apiName].apply(this, cmd.args);
+        response.addResponse(cmd.sequ, apiName, "BOOLEAN", result);
+    } else if (apiName.startsWith("get")) {
+        result = selenium[apiName].apply(this, cmd.args);
+        if(apiName.indexOf("All") != -1){
+            //api Name includes "All" should return an array
+            response.addResponse(cmd.sequ, apiName, "ARRAY", result);
+        }else{
+            //assume the rest return "String"
+            response.addResponse(cmd.sequ, apiName, "STRING", result);
+        }
+    } else {
+        apiName = this.camelizeApiName(apiName);
+        selenium[apiName].apply(this, cmd.args);
+    }
 };
 
 Tellurium.prototype.processCommandBundle = function(){
@@ -381,7 +402,7 @@ Tellurium.prototype.processCommandBundle = function(){
         var cmd = this.commandbundle.first();
         //if counld not find from Tellurium APIs, delete to selenium directly
         if (this.isApiMissing(cmd.name)) {
-            this.delegateToSelenium(cmd);
+            this.delegateToSelenium(response, cmd);
         } else {
             var element = null;
             var locator = cmd.args[0];
