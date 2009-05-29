@@ -196,6 +196,10 @@ TelluriumApi.prototype.isEditable = function(element) {
     return true;
 };
 
+TelluriumApi.prototype.getXpathCount = function(xpath) {
+    return selenium.getXpathCount(xpath);    
+};
+
 
 //// NEW APIS
 TelluriumApi.prototype.getAllText = function(element) {
