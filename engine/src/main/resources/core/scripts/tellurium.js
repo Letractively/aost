@@ -266,6 +266,7 @@ Tellurium.prototype.initialize = function(){
     this.registerApi("isChecked", true, "BOOLEAN");
     this.registerApi("isVisible", true, "BOOLEAN");
     this.registerApi("isEditable", true, "BOOLEAN");
+    this.registerApi("getXpathCount", false, "NUMBER");
     
     //converted from custom selenium apis, tellurium-extensions.js
     this.registerApi("getAllText", true, "STRING");
@@ -366,6 +367,7 @@ Tellurium.prototype.isLocator = function(locator){
 };
 
 Tellurium.prototype.delegateToSelenium = function(cmd){
+    //TODO: need to use selenium api name conversion to find the api 
     selenium[cmd.name].apply(this, cmd.args);
 };
 
