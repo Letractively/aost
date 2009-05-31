@@ -4,6 +4,7 @@ import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.event.Event
 import org.tellurium.object.Container
+import org.json.simple.JSONObject
 
 /**
  *  Basic UI object
@@ -46,12 +47,15 @@ abstract class UiObject implements Cloneable{
         group reference xpath + reference xpath (related the the group reference xpath) + inherent xpath
 
   */
-
+    public static final String UID = "uid"
     String uid
+
+    public static final String NAMESPACE = "namespace"
     String namespace = null
     //UI object is cacheable by default
     boolean cacheable = true
-  
+
+    public static final String LOCATOR = "locator"
     def locator
 //    def feature
 
@@ -59,21 +63,20 @@ abstract class UiObject implements Cloneable{
     def Container parent
 
     //respond to JavaScript events
+    public static final String EVENTS = "events"
     String[] respondToEvents
 
-/*
-    def ArrayList getSelectorProperties(java.util.List<String> props){
-        return accessor.getSelectorProperties(locator, props);
+    JSONObject toJSON(){
+      JSONObject jso = new JSONObject()
+      jso.put(UID, uid)
+      jso.put(LOCATOR, locator.toJSON())
+      if(namespace != null && namespace.trim().length() > 0)
+        jso.put(NAMESPACE, namespace)
+      if(respondToEvents != null && respondToEvents.length > 0)
+        jso.put(EVENTS, respondToEvents)
+      
+      return jso
     }
-
-    def ArrayList getSelectorText(){
-        return accessor.getSelectorText(locator, props);
-    }
-
-    def Object getSelectorFunctionCall(String fn, java.util.List args){
-        return accessor.getSelectorText(locator, fn, args);
-    }
-*/
 
     def mouseOver(Closure c){
         c(locator)
@@ -204,4 +207,5 @@ abstract class UiObject implements Cloneable{
 
         return null
     }
+
 }

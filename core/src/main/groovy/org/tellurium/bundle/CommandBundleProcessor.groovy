@@ -73,7 +73,6 @@ public class CommandBundleProcessor implements Configurable {
           return "true".equals(result);
           break;
         case ReturnType.NUMBER:
-//          return Integer.parseInt(result);
           return (int)result;
           break;
         case ReturnType.STRING:
