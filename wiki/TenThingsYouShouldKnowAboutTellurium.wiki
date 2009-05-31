@@ -1,6 +1,7 @@
 #summary Ten Things You Should Know About Tellurium.
 #labels Phase-Support
 
-= Introduction =
+= How Long Has Tellurium Been There =
 
-Add your content here.
+By June 2009, Tellurium reaches one year since it became an open source project. Before that, Tellurium had been through two prototypes. The first prototype was created in 2007 to test our company web applications. The second prototype was there in early 2008 to improve the usability. Both prototypes had been used for couple internal projects.
+
