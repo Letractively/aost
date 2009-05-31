@@ -1188,4 +1188,27 @@ abstract class BaseDslContext {
       println("-------------------------------------------------------\n")
     }
   }
+
+  public String jsonify(String uid){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    def obj = walkToWithException(context, uid)
+    if(obj != null){
+      context.setNewUid(uid)
+      obj.traverse(context)
+      ArrayList list = context.getUidList()
+
+      JSONArray arr = new JSONArray()
+      list.each {String key->
+        def uio = getUiElement(key)
+        JSONObject jso = new JSONObject()
+        jso.put(key, uio.toJSON())
+        arr.add(jso)
+      }
+
+//      return arr.toString()
+      return arr.toString()
+    }
+
+    return null
+  }
 }
