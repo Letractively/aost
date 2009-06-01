@@ -290,6 +290,8 @@ Tellurium.prototype.initialize = function(){
     this.registerApi("useDiscardInvalidPolicy", false, "VOID");
     this.registerApi("getCachePolicyName", false, "STRING");
 
+    this.registerApi("useUIModule", false, "VOID");
+
 };
 
 Tellurium.prototype.registerApi = function(apiName, requireElement, returnType){

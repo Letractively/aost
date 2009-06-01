@@ -312,3 +312,7 @@ TelluriumApi.prototype.useDiscardInvalidPolicy = function(){
 TelluriumApi.prototype.getCachePolicyName = function(){
     return this.cache.getCachePolicyName();
 };
+
+TelluriumApi.prototype.useUIModule = function(json){
+
+};
