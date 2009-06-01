@@ -1209,6 +1209,7 @@ abstract class BaseDslContext {
 
   public void useUIModule(String uid){
     String json = jsonify(uid)
-    extension.useUIModule(json)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    extension.useUIModule(context, json)
   }
 }
