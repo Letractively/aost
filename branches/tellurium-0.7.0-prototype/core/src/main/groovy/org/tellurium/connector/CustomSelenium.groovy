@@ -222,4 +222,9 @@ class CustomSelenium extends DefaultSelenium {
 
         return st;
     }
+
+    public void useUIModule(String json){
+        String[] arr = [json];
+        commandProcessor.doCommand("useUIModule", arr);
+    }
 }
