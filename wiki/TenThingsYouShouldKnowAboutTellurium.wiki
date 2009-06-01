@@ -52,7 +52,7 @@ http://code.google.com/p/aost/wiki/HowTrUMPWorks
 
 == What Build System Tellurium uses? ==
 
-Tellurium support both Ant and Maven build. The ant build scripts are provided in Tellurium core and Tellurium reference projects. For Maven, please check out the
+Tellurium supports both Ant and Maven build. The ant build scripts are provided in Tellurium core and Tellurium reference projects. For Maven, please check out the
 Tellurium Maven guide,
 
 http://code.google.com/p/aost/wiki/MavenHowTo
