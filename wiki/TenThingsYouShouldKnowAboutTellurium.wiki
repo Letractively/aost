@@ -1,5 +1,6 @@
 #summary Ten Things You Should Know About Tellurium.
 #labels Phase-Support
+<wiki:toc max_depth="3" />
 
 == How Long Has Tellurium Been There ==
 
