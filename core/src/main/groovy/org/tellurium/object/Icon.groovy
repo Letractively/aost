@@ -1,5 +1,7 @@
 package org.tellurium.object
 
+import org.json.simple.JSONObject
+
 /**
  *  ICON
  *
@@ -7,6 +9,13 @@ package org.tellurium.object
  *
  */
 class Icon extends UiObject {
+  
+    public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "Icon")
+      }
+    }
 
     def click(Closure c) {
 

@@ -1,4 +1,7 @@
 package org.tellurium.object
+
+import org.json.simple.JSONObject
+
 /**
  * abstract and generic UI which can be clicked on
  * can be used to present any unpredefined clickable UI objects
@@ -25,4 +28,10 @@ class ClickableUi extends UiObject {
         c(locator, respondToEvents)
     }
 
+    public JSONObject toJSON() {
+
+      return buildJSON(){jso ->
+        jso.put(UI_TYPE, "ClickableUi")
+      }
+    }
 }

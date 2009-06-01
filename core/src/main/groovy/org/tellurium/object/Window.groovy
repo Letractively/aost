@@ -4,6 +4,7 @@ import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.object.Container
 import org.tellurium.object.UiObject
+import org.json.simple.JSONObject
 
 /**
  *  Prototype for windows
@@ -13,11 +14,27 @@ import org.tellurium.object.UiObject
  */
 class Window  extends Container{
 
+    public static final String ID = "id"
     private String id;
 
+    public static final String NAME = "name"
     private String name;
 
+    public static final String TITLE = "title"
     private String title;
+
+    public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "Window")
+        if(id != null && id.trim().length() > 0)
+          jso.put(ID, id)
+        if(name != null && name.trim().length() > 0)
+          jso.put(NAME, name)
+        if(title != null && title.trim().length() > 0)
+          jso.put(TITLE, title)
+      }
+    }
 
     void openWindow(String url, Closure c){
         c(name, url)

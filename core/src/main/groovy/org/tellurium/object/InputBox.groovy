@@ -1,5 +1,7 @@
 package org.tellurium.object
 
+import org.json.simple.JSONObject
+
 /**
  *  Input BOX
  *
@@ -8,7 +10,14 @@ package org.tellurium.object
  */
 class InputBox extends UiObject{
     public static final String TAG = "input"
-    
+
+    public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "InputBox")
+      }
+    }
+
     def type(String input, Closure c){
         c(locator, respondToEvents)
     }

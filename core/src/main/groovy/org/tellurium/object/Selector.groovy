@@ -1,5 +1,7 @@
 package org.tellurium.object
 
+import org.json.simple.JSONObject
+
 /**
  *  Selector
  *
@@ -8,6 +10,13 @@ package org.tellurium.object
  */
 class Selector extends UiObject {
     public static final String TAG = "select"
+
+    public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "Selector")
+      }
+    }
 
     def selectByLabel(String target, Closure c){
         c(locator, "label=${target}", respondToEvents)

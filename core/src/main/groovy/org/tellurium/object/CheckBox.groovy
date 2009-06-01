@@ -1,6 +1,8 @@
 package org.tellurium.object
 
- /**
+import org.json.simple.JSONObject
+
+/**
  *  Check Box
  *
  * you can select one or more options from a set of alternatives.
@@ -20,12 +22,18 @@ class CheckBox extends UiObject{
 
     def boolean isChecked(Closure c){
 
-//        c(locator, respondToEvents)
           c(locator)
     }
 
     def uncheck(Closure c){
 
         c(locator, respondToEvents)
+    }
+
+    public JSONObject toJSON() {
+
+      return buildJSON(){jso ->
+        jso.put(UI_TYPE, "Button")
+      }
     }
 }

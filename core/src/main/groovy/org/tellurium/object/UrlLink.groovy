@@ -1,5 +1,7 @@
 package org.tellurium.object
 
+import org.json.simple.JSONObject
+
 /**
  *  URL link
  *
@@ -8,7 +10,14 @@ package org.tellurium.object
  */
 class UrlLink extends UiObject {
     public static final String TAG = "a"
-    
+
+    public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "UrlLink")
+      }
+    }
+
     String getLink(Closure c){
         c(locator, "@href")
     }
