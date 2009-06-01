@@ -77,38 +77,13 @@ abstract class Widget extends UiObject {
 
   private JSONReader reader = new JSONReader()
 
-/*  protected String locatorMapping(WorkflowContext context, loc) {
-    //get ui object's locator
-    String lcr = locatorProcessor.locate(context, loc)
-    //widget's locator
-    String wlc = locatorProcessor.locate(context, this.locator)
+  public JSONObject toJSON() {
 
-    //get the reference locator all the way to the ui object
-    if (context.getReferenceLocator() != null) {
-//            lcr = context.getReferenceLocator() + lcr
-      context.appendReferenceLocator(lcr)
-      lcr = context.getReferenceLocator()
+    return buildJSON() {jso ->
+      jso.put(UI_TYPE, "Widget")
     }
+  }
 
-    //append the object's xpath to widget's xpath
-    lcr = wlc + lcr
-
-    //add parent reference xpath
-    if (pRef != null)
-      lcr = pRef + lcr
-    if(context.isUseJQuerySelector()){
-//    if (this.exploreJQuerySelector) {
-      lcr = optimizer.optimize(JQUERY_SELECTOR + lcr.trim())
-    } else {
-      //make sure the xpath starts with "//"
-      if (lcr != null && (!lcr.startsWith("//")) && (!lcr.startsWith(JQUERY_SELECTOR))) {
-        lcr = "/" + lcr
-      }
-    }
-    
-    return lcr
-  }*/
-  
   protected String locatorMapping(WorkflowContext context, loc) {
     return locatorMappingWithOption(context, loc, null)
   }

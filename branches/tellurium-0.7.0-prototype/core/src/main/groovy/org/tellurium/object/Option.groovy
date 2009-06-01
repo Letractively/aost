@@ -3,6 +3,7 @@ package org.tellurium.object
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.dsl.UiID
 import org.tellurium.access.Accessor
+import org.json.simple.JSONObject
 
 /**
  *
@@ -16,6 +17,13 @@ import org.tellurium.access.Accessor
  * 
  */
 class Option extends UiObject{
+
+    public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "Option")
+      }
+    }
 
     //since we useString map, the component name must be unique
     def components = new LinkedList<UiObject>()

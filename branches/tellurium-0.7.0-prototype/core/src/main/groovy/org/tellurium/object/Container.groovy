@@ -4,14 +4,17 @@ import org.tellurium.dsl.WorkflowContext
 import org.tellurium.dsl.UiID
 import org.tellurium.locator.LocatorProcessor
 import org.tellurium.locator.GroupLocateStrategy
+import org.json.simple.JSONObject
 
- /**
+/**
  *  container
  *
  *  @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
 class Container extends UiObject {
+
+    public static final String GROUP = "group"
 
     //if it uses group informtion to infer its locator
     protected boolean useGroupInfo = false
@@ -35,6 +38,15 @@ class Container extends UiObject {
       return this.useGroupInfo
     }
 
+    public JSONObject toJSON() {
+
+      return buildJSON(){jso ->
+        jso.put(UI_TYPE, "Container")
+        if(useGroupInfo)
+          jso.put(GROUP, this.useGroupInfo)
+      }
+    }
+  
     protected void groupLocating(WorkflowContext context){
       if (this.useGroupInfo) {
         if(context.isUseJQuerySelector()){

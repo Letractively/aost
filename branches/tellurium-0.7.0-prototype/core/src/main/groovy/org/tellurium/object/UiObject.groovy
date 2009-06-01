@@ -47,6 +47,8 @@ abstract class UiObject implements Cloneable{
         group reference xpath + reference xpath (related the the group reference xpath) + inherent xpath
 
   */
+    public static final String UI_TYPE = "uiType"
+  
     public static final String UID = "uid"
     String uid
 
@@ -66,9 +68,12 @@ abstract class UiObject implements Cloneable{
     public static final String EVENTS = "events"
     String[] respondToEvents
 
-    JSONObject toJSON(){
+    abstract JSONObject toJSON()
+
+    protected JSONObject buildJSON(Closure c){
       JSONObject jso = new JSONObject()
       jso.put(UID, uid)
+      c(jso)
       jso.put(LOCATOR, locator.toJSON())
       if(namespace != null && namespace.trim().length() > 0)
         jso.put(NAMESPACE, namespace)

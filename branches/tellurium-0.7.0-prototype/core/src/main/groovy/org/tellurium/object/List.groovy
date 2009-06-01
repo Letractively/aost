@@ -3,6 +3,7 @@ package org.tellurium.object
 import org.tellurium.access.Accessor
 import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
+import org.json.simple.JSONObject
 
 /**
  * Abstracted class for a list, which holds one dimension array of Ui objects
@@ -14,6 +15,20 @@ import org.tellurium.dsl.WorkflowContext
 class List extends Container {
 
     public static final String ALL_MATCH = "ALL";
+
+    public static final String SEPARATOR = "separator"
+    //the separator for the list, it is empty by default
+    protected String separator = ""
+
+    @Override
+    public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "List")
+        if(separator != null && separator.trim().length() > 0)
+          jso.put(SEPARATOR, this.separator)
+      }
+    }
 
     protected TextBox defaultUi = new TextBox()
 
@@ -28,9 +43,6 @@ class List extends Container {
             System.out.println("Warning: Invalid id: ${component.uid}")
         }
     }
-
-    //the separator for the list, it is empty by default
-    String separator = ""
 
     //should validate the uid before call this to convert it to internal representation
     public static String internalId(String id) {

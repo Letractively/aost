@@ -3,6 +3,7 @@ package org.tellurium.object
 import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.locator.LocatorProcessor
+import org.json.simple.JSONObject
 
 /**
  * Module Menu
@@ -14,6 +15,13 @@ import org.tellurium.locator.LocatorProcessor
  */
 class SimpleMenu extends UiObject{
     public static final String TAG = "div"
+
+    public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "SimpleMenu")
+      }
+    }
 
     Map<String, String> menuItemMap = new HashMap<String, String>()
     //map to hold the alias name for the menu item in the format of "alias name" : "menu item"
