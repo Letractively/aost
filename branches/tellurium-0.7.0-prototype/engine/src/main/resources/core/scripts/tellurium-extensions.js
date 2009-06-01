@@ -175,3 +175,7 @@ Selenium.prototype.getBundleResponse = function(bundle){
     tellurium.parseCommandBundle(bundle);
     return tellurium.processCommandBundle();
 };
+
+Selenium.prototype.doUseUIModule = function(json){
+
+};
