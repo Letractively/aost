@@ -80,6 +80,10 @@ Tellurium provides very detailed tutorials including basic examples, advanced ex
 
 http://code.google.com/p/aost/wiki/Tutorial
 
+We also provide a quick start "Ten Minutes To Tellurium" at
+
+http://code.google.com/p/aost/wiki/TenMinutesToTellurium
+
 == Tellurium Future Directions ==
 
 Tellurium 0.6.0 added jQuery Selector support and a cache mechanism to increase the reuse of UI elements. From the next release, we will work on our own Engine project to better support UI modules for robust and speed performance. In the meanwhile, We will improve our TrUMP plugin to automatically generate testing DSL scripts so that Tellurium is also good for non-developers. 
