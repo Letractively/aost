@@ -68,58 +68,6 @@ jslogger.addAppender(new Log4js.ConsoleAppender());
 
 var jslogger = new DummyLogger();
 
-//Tellurium Internal ID presentation
-function Uiid(){
-    this.stack = new Array();
-};
-
-Uiid.prototype.push = function(uid){
-    this.stack.push(uid);
-};
-
-Uiid.prototype.pop = function(){
-    return this.stack.pop();
-};
-
-Uiid.prototype.getUid = function(){
-    return this.stack.join(".");
-};
-
-Uiid.prototype.size = function(){
-    return this.stack.length;
-};
-
-Uiid.prototype.convertToUiid = function(uid){
-    if(uid != null && trimString(uid).length > 0){
-        var ids = uid.split(".");
-        for(var i= 0; i<ids.length; i++){
-            var pp = this.preprocess(ids[i]);
-            if(pp.length == 1){
-                this.push(pp[0]);
-            }else{
-                this.push(pp[1]);
-                this.push(pp[0]);
-            }
-        }
-    }
-};
-
-Uiid.prototype.preprocess = function(uid){
-    if(uid != null && trimString(uid).length > 0 && uid.indexOf("[") != -1){
-        if(uid.indexOf("[") == 0){
-            var single = uid.replace(/\[/g, "_").replace(/\]/g, '');
-            return [single];
-        }else{
-            var index = uid.indexOf("[");
-            var first = uid.substring(0, index);
-            var second = uid.substring(index).replace(/\[/g, "_").replace(/\]/g, '');
-            return [second, first];
-        }
-    }
-
-    return [uid];
-};
-
 // Command Request for Command bundle
 function CmdRequest(){
     this.sequ = 0;
@@ -441,6 +389,10 @@ Tellurium.prototype.processCommandBundle = function(){
     }
 
     return response.toJSon();
+};
+
+Tellurium.prototype.useUiModule = function(json){
+
 };
 
 Tellurium.prototype.locateElementByJQuerySelector = function(locator, inDocument, inWindow){
