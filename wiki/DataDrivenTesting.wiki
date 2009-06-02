@@ -1,4 +1,7 @@
+#summary Tellurium Data Driven Testing.
 #labels Phase-Design,Phase-Implementation
+<wiki:toc max_depth="3" />
+
 == Data Driven Testing ==
 
 Data Driven Testing is a different way to write tests, i.e, separate test data from the test scripts and the test flow is not controlled by the test scripts. It is controlled by the input file instead. In the input file, users can specify which test to run, what are input parameters, and what are expected results.
@@ -97,7 +100,7 @@ test{
 }
 }}}
 
-=== TelluriumDataDrivenModule ===
+=== Tellurium Data Driven Module ===
 
 TelluriumDataDrivenModule is used to define modules, where users can define Ui Modules, FieldSets, and tests as shown in Figure 2. Users should extend this class to define their own test modules. 
 
@@ -240,7 +243,7 @@ In addition to that the "logMessage" can be used for users to log any messages i
 logMessage "Found ${actual.size()} ${issueTypeLabel} for owner " + issueOwner 
 }}}
 
-=== TelluriumDataDrivenTest ===
+=== Tellurium Data Driven Test ===
 
 TelluriumDataDrivenTest is the class users should extend to run the actual data driven testing and it is more like a data driven testing engine. There is only one method, "testDataDriven", which users need to implement. The testing process is shown in Figure 3.
  
