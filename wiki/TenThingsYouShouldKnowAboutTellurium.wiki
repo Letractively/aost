@@ -4,7 +4,7 @@
 
 == How Long Has Tellurium Been There ==
 
-Tellurium reaches one year in June 2009 since it became an open source project. Before that, Tellurium had been through two prototypes. The first prototype was created in 2007 to test our company Dojo web applications. The second prototype was there in early 2008 to improve the usability of the first prototype. Both prototypes had been used for couple internal projects before it was re-written in Groovy and became an open source project in June 2008.
+Tellurium is one year old in June 2009 if we count the date from the day it became an open source project. But actually, Tellurium had been through two phases of prototyping before that. The first prototype was created in 2007 to test our company Dojo web applications, which is basic a Java framework based on Spring XML wiring and no UI modules, you have to use factories to create all UI objects. As a result, it was not convenient to use. The second prototype was there in early 2008 to improve the usability of the first prototype. The UI module was introduced in the second prototype. Both prototypes had been used for couple internal projects before it was re-written in Groovy and became an open source project in June 2008. You may notice that prototype framework is called AOST and it was officially renamed to the Tellurium Automated Testing framework (Tellurium) in July 2008 when it moved out of the prototyping phase and became a team project.
 
 == What are the main differences between Tellurium and Selenium ==
 
