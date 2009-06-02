@@ -16,7 +16,6 @@ import org.tellurium.util.Helper
 import java.util.List
 import org.tellurium.locator.JQueryOptimizer
 import org.tellurium.locator.MetaCmd
-import org.tellurium.bundle.ReturnType
 
 /**
  * 
@@ -36,6 +35,9 @@ abstract class BaseDslContext {
   protected static final String AJAXSLT_XPATH = "ajaxslt"
   protected static final String LOCATOR = "locator"
   protected static final String OPTIMIZED_LOCATOR = "optimized"
+
+  public static final String KEY = "key"
+  public static final String OBJECT = "obj"
 
   //flag to decide whether we should use jQuery Selector
   protected boolean exploreJQuerySelector = false
@@ -1200,7 +1202,8 @@ abstract class BaseDslContext {
     list.each {String key ->
       def uio = getUiElement(key)
       JSONObject jso = new JSONObject()
-      jso.put(key, uio.toJSON())
+      jso.put(KEY, key)
+      jso.put(OBJECT, uio.toJSON())
       arr.add(jso)
     }
 
