@@ -10,7 +10,20 @@ Tellurium is one year old in June 2009 if we count the date from the day it beca
 
 Tellurium was created when I was a Selenium user and tried to address some of the shortcomings of the Selenium framework such as verbose and fragile to changes. Selenium is a great web testing framework and up to 0.6.0, Tellurium still uses Selenium core as the test driving engine. From Tellurium 0.7.0, we will gradually replace the Selenium core with our own Engine. 
 
-Although Tellurium was born from Selenium, there are some fundamental differences between Tellurium and Selenium, which mainly come from the fact that Tellurium is a UI module based testing framework, i.e., Tellurium focuses more on a set of UI elements instead of individual ones. With the UI module, Tellurium is robust, expressive, flexible, and reusable.
+Although Tellurium was born from Selenium, there are some fundamental differences between Tellurium and Selenium, which mainly come from the fact that Tellurium is a UI module based testing framework, i.e., Tellurium focuses more on a set of UI elements instead of individual ones. The UI module represents a composite UI object in the format of nested basic UI elements. For example, the download search module in Tellurium project site is defined as follows,
+
+{{{
+ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
+   Selector(uid: "downloadType", clocator: [name: "can", id: "can"])
+   TextBox(uid: "searchLabel", clocator: [tag: "span"])
+   InputBox(uid: "searchBox", clocator: [name: "q"])
+   SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+}
+}}}
+
+With the UI module, Tellurium is robust, expressive, flexible, and reusable. Want to know reasons why? Please see "Tellurium: A New Approach for Web Testing",
+
+http://code.google.com/p/aost/wiki/Tellurium_A_New_Approach_for_Web_Test
 
 == Do I need to know Groovy before I use Tellurium ==
 
