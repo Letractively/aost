@@ -10,26 +10,25 @@ Tellurium is one year old in June 2009 if we count the date from the day it beca
 
 Tellurium was created when I was a Selenium user and tried to address some of the shortcomings of the Selenium framework such as verbose and fragile to changes. Selenium is a great web testing framework and up to 0.6.0, Tellurium still uses Selenium core as the test driving engine. From Tellurium 0.7.0, we will gradually replace the Selenium core with our own Engine. 
 
-Although Tellurium was born from Selenium, there are some fundamental differences between Tellurium and Selenium, which mainly come from the fact that Tellurium is a UI module based testing framework, i.e., Tellurium focuses more on a set of UI elements instead of individual ones. The UI module represents a composite UI object in the format of nested basic UI elements. For example, the download search module in Tellurium project site is defined as follows,
+Although Tellurium was born from Selenium, there are some fundamental differences between Tellurium and Selenium, which mainly come from the fact that Tellurium is a UI module based testing framework, i.e., Tellurium focuses on a set of UI elements instead of individual ones. The UI module represents a composite UI object in the format of nested basic UI elements. For example, the download search module in Tellurium project site is defined as follows,
 
 {{{
 ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
    Selector(uid: "downloadType", clocator: [name: "can", id: "can"])
-   TextBox(uid: "searchLabel", clocator: [tag: "span"])
    InputBox(uid: "searchBox", clocator: [name: "q"])
    SubmitButton(uid: "searchButton", clocator: [value: "Search"])
 }
 }}}
 
-With the UI module, Tellurium is robust, expressive, flexible, and reusable. Want to know reasons why? Please see "Tellurium: A New Approach for Web Testing",
+With the UI module, Tellurium is robust, expressive, flexible, and reusable. Want to know the reason why? Please read "Tellurium: A New Approach for Web Testing",
 
 http://code.google.com/p/aost/wiki/Tellurium_A_New_Approach_for_Web_Test
 
 == Do I need to know Groovy before I use Tellurium ==
 
-Tellurium Core is implemented in Groovy and Java to achieve expressiveness. But that does not mean you have to be familiar with Groovy before you start to use Tellurium. Tellurium creates DSL expressions for UI module and actions, you need to use Groovy class to implement the UI module by extending the DslContext Groovy class, other than that, you can write your test cases in Java, Groovy, or Dsl scripts. 
+Tellurium Core is implemented in Groovy and Java to achieve expressiveness. But that does not mean you have to be familiar with Groovy before you start to use Tellurium. Tellurium creates DSL expressions for UI module, actions, and testing, you need to use Groovy class to implement the UI module by extending the DslContext Groovy class, other than that, you can write the rest in Java syntax. Your test cases could be created in Java, Groovy, or Dsl scripts. However, we do encourage you to get familiar with Groovy to leverage its meta programming features. 
 
-The only thing you should be aware is that you need Groovy plug-ins for your IDE. Currently, Eclipse, Netbeans, and IntelliJ have Groovy plug-ins. Please check the following wiki pages for how to set up Groovy and use Tellurium in different IDEs,
+To create a Tellurium project, you need to install Groovy plugin for your IDE. There are Groovy plugins for commonly used IDEs such as Eclipse, Netbeans, and IntelliJ. Please check the following wiki pages on how to set up Groovy and use Tellurium in different IDEs,
 
 http://code.google.com/p/aost/wiki/TelluriumReferenceProjectEclipseSetup
 
@@ -37,7 +36,7 @@ http://code.google.com/p/aost/wiki/TelluriumReferenceProjectNetBeansSetup
 
 http://code.google.com/p/aost/wiki/TelluriumReferenceProjectIntelliJSetup
 
-== What Unit Test and Functional Test Frameworks Tellurium Support ==
+== What Unit Test and Functional Test Frameworks Does Tellurium Support ==
 
 Tellurium supports both JUnit and TestNG frameworks. You should extend  TelluriumJavaTestCase for JUnit and TelluriumTestNGTestCase for TestNG. For more details, please check the following wiki pages,
 
@@ -45,7 +44,11 @@ http://code.google.com/p/aost/wiki/BasicExample
 
 http://code.google.com/p/aost/wiki/Introduction
 
-== Does Tellurium Provide Some Tool to Automatically Generate UI Modules ==
+Apart from that, Tellurium also provides data driven testing. Data Driven Testing is a different way to write tests, i.e, test data are separated from the test scripts and the test flow is not controlled by the test scripts, but by the input file instead. In the input file, users can specify which test to run, what are input parameters, and what are expected results. More details could be found from "Tellurium Data Driven Testing" wiki page,
+
+http://code.google.com/p/aost/wiki/DataDrivenTesting
+
+== Does Tellurium Provide Some Tools to Automatically Generate UI Modules ==
 
 Tellurium UI Model Plugin (TrUMP) is a Firefox Plugin for you to automatically generate UI module simply by clicking on the web page under testing. You can download it from Tellurium download page at
 
@@ -55,41 +58,50 @@ or from Firefox Addons site at
 
 https://addons.mozilla.org/en-US/firefox/addon/11035
 
-The detailed user guide for TrUMP is at
+The detailed user guide for TrUMP 0.1.0 is at
 
 http://code.google.com/p/aost/wiki/TrUMP
 
-If you want to understand more about how TrUMP works, please check "How TrUMP works?" at
+If you want to understand more about how TrUMP works, please read "How TrUMP works?" at
 
 http://code.google.com/p/aost/wiki/HowTrUMPWorks
 
-== What Build System Tellurium uses ==
+== What Build System Tellurium Does use ==
 
-Tellurium supports both Ant and Maven build. The ant build scripts are provided in Tellurium core and Tellurium reference projects. For Maven, please check out the
+Tellurium supports both Ant and Maven build system. The ant build scripts are provided in Tellurium core and Tellurium reference projects. For Maven, please check out the
 Tellurium Maven guide,
 
 http://code.google.com/p/aost/wiki/MavenHowTo
 
 == What is the Best Way to Create a Tellurium Project ==
 
-You can use Tellurium reference projects as a template project, please see the reference project guide at
+Tellurium provides two reference projects for JUnit and TestNG project, respectively. 
+You can use one of them as a template project. Please see the reference project guide at
 
 http://code.google.com/p/aost/wiki/ReferenceProjectGuide
 
-But the best and easiest way to create a Tellurium project is to use Tellurium Maven archetypes. Tellurium provides two Maven archetype, i.e., tellurium-junit-archetype and tellurium-testng-archetype for Tellurium JUnit test project and Tellurium TestNG test project, respectively. Please see Tellurium Maven archetypes for more details,
+But the best and easiest way to create a Tellurium project is to use Tellurium Maven archetypes. Tellurium provides two Maven archetype, i.e., tellurium-junit-archetype and tellurium-testng-archetype for Tellurium JUnit test project and Tellurium TestNG test project, respectively. As a result, you can create a Tellurium project using one Maven command. For a Tellurium JUnit project, use 
+
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
+
+and for a Tellurium TestNG project, use
+
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
+
+For more details,  please read "Tellurium Maven archetypes",
 
 http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes
 
 
 == Where can I find API documents for Tellurium ==
 
-The Tellurium DSLs, other APIs, and default UI objects could be found in Tellurium user guide at
+The user guide for Tellurium DSLs, other APIs, and default UI objects could be found at
 
 http://code.google.com/p/aost/wiki/UserGuide
 
 == Is There Any Tellurium Tutorial Available ==
 
-Tellurium provides very detailed tutorials including basic examples, advanced examples, data driven testing examples, Dsl script examples. Apart from that, We also provide Tellurium Tutorial Series on wiki page or to our user group. Please use Tellurium tutorial wiki page as your starting point,
+Tellurium provides very detailed tutorials including basic examples, advanced examples, data driven testing examples, and Dsl script examples. Apart from that, We also provide Tellurium Tutorial Series. Please use Tellurium tutorial wiki page as your starting point,
 
 http://code.google.com/p/aost/wiki/Tutorial
 
@@ -99,4 +111,4 @@ http://code.google.com/p/aost/wiki/TenMinutesToTellurium
 
 == Tellurium Future Directions ==
 
-Tellurium 0.6.0 added jQuery Selector support and a cache mechanism to increase the reuse of UI elements. From the next release, we will work on our own Engine project to better support UI modules for robust and speed performance. In the meanwhile, We will improve our TrUMP plugin to automatically generate testing DSL scripts so that Tellurium is also good for non-developers. 
+Tellurium 0.6.0 added jQuery Selector support and a cache mechanism to increase the reuse of UI elements. From the next release, i.e., 0.7.0, we will work on our own Engine project to better support UI modules and achieve more robust and better speed performance. In the meanwhile, We will improve our TrUMP plugin to automatically generate DSL testing scripts for non-developers. 
