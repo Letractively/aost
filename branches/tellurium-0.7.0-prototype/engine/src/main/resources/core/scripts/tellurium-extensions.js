@@ -177,5 +177,5 @@ Selenium.prototype.getBundleResponse = function(bundle){
 };
 
 Selenium.prototype.doUseUIModule = function(json){
-
+    tellurium.useUiModule(json);
 };
