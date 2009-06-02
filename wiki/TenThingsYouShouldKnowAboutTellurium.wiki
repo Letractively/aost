@@ -4,11 +4,11 @@
 
 == How Long Has Tellurium Been There ==
 
-Tellurium is one year old in June 2009 if we count the date from the day it became an open source project. But actually, Tellurium had been through two phases of prototyping before that. The first prototype was created in 2007 to test our company Dojo web applications, which is basic a Java framework based on Spring XML wiring and no UI modules, you have to use factories to create all UI objects. As a result, it was not convenient to use. The second prototype was there in early 2008 to improve the usability of the first prototype. The UI module was introduced in the second prototype. Both prototypes had been used for couple internal projects before it was re-written in Groovy and became an open source project in June 2008. You may notice that prototype framework is called AOST and it was officially renamed to the Tellurium Automated Testing framework (Tellurium) in July 2008 when it moved out of the prototyping phase and became a team project.
+Tellurium will be one year old in June 2009 if we count the date from the day it became an open source project. But actually, Tellurium had been through two phases of prototyping before that. The first prototype was created in 2007 to test our company's  Dojo web applications, which is basic a Java framework based on Spring XML wiring and no UI modules, you have to use factories to create all UI objects. As a result, it was not convenient to use. The second prototype was there in early 2008 to improve the usability of the first prototype. The UI module was introduced in the second prototype. Both prototypes had been used for couple internal projects before it was re-written in Groovy and became an open source project in June 2008. You may notice that prototype framework is called AOST and it was officially renamed to the Tellurium Automated Testing framework (Tellurium) in July 2008 when it moved out of the prototyping phase and became a team project.
 
 == What are the main differences between Tellurium and Selenium ==
 
-Tellurium was created when I was a Selenium user and tried to address some of the shortcomings of the Selenium framework such as verbose and fragile to changes. Selenium is a great web testing framework and up to 0.6.0, Tellurium still uses Selenium core as the test driving engine. From Tellurium 0.7.0, we will gradually replace the Selenium core with our own Engine. 
+Tellurium was created when I was a Selenium user and tried to address some of the shortcomings of the Selenium framework such as verbosity and fragility to changes. Selenium is a great web testing framework and up to 0.6.0, Tellurium uses Selenium core as the test driving engine. From Tellurium 0.7.0, we will gradually replace the Selenium core with our own Engine. 
 
 Although Tellurium was born from Selenium, there are some fundamental differences between Tellurium and Selenium, which mainly come from the fact that Tellurium is a UI module based testing framework, i.e., Tellurium focuses on a set of UI elements instead of individual ones. The UI module represents a composite UI object in the format of nested basic UI elements. For example, the download search module in Tellurium project site is defined as follows,
 
@@ -26,9 +26,9 @@ http://code.google.com/p/aost/wiki/Tellurium_A_New_Approach_for_Web_Test
 
 == Do I need to know Groovy before I use Tellurium ==
 
-Tellurium Core is implemented in Groovy and Java to achieve expressiveness. But that does not mean you have to be familiar with Groovy before you start to use Tellurium. Tellurium creates DSL expressions for UI module, actions, and testing, you need to use Groovy class to implement the UI module by extending the DslContext Groovy class, other than that, you can write the rest in Java syntax. Your test cases could be created in Java, Groovy, or Dsl scripts. However, we do encourage you to get familiar with Groovy to leverage its meta programming features. 
+Tellurium Core is implemented in Groovy and Java to achieve expressiveness. But that does not mean you have to be familiar with Groovy before you start to use Tellurium. Tellurium creates DSL expressions for UI module, actions, and testing, you need to use a Groovy class to implement the UI module by extending the DslContext Groovy class, other than that, you can write the rest using Java syntax. Your test cases could be created in Java, Groovy, or Dsl scripts. However, we do encourage you to get familiar with Groovy to leverage its meta programming features. 
 
-To create a Tellurium project, you need to install Groovy plugin for your IDE. There are Groovy plugins for commonly used IDEs such as Eclipse, Netbeans, and IntelliJ. Please check the following wiki pages on how to set up Groovy and use Tellurium in different IDEs,
+To create a Tellurium project, you need to install a Groovy plugin for your IDE. There are Groovy plugins for commonly used IDEs such as Eclipse, Netbeans, and IntelliJ. Please check the following wiki pages on how to set up Groovy and use Tellurium in different IDEs,
 
 http://code.google.com/p/aost/wiki/TelluriumReferenceProjectEclipseSetup
 
@@ -48,7 +48,7 @@ Apart from that, Tellurium also provides data driven testing. Data Driven Testin
 
 http://code.google.com/p/aost/wiki/DataDrivenTesting
 
-== Does Tellurium Provide Some Tools to Automatically Generate UI Modules ==
+== Does Tellurium Provide Any Tools to Automatically Generate UI Modules ==
 
 Tellurium UI Model Plugin (TrUMP) is a Firefox Plugin for you to automatically generate UI module simply by clicking on the web page under testing. You can download it from Tellurium download page at
 
@@ -62,7 +62,7 @@ The detailed user guide for TrUMP 0.1.0 is at
 
 http://code.google.com/p/aost/wiki/TrUMP
 
-If you want to understand more about how TrUMP works, please read "How TrUMP works?" at
+If you want to understand more about how TrUMP works, please read "How does TrUMP work?" at
 
 http://code.google.com/p/aost/wiki/HowTrUMPWorks
 
@@ -99,7 +99,7 @@ The user guide for Tellurium DSLs, other APIs, and default UI objects could be f
 
 http://code.google.com/p/aost/wiki/UserGuide
 
-== Is There Any Tellurium Tutorial Available ==
+== Is There a Tellurium Tutorial Available ==
 
 Tellurium provides very detailed tutorials including basic examples, advanced examples, data driven testing examples, and Dsl script examples. Apart from that, We also provide Tellurium Tutorial Series. Please use Tellurium tutorial wiki page as your starting point,
 
@@ -111,4 +111,4 @@ http://code.google.com/p/aost/wiki/TenMinutesToTellurium
 
 == Tellurium Future Directions ==
 
-Tellurium 0.6.0 added jQuery Selector support and a cache mechanism to increase the reuse of UI elements. From the next release, i.e., 0.7.0, we will work on our own Engine project to better support UI modules and achieve more robust and better speed performance. In the meanwhile, We will improve our TrUMP plugin to automatically generate DSL testing scripts for non-developers. 
+Tellurium 0.6.0 added jQuery Selector support and a cache mechanism to increase the reuse of UI elements. From the next release, i.e., 0.7.0, we will work on our own Engine project to better support UI modules and achieve more robust performance and better speed. In the meanwhile, We will improve our TrUMP plugin to automatically generate DSL testing scripts for non-developers. 
