@@ -3,5 +3,7 @@
 
 == Users' Experiences ==
 
-Here is the list of experiences provided by Tellurium users
-  * [http://groups.google.com/group/tellurium-users/browse_thread/thread/c4bcdc2666a7bc4d Feedback on Tellurium Usage by Harihara Vinayakaram]
+Here is the list of experiences provided by Tellurium developers and users 
+
+  * [http://notetodogself.blogspot.com/2009/02/functional-testing-with-tellurium.html Fuctional Testing with Tellurium by Mikhail Koryak]
+  * [http://epyramid.wordpress.com/2009/06/02/tellurium-automation-process/ Tellurium and test automation process by Haroon Rasheed]
