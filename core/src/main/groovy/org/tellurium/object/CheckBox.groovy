@@ -33,7 +33,7 @@ class CheckBox extends UiObject{
     public JSONObject toJSON() {
 
       return buildJSON(){jso ->
-        jso.put(UI_TYPE, "Button")
+        jso.put(UI_TYPE, "CheckBox")
       }
     }
 }
