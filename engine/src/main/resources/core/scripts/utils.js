@@ -285,3 +285,34 @@ Hashtable.prototype.showMe = function(){
 
     return sb;
 };
+
+function objectExtends(destination, source1, source2) {
+  for (var property in source1) {
+    destination[property] = source1[property];
+  }
+  for (var property in source2) {
+    destination[property] = source2[property];
+  }
+
+  return destination;
+};
+
+function objectCopy(destination, source) {
+  for (var property in source) {
+    destination[property] = source[property];
+  }
+  return destination;
+};
+
+function getObjectClass(obj) {
+    if (obj && obj.constructor && obj.constructor.toString) {
+        var arr = obj.constructor.toString().match(
+                /function\s*(\w+)/);
+
+        if (arr && arr.length == 2) {
+            return arr[1];
+        }
+    }
+
+    return undefined;
+};
