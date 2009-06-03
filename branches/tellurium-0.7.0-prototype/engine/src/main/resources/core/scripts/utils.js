@@ -316,3 +316,6 @@ function getObjectClass(obj) {
 
     return undefined;
 };
+
+String.prototype.startsWith = function(str)
+{return (this.match("^"+str)==str)}
