@@ -38,6 +38,7 @@ abstract class BaseDslContext {
 
   public static final String KEY = "key"
   public static final String OBJECT = "obj"
+  public static final String GENERATED = "generated"
 
   //flag to decide whether we should use jQuery Selector
   protected boolean exploreJQuerySelector = false
@@ -1200,10 +1201,21 @@ abstract class BaseDslContext {
 
     JSONArray arr = new JSONArray()
     list.each {String key ->
-      def uio = getUiElement(key)
+      String loc = getLocator(key)
+      context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+      def uio = walkToWithException(context, key)
+
+      if(this.exploreJQuerySelector){
+          loc = this.postProcessSelector(context, loc)
+      }
+      
+//      def uio = getUiElement(key)
       JSONObject jso = new JSONObject()
       jso.put(KEY, key)
-      jso.put(OBJECT, uio.toJSON())
+      def juio = uio.toJSON()
+      juio.put(GENERATED, loc)
+//      jso.put(OBJECT, uio.toJSON())
+      jso.put(OBJECT, juio)
       arr.add(jso)
     }
 
