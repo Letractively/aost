@@ -393,7 +393,15 @@ Tellurium.prototype.processCommandBundle = function(){
 
 
 Tellurium.prototype.useUiModule = function(json){
-
+    var uim = new UiModule();
+    uim.parseUiModule(json);
+    var id = uim.getId();
+    var cached = this.cache.getCachedData(id);
+    if(cached == null){
+        this.cache.addToCache(id, uim);
+    }else{
+        this.cache.updateToCache(id, uim);
+    }
 };
 
 Tellurium.prototype.locateElementByJQuerySelector = function(locator, inDocument, inWindow){
@@ -505,7 +513,7 @@ Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, 
     var $found = null;
     
     //If do not cache selector or meta command without UID, directly find jQuery selector
-    if((!this.cacheSelector) || input.metaCmd.uid == null || trimString(input.metaCmd.uid).length == 0){
+    if((!this.cacheOption) || input.metaCmd.uid == null || trimString(input.metaCmd.uid).length == 0){
         //cannot cache without uid, thus, go directly to find the element using jQuery
          $found = teJQuery(inDocument).find(input.optimized);
          this.validateResult($found);
