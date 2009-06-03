@@ -20,7 +20,7 @@ ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group:
 }
 }}}
 
-With the UI module, Tellurium is robust, expressive, flexible, and reusable. Want to know the reason why? Please read "Tellurium: A New Approach for Web Testing",
+With the UI module, Tellurium automatically generates runtime locators for you and you do not need to define XPaths or other types of locators by yourself. Tellurium is robust, expressive, flexible, and reusable. Want to know the reason why? Please read "Tellurium: A New Approach for Web Testing" at,
 
 http://code.google.com/p/aost/wiki/Tellurium_A_New_Approach_for_Web_Test
 
