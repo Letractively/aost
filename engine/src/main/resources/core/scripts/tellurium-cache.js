@@ -125,7 +125,7 @@ var discardInvalidCachePolicy = new DiscardInvalidPolicy();
 function TelluriumCache(){
 
     //global flag to decide whether to cache jQuery selectors
-    this.cacheSelector = false;
+    this.cacheOption = false;
 
     //cache for jQuery selectors
     this.sCache = new Hashtable();
@@ -150,6 +150,28 @@ TelluriumCache.prototype.updateUseCount = function(key, data){
         this.sCache.put(key, data);
     }
 };
+
+TelluriumCache.prototype.addToCache = function(key, val){
+    if(this.sCache.size() < this.maxCacheSize){
+        this.sCache.put(key, val);
+    }else{
+        this.cachePolicy.applyPolicy(this.sCache, key, val);
+    }
+};
+
+//update existing data to the cache
+TelluriumCache.prototype.updateToCache = function(key, val){
+    val.count++;
+    val.timestamp = Number(new Date());
+    this.sCache.put(key, val);
+};
+
+TelluriumCache.prototype.getCachedData = function(key){
+
+    return this.sCache.get(key);
+};
+
+//Cache Selectors
 
 TelluriumCache.prototype.getCachedSelector = function(key){
 
@@ -246,7 +268,7 @@ TelluriumCache.prototype.findFromAncestor = function(ancestor, sel){
 };
 
 TelluriumCache.prototype.setCacheState = function(flag){
-    this.cacheSelector = flag;
+    this.cacheOption = flag;
 };
 
 TelluriumCache.prototype.getCacheUsage = function(){

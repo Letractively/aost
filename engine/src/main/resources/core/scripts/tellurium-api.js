@@ -254,15 +254,15 @@ TelluriumApi.prototype.getListSize = function(element, separators) {
 
 TelluriumApi.prototype.getCacheState = function(){
 
-    return this.cache.cacheSelector;
+    return this.cache.cacheOption;
 };
 
 TelluriumApi.prototype.enableCache = function(){
-    this.cache.cacheSelector = true;
+    this.cache.cacheOption = true;
 };
 
 TelluriumApi.prototype.disableCache = function(){
-    this.cache.cacheSelector = false;
+    this.cache.cacheOption = false;
 };
 
 TelluriumApi.prototype.cleanCache = function(){

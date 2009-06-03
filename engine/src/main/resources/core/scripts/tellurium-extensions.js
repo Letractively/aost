@@ -106,15 +106,15 @@ Selenium.prototype.getListSize = function(locator, separators) {
 
 Selenium.prototype.getCacheState = function(){
 
-    return tellurium.cache.cacheSelector;
+    return tellurium.cache.cacheOption;
 };
 
 Selenium.prototype.doEnableCache = function(){
-    tellurium.cache.cacheSelector = true;
+    tellurium.cache.cacheOption = true;
 };
 
 Selenium.prototype.doDisableCache = function(){
-    tellurium.cache.cacheSelector = false;
+    tellurium.cache.cacheOption = false;
 };
 
 Selenium.prototype.doCleanCache = function(){
