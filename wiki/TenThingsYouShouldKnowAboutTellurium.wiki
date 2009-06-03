@@ -66,7 +66,7 @@ If you want to understand more about how TrUMP works, please read "How does TrUM
 
 http://code.google.com/p/aost/wiki/HowTrUMPWorks
 
-== What Build System Tellurium Does use ==
+== What Build System Does Tellurium use ==
 
 Tellurium supports both Ant and Maven build system. The ant build scripts are provided in Tellurium core and Tellurium reference projects. For Maven, please check out the
 Tellurium Maven guide,
