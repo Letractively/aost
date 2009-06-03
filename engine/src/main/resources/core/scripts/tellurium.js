@@ -3,7 +3,7 @@
 
 teJQuery.extend(teJQuery.expr[':'], {
     te_text: function(a, i, m) {
-        return teJQuery(a).text() === m[3];
+        return teJQuery.trim(teJQuery(a).text()) === teJQuery.trim(m[3]);
     }
 });
 
