@@ -1,3 +1,9 @@
+//Ui Module cache data
+function UmCacheData(){
+    this.uiModule = null;
+    this.count = 0;
+    this.timestamp = Number(new Date());
+};
 
 //Cached Data, use uid as the key to reference it
 function CacheData(){
@@ -131,7 +137,6 @@ function TelluriumCache(){
 };
 
 TelluriumCache.prototype.cleanCache = function(){
-//    this.sCache = new HashMap();
     this.sCache.clear();
 };
 

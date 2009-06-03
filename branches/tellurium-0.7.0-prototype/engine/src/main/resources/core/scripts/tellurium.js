@@ -391,6 +391,7 @@ Tellurium.prototype.processCommandBundle = function(){
     return response.toJSon();
 };
 
+
 Tellurium.prototype.useUiModule = function(json){
 
 };
