@@ -49,22 +49,22 @@ TelluriumApi.prototype.focus = function(element){
 
 TelluriumApi.prototype.typeKey = function(element, key){
     var $elem = teJQuery(element);
-	$elem.val($elem.val()+key).trigger(getEvent("keydown", key)).trigger(getEvent("keypress", key)).trigger(getEvent("keyup", key));
+	$elem.clazz($elem.clazz()+key).trigger(getEvent("keydown", key)).trigger(getEvent("keypress", key)).trigger(getEvent("keyup", key));
 };
 
 TelluriumApi.prototype.keyDown = function(element, key){
     var $elem = teJQuery(element);
-    $elem.val($elem.val()).trigger(getEvent("keydown", key));
+    $elem.clazz($elem.clazz()).trigger(getEvent("keydown", key));
 };
 
 TelluriumApi.prototype.keyPress = function(element, key){
     var $elem = teJQuery(element);
-    $elem.val($elem.val()+key).trigger(getEvent("keypress", key));
+    $elem.clazz($elem.clazz()+key).trigger(getEvent("keypress", key));
 };
 
 TelluriumApi.prototype.keyUp = function(element, key){
     var $elem = teJQuery(element);
-    $elem.val($elem.val()).trigger(getEvent("keyup", key));
+    $elem.clazz($elem.clazz()).trigger(getEvent("keyup", key));
 };
 
 TelluriumApi.prototype.mouseOver = function(element){
@@ -119,7 +119,7 @@ TelluriumApi.prototype.waitForPageToLoad = function(timeout){
 };
 
 TelluriumApi.prototype.type = function(element, val){
-    teJQuery(element).val(val);
+    teJQuery(element).clazz(val);
 };
 
 TelluriumApi.prototype.select = function(element, optionLocator){

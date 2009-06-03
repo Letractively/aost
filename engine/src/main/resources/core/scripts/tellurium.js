@@ -15,7 +15,7 @@ teJQuery(document).ready(function() {
 //
 teJQuery.extend(teJQuery.expr[':'], {
     te_text: function(a, i, m) {
-        return teJQuery(a).text() === m[3];
+        return teJQuery.trim(teJQuery(a).text()) === teJQuery.trim(m[3]);
     }
 });
 
@@ -307,7 +307,7 @@ Tellurium.prototype.dispatchCommand = function(response, cmd, element){
     }
 };
 
-Tellurium.prototype.locate = function(locator){
+Tellurium.prototype.snapshot = function(locator){
 
     return selenium.browserbot.findElement(locator);
 };
@@ -370,11 +370,11 @@ Tellurium.prototype.processCommandBundle = function(){
                     }
 
                     if (cmd.uid == null) {
-                        element = this.locate(locator);
+                        element = this.snapshot(locator);
                     } else {
                         element = this.cbCache.get(cmd.uid);
                         if (element == null) {
-                            element = this.locate(locator);
+                            element = this.snapshot(locator);
                             if (element != null) {
                                 this.cbCache.put(cmd.uid, element);
                             }
@@ -395,6 +395,7 @@ Tellurium.prototype.processCommandBundle = function(){
 Tellurium.prototype.useUiModule = function(json){
     var uim = new UiModule();
     uim.parseUiModule(json);
+    uim.prelocate();
     var id = uim.getId();
     var cached = this.cache.getCachedData(id);
     if(cached == null){
