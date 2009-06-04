@@ -313,6 +313,10 @@ TelluriumApi.prototype.getCachePolicyName = function(){
     return this.cache.getCachePolicyName();
 };
 
-TelluriumApi.prototype.useUIModule = function(json){
+TelluriumApi.prototype.useUiModule = function(json){
+    this.cache.useUiModule(json);
+};
 
+TelluriumApi.prototype.isUiModuleCached = function(id){
+    return this.cache.isUiModuleCached(id);
 };

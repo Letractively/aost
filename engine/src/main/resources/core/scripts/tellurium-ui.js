@@ -742,6 +742,8 @@ function UiModule(){
     //top level UI object
     this.root = null;
 
+    this.valid = false;
+
     //the id of the UI module should be the root uid
 //    this.id = null;
 
@@ -854,7 +856,17 @@ UiModule.prototype.buildTree = function(keys){
 UiModule.prototype.prelocate = function(){
     if(this.root != null){
         this.root.prelocate();
+        this.valid = true;
     }
+};
+
+UiModule.prototype.walkTo = function(context, uiid){
+    var first = uiid.pop();
+    if(first == this.root.uid){
+        return this.root.walkTo(context, uiid);
+    }
+
+    return null;
 };
 
 
