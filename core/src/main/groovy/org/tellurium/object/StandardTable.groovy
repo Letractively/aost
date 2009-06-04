@@ -58,7 +58,7 @@ class StandardTable extends Container{
      public static final String ROW = "ROW"
      public static final String COLUMN = "COLUMN"
      public static final String HEADER = "HEADER"
-     public static final String FOOT = "FOOT"
+     public static final String FOOTER = "FOOTER"
      public static final String TBODY = "TBODY"
 
      protected static final String INVALID_UID_ERROR_MESSAGE = "Invalid UID "
@@ -67,7 +67,7 @@ class StandardTable extends Container{
      //add a map to hold all the header elements
      def headers = [:]
      //add a map to hold all the tfoot elements
-     def foots = [:]
+     def footers = [:]
 
      @Override
      public JSONObject toJSON() {
@@ -84,10 +84,10 @@ class StandardTable extends Container{
                 //this is a header
                 String internHeaderId = internalHeaderId(component.uid)
                 headers.put(internHeaderId, component)
-            }else if(component.uid.toUpperCase().trim().startsWith(FOOT)){
+            }else if(component.uid.toUpperCase().trim().startsWith(FOOTER)){
                 //this is a foot
                 String internFootId = internalFootId(component.uid)
-                foots.put(internFootId, component)
+                footers.put(internFootId, component)
             }else{
                 //this is a regular element
                 String internId = internalId(component.uid)
@@ -178,15 +178,15 @@ class StandardTable extends Container{
         return obj
     }
 
-    public UiObject findFootUiObject(int index) {
+    public UiObject findFooterUiObject(int index) {
         //first check _i format
         String key = "_${index}"
-        UiObject obj = foots.get(key)
+        UiObject obj = footers.get(key)
 
         //then, check _ALL format
         if (obj == null) {
             key = "_ALL"
-            obj = foots.get(key)
+            obj = footers.get(key)
         }
 
         return obj
@@ -258,7 +258,7 @@ class StandardTable extends Container{
 
         //check if this object is for the foot in the format of
         // "foot: 2", "foot: all"
-        if (upperId.startsWith(FOOT)) {
+        if (upperId.startsWith(FOOTER)) {
             return validateFoot(id)
         }
 
@@ -291,7 +291,7 @@ class StandardTable extends Container{
         parts[0] = parts[0].trim()
         parts[1] = parts[1].trim()
 
-        if (!FOOT.equalsIgnoreCase(parts[0]))
+        if (!FOOTER.equalsIgnoreCase(parts[0]))
             return false
 
         //check the template, which could either be "*", "all", or numbers
@@ -614,7 +614,7 @@ class StandardTable extends Container{
         int index = Integer.parseInt(child.trim())
 
         //try to find its child
-        UiObject cobj = this.findFootUiObject(index)
+        UiObject cobj = this.findFooterUiObject(index)
 
         //If cannot find the object as the object template, return the TextBox as the default object
         if (cobj == null) {
@@ -668,7 +668,7 @@ class StandardTable extends Container{
 
         if (child.trim().equalsIgnoreCase(HEADER)) {
             return walkToHeader(context, uiid)
-        }else if(child.trim().equalsIgnoreCase(FOOT)){
+        }else if(child.trim().equalsIgnoreCase(FOOTER)){
             return walkToFoot(context, uiid)
         }else {
             return walkToElement(context, uiid)
@@ -708,22 +708,22 @@ class StandardTable extends Container{
   }
 
   protected void traverseFoot(WorkflowContext context){
-    if(this.foots.size() > 0){
+    if(this.footers.size() > 0){
       int max = 0
-      this.foots.each {key, component ->
+      this.footers.each {key, component ->
         String aid = key.replaceFirst('_', '')
         if (aid ==~ /[0-9]+/) {
-          context.pushUid("foot[${aid}]")
+          context.pushUid("footer[${aid}]")
           component.traverse(context)
           if (max < Integer.parseInt(aid))
             max = Integer.parseInt(aid)
         }
       }
 
-      UiObject obj = this.foots.get("_ALL")
+      UiObject obj = this.footers.get("_ALL")
       if(obj != null){
         max++
-        context.pushUid("foot[${max}]")
+        context.pushUid("footer[${max}]")
         obj.traverse(context)
       }
     }

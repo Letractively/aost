@@ -22,7 +22,7 @@ public class StandardTable_UT extends GroovyTestCase {
       assertEquals("//descendant-or-self::table[@id=\"std\"]/tbody[2]/tr[2]/td[1]/descendant-or-self::input[@name=\"labels\"]", result)
       result = table1.getTableLocator("table1[2][1][2]")
       assertEquals("//descendant-or-self::table[@id=\"std\"]/tbody[2]/tr[1]/td[2]", result)
-      result = table1.getTableLocator("table1.foot[2]")
+      result = table1.getTableLocator("table1.footer[2]")
       assertEquals("//descendant-or-self::table[@id=\"std\"]/tfoot/tr/td[2]", result)
   }
 

@@ -21,6 +21,8 @@ class Container extends UiObject {
 
     //If you have Ajax application and the container's children keep changing
     //It is wise to force the children not to use cache
+
+    public static final String NO_CACHE_FOR_CHILDREN = "noCacheForChildren"
     protected boolean noCacheForChildren = false
 
     //since we use map, the component name must be unique
@@ -38,12 +40,32 @@ class Container extends UiObject {
       return this.useGroupInfo
     }
 
+    @Override
+    protected JSONObject buildJSON(Closure c){
+      JSONObject jso = new JSONObject()
+      jso.put(UID, uid)
+      if (!cacheable)
+        jso.put(LAZY, this.cacheable)
+      jso.put(LOCATOR, locator.toJSON())
+      if (namespace != null && namespace.trim().length() > 0)
+        jso.put(NAMESPACE, namespace)
+      if (respondToEvents != null && respondToEvents.length > 0)
+        jso.put(EVENTS, respondToEvents)
+      if (this.useGroupInfo)
+        jso.put(GROUP, this.useGroupInfo)
+      if (this.noCacheForChildren)
+        jso.put(NO_CACHE_FOR_CHILDREN, this.noCacheForChildren)
+
+      if(c != null)
+          c(jso)
+      
+      return jso
+    }
+
     public JSONObject toJSON() {
 
       return buildJSON(){jso ->
         jso.put(UI_TYPE, "Container")
-        if(useGroupInfo)
-          jso.put(GROUP, this.useGroupInfo)
       }
     }
   

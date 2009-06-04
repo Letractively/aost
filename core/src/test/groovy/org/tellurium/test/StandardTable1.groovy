@@ -25,7 +25,7 @@ public class StandardTable1 extends DslContext {
       InputBox(uid: "tbody: 2, row:2, column:3", clocator: [name: "without"])
       InputBox(uid: "tbody: 2, row:*, column:1", clocator: [name: "labels"])
 
-      TextBox(uid: "foot: all", clocator: [tag: "td"])
+      TextBox(uid: "footer: all", clocator: [tag: "td"])
     }
 
     ui.StandardTable(uid: "table2", clocator: [id: "normal"]) {

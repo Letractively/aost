@@ -54,6 +54,8 @@ abstract class UiObject implements Cloneable{
 
     public static final String NAMESPACE = "namespace"
     String namespace = null
+
+    public static final String LAZY = "lazy"
     //UI object is cacheable by default
     boolean cacheable = true
 
@@ -73,13 +75,17 @@ abstract class UiObject implements Cloneable{
     protected JSONObject buildJSON(Closure c){
       JSONObject jso = new JSONObject()
       jso.put(UID, uid)
-      c(jso)
+      if(!cacheable)
+        jso.put(LAZY, this.cacheable)
       jso.put(LOCATOR, locator.toJSON())
       if(namespace != null && namespace.trim().length() > 0)
         jso.put(NAMESPACE, namespace)
       if(respondToEvents != null && respondToEvents.length > 0)
         jso.put(EVENTS, respondToEvents)
-      
+
+      if(c != null)
+        c(jso)
+
       return jso
     }
 
