@@ -307,7 +307,7 @@ Tellurium.prototype.dispatchCommand = function(response, cmd, element){
     }
 };
 
-Tellurium.prototype.snapshot = function(locator){
+Tellurium.prototype.locate = function(locator){
 
     return selenium.browserbot.findElement(locator);
 };
@@ -370,11 +370,11 @@ Tellurium.prototype.processCommandBundle = function(){
                     }
 
                     if (cmd.uid == null) {
-                        element = this.snapshot(locator);
+                        element = this.locate(locator);
                     } else {
                         element = this.cbCache.get(cmd.uid);
                         if (element == null) {
-                            element = this.snapshot(locator);
+                            element = this.locate(locator);
                             if (element != null) {
                                 this.cbCache.put(cmd.uid, element);
                             }
