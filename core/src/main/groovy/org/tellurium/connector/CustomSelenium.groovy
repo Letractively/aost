@@ -19,7 +19,7 @@ import org.tellurium.config.Configurable
  */
 class CustomSelenium extends DefaultSelenium {
 
-    protected CustomCommand customClass = null
+  protected CustomCommand customClass = null
     protected String userExtension = null
 
     CustomSelenium(CommandProcessor commandProcessor) {
@@ -102,32 +102,32 @@ class CustomSelenium extends DefaultSelenium {
 
     def String getAllText(String locator){
 		String[] arr = [locator];
-		String st = commandProcessor.doCommand("getAllText", arr);
-		return st;
+      
+		return commandProcessor.doCommand("getAllText", arr);
 	}
 
     def String getCSS(String locator, String cssName){
 		String[] arr = [locator, cssName];
-		String st = commandProcessor.doCommand("getCSS", arr);
-		return st;
+
+		return commandProcessor.doCommand("getCSS", arr);
 	}
 
     def Number getJQuerySelectorCount(String locator){
 		String[] arr = [locator];
-		Number num = commandProcessor.getNumber("getJQuerySelectorCount", arr);
-		return num;
+
+		return commandProcessor.getNumber("getJQuerySelectorCount", arr);
 	}
 
     def Number getListSize(String locator, String separators){
       String[] arr = [locator, separators];
-      Number num = commandProcessor.getNumber("getListSize", arr);
-      return num;
+
+      return commandProcessor.getNumber("getListSize", arr);
     }
 
     def boolean isDisabled(String locator){
       String[] arr = [locator];
-      boolean result = commandProcessor.getBoolean("isDisabled", arr);
-      return result;
+
+      return commandProcessor.getBoolean("isDisabled", arr);
     }
 
     public void enableSelectorCache(){
@@ -147,8 +147,8 @@ class CustomSelenium extends DefaultSelenium {
   
     def boolean getCacheState(){
       String[] arr = [];
-      boolean result = commandProcessor.getBoolean("getCacheState", arr);
-      return result;
+
+      return commandProcessor.getBoolean("getCacheState", arr);
     }
 
     public void setCacheMaxSize(int size){
@@ -158,20 +158,20 @@ class CustomSelenium extends DefaultSelenium {
 
     public Number getCacheSize(){
     	String[] arr = [];
-        Number num = commandProcessor.getNumber("getCacheSize", arr);
-		return num;
+
+        return commandProcessor.getNumber("getCacheSize", arr);
     }
 
     public Number getCacheMaxSize(){
     	String[] arr = [];
-        Number num = commandProcessor.getNumber("getCacheMaxSize", arr);
-		return num;
+
+        return commandProcessor.getNumber("getCacheMaxSize", arr);
     }
 
     public String getCacheUsage(){
        	String[] arr = [];
-		String st = commandProcessor.doCommand("getCacheUsage", arr);
-		return st;
+
+		return commandProcessor.doCommand("getCacheUsage", arr);
     }
 
     public void addNamespace(String prefix, String namespace){
@@ -181,9 +181,8 @@ class CustomSelenium extends DefaultSelenium {
 
     public String getNamespace(String prefix){
        String[] arr = [prefix];
-       String st = commandProcessor.getString("getNamespace", arr);
 
-       return st;
+       return commandProcessor.getString("getNamespace", arr);
     }
 
     public void useDiscardNewCachePolicy(){
@@ -208,6 +207,7 @@ class CustomSelenium extends DefaultSelenium {
 
     public String getCurrentCachePolicy(){
         String[] arr = [];
+
         return commandProcessor.getString("getCachePolicyName", arr);
     }
 
@@ -218,13 +218,18 @@ class CustomSelenium extends DefaultSelenium {
 
     public String issueBundle(String json){
         String[] arr = [json];
-        String st = commandProcessor.doCommand("getBundleResponse", arr);
 
-        return st;
+        return commandProcessor.doCommand("getBundleResponse", arr);
     }
 
-    public void useUIModule(String json){
+    public void useUiModule(String json){
         String[] arr = [json];
-        commandProcessor.doCommand("useUIModule", arr);
+        commandProcessor.doCommand("useUiModule", arr);
+    }
+
+    public boolean isUiModuleCached(String id){
+       String[] arr = [id];
+
+       return commandProcessor.getBoolean("isUiModuleCached", arr);     
     }
 }
