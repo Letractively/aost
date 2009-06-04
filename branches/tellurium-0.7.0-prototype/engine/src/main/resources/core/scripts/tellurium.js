@@ -72,9 +72,7 @@ var jslogger = new DummyLogger();
 function CmdRequest(){
     this.sequ = 0;
     this.uid = null;
-    this.name = null;
-//    this.locatorSpecific = true;
-//    this.returnType = null;   
+    this.name = null; 
     this.args = null;
 };
 
@@ -238,7 +236,8 @@ Tellurium.prototype.initialize = function(){
     this.registerApi("useDiscardInvalidPolicy", false, "VOID");
     this.registerApi("getCachePolicyName", false, "STRING");
 
-    this.registerApi("useUIModule", false, "VOID");
+    this.registerApi("useUiModule", false, "VOID");
+    this.registerApi("isUiModuleCached", false, "BOOLEAN");
 
 };
 
@@ -275,6 +274,25 @@ Tellurium.prototype.prepareArgumentList = function(handler, args, element){
     }
 
     return params;
+};
+
+Tellurium.prototype.getUiElementFromCache = function(uid){
+    var uielem = this.cache.getCachedUiElement(uid);
+    if(uielem != null){
+        var elem = uielem.domRef;
+        if(elem != null){
+            return elem;
+        }else{
+            elem = this.locate(elem.generated);
+            if(uielem.amICacheable()){
+                uielem.domRef = elem;
+            }
+            
+            return elem;
+        }
+    }else{
+        throw SeleniumError("Cannot find Ui Element " + uid); 
+    }
 };
 
 Tellurium.prototype.dispatchCommand = function(response, cmd, element){
@@ -372,7 +390,9 @@ Tellurium.prototype.processCommandBundle = function(){
                     if (cmd.uid == null) {
                         element = this.locate(locator);
                     } else {
-                        element = this.cbCache.get(cmd.uid);
+//                        element = this.cbCache.get(cmd.uid);
+                        element = this.getUiElementFromCache(cmd.uid);
+/*
                         if (element == null) {
                             element = this.locate(locator);
                             if (element != null) {
@@ -380,6 +400,7 @@ Tellurium.prototype.processCommandBundle = function(){
                             }
 
                         }
+                        */
                     }
                 }
             }
@@ -389,20 +410,6 @@ Tellurium.prototype.processCommandBundle = function(){
     }
 
     return response.toJSon();
-};
-
-
-Tellurium.prototype.useUiModule = function(json){
-    var uim = new UiModule();
-    uim.parseUiModule(json);
-    uim.prelocate();
-    var id = uim.getId();
-    var cached = this.cache.getCachedData(id);
-    if(cached == null){
-        this.cache.addToCache(id, uim);
-    }else{
-        this.cache.updateToCache(id, uim);
-    }
 };
 
 Tellurium.prototype.locateElementByJQuerySelector = function(locator, inDocument, inWindow){

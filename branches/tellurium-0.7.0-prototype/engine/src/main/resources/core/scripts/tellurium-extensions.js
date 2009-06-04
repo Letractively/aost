@@ -176,6 +176,10 @@ Selenium.prototype.getBundleResponse = function(bundle){
     return tellurium.processCommandBundle();
 };
 
-Selenium.prototype.doUseUIModule = function(json){
-    tellurium.useUiModule(json);
+Selenium.prototype.doUseUiModule = function(json){
+    tellurium.cache.useUiModule(json);
+};
+
+Selenium.prototype.isUiModuleCached = function(id){
+    return tellurium.cache.isUIModuleCached(id);
 };

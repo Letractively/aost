@@ -101,6 +101,12 @@ DiscardInvalidPolicy.prototype.applyPolicy = function(cache, key, data){
     var keys = cache.keySet();
     for(var i=0; i<keys.length; i++){
         var akey = keys[i];
+        if(!akey.valid){
+            cache.remove(akey);
+            cache.put(key, data);
+            break;            
+        }
+/*
         var $ref = cache.get(akey).reference;
         var isVisible = false;
         try{
@@ -113,6 +119,7 @@ DiscardInvalidPolicy.prototype.applyPolicy = function(cache, key, data){
             cache.put(key, data);
             break;
         }
+*/
     }
 };
 
@@ -169,6 +176,45 @@ TelluriumCache.prototype.updateToCache = function(key, val){
 TelluriumCache.prototype.getCachedData = function(key){
 
     return this.sCache.get(key);
+};
+
+TelluriumCache.prototype.getCachedUiElement = function(uid){
+
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    if(uiid.size() > 0){
+        var first = uiid.peek();
+        var uim = this.sCache.get(first);
+        if(uim != null){
+            var context = new WorkflowContext();
+            var obj = uim.walkTo(context, uiid);
+            if(obj != null){
+                this.sCache.updateToCache(first, uim);
+            }
+
+            return obj;
+        }
+    }
+
+    return null;
+};
+
+TelluriumCache.prototype.useUiModule = function(json){
+    var uim = new UiModule();
+    uim.parseUiModule(json);
+    uim.prelocate();
+    var id = uim.getId();
+    var cached = this.getCachedData(id);
+    if(cached == null){
+        this.addToCache(id, uim);
+    }else{
+        this.updateToCache(id, uim);
+    }
+};
+
+TelluriumCache.prototype.isUiModuleCached = function(id){
+
+    return this.sCache.get(id) != null;
 };
 
 //Cache Selectors
