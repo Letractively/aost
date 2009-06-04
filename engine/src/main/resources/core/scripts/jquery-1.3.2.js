@@ -431,7 +431,7 @@ teJQuery.fn = teJQuery.prototype = {
 
 						if ( option.selected ) {
 							// Get the specifc value for the option
-							value = teJQuery(option).clazz();
+							value = teJQuery(option).val();
 
 							// We don't need an array for one selects
 							if ( one )
@@ -759,11 +759,11 @@ teJQuery.extend({
 
 				teJQuery.each( which, function() {
 					if ( !extra )
-						clazz -= parseFloat(teJQuery.curCSS( elem, "padding" + this, true)) || 0;
+						val -= parseFloat(teJQuery.curCSS( elem, "padding" + this, true)) || 0;
 					if ( extra === "margin" )
-						clazz += parseFloat(teJQuery.curCSS( elem, "margin" + this, true)) || 0;
+						val += parseFloat(teJQuery.curCSS( elem, "margin" + this, true)) || 0;
 					else
-						clazz -= parseFloat(teJQuery.curCSS( elem, "border" + this + "Width", true)) || 0;
+						val -= parseFloat(teJQuery.curCSS( elem, "border" + this + "Width", true)) || 0;
 				});
 			}
 
@@ -3297,7 +3297,7 @@ teJQuery.fn.extend({
 					/text|hidden|password|search/i.test(this.type));
 		})
 		.map(function(i, elem){
-			var val = teJQuery(this).clazz();
+			var val = teJQuery(this).val();
 			return val == null ? null :
 				teJQuery.isArray(val) ?
 					teJQuery.map( val, function(val, i){
@@ -4310,10 +4310,10 @@ teJQuery.each( ['Left', 'Top'], function(i, name) {
 			this.each(function() {
 				this == window || this == document ?
 					window.scrollTo(
-						!i ? clazz : teJQuery(window).scrollLeft(),
-						 i ? clazz : teJQuery(window).scrollTop()
+						!i ? val : teJQuery(window).scrollLeft(),
+						 i ? val : teJQuery(window).scrollTop()
 					) :
-					this[ method ] = clazz;
+					this[ method ] = val;
 			}) :
 
 			// Return the scroll offset
