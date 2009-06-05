@@ -12,11 +12,11 @@ Tellurium Contributors are categorized into development team, support team, evan
 
   * *Mikhail Koryak*: TrUMP 0.1.0, jQuery support for Tellurium, and Engine 0.1.0
 
-  * *Matt Senter*: Tellurium Maven support, Tellurium build and release, and Tellurium Maven repository maintenance.  
-
   * *Haroon Rasheed*: Tellurium Reference projects, Selenium Grid support, and Tellurium Linkedin Group management.
 
 == Support Team ==
+
+  * *Matt Senter*: Tellurium Maven support, Tellurium build and release, and Tellurium Maven repository maintenance.  
 
 == Evangelism Team ==
 
