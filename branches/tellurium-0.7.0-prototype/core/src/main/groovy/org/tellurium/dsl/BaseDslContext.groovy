@@ -108,7 +108,8 @@ abstract class BaseDslContext {
     UiObject obj = ui.walkTo(context, uid)
     if (obj != null){
       context.attachMetaCmd(uid, obj.amICacheable(), true)
-
+      context.putContext(WorkflowContext.DSLCONTEXT, this)
+      
       return obj
     }
 
@@ -1220,11 +1221,5 @@ abstract class BaseDslContext {
     }
 
     return arr.toString()
-  }
-
-  public void useUIModule(String uid){
-    String json = jsonify(uid)
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
-    extension.useUiModule(context, json)
   }
 }

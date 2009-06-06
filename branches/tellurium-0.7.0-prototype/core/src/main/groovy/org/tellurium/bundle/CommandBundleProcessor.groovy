@@ -5,6 +5,8 @@ import org.tellurium.config.Configurable
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.locator.MetaCmd
 import org.stringtree.json.JSONReader
+import org.tellurium.dsl.DslContext
+import org.tellurium.dsl.UiID
 
 /**
  * Command Bundle Processor
@@ -34,6 +36,28 @@ public class CommandBundleProcessor implements Configurable {
   private boolean exploitBundle = true;
 
   private JSONReader reader = new JSONReader();
+
+  private Map<String, UiModuleState> states = new HashMap<String, UiModuleState>();
+
+  public boolean isUiModulePublished(String id){
+    UiModuleState state = states.get(id);
+    if(state != null){
+      return state.hasBeenPublished();
+    }
+
+    return false;
+  }
+
+  public void publishUiModule(String id){
+    UiModuleState state = states.get(id);
+    if(state != null){
+      state.setState(true);
+    }else{
+      state = new UiModuleState(id, true);
+    }
+
+    states.put(id, state);
+  }
 
   public void useBundleFeature(){
     this.exploitBundle = true;
@@ -88,9 +112,38 @@ public class CommandBundleProcessor implements Configurable {
     return null;
   }
 
+  public boolean needCacheUiModule(WorkflowContext context, String uid){
+    if(uid != null && context.isUseSelectorCache()){
+        return !this.isUiModulePublished();
+    }
+
+    return false;
+  }
+
+  public CmdRequest getUseUiModuleRequest(WorkflowContext context, String uid){
+    DslContext dslcontext = context.get(WorkflowContext.DSLCONTEXT);
+    String json = dslcontext.jsonify(uid);
+    def args = [json]
+    CmdRequest cmd = new CmdRequest(nextSeq(), uid, "useUiModule", args);
+
+    return cmd;
+  }
+
+  protected String getUiModuleId(String uid){
+    UiID uiid = UiID.convertToUiID(uid);
+    return uiid.pop();
+  }
+
   def issueCommand(WorkflowContext context, String uid, String name, args){
     CmdRequest cmd = new CmdRequest(nextSeq(), uid, name, args);
     if(bundle.shouldAppend(cmd)){
+      //TODO: need to extract the root uid
+      if(this.needCacheUiModule(context, uid)){
+        String id = this.getUiModuleId(uid);
+        CmdRequest uum = this.getUseUiModuleRequest(context, id);
+        bundle.addToBundle(uum);
+        this.publishUiModule(id);
+      }
       bundle.addToBundle(cmd);
       if(bundle.size() >= this.maxBundleCmds){
         //need to issue the command bundle since it reaches the maximum limit
@@ -103,6 +156,13 @@ public class CommandBundleProcessor implements Configurable {
       return OK;
     }else{
       String json = bundle.extractAllAndConvertToJson();
+      if(this.needCacheUiModule(context, uid)){
+        String id = this.getUiModuleId(uid);
+        CmdRequest uum = this.getUseUiModuleRequest(context, id);
+        bundle.addToBundle(uum);
+        this.publishUiModule(id);
+      }
+
       bundle.addToBundle(cmd);
       
       String val = dispatcher.issueBundle(json);
@@ -113,10 +173,22 @@ public class CommandBundleProcessor implements Configurable {
   def passThrough(WorkflowContext context, String uid, String name, args){
     //if no command on the bundle, call directly
     if(bundle.size() == 0){
+       if(this.needCacheUiModule(context, uid)){
+        String id = this.getUiModuleId(uid);
+        CmdRequest uum = this.getUseUiModuleRequest(context, id);
+        dispatcher.metaClass.invokeMethod(dispatcher, uum.name, uum.args);
+        this.publishUiModule(id);
+     }
       return dispatcher.metaClass.invokeMethod(dispatcher, name, args);
     }else{
+       if(this.needCacheUiModule(context, uid)){
+        String id = this.getUiModuleId(uid);
+        CmdRequest uum = this.getUseUiModuleRequest(context, id);
+        bundle.addToBundle(uum);
+        this.publishUiModule(id);
+      }
       //there are commands in the bundle, pigback this command with the commands in a bundle and issue it
-      CmdRequest cmd = new CmdRequest(nextSeq(), uid, name, args);
+      CmdRequest cmd = new CmdRequest(nextSeq(), uid, name, args); 
       bundle.addToBundle(cmd);
       String json = bundle.extractAllAndConvertToJson();
       
