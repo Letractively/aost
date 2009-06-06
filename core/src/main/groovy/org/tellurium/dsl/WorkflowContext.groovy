@@ -20,6 +20,7 @@ class WorkflowContext {
   public static final String UID_LIST = "UID_List"
   public static final String SKIP_NEXT = "SKIP_NEXT"
   public static final String TRUE = "true"
+  public static final String DSLCONTEXT = "DSLCONTEXT"
 
   private boolean useOption = false
 
