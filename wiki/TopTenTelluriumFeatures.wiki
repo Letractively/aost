@@ -4,6 +4,23 @@
 
 == UI Module ==
 
+UI Module is the key concept of Tellurium. What is UI module? UI module is a collection of UI elements you group them together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For example, the download search module in Tellurium project site is defined as follows,
+
+{{{
+ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
+   Selector(uid: "downloadType", clocator: [name: "can", id: "can"])
+   InputBox(uid: "searchBox", clocator: [name: "q"])
+   SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+}
+}}}
+
+Be aware that in most case the UI elements inside the composite UI object have relationship to each other. In the DOM structure, they should be on the same sub-tree with the top UI element as the parent. The exception is the [http://code.google.com/p/aost/wiki/LogicalContainer Logical Container].
+
+[http://code.google.com/p/aost/wiki/Tellurium_A_New_Approach_for_Web_Test Why UI module concept is so important]? It is the foundation that Tellurium built on. First, UI module makes it possible to build UI elements' locator at runtime, which also makes Tellurium robust to changes in internal UI elements. Second, UI module makes Tellurium expressive. You can refer a UI element by simply appending the names along the path to the specific element. For example, in the Tellurium download search module, you can refer the Selector element as "downloadSearch.downloadType". Other reasons include 
+  * UI module makes Group Locating possible. 
+  * UI module makes composite objects reusable in term of widget objects. 
+  * UI module will make Tellurium move to a different future path from Selenium to more efficiently support UI Module.
+
 == jQuery Selector ==
 
 == Group Locating ==
