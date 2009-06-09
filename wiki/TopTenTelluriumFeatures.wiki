@@ -156,6 +156,55 @@ You may wonder how to use the templates if you have multiple templates such the 
 
 == Javascript Events ==
 
+Most web applications include Javascripts and thus, the web testing framework must be able to handle the Javascript events. What we really care is to fire the appropriate events to trigger the event handlers.
+
+Selenium has already provided methods to generate events such as
+
+{{{
+fireEvent(locator, "blur")
+fireEvent(locator, "focus")
+mouseOut(locator)
+mouseOver(locator)
+}}}
+
+Tellurium was born with Javascript events in mind since it was initially designed to test applications written using the DOJO javascript framework. For example, we have the following radio button,
+
+{{{
+<input type='radio' name='mas_address_key' value='5779' onClick='SetAddress_5779()'>
+}}}
+
+Although we can define the radio button as follows,
+
+{{{
+RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'])
+}}}
+
+but it will not be able to respond to the click event since the Tellurium RadioButton only have the "check" and "uncheck" actions, which is enough for the normal case. As a result, no "click" event/action will be generated during the testing. How to address this problem then?
+
+Tellurium added the [http://groups.google.com/group/tellurium-users/browse_thread/thread/93fbae75a6d88624 "respond" attribute] to Tellurium UI objects and the "respond" attribute could be used to define whatever events you want the UI object to respond to. Still take the above radio button as an example, the new Radio Button can be defined as,
+
+{{{
+ ui.Container(uid: "form", clocator: [whatever]){
+     RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'], respond: ["click"])
+ }
+}}}
+
+That is to say, you can issue the following command: 
+
+{{{
+  click "form.billing"
+}}}
+
+Even the RadioButton does not have the _click_ method defined by default, it is still able to dynamically add the _click_ method at runtime and call it.
+
+A more general example is as follows,
+
+{{{
+ InputBox(uid: "searchbox", clocator: [title: "Google Search"], respond: ["click", "focus", "mouseOver", "mouseOut", "blur"])
+}}}
+
+Do not worry about the event order for the respond attribute, Tellurium will automatically re-order the events and then process them appropriately for you.
+ 
 == Tellurium Widgets ==
 
 == Reconfigurable ==
