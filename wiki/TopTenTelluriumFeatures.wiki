@@ -74,6 +74,85 @@ No sibling node's information is used here. What is wrong with this? The xpath d
 
 == UI Templates ==
 
+Tellurium UI templates are used for two purposes:
+
+  # There are many identical UI elements, you can use one template to represent them
+  # There are variable/dynamic size of UI elements at runtime, you know the patterns, but not the size. Here, template is also a perfect fit for it.
+
+More specifically, Table and List are two Tellurium objects that can define UI templates. Table defines two dimensional UI template and List is for one dimensional. Template has
+special UIDs such as "2", "all", or "row: 1, column: 2". 
+Let us look at use case (1), we have the following HTML source
+
+{{{
+      <ul class="a">
+        <li>
+            <A HREF="site?tcid=a"
+               class="b">AA
+            </A>
+        </li>
+        <li>
+            <A HREF="site?tcid=b"
+               class="b">BB
+            </A>
+        </li>
+        <li>
+            <A HREF="site?;tcid=c"
+               class="b">CC
+            </A>
+        </li>
+        <li>
+            <A HREF="site?tcid=d"
+               class="b">DD
+            </A>
+        </li>
+        <li>
+            <A HREF="site?tcid=e"
+               class="b">EE
+            </A>
+        </li>
+        <li>
+            <A HREF="site?tcid=f"
+               class="b">FF
+            </A>
+        </li>
+    </ul>
+}}}
+
+You have six links there. Without templates, you have to put six UrlLink objects in the UI module. Look at how simple by using the template
+
+{{{
+ui.List(uid: "list", clocator: [tag: "ul", class: "a"], separator:"li")
+{
+    UrlLink(uid: "all", clocator: [class: "b"])
+}
+}}}
+
+
+For use case (2), the common application is data grid. Look at the "issueResult" data grid at our Tellurium Issues page,
+
+{{{
+ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], group: "true") {
+    TextBox(uid: "header: 1",  clocator: [:])
+    UrlLink(uid: "header: 2",  clocator: [text: "%%ID"])
+    UrlLink(uid: "header: 3",  clocator: [text: "%%Type"])
+    UrlLink(uid: "header: 4",  clocator: [text: "%%Status"])
+    UrlLink(uid: "header: 5",  clocator: [text: "%%Priority"])
+    UrlLink(uid: "header: 6",  clocator: [text: "%%Milestone"])
+    UrlLink(uid: "header: 7",  clocator: [text: "%%Owner"])
+    UrlLink(uid: "header: 9",  clocator: [text: "%%Summary + Labels"])
+    UrlLink(uid: "header: 10", clocator: [text: "%%..."])
+
+    //define table elements
+    //for the border column
+    TextBox(uid: "row: *, column: 1", clocator: [:])
+    //For the rest, just UrlLink
+    UrlLink(uid: "all", clocator: [:])
+}
+}}}
+
+Aren't the definitions very simple and cool? 
+
+You may wonder how to use the templates if you have multiple templates such the "issueResult" table as shown above. The rule to apply the templates is "specific one first, general one later". More details can be found at [http://groups.google.com/group/tellurium-users/browse_thread/thread/8e011ff9f1f71393#  The power of Tellurium UI templates].
 
 == Javascript Events ==
 
