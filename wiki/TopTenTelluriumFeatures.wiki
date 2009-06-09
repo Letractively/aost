@@ -23,6 +23,33 @@ Be aware that in most case the UI elements inside the composite UI object have r
 
 == jQuery Selector ==
 
+Starting with version 0.6.0, Tellurium will support a [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector jQuery selector] to address the problem of poor performance of xpath in Internet Explorer. Auto-generating jQuery instead of xpath has the following advantages:
+  * Faster performance in IE.
+  * We are able to use the power of jQuery to call methods on jQuery collections to retrieve bulk data.
+  * Tellurium jQuery selector supports the jQuery attribute selectors such as _[attribute!=value]_, _[attribute^=value]_, _[attribute$=value]_, and _[attribute*=value]_.
+
+To use jQuery selector, simply call 
+
+{{{
+useJQuerySelector()
+}}} 
+
+in you code. To switch back to XPath locator, you should call
+
+{{{
+disableJQuerySelector()
+}}}
+
+Be aware that the UI module is agnostic to the locate strategy you choose and thus, you do not need to change anything in your test code. 
+
+Our Benchmark test results show that:
+
+  # jQuery selector is as fast as Ajaxslt XPath and Javascript XPath in Firefox 3.
+  # jQuery selector is much faster in IE 7 than the two XPath libraries
+  # jQuery selector uses only one method call to get back data for all table cells and thus it is the fastest one for bulk data access.
+
+[http://code.google.com/p/aost/wiki/jQuerySelectorCache jQuery cache] is a mechanism to further improve the speed by reusing the found DOM reference for a given jQuery selector. Our benchmark results show that the jQuery cache could improve the speed by up to 14% over the regular jQuery selector and over 27% for some extreme cases.
+
 == Group Locating ==
 
 == UI Templates ==
