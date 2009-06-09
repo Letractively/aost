@@ -18,7 +18,6 @@
 
 == Built-in Support for JUnit and TestNG ==
 
-== Maven Support ==
+== Data Driven Test ==
 
 == The Dump Method ==
-
