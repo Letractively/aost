@@ -1,4 +1,4 @@
-#summary Top Ten Cool Tellurium Features.
+#summary Top Ten Cool Features in Tellurium.
 #labels Phase-Implementation,Phase-Support
 <wiki:toc max_depth="3" />
 
@@ -206,6 +206,8 @@ A more general example is as follows,
 Do not worry about the event order for the respond attribute, Tellurium will automatically re-order the events and then process them appropriately for you.
  
 == Tellurium Widgets ==
+
+
 
 == Reconfigurable ==
 
