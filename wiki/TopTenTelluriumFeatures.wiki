@@ -387,3 +387,82 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase
 == Data Driven Test ==
 
 == The Dump Method ==
+
+Have you ever wondered if you could know the runtime locators that Tellurium generates for your UI module before you actually run your test? This feature is now supported in Tellurium Core by [http://code.google.com/p/aost/w/edit/TheDumpMethod the dump() method], which is very important to trace errors when you do not have access to the application under testing or run in an offline module. 
+
+The dump() method is defined in DslContext as follows,
+
+{{{
+public void dump(String uid)
+}}}
+ 
+where the _uid_ is the UI object id you want to dump. This method will print out the UI object's and its descendants' runtime locators that Tellurium Core generates for you.
+
+For example, the Tellurium issue search module can be defined as follows,
+
+{{{
+public class TelluriumIssueModule extends DslContext {
+
+  public void defineUi() {
+    ui.Form(uid: "issueSearch", clocator: [action: "list", method: "get"], group: "true") {
+        Selector(uid: "issueType", clocator: [name: "can", id: "can"])
+        TextBox(uid: "searchLabel", clocator: [tag: "span", text: "*for"])
+        InputBox(uid: "searchBox", clocator: [type: "text", name: "q"])
+        SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+    }
+  }
+}
+}}}
+  
+Once the UI modules are defined, you can call the dump() method in the following way,
+
+{{{
+public class TelluriumIssueGroovyTestCase extends GroovyTestCase{
+
+  private TelluriumIssueModule tisp;
+
+  public void setUp() {
+    tisp = new TelluriumIssueModule();
+    tisp.defineUi();
+  }
+
+  public void testDumpWithXPath() {
+    tisp.disableJQuerySelector();
+    tisp.dump("issueSearch");
+  }
+
+  public void testDumpWithJQuerySelector() {
+    tisp.useJQuerySelector();
+    tisp.exploreSelectorCache = false;
+    tisp.dump("issueSearch");
+  }
+}
+}}}
+
+The XPath runtime locators are printed out as follows,
+
+{{{
+Dump locator information for issueSearch
+-------------------------------------------------------
+issueSearch: //descendant-or-self::form[@action="list" and @method="get"]
+issueSearch.issueType: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::select[@name="can" and @id="can"]
+issueSearch.searchLabel: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::span[contains(text(),"for")]
+issueSearch.searchBox: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::input[@type="text" and @name="q"]
+issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::input[@value="Search" and @type="submit"]
+-------------------------------------------------------
+}}}
+
+The corresponding jQuery Selectors are shown as follows,
+
+{{{
+Dump locator information for issueSearch
+-------------------------------------------------------
+issueSearch: jquery=form[method=get]
+issueSearch.issueType: jquery=#can
+issueSearch.searchLabel: jquery=form[method=get]:has(#can, span:contains(for), input[type=text][name=q], input[value=Search][type=submit]) span:contains(for)
+issueSearch.searchBox: jquery=form[method=get]:has(#can, span:contains(for), input[type=text][name=q], input[value=Search][type=submit]) input[type=text][name=q]
+issueSearch.searchButton: jquery=form[method=get]:has(#can, span:contains(for), input[type=text][name=q], input[value=Search][type=submit]) input[value=Search][type=submit]
+-------------------------------------------------------
+}}}
+
+Be aware, the dump() method works for UI templates as well. Tellurium will go over all templates and replace the matching-all symbol in the template with an appropriate sample number so that you can see all different scenarios for your UI templates.
