@@ -77,7 +77,7 @@ No sibling node's information is used here. What is wrong with this? The xpath d
 Tellurium UI templates are used for two purposes:
 
   # There are many identical UI elements, you can use one template to represent them
-  # There are variable/dynamic size of UI elements at runtime, you know the patterns, but not the size. Here, template is also a perfect fit for it.
+  # There are variable/dynamic size of UI elements at runtime, you know the patterns, but not the size.
 
 More specifically, Table and List are two Tellurium objects that can define UI templates. Table defines two dimensional UI template and List is for one dimensional. Template has
 special UIDs such as "2", "all", or "row: 1, column: 2". 
@@ -128,7 +128,7 @@ ui.List(uid: "list", clocator: [tag: "ul", class: "a"], separator:"li")
 }}}
 
 
-For use case (2), the common application is data grid. Look at the "issueResult" data grid at our Tellurium Issues page,
+For use case (2), a common application is the data grid. Look at the "issueResult" data grid at our Tellurium Issues page,
 
 {{{
 ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], group: "true") {
