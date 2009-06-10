@@ -203,7 +203,7 @@ A more general example is as follows,
  InputBox(uid: "searchbox", clocator: [title: "Google Search"], respond: ["click", "focus", "mouseOver", "mouseOut", "blur"])
 }}}
 
-Do not worry about the event order for the respond attribute, Tellurium will automatically re-order the events and then process them appropriately for you.
+Except for the "click" event, all the "focus", "mouseOver", "mouseOut", and "blur" events will be automatically fired by Tellurium during testing. Do not worry about the event order for the respond attribute, Tellurium will automatically re-order the events and then process them appropriately for you.
  
 == Tellurium Widgets ==
 
@@ -273,7 +273,53 @@ onWidget "dropdown.datePicker", selectPrevYear
 
 == Reconfigurable ==
 
+Tellurium use a configuration file TelluriumConfig.groovy to configure the framework. Do not be panic to see that it is a groovy file. Yes, it is a groovy file, but it is parsed by the framework as a text file. For you, just treat it as a text file with some rules such as using "{" and "}" for a block. Look at a snippet of configuration
 
+tellurium{
+    //embedded selenium server configuration
+    embeddedserver {
+        //port number
+        port = "4444"
+        //whether to use multiple windows
+        useMultiWindows = false
+        //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
+        runInternally = true
+    }
+    //event handler
+    eventhandler{
+        //whether we should check if the UI element is presented
+        checkElement = true
+        //wether we add additional events like "mouse over"
+        extraEvent = true
+    }
+
+   ...
+
+}
+
+Obviously, "//" is used for comments. You may wonder how Tellurium parses the configuration file, Tellurium actually uses Groovy ConfigSlurper class to achieve
+this. The nested settings will be turned into a Groovy ConfigObject type object, which is basically a nested map, for example, the port number for the embedded server could be reached by "conf.tellurium.embeddedserver.port". 
+
+[http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile TelluriumConfig.groovy] acts like a global setting file for a Tellurium project. In the meanwhile, Tellurium provides the following method for you to override the settings in individual test case class, 
+
+{{{
+void setCustomConfig(boolean runInternally, int port, String browser, boolean useMultiWindows, String profileLocation) 
+}}}
+
+For example, you can override the default settings in a test class as follows,
+
+{{{
+
+public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase
+{
+    static{
+        setCustomConfig(true, 5555, "*chrome", true, null);
+    }
+
+...
+
+} 
+}}}
 
 == Built-in Support for JUnit and TestNG ==
 
