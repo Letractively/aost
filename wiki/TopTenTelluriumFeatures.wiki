@@ -384,7 +384,89 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase
 } 
 }}}
 
-== Data Driven Test ==
+== Data Driven Testing ==
+
+[http://code.google.com/p/aost/w/edit/DataDrivenTesting Data Driven Testing] is a different way to write tests, i.e, separate test data from the test scripts and the test flow is not controlled by the test scripts, but by the input file instead. In the input file, users can specify which tests to run, what are input parameters, and what are expected results.
+
+The tellurium data driven test consists of three main parts, i.e., Data Provider, TelluriumDataDrivenModule, and TelluriumDataDrivenTest. The data provider is responsible for reading data from input stream and converting data to Java variables. Tellurium provides the following data provider methods:
+
+  # loadData file_name, load input data from a file 
+  # useData String_name, load input data from a String in the test script
+  # bind(field_name), bind a variable to a field in a field set
+  # closeData, close the input data stream and report the test results
+  # cacheVariable(name, variable), put variable into cache
+  # getCachedVariable(name, variable), get variable from cache
+
+cacheVariable and getCachedVariable are used to pass intermediate variables among tests. 
+
+TelluriumDataDrivenModule is used to define modules, where users can define Ui Modules, FieldSets, and tests as illustrated by the following example,
+
+{{{
+ui.Table(uid: "labels_table", clocator: [:], group: "true"){
+   TextBox(uid: "row: 1, column: 1", clocator: [tag: "div", text: "Example project labels:"])
+   Table(uid: "row: 2, column: 1", clocator: [header: "/div[@id=\"popular\"]"]){
+        UrlLink(uid: "all", locator: "/a")
+   }
+}
+
+fs.FieldSet(name: "GCHStatus", description: "Google Code Hosting input") {
+    Test(value: "getGCHStatus")
+    Field(name: "label")
+    Field(name: "rowNum", type: "int")
+    Field(name: "columNum", type: "int")
+}  
+
+defineTest("getGCHStatus"){
+    def expectedLabel = bind("GCHStatus.label")
+    def expectedRowNum = bind("GCHStatus.rowNum")
+    def expectedColumnNum = bind("GCHStatus.columNum")
+
+    openUrl("http://code.google.com/hosting/")
+    def label = getText("labels_table[1][1]")
+    def rownum = getTableMaxRowNum("labels_table[2][1]")
+    def columnum = getTableMaxColumnNum("labels_table[2][1]")
+
+    compareResult(expectedLabel, label)
+    compareResult(expectedRowNum, rownum)
+    compareResult(expectedColumnNum, columnum)
+    pause 1000
+}
+}}}
+
+TelluriumDataDrivenTest is the class users should extend to run the actual data driven testing. 
+
+{{{
+class GoogleBookListCodeHostTest extends TelluriumDataDrivenTest{
+
+    public void testDataDriven() {
+
+        includeModule  example.google.GoogleBookListModule.class
+        includeModule  example.google.GoogleCodeHostingModule.class
+
+        //load file
+        loadData "src/test/example/test/ddt/GoogleBookListCodeHostInput.txt"
+        
+        //read each line and run the test script until the end of the file
+        stepToEnd()
+
+        //close file
+        closeData()
+    }
+}
+}}}
+
+The sample input data are as follows,
+
+{{{
+##TEST should be always be the first column
+
+##Data for test "getGCHStatus"
+##TEST | LABEL | Row Number | Column Number
+getGCHStatus |Example project labels:| 3 | 6
+getGCHStatus |Example project| 3 | 6 
+}}}
+
+For more detailed examples, please see [http://code.google.com/p/aost/wiki/DataDrivenTestingExample Data Driven Testing Examples].
 
 == The Dump Method ==
 
