@@ -21,6 +21,69 @@ Be aware that in most case the UI elements inside the composite UI object have r
   * UI module makes composite objects reusable in term of widget objects. 
   * UI module will make Tellurium move to a different future path from Selenium to more efficiently support UI Module.
 
+== Composite Locator ==
+
+Tellurium provides two types of locators, i.e., _base locator_ and _composite locator_. The _base locator_ is a relative XPath. The _composite locator_, denoted by "clocator", specifies a set of parameters for the object and the actual locator will be derived automatically by Tellurium at runtime.   
+
+The Composite Locator is defined as follows:
+
+{{{
+class CompositeLocator {
+    String header
+    String tag
+    String text
+    String trailer
+    def position
+    boolean direct
+    Map<String, String> attributes = [:]
+}
+}}}
+
+To use the composite locator, you need to use "clocator" and its value is a map, i.e.,
+
+{{{
+clocator: [key1: value1, key2: value2, ...]
+}}}
+
+The default attributes include "header", "tag", "text", "trailer", "position", and "direct". They are all optional. The "direct" attribute specifies whether this UI object is a direct child of its parent UI and the default value is "false".
+
+You may have additional attributes, define them in the same way as the default attributes, for example:
+
+{{{
+value: "Tellurium home"
+}}}
+
+Most Tellurium objects come with default values for certain attributes, for example, the  tag attribute. If these attributes are not specified, the default attribute values will be used. In other words, if you know the default attribute values of a Tellurium UI object, you can omit them in clocator. Take the RadioButton object as an example, its default tag is "input" and its default type is "radio". You can omit them and write the clocator as follows,
+
+{{{
+clocator: [:]
+}}}
+
+which is equivalent to
+
+{{{
+clocator: [tag: "input", type: "radio"]
+}}}
+
+The default attributes for Tellurium objects are listed as follows,
+
+|| *Tellurium Object* || *Default Attributes* ||
+|| Button || tag: "input" ||
+|| CheckBox || tag: "input", type: "checkbox" ||
+|| Div || tag: "div" ||
+|| Form || tag: "form" ||
+|| Image || tag: "img" ||
+|| InputBox || tag: "input" ||
+|| RadioButto || tag: "input", type: "radio" ||
+|| Selector || tag: "select" ||
+|| Span || tag: "span" ||
+|| SubmitButton || tag: "input", type: "submit" ||
+|| Table || tag: "table" ||
+|| UrlLink || tag: "a" ||
+|| StandardTable || tag: "table" ||
+
+
+ 
 == jQuery Selector ==
 
 Starting with version 0.6.0, Tellurium will support a [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector jQuery selector] to address the problem of poor performance of xpath in Internet Explorer. Auto-generating jQuery instead of xpath has the following advantages:
@@ -297,8 +360,8 @@ tellurium{
 
 }
 
-Obviously, "//" is used for comments. You may wonder how Tellurium parses the configuration file, Tellurium actually uses Groovy ConfigSlurper class to achieve
-this. The nested settings will be turned into a Groovy ConfigObject type object, which is basically a nested map, for example, the port number for the embedded server could be reached by "conf.tellurium.embeddedserver.port". 
+Obviously, "//" is used for comments. You may wonder how Tellurium parses the configuration file, Tellurium actually uses the Groovy ConfigSlurper class to achieve
+this. The nested settings will be turned into a Groovy ConfigObject object, which is basically a nested map, for example, the port number for the embedded server could be referred by "conf.tellurium.embeddedserver.port". 
 
 [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile TelluriumConfig.groovy] acts like a global setting file for a Tellurium project. In the meanwhile, Tellurium provides the following method for you to override the settings in individual test case class, 
 
@@ -320,8 +383,6 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase
 
 } 
 }}}
-
-== Built-in Support for JUnit and TestNG ==
 
 == Data Driven Test ==
 
