@@ -39,7 +39,7 @@ class CompositeLocator {
 }
 }}}
 
-To use the composite locator, you need to use "clocator" and its value is a map, i.e.,
+To use the composite locator, you need to use "clocator" with a map as its value, i.e.,
 
 {{{
 clocator: [key1: value1, key2: value2, ...]
@@ -47,10 +47,10 @@ clocator: [key1: value1, key2: value2, ...]
 
 The default attributes include "header", "tag", "text", "trailer", "position", and "direct". They are all optional. The "direct" attribute specifies whether this UI object is a direct child of its parent UI and the default value is "false".
 
-You may have additional attributes, define them in the same way as the default attributes, for example:
+If you have additional attributes, you can define them in the same way as the default attributes, for example:
 
 {{{
-value: "Tellurium home"
+clocator: [tag: "div", value: "Tellurium home"]
 }}}
 
 Most Tellurium objects come with default values for certain attributes, for example, the  tag attribute. If these attributes are not specified, the default attribute values will be used. In other words, if you know the default attribute values of a Tellurium UI object, you can omit them in clocator. Take the RadioButton object as an example, its default tag is "input" and its default type is "radio". You can omit them and write the clocator as follows,
