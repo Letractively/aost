@@ -4,7 +4,7 @@
 
 == UI Module ==
 
-UI Module is the key concept of Tellurium. What is UI module? UI module is a collection of UI elements you group them together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For example, the download search module in Tellurium project site is defined as follows,
+UI Module is the key concept of Tellurium. What is UI module? UI module is a collection of UI elements that you group them together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For example, the download search module in Tellurium project site is defined as follows,
 
 {{{
 ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
@@ -14,16 +14,16 @@ ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group:
 }
 }}}
 
-Be aware that in most case the UI elements inside the composite UI object have relationship to each other. In the DOM structure, they should be on the same sub-tree with the top UI element as the parent. The exception is the [http://code.google.com/p/aost/wiki/LogicalContainer Logical Container].
+Be aware that in most case the UI elements inside the composite UI object have relationship to each other. In the DOM structure, they should be on the same sub-tree. The exception is the [http://code.google.com/p/aost/wiki/LogicalContainer Logical Container].
 
-[http://code.google.com/p/aost/wiki/Tellurium_A_New_Approach_for_Web_Test Why UI module concept is so important]? It is the foundation that Tellurium built on. First, UI module makes it possible to build UI elements' locator at runtime, which also makes Tellurium robust to changes in internal UI elements. Second, UI module makes Tellurium expressive. You can refer a UI element by simply appending the names along the path to the specific element. For example, in the Tellurium download search module, you can refer the Selector element as "downloadSearch.downloadType". Other reasons include 
+[http://code.google.com/p/aost/wiki/Tellurium_A_New_Approach_for_Web_Test Why UI module concept is so important]? It is the foundation that Tellurium built on. First, UI module makes it possible to build UI elements' locator at runtime, which also makes Tellurium robust to changes from internal UI elements. Second, UI module makes Tellurium expressive. You can refer a UI element by simply appending the names along the path to the specific element. For example, you can refer the Selector element in the Tellurium download search module as "downloadSearch.downloadType". Other reasons include 
   * UI module makes Group Locating possible. 
   * UI module makes composite objects reusable in term of widget objects. 
-  * UI module will make Tellurium move to a different future path from Selenium to more efficiently support UI Module.
+  * UI module requires a new Tellurium Engine to support UI Module more efficiently.
 
 == Composite Locator ==
 
-Tellurium provides two types of locators, i.e., _base locator_ and _composite locator_. The _base locator_ is a relative XPath. The _composite locator_, denoted by "clocator", specifies a set of parameters for the object and the actual locator will be derived automatically by Tellurium at runtime.   
+Tellurium supports two types of locators, i.e., _base locator_ and _composite locator_. The _base locator_ is a relative XPath. The _composite locator_, denoted by "clocator", specifies a set of attributes for the UI object and the actual locator will be derived automatically by Tellurium at runtime.   
 
 The Composite Locator is defined as follows:
 
