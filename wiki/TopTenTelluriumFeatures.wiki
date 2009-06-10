@@ -334,7 +334,7 @@ To make the framework scalable, Tellurium provides an _onWidget_ method for Tell
 onWidget "dropdown.datePicker", selectPrevYear
 }}}
 
-== Reconfigurable ==
+== Flexible Configuration ==
 
 Tellurium use a configuration file TelluriumConfig.groovy to configure the framework. Do not be panic to see that it is a groovy file. Yes, it is a groovy file, but it is parsed by the framework as a text file. For you, just treat it as a text file with some rules such as using "{" and "}" for a block. Look at a snippet of configuration
 
