@@ -16,13 +16,13 @@ The tellurium data driven test consists of three main parts, i.e., Data Provider
 
 === Data Provider ===
 
-The data provider is the responsible for reading data from input stream and converting data to Java variables in data driven tests. As shown in Figure 1, the data reader reads data from the input stream line by line and turns the results to the FieldSet-to-Object mapper, which maps the data to the appropriate FieldSet. Then, the varaiable binder binds the data to variables defined in the test according to the FieldSet defintion. 
+The data provider is responsible for reading data from input stream and converting data to Java variables in data driven tests. As shown in Figure 1, the data reader reads data from the input stream line by line and turns the results to the FieldSet-to-Object mapper, which maps the data to the appropriate FieldSet. Then, the varaiable binder binds the data to variables defined in the test according to the FieldSet defintion. 
 
 The data provider is the key component of the data driven testing. It reads data from input and binds them to variables defined in the test scripts. This part is handled by the data to object mapping framework. Data provider usually works behind the scene and it provides the following methods for users:
 
-  # loadData file_name, load input data from a file. 
+  # loadData file_name, load input data from a file 
   # useData String_name, load input data from a String in the test script
-  # bind("fieldSet field name"), bind a variable to a FieldSet field name
+  # bind(field_name), bind a variable to a field in a field set
   # closeData, close the input data stream and report the test results
   # cacheVariable(name, variable), put variable into cache
   # getCachedVariable(name, variable), get variable from cache
