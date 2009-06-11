@@ -74,7 +74,7 @@ The default attributes for Tellurium objects are listed as follows,
 || Form || tag: "form" ||
 || Image || tag: "img" ||
 || InputBox || tag: "input" ||
-|| RadioButto || tag: "input", type: "radio" ||
+|| RadioButton || tag: "input", type: "radio" ||
 || Selector || tag: "select" ||
 || Span || tag: "span" ||
 || SubmitButton || tag: "input", type: "submit" ||
