@@ -11,7 +11,7 @@ class NewUiModule extends DslContext {
 
   public void defineUi() {
     ui.Container(uid: "Tellurium", clocator: [tag: "body", class: "t2"]) {
-      Form(uid: "Form", clocator: [tag: "form", method: "get", action: "list"], group: "true") {
+      Form(uid: "Form", clocator: [tag: "form", method: "GET", action: "list"], group: "true") {
         InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "q", id: "q"])
         SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit", value: "Search"])
         Selector(uid: "DownloadType", clocator: [tag: "select", name: "can", id: "can"])

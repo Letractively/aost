@@ -17,9 +17,9 @@ class TelluriumWikiPage extends DslContext{
    public void defineUi() {
 
        //define UI module of a form include wiki page type selector and page search
-       ui.Form(uid: "wikiSearch", clocator: [action: "/p/aost/w/list", method: "get"], group: "true") {
+       ui.Form(uid: "wikiSearch", clocator: [action: "/p/aost/w/list", method: "GET"], group: "true") {
            Selector(uid: "pageType", clocator: [name: "can", id: "can"])
-           TextBox(uid: "searchLabel", clocator: [tag: "span"])
+           TextBox(uid: "searchLabel", clocator: [tag: "span", text: "*for"])
            InputBox(uid: "searchBox", clocator: [name: "q"])
            SubmitButton(uid: "searchButton", clocator: [value: "Search"])
        }
