@@ -91,13 +91,13 @@
         <dependency>
             <groupId>org.seleniumhq.selenium.server</groupId>
             <artifactId>selenium-server</artifactId>
-            <version>1.0-te-2</version>
+            <version>1.0.1-te</version>
             <!--classifier>standalone</classifier-->
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium.client-drivers</groupId>
             <artifactId>selenium-java-client-driver</artifactId>
-            <version>1.0-beta-2</version>
+            <version>1.0.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.codehaus.groovy.maven.runtime</groupId>
@@ -359,7 +359,7 @@
         <java-version>1.5</java-version>
         <groovy-version>1.6.0</groovy-version>
         <gmaven-version>1.0-rc-5</gmaven-version>
-        <selenium-version>1.0-beta-2</selenium-version>
+        <selenium-version>1.0.1</selenium-version>
         <javac-debug>true</javac-debug>
     </properties>
 
