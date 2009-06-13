@@ -42,7 +42,7 @@ public class GoogleCodeHostingJavaTestCase extends TelluriumJavaTestCase {
     @Test
     public void testCodeLabelTable(){
         String label = ngch.getModuleLabel();
-        assertEquals("Example project labels:", label);
+        assertEquals("Explore hosted projects:", label);
 
         int nrow = ngch.getLabelTableRowNum();
         assertEquals(4, nrow);

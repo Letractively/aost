@@ -18,7 +18,7 @@ public class CustomUIExample_UT extends GroovyTestCase {
     CustomUIExample cue = new CustomUIExample();
     cue.defineUi();
     int tabnum = 3;
-    String status = cue.getXCaseStatus(tabnum); 
+//    String status = cue.getXCaseStatus(tabnum); 
   }
 
   public void testGroup(){
