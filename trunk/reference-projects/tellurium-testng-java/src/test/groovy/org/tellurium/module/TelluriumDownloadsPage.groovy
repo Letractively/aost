@@ -17,9 +17,9 @@ class TelluriumDownloadsPage extends DslContext{
    public void defineUi() {
 
        //define UI module of a form include download type selector and download search
-       ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
+       ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "GET"], group: "true") {
            Selector(uid: "downloadType", clocator: [name: "can", id: "can"])
-           TextBox(uid: "searchLabel", clocator: [tag: "span"])
+           TextBox(uid: "searchLabel", clocator: [tag: "span", text: "*for"])
            InputBox(uid: "searchBox", clocator: [name: "q"])
            SubmitButton(uid: "searchButton", clocator: [value: "Search"])
        }
@@ -28,12 +28,12 @@ class TelluriumDownloadsPage extends DslContext{
            //define table header
            //for the border column
            TextBox(uid: "header: 1", clocator: [:])
-           UrlLink(uid: "header: 2", clocator: [text: "%%Filename"])
-           UrlLink(uid: "header: 3", clocator: [text: "%%Summary + Labels"])
-           UrlLink(uid: "header: 4", clocator: [text: "%%Uploaded"])
-           UrlLink(uid: "header: 5", clocator: [text: "%%Size"])
-           UrlLink(uid: "header: 6", clocator: [text: "%%DownloadCount"])
-           UrlLink(uid: "header: 7", clocator: [text: "%%..."])
+           UrlLink(uid: "header: 2", clocator: [text: "*Filename"])
+           UrlLink(uid: "header: 3", clocator: [text: "*Summary + Labels"])
+           UrlLink(uid: "header: 4", clocator: [text: "*Uploaded"])
+           UrlLink(uid: "header: 5", clocator: [text: "*Size"])
+           UrlLink(uid: "header: 6", clocator: [text: "*DownloadCount"])
+           UrlLink(uid: "header: 7", clocator: [text: "*..."])
 
            //define table elements
            //for the border column

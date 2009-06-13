@@ -17,14 +17,14 @@ class TelluriumIssuesPage extends DslContext{
    public void defineUi() {
 
        //define UI module of a form include issue type selector and issue search
-       ui.Form(uid: "issueSearch", clocator: [action: "list", method: "get"], group: "true") {
+       ui.Form(uid: "issueSearch", clocator: [action: "list", method: "GET"], group: "true") {
          Selector(uid: "issueType", clocator: [name: "can", id: "can"])
          TextBox(uid: "searchLabel", clocator: [tag: "span", text: "*for"])
          InputBox(uid: "searchBox", clocator: [type: "text", name: "q"])
          SubmitButton(uid: "searchButton", clocator: [value: "Search"])
        }
 
-       ui.Form(uid: "issueAdvancedSearch", clocator: [action: "advsearch.do", method: "post"], group: "true"){
+       ui.Form(uid: "issueAdvancedSearch", clocator: [action: "advsearch.do", method: "POST"], group: "true"){
            Table(uid: "searchTable", clocator: [class: "advquery"]){
                Selector(uid: "row:1, column: 3", clocator: [name: "can"])
                SubmitButton(uid: "row:1, column:4", clocator: [value: "Search", name: "btn"])
@@ -32,7 +32,7 @@ class TelluriumIssuesPage extends DslContext{
                InputBox(uid: "row:3, column:3", clocator:[name: "without"])
                InputBox(uid: "row:5, column:3", clocator:[name: "labels"])
                Table(uid: "row:6, column:1", clocator:[:]){
-                   UrlLink(uid: "row:1, column:1", clocator:[text: "%%Search Tips"])
+                   UrlLink(uid: "row:1, column:1", clocator:[text: "*Search Tips"])
                }
                InputBox(uid: "row:6, column:3", clocator:[name: "statuses"])
                InputBox(uid: "row:7, column:2", clocator:[name: "reporters"])
