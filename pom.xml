@@ -223,7 +223,7 @@
     </build>
     <modules>
         <module>core</module>
-        <module>engine</module>
+        <!--module>engine</module-->
         <!--module>extensions</module-->
         <module>reference-projects</module>
         <!--module>tools</module-->
