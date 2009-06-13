@@ -17,10 +17,10 @@ class TelluriumDownloadsPage extends DslContext{
    public void defineUi() {
 
        //define UI module of a form include download type selector and download search
-       ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
+       ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "GET"], group: "true") {
            Selector(uid: "downloadType", clocator: [name: "can", id: "can"])
-           TextBox(uid: "searchLabel", clocator: [tag: "span"])
-           InputBox(uid: "searchBox", clocator: [name: "q"])
+           TextBox(uid: "searchLabel", clocator: [tag: "span", text: "for"])
+           InputBox(uid: "searchBox", clocator: [type: "text", name: "q"])
            SubmitButton(uid: "searchButton", clocator: [value: "Search"])
        }
 

@@ -78,8 +78,7 @@ public class TelluriumDownloadsPageJavaTestCase extends TelluriumJavaTestCase{
         List<String> list = downloadPage.getDownloadFileNames();
         assertNotNull(list);
         assertFalse(list.isEmpty());
-        assertTrue(Helper.include(list, "tellurium-0.5.0.jar"));
-        assertTrue(Helper.include(list, "tellurium-core-0.5.0.tar.gz"));
+//        assertTrue(Helper.include(list, "tellurium-core-0.6.0.tar.gz"));
     }
 
     @Test
