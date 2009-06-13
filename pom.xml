@@ -224,9 +224,9 @@
     <modules>
         <module>core</module>
         <module>engine</module>
-        <module>extensions</module>
+        <!--module>extensions</module-->
         <module>reference-projects</module>
-        <module>tools</module>
+        <!--module>tools</module-->
         <module>tellurium-assembly</module>
     </modules>
     <repositories>
@@ -423,7 +423,7 @@
         <java-version>1.5</java-version>
         <groovy-version>1.6.0</groovy-version>
         <gmaven-version>1.0-rc-5</gmaven-version>
-        <selenium-version>1.0-beta-2</selenium-version>
-        <selenium-server-version>1.0-te-2</selenium-server-version>
+        <selenium-version>1.0.1</selenium-version>
+        <selenium-server-version>1.0.1-te</selenium-server-version>
     </properties>
 </project>
