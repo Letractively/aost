@@ -16,14 +16,14 @@ class TelluriumIssuesModule extends TelluriumDataDrivenModule{
 
     public void defineModule() {
         //define UI module
-        ui.Form(uid: "issueSearch", clocator: [action: "list", method: "get"], group: "true") {
+        ui.Form(uid: "issueSearch", clocator: [action: "list", method: "GET"], group: "true") {
             Selector(uid: "issueType", clocator: [name: "can", id: "can"])
-            TextBox(uid: "searchLabel", clocator: [tag: "span"])
+            TextBox(uid: "searchLabel", clocator: [tag: "span", text: "*for"])
             InputBox(uid: "searchBox", clocator: [name: "q"])
             SubmitButton(uid: "searchButton", clocator: [value: "Search"])
         }
 
-        ui.Form(uid: "issueAdvancedSearch", clocator: [action: "advsearch.do", method: "post"], group: "true") {
+        ui.Form(uid: "issueAdvancedSearch", clocator: [action: "advsearch.do", method: "POST"], group: "true") {
             Table(uid: "searchTable", clocator: [class: "advquery"]) {
                 Selector(uid: "row:1, column: 3", clocator: [name: "can"])
                 SubmitButton(uid: "row:1, column:4", clocator: [value: "Search", name: "btn"])
@@ -31,7 +31,7 @@ class TelluriumIssuesModule extends TelluriumDataDrivenModule{
                 InputBox(uid: "row:3, column:3", clocator: [name: "without"])
                 InputBox(uid: "row:5, column:3", clocator: [name: "labels"])
                 Table(uid: "row:6, column:1", clocator: [:]) {
-                    UrlLink(uid: "row:1, column:1", clocator: [text: "%%Search Tips"])
+                    UrlLink(uid: "row:1, column:1", clocator: [text: "*Search Tips"])
                 }
                 InputBox(uid: "row:6, column:3", clocator: [name: "statuses"])
                 InputBox(uid: "row:7, column:2", clocator: [name: "reporters"])
@@ -45,14 +45,14 @@ class TelluriumIssuesModule extends TelluriumDataDrivenModule{
             //define table header
             //for the border column
             TextBox(uid: "header: 1", clocator: [:])
-            UrlLink(uid: "header: 2", clocator: [text: "%%ID"])
-            UrlLink(uid: "header: 3", clocator: [text: "%%Type"])
-            UrlLink(uid: "header: 4", clocator: [text: "%%Status"])
-            UrlLink(uid: "header: 5", clocator: [text: "%%Priority"])
-            UrlLink(uid: "header: 6", clocator: [text: "%%Milestone"])
-            UrlLink(uid: "header: 7", clocator: [text: "%%Owner"])
-            UrlLink(uid: "header: 9", clocator: [text: "%%Summary + Labels"])
-            UrlLink(uid: "header: 10", clocator: [text: "%%..."])
+            UrlLink(uid: "header: 2", clocator: [text: "*ID"])
+            UrlLink(uid: "header: 3", clocator: [text: "*Type"])
+            UrlLink(uid: "header: 4", clocator: [text: "*Status"])
+            UrlLink(uid: "header: 5", clocator: [text: "*Priority"])
+            UrlLink(uid: "header: 6", clocator: [text: "*Milestone"])
+            UrlLink(uid: "header: 7", clocator: [text: "*Owner"])
+            UrlLink(uid: "header: 9", clocator: [text: "*Summary + Labels"])
+            UrlLink(uid: "header: 10", clocator: [text: "*..."])
 
             //define table elements
             //for the border column

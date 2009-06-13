@@ -17,9 +17,9 @@ class TelluriumWikiPage extends DslContext{
    public void defineUi() {
 
        //define UI module of a form include wiki page type selector and page search
-       ui.Form(uid: "wikiSearch", clocator: [action: "/p/aost/w/list", method: "get"], group: "true") {
+       ui.Form(uid: "wikiSearch", clocator: [action: "/p/aost/w/list", method: "GET"], group: "true") {
            Selector(uid: "pageType", clocator: [name: "can", id: "can"])
-           TextBox(uid: "searchLabel", clocator: [tag: "span"])
+           TextBox(uid: "searchLabel", clocator: [tag: "span", text: "*for"])
            InputBox(uid: "searchBox", clocator: [name: "q"])
            SubmitButton(uid: "searchButton", clocator: [value: "Search"])
        }
@@ -28,11 +28,11 @@ class TelluriumWikiPage extends DslContext{
            //define table header
            //for the border column
            TextBox(uid: "header: 1", clocator: [:])
-           UrlLink(uid: "header: 2", clocator: [text: "%%PageName"])
-           UrlLink(uid: "header: 3", clocator: [text: "%%Summary + Labels"])
-           UrlLink(uid: "header: 4", clocator: [text: "%%Changed"])
-           UrlLink(uid: "header: 5", clocator: [text: "%%ChangedBy"])
-           UrlLink(uid: "header: 6", clocator: [text: "%%..."])
+           UrlLink(uid: "header: 2", clocator: [text: "*PageName"])
+           UrlLink(uid: "header: 3", clocator: [text: "*Summary + Labels"])
+           UrlLink(uid: "header: 4", clocator: [text: "*Changed"])
+           UrlLink(uid: "header: 5", clocator: [text: "*ChangedBy"])
+           UrlLink(uid: "header: 6", clocator: [text: "*..."])
 
            //define table elements
            //for the border column
