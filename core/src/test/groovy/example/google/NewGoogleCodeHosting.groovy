@@ -16,7 +16,8 @@ class NewGoogleCodeHosting  extends DslContext{
 
     public void defineUi() {
        ui.Table(uid: "labels_table", clocator: [:], group: "true"){
-         TextBox(uid: "row: 1, column: 1", clocator: [tag: "div", text: "Example project labels:"])
+         // Example project labels
+         TextBox(uid: "row: 1, column: 1", clocator: [tag: "div", text: "Explore hosted projects:"])
          Table(uid: "row: 2, column: 1", clocator: [header: "/div[@id=\"popular\"]"]){
              UrlLink(uid: "all", locator: "/a")
            }
