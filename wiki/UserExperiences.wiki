@@ -9,3 +9,7 @@ Here is the list of experiences provided by Tellurium developers and users
   * [http://epyramid.wordpress.com/2009/06/02/tellurium-automation-process/ Tellurium and test automation process by Haroon Rasheed]
   * [http://notetodogself.blogspot.com/2009/06/tellurium-better-functional-test.html Tellurium: A Better Functional Test by Mikhail Koryak]
   * [http://startupmusings.blogspot.com/2009/06/experience-with-web-testing-frameworks.html Experience with Web Testing Frameworks by Harihara Vinayakaram]
+
+== Interviews ==
+
+  * Tellurium creator, Dr. Jian Fang, was interviewed by [http://www.infoq.com/cn/articles/tellurium-testing-framework InfoQ China]. 
