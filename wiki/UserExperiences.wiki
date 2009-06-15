@@ -12,4 +12,4 @@ Here is the list of experiences provided by Tellurium developers and users
 
 == Interviews ==
 
-  * Tellurium creator, Dr. Jian Fang, was interviewed by [http://www.infoq.com/cn/articles/tellurium-testing-framework InfoQ China]. 
+  * Interview with Tellurium creator, Dr. Jian Fang, by Kevin Zhang from [http://www.infoq.com/cn/articles/tellurium-testing-framework InfoQ China]. 
