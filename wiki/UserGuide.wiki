@@ -249,37 +249,37 @@ Tellurium supports both XPath and jQuery selector and still uses XPath as the de
 
 To enable jQuery selector call the following method.
 
-*{{{useJQuerySelector()}}}: Use jQuery selector.
+   * {{{useJQuerySelector()}}}: Use jQuery selector.
 
 To disable jQuery selector call the following method, it also switches back to the default
 locator. i.e. XPath
 
-*{{{disableJQuerySelector()}}}: Switch back to XPath locator.
+   * {{{disableJQuerySelector()}}}: Switch back to XPath locator.
 
 
 jQuery selector only works for composite locator, i.e. clocator. You cannot have base locator, i.e., XPath, in your UI module.
 
 jQuery Selector provides the following additional Selenium methods, which are utilized in DslContext? to form a set of new DSL methods.
 
-*{{{String getAllText(String locator)}}}: Get all text from the set of elements corresponding to the jQuery Selector.
+   * {{{String getAllText(String locator)}}}: Get all text from the set of elements corresponding to the jQuery Selector.
 
-*{{{String getCSS(String locator, String cssName)}}} : Get the CSS properties for the set of elements corresponding to the jQuery Selector.
+   * {{{String getCSS(String locator, String cssName)}}} : Get the CSS properties for the set of elements corresponding to the jQuery Selector.
 
-*{{{Number getJQuerySelectorCount(String locator)}}} : Get the number of elements matching the corresponding jQuery Selector
+   * {{{Number getJQuerySelectorCount(String locator)}}} : Get the number of elements matching the corresponding jQuery Selector
 
 jQuery also supports the following attribute selectors.
 
-*{{{attribute}}}: have the specified attribute.
+   * {{{attribute}}}: have the specified attribute.
 
-*{{{attribute=value}}}: have the specified attribute with a certain value.
+   * {{{attribute=value}}}: have the specified attribute with a certain value.
 
-*{{{attribute!=value}}}: either don't have the specified attribute or do have the specified attribute but not with a certain value.
+   * {{{attribute!=value}}}: either don't have the specified attribute or do have the specified attribute but not with a certain value.
 
-*{{{attribute^=value}}}: have the specified attribute and it starts with a certain value.
+   * {{{attribute^=value}}}: have the specified attribute and it starts with a certain value.
 
-*{{{attribute$=value}}}: have the specified attribute and it ends with a certain value.
+   * {{{attribute$=value}}}: have the specified attribute and it ends with a certain value.
 
-*{{{attribute*=value}}}: have the specified attribute and it contains a certain value.
+   * {{{attribute*=value}}}: have the specified attribute and it contains a certain value.
 
 Apart from the above, jQuery selector also provides a jQuery selector version of many existing DSL methods, for instance,
 
