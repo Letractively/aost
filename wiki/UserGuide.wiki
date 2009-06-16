@@ -295,6 +295,43 @@ int getTableHeaderColumnNum(String uid)
 
 Under the hood, Tellurium core will call the appropriate API based on what locator you are currently using. For more details, please see Tellurium jQuery Selector Guide.
 
+=== jQuery Selector Cache Option ===
+
+jQuery cache is a mechanism to further improve the speed by reusing the found DOM reference for a given jQuery selector. Our benchmark results show that the jQuery cache could improve the speed by up to 14% over the regular jQuery selector and over 27% for some extreme cases. But the improvement of jQuery cache over regular jQuery selector has upper bound, which is the portion of jQuery locating time out of the round trip time from Tellurium core to Selenium core. jQuery cache is still considered to be experimental at the current stage. Use it at your own discretion.
+
+To make the cache option configurable in tellurium UI module, Tellurium introduces an attribute _cacheable_ to UI object, which is set to be true by default. For a Container type object, it has an extra attribute _noCacheForChildren_ to control whether to cache its children. 
+
+One example UI module is defined as follows,
+
+{{{
+  ui.Table(uid: "issueResultWithCache", cacheable: "true", noCacheForChildren: "true", clocator: [id: "resultstable", class: "results"], group: "true") {
+ 
+       ......
+
+      //define table elements
+      //for the border column
+      TextBox(uid: "row: *, column: 1", clocator: [:])
+      TextBox(uid: "row: *, column: 8", clocator: [:])
+      TextBox(uid: "row: *, column: 10", clocator: [:])
+      //For the rest, just UrlLink
+      UrlLink(uid: "all", clocator: [:])
+    }
+}}}
+
+Where the _cacheable_ can overwrite the default value in the UI object and _noCacheForChildren _ in the above example will force Tellurium to not cache its children.
+
+Tellurium Core provides a set of methods for jQuery Selector cache control, for example,
+
+  * _public void enableSelectorCache()_: Enable jQuery selector cache
+
+  * _public boolean disableSelectorCache()_: Disable jQuery selector cache
+
+  * _public void setCacheMaxSize(int size)_: Set the cache maximum size
+
+  * _public void useDiscardOldCachePolicy()_: Use DiscardOldCachePolicy
+ 
+For a complete list of cache control APIs, please check  [http://code.google.com/p/aost/wiki/jQuerySelectorCache The Cache Mechanism of jQuery Selector]
+
 
 === Button ===
 
