@@ -23,11 +23,24 @@ class NewGoogleStartPage extends DslContext{
         //web and how difficult is to find a group of ui elements including one input box, two submit buttons.
         //of course, thisqures that the input box and two submit buttons are indeed the children of the
         //container, i.e., here they must be co-located following the "td" tag in the DOM.
+
+      /*
         ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
-            InputBox(uid: "searchbox", clocator: [title: "Google Search"], respond: ["click", "doubleclick", "focus", "mouseOver", "mouseOut", "blur", "keyDown"])
-            SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
-            SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
+//            InputBox(uid: "searchbox", clocator: [title: "Google Search"], respond: ["click", "doubleclick", "focus", "mouseOver", "mouseOut", "blur", "keyDown"])
+            InputBox(uid: "searchbox", clocator: [name: "q"], respond: ["click", "doubleclick", "focus", "mouseOver", "mouseOut", "blur", "keyDown"])
+            
+//            SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
+            SubmitButton(uid: "googlesearch", clocator: [name: "btnG"])
+//            SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
+            SubmitButton(uid: "Imfeelinglucky", clocator: [name: "btnl"])
         }
+*/      
+        ui.Container(uid: "google_start_page", clocator: [tag: "table"]) {
+          InputBox(uid: "searchbox", clocator: [tag: "input", title: "Google Search", name: "q"], respond: ["click", "doubleclick", "focus", "mouseOver", "mouseOut", "blur", "keyDown"])
+          SubmitButton(uid: "googlesearch", clocator: [tag: "input", type: "submit", value: "Google Search", name: "btnG"])
+          SubmitButton(uid: "Imfeelinglucky", clocator: [tag: "input", type: "submit", value: "I'm Feeling Lucky", name: "btnI"])
+        }
+
     }
 
     def doGoogleSearch(String input){
@@ -42,7 +55,7 @@ class NewGoogleStartPage extends DslContext{
         type "searchbox", input
         pause 500
         click "Imfeelinglucky"
-        waitForPageToLoad 30000
+        waitForPageToLoad 50000
     }
 
     def testClick(){
