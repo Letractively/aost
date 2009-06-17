@@ -18,7 +18,7 @@ class GoogleCodeHosting extends DslContext{
 
     public void defineUi() {
        ui.Container(uid: "googlecodehosting"){
-           Table(uid: "labels_table", locator: "//table[descendant::div[contains(text(),\"Example project labels:\")]]"){
+           Table(uid: "labels_table", locator: "//table[descendant::div[contains(text(),\"Explore hosted projects:\")]]"){
                TextBox(uid: "row: 1, column: 1", locator: "/div")
                Table(uid: "row: 2, column: 1", locator: "/div[@id=\"popular\"]/table"){
                    UrlLink(uid: "all", locator: "/a")
