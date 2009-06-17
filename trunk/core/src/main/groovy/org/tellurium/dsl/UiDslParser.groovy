@@ -5,6 +5,7 @@ import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.exception.UiObjectNotFoundException
 import org.tellurium.object.*
+import org.tellurium.exception.InvalidObjectTypeException
 
 class UiDslParser extends BuilderSupport{
        public static final String UID = "uid"
@@ -12,7 +13,8 @@ class UiDslParser extends BuilderSupport{
        public static final String INCLUDE = "Include"
   
        //later on, may need to refactor it to use resource file so that we can show message for different localities
-       protected static final String ERROR_MESSAGE = "Cannot find UI Object";
+       protected static final String ERROR_MESSAGE = "Cannot find UI Object"
+       protected static final String INVALID_UI_OBJECT_TYPE = "Invalid UI Object Type"
 
        def registry = [:]
 
@@ -116,9 +118,9 @@ class UiDslParser extends BuilderSupport{
              def obj = builder.build(null, null)
 
              return obj
+           }else{
+             throw new InvalidObjectTypeException("${INVALID_UI_OBJECT_TYPE} ${name}")
            }
-
-           return null
 
        }
 
@@ -140,9 +142,9 @@ class UiDslParser extends BuilderSupport{
                 def obj =  builder.build(map, null)
 
                 return obj
-           }   
-
-           return null
+           }else{
+              throw new InvalidObjectTypeException("${INVALID_UI_OBJECT_TYPE} ${name}")
+           }
          }
        }
 
@@ -153,9 +155,9 @@ class UiDslParser extends BuilderSupport{
                def obj =  builder.build(map, (Closure)value)
 
                return obj
-           }   
-
-          return null
+           }else{
+              throw new InvalidObjectTypeException("${INVALID_UI_OBJECT_TYPE} ${name}")
+           }
        }
 
        protected void nodeCompleted(Object parent, Object node) {
