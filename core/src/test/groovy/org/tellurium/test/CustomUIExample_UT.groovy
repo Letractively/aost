@@ -27,4 +27,10 @@ public class CustomUIExample_UT extends GroovyTestCase {
     cue.dump("caseRecordPopUp");    
   }
 
+  public void testSubNav(){
+    CustomUIExample cue = new CustomUIExample();
+    cue.defineUi();
+    cue.dump("subnav");        
+  }
+
 }
