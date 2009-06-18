@@ -973,7 +973,30 @@ issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="c
 -------------------------------------------------------
 }}}
 
+=== Selenium Grid Support ===
+
+Selenium Grid transparently distributes your tests on multiple machines so that you can run your tests in parallel. We recently added support for Selenium Grid to the Tellurium. Now you can run the Tellurium tests against different browsers using Selenium Grid. Tellurium core is updated to support Selenium Grid sessions. You should read the following the details guide [http://code.google.com/p/aost/wiki/SeleniumGridAndTellurium Using Selenium Grid with Tellurium].
+
+Make sure you do not run Selenium server internally and you should configure this in the  TelluriumConfig.groovy file as follows,
+
+{{{
+tellurium{
+    //embedded selenium server configuration
+    embeddedserver {
+        //port number
+        port = "4444"
+        //whether to use multiple windows
+        useMultiWindows = false
+        //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
+        runInternally = false
+        //profile location
+        profile = ""
+        //user-extension.js file
+        userExtension = ""
+    }
+}}}
+
+
 == Customized Selenium Server ==
 
 We customized selenium-core 1.0.1 and embedded our Engine code into it. The Engine mainly provides jQuery selector support, jQuery selector caching, and a set of new APIs. 
-
