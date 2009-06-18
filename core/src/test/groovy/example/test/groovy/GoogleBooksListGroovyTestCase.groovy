@@ -28,7 +28,7 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
         tearDownForClass()
     }
 
-    void lhtestBookCategory(){
+    void testBookCategory(){
         //test google book list using Selenium way, i.e., absolute xpath
         GoogleBooksList gbl = new GoogleBooksList()
         gbl.defineUi()
