@@ -77,12 +77,12 @@ First, you should modify your maven setting.xml file to allow you to automatical
 Then, run the following maven command to create your new project
 
 {{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
 }}}
 
 Without adding the Tellurium Maven repository, you can specify it in the command line as
 {{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0 -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/releases
 }}}
 
 But you still need to put the Tellurium repository into your settings.xml later since the Tellurium test project needs to download other Tellurium artifacts from the repository, for example, the tellurium core jar file.
@@ -125,5 +125,5 @@ mvn test
 This is the same as the JUnit archetype, except that you should use a different archetype
 
 {{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
 }}}
