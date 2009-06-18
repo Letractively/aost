@@ -2,7 +2,7 @@
 	<parent>
 		<groupId>tellurium</groupId>
 		<artifactId>tellurium-reference-projects</artifactId>
-		<version>0.6.0</version>
+		<version>0.7.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>tellurium-testng-java</artifactId>
@@ -10,9 +10,9 @@
 	<name>Tellurium TestNG Reference Project</name>
 	<description>Tellurium TestNG Reference Project</description>
 	<scm>
-		<connection>scm:svn:http://aost.google.code.com/svn/tags/tellurium-0.6.0/reference-projects/tellurium-testng-java</connection>
-		<developerConnection>scm:svn:https://aost.googlecode.com/svn/tags/tellurium-0.6.0/reference-projects/tellurium-testng-java</developerConnection>
-		<url>http://aost.google.code.com/svn/tags/tellurium-0.6.0/reference-projects/tellurium-testng-java</url>
+		<connection>scm:svn:http://aost.google.code.com/svn/trunk/reference-projects/tellurium-testng-java</connection>
+		<developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/reference-projects/tellurium-testng-java</developerConnection>
+		<url>http://aost.google.code.com/svn/trunk/reference-projects/tellurium-testng-java</url>
 	</scm>
 
     <build>
