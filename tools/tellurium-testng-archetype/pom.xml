@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <!--parent>
         <groupId>tellurium</groupId>
         <artifactId>tellurium-tools</artifactId>
@@ -8,14 +7,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>tellurium</groupId>
     <artifactId>tellurium-testng-archetype</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.6.0</version>
     <name>Archetype - tellurium-testng-archetype</name>
     <description>A Tellurium plugin for Firefox</description>
     <scm>
-        <connection>scm:svn:http://aost.google.code.com/svn/trunk/tools/tellurium-testng-archetype</connection>
-        <developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/tools/tellurium-testng-archetype
+        <connection>scm:svn:http://aost.google.code.com/svn/tags/tellurium-0.6.0/tools/tellurium-testng-archetype</connection>
+        <developerConnection>scm:svn:https://aost.googlecode.com/svn/tags/tellurium-0.6.0/tools/tellurium-testng-archetype
         </developerConnection>
-        <url>http://aost.google.code.com/svn/trunk/tools/tellurium-testng-archetype</url>
+        <url>http://aost.google.code.com/svn/tags/tellurium-0.6.0/tools/tellurium-testng-archetype</url>
     </scm>
     <distributionManagement>
 		<downloadUrl>http://code.google.com/p/aost/downloads/list</downloadUrl>
