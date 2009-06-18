@@ -803,3 +803,177 @@ click "layoutSelector.layoutSelector.List"
 }}}
 
 The option object will automatically detect which UI pattern you need to use at runtime. 
+
+
+=== "Include" Frequently Used Sets of elements in UI Modules ===
+
+Sometimes, you have a frequently used set of elements, which you do not want to redefined them over and over again in your UI module. Now, you can use the "Include" syntax to re-use pre-defined UI elements,
+
+{{{
+Include(uid: UID, ref: REFERRED_UID)
+}}}  
+
+You should use "ref" to reference the object you want to include, you can still specify the uid for the object (if you do not need a different UID, you do not need to specify it), if the object uid is not the same as the original one, Tellurium will clone a new object for you so that you can have multiple objects with different UIDs. 
+
+For example, you first define the following reused UI module
+
+{{{
+   ui.Container(uid: "SearchModule", clocator: [tag: "td"], group: "true") {
+     InputBox(uid: "Input", clocator: [title: "Google Search"])
+     SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+     SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
+   }
+}}}
+
+Then, you can include it into your new UI module as follows,
+
+{{{
+   ui.Container(uid: "Google", clocator: [tag: "table"]) {
+     Include(ref: "SearchModule")
+     Include(uid: "MySearchModule", ref: "SearchModule")
+     Container(uid: "Options", clocator: [tag: "td", position: "3"], group: "true") {
+       UrlLink(uid: "LanguageTools", clocator: [tag: "a", text: "Language Tools"])
+       UrlLink(uid: "SearchPreferences", clocator: [tag: "a", text: "Search Preferences"])
+       UrlLink(uid: "AdvancedSearch", clocator: [tag: "a", text: "Advanced Search"])
+     }
+   }
+}}}
+ 
+=== Customize Individual Test settings Using setCustomConfig ===
+
+TelluriumConfig.groovy provides project level test settings, you can use setCustomConfig to custmoize individual testing settings.
+
+{{{
+public void setCustomConfig(boolean runInternally, int port, String browser, boolean useMultiWindows, String profileLocation)
+}}}
+
+For example, you can specify your custom settings as follows,
+
+{{{
+static{
+   setCustomConfig(true, 5555, "*chrome", true, null);
+}
+}}}
+ 
+=== User Custom Selenium Extensions ===
+
+To support user custom selenium extensions, Tellurium Core added the following configurations to TelluriumConfig.groovy 
+
+{{{
+    embeddedserver {
+
+        ......
+
+        //user-extension.js file, for example "target/test-classes/extension/user-extensions.js"
+        userExtension = ""
+    }
+    connector{
+
+        ......
+
+        //user's class to hold custom selenium methods associated with user-extensions.js
+        //should in full class name, for instance, "com.mycom.CustomSelenium"
+        customClass = ""
+    }
+
+}}}
+
+Where the _userExtension_ points to user's user-extensions.js file, for example, you have the following user-extensions.js 
+
+{{{
+Selenium.prototype.doTypeRepeated = function(locator, text) {
+    // All locator-strategies are automatically handled by "findElement"
+    var element = this.page().findElement(locator);
+
+    // Create the text to type
+    var valueToType = text + text;
+
+    // Replace the element text with the new text
+    this.page().replaceText(element, valueToType);
+};
+}}}
+
+The _customClass_ is user's class for custom selenium methods, which should extend Tellurium org.tellurium.connector.CustomCommand class:
+
+{{{
+public class MyCommand extends CustomCommand{
+
+    public void typeRepeated(String locator, String text){
+                String[] arr = [locator, text];
+                commandProcessor.doCommand("typeRepeated", arr);
+        }
+   } 
+}
+}}}  
+
+Tellurium core will automatically load up your user-extensions.js and custom commands. The n, user can use 
+
+{{{
+customUiCall(String uid, String method, Object[] args)
+}}}
+
+to call the custom methods, for instance,
+
+{{{
+customUiCall "Google.Input", typeRepeated, "Tellurium Groovy" 
+}}}
+
+The _customUiCall_ method handles all the UI to locator mapping for users. Tellurium also provides the following method for users to make direct calls to Selenium server. 
+ 
+{{{
+customDirectCall(String method, Object[] args)
+}}}
+
+=== The Dump Method ===
+
+Tellurium Core added a dump method to print out the UI object's and its descendants' runtime locators that Tellurium Core generates for you.
+
+{{{
+public void dump(String uid)
+}}}
+ 
+where the _uid_ is the UI object id you want to dump. The cool feature of the dump() method is that it does not require you to run the actual tests, that is to say, you do not need to run selenium server and do not need to launch the web browser. Just simply define the UI module and then call the dump() method.
+
+For example, we can define the UI module for Tellurium Issue Search module as follows,
+
+{{{
+public class TelluriumIssueModule extends DslContext {
+
+  public void defineUi() {
+
+    //define UI module of a form include issue type selector and issue search
+    ui.Form(uid: "issueSearch", clocator: [action: "list", method: "get"], group: "true"){
+      Selector(uid: "issueType", clocator: [name: "can", id: "can"])
+      TextBox(uid: "searchLabel", clocator: [tag: "span", text: "*for"])
+      InputBox(uid: "searchBox", clocator: [type: "text", name: "q"])
+      SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+    }
+  }
+}
+}}}
+
+Then you can use the dump method in the following way,
+
+{{{
+  TelluriumIssueModule tisp = new TelluriumIssueModule();
+  tisp.defineUi();
+  tisp.dump("issueSearch");
+}}}
+
+The above code will print out the runtime XPath locators
+
+{{{
+Dump locator information for issueSearch
+-------------------------------------------------------
+issueSearch: //descendant-or-self::form[@action="list" and @method="get"]
+issueSearch.issueType: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::select[@name="can" and @id="can"]
+issueSearch.searchLabel: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::span[contains(text(),"for")]
+issueSearch.searchBox: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::input[@type="text" and @name="q"]
+issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::input[@value="Search" and @type="submit"]
+-------------------------------------------------------
+}}}
+
+== Customized Selenium Server ==
+
+We customized selenium-core 1.0.1 and embedded our Engine code into it. The Engine mainly provides jQuery selector support, jQuery selector caching, and a set of new APIs. 
+
