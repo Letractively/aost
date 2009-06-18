@@ -7,14 +7,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>tellurium</groupId>
     <artifactId>tellurium-junit-archetype</artifactId>
-    <version>0.6.0</version>
+    <version>0.7.0-SNAPSHOT</version>
     <name>Archetype - tellurium-junit-archetype</name>
     <description>A Tellurium plugin for Firefox</description>
     <scm>
-        <connection>scm:svn:http://aost.google.code.com/svn/tags/tellurium-0.6.0/tools/tellurium-junit-archetype</connection>
-        <developerConnection>scm:svn:https://aost.googlecode.com/svn/tags/tellurium-0.6.0/tools/tellurium-junit-archetype
+        <connection>scm:svn:http://aost.google.code.com/svn/trunk/tools/tellurium-junit-archetype</connection>
+        <developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/tools/tellurium-junit-archetype
         </developerConnection>
-        <url>http://aost.google.code.com/svn/tags/tellurium-0.6.0/tools/tellurium-junit-archetype</url>
+        <url>http://aost.google.code.com/svn/trunk/tools/tellurium-junit-archetype</url>
     </scm>
      <distributionManagement>
 		<downloadUrl>http://code.google.com/p/aost/downloads/list</downloadUrl>
