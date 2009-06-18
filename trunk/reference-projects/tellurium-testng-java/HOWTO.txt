@@ -1,3 +1,5 @@
+You need to download the Tellurium dependency file from http://code.google.com/p/aost/downloads/list
+and unzip it to project /lib directory.
 
 Before build the project using the ant script, please first change
 the javahome in the build.properties file, i.e., replace the following
@@ -22,3 +24,7 @@ The run the ant tasks for
 ./rundsl.sh src/test/resources/org/tellurium/dsl/TelluriumPage.dsl
 
 In windows, use rundsl.bat.
+
+For Maven users, just run
+
+mvn test
