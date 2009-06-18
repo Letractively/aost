@@ -365,13 +365,13 @@ If you have already had a test project and want to include Tellurium 0.6.0 in, p
 
 Here is a [http://code.google.com/p/aost/wiki/TelluriumTestProjectMavenSamplePom sample POM file] for a Tellurium project.
 
-For an Ant user, you should download [http://code.google.com/p/aost/downloads/list Tellurium core 0.6.0 jar file] from [http://code.google.com/p/aost/downloads/list Tellurium project download page], [http://code.google.com/p/aost/downloads/list the Tellurium dependency file], and [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile the Tellurium configuration file]. Unpack the Tellurium dependency file to your project /lib directory together with the Tellurium core 0.6.0 jar file. Name the Tellurium configuration file as TelluriumConfig.groovy and put it at your project root directory. 
+For an Ant user, you should download [http://aost.googlecode.com/files/tellurium-core-0.6.0.jar Tellurium core 0.6.0 jar file] from [http://code.google.com/p/aost/downloads/list Tellurium project download page], [http://aost.googlecode.com/files/tellurium-0.6.0-dependencies.zip the Tellurium dependency file], and [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile the Tellurium configuration file]. Unpack the Tellurium dependency file to your project /lib directory together with the Tellurium core 0.6.0 jar file. Name the Tellurium configuration file as TelluriumConfig.groovy and put it at your project root directory. 
 
 For Ant build scripts, please see [http://code.google.com/p/aost/wiki/TelluriumSampleAntBuildScript the sample Tellurium Ant build scripts]
 
 === Tellurium Reference Projects ===
 
-If you are new to Tellurium, [http://code.google.com/p/aost/wiki/ReferenceProjectGuide Tellurium reference projects] could be your good starting point. There are two reference projects, i.e., [http://code.google.com/p/aost/downloads/list  tellurium-junit-java] and [http://code.google.com/p/aost/downloads/list tellurium-testng-java], where can be downloaded from [http://code.google.com/p/aost/downloads/list Tellurium project download page].
+If you are new to Tellurium, [http://code.google.com/p/aost/wiki/ReferenceProjectGuide Tellurium reference projects] could be your good starting point. There are two reference projects, i.e., [http://aost.googlecode.com/files/reference-junit.0.6.0.tar.gz tellurium-junit-java] and [http://aost.googlecode.com/files/reference-testng.0.6.0.tar.gz tellurium-testng-java], where can be downloaded from [http://code.google.com/p/aost/downloads/list Tellurium project download page].
 
 Basically, the two sub-projects are the same and the only difference is that tellurium-junit-java uses JUnit 4 and tellurium-testng-java uses TestNG. 
 
