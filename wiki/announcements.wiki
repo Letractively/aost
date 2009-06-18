@@ -1,5 +1,5 @@
 #summary Announcements.
-#labels Phase-Support
+#labels Phase-Support,Phase-Deploy
 <wiki:toc max_depth="2" />
 
 = Tellurium Announcements =
@@ -244,7 +244,7 @@ Tellurium 0.6.0 is a feature rich release and the biggest move from Tellurium co
 
 We customized selenium-core 1.0.1 and embedded our Engine code into it. The Engine mainly provides jQuery selector support, jQuery selector caching, and a set of new APIs. 
 
-=== How to Obtain ===
+=== How to Obtain Tellurium 0.6.0 ===
 
 For a Maven user, the best way to obtain Tellurium 0.6.0 is to use Tellurium Maven archetypes, which include tellurium-junit-archetype and tellurium-testng-archetype for Tellurium JUnit test project and Tellurium TestNG test project, respectively.
 
@@ -362,3 +362,35 @@ If you have already had a test project and want to include Tellurium 0.6.0 in, p
         </dependency>
     </dependencies>
 }}}
+
+Here is a [http://code.google.com/p/aost/wiki/TelluriumTestProjectMavenSamplePom sample POM file] for a Tellurium project.
+
+For an Ant user, you should download [http://code.google.com/p/aost/downloads/list Tellurium core 0.6.0 jar file] from [http://code.google.com/p/aost/downloads/list Tellurium project download page], [http://code.google.com/p/aost/downloads/list the Tellurium dependency file], and [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile the Tellurium configuration file]. Unpack the Tellurium dependency file to your project /lib directory as well as the Tellurium core 0.6.0 jar file. Name the Tellurium configuration file as TelluriumConfig.groovy and put it at project root directory. 
+
+=== Tellurium Reference Projects ===
+
+If you are new to Tellurium, [http://code.google.com/p/aost/wiki/ReferenceProjectGuide Tellurium reference projects] could be your good starting point. There are two reference projects, i.e., [http://code.google.com/p/aost/downloads/list  tellurium-junit-java] and [[http://code.google.com/p/aost/downloads/list tellurium-testng-java], where can be downloaded from [http://code.google.com/p/aost/downloads/list Tellurium project download page].
+
+Basically, the two sub-projects are the same and the only difference is that tellurium-junit-java uses JUnit 4 and tellurium-testng-java uses TestNG. 
+
+The reference projects illustrate the following usages of Tellurium:
+
+  * How to create your own Tellurium testing project using tellurium jar files.
+  * How to create your own UI Objects and wire them into Tellurium core
+  * How to create UI module files in Groovy
+  * How to create JUnit tellurium testing files in Java
+  * How to create and run DSL scripts
+  * How to create Tellurium Data Driven tests
+  * How to configure Tellurium with the configuration file TelluriumConfig.groovy
+  * Ant build script
+  * Maven POM
+
+=== Feedback ===
+
+Please report any problems back to Tellurium User Group at
+
+http://groups.google.com/group/tellurium-users
+
+Thanks,
+
+Tellurium Team
