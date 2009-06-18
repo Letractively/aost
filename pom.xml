@@ -1,11 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>tellurium</groupId>
     <artifactId>tellurium</artifactId>
     <packaging>pom</packaging>
     <name>Tellurium Automated Testing Framework</name>
-    <version>0.6.0-SNAPSHOT</version>
+    <version>0.6.0</version>
     <description>Tellurium is a quick and easy test framework for
         automated web UI testing.
     </description>
@@ -69,9 +68,9 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:svn:http://aost.google.code.com/svn/trunk</connection>
-        <developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk</developerConnection>
-        <url>http://aost.google.code.com/svn/trunk</url>
+        <connection>scm:svn:http://aost.google.code.com/svn/tags/tellurium-0.6.0-maven-release</connection>
+        <developerConnection>scm:svn:https://aost.googlecode.com/svn/tags/tellurium-0.6.0-maven-release</developerConnection>
+        <url>http://aost.google.code.com/svn/tags/tellurium-0.6.0-maven-release</url>
     </scm>
     <build>
         <!-- BEGIN GMAVEN RESOURCES -->
