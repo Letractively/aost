@@ -6,9 +6,9 @@
 
 Tellurium 0.6.0 is a feature rich release and it includes the following modules
   * Telluirum core 0.6.0
-  * Tellurium Maven JUnit Archetype 1.0 and Tellurium Maven TestNG Archetype 1.0
+  * Tellurium Maven JUnit Archetype 0.6.0 and Tellurium Maven TestNG Archetype 0.6.0
   * Tellurium JUnit Reference Project 0.6.0 and Tellurium TestNG Reference Project 0.6.0
-  * Customized Selenium server 1.0-te-2 with Tellurium Engine jQuery selector module
+  * Customized Selenium server 1.0.1-te with Tellurium Engine jQuery selector module
 
 The following sections, cover the main features in each module.
 
@@ -322,7 +322,7 @@ issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="c
  
 Other updates and enhancements include
 
-  * Upgraded to Selenium 1.0 Beta 2 and Groovy 1.6 
+  * Upgraded to Selenium 1.0.1 and Groovy 1.6 
   * Support Javascript XPath library by calling useJavascriptXPathLibrary()
   * Added _registerNamespace_ and _getNamespace_ for XHTML
   * Added a simple logger to Tellurium Core
@@ -338,13 +338,13 @@ Tellurium includes two maven archetypes, i.e., tellurium-junit-archetype and tel
 To create a JUnit Tellurium test project, run
 
 {{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
 }}}
 
 For a TestNG Tellurium test project, use the following command instead
 
 {{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
 }}}
 
 Please check Tellurium the following documents for more details about Maven archetypes.
@@ -368,7 +368,7 @@ The two reference projects are updated to use Tellurium Core 0.6.0 and please se
 
 == Customized Selenium Server ==
 
-We customized selenium-core 1.0 beta 2 and embedded our Engine code into it. The Engine mainly provides jQuery selector support, jQuery selector caching, and a set of new APIs. 
+We customized selenium-core 1.0.1 and embedded our Engine code into it. The Engine mainly provides jQuery selector support, jQuery selector caching, and a set of new APIs. 
 
 = How to Obtain Tellurium 0.6.0 =
 
