@@ -105,7 +105,9 @@
   * [http://james.padolsey.com/javascript/things-you-may-not-know-about-jquery/ Things you may not know about jQuery]
   * [http://marcgrabanski.com/article/jquery-google-maps-tutorial-basics jQuery and Google Maps Tutorial: #1 Basics]
   * [http://marcgrabanski.com/category/javascript-jquery jQuery and Google Maps #2: AJAX Storing and Retrieving Points]
-  * [http://jivebay.com/2007/05/30/handling-checkboxes-radio-buttons-and-select-options-in-jquery/      Handling Checkboxes, Radio Buttons and Select Options in jQuery]
+  * [http://jivebay.com/2007/05/30/handling-checkboxes-radio-buttons-and-select-options-in-jquery/ Handling Checkboxes, Radio Buttons and Select Options in jQuery]
+  * [http://www.ibm.com/developerworks/web/library/wa-aj-advjquery/index.html?ca=dgr-jw64jQuery-Faster&S_TACT=105AGY46&S_CMP=grjw64 Intermediate JQuery: Performance metrics and tuning]
+
 === CSS ===
 
   * [http://www.w3.org/Style/CSS/#specs CSS Specs]
