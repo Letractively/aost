@@ -371,7 +371,7 @@ For Ant build scripts, please see [http://code.google.com/p/aost/wiki/TelluriumS
 
 === Tellurium Reference Projects ===
 
-If you are new to Tellurium, [http://code.google.com/p/aost/wiki/ReferenceProjectGuide Tellurium reference projects] could be your good starting point. There are two reference projects, i.e., [http://code.google.com/p/aost/downloads/list  tellurium-junit-java] and [[http://code.google.com/p/aost/downloads/list tellurium-testng-java], where can be downloaded from [http://code.google.com/p/aost/downloads/list Tellurium project download page].
+If you are new to Tellurium, [http://code.google.com/p/aost/wiki/ReferenceProjectGuide Tellurium reference projects] could be your good starting point. There are two reference projects, i.e., [http://code.google.com/p/aost/downloads/list  tellurium-junit-java] and [http://code.google.com/p/aost/downloads/list tellurium-testng-java], where can be downloaded from [http://code.google.com/p/aost/downloads/list Tellurium project download page].
 
 Basically, the two sub-projects are the same and the only difference is that tellurium-junit-java uses JUnit 4 and tellurium-testng-java uses TestNG. 
 
