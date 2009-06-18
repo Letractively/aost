@@ -1,8 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <groupId>tellurium</groupId>
         <artifactId>tellurium-reference-projects</artifactId>
-        <version>0.6.0</version>
+        <version>0.6.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>tellurium-junit-java</artifactId>
@@ -10,10 +11,10 @@
     <name>Tellurium JUnit Reference Project</name>
     <description>Tellurium JUnit Reference Project</description>
     <scm>
-        <connection>scm:svn:http://aost.google.code.com/svn/tags/tellurium-0.6.0/reference-projects/tellurium-junit-java</connection>
-        <developerConnection>scm:svn:https://aost.googlecode.com/svn/tags/tellurium-0.6.0/reference-projects/tellurium-junit-java
+        <connection>scm:svn:http://aost.google.code.com/svn/trunk/reference-projects/tellurium-junit-java</connection>
+        <developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/reference-projects/tellurium-junit-java
         </developerConnection>
-        <url>http://aost.google.code.com/svn/tags/tellurium-0.6.0/reference-projects/tellurium-junit-java</url>
+        <url>http://aost.google.code.com/svn/trunk/reference-projects/tellurium-junit-java</url>
     </scm>
     <build>
         <plugins>
@@ -55,8 +56,9 @@
                         <configuration>
                             <tasks>
                                 <!--mkdir dir="${basedir}/target/classes"/-->
-                                <javac srcdir="${basedir}/src/main/groovy" destdir="${basedir}/target/classes" classpathref="maven.compile.classpath">
-                                    <include name="**/*.java" />
+                                <javac srcdir="${basedir}/src/main/groovy"
+                                       destdir="${basedir}/target/classes" classpathref="maven.compile.classpath">
+                                    <include name="**/*.java"/>
                                 </javac>
                             </tasks>
                         </configuration>
@@ -70,13 +72,14 @@
                         <configuration>
                             <tasks>
                                 <path id="project.testcompile.classpath">
-                                    <path refid="maven.compile.classpath" />
-                                    <pathelement location="${basedir}/target/classes" />
-                                    <pathelement location="${basedir}/target/test-classes" />
+                                    <path refid="maven.compile.classpath"/>
+                                    <pathelement location="${basedir}/target/classes"/>
+                                    <pathelement location="${basedir}/target/test-classes"/>
                                 </path>
-                                <javac srcdir="${basedir}/src/test/groovy" destdir="${basedir}/target/test-classes">
-                                    <classpath refid="project.testcompile.classpath" />
-                                    <include name="**/*.java" />
+                                <javac srcdir="${basedir}/src/test/groovy"
+                                         destdir="${basedir}/target/test-classes">
+                                    <classpath refid="project.testcompile.classpath"/>
+                                    <include name="**/*.java"/>
                                 </javac>
                             </tasks>
                         </configuration>

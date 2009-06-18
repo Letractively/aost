@@ -2,7 +2,7 @@
 	<parent>
 		<groupId>tellurium</groupId>
 		<artifactId>tellurium</artifactId>
-		<version>0.6.0</version>
+		<version>0.6.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>tellurium-reference-projects</artifactId>
@@ -10,9 +10,9 @@
 	<name>Tellurium Reference Projects</name>
 	<description>Tellurium Reference Projects</description>
 	<scm>
-		<connection>scm:svn:http://aost.google.code.com/svn/tags/tellurium-0.6.0/reference-projects</connection>
-		<developerConnection>scm:svn:https://aost.googlecode.com/svn/tags/tellurium-0.6.0/reference-projects</developerConnection>
-		<url>http://aost.google.code.com/svn/tags/tellurium-0.6.0/reference-projects</url>
+		<connection>scm:svn:http://aost.google.code.com/svn/trunk/reference-projects</connection>
+		<developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/reference-projects</developerConnection>
+		<url>http://aost.google.code.com/svn/trunk/reference-projects</url>
 	</scm>
 	<dependencies>
 		<dependency>
