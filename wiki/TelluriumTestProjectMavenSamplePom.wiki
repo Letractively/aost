@@ -316,3 +316,19 @@
     </build>
 </project>
 }}}
+
+== Tellurium Maven TestNG Testing Project ==
+
+Tellurium Maven TestNG project uses the same POM file as the JUnit one shown above and you only need to replace the JUnit dependency with the TestNG dependency, i.e., you should use
+
+{{{
+    <dependency>
+       <groupId>org.testng</groupId>
+       <artifactId>testng</artifactId>
+       <version>5.8</version>
+       <classifier>jdk15</classifier>
+       <optional>true</optional>
+    </dependency>
+}}}
+
+for your TestNG project.
