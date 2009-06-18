@@ -2,19 +2,19 @@
 	<parent>
 		<groupId>tellurium</groupId>
 		<artifactId>tellurium-tools</artifactId>
-		<version>0.6.0-SNAPSHOT</version>
+		<version>0.6.0</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
         <groupId>tellurium</groupId>
 	<artifactId>trump</artifactId>
-	<version>0.2.0-ff3-SNAPSHOT</version>
+	<version>0.6.0</version>
 	<packaging>jar</packaging>
 	<name>Tellurium Firefox Plugin</name>
 	<description>A Tellurium plugin for Firefox</description>
 	<scm>
-		<connection>scm:svn:http://aost.google.code.com/svn/trunk/tools/firefox-plugin</connection>
-		<developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/tools/firefox-plugin</developerConnection>
-		<url>http://aost.google.code.com/svn/trunk/tools/firefox-plugin</url>
+		<connection>scm:svn:http://aost.google.code.com/svn/tags/tellurium-0.6.0/tools/firefox-plugin</connection>
+		<developerConnection>scm:svn:https://aost.googlecode.com/svn/tags/tellurium-0.6.0/tools/firefox-plugin</developerConnection>
+		<url>http://aost.google.code.com/svn/tags/tellurium-0.6.0/tools/firefox-plugin</url>
 	</scm>
     <build>
         <plugins>
@@ -55,11 +55,8 @@
                         <phase>package</phase>
                         <configuration>
                             <tasks>
-                                <mkdir dir="${basedir}/target"/>
-                                <zip update="true" compress="true"
-                                     comment="MyExtension development build"
-                                     destfile="${basedir}/target/trump-${project.version}.xpi"
-                                     basedir="${basedir}/trump" excludes="trump.kpf"/>
+                                <mkdir dir="${basedir}/target" />
+                                <zip update="true" compress="true" comment="MyExtension development build" destfile="${basedir}/target/trump-${project.version}.xpi" basedir="${basedir}/trump" excludes="trump.kpf" />
                             </tasks>
                         </configuration>
                         <goals>
