@@ -226,3 +226,139 @@ http://groups.google.com/group/tellurium-users
 Thanks,
 
 Tellurium Team
+
+== Tellurium 0.6.0 is Released ==
+
+Tellurium 0.6.0 includes the following modules:
+
+  * Tellurium Core 0.6.0
+  * Tellurium JUnit Reference Project 0.6.0
+  * Tellurium TestNG Reference Project 0.6.0
+  * Tellurium JUnit Maven Archetype 1.0
+  * Tellurium TestNG Maven Archetype 1.0
+  * Customized Selenium Server 1.0.1-te
+
+=== New Features ===
+
+Tellurium 0.6.0 is a feature rich release and the biggest move from Tellurium core 0.5.0 to 0.6.0 is the addition of jQuery selector support together with jQuery Selector Cache option, Selenium Grid support, New APIs for bulk data retrival and css styles, and numerous other enhancements. Please check [http://code.google.com/p/aost/wiki/WhatsNewInTellurium_0_6_0 Whats New in Tellurium 0.6.0] for a detailed introduction of them.
+
+We customized selenium-core 1.0.1 and embedded our Engine code into it. The Engine mainly provides jQuery selector support, jQuery selector caching, and a set of new APIs. 
+
+=== How to Obtain ===
+
+For a Maven user, the best way to obtain Tellurium 0.6.0 is to use Tellurium Maven archetypes, which include tellurium-junit-archetype and tellurium-testng-archetype for Tellurium JUnit test project and Tellurium TestNG test project, respectively.
+
+To create a Tellurium JUnit test project, the the following Maven command,
+
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0 -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/releases
+}}} 
+
+and for a Tellurium TestNG project, use
+
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0 -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/releases
+}}} 
+
+The skeleton project created by the Tellurium Maven archetype type includes a sample test case, GoogleSearchTestCase. You can simply go to the project directory and run the following command to test it,
+
+{{{
+mvn test
+}}}
+
+If you have already had a test project and want to include Tellurium 0.6.0 in, please add the following section to your POM file,
+
+{{{
+   <repositories>
+        <repository>
+            <id>caja</id>
+            <url>http://google-caja.googlecode.com/svn/maven</url>
+        </repository>
+        <repository>
+            <id>kungfuters-public-releases-repo</id>
+            <name>Kungfuters.org Public Releases Repository</name>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://kungfuters.org/nexus/content/repositories/releases</url>
+        </repository>
+        <repository>
+            <id>kungfuters-thirdparty-releases-repo</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://kungfuters.org/nexus/content/repositories/thirdparty</url>
+        </repository>
+        <repository>
+            <id>openqa-release-repo</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://archiva.openqa.org/repository/releases</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+          <groupId>org.openqa.selenium.grid</groupId>
+          <artifactId>selenium-grid-tools</artifactId>
+          <version>1.0.2</version>
+        </dependency> 
+
+        <dependency>
+            <groupId>tellurium</groupId>
+            <artifactId>tellurium-core</artifactId>
+            <version>0.6.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium.server</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>1.0.1-te</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium.client-drivers</groupId>
+            <artifactId>selenium-java-client-driver</artifactId>
+            <version>1.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.groovy.maven.runtime</groupId>
+                    <artifactId>gmaven-runtime-default</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium.core</groupId>
+                    <artifactId>selenium-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium.server</groupId>
+                    <artifactId>selenium-server</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>1.6.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>caja</groupId>
+            <artifactId>json_simple</artifactId>
+            <version>r1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.stringtree</groupId>
+            <artifactId>stringtree-json</artifactId>
+            <version>2.0.10</version>
+        </dependency>
+    </dependencies>
+}}}
