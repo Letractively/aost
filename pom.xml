@@ -4,7 +4,7 @@
     <artifactId>tellurium</artifactId>
     <packaging>pom</packaging>
     <name>Tellurium Automated Testing Framework</name>
-    <version>0.6.0</version>
+    <version>0.7.0-SNAPSHOT</version>
     <description>Tellurium is a quick and easy test framework for
         automated web UI testing.
     </description>
@@ -68,9 +68,9 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:svn:http://aost.google.code.com/svn/tags/tellurium-0.6.0</connection>
-        <developerConnection>scm:svn:https://aost.googlecode.com/svn/tags/tellurium-0.6.0</developerConnection>
-        <url>http://aost.google.code.com/svn/tags/tellurium-0.6.0</url>
+        <connection>scm:svn:http://aost.google.code.com/svn/trunk</connection>
+        <developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk</developerConnection>
+        <url>http://aost.google.code.com/svn/trunk</url>
     </scm>
     <build>
         <!-- BEGIN GMAVEN RESOURCES -->
