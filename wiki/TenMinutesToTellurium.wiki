@@ -66,7 +66,7 @@ Then, add Tellurium Maven repository into your Maven settings.xml, usually it is
 Go to your work space and run the following Maven command to create a new Tellurium test project called "demo":
 
 {{{
-mvn archetype:create -DgroupId=example -DartifactId=demo -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT
+mvn archetype:create -DgroupId=example -DartifactId=demo -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
 }}}
 
 Go the demo project directory and you will find the following files
@@ -347,7 +347,7 @@ Compile the project and run the new test case.
 If you want to create a new Tellurium TestNG project, simply use a different Maven archetype as follows,
 
 {{{
-mvn archetype:create -DgroupId=example -DartifactId=demo -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=1.0-SNAPSHOT
+mvn archetype:create -DgroupId=example -DartifactId=demo -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
 }}}
 
 and the new Tellurium test case should extend TelluriumTestNGTestCase class. The rest are the same as the JUnit ones.
