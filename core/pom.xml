@@ -2,7 +2,7 @@
 	<parent>
 		<groupId>tellurium</groupId>
 		<artifactId>tellurium</artifactId>
-		<version>0.6.0</version>
+		<version>0.6.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>tellurium-core</artifactId>
@@ -10,9 +10,9 @@
 	<name>Tellurium Core</name>
 	<description>Core Tellurium Classes</description>
 	<scm>
-		<connection>scm:svn:http://aost.google.code.com/svn/tags/tellurium-0.6.0-maven-release/core</connection>
-		<developerConnection>scm:svn:https://aost.googlecode.com/svn/tags/tellurium-0.6.0-maven-release/core</developerConnection>
-		<url>http://aost.google.code.com/svn/tags/tellurium-0.6.0-maven-release/core</url>
+		<connection>scm:svn:http://aost.google.code.com/svn/trunk/core</connection>
+		<developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/core</developerConnection>
+		<url>http://aost.google.code.com/svn/trunk/core</url>
 	</scm>
     <build>
         <plugins>
@@ -75,8 +75,9 @@
                         <phase>generate-sources</phase>
                         <configuration>
                             <tasks>
-                                <mkdir dir="${basedir}/target/classes" />
-                                <javac srcdir="${basedir}/src/main/groovy" debug="${javac-debug}" destdir="${basedir}/target/classes" classpathref="maven.plugin.classpath">
+                                <mkdir dir="${basedir}/target/classes"/>
+                                <javac srcdir="${basedir}/src/main/groovy" debug="${javac-debug}"
+                                    destdir="${basedir}/target/classes" classpathref="maven.plugin.classpath">
                                     <include name="**/org/tellurium/exception/*.java" />
                                     <include name="**/org/tellurium/tool/*.java" />
                                 </javac>
@@ -92,7 +93,8 @@
                         <configuration>
                             <tasks>
                                 <!--mkdir dir="${basedir}/target/classes"/-->
-                                <javac srcdir="${basedir}/src/main/groovy" debug="${javac-debug}" destdir="${basedir}/target/classes" classpathref="maven.compile.classpath">
+                                <javac srcdir="${basedir}/src/main/groovy" debug="${javac-debug}"
+                                    destdir="${basedir}/target/classes" classpathref="maven.compile.classpath">
                                     <include name="**/org/tellurium/test/java/*.java" />
                                 </javac>
                             </tasks>
@@ -107,31 +109,34 @@
                         <configuration>
                             <tasks>
                                 <path id="project.testcompile.classpath">
-                                    <path refid="maven.compile.classpath" />
-                                    <pathelement location="${basedir}/target/classes" />
-                                    <pathelement location="${basedir}/target/test-classes" />
+                                    <path refid="maven.compile.classpath"/>
+                                    <pathelement location="${basedir}/target/classes"/>
+                                    <pathelement location="${basedir}/target/test-classes"/>
                                 </path>
                                 
-                                 <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc" classpathref="maven.compile.classpath" />
+                                 <taskdef name="groovyc"
+                                    classname="org.codehaus.groovy.ant.Groovyc"
+                                    classpathref="maven.compile.classpath"/>
 
-                                 <property name="compile_classpath" refid="maven.compile.classpath" />
-                                 <property name="runtime_classpath" refid="maven.runtime.classpath" />
-                                 <property name="test_classpath" refid="maven.test.classpath" />
-                                 <property name="plugin_classpath" refid="maven.plugin.classpath" />
-                                 <property name="testcompile_classpath" refid="project.testcompile.classpath" />
+                                 <property name="compile_classpath" refid="maven.compile.classpath"/>
+                                 <property name="runtime_classpath" refid="maven.runtime.classpath"/>
+                                 <property name="test_classpath" refid="maven.test.classpath"/>
+                                 <property name="plugin_classpath" refid="maven.plugin.classpath"/>
+                                 <property name="testcompile_classpath" refid="project.testcompile.classpath"/>
 
-                                 <!--echo message="compile classpath: ${compile_classpath}" />
-                                 <echo message="runtime classpath: ${runtime_classpath}" />
-                                 <echo message="test classpath: ${test_classpath}" />
-                                 <echo message="plugin classpath: ${plugin_classpath}" />
-                                 <echo message="project test classpath: ${testcompile_classpath}"/-->
+                                 <!--echo message="compile classpath: ${compile_classpath}"/>
+                                 <echo message="runtime classpath: ${runtime_classpath}"/>
+                                 <echo message="test classpath:    ${test_classpath}"/>
+                                 <echo message="plugin classpath:  ${plugin_classpath}"/>
+                                 <echo message="project test classpath:  ${testcompile_classpath}"/-->
 
-                                 <groovyc srcdir="${basedir}/src/test/groovy" destdir="${basedir}/target/test-classes">
+                                 <groovyc srcdir="${basedir}/src/test/groovy"
+                                          destdir="${basedir}/target/test-classes">
                                     <classpath refid="project.testcompile.classpath" />
                                     <javac source="1.5" target="1.5" debug="on" />
                                 </groovyc>
                                 <!--ant antfile="${basedir}/mavenbuild.xml">
-                                    <target name="compile-maven-test" />
+                                    <target name="compile-maven-test"/>
                                 </ant-->
 
                             </tasks>
