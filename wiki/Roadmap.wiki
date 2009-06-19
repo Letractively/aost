@@ -2,14 +2,21 @@
 #labels Phase-Requirements,Phase-Design
 = Roadmap =
 
-For the the next release of Tellurium Core 0.6.0, we should achieve the following goals:
- 
-  * Add JQuery selector support for Tellurium so that it is much more efficient to get back multiple elements. 
-  * Add support for multiple element on Tellurium connector and DslContext
-  * Add support for distributing tests to different browsers and selenium servers
-  * Add XML data reader for the Data Driven Testing
-  * Upgrade Groovy and Selenium versions
-  * Update the reference projects
+For the the next release of Tellurium Core 0.7.0, we should achieve the following goals:
+
+  * Command bundle
+  * UI module caching
+  * Widget architecture re-visit
+  * Built in support for trace information such as timing.
+  * More flexible name schema for UI templates, for example, you can use "odd" and "even" for the name
+  * Add Exception code in Engine so that the Core can handle different
+types of exceptions appropriately.
+  * Add table header alias so that you can use header alias to refer to a column
+  * Add Widget archetype
+  * Add I18N support
+  * Add test utility packages such as testing cross site scripts, SQL injections, mock objects, and more.
+  * Built in support for test result reporting
+  * Add waitForAjax method
 
 For the TrUMP project 0.2.0, we should
   * Add support for IFrames/Frames
@@ -23,7 +30,7 @@ For the DOJO widget 0.1.0, we should
   * Add documents
 
 For the Engine project 0.1.0, we should
-  * Add a small set of methods to return multiple elements
-  * Prototype the Locator Query Language using JQuery
-  * Make Engine artifact work with Selenium Core 
-  
+  * Command bundle
+  * UI module caching
+  * Design and implement an advanced algorithm for group locating
+  * Re-implement Selenium methods using jQuery  
