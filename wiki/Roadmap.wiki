@@ -42,6 +42,12 @@ For the DOJO widget 0.1.0, we should
   * Add more examples
   * Add documents
 
+== Reference Projects ==
+
+For reference projects, we should
+  * Add our own sandbox so that the tests can be repeatable. 
+  * Create more examples to illustrate all features and the usage of Tellurium UI objects.
+
 == Others ==
 
   * Add Widget Maven archetype
