@@ -55,4 +55,5 @@ For reference projects, we should
   * Add behavior driven test support
   * Add more support for functional test
   * Add IDE plugins
+  * Add Grails Tellurium plugin
   
