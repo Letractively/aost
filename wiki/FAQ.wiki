@@ -544,3 +544,9 @@ For example, in the test case file,
         ngsp.useJavascriptXPathLibrary();
     } 
 }}}
+
+=== Q42: How to use jQuery Selector with weird characters in its ID ===
+
+You should escape the "." or other jQuery reserved characters.
+
+For example, use "dateOfBirth.\\month" for "dateOfBirth.month" as the ID.
