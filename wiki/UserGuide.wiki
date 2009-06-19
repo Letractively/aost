@@ -242,7 +242,32 @@ Obviously, all Ui Objects will inherit the above attributes and methods. But be 
 
 In this way, Tellurium will first map the UiID "google_start_page.googlesearch" to the actual Ui object and then call the _click_ method on it. If that Ui object does not have the _click_ method defined, you will get an error.
 
-=== Button ===
+=== UI Object Default Attributes ===
+
+Tellurium UI objects have some default attributes as shown in the following table:
+
+|| *Tellurium Object* || *Locator Default Attributes* || *Extra Attributes* || *UI Template* ||
+|| Button || tag: "input" || || no ||
+|| Container || || group || no ||
+|| CheckBox || tag: "input", type: "checkbox" ||  || no ||
+|| Div || tag: "div" ||  || no ||
+|| Form || tag: "form" || group || no || 
+|| Image || tag: "img" || || no ||
+|| InputBox || tag: "input" ||  || no ||
+|| RadioButton || tag: "input", type: "radio" ||  || no ||
+|| Selector || tag: "select" ||  || no ||
+|| Span || tag: "span" ||  || no ||
+|| SubmitButton || tag: "input", type: "submit" ||  || no ||
+|| UrlLink || tag: "a" ||  || no ||
+|| List ||  || separator || yes ||
+|| Table || tag: "table" || group, header || yes ||
+|| StandardTable || tag: "table" || group, header, footer || yes ||
+|| Frame ||  || group, id, name, title || no ||
+|| Window ||  || group, id, name, title || no ||
+
+=== Tellurium UI Object List ===
+
+==== Button ====
 
 Button represents various Buttons on the web and its default tag is "input". The following methods can be applied to Button:
 
@@ -256,7 +281,7 @@ Example:
 Button(uid: "searchButton", clocator: [value: "Search", name: "btn"])
 }}}
 
-=== Submit Button ===
+==== Submit Button ====
 
 SubmitButton is a special Button with its type being "submit".
 
@@ -266,7 +291,7 @@ Example:
 SubmitButton(uid: "search_web_button", clocator: [value: "Search the Web"])
 }}}
 
-=== Check Box ===
+==== Check Box ====
 
 The CheckBox on the web is abstracted as "CheckBox" Ui object. The default tag for CheckBox is "input" and its type is "checkbox". CheckBox comes with the following methods:
 
@@ -280,7 +305,7 @@ Example:
 CheckBox(uid: "autoRenewal", clocator: [dojoattachpoint: 'dap_auto_renew'])
 }}}
 
-=== Div ===
+==== Div ====
 
 Div is often used in the Dojo framework and it can represent a lot objects. Obviously, its tag is "div" and it has the following method:
 
@@ -293,7 +318,7 @@ Example:
 Div(uid: "dialog", clocator: [class: 'dojoDialog', id: 'loginDialog'])
 }}}
 
-=== Image ===
+==== Image ====
 
 Image is used to abstract the "img" tag and it comes with the following additional methods:
 
@@ -307,7 +332,7 @@ Example:
 Image(uid: "dropDownArrow", clocator: [src: 'drop_down_arrow.gif'])
 }}}
 
-=== Icon ===
+==== Icon ====
 
 Icon is similar to the Image object, but user can perform actions on it. As a result, it can have the following additional methods:
 
@@ -321,7 +346,7 @@ Example:
 Icon(uid: "taskIcon", clocator:[tag: "p", dojoonclick: 'doClick', img: "Show_icon.gif"] )
 }}}
 
-=== Radio Button ===
+==== Radio Button ====
 
 RadioButton is the abstract object for the Radio Button Ui. As a result, its default tag is "input" and its type is "radio". RadioButton has the following additional methods:
 
@@ -336,7 +361,7 @@ Example:
 RadioButton(uid: "autoRenewal", clocator: [dojoattachpoint: 'dap_auto_renew'])
 }}}
 
-=== Text Box ===
+==== Text Box ====
 
 TextBox is the abstract Ui object from which you can get back the text, i.e., it comes with the method:
 
@@ -350,7 +375,7 @@ Example:
 TextBox(uid: "searchLabel", clocator: [tag: "span"])
 }}}
 
-=== Input Box ===
+==== Input Box ====
 
 InputBox is the Ui where user types in input data. As its name stands, InputBox's default tag is "input". InputBox has the following additional methods:
 
@@ -367,7 +392,7 @@ Example:
 InputBox(uid: "searchBox", clocator: [name: "q"])
 }}}
 
-=== Url Link ===
+==== Url Link ====
 
 UrlLink stands for the web url link, i.e., its tag is "a". UrlLink has the following additional methods:
 
@@ -382,7 +407,7 @@ Example:
 UrlLink(uid: "Grid", clocator: [text: "Grid", direct: "true"])
 }}}
 
-=== Selector ===
+==== Selector ====
 
 Selector represents the Ui with tag "select" and user can select from a set of options. Selector has a lot of methods, such as:
 
@@ -410,7 +435,7 @@ Example:
 Selector(uid: "issueType", clocator: [name: "can", id: "can"])
 }}}
 
-=== Container ===
+==== Container ====
 
 Container is an abstract object that can hold a collection of Ui objects. As a result, the  Container has a special attribute "useGroupInfo" and its default value is false. If this attribute is true, the Group Locating is enabled. But make sure all the Ui objects inside the Container are children nodes of the Container in the DOM, otherwise, you should not use the Group Locating capability.
 
@@ -424,7 +449,7 @@ ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
 }
 }}}
 
-=== Form ===
+==== Form ====
 
 Form is a type of Container with its tag being "form" and it represents web form. Like Container, it has the capability to use Group Locating and it has a special method:
 
@@ -444,7 +469,7 @@ ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group:
 }
 }}}
 
-=== Table ===
+==== Table ====
 
 Table is one of the most complicated Ui Object and also the most often used one. Obviously, its tag is "table" and a table could have headers besides rows and columns. Table is a good choice for data grid. Tellurium can handle its header, rows, and columns automatically for users. One important is the Table has different UiID than other Ui objects. For example, if the id of the table is "table1", then its i-th row and j-th column is referred as {{{"table1[i][j]"}}} and its m-th header is {{{"table1.header[m]"}}}.
 
@@ -512,7 +537,7 @@ Container(uid: "tables", clocator:[:]){
 
 }}}
 
-=== Standard Table ===
+==== Standard Table ====
 
 A StandardTable is a table in the following format
 
@@ -569,7 +594,7 @@ ui.StandardTable(uid: "table", clocator: [id: "std"]) {
 }
 }}}
 
-=== List ===
+==== List ====
 
 List is also a Container type abstract Ui object and it can be used to represent any list like Ui objects. Very much like Table, users can define Ui templates for List and following rule of "the special case first and then the general case". The index number is  used to specify an element and "all" is used to match all elements in the List. List also uses TextBox as the default Ui if no template could be found. Since List is a Container type, it can use the Group Locating feature.
 
@@ -585,7 +610,7 @@ List(uid: "subcategory", locator: "", separator: "p"){
 }
 }}} 
 
-=== Simple Menu ===
+==== Simple Menu ====
 
 The SimpleMenu represent a menu without a header and only contains menu items. The default tag is "div" and user should specify the alias name for each menu item. For example,
 
@@ -603,7 +628,7 @@ The SimpleMenu has the following methods:
   * mouseOve()
   * mouseOut()
 
-=== Select Menu ===
+==== Select Menu ====
 
 SelectMenu is designed for the selecting column menu on the Tellurium Issues page and it is prototyped to demonstrate how to write Ui object with interaction with the DOM since the Ui elements have different patterns at runtime, hence, it is not a general purpose Ui object. SelectMenu could have a header and its menu item content could keep changing when users select different columns to display. 
 
@@ -620,7 +645,7 @@ Like SimpleMenu, SelectMenu also has the following methods:
   * mouseOve()
   * mouseOut()
 
-=== Frame ===
+==== Frame ====
 
 Frame is a type of Container and is used to mode Frame or IFrame. It includes the
 following attributes:
@@ -651,7 +676,7 @@ ui.Frame(uid: "SubscribeFrame", name: "subscrbe"){
 } 
 }}}
 
-=== Window ===
+==== Window ====
 
 Window is a type of Container and is used to mode Popup Window. It includes the
 following attributes:
@@ -681,7 +706,7 @@ selectWindow "HelpWindow"
 selectMainWindow()
 }}}
 
-=== Option ===
+==== Option ====
 
 Option is also designed to be adaptive the dynamic web. Option is a pure abstract object and it holds multiple UIs with each representing a possible UI pattern at runtime. For example, the List/Grid selector on the issue page can described as: 
 
