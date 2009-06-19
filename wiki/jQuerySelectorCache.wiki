@@ -1,5 +1,6 @@
 #summary The Cache Mechanism of jQuery Selector.
 #labels Phase-Design,Phase-Support
+<wiki:toc max_depth="3" />
 
 = Introduction =
 
