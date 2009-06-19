@@ -1,4 +1,6 @@
 #summary Using Selenium Grid with Tellurium
+<wiki:toc max_depth="5" />
+
 Following are the instructions to use Selenium Grid with Tellurium.
 = Introduction =
 We recently added support for Selenium Grid to the Tellurium. Now you can run the Tellurium tests against different browsers using Selenium Grid. 
