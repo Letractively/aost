@@ -242,98 +242,6 @@ Obviously, all Ui Objects will inherit the above attributes and methods. But be 
 
 In this way, Tellurium will first map the UiID "google_start_page.googlesearch" to the actual Ui object and then call the _click_ method on it. If that Ui object does not have the _click_ method defined, you will get an error.
 
-=== jQuery Selector ===
-
-The motivation behind the jQuery Selector is to improve the test speed in IE since IE lacks of native XPath support and the XPath is very slow. Tellurium exploits jQuery selector capability to improve the test speed dramatically. 
-
-Tellurium supports both XPath and jQuery selector and still uses XPath as the default locator. To use jQuery selector, you need to explicitly tell Tellurium to use jQuery selector. 
-
-To enable jQuery selector call the following method.
-
-   * {{{useJQuerySelector()}}}: Use jQuery selector.
-
-To disable jQuery selector call the following method, it also switches back to the default
-locator. i.e. XPath
-
-   * {{{disableJQuerySelector()}}}: Switch back to XPath locator.
-
-
-jQuery selector only works for composite locator, i.e. clocator. You cannot have base locator, i.e., XPath, in your UI module.
-
-jQuery Selector provides the following additional Selenium methods, which are utilized in DslContext? to form a set of new DSL methods.
-
-   * {{{String getAllText(String locator)}}}: Get all text from the set of elements corresponding to the jQuery Selector.
-
-   * {{{String getCSS(String locator, String cssName)}}} : Get the CSS properties for the set of elements corresponding to the jQuery Selector.
-
-   * {{{Number getJQuerySelectorCount(String locator)}}} : Get the number of elements matching the corresponding jQuery Selector
-
-jQuery also supports the following attribute selectors.
-
-   * {{{attribute}}}: have the specified attribute.
-
-   * {{{attribute=value}}}: have the specified attribute with a certain value.
-
-   * {{{attribute!=value}}}: either don't have the specified attribute or do have the specified attribute but not with a certain value.
-
-   * {{{attribute^=value}}}: have the specified attribute and it starts with a certain value.
-
-   * {{{attribute$=value}}}: have the specified attribute and it ends with a certain value.
-
-   * {{{attribute*=value}}}: have the specified attribute and it contains a certain value.
-
-Apart from the above, jQuery selector also provides a jQuery selector version of many existing DSL methods, for instance,
-
-{{{
-int getTableHeaderColumnNumBySelector(String uid)
-}}}
-
-But you should use locator agnostic API, such as
-
-{{{
-int getTableHeaderColumnNum(String uid) 
-}}}
-
-Under the hood, Tellurium core will call the appropriate API based on what locator you are currently using. For more details, please see Tellurium jQuery Selector Guide.
-
-=== jQuery Selector Cache Option ===
-
-jQuery cache is a mechanism to further improve the speed by reusing the found DOM reference for a given jQuery selector. Our benchmark results show that the jQuery cache could improve the speed by up to 14% over the regular jQuery selector and over 27% for some extreme cases. But the improvement of jQuery cache over regular jQuery selector has upper bound, which is the portion of jQuery locating time out of the round trip time from Tellurium core to Selenium core. jQuery cache is still considered to be experimental at the current stage. Use it at your own discretion.
-
-To make the cache option configurable in tellurium UI module, Tellurium introduces an attribute _cacheable_ to UI object, which is set to be true by default. For a Container type object, it has an extra attribute _noCacheForChildren_ to control whether to cache its children. 
-
-One example UI module is defined as follows,
-
-{{{
-  ui.Table(uid: "issueResultWithCache", cacheable: "true", noCacheForChildren: "true", clocator: [id: "resultstable", class: "results"], group: "true") {
- 
-       ......
-
-      //define table elements
-      //for the border column
-      TextBox(uid: "row: *, column: 1", clocator: [:])
-      TextBox(uid: "row: *, column: 8", clocator: [:])
-      TextBox(uid: "row: *, column: 10", clocator: [:])
-      //For the rest, just UrlLink
-      UrlLink(uid: "all", clocator: [:])
-    }
-}}}
-
-Where the _cacheable_ can overwrite the default value in the UI object and _noCacheForChildren _ in the above example will force Tellurium to not cache its children.
-
-Tellurium Core provides a set of methods for jQuery Selector cache control, for example,
-
-  * _public void enableSelectorCache()_: Enable jQuery selector cache
-
-  * _public boolean disableSelectorCache()_: Disable jQuery selector cache
-
-  * _public void setCacheMaxSize(int size)_: Set the cache maximum size
-
-  * _public void useDiscardOldCachePolicy()_: Use DiscardOldCachePolicy
- 
-For a complete list of cache control APIs, please check  [http://code.google.com/p/aost/wiki/jQuerySelectorCache The Cache Mechanism of jQuery Selector]
-
-
 === Button ===
 
 Button represents various Buttons on the web and its default tag is "input". The following methods can be applied to Button:
@@ -348,7 +256,7 @@ Example:
 Button(uid: "searchButton", clocator: [value: "Search", name: "btn"])
 }}}
 
-=== SubmitButton ===
+=== Submit Button ===
 
 SubmitButton is a special Button with its type being "submit".
 
@@ -358,7 +266,7 @@ Example:
 SubmitButton(uid: "search_web_button", clocator: [value: "Search the Web"])
 }}}
 
-=== CheckBox ===
+=== Check Box ===
 
 The CheckBox on the web is abstracted as "CheckBox" Ui object. The default tag for CheckBox is "input" and its type is "checkbox". CheckBox comes with the following methods:
 
@@ -413,7 +321,7 @@ Example:
 Icon(uid: "taskIcon", clocator:[tag: "p", dojoonclick: 'doClick', img: "Show_icon.gif"] )
 }}}
 
-=== RadioButton ===
+=== Radio Button ===
 
 RadioButton is the abstract object for the Radio Button Ui. As a result, its default tag is "input" and its type is "radio". RadioButton has the following additional methods:
 
@@ -428,7 +336,7 @@ Example:
 RadioButton(uid: "autoRenewal", clocator: [dojoattachpoint: 'dap_auto_renew'])
 }}}
 
-=== TextBox ===
+=== Text Box ===
 
 TextBox is the abstract Ui object from which you can get back the text, i.e., it comes with the method:
 
@@ -442,7 +350,7 @@ Example:
 TextBox(uid: "searchLabel", clocator: [tag: "span"])
 }}}
 
-=== InputBox ===
+=== Input Box ===
 
 InputBox is the Ui where user types in input data. As its name stands, InputBox's default tag is "input". InputBox has the following additional methods:
 
@@ -459,7 +367,7 @@ Example:
 InputBox(uid: "searchBox", clocator: [name: "q"])
 }}}
 
-=== UrlLink ===
+=== Url Link ===
 
 UrlLink stands for the web url link, i.e., its tag is "a". UrlLink has the following additional methods:
 
@@ -604,7 +512,7 @@ Container(uid: "tables", clocator:[:]){
 
 }}}
 
-=== StandardTable ===
+=== Standard Table ===
 
 A StandardTable is a table in the following format
 
@@ -677,7 +585,7 @@ List(uid: "subcategory", locator: "", separator: "p"){
 }
 }}} 
 
-=== SimpleMenu ===
+=== Simple Menu ===
 
 The SimpleMenu represent a menu without a header and only contains menu items. The default tag is "div" and user should specify the alias name for each menu item. For example,
 
@@ -695,7 +603,7 @@ The SimpleMenu has the following methods:
   * mouseOve()
   * mouseOut()
 
-=== SelectMenu ===
+=== Select Menu ===
 
 SelectMenu is designed for the selecting column menu on the Tellurium Issues page and it is prototyped to demonstrate how to write Ui object with interaction with the DOM since the Ui elements have different patterns at runtime, hence, it is not a general purpose Ui object. SelectMenu could have a header and its menu item content could keep changing when users select different columns to display. 
 
@@ -806,6 +714,97 @@ click "layoutSelector.layoutSelector.List"
 The option object will automatically detect which UI pattern you need to use at runtime. 
 
 == Other Features ==
+
+=== jQuery Selector ===
+
+The motivation behind the jQuery Selector is to improve the test speed in IE since IE lacks of native XPath support and the XPath is very slow. Tellurium exploits jQuery selector capability to improve the test speed dramatically. 
+
+Tellurium supports both XPath and jQuery selector and still uses XPath as the default locator. To use jQuery selector, you need to explicitly tell Tellurium to use jQuery selector. 
+
+To enable jQuery selector call the following method.
+
+   * {{{useJQuerySelector()}}}: Use jQuery selector.
+
+To disable jQuery selector call the following method, it also switches back to the default
+locator. i.e. XPath
+
+   * {{{disableJQuerySelector()}}}: Switch back to XPath locator.
+
+
+jQuery selector only works for composite locator, i.e. clocator. You cannot have base locator, i.e., XPath, in your UI module.
+
+jQuery Selector provides the following additional Selenium methods, which are utilized in DslContext? to form a set of new DSL methods.
+
+   * {{{String getAllText(String locator)}}}: Get all text from the set of elements corresponding to the jQuery Selector.
+
+   * {{{String getCSS(String locator, String cssName)}}} : Get the CSS properties for the set of elements corresponding to the jQuery Selector.
+
+   * {{{Number getJQuerySelectorCount(String locator)}}} : Get the number of elements matching the corresponding jQuery Selector
+
+jQuery also supports the following attribute selectors.
+
+   * {{{attribute}}}: have the specified attribute.
+
+   * {{{attribute=value}}}: have the specified attribute with a certain value.
+
+   * {{{attribute!=value}}}: either don't have the specified attribute or do have the specified attribute but not with a certain value.
+
+   * {{{attribute^=value}}}: have the specified attribute and it starts with a certain value.
+
+   * {{{attribute$=value}}}: have the specified attribute and it ends with a certain value.
+
+   * {{{attribute*=value}}}: have the specified attribute and it contains a certain value.
+
+Apart from the above, jQuery selector also provides a jQuery selector version of many existing DSL methods, for instance,
+
+{{{
+int getTableHeaderColumnNumBySelector(String uid)
+}}}
+
+But you should use locator agnostic API, such as
+
+{{{
+int getTableHeaderColumnNum(String uid) 
+}}}
+
+Under the hood, Tellurium core will call the appropriate API based on what locator you are currently using. For more details, please see Tellurium jQuery Selector Guide.
+
+=== jQuery Selector Cache Option ===
+
+jQuery cache is a mechanism to further improve the speed by reusing the found DOM reference for a given jQuery selector. Our benchmark results show that the jQuery cache could improve the speed by up to 14% over the regular jQuery selector and over 27% for some extreme cases. But the improvement of jQuery cache over regular jQuery selector has upper bound, which is the portion of jQuery locating time out of the round trip time from Tellurium core to Selenium core. jQuery cache is still considered to be experimental at the current stage. Use it at your own discretion.
+
+To make the cache option configurable in tellurium UI module, Tellurium introduces an attribute _cacheable_ to UI object, which is set to be true by default. For a Container type object, it has an extra attribute _noCacheForChildren_ to control whether to cache its children. 
+
+One example UI module is defined as follows,
+
+{{{
+  ui.Table(uid: "issueResultWithCache", cacheable: "true", noCacheForChildren: "true", clocator: [id: "resultstable", class: "results"], group: "true") {
+ 
+       ......
+
+      //define table elements
+      //for the border column
+      TextBox(uid: "row: *, column: 1", clocator: [:])
+      TextBox(uid: "row: *, column: 8", clocator: [:])
+      TextBox(uid: "row: *, column: 10", clocator: [:])
+      //For the rest, just UrlLink
+      UrlLink(uid: "all", clocator: [:])
+    }
+}}}
+
+Where the _cacheable_ can overwrite the default value in the UI object and _noCacheForChildren _ in the above example will force Tellurium to not cache its children.
+
+Tellurium Core provides a set of methods for jQuery Selector cache control, for example,
+
+  * _public void enableSelectorCache()_: Enable jQuery selector cache
+
+  * _public boolean disableSelectorCache()_: Disable jQuery selector cache
+
+  * _public void setCacheMaxSize(int size)_: Set the cache maximum size
+
+  * _public void useDiscardOldCachePolicy()_: Use DiscardOldCachePolicy
+ 
+For a complete list of cache control APIs, please check  [http://code.google.com/p/aost/wiki/jQuerySelectorCache The Cache Mechanism of jQuery Selector]
 
 === "Include" Frequently Used Sets of elements in UI Modules ===
 
