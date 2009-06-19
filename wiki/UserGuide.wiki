@@ -999,6 +999,6 @@ tellurium{
 }}}
 
 
-== Customized Selenium Server ==
+=== Customized Selenium Server ===
 
 We customized selenium-core 1.0.1 and embedded our Engine code into it. The Engine mainly provides jQuery selector support, jQuery selector caching, and a set of new APIs. 
