@@ -1,5 +1,6 @@
 #summary Tellurium Tutorial Series: The Cool Dump() Method.
 #labels Phase-Design,Phase-Support
+<wiki:toc max_depth="3" />
 
 = Introduction =
 
