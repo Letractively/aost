@@ -1,5 +1,6 @@
 #summary Tellurium Tutorial
 #labels Featured,Phase-Implementation
+<wiki:toc max_depth="5" />
 
 = Tutorial for Tellurium =
 
