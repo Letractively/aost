@@ -215,11 +215,11 @@ In addition to the above DSLs, Tellurium provides Selenium-compatible data acces
 
 Tellurium provides a set of predefined Ui objects, which users can use directly. Here we describe them one by one in details.
 
-=== Basic Ui Object ===
+=== Basic UI Object ===
 
-The basic Ui object is an abstract class and users cannot instantiate it directly. The basic Ui Object works as the base class for all Ui objects and it includes the following attributes:
+The basic UI object is an abstract class and users cannot instantiate it directly. The basic UI Object works as the base class for all Ui objects and it includes the following attributes:
 
-  # uid: Ui object's identifier
+  # uid: UI object's identifier
   # namespace: for future extension
   # locator: the locator of the UI object, could be a base locator or a composite locator
   # respond: the JavaScript events the UI object can respond to. The value is a list.
@@ -234,13 +234,13 @@ and the base Ui object also provides the following methods:
   * String getText()
   * getAttribute(String attribute)
 
-Obviously, all Ui Objects will inherit the above attributes and methods. But be aware that you usually do not call these methods directly and you should use DSL syntax instead. For example, use
+Obviously, all UI Objects will inherit the above attributes and methods. But be aware that you usually do not call these methods directly and you should use DSL syntax instead. For example, use
 
 {{{
   click "google_start_page.googlesearch"
 }}}
 
-In this way, Tellurium will first map the UiID "google_start_page.googlesearch" to the actual Ui object and then call the _click_ method on it. If that Ui object does not have the _click_ method defined, you will get an error.
+In this way, Tellurium will first map the UiID "google_start_page.googlesearch" to the actual UI object and then call the _click_ method on it. If that Ui object does not have the _click_ method defined, you will get an error.
 
 === UI Object Default Attributes ===
 
