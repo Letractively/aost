@@ -16,6 +16,8 @@ For very active users in Tellurium user group, we will consider you as Tellurium
 
 Our project team is open for new members and is expecting new members. We will recruit new members from Tellurium contributors. But if you think you are exceptional and want to contribute to Tellurium code immediately, please contact Jian Fang (John.Jian.Fang@gmail.com) or other existing Tellurium members.
 
+We need some new developers who are JavaScript and jQuery experts to join our development team. If you have free time and want to contribute to Tellurium, please contact Jian Fang or other existing Tellurium members.
+ 
 We need a technical writer to join our support team to help us with documents and may also help us to polish articles later. The person should be excellent in technical writing in English, have free time and be willing to contribute to Tellurium, and be active. 
 
 We also expect to have some Evangelism Team members, who could write blogs and articles about Tellurium, or present Tellurium to people, i.e., promote Tellurium in various ways. We welcome Evangelism Team members from different parts of the world and promote Tellurium in different Languages.  A person could become an evangelism team member only after this person has already done enough work to promote Tellurium and want to join our team. If you are interested in, please let us know whenever you create a blog about Tellurium, or promote Tellurium in other ways. We will keep a record of your contributions
