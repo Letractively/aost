@@ -265,6 +265,8 @@ Tellurium UI objects have some default attributes as shown in the following tabl
 || Frame ||  || group, id, name, title || no ||
 || Window ||  || group, id, name, title || no ||
 
+
+
 === Tellurium UI Object List ===
 
 ==== Button ====
