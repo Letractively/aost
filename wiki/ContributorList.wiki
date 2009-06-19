@@ -10,8 +10,6 @@ Tellurium Contributors are categorized into development team, support team, evan
 
   * *Vivek Mongolu*: TrUMP prototype and TrUMP 0.1.0.
 
-  * *Mikhail Koryak*: TrUMP 0.1.0, jQuery support for Tellurium, and Engine 0.1.0
-
   * *Haroon Rasheed*: Tellurium Reference projects, Selenium Grid support, and Tellurium Linkedin Group management.
 
 == Support Team ==
@@ -30,8 +28,9 @@ Tellurium Contributors are categorized into development team, support team, evan
 
 == Past Members ==
 
+   * *Mikhail Koryak*: TrUMP 0.1.0 and jQuery support for Tellurium
+   * *Quan Bui*: Quan worked on Tellurium reference projects and proposed the ExtJs widget project.
   * *Adrian Carr*: Adrian used Tellurium prototype for an internal project and provided us   many good suggestions. He also proposed the name "Tellurium Automated Testing Framework".
-  * *Quan Bui*: Quan worked on Tellurium reference projects and proposed the ExtJs widget project.
 
 == Want to Contribute ? ==
 
