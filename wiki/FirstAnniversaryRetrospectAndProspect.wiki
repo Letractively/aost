@@ -3,12 +3,16 @@
 
 = Introduction =
 
-Add your content here.
+The Tellurium Automated Testing Framework (Tellurium) is one year old now if we count from the day that it becomes an open source project. 
 
+= Retrospect =
 
-= Details =
+== Tellurium Project ==
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+== Tellurium Team ==
+
+== Tellurium Community ==
+
+= Prospect =
+
+= Acknowledgments =
