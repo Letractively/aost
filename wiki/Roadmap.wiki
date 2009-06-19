@@ -9,8 +9,7 @@ For the the next release of Tellurium Core 0.7.0, we should achieve the followin
   * Widget architecture re-visit
   * Built in support for trace information such as timing.
   * More flexible name schema for UI templates, for example, you can use "odd" and "even" for the name
-  * Add Exception code in Engine so that the Core can handle different
-types of exceptions appropriately.
+  * Add Exception code in Engine so that the Core can handle different types of exceptions appropriately.
   * Add table header alias so that you can use header alias to refer to a column
   * Add Widget archetype
   * Add I18N support
@@ -33,4 +32,4 @@ For the Engine project 0.1.0, we should
   * Command bundle
   * UI module caching
   * Design and implement an advanced algorithm for group locating
-  * Re-implement Selenium methods using jQuery  
+  * Re-implement Selenium API methods using jQuery  
