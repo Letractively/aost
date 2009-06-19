@@ -1,5 +1,7 @@
 #summary Tellurium UI Model Firefox Plugin (TrUMP) 0.1.0
 #labels Phase-Design,Phase-Implementation
+<wiki:toc max_depth="5" />
+
 = Tellurium UI Model Plugin (TrUMP) 0.1.0 =
 
 Tellurium UI Model Plugin (TrUMP) is the Firefox plugin to automatically create UI modules for users. 
