@@ -1,5 +1,6 @@
 #summary Tellurium Maven Archetypes
 #labels Phase-Support
+<wiki:toc max_depth="3" />
 
 = Tellurium Maven Archetypes =
 
