@@ -804,6 +804,7 @@ click "layoutSelector.layoutSelector.List"
 
 The option object will automatically detect which UI pattern you need to use at runtime. 
 
+== Other Features ==
 
 === "Include" Frequently Used Sets of elements in UI Modules ===
 
