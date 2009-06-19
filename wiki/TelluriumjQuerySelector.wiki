@@ -1,5 +1,6 @@
 #summary Tellurium jQuery Selector Guide.
 #labels Phase-Design,Phase-Support
+<wiki:toc max_depth="5" />
 
 == Introduction ==
 
