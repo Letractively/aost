@@ -16,8 +16,9 @@ For the the next release of Tellurium Core 0.7.0, we should achieve the followin
   * Add table header alias so that you can use header alias to refer to a column
   * Add I18N support
   * Add test utility packages such as testing cross site scripts, SQL injections, mock objects, and more.
-  * Built in support for test result reporting
+  * Built in support for test result reporting (including captured screenshot names)
   * Add waitForAjax method
+  * Add takeSnapshot(uid) method to get back the snapshot of the UI Module from Engine
 
 == Engine ==
 
@@ -56,4 +57,4 @@ For reference projects, we should
   * Add more support for functional test
   * Add IDE plugins
   * Add Grails Tellurium plugin
-  
+  * Integration Fitnesse with Tellurium 
