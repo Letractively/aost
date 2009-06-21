@@ -53,7 +53,7 @@ For reference projects, we should
 
   * Add Widget Maven archetype
   * Add Tellurium Maven help archetype
-  * Add behavior driven test support
+  * Add behavior driven test support (Integrate with easyB or implement our own BDT)
   * Add more support for functional test
   * Add IDE plugins
   * Add Grails Tellurium plugin
