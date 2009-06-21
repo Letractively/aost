@@ -33,7 +33,7 @@ For the Engine project 0.1.0, we should
 For the TrUMP project 0.2.0, we should
   * Add support for IFrames/Frames
   * Add support to record dialogs/popups
-  * Add Inference engine to derive UI templates
+  * Add Inference engine to derive UI templates (May be deferred to 0.3.0)
 
 == Widget Extensions ==
 
