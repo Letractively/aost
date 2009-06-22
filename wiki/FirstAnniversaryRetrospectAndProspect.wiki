@@ -15,6 +15,17 @@ The prototype was called "Abstract Object-based Selenium Test Framework" (AOST) 
 
 == Tellurium Project ==
 
+In the past one year, Tellurium grew rapidly from a small core project into multiple sub-project including
+
+  * Tellurium Core: UI module, APIs, DSL, Object to Runtime Locator mapping, and test support.
+  * Tellurium Engine: Based on Selenium Core with UI module, jQuery selector, command bundle, and exception hierarchy support.
+  * Tellurium Extensions: Dojo Javascript widgets and ExtJS Javascript widgets.
+  * Tellurium UI Module Plugin (TrUMP): A firefox plugin to automatically generate UI module once users select the UI elements for test.
+  * Tellurium Maven Archetypes: Include Maven archetypes to generate skeleton Tellurium JUnit and Tellurium TestNG projects using one Maven command.
+  * Tellurium Reference Projects: Use Tellurium project site to illustrate how to use different Tellurium features and how to create Tellurium test cases.
+
+Thanks to Matt Senter, Tellurium has full Maven support with our own Maven repository.
+
 == Tellurium Team ==
 
 == Tellurium Community ==
