@@ -1,5 +1,4 @@
 #summary One-sentence summary of this page.
-#labels j
 
 = Tellurium beginner tutorial=
 
@@ -22,7 +21,11 @@ Selenium RC server automatically launches and kills browsers, and acts as a HTTP
 
 Tests are written in your favorite programming language using the corresponding client libraries. Through the test, you invoke the RC server, which then fires up browser and loads the Selenium core. Selenium core is DHTML test execution engine. First command core gets from RC is to load the web application. From then on, the commands from the test are proxied through the RC server to the core in browser. Simple commands are type into text box, clicking on the submit button..etc 
 
-With Selenium IDE its even easier to write the test. Just download and open the plugin. Plugin records all the user interaction and spits out the code. Lets open the download page for Tellurium project
+With Selenium IDE its even easier to write the test. Just download and open the plugin. Plugin records all the user interaction and spits out the code. 
+
+You can download the project here: http://aost.googlecode.com/files/Tellurium_Sample.zip
+
+Lets open the download page for Tellurium project
 link: http://code.google.com/p/aost/downloads/list
 and search for "TrUMP" and click the Search button. Plugin outputs this code.
 
@@ -162,4 +165,3 @@ http://aost.googlecode.com/files/Tellurium_Sample.zip
 The Screencast video is available at
 
 http://aost.googlecode.com/files/tellurium_video_1.avi
-
