@@ -51,9 +51,102 @@ Run the above test and you will see the browser fires up, loads the download sec
 
 
 Looking at the code, we can observe some problems
-  #Verbose: selenium everywhere
-  #Coupling
+  # Verbose: selenium everywhere
+  # Coupling: UI and tests are coupled
+  # What UI are we testing?
+  # Fragile: XPath to locate the element. If something along the XPath changes then Selenium cannot find the element.
+
+Tellurium addresses these problems. UI model is the core of Tellurium. Its a collection of all the dom elements. Instead of using the static xpath, we use the attributes of the DOM element and its parent to dynamically generate xpath. UI is separate from the test. By looking at the UI model, you can fairly see what part of the web application you are testing. Same test in Tellurium is as follows.
+
+UI 
+{{{
+import org.tellurium.dsl.DslContext
+
+/**
+ * @author Vivek Mongolu
+ */
+
+public class TelluriumDownloadSearchModule  extends DslContext {
+
+  public void defineUi() {
+
+    ui.Form(uid: "TelluriumDownload", clocator: [tag: "form", method: "get", action: "list"], group: "true") {
+      Selector(uid: "DownloadType", clocator: [tag: "select", name: "can", id: "can"])
+      InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "q", id: "q"])
+      SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit", value: "Search"])
+    }
+  }
+
+  //Add your methods here
+  public void searchDownload(String keyword) {
+    keyType "TelluriumDownload.Input", keyword
+    click "TelluriumDownload.Search"
+    waitForPageToLoad 30000
+  }
+
+  public String[] getAllDownloadTypes() {
+    return getSelectOptions("TelluriumDownload.DownloadType")
+  }
+
+  public void selectDownloadType(String type) {
+    selectByLabel "TelluriumDownload.DownloadType", type
+  }
 
 
+}
+}}}
+
+clocator is composite locator which uses the attributes of the DOM element. We've abstracted commonly used DOM elements and provided methods to use on the UI objects. To get the attributes for a DOM element, you can use inspect on Firebug or Dom Inspector. Also few methods are added to work on the UI.  In the above example, we are looking at a form with tag form and three children - select, input and input elements. uid is unique identifier you can use instead of the xpath as in selenium.
+{{{
+keyType "TelluriumDownload.Input", keyword
+}}}
+
+Here we are typing into the Input text box which is child of TelluriumDownload form. 
+
+
+TEST
+{{{
+package com.tellurium.test.ui;
+
+import org.tellurium.test.java.TelluriumJavaTestCase;
+import org.junit.BeforeClass;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+/**
+ * @author Vivek Mongolu
+ */
+public class TelluriumDownloadSearchTestCase  extends TelluriumJavaTestCase {
+    private static TelluriumDownloadSearchModule app;
+
+    @BeforeClass
+    public static void initUi() {
+        app = new TelluriumDownloadSearchModule();
+        app.defineUi();
+        app.useJQuerySelector();
+        app.enableSelectorCache();
+    }
+
+    @Before
+    public void setUpForTest() {
+        connectUrl("http://code.google.com/p/aost/downloads/list");
+    }
+
+    @Test
+    public void testDownloadSearch() {
+        String[] allTypes = app.getAllDownloadTypes();
+        assertNotNull(allTypes);
+        assertTrue(allTypes[1].contains("All downloads"));
+        app.selectDownloadType(allTypes[1]);
+        app.searchDownload("TrUMP");
+    }
+
+}
+}}}
+
+
+We are creating the Module object and then calling defineUI, which will create a tree of UI objects in memory and in the test, we are first getting all options of the Download type select element and then selecting the All downloads and then typing "TrUMP" into the search box and clicking the search button.
 
 
