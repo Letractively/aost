@@ -1,5 +1,22 @@
 #summary One-sentence summary of this page.
 
-= Introduction =
+= Tellurium beginner tutorial=
 
-Tellurium beginner video
+==Introduction==
+
+Tellurium Automated Testing Framework (Tellurium) is a UI module-based automated testing framework for web applications built on top of Selenium. Currently we are working on  our own engine. With Tellurium we are not only trying to solve some of the problems with Selenium but we've added new features which would ease the pain in writing functional tests.
+
+Lets begin with Selenium. Selenium is web application testing framework. It consists of 5 components. 
+1. Selenium Core
+2. Selenium Remote Control(RC) Server
+3. Selenium Driver
+4. Selenium Grid
+5. Selenium IDE firefox plugin
+
+Image
+
+Selenium RC server automatically launches and kills browsers, and acts as a HTTP proxy for web requests from them.
+
+Tests are written in your favorite programming language using the corresponding client libraries. Through the test, you invoke the RC server, which then fires up browser and loads the Selenium core. Selenium core is DHTML test execution engine. First command core gets from RC is to load the web application. From then on, the commands from the test are proxied through the RC server to the core in browser. Simple commands are type into text box, clicking on the submit button..etc
+
+
