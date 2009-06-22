@@ -1,4 +1,5 @@
 #summary One-sentence summary of this page.
+#labels j
 
 = Tellurium beginner tutorial=
 
@@ -6,17 +7,53 @@
 
 Tellurium Automated Testing Framework (Tellurium) is a UI module-based automated testing framework for web applications built on top of Selenium. Currently we are working on  our own engine. With Tellurium we are not only trying to solve some of the problems with Selenium but we've added new features which would ease the pain in writing functional tests.
 
+You can download Selenium here: http://seleniumhq.org/download/
+
 Lets begin with Selenium. Selenium is web application testing framework. It consists of 5 components. 
-1. Selenium Core
-2. Selenium Remote Control(RC) Server
-3. Selenium Driver
-4. Selenium Grid
-5. Selenium IDE firefox plugin
+  # Selenium Core
+  # Selenium Remote Control(RC) Server
+  # Selenium Driver
+  # Selenium Grid
+  # Selenium IDE firefox plugin
 
 Image
 
 Selenium RC server automatically launches and kills browsers, and acts as a HTTP proxy for web requests from them.
 
-Tests are written in your favorite programming language using the corresponding client libraries. Through the test, you invoke the RC server, which then fires up browser and loads the Selenium core. Selenium core is DHTML test execution engine. First command core gets from RC is to load the web application. From then on, the commands from the test are proxied through the RC server to the core in browser. Simple commands are type into text box, clicking on the submit button..etc
+Tests are written in your favorite programming language using the corresponding client libraries. Through the test, you invoke the RC server, which then fires up browser and loads the Selenium core. Selenium core is DHTML test execution engine. First command core gets from RC is to load the web application. From then on, the commands from the test are proxied through the RC server to the core in browser. Simple commands are type into text box, clicking on the submit button..etc 
+
+With Selenium IDE its even easier to write the test. Just download and open the plugin. Plugin records all the user interaction and spits out the code. Lets open the download page for Tellurium project
+link: http://code.google.com/p/aost/downloads/list
+and search for "TrUMP" and click the Search button. Plugin outputs this code.
+
+{{{
+import com.thoughtworks.selenium.SeleneseTestCase;
+
+public class SeleniumTestCase extends SeleneseTestCase {
+	public void setUp() throws Exception {
+		setUp("http://code.google.com/", "*chrome");
+	}
+	public void testNew() throws Exception {
+		selenium.open("/p/aost/downloads/list");
+		selenium.type("q", "TrUMP");
+		selenium.click("//input[@value='Search']");
+		selenium.waitForPageToLoad("30000");
+	}
+}
+}}}
+
+Goto the downloaded Selenium folder and start the selenium server using
+{{{
+java -jar selenium.jar
+}}}
+
+Run the above test and you will see the browser fires up, loads the download section, performs search for TrUMP.
+
+
+Looking at the code, we can observe some problems
+  #Verbose: selenium everywhere
+  #Coupling
+
+
 
 
