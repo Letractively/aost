@@ -25,7 +25,7 @@ With Selenium IDE its even easier to write the test. Just download and open the 
 
 You can download the project here: http://aost.googlecode.com/files/Tellurium_Sample.zip
 
-Lets open the download page for Tellurium project
+With Selenium IDE opened, goto the download page for Tellurium project
 link: http://code.google.com/p/aost/downloads/list
 and search for "TrUMP" and click the Search button. Plugin outputs this code.
 
@@ -59,7 +59,7 @@ Looking at the code, we can observe some problems
   # What UI are we testing?
   # Fragile: XPath to locate the element. If something along the XPath changes then Selenium cannot find the element.
 
-Tellurium addresses these problems. UI model is the core of Tellurium. Its a collection of all the dom elements. Instead of using the static xpath, we use the attributes of the DOM element and its parent to dynamically generate xpath. UI is separate from the test. By looking at the UI model, you can fairly see what part of the web application you are testing. Same test in Tellurium is as follows.
+Tellurium addresses all of these problems. UI model is the core of Tellurium. Its a collection of all the DOM elements. Instead of using the static xpath, we use the attributes of the DOM element and its parent to dynamically generate xpath. UI is completely separate from the test making the test and the UI refactor friendly and reusable. By looking at the UI model, you can fairly say what part of the web application you are testing. Same test in Tellurium is split into two parts UI and the actual TEST as follows.
 
 UI 
 {{{
@@ -150,7 +150,7 @@ public class TelluriumDownloadSearchTestCase  extends TelluriumJavaTestCase {
 }}}
 
 
-We are creating the Module object and then calling defineUI, which will create a tree of UI objects in memory and in the test, we are first getting all options of the Download type select element and then selecting the All downloads and then typing "TrUMP" into the search box and clicking the search button.
+Here we are creating the module object and then calling defineUI, which will create a tree of UI objects in memory and in the test, we are first getting all options of the Download type select element. This will first create the xpath based upon its own attributes and its parent, locate the select dom element and then get back the option labels and then select the All downloads label and then types "TrUMP" into the search box and clicks the search button. Thats it.
 
 Since UI model is the core of Tellurium and we understand that creating is both tedious and painful, we have created firefox plugin "TrUMP" Tellurium UI Model Plugin, which you can use to create the UI model for your test with ease. You can download it from here:
 
