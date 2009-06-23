@@ -1,4 +1,6 @@
-#summary One-sentence summary of this page.
+#summary Tellurium beginner tutorial.
+#labels Phase-Support,Phase-Implementation
+<wiki:toc max_depth="5" />
 
 = Tellurium beginner tutorial=
 
