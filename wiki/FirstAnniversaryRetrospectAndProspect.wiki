@@ -28,8 +28,19 @@ Thanks to Matt Senter, Tellurium has full Maven support with our own Maven repos
 
 == Tellurium Team ==
 
+Tellurium is a team work and thank all team members, past and current members, for their contributions. Thank Adrian Carr for being the first Tellurium user and proposed the "Tellurium Automated Testing Framework". Thank Quan Bui for his work on Tellurium reference projects and the proposal of the ExtJS widget project. Thank Mikhail Koryak for his expertise in jQuery and we cannot implement the jQuery selector so quickly without him. Thank Matt Senter for reconstructing the project code base and add Maven support. His work to build and release Tellurium as well as the Maven repository Maintenance should be highly appreciated. Thank Vivek Mongolu for his expertise in web development and prototyping the TrUMP Firefox plugin. His excellent work on TrUMP led to the release of TrUMP 0.1.0. Last but not the least, thank Jeff Xiong for his interest in Tellurium and his expertise in Selenium itself should be a huge asset to our team.
+
+The past year was a difficult year for most of us with the economy downturn. Two of our team members were affected directly and the rest also experienced head cuts and other pressures from both work and life. But we still managed to improve Tellurium on a regular basis. We have released Tellurium version 0.2.0, 0.3.0, 0.4.0, 0.5.0, 0.6.0, and TrUMP 0.1.0 in the past one year, which was a huge success to our team. These would be impossible without all your hard-work.   
+
+Of course, there are still a lot to improve. My goal to build a Strong and active team has not been achieved due to many reasons. We are expecting more exceptional members to join our team. In the meanwhile, we also welcome committers to work on one or couple tasks. Let us work together to make Tellurium a solid, real useful, and popular framework.
+ 
 == Tellurium Community ==
 
-= Prospect =
+Tellurium cannot reach today's stage without our users' support. More or less, our users' comments and suggestions shaped the today's Tellurium framework. 
+
+First, I like to thank Harihara Vinayakaram for his support and contribute to Tellurium, he was the most active Tellurium user for 2008-2009 without any doubt. Thanks to Dominic Mooney for his constructive suggestions and many bug reports. As the most valuable Tellurium for 2008-2009, we look forward to his continuous contribution to Tellurium in 2009-2010. 
+
+
+= Future Directions =
 
 = Acknowledgments =
