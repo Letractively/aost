@@ -50,7 +50,7 @@ First of all, we need more people to get involved in Tellurium development, test
 
 Technically, we will focus on our Engine project in 0.7.0 to provide better support for UI module to achieve better re-usability, speed performance, and robust. Tellurium widget will be re-architected to make it easier to define and use widgets for Javascript frameworks such as Dojo and ExtJS. TrUMP will be updated to support frames, pop-up widows, and UI modules. After that, we like to introduce the stage concept into functional testing to make functional tests easier to write and configure. Other initiatives include behavior driven test support, IDE plugins, and porting to other languages.
 
-As we always said, Tellurium cannot grow without the support from our users. In the next year, we need to do a better job to promote Tellurium and build a stronger community. 
+As we always said, Tellurium cannot grow without the support from our users. In the next year, we need to do a better job to promote Tellurium and build a stronger community. Tellurium is still young and need your *LTC* (love, tender, and care) to become mature and popular. 
 
 = Acknowledgments =
 
