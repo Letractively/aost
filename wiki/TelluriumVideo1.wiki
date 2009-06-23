@@ -5,7 +5,7 @@
 = Tellurium beginner tutorial=
 
 ==Introduction==
-First download the [screen cast video] and follow the video with this page.
+First download the [Resources] screen cast video and follow the video with this page.
 
 Tellurium Automated Testing Framework (Tellurium) is a UI module-based automated testing framework for web applications built on top of Selenium. Currently we are working on  our own engine. With Tellurium we are not only trying to solve some of the problems with Selenium but we've added new features which would ease the pain in writing functional tests.
 
