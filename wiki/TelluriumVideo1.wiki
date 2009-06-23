@@ -101,12 +101,24 @@ public class TelluriumDownloadSearchModule  extends DslContext {
 }
 }}}
 
-clocator is composite locator which uses the attributes of the DOM element. We've abstracted commonly used DOM elements and provided methods to use on the UI objects. To get the attributes for a DOM element, you can use inspect on Firebug or Dom Inspector. Also few methods are added to work on the UI.  In the above example, we are looking at a form with tag form and three children - select, input and input elements. uid is unique identifier you can use instead of the xpath as in selenium.
+Here we created the UI that we'll be testing using the abstract UI objects.  Tellurium comes with most commonly used DOM elements as UI objects. You can create your own UI object too. Tellurium also has helper methods to use on the respective UI objects. 
+
+Each UI object has bunch of fields, uid and clocator are the most important fields.
+uid is the unique identifier for the DOM element. Instead of using the xpath for the DOM element, you'll use the uid. This makes the code more readable. 
+
 {{{
 keyType "TelluriumDownload.Input", keyword
 }}}
 
-Here we are typing into the Input text box which is child of TelluriumDownload form. 
+Here we are typing "keyword" into the Input text box which is child of TelluriumDownload form. 
+
+clocator is composite locator which uses the attributes of the DOM element. To get the attributes for a DOM element, you can use inspect on Firebug or Dom Inspector.
+
+For the form UI object, group locating is turned on. Group Locating in Tellurium is to exploit relationship among the set of nested UI elements in a composite object. That is to say, when Tellurium tries to find the Form UI element, the search becomes: 
+
+{{{
+"Find a Form with a child element Selector, a child element InputBox, and a child element SubmitButton"
+}}}
 
 
 === TEST ===
@@ -152,12 +164,12 @@ public class TelluriumDownloadSearchTestCase  extends TelluriumJavaTestCase {
 }
 }}}
 
-
-Here we are creating the module object and then calling defineUI, which will create a tree of UI objects in memory and in the test, we are first getting all options of the Download type select element. This will first create the xpath based upon its own attributes and its parent, locate the select dom element and then get back the option labels and then select the All downloads label and then types "TrUMP" into the search box and clicks the search button. Thats it.
+In the test, first create the UI module object and then call the defineUI method, which will create a tree of UI objects in memory.
+In the actual test method, we are first getting all options of the Download type select element. This will first create the xpath based upon its own attributes and its parent, locate the select dom element and then get back the option labels. We're then changing the option selected to "All downloads" label and then search for "TrUMP". Thats all you need.
 
 Since UI model is the core of Tellurium and we understand that creating is both tedious and painful, we have created firefox plugin "TrUMP" Tellurium UI Model Plugin, which you can use to create the UI model for your test with ease. You can download it from here:
 
-Open the web app and open the TrUMP IDE plugin and click on the DOM elements. TrUMP IDE will record all the DOM elements selected. Click on the generate button and it will output the default UI model. Customization option is available too. Just click on the Customize and it will show you the DOM elements. Select one element and it will show the attributes in the right pane. Mostly I change the UID to be more meaningful. Once you are done with your changes, click the Save button. Now you can copy/paste the UI model or you can click on the File->export to export as a Groovy file.
+Open the web app and open the TrUMP IDE plugin and click on the DOM elements. TrUMP IDE will record all the DOM elements selected. Click on the generate button and it will output the default UI model. Customization option is available too. Just click on the Customize and it will show you the DOM elements in hierarchy. Select one element and it will show the attributes in the right pane. Mostly I change the UID to be more meaningful. Once you are done with your changes, click the Save button. Now you can copy/paste the UI model or you can click on the File->export to export as a Groovy file.
 
 == Resources ==
 
