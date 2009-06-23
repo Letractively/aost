@@ -63,7 +63,7 @@ Looking at the code, we can observe some problems
 
 Tellurium addresses all of these problems. UI model is the core of Tellurium. Its a collection of all the DOM elements. Instead of using the static xpath, we use the attributes of the DOM element and its parent to dynamically generate xpath. UI is completely separate from the test making the test and the UI refactor friendly and reusable. By looking at the UI model, you can fairly say what part of the web application you are testing. Same test in Tellurium is split into two parts UI and the actual TEST as follows.
 
-UI 
+=== UI === 
 {{{
 import org.tellurium.dsl.DslContext
 
@@ -109,7 +109,8 @@ keyType "TelluriumDownload.Input", keyword
 Here we are typing into the Input text box which is child of TelluriumDownload form. 
 
 
-TEST
+=== TEST ===
+
 {{{
 package com.tellurium.test.ui;
 
