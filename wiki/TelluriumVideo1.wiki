@@ -7,11 +7,11 @@
 ==Introduction==
 First download the [TelluriumVideo1#Resources screen cast video]  and follow the video with this page.
 
-Tellurium Automated Testing Framework (Tellurium) is a UI module-based automated testing framework for web applications built on top of Selenium. Currently we are working on  our own engine. With Tellurium we are not only trying to solve some of the problems with Selenium but we've added new features which would ease the pain in writing functional tests.
+*Tellurium Automated Testing Framework (Tellurium)* is a *UI module-based* automated testing framework for web applications built on top of Selenium. Currently we are working on  our own engine. With Tellurium we are not only trying to solve some of the problems with Selenium but we've added new features which would ease the pain in writing functional tests.
 
 You can download Selenium [http://seleniumhq.org/download/ here]
 
-Lets begin with Selenium. Selenium is web application testing framework. It consists of 5 components. 
+Lets begin with Selenium. *Selenium* is web application testing framework. It consists of 5 components. 
   # Selenium Core
   # Selenium Remote Control(RC) Server
   # Selenium Driver
@@ -105,15 +105,15 @@ public class TelluriumDownloadSearchModule  extends DslContext {
 Here we created the UI that we'll be testing using the abstract UI objects.  Tellurium comes with most commonly used DOM elements as UI objects. You can create your own UI object too. Tellurium also has helper methods to use on the respective UI objects. 
 
 Each UI object has bunch of fields, uid and clocator are the most important fields.
-uid is the unique identifier for the DOM element. Instead of using the xpath for the DOM element, you'll use the uid. This makes the code more readable. 
+*uid* is the unique identifier for the DOM element. Instead of using the xpath for the DOM element, you'll use the uid. This makes the code more readable. 
 
 {{{
 keyType "TelluriumDownload.Input", keyword
 }}}
 
-Here we are typing "keyword" into the Input text box which is child of TelluriumDownload form. 
+Here we are typing "keyword" into the Input text box which is child of Tellurium Download form. 
 
-clocator is composite locator which uses the attributes of the DOM element. To get the attributes for a DOM element, you can use inspect on Firebug or Dom Inspector.
+*clocator* is composite locator which uses the attributes of the DOM element. To get the attributes for a DOM element, you can use inspect on Firebug or Dom Inspector.
 
 For the form UI object, group locating is turned on. Group Locating in Tellurium is to exploit relationship among the set of nested UI elements in a composite object. That is to say, when Tellurium tries to find the Form UI element, the search becomes: 
 
@@ -168,9 +168,9 @@ public class TelluriumDownloadSearchTestCase  extends TelluriumJavaTestCase {
 In the test, first create the UI module object and then call the defineUI method, which will create a tree of UI objects in memory.
 In the actual test method, we are first getting all options of the Download type select element. This will first create the xpath based upon its own attributes and its parent, locate the select dom element and then get back the option labels. We're then changing the option selected to "All downloads" label and then search for "TrUMP". Thats all you need.
 
-Since UI model is the core of Tellurium and we understand that creating is both tedious and painful, we have created firefox plugin "TrUMP" Tellurium UI Model Plugin, which you can use to create the UI model for your test with ease. You can download the plugin from  [TelluriumVideo1#Resources Resources].
+Since UI model is the core of Tellurium and we understand that creating is both tedious and painful, we have created firefox plugin *TrUMP - Tellurium UI Model Plugin*, which you can use to create the UI model for your test with ease. You can download the plugin from  [TelluriumVideo1#Resources Resources].
 
-Open the web app and open the TrUMP IDE plugin and click on the DOM elements. TrUMP IDE will record all the DOM elements selected. Click on the generate button and it will output the default UI model. Customization option is available too. Just click on the Customize and it will show you the DOM elements in hierarchy. Select one element and it will show the attributes in the right pane. Mostly I change the UID to be more meaningful. Once you are done with your changes, click the Save button. Now you can copy/paste the UI model or you can click on the File->export to export as a Groovy file.
+Open the web app and open the *TrUMP IDE* plugin and click on the DOM elements. TrUMP IDE will record all the DOM elements selected. Click on the generate button and it will output the default UI model. Customization option is available too. Just click on the Customize and it will show you the DOM elements in hierarchy. Select one element and it will show the attributes in the right pane. Mostly I change the UID to be more meaningful. Once you are done with your changes, click the Save button. Now you can copy/paste the UI model or you can click on the File->export to export as a Groovy file.
 
 == Resources ==
 
