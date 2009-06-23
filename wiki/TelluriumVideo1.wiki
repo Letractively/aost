@@ -26,7 +26,7 @@ Tests are written in your favorite programming language using the corresponding 
 
 With Selenium IDE its even easier to write the test. Just download and open the plugin. Plugin records all the user interaction and spits out the code. 
 
-You can download the project here: http://aost.googlecode.com/files/Tellurium_Sample.zip
+You can download the project [http://aost.googlecode.com/files/Tellurium_Sample.zip  here]
 
 With Selenium IDE opened, goto the download page for Tellurium project
 link: http://code.google.com/p/aost/downloads/list
