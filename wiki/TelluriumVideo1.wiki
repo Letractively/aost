@@ -9,7 +9,7 @@ First download the screen cast video and follow the video with this page.
 
 Tellurium Automated Testing Framework (Tellurium) is a UI module-based automated testing framework for web applications built on top of Selenium. Currently we are working on  our own engine. With Tellurium we are not only trying to solve some of the problems with Selenium but we've added new features which would ease the pain in writing functional tests.
 
-You can download Selenium here: http://seleniumhq.org/download/
+You can download Selenium [http://seleniumhq.org/download/ here]
 
 Lets begin with Selenium. Selenium is web application testing framework. It consists of 5 components. 
   # Selenium Core
