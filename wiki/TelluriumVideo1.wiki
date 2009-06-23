@@ -168,7 +168,7 @@ public class TelluriumDownloadSearchTestCase  extends TelluriumJavaTestCase {
 In the test, first create the UI module object and then call the defineUI method, which will create a tree of UI objects in memory.
 In the actual test method, we are first getting all options of the Download type select element. This will first create the xpath based upon its own attributes and its parent, locate the select dom element and then get back the option labels. We're then changing the option selected to "All downloads" label and then search for "TrUMP". Thats all you need.
 
-Since UI model is the core of Tellurium and we understand that creating is both tedious and painful, we have created firefox plugin "TrUMP" Tellurium UI Model Plugin, which you can use to create the UI model for your test with ease. You can download it from Resources.
+Since UI model is the core of Tellurium and we understand that creating is both tedious and painful, we have created firefox plugin "TrUMP" Tellurium UI Model Plugin, which you can use to create the UI model for your test with ease. You can download the plugin from  [TelluriumVideo1#Resources Resources].
 
 Open the web app and open the TrUMP IDE plugin and click on the DOM elements. TrUMP IDE will record all the DOM elements selected. Click on the generate button and it will output the default UI model. Customization option is available too. Just click on the Customize and it will show you the DOM elements in hierarchy. Select one element and it will show the attributes in the right pane. Mostly I change the UID to be more meaningful. Once you are done with your changes, click the Save button. Now you can copy/paste the UI model or you can click on the File->export to export as a Groovy file.
 
