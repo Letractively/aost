@@ -17,7 +17,7 @@ Lets begin with Selenium. Selenium is web application testing framework. It cons
   # Selenium Grid
   # Selenium IDE firefox plugin
 
-http://aost.googlecode.com/files/selenium
+http://tellurium-users.googlegroups.com/web/selenium.png?gsc=QJl9twsAAADeoAOjG7FEp37CyALn8sk1
 
 Selenium RC server automatically launches and kills browsers, and acts as a HTTP proxy for web requests from them.
 
@@ -183,5 +183,5 @@ http://aost.googlecode.com/files/tellurium_video_1.avi
 
 TrUMP
 
-http://aost.googlecode.com/files/TrUMP-0.1.0.FF2.xpi
-http://aost.googlecode.com/files/TrUMP-0.1.0.FF3.xpi
+ * Firefox 2: http://aost.googlecode.com/files/TrUMP-0.1.0.FF2.xpi
+ * Firefox 3: http://aost.googlecode.com/files/TrUMP-0.1.0.FF3.xpi 
