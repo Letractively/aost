@@ -181,6 +181,10 @@ The Screencast video is available at
 
 http://aost.googlecode.com/files/tellurium_video_1.avi
 
+Selenium
+
+http://seleniumhq.org/download/
+
 TrUMP
 
  * Firefox 2: http://aost.googlecode.com/files/TrUMP-0.1.0.FF2.xpi
