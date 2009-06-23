@@ -24,7 +24,7 @@ In the past one year, Tellurium grew rapidly from a small core project into mult
   * Tellurium Maven Archetypes: Maven archetypes to generate skeleton Tellurium JUnit and Tellurium TestNG projects using one Maven command.
   * Tellurium Reference Projects: Use Tellurium project site as examples to illustrate how to use different features in Tellurium and how to create Tellurium test cases.
 
-Main features include:
+Main features in Tellurium include:
   * DSL for UI definition, actions, and testing
   * Dynamically generate runtime locators
   * UI module for structured testing code and reuse
@@ -39,11 +39,11 @@ Main features include:
 
 == Tellurium Team ==
 
-Tellurium is a team work and thank all team members, past and current members, for their contributions. Thank Adrian Carr for being the first Tellurium user and proposed the "Tellurium Automated Testing Framework". Thank Quan Bui for his work on Tellurium reference projects and the proposal of the ExtJS widget project. Thank Mikhail Koryak for his expertise in jQuery and we cannot implement the jQuery selector so quickly without him. Thank Haroon Rasheed for his contribution to Tellurium reference projects and Selenium Grid support as well as user support in Tellurium user group. Thank Matt Senter for reconstructing the project code base and add Maven support. His work to build and release Tellurium as well as the Maven repository Maintenance should be highly appreciated. Thank Vivek Mongolu for his expertise in web development and prototyping the TrUMP Firefox plugin. His excellent work on TrUMP led to the release of TrUMP 0.1.0. Last but not the least, thank Jeff Xiong for his interest in Tellurium and his expertise in Selenium itself should be a huge asset to our team.
+Tellurium is a team project and thank all team members, past and current members, for their contributions. Thank Adrian Carr for being the first Tellurium user and proposed "Tellurium Automated Testing Framework" as the name for the framework. Thank Quan Bui for his good work on Tellurium reference projects and the proposal of the ExtJS widget project. Thank Mikhail Koryak for his expertise in jQuery and prototyping jQuery support for Tellurium. We cannot implement the jQuery selector so quickly without his involvement. Thank Haroon Rasheed for his contribution to Tellurium reference projects and Selenium Grid support as well as user support in Tellurium user group. Thank Matt Senter for reconstructing the project code base and adding Maven support. His work to build and release Tellurium as well as the Maven repository Maintenance should be acknowledged. Thank Vivek Mongolu for his expertise in web development and prototyping the TrUMP Firefox plugin. His excellent work on TrUMP led to the release of TrUMP 0.1.0. Last but not the least, thank Jeff Xiong for his interest in contributing to Tellurium and his expertise in Selenium should be a huge asset to our team.
 
-The past year was a difficult year for most of us with the economy downturn. Two of our team members were affected directly and the rest also experienced head cuts and other pressures from both work and life. But we still managed to improve Tellurium on a regular basis. We have released Tellurium version 0.2.0, 0.3.0, 0.4.0, 0.5.0, 0.6.0, and TrUMP 0.1.0 in the past one year, which was a huge success to our team. These would be impossible without all your hard-work.   
+The past year was a difficult one for most of us with the economic downturn. Two of our team members were affected directly and the rest also experienced head cuts and other pressures from both work and life. But we still managed to improve and release Tellurium on a regular basis. We have released Tellurium 0.2.0, 0.3.0, 0.4.0, 0.5.0, 0.6.0, and TrUMP 0.1.0 in the past one year, which was a huge achievement for our team. All these would be impossible without all your hard work.   
 
-Of course, there are still a lot to improve. My goal to build a Strong and active team has not been achieved due to many reasons. We are expecting more exceptional members to join our team. In the meanwhile, we also welcome committers to work on one or couple tasks. Let us work together to make Tellurium a solid, real useful, and popular framework.
+Of course, there is still room to improve. Our goal to build a strong and active team has not been achieved due to many reasons. We are expecting more exceptional members to join our team. In the meanwhile, we also welcome committers to work on one or couple Tellurium tasks. Let us work together to make Tellurium a solid, real useful, and popular framework.
  
 == Tellurium Community ==
 
