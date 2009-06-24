@@ -33,7 +33,7 @@ Main features in Tellurium include:
   * Composite Locator
   * Group locating
   * Dynamically generate runtime locators
-  * UI module for structured testing code and re-usability
+  * UI module for structured test code and re-usability
   * UI templates for dynamic web content
   * XPath and jQuery selector support
   * Locator caching to improve speed 
