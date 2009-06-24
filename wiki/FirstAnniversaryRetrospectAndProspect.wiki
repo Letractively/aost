@@ -31,7 +31,7 @@ Main features in Tellurium include:
   * DSL for UI definition, actions, and testing
   * Dynamically generate runtime locators
   * UI module for structured testing code and re-usability
-  * UI templates for dynamic web contents
+  * UI templates for dynamic web content
   * XPath and jQuery selector support
   * Locator caching to improve speed 
   * Javascript event support
