@@ -74,15 +74,15 @@ If you are interested, please contact me (John.Jian.Fang@gmail.com) directly. Th
 
 From technical perspective, we will focus on the following tasks,
 
-  * Develop Engine project in 0.7.0 to provide better support for UI module and achieve better re-usability, speed performance, and robust. 
+  * Develop the Engine project in 0.7.0 to provide better support for UI module and achieve better re-usability, speed performance, and robust to changes. 
   * Tellurium widget will be re-architected to encapsulate dynamic factors and to make it easier to define and use Tellurium widgets. 
   * The widget extension projects will be implemented to include many widgets from Javascript frameworks such as Dojo and ExtJS so that users can include these widgets in their UI modules simply by their names without the need to know the details of the internal UI elements. 
-  * TrUMP will be improved to support frames, pop-up widows, and UI templates. Another big move will be to automatically create UI module as well as the DSL test scripts for non-developers. 
-  * To better support functional tests, we will introduce the stage concept to make functional tests easier to write and configure. 
-  * Headless web testing using HtmlUnit would be another interesting topic. 
+  * TrUMP will be improved to support frames, pop-up widows, and UI templates. Another big move will be to automatically create UI modules as well as DSL test scripts for non-developers. 
+  * To better support functional tests, we will introduce a "stage and test binding" concept to make functional tests easier to write and configure. 
+  * Headless web testing using HtmlUnit could be another interesting topic. 
   * Other initiatives include behavior driven test support, IDE plugins, XHTML support, integration with other testing framework like Fitnesse, and porting to other languages.
 
-As we always said, Tellurium cannot grow without the support from our users. In the next year, we need to do a better job to promote Tellurium and build a stronger and better community. Please keep supporting Tellurium. Tellurium is still young and it needs your *LTC* (love, tender, and care) to become mature and popular. 
+As we always said, Tellurium cannot grow without the support from our users. In the next year, we need to do a better job to promote Tellurium and build a larger and better community. Please keep supporting Tellurium. Tellurium is still young and it needs your *LTC* (love, tender, and care) to become mature and popular. 
 
 = Acknowledgments =
 
