@@ -67,7 +67,7 @@ Thanks to many people who are interested in Tellurium, use Tellurium, and promot
 
 First of all, we need more people to get involved in Tellurium development, test, documentation, and promotion. We need a strong and active team to move forward quickly. We need volunteers who have free time to contribute to Tellurium. More specifically, we are looking for 
   * An English technical writer to join our team to help us with documents.
-  * JavaScript and jQuery gurus to help us to develop the TrUMP and the Engine projects.  
+  * JavaScript and jQuery gurus to join our team to develop the TrUMP and the Engine projects.  
   * Other talented people to bring new ideas and contribute to Tellurium.
 
 If you are interested, please contact me (John.Jian.Fang@gmail.com) directly. Thanks in advance.
