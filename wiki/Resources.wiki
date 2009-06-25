@@ -160,6 +160,7 @@
   * [http://codeforfun.wordpress.com/2006/05/19/groovy-and-maven2-in-action/ Groovy and Maven 2 in action]
   * [http://maxpi.sourceforge.net/goals.html Maven XPI Plugin]
   * [http://www.mvnbrowser.com/index.html Maven Repository Browser]
+  * [http://www.webtide.com/resources/maven.jsp Maven Archetypes for Web Applications]
 
 === Java ===
 
