@@ -24,6 +24,7 @@
   * [http://code.google.com/p/aost Tellurium]
   * [http://groups.google.com/group/tellurium-users Tellurium user group]
   * [http://www.linkedin.com/groups?gid=1900807 Tellurium Automated Testing Framework LinkedIn Group]
+  * [http://twitter.com/TelluriumTest Tellurium on Twitter]
   * [http://seleniumhq.org/ Selenium]
   * [http://selenium-grid.seleniumhq.org/ Selenium Grid]
   * [http://clearspace.openqa.org/community/selenium Selenium Community]
