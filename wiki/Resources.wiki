@@ -199,7 +199,11 @@
 
 == Blogs ==
 
-  * [http://notetodogself.blogspot.com/2009/02/functional-testing-with-tellurium.html Functional Testing with Tellurium]
+  * [http://notetodogself.blogspot.com/2009/02/functional-testing-with-tellurium.html Functional Testing with Tellurium by Mikhail Koryak]
+  * [http://epyramid.wordpress.com/2009/06/02/tellurium-automation-process/ Tellurium and test automation process by Haroon Rasheed]
+  * [http://notetodogself.blogspot.com/2009/06/tellurium-better-functional-test.html Tellurium: A Better Functional Test by Mikhail Koryak]
+  * [http://startupmusings.blogspot.com/2009/06/experience-with-web-testing-frameworks.html Experience with Web Testing Frameworks by Harihara Vinayakaram]
+  * [http://domsqablog.blogspot.com/2009/06/browser-based-testing-qa-perspective.html Why I use the Tellurium framework - an Automation QA perspective by Dominic Mooney]
 
 == Presentations and Videos ==
 
