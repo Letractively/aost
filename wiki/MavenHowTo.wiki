@@ -164,7 +164,8 @@ To find regular build information updates, see http://kungfuters.org/tellurium. 
   * _dependency:analyze_ analyzes the dependencies of this project and determines which are: used and declared; used and undeclared; unused and declared.
   * _dependency:tree_ displays the dependency tree for this project.
   * _dependency:purge-local-repository -Dexclude=ARTIFACT_ delete all of the dependencies for the current project and re-resolved afterwards. You can disable this by specifying -DreResolve=false.
-
+  * _dependency:copy-dependencies_ takes the list of project direct dependencies and optionally transitive dependencies and copies them to a specified location
+  * _dependency:unpack-dependencies_ like copy-dependencies but unpacks.
 
 == Maven Archetype Plugin ==
 
