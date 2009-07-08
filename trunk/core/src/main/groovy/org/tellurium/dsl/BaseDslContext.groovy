@@ -1105,7 +1105,7 @@ abstract class BaseDslContext {
       return null
     }
     if (strings?.length) {
-      for (i in 0..strings?.length) {
+      for (i in 0..<strings?.length) {
         if (cssClass.equalsIgnoreCase(strings[i])) {
           return true
         }
