@@ -22,6 +22,8 @@ Tellurium Contributors are categorized into development team, support team, evan
 
 == Committers ==
 
+  * *Davlyn Jones*:
+  * *Ramesh Ramamurthy*:
 
 == Tellurium Users ==
 
