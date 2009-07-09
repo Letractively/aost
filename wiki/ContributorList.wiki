@@ -17,13 +17,13 @@ Tellurium Contributors are categorized into development team, support team, evan
 == Support Team ==
 
   * *Matt Senter*: Coming up with the name "Tellurium", Tellurium Maven support, Tellurium build and release, and Tellurium Maven repository maintenance. 
+  * *Davlyn Jones*:
+  * *Ramesh Ramamurthy*:
 
 == Evangelism Team ==
 
 == Committers ==
 
-  * *Davlyn Jones*:
-  * *Ramesh Ramamurthy*:
 
 == Tellurium Users ==
 
