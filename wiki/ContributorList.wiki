@@ -12,7 +12,11 @@ Tellurium Contributors are categorized into development team, support team, evan
 
   * *Haroon Rasheed*: Tellurium Reference projects, Selenium Grid support, and Tellurium Linkedin Group management.
 
+  * *Mikhail Koryak*: TrUMP 0.1.0 and jQuery support for Tellurium
+
   * *Jeff Xiong*: 
+
+  * *Tim Jiang*:
 
 == Support Team ==
 
@@ -22,7 +26,7 @@ Tellurium Contributors are categorized into development team, support team, evan
 
 == Evangelism Team ==
 
-== Committers ==
+== Other Contributors ==
 
 
 == Tellurium Users ==
@@ -34,8 +38,6 @@ Tellurium Contributors are categorized into development team, support team, evan
   * Most Valuable User: *Dominic Mooney*  
 
 == Past Members ==
-
-   * *Mikhail Koryak*: TrUMP 0.1.0 and jQuery support for Tellurium
 
    * *Quan Bui*: Quan worked on Tellurium reference projects and proposed the ExtJs widget project.
 
