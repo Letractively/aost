@@ -60,7 +60,7 @@
         <dependency>
             <groupId>org.codehaus.groovy.maven</groupId>
             <artifactId>gmaven-mojo</artifactId>
-            <version>1.0-rc-5</version>
+            <version>${dollar}{gmaven-version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.codehaus.groovy.maven.runtime</groupId>
@@ -72,7 +72,7 @@
         <dependency>
             <groupId>org.codehaus.groovy.maven.runtime</groupId>
             <artifactId>gmaven-runtime-1.6</artifactId>
-            <version>1.0-rc-5</version>
+            <version>${dollar}{gmaven-version}</version>
         </dependency>
 
         <dependency>
@@ -85,21 +85,21 @@
         <dependency>
             <groupId>tellurium</groupId>
             <artifactId>tellurium-core</artifactId>
-            <version>0.6.0</version>
+            <version>${dollar}{tellurium-version}</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>org.seleniumhq.selenium.server</groupId>
             <artifactId>selenium-server</artifactId>
-            <version>1.0.1-te</version>
+            <version>${dollar}{selenium-version}-te</version>
             <!--classifier>standalone</classifier-->
         </dependency>
 
         <dependency>
             <groupId>org.seleniumhq.selenium.client-drivers</groupId>
             <artifactId>selenium-java-client-driver</artifactId>
-            <version>1.0.1</version>
+            <version>${dollar}{selenium-version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.codehaus.groovy.maven.runtime</groupId>
@@ -125,7 +125,7 @@
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
-            <version>1.6.0</version>
+            <version>${dollar}{groovy-version}</version>
         </dependency>
         <dependency>
             <groupId>caja</groupId>
@@ -190,7 +190,7 @@
                 <plugin>
                     <groupId>org.codehaus.groovy.maven</groupId>
                     <artifactId>gmaven-plugin</artifactId>
-                    <version>1.0-rc-5</version>
+                    <version>${dollar}{gmaven-version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -203,8 +203,8 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>${dollar}{java-version}</source>
+                    <target>${dollar}{java-version}</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -288,7 +288,7 @@
                     <dependency>
                         <groupId>sun.jdk</groupId>
                         <artifactId>tools</artifactId>
-                        <version>1.5.0</version>
+                        <version>${dollar}{java-version}.0</version>
                         <scope>system</scope>
                         <systemPath>${dollar}{java.home}/../lib/tools.jar</systemPath>
                     </dependency>
@@ -362,6 +362,7 @@
         <groovy-version>1.6.0</groovy-version>
         <gmaven-version>1.0-rc-5</gmaven-version>
         <selenium-version>1.0.1</selenium-version>
+        <tellurium-version>0.7.0-SNAPSHOT</tellurium-version>
         <javac-debug>true</javac-debug>
     </properties>
 
