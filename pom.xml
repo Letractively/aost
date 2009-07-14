@@ -228,9 +228,9 @@
         <module>core</module>
         <!--module>engine</module-->
         <!--module>extensions</module-->
-        <module>reference-projects</module>
+        <!--module>reference-projects</module>
         <module>tools</module>
-        <module>tellurium-assembly</module>
+        <module>tellurium-assembly</module-->
     </modules>
     <repositories>
         <repository>
