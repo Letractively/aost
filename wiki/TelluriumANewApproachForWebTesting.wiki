@@ -718,7 +718,7 @@ public class NewTestCase extends TelluriumJavaTestCase {
 
 Compile the project and run the new test case.
 
-= Conclusions and Future Directions =
+= Summary and Future Directions =
 
 Tellurium is robust, expressive, flexible, and reusable with many unique features. Tellurium introduces a new approach to test web applications based on UI modules.
 We have released Tellurium 0.6.0 and are working on 0.7.0. 
