@@ -158,7 +158,7 @@ The Eventhandler in this part will handle all events like "click", "type", "sele
 
 Tellurium began as a small core project over a year ago and quickly spawned multiple sub-projects including: [http://code.google.com/p/aost/wiki/UserGuide Core], [http://code.google.com/p/aost/wiki/ReferenceProjectGuide Reference projects], [http://code.google.com/p/aost/wiki/TelluriumWidget Widget extensions], [http://code.google.com/p/aost/wiki/TrUMP TrUMP], and Engine projects as shown in the following diagram,
 
-http://tellurium-users.googlegroups.com/web/TelluriumProjects.png?gsc=8WCcfRYAAABueqEHekK8LxR3X1leEByKg-kXU5InE09W2o0GCSVgCQ
+http://tellurium-users.googlegroups.com/web/TelluriumSubprojects.png?gda=KOo7BEoAAAD5mhXrH3CK0rVx4StVj0LYlNqOmuvSTE_gHzistV7TYU3GrA4woUylGAUAJF3_rdDbYV_6pXuFBwitfyYTkV3q_e3Wg0GnqfdKOwDqUih1tA&gsc=JDDH5gsAAACcJEKey8RXDXypkrHyWRpX
 
    * Tellurium Core: UI module, APIs, DSL, Object to Runtime Locator mapping, and test support.
   * Tellurium Engine: Based on Selenium Core with UI module, jQuery selector, command bundle, and exception hierarchy support.
