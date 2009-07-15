@@ -16,6 +16,29 @@ With the advent of new web techniques, automated web testing tools must keep up 
   * *Expressiveness*: The testing framework should be able to provide the users without too much coding experience to write test code/scripts easily in a way that they are familiar with, for example, use a domain specific language (DSL).
   * *Re-usability*: Many web applications use the same UI module for different part of the application. The adoption of Javascript frameworks such as Dojo and ExtJS increases the chance to use the same UI module for difference applications. A good testing framework should also be able to provide re-usability of test modules.
 
-== Existing Automated Web Testing Frameworks ==
+== Existing Open source Automated Web Testing Frameworks ==
 
+The Selenium framework is the most popular open source automated web testing framework and it was a ground-breaking framework and it offered many unique features such as browser based testing, Selenium Grid, and "record and replay" testing mode using Selenium IDE. As a pioneer framework, it inevitably comes with some shortcomings. One important one is that it focuses on individual UI elements such as links and buttons, as a result, it is to address dynamic web content in Selenium. The "record and replay" testing mode does make it much easier for users, especially non-developers, to create a test case, however, it also suffers drawbacks such as difficult to refactor and maintain. Other downsides include the coupling of UI elements and test code, verbose, and fragile to changes. 
+
+Take the following Selenium test code as an example,
+
+{{{
+   selenium.open("/BookApp/book/create");
+   selenium.type("author", "Vivek");
+   selenium.type("pages", "100");
+   selenium.type("title", "Tellurium");
+   selenium.click("//input[@value='Create']");
+   selenium.waitForPageToLoad("30000");
+
+   Assert.assertEquals(1,selenium.getXpathCount(“/html/body/div[4]/div[1]"));
+}}}
+
+Do you know what UI module is under testing? What does the xpath “/html/body/div[4]/div[1]" mean here? And what if the XPath becomes invalid due to change? As a result, the Selenium test code is easy to create, but hard to read and maintain. Let alone to address dynamic web context. 
+
+
+
+
+
+
+ 
       
