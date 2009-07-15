@@ -11,6 +11,10 @@ I presented [http://code.google.com/p/aost/ Telluriurm] Automated Testing Framew
 
 Session alloted was 70 mins, enough to cover the important concepts with demos for Telllurium. I had some technical problems with the projector, so I lost 10-15 minutes. I had to extend 10 minutes to make up for the lost time. When we started working on Tellurium, our major focus was to eliminate the fragiliness in [http://seleniumhq.org/ Selenium] and that was the complain from couple of attendees using Selenium. I started with Selenium and the problems with using Selenium and then introduced Tellurium, its main concepts, how to write tests in Tellurium with couple of demos, then introduced [http://aost.googlecode.com/files/TrUMP-0.1.0.FF3.xpi Trump firefox plugin] to generate UI model to test.
 
-You can download the slides and code from here
+You can download the slides/code/dependent jars here
+[http://sites.google.com/a/codestock.org/wiki/Home/2009-slides-and-code/Tellurium.zip?attredirects=0 Slides and code]
+[http://aost.googlecode.com/files/tellurium-0.6.0-dependencies.zip dependent jars]
+
+
 
 Next time I'll take 2 session and cover the basics in one session and advanced topics like Data driven testing, Grid support, caching..etc in another session. Overall it was great feeling to finally present something we have been working for over an year at conference.
