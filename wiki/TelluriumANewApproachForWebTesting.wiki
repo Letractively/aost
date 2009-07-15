@@ -1,5 +1,6 @@
 #summary Tellurium: A New Approach for Web Testing.
 #labels Phase-Implementation,Phase-Support
+<wiki:toc max_depth="5" />
 
 = Introduction =
 
@@ -69,11 +70,11 @@ Our answer is the Tellurium Automated Testing Framework (Tellurium). In the next
 
 = A New Approach for Web Testing =
 
-== How Challenges and Problems are addressed in Tellurium ? ==
+== Why Tellurium is a New Approach for Web Testing ==
  
 The Tellurium Automated Testing Framework (Tellurium) is an open source automated testing framework for web applications to address the challenges and problems in web testing. 
 
-Most web testing tools/frameworks focus on individual UI elements such as links and buttons. Tellurium takes a new approach for automated web testing using the UI module.  The UI module is a collection of UI elements grouped together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For example, the Google search UI module can be expressed as follows,
+Most existing web testing tools/frameworks focus on individual UI elements such as links and buttons. Tellurium takes a new approach for automated web testing using the UI module.  The UI module is a collection of UI elements grouped together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For example, the Google search UI module can be expressed as follows,
 
 {{{
 ui.Container(uid: "GoogleSearchModule", clocator: [tag: "td"], group: "true"){
@@ -113,6 +114,8 @@ The main features of Tellurium include:
   * Selenium Grid support
   * JUnit and TestNG support
   * Ant and Maven support
+
+== How Challenges and Problems are addressed in Tellurium ? ==
  
 Back to the challenges and problems, how are they addressed in Tellurium? First of all, Tellurium does not use the "record and replay" style. Instead, it uses Tellurium Firefox plugin Trump to generate the UI module, not the test code for you. Then you need to create your test code based on the UI module. In this way, the UI and the test code are decoupled. The structured test code in Tellurium make it much easier to refactor and maintain the code.
 
@@ -122,6 +125,6 @@ Tellurium use the “respond” attribute in UI object for you to specify JavaSc
 
 The re-usability is achieved by UI module for the same application and Tellurium Widgets for different web applications. With the Domain Specific Language (DSL) in Tellurium, you can define UI module and write test code in a very expressive way. Tellurium also provides you the flexibility to write test code in Java, Groovy, or pure DSL scripts.
 
-== Why Tellurium is a New Approach for Web Testing ==
+
 
  
