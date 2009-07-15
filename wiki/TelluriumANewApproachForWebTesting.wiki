@@ -65,7 +65,7 @@ Since the existing automated testing frameworks cannot address the challenges an
   * Modular and test modules are reusable 
   * Expressive and easy to use
 
-Our answer is the Tellurium Automated Testing Framework (Tellurium). In the next sections, we will first give a brief introduction of Tellurium and how it addresses the challenges and problems in web testing, then go over more details about Tellurium including its architecture, new concepts, and how to obtain and use Tellurium followed by detailed tutorials with code samples. Finally, we end this article with future directions.
+Our answer is the Tellurium Automated Testing Framework (Tellurium). In the next sections, we will first give a brief introduction of Tellurium and how it addresses the challenges and problems in web testing, then go over more details about Tellurium including its architecture, new concepts, and how to obtain and use Tellurium followed by detailed tutorials with code samples. Finally, we conclude this article with future directions.
 
 = A New Approach for Web Testing =
 
