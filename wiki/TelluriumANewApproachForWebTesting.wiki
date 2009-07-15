@@ -54,15 +54,24 @@ submit btnI # use the "I'm feeling lucky" button
 show
 }}}
 
-== Tellurium ==
+== Motivations ==
 
-The Tellurium Automated Testing Framework (Tellurium) is an open source automated testing framework for web applications to address the challenges and problems in web testing. Tellurium is created with the following motivations:
+Since the existing automated testing frameworks cannot address the challenges and problems very well. We really need a new automated testing framework to address them with the following motivations:
 
   * Robust to changes and allow changes to be localized
   * Address dynamic web context such as JavaScript events and Ajax 
   * Easy to refactor and maintain
   * Modular and test modules are reusable 
   * Expressive and easy to use
+
+Our answer is the Tellurium Automated Testing Framework (Tellurium). In the next sections, we will first give a brief introduction of Tellurium and how it addresses the challenges and problems in web testing, then go over more details about Tellurium including its architecture, new concepts, and how to obtain and use Tellurium followed by detailed tutorials with code samples.
+
+
+= A New Approach for Web Testing =
+
+== How Challenges and Problems are addressed in Tellurium ? ==
+ 
+The Tellurium Automated Testing Framework (Tellurium) is an open source automated testing framework for web applications to address the challenges and problems in web testing. 
 
 Most web testing tools/frameworks focus on individual UI elements such as links and buttons. Tellurium takes a new approach for automated web testing using the UI module.  The UI module is a collection of UI elements grouped together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For example, the Google search UI module can be expressed as follows,
 
@@ -112,5 +121,7 @@ The composite locator uses UI element attributes to define UI and the actual loc
 Tellurium use the “respond” attribute in UI object for you to specify JavaScript events and the rest will be handled automatically by the framework itself. UI templates is a powerful feature in Tellurium to represent many identical UI elements or dynamic size of different UI elements at runtime, which are extremely useful to test dynamic web context such as a data grid. The “Option” UI object is designed to automatically address dynamic web with multiple possible UI patterns.
 
 The re-usability is achieved by UI module for the same application and Tellurium Widgets for different web applications. With the Domain Specific Language (DSL) in Tellurium, you can define UI module and write test code in a very expressive way. Tellurium also provides you the flexibility to write test code in Java, Groovy, or pure DSL scripts.
+
+== Why Tellurium is a New Approach for Web Testing ==
 
  
