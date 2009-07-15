@@ -428,7 +428,7 @@ mouseOut(locator)
 mouseOver(locator)
 }}}
 
-Tellurium was born with Javascript events in mind since it was initially designed to test applications written using the DOJO javascript framework. For example, we have the following radio button,
+Tellurium was born with Javascript events in mind since it was initially designed to test applications written using the DOJO JavaScript framework. For example, we have the following radio button,
 
 {{{
 <input type='radio' name='mas_address_key' value='5779' onClick='SetAddress_5779()'>
@@ -442,7 +442,7 @@ RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'])
 
 but it will not be able to respond to the click event since the Tellurium RadioButton only have the "check" and "uncheck" actions, which is enough for the normal case. As a result, no "click" event/action will be generated during the testing. How to address this problem then?
 
-Tellurium added the [http://groups.google.com/group/tellurium-users/browse_thread/thread/93fbae75a6d88624 "respond" attribute] to Tellurium UI objects and the "respond" attribute could be used to define whatever events you want the UI object to respond to. Still take the above radio button as an example, the new Radio Button can be defined as,
+Tellurium added the "respond" attribute to Tellurium UI objects and the "respond" attribute could be used to define whatever events you want the UI object to respond to. Still take the above radio button as an example, the new Radio Button can be defined as,
 
 {{{
  ui.Container(uid: "form", clocator: [whatever]){
@@ -465,7 +465,41 @@ A more general example is as follows,
 }}}
 
 Except for the "click" event, all the "focus", "mouseOver", "mouseOut", and "blur" events will be automatically fired by Tellurium during testing. Do not worry about the event order for the respond attribute, Tellurium will automatically re-order the events and then process them appropriately for you.
- 
+
+=== "Include" Frequently Used Sets of elements in UI Modules ===
+
+Sometimes, you have a frequently used set of elements, which you do not want to redefined them over and over again in your UI module. Now, you can use the "Include" syntax to re-use pre-defined UI elements,
+
+{{{
+Include(uid: UID, ref: REFERRED_UID)
+}}}  
+
+You should use "ref" to reference the object you want to include, you can still specify the uid for the object (if you do not need a different UID, you do not need to specify it), if the object uid is not the same as the original one, Tellurium will clone a new object for you so that you can have multiple objects with different UIDs. 
+
+For example, you first define the following reused UI module
+
+{{{
+   ui.Container(uid: "SearchModule", clocator: [tag: "td"], group: "true") {
+     InputBox(uid: "Input", clocator: [title: "Google Search"])
+     SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+     SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
+   }
+}}}
+
+Then, you can include it into your new UI module as follows,
+
+{{{
+   ui.Container(uid: "Google", clocator: [tag: "table"]) {
+     Include(ref: "SearchModule")
+     Include(uid: "MySearchModule", ref: "SearchModule")
+     Container(uid: "Options", clocator: [tag: "td", position: "3"], group: "true") {
+       UrlLink(uid: "LanguageTools", clocator: [tag: "a", text: "Language Tools"])
+       UrlLink(uid: "SearchPreferences", clocator: [tag: "a", text: "Search Preferences"])
+       UrlLink(uid: "AdvancedSearch", clocator: [tag: "a", text: "Advanced Search"])
+     }
+   }
+}}}
+  
 == Tellurium Widgets ==
 
 [http://code.google.com/p/aost/wiki/TelluriumWidget Tellurium Widget] is a good way to re-use the UI components in testing. Usually, Java script frameworks provide a lot of widgets. Take the Dojo framework as an example, the DatePicker Dojo widget could be described as follows,
@@ -598,6 +632,92 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -Darc
 
 == Create UI Module ==
 
+Tellurium provides Trump for you to automatically create UI modules. Trump can be download from Tellurium project site 
+
+http://code.google.com/p/aost/downloads/list
+
+Choose the Firefox 2 or Firefox 3 version depending on your Firefox version. Or you can download the Firefox 3 version directly from Firefox addons site at
+
+https://addons.mozilla.org/en-US/firefox/addon/11035
+
+Once you install it and restart Firefox, you are ready to record your UI modules by simply clicking on the UI element on the web and then click the "generate" button. You may like to customize your UI a bit by clicking the "Customize" button. More detailed Trump introductions can be found at
+
+http://code.google.com/p/aost/wiki/TrUMP
+
+and
+
+http://code.google.com/p/aost/wiki/HowTrUMPWorks
+
+In our example, we open up Tellurium download page 
+
+http://code.google.com/p/aost/downloads/list
+
+and record the download search module as follows
+
+http://tellurium-users.googlegroups.com/web/TrUMPRecordDownloadPage.png?gda=OlvnAU0AAACXZPxEX7Ki-M5C2JpeBoXX_AfRGjKOg8bfAG7WWa1zzr3MhpfIdLRuVAwbLjuTZtSqonpmmrv0I-p7nCVZQmP65Tb_vjspK02CR95VRrtmeQ&gsc=r5ESUAsAAAB_6XgBAY-OTO2KhvY2ZJUe
+
+After we customize the UI module, we export it as the module file NewUiModule.groovy to the demo project and add couple methods to the class.
+
+{{{
+class NewUiModule extends DslContext {
+
+  public void defineUi() {
+    ui.Form(uid: "TelluriumDownload", clocator: [tag: "form", method: "get", action: "list"], group: "true") {
+      Selector(uid: "DownloadType", clocator: [tag: "select", name: "can", id: "can"])
+      InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "q", id: "q"])
+      SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit", value: "Search"])
+    }
+  }
+
+  //Add your methods here
+  public void searchDownload(String keyword) {
+    keyType "TelluriumDownload.Input", keyword
+    click "TelluriumDownload.Search"
+    waitForPageToLoad 30000
+  }
+
+  public String[] getAllDownloadTypes() {
+    return getSelectOptions("TelluriumDownload.DownloadType")
+  }
+
+  public void selectDownloadType(String type) {
+    selectByLabel "TelluriumDownload.DownloadType", type
+  }
+}
+}}}
+
+== Create Tellurium Test Cases ==
+
+Once you create the UI module, you can create a new Tellurium test case NewTestCase by extending TelluriumJavaTestCase class.
+
+{{{
+public class NewTestCase extends TelluriumJavaTestCase {
+    private static NewUiModule app;
+
+    @BeforeClass
+    public static void initUi() {
+        app = new NewUiModule();
+        app.defineUi();
+    }
+
+    @Before
+    public void setUpForTest() {
+        connectUrl("http://code.google.com/p/aost/downloads/list");
+    }
+
+    @Test
+    public void testTelluriumProjectPage() {
+        String[] allTypes = app.getAllDownloadTypes();
+        assertNotNull(allTypes);
+        assertTrue(allTypes[1].contains("All Downloads"));
+        app.selectDownloadType(allTypes[1]);
+        app.searchDownload("TrUMP");
+    }
+}
+}}}
+
+Compile the project and run the new test case.
+
 = Future Directions =
 
 Tellurium will continue evolving and we will focus on the following tasks,
@@ -616,6 +736,8 @@ Tellurium will continue evolving and we will focus on the following tasks,
 
   * [http://code.google.com/p/aost/ Tellurium Project website] 
   * [http://groups.google.com/group/tellurium-users Tellurium User Group]
+  * [http://code.google.com/p/aost/wiki/UserGuide Tellurium User Guide]
+  * [http://code.google.com/p/aost/wiki/TrUMP Tellurium UI Model Firefox Plugin (TrUMP) 0.1.0]
   * [http://seleniumhq.org/ Selenium]
   * [http://webtest.canoo.com Canoo WebTest]
   * [http://twill.idyll.org/ Twill]  
