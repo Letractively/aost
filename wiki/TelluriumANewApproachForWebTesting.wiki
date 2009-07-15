@@ -168,10 +168,41 @@ http://tellurium-users.googlegroups.com/web/TelluriumProjects.png?gsc=8WCcfRYAAA
 
 Apart from that, Tellurium also provides two Maven archetypes, tellurium-junit-archetype and tellurium-testng-archetype for Tellurium JUnit and TestNG project, respectively. You can use one Maven command to create a new Tellurium test project.
 
+== Tellurium Community ==
+
+Tellurium cannot reach today's stage without our users' support. Our users' comments and suggestions have shaped the Tellurium framework in many different ways and various aspects. 
+
+
 = Tellurium Concepts =
 
 = How to Obtain and Use Tellurium =
 
+== Create a Tellurium Project ==
+
+here are three ways, i.e., use [http://code.google.com/p/aost/wiki/ReferenceProjectGuide the reference project] as a base, use [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven archetype], or manually create Tellurium project using [http://code.google.com/p/aost/downloads/list tellurium jar] and [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile  Tellurium configuration file]. Alternatively, you could create your own Tellurium Maven project manually using [http://code.google.com/p/aost/wiki/TelluriumTestProjectMavenSamplePom the sample POM file].
+
+Teasiest way to create a Tellurium project is to use Tellurium Maven archetypes. Tellurium provides two Maven archetype, i.e., tellurium-junit-archetype and tellurium-testng-archetype for Tellurium JUnit test project and Tellurium TestNG test project, respectively. As a result, you can create a Tellurium project using one Maven command. For a Tellurium JUnit project, use 
+
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
+
+and for a Tellurium TestNG project, use
+
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
+
+== Create UI Module ==
+
 = Future Directions =
 
+Tellurium will continue evolving and we will focus on the following tasks,
+
+  * Develop the Engine project in 0.7.0 to provide better support for UI module and achieve better re-usability, speed performance, and robust to changes. 
+  * Tellurium widget will be re-architected to encapsulate dynamic factors and to make it easier to define and use Tellurium widgets. 
+  * The widget extension projects will be implemented to include many widgets from Javascript frameworks such as Dojo and ExtJS so that users can include these widgets in their UI modules simply by their names without the need to know the details of the internal UI elements. 
+  * TrUMP will be improved to support frames, pop-up widows, and UI templates. Another big move will be to automatically create UI modules as well as DSL test scripts for non-developers. 
+  * To better support functional tests, we will introduce a "stage and test binding" concept to make functional tests easier to write and configure. 
+  * Headless web testing using HtmlUnit could be another interesting topic. 
+  * Other initiatives include behavior driven test support, IDE plugins, XHTML support, integration with other testing framework like Fitnesse, and porting to other languages.
+
 = Acknowledgments =
+
+= Resources =
