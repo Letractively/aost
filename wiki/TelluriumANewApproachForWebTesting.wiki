@@ -33,9 +33,30 @@ Take the following Selenium test code as an example,
    Assert.assertEquals(1,selenium.getXpathCount(“/html/body/div[4]/div[1]"));
 }}}
 
-Do you know what UI module is under testing? What does the xpath “/html/body/div[4]/div[1]" mean here? And what if the XPath becomes invalid due to change? As a result, the Selenium test code is easy to create, but hard to read and maintain. Let alone to address dynamic web context. 
+Do you know what UI module is under testing? What does the xpath “/html/body/div[4]/div[1]" mean here? And what if the XPath becomes invalid due to changes on the web? As a result, the Selenium test code is easy to create using Selenium IDE, but hard to generalize and refactor, which proved to be as tedious and painful as to re-generate a new test code from scratch because of the hard-coded locators and the coupling of locator with test code. Maintenance was a headache as well because the test code was not structured. Due to the nature of testing individual UI elements, Selenium is also difficult to address dynamic web context. 
 
+Canoo WebTest is another popular open source tool for automated testing of web applications. But it also focuses on individual UI elements and thus it suffers many similar shortcomings as Selenium, for example, test code couple with UI. Here is a sample test code,
 
+{{{
+
+    webtest("check that WebTest is Google's top 'WebTest' result"){
+       invoke "http://www.google.com", description: "Go to Google"
+       verifyTitle "Google"
+       setInputField name: "q", value: "WebTest"
+       clickButton "I'm Feeling Lucky"
+       verifyTitle "Canoo WebTest"
+    }
+}}}
+
+Twill is a simple scripting language that allows users to browse the Web from a command-line interface and it uses link, forms, cookies, and most standard Web features. It also deals with individual UI elements, need to parsing html interactively, and only support Python, which make Twill not really convenient to test practical web applications. Here is a sample Twill test code
+
+{{{
+setlocal query "twill Python"
+go http://www.google.com/
+fv 1 q $query
+submit btnI # use the "I'm feeling lucky" button
+show
+}}}
 
 
 
