@@ -105,3 +105,12 @@ The main features of Tellurium include:
   * JUnit and TestNG support
   * Ant and Maven support
  
+Back to the challenges and problems, how are they addressed in Tellurium? First of all, Tellurium does not use the "record and replay" style. Instead, it uses Tellurium Firefox plugin Trump to generate the UI module, not the test code for you. Then you need to create your test code based on the UI module. In this way, the UI and the test code are decoupled. The structured test code in Tellurium make it much easier to refactor and maintain the code.
+
+The composite locator uses UI element attributes to define UI and the actual locator, i.e., xpath or jQuery selector, will be generated at runtime. Any updates to the composite locator will lead to different runtime locators and the changes inside the UI module are localized. The Group locating is used to remove the dependency of the UI objects from external UI elements, i.e., external UI changes will not affect the current UI module for most cases so that your test code is robust to changes up to certain level.
+
+Tellurium use the “respond” attribute in UI object for you to specify JavaScript events and the rest will be handled automatically by the framework itself. UI templates is a powerful feature in Tellurium to represent many identical UI elements or dynamic size of different UI elements at runtime, which are extremely useful to test dynamic web context such as a data grid. The “Option” UI object is designed to automatically address dynamic web with multiple possible UI patterns.
+
+The re-usability is achieved by UI module for the same application and Tellurium Widgets for different web applications. With the Domain Specific Language (DSL) in Tellurium, you can define UI module and write test code in a very expressive way. Tellurium also provides you the flexibility to write test code in Java, Groovy, or pure DSL scripts.
+
+ 
