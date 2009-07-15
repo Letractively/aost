@@ -13,8 +13,8 @@ With the advent of new web techniques, automated web testing tools must keep up 
   * *Ajax for Dynamic Web Content*: Ajax is a convenient way to update the part of the web page without refresh the whole page. The web context for an Ajax application is usually dynamic. For example, in a data grid, the number of rows and data keep changing at runtime. 
   * *Robust to Changes*: A good automated web testing tool should be able to address the changes in the web context to some degree so that users do not need to keep updating the test code.
   * *Easy to Maintain*: In an agile world, the software are developed in multiple scrums with new features added on in each scrum. The functional tests or user acceptance tests must be refactored and updated for new features. The testing framework should provide the flexibility for users to maintain the test code very easily.
-  * *Expressiveness*: The testing framework should be able to provide the users without too much coding experience to write test code/scripts easily in a way that they are familiar with, for example, use a domain specific language (DSL).
   * *Re-usability*: Many web applications use the same UI module for different part of the application. The adoption of Javascript frameworks such as Dojo and ExtJS increases the chance to use the same UI module for difference applications. A good testing framework should also be able to provide re-usability of test modules.
+  * *Expressiveness*: The testing framework should be able to provide the users without too much coding experience to write test code/scripts easily in a way that they are familiar with, for example, use a domain specific language (DSL).
 
 == Existing Open source Automated Web Testing Frameworks ==
 
@@ -26,7 +26,7 @@ Take the following Selenium test code as an example,
    setUp("http://www.google.com/", "*chrome");
    selenium.open("/");
    selenium.click("//input[@value='Google Search' and @type='button']");
-   selenium.type("q", "tellurium test");
+   selenium.type("q", "Selenium test");
 }}}
 
 Do you know clearly what UI module is under testing? What does the locator “q" mean here? And what if the XPath "//input[@value='Google Search' and @type='button']" becomes invalid due to changes on the web? As a result, the Selenium test code is easy to create using Selenium IDE, but hard to generalize and refactor, which proved to be as tedious and painful as to re-generate a new test code from scratch because of the hard-coded locators and the coupling of locator with test code. Maintenance was a headache as well because the test code was not structured. Due to the nature of testing individual UI elements, Selenium is also difficult to address dynamic web context. 
@@ -54,8 +54,28 @@ submit btnI # use the "I'm feeling lucky" button
 show
 }}}
 
+== Tellurium ==
 
+The Tellurium Automated Testing Framework (Tellurium) is an open source automated testing framework for web applications to address the challenges and problems in web testing. Tellurium is created with the following motivations:
 
+  * Robust to changes and allow changes to be localized
+  * Address dynamic web context such as JavaScript events and Ajax 
+  * Easy to refactor and maintain
+  * Modular and test modules are reusable 
+  * Expressive and easy to use
 
+Most web testing tools/frameworks focus on individual UI elements such as links and buttons. Tellurium takes a new approach for automated web testing using the UI module.  The UI module is a collection of UI elements grouped together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For example, the Google search UI module can be expressed as follows,
+
+{{{
+ui.Container(uid: "GoogleSearchModule", clocator: [tag: "td"], group: "true"){
+   InputBox(uid: "Input", clocator: [title: "Google Search"])
+   SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+   SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
+}
+}}}
  
-      
+Tellurium is built on the foundation of the UI module.  The UI module makes it possible to build locators for UI elements at runtime.  First, this makes Tellurium robust and responsive to changes from internal UI elements.  Second, the UI module makes Tellurium expressive.  A UI element can be referred to simply by appending the names (uid) along the path to the specific element. This also enables Tellurium's "Group Locating" feature, making composite objects reusable, and addressing dynamic web pages.
+
+Tellurium is implemented in Groovy and Java.  The test cases can be written in Java, Groovy, or pure "Domain Specific Language (DSL)" scripts.  Tellurium evolved out of Selenium, but the UI testing approach is completely different. For example, Tellurium is not a "record and replay" style framework, and it enforces the separation of UI modules from test code, making refactoring easy.  Tellurium does "Object to Locator Mapping (OLM)" automatically at run time so that UI objects can be defined simply by their attributes using "Composite Locators."
+
+Tellurium uses the "Group Locating Concept (GLC)" to exploit information inside a collection of UI components so that locators can find their elements.  It also defines a set of DSLs for web testing.  Furthermore, Tellurium uses UI templates to define sets of dynamic UI elements at runtime.  As a result, Tellurium is robust, expressive, flexible, reusable, and easy to maintain.      
