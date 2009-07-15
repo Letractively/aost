@@ -156,22 +156,22 @@ The Eventhandler in this part will handle all events like "click", "type", "sele
 
 == Tellurium Subprojects ==
 
-Tellurium subprojects include [http://code.google.com/p/aost/wiki/UserGuide Core], [http://code.google.com/p/aost/wiki/ReferenceProjectGuide Reference projects], [http://code.google.com/p/aost/wiki/TelluriumWidget Widget extensions], [http://code.google.com/p/aost/wiki/TrUMP TrUMP], and Engine projects as shown in the following diagram,
+Tellurium began as a small core project over a year ago and quickly spawned multiple sub-projects including: [http://code.google.com/p/aost/wiki/UserGuide Core], [http://code.google.com/p/aost/wiki/ReferenceProjectGuide Reference projects], [http://code.google.com/p/aost/wiki/TelluriumWidget Widget extensions], [http://code.google.com/p/aost/wiki/TrUMP TrUMP], and Engine projects as shown in the following diagram,
 
 http://tellurium-users.googlegroups.com/web/TelluriumProjects.png?gsc=8WCcfRYAAABueqEHekK8LxR3X1leEByKg-kXU5InE09W2o0GCSVgCQ
 
-  * Tellurium Engine: Tellurium test driving engine that is similar to the Selenium Core.  Efficient and supports nested UI objects.
-  * Tellurium Core: UI objects, locator mapping, and test support.
-  * Tellurium widget: DOJO and ExtJS widget extensions.
-  * Tellurium Reference Projects: JUnit 4 and TestNG projects demonstrating how to create real world Tellurium test cases using the Tellurium project web site as a reference.
-  * Trump: Firefox Plugin automatically generates UI modules.
-
-Apart from that, Tellurium also provides two Maven archetypes, tellurium-junit-archetype and tellurium-testng-archetype for Tellurium JUnit and TestNG project, respectively. You can use one Maven command to create a new Tellurium test project.
+   * Tellurium Core: UI module, APIs, DSL, Object to Runtime Locator mapping, and test support.
+  * Tellurium Engine: Based on Selenium Core with UI module, jQuery selector, command bundle, and exception hierarchy support.
+  * Tellurium Extensions: Dojo Javascript widgets and ExtJS Javascript widgets.
+  * Tellurium UI Module Plugin (TrUMP): A Firefox plugin to automatically generate the UI module after users select the UI elements from the web under testing.
+  * Tellurium Maven Archetypes: Maven archetypes to generate skeleton Tellurium JUnit and Tellurium TestNG projects using one Maven command.
+  * Tellurium Reference Projects: Use Tellurium project site as examples to illustrate how to use different features in Tellurium and how to create Tellurium test cases.
 
 == Tellurium Community ==
 
 Tellurium cannot reach today's stage without our users' support. Our users' comments and suggestions have shaped the Tellurium framework in many different ways and various aspects. 
 
+Tellurium is attracting more and more contributors and users. We have over 15,000 pageviews of our project website each month, and the number keeps growing.  With many new contributors joining our project from different parts of the world, we expect Tellurium will grow even more rapidly. 
 
 = Tellurium Concepts =
 
@@ -206,3 +206,14 @@ Tellurium will continue evolving and we will focus on the following tasks,
 = Acknowledgments =
 
 = Resources =
+
+  * [http://code.google.com/p/aost/ Tellurium Project website] 
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group]
+  * [http://seleniumhq.org/ Selenium]
+  * [http://webtest.canoo.com Canoo WebTest]
+  * [http://twill.idyll.org/ Twill]  
+  * [http://groovy.codehaus.org/ Groovy]
+  * [http://jquery.com/ JQuery]
+  * [http://www.junit.org/ JUnit] 
+  * [http://testng.org/doc/documentation-main.html TestNG]
+  * [http://htmlunit.sourceforge.net HtmlUnit]
