@@ -16,6 +16,6 @@ With the advent of new web techniques, automated web testing tools must keep up 
   * *Expressiveness*: The testing framework should be able to provide the users without too much coding experience to write test code/scripts easily in a way that they are familiar with, for example, use a domain specific language (DSL).
   * *Re-usability*: Many web applications use the same UI module for different part of the application. The adoption of Javascript frameworks such as Dojo and ExtJS increases the chance to use the same UI module for difference applications. A good testing framework should also be able to provide re-usability of test modules.
 
-== Existing Automated Web Testing Framework ==
+== Existing Automated Web Testing Frameworks ==
 
       
