@@ -466,7 +466,7 @@ A more general example is as follows,
 
 Except for the "click" event, all the "focus", "mouseOver", "mouseOut", and "blur" events will be automatically fired by Tellurium during testing. Do not worry about the event order for the respond attribute, Tellurium will automatically re-order the events and then process them appropriately for you.
 
-=== "Include" Frequently Used Sets of elements in UI Modules ===
+== "Include" Frequently Used Sets of elements in UI Modules ==
 
 Sometimes, you have a frequently used set of elements, which you do not want to redefined them over and over again in your UI module. Now, you can use the "Include" syntax to re-use pre-defined UI elements,
 
