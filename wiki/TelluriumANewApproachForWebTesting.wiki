@@ -65,8 +65,7 @@ Since the existing automated testing frameworks cannot address the challenges an
   * Modular and test modules are reusable 
   * Expressive and easy to use
 
-Our answer is the Tellurium Automated Testing Framework (Tellurium). In the next sections, we will first give a brief introduction of Tellurium and how it addresses the challenges and problems in web testing, then go over more details about Tellurium including its architecture, new concepts, and how to obtain and use Tellurium followed by detailed tutorials with code samples.
-
+Our answer is the Tellurium Automated Testing Framework (Tellurium). In the next sections, we will first give a brief introduction of Tellurium and how it addresses the challenges and problems in web testing, then go over more details about Tellurium including its architecture, new concepts, and how to obtain and use Tellurium followed by detailed tutorials with code samples. Finally, we end this article with future directions.
 
 = A New Approach for Web Testing =
 
@@ -168,3 +167,11 @@ http://tellurium-users.googlegroups.com/web/TelluriumProjects.png?gsc=8WCcfRYAAA
   * Trump: Firefox Plugin automatically generates UI modules.
 
 Apart from that, Tellurium also provides two Maven archetypes, tellurium-junit-archetype and tellurium-testng-archetype for Tellurium JUnit and TestNG project, respectively. You can use one Maven command to create a new Tellurium test project.
+
+= Tellurium Concepts =
+
+= How to Obtain and Use Tellurium =
+
+= Future Directions =
+
+= Acknowledgments =
