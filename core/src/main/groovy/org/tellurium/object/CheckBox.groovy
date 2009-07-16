@@ -28,4 +28,8 @@ class CheckBox extends UiObject{
 
         c(locator, respondToEvents)
     }
+
+    String getValue(Closure c){
+       return c(locator)
+    }
 }
