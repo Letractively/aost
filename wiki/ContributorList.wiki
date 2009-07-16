@@ -26,6 +26,8 @@ Tellurium Contributors are categorized into development team, support team, evan
 
 == Evangelism Team ==
 
+  * *Kevin Zhang*: Interview Jian Fang on behalf of InfoQ China.
+
 == Other Contributors ==
 
 
