@@ -6,15 +6,13 @@
 
 == Challenges and Problems ==
 
-Automated web testing has always been one of the most important and hot topics in software testing arena with web becoming one indispensable part of most people's lives. Web techniques keep moving forward and more and more dynamic web techniques are adopted by web developers. For example, Ajax is one of the most important ones. 
+Automated web testing has always been one of the most important and hottest topics in software testing arena with Rich Internet applications (RIA) and Ajax web applications becoming more and more popular. With the advent of new web techniques such as RIA and Ajax, automated web testing tools must keep up with the technology changes and be able to address the following challenges imposed by the automated web testing nature and new web techniques:
 
-With the advent of new web techniques, automated web testing tools must keep up with the improvement and be able to address the following challenges imposed by the automated web testing nature and new web techniques:
-
-  * *Javascript Events*: Javascript events are the foundation of all Javascript frameworks and are everywhere in today's web. The automated testing framework should be able to trigger the events in a very convenient way.
-  * *Ajax for Dynamic Web Content*: Ajax is a convenient way to update the part of the web page without refresh the whole page. The web context for an Ajax application is usually dynamic. For example, in a data grid, the number of rows and data keep changing at runtime. 
+  * *JavaScript Events*: JavaScript is everywhere on today's the web. Many web applications are JavaScript heavy. To test the JavaScript, the automated testing framework should be able to trigger JavaScript events in a very convenient way.
+  * *Ajax for Dynamic Web Content*: Web applications have many benefits over desktop applications, for example, they are easier to install and support. Ajax is a convenient way to update some part of the web page without refreshing the whole page. AJAX makes web applications richer in web context and more user-friendly. The web context for an Ajax application is usually dynamic. For example, in a data grid, the number of rows and data keep changing at runtime. 
   * *Robust to Changes*: A good automated web testing tool should be able to address the changes in the web context to some degree so that users do not need to keep updating the test code.
-  * *Easy to Maintain*: In an agile world, the software are developed in multiple scrums with new features added on in each scrum. The functional tests or user acceptance tests must be refactored and updated for new features. The testing framework should provide the flexibility for users to maintain the test code very easily.
-  * *Re-usability*: Many web applications use the same UI module for different part of the application. The adoption of Javascript frameworks such as Dojo and ExtJS increases the chance to use the same UI module for difference applications. A good testing framework should also be able to provide re-usability of test modules.
+  * *Easy to Maintain*: In an agile world, the software development is based on iterative development and new features are added on in each scrum. The functional tests or user acceptance tests must be refactored and updated for the new features. The testing framework should provide the flexibility for users to maintain the test code very easily.
+  * *Re-usability*: Many web applications use the same UI module for different parts of the application. The adoption of JavaScript frameworks such as Dojo and ExtJS increases the chance to use the same UI module for difference web applications. A good testing framework should also be able to provide the re-usability of test modules.
   * *Expressiveness*: The testing framework should be able to provide the users without too much coding experience to write test code/scripts easily in a way that they are familiar with, for example, use a domain specific language (DSL).
 
 == Existing Open source Automated Web Testing Frameworks ==
