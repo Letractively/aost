@@ -300,6 +300,7 @@ The CheckBox on the web is abstracted as "CheckBox" Ui object. The default tag f
   * check()
   * boolean isChecked()
   * uncheck()
+  * String getValue()
 
 Example:
 
