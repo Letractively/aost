@@ -37,7 +37,10 @@ public class GoogleStartPageGroovyTestNGTestCase extends TelluriumGroovyTestNGTe
     //test the dynamically added event "click"
     @Test
     void testClick(){
-         //test google start page using composite locators
+
+//        ngsp.getConsoleInput()
+
+      //test google start page using composite locators
         connectUrl("http://www.google.com")
         ngsp.testClick()
     }

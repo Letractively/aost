@@ -6,6 +6,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.io.Console;
+
 /**
  * Test NG test case
  *
@@ -33,11 +35,15 @@ public class GoogleStartPageTestNGTestCase extends TelluriumTestNGTestCase {
 
     @Test
     public void testGoogleSearch(){
+//        String input = ngsp.getConsoleInput();
+//        System.out.println("Get Console Input: " + input);
+
         ngsp.doGoogleSearch("tellurium selenium Groovy Test");
    }
 
    @Test
    public void testGoogleSearchFeelingLucky(){
+
         ngsp.doImFeelingLucky("tellurium selenium DSL Testing");
    }
 }
