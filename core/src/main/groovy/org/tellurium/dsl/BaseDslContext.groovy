@@ -214,6 +214,12 @@ abstract class BaseDslContext {
     throw new UiObjectNotFoundException("${ERROR_MESSAGE} ${uid}")
   }
 
+  String getConsoleInput(){
+    return (String)System.in.withReader {
+      it.readLine()
+    }
+  }
+
   def click(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.click() {loc, String[] events ->
