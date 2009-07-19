@@ -125,7 +125,7 @@ The re-usability is achieved by UI module for the same application and Tellurium
 
 he Tellurium framework Architecture is shown as in Figure 1.
 
-http://tellurium-users.googlegroups.com/web/tellurium.architecture.png?gda=1NP4x0sAAAAFkHkURP2WlgYU-UhtQDFJganRixm7ZVzXjIzQXs5CXWG1qiJ7UbTIup-M2XPURDThcsDHHqasJHRvnmR6jbzWzHqwysTvAgdPZHbdH4XvXg&gsc=26Y4eBYAAAAkGgIQNXlg3kIha08SEZtI9pmI1qD38G08ONb6YfjJaQ
+http://tellurium-users.googlegroups.com/web/TelluriumUMLSystemDiagram.png?gda=0H5Erk8AAAD5mhXrH3CK0rVx4StVj0LYqZdbCnRI6ajcTiPCMsvamYLLytm0aso8Q_xG6LhygcwA_EMlVsbw_MCr_P40NSWJnHMhSp_qzSgvndaTPyHVdA&gsc=cq8RLwsAAADwIKTw30t0VbWQq6vz0Jcq
 
 Figure 1. Tellurium Architecture.
 
