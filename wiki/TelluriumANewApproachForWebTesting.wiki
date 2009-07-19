@@ -156,9 +156,9 @@ XPath builder can build the XPath from the composite locator, i.e., a set of att
  
 The Group Locating Concept (GLC) is to exploit the group information in side a collection of UI objects to help us find the locator of the collection of UI objects. 
 
-==== Event and Data Handling ====
+==== Event Handler and Data Accessor ====
 
-The Eventhandler in this part will handle all events like "click", "type", "select", and so on. The Data Accessor is used to fetch data or UI status from the DOM. The dispatcher will delegate all calls it receives from the Eventhandler and the data accessor to the Selenium Client, which will connect to the Selenium Server. The dispatcher is designed to decouple the rest of the Tellurium framework with the Selenium framework so that we can simply change the dispatcher logic to delegate all calls to other underneath UI test frameworks if we want to switch Tellurium not to use the Selenium framework someday.
+The Eventhandler in this part will handle all events like "click", "type", "select", and so on. The Data Accessor is used to fetch data or UI status from the DOM. The dispatcher will delegate all calls it receives from the Eventhandler and the data accessor to the Selenium Client, which will connect to the Selenium Server. The dispatcher is designed to decouple the rest of the Tellurium framework with the Selenium framework so that we can simply change the dispatcher logic to delegate all calls to other underneath UI test frameworks.
 
 === Tellurium Subprojects ===
 
@@ -571,6 +571,17 @@ To make the framework scalable, Tellurium provides an _onWidget_ method for Tell
 {{{
 onWidget "dropdown.datePicker", selectPrevYear
 }}}
+
+== Testing Support ==
+
+In the package org.tellurium.test, Tellurium provides three different ways to write Tellurium tests:
+
+  * TelluriumJavaTestCase is for JUnit and it supports the following JUnit 4 annotations: @BeforeClass, @AfterClass, @Before, @After, @Test, and @Ignore 
+  * TelluriumTestNGTestCase is for TestNG. Similarly, you can use the following annotations: @BeforeSuite, @AfterSuite, @BeforeTest, @AfterTest, @BeforeGroups, @AfterGroups, @BeforeClass, @AfterClass, @BeforeMethod, @AfterMethod, @DataProvider, @Parameters, and @Test
+  * TelluriumGroovyTestCase is for Groovy test cases.
+  * Data Driven Testing. Tellurium provides the class _TelluriumDataDrivenModule_ for users to define data driven testing modules and the class _TelluriumDataDrivenTest_ to drive the actual tests. The details can be found on [http://code.google.com/p/aost/wiki/DataDrivenTesting the Data Driven Testing Wiki page].
+
+Apart from the above, Tellurium also provides users the capability to write Tellurium tests and Tellurium data driven tests in pure DSL scripts. The _DslScriptExecutor_ is used to run the .dsl files.
 
 == Tellurium Configuration ==
 
