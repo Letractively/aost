@@ -121,7 +121,9 @@ Tellurium use the “respond” attribute in UI object for you to specify JavaSc
 
 The re-usability is achieved by UI module for the same application and Tellurium Widgets for different web applications. With the Domain Specific Language (DSL) in Tellurium, you can define UI module and write test code in a very expressive way. Tellurium also provides you the flexibility to write test code in Java, Groovy, or pure DSL scripts.
 
-== Tellurium Architecture ==
+== Tellurium Overview ==
+
+=== Tellurium Architecture ===
 
 he Tellurium framework Architecture is shown as in Figure 1.
 
@@ -133,7 +135,7 @@ The system diagram of Tellurium consists of three parts, one is the Selenium Ser
 
 The Tellurium Framework is based on the DslContext, which defines all DSLs we can use for Tellurium. We can further divide the Tellurium Framework into Four parts.
 
-=== UI Object Parser ===
+==== DSL Parser ====
 
 This parts consists of the DSL Object Parser, Object Builders, and the Object Registry.
 
@@ -141,17 +143,17 @@ Thanks to Groovy’s builder pattern, we can define UI object expressively and i
  
 The DSL object definition always comes first with a container type object. An object registry (A hash map) is used to stored all top level UI Objects. As a result, for each DSL object definition, the top object ids must be unique in the DslContext. The object registry will be used by the framework to search objects by their ids and fetch objects for different actions.
 
-=== Object Locator Mapping ===
+==== Object Locator Mapping ====
 
 The Object Locator Mapping (OLM) is the core of the Tellurium framework and it includes UI ID mapping, XPath builder, Locator Processor, and Group Locating. The UI ID supports nested object, for example, "menu.wiki" stands for a URL Link "wiki" inside a container called "menu". The UI ID also supports one dimension and two dimension index for table and list. For example, {{{"main.table[2][3]"}}} stands the UI object of the 2nd row and the 3rd column of a table inside the container "main".
 
 XPath builder can build the XPath from relative XPaths or from attributes. The locator processor converts the locator information in the UI object to the XPath. The Group Locating Concept (GLC) is to exploit the group information in side a collection of UI objects to help us find the locator of the collection of UI objects. 
 
-=== Event and Data Handling ===
+==== Event and Data Handling ====
 
 The Eventhandler in this part will handle all events like "click", "type", "select", and so on. The Data Accessor is used to fetch data or UI status from the DOM. The dispatcher will delegate all calls it receives from the Eventhandler and the data accessor to the Selenium Client, which will connect to the Selenium Server. The dispatcher is designed to decouple the rest of the Tellurium framework with the Selenium framework so that we can simply change the dispatcher logic to delegate all calls to other underneath UI test frameworks if we want to switch Tellurium not to use the Selenium framework someday.
 
-== Tellurium Subprojects ==
+=== Tellurium Subprojects ===
 
 Tellurium began as a small core project over a year ago and quickly spawned multiple sub-projects including: [http://code.google.com/p/aost/wiki/UserGuide Core], [http://code.google.com/p/aost/wiki/ReferenceProjectGuide Reference projects], [http://code.google.com/p/aost/wiki/TelluriumWidget Widget extensions], [http://code.google.com/p/aost/wiki/TrUMP TrUMP], and Engine projects as shown in the following diagram,
 
@@ -164,7 +166,7 @@ http://tellurium-users.googlegroups.com/web/TelluriumSubprojects.png?gda=KOo7BEo
   * Tellurium Maven Archetypes: Maven archetypes to generate skeleton Tellurium JUnit and Tellurium TestNG projects using one Maven command.
   * Tellurium Reference Projects: Use Tellurium project site as examples to illustrate how to use different features in Tellurium and how to create Tellurium test cases.
 
-== Tellurium Community ==
+=== Tellurium Community ===
 
 Tellurium cannot reach today's stage without our users' support. Our users' comments and suggestions have shaped the Tellurium framework in many different ways and various aspects. 
 
