@@ -125,7 +125,7 @@ The re-usability is achieved by UI module for the same application and Tellurium
 
 === Tellurium Architecture ===
 
-he Tellurium framework Architecture is shown as in Figure 1.
+The Tellurium framework Architecture is shown as in Figure 1.
 
 http://tellurium-users.googlegroups.com/web/TelluriumUMLSystemDiagram.png?gda=0H5Erk8AAAD5mhXrH3CK0rVx4StVj0LYqZdbCnRI6ajcTiPCMsvamYLLytm0aso8Q_xG6LhygcwA_EMlVsbw_MCr_P40NSWJnHMhSp_qzSgvndaTPyHVdA&gsc=cq8RLwsAAADwIKTw30t0VbWQq6vz0Jcq
 
@@ -137,7 +137,7 @@ The Tellurium Framework is based on the DslContext, which defines all DSLs we ca
 
 ==== DSL Parser ====
 
-This parts consists of the DSL Object Parser, Object Builders, and the Object Registry.
+The DSL parser consists of the DSL Object Parser, Object Builders, and the Object Registry.
 
 Thanks to Groovy’s builder pattern, we can define UI object expressively and in a nested fashion. The DSL object parser will parse the DSL object definition recursively and use object builders to build the objects on the fly. An object builder registry is designed to hold all predefined UI object builders in the Tellurium framework and the DSL object parser will look at the builder registry to find the appropriate builders. Since the registry is a hash map, you can override a builder with a new one using the same UI name. Users can also add their customer builders into the builder registry.
  
@@ -145,9 +145,16 @@ The DSL object definition always comes first with a container type object. An ob
 
 ==== Object Locator Mapping ====
 
-The Object Locator Mapping (OLM) is the core of the Tellurium framework and it includes UI ID mapping, XPath builder, Locator Processor, and Group Locating. The UI ID supports nested object, for example, "menu.wiki" stands for a URL Link "wiki" inside a container called "menu". The UI ID also supports one dimension and two dimension index for table and list. For example, {{{"main.table[2][3]"}}} stands the UI object of the 2nd row and the 3rd column of a table inside the container "main".
+The Object Locator Mapping (OLM) is the core of the Tellurium framework and it includes UI ID mapping, XPath builder, jQuery selector builder, and Group Locating. 
 
-XPath builder can build the XPath from relative XPaths or from attributes. The locator processor converts the locator information in the UI object to the XPath. The Group Locating Concept (GLC) is to exploit the group information in side a collection of UI objects to help us find the locator of the collection of UI objects. 
+The UI ID supports nested object, for example, "menu.wiki" stands for a URL Link "wiki" inside a container called "menu". The UI ID also supports one dimension and two dimension index for table and list. For example, {{{"main.table[2][3]"}}} stands the UI object of the 2nd row and the 3rd column of a table inside the container "main".
+
+XPath builder can build the XPath from the composite locator, i.e., a set of attributes. Starting with version 0.6.0, Tellurium support jQuery selector to address the problem of poor performance of xpath in Internet Explorer. jQuery selector builder is used to automatically generate jQuery selector instead of XPath with the following advantages:
+  * Faster performance in IE
+  * Leverage the power of jQuery to retrieve bulk data from the web under testing with one method call.
+  * New features provided by jQuery attribute selectors.
+ 
+The Group Locating Concept (GLC) is to exploit the group information in side a collection of UI objects to help us find the locator of the collection of UI objects. 
 
 ==== Event and Data Handling ====
 
