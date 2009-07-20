@@ -452,7 +452,7 @@ onWidget "dropdown.datePicker", selectPrevYear
 
 Tellurium UI Module Plugin (Trump) is used to automatically generate UI modules for users. The Trump IDE looks as follows,
 
-http://tellurium-users.googlegroups.com/web/TrUMPIDE0.1.0.png
+http://tellurium-users.googlegroups.com/web/TrUMPIDE0.1.0.png?gda=EVgeNEMAAAD5mhXrH3CK0rVx4StVj0LYBWucT0-vkPMbIT-o-BeAq7267uE5ld_gRd1XTkHcEWoytiJ-HdGYYcPi_09pl8N7FWLveOaWjzbYnpnkpmxcWg
 
 The workflow of Trump is shown as follows,
 
