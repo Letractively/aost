@@ -355,7 +355,7 @@ Except for the "click" event, all the "focus", "mouseOver", "mouseOut", and "blu
 
 == jQuery Selector ==
 
-Starting with version 0.6.0, Tellurium will support a [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector jQuery selector] to address the problem of poor performance of xpath in Internet Explorer. Auto-generating jQuery instead of xpath has the following advantages:
+Starting with version 0.6.0, Tellurium supports a [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector jQuery selector] to address the problem of poor performance of xpath in Internet Explorer. Auto-generating jQuery instead of xpath has the following advantages:
   * Faster performance in IE.
   * We are able to use the power of jQuery to call methods on jQuery collections to retrieve bulk data.
   * Tellurium jQuery selector supports the jQuery attribute selectors such as _[attribute!=value]_, _[attribute^=value]_, _[attribute$=value]_, and _[attribute*=value]_.
