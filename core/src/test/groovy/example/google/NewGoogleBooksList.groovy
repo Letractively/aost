@@ -40,6 +40,13 @@ class NewGoogleBooksList extends DslContext{
                 }
             }
         }
+
+        ui.Container(uid: "NGoogleBooksList", clocator: [tag: "table", id: "hp_table"], group: "true"){
+            TextBox(uid: "category", clocator: [tag: "div", class: "sub_cat_title"])
+            List(uid: "subcategory", clocator: [tag: "div", class: "sub_cat_section"], separator: "p"){
+              UrlLink(uid: "all", clocator: [:])
+            }
+        }
     }                                                                                               
 
     String getCategory(){
@@ -56,6 +63,11 @@ class NewGoogleBooksList extends DslContext{
 
     public UiObject getUiObject(String uid){
         return getUiElement(uid)
+    }
+
+
+    public def getSeparatorAttribute(){      
+      getParentAttribute "NGoogleBooksList.subcategory[1]", "class"
     }
 
     def getAllObjectInList(){

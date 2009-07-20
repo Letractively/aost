@@ -78,4 +78,16 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
 
         gbl.clickList(index)
     }
+
+    void testGetSeparatorAttribute(){
+      NewGoogleBooksList ngbl = new NewGoogleBooksList()
+      ngbl.defineUi()
+      connectUrl("http://books.google.com/")
+      ngbl.dump("NGoogleBooksList")
+      ngbl.disableJQuerySelector()
+      println ngbl.getSeparatorAttribute()
+      ngbl.useJQuerySelector()
+      ngbl.dump("NGoogleBooksList")
+      println ngbl.getSeparatorAttribute()
+    }
 }

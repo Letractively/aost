@@ -1,7 +1,6 @@
 package org.tellurium.dsl
 
 import org.json.simple.JSONObject
-import org.json.simple.JSONArray
 import org.stringtree.json.JSONReader
 import org.tellurium.access.Accessor
 import org.tellurium.dsl.UiDslParser
@@ -9,13 +8,14 @@ import org.tellurium.dsl.WorkflowContext
 import org.tellurium.event.EventHandler
 import org.tellurium.exception.UiObjectNotFoundException
 import org.tellurium.extend.Extension
+import org.tellurium.locator.JQueryOptimizer
 import org.tellurium.locator.LocatorProcessor
+import org.tellurium.locator.MetaCmd
+import org.tellurium.locator.XPathProcessor
+import org.tellurium.object.List
 import org.tellurium.object.StandardTable
 import org.tellurium.object.UiObject
 import org.tellurium.util.Helper
-import java.util.List
-import org.tellurium.locator.JQueryOptimizer
-import org.tellurium.locator.MetaCmd
 
 /**
  * 
@@ -1090,7 +1090,8 @@ abstract class BaseDslContext {
       if(this.exploreJQuerySelector){
         return accessor.getAttribute(locator + ":parent@${attr}")
       }else{
-        return accessor.getAttribute(locator + "/parent::node()@${attr}")
+        String ploc = XPathProcessor.popXPath(locator)
+        return accessor.getAttribute(ploc + "/self::node()@${attr}")
       }
     }
   }
