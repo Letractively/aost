@@ -30,7 +30,7 @@ Take the following Selenium test code as an example,
 
 Do you know what UI module the above code is testing? What does the locator “q" mean here? And what if the XPath "//input[@value='Google Search' and @type='button']" becomes invalid due to changes on the web? Most likely, you have to go through the test code to locate the lines you need to update. What if you have tens or hundreds of locators in your test code? Creating the test code using Selenium IDE is easy, but hard to generalize and refactor. Refactoring is much more tedious and painful procedure than to re-generate new test code from scratch because of the use of hard-coded locators and the coupling of locators with test code. Maintaining the code is hassle because the test code is not structured. Since Selenium only focuses on individual UI elements, it is difficult to adjust to changes on the web and to address dynamic web context. 
 
-Canoo WebTest is another popular open source tool for automated testing of web applications. But it also focuses on individual UI elements and thus it suffers with similar shortcomings to Selenium, for example, test code couple with UI. Here is a sample test code,
+Canoo WebTest is another popular open source tool for automated testing of web applications. But it also focuses on individual UI elements and thus it suffers with similar shortcomings as Selenium, for example, test code coupled with UI. Here is a sample test code,
 
 {{{
     webtest("check that WebTest is Google's top 'WebTest' result"){
