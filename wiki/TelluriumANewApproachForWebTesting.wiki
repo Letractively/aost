@@ -410,7 +410,7 @@ http://tellurium-users.googlegroups.com/web/TelluriumSubprojects.png?gda=KOo7BEo
   * Tellurium Maven Archetypes: Maven archetypes to generate skeleton Tellurium JUnit and Tellurium TestNG projects using one Maven command.
   * Tellurium Reference Projects: Use Tellurium project site as examples to illustrate how to use different features in Tellurium and how to create Tellurium test cases.
 
-Tellurium Core has been described in the above section and here we like to elaborate more on Tellurium Extension, Tellurium UI Module Plugin, and Tellurium Engine.
+Tellurium Core has been described in the above section and here we like to elaborate more on Tellurium Extension and Tellurium UI Module Plugin.
    
 == Tellurium Extensions ==
 
@@ -463,8 +463,6 @@ http://tellurium-users.googlegroups.com/web/TrUMPDiagram.png?gda=rTWjlUIAAACXZPx
   # When the user clicks on the "Generate" button, Trump does the following two steps: first, Trump generates an internal tree to represent the UI elements using a grouping algorithm. During the tree generating procedure, extra nodes are generated to group UI elements together based on their corresponding location on the web DOM tree. The internal tree is very useful and holds all original data that can be used for customization. Once the internal tree is built, Trump starts the second step, i.e., to build the default UI module. For each node in the internal tree, Trump generates a UI object based on its tag and if it is a parent node.
   # When user clicks on the "Customize" button, Trump will pull out the original data held in the internal tree and the current attributes utilized by the UI module to create the "Customize" view. When user clicks on an element, Trump lists all available optional attributes in the view for users to customize. 
   # Trump will try to validate the UI module automatically whenever you generate a new UI module or update it. Trump will evaluate each UI element's xpath the same way that Tellurium generates the runtime xpath from the UI module and check if the generated runtime xpath is unique in the current web page. If it is not unique, you will see a red "X" mark and you need to modify the element's attribute to make it disappear. If you dont see a red "X", you are done. You can export the generated UI module to a groovy file and start to write Tellurium tests based on the generated UI module.
-
-== Tellurium Engine == 
 
 
 = How to Obtain and Use Tellurium =
