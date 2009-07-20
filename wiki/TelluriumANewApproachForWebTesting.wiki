@@ -105,7 +105,7 @@ The main features of Tellurium include:
 
 === How Challenges and Problems are addressed in Tellurium ? ===
  
-Back to the challenges and problems, how are they addressed in Tellurium? First of all, Tellurium does not use the "record and replay" style. Instead, it uses Tellurium Firefox plugin Trump to generate the UI module, not the test code for you. Then you need to create your test code based on the UI module. In this way, the UI and the test code are decoupled. The structured test code in Tellurium make it much easier to refactor and maintain the code.
+First of all, Tellurium does not use the "record and replay" style. Instead, it uses Tellurium Firefox plugin Trump to generate the UI module, not the test code for you. Then you need to create your test code based on the UI module. In this way, the UI and the test code are decoupled. The structured test code in Tellurium make it much easier to refactor and maintain the code.
 
 The composite locator uses UI element attributes to define UI and the actual locator, i.e., xpath or jQuery selector, will be generated at runtime. Any updates to the composite locator will lead to different runtime locators and the changes inside the UI module are localized. The Group locating is used to remove the dependency of the UI objects from external UI elements, i.e., external UI changes will not affect the current UI module for most cases so that your test code is robust to changes up to certain level.
 
