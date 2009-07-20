@@ -121,9 +121,9 @@ Tellurium use the “respond” attribute in UI object for you to specify JavaSc
 
 The re-usability is achieved by UI module for the same application and Tellurium Widgets for different web applications. With the Domain Specific Language (DSL) in Tellurium, you can define UI module and write test code in a very expressive way. Tellurium also provides you the flexibility to write test code in Java, Groovy, or pure DSL scripts.
 
-== Tellurium Overview ==
+= Tellurium Overview =
 
-=== Tellurium Architecture ===
+== Tellurium Architecture ==
 
 The Tellurium framework Architecture is shown as in Figure 1.
 
