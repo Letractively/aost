@@ -140,9 +140,9 @@ XPath builder can build the XPath from the composite locator, i.e., a set of att
   * Leverage the power of jQuery to retrieve bulk data from the web under testing with one method call.
   * New features provided by jQuery attribute selectors.
  
-The Group Locating Concept (GLC) is to exploit the group information in side a collection of UI objects to help us find the locator of the collection of UI objects. 
+The Group Locating Concept (GLC) is to exploit the group information inside a collection of UI objects to help us find the locator of the collection of UI objects. 
 
-The Eventhandler in this part will handle all events like "click", "type", "select", and so on. The Data Accessor is used to fetch data or UI status from the DOM. The dispatcher will delegate all calls it receives from the Eventhandler and the data accessor to the connector, which will connect to the Tellurium engine. The dispatcher is designed to decouple the rest of the Tellurium framework with the underneath test driving engine so that we can switch to a different test driving engine by simply changing the dispatcher logic.
+The Eventhandler will handle all events like "click", "type", "select", and so on. The Data Accessor is used to fetch data or UI status from the DOM. The dispatcher will delegate all calls it receives from the Eventhandler and the data accessor to the connector, which connects to the Tellurium engine. The dispatcher is designed to decouple the rest of the Tellurium framework with the underneath test driving engine so that we can switch to a different test driving engine by simply changing the dispatcher logic.
 
 == Tellurium UI Objects==
 
@@ -188,7 +188,7 @@ The predefined Tellurium UI objects and their some default attributes are listed
 
 == UI Module ==
 
-UI Module is the key concept of Tellurium. What is UI module? UI module is a collection of UI elements that you group them together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For example, the download search module in Tellurium project site is defined as follows,
+UI Module is the heart of Tellurium. UI module is a collection of UI elements that you group them together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For example, the download search module in Tellurium project site is defined as follows,
 
 {{{
 ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
@@ -300,11 +300,11 @@ ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], g
 
 Aren't the definitions very simple and cool? 
 
-You may wonder how to use the templates if you have multiple templates such the "issueResult" table as shown above. The rule to apply the templates is "specific one first, general one later".
+You may wonder how to use the templates if you have multiple templates such as the "issueResult" table as shown above. The rule to apply the templates is "specific one first, general one later".
 
 == Javascript Events ==
 
-Most web applications include Javascripts and thus, the web testing framework must be able to handle the Javascript events. What we really care is to fire the appropriate events to trigger the event handlers.
+Most web applications include Javascript and thus, the web testing framework must be able to handle the Javascript events. What we really care about is to fire the appropriate events to trigger the event handlers.
 
 Selenium has already provided methods to generate events such as
 
@@ -327,9 +327,7 @@ Although we can define the radio button as follows,
 RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'])
 }}}
 
-but it will not be able to respond to the click event since the Tellurium RadioButton only have the "check" and "uncheck" actions, which is enough for the normal case. As a result, no "click" event/action will be generated during the testing. How to address this problem then?
-
-Tellurium added the "respond" attribute to Tellurium UI objects and the "respond" attribute could be used to define whatever events you want the UI object to respond to. Still take the above radio button as an example, the new Radio Button can be defined as,
+The above code will not respond to the click event since the Tellurium RadioButton only support the "check" and "uncheck" actions, which is enough for the normal case. As a result, no "click" event/action will be generated during the testing. To address this problem, Tellurium added the "respond" attribute to Tellurium UI objects. The "respond" attribute could be used to define whatever events you want the UI object to respond to. Radio Button can be redefined as,
 
 {{{
  ui.Container(uid: "form", clocator: [whatever]){
@@ -460,7 +458,7 @@ The workflow of Trump is shown as follows,
 http://tellurium-users.googlegroups.com/web/TrUMPDiagramSmall.png?gda=9CFDmEcAAAD5mhXrH3CK0rVx4StVj0LYmqln6HzIDYRu0sy-jUnaq8nAtNENvOA6NOHkUCAqlOUVeY4b49xGcMK802iZZ8SFeV4duv6pDMGhhhZdjQlNAw&gsc=5FPzPwsAAAA9y3PlQReYHIKRUJU7LIYD
 
   # First, user clicks on a web page and the corresponding UI element is pushed into an array. If user clicks the element again, the UI element is removed from the array.
-  # When the user clicks on the "Generate" button, Trump does the following two steps: first, Trump generates an internal tree to represent the UI elements using a grouping algorithm. During the tree generating procedure, extra nodes are generated to group UI elements together based on their corresponding location on the web DOM tree. The internal tree is very useful and holds all original data that can be used for customization. Once the internal tree is built, Trump starts the second step, i.e., to build the default UI module. For each node in the internal tree, Trump generates a UI object based on its tag and if it is a parent node.
+  # When the user clicks on the "Generate" button, Trump does the following two steps: first, Trump generates an internal tree to represent the UI elements using a grouping algorithm. During the tree generating procedure, extra nodes are generated to group UI elements together based on their corresponding location on the web DOM tree. The internal tree is very useful and holds all original data that can be used for customization. Once the internal tree is built, Trump starts the second step, i.e., to build the default UI module. For each node in the internal tree, Trump generates a UI object based on its tag and  .
   # When user clicks on the "Customize" button, Trump will pull out the original data held in the internal tree and the current attributes utilized by the UI module to create the "Customize" view. When user clicks on an element, Trump lists all available optional attributes in the view for users to customize. 
   # Trump will try to validate the UI module automatically whenever you generate a new UI module or update it. Trump will evaluate each UI element's xpath the same way that Tellurium generates the runtime xpath from the UI module and check if the generated runtime xpath is unique in the current web page. If it is not unique, you will see a red "X" mark and you need to modify the element's attribute to make it disappear. If you dont see a red "X", you are done. You can export the generated UI module to a groovy file and start to write Tellurium tests based on the generated UI module.
 
