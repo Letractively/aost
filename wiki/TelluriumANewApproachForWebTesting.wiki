@@ -410,12 +410,13 @@ http://tellurium-users.googlegroups.com/web/TelluriumSubprojects.png?gda=KOo7BEo
   * Tellurium Engine: Based on Selenium Core with UI module, jQuery selector, command bundle, and exception hierarchy support.
   * Tellurium Core: UI module, APIs, DSL, Object to Runtime Locator mapping, and test support.
   * Tellurium Extensions: Dojo Javascript widgets and ExtJS Javascript widgets.
-  * Tellurium UI Module Plugin (TrUMP): A Firefox plugin to automatically generate the UI module after users select the UI elements from the web under testing.
+  * Tellurium UI Module Plugin (Trump): A Firefox plugin to automatically generate the UI module after users select the UI elements from the web under testing.
   * Tellurium Maven Archetypes: Maven archetypes to generate skeleton Tellurium JUnit and Tellurium TestNG projects using one Maven command.
   * Tellurium Reference Projects: Use Tellurium project site as examples to illustrate how to use different features in Tellurium and how to create Tellurium test cases.
 
-  
-== Tellurium Widgets ==
+Tellurium Core has been described in the above section and here we like to elaborate more on Tellurium Extension, Tellurium UI Module Plugin, and Tellurium Engine.
+   
+== Tellurium Extensions ==
 
 [http://code.google.com/p/aost/wiki/TelluriumWidget Tellurium Widget] is a good way to re-use the UI components in testing. Usually, Java script frameworks provide a lot of widgets. Take the Dojo framework as an example, you can define the DatePicker Dojo widget just like a regular Tellurium UI module. For widgets, it is important to include name space to avoid name collision between different widget modules. If we use "DOJO" as the name space, the widget will be like "DOJO_DatePicker". We can define the following methods for the DOJO Date Picker widget:
 
