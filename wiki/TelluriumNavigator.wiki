@@ -26,6 +26,8 @@
   * [http://code.google.com/p/aost/wiki/jQuerySelectorCache jQuery Selector Cache]
   * [http://code.google.com/p/aost/wiki/TheDumpMethod The Cool Dump() Method]
   * [http://code.google.com/p/aost/wiki/LogicalContainer Logical Container]
+  * [http://code.google.com/p/aost/wiki/HowToConvertSeleniumTestToTellurium How To Convert Selenium Test To Tellurium]
+  * [http://code.google.com/p/aost/wiki/GroovyPatternsInTellurium Groovy Patterns Used in Tellurium]
 
 = Build =
  
@@ -41,11 +43,20 @@
   * [http://code.google.com/p/aost/wiki/TopTenTelluriumFeatures Top Ten Cool Features in Tellurium]
   * [http://code.google.com/p/aost/wiki/WhatsNewInTellurium_0_6_0 What's New in Tellurium 0.6.0]
   * [http://code.google.com/p/aost/wiki/FirstAnniversaryRetrospectAndProspect Tellurium First Anniversary: Retrospect And Prospect]
+  * [http://code.google.com/p/aost/wiki/TelluriumAtCodeStock Tellurium @ CodeStock 2009]
 
 = User Experiences =
 
   * [http://code.google.com/p/aost/wiki/UserExperiences What users said about Tellurium]
 
+= Project Management =
+  
+  * [http://code.google.com/p/aost/wiki/announcements Announcements]
+  * [http://code.google.com/p/aost/wiki/ContributorList Tellurium Contributor List]
+  * [http://code.google.com/p/aost/wiki/HowToContribute How to Contribute]
+  * [http://code.google.com/p/aost/wiki/ProjectRules Project Rules]
+  * [http://code.google.com/p/aost/wiki/Roadmap Tellurium Project Roadmap]
+ 
 = Resources =
   
   * [http://code.google.com/p/aost/wiki/Resources Resources Related to Tellurium]
