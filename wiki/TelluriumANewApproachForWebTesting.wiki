@@ -456,7 +456,8 @@ http://tellurium-users.googlegroups.com/web/TrUMPIDE0.1.0.png?gda=EVgeNEMAAAD5mh
 
 The workflow of Trump is shown as follows,
 
-http://tellurium-users.googlegroups.com/web/TrUMPDiagramSmall.png?gsc=5FPzPwsAAAA9y3PlQReYHIKRUJU7LIYD
+
+http://tellurium-users.googlegroups.com/web/TrUMPDiagramSmall.png?gda=9CFDmEcAAAD5mhXrH3CK0rVx4StVj0LYmqln6HzIDYRu0sy-jUnaq8nAtNENvOA6NOHkUCAqlOUVeY4b49xGcMK802iZZ8SFeV4duv6pDMGhhhZdjQlNAw&gsc=5FPzPwsAAAA9y3PlQReYHIKRUJU7LIYD
 
   # First, user clicks on a web page and the corresponding UI element is pushed into an array. If user clicks the element again, the UI element is removed from the array.
   # When the user clicks on the "Generate" button, Trump does the following two steps: first, Trump generates an internal tree to represent the UI elements using a grouping algorithm. During the tree generating procedure, extra nodes are generated to group UI elements together based on their corresponding location on the web DOM tree. The internal tree is very useful and holds all original data that can be used for customization. Once the internal tree is built, Trump starts the second step, i.e., to build the default UI module. For each node in the internal tree, Trump generates a UI object based on its tag and if it is a parent node.
@@ -502,7 +503,7 @@ http://code.google.com/p/aost/downloads/list
 
 and record the download search module as follows
 
-http://tellurium-users.googlegroups.com/web/TrUMPRecordDownloadPageSmall.png?gsc=5FPzPwsAAAA9y3PlQReYHIKRUJU7LIYD
+http://tellurium-users.googlegroups.com/web/TrUMPRecordDownloadPageSmall.png?gda=aeAak1IAAAD5mhXrH3CK0rVx4StVj0LYmqln6HzIDYRu0sy-jUnaq73MhpfIdLRuVAwbLjuTZtQ7YQyGo5rEgT7iH53cuUInVeLt2muIgCMmECKmxvZ2j4IeqPHHCwbz-gobneSjMyE&gsc=5FPzPwsAAAA9y3PlQReYHIKRUJU7LIYD
 
 After we customize the UI module, we export it as the module file NewUiModule.groovy to the demo project and add couple methods to the class.
 
