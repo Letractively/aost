@@ -1,4 +1,4 @@
-#summary Introduction
+#summary Tellurium Introduction
 #labels Phase-Design,Featured
 
 = Tellurium Automated Testing Framework =
