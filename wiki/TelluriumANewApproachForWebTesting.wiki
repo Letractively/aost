@@ -393,7 +393,7 @@ In the package org.tellurium.test, Tellurium provides three different ways to wr
   * TelluriumJavaTestCase is for JUnit and it supports the following JUnit 4 annotations: @BeforeClass, @AfterClass, @Before, @After, @Test, and @Ignore 
   * TelluriumTestNGTestCase is for TestNG. Similarly, you can use the following annotations: @BeforeSuite, @AfterSuite, @BeforeTest, @AfterTest, @BeforeGroups, @AfterGroups, @BeforeClass, @AfterClass, @BeforeMethod, @AfterMethod, @DataProvider, @Parameters, and @Test
   * TelluriumGroovyTestCase is for Groovy test cases.
-  * Data Driven Testing. Tellurium provides the class _TelluriumDataDrivenModule_ for users to define data driven testing modules and the class _TelluriumDataDrivenTest_ to drive the actual tests. The details can be found on [http://code.google.com/p/aost/wiki/DataDrivenTesting the Data Driven Testing Wiki page].
+  * Data Driven Testing. Tellurium provides the class _TelluriumDataDrivenModule_ for users to define data driven testing modules and the class _TelluriumDataDrivenTest_ to drive the actual tests.
 
 Apart from the above, Tellurium also provides users the capability to write Tellurium tests and Tellurium data driven tests in pure DSL scripts. The _DslScriptExecutor_ is used to run the .dsl files.
 
@@ -469,7 +469,7 @@ http://tellurium-users.googlegroups.com/web/TrUMPDiagramSmall.png?gda=9CFDmEcAAA
 
 == Create a Tellurium Project ==
 
-here are three ways, i.e., use [http://code.google.com/p/aost/wiki/ReferenceProjectGuide the reference project] as a base, use [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven archetype], or manually create Tellurium project using [http://code.google.com/p/aost/downloads/list tellurium jar] and [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile  Tellurium configuration file]. Alternatively, you could create your own Tellurium Maven project manually using [http://code.google.com/p/aost/wiki/TelluriumTestProjectMavenSamplePom the sample POM file].
+There are three ways, i.e., use [http://code.google.com/p/aost/wiki/ReferenceProjectGuide the reference project] as a base, use [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven archetype], or manually create Tellurium project using [http://code.google.com/p/aost/downloads/list tellurium jar] and [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile  Tellurium configuration file]. Alternatively, you could create your own Tellurium Maven project manually using [http://code.google.com/p/aost/wiki/TelluriumTestProjectMavenSamplePom the sample POM file].
 
 Teasiest way to create a Tellurium project is to use Tellurium Maven archetypes. Tellurium provides two Maven archetype, i.e., tellurium-junit-archetype and tellurium-testng-archetype for Tellurium JUnit test project and Tellurium TestNG test project, respectively. As a result, you can create a Tellurium project using one Maven command. For a Tellurium JUnit project, use 
 
