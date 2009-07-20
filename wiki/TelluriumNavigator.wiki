@@ -5,12 +5,11 @@
 
 == User's Guide ==
 
-=== [http://code.google.com/p/aost/wiki/UserGuide User Guide] ===
-=== [http://code.google.com/p/aost/wiki/Introduction Introduction] ===
-=== [http://code.google.com/p/aost/wiki/DataDrivenTesting Tellurium Data Driven Testing] ===
-=== [http://code.google.com/p/aost/wiki/TenMinutesToTellurium Ten Minutes To Tellurium] ===
-=== [http://code.google.com/p/aost/wiki/FAQ FAQs] ===
-
+  * [http://code.google.com/p/aost/wiki/UserGuide User Guide]
+  * [http://code.google.com/p/aost/wiki/Introduction Introduction]
+  * [http://code.google.com/p/aost/wiki/DataDrivenTesting Tellurium Data Driven Testing]
+  * [http://code.google.com/p/aost/wiki/TenMinutesToTellurium Ten Minutes To Tellurium]
+  * [http://code.google.com/p/aost/wiki/FAQ FAQs] 
 
 == Sub-projects ==
 
