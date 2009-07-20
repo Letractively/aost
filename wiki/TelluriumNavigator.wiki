@@ -1,0 +1,8 @@
+#summary Tellurium Navigator.
+#labels Phase-Support
+
+= User's Guide =
+
+  * [http://code.google.com/p/aost/wiki/UserGuide User Guide]
+  * [http://code.google.com/p/aost/wiki/FAQ FAQs]
+
