@@ -489,13 +489,7 @@ Choose the Firefox 2 or Firefox 3 version depending on your Firefox version. Or 
 
 https://addons.mozilla.org/en-US/firefox/addon/11035
 
-Once you install it and restart Firefox, you are ready to record your UI modules by simply clicking on the UI element on the web and then click the "generate" button. You may like to customize your UI a bit by clicking the "Customize" button. More detailed Trump introductions can be found at
-
-http://code.google.com/p/aost/wiki/TrUMP
-
-and
-
-http://code.google.com/p/aost/wiki/HowTrUMPWorks
+Once you install it and restart Firefox, you are ready to record your UI modules by simply clicking on the UI element on the web and then click the "generate" button. You may like to customize your UI a bit by clicking the "Customize" button. More detailed 
 
 In our example, we open up Tellurium download page 
 
