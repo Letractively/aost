@@ -64,9 +64,9 @@ Since the existing automated testing frameworks cannot address the challenges an
 
 Our proposal is the Tellurium Automated Testing Framework, or Tellurium in short. In the subsequent sections, we will first give a brief introduction of Tellurium and how it addresses the challenges and problems in web testing, then go through more details about Tellurium including its architecture, new concepts, and how to obtain and use Tellurium followed by a detailed tutorial on how to create Tellurium test cases with code samples. Finally, we summarize and conclude this article with future directions.
 
-= A New Approach for Web Testing =
+== A New Approach for Web Testing ==
 
-== Why Tellurium is a New Approach for Web Testing ==
+=== Why Tellurium is a New Approach for Web Testing ===
  
 The Tellurium Automated Testing Framework (Tellurium) is an open source automated testing framework for web applications to address the challenges and problems in web testing. 
 
@@ -111,7 +111,7 @@ The main features of Tellurium include:
   * JUnit and TestNG support
   * Ant and Maven support
 
-== How Challenges and Problems are addressed in Tellurium ? ==
+=== How Challenges and Problems are addressed in Tellurium ? ===
  
 Back to the challenges and problems, how are they addressed in Tellurium? First of all, Tellurium does not use the "record and replay" style. Instead, it uses Tellurium Firefox plugin Trump to generate the UI module, not the test code for you. Then you need to create your test code based on the UI module. In this way, the UI and the test code are decoupled. The structured test code in Tellurium make it much easier to refactor and maintain the code.
 
