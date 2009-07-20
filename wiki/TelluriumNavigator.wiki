@@ -3,6 +3,8 @@
 
 = Tellurium =
 
+  * [http://code.google.com/p/aost/w/edit/TelluriumUsersGuide User's Guide]
+
 == User's Guide ==
 
   * [http://code.google.com/p/aost/wiki/UserGuide User Guide]
