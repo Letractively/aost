@@ -151,9 +151,7 @@ The Group Locating Concept (GLC) is to exploit the group information in side a c
 The Eventhandler in this part will handle all events like "click", "type", "select", and so on. The Data Accessor is used to fetch data or UI status from the DOM. The dispatcher will delegate all calls it receives from the Eventhandler and the data accessor to the Selenium Client, which will connect to the Selenium Server. The dispatcher is designed to decouple the rest of the Tellurium framework with the Selenium framework so that we can simply change the dispatcher logic to delegate all calls to other underneath UI test frameworks.
 == Tellurium UI Objects==
 
-Tellurium provides a set of predefined Ui objects, which users can use directly. Here we describe them one by one in details.
-
-=== Basic UI Object ===
+Tellurium provides a set of predefined Ui objects, which users can use directly. 
 
 The basic UI object is an abstract class and users cannot instantiate it directly. The basic UI Object works as the base class for all Ui objects and it includes the following attributes:
 
@@ -169,6 +167,28 @@ click "GoogleSearchModule.Search"
 }}}
 
 In this way, Tellurium will first map the UiID "GoogleSearchModule.Search" to the actual UI object and then call the _click_ method on it. If that Ui object does not have the _click_ method defined, you will get an error.
+
+The predefined Tellurium UI objects and their some default attributes are listed in the following table:
+
+|| *Tellurium Object* || *Locator Default Attributes* || *Extra Attributes* || *UI Template* ||
+|| Button || tag: "input" || || no ||
+|| Container || || group || no ||
+|| CheckBox || tag: "input", type: "checkbox" ||  || no ||
+|| Div || tag: "div" ||  || no ||
+|| Form || tag: "form" || group || no || 
+|| Image || tag: "img" || || no ||
+|| InputBox || tag: "input" ||  || no ||
+|| RadioButton || tag: "input", type: "radio" ||  || no ||
+|| Selector || tag: "select" ||  || no ||
+|| Span || tag: "span" ||  || no ||
+|| SubmitButton || tag: "input", type: "submit" ||  || no ||
+|| UrlLink || tag: "a" ||  || no ||
+|| List ||  || separator || yes ||
+|| Table || tag: "table" || group, header || yes ||
+|| StandardTable || tag: "table" || group, header, footer || yes ||
+|| Frame ||  || group, id, name, title || no ||
+|| Window ||  || group, id, name, title || no ||
+
 
 == UI Module ==
 
