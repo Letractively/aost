@@ -46,7 +46,7 @@ Twill is a simple scripting language that allows users to browse the Web from a 
 
 == A New Approach for Web Testing ==
 
-== Motivations ==
+=== Motivations ===
 
 Since the existing automated testing frameworks cannot address the challenges and problems very well. We really need a new automated testing framework to address them with the following motivations:
 
@@ -386,8 +386,9 @@ Our Benchmark test results show that:
 
 [http://code.google.com/p/aost/wiki/jQuerySelectorCache jQuery cache] is a mechanism to further improve the speed by reusing the found DOM reference for a given jQuery selector. Our benchmark results show that the jQuery cache could improve the speed by up to 14% over the regular jQuery selector and over 27% for some extreme cases.
 
-== DSL ==
-
+== Domain Specific Language ==
+ 
+Domain Specific Language (DSL) indicates a programming language or specification language dedicated to a particular problem domain, a particular problem representation technique, and/or a particular solution technique. Here the domain refers to UI testing. DSL is specified in the class *DslContext* including UI definition, actions, and testing. 
 
 == Testing Support ==
 
