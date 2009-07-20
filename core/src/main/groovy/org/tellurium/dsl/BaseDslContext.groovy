@@ -1083,6 +1083,18 @@ abstract class BaseDslContext {
       return isDisabledByXPath(uid)
     }
 
+  def getParentAttribute(String uid, String attribute){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    walkToWithException(context, uid)?.getAttribute(attribute) {loc, attr ->
+      String locator = locatorMapping(context, loc)
+      if(this.exploreJQuerySelector){
+        return accessor.getAttribute(locator + ":parent@${attr}")
+      }else{
+        return accessor.getAttribute(locator + "/parent::node()@${attr}")
+      }
+    }
+  }
+
   def getAttribute(String uid, String attribute) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.getAttribute(attribute) {loc, attr ->

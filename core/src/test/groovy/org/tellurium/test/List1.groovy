@@ -73,4 +73,12 @@ class List1 extends DslContext {
         TextBox(uid: "all", clocator: [tag: "div"])
       }
     }
+
+    public void defineSeparatorList(){
+      ui.Container(uid: "rotator", clocator: [tag: "div", class: "thumbnails"]) {
+        List(uid: "tnails", clocator: [tag: "ul"], separator: "li") {
+          UrlLink(uid: "all", clocator: [:])
+        }
+      }
+    }
 }
