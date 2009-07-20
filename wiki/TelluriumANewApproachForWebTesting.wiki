@@ -42,15 +42,9 @@ Canoo WebTest is another popular open source tool for automated testing of web a
     }
 }}}
 
-Twill is a simple scripting language that allows users to browse the Web from a command-line interface and it uses link, forms, cookies, and most standard Web features. It also deals with individual UI elements, need to parsing html interactively, and only support Python, which make Twill not really convenient for practical web applications. Here is a sample Twill test code
+Twill is a simple scripting language that allows users to browse the Web from a command-line interface and it uses link, forms, cookies, and most standard Web features. It also deals with individual UI elements, need to parsing html interactively, and only support Python, which make Twill not really convenient for practical web applications.
 
-{{{
-setlocal query "twill Python"
-go http://www.google.com/
-fv 1 q $query
-submit btnI # use the "I'm feeling lucky" button
-show
-}}}
+== A New Approach for Web Testing ==
 
 == Motivations ==
 
@@ -62,9 +56,7 @@ Since the existing automated testing frameworks cannot address the challenges an
   * Modular and test modules are reusable 
   * Expressive and easy to use
 
-Our proposal is the Tellurium Automated Testing Framework, or Tellurium in short. In the subsequent sections, we will first give a brief introduction of Tellurium and how it addresses the challenges and problems in web testing, then go through more details about Tellurium including its architecture, new concepts, and how to obtain and use Tellurium followed by a detailed tutorial on how to create Tellurium test cases with code samples. Finally, we summarize and conclude this article with future directions.
-
-== A New Approach for Web Testing ==
+Our proposal is the Tellurium Automated Testing Framework, or Tellurium in short. 
 
 === Why Tellurium is a New Approach for Web Testing ===
  
@@ -93,12 +85,12 @@ Tellurium does "Object to Locator Mapping (OLM)" automatically at run time so th
     
 The main features of Tellurium include:
 
-  * Abstract UI objects to encapsulate web UI elements
+  * Abstract UI objects to encapsulate web UI elements  
+  * UI module for structured test code and re-usability  
   * DSL for UI definition, actions, and testing
   * Composite Locator to use a set of attributes to describe a UI element
   * Group locating to exploit information inside a collection of UI components
   * Dynamically generate runtime locators to localize changes
-  * UI module for structured test code and re-usability
   * UI templates for dynamic web content
   * XPath support
   * jQuery selector support to improve test speed in IE
@@ -120,6 +112,8 @@ The composite locator uses UI element attributes to define UI and the actual loc
 Tellurium use the “respond” attribute in UI object for you to specify JavaScript events and the rest will be handled automatically by the framework itself. UI templates is a powerful feature in Tellurium to represent many identical UI elements or dynamic size of different UI elements at runtime, which are extremely useful to test dynamic web context such as a data grid. The “Option” UI object is designed to automatically address dynamic web with multiple possible UI patterns.
 
 The re-usability is achieved by UI module for the same application and Tellurium Widgets for different web applications. With the Domain Specific Language (DSL) in Tellurium, you can define UI module and write test code in a very expressive way. Tellurium also provides you the flexibility to write test code in Java, Groovy, or pure DSL scripts.
+
+In the subsequent sections, we will first give a brief introduction of Tellurium including its architecture and main concepts. Then we introduce Tellurium sub-projects and how to obtain and use Tellurium followed by a detailed tutorial on how to create Tellurium test cases with code samples. Finally, we summarize and conclude this article with future directions.
 
 = Tellurium Overview =
 
@@ -148,7 +142,8 @@ XPath builder can build the XPath from the composite locator, i.e., a set of att
  
 The Group Locating Concept (GLC) is to exploit the group information in side a collection of UI objects to help us find the locator of the collection of UI objects. 
 
-The Eventhandler in this part will handle all events like "click", "type", "select", and so on. The Data Accessor is used to fetch data or UI status from the DOM. The dispatcher will delegate all calls it receives from the Eventhandler and the data accessor to the Selenium Client, which will connect to the Selenium Server. The dispatcher is designed to decouple the rest of the Tellurium framework with the Selenium framework so that we can simply change the dispatcher logic to delegate all calls to other underneath UI test frameworks.
+The Eventhandler in this part will handle all events like "click", "type", "select", and so on. The Data Accessor is used to fetch data or UI status from the DOM. The dispatcher will delegate all calls it receives from the Eventhandler and the data accessor to the connector, which will connect to the Tellurium engine. The dispatcher is designed to decouple the rest of the Tellurium framework with the underneath test driving engine so that we can switch to a different test driving engine by simply changing the dispatcher logic.
+
 == Tellurium UI Objects==
 
 Tellurium provides a set of predefined Ui objects, which users can use directly. 
@@ -188,7 +183,6 @@ The predefined Tellurium UI objects and their some default attributes are listed
 || StandardTable || tag: "table" || group, header, footer || yes ||
 || Frame ||  || group, id, name, title || no ||
 || Window ||  || group, id, name, title || no ||
-
 
 == UI Module ==
 
@@ -253,34 +247,6 @@ which is equivalent to
 clocator: [tag: "input", type: "radio"]
 }}}
  
-== jQuery Selector ==
-
-Starting with version 0.6.0, Tellurium will support a [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector jQuery selector] to address the problem of poor performance of xpath in Internet Explorer. Auto-generating jQuery instead of xpath has the following advantages:
-  * Faster performance in IE.
-  * We are able to use the power of jQuery to call methods on jQuery collections to retrieve bulk data.
-  * Tellurium jQuery selector supports the jQuery attribute selectors such as _[attribute!=value]_, _[attribute^=value]_, _[attribute$=value]_, and _[attribute*=value]_.
-
-To use jQuery selector, simply call 
-
-{{{
-useJQuerySelector()
-}}} 
-
-in you code. To switch back to XPath locator, you should call
-
-{{{
-disableJQuerySelector()
-}}}
-
-Be aware that the UI module is agnostic to the locate strategy you choose and thus, you do not need to change anything in your test code. 
-
-Our Benchmark test results show that:
-
-  # jQuery selector is as fast as Ajaxslt XPath and Javascript XPath in Firefox 3.
-  # jQuery selector is much faster in IE 7 than the two XPath libraries
-  # jQuery selector uses only one method call to get back data for all table cells and thus it is the fastest one for bulk data access.
-
-[http://code.google.com/p/aost/wiki/jQuerySelectorCache jQuery cache] is a mechanism to further improve the speed by reusing the found DOM reference for a given jQuery selector. Our benchmark results show that the jQuery cache could improve the speed by up to 14% over the regular jQuery selector and over 27% for some extreme cases.
 
 == Group Locating ==
 
@@ -390,6 +356,38 @@ A more general example is as follows,
 }}}
 
 Except for the "click" event, all the "focus", "mouseOver", "mouseOut", and "blur" events will be automatically fired by Tellurium during testing. Do not worry about the event order for the respond attribute, Tellurium will automatically re-order the events and then process them appropriately for you.
+
+== jQuery Selector ==
+
+Starting with version 0.6.0, Tellurium will support a [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector jQuery selector] to address the problem of poor performance of xpath in Internet Explorer. Auto-generating jQuery instead of xpath has the following advantages:
+  * Faster performance in IE.
+  * We are able to use the power of jQuery to call methods on jQuery collections to retrieve bulk data.
+  * Tellurium jQuery selector supports the jQuery attribute selectors such as _[attribute!=value]_, _[attribute^=value]_, _[attribute$=value]_, and _[attribute*=value]_.
+
+To use jQuery selector, simply call 
+
+{{{
+useJQuerySelector()
+}}} 
+
+in you code. To switch back to XPath locator, you should call
+
+{{{
+disableJQuerySelector()
+}}}
+
+Be aware that the UI module is agnostic to the locate strategy you choose and thus, you do not need to change anything in your test code. 
+
+Our Benchmark test results show that:
+
+  # jQuery selector is as fast as Ajaxslt XPath and Javascript XPath in Firefox 3.
+  # jQuery selector is much faster in IE 7 than the two XPath libraries
+  # jQuery selector uses only one method call to get back data for all table cells and thus it is the fastest one for bulk data access.
+
+[http://code.google.com/p/aost/wiki/jQuerySelectorCache jQuery cache] is a mechanism to further improve the speed by reusing the found DOM reference for a given jQuery selector. Our benchmark results show that the jQuery cache could improve the speed by up to 14% over the regular jQuery selector and over 27% for some extreme cases.
+
+== DSL ==
+
 
 == Testing Support ==
 
