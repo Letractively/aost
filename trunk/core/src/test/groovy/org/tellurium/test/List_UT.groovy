@@ -68,6 +68,10 @@ class List_UT extends GroovyTestCase{
       list.dump("B")
       list.exploreJQuerySelector = true
       list.dump("A")
-      list.dump("B")      
+      list.dump("B")
+
+      list.defineSeparatorList();
+      list.dump("rotator")
+      list.dump("rotator.tnails[6]")
     }
 }
