@@ -200,6 +200,8 @@ ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group:
 
 Tellurium is built on the foundation of the UI module. The UI module makes it possible to build locators for UI elements at runtime.  First, this makes Tellurium robust and responsive to changes from internal UI elements.  Second, the UI module makes Tellurium expressive.  A UI element can be referred to simply by appending the names (uids) along the path to the specific element. This also enables Tellurium's "Group Locating" feature, making composite objects reusable and addressing dynamic web pages.
 
+This frees up the testers to write better tests rather than spend precious testing time on identifying and resolving test failures due to XPath changes.
+
 == Composite Locator ==
 
 Tellurium supports two types of locators: _base locator_ and _composite locator_. The _base locator_ is a relative XPath. The _composite locator_, denoted by "clocator", specifies a set of attributes for the UI object and the actual locator will be derived automatically by Tellurium at runtime.   
