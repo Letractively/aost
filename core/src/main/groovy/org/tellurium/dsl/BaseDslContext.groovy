@@ -8,14 +8,11 @@ import org.tellurium.dsl.WorkflowContext
 import org.tellurium.event.EventHandler
 import org.tellurium.exception.UiObjectNotFoundException
 import org.tellurium.extend.Extension
-import org.tellurium.locator.JQueryOptimizer
-import org.tellurium.locator.LocatorProcessor
-import org.tellurium.locator.MetaCmd
-import org.tellurium.locator.XPathProcessor
 import org.tellurium.object.List
 import org.tellurium.object.StandardTable
 import org.tellurium.object.UiObject
 import org.tellurium.util.Helper
+import org.tellurium.locator.*
 
 /**
  * 
@@ -1088,7 +1085,8 @@ abstract class BaseDslContext {
     walkToWithException(context, uid)?.getAttribute(attribute) {loc, attr ->
       String locator = locatorMapping(context, loc)
       if(this.exploreJQuerySelector){
-        return accessor.getAttribute(locator + ":parent@${attr}")
+        String ploc =JQueryProcessor.popLast(locator)
+        return accessor.getAttribute(ploc + "@${attr}")
       }else{
         String ploc = XPathProcessor.popXPath(locator)
         return accessor.getAttribute(ploc + "/self::node()@${attr}")
