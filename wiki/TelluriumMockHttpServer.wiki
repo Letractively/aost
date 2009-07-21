@@ -7,3 +7,16 @@
   * Use Java 6
 
 == Motivation ==
+
+From time to time, some Tellurium users ask us to help with some tests by providing us their HTML sources. Because we do not have the access to their web applications but the piece of HTML source, it is really difficult for us to test and debug against their HTML source. One possible is to manually create a HTML page based on the HTML source they provided and then use some Web server such as Jetty to rend the HTML for us, but this requires some extra work and need to run a web server instance. Java 6 provides a built-in Http server, which we can leverage and render the users' HTML sources.
+
+The Java 6 http server can be used to build an embedded http server to automatically render whatever HTML source we provide to it. Since the http server is an embedded one, it is very easy to start and stop it programmatically, for example, we can put the start procedure in the @BeforeClass method and the stop procedure in the @AfterClass method in JUnit or TestNG. 
+
+Another advantage for us to use an embedded http server is to test some special web content without creating a Web application. For example, we want to test some new methods for the Tellurium List object. We can simply create a HTML source and use the embedded http server to render it. 
+
+== Tellurium Mock Http Server ==
+
+Tellurium mock http server is designed to achieve the goals in the motivation section. 
+ 
+
+== Limitations ==
