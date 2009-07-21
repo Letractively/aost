@@ -36,6 +36,10 @@ public class MockHttpServer {
     this.server = HttpServer.create();
   }
 
+  public void setContentType(String contentType){
+    this.handler.setContentType(contentType)
+  }
+  
   public void registerHtmlBody(String url, String body){
     this.server.createContext(url, this.handler);
     this.handler.registerBody(url, body);

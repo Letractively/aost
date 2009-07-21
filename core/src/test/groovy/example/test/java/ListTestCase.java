@@ -40,9 +40,11 @@ public class ListTestCase  extends TelluriumJavaTestCase {
         connectUrl("http://localhost:8080/test.html");
         attr = (String)lm.getParentAttribute("rotator.tnails[6]", "class");
         System.out.println("jQuery: Class attribute for rotator.tnails[6] " + attr);
-        assertEquals("thumbnail potd", attr);   
+        assertEquals("thumbnail potd", attr);
+        server.setContentType("text/plain");
+        connectUrl("http://localhost:8080/test.html");
     }
-
+    
     @AfterClass
     public static void tearDown(){
         server.stop();    

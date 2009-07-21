@@ -32,8 +32,15 @@ public class MockHttpHandler implements HttpHandler {
   private static String ERROR_MESSAGE = """
     <div>Cannot find HTML content</div>
   """
+  private static String CONTENT_TYPE = "Content-Type";
 
   private Map<String, String> contents = new HashMap<String, String>();
+
+  private String contentType = "text/html";
+
+  public void setContentType(String contentType){
+    this.contentType = contentType;
+  }
 
   public void registerBody(String url, String body){
     if(body != null)
@@ -63,7 +70,7 @@ public class MockHttpHandler implements HttpHandler {
 
     if (requestMethod.equalsIgnoreCase("GET") || requestMethod.equalsIgnoreCase("POST")) {
       Headers responseHeaders = exchange.getResponseHeaders();
-      responseHeaders.set("Content-Type", "text/html");
+      responseHeaders.set(CONTENT_TYPE, this.contentType);
       exchange.sendResponseHeaders(200, 0);
 
       OutputStream responseBody = exchange.getResponseBody();

@@ -59,7 +59,6 @@
             <artifactId>ant-nodeps</artifactId>
             <version>1.7.1</version>
           </dependency>
-<!--
                   <dependency>
                     <groupId>sun.jdk</groupId>
                     <artifactId>tools</artifactId>
@@ -67,7 +66,7 @@
                     <scope>system</scope>
                     <systemPath>${java.home}/../lib/tools.jar</systemPath>
                   </dependency>
--->
+
                 </dependencies>
                 <executions>
                     <execution>
