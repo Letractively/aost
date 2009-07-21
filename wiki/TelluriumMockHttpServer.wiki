@@ -9,16 +9,15 @@
 
 == Motivation ==
 
-From time to time, some Tellurium users ask us to help with some tests by providing us their HTML sources. Because we do not have the access to their web applications but the piece of HTML source, it is really difficult for us to test and debug against their HTML source. One possible is to manually create a HTML page based on the HTML source they provided and then use some Web server such as Jetty to rend the HTML for us, but this requires some extra work and need to run a web server instance. Java 6 provides a built-in Http server, which we can leverage and render the users' HTML sources.
+From time to time, some Tellurium users ask us to help them with their tests. The dilemma is that we do not have the access to their web applications but just a piece of HTML source provided by our user. Thus, it is really difficult for us to debug their tests and to figure out what's wrong there. One possible way is to manually create a HTML page based on the HTML source they provided us and then use a web server such as Jetty to render the HTML for us. But this requires some extra work and need to run a web server instance. 
 
-The Java 6 http server can be used to build an embedded http server to automatically render whatever HTML source we provide to it. Since the http server is an embedded one, it is very easy to start and stop it programmatically, for example, we can put the start procedure in the @BeforeClass method and the stop procedure in the @AfterClass method in JUnit or TestNG. 
+Java 6 provides a built-in Http server, which we can leverage and render the users' HTML sources. The Java 6 http server can be used to build an embedded http server to automatically render whatever HTML source we provide to it. Since the http server is an embedded one, it is very easy to configure, start, and stop it programmatically, for example, we can put the start procedure in the method annotated with @BeforeClass and put the stop procedure in the method annotated with @AfterClass in JUnit or TestNG. 
 
-Another advantage for us to use an embedded http server is to test some special web content without creating a Web application. For example, we want to test some new methods for the Tellurium List object. We can simply create a HTML source and use the embedded http server to render it. 
+Another advantage to use an embedded http server is that we can test some special web content without creating a Web application. For example, if we want to test some new methods for the Tellurium List object, we can simply create a HTML source and use the embedded http server to render it. 
 
 == Tellurium Mock Http Server ==
 
-Tellurium mock http server is designed to achieve the goals in the motivation section. 
-Tellurium defined two classes, i.e.,  MockHttpHandler and MockHttpServer.
+Tellurium mock http server is designed to achieve the goals specified in the above motivation section. Tellurium defined two classes, i.e.,  MockHttpHandler and MockHttpServer.
 
 === Mock Http Handler ===
 
@@ -37,15 +36,15 @@ public class MockHttpHandler implements HttpHandler {
 }
 }}}
 
-The main method in MockHttpHandler is {{{handle(HttpExchange exchange)}}}, which reads the request URI, finds the corresponding response HTML source from the hashmap _contents_, and then render it.
+The main method in MockHttpHandler is {{{handle(HttpExchange exchange)}}}, which reads the request URI, finds the corresponding response HTML source from the hash map _contents_, and then render it.
 
-By default, the response will be rendered as a HTML source, you can change this by calling
+By default, the response will be rendered as a HTML source, you can change this by using the following setter.
 
 {{{
 public void setContentType(String contentType)
 }}}
 
-MockHttpHandler also includes two methods to add URI and its HTML source to the hashmap _contents_, i.e.,
+MockHttpHandler includes two methods to add URI and its HTML source to the hash map _contents_, i.e.,
 
 {{{
 public void registerBody(String url, String body)
@@ -67,9 +66,9 @@ The MockHttpHandler comes with a default HTML template as follows,
 </html>
 }}}
 
-If you call {{{registerBody(String url, String body)}}}, the MockHttpHandler will use the above HTML template to wrap the HTML body. You overwrite the template by directly calling {{{registerHtml(String url, String html)}}}, which will use the whole HTML source you provide.
+If you use {{{registerBody(String url, String body)}}}, the MockHttpHandler will use the above HTML template to wrap the HTML body. You overwrite the default HTML template by calling {{{registerHtml(String url, String html)}}} directly, which will use the whole HTML source you provide in the variable _html_.
 
-Normally, the MockHttpHandler will be encapsulated by the MockHttpServer and you don't really need to operate on it directly.
+Usually, the MockHttpHandler is encapsulated by the MockHttpServer and you don't really need to work on it directly.
 
 === Mock Http Server ===
 
@@ -114,7 +113,7 @@ public void registerHtmlBody(String url, String body)
 public void registerHtml(String url, String html)
 }}}
 
-The server stop and start methods are as follows,
+You can stop and start the server with the following methods,
 
 {{{
 public void start()
@@ -126,7 +125,7 @@ public void stop()
 
 === UI Module ===
 
-We use one modified version of a HTML source provided by one Tellurium user and create the UI module Groovy class as follows
+We use a modified version of a HTML source provided by one Tellurium user as an example and create the UI module Groovy class as follows
 
 {{{
 public class ListModule extends DslContext {
@@ -170,9 +169,9 @@ public class ListModule extends DslContext {
 }
 }}}
 
-As you can see, we include the HTML source in the Groovy file because the """ quote in Groovy makes it very clear and concise to present complicated HTML source as a String variable. In Java, you have to concatenate each line of the HTML Source to make it a String variable.
+The reason we include the HTML source in a Groovy file is that the """ quote in Groovy is very easy to present complicated HTML source as a String variable. In Java, you have to concatenate each line of the HTML Source to make it a String variable.
 
-The major part of the UI module is a List, which uses UI templates to represent the URL links. You can see how easy and concise to use UI templates to represent UI elements in Tellurium.
+The {{{defineUi()}} defines the UI module for the given HTML source. The major part of the UI module is a List, which uses UI templates to represent a list of links. You can see how easy and concise to use UI templates to represent UI elements in Tellurium.
 
 === Tellurium Test Case ===
 
@@ -236,7 +235,9 @@ In the {{{tearDown()}}} method, we stop the server.
 server.stop(); 
 }}} 
 
-The actual test case is exactly the same as the a regular Tellurium test case and the only difference is that the http URL uses localhost. First, we create a UI module instance,
+The actual test case is exactly the same as a regular Tellurium test case and the only difference is that the http URL points to localhost. 
+
+First, we create a UI module instance,
 
 {{{
   ListModule lm = new ListModule();
@@ -257,7 +258,7 @@ The following test code use xpath locator to test the class attribute for the se
   assertEquals("thumbnail potd", attr);
 }}}
 
-Similar to the above test code, the following use jQuery selector to test the class attribute for the separator "li".
+Similar to the above test code, the following code use jQuery selector to test the class attribute for the separator "li".
 
 {{{
   lm.useJQuerySelector();
@@ -267,11 +268,9 @@ Similar to the above test code, the following use jQuery selector to test the cl
 
 == Summary ==
 
-The MockHttpServer is an embedded http server and is very convenient to use. However, it is designed to test simple HTML source and you use a real web server if you need to render very complicated web content.
+The MockHttpServer is an embedded http server and it is very convenient to use. However, it is designed to test simple HTML source and you should use a real web server if you need to render very complicated web content.
 
 == Resources ==
 
   * [http://java.sun.com/javase/6/docs/jre/api/net/httpserver/spec/com/sun/net/httpserver/package-summary.html HttpServer Java Doc]
   * [http://code.google.com/p/aost/wiki/UserGuide?tm=6 Tellurium User Guide]
-
-  
