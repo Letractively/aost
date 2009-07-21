@@ -13,7 +13,8 @@ import com.sun.net.httpserver.HttpHandler
  */
 
 public class MockHttpHandler implements HttpHandler {
-  private String HEADER = """
+  
+  private static String HEADER = """
         <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
         <html>
@@ -23,12 +24,27 @@ public class MockHttpHandler implements HttpHandler {
         <body>
   """
 
-  private String TRAILER = """
+  private static String TRAILER = """
     </body>
     </html>
   """
 
-  private String body;
+  private static String ERROR_MESSAGE = """
+    <div>Cannot find HTML content</div>
+  """
+
+  private Map<String, String> contents = new HashMap<String, String>();
+
+  public void registerBody(String url, String body){
+    if(body != null)
+      this.contents.put(url, HEADER + body + TRAILER);
+    else
+      this.contents.put(url, HEADER + TRAILER);
+  }
+
+  public void registerHtml(String url, String html){
+      this..contents.put(url, html);
+  }
 
   public void setHeader(String header) {
     this.HEADER = header;
@@ -44,12 +60,14 @@ public class MockHttpHandler implements HttpHandler {
 
   public void handle(HttpExchange exchange) {
     String requestMethod = exchange.getRequestMethod();
+
     if (requestMethod.equalsIgnoreCase("GET") || requestMethod.equalsIgnoreCase("POST")) {
       Headers responseHeaders = exchange.getResponseHeaders();
       responseHeaders.set("Content-Type", "text/html");
       exchange.sendResponseHeaders(200, 0);
 
       OutputStream responseBody = exchange.getResponseBody();
+
 /*
       Headers requestHeaders = exchange.getRequestHeaders();
       Set<String> keySet = requestHeaders.keySet();
@@ -59,12 +77,15 @@ public class MockHttpHandler implements HttpHandler {
         List values = requestHeaders.get(key);
         String s = key + " = " + values.toString() + "\n";
         responseBody.write(s.getBytes());
+      }*/
+      String uri = exchange.getRequestURI();
+      String html = this.contents.get(uri);
+      if(html == null){
+        html = HEADER + ERROR_MESSAGE + TRAILER;
       }
-      */
-      responseBody.write(this.HEADER.getBytes());
-      if(this.body != null)
-        responseBody.write(this.body.getBytes());
-      responseBody.write(this.TRAILER.getBytes());
+
+      responseBody.write(html.getBytes());
+
       responseBody.close();
     }
   }

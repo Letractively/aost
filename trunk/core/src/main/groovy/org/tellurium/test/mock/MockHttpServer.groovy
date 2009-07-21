@@ -2,6 +2,7 @@ package org.tellurium.test.mock
 
 import com.sun.net.httpserver.HttpHandler
 import com.sun.net.httpserver.HttpServer
+import org.tellurium.test.mock.MockHttpHandler
 
 /**
  * 
@@ -12,12 +13,45 @@ import com.sun.net.httpserver.HttpServer
  */
 
 public class MockHttpServer {
+  //default port
+  private int port = 8080;
 
   private HttpServer server = null;
+  private MockHttpHandler handler;
 
-  public void start(int port, String url, HttpHandler handler) {
-    server = HttpServer.create(new InetSocketAddress(port), 0);
-    server.createContext(url, handler);
+  public MockHttpServer() {
+    this.handler = new MockHttpHandler();
+    this.server = HttpServer.create();
+  }
+
+  public MockHttpServer(int port) {
+    this.handler = new MockHttpHandler();
+    this.port = port;
+    this.server = HttpServer.create();
+  }
+
+  public MockHttpServer(int port, HttpHandler handler) {
+    this.port = port;
+    this.handler = handler;
+    this.server = HttpServer.create();
+  }
+
+  public void registerHtmlBody(String url, String body){
+    this.server.createContext(url, this.handler);
+    this.handler.registerBody(url, body);
+  }
+
+  public void registerHtml(String url, String html){
+    this.server.createContext(url, this.handler);
+    this.handler.registerHtml(url, html);
+  }
+
+  public void setServerPort(int port){
+    this.port = port;
+  }
+
+  public void start() {
+    server.bind(new InetSocketAddress(this.port), 0);
     server.setExecutor(null); // creates a default executor
     server.start();
   }
