@@ -31,13 +31,6 @@
   * [http://code.google.com/p/aost/wiki/HowToConvertSeleniumTestToTellurium How To Convert Selenium Test To Tellurium]
   * [http://code.google.com/p/aost/wiki/GroovyPatternsInTellurium Groovy Patterns Used in Tellurium]
 
-== Build ==
- 
-  * [http://code.google.com/p/aost/wiki/MavenHowTo Tellurium Maven Guide]
-  * [http://code.google.com/p/aost/wiki/TelluriumSampleAntBuildScript Tellurium Sample Ant Build Script]
-  * [http://code.google.com/p/aost/wiki/TelluriumTestProjectMavenSamplePom Sample POM for Tellurium Maven project]
-  * [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile Tellurium Sample Configuration File]
-
 == Articles ==
 
   * [http://code.google.com/p/aost/wiki/TelluriumANewApproachForWebTesting Tellurium: A New Approach for Web Testing]
@@ -46,6 +39,13 @@
   * [http://code.google.com/p/aost/wiki/WhatsNewInTellurium_0_6_0 What's New in Tellurium 0.6.0]
   * [http://code.google.com/p/aost/wiki/FirstAnniversaryRetrospectAndProspect Tellurium First Anniversary: Retrospect And Prospect]
   * [http://code.google.com/p/aost/wiki/TelluriumAtCodeStock Tellurium @ CodeStock 2009]
+
+== Build ==
+ 
+  * [http://code.google.com/p/aost/wiki/MavenHowTo Tellurium Maven Guide]
+  * [http://code.google.com/p/aost/wiki/TelluriumSampleAntBuildScript Tellurium Sample Ant Build Script]
+  * [http://code.google.com/p/aost/wiki/TelluriumTestProjectMavenSamplePom Sample POM for Tellurium Maven project]
+  * [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile Tellurium Sample Configuration File]
 
 == Project Management ==
   
