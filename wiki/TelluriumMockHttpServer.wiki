@@ -4,8 +4,8 @@
 
 == Prerequisites ==
  
-  * Use Tellurium Core 0.7.0-SNAPSHOT
-  * Use Java 6
+  * Tellurium Core 0.7.0-SNAPSHOT
+  * Java 6
 
 == Motivation ==
 
