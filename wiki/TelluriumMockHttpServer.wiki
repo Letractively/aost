@@ -171,7 +171,7 @@ public class ListModule extends DslContext {
 
 The reason we include the HTML source in a Groovy file is that the """ quote in Groovy is very easy to present complicated HTML source as a String variable. In Java, you have to concatenate each line of the HTML Source to make it a String variable.
 
-The {{{defineUi()}} defines the UI module for the given HTML source. The major part of the UI module is a List, which uses UI templates to represent a list of links. You can see how easy and concise to use UI templates to represent UI elements in Tellurium.
+The {{{defineUi()}}} defines the UI module for the given HTML source. The major part of the UI module is a List, which uses UI templates to represent a list of links. You can see how easy and concise to use UI templates to represent UI elements in Tellurium.
 
 === Tellurium Test Case ===
 
