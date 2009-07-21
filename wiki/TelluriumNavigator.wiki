@@ -47,10 +47,6 @@
   * [http://code.google.com/p/aost/wiki/FirstAnniversaryRetrospectAndProspect Tellurium First Anniversary: Retrospect And Prospect]
   * [http://code.google.com/p/aost/wiki/TelluriumAtCodeStock Tellurium @ CodeStock 2009]
 
-== User Experiences ==
-
-  * [http://code.google.com/p/aost/wiki/UserExperiences What users said about Tellurium]
-
 == Project Management ==
   
   * [http://code.google.com/p/aost/wiki/announcements Announcements]
@@ -58,6 +54,10 @@
   * [http://code.google.com/p/aost/wiki/HowToContribute How to Contribute]
   * [http://code.google.com/p/aost/wiki/ProjectRules Project Rules]
   * [http://code.google.com/p/aost/wiki/Roadmap Tellurium Project Roadmap]
+
+== User Experiences ==
+
+  * [http://code.google.com/p/aost/wiki/UserExperiences What users said about Tellurium]
  
 == Resources ==
   
