@@ -1,0 +1,9 @@
+#summary Tellurium Mock Http Server.
+#labels Phase-Support
+
+== Prerequisites ==
+ 
+  * Use Tellurium Core 0.7.0-SNAPSHOT
+  * Use Java 6
+
+== Motivation ==
