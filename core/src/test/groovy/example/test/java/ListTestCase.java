@@ -2,10 +2,10 @@ package example.test.java;
 
 import example.other.ListModule;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.tellurium.test.java.TelluriumJavaTestCase;
-import org.tellurium.test.mock.MockHttpHandler;
 import org.tellurium.test.mock.MockHttpServer;
 
 /**
@@ -18,10 +18,10 @@ public class ListTestCase  extends TelluriumJavaTestCase {
 
     @BeforeClass
     public static void setUp(){
-        MockHttpHandler handler = new MockHttpHandler();
-        handler.setBody(ListModule.LIST_BODY);
-        server = new MockHttpServer();
-        server.start(8080, "/list.html", handler);
+        server = new MockHttpServer(8080);
+        server.registerHtmlBody("/list.html", ListModule.LIST_BODY);
+        server.registerHtmlBody("/test.html", ListModule.LIST_BODY);
+        server.start();
     }
 
     @Test
@@ -32,9 +32,15 @@ public class ListTestCase  extends TelluriumJavaTestCase {
         lm.disableJQuerySelector();
         String attr = (String)lm.getParentAttribute("rotator.tnails[6]", "class");
         System.out.println("XPath: Class attribute for rotator.tnails[6] " + attr);
+        assertEquals("thumbnail potd", attr);
         lm.useJQuerySelector();
         attr = (String)lm.getParentAttribute("rotator.tnails[6]", "class");
         System.out.println("jQuery: Class attribute for rotator.tnails[6] " + attr);
+        assertEquals("thumbnail potd", attr);
+        connectUrl("http://localhost:8080/test.html");
+        attr = (String)lm.getParentAttribute("rotator.tnails[6]", "class");
+        System.out.println("jQuery: Class attribute for rotator.tnails[6] " + attr);
+        assertEquals("thumbnail potd", attr);   
     }
 
     @AfterClass
