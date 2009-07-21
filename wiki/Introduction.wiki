@@ -1,5 +1,6 @@
 #summary Tellurium Introduction
 #labels Phase-Design,Featured
+<wiki:toc max_depth="5" />
 
 = Tellurium Automated Testing Framework =
 
