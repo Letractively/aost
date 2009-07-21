@@ -20,7 +20,7 @@ Another advantage for us to use an embedded http server is to test some special 
 Tellurium mock http server is designed to achieve the goals in the motivation section. 
 Tellurium defined two classes, i.e.,  MockHttpHandler and MockHttpServer.
 
-=== MockHttpHandler ===
+=== Mock Http Handler ===
 
 The MockHttpHandler is a class to process the http request,
 
@@ -71,7 +71,7 @@ If you call {{{registerBody(String url, String body)}}}, the MockHttpHandler wil
 
 Normally, the MockHttpHandler will be encapsulated by the MockHttpServer and you don't really need to operate on it directly.
 
-=== MockHttpServer ===
+=== Mock Http Server ===
 
 The MockHttpServer includes an embedded http server, a http handler, and a http port:
 
