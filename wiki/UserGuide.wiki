@@ -715,6 +715,26 @@ In the package org.tellurium.test, Tellurium provides three different ways to wr
   * TelluriumGroovyTestCase is for Groovy test cases.
   * Data Driven Testing. Tellurium provides the class _TelluriumDataDrivenModule_ for users to define data driven testing modules and the class _TelluriumDataDrivenTest_ to drive the actual tests.
 
+Tellurium defined a set of DSLs to support Tellurium tests. The most often used ones include
+
+  * openUrl(String url): establish a new connection to Selenium server for the given url. The DSL format is:
+
+  {{{
+    openUrl url
+  }}}
+
+  Example: 
+
+  {{{
+    openUrl "http://code.google.com/p/aost/"
+  }}}
+
+  * connectUrl(String url): use existing connect for the given url. The DSL format is:
+
+  {{{
+    connectUrl "http://code.google.com/p/aost/" 
+  }}}
+
 Apart from the above, Tellurium also provides users the capability to write Tellurium tests and Tellurium data driven tests in pure DSL scripts. The _DslScriptExecutor_ is used to run the .dsl files.
 
 == Tellurium APIs ==
@@ -1624,6 +1644,16 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -Darc
 For an Ant user, you should download [http://aost.googlecode.com/files/tellurium-core-0.6.0.jar Tellurium core 0.6.0 jar file] from [http://code.google.com/p/aost/downloads/list Tellurium project download page], [http://aost.googlecode.com/files/tellurium-0.6.0-dependencies.zip the Tellurium dependency file], and [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile the Tellurium configuration file]. Unpack the Tellurium dependency file to your project /lib directory together with the Tellurium core 0.6.0 jar file. Name the Tellurium configuration file as TelluriumConfig.groovy and put it at your project root directory. 
 
 For Ant build scripts, please see [http://code.google.com/p/aost/wiki/TelluriumSampleAntBuildScript the sample Tellurium Ant build scripts]
+
+== Setup Tellurium Project in IDEs ==
+
+Tellurium Project can be run in IntelliJ, NetBeans, Eclipse, or other IDEs which have Groovy support. If you use Maven, you can simply open the POM file to let the IDE automatically build the project files for you.
+
+IntelliJ IDEA is commercial and you can download a free trial version for 30 days from http://www.jetbrains.com/idea/download/index.html. You can find a detailed guide on [http://code.google.com/p/aost/wiki/CustomTelluriumIntelliJProject How to create your own Tellurium testing project with IntelliJ 7.0].
+
+For NetBeans users, you can find detailed Guides on [http://code.google.com/p/aost/wiki/TelluriumStarterUsingNetBeans the NetBeans Starters' guide page] and [http://code.google.com/p/aost/wiki/CustomTelluriumNetBeansProject How to create your own Tellurium testing project with NetBeans 6.5].
+
+For Eclipse users, you need to download Eclipse Groovy Plugin from http://dist.codehaus.org/groovy/distributions/update/ to run the Tellurium project. For detailed instructions, please read [http://code.google.com/p/aost/wiki/CustomTelluriumEclipseProject How to create your own Tellurium testing project with Eclipse].
 
 === Create a UI Module ===
 
