@@ -1429,6 +1429,23 @@ http://tellurium-users.googlegroups.com/web/TelluriumSubprojects.png?gda=KOo7BEo
   * Tellurium Maven Archetypes: Maven archetypes to generate skeleton Tellurium JUnit and Tellurium TestNG projects using one Maven command.
   * Tellurium Reference Projects: Use Tellurium project site as examples to illustrate how to use different features in Tellurium and how to create Tellurium test cases.
 
+=== Tellurium Core ===
+
+The Tellurium Core does *Object to Locator Mapping* (OLM) automatically at runtime so that you can define UI objects simply by their attributes, i.e., *Composite Locators* denoted by the "clocator". Furthermore, Tellurium Core uses the *Group Locating Concept* (GLC) to exploit information inside a collection of UI components to help finding their locators. The Tellurium Core defines a new *Domain Specific Language* (DSL) for web testing. One very powerful feature of Tellurium Core is that you can use *UI templates* to represent many identical UI elements or dynamic size of different UI elements at runtime, which are extremely useful to test dynamic web such as a data grid. One typical data grid example is as follows,
+
+{{{
+ui.Table(uid: "table", clocator: [:]){
+   InputBox(uid: "row: 1, column: 1", clocator: [:])
+   Selector(uid: "row: *, column: 2", clocator: [:])
+   UrlLink(uid: "row: 3, column: *", clocator: [:])
+   TextBox(uid: "all", clocator: [:])
+} 
+}}}
+
+[http://code.google.com/p/aost/wiki/DataDrivenTesting Data Driven Testing] is another important feature of Tellurium Core. You can define data format in an expressive way. In you data file, you can specify which test you want to run, the input parameters, and expected results. Tellurium automatically binds the input data to variables defined in your test script and run the tests you specified in the input file. The test results will be recorded by a test listener and output in different formats, for example, an XML file.
+
+The Tellurium Core is written in Groovy and Java. The test cases can be written in Java, Groovy, or pure DSL. You do not really need to know Groovy before you use it because the UI module definition and actions on UIs are written in DSLs and the rest could be written in Java syntax.
+
 === Tellurium Extensions ===
 
 [http://code.google.com/p/aost/wiki/TelluriumWidget Tellurium Widget] is a good way to re-use UI components in testing. Usually, Javascript frameworks provide a lot of widgets. Take the Dojo framework as an example; you can define the DatePicker Dojo widget just like a regular Tellurium UI module. For widgets, it is important to include name space to avoid name collision between different widget modules. If we use "DOJO" as the name space, the widget could be written like "DOJO_DatePicker". We can define the following methods for the DOJO Date Picker widget:
@@ -1505,6 +1522,28 @@ Using Selenium core as the test driving engine is a quick solution for Tellurium
   * Exception hierarchy so that the Engine returns meaningful error codes back to the Tellurium core.
   * Ajax response notification. 
      
+=== Tellurium Maven Archetypes ===
+
+Tellurium provides [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes two maven archetypes], i.e., tellurium-junit-archetype and tellurium-testng-archetype for Tellurium JUnit test project and Tellurium TestNG test project, respectively.
+
+Run the following maven command to create a new JUnit project
+
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
+}}}
+
+Without adding the Tellurium Maven repository, you can specify it in the command line as
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0 \
+-DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/releases
+}}}
+
+For TestNG project, you should use a different archetype
+
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
+}}}
+
 === Tellurium Reference Projects ===
 
 We create [http://code.google.com/p/aost/wiki/ReferenceProjectGuide reference projects] to demonstrate how to use Tellurium for your own testing project. In the reference projects, we use Tellurium project web site as an example to illustrate how to write real-world Tellurium tests. The reference projects only use tellurium jar files and there are two sub-projects at the time of writing
