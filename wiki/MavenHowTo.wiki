@@ -137,7 +137,7 @@ If you want to see a detailed example on how to create a new Tellurium test proj
 
 = How to Create a Maven Archetype from an Existing Project =
 
-You can create a Maven archetype from scratch, for example, [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven Archetypes] are created in this way. But in some cases, your project may be pretty complicated and you want to create the Maven archetype from a template project. The guide on [http://code.google.com/p/aost/wiki/HowToCreateMavenArchetypeFromProject How to Create a Maven Archetype From an Existing Project] walks you through all the steps to create a Maven Archetype from an existing project.
+You can create a Maven archetype from scratch, for example, [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven Archetypes] are created in this way. But in some cases, your project may be pretty complicated and you want to create the Maven archetype from a template project. The guide on [http://code.google.com/p/jianwikis/wiki/HowToCreateMavenArchetypeFromProject How to Create a Maven Archetype From an Existing Project] walks you through all the steps to create a Maven Archetype from an existing project.
 
 = Build information =
 
