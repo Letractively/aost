@@ -1949,7 +1949,7 @@ Compile the project and run the new test case.
 
 == Examples ==
 
-=== Custom UI object ===
+=== Custom UI Object ===
 
 Tellurium supports custom UI objects defined by users. For most UI objects, they must extend the "UiObject" class and then define actions or methods they support. For container type UI objects, i.e., which hold other UI objects, they should extends the Container class. Please see Tellurium Table and List objects for more details.
 
