@@ -169,6 +169,8 @@ In addition to the above DSLs, Tellurium provides Selenium-compatible data acces
 
   * {{{getAttribute(id, attribute)}}}: Get an attribute of an element.
 
+  * {{{getParentAttribute(id, attribute)}}}: Get an attribute of the parent of an element.
+
   * {{{String getBodyText()}}}: Gets the entire text of the page.
 
   * {{{boolean isTextPresent(pattern)}}}: Verifies that the specified text pattern appears somewhere on the rendered page shown to the user.
