@@ -4,7 +4,7 @@
 
 = Tellurium User Guide =
 
-== Tellurium Overview ==
+== Introduction ==
 
 === Motivations ===
 
