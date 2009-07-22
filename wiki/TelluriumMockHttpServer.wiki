@@ -36,9 +36,9 @@ public class MockHttpHandler implements HttpHandler {
 }
 }}}
 
-The main method in MockHttpHandler is {{{handle(HttpExchange exchange)}}}, which reads the request URI, finds the corresponding response HTML source from the hash map _contents_, and then render it.
+The main method in MockHttpHandler is {{{handle(HttpExchange exchange)}}}, which reads the request URI, finds the corresponding response HTML source from the hash map _contents_, and then sends it back to the http client.
 
-By default, the response will be rendered as a HTML source, you can change this by using the following setter.
+By default, the response will be treated as a HTML source, you can change this by using the following setter.
 
 {{{
 public void setContentType(String contentType)
