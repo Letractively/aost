@@ -1459,6 +1459,27 @@ Using Selenium core as the test driving engine is a quick solution for Tellurium
   * Exception hierarchy so that the Engine returns meaningful error codes back to the Tellurium core.
   * Ajax response notification. 
      
+=== Tellurium Reference Projects ===
+
+We create [http://code.google.com/p/aost/wiki/ReferenceProjectGuide reference projects] to demonstrate how to use Tellurium for your own testing project. In the reference projects, we use Tellurium project web site as an example to illustrate how to write real-world Tellurium tests. The reference projects only use tellurium jar files and there are two sub-projects at the time of writing
+
+  * tellurium-junit-java
+  * tellurium-testng-java
+
+Basically, the two sub-projects are the same and the only difference is that tellurium-junit-java uses JUnit 4 and tellurium-testng-java uses TestNG. Hence, here we only focus on the tellurium-junit-java project.
+
+The tellurium-junit-java project illustrates the following usages of Tellurium:
+
+  * How to create your own Tellurium testing project using tellurium jar files.
+  * How to create your own UI Objects and wire them into Tellurium core
+  * How to create UI module files in Groovy
+  * How to create JUnit tellurium testing files in Java
+  * How to create and run DSL scripts
+  * How to create Tellurium Data Driven tests
+  * How to configure Tellurium with the configuration file TelluriumConfig.groovy
+  * Ant build script
+  * Maven support
+  * Support Eclipse, NetBeans, and IntelliJ IDEs
 
 == How to Obtain and Use Tellurium ==
 
