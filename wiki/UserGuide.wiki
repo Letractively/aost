@@ -2,11 +2,10 @@
 #labels Featured,Phase-Implementation
 <wiki:toc max_depth="5" />
 
-= Tellurium User Guide =
 
-== Introduction ==
+= Introduction =
 
-=== Motivations ===
+== Motivations ==
 
 Automated web testing has always been one of the hottest and most important topics in the software testing arena when it comes to the rising popularity of Rich Internet applications (RIA) and Ajax-based web applications. With the advent of new web techniques such as RIA and Ajax, automated web testing tools must keep up with these changes in technology and be able to address the following challenges:
 
@@ -25,7 +24,7 @@ The Tellurium Automated Testing Framework (Tellurium) is designed with the follo
   * Modular; test modules are reusable 
   * Expressive and easy to use
 
-=== Why Tellurium is a New Approach for Web Testing ===
+== Why Tellurium is a New Approach for Web Testing ==
  
 The Tellurium Automated Testing Framework (Tellurium) is an open source automated testing framework for web applications that addresses the challenges and problems in web testing. 
 
@@ -70,7 +69,7 @@ The main features of Tellurium include:
   * JUnit and TestNG support
   * Ant and Maven support
 
-=== How Challenges and Problems are addressed in Tellurium ? ===
+== How Challenges and Problems are addressed in Tellurium ? ==
  
 First of all, Tellurium does not use "record and replay." Instead, it uses the Tellurium Firefox plugin Trump to generate the UI module (not test code) for you. Then you need to create your test code based on the UI module. In this way, the UI and the test code are decoupled. The structured test code in Tellurium makes it much easier to refactor and maintain the code.
 
@@ -80,7 +79,7 @@ Tellurium uses the _respond_ attribute in a UI object for you to specify JavaScr
 
 Re-usability is achieved by the UI module when working within one application and by Tellurium Widgets when working across different web applications. With the Domain Specific Language (DSL) in Tellurium you can define UI modules and write test code in a very expressive way. Tellurium also provides you the flexibility to write test code in Java, Groovy, or pure DSL scripts.
 
-=== Tellurium Architecture ===
+== Tellurium Architecture ==
 
 The Tellurium framework architecture is shown as in Figure 1.
 
@@ -107,16 +106,16 @@ The Group Locating Concept (GLC) exploits the group information inside a collect
 
 The Eventhandler will handle all events like "click", "type", "select", and so on. The Data Accessor is used to fetch data or UI status from the DOM. The dispatcher will delegate all calls it receives from the Eventhandler and the data accessor to the connector, which connects to the Tellurium engine. The dispatcher is designed to decouple the rest of the Tellurium framework from the base test driving engine so that we can switch to a different test driving engine by simply changing the dispatcher logic.
 
-== Main Features ==
+= Concepts and Features =
 
-=== UI Object ===
+== UI Object ==
 
 Tellurium provides a set of predefined UI objects, which users can use directly. 
 
 The basic UI object is an abstract class. Users cannot instantiate it directly. The basic UI Object works as the base class for all UI objects and it includes the following attributes:
 
   # uid: UI object's identifier
-  # namespace: for future extension
+  # namespace: can be used for XHTML
   # locator: the locator of the UI object, could be a base locator or a composite locator
   # group: this attribute is used for Group Locating and it only applies to a collection type of UI object such as Container, Table, List, Form.
   # respond: the JavaScript events the UI object can respond to. The value is a list.
@@ -129,7 +128,7 @@ click "GoogleSearchModule.Search"
 
 In this way, Tellurium will first map the UIID "GoogleSearchModule.Search" to the actual UI object and then call the _click_ method on it. If that Ui object does not have the _click_ method defined, you will get an error.
 
-=== Composite Locator ===
+== Composite Locator ==
 
 Tellurium supports two types of locators: _base locator_ and _composite locator_. The _base locator_ is a relative XPath. The _composite locator_, denoted by "clocator", specifies a set of attributes for the UI object and the actual locator will be derived automatically by Tellurium at runtime.   
 
@@ -173,7 +172,7 @@ which is equivalent to
 clocator: [tag: "input", type: "radio"]
 }}}
 
-=== UI Module ===
+== UI Module ==
 
 The UI Module is the heart of Tellurium. The UI module is a collection of UI elements grouped together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For example, the download search module in Tellurium's project site is defined as follows:
 
@@ -189,7 +188,7 @@ Tellurium is built on the foundation of the UI module. The UI module makes it po
 
 This frees up the testers to write better tests rather than spend precious testing time on identifying and resolving test failures due to XPath changes.
 
-=== UiID ===
+== UiID ==
 
 In Tellurium, the UI object is referred by its UiID. For nested Ui objects, the UiID of the UI Object is a concatenated of the UI objects' uids along its path to the UI Object. For example, in the following nested UI Module, 
 
@@ -210,7 +209,7 @@ ui.Container(uid: "parent_ui"){
 
 the TextBox is referred as "parent_ui.child_ui.grand_child.textbox1". The exceptions are tables and lists, which use {{{[x][y]}}} or {{{[x]}}} to reference its elements inside. For example, {{{labels_table[2][1]}}} and {{{GoogleBooksList.subcategory[2]}}}. Table header can be referred in the format of {{{issueResult.header[2]}}}.
  
-=== Group Locating ===
+== Group Locating ==
 
 In the Tellurium UI module, you often see the "group" attribute. For example:
 
@@ -232,7 +231,7 @@ path to the target node such as:
 No sibling node's information is used here. What is wrong with this? The XPath depends too much on information from nodes far away from the target node. In Tellurium, we try to localize the information and reduce this dependency by using sibling information or local information. For example, in the above google UI module, the group locating concept will try to find the "td" tag with its children as "InputBox", "googlesearch" button, and
 "Imfeelinglucky" button. In this way, we can reduce the dependencies of the UI elements inside a UI module on external UI elements to make the UI definition more robust. 
 
-=== UI Templates ===
+== UI Templates ==
 
 Tellurium UI templates are used for two purposes:
 
@@ -316,7 +315,7 @@ Aren't the definitions very simple and cool?
 
 You may wonder how to use the templates if you have multiple templates such as the "issueResult" table shown above. The rule to apply the templates is: "specific one first, general one later".
 
-=== Javascript Events ===
+== Javascript Events ==
 
 Most web applications include Javascript, and thus the web testing framework must be able to handle Javascript events. What we really care about is firing the appropriate events to trigger the event handlers.
 
@@ -367,7 +366,7 @@ A more general example is as follows:
 
 Except for the "click" event, all of the "focus", "mouseOver", "mouseOut", and "blur" events will be automatically fired by Tellurium during testing. Do not worry about the event order for the respond attribute, Tellurium will automatically re-order the events and then process them appropriately for you.
 
-===  Logical Container ===
+==  Logical Container ==
 
 The Container object in Tellurium is used to hold child objects that are in the same subtree in the DOM object. However, there are always exceptions. For example, logical Container (Or virtual Container, but I think Logical Container is better) can violate this rule. 
 
@@ -493,7 +492,7 @@ public class TelluriumDownloadPageTestCase extends TelluriumJavaTestCase {
 }}}
 
 
-=== jQuery Selector ===
+== jQuery Selector ==
 
 The motivation behind the jQuery Selector is to improve the test speed in IE since IE lacks of native XPath support and the XPath is very slow. Tellurium exploits jQuery selector capability to improve the test speed dramatically. 
 
@@ -547,7 +546,7 @@ int getTableHeaderColumnNum(String uid)
 
 Under the hood, Tellurium core will call the appropriate API based on what locator you are currently using. For more details, please see Tellurium jQuery Selector Guide.
 
-=== jQuery Selector Cache Option ===
+== jQuery Selector Cache Option ==
 
 jQuery cache is a mechanism to further improve the speed by reusing the found DOM reference for a given jQuery selector. Our benchmark results show that the jQuery cache could improve the speed by up to 14% over the regular jQuery selector and over 27% for some extreme cases. But the improvement of jQuery cache over regular jQuery selector has upper bound, which is the portion of jQuery locating time out of the round trip time from Tellurium core to Selenium core. jQuery cache is still considered to be experimental at the current stage. Use it at your own discretion.
 
@@ -585,7 +584,7 @@ Tellurium Core provides a set of methods for jQuery Selector cache control, for 
  
 For a complete list of cache control APIs, please check  [http://code.google.com/p/aost/wiki/jQuerySelectorCache The Cache Mechanism of jQuery Selector]
 
-=== "Include" Frequently Used Sets of elements in UI Modules ===
+== "Include" Frequently Used Sets of elements in UI Modules ==
 
 Sometimes, you have a frequently used set of elements, which you do not want to redefined them over and over again in your UI module. Now, you can use the "Include" syntax to re-use pre-defined UI elements,
 
@@ -619,7 +618,7 @@ Then, you can include it into your new UI module as follows,
    }
 }}}
  
-=== Customize Individual Test settings Using setCustomConfig ===
+== Customize Individual Test settings Using setCustomConfig ==
 
 TelluriumConfig.groovy provides project level test settings, you can use setCustomConfig to custmoize individual testing settings.
 
@@ -636,7 +635,7 @@ static{
 }
 }}}
  
-=== User Custom Selenium Extensions ===
+== User Custom Selenium Extensions ==
 
 To support user custom selenium extensions, Tellurium Core added the following configurations to TelluriumConfig.groovy 
 
@@ -704,7 +703,7 @@ The _customUiCall_ method handles all the UI to locator mapping for users. Tellu
 customDirectCall(String method, Object[] args)
 }}}
 
-=== Data Driven Testing ===
+== Data Driven Testing ==
 
 [http://code.google.com/p/aost/w/edit/DataDrivenTesting Data Driven Testing] is a different way to write tests, i.e, separate test data from the test scripts and the test flow is not controlled by the test scripts, but by the input file instead. In the input file, users can specify which tests to run, what are input parameters, and what are expected results.
 
@@ -786,7 +785,7 @@ getGCHStatus |Example project labels:| 3 | 6
 getGCHStatus |Example project| 3 | 6 
 }}}
 
-=== The Dump Method ===
+== The Dump Method ==
 
 Tellurium Core added a dump method to print out the UI object's and its descendants' runtime locators that Tellurium Core generates for you.
 
@@ -852,7 +851,7 @@ issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="c
 -------------------------------------------------------
 }}}
 
-=== Selenium Grid Support ===
+== Selenium Grid Support ==
 
 Selenium Grid transparently distributes your tests on multiple machines so that you can run your tests in parallel. We recently added support for Selenium Grid to the Tellurium. Now you can run the Tellurium tests against different browsers using Selenium Grid. Tellurium core is updated to support Selenium Grid sessions. You should read the following the details guide [http://code.google.com/p/aost/wiki/SeleniumGridAndTellurium Using Selenium Grid with Tellurium].
 
@@ -876,7 +875,7 @@ tellurium{
     }
 }}}
 
-=== Mock Http Server ===
+== Mock Http Server ==
 
 The MockHttpServer is an embedded http server leveraging the Java 6 http server and it is very convenient to test HTML source directly without running a web server. The MockHttpServer includes an embedded http server, a http handler, and a http port with the following constructors
 
@@ -933,7 +932,7 @@ public class ListTestCase  extends TelluriumJavaTestCase {
 }
 }}}
 
-=== Testing Support ===
+== Testing Support ==
 
 In the package org.tellurium.test, Tellurium provides three different ways to write Tellurium tests:
 
@@ -944,11 +943,11 @@ In the package org.tellurium.test, Tellurium provides three different ways to wr
 
 Apart from the above, Tellurium also provides users the capability to write Tellurium tests and Tellurium data driven tests in pure DSL scripts. The _DslScriptExecutor_ is used to run the .dsl files.
 
-== Tellurium APIs ==
+= Tellurium APIs =
 
 Tellurium APIs include all methods defined in DslContext. The time here is in miliseconds unless otherwise specified. 
 
-=== DSL Methods ===
+== DSL Methods ==
 
 Here we list all the available methods that can be used as DSLs in DslContext and their corresponding DSL syntax. Note the id here refers to the UiID in the format of "issueSearch.issueType" and the time units are all in milliseconds if not specified. Be aware, you can only apply the methods to the Ui Object if it has these methods defined.
 
@@ -1035,7 +1034,7 @@ Here we list all the available methods that can be used as DSLs in DslContext an
   * {{{dragAndDropTo(sourceUid, targetUid)}}}: Drags an element and drops it on another element.
 
 
-===  Data Access Methods ===
+==  Data Access Methods ==
 
 In addition to the above DSLs, Tellurium provides Selenium-compatible data access methods so that you can get data or Ui statuses from the web. The methods are listed here:
 
@@ -1155,7 +1154,7 @@ In addition to the above DSLs, Tellurium provides Selenium-compatible data acces
 
   * {{{String[] getAllWindowTitles()}}}: Returns the titles of all windows that the browser knows about.
 
-=== Test Support DSL ===
+== Test Support DSL ==
 
 Tellurium defined a set of DSLs to support Tellurium tests. The most often used ones include
 
@@ -1183,16 +1182,16 @@ Tellurium defined a set of DSLs to support Tellurium tests. The most often used 
     connectUrl "http://code.google.com/p/aost/" 
   }}}
 
-== Tellurium UI Objects==
+= Tellurium UI Objects=
 
 Tellurium provides a set of predefined Ui objects, which users can use directly. Here we describe them one by one in details.
 
-=== Basic UI Object ===
+== Basic UI Object ==
 
 The basic UI object is an abstract class and users cannot instantiate it directly. The basic UI Object works as the base class for all Ui objects and it includes the following attributes:
 
   # uid: UI object's identifier
-  # namespace: for future extension
+  # namespace: used for XHTML
   # locator: the locator of the UI object, could be a base locator or a composite locator
   # respond: the JavaScript events the UI object can respond to. The value is a list.
 
@@ -1214,7 +1213,7 @@ Obviously, all UI Objects will inherit the above attributes and methods. But be 
 
 In this way, Tellurium will first map the UiID ""GoogleStartPage.GoogleSearch" to the actual UI object and then call the _click_ method on it. If that Ui object does not have the _click_ method defined, you will get an error.
 
-=== UI Object Default Attributes ===
+== UI Object Default Attributes ==
 
 Tellurium UI objects have some default attributes as shown in the following table:
 
@@ -1239,9 +1238,9 @@ Tellurium UI objects have some default attributes as shown in the following tabl
 
 
 
-=== Tellurium UI Object List ===
+== Tellurium UI Object List ==
 
-==== Button ====
+=== Button ===
 
 Button represents various Buttons on the web and its default tag is "input". The following methods can be applied to Button:
 
@@ -1255,7 +1254,7 @@ Example:
 Button(uid: "searchButton", clocator: [value: "Search", name: "btn"])
 }}}
 
-==== Submit Button ====
+=== Submit Button ===
 
 SubmitButton is a special Button with its type being "submit".
 
@@ -1265,7 +1264,7 @@ Example:
 SubmitButton(uid: "search_web_button", clocator: [value: "Search the Web"])
 }}}
 
-==== Check Box ====
+=== Check Box ===
 
 The CheckBox on the web is abstracted as "CheckBox" Ui object. The default tag for CheckBox is "input" and its type is "checkbox". CheckBox comes with the following methods:
 
@@ -1280,7 +1279,7 @@ Example:
 CheckBox(uid: "autoRenewal", clocator: [dojoattachpoint: 'dap_auto_renew'])
 }}}
 
-==== Div ====
+=== Div ===
 
 Div is often used in the Dojo framework and it can represent a lot objects. Obviously, its tag is "div" and it has the following method:
 
@@ -1293,7 +1292,7 @@ Example:
 Div(uid: "dialog", clocator: [class: 'dojoDialog', id: 'loginDialog'])
 }}}
 
-==== Image ====
+=== Image ===
 
 Image is used to abstract the "img" tag and it comes with the following additional methods:
 
@@ -1307,7 +1306,7 @@ Example:
 Image(uid: "dropDownArrow", clocator: [src: 'drop_down_arrow.gif'])
 }}}
 
-==== Icon ====
+=== Icon ===
 
 Icon is similar to the Image object, but user can perform actions on it. As a result, it can have the following additional methods:
 
@@ -1321,7 +1320,7 @@ Example:
 Icon(uid: "taskIcon", clocator:[tag: "p", dojoonclick: 'doClick', img: "Show_icon.gif"] )
 }}}
 
-==== Radio Button ====
+=== Radio Button ===
 
 RadioButton is the abstract object for the Radio Button Ui. As a result, its default tag is "input" and its type is "radio". RadioButton has the following additional methods:
 
@@ -1336,7 +1335,7 @@ Example:
 RadioButton(uid: "autoRenewal", clocator: [dojoattachpoint: 'dap_auto_renew'])
 }}}
 
-==== Text Box ====
+=== Text Box ===
 
 TextBox is the abstract Ui object from which you can get back the text, i.e., it comes with the method:
 
@@ -1350,7 +1349,7 @@ Example:
 TextBox(uid: "searchLabel", clocator: [tag: "span"])
 }}}
 
-==== Input Box ====
+=== Input Box ===
 
 InputBox is the Ui where user types in input data. As its name stands, InputBox's default tag is "input". InputBox has the following additional methods:
 
@@ -1367,7 +1366,7 @@ Example:
 InputBox(uid: "searchBox", clocator: [name: "q"])
 }}}
 
-==== Url Link ====
+=== Url Link ===
 
 UrlLink stands for the web url link, i.e., its tag is "a". UrlLink has the following additional methods:
 
@@ -1382,7 +1381,7 @@ Example:
 UrlLink(uid: "Grid", clocator: [text: "Grid", direct: "true"])
 }}}
 
-==== Selector ====
+=== Selector ===
 
 Selector represents the Ui with tag "select" and user can select from a set of options. Selector has a lot of methods, such as:
 
@@ -1410,7 +1409,7 @@ Example:
 Selector(uid: "issueType", clocator: [name: "can", id: "can"])
 }}}
 
-==== Container ====
+=== Container ===
 
 Container is an abstract object that can hold a collection of Ui objects. As a result, the  Container has a special attribute "useGroupInfo" and its default value is false. If this attribute is true, the Group Locating is enabled. But make sure all the Ui objects inside the Container are children nodes of the Container in the DOM, otherwise, you should not use the Group Locating capability.
 
@@ -1424,7 +1423,7 @@ ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
 }
 }}}
 
-==== Form ====
+=== Form ===
 
 Form is a type of Container with its tag being "form" and it represents web form. Like Container, it has the capability to use Group Locating and it has a special method:
 
@@ -1444,7 +1443,7 @@ ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group:
 }
 }}}
 
-==== Table ====
+=== Table ===
 
 Table is one of the most complicated Ui Object and also the most often used one. Obviously, its tag is "table" and a table could have headers besides rows and columns. Table is a good choice for data grid. Tellurium can handle its header, rows, and columns automatically for users. One important is the Table has different UiID than other Ui objects. For example, if the id of the table is "table1", then its i-th row and j-th column is referred as {{{"table1[i][j]"}}} and its m-th header is {{{"table1.header[m]"}}}.
 
@@ -1514,7 +1513,7 @@ Container(uid: "tables", clocator:[:]){
 
 }}}
 
-==== Standard Table ====
+=== Standard Table ===
 
 A StandardTable is a table in the following format
 
@@ -1571,7 +1570,7 @@ ui.StandardTable(uid: "table", clocator: [id: "std"]) {
 }
 }}}
 
-==== List ====
+=== List ===
 
 List is also a Container type abstract Ui object and it can be used to represent any list like Ui objects. Very much like Table, users can define Ui templates for List and following rule of "the special case first and then the general case". The index number is  used to specify an element and "all" is used to match all elements in the List. List also uses TextBox as the default Ui if no template could be found. Since List is a Container type, it can use the Group Locating feature.
 
@@ -1587,7 +1586,7 @@ List(uid: "subcategory", locator: "", separator: "p"){
 }
 }}} 
 
-==== Simple Menu ====
+=== Simple Menu ===
 
 The SimpleMenu represent a menu without a header and only contains menu items. The default tag is "div" and user should specify the alias name for each menu item. For example,
 
@@ -1605,7 +1604,7 @@ The SimpleMenu has the following methods:
   * mouseOve()
   * mouseOut()
 
-==== Select Menu ====
+=== Select Menu ===
 
 SelectMenu is designed for the selecting column menu on the Tellurium Issues page and it is prototyped to demonstrate how to write Ui object with interaction with the DOM since the Ui elements have different patterns at runtime, hence, it is not a general purpose Ui object. SelectMenu could have a header and its menu item content could keep changing when users select different columns to display. 
 
@@ -1625,7 +1624,7 @@ Like SimpleMenu, SelectMenu also has the following methods:
   * mouseOve()
   * mouseOut()
 
-==== Frame ====
+=== Frame ===
 
 Frame is a type of Container and is used to mode Frame or IFrame. It includes the
 following attributes:
@@ -1656,7 +1655,7 @@ ui.Frame(uid: "SubscribeFrame", name: "subscrbe"){
 } 
 }}}
 
-==== Window ====
+=== Window ===
 
 Window is a type of Container and is used to mode Popup Window. It includes the
 following attributes:
@@ -1686,7 +1685,7 @@ selectWindow "HelpWindow"
 selectMainWindow()
 }}}
 
-==== Option ====
+=== Option ===
 
 Option is also designed to be adaptive the dynamic web. Option is a pure abstract object and it holds multiple UIs with each representing a possible UI pattern at runtime. For example, the List/Grid selector on the issue page can described as: 
 
@@ -1719,7 +1718,7 @@ click "layoutSelector.layoutSelector.List"
 The option object will automatically detect which UI pattern you need to use at runtime. 
 
 
-== Tellurium Subprojects ==
+= Tellurium Subprojects =
 
 Tellurium began as a small core project over a year ago and quickly spawned multiple sub-projects including: [http://code.google.com/p/aost/wiki/UserGuide Core], [http://code.google.com/p/aost/wiki/ReferenceProjectGuide Reference projects], [http://code.google.com/p/aost/wiki/TelluriumWidget Widget extensions], [http://code.google.com/p/aost/wiki/TrUMP Trump], and Engine projects as shown in the following diagram:
 
@@ -1732,7 +1731,7 @@ http://tellurium-users.googlegroups.com/web/TelluriumSubprojects.png?gda=KOo7BEo
   * Tellurium Maven Archetypes: Maven archetypes to generate skeleton Tellurium JUnit and Tellurium TestNG projects using one Maven command.
   * Tellurium Reference Projects: Use Tellurium project site as examples to illustrate how to use different features in Tellurium and how to create Tellurium test cases.
 
-=== Tellurium Core ===
+== Tellurium Core ==
 
 The Tellurium Core does *Object to Locator Mapping* (OLM) automatically at runtime so that you can define UI objects simply by their attributes, i.e., *Composite Locators* denoted by the "clocator". Furthermore, Tellurium Core uses the *Group Locating Concept* (GLC) to exploit information inside a collection of UI components to help finding their locators. The Tellurium Core defines a new *Domain Specific Language* (DSL) for web testing. One very powerful feature of Tellurium Core is that you can use *UI templates* to represent many identical UI elements or dynamic size of different UI elements at runtime, which are extremely useful to test dynamic web such as a data grid. One typical data grid example is as follows,
 
@@ -1749,7 +1748,7 @@ ui.Table(uid: "table", clocator: [:]){
 
 The Tellurium Core is written in Groovy and Java. The test cases can be written in Java, Groovy, or pure DSL. You do not really need to know Groovy before you use it because the UI module definition and actions on UIs are written in DSLs and the rest could be written in Java syntax.
 
-=== Tellurium Extensions ===
+== Tellurium Extensions ==
 
 [http://code.google.com/p/aost/wiki/TelluriumWidget Tellurium Widget] is a good way to re-use UI components in testing. Usually, Javascript frameworks provide a lot of widgets. Take the Dojo framework as an example; you can define the DatePicker Dojo widget just like a regular Tellurium UI module. For widgets, it is important to include name space to avoid name collision between different widget modules. If we use "DOJO" as the name space, the widget could be written like "DOJO_DatePicker". We can define the following methods for the DOJO Date Picker widget:
 
@@ -1787,7 +1786,7 @@ To make the framework scalable, Tellurium provides an _onWidget_ method for Tell
 onWidget "dropdown.datePicker", selectPrevYear
 }}}
 
-=== Tellurium UI Module Plugin (Trump) ===
+== Tellurium UI Module Plugin (Trump) ==
 
 The Tellurium UI Module Plugin (Trump) is used to automatically generate UI modules for users. The Trump IDE looks as follows:
 
@@ -1803,7 +1802,7 @@ http://tellurium-users.googlegroups.com/web/TrUMPDiagramSmall.png?gda=9CFDmEcAAA
   # When the user clicks on the "Customize" button, Trump will pull out the original data held in the internal tree and the current attributes utilized by the UI module to create the "Customize" view. When the user clicks on an element, Trump lists all available optional attributes in the view for users to customize. 
   # Trump will try to validate the UI module automatically whenever you generate a new UI module or update it. Trump will evaluate each UI element's XPath the same way that Tellurium generates the runtime XPath from the UI module and check if the generated runtime XPath is unique in the current web page. If it is not unique, you will see a red "X" mark, and you need to modify the element's attribute to make it disappear. If you do not see a red "X", you are finished. You can export the generated UI module to a groovy file and start to write Tellurium tests based on the generated UI module.
 
-=== Tellurium Engine ===
+== Tellurium Engine ==
 
 Up to Tellurium 0.6.0, Tellurium still leveraged Selenium core as the test driving engine. Selenium has a rich set of APIs to act on individual UI elements, and Tellurium can use them directly. Tellurium embedded its own small engine in Selenium core to support the following enhancements:
 
@@ -1825,7 +1824,7 @@ Using Selenium core as the test driving engine is a quick solution for Tellurium
   * Exception hierarchy so that the Engine returns meaningful error codes back to the Tellurium core.
   * Ajax response notification. 
      
-=== Tellurium Maven Archetypes ===
+== Tellurium Maven Archetypes ==
 
 Tellurium provides [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes two maven archetypes], i.e., tellurium-junit-archetype and tellurium-testng-archetype for Tellurium JUnit test project and Tellurium TestNG test project, respectively.
 
@@ -1854,7 +1853,7 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
      -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/releases
 }}}
 
-=== Tellurium Reference Projects ===
+== Tellurium Reference Projects ==
 
 We create [http://code.google.com/p/aost/wiki/ReferenceProjectGuide reference projects] to demonstrate how to use Tellurium for your own testing project. In the reference projects, we use Tellurium project web site as an example to illustrate how to write real-world Tellurium tests. The reference projects only use tellurium jar files and there are two sub-projects at the time of writing
 
@@ -1876,9 +1875,9 @@ The tellurium-junit-java project illustrates the following usages of Tellurium:
   * Maven support
   * Support Eclipse, NetBeans, and IntelliJ IDEs
 
-== How to Obtain and Use Tellurium ==
+= How to Obtain and Use Tellurium =
 
-=== Create a Tellurium Project ===
+== Create a Tellurium Project ==
 
 There are three ways: use [http://code.google.com/p/aost/wiki/ReferenceProjectGuide the reference project] as a base, use the [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven archetype], or manually create a Tellurium project using the [http://code.google.com/p/aost/downloads/list tellurium jar] and a [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile  Tellurium configuration file]. Alternatively, you could create your own Tellurium Maven project manually using [http://code.google.com/p/aost/wiki/TelluriumTestProjectMavenSamplePom the sample POM file].
 
@@ -1904,7 +1903,7 @@ For an Ant user, you should download [http://aost.googlecode.com/files/tellurium
 
 For Ant build scripts, please see [http://code.google.com/p/aost/wiki/TelluriumSampleAntBuildScript the sample Tellurium Ant build scripts]
 
-=== Setup Tellurium Project in IDEs ===
+== Setup Tellurium Project in IDEs ==
 
 Tellurium Project can be run in IntelliJ, NetBeans, Eclipse, or other IDEs which have Groovy support. If you use Maven, you can simply open the POM file to let the IDE automatically build the project files for you.
 
@@ -1914,7 +1913,7 @@ For NetBeans users, you can find detailed Guides on [http://code.google.com/p/ao
 
 For Eclipse users, you need to download Eclipse Groovy Plugin from http://dist.codehaus.org/groovy/distributions/update/ to run the Tellurium project. For detailed instructions, please read [http://code.google.com/p/aost/wiki/CustomTelluriumEclipseProject How to create your own Tellurium testing project with Eclipse].
 
-=== Create a UI Module ===
+== Create a UI Module ==
 
 Tellurium provides Trump for you to automatically create UI modules. Trump can be downloaded from the Tellurium project site:
 
@@ -1966,7 +1965,7 @@ class NewUiModule extends DslContext {
 }
 }}}
 
-=== Create Tellurium Test Cases ===
+== Create Tellurium Test Cases ==
 
 Once you create the UI module, you can create a new Tellurium test case NewTestCase by extending TelluriumJavaTestCase class.
 
@@ -1998,9 +1997,9 @@ public class NewTestCase extends TelluriumJavaTestCase {
 
 Compile the project and run the new test case.
 
-== Examples ==
+= Examples =
 
-=== Custom UI Object ===
+== Custom UI Object ==
 
 Tellurium supports custom UI objects defined by users. For most UI objects, they must extend the "UiObject" class and then define actions or methods they support. For container type UI objects, i.e., which hold other UI objects, they should extends the Container class. Please see Tellurium Table and List objects for more details.
 
@@ -2074,7 +2073,7 @@ You may wonder how to hook the custom objects into Tellurium core so that it can
     }
 }}}
 
-=== UI Module ==
+== UI Module ==
 
 Take the [http://code.google.com/p/aost/issues/list Tellurium issue page] as an example, the UI module can be defined as
 
@@ -2199,7 +2198,7 @@ public class TelluriumIssueModule extends DslContext {
 }
 }}} 
 
-=== Groovy Test Case ===
+== Groovy Test Case ==
 
 {{{
 public class TelluriumIssueGroovyTestCase extends GroovyTestCase{
@@ -2239,7 +2238,7 @@ public class TelluriumIssueGroovyTestCase extends GroovyTestCase{
 }
 }}}
 
-=== Java Test Case ===
+== Java Test Case ==
 
 {{{
 public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
@@ -2338,7 +2337,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
 }
 }}}
 
-=== Data Driven Testing ===
+== Data Driven Testing ==
 
 We use Tellurium Issue page as the data driven testing example, we define tests to search issues assigned to a Tellurium team member and use the input file to define which team members we want the result for.
 
@@ -2427,7 +2426,6 @@ class TelluriumIssuesDataDrivenTest extends TelluriumDataDrivenTest{
         closeData()
 
     }
-
 }
 }}}
 
@@ -2566,7 +2564,7 @@ The test result looks as follows,
 </TestResults>
 }}}
 
-=== DSL Test Script ===
+== DSL Test Script ==
 
 In Tellurium, you can create test scripts in pure DSL. Take TelluriumPage.dsl as an example,
 
@@ -2627,13 +2625,13 @@ Then, use the rundsl.sh to run the DSL script
 For Windows, you should use the rundsl.bat script.
 
 
-== Tellurium Support ==
+= Tellurium Support =
 
 If you have any questions or problems with Tellurium, please join our [http://groups.google.com/group/tellurium-users Tellurium user group] and then post them there. You will get the response very shortly.
 
-== Appendices ==
+= Appendices =
 
-=== Sample POM for Tellurium Maven project ===
+== Sample POM for Tellurium Maven project ==
 
 Tellurium Maven JUnit testing project could use the following POM file,
 
@@ -2968,7 +2966,7 @@ Tellurium Maven TestNG project uses the same POM file as the JUnit one shown abo
 
 for your TestNG project.
 
-=== Tellurium Sample Ant Build Script ===
+== Tellurium Sample Ant Build Script ==
  
 build.properties:
 
@@ -3149,7 +3147,7 @@ build.xml:
 </project>
 }}}
 
-=== Tellurium Sample Configuration File ===
+== Tellurium Sample Configuration File ==
 
 {{{
 /**
@@ -3266,8 +3264,9 @@ tellurium{
 }
 }}}
 
-== Resources ==
+= Resources =
 
   * [http://code.google.com/p/aost/ Tellurium Project website] 
   * [http://groups.google.com/group/tellurium-users Tellurium User Group]  
+  * [http://code.google.com/p/aost/wiki/UserExperiences Users' Experiences]
   * [http://code.google.com/p/aost/wiki/Resources Resources Related to Tellurium]
