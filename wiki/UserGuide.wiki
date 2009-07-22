@@ -1645,7 +1645,7 @@ For an Ant user, you should download [http://aost.googlecode.com/files/tellurium
 
 For Ant build scripts, please see [http://code.google.com/p/aost/wiki/TelluriumSampleAntBuildScript the sample Tellurium Ant build scripts]
 
-== Setup Tellurium Project in IDEs ==
+=== Setup Tellurium Project in IDEs ===
 
 Tellurium Project can be run in IntelliJ, NetBeans, Eclipse, or other IDEs which have Groovy support. If you use Maven, you can simply open the POM file to let the IDE automatically build the project files for you.
 
@@ -1738,3 +1738,13 @@ public class NewTestCase extends TelluriumJavaTestCase {
 }}}
 
 Compile the project and run the new test case.
+
+== Tellurium Support ==
+
+If you have any questions or problems with Tellurium, please join our [http://groups.google.com/group/tellurium-users Tellurium user group] and then post them there. You will get the response very shortly.
+
+== Resources ==
+
+  * [http://code.google.com/p/aost/ Tellurium Project website] 
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group]  
+  * [http://code.google.com/p/aost/wiki/Resources Resources Related to Tellurium]
