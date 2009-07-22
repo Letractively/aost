@@ -511,7 +511,7 @@ locator. i.e. XPath
 
 jQuery selector only works for composite locator, i.e. clocator. You cannot have base locator, i.e., XPath, in your UI module.
 
-jQuery Selector provides the following additional Selenium methods, which are utilized in DslContext? to form a set of new DSL methods.
+jQuery Selector provides the following additional Selenium methods, which are utilized in DslContext to form a set of new DSL methods.
 
    * {{{String getAllText(String locator)}}}: Get all text from the set of elements corresponding to the jQuery Selector.
 
@@ -556,7 +556,8 @@ To make the cache option configurable in tellurium UI module, Tellurium introduc
 One example UI module is defined as follows,
 
 {{{
-  ui.Table(uid: "issueResultWithCache", cacheable: "true", noCacheForChildren: "true", clocator: [id: "resultstable", class: "results"], group: "true") {
+  ui.Table(uid: "issueResultWithCache", cacheable: "true", noCacheForChildren: "true",
+           clocator: [id: "resultstable", class: "results"], group: "true") {
  
        ......
 
@@ -623,7 +624,8 @@ Then, you can include it into your new UI module as follows,
 TelluriumConfig.groovy provides project level test settings, you can use setCustomConfig to custmoize individual testing settings.
 
 {{{
-public void setCustomConfig(boolean runInternally, int port, String browser, boolean useMultiWindows, String profileLocation)
+public void setCustomConfig(boolean runInternally, int port, String browser,
+                            boolean useMultiWindows, String profileLocation)
 }}}
 
 For example, you can specify your custom settings as follows,
@@ -639,22 +641,21 @@ static{
 To support user custom selenium extensions, Tellurium Core added the following configurations to TelluriumConfig.groovy 
 
 {{{
-    embeddedserver {
+  embeddedserver {
 
-        ......
+    ......
 
-        //user-extension.js file, for example "target/test-classes/extension/user-extensions.js"
-        userExtension = ""
-    }
-    connector{
+    //user-extension.js file, for example "target/user-extensions.js"
+    userExtension = ""
+  }
+  connector{
 
-        ......
+    ......
 
-        //user's class to hold custom selenium methods associated with user-extensions.js
-        //should in full class name, for instance, "com.mycom.CustomSelenium"
-        customClass = ""
-    }
-
+    //user's class to hold custom selenium methods associated with user-extensions.js
+    //should in full class name, for instance, "com.mycom.CustomSelenium"
+    customClass = ""
+  }
 }}}
 
 Where the _userExtension_ points to user's user-extensions.js file, for example, you have the following user-extensions.js 
@@ -827,10 +828,27 @@ The above code will print out the runtime XPath locators
 Dump locator information for issueSearch
 -------------------------------------------------------
 issueSearch: //descendant-or-self::form[@action="list" and @method="get"]
-issueSearch.issueType: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::select[@name="can" and @id="can"]
-issueSearch.searchLabel: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::span[contains(text(),"for")]
-issueSearch.searchBox: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::input[@type="text" and @name="q"]
-issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="can" and @id="can"] and descendant::span[contains(text(),"for")] and descendant::input[@type="text" and @name="q"] and descendant::input[@value="Search" and @type="submit"] and @action="list" and @method="get"]/descendant-or-self::input[@value="Search" and @type="submit"]
+issueSearch.issueType: //descendant-or-self::form[descendant::select[@name="can" and 
+     @id="can"] and descendant::span[contains(text(),"for")] and 
+     descendant::input[@type="text" and @name="q"] and 
+     descendant::input[@value="Search" and @type="submit"] and 
+     @action="list" and @method="get"]/descendant-or-self::select
+                         [@name="can" and @id="can"]
+issueSearch.searchLabel: //descendant-or-self::form[descendant::select[@name="can" 
+     and @id="can"] and descendant::span[contains(text(),"for")] and
+     descendant::input[@type="text" and @name="q"] and descendant::input[
+     @value="Search" and @type="submit"] and @action="list" and @method="get"]
+     /descendant-or-self::span[contains(text(),"for")]
+issueSearch.searchBox: //descendant-or-self::form[descendant::select[@name="can" 
+     and @id="can"] and descendant::span[contains(text(),"for")] and 
+     descendant::input[@type="text" and @name="q"] and descendant::input[
+     @value="Search" and @type="submit"] and @action="list" and @method="get"]
+     /descendant-or-self::input[@type="text" and @name="q"]
+issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="can" 
+     and @id="can"] and descendant::span[contains(text(),"for")] and 
+     descendant::input[@type="text" and @name="q"] and descendant::input[
+     @value="Search" and @type="submit"] and @action="list" and @method="get"]
+     /descendant-or-self::input[@value="Search" and @type="submit"]
 -------------------------------------------------------
 }}}
 
@@ -848,7 +866,8 @@ tellurium{
         port = "4444"
         //whether to use multiple windows
         useMultiWindows = false
-        //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
+        //whether to run the embedded selenium server. 
+        //If false, you need to manually set up a selenium server
         runInternally = false
         //profile location
         profile = ""
@@ -922,26 +941,6 @@ In the package org.tellurium.test, Tellurium provides three different ways to wr
   * TelluriumTestNGTestCase is for TestNG. Similarly, you can use the following annotations: @BeforeSuite, @AfterSuite, @BeforeTest, @AfterTest, @BeforeGroups, @AfterGroups, @BeforeClass, @AfterClass, @BeforeMethod, @AfterMethod, @DataProvider, @Parameters, and @Test
   * TelluriumGroovyTestCase is for Groovy test cases.
   * Data Driven Testing. Tellurium provides the class _TelluriumDataDrivenModule_ for users to define data driven testing modules and the class _TelluriumDataDrivenTest_ to drive the actual tests.
-
-Tellurium defined a set of DSLs to support Tellurium tests. The most often used ones include
-
-  * openUrl(String url): establish a new connection to Selenium server for the given url. The DSL format is:
-
-  {{{
-    openUrl url
-  }}}
-
-  Example: 
-
-  {{{
-    openUrl "http://code.google.com/p/aost/"
-  }}}
-
-  * connectUrl(String url): use existing connect for the given url. The DSL format is:
-
-  {{{
-    connectUrl "http://code.google.com/p/aost/" 
-  }}}
 
 Apart from the above, Tellurium also provides users the capability to write Tellurium tests and Tellurium data driven tests in pure DSL scripts. The _DslScriptExecutor_ is used to run the .dsl files.
 
@@ -1156,6 +1155,34 @@ In addition to the above DSLs, Tellurium provides Selenium-compatible data acces
 
   * {{{String[] getAllWindowTitles()}}}: Returns the titles of all windows that the browser knows about.
 
+=== Test Support DSL ===
+
+Tellurium defined a set of DSLs to support Tellurium tests. The most often used ones include
+
+  * openUrl(String url): establish a new connection to Selenium server for the given url. The DSL format is:
+
+  {{{
+    openUrl url
+  }}}
+
+  Example: 
+
+  {{{
+    openUrl "http://code.google.com/p/aost/"
+  }}}
+
+  * connectUrl(String url): use existing connect for the given url. The DSL format is:
+
+  {{{
+    connectUrl url
+  }}}
+
+  Example:
+
+  {{{
+    connectUrl "http://code.google.com/p/aost/" 
+  }}}
+
 == Tellurium UI Objects==
 
 Tellurium provides a set of predefined Ui objects, which users can use directly. Here we describe them one by one in details.
@@ -1182,10 +1209,10 @@ and the base Ui object also provides the following methods:
 Obviously, all UI Objects will inherit the above attributes and methods. But be aware that you usually do not call these methods directly and you should use DSL syntax instead. For example, use
 
 {{{
-  click "google_start_page.googlesearch"
+  click "GoogleStartPage.GoogleSearch"
 }}}
 
-In this way, Tellurium will first map the UiID "google_start_page.googlesearch" to the actual UI object and then call the _click_ method on it. If that Ui object does not have the _click_ method defined, you will get an error.
+In this way, Tellurium will first map the UiID ""GoogleStartPage.GoogleSearch" to the actual UI object and then call the _click_ method on it. If that Ui object does not have the _click_ method defined, you will get an error.
 
 === UI Object Default Attributes ===
 
@@ -1424,7 +1451,9 @@ Table is one of the most complicated Ui Object and also the most often used one.
 Another distinguished feature of Table is that you can define Ui template for its elements. For example, the following example defines different table headers and the template for the first column, the element on the second row and the second column, and the template for all the other elements in other rows and columns.
 
 {{{
-ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"], group: "true"){
+ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"], 
+         group: "true")
+{
     //define table header
     //for the border column
     TextBox(uid: "header: 1", clocator: [:])
@@ -1583,8 +1612,11 @@ SelectMenu is designed for the selecting column menu on the Tellurium Issues pag
 The SelectMenu on the Tellurium issues page is expressed as follows,
 
 {{{
-ui.SelectMenu(uid: "selectColumnMenu", clocator:[class: "popup",id: "pop__dot"], title: "Show columns:",
-    items: ["ID":"ID", "Type":"Type", "Status":"Status", "Priority":"Priority", "Milestone":"Milestone", "Owner":"Owner", "Summary":"Summary", "Stars":"Stars", "Opened":"Opened", "Closed":"Closed", "Modified":"Modified", "EditColumn":"Edit Column Spec..." ])
+ui.SelectMenu(uid: "selectColumnMenu", clocator:[class: "popup",id: "pop__dot"], 
+    title: "Show columns:", items: ["ID":"ID", "Type":"Type", "Status":"Status",
+    "Priority":"Priority", "Milestone":"Milestone", "Owner":"Owner", 
+    "Summary":"Summary", "Stars":"Stars", "Opened":"Opened", "Closed":"Closed",
+    "Modified":"Modified", "EditColumn":"Edit Column Spec..." ])
 }}}
 
 Like SimpleMenu, SelectMenu also has the following methods:
@@ -1780,7 +1812,7 @@ Up to Tellurium 0.6.0, Tellurium still leveraged Selenium core as the test drivi
   * Bulk data retrieval. For example, the following method will get back all data in a table with just one method call, which improves the speed dramatically:
 
 {{{
-      String getAllTableCellText(String uid) 
+        String getAllTableCellText(String uid) 
 }}}
 
   * New APIs for partial matching of attributes, CSS query, and more.
@@ -1800,19 +1832,26 @@ Tellurium provides [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes 
 Run the following maven command to create a new JUnit project
 
 {{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
+             -DarchetypeArtifactId=tellurium-junit-archetype \
+             -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
 }}}
 
 Without adding the Tellurium Maven repository, you can specify it in the command line as
 {{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0 \
--DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/releases
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
+                     -DarchetypeArtifactId=tellurium-junit-archetype \
+                     -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0 \
+     -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/releases
 }}}
 
 For TestNG project, you should use a different archetype
 
 {{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
+                     -DarchetypeArtifactId=tellurium-testng-archetype \
+                     -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0 \
+     -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/releases
 }}}
 
 === Tellurium Reference Projects ===
@@ -1845,11 +1884,21 @@ There are three ways: use [http://code.google.com/p/aost/wiki/ReferenceProjectGu
 
 The easiest way to create a Tellurium project is to use Tellurium Maven archetypes. Tellurium provides two Maven archetypes: tellurium-junit-archetype and tellurium-testng-archetype (for Tellurium JUnit test projects and Tellurium TestNG test projects respectively.) As a result, you can create a Tellurium project using one Maven command. For a Tellurium JUnit project, use:
 
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
+     -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium \
+     -DarchetypeVersion=0.7.0-SNAPSHOT \
+     -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
+}}}
 
 and for a Tellurium TestNG project, use:
 
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
+     -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium \
+     -DarchetypeVersion=0.7.0-SNAPSHOT \
+     -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
+}}}
 
 For an Ant user, you should download [http://aost.googlecode.com/files/tellurium-core-0.6.0.jar Tellurium core 0.6.0 jar file] from [http://code.google.com/p/aost/downloads/list Tellurium project download page], [http://aost.googlecode.com/files/tellurium-0.6.0-dependencies.zip the Tellurium dependency file], and [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile the Tellurium configuration file]. Unpack the Tellurium dependency file to your project /lib directory together with the Tellurium core 0.6.0 jar file. Name the Tellurium configuration file as TelluriumConfig.groovy and put it at your project root directory. 
 
@@ -1963,7 +2012,8 @@ class SelectMenu extends UiObject{
 
     String header = null
 
-    //map to hold the alias name for the menu item in the format of "alias name" : "menu item"
+    //map to hold the alias name for the menu item in the format of 
+    //"alias name" : "menu item"
     Map<String, String> aliasMap
 
     def click(Closure c){
@@ -2041,7 +2091,9 @@ public class TelluriumIssueModule extends DslContext {
       SubmitButton(uid: "searchButton", clocator: [value: "Search"])
     }
 
-    ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], group: "true") {
+    ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], 
+             group: "true") 
+{
       TextBox(uid: "header: 1", clocator: [:])
       UrlLink(uid: "header: 2", clocator: [text: "*ID"])
       UrlLink(uid: "header: 3", clocator: [text: "*Type"])
@@ -2149,6 +2201,7 @@ public class TelluriumIssueModule extends DslContext {
 
 === Groovy Test Case ===
 
+{{{
 public class TelluriumIssueGroovyTestCase extends GroovyTestCase{
 
   private TelluriumIssueModule tisp;
@@ -2184,9 +2237,11 @@ public class TelluriumIssueGroovyTestCase extends GroovyTestCase{
     tisp.dump("issueResult");
   }
 }
+}}}
 
 === Java Test Case ===
 
+{{{
 public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
     private static TelluriumIssueModule tisp;
 
@@ -2281,6 +2336,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         }
     }
 }
+}}}
 
 === Data Driven Testing ===
 
@@ -2413,8 +2469,10 @@ The test result looks as follows,
     <Message>Issue: Add check Alter function to Tellurium</Message>
     <Message>Issue: Firefox plugin to automatically generate UI module for users</Message>
     <Message>Issue: Create a prototype for container-like Dojo widgets</Message>
-    <Message>Issue: Need to create Wiki page to explain how to setup Maven and use Maven to build multiple projects</Message>
-    <Message>Issue: Configure IntelliJ to properly load one maven sub-project and not look for an IntelliJ project dependency</Message>
+    <Message>Issue: Need to create Wiki page to explain how to setup Maven and 
+             use Maven to build multiple projects</Message>
+    <Message>Issue: Configure IntelliJ to properly load one maven sub-project and not
+             look for an IntelliJ project dependency</Message>
     <Message>Issue: Support nested properties for Tellurium</Message>
     <Message>Issue: update versions for extensioin dojo-widget and TrUMP projects</Message>
   </Test>
@@ -2432,12 +2490,16 @@ The test result looks as follows,
     <Runtime>4.023694</Runtime>
     <Message>Found 7  All Issues for owner matt.senter</Message>
     <Message>Issue: Add Maven 2 support</Message>
-    <Message>Issue: Add Maven support for the new code base with multiple sub-projects</Message>
+    <Message>Issue: Add Maven support for the new code base with multiple 
+             sub-projects</Message>
     <Message>Issue: Cannot find symbol class Selenium</Message>
-    <Message>Issue: Need to create Wiki page to explain how to setup Maven and use Maven to build multiple projects</Message>
+    <Message>Issue: Need to create Wiki page to explain how to setup Maven and 
+             use Maven to build multiple projects</Message>
     <Message>Issue: Need to add tar.gz file as artifact in Maven</Message>
-    <Message>Issue: Configure IntelliJ to properly load one maven sub-project and not look for an IntelliJ project dependency</Message>
-    <Message>Issue: update versions for extensioin dojo-widget and TrUMP projects</Message>
+    <Message>Issue: Configure IntelliJ to properly load one maven sub-project and 
+             not look for an IntelliJ project dependency</Message>
+    <Message>Issue: update versions for extensioin dojo-widget and TrUMP
+             projects</Message>
   </Test>
   <Test name='SearchIssueForOwner'>
     <Step>4</Step>
@@ -2471,8 +2533,10 @@ The test result looks as follows,
     <Status>PROCEEDED</Status>
     <Runtime>3.521415</Runtime>
     <Message>Found 5  All Issues for owner vivekmongolu</Message>
-    <Message>Issue: Create more examples to demonstrate the usage of different UI objects</Message>
-    <Message>Issue: DslScriptEngine causes NullPointerException when attempt to invoke server.runSeleniumServer() method</Message>
+    <Message>Issue: Create more examples to demonstrate the usage of different UI
+             objects</Message>
+    <Message>Issue: DslScriptEngine causes NullPointerException when attempt to 
+             invoke server.runSeleniumServer() method</Message>
     <Message>Issue: No such property: connector for class: DslTest</Message>
     <Message>Issue: Firefox plugin to automatically generate UI module for users</Message>
     <Message>Issue: Setup Firefox plugin sub-project</Message>
@@ -2491,9 +2555,12 @@ The test result looks as follows,
     <Runtime>3.475594</Runtime>
     <Message>Found 5  All Issues for owner haroonzone</Message>
     <Message>Issue: Solve HTTPS certificate problem</Message>
-    <Message>Issue: Refactor Tellurium project web site examples using TestNG and put them to the tellurium-testng-java sub-project</Message>
-    <Message>Issue: Create a new wiki page on how to create custom tellurium project for NetBeans</Message>
-    <Message>Issue: Create a new wiki page on how to create custom tellurium project for IntelliJ</Message>
+    <Message>Issue: Refactor Tellurium project web site examples using TestNG and 
+             put them to the tellurium-testng-java sub-project</Message>
+    <Message>Issue: Create a new wiki page on how to create custom tellurium project 
+             for NetBeans</Message>
+    <Message>Issue: Create a new wiki page on how to create custom tellurium project 
+             for IntelliJ</Message>
     <Message>Issue: Table operations for large size one seems to be very slow</Message>
   </Test>
 </TestResults>
@@ -2505,16 +2572,20 @@ In Tellurium, you can create test scripts in pure DSL. Take TelluriumPage.dsl as
 
 {{{
 //define Tellurium project menu
-ui.Container(uid: "menu", clocator: [tag: "table", id: "mt", trailer: "/tbody/tr/th"], group: "true"){
-    //since the actual text is  Project&nbsp;Home, we can use partial match here. Note "%%" stands for partial match
-    UrlLink(uid: "project_home", clocator: [text: "%%Home"])
+ui.Container(uid: "menu", clocator: [tag: "table", id: "mt", trailer: "/tbody/tr/th"],
+             group: "true")
+{
+    //since the actual text is  Project&nbsp;Home, we can use partial match here. 
+    //Note "*" stands for partial match
+    UrlLink(uid: "project_home", clocator: [text: "*Home"])
     UrlLink(uid: "downloads", clocator: [text: "Downloads"])
     UrlLink(uid: "wiki", clocator: [text: "Wiki"])
     UrlLink(uid: "issues", clocator: [text: "Issues"])
     UrlLink(uid: "source", clocator: [text: "Source"])
 }
 
-//define the Tellurium project search module, which includes an input box, two search buttons
+//define the Tellurium project search module, which includes an input box
+//and two search buttons
 ui.Form(uid: "search", clocator: [:], group: "true"){
     InputBox(uid: "searchbox", clocator: [name: "q"])
     SubmitButton(uid: "search_project_button", clocator: [value: "Search Projects"])
@@ -2567,8 +2638,10 @@ If you have any questions or problems with Tellurium, please join our [http://gr
 Tellurium Maven JUnit testing project could use the following POM file,
 
 {{{
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>Your_Group_ID</groupId>
     <artifactId>Your_Artifact_Id</artifactId>
@@ -2864,7 +2937,8 @@ Tellurium Maven JUnit testing project could use the following POM file,
                                     <pathelement location="target/test-classes"/>
                                 </path>
                                 <javac srcdir="src/test/groovy"
-                                       destdir="target/test-classes" classpathref="testcompile.classpath">
+                                       destdir="target/test-classes" 
+                                            classpathref="testcompile.classpath">
                                     <include name="**/*.java"/>
                                 </javac>
                             </tasks>
@@ -2971,7 +3045,9 @@ build.xml:
 		<path refid="test.classpath" />
 	</path>
 
-	<taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask" classpathref="junit.classpath" />
+	<taskdef name="junit" 
+         classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask" 
+         classpathref="junit.classpath" />
 
 	<target name="clean">
 		<echo message="Cleaning ..." />
@@ -2982,7 +3058,8 @@ build.xml:
 	<target name="init">
 		<echo message="Initializing project..." />
 		<tstamp>
-			<format property="time.formatted" pattern="MM/dd/yyyy hh:mm:ss a" unit="hour" />
+			<format property="time.formatted" 
+                                pattern="MM/dd/yyyy hh:mm:ss a" unit="hour" />
 		</tstamp>
 		<mkdir dir="${dir.build}" />
 		<mkdir dir="${dir.build.tellurium}" />
@@ -3024,7 +3101,8 @@ build.xml:
             </sequential>
     </macrodef>
 
-   <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc" classpathref="lib.path"/>
+   <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc" 
+            classpathref="lib.path"/>
 
 	<target name="compile-tellurium" depends="init">
 		<echo message="Compiling java..." />
@@ -3053,7 +3131,8 @@ build.xml:
 
 	<target name="run-unit-tests" depends="compile-test">
 		<junit fork="yes" forkmode="once" maxmemory="1024m"
-			printsummary="yes" errorProperty="test.failed" failureProperty="test.failed">
+			printsummary="yes" errorProperty="test.failed" 
+                        failureProperty="test.failed">
 			<classpath refid="project.classpath" />
 			<formatter type="brief" usefile="false" />
 			<formatter type="xml" />
@@ -3086,11 +3165,12 @@ tellurium{
         port = "4444"
         //whether to use multiple windows
         useMultiWindows = false
-        //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
+        //whether to run the embedded selenium server. 
+        //If false, you need to manually set up a selenium server
         runInternally = true
         //profile location
         profile = ""  
-        //user-extension.js file, for example, "target/test-classes/extension/user-extensions.js"
+        //user-extension.js file, for example, "target/user-extensions.js"
         userExtension = ""
     }
     //event handler
@@ -3105,7 +3185,8 @@ tellurium{
         //whether we should check if the UI element is presented
         checkElement = true
     }
-    //the configuration for the connector that connects the selenium client to the selenium server
+    //the configuration for the connector that connects the selenium client 
+    //to the selenium server
     connector{
         //selenium server host
         //please change the host if you run the Selenium server remotely
@@ -3136,12 +3217,13 @@ tellurium{
         //we may add the result report for regular tellurium test case
         result{
             //specify what result reporter used for the test result
-            //valid options include "SimpleResultReporter", "XMLResultReporter", and "StreamXMLResultReporter"
+            //valid options include "SimpleResultReporter", "XMLResultReporter",
+            //and "StreamXMLResultReporter"
             reporter = "XMLResultReporter"
             //the output of the result
             //valid options include "Console", "File" at this point
-            //if the option is "File", you need to specify the file name, other wise it will use the default
-            //file name "TestResults.output"
+            //if the option is "File", you need to specify the file name, 
+            //otherwise it will use the default file name "TestResults.output"
             output = "Console"
             //test result output file name
             filename = "TestResult.output"
@@ -3159,14 +3241,15 @@ tellurium{
     }
     uiobject{
         builder{
-            //user can specify custom UI objects here by define the builder for each UI object
+            //user can specify custom UI objects here by define the builder for 
+            //each UI object
             //the custom UI object builder must extend UiObjectBuilder class
             //and implement the following method:
             //
             // public build(Map map, Closure c)
             //
-            //For container type UI object, the builder is a bit more complicated, please
-            //take the TableBuilder or ListBuilder as an example
+            //For container type UI object, the builder is a bit more complicated, 
+            //please take the TableBuilder or ListBuilder as an example
 
             //example:
 //           Icon="org.tellurium.builder.IconBuilder"
