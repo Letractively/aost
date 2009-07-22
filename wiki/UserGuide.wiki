@@ -1949,6 +1949,79 @@ Compile the project and run the new test case.
 
 == Examples ==
 
+=== Custom UI object ===
+
+Tellurium supports custom UI objects defined by users. For most UI objects, they must extend the "UiObject" class and then define actions or methods they support. For container type UI objects, i.e., which hold other UI objects, they should extends the Container class. Please see Tellurium Table and List objects for more details.
+
+In the tellurium-junit-java project, we defined the custom UI object "SelectMenu" as follows:
+
+{{{
+class SelectMenu extends UiObject{   
+    public static final String TAG = "div"
+
+    String header = null
+
+    //map to hold the alias name for the menu item in the format of "alias name" : "menu item"
+    Map<String, String> aliasMap
+
+    def click(Closure c){
+        c(null)
+    }
+
+    def mouseOver(Closure c){
+        c(null)
+    }
+
+    def mouseOut(Closure c){
+        c(null)
+    }
+
+    public void addTitle(String header){
+        this.header = header
+    }
+    
+    public void addMenuItems(Map<String, String> menuItems){
+        aliasMap = menuItems
+    }
+   
+    ......
+
+}
+}}}
+
+For each UI object, you must define the builder so that Tellurium knows how to construct the UI object when it parses the UI modules. For example, we define the builder for the "SelectMenu" object as follows:
+
+{{{
+class SelectMenuBuilder extends UiObjectBuilder{
+    static final String ITEMS = "items"
+    static final String TITLE = "title"
+
+    public build(Map map, Closure c) {
+        def df = [:]
+        df.put(TAG, SelectMenu.TAG)
+        SelectMenu menu = this.internBuild(new SelectMenu(), map, df)
+        Map<String, String> items = map.get(ITEMS)
+        if(items != null && items.size() > 0){
+           menu.addMenuItems(items) 
+        }
+        
+        menu.addTitle(map.get(TITLE))
+        
+        return menu
+    }
+}
+}}}
+
+You may wonder how to hook the custom objects into Tellurium core so that it can recognize the new type. The answer is simple, you just add the UI object name and its builder class name to Tellurium configuration file TelluriumConfig.groovy. Update the following section:
+
+{{{
+    uiobject{
+        builder{
+           SelectMenu="org.tellurium.builder.SelectMenuBuilder"
+        }
+    }
+}}}
+
 === UI Module ==
 
 Take the [http://code.google.com/p/aost/issues/list Tellurium issue page] as an example, the UI module can be defined as
