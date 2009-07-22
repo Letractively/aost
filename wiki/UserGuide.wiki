@@ -239,8 +239,54 @@ Tellurium UI templates are used for two purposes:
   # When there are many identical UI elements, you can use one template to represent them all
   # When here are a variable/dynamic size of UI elements at runtime, you know the patterns, but not the size.
 
-More specifically, Table and List are two Tellurium objects that can define UI templates. Table defines two dimensional UI templates, and List is for one dimensional. The Template has
-special UIDs such as "2", "all", or "row: 1, column: 2". 
+More specifically, Table and List are two Tellurium objects that can define UI templates. Table defines two dimensional UI templates, and List is for one dimensional. The Template has special UIDs such as "2", "all", or "row: 1, column: 2". 
+
+Let us look at use case (1), we have the following HTML source
+
+{{{
+      <ul class="a">
+        <li>
+            <A HREF="site?tcid=a"
+               class="b">AA
+            </A>
+        </li>
+        <li>
+            <A HREF="site?tcid=b"
+               class="b">BB
+            </A>
+        </li>
+        <li>
+            <A HREF="site?;tcid=c"
+               class="b">CC
+            </A>
+        </li>
+        <li>
+            <A HREF="site?tcid=d"
+               class="b">DD
+            </A>
+        </li>
+        <li>
+            <A HREF="site?tcid=e"
+               class="b">EE
+            </A>
+        </li>
+        <li>
+            <A HREF="site?tcid=f"
+               class="b">FF
+            </A>
+        </li>
+    </ul>
+}}}
+
+You have six links there. Without templates, you have to put six UrlLink objects in the UI module. Look at how simple by using the template
+
+{{{
+ui.List(uid: "list", clocator: [tag: "ul", class: "a"], separator:"li")
+{
+    UrlLink(uid: "all", clocator: [class: "b"])
+}
+}}}
+
 
 For use case (2), a common application is the data grid. Look at the "issueResult" data grid on our Tellurium Issues page:
 
@@ -320,6 +366,132 @@ A more general example is as follows:
 }}}
 
 Except for the "click" event, all of the "focus", "mouseOver", "mouseOut", and "blur" events will be automatically fired by Tellurium during testing. Do not worry about the event order for the respond attribute, Tellurium will automatically re-order the events and then process them appropriately for you.
+
+===  Logical Container ===
+
+The Container object in Tellurium is used to hold child objects that are in the same subtree in the DOM object. However, there are always exceptions. For example, logical Container (Or virtual Container, but I think Logical Container is better) can violate this rule. 
+
+What is a logic Container? It is a Container with empty locator, for instance,
+
+{{{
+Container(uid: "logical"){
+   ......
+}
+}}}
+
+
+But empty != nothing, there are some scenarios that the logical container can play an important role. The reason is the Container includes a uid for you to refer and it can logically group UI element together.
+
+Look at the following example,
+{{{
+
+    <div class="block_content">
+        <ul>
+            <li>
+                <h5>
+                    <a href="" title="">xxx</a>
+                </h5>
+                <p class="product_desc">
+                    <a href=".." title="More">...</a>
+                </p>
+                <a href="..." title=".." class="product_image">
+                    <img src="..." alt="..." height="129" width="129"/>
+                </a>
+                <p>
+                    <a class="button" href="..." title="View">View</a>
+                    <a title="Add to cart">Add to cart</a>
+                </p>
+            </li>
+            <li>
+                similar UI
+            </li>
+            <li>
+                similar UI
+            </li>
+        </ul>
+    </div>       
+
+}}}
+
+As you see, the UI elements under the tag li are different and how to write the UI template for them? The good news is that the logical Container comes to play. For example,
+the UI module could be written as
+
+{{{
+ui.Container(uid: "content", clocator: [tag: "div", class: "block_content"]){
+     List(uid: "list", clocator: [tag: "ul"], separator:"li") {
+         Container("all"){
+             UrlLink(uid: "title", clocator: [title: "View"])
+                      ......
+                      other elements inside the li tag
+         }
+    }
+} 
+}}}
+
+Another usage of the logical Container is to convert the test case recorded by Selenium IDE to Tellurium test cases. Let us take the search UI on Tellurium download page as an example. 
+
+First, I recorded the following Selenium test case using Selenium IDE,
+
+{{{
+import com.thoughtworks.selenium.SeleneseTestCase;
+
+public class SeleniumTestCase extends SeleneseTestCase {
+	public void setUp() throws Exception {
+		setUp("http://code.google.com/", "*chrome");
+	}
+	public void testNew() throws Exception {
+		selenium.open("/p/aost/downloads/list");
+		selenium.select("can", "label=regexp:\\sAll Downloads");
+		selenium.type("q", "TrUMP");
+		selenium.click("//input[@value='Search']");
+		selenium.waitForPageToLoad("30000");
+	}
+}
+}}}
+
+Don't be confused by the locator "can" and "q", they are just UI element ids and can be easily expressed in XPath. The "label=regexp:\\sAll Downloads" part just tells you that Selenium uses regular express to match the String and the "\s" stands for a space. As a result, we can write the UI module based on the above code.
+
+{{{
+public class TelluriumDownloadPage extends DslContext {
+
+  public void defineUi() {
+    ui.Container(uid: "downloads") {
+      Selector(uid: "downloadType", locator: "//*[@id='can']")
+      InputBox(uid: "input", locator: "//*[@id='q']")
+      SubmitButton(uid: "search", locator: "//input[@value='Search']")
+    }
+  }
+
+  public void searchDownload(String downloadType, String searchKeyWords) {
+    selectByLabel "downloads.downloadType", downloadType
+    keyType "downloads.input", searchKeyWords
+    click "downloads.search"
+    waitForPageToLoad 30000
+  }
+}
+}}}
+
+And we can create the Tellurium test case accordingly,
+
+{{{
+public class TelluriumDownloadPageTestCase extends TelluriumJavaTestCase {
+
+    protected static TelluriumDownloadPage ngsp;
+
+    @BeforeClass
+    public static void initUi() {
+        ngsp = new TelluriumDownloadPage();
+        ngsp.defineUi();
+    }
+
+    @Test
+    public void testSearchDownload(){
+        connectUrl("http://code.google.com/p/aost/downloads/list");
+        ngsp.searchDownload(" All Downloads", "TrUMP");
+    }
+}
+}}}
+
 
 === jQuery Selector ===
 
@@ -531,51 +703,87 @@ The _customUiCall_ method handles all the UI to locator mapping for users. Tellu
 customDirectCall(String method, Object[] args)
 }}}
 
-=== Tellurium Data Driven Testing ===
+=== Data Driven Testing ===
 
-In Tellurium Data Driven Testing, more DSLs are defined. The first one is the way to define input data format using FieldSet, which represents the format of a line in the input file. 
+[http://code.google.com/p/aost/w/edit/DataDrivenTesting Data Driven Testing] is a different way to write tests, i.e, separate test data from the test scripts and the test flow is not controlled by the test scripts, but by the input file instead. In the input file, users can specify which tests to run, what are input parameters, and what are expected results.
+
+The tellurium data driven test consists of three main parts, i.e., Data Provider, TelluriumDataDrivenModule, and TelluriumDataDrivenTest. The data provider is responsible for reading data from input stream and converting data to Java variables. Tellurium provides the following data provider methods:
+
+  # loadData file_name, load input data from a file 
+  # useData String_name, load input data from a String in the test script
+  # bind(field_name), bind a variable to a field in a field set
+  # closeData, close the input data stream and report the test results
+  # cacheVariable(name, variable), put variable into cache
+  # getCachedVariable(name, variable), get variable from cache
+
+cacheVariable and getCachedVariable are used to pass intermediate variables among tests. 
+
+TelluriumDataDrivenModule is used to define modules, where users can define Ui Modules, FieldSets, and tests as illustrated by the following example,
 
 {{{
-//define file data format
-fs.FieldSet(name: "GoogleBookList", description: "Google Book List") {
-    Test(value: "checkBookList")
-    Field(name: "category", description: "book category")
-    Field(name: "size", type: "int", description: "google book list size ")
+ui.Table(uid: "labels_table", clocator: [:], group: "true"){
+   TextBox(uid: "row: 1, column: 1", clocator: [tag: "div", text: "Example project labels:"])
+   Table(uid: "row: 2, column: 1", clocator: [header: "/div[@id=\"popular\"]"]){
+        UrlLink(uid: "all", locator: "/a")
+   }
+}
+
+fs.FieldSet(name: "GCHStatus", description: "Google Code Hosting input") {
+    Test(value: "getGCHStatus")
+    Field(name: "label")
+    Field(name: "rowNum", type: "int")
+    Field(name: "columNum", type: "int")
+}  
+
+defineTest("getGCHStatus"){
+    def expectedLabel = bind("GCHStatus.label")
+    def expectedRowNum = bind("GCHStatus.rowNum")
+    def expectedColumnNum = bind("GCHStatus.columNum")
+
+    openUrl("http://code.google.com/hosting/")
+    def label = getText("labels_table[1][1]")
+    def rownum = getTableMaxRowNum("labels_table[2][1]")
+    def columnum = getTableMaxColumnNum("labels_table[2][1]")
+
+    compareResult(expectedLabel, label)
+    compareResult(expectedRowNum, rownum)
+    compareResult(expectedColumnNum, columnum)
+    pause 1000
 }
 }}}
 
-The above FieldSet includes multiple Fields and Test is special Field indicate the test name. To handle custom input data type, Tellurium provide the "typeHandler" DSL for the users to define a custom data type handler.
+TelluriumDataDrivenTest is the class users should extend to run the actual data driven testing. 
 
 {{{
-typeHandler "phoneNumber", "org.tellurium.test.PhoneNumberTypeHandler"
+class GoogleBookListCodeHostTest extends TelluriumDataDrivenTest{
+
+    public void testDataDriven() {
+
+        includeModule  example.google.GoogleBookListModule.class
+        includeModule  example.google.GoogleCodeHostingModule.class
+
+        //load file
+        loadData "src/test/example/test/ddt/GoogleBookListCodeHostInput.txt"
+        
+        //read each line and run the test script until the end of the file
+        stepToEnd()
+
+        //close file
+        closeData()
+    }
+}
 }}}
 
-In addition to that, Tellurium defined the following DSLs to control the testing flow and compare the results:
-  
-  * includeModule: load a user defined Data Driven Module. For example,
+The sample input data are as follows,
 
-  {{{
-    includeModule  example.test.ddt.GoogleBookListModule.class
-  }}}
+{{{
+##TEST should be always be the first column
 
-  * loadData: load input data file. For example,
-
-  {{{
-    loadData "src/test/example/test/ddt/GoogleBookListCodeHostInput.txt"
-  }}}
-
-  * compareResult: compare the expected value with the actual result, for example:
-
-  {{{
-    compareResult "Java", category
-  }}}
-
-  * stepToEnd(): read each line from the input data stream and run the corresponding test until it reaches the end of the stream.
-
-  * closeData(): close the input data stream and output the test results.
-
-More details for Data Driven Testing DSLs can be found on [http://code.google.com/p/aost/wiki/DataDrivenTesting the Tellurium Data Driven Testing page]
-
+##Data for test "getGCHStatus"
+##TEST | LABEL | Row Number | Column Number
+getGCHStatus |Example project labels:| 3 | 6
+getGCHStatus |Example project| 3 | 6 
+}}}
 
 === The Dump Method ===
 
@@ -1739,9 +1947,1166 @@ public class NewTestCase extends TelluriumJavaTestCase {
 
 Compile the project and run the new test case.
 
+== Examples ==
+
+=== UI Module ==
+
+Take the [http://code.google.com/p/aost/issues/list Tellurium issue page] as an example, the UI module can be defined as
+
+{{{
+public class TelluriumIssueModule extends DslContext {
+
+  public void defineUi() {
+
+    //define UI module of a form include issue type selector and issue search
+    ui.Form(uid: "issueSearch", clocator: [action: "list", method: "get"], group: "true") {
+      Selector(uid: "issueType", clocator: [name: "can", id: "can"])
+      TextBox(uid: "searchLabel", clocator: [tag: "span", text: "*for"])
+      InputBox(uid: "searchBox", clocator: [type: "text", name: "q"])
+      SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+    }
+
+    ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], group: "true") {
+      TextBox(uid: "header: 1", clocator: [:])
+      UrlLink(uid: "header: 2", clocator: [text: "*ID"])
+      UrlLink(uid: "header: 3", clocator: [text: "*Type"])
+      UrlLink(uid: "header: 4", clocator: [text: "*Status"])
+      UrlLink(uid: "header: 5", clocator: [text: "*Priority"])
+      UrlLink(uid: "header: 6", clocator: [text: "*Milestone"])
+      UrlLink(uid: "header: 7", clocator: [text: "*Owner"])
+      UrlLink(uid: "header: 9", clocator: [text: "*Summary + Labels"])
+      UrlLink(uid: "header: 10", clocator: [text: "*..."])
+
+      //define table elements
+      //for the border column
+      TextBox(uid: "row: *, column: 1", clocator: [:])
+      TextBox(uid: "row: *, column: 8", clocator: [:])
+      TextBox(uid: "row: *, column: 10", clocator: [:])
+      //For the rest, just UrlLink
+      UrlLink(uid: "all", clocator: [:])
+    }
+
+    ui.Table(uid: "issueResultWithCache", cacheable: "true", noCacheForChildren: "false",
+             clocator: [id: "resultstable", class: "results"], group: "true") {
+      //define table header
+      //for the border column
+      TextBox(uid: "header: 1", clocator: [:])
+      UrlLink(uid: "header: 2", clocator: [text: "*ID"])
+      UrlLink(uid: "header: 3", clocator: [text: "*Type"])
+      UrlLink(uid: "header: 4", clocator: [text: "*Status"])
+      UrlLink(uid: "header: 5", clocator: [text: "*Priority"])
+      UrlLink(uid: "header: 6", clocator: [text: "*Milestone"])
+      UrlLink(uid: "header: 7", clocator: [text: "*Owner"])
+      UrlLink(uid: "header: 9", clocator: [text: "*Summary + Labels"])
+      UrlLink(uid: "header: 10", clocator: [text: "*..."])
+
+      //define table elements
+      //for the border column
+      TextBox(uid: "row: *, column: 1", clocator: [:])
+      TextBox(uid: "row: *, column: 8", clocator: [:])
+      TextBox(uid: "row: *, column: 10", clocator: [:])
+      //For the rest, just UrlLink
+      UrlLink(uid: "all", clocator: [:])
+    }
+
+  }
+
+  public List<String> getDataForColumn(int column){
+        int nrow = getTableMaxRowNum("issueResult")
+        if(nrow > 20) nrow = 20
+        List<String> lst = new ArrayList<String>()
+        for(int i=1; i<nrow; i++){
+            lst.add(getText("issueResult[${i}][${column}]"))
+        }
+
+        return lst
+  }
+
+  public List<String> getDataForColumnWithCache(int column){
+        int nrow = getTableMaxRowNum("issueResultWithCache")
+        if(nrow > 20) nrow = 20
+        List<String> lst = new ArrayList<String>()
+        for(int i=1; i<nrow; i++){
+            lst.add(getText("issueResultWithCache[${i}][${column}]"))
+        }
+
+        return lst
+  }
+
+  public String[] getAllText(){
+    return getAllTableCellText("issueResult")
+  }
+
+  public int getTableCellCount(){
+    String sel = getSelector("issueResult")
+    sel = sel + " > tbody > tr > td"
+
+    return getJQuerySelectorCount(sel)
+  }
+
+  public String[] getTableCSS(String name){
+    String[] result = getCSS("issueResult.header[1]", name)
+
+    return result
+  }
+
+  public String[] getIsssueTypes() {
+    return getSelectOptions("issueSearch.issueType")
+  }
+
+  public void selectIssueType(String type) {
+    selectByLabel "issueSearch.issueType", type
+  }
+
+  public void searchIssue(String issue) {
+    keyType "issueSearch.searchBox", issue
+    click "issueSearch.searchButton"
+    waitForPageToLoad 30000
+  }
+
+  public boolean checkamICacheable(String uid){
+    UiObject obj = getUiElement(uid)
+    boolean cacheable = obj.amICacheable()
+    return cacheable
+  }
+}
+}}} 
+
+=== Groovy Test Case ===
+
+public class TelluriumIssueGroovyTestCase extends GroovyTestCase{
+
+  private TelluriumIssueModule tisp;
+
+  public void setUp() {
+    tisp = new TelluriumIssueModule();
+    tisp.defineUi();
+  }
+
+  public void tearDown() {
+  }
+
+  public void testDumpWithXPath() {
+    tisp.disableJQuerySelector();
+    tisp.dump("issueSearch");
+    tisp.dump("issueSearch.searchButton");
+    tisp.dump("issueResult");
+  }
+
+  public void testDumpWithJQuerySelector() {
+    tisp.useJQuerySelector();
+    tisp.exploreSelectorCache = false;
+    tisp.dump("issueSearch");
+    tisp.dump("issueSearch.searchButton");
+    tisp.dump("issueResult");
+  }
+
+  public void testDumpWithJQuerySelectorCacheEnabled() {
+    tisp.useJQuerySelector();
+    tisp.exploreSelectorCache = true;
+    tisp.dump("issueSearch");
+    tisp.dump("issueSearch.searchButton");
+    tisp.dump("issueResult");
+  }
+}
+
+=== Java Test Case ===
+
+public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
+    private static TelluriumIssueModule tisp;
+
+    @BeforeClass
+    public static void initUi() {
+        tisp = new TelluriumIssueModule();
+        tisp.defineUi();
+        tisp.useJQuerySelector();
+        tisp.enableSelectorCache();
+        tisp.setCacheMaxSize(30);
+    }
+
+    @Before
+    public void setUp(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
+    }
+
+    @Test
+    public void testSearchIssueTypes(){
+        String[] ists = tisp.getIsssueTypes();
+        tisp.selectIssueType(ists[2]);
+        tisp.searchIssue("Alter");
+    }
+
+    @Test
+    public void testAllIssues(){
+        String[] details = tisp.getAllText();
+        assertNotNull(details);
+        for(String content: details){
+            System.out.println(content);
+        }
+    }
+
+    @Test
+    public void testGetCellCount(){
+        int count = tisp.getTableCellCount();
+        assertTrue(count > 0);
+        System.out.println("Cell size: " + count);
+        String[] details = tisp.getAllText();
+        assertNotNull(details);
+        assertEquals(details.length, count);
+    }
+
+    @Test
+    public void testCSS(){
+        tisp.disableSelectorCache();
+        String[] css = tisp.getTableCSS("font-size");
+        assertNotNull(css);
+    }
+    
+    @Test
+    public void checkCacheable(){
+        boolean result = tisp.checkamICacheable("issueResult[1][1]");
+        assertTrue(result);
+        result = tisp.checkamICacheable("issueResult");
+        assertTrue(result);
+    }
+
+    @Test
+    public void testGetDataForColumn(){
+        long beforeTime = System.currentTimeMillis();
+        tisp.getDataForColumn(3);
+        long endTime = System.currentTimeMillis();
+        System.out.println("Time noCacheForChildren " + (endTime-beforeTime) + "ms");
+        beforeTime = System.currentTimeMillis();
+        tisp.getDataForColumnWithCache(3);
+        endTime = System.currentTimeMillis();
+        System.out.println("Time with all cache " + (endTime-beforeTime) + "ms");
+    }
+
+    @Test
+    public void testCachePolicy(){
+        tisp.setCacheMaxSize(2);
+        tisp.useDiscardNewCachePolicy();
+        tisp.searchIssue("Alter");
+        tisp.getTableCSS("font-size");
+        tisp.getIsssueTypes();
+        tisp.searchIssue("Alter");
+        tisp.setCacheMaxSize(30);
+    }
+
+    @After
+    public void showCacheUsage(){
+        int size = tisp.getCacheSize();
+        int maxSize = tisp.getCacheMaxSize();
+        System.out.println("Cache Size: " + size + ", Cache Max Size: " + maxSize);
+        System.out.println("Cache Usage: ");
+        Map<String, Long> usages = tisp.getCacheUsage();
+        Set<String> keys = usages.keySet();
+        for(String key: keys){
+            System.out.println("UID: " + key + ", Count: " + usages.get(key));
+        }
+    }
+}
+
+=== Data Driven Testing ===
+
+We use Tellurium Issue page as the data driven testing example, we define tests to search issues assigned to a Tellurium team member and use the input file to define which team members we want the result for.
+
+We first define a TelluriumIssuesModule class that extends TelluriumDataDrivenModule class and includes a method "defineModule". In the "defineModule" method, we define UI modules,  input data format, and different tests. The UI modules are the same as defined before for the Tellurium issue page. 
+
+The input data format is defined as
+
+{{{        
+fs.FieldSet(name: "OpenIssuesPage") {
+   Test(value: "OpenTelluriumIssuesPage")
+}
+
+fs.FieldSet(name: "IssueForOwner", description: "Data format for test SearchIssueForOwner") {
+   Test(value: "SearchIssueForOwner")
+   Field(name: "issueType", description: "Issue Type")
+   Field(name: "owner", description: "Owner")
+}
+}}}
+
+Here we have two different input data formats. The "Test" field defines the test name and the "Field" field define the input data name and description. For example, the input data for the test "SearchIssueForOwner" have two input parameters "issueType" and "owner".
+
+The tests are defined use "defineTest". One of the test "SearchIssueForOwner" is defined as follows,
+
+{{{
+        defineTest("SearchIssueForOwner") {
+            String issueType = bind("IssueForOwner.issueType")
+            String issueOwner = bind("IssueForOwner.owner")
+            int headernum = getCachedVariable("headernum")
+            int expectedHeaderNum = getTableHeaderNum()
+            compareResult(expectedHeaderNum, headernum)
+            
+            List<String> headernames = getCachedVariable("headernames")
+            String[] issueTypes = getCachedVariable("issuetypes")
+            String issueTypeLabel = getIssueTypeLabel(issueTypes, issueType)
+            checkResult(issueTypeLabel) {
+                assertTrue(issueTypeLabel != null)
+            }
+            //select issue type
+            if (issueTypeLabel != null) {
+                selectIssueType(issueTypeLabel)
+            }
+            //search for all owners
+            if ("all".equalsIgnoreCase(issueOwner.trim())) {
+                searchForAllIssues()
+            } else {
+                searchIssue("owner:" + issueOwner)
+            }
+            ......
+        }
+
+    }
+
+}}}
+
+As you can see, we use "bind" to tie the variable to input data field. For example, the variable "issueType" is bound to "IssueForOwner.issueType", i.e., field "issueType" of the  input Fieldset "IssueForOwner". "getCachedVariable" is used to get variables passed from previous tests and "compareResult" is used to compare the actual result with the expected result.
+
+The input file format looks like
+
+{{{
+OpenTelluriumIssuesPage
+## Test Name | Issue Type | Owner
+SearchIssueForOwner | Open | all
+SearchIssueForOwner | All | matt.senter
+SearchIssueForOwner | Open | John.Jian.Fang
+SearchIssueForOwner | All |  vivekmongolu
+SearchIssueForOwner | All |  haroonzone
+}}}
+
+The actual test class is very simple
+
+{{{
+class TelluriumIssuesDataDrivenTest extends TelluriumDataDrivenTest{
+
+
+    public void testDataDriven() {
+
+        includeModule org.tellurium.module.TelluriumIssuesModule.class
+
+        //load file
+        loadData "src/test/resources/org/tellurium/data/TelluriumIssuesInput.txt"
+
+        //read each line and run the test script until the end of the file
+        stepToEnd()
+
+        //close file
+        closeData()
+
+    }
+
+}
+}}}
+
+We first define which Data Driven Module we want to load and then read input data file. After that, we read the input data file line by line and execute the appropriate tests defined in the input file. Finally, close the data file.
+
+The test result looks as follows,
+
+{{{
+<TestResults>
+  <Total>6</Total>
+  <Succeeded>6</Succeeded>
+  <Failed>0</Failed>
+  <Test name='OpenTelluriumIssuesPage'>
+    <Step>1</Step>
+    <Passed>true</Passed>
+    <Input>
+      <test>OpenTelluriumIssuesPage</test>
+    </Input>
+    <Assertion Value='10' Passed='true' />
+    <Status>PROCEEDED</Status>
+    <Runtime>2.579049</Runtime>
+  </Test>
+  <Test name='SearchIssueForOwner'>
+    <Step>2</Step>
+    <Passed>true</Passed>
+    <Input>
+      <test>SearchIssueForOwner</test>
+      <issueType>Open</issueType>
+      <owner>all</owner>
+    </Input>
+    <Assertion Expected='10' Actual='10' Passed='true' />
+    <Assertion Value=' Open Issues' Passed='true' />
+    <Status>PROCEEDED</Status>
+    <Runtime>4.118923</Runtime>
+    <Message>Found 10  Open Issues for owner all</Message>
+    <Message>Issue: Better way to wait or pause during testing</Message>
+    <Message>Issue: Add support for JQuery selector</Message>
+    <Message>Issue: Export Tellurium to Ruby</Message>
+    <Message>Issue: Add check Alter function to Tellurium</Message>
+    <Message>Issue: Firefox plugin to automatically generate UI module for users</Message>
+    <Message>Issue: Create a prototype for container-like Dojo widgets</Message>
+    <Message>Issue: Need to create Wiki page to explain how to setup Maven and use Maven to build multiple projects</Message>
+    <Message>Issue: Configure IntelliJ to properly load one maven sub-project and not look for an IntelliJ project dependency</Message>
+    <Message>Issue: Support nested properties for Tellurium</Message>
+    <Message>Issue: update versions for extensioin dojo-widget and TrUMP projects</Message>
+  </Test>
+  <Test name='SearchIssueForOwner'>
+    <Step>3</Step>
+    <Passed>true</Passed>
+    <Input>
+      <test>SearchIssueForOwner</test>
+      <issueType>All</issueType>
+      <owner>matt.senter</owner>
+    </Input>
+    <Assertion Expected='10' Actual='10' Passed='true' />
+    <Assertion Value=' All Issues' Passed='true' />
+    <Status>PROCEEDED</Status>
+    <Runtime>4.023694</Runtime>
+    <Message>Found 7  All Issues for owner matt.senter</Message>
+    <Message>Issue: Add Maven 2 support</Message>
+    <Message>Issue: Add Maven support for the new code base with multiple sub-projects</Message>
+    <Message>Issue: Cannot find symbol class Selenium</Message>
+    <Message>Issue: Need to create Wiki page to explain how to setup Maven and use Maven to build multiple projects</Message>
+    <Message>Issue: Need to add tar.gz file as artifact in Maven</Message>
+    <Message>Issue: Configure IntelliJ to properly load one maven sub-project and not look for an IntelliJ project dependency</Message>
+    <Message>Issue: update versions for extensioin dojo-widget and TrUMP projects</Message>
+  </Test>
+  <Test name='SearchIssueForOwner'>
+    <Step>4</Step>
+    <Passed>true</Passed>
+    <Input>
+      <test>SearchIssueForOwner</test>
+      <issueType>Open</issueType>
+      <owner>John.Jian.Fang</owner>
+    </Input>
+    <Assertion Expected='10' Actual='10' Passed='true' />
+    <Assertion Value=' Open Issues' Passed='true' />
+    <Status>PROCEEDED</Status>
+    <Runtime>3.542759</Runtime>
+    <Message>Found 5  Open Issues for owner John.Jian.Fang</Message>
+    <Message>Issue: Better way to wait or pause during testing</Message>
+    <Message>Issue: Export Tellurium to Ruby</Message>
+    <Message>Issue: Add check Alter function to Tellurium</Message>
+    <Message>Issue: Create a prototype for container-like Dojo widgets</Message>
+    <Message>Issue: Support nested properties for Tellurium</Message>
+  </Test>
+  <Test name='SearchIssueForOwner'>
+    <Step>5</Step>
+    <Passed>true</Passed>
+    <Input>
+      <test>SearchIssueForOwner</test>
+      <issueType>All</issueType>
+      <owner>vivekmongolu</owner>
+    </Input>
+    <Assertion Expected='10' Actual='10' Passed='true' />
+    <Assertion Value=' All Issues' Passed='true' />
+    <Status>PROCEEDED</Status>
+    <Runtime>3.521415</Runtime>
+    <Message>Found 5  All Issues for owner vivekmongolu</Message>
+    <Message>Issue: Create more examples to demonstrate the usage of different UI objects</Message>
+    <Message>Issue: DslScriptEngine causes NullPointerException when attempt to invoke server.runSeleniumServer() method</Message>
+    <Message>Issue: No such property: connector for class: DslTest</Message>
+    <Message>Issue: Firefox plugin to automatically generate UI module for users</Message>
+    <Message>Issue: Setup Firefox plugin sub-project</Message>
+  </Test>
+  <Test name='SearchIssueForOwner'>
+    <Step>6</Step>
+    <Passed>true</Passed>
+    <Input>
+      <test>SearchIssueForOwner</test>
+      <issueType>All</issueType>
+      <owner>haroonzone</owner>
+    </Input>
+    <Assertion Expected='10' Actual='10' Passed='true' />
+    <Assertion Value=' All Issues' Passed='true' />
+    <Status>PROCEEDED</Status>
+    <Runtime>3.475594</Runtime>
+    <Message>Found 5  All Issues for owner haroonzone</Message>
+    <Message>Issue: Solve HTTPS certificate problem</Message>
+    <Message>Issue: Refactor Tellurium project web site examples using TestNG and put them to the tellurium-testng-java sub-project</Message>
+    <Message>Issue: Create a new wiki page on how to create custom tellurium project for NetBeans</Message>
+    <Message>Issue: Create a new wiki page on how to create custom tellurium project for IntelliJ</Message>
+    <Message>Issue: Table operations for large size one seems to be very slow</Message>
+  </Test>
+</TestResults>
+}}}
+
+=== DSL Test Script ===
+
+In Tellurium, you can create test scripts in pure DSL. Take TelluriumPage.dsl as an example,
+
+{{{
+//define Tellurium project menu
+ui.Container(uid: "menu", clocator: [tag: "table", id: "mt", trailer: "/tbody/tr/th"], group: "true"){
+    //since the actual text is  Project&nbsp;Home, we can use partial match here. Note "%%" stands for partial match
+    UrlLink(uid: "project_home", clocator: [text: "%%Home"])
+    UrlLink(uid: "downloads", clocator: [text: "Downloads"])
+    UrlLink(uid: "wiki", clocator: [text: "Wiki"])
+    UrlLink(uid: "issues", clocator: [text: "Issues"])
+    UrlLink(uid: "source", clocator: [text: "Source"])
+}
+
+//define the Tellurium project search module, which includes an input box, two search buttons
+ui.Form(uid: "search", clocator: [:], group: "true"){
+    InputBox(uid: "searchbox", clocator: [name: "q"])
+    SubmitButton(uid: "search_project_button", clocator: [value: "Search Projects"])
+    SubmitButton(uid: "search_web_button", clocator: [value: "Search the Web"])
+}
+
+openUrl "http://code.google.com/p/aost/"
+click "menu.project_home"
+waitForPageToLoad 30000
+click "menu.downloads"
+waitForPageToLoad 30000
+click "menu.wiki"
+waitForPageToLoad 30000
+click "menu.issues"
+waitForPageToLoad 30000
+
+openUrl "http://code.google.com/p/aost/"
+type "search.searchbox", "Tellurium Selenium groovy"
+click "search.search_project_button"
+waitForPageToLoad 30000
+
+type "search.searchbox", "tellurium selenium dsl groovy"
+click "search.search_web_button"
+waitForPageToLoad 30000
+}}}
+
+To run the DSL script, you should first compile the code with ant script. In project root, run the following ant task
+
+{{{
+ant compile-test
+}}}
+
+Then, use the rundsl.sh to run the DSL script
+
+{{{
+./rundsl.sh src/test/resources/org/tellurium/dsl/TelluriumPage.dsl
+}}}
+
+For Windows, you should use the rundsl.bat script.
+
+
 == Tellurium Support ==
 
 If you have any questions or problems with Tellurium, please join our [http://groups.google.com/group/tellurium-users Tellurium user group] and then post them there. You will get the response very shortly.
+
+== Appendices ==
+
+=== Sample POM for Tellurium Maven project ===
+
+Tellurium Maven JUnit testing project could use the following POM file,
+
+{{{
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>Your_Group_ID</groupId>
+    <artifactId>Your_Artifact_Id</artifactId>
+    <version>Your_Version</version>
+    <name>Tellurium JUnit Test Project</name>
+
+    <repositories>
+        <repository>
+            <id>caja</id>
+            <url>http://google-caja.googlecode.com/svn/maven</url>
+        </repository>
+        <repository>
+            <id>kungfuters-public-snapshots-repo</id>
+            <name>Kungfuters.org Public Snapshot Repository</name>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <url>http://kungfuters.org/nexus/content/repositories/snapshots</url>
+        </repository>
+        <repository>
+            <id>kungfuters-public-releases-repo</id>
+            <name>Kungfuters.org Public Releases Repository</name>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://kungfuters.org/nexus/content/repositories/releases</url>
+        </repository>
+        <repository>
+            <id>kungfuters-thirdparty-releases-repo</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://kungfuters.org/nexus/content/repositories/thirdparty</url>
+        </repository>
+        <repository>
+            <id>openqa-release-repo</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://archiva.openqa.org/repository/releases</url>
+        </repository>
+    </repositories>
+        
+    <dependencies>
+        <dependency>
+            <groupId>org.codehaus.groovy.maven</groupId>
+            <artifactId>gmaven-mojo</artifactId>
+            <version>1.0-rc-5</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.groovy.maven.runtime</groupId>
+                    <artifactId>gmaven-runtime-1.5</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.codehaus.groovy.maven.runtime</groupId>
+            <artifactId>gmaven-runtime-1.6</artifactId>
+            <version>1.0-rc-5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.4</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.openqa.selenium.grid</groupId>
+          <artifactId>selenium-grid-tools</artifactId>
+          <version>1.0.2</version>
+        </dependency> 
+
+        <dependency>
+            <groupId>tellurium</groupId>
+            <artifactId>tellurium-core</artifactId>
+            <version>0.6.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium.server</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>1.0.1-te</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium.client-drivers</groupId>
+            <artifactId>selenium-java-client-driver</artifactId>
+            <version>1.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.groovy.maven.runtime</groupId>
+                    <artifactId>gmaven-runtime-default</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium.core</groupId>
+                    <artifactId>selenium-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium.server</groupId>
+                    <artifactId>selenium-server</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>1.6.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>caja</groupId>
+            <artifactId>json_simple</artifactId>
+            <version>r1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.stringtree</groupId>
+            <artifactId>stringtree-json</artifactId>
+            <version>2.0.10</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/groovy</directory>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/groovy</directory>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.0.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.4.3</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
+                    <version>2.4.3</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.0.4</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>2.0-beta-7</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.groovy.maven</groupId>
+                    <artifactId>gmaven-plugin</artifactId>
+                    <version>1.0-rc-5</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>**/*_UT.java</include>
+                        <include>**/*TestCase.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.groovy.maven
+                </groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.3</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.ant</groupId>
+                        <artifactId>ant</artifactId>
+                        <version>1.7.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.ant</groupId>
+                        <artifactId>ant-launcher</artifactId>
+                        <version>1.7.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.ant</groupId>
+                        <artifactId>ant-nodeps</artifactId>
+                        <version>1.7.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>sun.jdk</groupId>
+                        <artifactId>tools</artifactId>
+                        <version>1.5.0</version>
+                        <scope>system</scope>
+                        <systemPath>${java.home}/../lib/tools.jar</systemPath>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>compile-java-test</id>
+                        <phase>test-compile</phase>
+                        <configuration>
+                            <tasks>
+                                <path id="testcompile.classpath">
+                                    <path refid="maven.compile.classpath"/>
+                                    <path refid="maven.test.classpath"/>
+                                    <pathelement location="target/classes"/>
+                                    <pathelement location="target/test-classes"/>
+                                </path>
+                                <javac srcdir="src/test/groovy"
+                                       destdir="target/test-classes" classpathref="testcompile.classpath">
+                                    <include name="**/*.java"/>
+                                </javac>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+}}}
+
+Tellurium Maven TestNG project uses the same POM file as the JUnit one shown above and you only need to replace the JUnit dependency with the TestNG dependency, i.e., you should use
+
+{{{
+    <dependency>
+       <groupId>org.testng</groupId>
+       <artifactId>testng</artifactId>
+       <version>5.8</version>
+       <classifier>jdk15</classifier>
+       <optional>true</optional>
+    </dependency>
+}}}
+
+for your TestNG project.
+
+=== Tellurium Sample Ant Build Script ===
+ 
+build.properties:
+
+{{{
+### Change javahome to your own Java Home ###
+javahome = /usr/java/current
+
+################# javac settings ##########################################
+# For javac -- can leave alone in most cases
+javac.compiler=javac1.5
+javac.deprecation = on
+javac.optimize = on
+javac.debug = true
+javac.fork=no
+
+dist.dir = ${basedir}/dist
+}}} 
+
+build.xml:
+
+{{{
+<?xml version="1.0"?>
+
+<project name="tellurium-testng" default="compile-test" basedir=".">
+	                            
+	<property name="dir.project" value="${basedir}" />
+
+	<property file="build.properties" />
+
+	<property name="dir.source" value="${dir.project}/src" />
+	<property name="dir.source.tellurium" value="${dir.source}/main/groovy" />
+	<property name="dir.source.test" value="${dir.source}/test/groovy" />
+
+	<property name="dir.build" value="${dir.project}/out" />
+	<property name="dir.build.tellurium" value="${dir.build}/production" />
+	<property name="dir.build.test" value="${dir.build}/test" />
+
+	<property name="dir.lib" value="${dir.project}/lib" />
+
+	<path id="lib.path">
+		<fileset dir="${dir.lib}">
+			<include name="*.jar" />
+			<exclude name="*-src.jar" />
+			<include name="*.class" />
+		</fileset>
+	</path>
+
+	
+	<!-- Match runtime libraries -->
+	<patternset id="pattern.libs">
+		<include name="**/*.jar" />
+		<exclude name="**/*-src.jar"/>
+		<!--exclude name="**/*junit.jar"/-->
+	</patternset>
+
+	<path id="junit.classpath">
+		<fileset dir="${dir.lib}">
+			<include name="junit*.jar"/>
+		</fileset>
+	</path>
+
+	<path id="tellurium.classpath">
+		<path refid="lib.path" />
+		<pathelement location="${dir.build.tellurium}" />
+	</path>
+
+	<path id="test.classpath">
+		<path refid="tellurium.classpath" />
+		<path refid="junit.classpath" />
+		<pathelement location="${dir.build.test}" />
+	</path>
+
+	<path id="project.classpath">
+		<path refid="test.classpath" />
+	</path>
+
+	<taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask" classpathref="junit.classpath" />
+
+	<target name="clean">
+		<echo message="Cleaning ..." />
+		<delete dir="${dir.build.tellurium}" />
+		<delete dir="${dir.build.test}" />
+	</target>
+
+	<target name="init">
+		<echo message="Initializing project..." />
+		<tstamp>
+			<format property="time.formatted" pattern="MM/dd/yyyy hh:mm:ss a" unit="hour" />
+		</tstamp>
+		<mkdir dir="${dir.build}" />
+		<mkdir dir="${dir.build.tellurium}" />
+		<mkdir dir="${dir.build.test}" />
+    </target>
+
+    <macrodef name="compile-java">
+            <!-- required attributes -->
+            <attribute name="srcdir" />
+            <attribute name="destdir" />
+            <attribute name="excludes" default="" />
+
+            <!-- these defaults can be changed using properties -->
+            <attribute name="compiler" default="${javac.compiler}" />
+            <attribute name="debug" default="${javac.debug}" />
+            <attribute name="optimize" default="${javac.optimize}" />
+            <attribute name="deprecation" default="${javac.deprecation}" />
+            <attribute name="fork" default="${javac.fork}" />
+
+            <!-- these defaults can only be overridden explicitly by a task -->
+            <attribute name="encoding" default="UTF-8" />
+            <attribute name="includeAndRunTime" default="no" />
+            <attribute name="failonerror" default="false" />
+
+            <!-- this element sucks up all elements when the macro is used -->
+            <element name="javac-elements" implicit="yes" />
+
+            <!-- the macro body -->
+            <sequential>
+                    <javac srcdir="@{srcdir}"
+                            excludes="@{excludes}"
+                            destdir="@{destdir}" compiler="@{compiler}"
+                            debug="@{debug}"
+                            optimize="@{optimize}"
+                            deprecation="@{deprecation}"
+                            fork="@{fork}"
+                            encoding="@{encoding}" failonerror="@{failonerror}">
+                    </javac>
+            </sequential>
+    </macrodef>
+
+   <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc" classpathref="lib.path"/>
+
+	<target name="compile-tellurium" depends="init">
+		<echo message="Compiling java..." />
+		<groovyc srcdir="${dir.source.tellurium}"
+			destdir="${dir.build.tellurium}">
+			<classpath refid="lib.path" />
+           <!--javac source="1.5" target="1.5" debug="on" /-->
+        </groovyc>
+        <javac srcdir="${dir.source.tellurium}"
+            destdir="${dir.build.tellurium}">
+            <classpath refid="tellurium.classpath" />
+        </javac>
+	</target>
+
+	<target name="compile-test" depends="clean, compile-tellurium">
+		<echo message="Compiling test.." />
+		<groovyc srcdir="${dir.source.test}" destdir="${dir.build.test}">
+			<classpath refid="tellurium.classpath" />
+			<include name="**" />
+		</groovyc>
+        <javac srcdir="${dir.source.test}"
+            destdir="${dir.build.test}">
+            <classpath refid="test.classpath" />
+        </javac>
+	</target>
+
+	<target name="run-unit-tests" depends="compile-test">
+		<junit fork="yes" forkmode="once" maxmemory="1024m"
+			printsummary="yes" errorProperty="test.failed" failureProperty="test.failed">
+			<classpath refid="project.classpath" />
+			<formatter type="brief" usefile="false" />
+			<formatter type="xml" />
+			<batchtest todir="${dir.build.test}">
+				<fileset dir="${dir.source.test}">
+					<include name="**/org/tellurium/test/**"/>
+                    <include name="**/org/tellurium/ddt/**"/>
+                </fileset>
+			</batchtest>
+		</junit>
+		<fail if="test.failed" />
+	</target>
+
+</project>
+}}}
+
+=== Tellurium Sample Configuration File ===
+
+{{{
+/**
+ * The global place to Tellurium configuration
+ *
+ * 
+ */
+
+tellurium{
+    //embedded selenium server configuration
+    embeddedserver {
+        //port number
+        port = "4444"
+        //whether to use multiple windows
+        useMultiWindows = false
+        //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
+        runInternally = true
+        //profile location
+        profile = ""  
+        //user-extension.js file, for example, "target/test-classes/extension/user-extensions.js"
+        userExtension = ""
+    }
+    //event handler
+    eventhandler{
+        //whether we should check if the UI element is presented
+        checkElement = false
+        //wether we add additional events like "mouse over"
+        extraEvent = true
+    }
+    //data accessor
+    accessor{
+        //whether we should check if the UI element is presented
+        checkElement = true
+    }
+    //the configuration for the connector that connects the selenium client to the selenium server
+    connector{
+        //selenium server host
+        //please change the host if you run the Selenium server remotely
+        serverHost = "localhost"
+        //server port number the client needs to connect
+        port = "4444"
+        //base URL
+        baseUrl = "http://localhost:8080"
+        //Browser setting, valid options are
+        //  *firefox [absolute path]
+        //  *iexplore [absolute path]
+        //  *chrome
+        //  *iehta
+        browser = "*chrome"
+        //user's class to hold custom selenium methods associated with user-extensions.js
+        //should in full class name, for instance, "com.mycom.CustomSelenium"
+        customClass = ""
+    }
+    datadriven{
+        dataprovider{
+            //specify which data reader you like the data provider to use
+            //the valid options include "PipeFileReader", "CVSFileReader" at this point
+            reader = "PipeFileReader"
+        }
+    }
+    test{
+        //at current stage, the result report is only for tellurium data driven testing
+        //we may add the result report for regular tellurium test case
+        result{
+            //specify what result reporter used for the test result
+            //valid options include "SimpleResultReporter", "XMLResultReporter", and "StreamXMLResultReporter"
+            reporter = "XMLResultReporter"
+            //the output of the result
+            //valid options include "Console", "File" at this point
+            //if the option is "File", you need to specify the file name, other wise it will use the default
+            //file name "TestResults.output"
+            output = "Console"
+            //test result output file name
+            filename = "TestResult.output"
+        }
+        exception{
+            //whether Tellurium captures the screenshot when exception occurs.
+            //Note that the exception is the one thrown by Selenium Server
+            //we do not care the test logic errors here
+            captureScreenshot = true
+            //we may have a series of screenshots, specify the file name pattern here
+            //Here the ? will be replaced by the timestamp and you might also want to put
+            //file path in the file name pattern
+            filenamePattern = "Screenshot?.png"
+        }
+    }
+    uiobject{
+        builder{
+            //user can specify custom UI objects here by define the builder for each UI object
+            //the custom UI object builder must extend UiObjectBuilder class
+            //and implement the following method:
+            //
+            // public build(Map map, Closure c)
+            //
+            //For container type UI object, the builder is a bit more complicated, please
+            //take the TableBuilder or ListBuilder as an example
+
+            //example:
+//           Icon="org.tellurium.builder.IconBuilder"
+            
+        }
+    }
+    widget{
+        module{
+            //define your widget modules here, for example Dojo or ExtJs
+//            included="dojo, extjs"
+            included=""
+        }
+    }
+}
+}}}
 
 == Resources ==
 
