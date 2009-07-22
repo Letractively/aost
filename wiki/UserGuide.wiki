@@ -745,7 +745,7 @@ The option object will automatically detect which UI pattern you need to use at 
 
 == Main Features ==
 
-== UI Module ==
+=== UI Module ===
 
 The UI Module is the heart of Tellurium. The UI module is a collection of UI elements grouped together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For example, the download search module in Tellurium's project site is defined as follows:
 
@@ -761,7 +761,7 @@ Tellurium is built on the foundation of the UI module. The UI module makes it po
 
 This frees up the testers to write better tests rather than spend precious testing time on identifying and resolving test failures due to XPath changes.
 
-== Composite Locator ==
+=== Composite Locator ===
 
 Tellurium supports two types of locators: _base locator_ and _composite locator_. The _base locator_ is a relative XPath. The _composite locator_, denoted by "clocator", specifies a set of attributes for the UI object and the actual locator will be derived automatically by Tellurium at runtime.   
 
@@ -805,7 +805,7 @@ which is equivalent to
 clocator: [tag: "input", type: "radio"]
 }}}
  
-== Group Locating ==
+=== Group Locating ===
 
 In the Tellurium UI module, you often see the "group" attribute. For example:
 
@@ -827,7 +827,7 @@ path to the target node such as:
 No sibling node's information is used here. What is wrong with this? The XPath depends too much on information from nodes far away from the target node. In Tellurium, we try to localize the information and reduce this dependency by using sibling information or local information. For example, in the above google UI module, the group locating concept will try to find the "td" tag with its children as "InputBox", "googlesearch" button, and
 "Imfeelinglucky" button. In this way, we can reduce the dependencies of the UI elements inside a UI module on external UI elements to make the UI definition more robust. 
 
-== UI Templates ==
+=== UI Templates ===
 
 Tellurium UI templates are used for two purposes:
 
@@ -865,7 +865,7 @@ Aren't the definitions very simple and cool?
 
 You may wonder how to use the templates if you have multiple templates such as the "issueResult" table shown above. The rule to apply the templates is: "specific one first, general one later".
 
-== Javascript Events ==
+=== Javascript Events ===
 
 Most web applications include Javascript, and thus the web testing framework must be able to handle Javascript events. What we really care about is firing the appropriate events to trigger the event handlers.
 
