@@ -332,7 +332,7 @@ Because of the Groovy Syntax, each method in the DslContext can be written using
 The complete list of methods in DslContext can be found on [http://code.google.com/p/aost/wiki/UserGuide the User Guide page].
 
 
-The DslContext can be extended to include more DSLs. Tellurium also defined a set of DSLs to support Tellurium tests. The most often used ones includes
+The DslContext can be extended to include more DSLs. Tellurium also defined a set of DSLs to support Tellurium tests. The most often used ones include
 
   * openUrl(String url): establish a new connection to Selenium server for the given url. The DSL format is:
 
