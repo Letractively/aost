@@ -109,21 +109,25 @@ The Eventhandler will handle all events like "click", "type", "select", and so o
 
 == Main Features ==
 
-=== UI Module ===
+=== UI Object ===
 
-The UI Module is the heart of Tellurium. The UI module is a collection of UI elements grouped together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For example, the download search module in Tellurium's project site is defined as follows:
+Tellurium provides a set of predefined UI objects, which users can use directly. 
+
+The basic UI object is an abstract class. Users cannot instantiate it directly. The basic UI Object works as the base class for all UI objects and it includes the following attributes:
+
+  # uid: UI object's identifier
+  # namespace: for future extension
+  # locator: the locator of the UI object, could be a base locator or a composite locator
+  # group: this attribute is used for Group Locating and it only applies to a collection type of UI object such as Container, Table, List, Form.
+  # respond: the JavaScript events the UI object can respond to. The value is a list.
+
+All UI Objects will inherit the above attributes and methods. But be aware that you usually do not call these methods directly and you should use DSL syntax instead. For example, use:
 
 {{{
-ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
-   Selector(uid: "downloadType", clocator: [name: "can", id: "can"])
-   InputBox(uid: "searchBox", clocator: [name: "q"])
-   SubmitButton(uid: "searchButton", clocator: [value: "Search"])
-}
+click "GoogleSearchModule.Search"
 }}}
 
-Tellurium is built on the foundation of the UI module. The UI module makes it possible to build locators for UI elements at runtime.  First, this makes Tellurium robust and responsive to changes from internal UI elements.  Second, the UI module makes Tellurium expressive.  A UI element can be referred to simply by appending the names (uids) along the path to the specific element. This also enables Tellurium's "Group Locating" feature, making composite objects reusable and addressing dynamic web pages.
-
-This frees up the testers to write better tests rather than spend precious testing time on identifying and resolving test failures due to XPath changes.
+In this way, Tellurium will first map the UIID "GoogleSearchModule.Search" to the actual UI object and then call the _click_ method on it. If that Ui object does not have the _click_ method defined, you will get an error.
 
 === Composite Locator ===
 
@@ -168,6 +172,43 @@ which is equivalent to
 {{{
 clocator: [tag: "input", type: "radio"]
 }}}
+
+=== UI Module ===
+
+The UI Module is the heart of Tellurium. The UI module is a collection of UI elements grouped together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For example, the download search module in Tellurium's project site is defined as follows:
+
+{{{
+ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
+   Selector(uid: "downloadType", clocator: [name: "can", id: "can"])
+   InputBox(uid: "searchBox", clocator: [name: "q"])
+   SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+}
+}}}
+
+Tellurium is built on the foundation of the UI module. The UI module makes it possible to build locators for UI elements at runtime.  First, this makes Tellurium robust and responsive to changes from internal UI elements.  Second, the UI module makes Tellurium expressive.  A UI element can be referred to simply by appending the names (uids) along the path to the specific element. This also enables Tellurium's "Group Locating" feature, making composite objects reusable and addressing dynamic web pages.
+
+This frees up the testers to write better tests rather than spend precious testing time on identifying and resolving test failures due to XPath changes.
+
+=== UiID ===
+
+In Tellurium, the UI object is referred by its UiID. For nested Ui objects, the UiID of the UI Object is a concatenated of the UI objects' uids along its path to the UI Object. For example, in the following nested UI Module, 
+
+{{{
+ui.Container(uid: "parent_ui"){
+   InputBox(uid: "inputbox1", locator: "...")
+   Button(uid: "button1", locator: "...")
+   Container(uid: "child_ui){
+     Selector(uid: "selector1", locator: "...")
+     ...
+     Container(uid: "grand_child"){
+       TextBox(uid: "textbox1", locator: "...")
+       ...
+     }
+   }
+}
+}}}
+
+the TextBox is referred as "parent_ui.child_ui.grand_child.textbox1". The exceptions are tables and lists, which use {{{[x][y]}}} or {{{[x]}}} to reference its elements inside. For example, {{{labels_table[2][1]}}} and {{{GoogleBooksList.subcategory[2]}}}. Table header can be referred in the format of {{{issueResult.header[2]}}}.
  
 === Group Locating ===
 
