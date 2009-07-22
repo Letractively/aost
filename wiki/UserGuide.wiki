@@ -1027,6 +1027,62 @@ tellurium{
     }
 }}}
 
+=== Mock Http Server ===
+
+The MockHttpServer is an embedded http server leveraging the Java 6 http server and it is very convenient to test HTML source directly without running a web server. The MockHttpServer includes an embedded http server, a http handler, and a http port with the following constructors
+
+{{{
+ public MockHttpServer()
+
+ public MockHttpServer(int port)
+
+ public MockHttpServer(int port, HttpHandler handler)
+}}}
+
+and APIs
+
+{{{
+public void setContentType(String contentType)
+
+public void registerHtmlBody(String url, String body)
+
+public void registerHtml(String url, String html)
+
+public void start()
+
+public void stop()
+}}}
+
+Example: 
+
+{{{
+public class ListTestCase  extends TelluriumJavaTestCase {
+    private static MockHttpServer server;
+
+    @BeforeClass
+    public static void setUp(){
+        server = new MockHttpServer(8080);
+        server.registerHtmlBody("/list.html", ListModule.LIST_BODY);
+        server.start();
+    }
+
+    @Test
+    public void testGetSeparatorAttribute(){
+        ListModule lm = new ListModule();
+        lm.defineUi();
+
+        connectUrl("http://localhost:8080/list.html");
+
+        attr = (String)lm.getParentAttribute("rotator.tnails[6]", "class");
+        assertEquals("thumbnail potd", attr);
+    }
+    
+    @AfterClass
+    public static void tearDown(){
+        server.stop();    
+    }
+}
+}}}
 
 === Customized Selenium Server ===
 
