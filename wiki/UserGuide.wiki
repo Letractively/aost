@@ -6,7 +6,7 @@
 
 == Tellurium Overview ==
 
-=== Motivation ===
+=== Motivations ===
 
 Automated web testing has always been one of the hottest and most important topics in the software testing arena when it comes to the rising popularity of Rich Internet applications (RIA) and Ajax-based web applications. With the advent of new web techniques such as RIA and Ajax, automated web testing tools must keep up with these changes in technology and be able to address the following challenges:
 
