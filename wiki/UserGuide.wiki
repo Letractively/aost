@@ -1040,6 +1040,8 @@ Here we list all the available methods that can be used as DSLs in DslContext an
 
 In addition to the above DSLs, Tellurium provides Selenium-compatible data access methods so that you can get data or Ui statuses from the web. The methods are listed here:
 
+  * {{{String getConsoleInput()}}}: Gets input from Console.
+
   * {{{ String[] getSelectOptions(id)}}}: Gets all option labels in the specified select drop-down. 
 
   * {{{String[] getSelectedLabels(id)}}}: Gets all selected labels in the specified select drop-down. 
