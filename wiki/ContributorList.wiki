@@ -18,9 +18,12 @@ Tellurium Contributors are categorized into development team, support team, evan
 
   * *Tim Jiang*:
 
-== Support Team ==
+== Build and Release ==
 
   * *Matt Senter*: Coming up with the name "Tellurium", Tellurium Maven support, Tellurium build and release, and Tellurium Maven repository maintenance. 
+
+== Documentation ==
+
   * *Davlyn Jones*:
   * *Ramesh Ramamurthy*:
 
