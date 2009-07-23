@@ -2559,6 +2559,10 @@ onWidget "dropdown.datePicker", selectPrevYear
 
 == Tellurium UI Module Plugin (Trump) ==
 
+Go to the Tellurium project download page and download the TrUMP xpi file or you can download the Firefox 3 version directly from Firefox addons site at
+
+https://addons.mozilla.org/en-US/firefox/addon/11035 
+
 The Tellurium UI Module Plugin (Trump) is used to automatically generate UI modules for users. The Trump IDE looks as follows:
 
 http://tellurium-users.googlegroups.com/web/TrUMPIDE0.1.0.png?gda=EVgeNEMAAAD5mhXrH3CK0rVx4StVj0LYBWucT0-vkPMbIT-o-BeAq7267uE5ld_gRd1XTkHcEWoytiJ-HdGYYcPi_09pl8N7FWLveOaWjzbYnpnkpmxcWg
@@ -2572,6 +2576,71 @@ http://tellurium-users.googlegroups.com/web/TrUMPDiagramSmall.png?gda=9CFDmEcAAA
   # When the user clicks on the "Generate" button, Trump does the following two steps. First, Trump generates an internal tree to represent the UI elements using a grouping algorithm. During the tree generating procedure, extra nodes are generated to group UI elements together based on their corresponding location on the DOM tree. The internal tree is very useful and holds all original data that can be used for customization. Once the internal tree is built, Trump starts the second step, which is to build the default UI module. For each node in the internal tree, Trump generates a UI object based on its tag and whether or not it is a parent node.
   # When the user clicks on the "Customize" button, Trump will pull out the original data held in the internal tree and the current attributes utilized by the UI module to create the "Customize" view. When the user clicks on an element, Trump lists all available optional attributes in the view for users to customize. 
   # Trump will try to validate the UI module automatically whenever you generate a new UI module or update it. Trump will evaluate each UI element's XPath the same way that Tellurium generates the runtime XPath from the UI module and check if the generated runtime XPath is unique in the current web page. If it is not unique, you will see a red "X" mark, and you need to modify the element's attribute to make it disappear. If you do not see a red "X", you are finished. You can export the generated UI module to a groovy file and start to write Tellurium tests based on the generated UI module.
+
+To use Trump, select "Tools" > "TrUMP IDE" in Firefox. The "Record" button is on by default, you can click on "Stop" to stop recording. Now, you can start to use the TrUMP IDE to record whatever UI elements you click on the WEB. For example, you can open Tellurium Download page and click on the search elements and the three links,
+
+http://tellurium-users.googlegroups.com/web/TrUMPRecordSmall.png?gda=7n7qpkYAAAD5mhXrH3CK0rVx4StVj0LYCNu4TcAUiThf-ed6d-A8e-zOJScwBCYlcwvHeRiAw313riz0RlMs_1ov_iNdB7P8E-Ea7GxYMt0t6nY0uV5FIQ&gsc=v-NkrgsAAACcPBjG_-VbM14GMV-6S4Xc
+
+The blue color indicates selected element, you can click on the selected element again to un-select it. Then, you can click on the "Generate" button to create the Tellurium UI Module and you will be automatically directed to the "Source" window,
+
+http://tellurium-users.googlegroups.com/web/TrUMPGenerateSmall.png?gda=1P97bkgAAAD5mhXrH3CK0rVx4StVj0LYCNu4TcAUiThf-ed6d-A8exKkp42KQN7AGtkLZRcnsBYlzhb83kORdLwM2moY-MeuGjVgdwNi-BwrUzBGT2hOzg&gsc=v-NkrgsAAACcPBjG_-VbM14GMV-6S4Xc
+
+After that, you can click on the "Customize" button to change the UI module such as UIDs, group locating option, and attributes you selected for the UI module.
+
+http://tellurium-users.googlegroups.com/web/TrUMPCustomizeSmall.png?gda=W0yA4EkAAAD5mhXrH3CK0rVx4StVj0LYCNu4TcAUiThf-ed6d-A8e-dpsLnqVTCuG8a16FLLGJva4bZDq9fZORtBwZjSHGJkhAioEG5q2hncZWbpWmJ7IQ&gsc=v-NkrgsAAACcPBjG_-VbM14GMV-6S4Xc
+
+You can see there is one red "X" mark, which indicates that UI element's XPath is not unique, you could select group, or add more attributes to the UI element. You will see
+the new customized UI as follows, 
+
+http://tellurium-users.googlegroups.com/web/TrUMPCustomizedSmall.png?gda=AUZMQkoAAAD5mhXrH3CK0rVx4StVj0LYCNu4TcAUiThf-ed6d-A8e-uLN10ihJ-PJyev33cmPNkLFhim5d1LJsoAMKqscxTI_e3Wg0GnqfdKOwDqUih1tA&gsc=v-NkrgsAAACcPBjG_-VbM14GMV-6S4Xc
+
+Note that the red "X" mark is removed because we turn on the group locating and the element's xpath is unique now. In the meanwhile, the UI module in the source tab will be automated updated once you click the "Save" button. The "Show" button will show the actual Web element on the web that the UI element is represented for.
+
+http://tellurium-users.googlegroups.com/web/TrUMPCustomizedSourceSmall.png?gda=i_g_1lAAAAD5mhXrH3CK0rVx4StVj0LYCNu4TcAUiThf-ed6d-A8ewl-ge40lZM5QmFCqlPrr96JFTmvmvXK4kDlwX5DWO5WbcVT3VtYGKLco-_l-8AzjQ&gsc=v-NkrgsAAACcPBjG_-VbM14GMV-6S4Xc
+
+At this point, you export the UI module to a groovy file. Be aware that if you see any error complaining about the directory, you should first check the "export directory" in Options > Settings and set it to "C:\" or other windows directory for Windows system before you export the file. For Linux, you may find there is no "OK" buton on the option tab, which is caused by the fact that the configure "browser.preferences.instantApply" is set to true by default. You can point your firefox to "about:config" and change the option to false. After that, you will see the "OK" button.
+
+http://tellurium-users.googlegroups.com/web/ExportToGroovySmall.png?gda=HTfW2kkAAAD5mhXrH3CK0rVx4StVj0LYjifwtTdV1ss7lVmTlgK0W813v4RlmnSWza84shDEVE3a4bZDq9fZORtBwZjSHGJkhAioEG5q2hncZWbpWmJ7IQ&gsc=v-NkrgsAAACcPBjG_-VbM14GMV-6S4Xc
+
+Open up the groovy file, you will see the file as follows,
+
+{{{
+package tellurium.ui
+
+import org.tellurium.dsl.DslContext
+
+/**
+ *  This UI module file is automatically generated by TrUMP 0.1.0.
+ * 
+*/
+
+class NewUiModule extends DslContext{
+
+  public void defineUi() {
+    ui.Container(uid: "Tellurium", clocator: [tag: "body", class: "t2"]){
+      Form(uid: "Form", clocator: [tag: "form", method: "get", action: "list"], 
+           group: "true")
+      {
+	Selector(uid: "DownloadType", clocator: [tag: "select", name: "can", id: "can"])
+	InputBox(uid: "SearchBox", clocator: [tag: "input", type: "text", name: "q", 
+                                             id: "q"])
+	SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit", 
+                                               value: "Search"])
+      }
+      Container(uid: "Title", clocator: [tag: "table", id: "mt"]){
+	UrlLink(uid: "Issues", clocator: [tag: "a", text: "Issues"], respond: ["click"])
+	UrlLink(uid: "Wiki", clocator: [tag: "a", text: "Wiki"], respond: ["click"])
+	UrlLink(uid: "Downloads", clocator: [tag: "a", text: "Downloads"], 
+                                      respond: ["click"])
+      }
+    }
+  }
+
+	//Add your methods here
+
+}
+}}}
+
 
 == Tellurium Engine ==
 
