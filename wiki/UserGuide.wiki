@@ -69,7 +69,7 @@ The main features of Tellurium include:
   * JUnit and TestNG support
   * Ant and Maven support
 
-== How Challenges and Problems are addressed in Tellurium ? ==
+== How Challenges and Problems are addressed in Tellurium ==
  
 First of all, Tellurium does not use "record and replay." Instead, it uses the Tellurium Firefox plugin Trump to generate the UI module (not test code) for you. Then you need to create your test code based on the UI module. In this way, the UI and the test code are decoupled. The structured test code in Tellurium makes it much easier to refactor and maintain the code.
 
@@ -104,7 +104,7 @@ The Group Locating Concept (GLC) exploits the group information inside a collect
 
 The Eventhandler will handle all events like "click", "type", "select", and so on. The Data Accessor is used to fetch data or UI status from the DOM. The dispatcher will delegate all calls it receives from the Eventhandler and the data accessor to the connector, which connects to the Tellurium engine. The dispatcher is designed to decouple the rest of the Tellurium framework from the base test driving engine so that we can switch to a different test driving engine by simply changing the dispatcher logic.
 
-== HOW Does Tellurium Work ==
+== HOW Tellurium Works ==
 
 Basically, there are two parts for the Tellurium framework. The first part is to define UI objects and the second part is working on the UI objects like firing events and getting data or status from the DOM.
 
