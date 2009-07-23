@@ -1,4 +1,7 @@
 package org.tellurium.test
+
+import org.tellurium.test.CustomUIExample
+
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -31,6 +34,14 @@ public class CustomUIExample_UT extends GroovyTestCase {
     CustomUIExample cue = new CustomUIExample();
     cue.defineUi();
     cue.dump("subnav");        
+  }
+
+  public void testAccountEdit(){
+    CustomUIExample cue = new CustomUIExample();
+    cue.defineUi();
+    cue.dump("accountEdit");
+    cue.useJQuerySelector();
+    cue.dump("accountEdit");
   }
 
 }
