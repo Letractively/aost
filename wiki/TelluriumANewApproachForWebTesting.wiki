@@ -2,11 +2,14 @@
 #labels Phase-Implementation,Phase-Support
 <wiki:toc max_depth="5" />
 
-= Introduction =
+= Background =
 
-== Challenges and Problems ==
+== Overview ==
 
-Automated web testing has always been one of the hottest and most important topics in the software testing arena when it comes to the rising popularity of Rich Internet applications (RIA) and Ajax-based web applications. With the advent of new web techniques such as RIA and Ajax, automated web testing tools must keep up with these changes in technology and be able to address the following challenges:
+Automated web testing has always been one of the hottest and most important topics in the software testing arena. With the rising popularity of Rich Internet applications (RIA) and Ajax-based web applications, the demand for automated web test tools has increased. With the advent of new web techniques such as RIA and Ajax, automated web testing tools must keep up with these changes in technology.
+
+==Challenges==
+As the ongoing trend of new web technologies is speeding up, the upcoming automated web testing tools need to be able to address the following challenges:
 
   * *JavaScript Events*: JavaScript is everywhere on the web today. Many web applications are JavaScript heavy. To test JavaScript, the automated testing framework should be able to trigger JavaScript events in a very convenient way.
   * *Ajax for Dynamic Web Content*: Web applications have many benefits over desktop applications; for example they have no installation and application updates are instantaneous and easier to support. Ajax is a convenient way to update a part of the web page without refreshing the whole page. AJAX makes web applications richer and more user-friendly. The web context for an Ajax application is usually dynamic. For example, in a data grid, the data and number of rows keep changing at runtime. 
@@ -44,7 +47,8 @@ Canoo WebTest is another popular open source tool for automated testing of web a
 
 Twill is a simple scripting language that allows users to browse the Web from a command-line interface. It uses links, forms, cookies, and most standard Web features. It also deals with individual UI elements but does not support javascript, and HTML needs to be parsed interactively. Twill only supports Python, which makes it fairly inconvenient for practical web applications.
 
-== A New Approach for Web Testing ==
+
+= A New Approach for Web Testing =
 
 === Motivations ===
 
