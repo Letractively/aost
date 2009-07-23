@@ -87,6 +87,8 @@ click "GoogleSearchModule.Search"
 
 Tellurium does Object to Locator Mapping (OLM) automatically at run time so that UI objects can be defined simply by their attributes using _Composite Locators_. Tellurium uses the Group Locating Concept (GLC) to exploit information inside a collection of UI components so that locators can find their elements.  It also defines a set of DSLs for web testing.  Furthermore, Tellurium uses UI templates to define sets of dynamic UI elements at runtime.  As a result, Tellurium is robust, expressive, flexible, reusable, and easy to maintain. 
     
+== Main Features of Tellurium==
+
 The main features of Tellurium include:
 
   * Abstract UI objects to encapsulate web UI elements  
