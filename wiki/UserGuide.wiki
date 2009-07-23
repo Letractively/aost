@@ -2525,8 +2525,6 @@ Note, you can load multiple widget modules into the Tellurium Core framework by 
   included="dojo, com.mycompay.widget.Boot"
 }}}
 
-=== Use widgets ===
-
 To use widget, you can treat a Widget as a regular tellurium UI object. For example,
 
 {{{
