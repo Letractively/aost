@@ -2409,7 +2409,62 @@ The Tellurium Core is written in Groovy and Java. The test cases can be written 
 
 == Tellurium Extensions ==
 
-[http://code.google.com/p/aost/wiki/TelluriumWidget Tellurium Widget] is a good way to re-use UI components in testing. Usually, Javascript frameworks provide a lot of widgets. Take the Dojo framework as an example; you can define the DatePicker Dojo widget just like a regular Tellurium UI module. For widgets, it is important to include name space to avoid name collision between different widget modules. If we use "DOJO" as the name space, the widget could be written like "DOJO_DatePicker". We can define the following methods for the DOJO Date Picker widget:
+[http://code.google.com/p/aost/wiki/TelluriumWidget Tellurium Widget] is a good way to re-use UI components in testing. Usually, Javascript frameworks provide a lot of widgets. Tellurium provides you the capability to composite UI objects into a widget object and then you can use the widget directly just like using a tellurium UI object. The advantage is that you do not need to deal with the UI at the link or button level for the widget, you just work on the high level methods. Another advantage is that this widget is reusable. 
+
+Usually, Java script frameworks provide a lot of widgets. Take the Dojo framework as an example. We use the widget DatePicker to prototype the tellurium widget. The steps to define and use the widget are listed as follows,
+
+=== Extend the widget object and define the DojoWidget object with its name space as "DOJO" ===
+
+For widgets, it is important to include name space to avoid name collision between different widget modules. For example, what is Dojo and ExtJs both have the widget Date Picker? After add the name space, the widget will be like "DOJO_DatePicker".
+
+=== Define widget by combining tellurium UI Objects ===
+
+For example, the DataPicker widget is defined as follows,
+
+{{{
+class DatePicker extends DojoWidget{
+
+    public void defineWidget() {
+        ui.Container(uid: "DatePicker", locator: "/div[@class='datePickerContainer' 
+                     and child::table[@class='calendarContainer']]"){
+            Container(uid: "Title", locator: "/table[@class='calendarContainer']/thead
+                     /tr/td[@class='monthWrapper']/table[@class='monthContainer']/tbody
+                     /tr/td[@class='monthLabelContainer']"){
+                Icon(uid: "increaseWeek", locator:
+                                        "/span[@dojoattachpoint='increaseWeekNode']")
+                Icon(uid: "increaseMonth", locator:
+                                        "/span[@dojoattachpoint='increaseMonthNode']")
+                Icon(uid: "decreaseWeek", locator: 
+                                        "/span[@dojoattachpoint='decreaseWeekNode']")
+                Icon(uid: "decreaseMonth", locator: 
+                                        "/span[@dojoattachpoint='decreaseMonthNode']")
+                TextBox(uid: "monthLabel", locator: 
+                                        "/span[@dojoattachpoint='monthLabelNode']")   
+            }
+            StandardTable(uid: "calendar", locator: "/table[@class='calendarContainer']
+                          /tbody/tr/td/table[@class='calendarBodyContainer']"){
+                TextBox(uid: "header: all", locator: "")
+                ClickableUi(uid: "all", locator: "")
+            }
+            Container(uid: "year", locator: "/table[@class='calendarContainer']/tfoot
+             /tr/td/table[@class='yearContainer']/tbody/tr/td/h3[@class='yearLabel']"){
+                Span(uid: "prevYear", locator: "/span[@class='previousYear' and 
+                     @dojoattachpoint='previousYearLabelNode']")
+                TextBox(uid: "currentYear", locator: "/span[@class='selectedYear' and
+                     @dojoattachpoint='currentYearLabelNode']")
+                Span(uid: "nextYear", locator: "/span[@class='nextYear' and 
+                     @dojoattachpoint='nextYearLabelNode']")
+            }
+        }
+    }
+}
+}}}
+
+Here we used the XPath directly for demo purpose only. Usually, you should use the composite locator instead.
+
+=== Define widget methods ===
+
+For example, we defined the following methods:
 
 {{{    
     public String getCurrentYear(){
@@ -2421,7 +2476,70 @@ The Tellurium Core is written in Groovy and Java. The test cases can be written 
     }
 }}}
 
-To use the Date Picker widget, we can include the compiled jar file and include it like a regular tellurium UI object. For example:
+=== Define widget builder ===
+
+The widget is treated as a tellurium UI object and the builder is the same as regular tellurium objects
+
+{{{
+class DatePickerBuilder extends UiObjectBuilder{
+
+    public build(Map map, Closure c) {
+       //add default parameters so that the builder can use them if not specified
+        def df = [:]
+        DatePicker datepicker = this.internBuild(new DatePicker(), map, df)
+        datepicker.defineWidget()
+
+        return datepicker
+    }
+}
+}}}
+
+=== Hook the widget into the Tellurium Core framework ===
+
+Each widget module will be compiled as a separate jar file and it should define a bootstrap class to register all the widgets inside the module. By default, the full class name of the bootstrap class is {{{org.tellurium.widget.XXXX.Init}}}, where the class Init should implement the {{{WidgetBootstrap}}} interface to register widgets and _XXXX_ stands for the widget module name. It is DOJO in our case.
+
+{{{
+class Init implements WidgetBootstrap{
+    public void loadWidget(UiObjectBuilderRegistry uiObjectBuilderRegistry) {
+        if(uiObjectBuilderRegistry != null){
+           uiObjectBuilderRegistry.registerBuilder(getFullName("DatePicker"), 
+                                        new DatePickerBuilder())      
+        }
+    }
+}
+}}}
+
+Then in the tellurium configuration file TelluriumConfig.groovy, you should include your module name there,
+
+{{{
+    widget{
+        module{
+            //define your widget modules here, for example Dojo or ExtJs
+            included="dojo"
+        }
+    }
+}}}
+
+If you use your own package name for the bootstrap class, for example, com.mycompay.widget.Boot, then you should specify the full name there like
+
+{{{
+    widget{
+        module{
+            //define your widget modules here, for example Dojo or ExtJs
+            included="com.mycompay.widget.Boot"
+        }
+    }
+}}}
+
+Note, you can load multiple widget modules into the Tellurium Core framework by define
+
+{{{
+  included="dojo, com.mycompay.widget.Boot"
+}}}
+
+=== Use widgets ===
+
+Widget is defined as a regular tellurium UI object. For example,
 
 {{{
 class DatePickerDemo extends DslContext{
@@ -2431,7 +2549,7 @@ class DatePickerDemo extends DslContext{
             TextBox(uid: "label", clocator: [tag: "h4", text: "Dropdown:"])
             InputBox(uid: "input", clocator: [dojoattachpoint: "valueInputNode"])
             Image(uid: "selectDate", clocator: [title: "select a date", 
-                            dojoattachpoint: "containerDropdownNode", alt: "date"])
+                  dojoattachpoint: "containerDropdownNode", alt: "date"])
             DOJO_DatePicker(uid: "datePicker", clocator: [tag: "div", 
                             dojoattachpoint: "subWidgetContainerNode"])
         }
@@ -2439,7 +2557,15 @@ class DatePickerDemo extends DslContext{
 }
 }}}
 
-To make the framework scalable, Tellurium provides an _onWidget_ method for Tellurium widgets. In this way we can call the widget methods as follows:
+Then on the module file DatePickerDemo, you can call the widget methods instead of dealing with low level links, buttons, and so on.
+
+To make the testing more expressive, Tellurium provides an onWidget method
+
+{{{
+  onWidget(String uid, String method, Object[] args)
+}}}
+
+In that way, we can call the widget methods as follows:
 
 {{{
 onWidget "dropdown.datePicker", selectPrevYear
