@@ -103,26 +103,6 @@ XPath builder can build the XPath from the composite locator, i.e., a set of att
 The Group Locating Concept (GLC) exploits the group information inside a collection of UI objects to help us find the locator of the collection of UI objects. 
 
 The Eventhandler will handle all events like "click", "type", "select", and so on. The Data Accessor is used to fetch data or UI status from the DOM. The dispatcher will delegate all calls it receives from the Eventhandler and the data accessor to the connector, which connects to the Tellurium engine. The dispatcher is designed to decouple the rest of the Tellurium framework from the base test driving engine so that we can switch to a different test driving engine by simply changing the dispatcher logic.
-
-== HOW Does Tellurium Work ==
-
-Basically, there are two parts for the Tellurium framework. The first part is to define UI objects and the second part is working on the UI objects like firing events and getting data or status from the DOM.
-
-The "Define UI" operation can be demonstrated in the following sequence diagram:
-
-http://tellurium-users.googlegroups.com/web/TelluriumDefineUISequenceSmall.png?gda=q-QcZ1QAAAD5mhXrH3CK0rVx4StVj0LYVEdNPYyN6WD0Qorq8eAWMou8PfZIClucyABcdECM1W1EXQRukEyTz7-cLTPcTs30VervUohE3YNENn3wMh1Pnc3OAWZC50hVl-fZ6-QcRqg&gsc=D-2lBwsAAABkwKwxr1YSWDDrmKhvxTo1
-
-When the Test Case calls "DefineUI", the DslContext will call the Dsl Object Parser to parse the UI definition. The Parser will look at each node and call the appropriate builders to build UI objects. The top level object will be stored in the UI Object registry so that we can search for the UI object by UI Id.
-
-The processing of actions such as clicking on an UI object is illustrated in the following sequence diagram:
-
-http://tellurium-users.googlegroups.com/web/TelluriumClickSequence.png?gda=tSvVSkwAAAD5mhXrH3CK0rVx4StVj0LYVEdNPYyN6WD0Qorq8eAWMuD1j29FUgzDhsVQNMlCcuUP_CISFcqzRc98t8Wadwdx_Vpvmo5s1aABVJRO3P3wLQ&gsc=D-2lBwsAAABkwKwxr1YSWDDrmKhvxTo1
-
-The action processing includes following two parts.
-
-First, the DslContext will create a WorkflowContext so that we can pass meta data such the relative xpath inside it. Then, we start to look at the UI object registry by calling the walkTo method. Remember, the UI object registry hold all the top level UI objects. If we can find the top level UI object, we can recursively call the WalkTo method on the next UI object until we find the UI Object matching the UI id, or we cannot find the UI object by UI Id. During the walkTo method calls, we also start to aggregate relative xpaths or jQuery selector into the reference locator to the next UI object.
-
-If the UI Object is found, we fire the action such as "click" on the UI object and pass in a closure which can access the eventhandler, the WorkflowContext, and the LocatorProcessor. The WorkflowContext includes the reference xpath to the UI object and the LocatorProcessor can generate the xpath of the UI object itself. In this way, the runtime locator is constructed. Then, the UI object will call the Eventhandler to fire the click event. The event will pass all the way down from the dispatcher and Selenium Client to the Selenium Server.
  
 = Concepts and Features =
 
