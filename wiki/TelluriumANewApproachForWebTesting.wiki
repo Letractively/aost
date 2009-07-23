@@ -50,7 +50,7 @@ Twill is a simple scripting language that allows users to browse the Web from a 
 
 = A New Approach for Web Testing =
 
-=== Motivations ===
+== Motivations ==
 
 Since the existing automated testing frameworks could not address our challenges and problems very well, we really needed a new automated testing framework to address them with the following motivations:
 
@@ -62,7 +62,7 @@ Since the existing automated testing frameworks could not address our challenges
 
 Our proposal is the Tellurium Automated Testing Framework, or Tellurium for short. 
 
-=== Why Tellurium is a New Approach for Web Testing ===
+== Why Tellurium is a New Approach for Web Testing ==
  
 The Tellurium Automated Testing Framework (Tellurium) is an open source automated testing framework for web applications that addresses the challenges and problems in web testing. 
 
@@ -107,7 +107,7 @@ The main features of Tellurium include:
   * JUnit and TestNG support
   * Ant and Maven support
 
-=== How Challenges and Problems are addressed in Tellurium ? ===
+== How Challenges and Problems are addressed in Tellurium ? ==
  
 First of all, Tellurium does not use "record and replay." Instead, it uses the Tellurium Firefox plugin Trump to generate the UI module (not test code) for you. Then you need to create your test code based on the UI module. In this way, the UI and the test code are decoupled. The structured test code in Tellurium makes it much easier to refactor and maintain the code.
 
