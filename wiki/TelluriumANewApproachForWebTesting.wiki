@@ -35,9 +35,9 @@ Take the following Selenium test code as an example:
    selenium.click("//input[@value='Google Search' and @type='button']");
 }}}
 
-* Do you know what UI module the above code is testing?
-* What does the locator _q_ mean here?
-* What if the XPath {{{//input[@value='Google Search' and @type='button']}}} becomes invalid due to changes on the web?<br>
+*  Do you know what UI module the above code is testing?
+*  What does the locator _q_ mean here?
+*  What if the XPath {{{//input[@value='Google Search' and @type='button']}}} becomes  invalid due to changes on the web?<br>
 
 Most likely, you have to go through the test code to locate the lines you need to update. What if you have tens or hundreds of locators in your test code? Creating the test code using Selenium IDE is easy, but it is difficult to generalize and refactor. Refactoring is a much more tedious and painful procedure than regenerating new test code from scratch because of the use of hard-coded locators and the coupling of locators with test code. Maintaining the code is a hassle because the test code is not structured. Since Selenium only focuses on individual UI elements, it is difficult to adjust to changes on the web and to address a dynamic web context. 
 
