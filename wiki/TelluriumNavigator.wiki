@@ -7,7 +7,7 @@
 
   * [http://code.google.com/p/aost/wiki/Introduction Introduction]
   * [http://code.google.com/p/aost/wiki/UserGuide User Guide]
-  * [http://code.google.com/p/aost/wiki/TenMinutesToTellurium Ten Minutes To Tellurium]
+  * [http://code.google.com/p/aost/wiki/TenMinutesToTellurium Quick Start]
   * [http://code.google.com/p/aost/wiki/FAQ FAQs] 
 
 == Sub-projects ==
