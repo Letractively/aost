@@ -20,7 +20,8 @@ As the ongoing trend of new web technologies is speeding up, the upcoming automa
 
 == Existing Open Source Automated Web Testing Frameworks ==
 
-The Selenium web testing framework is one of the most popular open source automated web testing framework. It's a ground-breaking framework that offers many unique features and advantages such as browser based testing, Selenium Grid, and "record and replay" of user interactions with the Selenium IDE. As a pioneer framework, it inevitably has its shortcomings.
+=== Selenium ===
+The *Selenium* web testing framework is one of the most popular open source automated web testing framework. It's a ground-breaking framework that offers many unique features and advantages such as browser based testing, Selenium Grid, and "record and replay" of user interactions with the Selenium IDE. As a pioneer framework, it inevitably has its shortcomings.
 
 *Drawback* <br>
 One major drawback is that it only focuses on individual UI elements such as links and buttons. As a result, it is difficult to address dynamic web content in Selenium. "Record and replay" does make it much easier for users, especially non-developers, to create test cases. However, it has the drawback of being difficult to refactor and maintain. Other downsides include the coupling of UI elements and test code, being overly verbose, and being fragile and unresponsive to dynamic web changes. 
@@ -34,9 +35,14 @@ Take the following Selenium test code as an example:
    selenium.click("//input[@value='Google Search' and @type='button']");
 }}}
 
-Do you know what UI module the above code is testing? What does the locator _q_ mean here? And what if the XPath {{{//input[@value='Google Search' and @type='button']}}} becomes invalid due to changes on the web? Most likely, you have to go through the test code to locate the lines you need to update. What if you have tens or hundreds of locators in your test code? Creating the test code using Selenium IDE is easy, but it is difficult to generalize and refactor. Refactoring is a much more tedious and painful procedure than regenerating new test code from scratch because of the use of hard-coded locators and the coupling of locators with test code. Maintaining the code is a hassle because the test code is not structured. Since Selenium only focuses on individual UI elements, it is difficult to adjust to changes on the web and to address a dynamic web context. 
+* Do you know what UI module the above code is testing?
+* What does the locator _q_ mean here?
+* What if the XPath {{{//input[@value='Google Search' and @type='button']}}} becomes invalid due to changes on the web?<br>
 
-Canoo WebTest is another popular open source tool for automated testing of web applications. However, it also focuses on individual UI elements and thus it suffers shortcomings similar to those of Selenium, such as coupling the test code with the UI. Here is some sample test code:
+Most likely, you have to go through the test code to locate the lines you need to update. What if you have tens or hundreds of locators in your test code? Creating the test code using Selenium IDE is easy, but it is difficult to generalize and refactor. Refactoring is a much more tedious and painful procedure than regenerating new test code from scratch because of the use of hard-coded locators and the coupling of locators with test code. Maintaining the code is a hassle because the test code is not structured. Since Selenium only focuses on individual UI elements, it is difficult to adjust to changes on the web and to address a dynamic web context. 
+
+=== Canoo ===
+*Canoo* web test is another popular open source tool for automated testing of web applications. However, it also focuses on individual UI elements and thus it suffers shortcomings similar to those of Selenium, such as coupling the test code with the UI. Here is some sample test code:
 
 {{{
     webtest("check that WebTest is Google's top 'WebTest' result"){
@@ -48,7 +54,8 @@ Canoo WebTest is another popular open source tool for automated testing of web a
     }
 }}}
 
-Twill is a simple scripting language that allows users to browse the Web from a command-line interface. It uses links, forms, cookies, and most standard Web features. It also deals with individual UI elements but does not support javascript, and HTML needs to be parsed interactively. Twill only supports Python, which makes it fairly inconvenient for practical web applications.
+=== Twill ===
+*Twill* is a simple scripting language that allows users to browse the Web from a command-line interface. It uses links, forms, cookies, and most standard Web features. It also deals with individual UI elements but does not support javascript, and HTML needs to be parsed interactively. Twill only supports Python, which makes it fairly inconvenient for practical web applications.
 
 
 = A New Approach for Web Testing =
