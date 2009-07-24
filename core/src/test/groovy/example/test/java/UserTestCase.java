@@ -1,0 +1,41 @@
+package example.test.java;
+
+import example.other.UserModule;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.tellurium.test.java.TelluriumJavaTestCase;
+import org.tellurium.test.mock.MockHttpServer;
+
+/**
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
+ *
+ *         Date: Jul 24, 2009
+ */
+public class UserTestCase extends TelluriumJavaTestCase {
+    private static MockHttpServer server;
+
+    @BeforeClass
+    public static void setUp(){
+        server = new MockHttpServer(8080);
+        server.registerHtmlBody("/account.html", UserModule.HTML_BODY);
+        server.start();
+    }
+
+    @Test
+    public void testGetSeparatorAttribute(){
+        UserModule lm = new UserModule();
+        lm.defineUi();
+        connectUrl("http://localhost:8080/account.html");
+        lm.disableJQuerySelector();
+        lm.doCreateAccount();
+        connectUrl("http://localhost:8080/account.html");
+        lm.useJQuerySelector();
+        lm.doCreateAccount();
+    }
+
+    @AfterClass
+    public static void tearDown(){
+        server.stop();
+    }
+}
