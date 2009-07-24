@@ -3703,6 +3703,81 @@ We also provide a quick start, "Ten Minutes To Tellurium", at
 
 http://code.google.com/p/aost/wiki/TenMinutesToTellurium
 
+== Tellurium Dependencies ==
+
+Tellurium is built on top of Selenium at the current stage and it uses Selenium 1.0.1 and Selenium Grid tool 1.0.2. Tellurium 0.6.0 was tested with Grooy 1.6.0 and Maven 2.0.9. 
+
+== What is the {{{ui.}}} in UI module ==
+
+Very often, you will see the {{{ui.}}} symbol when you define Tellurium UI
+modules, for instance, look at the following GoogleSearchModule UI module
+
+{{{
+ui.Container(uid: "GoogleSearchModule", clocator: [tag: "td"], group: "true"){
+   InputBox(uid: "Input", clocator: [title: "Google Search"])
+   SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+   SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
+}
+}}}
+
+If you have read the Tellurium core code, you will find the following line in the {{{BaseDslContext}}} class,
+
+{{{
+    UiDslParser ui = new UiDslParser()
+}}}
+
+That is to say, the _ui_ is actually an instance of UiDslParser. On the above UI module, you actually call the method "Container" on UiDslParser with a map of attributes plus a Closure with the following nested code.
+
+{{{
+{
+   InputBox(uid: "Input", clocator: [title: "Google Search"])
+   SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+   SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
+}
+}}}
+
+Look at what the UiDslParser actually does from the source code
+
+{{{
+class UiDslParser extends BuilderSupport{
+
+   def registry = [:]
+
+   def UiObjectBuilderRegistry builderRegistry = new UiObjectBuilderRegistry()
+
+   protected Object createNode(Object name) {
+   }
+
+   ....
+}
+}}}
+
+That is to say, the UiDslParser extends the Groovy {{{BuilderSupport}}} class and works as a parser for what ever you passed in starting from {{{Container(uid: "GoogleSearchModule", clocator: [tag: "td"], group: "true")}}} in the above example.
+
+You may notice that the {{{BuilderSupport}}} class needs to handle couple call back methods such as,
+
+{{{
+protected Object createNode(Object name)
+
+protected Object createNode(Object name, Object value)
+
+protected Object createNode(Object name, Map map)
+
+protected Object createNode(Object name, Map map, Object value)
+
+protected void nodeCompleted(Object parent, Object node)
+
+protected void setParent(Object parent, Object child)
+}}}
+
+If you are familiar with XML parser, you will see that this is really similar with XML PUSH style parser. You need to define call back methods and the parser will parse the message to the end automatically.
+
+The above callback methods are doing the similar thing, i.e., to create a UI object when it sees the name like "Container", "InputBox", and "SubmitButton". The different createNode methods are used for different use cases. 
+
+Basically, what the UiDslParser does is to get the object name such as "Container" and then look at the UI builder registry to find the builder for that object, then use the builder to build that UI object. The UI builder registry is a hash map and you can find the Container builder by the object name "Container".
+
+Also the UiDslParser will keep the parse results, i.e., UI objects in a registry so that you can refer them by UID such as "GoogleSearchModule.Search", The object hierarchy is handled by the setParent method. 
+
 == How do I add my own UI object to Tellurium ==
 
 First, you need to create your UI object groovy class by extending class UiObject or Container if it is a container type object. Then, you need to create your UI object builder by extending class UiObjectBuilder. Finally, register your ui builder for your ui object by call the 
@@ -3782,10 +3857,6 @@ Run
 ant compile-test
 }}}
 to compile test code.
-
-== DO I need to know Groovy before I write Tellurium test cases ==
-
-Not really. If you write your test as pure DSL, you only need to know the DSL syntax. If you need to write your test in Java, you only need to define your UI modules in Groovy file by extending the DslContext class. Since Groovy accept all Java syntax, you can in fact write Java code in your Groovy file that defines the UI modules. For the actual TestCase or TestSuite, they are already Java code. As long as you know Java, you know how to write Tellurium tests.
 
 == What is the problem with Selenium XPath expressions and why there is need to create UI Module ==
 
@@ -3874,10 +3945,6 @@ This brings up one interesting question "why should I put assertions inside comp
 
 If you put assertions in compareResult and the assertion fails, the AssertionFailedError will be captured and that comparison fails, but the rest script inside a test will continue executing. But if you put assertions outside of compareResult, the AssertionFailedError will lead to the failure of the current test. The exception will be
 recorded and the current test will be stopped. The next test will take over and execute. 
-
-== Tellurium Dependencies ==
-
-Tellurium is built on top of Selenium at the current stage and it uses Selenium 1.0.1 and Selenium Grid tool 1.0.2. Tellurium 0.6.0 was tested with Grooy 1.6.0 and Maven 2.0.9. 
 
 == How to run Selenium server remotely in Tellurium ==
 
