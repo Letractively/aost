@@ -108,21 +108,21 @@ The Eventhandler will handle all events like "click", "type", "select", and so o
 
 Basically, there are two parts for the Tellurium framework. The first part is to define UI objects and the second part is working on the UI objects like firing events and getting data or status from the DOM.
 
-The "Define UI" operation can be demonstrated in the following sequence diagram:
+The {{{defineUI}}} operation can be demonstrated in the following sequence diagram:
 
-http://tellurium-users.googlegroups.com/web/TelluriumDefineUISequenceSmall.png?gda=q-QcZ1QAAAD5mhXrH3CK0rVx4StVj0LYVEdNPYyN6WD0Qorq8eAWMou8PfZIClucyABcdECM1W1EXQRukEyTz7-cLTPcTs30VervUohE3YNENn3wMh1Pnc3OAWZC50hVl-fZ6-QcRqg&gsc=D-2lBwsAAABkwKwxr1YSWDDrmKhvxTo1
+http://tellurium-users.googlegroups.com/web/TelluriumDefineUiSequenceDiagram.png?gda=aw23nVYAAAD5mhXrH3CK0rVx4StVj0LY6r7Fxo4RaVZ2InRIkvRUPVa5eLn5D8aMzeq5BmQm6Iqs27ZxjBtfjzl3w_ujfDpqd64s9EZTLP9aL_4jXQez_BPhGuxsWDLdLep2NLleRSE&gsc=x3TBYwsAAAAeXMPG6HH-B1VXA1h0gdTp
 
-When the Test Case calls "DefineUI", the DslContext will call the Dsl Object Parser to parse the UI definition. The Parser will look at each node and call the appropriate builders to build UI objects. The top level object will be stored in the UI Object registry so that we can search for the UI object by UI Id.
+When the Test code calls {{{defineUI()}}}, the DslContext calls the Dsl Object Parser to parse the UI definition. The Parser looks at each node and call the appropriate builders to build UI objects. The top level object is stored in the UI Object registry so that we can search for the UI object by _uid_.
 
 The processing of actions such as clicking on an UI object is illustrated in the following sequence diagram:
 
-http://tellurium-users.googlegroups.com/web/TelluriumClickSequence.png?gda=tSvVSkwAAAD5mhXrH3CK0rVx4StVj0LYVEdNPYyN6WD0Qorq8eAWMuD1j29FUgzDhsVQNMlCcuUP_CISFcqzRc98t8Wadwdx_Vpvmo5s1aABVJRO3P3wLQ&gsc=D-2lBwsAAABkwKwxr1YSWDDrmKhvxTo1
+http://tellurium-users.googlegroups.com/web/TelluriumClickSequenceDiagram.png?gda=DDIgt1MAAAD5mhXrH3CK0rVx4StVj0LY6r7Fxo4RaVZ2InRIkvRUPeD1j29FUgzDhsVQNMlCcuXsGSF53sOd2QxWBQw1Q0uxMrYifh3RmGHD4v9PaZfDexVi73jmlo822J6Z5KZsXFo&gsc=x3TBYwsAAAAeXMPG6HH-B1VXA1h0gdTp
 
 The action processing includes following two parts.
 
-First, the DslContext will create a WorkflowContext so that we can pass meta data such the relative xpath inside it. Then, we start to look at the UI object registry by calling the walkTo method. Remember, the UI object registry hold all the top level UI objects. If we can find the top level UI object, we can recursively call the WalkTo method on the next UI object until we find the UI Object matching the UI id, or we cannot find the UI object by UI Id. During the walkTo method calls, we also start to aggregate relative xpaths or jQuery selector into the reference locator to the next UI object.
+First, the {{{DslContext}}} will create a {{{WorkflowContext}}} so that we can pass meta data such the relative locator inside it. Then, we start to look at the UI object registry by calling the {{{walkTo(uid)}}} method. Remember, the UI object registry hold all the top level UI objects. If we can find the top level UI object, we can recursively call the {{{walkTo(uid)}}} method on the next UI object until we find the UI Object matching the _uid_. During the {{{walkTo}}} method calls, we start to aggregate relative xpaths or jQuery selector into the reference locator and pass it on to the next UI object. In this way, the runtime locator is built.
 
-If the UI Object is found, we fire the action such as "click" on the UI object and pass in a closure which can access the eventhandler, the WorkflowContext, and the LocatorProcessor. The WorkflowContext includes the reference xpath to the UI object and the LocatorProcessor can generate the xpath of the UI object itself. In this way, the runtime locator is constructed. Then, the UI object will call the Eventhandler to fire the click event. The event will pass all the way down from the dispatcher and Selenium Client to the Selenium Server.
+If the UI Object is found, we call the action such as "click" on the UI object and the call is passed on to the EventHandler, where additional JavaScript events may be fired before and/or after the click action as shown in the above sequence diagram. The action and JavaScript events are passed all the way down from the dispatcher and connector to the Tellurium Engine, which is embedded in the Selenium server at the current stage.
 
 = Concepts and Features =
 
@@ -1103,7 +1103,7 @@ test{
  
 TelluriumDataDrivenModule is used to define modules, where users can define UI Modules, FieldSets, and tests as shown in the following sequence diagram. Users should extend this class to define their own test modules. 
 
-http://tellurium-users.googlegroups.com/web/TelluriumDDTSequenceModuleSmall.jpg?gda=fMpuJVUAAAD5mhXrH3CK0rVx4StVj0LY1qEafHCs01uhHJYiINVXC9X89ils_HSTT3RT14ZxtnPXBxutN8GeZyEja0cVzh1Rc5ap1mUA98uo2agjH0hUOhrtYix3qocOGWUY90Yyf_g&gsc=ZqOGHAsAAACnetGKhEg2llVnNCbfn1yB
+http://tellurium-users.googlegroups.com/web/TelluriumDDTModule.png?gda=oIfzLkgAAAD5mhXrH3CK0rVx4StVj0LY6r7Fxo4RaVZ2InRIkvRUPW9wwFNWzBcwQWJJR7cmP5glzhb83kORdLwM2moY-MeuGjVgdwNi-BwrUzBGT2hOzg&gsc=x3TBYwsAAAAeXMPG6HH-B1VXA1h0gdTp
 
 TelluriumDataDrivenModule provides one method "defineModule" for users to implement. Since it extends the DslContext class, users can define UI modules just like in regular Tellurium UI Module. For example:
 
@@ -1240,7 +1240,7 @@ logMessage "Found ${actual.size()} ${issueTypeLabel} for owner " + issueOwner
 
 TelluriumDataDrivenTest is the class users should extend to run the actual data driven testing and it is more like a data driven testing engine. There is only one method, "testDataDriven", which users need to implement. The sequence diagram for the testing process is shown as follows.
  
-http://tellurium-users.googlegroups.com/web/DDTTestSequenceSmall.jpg?gda=yvHtOkoAAAD5mhXrH3CK0rVx4StVj0LYmomEnGFFHgl3k6Le3Z-IdFt-26viTG2BSEP5bwf5CM6Qf_WghRi5q04p1A7gHihU_e3Wg0GnqfdKOwDqUih1tA&gsc=ODykzgsAAACEc2FtJPGdXe_7CHb1VB6Z
+http://tellurium-users.googlegroups.com/web/TelluriumDDTTestSequence.png?gda=Fgy8N04AAAD5mhXrH3CK0rVx4StVj0LY6r7Fxo4RaVZ2InRIkvRUPYEAgewWsw-pfk-JI3kLTQ9omPhdHiHZ5EjvmEnpg6SE47Cl1bPl-23V2XOW7kn5sQ&gsc=x3TBYwsAAAAeXMPG6HH-B1VXA1h0gdTp
 
 Usually, users need to do the following steps:
 
