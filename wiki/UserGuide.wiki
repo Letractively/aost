@@ -2514,6 +2514,28 @@ http://tellurium-users.googlegroups.com/web/TelluriumSubprojects.png?gda=KOo7BEo
   * Tellurium Maven Archetypes: Maven archetypes to generate skeleton Tellurium JUnit and Tellurium TestNG projects using one Maven command.
   * Tellurium Reference Projects: Use Tellurium project site as examples to illustrate how to use different features in Tellurium and how to create Tellurium test cases.
 
+== Tellurium Engine ==
+
+Up to Tellurium 0.6.0, Tellurium still leveraged Selenium core as the test driving engine. Selenium has a rich set of APIs to act on individual UI elements, and Tellurium can use them directly. Tellurium embedded its own small engine in Selenium core to support the following enhancements:
+
+  * jQuery selector support by adding a new jQuery selector locate strategy so that the Selenium core can handle the jQuery selectors passed in from Tellurium core.
+  * jQuery selector caching to increase the reuse of previously located DOM references and reduce the UI element locating time.
+  * Bulk data retrieval. For example, the following method will get back all data in a table with just one method call, which improves the speed dramatically:
+
+{{{
+        String getAllTableCellText(String uid) 
+}}}
+
+  * New APIs for partial matching of attributes, CSS query, and more.
+
+Using Selenium core as the test driving engine is a quick solution for Tellurium, but it suffers some drawbacks such as low efficiency because Selenium core does not have built-in support for UI modules. We are working on our new engine to gradually replace Selenium core in order to achieve the following goals:
+
+  * Command bundle to reduce round-trip time between Tellurium core and the Tellurium Engine.
+  * UI module caching at the Engine side to reuse the discovered locator in the UI module no matter if the locator is XPath or a jQuery selector.
+  * Group locating at the Engine side to exploit more information about the UI elements in the UI module to help locate UI elements
+  * Exception hierarchy so that the Engine returns meaningful error codes back to the Tellurium core.
+  * Ajax response notification. 
+
 == Tellurium Core ==
 
 The Tellurium Core does *Object to Locator Mapping* (OLM) automatically at runtime so that you can define UI objects simply by their attributes, i.e., *Composite Locators* denoted by the "clocator". Furthermore, Tellurium Core uses the *Group Locating Concept* (GLC) to exploit information inside a collection of UI components to help finding their locators. The Tellurium Core defines a new *Domain Specific Language* (DSL) for web testing. One very powerful feature of Tellurium Core is that you can use *UI templates* to represent many identical UI elements or dynamic size of different UI elements at runtime, which are extremely useful to test dynamic web such as a data grid. One typical data grid example is as follows,
@@ -2764,29 +2786,6 @@ class NewUiModule extends DslContext{
 
 }
 }}}
-
-
-== Tellurium Engine ==
-
-Up to Tellurium 0.6.0, Tellurium still leveraged Selenium core as the test driving engine. Selenium has a rich set of APIs to act on individual UI elements, and Tellurium can use them directly. Tellurium embedded its own small engine in Selenium core to support the following enhancements:
-
-  * jQuery selector support by adding a new jQuery selector locate strategy so that the Selenium core can handle the jQuery selectors passed in from Tellurium core.
-  * jQuery selector caching to increase the reuse of previously located DOM references and reduce the UI element locating time.
-  * Bulk data retrieval. For example, the following method will get back all data in a table with just one method call, which improves the speed dramatically:
-
-{{{
-        String getAllTableCellText(String uid) 
-}}}
-
-  * New APIs for partial matching of attributes, CSS query, and more.
-
-Using Selenium core as the test driving engine is a quick solution for Tellurium, but it suffers some drawbacks such as low efficiency because Selenium core does not have built-in support for UI modules. We are working on our new engine to gradually replace Selenium core in order to achieve the following goals:
-
-  * Command bundle to reduce round-trip time between Tellurium core and the Tellurium Engine.
-  * UI module caching at the Engine side to reuse the discovered locator in the UI module no matter if the locator is XPath or a jQuery selector.
-  * Group locating at the Engine side to exploit more information about the UI elements in the UI module to help locate UI elements
-  * Exception hierarchy so that the Engine returns meaningful error codes back to the Tellurium core.
-  * Ajax response notification. 
      
 == Tellurium Maven Archetypes ==
 
