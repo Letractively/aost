@@ -3743,6 +3743,8 @@ $ mvn dependency:tree
 [INFO] ------------------------------------------------------------------------
 }}}
 
+But be aware that some of the dependencies are required *ONLY* for Maven itself, for example, gmaven-runtime, bouncycastle, and plexus.
+
 == What is the {{{ui.}}} in UI module ==
 
 Very often, you will see the {{{ui.}}} symbol when you define Tellurium UI
