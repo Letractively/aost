@@ -3707,6 +3707,42 @@ http://code.google.com/p/aost/wiki/TenMinutesToTellurium
 
 Tellurium is built on top of Selenium at the current stage and it uses Selenium 1.0.1 and Selenium Grid tool 1.0.2. Tellurium 0.6.0 was tested with Grooy 1.6.0 and Maven 2.0.9. 
 
+You can go to Tellurium core and run the following Maven command to check the dependencies:
+
+{{{
+$ mvn dependency:tree
+[INFO] Scanning for projects...
+[INFO] Searching repository for plugin with prefix: 'dependency'.
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Tellurium Core
+[INFO]    task-segment: [dependency:tree]
+[INFO] ------------------------------------------------------------------------
+[INFO] [dependency:tree]
+[INFO] tellurium:tellurium-core:jar:0.7.0-SNAPSHOT
+[INFO] +- junit:junit:jar:4.4:compile
+[INFO] +- org.testng:testng:jar:jdk15:5.8:compile
+[INFO] +- caja:json_simple:jar:r1:compile
+[INFO] +- org.stringtree:stringtree-json:jar:2.0.10:compile
+[INFO] +- org.seleniumhq.selenium.server:selenium-server:jar:1.0.1-te:compile
+[INFO] +- org.seleniumhq.selenium.client-drivers:selenium-java-client-driver:jar:1.0.1:compile
+[INFO] +- org.openqa.selenium.grid:selenium-grid-tools:jar:1.0.2:compile
+[INFO] +- org.codehaus.groovy:groovy-all:jar:1.6.0:compile
+[INFO] |  +- org.apache.ant:ant:jar:1.7.1:compile
+[INFO] |  |  \- org.apache.ant:ant-launcher:jar:1.7.1:compile
+[INFO] |  \- jline:jline:jar:0.9.94:compile
+[INFO] +- org.codehaus.groovy.maven.runtime:gmaven-runtime-1.6:jar:1.0-rc-5:compile
+[INFO] |  +- org.slf4j:slf4j-api:jar:1.5.6:compile
+[INFO] |  +- org.codehaus.groovy.maven.feature:gmaven-feature-support:jar:1.0-rc-5:compile
+[INFO] |  |  \- org.codehaus.groovy.maven.feature:gmaven-feature-api:jar:1.0-rc-5:compile
+[INFO] |  \- org.codehaus.groovy.maven.runtime:gmaven-runtime-support:jar:1.0-rc-5:compile
+[INFO] |     +- org.codehaus.groovy.maven.runtime:gmaven-runtime-api:jar:1.0-rc-5:compile
+[INFO] |     +- org.codehaus.groovy.maven:gmaven-common:jar:1.0-rc-5:compile
+[INFO] |     +- org.codehaus.plexus:plexus-utils:jar:1.5.5:compile
+[INFO] |     \- com.thoughtworks.qdox:qdox:jar:1.8:compile
+[INFO] \- bouncycastle:bcprov-jdk15:jar:140:compile
+[INFO] ------------------------------------------------------------------------
+}}}
+
 == What is the {{{ui.}}} in UI module ==
 
 Very often, you will see the {{{ui.}}} symbol when you define Tellurium UI
