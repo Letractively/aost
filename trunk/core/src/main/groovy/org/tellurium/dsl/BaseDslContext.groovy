@@ -1154,4 +1154,10 @@ abstract class BaseDslContext {
       println("-------------------------------------------------------\n")
     }
   }
+
+  public String generateHtml(String uid){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    def obj = walkToWithException(context, uid)
+    return obj.generateHtml()
+  }
 }

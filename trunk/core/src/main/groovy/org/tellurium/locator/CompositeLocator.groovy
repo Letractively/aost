@@ -42,4 +42,51 @@ class CompositeLocator {
     public boolean noIdIncluded(){
       return !isIdIncluded()
     }
+
+    public String generateHtml(boolean closeTag){
+      StringBuffer sb = new StringBuffer(64);
+      sb.append("<").append(tag);
+      if(attributes != null && attributes.size() > 0){
+        attributes.each {String key, String val ->
+          String aval = val;
+          if((val.startsWith(NOT_PREFIX) || val.startsWith(START_PREFIX) || val.startsWith(END_PREFIX) || val.startsWith(ANY_PREFIX))){
+            aval = val.substring(1);
+          }else if(val.startsWith(CONTAIN_PREFIX)){
+            aval = val.substring(2);
+          }
+          sb.append(" ${key}=\"${aval}\"");
+        }
+      }
+      if(closeTag){
+        if (text != null && text.trim().length() > 0) {
+          String atext = text;
+          if ((text.startsWith(NOT_PREFIX) || text.startsWith(START_PREFIX) || text.startsWith(END_PREFIX) || text.startsWith(ANY_PREFIX))) {
+            atext = text.substring(1);
+          }else if(text.startsWith(CONTAIN_PREFIX)){
+            atext = text.substring(2);
+          }
+          sb.append(">${atext}</${tag}>")
+        }else{
+          sb.append("/>")
+        }
+      }else{
+        if (text != null && text.trim().length() > 0) {
+          String atext = text;
+          if ((text.startsWith(NOT_PREFIX) || text.startsWith(START_PREFIX) || text.startsWith(END_PREFIX) || text.startsWith(ANY_PREFIX))) {
+            atext = text.substring(1);
+          }else if(text.startsWith(CONTAIN_PREFIX)){
+            atext = text.substring(2);
+          }
+          sb.append(">${atext}")
+        }else{
+          sb.append(">")
+        }
+      }
+
+      return sb.toString();
+    }
+
+    public String generateCloseTag(){
+      return "</${tag}>"; 
+    }
 }

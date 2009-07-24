@@ -42,6 +42,7 @@ public class CustomUIExample_UT extends GroovyTestCase {
     cue.dump("accountEdit");
     cue.useJQuerySelector();
     cue.dump("accountEdit");
+    println cue.generateHtml("accountEdit");
   }
 
 }

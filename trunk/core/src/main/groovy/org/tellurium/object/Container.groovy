@@ -1,11 +1,12 @@
 package org.tellurium.object
 
-import org.tellurium.dsl.WorkflowContext
 import org.tellurium.dsl.UiID
-import org.tellurium.locator.LocatorProcessor
+import org.tellurium.dsl.WorkflowContext
 import org.tellurium.locator.GroupLocateStrategy
+import org.tellurium.locator.LocatorProcessor
+import org.tellurium.object.UiObject
 
- /**
+/**
  *  container
  *
  *  @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -57,6 +58,26 @@ class Container extends UiObject {
         component.traverse(context)
       }
       context.popUid()
+    }
+
+   @Override
+    public String generateHtml(){
+      StringBuffer sb = new StringBuffer(64);
+      if(this.components.size() > 0){
+        if(this.locator != null)
+          sb.append(getIndent() + this.locator.generateHtml(false)).append("\n");
+        this.components.each {String uid, UiObject obj ->
+          sb.append(obj.generateHtml()).append("\n");
+        }
+        if(this.locator != null)
+          sb.append(getIndent() + this.locator.generateCloseTag());
+      }else{
+        if(this.locator != null){
+          sb.append(this.locator.generateHtml(true)).append("\n")
+        }
+      }
+
+      return sb.toString();
     }
 
     //walkTo through the object tree to until the UI object is found by the UID from the stack
