@@ -4263,7 +4263,7 @@ For example, in the test case file,
     } 
 }}}
 
-== How to Debug Selenium Core in IE ==
+== How to Debug Selenium Core ==
 
 You can use Microsoft Script Debugger to debug the Selenium Core in IE.
 
@@ -4279,6 +4279,8 @@ To debug the javascript code, follow the following step,
   # Once the Java process paused, open up the Microsoft script debugger or Editor MSE7.exe.
   # Attach you debugger to the running IE instance and you will see the JavaScript you want to debug, set a break point there.
   # Resume you Java process and it will wait there once the breakpoint is hit in the JavaScript debugger. Then you can step into, step over, or run the JavaScript. 
+
+For Firefox, you can debug using Firebug using the same steps. But you may need to use Firefox profile to start the custom server server so that Firebug will be included in the launched instance.
 
 == How to use jQuery Selector with weird characters in its ID ==
 
