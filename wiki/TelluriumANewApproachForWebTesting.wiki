@@ -24,7 +24,7 @@ As the ongoing trend of new web technologies is speeding up, the upcoming automa
 The *Selenium* web testing framework is one of the most popular open source automated web testing framework. It's a ground-breaking framework that offers many unique features and advantages such as browser based testing, Selenium Grid, and "record and replay" of user interactions with the Selenium IDE. As a pioneer framework, it inevitably has its shortcomings.
 
 *Drawback* <br>
-One major drawback is that it only focuses on individual UI elements such as links and buttons. As a result, it is difficult to address dynamic web content in Selenium. "Record and replay" does make it much easier for users, especially non-developers, to create test cases. However, it has the drawback of being difficult to refactor and maintain. Other downsides include the coupling of UI elements and test code, being overly verbose, and being fragile and unresponsive to dynamic web changes. 
+One major drawback is that it only focus on individual UI elements such as links and buttons. As a result, it is difficult to address dynamic web content in Selenium. "Record and replay" does make it much easier for users, especially non-developers, to create test cases. However, it has the drawback of being difficult to refactor and maintain. Other downsides include the coupling of UI elements and test code, being overly verbose, and being fragile and unresponsive to dynamic web changes. 
 
 Take the following Selenium test code as an example:
 
@@ -62,7 +62,7 @@ Most likely, you have to go through the test code to locate the lines you need t
 
 == Motivations ==
 
-Since the existing automated testing frameworks could not address our challenges and problems very well, we really needed a new automated testing framework to address them with the following motivations:
+Since the existing automated testing frameworks could not address the challenges and problems very well, there was really a need for new automated testing framework to address them with the following motivations:
 
   * Robust/responsive to changes; allow changes to be localized
   * Address dynamic web contexts such as JavaScript events and Ajax 
