@@ -3718,7 +3718,7 @@ $ mvn dependency:tree
 [INFO]    task-segment: [dependency:tree]
 [INFO] ------------------------------------------------------------------------
 [INFO] [dependency:tree]
-[INFO] tellurium:tellurium-core:jar:0.7.0-SNAPSHOT
+[INFO] tellurium:tellurium-core:jar:0.6.0
 [INFO] +- junit:junit:jar:4.4:compile
 [INFO] +- org.testng:testng:jar:jdk15:5.8:compile
 [INFO] +- caja:json_simple:jar:r1:compile
