@@ -7,4 +7,13 @@ class BaseLocator{
         //TODO: parse the tag from the base locator if it is XPATH, how about Selector?
         return ""
     }
+
+    public generateHtml(boolean closeTag){
+      //Do not support generate Html for base locator
+      return ""
+    }
+  
+    public String generateCloseTag(){
+      return ""
+    }
 }

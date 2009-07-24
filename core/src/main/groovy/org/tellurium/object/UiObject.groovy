@@ -53,27 +53,12 @@ abstract class UiObject implements Cloneable{
     boolean cacheable = true
   
     def locator
-//    def feature
 
     //reference back to its parent
     def Container parent
 
     //respond to JavaScript events
     String[] respondToEvents
-
-/*
-    def ArrayList getSelectorProperties(java.util.List<String> props){
-        return accessor.getSelectorProperties(locator, props);
-    }
-
-    def ArrayList getSelectorText(){
-        return accessor.getSelectorText(locator, props);
-    }
-
-    def Object getSelectorFunctionCall(String fn, java.util.List args){
-        return accessor.getSelectorText(locator, fn, args);
-    }
-*/
 
     def mouseOver(Closure c){
         c(locator)
@@ -180,6 +165,23 @@ abstract class UiObject implements Cloneable{
         return this.cacheable && parent.amICacheable() && (!parent.noCacheForChildren)
 
       return this.cacheable
+    }
+
+    public String getIndent(){
+      if(parent != null){
+          return parent.getIndent() + "  ";
+      }else{
+        return "";
+      }
+
+    }
+
+    public String generateHtml(){
+      if(this.locator != null){
+        return getIndent() + this.locator.generateHtml(true);
+      }
+      
+      return "";
     }
 
     public void traverse(WorkflowContext context){
