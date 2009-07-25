@@ -304,7 +304,7 @@ The generated HTML source is as follows
 
 == Summary ==
 
-The {{{generateHtml(uid)}} method is really helpful if you want to help other people to track the problem in their Tellurium test code but you have not access to their web applications and HTML sources. Once the HTML source is generated, you can use the [http://code.google.com/p/aost/wiki/TelluriumMockHttpServer mock http server] to test the generated HTML Source].
+The {{{generateHtml(uid)}}} method is really helpful if you want to help other people to track the problem in their Tellurium test code but you have not access to their web applications and HTML sources. Once the HTML source is generated, you can use the [http://code.google.com/p/aost/wiki/TelluriumMockHttpServer mock http server] to test the generated HTML Source].
 
 == Resources ==
 
