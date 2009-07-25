@@ -1,0 +1,38 @@
+#summary How to Generate Html Source from UI Modules.
+#labels Phase-Support,Phase-Implementation
+
+= Motivation =
+
+Very often, some Tellurium users asked us to help them to track problems in their Tellurium test code. Due to some company policy, they cannot provide us the HTML source directly, but the UI module instead. Without the HTML source, there is no way for us to debug their test code because we do not have access to their web applications.
+
+However, if we can do reverse engineering to generate the HTML source from the given UI module, we can use the [http://code.google.com/p/aost/wiki/TelluriumMockHttpServer mock http server] to test the generated HTML Source without the need to access their web applications. 
+
+Driven by this motivation, we provided the following new method in {{{DslContext}}} for users to generate HTML source from UI modules:
+
+{{{
+  public String generateHtml(String uid)
+}}}
+
+= Implementation =
+
+The key is to generate the HTML source for each individual UI object from the composite locator, denoted by {{{clocator}}}. As a result, we added two methods to the {{{CompositeLocator}}} class:
+
+{{{
+class CompositeLocator {
+    String header
+    String tag
+    String text
+    String trailer
+    Map<String, String> attributes = [:]
+
+    public String generateHtml(boolean closeTag){ 
+      ......
+    }
+
+    public String generateCloseTag(){
+      ......
+    }
+}}}
+
+where {{{generateHtml(boolean closeTag)}}} returns the generated HTML source from the composite locator and the boolean variable _closeTag_ indicates whether to generate the closing tag for the HTML source. For Container type UI objects, most likely, you will not generate the closing tag directly, but use the other method {{{generateCloseTag()}}} to generate the closing tag separately so that we can include its child elements in between.
+
