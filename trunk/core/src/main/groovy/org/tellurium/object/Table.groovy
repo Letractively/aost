@@ -393,11 +393,12 @@ class Table extends Container {
 
   int getMaxHeaderIndex() {
     int max = 0;
+    boolean hasAll = false;
     if (this.headers.size() > 0) {
       this.headers.each {String uid, UiObject obj ->
         String auid = uid.replaceFirst('_', '')
         if ("ALL".equalsIgnoreCase(auid.trim())) {
-          max++;
+          hasAll = true;
         }else{
           int indx = Integer.parseInt(uid.replaceFirst('_', ''));
           if (indx > max) {
@@ -407,16 +408,21 @@ class Table extends Container {
       }
     }
 
+    if(hasAll)
+      max++;
+    
     return max;
   }
 
   def getMaxRowColumnIndices(){
     int maxrow = 0;
     int maxcol = 0;
+    boolean rowHasAll = false;
+    boolean colHasAll = false;
     components.each {String uid, UiObject obj ->
       String[] splitted = uid.replaceFirst('_', '').split("_");
       if("ALL".equalsIgnoreCase(splitted[0])){
-        maxrow++;
+        rowHasAll = true;
       }else{
         int rowindx = Integer.parseInt(splitted[0]);
         if(rowindx > maxrow)
@@ -424,15 +430,21 @@ class Table extends Container {
       }
 
       if("ALL".equalsIgnoreCase(splitted[1])){
-        maxcol++;
+        colHasAll = true;
       }else{
         int colindx = Integer.parseInt(splitted[1]);
         if(colindx > maxcol)
           maxcol = colindx;
       }
-
-      return [maxrow, maxcol]; 
     }
+    
+    if (rowHasAll)
+      maxrow++;
+
+    if (colHasAll)
+      maxcol++;
+
+    return [maxrow, maxcol];
   }
     
   @Override
@@ -448,9 +460,12 @@ class Table extends Container {
     if(this.hasHeader()){
       int maxheader = this.getMaxHeaderIndex();
       sb.append(indent + "  <tr>\n");
-      for(int i=1; i<maxheader; i++){
+      for(int i=1; i<=maxheader; i++){
           sb.append(indent + "  <th>\n")
           UiObject obj = this.findHeaderUiObject(i);
+          if (obj == null) {
+            obj = this.defaultUi
+          }
           sb.append(obj.generateHtml()).append("\n");
           sb.append(indent + "  </th>\n")
       }
@@ -458,7 +473,7 @@ class Table extends Container {
     }
 
     if (this.components.size() > 0) {      
-      String[] val = this.getMaxRowColumnIndices();
+      Integer[] val = this.getMaxRowColumnIndices();
       int maxrow = val[0];
       int maxcol = val[1];
       for(int j=1; j<=maxrow; j++){
@@ -466,6 +481,9 @@ class Table extends Container {
         for(int k=1; k<=maxcol; k++){
           sb.append(indent + "   <td>\n");
           UiObject elem = this.findUiObject(j, k);
+          if (elem == null) {
+            elem = this.defaultUi
+          }
           sb.append(elem.generateHtml()).append("\n");
           sb.append(indent + "   </td>\n");
         }
