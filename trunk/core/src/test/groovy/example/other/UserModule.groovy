@@ -25,7 +25,7 @@ public class UserModule extends DslContext {
         InputBox(uid: "accountName", clocator: [tag: "input", type: "text", name: "acc2", id: "acc2"])
         InputBox(uid: "accountSite", clocator: [tag: "input", type: "text", name: "acc23", id: "acc23"])
         InputBox(uid: "accountRevenue", clocator: [tag: "input", type: "text", name: "acc8", id: "acc8"])
-        TextBox(uid: "heading", clocator: [tag: "h2", text: "%%Account Edit "])
+        TextBox(uid: "heading", clocator: [tag: "h2", text: "*Account Edit "])
         SubmitButton(uid: "save", clocator: [tag: "input", class: "btn", type: "submit", title: "Save", name: "save"])
       }
 
