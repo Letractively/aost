@@ -308,5 +308,5 @@ The {{{generateHtml(uid)}}} method is really helpful if you want to help other p
 
 == Resources ==
 
-  * [[http://code.google.com/p/aost/wiki/TelluriumMockHttpServer Tellurium Mock Http Server]
+  * [http://code.google.com/p/aost/wiki/TelluriumMockHttpServer Tellurium Mock Http Server]
   * [http://code.google.com/p/aost/wiki/UserGuide Tellurium User Guide]
