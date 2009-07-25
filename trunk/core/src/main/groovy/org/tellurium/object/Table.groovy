@@ -461,13 +461,13 @@ class Table extends Container {
       int maxheader = this.getMaxHeaderIndex();
       sb.append(indent + "  <tr>\n");
       for(int i=1; i<=maxheader; i++){
-          sb.append(indent + "  <th>\n")
+          sb.append(indent + "   <th>\n")
           UiObject obj = this.findHeaderUiObject(i);
           if (obj == null) {
             obj = this.defaultUi
           }
           sb.append(obj.generateHtml()).append("\n");
-          sb.append(indent + "  </th>\n")
+          sb.append(indent + "   </th>\n")
       }
       sb.append(indent + "  </tr>\n");
     }
