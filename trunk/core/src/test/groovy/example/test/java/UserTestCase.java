@@ -34,6 +34,14 @@ public class UserTestCase extends TelluriumJavaTestCase {
         lm.doCreateAccount();
     }
 
+    @Test
+    public void testGenerateHTML(){
+        UserModule lm = new UserModule();
+        lm.defineUi();
+        System.out.print(lm.generateHtml("subnav"));
+        System.out.print(lm.generateHtml("issueResult"));
+    }
+
     @AfterClass
     public static void tearDown(){
         server.stop();

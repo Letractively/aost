@@ -169,7 +169,7 @@ abstract class UiObject implements Cloneable{
 
     public String getIndent(){
       if(parent != null){
-          return parent.getIndent() + "  ";
+          return parent.getIndent() + "    ";
       }else{
         return "";
       }
@@ -178,10 +178,10 @@ abstract class UiObject implements Cloneable{
 
     public String generateHtml(){
       if(this.locator != null){
-        return getIndent() + this.locator.generateHtml(true);
+        return getIndent() + this.locator.generateHtml(true) + "\n";
       }
       
-      return "";
+      return "\n";
     }
 
     public void traverse(WorkflowContext context){

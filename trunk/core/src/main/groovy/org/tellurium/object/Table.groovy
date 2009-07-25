@@ -5,13 +5,11 @@ import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.exception.InvalidUidException
 import org.tellurium.locator.CompositeLocator
-import org.tellurium.locator.GroupLocateStrategy
-import org.tellurium.locator.LocatorProcessor
 import org.tellurium.locator.XPathBuilder
 import org.tellurium.object.Container
 import org.tellurium.object.TextBox
 import org.tellurium.object.UiObject
-import org.tellurium.extend.Extension
+
 
 /**
  *   This is a table without header tag "thead' and foot "tfoot", but in the format of
@@ -392,7 +390,94 @@ class Table extends Container {
   int getTableMaxColumnNumBySelector(Closure c) {
      return c(this.locator, " > tbody > tr:has(td):eq(0) > td")
   }
-  
+
+  int getMaxHeaderIndex() {
+    int max = 0;
+    if (this.headers.size() > 0) {
+      this.headers.each {String uid, UiObject obj ->
+        String auid = uid.replaceFirst('_', '')
+        if ("ALL".equalsIgnoreCase(auid.trim())) {
+          max++;
+        }else{
+          int indx = Integer.parseInt(uid.replaceFirst('_', ''));
+          if (indx > max) {
+            max = indx;
+          }
+        }
+      }
+    }
+
+    return max;
+  }
+
+  def getMaxRowColumnIndices(){
+    int maxrow = 0;
+    int maxcol = 0;
+    components.each {String uid, UiObject obj ->
+      String[] splitted = uid.replaceFirst('_', '').split("_");
+      if("ALL".equalsIgnoreCase(splitted[0])){
+        maxrow++;
+      }else{
+        int rowindx = Integer.parseInt(splitted[0]);
+        if(rowindx > maxrow)
+          maxrow = rowindx;
+      }
+
+      if("ALL".equalsIgnoreCase(splitted[1])){
+        maxcol++;
+      }else{
+        int colindx = Integer.parseInt(splitted[1]);
+        if(colindx > maxcol)
+          maxcol = colindx;
+      }
+
+      return [maxrow, maxcol]; 
+    }
+  }
+    
+  @Override
+  public String generateHtml() {
+    StringBuffer sb = new StringBuffer(128);
+    String indent = getIndent();
+
+    if (this.locator != null)
+        sb.append(indent + this.locator.generateHtml(false)).append("\n").append(indent + " <tbody>\n");
+    else
+        sb.append(indent + "<table>\n").append(indent + " <tbody>\n");
+
+    if(this.hasHeader()){
+      int maxheader = this.getMaxHeaderIndex();
+      sb.append(indent + "  <tr>\n");
+      for(int i=1; i<maxheader; i++){
+          sb.append(indent + "  <th>\n")
+          UiObject obj = this.findHeaderUiObject(i);
+          sb.append(obj.generateHtml()).append("\n");
+          sb.append(indent + "  </th>\n")
+      }
+      sb.append(indent + "  </tr>\n");
+    }
+
+    if (this.components.size() > 0) {      
+      String[] val = this.getMaxRowColumnIndices();
+      int maxrow = val[0];
+      int maxcol = val[1];
+      for(int j=1; j<=maxrow; j++){
+        sb.append(indent + "  <tr>\n");
+        for(int k=1; k<=maxcol; k++){
+          sb.append(indent + "   <td>\n");
+          UiObject elem = this.findUiObject(j, k);
+          sb.append(elem.generateHtml()).append("\n");
+          sb.append(indent + "   </td>\n");
+        }
+        sb.append(indent + "  </tr>\n");
+      }
+    }
+    sb.append(indent + " </tbody>\n");
+    sb.append(indent + "</table>\n");
+    
+    return sb.toString();
+  }
+
   //walk to a regular UI element in the table
   protected walkToElement(WorkflowContext context, UiID uiid) {
     String child = uiid.pop()
