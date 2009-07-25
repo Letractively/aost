@@ -39,7 +39,7 @@ public class CustomUIExample extends DslContext {
           UrlLink(uid: "all", clocator: [:])
         }
       }
-      UrlLink(uid: "subscribe", colocator: [tag: "li", id: "subscribe"])
+      UrlLink(uid: "subscribe", clocator: [tag: "li", id: "subscribe"])
     }
     
     ui.Form(uid: "accountEdit", clocator: [tag: "form", id: "editPage", method: "post"]) {

@@ -182,7 +182,54 @@ class List extends Container {
       return c(this.locator, separators.join(","))
     }
 
-    @Override
+
+  @Override
+  public String generateHtml() {
+    StringBuffer sb = new StringBuffer(64);
+    String ident = getIndent();
+    if (this.components.size() > 0) {
+      if (this.locator != null)
+        sb.append(ident + this.locator.generateHtml(false)).append("\n");
+
+      int max = 0;
+      boolean hasAll = false;
+      this.components.each {String uid, UiObject obj ->
+        String auid = uid.replaceFirst('_', '')
+        if ("ALL".equalsIgnoreCase(auid.trim())) {
+          hasAll = true;
+        }else{
+          int indx = Integer.parseInt()
+          if (indx > max) {
+            max = indx
+          }
+        }
+      }
+
+      if(hasAll)
+        max++;
+
+      max++;
+      
+      for (int i = 1; i <= max; i++) {
+        if(this.separator != null && this.separator.trim().length() > 0){
+          sb.append(ident + "  <${separator}>\n")
+        }
+        UiObject obj = findUiObject(i)
+        sb.append(obj.generateHtml());
+        if(this.separator != null && this.separator.trim().length() > 0){
+          sb.append(ident + "  </${separator}>\n")
+        }
+      }
+
+      if (this.locator != null){
+        sb.append(getIndent() + this.locator.generateCloseTag() + "\n");
+      }
+    }
+
+    return sb.toString();
+  }
+
+  @Override
     public void traverse(WorkflowContext context){
       context.appendToUidList(context.getUid())
 

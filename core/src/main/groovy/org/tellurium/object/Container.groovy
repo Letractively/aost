@@ -63,14 +63,16 @@ class Container extends UiObject {
    @Override
     public String generateHtml(){
       StringBuffer sb = new StringBuffer(64);
+      String indent = getIndent();
+
       if(this.components.size() > 0){
         if(this.locator != null)
-          sb.append(getIndent() + this.locator.generateHtml(false)).append("\n");
+          sb.append(indent + this.locator.generateHtml(false)).append("\n");
         this.components.each {String uid, UiObject obj ->
-          sb.append(obj.generateHtml()).append("\n");
+          sb.append(obj.generateHtml());
         }
         if(this.locator != null)
-          sb.append(getIndent() + this.locator.generateCloseTag());
+          sb.append(indent + this.locator.generateCloseTag()).append("\n");
       }else{
         if(this.locator != null){
           sb.append(this.locator.generateHtml(true)).append("\n")
