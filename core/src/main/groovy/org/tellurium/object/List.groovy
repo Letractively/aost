@@ -207,14 +207,14 @@ class List extends Container {
 
       if(hasAll)
         max++;
-
-      max++;
       
       for (int i = 1; i <= max; i++) {
         if(this.separator != null && this.separator.trim().length() > 0){
           sb.append(ident + "  <${separator}>\n")
         }
         UiObject obj = findUiObject(i)
+        if(obj == null)
+          obj = defaultUi        
         sb.append(obj.generateHtml());
         if(this.separator != null && this.separator.trim().length() > 0){
           sb.append(ident + "  </${separator}>\n")

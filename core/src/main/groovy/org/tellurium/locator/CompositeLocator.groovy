@@ -43,7 +43,10 @@ class CompositeLocator {
       return !isIdIncluded()
     }
 
-    public String generateHtml(boolean closeTag){
+    public String generateHtml(boolean closeTag){ 
+      if(tag == null)
+        return "";
+
       StringBuffer sb = new StringBuffer(64);
       sb.append("<").append(tag);
       if(attributes != null && attributes.size() > 0){
@@ -87,6 +90,9 @@ class CompositeLocator {
     }
 
     public String generateCloseTag(){
-      return "</${tag}>"; 
+      if(tag == null)
+        return "";
+
+       return "</${tag}>"
     }
 }
