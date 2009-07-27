@@ -399,7 +399,7 @@ Tellurium Team
 
 == First Draft of the Tellurium User Guide 0.6.0 is Available Now ==
 
-The first draft of [http://code.google.com/p/aost/wiki/UserGuide the Tellurium User Guide 0.6.0] is available for you to review now. A [http://tellurium-users.googlegroups.com/web/TelluriumUserGuide.pdf?gda=fkDowUgAAAD5mhXrH3CK0rVx4StVj0LYiqqxc2h4WygfnYlxOFpnkzDy7Njxx0h9pnYo2VAQ1BWmwwmmjY8lLEkm5GsdcWpfGjVgdwNi-BwrUzBGT2hOzg PDF version] is also available. 
+The first draft of [http://code.google.com/p/aost/wiki/UserGuide the Tellurium User Guide 0.6.0] is available for you to review now. A [http://telluriumdoc.googlecode.com/files/TelluriumUserGuide.Draft.pdf PDF version] is also available. 
 
 The user guide is about 117 pages and introduces the background, main concepts and features, examples, FAQs, and resources. In one words, everything you need to know about Tellurium. 
 
