@@ -396,3 +396,130 @@ http://groups.google.com/group/tellurium-users
 Thanks,
 
 Tellurium Team
+
+== First Draft of the Tellurium User Guide 0.6.0 is Available Now ==
+
+The first draft of [http://code.google.com/p/aost/wiki/UserGuide the Tellurium User Guide 0.6.0] is available for you to review now. A [http://tellurium-users.googlegroups.com/web/TelluriumUserGuide.pdf?gda=fkDowUgAAAD5mhXrH3CK0rVx4StVj0LYiqqxc2h4WygfnYlxOFpnkzDy7Njxx0h9pnYo2VAQ1BWmwwmmjY8lLEkm5GsdcWpfGjVgdwNi-BwrUzBGT2hOzg PDF version] is also available. 
+
+The user guide is about 117 pages and introduces the background, main concepts and features, examples, FAQs, and resources. In one words, everything you need to know about Tellurium. 
+
+The table of content is listed as follows,
+
+{{{
+    * Introduction
+          o Motivations
+          o Why Tellurium is a New Approach for Web Testing
+          o How Challenges and Problems are addressed in Tellurium
+          o Tellurium Architecture
+          o HOW Tellurium Works
+    * Concepts and Features
+          o UI Object
+          o Composite Locator
+          o UI Module
+          o UiID
+          o Group Locating
+          o UI Templates
+          o Javascript Events
+          o Logical Container
+          o jQuery Selector
+          o jQuery Selector Cache Option
+          o "Include" Frequently Used Sets of elements in UI Modules
+          o Customize Individual Test settings Using setCustomConfig
+          o User Custom Selenium Extensions
+          o Data Driven Testing
+          o The Dump Method
+          o Selenium Grid Support
+          o Mock Http Server
+          o Testing Support
+    * Tellurium APIs
+          o DSL Methods
+          o Data Access Methods
+          o Test Support DSLs
+    * Tellurium UI Objects
+          o Basic UI Object
+          o UI Object Default Attributes
+          o Tellurium UI Object List
+                + Button
+                + Submit Button
+                + Check Box
+                + Div
+                + Image
+                + Icon
+                + Radio Button
+                + Text Box
+                + Input Box
+                + Url Link
+                + Selector
+                + Container
+                + Form
+                + Table
+                + Standard Table
+                + List
+                + Simple Menu
+                + Select Menu
+                + Frame
+                + Window
+                + Option
+    * Tellurium Subprojects
+          o Tellurium Engine
+          o Tellurium Core
+          o Tellurium Extensions
+          o Tellurium UI Module Plugin (Trump)
+          o Tellurium Maven Archetypes
+          o Tellurium Reference Projects
+    * How to Obtain and Use Tellurium
+          o Create a Tellurium Project
+          o Setup Tellurium Project in IDEs
+          o Create a UI Module
+          o Create Tellurium Test Cases
+    * Examples
+          o Custom UI Object
+          o UI Module
+          o Groovy Test Case
+          o Java Test Case
+          o Data Driven Testing
+          o DSL Test Script
+    * Frequently Asked Questions
+          o How Long Has Tellurium Been There
+          o What are the main differences between Tellurium and Selenium
+          o Do I need to know Groovy before I use Tellurium
+          o What Unit Test and Functional Test Frameworks Does Tellurium Support
+          o Does Tellurium Provide Any Tools to Automatically Generate UI Modules
+          o What Build System Does Tellurium use
+          o What is the Best Way to Create a Tellurium Project
+          o Where can I find API documents for Tellurium
+          o Is There a Tellurium Tutorial Available
+          o Tellurium Dependencies
+          o What is the ui. in UI module
+          o How do I add my own UI object to Tellurium
+          o How to build Tellurium from source
+          o What is the problem with Selenium XPath expressions and why there is need to create UI Module
+          o How to write assertions in Tellurium DSL scripts
+          o How to run Selenium server remotely in Tellurium
+          o Differences among Tellurium Table, List, and Container
+          o How do I use a Firefox profile in Tellurium
+          o How to Overwrite Tellurium Settings in My Test Class
+          o How to reuse a frequently used set of elements
+          o How to handle Table with multiple tbody elements
+          o How to use the new XPath library in Selenium
+          o How to Debug Selenium Core
+          o How to use jQuery Selector with weird characters in its ID
+          o How to Use Tellurium for XHTML
+          o How to Contribute to Tellurium
+          o Tellurium Future Directions
+    * Tellurium Support
+    * Resources
+          o Tellurium Project
+          o Users' Experiences
+          o Interviews
+          o Presentations and Videos
+          o IDEs
+          o Build
+          o Related
+}}}
+
+Please provide your comments and suggestions to [http://groups.google.com/group/tellurium-users Tellurium user group].
+
+Thanks,
+
+Tellurium Team
