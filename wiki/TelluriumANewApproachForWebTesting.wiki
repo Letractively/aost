@@ -62,7 +62,7 @@ Most likely, you have to go through the test code to locate the lines you need t
 
 == Motivations ==
 
-Since the existing automated testing frameworks could not address the challenges and problems very well, there was really a need for new automated testing framework to address them with the following motivations:
+Since the existing automated testing frameworks do not address the challenges and problems very well, there has been an real need for new automated testing framework to address them with the following motivations:
 
   * Robust/responsive to changes; allow changes to be localized
   * Address dynamic web contexts such as JavaScript events and Ajax 
@@ -70,13 +70,14 @@ Since the existing automated testing frameworks could not address the challenges
   * Modular; test modules are reusable 
   * Expressive and easy to use
 
-Our proposal is the Tellurium Automated Testing Framework, or Tellurium for short. 
+Our proposal is the *Tellurium Automated Testing Framework*, or _Tellurium_ for short. 
+
 
 == Why Tellurium is a New Approach for Web Testing ==
  
 The Tellurium Automated Testing Framework (Tellurium) is an open source automated testing framework for web applications that addresses the challenges and problems in web testing. 
 
-Most existing web testing tools/frameworks focus on individual UI elements such as links and buttons. Tellurium takes a new approach for automated web testing using the concept of the _UI module_.  The UI module is a collection of UI elements grouped together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For example, the Google search UI module can be expressed as follows:
+The majority of existing web testing tools/frameworks focus on individual UI elements such as links and buttons. Tellurium takes a new approach for automated web testing using the concept of the _UI module_.  The UI module is a collection of UI elements grouped together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For example, the Google search UI module can be expressed as follows:
 
 {{{
 ui.Container(uid: "GoogleSearchModule", clocator: [tag: "td"], group: "true"){
@@ -95,7 +96,7 @@ type "GoogleSearchModule.Input", "Tellurium test"
 click "GoogleSearchModule.Search"
 }}} 
 
-Tellurium does Object to Locator Mapping (OLM) automatically at run time so that UI objects can be defined simply by their attributes using _Composite Locators_. Tellurium uses the Group Locating Concept (GLC) to exploit information inside a collection of UI components so that locators can find their elements.  It also defines a set of DSLs for web testing.  Furthermore, Tellurium uses UI templates to define sets of dynamic UI elements at runtime.  As a result, Tellurium is robust, expressive, flexible, reusable, and easy to maintain. 
+Tellurium does _Object to Locator Mapping (OLM)_ automatically at run time so that UI objects can be defined simply by their attributes using _Composite Locators_. Tellurium uses the Group Locating Concept (GLC) to exploit information inside a collection of UI components so that locators can find their elements.  It also defines a set of DSLs for web testing.  Furthermore, Tellurium uses UI templates to define sets of dynamic UI elements at runtime.  As a result, Tellurium is robust, expressive, flexible, reusable, and easy to maintain. 
     
 == Main Features of Tellurium==
 
