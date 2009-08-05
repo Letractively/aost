@@ -2,6 +2,10 @@
 function Recorder(window) {
 //    alert("Recorder")
     this.window = window;
+
+    this.frames = null;
+    this.contentWindow = null;
+
     this.parentWindow = this.window.opener;
     this.builder = new Builder();
     this.decorator = new Decorator();
@@ -53,8 +57,31 @@ Recorder.prototype.registerClickListener = function(){
             }
 
         };
-//    this.parentWindow.document.addEventListener("click", this.listener, false);
-    this.parentWindow.content.document.body.addEventListener("click", this.listener, false);
+
+    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+            .getService(Components.interfaces.nsIWindowMediator);
+     //just want the current tab
+
+    var enumerator = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+        .getService(Components.interfaces.nsIWindowMediator)
+        .getEnumerator("navigator:browser");
+
+    if (enumerator.hasMoreElements()) {
+        var win = enumerator.getNext();
+        var browser = win.getBrowser();
+        this.frames = browser.contentWindow.frames;
+        if (this.frames && this.frames.length) {
+            for (var j = 0; j < this.frames.length; j++) {
+                var frame = this.frames[j] ;
+                frame.document.body.addEventListener("click", this.listener, false);
+            }
+        } else{
+            this.contentWindow = browser.contentWindow;
+            this.contentWindow.document.body.addEventListener("click", this.listener, false);
+        }
+
+    }
+
 }
 
 Recorder.prototype.unregisterClickListener = function(){
@@ -62,8 +89,14 @@ Recorder.prototype.unregisterClickListener = function(){
 
     this.removeOutlineForSelectedNodes();
 
-//    this.parentWindow.document.removeEventListener("click", this.listener, false);
-    this.parentWindow.content.document.body.removeEventListener("click", this.listener, false);
+     if (this.frames && this.frames.length) {
+        for (var j = 0; j < this.frames.length; j++) {
+            this.frames[j].document.body.removeEventListener("click", this.listener, false);
+        }
+    } else if(this.contentWindow){
+        this.contentWindow.document.body.removeEventListener("click", this.listener, false);
+    }
+    
     this.listener = null;
 }
 
