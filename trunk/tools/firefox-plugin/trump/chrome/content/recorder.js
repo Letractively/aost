@@ -58,10 +58,6 @@ Recorder.prototype.registerClickListener = function(){
 
         };
 
-    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-            .getService(Components.interfaces.nsIWindowMediator);
-     //just want the current tab
-
     var enumerator = Components.classes["@mozilla.org/appshell/window-mediator;1"]
         .getService(Components.interfaces.nsIWindowMediator)
         .getEnumerator("navigator:browser");
