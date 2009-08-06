@@ -321,6 +321,6 @@ class Accessor implements Configurable{
     }
 
     void addCustomRequestHeader(String key, String value){
-      return dispatcher.addCustomRequestHeader(key, value)
+      dispatcher.addCustomRequestHeader(key, value)
     }
 }
