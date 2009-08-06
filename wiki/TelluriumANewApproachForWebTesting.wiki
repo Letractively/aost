@@ -625,6 +625,8 @@ Tellurium will continue evolving, and we will focus on the following tasks:
 
 = Acknowledgments =
 
+Thanks to Ramesh Ramamurthy for editing this article.
+
 = Resources =
 
   * [http://code.google.com/p/aost/ Tellurium Project website] 
