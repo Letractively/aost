@@ -709,6 +709,14 @@ abstract class BaseDslContext {
     return accessor.getXpathCount(xpath)
   }
 
+  String captureNetworkTraffic(String type){
+    return accessor.captureNetworkTraffic(type)
+  }
+
+  void addCustomRequestHeader(String key, String value){
+    accessor.addCustomRequestHeader(key, value)
+  }
+
   Number getJQuerySelectorCount(String jQuerySelector){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, false)
     //do not cache any selectors for counting
