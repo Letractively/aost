@@ -632,6 +632,7 @@ Thanks to Ramesh Ramamurthy for editing this article.
   * [http://code.google.com/p/aost/ Tellurium Project website] 
   * [http://groups.google.com/group/tellurium-users Tellurium User Group]
   * [http://code.google.com/p/aost/wiki/UserGuide Tellurium User Guide]
+  * [http://telluriumdoc.googlecode.com/files/TelluriumUserGuide.Draft.pdf Tellurium User Guide PDF draft].
   * [http://code.google.com/p/aost/wiki/TrUMP Tellurium UI Model Firefox Plugin (TrUMP) 0.1.0]
   * [http://seleniumhq.org/ Selenium]
   * [http://webtest.canoo.com Canoo WebTest]
