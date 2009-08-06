@@ -84,7 +84,7 @@ public class SeleniumServerDaemon {
         config.singleWindow = !useMultiWindows;
 //        config.setSingleWindow(!this.useMultiWindows);
       
-//		config.setProxyInjectionModeArg(true); //this may not be needed, or atleast needs to be configurable
+//		config.setProxyInjectionModeArg(true); //this may not be needed, or at least needs to be configurable
         if(this.profileLocation != null && this.profileLocation.trim().length() > 0){
 //          config.setProfilesLocation(new File(this.profileLocation));
           config.setFirefoxProfileTemplate(new File(this.profileLocation));

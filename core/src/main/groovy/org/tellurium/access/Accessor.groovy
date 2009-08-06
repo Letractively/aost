@@ -315,4 +315,12 @@ class Accessor implements Configurable{
 
        return dispatcher.getText(locator)
 	}
+
+    String captureNetworkTraffic(String type){
+      return dispatcher.captureNetworkTraffic(type)
+    }
+
+    void addCustomRequestHeader(String key, String value){
+      return dispatcher.addCustomRequestHeader(key, value)
+    }
 }
