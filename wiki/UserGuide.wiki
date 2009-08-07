@@ -1,8 +1,9 @@
 #summary Tellurium User Guide
 #labels Featured,Phase-Implementation
-<wiki:toc max_depth="5" />
 
 (A PDF version of the user guide is available [http://telluriumdoc.googlecode.com/files/TelluriumUserGuide.Draft.pdf here])
+
+<wiki:toc max_depth="5" />
 
 = Introduction =
 
