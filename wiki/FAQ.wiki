@@ -551,7 +551,7 @@ You should escape the "." or other jQuery reserved characters.
 
 For example, use "dateOfBirth.\\month" for "dateOfBirth.month" as the ID.
 
-== Q43: How to run headless tests with Xvfb ==
+=== Q43: How to run headless tests with Xvfb ===
 
 First, you need to install Xvfb
 
