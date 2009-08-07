@@ -550,3 +550,36 @@ For example, in the test case file,
 You should escape the "." or other jQuery reserved characters.
 
 For example, use "dateOfBirth.\\month" for "dateOfBirth.month" as the ID.
+
+== Q43: How to run headless tests with Xvfb ==
+
+First, you need to install Xvfb
+
+In linux, do
+
+{{{
+[root@Mars ~]# yum search Xvfb
+}}}
+
+you will see which rpm is for your linux os. For example, I found
+
+xorg-x11-server-Xvfb.x86_64 : A X Windows System virtual framebuffer X
+server.
+
+for my box, then install it.
+
+{{{
+[root@Mars ~]# yum install xorg-x11-server-Xvfb.x86_64
+}}}
+
+If you use Maven to run test, you can use the following script
+
+{{{
+#!/bin/bash
+
+nohup startx -- `which Xvfb` :20 -screen 0 1024x768x24 & sleep 7
+DISPLAY=:20 firefox  &     DISPLAY=:20 mvn test
+pkill Xvfb
+}}}
+
+For ant, you can replace "mvn test" with your ant task.
