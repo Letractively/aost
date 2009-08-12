@@ -1,11 +1,9 @@
 package org.tellurium.connector
 
 import com.thoughtworks.selenium.DefaultSelenium
-//import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.*
-import com.thoughtworks.selenium.Selenium
 import com.thoughtworks.selenium.CommandProcessor
 import org.tellurium.exception.*
-import org.tellurium.config.Configurable
+import org.tellurium.grid.GridSupport
 
 /**
  * Customize Selenium RC so that we can add custom methods to Selenium RC
@@ -21,6 +19,10 @@ class CustomSelenium extends DefaultSelenium {
 
     protected CustomCommand customClass = null
     protected String userExtension = null
+
+    CustomSelenium(String host, int port, String browser, String url){
+      super(host, port, browser, url)      
+    }
 
     CustomSelenium(CommandProcessor commandProcessor) {
       super (commandProcessor)
@@ -50,19 +52,25 @@ class CustomSelenium extends DefaultSelenium {
     // and register the selenium rc with Selenium HUB
     def void startSeleniumSession(String host, int port, String browser, String url) throws Exception{
       try{
-        com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.startSeleniumSession(host, port, browser, url)
+        GridSupport.startSeleniumSession(host, port, browser, url)
       }catch (Exception e){
         throw new TelluriumException ("Cannot start selenium:"+e.getMessage())
       }
+    }
 
-
+    def void startSeleniumSession(String host, int port, String browser, String url, String options) throws Exception{
+      try{
+        GridSupport.startSeleniumSession(host, port, browser, url, options)
+      }catch (Exception e){
+        throw new TelluriumException ("Cannot start selenium:"+e.getMessage())
+      }
     }
 
     // Close the selenium session and unregister the Selenium RC
     // from Selenium Hub
     def void closeSeleniumSession() throws Exception{
       try{
-        com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.closeSeleniumSession()
+        GridSupport.closeSeleniumSession()
       }catch (Exception e){
         throw new TelluriumException ("Cannot close selenium:"+e.getMessage())        
       }
@@ -72,9 +80,11 @@ class CustomSelenium extends DefaultSelenium {
 
     // Get the active Selenium RC session
     def CustomSelenium getActiveSeleniumSession(){
-      DefaultSelenium sel =  com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session()
-      CommandProcessor processor = sel.commandProcessor
-      CustomSelenium csel = new CustomSelenium(processor)
+//      DefaultSelenium sel =  com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session()
+//      CommandProcessor processor = sel.commandProcessor
+//      CustomSelenium csel = new CustomSelenium(processor)
+      
+      CustomSelenium csel = GridSupport.session()
 /*
       if(this.userExtension != null && this.userExtension.trim().length() > 0){
         File userExt = new File(this.userExtension);
@@ -84,7 +94,8 @@ class CustomSelenium extends DefaultSelenium {
       }
  */
       csel.customClass = this.customClass
-      csel.passCommandProcessor(processor)
+      csel.passCommandProcessor(csel.commandProcessor)
+//      csel.passCommandProcessor(processor)
 
       return csel
     }
