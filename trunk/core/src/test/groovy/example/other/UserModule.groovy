@@ -20,6 +20,24 @@ public class UserModule extends DslContext {
   <input class="btn" type="submit" title="Save" name="save"/>
 </form>
     """
+  public static String RESP_HEADER = """
+       <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+       <html>
+       <head>
+               <title>Mock HTTP Server</title>
+       </head>
+       <body>
+          <form id="editPage" method="post">
+            <input type="text" name="acc2" id="acc2"/>
+            <input type="text" name="acc23" id="acc23"/>
+            <input type="text" name="acc8" id="acc8"/>
+            <h2>Account Edit </h2>
+            <input class="btn" type="submit" title="Save" name="save"/>
+           </form>
+       </body>
+   </html>
+   """
+
     public void defineUi() {
       ui.Form(uid: "accountEdit", clocator: [tag: "form", id: "editPage", method: "post"]) {
         InputBox(uid: "accountName", clocator: [tag: "input", type: "text", name: "acc2", id: "acc2"])
