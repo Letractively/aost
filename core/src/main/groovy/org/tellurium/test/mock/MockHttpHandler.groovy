@@ -50,7 +50,7 @@ public class MockHttpHandler implements HttpHandler {
   }
 
   public void registerHtml(String url, String html){
-      this..contents.put(url, html);
+      this.contents.put(url, html);
   }
 
   public void setHeader(String header) {
