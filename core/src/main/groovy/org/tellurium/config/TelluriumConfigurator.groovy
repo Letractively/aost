@@ -50,6 +50,10 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
         String clazz = conf.tellurium.connector.customClass
         if(clazz != null && clazz.trim().length() > 0)
           connector.setProperty("customClass", Class.forName(clazz).newInstance())
+        String options = conf.tellurium.connector.options
+        if(options != null && options.trim().length() > 0){
+          connector.setProperty("options", options);
+        }
     }
 
     protected void configSeleniumConnectorDefaultValues(SeleniumConnector connector){
@@ -58,6 +62,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
         connector.setProperty("baseURL", "http://localhost:8080")
         connector.setProperty("browser", "*chrome")
         connector.setProperty("customClass", null)
+        connector.setProperty("options", null)
     }
 
     protected void configDataProvider(DataProvider dataProvider){

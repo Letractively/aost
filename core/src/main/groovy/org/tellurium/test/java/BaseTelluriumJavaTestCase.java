@@ -43,4 +43,9 @@ public abstract class BaseTelluriumJavaTestCase {
                                        boolean useMultiWindows, String profileLocation, String serverHost){
         customConfig = new CustomConfig(runInternally, port, browser, useMultiWindows, profileLocation, serverHost);
     }
+
+    public static void setCustomConfig(boolean runInternally, int port, String browser,
+                                       boolean useMultiWindows, String profileLocation, String serverHost, String browserOptions){
+        customConfig = new CustomConfig(runInternally, port, browser, useMultiWindows, profileLocation, serverHost, browserOptions);
+    }
 }

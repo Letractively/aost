@@ -23,6 +23,19 @@ public class CustomConfig {
 
     protected String serverHost = null;
 
+    protected String browserOptions = null;
+
+    public CustomConfig(boolean runInternally, int port, String browser, boolean useMultiWindows, String profileLocation,
+                        String serverHost, String browserOptions) {
+        this.useMultiWindows = useMultiWindows;
+        this.port = port;
+        this.runInternally = runInternally;
+        this.profileLocation = profileLocation;
+        this.browser = browser;
+        this.serverHost = serverHost;
+        this.browserOptions = browserOptions;
+    }
+
     public CustomConfig(boolean runInternally, int port, String browser, boolean useMultiWindows, String profileLocation,
                         String serverHost) {
         this.useMultiWindows = useMultiWindows;

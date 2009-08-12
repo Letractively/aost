@@ -35,6 +35,7 @@ public class UserModuleTestCase extends TelluriumJavaTestCase {
         connectUrl("http://localhost:8080/mockFunction.do");
         lm.useJQuerySelector();
         lm.doCreateAccount();
+//        System.out.println("Captured traffic: " + lm.captureNetworkTraffic("json"));
     }
 
     @Test

@@ -35,6 +35,8 @@ class SeleniumConnector implements Configurable {
     protected String userExtension = null
   
     protected def customClass = null
+
+    protected String options = null
   
     public void connect(String url){
 		sel.open(baseURL + url);
@@ -62,7 +64,11 @@ class SeleniumConnector implements Configurable {
         customSelenium = new CustomSelenium (commandProcessor)
         customSelenium.setUserExt(this.userExtension)
         customSelenium.customClass = this.customClass
-        customSelenium.startSeleniumSession(seleniumServerHost, port, browser, baseURL)
+        if(this.options != null && this.options.trim().length() > 0){
+          customSelenium.startSeleniumSession(seleniumServerHost, port, browser, baseURL, this.options)
+        }else{
+          customSelenium.startSeleniumSession(seleniumServerHost, port, browser, baseURL)
+        }
         sel = customSelenium.getActiveSeleniumSession()
 
         SeleniumClient sc = new SeleniumClient()
