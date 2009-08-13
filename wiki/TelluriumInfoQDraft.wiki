@@ -10,18 +10,20 @@
 Automated web testing has always been one of the hottest and most important topics in the software testing arena. With the rising popularity of Rich Internet applications (RIA) and Ajax-based web applications, the demand for automated web test tools has increased. With the advent of new web techniques such as RIA and Ajax, automated web testing tools must keep up with these changes in technology.
 
 ==Challenges==
+
 As the ongoing trend of new web technologies is speeding up, the upcoming automated web testing tools need to be able to address the following challenges:
 
-  * *JavaScript Events*: JavaScript is everywhere on the web today. Many web applications are JavaScript heavy. To test JavaScript, the automated testing framework should be able to trigger JavaScript events in a very convenient way.
   * *Ajax for Dynamic Web Content*: Web applications have many benefits over desktop applications; For example, they have no installation and the application updates are instantaneous and easier to support. Ajax is a convenient way to update a part of the web page without refreshing the whole page. AJAX makes web applications richer and more user-friendly. The web context for an Ajax application is usually dynamic. For example, in a data grid, the data and number of rows keep changing at runtime. 
   * *Robust/Responsive to Changes*: A good automated web testing tool should be able to address the changes in the web context to some degree so that users do not need to keep updating the test code frequently.
   * *Easy to Maintain*: In an agile world, software development is based on iterations, and new features are added on in each sprint. The functional tests or user acceptance tests must be refactored and updated for the new features. The testing framework should provide the flexibility for users to maintain the test code very easily.
   * *Re-usability*: Many web applications use the same UI module for different parts of the application. The adoption of JavaScript frameworks such as Dojo and ExtJS increases the chance of using the same UI module for different web applications. A good testing framework should also be able to provide the re-usability of test modules.
   * *Expressiveness*: The testing framework should be able to provide users without much coding experience the ability to easily write test code or scripts in a familiar way, like by using a domain specific language (DSL).
+  * *JavaScript Events*: JavaScript is everywhere on the web today. Many web applications are JavaScript heavy. To test JavaScript, the automated testing framework should be able to trigger JavaScript events in a very convenient way.
 
 == Existing Open Source Automated Web Testing Frameworks ==
 
 === Selenium ===
+
 The *Selenium* web testing framework is one of the most popular open source automated web testing framework. It's a ground-breaking framework that offers many unique features and advantages such as browser based testing, Selenium Grid, and "record and replay" of user interactions with the Selenium IDE. As a pioneer framework, it inevitably has its shortcomings.
 
 *Drawback* <br>
@@ -43,6 +45,7 @@ Take the following Selenium test code as an example:
 Most likely, you have to go through the test code to locate the lines you need to update. What if you have tens or hundreds of locators in your test code? Creating the test code using Selenium IDE is easy, but it is difficult to generalize and refactor. Refactoring is a much more tedious and painful procedure than regenerating new test code from scratch because of the use of hard-coded locators and the coupling of locators with test code. Maintaining the code is a hassle because the test code is not structured. Since Selenium only focuses on individual UI elements, it is difficult to adjust to changes on the web and to address a dynamic web context. 
 
 === Canoo ===
+
 *Canoo* web test is another popular open source tool for automated testing of web applications. However, it also focuses on individual UI elements and thus it suffers shortcomings similar to those of Selenium, such as coupling the test code with the UI. Here is some sample test code:
 
 {{{
@@ -56,6 +59,7 @@ Most likely, you have to go through the test code to locate the lines you need t
 }}}
 
 === Twill ===
+
 *Twill* is a simple scripting language that allows users to browse the Web from a command-line interface. It uses links, forms, cookies, and most standard Web features. It also deals with individual UI elements but does not support javascript, and HTML needs to be parsed interactively. Twill only supports Python, which makes it fairly inconvenient for practical web applications.
 
 
@@ -397,210 +401,9 @@ In the package org.tellurium.test, Tellurium provides three different ways to wr
 
 Apart from the above, Tellurium also provides users the capability to write Tellurium tests and Tellurium data driven tests in pure DSL scripts. The _DslScriptExecutor_ is used to run the .dsl files.
 
-= Tellurium Subprojects =
-
-Tellurium began as a small core project over a year ago and quickly spawned multiple sub-projects including: [http://code.google.com/p/aost/wiki/UserGuide Core], [http://code.google.com/p/aost/wiki/ReferenceProjectGuide Reference projects], [http://code.google.com/p/aost/wiki/TelluriumWidget Widget extensions], [http://code.google.com/p/aost/wiki/TrUMP Trump], and Engine projects as shown in the following diagram:
-
-http://tellurium-users.googlegroups.com/web/TelluriumSubprojects.png?gda=KOo7BEoAAAD5mhXrH3CK0rVx4StVj0LYlNqOmuvSTE_gHzistV7TYU3GrA4woUylGAUAJF3_rdDbYV_6pXuFBwitfyYTkV3q_e3Wg0GnqfdKOwDqUih1tA&gsc=JDDH5gsAAACcJEKey8RXDXypkrHyWRpX
-
-  * Tellurium Engine: Based on Selenium Core with UI module, jQuery selectors, command bundle, and exception hierarchy support.
-  * Tellurium Core: UI module, APIs, DSL, Object to Runtime Locator mapping, and test support.
-  * Tellurium Extensions: Dojo Javascript widgets and ExtJS Javascript widgets.
-  * Tellurium UI Module Plugin (Trump): A Firefox plugin to automatically generate the UI module after users select the UI elements from the web under testing.
-  * Tellurium Maven Archetypes: Maven archetypes to generate skeleton Tellurium JUnit and Tellurium TestNG projects using one Maven command.
-  * Tellurium Reference Projects: Use Tellurium project site as examples to illustrate how to use different features in Tellurium and how to create Tellurium test cases.
-
-Tellurium Core has been described in the above section, and here we would like to elaborate more on Tellurium Extensions, the Tellurium UI Module Plugin, and Tellurium Engine.
-   
-== Tellurium Extensions ==
-
-[http://code.google.com/p/aost/wiki/TelluriumWidget Tellurium Widget] is a good way to re-use UI components in testing. Usually, Javascript frameworks provide a lot of widgets. Take the Dojo framework as an example; you can define the DatePicker Dojo widget just like a regular Tellurium UI module. For widgets, it is important to include name space to avoid name collision between different widget modules. If we use "DOJO" as the name space, the widget could be written like "DOJO_DatePicker". We can define the following methods for the DOJO Date Picker widget:
-
-{{{    
-    public String getCurrentYear(){
-        return getText("DatePicker.year.currentYear")
-    }
-
-    public void selectPrevYear(){
-        click "DatePicker.year.prevYear"
-    }
-}}}
-
-To use the Date Picker widget, we can include the compiled jar file and include it like a regular tellurium UI object. For example:
-
-{{{
-class DatePickerDemo extends DslContext{
-    
-    public void defineUi() {
-        ui.Form(uid: "dropdown", clocator: [:], group: "true"){
-            TextBox(uid: "label", clocator: [tag: "h4", text: "Dropdown:"])
-            InputBox(uid: "input", clocator: [dojoattachpoint: "valueInputNode"])
-            Image(uid: "selectDate", clocator: [title: "select a date", 
-                            dojoattachpoint: "containerDropdownNode", alt: "date"])
-            DOJO_DatePicker(uid: "datePicker", clocator: [tag: "div", 
-                            dojoattachpoint: "subWidgetContainerNode"])
-        }
-    }
-}
-}}}
-
-To make the framework scalable, Tellurium provides an _onWidget_ method for Tellurium widgets. In this way we can call the widget methods as follows:
-
-{{{
-onWidget "dropdown.datePicker", selectPrevYear
-}}}
-
-== Tellurium UI Module Plugin (Trump) ==
-
-The Tellurium UI Module Plugin (Trump) is used to automatically generate UI modules for users. The Trump IDE looks as follows:
-
-http://tellurium-users.googlegroups.com/web/TrUMPIDE0.1.0.png?gda=EVgeNEMAAAD5mhXrH3CK0rVx4StVj0LYBWucT0-vkPMbIT-o-BeAq7267uE5ld_gRd1XTkHcEWoytiJ-HdGYYcPi_09pl8N7FWLveOaWjzbYnpnkpmxcWg
-
-The workflow of Trump is shown here:
-
-
-http://tellurium-users.googlegroups.com/web/TrUMPDiagramSmall.png?gda=9CFDmEcAAAD5mhXrH3CK0rVx4StVj0LYmqln6HzIDYRu0sy-jUnaq8nAtNENvOA6NOHkUCAqlOUVeY4b49xGcMK802iZZ8SFeV4duv6pDMGhhhZdjQlNAw&gsc=5FPzPwsAAAA9y3PlQReYHIKRUJU7LIYD
-
-  # First, the user clicks on a web page, and the corresponding UI element is pushed into an array. If the user clicks the element again, the UI element is removed from the array.
-  # When the user clicks on the "Generate" button, Trump does the following two steps. First, Trump generates an internal tree to represent the UI elements using a grouping algorithm. During the tree generating procedure, extra nodes are generated to group UI elements together based on their corresponding location on the DOM tree. The internal tree is very useful and holds all original data that can be used for customization. Once the internal tree is built, Trump starts the second step, which is to build the default UI module. For each node in the internal tree, Trump generates a UI object based on its tag and whether or not it is a parent node.
-  # When the user clicks on the "Customize" button, Trump will pull out the original data held in the internal tree and the current attributes utilized by the UI module to create the "Customize" view. When the user clicks on an element, Trump lists all available optional attributes in the view for users to customize. 
-  # Trump will try to validate the UI module automatically whenever you generate a new UI module or update it. Trump will evaluate each UI element's XPath the same way that Tellurium generates the runtime XPath from the UI module and check if the generated runtime XPath is unique in the current web page. If it is not unique, you will see a red "X" mark, and you need to modify the element's attribute to make it disappear. If you do not see a red "X", you are finished. You can export the generated UI module to a groovy file and start to write Tellurium tests based on the generated UI module.
-
-== Tellurium Engine ==
-
-Up to Tellurium 0.6.0, Tellurium still leveraged Selenium core as the test driving engine. Selenium has a rich set of APIs to act on individual UI elements, and Tellurium can use them directly. Tellurium embedded its own small engine in Selenium core to support the following enhancements:
-
-  * jQuery selector support by adding a new jQuery selector locate strategy so that the Selenium core can handle the jQuery selectors passed in from Tellurium core.
-  * jQuery selector caching to increase the reuse of previously located DOM references and reduce the UI element locating time.
-  * Bulk data retrieval. For example, the following method will get back all data in a table with just one method call, which improves the speed dramatically:
-
-{{{
-      String getAllTableCellText(String uid) 
-}}}
-
-  * New APIs for partial matching of attributes, CSS query, and more.
-
-Using Selenium core as the test driving engine is a quick solution for Tellurium, but it suffers some drawbacks such as low efficiency because Selenium core does not have built-in support for UI modules. We are working on our new engine to gradually replace Selenium core in order to achieve the following goals:
-
-  * Command bundle to reduce round-trip time between Tellurium core and the Tellurium Engine.
-  * UI module caching at the Engine side to reuse the discovered locator in the UI module no matter if the locator is XPath or a jQuery selector.
-  * Group locating at the Engine side to exploit more information about the UI elements in the UI module to help locate UI elements
-  * Exception hierarchy so that the Engine returns meaningful error codes back to the Tellurium core.
-  * Ajax response notification. 
-     
-
-= How to Obtain and Use Tellurium =
-
-== Create a Tellurium Project ==
-
-There are three ways: use [http://code.google.com/p/aost/wiki/ReferenceProjectGuide the reference project] as a base, use the [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven archetype], or manually create a Tellurium project using the [http://code.google.com/p/aost/downloads/list tellurium jar] and a [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile  Tellurium configuration file]. Alternatively, you could create your own Tellurium Maven project manually using [http://code.google.com/p/aost/wiki/TelluriumTestProjectMavenSamplePom the sample POM file].
-
-The easiest way to create a Tellurium project is to use Tellurium Maven archetypes. Tellurium provides two Maven archetypes: tellurium-junit-archetype and tellurium-testng-archetype (for Tellurium JUnit test projects and Tellurium TestNG test projects respectively.) As a result, you can create a Tellurium project using one Maven command. For a Tellurium JUnit project, use:
-
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
-
-and for a Tellurium TestNG project, use:
-
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
-
-== Create a UI Module ==
-
-Tellurium provides Trump for you to automatically create UI modules. Trump can be downloaded from the Tellurium project site:
-
-http://code.google.com/p/aost/downloads/list
-
-Choose the Firefox 2 or Firefox 3 version depending on your Firefox version, or you can download the Firefox 3 version directly from the Firefox addons site at:
-
-https://addons.mozilla.org/en-US/firefox/addon/11035
-
-Once you install it and restart Firefox, you are ready to record your UI modules by simply clicking on the UI element on the web and then clicking the "generate" button. You may like to customize your UI a bit by clicking the "Customize" button. More detail:
-
-In our example, we open up Tellurium download page 
-
-http://code.google.com/p/aost/downloads/list
-
-and record the download search module as follows:
-
-http://tellurium-users.googlegroups.com/web/TrUMPRecordDownloadPageSmall.png?gda=aeAak1IAAAD5mhXrH3CK0rVx4StVj0LYmqln6HzIDYRu0sy-jUnaq73MhpfIdLRuVAwbLjuTZtQ7YQyGo5rEgT7iH53cuUInVeLt2muIgCMmECKmxvZ2j4IeqPHHCwbz-gobneSjMyE&gsc=5FPzPwsAAAA9y3PlQReYHIKRUJU7LIYD
-
-After we customize the UI module, we export it as the module file NewUiModule.groovy to the demo project and add a couple of methods to the class:
-
-{{{
-class NewUiModule extends DslContext {
-
-  public void defineUi() {
-    ui.Form(uid: "TelluriumDownload", clocator: [tag: "form", method: "get", action: "list"], 
-           group: "true") 
-{
-      Selector(uid: "DownloadType", clocator: [tag: "select", name: "can", id: "can"])
-      InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "q", id: "q"])
-      SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit", value: "Search"])
-    }
-  }
-
-  //Add your methods here
-  public void searchDownload(String keyword) {
-    keyType "TelluriumDownload.Input", keyword
-    click "TelluriumDownload.Search"
-    waitForPageToLoad 30000
-  }
-
-  public String[] getAllDownloadTypes() {
-    return getSelectOptions("TelluriumDownload.DownloadType")
-  }
-
-  public void selectDownloadType(String type) {
-    selectByLabel "TelluriumDownload.DownloadType", type
-  }
-}
-}}}
-
-== Create Tellurium Test Cases ==
-
-Once you create the UI module, you can create a new Tellurium test case NewTestCase by extending TelluriumJavaTestCase class.
-
-{{{
-public class NewTestCase extends TelluriumJavaTestCase {
-    private static NewUiModule app;
-
-    @BeforeClass
-    public static void initUi() {
-        app = new NewUiModule();
-        app.defineUi();
-    }
-
-    @Before
-    public void setUpForTest() {
-        connectUrl("http://code.google.com/p/aost/downloads/list");
-    }
-
-    @Test
-    public void testTelluriumProjectPage() {
-        String[] allTypes = app.getAllDownloadTypes();
-        assertNotNull(allTypes);
-        assertTrue(allTypes[1].contains("All Downloads"));
-        app.selectDownloadType(allTypes[1]);
-        app.searchDownload("TrUMP");
-    }
-}
-}}}
-
-Compile the project and run the new test case.
-
-= Summary and Future Plans =
+= Summary =
 
 Tellurium is robust, expressive, flexible, and reusable with many unique features. Tellurium introduces a new approach to test web applications based on UI modules.
-We have released Tellurium 0.6.0 and are working on 0.7.0. 
-
-Tellurium will continue evolving, and we will focus on the following tasks:
-
-  * Develop the Engine project in 0.7.0 to provide better support for UI modules and achieve better re-usability, speed performance, and robust responsiveness to change. 
-  * Tellurium widgets will be re-architected to encapsulate dynamic factors and to make them easier to define and use. 
-  * The widget extension projects will be implemented to include many widgets from Javascript frameworks such as Dojo and ExtJS so that users can include these widgets in their UI modules simply by their names without the need to know the details of the internal UI elements. 
-  * Trump will be improved to support frames, pop-up widows, and UI templates. Another big move will be to automatically create UI modules as well as DSL test scripts for non-developers. 
-  * To better support functional tests, we will introduce a "stage and test binding" concept to make functional tests easier to write and configure. 
-  * Headless web testing using HtmlUnit could be another interesting topic. 
-  * Other initiatives include behavior driven test support, IDE plugins, XHTML support, integration with other testing framework like Fitnesse, and porting to other languages.
 
 = Acknowledgments =
 
