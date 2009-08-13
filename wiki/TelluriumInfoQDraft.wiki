@@ -96,7 +96,7 @@ To understand the above definition, we need to introduce couple Tellurium concep
 The first concept is Tellurium UI Object. Tellurium defines a set of Java UI objects, such as InputButton, Selector, List, Table, and Frame, which users can use directly. The basic UI Object works as the base class for all UI objects and it includes the following attributes:
 
   # uid: UI object's identifier
-  # namespace: for future extension
+  # namespace: used for XHTML
   # locator: the locator of the UI object, could be a base locator or a composite locator
   # respond: the JavaScript events the UI object can respond to. The value is a list.
 
