@@ -419,24 +419,3 @@ With the Domain Specific Language (DSL) in Tellurium you can define UI modules a
 Tellurium introduces a new approach to test web applications based on UI modules. The UI module makes it possible to build locators for UI elements at runtime.  First, this makes Tellurium robust and responsive to changes from internal UI elements.  Second, the UI module makes Tellurium expressive.  A UI element can be referred to simply by appending the names (uid) along the path to the specific element. This also enables Tellurium's _Group Locating_ feature, making composite objects reusable, and addressing dynamic web pages.
 
 Tellurium does _Object to Locator Mapping (OLM)_ automatically at run time so that UI objects can be defined simply by their attributes using _Composite Locators_. Tellurium uses the Group Locating Concept (GLC) to exploit information inside a collection of UI components so that locators can find their elements.  It also defines a set of DSLs for web testing.  Furthermore, Tellurium uses UI templates to define sets of dynamic UI elements at runtime.  As a result, Tellurium is robust, expressive, flexible, reusable, and easy to maintain.
-
-
-= Acknowledgments =
-
-Thanks to Ramesh Ramamurthy for editing this article.
-
-= Resources =
-
-  * [http://code.google.com/p/aost/ Tellurium Project website] 
-  * [http://groups.google.com/group/tellurium-users Tellurium User Group]
-  * [http://code.google.com/p/aost/wiki/UserGuide Tellurium User Guide]
-  * [http://telluriumdoc.googlecode.com/files/TelluriumUserGuide.Draft.pdf Tellurium User Guide PDF draft].
-  * [http://code.google.com/p/aost/wiki/TrUMP Tellurium UI Model Firefox Plugin (TrUMP) 0.1.0]
-  * [http://seleniumhq.org/ Selenium]
-  * [http://webtest.canoo.com Canoo WebTest]
-  * [http://twill.idyll.org/ Twill]  
-  * [http://groovy.codehaus.org/ Groovy]
-  * [http://jquery.com/ JQuery]
-  * [http://www.junit.org/ JUnit] 
-  * [http://testng.org/doc/documentation-main.html TestNG]
-  * [http://htmlunit.sourceforge.net HtmlUnit]
