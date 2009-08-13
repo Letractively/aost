@@ -163,6 +163,7 @@
   * [http://maxpi.sourceforge.net/goals.html Maven XPI Plugin]
   * [http://www.mvnbrowser.com/index.html Maven Repository Browser]
   * [http://www.webtide.com/resources/maven.jsp Maven Archetypes for Web Applications]
+  * [http://www.sonatype.com/people/2009/08/maven-221-released/ Maven 2.2.1 Released] 
 
 === Java ===
 
