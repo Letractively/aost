@@ -77,8 +77,7 @@ Since the existing automated testing frameworks do not address the challenges an
 
 Our proposal is the *Tellurium Automated Testing Framework*, or _Tellurium_ for short. 
 
-
-== Why Tellurium is a New Approach for Web Testing ==
+== Tellurium Overview ==
  
 The Tellurium Automated Testing Framework (Tellurium) is an open source automated testing framework for web applications that addresses the challenges and problems in web testing. 
 
@@ -92,118 +91,17 @@ ui.Container(uid: "GoogleSearchModule", clocator: [tag: "td"], group: "true"){
 }
 }}}
  
-Tellurium is built on the foundation of the UI module.  The UI module makes it possible to build locators for UI elements at runtime.  First, this makes Tellurium robust and responsive to changes from internal UI elements.  Second, the UI module makes Tellurium expressive.  A UI element can be referred to simply by appending the names (uid) along the path to the specific element. This also enables Tellurium's _Group Locating_ feature, making composite objects reusable, and addressing dynamic web pages.
+To understand the above definition, we need to introduce couple Tellurium concepts first.
 
-Tellurium is implemented in Groovy and Java.  The test cases can be written in Java, Groovy, or pure Domain Specific Language (DSL) scripts.  Tellurium evolved out of Selenium, but the UI testing approach is completely different. For example, Tellurium is not a "record and replay" style framework, and it enforces the separation of UI modules from test code, making refactoring easy. For example, once you defined the Google Search UI module shown above, you can write your test code as follows:
-
-{{{
-type "GoogleSearchModule.Input", "Tellurium test"
-click "GoogleSearchModule.Search"
-}}} 
-
-Tellurium does _Object to Locator Mapping (OLM)_ automatically at run time so that UI objects can be defined simply by their attributes using _Composite Locators_. Tellurium uses the Group Locating Concept (GLC) to exploit information inside a collection of UI components so that locators can find their elements.  It also defines a set of DSLs for web testing.  Furthermore, Tellurium uses UI templates to define sets of dynamic UI elements at runtime.  As a result, Tellurium is robust, expressive, flexible, reusable, and easy to maintain. 
-    
-== Main Features of Tellurium==
-
-The main features of Tellurium include:
-
-  * Abstract UI objects to encapsulate web UI elements  
-  * UI module for structured test code and re-usability  
-  * DSL for UI definition, actions, and testing
-  * Composite Locator to use a set of attributes to describe a UI element
-  * Group locating to exploit information inside a collection of UI components
-  * Dynamically generate runtime locators to localize changes
-  * UI templates for dynamic web content
-  * XPath support
-  * jQuery selector support to improve test speed in IE
-  * Locator caching to improve speed
-  * Javascript event support
-  * Use Tellurium Firefox plugin, Trump, to automatically generate UI modules
-  * Dojo and ExtJS widget extensions    
-  * Data driven test support 
-  * Selenium Grid support
-  * JUnit and TestNG support
-  * Ant and Maven support
-
-== How Challenges and Problems are addressed in Tellurium ? ==
- 
-First of all, Tellurium does not use "record and replay." Instead, it uses the Tellurium Firefox plugin Trump to generate the UI module (not test code) for you. Then you need to create your test code based on the UI module. In this way, the UI and the test code are decoupled. The structured test code in Tellurium makes it much easier to refactor and maintain the code.
-
-The composite locator uses UI element attributes to define the UI, and the actual locator (e.g. xpath or jQuery selector) will be generated at runtime. Any updates to the composite locator will lead to different runtime locators, and the changes inside the UI module are localized. The Group locating is used to remove the dependency of the UI objects from external UI elements (i.e. external UI changes will not affect the current UI module for most cases) so that your test code is robust and responsive to changes up to a certain level.
-
-Tellurium uses the _respond_ attribute in a UI object for you to specify JavaScript events, and the rest will be handled automatically by the framework itself. UI templates are a powerful feature in Tellurium used to represent many identical UI elements or a dynamic size of different UI elements at runtime, which are extremely useful in testing dynamic web contexts such as a data grid. The _Option_ UI object is designed to automatically address dynamic web contexts with multiple possible UI patterns.
-
-Re-usability is achieved by the UI module when working within one application and by Tellurium Widgets when working across different web applications. With the Domain Specific Language (DSL) in Tellurium you can define UI modules and write test code in a very expressive way. Tellurium also provides you the flexibility to write test code in Java, Groovy, or pure DSL scripts.
-
-In the subsequent sections, we will give a brief introduction of Tellurium, including its architecture and main concepts. Then we will introduce the Tellurium sub-projects and how to obtain and use Tellurium. This will be followed by a detailed tutorial on how to create Tellurium test cases with code samples. Finally, we will summarize and conclude this article with our plans for the future.
-
-= Tellurium Overview =
-
-== Tellurium Architecture ==
-
-The Tellurium framework architecture is shown as in Figure 1.
-
-http://tellurium-users.googlegroups.com/web/TelluriumUMLSystemDiagram.png?gda=0H5Erk8AAAD5mhXrH3CK0rVx4StVj0LYqZdbCnRI6ajcTiPCMsvamYLLytm0aso8Q_xG6LhygcwA_EMlVsbw_MCr_P40NSWJnHMhSp_qzSgvndaTPyHVdA&gsc=cq8RLwsAAADwIKTw30t0VbWQq6vz0Jcq
-
-Figure 1. Tellurium Architecture.
-
-The DSL parser consists of the DSL Object Parser, Object Builders, and the Object Registry.
-
-Thanks to Groovy builder pattern, we can define UI objects expressively and in a nested fashion. The DSL object parser will parse the DSL object definition recursively and use object builders to build the objects on the fly. An object builder registry is designed to hold all predefined UI object builders in the Tellurium framework, and the DSL object parser will look at the builder registry to find the appropriate builders. Since the registry is a hash map, you can override a builder with a new one using the same UI name. Users can also add their customer builders into the builder registry.
- 
-The DSL object definition always comes first with a container type object. An object registry (a hash map) is used to store all top level UI Objects. As a result, for each DSL object definition, the top object ids must be unique in the DslContext. The object registry will be used by the framework to search objects by their ids and fetch objects for different actions.
-
-The Object Locator Mapping (OLM) is the core of the Tellurium framework and it includes UI ID mapping, XPath builder, jQuery selector builder, and Group Locating. 
-
-The UI ID supports nested objects. For example, "menu.wiki" stands for a URL Link "wiki" inside a container called "menu". The UI ID also supports one-dimensional and two-dimensional indices for table and list. For example, {{{"main.table[2][3]"}}} stands for the UI object of the 2nd row and the 3rd column of a table inside the container "main".
-
-XPath builder can build the XPath from the composite locator, i.e., a set of attributes. Starting with version 0.6.0, Tellurium supports jQuery selectors to address the problem of poor performance of XPath in Internet Explorer. jQuery selector builders are used to automatically generate jQuery selectors instead of XPath with the following advantages:
-  * Faster performance in IE.
-  * Leverage the power of jQuery to retrieve bulk data from the web by testing with one method call.
-  * New features provided by jQuery attribute selectors.
- 
-The Group Locating Concept (GLC) exploits the group information inside a collection of UI objects to help us find the locator of the collection of UI objects. 
-
-The Eventhandler will handle all events like "click", "type", "select", and so on. The Data Accessor is used to fetch data or UI status from the DOM. The dispatcher will delegate all calls it receives from the Eventhandler and the data accessor to the connector, which connects to the Tellurium engine. The dispatcher is designed to decouple the rest of the Tellurium framework from the base test driving engine so that we can switch to a different test driving engine by simply changing the dispatcher logic.
-
-== Tellurium UI Objects==
-
-Tellurium provides a set of predefined UI objects, which users can use directly. 
-
-The basic UI object is an abstract class. Users cannot instantiate it directly. The basic UI Object works as the base class for all UI objects and it includes the following attributes:
+The first concept is Tellurium UI Object. Tellurium defines a set of Java UI objects, such as InputButton, Selector, List, Table, and Frame, which users can use directly. The basic UI Object works as the base class for all UI objects and it includes the following attributes:
 
   # uid: UI object's identifier
   # namespace: for future extension
   # locator: the locator of the UI object, could be a base locator or a composite locator
   # respond: the JavaScript events the UI object can respond to. The value is a list.
 
-All UI Objects will inherit the above attributes and methods. But be aware that you usually do not call these methods directly and you should use DSL syntax instead. For example, use:
-
-{{{
-click "GoogleSearchModule.Search"
-}}}
-
-In this way, Tellurium will first map the UIID "GoogleSearchModule.Search" to the actual UI object and then call the _click_ method on it. If that Ui object does not have the _click_ method defined, you will get an error.
-
-
-== UI Module ==
-
-The UI Module is the heart of Tellurium. The UI module is a collection of UI elements grouped together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For example, the download search module in Tellurium's project site is defined as follows:
-
-{{{
-ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
-   Selector(uid: "downloadType", clocator: [name: "can", id: "can"])
-   InputBox(uid: "searchBox", clocator: [name: "q"])
-   SubmitButton(uid: "searchButton", clocator: [value: "Search"])
-}
-}}}
-
-Tellurium is built on the foundation of the UI module. The UI module makes it possible to build locators for UI elements at runtime.  First, this makes Tellurium robust and responsive to changes from internal UI elements.  Second, the UI module makes Tellurium expressive.  A UI element can be referred to simply by appending the names (uids) along the path to the specific element. This also enables Tellurium's "Group Locating" feature, making composite objects reusable and addressing dynamic web pages.
-
-This frees up the testers to write better tests rather than spend precious testing time on identifying and resolving test failures due to XPath changes.
-
-== Composite Locator ==
-
+All UI Objects inherit the above attributes and methods and many UI objects have their extra attributes and methods. For example, the List object has one special attribute "separator", which is used to indicate the tag used to separate different List child UI elements. 
+ 
 Tellurium supports two types of locators: _base locator_ and _composite locator_. The _base locator_ is a relative XPath. The _composite locator_, denoted by "clocator", specifies a set of attributes for the UI object and the actual locator will be derived automatically by Tellurium at runtime.   
 
 The Composite Locator is defined as follows:
@@ -234,176 +132,63 @@ If you have additional attributes, you can define them in the same way as the de
 clocator: [tag: "div", value: "Tellurium home"]
 }}}
 
-Most Tellurium objects come with default values for certain attributes, for example, the  tag attribute. If these attributes are not specified, the default attribute values will be used. In other words, if you know the default attribute values of a Tellurium UI object, you can omit them in clocator. Take the RadioButton object as an example, its default tag is "input," and its default type is "radio." You can omit them and write the clocator as follows:
-
-{{{
-clocator: [:]
-}}}
-
-which is equivalent to
-
-{{{
-clocator: [tag: "input", type: "radio"]
-}}}
- 
-== Group Locating ==
-
-In the Tellurium UI module, you often see the "group" attribute. For example:
-
-{{{
-ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
-  InputBox(uid: "searchbox", clocator: [title: "Google Search"])
-  SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
-  SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
-}
-}}}
-
-What does the attribute _group_ mean? The group attribute is a flag for the Group Locating Concept. Usually, the XPath generated by Selenium IDE, XPather, or other tools is a single
-path to the target node such as:
+In the above Tellurium UI module, the "GoogleSearchModule" Container includes a "group" attribute. What does the attribute _group_ mean? The group attribute is a flag for the Group Locating Concept. Usually, the XPath generated by Selenium IDE, XPather, or other tools is a single path to the target node such as:
 
 {{{
 //div/table[@id='something']/div[2]/div[3]/div[1]/div[6]
 }}}
 
-No sibling node's information is used here. What is wrong with this? The XPath depends too much on information from nodes far away from the target node. In Tellurium, we try to localize the information and reduce this dependency by using sibling information or local information. For example, in the above google UI module, the group locating concept will try to find the "td" tag with its children as "InputBox", "googlesearch" button, and
-"Imfeelinglucky" button. In this way, we can reduce the dependencies of the UI elements inside a UI module on external UI elements to make the UI definition more robust. 
+No sibling node's information is used here. What is wrong with this? The XPath depends too much on information from nodes far away from the target node. In Tellurium, we try to localize the information and reduce this dependency by using sibling information or local information. For example, in the above google UI module, the group locating concept will try to find the "td" tag with its children as "Input", "Search" button, and
+"ImFeelingLucky" button. In this way, we can reduce the dependencies of the UI elements inside a UI module on external UI elements to make the UI definition more robust. 
+  
+The Tellurium framework architecture is shown as in Figure 1.
 
-== UI Templates ==
+http://tellurium-users.googlegroups.com/web/TelluriumUMLSystemDiagram.png?gda=0H5Erk8AAAD5mhXrH3CK0rVx4StVj0LYqZdbCnRI6ajcTiPCMsvamYLLytm0aso8Q_xG6LhygcwA_EMlVsbw_MCr_P40NSWJnHMhSp_qzSgvndaTPyHVdA&gsc=cq8RLwsAAADwIKTw30t0VbWQq6vz0Jcq
 
-Tellurium UI templates are used for two purposes:
+Figure 1. Tellurium Architecture.
 
-  # When there are many identical UI elements, you can use one template to represent them all
-  # When here are a variable/dynamic size of UI elements at runtime, you know the patterns, but not the size.
+The DSL parser consists of the DSL Object Parser, Object Builders, and the Object Registry. The DSL object parser will parse the DSL object definition recursively and use object builders to build the objects on the fly. An object builder registry is designed to hold all predefined UI object builders in the Tellurium framework, and the DSL object parser will look at the builder registry to find the appropriate builders. Since the registry is a hash map, you can override a builder with a new one using the same UI name. Users can also add their customer builders into the builder registry.
+ 
+The DSL object definition always comes first with a container type object. An object registry (a hash map) is used to store all top level UI Objects. As a result, for each DSL object definition, the top object ids must be unique in the DslContext. The object registry will be used by the framework to search objects by their ids and fetch objects for different actions.
 
-More specifically, Table and List are two Tellurium objects that can define UI templates. Table defines two dimensional UI templates, and List is for one dimensional. The Template has
-special UIDs such as "2", "all", or "row: 1, column: 2". 
+The Object Locator Mapping (OLM) is the core of the Tellurium framework and it includes UI ID mapping, XPath builder, jQuery selector builder, and Group Locating. 
 
-For use case (2), a common application is the data grid. Look at the "issueResult" data grid on our Tellurium Issues page:
+The UI ID supports nested objects. For example, "menu.wiki" stands for a URL Link "wiki" inside a container called "menu". The UI ID also supports one-dimensional and two-dimensional indices for table and list. For example, {{{"main.table[2][3]"}}} stands for the UI object of the 2nd row and the 3rd column of a table inside the container "main".
 
-{{{
-ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], 
-         group: "true") 
-{
-    TextBox(uid: "header: 1",  clocator: [:])
-    UrlLink(uid: "header: 2",  clocator: [text: "%%ID"])
-    UrlLink(uid: "header: 3",  clocator: [text: "%%Type"])
-    UrlLink(uid: "header: 4",  clocator: [text: "%%Status"])
-    UrlLink(uid: "header: 5",  clocator: [text: "%%Priority"])
-    UrlLink(uid: "header: 6",  clocator: [text: "%%Milestone"])
-    UrlLink(uid: "header: 7",  clocator: [text: "%%Owner"])
-    UrlLink(uid: "header: 9",  clocator: [text: "%%Summary + Labels"])
-    UrlLink(uid: "header: 10", clocator: [text: "%%..."])
-
-    //define table elements
-    //for the border column
-    TextBox(uid: "row: *, column: 1", clocator: [:])
-    //For the rest, just UrlLink
-    UrlLink(uid: "all", clocator: [:])
-}
-}}}
-
-Aren't the definitions very simple and cool? 
-
-You may wonder how to use the templates if you have multiple templates such as the "issueResult" table shown above. The rule to apply the templates is: "specific one first, general one later".
-
-== Javascript Events ==
-
-Most web applications include Javascript, and thus the web testing framework must be able to handle Javascript events. What we really care about is firing the appropriate events to trigger the event handlers.
-
-Selenium has already provided methods to generate events such as:
-
-{{{
-fireEvent(locator, "blur")
-fireEvent(locator, "focus")
-mouseOut(locator)
-mouseOver(locator)
-}}}
-
-Tellurium was born with Javascript events in mind since it was initially designed to test applications written using the DOJO JavaScript framework. For example, we have the following radio button:
-
-{{{
-<input type='radio' name='mas_address_key' value='5779' onClick='SetAddress_5779()'>
-}}}
-
-Although we can define the radio button as follows:
-
-{{{
-RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'])
-}}}
-
-The above code will not respond to the click event since the Tellurium RadioButton only supports the "check" and "uncheck" actions, which is enough for the normal case. As a result, no "click" event/action will be generated during the testing. To address this problem, Tellurium added the "respond" attribute to Tellurium UI objects. The "respond" attribute could be used to define whatever events you want the UI object to respond to. The Radio Button can be redefined as:
-
-{{{
- ui.Container(uid: "form", clocator: [whatever]){
-     RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'], 
-               respond: ["click"])
- }
-}}}
-
-That is to say, you can issue the following command: 
-
-{{{
-  click "form.billing"
-}}}
-
-Even if the RadioButton does not have the _click_ method defined by default, it is still able to dynamically add the _click_ method at runtime and call it.
-
-A more general example is as follows:
-
-{{{
- InputBox(uid: "searchbox", clocator: [title: "Google Search"], 
-          respond: ["click", "focus", "mouseOver", "mouseOut", "blur"])
-}}}
-
-Except for the "click" event, all of the "focus", "mouseOver", "mouseOut", and "blur" events will be automatically fired by Tellurium during testing. Do not worry about the event order for the respond attribute, Tellurium will automatically re-order the events and then process them appropriately for you.
-
-== jQuery Selector ==
-
-Starting with version 0.6.0, Tellurium supports a [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector jQuery selectors] to address the problem of poor performance of XPath in Internet Explorer. Auto-generating jQuery instead of XPath has the following advantages:
+XPath builder can build the XPath from the composite locator, i.e., a set of attributes. Starting with version 0.6.0, Tellurium supports jQuery selectors to address the problem of poor performance of XPath in Internet Explorer. jQuery selector builders are used to automatically generate jQuery selectors instead of XPath with the following advantages:
   * Faster performance in IE.
-  * We are able to use the power of jQuery to call methods on jQuery collections to retrieve bulk data.
-  * Tellurium jQuery selector supports the jQuery attribute selectors such as _[attribute!=value]_, _[attribute^=value]_, _[attribute$=value]_, and _[attribute*=value]_.
+  * Leverage the power of jQuery to retrieve bulk data from the web by testing with one method call.
+  * New features provided by jQuery attribute selectors.
+ 
+The Group Locating Concept (GLC) exploits the group information inside a collection of UI objects to help us find the locator of the collection of UI objects. 
 
-To use jQuery selectors, simply call:
+The Eventhandler will handle all events like "click", "type", "select", and so on. The Data Accessor is used to fetch data or UI status from the DOM. The dispatcher will delegate all calls it receives from the Eventhandler and the data accessor to the connector, which connects to the Tellurium engine. The dispatcher is designed to decouple the rest of the Tellurium framework from the base test driving engine so that we can switch to a different test driving engine by simply changing the dispatcher logic.
+
+Tellurium evolved out of Selenium, but the UI testing approach is completely different. For example, Tellurium is not a "record and replay" style framework, and it enforces the separation of UI modules from test code, making refactoring easy. For example, once you defined the Google Search UI module shown above, you can write your test code as follows:
 
 {{{
-useJQuerySelector()
+type "GoogleSearchModule.Input", "Tellurium test"
+click "GoogleSearchModule.Search"
 }}} 
 
-in you code. To switch back to XPath locators, you should call:
-
-{{{
-disableJQuerySelector()
-}}}
-
-Be aware that the UI module is agnostic to the locate strategy you choose, and thus you do not need to change anything in your test code. 
-
-Our Benchmark test results show that:
-
-  # jQuery selector is as fast as Ajaxslt XPath and Javascript XPath in Firefox 3.
-  # jQuery selector is much faster in IE 7 than the two XPath libraries
-  # jQuery selector uses only one method call to get back data for all table cells, and thus it is the fastest one for bulk data access.
-
-[http://code.google.com/p/aost/wiki/jQuerySelectorCache jQuery cache] is a mechanism to further improve speed by reusing the previously found DOM reference for a given jQuery selector. Our benchmark results show that the jQuery cache could improve the speed by up to 14% over the regular jQuery selector and over 27% for some extreme cases.
-
-== Domain Specific Language ==
+== How Challenges and Problems are addressed in Tellurium ? ==
  
-Domain Specific Language (DSL) indicates a programming language or specification language dedicated to a particular problem domain, a particular problem representation technique, or a particular solution technique. Here the domain refers to UI testing. DSL is specified in the class *DslContext*, including UI definitions, actions, and testing. 
+First of all, Tellurium does not use "record and replay." Instead, it uses the Tellurium Firefox plugin Trump to generate the UI module (not test code) for you. Then you need to create your test code based on the UI module. In this way, the UI and the test code are decoupled. The structured test code in Tellurium makes it much easier to refactor and maintain the code.
 
-== Testing Support ==
+The composite locator uses UI element attributes to define the UI, and the actual locator (e.g. xpath or jQuery selector) will be generated at runtime. Any updates to the composite locator will lead to different runtime locators, and the changes inside the UI module are localized. The Group locating is used to remove the dependency of the UI objects from external UI elements (i.e. external UI changes will not affect the current UI module for most cases) so that your test code is robust and responsive to changes up to a certain level.
 
-In the package org.tellurium.test, Tellurium provides three different ways to write Tellurium tests:
+Tellurium uses the _respond_ attribute in a UI object for you to specify JavaScript events, and the rest will be handled automatically by the framework itself. UI templates are a powerful feature in Tellurium used to represent many identical UI elements or a dynamic size of different UI elements at runtime, which are extremely useful in testing dynamic web contexts such as a data grid. The _Option_ UI object is designed to automatically address dynamic web contexts with multiple possible UI patterns.
 
-  * TelluriumJavaTestCase is for JUnit, and it supports the following JUnit 4 annotations: @BeforeClass, @AfterClass, @Before, @After, @Test, and @Ignore 
-  * TelluriumTestNGTestCase is for TestNG. Similarly, you can use the following annotations: @BeforeSuite, @AfterSuite, @BeforeTest, @AfterTest, @BeforeGroups, @AfterGroups, @BeforeClass, @AfterClass, @BeforeMethod, @AfterMethod, @DataProvider, @Parameters, and @Test
-  * TelluriumGroovyTestCase is for Groovy test cases.
-  * Data Driven Testing. Tellurium provides the class _TelluriumDataDrivenModule_ for users to define data driven testing modules and the class _TelluriumDataDrivenTest_ to drive the actual tests.
+Re-usability is achieved by the UI module when working within one application and by Tellurium Widgets when working across different web applications. With the Domain Specific Language (DSL) in Tellurium you can define UI modules and write test code in a very expressive way. Tellurium also provides you the flexibility to write test code in Java, Groovy, or pure DSL scripts.
 
-Apart from the above, Tellurium also provides users the capability to write Tellurium tests and Tellurium data driven tests in pure DSL scripts. The _DslScriptExecutor_ is used to run the .dsl files.
+In the subsequent sections, we will give a brief introduction of Tellurium, including its architecture and main concepts. Then we will introduce the Tellurium sub-projects and how to obtain and use Tellurium. This will be followed by a detailed tutorial on how to create Tellurium test cases with code samples. Finally, we will summarize and conclude this article with our plans for the future.
 
 = Summary =
 
-Tellurium is robust, expressive, flexible, and reusable with many unique features. Tellurium introduces a new approach to test web applications based on UI modules.
+Tellurium introduces a new approach to test web applications based on UI modules. The UI module makes it possible to build locators for UI elements at runtime.  First, this makes Tellurium robust and responsive to changes from internal UI elements.  Second, the UI module makes Tellurium expressive.  A UI element can be referred to simply by appending the names (uid) along the path to the specific element. This also enables Tellurium's _Group Locating_ feature, making composite objects reusable, and addressing dynamic web pages.
+
+Tellurium does _Object to Locator Mapping (OLM)_ automatically at run time so that UI objects can be defined simply by their attributes using _Composite Locators_. Tellurium uses the Group Locating Concept (GLC) to exploit information inside a collection of UI components so that locators can find their elements.  It also defines a set of DSLs for web testing.  Furthermore, Tellurium uses UI templates to define sets of dynamic UI elements at runtime.  As a result, Tellurium is robust, expressive, flexible, reusable, and easy to maintain.
+
 
 = Acknowledgments =
 
