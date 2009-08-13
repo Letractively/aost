@@ -153,8 +153,6 @@ The DSL object definition always comes first with a container type object. An ob
 
 The Object Locator Mapping (OLM) is the core of the Tellurium framework and it includes UI ID mapping, XPath builder, jQuery selector builder, and Group Locating. 
 
-The UI ID supports nested objects. For example, "menu.wiki" stands for a URL Link "wiki" inside a container called "menu". The UI ID also supports one-dimensional and two-dimensional indices for table and list. For example, {{{"main.table[2][3]"}}} stands for the UI object of the 2nd row and the 3rd column of a table inside the container "main".
-
 XPath builder can build the XPath from the composite locator, i.e., a set of attributes. Starting with version 0.6.0, Tellurium supports jQuery selectors to address the problem of poor performance of XPath in Internet Explorer. jQuery selector builders are used to automatically generate jQuery selectors instead of XPath with the following advantages:
   * Faster performance in IE.
   * Leverage the power of jQuery to retrieve bulk data from the web by testing with one method call.
