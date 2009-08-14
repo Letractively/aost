@@ -12,7 +12,7 @@ import example.other.M1Module;
  *
  *         Date: Aug 13, 2009
  */
-public class MaModuleTestCase extends TelluriumJavaTestCase {
+public class MaTestCase extends TelluriumJavaTestCase {
     private static MockHttpServer server;
 
     @BeforeClass
