@@ -31,7 +31,7 @@ public class GaTestCase extends TelluriumJavaTestCase {
     }
 
     @Test
-    public void testTypeArticleBodyText(){
+    public void testSelectProgram(){
         GaModule lm = new GaModule();
         lm.defineUi();
         connectUrl("http://localhost:8080/programs.html");
