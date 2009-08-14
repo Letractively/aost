@@ -20,7 +20,10 @@ class Frame extends Container{
     private String title;
 
     void selectFrame(Closure c){
-        c(name)
+      if(this.name != null)
+        c(this.name)
+      else
+        c(this.id)
     }
 
     void selectParentFrame(Closure c){
