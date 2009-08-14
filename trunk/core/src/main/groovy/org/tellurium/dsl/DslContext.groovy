@@ -104,6 +104,10 @@ abstract class DslContext extends BaseDslContext {
         }
     }
 
+    def selectFrameByIndex(int index) {
+        eventHandler.selectFrame("index=${index}")
+    }
+
     def selectParentFrameFrom(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.selectParentFrame() {String loc ->

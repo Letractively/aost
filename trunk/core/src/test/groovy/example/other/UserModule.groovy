@@ -75,6 +75,29 @@ public class UserModule extends DslContext {
         //For the rest, just UrlLink
         UrlLink(uid: "all", clocator: [:])
       }
+
+      ui.Container(uid: "ConsumersPage", clocator: [tag: "div", id: "contenu"]){
+            Table(uid:"ConsumersTable", clocator: [tag: "table", class: "dataview"], group:"true"){
+                Span(uid: "row: 1, column: 1", clocator: [tag: "a", text: "%%Nom"])
+                Container(uid: "row: *, column: 7", clocator: [tag: "td", position:"7"]){
+                    Span(uid: "Clone", clocator: [tag: "span", text: "Cloner"])
+                    Span(uid: "Modify", clocator: [tag: "span", text: "Modifier"])
+                    Span(uid: "DeploymentAsk", clocator: [tag: "span", text: "%%ploiement"], respond: ["click"])
+                    Span(uid: "UndeploymentAsk", clocator: [tag: "span", text: "%%retrait"], respond: ["click"])
+
+                }
+            }
+            UrlLink(uid: "NewConsumer", clocator: [tag: "a", text: "Nouveau consommateur"])
+        }
+
+      ui.Table(uid: "questionGroup", clocator: [class: "QuestionGroup"]) {
+        Table(uid: "row: 1, column: 1", clocator: [class: "datatable2"]) {
+          RadioButton(uid: "row: 1, column: 1", clocator: [name: "1"])
+        }
+        StandardTable(uid: "row: 2, column: 1", clocator: [class: "datatable2"]) {
+          RadioButton(uid: "tbody: *, row:1, column: 1", clocator: [:])
+        }
+      }
     }
 
     public void doCreateAccount() {

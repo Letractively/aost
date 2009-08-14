@@ -42,6 +42,13 @@ public class UserTestCase extends TelluriumJavaTestCase {
         System.out.print(lm.generateHtml("issueResult"));
     }
 
+    @Test
+    public void testDump(){
+        UserModule lm = new UserModule();
+        lm.defineUi();
+        lm.dump("ConsumersPage");
+    }
+
     @AfterClass
     public static void tearDown(){
         server.stop();
