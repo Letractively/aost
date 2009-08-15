@@ -7,6 +7,24 @@ From time to time, a lot of Tellurium run into problems for their Tellurium test
 
 Tellurium test mainly consists of two parts, i.e., the Java/Groovy test code and JavaScript code in our customized Selenium server. Trace and debug Java/Groovy code in IDE is very simple and thus we only focus on the custom Selenium server part. 
 
+= Firefox Profile =
+
+Usually, you will see a lot of posts about using the following command to manage Firefox profiles
+
+{{{
+Firefox -ProfileManager
+}}}
+
+Unfortunately, this seems not working for Firefox 3.5. (At least on my Linux box). I have to use the following command instead 
+
+{{{
+firefox -ProfileManager -no-remote
+}}}
+
+Once you get there, you can create a new Firefox profile.
+
+http://tellurium-users.googlegroups.com/web/FireFoxUserProfile.png?gda=I4FoeUgAAACvY3VTaWrtpkaxlyj9o09Emp7WzKfacwuA5qU_hvWhiTsYZlJux9GJX8kg1N3C8bklzhb83kORdLwM2moY-MeuGjVgdwNi-BwrUzBGT2hOzg&gsc=U1o_cQsAAAA1lkHi4n397EEqRcu0Nd-6
+
 = Firebug Support =
 
 To add Firebug support, one way is to install Firebug plugin to your web browser. You can get Firebug from 
@@ -50,7 +68,6 @@ You will see all the files and directories listed as follows
 
 {{{
 [jfang@Mars Mars]$ ls -l
-total 7212
 -rw-rw-r--. 1 jfang jfang    1677 2009-06-09 12:59 coding-conventions.txt
 drwxrwxr-x. 6 jfang jfang    4096 2009-06-17 18:41 core
 drwxrwxr-x. 3 jfang jfang    4096 2009-06-17 18:41 customProfileDirCUSTFF
@@ -71,10 +88,22 @@ drwxrwxr-x. 6 jfang jfang    4096 2009-06-17 18:41 org
 -rw-rw-r--. 1 jfang jfang    2020 2009-06-09 12:59 readyState.xpi
 -rw-rw-r--. 1 jfang jfang  129458 2009-06-09 12:59 reference.html
 -rw-rw-r--. 1 jfang jfang      55 2009-06-12 15:12 selenium-ant.properties
--rw-rw-r--. 1 jfang jfang 7152011 2009-08-14 17:18 selenium-server.jar
 drwxrwxr-x. 2 jfang jfang    4096 2009-06-17 18:41 sslSupport
 drwxrwxr-x. 2 jfang jfang    4096 2009-06-17 18:41 strands
 drwxrwxr-x. 5 jfang jfang    4096 2009-06-17 18:41 tests
 drwxrwxr-x. 3 jfang jfang    4096 2009-06-17 18:41 unittest
 -rw-rw-r--. 1 jfang jfang     153 2009-06-12 15:14 VERSION.txt
+}}}
+
+Then, copy your Firebug installed in your Firefox profile to the profiles in Selenium Server.
+
+{{{
+[jfang@Mars Mars]$ cp -rf /home/jfang/.mozilla/firefox/zlduhghq.test/extensions/firebug\@software.joehewitt.com customProfileDirCUSTFF/extensions/
+[jfang@Mars Mars]$ cp -rf /home/jfang/.mozilla/firefox/zlduhghq.test/extensions/firebug\@software.joehewitt.com customProfileDirCUSTFFCHROME/extensions/
+}}}
+
+After that, re-pack the custom Selenium server
+
+{{{
+jar cmf META-INF/MANIFEST.MF selenium-server.jar *
 }}}
