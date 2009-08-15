@@ -1,0 +1,10 @@
+#summary Use Firebug and JQuery to Trace Problems in Tellurium Tests.
+#labels Phase-Support
+
+= Introduction =
+
+From time to time, a lot of Tellurium run into problems for their Tellurium tests and asked for help. The difficult thing is that our Tellurium developers do not have access to their application and even their whole test code. For most cases, we can only give some hints on what the problems might be. As a result, a practical way to trace/debug Tellurium test code is very important to our users. That is why we create this wiki page to share our experiences on how to debug Tellurium code with Firebug and jQuery.
+
+Tellurium test mainly consists of two parts, i.e., the Java/Groovy test code and JavaScript code in our customized Selenium server. Trace and debug Java/Groovy code in IDE is very simple and thus we only focus on the custom Selenium server part. 
+
+
