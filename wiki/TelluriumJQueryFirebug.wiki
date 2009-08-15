@@ -141,11 +141,6 @@ First, you need to put a breakpoint in your Java/Groovy test code, for example, 
 
 http://tellurium-users.googlegroups.com/web/TelluriumUserTestCase.png?gda=aK5n30sAAACvY3VTaWrtpkaxlyj9o09Eze2zIhq6411I_8TGzz5DI-qW4SmLmVbvXBbEmeIsaNidYZYxwa0BE4XjboRU-oYaBkXa90K8pT5MNmkW1w_4BQ&gsc=EAymlwsAAABsf4AHuALmOmkLNHG2feRw
 
-If you run the Selenium server externally, use can use the following command to start it in a single window mode
-{{{
-java -jar selenium-server.jar -singlewindow
-}}}
-
 Then, use the "Debug" menu to start your test case. Once the test reaches breakpoint, you can go the Firefox browser to open Firebug.
 
 http://tellurium-users.googlegroups.com/web/TelluriumOpenFirebug.png?gda=ixZrO0oAAACvY3VTaWrtpkaxlyj9o09EDO6MGplfJGHVhUec0kpXPoiAcPDq6RaxFOV-k14EkLyB_EtY4PNGNRy1KtA3K9bL_e3Wg0GnqfdKOwDqUih1tA&gsc=hGoVDAsAAAB8vRO2zTlOouy3DcrgOZrb
@@ -155,3 +150,21 @@ Sometime, the Firebug console is disabled, you need to enable it. After that, yo
 http://tellurium-users.googlegroups.com/web/TelluriumFirebugScript.png?gda=4-oX70wAAACvY3VTaWrtpkaxlyj9o09E7NkZ8HCattGn-1iiIrkpLwyVYbbBb4wvSnrgfyj7FfY29mST-NKidxSrAhXCh25v_Vpvmo5s1aABVJRO3P3wLQ&gsc=hGoVDAsAAAB8vRO2zTlOouy3DcrgOZrb
 
 You can set a breakpoint in the JavaScript file and resume the test until it hits the breakpoint in the JavaScript file. You can find more details on [http://getfirebug.com/js.html JavaScript debug with Firebug].
+
+= Trace Problems Using jQuery =
+
+The custom Selenium server comes with jQuery 1.3.2 when we added support for jQuery selector in Tellurium. But we yielded the "$" sign and also renamed jQuery to teJQuery to avoid conflicts with user's jQuery library.
+
+To use jQuery, you need to use the single window module for the custom Selenium server, i.e., change settings in TelluriumConfig.groovy to
+
+{{{
+        //whether to use multiple windows
+        useMultiWindows = false
+        //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
+        runInternally = true
+}}}
+
+If you run the Selenium server externally, use can use the following command to start it in a single window mode
+{{{
+java -jar selenium-server.jar -singlewindow
+}}}
