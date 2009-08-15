@@ -7,4 +7,74 @@ From time to time, a lot of Tellurium run into problems for their Tellurium test
 
 Tellurium test mainly consists of two parts, i.e., the Java/Groovy test code and JavaScript code in our customized Selenium server. Trace and debug Java/Groovy code in IDE is very simple and thus we only focus on the custom Selenium server part. 
 
+= Firebug Support =
 
+To add Firebug support, one way is to install Firebug plugin to your web browser. You can get Firebug from 
+
+https://addons.mozilla.org/en-US/firefox/addon/1843
+
+Then, use Firefox profile in your Tellurium Tests. For example, you can add the Firefox profile in TelluriumConfig.groovy as follows,
+
+{{{
+tellurium{
+    //embedded selenium server configuration
+    embeddedserver {
+        //port number
+        port = "4444"
+        //whether to use multiple windows
+        useMultiWindows = false
+        //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
+        runInternally = true
+        //profile location
+        profile = "/home/jfang/.mozilla/firefox/zlduhghq.test"
+        //user-extension.js file
+        userExtension = "target/test-classes/extension/user-extensions.js"
+    }
+}}}
+
+Or you can use the following command to specify the profile if you run the Selenium server externally,
+
+{{{
+[jfang@Mars ]$ java -jar selenium-server.jar -profilesLocation /home/jfang/.mozilla/firefox/zlduhghq.test
+}}}
+
+But sometimes, Selenium server has trouble to create a new profile from your profile and it might be better to add the Firebug plugin directly to the Selenium server. To do this, you need to following the following steps.
+
+First, unpack the custom Selenium server
+
+{{{
+[jfang@Mars ]$ jar xvf selenium-server.jar
+}}}
+
+You will see all the files and directories listed as follows
+
+{{{
+[jfang@Mars Mars]$ ls -l
+total 7212
+-rw-rw-r--. 1 jfang jfang    1677 2009-06-09 12:59 coding-conventions.txt
+drwxrwxr-x. 6 jfang jfang    4096 2009-06-17 18:41 core
+drwxrwxr-x. 3 jfang jfang    4096 2009-06-17 18:41 customProfileDirCUSTFF
+drwxrwxr-x. 3 jfang jfang    4096 2009-08-14 16:58 customProfileDirCUSTFFCHROME
+drwxrwxr-x. 3 jfang jfang    4096 2009-06-17 18:41 cybervillains
+drwxrwxr-x. 2 jfang jfang    4096 2009-06-17 18:41 doctool
+drwxrwxr-x. 2 jfang jfang    4096 2009-06-17 18:41 hudsuckr
+drwxrwxr-x. 2 jfang jfang    4096 2009-06-17 18:41 images
+-rw-rw-r--. 1 jfang jfang    1933 2009-06-09 12:59 index.html
+-rw-rw-r--. 1 jfang jfang     620 2009-06-09 12:59 install-readme.txt
+drwxrwxr-x. 3 jfang jfang    4096 2009-06-17 18:41 javax
+drwxrwxr-x. 6 jfang jfang    4096 2009-06-17 18:41 jsunit
+drwxrwxr-x. 2 jfang jfang    4096 2009-06-17 18:41 killableprocess
+drwxrwxr-x. 2 jfang jfang    4096 2009-06-17 18:41 konqueror
+drwxrwxr-x. 3 jfang jfang    4096 2009-06-17 18:41 META-INF
+drwxrwxr-x. 2 jfang jfang    4096 2009-06-17 18:41 opera
+drwxrwxr-x. 6 jfang jfang    4096 2009-06-17 18:41 org
+-rw-rw-r--. 1 jfang jfang    2020 2009-06-09 12:59 readyState.xpi
+-rw-rw-r--. 1 jfang jfang  129458 2009-06-09 12:59 reference.html
+-rw-rw-r--. 1 jfang jfang      55 2009-06-12 15:12 selenium-ant.properties
+-rw-rw-r--. 1 jfang jfang 7152011 2009-08-14 17:18 selenium-server.jar
+drwxrwxr-x. 2 jfang jfang    4096 2009-06-17 18:41 sslSupport
+drwxrwxr-x. 2 jfang jfang    4096 2009-06-17 18:41 strands
+drwxrwxr-x. 5 jfang jfang    4096 2009-06-17 18:41 tests
+drwxrwxr-x. 3 jfang jfang    4096 2009-06-17 18:41 unittest
+-rw-rw-r--. 1 jfang jfang     153 2009-06-12 15:14 VERSION.txt
+}}}
