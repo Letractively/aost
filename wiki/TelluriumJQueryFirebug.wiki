@@ -164,7 +164,36 @@ To use jQuery, you need to use the single window module for the custom Selenium 
         runInternally = true
 }}}
 
-If you run the Selenium server externally, use can use the following command to start it in a single window mode
+If you run the Selenium server externally, you should use the following command to start it in a single window mode
 {{{
 java -jar selenium-server.jar -singlewindow
 }}}
+
+You also need to set a breakpoint in your Java/Groovy test code so that you can work in the Firefox browser using Firebug when the test suspends. 
+
+If you open Firebug and look at the html content, you will see that your web application is actually running inside an IFrame shown as follows,
+
+http://tellurium-users.googlegroups.com/web/TelluriumSeleniumServerIFrame.png?gda=PVoZHlMAAACvY3VTaWrtpkaxlyj9o09EgO6a7zKvb8te6WdvjGDohVyd-tnS0xlr1YxP__WLUaGnQLDSh5D6u11BZBWKcByUMrYifh3RmGHD4v9PaZfDexVi73jmlo822J6Z5KZsXFo&gsc=n_OfJwsAAACQg_IcbRBLWbV5y8FhKpga
+
+To access elements in the IFrame using jQuery, you need to use the following trick
+
+{{{
+teJQuery("#selenium_myiframe").contents().find(YOUR_JQUERY)
+}}}
+
+For example, we used the following jQuery to check if a button is there 
+
+{{{
+teJQuery("#selenium_myiframe").contents().find("input.btn")
+}}}
+ 
+We can also dump out the html source starting from the button's parent,
+
+{{{
+
+teJQuery("#selenium_myiframe").contents().find("input.btn").parent().html()
+}}}
+
+The output is shown as follows,
+
+http://tellurium-users.googlegroups.com/web/TelluriumJQueryIframe.png?gda=W0CtWEsAAACvY3VTaWrtpkaxlyj9o09Ei2DGeSsGpuBT4mNQYpRc0uTSq-Pi7IIn7mvi-lgcznBE4WwyXqDrOCG6YsJPv3PQBkXa90K8pT5MNmkW1w_4BQ&gsc=n_OfJwsAAACQg_IcbRBLWbV5y8FhKpga
