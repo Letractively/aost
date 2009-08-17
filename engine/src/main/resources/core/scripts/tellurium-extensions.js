@@ -176,3 +176,9 @@ Selenium.prototype.doTypeKey = function(locator, key){
 
 	$elem.val($elem.val()+key).trigger(getEvent("keydown", key)).trigger(getEvent("keypress", key)).trigger(getEvent("keyup", key));
 };
+
+Selenium.prototype.doBlur = function(locator){
+    var $elem = teJQuery(this.browserbot.findElement(locator));
+
+	$elem.trigger("blur");
+};
