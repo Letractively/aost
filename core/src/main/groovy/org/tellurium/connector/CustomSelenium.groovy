@@ -227,4 +227,9 @@ class CustomSelenium extends DefaultSelenium {
         String[] arr = [locator, key];
         commandProcessor.doCommand("typeKey", arr);
     }
+
+    public void triggerEvent(String locator, String event){
+        String[] arr = [locator, event];
+        commandProcessor.doCommand("triggerEvent", arr);      
+    }
 }

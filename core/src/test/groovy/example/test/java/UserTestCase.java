@@ -35,6 +35,15 @@ public class UserTestCase extends TelluriumJavaTestCase {
     }
 
     @Test
+    public void testTriggerEventOn(){
+        UserModule lm = new UserModule();
+        lm.defineUi();
+        connectUrl("http://localhost:8080/account.html");
+        lm.type("accountEdit.accountName", "ccc");
+        lm.triggerEventOn("accountEdit.accountName",  "blur");
+    }
+
+    @Test
     public void testGenerateHTML(){
         UserModule lm = new UserModule();
         lm.defineUi();

@@ -192,6 +192,16 @@ abstract class BaseDslContext {
     return extension.invokeMethod(method, args)
   }
 
+  public void triggerEventOn(String uid, String event){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    walkToWithException(context, uid).customMethod(){ loc ->
+      String locator = locatorMapping(context, loc)
+      Object[] list = [locator, event]
+
+      extension.invokeMethod("triggerEvent" ,list)
+    }
+  }
+
   //uid should use the format table2[2][3] for Table or list[2] for List
   def getUiElement(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
@@ -1161,6 +1171,10 @@ abstract class BaseDslContext {
       }
       println("-------------------------------------------------------\n")
     }
+  }
+
+  public void diagnose(String uid){
+    
   }
 
   public String generateHtml(String uid){
