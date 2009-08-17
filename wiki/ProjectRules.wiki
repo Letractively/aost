@@ -23,7 +23,7 @@ Please follow the following rules:
 
   * Members are encouraged to write articles on Tellurium to submit to good places.
 
-  * Members are encouraged to present Tellurium to local group and conferences as long as you kindly mention other team members' work. For big conference such as Java one, we should submit the proposal as a team.
+  * Members are encouraged to present Tellurium to local group and conferences as long as you kindly mention other team members' work. For big conferences such as Java one, we should submit the proposal as a team.
 
   * Please be responsive and cooperative with other team members because many tasks require a team effort.
 
