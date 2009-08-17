@@ -19,7 +19,9 @@ tellurium{
         //profile location
 //        profile = "/home/jiafan1/.mozilla/firefox/820j3ca9.default"
 //        profile = "/home/jiafan1/.mozilla/firefox/1my8aaxx.Default User2"
-        profile = ""  
+//        profile = "/home/jiafan1/.mozilla/firefox/2v6vy2yh.default"
+//        profile = "/home/jiafan1/.mozilla/firefox/zlduhghq.test"
+        profile = ""
         //user-extension.js file
         userExtension = "target/test-classes/extension/user-extensions.js"
     }
