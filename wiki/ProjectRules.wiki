@@ -13,8 +13,22 @@ Please follow the following rules:
  
   * Please use the issue system to track errors, add new functionalities, add new tasks.
 
-  * Tellurium is our project, please be actively involved in coding, documenting, testing, answering user questions, and participating in other forum discussion such Selenium RC forum to attract more people to use Tellurium.
- 
-  * We have weekly report so that each member knows what the other members are doing and how far we are now.
+  * Tellurium is our project, please be actively involved in coding, documenting, testing, answering user questions.
+
+  * Please be courtesy to updating your status on Tellurium. If there are tasks assigned to you, but you do not have time to work on it, please let us know so that other members can take them over.
+
+  * Please vote up the DZone links creating by our members or users on Tellurium to promote Tellurium.
+
+  * Please create some blogs on Tellurium and publish them to DZone from time to time.
+
+  * Members are encouraged to write articles on Tellurium to submit to good places.
+
+  * Members are encouraged to present Tellurium to local group and conferences as long as you kindly mention other team members' work. For big conference such as Java one, we should submit the proposal as a team.
+
+  * Please be responsive and cooperative with other team members because many tasks require a team effort.
+
+  * IntelliJ IDEA and JProfiler licenses are provided to members help your development on Tellurium, please keep them only to yourself.
+
+  * As always, you comments and suggestions on Tellurium including new ideas, promoting Tellurium, project management, and so on, are always welcome.
 
 *Note*, Google Code Subversion Repository uses Subversion _1.4_, not _1.5_. Please select the correct version when you check out code. 
