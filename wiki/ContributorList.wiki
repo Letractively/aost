@@ -16,6 +16,10 @@ Tellurium Contributors are categorized into development team, support team, evan
 
   * *Jeff Xiong*: 
 
+  * *Mahendra Kariya*:
+
+  * *Ajay Ravichandran*:
+
 == Build and Release ==
 
   * *Matt Senter*: Coming up with the name "Tellurium", Tellurium Maven support, Tellurium build and release, and Tellurium Maven repository maintenance. 
