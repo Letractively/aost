@@ -25,7 +25,7 @@ public class DiagnosisResponse {
 
   def DiagnosisResponse(Map map) {
     this.uid = map.get(UID);
-    this.uid = map.get(COUNT);
+    this.count = map.get(COUNT);
     this.matches = map.get(MATCHES);
     this.parents = map.get(PARENTS);
   }
@@ -43,7 +43,7 @@ public class DiagnosisResponse {
     }
 
     if(parents != null && parents.size() > 0){
-      println("\n\tClosest elements: \n")
+      println("\n\tParents: \n")
       parents.each {String elem ->
         println("\t\t" + elem + "\n");
       }

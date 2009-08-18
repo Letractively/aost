@@ -18,8 +18,8 @@ class EventHandler implements Configurable{
     def dispatcher  = new Dispatcher()
     private EventSorter alg = new EventSorter()
 
-    private boolean checkElement = true
-    private boolean extraEvent = true
+    private boolean checkElement = false
+    private boolean extraEvent = false
 
     public void mustCheckElement(){
         this.checkElement = true

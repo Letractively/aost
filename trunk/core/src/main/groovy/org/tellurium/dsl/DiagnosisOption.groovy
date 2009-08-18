@@ -13,7 +13,7 @@ public class DiagnosisOption {
 
   boolean retParent = true;
 
-  public boolean isRetHtml() {
+/*  public boolean isRetHtml() {
     return retHtml;
   }
 
@@ -27,5 +27,5 @@ public class DiagnosisOption {
 
   public void setRetParent(boolean retParent) {
     this.retParent = retParent;
-  }
+  }*/
 }

@@ -4,8 +4,10 @@ import example.other.UserModule;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.assertNotNull;
 import org.tellurium.test.java.TelluriumJavaTestCase;
 import org.tellurium.test.mock.MockHttpServer;
+import org.tellurium.dsl.DiagnosisResponse;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -41,6 +43,21 @@ public class UserTestCase extends TelluriumJavaTestCase {
         connectUrl("http://localhost:8080/account.html");
         lm.type("accountEdit.accountName", "ccc");
         lm.triggerEventOn("accountEdit.accountName",  "blur");
+    }
+
+    @Test
+    public void testDiagnose(){
+        UserModule lm = new UserModule();
+        lm.defineUi();
+        connectUrl("http://localhost:8080/account.html");
+        DiagnosisResponse resp = lm.diagnose("accountEdit.accountName");
+        assertNotNull(resp);
+        resp.show();
+
+        lm.type("accountEdit.accountName", "ccc");
+        resp = lm.diagnose("accountEdit.accountName");
+        assertNotNull(resp);
+        resp.show();
     }
 
     @Test
