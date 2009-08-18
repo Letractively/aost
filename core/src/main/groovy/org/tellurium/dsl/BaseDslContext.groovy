@@ -1177,10 +1177,11 @@ abstract class BaseDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.diagnose() {loc ->
       String locator = locatorMapping(context, loc)
+      String ploc = null
       if(this.exploreJQuerySelector){
-        String ploc =JQueryProcessor.popLast(locator)
+        ploc =JQueryProcessor.popLast(locator)
       }else{
-        String ploc = XPathProcessor.popXPath(locator)
+        ploc = XPathProcessor.popXPath(locator)
       }
       DiagnosisOption options = new DiagnosisOption()
       DiagnosisRequest request = new DiagnosisRequest(uid, ploc, loc, options)
