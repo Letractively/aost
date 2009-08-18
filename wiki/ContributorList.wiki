@@ -24,6 +24,10 @@ Tellurium Contributors are categorized into development team, support team, evan
 
   * *Matt Senter*: Coming up with the name "Tellurium", Tellurium Maven support, Tellurium build and release, and Tellurium Maven repository maintenance. 
 
+== Quality Assurance ==
+
+  * *Kamal Ahmed*:
+
 == Documentation ==
 
   * *Davlyn Jones*:
