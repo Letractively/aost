@@ -147,8 +147,10 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     }
 
     protected void configEventHandlerDefaultValues(EventHandler eventHandler){
-        eventHandler.mustCheckElement()
-        eventHandler.useExtraEvent()
+//        eventHandler.mustCheckElement()
+//        eventHandler.useExtraEvent()
+          eventHandler.notCheckElement()
+          eventHandler.noExtraEvent()
     }
 
     protected void configAccessor(Accessor accessor){

@@ -47,8 +47,8 @@ public class DiagnosisRequest {
       }
     }
 
-    this.retHtml = options.getRetHtml();
-    this.retParent = options.retParent();
+    this.retHtml = options.retHtml;
+    this.retParent = options.retParent;
   }
 
   public String toJson(){
