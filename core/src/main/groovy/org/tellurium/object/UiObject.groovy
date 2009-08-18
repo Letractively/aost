@@ -157,6 +157,10 @@ abstract class UiObject implements Cloneable{
       return c(locator, timeout)
     }
 
+    def diagnose(Closure c){
+      c(locator)    
+    }
+
     public boolean amICacheable(){
       //check its parent and do not cache if its parent is not cacheable
       //If an object is cacheable, the path from the root to itself should

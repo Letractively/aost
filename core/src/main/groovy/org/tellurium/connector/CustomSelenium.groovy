@@ -232,4 +232,10 @@ class CustomSelenium extends DefaultSelenium {
         String[] arr = [locator, event];
         commandProcessor.doCommand("triggerEvent", arr);      
     }
+
+    public String getDiagnosisResponse(String locator, String request){
+		String[] arr = [locator, request];
+		String st = commandProcessor.doCommand("getDiagnosisResponse", arr);
+		return st;
+    }
 }
