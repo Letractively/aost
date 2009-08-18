@@ -228,7 +228,7 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
             var $p = teJQuery(this.browserbot.findElement(request.pLocator));
 
             $p.each(function() {
-                response.parents.push(teJQuery(this).parent().html());
+                response.parents.push(teJQuery(this).html());
             });
         }        
     }
