@@ -37,14 +37,20 @@ public class DiagnosisResponse {
     println("\tMatching count: " + count + "\n");
     if(matches != null && matches.size() > 0){
       println("\tMatch elements: \n");
+      int i = 0;
       matches.each {String elem ->
+        i++;
+        println("\t--- Element " + i + " ---\n");
         println("\t\t" + elem + "\n");
       }
     }
 
     if(parents != null && parents.size() > 0){
       println("\n\tParents: \n")
+      int j = 0;
       parents.each {String elem ->
+        j++
+        println("\t--- Parent " + j + "---\n");
         println("\t\t" + elem + "\n");
       }
     }
