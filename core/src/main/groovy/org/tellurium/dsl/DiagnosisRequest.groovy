@@ -20,7 +20,7 @@ public class DiagnosisRequest {
   public static final String UID = "uid"
   private String uid;
 
-  public static final String PARENT_LOCATOR = "plocator"
+  public static final String PARENT_LOCATOR = "pLocator"
   private String pLocator;
 
   public static final String ATTRIBUTES = "attributes"
