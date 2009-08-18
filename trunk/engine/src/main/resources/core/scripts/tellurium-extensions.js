@@ -182,3 +182,56 @@ Selenium.prototype.doTriggerEvent = function(locator, event){
 
 	$elem.trigger(event);
 };
+
+function DiagnosisRequest(){
+    this.uid = null;
+    this.pLocator = null;
+    this.attributes = null;
+    this.retHtml = true;
+    this.retParent = true;
+};
+
+function DiagnosisResponse(){
+    this.uid = null;
+    this.count = 0;
+    this.matches = null;
+    this.parents = null;
+};
+
+Selenium.prototype.getDiagnosisResponse = function(locator, req){
+    var dreq = JSON.parse(req, null);
+
+    var request = new DiagnosisRequest();
+    request.uid = dreq.uid;
+    request.pLocator = dreq.pLocator;
+    request.attributes = dreq.attributes;
+    request.retHtml = dreq.retHtml;
+    request.retParent = dreq.retParent;
+
+    var response = new DiagnosisResponse();
+    response.uid = request.uid;
+    var $e = teJQuery(this.browserbot.findElement(locator));
+    response.count = $e.length;
+    if(request.retHtml){
+        response.matches = new Array();
+        $e.each(function() {
+            response.matches.push(teJQuery(this).parent().html());
+        });
+    }
+
+    if(request.retParent){
+        response.parents = new Array();
+        //if the parent is null or empty, return the whole html source
+        if(request.pLocator == null || trimString(request.pLocator).length == 0){
+            response.parents.push(teJQuery("html")[0].innerHTML);
+        }else{
+            var $p = teJQuery(this.browserbot.findElement(request.pLocator));
+
+            $p.each(function() {
+                response.parents.push(teJQuery(this).parent().html());
+            });
+        }        
+    }
+
+    return JSON.stringify(response);
+};
