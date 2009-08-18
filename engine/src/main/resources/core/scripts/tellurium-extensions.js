@@ -222,7 +222,6 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
     if(request.retParent){
         response.parents = new Array();
         //if the parent is null or empty, return the whole html source
-        alert("plocator" + request.pLocator);
         if(request.pLocator == null || trimString(request.pLocator).length == 0){
             response.parents.push(teJQuery("html")[0].innerHTML);
         }else{
