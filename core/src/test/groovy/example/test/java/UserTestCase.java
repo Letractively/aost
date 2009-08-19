@@ -54,8 +54,7 @@ public class UserTestCase extends TelluriumJavaTestCase {
         assertNotNull(resp);
         resp.show();
 
-        lm.type("accountEdit.accountName", "ccc");
-        resp = lm.diagnose("accountEdit.accountName");
+        resp = lm.diagnose("accountEdit.save");
         assertNotNull(resp);
         resp.show();
     }
