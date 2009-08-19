@@ -271,7 +271,7 @@ jQueryBuilder.prototype.buildClass = function(clazz){
         if (parts.length == 1) {
             //only only 1 class
 
-            return this.attrSingleClass(parts[0]);
+            return this.buildSingleClass(parts[0]);
         } else {
 
             var sb = new StringBuffer();
@@ -320,7 +320,7 @@ jQueryBuilder.prototype.includeSingleQuote = function(val) {
 };
 
 jQueryBuilder.prototype.buildAttribute = function(attr, val) {
-    if (val == null || trimString(val).length() == 0) {
+    if (val == null || trimString(val).length == 0) {
         return "[" + attr + "]";
     }
 
@@ -383,8 +383,6 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
             });
         }        
     }
-    
-
 
     if(request.retClosest){
         response.closest = new Array();
@@ -407,35 +405,39 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
                 var jqs = "";
                 var id = request.attributes["id"];
                 var tag = request.attributes["tag"];
-                alert("tag " + tag);
+
                 if(tag == null || tag == undefined || tag.trim().length == 0){
                     //TODO: need to double check if this is correct or not in jQuery
                     tag = "*";
                 }
-
+//                alert("tag " + tag);
                 var $closest = null;
                 if(id != null && id != undefined && (!builder.isPartial(id))){
-                    jqs = tag + builder.buildId(tag, id);
-                    alert("With ID jqs=" + jqs);
+                    jqs = builder.buildId(id);
+//                    alert("With ID jqs=" + jqs);
                     $closest = $parents.find(jqs);
+//                    alert("Found closest " + $closest.length);
                     $closest.each(function() {
                         response.closest.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
                     });
                 }else{
                     jqs = tag;
-
-                    for (var key in keys) {
-                        if (!builder.inBlackList(key)) {
-                            var tsel = builder.buildSelector(key, request.attributes[key]);
+//                    alert("jqs=" + jqs);
+                    for(var m=0; m<keys.length; m++){
+//                    for (var key in keys) {
+                        var attr = keys[m];
+                        if (!builder.inBlackList(attr)) {
+                            var tsel = builder.buildSelector(attr, request.attributes[attr]);
                             var $mt = $parents.find(jqs + tsel);
+//                            alert("Found for attr=" + attr + " val=" + request.attributes[attr] + " jqs=" + jqs + " tsel=" + tsel + " is " + $mt.length);
                             if ($mt.length > 0) {
                                 $closest = $mt;
                                 jqs = jqs + tsel;
                             }
-                            alert("jqs=" + jqs);
+//                            alert("jqs=" + jqs);
                         }
                     }
-                    if ($closest != null) {
+                    if ($closest != null && $closest.length > 0) {
                         $closest.each(function() {
                             response.closest.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
                         });
