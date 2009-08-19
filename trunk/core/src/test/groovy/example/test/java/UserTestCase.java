@@ -50,11 +50,11 @@ public class UserTestCase extends TelluriumJavaTestCase {
         UserModule lm = new UserModule();
         lm.defineUi();
         connectUrl("http://localhost:8080/account.html");
-        DiagnosisResponse resp = lm.diagnose("accountEdit.accountName");
+        DiagnosisResponse resp = lm.getDiagnosisResult("accountEdit.accountName");
         assertNotNull(resp);
         resp.show();
 
-        resp = lm.diagnose("accountEdit.save");
+        resp = lm.getDiagnosisResult("accountEdit.save");
         assertNotNull(resp);
         resp.show();
     }
