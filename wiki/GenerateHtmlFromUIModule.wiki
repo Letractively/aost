@@ -115,6 +115,19 @@ Finally, we add the {{{generateHtml(String uid)}}} method to the {{{DslContext}}
   }
 }}}
 
+Another method {{{generateHtml()}}} is used to generate the HTML source for all UI modules defined in a UI module class file.
+
+{{{
+  public String generateHtml(){
+    StringBuffer sb = new StringBuffer(128)
+    ui.registry.each {String key, UiObject val ->
+      sb.append(val.generateHtml())
+    }
+
+    return sb.toString()
+  }
+}}}
+
 == Usage ==
 
 === Container ===
