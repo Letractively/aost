@@ -32,6 +32,9 @@ public class DiagnosisRequest {
   public static final String RETURN_PARENT = "retParent"
   private boolean retParent;
 
+  public static final String RETURN_CLOSEST = "retClosest"
+  private boolean retClosest;
+
   def DiagnosisRequest(String uid, String pLocator, locator, DiagnosisOption options) {
     this.uid = uid;
     this.pLocator = pLocator;
@@ -49,6 +52,7 @@ public class DiagnosisRequest {
 
     this.retHtml = options.retHtml;
     this.retParent = options.retParent;
+    this.retClosest = options.retClosest;
   }
 
   public String toJson(){
@@ -64,8 +68,9 @@ public class DiagnosisRequest {
 
     obj.put(ATTRIBUTES, attrs);
     obj.put(RETURN_HTML, retHtml);
-    obj.put(RETURN_PARENT, retParent)
-
+    obj.put(RETURN_PARENT, retParent);
+    obj.put(RETURN_CLOSEST, retClosest);
+    
     return obj.toString()
   }
 }

@@ -20,6 +20,9 @@ public class DiagnosisResponse {
   public static final String PARENTS = "parents"
   private ArrayList<String> parents;
 
+  public static final String CLOSEST = "closest"
+  private ArrayList<String> closest;
+
   def DiagnosisResponse() {
   }
 
@@ -28,6 +31,7 @@ public class DiagnosisResponse {
     this.count = map.get(COUNT);
     this.matches = map.get(MATCHES);
     this.parents = map.get(PARENTS);
+    this.closest = map.get(CLOSEST);
   }
 
   public void show() {
@@ -46,11 +50,22 @@ public class DiagnosisResponse {
     }
 
     if(parents != null && parents.size() > 0){
-      println("\n\tParents: \n")
+      println("\n\tParents: \n");
       int j = 0;
       parents.each {String elem ->
-        j++
+        j++;
         println("\t--- Parent " + j + "---\n");
+        println("\t\t" + elem + "\n");
+      }
+    }
+
+    if(closest != null && closest.size() > 0){
+      println("\n\tClosest: \n");
+      int k = 0;
+
+      closest.each {String elem ->
+        k++;
+        println("\t--- closest element " + k + "---\n");
         println("\t\t" + elem + "\n");
       }
     }
