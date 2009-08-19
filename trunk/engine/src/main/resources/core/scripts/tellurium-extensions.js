@@ -189,6 +189,7 @@ function DiagnosisRequest(){
     this.attributes = null;
     this.retHtml = true;
     this.retParent = true;
+    this.retClosest = true;
 };
 
 function DiagnosisResponse(){
@@ -196,6 +197,156 @@ function DiagnosisResponse(){
     this.count = 0;
     this.matches = null;
     this.parents = null;
+    this.closest = null;
+};
+
+function jQueryBuilder(){
+    this.ATTR_BLACK_LIST = ['action'];
+    this.TEXT_PSEUDO_CLASS = ":te_text";
+    this.MATCH_ALL = "*";
+    this.CONTAINS_FILTER = ":contains";
+    this.NOT_PREFIX = "!";
+    this.START_PREFIX = "^";
+    this.END_PREFIX = "$";
+    this.ANY_PREFIX = "*";
+    this.HAS = ":has";
+    this.SELECTOR_SEPARATOR = ", ";
+    this.SPACE = " ";
+    this.CHILD_SEPARATOR = " > ";
+    this.DESCENDANT_SEPARATOR = " ";
+    this.NEXT_SEPARATOR = " + ";
+    this.SIBLING_SEPARATOR = " ~ ";
+    this.ID_SELECTOR_PREFIX = "#";
+    this.CLASS_SELECTOR_PREFIX = ".";
+    this.SINGLE_QUOTE = "'";
+    this.TITLE = "title";
+    this.ID = "id";
+    this.NAME = "name";
+    this.CLASS = "class";
+    this.CONTAIN_PREFIX = "%%";
+};
+
+jQueryBuilder.prototype.inBlackList = function(attr){
+    return this.ATTR_BLACK_LIST.indexOf(attr) != -1;
+};
+
+jQueryBuilder.prototype.isPartial = function(val){
+
+    return val != null && (val.startsWith(this.START_PREFIX) || val.startsWith(this.END_PREFIX)
+            || val.startsWith(this.ANY_PREFIX) || val.startsWith(this.NOT_PREFIX)
+            || val.startsWith(this.CONTAIN_PREFIX));
+};
+
+jQueryBuilder.prototype.buildId = function(id){
+    if(id.startsWith("^")){
+        return "[id^=" + id.substring(1) + "]";
+    }else if(id.startsWith("$")){
+        return "[id$=" + id.substring(1) + "]";
+    }else if(id.startsWith("*")){
+        return "[id*=" + id.substring(1) + "]";
+    }else if(id.startsWith("!")){
+        return "[id!=" + id.substring(1) + "]";
+    }else{
+        return "#" + id;
+    }
+};
+
+jQueryBuilder.prototype.buildSingleClass = function(clazz){
+    if(clazz.startsWith("^")){
+        return tag + "[class^=" + clazz.substring(1) + "]";
+    }else if(clazz.startsWith("$")){
+        return tag + "[class$=" + clazz.substring(1) + "]";
+    }else if(clazz.startsWith("*")){
+        return tag + "[class*=" + clazz.substring(1) + "]";
+    }else if(clazz.startsWith("!")){
+        return tag + "[class!=" + clazz.substring(1) + "]";
+    }else{
+        return "." + clazz;
+    }        
+};
+
+jQueryBuilder.prototype.buildClass = function(clazz){
+    if (clazz != null && trimString(clazz).length > 0) {
+        var parts = clazz.split(this.SPACE);
+        if (parts.length == 1) {
+            //only only 1 class
+
+            return this.attrSingleClass(parts[0]);
+        } else {
+
+            var sb = new StringBuffer();
+            for (var part in parts) {
+                sb.append(this.buildSingleClass(part));
+            }
+
+            return sb.toString();
+        }
+    }
+
+    return "[class]";
+};
+
+jQueryBuilder.prototype.containText = function(text){
+
+    return this.CONTAINS_FILTER + "(" + text + ")";
+};
+
+jQueryBuilder.prototype.attrText = function(text){
+
+    //need the following custom selector ":te_text()" support
+    return this.TEXT_PSEUDO_CLASS + "(" + text + ")";
+};
+
+jQueryBuilder.prototype.buildText = function(text){
+    if (text != null && trimString(text).length > 0) {
+        if (text.startsWith(this.CONTAIN_PREFIX)) {
+            return this.containText(text.substring(2));
+        } else if (text.startsWith(this.START_PREFIX) || text.startsWith(this.END_PREFIX) || text.startsWith(this.ANY_PREFIX)) {
+            //TODO: need to refact this to use start, end, any partial match
+            return this.containText(text.substring(1));
+        } else if (text.startsWith(this.NOT_PREFIX)) {
+            return ":not(" + this.containText(text.substring(1)) + ")";
+        } else {
+            return this.attrText(text);
+        }
+    }
+
+    return "";
+};
+
+jQueryBuilder.prototype.includeSingleQuote = function(val) {
+
+    return val != null && val.indexOf(this.SINGLE_QUOTE) > 0;
+};
+
+jQueryBuilder.prototype.buildAttribute = function(attr, val) {
+    if (val == null || trimString(val).length() == 0) {
+        return "[" + attr + "]";
+    }
+
+    if (val.startsWith(this.START_PREFIX)) {
+        return "[" + attr + "^=" + val.substring(1) + "]";
+    } else if (val.startsWith(this.END_PREFIX)) {
+        return "[" + attr + "$=" + val.substring(1) + "]";
+    } else if (val.startsWith(this.ANY_PREFIX)) {
+        return "[" + attr + "*=" + val.substring(1) + "]";
+    } else if (val.startsWith(this.NOT_PREFIX)) {
+        return "[" + attr + "!=" + val.substring(1) + "]";
+    } else {
+        return "[" + attr + "=" + val + "]";
+    }
+};
+
+jQueryBuilder.prototype.buildSelector = function(attr, val){
+    if(attr == "id"){
+        return this.buildId(val);
+    }else if(attr == "text"){
+        return this.buildText(val);
+    }else if(attr == "class"){
+        return this.buildClass(val);
+    }else{
+        return this.buildAttribute(attr, val);
+    }
 };
 
 Selenium.prototype.getDiagnosisResponse = function(locator, req){
@@ -231,6 +382,67 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
                 response.parents.push(teJQuery(this).html());
             });
         }        
+    }
+    
+
+
+    if(request.retClosest){
+        response.closest = new Array();
+        var $parents = null;
+        if(request.pLocator == null || trimString(request.pLocator).length == 0){
+            $parents = teJQuery("html:first");
+        }else{
+            $parents = teJQuery(this.browserbot.findElement(request.pLocator));
+        }
+
+        if($parents != null && $parents.length > 0){
+            if(request.attributes != null){
+                var keys = new Array();
+                for(var key in request.attributes){
+                    if(key != "tag"){
+                        keys.push(key);
+                    }
+                }
+                var builder = new jQueryBuilder();
+                var jqs = "";
+                var id = request.attributes["id"];
+                var tag = request.attributes["tag"];
+                alert("tag " + tag);
+                if(tag == null || tag == undefined || tag.trim().length == 0){
+                    //TODO: need to double check if this is correct or not in jQuery
+                    tag = "*";
+                }
+
+                var $closest = null;
+                if(id != null && id != undefined && (!builder.isPartial(id))){
+                    jqs = tag + builder.buildId(tag, id);
+                    alert("With ID jqs=" + jqs);
+                    $closest = $parents.find(jqs);
+                    $closest.each(function() {
+                        response.closest.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
+                    });
+                }else{
+                    jqs = tag;
+
+                    for (var key in keys) {
+                        if (!builder.inBlackList(key)) {
+                            var tsel = builder.buildSelector(key, request.attributes[key]);
+                            var $mt = $parents.find(jqs + tsel);
+                            if ($mt.length > 0) {
+                                $closest = $mt;
+                                jqs = jqs + tsel;
+                            }
+                            alert("jqs=" + jqs);
+                        }
+                    }
+                    if ($closest != null) {
+                        $closest.each(function() {
+                            response.closest.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
+                        });
+                    }
+                }
+            }
+        }
     }
 
     return JSON.stringify(response);
