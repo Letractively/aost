@@ -384,12 +384,12 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
         response.parents = new Array();
         //if the parent is null or empty, return the whole html source
         if(request.pLocator == null || trimString(request.pLocator).length == 0){
-            response.parents.push(teJQuery("html")[0].innerHTML);
+            response.parents.push(teJQuery('<div>').append(teJQuery("html:first").clone()).html());
         }else{
             var $p = teJQuery(this.browserbot.findElement(request.pLocator));
 
             $p.each(function() {
-                response.parents.push(teJQuery(this).html());
+                response.parents.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
             });
         }        
     }
