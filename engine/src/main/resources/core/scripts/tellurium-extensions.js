@@ -361,13 +361,23 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
 
     var response = new DiagnosisResponse();
     response.uid = request.uid;
-    var $e = teJQuery(this.browserbot.findElement(locator));
-    response.count = $e.length;
-    if(request.retHtml){
-        response.matches = new Array();
-        $e.each(function() {
-            response.matches.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
-        });
+    var $e = null;
+    try{
+      $e = teJQuery(this.browserbot.findElement(locator));
+    }catch(err){
+
+    }
+
+    if ($e == null) {
+        response.count = 0;
+    } else {
+        response.count = $e.length;
+        if (request.retHtml) {
+            response.matches = new Array();
+            $e.each(function() {
+                response.matches.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
+            });
+        }
     }
 
     if(request.retParent){
