@@ -65,6 +65,8 @@ public class UserTestCase extends TelluriumJavaTestCase {
         lm.defineUi();
         System.out.print(lm.generateHtml("subnav"));
         System.out.print(lm.generateHtml("issueResult"));
+        System.out.print("\nGenerate html for all UI modules\n");
+        System.out.print(lm.generateHtml());
     }
 
     @Test

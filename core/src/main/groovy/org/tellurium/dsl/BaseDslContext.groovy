@@ -1198,4 +1198,13 @@ abstract class BaseDslContext {
     def obj = walkToWithException(context, uid)
     return obj.generateHtml()
   }
+
+  public String generateHtml(){
+    StringBuffer sb = new StringBuffer(128)
+    ui.registry.each {String key, UiObject val ->
+      sb.append(val.generateHtml())
+    }
+
+    return sb.toString()
+  }
 }
