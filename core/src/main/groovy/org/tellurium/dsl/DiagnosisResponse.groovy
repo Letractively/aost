@@ -45,7 +45,7 @@ public class DiagnosisResponse {
       matches.each {String elem ->
         i++;
         println("\t--- Element " + i + " ---\n");
-        println("\t\t" + elem + "\n");
+        println(elem + "\n");
       }
     }
 
@@ -55,7 +55,7 @@ public class DiagnosisResponse {
       parents.each {String elem ->
         j++;
         println("\t--- Parent " + j + "---\n");
-        println("\t\t" + elem + "\n");
+        println(elem + "\n");
       }
     }
 
@@ -66,7 +66,7 @@ public class DiagnosisResponse {
       closest.each {String elem ->
         k++;
         println("\t--- closest element " + k + "---\n");
-        println("\t\t" + elem + "\n");
+        println(elem + "\n");
       }
     }
 
