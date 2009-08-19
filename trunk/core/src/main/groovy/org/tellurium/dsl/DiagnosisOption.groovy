@@ -13,6 +13,8 @@ public class DiagnosisOption {
 
   boolean retParent = true;
 
+  boolean retClosest = true;
+
 /*  public boolean isRetHtml() {
     return retHtml;
   }
