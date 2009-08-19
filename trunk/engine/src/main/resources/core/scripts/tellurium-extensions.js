@@ -386,7 +386,12 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
         if(request.pLocator == null || trimString(request.pLocator).length == 0){
             response.parents.push(teJQuery('<div>').append(teJQuery("html:first").clone()).html());
         }else{
-            var $p = teJQuery(this.browserbot.findElement(request.pLocator));
+            var $p = null;
+            try{
+                $p = teJQuery(this.browserbot.findElement(request.pLocator));
+            }catch(err){
+                $p = teJQuery("html:first");
+            }
 
             $p.each(function() {
                 response.parents.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
@@ -400,7 +405,11 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
         if(request.pLocator == null || trimString(request.pLocator).length == 0){
             $parents = teJQuery("html:first");
         }else{
-            $parents = teJQuery(this.browserbot.findElement(request.pLocator));
+            try{
+                $parents = teJQuery(this.browserbot.findElement(request.pLocator));
+            }catch(err){
+                $parents = teJQuery("html:first");
+            }
         }
 
         if($parents != null && $parents.length > 0){
