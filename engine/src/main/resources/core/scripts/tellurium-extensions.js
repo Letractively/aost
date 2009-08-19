@@ -215,7 +215,7 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
     if(request.retHtml){
         response.matches = new Array();
         $e.each(function() {
-            response.matches.push(teJQuery(this).parent().html());
+            response.matches.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
         });
     }
 
