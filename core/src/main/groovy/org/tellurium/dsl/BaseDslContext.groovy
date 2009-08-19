@@ -1173,7 +1173,7 @@ abstract class BaseDslContext {
     }
   }
 
-  public DiagnosisResponse diagnose(String uid){
+  public DiagnosisResponse getDiagnosisResult(String uid){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
     walkToWithException(context, uid)?.diagnose() {loc ->
       String locator = locatorMapping(context, loc)
@@ -1192,6 +1192,10 @@ abstract class BaseDslContext {
     }
   }
 
+  public void diagnose(String uid){
+    DiagnosisResponse resp = this.getDiagnosisResult(uid)
+    resp.show()
+  }
 
   public String generateHtml(String uid){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
