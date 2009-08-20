@@ -187,6 +187,7 @@ function DiagnosisRequest(){
     this.uid = null;
     this.pLocator = null;
     this.attributes = null;
+    this.retMatch = true;
     this.retHtml = true;
     this.retParent = true;
     this.retClosest = true;
@@ -198,6 +199,7 @@ function DiagnosisResponse(){
     this.matches = null;
     this.parents = null;
     this.closest = null;
+    this.html = null;
 };
 
 function jQueryBuilder(){
@@ -356,6 +358,7 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
     request.uid = dreq.uid;
     request.pLocator = dreq.pLocator;
     request.attributes = dreq.attributes;
+    request.retMatch = dreq.retMatch;
     request.retHtml = dreq.retHtml;
     request.retParent = dreq.retParent;
 
@@ -372,7 +375,7 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
         response.count = 0;
     } else {
         response.count = $e.length;
-        if (request.retHtml) {
+        if (request.retMatch) {
             response.matches = new Array();
             $e.each(function() {
                 response.matches.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
@@ -390,7 +393,8 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
             try{
                 $p = teJQuery(this.browserbot.findElement(request.pLocator));
             }catch(err){
-                $p = teJQuery("html:first");
+//                $p = teJQuery("html:first");
+                $p = teJQuery("#selenium_myiframe").contents().find("html:first");
             }
 
             $p.each(function() {
@@ -403,12 +407,14 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
         response.closest = new Array();
         var $parents = null;
         if(request.pLocator == null || trimString(request.pLocator).length == 0){
-            $parents = teJQuery("html:first");
+        //    $parents = teJQuery("html:first");
+            $parents =  teJQuery("#selenium_myiframe").contents().find("html:first");
         }else{
             try{
                 $parents = teJQuery(this.browserbot.findElement(request.pLocator));
             }catch(err){
-                $parents = teJQuery("html:first");
+             //   $parents = teJQuery("html:first");
+                $parents =  teJQuery("#selenium_myiframe").contents().find("html:first");
             }
         }
 
@@ -466,5 +472,9 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
         }
     }
 
+    if(request.retMatch){
+       $html = teJQuery("#selenium_myiframe").contents().find("html:first");
+       response.html = teJQuery('<div>').append($html.clone()).html(); 
+    }
     return JSON.stringify(response);
 };
