@@ -27,6 +27,11 @@ public class EcisTestCase extends TelluriumJavaTestCase {
     }
 
     @Test
+    public void testGenerateHtml(){
+        System.out.print(em.generateHtml());
+    }
+    
+    @Test
     public void testGetSeparatorAttribute(){
         connectUrl("http://localhost:8080/nextgen/login.seam");
         assertTrue(em.checkExpend());

@@ -9,6 +9,8 @@ package org.tellurium.dsl
 
 public class DiagnosisOption {
 
+  boolean retMatch = true;
+
   boolean retHtml = true;
 
   boolean retParent = true;

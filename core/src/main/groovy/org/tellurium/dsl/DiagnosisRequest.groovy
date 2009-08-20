@@ -26,6 +26,9 @@ public class DiagnosisRequest {
   public static final String ATTRIBUTES = "attributes"
   private Map<String, String> attributes;
 
+  public static final String RETURN_MATCH = "retMatch"
+  private boolean retMatch;
+  
   public static final String RETURN_HTML = "retHtml"
   private boolean retHtml;
 
@@ -50,6 +53,7 @@ public class DiagnosisRequest {
       }
     }
 
+    this.retMatch = options.retMatch;
     this.retHtml = options.retHtml;
     this.retParent = options.retParent;
     this.retClosest = options.retClosest;
@@ -67,6 +71,7 @@ public class DiagnosisRequest {
     }
 
     obj.put(ATTRIBUTES, attrs);
+    obj.put(RETURN_MATCH, retMatch);
     obj.put(RETURN_HTML, retHtml);
     obj.put(RETURN_PARENT, retParent);
     obj.put(RETURN_CLOSEST, retClosest);
