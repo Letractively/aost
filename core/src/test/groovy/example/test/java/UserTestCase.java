@@ -8,6 +8,7 @@ import static org.junit.Assert.assertNotNull;
 import org.tellurium.test.java.TelluriumJavaTestCase;
 import org.tellurium.test.mock.MockHttpServer;
 import org.tellurium.dsl.DiagnosisResponse;
+import org.tellurium.dsl.DiagnosisOption;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -54,7 +55,7 @@ public class UserTestCase extends TelluriumJavaTestCase {
         assertNotNull(resp);
         resp.show();
 
-        resp = lm.getDiagnosisResult("accountEdit.save");
+        resp = lm.getDiagnosisResult("accountEdit.save", new DiagnosisOption());
         assertNotNull(resp);
         resp.show();
     }
