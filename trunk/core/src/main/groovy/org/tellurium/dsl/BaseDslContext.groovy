@@ -1192,8 +1192,32 @@ abstract class BaseDslContext {
     }
   }
 
+  public DiagnosisResponse getDiagnosisResult(String uid, DiagnosisOption options){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
+    walkToWithException(context, uid)?.diagnose() {loc ->
+      String locator = locatorMapping(context, loc)
+      String ploc = null
+      if(this.exploreJQuerySelector){
+        ploc =JQueryProcessor.popLast(locator)
+      }else{
+        ploc = XPathProcessor.popXPath(locator)
+      }
+//      DiagnosisOption options = new DiagnosisOption()
+      DiagnosisRequest request = new DiagnosisRequest(uid, ploc, loc, options)
+
+      String out = extension.diagnose(locator, request.toJson())
+
+      return new DiagnosisResponse(parseSeleniumJSONReturnValue(out))
+    }
+  }
+
   public void diagnose(String uid){
     DiagnosisResponse resp = this.getDiagnosisResult(uid)
+    resp.show()
+  }
+
+  public void diagnose(String uid, DiagnosisOption options){
+    DiagnosisResponse resp = this.getDiagnosisResult(uid, options)
     resp.show()
   }
 
