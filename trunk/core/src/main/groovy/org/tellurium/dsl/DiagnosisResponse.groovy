@@ -23,6 +23,9 @@ public class DiagnosisResponse {
   public static final String CLOSEST = "closest"
   private ArrayList<String> closest;
 
+  private static final String HTML = "html"
+  private String html;
+
   def DiagnosisResponse() {
   }
 
@@ -32,6 +35,7 @@ public class DiagnosisResponse {
     this.matches = map.get(MATCHES);
     this.parents = map.get(PARENTS);
     this.closest = map.get(CLOSEST);
+    this.html = map.get(HTML);
   }
 
   public void show() {
@@ -70,6 +74,11 @@ public class DiagnosisResponse {
       }
     }
 
+    if(html != null){
+      println("HTML Source: \n")
+      println(html);
+      println("\n");
+    }
     println("\n-------------------------------------------------------\n")
   }
 }
