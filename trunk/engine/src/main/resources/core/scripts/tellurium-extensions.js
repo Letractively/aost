@@ -351,6 +351,21 @@ jQueryBuilder.prototype.buildSelector = function(attr, val){
     }
 };
 
+Selenium.prototype.getHtml = function(){
+    var $iframe = teJQuery("#selenium_myiframe");
+    var $p = null;
+    if($iframe != null && $iframe.length > 0){
+        //run in single Window mode
+        $p = $iframe.contents().find("html:first");
+    }else{
+        //run in multiple Window mode
+        //TODO: need to double check this
+        $p = teJQuery(this.browserbot.findElement("//html"));
+    }
+
+    return $p;
+};
+
 Selenium.prototype.getDiagnosisResponse = function(locator, req){
     var dreq = JSON.parse(req, null);
 
@@ -387,14 +402,16 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
         response.parents = new Array();
         //if the parent is null or empty, return the whole html source
         if(request.pLocator == null || trimString(request.pLocator).length == 0){
-            response.parents.push(teJQuery('<div>').append(teJQuery("html:first").clone()).html());
+//            response.parents.push(teJQuery('<div>').append(teJQuery("html:first").clone()).html());
+             response.parents.push(teJQuery('<div>').append(this.getHtml().clone()).html());
         }else{
             var $p = null;
             try{
                 $p = teJQuery(this.browserbot.findElement(request.pLocator));
             }catch(err){
 //                $p = teJQuery("html:first");
-                $p = teJQuery("#selenium_myiframe").contents().find("html:first");
+//                $p = teJQuery("#selenium_myiframe").contents().find("html:first");
+                $p = this.getHtml();
             }
 
             $p.each(function() {
@@ -408,25 +425,29 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
         var $parents = null;
         if(request.pLocator == null || trimString(request.pLocator).length == 0){
         //    $parents = teJQuery("html:first");
-            $parents =  teJQuery("#selenium_myiframe").contents().find("html:first");
+//            $parents =  teJQuery("#selenium_myiframe").contents().find("html:first");
+            $parents = this.getHtml();
         }else{
             try{
                 $parents = teJQuery(this.browserbot.findElement(request.pLocator));
             }catch(err){
              //   $parents = teJQuery("html:first");
-                $parents =  teJQuery("#selenium_myiframe").contents().find("html:first");
+             //   $parents =  teJQuery("#selenium_myiframe").contents().find("html:first");
+                $parents = this.getHtml();
             }
         }
 
         if($parents != null && $parents.length > 0){
             if(request.attributes != null){
+
+                var builder = new jQueryBuilder();
+
                 var keys = new Array();
                 for(var key in request.attributes){
-                    if(key != "tag"){
+                    if(key != "tag" && (!builder.inBlackList(key))){
                         keys.push(key);
                     }
                 }
-                var builder = new jQueryBuilder();
                 var jqs = "";
                 var id = request.attributes["id"];
                 var tag = request.attributes["tag"];
@@ -448,19 +469,16 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
                 }else{
                     jqs = tag;
 //                    alert("jqs=" + jqs);
-                    for(var m=0; m<keys.length; m++){
-//                    for (var key in keys) {
+                    for (var m = 0; m < keys.length; m++) {
                         var attr = keys[m];
-                        if (!builder.inBlackList(attr)) {
-                            var tsel = builder.buildSelector(attr, request.attributes[attr]);
-                            var $mt = $parents.find(jqs + tsel);
+                        var tsel = builder.buildSelector(attr, request.attributes[attr]);
+                        var $mt = $parents.find(jqs + tsel);
 //                            alert("Found for attr=" + attr + " val=" + request.attributes[attr] + " jqs=" + jqs + " tsel=" + tsel + " is " + $mt.length);
-                            if ($mt.length > 0) {
-                                $closest = $mt;
-                                jqs = jqs + tsel;
-                            }
-//                            alert("jqs=" + jqs);
+                        if ($mt.length > 0) {
+                            $closest = $mt;
+                            jqs = jqs + tsel;
                         }
+//                            alert("jqs=" + jqs);
                     }
                     if ($closest != null && $closest.length > 0) {
                         $closest.each(function() {
@@ -473,8 +491,10 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
     }
 
     if(request.retMatch){
-       $html = teJQuery("#selenium_myiframe").contents().find("html:first");
-       response.html = teJQuery('<div>').append($html.clone()).html(); 
+//       $html = teJQuery("#selenium_myiframe").contents().find("html:first");
+//       response.html = teJQuery('<div>').append($html.clone()).html();
+//       response.html =  teJQuery('<div>').append(this.getHtml().clone()).html();
+       response.html = this.getHtmlSource();
     }
     return JSON.stringify(response);
 };
