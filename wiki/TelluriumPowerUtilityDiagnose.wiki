@@ -342,7 +342,7 @@ You can see that there is no matching elements for the runtime locator. But the 
 
 By looking at this above lines, we could realize that the _src_ attribute is wrong in our UI module. 
 
-Some careful readers may want to ask "why you add a partial matching symbol '*' to the src attribute in the UI module. The reason is that in jQuery, seems the _src_ attribute in an Image has to be a full URL such as http://code.google.com/p/aost/. One workaround is to put the partial matching symbol '*' before the URL.
+Some careful readers may want to ask "why you add a partial matching symbol `*` to the src attribute in the UI module. The reason is that in jQuery, seems the _src_ attribute in an Image has to be a full URL such as http://code.google.com/p/aost/. One workaround is to put the partial matching symbol `*` before the URL.
 
 In some case, the return matching count is larger than 1 and you can figure out how to update your UI module definition by looking at all the return elements and their parents.
 
