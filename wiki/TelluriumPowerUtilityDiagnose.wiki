@@ -2,7 +2,7 @@
 #labels Phase-Support,Phase-Implementation
 <wiki:toc max_depth="5" />
 
-== Prerequisites ==
+= Prerequisites =
  
   * Tellurium Core 0.7.0-SNAPSHOT
 
@@ -73,6 +73,53 @@ public class DiagnosisOption {
 
 = Implementation =
 
+Under the hood, Tellurium core first creates a request for the diagnose call,
+
+{{{
+public class DiagnosisRequest {
+  //uid for the UI object
+  private String uid;
+
+  //parent UI object's locator
+  private String pLocator;
+
+  //UI objects attributes obtaining from the composite locator
+  private Map<String, String> attributes;
+
+  //options for the return results
+  private boolean retMatch;
+  
+  private boolean retHtml;
+
+  private boolean retParent;
+
+  private boolean retClosest;
+}}}
+
+The request is then converted into a JSON string so that we can pass the request to Selenium as a custom method,
+
+{{{
+class CustomSelenium extends DefaultSelenium {
+    ......
+
+    public String diagnose(String locator, String request){
+		String[] arr = [locator, request];
+		String st = commandProcessor.doCommand("getDiagnosisResponse", arr);
+		return st;
+    }
+}
+}}}
+
+The custom Selenium server includes [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector our jQuery selector] support. We add the following new Selenium method,
+
+{{{
+Selenium.prototype.getDiagnosisResponse = function(locator, req){
+......
+}
+}}}
+ 
+I wouldn't go over the implementation details and you can check out the source code from Tellurium Engine project if you are really interested.
+ 
 = Usage =
 
 = How to Obtain =
