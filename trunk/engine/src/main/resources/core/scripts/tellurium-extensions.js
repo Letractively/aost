@@ -457,7 +457,9 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
                     tag = "*";
                 }
 //                alert("tag " + tag);
-                var $closest = null;
+//                var $closest = null;
+                //Use tag for the initial search
+                var $closest = $parents.find(tag);
                 if(id != null && id != undefined && (!builder.isPartial(id))){
                     jqs = builder.buildId(id);
 //                    alert("With ID jqs=" + jqs);
