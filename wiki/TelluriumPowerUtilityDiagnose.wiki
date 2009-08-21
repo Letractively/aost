@@ -1,7 +1,75 @@
 #summary Tellurium Power Utility: Diagnose.
 #labels Phase-Support,Phase-Implementation
+<wiki:toc max_depth="5" />
+
+== Prerequisites ==
+ 
+  * Tellurium Core 0.7.0-SNAPSHOT
 
 = Introduction =
+
+[http://code.google.com/p/aost/wiki/UserGuide?tm=6#Tellurium_Core Tellurium Core] is a UI module to runtime locator mapping framework. You can define UI module as a nested UI object, the Tellurium core generates the runtime locator for you.
+
+http://tellurium-users.googlegroups.com/web/TelluriumUMLSystemDiagram.png?gda=0H5Erk8AAAD5mhXrH3CK0rVx4StVj0LYqZdbCnRI6ajcTiPCMsvamYLLytm0aso8Q_xG6LhygcwA_EMlVsbw_MCr_P40NSWJnHMhSp_qzSgvndaTPyHVdA&gsc=cq8RLwsAAADwIKTw30t0VbWQq6vz0Jcq
+
+Usually, the main problem that users have is that their UI module is not defined correctly. As a result, the generated runtime locator is either not unique or cannot be found. Very often, users ask our developers to trace or debug their test code. However, it is a difficult task for our Tellurium developers, too because usually the web application and their full test code are not available to us. It would be more important to provide users some utilities for them to trace/debug their code by themselves instead of relying on our Tellurium developers.
+
+The utility method _diagnose_ is designed for this purpose, which is available in the DslContext class and the method signature is as follows,
+
+{{{
+public void diagnose(String uid)
+}}}
+ 
+What it actually does is to dump the following information to console, 
+
+  # The number of the matching UI element for the runtime locator corresponding to the _uid_.
+  # The html source for the parent UI object of the UI object _uid_.
+  # The closest matching UI elements in the DOM for the generated locator.
+  # The html source for the entire page.
+
+Most of the above are optional, and thus, Tellurium provides you three more methods for your convenience.
+
+{{{
+public DiagnosisResponse getDiagnosisResult(String uid)
+public void diagnose(String uid, DiagnosisOption options)
+public DiagnosisResponse getDiagnosisResult(String uid, DiagnosisOption options)
+}}} 
+
+where DiagnosisResponse is defined as
+
+{{{
+public class DiagnosisResponse {
+  private String uid;
+
+  private int count;
+
+  private ArrayList<String> matches;
+
+  private ArrayList<String> parents;
+
+  private ArrayList<String> closest;
+
+  private String html;
+}
+}}}
+  
+so that you can process the result programmatically. 
+
+DiagnosisOption is used to configure the return result,
+
+{{{
+public class DiagnosisOption {
+
+  boolean retMatch = true;
+
+  boolean retHtml = true;
+
+  boolean retParent = true;
+
+  boolean retClosest = true;
+}
+}}}
+
 
 = Implementation =
 
