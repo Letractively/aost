@@ -200,6 +200,82 @@ Diagnosis Result for Program.triggerBox.trigger
 
 -------------------------------------------------------
 
+	Matching count: 1
+
+	Match elements: 
+
+	--- Element 1 ---
+
+<img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger" src="images/s.gif">
+
+
+	Parents: 
+
+	--- Parent 1---
+
+<div id="x-form-el-ext-comp-1043" class="x-form-element" style="padding-left: 130px;">
+        <div id="ext-gen438" class="x-form-field-wrap" style="width: 360px;">
+            <input id="programId" name="programId" value="" type="hidden">
+            <input id="ext-comp-1043" class="x-form-text x-form-field x-combo-noedit" autocomplete="off" size="24" readonly="true" style="width: 343px;" type="text">
+            <img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger" src="images/s.gif">
+        </div>
+    </div>
+
+	--- Parent 2---
+
+<div id="ext-gen438" class="x-form-field-wrap" style="width: 360px;">
+            <input id="programId" name="programId" value="" type="hidden">
+            <input id="ext-comp-1043" class="x-form-text x-form-field x-combo-noedit" autocomplete="off" size="24" readonly="true" style="width: 343px;" type="text">
+            <img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger" src="images/s.gif">
+        </div>
+
+
+	Closest: 
+
+	--- closest element 1---
+
+<img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger" src="images/s.gif">
+HTML Source: 
+
+<head>
+    <title>Mock HTTP Server</title>
+</head>
+<body>
+  <div id="ext-gen437" class="x-form-item" tabindex="-1">
+    <label class="x-form-item-label" style="width: 125px;" for="ext-comp-1043">
+        <a class="help-tip-link" onclick="Biodata.Help.openTip('Program','program');return false;" title="click for more info" href="http://localhost:8080">Program</a>
+    </label>
+
+    <div id="x-form-el-ext-comp-1043" class="x-form-element" style="padding-left: 130px;">
+        <div id="ext-gen438" class="x-form-field-wrap" style="width: 360px;">
+            <input id="programId" name="programId" value="" type="hidden">
+            <input id="ext-comp-1043" class="x-form-text x-form-field x-combo-noedit" autocomplete="off" size="24" readonly="true" style="width: 343px;" type="text">
+            <img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger" src="images/s.gif">
+        </div>
+    </div>
+    <div class="x-form-clear-left">
+    </div>
+  </div>
+</body>
+
+-------------------------------------------------------
+}}}
+
+This is really the happy path and runtime locator is found and is unique. What if the UI module definition is a bit wrong about the Image object?
+
+{{{
+   Image(uid: "trigger", clocator: [tag: "img", src: "*image/s.gif"], respond:["click"])
+}}}
+
+That is to say, the _src_ attribute is not correct.
+
+Run the same test code and the result is as follows,
+
+{{{
+Diagnosis Result for Program.triggerBox.trigger
+
+-------------------------------------------------------
+
 	Matching count: 0
 
 
@@ -253,10 +329,22 @@ HTML Source:
   </div>
 </body>
 
-
-
 -------------------------------------------------------
 }}}
+
+You can see that there is no matching elements for the runtime locator. But the good thing is that the diagnose method provides you the closest UI elements it can find from the DOM,
+
+{{{
+	--- closest element 1---
+
+<img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger" src="images/s.gif">
+}}}
+
+By looking at this above lines, we could realize that the _src_ attribute is wrong in our UI module. 
+
+Some careful readers may want to ask "why you add a partial matching symbol * to the src attribute in the UI module. The reason is that in jQuery, seems the _src_ attribute in an Image has to be a full URL such as http://code.google.com/p/aost/. One workaround is to put the partial matching symbol '*' before the URL.
+
+In some case, the return matching count is larger than 1 and you can figure out how to update your UI module definition by looking at all the return elements and their parents.
 
 = How to Obtain =
 
