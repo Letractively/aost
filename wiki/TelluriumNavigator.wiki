@@ -23,6 +23,8 @@
   * [http://code.google.com/p/aost/wiki/TelluriumVideo1 Tellurium beginner tutorial] 
   * [http://code.google.com/p/aost/wiki/DataDrivenTesting Tellurium Data Driven Testing]
   * [http://code.google.com/p/aost/wiki/HowTrUMPWorks How Trump Works]
+  * [http://code.google.com/p/aost/wiki/TelluriumJQueryFirebug Use Firebug and JQuery to Trace Problems in Tellurium Tests]
+  * [http://code.google.com/p/aost/wiki/TelluriumPowerUtilityDiagnose Tellurium Powerful Utility: Diagnose]
   * [http://code.google.com/p/aost/wiki/SeleniumGridAndTellurium Selenium Grid Support]
   * [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector jQuery Selector Guide]
   * [http://code.google.com/p/aost/wiki/jQuerySelectorCache jQuery Selector Cache]
