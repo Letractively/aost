@@ -1,4 +1,4 @@
-#summary Tellurium Power Utility: Diagnose.
+#summary Tellurium Powerful Utility: Diagnose.
 #labels Phase-Support,Phase-Implementation
 <wiki:toc max_depth="5" />
 
