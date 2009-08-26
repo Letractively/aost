@@ -32,7 +32,8 @@ public class GoogleStartPageTestNGTestCase extends TelluriumTestNGTestCase {
     }*/
     @DataProvider(name = "browser-provider")
     public Object[][] browserParameters() {
-        return new Object[][]{{"localhost", 4444, "*chrome"}, {"localhost", 4444, "*firefox"}};
+        return new Object[][]{new Object[] {"localhost", 4444, "*chrome"},
+                new Object[] {"localhost", 4444, "*firefox"}};
     }
 
     @Test(dataProvider = "browser-provider")
