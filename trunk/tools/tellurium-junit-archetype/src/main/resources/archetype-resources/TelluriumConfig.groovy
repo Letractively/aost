@@ -50,7 +50,10 @@ tellurium{
         browser = "*chrome"
         //user's class to hold custom selenium methods associated with user-extensions.js
         //should in full class name, for instance, "org.tellurium.test.MyCommand"
-        customClass = ""      
+        customClass = ""
+       //browser options such as
+        //    options = "captureNetworkTraffic=true, addCustomRequestHeader=true"
+        options = ""
     }
     datadriven{
         dataprovider{
