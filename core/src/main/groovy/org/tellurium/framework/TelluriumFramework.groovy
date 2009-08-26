@@ -99,7 +99,7 @@ class TelluriumFramework {
     connector = new SeleniumConnector()
     telluriumConfigurator.config(connector)
 
-    connector.connectSeleniumServer()
+//    connector.connectSeleniumServer()
   }
 
   public void start(CustomConfig customConfig) {
@@ -133,7 +133,7 @@ class TelluriumFramework {
       }
       println "Overwrite Selenium connector settings with custom configurations"
 
-      connector.connectSeleniumServer()
+//      connector.connectSeleniumServer()
 
     }
   }

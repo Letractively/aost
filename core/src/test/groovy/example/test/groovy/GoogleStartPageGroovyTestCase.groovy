@@ -30,7 +30,8 @@ class GoogleStartPageGroovyTestCase extends TelluriumGroovyTestCase{
         //test google start page using composite locators
         NewGoogleStartPage ngsp = new NewGoogleStartPage()
         ngsp.defineUi()
-        connectUrl("http://www.google.com")
+        openUrl("http://www.google.com")
+//        connectUrl("http://www.google.com")
         ngsp.doGoogleSearch("tellurium selenium automated testing")
         connectUrl("http://www.google.com")
         ngsp.doImFeelingLucky("tellurium selenium groovy dsl")

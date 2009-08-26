@@ -91,12 +91,14 @@ class SeleniumConnector implements Configurable {
     }
 
 	public void disconnectSeleniumServer() {
+      if(customSelenium != null){
         CustomSelenium aseles = customSelenium.getActiveSeleniumSession();
 		if(aseles != null){
             //clean up cache before close the connection
             aseles.cleanSelectorCache();
 			customSelenium.closeSeleniumSession();
         }
+      }
 	}
 
     protected void initSeleniumClient(){

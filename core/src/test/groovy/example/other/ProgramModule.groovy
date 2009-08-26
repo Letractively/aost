@@ -23,7 +23,7 @@ public class ProgramModule extends DslContext {
             <input id="programId" type="hidden" name="programId" value=""/>
             <input id="ext-comp-1043" class="x-form-text x-form-field x-combo-noedit" type="text" autocomplete="off"
                    size="24" readonly="true" style="width: 343px;"/>
-            <img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger" src="images/s.gif"/>
+            <img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger" style="overflow: auto; width: 356px; height: 100px;" src="images/s.gif"/>
         </div>
     </div>
     <div class="x-form-clear-left"/>
@@ -34,8 +34,9 @@ public class ProgramModule extends DslContext {
     ui.Container(uid: "Program", clocator: [tag: "div"], group: "true") {
       Div(uid: "label", clocator: [tag: "a", text: "Program"])
       Container(uid: "triggerBox", clocator: [tag: "div"], group: "true") {
-        InputBox(uid: "inputBox", clocator: [tag: "input", type: "text", readonly: "true"], respond: ["click"])
-        Image(uid: "trigger", clocator: [tag: "img", src: "*images/s.gif"], respond: ["click"])
+        InputBox(uid: "inputBox", clocator: [tag: "input", type: "text", readonly: "true", style: "width: 343px;"], respond: ["click"])
+//        Image(uid: "trigger", clocator: [tag: "img", src: "*images/s.gif"], respond: ["click"])
+        Image(uid: "trigger", clocator: [tag: "img",  style: "overflow: auto; width: 356px; height: 100px;"], respond: ["click"])
       }
     }
   }
