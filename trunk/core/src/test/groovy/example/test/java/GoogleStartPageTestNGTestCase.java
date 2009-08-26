@@ -2,9 +2,7 @@ package example.test.java;
 
 import example.google.NewGoogleStartPage;
 import org.tellurium.test.java.TelluriumTestNGTestCase;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.io.Console;
 
@@ -16,10 +14,10 @@ import java.io.Console;
  *         Date: Aug 20, 2008
  */
 public class GoogleStartPageTestNGTestCase extends TelluriumTestNGTestCase {
-    static{
+/*    static{
         setCustomConfig(true, 5555, "*chrome", true, null, "localhost");
     }
-    
+ */
     protected static NewGoogleStartPage ngsp;
 
     @BeforeClass
@@ -28,22 +26,30 @@ public class GoogleStartPageTestNGTestCase extends TelluriumTestNGTestCase {
         ngsp.defineUi();
     }
 
-    @BeforeMethod
+/*    @BeforeMethod
     public void connectToGoogle(){
        connectUrl("http://www.google.com");
+    }*/
+    @DataProvider(name = "browser-provider")
+    public Object[][] browserParameters() {
+        return new Object[][]{{"localhost", 4444, "*chrome"}, {"localhost", 4444, "*firefox"}};
     }
 
-    @Test
-    public void testGoogleSearch(){
+    @Test(dataProvider = "browser-provider")
+    @Parameters({"serverHost", "serverPort", "browser"})
+    public void testGoogleSearch(String serverHost, int serverPort, String browser){
 //        String input = ngsp.getConsoleInput();
 //        System.out.println("Get Console Input: " + input);
-
+        openUrlWithBrowserParameters("http://www.google.com", serverHost, serverPort, browser);
         ngsp.doGoogleSearch("tellurium selenium Groovy Test");
+        disconnectSeleniumServer();
    }
 
-   @Test
-   public void testGoogleSearchFeelingLucky(){
-
-        ngsp.doImFeelingLucky("tellurium selenium DSL Testing");
+   @Test(dataProvider = "browser-provider")
+   @Parameters({"serverHost", "serverPort", "browser"})
+   public void testGoogleSearchFeelingLucky(String serverHost, int serverPort, String browser){
+       openUrlWithBrowserParameters("http://www.google.com", serverHost, serverPort, browser);
+       ngsp.doImFeelingLucky("tellurium selenium DSL Testing");
+       disconnectSeleniumServer();
    }
 }

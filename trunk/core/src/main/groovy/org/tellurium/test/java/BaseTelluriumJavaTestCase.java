@@ -22,6 +22,29 @@ public abstract class BaseTelluriumJavaTestCase {
         connector.connectUrl(url);
     }
 
+    protected static void configBrowser(String serverHost, int serverPort, String baseUrl, String browser, String browserOptions){
+        connector.setProperty("seleniumServerHost", serverHost);
+        connector.setProperty("port", serverPort);
+        if(baseUrl != null)
+            connector.setProperty("baseURL", baseUrl);
+        connector.setProperty("browser", browser);
+        if(browserOptions != null)
+            connector.setProperty("options", browserOptions);
+    }
+
+    public static void openUrlWithBrowserParameters(String url, String serverHost, int serverPort, String baseUrl, String browser, String browserOptions){
+        configBrowser(serverHost, serverPort, baseUrl, browser, browserOptions);
+        openUrl(url);
+    }
+
+    public static void openUrlWithBrowserParameters(String url, String serverHost, int serverPort, String browser, String browserOptions){
+       openUrlWithBrowserParameters(url, serverHost, serverPort, null, browser, browserOptions);
+    }
+
+    public static void openUrlWithBrowserParameters(String url, String serverHost, int serverPort, String browser){
+       openUrlWithBrowserParameters(url, serverHost, serverPort, null, browser, null);
+    }
+    
     public static void connectUrl(String url) {
          connector.connectUrl(url);
     }
