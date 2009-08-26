@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.BeforeClass;
 import org.junit.AfterClass;
 import example.other.GaModule;
+import example.other.GaGroupModule;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -19,6 +20,7 @@ public class GaTestCase extends TelluriumJavaTestCase {
     public static void setUp(){
         server = new MockHttpServer(8080);
         server.registerHtmlBody("/programs.html", GaModule.HTML_BODY);
+        server.registerHtmlBody("/groups.html", GaGroupModule.HTML_BODY);
         server.start();
     }
 
@@ -34,8 +36,18 @@ public class GaTestCase extends TelluriumJavaTestCase {
     public void testSelectProgram(){
         GaModule lm = new GaModule();
         lm.defineUi();
-        connectUrl("http://localhost:8080/programs.html");
+        openUrl("http://localhost:8080/programs.html");
         lm.selectProgram("nice");
+    }
+
+    @Test
+    public void testGroupLocating(){
+        GaGroupModule ggm = new GaGroupModule();
+        ggm.defineUi();
+        openUrl("http://localhost:8080/groups.html");
+        ggm.diagnose("ProgramList.list");
+        ggm.useJQuerySelector();
+        ggm.diagnose("ProgramList.list");
     }
     
     @AfterClass
