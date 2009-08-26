@@ -26,7 +26,7 @@ public class PKTestCase  extends TelluriumJavaTestCase {
     public void testInputBox(){
         PkModule pkm = new PkModule();
         pkm.defineUi();
-        connectUrl("http://localhost:8080/pk.html");
+        openUrl("http://localhost:8080/pk.html");
         pkm.diagnose("input0");
         pkm.type("input0", "test");
     }

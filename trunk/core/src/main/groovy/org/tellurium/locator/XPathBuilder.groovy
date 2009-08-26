@@ -179,7 +179,9 @@ class XPathBuilder {
       return "@${name}"
     }
 
-    String trimed = value.trim()
+//    String trimed = value.trim()
+    String trimed = value
+    
     //if it is a partial match
     if (trimed.startsWith(CONTAIN_PREFIX)) {
       String actual = value.substring(2)
