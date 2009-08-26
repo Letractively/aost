@@ -18,7 +18,7 @@ recordtypeselect.jsp?ent=Account&amp;retURL=
 name="new" class="btn" value=" New "/>
 """
   public void defineUi() {
-//    ui.InputBox(uid: "input0", clocator: [tag: "input", type: "button", title: "New", name: "new", class: "btn", value: " New "], respond: ["click"])
-     ui.InputBox(uid: "input0", clocator: [tag: "input", type: "button", title: "New", name: "new", class: "btn"], respond: ["click"])
+    ui.InputBox(uid: "input0", clocator: [tag: "input", type: "button", title: "New", name: "new", class: "btn", value: " New "], respond: ["click"])
+//     ui.InputBox(uid: "input0", clocator: [tag: "input", type: "button", title: "New", name: "new", class: "btn"], respond: ["click"])
   }
 }
