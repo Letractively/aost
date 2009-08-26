@@ -20,6 +20,7 @@ public class GoogleSearchTestCase extends TelluriumTestNGTestCase{
     public static void initUi() {
         gsm = new GoogleSearchModule();
         gsm.defineUi();
+        openUrl("http://www.google.com");
     }
 
     @BeforeMethod
