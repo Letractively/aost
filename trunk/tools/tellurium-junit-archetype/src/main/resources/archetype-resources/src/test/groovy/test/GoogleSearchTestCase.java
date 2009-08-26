@@ -1,7 +1,6 @@
 package test;
 
 import org.junit.Before;
-import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -20,17 +19,12 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
     public static void initUi() {
         gsm = new GoogleSearchModule();
         gsm.defineUi();
+        connectSeleniumServer();
     }
 
     @Before
     public void connectToGoogle() {
-//        connectUrl("http://www.google.com");
-        openUrl("http://www.google.com");
-    }
-
-    @After
-    public void disconnectFromGoogle(){
-       disconnectSeleniumServer();
+        connectUrl("http://www.google.com");
     }
 
     @Test
