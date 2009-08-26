@@ -92,7 +92,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium.server</groupId>
             <artifactId>selenium-server</artifactId>
-            <version>${dollar}{selenium-version}-te</version>
+            <version>${dollar}{selenium-version}-te2</version>
             <!--classifier>standalone</classifier-->
         </dependency>
 
@@ -116,11 +116,11 @@
             </exclusions>
         </dependency>
 
-        <dependency>
+        <!--dependency>
           <groupId>org.openqa.selenium.grid</groupId>
           <artifactId>selenium-grid-tools</artifactId>
           <version>1.0.2</version>
-        </dependency>
+        </dependency-->
 
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
