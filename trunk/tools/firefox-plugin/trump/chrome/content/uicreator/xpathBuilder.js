@@ -59,7 +59,8 @@ XPathBuilder.prototype.buildAttribute = function(name, value){
         return "@" + name;
     }
 
-    var trimed = trimString(value);
+//    var trimed = trimString(value);
+    var trimed = value;
     if(trimed.indexOf(this.constants.CONTAIN_PREFIX) == 0){
         var actual = trimed.substring(2, trimed.length);
         return "contains(@" + name + ", \"" + actual + "\")";
