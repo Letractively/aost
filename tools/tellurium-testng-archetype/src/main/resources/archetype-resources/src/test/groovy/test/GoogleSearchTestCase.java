@@ -2,7 +2,6 @@ package test;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import org.tellurium.test.java.TelluriumTestNGTestCase;
 
@@ -21,18 +20,12 @@ public class GoogleSearchTestCase extends TelluriumTestNGTestCase{
     public static void initUi() {
         gsm = new GoogleSearchModule();
         gsm.defineUi();
-//        openUrl("http://www.google.com");
+        connectSeleniumServer();
     }
 
     @BeforeMethod
     public void connectToGoogle(){
-//       connectUrl("http://www.google.com");
-        openUrl("http://www.google.com");
-    }
-
-    @AfterMethod
-    public void disconnectFromGoogle(){
-       disconnectSeleniumServer();
+       connectUrl("http://www.google.com");
     }
 
     @Test
