@@ -1,11 +1,12 @@
-#summary Custom jQuery selectors and Functions in Tellurium.
+#summary Custom jQuery selectors and Plugins in Tellurium.
 #labels Phase-Support
+<wiki:toc max_depth="3" />
 
 = Introduction =
 
 Tellurium leverage jQuery to add [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector jQuery selector] as a new locator to improve the test speed in IE and add other new functionalities to Selenium core, for example, fetching bulk data in one method call and [http://code.google.com/p/aost/wiki/TelluriumPowerUtilityDiagnose the diagonse utility].
 
-With the adoption of jQuery, we also need some custom jQuery selectors and functions to meet our needs.
+With the adoption of jQuery, we also need some custom jQuery selectors and plugins to meet our needs.
 
 To design jQuery custom selectors, we need to understand the jQuery selector syntax:
 
@@ -86,9 +87,37 @@ If we use firebug to debug the code with the following jQuery selector
 $("div:myselector(input, img, span)")
 }}}
 
-We will see
+We will see the variable _m_ includes the following parameters
+  
+  * _`m[0]`_: {{{group(input, img, span)}}} full selector
+  * _`m[1]`_: {{{group}}} selector name
+  * _`m[2]`_: {{{''}}} quotes used
+  * _`m[3]`_: {{{input, img, span}}} parameters 
 
+= Custom jQuery Plugins =
  
+== outerHTML ==
+
+When we worked on [http://code.google.com/p/aost/wiki/TelluriumPowerUtilityDiagnose the diagnose utility], we were frustrated because we need to get the HTML source of a DOM node, but the {{{html()}}} method in jQuery only returns innerHTML. We posted a question to [http://groups.google.com/group/jquery-en jQuery group] and got the answer,
+
+{{{
+$('<div>').append( $(jQuery_Selector).clone() ).html() 
+}}} 
+
+and as suggested by someone, we go further to implement this as a simple jQuery plugin,
+
+{{{
+teJQuery.fn.outerHTML = function() {
+    return teJQuery("<div/>").append( teJQuery(this[0]).clone() ).html();
+};
+}}}
+
+= Summary =
+
+With the growth of Tellurium and more and more usage of jQuery in Tellurium, the list of custom jQuery selector and plugins in Tellurium will become longer. We will keep updating this wiki page, please revisit us.
+
+If you are a Javascript or jQuery guru and like to contribute to Tellurium, please contact us.
+
 = Acknowledgements =
 
 Special thanks to folks in [http://groups.google.com/group/jquery-en jQuery group] for providing us constructive suggestions and helps on custom jQuery selectors and functions.
