@@ -29,7 +29,7 @@ To avoid conflict with user's jQuery library, we yield the "$" symbol and rename
 
 == :te_text ==
 
-The ":te_text" selector is created to select a UI element whose text attribute is a given string. The implementation is simple,
+The _:te_text_ selector is created to select a UI element whose text attribute is a given string. The implementation is simple,
 
 {{{
 teJQuery.extend(teJQuery.expr[':'], {
@@ -48,6 +48,47 @@ You may wonder why we use _`m[3]`_ here, the variable _m_ includes the following
 
 As a result the selector picks up the element whose text attribute, obtained by {{{text()}}}, is equals to the passed in parameter _`m[3]`_.
 
+== :group ==
+
+The _:group_ selector to implement [http://code.google.com/p/aost/wiki/UserGuide#Group_Locating the group locating] in Tellurium. For example, we want to select a "div" whose children include one "input", one "img", and one "span" tags. How to express this using jQuery? 
+
+One way is to use the following selector,
+
+{{{
+teJQuery.expr[':'].group = function(obj){
+      var $this = teJQuery(obj);
+      return ($this.find("input").length > 0) && ($this.find("img").length > 0) && ($this.find("span").length > 0);
+};
+}}}
+
+That is to say, only a DOM node satisfying all the three conditions, i.e, whose children include "input", "img", and "span", is selected because the AND conditions. Remember, only the node with the true return value is selected.
+
+However, in real world, we may have many conditions and we cannot use this hard-coded style selector and we need to use the custom selector with parameters instead. Here is our implementations,
+
+{{{
+teJQuery.expr[':'].group = function(obj, index, m){
+      var $this = teJQuery(obj);
+
+      var splitted = m[3].split(",");
+      var result = true;
+
+      for(var i=0; i<splitted.length; i++){
+         result = result && ($this.find(splitted[i]).length > 0);
+      }
+
+      return result;
+};
+}}}
+
+If we use firebug to debug the code with the following jQuery selector
+
+{{{
+$("div:myselector(input, img, span)")
+}}}
+
+We will see
+
+ 
 = Acknowledgements =
 
 Special thanks to folks in [http://groups.google.com/group/jquery-en jQuery group] for providing us constructive suggestions and helps on custom jQuery selectors and functions.
@@ -61,3 +102,4 @@ Special thanks to folks in [http://groups.google.com/group/jquery-en jQuery grou
   * [http://code.google.com/p/aost/wiki/jQuerySelectorCache Tellurium jQuery Cache]
   * [http://code.google.com/p/aost/wiki/TelluriumPowerUtilityDiagnose Tellurium Powerful Utility: Diagnose]
   * [http://code.google.com/p/aost/wiki/TelluriumJQueryFirebug Use Firebug and JQuery to Trace Problems in Tellurium Tests]
+  * [http://code.google.com/p/aost/wiki/UserGuide Tellurium User Guide]
