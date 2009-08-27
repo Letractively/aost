@@ -127,6 +127,15 @@ public class JQueryBuilder {
     }
   }
 
+  protected static String attrStyle(String style){
+    String val = style
+    if(val == null || val.trim().length() == 0){
+      return "[style]"
+    }
+
+    return ":styles(${val})"
+  }
+
   protected static String attrPairs(String attr, String val){
     if(val == null || val.trim().length() == 0){
       return "[${attr}]"
@@ -234,10 +243,16 @@ public class JQueryBuilder {
           sb.append(attrClass(clazz))
       }
 
+      String style = attributes.get(STYLE)
+      if(style != null){
+        style = style.trim()
+        sb.append(attrStyle(style))
+      }
+
       Set keys = attributes.keySet()
       for (String key: keys) {
         String val = attributes.get(key)
-        if ((!key.equals(ID)) && (!key.equals(CLASS)) && (!inBlackList(key))) {
+        if ((!key.equals(ID)) && (!key.equals(CLASS)) && (!key.equals(STYLE)) && (!inBlackList(key))) {
           sb.append(attrPairs(key, val))
         }
       }
