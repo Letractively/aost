@@ -114,7 +114,7 @@ teJQuery.fn.outerHTML = function() {
 
 = Summary =
 
-With the evolution of Tellurium and heavy usage of jQuery in Tellurium, the list of custom jQuery selector and plugins in Tellurium will keep growing. We will keep updating this wiki page, please do check back.
+With the evolution of Tellurium and the heavy use of jQuery in Tellurium, the list of custom jQuery selectors and plugins in Tellurium will keep growing. We will keep updating this wiki page, please do check back.
 
 If you are a Javascript or jQuery guru and like to contribute to Tellurium, please contact us.
 
