@@ -22,6 +22,7 @@ public class ProgramModuleTestCase extends TelluriumJavaTestCase
         server = new MockHttpServer(8080);
         server.registerHtmlBody("/program.html", ProgramModule.HTML_BODY);
         server.start();
+        connectSeleniumServer();
     }
 
     @Test

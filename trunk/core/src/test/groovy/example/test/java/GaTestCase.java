@@ -22,6 +22,7 @@ public class GaTestCase extends TelluriumJavaTestCase {
         server.registerHtmlBody("/programs.html", GaModule.HTML_BODY);
         server.registerHtmlBody("/groups.html", GaGroupModule.HTML_BODY);
         server.start();
+        connectSeleniumServer();
     }
 
     @Test

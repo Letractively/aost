@@ -23,6 +23,7 @@ public class UserModuleTestCase extends TelluriumJavaTestCase {
 //        server.registerHtmlBody("/account.html", UserModule.HTML_BODY);
         server.registerHtml("/mockFunction.do", UserModule.RESP_HEADER);
         server.start();
+        connectSeleniumServer();
     }
 
     @Test

@@ -12,9 +12,7 @@ import org.tellurium.dsl.DslContext
 
 public class PkModule extends DslContext {
     public static String HTML_BODY = """
-<input type="button" title="New" onclick="navigateToUrl('/setup/ui/
-recordtypeselect.jsp?ent=Account&amp;retURL=
-%2F001%2Fo&amp;save_new_url=%2F001%2Fe%3FretURL%3D%252F001%252Fo');"
+<input type="button" title="New" onclick="navigateToUrl('/setup/save_new_url=%2F001%2Fe');"
 name="new" class="btn" value=" New "/>
 """
   public void defineUi() {

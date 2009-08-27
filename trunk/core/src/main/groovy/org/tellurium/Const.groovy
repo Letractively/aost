@@ -41,7 +41,8 @@ public class Const {
     public static final String END_PREFIX = "\$"
     public static final String ANY_PREFIX = "*"
 
-    public static final String HAS = ":has"
+//    public static final String HAS = ":has"
+    public static final String HAS = ":group"
     public static final String MATCH_ALL = "*"
     public static final String SELECTOR_SEPARATOR = ", "
     public static final String ANY_DESCENDANT = "descendant::*"
