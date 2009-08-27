@@ -1,0 +1,32 @@
+#summary Custom jQuery selectors and Functions in Tellurium.
+#labels Phase-Support
+
+= Introduction =
+
+Tellurium leverage jQuery to add [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector jQuery selector] as a new locator to improve the test speed in IE and add other new functionalities to Selenium core, for example, fetching bulk data in one method call and [http://code.google.com/p/aost/wiki/TelluriumPowerUtilityDiagnose the diagonse utility].
+
+With the adoption of jQuery, we also need some custom jQuery selectors and functions to meet our needs.
+
+To design jQuery custom selectors, we need to understand the jQuery selector syntax:
+
+{{{
+$.expr[':'].selector_name = function(obj, index, meta, stack){
+}}}
+
+where
+  * _obj_: a current DOM element
+  * _index_: the current loop index in stack
+  * _meta_: meta data about your selector
+  * _stack_: stack of all elements to loop
+
+The function returns true to include current element and returns false to explude current element. A more detailed explains could be found on [http://jquery-howto.blogspot.com/2009/06/jquery-custom-selectors-with-parameters.html jQuery Custom Selectors with Parameters].
+
+Special thanks to folks in [http://groups.google.com/group/jquery-en jQuery group].
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
