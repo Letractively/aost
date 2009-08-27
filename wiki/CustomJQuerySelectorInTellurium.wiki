@@ -84,7 +84,7 @@ teJQuery.expr[':'].group = function(obj, index, m){
 If we use firebug to debug the code by running the following jQuery selector
 
 {{{
-$("div:myselector(input, img, span)")
+teJQuery("div:group(input, img, span)")
 }}}
 
 We can see the variable _m_ includes the following parameters
