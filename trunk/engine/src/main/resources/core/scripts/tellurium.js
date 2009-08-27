@@ -20,6 +20,33 @@ teJQuery.expr[':'].group = function(obj, index, m){
       return result;
 };
 
+teJQuery.expr[':'].styles = function(obj, index, m){
+      var $this = teJQuery(obj);
+
+      var splitted = new Array();
+      var fs = m[3].split(':');
+      for(var i=0; i<fs.length; i++){
+        var sfs = fs[i].split(';');
+        for(var j=0; j<sfs.length; j++){
+          if(teJQuery.trim(sfs[j]).length >0){
+            splitted.push(teJQuery.trim(sfs[j]));
+          }
+        }
+      }
+
+//      alert("splitted = " + splitted.join());
+
+      var result = true;
+
+      var l=0;
+      while(l < splitted.length){
+         result = result && (teJQuery.trim($this.css(splitted[l])) == splitted[l+1]);
+         l=l+2;
+      }
+
+      return result;
+};
+
 teJQuery.fn.outerHTML = function() {
     return teJQuery("<div/>").append( teJQuery(this[0]).clone() ).html();
 };
