@@ -35,6 +35,7 @@ public class Const {
     public static final String ID = "id"
     public static final String NAME = "name"
     public static final String CLASS = "class"
+    public static final String STYLE = "style"
 
     public static final String NOT_PREFIX = "!"
     public static final String START_PREFIX = "^"
