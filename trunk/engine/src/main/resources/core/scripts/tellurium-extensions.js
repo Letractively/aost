@@ -393,7 +393,8 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
         if (request.retMatch) {
             response.matches = new Array();
             $e.each(function() {
-                response.matches.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
+//                response.matches.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
+                response.matches.push(teJQuery(this).outerHTML());
             });
         }
     }
@@ -415,7 +416,8 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
             }
 
             $p.each(function() {
-                response.parents.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
+//                response.parents.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
+                response.parents.push(teJQuery(this).outerHTML());
             });
         }        
     }
@@ -466,7 +468,8 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
                     $closest = $parents.find(jqs);
 //                    alert("Found closest " + $closest.length);
                     $closest.each(function() {
-                        response.closest.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
+//                        response.closest.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
+                        response.closest.push(teJQuery(this).outerHTML());
                     });
                 }else{
                     jqs = tag;
@@ -484,7 +487,8 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
                     }
                     if ($closest != null && $closest.length > 0) {
                         $closest.each(function() {
-                            response.closest.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
+//                            response.closest.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
+                            response.closest.push(teJQuery(this).outerHTML());
                         });
                     }
                 }

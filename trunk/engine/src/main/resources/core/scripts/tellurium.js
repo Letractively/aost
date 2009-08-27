@@ -7,6 +7,23 @@ teJQuery.extend(teJQuery.expr[':'], {
     }
 });
 
+teJQuery.expr[':'].group = function(obj, index, m){
+      var $this = teJQuery(obj);
+
+      var splitted = m[3].split(",");
+      var result = true;
+
+      for(var i=0; i<splitted.length; i++){
+         result = result && ($this.find(splitted[i]).length > 0);
+      }
+
+      return result;
+};
+
+teJQuery.fn.outerHTML = function() {
+    return teJQuery("<div/>").append( teJQuery(this[0]).clone() ).html();
+};
+
 /*
 jQuery.fn.extend({
   inDOM = function() { return !!$(this).parents('html').length; }
