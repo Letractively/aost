@@ -15,7 +15,7 @@ public class ProgramModule extends DslContext {
     public static String HTML_BODY = """
 <div id="ext-gen437" class="x-form-item" tabindex="-1">
     <label class="x-form-item-label" style="width: 125px;" for="ext-comp-1043">
-        <a class="help-tip-link" onclick="Biodata.Help.openTip('Program','program');return false;" title="click for more info" href="http://localhost:8080">Program</a>
+        <a class="help-tip-link" onclick="openTip('Program','program');return false;" title="click for more info" href="http://localhost:8080">Program</a>
     </label>
 
     <div id="x-form-el-ext-comp-1043" class="x-form-element" style="padding-left: 130px;">

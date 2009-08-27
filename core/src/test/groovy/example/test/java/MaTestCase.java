@@ -26,7 +26,7 @@ public class MaTestCase extends TelluriumJavaTestCase {
     public void testTypeArticleBodyText(){
         M1Module lm = new M1Module();
         lm.defineUi();
-        connectUrl("http://localhost:8080/article.html");
+        openUrl("http://localhost:8080/article.html");
         lm.typeArticleBodyText("good");
     }
 

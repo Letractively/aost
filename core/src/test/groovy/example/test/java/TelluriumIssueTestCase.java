@@ -16,6 +16,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
 
     @BeforeClass
     public static void initUi() {
+        connectSeleniumServer();
         tisp = new TelluriumIssueModule();
         tisp.defineUi();
         tisp.useJQuerySelector();

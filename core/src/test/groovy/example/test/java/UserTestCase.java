@@ -23,6 +23,7 @@ public class UserTestCase extends TelluriumJavaTestCase {
         server = new MockHttpServer(8080);
         server.registerHtmlBody("/account.html", UserModule.HTML_BODY);
         server.start();
+        connectSeleniumServer();
     }
 
     @Test

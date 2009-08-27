@@ -62,7 +62,7 @@ public class MockHttpServer {
 
   public void stop(){
     if(server != null)
-      server.stop();
+      server.stop(50);
   }
 
 }

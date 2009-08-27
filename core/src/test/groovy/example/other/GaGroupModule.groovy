@@ -17,25 +17,25 @@ public class GaGroupModule extends DslContext {
 <div class="x-layer x-combo-list">
   <div id="ext-gen430" class="x-combo-list-hd">Programs</div>
   <div style="overflow: auto; width: 358px; height: 240px;" id="ext-gen431" class="x-combo-list-inner">
-    <div class="x-combo-list-item x-combo-selected">National Water Quality Assessment</div>
-    <div class="x-combo-list-item">Department of Defense Environmental Conservation Program</div>
-    <div class="x-combo-list-item">National Stream Quality Assessment Network</div>
-    <div class="x-combo-list-item">Ground-Water Resource Program</div>
-    <div class="x-combo-list-item">Collection of Basic Records</div>
-    <div class="x-combo-list-item">Cooperative Water Program</div>
-    <div class="x-combo-list-item">Regional Aquifer System Analysis</div>
-    <div class="x-combo-list-item">National Streamflow Information Program</div>
-    <div class="x-combo-list-item">National Atmospheric Deposition Program</div>
-    <div class="x-combo-list-item">Toxic Substances Hydrology</div>
-    <div class="x-combo-list-item">Other Federal Agencies</div>
-    <div class="x-combo-list-item">Federal Benchmark Sites</div>
+    <div class="x-combo-list-item x-combo-selected">A</div>
+    <div class="x-combo-list-item">B</div>
+    <div class="x-combo-list-item">C</div>
+    <div class="x-combo-list-item">D</div>
+    <div class="x-combo-list-item">E</div>
+    <div class="x-combo-list-item">F</div>
+    <div class="x-combo-list-item">G</div>
+    <div class="x-combo-list-item">H</div>
+    <div class="x-combo-list-item">I</div>
+    <div class="x-combo-list-item">J</div>
+    <div class="x-combo-list-item">K</div>
+    <div class="x-combo-list-item">L</div>
   </div>
 </div>
-<div id="ext-gen452" class="x-combo-list-hd">NAWQA Study Units</div>
+<div id="ext-gen452" class="x-combo-list-hd">NA</div>
 <div style="width: 298px;" id="ext-gen453" class="x-combo-list-inner"></div>
-<div id="ext-gen480" class="x-combo-list-hd">Invertebrate Labs</div>
+<div id="ext-gen480" class="x-combo-list-hd">Ins</div>
 <div style="width: 356px;" id="ext-gen481" class="x-combo-list-inner"></div>
-<div id="ext-gen502" class="x-combo-list-hd">Algae Labs</div>
+<div id="ext-gen502" class="x-combo-list-hd">Alg</div>
 <div style="width: 356px;" id="ext-gen503" class="x-combo-list-inner"></div>
 """
 
