@@ -19,14 +19,20 @@ where
   * _meta_: meta data about your selector
   * _stack_: stack of all elements to loop
 
-The function returns true to include current element and returns false to explude current element. A more detailed explains could be found on [http://jquery-howto.blogspot.com/2009/06/jquery-custom-selectors-with-parameters.html jQuery Custom Selectors with Parameters].
-
-Special thanks to folks in [http://groups.google.com/group/jquery-en jQuery group].
+The function returns true to include current element and returns false to exclude current element. A more detailed explains could be found on [http://jquery-howto.blogspot.com/2009/06/jquery-custom-selectors-with-parameters.html jQuery Custom Selectors with Parameters].
 
 
-= Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+= Acknowledgements =
+
+Special thanks to folks in [http://groups.google.com/group/jquery-en jQuery group] for providing us constructive suggestions and helps on custom jQuery selectors and functions.
+
+= Resources =
+
+  * [http://jquery.com/ jQuery]
+  * [http://groups.google.com/group/jquery-en jQuery group]
+  * [http://jquery-howto.blogspot.com/2009/06/jquery-custom-selectors-with-parameters.html jQuery Custom Selectors with Parameters]
+  * [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector Tellurium jQuery selector]
+  * [http://code.google.com/p/aost/wiki/jQuerySelectorCache Tellurium jQuery Cache]
+  * [http://code.google.com/p/aost/wiki/TelluriumPowerUtilityDiagnose Tellurium Powerful Utility: Diagnose]
+  * [http://code.google.com/p/aost/wiki/TelluriumJQueryFirebug Use Firebug and JQuery to Trace Problems in Tellurium Tests]
