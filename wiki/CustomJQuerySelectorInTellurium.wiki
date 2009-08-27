@@ -11,6 +11,8 @@ To design jQuery custom selectors, we need to understand the jQuery selector syn
 
 {{{
 $.expr[':'].selector_name = function(obj, index, meta, stack){
+......
+}
 }}}
 
 where
@@ -21,7 +23,30 @@ where
 
 The function returns true to include current element and returns false to exclude current element. A more detailed explains could be found on [http://jquery-howto.blogspot.com/2009/06/jquery-custom-selectors-with-parameters.html jQuery Custom Selectors with Parameters].
 
+To avoid conflict with user's jQuery library, we yield the "$" symbol and rename jQuery to teJQuery. 
 
+= Custom jQuery Selectors =
+
+== :te_text ==
+
+The ":te_text" selector is created to select a UI element whose text attribute is a given string. The implementation is simple,
+
+{{{
+teJQuery.extend(teJQuery.expr[':'], {
+    te_text: function(a, i, m) {
+        return teJQuery.trim(teJQuery(a).text()) === teJQuery.trim(m[3]);
+    }
+});
+}}}
+
+You may wonder why we use _`m[3]`_ here, the variable _m_ includes the following parameters
+  
+  * _`m[0]`_: {{{te_text(argument)}}} full selector
+  * _`m[1]`_: {{{te_text}}} selector name
+  * _`m[2]`_: {{{''}}} quotes used
+  * _`m[3]`_: {{{argument}}} parameters 
+
+As a result the selector picks up the element whose text attribute, obtained by {{{text()}}}, is equals to the passed in parameter _`m[3]`_.
 
 = Acknowledgements =
 
