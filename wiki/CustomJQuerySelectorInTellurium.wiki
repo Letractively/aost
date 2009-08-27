@@ -4,7 +4,7 @@
 
 = Introduction =
 
-Tellurium leverage jQuery to add [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector jQuery selector] as a new locator to improve the test speed in IE and add other new functionalities to Selenium core, for example, fetching bulk data in one method call and [http://code.google.com/p/aost/wiki/TelluriumPowerUtilityDiagnose the diagonse utility].
+Tellurium leverages jQuery to add [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector jQuery selector] as a new locator to improve the test speed in IE and add other new functionalities to Selenium core, for example, fetching bulk data in one method call and [http://code.google.com/p/aost/wiki/TelluriumPowerUtilityDiagnose the diagonse utility].
 
 With the adoption of jQuery, we also need some custom jQuery selectors and plugins to meet our needs.
 
@@ -22,9 +22,9 @@ where
   * _meta_: meta data about your selector
   * _stack_: stack of all elements to loop
 
-The function returns true to include current element and returns false to exclude current element. A more detailed explains could be found on [http://jquery-howto.blogspot.com/2009/06/jquery-custom-selectors-with-parameters.html jQuery Custom Selectors with Parameters].
+The above function returns true to include current element and returns false to exclude current element. A more detailed explanation could be found from [http://jquery-howto.blogspot.com/2009/06/jquery-custom-selectors-with-parameters.html jQuery Custom Selectors with Parameters].
 
-To avoid conflict with user's jQuery library, we yield the "$" symbol and rename jQuery to teJQuery. 
+To avoid conflicts with user's jQuery library, we yield the "$" symbol and rename jQuery to teJQuery in Tellurium. 
 
 = Custom jQuery Selectors =
 
@@ -47,11 +47,11 @@ You may wonder why we use _`m[3]`_ here, the variable _m_ includes the following
   * _`m[2]`_: {{{''}}} quotes used
   * _`m[3]`_: {{{argument}}} parameters 
 
-As a result the selector picks up the element whose text attribute, obtained by {{{text()}}}, is equals to the passed in parameter _`m[3]`_.
+As a result, the selector picks up the elements whose text attribute, obtained by {{{text()}}}, is equal to the passed in parameter _`m[3]`_.
 
 == :group ==
 
-The _:group_ selector to implement [http://code.google.com/p/aost/wiki/UserGuide#Group_Locating the group locating] in Tellurium. For example, we want to select a "div" whose children include one "input", one "img", and one "span" tags. How to express this using jQuery? 
+The _:group_ selector is used to implement [http://code.google.com/p/aost/wiki/UserGuide#Group_Locating the group locating] in Tellurium. For example, we want to select a "div" whose children include one "input", one "img", and one "span" tags. How to express this using jQuery? 
 
 One way is to use the following selector,
 
@@ -62,9 +62,9 @@ teJQuery.expr[':'].group = function(obj){
 };
 }}}
 
-That is to say, only a DOM node satisfying all the three conditions, i.e, whose children include "input", "img", and "span", is selected because the AND conditions. Remember, only the node with the true return value is selected.
+That is to say, only a DOM node satisfying all the three conditions, i.e, whose children include "input", "img", and "span", is selected because the AND conditions. Remember, only the node that returns true for the above function is selected.
 
-However, in real world, we may have many conditions and we cannot use this hard-coded style selector and we need to use the custom selector with parameters instead. Here is our implementations,
+However, in real world, we may have many conditions and we cannot use this hard-coded style selector and we need to use the custom selector with parameters instead. Here is our implementation,
 
 {{{
 teJQuery.expr[':'].group = function(obj, index, m){
@@ -81,13 +81,13 @@ teJQuery.expr[':'].group = function(obj, index, m){
 };
 }}}
 
-If we use firebug to debug the code with the following jQuery selector
+If we use firebug to debug the code by running the following jQuery selector
 
 {{{
 $("div:myselector(input, img, span)")
 }}}
 
-We will see the variable _m_ includes the following parameters
+We can see the variable _m_ includes the following parameters
   
   * _`m[0]`_: {{{group(input, img, span)}}} full selector
   * _`m[1]`_: {{{group}}} selector name
@@ -104,7 +104,7 @@ When we worked on [http://code.google.com/p/aost/wiki/TelluriumPowerUtilityDiagn
 $('<div>').append( $(jQuery_Selector).clone() ).html() 
 }}} 
 
-and as suggested by someone, we go further to implement this as a simple jQuery plugin,
+and as suggested by another person, we went further to implement this as a simple jQuery plugin,
 
 {{{
 teJQuery.fn.outerHTML = function() {
@@ -114,13 +114,13 @@ teJQuery.fn.outerHTML = function() {
 
 = Summary =
 
-With the growth of Tellurium and more and more usage of jQuery in Tellurium, the list of custom jQuery selector and plugins in Tellurium will become longer. We will keep updating this wiki page, please revisit us.
+With the evolution of Tellurium and heavy usage of jQuery in Tellurium, the list of custom jQuery selector and plugins in Tellurium will keep growing. We will keep updating this wiki page, please do check back.
 
 If you are a Javascript or jQuery guru and like to contribute to Tellurium, please contact us.
 
 = Acknowledgements =
 
-Special thanks to folks in [http://groups.google.com/group/jquery-en jQuery group] for providing us constructive suggestions and helps on custom jQuery selectors and functions.
+Special thanks to folks in [http://groups.google.com/group/jquery-en jQuery group] for providing us helps on custom jQuery selectors and functions.
 
 = Resources =
 
