@@ -255,13 +255,13 @@ jQueryBuilder.prototype.buildId = function(id){
 
 jQueryBuilder.prototype.buildSingleClass = function(clazz){
     if(clazz.startsWith("^")){
-        return tag + "[class^=" + clazz.substring(1) + "]";
+        return "[class^=" + clazz.substring(1) + "]";
     }else if(clazz.startsWith("$")){
-        return tag + "[class$=" + clazz.substring(1) + "]";
+        return "[class$=" + clazz.substring(1) + "]";
     }else if(clazz.startsWith("*")){
-        return tag + "[class*=" + clazz.substring(1) + "]";
+        return "[class*=" + clazz.substring(1) + "]";
     }else if(clazz.startsWith("!")){
-        return tag + "[class!=" + clazz.substring(1) + "]";
+        return "[class!=" + clazz.substring(1) + "]";
     }else{
         return "." + clazz;
     }        
