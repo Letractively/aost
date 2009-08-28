@@ -24,7 +24,17 @@ teJQuery.expr[':'].styles = function(obj, index, m){
       var $this = teJQuery(obj);
 
       var splitted = new Array();
+
+      var fs = m[3].split(/:|;/);
+      for(var i=0; i<fs.length; i++){
+          var trimed = teJQuery.trim(fs[i]);
+          if(trimed.length > 0){
+              splitted.push(trimed);
+          }
+      }
+     /*
       var fs = m[3].split(':');
+
       for(var i=0; i<fs.length; i++){
         var sfs = fs[i].split(';');
         for(var j=0; j<sfs.length; j++){
@@ -32,7 +42,7 @@ teJQuery.expr[':'].styles = function(obj, index, m){
             splitted.push(teJQuery.trim(sfs[j]));
           }
         }
-      }
+      }*/
 
 //      alert("splitted = " + splitted.join());
 
