@@ -168,6 +168,11 @@ teJQuery.fn.outerHTML = function() {
 };
 }}}
 
+We made two changes here.
+
+  # _outerHTML_ is defined as a new property of {{{jQuery.fn}}} rather than as a standalone function. This registers the function as a plug-in method.
+  # We use the keyword _this_ as a replacement for the jQuery selector. Within a plug-in method, _this_ refers to the jQuery object that is being acted upon.
+
 = Summary =
 
 With the evolution of Tellurium and the heavy use of jQuery in Tellurium, the list of custom jQuery selectors and plugins in Tellurium will keep growing. We will keep updating this wiki page, please do check back.
