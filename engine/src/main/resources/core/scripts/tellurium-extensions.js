@@ -340,7 +340,7 @@ jQueryBuilder.prototype.buildAttribute = function(attr, val) {
 };
 
 jQueryBuilder.prototype.buildStyle = function(style){
-    if(style == null || trimString(style).length() == 0){
+    if(style == null || trimString(style).length == 0){
       return "[style]";
     }
 
