@@ -339,6 +339,14 @@ jQueryBuilder.prototype.buildAttribute = function(attr, val) {
     }
 };
 
+jQueryBuilder.prototype.buildStyle = function(style){
+    if(style == null || style.trim().length() == 0){
+      return "[style]";
+    }
+
+    return ":styles(" + style + ")";
+};
+
 jQueryBuilder.prototype.buildSelector = function(attr, val){
     if(attr == "id"){
         return this.buildId(val);
@@ -346,6 +354,8 @@ jQueryBuilder.prototype.buildSelector = function(attr, val){
         return this.buildText(val);
     }else if(attr == "class"){
         return this.buildClass(val);
+    }else if(attr == "style"){
+        return this.buildStyle(val);
     }else{
         return this.buildAttribute(attr, val);
     }
