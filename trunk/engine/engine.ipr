@@ -1,24 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project relativePaths="true" version="4">
-  <component name="AntConfiguration">
-    <defaultAnt bundledAnt="true" />
-  </component>
   <component name="BuildJarProjectSettings">
     <option name="BUILD_JARS_ON_MAKE" value="false" />
-  </component>
-  <component name="CCaseConfig">
-    <option name="checkoutReserved" value="false" />
-    <option name="markExternalChangeAsUpToDate" value="true" />
-    <option name="checkInUseHijack" value="true" />
-    <option name="useUcmModel" value="true" />
-    <option name="isOffline" value="false" />
-    <option name="synchOutside" value="false" />
-    <option name="isHistoryResticted" value="true" />
-    <option name="useIdenticalSwitch" value="true" />
-    <option name="synchActivitiesOnRefresh" value="true" />
-    <option name="lastScr" value="" />
-    <option name="scrTextFileName" value="" />
-    <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="CodeStyleSettingsManager">
     <option name="PER_PROJECT_SETTINGS" />
@@ -97,9 +80,6 @@
     <option name="MAXIMUM_HEAP_SIZE" value="128" />
   </component>
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
-  <component name="EntryPointsManager">
-    <entry_points version="2.0" />
-  </component>
   <component name="FacetAutodetectingManager">
     <autodetection-disabled>
       <facet-type id="Groovy">
@@ -109,18 +89,23 @@
       </facet-type>
     </autodetection-disabled>
   </component>
-  <component name="IdProvider" IDEtalkID="BB9EA5F93FDE1A776BAAE2C56F5F661C" />
+  <component name="IdProvider" IDEtalkID="0D053FDE92ACD51CC46DC1114C12AB94" />
   <component name="InspectionProjectProfileManager">
     <option name="PROJECT_PROFILE" value="Project Default" />
-    <option name="USE_PROJECT_LEVEL_SETTINGS" value="false" />
-    <scopes />
+    <option name="USE_PROJECT_PROFILE" value="true" />
+    <version value="1.0" />
     <profiles>
       <profile version="1.0" is_locked="false">
         <option name="myName" value="Project Default" />
         <option name="myLocal" value="false" />
       </profile>
     </profiles>
-    <list size="0" />
+    <list size="4">
+      <item index="0" class="java.lang.String" itemvalue="INFO" />
+      <item index="1" class="java.lang.String" itemvalue="WARNING" />
+      <item index="2" class="java.lang.String" itemvalue="ERROR" />
+      <item index="3" class="java.lang.String" itemvalue="SERVER PROBLEM" />
+    </list>
   </component>
   <component name="JavacSettings">
     <option name="DEBUGGING_INFO" value="true" />
@@ -335,6 +320,11 @@
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
@@ -347,6 +337,11 @@
       <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
       <option name="MAIN_CLASS_NAME" />
@@ -360,6 +355,11 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="" />
       <envs />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false" runner="emma">
       <module name="" />
@@ -379,6 +379,11 @@
         <value defaultName="moduleWithDependencies" />
       </option>
       <envs />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
     </configuration>
     <list size="0" />
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -399,25 +404,6 @@
     <option name="UNLOCK_ON_CHECKIN" value="false" />
   </component>
   <component name="SvnBranchConfigurationManager">
-    <option name="myConfigurationMap">
-      <map>
-        <entry key="$PROJECT_DIR$">
-          <value>
-            <SvnBranchConfiguration>
-              <option name="branchUrls">
-                <list>
-                  <option value="https://aost.googlecode.com/svn/branches" />
-                  <option value="https://aost.googlecode.com/svn/tags" />
-                  <option value="https://aost.googlecode.com/svn/wiki" />
-                </list>
-              </option>
-              <option name="trunkUrl" value="https://aost.googlecode.com/svn/trunk" />
-            </SvnBranchConfiguration>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="myVersion" value="124" />
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>
   <component name="SvnConfiguration">
@@ -429,45 +415,14 @@
     <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
     <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
     <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="DETECT_NESTED_COPIES" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
     <configuration useDefault="true">/home/jiafan1/.subversion</configuration>
     <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
   </component>
   <component name="VcsDirectoryMappings">
-    <mapping directory="" vcs="svn" />
-  </component>
-  <component name="VssConfiguration">
-    <option name="CLIENT_PATH" value="" />
-    <option name="SRCSAFEINI_PATH" value="" />
-    <option name="USER_NAME" value="" />
-    <option name="PWD" value="" />
-    <CheckoutOptions>
-      <option name="COMMENT" value="" />
-      <option name="DO_NOT_GET_LATEST_VERSION" value="false" />
-      <option name="REPLACE_WRITABLE" value="false" />
-      <option name="RECURSIVE" value="false" />
-    </CheckoutOptions>
-    <CheckinOptions>
-      <option name="COMMENT" value="" />
-      <option name="KEEP_CHECKED_OUT" value="false" />
-      <option name="RECURSIVE" value="false" />
-    </CheckinOptions>
-    <AddOptions>
-      <option name="STORE_ONLY_LATEST_VERSION" value="false" />
-      <option name="CHECK_OUT_IMMEDIATELY" value="false" />
-    </AddOptions>
-    <UndocheckoutOptions>
-      <option name="MAKE_WRITABLE" value="false" />
-      <option name="REPLACE_LOCAL_COPY" value="2" />
-      <option name="RECURSIVE" value="false" />
-    </UndocheckoutOptions>
-    <GetOptions>
-      <option name="REPLACE_WRITABLE" value="0" />
-      <option name="MAKE_WRITABLE" value="false" />
-      <option name="ANSWER_NEGATIVELY" value="false" />
-      <option name="ANSWER_POSITIVELY" value="false" />
-      <option name="RECURSIVE" value="false" />
-      <option name="VERSION" />
-    </GetOptions>
+    <mapping directory="" vcs="" />
+    <mapping directory="$PROJECT_DIR$" vcs="svn" />
   </component>
   <component name="WebServicesPlugin" addRequiredLibraries="true" />
   <component name="XPathView.XPathProjectComponent">
@@ -475,37 +430,285 @@
     <find-history />
   </component>
   <component name="libraryTable">
-    <library name="Maven: org.seleniumhq.selenium.server:selenium-server:1.0-beta-2">
+    <library name="Maven: org.seleniumhq.selenium.server:selenium-server:standalone:1.0.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0-beta-2/selenium-server-1.0-beta-2.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0-beta-2/selenium-server-1.0-beta-2-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0-beta-2/selenium-server-1.0-beta-2-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1/selenium-server-1.0.1-standalone-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.seleniumhq.selenium.server:selenium-server-coreless:1.0-beta-2">
+    <library name="Maven: org.seleniumhq.selenium.server:selenium-server:standalone:${selenium-version}">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server-coreless/1.0-beta-2/selenium-server-coreless-1.0-beta-2.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/${selenium-version}/selenium-server-${selenium-version}-standalone.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/${selenium-version}/selenium-server-${selenium-version}-standalone.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server-coreless/1.0-beta-2/selenium-server-coreless-1.0-beta-2-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/${selenium-version}/selenium-server-${selenium-version}-standalone-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/${selenium-version}/selenium-server-${selenium-version}-standalone-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server-coreless/1.0-beta-2/selenium-server-coreless-1.0-beta-2-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/${selenium-version}/selenium-server-${selenium-version}-standalone-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/${selenium-version}/selenium-server-${selenium-version}-standalone-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: jetty:org.mortbay.jetty:5.1.10">
+    <library name="Maven: org.seleniumhq.selenium.server:selenium-server:1.0.1-te">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/jetty/org.mortbay.jetty/5.1.10/org.mortbay.jetty-5.1.10.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1-te/selenium-server-1.0.1-te.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/jetty/org.mortbay.jetty/5.1.10/org.mortbay.jetty-5.1.10-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1-te/selenium-server-1.0.1-te-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/jetty/org.mortbay.jetty/5.1.10/org.mortbay.jetty-5.1.10-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0.1-te/selenium-server-1.0.1-te-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.seleniumhq.selenium.client-drivers:selenium-java-client-driver:1.0.1">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/client-drivers/selenium-java-client-driver/1.0.1/selenium-java-client-driver-1.0.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/client-drivers/selenium-java-client-driver/1.0.1/selenium-java-client-driver-1.0.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/client-drivers/selenium-java-client-driver/1.0.1/selenium-java-client-driver-1.0.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.openqa.selenium.grid:selenium-grid-tools:1.0.2">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openqa/selenium/grid/selenium-grid-tools/1.0.2/selenium-grid-tools-1.0.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openqa/selenium/grid/selenium-grid-tools/1.0.2/selenium-grid-tools-1.0.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openqa/selenium/grid/selenium-grid-tools/1.0.2/selenium-grid-tools-1.0.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.codehaus.groovy:groovy-all:1.6.0">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/groovy-all/1.6.0/groovy-all-1.6.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/groovy-all/1.6.0/groovy-all-1.6.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/groovy-all/1.6.0/groovy-all-1.6.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: junit:junit:3.8.2">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.2/junit-3.8.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.2/junit-3.8.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.2/junit-3.8.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.apache.ant:ant:1.7.1">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/ant/ant/1.7.1/ant-1.7.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/ant/ant/1.7.1/ant-1.7.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/ant/ant/1.7.1/ant-1.7.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.apache.ant:ant-launcher:1.7.1">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/ant/ant-launcher/1.7.1/ant-launcher-1.7.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/ant/ant-launcher/1.7.1/ant-launcher-1.7.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/ant/ant-launcher/1.7.1/ant-launcher-1.7.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: jline:jline:0.9.94">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/jline/jline/0.9.94/jline-0.9.94.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/jline/jline/0.9.94/jline-0.9.94-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/jline/jline/0.9.94/jline-0.9.94-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.codehaus.groovy.maven.runtime:gmaven-runtime-1.6:1.0-rc-5">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/runtime/gmaven-runtime-1.6/1.0-rc-5/gmaven-runtime-1.6-1.0-rc-5.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/runtime/gmaven-runtime-1.6/1.0-rc-5/gmaven-runtime-1.6-1.0-rc-5-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/runtime/gmaven-runtime-1.6/1.0-rc-5/gmaven-runtime-1.6-1.0-rc-5-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.slf4j:slf4j-api:1.5.6">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.codehaus.groovy.maven.feature:gmaven-feature-support:1.0-rc-5">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/feature/gmaven-feature-support/1.0-rc-5/gmaven-feature-support-1.0-rc-5.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/feature/gmaven-feature-support/1.0-rc-5/gmaven-feature-support-1.0-rc-5-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/feature/gmaven-feature-support/1.0-rc-5/gmaven-feature-support-1.0-rc-5-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.codehaus.groovy.maven.feature:gmaven-feature-api:1.0-rc-5">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/feature/gmaven-feature-api/1.0-rc-5/gmaven-feature-api-1.0-rc-5.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/feature/gmaven-feature-api/1.0-rc-5/gmaven-feature-api-1.0-rc-5-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/feature/gmaven-feature-api/1.0-rc-5/gmaven-feature-api-1.0-rc-5-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.codehaus.groovy.maven.runtime:gmaven-runtime-support:1.0-rc-5">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/runtime/gmaven-runtime-support/1.0-rc-5/gmaven-runtime-support-1.0-rc-5.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/runtime/gmaven-runtime-support/1.0-rc-5/gmaven-runtime-support-1.0-rc-5-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/runtime/gmaven-runtime-support/1.0-rc-5/gmaven-runtime-support-1.0-rc-5-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.codehaus.groovy.maven.runtime:gmaven-runtime-api:1.0-rc-5">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/runtime/gmaven-runtime-api/1.0-rc-5/gmaven-runtime-api-1.0-rc-5.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/runtime/gmaven-runtime-api/1.0-rc-5/gmaven-runtime-api-1.0-rc-5-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/runtime/gmaven-runtime-api/1.0-rc-5/gmaven-runtime-api-1.0-rc-5-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.codehaus.groovy.maven:gmaven-common:1.0-rc-5">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/gmaven-common/1.0-rc-5/gmaven-common-1.0-rc-5.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/gmaven-common/1.0-rc-5/gmaven-common-1.0-rc-5-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/maven/gmaven-common/1.0-rc-5/gmaven-common-1.0-rc-5-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.codehaus.plexus:plexus-utils:1.5.5">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/1.5.5/plexus-utils-1.5.5.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/1.5.5/plexus-utils-1.5.5-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/1.5.5/plexus-utils-1.5.5-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: com.thoughtworks.qdox:qdox:1.8">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/thoughtworks/qdox/qdox/1.8/qdox-1.8.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/com/thoughtworks/qdox/qdox/1.8/qdox-1.8-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/thoughtworks/qdox/qdox/1.8/qdox-1.8-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: bouncycastle:bcprov-jdk15:140">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/bouncycastle/bcprov-jdk15/140/bcprov-jdk15-140.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/bouncycastle/bcprov-jdk15/140/bcprov-jdk15-140-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/bouncycastle/bcprov-jdk15/140/bcprov-jdk15-140-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.seleniumhq.selenium.server:selenium-server-coreless:1.0.1">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server-coreless/1.0.1/selenium-server-coreless-1.0.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server-coreless/1.0.1/selenium-server-coreless-1.0.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server-coreless/1.0.1/selenium-server-coreless-1.0.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: jetty:org.mortbay.jetty:5.1.12">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/jetty/org.mortbay.jetty/5.1.12/org.mortbay.jetty-5.1.12.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/jetty/org.mortbay.jetty/5.1.12/org.mortbay.jetty-5.1.12-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/jetty/org.mortbay.jetty/5.1.12/org.mortbay.jetty-5.1.12-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-logging:commons-logging:1.0.4">
@@ -541,70 +744,15 @@
         <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/servlet-api/2.4/servlet-api-2.4-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: bouncycastle:bcprov-jdk15:140">
+    <library name="Maven: org.seleniumhq.selenium.core:selenium-core:1.0.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/bouncycastle/bcprov-jdk15/140/bcprov-jdk15-140.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/core/selenium-core/1.0.1/selenium-core-1.0.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/bouncycastle/bcprov-jdk15/140/bcprov-jdk15-140-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/core/selenium-core/1.0.1/selenium-core-1.0.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/bouncycastle/bcprov-jdk15/140/bcprov-jdk15-140-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.seleniumhq.selenium.core:selenium-core:1.0-beta-2">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/core/selenium-core/1.0-beta-2/selenium-core-1.0-beta-2.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/core/selenium-core/1.0-beta-2/selenium-core-1.0-beta-2-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/core/selenium-core/1.0-beta-2/selenium-core-1.0-beta-2-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.seleniumhq.selenium.client-drivers:selenium-java-client-driver:1.0-beta-2">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/client-drivers/selenium-java-client-driver/1.0-beta-2/selenium-java-client-driver-1.0-beta-2.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/client-drivers/selenium-java-client-driver/1.0-beta-2/selenium-java-client-driver-1.0-beta-2-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/client-drivers/selenium-java-client-driver/1.0-beta-2/selenium-java-client-driver-1.0-beta-2-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.seleniumhq.selenium.server:selenium-server:standalone:1.0-beta-2">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0-beta-2/selenium-server-1.0-beta-2-standalone.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0-beta-2/selenium-server-1.0-beta-2-standalone-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/server/selenium-server/1.0-beta-2/selenium-server-1.0-beta-2-standalone-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: junit:junit:3.8.1">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.openqa.selenium.grid:selenium-grid-tools:1.0.2">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/openqa/selenium/grid/selenium-grid-tools/1.0.2/selenium-grid-tools-1.0.2.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/openqa/selenium/grid/selenium-grid-tools/1.0.2/selenium-grid-tools-1.0.2-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/openqa/selenium/grid/selenium-grid-tools/1.0.2/selenium-grid-tools-1.0.2-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/core/selenium-core/1.0.1/selenium-core-1.0.1-sources.jar!/" />
       </SOURCES>
     </library>
   </component>
