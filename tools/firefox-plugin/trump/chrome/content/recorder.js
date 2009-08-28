@@ -58,7 +58,9 @@ Recorder.prototype.registerClickListener = function(){
 
         };
 
-    var enumerator = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+    this.getWindowAndRegisterClickListener();
+
+    /*var enumerator = Components.classes["@mozilla.org/appshell/window-mediator;1"]
         .getService(Components.interfaces.nsIWindowMediator)
         .getEnumerator("navigator:browser");
 
@@ -77,6 +79,30 @@ Recorder.prototype.registerClickListener = function(){
         }
 
     }
+*/
+}
+
+Recorder.prototype.getWindowAndRegisterClickListener = function(){
+    var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+        .getService(Components.interfaces.nsIWindowMediator)
+          .getMostRecentWindow("navigator:browser");
+
+    var browser = win.getBrowser();
+
+    if(browser && browser.contentWindow && browser.contentWindow.document){
+        this.contentWindow = browser.contentWindow;
+        this.contentWindow.document.body.addEventListener("click", this.listener, false);
+    }
+
+    if(browser && browser.contentWindow && browser.contentWindow.frames){
+        this.frames = browser.contentWindow.frames;
+        if (this.frames && this.frames.length) {
+            for (var j = 0; j < this.frames.length; j++) {
+                var frame = this.frames[j] ;
+                frame.document.body.addEventListener("click", this.listener, false);
+            }
+        }
+    }
 
 }
 
@@ -85,13 +111,15 @@ Recorder.prototype.unregisterClickListener = function(){
 
     this.removeOutlineForSelectedNodes();
 
-     if (this.frames && this.frames.length) {
+    if(this.contentWindow){
+        this.contentWindow.document.body.removeEventListener("click", this.listener, false);
+    }
+
+    if (this.frames && this.frames.length) {
         for (var j = 0; j < this.frames.length; j++) {
             this.frames[j].document.body.removeEventListener("click", this.listener, false);
         }
-    } else if(this.contentWindow){
-        this.contentWindow.document.body.removeEventListener("click", this.listener, false);
-    }
+    } 
     
     this.listener = null;
 }
