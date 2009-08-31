@@ -14,7 +14,7 @@
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
     xmlns:html="http://www.w3.org/1999/xhtml"
     width="620"
-    height="480"
+    height="400"
     onload="new Editor(window)"
     onunload="window.editor.unload()"
     onclose="return window.editor.close()">
@@ -68,7 +68,7 @@
             <tabpanel orient="vertical" flex="1">
                 <stack>
                     <vbox flex="3">
-                        <tree id="recordTree" flex="1" rows="15" onselect="window.editor.selectedTreeItem() ">
+                        <tree id="recordTree" flex="1" rows="10" onselect="window.editor.selectedTreeItem()" hidecolumnpicker="true">
                           <treecols>
                             <treecol id="selectedElement" label="&element.label;" flex="1"/>
                             <treecol id="selecetedElementName" label="&element.name.label;" flex="2"/>
@@ -89,9 +89,10 @@
             </tabpanel>
             <tabpanel orient="vertical">
               <groupbox orient="horizontal" flex="1">
-                 <groupbox flex="1">
-                  
-                      <vbox id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml" flex="3" minwidth="400" minheight="350" maxheight="600" style="overflow: auto;">
+                 <groupbox flex="1" class="border">
+                     <caption lable="UI" />
+                      <vbox id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml" flex="3"
+                            style="overflow: auto;">
                             <!--caption label="UI Module"/-->
                             <template>
                                 <query expr="*"/>
@@ -108,11 +109,12 @@
                         </vbox>
                     </groupbox>
                     <splitter collapse="after" ><grippy /></splitter>
-                    <groupbox flex="1">
+                    <groupbox flex="1" class="border">
+                        <caption lable="Selected DOM Element"/>
                     <!--separator class="thin"/-->
                     <!--splitter collapse="before" class="splitter" resizeafter="farthest"/-->
                     <!-- command editing -->
-                        <vbox id="uiObjectEdit" flex="1" style="overflow: auto" minwidth="200">
+                        <vbox id="uiObjectEdit" flex="1" style="overflow: auto" minwidth="280">
                             <hbox pack="center">
                                 <button label="&show.label;" oncommand="window.editor.showNodeOnWeb()"/>
                                 <button label="&save.label;" oncommand="window.editor.updateUiObject()"/>
@@ -191,7 +193,7 @@
             </tabpanel>-->
         </tabpanels>
     </tabbox>
-    <vbox id="logBox" height="100" width="250" flex="1">
+    <vbox id="logBox" height="100" flex="1">
         <hbox id="logMenu" align="center">
             <toolbarbutton id="logTab" label="&logConsole.label;"
                            class="console-tab" selected="true"/>
