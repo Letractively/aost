@@ -61,3 +61,7 @@ button[myclass="myClass4"]{
     margin-left: -2px;
     height:180px;
 }
+
+.border{
+    border:1px black solid;
+}
