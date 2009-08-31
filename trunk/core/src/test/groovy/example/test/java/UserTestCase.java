@@ -71,11 +71,13 @@ public class UserTestCase extends TelluriumJavaTestCase {
         System.out.print(lm.generateHtml());
     }
 
+
     @Test
     public void testDump(){
         UserModule lm = new UserModule();
         lm.defineUi();
         lm.dump("ConsumersPage");
+        lm.dump("search");
     }
 
     @AfterClass

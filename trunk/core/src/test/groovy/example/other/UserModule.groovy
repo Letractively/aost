@@ -98,11 +98,18 @@ public class UserModule extends DslContext {
           RadioButton(uid: "tbody: *, row:1, column: 1", clocator: [:])
         }
       }
+
+      ui.Div(uid: "search", clocator: [tag: "div", text: " Search ", class: "tab-unselected-on-color tab-unselected l", id: "tabSearch"])
     }
 
     public void doCreateAccount() {
       type "accountEdit.accountName", "ccc"
       click "accountEdit.save"
       waitForPageToLoad 30000
+    }
+
+    public void clickSearch() {
+
+      click "search"
     }
 }
