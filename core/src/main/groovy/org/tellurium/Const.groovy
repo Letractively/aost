@@ -30,6 +30,9 @@ public class Const {
   
     //direct child of either the header or the parent UI
     public static final String DIRECT = "direct"
+    //inside an container element directly, useful for Tables
+    public static final String INSIDE = "inside"
+  
     public static final String RESPOND_TO_EVENTS = "respond"
     public static final String TITLE = "title"
     public static final String ID = "id"
