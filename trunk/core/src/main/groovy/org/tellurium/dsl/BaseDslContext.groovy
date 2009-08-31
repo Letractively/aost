@@ -1235,4 +1235,32 @@ abstract class BaseDslContext {
 
     return sb.toString()
   }
+
+  void setTimeout(long timeoutInMilliseconds){
+    accessor.setTimeout((new Long(timeoutInMilliseconds)).toString())
+  }
+
+  boolean isCookiePresent(String name) {
+    return accessor.isCookiePresent(name)
+  }
+
+  String getCookie(){
+    return accessor.getCookie()
+  }
+
+  String getCookieByName(String name){
+    return accessor.getCookieByName(name)
+  }
+
+  void createCookie(String nameValuePair, String optionsString){
+    accessor.createCookie(nameValuePair, optionsString)
+  }
+
+  void deleteCookie(String name, String optionsString){
+    accessor.deleteCookie(name, optionsString)
+  }
+
+  void deleteAllVisibleCookies(){
+    accessor.deleteAllVisibleCookies()
+  }
 }
