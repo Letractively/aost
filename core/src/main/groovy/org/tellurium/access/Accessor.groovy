@@ -218,9 +218,11 @@ class Accessor implements Configurable{
         return dispatcher.getXpathCount(xpath)
     }
 
+/*
     String getCookie(){
         return dispatcher.getCookie()
     }
+*/
 
     void runScript(String script){
         dispatcher.runScript(script)
@@ -323,4 +325,32 @@ class Accessor implements Configurable{
     void addCustomRequestHeader(String key, String value){
       dispatcher.addCustomRequestHeader(key, value)
     }
+
+  void setTimeout(String timeout) {
+     dispatcher.setTimeout(timeout)
+  }
+
+  boolean isCookiePresent(String name) {
+    return dispatcher.isCookiePresent(name)
+  }
+
+  String getCookie() {
+    return dispatcher.getCookie()
+  }
+
+  String getCookieByName(String name) {
+    return dispatcher.getCookieByName(name)
+  }
+
+  void createCookie(String nameValuePair, String optionsString) {
+    dispatcher.createCookie(nameValuePair, optionsString)
+  }
+
+  void deleteCookie(String name, String optionsString) {
+    dispatcher.deleteCookie(name, optionsString)
+  }
+
+  void deleteAllVisibleCookies() {
+    dispatcher.deleteAllVisibleCookies()
+  }
 }
