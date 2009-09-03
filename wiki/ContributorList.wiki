@@ -30,7 +30,7 @@ Tellurium Contributors are categorized into development team, support team, evan
 
 == Documentation ==
 
-  * *Davlyn Jones*:
+  * *Davlyn Jones*: User Guide 0.6.0
   * *Ramesh Ramamurthy*: 
 
 == Evangelism Team ==
