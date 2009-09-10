@@ -1,5 +1,6 @@
 #summary Tellurium Contributor List
 #labels Phase-Support
+<wiki:toc max_depth="5" />
 
 Tellurium Contributors are categorized into development team, support team, evangelism team, and users. Former team members are also listed here.
 
