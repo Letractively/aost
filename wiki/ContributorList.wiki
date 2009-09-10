@@ -41,7 +41,7 @@ Tellurium Contributors are categorized into development team, support team, evan
 == Other Contributors ==
 
 
-== Tellurium Users ==
+== Outstanding Tellurium Users ==
 
 === 2008 - 2009 ===
 
