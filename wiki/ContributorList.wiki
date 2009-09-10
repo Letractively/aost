@@ -4,8 +4,9 @@
 
 Tellurium Contributors are categorized into development team, support team, evangelism team, and users. Former team members are also listed here.
 
+== Tellurium Team ==
 
-== Development Team ==
+=== Development Team ===
 
   * *Jian Fang*: Jian graduated from Georgia Institue of Technology with a Ph.D. degree. He works as a senior software engineer in a company and mainly focuses on architecting, desigining, and implementing enterprise applications. He is both a researcher and a developer. He is the Tellurium project owner and the principle developer. Tellurium Core, TrUMP 0.1.0, jQuery Selector, Reference Projects, Widget Projects, Tellurium Maven Archetypes, and Engine 0.1.0.
 
@@ -21,20 +22,20 @@ Tellurium Contributors are categorized into development team, support team, evan
 
   * *Ajay Ravichandran*:
 
-== Build and Release ==
+=== Build and Release ===
 
   * *Matt Senter*: Coming up with the name "Tellurium", Tellurium Maven support, Tellurium build and release, and Tellurium Maven repository maintenance. 
 
-== Quality Assurance ==
+=== Quality Assurance ===
 
   * *Kamal Ahmed*:
 
-== Documentation ==
+=== Documentation ===
 
   * *Davlyn Jones*: User Guide 0.6.0
   * *Ramesh Ramamurthy*: 
 
-== Evangelism Team ==
+=== Evangelism Team ===
 
   * *Kevin Zhang*: Interviewed Jian Fang on behalf of InfoQ China and administrator of the Tellurium Chinese document site.
 
