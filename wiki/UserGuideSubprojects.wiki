@@ -1,4 +1,4 @@
-#summary Tellurium User Guide
+#summary Tellurium User Guide: Tellurium Subprojects
 #labels Phase-Implementation,Phase-Support
 
 (A PDF version of the user guide is available [http://telluriumdoc.googlecode.com/files/TelluriumUserGuide.Draft.pdf here])
