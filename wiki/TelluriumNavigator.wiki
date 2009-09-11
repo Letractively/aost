@@ -14,8 +14,6 @@
       * [UserGuideFAQs FAQs]
       * [UserGuideTelluriumSupport Tellurium Support]
       * [UserGuideResources Resources]
-      * [TelluriumSampleAntBuildScript Ant Script]
-      * [TelluriumTestProjectMavenSamplePom Sample Pom]
     * [http://code.google.com/p/aost/wiki/TenMinutesToTellurium Quick Start]
     * [http://code.google.com/p/aost/wiki/FAQ FAQs] 
   * [ReferenceProjectGuide Sub-projects]
