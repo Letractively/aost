@@ -11,7 +11,7 @@
     * [http://code.google.com/p/aost/wiki/TrUMP Tellurium UI Model Firefox Plugin 0.1.0]
     * [http://code.google.com/p/aost/wiki/TelluriumWidget Tellurium Widget Extensions]
     * [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven Archetypes]
-  *[Tutorial Tutorials]
+  * [Tutorial Tutorials]
     * [http://code.google.com/p/aost/wiki/Tutorial Tutorial]
     * [http://code.google.com/p/aost/wiki/TelluriumVideo1 Tellurium beginner tutorial] 
     * [http://code.google.com/p/aost/wiki/DataDrivenTesting Tellurium Data Driven Testing]
