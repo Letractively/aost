@@ -1,0 +1,68 @@
+#summary Tellurium User Guide: Resources
+#labels Phase-Implementation,Phase-Support
+
+(A PDF version of the user guide is available [http://telluriumdoc.googlecode.com/files/TelluriumUserGuide.Draft.pdf here])
+
+<wiki:toc max_depth="5" />
+
+
+= Resources =
+
+== Tellurium Project ==
+
+  * [http://code.google.com/p/aost/ Tellurium Project website] 
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group] 
+  * [http://www.linkedin.com/groups?gid=1900807 Tellurium Automated Testing Framework LinkedIn Group]
+  * [http://twitter.com/TelluriumTest Tellurium on Twitter]
+  * [http://www.reddit.com/r/Tellurium/ Tellurium on Reddit] 
+  * [http://code.google.com/p/aost/wiki/TenMinutesToTellurium Ten Minutes to Tellurium]
+  * [http://code.google.com/p/aost/wiki/TrUMP Tellurium UI Model Firefox Plugin (TrUMP) 0.1.0]
+
+== Users' Experiences ==
+
+Here is the list of experiences provided by Tellurium developers and users 
+
+  * [http://notetodogself.blogspot.com/2009/02/functional-testing-with-tellurium.html Fuctional Testing with Tellurium by Mikhail Koryak]
+  * [http://epyramid.wordpress.com/2009/06/02/tellurium-automation-process/ Tellurium and test automation process by Haroon Rasheed]
+  * [http://notetodogself.blogspot.com/2009/06/tellurium-better-functional-test.html Tellurium: A Better Functional Test by Mikhail Koryak]
+  * [http://startupmusings.blogspot.com/2009/06/experience-with-web-testing-frameworks.html Experience with Web Testing Frameworks by Harihara Vinayakaram]
+  * [http://domsqablog.blogspot.com/2009/06/browser-based-testing-qa-perspective.html Why I use the Tellurium framework - an Automation QA perspective by Dominic Mooney]
+
+== Interviews ==
+
+  * Interview with Tellurium creator, Dr. Jian Fang, by Kevin Zhang from [http://www.infoq.com/cn/articles/tellurium-testing-framework InfoQ China]. 
+
+== Presentations and Videos ==
+
+  * [http://wiki.codestock.org/Home/2009-slides-and-code Tellurium at CodeStock 2009]
+  * [http://aost.googlecode.com/files/tellurium_video_1.avi Tellurium video tutorial] 
+  * [http://code.google.com/p/aost/downloads/list How to use TrUMP to Create Tellurium Test Cases] ([http://programmingdrunk.com/flv/ Flash Version])
+  * [http://code.google.com/p/aost/downloads/list Tellurium Demo Video] (Online Version [http://video.google.com/videoplay?docid=-7547683963743870970 Part I] [http://video.google.com/videoplay?docid=2145192284694104042 Part II])
+  * [http://www.slideshare.net/John.Jian.Fang/telluriumanewapproachforwebtesting Online Presentation: Tellurium - A New Approach For Web Testing]
+  * [http://www.slideshare.net/John.Jian.Fang/ten-minutes-to-tellurium Online Presentation: 10 Minutes to Tellurium] 
+  * [http://aost.googlecode.com/files/TenMinutesToTellurium.ogg Screencast video: 10 Minutes to Tellurium] ([http://www.youtube.com/watch?v=DyUPeg-Y-Yg  online version])
+
+== IDEs ==
+
+  * [http://www.jetbrains.com/idea/ IntelliJ]
+  * [http://www.netbeans.org/ NetBeans]
+  * [http://www.eclipse.org/ Eclipse]
+
+== Build ==
+
+  * [http://ant.apache.org/ Ant]
+  * [http://maven.apache.org/ Maven]
+
+== Related ==
+
+  * [http://groovy.codehaus.org/ Groovy]
+  * [http://jquery.com/ JQuery]
+  * [http://www.dojotoolkit.org/ Dojo]
+  * [http://extjs.com/products/extjs/ Ext JS]
+  * [http://seleniumhq.org/ Selenium]
+  * [http://selenium-grid.seleniumhq.org/ Selenium Grid]
+  * [http://clearspace.openqa.org/community/selenium Selenium Community]
+  * [http://webtest.canoo.com Canoo WebTest]
+  * [http://twill.idyll.org/ Twill]
+  * [http://www.junit.org/ JUnit]
+  * [http://testng.org/ TestNG]
