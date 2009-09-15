@@ -1,4 +1,4 @@
-#summary Tellurium InfoQ Article Draft.
+#summary Tellurium InfoQ Article Draft: Getting started with Tellurium.
 #labels Phase-Design
 
 <wiki:toc max_depth="5" />
