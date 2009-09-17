@@ -62,7 +62,7 @@ tellurium{
     datadriven{
         dataprovider{
             //specify which data reader you like the data provider to use
-            //the valid options include "PipeFileReader", "CVSFileReader" at this point
+            //the valid options include "PipeFileReader", "CSVFileReader" at this point
             reader = "PipeFileReader"
         }
     }
