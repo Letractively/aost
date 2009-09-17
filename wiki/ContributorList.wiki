@@ -41,6 +41,7 @@ Tellurium Contributors are categorized into development team, support team, evan
 
 == Other Contributors ==
 
+Jared Rawlinson ([http://citystormmedia.com City Storm Media]): Tellurium Project Logo Design.
 
 == Outstanding Tellurium Users ==
 
