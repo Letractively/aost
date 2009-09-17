@@ -68,7 +68,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     protected void configDataProvider(DataProvider dataProvider){
         if("PipeFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)){
             dataProvider.setProperty("reader", new PipeDataReader())
-        }else if("CVSFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)){
+        }else if("CSVFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)){
             dataProvider.setProperty("reader", new CSVDataReader())
         }else{
             println "Unsupported reader ${conf.tellurium.datadriven.dataprovider.reader} for data provider"
