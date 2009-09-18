@@ -409,6 +409,11 @@ List(uid: "subcategory", locator: "", separator: "p"){
 }
 }}} 
 
+The List includes the following additional methods:
+
+  * int getListSize(id): Gets the item count of a list
+
+
 === Simple Menu ===
 
 The SimpleMenu represent a menu without a header and only contains menu items. The default tag is "div" and user should specify the alias name for each menu item. For example,
@@ -539,4 +544,3 @@ click "layoutSelector.layoutSelector.List"
 }}}
 
 The option object will automatically detect which UI pattern you need to use at runtime. 
-
