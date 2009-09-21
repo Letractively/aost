@@ -523,3 +523,57 @@ Please provide your comments and suggestions to [http://groups.google.com/group/
 Thanks,
 
 Tellurium Team
+
+== The Tellurium User Guide 0.6.0 is Available Now ==
+
+Special thanks to Davlyn Jones, the [http://aost.googlecode.com/files/TelluriumUserGuide.0.6.0.pdf Tellurium user guide 0.6.0] is officially released now. 
+
+=== Content Summary ===
+
+Chapter 1 Introduction: Discusses the following:
+
+  * Motivation for creating Tellurium, the Tellurium approach for Web testing
+  * Challenges and problems addressed by Tellurium.
+  * Tellurium concepts and features: Introduces and describes the following:
+    * UI objects, UI Module (heart of Tellurium), UiID (the UI Object)
+    * Two types of Composite Locators
+    * Group Locating which is an attribute of the Tellurium UI module
+    * UI Templates and the use of Table and List
+    * Javascript Events using the DOJO JavaScript? framework
+    * Use of the Logical Container in Tellurium
+    * Use of jQuery Selector which improves the test speed in IE
+    * Table Methods
+    * jQuery Selector Cache Option mechanism in Tellurium
+    * Use of the Include syntax in Tellurium
+    * Use of setCustomConfig for project level test settings
+    * Use of Custom Selenium Extensions with TelluriumConfig.groovy
+    * Use of Data Driven Testing in Tellurium
+    * Tellurium Dump Method for printing UI objects and descendants runtime locators
+    * Tellurium Selenium grid support
+    * Tellurium Core Mock Http Server for testing HTML sources directly
+    * Tellurium’s three ways to provide testing support
+Chapter 2 Getting Started: Provides a description of the three Tellurium methods for creating a Tellurium project. In addition, Tellurium UI Objects are described and discussed including each pre-defined UI Object.
+
+Chapter 3 Tellurium Subprojects: Describes the multiple sub-projects including Reference Projects, Maven Archetypes, TrUMP, Widget Extensions, Core, and Engine projects.
+
+Chapter 4 Tellurium Architecture: Describes the Tellurium architecture and discusses how Tellurium works as a framework for testing.
+
+Chapter 5 Tellurium APIs: Provides tables of various API methods and the action/result of each method when used. The methods discussed are for DSL, Data Access and Test Support DSLs.
+
+Appendices
+  * Appendix A Examples: Provides examples of the following Tellurium test cases:
+    * Custom UI Object
+    * UI Module
+    * Groovy Test Case
+    * Java Test Case
+    * Data Drive Testing
+    * DSL Test Script
+  * Appendix B FAQs: Provides a list of Tellurium frequently asked questions and answers.
+  * Appendix C Tellurium Support
+  * Appendix D Resources
+
+As always, your comments and suggestions are welcome and please provide your feedback to [http://groups.google.com/group/tellurium-users Tellurium User Guide].
+
+Thanks,
+
+Tellurium Team
