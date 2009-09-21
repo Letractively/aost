@@ -539,7 +539,7 @@ Chapter 1 Introduction: Discusses the following:
     * Two types of Composite Locators
     * Group Locating which is an attribute of the Tellurium UI module
     * UI Templates and the use of Table and List
-    * Javascript Events using the DOJO JavaScript? framework
+    * Javascript Events using the DOJO JavaScript framework
     * Use of the Logical Container in Tellurium
     * Use of jQuery Selector which improves the test speed in IE
     * Table Methods
