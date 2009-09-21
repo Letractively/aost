@@ -572,7 +572,7 @@ Appendices
   * Appendix C Tellurium Support
   * Appendix D Resources
 
-As always, your comments and suggestions are welcome and please provide your feedback to [http://groups.google.com/group/tellurium-users Tellurium User Guide].
+As always, your comments and suggestions are welcome and please provide your feedback to [http://groups.google.com/group/tellurium-users Tellurium User Group].
 
 Thanks,
 
