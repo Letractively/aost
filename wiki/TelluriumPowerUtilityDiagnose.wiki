@@ -4,7 +4,7 @@
 
 = Prerequisites =
  
-  * Tellurium Core 0.7.0-SNAPSHOT
+  * [[http://kungfuters.org/nexus/content/repositories/snapshots/tellurium/tellurium-core/0.7.0-SNAPSHOT/ Tellurium Core 0.7.0-SNAPSHOT]
 
 = Introduction =
 
