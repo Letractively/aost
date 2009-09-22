@@ -133,7 +133,7 @@ For TestNG project, you should use a different archetype
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
 }}}
 
-If you want to see a detailed example on how to create a new Tellurium test project, you can read [http://code.google.com/p/aost/w/edit/TenMinutesToTellurium Ten Minutes To Tellurium]
+If you want to see a detailed example on how to create a new Tellurium test project, you can read [http://code.google.com/p/aost/wiki/TenMinutesToTellurium]
 
 = How to Create a Maven Archetype from an Existing Project =
 
