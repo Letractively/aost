@@ -118,19 +118,19 @@ Tellurium provides [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes 
 Run the following maven command to create a new JUnit project
 
 {{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
+mvn archetype:generate -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
 }}}
 
 Without adding the Tellurium Maven repository, you can specify it in the command line as
 {{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0 \
+mvn archetype:generate -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0 \
 -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/releases
 }}}
 
 For TestNG project, you should use a different archetype
 
 {{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
+mvn archetype:generate -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
 }}}
 
 If you want to see a detailed example on how to create a new Tellurium test project, you can read [http://code.google.com/p/aost/wiki/TenMinutesToTellurium  Ten Minutes to Tellurium]
