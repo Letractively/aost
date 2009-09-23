@@ -11,7 +11,7 @@ import org.tellurium.test.groovy.BaseTelluriumGroovyTestCase
  *
  * User: Jian Fang (John.Jian.Fang@gmail.com)
  */
-class TelluriumGroovyTestCase extends BaseTelluriumGroovyTestCase{
+abstract class TelluriumGroovyTestCase extends BaseTelluriumGroovyTestCase{
 
 //    protected EmbeddedSeleniumServer server;
 

@@ -18,4 +18,7 @@ class DslTelluriumGroovyTestCase extends BaseTelluriumGroovyTestCase{
             return connector
     }
 
+
+    public void testAlwaysSucceeds() {
+    }
 }

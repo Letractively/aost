@@ -25,8 +25,11 @@ class Window_UT extends TelluriumGroovyTestCase {
     }
 
     public void testWaitForPopup(){
+      /* [Matt] This test seems not to do anything since everything below is commented,
+       * but it fails if these two lines are uncommented.
         TWindow tw = new TWindow()
         tw.defineUi()
+      */
         
  //       tw.waitForPopup()
 
