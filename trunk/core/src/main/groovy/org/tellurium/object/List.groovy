@@ -100,6 +100,9 @@ class List extends Container {
 */
 
         //force to be direct child (if consider List trailer)
+        if(this.namespace != null && this.namespace.trim().length() > 0){
+          return "/${this.namespace}:${lastTag}[${lastOccur}]"
+        }
         return "/${lastTag}[${lastOccur}]"
     }
 
@@ -139,6 +142,11 @@ class List extends Container {
             return deriveListLocator(index)
 
 //        return "/descendant::" + separator + "[${index}]"
+                     //force to be direct child (if consider List trailer)
+        if(this.namespace != null && this.namespace.trim().length() > 0){
+          return "/${this.namespace}:" + separator + "[${index}]"
+        }
+
         return "/" + separator + "[${index}]"
     }
 
@@ -156,6 +164,9 @@ class List extends Container {
 
       Accessor accessor = new Accessor()
       if (this.separator != null && this.separator.trim().length() > 0) {
+        if(this.namespace != null && this.namespace.trim().length() > 0){
+          return accessor.getXpathCount(rl + "/${this.namespace}:${this.separator}")
+        }
         return accessor.getXpathCount(rl + "/${this.separator}")
       } else {
         int index = 1
