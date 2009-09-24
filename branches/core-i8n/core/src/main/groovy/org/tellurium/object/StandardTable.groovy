@@ -60,8 +60,6 @@ class StandardTable extends Container{
      public static final String FOOT = "FOOT"
      public static final String TBODY = "TBODY"
 
-     protected static final String INVALID_UID_ERROR_MESSAGE = "Invalid UID "
-
      protected TextBox defaultUi = new TextBox()
      //add a map to hold all the header elements
      def headers = [:]
@@ -87,7 +85,7 @@ class StandardTable extends Container{
                 components.put(internId, component)
             }
         }else{
-            throw new InvalidUidException("${INVALID_UID_ERROR_MESSAGE} ${component.uid}")
+            throw new InvalidUidException(i8nManager.translate("Container.InvalidUID" , {component.uid}))
         }
      }
 

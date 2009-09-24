@@ -206,7 +206,8 @@ abstract class UiObject implements Cloneable{
 
         //cannot find child
         String child = uiid.pop()
-        println("Cannot find UI Object ${child} in ${this.uid}")
+        
+        println(i8nManager.translate("Container.CannotFindUIObject" , {[child , this.uid]}))
 
         return null
     }

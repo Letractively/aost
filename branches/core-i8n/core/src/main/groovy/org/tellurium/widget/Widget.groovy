@@ -17,6 +17,7 @@ import org.json.simple.JSONArray
 import org.tellurium.locator.JQueryOptimizer
 import org.json.simple.JSONObject
 import org.tellurium.locator.MetaCmd
+import org.tellurium.i8n.InternationalizationManager
 
 /**
  * The base class for Widget objects.
@@ -32,8 +33,8 @@ import org.tellurium.locator.MetaCmd
  */
 //@Mixin(BaseDslContext)
 abstract class Widget extends UiObject {
- //later on, may need to refactor it to use resource file so that we can show message for different localities
-  protected static final String ERROR_MESSAGE = "Cannot find UI Object"
+  protected InternationalizationManager i8nManager = new InternationalizationManager()
+
   protected static final String JQUERY_SELECTOR = "jquery="
   protected static final String JQUERY_SELECTOR_CACHE = "jquerycache="
   protected static final String DEFAULT_XPATH = "default"
@@ -301,7 +302,7 @@ abstract class Widget extends UiObject {
       return obj
     }
 
-    throw new UiObjectNotFoundException("${ERROR_MESSAGE} ${uid}")
+    throw new UiObjectNotFoundException(i8nManager.translate("Widget.UiObjectError",{uid}))
   }
 
   def click(String uid) {
@@ -1212,7 +1213,8 @@ abstract class Widget extends UiObject {
       obj.traverse(context)
       ArrayList list = context.getUidList()
 
-      println("\nDump locator information for " + uid)
+      println(i8nManager.translate("Widget.LocatorInformation" , {uid} ))
+
       println("-------------------------------------------------------")
       list.each {String key->
         String loc = getLocator(key)
@@ -1243,7 +1245,7 @@ abstract class Widget extends UiObject {
     if (nextid.equalsIgnoreCase(this.uid)) {
       return this
     } else {
-      println("Cannot find UI Object ${nextid} in ${this.uid}")
+      println(i8nManager.translate("Widget.CannotFindUIObject" , {[nextid , this.uid]} ))
       return null
     }
   }

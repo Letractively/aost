@@ -8,9 +8,6 @@ import org.tellurium.widget.Widget
 abstract class DslContext extends BaseDslContext {
 
     //later on, may need to refactor it to use resource file so that we can show message for different localities
-    protected static final String ERROR_MESSAGE1 = "UI Object"
-    protected static final String ERROR_MESSAGE2 = "is not a Widget"
-  
     protected static final String XML_DOCUMENT_SCRIPT = """var doc = window.document;
         var xml = null;
         if(doc instanceof XMLDocument){
@@ -30,9 +27,9 @@ abstract class DslContext extends BaseDslContext {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         def obj = walkToWithException(context, uid)
         if (!(obj instanceof Widget)) {
-            println "Warning, Ui object ${uid} is not a widget"
+            println i8nManager.translate("DslContext.UIObject" , {uid})
 
-            throw new NotWidgetObjectException("${ERROR_MESSAGE1} ${uid} ${ERROR_MESSAGE2}")
+            throw new NotWidgetObjectException(i8nManager.translate("DslContext.UIObject" , {uid}))
         }
 
         //add reference xpath for the widget
@@ -46,10 +43,10 @@ abstract class DslContext extends BaseDslContext {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         def obj = walkToWithException(context, uid)
         if (!(obj instanceof Widget)) {
-            println "Error, Ui object ${uid} is not a widget"
+            println i8nManager.translate("DslContext.UIObject" , {uid})
 
-//            throw new RuntimeException("Ui object ${uid} is not a widget")
-            throw new NotWidgetObjectException("${ERROR_MESSAGE1} ${uid} ${ERROR_MESSAGE2}")
+//            throw new RuntimeException(i8nManager.translate("DslContext.UIObject" , {uid}))
+            throw new NotWidgetObjectException(i8nManager.translate("DslContext.UIObject" , {uid}))
         } else {
             if (obj.metaClass.respondsTo(obj, method, args)) {
 
@@ -305,7 +302,6 @@ abstract class DslContext extends BaseDslContext {
     //let the missing property return the a string of the properity, this is useful for the onWidget method
     //so that we can pass in widget method directly, instead of passing in the method name as a String
     def propertyMissing(String name) {
-        println "Warning: property ${name} is missing, treat it as a String. "
-        name
+        println i8nManager.translate("BaseDslContext.PropertyIsMissing" , {name})
     }
 }

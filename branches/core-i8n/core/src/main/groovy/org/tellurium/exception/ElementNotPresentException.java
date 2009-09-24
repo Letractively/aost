@@ -1,5 +1,7 @@
 package org.tellurium.exception;
 
+import org.tellurium.exception.TelluriumException;
+
 /**
  * Element not present exception
  *
@@ -12,7 +14,6 @@ package org.tellurium.exception;
 public class ElementNotPresentException extends TelluriumException{
 
   protected static final String ERROR_CODE = "TELLURIUM_ELEMENT_NOT_PRESENT";
-
   public ElementNotPresentException(String message) {
     super(message);
     this.errorCode = ERROR_CODE;

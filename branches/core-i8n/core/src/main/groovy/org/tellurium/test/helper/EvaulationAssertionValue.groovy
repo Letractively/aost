@@ -1,4 +1,6 @@
 package org.tellurium.test.helper
+import org.tellurium.i8n.InternationalizationManager
+
 /**
  * hold single parameter for evaulation
  *
@@ -9,8 +11,9 @@ package org.tellurium.test.helper
  */
 class EvaulationAssertionValue extends AssertionValue{
 
-    private static final String VALUE = "Value"
     private def value
+    protected InternationalizationManager i8nManager = new InternationalizationManager()
+
 
     public String toString() {
         final int typicalLength = 64
@@ -19,7 +22,7 @@ class EvaulationAssertionValue extends AssertionValue{
         final String fieldStart = " "
 
         StringBuilder sb = new StringBuilder(typicalLength)
-        sb.append(VALUE).append(avpSeparator).append("\"" + value + "\"").append(fieldSeparator)
+        sb.append(i8nManager.translate("EvaulationAssertionValue.Expected")).append(avpSeparator).append("\"" + value + "\"").append(fieldSeparator)
 
         return sb.toString()
     }

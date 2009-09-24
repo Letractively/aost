@@ -1,4 +1,7 @@
 package org.tellurium.dsl
+
+import org.tellurium.i8n.InternationalizationManager
+
 /**
  *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -8,6 +11,8 @@ package org.tellurium.dsl
  */
 
 public class DiagnosisResponse {
+  protected InternationalizationManager i8nManager = new InternationalizationManager()
+
   public static final String UID = "uid"
   private String uid;
 
@@ -39,16 +44,17 @@ public class DiagnosisResponse {
   }
 
   public void show() {
-    println("\nDiagnosis Result for " + uid);
+    println i8nManager.translate("DiagnosisResponse.DiagnosisResult" , {uid})
+    
     println("\n-------------------------------------------------------\n")
 
-    println("\tMatching count: " + count + "\n");
+    println i8nManager.translate("DiagnosisResponse.MatchingCount" , {count})
     if(matches != null && matches.size() > 0){
-      println("\tMatch elements: \n");
+      println i8nManager.translate("DiagnosisResponse.MatchingElement")
       int i = 0;
       matches.each {String elem ->
         i++;
-        println("\t--- Element " + i + " ---\n");
+        println i8nManager.translate("DiagnosisResponse.Element" , {i})
         println(elem + "\n");
       }
     }
@@ -58,24 +64,25 @@ public class DiagnosisResponse {
       int j = 0;
       parents.each {String elem ->
         j++;
-        println("\t--- Parent " + j + "---\n");
+        println i8nManager.translate("DiagnosisResponse.Parent" , {j})
         println(elem + "\n");
       }
     }
 
     if(closest != null && closest.size() > 0){
+      println i8nManager.translate("DiagnosisResponse.Closest")
       println("\n\tClosest: \n");
       int k = 0;
 
       closest.each {String elem ->
         k++;
-        println("\t--- closest element " + k + "---\n");
+        println i8nManager.translate("DiagnosisResponse.ClosestElement" , {k});
         println(elem + "\n");
       }
     }
 
     if(html != null){
-      println("HTML Source: \n")
+      println i8nManager.translate("DiagnosisResponse.HtmlSource")
       println(html);
       println("\n");
     }

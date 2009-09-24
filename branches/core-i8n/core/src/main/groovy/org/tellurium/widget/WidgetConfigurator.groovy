@@ -3,6 +3,8 @@ package org.tellurium.widget
 import org.tellurium.builder.UiObjectBuilderRegistry
 import org.tellurium.config.Configurable
 import org.tellurium.widget.WidgetBootstrap
+import org.tellurium.i8n.InternationalizationManager
+
 
 /**
  * Configure widgets
@@ -13,6 +15,8 @@ import org.tellurium.widget.WidgetBootstrap
  * 
  */
 class WidgetConfigurator implements Configurable{
+
+    protected InternationalizationManager i8nManager = new InternationalizationManager()
 
     protected final static String PACKAGE_DELIMITER = "."
     protected final static String WIDGET_MODULE_SEPARATOR = ","
@@ -29,7 +33,7 @@ class WidgetConfigurator implements Configurable{
                     WidgetBootstrap bootstrap = (WidgetBootstrap) Class.forName(fullname).newInstance()
                     bootstrap.loadWidget(registry)
                 }else{
-                    println "Warning, Widget module ${module} cannot be empty"
+                    println i8nManager.translate("WidgetConfigurator.ModuleNotempty" , {module} )
                 }
             }
         }

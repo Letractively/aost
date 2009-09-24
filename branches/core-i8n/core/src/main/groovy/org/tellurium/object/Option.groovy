@@ -72,11 +72,10 @@ class Option extends UiObject{
                 }
             }
         }else{
-            println "No UiOjbect ${this.uid} exists for option ${this.uid}"
-            return null
+        	println i8nManager.translate("Container.NoUIObjectForOption", {[this.uid , this.uid]})            
+        	return null
         }
-
-        println "Cannot find the xpath for objects presented by option ${this.uid}"
+        println i8nManager.translate("Container.CannotFindXPath", {this.uid})
         return null
     }
 }
