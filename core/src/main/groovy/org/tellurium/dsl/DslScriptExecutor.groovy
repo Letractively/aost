@@ -1,5 +1,6 @@
 package org.tellurium.dsl
 
+import org.tellurium.i8n.InternationalizationManager;
 class DslScriptExecutor {
 
     public static void main(String[] args){
@@ -13,7 +14,9 @@ class DslScriptExecutor {
                         init()
                         ${dsl}
                         shutDown()
-                        println("Dsl test done!")
+                        InternationalizationManager i8nManager = new InternationalizationManager()
+                        
+                        println i8nManager.translate("DslScriptExecutor.DslTestDone")
                     }
                 }
 
@@ -24,7 +27,9 @@ class DslScriptExecutor {
             new GroovyShell().evaluate(script)
 
        }else{
-           println("Usage: DslScriptExecutor dsl_file")
+    	   InternationalizationManager i8nManager = new InternationalizationManager()
+           
+           println i8nManager.translate("DslScriptExecutor.USage")
        }
 
     }

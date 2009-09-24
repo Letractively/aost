@@ -7,12 +7,15 @@ import org.tellurium.event.EventSorter
 import org.tellurium.exception.ElementNotPresentException
 import org.tellurium.util.Helper
 import java.awt.event.KeyEvent
+import org.tellurium.i8n.InternationalizationManager
+
 
 class EventHandler implements Configurable{
 
+	protected InternationalizationManager i8nManager = new InternationalizationManager()
+
     public static final String RETURN_KEY= "BSBS13"
 	public static final int ACTION_WAIT_TIME = 50
-    protected static final String ELEMENT_NOT_PRESENT_ERROR_MESSAGE = "Element is not present"
 
     //default is selenium dispatcher
     def dispatcher  = new Dispatcher()
@@ -87,7 +90,7 @@ class EventHandler implements Configurable{
             }
 
         }else{
-          throw new ElementNotPresentException("${ELEMENT_NOT_PRESENT_ERROR_MESSAGE} ${locator}")
+          throw new ElementNotPresentException(i8nManager.translate("EventHandler.ElementNotPresent" , {locator}))
         }
     }
     */

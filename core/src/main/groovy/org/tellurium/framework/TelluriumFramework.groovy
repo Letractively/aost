@@ -22,6 +22,8 @@ import org.tellurium.locator.LocatorProcessor
 import org.tellurium.locator.LocatorProcessorMetaClass
 import org.tellurium.server.EmbeddedSeleniumServer
 import org.tellurium.widget.WidgetConfigurator
+import org.tellurium.i8n.InternationalizationManager
+import org.tellurium.i8n.InternationalizationManagerMetaClass
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
@@ -41,6 +43,7 @@ class TelluriumFramework {
 
   private TelluriumConfigurator telluriumConfigurator
 
+
   TelluriumFramework() {
 
 //    By default ExpandoMetaClass doesn't do inheritance. To enable this you must call ExpandoMetaClass.enableGlobally()
@@ -56,6 +59,9 @@ class TelluriumFramework {
     registry.setMetaClass(Dispatcher, new DispatcherMetaClass())
 
     registry.setMetaClass(Extension, new ExtensionMetaClass())
+
+    registry.setMetaClass(InternationalizationManager ,new InternationalizationManagerMetaClass())
+   
 
     registry.setMetaClass(Accessor, new AccessorMetaClass())
 
@@ -117,7 +123,8 @@ class TelluriumFramework {
       server.setProperty("port", customConfig.getPort())
       server.setProperty("useMultiWindows", customConfig.isUseMultiWindows())
       server.setProperty("profileLocation", customConfig.getProfileLocation())
-      println "Overwrite Selenium server settings with custom configurations"
+      InternationalizationManager i8nManager = new InternationalizationManager()
+      println i8nManager.translate("TelluriumFramework.OverwriteSeleniumServerSettings")
 
       server.runSeleniumServer()
 
@@ -131,7 +138,7 @@ class TelluriumFramework {
         //only overwrite the server host if it is set
         connector.setProperty("seleniumServerHost", customConfig.getServerHost())
       }
-      println "Overwrite Selenium connector settings with custom configurations"
+      println i8nManager.translate("TelluriumFramework.OverwriteSeleniumConnectorSettings")
 
       connector.connectSeleniumServer()
 

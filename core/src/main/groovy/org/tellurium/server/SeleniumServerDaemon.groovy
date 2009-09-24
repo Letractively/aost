@@ -2,6 +2,8 @@ package org.tellurium.server
 
 import org.openqa.selenium.server.RemoteControlConfiguration
 import org.openqa.selenium.server.SeleniumServer
+import org.tellurium.i8n.InternationalizationManager
+
 
 /**
  * Programmatically run Selenium Server so that we do not have to
@@ -31,6 +33,9 @@ public class SeleniumServerDaemon {
     private String profileLocation = null;
 
     private String userExtension = null;
+
+    protected InternationalizationManager i8nManager = new InternationalizationManager()
+
 
     private String [] getParams(){
 		String cmd = "-port " + port + " -log " + logFile;
@@ -94,12 +99,12 @@ public class SeleniumServerDaemon {
 		  File userExt = new File(this.userExtension);
 		  if(userExt.exists()){
             config.setUserExtensions(userExt);
-            println("Use user extension file " + this.userExtension)
+            println i8nManager.translate("SeleniumServerDaemon.UserExtensionFile" , {this.userExtension})
           } else {
-            println "Error: No user-extensions.js found at given path: "+userExt.getAbsolutePath();
+            println i8nManager.translate("SeleniumServerDaemon.NoUserExtension" , {userExt.getAbsolutePath()})
           }
         }else{
-          println "Warning: No user-extensions.js found!"
+          println i8nManager.translate("SeleniumServerDaemon.NoUserExtensionWarning")
         }
 		try {
             server = new SeleniumServer(config);

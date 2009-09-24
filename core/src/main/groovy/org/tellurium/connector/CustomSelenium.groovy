@@ -4,6 +4,8 @@ import com.thoughtworks.selenium.DefaultSelenium
 import com.thoughtworks.selenium.CommandProcessor
 import org.tellurium.exception.*
 import org.tellurium.grid.GridSupport
+import org.tellurium.i8n.InternationalizationManager
+
 
 /**
  * Customize Selenium RC so that we can add custom methods to Selenium RC
@@ -16,6 +18,8 @@ import org.tellurium.grid.GridSupport
  * 
  */
 class CustomSelenium extends DefaultSelenium {
+
+    protected InternationalizationManager i8nManager = new InternationalizationManager();
 
     protected CustomCommand customClass = null
     protected String userExtension = null
@@ -54,7 +58,8 @@ class CustomSelenium extends DefaultSelenium {
       try{
         GridSupport.startSeleniumSession(host, port, browser, url)
       }catch (Exception e){
-        throw new TelluriumException ("Cannot start selenium:"+e.getMessage())
+    	  
+        throw new TelluriumException (i8nManager.translate("CustomSelenium.CannotStartSelenium" , {e.getMessage()}))
       }
     }
 
@@ -62,7 +67,7 @@ class CustomSelenium extends DefaultSelenium {
       try{
         GridSupport.startSeleniumSession(host, port, browser, url, options)
       }catch (Exception e){
-        throw new TelluriumException ("Cannot start selenium:"+e.getMessage())
+        throw new TelluriumException (i8nManager.translate("CustomSelenium.CannotStartSelenium" , {e.getMessage()}))
       }
     }
 
@@ -72,7 +77,8 @@ class CustomSelenium extends DefaultSelenium {
       try{
         GridSupport.closeSeleniumSession()
       }catch (Exception e){
-        throw new TelluriumException ("Cannot close selenium:"+e.getMessage())        
+    	  
+        throw new TelluriumException (i8nManager.translate("CustomSelenium.CannotCloseSelenium" , {e.getMessage()}))        
       }
 
 
