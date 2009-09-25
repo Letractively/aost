@@ -10,7 +10,7 @@
     </description>
     <url>http://code.google.com/p/aost</url>
     <prerequisites>
-        <maven>2.2.1</maven>
+        <maven>2.0.9</maven>
     </prerequisites>
     <issueManagement>
         <system>googlecode</system>
