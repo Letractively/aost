@@ -26,6 +26,38 @@ class XPathBuilder {
     return buildXPathWithPrefix(CHILD_PREFIX, tag, text, -1, attributes, null)
   }
 
+  public static String buildXPathWithoutPosition(String tag, String text, Map<String, String> attributes){
+    StringBuffer sb = new StringBuffer(TYPICAL_LENGTH)
+    if (tag != null && (tag.length() > 0)) {
+      //if the tag is available, use it
+      sb.append(tag)
+    } else {
+      //otherwise, use match all
+      sb.append(MATCH_ALL)
+    }
+
+    List<String> list = new ArrayList<String>()
+
+    String vText = buildText(text)
+    if (vText.length() > 0)
+      list.add(vText)
+
+    if (attributes != null && (!attributes.isEmpty())) {
+      attributes.each {String key, String value ->
+        String vAttr = buildAttribute(key, value)
+        if (vAttr.length() > 0)
+          list.add(vAttr)
+      }
+    }
+
+    if (!list.isEmpty()) {
+      String attr = list.join(" and ")
+      sb.append("[").append(attr).append("]")
+    }
+
+    return sb.toString()
+  }
+
   private static String buildXPathWithPrefix(String prefix, String tag, String text, int position, Map<String, String> attributes, Closure c) {
     StringBuffer sb = new StringBuffer(TYPICAL_LENGTH)
     sb.append(prefix)
