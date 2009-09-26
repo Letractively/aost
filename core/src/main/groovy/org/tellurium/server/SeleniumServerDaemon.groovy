@@ -26,6 +26,8 @@ public class SeleniumServerDaemon {
 
     private boolean slowResources = false;
 
+    private boolean trustAllSSLCertificates = false;
+
     private SeleniumServer server;
 
     private String profileLocation = null;
@@ -43,11 +45,12 @@ public class SeleniumServerDaemon {
     }
 
 	public SeleniumServerDaemon(int port, String logFile, boolean useMultiWindows,
-                                String profileLocation, String userExtension) {
+                 boolean trustAllSSLCertificates, String profileLocation, String userExtension) {
 		super();
 		this.port = port;
 		this.logFile = logFile;
 		this.useMultiWindows = useMultiWindows;
+        this.trustAllSSLCertificates = trustAllSSLCertificates;
 		listening = false;
 		if(this.port <0 )
 			port = DEFAULT_PORT;
@@ -88,6 +91,7 @@ public class SeleniumServerDaemon {
         if(this.profileLocation != null && this.profileLocation.trim().length() > 0){
 //          config.setProfilesLocation(new File(this.profileLocation));
           config.setFirefoxProfileTemplate(new File(this.profileLocation));
+          config.setTrustAllSSLCertificates(this.trustAllSSLCertificates);
         }
 
         if(this.userExtension != null && this.userExtension.trim().length() > 0){

@@ -14,6 +14,8 @@ tellurium{
         port = "4444"
         //whether to use multiple windows
         useMultiWindows = false
+        //whether to trust all SSL certs, i.e., option "-trustAllSSLCertificates"
+        trustAllSSLCertificates = true
         //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
         runInternally = true
         //profile location
