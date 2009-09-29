@@ -176,5 +176,7 @@ class Table_UT extends GroovyTestCase{
     result = table12.getLocator("OrderDetail[1][1]")
     assertNotNull(result)
     assertEquals("jquery=table.table > tbody > tr:has(td):eq(0) > td:eq(0)", result)
+    table12.disableJQuerySelector()
+    table12.dump("chromeDoctorSearchResultsresultstable")
   }
 }

@@ -24,5 +24,17 @@ public class Table12 extends DslContext{
       TextBox(uid: "row: 4, column: 4", clocator: [tag: "td", text: "Days from ", class: "tablecolumnheader"])
       TextBox(uid: "row: 5, column: 5", clocator: [tag: "td", text: "Status", class: "tablecolumnheader"])
     }
+
+    ui.Table(uid: "chromeDoctorSearchResultsresultstable", clocator: [id: "resultsTable"], group: "true", namespace: "html") {
+      TextBox(uid: "row:*,column:1", namespace: "html")  /* CardId */
+      TextBox(uid: "row:*,column:2", namespace: "html")  /* First Name */
+      TextBox(uid: "row:*,column:3", namespace: "html")  /* Last Name */
+      TextBox(uid: "row:*,column:4", namespace: "html")  /*Phone Number */
+      Container(uid: "row:*,column:5", namespace: "html") {  /* Operations */
+        UrlLink(uid: "edit", clocator: [text: "View/Edit Records"], namespace: "html")
+        UrlLink(uid: "summary", clocator: [text: "Summary"], namespace: "html")
+      }
+    }
+    
   }
 }
