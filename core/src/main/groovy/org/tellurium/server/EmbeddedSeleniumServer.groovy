@@ -19,6 +19,8 @@ class EmbeddedSeleniumServer implements Configurable{
 
     protected boolean useMultiWindows = false;
 
+    protected boolean trustAllSSLCertificates = false;
+
     protected int DEFAULT_DELAY_IN_SECONDS = 5;
 
     protected int serverDelayInSeconds = DEFAULT_DELAY_IN_SECONDS;
@@ -37,7 +39,7 @@ class EmbeddedSeleniumServer implements Configurable{
 
 		try {
 			daemon = new SeleniumServerDaemon (port, logFile, useMultiWindows,
-                    this.profileLocation, this.userExtension);
+                    this.trustAllSSLCertificates, this.profileLocation, this.userExtension);
 			daemon.run();
             Helper.pause(serverDelayInSeconds*1000)
 		} catch (Exception e) {
