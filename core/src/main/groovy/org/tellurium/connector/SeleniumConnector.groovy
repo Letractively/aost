@@ -48,6 +48,19 @@ class SeleniumConnector implements Configurable {
 //        sel.cleanSelectorCache();
 	}
 
+    public void configBrowser(String serverHost, int serverPort, String baseUrl, String browser, String browserOptions){
+        this.seleniumServerHost = serverHost;
+        this.port = serverPort;
+
+        if(baseUrl != null)
+          this.baseURL = baseUrl;
+
+        this.browser = browser;
+
+        if(browserOptions != null)
+          this.options = browserOptions;
+    }
+
     public void connectSeleniumServer() {
 
         //The selenium server startup logic is moved to EmbeddedSeleniumServer so that we can
@@ -91,12 +104,14 @@ class SeleniumConnector implements Configurable {
     }
 
 	public void disconnectSeleniumServer() {
+      if(customSelenium != null){
         CustomSelenium aseles = customSelenium.getActiveSeleniumSession();
 		if(aseles != null){
             //clean up cache before close the connection
             aseles.cleanSelectorCache();
 			customSelenium.closeSeleniumSession();
         }
+      }
 	}
 
     protected void initSeleniumClient(){
