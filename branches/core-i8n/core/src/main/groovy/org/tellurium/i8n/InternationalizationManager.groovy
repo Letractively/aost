@@ -49,6 +49,8 @@ class InternationalizationManager implements Configurable
 
   public ResourceBundle getResourceBundle()
   {
+	  if( resourceBundle == null )
+		  resourceBundle = createResourceBundle(Locale.getDefault())
     return resourceBundle;
   }
 
