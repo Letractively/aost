@@ -143,7 +143,10 @@ abstract class UiObjectBuilder extends Const {
         
         if(map.get(DIRECT) != null && TRUE.equalsIgnoreCase(map.get(DIRECT)))
             locator.direct = true
-        
+
+        if(map.get(INSIDE) != null && TRUE.equalsIgnoreCase(map.get(INSIDE)))
+            locator.inside = true
+
         locator.tag = map.get(TAG)
         //use default value  if TAG not specified
         if(locator.tag == null && df != null)

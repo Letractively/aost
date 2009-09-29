@@ -30,18 +30,23 @@ public class Const {
   
     //direct child of either the header or the parent UI
     public static final String DIRECT = "direct"
+    //inside an container element directly, useful for Tables
+    public static final String INSIDE = "inside"
+  
     public static final String RESPOND_TO_EVENTS = "respond"
     public static final String TITLE = "title"
     public static final String ID = "id"
     public static final String NAME = "name"
     public static final String CLASS = "class"
+    public static final String STYLE = "style"
 
     public static final String NOT_PREFIX = "!"
     public static final String START_PREFIX = "^"
     public static final String END_PREFIX = "\$"
     public static final String ANY_PREFIX = "*"
 
-    public static final String HAS = ":has"
+//    public static final String HAS = ":has"
+    public static final String HAS = ":group"
     public static final String MATCH_ALL = "*"
     public static final String SELECTOR_SEPARATOR = ", "
     public static final String ANY_DESCENDANT = "descendant::*"

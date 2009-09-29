@@ -99,8 +99,10 @@ class CustomSelenium extends DefaultSelenium {
         println "Add user-extensions.js found at given path: " + userExt.getAbsolutePath() + " to Command Processor";
       }
  */
-      csel.customClass = this.customClass
-      csel.passCommandProcessor(csel.commandProcessor)
+      if(csel != null){
+        csel.customClass = this.customClass
+        csel.passCommandProcessor(csel.commandProcessor)        
+      }
 //      csel.passCommandProcessor(processor)
 
       return csel
