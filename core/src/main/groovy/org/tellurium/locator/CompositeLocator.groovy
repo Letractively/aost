@@ -19,12 +19,17 @@ class CompositeLocator {
     String trailer
     def position
     boolean direct = false
+    boolean inside = false
     Map<String, String> attributes = [:]
 
     public String getTag(){
         return tag
     }
 
+/*    public boolean isInside(){
+      return this.inside
+    }*/
+  
     public boolean isIdIncluded(){
       boolean result = false
       String id = attributes.get(ID)
