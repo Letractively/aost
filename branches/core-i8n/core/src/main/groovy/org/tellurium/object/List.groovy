@@ -3,6 +3,9 @@ package org.tellurium.object
 import org.tellurium.access.Accessor
 import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
+import org.tellurium.locator.CompositeLocator
+import org.tellurium.locator.XPathBuilder
+import org.tellurium.locator.JQueryBuilder
 
 /**
  * Abstracted class for a list, which holds one dimension array of Ui objects
@@ -70,27 +73,37 @@ class List extends Container {
         return (upperId ==~ /[0-9]+/)
     }
 
+    protected String buildLocatorWithoutPosition(CompositeLocator locator){
+       return XPathBuilder.buildXPathWithoutPosition(locator.getTag(), locator.getText(), locator.getAttributes())
+    }
+
+    protected String buildJQuerySelectorWithoutPosition(CompositeLocator locator){
+       return JQueryBuilder.buildJQuerySelectorWithoutPosition(locator.getTag(), locator.getText(), locator.getAttributes())
+    }
+  
     // example:
     // //div/descendant-or-self::table[2]/descendant-or-self::table
     protected String deriveListLocator(int index) {
-        Map<String, Integer> tags = new HashMap<String, Integer>()
-        UiObject last = null
+        Map<String, Integer> locs = new HashMap<String, Integer>()
+        String last = null
         for (int i = 1; i <= index; i++) {
             UiObject obj = findUiObject(i)
-            String tag = obj.locator.getTag()
-            Integer occur = tags.get(tag)
+//            String tag = obj.locator.getTag()
+            String pl = this.buildLocatorWithoutPosition(obj.locator)
+            Integer occur = locs.get(pl)
             if (occur == null) {
-                tags.put(tag, 1)
+                locs.put(pl, 1)
             } else {
-                tags.put(tag, occur + 1)
+                locs.put(pl, occur + 1)
             }
             if (i == index) {
-                last = obj
+                last = pl
             }
         }
 
-        String lastTag = last.locator.getTag()
-        Integer lastOccur = tags.get(lastTag)
+//        String lastTag = last.locator.getTag()
+//        Integer lastOccur = loc.get(lastTag)
+          Integer lastOccur = locs.get(last)
       
 /*        if(last.locator.direct){
           return "/${lastTag}[${lastOccur}]"
@@ -100,28 +113,31 @@ class List extends Container {
 */
 
         //force to be direct child (if consider List trailer)
-        return "/${lastTag}[${lastOccur}]"
+        if(this.namespace != null && this.namespace.trim().length() > 0){
+          return "/${this.namespace}:${last}[${lastOccur}]"
+        }
+        return "/${last}[${lastOccur}]"
     }
 
     protected String deriveListSelector(int index) {
-        Map<String, Integer> tags = new HashMap<String, Integer>()
-        UiObject last = null
+        Map<String, Integer> locs = new HashMap<String, Integer>()
+        String last = null
         for (int i = 1; i <= index; i++) {
             UiObject obj = findUiObject(i)
-            String tag = obj.locator.getTag()
-            Integer occur = tags.get(tag)
+//            String pl = obj.locator.getTag()
+            String pl = this.buildJQuerySelectorWithoutPosition(obj.locator)
+            Integer occur = locs.get(pl)
             if (occur == null) {
-                tags.put(tag, 1)
+                locs.put(pl, 1)
             } else {
-                tags.put(tag, occur + 1)
+                locs.put(pl, occur + 1)
             }
             if (i == index) {
-                last = obj
+                last = pl
             }
         }
 
-        String lastTag = last.locator.getTag()
-        Integer lastOccur = tags.get(lastTag)
+        Integer lastOccur = locs.get(last)
 
 /*        if(last.locator.direct){
           return " > ${lastTag}:eq(${lastOccur-1})"
@@ -131,7 +147,7 @@ class List extends Container {
 */
 
         //force to be direct child (if consider List trailer)
-        return " > ${lastTag}:eq(${lastOccur-1})"
+        return " > ${last}:eq(${lastOccur-1})"
     }
 
     String getListLocator(int index) {
@@ -139,6 +155,11 @@ class List extends Container {
             return deriveListLocator(index)
 
 //        return "/descendant::" + separator + "[${index}]"
+                     //force to be direct child (if consider List trailer)
+        if(this.namespace != null && this.namespace.trim().length() > 0){
+          return "/${this.namespace}:" + separator + "[${index}]"
+        }
+
         return "/" + separator + "[${index}]"
     }
 
@@ -156,6 +177,9 @@ class List extends Container {
 
       Accessor accessor = new Accessor()
       if (this.separator != null && this.separator.trim().length() > 0) {
+        if(this.namespace != null && this.namespace.trim().length() > 0){
+          return accessor.getXpathCount(rl + "/${this.namespace}:${this.separator}")
+        }
         return accessor.getXpathCount(rl + "/${this.separator}")
       } else {
         int index = 1
@@ -175,7 +199,8 @@ class List extends Container {
         separators.add(this.separator)
       }else{
         this.components.each {key, component->
-          separators.add(component.locator.tag)
+//          separators.add(component.locator.tag)
+          separators.add(this.buildJQuerySelectorWithoutPosition(component.locator))
         }
       }
 

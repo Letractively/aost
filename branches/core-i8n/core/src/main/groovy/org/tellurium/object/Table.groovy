@@ -318,8 +318,13 @@ class Table extends Container {
     }
   }
 
+  protected boolean hasNamespace(){
+    return this.namespace != null && this.namespace.trim().length() > 0
+  }
   protected String getCellLocator(int row, int column) {
-
+    if(hasNamespace()){
+      return  "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:td][${row}]/${this.namespace}:td[${column}]"
+    }
     return tbody + "/tr[child::td][${row}]/td[${column}]"
   }
 
@@ -331,6 +336,9 @@ class Table extends Container {
   protected String getHeaderLocator(int column) {
 
 //        return "/tbody/tr[1]/th[${column}]"
+    if(this.hasNamespace()){
+      return "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th[${column}]"
+    }
     return tbody + "/tr[child::th]/th[${column}]"
   }
 
@@ -348,7 +356,12 @@ class Table extends Container {
     String rl = c(this.locator)
     Accessor accessor = new Accessor()
 //        String xpath = rl + "/tbody/tr[1]/th"
-    String xpath = rl + tbody + "/tr[child::th]/th"
+    String xpath;
+    if(this.hasNamespace()){
+       xpath = rl + "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th"
+    }else{
+       xpath = rl + tbody + "/tr[child::th]/th"
+    }
     int columnum = accessor.getXpathCount(xpath)
 
     return columnum
@@ -358,7 +371,13 @@ class Table extends Container {
 
     String rl = c(this.locator)
     Accessor accessor = new Accessor()
-    String xpath = rl + tbody + "/tr[child::td]/td[1]"
+    String xpath;
+    if(this.hasNamespace()){
+       xpath = rl + "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:td]/${this.namespace}:td[1]"
+    }else{
+       xpath = rl + tbody + "/tr[child::td]/td[1]"
+    }
+
     int rownum = accessor.getXpathCount(xpath)
 
     return rownum
@@ -369,8 +388,12 @@ class Table extends Container {
     String rl = c(this.locator)
     Accessor accessor = new Accessor()
     String xpath = rl
+    if(this.hasNamespace()){
+      xpath = xpath + "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:td][1]/${this.namespace}:td"
+    }else{
+      xpath = xpath + tbody + "/tr[child::td][1]/td"
+    }
 
-    xpath = xpath + tbody + "/tr[child::td][1]/td"
     int columnum = accessor.getXpathCount(xpath)
 
     return columnum

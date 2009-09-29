@@ -105,7 +105,7 @@ class TelluriumFramework {
     connector = new SeleniumConnector()
     telluriumConfigurator.config(connector)
 
-    connector.connectSeleniumServer()
+//    connector.connectSeleniumServer()
   }
 
   public void start(CustomConfig customConfig) {
@@ -140,7 +140,7 @@ class TelluriumFramework {
       }
       println i8nManager.translate("TelluriumFramework.OverwriteSeleniumConnectorSettings")
 
-      connector.connectSeleniumServer()
+//      connector.connectSeleniumServer()
 
     }
   }

@@ -127,6 +127,15 @@ public class JQueryBuilder {
     }
   }
 
+  protected static String attrStyle(String style){
+    String val = style
+    if(val == null || val.trim().length() == 0){
+      return "[style]"
+    }
+
+    return ":styles(${val})"
+  }
+
   protected static String attrPairs(String attr, String val){
     if(val == null || val.trim().length() == 0){
       return "[${attr}]"
@@ -203,7 +212,61 @@ public class JQueryBuilder {
     return false
   }
 
-  
+  public static String buildJQuerySelectorWithoutPosition(String tag, String text, Map<String, String> attributes){
+    StringBuffer sb = new StringBuffer(LENGTH)
+    //put the tag name first
+    sb.append(checkTag(tag))
+    if(attributes != null && attributes.size() > 0){
+      String id = attributes.get(ID)
+      if(id != null && id.trim().length() > 0){
+        id = id.trim()
+        if(id.startsWith(START_PREFIX) || id.startsWith(END_PREFIX) || id.startsWith(ANY_PREFIX) || id.startsWith(NOT_PREFIX)){
+               sb.append(attrId(id))
+        }else{
+        //should not add other attributes if the ID is presented since jQuery will only select the first element for
+        // the ID and additional attributes will not help at all
+        //also since id is unique, we do not need to include tag here
+          return " #${id}"
+        }
+      }
+
+      String clazz = attributes.get(CLASS)
+      if(clazz != null){
+          clazz = clazz.trim()
+          sb.append(attrClass(clazz))
+      }
+
+      String style = attributes.get(STYLE)
+      if(style != null){
+        style = style.trim()
+        sb.append(attrStyle(style))
+      }
+
+      Set keys = attributes.keySet()
+      for (String key: keys) {
+        String val = attributes.get(key)
+        if ((!key.equals(ID)) && (!key.equals(CLASS)) && (!key.equals(STYLE)) && (!inBlackList(key))) {
+          sb.append(attrPairs(key, val))
+        }
+      }
+    }
+
+    if(text != null && text.trim().length() > 0){
+      if(text.startsWith(CONTAIN_PREFIX)){
+        sb.append(containText(text.substring(2)))
+      }else if(text.startsWith(START_PREFIX) || text.startsWith(END_PREFIX) || text.startsWith(ANY_PREFIX)){
+        //TODO: need to refact this to use start, end, any partial match
+        sb.append(containText(text.substring(1)))
+      }else if(text.startsWith(NOT_PREFIX)){
+        sb.append(":not(${containText(text.substring(1))})")
+      }else{
+        sb.append(attrText(text))
+      }
+    }
+    
+    return sb.toString()
+  }
+
   public static String buildJQuerySelector(String tag, String text, String position, boolean direct, Map<String, String> attributes) {
     StringBuffer sb = new StringBuffer(LENGTH)
     if(direct){
@@ -234,10 +297,16 @@ public class JQueryBuilder {
           sb.append(attrClass(clazz))
       }
 
+      String style = attributes.get(STYLE)
+      if(style != null){
+        style = style.trim()
+        sb.append(attrStyle(style))
+      }
+
       Set keys = attributes.keySet()
       for (String key: keys) {
         String val = attributes.get(key)
-        if ((!key.equals(ID)) && (!key.equals(CLASS)) && (!inBlackList(key))) {
+        if ((!key.equals(ID)) && (!key.equals(CLASS)) && (!key.equals(STYLE)) && (!inBlackList(key))) {
           sb.append(attrPairs(key, val))
         }
       }
