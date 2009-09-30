@@ -18,11 +18,20 @@ tellurium{
         trustAllSSLCertificates = true
         //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
         runInternally = true
+        //By default, Selenium proxies every browser request; set this flag to make the browser use proxy only for URLs containing '/selenium-server'
+        avoidProxy = false
+        //stops re-initialization and spawning of the browser between tests
+        browserSessionReuse = false
+        //enabling this option will cause all user cookies to be archived before launching IE, and restored after IE is closed.
+        ensureCleanSession = false
+        //debug mode, with more trace information and diagnostics on the console
+        debugMode = false
+        //interactive mode
+        interactive = false
+        //an integer number of seconds before we should give up
+        timeoutInSeconds = 30
         //profile location
 //        profile = "/home/jiafan1/.mozilla/firefox/820j3ca9.default"
-//        profile = "/home/jiafan1/.mozilla/firefox/1my8aaxx.Default User2"
-//        profile = "/home/jiafan1/.mozilla/firefox/2v6vy2yh.default"
-//        profile = "/home/jiafan1/.mozilla/firefox/zlduhghq.test"
         profile = ""
         //user-extension.js file
         userExtension = "target/test-classes/extension/user-extensions.js"

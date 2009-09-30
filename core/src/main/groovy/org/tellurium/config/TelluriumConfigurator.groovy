@@ -32,6 +32,12 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
         server.setProperty("useMultiWindows", conf.tellurium.embeddedserver.useMultiWindows)
         server.setProperty("trustAllSSLCertificates", conf.tellurium.embeddedserver.trustAllSSLCertificates)
         server.setProperty("runSeleniumServerInternally", conf.tellurium.embeddedserver.runInternally)
+        server.setProperty("avoidProxy", conf.tellurium.embeddedserver.avoidProxy)
+        server.setProperty("browserSessionReuse", conf.tellurium.embeddedserver.browserSessionReuse)
+        server.setProperty("ensureCleanSession", conf.tellurium.embeddedserver.ensureCleanSession)
+        server.setProperty("debugMode", conf.tellurium.embeddedserver.debugMode)
+        server.setProperty("interactive", conf.tellurium.embeddedserver.interactive)
+        server.setProperty("timeoutInSeconds", conf.tellurium.embeddedserver.timeoutInSeconds)
         server.setProperty("profileLocation", conf.tellurium.embeddedserver.profile)
         server.setProperty("userExtension", conf.tellurium.embeddedserver.userExtension)
     }
