@@ -206,6 +206,7 @@
   * [http://notetodogself.blogspot.com/2009/06/tellurium-better-functional-test.html Tellurium: A Better Functional Test by Mikhail Koryak]
   * [http://startupmusings.blogspot.com/2009/06/experience-with-web-testing-frameworks.html Experience with Web Testing Frameworks by Harihara Vinayakaram]
   * [http://domsqablog.blogspot.com/2009/06/browser-based-testing-qa-perspective.html Why I use the Tellurium framework - an Automation QA perspective by Dominic Mooney]
+  * [http://blog.testlabs.com/2009/09/introduction-to-tellurium-for-web.html An Introduction to Tellurium For Web Testing by TestLabs.com]
 
 == Presentations and Videos ==
 
