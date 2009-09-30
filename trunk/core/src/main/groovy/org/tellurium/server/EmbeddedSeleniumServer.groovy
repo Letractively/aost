@@ -23,6 +23,18 @@ class EmbeddedSeleniumServer implements Configurable{
 
     protected int DEFAULT_DELAY_IN_SECONDS = 5;
 
+    protected int timeoutInSeconds = 30;
+
+    protected boolean avoidProxy = false;
+
+    protected boolean browserSessionReuse = false;
+
+    protected boolean ensureCleanSession = false;
+
+    protected boolean debugMode = false;
+
+    protected boolean interactive = false;
+
     protected int serverDelayInSeconds = DEFAULT_DELAY_IN_SECONDS;
 
 	protected boolean runSeleniumServerInternally = true;
@@ -38,8 +50,9 @@ class EmbeddedSeleniumServer implements Configurable{
     public void setUpSeleniumServer(){
 
 		try {
-			daemon = new SeleniumServerDaemon (port, logFile, useMultiWindows,
-                    this.trustAllSSLCertificates, this.profileLocation, this.userExtension);
+			daemon = new SeleniumServerDaemon (port, logFile, useMultiWindows, this.trustAllSSLCertificates,
+                    this.avoidProxy, this.browserSessionReuse, this.ensureCleanSession, this.debugMode, this.interactive,
+                    this.timeoutInSeconds, this.profileLocation, this.userExtension);
 			daemon.run();
             Helper.pause(serverDelayInSeconds*1000)
 		} catch (Exception e) {
