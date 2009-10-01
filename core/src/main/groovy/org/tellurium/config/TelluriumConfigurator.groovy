@@ -40,18 +40,20 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
   protected void configI8nManager(InternationalizationManager i8nManager , conf) {
     String definedLocales = null
     def locale = null
-    
+
     if(conf != null  && conf.tellurium!=null && conf.tellurium.i8n!=null && conf.tellurium.i8n.locales!=null ){
       definedLocales = conf.tellurium.i8n.locales
       String[] localeString = definedLocales.split("_")
-      locale = new Locale(localeString[0] , localeString[1])
+      if(localeString.length == 2)
+    	  locale = new Locale(localeString[0] , localeString[1])
+      else
+    	  locale = Locale.getDefault();
     }
     else
       locale = Locale.getDefault();
     
     if(locale == null)
     	locale = new Locale("en" , "EN");
-    
     i8nManager.createResourceBundle(locale);
   }
 
