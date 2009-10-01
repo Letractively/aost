@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.tellurium.i8n.InternationalizationManager;
+
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *         
@@ -21,6 +23,8 @@ public class UiParser {
     private UiDataReader reader = new UiDataReader();
 
     private Tree tree = new Tree();
+    protected static InternationalizationManager i8nManager = new InternationalizationManager();
+
 
     protected Map<String, String> parseAttributes(String attributes){
         Map<String, String> attrs = new HashMap<String, String>();
@@ -76,7 +80,7 @@ public class UiParser {
 
             tree.printUI();
         } catch (FileNotFoundException e) {
-            System.out.println("Cannot read file: " + filename);
+        	System.out.println(i8nManager.translate("UIParser.FileNotFoundException" , new Object[]{filename}));
         }
     }
 
@@ -85,7 +89,8 @@ public class UiParser {
            UiParser parser = new UiParser();
            parser.parseFile(args[0]);
        }else{
-           System.out.println("Usage: UiParser filename");
+       		System.out.println(i8nManager.translate("UIParser.Usage" ));
+
        }
     }
 }

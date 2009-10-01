@@ -9,10 +9,8 @@ package org.tellurium.test.helper
  */
 class ComparisonAssertionValue extends AssertionValue{
 
-    private static final String EXPECTED = "Expected"
     private def expected
 
-    private static final String ACTUAL = "Actual"
     private def actual
 
     public String toString() {
@@ -22,8 +20,8 @@ class ComparisonAssertionValue extends AssertionValue{
         final String fieldStart = " "
 
         StringBuilder sb = new StringBuilder(typicalLength)
-        sb.append(EXPECTED).append(avpSeparator).append("\"" + expected + "\"").append(fieldSeparator)
-        sb.append(fieldStart).append(ACTUAL).append(avpSeparator).append("\"" + actual + "\"").append(fieldSeparator)
+        sb.append(i8nManager.translate("ComparisonAssertionValue.Expected")).append(avpSeparator).append("\"" + expected + "\"").append(fieldSeparator)
+        sb.append(fieldStart).append(i8nManager.translate("ComparisonAssertionValue.Actual")).append(avpSeparator).append("\"" + actual + "\"").append(fieldSeparator)
 
         return sb.toString()
     }

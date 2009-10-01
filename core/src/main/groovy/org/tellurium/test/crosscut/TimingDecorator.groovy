@@ -1,4 +1,6 @@
 package org.tellurium.test.crosscut
+import org.tellurium.i8n.InternationalizationManager
+
 
 /**
  * 
@@ -11,6 +13,8 @@ package org.tellurium.test.crosscut
 public class TimingDecorator {
 //    @Delegate
     private delegate
+    private InternationalizationManager i8nManager = new InternationalizationManager()
+
 
     private Logger logger
 
@@ -71,10 +75,10 @@ public class TimingDecorator {
         if(methodInWhiteList(name)){
           accumulatedTime += duration
 //          println "Calling $name($args) in ${duration} ms <-- Accumulated "
-          logger.log("Calling $name($args) in ${duration} ms <-- Accumulated ")
+          logger.log(i8nManager.translate("TimingDecorator.MethodInWhiteList" , {[name,args,duration]} ))
         }else{
+          logger.log(i8nManager.translate("TimingDecorator.MethodNotInWhiteList" , {[name,args,duration]} ))
 //          println "Calling $name($args) in ${duration} ms"
-          logger.log("Calling $name($args) in ${duration} ms")
         }
       
         result
@@ -94,7 +98,8 @@ public class TimingDecorator {
   }
 
   public void outputResult() {
-    logger.log("\n\nFinal results:");
+
+    logger.log(i8nManager.translate("TimingDecorator.FinalResults"))
     for (TimingResult result: results) {
       logger.log(result.strResult());
     }
