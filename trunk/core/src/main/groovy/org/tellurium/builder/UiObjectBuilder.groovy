@@ -7,6 +7,8 @@ import org.tellurium.object.Container
 import org.tellurium.object.UiObject
 import org.tellurium.Const
 import org.tellurium.object.Table
+import org.tellurium.i8n.InternationalizationManager
+
 
 /**
  *  Basic UI object builder
@@ -16,27 +18,30 @@ import org.tellurium.object.Table
  */
 abstract class UiObjectBuilder extends Const {
 
+    protected InternationalizationManager i8nManager = new InternationalizationManager();
+
     def abstract build(Map map, Closure c);
 
     boolean validate(UiObject obj, Map map){
         boolean valid = true
         if(map == null || map.isEmpty()){
-            println("Error: Must specified ID and other attributes for the UI object")
+        	
+            println i8nManager.translate("UIObjectBuilder.EmptyMap")
             return false
         }
 
         if(map.get(UID) == null){
-            println("Error: UID must be specified")
+            println i8nManager.translate("UIObjectBuilder.UIDRequired")
             return false
         }
         
         if(map.get(LOCATOR) != null && map.get(CLOCATOR) != null){
-            println("Error: cannot use both locator and composite to define UI")
+            println i8nManager.translate("UIObjectBuilder.LocatorRequired")
             return false
         }
 
         if(map.get(USE_GROUP_INFO) != null && (!Container.class.isAssignableFrom(obj.getClass())) ){
-           println("Error: only Container or its child classes can use Group information to infer its locator")
+           println i8nManager.translate("UIObjectBuilder.GroupInfoRequired")
            return false
         }
         return valid
@@ -54,7 +59,7 @@ abstract class UiObjectBuilder extends Const {
 
     def internBuild(UiObject obj, Map map, Map df){
        if(!validate(obj, map))
-         throw new RuntimeException("UI Object definition error")
+         throw new RuntimeException(i8nManager.translate("UIObjectBuilder.ObjectDefinitionError"))
 
         //make all lower cases
         map = makeCaseInsensitive(map)

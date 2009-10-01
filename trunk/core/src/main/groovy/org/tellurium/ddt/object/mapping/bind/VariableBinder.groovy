@@ -2,6 +2,8 @@ package org.tellurium.ddt.object.mapping.bind
 
 import org.tellurium.ddt.object.mapping.DataMappingException
 import org.tellurium.ddt.object.mapping.mapping.FieldSetMapResult
+import org.tellurium.i8n.InternationalizationManager
+
 
 /**
  *
@@ -15,28 +17,29 @@ import org.tellurium.ddt.object.mapping.mapping.FieldSetMapResult
 class VariableBinder {
 
     public static final String ID_SEPARATOR = '\\.'
-    protected final static String ERROR_INVALID_DATA_FIELD_ID = "Invalid data field id "
-    protected final static String ERROR_DATA_FIELD_ID_CANNOT_BE_NULL = "data field id cannot be null"
-    protected final static String ERROR_CANNOT_FIND_DATA_FIELD = "Cannot find data field "
+    protected InternationalizationManager i8nManager = new InternationalizationManager();
+
 
     protected ObjectBindRegistry registry = new ObjectBindRegistry()
 
     //useString duck type here
     public def bind(String dataFieldId){
         if(dataFieldId == null)
-            throw new DataMappingException(ERROR_DATA_FIELD_ID_CANNOT_BE_NULL)
+        	
+            throw new DataMappingException(i8nManager.translate("VariableBinder.DataFieldCannotBeNull"))
 
         def obj 
         String[] fls = dataFieldId.split(ID_SEPARATOR)
 
         if(fls.length > 2)
-            throw new DataMappingException(ERROR_INVALID_DATA_FIELD_ID + dataFieldId)
+            throw new DataMappingException(i8nManager.translate("VariableBinder.InvalidDataFieldId" , {dataFieldId})
+)
 
         //the FieldSet Id is omitted, this implies that there is only one FieldSet defined
         if(fls.length == 1){
             FieldSetMapResult result = registry.getUniqueOne()
             if(result == null)
-               throw new DataMappingException(ERROR_CANNOT_FIND_DATA_FIELD + dataFieldId)
+               throw new DataMappingException(i8nManager.translate("VariableBinder.CannotFindDataField" , {dataFieldId}))
             obj = result.getDataField(fls[0].trim())
         }else{
             //we have fieldSetId and DataFieldName
@@ -44,7 +47,7 @@ class VariableBinder {
             String dataFieldName = fls[1].trim()
             FieldSetMapResult result = registry.getFieldSetMapResult(fieldSetId)
             if(result == null)
-               throw new DataMappingException(ERROR_CANNOT_FIND_DATA_FIELD + dataFieldId)
+                throw new DataMappingException(i8nManager.translate("VariableBinder.CannotFindDataField" , {dataFieldId}))
             obj = result.getDataField(dataFieldName)
         }
 
