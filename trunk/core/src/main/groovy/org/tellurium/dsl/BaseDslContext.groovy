@@ -1,18 +1,17 @@
 package org.tellurium.dsl
 
-import org.json.simple.JSONObject
-import org.stringtree.json.JSONReader
-import org.tellurium.access.Accessor
-import org.tellurium.dsl.UiDslParser
-import org.tellurium.dsl.WorkflowContext
-import org.tellurium.event.EventHandler
-import org.tellurium.exception.UiObjectNotFoundException
-import org.tellurium.extend.Extension
-import org.tellurium.object.List
-import org.tellurium.object.StandardTable
-import org.tellurium.object.UiObject
-import org.tellurium.util.Helper
-import org.tellurium.locator.*
+import org.json.simple.JSONObject;
+import org.stringtree.json.JSONReader;
+import org.tellurium.access.Accessor;
+import org.tellurium.event.EventHandler;
+import org.tellurium.exception.UiObjectNotFoundException;
+import org.tellurium.extend.Extension;
+import org.tellurium.i8n.InternationalizationManager
+import org.tellurium.locator.JQueryOptimizer;
+import org.tellurium.locator.LocatorProcessor;
+import org.tellurium.locator.MetaCmd;
+import org.tellurium.object.StandardTable;
+import org.tellurium.object.UiObject;
 
 /**
  * 
@@ -23,8 +22,8 @@ import org.tellurium.locator.*
  */
 abstract class BaseDslContext {
 
-  //later on, may need to refactor it to use resource file so that we can show message for different localities
-  protected static final String ERROR_MESSAGE = "Cannot find UI Object"
+  protected InternationalizationManager i8nManager = new InternationalizationManager()
+
   protected static final String JQUERY_SELECTOR = "jquery="
   protected static final String JQUERY_SELECTOR_CACHE = "jquerycache="
   protected static final String DEFAULT_XPATH = "default"
@@ -218,7 +217,7 @@ abstract class BaseDslContext {
       return obj
     }
 
-    throw new UiObjectNotFoundException("${ERROR_MESSAGE} ${uid}")
+    throw new UiObjectNotFoundException(i8nManager.translate("BaseDslContext.CannotFindUIObject" , {uid}))
   }
 
   String getConsoleInput(){
@@ -1157,7 +1156,7 @@ abstract class BaseDslContext {
       obj.traverse(context)
       ArrayList list = context.getUidList()
 
-      println("\nDump locator information for " + uid)
+      println(i8nManager.translate("BaseDslContext.DumpLocatorInformation", {uid}))
       println("-------------------------------------------------------")
       list.each {String key->
         String loc = getLocator(key)

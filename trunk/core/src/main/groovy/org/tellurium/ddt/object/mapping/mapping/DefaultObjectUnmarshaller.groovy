@@ -3,6 +3,7 @@ package org.tellurium.ddt.object.mapping.mapping
 import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
 import org.tellurium.ddt.object.mapping.type.TypeHandler
 import org.tellurium.ddt.object.mapping.DataMappingException
+import org.tellurium.i8n.InternationalizationManager;
 
 /**
  * Default implementation to convert a data field to a Java object
@@ -14,7 +15,7 @@ import org.tellurium.ddt.object.mapping.DataMappingException
  */
 class DefaultObjectUnmarshaller implements ObjectUnmarshaller{
 
-    protected final static String ERROR_UNSUPPORTED_FIELD_TYPE = "Unsupported field type";
+    protected InternationalizationManager i8nManager = new InternationalizationManager();
 
     protected TypeHandlerRegistry registry
 
@@ -25,7 +26,7 @@ class DefaultObjectUnmarshaller implements ObjectUnmarshaller{
     public Object unmarshal(String type, String data) {
         TypeHandler handler = registry.getTypeHandler(type)
         if(handler == null)
-            throw new DataMappingException(ERROR_UNSUPPORTED_FIELD_TYPE)
+            throw new DataMappingException(i8nManager.translate("ObjectUnmarshaller.UnsupportedFieldType"))
         return handler.valueOf(data)
     }
 

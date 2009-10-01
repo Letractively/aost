@@ -7,6 +7,7 @@ import org.tellurium.ddt.object.mapping.Field
 import org.tellurium.ddt.object.mapping.DataMappingException
 import org.tellurium.ddt.object.mapping.validator.FieldSetValidator
 import org.tellurium.ddt.object.mapping.FieldSetType
+import org.tellurium.i8n.InternationalizationManager;
 
 /**
  * The default implemention of the FieldSet Object Mapper
@@ -17,13 +18,12 @@ import org.tellurium.ddt.object.mapping.FieldSetType
  *
  */
 abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
-    protected final static String ERROR_INVALID_DATA = "Invalid Data "
-    protected final static String CANNOT_FIND_FIELD_SET = "Cannot find a matching field set for input: "
-    protected final static String ERROR_DATA_FIELD_SIZE_NOT_MATCH = "The data size does not match the size of the Field Set "
     protected final static String COMMENT_PREFIX = "##"
     protected final static String BLOCK_START_PREFIX = "#{"
     protected final static String BLOCK_END_PREFIX = "#}"
     protected final static String META_DATA_PREFIX = "#!"
+    protected InternationalizationManager i8nManager = new InternationalizationManager();
+
 
     protected FieldSetRegistry registry
 
@@ -60,7 +60,8 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
         }
 
         if(fs == null)
-            throw new DataMappingException(CANNOT_FIND_FIELD_SET + convString(fieldData))
+        	
+            throw new DataMappingException(i8nManager.translate("FieldSetObjectMapper.CannotFindFieldSet" , {convString(fieldData)}))
 
         FieldSetValidator.validate(fs, fieldData)
         FieldSetMapResult result = new FieldSetMapResult()
@@ -69,8 +70,7 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
         if(fieldData != null && fieldData.size() > 0){
 			//check all the type maps for this field set
             if(fieldData.size() != fs.getFields().size())
-                throw new DataMappingException(ERROR_DATA_FIELD_SIZE_NOT_MATCH + fs.getName())
-
+                throw new DataMappingException(i8nManager.translate("FieldSetObjectMapper.DataFieldSizeDoNotMatch" , {fs.getName()}))
             for(int i=0; i<fieldData.size(); i++){
                 Field df = fs.getFields().get(i)
                 def value = marshaller.unmarshal(df.getType(), fieldData.get(i))
