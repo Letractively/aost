@@ -5,14 +5,16 @@ import org.tellurium.config.Configurable
 import org.tellurium.dispatch.Dispatcher
 import org.tellurium.exception.ElementNotPresentException
 import org.tellurium.util.Helper
+import org.tellurium.i8n.InternationalizationManager
+
 
 class Accessor implements Configurable{
+
+    private InternationalizationManager i8nManager = new InternationalizationManager();
 
     protected static final int ACCESS_WAIT_TIME = 50
 
     private static final String DISABLED_ATTRIBUTE = "@disabled"
-
-    protected static final String ELEMENT_NOT_PRESENT_ERROR_MESSAGE = "Element is not present"
 
     def dispatcher  = new Dispatcher()
 
