@@ -2,11 +2,13 @@ package org.tellurium.dispatch
 
 import org.tellurium.client.SeleniumClient
 import org.tellurium.config.Configurable
+import org.tellurium.i8n.InternationalizationManager;
 
 
 
 class Dispatcher implements GroovyInterceptable, Configurable {
     public static final String PLACE_HOLDER = "\\?"
+    protected static InternationalizationManager i8nManager = new InternationalizationManager();
 
     private boolean captureScreenshot = false
     private String filenamePattern = "Screenshot?.png"
@@ -29,7 +31,7 @@ class Dispatcher implements GroovyInterceptable, Configurable {
                 long timestamp = System.currentTimeMillis()
                 String filename = filenamePattern.replaceFirst(PLACE_HOLDER, "${timestamp}")
                 sc.client.getActiveSeleniumSession().captureScreenshot(filename)
-                println "Screenshot for exception <<" + e.getMessage() + ">> is saved to file ${filename}"
+                println i8nManager.translate("Dispatcher.ExceptionMessage" , {[e.getMessage() , filename]})
             }
             throw e
         }

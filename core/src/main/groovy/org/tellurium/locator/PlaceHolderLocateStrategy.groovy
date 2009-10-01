@@ -1,8 +1,12 @@
 package org.tellurium.locator
 
+import org.tellurium.i8n.InternationalizationManager;
+
 class PlaceHolderLocateStrategy {
 
     public static final String PLACE_HOLDER = "\\?";
+    protected static InternationalizationManager i8nManager = new InternationalizationManager()
+
 
     def static boolean canHandle(locator){
        if(locator instanceof PlaceHolderLocator)
@@ -13,7 +17,7 @@ class PlaceHolderLocateStrategy {
 
     def static String locate(PlaceHolderLocator locator){
         if(locator == null)
-            throw new RuntimeException("Invalid null locator")
+            throw new RuntimeException(i8nManager.translate("PlaceHolderLocatorStrategy.InvalidNullLocator"))
         def template = locator.template
         def attributes = locator.attributes
 
@@ -26,7 +30,7 @@ class PlaceHolderLocateStrategy {
 			if(attribute != null){
 				loc = loc.replaceFirst(PLACE_HOLDER, attribute);
 			}else{
-				throw new RuntimeException("Invalid null attribute\n");
+	            throw new RuntimeException(i8nManager.translate("PlaceHolderLocatorStrategy.InvalidNullAttribute"))
 			}
 		}
 

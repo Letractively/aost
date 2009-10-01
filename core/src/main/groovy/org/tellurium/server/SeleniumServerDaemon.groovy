@@ -2,6 +2,8 @@ package org.tellurium.server
 
 import org.openqa.selenium.server.RemoteControlConfiguration
 import org.openqa.selenium.server.SeleniumServer
+import org.tellurium.i8n.InternationalizationManager
+
 
 /**
  * Programmatically run Selenium Server so that we do not have to
@@ -28,23 +30,14 @@ public class SeleniumServerDaemon {
 
     private boolean trustAllSSLCertificates = false;
 
-    private int timeoutInSeconds = 30;
-
-    private boolean avoidProxy = false;
-
-    private boolean browserSessionReuse = false;
-
-    private boolean ensureCleanSession = false;
-
-    private boolean debugMode = false;
-
-    private boolean interactive = false;
-    
     private SeleniumServer server;
 
     private String profileLocation = null;
 
     private String userExtension = null;
+
+    protected InternationalizationManager i8nManager = new InternationalizationManager()
+
 
     private String [] getParams(){
 		String cmd = "-port " + port + " -log " + logFile;
@@ -56,21 +49,13 @@ public class SeleniumServerDaemon {
 		return cmd.split(" ");
     }
 
-	public SeleniumServerDaemon(int port, String logFile, boolean useMultiWindows, boolean trustAllSSLCertificates,
-          boolean avoidProxy, boolean browserSessionReuse, boolean ensureCleanSession, boolean debugMode, boolean interactive,
-          int timeoutInSeconds, String profileLocation, String userExtension) {
+	public SeleniumServerDaemon(int port, String logFile, boolean useMultiWindows,
+                 boolean trustAllSSLCertificates, String profileLocation, String userExtension) {
 		super();
 		this.port = port;
 		this.logFile = logFile;
 		this.useMultiWindows = useMultiWindows;
         this.trustAllSSLCertificates = trustAllSSLCertificates;
-        this.avoidProxy = avoidProxy;
-        this.browserSessionReuse = browserSessionReuse;
-        this.ensureCleanSession = ensureCleanSession;
-        this.debugMode = debugMode;
-        this.interactive = interactive;
-        this.timeoutInSeconds = timeoutInSeconds;
-
 		listening = false;
 		if(this.port <0 )
 			port = DEFAULT_PORT;
@@ -111,26 +96,19 @@ public class SeleniumServerDaemon {
         if(this.profileLocation != null && this.profileLocation.trim().length() > 0){
 //          config.setProfilesLocation(new File(this.profileLocation));
           config.setFirefoxProfileTemplate(new File(this.profileLocation));
+          config.setTrustAllSSLCertificates(this.trustAllSSLCertificates);
         }
-
-        config.setTrustAllSSLCertificates(this.trustAllSSLCertificates);
-        config.setTimeoutInSeconds(this.timeoutInSeconds);
-        config.setAvoidProxy(this.avoidProxy);
-        config.setReuseBrowserSessions(this.browserSessionReuse);
-        config.setInteractive(this.interactive);
-        config.setDebugMode(this.debugMode);
-        config.setEnsureCleanSession(this.ensureCleanSession);
 
         if(this.userExtension != null && this.userExtension.trim().length() > 0){
 		  File userExt = new File(this.userExtension);
 		  if(userExt.exists()){
             config.setUserExtensions(userExt);
-            println("Use user extension file " + this.userExtension)
+            println i8nManager.translate("SeleniumServerDaemon.UserExtensionFile" , {this.userExtension})
           } else {
-            println "Error: No user-extensions.js found at given path: "+userExt.getAbsolutePath();
+            println i8nManager.translate("SeleniumServerDaemon.NoUserExtension" , {userExt.getAbsolutePath()})
           }
         }else{
-          println "Warning: No user-extensions.js found!"
+          println i8nManager.translate("SeleniumServerDaemon.NoUserExtensionWarning")
         }
 		try {
             server = new SeleniumServer(config);
