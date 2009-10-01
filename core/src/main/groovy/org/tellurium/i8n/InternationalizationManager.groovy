@@ -4,7 +4,7 @@ import java.text.MessageFormat
 import org.tellurium.config.Configurable
 
 /**
- * InternationalizationManager
+ * InternationalizationManager - provides internationalization support
  *
  * @author Ajay (ajay.ravichandran@gmail.com)
  *
@@ -49,6 +49,8 @@ class InternationalizationManager implements Configurable
 
   public ResourceBundle getResourceBundle()
   {
+	  if( resourceBundle == null )
+		  resourceBundle = createResourceBundle(Locale.getDefault())
     return resourceBundle;
   }
 
