@@ -1,8 +1,15 @@
 package org.tellurium.tool;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.tellurium.i8n.InternationalizationManager;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -11,8 +18,6 @@ import java.util.Map;
  */
 public class UiDataReader {
     
-    protected final static String ERROR_DATA_READ_EXCEPTION = "Read data exception";
-    protected final static String ERROR_DATA_SIZE_EXCEPTION = "Input data size not correct";
     public final static String UID = "uid";
     public final static String ATTRIBUTES = "attributes";
     public final static String XPATH = "xpath";
@@ -20,6 +25,9 @@ public class UiDataReader {
     protected final static String FIELD_DELIMITER = "\\|";
 	protected final static String ESCAPE_START = "\\Q";
 	protected final static String ESCAPE_END = "\\E";
+	
+    protected InternationalizationManager i8nManager = new InternationalizationManager();
+
 
     public BufferedReader getReaderForDate(String data){
         ByteArrayInputStream bais = new ByteArrayInputStream(data.getBytes());
@@ -72,7 +80,7 @@ public class UiDataReader {
             }
             
         }catch (IOException e) {
-			throw new RuntimeException(ERROR_DATA_READ_EXCEPTION + " " + e.getMessage());
+        	i8nManager.translate("UIDataReader.ReadDataException" , new Object[]{e.getMessage()});
 		}
 
 		return dfm;

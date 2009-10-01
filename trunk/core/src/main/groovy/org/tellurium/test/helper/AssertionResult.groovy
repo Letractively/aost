@@ -1,6 +1,8 @@
 package org.tellurium.test.helper
 
 import junit.framework.AssertionFailedError
+import org.tellurium.i8n.InternationalizationManager
+
 
 /**
  * Hold the result for the assertions
@@ -15,11 +17,12 @@ class AssertionResult {
     private static final String VALUE = "value"
     private AssertionValue value
 
-    private static final String PASSED = "Successful"
     private boolean passed
 
-    private static final String ASSERTION_ERROR = "Error"
     private AssertionFailedError error
+
+    protected InternationalizationManager i8nManager = new InternationalizationManager()
+
 
     public boolean isPassed(){
         return passed
@@ -33,13 +36,13 @@ class AssertionResult {
 
         StringBuilder sb = new StringBuilder(typicalLength)
         sb.append(value.toString())
-        sb.append(fieldStart).append(PASSED).append(avpSeparator).append(passed)
+        sb.append(fieldStart).append(i8nManager.translate("AssertionResult.Successful")).append(avpSeparator).append(passed)
         if (error != null){
             sb.append(fieldSeparator)
             String errorMsg = error.getMessage()
             if(errorMsg == null)
-                errorMsg = "Result Comparison Error"
-            sb.append(fieldStart).append(ASSERTION_ERROR).append(avpSeparator).append("\"" + errorMsg + "\"")
+                errorMsg = i8nManager.translate("AssertionResult.ResultComparisonError")
+            sb.append(fieldStart).append(i8nManager.translate("AssertionResult.AssertionError")).append(avpSeparator).append("\"" + errorMsg + "\"")
         }
 
         return sb.toString()

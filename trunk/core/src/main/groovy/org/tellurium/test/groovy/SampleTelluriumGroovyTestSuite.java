@@ -1,9 +1,10 @@
 package org.tellurium.test.groovy;
 
-import junit.framework.TestSuite;
-import junit.framework.Test;
-import junit.extensions.TestSetup;
 import groovy.util.GroovyTestSuite;
+import junit.extensions.TestSetup;
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 import org.tellurium.bootstrap.TelluriumSupport;
 import org.tellurium.framework.TelluriumFramework;
 

@@ -1,5 +1,7 @@
 package org.tellurium.tool;
 
+import org.tellurium.i8n.InternationalizationManager;
+
 /**
  * Match two XPaths and return the common portion
  *
@@ -9,6 +11,9 @@ package org.tellurium.tool;
  */
 public class XPathMatcher {
     public final static String DELIMITER = "/";
+    
+    protected static InternationalizationManager i8nManager = new InternationalizationManager();
+
 
     public static String match(String src, String dst){
         if(src == null || dst == null)
@@ -50,6 +55,6 @@ public class XPathMatcher {
             return original.substring(prefix.length());
         }
 
-        throw new RuntimeException("Error: " + original + " does not start with" + prefix + ".");
+        throw new RuntimeException(i8nManager.translate("XPathMatcher.RunTimeException" , new Object[]{original , prefix}));
     }
 }
