@@ -36,6 +36,11 @@ Obviously, all UI Objects will inherit the above attributes and methods. But be 
 
 In this way, Tellurium will first map the UiID ""GoogleStartPage.GoogleSearch" to the actual UI object and then call the _click_ method on it. If that Ui object does not have the _click_ method defined, you will get an error.
 
+The UML class diagram is shown as follows.
+
+http://tellurium-users.googlegroups.com/web/UiObject.png?gda=0JeoTj4AAACvY3VTaWrtpkaxlyj9o09EK9OqypH-u6ovWjcCAevrnUS0NUtU8tBM-H4ipR_0oWnjsKXVs-X7bdXZc5buSfmx&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
+
 == UI Object Default Attributes ==
 
 Tellurium UI objects have some default attributes as shown in the following table:
@@ -77,6 +82,10 @@ Example:
 Button(uid: "searchButton", clocator: [value: "Search", name: "btn"])
 }}}
 
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Button.png?gda=3KovTTwAAACvY3VTaWrtpkaxlyj9o09ErAuyvr_BhY1ILt3t4UiY02BNhIfMicGpzO7OcOv9IkT9Wm-ajmzVoAFUlE7c_fAt&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
 === Submit Button ===
 
 SubmitButton is a special Button with its type being "submit".
@@ -86,6 +95,10 @@ Example:
 {{{
 SubmitButton(uid: "search_web_button", clocator: [value: "Search the Web"])
 }}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/SubmitButton.png?gda=23ltUEIAAACvY3VTaWrtpkaxlyj9o09Eq2re9z1g46laR7HVj3aMdhQB0YElXntmg3UvY_6wrxpV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
 
 === Check Box ===
 
@@ -101,6 +114,10 @@ Example:
 {{{
 CheckBox(uid: "autoRenewal", clocator: [dojoattachpoint: 'dap_auto_renew'])
 }}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/CheckBox.png?gda=lh-8Zj4AAACvY3VTaWrtpkaxlyj9o09ENlEhIiA-hb2mdKJPpbNwXCHJ3Uy3kY3kE7J2mE4y0vHjsKXVs-X7bdXZc5buSfmx&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
 
 === Div ===
 
@@ -129,6 +146,10 @@ Example:
 Image(uid: "dropDownArrow", clocator: [src: 'drop_down_arrow.gif'])
 }}}
 
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Image.png?gda=0z5QJzsAAACvY3VTaWrtpkaxlyj9o09EujBhvAMotBAe8u4e4cflj34XZ2iAB5nmNWaSiL8s4UwGRdr3QrylPkw2aRbXD_gF&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
 === Icon ===
 
 Icon is similar to the Image object, but user can perform actions on it. As a result, it can have the following additional methods:
@@ -142,6 +163,11 @@ Example:
 {{{
 Icon(uid: "taskIcon", clocator:[tag: "p", dojoonclick: 'doClick', img: "Show_icon.gif"] )
 }}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Icon.png?gda=PJSddzoAAACvY3VTaWrtpkaxlyj9o09EZcK6fJrP-123puIckMFHhbHJFgsrcyPlBEaANubSDln97daDQaep90o7AOpSKHW0&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
 
 === Radio Button ===
 
@@ -158,6 +184,10 @@ Example:
 RadioButton(uid: "autoRenewal", clocator: [dojoattachpoint: 'dap_auto_renew'])
 }}}
 
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/RadioButton.png?gda=dZD62kEAAACvY3VTaWrtpkaxlyj9o09EA9G0sOYo7hcFDFCV1utGuehRDoWPgHq-DlEIqfKM7N5TCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
 === Text Box ===
 
 TextBox is the abstract Ui object from which you can get back the text, i.e., it comes with the method:
@@ -171,6 +201,10 @@ Example:
 {{{
 TextBox(uid: "searchLabel", clocator: [tag: "span"])
 }}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/TextBox.png?gda=frdGUj0AAACvY3VTaWrtpkaxlyj9o09EZBJxiwBnFeW2bGnkYb-FBqoIxTd_Qry1lDY-jgYSWY3lNv--OykrTYJH3lVGu2Z5&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
 
 === Input Box ===
 
@@ -189,6 +223,10 @@ Example:
 InputBox(uid: "searchBox", clocator: [name: "q"])
 }}}
 
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/InputBox.png?gda=mOLQqT4AAACvY3VTaWrtpkaxlyj9o09EOS25eozxTd1-2Kl5EQxVuo83nWIEvwSk2L4t2l-mabLjsKXVs-X7bdXZc5buSfmx&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
 === Url Link ===
 
 UrlLink stands for the web url link, i.e., its tag is "a". UrlLink has the following additional methods:
@@ -203,6 +241,10 @@ Example:
 {{{
 UrlLink(uid: "Grid", clocator: [text: "Grid", direct: "true"])
 }}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/UrlLink.png?gda=OmfYUj0AAACvY3VTaWrtpkaxlyj9o09EPKrVkdl5tr4h2nKWPPTg00bJ3MnJmkZ45utMyqVp1HjlNv--OykrTYJH3lVGu2Z5&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
 
 === Selector ===
 
@@ -232,6 +274,10 @@ Example:
 Selector(uid: "issueType", clocator: [name: "can", id: "can"])
 }}}
 
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Selector.png?gda=b632Hj4AAACvY3VTaWrtpkaxlyj9o09EYhkj25wnL3ZjnmNSek4H7Li8ZNp69eplCP3Btz3M8UDjsKXVs-X7bdXZc5buSfmx&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
 === Container ===
 
 Container is an abstract object that can hold a collection of Ui objects. As a result, the  Container has a special attribute "useGroupInfo" and its default value is false. If this attribute is true, the Group Locating is enabled. But make sure all the Ui objects inside the Container are children nodes of the Container in the DOM, otherwise, you should not use the Group Locating capability.
@@ -246,6 +292,10 @@ ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
 }
 }}}
 
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Container.png?gda=nR7EcT8AAACvY3VTaWrtpkaxlyj9o09E_HoO-w-KJ5H5AQEAtuACpL8e0j-ZJvcoFEzwQ0yOKlOccyFKn-rNKC-d1pM_IdV0&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
 === Form ===
 
 Form is a type of Container with its tag being "form" and it represents web form. Like Container, it has the capability to use Group Locating and it has a special method:
@@ -254,7 +304,7 @@ Form is a type of Container with its tag being "form" and it represents web form
 
 This method is useful and can be used to submit input data if the form does not have a submit button.
 
-Example,
+Example:
 
 {{{
 ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
@@ -265,6 +315,10 @@ ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group:
     SubmitButton(uid: "searchButton", clocator: [value: "Search"])
 }
 }}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Form.png?gda=Sy4vpzoAAACvY3VTaWrtpkaxlyj9o09EAysfc1sfERzii7dZMaerX1c5GCXVf1Htqu13xS-QMXn97daDQaep90o7AOpSKHW0&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
 
 === Table ===
 
@@ -335,6 +389,10 @@ Container(uid: "tables", clocator:[:]){
 } 
 
 }}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Table.png?gda=Q7WHKjsAAACvY3VTaWrtpkaxlyj9o09EUIpv859W_EwCa1Q6m6z5KZXQRNjjvS1-2bMcnX_XyTwGRdr3QrylPkw2aRbXD_gF&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
 
 === Standard Table ===
 
@@ -414,6 +472,10 @@ The List includes the following additional methods:
   * int getListSize(id): Gets the item count of a list
 
 
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/List.png?gda=01ee8zoAAACvY3VTaWrtpkaxlyj9o09EHGLXJixxWuoZZiLNkS9cOj7XS0Nk1NECX1UixwubQ5H97daDQaep90o7AOpSKHW0&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
 === Simple Menu ===
 
 The SimpleMenu represent a menu without a header and only contains menu items. The default tag is "div" and user should specify the alias name for each menu item. For example,
@@ -470,7 +532,7 @@ and the following methods
 
 When you test website with IFrames, you should use multiple window mode, i.e., set the option useMultiWindows to be true in TelluriumConfig.groovy.
 
-Example,
+Example:
 
 {{{
 ui.Frame(uid: "SubscribeFrame", name: "subscrbe"){
@@ -482,6 +544,11 @@ ui.Frame(uid: "SubscribeFrame", name: "subscrbe"){
    }
 } 
 }}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Frame.png?gda=r8U0ejsAAACvY3VTaWrtpkaxlyj9o09EjtjD0VCwlgWwf4IYqIRmHEThbDJeoOs4Ibpiwk-_c9AGRdr3QrylPkw2aRbXD_gF&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
 
 === Window ===
 
@@ -499,7 +566,7 @@ and the following methods
   * boolean getWhetherThisWindowMatchWindowExpression(String currentWindowString, String target)
   * waitForPopup(String UID, int timeout)
  
-Example,
+Example:
 
 {{{
 ui.Window(uid: "HelpWindow", name: "HelpWindow"){
@@ -512,6 +579,10 @@ selectWindow "HelpWindow"
 ...
 selectMainWindow()
 }}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Window.png?gda=Gu9YEDwAAACvY3VTaWrtpkaxlyj9o09E5Vet3V7T4_qN9X8E0xCb5LaejjoTjElKJray_l5X0DD9Wm-ajmzVoAFUlE7c_fAt&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
 
 === Option ===
 
