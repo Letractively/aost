@@ -77,6 +77,15 @@ tellurium{
             reader = "PipeFileReader"
         }
     }
+    //this section allows users to define the internationalization required
+    //if this section is removed, we take the default locale
+    //from the system
+    //enter only one locale at a time, and use this only if you want to explicitly
+    //set the locale, preferrable way is to comment out this section 
+    i8n{
+        //locales = "fr_FR"
+        locales = "en_EN"
+    }
     test{
         //at current stage, the result report is only for tellurium data driven testing
         //we may add the result report for regular tellurium test case
