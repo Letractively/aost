@@ -8,7 +8,7 @@ class DslScriptExecutor {
             def dsl = new File(args[0]).text
             def script = """
                 import org.tellurium.dsl.DslScriptEngine
-
+                import org.tellurium.i8n.InternationalizationManager
                 class DslTest extends DslScriptEngine{
                     def test(){
                         init()
@@ -29,7 +29,7 @@ class DslScriptExecutor {
        }else{
     	   InternationalizationManager i8nManager = new InternationalizationManager()
            
-           println i8nManager.translate("DslScriptExecutor.USage")
+           println i8nManager.translate("DslScriptExecutor.Usage")
        }
 
     }
