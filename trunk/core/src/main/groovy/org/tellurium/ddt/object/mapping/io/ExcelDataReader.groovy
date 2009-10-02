@@ -1,7 +1,7 @@
 package org.tellurium.ddt.object.mapping.io
 
 import org.tellurium.ddt.object.mapping.DataMappingException
-import org.tellurium.i8n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManager;
 
 /**
  * The implementation for the field set reader to read excel files
@@ -15,7 +15,7 @@ class ExcelDataReader implements DataReader{
 		protected final static String FIELD_DELIMITER = "\\|"
 		protected final static String ESCAPE_START = "\\Q"
 		protected final static String ESCAPE_END = "\\E"
-		protected InternationalizationManager i8nManager = new InternationalizationManager();
+		protected InternationalizationManager i18nManager = new InternationalizationManager();
 
 
 	    //read in a line from a file and then convert them to a String list
@@ -46,7 +46,7 @@ class ExcelDataReader implements DataReader{
 	            }
 	
 			} catch (IOException e) {
-				throw new DataMappingException(i8nManager.translate("DataReader.ReadDataException" , {e.getMessage()}))
+				throw new DataMappingException(i18nManager.translate("DataReader.ReadDataException" , {e.getMessage()}))
 			}
 	
 			return lst
