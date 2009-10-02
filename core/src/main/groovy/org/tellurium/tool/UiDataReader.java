@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.tellurium.i8n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManager;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -26,7 +26,7 @@ public class UiDataReader {
 	protected final static String ESCAPE_START = "\\Q";
 	protected final static String ESCAPE_END = "\\E";
 	
-    protected InternationalizationManager i8nManager = new InternationalizationManager();
+    protected InternationalizationManager i18nManager = new InternationalizationManager();
 
 
     public BufferedReader getReaderForDate(String data){
@@ -80,7 +80,7 @@ public class UiDataReader {
             }
             
         }catch (IOException e) {
-        	i8nManager.translate("UIDataReader.ReadDataException" , new Object[]{e.getMessage()});
+        	i18nManager.translate("UIDataReader.ReadDataException" , new Object[]{e.getMessage()});
 		}
 
 		return dfm;

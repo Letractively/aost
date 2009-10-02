@@ -72,10 +72,10 @@ class Option extends UiObject{
                 }
             }
         }else{
-        	println i8nManager.translate("Container.NoUIObjectForOption", {[this.uid , this.uid]})            
+        	println i18nManager.translate("Container.NoUIObjectForOption", {[this.uid , this.uid]})            
         	return null
         }
-        println i8nManager.translate("Container.CannotFindXPath", {this.uid})
+        println i18nManager.translate("Container.CannotFindXPath", {this.uid})
         return null
     }
 }

@@ -7,13 +7,13 @@ import org.tellurium.exception.UiObjectNotFoundException
 import org.tellurium.object.*
 import org.tellurium.exception.InvalidObjectTypeException
 
-import org.tellurium.i8n.InternationalizationManager
+import org.tellurium.i18n.InternationalizationManager;
 
 class UiDslParser extends BuilderSupport{
        public static final String UID = "uid"
        public static final String REF = "ref"
        public static final String INCLUDE = "Include"
-  	   protected InternationalizationManager i8nManager = new InternationalizationManager()
+  	   protected InternationalizationManager i18nManager = new InternationalizationManager()
   
        def registry = [:]
 
@@ -71,7 +71,7 @@ class UiDslParser extends BuilderSupport{
               }
           }
 
-          println i8nManager.translate("UiDslParser.IdNotEmpty")
+          println i18nManager.translate("UiDslParser.IdNotEmpty")
            
           return null
        }
@@ -87,7 +87,7 @@ class UiDslParser extends BuilderSupport{
          WorkflowContext context = WorkflowContext.getDefaultContext()
          UiObject obj = walkTo(context, ref)
          if(obj == null)
-             throw new UiObjectNotFoundException(i8nManager.translate("UiDslParser.CannotFindUiObject" , {ref}))
+             throw new UiObjectNotFoundException(i18nManager.translate("UiDslParser.CannotFindUiObject" , {ref}))
 
          if(uid != null && (!uid.equalsIgnoreCase(obj.uid))){
          //IF UID is specified and is not equals to the referenced obj uid, we need to clone 
@@ -119,7 +119,7 @@ class UiDslParser extends BuilderSupport{
              return obj
            }else{
         	   
-             throw new InvalidObjectTypeException(i8nManager.translate("UiDslParser.InvalidUIObject" , {name}))
+             throw new InvalidObjectTypeException(i18nManager.translate("UiDslParser.InvalidUIObject" , {name}))
            }
 
        }
@@ -143,7 +143,7 @@ class UiDslParser extends BuilderSupport{
 
                 return obj
            }else{
-              throw new InvalidObjectTypeException(i8nManager.translate("UiDslParser.InvalidUIObject" , {name}))
+              throw new InvalidObjectTypeException(i18nManager.translate("UiDslParser.InvalidUIObject" , {name}))
            }
          }
        }
@@ -156,7 +156,7 @@ class UiDslParser extends BuilderSupport{
 
                return obj
            }else{
-              throw new InvalidObjectTypeException(i8nManager.translate("UiDslParser.InvalidUIObject" , {name}))
+              throw new InvalidObjectTypeException(i18nManager.translate("UiDslParser.InvalidUIObject" , {name}))
            }
        }
 

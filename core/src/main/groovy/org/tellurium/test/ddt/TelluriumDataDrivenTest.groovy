@@ -16,7 +16,7 @@ import org.tellurium.dsl.UiDslParser
 import org.tellurium.framework.TelluriumFramework
 import org.tellurium.test.helper.*
 import org.tellurium.test.groovy.BaseTelluriumGroovyTestCase
-import org.tellurium.i8n.InternationalizationManager
+import org.tellurium.i18n.InternationalizationManager;
 
 
 /**
@@ -155,8 +155,8 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
             
             tddm.defineModule()
         }else{
-            InternationalizationManager i8nManager = new InternationalizationManager()
-            throw new RuntimeException(i8nManager.translate("TelluriumDataDrivenTest.IncludModule" , {module?.getName()}))
+            InternationalizationManager i18nManager = new InternationalizationManager()
+            throw new RuntimeException(i18nManager.translate("TelluriumDataDrivenTest.IncludModule" , {module?.getName()}))
         }
     }
 

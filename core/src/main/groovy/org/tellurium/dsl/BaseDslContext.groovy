@@ -6,7 +6,7 @@ import org.tellurium.access.Accessor;
 import org.tellurium.event.EventHandler;
 import org.tellurium.exception.UiObjectNotFoundException;
 import org.tellurium.extend.Extension;
-import org.tellurium.i8n.InternationalizationManager
+import org.tellurium.i18n.InternationalizationManager;
 import org.tellurium.locator.JQueryOptimizer;
 import org.tellurium.locator.LocatorProcessor;
 import org.tellurium.locator.MetaCmd;
@@ -22,7 +22,7 @@ import org.tellurium.object.UiObject;
  */
 abstract class BaseDslContext {
 
-  protected InternationalizationManager i8nManager = new InternationalizationManager()
+  protected InternationalizationManager i18nManager = new InternationalizationManager()
 
   protected static final String JQUERY_SELECTOR = "jquery="
   protected static final String JQUERY_SELECTOR_CACHE = "jquerycache="
@@ -217,7 +217,7 @@ abstract class BaseDslContext {
       return obj
     }
 
-    throw new UiObjectNotFoundException(i8nManager.translate("BaseDslContext.CannotFindUIObject" , {uid}))
+    throw new UiObjectNotFoundException(i18nManager.translate("BaseDslContext.CannotFindUIObject" , {uid}))
   }
 
   String getConsoleInput(){
@@ -1156,7 +1156,7 @@ abstract class BaseDslContext {
       obj.traverse(context)
       ArrayList list = context.getUidList()
 
-      println(i8nManager.translate("BaseDslContext.DumpLocatorInformation", {uid}))
+      println(i18nManager.translate("BaseDslContext.DumpLocatorInformation", {uid}))
       println("-------------------------------------------------------")
       list.each {String key->
         String loc = getLocator(key)

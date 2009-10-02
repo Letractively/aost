@@ -27,9 +27,9 @@ abstract class DslContext extends BaseDslContext {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         def obj = walkToWithException(context, uid)
         if (!(obj instanceof Widget)) {
-            println i8nManager.translate("DslContext.UIObject" , {uid})
+            println i18nManager.translate("DslContext.UIObject" , {uid})
 
-            throw new NotWidgetObjectException(i8nManager.translate("DslContext.UIObject" , {uid}))
+            throw new NotWidgetObjectException(i18nManager.translate("DslContext.UIObject" , {uid}))
         }
 
         //add reference xpath for the widget
@@ -43,10 +43,10 @@ abstract class DslContext extends BaseDslContext {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         def obj = walkToWithException(context, uid)
         if (!(obj instanceof Widget)) {
-            println i8nManager.translate("DslContext.UIObject" , {uid})
+            println i18nManager.translate("DslContext.UIObject" , {uid})
 
-//            throw new RuntimeException(i8nManager.translate("DslContext.UIObject" , {uid}))
-            throw new NotWidgetObjectException(i8nManager.translate("DslContext.UIObject" , {uid}))
+//            throw new RuntimeException(i18nManager.translate("DslContext.UIObject" , {uid}))
+            throw new NotWidgetObjectException(i18nManager.translate("DslContext.UIObject" , {uid}))
         } else {
             if (obj.metaClass.respondsTo(obj, method, args)) {
 
@@ -302,6 +302,6 @@ abstract class DslContext extends BaseDslContext {
     //let the missing property return the a string of the properity, this is useful for the onWidget method
     //so that we can pass in widget method directly, instead of passing in the method name as a String
     def propertyMissing(String name) {
-        println i8nManager.translate("BaseDslContext.PropertyIsMissing" , {name})
+        println i18nManager.translate("BaseDslContext.PropertyIsMissing" , {name})
     }
 }

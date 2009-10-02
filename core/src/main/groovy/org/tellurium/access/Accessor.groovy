@@ -5,12 +5,12 @@ import org.tellurium.config.Configurable
 import org.tellurium.dispatch.Dispatcher
 import org.tellurium.exception.ElementNotPresentException
 import org.tellurium.util.Helper
-import org.tellurium.i8n.InternationalizationManager
+import org.tellurium.i18n.InternationalizationManager;
 
 
 class Accessor implements Configurable{
 
-    private InternationalizationManager i8nManager = new InternationalizationManager();
+    private InternationalizationManager i18nManager = new InternationalizationManager();
 
     protected static final int ACCESS_WAIT_TIME = 50
 

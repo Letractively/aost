@@ -2,7 +2,7 @@ package org.tellurium.server
 
 import org.openqa.selenium.server.RemoteControlConfiguration
 import org.openqa.selenium.server.SeleniumServer
-import org.tellurium.i8n.InternationalizationManager
+import org.tellurium.i18n.InternationalizationManager;
 
 
 /**
@@ -36,7 +36,7 @@ public class SeleniumServerDaemon {
 
     private String userExtension = null;
 
-    protected InternationalizationManager i8nManager = new InternationalizationManager()
+    protected InternationalizationManager i18nManager = new InternationalizationManager()
 
 
     private String [] getParams(){
@@ -103,12 +103,12 @@ public class SeleniumServerDaemon {
 		  File userExt = new File(this.userExtension);
 		  if(userExt.exists()){
             config.setUserExtensions(userExt);
-            println i8nManager.translate("SeleniumServerDaemon.UserExtensionFile" , {this.userExtension})
+            println i18nManager.translate("SeleniumServerDaemon.UserExtensionFile" , {this.userExtension})
           } else {
-            println i8nManager.translate("SeleniumServerDaemon.NoUserExtension" , {userExt.getAbsolutePath()})
+            println i18nManager.translate("SeleniumServerDaemon.NoUserExtension" , {userExt.getAbsolutePath()})
           }
         }else{
-          println i8nManager.translate("SeleniumServerDaemon.NoUserExtensionWarning")
+          println i18nManager.translate("SeleniumServerDaemon.NoUserExtensionWarning")
         }
 		try {
             server = new SeleniumServer(config);

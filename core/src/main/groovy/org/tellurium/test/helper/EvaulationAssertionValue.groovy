@@ -1,5 +1,5 @@
 package org.tellurium.test.helper
-import org.tellurium.i8n.InternationalizationManager
+import org.tellurium.i18n.InternationalizationManager;
 
 /**
  * hold single parameter for evaulation
@@ -12,7 +12,7 @@ import org.tellurium.i8n.InternationalizationManager
 class EvaulationAssertionValue extends AssertionValue{
 
     private def value
-    protected InternationalizationManager i8nManager = new InternationalizationManager()
+    protected InternationalizationManager i18nManager = new InternationalizationManager()
 
 
     public String toString() {
@@ -22,7 +22,7 @@ class EvaulationAssertionValue extends AssertionValue{
         final String fieldStart = " "
 
         StringBuilder sb = new StringBuilder(typicalLength)
-        sb.append(i8nManager.translate("EvaulationAssertionValue.Expected")).append(avpSeparator).append("\"" + value + "\"").append(fieldSeparator)
+        sb.append(i18nManager.translate("EvaulationAssertionValue.Expected")).append(avpSeparator).append("\"" + value + "\"").append(fieldSeparator)
 
         return sb.toString()
     }

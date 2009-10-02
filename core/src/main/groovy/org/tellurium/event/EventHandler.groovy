@@ -7,12 +7,13 @@ import org.tellurium.event.EventSorter
 import org.tellurium.exception.ElementNotPresentException
 import org.tellurium.util.Helper
 import java.awt.event.KeyEvent
-import org.tellurium.i8n.InternationalizationManager
+
+import org.tellurium.i18n.InternationalizationManager;
 
 
 class EventHandler implements Configurable{
 
-	protected InternationalizationManager i8nManager = new InternationalizationManager()
+	protected InternationalizationManager i18nManager = new InternationalizationManager()
 
     public static final String RETURN_KEY= "BSBS13"
 	public static final int ACTION_WAIT_TIME = 50
@@ -90,7 +91,7 @@ class EventHandler implements Configurable{
             }
 
         }else{
-          throw new ElementNotPresentException(i8nManager.translate("EventHandler.ElementNotPresent" , {locator}))
+          throw new ElementNotPresentException(i18nManager.translate("EventHandler.ElementNotPresent" , {locator}))
         }
     }
     */

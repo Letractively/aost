@@ -67,7 +67,7 @@ class Window  extends Container{
         }else{
 
             //cannot find the object
-            println(i8nManager.translate("Container.CannotFindUIObject" , {[child , this.uid]}))
+            println(i18nManager.translate("Container.CannotFindUIObject" , {[child , this.uid]}))
 
             return null
         }

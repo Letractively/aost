@@ -20,8 +20,8 @@ class ComparisonAssertionValue extends AssertionValue{
         final String fieldStart = " "
 
         StringBuilder sb = new StringBuilder(typicalLength)
-        sb.append(i8nManager.translate("ComparisonAssertionValue.Expected")).append(avpSeparator).append("\"" + expected + "\"").append(fieldSeparator)
-        sb.append(fieldStart).append(i8nManager.translate("ComparisonAssertionValue.Actual")).append(avpSeparator).append("\"" + actual + "\"").append(fieldSeparator)
+        sb.append(i18nManager.translate("ComparisonAssertionValue.Expected")).append(avpSeparator).append("\"" + expected + "\"").append(fieldSeparator)
+        sb.append(fieldStart).append(i18nManager.translate("ComparisonAssertionValue.Actual")).append(avpSeparator).append("\"" + actual + "\"").append(fieldSeparator)
 
         return sb.toString()
     }
