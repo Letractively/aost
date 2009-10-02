@@ -2,7 +2,7 @@ package org.tellurium.object
 
 import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
-import org.tellurium.i8n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManager;
 import org.tellurium.locator.GroupLocateStrategy
 import org.tellurium.locator.LocatorProcessor
 import org.tellurium.object.UiObject
@@ -15,7 +15,7 @@ import org.tellurium.object.UiObject
  */
 class Container extends UiObject {
 
-	protected InternationalizationManager i8nManager = new InternationalizationManager()
+	protected InternationalizationManager i18nManager = new InternationalizationManager()
 
     //if it uses group informtion to infer its locator
     protected boolean useGroupInfo = false
@@ -126,7 +126,7 @@ class Container extends UiObject {
 
             //cannot find the object
             
-            println i8nManager.translate("Container.CannotFindUIObject" , {[child , this.uid]})
+            println i18nManager.translate("Container.CannotFindUIObject" , {[child , this.uid]})
 
             return null
         }

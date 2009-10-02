@@ -3,7 +3,7 @@ package org.tellurium.widget
 import org.tellurium.builder.UiObjectBuilderRegistry
 import org.tellurium.config.Configurable
 import org.tellurium.widget.WidgetBootstrap
-import org.tellurium.i8n.InternationalizationManager
+import org.tellurium.i18n.InternationalizationManager;
 
 
 /**
@@ -16,7 +16,7 @@ import org.tellurium.i8n.InternationalizationManager
  */
 class WidgetConfigurator implements Configurable{
 
-    protected InternationalizationManager i8nManager = new InternationalizationManager()
+    protected InternationalizationManager i18nManager = new InternationalizationManager()
 
     protected final static String PACKAGE_DELIMITER = "."
     protected final static String WIDGET_MODULE_SEPARATOR = ","
@@ -33,7 +33,7 @@ class WidgetConfigurator implements Configurable{
                     WidgetBootstrap bootstrap = (WidgetBootstrap) Class.forName(fullname).newInstance()
                     bootstrap.loadWidget(registry)
                 }else{
-                    println i8nManager.translate("WidgetConfigurator.ModuleNotempty" , {module} )
+                    println i18nManager.translate("WidgetConfigurator.ModuleNotempty" , {module} )
                 }
             }
         }

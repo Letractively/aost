@@ -4,7 +4,7 @@ import com.thoughtworks.selenium.DefaultSelenium
 import com.thoughtworks.selenium.CommandProcessor
 import org.tellurium.exception.*
 import org.tellurium.grid.GridSupport
-import org.tellurium.i8n.InternationalizationManager
+import org.tellurium.i18n.InternationalizationManager;
 
 
 /**
@@ -19,7 +19,7 @@ import org.tellurium.i8n.InternationalizationManager
  */
 class CustomSelenium extends DefaultSelenium {
 
-    protected InternationalizationManager i8nManager = new InternationalizationManager();
+    protected InternationalizationManager i18nManager = new InternationalizationManager();
 
     protected CustomCommand customClass = null
     protected String userExtension = null
@@ -59,7 +59,7 @@ class CustomSelenium extends DefaultSelenium {
         GridSupport.startSeleniumSession(host, port, browser, url)
       }catch (Exception e){
     	  
-        throw new TelluriumException (i8nManager.translate("CustomSelenium.CannotStartSelenium" , {e.getMessage()}))
+        throw new TelluriumException (i18nManager.translate("CustomSelenium.CannotStartSelenium" , {e.getMessage()}))
       }
     }
 
@@ -67,7 +67,7 @@ class CustomSelenium extends DefaultSelenium {
       try{
         GridSupport.startSeleniumSession(host, port, browser, url, options)
       }catch (Exception e){
-        throw new TelluriumException (i8nManager.translate("CustomSelenium.CannotStartSelenium" , {e.getMessage()}))
+        throw new TelluriumException (i18nManager.translate("CustomSelenium.CannotStartSelenium" , {e.getMessage()}))
       }
     }
 
@@ -78,7 +78,7 @@ class CustomSelenium extends DefaultSelenium {
         GridSupport.closeSeleniumSession()
       }catch (Exception e){
     	  
-        throw new TelluriumException (i8nManager.translate("CustomSelenium.CannotCloseSelenium" , {e.getMessage()}))        
+        throw new TelluriumException (i18nManager.translate("CustomSelenium.CannotCloseSelenium" , {e.getMessage()}))        
       }
 
 

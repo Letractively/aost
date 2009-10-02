@@ -85,7 +85,7 @@ class StandardTable extends Container{
                 components.put(internId, component)
             }
         }else{
-            throw new InvalidUidException(i8nManager.translate("Container.InvalidUID" , {component.uid}))
+            throw new InvalidUidException(i18nManager.translate("Container.InvalidUID" , {component.uid}))
         }
      }
 

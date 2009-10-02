@@ -1,6 +1,6 @@
 package org.tellurium.dsl
 
-import org.tellurium.i8n.InternationalizationManager
+import org.tellurium.i18n.InternationalizationManager;
 
 /**
  *
@@ -11,7 +11,7 @@ import org.tellurium.i8n.InternationalizationManager
  */
 
 public class DiagnosisResponse {
-  protected InternationalizationManager i8nManager = new InternationalizationManager()
+  protected InternationalizationManager i18nManager = new InternationalizationManager()
 
   public static final String UID = "uid"
   private String uid;
@@ -44,17 +44,17 @@ public class DiagnosisResponse {
   }
 
   public void show() {
-    println i8nManager.translate("DiagnosisResponse.DiagnosisResult" , {uid})
+    println i18nManager.translate("DiagnosisResponse.DiagnosisResult" , {uid})
     
     println("\n-------------------------------------------------------\n")
 
-    println i8nManager.translate("DiagnosisResponse.MatchingCount" , {count})
+    println i18nManager.translate("DiagnosisResponse.MatchingCount" , {count})
     if(matches != null && matches.size() > 0){
-      println i8nManager.translate("DiagnosisResponse.MatchingElement")
+      println i18nManager.translate("DiagnosisResponse.MatchingElement")
       int i = 0;
       matches.each {String elem ->
         i++;
-        println i8nManager.translate("DiagnosisResponse.Element" , {i})
+        println i18nManager.translate("DiagnosisResponse.Element" , {i})
         println(elem + "\n");
       }
     }
@@ -64,25 +64,25 @@ public class DiagnosisResponse {
       int j = 0;
       parents.each {String elem ->
         j++;
-        println i8nManager.translate("DiagnosisResponse.Parent" , {j})
+        println i18nManager.translate("DiagnosisResponse.Parent" , {j})
         println(elem + "\n");
       }
     }
 
     if(closest != null && closest.size() > 0){
-      println i8nManager.translate("DiagnosisResponse.Closest")
+      println i18nManager.translate("DiagnosisResponse.Closest")
       println("\n\tClosest: \n");
       int k = 0;
 
       closest.each {String elem ->
         k++;
-        println i8nManager.translate("DiagnosisResponse.ClosestElement" , {k});
+        println i18nManager.translate("DiagnosisResponse.ClosestElement" , {k});
         println(elem + "\n");
       }
     }
 
     if(html != null){
-      println i8nManager.translate("DiagnosisResponse.HtmlSource")
+      println i18nManager.translate("DiagnosisResponse.HtmlSource")
       println(html);
       println("\n");
     }

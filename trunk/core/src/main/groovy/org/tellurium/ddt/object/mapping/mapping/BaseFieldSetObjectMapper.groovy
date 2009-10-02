@@ -7,7 +7,7 @@ import org.tellurium.ddt.object.mapping.Field
 import org.tellurium.ddt.object.mapping.DataMappingException
 import org.tellurium.ddt.object.mapping.validator.FieldSetValidator
 import org.tellurium.ddt.object.mapping.FieldSetType
-import org.tellurium.i8n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManager;
 
 /**
  * The default implemention of the FieldSet Object Mapper
@@ -22,7 +22,7 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
     protected final static String BLOCK_START_PREFIX = "#{"
     protected final static String BLOCK_END_PREFIX = "#}"
     protected final static String META_DATA_PREFIX = "#!"
-    protected InternationalizationManager i8nManager = new InternationalizationManager();
+    protected InternationalizationManager i18nManager = new InternationalizationManager();
 
 
     protected FieldSetRegistry registry
@@ -61,7 +61,7 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
 
         if(fs == null)
         	
-            throw new DataMappingException(i8nManager.translate("FieldSetObjectMapper.CannotFindFieldSet" , {convString(fieldData)}))
+            throw new DataMappingException(i18nManager.translate("FieldSetObjectMapper.CannotFindFieldSet" , {convString(fieldData)}))
 
         FieldSetValidator.validate(fs, fieldData)
         FieldSetMapResult result = new FieldSetMapResult()
@@ -70,7 +70,7 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
         if(fieldData != null && fieldData.size() > 0){
 			//check all the type maps for this field set
             if(fieldData.size() != fs.getFields().size())
-                throw new DataMappingException(i8nManager.translate("FieldSetObjectMapper.DataFieldSizeDoNotMatch" , {fs.getName()}))
+                throw new DataMappingException(i18nManager.translate("FieldSetObjectMapper.DataFieldSizeDoNotMatch" , {fs.getName()}))
             for(int i=0; i<fieldData.size(); i++){
                 Field df = fs.getFields().get(i)
                 def value = marshaller.unmarshal(df.getType(), fieldData.get(i))

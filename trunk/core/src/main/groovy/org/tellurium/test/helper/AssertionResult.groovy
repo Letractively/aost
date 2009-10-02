@@ -1,7 +1,8 @@
 package org.tellurium.test.helper
 
 import junit.framework.AssertionFailedError
-import org.tellurium.i8n.InternationalizationManager
+
+import org.tellurium.i18n.InternationalizationManager;
 
 
 /**
@@ -21,7 +22,7 @@ class AssertionResult {
 
     private AssertionFailedError error
 
-    protected InternationalizationManager i8nManager = new InternationalizationManager()
+    protected InternationalizationManager i18nManager = new InternationalizationManager()
 
 
     public boolean isPassed(){
@@ -36,13 +37,13 @@ class AssertionResult {
 
         StringBuilder sb = new StringBuilder(typicalLength)
         sb.append(value.toString())
-        sb.append(fieldStart).append(i8nManager.translate("AssertionResult.Successful")).append(avpSeparator).append(passed)
+        sb.append(fieldStart).append(i18nManager.translate("AssertionResult.Successful")).append(avpSeparator).append(passed)
         if (error != null){
             sb.append(fieldSeparator)
             String errorMsg = error.getMessage()
             if(errorMsg == null)
-                errorMsg = i8nManager.translate("AssertionResult.ResultComparisonError")
-            sb.append(fieldStart).append(i8nManager.translate("AssertionResult.AssertionError")).append(avpSeparator).append("\"" + errorMsg + "\"")
+                errorMsg = i18nManager.translate("AssertionResult.ResultComparisonError")
+            sb.append(fieldStart).append(i18nManager.translate("AssertionResult.AssertionError")).append(avpSeparator).append("\"" + errorMsg + "\"")
         }
 
         return sb.toString()

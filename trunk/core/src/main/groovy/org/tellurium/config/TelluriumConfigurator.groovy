@@ -16,7 +16,7 @@ import org.tellurium.server.EmbeddedSeleniumServer
 import org.tellurium.widget.WidgetConfigurator
 import org.tellurium.test.helper.*
 import org.tellurium.connector.CustomSelenium
-import org.tellurium.i8n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManager;
 
 /**
  * Tellurium Configurator
@@ -37,12 +37,12 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
         server.setProperty("userExtension", conf.tellurium.embeddedserver.userExtension)
     }
 
-  protected void configI8nManager(InternationalizationManager i8nManager , conf) {
+  protected void configi18nManager(InternationalizationManager i18nManager , conf) {
     String definedLocales = null
     def locale = null
 
-    if(conf != null  && conf.tellurium!=null && conf.tellurium.i8n!=null && conf.tellurium.i8n.locales!=null ){
-      definedLocales = conf.tellurium.i8n.locales
+    if(conf != null  && conf.tellurium!=null && conf.tellurium.i18n!=null && conf.tellurium.i18n.locales!=null ){
+      definedLocales = conf.tellurium.i18n.locales
       String[] localeString = definedLocales.split("_")
       if(localeString.length == 2)
     	  locale = new Locale(localeString[0] , localeString[1])
@@ -54,7 +54,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     
     if(locale == null)
     	locale = new Locale("en" , "EN");
-    i8nManager.createResourceBundle(locale);
+    i18nManager.createResourceBundle(locale);
   }
 
   protected void configEmbeededServerDefaultValues(EmbeddedSeleniumServer server){
@@ -199,77 +199,77 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
 
   public void config(Configurable configurable) {
     //configuration file TelluriumConfig.groovy exists
-    InternationalizationManager i8nManager = new InternationalizationManager();
-    configI8nManager(i8nManager , conf) ;
+    InternationalizationManager i18nManager = new InternationalizationManager();
+    configi18nManager(i18nManager , conf) ;
     
     if (conf != null) {
       if (configurable instanceof EmbeddedSeleniumServer) {
-        println i8nManager.translate("TelluriumConfigurator.EmbeddedSeleniumServer")
+        println i18nManager.translate("TelluriumConfigurator.EmbeddedSeleniumServer")
         configEmbeededServer(configurable)
       } else if (configurable instanceof SeleniumConnector) {
-        println i8nManager.translate("TelluriumConfigurator.SeleniumClient")
+        println i18nManager.translate("TelluriumConfigurator.SeleniumClient")
         configSeleniumConnector(configurable)
       } else if (configurable instanceof DataProvider) {
-        println i8nManager.translate("TelluriumConfigurator.DataProvider")
+        println i18nManager.translate("TelluriumConfigurator.DataProvider")
         configDataProvider(configurable)
       } else if (configurable instanceof DefaultResultListener) {
-        println i8nManager.translate("TelluriumConfigurator.ResultListener")
+        println i18nManager.translate("TelluriumConfigurator.ResultListener")
         configResultListener(configurable)
       } else if (configurable instanceof FileOutput) {
-        println i8nManager.translate("TelluriumConfigurator.FileOutput")
+        println i18nManager.translate("TelluriumConfigurator.FileOutput")
         configFileOutput(configurable)
       } else if (configurable instanceof UiObjectBuilderRegistry) {
-        println i8nManager.translate("TelluriumConfigurator.UIObjectBuilder")
+        println i18nManager.translate("TelluriumConfigurator.UIObjectBuilder")
         configUiObjectBuilder(configurable)
       } else if (configurable instanceof WidgetConfigurator) {
-        println i8nManager.translate("TelluriumConfigurator.WidgetModules");
+        println i18nManager.translate("TelluriumConfigurator.WidgetModules");
         configWidgetModule(configurable)
       } else if (configurable instanceof EventHandler) {
-        println i8nManager.translate("TelluriumConfigurator.EventHandler");
+        println i18nManager.translate("TelluriumConfigurator.EventHandler");
         configEventHandler(configurable)
       } else if (configurable instanceof Accessor) {
-        println i8nManager.translate("TelluriumConfigurator.DataAccessor");
+        println i18nManager.translate("TelluriumConfigurator.DataAccessor");
         configAccessor(configurable)
       } else if (configurable instanceof Dispatcher) {
-        println i8nManager.translate("TelluriumConfigurator.Dispatcher");
+        println i18nManager.translate("TelluriumConfigurator.Dispatcher");
         configDispatcher(configurable)
       } else {
-        println i8nManager.translate("TelluriumConfigurator.UnsupportedType");
+        println i18nManager.translate("TelluriumConfigurator.UnsupportedType");
       }
     } else {
       //use default values instead
       if (configurable instanceof EmbeddedSeleniumServer) {
-        println i8nManager.translate("TelluriumConfigurator.EmbeddedSeleniumServer.default")
+        println i18nManager.translate("TelluriumConfigurator.EmbeddedSeleniumServer.default")
         configEmbeededServerDefaultValues(configurable)
       } else if (configurable instanceof SeleniumConnector) {
-        println i8nManager.translate("TelluriumConfigurator.SeleniumClient.default")
+        println i18nManager.translate("TelluriumConfigurator.SeleniumClient.default")
         configSeleniumConnectorDefaultValues(configurable)
       } else if (configurable instanceof DataProvider) {
-        println i8nManager.translate("TelluriumConfigurator.DataProvider.default")
+        println i18nManager.translate("TelluriumConfigurator.DataProvider.default")
         configDataProviderDefaultValues(configurable)
       } else if (configurable instanceof DefaultResultListener) {
-        println i8nManager.translate("TelluriumConfigurator.ResultListener.default")
+        println i18nManager.translate("TelluriumConfigurator.ResultListener.default")
         configResultListenerDefaultValues(configurable)
       } else if (configurable instanceof FileOutput) {
-        println i8nManager.translate("TelluriumConfigurator.FileOutput.default")
+        println i18nManager.translate("TelluriumConfigurator.FileOutput.default")
         configFileOutputDefaultValues(configurable)
       } else if (configurable instanceof UiObjectBuilderRegistry) {
-        println i8nManager.translate("TelluriumConfigurator.UIObjectBuilder.default")
+        println i18nManager.translate("TelluriumConfigurator.UIObjectBuilder.default")
         configUiObjectBuilderDefaultValues(configurable)
       } else if (configurable instanceof WidgetConfigurator) {
-        println i8nManager.translate("TelluriumConfigurator.WidgetConfigurator.default")
+        println i18nManager.translate("TelluriumConfigurator.WidgetConfigurator.default")
         configWidgetModuleDefaultValues(configurable)
       } else if (configurable instanceof EventHandler) {
-        println i8nManager.translate("TelluriumConfigurator.EventHandler.default")
+        println i18nManager.translate("TelluriumConfigurator.EventHandler.default")
         configEventHandlerDefaultValues(configurable)
       } else if (configurable instanceof Accessor) {
-        println i8nManager.translate("TelluriumConfigurator.Accessor.default")
+        println i18nManager.translate("TelluriumConfigurator.Accessor.default")
         configAccessorDefaultValues(configurable)
       } else if (configurable instanceof Dispatcher) {
-        println i8nManager.translate("TelluriumConfigurator.Dispatcher.default")
+        println i18nManager.translate("TelluriumConfigurator.Dispatcher.default")
         configDispatcherDefaultValues(configurable)
       } else {
-        println i8nManager.translate("TelluriumConfigurator.UnsupportedType");
+        println i18nManager.translate("TelluriumConfigurator.UnsupportedType");
       }
 
     }

@@ -28,7 +28,7 @@ class List extends Container {
 //            component.cacheable = false
             components.put(internId, component)
         } else {
-            println i8nManager.translate("Container.InvalidID" , {component.uid})
+            println i18nManager.translate("Container.InvalidID" , {component.uid})
         }
     }
 

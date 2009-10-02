@@ -1,6 +1,6 @@
 package org.tellurium.tool;
 
-import org.tellurium.i8n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManager;
 
 /**
  * Match two XPaths and return the common portion
@@ -12,7 +12,7 @@ import org.tellurium.i8n.InternationalizationManager;
 public class XPathMatcher {
     public final static String DELIMITER = "/";
     
-    protected static InternationalizationManager i8nManager = new InternationalizationManager();
+    protected static InternationalizationManager i18nManager = new InternationalizationManager();
 
 
     public static String match(String src, String dst){
@@ -55,6 +55,6 @@ public class XPathMatcher {
             return original.substring(prefix.length());
         }
 
-        throw new RuntimeException(i8nManager.translate("XPathMatcher.RunTimeException" , new Object[]{original , prefix}));
+        throw new RuntimeException(i18nManager.translate("XPathMatcher.RunTimeException" , new Object[]{original , prefix}));
     }
 }

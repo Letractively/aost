@@ -1,6 +1,6 @@
 package org.tellurium.config
 
-import org.tellurium.i8n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManager;
 
 /**
  * Parse Tellurium configuration and store the properties to a Hashmap
@@ -13,16 +13,16 @@ import org.tellurium.i8n.InternationalizationManager;
 class TelluriumConfigParser {
 
     protected def conf
-    protected InternationalizationManager i8nManager = new InternationalizationManager()
+    protected InternationalizationManager i18nManager = new InternationalizationManager()
 
     public void parse(String fileName){
        try{
-   	    	i8nManager.createResourceBundle(Locale.getDefault());
-            println i8nManager.translate("TelluriumConfigParser.parseConfigFileText" , {fileName})
+   	    	i18nManager.createResourceBundle(Locale.getDefault());
+            println i18nManager.translate("TelluriumConfigParser.parseConfigFileText" , {fileName})
             conf = new ConfigSlurper().parse(new File(fileName).toURL())
        }catch(Exception e){
             conf = null
-            println i8nManager.translate("TelluriumConfigParser.cannotOpenConfigFile" , {e.getMessage()})
+            println i18nManager.translate("TelluriumConfigParser.cannotOpenConfigFile" , {e.getMessage()})
        }
     }
 
