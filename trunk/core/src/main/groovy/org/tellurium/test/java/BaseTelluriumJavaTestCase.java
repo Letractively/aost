@@ -2,6 +2,7 @@ package org.tellurium.test.java;
 
 import org.tellurium.config.CustomConfig;
 import org.tellurium.connector.SeleniumConnector;
+import org.tellurium.i18n.InternationalizationManager;
 
 /**
  *  The base Java Testcase class for Tellurium and it will not include the before class and after class methods
@@ -14,13 +15,18 @@ import org.tellurium.connector.SeleniumConnector;
 public abstract class BaseTelluriumJavaTestCase {
     //custom configuration
     protected static CustomConfig customConfig = null;
-    
+	protected InternationalizationManager i18nManager = new InternationalizationManager();
+
     protected static SeleniumConnector connector;
 
     public static void openUrl(String url){
         connector.connectSeleniumServer();
         connector.connectUrl(url);
     }
+    public InternationalizationManager geti18nManager()
+	{
+		return this.i18nManager;
+	}
 
 /*    protected static void configBrowser(String serverHost, int serverPort, String baseUrl, String browser, String browserOptions){
         connector.setProperty("seleniumServerHost", serverHost);

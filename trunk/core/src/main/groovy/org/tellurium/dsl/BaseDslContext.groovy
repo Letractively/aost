@@ -52,6 +52,10 @@ abstract class BaseDslContext {
   abstract protected String locatorMapping(WorkflowContext context, loc)
   abstract protected String locatorMappingWithOption(WorkflowContext context, loc, optLoc)
 
+  protected geti18nManager()
+  {
+	  return this.i18nManager;
+  }
   protected String postProcessSelector(WorkflowContext context, String jqs) {
     String locator = jqs
 

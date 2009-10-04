@@ -1,14 +1,20 @@
 package org.tellurium.test.groovy
 
 import org.tellurium.config.CustomConfig
+import org.tellurium.i18n.InternationalizationManager;
 import org.tellurium.connector.SeleniumConnector
 
 abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
     //custom configuration
+	protected InternationalizationManager i18nManager = new InternationalizationManager()
     protected CustomConfig customConfig = null
 
     public abstract SeleniumConnector getConnector()
 
+	public geti18nManager()
+	{
+		return this.i18nManager;
+	}
     public void openUrl(String url){
         getConnector().connectSeleniumServer()
         getConnector().connectUrl(url)
