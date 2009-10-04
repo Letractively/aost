@@ -54,7 +54,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     
     if(locale == null)
     	locale = new Locale("en" , "EN");
-    i18nManager.createResourceBundle(locale);
+    i18nManager.createDefaultResourceBundle(locale);
   }
 
   protected void configEmbeededServerDefaultValues(EmbeddedSeleniumServer server){
@@ -263,7 +263,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
         println i18nManager.translate("TelluriumConfigurator.EventHandler.default")
         configEventHandlerDefaultValues(configurable)
       } else if (configurable instanceof Accessor) {
-        println i18nManager.translate("TelluriumConfigurator.Accessor.default")
+        println i18nManager.translate("TelluriumConfigurator.DataAccessor.default")
         configAccessorDefaultValues(configurable)
       } else if (configurable instanceof Dispatcher) {
         println i18nManager.translate("TelluriumConfigurator.Dispatcher.default")

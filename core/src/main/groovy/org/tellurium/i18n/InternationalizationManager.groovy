@@ -1,7 +1,14 @@
 package org.tellurium.i18n
 
-import java.text.MessageFormat
-import org.tellurium.config.Configurable
+import java.text.MessageFormat;
+import java.util.Locale;
+
+import java.util.Set;
+
+import java.util.ResourceBundle;
+
+
+import org.tellurium.config.Configurable;
 
 /**
  * InternationalizationManager - provides internationalization support
@@ -15,23 +22,51 @@ import org.tellurium.config.Configurable
 class InternationalizationManager implements Configurable
 {
   private Locale locale = new Locale("en", "US")
-  private ResourceBundle resourceBundle;
-  MessageFormat formatter = new MessageFormat("");
+  private Set<ResourceBundle> bundleSet = new HashSet<ResourceBundle>()
+  MessageFormat formatter = new MessageFormat("")
 
   public Locale getLocale()
   {
     return locale
   }
 
-  public String translate(String messageKey , Object[] arguments)
+  public Set<ResourceBundle> getResourceBundleSet()
   {
-    formatter.applyPattern(getResourceBundle().getString(messageKey));
-    return formatter.format(arguments);
+	  if(this.bundleSet == null || this.bundleSet.size() == 0)
+		  createDefaultResourceBundle(Locale.getDefault())
+	  return this.bundleSet;
   }
 
-  public String translate(String key)
+  public void addResourceBundle(String bundleName)
   {
-    getResourceBundle().getString(key);
+	  if(locale == null)
+		  locale = Locale.getDefault()
+	  this.bundleSet.add(ResourceBundle.getBundle(bundleName, locale))
+  }
+
+  public String translate(String messageKey , Object[] arguments)
+  {
+	  String translatedMessage = null
+	  Set<ResourceBundle> bundleSet = getResourceBundleSet();
+	  for (ResourceBundle bundle : bundleSet) {
+		  translatedMessage = bundle.getString(messageKey)
+		  if(translatedMessage !=null ) break
+			  
+	  }
+	  formatter.applyPattern(translatedMessage);
+	  return formatter.format(arguments);
+  }
+
+  public String translate(String messageKey)
+  {
+	  String translatedMessage = null
+	  Set<ResourceBundle> bundleSet = getResourceBundleSet();
+	  for (ResourceBundle bundle : bundleSet) {
+		  translatedMessage = bundle.getString(messageKey)
+		  if(translatedMessage !=null ) break
+			  
+	  }
+	  return translatedMessage
   }
 
 
@@ -40,18 +75,13 @@ class InternationalizationManager implements Configurable
     this.locale = locale
   }
 
-  public void createResourceBundle(Locale locale)
+  public void createDefaultResourceBundle(Locale locale)
   {
     formatter.setLocale(locale);
     setLocale(locale)
-    resourceBundle =  ResourceBundle.getBundle("MessagesBundle" , locale);
-  }
-
-  public ResourceBundle getResourceBundle()
-  {
-	  if( resourceBundle == null )
-		  resourceBundle = createResourceBundle(Locale.getDefault())
-    return resourceBundle;
+    if(bundleSet == null)
+    	bundleSet = new HashSet<ResourceBundle>()
+    bundleSet.add(ResourceBundle.getBundle("DefaultMessagesBundle" , locale))
   }
 
 }
