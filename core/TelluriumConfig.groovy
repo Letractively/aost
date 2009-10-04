@@ -82,7 +82,7 @@ tellurium{
     //from the system
     //enter only one locale at a time, and use this only if you want to explicitly
     //set the locale, preferrable way is to comment out this section 
-    i8n{
+    i18n{
         //locales = "fr_FR"
         locales = "en_EN"
     }
