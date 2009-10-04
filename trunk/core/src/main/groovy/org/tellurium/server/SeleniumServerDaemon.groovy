@@ -29,6 +29,17 @@ public class SeleniumServerDaemon {
     private boolean slowResources = false;
 
     private boolean trustAllSSLCertificates = false;
+    private int timeoutInSeconds = 30;
+
+    private boolean avoidProxy = false;
+
+    private boolean browserSessionReuse = false;
+
+    private boolean ensureCleanSession = false;
+
+    private boolean debugMode = false;
+
+    private boolean interactive = false;
 
     private SeleniumServer server;
 
@@ -49,26 +60,33 @@ public class SeleniumServerDaemon {
 		return cmd.split(" ");
     }
 
-	public SeleniumServerDaemon(int port, String logFile, boolean useMultiWindows,
-                 boolean trustAllSSLCertificates, String profileLocation, String userExtension) {
-		super();
-		this.port = port;
-		this.logFile = logFile;
-		this.useMultiWindows = useMultiWindows;
-        this.trustAllSSLCertificates = trustAllSSLCertificates;
-		listening = false;
-		if(this.port <0 )
-			port = DEFAULT_PORT;
-		if(this.logFile == null)
-			this.logFile = DEFAULT_LOG_FILE;
-        if(profileLocation != null && profileLocation.trim().length() > 0){
-          this.profileLocation = profileLocation;
-        }
-        if(userExtension != null && userExtension.trim().length() > 0){
-          this.userExtension = userExtension;
-        }
-	}
+    public SeleniumServerDaemon(int port, String logFile, boolean useMultiWindows, boolean trustAllSSLCertificates,
+            boolean avoidProxy, boolean browserSessionReuse, boolean ensureCleanSession, boolean debugMode, boolean interactive,
+            int timeoutInSeconds, String profileLocation, String userExtension) {
+  		super();
+  		this.port = port;
+  		this.logFile = logFile;
+  		this.useMultiWindows = useMultiWindows;
+          this.trustAllSSLCertificates = trustAllSSLCertificates;
+          this.avoidProxy = avoidProxy;
+          this.browserSessionReuse = browserSessionReuse;
+          this.ensureCleanSession = ensureCleanSession;
+          this.debugMode = debugMode;
+          this.interactive = interactive;
+          this.timeoutInSeconds = timeoutInSeconds;
 
+  		listening = false;
+  		if(this.port <0 )
+  			port = DEFAULT_PORT;
+  		if(this.logFile == null)
+  			this.logFile = DEFAULT_LOG_FILE;
+          if(profileLocation != null && profileLocation.trim().length() > 0){
+            this.profileLocation = profileLocation;
+          }
+          if(userExtension != null && userExtension.trim().length() > 0){
+            this.userExtension = userExtension;
+          }
+  	}
 	public final int getPort() {
 		return port;
 	}
@@ -97,6 +115,13 @@ public class SeleniumServerDaemon {
 //          config.setProfilesLocation(new File(this.profileLocation));
           config.setFirefoxProfileTemplate(new File(this.profileLocation));
           config.setTrustAllSSLCertificates(this.trustAllSSLCertificates);
+          config.setTimeoutInSeconds(this.timeoutInSeconds);
+          config.setAvoidProxy(this.avoidProxy);
+          config.setReuseBrowserSessions(this.browserSessionReuse);
+          config.setInteractive(this.interactive);
+          config.setDebugMode(this.debugMode);
+          config.setEnsureCleanSession(this.ensureCleanSession);
+
         }
 
         if(this.userExtension != null && this.userExtension.trim().length() > 0){
@@ -148,3 +173,4 @@ public class SeleniumServerDaemon {
 		}
     }
 }
+
