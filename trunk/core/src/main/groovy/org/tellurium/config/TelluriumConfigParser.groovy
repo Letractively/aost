@@ -17,7 +17,7 @@ class TelluriumConfigParser {
 
     public void parse(String fileName){
        try{
-   	    	i18nManager.createResourceBundle(Locale.getDefault());
+   	    	i18nManager.createDefaultResourceBundle(Locale.getDefault());
             println i18nManager.translate("TelluriumConfigParser.parseConfigFileText" , {fileName})
             conf = new ConfigSlurper().parse(new File(fileName).toURL())
        }catch(Exception e){
