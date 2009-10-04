@@ -1,0 +1,51 @@
+#summary Tellurium Tutorial Series: Internationalization support in Tellurium
+#labels i18nsupport
+<wiki:toc max_depth="5" />
+== Tellurium Tutorial Series: Internationalization support in Tellurium ==
+
+Tellurium now has support for internationalization and localization of strings and exception messages
+=== Introduction ===
+
+Tellurium now provides support for internationalization of strings and exception messages. Any software system should have support for regional language settings and options to be effective. Internationalization and localization provides this support. Locales define the language and region. Locales can define how region specific data is presented to users. Every locale will have a language code followed by a region code. Ex: fr_FR represents french language in the region of France. Internationalized strings for each locale is provided through a MessageBundle engineered for a specific locale which is of the format `<MessageBundleName>_<language-code>_<country code>.properties`
+
+=== Internationalization support in Tellurium ===
+
+The Internationalization support in Tellurium is provided through the InternationalizationManager class. The default bundle used in Tellurium is the DefaultMessagesBundle.properties. All strings and exception messages used in the tellurium core classes are read in from the DefaultMessageBundle properties file. 
+
+In order to configure regional messages, This class has two major functions that provides Internationalization support for messages and Exceptions. 
+
+{{{
+translate( "<key>")
+translate("<key>" , { [ item1 , item2 , … , item n]}
+}}}
+
+The `translate(<key>)` method signature internationalizes a simple string. The `translate(<key> , { [ item1 , item2 , … , item n]}` method definition allows parameterization of an internationalized string to allow external strings/arguments as parameter to the string.
+
+The localization can be defined in two ways
+# setting the locale on your system preferences / settings. (ex: regional settings in Windows machine). This is the preferred and a better way of setting the locale
+# adding an i18n section similar to below
+
+{{{
+i18n{
+        locales = "en_EN"
+    }
+}}}
+
+=== Internationalization extension to user defined tests ===
+
+Internationalization support has been extended to test cases, so any user defined test case can use
+{{{
+ geti18nManager() 
+}}}
+
+to utilize the translate function support in their own test code. Internationalized strings can be added to user defined MessageBundles defined in the src/main/resources folder of user defined projects. The general steps to provide internationalization in your project are as follows:
+
+1. Create a user defined MessageBundle.properties, a default locale message bundle, as well as one for each region you want to provide support for in your project, ex: MessageBundle_fr_FR.properties will have strings translated into french
+
+2. Add the user defined resource bundle using the geti18nManager function, like so: `getI18nManager().addResourceBundle("MessageBundle")`
+
+3. Now use the `translate` function to internationalize strings
+
+=== Future Work ===
+
+Currently tellurium has support only for internationalization of strings and messages, but we expect to provide support for more categories, starting with currency, date and numeric data types. We also expect to provide internationalization support for Selenium messages on the console in the future.
