@@ -35,6 +35,7 @@
     * [http://code.google.com/p/aost/wiki/TheDumpMethod The Cool Dump() Method]
     * [http://code.google.com/p/aost/wiki/TelluriumMockHttpServer Tellurium Mock Http Server]
     * [http://code.google.com/p/aost/wiki/GenerateHtmlFromUIModule How to Generate Html Source from UI Modules]
+    * [http://code.google.com/p/aost/wiki/InternationalizationSupportTellurium Internationalization Support in Tellurium]
     * [http://code.google.com/p/aost/wiki/LogicalContainer Logical Container]
     * [http://code.google.com/p/aost/wiki/HowToConvertSeleniumTestToTellurium How To Convert Selenium Test To Tellurium]
     * [http://code.google.com/p/aost/wiki/GroovyPatternsInTellurium Groovy Patterns Used in Tellurium]
