@@ -7,7 +7,7 @@ Tellurium now has support for internationalization and localization of strings a
 
 == Prerequisites ==
  
-  * [http://kungfuters.org/nexus/content/repositories/snapshots/tellurium/tellurium-core/0.7.0-SNAPSHOT/Tellurium Core 0.7.0-SNAPSHOT]
+  * [http://kungfuters.org/nexus/content/repositories/snapshots/tellurium/tellurium-core/0.7.0-SNAPSHOT]
   * Java 6
 
 === Introduction ===
