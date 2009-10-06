@@ -1,7 +1,4 @@
-#summary Tellurium Configuration File for 0.7.0.
 #labels Phase-Implementation
-
-{{{
 /**
  * The global place to Tellurium configuration
  *
@@ -18,12 +15,25 @@ tellurium{
         port = "4444"
         //whether to use multiple windows
         useMultiWindows = false
+        //whether to trust all SSL certs, i.e., option "-trustAllSSLCertificates"
+        trustAllSSLCertificates = true
         //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
         runInternally = true
+        //By default, Selenium proxies every browser request; set this flag to make the browser use proxy only for URLs containing '/selenium-server'
+        avoidProxy = false
+        //stops re-initialization and spawning of the browser between tests
+        browserSessionReuse = false
+        //enabling this option will cause all user cookies to be archived before launching IE, and restored after IE is closed.
+        ensureCleanSession = false
+        //debug mode, with more trace information and diagnostics on the console
+        debugMode = false
+        //interactive mode
+        interactive = false
+        //an integer number of seconds before we should give up
+        timeoutInSeconds = 30
         //profile location
 //        profile = "/home/jiafan1/.mozilla/firefox/820j3ca9.default"
-//        profile = "/home/jiafan1/.mozilla/firefox/1my8aaxx.Default User2"
-        profile = ""  
+        profile = ""
         //user-extension.js file
         userExtension = "target/test-classes/extension/user-extensions.js"
     }
@@ -32,7 +42,7 @@ tellurium{
         //whether we should check if the UI element is presented
         checkElement = false
         //wether we add additional events like "mouse over"
-        extraEvent = true
+        extraEvent = false
     }
     //data accessor
     accessor{
@@ -56,15 +66,15 @@ tellurium{
         browser = "*chrome"
         //user's class to hold custom selenium methods associated with user-extensions.js
         //should in full class name, for instance, "com.mycom.CustomSelenium"
-        customClass = "org.tellurium.test.MyCommand"
-        //browser options such as 
+        customClass = ""
+        //browser options such as
         //    options = "captureNetworkTraffic=true, addCustomRequestHeader=true"
         options = ""
     }
     datadriven{
         dataprovider{
             //specify which data reader you like the data provider to use
-            //the valid options include "PipeFileReader", "CVSFileReader" at this point
+            //the valid options include "PipeFileReader", "CSVFileReader" at this point
             reader = "PipeFileReader"
         }
     }
@@ -118,4 +128,3 @@ tellurium{
         }
     }
 }
-}}}
