@@ -1,4 +1,6 @@
+#summary Tellurium Sample Configuration File 0.7.0.
 #labels Phase-Implementation
+
 /**
  * The global place to Tellurium configuration
  *
