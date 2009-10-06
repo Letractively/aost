@@ -1,4 +1,4 @@
-#summary Tellurium Sample Configuration File.
+#summary Tellurium Sample Configuration File for 0.6.0.
 #labels Phase-Support
 
 == Tellurium 0.6.0 Configuration File ==
