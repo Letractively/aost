@@ -10,7 +10,7 @@
       * [http://code.google.com/p/aost/wiki/TrUMP Tellurium UI Model Firefox Plugin 0.1.0]
       * [http://code.google.com/p/aost/wiki/TelluriumWidget Tellurium Widget Extensions]
       * [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven Archetypes]
-    * [http://code.google.com/p/aost/wiki/Resources Resources Related to Tellurium]
+    * [http://code.google.com/p/aost/wiki/Resources Resources]
   * [UserGuideIntroduction User Guide]
     * [UserGuideIntroduction Introduction]
     * [UserGuideConceptsFeatures Concepts and Features]
