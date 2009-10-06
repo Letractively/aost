@@ -46,6 +46,98 @@ to utilize the translate function support in their own test code. Internationali
 
 3. Now use the `translate` function to internationalize strings
 
+=== Simple Example ===
+
+Here is a simple example of code from a GoogleBooksListGroovyTestCase. I assume that user has already defined a MessagesBundle.properties,located at src/main/resources, as follows
+
+MessagesBundle.properties
+{{{
+GoogleBooksListGroovyTestCase.SetUpModule=Setting up google book list
+GoogleBooksListGroovyTestCase.Category=Category is {0}
+GoogleBooksListGroovyTestCase.ConnectSeleniumServer=Connection to selenium server
+}}}
+
+Now defining the same properties file in French
+
+MessageBundle_fr_FR.properties
+{{{
+GoogleBooksListGroovyTestCase.SetUpModule=Liste de livre de google d'établissement
+GoogleBooksListGroovyTestCase.Category=La catégorie est {0}
+GoogleBooksListGroovyTestCase.ConnectSeleniumServer=Se relier au serveur de sélénium
+}}}
+
+Here is the definition of a testCase that uses the Internationalization support
+{{{
+class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
+
+    public void initUi() {
+    }
+
+    public void setUp(){
+        setUpForClass()
+        //adding the local resource bundle, make sure it's not titled "DefaultMessagesBundle" since
+        //this will overwrite the default one we use in Tellurium core and cause exceptions
+        geti18nManager().addResourceBundle("MessagesBundle")
+        
+        //geti18nManager() can also be replaced by 
+        //manager = new InternationalizationManager(), where manager is a class level variable of type
+       //InternationalizationManager
+
+    }
+
+    public void tearDown(){
+        tearDownForClass()
+    }
+
+    void bookListTest(gbl){
+
+        println geti18nManager().translate("GoogleBooksListGroovyTestCase.ConnectSeleniumServer")
+        connectSeleniumServer()
+
+        connectUrl("http://books.google.com/")
+        String category = gbl.getCategory()
+
+        println getgeti18nManager().translate("GoogleBooksListGroovyTestCase.Category" , {category})
+        assertEquals("Fiction", category)
+
+        int size = gbl.getBookListSize()
+
+        assertEquals(8, size)
+
+        List lst = gbl.getAllObjectInList()
+
+        assertNotNull(lst)
+
+        int index = -1
+        String search =  "Poetry"
+        int i = 1
+        for(UiObject obj : lst){
+            assertTrue(obj instanceof UrlLink)
+            if(search.equals(gbl.getText(i))){
+                index = i
+                break
+            }
+            i++
+        }
+
+        gbl.clickList(index)
+    }
+
+    void testBookCategory(){
+        //test google book list using Selenium way, i.e., absolute xpath
+        
+        println geti18nManager().translate("GoogleBooksListGroovyTestCase.SetUpModule")
+
+        GoogleBooksList gbl = new GoogleBooksList()
+        gbl.defineUi()
+        bookListTest(gbl)
+
+        //test google book list using composite locators
+        NewGoogleBooksList ngbl = new NewGoogleBooksList()
+        ngbl.defineUi()
+        bookListTest(ngbl)
+    }
+}}}
 === Future Work ===
 
 Currently tellurium has support only for internationalization of strings and messages, but we expect to provide support for more categories, starting with currency, date and numeric data types. We also expect to provide internationalization support for Selenium messages on the console in the future.
