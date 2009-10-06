@@ -1,6 +1,7 @@
 #summary Tellurium Sample Configuration File 0.7.0.
 #labels Phase-Implementation
 
+{{{
 
 tellurium{
     //embedded selenium server configuration
@@ -122,3 +123,5 @@ tellurium{
         }
     }
 }
+
+}}}
