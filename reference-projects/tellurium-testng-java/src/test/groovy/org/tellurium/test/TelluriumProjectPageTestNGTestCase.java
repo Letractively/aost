@@ -21,6 +21,7 @@ public class TelluriumProjectPageTestNGTestCase extends TelluriumTestNGTestCase{
     public static void initUi() {
         app = new TelluriumProjectPage();
         app.defineUi();
+        connectSeleniumServer();
     }
 
     @BeforeMethod

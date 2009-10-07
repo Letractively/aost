@@ -5,6 +5,7 @@ import org.tellurium.util.Helper;
 import org.tellurium.module.TelluriumWikiPage;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
 import static org.testng.Assert.*;
 import java.util.List;
 
@@ -27,11 +28,18 @@ public class TelluriumWikiPageTestNGTestCase extends TelluriumTestNGTestCase{
     public static void initUi() {
         wikiPage = new TelluriumWikiPage();
         wikiPage.defineUi();
+        connectSeleniumServer();
+
+    }
+
+    @BeforeMethod
+    public void setUpForTest(){
+        connectUrl("http://code.google.com/p/aost/w/list");
     }
 
     @Test
     public void testPageTypes(){
-        connectUrl("http://code.google.com/p/aost/w/list");
+
         String[] types = wikiPage.getSearchOptions();
         assertNotNull(types);
         assertTrue(types[1].contains("All wiki pages"));
@@ -42,7 +50,7 @@ public class TelluriumWikiPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testSearchPageByText(){
-        connectUrl("http://code.google.com/p/aost/w/list");
+        
         // Set download type with other value
         wikiPage.selectSearchType(" All wiki pages");
         wikiPage.searchForKeyword("Tutorial");
@@ -55,7 +63,6 @@ public class TelluriumWikiPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testSearchByLabel(){
-        connectUrl("http://code.google.com/p/aost/w/list");
         // Set download type with other value
         wikiPage.selectSearchType(" All wiki pages");
         wikiPage.searchForKeyword("label:Featured");
@@ -70,31 +77,26 @@ public class TelluriumWikiPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testClickPageName(){
-        connectUrl("http://code.google.com/p/aost/w/list");
         wikiPage.clickPageNameColumn(1);
     }
 
     @Test
     public void testClickSummaryLabels(){
-        connectUrl("http://code.google.com/p/aost/w/list");
         wikiPage.clickSummaryLabelsColumn(1,1);
     }
 
     @Test
     public void testClickChanged(){
-        connectUrl("http://code.google.com/p/aost/w/list");
         wikiPage.clickChangedColumn(1);
     }
 
     @Test
     public void testClickChangedBy(){
-        connectUrl("http://code.google.com/p/aost/w/list");
         wikiPage.clickChangedByColumn(1);
     }
 
     @Test
     public void testClickHeader(){
-        connectUrl("http://code.google.com/p/aost/w/list");
         wikiPage.clickOnTableHeader(2);
         wikiPage.clickOnTableHeader(3);
         wikiPage.clickOnTableHeader(4);
