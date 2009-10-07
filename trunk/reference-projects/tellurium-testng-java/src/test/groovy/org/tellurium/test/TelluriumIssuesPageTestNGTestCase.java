@@ -5,6 +5,7 @@ import org.tellurium.util.Helper;
 import org.tellurium.module.TelluriumIssuesPage;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
 import static org.testng.Assert.*;
 import java.util.List;
 import java.util.Set;
@@ -27,11 +28,18 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
         tisp = new TelluriumIssuesPage();
         tisp.defineUi();
         tisp.disableJQuerySelector();
+        connectSeleniumServer();
     }
+
+    @BeforeMethod
+    public void setUpForTest(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
+    }
+
 
     @Test
     public void testGetIssueTypes(){
-        connectUrl("http://code.google.com/p/aost/issues/list");
+
         String[] ists = tisp.getIsssueTypes();
         assertNotNull(ists);
         assertTrue(ists[2].contains("Open issues"));
@@ -41,7 +49,6 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testAdvancedSearch(){
-        connectUrl("http://code.google.com/p/aost/issues/advsearch");
         String[] ists = tisp.getAdvancedIsssueTypes();
         assertNotNull(ists);
         assertTrue(ists[1].contains("All issues"));
@@ -52,13 +59,11 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testAdvancedSearchTips(){
-        connectUrl("http://code.google.com/p/aost/issues/advsearch");
         tisp.clickMoreSearchTips();
     }
 
     @Test
     public void testIssueData(){
-        connectUrl("http://code.google.com/p/aost/issues/list");
         int mcolumn = tisp.getTableHeaderNum();
         assertEquals(10, mcolumn);
         List<String> list = tisp.getHeaderNames();
@@ -73,7 +78,6 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testClickIssueResult(){
-        connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.clickTable(1,2);
         connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.clickTable(1,3);
@@ -91,7 +95,6 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testClickHeader(){
-        connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.clickOnTableHeader(2);
         tisp.clickOnTableHeader(3);
         tisp.clickOnTableHeader(4);
@@ -103,7 +106,6 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testIdMenu(){
-        connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.disableJQuerySelector();
         tisp.clickOnTableHeader(2);
         tisp.mouseMoveIdMenu();
@@ -113,16 +115,13 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testSelectColumnMenu(){
-        connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.disableJQuerySelector();
         tisp.toggleIdColumn("ID");
         tisp.toggleIdColumn("Owner");
-//        tisp.toggleIdColumn("Closed");
     }
 
     @Test
     public void testSelectDataLayout(){
-        connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.selectDataLayout("Grid");
         tisp.selectDataLayout("List");
     }

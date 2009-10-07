@@ -5,6 +5,7 @@ import org.tellurium.util.Helper;
 import org.tellurium.module.TelluriumDownloadsPage;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
 import static org.testng.Assert.*;
 import java.util.List;
 
@@ -27,11 +28,16 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
     public static void initUi() {
         downloadPage = new TelluriumDownloadsPage();
         downloadPage.defineUi();
+        connectSeleniumServer();
+    }
+
+    @BeforeMethod
+    public void setUpForTest(){
+        connectUrl("http://code.google.com/p/aost/downloads/list");
     }
 
     @Test
     public void testDownloadTypes(){
-        connectUrl("http://code.google.com/p/aost/downloads/list");
         String[] allTypes = downloadPage.getAllDownloadTypes();
         assertNotNull(allTypes);
         assertTrue(allTypes[1].contains("All downloads"));
@@ -42,7 +48,6 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
 
     @Test
     public void testDefaultDownloadType(){
-        connectUrl("http://code.google.com/p/aost/downloads/list");
         // Set download type with other value
         downloadPage.selectDownloadType(" All downloads");
 
@@ -55,7 +60,6 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
 
     @Test
     public void testSearchByText(){
-        connectUrl("http://code.google.com/p/aost/downloads/list");
         // Set download type with other value
         downloadPage.selectDownloadType(" All downloads");
         downloadPage.searchDownload("tellurium-0.5.0");
@@ -68,7 +72,6 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
 
     @Test
     public void testSearchByLabel(){
-        connectUrl("http://code.google.com/p/aost/downloads/list");
         // Set download type with other value
         downloadPage.selectDownloadType(" All downloads");
         downloadPage.searchDownload("label:Featured");
@@ -76,13 +79,10 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
         List<String> list = downloadPage.getDownloadFileNames();
         assertNotNull(list);
         assertFalse(list.isEmpty());
-//        assertTrue(Helper.include(list, "tellurium-0.5.0.jar"));
-//        assertTrue(Helper.include(list, "tellurium-core-0.6.0.tar.gz"));
     }
 
     @Test
     public void testDownloadFileNames(){
-        connectUrl("http://code.google.com/p/aost/downloads/list");
         int mcolumn = downloadPage.getTableHeaderNum();
         assertEquals(7, mcolumn);
         List<String> list = downloadPage.getHeaderNames();
@@ -97,37 +97,32 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
 
     @Test
     public void testClickDownload(){
-        connectUrl("http://code.google.com/p/aost/downloads/list");
         downloadPage.clickFileNameColumn(1);
     }
 
     @Test
     public void testClickSummaryLabels(){
-        connectUrl("http://code.google.com/p/aost/downloads/list");
         downloadPage.clickSummaryLabelsColumn(1,1);
     }
 
     @Test
     public void testClickUploaded(){
-        connectUrl("http://code.google.com/p/aost/downloads/list");
         downloadPage.clickUploadedColumn(1);
+  
     }
 
     @Test
     public void testClickSize(){
-        connectUrl("http://code.google.com/p/aost/downloads/list");
         downloadPage.clickSizeColumn(1);
     }
 
     @Test
     public void testClickDownloadedCount(){
-        connectUrl("http://code.google.com/p/aost/downloads/list");
         downloadPage.clickDownloadedCountColumn(1);
     }
 
     @Test
     public void testClickHeader(){
-        connectUrl("http://code.google.com/p/aost/downloads/list");
         downloadPage.clickOnTableHeader(2);
         downloadPage.clickOnTableHeader(3);
         downloadPage.clickOnTableHeader(4);
