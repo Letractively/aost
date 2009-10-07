@@ -52,6 +52,8 @@
     * [http://code.google.com/p/aost/wiki/TelluriumTestProjectMavenSamplePom Sample POM for Tellurium Maven project]
     * [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile Tellurium Sample Configuration File]
   * [WhatsNewInTellurium_0_6_0 Releases]
+    * [TrUMP Trump 0.1.0]
+      * [http://code.google.com/p/aost/wiki/TrUMP Trump 0.1.0 Guide]
     * [WhatsNewInTellurium_0_6_0 Tellurium 0.6.0]
       * [http://code.google.com/p/aost/wiki/WhatsNewInTellurium_0_6_0 What's New in Tellurium 0.6.0]
       * [http://code.google.com/p/aost/wiki/TelluriumConfig060 Sample Configuration]
