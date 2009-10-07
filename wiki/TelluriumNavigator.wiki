@@ -23,7 +23,7 @@
     * [UserGuideTelluriumSupport Tellurium Support]
     * [UserGuideResources Resources]
   * [Tutorial TechNotes]
-    * [http://code.google.com/p/aost/wiki/Tutorial Tutorial]
+    * [http://code.google.com/p/aost/wiki/Tutorial Tellurium Tutorial]
     * [http://code.google.com/p/aost/wiki/TelluriumVideo1 Tellurium beginner tutorial] 
     * [http://code.google.com/p/aost/wiki/DataDrivenTesting Tellurium Data Driven Testing]
     * [http://code.google.com/p/aost/wiki/HowTrUMPWorks How Trump Works]
