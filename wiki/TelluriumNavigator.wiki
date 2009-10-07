@@ -47,6 +47,7 @@
     * [http://code.google.com/p/aost/wiki/TelluriumAtCodeStock Tellurium @ CodeStock 2009]
   * [MavenHowTo Build] 
     * [http://code.google.com/p/aost/wiki/MavenHowTo Tellurium Maven Guide]
+    * [http://code.google.com/p/aost/wiki/TelluriumProjectIDESetup Tellurium Project IDE Setup]
     * [http://code.google.com/p/aost/wiki/TelluriumSampleAntBuildScript Tellurium Sample Ant Build Script]
     * [http://code.google.com/p/aost/wiki/TelluriumTestProjectMavenSamplePom Sample POM for Tellurium Maven project]
     * [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile Tellurium Sample Configuration File]
