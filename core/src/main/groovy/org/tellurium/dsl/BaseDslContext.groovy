@@ -11,6 +11,8 @@ import org.tellurium.locator.JQueryOptimizer;
 import org.tellurium.locator.LocatorProcessor;
 import org.tellurium.locator.MetaCmd;
 import org.tellurium.object.StandardTable;
+import org.tellurium.util.Helper;
+
 import org.tellurium.object.UiObject;
 
 /**
