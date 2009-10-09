@@ -1,5 +1,4 @@
 #summary Tellurium User Guide: Introduction
-#labels Featured
 
 (A PDF version of the user guide is available [http://telluriumdoc.googlecode.com/files/TelluriumUserGuide.Draft.pdf here])
 
