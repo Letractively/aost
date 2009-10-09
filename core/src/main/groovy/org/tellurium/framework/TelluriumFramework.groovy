@@ -73,7 +73,23 @@ class TelluriumFramework {
     registry.setMetaClass(TelluriumConfigurator, new TelluriumConfiguratorMetaClass())
 
     telluriumConfigurator = new TelluriumConfigurator()
-    telluriumConfigurator.parse("TelluriumConfig.groovy")
+
+    String fileName = "TelluriumConfig.groovy"
+
+//    telluriumConfigurator.parse("TelluriumConfig.groovy")
+    File file = new File(fileName)
+    if(file != null && file.exists()){
+      println "Parse configuration file: ${fileName} from project root directory..."
+      telluriumConfigurator.parse(file)
+    }else{
+      URL url = ClassLoader.getSystemResource(fileName)
+      if(url != null){
+        println "Parse configuration file: ${fileName} from class path..."
+        telluriumConfigurator.parse(url)
+      }else{
+        println "Cannot find configuration file: ${fileName}, use default values"
+      }
+    }
 
     //configure custom UI ojects
     telluriumConfigurator.config(new UiObjectBuilderRegistry())
