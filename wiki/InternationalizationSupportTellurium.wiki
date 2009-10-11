@@ -20,13 +20,30 @@ The Internationalization support in Tellurium is provided through the Internatio
 
 In order to configure regional messages, This class has a translate that provides Internationalization support. 
 
+
+For plain strings
 {{{
-For plain strings - translate( "<key>") 
-For Strings with parameters - translate("<key>" , { [ item1 , item2 , … , item n]}
-For double numeric value - translate(<doubleValue> , false)
-For currency data - translate(<doubleValue> , true)
-For Dates - translate(<dateValue> , false)
-For time - translate(<timeValue> , true)
+translate( "<key>") 
+}}}
+For Strings with parameters
+{{{
+translate("<key>" , { [ item1 , item2 , … , item n]}
+}}}
+For double numeric value
+{{{
+translate(<doubleValue> , false)
+}}}
+For currency data
+{{{
+translate(<doubleValue> , true)
+}}}
+For Dates
+{{{
+translate(<dateValue> , false)
+}}}
+For time
+{{{
+translate(<timeValue> , true)
 }}}
 
 The `translate(<key>)` method signature internationalizes a simple string. The `translate(<key> , { [ item1 , item2 , … , item n]}` method definition allows parameterization of an internationalized string to allow external strings/arguments as parameter to the string.
