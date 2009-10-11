@@ -125,7 +125,7 @@
                             	 <mkdir dir="${basedir}/target/test-classes"/>
 
                                  <groovyc srcdir="${basedir}/src/test/groovy" destdir="${basedir}/target/test-classes" listfiles="true">
-                                    <classpath refid="project.testcompile.classpath" />
+                                    <classpath refid="project.testcompile.classpath" />                                    
                                 </groovyc>
                             </tasks>
                         </configuration>
@@ -189,6 +189,12 @@
             <artifactId>json_simple</artifactId>
             <version>r1</version>
         </dependency>
+        <dependency>
+            <groupId>poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.0.1-FINAL</version>
+        </dependency>
+
         <dependency>
             <groupId>org.stringtree</groupId>
             <artifactId>stringtree-json</artifactId>
