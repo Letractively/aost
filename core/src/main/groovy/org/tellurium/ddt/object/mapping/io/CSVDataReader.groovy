@@ -18,6 +18,15 @@ class CSVDataReader implements DataReader{
 		//	protected final static String ESCAPE_END = "\\E"
 		protected InternationalizationManager i18nManager = new InternationalizationManager();
 
+		public void setupDataStream(FileInputStream input)
+		{
+			//not defined for this class
+		}
+		public List readLineFromDataStream()
+		{
+			//not defined for this class
+			return null
+		}
 
 	    //read in a line from a file and then convert them to a String list
 	    public List readLine(BufferedReader reader) {

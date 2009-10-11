@@ -1,7 +1,16 @@
 package org.tellurium.ddt.object.mapping.io
 
-import org.tellurium.ddt.object.mapping.DataMappingException
+import java.io.FileInputStream;
+import java.util.List;
+
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.tellurium.ddt.object.mapping.DataMappingException;
 import org.tellurium.i18n.InternationalizationManager;
+
 
 /**
  * The implementation for the field set reader to read excel files
@@ -12,43 +21,43 @@ import org.tellurium.i18n.InternationalizationManager;
  *
  */
 class ExcelDataReader implements DataReader{
-		protected final static String FIELD_DELIMITER = "\\|"
-		protected final static String ESCAPE_START = "\\Q"
-		protected final static String ESCAPE_END = "\\E"
+
 		protected InternationalizationManager i18nManager = new InternationalizationManager();
 
+		protected HSSFSheet workSheet = null
+		protected int currentRowCounter = 0
 
-	    //read in a line from a file and then convert them to a String list
-	    public List readLine(BufferedReader reader) {
-	
+		public void setupDataStream(FileInputStream input)
+		{
+			workSheet = new HSSFWorkbook(new POIFSFileSystem(input)).getSheetAt(0)
+		}
+		public List readLineFromDataStream()
+		{
 			List<String, String> lst = new ArrayList<String, String>()
-	        
-	        try {
-				String line = reader.readLine()
-				//If we reached the end of the file, no more lines, just return.
-				if(line == null)
-					return lst
-	
-	            String escapedLine = ESCAPE_START + line + ESCAPE_END;
-	
-	//			String[] fields = line.split(FIELD_DELIMITER)
-	            String[] fields = escapedLine.split(FIELD_DELIMITER);
-	 			//remove \Q for the first record
-				if(fields[0].startsWith(ESCAPE_START))
-					fields[0] = fields[0].substring(2);
-				//remove \E for the last record
-				int fl = fields.length;
-				if(fields[fl-1].endsWith(ESCAPE_END))
-					fields[fl-1] = fields[fl-1].substring(0, fields[fl-1].length()-2);
-	
-	            for(String s : fields){
-	                lst.add(s.trim())
-	            }
-	
-			} catch (IOException e) {
-				throw new DataMappingException(i18nManager.translate("DataReader.ReadDataException" , {e.getMessage()}))
+			boolean lineRead = false
+			int maxRows = workSheet.getPhysicalNumberOfRows()
+			for(int i = currentRowCounter; i < maxRows; i++) {
+				HSSFRow currentRow = workSheet.getRow(i)
+				Iterator cellIter = currentRow.cellIterator();
+	        	while(cellIter.hasNext()){
+	        		  HSSFCell cell = (HSSFCell) cellIter.next();
+	        		  if(cell !=null && cell.toString() !=null && cell.toString().length() > 0)
+	        		  {
+	        			  lst.add(cell.toString())
+		                  lineRead = true
+	        		  }
+	        	}
+	        	currentRowCounter++
+		        if(lineRead)
+		        {
+		        	break;
+		        }
 			}
-	
-			return lst
+			return lst;
+		}
+		
+
+	    public List readLine(BufferedReader reader) {
+	    	return null
 		}
 }

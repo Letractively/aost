@@ -12,5 +12,7 @@ package org.tellurium.ddt.object.mapping.io
 interface DataReader {
 
     public List readLine(BufferedReader reader)
+    public List readLineFromDataStream()
+    public void setupDataStream(FileInputStream inputStream)
 
 }
