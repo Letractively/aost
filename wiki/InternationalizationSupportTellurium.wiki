@@ -3,7 +3,7 @@
 <wiki:toc max_depth="5" />
 == Tellurium Tutorial Series: Internationalization support in Tellurium ==
 
-Tellurium now has support for internationalization and localization of strings and exception messages
+Tellurium now has support for internationalization and localization.
 
 == Prerequisites ==
  
@@ -18,11 +18,15 @@ Tellurium now provides support for internationalization of strings and exception
 
 The Internationalization support in Tellurium is provided through the InternationalizationManager class. The default bundle used in Tellurium is the DefaultMessagesBundle.properties. All strings and exception messages used in the tellurium core classes are read in from the DefaultMessageBundle properties file. 
 
-In order to configure regional messages, This class has two major functions that provides Internationalization support for messages and Exceptions. 
+In order to configure regional messages, This class has a translate that provides Internationalization support. 
 
 {{{
-translate( "<key>")
-translate("<key>" , { [ item1 , item2 , … , item n]}
+For plain strings - translate( "<key>") 
+For Strings with parameters - translate("<key>" , { [ item1 , item2 , … , item n]}
+For double numeric value - translate(<doubleValue> , false)
+For currency data - translate(<doubleValue> , true)
+For Dates - translate(<dateValue> , false)
+For time - translate(<timeValue> , true)
 }}}
 
 The `translate(<key>)` method signature internationalizes a simple string. The `translate(<key> , { [ item1 , item2 , … , item n]}` method definition allows parameterization of an internationalized string to allow external strings/arguments as parameter to the string.
@@ -74,7 +78,7 @@ GoogleBooksListGroovyTestCase.ConnectSeleniumServer=Se relier au serveur de sél
 
 Here is the definition of a testCase that uses the Internationalization support
 {{{
-class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
+class SampleGroovyTestCase extends TelluriumGroovyTestCase {
 
     public void initUi() {
     }
@@ -95,54 +99,28 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
         tearDownForClass()
     }
 
-    void bookListTest(gbl){
+    public void testTranslateWithEnglishLocale()
+    {
+       //translating of strings
+       String message = geti18nManager().translate("i18nManager.testString")
+       assertEquals("This is a testString in English", message)
 
-        println geti18nManager().translate("GoogleBooksListGroovyTestCase.ConnectSeleniumServer")
-        connectSeleniumServer()
+       //translation of number data types
+       Double amount = new Double(345987.246);
+       String translatedValue = geti18nManager().translate(amount, false)
+       assertEquals("345,987.246" , translatedValue)
 
-        connectUrl("http://books.google.com/")
-        String category = gbl.getCategory()
+       //translation of currency data types
+       amount = new Double(9876543.21);
+       translatedValue = geti18nManager().translate(amount, true)
+       assertEquals("\$9,876,543.21" , translatedValue)
 
-        println getgeti18nManager().translate("GoogleBooksListGroovyTestCase.Category" , {category})
-        assertEquals("Fiction", category)
-
-        int size = gbl.getBookListSize()
-
-        assertEquals(8, size)
-
-        List lst = gbl.getAllObjectInList()
-
-        assertNotNull(lst)
-
-        int index = -1
-        String search =  "Poetry"
-        int i = 1
-        for(UiObject obj : lst){
-            assertTrue(obj instanceof UrlLink)
-            if(search.equals(gbl.getText(i))){
-                index = i
-                break
-            }
-            i++
-        }
-
-        gbl.clickList(index)
-    }
-
-    void testBookCategory(){
-        //test google book list using Selenium way, i.e., absolute xpath
-        
-        println geti18nManager().translate("GoogleBooksListGroovyTestCase.SetUpModule")
-
-        GoogleBooksList gbl = new GoogleBooksList()
-        gbl.defineUi()
-        bookListTest(gbl)
-
-        //test google book list using composite locators
-        NewGoogleBooksList ngbl = new NewGoogleBooksList()
-        ngbl.defineUi()
-        bookListTest(ngbl)
-    }
+       //translation of dates - date is 2009, Jan 1
+       Date date = new Date(109 , 0 , 1)
+       translatedValue = geti18nManager().translate(date, false)
+       assertEquals("Jan 1, 2009" , translatedValue)
+     }
+}
 }}}
 === Future Work ===
 
