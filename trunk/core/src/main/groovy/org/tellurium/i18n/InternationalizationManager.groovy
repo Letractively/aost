@@ -1,7 +1,11 @@
 package org.tellurium.i18n
 
+import java.text.DateFormat;
 import java.text.MessageFormat;
+import java.text.NumberFormat;
 import java.util.Locale;
+
+import javax.swing.text.NumberFormatter;
 
 import java.util.Set;
 
@@ -42,6 +46,41 @@ class InternationalizationManager implements Configurable
 	  if(locale == null)
 		  locale = Locale.getDefault()
 	  this.bundleSet.add(ResourceBundle.getBundle(bundleName, locale))
+  }
+
+  //i18n for numbers and currencies
+  public String translate(Double doubleValue, Boolean isCurrency)
+  {
+	  if(locale == null)
+		  locale = Locale.getDefault()
+	  if(isCurrency)
+	  {
+		  NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale)
+		  return currencyFormatter.format(doubleValue)
+	  }
+	  else
+	  {
+		  NumberFormat numberFormatter = NumberFormat.getNumberInstance(locale)
+		  return numberFormatter.format(doubleValue)
+	  }
+  }
+
+  //i18n for dates and time
+  public String translate(Date dateValue , Boolean isTime)
+  {
+	  if(locale == null)
+		  locale = Locale.getDefault()
+		  if(isTime)
+		  {
+			  DateFormat timeFormatter = DateFormat.getTimeInstance(DateFormat.DEFAULT, locale)
+			  return timeFormatter.format(dateValue)
+		  }
+		  else
+		  {
+			  DateFormat dateFormatter = DateFormat.getDateInstance(DateFormat.DEFAULT, locale)
+			  return dateFormatter.format(dateValue)
+		  }
+	  
   }
 
   public String translate(String messageKey , Object[] arguments)
