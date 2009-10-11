@@ -9,6 +9,7 @@ import org.tellurium.config.TelluriumConfigParser
 import org.tellurium.connector.SeleniumConnector
 import org.tellurium.ddt.DataProvider
 import org.tellurium.ddt.object.mapping.io.CSVDataReader
+import org.tellurium.ddt.object.mapping.io.ExcelDataReader;
 import org.tellurium.ddt.object.mapping.io.PipeDataReader
 import org.tellurium.dispatch.Dispatcher
 import org.tellurium.event.EventHandler
@@ -92,6 +93,8 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
             dataProvider.setProperty("reader", new PipeDataReader())
         }else if("CSVFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)){
             dataProvider.setProperty("reader", new CSVDataReader())
+        }else if("ExcelFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)){
+            dataProvider.setProperty("reader", new ExcelDataReader())
         }else{        	
             println i18nManager.translate("TelluriumConfigurator.UnsupportedReader" , {conf.tellurium.datadriven.dataprovider.reader})
         }
