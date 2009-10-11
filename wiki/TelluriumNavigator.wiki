@@ -2,7 +2,6 @@
 #sidebar Tellurium Navigator.
 
   * [Introduction Overview] 
-    * [http://code.google.com/p/aost/wiki/Introduction Introduction]
     * [http://code.google.com/p/aost/wiki/TenMinutesToTellurium Quick Start]
     * [ReferenceProjectGuide Sub-projects]
       * [http://code.google.com/p/aost/wiki/ReferenceProjectGuide Reference Project Guide]
@@ -12,7 +11,7 @@
     * [http://code.google.com/p/aost/wiki/FAQ FAQs] 
     * [http://code.google.com/p/aost/wiki/Resources Resources]
   * [UserGuideIntroduction User Guide]
-    * [UserGuideIntroduction Introduction]
+    * [UserGuide070Introduction Introduction]
     * [UserGuideConceptsFeatures Concepts and Features]
     * [UserGuideTelluriumAPI Tellurium APIs]
     * [UserGuideUIObjects Tellurium UI Objects]
