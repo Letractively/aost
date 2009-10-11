@@ -20,7 +20,7 @@ Tellurium Contributors are categorized into development team, support team, evan
 
   * *Ajay Ravichandran*: Internationalization
 
-  * *Mahendra Kariya*:
+  * *Mahendra Kariya*: Wiki Page re-structure
 
 === Build and Release ===
 
@@ -28,7 +28,7 @@ Tellurium Contributors are categorized into development team, support team, evan
 
 === Quality Assurance ===
 
-  * *Kamal Ahmed*:
+  * *Kamal Ahmed*: [http://www.facebook.com/group.php?gid=298577410337&ref=mf Tellurium Facebook Group] Admin.
 
 === Documentation ===
 
