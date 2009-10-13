@@ -8,6 +8,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.tellurium.Const;
 import org.tellurium.ddt.object.mapping.DataMappingException;
 import org.tellurium.i18n.InternationalizationManager;
 
@@ -26,10 +27,14 @@ class ExcelDataReader implements DataReader{
 
 		protected HSSFSheet workSheet = null
 		protected int currentRowCounter = 0
-
+		
 		public void setupDataStream(FileInputStream input)
 		{
 			workSheet = new HSSFWorkbook(new POIFSFileSystem(input)).getSheetAt(0)
+		}
+		public int getReaderType()
+		{
+			return Const.EXCEL_TYPE
 		}
 		public List readLineFromDataStream()
 		{
@@ -55,7 +60,6 @@ class ExcelDataReader implements DataReader{
 			}
 			return lst;
 		}
-		
 
 	    public List readLine(BufferedReader reader) {
 	    	return null
