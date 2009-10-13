@@ -13,6 +13,7 @@ interface DataReader {
 
     public List readLine(BufferedReader reader)
     public List readLineFromDataStream()
+	public int getReaderType()
     public void setupDataStream(FileInputStream inputStream)
 
 }

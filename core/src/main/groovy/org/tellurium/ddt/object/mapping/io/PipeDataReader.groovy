@@ -3,6 +3,7 @@ package org.tellurium.ddt.object.mapping.io
 import java.io.FileInputStream;
 import java.util.List;
 
+import org.tellurium.Const;
 import org.tellurium.ddt.object.mapping.DataMappingException
 import org.tellurium.i18n.InternationalizationManager;
 
@@ -29,6 +30,11 @@ class PipeDataReader implements DataReader{
 		{
 			//not defined for this class
 			return null
+		}
+
+		public int getReaderType()
+		{
+			return Const.PIPE_TYPE
 		}
 
 	    //read in a line from a file and then convert them to a String list

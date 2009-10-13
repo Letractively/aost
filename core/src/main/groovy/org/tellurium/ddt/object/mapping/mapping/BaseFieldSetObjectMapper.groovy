@@ -1,5 +1,6 @@
 package org.tellurium.ddt.object.mapping.mapping
 
+import org.tellurium.Const;
 import org.tellurium.ddt.object.mapping.FieldSetRegistry
 import org.tellurium.ddt.object.mapping.io.DataReader
 import org.tellurium.ddt.object.mapping.FieldSet
@@ -106,8 +107,13 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
     }
 
     public List readNextLine(BufferedReader inputReader) {
-        //read the data from the input stream
-		List<String, String> fieldData = reader.readLine(inputReader)
+    	List<String, String> fieldData = null
+    	//read the data from the input stream
+    	//first check to see if the reader is of excel type if so invoke an alternate function
+    	if(reader.getReaderType() == Const.EXCEL_TYPE)
+    		fieldData = reader.readLineFromDataStream()
+    	else
+    		fieldData = reader.readLine(inputReader)
 
         return fieldData
     }

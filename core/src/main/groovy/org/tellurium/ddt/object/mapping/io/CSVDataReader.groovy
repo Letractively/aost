@@ -1,5 +1,6 @@
 package org.tellurium.ddt.object.mapping.io
 
+import org.tellurium.Const;
 import org.tellurium.ddt.object.mapping.DataMappingException
 import org.tellurium.i18n.InternationalizationManager;
 
@@ -26,6 +27,11 @@ class CSVDataReader implements DataReader{
 		{
 			//not defined for this class
 			return null
+		}
+
+		public int getReaderType()
+		{
+			return Const.CSV_TYPE
 		}
 
 	    //read in a line from a file and then convert them to a String list

@@ -1,5 +1,8 @@
 package org.tellurium.ddt.object.mapping.mapping
 
+import java.io.FileInputStream;
+
+import org.tellurium.Const;
 import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
 import org.tellurium.ddt.object.mapping.FieldSetRegistry
 import org.tellurium.ddt.object.mapping.io.PipeDataReader
@@ -17,7 +20,8 @@ import org.tellurium.ddt.object.mapping.io.DataReader
  */
 class DataFieldSetObjectMapper extends BaseFieldSetObjectMapper{
 
-    private BufferedReader br
+    private BufferedReader br = null;
+    private FileInputStream fis= null;
     
     public DataFieldSetObjectMapper(FieldSetRegistry fsr, TypeHandlerRegistry thr){
 //        reader = new PipeDataReader()
@@ -30,8 +34,11 @@ class DataFieldSetObjectMapper extends BaseFieldSetObjectMapper{
     }
 
     protected void openFile(String filePath){
-        InputStreamReader isr = new InputStreamReader(new FileInputStream (filePath))
-        br = new BufferedReader(isr)
+    	fis = new FileInputStream (filePath)
+        br = new BufferedReader(new InputStreamReader(fis))
+    	//if it is an ExcelReader, then we need to invoke the function setupDataStream()
+    	if(reader.getReaderType() == Const.EXCEL_TYPE)
+    		reader.setupDataStream(fis)
     }
 
     protected void readData(String data){
@@ -59,5 +66,7 @@ class DataFieldSetObjectMapper extends BaseFieldSetObjectMapper{
     protected void close(){
         if(br != null)
             br.close()
+        if(fis != null)
+        	fis.close()
     }
 }
