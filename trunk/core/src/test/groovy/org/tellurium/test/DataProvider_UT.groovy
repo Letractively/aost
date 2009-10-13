@@ -1,5 +1,7 @@
 package org.tellurium.test
 
+import org.tellurium.config.TelluriumConfigurator;
+import org.tellurium.config.TelluriumConfiguratorMetaClass;
 import org.tellurium.ddt.DataProvider
 import org.tellurium.ddt.object.mapping.FieldSetParser
 import org.tellurium.ddt.object.mapping.FieldSetRegistry
@@ -31,6 +33,9 @@ class DataProvider_UT extends GroovyTestCase{
             Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")
             Field(name: "input", description: "input variable")
         }
+
+        def registry = GroovySystem.metaClassRegistry
+        registry.setMetaClass(TelluriumConfigurator, new TelluriumConfiguratorMetaClass())
     }
 
     public void testFetchData(){
@@ -57,6 +62,35 @@ class DataProvider_UT extends GroovyTestCase{
         assertFalse(var1)
         assertEquals("8651234444", var2)
         assertEquals("tellurium selenium.test", var3)
+        assertNotNull(result)
+        assertFalse(result.isEmpty())
+        result = dataProvider.nextFieldSet()
+        assertNull(result)
+        dataProvider.stop()
+    }
+
+    public void testFetchExcelData(){   
+    	TelluriumConfigurator telluriumConfigurator = new TelluriumConfigurator()
+        telluriumConfigurator.parse(ClassLoader.getSystemResource("config/TelluriumConfigForExcelReader.groovy").getFile())
+        
+    	dataProvider.useFile(ClassLoader.getSystemResource("data/excelDataReaderTest.xls").getFile())
+        
+        FieldSetMapResult result = dataProvider.nextFieldSet()
+        assertNotNull(result)
+        assertFalse(result.isEmpty())
+        boolean var1 = dataProvider.bind("regularSearch")
+        def var2 = dataProvider.bind("fs4googlesearch.phoneNumber")
+        String var3 = dataProvider.bind("fs4googlesearch.input")
+        assertTrue(var1)
+        assertEquals("8656926000", var2)
+        assertEquals("tellurium", var3)
+        result = dataProvider.nextFieldSet()
+        var1 = dataProvider.bind("regularSearch")
+        var2 = dataProvider.bind("fs4googlesearch.phoneNumber")
+        var3 = dataProvider.bind("fs4googlesearch.input")
+        assertFalse(var1)
+        assertEquals("8651234444", var2)
+        assertEquals("tellurium selenium test", var3)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         result = dataProvider.nextFieldSet()

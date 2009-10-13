@@ -99,4 +99,7 @@ public class Const {
 
     public static final String SEPARATOR = "/"
 
+    public static final PIPE_TYPE = 1
+    public static final CSV_TYPE = 2
+    public static final EXCEL_TYPE = 3
 }
