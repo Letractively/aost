@@ -1,0 +1,30 @@
+<!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
+<suite name="Integration Tests">
+   <listeners>
+        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+    </listeners>
+
+	<test name="Downloads Page">
+        <classes>
+            <class name="org.tellurium.test.TelluriumDownloadsPageTestNGTestCase"></class>
+        </classes>
+	</test>
+
+	<test name="Issues Page">
+        <classes>
+            <class name="org.tellurium.test.TelluriumIssuesPageTestNGTestCase"></class>
+        </classes>
+	</test>
+
+ 	<test name="Project Page">
+         <classes>
+             <class name="org.tellurium.test.TelluriumProjectPageTestNGTestCase"></class>
+         </classes>
+	</test>
+
+ 	<test name="Wiki Page">
+         <classes>
+             <class name="org.tellurium.test.TelluriumWikiPageTestNGTestCase"></class>
+         </classes>
+	</test>
+</suite>
