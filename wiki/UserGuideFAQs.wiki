@@ -729,6 +729,30 @@ and use the following method to get back the namespace
 getNamespace("xforms"); 
 }}}
 
+== How to Access Tellurium Maven Repo Behind a Firewall ==
+
+You can download [http://ntlmaps.sourceforge.net/ NTLM Authorization Proxy Server] and install it as a local proxy. Then add the following proxy settings in your HOME/.m2/settings.xml.
+
+{{{
+  <proxies>
+   <proxy>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>localhost</host>
+      <port>5865</port>
+      <!--username>proxyuser</username>
+      <password>somepassword</password-->
+      <nonProxyHosts></nonProxyHosts>
+    </proxy>
+  </proxies>
+}}}
+
+The _nonProxyHosts_ parameter should include all the hosts you don't want them to go through the proxy server, for example, we have the following setting for that.
+
+{{{
+<nonProxyHosts>*.mycompany.com|*.mycompanydoman2.com</nonProxyHosts>
+}}}
+
 == How to Contribute to Tellurium ==
 
 We welcome contributions in many different ways, for example,
