@@ -261,3 +261,4 @@ To check out code from google code SVN, you should use SVN client plugins in IDE
 
   * [http://www.sonatype.com/books/maven-book/reference/public-book.html Maven: The Definitive Guide]
   * [http://repo.exist.com/dist/maestro/1.7.0/BetterBuildsWithMaven.pdf Better Builds with maven]
+  * [http://wiki.netbeans.org/MavenBestPractices#section-MavenBestPractices-BestPracticesForApacheMavenInNetBeans6.x Maven Best Practices for NetBeans]
