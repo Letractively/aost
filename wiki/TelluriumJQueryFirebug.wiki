@@ -206,8 +206,7 @@ http://tellurium-users.googlegroups.com/web/TelluriumJQueryIframe.png?gda=W0CtWE
 Thanks to Dominic. For multiple window mode, you can use the following way to find an element.
 
 {{{
-teJQuery(selenium.browserbot.getCurrentWindow().document).find
-("#username")
+teJQuery(selenium.browserbot.getCurrentWindow().document).find("#username")
 }}}
 
 = Feedback =
