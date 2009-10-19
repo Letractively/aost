@@ -731,7 +731,7 @@ getNamespace("xforms");
 
 == What Are the Differences Between connectUrl and openUrl ==
 
-Starting from Tellurium 0.7.0, {{{connectUrl()}}} and {{{openUrl()}}} are used for different purposes. That is to say, {{{openUrl()}} is used to instantiate a new browser session for each call, while {{{connectUrl()}}} reuses the same browser session. Under the hood, you have 
+Starting from Tellurium 0.7.0, {{{connectUrl()}}} and {{{openUrl()}}} are used for different purposes. That is to say, {{{openUrl()}}} is used to instantiate a new browser session for each call, while {{{connectUrl()}}} reuses the same browser session. Under the hood, you have 
 
 {{{
 openUrl() = connectSeleniumServer() + connectUrl()
