@@ -203,6 +203,13 @@ The output is shown as follows,
 
 http://tellurium-users.googlegroups.com/web/TelluriumJQueryIframe.png?gda=W0CtWEsAAACvY3VTaWrtpkaxlyj9o09Ei2DGeSsGpuBT4mNQYpRc0uTSq-Pi7IIn7mvi-lgcznBE4WwyXqDrOCG6YsJPv3PQBkXa90K8pT5MNmkW1w_4BQ&gsc=n_OfJwsAAACQg_IcbRBLWbV5y8FhKpga
 
+Thanks to Dominic. For multiple window mode, you can use the following way to find an element.
+
+{{{
+teJQuery(selenium.browserbot.getCurrentWindow().document).find
+("#username")
+}}}
+
 = Feedback =
 
 Please post your questions, comments, and suggestions to [http://groups.google.com/group/tellurium-users Tellurium User Group]. Also, please see [http://code.google.com/p/aost/wiki/HowToContribute How to contribute to Tellurium] if you want to contribute to Tellurium.
