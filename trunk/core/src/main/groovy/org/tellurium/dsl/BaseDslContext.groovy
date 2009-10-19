@@ -13,7 +13,9 @@ import org.tellurium.locator.MetaCmd;
 import org.tellurium.object.StandardTable;
 import org.tellurium.util.Helper;
 
-import org.tellurium.object.UiObject;
+import org.tellurium.object.UiObject
+import org.tellurium.locator.JQueryProcessor
+import org.tellurium.locator.XPathProcessor;
 
 /**
  * 
