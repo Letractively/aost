@@ -729,6 +729,16 @@ and use the following method to get back the namespace
 getNamespace("xforms"); 
 }}}
 
+== What Are the Differences Between connectUrl and openUrl ==
+
+Starting from Tellurium 0.7.0, {{{connectUrl()}}} and {{{openUrl()}}} are used for different purpose. That is to say, {{{openUrl()}} is used to instantiate a new browser session for each call, while {{{connectUrl()}}} reuses the same browser session. Under the hood, you have 
+
+{{{
+openUrl() = connectSeleniumServer() + connectUrl()
+}}}
+
+As a result, you need to call {{{connectSeleniumServer()}}} before you call {{{connectUrl()}}}.
+ 
 == How to Access Tellurium Maven Repo Behind a Firewall ==
 
 You can download [http://ntlmaps.sourceforge.net/ NTLM Authorization Proxy Server] and install it as a local proxy. Then add the following proxy settings in your HOME/.m2/settings.xml.
