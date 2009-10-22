@@ -1597,9 +1597,12 @@ Be aware, due to the limitations of XPath, _{{{$}}}_ and _{{{*}}}_ are the same 
 Examples:
 
 {{{
+clocator: [href:'!xevent']
+clocator: [href:'^xevent']
+clocator: [href:'$xevent']
 clocator: [href:'*xevent']
 }}}
-  
+     
 == Testing Support ==
 
 In the package org.tellurium.test, Tellurium provides three different ways to write Tellurium tests:
