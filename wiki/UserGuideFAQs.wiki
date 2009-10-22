@@ -738,7 +738,33 @@ openUrl() = connectSeleniumServer() + connectUrl()
 }}}
 
 As a result, you need to call {{{connectSeleniumServer()}}} before you call {{{connectUrl()}}} and then keep calling {{{connectUrl()}}} if you want to reuse the same browser session.
- 
+
+== How to do Attribute Partial Matching in Tellurium ==
+
+Tellurium adopts jQuery style partial matching, that is to say, you should use the following format for partial matching:
+
+{{{
+"PARTIAL_MATCHING_SIGNYour_string"
+}}}
+
+where the partial matching signs include:
+
+  * _{{{!}}}_: either don't have the specified attribute or do have the specified attribute but not with a certain value. 
+  * _{{{^}}}_: have the specified attribute and it starts with a certain value. 
+  * _{{{$}}}_: have the specified attribute and it ends with a certain value. 
+  * _{{{*}}}_: have the specified attribute and it contains a certain value. 
+
+Be aware, due to the limitations of XPath, _{{{$}}}_ and _{{{*}}}_ are the same in XPath locator.
+
+Examples:
+
+{{{
+clocator: [href:'!xevent']
+clocator: [href:'^xevent']
+clocator: [href:'$xevent']
+clocator: [href:'*xevent']
+}}}
+   
 == How to Access Tellurium Maven Repo Behind a Firewall ==
 
 You can download [http://ntlmaps.sourceforge.net/ NTLM Authorization Proxy Server] and install it as a local proxy. Then add the following proxy settings in your HOME/.m2/settings.xml.
