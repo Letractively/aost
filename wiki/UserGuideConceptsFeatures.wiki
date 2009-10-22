@@ -1577,6 +1577,29 @@ public class ListTestCase  extends TelluriumJavaTestCase {
 }
 }}}
 
+== Attribute Partial Matching ==
+
+Tellurium adopts jQuery style partial matching, that is to say, you should use the following format for partial matching:
+
+{{{
+"PARTIAL_MATCHING_SIGNYour_string"
+}}}
+
+where the partial matching signs include:
+
+  * _{{{!}}}_: either don't have the specified attribute or do have the specified attribute but not with a certain value. 
+  * _{{{^}}}_: have the specified attribute and it starts with a certain value. 
+  * _{{{$}}}_: have the specified attribute and it ends with a certain value. 
+  * _{{{*}}}_: have the specified attribute and it contains a certain value. 
+
+Be aware, due to the limitations of XPath, _{{{$}}}_ and _{{{*}}}_ are the same in XPath locator.
+
+Examples:
+
+{{{
+clocator: [href:'*xevent']
+}}}
+  
 == Testing Support ==
 
 In the package org.tellurium.test, Tellurium provides three different ways to write Tellurium tests:
