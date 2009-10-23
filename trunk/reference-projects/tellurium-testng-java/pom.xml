@@ -95,5 +95,10 @@
             <classifier>jdk15</classifier>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.uncommons</groupId>
+            <artifactId>reportng</artifactId>
+            <version>0.9.8</version>
+        </dependency>       
     </dependencies>
 </project>
