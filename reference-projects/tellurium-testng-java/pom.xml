@@ -99,6 +99,11 @@
             <groupId>org.uncommons</groupId>
             <artifactId>reportng</artifactId>
             <version>0.9.8</version>
-        </dependency>       
+        </dependency>
+        <dependency>
+            <groupId>velocity</groupId>
+            <artifactId>velocity-dep</artifactId>
+            <version>1.4</version>
+        </dependency>
     </dependencies>
 </project>
