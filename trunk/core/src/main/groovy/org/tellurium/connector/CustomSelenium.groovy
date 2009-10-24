@@ -59,7 +59,7 @@ class CustomSelenium extends DefaultSelenium {
         GridSupport.startSeleniumSession(host, port, browser, url)
       }catch (Exception e){
     	  
-        throw new TelluriumException (i18nManager.translate("CustomSelenium.CannotStartSelenium" , {e.getMessage()}))
+        throw new TelluriumException (i18nManager.translate("CustomSelenium.CannotStartSelenium" , e.getMessage()))
       }
     }
 
@@ -67,7 +67,7 @@ class CustomSelenium extends DefaultSelenium {
       try{
         GridSupport.startSeleniumSession(host, port, browser, url, options)
       }catch (Exception e){
-        throw new TelluriumException (i18nManager.translate("CustomSelenium.CannotStartSelenium" , {e.getMessage()}))
+        throw new TelluriumException (i18nManager.translate("CustomSelenium.CannotStartSelenium" , e.getMessage()))
       }
     }
 
@@ -78,7 +78,7 @@ class CustomSelenium extends DefaultSelenium {
         GridSupport.closeSeleniumSession()
       }catch (Exception e){
     	  
-        throw new TelluriumException (i18nManager.translate("CustomSelenium.CannotCloseSelenium" , {e.getMessage()}))        
+        throw new TelluriumException (i18nManager.translate("CustomSelenium.CannotCloseSelenium" , e.getMessage()))        
       }
 
 

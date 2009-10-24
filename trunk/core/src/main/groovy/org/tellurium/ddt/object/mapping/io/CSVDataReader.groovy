@@ -52,7 +52,7 @@ class CSVDataReader implements DataReader{
 	            }
 	
 			} catch (IOException e) {
-				throw new DataMappingException(i18nManager.translate("DataReader.ReadDataException" , {e.getMessage()}))
+				throw new DataMappingException(i18nManager.translate("DataReader.ReadDataException" , e.getMessage()))
 			}
 	
 			return lst

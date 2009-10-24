@@ -302,7 +302,7 @@ abstract class Widget extends UiObject {
       return obj
     }
 
-    throw new UiObjectNotFoundException(i18nManager.translate("Widget.UiObjectError",{uid}))
+    throw new UiObjectNotFoundException(i18nManager.translate("Widget.UiObjectError",uid))
   }
 
   def click(String uid) {
@@ -1213,7 +1213,7 @@ abstract class Widget extends UiObject {
       obj.traverse(context)
       ArrayList list = context.getUidList()
 
-      println(i18nManager.translate("Widget.LocatorInformation" , {uid} ))
+      println(i18nManager.translate("Widget.LocatorInformation" , uid ))
 
       println("-------------------------------------------------------")
       list.each {String key->
@@ -1245,7 +1245,7 @@ abstract class Widget extends UiObject {
     if (nextid.equalsIgnoreCase(this.uid)) {
       return this
     } else {
-      println(i18nManager.translate("Widget.CannotFindUIObject" , {[nextid , this.uid]} ))
+      println(i18nManager.translate("Widget.CannotFindUIObject" , nextid , this.uid ))
       return null
     }
   }

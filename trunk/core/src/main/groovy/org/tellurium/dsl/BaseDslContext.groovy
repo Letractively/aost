@@ -13,7 +13,7 @@ import org.tellurium.locator.MetaCmd;
 import org.tellurium.object.StandardTable;
 import org.tellurium.util.Helper;
 
-import org.tellurium.object.UiObject
+import org.tellurium.object.UiObject;
 import org.tellurium.locator.JQueryProcessor
 import org.tellurium.locator.XPathProcessor;
 
@@ -225,7 +225,7 @@ abstract class BaseDslContext {
       return obj
     }
 
-    throw new UiObjectNotFoundException(i18nManager.translate("BaseDslContext.CannotFindUIObject" , {uid}))
+    throw new UiObjectNotFoundException(i18nManager.translate("BaseDslContext.CannotFindUIObject" , uid))
   }
 
   String getConsoleInput(){
@@ -1164,7 +1164,7 @@ abstract class BaseDslContext {
       obj.traverse(context)
       ArrayList list = context.getUidList()
 
-      println(i18nManager.translate("BaseDslContext.DumpLocatorInformation", {uid}))
+      println(i18nManager.translate("BaseDslContext.DumpLocatorInformation", uid))
       println("-------------------------------------------------------")
       list.each {String key->
         String loc = getLocator(key)

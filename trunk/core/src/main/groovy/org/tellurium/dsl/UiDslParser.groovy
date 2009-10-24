@@ -87,7 +87,7 @@ class UiDslParser extends BuilderSupport{
          WorkflowContext context = WorkflowContext.getDefaultContext()
          UiObject obj = walkTo(context, ref)
          if(obj == null)
-             throw new UiObjectNotFoundException(i18nManager.translate("UiDslParser.CannotFindUiObject" , {ref}))
+             throw new UiObjectNotFoundException(i18nManager.translate("UiDslParser.CannotFindUiObject" , ref))
 
          if(uid != null && (!uid.equalsIgnoreCase(obj.uid))){
          //IF UID is specified and is not equals to the referenced obj uid, we need to clone 
@@ -119,7 +119,7 @@ class UiDslParser extends BuilderSupport{
              return obj
            }else{
         	   
-             throw new InvalidObjectTypeException(i18nManager.translate("UiDslParser.InvalidUIObject" , {name}))
+             throw new InvalidObjectTypeException(i18nManager.translate("UiDslParser.InvalidUIObject" , name))
            }
 
        }
@@ -143,7 +143,7 @@ class UiDslParser extends BuilderSupport{
 
                 return obj
            }else{
-              throw new InvalidObjectTypeException(i18nManager.translate("UiDslParser.InvalidUIObject" , {name}))
+              throw new InvalidObjectTypeException(i18nManager.translate("UiDslParser.InvalidUIObject" , name))
            }
          }
        }
@@ -156,7 +156,7 @@ class UiDslParser extends BuilderSupport{
 
                return obj
            }else{
-              throw new InvalidObjectTypeException(i18nManager.translate("UiDslParser.InvalidUIObject" , {name}))
+              throw new InvalidObjectTypeException(i18nManager.translate("UiDslParser.InvalidUIObject" , name))
            }
        }
 

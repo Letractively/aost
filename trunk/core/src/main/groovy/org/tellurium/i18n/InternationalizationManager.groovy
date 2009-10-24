@@ -83,7 +83,7 @@ class InternationalizationManager implements Configurable
 	  
   }
 
-  public String translate(String messageKey , Object[] arguments)
+  public String translate(String messageKey , Object... arguments)
   {
 	  String translatedMessage = null
 	  Set<ResourceBundle> bundleSet = getResourceBundleSet();
@@ -92,8 +92,7 @@ class InternationalizationManager implements Configurable
 		  if(translatedMessage !=null ) break
 			  
 	  }
-	  formatter.applyPattern(translatedMessage);
-	  return formatter.format(arguments);
+	  return formatter.format(translatedMessage , arguments);
   }
 
   public String translate(String messageKey)

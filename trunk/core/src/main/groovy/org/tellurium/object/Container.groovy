@@ -126,7 +126,7 @@ class Container extends UiObject {
 
             //cannot find the object
             
-            println i18nManager.translate("Container.CannotFindUIObject" , {[child , this.uid]})
+            println i18nManager.translate("Container.CannotFindUIObject" , child , this.uid)
 
             return null
         }

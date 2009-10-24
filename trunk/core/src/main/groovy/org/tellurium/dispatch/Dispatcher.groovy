@@ -31,7 +31,7 @@ class Dispatcher implements GroovyInterceptable, Configurable {
                 long timestamp = System.currentTimeMillis()
                 String filename = filenamePattern.replaceFirst(PLACE_HOLDER, "${timestamp}")
                 sc.client.getActiveSeleniumSession().captureScreenshot(filename)
-                println i18nManager.translate("Dispatcher.ExceptionMessage" , {[e.getMessage() , filename]})
+                println i18nManager.translate("Dispatcher.ExceptionMessage" , e.getMessage() , filename)
             }
             throw e
         }

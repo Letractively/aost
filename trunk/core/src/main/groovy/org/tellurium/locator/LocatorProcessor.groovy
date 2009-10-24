@@ -40,6 +40,6 @@ class LocatorProcessor{
 //        if(locator instanceof GroupLocator)
 //            return GroupLocateStrategy.locate(locator)
 		
-        throw new InvalidLocatorException(i18nManager.translate("LocatorProcessor.CannnotHandleLocator" , {locator.getClass()}))
+        throw new InvalidLocatorException(i18nManager.translate("LocatorProcessor.CannnotHandleLocator" , locator.getClass()))
     }
 }

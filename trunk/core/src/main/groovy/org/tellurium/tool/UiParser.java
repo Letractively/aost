@@ -80,7 +80,7 @@ public class UiParser {
 
             tree.printUI();
         } catch (FileNotFoundException e) {
-        	System.out.println(i18nManager.translate("UIParser.FileNotFoundException" , new Object[]{filename}));
+        	System.out.println(i18nManager.translate("UIParser.FileNotFoundException" , filename));
         }
     }
 

@@ -33,7 +33,7 @@ class WidgetConfigurator implements Configurable{
                     WidgetBootstrap bootstrap = (WidgetBootstrap) Class.forName(fullname).newInstance()
                     bootstrap.loadWidget(registry)
                 }else{
-                    println i18nManager.translate("WidgetConfigurator.ModuleNotempty" , {module} )
+                    println i18nManager.translate("WidgetConfigurator.ModuleNotempty" , module )
                 }
             }
         }

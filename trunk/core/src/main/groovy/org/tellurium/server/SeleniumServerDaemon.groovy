@@ -128,9 +128,9 @@ public class SeleniumServerDaemon {
 		  File userExt = new File(this.userExtension);
 		  if(userExt.exists()){
             config.setUserExtensions(userExt);
-            println i18nManager.translate("SeleniumServerDaemon.UserExtensionFile" , {this.userExtension})
+            println i18nManager.translate("SeleniumServerDaemon.UserExtensionFile" , this.userExtension)
           } else {
-            println i18nManager.translate("SeleniumServerDaemon.NoUserExtension" , {userExt.getAbsolutePath()})
+            println i18nManager.translate("SeleniumServerDaemon.NoUserExtension" , userExt.getAbsolutePath())
           }
         }else{
           println i18nManager.translate("SeleniumServerDaemon.NoUserExtensionWarning")
