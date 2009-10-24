@@ -21,7 +21,7 @@ public class InternationalizationManager_UT extends GroovyTestCase {
 		//translating of strings
 		String messageFromResourceBundle = i18nManager.translate("i18nManager.testString")
 		assertEquals("This is a testString in English", messageFromResourceBundle)
-
+		
 		//translation of number data types
 		Double amount = new Double(345987.246);
 		String translatedValue = i18nManager.translate(amount, false)

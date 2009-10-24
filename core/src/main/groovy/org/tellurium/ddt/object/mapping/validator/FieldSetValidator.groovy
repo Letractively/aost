@@ -47,7 +47,7 @@ class FieldSetValidator {
 
             //Check if the field can be null
             if (f.length() == 0 && (!df.isNullable()))
-                throw new DataMappingException(i18nManager.translate("FieldSetValidator.FieldCannotBeNull" , {df.getName()}))
+                throw new DataMappingException(i18nManager.translate("FieldSetValidator.FieldCannotBeNull" , df.getName()))
 
             //only check the pattern if the field is not empty
             if (df.getPattern() != null && f.length() > 0) {
@@ -57,7 +57,7 @@ class FieldSetValidator {
                 Matcher matcher = pattern.matcher(f)
                 //if not match
                 if (!matcher.matches())
-                    throw new DataMappingException(i18nManager.translate("FieldSetValidator.FieldDoesNotMatchPattern" , {[df.getPattern() ,df.getName() ]}))
+                    throw new DataMappingException(i18nManager.translate("FieldSetValidator.FieldDoesNotMatchPattern" , df.getPattern() ,df.getName()))
             }
 
             //If custom validator is defined and the field is not empty, we need to call it

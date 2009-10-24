@@ -18,11 +18,11 @@ class TelluriumConfigParser {
     public void parse(String fileName){
        try{
    	    	i18nManager.createDefaultResourceBundle(Locale.getDefault());
-            println i18nManager.translate("TelluriumConfigParser.parseConfigFileText" , {fileName})
+            println i18nManager.translate("TelluriumConfigParser.parseConfigFileText" , fileName)
             conf = new ConfigSlurper().parse(new File(fileName).toURL())              
        }catch(Exception e){
             conf = null
-            println i18nManager.translate("TelluriumConfigParser.cannotOpenConfigFile" , {e.getMessage()})
+            println i18nManager.translate("TelluriumConfigParser.cannotOpenConfigFile" , e.getMessage())
        }
     }
 

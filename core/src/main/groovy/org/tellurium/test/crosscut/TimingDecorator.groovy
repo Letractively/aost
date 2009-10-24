@@ -75,9 +75,9 @@ public class TimingDecorator {
         if(methodInWhiteList(name)){
           accumulatedTime += duration
 //          println "Calling $name($args) in ${duration} ms <-- Accumulated "
-          logger.log(i18nManager.translate("TimingDecorator.MethodInWhiteList" , {[name,args,duration]} ))
+          logger.log(i18nManager.translate("TimingDecorator.MethodInWhiteList" , name,args,duration ))
         }else{
-          logger.log(i18nManager.translate("TimingDecorator.MethodNotInWhiteList" , {[name,args,duration]} ))
+          logger.log(i18nManager.translate("TimingDecorator.MethodNotInWhiteList" , name,args,duration ))
 //          println "Calling $name($args) in ${duration} ms"
         }
       

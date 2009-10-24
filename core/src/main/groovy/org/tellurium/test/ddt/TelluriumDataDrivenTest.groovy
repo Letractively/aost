@@ -156,7 +156,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
             tddm.defineModule()
         }else{
             InternationalizationManager i18nManager = new InternationalizationManager()
-            throw new RuntimeException(i18nManager.translate("TelluriumDataDrivenTest.IncludModule" , {module?.getName()}))
+            throw new RuntimeException(i18nManager.translate("TelluriumDataDrivenTest.IncludModule" , module?.getName()))
         }
     }
 

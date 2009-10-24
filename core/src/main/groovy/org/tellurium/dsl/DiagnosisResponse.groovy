@@ -44,17 +44,17 @@ public class DiagnosisResponse {
   }
 
   public void show() {
-    println i18nManager.translate("DiagnosisResponse.DiagnosisResult" , {uid})
+    println i18nManager.translate("DiagnosisResponse.DiagnosisResult" , uid)
     
     println("\n-------------------------------------------------------\n")
 
-    println i18nManager.translate("DiagnosisResponse.MatchingCount" , {count})
+    println i18nManager.translate("DiagnosisResponse.MatchingCount" , count)
     if(matches != null && matches.size() > 0){
       println i18nManager.translate("DiagnosisResponse.MatchingElement")
       int i = 0;
       matches.each {String elem ->
         i++;
-        println i18nManager.translate("DiagnosisResponse.Element" , {i})
+        println i18nManager.translate("DiagnosisResponse.Element" , i)
         println(elem + "\n");
       }
     }
@@ -64,7 +64,7 @@ public class DiagnosisResponse {
       int j = 0;
       parents.each {String elem ->
         j++;
-        println i18nManager.translate("DiagnosisResponse.Parent" , {j})
+        println i18nManager.translate("DiagnosisResponse.Parent" , j)
         println(elem + "\n");
       }
     }
@@ -76,7 +76,7 @@ public class DiagnosisResponse {
 
       closest.each {String elem ->
         k++;
-        println i18nManager.translate("DiagnosisResponse.ClosestElement" , {k});
+        println i18nManager.translate("DiagnosisResponse.ClosestElement" , k);
         println(elem + "\n");
       }
     }

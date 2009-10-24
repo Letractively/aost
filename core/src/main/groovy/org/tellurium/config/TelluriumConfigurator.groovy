@@ -96,7 +96,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
         }else if("ExcelFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)){
             dataProvider.setProperty("reader", new ExcelDataReader())
         }else{        	
-            println i18nManager.translate("TelluriumConfigurator.UnsupportedReader" , {conf.tellurium.datadriven.dataprovider.reader})
+            println i18nManager.translate("TelluriumConfigurator.UnsupportedReader" , conf.tellurium.datadriven.dataprovider.reader)
         }
     }
 
