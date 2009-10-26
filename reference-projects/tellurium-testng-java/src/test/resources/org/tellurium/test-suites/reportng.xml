@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
-<suite name="Google Code Tellurium Tests">
+<suite name="Google Code Tests">
    <listeners>
         <listener class-name="org.uncommons.reportng.HTMLReporter"/>
     </listeners>
