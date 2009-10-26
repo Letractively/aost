@@ -10,12 +10,6 @@
         </classes>
 	</test>
 
-	<test name="Issues Page">
-        <classes>
-            <class name="org.tellurium.test.TelluriumIssuesPageTestNGTestCase"></class>
-        </classes>
-	</test>
-
  	<test name="Project Page">
          <classes>
              <class name="org.tellurium.test.TelluriumProjectPageTestNGTestCase"></class>
