@@ -44,6 +44,7 @@
     * [http://code.google.com/p/aost/wiki/TopTenTelluriumFeatures Top Ten Cool Features in Tellurium]
     * [http://code.google.com/p/aost/wiki/FirstAnniversaryRetrospectAndProspect Tellurium First Anniversary: Retrospect And Prospect]
     * [http://code.google.com/p/aost/wiki/TelluriumAtCodeStock Tellurium @ CodeStock 2009]
+    * [http://code.google.com/p/aost/wiki/BetterReportingWithReportNG Better Reporting with ReportNG]
   * [MavenHowTo Build] 
     * [http://code.google.com/p/aost/wiki/MavenHowTo Tellurium Maven Guide]
     * [http://code.google.com/p/aost/wiki/TelluriumProjectIDESetup Tellurium Project IDE Setup]
