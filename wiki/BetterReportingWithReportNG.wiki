@@ -1,0 +1,17 @@
+#summary Tellurium implements ReportNG.
+
+= Introduction =
+
+ReportNG is a simple HTML reporting plug-in for the TestNG framework. It is intended as a replacement for the default TestNG HTML report. The default report is comprehensive but is not so easy to understand at-a-glance. ReportNG provides a simple, colour-coded view of the test results. 
+
+
+= How to generate test results with ReportNG? =
+
+TestNG reference project supports generating reports using ReportNG out of the box. Follow the steps below to use ReportNG.
+
+
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
