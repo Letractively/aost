@@ -1,4 +1,4 @@
-#summary Tellurium UI Objects.
+#summary Tellurium User Guide: Tellurium UI Objects.
 #labels Phase-Implementation
 
 = Tellurium UI Objects =
