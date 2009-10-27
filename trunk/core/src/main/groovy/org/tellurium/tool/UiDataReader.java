@@ -80,7 +80,7 @@ public class UiDataReader {
             }
             
         }catch (IOException e) {
-        	i18nManager.translate("UIDataReader.ReadDataException" , e.getMessage());
+        	i18nManager.translate("UIDataReader.ReadDataException" , new Object[]{e.getMessage()});
 		}
 
 		return dfm;
