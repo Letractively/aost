@@ -2,7 +2,7 @@
 
 
 
-(A PDF version of the user guide is available [http://aost.googlecode.com/files/TelluriumUserGuide.0.6.0.pdf])
+(A PDF version of the user guide is available [http://aost.googlecode.com/files/TelluriumUserGuide.0.6.0.pdf here])
 
 
 
@@ -83,6 +83,4 @@ Click the following links or copy and paste the URL address to connect to the Te
 
 
 [http://code.google.com/p/aost/wiki/UserGuideResources#Related http://code.google.com/p/aost/wiki/UserGuideResources#Related] 
-
-
 
