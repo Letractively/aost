@@ -12,15 +12,15 @@ Tellurium Contributors are categorized into development team, support team, evan
 
   * *Vivek Mongolu*: TrUMP prototype, Trump 0.1.0, and Trump 0.2.0. Presented Tellurium at CodeStock 2009.
 
-  * *Haroon Rasheed*: Tellurium Reference projects, Selenium Grid support, and Tellurium Linkedin Group management.
+  * *Haroon Rasheed*: Tellurium Reference projects, Selenium Grid support, TestNG Report support, and Tellurium Linkedin Group management.
 
   * *Mikhail Koryak*: TrUMP 0.1.0 and jQuery support for Tellurium
 
   * *Jeff Xiong*: 
 
-  * *Ajay Ravichandran*: Internationalization
+  * *Ajay Ravichandran*: Internationalization, Excel data reader
 
-  * *Mahendra Kariya*: Wiki Page re-structure
+  * *Mahendra Kariya*: User Guide Wiki
 
 === Build and Release ===
 
@@ -34,7 +34,7 @@ Tellurium Contributors are categorized into development team, support team, evan
 
   * *Davlyn Jones*: User Guide 0.6.0
 
-  * *Ramesh Ramamurthy*: 
+  * *Ramesh Ramamurthy*: Article revision
 
 === Evangelism Team ===
 
