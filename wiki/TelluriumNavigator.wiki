@@ -10,7 +10,7 @@
       * [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven Archetypes]
     * [http://code.google.com/p/aost/wiki/FAQ FAQs] 
     * [http://code.google.com/p/aost/wiki/Resources Resources]
-  * [UserGuideIntroduction User Guide]
+  * [UserGuide070Introduction User Guide]
     * [UserGuide070Introduction Introduction]
     * [UserGuide070GettingStarted Getting Started]
     * [UserGuide070TelluriumSubprojects Tellurium Subprojects]
