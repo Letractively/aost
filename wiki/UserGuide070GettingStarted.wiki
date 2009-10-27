@@ -47,6 +47,8 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
    -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
 }}}
 
+=== Tellurium Ant Projects ===
+
 For an Ant user: 
 
   # Download the following:
