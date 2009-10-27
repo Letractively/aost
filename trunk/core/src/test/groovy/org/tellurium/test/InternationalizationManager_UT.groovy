@@ -46,7 +46,7 @@ public class InternationalizationManager_UT extends GroovyTestCase {
 		i18nManager.addResourceBundle("TestMessagesBundle")		
 		
 		String messageFromResourceBundle = i18nManager.translate("i18nManager.testString")
-		assertEquals("c'est une corde d'essai en français", messageFromResourceBundle)
+		assertEquals("c'est une corde d'essai en franÁais", messageFromResourceBundle)
 
 		//translation of number data types
 		Double amount = new Double(21.26);
@@ -56,7 +56,7 @@ public class InternationalizationManager_UT extends GroovyTestCase {
 		//translation of currency data types
 		amount = new Double(21.26);
 		translatedValue = i18nManager.translate(amount, true)
-		assertEquals("21,26 €" , translatedValue)
+		assertEquals("21,26 Ä" , translatedValue)
 		
 		//translation of dates - date is 2009, Jan 1
 		Date date = new Date(109 , 0, 1)
