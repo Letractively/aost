@@ -55,6 +55,6 @@ public class XPathMatcher {
             return original.substring(prefix.length());
         }
 
-        throw new RuntimeException(i18nManager.translate("XPathMatcher.RunTimeException" , original , prefix));
+        throw new RuntimeException(i18nManager.translate("XPathMatcher.RunTimeException" , new Object[] {original , prefix}));
     }
 }
