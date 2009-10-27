@@ -1,5 +1,6 @@
 #summary Tellurium User Guide: Tellurium UI Objects.
 #labels Phase-Implementation
+<wiki:toc max_depth="5" />
 
 = Tellurium UI Objects =
 
