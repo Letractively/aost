@@ -1,0 +1,16 @@
+#summary Tellurium User Guide: Appendix C
+
+
+(A PDF version of the user guide is available [http://aost.googlecode.com/files/TelluriumUserGuide.0.6.0.pdf])
+
+
+
+<wiki:toc max_depth="5" />
+
+
+
+== Appendix C Support==
+
+
+
+If you have any questions or problems with using Tellurium, please join our [http://groups.google.com/group/tellurium-users Tellurium user group] and then post them at this site. You will receive a response shortly.
