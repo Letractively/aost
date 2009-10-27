@@ -1,4 +1,5 @@
-#summary Tellurium User Guide: Appendix A
+#summary Tellurium User Guide: Appendix A Tellurium Examples.
+#labels Phase-Implementation
 
 (A PDF version of the user guide is available [http://aost.googlecode.com/files/TelluriumUserGuide.0.6.0.pdf here])
 
