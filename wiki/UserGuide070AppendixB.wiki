@@ -106,7 +106,7 @@ For more details, please read "Tellurium Maven archetypes",
 
 The user guide for Tellurium DSLs, other APIs, and default UI objects could be found at:
 
-[http://code.google.com/p/aost/wiki/UserGuide http://code.google.com/p/aost/wiki/UserGuide]
+[http://code.google.com/p/aost/wiki/UserGuide070Introduction http://code.google.com/p/aost/wiki/UserGuide070Introduction]
 
 == Is There a Tellurium Tutorial Available? ==
 
@@ -394,3 +394,443 @@ In Tellurium, once you defined the UI module, for example, the Google search mod
 4) Selenium is cool and the idea is brilliant. But it is really for low level testing only, focusing on one element at a time and it does not have the whole UI module in mind. That is why another tier on top of it is needed so that you can have a UI module-oriented testing script and not the locator-oriented one. Tellurium is one of the frameworks designed for this purpose.
 
 5) As mentioned in 4), Selenium is quite a low level process and it is really difficult to handle more complicated UI components like a data grid. Tellurium can handle them easily. Please see the test scripts for the Tellurium project web site.
+
+== How to write assertions in Tellurium DSL scripts ==
+
+Tellurium DSL scripts are actually Groovy scripts written in DSL syntax. Thus, Tellurium DSL scripts support all assertions in JUnit 3.8, which GroovyTestCase extends.
+
+But for Tellurium Data Driven testing scripts, it is a bit different. Usually, you should use:
+
+{{{
+compareResult expected, actual
+}}}
+
+and it in turn calls
+
+{{{
+assertEquals(expected, actual)
+}}}
+
+This is because DDT script has to be general enough for different input data. If you want to use your own assertions, Tellurium provides the capability for that. You should use a Groovy closure to replace the default asserEquals. For example, in your DDT DSL script, you can overwrite the default behaviour using
+
+{{{
+compareResult(expected, actual){
+        assertNotNull(expected)
+        assertNotNull(actual)
+        assertTrue(expected.size() == actual.size())
+}
+}}}
+
+This brings up one interesting question "why should I put assertions inside compareResult, not anywhere in the script?" The answer is that you can put assertions any where in the DDT script, but that will cause different behaviour if the assertion fails.
+
+If you put assertions in compareResult and the assertion fails, the AssertionFailedError will be captured and that comparison fails, but the rest script inside a test will continue executing. But if you put assertions outside of compareResult, the AssertionFailedError will lead to the failure of the current test. The exception will be
+recorded and the current test will be stopped. The next test will take over and execute. 
+
+== How to run Selenium server remotely in Tellurium ==
+
+The steps to use remote selenium server in Tellurium are as follows,
+
+First, run selenium sever on the remote machine, saying 192.168.1.106
+
+{{{
+java -jar selenium-server.jar -port 4444
+}}}
+
+for more selenium server options, please use the following commands:
+
+{{{
+java -jar selenium-server.jar --help
+}}}
+
+Then, you should modify the TelluriumConfig.groovy as follows,
+
+{{{
+tellurium{
+   //embedded selenium server configuration
+   embeddedserver {
+       //port number
+       port = "4444"
+       //whether to use multiple windows
+       useMultiWindows = false
+       //whether to run the embedded selenium server. 
+       //If false, you need to manually set up a selenium server
+       runInternally = false
+   }
+   //the configuration for the connector that connects the selenium client 
+   //to the selenium server
+   connector{
+       //selenium server host
+       //please change the host if you run the Selenium server remotely
+       serverHost = "192.168.1.106"
+
+       //server port number the client needs to connect
+       port = "4444"
+       //base URL
+       baseUrl = "http://localhost:8080"
+       //Browser setting, valid options are
+       //  *firefox [absolute path]
+       //  *iexplore [absolute path]
+       //  *chrome
+       browser = "*iehta"
+   }
+......
+}
+}}}
+
+That is to say, you should disable the embedded selenium server by specifying
+{{{
+runInternally = false
+}}}
+and specify the remote selenium server host as
+{{{
+serverHost = "192.168.1.106"
+}}}
+
+After that, you can run the test just like using the embedded selenium server. But be aware that there are some performance degradation, i.e., the test is slower with remote selenium server.
+
+== Differences among Tellurium Table, List, and Container ==
+
+Container is most like an abstract object and it can be of any type of UI objects that can hold other UI objects. The UI objects inside the Container are fixed once it is defined and inner objects can be referred directly by "container_uid.object_uid". Be aware that Tellurium Container type objects can hold any UI objects including container type objects and nested UI can be constructed in this way.
+
+Table and List are both Container type UI objects and are designed mainly for dynamic size UI objects. For example, table can be used to mode data grid, whose size is not fixed and is dynamic at run-time. For this purpose, the UI objects inside the table can be used as templates and how they are used is totally dependent on their UIDs.
+
+For table, the UID of its inner objects is in the following formats:
+
+  # {{{"row: i, colum: j"}}}, which defines the UI object for the {{{[i][j]}}} element.
+  # {{{"row: *, column: j"}}}, which defines the UI objects for all elements in column j.
+  # {{{"row: i, column: *"}}}, similarly defines the UI objects for all elements in row i.
+  # "all", which defines the UI objects for all elements.
+
+At runtime, the following rules applies if any of them are defined:
+{{{
+1) > 2) > 3) > 4)
+}}}
+In this way, you can always define various templates for your table.
+
+Once the templates are defined and you use {{{table[i][j]}}} to refer the inner object, Tellurium will automatically apply the above rules and find the actual UI object for you. If no templates can be found, Tellurium will use default UI object TextBox.
+
+One such good example is the data grid of Tellurium downloads page:
+{{{
+ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"], group: "true"){
+    //define table elements
+    //for the border column
+    TextBox(uid: "row: *, column: 1", clocator: [:])
+    //the summary + labels column consists of a list of UrlLinks
+    List(uid: "row:*, column: 3", clocator: [:]){
+        UrlLink(uid: "all", clocator: [:])
+    }
+    //For the rest, just UrlLink
+    UrlLink(uid: "all", clocator: [:])
+}
+}}}
+
+List is similar to the Table, but it is one dimension. As a result, its UID uses the following formats:
+
+  # "i": the i-th element
+  # "all": all elements
+
+the rule is {{{1) > 2)}}}.
+
+== How do I use a Firefox profile in Tellurium ==
+
+You can specify the profile in Tellurium Configuration file TelluriumConfig.groovy as follows,
+
+{{{
+ embeddedserver {
+
+       ......
+
+       //profile location, for example,
+       profile = "/home/jfang/.mozilla/firefox/820j3ca9.default"
+   }
+}}}
+
+== How to Overwrite Tellurium Settings in My Test Class ==
+
+TelluriumConfig.groovy acts like a global setting file if you do not want to manually change it. Now, the  BaseTelluriumJavaTestCase provides two methods for you to overwrite the default settings,
+
+{{{
+public static void setCustomConfig(boolean runInternally, int port, String browser,
+                      boolean useMultiWindows, String profileLocation)
+
+public static void setCustomConfig(boolean runInternally, int port, String browser,
+                      boolean useMultiWindows, String profileLocation, String serverHost)
+}}}
+
+As you result, if you want to use your custom settings for your specific test class, you can use the following way taking the Google test case as an example,
+
+{{{
+public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase
+{
+   static{
+       setCustomConfig(true, 5555, "*chrome", true, null);
+   }
+
+...
+
+}
+}}}
+
+== How to reuse a frequently used set of elements ==
+
+The "Include" syntax in Ui module definition can be used for this purpose. You can put frequently used UI modules into a base class, for example,
+
+{{{
+public class BaseUiModule extends DslContext {
+  public void defineBaseUi() {
+    ui.Container(uid: "SearchModule", clocator: [tag: "td"], group: "true") {
+      InputBox(uid: "Input", clocator: [title: "Google Search"])
+      SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+      SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
+    }
+
+    ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"], 
+                 group: "true") 
+    {
+      TextBox(uid: "category", clocator: [tag: "div", class: "sub_cat_title"])
+      List(uid: "subcategory", clocator: [tag: "div", class: "sub_cat_section"],
+          separator: "p") 
+      {
+        UrlLink(uid: "all", clocator: [:])
+      }
+    }
+  }
+}
+}}}
+
+Then you can extend this base Ui module as follows,
+
+{{{
+public class ExtendUiModule extends BaseUiModule {
+
+  public void defineUi() {
+    defineBaseUi()
+
+    ui.Container(uid: "Google", clocator: [tag: "table"]) {
+      Include(ref: "SearchModule")
+      Container(uid: "Options", clocator: [tag: "td", position: "3"], group: "true") {
+        UrlLink(uid: "LanguageTools", clocator: [tag: "a", text: "Language Tools"])
+        UrlLink(uid: "SearchPreferences", clocator: [tag: "a", 
+                                                       text: "Search Preferences"])
+        UrlLink(uid: "AdvancedSearch", clocator: [tag: "a", text: "Advanced Search"])
+      }
+    }
+
+    ui.Container(uid: "Test", clocator: [tag: "div"]) {
+      Include(uid: "newcategory", ref: "GoogleBooksList.category")
+      Include(uid: "secondcategory", ref: "GoogleBooksList.category")
+      Include(uid: "newsubcategory", ref: "GoogleBooksList.subcategory")
+    }
+  }
+}
+}}}
+
+Note that the "Include" must have the ref attribute to refer to the element it wants to include. You can still specify the uid for the object (if you do not need a different uid, you do not need the uid), if the object uid is not equal to the original one, Tellurium will clone a new object for you so that you can have multiple objects with different uids.
+
+== How to handle Table with multiple tbody elements ==
+
+The StandardTable is designed for tables with the following format
+
+{{{
+
+table
+      thead
+         tr
+           td
+           ...
+           td
+      tbody
+         tr
+           td
+           ...
+           td
+         ...
+       tbody (multiple tbodies)
+         tr
+           td
+           ...
+           td
+         ...
+      tfoot
+         tr
+           td
+           ...
+           td 
+}}}
+
+For a StandardTable, you can specify UI templates for different tbodies. For Example:
+
+{{{
+ui.StandardTable(uid: "table", clocator: [id: "std"]) {
+   UrlLink(uid: "header: 2", clocator: [text: "%%Filename"])
+   UrlLink(uid: "header: 3", clocator: [text: "%%Uploaded"])
+   UrlLink(uid: "header: 4", clocator: [text: "%%Size"])
+   TextBox(uid: "header: all", clocator: [:])
+
+   Selector(uid: "tbody: 1, row:1, column: 3", clocator: [name: "can"])
+   SubmitButton(uid: "tbody: 1, row:1, column:4", 
+                                clocator: [value: "Search", name: "btn"])
+   InputBox(uid: "tbody: 1, row:2, column:3", clocator: [name: "words"])
+   InputBox(uid: "tbody: 2, row:2, column:3", clocator: [name: "without"])
+   InputBox(uid: "tbody: 2, row:*, column:1", clocator: [name: "labels"])
+
+   TextBox(uid: "foot: all", clocator: [tag: "td"])
+}
+}}}
+
+== How to use the new XPath library in Selenium ==
+
+There are three methods in DslContext for you to select different XPath Library,
+
+{{{
+    public void useDefaultXPathLibrary()
+
+    public void useJavascriptXPathLibrary()
+
+    public void useAjaxsltXPathLibrary()
+}}}
+
+The default one is the same as the "Ajaxslt" one. To use faster xpathlibrary, please call {{{useJavascriptXPathLibrary()}}}.
+
+For example, in the test case file,
+
+{{{
+    protected static NewGoogleStartPage ngsp;
+
+    @BeforeClass
+    public static void initUi() {
+        ngsp = new NewGoogleStartPage();
+        ngsp.defineUi();
+        ngsp.useJavascriptXPathLibrary();
+    } 
+}}}
+
+== How to Debug Selenium Core ==
+
+You can use Microsoft Script Debugger to debug the Selenium Core in IE.
+
+To debug the javascript code, follow the following step,
+
+  # Start custom selenium server in multiWindow mode and another useful command option is {{{-debug}}}, which will print out all trace messages
+
+{{{
+    java -jar selenium-server -multiWindow
+}}}
+
+  # Debug the Java code in IDE and set a break point somewhere in the code
+  # Once the Java process paused, open up the Microsoft script debugger or Editor MSE7.exe.
+  # Attach you debugger to the running IE instance and you will see the JavaScript you want to debug, set a break point there.
+  # Resume you Java process and it will wait there once the breakpoint is hit in the JavaScript debugger. Then you can step into, step over, or run the JavaScript. 
+
+For Firefox, you can debug using Firebug using the same steps. But you may need to use Firefox profile to start the custom server server so that Firebug will be included in the launched instance.
+
+== How to use jQuery Selector with weird characters in its ID ==
+
+You should escape the "." or other jQuery reserved characters.
+
+For example, use "dateOfBirth.\\month" for "dateOfBirth.month" as the ID.
+
+== How to Use Tellurium for XHTML ==
+
+For XHTML, you need to use the _namespace attribute in the UI object, for example,
+
+{{{
+ui.Container(uid:"caseRecordPopUp", clocator:[id:"CaseRecordsPopUp",
+              tag:"div"],namespace:"xhtml",group:"true") {
+    Container(uid:"date",clocator:[id:"caseRecordPopUpDate",
+              tag:"input"], namespace:"xforms")
+    ......
+
+} 
+}}}
+
+You can register a custom namespace as follows,
+
+{{{
+registerNamespace("xforms", "http://www.w3.org/2002/xforms")
+}}}
+
+and use the following method to get back the namespace
+
+{{{
+getNamespace("xforms"); 
+}}}
+
+== What Are the Differences Between connectUrl and openUrl ==
+
+Starting from Tellurium 0.7.0, {{{connectUrl()}}} and {{{openUrl()}}} are used for different purposes. That is to say, {{{openUrl()}}} is used to instantiate a new browser session for each call, while {{{connectUrl()}}} reuses the same browser session. Under the hood, you have 
+
+{{{
+openUrl() = connectSeleniumServer() + connectUrl()
+}}}
+
+As a result, you need to call {{{connectSeleniumServer()}}} before you call {{{connectUrl()}}} and then keep calling {{{connectUrl()}}} if you want to reuse the same browser session.
+
+== How to do Attribute Partial Matching in Tellurium ==
+
+Tellurium adopts jQuery style partial matching, that is to say, you should use the following format for partial matching:
+
+{{{
+"PARTIAL_MATCHING_SIGNYour_string"
+}}}
+
+where the partial matching signs include:
+
+  * _{{{!}}}_: either don't have the specified attribute or do have the specified attribute but not with a certain value. 
+  * _{{{^}}}_: have the specified attribute and it starts with a certain value. 
+  * _{{{$}}}_: have the specified attribute and it ends with a certain value. 
+  * _{{{*}}}_: have the specified attribute and it contains a certain value. 
+
+Be aware, due to the limitations of XPath, _{{{$}}}_ and _{{{*}}}_ are the same in XPath locator.
+
+Examples:
+
+{{{
+clocator: [href:'!xevent']
+clocator: [href:'^xevent']
+clocator: [href:'$xevent']
+clocator: [href:'*xevent']
+}}}
+   
+== How to Access Tellurium Maven Repo Behind a Firewall ==
+
+You can download [http://ntlmaps.sourceforge.net/ NTLM Authorization Proxy Server] and install it as a local proxy. Then add the following proxy settings in your HOME/.m2/settings.xml.
+
+{{{
+  <proxies>
+   <proxy>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>localhost</host>
+      <port>5865</port>
+      <!--username>proxyuser</username>
+      <password>somepassword</password-->
+      <nonProxyHosts></nonProxyHosts>
+    </proxy>
+  </proxies>
+}}}
+
+The _nonProxyHosts_ parameter should include all the hosts you don't want them to go through the proxy server, for example, we have the following setting for that.
+
+{{{
+<nonProxyHosts>*.mycompany.com|*.mycompanydoman2.com</nonProxyHosts>
+}}}
+
+== How to Contribute to Tellurium ==
+
+We welcome contributions in many different ways, for example,
+
+  # Try out Tellurium
+  # Use Tellurium in your project and report bugs
+  # Ask questions and answer other users' questions
+  # Promote Tellurium and post your experience on Tellurium
+  # Fix bugs for Tellurium
+  # Bring in new ideas and suggestions
+
+Our project team is open for new members and is expecting new members. We need some new developers who are JavaScript and jQuery experts to join our development team. If you have free time and want to contribute to Tellurium, please contact Jian Fang or other existing Tellurium members.
+
+We also expect to have some Evangelism Team members, who could write blogs and articles about Tellurium, or present Tellurium to people, i.e., promote Tellurium in various ways. We welcome Evangelism Team members from different parts of the world and promote Tellurium in different Languages.  
+
+== Tellurium Future Directions ==
+
+Tellurium 0.6.0 added jQuery Selector support and a cache mechanism to increase the reuse of UI elements. From the next release, i.e., 0.7.0, we will work on our own Engine project to better support UI modules and achieve more robust performance and better speed. In the meanwhile, We will improve our Trump plugin to automatically generate DSL testing scripts for non-developers. 
