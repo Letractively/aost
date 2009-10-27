@@ -1,4 +1,4 @@
-#summary Tellurium User Guide: Appendix B
+#summary Tellurium User Guide: Appendix D
 
 
 
@@ -83,8 +83,6 @@ Click the following links or copy and paste the URL address to connect to the Te
 
 
 [http://code.google.com/p/aost/wiki/UserGuideResources#Related http://code.google.com/p/aost/wiki/UserGuideResources#Related] 
-
-
 
 
 
