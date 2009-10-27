@@ -1,0 +1,2431 @@
+#summary Details on Tellurium.
+#labels Phase-Implementation
+
+(A PDF version of the user guide is available [http://aost.googlecode.com/files/TelluriumUserGuide.0.6.0.pdf here])
+
+<wiki:toc max_depth="5" />
+
+= Details on Tellurium =
+
+== UI Module ==
+
+The UI Module is the heart of Tellurium. The UI module is a collection of UI elements grouped together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For example, the download search module in Tellurium's project site is defined as follows:
+
+{{{
+ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
+   Selector(uid: "downloadType", clocator: [name: "can", id: "can"])
+   InputBox(uid: "searchBox", clocator: [name: "q"])
+   SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+}
+}}}
+
+Tellurium is built on the foundation of the UI module. The UI module makes it possible to build locators for UI elements at runtime. First, this makes Tellurium robust and responsive to changes from internal UI elements. Second, the UI module makes Tellurium expressive. 
+
+A UI element is referred to simply by appending the names (uids) along the path to the specific element. This also enables Tellurium's "Group Locating" feature, making composite objects reusable and addressing dynamic web pages.
+
+This frees up the testers to write better tests rather than spending precious testing time identifying and resolving test failures due to XPath changes.
+
+== Basic UI Object ==
+
+Tellurium provides a set of predefined UI objects to be used directly when setting up a test.
+
+The basic UI object is an abstract class. Users cannot instantiate it directly. The basic UI Object works as the base class for all UI objects and it includes the following attributes:
+
+||<b>ATTRIBUTE</b>||<b>DESCRIPTION</b>||
+||<b>UI Object</b>||Basic Tellurium component||
+||<b>UiId</b>||UI object's identifier||
+||<b>Namespace</b>||Used for XHTML||
+||<b>Locator</b>||UI Object Locator including Base Locator and Composite Locator||
+||<b>Group</b>||Group Locating attribute that only applies to a collection type of UI object such as Container, Table, List, Form||
+||<b>Respond</b>||JavaScript events the UI object responds to||
+
+The value is a list and the base UI object provides the following methods:
+
+  * boolean isElementPresent()
+  * boolean isVisible()
+  * boolean isDisabled()
+  * waitForElementPresent(int timeout), where the time unit is ms.
+  * waitForElementPresent(int timeout, int step)
+  * String getText()
+  * getAttribute(String attribute)
+
+All UI Objects inherit the above attributes and methods. Do not call these methods directly but use DSL syntax instead. 
+
+For example, use:
+
+{{{
+click "GoogleSearchModule.Search"
+}}}
+
+In this way, Tellurium first maps the UIID "{{{GoogleSearchModule.Search}}}" to the actual UI Object. Then the user calls the click method on the UI Object. If that UI Object does not have the click method defined, an error displays.
+
+The UML class diagram is shown as follows.
+
+http://tellurium-users.googlegroups.com/web/UiObject.png?gda=0JeoTj4AAACvY3VTaWrtpkaxlyj9o09EK9OqypH-u6ovWjcCAevrnUS0NUtU8tBM-H4ipR_0oWnjsKXVs-X7bdXZc5buSfmx&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
+== UI Object Default Attributes ==
+
+Tellurium UI objects have default attributes as shown in Table 2-1:
+
+*Table 2-1 UI Object Default Attributes*
+
+
+||<b>Tellurium Object</b>||<b>Locator Default Attributes</b>||<b>Extra Attributes</b>||<b>UI Template</b>||
+||Button||tag: "input"|| ||no||
+||Container|| ||group||no||
+||CheckBox||tag: "input", type: "checkbox"|| ||no||
+||Div||tag: "div"|| ||no||
+||Form||tag: "form"||group||no||
+||Image||tag: "img"|| ||no||
+||InputBox||tag: "input"|| ||no||
+||RadioButton||tag: "input", type: "radio"|| ||no||
+||Selector||tag: "select"|| ||no||
+||Span||tag: "span"|| ||no||
+||SubmitButton||tag: "input", type: "submit"|| ||no||
+||UrlLink||tag: "a"|| ||no||
+||List|| ||separator||yes||
+||Table||tag: "table"||group, header||yes||
+||StandardTable||tag: "table"||group, header, footer||yes||
+||Frame|| ||group, id, name, title||no||
+||Window|| ||group, id, name, title||no||
+
+== UI Object List Description ==
+
+=== Button ===
+
+Button represents various Buttons on the web and its default tag is "input". The following methods can be applied to Button:
+
+  * click()
+  * doubleClick()
+  * clickAt(String coordination)
+
+*Example:*
+
+{{{
+Button(uid: "searchButton", clocator: [value: "Search", name: "btn"])
+}}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Button.png?gda=3KovTTwAAACvY3VTaWrtpkaxlyj9o09ErAuyvr_BhY1ILt3t4UiY02BNhIfMicGpzO7OcOv9IkT9Wm-ajmzVoAFUlE7c_fAt&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
+=== Submit Button === 
+
+SubmitButton is a special Button with its type being "submit".
+
+*Example:*
+
+{{{
+SubmitButton(uid: "search_web_button", clocator: [value: "Search the Web"])
+}}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/SubmitButton.png?gda=23ltUEIAAACvY3VTaWrtpkaxlyj9o09Eq2re9z1g46laR7HVj3aMdhQB0YElXntmg3UvY_6wrxpV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
+=== Check Box ===
+
+The CheckBox on the web is abstracted as "CheckBox" Ui object. The default tag for CheckBox is "input" and its type is "checkbox". CheckBox comes with the following methods:
+
+  * check()
+  * boolean isChecked()
+  * uncheck()
+  * String getValue()
+
+*Example:*
+
+{{{
+CheckBox(uid: "autoRenewal", clocator: [dojoattachpoint: 'dap_auto_renew'])
+}}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/CheckBox.png?gda=lh-8Zj4AAACvY3VTaWrtpkaxlyj9o09ENlEhIiA-hb2mdKJPpbNwXCHJ3Uy3kY3kE7J2mE4y0vHjsKXVs-X7bdXZc5buSfmx&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
+=== Div ===
+
+Div is often used in the Dojo framework and it can represent many objects. Its tag is "div" and it has the following method:
+
+  * click()
+
+*Example:*
+
+{{{
+Div(uid: "dialog", clocator: [class: 'dojoDialog', id: 'loginDialog'])
+}}}
+
+=== Image ===
+
+Image is used to abstract the "img" tag and it comes with the following additional methods:
+
+  * getImageSource()
+  * getImageAlt()
+  * String getImageTitle()
+
+*Example:*
+
+{{{
+Image(uid: "dropDownArrow", clocator: [src: 'drop_down_arrow.gif'])
+}}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Image.png?gda=0z5QJzsAAACvY3VTaWrtpkaxlyj9o09EujBhvAMotBAe8u4e4cflj34XZ2iAB5nmNWaSiL8s4UwGRdr3QrylPkw2aRbXD_gF&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
+=== Icon ===
+
+Icon is similar to the Image object, but user can perform actions on it. As a result, it can have the following additional methods:
+
+  * click()
+  * doubleClick()
+  * clickAt(String coordination)
+
+*Example:*
+
+{{{
+Icon(uid: "taskIcon", clocator:[tag: "p", dojoonclick: 'doClick', img: "Show_icon.gif"])
+}}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Icon.png?gda=PJSddzoAAACvY3VTaWrtpkaxlyj9o09EZcK6fJrP-123puIckMFHhbHJFgsrcyPlBEaANubSDln97daDQaep90o7AOpSKHW0&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
+=== Radio Button ===
+
+RadioButton is the abstract object for the Radio Button Ui. As a result, its default tag is "input" and its type is "radio". RadioButton has the following additional methods:
+
+  * check()
+  * boolean isChecked()
+  * uncheck()
+  * String getValue()
+
+*Example:*
+
+{{{
+RadioButton(uid: "autoRenewal", clocator: [dojoattachpoint: 'dap_auto_renew'])
+}}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/RadioButton.png?gda=dZD62kEAAACvY3VTaWrtpkaxlyj9o09EA9G0sOYo7hcFDFCV1utGuehRDoWPgHq-DlEIqfKM7N5TCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
+=== Text Box ===
+
+TextBox is the abstract Ui object from which the user returns to the text. For example, it comes with the following method:
+
+  * String waitForText(int timeout)
+
+*Note*: TextBox can have various types of tags.
+
+*Example:*
+
+{{{
+TextBox(uid: "searchLabel", clocator: [tag: "span"])
+}}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/TextBox.png?gda=frdGUj0AAACvY3VTaWrtpkaxlyj9o09EZBJxiwBnFeW2bGnkYb-FBqoIxTd_Qry1lDY-jgYSWY3lNv--OykrTYJH3lVGu2Z5&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
+=== Input Box ===
+
+InputBox is the Ui where user types in input data. As its name stands, InputBox's default tag is "input". InputBox has the following additional methods:
+
+  * type(String input)
+  * keyType(String input), used to simulate keyboard typing
+  * typeAndReturn(String input)
+  * clearText()
+  * boolean isEditable()
+  * String getValue()
+
+*Example:*
+
+{{{
+InputBox(uid: "searchBox", clocator: [name: "q"])
+}}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/InputBox.png?gda=mOLQqT4AAACvY3VTaWrtpkaxlyj9o09EOS25eozxTd1-2Kl5EQxVuo83nWIEvwSk2L4t2l-mabLjsKXVs-X7bdXZc5buSfmx&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
+=== URL Link ===
+
+UrlLink stands for the web url link, i.e., its tag is "a". UrlLink has the following additional methods:
+
+  * String getLink()
+  * click()
+  * doubleClick()
+  * clickAt(String coordination)
+
+*Example:*
+
+{{{
+UrlLink(uid: "Grid", clocator: [text: "Grid", direct: "true"])
+}}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/UrlLink.png?gda=OmfYUj0AAACvY3VTaWrtpkaxlyj9o09EPKrVkdl5tr4h2nKWPPTg00bJ3MnJmkZ45utMyqVp1HjlNv--OykrTYJH3lVGu2Z5&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
+=== Selector ===
+
+Selector represents the Ui with tag "select". The user can select from a set of options. Selector has methods, such as:
+
+  * selectByLabel(String target)
+  * selectByValue(String value)
+  * addSelectionByLabel(String target)
+  * addSelectionByValue(String value)
+  * removeSelectionByLabel(String target)
+  * removeSelectionByValue(String value)
+  * removeAllSelections()
+  * String getSelectOptions()
+  * String getSelectedLabels()
+  * String getSelectedLabel()
+  * String getSelectedValues()
+  * String getSelectedValue()
+  * String getSelectedIndexes()
+  * String getSelectedIndex()
+  * String getSelectedIds()
+  * String getSelectedId()
+  * boolean isSomethingSelected()
+  
+*Example:*
+
+{{{
+Selector(uid: "issueType", clocator: [name: "can", id: "can"])
+}}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Selector.png?gda=b632Hj4AAACvY3VTaWrtpkaxlyj9o09EYhkj25wnL3ZjnmNSek4H7Li8ZNp69eplCP3Btz3M8UDjsKXVs-X7bdXZc5buSfmx&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
+=== Container ===
+
+Container is an abstract object that can hold a collection of Ui objects. As a result, the Container has a special attribute "useGroupInfo" and its default value is false. If this attribute is true, the Group Locating is enabled. But make sure all the Ui objects inside the Container are children nodes of the Container in the DOM, otherwise, you should not use the Group Locating capability.
+
+*Example:*
+
+{{{
+ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
+   InputBox(uid: "searchbox", clocator: [title: "Google Search"])
+   SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
+   SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
+ }
+}}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Container.png?gda=nR7EcT8AAACvY3VTaWrtpkaxlyj9o09E_HoO-w-KJ5H5AQEAtuACpL8e0j-ZJvcoFEzwQ0yOKlOccyFKn-rNKC-d1pM_IdV0&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
+=== Form ===
+
+Form is a type of Container with its tag being "form" and it represents web form. Like Container, it has the capability to use Group Locating and it has a special method:
+
+  * submit()
+
+This method is useful and can be used to submit input data if the form does not have a submit button.
+
+*Example:*
+
+{{{
+ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
+   Selector(uid: "downloadType", clocator: [name: "can", id: "can"])
+   TextBox(uid: "searchLabel", clocator: [tag: "span"])
+
+   InputBox(uid: "searchBox", clocator: [name: "q"])
+   SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+}
+}}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Form.png?gda=Sy4vpzoAAACvY3VTaWrtpkaxlyj9o09EAysfc1sfERzii7dZMaerX1c5GCXVf1Htqu13xS-QMXn97daDQaep90o7AOpSKHW0&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
+=== Table ===
+
+Table is one of the most complicated Ui Object and also the most often used one. Obviously, its tag is "table" and a table can have headers besides rows and columns. 
+
+Table is a good choice for a data grid. Tellurium can handle its header, rows, and columns automatically. Table has one important feature: a different UiID than other Ui objects. 
+
+For example, if the id of the table is "table1", then its i-th row and j-th column is referred as {{{"table1[i][j]"}}} and its m-th header is {{{"table1.header[m]"}}}.
+
+Another distinguished feature of Table is that a user can define Ui templates for its elements. 
+
+For example, the following example defines different table headers and the template for the first column, the element on the second row and the second column, and the template for all the other elements in other rows and columns.
+
+{{{
+ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"], 
+      group: "true")
+{
+   //define table header
+   //for the border column 
+   TextBox(uid: "header: 1", clocator: [:])
+   UrlLink(uid: "header: 2", clocator: [text: "%%Filename"])
+   UrlLink(uid: "header: 3", clocator: [text: "%%Summary + Labels"])
+   UrlLink(uid: "header: 4", clocator: [text: "%%Uploaded"])
+   UrlLink(uid: "header: 5", clocator: [text: "%%Size"])
+   UrlLink(uid: "header: 6", clocator: [text: "%%DownloadCount"])
+   UrlLink(uid: "header: 7", clocator: [text: "%%..."])
+
+   //define Ui object for the second row and the second column
+   InputBox(uid: "row: 2, colum: 2" clocator: [:])
+   //define table elements
+   //for the border column
+   TextBox(uid: "row: *, column: 1", clocator: [:])
+   //For the rest, just UrlLink
+   UrlLink(uid: "all", clocator: [:])
+}
+}}}
+
+Be aware, the templates inside the Table follow the name convention:
+
+  * For the i-th row, j-th column, the uid should be "row: i, column: j"
+  * The wild case for row or column is {{{"*"}}}
+  * "all" stands for matching all rows and columns
+
+As a result, {{{"row : *, column : 3"}}} refers to the 3rd column for all rows. Once the templates are defined for the table, Tellurium uses a special way to find a matching for a Ui element {{{"table[i][j]"}}} in the table. 
+
+For example, the following rules apply:
+
+  * Tellurium tries to find the template defined for the i-th row, j-th column.
+  * If not found, Tellurium tries to search for a general template {{{"row: *, column: j"}}}, for example, the template for column j.
+  * If not found, Tellurium tries to search for another general template {{{"row: i, column: *"}}}, i.e., the template for row i.
+  * If not found either, Tellurium tries to find the template matching all rows and columns.
+  * If still out of luck, Tellurium uses a TextBox as the default element for this element.
+
+Generally speaking, Tellurium always searches for the special case first, then broadening the search for more general cases, until all matching cases are found. In this way, user can define very flexible templates for tables.
+
+Table is a type of Container and thus, it can use the Group Locating feature. Table has the following special methods:
+
+  * boolean hasHeader()
+  * int getTableHeaderColumnNum()
+  * int getTableMaxRowNum()
+  * int getTableMaxColumnNum()
+
+From Tellurium 0.6.0, you can also specify the tbody attribute for the Table object. This may be helpful if the user has multiple tbody elements inside a single table tab. 
+
+For example, specify {{{tbody}}} as follows:
+
+{{{
+Container(uid: "tables", clocator:[:]){
+   Table(uid: "first", clocator: [id: "someId", tbody: [position: "1"]]){
+      ......
+    }
+
+   Table(uid: "second", clocator: [id: "someId", tbody: [position: "2"]]){
+      ......
+    }
+    ...
+}
+}}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Table.png?gda=Q7WHKjsAAACvY3VTaWrtpkaxlyj9o09EUIpv859W_EwCa1Q6m6z5KZXQRNjjvS1-2bMcnX_XyTwGRdr3QrylPkw2aRbXD_gF&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+=== Standard Table ===
+
+A StandardTable is a table in the following format
+
+{{{
+
+table
+      thead
+         tr
+           td
+           ...
+           td
+      tbody
+         tr
+           td
+           ...
+           td
+         ...
+       tbody (multiple tbodies)
+         tr
+           td
+           ...
+           td
+         ...
+      tfoot
+         tr
+           td
+           ...
+           td 
+}}}
+
+For a StandardTable, you can specify UI templates for different tbodies. Apart from the methods in Table, it has the following additional methods:
+
+  * int getTableFootColumnNum()
+  * int getTableMaxTbodyNum()
+  * int getTableMaxRowNumForTbody(int tbody_index)
+  * int getTableMaxColumnNumForTbody(int body_index)
+
+Example:
+
+{{{
+ui.StandardTable(uid: "table", clocator: [id: "std"]) {
+   UrlLink(uid: "header: 2", clocator: [text: "%%Filename"])
+   UrlLink(uid: "header: 3", clocator: [text: "%%Uploaded"])
+   UrlLink(uid: "header: 4", clocator: [text: "%%Size"])
+   TextBox(uid: "header: all", clocator: [:])
+
+   Selector(uid: "tbody: 1, row:1, column: 3", clocator: [name: "can"])
+   SubmitButton(uid: "tbody: 1, row:1, column:4", clocator: [value: "Search", name: "btn"])
+   InputBox(uid: "tbody: 1, row:2, column:3", clocator: [name: "words"])
+   InputBox(uid: "tbody: 2, row:2, column:3", clocator: [name: "without"])
+   InputBox(uid: "tbody: 2, row:*, column:1", clocator: [name: "labels"])
+
+   TextBox(uid: "foot: all", clocator: [tag: "td"])
+}
+}}}
+
+=== List ===
+
+List is also a Container type abstract Ui object and it can be used to represent any list like Ui objects. Very much like Table, users can define Ui templates for List and following rule of "the special case first and then the general case". The index number is  used to specify an element and "all" is used to match all elements in the List. List also uses TextBox as the default Ui if no template could be found. Since List is a Container type, it can use the Group Locating feature.
+
+List has one special attribute "separator", which is used to indicate the tag used to separate different List UI elements. If "separator" is not specified or "", all UI elements must be under the same DOM node, i.e., they are siblings.
+
+Example:
+
+{{{
+
+List(uid: "subcategory", locator: "", separator: "p"){
+    InputBox(uid: "2", clocator: [title: "Google Search"])
+    UrlLink(uid: "all", clocator: [:])
+}
+}}} 
+
+The List includes the following additional methods:
+
+  * int getListSize(id): Gets the item count of a list
+
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/List.png?gda=01ee8zoAAACvY3VTaWrtpkaxlyj9o09EHGLXJixxWuoZZiLNkS9cOj7XS0Nk1NECX1UixwubQ5H97daDQaep90o7AOpSKHW0&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
+=== Simple Menu ===
+
+The SimpleMenu represent a menu without a header and only contains menu items. The default tag is "div" and user should specify the alias name for each menu item. For example,
+
+{{{
+//items is a map in the format of "alias name" : menu_item
+ui.SimpleMenu(uid: "IdMenu", clocator:[class: "popup", id: "pop_0"],
+    items: ["SortUp":"Sort Up", "SortDown":"Sort Down", "HideColumn":"Hide Column"])
+}}}
+
+The above menu specified the menu item "Sort up", "Sort Down", and "Hiden Column" with their alias names. Users should use the alias name to refer the menu item, for instance, "IdMenu.SortUp".
+
+The SimpleMenu has the following methods:
+
+  * click()
+  * mouseOve()
+  * mouseOut()
+
+=== Select Menu ===
+
+SelectMenu is designed for the selecting column menu on the Tellurium Issues page and it is prototyped to demonstrate how to write Ui object with interaction with the DOM since the Ui elements have different patterns at runtime, hence, it is not a general purpose Ui object. SelectMenu could have a header and its menu item content could keep changing when users select different columns to display. 
+
+The SelectMenu on the Tellurium issues page is expressed as follows,
+
+{{{
+ui.SelectMenu(uid: "selectColumnMenu", clocator:[class: "popup",id: "pop__dot"], 
+    title: "Show columns:", items: ["ID":"ID", "Type":"Type", "Status":"Status",
+    "Priority":"Priority", "Milestone":"Milestone", "Owner":"Owner", 
+    "Summary":"Summary", "Stars":"Stars", "Opened":"Opened", "Closed":"Closed",
+    "Modified":"Modified", "EditColumn":"Edit Column Spec..." ])
+}}}
+
+Like SimpleMenu, SelectMenu also has the following methods:
+
+  * click()
+  * mouseOve()
+  * mouseOut()
+
+=== Frame ===
+
+Frame is a type of Container and is used to mode Frame or IFrame. It includes the
+following attributes:
+  * id
+  * name
+  * title
+
+and the following methods
+
+  * selectParentFrame() 
+  * selectTopFrame() 
+  * selectFrame(locator)
+  * getWhetherThisFrameMatchFrameExpression(currentFrameString, target)
+  * waitForFrameToLoad(frameAddress, timeout) 
+
+When you test website with IFrames, you should use multiple window mode, i.e., set the option useMultiWindows to be true in TelluriumConfig.groovy.
+
+Example:
+
+{{{
+ui.Frame(uid: "SubscribeFrame", name: "subscrbe"){
+   Form(uid: "LoginForm", clocator: [name: "loginForm"]){
+      InputBox(uid: "UserName", clocator: [id: "username", type: "text"])
+      InputBox(uid: "Password", clocator: [id: "password", type: "password"])
+      Button(uid: "Login", clocator: [type: "image", class: "login"])
+      CheckBox(uid: "RememberMe", clocator: [id: "rememberme"])
+   }
+} 
+}}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Frame.png?gda=r8U0ejsAAACvY3VTaWrtpkaxlyj9o09EjtjD0VCwlgWwf4IYqIRmHEThbDJeoOs4Ibpiwk-_c9AGRdr3QrylPkw2aRbXD_gF&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
+
+=== Window ===
+
+Window is a type of Container and is used to mode Popup Window. It includes the
+following attributes:
+  * id
+  * name
+  * title
+
+and the following methods
+
+  * openWindow(String UID, String url)
+  * selectWindow(String UID)
+  * closeWindow(String UID)
+  * boolean getWhetherThisWindowMatchWindowExpression(String currentWindowString, String target)
+  * waitForPopup(String UID, int timeout)
+ 
+Example:
+
+{{{
+ui.Window(uid: "HelpWindow", name: "HelpWindow"){
+...
+}
+
+openWindow helpUrl, "HelpWindow"
+waitForPopUp "HelpWindow", 2000
+selectWindow "HelpWindow" 
+...
+selectMainWindow()
+}}}
+
+UML Class Diagram:
+
+http://tellurium-users.googlegroups.com/web/Window.png?gda=Gu9YEDwAAACvY3VTaWrtpkaxlyj9o09E5Vet3V7T4_qN9X8E0xCb5LaejjoTjElKJray_l5X0DD9Wm-ajmzVoAFUlE7c_fAt&gsc=9wy8aQsAAAAwbhxuc1eUADl_IisDYQ6Q
+
+=== Option ===
+
+Option is also designed to be adaptive the dynamic web. Option is a pure abstract object and it holds multiple UIs with each representing a possible UI pattern at runtime. For example, the List/Grid selector on the issue page can described as: 
+
+{{{
+//The selector to choose the data grid layout as List or Grid
+ui.Option(uid: "layoutSelector"){
+    Container(uid: "layoutSelector", clocator: [tag: "div"], group: "true") {
+        TextBox(uid: "List", clocator: [tag: "b", text: "List", direct: "true"])
+        UrlLink(uid: "Grid", clocator: [text: "Grid", direct: "true"])
+    }
+    Container(uid: "layoutSelector", clocator: [tag: "div"], group: "true") {
+        UrlLink(uid: "List", clocator: [text: "List", direct: "true"])
+        TextBox(uid: "Grid", clocator: [tag: "b", text: "Grid", direct: "true"])
+    }
+}
+}}}
+
+Note, the option's uid must be the same as the next UI objects it represent and in this way, you do not need to include option's uid in the UiID. For example,  you can just use
+
+{{{
+click "layoutSelector.List"
+}}}
+
+instead of
+
+{{{
+click "layoutSelector.layoutSelector.List"
+}}}
+
+The option object will automatically detect which UI pattern you need to use at runtime. 
+
+== UiID Attribute ==
+
+In Tellurium, the UI object is referred to by its UiID or the UI object dentifier. 
+
+For nested Ui objects, the UiID of the UI Object is a concatenated UI objects' uids along its path to the UI Object. 
+
+For example, in the following nested UI Module shown below, the TextBox is referred to as the {{{"parent_ui.child_ui.grand_child.textbox1"}}}.
+
+{{{
+ui.Container(uid: "parent_ui"){
+  InputBox(uid: "inputbox1", locator: "...")
+  Button(uid: "button1", locator: "...")
+  Container(uid: "child_ui){
+    Selector(uid: "selector1", locator: "...")
+    ...
+    Container(uid: "grand_child"){
+      TextBox(uid: "textbox1", locator: "...")
+      ...
+    }
+  }
+}
+}}}
+
+The exceptions are tables and lists, which use {{{[x][y]}}} or {{{[x]}}} to reference the elements inside. For example, {{{labels_table[2][1]}}} and {{{GoogleBooksList.subcategory[2]}}}. The Table header can be referred in the format of {{{issueResult.header[2]}}}.
+
+More general cases are shown in Figure 2-3 General Cases Search Example:
+
+*Figure 2-3: General Cases Search Example*
+
+http://tellurium-users.googlegroups.com/web/TelluriumUID.png?gda=Ewu9OkIAAAD5mhXrH3CK0rVx4StVj0LYJWJZMftxLZyWDn45QfUHefQJMzacoSN0t8eFUXmEG4hV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=D-2lBwsAAABkwKwxr1YSWDDrmKhvxTo1
+
+For example, the UiID of the List _E_ in the above diagram is {{{A.C.E}}} and the InputButton in the List _E_ is referred by its index n. For example: A.C.E[n].
+
+== Locator Attributes ==
+
+Tellurium supports two types of UI Object locators: 
+
+  # Base locator 
+  # Composite locator
+
+The _Base locator_ is a relative XPath. 
+
+The _Composite locator_, denoted by "{{{clocator}}}", specifies a set of attributes for the UI object. The actual locator is derived automatically by Tellurium at runtime.
+
+The _Composite locator_ is defined as follows:
+
+{{{
+class CompositeLocator {
+   String header
+   String tag
+   String text
+   String trailer
+   def position
+   boolean direct
+   Map<String, String> attributes = [:]
+}
+}}}
+
+
+To use the Composite locator, use "clocator" with a map as its value. 
+
+For example:
+
+{{{
+clocator: [key1: value1, key2: value2, ...]
+}}}
+
+The default attributes include "header", "tag", "text", "trailer", "position", and "direct". They are all optional. The "direct" attribute specifies whether this UI object is a direct child of its parent UI, and the default value is "false".
+
+If there are additional attributes, they are defined in the same way as the default attributes. For example:
+
+{{{
+clocator: [tag: "div", value: "Tellurium home"]
+}}}
+
+Most Tellurium objects come with default values for certain attributes. For example, the tag attribute. 
+
+If these attributes are not specified, the default attribute values are used. In other words, if the default attribute values of a Tellurium UI object are known, omit them in clocator. 
+
+For example, if the RadioButton Object’s default tag is "input", and the default type is "radio", omit them and write the clocator as follows:
+
+{{{
+clocator: [:]
+}}}
+
+which is equivalent to:
+
+{{{
+clocator: [tag: "input", type: "radio"]
+}}}
+
+== Group Attribute: Group Locator ==
+
+In the Tellurium UI module, the "group" attribute is seen often. For example:
+
+{{{
+ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
+  InputBox(uid: "searchbox", clocator: [title: "Google Search"])
+  SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
+  SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
+}
+}}}
+
+The group attribute is a flag for the Group Locating Concept. Usually, the XPath generated by Selenium IDE, XPather, or other tools is a single path to the target node such as:
+
+{{{
+//div/table[@id='something']/div[2]/div[3]/div[1]/div[6]
+}}}
+
+Sibling node information is not used in this example as the XPath depends too much on information from nodes far away from the target node. In Tellurium, every effort is made to localize the information and reduce this dependency by using sibling information or local information. 
+
+For example, in the above google UI module example, the group locator concept searches for the location of the "td" tag with its children as "InputBox", "googlesearch" button, and "Imfeelinglucky" button. In this way, the dependencies of the UI elements inside a UI module on external UI elements are reduced, making the UI definition more robust.
+
+== Respond Attribute: JavaScript Events ==
+
+Tellurium provides a "respond" attribute used to define any event requiring the UI object to respond.
+
+Most web applications include Javascript, and thus the web testing framework must be able to handle Javascript events. What is important is firing the appropriate events to trigger the event handlers.
+
+Selenium has already provided methods to generate events such as:
+
+{{{
+fireEvent(locator, "blur")
+fireEvent(locator, "focus")
+mouseOut(locator)
+mouseOver(locator)
+}}}
+
+Tellurium was born with Javascript events in mind since it was initially designed to test applications written using the DOJO JavaScript framework. 
+
+For example, we have the following radio button:
+
+{{{
+<input type='radio' name='mas_address_key' value='5779' onClick='SetAddress_5779()'>
+}}}
+
+Alternately one can define the radio button as follows:
+
+{{{
+RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'])
+}}}
+
+The above code does not respond to the Click event as the Tellurium RadioButton only supports the "check" and "uncheck" actions. This is enough for the normal case. As a result, no "click" event/action is generated during testing. 
+
+To address this problem, Tellurium added the "respond" attribute to Tellurium UI objects. The "respond" attribute is used to define any event requiring the UI object to respond. The Radio Button is redefined as:
+
+{{{
+ui.Container(uid: "form", clocator: [whatever]){
+   RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'],
+        respond: ["click"])
+ }
+}}}
+
+Then issue the following command:
+
+{{{
+  click "form.billing"
+}}}
+
+Even if the RadioButton does not have the click method defined by default, it is still able to dynamically add the click method at runtime and call it.
+
+A more general example is:
+
+{{{
+ InputBox(uid: "searchbox", clocator: [title: "Google Search"], 
+      respond: ["click", "focus", "mouseOver", "mouseOut", "blur"])
+}}}
+
+Except for the "click" event, all of the "focus", "mouseOver", "mouseOut", and "blur" events are automatically fired by Tellurium during testing. Do not worry about the event order for the respond attribute as Tellurium automatically re-orders the events and then processes them appropriately.
+
+== jQuery Selector (Improving Test Speed)==
+
+Use the jQuery Selector to improve the test speed in IE as IE lacks native XPath support and the XPath is slow. Tellurium exploits jQuery selector capability to improve test speed dramatically.
+
+Tellurium supports both XPath and jQuery selector and still uses XPath as the default locator. To use jQuery selector, explicitly command Tellurium to use the jQuery selector.
+
+To *enable* jQuery selector call the following method:
+
+{{{useJQuerySelector():}}} to use jQuery selector.
+
+To *disable* jQuery selector call the following method: 
+
+{{{disableJQuerySelector():}}} to switch back to XPath locator.
+
+jQuery also switches back to the default locator. For example. XPath. jQuery is illustrated in the diagram as shown in Figure 2-4:
+
+*Figure 2-4: jQuery Diagram*
+
+http://tellurium-users.googlegroups.com/web/xpathjqsel.png?gda=BNGlpUAAAACXZPxEX7Ki-M5C2JpeBoXXvv3pQbLsTR0DEnS8qeQoBNY-98qTaiNg3Pwb0MuStQFtxVPdW1gYotyj7-X7wDON&gsc=aNwLeQsAAABDFDbDDy4icI5hL1ANoQtp
+
+Some of the jQuery functions are provided by the custom Selenium server, which is created by the Tellurium Engine project. Be aware that jQuery selector only works for the Composite locator, the {{{clocator}}}. _It is not for use with the base locator, such as the XPath, in the UI module_.
+
+=== How Does the jQuery Selector Work? ===
+
+jQuery Selector is used to customize Selenium Core to load the jQuery library at startup time. Add {{{jquery.js}}} into the {{{TestRunner.html}}} and {{{RemoteRunner.html}}}. 
+
+Another way is dump all {{{jquery.js}}} into {{{user-extensions.js}}}. As the Tellurium Engine prototype customizes Selenium core anyway, the former method is used.
+
+After that, register a custom Locate strategy "jquery", using the following Selenium API call:
+
+{{{
+addLocationStrategy ( strategyName,functionDefinition )
+}}}
+
+This defines a new function for Selenium to locate elements on the page. 
+
+For example, if you define the strategy "foo", and someone runs click("foo=blah"), Tellurium runs the function, passing the string "blah". Click on the element that the function returns, or throw an "Element not found" error if the function returns null. 
+
+Selenium passes three arguments to the location strategy function:
+ 
+  # *locator*: String the user passed in
+  # *inWindow*: Currently selected window
+  # *inDocument*: Currently selected document
+
+The function must return null if the element cannot be found.
+
+=== Arguments: ===
+
+*strategyName*: the name of the strategy to define. This uses only letters a-zA-Z with no spaces or other punctuation.
+
+*functionDefinition:* a string defining the body of a function in JavaScript. For example: 
+
+{{{
+return inDocument.getElementById(locator);
+}}}
+
+Accordingly, Tellurium defines the custom locate strategy as follows:
+
+{{{
+addLocationStrategy("jquery", '''
+    var found = $(inDocument).find(locator);
+    if(found.length == 1 ){
+      return found[0];
+    }else if(found.length > 1){
+      return found.get();
+    }else{
+      return null;
+    }
+''')
+}}}
+
+The code is pretty straightforward. When one element is found, return its DOM reference. 
+
+*Note*: Selenium does not accept returning an array with only one element.
+
+If multiple elements are found, Tellurium uses the {{{jQuery get()}}} method to return an array of DOM references. Otherwise, return null.
+
+=== Custom Attribute Locator ===
+
+The actual code is a bit more complicated as the custom attribute locator must be considered. Tellurium uses the same format of attribute locator as the XPath. 
+
+For example:
+
+{{{
+locator@attribute
+}}}
+
+*Procedures:*
+
+1. Create a set of custom Selenium methods <br />
+2. Add the appropriate Selenium RC Java methods. 
+ For example, the following Selenium method was created:
+{{{
+Selenium.prototype.getAllText = function(locator){
+  var $e = $(this.browserbot.findElement(locator));
+  var out = [];
+  $e.each(function(){
+  out.push($(this).text());
+  });
+
+  return JSON.stringify(out);
+};
+}}}
+
+3. Create the corresponding Java method by extending Selenium
+{{{
+class CustomSelenium extends DefaultSelenium {
+
+  def String getAllText(String locator){
+    String[] arr = [locator];
+    String st = commandProcessor.doCommand("getAllText", arr);
+    return st;
+  }
+}
+}}}
+
+=== New DSL Methods ===
+
+jQuery Selector provides the following additional Selenium methods, utilized in {{{DslContext}}} to form a set of new DSL methods:
+
+{{{String getAllText(String locator): }}}
+<br />
+1. Get all the text from the set of elements corresponding to the jQuery Selector.
+{{{String getCSS(String locator, String cssName) : }}}
+
+2. Get the CSS properties for the set of elements corresponding to the jQuery Selector.
+{{{Number getJQuerySelectorCount(String locator) : }}}
+
+3. Get the number of elements matching the corresponding jQuery Selector.
+
+=== Additional jQuery Attribute Selectors ===
+
+jQuery also supports the following attribute selectors:
+
+  {{{attribute:}}} have the specified attribute.
+  {{{attribute=value:}}} have the specified attribute with a certain value.
+  {{{attribute!=value:}}} either do not have the specified attribute or have the specified attribute but not with a certain value.
+  {{{attribute^=value:}}} have the specified attribute and it starts with a certain value.
+  {{{attribute$=value:}}} have the specified attribute and it ends with a certain value.
+  {{{attribute*=value:}}} have the specified attribute and it contains a certain value.
+
+=== Locator Agnostic Methods ===
+
+Apart from the above, Tellurium provides a set of locator agnostic methods. 
+
+For example, the method automatically decides to use XPath or jQuery dependent on the {{{exploreJQuerySelector}}} flag, which can be turned on and off by the following two methods:
+
+  # public void {{{useJQuerySelector()}}}
+  # public void {{{disableJQuerySelector()}}}
+
+Tellurium also provides the corresponding XPath specific and jQuery selector specific methods for your convenience. However, it is recommended that you use the locator agnostic methods until there is a good reason not to.
+
+The new XPath and jQuery Selector specific methods are as follows:
+
+1. Get the Generated locator from the UI module
+
+Locator agnostic:
+{{{String getLocator(String uid)}}}
+
+JQuery selector specific:
+{{{String getSelector(String uid)}}}
+
+XPath specific:
+{{{String getXPath(String uid)}}}
+
+2. Get the Number of Elements matching the Locator
+
+Locator agnostic:
+{{{Number getLocatorCount(String locator)}}}
+
+JQuery selector specific:
+{{{Number getJQuerySelectorCount(String jQuerySelector)}}}
+
+XPath specific:
+{{{Number getXpathCount(String xpath)}}}
+
+3. Table Methods
+
+Locator agnostic:
+
+{{{int getTableHeaderColumnNum(String uid)}}}
+
+{{{int getTableFootColumnNum(String uid)}}}
+
+{{{int getTableMaxRowNum(String uid)}}}
+
+{{{int getTableMaxColumnNum(String uid)}}}
+
+{{{int getTableMaxRowNumForTbody(String uid, int ntbody)}}}
+
+{{{int getTableMaxColumnNumForTbody(String uid, int ntbody)}}}
+
+{{{int getTableMaxTbodyNum(String uid)}}}
+
+JQuery selector specific:
+
+{{{int getTableHeaderColumnNumBySelector(String uid)}}}
+
+{{{int getTableFootColumnNumBySelector(String uid)}}}
+
+{{{int getTableMaxRowNumBySelector(String uid)}}}
+
+{{{int getTableMaxColumnNumBySelector(String uid)}}}
+
+{{{int getTableMaxRowNumForTbodyBySelector(String uid, int ntbody)}}}
+
+{{{int getTableMaxColumnNumForTbodyBySelector(String uid, int ntbody)}}}
+
+{{{int getTableMaxTbodyNumBySelector(String uid)}}}
+
+
+XPath specific:
+
+{{{int getTableHeaderColumnNumByXPath(String uid)}}}
+
+{{{int getTableFootColumnNumByXPath(String uid)}}}
+
+{{{int getTableMaxRowNumByXPath(String uid)}}}
+
+{{{int getTableMaxColumnNumByXPath(String uid)}}}
+
+{{{int getTableMaxRowNumForTbodyByXPath(String uid, int ntbody)}}}
+
+{{{int getTableMaxColumnNumForTbodyByXPath(String uid, int ntbody)}}}
+
+{{{int getTableMaxTbodyNumByXPath(String uid)}}}
+
+4. Verify if an Element is Disabled
+
+Locator agnostic:
+{{{boolean isDisabled(String uid)}}}
+
+JQuery selector specific:
+{{{boolean isDisabledBySelector(String uid)}}}
+
+XPath specific:
+{{{boolean isDisabledByXPath(String uid)}}}
+
+5. Get the Attribute
+
+Locator agnostic:
+{{{def getAttribute(String uid, String attribute)}}}
+
+6. Check the CSS Class
+
+Locator agnostic
+{{{def hasCssClass(String uid, String cssClass)}}}
+
+7. Get CSS Properties
+
+JQuery selector specific:
+{{{String[] getCSS(String uid, String cssName)}}}
+
+8. Get All Data from a Table
+
+JQuery selector specific:
+
+{{{String[] getAllTableCellText(String uid)}}}
+
+{{{String[] getAllTableCellTextForTbody(String uid, int index)}}}
+
+9. Get List Size
+
+Locator agnostic:
+{{{int getListSize(String uid)}}}
+
+JQuery selector specific:
+{{{getListSizeBySelector(String uid)}}}
+
+XPath specific:
+{{{getListSizeByXPath(String uid)}}}
+
+There are issues to be aware of with jQuery Selector:
+
+  * If you have a duplicate "id" attribute on the page, jQuery selector always returns the first DOM reference, ignoring other DOM references with the same "id" attribute.
+  * Some attributes may not be working in jQuery. For example, the "action" attribute in a form. Tellurium has a black list to automatically filter out the attributes that are not honored by jQuery selector.
+  * The "src" attribute in Image has to be a full URL such as [http://www.google.com/ http://www.google.com]. One workaround is to put '{{{*}}}' before the URL.
+
+=== jQuery Selector Cache Option ===
+
+jQuery cache is a mechanism used to further improve the testing speed by reusing the found DOM reference for a given jQuery selector. Tellurium benchmark results show that the jQuery cache can improve the speed of testing by up to 14% over the regular jQuery selector and over 27% for some extreme cases. 
+
+But the improvement of jQuery cache over regular jQuery selector has upper bounds, which is that portion of jQuery locating time out of the round trip time from Tellurium core to Selenium core. 
+
+*Caution:* jQuery cache is considered to be experimental at this current stage. Use it at your own discretion.
+
+*_Make the jQuery Selector Cache Option Configurable_*
+
+To make the cache option configurable in the Tellurium UI Module, Tellurium introduces a cacheable attribute to the UI object. This is set to be true by default. 
+
+For a Container type object, there is an additional attribute: {{{noCacheForChildren}}} to control whether or not to cache its children.
+
+One example of a UI module using jQuery Selector Cache Option is defined as follows:
+
+{{{
+ ui.Table(uid: "issueResultWithCache", cacheable: "true", noCacheForChildren: "true",
+      clocator: [id: "resultstable", class: "results"], group: "true") {
+               
+            ......
+
+    //define table elements
+    //for the border column
+    TextBox(uid: "row: *, column: 1", clocator: [:])
+    TextBox(uid: "row: *, column: 8", clocator: [:])
+    TextBox(uid: "row: *, column: 10", clocator: [:])
+    //For the rest, just UrlLink
+    UrlLink(uid: "all", clocator: [:])
+   }
+}}}
+
+Where the cacheable can overwrite the default value found in the UI object and {{{noCacheForChildren}}}, in the above example, Tellurium is forced into not cacheing its children.
+
+When the jQuery Cache mechanism is chosen, the Tellurium core passes both the jQuery selector and a meta command to the Tellurium Engine, embedded inside the Selenium core at this stage. 
+
+The format taking the Tellurium issue searching UI is shown in the following example:
+
+{{{
+jquerycache={
+  "locator":"form[method=get]:has(#can, span:contains(for), input[type=text][name=q],  
+           input[value=Search][type=submit]) #can",
+  "optimized":"#can",
+  "uid":"issueSearch.issueType",
+  "cacheable":true,
+  "unique":true
+}
+}}}
+
+*Where* the locator is the regular jQuery selector and is optimized by the jQuery selector optimizer in the Tellurium core. The locator is used for the child UI element to derive a partial jQuery selector from its parent. The optimized jQuery selector is used for actual DOM searching.
+
+The other three parameters are Meta commands. {{{uid}}} is the UID for the corresponding jQuery selector. The cacheable tells the Engine whether to cache the selector or not. The reason is that some UI elements on the web are dynamic; for instance, the UI element is inside a data grid. As a result, it may not be useful to cache the jQuery selector in this instance.
+
+The last unique method tells the Engine whether the jQuery selector expects multiple elements or not. This is very useful to handle in a case where jQuery selector is expected to return one element, but actually returns multiple ones. In such a case, a Selenium Error is thrown.
+
+On the Engine side, the cache is defined as:
+
+{{{
+   //global flag to decide whether to cache jQuery selectors
+   this.cacheSelector = false;
+
+   //cache for jQuery selectors
+   this.sCache = new Hashtable();
+
+   this.maxCacheSize = 50;
+
+   this.cachePolicy = discardOldCachePolicy;
+}}}
+
+The cache system includes a global flag used to decide whether to use the cache capability, a hash table to store the cached data, a cache size limit, and a cache eviction policy once the cache is filled up.
+
+*_jQuery Selector Cache Structure_*
+
+The cached data structure is defined as:
+
+
+
+{{{
+
+//Cached Data, use uid as the key to reference it
+function CacheData(){
+   //jQuery selector associated with the DOM reference, which is a whole selector
+   //without optimization so that it is easier to find the reminding selector 
+   //for its children
+   this.selector = null;
+   //optimized selector for actual DOM search
+   this.optimized = null;
+  //jQuery object for DOM reference
+   this.reference = null;
+   //number of reuse
+   this.count = 0;
+   //last use time
+   this.timestamp = Number(new Date());
+};
+}}}
+
+*_jQuery Selecor Cache Eviction Policies_*
+
+The Tellurium Engine provides the following jQuery Selector cache eviction policies:
+
+  # *DiscardNewPolicy:* Discard new jQuery selector.
+  # *DiscardOldPolicy:* Discard the oldest jQuery selector measured by the last update time.
+  # *DiscardLeastUsedPolicy:* Discard the least used jQuery selector.
+  # *DiscardInvalidPolicy:* Discard the invalid jQuery selector first.
+
+It is important to know when the cached data become invalid. There are three mechanisms to utilize:
+
+  # Listen for page refresh event and invalidate the cache data accordingly
+  # Intercept Ajax response to decide when the web is an update and if the cache is to be updated.
+  # Validate the cached jQuery selector before using it.
+
+Currently the Tellurium Engine uses the 3rd mechanism to verify if the cached data is valid or not. The first two mechanisms are still under development.
+
+Whenever the Tellurium Core passes a locator to the Engine, the Engine first looks at the meta command cacheable. If this flag is true, it first tries to look up the DOM reference from the cache. If no cached DOM reference is available, implement a fresh jQuery search and cache the DOM reference. 
+
+Otherwise, validate the cached DOM reference and use it directly. If the cacheable flag is false, the Engine looks for the ancestor of the UI element by its UID and initiates a jQuery search starting from its ancestor, if possible.
+
+*_jQuery Selector Cache Control_*
+
+Tellurium Core provides the following methods for jQuery Selector cache control:
+
+  * Methods 
+
+== UI Templates ==
+
+Tellurium UI templates have two purposes:
+
+  # When there are many identical UI elements, use one template to represent them all
+  # When there are variable/dynamic sizes of UI elements at runtime, the patterns are known, but not the size.
+
+More specifically, Table and List are two Tellurium objects that define UI templates. 
+
+  # *Table* defines two dimensional UI templates 
+  # *List* defines one dimensional UI templates
+
+The Template has special UIDs such as "2", "all", or "row: 1, column: 2".
+
+Looking at use case (1), the HTML source is:
+
+{{{
+  <ul class="a">
+    <li>
+      <A HREF="site?tcid=a" class="b">
+        AA
+      </A>
+    </li>
+    <li>
+      <A HREF="site?tcid=b" class="b">
+        BB
+      </A>
+    </li>
+    <li>
+      <A HREF="site?;tcid=c" class="b">
+        CC
+      </A>
+    </li>
+    <li>
+      <A HREF="site?tcid=d" class="b">
+        DD
+      </A>
+    </li>
+    <li>
+      <A HREF="site?tcid=e" class="b">
+        EE
+      </A>
+    </li>
+    <li>
+      <A HREF="site?tcid=f" class="b">
+        FF
+      </A>
+    </li>
+  </ul>
+}}}
+
+In this example there are six links. Without templates, one would put six UrlLink objects in the UI module. By using the templates, the work is easier and simplified.
+
+{{{
+ui.List(uid: "list", clocator: [tag: "ul", class: "a"], separator:"li")
+{
+    UrlLink(uid: "all", clocator: [class: "b"])
+}
+}}}
+
+For use case (2), a common application is the data grid. Look at the "{{{issueResult}}}" data grid on the Tellurium Issues page for an easy and simplified result as shown below:
+
+{{{
+ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], 
+     group: "true")
+{
+    TextBox(uid: "header: 1", clocator: [:])
+    UrlLink(uid: "header: 2",  clocator: [text: "%%ID"])
+    UrlLink(uid: "header: 3",  clocator: [text: "%%Type"])
+    UrlLink(uid: "header: 4",  clocator: [text: "%%Status"])
+    UrlLink(uid: "header: 5",  clocator: [text: "%%Priority"])
+    UrlLink(uid: "header: 6",  clocator: [text: "%%Milestone"])
+    UrlLink(uid: "header: 7",  clocator: [text: "%%Owner"])
+    UrlLink(uid: "header: 9",  clocator: [text: "%%Summary + Labels"])
+    UrlLink(uid: "header: 10", clocator: [text: "%%..."])
+
+    //define table elements
+    //for the border column
+    TextBox(uid: "row: *, column: 1", clocator: [:])
+    //For the rest, just UrlLink
+    UrlLink(uid: "all", clocator: [:])
+}
+}}}
+
+The resulting definitions shown are very simple, time-saving and easy to use.
+
+If the user has multiple templates such as the "{{{issueResult}}}" shown in the table above, the rule generally applied to the templates is: "*specific one first, general one later*".
+
+== "Include" Frequently Used Sets of Elements in UI Modules ==
+
+When there is a frequently used set of elements, re-defining them repeatedly in your UI module is not necessary. Simply use the Tellurium "Include" syntax to re-use the pre-defined UI elements.
+
+{{{
+Include(uid: UID, ref: REFERRED_UID)
+}}}
+
+Use "ref" to reference the object to be included, then specify the UID for the object.
+*Note:* If a different UID is required, there is no need to specify it.
+
+If the Object UID is not the same as the original one, Tellurium clones a new object for users so that multiple objects with different UIDs are available.
+
+For example, first define the following reused UI module:
+
+{{{
+   ui.Container(uid: "SearchModule", clocator: [tag: "td"], group: "true") {
+     InputBox(uid: "Input", clocator: [title: "Google Search"])
+     SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+     SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
+   }
+}}}
+
+Then, include it into the new UI module as follows:
+
+{{{
+   ui.Container(uid: "Google", clocator: [tag: "table"]) {
+     Include(ref: "SearchModule")
+     Include(uid: "MySearchModule", ref: "SearchModule")
+     Container(uid: "Options", clocator: [tag: "td", position: "3"], group: "true") {
+       UrlLink(uid: "LanguageTools", clocator: [tag: "a", text: "Language Tools"])
+       UrlLink(uid: "SearchPreferences", clocator: [tag: "a", text: "Search Preferences"])
+       UrlLink(uid: "AdvancedSearch", clocator: [tag: "a", text: "Advanced Search"])
+     }
+   }
+}}}
+
+== Javascript Events ==
+
+Most web applications include Javascript, and thus the web testing framework must be able to handle Javascript events. What is important is firing the appropriate events to trigger the event handlers.
+
+Selenium has already provided methods to generate events such as:
+
+*fireEvent(locator, "blur")*
+*fireEvent(locator, "focus")*
+*mouseOut(locator)*
+*mouseOver(locator)*
+
+Tellurium was born with Javascript events in mind since it was initially designed to test applications written using the DOJO JavaScript framework. 
+
+For example, the user has the following radio button:
+
+{{{
+<input type='radio' name='mas_address_key' value='5779' onClick='SetAddress_5779()'>
+}}}
+
+Alternately one can define the radio button as follows:
+
+{{{
+RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'])
+}}}
+
+The above code does not respond to the Click event as the Tellurium RadioButton only supports the "check" and "uncheck" actions. This is enough for the normal case. As a result, no "click" event/action is generated during testing. 
+
+To address this problem, Tellurium added the "respond" attribute to Tellurium UI objects. The "respond" attribute is used to define any events requiring the UI object to respond. The Radio Button can be redefined as:
+
+{{{
+ ui.Container(uid: "form", clocator: [whatever]){
+     RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'], 
+               respond: ["click"])
+ }
+}}}
+
+Then issue the following command:
+
+{{{  
+    click "form.billing"
+}}}
+
+Even if the RadioButton does not have the click method defined by default, it is still able to dynamically add the click method at runtime and call it.
+
+A more general example is:
+
+{{{
+ InputBox(uid: "searchbox", clocator: [title: "Google Search"], 
+          respond: ["click", "focus", "mouseOver", "mouseOut", "blur"])
+}}}
+
+Except for the "click" event, all of the "focus", "mouseOver", "mouseOut", and "blur" events are automatically fired by Tellurium during testing. Do not worry about the event order for the respond attribute as Tellurium automatically re-orders the events and then processes them appropriately.
+
+== Logical Container ==
+
+The Container object in Tellurium is used to hold child objects that are in the same subtree in the DOM object. However, there are always exceptions. For example, the Logical Container (or Virtual Container - Logical Container is preferred) can violate this rule.
+
+What is a Logic Container? It is a Container with an empty locator. For instance:
+
+{{{
+Container(uid: "logical"){
+   ......
+}
+}}}
+
+But empty {{{!=}}} nothing. There are some scenarios where the Logical Container can play an important role. The Container includes an {{{uid}}} for a reference and it logically groups the UI element together.
+
+For example, in the following example the UI elements under the Tag li are different:
+
+{{{
+    <div class="block_content">
+        <ul>
+            <li>
+                <h5>
+                    <a href="" title="">xxx</a>
+                </h5>
+                <p class="product_desc">
+                    <a href=".." title="More">...</a>
+                </p>
+                <a href="..." title=".." class="product_image">
+                    <img src="..." alt="..." height="129" width="129"/>
+                </a>
+                <p>
+                    <a class="button" href="..." title="View">View</a>
+                    <a title="Add to cart">Add to cart</a>
+                </p>
+            </li>
+            <li>
+                similar UI
+            </li>
+            <li>
+                similar UI
+            </li>
+        </ul>
+    </div>       
+}}}
+
+The issue is how to write the UI template for them. The logical Container then comes into play. For example, the UI module is written as follows:
+
+{{{
+ui.Container(uid: "content", clocator: [tag: "div", class: "block_content"]){
+     List(uid: "list", clocator: [tag: "ul"], separator:"li") {
+         Container("all"){
+             UrlLink(uid: "title", clocator: [title: "View"])
+                      ......
+                      other elements inside the li tag
+         }
+    }
+} 
+}}}
+
+Another usage of the logical Container is to convert the test case recorded by Selenium IDE to Tellurium test cases. For example, using the search UI on the Tellurium download page, first record the following Selenium test case using Selenium IDE:
+
+{{{
+import com.thoughtworks.selenium.SeleneseTestCase;
+
+public class SeleniumTestCase extends SeleneseTestCase {
+        public void setUp() throws Exception {
+                setUp("http://code.google.com/", "*chrome");
+        }
+
+        public void testNew() throws Exception {
+                selenium.open("/p/aost/downloads/list");
+                selenium.select("can", "label=regexp:\\sAll Downloads");
+                selenium.type("q", "TrUMP");
+                selenium.click("//input[@value='Search']");
+                selenium.waitForPageToLoad("30000");
+        }
+}
+}}}
+
+Do not be confused by the locator "can" and "q", as they are UI element IDs and are easily expressed in XPath. The "{{{label=regexp:\\sAll Downloads}}}" part shows that Selenium uses regular express to match the String and the "\s" stands for a space. As a result, write the UI module based on the above code.
+
+{{{
+public class TelluriumDownloadPage extends DslContext {
+
+  public void defineUi() {
+    ui.Container(uid: "downloads") {
+      Selector(uid: "downloadType", locator: "//*[@id='can']")
+      InputBox(uid: "input", locator: "//*[@id='q']")
+      SubmitButton(uid: "search", locator: "//input[@value='Search']")
+    }
+  }
+
+  public void searchDownload(String downloadType, String searchKeyWords) {
+    selectByLabel "downloads.downloadType", downloadType
+    keyType "downloads.input", searchKeyWords
+    click "downloads.search"
+    waitForPageToLoad 30000
+  }
+}
+}}}
+
+The Tellurium test case is created accordingly:
+
+{{{
+public class TelluriumDownloadPageTestCase extends TelluriumJavaTestCase {
+
+    protected static TelluriumDownloadPage ngsp;
+
+    @BeforeClass
+    public static void initUi() {
+        ngsp = new TelluriumDownloadPage();
+        ngsp.defineUi();
+    }
+
+    @Test
+    public void testSearchDownload(){
+        connectUrl("http://code.google.com/p/aost/downloads/list"); 
+        ngsp.searchDownload(" All Downloads", "TrUMP");
+    }
+}
+}}}
+
+== Customize Individual Test Settings Using {{{setCustomConfig}}} ==
+
+{{{TelluriumConfig.groovy}}} provides project level test settings. Use {{{setCustomConfig}}} to customize individual test settings.
+
+{{{
+public void setCustomConfig(boolean runInternally, int port, String browser,
+                            boolean useMultiWindows, String profileLocation)
+
+public void setCustomConfig(boolean runInternally, int port, String browser,
+                  boolean useMultiWindows, String profileLocation, String serverHost)
+}}}
+
+For example, specify custom settings as follows:
+
+{{{
+public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
+    static{
+        setCustomConfig(true, 5555, "*chrome", true, null);
+    }
+
+    protected static NewGoogleStartPage ngsp;
+
+    @BeforeClass
+    public static void initUi() {
+        ngsp = new NewGoogleStartPage();
+        ngsp.defineUi();
+        ngsp.useJavascriptXPathLibrary();
+    }
+
+    @Test
+    public void testGoogleSearch() {
+        connectUrl("http://www.google.com");
+        ngsp.doGoogleSearch("tellurium selenium Groovy Test");
+    }
+
+    ......
+
+}
+}}}
+
+== User Custom Selenium Extensions ==
+
+To support user custom selenium extensions, Tellurium Core adds the following configurations to {{{TelluriumConfig.groovy}}}.
+
+{{{
+  embeddedserver {
+
+    ......
+
+    //user-extension.js file, for example "target/user-extensions.js"
+    userExtension = ""
+  }
+  connector{
+
+    ......
+
+    //user's class to hold custom selenium methods associated with user-extensions.js
+    //should in full class name, for instance, "com.mycom.CustomSelenium"
+    customClass = ""
+  }
+}}}
+
+Where the userExtension points to the user's user-extensions.js file. For example, use the following user-extensions.js:
+
+{{{
+Selenium.prototype.doTypeRepeated = function(locator, text) {
+    // All locator-strategies are automatically handled by "findElement"
+    var element = this.page().findElement(locator);
+
+    // Create the text to type
+    var valueToType = text + text;
+
+    // Replace the element text with the new text
+    this.page().replaceText(element, valueToType);
+};
+}}}
+
+The customClass is the user's class for custom Selenium methods, extending Tellurium org.tellurium.connector.CustomCommand class:
+
+{{{
+public class MyCommand extends CustomCommand{
+
+    public void typeRepeated(String locator, String text){
+                String[] arr = [locator, text];
+                commandProcessor.doCommand("typeRepeated", arr);
+       }
+   } 
+}
+}}}
+
+Tellurium core automatically loads up user-extensions.js and custom commands. The n, user uses:
+
+{{{customUiCall(String uid, String method, Object[] args)}}}
+
+to call the custom methods. For instance:
+
+{{{customUiCall "Google.Input", typeRepeated, "Tellurium Groovy" }}}
+
+The customUiCall method handles all the UI to locator mapping for users. Tellurium also provides the following method for users to make direct calls to the Selenium server.
+
+{{{customDirectCall(String method, Object[] args)}}}
+
+== Data Driven Testing ==
+
+Data Driven Testing is a different way to write tests. For example, separate test data from the test scripts and the test flow is not controlled by the test scripts, but by the input file instead. In the input file, users can specify which tests to run, what are input parameters, and what are expected results. Data driven testing in Tellurium is illustrated in Figure 2-5 with the following system diagram:
+
+*Figure 2-5 Data Driven Testing in Tellurium System Diagram*
+
+http://tellurium-users.googlegroups.com/web/TelluriumDataDrivenSmall.jpg?gda=WePTVk4AAAD5mhXrH3CK0rVx4StVj0LYYQ-a0sZzxEmmZWlHbP2MWzTrErMgjh_s8-a7FfMpsGsNL5bu5vgQy2xsA01CuO9M47Cl1bPl-23V2XOW7kn5sQ&gsc=ODykzgsAAACEc2FtJPGdXe_7CHb1VB6Z
+
+The Tellurium Data Driven Test consists of three main parts: 
+
+  # Data Provider
+  # TelluriumDataDrivenModule
+  # TelluriumDataDrivenTest
+
+=== Data Provider ===
+
+The Data Provider is responsible for reading data from input stream and converting data to Java variables. 
+
+Tellurium includes the following Data Provider methods:
+
+  # loadData file_name, load input data from a file
+  # useData String_name, load input data from a String in the test script
+  # bind(field_name), bind a variable to a field in a field set
+  # closeData, close the input data stream and report the test results
+  # cacheVariable(name, variable), put variable into cache
+  # getCachedVariable(name, variable), get variable from cache where the file_name includes the file path. For example:
+
+{{{loadData "src/test/example/test/ddt/GoogleBookListCodeHostInput.txt"}}}
+
+Tellurium supports pipe format and CSV format input file. 
+
+=== loadData ===
+
+To change the file reader for different formats, change the following settings in the configuration file {{{TelluriumConfig.groovy:}}}
+
+{{{
+datadriven{
+  dataprovider{
+    //specify which data reader you like the data provider to use
+    //the valid options include "PipeFileReader", "CSVFileReader" at this point
+    reader = "PipeFileReader"
+  }
+}
+}}}
+
+=== useData ===
+
+Tellurium's useData is designed to specify test data in the test scripts directly. It loads input from a String. The String is usually defined in Groovy style using triple quota, for example:
+
+{{{
+protected String data = """
+  google_search | true | 865-692-6000 | tellurium
+  google_search | false| 865-123-4444 | tellurium selenium test
+  google_search | true | 755-452-4444 | tellurium groovy
+  google_search | false| 666-784-1233 | tellurium user group
+  google_search | true | 865-123-5555 | tellurium data driven
+  """
+  ...
+
+  useData data
+}}}
+
+=== bind ===
+
+{{{bind}}} is the command used to bind a variable to an input Field Set field at runtime. {{{FieldSet}}} is the format of a line of data. For example:
+
+{{{def row = bind("GCHLabel.row")}}}
+
+is used to bind the row variable to the "row" field in the FieldSet "GCHLabel". Tellurium does not explicitly differentiate input parameters from the expected results in the input data. To bind variables to the input data then use any of them as the expected results for result comparison.
+
+=== cacheVariable and getCachedVariable === 
+
+cacheVariable and getCachedVariable are used to pass intermediate variables among tests. 
+
+  * cacheVariable is used to put a variable into a cache 
+  * getCachedVariable is used to get back the variable 
+
+For example:
+
+{{{
+int headernum = getTableHeaderNum()
+cacheVariable("headernum", headernum)
+
+...
+
+int headernum = getCachedVariable("headernum")
+...
+}}}
+
+=== closeData ===
+
+When testing is completed, use "closeData" to close the input data stream. In the meantime, the result reporter outputs the test results in the format specified in the configuration file. 
+
+For example: the XML file as shown in the TelluriumConfig.groovy file:
+
+{{{
+test{
+  result{
+    //specify what result reporter used for the test result
+    //valid options include "SimpleResultReporter", "XMLResultReporter", 
+    //and "StreamXMLResultReporter"
+    reporter = "XMLResultReporter"
+   
+    //the output of the result
+    //valid options include "Console", "File" at this point
+    //if the option is "File", you need to specify the file name, 
+    //other wise it will use the default
+    //file name "TestResults.output"
+    output = "Console"
+
+    //test result output file name
+    filename = "TestResult.output"
+  }
+}
+}}}
+
+=== TelluriumDataDrivenModule ===
+
+{{{TelluriumDataDrivenModule}}} is used to define modules, where users can define UI Modules, FieldSets, and tests as shown in the following Figure 2-6 sequence diagram. Users should extend this class to define their own test modules.
+
+*Figure 2-6 TelluriumDataDrivenModule Sequence Diagram*
+
+http://tellurium-users.googlegroups.com/web/TelluriumDDTModule.png?gda=oIfzLkgAAAD5mhXrH3CK0rVx4StVj0LY6r7Fxo4RaVZ2InRIkvRUPW9wwFNWzBcwQWJJR7cmP5glzhb83kORdLwM2moY-MeuGjVgdwNi-BwrUzBGT2hOzg&gsc=x3TBYwsAAAAeXMPG6HH-B1VXA1h0gdTp
+
+{{{TelluriumDataDrivenModule}}} provides one method "defineModule" for users to implement. Since it extends the DslContext class, users define UI modules as in regular Tellurium UI Modules. For example:
+
+{{{
+ui.Table(uid: "labels_table", clocator: [:], group: "true"){
+   TextBox(uid: "row: 1, column: 1", clocator: [tag: "div", 
+           text: "Example project labels:"])
+   Table(uid: "row: 2, column: 1", clocator: [header: "/div[@id=\"popular\"]"]){
+        UrlLink(uid: "all", locator: "/a")
+   }
+}
+}}}
+
+=== FieldSet ===
+
+FieldSet defines the format of one line of input data. FieldSet consists of fieldssuch as columns, in the input data. There is a special field "test", where users can specify what tests this line of data applies to. For example:
+
+
+{{{
+fs.FieldSet(name: "GCHStatus", description: "Google Code Hosting input") {
+    Test(value: "getGCHStatus")
+    Field(name: "label")
+    Field(name: "rowNum", type: "int")
+    Field(name: "columNum", type: "int")
+}  
+}}}
+
+FieldSet defines the input data format for testing Google code hosting web page. 
+
+*Note:* The Test field must be the first column of the input data. 
+
+The default name of the test field is "test" and does not need to be specified. If the value attribute of the test field is not specified, it implies this same format. For example, FieldSet is used for different tests.
+
+A regular field includes the following attributes:
+
+{{{
+class Field {
+        //Field name
+        private String name
+
+        //Field type, default is String
+        private String type = "String"
+
+        //optional description of the Field
+        private String description
+
+        //If the value can be null, default is true
+        private boolean nullable = true
+
+        //optional null value if the value is null or not specified
+        private String nullValue
+
+        //If the length is not specified, it is -1
+        private int length = -1
+
+        //optional String pattern for the value
+        //if specified, use it for String validation
+        private String pattern
+   } 
+}}}
+
+Tellurium can automatically handle Java primitive types. 
+
+=== typeHandler ===
+
+Another flexibility Tellurium provides is allowing users to define their own custom type handlers to deal with more complicated data types by using "typeHandler". For example:
+
+{{{
+//define custom data type and its type handler
+
+typeHandler "phoneNumber", "org.tellurium.test.PhoneNumberTypeHandler"
+
+//define file data format
+fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search"){
+    Field(name: "regularSearch", type: "boolean", 
+          description: "whether we should use regular search or use I'm feeling lucky")
+    Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")
+    Field(name: "input", description: "input variable")
+}
+}}}
+
+The above script defined a custom type "PhoneNumber" and the Tellurium automatically calls this type handler to convert the input data to the "PhoneNumber" Java type.
+
+=== Define Test ===
+
+The "defineTest" method is used to define a test in the TelluriumDataDrivenModule. For example, the following script defines the "clickGCHLabel" test:
+
+{{{
+defineTest("clickGCHLabel"){
+    def row = bind("GCHLabel.row")
+    def column = bind("GCHLabel.column")
+
+    openUrl("http://code.google.com/hosting/")
+    click  "labels_table[2][1].[${row}][${column}]"
+
+    waitForPageToLoad 30000
+}
+}}}
+
+*Note:* The bind command binds variables row, column to the fields "row" and "column" in the FieldSet "GCHLabel".
+
+=== compareResult ===
+
+Tellurium also provides the command "compareResult" for users to compare the actual result with the expected result. For example, the following script compares the expected label, row number, and column number with the acutal ones at runtime:
+
+{{{
+defineTest("getGCHStatus"){
+    def expectedLabel = bind("GCHStatus.label")
+    def expectedRowNum = bind("GCHStatus.rowNum")
+    def expectedColumnNum = bind("GCHStatus.columNum")
+
+    openUrl("http://code.google.com/hosting/")
+    def label = getText("labels_table[1][1]")
+    def rownum = getTableMaxRowNum("labels_table[2][1]")
+    def columnum = getTableMaxColumnNum("labels_table[2][1]")
+    
+    compareResult(expectedLabel, label)
+    compareResult(expectedRowNum, rownum) 
+    compareResult(expectedColumnNum, columnum)
+    pause 1000
+}
+}}}
+
+Sometimes users may require custom "compareResult" to handle more complicated situations. For example, when users compare two lists, users can override the default "compareResult" behaviour by specifying custom code in the closure:
+
+{{{
+compareResult(list1, list2){
+    assertTrue(list1.size() == list2.size())
+    for(int i=0; i<list1.size();i++){
+        //put your custom comparison code here
+    }
+}
+}}}
+
+=== checkResult ===
+
+If users want to check a variable in the test, the "checkResult" method is used coming with a closure where users define the actual assertions inside:
+
+{{{
+checkResult(issueTypeLabel) {
+    assertTrue(issueTypeLabel != null)
+}
+}}}
+
+Like "compareResult", "checkResult" captures all assertion errors. The test resumes even when the assertions fail. The result is reported in the output.
+
+=== logMessage ===
+
+In addition, the "logMessage" is used by users to log any messages in the output.
+
+{{{
+logMessage "Found ${actual.size()} ${issueTypeLabel} for owner " + issueOwner 
+}}}
+
+=== TelluriumDataDrivenTest ===
+
+TelluriumDataDrivenTest is the class users should extend to run the actual data driven testing. It is more like a data driven testing engine. There is only one method, "testDataDriven", which users implement. The sequence diagram for the testing process is shown in Figure 2-7:
+
+*Figure 2-7 TelluriumDataDrivenTest System Diagram*
+
+http://tellurium-users.googlegroups.com/web/TelluriumDDTTestSequence.png?gda=Fgy8N04AAAD5mhXrH3CK0rVx4StVj0LY6r7Fxo4RaVZ2InRIkvRUPYEAgewWsw-pfk-JI3kLTQ9omPhdHiHZ5EjvmEnpg6SE47Cl1bPl-23V2XOW7kn5sQ&gsc=x3TBYwsAAAAeXMPG6HH-B1VXA1h0gdTp
+
+Complete the following steps to use TelluriumDataDrivenTest:
+
+  # Use "includeModule" to load defined Modules
+  # Use "loadData" or "useData" to load input data stream
+  # Use "stepToEnd" to read the input data line by line and pick up the specified test and run it, until reaches the end of the data stream
+  # Use "closeData" to close the data stream and output the test results
+
+What the "includeModule" does is to merge in all Ui modules, FieldSets, and tests defined in that module file to the global registry. 
+
+"stepToEnd" looks at each input line, first find the test name and pass in all input parameters to it, and then run the test. The whole process is illustrated in the following example:
+
+{{{
+class GoogleBookListCodeHostTest extends TelluriumDataDrivenTest{
+
+    public void testDataDriven() {
+        includeModule  example.google.GoogleBookListModule.class
+        includeModule  example.google.GoogleCodeHostingModule.class
+        //load file
+        loadData "src/test/example/test/ddt/GoogleBookListCodeHostInput.txt"
+
+        //read each line and run the test script until the end of the file
+        stepToEnd()
+
+        //close file
+        closeData()
+   }
+}
+}}}
+
+The input data for this example are as follows:
+
+{{{
+##TEST should be always be the first column
+
+##Data for test "checkBookList"
+##TEST | CATEGORY | SIZE
+checkBookList|Fiction|8
+checkBookList|Fiction|3
+
+##Data for test "getGCHStatus"
+##TEST | LABEL | Row Number | Column Number
+getGCHStatus |Example project labels:| 3 | 6
+getGCHStatus |Example project| 3 | 6
+
+##Data for test "clickGCHLabel"
+##TEST | row | column
+clickGCHLabel | 1 | 1
+clickGCHLabel | 2 | 2
+clickGCHLabel | 3 | 3
+}}}
+
+*Note:* The line starting with "##" is the comment line and the empty line is ignored.
+
+If users want to control the testing execution flow by themselves, Tellurium also provides this capability even though its use is *_not recommended_*.
+
+Tellurium provides two additional commands, "step" and "stepOver". 
+
+  * "step" is used to read one line of input data and run it.
+  * "stepOver" is used to skip one line of input data. 
+
+In this meanwhile, Tellurium also allows the user to specify additional test scripts using closure. For example:
+
+{{{
+step{
+    //bind variables
+    boolean regularSearch = bind("regularSearch")
+    def phoneNumber = bind("fs4googlesearch.phoneNumber")
+    String input = bind("input")
+    openUrl "http://www.google.com"
+    type "google_start_page.searchbox", input
+    pause 500
+    click "google_start_page.googlesearch"
+    waitForPageToLoad 30000
+}
+}}}
+
+This usually implies that the input data format is unique or the test script knows about what format the current input data are using.
+
+== The Dump Method ==
+
+Tellurium Core added a dump method to print out the UI object's and its descendants' runtime locators that Tellurium Core generates.
+
+{{{public void dump(String uid)}}}
+
+where the uid is the UI object id to be dumped. An important feature is that the dump() method does not require the user to run the actual tests. That is to say, the user does not need to run the Selenium server and launch the web browser. Simply define the UI module, then call the dump() method.
+
+For example, to define the UI module for Tellurium Issue Search module, complete as follows:
+
+{{{
+public class TelluriumIssueModule extends DslContext {
+
+  public void defineUi() {
+
+    //define UI module of a form include issue type selector and issue search
+    ui.Form(uid: "issueSearch", clocator: [action: "list", method: "get"], group: "true"){
+      Selector(uid: "issueType", clocator: [name: "can", id: "can"])
+      TextBox(uid: "searchLabel", clocator: [tag: "span", text: "*for"])
+      InputBox(uid: "searchBox", clocator: [type: "text", name: "q"])
+      SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+    }
+  }
+}
+}}}
+
+The user can use the dump method in the following way:
+
+{{{
+  TelluriumIssueModule tisp = new TelluriumIssueModule();
+  tisp.defineUi();
+  tisp.dump("issueSearch");
+}}}
+
+The above code prints out the runtime XPath locators.
+
+Dump locator information for issueSearch is as follows:
+
+{{{
+-------------------------------------------------------
+issueSearch: //descendant-or-self::form[@action="list" and @method="get"]
+issueSearch.issueType: //descendant-or-self::form[descendant::select[@name="can" and 
+     @id="can"] and descendant::span[contains(text(),"for")] and 
+     descendant::input[@type="text" and @name="q"] and 
+     descendant::input[@value="Search" and @type="submit"] and
+     @action="list" and @method="get"]/descendant-or-self::select
+                           [@name="can" and @id="can"]
+issueSearch.searchLabel: //descendant-or-self::form[descendant::select[@name="can" 
+     and @id="can"] and descendant::span[contains(text(),"for")] and
+     descendant::input[@type="text" and @name="q"] and descendant::input[
+     @value="Search" and @type="submit"] and @action="list" and @method="get"]
+     /descendant-or-self::span[contains(text(),"for")]
+issueSearch.searchBox: //descendant-or-self::form[descendant::select[@name="can" 
+     and @id="can"] and descendant::span[contains(text(),"for")] and 
+     descendant::input[@type="text" and @name="q"] and descendant::input[
+     @value="Search" and @type="submit"] and @action="list" and @method="get"]
+     /descendant-or-self::input[@type="text" and @name="q"]
+issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="can" 
+     and @id="can"] and descendant::span[contains(text(),"for")] and 
+     descendant::input[@type="text" and @name="q"] and descendant::input[
+     @value="Search" and @type="submit"] and @action="list" and @method="get"]
+     /descendant-or-self::input[@value="Search" and @type="submit"]
+-------------------------------------------------------
+}}}
+
+== Selenium Grid Support ==
+
+Selenium Grid transparently distributes tests on multiple machines so that the tests are run in parallel. Recently support for the Selenium Grid has been added to Tellurium. Now Tellurium tests can be run against different browsers using Selenium Grid. Tellurium core is updated to support Selenium Grid sessions.
+
+For example, assume 3 machines are set up to run Tellurium tests on the Selenium Grid. All the steps can be completed on the userâs local box. To do this locally, remove the machine names with {{{localhost}}}. Each machine in this set up has a defined role as described below:
+
+  # *dev1.tellurium.com* Tellurium test development machine.
+  # *hub.tellurium.com* Selenium Grid hub machine that drives the tests.
+  # *rc.tellurium.com* Multiple Selenium RC server running and registered to the Selenium Grid HUB. 
+
+The actual test execution is completed on this machine. Register as many Selenium RC servers as required. However, be realistic about the hardware specification.
+
+Download the Selenium Grid from the following URL and extract the contents of the folder on each of these machines.
+
+Tellurium uses Selenium Grid 1.0.3, the current released version. [http://selenium-grid.seleniumhq.org/download.html http://selenium-grid.seleniumhq.org/download.html]. Figure 2-8 shows an illustration of the environment.
+
+*Figure 2-8 Selenium Grid Support Environment*
+
+http://tellurium-users.googlegroups.com/web/TelluriumGridSetup.png?gda=9fgieUgAAAD5mhXrH3CK0rVx4StVj0LYYQ-a0sZzxEmmZWlHbP2MW6uQS0SyLBzYwfM7_kvx7qklzhb83kORdLwM2moY-MeuGjVgdwNi-BwrUzBGT2hOzg&gsc=ODykzgsAAACEc2FtJPGdXe_7CHb1VB6Z
+
+=== Selenium Grid Support Test Procedure ===
+
+1. Launch the Selenium Grid Hub on the hub machine. Open up a terminal on the HUB machine {{{hub.tellurium.com}}} and go to the download directory of the Selenium Grid.
+
+{{{
+> cd /Tools/selenium-grid-1.0.3
+> ant launch-hub
+}}}
+
+*Result:* The Selenium HUB is launched on the machine with different browsers. 
+
+2. Navigate to the following URL location to ensure that the HUB is working properly: 
+[http://hub.tellurium.com:4444/console http://hub.tellurium.com:4444/console]
+
+3. View the web page with 3 distinct columns: 
+  # a Configured Environments
+  # Available Remote Controls
+  # Active Remote Controls
+
+4. Have a list of browsers configured by default to run the tests while the list for Available Remote Controls and Active Remote Controls is empty.
+
+5. Launch the Selenium RC servers and register them with the selenium HUB. Open up a terminal on rc.tellurium.com and go to the selenium grid download directory.
+
+{{{
+> cd /Tools/selenium-grid-1.0.3
+> ant -Dport=5555 -Dhost=rc.tellurium.com -DhubURL=http://hub.tellurium.com:4444 \
+      -Denvironment="Firefox on Windows" launch-remote-control
+}}}
+
+*Result:* The command starts a Selenium RC server on this machine.
+
+6. Register the Selenium RC server with the Selenium Grid hub machine as specified by the hubURL.
+
+*Note:* To register another Selenium RC server on this machine for internet explorer repeat the step on a different port.
+
+{{{
+> cd /Tools/selenium-grid-1.0.3
+> ant -Dport=5556 -Dhost=rc.tellurium.com -DhubURL=http://hub.tellurium.com:4444  -Denvironment="IE on Windows" launch-remote-control
+}}}
+ 
+  # _port_ the remote control is listening to. Must be unique on the machine the remote control runs from.
+  # _hostname_ Hostname or IP address of the machine the remote control runs on. Must be visible from the Hub machine.
+  # _hub url_ Which hub the remote control should register/unregister to. As the hub is running on hostname hub.tellurium.com, the URL is [http://hub.tellurium.com:4444/ http://hub.tellurium.com:4444]
+
+7. Point your browser to the Hub console Once you are successful in replicating a setup similar to the one described above, ([http://hub.tellurium.com:4444/console http://hub.tellurium.com:4444/console]). 
+
+8. Verify that all the remote controls registered correctly. Available remote controls list should be updated and have the 2 selenium servers available to run the tests.
+
+9. Run the Tellurium tests against different browsers once the Selenium Hub and the Selenium RC servers on the Grid environment have started.
+
+10. Go to the Tellurium test development machine, the *dev1.tellurium.com*.
+
+11. Open up the TelluriumConfig.groovy. 
+ 
+12. Change the values of the Selenium server and port to ensure the Tellurium requests for the new sessions from the Selenium HUB are received. 
+ 
+13. Verify that the Selenium HUB points to Tellurium tests run on rc.tellurium.com based on the browser of choice.
+
+14. Change the values for the following properties:
+
+  # _runInternally_: ensures that the Selenium Server on the local machine is not launched.
+  # _serverHost_: the selenium grid hub machine that has the information about the available selenium rc servers.
+  # _port_: port that Selenium HUB is running on. By default, this port is 4444. This can be changed in the grid_configuraton.yml file if this port is not available on your HUB machine.
+  # _browser_: the browser that comes under the configured environments list on the selenium HUB machine. These values can be changed to a userâs choice in the grid_configuration.yml file.
+
+{{{
+tellurium{
+
+    //embedded selenium server configuration
+    embeddedserver {
+
+        //port number
+        port = "4444"
+
+        //whether to use multiple windows
+        useMultiWindows = false
+
+        //whether to run the embedded selenium server. 
+        //If false, you need to manually set up a selenium server
+        runInternally = false
+
+        //profile location
+        profile = ""
+
+        //user-extension.js file
+        userExtension = "target/classes/extension/user-extensions.js"
+    }
+
+    //event handler
+    eventhandler{
+
+        //whether we should check if the UI element is presented
+        checkElement = false
+
+        //wether we add additional events like "mouse over"
+        extraEvent = true
+    }
+
+    //data accessor
+    accessor{
+        //whether we should check if the UI element is presented
+        checkElement = true
+    }
+
+    //the configuration for the connector that connects the selenium client 
+    //to the selenium server
+    connector{
+        //selenium server host
+        //please change the host if you run the Selenium server remotely
+        serverHost = "hub.tellurium.com"
+
+        //server port number the client needs to connect
+        port = "4444"
+
+        //base URL
+        baseUrl = "http://localhost:8080"
+
+        //Browser setting, valid options are
+        //  *firefox [absolute path]
+        //  *iexplore [absolute path]
+        //  *chrome
+        //  *iehta
+        browser = "Firefox on Windows"
+
+        //user's class to hold custom selenium methods associated with user-extensions.js
+        //should in full class name, for instance, "com.mycom.CustomSelenium"
+        customClass = "org.tellurium.test.MyCommand"
+    }
+}}}
+
+15. The set up is now complete.
+
+16. Run the tests as usual using either the Maven command or the IDE. Notice that the tests are running on rc.tellurium.com and the list for Active Remote Controls is also updated on the hub URL ([http://hub.tellurium.com:4444/console http://hub.tellurium.com:4444/console]) during the test execution.
+
+== Mock Http Server ==
+
+This feature only exists in Tellurium Core 0.7.0 SNAPSHOT. The MockHttpServer is an embedded http server leveraging the Java 6 http server and it is very convenient method of testing HTML sources directly without running a web server. 
+
+Tellurium defines two classes:
+
+  # MockHttpHandler
+  # MockHttpServer
+
+=== MockHttpHandler Class ===
+
+The MockHttpHandler class processes the http request:
+
+{{{
+public class MockHttpHandler implements HttpHandler {
+
+  private Map<String, String> contents = new HashMap<String, String>();
+
+  private String contentType = "text/html";
+
+  public void handle(HttpExchange exchange) {
+     ......
+  }
+}
+}}}
+
+The MockHttpHandler method is handle (HttpExchange exchange) and its actions are:
+
+  * Reads the request URI
+  * Finds the corresponding response HTML source from the hash map contents
+  * Sends the response back to the http client
+
+By default, the response is treated as an HTML source. The user can change this by using the following setter:
+
+{{{public void setContentType(String contentType)}}}
+
+MockHttpHandler includes two methods to add URI and its HTML source to the hash map contents:
+
+  # public void registerBody(String url, String body)
+  # public void registerHtml(String url, String html)
+
+The MockHttpHandler comes with a default HTML template as follows:
+
+{{{
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Mock HTTP Server</title>
+    </head>
+
+    <body>
+        BODY_HTML_SOURCE   
+    </body>
+</html>
+}}}
+
+If {{{registerBody(String url, String body}}} is used, the MockHttpHandler uses the above HTML template to wrap the HTML body. Overwrite the default HTML template by calling {{{registerHtml(String url, String html)}}} directly, which uses the whole HTML source provided in the variable ''html''.
+
+Usually, the MockHttpHandler is encapsulated by the MockHttpServer and the user does not need to work on it directly.
+
+The MockHttpServer includes an embedded http server, a http handler, and a http port:
+
+{{{
+public class MockHttpServer {
+
+  //default port
+  private int port = 8080;
+
+  private HttpServer server = null;
+  private MockHttpHandler handler;
+
+  public MockHttpServer() {
+    this.handler = new MockHttpHandler();
+    this.server = HttpServer.create();
+  }
+
+  public MockHttpServer(int port) {
+    this.handler = new MockHttpHandler();
+    this.port = port;
+    this.server = HttpServer.create();
+  }
+
+  public MockHttpServer(int port, HttpHandler handler) {
+    this.port = port;
+    this.handler = handler;
+    this.server = HttpServer.create();
+  }
+
+  ......
+}
+}}}
+
+=== MockHttpServer ===
+
+The MockHttpServer provides three different constructors so the user can overwrite the default values. The MockHttpServer encapsulates the MockHttpHander by providing the following methods:
+
+  # public void setContentType(String contentType)
+  # public void registerHtmlBody(String url, String body)
+  # public void registerHtml(String url, String html)
+
+The user can stop and start the server with the following methods:
+
+  # public void start()
+  # public void stop()
+
+Use a modified version of a HTML source provided by one Tellurium user as an example and create the UI module Groovy class as follows:
+
+{{{
+public class ListModule extends DslContext {
+
+  public static String LIST_BODY = """
+<div class="thumbnails">
+    <ul>
+        <li class="thumbnail">
+            <img alt="Image 1"
+                 src="/images_root/image_pictures/01.jpg"/>
+        </li>
+        <li class="thumbnail">
+            <img alt="Image 2"
+                 src="/images_root/image_pictures/02.jpg"/>
+        </li>
+        <li class="thumbnail">
+            <img alt="Image 3"
+                 src="/images_root/image_pictures/03.jpg"/>
+        </li>
+        <li class="thumbnail">
+        </li>
+        <li class="thumbnail active">
+            <img alt="Image 4"
+                 src="/images_root/image_pictures/04.jpg"/>
+        </li>
+        <li class="thumbnail potd">
+            <div class="potd-icon png-fix"/>
+            <img alt="Image 5"
+                 src="/images_root/image_pictures/05.jpg"/>
+        </li>
+    </ul>
+</div>    
+  """
+
+  public void defineUi() {
+    ui.Container(uid: "rotator", clocator: [tag: "div", class: "thumbnails"]) {
+      List(uid: "tnails", clocator: [tag: "ul"], separator: "li") {
+        UrlLink(uid: "all", clocator: [:])
+      }
+    }
+  }
+}
+}}}
+
+The reason the HTML source in a Groovy file is included is that the """ quote in Groovy is very easy to present complicated HTML source as a String variable. In Java, the user must concatenate each line of the HTML Source to make it a String variable.
+
+The {{{defineUi()}}} defines the UI module for the given HTML source. The major part of the UI module is a List, which uses UI templates to represent a list of links. Tellurium makes it easy and concise to use UI templates to represent UI elements.
+Based on the ListModule UI module, define a Tellurium JUnit test case as follows:
+
+{{{
+public class ListTestCase  extends TelluriumJavaTestCase {
+    private static MockHttpServer server;
+
+    @BeforeClass
+    public static void setUp(){
+        server = new MockHttpServer(8080);
+        server.registerHtmlBody("/list.html", ListModule.LIST_BODY);
+        server.start();
+    }
+
+    @Test
+    public void testGetSeparatorAttribute(){
+        ListModule lm = new ListModule();
+        lm.defineUi();
+
+        connectUrl("http://localhost:8080/list.html");
+
+        attr = (String)lm.getParentAttribute("rotator.tnails[6]", "class");
+        assertEquals("thumbnail potd", attr);
+    }
+    
+
+    @AfterClass
+    public static void tearDown(){
+        server.stop();    
+    }
+}
+}}}
+
+== Testing Support ==
+
+In the package *org.tellurium.test*, Tellurium provides three different ways to write Tellurium tests:
+
+  # TelluriumJavaTestCase
+  # TelluriumTestNGTestCase
+  # TelluriumGroovyTestCase
+
+=== TelluriumJavaTestCase ===
+
+Used for JUnit, and supports the following JUnit 4 annotations:
+
+  * @BeforeClass
+  * @AfterClass
+  * @Before
+  * @After
+  * @Test
+  * @Ignore
+
+=== TelluriumTestNGTestCase ===
+
+Used for TestNG. Similarly, using the following annotations:
+
+  * @BeforeSuite
+  * @AfterSuite
+  * @BeforeTest
+  * @AfterTest
+  * @BeforeGroups
+  * @AfterGroups
+  * @BeforeClass
+  * @AfterClass
+  * @BeforeMethod
+  * @AfterMethod
+  * @DataProvider
+  * @Parameters
+  * @Test
+
+=== TelluriumGroovyTestCase ===
+
+Used for Groovy test cases.
+
+Data Driven Testing: Tellurium provides the class {{{TelluriumDataDrivenModule}}} for users to define data driven testing modules.
+
+Class {{{TelluriumDataDrivenTest}}} is used to drive the actual tests.
+
+Tellurium also provides users the capability of writing Tellurium tests and Tellurium data driven tests in pure DSL scripts. The {{{DslScriptExecutor}}} is used to run the .dsl files.
