@@ -1248,7 +1248,7 @@ checkResult(issueTypeLabel) {
 
 Like "compareResult", "checkResult" captures all assertion errors. The test resumes even when the assertions fail. The result is reported in the output.
 
-=== logMessage ===
+=== Log Message ===
 
 In addition, the "logMessage" is used by users to log any messages in the output.
 
@@ -1256,7 +1256,7 @@ In addition, the "logMessage" is used by users to log any messages in the output
 logMessage "Found ${actual.size()} ${issueTypeLabel} for owner " + issueOwner 
 }}}
 
-=== TelluriumDataDrivenTest ===
+=== Tellurium Data Driven Test ===
 
 TelluriumDataDrivenTest is the class users should extend to run the actual data driven testing. It is more like a data driven testing engine. There is only one method, "testDataDriven", which users implement. The sequence diagram for the testing process is shown in Figure 2-7:
 
@@ -1754,7 +1754,7 @@ In the package *org.tellurium.test*, Tellurium provides three different ways to 
   # TelluriumTestNGTestCase
   # TelluriumGroovyTestCase
 
-=== TelluriumJavaTestCase ===
+=== Tellurium Java Test Case ===
 
 Used for JUnit, and supports the following JUnit 4 annotations:
 
@@ -1765,7 +1765,7 @@ Used for JUnit, and supports the following JUnit 4 annotations:
   * @Test
   * @Ignore
 
-=== TelluriumTestNGTestCase ===
+=== Tellurium TestNG Test Case ===
 
 Used for TestNG. Similarly, using the following annotations:
 
@@ -1783,7 +1783,7 @@ Used for TestNG. Similarly, using the following annotations:
   * @Parameters
   * @Test
 
-=== TelluriumGroovyTestCase ===
+=== Tellurium Groovy Test Case ===
 
 Used for Groovy test cases.
 
