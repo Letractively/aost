@@ -9,15 +9,14 @@
 
 = Appendix D Resources =
 
-== Tellurium Project ==
+== Tellurium Community ==
 
   * [http://code.google.com/p/aost/ Tellurium Project website] 
   * [http://groups.google.com/group/tellurium-users Tellurium User Group] 
   * [http://www.linkedin.com/groups?gid=1900807 Tellurium Automated Testing Framework LinkedIn Group]
+  * [http://www.facebook.com/group.php?gid=298577410337&ref=mf Tellurium Facebook Group]
   * [http://twitter.com/TelluriumTest Tellurium on Twitter]
   * [http://www.reddit.com/r/Tellurium/ Tellurium on Reddit] 
-  * [http://code.google.com/p/aost/wiki/TenMinutesToTellurium Ten Minutes to Tellurium]
-  * [http://code.google.com/p/aost/wiki/TrUMP Tellurium UI Model Firefox Plugin (TrUMP) 0.1.0]
 
 == Users' Experiences ==
 
