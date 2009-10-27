@@ -1570,7 +1570,7 @@ Tellurium defines two classes:
   # MockHttpHandler
   # MockHttpServer
 
-=== MockHttpHandler Class ===
+=== Mock Http Handler Class ===
 
 The MockHttpHandler class processes the http request:
 
@@ -1653,7 +1653,7 @@ public class MockHttpServer {
 }
 }}}
 
-=== MockHttpServer ===
+=== Mock Http Server ===
 
 The MockHttpServer provides three different constructors so the user can overwrite the default values. The MockHttpServer encapsulates the MockHttpHander by providing the following methods:
 
