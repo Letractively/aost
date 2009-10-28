@@ -321,7 +321,7 @@ The two Tellurium archetypes are updated to support jQuery selector. You can use
 {{{
 mvn archetype:create -DgroupId=Your_Group_ID -DartifactId=Your_Artifact_ID \
 -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium \
--DarchetypeVersion=1.0-SNAPSHOT -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots 
+-DarchetypeVersion=1.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots 
 }}}
 
 Then go to the project and run the test
@@ -335,7 +335,7 @@ For TestNG project, you should use the tellurium-testng-archetype
 {{{
 mvn archetype:create -DgroupId=Your_Group_ID -DartifactId=Your_Artifact_ID \
 -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium \
--DarchetypeVersion=1.0-SNAPSHOT -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
+-DarchetypeVersion=1.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
 }}}
 
 If you want to manually add Maven dependencies, use [http://code.google.com/p/aost/wiki/TelluriumTestProjectMavenSamplePom this sample POM] as a reference.
