@@ -29,7 +29,7 @@ Tellurium Maven JUnit testing project could use the following POM file,
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-            <url>http://kungfuters.org/nexus/content/repositories/snapshots</url>
+            <url>http://maven.kungfuters.org/content/repositories/snapshots</url>
         </repository>
         <repository>
             <id>kungfuters-public-releases-repo</id>
@@ -40,7 +40,7 @@ Tellurium Maven JUnit testing project could use the following POM file,
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <url>http://kungfuters.org/nexus/content/repositories/releases</url>
+            <url>http://maven.kungfuters.org/content/repositories/releases</url>
         </repository>
         <repository>
             <id>kungfuters-thirdparty-releases-repo</id>
@@ -50,7 +50,7 @@ Tellurium Maven JUnit testing project could use the following POM file,
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <url>http://kungfuters.org/nexus/content/repositories/thirdparty</url>
+            <url>http://maven.kungfuters.org/content/repositories/thirdparty</url>
         </repository>
         <repository>
             <id>openqa-release-repo</id>
