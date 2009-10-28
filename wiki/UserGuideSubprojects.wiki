@@ -308,7 +308,7 @@ Without adding the Tellurium Maven repository, you can specify it in the command
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
                      -DarchetypeArtifactId=tellurium-junit-archetype \
                      -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0 \
-     -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/releases
+     -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/releases
 }}}
 
 For TestNG project, you should use a different archetype
@@ -317,7 +317,7 @@ For TestNG project, you should use a different archetype
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
                      -DarchetypeArtifactId=tellurium-testng-archetype \
                      -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0 \
-     -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/releases
+     -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/releases
 }}}
 
 == Tellurium Reference Projects ==
