@@ -4,7 +4,7 @@
 
 = Prerequisites =
  
-  * [[http://kungfuters.org/nexus/content/repositories/snapshots/tellurium/tellurium-core/0.7.0-SNAPSHOT/ Tellurium Core 0.7.0-SNAPSHOT]
+  * [[http://maven.kungfuters.org/content/repositories/snapshots/tellurium/tellurium-core/0.7.0-SNAPSHOT/ Tellurium Core 0.7.0-SNAPSHOT]
 
 = Introduction =
 
@@ -376,7 +376,7 @@ Of course, you need to set up Tellurium Maven repository in your settings.xml or
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-            <url>http://kungfuters.org/nexus/content/repositories/snapshots</url>
+            <url>http://maven.kungfuters.org/content/repositories/snapshots</url>
         </repository>
         <repository>
             <id>kungfuters-public-releases-repo</id>
@@ -387,7 +387,7 @@ Of course, you need to set up Tellurium Maven repository in your settings.xml or
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <url>http://kungfuters.org/nexus/content/repositories/releases</url>
+            <url>http://maven.kungfuters.org/content/repositories/releases</url>
         </repository>
         <repository>
             <id>kungfuters-thirdparty-releases-repo</id>
@@ -397,7 +397,7 @@ Of course, you need to set up Tellurium Maven repository in your settings.xml or
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <url>http://kungfuters.org/nexus/content/repositories/thirdparty</url>
+            <url>http://maven.kungfuters.org/content/repositories/thirdparty</url>
         </repository>
 }}}
 
