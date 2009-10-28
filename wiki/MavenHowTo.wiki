@@ -33,7 +33,7 @@ Here is a sample settings.xml that will allow you to automatically include Tellu
                     <snapshots>         
                         <enabled>true</enabled> 
                     </snapshots>        
-                    <url>http://kungfuters.org/nexus/content/repositories/snapshots</url>
+                    <url>http://maven.kungfuters.org/content/repositories/snapshots</url>
                 </repository>   
                 <repository>    
                     <id>kungfuters-public-releases-repo</id>
@@ -44,7 +44,7 @@ Here is a sample settings.xml that will allow you to automatically include Tellu
                     <snapshots>         
                         <enabled>false</enabled>
                     </snapshots>        
-                    <url>http://kungfuters.org/nexus/content/repositories/releases</url>
+                    <url>http://maven.kungfuters.org/content/repositories/releases</url>
                 </repository>   
             </repositories>
         </profile>
@@ -124,7 +124,7 @@ mvn archetype:generate -DgroupId=your_group_id -DartifactId=your_artifact_id -Da
 Without adding the Tellurium Maven repository, you can specify it in the command line as
 {{{
 mvn archetype:generate -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0 \
--DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/releases
+-DarchetypeRepository=http://maven.kungfuters.org/content/repositories/releases
 }}}
 
 For TestNG project, you should use a different archetype
