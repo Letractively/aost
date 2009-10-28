@@ -4,7 +4,7 @@
 
 == Prerequisites ==
  
-  * [http://kungfuters.org/nexus/content/repositories/snapshots/tellurium/tellurium-core/0.7.0-SNAPSHOT/ Tellurium Core 0.7.0-SNAPSHOT]
+  * [http://maven.kungfuters.org/content/repositories/snapshots/tellurium/tellurium-core/0.7.0-SNAPSHOT/ Tellurium Core 0.7.0-SNAPSHOT]
   * Java 6
 
 == Motivation ==
