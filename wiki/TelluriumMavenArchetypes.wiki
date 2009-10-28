@@ -56,7 +56,7 @@ First, you should modify your maven setting.xml file to allow you to automatical
                     <snapshots>         
                         <enabled>true</enabled> 
                     </snapshots>        
-                    <url>http://kungfuters.org/nexus/content/repositories/snapshots</url>
+                    <url>http://maven.kungfuters.org/content/repositories/snapshots</url>
                 </repository>   
                 <repository>    
                     <id>kungfuters-public-releases-repo</id>
@@ -67,7 +67,7 @@ First, you should modify your maven setting.xml file to allow you to automatical
                     <snapshots>         
                         <enabled>false</enabled>
                     </snapshots>        
-                    <url>http://kungfuters.org/nexus/content/repositories/releases</url>
+                    <url>http://maven.kungfuters.org/content/repositories/releases</url>
                 </repository>   
             </repositories>
         </profile>
@@ -83,7 +83,7 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -Darc
 
 Without adding the Tellurium Maven repository, you can specify it in the command line as
 {{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0 -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/releases
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0 -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/releases
 }}}
 
 But you still need to put the Tellurium repository into your settings.xml later since the Tellurium test project needs to download other Tellurium artifacts from the repository, for example, the tellurium core jar file.
@@ -134,11 +134,11 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -Darc
 To create a Tellurium project based on Tellurium 0.7.0 SNAPSHOT, you should use the Maven archetype 0.7.0-SNAPSHOT. To create a JUnit project, use the following Maven command:
 
 {{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
 }}}
 
 Similarly, to create a TestNG project, use the following command:
 
 {{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://kungfuters.org/nexus/content/repositories/snapshots
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
 }}}
