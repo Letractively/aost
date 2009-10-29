@@ -132,7 +132,7 @@
                 <plugin>
                     <groupId>org.codehaus.groovy.maven</groupId>
                     <artifactId>gmaven-plugin</artifactId>
-                    <version>1.0-rc-5</version>
+                    <version>${gmaven-version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -217,9 +217,9 @@
                     <execution>
                         <goals>
                             <!-- The generateStubs goals are not yet working for enums and generics -->
-                            <!--goal>generateStubs</goal-->
+                            <!-- goal>generateStubs</goal -->
                             <goal>compile</goal>
-                            <!--goal>generateTestStubs</goal-->
+                            <!-- goal>generateTestStubs</goal -->
                             <goal>testCompile</goal>
                         </goals>
                     </execution>
@@ -259,7 +259,7 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <url>http://kungfuters.org/nexus/content/repositories/thirdparty</url>
+            <url>http://maven.kungfuters.org/content/repositories/thirdparty</url>
         </repository>
     </repositories>
     <dependencies>
@@ -310,7 +310,7 @@
             <!--artifactId>gmaven-runtime-${java-version}</artifactId>
                <version>${gmaven-version}</version-->
             <artifactId>gmaven-runtime-1.6</artifactId>
-            <version>1.0-rc-5</version>
+            <version>${gmaven-version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.codehaus.plexus</groupId>
@@ -356,18 +356,18 @@
             <dependency>
                 <groupId>org.codehaus.groovy.maven</groupId>
                 <artifactId>gmaven-mojo</artifactId>
-                <version>1.0-rc-5</version>
+                <version>${gmaven-version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.codehaus.groovy.maven.runtime</groupId>
-                        <artifactId>gmaven-runtime-1.5</artifactId>
+                        <artifactId>gmaven-runtime-${java-version}</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.groovy.maven.runtime</groupId>
                 <artifactId>gmaven-runtime-1.6</artifactId>
-                <version>1.0-rc-5</version>
+                <version>${gmaven-version}</version>
             </dependency>
             <!--dependency>
                    <groupId>org.codehaus.groovy.maven
