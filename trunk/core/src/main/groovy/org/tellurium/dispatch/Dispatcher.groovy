@@ -15,7 +15,7 @@ class Dispatcher implements GroovyInterceptable, Configurable {
 
     private SeleniumClient sc = new SeleniumClient()
 
-    def invokeMethod(String name, args) {
+    java.lang.Object invokeMethod(java.lang.String name, java.lang.Object args) {
         // If this class automatically throws MissingMethodException, then we only need the following one line
 //		return sc.client.metaClass.invokeMethod(this, name, args)
 

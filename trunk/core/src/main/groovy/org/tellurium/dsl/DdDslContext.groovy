@@ -184,7 +184,7 @@ abstract class DdDslContext extends DslContext{
         return null
     }
 
-    public void listenForResult(TestResult result ){
+    public void listenForResult(org.tellurium.test.helper.TestResult result ){
         listener.listenForResult(result)    
     }
 
