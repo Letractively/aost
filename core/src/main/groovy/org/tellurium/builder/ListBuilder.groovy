@@ -28,7 +28,7 @@ class ListBuilder extends UiObjectBuilder{
        return list
    }
 
-   def build(List list, UiObject[] objects){
+   def build(org.tellurium.object.List list, UiObject[] objects){
 
       if(list == null || objects == null || objects.length < 1)
         return list
@@ -41,7 +41,7 @@ class ListBuilder extends UiObjectBuilder{
       return list
    }
 
-   def build(List list, UiObject object){
+   def build(org.tellurium.object.List list, UiObject object){
 
       if(list == null || object == null)
         return list

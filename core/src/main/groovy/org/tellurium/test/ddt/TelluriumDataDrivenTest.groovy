@@ -16,7 +16,7 @@ import org.tellurium.dsl.UiDslParser
 import org.tellurium.framework.TelluriumFramework
 import org.tellurium.test.helper.*
 import org.tellurium.test.groovy.BaseTelluriumGroovyTestCase
-import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManager
 
 
 /**
@@ -362,7 +362,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
         return null
     }
 
-    protected void listenForResult(TestResult result ){
+    protected void listenForResult(org.tellurium.test.helper.TestResult result ){
         listener.listenForResult(result)
     }
 

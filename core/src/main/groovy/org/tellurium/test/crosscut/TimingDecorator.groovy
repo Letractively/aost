@@ -63,7 +63,7 @@ public class TimingDecorator {
         logger.addAppender(new ConsoleAppender())
     }
 
-    def invokeMethod(String name, args) {
+    java.lang.Object invokeMethod(java.lang.String name, java.lang.Object args) {
         if(startTime == -1)
           startTime = System.currentTimeMillis()
         long beforeTime = System.currentTimeMillis()

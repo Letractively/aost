@@ -14,8 +14,8 @@ import org.tellurium.dispatch.Dispatcher
 public class Extension implements GroovyInterceptable{
    def dispatcher  = new Dispatcher()
 
-   def invokeMethod(String name, args) {
+   java.lang.Object invokeMethod(java.lang.String method, java.lang.Object args) {
      
-      return dispatcher.metaClass.invokeMethod(dispatcher, name, args)
+      return dispatcher.metaClass.invokeMethod(dispatcher, method, args)
     }
 }
