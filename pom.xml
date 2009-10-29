@@ -257,7 +257,31 @@
             </snapshots>
             <url>http://maven.kungfuters.org/content/repositories/thirdparty</url>
         </repository>
+        <repository>
+            <id>kungfuters-public-snapshots-repo</id>
+            <name>Kungfuters Public Snapshots</name>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <url>http://maven.kungfuters.org/content/repositories/snapshots</url>
+        </repository>
     </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>kungfuters-public-snapshots-repo</id>
+            <name>Kungfuters Public Snapshots</name>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <url>http://maven.kungfuters.org/content/repositories/snapshots</url>
+        </pluginRepository>
+    </pluginRepositories>
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium.server</groupId>
