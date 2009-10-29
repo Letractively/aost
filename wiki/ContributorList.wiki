@@ -24,7 +24,7 @@ Tellurium Contributors are categorized into development team, support team, evan
 
 === Build and Release ===
 
-  * *Matt Senter*: Came up with the name "Tellurium", Tellurium Maven support, Tellurium build and release, and Tellurium Maven repository maintenance. Donated Tellurium Maven Nexus server.
+  * *Matt Senter*: Came up with the name "Tellurium", Tellurium Maven support, Tellurium build and release, and Tellurium Maven repository and Hudson maintenance. Donated Tellurium Maven Nexus server and Tellurium Hudson server.
 
 === Quality Assurance ===
 
