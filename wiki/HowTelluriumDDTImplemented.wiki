@@ -131,7 +131,7 @@ class FieldSetParser extends BuilderSupport{
 
 = Summary =
 
-The Object to FieldSet mapping is only one aspect of the Tellurium Data Driven testing. For more detailed implementation of it, please read [http://code.google.com/p/aost/wiki/UserGuide070DetailsOnTellurium#Data_Driven_Testing Tellurium Data Driven Testing] and Tellurium core source code for the package {{{org.tellurium.ddt}}}.
+The Object to FieldSet mapping is only one aspect of the Tellurium Data Driven testing. For more detailed implementation of it, please read [http://code.google.com/p/aost/wiki/UserGuide070DetailsOnTellurium#Data_Driven_Testing Tellurium Data Driven Testing] and Tellurium core source code with the package name {{{org.tellurium.ddt}}}.
 
 = Resources =
 
