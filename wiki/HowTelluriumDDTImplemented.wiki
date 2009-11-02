@@ -17,7 +17,8 @@ You may wonder how the data driven testing is implemented in Tellurium. This art
 
 == the Field Set Object Mapping Framework ==
 
-Historically, the Tellurium Data Driven came from [http://code.google.com/p/jianwikis/wiki/FieldSetObjectMappingFramework the Field Set Object Mapping Framework (FSOM)] I worked for a batch processor. The FSOM framework a converter layer acts as a converter layer, i.e., to convert Java Object to and from field sets. What are field sets? A field set is a set of data to represent the format of a flat file or other types of files. 
+Historically, the Tellurium Data Driven came from [http://code.google.com/p/jianwikis/wiki/FieldSetObjectMappingFramework the Field Set Object Mapping Framework (FSOM)] I worked for a batch processor. The FSOM framework acts as a converter layer, i.e., to convert Java Objects to and from field sets. What are field sets? A field set is a set of data to represent the format of a flat file or other types of files. 
+
 The Architecture of the FSOM framework is shown in the following diagram,
 
 http://sacct-users.googlegroups.com/web/FsomArchitecture.png?gda=myxegUcAAABwsiXcufpgHYK0Fq-t18-VcduyJajMZkHyExt4IRNTJkxBcav97KKqIIHPw8_lwXUVeY4b49xGcMK802iZZ8SFeV4duv6pDMGhhhZdjQlNAw&gsc=ypY6FgsAAADV3ZfoSfo7zlUr2Cv4XdfJ
@@ -28,7 +29,7 @@ As you can see from the above architecture, Tellurium inherited a lot of concept
 
 == Tellurium Data Driven Testing ==
 
-The major move for the FSOM framework to Tellurium Data Driven Testing is the adoption of the Groovy builder, which removed the need for the Spring bean factory and XML configuration parser. The Groovy builder makes it very easy to write the Field Set in an expressive way. For example,
+The major move from the FSOM framework to Tellurium Data Driven Testing is the adoption of the Groovy BuilderSupport class, which removed the need for the Spring bean factory and XML configuration parser. The Groovy BuilderSupport class makes it very easy to write the Field Set in an expressive way. For example,
 
 
 {{{
@@ -45,9 +46,9 @@ fs.FieldSet(name: "fs4googlesearch", description: "example field set for google 
 }
 }}}
 
-Note that the above script defines a custom type "PhoneNumber" and the Tellurium automatically calls this type handler to convert the input data to the "PhoneNumber" Java type.
+Note that the above script defines a custom type "PhoneNumber" and Tellurium automatically calls this type handler to convert the input data to the "PhoneNumber" Java type.
 
-Under the hood, Tellurium use the Groovy builder to parse the nested objects and here is the code for that purpose.
+Under the hood, Tellurium uses the Groovy BuilderSupport class to parse the nested objects and here is the code for that purpose.
 
 {{{
 class FieldSetParser extends BuilderSupport{
@@ -131,7 +132,7 @@ class FieldSetParser extends BuilderSupport{
 
 = Summary =
 
-The Object to FieldSet mapping is only one aspect of the Tellurium Data Driven testing. For more detailed implementation of it, please read [http://code.google.com/p/aost/wiki/UserGuide070DetailsOnTellurium#Data_Driven_Testing Tellurium Data Driven Testing] and Tellurium core source code with the package name {{{org.tellurium.ddt}}}.
+The Object to FieldSet mapping is only one aspect of the Tellurium Data Driven testing. For more detailed implementation of the Tellurium Data Driven mechanism, please read [http://code.google.com/p/aost/wiki/UserGuide070DetailsOnTellurium#Data_Driven_Testing Tellurium Data Driven Testing] and Tellurium core source code with the package name {{{org.tellurium.ddt}}}.
 
 = Resources =
 
