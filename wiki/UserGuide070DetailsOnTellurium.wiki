@@ -1117,7 +1117,7 @@ ui.Table(uid: "labels_table", clocator: [:], group: "true"){
 
 === FieldSet ===
 
-FieldSet defines the format of one line of input data. FieldSet consists of fieldssuch as columns, in the input data. There is a special field "test", where users can specify what tests this line of data applies to. For example:
+FieldSet defines the format of one line of input data. FieldSet consists of fields such as columns, in the input data. There is a special field "test", where users can specify what tests this line of data applies to. For example:
 
 
 {{{
@@ -1183,7 +1183,7 @@ fs.FieldSet(name: "fs4googlesearch", description: "example field set for google 
 }
 }}}
 
-The above script defined a custom type "PhoneNumber" and the Tellurium automatically calls this type handler to convert the input data to the "PhoneNumber" Java type.
+The above script defines a custom type "PhoneNumber" and the Tellurium automatically calls this type handler to convert the input data to the "PhoneNumber" Java type.
 
 === Define Test ===
 
