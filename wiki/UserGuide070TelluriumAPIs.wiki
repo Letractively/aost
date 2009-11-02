@@ -1,4 +1,5 @@
 #summary Tellurium User Guide: Tellurium APIs
+#labels Phase-Support
 
 (A PDF version of the user guide is available [http://aost.googlecode.com/files/TelluriumUserGuide.0.6.0.pdf here])
 
@@ -52,7 +53,7 @@ Be aware, the user can only apply the methods to the Ui Object if it has these m
 || {{{selectTopFrameFrom:}}}|| Select the main frame from the frame identified by the "frameName".||
 || {{{waitForPopUp UID, timeout:}}}|| Waits for a popup window to appear and load up.||
 || {{{waitForPageToLoad timeout:}}}|| Waits for a new page to load.||
-|| {{{waitForFrameToLoad frameAdddress, timeout:}}}|| Waits for a new frame to load.||
+|| {{{waitForFrameToLoad uid, timeout:}}}|| Waits for a new frame to load. Be aware that Selenium uses the _name_ attribute to locate a Frame.||
 || {{{runScript script:}}}|| Creates a new "script" tag in the body of the current test window, and adds the specified text into the body of the command. Scripts run this way can often be debugged more easily than scripts executed using Selenium's "getEval" command.||
 
 Beware that JS exceptions thrown in these script tags are not managed by Selenium, so the user should wrap the script in try/catch blocks if there is any chance that the script will throw an exception.
