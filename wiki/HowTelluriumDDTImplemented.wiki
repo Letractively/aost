@@ -1,0 +1,23 @@
+#summary How is Tellurium Data Driven Test Implemented.
+#labels Phase-Support,Phase-Implementation
+
+= Introduction =
+
+[http://code.google.com/p/aost/wiki/DataDrivenTesting Data Driven Testing] is one of the most important features of Tellurium. You can define data format in an expressive way. In you data file, you can specify which test you want to run, the input parameters, and expected results. Tellurium automatically binds the input data to variables defined in your test script and run the tests you specified in the input file. The test results will be recorded by a test listener and output in different formats, for example, an XML file.
+
+The system diagram is shown in Figure 1. 
+
+http://tellurium-users.googlegroups.com/web/tellurium.data.driven.jpg?gda=_1pLcEsAAACjbvY1r0rMz6MRbvC-tSqoysMSW8LOE1CninSxbdL8I2ArWKkWH9uGyxs8H0RkPsAdq11J_EY5XIrmvbkBlJwJBkXa90K8pT5MNmkW1w_4BQ&gsc=httiOwsAAAAISLBF63vg48UkWer0gDjz
+
+Figure 1. System Diagram for Tellurium Data Driven Testing.
+
+You may wonder how the data driven testing is implemented in Tellurium. This article will introduce some implementation details about it.
+
+= Implementations =
+
+Historically, the Tellurium Data Driven came from [http://code.google.com/p/jianwikis/wiki/FieldSetObjectMappingFramework the Field Set Object Mapping Framework (FSOM)] I worked for a batch processor. The FSOM framework a converter layer acts as a converter layer, i.e., to convert Java Object to and from field sets. What are field sets? A field set is a set of data to represent the format of a flat file or other types of files. 
+The Architecture of the FSOM framework is shown in the following diagram,
+
+http://sacct-users.googlegroups.com/web/FsomArchitecture.png?gda=myxegUcAAABwsiXcufpgHYK0Fq-t18-VcduyJajMZkHyExt4IRNTJkxBcav97KKqIIHPw8_lwXUVeY4b49xGcMK802iZZ8SFeV4duv6pDMGhhhZdjQlNAw&gsc=ypY6FgsAAADV3ZfoSfo7zlUr2Cv4XdfJ
+
+Figure 2. The Architecture of the FSOM framework.
