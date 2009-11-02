@@ -555,7 +555,7 @@ and the following methods
   * getWhetherThisFrameMatchFrameExpression(currentFrameString, target)
   * waitForFrameToLoad(frameAddress, timeout) 
 
-When you test website with IFrames, you should use multiple window mode, i.e., set the option useMultiWindows to be true in TelluriumConfig.groovy.
+When you test website with IFrames, you should use multiple window mode, i.e., set the option useMultiWindows to be true in TelluriumConfig.groovy. Be aware that Selenium uses the _name_ attribute to locate a Frame.
 
 Example:
 
