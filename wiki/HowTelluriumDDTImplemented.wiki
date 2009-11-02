@@ -17,7 +17,7 @@ You may wonder how the data driven testing is implemented in Tellurium. This art
 
 == the Field Set Object Mapping Framework ==
 
-Historically, the Tellurium Data Driven came from [http://code.google.com/p/jianwikis/wiki/FieldSetObjectMappingFramework the Field Set Object Mapping Framework (FSOM)] I worked for a batch processor. The FSOM framework acts as a converter layer, i.e., to convert Java Objects to and from field sets. What are field sets? A field set is a set of data to represent the format of a flat file or other types of files. 
+Historically, the Tellurium Data Driven evolved from [http://code.google.com/p/jianwikis/wiki/FieldSetObjectMappingFramework the Field Set Object Mapping Framework (FSOM)] I worked for a batch processor. The FSOM framework acts as a converter layer, i.e., to convert Java Objects to and from field sets. What are field sets? A field set is a set of data to represent the format of a flat file or other types of files. 
 
 The Architecture of the FSOM framework is shown in the following diagram,
 
