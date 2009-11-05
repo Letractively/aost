@@ -24,7 +24,7 @@ import org.tellurium.test.ddt.TelluriumDataDrivenTest
         includeModule  org.tellurium.example.test.ddt.GoogleCodeHostingModule.class
 
         //load file
-        loadData "src/test/resources/example/test/ddt/GoogleBookListCodeHostInput.txt"
+        loadData "src/main/resources/org/tellurium/example/dsl/test/ddt/GoogleBookListCodeHostInput.txt"
         
         //read each line and run the test script until the end of the file
         stepToEnd()

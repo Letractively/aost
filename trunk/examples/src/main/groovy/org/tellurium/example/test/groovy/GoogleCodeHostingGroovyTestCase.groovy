@@ -40,7 +40,7 @@ class GoogleCodeHostingGroovyTestCase extends TelluriumGroovyTestCase {
     }
 
     void codeLabelTableTest(gch){
-        connectUrl("http://code.google.com/hosting/")
+        openUrl("http://code.google.com/hosting/")
         String label = gch.getModuleLabel()
         assertEquals("Explore hosted projects:", label)
         

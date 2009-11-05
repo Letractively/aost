@@ -31,6 +31,8 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
     void testBookCategory(){
         //test google book list using Selenium way, i.e., absolute xpath
         GoogleBooksList gbl = new GoogleBooksList()
+    	openUrl("http://books.google.com/")
+
         gbl.defineUi()
         bookListTest(gbl)
 
@@ -43,7 +45,7 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
     void testGetListSize(){
         NewGoogleBooksList ngbl = new NewGoogleBooksList()
         ngbl.defineUi()
-        connectUrl("http://books.google.com/")
+        openUrl("http://books.google.com/")
         ngbl.disableJQuerySelector()
         int xsize = ngbl.getBookListSize()
         ngbl.useJQuerySelector()
@@ -52,9 +54,9 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
     }
 
     void bookListTest(gbl){
-        connectUrl("http://books.google.com/")
+    	
         String category = gbl.getCategory()
-        assertEquals("Fiction", category)
+        assertEquals("› Fiction", category)
 
         int size = gbl.getBookListSize()
 
@@ -82,7 +84,7 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
     void testGetSeparatorAttribute(){
       NewGoogleBooksList ngbl = new NewGoogleBooksList()
       ngbl.defineUi()
-      connectUrl("http://books.google.com/")
+      openUrl("http://books.google.com/")
       ngbl.dump("NGoogleBooksList")
       ngbl.disableJQuerySelector()
       println ngbl.getSeparatorAttribute()
