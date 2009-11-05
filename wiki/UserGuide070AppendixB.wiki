@@ -546,6 +546,16 @@ You can specify the profile in Tellurium Configuration file TelluriumConfig.groo
    }
 }}}
 
+This is especially useful if you are behind a firewall. Please read more about 
+[http://support.mozilla.com/en-US/kb/Profiles#On_Windows_2000_and_XP Firefox Profiles]. 
+
+If you run the Selenium server externally, you can specify the Firefox profile using the following option:
+
+{{{
+  -firefoxProfileTemplate <dir>: normally, we generate a fresh empty Firefox profile
+     every time we launch.  You can specify a directory to make us copy your profile directory instead.
+}}}
+
 == How to Overwrite Tellurium Settings in My Test Class ==
 
 TelluriumConfig.groovy acts like a global setting file if you do not want to manually change it. Now, the  BaseTelluriumJavaTestCase provides two methods for you to overwrite the default settings,
