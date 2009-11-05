@@ -59,10 +59,10 @@ public class TelluriumIssueModule extends DslContext {
 
   }
 
-  public List<String> getDataForColumn(int column){
+  public java.util.List<String> getDataForColumn(int column){
         int nrow = getTableMaxRowNum("issueResult")
         if(nrow > 20) nrow = 20
-        List<String> lst = new ArrayList<String>()
+        java.util.List<String> lst = new ArrayList<String>()
         for(int i=1; i<nrow; i++){
             lst.add(getText("issueResult[${i}][${column}]"))
         }
@@ -70,10 +70,10 @@ public class TelluriumIssueModule extends DslContext {
         return lst
   }
 
-  public List<String> getDataForColumnWithCache(int column){
+  public java.util.List<String> getDataForColumnWithCache(int column){
         int nrow = getTableMaxRowNum("issueResultWithCache")
         if(nrow > 20) nrow = 20
-        List<String> lst = new ArrayList<String>()
+        java.util.List<String> lst = new ArrayList<String>()
         for(int i=1; i<nrow; i++){
             lst.add(getText("issueResultWithCache[${i}][${column}]"))
         }

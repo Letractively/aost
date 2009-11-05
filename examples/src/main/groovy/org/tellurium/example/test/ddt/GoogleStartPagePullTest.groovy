@@ -27,7 +27,7 @@ class GoogleStartPagePullTest extends TelluriumDataDrivenTest{
         }
 
         //define custom data type and its type handler
-        typeHandler "phoneNumber", "org.tellurium.test.PhoneNumberTypeHandler"
+        typeHandler "phoneNumber", "org.tellurium.example.handler.PhoneNumberTypeHandler"
 
         //define file data format
         fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search") {
@@ -37,7 +37,7 @@ class GoogleStartPagePullTest extends TelluriumDataDrivenTest{
         }
 
         //load file
-        loadData "src/test/resources/example/test/ddt/googlesearchpullinput.txt"
+        loadData "src/main/resources/org/tellurium/example/dsl/test/ddt/googlesearchpullinput.txt"
 
         step{
             //bind variables
