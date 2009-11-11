@@ -47,7 +47,7 @@ Be aware, the user can only apply the methods to the Ui Object if it has these m
 || {{{openWindow UID, url:}}}|| Opens a popup window. (If a window with that specific ID is not already open). After opening the window, select it using the selectWindow command.||
 || {{{selectWindow UID:}}}|| Selects a popup window; once a popup window has been selected, all commands go to that window. To select the main window again, use null as the target.||
 || {{{closeWindow UID:}}}|| Close the popup window.||
-|| {{{electMainWindows:}}}|| Select the original window. For example: the Main window.||
+|| {{{selectMainWindows:}}}|| Select the original window. For example: the Main window.||
 || {{{selectFrame frameName:}}}|| Selects a frame within the current window.||
 || {{{selectParentFrameFrom frameName:}}}|| Select the parent frame from the frame identified by the "frameName".||
 || {{{selectTopFrameFrom:}}}|| Select the main frame from the frame identified by the "frameName".||
