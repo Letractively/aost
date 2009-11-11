@@ -25,3 +25,4 @@
   * [http://code.google.com/p/aost/wiki/FirstAnniversaryRetrospectAndProspect Tellurium First Anniversary: Retrospect And Prospect]
   * [http://code.google.com/p/aost/wiki/TelluriumAtCodeStock Tellurium @ CodeStock 2009]
   * [http://code.google.com/p/aost/wiki/BetterReportingWithReportNG Better Reporting with ReportNG]
+  * [http://code.google.com/p/aost/wiki/HowTelluriumDDTImplemented How is Tellurium Data Driven Test Implemented]
