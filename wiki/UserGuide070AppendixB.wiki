@@ -827,6 +827,36 @@ The _nonProxyHosts_ parameter should include all the hosts you don't want them t
 <nonProxyHosts>*.mycompany.com|*.mycompanydoman2.com</nonProxyHosts>
 }}}
 
+== How to Run Tellurium Tests in Google Chrome == 
+
+Selenium supports the following web browsers,
+
+{{{
+  *firefox
+  *mock
+  *firefoxproxy
+  *pifirefox
+  *chrome
+  *iexploreproxy
+  *iexplore
+  *firefox3
+  *safariproxy
+  *googlechrome
+  *konqueror
+  *firefox2
+  *safari
+  *piiexplore
+  *firefoxchrome
+  *opera
+  *iehta
+  *custom
+}}}
+
+For Google Chrome, you should use {{{*googlechrome}}}. But there are bugs for the current Google Chrome support in Selenium:
+  * There have been reports that Chrome support for selenium won't work on Windows XP 64-bit.
+  * The Google Chrome launcher does not support the avoidProxy option ([http://jira.openqa.org/browse/SRC-524 SRC-524])
+  * http://localhost doesn't work as a starting URL in Google Chrome ([http://jira.openqa.org/browse/SRC-529 SRC-529])
+
 == How to Contribute to Tellurium ==
 
 We welcome contributions in many different ways, for example,
