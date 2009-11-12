@@ -855,7 +855,7 @@ Selenium supports the following web browsers,
 For Google Chrome, you should use {{{*googlechrome}}}. But there are bugs for the current Google Chrome support in Selenium:
   * There have been reports that Chrome support for selenium won't work on Windows XP 64-bit.
   * The Google Chrome launcher does not support the avoidProxy option ([http://jira.openqa.org/browse/SRC-524 SRC-524])
-  * http://localhost doesn't work as a starting URL in Google Chrome ([http://jira.openqa.org/browse/SRC-529 SRC-529])
+  * {{{http://localhost}}} doesn't work as a starting URL in Google Chrome ([http://jira.openqa.org/browse/SRC-529 SRC-529])
 
 == How to Contribute to Tellurium ==
 
