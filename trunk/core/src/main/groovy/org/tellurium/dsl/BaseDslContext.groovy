@@ -1270,4 +1270,8 @@ abstract class BaseDslContext {
   void deleteAllVisibleCookies(){
     accessor.deleteAllVisibleCookies()
   }
+
+  void deleteAllCookies(){
+    extension.deleteAllCookies()
+  }
 }
