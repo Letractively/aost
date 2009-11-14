@@ -183,6 +183,10 @@ Selenium.prototype.doTriggerEvent = function(locator, event){
 	$elem.trigger(event);
 };
 
+Selenium.prototype.doDeleteAllCookies = function() {
+    jaaulde.utils.cookies.del(true);
+}
+
 function DiagnosisRequest(){
     this.uid = null;
     this.pLocator = null;
