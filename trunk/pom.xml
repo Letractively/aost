@@ -47,8 +47,26 @@
         <developer>
             <name>Mikhail Koryak</name>
         </developer>
+        <developer>
+            <name>Ajay Ravichandrank</name>
+        </developer>
     </developers>
     <contributors>
+        <contributor>
+            <name>Kamal Ahmed</name>
+        </contributor>
+        <contributor>
+            <name>Mahendra Kariya</name>
+        </contributor>
+        <contributor>
+            <name>Kevin Zhang</name>
+        </contributor>
+        <contributor>
+            <name>Ramesh Ramamurthy</name>
+        </contributor>
+        <contributor>
+            <name>Davlyn Jonesy</name>
+        </contributor>
         <contributor>
             <name>Jared Rawlinson</name>
         </contributor>
