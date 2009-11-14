@@ -246,4 +246,9 @@ class CustomSelenium extends DefaultSelenium {
 		String st = commandProcessor.doCommand("getDiagnosisResponse", arr);
 		return st;
     }
+
+    public void deleteAllCookies(){
+        String[] arr = [];
+        commandProcessor.doCommand("deleteAllCookies", arr);
+    }
 }
