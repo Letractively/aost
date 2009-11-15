@@ -15,7 +15,7 @@
     * [UserGuide070GettingStarted Getting Started]
     * [UserGuide070TelluriumArchitecture Tellurium Architecture]
     * [UserGuide070UIObjects Tellurium UI Objects]
-    * [UserGuide070Tellurium Basics Tellurium Basics]
+    * [UserGuide070TelluriumBasics Tellurium Basics]
     * [UserGuide070TelluriumAdvancedTopics Advanced Topics]
     * [UserGuide070TelluriumAPIs Tellurium APIs]
     * [UserGuide070TelluriumSubprojects Tellurium Subprojects]
