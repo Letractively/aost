@@ -1536,3 +1536,133 @@ By looking at this above lines, we could realize that the _src_ attribute is wro
 Some careful readers may want to ask "why you add a partial matching symbol `*` to the src attribute in the UI module. The reason is that in jQuery, seems the _src_ attribute in an Image has to be a full URL such as http://code.google.com/p/aost/. One workaround is to put the partial matching symbol `*` before the URL.
 
 In some case, the return matching count is larger than 1 and you can figure out how to update your UI module definition by looking at all the return elements and their parents.
+
+== Internationalization support in Tellurium ==
+
+Tellurium now provides support for internationalization of strings and exception messages. Any software system should have support for regional language settings and options to be effective. Internationalization and localization provides this support. Locales define the language and region. Locales can define how region specific data is presented to users. Every locale will have a language code followed by a region code. Ex: fr_FR represents french language in the region of France. Internationalized strings for each locale is provided through a MessageBundle engineered for a specific locale which is of the format `<MessageBundleName>_<language-code>_<country code>.properties`
+
+=== Internationalization support in Tellurium ===
+
+The Internationalization support in Tellurium is provided through the InternationalizationManager class. The default bundle used in Tellurium is the DefaultMessagesBundle.properties. All strings and exception messages used in the tellurium core classes are read in from the DefaultMessageBundle properties file. 
+
+In order to configure regional messages, This class has a translate that provides Internationalization support. 
+
+
+For plain strings
+{{{
+translate( "<key>") 
+}}}
+For Strings with parameters
+{{{
+translate("<key>" , { [ item1 , item2 , … , item n]}
+}}}
+For double numeric value
+{{{
+translate(<doubleValue> , false)
+}}}
+For currency data
+{{{
+translate(<doubleValue> , true)
+}}}
+For Dates
+{{{
+translate(<dateValue> , false)
+}}}
+For time
+{{{
+translate(<timeValue> , true)
+}}}
+
+The `translate(<key>)` method signature internationalizes a simple string. The `translate(<key> , { [ item1 , item2 , … , item n]}` method definition allows parameterization of an internationalized string to allow external strings/arguments as parameter to the string.
+
+The localization can be defined in two ways
+# setting the locale on your system preferences / settings. (ex: regional settings in Windows machine). This is the preferred and a better way of setting the locale
+# adding an i18n section similar to below
+
+{{{
+i18n{
+        locales = "en_EN"
+    }
+}}}
+
+=== Internationalization extension to user defined tests ===
+
+Internationalization support has been extended to test cases, so any user defined test case can use
+{{{
+ geti18nManager() 
+}}}
+
+to utilize the translate function support in their own test code. Internationalized strings can be added to user defined MessageBundles defined in the src/main/resources folder of user defined projects. The general steps to provide internationalization in your project are as follows:
+
+1. Create a user defined MessageBundle.properties, a default locale message bundle, as well as one for each region you want to provide support for in your project, ex: MessageBundle_fr_FR.properties will have strings translated into french
+
+2. Add the user defined resource bundle using the geti18nManager function, like so: `getI18nManager().addResourceBundle("MessageBundle")`
+
+3. Now use the `translate` function to internationalize strings
+
+=== Simple Example ===
+
+Here is a simple example of code from a GoogleBooksListGroovyTestCase. I assume that user has already defined a MessagesBundle.properties,located at src/main/resources, as follows
+
+MessagesBundle.properties
+{{{
+GoogleBooksListGroovyTestCase.SetUpModule=Setting up google book list
+GoogleBooksListGroovyTestCase.Category=Category is {0}
+GoogleBooksListGroovyTestCase.ConnectSeleniumServer=Connection to selenium server
+}}}
+
+Now defining the same properties file in French
+
+MessageBundle_fr_FR.properties
+{{{
+GoogleBooksListGroovyTestCase.SetUpModule=Liste de livre de google d'établissement
+GoogleBooksListGroovyTestCase.Category=La catégorie est {0}
+GoogleBooksListGroovyTestCase.ConnectSeleniumServer=Se relier au serveur de sélénium
+}}}
+
+Here is the definition of a testCase that uses the Internationalization support
+{{{
+class SampleGroovyTestCase extends TelluriumGroovyTestCase {
+
+    public void initUi() {
+    }
+
+    public void setUp(){
+        setUpForClass()
+        //adding the local resource bundle, make sure it's not titled "DefaultMessagesBundle" since
+        //this will overwrite the default one we use in Tellurium core and cause exceptions
+        geti18nManager().addResourceBundle("MessagesBundle")
+        
+        //geti18nManager() can also be replaced by 
+        //manager = new InternationalizationManager(), where manager is a class level variable of type
+       //InternationalizationManager
+
+    }
+
+    public void tearDown(){
+        tearDownForClass()
+    }
+
+    public void testTranslateWithEnglishLocale()
+    {
+       //translating of strings
+       String message = geti18nManager().translate("i18nManager.testString")
+       assertEquals("This is a testString in English", message)
+
+       //translation of number data types
+       Double amount = new Double(345987.246);
+       String translatedValue = geti18nManager().translate(amount, false)
+       assertEquals("345,987.246" , translatedValue)
+
+       //translation of currency data types
+       amount = new Double(9876543.21);
+       translatedValue = geti18nManager().translate(amount, true)
+       assertEquals("\$9,876,543.21" , translatedValue)
+
+       //translation of dates - date is 2009, Jan 1
+       Date date = new Date(109 , 0 , 1)
+       translatedValue = geti18nManager().translate(date, false)
+       assertEquals("Jan 1, 2009" , translatedValue)
+     }
+}
+}}}
