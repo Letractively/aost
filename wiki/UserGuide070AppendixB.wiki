@@ -799,7 +799,7 @@ Examples:
 {{{
 clocator: [href:'!xevent']
 clocator: [href:'^xevent']
-clocator: [href:'$xevent']
+clocator: [href:'\$xevent']
 clocator: [href:'*xevent']
 }}}
    
