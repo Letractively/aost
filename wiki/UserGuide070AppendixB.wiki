@@ -789,7 +789,7 @@ where the partial matching signs include:
 
   * _{{{!}}}_: either don't have the specified attribute or do have the specified attribute but not with a certain value. 
   * _{{{^}}}_: have the specified attribute and it starts with a certain value. 
-  * _{{{$}}}_: have the specified attribute and it ends with a certain value. 
+  * _{{{\$}}}_: have the specified attribute and it ends with a certain value. Be aware that {{{$}}} is reserved in Groovy for GString, please add "\" to escape it. 
   * _{{{*}}}_: have the specified attribute and it contains a certain value. 
 
 Be aware, due to the limitations of XPath, _{{{$}}}_ and _{{{*}}}_ are the same in XPath locator.
