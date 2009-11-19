@@ -87,6 +87,7 @@ tellurium{
         locales = "en_EN"
     }
     test{
+      
         //at current stage, the result report is only for tellurium data driven testing
         //we may add the result report for regular tellurium test case
         result{

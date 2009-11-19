@@ -175,7 +175,7 @@ class XPathBuilder {
     return "position()=${position}"
   }
 
-  //For string value, need to useString double quota "", otherwise, the value will become
+  //For string value, need to use double quota "", otherwise, the value will become
   //invalid for single quota '' once we have the value as "I'm feeling lucky"
   protected static String buildText(String value) {
     if (value == null || (value.trim().length() <= 0))
