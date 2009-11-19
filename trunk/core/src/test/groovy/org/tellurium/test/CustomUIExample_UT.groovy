@@ -45,4 +45,9 @@ public class CustomUIExample_UT extends GroovyTestCase {
     println cue.generateHtml("accountEdit");
   }
 
+  public void testPartialMatching(){
+    CustomUIExample cue = new CustomUIExample();
+    cue.defineUi();
+    cue.dump("confirmation");
+  }
 }

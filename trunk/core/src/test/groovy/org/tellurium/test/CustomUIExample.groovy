@@ -50,6 +50,7 @@ public class CustomUIExample extends DslContext {
       SubmitButton(uid: "save", clocator: [tag: "input", class: "btn", type: "submit", title: "Save", name: "save"])
     }
 
+    ui.TextBox(uid: "confirmation", clocator: [tag: "h3", text: "\$Confirmation"])
   }
 
   public String getXCaseStatus(int tabnum){
