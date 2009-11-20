@@ -588,7 +588,7 @@ To access the channel, you can use an IRC client such as [http://xchat.org/ xcha
 /help topic
 }}}
 
-We will schedule the time when our Tellurium members are available on the channel so that you can ask questions directly to us.
+We will schedule the time when our Tellurium members are available on the channel so that you can chat with us directly.
 
 Thanks,
 
