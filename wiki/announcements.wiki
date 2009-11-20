@@ -580,7 +580,7 @@ Tellurium Team
 
 == IRC Channel #tellurium is Available Now ==
 
-To better support our users, we have registered the IRC channel #tellurium at [freenode.net freenode.net]. 
+To better support our users, we have registered the IRC channel {{{#tellurium}}} at [freenode.net freenode.net]. 
 
 To access the channel, you can use an IRC client such as [http://xchat.org/ xchat] in Linux and [https://addons.mozilla.org/en-US/firefox/addon/16 ChatZilla for Firefox]. If you are behind a firewall, you can use a web client, for example, [http://webchat.freenode.net/ webchat provided by freenode]. You may like to set up your nick name, please consult [http://freenode.net/faq.shtml#nicksetup the nick name setup guide]. If you are new to IRC chat, please read [http://www.ircbeginner.com/ircinfo/ircc-commands.html Basic IRC Commands], or use the following command to get online help:
 
@@ -593,5 +593,3 @@ We will schedule the time when our Tellurium members are available on the channe
 Thanks,
 
 Tellurium Team
-
-
