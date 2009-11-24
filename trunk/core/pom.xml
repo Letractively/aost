@@ -191,7 +191,7 @@
             <version>r1</version>
         </dependency>
         <dependency>
-            <groupId>poi</groupId>
+            <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>3.0.1-FINAL</version>
         </dependency>

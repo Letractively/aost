@@ -355,4 +355,9 @@ class Accessor implements Configurable{
   void deleteAllVisibleCookies() {
     dispatcher.deleteAllVisibleCookies()
   }
+
+  void allowNativeXpath(boolean allow){
+    String allowed = (allow) ? "true": "false";
+    dispatcher.allowNativeXpath(allowed);
+  }
 }

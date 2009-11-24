@@ -1274,4 +1274,8 @@ abstract class BaseDslContext {
   void deleteAllCookies(){
     extension.deleteAllCookies()
   }
+
+  void allowNativeXpath(boolean allow){
+     accessor.allowNativeXpath(allow)
+  }
 }
