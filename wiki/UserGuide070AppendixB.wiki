@@ -119,7 +119,7 @@ We also provide a quick start, "Ten Minutes To Tellurium", at
 
 [http://code.google.com/p/aost/wiki/TenMinutesToTellurium http://code.google.com/p/aost/wiki/TenMinutesToTellurium]
 
-== Where Can I Find Tellurium a Sample Configuration File? ==
+== Where Can I Find a Sample Tellurium Configuration File? ==
 
 Tellurium Sample Configuration File is available [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile here]
 
