@@ -21,6 +21,8 @@ Tellurium Contributors are categorized into development team, support team, evan
   * *Ajay Ravichandran*: Internationalization, Excel data reader
 
   * *Mahendra Kariya*: User Guide Wiki
+  
+  * *Harihara Vinayakaram*:
 
 === Build and Release ===
 
