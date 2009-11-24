@@ -147,10 +147,14 @@ For checkbox/radio elements, the value will be "on" or "off" depending on whethe
 || {{{String[] getAllWindowIds():}}}|| Returns the IDs of all windows that the browser knows about.||
 || {{{String[] getAllWindowNames():}}}|| Returns the names of all windows that the browser knows about.||
 || {{{String[] getAllWindowTitles():}}}|| Returns the titles of all windows that the browser knows about.||
+|| {{{allowNativeXpath(boolean allow):}}}|| Specifies whether Selenium should use the native in-browser implementation of XPath (if any native version is available); if you pass false to this function, we will always use our pure-JavaScript xpath library.||
+
 
 == Test Support DSLs ==
 
 Tellurium defines a set of DSLs to support Tellurium tests. The most often used ones include:
+
+connectSeleniumServer(): Connect to the selenium server.
 
 openUrl(String url): establish a new connection to Selenium server for the given url. The DSL format is:
 
