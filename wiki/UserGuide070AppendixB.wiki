@@ -119,6 +119,10 @@ We also provide a quick start, "Ten Minutes To Tellurium", at
 
 [http://code.google.com/p/aost/wiki/TenMinutesToTellurium http://code.google.com/p/aost/wiki/TenMinutesToTellurium]
 
+== Where Can I Find Tellurium a Sample Configuration File? ==
+
+Tellurium Sample Configuration File is available [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile here]
+
 == Tellurium Dependencies ==
 
 Tellurium is built on top of Selenium at the current stage and it uses Selenium 1.0.1 and Selenium Grid tool 1.0.2. Tellurium 0.6.0 was tested with Grooy 1.6.0 and Maven 2.0.9.
