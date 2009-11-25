@@ -169,8 +169,8 @@ tellurium{
         //  *iehta
         browser = "*chrome"
         //user's class to hold custom selenium methods associated with user-extensions.js
-        //should in full class name, for instance, "com.mycom.CustomSelenium"
-        customClass = "org.tellurium.test.MyCommand"
+        //should in full class name, for instance, "com.mycom.CustomSelenium", org.tellurium.test.MyCommand
+        customClass = ""
         //browser options such as
         //    options = "captureNetworkTraffic=true, addCustomRequestHeader=true"
         options = ""
@@ -181,6 +181,15 @@ tellurium{
             //the valid options include "PipeFileReader", "CSVFileReader" at this point
             reader = "PipeFileReader"
         }
+    }
+   //this section allows users to define the internationalization required
+    //if this section is removed, we take the default locale
+    //from the system
+    //enter only one locale at a time, and use this only if you want to explicitly
+    //set the locale, preferrable way is to comment out this section 
+    i18n{
+        //locales = "fr_FR"
+        locales = "en_EN"
     }
     test{
         //at current stage, the result report is only for tellurium data driven testing
