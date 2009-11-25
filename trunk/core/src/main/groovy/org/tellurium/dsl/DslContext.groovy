@@ -303,5 +303,6 @@ abstract class DslContext extends BaseDslContext {
     //so that we can pass in widget method directly, instead of passing in the method name as a String
     def propertyMissing(String name) {
         println i18nManager.translate("BaseDslContext.PropertyIsMissing" , name)
+        return name
     }
 }
