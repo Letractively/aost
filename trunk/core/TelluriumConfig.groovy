@@ -48,6 +48,11 @@ tellurium{
         //whether we should check if the UI element is presented
         checkElement = true
     }
+      //the bundling tier
+    bundle{
+        maxMacroCmds = 5
+        useMacroCommand = true
+    }
     //the configuration for the connector that connects the selenium client to the selenium server
     connector{
         //selenium server host
@@ -87,7 +92,10 @@ tellurium{
         locales = "en_EN"
     }
     test{
-      
+        execution{
+            //whether to trace the execution timing
+            trace = true
+        }      
         //at current stage, the result report is only for tellurium data driven testing
         //we may add the result report for regular tellurium test case
         result{
