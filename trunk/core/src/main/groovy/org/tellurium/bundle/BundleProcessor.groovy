@@ -22,7 +22,7 @@ import org.tellurium.bundle.CmdRequest
  */
 
 @Singleton
-public class MacroCmdProcessor implements Configurable {
+public class BundleProcessor implements Configurable {
 
   public static final String OK = "ok";
 

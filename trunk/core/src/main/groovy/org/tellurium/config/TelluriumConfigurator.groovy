@@ -18,7 +18,7 @@ import org.tellurium.widget.WidgetConfigurator
 import org.tellurium.test.helper.*
 import org.tellurium.connector.CustomSelenium
 import org.tellurium.i18n.InternationalizationManager
-import org.tellurium.bundle.MacroCmdProcessor
+import org.tellurium.bundle.BundleProcessor
 import org.tellurium.test.helper.XMLResultReporter
 import org.tellurium.test.helper.SimpleResultReporter
 import org.tellurium.test.helper.DefaultResultListener
@@ -36,7 +36,9 @@ import org.tellurium.test.helper.FileOutput;
  */
 class TelluriumConfigurator extends TelluriumConfigParser implements Configurator{
 
-    protected void configEmbeededServer(EmbeddedSeleniumServer server) {
+
+
+  protected void configEmbeededServer(EmbeddedSeleniumServer server) {
         server.setProperty("port", Integer.parseInt(conf.tellurium.embeddedserver.port))
         server.setProperty("useMultiWindows", conf.tellurium.embeddedserver.useMultiWindows)
         server.setProperty("trustAllSSLCertificates", conf.tellurium.embeddedserver.trustAllSSLCertificates)
@@ -71,12 +73,12 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
         server.setProperty("runSeleniumServerInternally", true)        
     }
 
-    protected configMacroCmdProcessor(MacroCmdProcessor processor){
+    protected configBundleProcessor(BundleProcessor processor){
         processor.setProperty("maxMacroCmds", conf.tellurium.bundle.maxMacroCmds)
         processor.setProperty("exploitBundle", conf.tellurium.bundle.useMacroCommand)
     }
 
-    protected configMacroCmdProcessorDefaultValues(MacroCmdProcessor processor){
+    protected configBundleProcessorDefaultValues(BundleProcessor processor){
         processor.setProperty("maxMacroCmds", 5)
         processor.setProperty("exploitBundle", false)
     }
@@ -255,9 +257,9 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
       } else if (configurable instanceof Dispatcher) {
         println i18nManager.translate("TelluriumConfigurator.Dispatcher");
         configDispatcher(configurable)
-      }else if(configurable instanceof MacroCmdProcessor){
+      }else if(configurable instanceof BundleProcessor){
         println i18nManager.translate("TelluriumConfigurator.Bundle")
-        configMacroCmdProcessor(configurable)
+        configBundleProcessor(configurable)
       } else {
         println i18nManager.translate("TelluriumConfigurator.UnsupportedType");
       }
@@ -293,9 +295,9 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
       } else if (configurable instanceof Dispatcher) {
         println i18nManager.translate("TelluriumConfigurator.Dispatcher.default")
         configDispatcherDefaultValues(configurable)
-      }else if(configurable instanceof MacroCmdProcessor){
+      }else if(configurable instanceof BundleProcessor){
         println i18nManager.translate("TelluriumConfigurator.Bundle.default")
-        configMacroCmdProcessorDefaultValues(configurable)
+        configBundleProcessorDefaultValues(configurable)
       } else {
         println i18nManager.translate("TelluriumConfigurator.UnsupportedType");
       }

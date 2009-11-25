@@ -4,8 +4,9 @@ import org.tellurium.dsl.BaseDslContext
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.exception.NotWidgetObjectException
 import org.tellurium.widget.Widget
-import org.tellurium.bundle.MacroCmdProcessor
+import org.tellurium.bundle.BundleProcessor
 import org.tellurium.dispatch.Dispatcher
+import org.tellurium.bundle.BundleProcessor
 
 abstract class DslContext extends BaseDslContext {
 
@@ -302,12 +303,12 @@ abstract class DslContext extends BaseDslContext {
     }
 
     public void useMacroCmd(){
-      MacroCmdProcessor processor = MacroCmdProcessor.instance
+      BundleProcessor processor = BundleProcessor.instance
       processor.useBundleFeature()
     }
 
     public void disableMacroCmd(){
-      MacroCmdProcessor processor = MacroCmdProcessor.instance
+      BundleProcessor processor = BundleProcessor.instance
       processor.disableBundleFeature()
     }
 
