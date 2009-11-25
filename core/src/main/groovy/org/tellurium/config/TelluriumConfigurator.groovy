@@ -17,7 +17,14 @@ import org.tellurium.server.EmbeddedSeleniumServer
 import org.tellurium.widget.WidgetConfigurator
 import org.tellurium.test.helper.*
 import org.tellurium.connector.CustomSelenium
-import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManager
+import org.tellurium.bundle.MacroCmdProcessor
+import org.tellurium.test.helper.XMLResultReporter
+import org.tellurium.test.helper.SimpleResultReporter
+import org.tellurium.test.helper.DefaultResultListener
+import org.tellurium.test.helper.StreamXMLResultReporter
+import org.tellurium.test.helper.ConsoleOutput
+import org.tellurium.test.helper.FileOutput;
 
 /**
  * Tellurium Configurator
@@ -64,6 +71,16 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
         server.setProperty("runSeleniumServerInternally", true)        
     }
 
+    protected configMacroCmdProcessor(MacroCmdProcessor processor){
+        processor.setProperty("maxMacroCmds", conf.tellurium.bundle.maxMacroCmds)
+        processor.setProperty("exploitBundle", conf.tellurium.bundle.useMacroCommand)
+    }
+
+    protected configMacroCmdProcessorDefaultValues(MacroCmdProcessor processor){
+        processor.setProperty("maxMacroCmds", 5)
+        processor.setProperty("exploitBundle", false)
+    }
+  
     protected void configSeleniumConnector(SeleniumConnector connector){
         connector.setProperty("seleniumServerHost", conf.tellurium.connector.serverHost)
         connector.setProperty("port", Integer.parseInt(conf.tellurium.connector.port))
@@ -193,11 +210,13 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     protected void configDispatcher(Dispatcher dispatcher){
         dispatcher.captureScreenshot = conf.tellurium.test.exception.captureScreenshot
         dispatcher.filenamePattern = conf.tellurium.test.exception.filenamePattern
+        dispatcher.trace = conf.tellurium.test.execution.trace
     }
 
     protected void configDispatcherDefaultValues(Dispatcher dispatcher){
         dispatcher.captureScreenshot = false
         dispatcher.filenamePattern = "Screenshot?.png"
+        dispatcher.trace = false
     }
 
   public void config(Configurable configurable) {
@@ -236,6 +255,9 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
       } else if (configurable instanceof Dispatcher) {
         println i18nManager.translate("TelluriumConfigurator.Dispatcher");
         configDispatcher(configurable)
+      }else if(configurable instanceof MacroCmdProcessor){
+        println i18nManager.translate("TelluriumConfigurator.Bundle")
+        configMacroCmdProcessor(configurable)
       } else {
         println i18nManager.translate("TelluriumConfigurator.UnsupportedType");
       }
@@ -271,6 +293,9 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
       } else if (configurable instanceof Dispatcher) {
         println i18nManager.translate("TelluriumConfigurator.Dispatcher.default")
         configDispatcherDefaultValues(configurable)
+      }else if(configurable instanceof MacroCmdProcessor){
+        println i18nManager.translate("TelluriumConfigurator.Bundle.default")
+        configMacroCmdProcessorDefaultValues(configurable)
       } else {
         println i18nManager.translate("TelluriumConfigurator.UnsupportedType");
       }

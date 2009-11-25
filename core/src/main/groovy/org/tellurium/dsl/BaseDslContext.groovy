@@ -60,6 +60,7 @@ abstract class BaseDslContext {
   {
 	  return this.i18nManager;
   }
+  
   protected String postProcessSelector(WorkflowContext context, String jqs) {
     String locator = jqs
 

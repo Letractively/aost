@@ -4,6 +4,8 @@ import org.tellurium.dsl.BaseDslContext
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.exception.NotWidgetObjectException
 import org.tellurium.widget.Widget
+import org.tellurium.bundle.MacroCmdProcessor
+import org.tellurium.dispatch.Dispatcher
 
 abstract class DslContext extends BaseDslContext {
 
@@ -299,6 +301,21 @@ abstract class DslContext extends BaseDslContext {
       return xml
     }
 
+    public void useMacroCmd(){
+      MacroCmdProcessor processor = MacroCmdProcessor.instance
+      processor.useBundleFeature()
+    }
+
+    public void disableMacroCmd(){
+      MacroCmdProcessor processor = MacroCmdProcessor.instance
+      processor.disableBundleFeature()
+    }
+
+    public void showTrace(){
+      Dispatcher dispatcher = new Dispatcher();
+      dispatcher.showTrace()
+    }
+  
     //let the missing property return the a string of the properity, this is useful for the onWidget method
     //so that we can pass in widget method directly, instead of passing in the method name as a String
     def propertyMissing(String name) {
