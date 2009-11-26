@@ -1,7 +1,7 @@
 #summary What users said about Tellurium
 #labels Phase-Support,Phase-Implementation
 
-== Users' Experiences ==
+== Blogs ==
 
 Here is the list of experiences provided by Tellurium developers and users 
 
