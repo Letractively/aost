@@ -1,5 +1,7 @@
 package org.tellurium.object
 
+import org.json.simple.JSONObject
+
 /**
  *  Button
  *
@@ -24,4 +26,11 @@ class Button extends UiObject {
 
         c(locator, respondToEvents)
     }
+
+  public JSONObject toJSON() {
+
+    return buildJSON(){jso ->
+      jso.put(UI_TYPE, "Button")
+    }
+  }
 }

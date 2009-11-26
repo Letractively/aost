@@ -19,6 +19,7 @@ class WorkflowContext {
   public static final String UID_LIST = "UID_List"
   public static final String SKIP_NEXT = "SKIP_NEXT"
   public static final String TRUE = "true"
+  public static final String DSLCONTEXT = "DSLCONTEXT"
 
   private boolean useOption = false
   //Table's child object's tag will be duplicated with the current relative xpath provided by xpath
@@ -29,11 +30,47 @@ class WorkflowContext {
 
   private boolean exploreSelectorCache = false
 
+  private boolean bundlingable = false
+
+//  private boolean locatorSpecific = true
+
+//  private ReturnType returnType;
+
   private MetaCmd metaCmd = new MetaCmd();
 
   private Stack<String> uiid = new Stack<String>();
 
   def context = [:]
+
+/*
+  public boolean isCallLocatorSpecific(){
+    return this.locatorSpecific
+  }
+
+  public void setCallLocatorSpecific(boolean isLocatorSpecific){
+    this.locatorSpecific = isLocatorSpecific
+  }
+
+  public void setCallReturnType(ReturnType returnType){
+    this.returnType = returnType
+  }
+
+  public ReturnType getCallReturnType(){
+    return this.returnType
+  }
+*/
+
+  public void notBundlingable(){
+    this.bundlingable = false
+  }
+
+  public void makeBundlingable(){
+    this.bundlingable = true
+  }
+
+  public boolean isBundlingable(){
+    return this.bundlingable
+  }
 
   public void skipNext(){
     context.put(SKIP_NEXT, "true");

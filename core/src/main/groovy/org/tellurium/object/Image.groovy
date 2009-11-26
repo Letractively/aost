@@ -1,5 +1,7 @@
 package org.tellurium.object
 
+import org.json.simple.JSONObject
+
 /**
  *  IMAGE
  *
@@ -8,7 +10,14 @@ package org.tellurium.object
  */
 class Image extends UiObject{
     public static final String TAG = "img"
-    
+
+    public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "Image")
+      }
+    }
+
     def click(Closure c) {
 
         c(locator, respondToEvents)

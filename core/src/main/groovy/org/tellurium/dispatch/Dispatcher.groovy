@@ -8,7 +8,7 @@ import org.tellurium.test.crosscut.ExecutionTracer;
 
 
 
-class Dispatcher implements GroovyInterceptable, Configurable {
+class Dispatcher implements Configurable {
     public static final String PLACE_HOLDER = "\\?"
     protected static InternationalizationManager i18nManager = new InternationalizationManager();
 

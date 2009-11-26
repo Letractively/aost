@@ -18,13 +18,13 @@ import org.tellurium.widget.WidgetConfigurator
 import org.tellurium.test.helper.*
 import org.tellurium.connector.CustomSelenium
 import org.tellurium.i18n.InternationalizationManager
-import org.tellurium.bundle.BundleProcessor
 import org.tellurium.test.helper.XMLResultReporter
 import org.tellurium.test.helper.SimpleResultReporter
 import org.tellurium.test.helper.DefaultResultListener
 import org.tellurium.test.helper.StreamXMLResultReporter
 import org.tellurium.test.helper.ConsoleOutput
-import org.tellurium.test.helper.FileOutput;
+import org.tellurium.test.helper.FileOutput
+import org.tellurium.bundle.BundleProcessor
 
 /**
  * Tellurium Configurator

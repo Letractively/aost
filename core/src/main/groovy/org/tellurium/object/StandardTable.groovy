@@ -11,6 +11,7 @@ import org.tellurium.object.Container
 import org.tellurium.object.TextBox
 import org.tellurium.object.UiObject
 import org.tellurium.extend.Extension
+import org.json.simple.JSONObject
 
 /**
  * Standard table is in the format of
@@ -65,6 +66,14 @@ class StandardTable extends Container{
      def headers = [:]
      //add a map to hold all the tfoot elements
      def foots = [:]
+
+     @Override
+     public JSONObject toJSON() {
+
+        return buildJSON() {jso ->
+          jso.put(UI_TYPE, "StandardTable")
+        }
+      }
 
      @Override
      def add(UiObject component){
