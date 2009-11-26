@@ -4,7 +4,8 @@ import org.tellurium.client.SeleniumClient
 import org.tellurium.config.Configurable
 import org.tellurium.i18n.InternationalizationManager
 import org.tellurium.test.crosscut.DefaultExecutionTracer
-import org.tellurium.test.crosscut.ExecutionTracer;
+import org.tellurium.test.crosscut.ExecutionTracer
+import org.tellurium.framework.Environment;
 
 
 
@@ -12,12 +13,20 @@ class Dispatcher implements Configurable {
     public static final String PLACE_HOLDER = "\\?"
     protected static InternationalizationManager i18nManager = new InternationalizationManager();
 
-    private boolean captureScreenshot = false;
+    private boolean captureScreenshot = Environment.instance.&useScreenshot;
     private String filenamePattern = "Screenshot?.png";
-    private boolean trace = true;
+    private boolean trace = Environment.instance.&useTrace;
 
     private SeleniumClient sc = new SeleniumClient();
     private ExecutionTracer tracer = new DefaultExecutionTracer();
+
+    private boolean isUseScreenshot(){
+      return Environment.instance.useScreenshot();
+    }
+
+    private boolean isUseTrace(){
+      return Environment.instance.useTrace();
+    }
 
     def methodMissing(String name, args) {
 
@@ -30,12 +39,12 @@ class Dispatcher implements Configurable {
       long beforeTime = System.currentTimeMillis()
       def result = sc.client.getActiveSeleniumSession().metaClass.invokeMethod(sc.client.getActiveSeleniumSession(), name, args)
       long duration = System.currentTimeMillis() - beforeTime
-      if (trace)
+      if (isUseTrace())
         tracer.publish(name, beforeTime, duration)
 
       return result
     } catch (Exception e) {
-      if (this.captureScreenshot) {
+      if (isUseScreenshot()) {
         long timestamp = System.currentTimeMillis()
         String filename = filenamePattern.replaceFirst(PLACE_HOLDER, "${timestamp}")
         sc.client.getActiveSeleniumSession().captureScreenshot(filename)
