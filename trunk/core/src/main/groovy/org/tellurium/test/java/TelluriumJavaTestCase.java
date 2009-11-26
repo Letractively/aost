@@ -15,8 +15,6 @@ import org.tellurium.framework.TelluriumFramework;
  */
 public abstract class TelluriumJavaTestCase extends BaseTelluriumJavaTestCase {
 
-    protected static TelluriumFramework tellurium;
-
     @BeforeClass
     public static void setUpForClass() {
         tellurium = TelluriumSupport.addSupport();

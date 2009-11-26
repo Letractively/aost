@@ -23,7 +23,10 @@ import org.tellurium.locator.LocatorProcessorMetaClass
 import org.tellurium.server.EmbeddedSeleniumServer
 import org.tellurium.widget.WidgetConfigurator
 import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerMetaClass;
+import org.tellurium.i18n.InternationalizationManagerMetaClass
+import org.tellurium.dsl.GlobalDslContext
+import org.tellurium.dsl.WorkflowContext
+import org.tellurium.util.Helper;
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
@@ -34,17 +37,19 @@ import org.tellurium.i18n.InternationalizationManagerMetaClass;
  */
 class TelluriumFramework {
 
-  private EmbeddedSeleniumServer server
+  private EmbeddedSeleniumServer server;
 
-  private SeleniumConnector connector
+  private SeleniumConnector connector;
 
-  private SeleniumClient client
+  private SeleniumClient client;
 
-  private boolean runEmbeddedSeleniumServer = true
+  private boolean runEmbeddedSeleniumServer = true;
 
-  private TelluriumConfigurator telluriumConfigurator
+  private TelluriumConfigurator telluriumConfigurator;
 
-  private Environment env
+  private Environment env;
+
+  private GlobalDslContext global;
 
   TelluriumFramework() {
 
@@ -112,6 +117,9 @@ class TelluriumFramework {
 
     //configure runtime environment
     telluriumConfigurator.config(env)
+
+    //global methods
+    this.global = new GlobalDslContext();   
   }
 
   public void disableEmbeddedSeleniumServer() {
@@ -189,4 +197,128 @@ class TelluriumFramework {
   public SeleniumConnector getConnector() {
     return this.connector
   }
+
+  public void useJQuerySelector(boolean isUse){
+    if(isUse){
+      this.global.exploreJQuerySelector();
+    }else{
+      this.global.disableJQuerySelector();
+    }
+  }
+
+  public void useCache(boolean isUse){
+    if(isUse){
+      this.global.enableSelectorCache();
+    }else{
+      this.global.disableSelectorCache();
+    }
+  }
+
+  public void cleanCache(){
+    this.global.cleanSelectorCache();
+  }
+
+  public boolean isUsingCache(){
+    return this.global.getSelectorCacheState();
+  }
+
+  public void setCacheMaxSize(int size){
+    this.global.setCacheMaxSize(size);
+  }
+
+  public int getCacheSize() {
+    return this.global.getCacheSize();
+  }
+
+  public int getCacheMaxSize() {
+    return this.global.getCacheMaxSize();
+  }
+
+  public Map<String, Long> getCacheUsage() {
+    return this.global.getCacheUsage();
+  }
+
+  public void useCachePolicy(CachePolicy policy){
+    if(policy != null){
+      switch(policy){
+        case CachePolicy.DISCARD_NEW:
+          this.global.useDiscardNewCachePolicy();
+          break;
+        case CachePolicy.DISCARD_OLD:
+          this.global.useDiscardOldCachePolicy();
+          break;
+        case CachePolicy.DISCARD_LEAST_USED:
+          this.global.useDiscardLeastUsedCachePolicy();
+          break;
+        case CachePolicy.DISCARD_INVALID:
+          this.global.useDiscardInvalidCachePolicy();
+          break;
+      }
+    }
+  }
+
+  public String getCurrentCachePolicy() {
+    return this.global.getCurrentCachePolicy();
+  }
+
+  public void useDefaultXPathLibrary() {
+    this.global.useDefaultXPathLibrary();
+  }
+
+  public void useJavascriptXPathLibrary() {
+    this.global.useJavascriptXPathLibrary();
+  }
+
+  public void useAjaxsltXPathLibrary() {
+    this.global.useAjaxsltXPathLibrary();
+  }
+
+  public void registerNamespace(String prefix, String namespace) {
+    this.global.registerNamespace(prefix, namespace)
+  }
+
+  public String getNamespace(String prefix) {
+    this.global.getNamespace(prefix);
+  }
+
+  def pause(int milliseconds) {
+    Helper.pause(milliseconds)
+  }
+
+  public void useMacroCmd(boolean isUse) {
+    if(isUse){
+      this.global.useMacroCmd();
+    }else{
+      this.global.disableMacroCmd();
+    }
+  }
+
+  public setMaxMacroCmd(int max){
+    env.useMaxMacroCmd(max);
+  }
+
+  public int getMaxMacroCmd(){
+    return env.myMaxMacroCmd();
+  }
+
+  public void useTrace(boolean isUse){
+    if(isUse){
+      env.useTrace();
+    }else{
+      env.disableTrace();
+    }
+  }
+
+  public void showTrace() {
+    this.global.showTrace();
+  }
+
+  public void setEnvironment(String name, Object value){
+    env.setCustomEnvironment(name, value);
+  }
+
+  public Object getEnvironment(String name){
+    return env.getCustomEnvironment(name);
+  }
+
 }

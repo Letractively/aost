@@ -13,9 +13,9 @@ class Dispatcher implements Configurable {
     public static final String PLACE_HOLDER = "\\?"
     protected static InternationalizationManager i18nManager = new InternationalizationManager();
 
-    private boolean captureScreenshot = Environment.instance.&useScreenshot;
+//    private boolean captureScreenshot = Environment.instance.&useScreenshot;
     private String filenamePattern = "Screenshot?.png";
-    private boolean trace = Environment.instance.&useTrace;
+//    private boolean trace = Environment.instance.&useTrace;
 
     private SeleniumClient sc = new SeleniumClient();
     private ExecutionTracer tracer = new DefaultExecutionTracer();

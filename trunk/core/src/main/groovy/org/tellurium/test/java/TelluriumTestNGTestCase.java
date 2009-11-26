@@ -15,7 +15,7 @@ import org.testng.annotations.BeforeClass;
  */
 public abstract class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase {
 
-    protected static TelluriumFramework tellurium;
+//    protected static TelluriumFramework tellurium;
 
     @BeforeClass
     public static void setUpForClass() {
