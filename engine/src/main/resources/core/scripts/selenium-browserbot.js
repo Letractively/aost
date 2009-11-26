@@ -27,6 +27,7 @@
 // The window to which the commands will be sent.  For example, to click on a
 // popup window, first select that window, and then do a normal click command.
 
+//Added to support custom namespace
 function NamespaceMap(){
     this.namespaceMap =  new Hashtable();
     this.namespaceMap.put("html", "http://www.w3.org/1999/xhtml");

@@ -106,35 +106,35 @@ Selenium.prototype.getListSize = function(locator, separators) {
 
 Selenium.prototype.getCacheState = function(){
 
-    return tellurium.cacheSelector;
+    return tellurium.cache.cacheOption;
 };
 
 Selenium.prototype.doEnableCache = function(){
-    tellurium.cacheSelector = true;
+    tellurium.cache.cacheOption = true;
 };
 
 Selenium.prototype.doDisableCache = function(){
-    tellurium.cacheSelector = false;
+    tellurium.cache.cacheOption = false;
 };
 
 Selenium.prototype.doCleanCache = function(){
-    tellurium.cleanCache();
+    tellurium.cache.cleanCache();
 };
 
 Selenium.prototype.doSetCacheMaxSize = function(size){
-    tellurium.maxCacheSize = size;
+    tellurium.cache.maxCacheSize = size;
 };
 
 Selenium.prototype.getCacheSize = function(){
-    return tellurium.getCacheSize();
+    return tellurium.cache.getCacheSize();
 };
 
 Selenium.prototype.getCacheMaxSize = function(){
-    return tellurium.maxCacheSize;
+    return tellurium.cache.maxCacheSize;
 };
 
 Selenium.prototype.getCacheUsage = function(){
-    return tellurium.getCacheUsage();
+    return tellurium.cache.getCacheUsage();
 };
 
 Selenium.prototype.doAddNamespace = function(prefix, namespace){
@@ -146,23 +146,23 @@ Selenium.prototype.getNamespace = function(prefix){
 };
 
 Selenium.prototype.doUseDiscardNewPolicy = function(){
-    tellurium.useDiscardNewPolicy();
+    tellurium.cache.useDiscardNewPolicy();
 };
 
 Selenium.prototype.doUseDiscardOldPolicy = function(){
-    tellurium.useDiscardOldPolicy();
+    tellurium.cache.useDiscardOldPolicy();
 };
 
 Selenium.prototype.doUseDiscardLeastUsedPolicy = function(){
-    tellurium.useDiscardLeastUsedPolicy();
+    tellurium.cache.useDiscardLeastUsedPolicy();
 };
 
 Selenium.prototype.doUseDiscardInvalidPolicy = function(){
-    tellurium.useDiscardInvalidPolicy();
+    tellurium.cache.useDiscardInvalidPolicy();
 };
 
 Selenium.prototype.getCachePolicyName = function(){
-    return tellurium.getCachePolicyName();
+    return tellurium.cache.getCachePolicyName();
 };
 
 var getEvent = function(name, key){
@@ -517,4 +517,17 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
        response.html = this.getHtmlSource();
     }
     return JSON.stringify(response);
+};
+
+Selenium.prototype.getBundleResponse = function(bundle){
+    tellurium.parseCommandBundle(bundle);
+    return tellurium.processCommandBundle();
+};
+
+Selenium.prototype.doUseUiModule = function(json){
+    tellurium.cache.useUiModule(json);
+};
+
+Selenium.prototype.isUiModuleCached = function(id){
+    return tellurium.cache.isUIModuleCached(id);
 };
