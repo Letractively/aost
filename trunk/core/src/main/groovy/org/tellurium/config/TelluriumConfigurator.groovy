@@ -74,12 +74,12 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
   }
 
   protected configBundleProcessor(BundleProcessor processor) {
-//    processor.setProperty("maxMacroCmds", conf.tellurium.bundle.maxMacroCmd)
+//    processor.setProperty("maxMacroCmd", conf.tellurium.bundle.maxMacroCmd)
 //    processor.setProperty("exploitBundle", conf.tellurium.bundle.useMacroCommand)
   }
 
   protected configBundleProcessorDefaultValues(BundleProcessor processor) {
-//    processor.setProperty("maxMacroCmds", 5)
+//    processor.setProperty("maxMacroCmd", 5)
 //    processor.setProperty("exploitBundle", false)
   }
 
