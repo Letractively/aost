@@ -3,6 +3,7 @@ package org.tellurium.object
 import org.tellurium.access.Accessor
 import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
+import org.json.simple.JSONObject
 import org.tellurium.locator.CompositeLocator
 import org.tellurium.locator.XPathBuilder
 import org.tellurium.locator.JQueryBuilder
@@ -18,6 +19,20 @@ class List extends Container {
 
     public static final String ALL_MATCH = "ALL";
 
+    public static final String SEPARATOR = "separator"
+    //the separator for the list, it is empty by default
+    protected String separator = ""
+
+    @Override
+    public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "List")
+        if(separator != null && separator.trim().length() > 0)
+          jso.put(SEPARATOR, this.separator)
+      }
+    }
+
     protected TextBox defaultUi = new TextBox()
 
     @Override
@@ -32,8 +47,6 @@ class List extends Container {
         }
     }
 
-    //the separator for the list, it is empty by default
-    String separator = ""
 
     //should validate the uid before call this to convert it to internal representation
     public static String internalId(String id) {
@@ -176,14 +189,15 @@ class List extends Container {
       String rl = c(this.locator)
 
       Accessor accessor = new Accessor()
+      WorkflowContext context = WorkflowContext.getDefaultContext()
       if (this.separator != null && this.separator.trim().length() > 0) {
         if(this.namespace != null && this.namespace.trim().length() > 0){
-          return accessor.getXpathCount(rl + "/${this.namespace}:${this.separator}")
+          return accessor.getXpathCount(context, rl + "/${this.namespace}:${this.separator}")
         }
-        return accessor.getXpathCount(rl + "/${this.separator}")
+        return accessor.getXpathCount(context, rl + "/${this.separator}")
       } else {
         int index = 1
-        while (accessor.isElementPresent(rl + getListLocator(index))) {
+        while (accessor.isElementPresent(context, rl + getListLocator(index))) {
           index++
         }
 

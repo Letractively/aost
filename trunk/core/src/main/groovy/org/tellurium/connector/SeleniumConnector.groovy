@@ -5,6 +5,7 @@ import org.tellurium.client.SeleniumClient
 import org.tellurium.config.Configurable
 import org.tellurium.connector.CustomSelenium
 import com.thoughtworks.selenium.CommandProcessor
+import org.tellurium.bundle.BundleProcessor
 
 /**
  * The connector that ties the Selenium server and Selenium Client together
@@ -107,6 +108,9 @@ class SeleniumConnector implements Configurable {
       if(customSelenium != null){
         CustomSelenium aseles = customSelenium.getActiveSeleniumSession();
 		if(aseles != null){
+            //flush out remaining commands in the command bundle before disconnection
+            BundleProcessor processor = BundleProcessor.instance
+            processor.flush()
             //clean up cache before close the connection
             aseles.cleanSelectorCache();
 			customSelenium.closeSeleniumSession();

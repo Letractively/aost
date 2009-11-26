@@ -1,4 +1,7 @@
 package org.tellurium.object
+
+import org.json.simple.JSONObject
+
 /**
  *  A Button and its type is "submit"
  *
@@ -7,5 +10,12 @@ package org.tellurium.object
  */
 class SubmitButton extends Button{
     public static final String TYPE = "submit"
-    
+
+    @Override
+    public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "SubmitButton")
+      }
+    }
 }

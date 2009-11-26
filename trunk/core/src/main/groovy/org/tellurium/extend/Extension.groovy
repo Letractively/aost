@@ -1,6 +1,6 @@
 package org.tellurium.extend
 
-import org.tellurium.dispatch.Dispatcher
+import org.tellurium.bundle.BundleProcessor
 
 /**
  * Class to pass user custom methods to the delegator
@@ -11,11 +11,12 @@ import org.tellurium.dispatch.Dispatcher
  *
  */
 
-public class Extension implements GroovyInterceptable{
-   def dispatcher  = new Dispatcher()
+//public class Extension implements GroovyInterceptable {
+public class Extension {
 
-   java.lang.Object invokeMethod(java.lang.String method, java.lang.Object args) {
-     
-      return dispatcher.metaClass.invokeMethod(dispatcher, method, args)
-    }
+   private BundleProcessor cbp  = BundleProcessor.instance
+
+   def methodMissing(String name, args) {
+      return cbp.metaClass.invokeMethod(cbp, name, args)
+   }
 }

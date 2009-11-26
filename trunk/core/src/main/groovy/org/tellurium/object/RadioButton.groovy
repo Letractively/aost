@@ -1,6 +1,7 @@
 package org.tellurium.object
 
 import org.tellurium.object.UiObject
+import org.json.simple.JSONObject
 
 /**
  *  Radio Button
@@ -14,6 +15,13 @@ class RadioButton extends UiObject {
 
     public static final String TAG = "input"
     public static final String TYPE = "radio"
+
+    public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "RadioButton")
+      }
+    }
 
     def check(Closure c){
 

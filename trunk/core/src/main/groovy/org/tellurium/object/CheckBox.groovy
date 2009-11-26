@@ -1,5 +1,7 @@
 package org.tellurium.object
 
+import org.json.simple.JSONObject
+
  /**
  *  Check Box
  *
@@ -29,7 +31,10 @@ class CheckBox extends UiObject{
         c(locator, respondToEvents)
     }
 
-    String getValue(Closure c){
-       return c(locator)
+    public JSONObject toJSON() {
+
+      return buildJSON(){jso ->
+        jso.put(UI_TYPE, "CheckBox")
+      }
     }
 }

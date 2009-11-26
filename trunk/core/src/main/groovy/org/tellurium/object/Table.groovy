@@ -9,6 +9,8 @@ import org.tellurium.locator.XPathBuilder
 import org.tellurium.object.Container
 import org.tellurium.object.TextBox
 import org.tellurium.object.UiObject
+import org.tellurium.extend.Extension
+import org.json.simple.JSONObject
 
 
 /**
@@ -98,6 +100,14 @@ class Table extends Container {
 
   def headers = [:]
   def bodyAttributes = [:]
+
+  @Override
+  public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "Table")
+      }
+  }
 
   @Override
   def add(UiObject component) {

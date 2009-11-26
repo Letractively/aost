@@ -2,6 +2,7 @@ package org.tellurium.object
 
 import org.tellurium.dsl.UiID
 import org.tellurium.dsl.WorkflowContext
+import org.json.simple.JSONObject
 
 /**
  * Object for Frame or IFrame
@@ -12,12 +13,27 @@ import org.tellurium.dsl.WorkflowContext
  * 
  */
 class Frame extends Container{
-
+    public static final String ID = "id"
     private String id;
 
+    public static final String NAME = "name"
     private String name;
 
+    public static final String TITLE = "title"
     private String title;
+
+    public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "Frame")
+        if(id != null && id.trim().length() > 0)
+          jso.put(ID, id)
+        if(name != null && name.trim().length() > 0)
+          jso.put(NAME, name)
+        if(title != null && title.trim().length() > 0)
+          jso.put(TITLE, title)
+      }
+    }
 
     void selectFrame(Closure c){
       if(this.name != null)

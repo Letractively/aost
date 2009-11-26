@@ -1,4 +1,7 @@
 package org.tellurium.object
+
+import org.json.simple.JSONObject
+
 /**
  * Created by IntelliJ IDEA.
  * User: vivmon1
@@ -11,5 +14,12 @@ class Div extends UiObject{
 
     def click(Closure c){
         c(locator, respondToEvents)
+    }
+
+    public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "Div")
+      }
     }
 }

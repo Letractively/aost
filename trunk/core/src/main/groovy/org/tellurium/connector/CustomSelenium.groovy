@@ -251,4 +251,21 @@ class CustomSelenium extends DefaultSelenium {
         String[] arr = [];
         commandProcessor.doCommand("deleteAllCookies", arr);
     }
+
+    public String issueBundle(String json){
+        String[] arr = [json];
+
+        return commandProcessor.doCommand("getBundleResponse", arr);
+    }
+
+    public void useUiModule(String json){
+        String[] arr = [json];
+        commandProcessor.doCommand("useUiModule", arr);
+    }
+
+    public boolean isUiModuleCached(String id){
+       String[] arr = [id];
+
+       return commandProcessor.getBoolean("isUiModuleCached", arr);
+    }
 }
