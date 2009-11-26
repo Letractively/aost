@@ -166,10 +166,6 @@ public class GlobalDslContext {
     Helper.pause(milliseconds)
   }
 
-  def customDirectCall(String method, Object[] args) {
-    return extension.invokeMethod(method, args)
-  }
-
   public void useMacroCmd() {
     BundleProcessor processor = BundleProcessor.instance
     processor.useBundleFeature()
@@ -180,9 +176,32 @@ public class GlobalDslContext {
     processor.disableBundleFeature()
   }
 
+  public void enableTrace(){
+     Environment.instance.useTrace();
+  }
+
+  public void disableTrace(){
+     Environment.instance.disableTrace();
+  }
+  
   public void showTrace() {
     Dispatcher dispatcher = new Dispatcher();
     dispatcher.showTrace()
   }
 
+  public void setEnvironment(String name, Object value){
+    Environment.instance.setCustomEnvironment(name, value);
+  }
+
+  public Object getEnvironment(String name){
+    return Environment.instance.getCustomEnvironment(name);
+  }
+
+  public useMaxMacroCmd(int max){
+    Environment.instance.useMaxMacroCmd(max);
+  }
+
+  public int getMaxMacroCmd(){
+    return Environment.instance.myMaxMacroCmd();
+  }
 }

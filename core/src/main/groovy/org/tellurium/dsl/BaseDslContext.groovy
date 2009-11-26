@@ -249,6 +249,10 @@ abstract class BaseDslContext extends GlobalDslContext {
     }
   }
 
+  def customDirectCall(String method, Object[] args) {
+    return extension.invokeMethod(method, args)
+  }
+
   public void triggerEventOn(String uid, String event) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector(), this.exploreSelectorCache())
     walkToWithException(context, uid).customMethod() {loc ->

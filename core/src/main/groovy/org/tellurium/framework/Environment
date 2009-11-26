@@ -96,7 +96,7 @@ public class Environment implements Configurable{
     this.maxMacroCmd = max;
   }
 
-  public myMaxMacroCmd(){
+  public int myMaxMacroCmd(){
     return this.maxMacroCmd;
   }
 
@@ -108,7 +108,7 @@ public class Environment implements Configurable{
     envVariables.put(name, value);
   }
 
-  public def getCustomEnvironment(String name){
+  public Object getCustomEnvironment(String name){
     return envVariables.get(name);
   }
 }

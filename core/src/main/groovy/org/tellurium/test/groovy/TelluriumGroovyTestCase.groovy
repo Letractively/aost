@@ -15,9 +15,6 @@ abstract class TelluriumGroovyTestCase extends BaseTelluriumGroovyTestCase{
 
 //    protected EmbeddedSeleniumServer server;
 
-    protected SeleniumConnector connector;
-    protected TelluriumFramework aost
-
     public SeleniumConnector getConnector() {
         return connector;
     }
@@ -39,5 +36,7 @@ abstract class TelluriumGroovyTestCase extends BaseTelluriumGroovyTestCase{
         if(aost != null)
             aost.stop()
     }
+
+
 
 }
