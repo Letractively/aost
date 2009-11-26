@@ -28,6 +28,8 @@ public class Environment implements Configurable{
 
   protected boolean captureScreenshot = false;
 
+  protected int maxMacroCmd = 5;
+
   def envVariables = [:];
 
   public boolean isUseJQuerySelector(){
@@ -89,7 +91,15 @@ public class Environment implements Configurable{
   public void disableTrace(){
     this.trace = false;
   }
-    
+
+  public useMaxMacroCmd(int max){
+    this.maxMacroCmd = max;
+  }
+
+  public myMaxMacroCmd(){
+    return this.maxMacroCmd;
+  }
+
   public String myLocale(){
     return this.locale;
   }

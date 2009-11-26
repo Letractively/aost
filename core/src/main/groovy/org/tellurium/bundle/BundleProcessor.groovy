@@ -30,9 +30,6 @@ public class BundleProcessor implements Configurable {
   //sequence number for each command
   private int sequence = 0;
 
-  //maximum number of commands in a bundle
-  private int maxMacroCmds = 5;
-
   private Dispatcher dispatcher = new Dispatcher();
 
   private MacroCmd bundle = new MacroCmd();
@@ -40,6 +37,11 @@ public class BundleProcessor implements Configurable {
   private JSONReader reader = new JSONReader();
 
   private Map<String, UiModuleState> states = new HashMap<String, UiModuleState>();
+
+  //maximum number of commands in a bundle
+  private int maxMacroCmd(){
+    return Environment.instance.myMaxMacroCmd();
+  }
 
   //whether to use the bundle feature
 //  private boolean exploitBundle = Environment.instance.&useBundle;
@@ -153,7 +155,7 @@ public class BundleProcessor implements Configurable {
         this.publishUiModule(id);
       }
       bundle.addToBundle(cmd);
-      if(bundle.size() >= this.maxMacroCmds){
+      if(bundle.size() >= this.maxMacroCmd()){
         //need to issue the command bundle since it reaches the maximum limit
         String json = bundle.extractAllAndConvertToJson();
 

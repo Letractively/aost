@@ -74,12 +74,12 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
   }
 
   protected configBundleProcessor(BundleProcessor processor) {
-    processor.setProperty("maxMacroCmds", conf.tellurium.bundle.maxMacroCmds)
+//    processor.setProperty("maxMacroCmds", conf.tellurium.bundle.maxMacroCmd)
 //    processor.setProperty("exploitBundle", conf.tellurium.bundle.useMacroCommand)
   }
 
   protected configBundleProcessorDefaultValues(BundleProcessor processor) {
-    processor.setProperty("maxMacroCmds", 5)
+//    processor.setProperty("maxMacroCmds", 5)
 //    processor.setProperty("exploitBundle", false)
   }
 
@@ -222,21 +222,23 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
   }
 
   protected void configEnvironment(Environment env) {
-    env.setProperty("exploitBundle", conf.tellurium.bundle.useMacroCommand)
-    env.setProperty("trace", conf.tellurium.test.execution.trace)
-    env.setProperty("captureScreenshot", conf.tellurium.test.exception.captureScreenshot)
+    env.setProperty("maxMacroCmd", conf.tellurium.bundle.maxMacroCmd);
+    env.setProperty("exploitBundle", conf.tellurium.bundle.useMacroCommand);
+    env.setProperty("trace", conf.tellurium.test.execution.trace);
+    env.setProperty("captureScreenshot", conf.tellurium.test.exception.captureScreenshot);
     if (conf != null && conf.tellurium != null && conf.tellurium.i18n != null && conf.tellurium.i18n.locale != null) {
-      env.setProperty("locale", conf.tellurium.i18n.locale)
+      env.setProperty("locale", conf.tellurium.i18n.locale);
     } else {
-      env.setProperty("locale", "en_US")
+      env.setProperty("locale", "en_US");
     }
   }
 
   protected void configEnvironmentDefaultValues(Environment env) {
-    env.setProperty("exploitBundle", false)
-    env.setProperty("trace", false)
-    env.setProperty("captureScreenshot", false)
-    env.setProperty("locale", "en_US")
+    env.setProperty("maxMacroCmd", 5);
+    env.setProperty("exploitBundle", false);
+    env.setProperty("trace", false);
+    env.setProperty("captureScreenshot", false);
+    env.setProperty("locale", "en_US");
   }
 
   public void config(Configurable configurable) {
