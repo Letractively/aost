@@ -26,7 +26,7 @@ import org.tellurium.framework.Environment;
  * Date: Aug 21, 2008
  *
  */
-abstract class BaseDslContext {
+abstract class BaseDslContext extends GlobalDslContext {
 
   protected InternationalizationManager i18nManager = new InternationalizationManager()
 
@@ -42,17 +42,19 @@ abstract class BaseDslContext {
 
   UiDslParser ui = new UiDslParser()
 
+  LocatorProcessor locatorProcessor = new LocatorProcessor()
+
+  abstract protected String locatorMapping(WorkflowContext context, loc)
+
+  abstract protected String locatorMappingWithOption(WorkflowContext context, loc, optLoc)
+
+/*
   //decoupling eventhandler, locateProcessor, and accessor from UI objects
   //and let DslContext to handle all of them directly. This will also make
   //the framework reconfiguration much easier.
   EventHandler eventHandler = new EventHandler()
   Accessor accessor = new Accessor()
-  LocatorProcessor locatorProcessor = new LocatorProcessor()
   Extension extension = new Extension()
-
-  abstract protected String locatorMapping(WorkflowContext context, loc)
-
-  abstract protected String locatorMappingWithOption(WorkflowContext context, loc, optLoc)
 
   //flag to decide whether we should use jQuery Selector
   protected boolean exploreJQuerySelector() {
@@ -71,46 +73,6 @@ abstract class BaseDslContext {
   public void disableJQuerySelector() {
     Environment.instance.disableJQuerySelector();
   }
-
-  protected geti18nManager() {
-    return this.i18nManager;
-  }
-
-  protected String postProcessSelector(WorkflowContext context, String jqs) {
-    String locator = jqs
-
-    String optimized = optimizer.optimize(jqs)
-
-    if (context.isUseSelectorCache()) {
-      JSONObject obj = new JSONObject()
-      //meta command shoud not be null for locators
-      MetaCmd metaCmd = context.extraMetaCmd()
-      obj.put(LOCATOR, locator)
-      obj.put(OPTIMIZED_LOCATOR, optimized)
-
-      obj.put(MetaCmd.UID, metaCmd.getProperty(MetaCmd.UID))
-      obj.put(MetaCmd.CACHEABLE, metaCmd.getProperty(MetaCmd.CACHEABLE))
-      obj.put(MetaCmd.UNIQUE, metaCmd.getProperty(MetaCmd.UNIQUE))
-
-      String jsonjqs = obj.toString()
-
-      return JQUERY_SELECTOR_CACHE + jsonjqs
-    }
-    return JQUERY_SELECTOR + optimized
-  }
-
-  private JSONReader reader = new JSONReader()
-
-  protected Object parseSeleniumJSONReturnValue(String out) {
-    if (out.startsWith("OK,")) {
-      out = out.substring(3);
-    } else {
-      return null;
-    }
-
-    return reader.read(out);
-  }
-
   public void enableSelectorCache() {
     Environment.instance.useCache();
 //      this.exploreSelectorCache = true
@@ -229,6 +191,55 @@ abstract class BaseDslContext {
     return extension.getNamespace(context, prefix)
   }
 
+  def pause(int milliseconds) {
+    Helper.pause(milliseconds)
+  }
+
+  def customDirectCall(String method, Object[] args) {
+    return extension.invokeMethod(method, args)
+  }
+*/
+
+  protected geti18nManager() {
+    return this.i18nManager;
+  }
+
+  protected String postProcessSelector(WorkflowContext context, String jqs) {
+    String locator = jqs
+
+    String optimized = optimizer.optimize(jqs)
+
+    if (context.isUseSelectorCache()) {
+      JSONObject obj = new JSONObject()
+      //meta command shoud not be null for locators
+      MetaCmd metaCmd = context.extraMetaCmd()
+      obj.put(LOCATOR, locator)
+      obj.put(OPTIMIZED_LOCATOR, optimized)
+
+      obj.put(MetaCmd.UID, metaCmd.getProperty(MetaCmd.UID))
+      obj.put(MetaCmd.CACHEABLE, metaCmd.getProperty(MetaCmd.CACHEABLE))
+      obj.put(MetaCmd.UNIQUE, metaCmd.getProperty(MetaCmd.UNIQUE))
+
+      String jsonjqs = obj.toString()
+
+      return JQUERY_SELECTOR_CACHE + jsonjqs
+    }
+    return JQUERY_SELECTOR + optimized
+  }
+
+  private JSONReader reader = new JSONReader()
+
+  protected Object parseSeleniumJSONReturnValue(String out) {
+    if (out.startsWith("OK,")) {
+      out = out.substring(3);
+    } else {
+      return null;
+    }
+
+    return reader.read(out);
+  }
+
+
   def customUiCall(String uid, String method, Object[] args) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector(), this.exploreSelectorCache())
     return walkToWithException(context, uid).customMethod() {loc ->
@@ -236,10 +247,6 @@ abstract class BaseDslContext {
       Object[] list = [context, locator, args].flatten()
       return extension.invokeMethod(method, list)
     }
-  }
-
-  def customDirectCall(String method, Object[] args) {
-    return extension.invokeMethod(method, args)
   }
 
   public void triggerEventOn(String uid, String event) {
@@ -586,10 +593,6 @@ abstract class BaseDslContext {
       String locator = locatorMapping(context, loc)
       accessor.getValue(context, locator)
     }
-  }
-
-  def pause(int milliseconds) {
-    Helper.pause(milliseconds)
   }
 
   String getLink(String uid) {
