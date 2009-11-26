@@ -204,4 +204,13 @@ public class GlobalDslContext {
   public int getMaxMacroCmd(){
     return Environment.instance.myMaxMacroCmd();
   }
+
+  public boolean isUseTelluriumApi(){
+    return Environment.instance.isUseTelluriumApi();
+  }
+
+  public void useTelluriumApi(boolean isUse){
+    Environment.instance.useTelluriumApi(isUse);
+  }
+
 }

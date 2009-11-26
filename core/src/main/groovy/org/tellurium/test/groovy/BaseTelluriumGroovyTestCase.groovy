@@ -129,6 +129,14 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
       return aost.getMaxMacroCmd();
     }
 
+    public boolean isUseTelluriumApi(){
+      return aost.isUseTelluriumApi();
+    }
+
+    public void useTelluriumApi(boolean isUse){
+      aost.useTelluriumApi(isUse) ;
+    }
+  
     public void useTrace(boolean isUse){
       aost.useTrace(isUse);   
     }

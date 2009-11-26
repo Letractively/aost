@@ -164,6 +164,14 @@ public abstract class BaseTelluriumJavaTestCase {
       return tellurium.getMaxMacroCmd();
     }
 
+    public static boolean isUseTelluriumApi(){
+      return tellurium.isUseTelluriumApi();
+    }
+
+    public static void useTelluriumApi(boolean isUse){
+      tellurium.useTelluriumApi(isUse) ;
+    }
+
     public static void useTrace(boolean isUse){
       tellurium.useTrace(isUse);   
     }
