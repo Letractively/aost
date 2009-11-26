@@ -26,11 +26,21 @@ public class Environment implements Configurable{
 
   protected boolean exploitBundle = false;
 
-  protected boolean captureScreenshot = false;
-
   protected int maxMacroCmd = 5;
 
+  protected boolean captureScreenshot = false;
+
   def envVariables = [:];
+
+  protected boolean exploitTelluriumApi = false;
+
+  public boolean isUseTelluriumApi(){
+    return this.exploitTelluriumApi;
+  }
+
+  public void useTelluriumApi(boolean isUse){
+    this.exploitTelluriumApi = isUse;    
+  }
 
   public boolean isUseJQuerySelector(){
     return this.exploitJQuerySelector;

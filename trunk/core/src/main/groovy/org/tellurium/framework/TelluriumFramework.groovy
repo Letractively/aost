@@ -301,6 +301,14 @@ class TelluriumFramework {
     return env.myMaxMacroCmd();
   }
 
+  public boolean isUseTelluriumApi(){
+    return env.isUseTelluriumApi();
+  }
+
+  public void useTelluriumApi(boolean isUse){
+    env.useTelluriumApi(isUse) ;
+  }
+  
   public void useTrace(boolean isUse){
     if(isUse){
       env.useTrace();
