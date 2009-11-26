@@ -11,6 +11,7 @@ import org.tellurium.bundle.UiModuleState
 import org.tellurium.bundle.MacroCmd
 import org.tellurium.bundle.ReturnType
 import org.tellurium.bundle.CmdRequest
+import org.tellurium.framework.Environment
 
 /**
  * Command Bundle Processor
@@ -36,13 +37,15 @@ public class BundleProcessor implements Configurable {
 
   private MacroCmd bundle = new MacroCmd();
 
-  //whether to use the bundle feature
-  private boolean exploitBundle = true;
-
   private JSONReader reader = new JSONReader();
 
   private Map<String, UiModuleState> states = new HashMap<String, UiModuleState>();
 
+  //whether to use the bundle feature
+//  private boolean exploitBundle = Environment.instance.&useBundle;
+  private boolean exploitBundle(){
+    return Environment.instance.isUseBundle();
+  }
 
   public boolean isUiModulePublished(String id){
     UiModuleState state = states.get(id);
@@ -65,11 +68,11 @@ public class BundleProcessor implements Configurable {
   }
 
   public void useBundleFeature(){
-    this.exploitBundle = true;
+    Environment.instance.useBundle();
   }
 
   public void disableBundleFeature(){
-    this.exploitBundle = false;
+    Environment.instance.disableBundle();
   }
 
   public int nextSeq(){
@@ -126,7 +129,7 @@ public class BundleProcessor implements Configurable {
   }
 
   public CmdRequest getUseUiModuleRequest(WorkflowContext context, String uid){
-    DslContext dslcontext = context.get(WorkflowContext.DSLCONTEXT);
+    DslContext dslcontext = context.getContext(WorkflowContext.DSLCONTEXT);
     String json = dslcontext.jsonify(uid);
     def args = [json]
     CmdRequest cmd = new CmdRequest(nextSeq(), uid, "useUiModule", args);
@@ -234,7 +237,7 @@ public class BundleProcessor implements Configurable {
       uid = cmd.uid;
     Object[] params = this.removeWorkflowContext(args);
 
-    if(this.exploitBundle && context.isBundlingable()){
+    if(this.exploitBundle() && context.isBundlingable()){
       return issueCommand(context, uid, name, params);
     }
 

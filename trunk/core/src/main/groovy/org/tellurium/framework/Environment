@@ -1,0 +1,104 @@
+package org.tellurium.framework
+
+import org.tellurium.config.Configurable
+
+/**
+ * Environment to hold runtime environment variables
+ *
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
+ *
+ * Date: Nov 25, 2009
+ *
+ */
+
+@Singleton
+public class Environment implements Configurable{
+
+  //flag to decide whether we should use jQuery Selector
+  protected boolean exploitJQuerySelector = false;
+
+  //flag to decide whether we should cache jQuery selector
+  protected boolean exploitSelectorCache = false;
+
+  protected String locale = "en_US";
+
+  protected boolean trace = false;
+
+  protected boolean exploitBundle = false;
+
+  protected boolean captureScreenshot = false;
+
+  def envVariables = [:];
+
+  public boolean isUseJQuerySelector(){
+    return this.exploitJQuerySelector;
+  }
+
+  public boolean isUseCache(){
+    return this.exploitSelectorCache;
+  }
+
+  public boolean isUseBundle(){
+    return this.exploitBundle;
+  }
+
+  public boolean isUseScreenshot(){
+    return this.captureScreenshot;
+  }
+
+  public boolean isUseTrace(){
+    return this.trace;
+  }
+
+  public void useJQuerySelector(){
+    this.exploitJQuerySelector = true;
+  }
+
+  public void useCache(){
+    this.exploitSelectorCache = true;
+  }
+
+  public void useBundle(){
+    this.exploitBundle = true;
+  }
+
+  public void useScreenshot(){
+    this.captureScreenshot = true;
+  }
+
+  public void useTrace(){
+    this.trace = true;
+  }
+
+  public void disableJQuerySelector(){
+    this.exploitJQuerySelector = false;
+  }
+
+  public void disableCache(){
+    this.exploitSelectorCache = false;
+  }
+
+  public void disableBundle(){
+    this.exploitBundle = false;
+  }
+
+  public void disableScreenshot(){
+    this.captureScreenshot = false;
+  }
+
+  public void disableTrace(){
+    this.trace = false;
+  }
+    
+  public String myLocale(){
+    return this.locale;
+  }
+  
+  public void setCustomEnvironment(String name, Object value){
+    envVariables.put(name, value);
+  }
+
+  public def getCustomEnvironment(String name){
+    return envVariables.get(name);
+  }
+}

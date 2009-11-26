@@ -28,7 +28,8 @@ import org.tellurium.i18n.InternationalizationManagerMetaClass;
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
  *
- * User: Jian Fang (Jian.Fang@jtv.com) 
+ * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ *
  * Date: Jun 2, 2008
  */
 class TelluriumFramework {
@@ -43,9 +44,12 @@ class TelluriumFramework {
 
   private TelluriumConfigurator telluriumConfigurator
 
+  private Environment env
 
   TelluriumFramework() {
 
+    env = Environment.instance;
+    
 //    By default ExpandoMetaClass doesn't do inheritance. To enable this you must call ExpandoMetaClass.enableGlobally()
 //    before your app starts such as in the main method or servlet bootstrap
 //        ExpandoMetaClass.enableGlobally()
@@ -105,6 +109,9 @@ class TelluriumFramework {
 
     //configure Dispatcher
     telluriumConfigurator.config(new Dispatcher())
+
+    //configure runtime environment
+    telluriumConfigurator.config(env)
   }
 
   public void disableEmbeddedSeleniumServer() {

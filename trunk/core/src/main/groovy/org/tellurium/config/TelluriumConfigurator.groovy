@@ -25,6 +25,7 @@ import org.tellurium.test.helper.StreamXMLResultReporter
 import org.tellurium.test.helper.ConsoleOutput
 import org.tellurium.test.helper.FileOutput
 import org.tellurium.bundle.BundleProcessor
+import org.tellurium.framework.Environment
 
 /**
  * Tellurium Configurator
@@ -34,198 +35,215 @@ import org.tellurium.bundle.BundleProcessor
  * Date: Aug 3, 2008
  *
  */
-class TelluriumConfigurator extends TelluriumConfigParser implements Configurator{
-
+class TelluriumConfigurator extends TelluriumConfigParser implements Configurator {
 
 
   protected void configEmbeededServer(EmbeddedSeleniumServer server) {
-        server.setProperty("port", Integer.parseInt(conf.tellurium.embeddedserver.port))
-        server.setProperty("useMultiWindows", conf.tellurium.embeddedserver.useMultiWindows)
-        server.setProperty("trustAllSSLCertificates", conf.tellurium.embeddedserver.trustAllSSLCertificates)
-        server.setProperty("runSeleniumServerInternally", conf.tellurium.embeddedserver.runInternally)
-        server.setProperty("profileLocation", conf.tellurium.embeddedserver.profile)
-        server.setProperty("userExtension", conf.tellurium.embeddedserver.userExtension)
-    }
+    server.setProperty("port", Integer.parseInt(conf.tellurium.embeddedserver.port))
+    server.setProperty("useMultiWindows", conf.tellurium.embeddedserver.useMultiWindows)
+    server.setProperty("trustAllSSLCertificates", conf.tellurium.embeddedserver.trustAllSSLCertificates)
+    server.setProperty("runSeleniumServerInternally", conf.tellurium.embeddedserver.runInternally)
+    server.setProperty("profileLocation", conf.tellurium.embeddedserver.profile)
+    server.setProperty("userExtension", conf.tellurium.embeddedserver.userExtension)
+  }
 
-  protected void configi18nManager(InternationalizationManager i18nManager , conf) {
-    String definedLocales = null
+  protected void configi18nManager(InternationalizationManager i18nManager, conf) {
+    String definedLocale = null
     def locale = null
 
-    if(conf != null  && conf.tellurium!=null && conf.tellurium.i18n!=null && conf.tellurium.i18n.locales!=null ){
-      definedLocales = conf.tellurium.i18n.locales
-      String[] localeString = definedLocales.split("_")
-      if(localeString.length == 2)
-    	  locale = new Locale(localeString[0] , localeString[1])
+    if (conf != null && conf.tellurium != null && conf.tellurium.i18n != null && conf.tellurium.i18n.locale != null) {
+      definedLocale = conf.tellurium.i18n.locale
+      String[] localeString = definedLocale.split("_")
+      if (localeString.length == 2)
+        locale = new Locale(localeString[0], localeString[1])
       else
-    	  locale = Locale.getDefault();
+        locale = Locale.getDefault();
     }
     else
       locale = Locale.getDefault();
-    
-    if(locale == null)
-    	locale = new Locale("en" , "EN");
+
+    if (locale == null)
+      locale = new Locale("en", "US");
     i18nManager.createDefaultResourceBundle(locale);
   }
 
-  protected void configEmbeededServerDefaultValues(EmbeddedSeleniumServer server){
-        server.setProperty("port", 4444)
-        server.setProperty("useMultiWindows", false)
-        server.setProperty("runSeleniumServerInternally", true)        
+  protected void configEmbeededServerDefaultValues(EmbeddedSeleniumServer server) {
+    server.setProperty("port", 4444)
+    server.setProperty("useMultiWindows", false)
+    server.setProperty("runSeleniumServerInternally", true)
+  }
+
+  protected configBundleProcessor(BundleProcessor processor) {
+    processor.setProperty("maxMacroCmds", conf.tellurium.bundle.maxMacroCmds)
+//    processor.setProperty("exploitBundle", conf.tellurium.bundle.useMacroCommand)
+  }
+
+  protected configBundleProcessorDefaultValues(BundleProcessor processor) {
+    processor.setProperty("maxMacroCmds", 5)
+//    processor.setProperty("exploitBundle", false)
+  }
+
+  protected void configSeleniumConnector(SeleniumConnector connector) {
+    connector.setProperty("seleniumServerHost", conf.tellurium.connector.serverHost)
+    connector.setProperty("port", Integer.parseInt(conf.tellurium.connector.port))
+    connector.setProperty("baseURL", conf.tellurium.connector.baseUrl)
+    connector.setProperty("browser", conf.tellurium.connector.browser)
+    connector.setProperty("userExtension", conf.tellurium.embeddedserver.userExtension)
+    String clazz = conf.tellurium.connector.customClass
+    if (clazz != null && clazz.trim().length() > 0)
+      connector.setProperty("customClass", Class.forName(clazz).newInstance())
+    String options = conf.tellurium.connector.options
+    if (options != null && options.trim().length() > 0) {
+      connector.setProperty("options", options);
     }
+  }
 
-    protected configBundleProcessor(BundleProcessor processor){
-        processor.setProperty("maxMacroCmds", conf.tellurium.bundle.maxMacroCmds)
-        processor.setProperty("exploitBundle", conf.tellurium.bundle.useMacroCommand)
+  protected void configSeleniumConnectorDefaultValues(SeleniumConnector connector) {
+    connector.setProperty("seleniumServerHost", "localhost")
+    connector.setProperty("port", 4444)
+    connector.setProperty("baseURL", "http://localhost:8080")
+    connector.setProperty("browser", "*chrome")
+    connector.setProperty("customClass", null)
+    connector.setProperty("options", null)
+  }
+
+  protected void configDataProvider(DataProvider dataProvider) {
+    if ("PipeFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)) {
+      dataProvider.setProperty("reader", new PipeDataReader())
+    } else if ("CSVFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)) {
+      dataProvider.setProperty("reader", new CSVDataReader())
+    } else if ("ExcelFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)) {
+      dataProvider.setProperty("reader", new ExcelDataReader())
+    } else {
+      println i18nManager.translate("TelluriumConfigurator.UnsupportedReader", conf.tellurium.datadriven.dataprovider.reader)
     }
+  }
 
-    protected configBundleProcessorDefaultValues(BundleProcessor processor){
-        processor.setProperty("maxMacroCmds", 5)
-        processor.setProperty("exploitBundle", false)
+  protected void configDataProviderDefaultValues(DataProvider dataProvider) {
+    dataProvider.setProperty("reader", new PipeDataReader())
+  }
+
+  protected void configResultListener(DefaultResultListener resultListener) {
+    if ("SimpleResultReporter".equalsIgnoreCase(conf.tellurium.test.result.reporter)) {
+      resultListener.setProperty("reporter", new SimpleResultReporter())
     }
-  
-    protected void configSeleniumConnector(SeleniumConnector connector){
-        connector.setProperty("seleniumServerHost", conf.tellurium.connector.serverHost)
-        connector.setProperty("port", Integer.parseInt(conf.tellurium.connector.port))
-        connector.setProperty("baseURL", conf.tellurium.connector.baseUrl)
-        connector.setProperty("browser", conf.tellurium.connector.browser)
-        connector.setProperty("userExtension", conf.tellurium.embeddedserver.userExtension)
-        String clazz = conf.tellurium.connector.customClass
-        if(clazz != null && clazz.trim().length() > 0)
-          connector.setProperty("customClass", Class.forName(clazz).newInstance())
-        String options = conf.tellurium.connector.options
-        if(options != null && options.trim().length() > 0){
-          connector.setProperty("options", options);
-        }
+    if ("XMLResultReporter".equalsIgnoreCase(conf.tellurium.test.result.reporter)) {
+      resultListener.setProperty("reporter", new XMLResultReporter())
     }
-
-    protected void configSeleniumConnectorDefaultValues(SeleniumConnector connector){
-        connector.setProperty("seleniumServerHost", "localhost")
-        connector.setProperty("port", 4444)
-        connector.setProperty("baseURL", "http://localhost:8080")
-        connector.setProperty("browser", "*chrome")
-        connector.setProperty("customClass", null)
-        connector.setProperty("options", null)
+    if ("StreamXMLResultReporter".equalsIgnoreCase(conf.tellurium.test.result.reporter)) {
+      resultListener.setProperty("reporter", new StreamXMLResultReporter())
     }
-
-    protected void configDataProvider(DataProvider dataProvider){
-        if("PipeFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)){
-            dataProvider.setProperty("reader", new PipeDataReader())
-        }else if("CSVFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)){
-            dataProvider.setProperty("reader", new CSVDataReader())
-        }else if("ExcelFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)){
-            dataProvider.setProperty("reader", new ExcelDataReader())
-        }else{        	
-            println i18nManager.translate("TelluriumConfigurator.UnsupportedReader" , conf.tellurium.datadriven.dataprovider.reader)
-        }
+    if ("Console".equalsIgnoreCase(conf.tellurium.test.result.output)) {
+      resultListener.setProperty("output", new ConsoleOutput())
     }
-
-    protected void configDataProviderDefaultValues(DataProvider dataProvider){
-       dataProvider.setProperty("reader", new PipeDataReader())     
+    if ("File".equalsIgnoreCase(conf.tellurium.test.result.output)) {
+      resultListener.setProperty("output", new FileOutput())
     }
+  }
 
-    protected void configResultListener(DefaultResultListener resultListener){
-        if("SimpleResultReporter".equalsIgnoreCase(conf.tellurium.test.result.reporter)){
-            resultListener.setProperty("reporter", new SimpleResultReporter())
-        }
-        if("XMLResultReporter".equalsIgnoreCase(conf.tellurium.test.result.reporter)){
-             resultListener.setProperty("reporter", new XMLResultReporter())
-        }
-        if("StreamXMLResultReporter".equalsIgnoreCase(conf.tellurium.test.result.reporter)){
-             resultListener.setProperty("reporter", new StreamXMLResultReporter())
-        }
-        if("Console".equalsIgnoreCase(conf.tellurium.test.result.output)){
-            resultListener.setProperty("output", new ConsoleOutput())     
-        }
-        if("File".equalsIgnoreCase(conf.tellurium.test.result.output)){
-            resultListener.setProperty("output", new FileOutput())     
-        }
+  protected void configResultListenerDefaultValues(DefaultResultListener resultListener) {
+    resultListener.setProperty("reporter", new XMLResultReporter())
+    resultListener.setProperty("output", new ConsoleOutput())
+  }
+
+  protected void configFileOutput(FileOutput fileOutput) {
+    fileOutput.setProperty("fileName", conf.tellurium.test.result.filename)
+  }
+
+  protected void configFileOutputDefaultValues(FileOutput fileOutput) {
+    fileOutput.setProperty("fileName", "TestResult.output")
+  }
+
+  protected void configUiObjectBuilder(UiObjectBuilderRegistry uobRegistry) {
+    Map builders = conf.tellurium.uiobject.builder
+
+    if (builders != null && (!builders.isEmpty())) {
+      builders.each {key, value ->
+        UiObjectBuilder builder = (UiObjectBuilder) Class.forName(value).newInstance()
+        uobRegistry.registerBuilder(key, builder)
+      }
     }
+  }
 
-    protected void configResultListenerDefaultValues(DefaultResultListener resultListener){
-        resultListener.setProperty("reporter", new XMLResultReporter())
-        resultListener.setProperty("output", new ConsoleOutput())
+  protected void configUiObjectBuilderDefaultValues(UiObjectBuilderRegistry uobRegistry) {
+
+  }
+
+  protected void configWidgetModule(WidgetConfigurator wgConfigurator) {
+    wgConfigurator.configWidgetModule(conf.tellurium.widget.module.included)
+  }
+
+  protected void configWidgetModuleDefaultValues(WidgetConfigurator wgConfigurator) {
+
+  }
+
+  protected void configEventHandler(EventHandler eventHandler) {
+    if (conf.tellurium.eventhandler.checkElement) {
+      eventHandler.mustCheckElement()
+    } else {
+      eventHandler.notCheckElement()
     }
-
-    protected void configFileOutput(FileOutput fileOutput){
-        fileOutput.setProperty("fileName", conf.tellurium.test.result.filename)
+    if (conf.tellurium.eventhandler.extraEvent) {
+      eventHandler.useExtraEvent()
+    } else {
+      eventHandler.noExtraEvent()
     }
+  }
 
-    protected void configFileOutputDefaultValues(FileOutput fileOutput){
-        fileOutput.setProperty("fileName", "TestResult.output")
-    }
-
-    protected void configUiObjectBuilder(UiObjectBuilderRegistry uobRegistry){
-        Map builders = conf.tellurium.uiobject.builder
-
-        if(builders != null && (!builders.isEmpty())){
-            builders.each { key, value ->
-                UiObjectBuilder builder = (UiObjectBuilder) Class.forName(value).newInstance()
-                uobRegistry.registerBuilder(key, builder)
-            }
-        }
-    }
-
-    protected void configUiObjectBuilderDefaultValues(UiObjectBuilderRegistry uobRegistry){
-
-    }
-
-    protected void configWidgetModule(WidgetConfigurator wgConfigurator){
-        wgConfigurator.configWidgetModule(conf.tellurium.widget.module.included)
-    }
-
-    protected void configWidgetModuleDefaultValues(WidgetConfigurator wgConfigurator){
-
-    }
-
-    protected void configEventHandler(EventHandler eventHandler){
-        if(conf.tellurium.eventhandler.checkElement){
-            eventHandler.mustCheckElement()
-        }else{
-            eventHandler.notCheckElement()
-        }
-        if(conf.tellurium.eventhandler.extraEvent){
-            eventHandler.useExtraEvent()
-        }else{
-            eventHandler.noExtraEvent()
-        }
-    }
-
-    protected void configEventHandlerDefaultValues(EventHandler eventHandler){
+  protected void configEventHandlerDefaultValues(EventHandler eventHandler) {
 //        eventHandler.mustCheckElement()
 //        eventHandler.useExtraEvent()
-          eventHandler.notCheckElement()
-          eventHandler.noExtraEvent()
-    }
+    eventHandler.notCheckElement()
+    eventHandler.noExtraEvent()
+  }
 
-    protected void configAccessor(Accessor accessor){
-        if(conf.tellurium.accessor.checkElement){
-            accessor.mustCheckElement()
-        }else{
-            accessor.notCheckElement()
-        }
+  protected void configAccessor(Accessor accessor) {
+    if (conf.tellurium.accessor.checkElement) {
+      accessor.mustCheckElement()
+    } else {
+      accessor.notCheckElement()
     }
+  }
 
-    protected void configAccessorDefaultValues(Accessor accessor){
-        accessor.mustCheckElement()
-    }
+  protected void configAccessorDefaultValues(Accessor accessor) {
+    accessor.mustCheckElement()
+  }
 
-    protected void configDispatcher(Dispatcher dispatcher){
-        dispatcher.captureScreenshot = conf.tellurium.test.exception.captureScreenshot
-        dispatcher.filenamePattern = conf.tellurium.test.exception.filenamePattern
-        dispatcher.trace = conf.tellurium.test.execution.trace
-    }
+  protected void configDispatcher(Dispatcher dispatcher) {
+//    dispatcher.captureScreenshot = conf.tellurium.test.exception.captureScreenshot
+    dispatcher.filenamePattern = conf.tellurium.test.exception.filenamePattern
+//    dispatcher.trace = conf.tellurium.test.execution.trace
+  }
 
-    protected void configDispatcherDefaultValues(Dispatcher dispatcher){
-        dispatcher.captureScreenshot = false
-        dispatcher.filenamePattern = "Screenshot?.png"
-        dispatcher.trace = false
+  protected void configDispatcherDefaultValues(Dispatcher dispatcher) {
+//    dispatcher.captureScreenshot = false
+    dispatcher.filenamePattern = "Screenshot?.png"
+//    dispatcher.trace = false
+  }
+
+  protected void configEnvironment(Environment env) {
+    env.setProperty("exploitBundle", conf.tellurium.bundle.useMacroCommand)
+    env.setProperty("trace", conf.tellurium.test.execution.trace)
+    env.setProperty("captureScreenshot", conf.tellurium.test.exception.captureScreenshot)
+    if (conf != null && conf.tellurium != null && conf.tellurium.i18n != null && conf.tellurium.i18n.locale != null) {
+      env.setProperty("locale", conf.tellurium.i18n.locale)
+    } else {
+      env.setProperty("locale", "en_US")
     }
+  }
+
+  protected void configEnvironmentDefaultValues(Environment env) {
+    env.setProperty("exploitBundle", false)
+    env.setProperty("trace", false)
+    env.setProperty("captureScreenshot", false)
+    env.setProperty("locale", "en_US")
+  }
 
   public void config(Configurable configurable) {
     //configuration file TelluriumConfig.groovy exists
     InternationalizationManager i18nManager = new InternationalizationManager();
-    configi18nManager(i18nManager , conf) ;
-    
+    configi18nManager(i18nManager, conf);
+
     if (conf != null) {
       if (configurable instanceof EmbeddedSeleniumServer) {
         println i18nManager.translate("TelluriumConfigurator.EmbeddedSeleniumServer")
@@ -257,9 +275,11 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
       } else if (configurable instanceof Dispatcher) {
         println i18nManager.translate("TelluriumConfigurator.Dispatcher");
         configDispatcher(configurable)
-      }else if(configurable instanceof BundleProcessor){
+      } else if (configurable instanceof BundleProcessor) {
         println i18nManager.translate("TelluriumConfigurator.Bundle")
         configBundleProcessor(configurable)
+      } else if (configurable instanceof Environment) {
+        configEnvironment(configurable)
       } else {
         println i18nManager.translate("TelluriumConfigurator.UnsupportedType");
       }
@@ -295,9 +315,11 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
       } else if (configurable instanceof Dispatcher) {
         println i18nManager.translate("TelluriumConfigurator.Dispatcher.default")
         configDispatcherDefaultValues(configurable)
-      }else if(configurable instanceof BundleProcessor){
+      } else if (configurable instanceof BundleProcessor) {
         println i18nManager.translate("TelluriumConfigurator.Bundle.default")
         configBundleProcessorDefaultValues(configurable)
+      } else if (configurable instanceof Environment) {
+        configEnvironmentDefaultValues(configurable)
       } else {
         println i18nManager.translate("TelluriumConfigurator.UnsupportedType");
       }
