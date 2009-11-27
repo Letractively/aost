@@ -54,7 +54,7 @@ class TelluriumFramework {
   TelluriumFramework() {
 
     env = Environment.instance;
-    
+
 //    By default ExpandoMetaClass doesn't do inheritance. To enable this you must call ExpandoMetaClass.enableGlobally()
 //    before your app starts such as in the main method or servlet bootstrap
 //        ExpandoMetaClass.enableGlobally()
@@ -69,8 +69,8 @@ class TelluriumFramework {
 
     registry.setMetaClass(Extension, new ExtensionMetaClass())
 
-    registry.setMetaClass(InternationalizationManager ,new InternationalizationManagerMetaClass())
-   
+    registry.setMetaClass(InternationalizationManager, new InternationalizationManagerMetaClass())
+
 
     registry.setMetaClass(Accessor, new AccessorMetaClass())
 
@@ -87,15 +87,15 @@ class TelluriumFramework {
 
 //    telluriumConfigurator.parse("TelluriumConfig.groovy")
     File file = new File(fileName)
-    if(file != null && file.exists()){
+    if (file != null && file.exists()) {
       println "Parse configuration file: ${fileName} from project root directory..."
       telluriumConfigurator.parse(file)
-    }else{
+    } else {
       URL url = ClassLoader.getSystemResource(fileName)
-      if(url != null){
+      if (url != null) {
         println "Parse configuration file: ${fileName} from class path..."
         telluriumConfigurator.parse(url)
-      }else{
+      } else {
         println "Cannot find configuration file: ${fileName}, use default values"
       }
     }
@@ -119,7 +119,7 @@ class TelluriumFramework {
     telluriumConfigurator.config(env)
 
     //global methods
-    this.global = new GlobalDslContext();   
+    this.global = new GlobalDslContext();
   }
 
   public void disableEmbeddedSeleniumServer() {
@@ -165,7 +165,7 @@ class TelluriumFramework {
       //overwrite the selenium connector settings with these provided by custom configuration
       connector.setProperty("browser", customConfig.getBrowser())
       connector.setProperty("port", customConfig.getPort())
-      if(customConfig.getServerHost() != null){
+      if (customConfig.getServerHost() != null) {
         //only overwrite the server host if it is set
         connector.setProperty("seleniumServerHost", customConfig.getServerHost())
       }
@@ -198,31 +198,69 @@ class TelluriumFramework {
     return this.connector
   }
 
-  public void useJQuerySelector(boolean isUse){
-    if(isUse){
+  public void useMacroCmd(boolean isUse) {
+    env.useBundle(isUse)
+  }
+
+  public setMaxMacroCmd(int max) {
+    env.useMaxMacroCmd(max);
+  }
+
+  public int getMaxMacroCmd() {
+    return env.myMaxMacroCmd();
+  }
+
+  public boolean isUseTelluriumApi() {
+    return env.isUseTelluriumApi();
+  }
+
+  public void useTelluriumApi(boolean isUse) {
+    env.useTelluriumApi(isUse);
+  }
+
+  public void useTrace(boolean isUse) {
+    env.useTrace(isUse);
+  }
+
+  public void showTrace() {
+    this.global.showTrace();
+  }
+
+  public void setEnvironment(String name, Object value) {
+    env.setCustomEnvironment(name, value);
+  }
+
+  public Object getEnvironment(String name) {
+    return env.getCustomEnvironment(name);
+  }
+
+  public void useJQuerySelector(boolean isUse) {
+
+    if (isUse) {
       this.global.exploreJQuerySelector();
-    }else{
+    } else {
       this.global.disableJQuerySelector();
     }
   }
 
-  public void useCache(boolean isUse){
-    if(isUse){
+  public void useCache(boolean isUse) {
+    env.useCache(isUse);
+    if (isUse) {
       this.global.enableSelectorCache();
-    }else{
+    } else {
       this.global.disableSelectorCache();
     }
   }
 
-  public void cleanCache(){
+  public void cleanCache() {
     this.global.cleanSelectorCache();
   }
 
-  public boolean isUsingCache(){
+  public boolean isUsingCache() {
     return this.global.getSelectorCacheState();
   }
 
-  public void setCacheMaxSize(int size){
+  public void setCacheMaxSize(int size) {
     this.global.setCacheMaxSize(size);
   }
 
@@ -238,9 +276,9 @@ class TelluriumFramework {
     return this.global.getCacheUsage();
   }
 
-  public void useCachePolicy(CachePolicy policy){
-    if(policy != null){
-      switch(policy){
+  public void useCachePolicy(CachePolicy policy) {
+    if (policy != null) {
+      switch (policy) {
         case CachePolicy.DISCARD_NEW:
           this.global.useDiscardNewCachePolicy();
           break;
@@ -283,50 +321,6 @@ class TelluriumFramework {
 
   def pause(int milliseconds) {
     Helper.pause(milliseconds)
-  }
-
-  public void useMacroCmd(boolean isUse) {
-    if(isUse){
-      this.global.useMacroCmd();
-    }else{
-      this.global.disableMacroCmd();
-    }
-  }
-
-  public setMaxMacroCmd(int max){
-    env.useMaxMacroCmd(max);
-  }
-
-  public int getMaxMacroCmd(){
-    return env.myMaxMacroCmd();
-  }
-
-  public boolean isUseTelluriumApi(){
-    return env.isUseTelluriumApi();
-  }
-
-  public void useTelluriumApi(boolean isUse){
-    env.useTelluriumApi(isUse) ;
-  }
-  
-  public void useTrace(boolean isUse){
-    if(isUse){
-      env.useTrace();
-    }else{
-      env.disableTrace();
-    }
-  }
-
-  public void showTrace() {
-    this.global.showTrace();
-  }
-
-  public void setEnvironment(String name, Object value){
-    env.setCustomEnvironment(name, value);
-  }
-
-  public Object getEnvironment(String name){
-    return env.getCustomEnvironment(name);
   }
 
 }

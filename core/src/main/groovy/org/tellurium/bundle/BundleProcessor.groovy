@@ -68,7 +68,8 @@ public class BundleProcessor implements Configurable {
 
     states.put(id, state);
   }
-
+  
+/*
   public void useBundleFeature(){
     Environment.instance.useBundle();
   }
@@ -76,6 +77,7 @@ public class BundleProcessor implements Configurable {
   public void disableBundleFeature(){
     Environment.instance.disableBundle();
   }
+*/
 
   public int nextSeq(){
     return ++sequence;
