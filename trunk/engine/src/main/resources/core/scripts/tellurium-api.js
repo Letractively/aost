@@ -319,4 +319,4 @@ TelluriumApi.prototype.useUiModule = function(json){
 
 TelluriumApi.prototype.isUiModuleCached = function(id){
     return this.cache.isUiModuleCached(id);
-}
+};
