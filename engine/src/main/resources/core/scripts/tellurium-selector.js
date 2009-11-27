@@ -425,3 +425,167 @@ JQueryBuilder.prototype.convTrailer = function(trailer) {
 
     return "";
 };
+
+/*
+
+function jQueryBuilder(){
+    this.ATTR_BLACK_LIST = ['action'];
+    this.TEXT_PSEUDO_CLASS = ":te_text";
+    this.MATCH_ALL = "*";
+    this.CONTAINS_FILTER = ":contains";
+    this.NOT_PREFIX = "!";
+    this.START_PREFIX = "^";
+    this.END_PREFIX = "$";
+    this.ANY_PREFIX = "*";
+    this.HAS = ":has";
+    this.SELECTOR_SEPARATOR = ", ";
+    this.SPACE = " ";
+    this.CHILD_SEPARATOR = " > ";
+    this.DESCENDANT_SEPARATOR = " ";
+    this.NEXT_SEPARATOR = " + ";
+    this.SIBLING_SEPARATOR = " ~ ";
+    this.ID_SELECTOR_PREFIX = "#";
+    this.CLASS_SELECTOR_PREFIX = ".";
+    this.SINGLE_QUOTE = "'";
+    this.TITLE = "title";
+    this.ID = "id";
+    this.NAME = "name";
+    this.CLASS = "class";
+    this.CONTAIN_PREFIX = "%%";
+};
+
+jQueryBuilder.prototype.inBlackList = function(attr){
+    return this.ATTR_BLACK_LIST.indexOf(attr) != -1;
+};
+
+jQueryBuilder.prototype.isPartial = function(val){
+
+    return val != null && (val.startsWith(this.START_PREFIX) || val.startsWith(this.END_PREFIX)
+            || val.startsWith(this.ANY_PREFIX) || val.startsWith(this.NOT_PREFIX)
+            || val.startsWith(this.CONTAIN_PREFIX));
+};
+
+jQueryBuilder.prototype.buildId = function(id){
+    if(id.startsWith("^")){
+        return "[id^=" + id.substring(1) + "]";
+    }else if(id.startsWith("$")){
+        return "[id$=" + id.substring(1) + "]";
+    }else if(id.startsWith("*")){
+        return "[id*=" + id.substring(1) + "]";
+    }else if(id.startsWith("!")){
+        return "[id!=" + id.substring(1) + "]";
+    }else{
+        return "#" + id;
+    }
+};
+
+jQueryBuilder.prototype.buildSingleClass = function(clazz){
+    if(clazz.startsWith("^")){
+        return "[class^=" + clazz.substring(1) + "]";
+    }else if(clazz.startsWith("$")){
+        return "[class$=" + clazz.substring(1) + "]";
+    }else if(clazz.startsWith("*")){
+        return "[class*=" + clazz.substring(1) + "]";
+    }else if(clazz.startsWith("!")){
+        return "[class!=" + clazz.substring(1) + "]";
+    }else{
+        return "." + clazz;
+    }
+};
+
+jQueryBuilder.prototype.buildClass = function(clazz){
+    if (clazz != null && trimString(clazz).length > 0) {
+        var parts = clazz.split(this.SPACE);
+        if (parts.length == 1) {
+            //only only 1 class
+
+            return this.buildSingleClass(parts[0]);
+        } else {
+
+            var sb = new StringBuffer();
+            for (var part in parts) {
+                sb.append(this.buildSingleClass(part));
+            }
+
+            return sb.toString();
+        }
+    }
+
+    return "[class]";
+};
+
+jQueryBuilder.prototype.containText = function(text){
+
+    return this.CONTAINS_FILTER + "(" + text + ")";
+};
+
+jQueryBuilder.prototype.attrText = function(text){
+
+    //need the following custom selector ":te_text()" support
+    return this.TEXT_PSEUDO_CLASS + "(" + text + ")";
+};
+
+jQueryBuilder.prototype.buildText = function(text){
+    if (text != null && trimString(text).length > 0) {
+        if (text.startsWith(this.CONTAIN_PREFIX)) {
+            return this.containText(text.substring(2));
+        } else if (text.startsWith(this.START_PREFIX) || text.startsWith(this.END_PREFIX) || text.startsWith(this.ANY_PREFIX)) {
+            //TODO: need to refact this to use start, end, any partial match
+            return this.containText(text.substring(1));
+        } else if (text.startsWith(this.NOT_PREFIX)) {
+            return ":not(" + this.containText(text.substring(1)) + ")";
+        } else {
+            return this.attrText(text);
+        }
+    }
+
+    return "";
+};
+
+jQueryBuilder.prototype.includeSingleQuote = function(val) {
+
+    return val != null && val.indexOf(this.SINGLE_QUOTE) > 0;
+};
+
+jQueryBuilder.prototype.buildAttribute = function(attr, val) {
+    if (val == null || trimString(val).length == 0) {
+        return "[" + attr + "]";
+    }
+
+    if (val.startsWith(this.START_PREFIX)) {
+        return "[" + attr + "^=" + val.substring(1) + "]";
+    } else if (val.startsWith(this.END_PREFIX)) {
+        return "[" + attr + "$=" + val.substring(1) + "]";
+    } else if (val.startsWith(this.ANY_PREFIX)) {
+        return "[" + attr + "*=" + val.substring(1) + "]";
+    } else if (val.startsWith(this.NOT_PREFIX)) {
+        return "[" + attr + "!=" + val.substring(1) + "]";
+    } else {
+        return "[" + attr + "=" + val + "]";
+    }
+};
+
+jQueryBuilder.prototype.buildStyle = function(style){
+    if(style == null || trimString(style).length == 0){
+      return "[style]";
+    }
+
+    return ":styles(" + style + ")";
+};
+
+jQueryBuilder.prototype.buildSelector = function(attr, val){
+    if(attr == "id"){
+        return this.buildId(val);
+    }else if(attr == "text"){
+        return this.buildText(val);
+    }else if(attr == "class"){
+        return this.buildClass(val);
+    }else if(attr == "style"){
+        return this.buildStyle(val);
+    }else{
+        return this.buildAttribute(attr, val);
+    }
+};
+        
+
+*/
