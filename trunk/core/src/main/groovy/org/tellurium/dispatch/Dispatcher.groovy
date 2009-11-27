@@ -21,11 +21,11 @@ class Dispatcher implements Configurable {
     private ExecutionTracer tracer = new DefaultExecutionTracer();
 
     private boolean isUseScreenshot(){
-      return Environment.instance.useScreenshot();
+      return Environment.instance.isUseScreenshot();
     }
 
     private boolean isUseTrace(){
-      return Environment.instance.useTrace();
+      return Environment.instance.isUseTrace();
     }
 
     def methodMissing(String name, args) {
