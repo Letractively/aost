@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.tellurium.module.GoogleSearchModule;
+import org.tellurium.framework.CachePolicy;
 
 /**
  * Google search module test case to demonstrate the usage of composite locator and JQuery selector
@@ -25,8 +26,9 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
     public static void initUi() {
         gsm = new GoogleSearchModule();
         gsm.defineUi();
-        gsm.useJQuerySelector();          
+        useJQuerySelector(true);
         connectSeleniumServer();
+        useTrace(true);
     }
 
     @Before
@@ -54,21 +56,21 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
 
     @Test
     public void testIsDisabled(){
-        gsm.useJQuerySelector();
+        useJQuerySelector(true);
         boolean result = gsm.isInputDisabled();
         assertFalse(result);
-        gsm.disableJQuerySelector();
+        useJQuerySelector(false);
         result = gsm.isInputDisabled();
         assertFalse(result);
     }
 
     @Test
     public void testUseSelectorCache(){
-        gsm.enableSelectorCache();
+        useCache(true);
         boolean result = gsm.getSelectorCacheState();
         assertTrue(result);
 
-        gsm.disableSelectorCache();
+        useCache(false);
         result = gsm.getSelectorCacheState();
         assertFalse(result);
     }
@@ -80,40 +82,44 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
 
     @Test
     public void testRegisterNamespace(){
-        gsm.registerNamespace("te", te_ns);
-        String ns = gsm.getNamespace("te");
+        registerNamespace("te", te_ns);
+        String ns = getNamespace("te");
         assertNotNull(ns);
         assertEquals(te_ns, ns);
-        ns = gsm.getNamespace("x");
+        ns = getNamespace("x");
         assertNotNull(ns);
         assertEquals("http://www.w3.org/1999/xhtml", ns);
-        ns = gsm.getNamespace("mathml");
+        ns = getNamespace("mathml");
         assertNotNull(ns);
         assertEquals("http://www.w3.org/1998/Math/MathML", ns);
     }
 
     @Test
     public void testCachePolicy(){
-        gsm.useJQuerySelector();
-        gsm.enableSelectorCache();
-        String policy = gsm.getCurrentCachePolicy();
+        useJQuerySelector(true);
+        useCache(true);
+        String policy = getCurrentCachePolicy();
         assertEquals("DiscardOldPolicy", policy);
-        gsm.useDiscardLeastUsedCachePolicy();
-        policy = gsm.getCurrentCachePolicy();
+//        gsm.useDiscardLeastUsedCachePolicy();
+        useCachePolicy(CachePolicy.DISCARD_LEAST_USED);
+        policy = getCurrentCachePolicy();
         assertEquals("DiscardLeastUsedPolicy", policy);
-        gsm.useDiscardInvalidCachePolicy();
-        policy = gsm.getCurrentCachePolicy();
+//        gsm.useDiscardInvalidCachePolicy();
+        useCachePolicy(CachePolicy.DISCARD_INVALID);
+        policy = getCurrentCachePolicy();
         assertEquals("DiscardInvalidPolicy", policy);
-        gsm.useDiscardNewCachePolicy();
-        policy = gsm.getCurrentCachePolicy();
+//        gsm.useDiscardNewCachePolicy();
+        useCachePolicy(CachePolicy.DISCARD_NEW);
+        policy = getCurrentCachePolicy();
         assertEquals("DiscardNewPolicy", policy);
-        gsm.useDiscardOldCachePolicy();
-        policy = gsm.getCurrentCachePolicy();
+//        gsm.useDiscardOldCachePolicy();
+        useCachePolicy(CachePolicy.DISCARD_OLD);
+        policy = getCurrentCachePolicy();
         assertEquals("DiscardOldPolicy", policy);
     }
 
     @AfterClass
     public static void showTrace(){
-        gsm.showTrace();
+        showTrace();
     }
 }
