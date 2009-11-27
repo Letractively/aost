@@ -34,14 +34,6 @@ public class Environment implements Configurable{
 
   protected boolean exploitTelluriumApi = false;
 
-  public boolean isUseTelluriumApi(){
-    return this.exploitTelluriumApi;
-  }
-
-  public void useTelluriumApi(boolean isUse){
-    this.exploitTelluriumApi = isUse;    
-  }
-
   public boolean isUseJQuerySelector(){
     return this.exploitJQuerySelector;
   }
@@ -62,44 +54,32 @@ public class Environment implements Configurable{
     return this.trace;
   }
 
-  public void useJQuerySelector(){
-    this.exploitJQuerySelector = true;
+  public boolean isUseTelluriumApi(){
+    return this.exploitTelluriumApi;
   }
 
-  public void useCache(){
-    this.exploitSelectorCache = true;
+  public void useJQuerySelector(boolean isUse){
+    this.exploitJQuerySelector = isUse;
   }
 
-  public void useBundle(){
-    this.exploitBundle = true;
+  public void useCache(boolean isUse){
+    this.exploitSelectorCache = isUse;
   }
 
-  public void useScreenshot(){
-    this.captureScreenshot = true;
+  public void useBundle(boolean isUse){
+    this.exploitBundle = isUse;
   }
 
-  public void useTrace(){
-    this.trace = true;
+  public void useScreenshot(boolean isUse){
+    this.captureScreenshot = isUse;
   }
 
-  public void disableJQuerySelector(){
-    this.exploitJQuerySelector = false;
+  public void useTrace(boolean isUse){
+    this.trace = isUse;
   }
 
-  public void disableCache(){
-    this.exploitSelectorCache = false;
-  }
-
-  public void disableBundle(){
-    this.exploitBundle = false;
-  }
-
-  public void disableScreenshot(){
-    this.captureScreenshot = false;
-  }
-
-  public void disableTrace(){
-    this.trace = false;
+  public void useTelluriumApi(boolean isUse) {
+    this.exploitTelluriumApi = isUse;
   }
 
   public useMaxMacroCmd(int max){

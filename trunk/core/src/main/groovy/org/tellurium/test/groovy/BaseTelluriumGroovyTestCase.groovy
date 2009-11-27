@@ -8,12 +8,13 @@ import org.tellurium.framework.CachePolicy
 import org.tellurium.util.Helper
 
 abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
-    //custom configuration
+
+  //custom configuration
 	protected InternationalizationManager i18nManager = new InternationalizationManager()
     protected CustomConfig customConfig = null
 
     protected SeleniumConnector connector;
-    protected TelluriumFramework aost
+    protected TelluriumFramework tellurium
 
     public abstract SeleniumConnector getConnector()
 
@@ -54,63 +55,63 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
     }
 
     public void useJQuerySelector(boolean isUse){
-      aost.useJQuerySelector(isUse);
+      tellurium.useJQuerySelector(isUse);
     }
 
     public void useCache(boolean isUse){
-      aost.useCache(isUse);
+      tellurium.useCache(isUse);
     }
 
     public void cleanCache(){
-      aost.cleanCache();
+      tellurium.cleanCache();
     }
 
     public boolean isUsingCache(){
-      return aost.isUsingCache();
+      return tellurium.isUsingCache();
     }
 
     public void setCacheMaxSize(int size){
-      aost.setCacheMaxSize(size);
+      tellurium.setCacheMaxSize(size);
     }
 
     public int getCacheSize(){
-      return aost.getCacheSize();
+      return tellurium.getCacheSize();
     }
 
     public int getCacheMaxSize(){
-      return aost.getCacheMaxSize();
+      return tellurium.getCacheMaxSize();
     }
 
     public Map<String, Long> getCacheUsage(){
-      return aost.getCacheUsage();
+      return tellurium.getCacheUsage();
     }
 
     public void useCachePolicy(CachePolicy policy){
-      aost.useCachePolicy(policy);
+      tellurium.useCachePolicy(policy);
     }
 
     public String getCurrentCachePolicy(){
-      return aost.getCurrentCachePolicy();
+      return tellurium.getCurrentCachePolicy();
     }
 
     public void useDefaultXPathLibrary(){
-      aost.useDefaultXPathLibrary();
+      tellurium.useDefaultXPathLibrary();
     }
 
     public void useJavascriptXPathLibrary(){
-      aost.useJavascriptXPathLibrary();
+      tellurium.useJavascriptXPathLibrary();
     }
 
     public void useAjaxsltXPathLibrary() {
-      aost.useAjaxsltXPathLibrary();
+      tellurium.useAjaxsltXPathLibrary();
     }
 
     public void registerNamespace(String prefix, String namespace){
-      aost.registerNamespace(prefix, namespace);
+      tellurium.registerNamespace(prefix, namespace);
     }
 
     public String getNamespace(String prefix) {
-      return aost.getNamespace(prefix);
+      return tellurium.getNamespace(prefix);
     }
 
     public void pause(int milliseconds) {
@@ -118,38 +119,38 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
     }
 
     public void useMacroCmd(boolean isUse){
-      aost.useMacroCmd(isUse);
+      tellurium.useMacroCmd(isUse);
     }
 
     public void setMaxMacroCmd(int max){
-      aost.setMaxMacroCmd(max);
+      tellurium.setMaxMacroCmd(max);
     }
 
     public int getMaxMacroCmd(){
-      return aost.getMaxMacroCmd();
+      return tellurium.getMaxMacroCmd();
     }
 
     public boolean isUseTelluriumApi(){
-      return aost.isUseTelluriumApi();
+      return tellurium.isUseTelluriumApi();
     }
 
     public void useTelluriumApi(boolean isUse){
-      aost.useTelluriumApi(isUse) ;
+      tellurium.useTelluriumApi(isUse) ;
     }
   
     public void useTrace(boolean isUse){
-      aost.useTrace(isUse);   
+      tellurium.useTrace(isUse);
     }
 
     public void showTrace() {
-      aost.showTrace();
+      tellurium.showTrace();
     }
 
     public void setEnvironment(String name, Object value){
-      aost.setEnvironment(name, value) ;
+      tellurium.setEnvironment(name, value) ;
     }
 
     public Object getEnvironment(String name){
-      return aost.getEnvironment(name);
+      return tellurium.getEnvironment(name);
     }
 }  

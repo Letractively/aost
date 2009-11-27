@@ -37,15 +37,15 @@ public class GlobalDslContext {
   }
 
   public void useJQuerySelector() {
-    Environment.instance.useJQuerySelector();
+    Environment.instance.useJQuerySelector(true);
   }
 
   public void disableJQuerySelector() {
-    Environment.instance.disableJQuerySelector();
+    Environment.instance.useJQuerySelector(false);
   }
 
   public void enableSelectorCache() {
-    Environment.instance.useCache();
+    Environment.instance.useCache(true);
 //      this.exploreSelectorCache = true
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector(), this.exploreSelectorCache())
 
@@ -53,7 +53,7 @@ public class GlobalDslContext {
   }
 
   public boolean disableSelectorCache() {
-    Environment.instance.disableCache();
+    Environment.instance.useCache(false);
 //      this.exploreSelectorCache = false
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector(), this.exploreSelectorCache())
 
@@ -167,21 +167,19 @@ public class GlobalDslContext {
   }
 
   public void useMacroCmd() {
-    BundleProcessor processor = BundleProcessor.instance
-    processor.useBundleFeature()
+     Environment.instance.useBundle(true);
   }
 
   public void disableMacroCmd() {
-    BundleProcessor processor = BundleProcessor.instance
-    processor.disableBundleFeature()
+      Environment.instance.useBundle(false);
   }
 
   public void enableTrace(){
-     Environment.instance.useTrace();
+     Environment.instance.useTrace(true);
   }
 
   public void disableTrace(){
-     Environment.instance.disableTrace();
+     Environment.instance.useTrace(false);
   }
   
   public void showTrace() {
