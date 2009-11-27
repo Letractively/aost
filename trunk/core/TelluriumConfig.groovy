@@ -31,8 +31,8 @@ tellurium{
         //an integer number of seconds before we should give up
         timeoutInSeconds = 30
         //profile location
-//        profile = "/home/jiafan1/.mozilla/firefox/820j3ca9.default"
         profile = ""
+//        profile = "/home/jiafan1/.mozilla/firefox/876su0gg.default"
         //user-extension.js file
         userExtension = "target/test-classes/extension/user-extensions.js"
     }
@@ -51,7 +51,7 @@ tellurium{
       //the bundling tier
     bundle{
         maxMacroCmd = 5
-        useMacroCommand = true
+        useMacroCommand = false
     }
     //the configuration for the connector that connects the selenium client to the selenium server
     connector{

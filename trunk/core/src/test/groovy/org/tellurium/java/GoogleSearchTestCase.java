@@ -119,7 +119,7 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
     }
 
     @AfterClass
-    public static void showTrace(){
+    public static void tearDown(){
         showTrace();
     }
 }
