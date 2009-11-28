@@ -29,6 +29,7 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
         useJQuerySelector(true);
         connectSeleniumServer();
         useTrace(true);
+        useCache(true);
     }
 
     @Before
