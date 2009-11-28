@@ -38,6 +38,10 @@ abstract class BaseDslContext extends GlobalDslContext {
   protected static final String LOCATOR = "locator"
   protected static final String OPTIMIZED_LOCATOR = "optimized"
 
+  public static final String KEY = "key"
+  public static final String OBJECT = "obj"
+  public static final String GENERATED = "generated"
+  
   protected JQueryOptimizer optimizer = new JQueryOptimizer()
 
   UiDslParser ui = new UiDslParser()
