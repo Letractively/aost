@@ -153,4 +153,8 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
     public Object getEnvironment(String name){
       return tellurium.getEnvironment(name);
     }
+
+    public void allowNativeXpath(boolean allow){
+      tellurium.allowNativeXpath(allow); 
+    }
 }  

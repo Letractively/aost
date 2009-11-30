@@ -1247,9 +1247,4 @@ abstract class BaseDslContext extends GlobalDslContext {
     extension.deleteAllCookies(context)
   }
 
-  void allowNativeXpath(boolean allow) {
-    WorkflowContext context = WorkflowContext.getDefaultContext()
-
-    accessor.allowNativeXpath(context, allow)
-  }
 }
