@@ -225,6 +225,9 @@ function Tellurium (){
     //command bundle for Tellurium
     this.commandbundle = new CommandBundle();
 
+    //whether to use Tellurium new jQuery selector based APIs
+    this.isUseTeApi = false;
+
     //cache to hold the element corresponding to a UID in command bundle
     this.cbCache = new Hashtable();
 
@@ -423,8 +426,10 @@ Tellurium.prototype.processCommandBundle = function(){
 
     while (this.commandbundle.size() > 0) {
         var cmd = this.commandbundle.first();
-        //if counld not find from Tellurium APIs, delete to selenium directly
-        if (this.isApiMissing(cmd.name)) {
+        //If don't want to use Tellurium APIs
+        //or counld not find the approporiate API from Tellurium APIs, delete it to selenium directly
+        //TODO: pay attention to tellurium only APIs, should not delegate to selenium if they are Tellurium only
+        if ((!this.isUseTeApi) || this.isApiMissing(cmd.name)) {
             this.delegateToSelenium(response, cmd);
         } else {
             var element = null;
