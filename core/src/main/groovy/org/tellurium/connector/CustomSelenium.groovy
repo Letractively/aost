@@ -268,4 +268,10 @@ class CustomSelenium extends DefaultSelenium {
 
        return commandProcessor.getBoolean("isUiModuleCached", arr);
     }
+
+    public void useTeApi(boolean isUse){
+       String[] arr = [isUse];
+
+       commandProcessor.doCommand("useTeApi", arr);
+    }
 }

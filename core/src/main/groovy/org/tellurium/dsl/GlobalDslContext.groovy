@@ -209,6 +209,14 @@ public class GlobalDslContext {
 
   public void useTelluriumApi(boolean isUse){
     Environment.instance.useTelluriumApi(isUse);
-  }
+    WorkflowContext context = WorkflowContext.getDefaultContext();
 
+    extension.useTeApi(context, isUse);
+  }
+  
+  void allowNativeXpath(boolean allow) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+
+    accessor.allowNativeXpath(context, allow)
+  }
 }

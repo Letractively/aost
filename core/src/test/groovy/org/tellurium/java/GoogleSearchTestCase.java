@@ -26,8 +26,9 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
     public static void initUi() {
         gsm = new GoogleSearchModule();
         gsm.defineUi();
-        useJQuerySelector(true);
         connectSeleniumServer();
+        useJQuerySelector(true);
+        useTelluriumApi(true);
         useTrace(true);
         useCache(true);
     }

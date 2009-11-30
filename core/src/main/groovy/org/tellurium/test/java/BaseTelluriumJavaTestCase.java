@@ -187,4 +187,8 @@ public abstract class BaseTelluriumJavaTestCase {
     public static Object getEnvironment(String name){
       return tellurium.getEnvironment(name);
     }
+
+    public static void allowNativeXpath(boolean allow){
+      tellurium.allowNativeXpath(allow);
+    }
 }

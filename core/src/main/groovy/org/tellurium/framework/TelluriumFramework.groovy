@@ -216,6 +216,7 @@ class TelluriumFramework {
 
   public void useTelluriumApi(boolean isUse) {
     env.useTelluriumApi(isUse);
+    this.global.useTelluriumApi(isUse);
   }
 
   public void useTrace(boolean isUse) {
@@ -311,8 +312,12 @@ class TelluriumFramework {
     this.global.useAjaxsltXPathLibrary();
   }
 
+  public void allowNativeXpath(boolean allow) {
+    this.global.allowNativeXpath(allow);
+  }
+
   public void registerNamespace(String prefix, String namespace) {
-    this.global.registerNamespace(prefix, namespace)
+    this.global.registerNamespace(prefix, namespace);
   }
 
   public String getNamespace(String prefix) {
@@ -320,7 +325,7 @@ class TelluriumFramework {
   }
 
   def pause(int milliseconds) {
-    Helper.pause(milliseconds)
+    Helper.pause(milliseconds);
   }
 
 }
