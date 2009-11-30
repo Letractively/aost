@@ -366,3 +366,11 @@ Selenium.prototype.doUseUiModule = function(json){
 Selenium.prototype.isUiModuleCached = function(id){
     return tellurium.cache.isUIModuleCached(id);
 };
+
+Selenium.prototype.doUseTeApi = function(isUseApi){
+     if ("true" == isUseApi || "TRUE" == isUseApi) {
+         tellurium.isUseTeApi = true;
+     }else{
+         tellurium.isUseTeApi = false;
+     }
+};
