@@ -7,6 +7,7 @@ import org.tellurium.event.EventHandler;
 import org.tellurium.exception.UiObjectNotFoundException;
 import org.tellurium.extend.Extension;
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
 import org.tellurium.locator.JQueryOptimizer;
 import org.tellurium.locator.LocatorProcessor;
 import org.tellurium.locator.MetaCmd;
@@ -28,7 +29,7 @@ import org.tellurium.framework.Environment;
  */
 abstract class BaseDslContext extends GlobalDslContext {
 
-  protected InternationalizationManager i18nManager = new InternationalizationManager()
+  protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
 
   protected static final String JQUERY_SELECTOR = "jquery="
   protected static final String JQUERY_SELECTOR_CACHE = "jquerycache="

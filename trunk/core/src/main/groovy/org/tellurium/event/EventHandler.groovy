@@ -9,13 +9,14 @@ import org.tellurium.util.Helper
 import java.awt.event.KeyEvent
 
 import org.tellurium.i18n.InternationalizationManager
+import org.tellurium.i18n.InternationalizationManagerImpl
 import org.tellurium.bundle.BundleProcessor
 import org.tellurium.dsl.WorkflowContext;
 
 
 class EventHandler implements Configurable{
 
-	protected InternationalizationManager i18nManager = new InternationalizationManager()
+	protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
 
     public static final String RETURN_KEY= "BSBS13"
 	public static final int ACTION_WAIT_TIME = 50

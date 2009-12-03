@@ -3,6 +3,8 @@ package org.tellurium.server
 import org.openqa.selenium.server.RemoteControlConfiguration
 import org.openqa.selenium.server.SeleniumServer
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 
 /**
@@ -47,7 +49,7 @@ public class SeleniumServerDaemon {
 
     private String userExtension = null;
 
-    protected InternationalizationManager i18nManager = new InternationalizationManager()
+    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
 
 
     private String [] getParams(){

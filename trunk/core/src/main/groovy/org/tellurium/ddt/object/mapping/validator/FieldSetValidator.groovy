@@ -4,6 +4,8 @@ import org.tellurium.ddt.object.mapping.FieldSet
 import org.tellurium.ddt.object.mapping.Field
 import org.tellurium.ddt.object.mapping.DataMappingException
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 import java.util.regex.Pattern
 import java.util.regex.Matcher
@@ -17,7 +19,7 @@ import java.util.regex.Matcher
  *
  */
 class FieldSetValidator {
-    protected static InternationalizationManager i18nManager = new InternationalizationManager();
+    protected static InternationalizationManager i18nManager = new InternationalizationManagerImpl();
 
 
     public static boolean validate(FieldSet fs, List fields){

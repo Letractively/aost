@@ -17,6 +17,8 @@ import org.tellurium.framework.TelluriumFramework
 import org.tellurium.test.helper.*
 import org.tellurium.test.groovy.BaseTelluriumGroovyTestCase
 import org.tellurium.i18n.InternationalizationManager
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 
 /**
@@ -155,7 +157,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
             
             tddm.defineModule()
         }else{
-            InternationalizationManager i18nManager = new InternationalizationManager()
+            InternationalizationManager i18nManager = new InternationalizationManagerImpl()
             throw new RuntimeException(i18nManager.translate("TelluriumDataDrivenTest.IncludModule" , module?.getName()))
         }
     }

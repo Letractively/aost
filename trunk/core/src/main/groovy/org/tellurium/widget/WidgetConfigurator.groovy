@@ -4,6 +4,8 @@ import org.tellurium.builder.UiObjectBuilderRegistry
 import org.tellurium.config.Configurable
 import org.tellurium.widget.WidgetBootstrap
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 
 /**
@@ -16,7 +18,7 @@ import org.tellurium.i18n.InternationalizationManager;
  */
 class WidgetConfigurator implements Configurable{
 
-    protected InternationalizationManager i18nManager = new InternationalizationManager()
+    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
 
     protected final static String PACKAGE_DELIMITER = "."
     protected final static String WIDGET_MODULE_SEPARATOR = ","

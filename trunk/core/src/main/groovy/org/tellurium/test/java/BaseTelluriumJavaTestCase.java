@@ -3,6 +3,7 @@ package org.tellurium.test.java;
 import org.tellurium.config.CustomConfig;
 import org.tellurium.connector.SeleniumConnector;
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
 import org.tellurium.framework.TelluriumFramework;
 import org.tellurium.framework.CachePolicy;
 import org.tellurium.util.Helper;
@@ -20,7 +21,7 @@ import java.util.Map;
 public abstract class BaseTelluriumJavaTestCase {
     //custom configuration
     protected static CustomConfig customConfig = null;
-	protected InternationalizationManager i18nManager = new InternationalizationManager();
+	protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
 
     protected static SeleniumConnector connector;
 

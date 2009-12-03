@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -26,7 +28,7 @@ public class UiDataReader {
 	protected final static String ESCAPE_START = "\\Q";
 	protected final static String ESCAPE_END = "\\E";
 	
-    protected InternationalizationManager i18nManager = new InternationalizationManager();
+    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
 
 
     public BufferedReader getReaderForDate(String data){

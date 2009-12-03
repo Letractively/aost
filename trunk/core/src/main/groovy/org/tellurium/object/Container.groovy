@@ -6,6 +6,7 @@ import org.tellurium.locator.LocatorProcessor
 import org.tellurium.locator.GroupLocateStrategy
 import org.json.simple.JSONObject
 import org.tellurium.i18n.InternationalizationManager
+import org.tellurium.i18n.InternationalizationManagerImpl
 
 /**
  *  container
@@ -16,7 +17,7 @@ import org.tellurium.i18n.InternationalizationManager
 class Container extends UiObject {
 
     public static final String GROUP = "group"
-	protected InternationalizationManager i18nManager = new InternationalizationManager()
+	protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
 
     //if it uses group informtion to infer its locator
     protected boolean useGroupInfo = false

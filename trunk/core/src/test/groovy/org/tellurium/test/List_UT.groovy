@@ -40,7 +40,7 @@ class List_UT extends GroovyTestCase{
         obj = list.ui.walkTo(context, "sample[4]")
         assertNotNull(obj)
         assertTrue(obj instanceof InputBox)
-        assertEquals("/descendant-or-self::div/input[1]", context.getReferenceLocator())
+        assertEquals("/descendant-or-self::div/input[@title=\"cool\"][1]", context.getReferenceLocator())
 
         context = WorkflowContext.getDefaultContext()
         obj = list.ui.walkTo(context, "sample[5].[1][1]")

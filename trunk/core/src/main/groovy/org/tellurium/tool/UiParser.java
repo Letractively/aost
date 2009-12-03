@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -23,7 +25,7 @@ public class UiParser {
     private UiDataReader reader = new UiDataReader();
 
     private Tree tree = new Tree();
-    protected static InternationalizationManager i18nManager = new InternationalizationManager();
+    protected static InternationalizationManager i18nManager = new InternationalizationManagerImpl();
 
 
     protected Map<String, String> parseAttributes(String attributes){

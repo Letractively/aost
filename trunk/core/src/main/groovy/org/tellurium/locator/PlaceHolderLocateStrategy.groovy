@@ -1,11 +1,13 @@
 package org.tellurium.locator
 
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 class PlaceHolderLocateStrategy {
 
     public static final String PLACE_HOLDER = "\\?";
-    protected static InternationalizationManager i18nManager = new InternationalizationManager()
+    protected static InternationalizationManager i18nManager = new InternationalizationManagerImpl()
 
 
     def static boolean canHandle(locator){

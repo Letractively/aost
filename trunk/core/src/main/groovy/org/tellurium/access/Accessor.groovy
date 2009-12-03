@@ -4,13 +4,15 @@ import org.tellurium.config.Configurable
 import org.tellurium.exception.ElementNotPresentException
 import org.tellurium.util.Helper
 import org.tellurium.i18n.InternationalizationManager
+import org.tellurium.i18n.InternationalizationManagerImpl
+
 import org.tellurium.bundle.BundleProcessor
 import org.tellurium.dsl.WorkflowContext;
 
 
 class Accessor implements Configurable {
 
-  private InternationalizationManager i18nManager = new InternationalizationManager();
+  private InternationalizationManager i18nManager = new InternationalizationManagerImpl();
 
   protected static final int ACCESS_WAIT_TIME = 50
 

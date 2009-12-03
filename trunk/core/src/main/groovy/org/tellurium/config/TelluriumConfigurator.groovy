@@ -17,7 +17,8 @@ import org.tellurium.server.EmbeddedSeleniumServer
 import org.tellurium.widget.WidgetConfigurator
 import org.tellurium.test.helper.*
 import org.tellurium.connector.CustomSelenium
-import org.tellurium.i18n.InternationalizationManager
+import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
 import org.tellurium.test.helper.XMLResultReporter
 import org.tellurium.test.helper.SimpleResultReporter
 import org.tellurium.test.helper.DefaultResultListener
@@ -26,6 +27,7 @@ import org.tellurium.test.helper.ConsoleOutput
 import org.tellurium.test.helper.FileOutput
 import org.tellurium.bundle.BundleProcessor
 import org.tellurium.framework.Environment
+
 
 /**
  * Tellurium Configurator
@@ -47,24 +49,27 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     server.setProperty("userExtension", conf.tellurium.embeddedserver.userExtension)
   }
 
-  protected void configi18nManager(InternationalizationManager i18nManager, conf) {
-    String definedLocale = null
-    def locale = null
+  protected InternationalizationManager configi18nManager(conf) 
+  {
+	  InternationalizationManager manager = new InternationalizationManagerImpl() 
+	  def locale = null
 
-    if (conf != null && conf.tellurium != null && conf.tellurium.i18n != null && conf.tellurium.i18n.locale != null) {
-      definedLocale = conf.tellurium.i18n.locale
-      String[] localeString = definedLocale.split("_")
-      if (localeString.length == 2)
-        locale = new Locale(localeString[0], localeString[1])
-      else
-        locale = Locale.getDefault();
-    }
-    else
-      locale = Locale.getDefault();
-
-    if (locale == null)
-      locale = new Locale("en", "US");
-    i18nManager.createDefaultResourceBundle(locale);
+	  if(conf != null  && conf.tellurium!=null && conf.tellurium.i18n!=null && conf.tellurium.i18n.locale!=null ){
+	    	String definedLocales = conf.tellurium.i18n.locale
+	    	String[] localeString = definedLocales.split("_")
+	    	if(localeString.length == 2)
+	    	  locale = new Locale(localeString[0] , localeString[1])
+	  else
+	    	  locale = Locale.getDefault();
+	  }
+	  else
+	      locale = Locale.getDefault();
+	    
+	  if(locale == null)
+	   	locale = new Locale("en" , "US");
+	  manager.defaultLocale = locale
+	  manager.addResourceBundle("DefaultMessagesBundle" , locale)
+	  return manager;
   }
 
   protected void configEmbeededServerDefaultValues(EmbeddedSeleniumServer server) {
@@ -242,10 +247,9 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
   }
 
   public void config(Configurable configurable) {
-    //configuration file TelluriumConfig.groovy exists
-    InternationalizationManager i18nManager = new InternationalizationManager();
-    configi18nManager(i18nManager, conf);
 
+	InternationalizationManager i18nManager = configi18nManager(conf) ;
+    
     if (conf != null) {
       if (configurable instanceof EmbeddedSeleniumServer) {
         println i18nManager.translate("TelluriumConfigurator.EmbeddedSeleniumServer")

@@ -3,6 +3,8 @@ package org.tellurium.ddt.object.mapping.bind
 import org.tellurium.ddt.object.mapping.DataMappingException
 import org.tellurium.ddt.object.mapping.mapping.FieldSetMapResult
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 
 /**
@@ -17,7 +19,7 @@ import org.tellurium.i18n.InternationalizationManager;
 class VariableBinder {
 
     public static final String ID_SEPARATOR = '\\.'
-    protected InternationalizationManager i18nManager = new InternationalizationManager();
+    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
 
 
     protected ObjectBindRegistry registry = new ObjectBindRegistry()

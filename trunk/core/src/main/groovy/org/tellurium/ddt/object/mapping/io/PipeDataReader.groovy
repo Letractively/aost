@@ -6,6 +6,8 @@ import java.util.List;
 import org.tellurium.Const;
 import org.tellurium.ddt.object.mapping.DataMappingException
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 /**
  * The implementation for the field set reader with pipe field delimiter
@@ -19,7 +21,7 @@ class PipeDataReader implements DataReader{
 		protected final static String FIELD_DELIMITER = "\\|"
 		protected final static String ESCAPE_START = "\\Q"
 		protected final static String ESCAPE_END = "\\E"
-		protected InternationalizationManager i18nManager = new InternationalizationManager();
+		protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
 
 
 		public void setupDataStream(FileInputStream input)

@@ -1,6 +1,8 @@
 package org.tellurium.dsl
 
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 /**
  *
@@ -11,7 +13,7 @@ import org.tellurium.i18n.InternationalizationManager;
  */
 
 public class DiagnosisResponse {
-  protected InternationalizationManager i18nManager = new InternationalizationManager()
+  protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
 
   public static final String UID = "uid"
   private String uid;
