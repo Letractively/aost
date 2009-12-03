@@ -3,6 +3,8 @@ package org.tellurium.locator
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.exception.InvalidLocatorException
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 /**
  * convert different locator data structures to actual locators or partial locators
@@ -13,7 +15,7 @@ import org.tellurium.i18n.InternationalizationManager;
  */
 class LocatorProcessor{
     public static final String CANNOT_HANDLE_LOCATOR= "Cannot handle locator"
-    protected InternationalizationManager i18nManager = new InternationalizationManager()
+    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
 
   
     def String locate(WorkflowContext context, locator){

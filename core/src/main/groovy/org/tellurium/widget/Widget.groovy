@@ -18,6 +18,8 @@ import org.tellurium.locator.JQueryOptimizer
 import org.json.simple.JSONObject
 import org.tellurium.locator.MetaCmd
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 /**
  * The base class for Widget objects.
@@ -33,7 +35,7 @@ import org.tellurium.i18n.InternationalizationManager;
  */
 //@Mixin(BaseDslContext)
 abstract class Widget extends UiObject {
-  protected InternationalizationManager i18nManager = new InternationalizationManager()
+  protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
 
   protected static final String JQUERY_SELECTOR = "jquery="
   protected static final String JQUERY_SELECTOR_CACHE = "jquerycache="

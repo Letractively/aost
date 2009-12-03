@@ -9,6 +9,8 @@ import org.tellurium.ddt.object.mapping.DataMappingException
 import org.tellurium.ddt.object.mapping.validator.FieldSetValidator
 import org.tellurium.ddt.object.mapping.FieldSetType
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 /**
  * The default implemention of the FieldSet Object Mapper
@@ -23,7 +25,7 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
     protected final static String BLOCK_START_PREFIX = "#{"
     protected final static String BLOCK_END_PREFIX = "#}"
     protected final static String META_DATA_PREFIX = "#!"
-    protected InternationalizationManager i18nManager = new InternationalizationManager();
+    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
 
 
     protected FieldSetRegistry registry

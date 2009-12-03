@@ -1,6 +1,10 @@
 package org.tellurium.config
 
+import java.util.Locale;
+
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 /**
  * Parse Tellurium configuration and store the properties to a Hashmap
@@ -13,11 +17,10 @@ import org.tellurium.i18n.InternationalizationManager;
 class TelluriumConfigParser {
 
     protected def conf
-    protected InternationalizationManager i18nManager = new InternationalizationManager()
+    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
 
     public void parse(String fileName){
        try{
-   	    	i18nManager.createDefaultResourceBundle(Locale.getDefault());
             println i18nManager.translate("TelluriumConfigParser.parseConfigFileText" , fileName)
             conf = new ConfigSlurper().parse(new File(fileName).toURL())              
        }catch(Exception e){

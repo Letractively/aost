@@ -11,6 +11,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.tellurium.Const;
 import org.tellurium.ddt.object.mapping.DataMappingException;
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 
 /**
@@ -23,7 +25,7 @@ import org.tellurium.i18n.InternationalizationManager;
  */
 class ExcelDataReader implements DataReader{
 
-		protected InternationalizationManager i18nManager = new InternationalizationManager();
+		protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
 
 		protected HSSFSheet workSheet = null
 		protected int currentRowCounter = 0

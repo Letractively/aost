@@ -8,6 +8,8 @@ import org.tellurium.object.UiObject
 import org.tellurium.Const
 import org.tellurium.object.Table
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 
 /**
@@ -18,7 +20,7 @@ import org.tellurium.i18n.InternationalizationManager;
  */
 abstract class UiObjectBuilder extends Const {
 
-    protected InternationalizationManager i18nManager = new InternationalizationManager();
+    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
 
     def abstract build(Map map, Closure c);
 

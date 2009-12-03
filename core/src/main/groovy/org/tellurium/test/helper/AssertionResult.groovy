@@ -3,6 +3,8 @@ package org.tellurium.test.helper
 import junit.framework.AssertionFailedError
 
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 
 /**
@@ -22,7 +24,7 @@ class AssertionResult {
 
     private AssertionFailedError error
 
-    protected InternationalizationManager i18nManager = new InternationalizationManager()
+    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
 
 
     public boolean isPassed(){

@@ -22,8 +22,9 @@ import org.tellurium.locator.LocatorProcessor
 import org.tellurium.locator.LocatorProcessorMetaClass
 import org.tellurium.server.EmbeddedSeleniumServer
 import org.tellurium.widget.WidgetConfigurator
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerMetaClass
+import org.tellurium.i18n.InternationalizationManager
+import org.tellurium.i18n.InternationalizationManagerImpl
+import org.tellurium.i18n.InternationalizationManagerImplMetaClass
 import org.tellurium.dsl.GlobalDslContext
 import org.tellurium.dsl.WorkflowContext
 import org.tellurium.util.Helper;
@@ -69,7 +70,7 @@ class TelluriumFramework {
 
     registry.setMetaClass(Extension, new ExtensionMetaClass())
 
-    registry.setMetaClass(InternationalizationManager, new InternationalizationManagerMetaClass())
+    registry.setMetaClass(InternationalizationManagerImpl, new InternationalizationManagerImplMetaClass())
 
 
     registry.setMetaClass(Accessor, new AccessorMetaClass())
@@ -154,7 +155,7 @@ class TelluriumFramework {
       server.setProperty("port", customConfig.getPort())
       server.setProperty("useMultiWindows", customConfig.isUseMultiWindows())
       server.setProperty("profileLocation", customConfig.getProfileLocation())
-      InternationalizationManager i18nManager = new InternationalizationManager()
+      InternationalizationManager i18nManager = new InternationalizationManagerImpl()
       println i18nManager.translate("TelluriumFramework.OverwriteSeleniumServerSettings")
 
       server.runSeleniumServer()

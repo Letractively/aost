@@ -2,16 +2,18 @@ package org.tellurium.dispatch
 
 import org.tellurium.client.SeleniumClient
 import org.tellurium.config.Configurable
-import org.tellurium.i18n.InternationalizationManager
+import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
 import org.tellurium.test.crosscut.DefaultExecutionTracer
 import org.tellurium.test.crosscut.ExecutionTracer
 import org.tellurium.framework.Environment;
 
 
 
+
 class Dispatcher implements Configurable {
     public static final String PLACE_HOLDER = "\\?"
-    protected static InternationalizationManager i18nManager = new InternationalizationManager();
+    protected static InternationalizationManager i18nManager = new InternationalizationManagerImpl();
 
 //    private boolean captureScreenshot = Environment.instance.&useScreenshot;
     private String filenamePattern = "Screenshot?.png";

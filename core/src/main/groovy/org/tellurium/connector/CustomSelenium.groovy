@@ -4,7 +4,9 @@ import com.thoughtworks.selenium.DefaultSelenium
 import com.thoughtworks.selenium.CommandProcessor
 import org.tellurium.exception.*
 import org.tellurium.grid.GridSupport
-import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManager
+import org.tellurium.i18n.InternationalizationManagerImpl
+
 
 
 /**
@@ -19,7 +21,7 @@ import org.tellurium.i18n.InternationalizationManager;
  */
 class CustomSelenium extends DefaultSelenium {
 
-    protected InternationalizationManager i18nManager = new InternationalizationManager();
+    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
 
     protected CustomCommand customClass = null
     protected String userExtension = null

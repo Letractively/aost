@@ -1,6 +1,8 @@
 package org.tellurium.tool;
 
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 /**
  * Match two XPaths and return the common portion
@@ -12,7 +14,7 @@ import org.tellurium.i18n.InternationalizationManager;
 public class XPathMatcher {
     public final static String DELIMITER = "/";
     
-    protected static InternationalizationManager i18nManager = new InternationalizationManager();
+    protected static InternationalizationManager i18nManager = new InternationalizationManagerImpl();
 
 
     public static String match(String src, String dst){

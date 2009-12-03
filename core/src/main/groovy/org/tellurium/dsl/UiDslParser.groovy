@@ -8,12 +8,14 @@ import org.tellurium.object.*
 import org.tellurium.exception.InvalidObjectTypeException
 
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 class UiDslParser extends BuilderSupport{
        public static final String UID = "uid"
        public static final String REF = "ref"
        public static final String INCLUDE = "Include"
-  	   protected InternationalizationManager i18nManager = new InternationalizationManager()
+  	   protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
   
        def registry = [:]
 

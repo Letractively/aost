@@ -4,6 +4,8 @@ import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
 import org.tellurium.ddt.object.mapping.type.TypeHandler
 import org.tellurium.ddt.object.mapping.DataMappingException
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 /**
  * Default implementation to convert a data field to a Java object
@@ -15,7 +17,7 @@ import org.tellurium.i18n.InternationalizationManager;
  */
 class DefaultObjectUnmarshaller implements ObjectUnmarshaller{
 
-    protected InternationalizationManager i18nManager = new InternationalizationManager();
+    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
 
     protected TypeHandlerRegistry registry
 

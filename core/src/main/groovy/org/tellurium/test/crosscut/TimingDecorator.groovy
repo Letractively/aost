@@ -1,5 +1,7 @@
 package org.tellurium.test.crosscut
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
+
 
 
 /**
@@ -13,7 +15,7 @@ import org.tellurium.i18n.InternationalizationManager;
 public class TimingDecorator {
 //    @Delegate
     private delegate
-    private InternationalizationManager i18nManager = new InternationalizationManager()
+    private InternationalizationManager i18nManager = new InternationalizationManagerImpl()
 
 
     private Logger logger

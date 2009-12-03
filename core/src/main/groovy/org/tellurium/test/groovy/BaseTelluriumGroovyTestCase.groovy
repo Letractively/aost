@@ -2,6 +2,7 @@ package org.tellurium.test.groovy
 
 import org.tellurium.config.CustomConfig
 import org.tellurium.i18n.InternationalizationManager;
+import org.tellurium.i18n.InternationalizationManagerImpl;
 import org.tellurium.connector.SeleniumConnector
 import org.tellurium.framework.TelluriumFramework
 import org.tellurium.framework.CachePolicy
@@ -10,7 +11,7 @@ import org.tellurium.util.Helper
 abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
 
   //custom configuration
-	protected InternationalizationManager i18nManager = new InternationalizationManager()
+	protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
     protected CustomConfig customConfig = null
 
     protected SeleniumConnector connector;
