@@ -17,6 +17,297 @@ The talk was dragged a bit over one hour and finished with couple questions. Fro
 
 As a side note, jQuery was really hot in the conference. We asked couple developers at the conference what was the most interest thing they want to try after the conference. They said jQuery. I attended a jQuery UI session, they have live demos on their web site, which was really impression. Tellurium should do in a similar way to smooth the learning curve.
 
+= Demo Code =
+
+We used the book list example from Grails for our demos. The UI modules are as follows.
+
+== Book Menu ==
+
+{{{
+
+
+import org.tellurium.dsl.DslContext
+
+
+
+/**
+
+ * @author Vivek Mongolu
+
+ */
+
+
+
+public class TelluriumBookMenu  extends DslContext {
+
+
+
+  public void defineUi() {
+
+
+
+    ui.Container(uid: "TopMenu", clocator: [tag: "div", class: "nav"]){
+
+	  UrlLink(uid: "Home", clocator: [tag: "a", text: "Home", href: "/BooksApp", class: "home"])
+
+	  UrlLink(uid: "NewBook", clocator: [tag: "a", text: "New Book", class: "create", href: "/BooksApp/book/create"])
+
+  }
+
+  }
+
+
+
+  //Add your methods here
+
+  public void clickHome(){
+
+    click "TopMenu.Home"
+
+    waitForPageToLoad 30000
+
+  }
+
+
+
+  public void clickNewBook(){
+
+    click "TopMenu.NewBook"
+
+    waitForPageToLoad 30000
+
+  }
+
+
+
+}
+}}}
+
+== Create Book ==
+
+{{{
+
+
+import org.tellurium.dsl.DslContext
+
+
+
+/**
+
+ * @author Vivek Mongolu
+
+ */
+
+
+
+public class TelluriumCreateBookModule  extends DslContext {
+
+
+
+  public void defineUi() {
+
+
+
+    ui.Form(uid: "CreateForm", clocator: [tag: "form", method: "post", action: "/BooksApp/book/save"]){
+
+      Container(uid: "CreateTable", clocator: [tag: "table"]){
+
+          InputBox(uid: "TitleInput", clocator: [tag: "input", type: "text", name: "title", id: "title"])
+
+          InputBox(uid: "Author", clocator: [tag: "input", type: "text", name: "author", id: "author"])
+
+          InputBox(uid: "PagesInput", clocator: [tag: "input", type: "text", name: "pages", id: "pages"])
+
+          Selector(uid: "CategoryInput", clocator: [tag: "select", id: "category", name: "category"])
+
+      }
+
+      SubmitButton(uid: "CreateButton", clocator: [tag: "input", type: "submit", value: "Create", class: "save"])
+
+    }
+
+
+
+    ui.Container(uid: "ShowBook", clocator: [:]){
+
+      Div(uid: "Message", clocator: [tag: "div", class: "message"])
+
+    }
+
+
+
+    ui.Container(uid: "ErrorBook", clocator: [:]){
+
+      Div(uid: "Message", clocator: [tag: "div", class: "errors"])
+
+    }
+
+  }
+
+
+
+  //Add your methods here
+
+  public void createBook(String author, String  pages, String title, String category) {
+
+    keyType "CreateForm.CreateTable.Author", author
+
+    keyType "CreateForm.CreateTable.PagesInput", pages
+
+    keyType "CreateForm.CreateTable.TitleInput", title
+
+    selectByLabel "CreateForm.CreateTable.CategoryInput", category 
+
+    click "CreateForm.CreateButton"
+
+    waitForPageToLoad 30000
+
+  }
+}}}
+
+== Book List ==
+
+{{{
+
+import org.tellurium.dsl.DslContext
+
+
+
+/**
+
+ * @author Vivek Mongolu
+
+ */
+
+
+
+public class TelluriumBookListModule extends DslContext{
+
+
+
+  public void defineUi(){
+
+    ui.Container(uid: "BookList", clocator : [tag : "div", class : "list"]){
+
+        Table(uid : "BookListTable", clocator : [:]){
+
+          UrlLink(uid : "row: *, column: 1", clocator : [:])
+
+          TextBox(uid: "all", clocator: [:])
+
+        }
+
+    }
+
+  }
+
+
+
+  public String[] getAllText(){
+
+    //return getAllTableCellText("BookList.BookListTable")
+
+    return getAllTableCellTextForTbody("BookList.BookListTable");
+
+  }
+
+
+
+   public List<String> getDataForColumn(int column){
+
+        int nrow = getTableMaxRowNum("BookList.BookListTable")
+
+        List<String> list = new ArrayList<String>()
+
+        for(int i=1; i<nrow; i++){
+
+            list.add(getText("BookList.BookListTable[${i}][${column}]"))
+
+        }
+
+
+
+        return list
+
+  }
+
+
+
+  public String getCellText(int row, int column){
+
+    return getText("BookList.BookListTable[${row}][${column}]")
+
+  }
+
+
+
+  public int getRowNum(){
+
+        int nrow = getTableMaxRowNum("BookList.BookListTable")
+
+
+
+        return nrow
+
+  }
+
+
+
+  public boolean compareCellText(String cellText, int row, int column){
+
+    return cellText?.equals(getCellText(row, column));
+
+  }
+
+
+
+
+  public int getRowNumForCellText(String cellText){
+
+    int nrow = getTableMaxRowNum("BookList.BookListTable");
+
+    int ncols = getTableMaxColumnNum("BookList.BookListTable");
+
+    int rowNum = -1;
+
+    String colText;
+
+    for(int i=1; i<=nrow; ++i){
+
+      for(int k=1; k <= ncols ; ++k){
+
+        colText = getCellText(i, k);
+
+        if(cellText?.equals(colText)){
+
+          rowNum = i;
+
+          break;
+
+        }
+
+      }
+
+    }
+
+    return rowNum;
+
+  }
+
+
+
+  public void showBook(int row){
+
+    click "BookList.BookListTable[${row}][1]";
+
+    waitForPageToLoad(30000);
+
+  }
+
+
+}
+}}}
+
 = Resources =
 
   * [http://www.therichwebexperience.com/conference/orlando/2009/12/home The Rich Web Experience 2009]
