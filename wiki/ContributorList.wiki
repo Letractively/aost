@@ -10,7 +10,7 @@ Tellurium Contributors are categorized into development team, support team, evan
 
   * *Jian Fang*: Jian graduated from Georgia Institue of Technology with a Ph.D. degree. He works as a senior software engineer in a company and mainly focuses on architecting, desigining, and implementing enterprise applications. He is both a researcher and a developer. He is the Tellurium project Lead and the principle developer. Tellurium Core, TrUMP 0.1.0, jQuery Selector, Reference Projects, Widget Projects, Tellurium Maven Archetypes, and Engine 0.1.0.
 
-  * *Vivek Mongolu*: TrUMP prototype, Trump 0.1.0, and Trump 0.2.0. Presented Tellurium at CodeStock 2009.
+  * *Vivek Mongolu*: TrUMP prototype, Trump 0.1.0, and Trump 0.2.0. Presented Tellurium at CodeStock 2009. Presented Tellurium at Rich Web Experience 2009.
 
   * *Haroon Rasheed*: Tellurium Reference projects, Selenium Grid support, TestNG Report support, and Tellurium Linkedin Group management.
 
