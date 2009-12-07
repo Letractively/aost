@@ -9,8 +9,15 @@ Vivek and I drove for 10 hours on December 1st to get Orlando, FL from Knoxville
 
 After the BIRDS OF A FEATHER SESSION and dinner, Vivek and I started to prepare for the presentation. We first had some problem with the screen resolution for the projector, but soon we resolved. I brought in a digital camera, but it was a pretty old one still with cassette. I had really a hard time to find a right place to put it since the organizer did not provide any recording service. I put it on a third row chair, but Dylan Schiemann came and sat on the second row, we would record part of his shoulder, thus, I had to move the camera to another chair in a hurry.
 
-We thought there might be only couple people in our session after the long day. Even I felt tired somehow. Surprisingly,  actually there were 15-20 people in our session. Overall, the session was good. Our demos run smoothly.  
+We thought there might be only couple people in our session after the long day. Even I felt tired somehow. Surprisingly,  actually there were 15-20 people in our session. Overall, the session was good. Our demos run smoothly. Dylan Schiemann made a suggestion to change the jQuery selector in our slides to CSS selector. He is right, we should use CSS selector because jQuery implements the CSS selectors. 
 
+On interesting usage of Tellurium is to package reusable modules as a jar file and then use the module just like a regular Tellurium UI object. We put a Dojo container widget, but which was real not a good example. We had a Dojo Date Picker example, but the web site we used for testing was gone, we didn't show it. Otherwise, the Dojo Date Picker example should be more convincing. 
 
+The talk was dragged a bit over one hour and finished with couple questions. From what I saw, people were interested even our demos might not really impress them so deeply. We talked to an architect from State Farm after the session, they were also frustrated with Selenium and came out with some similar ideas like page objects and flow objects to abstract the web UI. They were couple other sessions on testing such as "Testing the Web Layer" and "Advanced Selenium", which mainly focus on Selenium. Unfortunately, we did not have time to attend the sessions. We believe Tellurium is the right way to do web testing if you want to create robust and maintainable test cases.
 
-= Details =
+As a side note, jQuery was really hot in the conference. We asked couple developers at the conference what was the most interest thing they want to try after the conference. They said jQuery. I attended a jQuery UI session, they have live demos on their web site, which was really impression. Tellurium should do in a similar way to smooth the learning curve.
+
+= Resources =
+
+  * [http://www.therichwebexperience.com/conference/orlando/2009/12/home The Rich Web Experience 2009]
+  * [http://aost.googlecode.com/files/TelluriumPresentation.pdf Tellurium slides at Rich Web Experience 2009]
