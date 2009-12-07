@@ -1,0 +1,10 @@
+#summary Tellurium at Rich Web Experience 2009.
+#labels Phase-Support
+
+= Introduction =
+
+[http://www.therichwebexperience.com/conference/orlando/2009/12/home The Rich Web Experience 2009] was held on December 1-4 in Orlando, FL. Luckily, we got in as [http://www.therichwebexperience.com/conference/orlando/2009/12/schedule a rapid fire session] from 7:45PM-8:30PM on December 2nd. Even though Tellurium was covered by [http://www.springone2gx.com/conference/new_orleans/2009/10/speakers/paul_king Paul King], co-author of "Groovy in Action", at [http://www.slideshare.net/paulk_asert/groovy-testing-aug2009-1945995 Agile 2009], it was the first public presentation by our Tellurium team. We were very excited by it. 
+
+Vivek and I drove for 10 hours on December 1st to get Orlando, FL from Knoxville, TN and was very exhausted that night. On the second day, we went to the reception desk to 
+
+= Details =
