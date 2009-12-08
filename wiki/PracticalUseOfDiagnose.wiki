@@ -1,5 +1,6 @@
 #summary Practical use of Diagnose in Tellurium.
 #labels Phase-Support
+<wiki:toc max_depth="5" />
 
 = Introduction =
 
@@ -20,7 +21,8 @@ In this article, I am going to show you a practical experience that I use diagno
 
 I have a simple UI module defined for the Google search page as follows,
 
-{{{package org.tellurium.module
+{{{
+package org.tellurium.module
 
 import org.tellurium.dsl.DslContext
 
@@ -161,3 +163,62 @@ What I should do then? I simply put a diagnose command to the test case as follo
         assertEquals("Google", alt);
     }
 }}}
+
+Then, I got the following output:
+
+{{{
+Diagnosis Result for Logo
+
+-------------------------------------------------------
+
+	Matching count: 0 
+
+
+	Parents: 
+
+	--- Parent 1 ---
+
+SKIPPED
+
+
+	Closest: 
+
+
+	Closest: 
+
+	--- closest element 1 ---
+
+<img src="/logos/ecsegar09.gif" alt="E.C. Segar's Birthday" title="E.C. Segar's Birthday" id="logo" onload="window.lol&amp;&amp;lol()" border="0" height="145" width="264">
+
+HTML Source: 
+
+SKIPPED
+
+-------------------------------------------------------
+}}}
+
+Yes, indeed, the "Logo" element could not be found, but the diagnose nicely returned the closest element. See, the logo has been changed. We need to update the UI module accordingly.
+
+= Fix the Problem =
+
+To fix the problem in the UI module, I could define the UI module more robust as follows,
+
+{{{
+ui.Image(uid: "Logo", clocator: [tag: "img", src: "*.gif"])
+}}}
+
+where `*` is a [http://code.google.com/p/aost/wiki/UserGuide070AppendixB#How_to_do_Attribute_Partial_Matching_in_Tellurium partial matching symbol].
+
+Then, update the test case as
+
+{{{
+    @Test
+    public void testLogo(){
+//        gsm.diagnose("Logo");
+        String alt = gsm.getLogoAlt();
+        assertNotNull(alt);
+        assertEquals("E.C. Segar's Birthday", alt);
+    }
+}}} 
+
+Cool, all test cases passed this time.
