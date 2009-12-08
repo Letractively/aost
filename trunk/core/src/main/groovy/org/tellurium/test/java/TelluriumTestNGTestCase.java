@@ -3,6 +3,7 @@ package org.tellurium.test.java;
 import org.tellurium.bootstrap.TelluriumSupport;
 import org.tellurium.connector.SeleniumConnector;
 import org.tellurium.framework.TelluriumFramework;
+import org.tellurium.i18n.InternationalizationManagerImpl;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterTest;

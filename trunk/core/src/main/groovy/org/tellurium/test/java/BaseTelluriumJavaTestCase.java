@@ -21,7 +21,8 @@ import java.util.Map;
 public abstract class BaseTelluriumJavaTestCase {
     //custom configuration
     protected static CustomConfig customConfig = null;
-	protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
+//	protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
+//    protected static InternationalizationManager i18nManager = null;
 
     protected static SeleniumConnector connector;
 
@@ -34,7 +35,7 @@ public abstract class BaseTelluriumJavaTestCase {
     
     public InternationalizationManager geti18nManager()
 	{
-		return this.i18nManager;
+		return tellurium.getI18nManager(); 
 	}
 
 /*    protected static void configBrowser(String serverHost, int serverPort, String baseUrl, String browser, String browserOptions){
