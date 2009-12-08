@@ -4,18 +4,18 @@
 
 = Introduction =
 
-One of the most frequently asked questions in [http://groups.google.com/group/tellurium-users Tellurium user group] is that a user cannot locate an element defined in the UI module he/she defined. Of course, you could use Tellurium Firefox Plugin Trump to create a new UI module, or use DOM inspector to see what happened in the DOM. There are easier ways for this. For example, Tellurium provides a Powerful Utility: [http://code.google.com/p/aost/wiki/TelluriumPowerUtilityDiagnose Diagnose] for this purpose. The method signature of the diagnose method is straightforward.
+One of the most frequently asked questions in [http://groups.google.com/group/tellurium-users Tellurium user group] is that an element defined in a UI module cannot be located. Of course, you could use [http://code.google.com/p/aost/wiki/TrUMP Tellurium Firefox Plugin Trump] to create a new UI module, or use DOM inspector to see what happened in the DOM. There are easier ways for this. For example, Tellurium provides a powerful utility: [http://code.google.com/p/aost/wiki/TelluriumPowerUtilityDiagnose diagnose] for this purpose. The method signature of diagnose is straightforward.
 
 {{{
 public void diagnose(String uid);
 }}} 
 
-You only need to pass in the uid of the element that you cannot locate and the method will return either:
+You only need to pass in the uid of the element that you cannot locate and the method will return two possible result sets:
 
-  * Multiple matched elements, in which case, you need to narrow down your locator
+  * Multiple matched elements, in which case, you need to add more attributes and narrow down your locator. 
   * Closest matched elements if no element could be found. Based on the closest matched elements, you can correct your UI module accordingly.
 
-In this article, I am going to show you a practical experience that I use diagnose to fix one of my UI element.
+In this article, I am going to show you a practical experience that I used diagnose to fix one UI module.
 
 = Problem =
 
@@ -27,7 +27,6 @@ package org.tellurium.module
 import org.tellurium.dsl.DslContext
 
 public class GoogleSearchModule extends DslContext {
-
   public void defineUi() {
 
     ui.Image(uid: "Logo", clocator: [tag: "img", src: "*/intl/en_ALL/images/logo.gif"])
@@ -141,7 +140,7 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
 }
 }}}
 
-When I run the tests, all passed except the testLogo test case and I got the following error:
+When I run the tests, all passed except the {{{testLogo}}} test case and I got the following error:
 
 {{{
 Screenshot for exception <<ERROR: Element //descendant-or-self::img[contains(@src,"/intl/en_ALL/images/logo.gif")] not found>> is saved to file Screenshot1260307871472.png
@@ -152,19 +151,19 @@ com.thoughtworks.selenium.SeleniumException: ERROR: Element //descendant-or-self
 
 = Diagnose =
 
-What I should do then? I simply put a diagnose command to the test case as follows,
+What I should do then? I simply put a diagnose command to the {{{testLogo}}} test case as follows,
 
 {{{
     @Test
     public void testLogo(){
-        gsm.diagnose("Logo");     //Diagnose the problem
+        gsm.diagnose("Logo");     //diagnose the problem
         String alt = gsm.getLogoAlt();
         assertNotNull(alt);
         assertEquals("Google", alt);
     }
 }}}
 
-Then, I got the following output:
+Run the test case again and I got the following output:
 
 {{{
 Diagnosis Result for Logo
@@ -197,11 +196,11 @@ SKIPPED
 -------------------------------------------------------
 }}}
 
-Yes, indeed, the "Logo" element could not be found, but the diagnose nicely returned the closest element. See, the logo has been changed. We need to update the UI module accordingly.
+Yes, indeed, the "Logo" element could not be found, but the diagnose method nicely returned the closest element. See, the logo has been changed. We need to update the UI module accordingly.
 
 = Fix the Problem =
 
-To fix the problem in the UI module, I could define the UI module more robust as follows,
+To fix the problem in the UI module, I defined the UI module in a more robust way as follows,
 
 {{{
 ui.Image(uid: "Logo", clocator: [tag: "img", src: "*.gif"])
@@ -209,7 +208,7 @@ ui.Image(uid: "Logo", clocator: [tag: "img", src: "*.gif"])
 
 where `*` is a [http://code.google.com/p/aost/wiki/UserGuide070AppendixB#How_to_do_Attribute_Partial_Matching_in_Tellurium partial matching symbol].
 
-Then, update the test case as
+Then, updated the test case as
 
 {{{
     @Test
@@ -222,3 +221,14 @@ Then, update the test case as
 }}} 
 
 Cool, all test cases passed this time.
+
+= Summary =
+
+The diagnose utility is really powerful to find runtime problem of your UI module. Please update the Tellurium core artifact to 0.7.0-SNAPSHOT to use this functionality. 
+
+= Resources =
+
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group] 
+  * [http://code.google.com/p/aost/wiki/TelluriumPowerUtilityDiagnose Tellurium Powerful Utility: Diagnose]
+  * [http://aost.googlecode.com/files/TelluriumUserGuide.0.6.0.pdf Tellurium User Guide 0.6.0]
+  * [http://code.google.com/p/aost/wiki/TrUMP Tellurium UI Model Firefox Plugin (TrUMP)] 
