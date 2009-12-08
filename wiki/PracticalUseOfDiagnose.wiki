@@ -1,0 +1,26 @@
+#summary Practical use of Diagnose in Tellurium.
+#labels Phase-Support
+
+= Introduction =
+
+One of the most frequently asked questions in [http://groups.google.com/group/tellurium-users Tellurium user group] is that a user cannot locate an element defined in the UI module he/she defined. Of course, you could use Tellurium Firefox Plugin Trump to create a new UI module, or use DOM inspector to see what happened in the DOM. There are easier ways for this. For example, Tellurium provides a Powerful Utility: [http://code.google.com/p/aost/wiki/TelluriumPowerUtilityDiagnose Diagnose] for this purpose. The method signature of the diagnose method is straightforward.
+
+{{{
+public void diagnose(String uid);
+}}} 
+
+You only need to pass in the uid of the element that you cannot locate and the method will return either:
+
+  * Multiple matched elements, in which case, you need to narrow down your locator
+  * Closest matched elements if no element could be found. Based on the closest matched elements, you can correct your UI module accordingly.
+
+In this article, I am going to show you a practical experience that I use diagnose to fix one of my UI element.
+
+= 
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
