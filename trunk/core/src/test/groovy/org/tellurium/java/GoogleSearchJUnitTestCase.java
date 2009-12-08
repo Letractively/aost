@@ -1,6 +1,6 @@
 package org.tellurium.java;
 
-import org.tellurium.test.java.TelluriumJavaTestCase;
+import org.tellurium.test.java.TelluriumJUnitTestCase;
 import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +18,7 @@ import org.tellurium.framework.CachePolicy;
  *
  */
 
-public class GoogleSearchTestCase extends TelluriumJavaTestCase {
+public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
     private static GoogleSearchModule gsm;
     private static String te_ns = "http://tellurium.org/ns";
 
