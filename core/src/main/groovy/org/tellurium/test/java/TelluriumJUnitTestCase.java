@@ -5,6 +5,7 @@ import org.junit.BeforeClass;
 import org.tellurium.bootstrap.TelluriumSupport;
 import org.tellurium.connector.SeleniumConnector;
 import org.tellurium.framework.TelluriumFramework;
+import org.tellurium.i18n.InternationalizationManagerImpl;
 
 /**
  * Java TestCase with @BeforeClass and @AfterClass defined

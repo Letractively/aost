@@ -52,6 +52,8 @@ class TelluriumFramework {
 
   private GlobalDslContext global;
 
+  private InternationalizationManager i18nManager;
+
   TelluriumFramework() {
 
     env = Environment.instance;
@@ -121,6 +123,7 @@ class TelluriumFramework {
 
     //global methods
     this.global = new GlobalDslContext();
+    this.i18nManager = new InternationalizationManagerImpl();
   }
 
   public void disableEmbeddedSeleniumServer() {
@@ -329,4 +332,7 @@ class TelluriumFramework {
     Helper.pause(milliseconds);
   }
 
+  public InternationalizationManager getI18nManager(){
+    return this.i18nManager;
+  }
 }
