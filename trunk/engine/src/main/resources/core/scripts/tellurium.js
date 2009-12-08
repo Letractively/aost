@@ -349,7 +349,8 @@ Tellurium.prototype.getUiElementFromCache = function(uid){
             return elem;
         }
     }else{
-        throw SeleniumError("Cannot find Ui Element " + uid);
+//        throw SeleniumError("Cannot find Ui Element " + uid);
+        return null;
     }
 };
 
@@ -452,15 +453,18 @@ Tellurium.prototype.processCommandBundle = function(){
                     } else {
 //                        element = this.cbCache.get(cmd.uid);
                         element = this.getUiElementFromCache(cmd.uid);
-/*
+
                         if (element == null) {
                             element = this.locate(locator);
                             if (element != null) {
+                                //TODO: need to check if the element is cachable??
                                 this.cbCache.put(cmd.uid, element);
-                            }
+                            }else{
 
+                                throw SeleniumError("Cannot locate element for uid " + cmd.uid + " in Command " + cmd.name + ".");
+                            }
                         }
-                        */
+
                     }
                 }
             }
