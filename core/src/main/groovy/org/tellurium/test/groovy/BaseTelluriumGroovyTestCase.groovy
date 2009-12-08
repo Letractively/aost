@@ -11,17 +11,17 @@ import org.tellurium.util.Helper
 abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
 
   //custom configuration
-	protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
-    protected CustomConfig customConfig = null
+//	protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
+    protected CustomConfig customConfig = null;
 
-    protected SeleniumConnector connector;
-    protected TelluriumFramework tellurium
+    protected SeleniumConnector conn;
+    protected TelluriumFramework tellurium;
 
-    public abstract SeleniumConnector getConnector()
+    public abstract SeleniumConnector getConnector();
 
 	public geti18nManager()
 	{
-		return this.i18nManager;
+		return tellurium.getI18nManager();
 	}
     public void openUrl(String url){
         getConnector().connectSeleniumServer()

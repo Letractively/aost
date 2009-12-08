@@ -4,7 +4,7 @@ import org.tellurium.connector.SeleniumConnector
 
 /**
  * This test case is supposed to be one part of a test suite and there are dependency between test cases.
- * They will share a same connector
+ * They will share a same conn
  *
  * User: Jian Fang (John.Jian.Fang@gmail.com)
  */
@@ -13,14 +13,14 @@ abstract class TelluriumSuiteGroovyTestCase extends BaseTelluriumGroovyTestCase 
 //
 //     protected void setUp() {
 //
-//       //Since SeleniumConnector becomes a Singleton class, should get back a shared connector here
-//       connector = new SeleniumConnector()
+//       //Since SeleniumConnector becomes a Singleton class, should get back a shared conn here
+//       conn = new SeleniumConnector()
 //
 //       //extra initalization here
 //       initalization()
 //     }
 
-//    protected static SeleniumConnector connector  = new SeleniumConnector()
+//    protected static SeleniumConnector conn  = new SeleniumConnector()
 
 //    protected static void initalization(){
 //    }
@@ -28,16 +28,16 @@ abstract class TelluriumSuiteGroovyTestCase extends BaseTelluriumGroovyTestCase 
 /*
  //   @BeforeClass
     protected static void setUpForClass(){
-        connector = new SeleniumConnector()
+        conn = new SeleniumConnector()
         initalization()
     }
 */
-    protected SeleniumConnector connector;
+//    protected SeleniumConnector conn;
 
     public SeleniumConnector getConnector(){
-        if(connector == null)
+        if(conn == null)
             return new SeleniumConnector()
         else
-            return connector
+            return conn
     }
 }

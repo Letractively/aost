@@ -12,7 +12,7 @@ class DslScriptEngine extends DdDslContext{
     protected def init(){
         af = TelluriumSupport.addSupport()
         af.start()
-        aost.connector = af.connector
+        aost.conn = af.connector
    }
 
     protected def openUrl(String url){

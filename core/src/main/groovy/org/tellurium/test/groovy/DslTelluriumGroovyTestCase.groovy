@@ -9,13 +9,13 @@ import org.tellurium.connector.SeleniumConnector
  */
 class DslTelluriumGroovyTestCase extends BaseTelluriumGroovyTestCase{
     
-    protected SeleniumConnector connector
+//    protected SeleniumConnector conn
 
     public SeleniumConnector getConnector() {
-        if(connector == null)
+        if(conn == null)
             return new SeleniumConnector()
         else
-            return connector
+            return conn
     }
 
 
