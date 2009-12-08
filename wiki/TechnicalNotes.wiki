@@ -28,3 +28,4 @@
   * [http://code.google.com/p/aost/wiki/BetterReportingWithReportNG Better Reporting with ReportNG]
   * [http://code.google.com/p/aost/wiki/HowTelluriumDDTImplemented How is Tellurium Data Driven Test Implemented]
   * [http://code.google.com/p/aost/wiki/TelluriumAtRichWebExperience2009 Tellurium at Rich Web Experience 2009]
+  * [http://code.google.com/p/aost/wiki/PracticalUseOfDiagnose Practical use of Diagnose in Tellurium]
