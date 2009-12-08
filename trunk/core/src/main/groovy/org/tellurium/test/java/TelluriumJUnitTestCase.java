@@ -13,7 +13,7 @@ import org.tellurium.framework.TelluriumFramework;
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
-public abstract class TelluriumJavaTestCase extends BaseTelluriumJavaTestCase {
+public abstract class TelluriumJUnitTestCase extends BaseTelluriumJavaTestCase {
 
     @BeforeClass
     public static void setUpForClass() {
