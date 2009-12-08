@@ -14,10 +14,10 @@ import org.tellurium.test.groovy.BaseTelluriumGroovyTestCase
 abstract class TelluriumGroovyTestCase extends BaseTelluriumGroovyTestCase{
 
 //    protected EmbeddedSeleniumServer server;
-	 protected SeleniumConnector connector;
+//	 protected SeleniumConnector conn;
 
     public SeleniumConnector getConnector() {
-        return connector;
+        return conn;
     }
 
     public void initUi(){
@@ -28,7 +28,7 @@ abstract class TelluriumGroovyTestCase extends BaseTelluriumGroovyTestCase{
     protected void setUpForClass() {
         tellurium = TelluriumSupport.addSupport()
         tellurium.start(customConfig)
-        connector = tellurium.connector
+        conn = tellurium.connector
         initUi()
     }
 

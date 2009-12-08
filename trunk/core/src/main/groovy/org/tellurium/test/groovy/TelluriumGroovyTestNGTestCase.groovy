@@ -20,15 +20,16 @@ import org.testng.annotations.BeforeClass
  */
 
 abstract public class TelluriumGroovyTestNGTestCase {
+
   //custom configuration
   protected CustomConfig customConfig = null
-  protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
+//  protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
 
-  protected SeleniumConnector connector;
-  protected TelluriumFramework aost
+  protected SeleniumConnector conn;
+  protected TelluriumFramework tellurium
 
   public SeleniumConnector getConnector() {
-    return connector;
+    return conn;
   }
 
   abstract public void initUi()
@@ -39,7 +40,7 @@ abstract public class TelluriumGroovyTestNGTestCase {
   }
   public geti18nManager()
   {
-	return this.i18nManager;
+	return tellurium.getI18nManager();
   }
   public void connectUrl(String url) {
     getConnector().connectUrl(url)
@@ -65,15 +66,15 @@ abstract public class TelluriumGroovyTestNGTestCase {
 
   @BeforeClass
   protected void setUpForClass() {
-    aost = TelluriumSupport.addSupport()
-    aost.start(customConfig)
-    connector = aost.connector
+    tellurium = TelluriumSupport.addSupport()
+    tellurium.start(customConfig)
+    conn = tellurium.connector
     initUi()
   }
     
   @AfterClass
   protected void tearDownForClass() {
-    if (aost != null)
-      aost.stop()
+    if (tellurium != null)
+      tellurium.stop()
   }
 }

@@ -33,7 +33,7 @@ public final class SampleTelluriumGroovyTestSuite extends TestSuite
 
 //    protected static EmbeddedSeleniumServer server;
 //
-//    protected static SeleniumConnector connector = new SeleniumConnector();
+//    protected static SeleniumConnector conn = new SeleniumConnector();
 
     //need to override this method to put test cases to the test suite gsuite
     //but unfortunately static method cannot be overridden.   You have to duplicate
