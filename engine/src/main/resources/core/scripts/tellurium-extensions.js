@@ -291,7 +291,7 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
         if($parents != null && $parents.length > 0){
             if(request.attributes != null){
 
-                var builder = new jQueryBuilder();
+                var builder = new JQueryBuilder();
 
                 var keys = new Array();
                 for(var key in request.attributes){

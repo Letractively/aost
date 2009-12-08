@@ -426,6 +426,119 @@ JQueryBuilder.prototype.convTrailer = function(trailer) {
     return "";
 };
 
+JQueryBuilder.prototype.isPartial = function(val){
+
+    return val != null && (val.startsWith(this.START_PREFIX) || val.startsWith(this.END_PREFIX)
+            || val.startsWith(this.ANY_PREFIX) || val.startsWith(this.NOT_PREFIX)
+            || val.startsWith(this.CONTAIN_PREFIX));
+};
+
+JQueryBuilder.prototype.buildId = function(id){
+    if(id.startsWith("^")){
+        return "[id^=" + id.substring(1) + "]";
+    }else if(id.startsWith("$")){
+        return "[id$=" + id.substring(1) + "]";
+    }else if(id.startsWith("*")){
+        return "[id*=" + id.substring(1) + "]";
+    }else if(id.startsWith("!")){
+        return "[id!=" + id.substring(1) + "]";
+    }else{
+        return "#" + id;
+    }
+};
+
+JQueryBuilder.prototype.buildSingleClass = function(clazz){
+    if(clazz.startsWith("^")){
+        return "[class^=" + clazz.substring(1) + "]";
+    }else if(clazz.startsWith("$")){
+        return "[class$=" + clazz.substring(1) + "]";
+    }else if(clazz.startsWith("*")){
+        return "[class*=" + clazz.substring(1) + "]";
+    }else if(clazz.startsWith("!")){
+        return "[class!=" + clazz.substring(1) + "]";
+    }else{
+        return "." + clazz;
+    }
+};
+
+JQueryBuilder.prototype.buildClass = function(clazz){
+    if (clazz != null && trimString(clazz).length > 0) {
+        var parts = clazz.split(this.SPACE);
+        if (parts.length == 1) {
+            //only only 1 class
+
+            return this.buildSingleClass(parts[0]);
+        } else {
+
+            var sb = new StringBuffer();
+            for (var part in parts) {
+                sb.append(this.buildSingleClass(part));
+            }
+
+            return sb.toString();
+        }
+    }
+
+    return "[class]";
+};
+
+JQueryBuilder.prototype.buildText = function(text){
+    if (text != null && trimString(text).length > 0) {
+        if (text.startsWith(this.CONTAIN_PREFIX)) {
+            return this.containText(text.substring(2));
+        } else if (text.startsWith(this.START_PREFIX) || text.startsWith(this.END_PREFIX) || text.startsWith(this.ANY_PREFIX)) {
+            //TODO: need to refact this to use start, end, any partial match
+            return this.containText(text.substring(1));
+        } else if (text.startsWith(this.NOT_PREFIX)) {
+            return ":not(" + this.containText(text.substring(1)) + ")";
+        } else {
+            return this.attrText(text);
+        }
+    }
+
+    return "";
+};
+
+JQueryBuilder.prototype.buildAttribute = function(attr, val) {
+    if (val == null || trimString(val).length == 0) {
+        return "[" + attr + "]";
+    }
+
+    if (val.startsWith(this.START_PREFIX)) {
+        return "[" + attr + "^=" + val.substring(1) + "]";
+    } else if (val.startsWith(this.END_PREFIX)) {
+        return "[" + attr + "$=" + val.substring(1) + "]";
+    } else if (val.startsWith(this.ANY_PREFIX)) {
+        return "[" + attr + "*=" + val.substring(1) + "]";
+    } else if (val.startsWith(this.NOT_PREFIX)) {
+        return "[" + attr + "!=" + val.substring(1) + "]";
+    } else {
+        return "[" + attr + "=" + val + "]";
+    }
+};
+
+JQueryBuilder.prototype.buildStyle = function(style){
+    if(style == null || trimString(style).length == 0){
+      return "[style]";
+    }
+
+    return ":styles(" + style + ")";
+};
+
+JQueryBuilder.prototype.buildSelector = function(attr, val){
+    if(attr == "id"){
+        return this.buildId(val);
+    }else if(attr == "text"){
+        return this.buildText(val);
+    }else if(attr == "class"){
+        return this.buildClass(val);
+    }else if(attr == "style"){
+        return this.buildStyle(val);
+    }else{
+        return this.buildAttribute(attr, val);
+    }
+};
+
 /*
 
 function jQueryBuilder(){
