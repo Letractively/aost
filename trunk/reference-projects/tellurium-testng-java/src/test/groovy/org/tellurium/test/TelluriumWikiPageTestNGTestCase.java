@@ -33,7 +33,7 @@ public class TelluriumWikiPageTestNGTestCase extends TelluriumTestNGTestCase{
     }
 
     @BeforeMethod
-    public void setUpForTest(){
+    public void setUpForMethod(){
         connectUrl("http://code.google.com/p/aost/w/list");
     }
 

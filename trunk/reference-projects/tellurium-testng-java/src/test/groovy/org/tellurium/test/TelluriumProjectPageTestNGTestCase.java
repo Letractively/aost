@@ -25,7 +25,7 @@ public class TelluriumProjectPageTestNGTestCase extends TelluriumTestNGTestCase{
     }
 
     @BeforeMethod
-    public void setUpForTest(){
+    public void setUpForMethod(){
        connectUrl("http://code.google.com/p/aost/");
     }
 

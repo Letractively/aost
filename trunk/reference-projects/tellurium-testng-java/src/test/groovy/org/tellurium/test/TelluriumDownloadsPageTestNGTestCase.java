@@ -32,7 +32,7 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
     }
 
     @BeforeMethod
-    public void setUpForTest(){
+    public void setUpForMethod(){
         connectUrl("http://code.google.com/p/aost/downloads/list");
     }
 
