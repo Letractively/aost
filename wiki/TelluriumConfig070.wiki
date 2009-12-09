@@ -90,7 +90,7 @@ tellurium{
     test{
         execution{
             //whether to trace the execution timing
-            trace = true
+            trace = false
         }      
         //at current stage, the result report is only for tellurium data driven testing
         //we may add the result report for regular tellurium test case
