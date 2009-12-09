@@ -431,6 +431,11 @@
                     </exclusion>
                 </exclusions>
             </dependency-->
+        <!--dependency>
+            <groupId>org.sonatype.gossip</groupId>
+            <artifactId>gossip</artifactId>
+            <version>1.2</version>
+        </dependency-->
         <dependency>
             <groupId>org.openqa.selenium.server</groupId>
             <artifactId>selenium-server</artifactId>
@@ -443,12 +448,12 @@
         <repository>
             <id>kungfuters-public-releases-repo</id>
             <name>Kungfuters.org Public Releases Repository</name>
-            <url>http://kungfuters.org/nexus/content/repositories/releases</url>
+            <url>http://maven.kungfuters.org/content/repositories/releases</url>
         </repository>
         <snapshotRepository>
             <id>kungfuters-public-snapshots-repo</id>
             <name>Kungfuters.org Public Snapshot Repository</name>
-            <url>http://kungfuters.org/nexus/content/repositories/snapshots</url>
+            <url>http://maven.kungfuters.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <site>
             <id>kungfuters-public-site</id>
