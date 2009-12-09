@@ -5,6 +5,7 @@ import org.tellurium.dsl.UiID
 import org.tellurium.locator.LocatorProcessor
 import org.tellurium.access.Accessor
 import java.lang.RuntimeException
+import org.json.simple.JSONObject
 
 /**
  * Module for a menu that can be selected. Prototype for the Tellurium Issues page dot menu
@@ -116,4 +117,10 @@ class SelectMenu extends UiObject{
         return this
     }
 
+    public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "SelectMenu")
+      }
+    }
 }
