@@ -1,7 +1,5 @@
 package org.tellurium.test
 
-import org.tellurium.test.StandardTable1
-
 public class StandardTable_UT extends GroovyTestCase {
 
   void testTable1(){
@@ -47,10 +45,10 @@ public class StandardTable_UT extends GroovyTestCase {
      table.dump("table1")
      table.dump("table2")
      table.useJQuerySelector();
-     table.exploreSelectorCache = false
+     table.setUseCacheFlag(false);
      table.dump("table1")
      table.dump("table2")
-     table.exploreSelectorCache = true
+     table.setUseCacheFlag(true);
      table.dump("table1")
      table.dump("table2")
    }

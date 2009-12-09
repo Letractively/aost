@@ -44,6 +44,10 @@ public class GlobalDslContext {
     Environment.instance.useJQuerySelector(false);
   }
 
+  public void setUseCacheFlag(boolean isUse){
+    Environment.instance.useCache(isUse);
+  }
+
   public void enableSelectorCache() {
     Environment.instance.useCache(true);
 //      this.exploreSelectorCache = true
