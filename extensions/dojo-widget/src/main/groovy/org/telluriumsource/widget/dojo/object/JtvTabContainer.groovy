@@ -1,6 +1,8 @@
 package org.telluriumsource.widget.dojo.object
 
 import org.telluriumsource.widget.dojo.DojoWidget
+import org.telluriumsource.dsl.WorkflowContext
+import org.json.simple.JSONObject
 
 /**
  * 
@@ -70,4 +72,10 @@ class JtvTabContainer extends DojoWidget{
     public boolean isSelectedTab(String tabName, String className){
       isSelectedTab "TabContainer.dijitTab", tabName, className
     }
+
+  public JSONObject toJSON() {
+    return buildJSON() {jso ->
+     jso.put(UI_TYPE, NAMESPACE + "_" + "JtvTabContainer")
+   }
+  }
 }
