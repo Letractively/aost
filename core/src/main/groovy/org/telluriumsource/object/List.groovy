@@ -17,7 +17,7 @@ import org.telluriumsource.locator.JQueryBuilder
  */
 class List extends Container {
 
-    public static final String ALL_MATCH = "ALL";
+  public static final String ALL_MATCH = "ALL";
 
     public static final String SEPARATOR = "separator"
     //the separator for the list, it is empty by default
@@ -207,7 +207,7 @@ class List extends Container {
       }
     }
 
-    int getListSizeByJQuerySelector(Closure c){
+    int getListSizeByCssSelector(Closure c){
       java.util.List separators = new ArrayList()
       if(separator != null  && this.separator.trim().size() > 0){
         separators.add(this.separator)

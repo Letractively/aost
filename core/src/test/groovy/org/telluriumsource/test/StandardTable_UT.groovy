@@ -44,7 +44,7 @@ public class StandardTable_UT extends GroovyTestCase {
      
      table.dump("table1")
      table.dump("table2")
-     table.useJQuerySelector();
+     table.useCssSelector();
      table.setUseCacheFlag(false);
      table.dump("table1")
      table.dump("table2")

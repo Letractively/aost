@@ -54,8 +54,8 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
         customConfig = new CustomConfig(runInternally, port, browser, useMultiWindows, profileLocation, serverHost, browserOptions)
     }
 
-    public void useJQuerySelector(boolean isUse){
-      tellurium.useJQuerySelector(isUse);
+    public void useCssSelector(boolean isUse){
+      tellurium.useCssSelector(isUse);
     }
 
     public void useCache(boolean isUse){

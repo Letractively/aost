@@ -89,8 +89,8 @@ public abstract class BaseTelluriumJavaTestCase {
     }
 
 
-    public static void useJQuerySelector(boolean isUse){
-      tellurium.useJQuerySelector(isUse);
+    public static void useCssSelector(boolean isUse){
+      tellurium.useCssSelector(isUse);
     }
 
     public static void useCache(boolean isUse){

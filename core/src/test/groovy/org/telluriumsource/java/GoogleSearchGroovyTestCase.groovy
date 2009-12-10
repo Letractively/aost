@@ -20,7 +20,7 @@ public class GoogleSearchGroovyTestCase extends TelluriumGroovyTestCase {
         gsm = new GoogleSearchModule();
         gsm.defineUi();
         connectSeleniumServer();
-        useJQuerySelector(true);
+        useCssSelector(true);
         useTelluriumApi(true);
         useTrace(true);
 //        useCache(true);
@@ -45,10 +45,10 @@ public class GoogleSearchGroovyTestCase extends TelluriumGroovyTestCase {
 
     public void testIsDisabled(){
         connectUrl("http://www.google.com");
-        useJQuerySelector(true);
+        useCssSelector(true);
         boolean result = gsm.isInputDisabled();
         assertFalse(result);
-        useJQuerySelector(false);
+        useCssSelector(false);
         result = gsm.isInputDisabled();
         assertFalse(result);
     }
@@ -56,11 +56,11 @@ public class GoogleSearchGroovyTestCase extends TelluriumGroovyTestCase {
     public void testUseSelectorCache(){
         connectUrl("http://www.google.com");
         useCache(true);
-        boolean result = gsm.getSelectorCacheState();
+        boolean result = gsm.getCacheState();
         assertTrue(result);
 
         useCache(false);
-        result = gsm.getSelectorCacheState();
+        result = gsm.getCacheState();
         assertFalse(result);
     }
 
@@ -85,7 +85,7 @@ public class GoogleSearchGroovyTestCase extends TelluriumGroovyTestCase {
 
     public void testCachePolicy(){
         connectUrl("http://www.google.com");
-        useJQuerySelector(true);
+        useCssSelector(true);
         useCache(true);
         String policy = getCurrentCachePolicy();
         assertEquals("DiscardOldPolicy", policy);

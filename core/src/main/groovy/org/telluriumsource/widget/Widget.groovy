@@ -34,6 +34,7 @@ import org.telluriumsource.i18n.InternationalizationManagerImpl;
  */
 //@Mixin(BaseDslContext)
 abstract class Widget extends UiObject {
+
   protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
 
   protected static final String JQUERY_SELECTOR = "jquery="
@@ -98,8 +99,8 @@ abstract class Widget extends UiObject {
     //add parent reference xpath
     if (pRef != null)
       lcr = pRef + lcr
-    if(context.isUseJQuerySelector()){
-//    if (this.exploreJQuerySelector) {
+    if(context.isUseCssSelector()){
+//    if (this.exploreCssSelector) {
       lcr = optimizer.optimize(JQUERY_SELECTOR + lcr.trim())
     } else {
       //make sure the xpath starts with "//"
@@ -185,16 +186,16 @@ abstract class Widget extends UiObject {
 
   public void enableSelectorCache(){
       this.exploreSelectorCache = true
-      extension.enableSelectorCache()
+      extension.enableCache()
   }
 
   public boolean disableSelectorCache(){
       this.exploreSelectorCache = false
-      extension.disableSelectorCache()
+      extension.disableCache()
   }
 
   public boolean cleanSelectorCache(){
-      extension.cleanSelectorCache()
+      extension.cleanCache()
   }
 
   public boolean getSelectorCacheState(){
@@ -798,17 +799,17 @@ abstract class Widget extends UiObject {
     return accessor.getXpathCount(xpath)
   }
 
-  Number getJQuerySelectorCount(String jQuerySelector){
+  Number getCssSelectorCount(String jQuerySelector){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, false)
     //do not cache any selectors for counting
     context.updateCacheableForMetaCmd(false);
     String jq = postProcessSelector(context, jQuerySelector.trim())
-    return extension.getJQuerySelectorCount(jq)
+    return extension.getCssSelectorCount(jq)
   }
 
   Number getLocatorCount(String locator){
     if(this.exploreJQuerySelector)
-      return getJQuerySelectorCount(locator)
+      return getCssSelectorCount(locator)
 
     return getXpathCount(locator)
   }
@@ -972,7 +973,7 @@ abstract class Widget extends UiObject {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
-      return extension.getJQuerySelectorCount(locator)
+      return extension.getCssSelectorCount(locator)
     }
   }
 
@@ -987,7 +988,7 @@ abstract class Widget extends UiObject {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
-      return extension.getJQuerySelectorCount(locator)
+      return extension.getCssSelectorCount(locator)
     }
   }
 
@@ -1002,7 +1003,7 @@ abstract class Widget extends UiObject {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
-      return extension.getJQuerySelectorCount(locator)
+      return extension.getCssSelectorCount(locator)
     }
   }
 
@@ -1017,7 +1018,7 @@ abstract class Widget extends UiObject {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
-      return extension.getJQuerySelectorCount(locator)
+      return extension.getCssSelectorCount(locator)
     }
   }
 
@@ -1032,7 +1033,7 @@ abstract class Widget extends UiObject {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
-      return extension.getJQuerySelectorCount(locator)
+      return extension.getCssSelectorCount(locator)
     }
   }
 
@@ -1047,7 +1048,7 @@ abstract class Widget extends UiObject {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
-      return extension.getJQuerySelectorCount(locator)
+      return extension.getCssSelectorCount(locator)
     }
   }
 
@@ -1062,7 +1063,7 @@ abstract class Widget extends UiObject {
       String locator = locatorMappingWithOption(context, loc, optloc)
 //      locator = locator + optloc
 //      String jq = postProcessSelector(context, locator.trim())
-      return extension.getJQuerySelectorCount(locator)
+      return extension.getCssSelectorCount(locator)
     }
   }
 
@@ -1131,7 +1132,7 @@ abstract class Widget extends UiObject {
       context.updateUniqueForMetaCmd(false)
       //force not to cache the selector
       context.updateCacheableForMetaCmd(false)
-      return obj.getListSizeByJQuerySelector() {loc, separators ->
+      return obj.getListSizeByCssSelector() {loc, separators ->
         String locator = locatorMapping(context, loc)
         return extension.getListSize(locator, separators)
       }

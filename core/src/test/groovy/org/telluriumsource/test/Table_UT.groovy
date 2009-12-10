@@ -167,15 +167,15 @@ class Table_UT extends GroovyTestCase{
   void testTable12(){
     Table12 table12 = new Table12()
     table12.defineUI()
-    table12.disableJQuerySelector()
+    table12.disableCssSelector()
     String result = table12.getLocator("OrderDetail[1][1]")
     assertNotNull(result)
     assertEquals("//descendant-or-self::table[@class=\"table\"]/tbody/tr[child::td][1]/td[1]", result)
-    table12.useJQuerySelector()
+    table12.useCssSelector()
     result = table12.getLocator("OrderDetail[1][1]")
     assertNotNull(result)
     assertEquals("jquery=table.table > tbody > tr:has(td):eq(0) > td:eq(0)", result)
-    table12.disableJQuerySelector()
+    table12.disableCssSelector()
     table12.dump("chromeDoctorSearchResultsresultstable")
   }
 }
