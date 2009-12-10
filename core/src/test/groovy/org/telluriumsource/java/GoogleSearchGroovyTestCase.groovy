@@ -13,7 +13,7 @@ import org.telluriumsource.module.GoogleSearchModule
 
 public class GoogleSearchGroovyTestCase extends TelluriumGroovyTestCase {
     private GoogleSearchModule gsm;
-    private String te_ns = "http://tellurium.org/ns";
+    private String te_ns = "http://telluriumsource.org/ns";
 
     public void setUp() {
         setUpForClass();

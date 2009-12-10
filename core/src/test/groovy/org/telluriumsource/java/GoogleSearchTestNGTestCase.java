@@ -19,7 +19,7 @@ import static org.testng.Assert.*;
  */
 public class GoogleSearchTestNGTestCase   extends TelluriumTestNGTestCase {
     private static GoogleSearchModule gsm;
-    private static String te_ns = "http://tellurium.org/ns";
+    private static String te_ns = "http://telluriumsource.org/ns";
 
     @BeforeClass
     public static void initUi() {

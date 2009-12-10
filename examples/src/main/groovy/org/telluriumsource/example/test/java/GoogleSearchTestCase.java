@@ -18,7 +18,7 @@ import org.telluriumsource.example.google.GoogleSearchModule;
 
 public class GoogleSearchTestCase extends TelluriumJavaTestCase {
     private static GoogleSearchModule gsm;
-    private static String te_ns = "http://tellurium.org/ns";
+    private static String te_ns = "http://telluriumsource.org/ns";
     
     @BeforeClass
     public static void initUi() {
