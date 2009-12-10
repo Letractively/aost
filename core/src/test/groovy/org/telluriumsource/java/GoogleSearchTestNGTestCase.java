@@ -17,7 +17,7 @@ import static org.testng.Assert.*;
  * Date: Dec 8, 2009
  *
  */
-public class GoogleSearchTestNGTestCase   extends TelluriumTestNGTestCase {
+public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase {
     private static GoogleSearchModule gsm;
     private static String te_ns = "http://telluriumsource.org/ns";
 
