@@ -89,7 +89,7 @@ public class TelluriumIssueModule extends DslContext {
     String sel = getSelector("issueResult")
     sel = sel + " > tbody > tr > td"
 
-    return getJQuerySelectorCount(sel)
+    return getCssSelectorCount(sel)
   }
 
   public String[] getTableCSS(String name){

@@ -19,8 +19,8 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         connectSeleniumServer();
         tisp = new TelluriumIssueModule();
         tisp.defineUi();
-        tisp.useJQuerySelector();
-        tisp.enableSelectorCache();
+        tisp.useCssSelector();
+        tisp.enableCache();
         tisp.setCacheMaxSize(30);
     }
 
@@ -57,7 +57,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
 
     @Test
     public void testCSS(){
-        tisp.disableSelectorCache();
+        tisp.disableCache();
         String[] css = tisp.getTableCSS("font-size");
         assertNotNull(css);
     }

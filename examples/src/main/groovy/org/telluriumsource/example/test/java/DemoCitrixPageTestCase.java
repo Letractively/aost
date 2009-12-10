@@ -24,18 +24,18 @@ public class DemoCitrixPageTestCase extends TelluriumTestNGTestCase {
     public static void initUi() {
         app = new CitrixHomePageUI();
         app.defineUi();
-        app.useJQuerySelector();
-        app.enableSelectorCache();
+        app.useCssSelector();
+        app.enableCache();
         // Login module
         LoginUI = new LoginModuleUI();
         LoginUI.defineUi();
-        LoginUI.useJQuerySelector();
-        LoginUI.enableSelectorCache();
+        LoginUI.useCssSelector();
+        LoginUI.enableCache();
         // Home Page section UI Links
         SectionUI = new HomePageSectionUI();
         SectionUI.defineUi();
-        SectionUI.useJQuerySelector();
-        SectionUI.enableSelectorCache();
+        SectionUI.useCssSelector();
+        SectionUI.enableCache();
     }
 
     @Test

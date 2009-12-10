@@ -29,11 +29,11 @@ public class ListTestCase  extends TelluriumJavaTestCase {
         ListModule lm = new ListModule();
         lm.defineUi();
         connectUrl("http://localhost:8080/list.html");
-        lm.disableJQuerySelector();
+        lm.disableCssSelector();
         String attr = (String)lm.getParentAttribute("rotator.tnails[6]", "class");
         System.out.println("XPath: Class attribute for rotator.tnails[6] " + attr);
         assertEquals("thumbnail potd", attr);
-        lm.useJQuerySelector();
+        lm.useCssSelector();
         attr = (String)lm.getParentAttribute("rotator.tnails[6]", "class");
         System.out.println("jQuery: Class attribute for rotator.tnails[6] " + attr);
         assertEquals("thumbnail potd", attr);

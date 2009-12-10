@@ -18,7 +18,7 @@ public class InternalProfileTestCase extends TelluriumJavaTestCase {
     public static void initUi() {
         ipm = new InternalProfileModule();
         ipm.defineUi();
-        ipm.useJQuerySelector();
+        ipm.useCssSelector();
     }
 
     @Before

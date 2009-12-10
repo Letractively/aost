@@ -46,9 +46,9 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
         NewGoogleBooksList ngbl = new NewGoogleBooksList()
         ngbl.defineUi()
         openUrl("http://books.google.com/")
-        ngbl.disableJQuerySelector()
+        ngbl.disableCssSelector()
         int xsize = ngbl.getBookListSize()
-        ngbl.useJQuerySelector()
+        ngbl.useCssSelector()
         int jsize = ngbl.getBookListSize()
         assertEquals(jsize, xsize)
     }
@@ -86,9 +86,9 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
       ngbl.defineUi()
       openUrl("http://books.google.com/")
       ngbl.dump("NGoogleBooksList")
-      ngbl.disableJQuerySelector()
+      ngbl.disableCssSelector()
       println ngbl.getSeparatorAttribute()
-      ngbl.useJQuerySelector()
+      ngbl.useCssSelector()
       ngbl.dump("NGoogleBooksList")
       println ngbl.getSeparatorAttribute()
     }

@@ -21,15 +21,15 @@ public class TelluriumIssueGroovyTestCase extends GroovyTestCase{
   }
 
   public void testDumpWithXPath() {
-    tisp.disableJQuerySelector();
+    tisp.disableCssSelector();
     tisp.dump("issueSearch");
     tisp.dump("issueSearch.searchButton");
     tisp.dump("issueResult");
   }
 
   public void testDumpWithJQuerySelector() {
-    tisp.useJQuerySelector();
-//    tisp.disableSelectorCache();
+    tisp.useCssSelector();
+//    tisp.disableCache();
     tisp.exploreSelectorCache = false;
     tisp.dump("issueSearch");
     tisp.dump("issueSearch.searchButton");
@@ -37,8 +37,8 @@ public class TelluriumIssueGroovyTestCase extends GroovyTestCase{
   }
 
   public void testDumpWithJQuerySelectorCacheEnabled() {
-    tisp.useJQuerySelector();
-//    tisp.enableSelectorCache();
+    tisp.useCssSelector();
+//    tisp.enableCache();
     tisp.exploreSelectorCache = true;
     tisp.dump("issueSearch");
     tisp.dump("issueSearch.searchButton");

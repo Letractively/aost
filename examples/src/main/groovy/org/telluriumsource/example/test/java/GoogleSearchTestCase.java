@@ -24,7 +24,7 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
     public static void initUi() {
         gsm = new GoogleSearchModule();
         gsm.defineUi();
-        gsm.useJQuerySelector();
+        gsm.useCssSelector();
         gsm.registerNamespace("te", te_ns);
     }
 
@@ -53,22 +53,22 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
 
     @Test
     public void testIsDisabled(){
-        gsm.useJQuerySelector();
+        gsm.useCssSelector();
         boolean result = gsm.isInputDisabled();
         assertFalse(result);
-        gsm.disableJQuerySelector();
+        gsm.disableCssSelector();
         result = gsm.isInputDisabled();
         assertFalse(result);
     }
 
     @Test
     public void testUseSelectorCache(){
-        gsm.enableSelectorCache();
-        boolean result = gsm.getSelectorCacheState();
+        gsm.enableCache();
+        boolean result = gsm.getCacheState();
         assertTrue(result);
 
-        gsm.disableSelectorCache();
-        result = gsm.getSelectorCacheState();
+        gsm.disableCache();
+        result = gsm.getCacheState();
         assertFalse(result);
     }
 
@@ -93,8 +93,8 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
 
     @Test
     public void testCachePolicy(){
-        gsm.useJQuerySelector();
-        gsm.enableSelectorCache();
+        gsm.useCssSelector();
+        gsm.enableCache();
         String policy = gsm.getCurrentCachePolicy();
         assertEquals("DiscardOldPolicy", policy);
         gsm.useDiscardLeastUsedCachePolicy();
