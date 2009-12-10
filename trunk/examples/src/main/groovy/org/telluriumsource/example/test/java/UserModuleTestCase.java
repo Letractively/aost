@@ -31,10 +31,10 @@ public class UserModuleTestCase extends TelluriumJavaTestCase {
         UserModule lm = new UserModule();
         lm.defineUi();
         connectUrl("http://localhost:8080/mockFunction.do");
-        lm.disableJQuerySelector();
+        lm.disableCssSelector();
         lm.doCreateAccount();
         connectUrl("http://localhost:8080/mockFunction.do");
-        lm.useJQuerySelector();
+        lm.useCssSelector();
         lm.doCreateAccount();
 //        System.out.println("Captured traffic: " + lm.captureNetworkTraffic("json"));
     }

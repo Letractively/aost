@@ -26,7 +26,7 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
     public static void initUi() {
         tisp = new TelluriumIssuesPage();
         tisp.defineUi();
-        tisp.disableJQuerySelector();
+        tisp.disableCssSelector();
     }
 
     @Test
@@ -127,7 +127,7 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
     
     @Test
     public void testGetCellCount(){
-        tisp.useJQuerySelector();
+        tisp.useCssSelector();
         int count = tisp.getTableCellCount();
         assertTrue(count > 0);
         System.out.println("Cell size: " + count);
@@ -138,8 +138,8 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
 
     @Test
     public void testSearchIssueTypes(){
-        tisp.useJQuerySelector();
-        tisp.enableSelectorCache();
+        tisp.useCssSelector();
+        tisp.enableCache();
         tisp.setCacheMaxSize(10);
         String[] ists = tisp.getIsssueTypes();
         tisp.selectIssueType(ists[2]);
@@ -149,15 +149,15 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
 
     @Test
     public void testDump(){
-        tisp.disableJQuerySelector();
+        tisp.disableCssSelector();
         tisp.dump("issueAdvancedSearch");
 
-        tisp.useJQuerySelector();
-        tisp.disableSelectorCache();
+        tisp.useCssSelector();
+        tisp.disableCache();
         tisp.dump("issueAdvancedSearch");
 
-        tisp.useJQuerySelector();
-        tisp.enableSelectorCache();
+        tisp.useCssSelector();
+        tisp.enableCache();
         tisp.dump("issueAdvancedSearch");
     }
 

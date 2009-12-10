@@ -27,7 +27,7 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
     public static void initUi() {
         tisp = new TelluriumIssuesPage();
         tisp.defineUi();
-        tisp.disableJQuerySelector();
+        tisp.disableCssSelector();
         connectSeleniumServer();
     }
 
@@ -106,7 +106,7 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testIdMenu(){
-        tisp.disableJQuerySelector();
+        tisp.disableCssSelector();
         tisp.clickOnTableHeader(2);
         tisp.mouseMoveIdMenu();
         tisp.clickIdMenuSortDown();
@@ -115,7 +115,7 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testSelectColumnMenu(){
-        tisp.disableJQuerySelector();
+        tisp.disableCssSelector();
         tisp.toggleIdColumn("ID");
         tisp.toggleIdColumn("Owner");
     }
@@ -128,7 +128,7 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testGetCellCount(){
-        tisp.useJQuerySelector();
+        tisp.useCssSelector();
         int count = tisp.getTableCellCount();
         assertTrue(count > 0);
         System.out.println("Cell size: " + count);
@@ -139,8 +139,8 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testSearchIssueTypes(){
-        tisp.useJQuerySelector();
-        tisp.enableSelectorCache();
+        tisp.useCssSelector();
+        tisp.enableCache();
         tisp.setCacheMaxSize(10);
         String[] ists = tisp.getIsssueTypes();
         tisp.selectIssueType(ists[2]);
@@ -150,15 +150,15 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testDump(){
-        tisp.disableJQuerySelector();
+        tisp.disableCssSelector();
         tisp.dump("issueAdvancedSearch");
 
-        tisp.useJQuerySelector();
-        tisp.disableSelectorCache();
+        tisp.useCssSelector();
+        tisp.disableCache();
         tisp.dump("issueAdvancedSearch");
 
-        tisp.useJQuerySelector();
-        tisp.enableSelectorCache();
+        tisp.useCssSelector();
+        tisp.enableCache();
         tisp.dump("issueAdvancedSearch");
     }
 

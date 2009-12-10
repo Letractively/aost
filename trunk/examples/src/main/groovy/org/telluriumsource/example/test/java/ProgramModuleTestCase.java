@@ -32,7 +32,7 @@ public class ProgramModuleTestCase extends TelluriumJavaTestCase
         connectUrl("http://localhost:8080/program.html");
         pm.diagnose("Program.triggerBox.trigger");
         pm.click("Program.triggerBox.trigger");        
-        pm.useJQuerySelector();
+        pm.useCssSelector();
         connectUrl("http://localhost:8080/program.html");
         pm.diagnose("Program.triggerBox.trigger");
         pm.click("Program.triggerBox.trigger");
