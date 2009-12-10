@@ -20,7 +20,7 @@ import org.telluriumsource.framework.CachePolicy;
 
 public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
     private static GoogleSearchModule gsm;
-    private static String te_ns = "http://tellurium.org/ns";
+    private static String te_ns = "http://telluriumsource.org/ns";
 
     @BeforeClass
     public static void initUi() {
