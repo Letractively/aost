@@ -1,8 +1,8 @@
-package org.tellurium.example.test.java;
+package org.telluriumsource.example.test.java;
 
-import org.tellurium.test.java.TelluriumJUnitTestCase;
-import org.tellurium.test.mock.MockHttpServer;
-import org.tellurium.example.other.StyleModule;
+import org.telluriumsource.test.java.TelluriumJUnitTestCase;
+import org.telluriumsource.test.mock.MockHttpServer;
+import org.telluriumsource.example.other.StyleModule;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
