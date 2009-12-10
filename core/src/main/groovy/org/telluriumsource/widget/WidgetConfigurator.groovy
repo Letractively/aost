@@ -50,9 +50,9 @@ class WidgetConfigurator implements Configurable{
         if(trimed.contains(PACKAGE_DELIMITER)){
             return trimed
         }else{
-            //use the name conversion org.tellurium.widget.MODULE.Init
+            //use the name conversion org.telluriumsource.widget.MODULE.Init
             //where Bootstrap should implement the interface WidgetBootstrap
-            return "org.tellurium.widget.${trimed}.Init"
+            return "org.telluriumsource.widget.${trimed}.Init"
         }        
     }
 }

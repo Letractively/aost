@@ -27,7 +27,7 @@ class GoogleStartPagePullTest extends TelluriumDataDrivenTest{
         }
 
         //define custom data type and its type handler
-        typeHandler "phoneNumber", "org.tellurium.example.handler.PhoneNumberTypeHandler"
+        typeHandler "phoneNumber", "org.telluriumsource.example.handler.PhoneNumberTypeHandler"
 
         //define file data format
         fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search") {
