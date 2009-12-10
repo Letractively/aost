@@ -9,8 +9,8 @@ class DslScriptExecutor {
        if(args != null && args.length == 1){
             def dsl = new File(args[0]).text
             def script = """
-                import org.tellurium.dsl.DslScriptEngine
-import org.tellurium.i18n.InternationalizationManager
+                import org.telluriumsource.dsl.DslScriptEngine
+                import org.telluriumsource.i18n.InternationalizationManager
                 class DslTest extends DslScriptEngine{
                     def test(){
                         init()
