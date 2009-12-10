@@ -1,13 +1,13 @@
-package org.tellurium.example.test.java;
+package org.telluriumsource.example.test.java;
 
-import org.tellurium.test.java.TelluriumTestNGTestCase;
+import org.telluriumsource.test.java.TelluriumTestNGTestCase;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
-import org.tellurium.example.other.CitrixHomePageUI;
-import org.tellurium.example.other.LoginModuleUI;
-import org.tellurium.example.other.HomePageSectionUI;
+import org.telluriumsource.example.other.CitrixHomePageUI;
+import org.telluriumsource.example.other.LoginModuleUI;
+import org.telluriumsource.example.other.HomePageSectionUI;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)

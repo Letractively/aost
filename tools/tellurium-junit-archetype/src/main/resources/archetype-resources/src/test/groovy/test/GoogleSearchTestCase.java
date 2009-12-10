@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import org.tellurium.test.java.TelluriumJavaTestCase;
+import org.telluriumsource.test.java.TelluriumJavaTestCase;
 
 import module.GoogleSearchModule;
 

@@ -1,6 +1,6 @@
-package org.tellurium.ddt
+package org.telluriumsource.ddt
 
-import org.tellurium.test.ddt.TelluriumDataDrivenTest
+import org.telluriumsource.test.ddt.TelluriumDataDrivenTest
 
 /**
  * Date driven testing for Tellurium issues page
@@ -15,7 +15,7 @@ class TelluriumIssuesDataDrivenTest extends TelluriumDataDrivenTest{
 
     public void testDataDriven() {
 
-        includeModule org.tellurium.module.TelluriumIssuesModule.class
+        includeModule org.telluriumsource.module.TelluriumIssuesModule.class
 
         //load file
         loadData "src/test/resources/org/tellurium/data/TelluriumIssuesInput.txt"

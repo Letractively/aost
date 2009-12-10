@@ -51,9 +51,8 @@ tellurium{
     //the bundling tier
     bundle{
         maxMacroCmd = 5
-        useMacroCommand = true
+        useMacroCommand = false
     }
-
     //the configuration for the connector that connects the selenium client to the selenium server
     connector{
         //selenium server host
@@ -87,15 +86,15 @@ tellurium{
     //if this section is removed, we take the default locale
     //from the system
     //enter only one locale at a time, and use this only if you want to explicitly
-    //set the locale, preferrable way is to comment out this section
+    //set the locale, preferrable way is to comment out this section 
     i18n{
-        //locale = "fr_FR"
-        locale = "en_US"
+        //locales = "fr_FR"
+        locales = "en_US"
     }
     test{
         execution{
             //whether to trace the execution timing
-            trace = true
+            trace = false
         }      
         //at current stage, the result report is only for tellurium data driven testing
         //we may add the result report for regular tellurium test case

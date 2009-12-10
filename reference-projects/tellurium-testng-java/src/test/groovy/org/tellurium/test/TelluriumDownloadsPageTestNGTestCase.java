@@ -1,8 +1,8 @@
-package org.tellurium.test;
+package org.telluriumsource.test;
 
-import org.tellurium.test.java.TelluriumTestNGTestCase;
-import org.tellurium.util.Helper;
-import org.tellurium.module.TelluriumDownloadsPage;
+import org.telluriumsource.test.java.TelluriumTestNGTestCase;
+import org.telluriumsource.util.Helper;
+import org.telluriumsource.module.TelluriumDownloadsPage;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;

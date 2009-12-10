@@ -1,6 +1,6 @@
-package org.tellurium.module
+package org.telluriumsource.module
 
-import org.tellurium.test.ddt.TelluriumDataDrivenModule
+import org.telluriumsource.test.ddt.TelluriumDataDrivenModule
 
 /**
  * Date driven testing module for tellurium issues page at

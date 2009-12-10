@@ -1,7 +1,6 @@
-package org.tellurium.widget.extjs.builder
+package org.telluriumsource.widget.extjs.builder
 
-import org.tellurium.builder.UiObjectBuilder
-import org.tellurium.widget.extjs.object.Dummy
+import org.telluriumsource.widget.extjs.object.Dummy
 
 /**
  * 

@@ -1,6 +1,4 @@
-package org.tellurium.widget.extjs.module
-
-import org.tellurium.dsl.DslContext
+package org.telluriumsource.widget.extjs.module
 
 /**
  * 

@@ -1,10 +1,10 @@
-package org.tellurium.example.test.java;
+package org.telluriumsource.example.test.java;
 
-import org.tellurium.example.other.FtDotCom;
+import org.telluriumsource.example.other.FtDotCom;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.tellurium.test.java.TelluriumJavaTestCase;
+import org.telluriumsource.test.java.TelluriumJavaTestCase;
 
 /**
  * 

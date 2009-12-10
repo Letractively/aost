@@ -1,11 +1,11 @@
-package org.tellurium.example.test.java;
+package org.telluriumsource.example.test.java;
 
-import org.tellurium.test.java.TelluriumJavaTestCase;
+import org.telluriumsource.test.java.TelluriumJavaTestCase;
 import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Ignore;
-import org.tellurium.example.other.InternalProfileModule;
+import org.telluriumsource.example.other.InternalProfileModule;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)

@@ -1,7 +1,7 @@
-package org.tellurium.test;
+package org.telluriumsource.test;
 
-import org.tellurium.test.java.TelluriumJavaTestCase;
-import org.tellurium.module.NewUiModule;
+import org.telluriumsource.test.java.TelluriumJavaTestCase;
+import org.telluriumsource.module.NewUiModule;
 import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;

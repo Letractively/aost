@@ -1,10 +1,10 @@
-package org.tellurium.example.test.java;
+package org.telluriumsource.example.test.java;
 
-import org.tellurium.example.google.NewGoogleStartPage;
+import org.telluriumsource.example.google.NewGoogleStartPage;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.tellurium.exception.UiObjectNotFoundException;
-import org.tellurium.test.java.TelluriumJavaTestCase;
+import org.telluriumsource.exception.UiObjectNotFoundException;
+import org.telluriumsource.test.java.TelluriumJavaTestCase;
 import static org.testng.Assert.assertEquals;
 
 /**

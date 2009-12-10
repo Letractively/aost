@@ -1,6 +1,6 @@
-package org.tellurium.module
+package org.telluriumsource.module
 
-import org.tellurium.dsl.DslContext
+import org.telluriumsource.dsl.DslContext
 
 /**
  * Created by IntelliJ IDEA.

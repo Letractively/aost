@@ -1,6 +1,6 @@
-package org.tellurium.widget.dojo.object
+package org.telluriumsource.widget.dojo.object
 
-import org.tellurium.widget.dojo.DojoWidget
+import org.telluriumsource.widget.dojo.DojoWidget
 
 /**
  * Tellurium Widget object for the Dojo Date Picker widget

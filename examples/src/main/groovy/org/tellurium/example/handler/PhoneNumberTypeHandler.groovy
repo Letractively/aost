@@ -1,6 +1,6 @@
-package org.tellurium.example.handler
+package org.telluriumsource.example.handler
 
-import org.tellurium.ddt.object.mapping.type.TypeHandler;
+import org.telluriumsource.ddt.object.mapping.type.TypeHandler;
 
 /**
  * Example type handler to illustrate how to add custom type handler

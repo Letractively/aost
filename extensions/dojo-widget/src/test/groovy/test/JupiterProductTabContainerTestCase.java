@@ -1,6 +1,6 @@
 package test;
 
-import org.tellurium.test.java.TelluriumJavaTestCase;
+import org.telluriumsource.test.java.TelluriumJavaTestCase;
 import module.JupiterProductTabContainer;
 import org.junit.BeforeClass;
 import org.junit.Test;

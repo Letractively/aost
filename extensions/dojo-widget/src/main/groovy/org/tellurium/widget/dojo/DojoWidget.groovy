@@ -1,6 +1,4 @@
-package org.tellurium.widget.dojo
-
-import org.tellurium.widget.Widget
+package org.telluriumsource.widget.dojo
 
 /**
  * Base class for Dojo widgets

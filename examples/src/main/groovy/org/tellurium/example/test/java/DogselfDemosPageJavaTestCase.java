@@ -1,11 +1,11 @@
-package org.tellurium.example.test.java;
+package org.telluriumsource.example.test.java;
 
-import org.tellurium.example.other.DogselfDemosPage;
+import org.telluriumsource.example.other.DogselfDemosPage;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.Ignore;
-import org.tellurium.test.java.TelluriumJavaTestCase;
+import org.telluriumsource.test.java.TelluriumJavaTestCase;
 import static org.testng.Assert.assertTrue;
 
 /**

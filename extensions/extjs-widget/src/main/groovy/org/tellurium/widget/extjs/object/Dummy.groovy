@@ -1,6 +1,6 @@
-package org.tellurium.widget.extjs.object
+package org.telluriumsource.widget.extjs.object
 
-import org.tellurium.widget.extjs.ExtJSWidget
+import org.telluriumsource.widget.extjs.ExtJSWidget
 
 /**
  * 

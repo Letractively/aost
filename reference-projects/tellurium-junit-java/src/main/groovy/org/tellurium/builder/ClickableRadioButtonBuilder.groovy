@@ -1,7 +1,6 @@
-package org.tellurium.builder
+package org.telluriumsource.builder
 
-import org.tellurium.object.RadioButton
-import org.tellurium.object.ClickableRadioButton
+import org.telluriumsource.object.ClickableRadioButton
 
 /**
  * 

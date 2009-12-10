@@ -1,13 +1,13 @@
-package org.tellurium.example.test.java;
+package org.telluriumsource.example.test.java;
 
-import org.tellurium.test.java.TelluriumJavaTestCase;
+import org.telluriumsource.test.java.TelluriumJavaTestCase;
 import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Ignore;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import org.tellurium.example.other.TelluriumDownSearchModule;
+import org.telluriumsource.example.other.TelluriumDownSearchModule;
 
 public class TelluriumDownSearchTestCase extends TelluriumJavaTestCase {
     private static TelluriumDownSearchModule app;

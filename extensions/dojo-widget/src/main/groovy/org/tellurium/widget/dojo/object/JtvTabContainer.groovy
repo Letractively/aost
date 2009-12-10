@@ -1,7 +1,6 @@
-package org.tellurium.widget.dojo.object
+package org.telluriumsource.widget.dojo.object
 
-import org.tellurium.widget.dojo.DojoWidget
-import org.tellurium.dsl.WorkflowContext
+import org.telluriumsource.widget.dojo.DojoWidget
 
 /**
  * 

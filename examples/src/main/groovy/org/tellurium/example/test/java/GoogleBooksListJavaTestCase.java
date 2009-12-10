@@ -1,10 +1,10 @@
-package org.tellurium.example.test.java;
+package org.telluriumsource.example.test.java;
 
-import org.tellurium.example.google.NewGoogleBooksList;
+import org.telluriumsource.example.google.NewGoogleBooksList;
 import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.tellurium.test.java.TelluriumJavaTestCase;
+import org.telluriumsource.test.java.TelluriumJavaTestCase;
 
 /**
  * Java version of Google Books List tests

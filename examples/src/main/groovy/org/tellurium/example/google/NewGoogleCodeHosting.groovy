@@ -1,6 +1,6 @@
-package org.tellurium.example.google
+package org.telluriumsource.example.google
 
-import org.tellurium.dsl.DslContext
+import org.telluriumsource.dsl.DslContext
 
 /**
  *    Sample test for Google Code host page at:

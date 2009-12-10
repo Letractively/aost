@@ -3,7 +3,7 @@
 <suite name="tellurium-testng" verbose="1" >
   <test name="tellurium tests"   >
     <packages>
-      <package name="org.tellurium.test" />
+      <package name="org.telluriumsource.test" />
    </packages>
  </test>
 </suite>

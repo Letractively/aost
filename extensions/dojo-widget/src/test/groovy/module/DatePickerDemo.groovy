@@ -1,8 +1,5 @@
 package module
 
-import org.tellurium.dsl.DslContext
-import java.util.List
-
 /**
  * Example to demonstrate the Date Picker widget at
  *

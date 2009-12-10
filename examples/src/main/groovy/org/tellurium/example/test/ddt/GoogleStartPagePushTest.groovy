@@ -1,6 +1,6 @@
-package org.tellurium.example.test.ddt
+package org.telluriumsource.example.test.ddt
 
-import org.tellurium.test.ddt.TelluriumDataDrivenTest
+import org.telluriumsource.test.ddt.TelluriumDataDrivenTest
 
 /**
  * This is an example to show how to write data driven test. The user defines the tests and the input data specify

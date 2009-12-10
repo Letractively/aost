@@ -1,7 +1,6 @@
-package org.tellurium.widget.dojo.builder
+package org.telluriumsource.widget.dojo.builder
 
-import org.tellurium.builder.UiObjectBuilder
-import org.tellurium.widget.dojo.object.JtvTabContainer
+import org.telluriumsource.widget.dojo.object.JtvTabContainer
 
 /**
  * 

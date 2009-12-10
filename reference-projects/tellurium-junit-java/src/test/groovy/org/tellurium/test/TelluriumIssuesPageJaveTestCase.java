@@ -1,8 +1,8 @@
-package org.tellurium.test;
+package org.telluriumsource.test;
 
-import org.tellurium.test.java.TelluriumJavaTestCase;
-import org.tellurium.util.Helper;
-import org.tellurium.module.TelluriumIssuesPage;
+import org.telluriumsource.test.java.TelluriumJavaTestCase;
+import org.telluriumsource.util.Helper;
+import org.telluriumsource.module.TelluriumIssuesPage;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
