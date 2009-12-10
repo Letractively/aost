@@ -118,7 +118,17 @@ abstract class UiObjectBuilder extends Const {
 
         //add respond to events
         if(map.get(RESPOND_TO_EVENTS) != null){
-            obj.respondToEvents = map.get(RESPOND_TO_EVENTS)
+            obj.respondToEvents = map.get(RESPOND_TO_EVENTS);
+/*          def rte = map.get(RESPOND_TO_EVENTS);
+            if(rte != null){
+              String[] parts = rte.split(",");
+              ArrayList lst = new ArrayList();
+              for(String part: parts){
+                lst.add(part.trim());
+              }
+              obj.respondToEvents = lst.toArray(new String[0]);
+            }*/
+
             //add dynamic method "click" if the Click event is included and is not on the original object
             //this will be implemented by the methodMissing method
         }
