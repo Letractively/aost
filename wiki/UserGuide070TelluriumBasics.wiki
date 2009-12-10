@@ -166,7 +166,7 @@ Then issue the following command:
   click "form.billing"
 }}}
 
-Even if the RadioButton does not have the click method defined by default, it is still able to dynamically add the click method at runtime and call it.
+Even if the RadioButton does not have the click method defined by default, it is still able to dynamically add the click method at runtime and call it. Be aware, you have to explicitly call the click method and Event Handler will not automatically trigger the click event.
 
 A more general example is:
 
@@ -175,7 +175,7 @@ A more general example is:
       respond: ["click", "focus", "mouseOver", "mouseOut", "blur"])
 }}}
 
-Except for the "click" event, all of the "focus", "mouseOver", "mouseOut", and "blur" events are automatically fired by Tellurium during testing. Do not worry about the event order for the respond attribute as Tellurium automatically re-orders the events and then processes them appropriately.
+Except for the "click" event, all of the "focus", "mouseOver", "mouseOut", and "blur" events are automatically fired by Tellurium during testing. Do not worry about the event order for the respond attribute as Tellurium automatically re-orders the events and then processes them appropriately. That is to say, the Event Handler will automatically trigger these events.
 
 == jQuery Selector (Improving Test Speed)==
 
