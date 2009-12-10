@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>tellurium</groupId>
+    <groupId>org.telluriumsource</groupId>
     <artifactId>tellurium</artifactId>
     <packaging>pom</packaging>
     <name>Tellurium Automated Testing Framework</name>
@@ -99,7 +99,7 @@
     <build>
         <!-- BEGIN GMAVEN RESOURCES -->
         <!-- These resources are needed to integrate the gmaven plugin with the source plugin -->
-<!--
+        
         <resources>
             <resource>
                 <directory>src/main/groovy</directory>
@@ -116,7 +116,7 @@
                 <directory>src/test/resources</directory>
             </testResource>
         </testResources>
--->
+        
         <!-- END GMAVEN RESOURCES -->
         <pluginManagement>
             <plugins>
@@ -246,12 +246,12 @@
     </build>
     <modules>
         <module>core</module>
-        <!--module>engine</module-->
-        <!--module>extensions</module-->
+        <module>engine</module>
+        <module>extensions</module>
         <module>reference-projects</module>
         <module>examples</module>
-        <!--module>tools</module>
-        <module>tellurium-assembly</module-->
+        <module>tools</module>
+        <module>tellurium-assembly</module>
     </modules>
     <repositories>
         <repository>

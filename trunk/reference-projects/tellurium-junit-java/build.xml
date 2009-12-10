@@ -147,8 +147,8 @@
 			<formatter type="xml" />
 			<batchtest todir="${dir.build.test}">
 				<fileset dir="${dir.source.test}">
-					<include name="**/org/tellurium/test/**"/>
-                    <include name="**/org/tellurium/ddt/**"/>
+					<include name="**/org/telluriumsource/test/**"/>
+                    <include name="**/org/telluriumsource/ddt/**"/>
                 </fileset>
 			</batchtest>
 		</junit>

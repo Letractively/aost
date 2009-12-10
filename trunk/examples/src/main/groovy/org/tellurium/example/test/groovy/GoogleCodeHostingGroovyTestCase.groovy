@@ -1,9 +1,9 @@
-package org.tellurium.example.test.groovy
+package org.telluriumsource.example.test.groovy
 
-import org.tellurium.test.groovy.TelluriumGroovyTestCase
-import org.tellurium.example.google.GoogleCodeHosting
-import org.tellurium.object.UrlLink
-import org.tellurium.example.google.NewGoogleCodeHosting
+import org.telluriumsource.test.groovy.TelluriumGroovyTestCase
+import org.telluriumsource.example.google.GoogleCodeHosting
+import org.telluriumsource.object.UrlLink
+import org.telluriumsource.example.google.NewGoogleCodeHosting
 
 /**
  *  Sample test cases for Google Code host page at:

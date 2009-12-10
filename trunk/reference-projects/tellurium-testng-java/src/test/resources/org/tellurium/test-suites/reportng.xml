@@ -6,19 +6,19 @@
 
 	<test name="Downloads Page">
         <classes>
-            <class name="org.tellurium.test.TelluriumDownloadsPageTestNGTestCase"></class>
+            <class name="org.telluriumsource.test.TelluriumDownloadsPageTestNGTestCase"></class>
         </classes>
 	</test>
 
  	<test name="Project Page">
          <classes>
-             <class name="org.tellurium.test.TelluriumProjectPageTestNGTestCase"></class>
+             <class name="org.telluriumsource.test.TelluriumProjectPageTestNGTestCase"></class>
          </classes>
 	</test>
 
  	<test name="Wiki Page">
          <classes>
-             <class name="org.tellurium.test.TelluriumWikiPageTestNGTestCase"></class>
+             <class name="org.telluriumsource.test.TelluriumWikiPageTestNGTestCase"></class>
          </classes>
 	</test>
 </suite>

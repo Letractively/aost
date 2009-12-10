@@ -1,7 +1,7 @@
-package org.tellurium.example.other
+package org.telluriumsource.example.other
 
-import org.tellurium.dsl.DslContext
-import org.tellurium.object.UiObject
+import org.telluriumsource.dsl.DslContext
+import org.telluriumsource.object.UiObject
 
 public class TelluriumIssueModule extends DslContext {
 

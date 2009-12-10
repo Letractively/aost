@@ -1,13 +1,11 @@
-package org.tellurium.example.test.java;
+package org.telluriumsource.example.test.java;
 
-import org.tellurium.example.google.NewGoogleStartPage;
-import org.tellurium.test.java.TelluriumTestNGTestCase;
+import org.telluriumsource.example.google.NewGoogleStartPage;
+import org.telluriumsource.test.java.TelluriumTestNGTestCase;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.annotations.Parameters;
-
-import java.io.Console;
 
 /**
  * Test NG test case

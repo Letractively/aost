@@ -1,7 +1,7 @@
-package org.tellurium.example.test.groovy
+package org.telluriumsource.example.test.groovy
 
-import org.tellurium.example.google.NewGoogleStartPage
-import org.tellurium.test.groovy.TelluriumGroovyTestNGTestCase
+import org.telluriumsource.example.google.NewGoogleStartPage
+import org.telluriumsource.test.groovy.TelluriumGroovyTestNGTestCase
 import org.testng.TestListenerAdapter
 import org.testng.TestNG
 import org.testng.annotations.Test
@@ -47,7 +47,7 @@ public class GoogleStartPageGroovyTestNGTestCase extends TelluriumGroovyTestNGTe
 
   static {
     def testng = new TestNG()
-    testng.setTestClasses(org.tellurium.example.test.groovy.GoogleStartPageGroovyTestNGTestCase)
+    testng.setTestClasses(org.telluriumsource.example.test.groovy.GoogleStartPageGroovyTestNGTestCase)
     testng.addListener(new TestListenerAdapter())
 //    testng.run()
   }

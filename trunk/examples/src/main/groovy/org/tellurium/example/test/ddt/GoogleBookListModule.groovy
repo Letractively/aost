@@ -1,6 +1,6 @@
-package org.tellurium.example.test.ddt
+package org.telluriumsource.example.test.ddt
 
-import org.tellurium.test.ddt.TelluriumDataDrivenModule
+import org.telluriumsource.test.ddt.TelluriumDataDrivenModule
 
 /**
  * Data Driven module for google book list

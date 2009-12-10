@@ -1,10 +1,10 @@
-package org.tellurium.example.test.groovy
+package org.telluriumsource.example.test.groovy
 
-import org.tellurium.example.google.GoogleBooksList
-import org.tellurium.example.google.NewGoogleBooksList
-import org.tellurium.object.UiObject
-import org.tellurium.object.UrlLink
-import org.tellurium.test.groovy.TelluriumGroovyTestCase
+import org.telluriumsource.example.google.GoogleBooksList
+import org.telluriumsource.example.google.NewGoogleBooksList
+import org.telluriumsource.object.UiObject
+import org.telluriumsource.object.UrlLink
+import org.telluriumsource.test.groovy.TelluriumGroovyTestCase
 
 /**
  * 
@@ -56,7 +56,7 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
     void bookListTest(gbl){
     	
         String category = gbl.getCategory()
-        assertEquals("› Fiction", category)
+        assertEquals("ï¿½ Fiction", category)
 
         int size = gbl.getBookListSize()
 

@@ -1,12 +1,12 @@
-package org.tellurium.example.test.java;
+package org.telluriumsource.example.test.java;
 
-import org.tellurium.example.other.ListModule;
+import org.telluriumsource.example.other.ListModule;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.tellurium.test.java.TelluriumJavaTestCase;
-import org.tellurium.test.mock.MockHttpServer;
+import org.telluriumsource.test.java.TelluriumJavaTestCase;
+import org.telluriumsource.test.mock.MockHttpServer;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)

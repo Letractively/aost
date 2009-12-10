@@ -1,12 +1,12 @@
-package org.tellurium.example.test.java;
+package org.telluriumsource.example.test.java;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
 import static org.junit.Assert.*;
-import org.tellurium.test.java.TelluriumJavaTestCase;
-import org.tellurium.example.other.TelluriumIssueModule;
+import org.telluriumsource.test.java.TelluriumJavaTestCase;
+import org.telluriumsource.example.other.TelluriumIssueModule;
 
 import java.util.Map;
 import java.util.Set;

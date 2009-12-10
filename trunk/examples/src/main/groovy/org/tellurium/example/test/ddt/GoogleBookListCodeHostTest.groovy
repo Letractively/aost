@@ -1,6 +1,6 @@
-package org.tellurium.example.test.ddt
+package org.telluriumsource.example.test.ddt
 
-import org.tellurium.test.ddt.TelluriumDataDrivenTest
+import org.telluriumsource.test.ddt.TelluriumDataDrivenTest
 
 /**
  * Data Driven testing example to demonstrate how to write multiple Data Driven Modules and then include them in
@@ -20,8 +20,8 @@ import org.tellurium.test.ddt.TelluriumDataDrivenTest
 
     public void testDataDriven() {
 
-        includeModule  org.tellurium.example.test.ddt.GoogleBookListModule.class
-        includeModule  org.tellurium.example.test.ddt.GoogleCodeHostingModule.class
+        includeModule  org.telluriumsource.example.test.ddt.GoogleBookListModule.class
+        includeModule  org.telluriumsource.example.test.ddt.GoogleCodeHostingModule.class
 
         //load file
         loadData "src/main/resources/org/tellurium/example/dsl/test/ddt/GoogleBookListCodeHostInput.txt"

@@ -1,6 +1,6 @@
-package org.tellurium.example.google
+package org.telluriumsource.example.google
 
-import org.tellurium.dsl.DslContext
+import org.telluriumsource.dsl.DslContext
 
 /**
  * Google start page with composite locator and JQuery selector

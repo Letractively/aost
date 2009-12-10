@@ -1,7 +1,5 @@
 package module
 
-import org.tellurium.dsl.DslContext
-
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)

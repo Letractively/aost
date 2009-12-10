@@ -1,9 +1,9 @@
-package org.tellurium.example.test.java;
+package org.telluriumsource.example.test.java;
 
-import org.tellurium.example.other.TelluriumDownloadPage;
+import org.telluriumsource.example.other.TelluriumDownloadPage;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.tellurium.test.java.TelluriumJavaTestCase;
+import org.telluriumsource.test.java.TelluriumJavaTestCase;
 
 /**
  *

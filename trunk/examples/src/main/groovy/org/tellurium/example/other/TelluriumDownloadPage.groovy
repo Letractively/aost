@@ -1,6 +1,6 @@
-package org.tellurium.example.other
+package org.telluriumsource.example.other
 
-import org.tellurium.dsl.DslContext
+import org.telluriumsource.dsl.DslContext
 
 /**
  * Created from Selenium IDE recorded test case

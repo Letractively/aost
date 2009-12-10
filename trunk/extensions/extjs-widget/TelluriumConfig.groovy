@@ -10,17 +10,31 @@
 tellurium{
     //embedded selenium server configuration
     embeddedserver {
-        //port number
-        port = "4445"                                     
-        //whether to use multiple windows
-        useMultiWindows = false
-        //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
-        runInternally = true
-        //the log file for selenium server
-//        logFile = "selenium.log"
-        //profile location
-        profile = ""
-        userExtension = ""
+      //port number
+      port = "4444"
+      //whether to use multiple windows
+      useMultiWindows = false
+      //whether to trust all SSL certs, i.e., option "-trustAllSSLCertificates"
+      trustAllSSLCertificates = true
+      //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
+      runInternally = true
+      //By default, Selenium proxies every browser request; set this flag to make the browser use proxy only for URLs containing '/selenium-server'
+      avoidProxy = false
+      //stops re-initialization and spawning of the browser between tests
+      browserSessionReuse = false
+      //enabling this option will cause all user cookies to be archived before launching IE, and restored after IE is closed.
+      ensureCleanSession = false
+      //debug mode, with more trace information and diagnostics on the console
+      debugMode = false
+      //interactive mode
+      interactive = false
+      //an integer number of seconds before we should give up
+      timeoutInSeconds = 30
+      //profile location
+      profile = ""
+//        profile = "/home/jiafan1/.mozilla/firefox/876su0gg.default"
+      //user-extension.js file
+      userExtension = ""
     }
     //event handler
     eventhandler{
@@ -33,6 +47,11 @@ tellurium{
     accessor{
         //whether we should check if the UI element is presented
         checkElement = true
+    }
+    //the bundling tier
+    bundle{
+      maxMacroCmd = 5
+      useMacroCommand = false
     }
     //the configuration for the connector that connects the selenium client to the selenium server
     connector{
@@ -61,7 +80,20 @@ tellurium{
             reader = "PipeFileReader"
         }
     }
+    //this section allows users to define the internationalization required
+    //if this section is removed, we take the default locale
+    //from the system
+      //enter only one locale at a time, and use this only if you want to explicitly
+    //set the locale, preferrable way is to comment out this section
+    i18n{
+      //locale = "fr_FR"
+      locale = "en_US"
+    }
     test{
+        execution{
+            //whether to trace the execution timing
+            trace = false
+        }
         result{
             //specify what result reporter used for the test result
             //valid options include "SimpleResultReporter", "XMLResultReporter", and "StreamXMLResultReporter"

@@ -1,13 +1,9 @@
-package org.tellurium.example.test.groovy
+package org.telluriumsource.example.test.groovy
 
-import org.tellurium.example.google.GoogleStartPage
-import org.tellurium.example.google.NewGoogleStartPage
-import org.tellurium.test.groovy.TelluriumGroovyTestCase
-import org.tellurium.test.crosscut.TimingDecorator
+import org.telluriumsource.example.google.NewGoogleStartPage
+import org.telluriumsource.test.groovy.TelluriumGroovyTestCase
+
 import org.junit.Test
-import org.junit.BeforeClass
-import org.junit.AfterClass
-import org.junit.Ignore
 
 class GoogleStartPageGroovyTestCase extends TelluriumGroovyTestCase{
 

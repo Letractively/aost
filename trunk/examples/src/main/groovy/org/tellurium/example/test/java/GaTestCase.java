@@ -1,12 +1,12 @@
-package org.tellurium.example.test.java;
+package org.telluriumsource.example.test.java;
 
-import org.tellurium.test.java.TelluriumJavaTestCase;
-import org.tellurium.test.mock.MockHttpServer;
+import org.telluriumsource.test.java.TelluriumJavaTestCase;
+import org.telluriumsource.test.mock.MockHttpServer;
 import org.junit.Test;
 import org.junit.BeforeClass;
 import org.junit.AfterClass;
-import org.tellurium.example.other.GaModule;
-import org.tellurium.example.other.GaGroupModule;
+import org.telluriumsource.example.other.GaModule;
+import org.telluriumsource.example.other.GaGroupModule;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)

@@ -1,7 +1,4 @@
-package org.tellurium.example.test.groovy
-
-import org.tellurium.example.other.TelluriumIssueModule
-import org.tellurium.test.groovy.TelluriumGroovyTestCase
+package org.telluriumsource.example.test.groovy
 
 /**
  * 
@@ -13,10 +10,10 @@ import org.tellurium.test.groovy.TelluriumGroovyTestCase
 
 public class TelluriumIssueGroovyTestCase extends GroovyTestCase{
 
-  private org.tellurium.example.other.TelluriumIssueModule tisp;
+  private org.telluriumsource.example.other.TelluriumIssueModule tisp;
 
   public void setUp() {
-    tisp = new org.tellurium.example.other.TelluriumIssueModule();
+    tisp = new org.telluriumsource.example.other.TelluriumIssueModule();
     tisp.defineUi();
   }
 

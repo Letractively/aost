@@ -1,7 +1,7 @@
-package org.tellurium.example.test.ddt
+package org.telluriumsource.example.test.ddt
 
-import org.tellurium.config.TelluriumConfigurator;
-import org.tellurium.test.ddt.TelluriumDataDrivenTest;
+import org.telluriumsource.config.TelluriumConfigurator;
+import org.telluriumsource.test.ddt.TelluriumDataDrivenTest;
 
 /**
  * example of writing Data Driven test directly in Groovy
