@@ -1,6 +1,7 @@
 package org.telluriumsource.widget.extjs.object
 
 import org.telluriumsource.widget.extjs.ExtJSWidget
+import org.json.simple.JSONObject
 
 /**
  * 
@@ -20,5 +21,11 @@ class Dummy extends ExtJSWidget {
     public String helloExtJSWidget(){
         return "Hello extJS Widget!"
     }
+
+  public JSONObject toJSON() {
+    return buildJSON() {jso ->
+      jso.put(UI_TYPE, NAMESPACE + "_" + "Dummy")
+    }
+  }
 
 }

@@ -1,5 +1,7 @@
 package org.telluriumsource.widget.extjs.module
 
+import org.telluriumsource.dsl.DslContext
+
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)
