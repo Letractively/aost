@@ -1,4 +1,4 @@
-package org.tellurium.ddt.object.mapping.type
+package org.telluriumsource.ddt.object.mapping.type
 /**
  *  Type handler, users can it to define custom type conversion in object mapping
  *

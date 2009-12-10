@@ -1,7 +1,6 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
-import org.tellurium.dsl.DdDslContext
-import org.tellurium.dsl.DslScriptEngine
+import org.telluriumsource.dsl.DslScriptEngine
 
 /**
  * sample DdDslContext to demostrate the usage of DdDslContext

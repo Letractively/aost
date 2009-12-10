@@ -1,6 +1,6 @@
-package org.tellurium.ddt.object.mapping.builder
+package org.telluriumsource.ddt.object.mapping.builder
 
-import org.tellurium.ddt.object.mapping.FieldSet
+import org.telluriumsource.ddt.object.mapping.FieldSet
 
 /**
  * Build FieldSet from a collection of attributes

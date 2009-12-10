@@ -1,12 +1,12 @@
-package org.tellurium.dispatch
+package org.telluriumsource.dispatch
 
-import org.tellurium.client.SeleniumClient
-import org.tellurium.config.Configurable
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
-import org.tellurium.test.crosscut.DefaultExecutionTracer
-import org.tellurium.test.crosscut.ExecutionTracer
-import org.tellurium.framework.Environment;
+import org.telluriumsource.client.SeleniumClient
+import org.telluriumsource.config.Configurable
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.test.crosscut.DefaultExecutionTracer
+import org.telluriumsource.test.crosscut.ExecutionTracer
+import org.telluriumsource.framework.Environment;
 
 
 

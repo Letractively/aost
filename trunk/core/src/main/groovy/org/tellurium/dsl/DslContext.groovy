@@ -1,12 +1,7 @@
-package org.tellurium.dsl
+package org.telluriumsource.dsl
 
-import org.tellurium.dsl.BaseDslContext
-import org.tellurium.dsl.WorkflowContext
-import org.tellurium.exception.NotWidgetObjectException
-import org.tellurium.widget.Widget
-import org.tellurium.bundle.BundleProcessor
-import org.tellurium.dispatch.Dispatcher
-import org.tellurium.bundle.BundleProcessor
+import org.telluriumsource.exception.NotWidgetObjectException
+import org.telluriumsource.widget.Widget
 
 abstract class DslContext extends BaseDslContext {
 

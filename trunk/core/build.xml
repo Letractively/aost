@@ -169,7 +169,7 @@
 			<manifest>
 				<attribute name="Created-at" value="${time.formatted}" />
 				<attribute name="Created-by" value="${user.name}" />
-                <attribute name="Main-Class" value="org.tellurium.dsl.DslScriptExecutor"/>
+                <attribute name="Main-Class" value="org.telluriumsource.dsl.DslScriptExecutor"/>
             </manifest>
 		</jar>
 	</target>
@@ -199,7 +199,7 @@
 			<batchtest todir="${dir.build.test}">
 				<fileset dir="${dir.source.test}">
 					<include name="**/example/test/**"/>
-                    <include name="**/org/tellurium/test/**"/>
+                    <include name="**/org/telluriumsource/test/**"/>
                 </fileset>
 			</batchtest>
 		</junit>

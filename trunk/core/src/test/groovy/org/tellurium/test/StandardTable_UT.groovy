@@ -1,4 +1,4 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
 public class StandardTable_UT extends GroovyTestCase {
 

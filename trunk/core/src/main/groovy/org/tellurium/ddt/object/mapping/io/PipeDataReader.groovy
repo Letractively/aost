@@ -1,12 +1,9 @@
-package org.tellurium.ddt.object.mapping.io
+package org.telluriumsource.ddt.object.mapping.io
 
-import java.io.FileInputStream;
-import java.util.List;
-
-import org.tellurium.Const;
-import org.tellurium.ddt.object.mapping.DataMappingException
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.Const;
+import org.telluriumsource.ddt.object.mapping.DataMappingException
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
 
 /**

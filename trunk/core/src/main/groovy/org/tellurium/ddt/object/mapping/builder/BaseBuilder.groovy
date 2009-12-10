@@ -1,4 +1,4 @@
-package org.tellurium.ddt.object.mapping.builder
+package org.telluriumsource.ddt.object.mapping.builder
 /**
  * Shared code for builder
  *

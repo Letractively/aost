@@ -1,6 +1,6 @@
-package org.tellurium.test.helper
+package org.telluriumsource.test.helper
 
-import org.tellurium.util.Helper
+import org.telluriumsource.util.Helper
 
 /**
  * Test result

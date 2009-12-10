@@ -1,9 +1,9 @@
-package org.tellurium.ddt.object.mapping
+package org.telluriumsource.ddt.object.mapping
 
-import org.tellurium.ddt.object.mapping.builder.FieldBuilder
-import org.tellurium.ddt.object.mapping.builder.FieldSetBuilder
-import org.tellurium.ddt.object.mapping.builder.IdentifierFieldBuilder
-import org.tellurium.ddt.object.mapping.builder.TestFieldBuilder
+import org.telluriumsource.ddt.object.mapping.builder.FieldBuilder
+import org.telluriumsource.ddt.object.mapping.builder.FieldSetBuilder
+import org.telluriumsource.ddt.object.mapping.builder.IdentifierFieldBuilder
+import org.telluriumsource.ddt.object.mapping.builder.TestFieldBuilder
 
 /**
  * parse the Field Set definition

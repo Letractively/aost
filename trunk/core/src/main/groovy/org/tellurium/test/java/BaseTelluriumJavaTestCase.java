@@ -1,12 +1,11 @@
-package org.tellurium.test.java;
+package org.telluriumsource.test.java;
 
-import org.tellurium.config.CustomConfig;
-import org.tellurium.connector.SeleniumConnector;
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
-import org.tellurium.framework.TelluriumFramework;
-import org.tellurium.framework.CachePolicy;
-import org.tellurium.util.Helper;
+import org.telluriumsource.config.CustomConfig;
+import org.telluriumsource.connector.SeleniumConnector;
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.framework.TelluriumFramework;
+import org.telluriumsource.framework.CachePolicy;
+import org.telluriumsource.util.Helper;
 
 import java.util.Map;
 

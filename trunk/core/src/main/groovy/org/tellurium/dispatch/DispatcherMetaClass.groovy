@@ -1,4 +1,4 @@
-package org.tellurium.dispatch
+package org.telluriumsource.dispatch
 
 /*
     Use MetaClass to force you always get back the same instance, which is the Groovy style

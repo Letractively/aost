@@ -1,4 +1,4 @@
-package org.tellurium.connector
+package org.telluriumsource.connector
 
 /**
  * Use to create a shared connector so that individual test case always gets back the same connector

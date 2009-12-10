@@ -1,7 +1,7 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
-import org.tellurium.bundle.CmdRequest
-import org.tellurium.bundle.MacroCmd
+import org.telluriumsource.bundle.CmdRequest
+import org.telluriumsource.bundle.MacroCmd
 
 /**
  *

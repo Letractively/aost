@@ -1,4 +1,4 @@
-package org.tellurium.test.helper
+package org.telluriumsource.test.helper
 /**
  * Hold assertion parameters such as expected, acutal, or value etc
  * 

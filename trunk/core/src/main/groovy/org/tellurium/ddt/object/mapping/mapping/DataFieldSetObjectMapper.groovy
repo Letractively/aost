@@ -1,14 +1,11 @@
-package org.tellurium.ddt.object.mapping.mapping
+package org.telluriumsource.ddt.object.mapping.mapping
 
-import java.io.FileInputStream;
+import org.telluriumsource.Const;
+import org.telluriumsource.ddt.object.mapping.type.TypeHandlerRegistry
+import org.telluriumsource.ddt.object.mapping.FieldSetRegistry
 
-import org.tellurium.Const;
-import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
-import org.tellurium.ddt.object.mapping.FieldSetRegistry
-import org.tellurium.ddt.object.mapping.io.PipeDataReader
-import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistryConfigurator
-import org.tellurium.ddt.object.mapping.FieldSetType
-import org.tellurium.ddt.object.mapping.io.DataReader
+import org.telluriumsource.ddt.object.mapping.type.TypeHandlerRegistryConfigurator
+import org.telluriumsource.ddt.object.mapping.FieldSetType
 
 /**
  * Handle Pipe format file

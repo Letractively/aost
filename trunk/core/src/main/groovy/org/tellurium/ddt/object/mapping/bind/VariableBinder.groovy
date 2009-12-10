@@ -1,9 +1,9 @@
-package org.tellurium.ddt.object.mapping.bind
+package org.telluriumsource.ddt.object.mapping.bind
 
-import org.tellurium.ddt.object.mapping.DataMappingException
-import org.tellurium.ddt.object.mapping.mapping.FieldSetMapResult
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.ddt.object.mapping.DataMappingException
+import org.telluriumsource.ddt.object.mapping.mapping.FieldSetMapResult
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
 
 

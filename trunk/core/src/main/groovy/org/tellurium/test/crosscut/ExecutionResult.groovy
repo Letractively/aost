@@ -1,4 +1,4 @@
-package org.tellurium.test.crosscut
+package org.telluriumsource.test.crosscut
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)

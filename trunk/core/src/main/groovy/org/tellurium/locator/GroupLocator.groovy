@@ -1,4 +1,4 @@
-package org.tellurium.locator
+package org.telluriumsource.locator
 /**
  *    Group locator and it will use all descendants' information to help locating itself
  *    Note: only Container and its child classes can have GroupLocator. For Ui object that does

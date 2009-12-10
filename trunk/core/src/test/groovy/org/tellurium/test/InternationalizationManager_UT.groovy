@@ -1,16 +1,11 @@
-package org.tellurium.test;
+package org.telluriumsource.test;
 
 import java.sql.Date;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import java.util.Locale;
 
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
-
-import groovy.util.GroovyTestCase;
 
 public class InternationalizationManager_UT extends GroovyTestCase {
 
@@ -53,7 +48,7 @@ public class InternationalizationManager_UT extends GroovyTestCase {
 		i18nManager.addResourceBundle("TestMessagesBundle")		
 		
 		//String messageFromResourceBundle = i18nManager.translate("i18nManager.testString")
-		//assertEquals("c'est une corde d'essai en français", messageFromResourceBundle)
+		//assertEquals("c'est une corde d'essai en franï¿½ais", messageFromResourceBundle)
 
 		//translation of number data types
 		Double amount = new Double(21.26);

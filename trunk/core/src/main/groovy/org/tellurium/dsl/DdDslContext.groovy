@@ -1,19 +1,19 @@
-package org.tellurium.dsl
+package org.telluriumsource.dsl
 
-import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
-import org.tellurium.ddt.object.mapping.FieldSetRegistry
-import org.tellurium.ddt.object.mapping.FieldSetParser
-import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistryConfigurator
-import org.tellurium.ddt.DataProvider
-import org.tellurium.ddt.object.mapping.mapping.FieldSetMapResult
-import org.tellurium.ddt.object.mapping.FieldSet
-import org.tellurium.ddt.object.mapping.TestField
-import org.tellurium.ddt.TestRegistry
-import org.tellurium.test.helper.DefaultResultListener
-import org.tellurium.test.helper.TestResult
-import org.tellurium.test.helper.ResultListener
-import org.tellurium.test.helper.StepStatus
-import org.tellurium.test.helper.AssertionResult
+import org.telluriumsource.ddt.object.mapping.type.TypeHandlerRegistry
+import org.telluriumsource.ddt.object.mapping.FieldSetRegistry
+import org.telluriumsource.ddt.object.mapping.FieldSetParser
+import org.telluriumsource.ddt.object.mapping.type.TypeHandlerRegistryConfigurator
+import org.telluriumsource.ddt.DataProvider
+import org.telluriumsource.ddt.object.mapping.mapping.FieldSetMapResult
+import org.telluriumsource.ddt.object.mapping.FieldSet
+import org.telluriumsource.ddt.object.mapping.TestField
+import org.telluriumsource.ddt.TestRegistry
+import org.telluriumsource.test.helper.DefaultResultListener
+import org.telluriumsource.test.helper.TestResult
+import org.telluriumsource.test.helper.ResultListener
+import org.telluriumsource.test.helper.StepStatus
+import org.telluriumsource.test.helper.AssertionResult
 import junit.framework.AssertionFailedError
 
 
@@ -184,7 +184,7 @@ abstract class DdDslContext extends DslContext{
         return null
     }
 
-    public void listenForResult(org.tellurium.test.helper.TestResult result ){
+    public void listenForResult(org.telluriumsource.test.helper.TestResult result ){
         listener.listenForResult(result)    
     }
 

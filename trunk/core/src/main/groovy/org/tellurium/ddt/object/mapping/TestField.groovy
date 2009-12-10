@@ -1,4 +1,4 @@
-package org.tellurium.ddt.object.mapping
+package org.telluriumsource.ddt.object.mapping
 /**
  * Action field and it identified which method the field set should should apply to 
  *

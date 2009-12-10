@@ -1,6 +1,4 @@
-package org.tellurium.event
-
-import org.tellurium.event.Event
+package org.telluriumsource.event
 
 /**
  * Us algorithm to sort given lists of events so that it satisifies the execution flow constraint

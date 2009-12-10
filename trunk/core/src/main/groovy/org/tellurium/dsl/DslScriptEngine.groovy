@@ -1,8 +1,8 @@
-package org.tellurium.dsl
+package org.telluriumsource.dsl
 
-import org.tellurium.bootstrap.TelluriumSupport
-import org.tellurium.test.groovy.DslTelluriumGroovyTestCase
-import org.tellurium.framework.TelluriumFramework
+import org.telluriumsource.bootstrap.TelluriumSupport
+import org.telluriumsource.test.groovy.DslTelluriumGroovyTestCase
+import org.telluriumsource.framework.TelluriumFramework
 
 class DslScriptEngine extends DdDslContext{
     

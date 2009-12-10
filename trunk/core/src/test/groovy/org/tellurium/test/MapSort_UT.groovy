@@ -1,6 +1,4 @@
-package org.tellurium.test
-
-import org.tellurium.test.Test
+package org.telluriumsource.test
 
 /**
  * 

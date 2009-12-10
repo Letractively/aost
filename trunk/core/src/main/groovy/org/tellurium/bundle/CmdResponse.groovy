@@ -1,7 +1,5 @@
-package org.tellurium.bundle
+package org.telluriumsource.bundle
 
-import org.tellurium.bundle.BaseCmd
-import org.tellurium.bundle.ReturnType
 /**
  *
  * Response from a selenium call

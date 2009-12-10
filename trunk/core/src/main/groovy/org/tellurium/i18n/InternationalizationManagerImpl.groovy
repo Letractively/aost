@@ -1,15 +1,8 @@
-package org.tellurium.i18n
+package org.telluriumsource.i18n
 
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
-import java.util.Locale;
-import java.util.MissingResourceException;
-
-
-import java.util.Set;
-
-import java.util.ResourceBundle;
 
 /**
  * InternationalizationManager - provides internationalization support

@@ -1,4 +1,4 @@
-package org.tellurium.ddt.object.mapping.type
+package org.telluriumsource.ddt.object.mapping.type
 /**
  * Registry to hold type handlers for different types of Java object
  *

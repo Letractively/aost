@@ -1,6 +1,6 @@
-package org.tellurium.dsl
+package org.telluriumsource.dsl
 
-import org.tellurium.locator.CompositeLocator
+import org.telluriumsource.locator.CompositeLocator
 import org.json.simple.JSONObject
 
 /**

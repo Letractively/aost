@@ -1,4 +1,4 @@
-package org.tellurium.ddt.object.mapping.io
+package org.telluriumsource.ddt.object.mapping.io
 
 /**
  *

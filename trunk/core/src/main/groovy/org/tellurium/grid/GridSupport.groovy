@@ -1,8 +1,6 @@
-package org.tellurium.grid
+package org.telluriumsource.grid
 
-import com.thoughtworks.selenium.Selenium
-import com.thoughtworks.selenium.DefaultSelenium
-import org.tellurium.connector.CustomSelenium
+import org.telluriumsource.connector.CustomSelenium
 
 /**
  * 

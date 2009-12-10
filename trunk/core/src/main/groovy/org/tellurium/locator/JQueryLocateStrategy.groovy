@@ -1,6 +1,4 @@
-package org.tellurium.locator
-
-import org.tellurium.locator.JQLocator
+package org.telluriumsource.locator
 
 class JQueryLocateStrategy  {
 

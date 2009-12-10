@@ -1,12 +1,12 @@
-package org.tellurium.dsl
+package org.telluriumsource.dsl
 
-import org.tellurium.event.EventHandler
-import org.tellurium.access.Accessor
-import org.tellurium.extend.Extension
-import org.tellurium.framework.Environment
-import org.tellurium.util.Helper
-import org.tellurium.bundle.BundleProcessor
-import org.tellurium.dispatch.Dispatcher
+import org.telluriumsource.event.EventHandler
+import org.telluriumsource.access.Accessor
+import org.telluriumsource.extend.Extension
+import org.telluriumsource.framework.Environment
+import org.telluriumsource.util.Helper
+
+import org.telluriumsource.dispatch.Dispatcher
 
 /**
  * Global methods, which should not be tired to an individual UI module

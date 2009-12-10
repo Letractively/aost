@@ -1,12 +1,12 @@
-package org.tellurium.ddt
+package org.telluriumsource.ddt
 
-import org.tellurium.ddt.object.mapping.mapping.DataFieldSetObjectMapper
-import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
-import org.tellurium.ddt.object.mapping.bind.VariableBinder
-import org.tellurium.ddt.object.mapping.mapping.FieldSetMapResult
-import org.tellurium.ddt.object.mapping.FieldSetRegistry
-import org.tellurium.config.Configurable
-import org.tellurium.config.TelluriumConfigurator
+import org.telluriumsource.ddt.object.mapping.mapping.DataFieldSetObjectMapper
+import org.telluriumsource.ddt.object.mapping.type.TypeHandlerRegistry
+import org.telluriumsource.ddt.object.mapping.bind.VariableBinder
+import org.telluriumsource.ddt.object.mapping.mapping.FieldSetMapResult
+import org.telluriumsource.ddt.object.mapping.FieldSetRegistry
+import org.telluriumsource.config.Configurable
+import org.telluriumsource.config.TelluriumConfigurator
 
 /**
  * The data provider for different formats of input

@@ -1,6 +1,6 @@
-package org.tellurium.ddt.object.mapping.mapping
+package org.telluriumsource.ddt.object.mapping.mapping
 
-import org.tellurium.ddt.object.mapping.FieldSetType
+import org.telluriumsource.ddt.object.mapping.FieldSetType
 
 /**
  *  Interface for the field set object mapping

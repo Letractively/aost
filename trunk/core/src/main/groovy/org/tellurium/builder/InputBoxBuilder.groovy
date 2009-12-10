@@ -1,7 +1,6 @@
-package org.tellurium.builder
+package org.telluriumsource.builder
 
-import org.tellurium.locator.BaseLocator
-import org.tellurium.object.InputBox
+import org.telluriumsource.object.InputBox
 
 /**
  *    Input Box builder

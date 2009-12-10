@@ -1,10 +1,10 @@
-package org.tellurium.ddt.object.mapping.mapping
+package org.telluriumsource.ddt.object.mapping.mapping
 
-import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
-import org.tellurium.ddt.object.mapping.type.TypeHandler
-import org.tellurium.ddt.object.mapping.DataMappingException
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.ddt.object.mapping.type.TypeHandlerRegistry
+import org.telluriumsource.ddt.object.mapping.type.TypeHandler
+import org.telluriumsource.ddt.object.mapping.DataMappingException
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
 
 /**

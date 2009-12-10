@@ -1,7 +1,4 @@
-package org.tellurium.locator
-
-import org.tellurium.locator.CompositeLocator
-import org.tellurium.locator.XPathBuilder
+package org.telluriumsource.locator
 
 /**
  *   Automcatically generate relate xpath based on composite elements in the

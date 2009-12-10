@@ -1,12 +1,12 @@
-package org.tellurium.object
+package org.telluriumsource.object
 
-import org.tellurium.dsl.WorkflowContext
-import org.tellurium.dsl.UiID
-import org.tellurium.locator.LocatorProcessor
-import org.tellurium.locator.GroupLocateStrategy
+import org.telluriumsource.dsl.WorkflowContext
+import org.telluriumsource.dsl.UiID
+import org.telluriumsource.locator.LocatorProcessor
+import org.telluriumsource.locator.GroupLocateStrategy
 import org.json.simple.JSONObject
-import org.tellurium.i18n.InternationalizationManager
-import org.tellurium.i18n.InternationalizationManagerImpl
+import org.telluriumsource.i18n.InternationalizationManager
+import org.telluriumsource.i18n.InternationalizationManagerImpl
 
 /**
  *  container

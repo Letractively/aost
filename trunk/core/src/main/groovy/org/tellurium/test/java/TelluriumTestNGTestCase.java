@@ -1,11 +1,7 @@
-package org.tellurium.test.java;
+package org.telluriumsource.test.java;
 
-import org.tellurium.bootstrap.TelluriumSupport;
-import org.tellurium.connector.SeleniumConnector;
-import org.tellurium.framework.TelluriumFramework;
-import org.tellurium.i18n.InternationalizationManagerImpl;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.telluriumsource.bootstrap.TelluriumSupport;
+import org.telluriumsource.connector.SeleniumConnector;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 

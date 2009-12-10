@@ -1,6 +1,4 @@
-package org.tellurium.bundle
-
-import org.tellurium.bundle.CmdRequest
+package org.telluriumsource.bundle
 
 /**
  * 

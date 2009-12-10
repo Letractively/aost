@@ -1,6 +1,6 @@
-package org.tellurium.test.crosscut
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
+package org.telluriumsource.test.crosscut
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
 
 

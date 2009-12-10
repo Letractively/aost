@@ -1,15 +1,15 @@
-package org.tellurium.ddt.object.mapping.mapping
+package org.telluriumsource.ddt.object.mapping.mapping
 
-import org.tellurium.Const;
-import org.tellurium.ddt.object.mapping.FieldSetRegistry
-import org.tellurium.ddt.object.mapping.io.DataReader
-import org.tellurium.ddt.object.mapping.FieldSet
-import org.tellurium.ddt.object.mapping.Field
-import org.tellurium.ddt.object.mapping.DataMappingException
-import org.tellurium.ddt.object.mapping.validator.FieldSetValidator
-import org.tellurium.ddt.object.mapping.FieldSetType
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.Const;
+import org.telluriumsource.ddt.object.mapping.FieldSetRegistry
+import org.telluriumsource.ddt.object.mapping.io.DataReader
+import org.telluriumsource.ddt.object.mapping.FieldSet
+import org.telluriumsource.ddt.object.mapping.Field
+import org.telluriumsource.ddt.object.mapping.DataMappingException
+import org.telluriumsource.ddt.object.mapping.validator.FieldSetValidator
+import org.telluriumsource.ddt.object.mapping.FieldSetType
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
 
 /**

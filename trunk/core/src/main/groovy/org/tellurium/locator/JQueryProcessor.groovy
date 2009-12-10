@@ -1,6 +1,4 @@
-package org.tellurium.locator
-
-import org.tellurium.locator.ContextAwareSplitter
+package org.telluriumsource.locator
 
 /**
  * 

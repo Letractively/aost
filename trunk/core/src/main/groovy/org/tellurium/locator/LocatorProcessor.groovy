@@ -1,9 +1,9 @@
-package org.tellurium.locator
+package org.telluriumsource.locator
 
-import org.tellurium.dsl.WorkflowContext
-import org.tellurium.exception.InvalidLocatorException
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.dsl.WorkflowContext
+import org.telluriumsource.exception.InvalidLocatorException
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
 
 /**

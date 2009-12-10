@@ -1,12 +1,12 @@
-package org.tellurium.test.ddt
+package org.telluriumsource.test.ddt
 
-import org.tellurium.ddt.DataProvider
-import org.tellurium.ddt.TestRegistry
-import org.tellurium.ddt.object.mapping.FieldSetParser
-import org.tellurium.ddt.object.mapping.FieldSetRegistry
-import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
-import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistryConfigurator
-import org.tellurium.dsl.DslContext
+import org.telluriumsource.ddt.DataProvider
+import org.telluriumsource.ddt.TestRegistry
+import org.telluriumsource.ddt.object.mapping.FieldSetParser
+import org.telluriumsource.ddt.object.mapping.FieldSetRegistry
+import org.telluriumsource.ddt.object.mapping.type.TypeHandlerRegistry
+import org.telluriumsource.ddt.object.mapping.type.TypeHandlerRegistryConfigurator
+import org.telluriumsource.dsl.DslContext
 
 /**
  * In this module, you can define the following things:

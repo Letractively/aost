@@ -1,4 +1,4 @@
-package org.tellurium.ddt
+package org.telluriumsource.ddt
 /**
  *
  * Registry to hold user defined Tests

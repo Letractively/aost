@@ -1,12 +1,12 @@
-package org.tellurium.object
+package org.telluriumsource.object
 
-import org.tellurium.access.Accessor
-import org.tellurium.dsl.UiID
-import org.tellurium.dsl.WorkflowContext
+import org.telluriumsource.access.Accessor
+import org.telluriumsource.dsl.UiID
+import org.telluriumsource.dsl.WorkflowContext
 import org.json.simple.JSONObject
-import org.tellurium.locator.CompositeLocator
-import org.tellurium.locator.XPathBuilder
-import org.tellurium.locator.JQueryBuilder
+import org.telluriumsource.locator.CompositeLocator
+import org.telluriumsource.locator.XPathBuilder
+import org.telluriumsource.locator.JQueryBuilder
 
 /**
  * Abstracted class for a list, which holds one dimension array of Ui objects

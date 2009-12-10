@@ -1,6 +1,6 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
-import org.tellurium.locator.JQueryOptimizer
+import org.telluriumsource.locator.JQueryOptimizer
 
 /**
  * 

@@ -1,4 +1,4 @@
-package org.tellurium.framework
+package org.telluriumsource.framework
 
 /**
  * Make the Tellurium Framework a singleton

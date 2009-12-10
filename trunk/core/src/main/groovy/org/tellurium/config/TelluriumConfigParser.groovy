@@ -1,9 +1,7 @@
-package org.tellurium.config
+package org.telluriumsource.config
 
-import java.util.Locale;
-
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
 
 /**

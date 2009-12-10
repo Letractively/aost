@@ -1,11 +1,9 @@
-package org.tellurium.test.groovy
+package org.telluriumsource.test.groovy
 
-import org.tellurium.bootstrap.TelluriumSupport
-import org.tellurium.config.CustomConfig
-import org.tellurium.connector.SeleniumConnector
-import org.tellurium.framework.TelluriumFramework
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.bootstrap.TelluriumSupport
+import org.telluriumsource.config.CustomConfig
+import org.telluriumsource.connector.SeleniumConnector
+import org.telluriumsource.framework.TelluriumFramework
 
 import org.testng.annotations.AfterClass
 import org.testng.annotations.BeforeClass

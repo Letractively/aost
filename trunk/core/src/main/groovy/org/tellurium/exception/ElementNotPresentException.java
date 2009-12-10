@@ -1,6 +1,6 @@
-package org.tellurium.exception;
+package org.telluriumsource.exception;
 
-import org.tellurium.exception.TelluriumException;
+import org.telluriumsource.exception.TelluriumException;
 
 /**
  * Element not present exception

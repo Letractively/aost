@@ -1,6 +1,6 @@
-package org.tellurium.locator
+package org.telluriumsource.locator
 
-import static org.tellurium.Const.*
+import static org.telluriumsource.Const.*
 import org.json.simple.JSONObject
 
 /**

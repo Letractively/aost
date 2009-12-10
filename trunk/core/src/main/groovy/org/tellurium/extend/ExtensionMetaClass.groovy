@@ -1,6 +1,4 @@
-package org.tellurium.extend
-
-import org.tellurium.extend.Extension
+package org.telluriumsource.extend
 
 /**
  * MetaClass of the Extension class

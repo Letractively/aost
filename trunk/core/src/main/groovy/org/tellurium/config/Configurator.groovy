@@ -1,6 +1,4 @@
-package org.tellurium.config
-
-import org.tellurium.config.Configurable
+package org.telluriumsource.config
 
 /**
  * Configurator

@@ -1,4 +1,4 @@
-package org.tellurium.test.java;
+package org.telluriumsource.test.java;
 
 /**
  * Deprecated

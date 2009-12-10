@@ -1,11 +1,11 @@
-package org.tellurium.connector
+package org.telluriumsource.connector
 
 import com.thoughtworks.selenium.DefaultSelenium
 import com.thoughtworks.selenium.CommandProcessor
-import org.tellurium.exception.*
-import org.tellurium.grid.GridSupport
-import org.tellurium.i18n.InternationalizationManager
-import org.tellurium.i18n.InternationalizationManagerImpl
+import org.telluriumsource.exception.*
+import org.telluriumsource.grid.GridSupport
+import org.telluriumsource.i18n.InternationalizationManager
+import org.telluriumsource.i18n.InternationalizationManagerImpl
 
 
 

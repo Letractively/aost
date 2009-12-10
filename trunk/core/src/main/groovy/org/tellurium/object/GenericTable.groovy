@@ -1,10 +1,10 @@
-package org.tellurium.object
+package org.telluriumsource.object
 
-import org.tellurium.exception.InvalidUidException
-import org.tellurium.access.Accessor
-import org.tellurium.dsl.WorkflowContext
-import org.tellurium.dsl.UiID
-import org.tellurium.locator.CompositeLocator
+import org.telluriumsource.exception.InvalidUidException
+import org.telluriumsource.access.Accessor
+import org.telluriumsource.dsl.WorkflowContext
+import org.telluriumsource.dsl.UiID
+import org.telluriumsource.locator.CompositeLocator
 
 /**
  * 

@@ -1,7 +1,6 @@
-package org.tellurium.builder
+package org.telluriumsource.builder
 
-import org.tellurium.object.Image
-import org.tellurium.locator.BaseLocator
+import org.telluriumsource.object.Image
 
 /**
  *  Image builder

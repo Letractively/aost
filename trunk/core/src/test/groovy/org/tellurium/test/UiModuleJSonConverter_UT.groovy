@@ -1,8 +1,6 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
-
-import org.json.simple.JSONObject
-import org.tellurium.module.GoogleSearchModule
+import org.telluriumsource.module.GoogleSearchModule
 
 /**
  *

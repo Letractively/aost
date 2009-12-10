@@ -1,6 +1,6 @@
-package org.tellurium.extend
+package org.telluriumsource.extend
 
-import org.tellurium.bundle.BundleProcessor
+import org.telluriumsource.bundle.BundleProcessor
 
 /**
  * Class to pass user custom methods to the delegator

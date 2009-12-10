@@ -70,7 +70,7 @@ tellurium{
         browser = "*chrome"
         //user's class to hold custom selenium methods associated with user-extensions.js
         //should in full class name, for instance, "com.mycom.CustomSelenium"
-        customClass = "org.tellurium.test.MyCommand"
+        customClass = "org.telluriumsource.test.MyCommand"
         //browser options such as
         //    options = "captureNetworkTraffic=true, addCustomRequestHeader=true"
         options = ""
@@ -94,7 +94,7 @@ tellurium{
     test{
         execution{
             //whether to trace the execution timing
-            trace = true
+            trace = false
         }      
         //at current stage, the result report is only for tellurium data driven testing
         //we may add the result report for regular tellurium test case

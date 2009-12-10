@@ -1,6 +1,6 @@
-package org.tellurium.ddt.object.mapping.bind
+package org.telluriumsource.ddt.object.mapping.bind
 
-import org.tellurium.ddt.object.mapping.mapping.FieldSetMapResult
+import org.telluriumsource.ddt.object.mapping.mapping.FieldSetMapResult
 
 /**
  * The registry holds the fieldset id to its value

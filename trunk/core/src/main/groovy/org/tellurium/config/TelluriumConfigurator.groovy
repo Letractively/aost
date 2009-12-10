@@ -1,32 +1,26 @@
-package org.tellurium.config
+package org.telluriumsource.config
 
-import org.tellurium.access.Accessor
-import org.tellurium.builder.UiObjectBuilder
-import org.tellurium.builder.UiObjectBuilderRegistry
-import org.tellurium.config.Configurable
-import org.tellurium.config.Configurator
-import org.tellurium.config.TelluriumConfigParser
-import org.tellurium.connector.SeleniumConnector
-import org.tellurium.ddt.DataProvider
-import org.tellurium.ddt.object.mapping.io.CSVDataReader
-import org.tellurium.ddt.object.mapping.io.ExcelDataReader;
-import org.tellurium.ddt.object.mapping.io.PipeDataReader
-import org.tellurium.dispatch.Dispatcher
-import org.tellurium.event.EventHandler
-import org.tellurium.server.EmbeddedSeleniumServer
-import org.tellurium.widget.WidgetConfigurator
-import org.tellurium.test.helper.*
-import org.tellurium.connector.CustomSelenium
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
-import org.tellurium.test.helper.XMLResultReporter
-import org.tellurium.test.helper.SimpleResultReporter
-import org.tellurium.test.helper.DefaultResultListener
-import org.tellurium.test.helper.StreamXMLResultReporter
-import org.tellurium.test.helper.ConsoleOutput
-import org.tellurium.test.helper.FileOutput
-import org.tellurium.bundle.BundleProcessor
-import org.tellurium.framework.Environment
+import org.telluriumsource.access.Accessor
+import org.telluriumsource.builder.UiObjectBuilder
+import org.telluriumsource.builder.UiObjectBuilderRegistry
+
+import org.telluriumsource.connector.SeleniumConnector
+import org.telluriumsource.ddt.DataProvider
+import org.telluriumsource.ddt.object.mapping.io.CSVDataReader
+import org.telluriumsource.ddt.object.mapping.io.ExcelDataReader;
+import org.telluriumsource.ddt.object.mapping.io.PipeDataReader
+import org.telluriumsource.dispatch.Dispatcher
+import org.telluriumsource.event.EventHandler
+import org.telluriumsource.server.EmbeddedSeleniumServer
+import org.telluriumsource.widget.WidgetConfigurator
+import org.telluriumsource.test.helper.*
+
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
+
+
+import org.telluriumsource.bundle.BundleProcessor
+import org.telluriumsource.framework.Environment
 
 
 /**

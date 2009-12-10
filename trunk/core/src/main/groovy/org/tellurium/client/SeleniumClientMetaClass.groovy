@@ -1,4 +1,4 @@
-package org.tellurium.client
+package org.telluriumsource.client
 
 
 /*                                           

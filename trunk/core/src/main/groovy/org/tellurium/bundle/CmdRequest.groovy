@@ -1,7 +1,6 @@
-package org.tellurium.bundle
+package org.telluriumsource.bundle
 
-import org.tellurium.dsl.UiID
-import org.tellurium.bundle.BaseCmd
+import org.telluriumsource.dsl.UiID
 
 /**
  * Selenium Command (Request) sending to the Engine

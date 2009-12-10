@@ -1,4 +1,4 @@
-package org.tellurium.tool;
+package org.telluriumsource.tool;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -9,8 +9,8 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
 
 /**

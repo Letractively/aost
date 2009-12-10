@@ -1,7 +1,7 @@
-package org.tellurium.java
+package org.telluriumsource.java
 
-import org.tellurium.test.groovy.TelluriumGroovyTestCase
-import org.tellurium.module.GoogleSearchModule
+import org.telluriumsource.test.groovy.TelluriumGroovyTestCase
+import org.telluriumsource.module.GoogleSearchModule
 
 /**
  *

@@ -1,6 +1,4 @@
-package org.tellurium.ddt.object.mapping
-
-import org.tellurium.ddt.object.mapping.Field
+package org.telluriumsource.ddt.object.mapping
 
 /**
  * The identifier for a Field Set

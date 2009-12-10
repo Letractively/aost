@@ -1,10 +1,10 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
-import org.tellurium.dsl.WorkflowContext
-import org.tellurium.object.InputBox
-import org.tellurium.object.TextBox
-import org.tellurium.object.UiObject
-import org.tellurium.object.UrlLink
+import org.telluriumsource.dsl.WorkflowContext
+import org.telluriumsource.object.InputBox
+import org.telluriumsource.object.TextBox
+import org.telluriumsource.object.UiObject
+import org.telluriumsource.object.UrlLink
 
 /**
  * 

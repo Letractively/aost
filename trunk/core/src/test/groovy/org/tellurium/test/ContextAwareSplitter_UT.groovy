@@ -1,6 +1,6 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
-import org.tellurium.locator.ContextAwareSplitter
+import org.telluriumsource.locator.ContextAwareSplitter
 
 /**
  * 

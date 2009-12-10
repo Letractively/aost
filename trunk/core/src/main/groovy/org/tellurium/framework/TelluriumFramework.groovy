@@ -1,33 +1,33 @@
-package org.tellurium.framework
+package org.telluriumsource.framework
 
-import org.tellurium.access.Accessor
-import org.tellurium.access.AccessorMetaClass
-import org.tellurium.builder.UiObjectBuilder
-import org.tellurium.builder.UiObjectBuilderRegistry
-import org.tellurium.builder.UiObjectBuilderRegistryMetaClass
-import org.tellurium.client.SeleniumClient
-import org.tellurium.client.SeleniumClientMetaClass
-import org.tellurium.config.CustomConfig
-import org.tellurium.config.TelluriumConfigurator
-import org.tellurium.config.TelluriumConfiguratorMetaClass
-import org.tellurium.connector.SeleniumConnector
-import org.tellurium.connector.SeleniumConnectorMetaClass
-import org.tellurium.dispatch.Dispatcher
-import org.tellurium.dispatch.DispatcherMetaClass
-import org.tellurium.event.EventHandler
-import org.tellurium.event.EventHandlerMetaClass
-import org.tellurium.extend.Extension
-import org.tellurium.extend.ExtensionMetaClass
-import org.tellurium.locator.LocatorProcessor
-import org.tellurium.locator.LocatorProcessorMetaClass
-import org.tellurium.server.EmbeddedSeleniumServer
-import org.tellurium.widget.WidgetConfigurator
-import org.tellurium.i18n.InternationalizationManager
-import org.tellurium.i18n.InternationalizationManagerImpl
-import org.tellurium.i18n.InternationalizationManagerImplMetaClass
-import org.tellurium.dsl.GlobalDslContext
-import org.tellurium.dsl.WorkflowContext
-import org.tellurium.util.Helper;
+import org.telluriumsource.access.Accessor
+import org.telluriumsource.access.AccessorMetaClass
+import org.telluriumsource.builder.UiObjectBuilder
+import org.telluriumsource.builder.UiObjectBuilderRegistry
+import org.telluriumsource.builder.UiObjectBuilderRegistryMetaClass
+import org.telluriumsource.client.SeleniumClient
+import org.telluriumsource.client.SeleniumClientMetaClass
+import org.telluriumsource.config.CustomConfig
+import org.telluriumsource.config.TelluriumConfigurator
+import org.telluriumsource.config.TelluriumConfiguratorMetaClass
+import org.telluriumsource.connector.SeleniumConnector
+import org.telluriumsource.connector.SeleniumConnectorMetaClass
+import org.telluriumsource.dispatch.Dispatcher
+import org.telluriumsource.dispatch.DispatcherMetaClass
+import org.telluriumsource.event.EventHandler
+import org.telluriumsource.event.EventHandlerMetaClass
+import org.telluriumsource.extend.Extension
+import org.telluriumsource.extend.ExtensionMetaClass
+import org.telluriumsource.locator.LocatorProcessor
+import org.telluriumsource.locator.LocatorProcessorMetaClass
+import org.telluriumsource.server.EmbeddedSeleniumServer
+import org.telluriumsource.widget.WidgetConfigurator
+import org.telluriumsource.i18n.InternationalizationManager
+import org.telluriumsource.i18n.InternationalizationManagerImpl
+import org.telluriumsource.i18n.InternationalizationManagerImplMetaClass
+import org.telluriumsource.dsl.GlobalDslContext
+
+import org.telluriumsource.util.Helper;
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here

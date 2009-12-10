@@ -1,7 +1,7 @@
-package org.tellurium.bootstrap
+package org.telluriumsource.bootstrap
 
-import org.tellurium.framework.TelluriumFramework
-import org.tellurium.framework.TelluriumFrameworkMetaClass
+import org.telluriumsource.framework.TelluriumFramework
+import org.telluriumsource.framework.TelluriumFrameworkMetaClass
 
 /**
  * Used to initalize the Tellurium framework

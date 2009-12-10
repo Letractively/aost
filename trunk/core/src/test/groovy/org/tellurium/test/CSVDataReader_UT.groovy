@@ -1,6 +1,6 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
-import org.tellurium.ddt.object.mapping.io.CSVDataReader
+import org.telluriumsource.ddt.object.mapping.io.CSVDataReader
 
 /**
  * 

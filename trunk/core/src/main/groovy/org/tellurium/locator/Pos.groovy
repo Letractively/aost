@@ -1,4 +1,4 @@
-package org.tellurium.locator
+package org.telluriumsource.locator
 
 /**
  * Google search module test case to demonstrate the usage of composite locator and JQuery selector

@@ -1,13 +1,13 @@
-package org.tellurium.java;
+package org.telluriumsource.java;
 
-import org.tellurium.test.java.TelluriumJUnitTestCase;
+import org.telluriumsource.test.java.TelluriumJUnitTestCase;
 import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.tellurium.module.GoogleSearchModule;
-import org.tellurium.framework.CachePolicy;
+import org.telluriumsource.module.GoogleSearchModule;
+import org.telluriumsource.framework.CachePolicy;
 
 /**
  * Google search module test case to demonstrate the usage of composite locator and JQuery selector

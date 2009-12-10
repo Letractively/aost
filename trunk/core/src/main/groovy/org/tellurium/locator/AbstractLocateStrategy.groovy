@@ -1,4 +1,4 @@
-package org.tellurium.locator
+package org.telluriumsource.locator
 
 abstract class AbstractLocateStrategy{
 

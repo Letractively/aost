@@ -1,24 +1,24 @@
-package org.tellurium.dsl
+package org.telluriumsource.dsl
 
 import org.json.simple.JSONObject;
 import org.stringtree.json.JSONReader;
-import org.tellurium.access.Accessor;
-import org.tellurium.event.EventHandler;
-import org.tellurium.exception.UiObjectNotFoundException;
-import org.tellurium.extend.Extension;
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
-import org.tellurium.locator.JQueryOptimizer;
-import org.tellurium.locator.LocatorProcessor;
-import org.tellurium.locator.MetaCmd;
-import org.tellurium.object.StandardTable;
-import org.tellurium.util.Helper;
 
-import org.tellurium.object.UiObject;
-import org.tellurium.locator.JQueryProcessor
-import org.tellurium.locator.XPathProcessor
+
+import org.telluriumsource.exception.UiObjectNotFoundException;
+
+
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.locator.JQueryOptimizer;
+import org.telluriumsource.locator.LocatorProcessor;
+import org.telluriumsource.locator.MetaCmd;
+import org.telluriumsource.object.StandardTable;
+
+
+import org.telluriumsource.object.UiObject;
+import org.telluriumsource.locator.JQueryProcessor
+import org.telluriumsource.locator.XPathProcessor
 import org.json.simple.JSONArray
-import org.tellurium.framework.Environment;
 
 /**
  *
@@ -978,7 +978,7 @@ abstract class BaseDslContext extends GlobalDslContext {
 
   int getListSizeByXPath(String uid) {
     WorkflowContext context = WorkflowContext.getDefaultContext()
-    org.tellurium.object.List obj = (org.tellurium.object.List) walkToWithException(context, uid)
+    org.telluriumsource.object.List obj = (org.telluriumsource.object.List) walkToWithException(context, uid)
     return obj.getListSizeByXPath() {loc ->
       String locator = locatorMapping(context, loc)
       locator
@@ -988,7 +988,7 @@ abstract class BaseDslContext extends GlobalDslContext {
   //use jQuery Selector to optimize the list operations
   int getListSizeBySelector(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache())
-    org.tellurium.object.List obj = (org.tellurium.object.List) walkToWithException(context, uid)
+    org.telluriumsource.object.List obj = (org.telluriumsource.object.List) walkToWithException(context, uid)
     context.updateUniqueForMetaCmd(false)
     //force not to cache the selector
     context.updateCacheableForMetaCmd(false)

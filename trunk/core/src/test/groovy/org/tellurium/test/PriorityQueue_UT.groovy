@@ -1,6 +1,6 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
-import org.tellurium.tool.PriorityQueue
+import org.telluriumsource.tool.PriorityQueue
 
 /**
  * 
@@ -12,7 +12,7 @@ import org.tellurium.tool.PriorityQueue
 
 public class PriorityQueue_UT extends GroovyTestCase{
   def B = [2, 8, 4, 14, 7, 1, 16, 9, 10, 3];
-  org.tellurium.tool.PriorityQueue queue;
+  org.telluriumsource.tool.PriorityQueue queue;
 
   public void testInsertExtraMax(){
     queue = new PriorityQueue();
