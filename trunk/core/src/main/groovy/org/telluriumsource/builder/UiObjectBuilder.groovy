@@ -92,7 +92,7 @@ abstract class UiObjectBuilder extends Const {
         
 /*
         else{
-           if(obj instanceof org.tellurium.object.Table || obj instanceof org.tellurium.object.List){
+           if(obj instanceof org.telluriumsource.object.Table || obj instanceof org.telluriumsource.object.List){
               //not to use cache for children for all tables and Lists by default
               obj.noCacheForChildren = true
            }

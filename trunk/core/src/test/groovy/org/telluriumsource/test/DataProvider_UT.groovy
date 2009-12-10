@@ -26,7 +26,7 @@ class DataProvider_UT extends GroovyTestCase{
     protected FieldSetParser fs = new FieldSetParser(fsr)
 
     public void setUp(){
-        TypeHandlerRegistryConfigurator.addCustomTypeHandler(thr, "phoneNumber", "org.tellurium.test.PhoneNumberTypeHandler")
+        TypeHandlerRegistryConfigurator.addCustomTypeHandler(thr, "phoneNumber", "org.telluriumsource.test.PhoneNumberTypeHandler")
 
         fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search"){
             Field(name: "regularSearch", type: "boolean", description: "whether we should use regular search or use I'm feeling lucky")

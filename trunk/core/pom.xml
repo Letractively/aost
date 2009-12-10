@@ -21,7 +21,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>org.tellurium.dsl.DslScriptExecutor</mainClass>
+                            <mainClass>org.telluriumsource.dsl.DslScriptExecutor</mainClass>
                             <addClasspath>true</addClasspath>
                         </manifest>
                     </archive>

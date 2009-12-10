@@ -52,7 +52,7 @@ tellurium{
         browser = "*chrome"
         //user's class to hold custom selenium methods associated with user-extensions.js
         //should in full class name, for instance, "com.mycom.CustomSelenium"
-        customClass = "org.tellurium.test.MyCommand"
+        customClass = "org.telluriumsource.test.MyCommand"
     }
     datadriven{
         dataprovider{
@@ -99,7 +99,7 @@ tellurium{
             //take the TableBuilder or ListBuilder as an example
 
             //example:
-//           Icon="org.tellurium.builder.IconBuilder"
+//           Icon="org.telluriumsource.builder.IconBuilder"
             
         }
     }

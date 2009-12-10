@@ -70,7 +70,7 @@ tellurium{
 
         browser = "*chrome"
         //user's class to hold custom selenium methods associated with user-extensions.js
-        //should in full class name, for instance, "org.tellurium.test.MyCommand"
+        //should in full class name, for instance, "org.telluriumsource.test.MyCommand"
         customClass = ""
     }
     datadriven{
@@ -131,8 +131,8 @@ tellurium{
             //take the TableBuilder or ListBuilder as an example
 
             //example:
-           SelectMenu="org.tellurium.builder.SelectMenuBuilder"
-           ClickableRadioButton="org.tellurium.builder.ClickableRadioButtonBuilder"
+           SelectMenu="org.telluriumsource.builder.SelectMenuBuilder"
+           ClickableRadioButton="org.telluriumsource.builder.ClickableRadioButtonBuilder"
         }
     }
     widget{
