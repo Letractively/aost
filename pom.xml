@@ -456,9 +456,9 @@
             <url>http://maven.kungfuters.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <site>
-            <id>kungfuters-public-site</id>
-            <name>Kungfuters.org Public Sites</name>
-            <url>scp://kungfuters.org/www/sites/kungfuters.org/public_html/tellurium</url>
+            <id>tellurium-site</id>
+            <name>Tellurium Site</name>
+            <url>scp://telluriumsource.org/var/www/telluriumsource.org/public/maven</url>
         </site>
     </distributionManagement>
     <properties>
