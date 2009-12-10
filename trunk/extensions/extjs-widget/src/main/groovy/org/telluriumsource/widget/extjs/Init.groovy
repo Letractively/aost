@@ -1,6 +1,8 @@
 package org.telluriumsource.widget.extjs
 
 import org.telluriumsource.widget.extjs.builder.DummyBuilder
+import org.telluriumsource.widget.WidgetBootstrap
+import org.telluriumsource.builder.UiObjectBuilderRegistry
 
 /**
  * The bootstrap class for the Dojo widget module
