@@ -1,6 +1,6 @@
-package org.tellurium.builder
+package org.telluriumsource.builder
 
-import org.tellurium.object.Div
+import org.telluriumsource.object.Div
 
 /**
  * Created by IntelliJ IDEA.

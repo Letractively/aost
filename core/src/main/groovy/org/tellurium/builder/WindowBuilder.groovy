@@ -1,7 +1,7 @@
-package org.tellurium.builder
+package org.telluriumsource.builder
 
-import org.tellurium.object.UiObject
-import org.tellurium.object.Window
+import org.telluriumsource.object.UiObject
+import org.telluriumsource.object.Window
 
 /**
  *

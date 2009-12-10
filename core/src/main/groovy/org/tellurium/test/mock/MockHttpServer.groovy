@@ -1,8 +1,7 @@
-package org.tellurium.test.mock
+package org.telluriumsource.test.mock
 
 import com.sun.net.httpserver.HttpHandler
 import com.sun.net.httpserver.HttpServer
-import org.tellurium.test.mock.MockHttpHandler
 
 /**
  * 

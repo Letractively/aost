@@ -1,8 +1,8 @@
-package org.tellurium.test;
+package org.telluriumsource.test;
 
 import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
-import org.tellurium.tool.Uid;
+import org.telluriumsource.tool.Uid;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)

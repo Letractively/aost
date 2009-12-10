@@ -1,7 +1,7 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
-import org.tellurium.event.Event
-import org.tellurium.event.EventSorter
+import org.telluriumsource.event.Event
+import org.telluriumsource.event.EventSorter
 
 /**
  * 

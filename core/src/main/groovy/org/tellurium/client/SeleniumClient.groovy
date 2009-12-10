@@ -1,6 +1,6 @@
-package org.tellurium.client
+package org.telluriumsource.client
 
-import org.tellurium.connector.CustomSelenium
+import org.telluriumsource.connector.CustomSelenium
 
 /**
  * User: Jian Fang (John.Jian.Fang@gmail.com)

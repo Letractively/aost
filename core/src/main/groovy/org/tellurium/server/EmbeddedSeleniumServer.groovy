@@ -1,8 +1,8 @@
-package org.tellurium.server
+package org.telluriumsource.server
 
-import org.tellurium.config.Configurable
-import org.tellurium.server.SeleniumServerDaemon
-import org.tellurium.util.Helper
+import org.telluriumsource.config.Configurable
+
+import org.telluriumsource.util.Helper
 
 /**
  * Embedded Selenium Server and will be running as a daemon thread

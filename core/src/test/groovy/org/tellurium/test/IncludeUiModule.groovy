@@ -1,6 +1,6 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
-import org.tellurium.dsl.DslContext
+import org.telluriumsource.dsl.DslContext
 
 /**
  * example of including UI modules

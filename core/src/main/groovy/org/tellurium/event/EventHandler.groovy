@@ -1,17 +1,13 @@
-package org.tellurium.event
+package org.telluriumsource.event
 
-import org.tellurium.config.Configurable
-import org.tellurium.dispatch.Dispatcher
-import org.tellurium.event.Event
-import org.tellurium.event.EventSorter
-import org.tellurium.exception.ElementNotPresentException
-import org.tellurium.util.Helper
-import java.awt.event.KeyEvent
+import org.telluriumsource.config.Configurable
 
-import org.tellurium.i18n.InternationalizationManager
-import org.tellurium.i18n.InternationalizationManagerImpl
-import org.tellurium.bundle.BundleProcessor
-import org.tellurium.dsl.WorkflowContext;
+import org.telluriumsource.util.Helper
+
+import org.telluriumsource.i18n.InternationalizationManager
+import org.telluriumsource.i18n.InternationalizationManagerImpl
+import org.telluriumsource.bundle.BundleProcessor
+import org.telluriumsource.dsl.WorkflowContext;
 
 
 class EventHandler implements Configurable{

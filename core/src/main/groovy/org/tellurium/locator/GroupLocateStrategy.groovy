@@ -1,13 +1,9 @@
-package org.tellurium.locator
+package org.telluriumsource.locator
 
-import org.tellurium.locator.BaseLocator
-import org.tellurium.locator.CompositeLocator
-import org.tellurium.locator.DefaultLocateStrategy
-import org.tellurium.locator.XPathBuilder
-import org.tellurium.object.Container
-import org.tellurium.object.UiObject
-import org.tellurium.exception.InvalidLocatorException
-import static org.tellurium.Const.*
+import org.telluriumsource.object.Container
+import org.telluriumsource.object.UiObject
+import org.telluriumsource.exception.InvalidLocatorException
+import static org.telluriumsource.Const.*
 
 
 /**

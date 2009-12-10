@@ -1,4 +1,4 @@
-package org.tellurium.ddt.object.mapping
+package org.telluriumsource.ddt.object.mapping
 /**
  *  Describe a field for a record
  *

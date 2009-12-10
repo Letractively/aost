@@ -1,4 +1,4 @@
-package org.tellurium.config
+package org.telluriumsource.config
 /**
  * Another singleton so that all classes can reach this configurator, may not be very elegant, but keep it this
  * way until we have better way to configure or wire the framework.

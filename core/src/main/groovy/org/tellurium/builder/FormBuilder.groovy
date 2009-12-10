@@ -1,8 +1,7 @@
-package org.tellurium.builder
+package org.telluriumsource.builder
 
-import org.tellurium.object.UiObject
-import org.tellurium.object.Form
-import org.tellurium.locator.BaseLocator
+import org.telluriumsource.object.UiObject
+import org.telluriumsource.object.Form
 
 /**
  *    Form builder

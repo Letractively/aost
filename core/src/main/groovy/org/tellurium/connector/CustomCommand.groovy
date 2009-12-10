@@ -1,4 +1,4 @@
-package org.tellurium.connector
+package org.telluriumsource.connector
 
 import com.thoughtworks.selenium.CommandProcessor
 

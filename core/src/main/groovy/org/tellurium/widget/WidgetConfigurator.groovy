@@ -1,10 +1,10 @@
-package org.tellurium.widget
+package org.telluriumsource.widget
 
-import org.tellurium.builder.UiObjectBuilderRegistry
-import org.tellurium.config.Configurable
-import org.tellurium.widget.WidgetBootstrap
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.builder.UiObjectBuilderRegistry
+import org.telluriumsource.config.Configurable
+
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
 
 

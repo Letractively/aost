@@ -1,10 +1,10 @@
-package org.tellurium.ddt.object.mapping.validator
+package org.telluriumsource.ddt.object.mapping.validator
 
-import org.tellurium.ddt.object.mapping.FieldSet
-import org.tellurium.ddt.object.mapping.Field
-import org.tellurium.ddt.object.mapping.DataMappingException
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.ddt.object.mapping.FieldSet
+import org.telluriumsource.ddt.object.mapping.Field
+import org.telluriumsource.ddt.object.mapping.DataMappingException
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
 
 import java.util.regex.Pattern

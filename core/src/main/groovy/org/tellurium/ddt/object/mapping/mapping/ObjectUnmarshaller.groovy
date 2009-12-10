@@ -1,4 +1,4 @@
-package org.tellurium.ddt.object.mapping.mapping
+package org.telluriumsource.ddt.object.mapping.mapping
 /**
  * Unmarshal a data field to java object
  *

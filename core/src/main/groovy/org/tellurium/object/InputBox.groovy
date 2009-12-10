@@ -1,4 +1,4 @@
-package org.tellurium.object
+package org.telluriumsource.object
 
 import org.json.simple.JSONObject
 

@@ -1,9 +1,9 @@
-package org.tellurium.object
+package org.telluriumsource.object
 
-import org.tellurium.dsl.UiID
-import org.tellurium.dsl.WorkflowContext
-import org.tellurium.event.Event
-import org.tellurium.object.Container
+import org.telluriumsource.dsl.UiID
+import org.telluriumsource.dsl.WorkflowContext
+import org.telluriumsource.event.Event
+
 import org.json.simple.JSONObject
 
 /**

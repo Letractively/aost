@@ -1,6 +1,6 @@
-package org.tellurium.builder
+package org.telluriumsource.builder
 
-import org.tellurium.object.ClickableUi
+import org.telluriumsource.object.ClickableUi
 
 /**
  * 

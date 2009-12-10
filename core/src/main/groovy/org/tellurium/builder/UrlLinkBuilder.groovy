@@ -1,7 +1,6 @@
-package org.tellurium.builder
+package org.telluriumsource.builder
 
-import org.tellurium.object.UrlLink
-import org.tellurium.locator.BaseLocator
+import org.telluriumsource.object.UrlLink
 
 /**
  *    URL Link builder

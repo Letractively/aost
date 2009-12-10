@@ -1,6 +1,4 @@
-package org.tellurium.test
-
-import org.tellurium.dsl.DdDslContext
+package org.telluriumsource.test
 
 /**
  * Functional Test for GoogleDdDslContext

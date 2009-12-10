@@ -1,23 +1,23 @@
-package org.tellurium.test.ddt
+package org.telluriumsource.test.ddt
 
 import junit.framework.AssertionFailedError
-import org.tellurium.bootstrap.TelluriumSupport
-import org.tellurium.connector.SeleniumConnector
-import org.tellurium.ddt.DataProvider
-import org.tellurium.ddt.TestRegistry
-import org.tellurium.ddt.TextContext
-import org.tellurium.ddt.object.mapping.FieldSet
-import org.tellurium.ddt.object.mapping.FieldSetParser
-import org.tellurium.ddt.object.mapping.FieldSetRegistry
-import org.tellurium.ddt.object.mapping.TestField
-import org.tellurium.ddt.object.mapping.mapping.FieldSetMapResult
-import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
-import org.tellurium.dsl.UiDslParser
-import org.tellurium.framework.TelluriumFramework
-import org.tellurium.test.helper.*
-import org.tellurium.test.groovy.BaseTelluriumGroovyTestCase
-import org.tellurium.i18n.InternationalizationManager
-import org.tellurium.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.bootstrap.TelluriumSupport
+import org.telluriumsource.connector.SeleniumConnector
+import org.telluriumsource.ddt.DataProvider
+import org.telluriumsource.ddt.TestRegistry
+import org.telluriumsource.ddt.TextContext
+import org.telluriumsource.ddt.object.mapping.FieldSet
+import org.telluriumsource.ddt.object.mapping.FieldSetParser
+import org.telluriumsource.ddt.object.mapping.FieldSetRegistry
+import org.telluriumsource.ddt.object.mapping.TestField
+import org.telluriumsource.ddt.object.mapping.mapping.FieldSetMapResult
+import org.telluriumsource.ddt.object.mapping.type.TypeHandlerRegistry
+import org.telluriumsource.dsl.UiDslParser
+import org.telluriumsource.framework.TelluriumFramework
+import org.telluriumsource.test.helper.*
+import org.telluriumsource.test.groovy.BaseTelluriumGroovyTestCase
+import org.telluriumsource.i18n.InternationalizationManager
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
 
 
@@ -364,7 +364,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
         return null
     }
 
-    protected void listenForResult(org.tellurium.test.helper.TestResult result ){
+    protected void listenForResult(org.telluriumsource.test.helper.TestResult result ){
         listener.listenForResult(result)
     }
 

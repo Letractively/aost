@@ -1,9 +1,7 @@
-package org.tellurium.bundle
+package org.telluriumsource.bundle
 
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
-import org.tellurium.bundle.BundleStrategy
-import org.tellurium.bundle.CmdRequest
 
 /**
  *

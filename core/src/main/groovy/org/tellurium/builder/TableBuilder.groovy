@@ -1,8 +1,7 @@
-package org.tellurium.builder
+package org.telluriumsource.builder
 
-import org.tellurium.builder.UiObjectBuilder
-import org.tellurium.object.Table
-import org.tellurium.object.UiObject
+import org.telluriumsource.object.Table
+import org.telluriumsource.object.UiObject
 
 /**
  * Table builder

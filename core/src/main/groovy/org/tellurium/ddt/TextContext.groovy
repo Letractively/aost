@@ -1,4 +1,4 @@
-package org.tellurium.ddt
+package org.telluriumsource.ddt
 /**
  * Transfer object passing through tests
  *

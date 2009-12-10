@@ -1,4 +1,4 @@
-package org.tellurium.i18n
+package org.telluriumsource.i18n
 
 /**
  * InternationalizationManagerMetaClass

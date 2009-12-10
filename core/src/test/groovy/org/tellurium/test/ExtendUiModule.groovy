@@ -1,6 +1,4 @@
-package org.tellurium.test
-
-import org.tellurium.test.BaseUiModule
+package org.telluriumsource.test
 
 public class ExtendUiModule extends BaseUiModule {
 

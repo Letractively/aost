@@ -1,4 +1,4 @@
-package org.tellurium.locator
+package org.telluriumsource.locator
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)

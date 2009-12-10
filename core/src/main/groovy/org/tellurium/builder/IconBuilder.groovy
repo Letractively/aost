@@ -1,6 +1,6 @@
-package org.tellurium.builder
+package org.telluriumsource.builder
 
-import org.tellurium.object.Icon
+import org.telluriumsource.object.Icon
 
 /**
  *    Icon builder

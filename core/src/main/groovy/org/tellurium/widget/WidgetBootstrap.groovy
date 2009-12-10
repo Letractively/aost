@@ -1,6 +1,6 @@
-package org.tellurium.widget
+package org.telluriumsource.widget
 
-import org.tellurium.builder.UiObjectBuilderRegistry
+import org.telluriumsource.builder.UiObjectBuilderRegistry
 
 /**
  * Bootstrap interface for all widget modules, i.e., the widget bootstrap class must implement this interface

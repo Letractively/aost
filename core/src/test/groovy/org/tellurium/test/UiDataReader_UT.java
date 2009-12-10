@@ -1,10 +1,10 @@
-package org.tellurium.test;
+package org.telluriumsource.test;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import org.junit.Test;
-import org.tellurium.tool.UiDataReader;
+import org.telluriumsource.tool.UiDataReader;
 
 import java.io.BufferedReader;
 import java.util.Map;

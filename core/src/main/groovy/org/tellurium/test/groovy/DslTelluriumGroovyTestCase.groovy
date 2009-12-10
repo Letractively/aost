@@ -1,6 +1,6 @@
-package org.tellurium.test.groovy
+package org.telluriumsource.test.groovy
 
-import org.tellurium.connector.SeleniumConnector
+import org.telluriumsource.connector.SeleniumConnector
 
 /**
  * Used by the DSL Script Engine

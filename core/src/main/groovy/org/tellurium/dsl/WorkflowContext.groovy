@@ -1,7 +1,7 @@
-package org.tellurium.dsl
+package org.telluriumsource.dsl
 
-import org.tellurium.locator.XPathProcessor
-import org.tellurium.locator.MetaCmd
+import org.telluriumsource.locator.XPathProcessor
+import org.telluriumsource.locator.MetaCmd
 
 /**
  * Hold metadata for execution workflow

@@ -1,4 +1,4 @@
-package org.tellurium.test
+package org.telluriumsource.test
 /**
  * Test to show the String split for pipe format problem
  *

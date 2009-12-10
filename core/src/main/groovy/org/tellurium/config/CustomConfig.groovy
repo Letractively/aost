@@ -1,4 +1,4 @@
-package org.tellurium.config
+package org.telluriumsource.config
 
 /**
  * Class for users to pass in custom settings

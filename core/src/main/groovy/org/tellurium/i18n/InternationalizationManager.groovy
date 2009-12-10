@@ -1,5 +1,5 @@
-package org.tellurium.i18n
-import org.tellurium.config.Configurable;
+package org.telluriumsource.i18n
+import org.telluriumsource.config.Configurable;
 
 /**
  * InternationalizationManager - provides internationalization support

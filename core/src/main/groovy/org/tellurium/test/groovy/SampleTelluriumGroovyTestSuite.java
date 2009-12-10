@@ -1,12 +1,12 @@
-package org.tellurium.test.groovy;
+package org.telluriumsource.test.groovy;
 
 import groovy.util.GroovyTestSuite;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.tellurium.bootstrap.TelluriumSupport;
-import org.tellurium.framework.TelluriumFramework;
+import org.telluriumsource.bootstrap.TelluriumSupport;
+import org.telluriumsource.framework.TelluriumFramework;
 
 /**
  * The test suite can hold many test cases. We need to common/shared processing here.

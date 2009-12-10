@@ -1,12 +1,9 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
-import java.io.File;
-import java.io.FileInputStream;
-import org.tellurium.ddt.object.mapping.FieldSetRegistry
-import org.tellurium.ddt.object.mapping.FieldSetParser
-import org.tellurium.ddt.object.mapping.io.DataReader;
-import org.tellurium.ddt.object.mapping.io.ExcelDataReader;
-import org.tellurium.ddt.object.mapping.io.PipeDataReader
+import org.telluriumsource.ddt.object.mapping.FieldSetRegistry
+import org.telluriumsource.ddt.object.mapping.FieldSetParser
+import org.telluriumsource.ddt.object.mapping.io.DataReader;
+import org.telluriumsource.ddt.object.mapping.io.ExcelDataReader;
 
 /**
  *

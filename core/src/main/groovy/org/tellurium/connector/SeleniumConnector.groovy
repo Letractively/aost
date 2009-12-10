@@ -1,11 +1,11 @@
-package org.tellurium.connector
+package org.telluriumsource.connector
 
 //import com.thoughtworks.selenium.Selenium
-import org.tellurium.client.SeleniumClient
-import org.tellurium.config.Configurable
-import org.tellurium.connector.CustomSelenium
+import org.telluriumsource.client.SeleniumClient
+import org.telluriumsource.config.Configurable
+
 import com.thoughtworks.selenium.CommandProcessor
-import org.tellurium.bundle.BundleProcessor
+import org.telluriumsource.bundle.BundleProcessor
 
 /**
  * The connector that ties the Selenium server and Selenium Client together

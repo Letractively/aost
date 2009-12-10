@@ -1,6 +1,4 @@
-package org.tellurium.test
-
-import org.tellurium.test.IncludeUiModule
+package org.telluriumsource.test
 
 public class IncludeUiModule_UT extends GroovyTestCase {
 

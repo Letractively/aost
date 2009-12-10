@@ -1,14 +1,14 @@
-package org.tellurium.builder
+package org.telluriumsource.builder
 
-import org.tellurium.locator.BaseLocator
-import org.tellurium.locator.CompositeLocator
-import org.tellurium.locator.JQLocator
-import org.tellurium.object.Container
-import org.tellurium.object.UiObject
-import org.tellurium.Const
-import org.tellurium.object.Table
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.locator.BaseLocator
+import org.telluriumsource.locator.CompositeLocator
+import org.telluriumsource.locator.JQLocator
+import org.telluriumsource.object.Container
+import org.telluriumsource.object.UiObject
+import org.telluriumsource.Const
+
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
 
 

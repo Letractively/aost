@@ -1,6 +1,5 @@
-package org.tellurium.bundle
+package org.telluriumsource.bundle
 
-import org.tellurium.bundle.CmdResponse
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)

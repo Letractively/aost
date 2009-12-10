@@ -1,6 +1,6 @@
-package org.tellurium.builder
+package org.telluriumsource.builder
 
-import org.tellurium.object.SubmitButton
+import org.telluriumsource.object.SubmitButton
 
 /**
  *  Submit Button Builder

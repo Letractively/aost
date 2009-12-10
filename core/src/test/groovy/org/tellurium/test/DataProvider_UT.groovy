@@ -1,13 +1,13 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
-import org.tellurium.config.TelluriumConfigurator;
-import org.tellurium.config.TelluriumConfiguratorMetaClass;
-import org.tellurium.ddt.DataProvider
-import org.tellurium.ddt.object.mapping.FieldSetParser
-import org.tellurium.ddt.object.mapping.FieldSetRegistry
-import org.tellurium.ddt.object.mapping.mapping.FieldSetMapResult
-import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistry
-import org.tellurium.ddt.object.mapping.type.TypeHandlerRegistryConfigurator
+import org.telluriumsource.config.TelluriumConfigurator;
+import org.telluriumsource.config.TelluriumConfiguratorMetaClass;
+import org.telluriumsource.ddt.DataProvider
+import org.telluriumsource.ddt.object.mapping.FieldSetParser
+import org.telluriumsource.ddt.object.mapping.FieldSetRegistry
+import org.telluriumsource.ddt.object.mapping.mapping.FieldSetMapResult
+import org.telluriumsource.ddt.object.mapping.type.TypeHandlerRegistry
+import org.telluriumsource.ddt.object.mapping.type.TypeHandlerRegistryConfigurator
 
 /**
  *

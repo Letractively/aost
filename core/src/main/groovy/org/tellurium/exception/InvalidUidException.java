@@ -1,4 +1,4 @@
-package org.tellurium.exception;
+package org.telluriumsource.exception;
 
 /**
  * Invalid UID exception

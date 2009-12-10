@@ -1,7 +1,6 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
-import org.tellurium.test.groovy.TelluriumGroovyTestCase
-import org.junit.Ignore
+import org.telluriumsource.test.groovy.TelluriumGroovyTestCase
 
 /**
  * Test class to find the problem for issue 64

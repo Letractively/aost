@@ -1,4 +1,4 @@
-package org.tellurium.test.mock
+package org.telluriumsource.test.mock
 
 import com.sun.net.httpserver.Headers
 import com.sun.net.httpserver.HttpExchange

@@ -1,4 +1,4 @@
-package org.tellurium.test.ddt
+package org.telluriumsource.test.ddt
 
 /**
  *

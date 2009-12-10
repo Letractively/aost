@@ -1,6 +1,4 @@
-package org.tellurium.test
-
-import org.tellurium.test.CustomUIExample
+package org.telluriumsource.test
 
 /**
  * 

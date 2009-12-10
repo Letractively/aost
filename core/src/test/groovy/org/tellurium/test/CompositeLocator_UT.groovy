@@ -1,6 +1,6 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
-import org.tellurium.locator.CompositeLocator
+import org.telluriumsource.locator.CompositeLocator
 
 /**
  * 

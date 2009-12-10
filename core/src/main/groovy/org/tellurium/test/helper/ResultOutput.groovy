@@ -1,4 +1,4 @@
-package org.tellurium.test.helper
+package org.telluriumsource.test.helper
 /**
  * How to show, display, or store results, take the results converted by result reporters as a String
  * and output it.

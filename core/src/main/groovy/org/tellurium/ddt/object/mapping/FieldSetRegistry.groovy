@@ -1,4 +1,4 @@
-package org.tellurium.ddt.object.mapping
+package org.telluriumsource.ddt.object.mapping
 /**
  *
  * The Registry to hold all FieldSets defined

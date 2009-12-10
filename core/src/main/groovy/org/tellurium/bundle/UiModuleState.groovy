@@ -1,4 +1,4 @@
-package org.tellurium.bundle
+package org.telluriumsource.bundle
 
 /**
  * 

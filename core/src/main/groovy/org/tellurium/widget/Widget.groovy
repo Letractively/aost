@@ -1,24 +1,23 @@
-package org.tellurium.widget
+package org.telluriumsource.widget
 
-import java.util.List
-import org.tellurium.access.Accessor
-import org.tellurium.dsl.UiDslParser
-import org.tellurium.dsl.UiID
-import org.tellurium.dsl.WorkflowContext
-import org.tellurium.event.EventHandler
-import org.tellurium.exception.UiObjectNotFoundException
-import org.tellurium.locator.LocatorProcessor
-import org.tellurium.object.StandardTable
-import org.tellurium.object.UiObject
-import org.tellurium.util.Helper
-import org.tellurium.extend.Extension
+import org.telluriumsource.access.Accessor
+import org.telluriumsource.dsl.UiDslParser
+import org.telluriumsource.dsl.UiID
+import org.telluriumsource.dsl.WorkflowContext
+import org.telluriumsource.event.EventHandler
+import org.telluriumsource.exception.UiObjectNotFoundException
+import org.telluriumsource.locator.LocatorProcessor
+import org.telluriumsource.object.StandardTable
+import org.telluriumsource.object.UiObject
+import org.telluriumsource.util.Helper
+import org.telluriumsource.extend.Extension
 import org.stringtree.json.JSONReader
-import org.json.simple.JSONArray
-import org.tellurium.locator.JQueryOptimizer
+
+import org.telluriumsource.locator.JQueryOptimizer
 import org.json.simple.JSONObject
-import org.tellurium.locator.MetaCmd
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.locator.MetaCmd
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
 
 /**
@@ -1118,7 +1117,7 @@ abstract class Widget extends UiObject {
 
     int getListSizeByXPath(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreJQuerySelector, this.exploreSelectorCache)
-      org.tellurium.object.List obj = (org.tellurium.object.List) walkToWithException(context, uid)
+      org.telluriumsource.object.List obj = (org.telluriumsource.object.List) walkToWithException(context, uid)
       return obj.getListSizeByXPath() {loc ->
         String locator = locatorMapping(context, loc)
         locator
@@ -1128,7 +1127,7 @@ abstract class Widget extends UiObject {
     //use jQuery Selector to optimize the list operations
     int getListSizeBySelector(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreSelectorCache)
-      org.tellurium.object.List obj = (org.tellurium.object.List) walkToWithException(context, uid)
+      org.telluriumsource.object.List obj = (org.telluriumsource.object.List) walkToWithException(context, uid)
       context.updateUniqueForMetaCmd(false)
       //force not to cache the selector
       context.updateCacheableForMetaCmd(false)

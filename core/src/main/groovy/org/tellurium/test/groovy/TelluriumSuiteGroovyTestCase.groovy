@@ -1,6 +1,6 @@
-package org.tellurium.test.groovy
+package org.telluriumsource.test.groovy
 
-import org.tellurium.connector.SeleniumConnector
+import org.telluriumsource.connector.SeleniumConnector
 
 /**
  * This test case is supposed to be one part of a test suite and there are dependency between test cases.

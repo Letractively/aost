@@ -1,6 +1,6 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
-import org.tellurium.locator.XPathBuilder
+import org.telluriumsource.locator.XPathBuilder
 
 /**
  *   Test case for XPathBuilder

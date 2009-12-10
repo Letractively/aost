@@ -1,8 +1,8 @@
-package org.tellurium.builder
+package org.telluriumsource.builder
 
-import org.tellurium.object.Container
-import org.tellurium.locator.BaseLocator
-import org.tellurium.object.UiObject
+import org.telluriumsource.object.Container
+
+import org.telluriumsource.object.UiObject
 
 /**
  *    Container builder

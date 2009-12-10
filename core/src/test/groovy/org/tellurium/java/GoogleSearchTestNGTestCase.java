@@ -1,8 +1,8 @@
-package org.tellurium.java;
+package org.telluriumsource.java;
 
-import org.tellurium.test.java.TelluriumTestNGTestCase;
-import org.tellurium.module.GoogleSearchModule;
-import org.tellurium.framework.CachePolicy;
+import org.telluriumsource.test.java.TelluriumTestNGTestCase;
+import org.telluriumsource.module.GoogleSearchModule;
+import org.telluriumsource.framework.CachePolicy;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

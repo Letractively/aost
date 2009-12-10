@@ -1,4 +1,4 @@
-package org.tellurium.test.helper
+package org.telluriumsource.test.helper
 /**
  * Simply convert the result as String
  *

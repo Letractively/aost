@@ -1,7 +1,7 @@
-package org.tellurium.tool;
+package org.telluriumsource.tool;
 
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
 
 /**

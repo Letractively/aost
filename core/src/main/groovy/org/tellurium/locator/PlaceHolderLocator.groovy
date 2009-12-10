@@ -1,4 +1,4 @@
-package org.tellurium.locator
+package org.telluriumsource.locator
 /**
  * This one is depreciated since Groovy has GString that you can use directly.
  * Please use GString like:

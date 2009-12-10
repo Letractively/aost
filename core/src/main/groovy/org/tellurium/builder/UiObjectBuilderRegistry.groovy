@@ -1,6 +1,6 @@
-package org.tellurium.builder
+package org.telluriumsource.builder
 
-import org.tellurium.config.Configurable
+import org.telluriumsource.config.Configurable
 
 class UiObjectBuilderRegistry implements Configurable{
 

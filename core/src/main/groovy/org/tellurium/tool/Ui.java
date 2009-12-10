@@ -1,4 +1,4 @@
-package org.tellurium.tool;
+package org.telluriumsource.tool;
 
 import java.util.HashMap;
 import java.util.Map;

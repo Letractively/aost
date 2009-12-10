@@ -1,6 +1,6 @@
-package org.tellurium.framework
+package org.telluriumsource.framework
 
-import org.tellurium.config.Configurable
+import org.telluriumsource.config.Configurable
 
 /**
  * Environment to hold runtime environment variables

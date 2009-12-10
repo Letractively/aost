@@ -1,4 +1,4 @@
-package org.tellurium.locator
+package org.telluriumsource.locator
 
 /*
     Use MetaClass to force you always get back the same instance, which is the Groovy style

@@ -1,7 +1,6 @@
-package org.tellurium.ddt.object.mapping.builder
+package org.telluriumsource.ddt.object.mapping.builder
 
-import org.tellurium.ddt.object.mapping.TestField
-import org.tellurium.ddt.object.mapping.TestField
+import org.telluriumsource.ddt.object.mapping.TestField
 
 /**
  * 

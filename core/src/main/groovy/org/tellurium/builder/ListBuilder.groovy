@@ -1,8 +1,7 @@
-package org.tellurium.builder
+package org.telluriumsource.builder
 
-import org.tellurium.object.UiObject
-import org.tellurium.object.List
-import org.tellurium.locator.BaseLocator
+import org.telluriumsource.object.UiObject
+import org.telluriumsource.object.List
 
 /**
  * List builder
@@ -28,7 +27,7 @@ class ListBuilder extends UiObjectBuilder{
        return list
    }
 
-   def build(org.tellurium.object.List list, UiObject[] objects){
+   def build(org.telluriumsource.object.List list, UiObject[] objects){
 
       if(list == null || objects == null || objects.length < 1)
         return list
@@ -41,7 +40,7 @@ class ListBuilder extends UiObjectBuilder{
       return list
    }
 
-   def build(org.tellurium.object.List list, UiObject object){
+   def build(org.telluriumsource.object.List list, UiObject object){
 
       if(list == null || object == null)
         return list

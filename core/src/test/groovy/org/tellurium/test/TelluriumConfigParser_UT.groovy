@@ -1,8 +1,6 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
-import org.tellurium.config.TelluriumConfigParser
-import org.tellurium.config.TelluriumConfigParser
-import java.io.File
+import org.telluriumsource.config.TelluriumConfigParser
 
 /**
  *

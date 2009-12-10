@@ -1,14 +1,13 @@
-package org.tellurium.dsl
+package org.telluriumsource.dsl
 
-import org.tellurium.builder.UiObjectBuilderRegistry
-import org.tellurium.dsl.UiID
-import org.tellurium.dsl.WorkflowContext
-import org.tellurium.exception.UiObjectNotFoundException
-import org.tellurium.object.*
-import org.tellurium.exception.InvalidObjectTypeException
+import org.telluriumsource.builder.UiObjectBuilderRegistry
 
-import org.tellurium.i18n.InternationalizationManager;
-import org.tellurium.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.exception.UiObjectNotFoundException
+import org.telluriumsource.object.*
+import org.telluriumsource.exception.InvalidObjectTypeException
+
+import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
 
 class UiDslParser extends BuilderSupport{

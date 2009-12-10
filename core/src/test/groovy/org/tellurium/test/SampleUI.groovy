@@ -1,6 +1,6 @@
-package org.tellurium.test
+package org.telluriumsource.test
 
-import org.tellurium.dsl.DslContext
+import org.telluriumsource.dsl.DslContext
 
 /**
  *   A sample UI includes all default UI object types

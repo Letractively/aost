@@ -1,4 +1,4 @@
-package org.tellurium.ddt.object.mapping
+package org.telluriumsource.ddt.object.mapping
 /**
  * Exception for data mapping
  * 

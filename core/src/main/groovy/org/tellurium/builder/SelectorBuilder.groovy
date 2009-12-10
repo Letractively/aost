@@ -1,7 +1,6 @@
-package org.tellurium.builder
+package org.telluriumsource.builder
 
-import org.tellurium.object.Selector
-import org.tellurium.locator.BaseLocator
+import org.telluriumsource.object.Selector
 
 /**
  *    Selector builder

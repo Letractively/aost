@@ -1,4 +1,4 @@
-package org.tellurium.event
+package org.telluriumsource.event
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)
