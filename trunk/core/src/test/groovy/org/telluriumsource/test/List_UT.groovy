@@ -52,7 +52,7 @@ class List_UT extends GroovyTestCase{
     public void testUserProfileList(){
       UserProfileList upl = new UserProfileList();
       upl.defineUi();
-      upl.useJQuerySelector();
+      upl.useCssSelector();
       upl.dump("MainPanel1")
       upl.dump("MainPanel2")
 //      upl.getListSize("MainPanel1.UserProfileDetails")

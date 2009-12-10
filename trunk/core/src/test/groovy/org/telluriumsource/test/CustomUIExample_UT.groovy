@@ -38,7 +38,7 @@ public class CustomUIExample_UT extends GroovyTestCase {
     CustomUIExample cue = new CustomUIExample();
     cue.defineUi();
     cue.dump("accountEdit");
-    cue.useJQuerySelector();
+    cue.useCssSelector();
     cue.dump("accountEdit");
     println cue.generateHtml("accountEdit");
   }

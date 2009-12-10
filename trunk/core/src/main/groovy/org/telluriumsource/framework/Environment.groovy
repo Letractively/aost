@@ -15,10 +15,10 @@ import org.telluriumsource.config.Configurable
 public class Environment implements Configurable{
 
   //flag to decide whether we should use jQuery Selector
-  protected boolean exploitJQuerySelector = false;
+  protected boolean exploitCssSelector = false;
 
   //flag to decide whether we should cache jQuery selector
-  protected boolean exploitSelectorCache = false;
+  protected boolean exploitEngineCache = false;
 
   protected String locale = "en_US";
 
@@ -34,12 +34,12 @@ public class Environment implements Configurable{
 
   protected boolean exploitTelluriumApi = false;
 
-  public boolean isUseJQuerySelector(){
-    return this.exploitJQuerySelector;
+  public boolean isUseCssSelector(){
+    return this.exploitCssSelector;
   }
 
   public boolean isUseCache(){
-    return this.exploitSelectorCache;
+    return this.exploitEngineCache;
   }
 
   public boolean isUseBundle(){
@@ -58,12 +58,12 @@ public class Environment implements Configurable{
     return this.exploitTelluriumApi;
   }
 
-  public void useJQuerySelector(boolean isUse){
-    this.exploitJQuerySelector = isUse;
+  public void useCssSelector(boolean isUse){
+    this.exploitCssSelector = isUse;
   }
 
   public void useCache(boolean isUse){
-    this.exploitSelectorCache = isUse;
+    this.exploitEngineCache = isUse;
   }
 
   public void useBundle(boolean isUse){

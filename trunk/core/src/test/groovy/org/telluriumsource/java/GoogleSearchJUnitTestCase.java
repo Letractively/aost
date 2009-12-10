@@ -27,7 +27,7 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
         gsm = new GoogleSearchModule();
         gsm.defineUi();
         connectSeleniumServer();
-        useJQuerySelector(true);
+        useCssSelector(true);
         useTelluriumApi(true);
         useTrace(true);
 //        useCache(true);
@@ -60,10 +60,10 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testIsDisabled(){
-        useJQuerySelector(true);
+        useCssSelector(true);
         boolean result = gsm.isInputDisabled();
         assertFalse(result);
-        useJQuerySelector(false);
+        useCssSelector(false);
         result = gsm.isInputDisabled();
         assertFalse(result);
     }
@@ -71,11 +71,11 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
     @Test
     public void testUseSelectorCache(){
         useCache(true);
-        boolean result = gsm.getSelectorCacheState();
+        boolean result = gsm.getCacheState();
         assertTrue(result);
 
         useCache(false);
-        result = gsm.getSelectorCacheState();
+        result = gsm.getCacheState();
         assertFalse(result);
     }
 
@@ -100,7 +100,7 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testCachePolicy(){
-        useJQuerySelector(true);
+        useCssSelector(true);
         useCache(true);
         String policy = getCurrentCachePolicy();
         assertEquals("DiscardOldPolicy", policy);

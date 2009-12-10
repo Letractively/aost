@@ -239,30 +239,30 @@ class TelluriumFramework {
     return env.getCustomEnvironment(name);
   }
 
-  public void useJQuerySelector(boolean isUse) {
+  public void useCssSelector(boolean isUse) {
 
     if (isUse) {
-      this.global.exploreJQuerySelector();
+      this.global.exploreCssSelector();
     } else {
-      this.global.disableJQuerySelector();
+      this.global.disableCssSelector();
     }
   }
 
   public void useCache(boolean isUse) {
     env.useCache(isUse);
     if (isUse) {
-      this.global.enableSelectorCache();
+      this.global.enableCache();
     } else {
-      this.global.disableSelectorCache();
+      this.global.disableCache();
     }
   }
 
   public void cleanCache() {
-    this.global.cleanSelectorCache();
+    this.global.cleanCache();
   }
 
   public boolean isUsingCache() {
-    return this.global.getSelectorCacheState();
+    return this.global.getCacheState();
   }
 
   public void setCacheMaxSize(int size) {

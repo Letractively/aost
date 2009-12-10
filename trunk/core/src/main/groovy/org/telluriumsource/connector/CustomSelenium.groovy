@@ -21,7 +21,7 @@ import org.telluriumsource.i18n.InternationalizationManagerImpl
  */
 class CustomSelenium extends DefaultSelenium {
 
-    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
+  protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
 
     protected CustomCommand customClass = null
     protected String userExtension = null
@@ -133,9 +133,9 @@ class CustomSelenium extends DefaultSelenium {
 		return st;
 	}
 
-    def Number getJQuerySelectorCount(String locator){
+    def Number getCssSelectorCount(String locator){
 		String[] arr = [locator];
-		Number num = commandProcessor.getNumber("getJQuerySelectorCount", arr);
+		Number num = commandProcessor.getNumber("getCssSelectorCount", arr);
 		return num;
 	}
 
@@ -151,17 +151,17 @@ class CustomSelenium extends DefaultSelenium {
       return result;
     }
 
-    public void enableSelectorCache(){
+    public void enableCache(){
       String[] arr = [];
       commandProcessor.doCommand("enableCache", arr);
     }
 
-    public void disableSelectorCache(){
+    public void disableCache(){
       String[] arr = [];
       commandProcessor.doCommand("disableCache",  arr);
     }
 
-    public void cleanSelectorCache(){
+    public void cleanCache(){
       String[] arr = [];
       commandProcessor.doCommand("cleanCache", arr);
     }

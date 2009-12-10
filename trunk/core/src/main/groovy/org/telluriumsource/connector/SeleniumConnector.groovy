@@ -41,12 +41,12 @@ class SeleniumConnector implements Configurable {
   
     public void connect(String url){
 		sel.open(baseURL + url);
-//        sel.cleanSelectorCache();
+//        sel.cleanCache();
 	}
 
     public void connectUrl(String url){
 		sel.open(url);
-//        sel.cleanSelectorCache();
+//        sel.cleanCache();
 	}
 
     public void configBrowser(String serverHost, int serverPort, String baseUrl, String browser, String browserOptions){
@@ -112,7 +112,7 @@ class SeleniumConnector implements Configurable {
             BundleProcessor processor = BundleProcessor.instance
             processor.flush()
             //clean up cache before close the connection
-            aseles.cleanSelectorCache();
+            aseles.cleanCache();
 			customSelenium.closeSeleniumSession();
         }
       }
