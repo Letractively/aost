@@ -65,6 +65,38 @@ public void enableCache();
 public boolean disableCache();
 }}}
 
+== Macro Command ==
+
+Macro Command is a set of Selenium commands that are bundled together and sent to Selenium Core in one call. This will reduce the round trip latency from Tellurium Core to Engine and thus, improve the speed performance. Another advantage for Macro Command is that Tellurium Engine can reuse the locator because many times the commands in the same bundle act on the same UI element or same sub-tree in the DOM. 
+
+To implement Macro Command, we added one more tier to Tellurium Core to automatically handle the Macro Command bundling as shown in the following figure.
+
+http://tellurium-developers.googlegroups.com/web/telluriumbundle.gif?gda=vAECeEUAAABfqXGjliAPh6eFpGfZMLEMvv4gl2uJvcOyvlRvyqCHL_Uz5QqadYe3qLzL3P0zO1Ecn8WIbWh5zqeDKtDBmq67Gu1iLHeqhw4ZZRj3RjJ_-A
+
+To use Macro Command, we add the following settings to configuration file TelluriumConfig.groovy:
+
+{{{
+    //the bundling tier
+    bundle{
+        maxMacroCmd = 5
+        useMacroCommand = false
+    }
+}}}
+
+and the following methods to DslContext to change the Macro command settings at runtime
+
+{{{
+    public void useMacroCmd(); 
+    public void disableMacroCmd();
+    public useMaxMacroCmd(int max);
+    public int getMaxMacroCmd();
+}}}
+
+== Tellurium New APIs ==
+
+== Methods Accessible to Test Cases ==
+
+
 == Environment ==
 
 We added an Environment class to Tellurium Core so that you can change the runtime environment. The Environment class is defined as follows,
@@ -114,4 +146,3 @@ where {{{setCustomEnvironment}}} and {{{getCustomEnvironment}}} can be used to p
 = Changes in Engine =
 
 = Changes in Maven Build =
-
