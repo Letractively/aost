@@ -1,6 +1,7 @@
 package org.telluriumsource.widget.dojo.object
 
 import org.telluriumsource.widget.dojo.DojoWidget
+import org.json.simple.JSONObject
 
 /**
  * Tellurium Widget object for the Dojo Date Picker widget
@@ -135,4 +136,10 @@ class DatePicker extends DojoWidget{
     public void selectNextYear(){
         click "DatePicker.year.nextYear"
     }
+
+  public JSONObject toJSON() {
+       return buildJSON() {jso ->
+        jso.put(UI_TYPE, NAMESPACE + "_" + "DatePicker")
+      }
+  }
 }
