@@ -211,7 +211,7 @@ TelluriumApi.prototype.getAllText = function(element) {
     return JSON.stringify(out);
 };
 
-TelluriumApi.prototype.getJQuerySelectorCount = function(element) {
+TelluriumApi.prototype.getCssSelectorCount = function(element) {
     var $e = teJQuery(element);
     if ($e == null)
         return 0;

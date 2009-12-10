@@ -63,7 +63,7 @@ Selenium.prototype.getAllText = function(locator) {
     return JSON.stringify(out);
 };
 
-Selenium.prototype.getJQuerySelectorCount = function(locator) {
+Selenium.prototype.getCssSelectorCount = function(locator) {
     var $e = teJQuery(this.browserbot.findElement(locator));
     if ($e == null)
         return 0;

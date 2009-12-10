@@ -274,7 +274,7 @@ Tellurium.prototype.initialize = function(){
 
     //converted from custom selenium apis, tellurium-extensions.js
     this.registerApi("getAllText", true, "STRING");
-    this.registerApi("getJQuerySelectorCount", true, "NUMBER");
+    this.registerApi("getCssSelectorCount", true, "NUMBER");
     this.registerApi("getCSS", true, "STRING");
     this.registerApi("isDisable", true, "BOOLEAN");
     this.registerApi("getListSize", true, "NUMBER");
