@@ -1,10 +1,117 @@
 #summary What are New in Tellurium 0.7.0.
-#labels Phase-Implementation
+#labels Phase-Support
+<wiki:toc max_depth="5" />
 
 = Introduction =
 
 There are couple major changes in Tellurium Core and Engine after we merged in the 0.7.0 prototype branch. To make your life easier, We list all the changes here so that you can update your existing Tellurium testing project accordingly.
 
 
-= Changes =
+= Changes in Tellurium Core =
+
+== Package Name ==
+
+Tellurium Core used the package name "org.tellurium", but we do not actually own the domain "tellurium.org". Our Tellurium team came out with a domain name "telluriumsource.org" and have registered this domain name. As a result, we changed the package name from "org.tellurium" to "org.telluriumsource". 
+
+In your code, if you have the following import statement,
+
+{{{
+import org.tellurium.dsl.DslContext
+}}}
+
+please change it to 
+
+{{{
+import org.telluriumsource.dsl.DslContext
+}}}
+
+Accordingly, the Maven dependency should be changed as follows,
+
+{{{
+    <groupId>org.telluriumsource</groupId>
+    <artifactId>tellurium-core</artifactId>
+    <version>0.7.0-SNAPSHOT</version>
+}}}
+
+== jQuery Selector ==
+
+One feedback we got from [http://code.google.com/p/aost/wiki/TelluriumAtRichWebExperience2009 the Rich Web Experience 2009] is that we should use the name "CSS selector" instead of "jQuery selector" because jQuery implements a subset of CSS selectors. As a result, we changed the following two methods in DslContext 
+
+{{{
+public void useJQuerySelector();
+public void disableJQuerySelector(); 
+}}}
+
+to
+
+{{{
+public void useCssSelector();
+public void disableCssSelector(); 
+}}}
+
+== Caching Mechanism ==
+
+The Caching mechanism in 0.7.0 is UI module based instead of jQuery selector, thus, we changed the following methods
+
+{{{
+public void enableJQuerySelectorCache(); 
+public boolean disableJQuerySelectorCache();
+}}}
+
+to
+
+{{{
+public void enableCache(); 
+public boolean disableCache();
+}}}
+
+== Environment ==
+
+We added an Environment class to Tellurium Core so that you can change the runtime environment. The Environment class is defined as follows,
+
+{{{
+public class Environment {
+  def envVariables = [:];
+  public boolean isUseCssSelector();
+
+  public boolean isUseCache();
+
+  public boolean isUseBundle();
+
+  public boolean isUseScreenshot();
+
+  public boolean isUseTrace();
+
+  public boolean isUseTelluriumApi();
+
+  public void useCssSelector(boolean isUse);
+
+  public void useCache(boolean isUse);
+
+  public void useBundle(boolean isUse);
+
+  public void useScreenshot(boolean isUse);
+
+  public void useTrace(boolean isUse);
+
+  public void useTelluriumApi(boolean isUse);
+
+  public useMaxMacroCmd(int max);
+
+  public int myMaxMacroCmd();
+
+  public String myLocale();
+  
+  public void setCustomEnvironment(String name, Object value);
+
+  public Object getCustomEnvironment(String name);
+}
+}}}
+
+where {{{setCustomEnvironment}}} and {{{getCustomEnvironment}}} can be used to pass user defined environment variables.
+
+
+= Changes in Engine =
+
+= Changes in Maven Build =
 
