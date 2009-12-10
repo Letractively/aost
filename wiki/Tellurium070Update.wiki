@@ -1,0 +1,10 @@
+#summary What are New in Tellurium 0.7.0.
+#labels Phase-Implementation
+
+= Introduction =
+
+There are couple major changes in Tellurium Core and Engine after we merged in the 0.7.0 prototype branch. To make your life easier, We list all the changes here so that you can update your existing Tellurium testing project accordingly.
+
+
+= Changes =
+
