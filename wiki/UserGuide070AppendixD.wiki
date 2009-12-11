@@ -36,6 +36,8 @@ Here is the list of experiences provided by Tellurium developers and users
 
 == Presentations and Videos ==
 
+  * [http://aost.googlecode.com/files/TelluriumPresentation.pdf Tellurium at Rich Web Experience 2009 by Jian Fang and Vivek Mongolu]
+  * [http://www.slideshare.net/paulk_asert/groovy-testing-aug2009-1945995 Tellurium was covered in the presentation Groovy Testing in Agile 2009 by Paul King and Craig Smith]
   * [http://wiki.codestock.org/Home/2009-slides-and-code Tellurium at CodeStock 2009]
   * [http://aost.googlecode.com/files/tellurium_video_1.avi Tellurium video tutorial] 
   * [http://code.google.com/p/aost/downloads/list How to use TrUMP to Create Tellurium Test Cases] ([http://programmingdrunk.com/flv/ Flash Version])
