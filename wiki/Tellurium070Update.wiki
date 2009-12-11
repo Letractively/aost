@@ -375,6 +375,49 @@ and the trace.
 
 The sample configure file for 0.7.0 is available [http://code.google.com/p/aost/wiki/TelluriumConfig070 here].
 
+Tellurium Core 0.7.0 added support for Configuration file support as suggested by our user. That can be easily shown by the following example, if we comment out the following section in TelluriumConfig.groovy
+
+{{{
+      //the bundling tier
+//    bundle{
+//        maxMacroCmd = 5
+//        useMacroCommand = false
+//    }
+}}}
+
+What will happen? Tellurium will throw the following exception
+
+{{{
+java.lang.ExceptionInInitializerError
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:169)
+	at org.telluriumsource.bootstrap.TelluriumSupport.class$(TelluriumSupport.groovy)
+	at org.telluriumsource.bootstrap.TelluriumSupport.$get$$class$org$telluriumsource$framework$TelluriumFrameworkMetaClass(TelluriumSupport.groovy)
+	at org.telluriumsource.bootstrap.TelluriumSupport.addSupport(TelluriumSupport.groovy:17)
+	at org.telluriumsource.test.java.TelluriumTestNGTestCase.setUpForTest(TelluriumTestNGTestCase.java:22)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.testng.internal.MethodHelper.invokeMethod(MethodHelper.java:607)
+	at org.testng.internal.Invoker.invokeConfigurationMethod(Invoker.java:417)
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:154)
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:88)
+	at org.testng.TestRunner.beforeRun(TestRunner.java:510)
+	at org.testng.TestRunner.run(TestRunner.java:478)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:332)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:327)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:299)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:204)
+	at org.testng.TestNG.createAndRunSuiteRunners(TestNG.java:867)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:832)
+	at org.testng.TestNG.run(TestNG.java:748)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:73)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:124)
+Caused by: org.telluriumsource.exception.ConfigNotFoundException: Cannot find Tellurium Configuration tellurium.i18n.locale, please check http://code.google.com/p/aost/wiki/TelluriumConfig070 for updated TelluriumConfig.groovy
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+}}}
+
 = Changes in Engine =
 
 Tellurium 0.7.0 include a new Engine embedded in Selenium Core. The main functionalities of the Tellurium Engine include
