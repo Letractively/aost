@@ -629,6 +629,179 @@ Tellurium Maven archetypes will be updated soon.
 
 = Examples =
 
+In Tellurium Core, we include test cases for Google search UI.
+
+== Google Search UI Module ==
+
+{{{
+package org.telluriumsource.module
+
+import org.telluriumsource.dsl.DslContext
+
+public class GoogleSearchModule extends DslContext {
+
+  public void defineUi() {
+      ui.Image(uid: "Logo", clocator: [tag: "img", src: "*.gif"])
+
+    ui.Container(uid: "Google", clocator: [tag: "table"]) {
+      InputBox(uid: "Input", clocator: [tag: "input", title: "Google Search", name: "q"])
+      SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit", value: "Google Search", name: "btnG"])
+      SubmitButton(uid: "ImFeelingLucky", clocator: [tag: "input", type: "submit", value: "I'm Feeling Lucky", name: "btnI"])
+    }
+  }
+
+  public void doGoogleSearch(String input) {
+    keyType "Google.Input", input
+    pause 500
+    click "Google.Search"
+    waitForPageToLoad 30000
+  }
+
+  public void doImFeelingLucky(String input) {
+    type "Google.Input", input
+    pause 500
+    click "Google.ImFeelingLucky"
+    waitForPageToLoad 30000
+  }
+
+  //Test jQuery selector for attributes
+  public String getLogoAlt(){
+    return getImageAlt("Logo")
+  }
+
+  boolean isInputDisabled() {
+    return isDisabled("Google.Input")
+  }
+
+  public void doTypeRepeated(String input){
+    customUiCall "Google.Input", typeRepeated, input
+    pause 500
+    click "Google.Search"
+    waitForPageToLoad 30000
+  }
+}
+}}}
+
+== TestNG Test Case ==
+
+{{{
+package org.telluriumsource.java;
+
+import org.telluriumsource.test.java.TelluriumTestNGTestCase;
+import org.telluriumsource.module.GoogleSearchModule;
+import org.telluriumsource.framework.CachePolicy;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import org.testng.annotations.AfterClass;
+import static org.testng.Assert.*;
+
+public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase {
+    private static GoogleSearchModule gsm;
+    private static String te_ns = "http://telluriumsource.org/ns";
+
+    @BeforeClass
+    public static void initUi() {
+        gsm = new GoogleSearchModule();
+        gsm.defineUi();
+        connectSeleniumServer();
+        useCssSelector(true);
+        useTelluriumApi(true);
+        useTrace(true);
+//        useCache(true);
+    }
+
+    @BeforeMethod
+    public void connectToGoogle() {
+
+        connectUrl("http://www.google.com");
+    }
+
+    @Test
+    public void testGoogleSearch() {
+        gsm.doGoogleSearch("tellurium . ( Groovy ) Test");
+    }
+
+    @Test
+    public void testGoogleSearchFeelingLucky() {
+        gsm.doImFeelingLucky("tellurium automated Testing");
+    }
+
+    @Test
+    public void testLogo(){
+        String alt = gsm.getLogoAlt();
+        assertNotNull(alt);
+        assertEquals("Google", alt);
+    }
+
+    @Test
+    public void testIsDisabled(){
+        useCssSelector(true);
+        boolean result = gsm.isInputDisabled();
+        assertFalse(result);
+        useCssSelector(false);
+        result = gsm.isInputDisabled();
+        assertFalse(result);
+    }
+
+    @Test
+    public void testUseSelectorCache(){
+        useCache(true);
+        boolean result = gsm.getCacheState();
+        assertTrue(result);
+
+        useCache(false);
+        result = gsm.getCacheState();
+        assertFalse(result);
+    }
+
+    @Test
+    public void testTypeRepeated(){
+        gsm.doTypeRepeated("tellurium jQuery");
+    }
+
+    @Test
+    public void testRegisterNamespace(){
+        registerNamespace("te", te_ns);
+        String ns = getNamespace("te");
+        assertNotNull(ns);
+        assertEquals(te_ns, ns);
+        ns = getNamespace("x");
+        assertNotNull(ns);
+        assertEquals("http://www.w3.org/1999/xhtml", ns);
+        ns = getNamespace("mathml");
+        assertNotNull(ns);
+        assertEquals("http://www.w3.org/1998/Math/MathML", ns);
+    }
+
+    @Test
+    public void testCachePolicy(){
+        useCssSelector(true);
+        useCache(true);
+        String policy = getCurrentCachePolicy();
+        assertEquals("DiscardOldPolicy", policy);
+        useCachePolicy(CachePolicy.DISCARD_LEAST_USED);
+        policy = getCurrentCachePolicy();
+        assertEquals("DiscardLeastUsedPolicy", policy);
+        useCachePolicy(CachePolicy.DISCARD_INVALID);
+        policy = getCurrentCachePolicy();
+        assertEquals("DiscardInvalidPolicy", policy);
+        useCachePolicy(CachePolicy.DISCARD_NEW);
+        policy = getCurrentCachePolicy();
+        assertEquals("DiscardNewPolicy", policy);
+        useCachePolicy(CachePolicy.DISCARD_OLD);
+        policy = getCurrentCachePolicy();
+        assertEquals("DiscardOldPolicy", policy);
+    }
+
+    @AfterClass
+    public static void tearDown(){
+        showTrace();
+    }
+}
+
+}}}
+
 = What's Next ? =
 
 = Resources =
