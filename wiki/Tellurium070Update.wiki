@@ -414,8 +414,18 @@ java.lang.ExceptionInInitializerError
 	at org.testng.TestNG.run(TestNG.java:748)
 	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:73)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:124)
-Caused by: org.telluriumsource.exception.ConfigNotFoundException: Cannot find Tellurium Configuration tellurium.i18n.locale, please check http://code.google.com/p/aost/wiki/TelluriumConfig070 for updated TelluriumConfig.groovy
+Caused by: org.telluriumsource.exception.ConfigNotFoundException: Cannot find Tellurium Configuration tellurium.bundle.maxMacroCmd, please check http://code.google.com/p/aost/wiki/TelluriumConfig070 for updated TelluriumConfig.groovy, or report to Tellurium user group at http://groups.google.com/group/tellurium-users
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:513)
+	at org.codehaus.groovy.reflection.CachedConstructor.invoke(CachedConstructor.java:77)
+	at org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrapNoCoerce.callConstructor(ConstructorSite.java:107)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallConstructor(CallSiteArray.java:52)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:192)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:200)
+	at org.telluriumsource.config.TelluriumConfigurator.checkConfig(TelluriumConfigurator.groovy:41)
+
 }}}
 
 = Changes in Engine =
