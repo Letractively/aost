@@ -375,7 +375,7 @@ and the trace.
 
 The sample configure file for 0.7.0 is available [http://code.google.com/p/aost/wiki/TelluriumConfig070 here].
 
-Tellurium Core 0.7.0 added support for Configuration file support as suggested by our user. That can be easily shown by the following example, if we comment out the following section in TelluriumConfig.groovy
+Tellurium Core 0.7.0 added support for Configuration file check as suggested by our user. That can be easily demonstrated by the following example, if we comment out the following section in TelluriumConfig.groovy
 
 {{{
       //the bundling tier
