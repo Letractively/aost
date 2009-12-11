@@ -6,6 +6,17 @@
 
 There are couple major changes in Tellurium Core and Engine after we merged in the 0.7.0 prototype branch. To make your life easier, We list all the changes here so that you can update your existing Tellurium testing project accordingly.
 
+The architecture of Tellurium 0.7.0 has been changed and the system diagram is shown as follows,
+
+http://tellurium-developers.googlegroups.com/web/telluriumengine.gif?gda=PI9dhkUAAABfqXGjliAPh6eFpGfZMLEM3czrmB-8Q8hosgAcjunb3RjQ1TnBn_Bw7f_85usIiO0cn8WIbWh5zqeDKtDBmq67Gu1iLHeqhw4ZZRj3RjJ_-A
+
+The main changes include
+  * The bundle tier to support Macro Command
+  * New Tellurium API in Engine
+  * UI Module based Caching
+  * Runtime Environment
+
+The details are covered in the subsequent sections.
 
 = Changes in Tellurium Core =
 
@@ -77,8 +88,6 @@ and the following methods to DslContext to change the Macro command settings at 
 }}}
 
 == Caching Mechanism ==
-
-http://tellurium-developers.googlegroups.com/web/telluriumengine.gif?gda=PI9dhkUAAABfqXGjliAPh6eFpGfZMLEM3czrmB-8Q8hosgAcjunb3RjQ1TnBn_Bw7f_85usIiO0cn8WIbWh5zqeDKtDBmq67Gu1iLHeqhw4ZZRj3RjJ_-A
 
 The Caching mechanism in 0.7.0 is UI module based instead of jQuery selector, thus, we changed the following methods
 
