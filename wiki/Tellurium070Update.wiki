@@ -344,6 +344,37 @@ public abstract class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase 
 
 == Tellurium Configuration ==
 
+The configuration file TelluriumConfig.groovy includes three extra sections. That is to say, the bundle tier,
+
+{{{
+    //the bundling tier
+    bundle{
+        maxMacroCmd = 5
+        useMacroCommand = false
+    }
+}}}
+
+the i18n,
+
+{{{
+    i18n{
+        //locale = "fr_FR"
+        locale = "en_US"
+    }
+}}}
+
+and the trace.
+
+{{{
+    test{
+        execution{
+            //whether to trace the execution timing
+            trace = false
+        }      
+}}}
+
+The sample configure file for 0.7.0 is available [http://code.google.com/p/aost/wiki/TelluriumConfig070 here].
+
 = Changes in Engine =
 
 
