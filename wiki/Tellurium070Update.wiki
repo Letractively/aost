@@ -377,9 +377,216 @@ The sample configure file for 0.7.0 is available [http://code.google.com/p/aost/
 
 = Changes in Engine =
 
+Tellurium 0.7.0 include a new Engine embedded in Selenium Core. The main functionalities of the Tellurium Engine include
+  * CSS Selector support based on jQuery
+  * New APIs based on jQuery
+  * UI module Caching
 
+== Code Structure ==
+
+The following files are Javascript files in the Engine project:
+
+{{{
+[jfang@Mars engine]$ tree src/main/resources/core/scripts/
+src/main/resources/core/scripts/
+|-- htmlutils.js
+|-- jquery-1.3.2.js
+|-- jquery-cookies-2.1.0.js
+|-- json2.js
+|-- log4js.js
+|-- selenium-api.js
+|-- selenium-browserbot.js
+|-- selenium-browserdetect.js
+|-- selenium-commandhandlers.js
+|-- selenium-executionloop.js
+|-- selenium-logging.js
+|-- selenium-remoterunner.js
+|-- selenium-testrunner.js
+|-- selenium-version.js
+|-- tellurium-api.js
+|-- tellurium-cache.js
+|-- tellurium-extensions.js
+|-- tellurium-selector.js
+|-- tellurium-ui.js
+|-- tellurium.js
+|-- user-extensions.js
+|-- utils.js
+`-- xmlextras.js
+}}}
+
+where
+  * jquery-1.3.2.js: jQuery 1.3.2
+  * jquery-cookies-2.1.0.js: jQuery Cookies Plugin to support more cookie related operation
+  * tellurium.js: Entry point for Tellurium Engine code and it defined the {{{Tellurium}}} function.
+  * tellurium-selector.js: CSS selector builder
+  * tellurium-ui.js: Tellurium UI module definition on Engine side
+  * tellurium-cache.js: Tellurium Engine caching for UI modules and locators
+  * telurium-extension.js: Extra Tellurium APIs for Selenium
+  * tellurium-api.js: New Tellurium APIs based on jQuery
+  * utils.js: Utility functions
+ 
+== CSS Selector Support ==
+
+Actually, [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector the CSS selector support] was added in Tellurium 0.6.0 and we changed the name "jQuery Selector" to "CSS Selector" as suggested by Dylan. 
+
+== New APIs ==
+
+Right now, new Tellurium jQuery-based APIs include
+
+{{{
+TelluriumApi.prototype.blur = function(element);
+
+TelluriumApi.prototype.click = function(element);
+
+TelluriumApi.prototype.clickAt = function(element, coordString);
+
+TelluriumApi.prototype.doubleClick = function(element);
+
+TelluriumApi.prototype.fireEvent = function(element, event);
+
+TelluriumApi.prototype.focus = function(element);
+
+TelluriumApi.prototype.typeKey = function(element, key);
+
+TelluriumApi.prototype.keyDown = function(element, key);
+
+TelluriumApi.prototype.keyPress = function(element, key);
+
+TelluriumApi.prototype.keyUp = function(element, key);
+
+TelluriumApi.prototype.mouseOver = function(element);
+
+TelluriumApi.prototype.mouseDown = function(element);
+
+TelluriumApi.prototype.mouseDownRight = function(element);
+
+TelluriumApi.prototype.mouseEnter = function(element);
+
+TelluriumApi.prototype.mouseLeave = function(element);
+
+TelluriumApi.prototype.mouseOut = function(element);
+
+TelluriumApi.prototype.submit = function(element);
+
+TelluriumApi.prototype.check = function(element);
+
+TelluriumApi.prototype.uncheck = function(element);
+
+TelluriumApi.prototype.isElementPresent = function(element);
+
+TelluriumApi.prototype.getAttribute = function(element, attributeName);
+
+TelluriumApi.prototype.waitForPageToLoad = function(timeout);
+
+TelluriumApi.prototype.type = function(element, val);
+
+TelluriumApi.prototype.select = function(element, optionLocator);
+
+TelluriumApi.prototype.addSelection = function(element, optionLocator);
+
+TelluriumApi.prototype.removeSelection = function(element, optionLocator);
+
+TelluriumApi.prototype.removeAllSelections = function(element);
+
+TelluriumApi.prototype.open = function(url);
+
+TelluriumApi.prototype.getText = function(element);
+
+TelluriumApi.prototype.isChecked = function(element);
+
+TelluriumApi.prototype.isVisible = function(element);
+
+TelluriumApi.prototype.isEditable = function(element) ;
+
+TelluriumApi.prototype.getXpathCount = function(xpath);
+
+TelluriumApi.prototype.getAllText = function(element);
+
+TelluriumApi.prototype.getCssSelectorCount = function(element);
+
+TelluriumApi.prototype.getCSS = function(element, cssName);
+
+TelluriumApi.prototype.isDisabled = function(element);
+
+TelluriumApi.prototype.getListSize = function(element, separators);
+
+
+TelluriumApi.prototype.getCacheState = function();
+
+TelluriumApi.prototype.enableCache = function();
+
+TelluriumApi.prototype.disableCache = function();
+
+TelluriumApi.prototype.cleanCache = function();
+
+TelluriumApi.prototype.setCacheMaxSize = function(size);
+
+TelluriumApi.prototype.getCacheSize = function();
+
+TelluriumApi.prototype.getCacheMaxSize = function();
+
+TelluriumApi.prototype.getCacheUsage = function();
+
+TelluriumApi.prototype.addNamespace = function(prefix, namespace);
+
+TelluriumApi.prototype.getNamespace = function(prefix);
+
+TelluriumApi.prototype.useDiscardNewPolicy = function();
+
+TelluriumApi.prototype.useDiscardOldPolicy = function();
+
+TelluriumApi.prototype.useDiscardLeastUsedPolicy = function();
+
+TelluriumApi.prototype.useDiscardInvalidPolicy = function();
+
+TelluriumApi.prototype.getCachePolicyName = function();
+
+TelluriumApi.prototype.useUiModule = function(json);
+
+TelluriumApi.prototype.isUiModuleCached = function(id);
+}}}
+ 
+As you can see, most of the new APIs have the same signature as the Selenium ones so that your test code is agnostic to which test driving engine that you use. You can always switch between the Tellurium Engine and Selenium Engine by the following API at Tellurium core.
+
+{{{
+public void useTelluriumApi(boolean isUse);
+}}}
+
+== UI Module Caching ==
+
+On the Tellurium Core side, all UI modules are converted into a JSON object. That is why you can see the Tellurium UI objects must implement the following method,
+
+{{{
+abstract JSONObject toJSON();
+}}}
+
+For most UI objects, you only need to implement this method simply as follows if we take the UrlLink object as an example,
+
+{{{
+    public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "UrlLink")
+      }
+    }
+}}}
+
+For more complicated implementation, please refer to the List object.
+
+Tellurium Core automatically push the UI module definition to the Engine by calling the following method.
+
+{{{
+public void useUiModule(String json);
+}}}
+
+Once the UI module is cached. All locating procedure will be on the DOM sub-tree the UI module represents to reuse the locators and make the locating very fast. 
+
+Again, this feature is still under developement. Please don't use it for the timebeing.
+ 
 = Changes in Maven Build =
 
 = Examples =
+
+= What's Next ? =
 
 = Resources =
