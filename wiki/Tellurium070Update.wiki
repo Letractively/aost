@@ -136,6 +136,59 @@ public void useTelluriumApi(boolean isUse);
 Be aware, the New Tellurium APIs are still under development and are not fully tested. Use them at your discretion.
 
 
+== Trace ==
+
+Tellurium 0.7.0 provides built-in support for the command execution time including 
+  * Execution time for each command
+  * Total run time
+  * Aggregated times for each command
+
+For example, you can see the output as follows,
+
+{{{
+TE: Name: getCurrentCachePolicy, start: 1260496075484, duration: 28ms
+TE: Name: useDiscardNewCachePolicy, start: 1260496075514, duration: 51ms
+TE: Name: getCurrentCachePolicy, start: 1260496075566, duration: 74ms
+TE: Name: useDiscardOldCachePolicy, start: 1260496075642, duration: 35ms
+TE: Name: getCurrentCachePolicy, start: 1260496075678, duration: 42ms
+TE: Start Time: 1260496060373
+End Time: 1260496075720
+Total Runtime: 15347ms
+Name: keyPress, count: 24, total: 1277ms, average: 53ms
+Name: getCurrentCachePolicy, count: 5, total: 222ms, average: 44ms
+Name: useDiscardOldCachePolicy, count: 1, total: 35ms, average: 35ms
+Name: useDiscardInvalidCachePolicy, count: 1, total: 33ms, average: 33ms
+Name: enableCache, count: 2, total: 151ms, average: 75ms
+Name: click, count: 3, total: 194ms, average: 64ms
+Name: isElementPresent, count: 2, total: 100ms, average: 50ms
+Name: useDiscardLeastUsedCachePolicy, count: 1, total: 39ms, average: 39ms
+Name: type, count: 1, total: 81ms, average: 81ms
+Name: typeKey, count: 3, total: 124ms, average: 41ms
+}}}
+ 
+We added the following settings to TelluriumConfig.groovy
+
+{{{
+    test{
+        execution{
+            //whether to trace the execution timing
+            trace = false
+        }      
+
+}}}
+
+You can use the follow methods in DslContext to turn on or off the trace, and get the trace data.
+
+{{{
+
+  public void enableTrace();
+
+  public void disableTrace();
+  
+  public void showTrace();
+}}}
+
+
 == Methods Accessible in Test Cases ==
 
 There are many Tellurium APIs that used to be available only in DslContext. That is to say, you have to extend DslContext to use them. For example, you often see code in a test case likes this,
@@ -215,10 +268,6 @@ New TelluriumGroovyTestCase provides the following list of new APIs for your con
 
 Tellurium Java test cases provide the same APIs and the only difference is that the APIs in Tellurium Java test cases are static.
 
-== Trace ==
-
-
-
 == Environment ==
 
 We added an Environment class to Tellurium Core so that you can change the runtime environment. The Environment class is defined as follows,
@@ -276,3 +325,7 @@ where {{{setCustomEnvironment}}} and {{{getCustomEnvironment}}} can be used to p
 
 
 = Changes in Maven Build =
+
+= Examples =
+
+= Resources =
