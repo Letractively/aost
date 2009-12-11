@@ -103,7 +103,38 @@ public void enableCache();
 public boolean disableCache();
 }}}
 
+Other cache related APIs include
+
+{{{
+public boolean cleanCache();
+public boolean getCacheState(); 
+public void setCacheMaxSize(int size);
+public int getCacheSize();
+public int getCacheMaxSize();
+public Map<String, Long> getCacheUsage();
+public void useDiscardNewCachePolicy();
+public void useDiscardOldCachePolicy();
+public void useDiscardLeastUsedCachePolicy();
+public void useDiscardInvalidCachePolicy();
+public String getCurrentCachePolicy();     
+}}}
+
+Be aware that the caching mechanism is still under development.
+
 == Tellurium New APIs ==
+
+Tellurium provides a set of new APIs based on jQuery. Use the following methods to get the flag and enable or disable the New APIs.
+
+{{{
+//Check to see if the flag for using Tellurium New APIs is on
+public boolean isUseTelluriumApi();
+
+//Whether to use New Tellurium APIs
+public void useTelluriumApi(boolean isUse);
+}}}
+
+Be aware, the New Tellurium APIs are still under development and are not fully tested. Use them at your discretion.
+
 
 == Methods Accessible to Test Cases ==
 
@@ -156,6 +187,7 @@ public class Environment {
 
 where {{{setCustomEnvironment}}} and {{{getCustomEnvironment}}} can be used to pass user defined environment variables.
 
+== I18N ==
 
 == JUnit ==
 
