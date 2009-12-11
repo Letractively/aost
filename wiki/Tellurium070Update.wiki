@@ -317,7 +317,30 @@ where {{{setCustomEnvironment}}} and {{{getCustomEnvironment}}} can be used to p
 
 == JUnit ==
 
+JUnit is upgraded to 4.7 since it provides more features. One such a good feature is [http://blog.schauderhaft.de/2009/10/04/junit-rules/ the Rule annotation].
+
+To be consistent with TestNG test case, the class TelluriumJavaTestCase is deprecated and you should use TelluriumJUnitTestCase instead.
+ 
 == TestNG ==
+
+TelluriumTestNGTestCase was changed to allow the setup and teardown procedures only work once for all the tests. The magic are the @BeforeTest and @AfterTest annotations. See the following code for more details,
+
+{{{
+public abstract class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase {
+
+    @BeforeTest(alwaysRun = true)
+    public static void setUpForTest() {
+        tellurium = TelluriumSupport.addSupport();
+        tellurium.start(customConfig);
+        connector = (SeleniumConnector) tellurium.getConnector();
+    }
+
+    @AfterTest(alwaysRun = true)
+    public static void tearDownForTest() {
+        if(tellurium != null)
+            tellurium.stop();
+    }
+}}}
 
 == Tellurium Configuration ==
 
