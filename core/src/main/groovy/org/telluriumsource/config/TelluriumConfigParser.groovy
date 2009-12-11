@@ -15,12 +15,16 @@ import org.telluriumsource.i18n.InternationalizationManagerImpl;
 class TelluriumConfigParser {
 
     protected def conf
+    protected Properties props
+  
     protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
 
     public void parse(String fileName){
        try{
             println i18nManager.translate("TelluriumConfigParser.parseConfigFileText" , fileName)
-            conf = new ConfigSlurper().parse(new File(fileName).toURL())              
+            conf = new ConfigSlurper().parse(new File(fileName).toURL())
+            //convert the ConfigObject to properties to check if it is defined
+            props = conf.toProperties()
        }catch(Exception e){
             conf = null
             println i18nManager.translate("TelluriumConfigParser.cannotOpenConfigFile" , e.getMessage())
@@ -30,6 +34,8 @@ class TelluriumConfigParser {
     public void parse(File file){
        try{
           conf = new ConfigSlurper().parse(file.toURL())
+          //convert the ConfigObject to properties to check if it is defined
+          props = conf.toProperties()
        }catch(Exception e){
           conf = null
           println "Cannot open Configuration File"
@@ -39,7 +45,9 @@ class TelluriumConfigParser {
     public void parse(URL url){
        try{
           conf = new ConfigSlurper().parse(url)
-       }catch(Exception e){
+           //convert the ConfigObject to properties to check if it is defined
+          props = conf.toProperties()
+      }catch(Exception e){
           conf = null
           println "Cannot open Configuration File"
        }

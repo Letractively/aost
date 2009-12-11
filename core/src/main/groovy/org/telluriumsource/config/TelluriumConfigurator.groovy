@@ -21,6 +21,7 @@ import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
 import org.telluriumsource.bundle.BundleProcessor
 import org.telluriumsource.framework.Environment
+import org.telluriumsource.exception.ConfigNotFoundException
 
 
 /**
@@ -33,21 +34,20 @@ import org.telluriumsource.framework.Environment
  */
 class TelluriumConfigurator extends TelluriumConfigParser implements Configurator {
 
-
-  protected void configEmbeededServer(EmbeddedSeleniumServer server) {
-    server.setProperty("port", Integer.parseInt(conf.tellurium.embeddedserver.port))
-    server.setProperty("useMultiWindows", conf.tellurium.embeddedserver.useMultiWindows)
-    server.setProperty("trustAllSSLCertificates", conf.tellurium.embeddedserver.trustAllSSLCertificates)
-    server.setProperty("runSeleniumServerInternally", conf.tellurium.embeddedserver.runInternally)
-    server.setProperty("profileLocation", conf.tellurium.embeddedserver.profile)
-    server.setProperty("userExtension", conf.tellurium.embeddedserver.userExtension)
+  protected void checkConfig(String name){
+    String key = name.substring(5)
+    def obj = this.props.get(key)
+    if(obj == null){
+       throw new ConfigNotFoundException(i18nManager.translate("TelluriumConfigurator.ConfigNotFound.default" ,  key, "http://code.google.com/p/aost/wiki/TelluriumConfig070", "Tellurium user group at http://groups.google.com/group/tellurium-users" ))
+    }
   }
 
-  protected InternationalizationManager configi18nManager(conf) 
+  protected InternationalizationManager configi18nManager(conf)
   {
-	  InternationalizationManager manager = new InternationalizationManagerImpl() 
+	  InternationalizationManager manager = new InternationalizationManagerImpl()
 	  def locale = null
 
+      checkConfig("conf.tellurium.i18n.locale")
 	  if(conf != null  && conf.tellurium!=null && conf.tellurium.i18n!=null && conf.tellurium.i18n.locale!=null ){
 	    	String definedLocales = conf.tellurium.i18n.locale
 	    	String[] localeString = definedLocales.split("_")
@@ -58,12 +58,32 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
 	  }
 	  else
 	      locale = Locale.getDefault();
-	    
+
 	  if(locale == null)
 	   	locale = new Locale("en" , "US");
 	  manager.defaultLocale = locale
 	  manager.addResourceBundle("DefaultMessagesBundle" , locale)
 	  return manager;
+  }
+
+  protected void configEmbeededServer(EmbeddedSeleniumServer server) {
+    checkConfig("conf.tellurium.embeddedserver.port")
+    server.setProperty("port", Integer.parseInt(conf.tellurium.embeddedserver.port))
+
+    checkConfig("conf.tellurium.embeddedserver.useMultiWindows")
+    server.setProperty("useMultiWindows", conf.tellurium.embeddedserver.useMultiWindows)
+
+    checkConfig("conf.tellurium.embeddedserver.trustAllSSLCertificates")
+    server.setProperty("trustAllSSLCertificates", conf.tellurium.embeddedserver.trustAllSSLCertificates)
+
+    checkConfig("conf.tellurium.embeddedserver.runInternally")
+    server.setProperty("runSeleniumServerInternally", conf.tellurium.embeddedserver.runInternally)
+
+    checkConfig("conf.tellurium.embeddedserver.profile")
+    server.setProperty("profileLocation", conf.tellurium.embeddedserver.profile)
+    
+    checkConfig("conf.tellurium.embeddedserver.userExtension")
+    server.setProperty("userExtension", conf.tellurium.embeddedserver.userExtension)
   }
 
   protected void configEmbeededServerDefaultValues(EmbeddedSeleniumServer server) {
@@ -83,14 +103,27 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
   }
 
   protected void configSeleniumConnector(SeleniumConnector connector) {
+    checkConfig("conf.tellurium.connector.serverHost")
     connector.setProperty("seleniumServerHost", conf.tellurium.connector.serverHost)
+
+    checkConfig("conf.tellurium.connector.port")
     connector.setProperty("port", Integer.parseInt(conf.tellurium.connector.port))
+
+    checkConfig("conf.tellurium.connector.baseUrl")
     connector.setProperty("baseURL", conf.tellurium.connector.baseUrl)
+
+    checkConfig("conf.tellurium.connector.browser")
     connector.setProperty("browser", conf.tellurium.connector.browser)
+
+    checkConfig("conf.tellurium.embeddedserver.userExtension")
     connector.setProperty("userExtension", conf.tellurium.embeddedserver.userExtension)
+
+    checkConfig("conf.tellurium.connector.customClass")
     String clazz = conf.tellurium.connector.customClass
     if (clazz != null && clazz.trim().length() > 0)
       connector.setProperty("customClass", Class.forName(clazz).newInstance())
+
+    checkConfig("conf.tellurium.connector.options")
     String options = conf.tellurium.connector.options
     if (options != null && options.trim().length() > 0) {
       connector.setProperty("options", options);
@@ -107,6 +140,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
   }
 
   protected void configDataProvider(DataProvider dataProvider) {
+    checkConfig("conf.tellurium.datadriven.dataprovider.reader")
     if ("PipeFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)) {
       dataProvider.setProperty("reader", new PipeDataReader())
     } else if ("CSVFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)) {
@@ -123,6 +157,8 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
   }
 
   protected void configResultListener(DefaultResultListener resultListener) {
+    checkConfig("conf.tellurium.test.result.reporter")
+    checkConfig("conf.tellurium.test.result.output")
     if ("SimpleResultReporter".equalsIgnoreCase(conf.tellurium.test.result.reporter)) {
       resultListener.setProperty("reporter", new SimpleResultReporter())
     }
@@ -146,6 +182,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
   }
 
   protected void configFileOutput(FileOutput fileOutput) {
+    checkConfig("conf.tellurium.test.result.filename")
     fileOutput.setProperty("fileName", conf.tellurium.test.result.filename)
   }
 
@@ -154,6 +191,8 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
   }
 
   protected void configUiObjectBuilder(UiObjectBuilderRegistry uobRegistry) {
+//    ui object builder is a special case, which could be empty
+//    checkConfig("conf.tellurium.uiobject.builder")
     Map builders = conf.tellurium.uiobject.builder
 
     if (builders != null && (!builders.isEmpty())) {
@@ -169,6 +208,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
   }
 
   protected void configWidgetModule(WidgetConfigurator wgConfigurator) {
+    checkConfig("conf.tellurium.widget.module.included")
     wgConfigurator.configWidgetModule(conf.tellurium.widget.module.included)
   }
 
@@ -177,6 +217,9 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
   }
 
   protected void configEventHandler(EventHandler eventHandler) {
+    checkConfig("conf.tellurium.eventhandler.checkElement")
+    checkConfig("conf.tellurium.eventhandler.extraEvent")
+
     if (conf.tellurium.eventhandler.checkElement) {
       eventHandler.mustCheckElement()
     } else {
@@ -197,6 +240,8 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
   }
 
   protected void configAccessor(Accessor accessor) {
+    checkConfig("conf.tellurium.accessor.checkElement")
+
     if (conf.tellurium.accessor.checkElement) {
       accessor.mustCheckElement()
     } else {
@@ -209,6 +254,8 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
   }
 
   protected void configDispatcher(Dispatcher dispatcher) {
+    checkConfig("conf.tellurium.test.exception.filenamePattern")
+
 //    dispatcher.captureScreenshot = conf.tellurium.test.exception.captureScreenshot
     dispatcher.filenamePattern = conf.tellurium.test.exception.filenamePattern
 //    dispatcher.trace = conf.tellurium.test.execution.trace
@@ -221,6 +268,12 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
   }
 
   protected void configEnvironment(Environment env) {
+    checkConfig("conf.tellurium.bundle.maxMacroCmd")
+    checkConfig("conf.tellurium.bundle.useMacroCommand")
+    checkConfig("conf.tellurium.test.execution.trace")
+    checkConfig("conf.tellurium.test.exception.captureScreenshot")
+    checkConfig("conf.tellurium.i18n.locale")     
+
     env.setProperty("maxMacroCmd", conf.tellurium.bundle.maxMacroCmd);
     env.setProperty("exploitBundle", conf.tellurium.bundle.useMacroCommand);
     env.setProperty("trace", conf.tellurium.test.execution.trace);
