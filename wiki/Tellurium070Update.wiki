@@ -136,7 +136,84 @@ public void useTelluriumApi(boolean isUse);
 Be aware, the New Tellurium APIs are still under development and are not fully tested. Use them at your discretion.
 
 
-== Methods Accessible to Test Cases ==
+== Methods Accessible in Test Cases ==
+
+There are many Tellurium APIs that used to be available only in DslContext. That is to say, you have to extend DslContext to use them. For example, you often see code in a test case likes this,
+
+{{{
+GoogleSearchModule gsm = new GoogleSearchModule();
+gsm.defineUi();
+gsm.usejQuerySelector();
+gsm.registerNamespace("te", te_ns);
+}}}
+
+Now, many of them, which are not really tied to a specific UI module, are made available in Tellurium test cases. For example, the above code can be changed as follows,
+
+{{{
+GoogleSearchModule gsm = new GoogleSearchModule();
+gsm.defineUi();
+useCssSelector();
+registerNamespace("te", te_ns);
+}}}
+
+New TelluriumGroovyTestCase provides the following list of new APIs for your convenience.
+
+{{{
+    public void useCssSelector(boolean isUse);
+
+    public void useCache(boolean isUse);
+
+    public void cleanCache();
+
+    public boolean isUsingCache();
+
+    public void setCacheMaxSize(int size);
+
+    public int getCacheSize();
+
+    public int getCacheMaxSize();
+
+    public Map<String, Long> getCacheUsage();
+
+    public void useCachePolicy(CachePolicy policy);
+
+    public String getCurrentCachePolicy();
+
+    public void useDefaultXPathLibrary();
+
+    public void useJavascriptXPathLibrary();
+
+    public void useAjaxsltXPathLibrary();
+
+    public void registerNamespace(String prefix, String namespace);
+
+    public String getNamespace(String prefix);
+
+    public void pause(int milliseconds);
+
+    public void useMacroCmd(boolean isUse);
+
+    public void setMaxMacroCmd(int max);
+
+    public int getMaxMacroCmd();
+
+    public boolean isUseTelluriumApi();
+
+    public void useTelluriumApi(boolean isUse);
+  
+    public void useTrace(boolean isUse);
+
+    public void showTrace();
+
+    public void setEnvironment(String name, Object value);
+
+    public Object getEnvironment(String name);
+
+    public void allowNativeXpath(boolean allow);
+
+}}}
+
+Tellurium Java test cases provide the same APIs and the only difference is that the APIs in Tellurium Java test cases are static.
 
 == Trace ==
 
