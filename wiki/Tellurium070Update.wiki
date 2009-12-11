@@ -49,22 +49,6 @@ public void useCssSelector();
 public void disableCssSelector(); 
 }}}
 
-== Caching Mechanism ==
-
-The Caching mechanism in 0.7.0 is UI module based instead of jQuery selector, thus, we changed the following methods
-
-{{{
-public void enableJQuerySelectorCache(); 
-public boolean disableJQuerySelectorCache();
-}}}
-
-to
-
-{{{
-public void enableCache(); 
-public boolean disableCache();
-}}}
-
 == Macro Command ==
 
 Macro Command is a set of Selenium commands that are bundled together and sent to Selenium Core in one call. This will reduce the round trip latency from Tellurium Core to Engine and thus, improve the speed performance. Another advantage for Macro Command is that Tellurium Engine can reuse the locator because many times the commands in the same bundle act on the same UI element or same sub-tree in the DOM. 
@@ -92,9 +76,30 @@ and the following methods to DslContext to change the Macro command settings at 
     public int getMaxMacroCmd();
 }}}
 
+== Caching Mechanism ==
+
+http://tellurium-developers.googlegroups.com/web/telluriumengine.gif?gda=PI9dhkUAAABfqXGjliAPh6eFpGfZMLEM3czrmB-8Q8hosgAcjunb3RjQ1TnBn_Bw7f_85usIiO0cn8WIbWh5zqeDKtDBmq67Gu1iLHeqhw4ZZRj3RjJ_-A
+
+The Caching mechanism in 0.7.0 is UI module based instead of jQuery selector, thus, we changed the following methods
+
+{{{
+public void enableJQuerySelectorCache(); 
+public boolean disableJQuerySelectorCache();
+}}}
+
+to
+
+{{{
+public void enableCache(); 
+public boolean disableCache();
+}}}
+
 == Tellurium New APIs ==
 
 == Methods Accessible to Test Cases ==
+
+== Trace ==
+
 
 
 == Environment ==
@@ -143,6 +148,13 @@ public class Environment {
 where {{{setCustomEnvironment}}} and {{{getCustomEnvironment}}} can be used to pass user defined environment variables.
 
 
+== JUnit ==
+
+== TestNG ==
+
+== Tellurium Configuration ==
+
 = Changes in Engine =
+
 
 = Changes in Maven Build =
