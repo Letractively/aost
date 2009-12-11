@@ -1,4 +1,4 @@
-#summary What are New in Tellurium 0.7.0.
+#summary What's New in Tellurium 0.7.0.
 #labels Phase-Support
 <wiki:toc max_depth="5" />
 
@@ -584,6 +584,48 @@ Once the UI module is cached. All locating procedure will be on the DOM sub-tree
 Again, this feature is still under developement. Please don't use it for the timebeing.
  
 = Changes in Maven Build =
+
+Our Maven repository is moved and the Maven Repositories are changed as well.
+
+{{{
+        <repository>
+            <id>kungfuters-public-releases-repo</id>
+            <name>Kungfuters.org Public Releases Repository</name>
+            <url>http://maven.kungfuters.org/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>kungfuters-public-snapshots-repo</id>
+            <name>Kungfuters.org Public Snapshot Repository</name>
+            <url>http://maven.kungfuters.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+}}}
+
+telluriumsource.org becomes our official domain name and the web site is under construction. 
+
+{{{
+        <site>
+            <id>tellurium-site</id>
+            <name>Tellurium Site</name>
+            <url>scp://telluriumsource.org/var/www/telluriumsource.org/public/maven</url>
+        </site>
+}}}
+
+After the domain name change, you need to use the following Tellurium dependencies for your project
+
+{{{
+        <dependency>
+            <groupId>org.telluriumsource</groupId>
+            <artifactId>tellurium-core</artifactId>
+            <version>0.7.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium.server</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>1.0.1-te2</version>
+        </dependency>
+}}}
+
+Tellurium Maven archetypes will be updated soon.
 
 = Examples =
 
