@@ -830,6 +830,24 @@ The _nonProxyHosts_ parameter should include all the hosts you don't want them t
 <nonProxyHosts>*.mycompany.com|*.mycompanydoman2.com</nonProxyHosts>
 }}}
 
+== How to Generate IDE project files ==
+
+Tellurium provides [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_Maven_Archetypes Maven archetypes] for you to generate a Tellurium Maven project. Once you create the Maven project, you can create the IDE project files automatically.
+
+For IntelliJ IDEA, you don't need to do anything and just simply open the project by picking the pom file.
+
+For NetBeans, you can use [http://maven.apache.org/guides/mini/guide-ide-netbeans/guide-ide-netbeans.html the following Maven command] to create NetBeans project files.
+
+{{{
+mvn netbeans-freeform:generate-netbeans-project
+}}}
+
+For Eclipse, you can use [http://maven.apache.org/guides/mini/guide-ide-eclipse.html a similar Maven command]
+
+{{{
+mvn eclipse:eclipse
+}}}
+
 == How to Run Tellurium Tests in Google Chrome == 
 
 Selenium supports the following web browsers,
