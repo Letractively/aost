@@ -95,12 +95,12 @@ class SeleniumConnector implements Configurable {
 
       //jQuery selector without any Cache mechanism
       sel.addLocationStrategy("jquery", '''
-          return tellurium.locateElementByJQuerySelector(locator, inDocument, inWindow);
+          return tellurium.locateElementByCSSSelector(locator, inDocument, inWindow);
       ''')
 
       //Cache Aware jQuery selector 
       sel.addLocationStrategy("jquerycache", '''
-          return tellurium.locateElementByCacheAwareJQuerySelector(locator, inDocument, inWindow);
+          return tellurium.locateElementByCacheAwareCSSSelector(locator, inDocument, inWindow);
       ''')
     }
 
