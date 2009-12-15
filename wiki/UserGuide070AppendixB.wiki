@@ -913,10 +913,16 @@ For ant, you can replace "mvn test" with your ant task.
 
 == How to Search Tellurium Documents ==
 
-The trick is to use google's site meta command, which will narrow the search to one domain. For example, you can use the following key words to do Google search,
+The trick is to use google's site meta command, which will narrow the search to one domain. You can use the following key words to do Google search,
 
 {{{
 site:aost.googlecode.com YOUR_KEY_WORDS
+}}}
+
+For example,
+
+{{{
+site:aost.googlecode.com datepicker
 }}}
 
 == How to Contribute to Tellurium ==
