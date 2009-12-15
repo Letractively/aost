@@ -176,20 +176,20 @@ BundleResponse.prototype.toJSon = function(){
     return JSON.stringify(out);
 };
 
-function CommandBundle(){
+function MacroCmd(){
     this.bundle = new Array();
 
 };
 
-CommandBundle.prototype.size = function(){
+MacroCmd.prototype.size = function(){
     return this.bundle.length;
 };
 
-CommandBundle.prototype.first = function(){
+MacroCmd.prototype.first = function(){
     return this.bundle.shift();
 };
 
-CommandBundle.prototype.addCmd = function(sequ, uid, name, args){
+MacroCmd.prototype.addCmd = function(sequ, uid, name, args){
     var cmd = new CmdRequest();
     cmd.sequ = sequ;
     cmd.uid = uid;
@@ -198,7 +198,7 @@ CommandBundle.prototype.addCmd = function(sequ, uid, name, args){
     this.bundle.push(cmd);
 };
 
-CommandBundle.prototype.parse = function(json){
+MacroCmd.prototype.parse = function(json){
     var cmdbundle = JSON.parse(json, null);
     for(var i=0; i<cmdbundle.length; i++){
         this.addCmd(cmdbundle[i].sequ,  cmdbundle[i].uid, cmdbundle[i].name, cmdbundle[i].args);
@@ -222,8 +222,8 @@ function Tellurium (){
 
     this.currentDocument = null;
 
-    //command bundle for Tellurium
-    this.commandbundle = new CommandBundle();
+    //Macro command for Tellurium
+    this.macroCmd = new MacroCmd();
 
     //whether to use Tellurium new jQuery selector based APIs
     this.isUseTeApi = false;
@@ -238,7 +238,7 @@ function Tellurium (){
 
 };
 
-//TODO: How to handle custom calls?
+//TODO: How to handle custom calls?  delegate to Selenium?
 Tellurium.prototype.initialize = function(){
     this.registerApi("isElementPresent", true, "BOOLEAN");
     this.registerApi("blur", true, "VOID");
@@ -312,8 +312,8 @@ Tellurium.prototype.isApiMissing =function(apiName){
     return this.apiMap.get(apiName) == null;
 };
 
-Tellurium.prototype.parseCommandBundle = function(json){
-    this.commandbundle.parse(json);
+Tellurium.prototype.parseMacroCmd = function(json){
+    this.macroCmd.parse(json);
 };
 
 Tellurium.prototype.prepareArgumentList = function(handler, args, element){
@@ -419,17 +419,18 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
     }
 };
 
-Tellurium.prototype.processCommandBundle = function(){
+Tellurium.prototype.processMacroCmd = function(){
 
     this.cbCache.clear();
 
     var response = new BundleResponse();
 
-    while (this.commandbundle.size() > 0) {
-        var cmd = this.commandbundle.first();
+    while (this.macroCmd.size() > 0) {
+        var cmd = this.macroCmd.first();
         //If don't want to use Tellurium APIs
         //or counld not find the approporiate API from Tellurium APIs, delete it to selenium directly
         //TODO: pay attention to tellurium only APIs, should not delegate to selenium if they are Tellurium only
+        //should be fine if the same methods are duplicated in Selenium as well
         if ((!this.isUseTeApi) || this.isApiMissing(cmd.name)) {
             this.delegateToSelenium(response, cmd);
         } else {
@@ -476,7 +477,7 @@ Tellurium.prototype.processCommandBundle = function(){
     return response.toJSon();
 };
 
-Tellurium.prototype.locateElementByJQuerySelector = function(locator, inDocument, inWindow){
+Tellurium.prototype.locateElementByCSSSelector = function(locator, inDocument, inWindow){
     var loc = locator;
     var attr = null;
     var isattr = false;
@@ -580,11 +581,11 @@ Tellurium.prototype.validateResult = function($result, unique, selector){
     }
 };
 
-Tellurium.prototype.locateElementByCacheAwareJQuerySelector = function(locator, inDocument, inWindow){
+Tellurium.prototype.locateElementByCacheAwareCSSSelector = function(locator, inDocument, inWindow){
     var input = this.parseLocator(locator);
     var $found = null;
     
-    //If do not cache selector or meta command without UID, directly find jQuery selector
+    //If do not cache selector or meta command without UID, directly find CSS selector
     if((!this.cacheOption) || input.metaCmd.uid == null || trimString(input.metaCmd.uid).length == 0){
         //cannot cache without uid, thus, go directly to find the element using jQuery
          $found = teJQuery(inDocument).find(input.optimized);
