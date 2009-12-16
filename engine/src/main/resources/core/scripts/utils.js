@@ -1,5 +1,35 @@
 //Util file to hold commonly used data structures
 
+//FIFo Queue
+
+function FifoQueue(){
+    this.queue = new Array();
+};
+
+FifoQueue.prototype.size = function(){
+    return this.queue.length;
+};
+
+FifoQueue.prototype.peek = function(){
+    if(this.queue.length > 0){
+        return this.queue[0];
+    }
+
+    return null;
+};
+
+FifoQueue.prototype.push = function(obj){
+    this.queue.push(obj);
+};
+
+FifoQueue.prototype.pop = function(){
+    if(this.queue.length > 0){
+        return this.queue.shift();
+    }
+
+    return null;
+};
+
 function HashMap()
 {
     // members

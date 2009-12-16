@@ -8,7 +8,11 @@ Uiid.prototype.push = function(uid){
 };
 
 Uiid.prototype.pop = function(){
-    return this.stack.pop();
+    if(this.stack.length > 0){
+        return this.stack.pop();
+    }
+
+    return null;
 };
 
 Uiid.prototype.peek = function(){
