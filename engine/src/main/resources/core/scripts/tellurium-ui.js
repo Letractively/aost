@@ -941,6 +941,10 @@ UiAlg.prototype.locate = function(uid, clocator){
         
 };
 
+UiAlg.prototype.addChildUiObject(uiobj){
+    this.oqueue.push(uiobj);
+};
+
 UiAlg.prototype.getParentUid = function(uid){
 
 };
