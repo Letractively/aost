@@ -922,7 +922,7 @@ function UiAlg(){
     this.squeue = new FifoQueue();
 
     //FIFO queue to hold UI objects in the UI module
-    this.oqueue = new FiflQueue();
+    this.oqueue = new FifoQueue();
 };
 
 UiAlg.prototype.nextColor = function(){
