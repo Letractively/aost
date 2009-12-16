@@ -37,6 +37,19 @@ function HashMap()
     this.valArray = new Array(); // Values
 };
 
+//clone a copy of the Hash Map
+HashMap.prototype.clone = function(){
+    var newmap = new HashMap();
+    if(this.keyArray.length > 0){
+        newmap.keyArray = this.keyArray.slice(0);
+    }
+    if(this.valArray.length > 0){
+        newmap.valArray = this.valArray.slice(0);
+    }
+
+    return newmap;
+};
+
 HashMap.prototype.put = function(key, val){
     var elementIndex = this.findIt( key );
 
@@ -307,6 +320,16 @@ Hashtable.prototype.valSet = function(){
     return vals;
 };
 
+//clone a copy of the Hash Table
+Hashtable.prototype.clone = function(){
+    var newmap = new Hashtable();
+    for(var key in this.map){
+        newmap.put(key, this.map[key]);
+    }
+
+    return newmap;
+};
+
 Hashtable.prototype.showMe = function(){
     var sb = "";
     for(var key in this.map){
@@ -363,7 +386,7 @@ function getObjectClass(obj) {
 String.prototype.startsWith = function(str)
 {
     return (this.indexOf(str) === 0);
-}
+};
 //Have problem if the str starts with "*"
 //String.prototype.startsWith = function(str)
 //{return (this.match("^"+str)==str);}
