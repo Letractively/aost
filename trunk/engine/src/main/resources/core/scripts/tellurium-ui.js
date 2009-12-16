@@ -136,10 +136,19 @@ UiObject.prototype.amICacheable = function() {
     //check its parent and do not cache if its parent is not cacheable
     //If an object is cacheable, the path from the root to itself should
     //be all cacheable
-    if (parent != null)
+    if (this.parent != null){
         return this.cacheable && parent.amICacheable() && (!parent.noCacheForChildren);
+    }
 
     return this.cacheable;
+};
+
+UiObject.prototype.fullUid = function(){
+    if(this.parent != null){
+        return this.parent.fullUid() + "." + this.uid;
+    }
+
+    return this.uid;
 };
 
 var Button = classCreate();
@@ -873,4 +882,69 @@ UiModule.prototype.walkTo = function(context, uiid){
     return null;
 };
 
+//a snapshot of the UI module in the DOM
+function UiSnapshot(){
+    this.elements = new Hashtable();
+};
 
+UiSnapshot.prototype.addUi = function(uid, domref){
+    this.elements.put(uid, domref);
+};
+
+UiSnapshot.prototype.getUi = function(uid){
+    return this.elements.get(uid);
+};
+
+UiSnapshot.prototype.clone = function(){
+    var snapshot = new UiSnapshot();
+    snapshot.elements = this.elements.clone();
+
+    return snapshot;
+};
+
+//algorithms to handle UI modules and UI Objects
+function UiAlg(){
+    //current root DOM element
+    this.dom = null;
+    
+    this.colors = {
+        WHITE: "white",
+        GRAY: "gray",
+        BLACK: "black"
+    };
+
+    this.currentColor = null;
+
+    //whether allow to use closest matching element if no one matches
+    this.allowRelax = false;
+
+    //FIFO queue to hold UI snapshots
+    this.squeue = new FifoQueue();
+
+    //FIFO queue to hold UI objects in the UI module
+    this.oqueue = new FiflQueue();
+};
+
+UiAlg.prototype.nextColor = function(){
+    if(this.currentColor == null){
+        return this.colors.GRAY;
+    }else{
+        if(this.currentColor == this.colors.GRAY){
+            return this.colors.BLACK;
+        }
+
+        return this.colors.GRAY;       
+    }
+};
+
+UiAlg.prototype.locate = function(uid, clocator){
+        
+};
+
+UiAlg.prototype.getParentUid = function(uid){
+
+};
+
+UiAlg.prototype.takeSnapshot(uimodule, rootdom){
+
+};

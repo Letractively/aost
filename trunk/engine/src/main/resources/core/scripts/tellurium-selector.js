@@ -326,7 +326,7 @@ JQueryBuilder.prototype.includeSingleQuote = function(val) {
 };
 
 
-JQueryBuilder.prototype.buildJQuerySelector = function(tag, text, position, direct, attributes) {
+JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct, attributes) {
     var sb = new StringBuffer(64);
     if (direct) {
         sb.append(this.CHILD_SEPARATOR);
