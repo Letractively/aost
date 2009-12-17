@@ -12,7 +12,8 @@ public class QUnitDemoTest extends QUnitTestCase {
 
     @Test
     public void testDemo(){
-        registerTest("demo",Demo.js, Demo.body);
+//        registerTest("demo",Demo.js, Demo.body);
+        registerTest("demo");
         runTest("demo");
     }
 }

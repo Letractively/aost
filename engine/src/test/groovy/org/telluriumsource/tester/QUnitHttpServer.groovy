@@ -63,4 +63,12 @@ public class QUnitHttpServer {
     if(server != null)
       server.stop(50);
   }
+
+  public String getJsFile(String file){
+    return new File(ClassLoader.getSystemResource("org/telluriumsource/js/${file}.js").getFile()).text;
+  }
+
+  public String getHtmlFile(String file){
+    return new File(ClassLoader.getSystemResource("org/telluriumsource/html/${file}.html").getFile()).text;
+  }
 }
