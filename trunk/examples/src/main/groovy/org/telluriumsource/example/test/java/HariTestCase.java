@@ -5,6 +5,7 @@ import org.telluriumsource.test.mock.MockHttpServer;
 import org.telluriumsource.example.other.HariModule;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.AfterClass;
 
 /**
  * @author: Jian Fang (John.Jian.Fang@gmail.com)
@@ -37,5 +38,10 @@ public class HariTestCase extends TelluriumJUnitTestCase {
 //        hm.click("dependantsTable");
         hm.check("dependantsTable[1][1]");
         showTrace();
+    }
+
+    @AfterClass
+    public static void tearDown(){
+        server.stop();
     }
 }
