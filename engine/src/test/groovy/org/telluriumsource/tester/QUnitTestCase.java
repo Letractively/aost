@@ -6,7 +6,7 @@ import org.telluriumsource.test.java.TelluriumJUnitTestCase;
 
 /**
  * @author: Jian Fang (John.Jian.Fang@gmail.com)
- * <
+ * 
  * Date: Dec 16, 2009
  */
 public class QUnitTestCase extends TelluriumJUnitTestCase {
@@ -24,7 +24,8 @@ public class QUnitTestCase extends TelluriumJUnitTestCase {
     
     @AfterClass
     public static void tearDown(){
-        server.stop();
+        if(server != null)
+            server.stop();
     }
 
     public static void registerTest(String testname, String javascript, String body){
