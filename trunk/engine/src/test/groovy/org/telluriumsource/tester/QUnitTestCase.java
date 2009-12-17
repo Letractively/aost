@@ -18,6 +18,8 @@ public class QUnitTestCase extends TelluriumJUnitTestCase {
     @BeforeClass
     public static void setUp(){
         server = new QUnitHttpServer(8080);
+        server.start();
+        connectSeleniumServer();
     }
     
     @AfterClass
@@ -25,15 +27,15 @@ public class QUnitTestCase extends TelluriumJUnitTestCase {
         server.stop();
     }
 
-    public static void start(){
-        server.start();        
+    public static void registerTest(String testname, String javascript, String body){
+        server.registerHtmlBody("/" + testname + ".html", javascript, body);
     }
 
-    public static void registerHtmlBody(String url, String javascript, String body){
-        server.registerHtmlBody(url, javascript, body);
+    public static void registerTestAsHtml(String testname, String html){
+        server.registerHtml("/" + testname + ".html", html);
     }
 
-    public static void registerHtml(String url, String html){
-        server.registerHtml(url, html);
+    public static void runTest(String testname){
+        connectUrl("http://localhost:8080/" + testname + ".html");    
     }
 }
