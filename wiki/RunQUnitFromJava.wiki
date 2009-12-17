@@ -196,7 +196,8 @@ public class QUnitTestCase extends TelluriumJUnitTestCase {
     
     @AfterClass
     public static void tearDown(){
-        server.stop();
+        if(server != null)
+          server.stop();
     }
 
     public static void registerTest(String testname, String javascript, String body){
