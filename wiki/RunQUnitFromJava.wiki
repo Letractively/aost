@@ -277,6 +277,8 @@ public class QUnitDemoTest extends QUnitTestCase {
 
 Run the test case, you will see the test results as follows.
 
+http://tellurium-users.googlegroups.com/web/QUnitTestResult.png?gsc=iB9gogsAAAAY3ihZvFwqqrOrtBcsjfa3
+
 = Further Work =
 
 You can change the above code for the following purposes:
