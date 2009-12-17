@@ -277,3 +277,17 @@ public class QUnitDemoTest extends QUnitTestCase {
 
 Run the test case, you will see the test results as follows.
 
+= Further Work =
+
+You can change the above code for the following purposes:
+
+  * Change the QUnitHttpHandler to a Java class. The only purpose we use Groovy is because Groovy support the """ quotation. You can achieve the same purpose by String concatenation.
+  * You can read the QUnit test files and html files from you local disk, and them register them to the QUnit http server.
+  * You can even use Java code to launch a web browser directly instead of relying on TelluriumJUnitTestCase.
+  * You can use the same mechanism to run JsUnit tests from Java.
+
+= Resources =
+
+  * [http://docs.jquery.com/QUnit QUnit]
+  * [http://www.jsunit.net/ JsUnit]
+  * [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#Testing_Support Tellurium Test Support]
