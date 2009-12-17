@@ -299,6 +299,8 @@ To load a file from a local disk is pretty easy in Groovy. For example, you can 
   }
 }}}
 
+For the sample code, please check them from [http://aost.googlecode.com/svn/trunk/engine/src/test Tellurium Engine] project.
+
 = Resources =
 
   * [http://docs.jquery.com/QUnit QUnit]
