@@ -290,6 +290,15 @@ You can change the above code for the following purposes:
   * Even use Java code to launch a web browser directly instead of relying on TelluriumJUnitTestCase.
   * Use the same mechanism to run JsUnit tests from Java.
 
+To load the file from local disk is pretty easy using Groovy. For example, you can use the following method to load a Javascript file with Groovy.
+
+{{{
+
+  public String getJsFile(String file){
+    return new File(ClassLoader.getSystemResource("org/telluriumsource/js/${file}.js").getFile()).text;
+  }
+}}}
+
 = Resources =
 
   * [http://docs.jquery.com/QUnit QUnit]
