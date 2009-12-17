@@ -37,6 +37,17 @@ public class StyleTestCase  extends TelluriumJUnitTestCase {
         }
     }
 
+    @Test
+    public void testBackground(){
+        StyleModule lm = new StyleModule();
+        lm.defineUi();
+        connectUrl("http://localhost:8080/style.html");
+        String[] style = lm.getCSS("c1", "background");
+        assertNotNull(style);
+        style = lm.getCSS("c1", "color");
+        style = lm.getCSS("c1", "background-color");
+    }
+
     @AfterClass
     public static void tearDown(){
         server.stop();

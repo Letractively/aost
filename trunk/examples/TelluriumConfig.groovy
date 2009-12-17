@@ -88,8 +88,8 @@ tellurium{
     //enter only one locale at a time, and use this only if you want to explicitly
     //set the locale, preferrable way is to comment out this section 
     i18n{
-        //locales = "fr_FR"
-        locales = "en_US"
+        //locale = "fr_FR"
+        locale = "en_US"
     }
     test{
         execution{
