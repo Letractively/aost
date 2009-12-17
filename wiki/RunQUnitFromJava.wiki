@@ -1,5 +1,6 @@
 #summary Run jQuery QUnit tests from Java.
 #labels Phase-Support
+<wiki:toc max_depth="5" />
 
 = Introduction =
 
@@ -7,6 +8,272 @@
 
 Here we introduce one way to implement this idea. The basic idea is to use Java 6 http server to run a web page created by Java code. The web page launches the QUnit tests in a browser and TelluriumJunitTestCase is extended to automatically open the web page in a web browser.
 
+= Prerequisites =
+ 
+  * [http://maven.kungfuters.org/content/repositories/snapshots/org/telluriumsource/tellurium-core/0.7.0-SNAPSHOT/ Tellurium Core 0.7.0-SNAPSHOT]
+  * Java 6
+  * JUnit 4
+  * Groovy 1.6
 
 = Implementation =
+
+== QUnit Http Server ==
+
+QUnitHttpServer is used to run as a web server, but it is a very lightweight one. One Java class can serve this purpose.
+
+{{{
+package org.telluriumsource.tester;
+
+import com.sun.net.httpserver.HttpServer;
+import com.sun.net.httpserver.HttpHandler
+
+public class QUnitHttpServer {
+  //default port
+  private int port = 8080;
+
+  private HttpServer server = null;
+  private QUnitHttpHandler handler;
+
+  public QUnitHttpServer() {
+    this.handler = new QUnitHttpHandler();
+    this.server = HttpServer.create();
+  }
+
+  public QUnitHttpServer(int port) {
+    this.handler = new QUnitHttpHandler();
+    this.port = port;
+    this.server = HttpServer.create();
+  }
+
+  public QUnitHttpServer(int port, HttpHandler handler) {
+    this.port = port;
+    this.handler = handler;
+    this.server = HttpServer.create();
+  }
+
+  public void setContentType(String contentType){
+    this.handler.setContentType(contentType)
+  }
+
+  public void registerHtmlBody(String url, String javascript, String body){
+    this.server.createContext(url, this.handler);
+    this.handler.registerTest(url, javascript, body);
+  }
+
+  public void setServerPort(int port){
+    this.port = port;
+  }
+
+  public void start() {
+    server.bind(new InetSocketAddress(this.port), 0);
+    server.setExecutor(null); // creates a default executor
+    server.start();
+  }
+
+  public void stop(){
+    if(server != null)
+      server.stop(50);
+  }
+}
+
+}}} 
+
+== QUnit Http Handler ==
+
+QUnitHttpHandler is used to create the web page that can embed QUnit tests. We use a Groovy class to implement it so that we can write the quotation very easily.
+
+{{{
+package org.telluriumsource.tester;
+
+import com.sun.net.httpserver.HttpHandler
+import com.sun.net.httpserver.HttpExchange
+import com.sun.net.httpserver.Headers
+
+public class QUnitHttpHandler implements HttpHandler {
+
+  private static String HEADER1 = """
+        <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+        <html>
+        <head>
+          <title>QUnit Tester</title>
+          <script src="http://code.jquery.com/jquery-1.3.2.js"> </script>
+          <link rel="stylesheet" href="http://github.com/jquery/qunit/raw/master/qunit/qunit.css" type="text/css" media="screen" />
+          <script type="text/javascript" src="http://github.com/jquery/qunit/raw/master/qunit/qunit.js"></script>
+          <script type="text/javascript">
+            \$(document).ready(function(){
+"""
+  private static String HEADER2 = """
+            });          
+          </script>
+        </head>
+        <body>
+  """
+
+  private static String TRAILER = """
+    </body>
+    </html>
+  """
+
+  private static String ERROR_MESSAGE = """
+    <div>Cannot find HTML content</div>
+  """
+  private static String CONTENT_TYPE = "Content-Type";
+
+  private Map<String, String> contents = new HashMap<String, String>();
+
+  private String contentType = "text/html";
+
+  public void setContentType(String contentType){
+    this.contentType = contentType;
+  }
+
+  public void registerTest(String url, String javascript, String body){
+    if(body != null)
+      this.contents.put(url, HEADER1 + javascript + HEADER2 + body + TRAILER);
+    else
+      this.contents.put(url, HEADER1 + javascript + HEADER2 + TRAILER);
+  }
+
+  public void setTrailer(String trailer){
+    this.TRAILER = trailer;
+  }
+
+  public void setBody(String body){
+    this.body = body;
+  }
+
+  public void handle(HttpExchange exchange) {
+    String requestMethod = exchange.getRequestMethod();
+
+    if (requestMethod.equalsIgnoreCase("GET") || requestMethod.equalsIgnoreCase("POST")) {
+      Headers responseHeaders = exchange.getResponseHeaders();
+      responseHeaders.set(CONTENT_TYPE, this.contentType);
+      exchange.sendResponseHeaders(200, 0);
+
+      OutputStream responseBody = exchange.getResponseBody();
+
+      String uri = exchange.getRequestURI();
+      String html = this.contents.get(uri);
+      if(html == null){
+        html = HEADER1 + HEADER2 + ERROR_MESSAGE + TRAILER;
+      }
+
+      responseBody.write(html.getBytes());
+
+      responseBody.close();
+    }
+  }
+}
+
+}}}
+
+== QUnit Test Case ==
+
+QUnit Test Case extends TelluriumJUnitTestCase to run the QUnit http server, create the web page that includes the QUnit tests, and launch the web browser.
+
+
+{{{ 
+package org.telluriumsource.tester;
+
+import org.junit.BeforeClass;
+import org.junit.AfterClass;
+import org.telluriumsource.test.java.TelluriumJUnitTestCase;
+
+public class QUnitTestCase extends TelluriumJUnitTestCase {
+    private static QUnitHttpServer server;
+    //launch Firefox browser in a multiple-window mode
+    static{
+        setCustomConfig(true, 4444, "*chrome", true, null);
+    }
+
+    @BeforeClass
+    public static void setUp(){
+        server = new QUnitHttpServer(8080);
+        server.start();
+        connectSeleniumServer();
+    }
+    
+    @AfterClass
+    public static void tearDown(){
+        server.stop();
+    }
+
+    public static void registerTest(String testname, String javascript, String body){
+        server.registerHtmlBody("/" + testname + ".html", javascript, body);
+    }
+
+    public static void runTest(String testname){
+        connectUrl("http://localhost:8080/" + testname + ".html");    
+    }
+}
+}}}
+
+That is all the QUnit support code.
+
+= Example =
+
+We use the demo on the [http://docs.jquery.com/QUnit QUnit] page to show you how to run the QUnit tests from Java.
+
+First, create a Groovy class to hold all the QUnit tests and the html body.
+
+{{{
+package org.telluriumsource.test;
+
+class Demo {
+
+  public static String js = """
+    test("a basic test example", function() {
+      ok( true, "this test is fine" );
+      var value = "hello";
+      equals( "hello", value, "We expect value to be hello" );
+    });
+
+    module("Module A");
+
+    test("first test within module", function() {
+      ok( true, "all pass" );
+    });
+
+    test("second test within module", function() {
+      ok( true, "all pass" );
+    });
+
+    module("Module B");
+
+    test("some other test", function() {
+      expect(2);
+      equals( true, false, "failing test" );
+      equals( true, true, "passing test" );
+    });
+  """
+
+  public static String body = """
+     <h1 id="qunit-header">QUnit example</h1>
+     <h2 id="qunit-banner"></h2>
+     <h2 id="qunit-userAgent"></h2>
+     <ol id="qunit-tests"></ol>
+  """
+}
+}}}
+
+The the test case is just couple lines.
+
+{{{
+package org.telluriumsource.test;
+
+import org.telluriumsource.tester.QUnitTestCase;
+import org.junit.Test;
+
+public class QUnitDemoTest extends QUnitTestCase {
+
+    @Test
+    public void testDemo(){
+        registerTest("demo",Demo.js, Demo.body);
+        runTest("demo");
+    }
+}
+}}}
+
+Run the test case, you will see the test results as follows.
 
