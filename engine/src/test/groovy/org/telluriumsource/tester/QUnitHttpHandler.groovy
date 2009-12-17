@@ -15,10 +15,12 @@ import com.sun.net.httpserver.Headers
 public class QUnitHttpHandler implements HttpHandler {
 
   /*
-      <script src="http://code.jquery.com/jquery-1.3.2.js"> </script>
+ <script src="http://code.jquery.com/jquery-1.3.2.js"> </script>
+ <link rel="stylesheet" href="http://github.com/jquery/qunit/raw/master/qunit/qunit.css" type="text/css" media="screen" />
+ <script type="text/javascript" src="http://github.com/jquery/qunit/raw/master/qunit/qunit.js"></script>
 
    */
-  private static String HEADER1 = """
+  private static String HEADER10 = """
         <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
         <html>
@@ -27,6 +29,19 @@ public class QUnitHttpHandler implements HttpHandler {
           <link rel="stylesheet" href="qunit/qunit.css" type="text/css"/>
           <script src="qunit/jquery-1.3.2.js"> </script>
           <script type="text/javascript" src="qunit/qunit.js"></script>
+          <script type="text/javascript">
+            \$(document).ready(function(){
+"""
+
+  private static String HEADER1 = """
+        <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+        <html>
+        <head>
+          <title>QUnit Tester</title>
+          <script src="http://code.jquery.com/jquery-1.3.2.js"> </script>
+          <link rel="stylesheet" href="http://github.com/jquery/qunit/raw/master/qunit/qunit.css" type="text/css" media="screen" />
+          <script type="text/javascript" src="http://github.com/jquery/qunit/raw/master/qunit/qunit.js"></script>
           <script type="text/javascript">
             \$(document).ready(function(){
 """
