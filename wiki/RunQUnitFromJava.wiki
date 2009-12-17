@@ -4,22 +4,22 @@
 
 = Introduction =
 
-[http://docs.jquery.com/QUnit QUnit] is a powerful, easy-to-use, JavaScript test suite. It can be used to test jQuery code and jQuery plugins as well as any generic JavaScript code. Like [http://www.jsunit.net/ JsUnit] or any other javascript testing frameworks, QUnit needs to be run in a web browser. How good it is if we could run QUnit from Java code directly and don't need to worry about how to construct a web page and load it up with a browser. 
+[http://docs.jquery.com/QUnit QUnit] is a powerful, easy-to-use, JavaScript test suite. It can be used to test jQuery code and jQuery plugins as well as any generic JavaScript code. Like [http://www.jsunit.net/ JsUnit] or any other javascript testing frameworks, QUnit needs to be run in a web browser. How good it is if we could run QUnit from Java code directly and don't need to worry about how to construct a web page and load it up with a browser?
 
-Here we introduce one way to implement this idea. The basic idea is to use Java 6 http server to run a web page created by Java code. The web page launches the QUnit tests in a browser and TelluriumJunitTestCase is extended to automatically open the web page in a web browser.
+Here we introduce one way to implement the above idea. The basic idea is to use [http://java.sun.com/javase/6/docs/jre/api/net/httpserver/spec/index.html Java 6 http server] to run a web page created by Java code. A web page is created dynamically using Java to include QUnit tests and [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#Testing_Support TelluriumJunitTestCase] is extended to automatically open the web page in a web browser.
 
 = Prerequisites =
  
   * [http://maven.kungfuters.org/content/repositories/snapshots/org/telluriumsource/tellurium-core/0.7.0-SNAPSHOT/ Tellurium Core 0.7.0-SNAPSHOT]
   * Java 6
   * JUnit 4
-  * Groovy 1.6
+  * Groovy 1.6 (optional)
 
 = Implementation =
 
 == QUnit Http Server ==
 
-QUnitHttpServer is used to run as a web server, but it is a very lightweight one. One Java class can serve this purpose.
+QUnitHttpServer is used as a web server, but it is a very lightweight one. One Java class can serve this purpose.
 
 {{{
 package org.telluriumsource.tester;
@@ -80,7 +80,7 @@ public class QUnitHttpServer {
 
 == QUnit Http Handler ==
 
-QUnitHttpHandler is used to create the web page that can embed QUnit tests. We use a Groovy class to implement it so that we can write the quotation very easily.
+QUnitHttpHandler is used to create the web page that includes QUnit tests. We use a Groovy class to implement it so that we can use the """ quotation in Groovy. You don't really need to use Groovy and can use String concatenation for the same purpose.
 
 {{{
 package org.telluriumsource.tester;
@@ -170,7 +170,7 @@ public class QUnitHttpHandler implements HttpHandler {
 
 == QUnit Test Case ==
 
-QUnit Test Case extends TelluriumJUnitTestCase to run the QUnit http server, create the web page that includes the QUnit tests, and launch the web browser.
+QUnit Test Case extends TelluriumJUnitTestCase to start QUnit http server, dynamically create the web page that includes the QUnit tests, and launch the web browser.
 
 
 {{{ 
@@ -213,9 +213,9 @@ That is all the QUnit support code.
 
 = Example =
 
-We use the demo on the [http://docs.jquery.com/QUnit QUnit] page to show you how to run the QUnit tests from Java.
+We use the demo on the [http://docs.jquery.com/QUnit QUnit] page to show you how to run QUnit tests from Java.
 
-First, create a Groovy class to hold all the QUnit tests and the html body.
+First, create a Groovy class to hold all the QUnit tests and the html body. Again, you can use Java String concatenation for the same purpose.
 
 {{{
 package org.telluriumsource.test;
@@ -281,13 +281,14 @@ Run the test case, you will see the test results as follows.
 
 You can change the above code for the following purposes:
 
-  * Change the QUnitHttpHandler to a Java class. The only purpose we use Groovy is because Groovy support the """ quotation. You can achieve the same purpose by String concatenation.
-  * You can read the QUnit test files and html files from you local disk, and them register them to the QUnit http server.
-  * You can even use Java code to launch a web browser directly instead of relying on TelluriumJUnitTestCase.
-  * You can use the same mechanism to run JsUnit tests from Java.
+  * Change the QUnitHttpHandler to a Java class. The only purpose we use Groovy is because Groovy supports the """ quotation. You can achieve the same goal by String concatenation.
+  * Read the QUnit test files and html files from you local disk, and them register them to the QUnit http server.
+  * Even use Java code to launch a web browser directly instead of relying on TelluriumJUnitTestCase.
+  * Use the same mechanism to run JsUnit tests from Java.
 
 = Resources =
 
   * [http://docs.jquery.com/QUnit QUnit]
   * [http://www.jsunit.net/ JsUnit]
   * [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#Testing_Support Tellurium Test Support]
+  * [http://java.sun.com/javase/6/docs/jre/api/net/httpserver/spec/index.html Java 6 Http Server] 
