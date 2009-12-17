@@ -29,7 +29,11 @@ public class QUnitTestCase extends TelluriumJUnitTestCase {
     }
 
     public static void registerTest(String testname, String javascript, String body){
-        server.registerHtmlBody("/" + testname + ".html", javascript, body);
+       server.registerHtmlBody("/" + testname + ".html", javascript, body);
+    }
+    
+    public static void registerTest(String testname){
+       server.registerHtmlBody("/" + testname + ".html", server.getJsFile(testname), server.getHtmlFile(testname));
     }
 
     public static void registerTestAsHtml(String testname, String html){
