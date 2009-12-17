@@ -1,0 +1,12 @@
+#summary Run jQuery QUnit tests from Java.
+#labels Phase-Support
+
+= Introduction =
+
+[http://docs.jquery.com/QUnit QUnit] is a powerful, easy-to-use, JavaScript test suite. It can be used to test jQuery code and jQuery plugins as well as any generic JavaScript code. Like [http://www.jsunit.net/ JsUnit] or any other javascript testing frameworks, QUnit needs to be run in a web browser. How good it is if we could run QUnit from Java code directly and don't need to worry about how to construct a web page and load it up with a browser. 
+
+Here we introduce one way to implement this idea. The basic idea is to use Java 6 http server to run a web page created by Java code. The web page launches the QUnit tests in a browser and TelluriumJunitTestCase is extended to automatically open the web page in a web browser.
+
+
+= Implementation =
+
