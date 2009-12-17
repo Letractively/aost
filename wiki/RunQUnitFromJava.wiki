@@ -290,7 +290,7 @@ You can change the above code for the following purposes:
   * Even use Java code to launch a web browser directly instead of relying on TelluriumJUnitTestCase.
   * Use the same mechanism to run JsUnit tests from Java.
 
-To load the file from local disk is pretty easy using Groovy. For example, you can use the following method to load a Javascript file with Groovy.
+To load a file from a local disk is pretty easy in Groovy. For example, you can use the following method to load a Javascript file using Groovy.
 
 {{{
 
