@@ -11,6 +11,7 @@ import org.telluriumsource.dsl.DslContext
  */
 
 public class StyleModule extends DslContext {
+
     public static String HTML_BODY = """
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
@@ -23,6 +24,9 @@ public class StyleModule extends DslContext {
     * {
         margin:0;
       }
+     .c1 {
+        background: black none repeat
+      }
   </style>
 </head>
 <body>
@@ -30,12 +34,15 @@ public class StyleModule extends DslContext {
 A message cannot contain a blank message body.
 <br/>
 </div>
+    
+<div class="c1">
 </body>
 </html>
     """
 
     public void defineUi() {
       ui.Div(uid: "errorDiv", clocator: [class: "error"])
+      ui.Div(uid: "c1", clocator: [class: "c1"])
     }
 
 }
