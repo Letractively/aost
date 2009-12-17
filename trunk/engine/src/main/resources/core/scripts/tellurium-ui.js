@@ -946,7 +946,12 @@ UiAlg.prototype.addChildUiObject(uiobj){
 };
 
 UiAlg.prototype.getParentUid = function(uid){
+    var indx = uid.lastIndexOf(".");
+    if(indx != -1){
+        return uid.slice(0, indx);
+    }
 
+    return null;
 };
 
 UiAlg.prototype.takeSnapshot(uimodule, rootdom){
