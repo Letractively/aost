@@ -281,25 +281,50 @@ Run the test case, you will see the test results as follows.
 
 http://tellurium-users.googlegroups.com/web/QUnitTestResult.png?gda=2qABBkUAAACsdq5EJRKLPm_KNrr_VHB_7oey9JbGi19AQSckTgSRXZ-XXUeqs76EOP7DaVxZw6hzlqnWZQD3y6jZqCMfSFQ6Gu1iLHeqhw4ZZRj3RjJ_-A&gsc=iB9gogsAAAAY3ihZvFwqqrOrtBcsjfa3
 
+= Improvement =
+
+We can do a bit improvement so that the QUnit tester can load up the QUnit test script and the corresponding HTML body from a local disk. The advantage is that you don't need to recompile the code whenever you change the Javascript and html files. This can be easily achieved by adding the following two methods to QUnitHttpServer.
+
+{{{
+  public String getJsFile(String file){
+    return new File(ClassLoader.getSystemResource("org/telluriumsource/js/${file}.js").getFile()).text;
+  }
+
+  public String getHtmlFile(String file){
+    return new File(ClassLoader.getSystemResource("org/telluriumsource/html/${file}.html").getFile()).text;
+  }
+}
+}}}
+
+Here we assumed the name conversion that all the QUnit test scripts come with the ".js" suffix in the "js" subdirectory and html body files are under the "html" subdirectory with the ".html" suffix. Furthermore, the file names are the same as the test name. 
+
+Then, in class QUnitTestCase we can have a new method as follows,
+
+{{{
+    public static void registerTest(String testname){
+       server.registerHtmlBody("/" + testname + ".html", server.getJsFile(testname), server.getHtmlFile(testname));
+    }
+}}}
+
+After that, the Demo test case can be simplified as follows.
+
+{{{
+    @Test
+    public void testDemo(){
+        registerTest("demo");
+        runTest("demo");
+    }
+}}}
+
+For the sample code, please check them from [http://aost.googlecode.com/svn/trunk/engine/src/test Tellurium Engine] project.
+
 = Further Work =
 
 You can change the above code for the following purposes:
 
   * Change the QUnitHttpHandler to a Java class. The only purpose we use Groovy is because Groovy supports the """ quotation. You can achieve the same goal by String concatenation.
-  * Read the QUnit test files and html files from you local disk, and them register them to the QUnit http server.
   * Even use Java code to launch a web browser directly instead of relying on TelluriumJUnitTestCase.
   * Use the same mechanism to run JsUnit tests from Java.
-
-To load a file from a local disk is pretty easy in Groovy. For example, you can use the following method to load a Javascript file using Groovy.
-
-{{{
-
-  public String getJsFile(String file){
-    return new File(ClassLoader.getSystemResource("org/telluriumsource/js/${file}.js").getFile()).text;
-  }
-}}}
-
-For the sample code, please check them from [http://aost.googlecode.com/svn/trunk/engine/src/test Tellurium Engine] project.
 
 = Resources =
 
