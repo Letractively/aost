@@ -103,7 +103,9 @@ abstract class BaseDslContext extends GlobalDslContext {
   }
 
   def customDirectCall(String method, Object[] args) {
-    return extension.invokeMethod(method, args)
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    Object[] list = [context, args].flatten()
+    return extension.invokeMethod(method, list)
   }
 
   public void triggerEventOn(String uid, String event) {
