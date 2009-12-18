@@ -9,6 +9,9 @@ import static org.junit.Assert.*;
 import org.telluriumsource.module.GoogleSearchModule;
 import org.telluriumsource.framework.CachePolicy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Google search module test case to demonstrate the usage of composite locator and JQuery selector
  *
@@ -120,6 +123,13 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
         useCachePolicy(CachePolicy.DISCARD_OLD);
         policy = getCurrentCachePolicy();
         assertEquals("DiscardOldPolicy", policy);
+    }
+
+    @Test
+    public void testCustomDirectCall(){
+        List list  = new ArrayList();
+        list.add("//input[@title='Google Search']");
+        gsm.customDirectCall("click", list.toArray());
     }
 
     @AfterClass
