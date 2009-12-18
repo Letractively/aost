@@ -885,6 +885,7 @@ UiModule.prototype.walkTo = function(context, uiid){
 //a snapshot of the UI module in the DOM
 function UiSnapshot(){
     this.elements = new Hashtable();
+    this.color = null;
 };
 
 UiSnapshot.prototype.addUi = function(uid, domref){
@@ -900,6 +901,10 @@ UiSnapshot.prototype.clone = function(){
     snapshot.elements = this.elements.clone();
 
     return snapshot;
+};
+
+UiSnapshot.prototype.setColor = function(color){
+    this.color = color;
 };
 
 //algorithms to handle UI modules and UI Objects
@@ -923,6 +928,9 @@ function UiAlg(){
 
     //FIFO queue to hold UI objects in the UI module
     this.oqueue = new FifoQueue();
+
+    //jQuery builder to build CSS selectors
+    this.cssbuilder = new JQueryBuilder();
 };
 
 UiAlg.prototype.nextColor = function(){
@@ -937,8 +945,115 @@ UiAlg.prototype.nextColor = function(){
     }
 };
 
-UiAlg.prototype.locate = function(uid, clocator){
-        
+UiAlg.prototype.locate = function(uid, clocator, snapshot){
+    //the next color to label the snapshot
+    var ncolor = this.nextColor();
+    //first find its parent uid
+    var puid = this.getParentUid(uid);
+    var pref = null;
+    if(puid != null){
+        pref = snapshot.getUi(puid);
+    }else{
+        pref = this.dom;
+    }
+
+    //build the CSS selector from the current element's composite locator
+    var csel = this.cssbuilder.buildCssSelector(clocator.tag, clocator.text, clocator.position, clocator.direct, clocator.attributes);
+    var $found = teJQuery(pref).find(csel);
+    //found any nodes in the DOM by using the
+    if($found.size() == 0){
+        //found exactly one, lucky path
+        snapshot.addUi(uid, $found.get(0));
+        snapshot.setColor(ncolor);
+        this.squeue.push(snapshot);
+    }else if($found.size() > 1){
+        //multiple results, need to create more snapshots to expend the search
+        for (var i = 1; i < $found.size(); i++){
+            var newsnapshot = snapshot.clone();
+            newsnapshot.addUi(uid, $found.get(i));
+            newsnapshot.setColor(ncolor);
+            this.squeue.push(newsnapshot);
+        }
+        //still need the push back the orignail snapshot
+        snapshot.addUi(uid, $found.get(0));
+        snapshot.setColor(ncolor);
+        this.squeue.push(snapshot);
+    }else{
+        //if allow us to relax the clocator/attribute constraints and use the closest matching ones instead
+        if(this.allowRelax){
+            var $relaxed = this.relax(clocator, pref);
+            if($relaxed.size() == 1){
+                //found exactly one
+                snapshot.addUi(uid, $relaxed.get(0));
+                snapshot.setColor(ncolor);
+                this.squeue.push(snapshot);
+            }else if($relaxed.size() > 1){
+                //multiple results, need to create more snapshots to expend the search
+                for (var j = 1; j < $relaxed.size(); j++) {
+                    var nsnapshot = snapshot.clone();
+                    nsnapshot.addUi(uid, $relaxed.get(j));
+                    nsnapshot.setColor(ncolor);
+                    this.squeue.push(nsnapshot);
+                }
+                //still need the push back the orignail snapshot
+                snapshot.addUi(uid, $relaxed.get(0));
+                snapshot.setColor(ncolor);
+                this.squeue.push(snapshot);
+            }else{
+                //otherwise, throw exception
+                throw new SeleniumError("Cannot find UI element " + uid);    
+            }
+        }else{
+            //otherwise, throw exception
+            throw new SeleniumError("Cannot find UI element " + uid);
+        }   
+    }
+};
+
+UiAlg.prototype.relax = function(clocator, pref) {
+    var attrs = new Hashtable();
+    if(clocator.text != null && clocator.trim().length > 0){
+        attrs.put("text", clocator.text);
+    }
+    if(clocator.position != null){
+        attrs.put("position", clocator.position);
+    }
+
+    for (var key in clocator.attributes) {
+        if (!this.cssbuilder.inBlackList(key)) {
+            attrs.put(key, clocator.get(key));
+        }
+    }
+    var jqs = "";
+    var id = clocator.attributes["id"];
+    var tag = clocator.tag;
+
+    if (tag == null || tag == undefined || tag.trim().length == 0) {
+        //TODO: need to double check if this is correct or not in jQuery
+        tag = "*";
+    }
+
+    //Use tag for the initial search
+    var $closest = teJQuery(pref).find(tag);
+    if (id != null && id != undefined && (!this.cssbuilder.isPartial(id))) {
+        jqs = this.cssbuilder.buildId(id);
+        $closest = teJQuery(pref).find(jqs);
+        return $closest;
+    } else {
+        jqs = tag;
+        var keys = attrs.keySet();
+        for (var m = 0; m < keys.length; m++) {
+            var attr = keys[m];
+            var tsel = this.cssbuilder.buildSelector(attr, attrs[attr]);
+            var $mt = teJQuery(pref).find(jqs + tsel);
+            if ($mt.length > 0) {
+                $closest = $mt;
+                jqs = jqs + tsel;
+            }
+        }
+
+        return $closest;
+    }
 };
 
 UiAlg.prototype.addChildUiObject = function(uiobj){
