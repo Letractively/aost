@@ -259,7 +259,8 @@ objectExtends(Container.prototype, UiObject.prototype, {
         //need to push all its children into the object queue
         var valset = this.components.valSet();
         for(var component in valset){
-            uialg.addChildUiObject(component);
+            if(!component.lazy)
+                uialg.addChildUiObject(component);
         }
     },
     
