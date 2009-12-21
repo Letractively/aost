@@ -4,6 +4,8 @@ import org.telluriumsource.bootstrap.TelluriumSupport
 import org.telluriumsource.config.CustomConfig
 import org.telluriumsource.connector.SeleniumConnector
 import org.telluriumsource.framework.TelluriumFramework
+import org.telluriumsource.framework.Environment;
+import org.telluriumsource.i18n.IResourceBundle;
 
 import org.testng.annotations.AfterClass
 import org.testng.annotations.BeforeClass
@@ -18,14 +20,16 @@ import org.testng.annotations.BeforeClass
  */
 
 abstract public class TelluriumGroovyTestNGTestCase {
-
   //custom configuration
   protected CustomConfig customConfig = null
-//  protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
+  protected IResourceBundle i18nBundle
 
   protected SeleniumConnector conn;
   protected TelluriumFramework tellurium
 
+  public TelluriumGroovyTestNGTestCase(){
+	  i18nBundle = Environment.instance.myResourceBundle()
+  }
   public SeleniumConnector getConnector() {
     return conn;
   }
@@ -36,9 +40,9 @@ abstract public class TelluriumGroovyTestNGTestCase {
     getConnector().connectSeleniumServer()
     getConnector().connectUrl(url)
   }
-  public geti18nManager()
+  public IResourceBundle geti18nBundle()
   {
-	return tellurium.getI18nManager();
+	return this.i18nBundle;
   }
   public void connectUrl(String url) {
     getConnector().connectUrl(url)
@@ -69,7 +73,7 @@ abstract public class TelluriumGroovyTestNGTestCase {
     conn = tellurium.connector
     initUi()
   }
-    
+
   @AfterClass
   protected void tearDownForClass() {
     if (tellurium != null)

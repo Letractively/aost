@@ -3,9 +3,9 @@ package org.telluriumsource.connector
 import com.thoughtworks.selenium.DefaultSelenium
 import com.thoughtworks.selenium.CommandProcessor
 import org.telluriumsource.exception.*
+import org.telluriumsource.framework.Environment;
 import org.telluriumsource.grid.GridSupport
-import org.telluriumsource.i18n.InternationalizationManager
-import org.telluriumsource.i18n.InternationalizationManagerImpl
+import org.telluriumsource.i18n.IResourceBundle
 
 
 
@@ -17,30 +17,32 @@ import org.telluriumsource.i18n.InternationalizationManagerImpl
  * @author Haroon Rasheed (haroonzone@gmail.com)
  *
  * Date: Oct 21, 2008
- * 
+ *
  */
 class CustomSelenium extends DefaultSelenium {
 
-  protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
+    protected IResourceBundle i18nBundle;
 
     protected CustomCommand customClass = null
     protected String userExtension = null
 
     CustomSelenium(String host, int port, String browser, String url){
-      super(host, port, browser, url)      
+      super(host, port, browser, url)
+      i18nBundle = Environment.instance.myResourceBundle()
     }
 
     CustomSelenium(CommandProcessor commandProcessor) {
       super (commandProcessor)
+      i18nBundle = Environment.instance.myResourceBundle()
     }
 
     public void setUserExt(String userExt){
       this.userExtension = userExt
     }
-  
+
     protected void passCommandProcessor(CommandProcessor commandProcessor){
       if(customClass != null){
-        customClass.setProcessor(this.commandProcessor) 
+        customClass.setProcessor(this.commandProcessor)
       }
     }
 
@@ -52,7 +54,7 @@ class CustomSelenium extends DefaultSelenium {
 
         throw new MissingMethodException(name, CustomSelenium.class, args)
     }
-  
+
     // Added for the selenium grid support.
     // Start the selenium session specified by the arguments.
     // and register the selenium rc with Selenium HUB
@@ -60,8 +62,8 @@ class CustomSelenium extends DefaultSelenium {
       try{
         GridSupport.startSeleniumSession(host, port, browser, url)
       }catch (Exception e){
-    	  
-        throw new TelluriumException (i18nManager.translate("CustomSelenium.CannotStartSelenium" , e.getMessage()))
+
+        throw new TelluriumException (i18nBundle.getMessage("CustomSelenium.CannotStartSelenium" , e.getMessage()))
       }
     }
 
@@ -69,7 +71,7 @@ class CustomSelenium extends DefaultSelenium {
       try{
         GridSupport.startSeleniumSession(host, port, browser, url, options)
       }catch (Exception e){
-        throw new TelluriumException (i18nManager.translate("CustomSelenium.CannotStartSelenium" , e.getMessage()))
+        throw new TelluriumException (i18nBundle.getMessage("CustomSelenium.CannotStartSelenium" , e.getMessage()))
       }
     }
 
@@ -79,8 +81,8 @@ class CustomSelenium extends DefaultSelenium {
       try{
         GridSupport.closeSeleniumSession()
       }catch (Exception e){
-    	  
-        throw new TelluriumException (i18nManager.translate("CustomSelenium.CannotCloseSelenium" , e.getMessage()))        
+
+        throw new TelluriumException (i18nBundle.getMessage("CustomSelenium.CannotCloseSelenium" , e.getMessage()))
       }
 
 
@@ -91,7 +93,7 @@ class CustomSelenium extends DefaultSelenium {
 //      DefaultSelenium sel =  com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session()
 //      CommandProcessor processor = sel.commandProcessor
 //      CustomSelenium csel = new CustomSelenium(processor)
-      
+
       CustomSelenium csel = GridSupport.session()
 /*
       if(this.userExtension != null && this.userExtension.trim().length() > 0){
@@ -103,7 +105,7 @@ class CustomSelenium extends DefaultSelenium {
  */
       if(csel != null){
         csel.customClass = this.customClass
-        csel.passCommandProcessor(csel.commandProcessor)        
+        csel.passCommandProcessor(csel.commandProcessor)
       }
 //      csel.passCommandProcessor(processor)
 
@@ -165,7 +167,7 @@ class CustomSelenium extends DefaultSelenium {
       String[] arr = [];
       commandProcessor.doCommand("cleanCache", arr);
     }
-  
+
     def boolean getCacheState(){
       String[] arr = [];
       boolean result = commandProcessor.getBoolean("getCacheState", arr);
@@ -222,7 +224,7 @@ class CustomSelenium extends DefaultSelenium {
         String[] arr = [];
         commandProcessor.doCommand("useDiscardLeastUsedPolicy", arr);
     }
-  
+
     public void useDiscardInvalidCachePolicy(){
         String[] arr = [];
         commandProcessor.doCommand("useDiscardInvalidPolicy", arr);
@@ -240,7 +242,7 @@ class CustomSelenium extends DefaultSelenium {
 
     public void triggerEvent(String locator, String event){
         String[] arr = [locator, event];
-        commandProcessor.doCommand("triggerEvent", arr);      
+        commandProcessor.doCommand("triggerEvent", arr);
     }
 
     public String diagnose(String locator, String request){

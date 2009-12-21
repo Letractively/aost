@@ -1,4 +1,6 @@
 package org.telluriumsource.framework
+import org.telluriumsource.i18n.ResourceBundle;
+import org.telluriumsource.i18n.IResourceBundle;
 
 import org.telluriumsource.config.Configurable
 
@@ -20,7 +22,7 @@ public class Environment implements Configurable{
   //flag to decide whether we should cache jQuery selector
   protected boolean exploitEngineCache = false;
 
-  protected String locale = "en_US";
+  protected IResourceBundle resourceBundle = new ResourceBundle();
 
   protected boolean trace = false;
 
@@ -90,10 +92,10 @@ public class Environment implements Configurable{
     return this.maxMacroCmd;
   }
 
-  public String myLocale(){
-    return this.locale;
+  public IResourceBundle myResourceBundle(){
+    return this.resourceBundle;
   }
-  
+
   public void setCustomEnvironment(String name, Object value){
     envVariables.put(name, value);
   }

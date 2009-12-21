@@ -6,7 +6,10 @@ import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.exception.InvalidUidException
 import org.telluriumsource.locator.CompositeLocator
 import org.telluriumsource.locator.XPathBuilder
-
+import org.telluriumsource.object.Container
+import org.telluriumsource.object.TextBox
+import org.telluriumsource.object.UiObject
+import org.telluriumsource.extend.Extension
 import org.json.simple.JSONObject
 
 
@@ -23,7 +26,7 @@ import org.json.simple.JSONObject
  *             td
  *             ...
  *             td
- * 
+ *
  *   Table should be very generic since each column and row could hold different
  *   UI objects. In that sense, table is also a container
  *
@@ -49,7 +52,7 @@ import org.json.simple.JSONObject
  *
  *   "row : *, column : 3"         //3rd column, all rows
  *   "row : 5, column : *"         //5th row, all columns
- * 
+ *
  *   "all"                       //all rows, all columns
  *
  *   The internal representation is
@@ -72,8 +75,8 @@ import org.json.simple.JSONObject
  *
  *   If not one could be found by the above search chain, it will assume that you
  *   are using the text box.
- * 
- *   
+ *
+ *
  *   @author Jian Fang (John.Jian.Fang@gmail.com)
  */
 
@@ -121,7 +124,7 @@ class Table extends Container {
         components.put(internId, component)
       }
     } else {
-        throw new InvalidUidException(i18nManager.translate("Container.InvalidUID" , {component.uid}))
+        throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidUID" , {component.uid}))
     }
   }
 
@@ -355,7 +358,7 @@ class Table extends Container {
   }
 
   String[] getAllTableCellText(Closure c){
-    return c(this.locator, " > tbody > tr > td")  
+    return c(this.locator, " > tbody > tr > td")
   }
 
   int getTableHeaderColumnNumByXPath(Closure c) {
@@ -438,7 +441,7 @@ class Table extends Container {
 
     if(hasAll)
       max++;
-    
+
     return max;
   }
 
@@ -465,7 +468,7 @@ class Table extends Container {
           maxcol = colindx;
       }
     }
-    
+
     if (rowHasAll)
       maxrow++;
 
@@ -474,7 +477,7 @@ class Table extends Container {
 
     return [maxrow, maxcol];
   }
-    
+
   @Override
   public String generateHtml() {
     StringBuffer sb = new StringBuffer(128);
@@ -500,7 +503,7 @@ class Table extends Container {
       sb.append(indent + "  </tr>\n");
     }
 
-    if (this.components.size() > 0) {      
+    if (this.components.size() > 0) {
       Integer[] val = this.getMaxRowColumnIndices();
       int maxrow = val[0];
       int maxcol = val[1];
@@ -520,7 +523,7 @@ class Table extends Container {
     }
     sb.append(indent + " </tbody>\n");
     sb.append(indent + "</table>\n");
-    
+
     return sb.toString();
   }
 
@@ -617,7 +620,7 @@ class Table extends Container {
         }
       }
     }
-    
+
     if (uiid.size() < 1) {
       //not more child needs to be found
       return cobj
@@ -672,7 +675,7 @@ class Table extends Container {
         max++
         context.pushUid("header[${max}]")
         obj.traverse(context)
-      }      
+      }
     }
   }
 

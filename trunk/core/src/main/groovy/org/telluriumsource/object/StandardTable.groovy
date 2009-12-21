@@ -5,7 +5,12 @@ import org.telluriumsource.dsl.UiID
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.exception.InvalidUidException
 import org.telluriumsource.locator.CompositeLocator
-
+import org.telluriumsource.locator.GroupLocateStrategy
+import org.telluriumsource.locator.LocatorProcessor
+import org.telluriumsource.object.Container
+import org.telluriumsource.object.TextBox
+import org.telluriumsource.object.UiObject
+import org.telluriumsource.extend.Extension
 import org.json.simple.JSONObject
 
 /**
@@ -36,11 +41,11 @@ import org.json.simple.JSONObject
  *          td
  *
  * The above table format is used a lot in Java Script framework such as Dojo
- * 
+ *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Sep 4, 2008
- * 
+ *
  */
 class StandardTable extends Container{
 
@@ -89,7 +94,7 @@ class StandardTable extends Container{
                 components.put(internId, component)
             }
         }else{
-            throw new InvalidUidException(i18nManager.translate("Container.InvalidUID" , {component.uid}))
+            throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidUID" , {component.uid}))
         }
      }
 
@@ -348,7 +353,7 @@ class StandardTable extends Container{
 
         return " > tbody:eq(${tbody}) > tr:eq(${row-1}) > td:eq(${column-1})"
     }
-  
+
     protected String getHeaderLocator(int column) {
 
         return "/thead/tr/td[${column}]"
@@ -493,7 +498,7 @@ class StandardTable extends Container{
           nrow = Integer.parseInt(parts[0])
           ncolumn = Integer.parseInt(parts[1])
         }
-      
+
         //otherwise, try to find its child
         UiObject cobj = this.findUiObject(ntbody, nrow, ncolumn)
 
@@ -518,7 +523,7 @@ class StandardTable extends Container{
         }
 
         context.appendReferenceLocator(loc)
-      
+
         if(cobj.locator != null){
            if(cobj.locator instanceof CompositeLocator){
               CompositeLocator cl = (CompositeLocator)cobj.locator
@@ -569,7 +574,7 @@ class StandardTable extends Container{
         }else{
           loc = getHeaderLocator(index)
         }
-      
+
         context.appendReferenceLocator(loc)
 
         if(cobj.locator != null){
@@ -622,7 +627,7 @@ class StandardTable extends Container{
         }else{
           loc = getFootLocator(index)
         }
-      
+
         context.appendReferenceLocator(loc)
 
         if(cobj.locator != null){
@@ -634,7 +639,7 @@ class StandardTable extends Container{
             }
           }
         }
- 
+
         if (uiid.size() < 1) {
             //not more child needs to be found
             return cobj
@@ -752,7 +757,7 @@ class StandardTable extends Container{
 
     this.components.each {key, component ->
       String[] parts = key.replaceFirst('_', '').split("_")
-      
+
       if (parts.length == 2) {
         String part0 = processField(parts[0], rmax)
         String part1 = processField(parts[1], cmax)

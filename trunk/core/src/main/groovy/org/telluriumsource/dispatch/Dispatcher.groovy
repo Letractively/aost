@@ -2,8 +2,7 @@ package org.telluriumsource.dispatch
 
 import org.telluriumsource.client.SeleniumClient
 import org.telluriumsource.config.Configurable
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.i18n.IResourceBundle;
 import org.telluriumsource.test.crosscut.DefaultExecutionTracer
 import org.telluriumsource.test.crosscut.ExecutionTracer
 import org.telluriumsource.framework.Environment;
@@ -13,7 +12,7 @@ import org.telluriumsource.framework.Environment;
 
 class Dispatcher implements Configurable {
     public static final String PLACE_HOLDER = "\\?"
-    protected static InternationalizationManager i18nManager = new InternationalizationManagerImpl();
+    protected IResourceBundle i18nBundle ;
 
 //    private boolean captureScreenshot = Environment.instance.&useScreenshot;
     private String filenamePattern = "Screenshot?.png";
@@ -22,6 +21,9 @@ class Dispatcher implements Configurable {
     private SeleniumClient sc = new SeleniumClient();
     private ExecutionTracer tracer = new DefaultExecutionTracer();
 
+    public Dispatcher(){
+    	i18nBundle = Environment.instance.myResourceBundle()
+    }
     private boolean isUseScreenshot(){
       return Environment.instance.isUseScreenshot();
     }
@@ -50,11 +52,11 @@ class Dispatcher implements Configurable {
         long timestamp = System.currentTimeMillis()
         String filename = filenamePattern.replaceFirst(PLACE_HOLDER, "${timestamp}")
         sc.client.getActiveSeleniumSession().captureScreenshot(filename)
-        println i18nManager.translate("Dispatcher.ExceptionMessage", e.getMessage(), filename)
+        println i18nBundle.getMessage("Dispatcher.ExceptionMessage", e.getMessage(), filename)
       }
       throw e
     }
-  }                                                    
+  }
 
  /*
  protected def methodMissing(String name, args) {

@@ -1,6 +1,6 @@
 package org.telluriumsource.test.helper
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.framework.Environment;
+import org.telluriumsource.i18n.IResourceBundle;
 
 
 /**
@@ -9,14 +9,17 @@ import org.telluriumsource.i18n.InternationalizationManagerImpl;
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Sep 20, 2008
- * 
+ *
  */
 class EvaulationAssertionValue extends AssertionValue{
 
     private def value
-    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
+    protected IResourceBundle i18nBundle
 
 
+    public EvaulationAssertionValue(){
+    	  i18nBundle = Environment.instance.myResourceBundle()
+    }
     public String toString() {
         final int typicalLength = 64
         final String avpSeparator = ": "
@@ -24,7 +27,7 @@ class EvaulationAssertionValue extends AssertionValue{
         final String fieldStart = " "
 
         StringBuilder sb = new StringBuilder(typicalLength)
-        sb.append(i18nManager.translate("EvaulationAssertionValue.Expected")).append(avpSeparator).append("\"" + value + "\"").append(fieldSeparator)
+        sb.append(i18nBundle.getMessage("EvaulationAssertionValue.Expected")).append(avpSeparator).append("\"" + value + "\"").append(fieldSeparator)
 
         return sb.toString()
     }

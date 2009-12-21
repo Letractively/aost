@@ -1,21 +1,21 @@
 package org.telluriumsource.test.crosscut
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.framework.Environment;
+import org.telluriumsource.i18n.IResourceBundle;
 
 
 
 /**
- * 
+ *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Apr 27, 2009
- * 
+ *
  */
 
 public class TimingDecorator {
 //    @Delegate
     private delegate
-    private InternationalizationManager i18nManager = new InternationalizationManagerImpl()
+    protected IResourceBundle i18nBundle
 
 
     private Logger logger
@@ -29,7 +29,10 @@ public class TimingDecorator {
     private List<String> whiteList = []
 
     private List<TimingResult> results = new ArrayList<TimingResult>()
-  
+
+    public TimingDecorator(){
+    	  i18nBundle = Environment.instance.myResourceBundle()
+    }
     public void setWhiteList(List<String> list){
       this.whiteList = list
     }
@@ -77,12 +80,12 @@ public class TimingDecorator {
         if(methodInWhiteList(name)){
           accumulatedTime += duration
 //          println "Calling $name($args) in ${duration} ms <-- Accumulated "
-          logger.log(i18nManager.translate("TimingDecorator.MethodInWhiteList" , name,args,duration ))
+          logger.log(i18nBundle.getMessage("TimingDecorator.MethodInWhiteList" , name,args,duration ))
         }else{
-          logger.log(i18nManager.translate("TimingDecorator.MethodNotInWhiteList" , name,args,duration ))
+          logger.log(i18nBundle.getMessage("TimingDecorator.MethodNotInWhiteList" , name,args,duration ))
 //          println "Calling $name($args) in ${duration} ms"
         }
-      
+
         result
     }
 
@@ -101,7 +104,7 @@ public class TimingDecorator {
 
   public void outputResult() {
 
-    logger.log(i18nManager.translate("TimingDecorator.FinalResults"))
+    logger.log(i18nBundle.getMessage("TimingDecorator.FinalResults"))
     for (TimingResult result: results) {
       logger.log(result.strResult());
     }

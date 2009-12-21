@@ -5,8 +5,8 @@ import org.telluriumsource.dsl.UiID
 import org.telluriumsource.locator.LocatorProcessor
 import org.telluriumsource.locator.GroupLocateStrategy
 import org.json.simple.JSONObject
-import org.telluriumsource.i18n.InternationalizationManager
-import org.telluriumsource.i18n.InternationalizationManagerImpl
+import org.telluriumsource.framework.Environment;
+import org.telluriumsource.i18n.IResourceBundle;
 
 /**
  *  container
@@ -17,7 +17,7 @@ import org.telluriumsource.i18n.InternationalizationManagerImpl
 class Container extends UiObject {
 
     public static final String GROUP = "group"
-	protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
+    protected IResourceBundle i18nBundle
 
     //if it uses group informtion to infer its locator
     protected boolean useGroupInfo = false
@@ -31,6 +31,9 @@ class Container extends UiObject {
     //since we use map, the component name must be unique
     def components = [:]
 
+    public Container(){
+    	  i18nBundle = Environment.instance.myResourceBundle()
+    }
     def add(UiObject component){
         components.put(component.uid, component)
     }
@@ -146,7 +149,7 @@ class Container extends UiObject {
                     def lp = new LocatorProcessor()
                     context.appendReferenceLocator(lp.locate(this.locator))
                 }*/
-              
+
             }
             if(uiid.size() < 1){
                 //not more child needs to be found
@@ -158,8 +161,8 @@ class Container extends UiObject {
         }else{
 
             //cannot find the object
-            
-            println i18nManager.translate("Container.CannotFindUIObject" , child , this.uid)
+
+            println i18nBundle.getMessage("Container.CannotFindUIObject" , child , this.uid)
 
             return null
         }

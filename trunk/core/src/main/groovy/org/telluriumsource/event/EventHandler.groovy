@@ -1,29 +1,37 @@
 package org.telluriumsource.event
 
 import org.telluriumsource.config.Configurable
-
+import org.telluriumsource.dispatch.Dispatcher
+import org.telluriumsource.event.Event
+import org.telluriumsource.event.EventSorter
+import org.telluriumsource.exception.ElementNotPresentException
 import org.telluriumsource.util.Helper
+import java.awt.event.KeyEvent
 
-import org.telluriumsource.i18n.InternationalizationManager
-import org.telluriumsource.i18n.InternationalizationManagerImpl
+import org.telluriumsource.framework.Environment;
+import org.telluriumsource.i18n.IResourceBundle;
 import org.telluriumsource.bundle.BundleProcessor
 import org.telluriumsource.dsl.WorkflowContext;
 
 
 class EventHandler implements Configurable{
 
-	protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
+	protected IResourceBundle i18nBundle
 
     public static final String RETURN_KEY= "BSBS13"
 	public static final int ACTION_WAIT_TIME = 50
 
     BundleProcessor cbp  = BundleProcessor.instance
-  
+
     private EventSorter alg = new EventSorter()
 
     private boolean checkElement = false
     private boolean extraEvent = false
 
+    EventHandler(){
+	  i18nBundle = Environment.instance.myResourceBundle()
+
+	}
     public void mustCheckElement(){
         this.checkElement = true
     }
@@ -61,8 +69,8 @@ class EventHandler implements Configurable{
                 cbp.mouseUp(context, locator)
                 break
             default:
-                println "Warning: Unknown Event ${event.toString()}"
-        }        
+                println i18nBundle.getMessage("EventHandler.UnknownEvent" , event.toString())
+        }
     }
 
     protected void processEvents(WorkflowContext context, String locator, String[] events, String[] defaultEvents, Closure action){

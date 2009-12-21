@@ -2,8 +2,8 @@ package org.telluriumsource.server
 
 import org.openqa.selenium.server.RemoteControlConfiguration
 import org.openqa.selenium.server.SeleniumServer
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.framework.Environment;
+import org.telluriumsource.i18n.IResourceBundle;
 
 
 
@@ -49,8 +49,7 @@ public class SeleniumServerDaemon {
 
     private String userExtension = null;
 
-    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
-
+    protected IResourceBundle i18nBundle
 
     private String [] getParams(){
 		String cmd = "-port " + port + " -log " + logFile;
@@ -88,6 +87,7 @@ public class SeleniumServerDaemon {
           if(userExtension != null && userExtension.trim().length() > 0){
             this.userExtension = userExtension;
           }
+        i18nBundle = Environment.instance.myResourceBundle()
   	}
 	public final int getPort() {
 		return port;
@@ -111,7 +111,7 @@ public class SeleniumServerDaemon {
 //		config.multiWindow = useMultiWindows;
         config.singleWindow = !useMultiWindows;
 //        config.setSingleWindow(!this.useMultiWindows);
-      
+
 //		config.setProxyInjectionModeArg(true); //this may not be needed, or at least needs to be configurable
         if(this.profileLocation != null && this.profileLocation.trim().length() > 0){
 //          config.setProfilesLocation(new File(this.profileLocation));
@@ -130,12 +130,12 @@ public class SeleniumServerDaemon {
 		  File userExt = new File(this.userExtension);
 		  if(userExt.exists()){
             config.setUserExtensions(userExt);
-            println i18nManager.translate("SeleniumServerDaemon.UserExtensionFile" , this.userExtension)
+            println i18nBundle.getMessage("SeleniumServerDaemon.UserExtensionFile" , this.userExtension)
           } else {
-            println i18nManager.translate("SeleniumServerDaemon.NoUserExtension" , userExt.getAbsolutePath())
+            println i18nBundle.getMessage("SeleniumServerDaemon.NoUserExtension" , userExt.getAbsolutePath())
           }
         }else{
-          println i18nManager.translate("SeleniumServerDaemon.NoUserExtensionWarning")
+          println i18nBundle.getMessage("SeleniumServerDaemon.NoUserExtensionWarning")
         }
 		try {
             server = new SeleniumServer(config);
@@ -159,7 +159,7 @@ public class SeleniumServerDaemon {
 			//SeleniumServer.main(args);
             listening = true;
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 		*/

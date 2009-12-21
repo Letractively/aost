@@ -14,7 +14,7 @@ import org.json.simple.JSONObject
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Aug 7, 2008
- * 
+ *
  */
 class Option extends UiObject{
 
@@ -45,7 +45,7 @@ class Option extends UiObject{
 
         //get the reference locator and store it
         String refenernceLocator = context.getReferenceLocator()
-        
+
         //the option should always use the same Uid as its direct children
         //i.e., it just passes through and forward to its children.
         //as a result, we should not do the following
@@ -80,10 +80,10 @@ class Option extends UiObject{
                 }
             }
         }else{
-        	println i18nManager.translate("Container.NoUIObjectForOption", {[this.uid , this.uid]})            
+        	println i18nBundle.getMessage("Container.NoUIObjectForOption", {[this.uid , this.uid]})
         	return null
         }
-        println i18nManager.translate("Container.CannotFindXPath", {this.uid})
+        println i18nBundle.getMessage("Container.CannotFindXPath", {this.uid})
         return null
     }
 }

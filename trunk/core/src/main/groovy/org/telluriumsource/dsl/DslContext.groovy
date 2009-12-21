@@ -1,7 +1,12 @@
 package org.telluriumsource.dsl
 
+import org.telluriumsource.dsl.BaseDslContext
+import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.exception.NotWidgetObjectException
 import org.telluriumsource.widget.Widget
+import org.telluriumsource.bundle.BundleProcessor
+import org.telluriumsource.dispatch.Dispatcher
+import org.telluriumsource.bundle.BundleProcessor
 
 abstract class DslContext extends BaseDslContext {
 
@@ -25,9 +30,9 @@ abstract class DslContext extends BaseDslContext {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         def obj = walkToWithException(context, uid)
         if (!(obj instanceof Widget)) {
-            println i18nManager.translate("DslContext.UIObject" , {uid})
+            println i18nBundle.getMessage("DslContext.UIObject" , {uid})
 
-            throw new NotWidgetObjectException(i18nManager.translate("DslContext.UIObject" , uid))
+            throw new NotWidgetObjectException(i18nBundle.getMessage("DslContext.UIObject" , uid))
         }
 
         //add reference xpath for the widget
@@ -41,10 +46,10 @@ abstract class DslContext extends BaseDslContext {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         def obj = walkToWithException(context, uid)
         if (!(obj instanceof Widget)) {
-            println i18nManager.translate("DslContext.UIObject" , uid)
+            println i18nBundle.getMessage("DslContext.UIObject" , uid)
 
-//            throw new RuntimeException(i18nManager.translate("DslContext.UIObject" , {uid}))
-            throw new NotWidgetObjectException(i18nManager.translate("DslContext.UIObject" , uid))
+//            throw new RuntimeException(i18nManager.getMessage("DslContext.UIObject" , {uid}))
+            throw new NotWidgetObjectException(i18nBundle.getMessage("DslContext.UIObject" , uid))
         } else {
             if (obj.metaClass.respondsTo(obj, method, args)) {
 
@@ -72,7 +77,7 @@ abstract class DslContext extends BaseDslContext {
         if (context.getReferenceLocator() != null){
 //            locator = context.getReferenceLocator() + locator
             context.appendReferenceLocator(locator)
-            locator = context.getReferenceLocator() 
+            locator = context.getReferenceLocator()
         }
 
         if(optLoc != null)
@@ -88,7 +93,7 @@ abstract class DslContext extends BaseDslContext {
               locator = "/" + locator
           }
         }
-      
+
         return locator
     }
 
@@ -329,7 +334,7 @@ abstract class DslContext extends BaseDslContext {
 
         return xml
     }
-  
+
 /*
     public void useMacroCmd(){
       BundleProcessor processor = BundleProcessor.instance
@@ -349,7 +354,7 @@ abstract class DslContext extends BaseDslContext {
     //let the missing property return the a string of the properity, this is useful for the onWidget method
     //so that we can pass in widget method directly, instead of passing in the method name as a String
     def propertyMissing(String name) {
-        println i18nManager.translate("BaseDslContext.PropertyIsMissing" , name)
+        println i18nBundle.getMessage("BaseDslContext.PropertyIsMissing" , name)
         return name
     }
 }

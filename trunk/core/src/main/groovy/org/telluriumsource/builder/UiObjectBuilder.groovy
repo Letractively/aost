@@ -6,9 +6,8 @@ import org.telluriumsource.locator.JQLocator
 import org.telluriumsource.object.Container
 import org.telluriumsource.object.UiObject
 import org.telluriumsource.Const
-
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.framework.Environment;
+import org.telluriumsource.i18n.IResourceBundle;
 
 
 
@@ -20,30 +19,34 @@ import org.telluriumsource.i18n.InternationalizationManagerImpl;
  */
 abstract class UiObjectBuilder extends Const {
 
-    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
+    protected IResourceBundle i18nBundle
 
     def abstract build(Map map, Closure c);
 
+    public UiObjectBuilder(){
+    	i18nBundle = Environment.instance.myResourceBundle();
+    }
     boolean validate(UiObject obj, Map map){
+    	Environment env = Environment.instance
         boolean valid = true
         if(map == null || map.isEmpty()){
-        	
-            println i18nManager.translate("UIObjectBuilder.EmptyMap")
+
+            println i18nBundle.getMessage("UIObjectBuilder.EmptyMap")
             return false
         }
 
         if(map.get(UID) == null){
-            println i18nManager.translate("UIObjectBuilder.UIDRequired")
+            println i18nBundle.getMessage("UIObjectBuilder.UIDRequired")
             return false
         }
-        
+
         if(map.get(LOCATOR) != null && map.get(CLOCATOR) != null){
-            println i18nManager.translate("UIObjectBuilder.LocatorRequired")
+            println i18nBundle.getMessage("UIObjectBuilder.LocatorRequired")
             return false
         }
 
         if(map.get(USE_GROUP_INFO) != null && (!Container.class.isAssignableFrom(obj.getClass())) ){
-           println i18nManager.translate("UIObjectBuilder.GroupInfoRequired")
+           println i18nBundle.getMessage("UIObjectBuilder.GroupInfoRequired")
            return false
         }
         return valid
@@ -61,7 +64,7 @@ abstract class UiObjectBuilder extends Const {
 
     def internBuild(UiObject obj, Map map, Map df){
        if(!validate(obj, map))
-         throw new RuntimeException(i18nManager.translate("UIObjectBuilder.ObjectDefinitionError"))
+         throw new RuntimeException(i18nBundle.getMessage("UIObjectBuilder.ObjectDefinitionError"))
 
         //make all lower cases
         map = makeCaseInsensitive(map)
@@ -71,7 +74,7 @@ abstract class UiObjectBuilder extends Const {
         if(ns != null && ns.trim().length() > 0){
           obj.namespace = ns.trim()
         }
-      
+
         String useGroup = map.get(USE_GROUP_INFO)
         if(useGroup != null && TRUE.equals(useGroup.toUpperCase())){
             ((Container)obj).useGroupInfo = true
@@ -89,10 +92,10 @@ abstract class UiObjectBuilder extends Const {
             }
           }
         }
-        
+
 /*
         else{
-           if(obj instanceof org.telluriumsource.object.Table || obj instanceof org.telluriumsource.object.List){
+           if(obj instanceof org.telluriumsource.object.Table || obj instanceof org.tellurium.object.List){
               //not to use cache for children for all tables and Lists by default
               obj.noCacheForChildren = true
            }
@@ -152,7 +155,7 @@ abstract class UiObjectBuilder extends Const {
         Map<String, String> attributes = [:]
         locator.header = map.get(HEADER)
         locator.trailer = map.get(TRAILER)
-        
+
         if(map.get(DIRECT) != null && TRUE.equalsIgnoreCase(map.get(DIRECT)))
             locator.direct = true
 
@@ -180,7 +183,7 @@ abstract class UiObjectBuilder extends Const {
             }
         }
         locator.attributes = attributes
-        
+
         return locator
     }
 }

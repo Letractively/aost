@@ -4,7 +4,7 @@
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Aug 2, 2008
- * 
+ *
  */
 
 tellurium{
@@ -82,20 +82,11 @@ tellurium{
             reader = "PipeFileReader"
         }
     }
-    //this section allows users to define the internationalization required
-    //if this section is removed, we take the default locale
-    //from the system
-    //enter only one locale at a time, and use this only if you want to explicitly
-    //set the locale, preferrable way is to comment out this section 
-    i18n{
-        //locale = "fr_FR"
-        locale = "en_US"
-    }
     test{
         execution{
             //whether to trace the execution timing
             trace = false
-        }      
+        }
         //at current stage, the result report is only for tellurium data driven testing
         //we may add the result report for regular tellurium test case
         result{
@@ -134,7 +125,7 @@ tellurium{
 
             //example:
 //           Icon="org.telluriumsource.builder.IconBuilder"
-            
+
         }
     }
     widget{

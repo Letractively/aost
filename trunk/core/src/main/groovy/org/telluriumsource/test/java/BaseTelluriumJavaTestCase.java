@@ -2,9 +2,10 @@ package org.telluriumsource.test.java;
 
 import org.telluriumsource.config.CustomConfig;
 import org.telluriumsource.connector.SeleniumConnector;
-import org.telluriumsource.i18n.InternationalizationManager;
+import org.telluriumsource.i18n.IResourceBundle;
 import org.telluriumsource.framework.TelluriumFramework;
 import org.telluriumsource.framework.CachePolicy;
+import org.telluriumsource.i18n.ResourceBundle;
 import org.telluriumsource.util.Helper;
 
 import java.util.Map;
@@ -20,21 +21,23 @@ import java.util.Map;
 public abstract class BaseTelluriumJavaTestCase {
     //custom configuration
     protected static CustomConfig customConfig = null;
-//	protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
-//    protected static InternationalizationManager i18nManager = null;
+    protected IResourceBundle i18nBundle;
 
     protected static SeleniumConnector connector;
 
     protected static TelluriumFramework tellurium;
 
+    public BaseTelluriumJavaTestCase(){
+  	  	i18nBundle = new ResourceBundle();
+    }
     public static void openUrl(String url){
         connector.connectSeleniumServer();
         connector.connectUrl(url);
     }
-    
-    public InternationalizationManager geti18nManager()
+
+    public IResourceBundle geti18nBundle()
 	{
-		return tellurium.getI18nManager(); 
+		return this.i18nBundle;
 	}
 
 /*    protected static void configBrowser(String serverHost, int serverPort, String baseUrl, String browser, String browserOptions){
@@ -60,7 +63,7 @@ public abstract class BaseTelluriumJavaTestCase {
     public static void openUrlWithBrowserParameters(String url, String serverHost, int serverPort, String browser){
        openUrlWithBrowserParameters(url, serverHost, serverPort, null, browser, null);
     }
-    
+
     public static void connectUrl(String url) {
          connector.connectUrl(url);
     }
@@ -174,7 +177,7 @@ public abstract class BaseTelluriumJavaTestCase {
     }
 
     public static void useTrace(boolean isUse){
-      tellurium.useTrace(isUse);   
+      tellurium.useTrace(isUse);
     }
 
     public static void showTrace() {

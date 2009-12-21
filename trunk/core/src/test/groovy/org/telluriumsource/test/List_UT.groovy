@@ -7,11 +7,11 @@ import org.telluriumsource.object.UiObject
 import org.telluriumsource.object.UrlLink
 
 /**
- * 
+ *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Oct 2, 2008
- * 
+ *
  */
 class List_UT extends GroovyTestCase{
 

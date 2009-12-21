@@ -8,14 +8,12 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.telluriumsource.Const;
 
 
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
 
 
 
 /**
  * The implementation for the field set reader to read excel files
- * 
+ *
  * @author: Ajay Ravichandran (ajay.ravichandran@gmail.com)
  *
  * Date: Jul 23, 2008
@@ -23,11 +21,10 @@ import org.telluriumsource.i18n.InternationalizationManagerImpl;
  */
 class ExcelDataReader implements DataReader{
 
-		protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
 
 		protected HSSFSheet workSheet = null
 		protected int currentRowCounter = 0
-		
+
 		public void setupDataStream(FileInputStream input)
 		{
 			workSheet = new HSSFWorkbook(new POIFSFileSystem(input)).getSheetAt(0)

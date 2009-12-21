@@ -7,7 +7,7 @@ import org.json.simple.JSONObject
 
 /**
  *  Prototype for windows
- * 
+ *
  *  @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
@@ -55,7 +55,7 @@ class Window  extends Container{
 //       c(name, timeout)
         c(name)
     }
-    
+
     //walkTo through the object tree to until the UI object is found by the UID from the stack
     @Override
     public UiObject walkTo(WorkflowContext context, UiID uiid){
@@ -83,7 +83,7 @@ class Window  extends Container{
         }else{
 
             //cannot find the object
-            println(i18nManager.translate("Container.CannotFindUIObject" , {[child , this.uid]}))
+            println(i18nBundle.getMessage("Container.CannotFindUIObject" , {[child , this.uid]}))
 
             return null
         }

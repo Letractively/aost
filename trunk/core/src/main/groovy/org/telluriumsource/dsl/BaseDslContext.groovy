@@ -7,18 +7,17 @@ import org.stringtree.json.JSONReader;
 import org.telluriumsource.exception.UiObjectNotFoundException;
 
 
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.i18n.IResourceBundle;
 import org.telluriumsource.locator.JQueryOptimizer;
 import org.telluriumsource.locator.LocatorProcessor;
 import org.telluriumsource.locator.MetaCmd;
 import org.telluriumsource.object.StandardTable;
 
-
 import org.telluriumsource.object.UiObject;
 import org.telluriumsource.locator.JQueryProcessor
 import org.telluriumsource.locator.XPathProcessor
 import org.json.simple.JSONArray
+import org.telluriumsource.framework.Environment;
 
 /**
  *
@@ -29,7 +28,7 @@ import org.json.simple.JSONArray
  */
 abstract class BaseDslContext extends GlobalDslContext {
 
-  protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
+  protected IResourceBundle i18nBundle
 
   protected static final String JQUERY_SELECTOR = "jquery="
   protected static final String JQUERY_SELECTOR_CACHE = "jquerycache="
@@ -42,19 +41,22 @@ abstract class BaseDslContext extends GlobalDslContext {
   public static final String KEY = "key"
   public static final String OBJECT = "obj"
   public static final String GENERATED = "generated"
-  
+
   protected JQueryOptimizer optimizer = new JQueryOptimizer()
 
   UiDslParser ui = new UiDslParser()
 
   LocatorProcessor locatorProcessor = new LocatorProcessor()
 
+  public BaseDslContext(){
+	  i18nBundle = Environment.instance.myResourceBundle()
+  }
   abstract protected String locatorMapping(WorkflowContext context, loc)
 
   abstract protected String locatorMappingWithOption(WorkflowContext context, loc, optLoc)
 
-  protected geti18nManager() {
-    return this.i18nManager;
+  protected geti18nBundle() {
+    return this.i18nBundle;
   }
 
   protected String postProcessSelector(WorkflowContext context, String jqs) {
@@ -135,7 +137,7 @@ abstract class BaseDslContext extends GlobalDslContext {
       return obj
     }
 
-    throw new UiObjectNotFoundException(i18nManager.translate("BaseDslContext.CannotFindUIObject", uid))
+    throw new UiObjectNotFoundException(i18nBundle.getMessage("BaseDslContext.CannotFindUIObject", uid))
   }
 
   String getConsoleInput() {
@@ -1093,7 +1095,7 @@ abstract class BaseDslContext extends GlobalDslContext {
       obj.traverse(context)
       ArrayList list = context.getUidList()
 
-      println(i18nManager.translate("BaseDslContext.DumpLocatorInformation", uid))
+      println(i18nBundle.getMessage("BaseDslContext.DumpLocatorInformation", uid))
       println("-------------------------------------------------------")
       list.each {String key ->
         String loc = getLocator(key)

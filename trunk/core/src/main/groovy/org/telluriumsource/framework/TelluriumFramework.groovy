@@ -22,11 +22,8 @@ import org.telluriumsource.locator.LocatorProcessor
 import org.telluriumsource.locator.LocatorProcessorMetaClass
 import org.telluriumsource.server.EmbeddedSeleniumServer
 import org.telluriumsource.widget.WidgetConfigurator
-import org.telluriumsource.i18n.InternationalizationManager
-import org.telluriumsource.i18n.InternationalizationManagerImpl
-import org.telluriumsource.i18n.InternationalizationManagerImplMetaClass
+import org.telluriumsource.i18n.IResourceBundle
 import org.telluriumsource.dsl.GlobalDslContext
-
 import org.telluriumsource.util.Helper;
 
 /**
@@ -52,8 +49,6 @@ class TelluriumFramework {
 
   private GlobalDslContext global;
 
-  private InternationalizationManager i18nManager;
-
   TelluriumFramework() {
 
     env = Environment.instance;
@@ -72,9 +67,6 @@ class TelluriumFramework {
 
     registry.setMetaClass(Extension, new ExtensionMetaClass())
 
-    registry.setMetaClass(InternationalizationManagerImpl, new InternationalizationManagerImplMetaClass())
-
-
     registry.setMetaClass(Accessor, new AccessorMetaClass())
 
     registry.setMetaClass(EventHandler, new EventHandlerMetaClass())
@@ -87,19 +79,20 @@ class TelluriumFramework {
     telluriumConfigurator = new TelluriumConfigurator()
 
     String fileName = "TelluriumConfig.groovy"
+    IResourceBundle i18nBundle = env.myResourceBundle()
 
 //    telluriumConfigurator.parse("TelluriumConfig.groovy")
     File file = new File(fileName)
     if (file != null && file.exists()) {
-      println "Parse configuration file: ${fileName} from project root directory..."
+      println i18nBundle.getMessage("TelluriumFramework.ParseFromRootDirectory" , fileName)
       telluriumConfigurator.parse(file)
     } else {
       URL url = ClassLoader.getSystemResource(fileName)
       if (url != null) {
-        println "Parse configuration file: ${fileName} from class path..."
+        println i18nBundle.getMessage("TelluriumFramework.ParseFromClassPath" , fileName)
         telluriumConfigurator.parse(url)
       } else {
-        println "Cannot find configuration file: ${fileName}, use default values"
+          println i18nBundle.getMessage("TelluriumFramework.CannotFindConfigFile" , fileName)
       }
     }
 
@@ -123,7 +116,6 @@ class TelluriumFramework {
 
     //global methods
     this.global = new GlobalDslContext();
-    this.i18nManager = new InternationalizationManagerImpl();
   }
 
   public void disableEmbeddedSeleniumServer() {
@@ -158,8 +150,8 @@ class TelluriumFramework {
       server.setProperty("port", customConfig.getPort())
       server.setProperty("useMultiWindows", customConfig.isUseMultiWindows())
       server.setProperty("profileLocation", customConfig.getProfileLocation())
-      InternationalizationManager i18nManager = new InternationalizationManagerImpl()
-      println i18nManager.translate("TelluriumFramework.OverwriteSeleniumServerSettings")
+      IResourceBundle i18nBundle = env.myResourceBundle()
+      println i18nBundle.getMessage("TelluriumFramework.OverwriteSeleniumServerSettings")
 
       server.runSeleniumServer()
 
@@ -173,7 +165,7 @@ class TelluriumFramework {
         //only overwrite the server host if it is set
         connector.setProperty("seleniumServerHost", customConfig.getServerHost())
       }
-      println i18nManager.translate("TelluriumFramework.OverwriteSeleniumConnectorSettings")
+      println i18nBundle.getMessage("TelluriumFramework.OverwriteSeleniumConnectorSettings")
 
 //      connector.connectSeleniumServer()
 
@@ -332,7 +324,4 @@ class TelluriumFramework {
     Helper.pause(milliseconds);
   }
 
-  public InternationalizationManager getI18nManager(){
-    return this.i18nManager;
-  }
 }
