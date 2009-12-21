@@ -6,6 +6,10 @@ function FifoQueue(){
     this.queue = new Array();
 };
 
+FifoQueue.prototype.clear = function(){
+    this.queue = new Array();
+};
+
 FifoQueue.prototype.size = function(){
     return this.queue.length;
 };

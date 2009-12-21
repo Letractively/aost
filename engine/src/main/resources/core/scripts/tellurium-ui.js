@@ -118,6 +118,12 @@ UiObject.prototype.goToPlace = function(uiid, uiobj){
     }
 };
 
+UiObject.prototype.locate = function(uialg){
+    uialg.locateInAllSnapshots(this);
+    //need to push all its children into the object queue
+};
+
+
 UiObject.prototype.snapshot = function(){
     if(this.generated)
         this.domRef = selenium.browserbot.findElement(this.generated);    
@@ -245,6 +251,15 @@ objectExtends(Container.prototype, UiObject.prototype, {
                 uiobj.parent = this;
                 this.components.put(cuid, uiobj);
             }
+        }
+    },
+
+    locate:  function(uialg){
+        uialg.locateInAllSnapshots(this);
+        //need to push all its children into the object queue
+        var valset = this.components.valSet();
+        for(var component in valset){
+            uialg.addChildUiObject(component);
         }
     },
     
@@ -933,6 +948,13 @@ function UiAlg(){
     this.cssbuilder = new JQueryBuilder();
 };
 
+UiAlg.prototype.clear = function(){
+    this.dom = null;
+    this.currentColor = this.colors.WHITE;
+    this.squeue.clear();
+    this.oqueue.clear();
+};
+
 UiAlg.prototype.nextColor = function(){
     if(this.currentColor == null){
         return this.colors.GRAY;
@@ -945,6 +967,26 @@ UiAlg.prototype.nextColor = function(){
     }
 };
 
+UiAlg.prototype.locateInAllSnapshots = function(uiobj){
+    var finished = false
+    while(finished == false && this.squeue.size() > 0){
+        var first = this.squeue.peek();
+        //check the first element color
+        if(this.currentColor == first.color){
+            first = this.squeue.pop();
+            this.locate(uiobj.uid, uiobj.locator, first);
+        }else{
+            //exit when the snapshot color is marked for the next round
+            finished = true;
+            this.currentColor = this.nextColor();
+            if(this.squeue.size() == 0){
+                throw new SeleniumError("Cannot find UI element " + uiobj.uid);
+            }
+        }
+    }
+};
+
+//TODO: may need to pass in more attributes other than clocator, for instance, the separator in the List object
 UiAlg.prototype.locate = function(uid, clocator, snapshot){
     //the next color to label the snapshot
     var ncolor = this.nextColor();
@@ -1001,11 +1043,13 @@ UiAlg.prototype.locate = function(uid, clocator, snapshot){
                 this.squeue.push(snapshot);
             }else{
                 //otherwise, throw exception
-                throw new SeleniumError("Cannot find UI element " + uid);    
+//                throw new SeleniumError("Cannot find UI element " + uid);
+                //do not throw exception and do not push the snapshot back to the queue instead
             }
         }else{
             //otherwise, throw exception
-            throw new SeleniumError("Cannot find UI element " + uid);
+//            throw new SeleniumError("Cannot find UI element " + uid);
+            //do not throw exception and do not push the snapshot back to the queue instead
         }   
     }
 };
@@ -1069,6 +1113,29 @@ UiAlg.prototype.getParentUid = function(uid){
     return null;
 };
 
-UiAlg.prototype.takeSnapshot(uimodule, rootdom){
+UiAlg.prototype.takeSnapshot = function(uimodule, rootdom){
+    this.clear();
+    this.dom = rootdom;
+    //start from the root element in the UI module
+    this.oqueue.push(uimodule.root);
+    var ust = new UiSnapshot();
+    ust.color = this.colors.GRAY;
+    this.squeue.push(ust);
+    while(this.oqueue.size() > 0){
+        var uiobj = this.oqueue.pop();
+        uiobj.locate(this);
+    }
+    if(this.squeue.size() == 0){
+         throw new SeleniumError("Cannot locate UI module " +  uimodule.root.uid);
+    }
+    if(this.squeue.size() > 1){
+       throw new SeleniumError("Found" + this.squeue.size() +  " matches for UI module " + uimodule.root.uid);
+    }
+    //found only one snapshot, happy path
+    var snapshot = this.squeue.pop()
+    this.bindToUiModule(uimodule, snapshot);
+};
+
+UiAlg.prototype.bindToUiModule = function(uimodule, snapshot){
 
 };
