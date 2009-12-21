@@ -18,60 +18,54 @@ Tellurium now provides support for internationalization of strings and exception
 
 The Internationalization support in Tellurium is provided through the InternationalizationManager class. The default bundle used in Tellurium is the DefaultMessagesBundle.properties. All strings and exception messages used in the tellurium core classes are read in from the DefaultMessageBundle properties file. 
 
-In order to configure regional messages, This class has a translate that provides Internationalization support. 
+In order to configure regional messages, This class has a getMessage function that provides Internationalization support. This function can also take an optional Locale argument to accept function level locale translations. 
 
 
 For plain strings
 {{{
-translate( "<key>") 
+getMessage ( "<key>") 
 }}}
 For Strings with parameters
 {{{
-translate("<key>" , { [ item1 , item2 , … , item n]}
+getMessage ("<key>" , { [ item1 , item2 , … , item n]}
 }}}
 For double numeric value
 {{{
-translate(<doubleValue> , false)
+getNumber(<doubleValue>)
 }}}
 For currency data
 {{{
-translate(<doubleValue> , true)
+getCurrency(<doubleValue>)
 }}}
 For Dates
 {{{
-translate(<dateValue> , false)
+getDate(<dateValue>)
 }}}
 For time
 {{{
-translate(<timeValue> , true)
+getTime(<timeValue>)
 }}}
 
-The `translate(<key>)` method signature internationalizes a simple string. The `translate(<key> , { [ item1 , item2 , … , item n]}` method definition allows parameterization of an internationalized string to allow external strings/arguments as parameter to the string.
+The `getMessage (<key>)` method signature internationalizes a simple string. The `getMessage (<key> , { [ item1 , item2 , … , item n]}` method definition allows parameterization of an internationalized string to allow external strings/arguments as parameter to the string. This also takes locale as an argument, so we have `getMessage (<key> , locale)` to allow translation of the string to the locale passed in as an argument, provided the key value pair exists in the respective locale property file
 
-The localization can be defined in two ways
-# setting the locale on your system preferences / settings. (ex: regional settings in Windows machine). This is the preferred and a better way of setting the locale
-# adding an i18n section similar to below
+The localization can be defined by setting the locale on your system preferences / settings. (ex: regional settings in Windows machine). 
 
-{{{
-i18n{
-        locales = "en_EN"
-    }
-}}}
+*Note:* By default using getMessage() without any locale argument causes the system to use the default locale as defined in ur regional settings. In order to use a locale different from the regional settings, you will have to pass in the locale as an argument to getMessage.
 
 === Internationalization extension to user defined tests ===
 
 Internationalization support has been extended to test cases, so any user defined test case can use
 {{{
- geti18nManager() 
+ geti18nBundle() 
 }}}
 
-to utilize the translate function support in their own test code. Internationalized strings can be added to user defined MessageBundles defined in the src/main/resources folder of user defined projects. The general steps to provide internationalization in your project are as follows:
+to utilize the getMessage function support in their own test code. Internationalized strings can be added to user defined MessageBundles defined in the src/main/resources folder of user defined projects. The general steps to provide internationalization in your project are as follows:
 
 1. Create a user defined MessageBundle.properties, a default locale message bundle, as well as one for each region you want to provide support for in your project, ex: MessageBundle_fr_FR.properties will have strings translated into french
 
-2. Add the user defined resource bundle using the geti18nManager function, like so: `getI18nManager().addResourceBundle("MessageBundle")`
+2. Add the user defined resource bundle using the geti18nManager function, like so: `getI18nBundle().addResourceBundle("MessageBundle")`. This can take an optional locale to add the resource bundle in that locale
 
-3. Now use the `translate` function to internationalize strings
+3. Now use the `getMessage` function to internationalize strings
 
 === Simple Example ===
 
@@ -104,11 +98,10 @@ class SampleGroovyTestCase extends TelluriumGroovyTestCase {
         setUpForClass()
         //adding the local resource bundle, make sure it's not titled "DefaultMessagesBundle" since
         //this will overwrite the default one we use in Tellurium core and cause exceptions
-        geti18nManager().addResourceBundle("MessagesBundle")
+        geti18nBundle().addResourceBundle("MessagesBundle")
         
-        //geti18nManager() can also be replaced by 
-        //manager = new InternationalizationManager(), where manager is a class level variable of type
-       //InternationalizationManager
+        //geti18nBundle() can also be replaced by 
+        //IResourceBundle bundle = new ResourceBundle(), 
 
     }
 
@@ -119,26 +112,26 @@ class SampleGroovyTestCase extends TelluriumGroovyTestCase {
     public void testTranslateWithEnglishLocale()
     {
        //translating of strings
-       String message = geti18nManager().translate("i18nManager.testString")
+       String message = geti18nBundle().getMessage("i18nManager.testString")
        assertEquals("This is a testString in English", message)
 
        //translation of number data types
        Double amount = new Double(345987.246);
-       String translatedValue = geti18nManager().translate(amount, false)
+       String translatedValue = geti18nBundle().getNumber(amount)
        assertEquals("345,987.246" , translatedValue)
 
        //translation of currency data types
        amount = new Double(9876543.21);
-       translatedValue = geti18nManager().translate(amount, true)
+       translatedValue = geti18nBundle().getCurrency(amount)
        assertEquals("\$9,876,543.21" , translatedValue)
 
        //translation of dates - date is 2009, Jan 1
        Date date = new Date(109 , 0 , 1)
-       translatedValue = geti18nManager().translate(date, false)
+       translatedValue = geti18nBundle().getDate(date)
        assertEquals("Jan 1, 2009" , translatedValue)
      }
 }
 }}}
 === Future Work ===
 
-Currently tellurium has support only for internationalization of strings and messages, but we expect to provide support for more categories, starting with currency, date and numeric data types. We also expect to provide internationalization support for Selenium messages on the console in the future.
+We expect to provide internationalization support for Selenium messages on the console in the future.
