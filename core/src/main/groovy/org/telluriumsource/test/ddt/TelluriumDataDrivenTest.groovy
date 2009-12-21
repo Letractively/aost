@@ -16,8 +16,8 @@ import org.telluriumsource.dsl.UiDslParser
 import org.telluriumsource.framework.TelluriumFramework
 import org.telluriumsource.test.helper.*
 import org.telluriumsource.test.groovy.BaseTelluriumGroovyTestCase
-import org.telluriumsource.i18n.InternationalizationManager
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.framework.Environment;
+import org.telluriumsource.i18n.IResourceBundle;
 
 
 
@@ -61,11 +61,11 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
 //    protected TelluriumDataDrivenModuleInterceptor interceptor = new TelluriumDataDrivenModuleInterceptor(this)
 
  //   def proxy = ProxyMetaClass.getInstance(DefaultTelluriumDataDrivenModule.class)
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Abstract method for child class to implement
     //--------------------------------------------------------------------------------------------------------
-    
+
     //put all your test script here
     //For data stepToEnd test, you will only have one test method where you should put all
     //your test script there
@@ -90,7 +90,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
 
     protected def init(){
         af = TelluriumSupport.addSupport()
-        //should put here, other the UI builder is not updated with customer settings in TelluriumConfig.groovy       
+        //should put here, other the UI builder is not updated with customer settings in TelluriumConfig.groovy
         thr  = new TypeHandlerRegistry()
         fsr = new FieldSetRegistry()
         dataProvider = new DataProvider(fsr, thr)
@@ -154,11 +154,11 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
             tddm.setProperty("tr", this.testreg)
             tddm.setProperty("dataProvider", this.dataProvider)
             tddm.belongTo(this)
-            
+
             tddm.defineModule()
         }else{
-            InternationalizationManager i18nManager = new InternationalizationManagerImpl()
-            throw new RuntimeException(i18nManager.translate("TelluriumDataDrivenTest.IncludModule" , module?.getName()))
+        	IResourceBundle i18nBundle = Environment.instance.myResourceBundle()
+            throw new RuntimeException(i18nBundle.getMessage("TelluriumDataDrivenTest.IncludModule" , module?.getName()))
         }
     }
 
@@ -183,7 +183,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     public void stepToEnd(){
         stepToEnd(null)
     }
-    
+
     //def stepToEnd = this.&stepToEnd
 
     //read one line from the file and run the test script so that you can have different
@@ -239,7 +239,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     public void step(){
         step(null)
     }
-    
+
     //def step = this.&step
 
     //read one from the file but do not run the test script. This may apply to the scenario
@@ -350,7 +350,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     protected void logMessage(String message){
         listener.listenForMessage(context.getStepCount() ,message)
     }
-    
+
     protected String getTestForFieldSet(String fieldSetName){
         FieldSet tfs = fsr.getFieldSetByName(fieldSetName)
         if(tfs != null){

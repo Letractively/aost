@@ -3,8 +3,8 @@ package org.telluriumsource.ddt.object.mapping.validator
 import org.telluriumsource.ddt.object.mapping.FieldSet
 import org.telluriumsource.ddt.object.mapping.Field
 import org.telluriumsource.ddt.object.mapping.DataMappingException
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.framework.Environment;
 
 
 import java.util.regex.Pattern
@@ -19,23 +19,22 @@ import java.util.regex.Matcher
  *
  */
 class FieldSetValidator {
-    protected static InternationalizationManager i18nManager = new InternationalizationManagerImpl();
-
 
     public static boolean validate(FieldSet fs, List fields){
+        IResourceBundle i18nBundle = Environment.instance.myResourceBundle()
 
         if(fs == null || fs.getFields() == null || fs.getFields().size() < 1)
-            throw new DataMappingException(i18nManager.translate("FieldSetValidator.InvalidFieldSet"))
+            throw new DataMappingException(i18nBundle.getMessage("FieldSetValidator.InvalidFieldSet"))
 
         int size = fields.size()
-        
+
         if(fields == null || fs == null || fs.getFieldSize() != size)
-            throw new DataMappingException(i18nManager.translate("FieldSetValidator.FieldSetSizeDoesNotMatch"))
+            throw new DataMappingException(i18nBundle.getMessage("FieldSetValidator.FieldSetSizeDoesNotMatch"))
 
         for (int i = 0; i < size; i++) {
             Field df = fs.getFields().get(i)
             String f = fields.get(i)
-            
+
             //check if the field is empty
             if (f.length() == 0) {
                 //useString the null value to replace the empty field
@@ -49,7 +48,7 @@ class FieldSetValidator {
 
             //Check if the field can be null
             if (f.length() == 0 && (!df.isNullable()))
-                throw new DataMappingException(i18nManager.translate("FieldSetValidator.FieldCannotBeNull" , df.getName()))
+                throw new DataMappingException(i18nBundle.getMessage("FieldSetValidator.FieldCannotBeNull" , df.getName()))
 
             //only check the pattern if the field is not empty
             if (df.getPattern() != null && f.length() > 0) {
@@ -59,7 +58,7 @@ class FieldSetValidator {
                 Matcher matcher = pattern.matcher(f)
                 //if not match
                 if (!matcher.matches())
-                    throw new DataMappingException(i18nManager.translate("FieldSetValidator.FieldDoesNotMatchPattern" , df.getPattern() ,df.getName()))
+                    throw new DataMappingException(i18nBundle.getMessage("FieldSetValidator.FieldDoesNotMatchPattern" , df.getPattern() ,df.getName()))
             }
 
             //If custom validator is defined and the field is not empty, we need to call it

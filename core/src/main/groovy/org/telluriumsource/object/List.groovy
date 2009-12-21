@@ -43,7 +43,7 @@ class List extends Container {
 //            component.cacheable = false
             components.put(internId, component)
         } else {
-            println i18nManager.translate("Container.InvalidID" , {component.uid})
+            println i18nBundle.getMessage("Container.InvalidID" , {component.uid})
         }
     }
 
@@ -93,7 +93,7 @@ class List extends Container {
     protected String buildJQuerySelectorWithoutPosition(CompositeLocator locator){
        return JQueryBuilder.buildJQuerySelectorWithoutPosition(locator.getTag(), locator.getText(), locator.getAttributes())
     }
-  
+
     // example:
     // //div/descendant-or-self::table[2]/descendant-or-self::table
     protected String deriveListLocator(int index) {
@@ -117,7 +117,7 @@ class List extends Container {
 //        String lastTag = last.locator.getTag()
 //        Integer lastOccur = loc.get(lastTag)
           Integer lastOccur = locs.get(last)
-      
+
 /*        if(last.locator.direct){
           return "/${lastTag}[${lastOccur}]"
         }else{
@@ -246,14 +246,14 @@ class List extends Container {
 
       if(hasAll)
         max++;
-      
+
       for (int i = 1; i <= max; i++) {
         if(this.separator != null && this.separator.trim().length() > 0){
           sb.append(ident + "  <${separator}>\n")
         }
         UiObject obj = findUiObject(i)
         if(obj == null)
-          obj = defaultUi        
+          obj = defaultUi
         sb.append(obj.generateHtml());
         if(this.separator != null && this.separator.trim().length() > 0){
           sb.append(ident + "  </${separator}>\n")
@@ -291,7 +291,7 @@ class List extends Container {
       obj.traverse(context)
       context.popUid()
     }
-  
+
     //walkTo through the object tree to until the UI object is found by the UID from the stack
     @Override
     public UiObject walkTo(WorkflowContext context, UiID uiid) {

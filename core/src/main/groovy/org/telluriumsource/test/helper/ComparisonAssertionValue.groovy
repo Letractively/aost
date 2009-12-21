@@ -1,11 +1,11 @@
 package org.telluriumsource.test.helper
 /**
  * hold two parameters, expected and actual
- * 
+ *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Sep 20, 2008
- * 
+ *
  */
 class ComparisonAssertionValue extends AssertionValue{
 
@@ -20,8 +20,8 @@ class ComparisonAssertionValue extends AssertionValue{
         final String fieldStart = " "
 
         StringBuilder sb = new StringBuilder(typicalLength)
-        sb.append(i18nManager.translate("ComparisonAssertionValue.Expected")).append(avpSeparator).append("\"" + expected + "\"").append(fieldSeparator)
-        sb.append(fieldStart).append(i18nManager.translate("ComparisonAssertionValue.Actual")).append(avpSeparator).append("\"" + actual + "\"").append(fieldSeparator)
+        sb.append(i18nBundle.getMessage("ComparisonAssertionValue.Expected")).append(avpSeparator).append("\"" + expected + "\"").append(fieldSeparator)
+        sb.append(fieldStart).append(i18nBundle.getMessage("ComparisonAssertionValue.Actual")).append(avpSeparator).append("\"" + actual + "\"").append(fieldSeparator)
 
         return sb.toString()
     }

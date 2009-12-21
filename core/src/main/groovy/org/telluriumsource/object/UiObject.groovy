@@ -186,7 +186,7 @@ abstract class UiObject implements Cloneable{
     }
 
     def diagnose(Closure c){
-      c(locator)    
+      c(locator)
     }
 
     public boolean amICacheable(){
@@ -212,7 +212,7 @@ abstract class UiObject implements Cloneable{
       if(this.locator != null){
         return getIndent() + this.locator.generateHtml(true) + "\n";
       }
-      
+
       return "\n";
     }
 
@@ -225,7 +225,7 @@ abstract class UiObject implements Cloneable{
     public UiObject walkTo(WorkflowContext context, UiID uiid){
         //if not child listed, return itself
         if(uiid.size() < 1)
-            return this           
+            return this
 
         //otherwise,
         //by default, regular ui objects cannot walkTo forward to the child
@@ -234,8 +234,8 @@ abstract class UiObject implements Cloneable{
 
         //cannot find child
         String child = uiid.pop()
-        
-        println(i18nManager.translate("Container.CannotFindUIObject" , {[child , this.uid]}))
+
+        println(i18nBundle.getMessage("Container.CannotFindUIObject" , {[child , this.uid]}))
 
         return null
     }

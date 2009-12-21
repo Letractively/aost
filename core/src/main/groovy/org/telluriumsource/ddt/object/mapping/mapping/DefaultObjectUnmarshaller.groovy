@@ -3,8 +3,8 @@ package org.telluriumsource.ddt.object.mapping.mapping
 import org.telluriumsource.ddt.object.mapping.type.TypeHandlerRegistry
 import org.telluriumsource.ddt.object.mapping.type.TypeHandler
 import org.telluriumsource.ddt.object.mapping.DataMappingException
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.framework.Environment
+import org.telluriumsource.i18n.IResourceBundle
 
 
 /**
@@ -17,9 +17,13 @@ import org.telluriumsource.i18n.InternationalizationManagerImpl;
  */
 class DefaultObjectUnmarshaller implements ObjectUnmarshaller{
 
-    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
+    protected IResourceBundle i18nBundle ;
 
     protected TypeHandlerRegistry registry
+
+    DefaultObjectUnmarshaller(){
+    	i18nBundle = Environment.instance.myResourceBundle()
+    }
 
     public void setTypeHandlerRegistry(TypeHandlerRegistry registry){
         this.registry = registry
@@ -28,7 +32,7 @@ class DefaultObjectUnmarshaller implements ObjectUnmarshaller{
     public Object unmarshal(String type, String data) {
         TypeHandler handler = registry.getTypeHandler(type)
         if(handler == null)
-            throw new DataMappingException(i18nManager.translate("ObjectUnmarshaller.UnsupportedFieldType"))
+            throw new DataMappingException(i18nBundle.getMessage("ObjectUnmarshaller.UnsupportedFieldType"))
         return handler.valueOf(data)
     }
 

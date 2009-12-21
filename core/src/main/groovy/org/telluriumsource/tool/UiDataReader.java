@@ -9,8 +9,8 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.i18n.ResourceBundle;
+import org.telluriumsource.i18n.IResourceBundle;
 
 
 /**
@@ -19,7 +19,7 @@ import org.telluriumsource.i18n.InternationalizationManagerImpl;
  *         Date: Jan 13, 2009
  */
 public class UiDataReader {
-    
+
     public final static String UID = "uid";
     public final static String ATTRIBUTES = "attributes";
     public final static String XPATH = "xpath";
@@ -27,10 +27,13 @@ public class UiDataReader {
     protected final static String FIELD_DELIMITER = "\\|";
 	protected final static String ESCAPE_START = "\\Q";
 	protected final static String ESCAPE_END = "\\E";
-	
-    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
+
+	protected IResourceBundle i18nBundle;
 
 
+	public UiDataReader(){
+    	i18nBundle = new ResourceBundle();
+	}
     public BufferedReader getReaderForDate(String data){
         ByteArrayInputStream bais = new ByteArrayInputStream(data.getBytes());
         InputStreamReader isr = new InputStreamReader(bais);
@@ -42,7 +45,7 @@ public class UiDataReader {
     public BufferedReader getReaderForFile(String filename) throws FileNotFoundException {
         InputStreamReader isr = new InputStreamReader(new FileInputStream(filename));
         BufferedReader br = new BufferedReader(isr);
-    
+
         return br;
     }
 
@@ -71,7 +74,7 @@ public class UiDataReader {
 
 //            if(fields.length != 3){
 //                throw new RuntimeException(ERROR_DATA_SIZE_EXCEPTION + ": " + fields.length);
-                
+
 //            }
 
             if(fields.length == 3){
@@ -80,9 +83,9 @@ public class UiDataReader {
                 dfm.put(ATTRIBUTES, fields[1].trim());
                 dfm.put(XPATH, fields[2].trim());
             }
-            
+
         }catch (IOException e) {
-        	i18nManager.translate("UIDataReader.ReadDataException" , new Object[]{e.getMessage()});
+        	i18nBundle.getMessage("UIDataReader.ReadDataException" , new Object[]{e.getMessage()});
 		}
 
 		return dfm;

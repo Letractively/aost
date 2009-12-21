@@ -1,7 +1,8 @@
 package org.telluriumsource.test.groovy
 
 import org.telluriumsource.config.CustomConfig
-
+import org.telluriumsource.framework.Environment;
+import org.telluriumsource.i18n.IResourceBundle;
 import org.telluriumsource.connector.SeleniumConnector
 import org.telluriumsource.framework.TelluriumFramework
 import org.telluriumsource.framework.CachePolicy
@@ -10,17 +11,21 @@ import org.telluriumsource.util.Helper
 abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
 
   //custom configuration
-//	protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
-    protected CustomConfig customConfig = null;
+	protected IResourceBundle i18nBundle
+    protected CustomConfig customConfig = null
 
     protected SeleniumConnector conn;
-    protected TelluriumFramework tellurium;
+    protected TelluriumFramework tellurium
 
-    public abstract SeleniumConnector getConnector();
+    public BaseTelluriumGroovyTestCase(){
+		  i18nBundle = Environment.instance.myResourceBundle()
+	}
 
-	public geti18nManager()
+    public abstract SeleniumConnector getConnector()
+
+	public IResourceBundle geti18nBundle()
 	{
-		return tellurium.getI18nManager();
+		return this.i18nBundle;
 	}
     public void openUrl(String url){
         getConnector().connectSeleniumServer()
@@ -34,7 +39,7 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
     public void connectSeleniumServer(){
         getConnector().connectSeleniumServer()
     }
-    
+
     public void disconnectSeleniumServer(){
          getConnector().disconnectSeleniumServer()
     }
@@ -137,7 +142,7 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
     public void useTelluriumApi(boolean isUse){
       tellurium.useTelluriumApi(isUse) ;
     }
-  
+
     public void useTrace(boolean isUse){
       tellurium.useTrace(isUse);
     }
@@ -155,6 +160,6 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
     }
 
     public void allowNativeXpath(boolean allow){
-      tellurium.allowNativeXpath(allow); 
+      tellurium.allowNativeXpath(allow);
     }
-}  
+}

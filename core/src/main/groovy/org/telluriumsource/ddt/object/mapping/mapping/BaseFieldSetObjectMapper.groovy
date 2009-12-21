@@ -1,6 +1,6 @@
 package org.telluriumsource.ddt.object.mapping.mapping
 
-import org.telluriumsource.Const;
+import org.telluriumsource.Const
 import org.telluriumsource.ddt.object.mapping.FieldSetRegistry
 import org.telluriumsource.ddt.object.mapping.io.DataReader
 import org.telluriumsource.ddt.object.mapping.FieldSet
@@ -8,8 +8,8 @@ import org.telluriumsource.ddt.object.mapping.Field
 import org.telluriumsource.ddt.object.mapping.DataMappingException
 import org.telluriumsource.ddt.object.mapping.validator.FieldSetValidator
 import org.telluriumsource.ddt.object.mapping.FieldSetType
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.i18n.IResourceBundle
+import org.telluriumsource.framework.Environment
 
 
 /**
@@ -25,7 +25,7 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
     protected final static String BLOCK_START_PREFIX = "#{"
     protected final static String BLOCK_END_PREFIX = "#}"
     protected final static String META_DATA_PREFIX = "#!"
-    protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
+    protected IResourceBundle i18nBundle;
 
 
     protected FieldSetRegistry registry
@@ -34,6 +34,9 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
 
     protected ObjectUnmarshaller marshaller
 
+    public BaseFieldSetObjectMapper(){
+    	i18nBundle = Environment.instance.myResourceBundle()
+    }
     protected boolean isEnd(List fieldData){
          //end of file
         if(fieldData == null || fieldData.size() < 1)
@@ -63,8 +66,8 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
         }
 
         if(fs == null)
-        	
-            throw new DataMappingException(i18nManager.translate("FieldSetObjectMapper.CannotFindFieldSet" , convString(fieldData)))
+
+            throw new DataMappingException(i18nBundle.getMessage("FieldSetObjectMapper.CannotFindFieldSet" , convString(fieldData)))
 
         FieldSetValidator.validate(fs, fieldData)
         FieldSetMapResult result = new FieldSetMapResult()
@@ -73,7 +76,7 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
         if(fieldData != null && fieldData.size() > 0){
 			//check all the type maps for this field set
             if(fieldData.size() != fs.getFields().size())
-                throw new DataMappingException(i18nManager.translate("FieldSetObjectMapper.DataFieldSizeDoNotMatch" , fs.getName()))
+                throw new DataMappingException(i18nBundle.getMessage("FieldSetObjectMapper.DataFieldSizeDoNotMatch" , fs.getName()))
             for(int i=0; i<fieldData.size(); i++){
                 Field df = fs.getFields().get(i)
                 def value = marshaller.unmarshal(df.getType(), fieldData.get(i))

@@ -5,13 +5,13 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.i18n.ResourceBundle;
+import org.telluriumsource.i18n.IResourceBundle;
 
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
- *         
+ *
  *         Date: Jan 13, 2009
  */
 public class UiParser {
@@ -25,9 +25,6 @@ public class UiParser {
     private UiDataReader reader = new UiDataReader();
 
     private Tree tree = new Tree();
-    protected static InternationalizationManager i18nManager = new InternationalizationManagerImpl();
-
-
     protected Map<String, String> parseAttributes(String attributes){
         Map<String, String> attrs = new HashMap<String, String>();
         if(attributes != null && attributes.trim().length() > 0){
@@ -61,7 +58,7 @@ public class UiParser {
 
             tree.addElement(element);
         }
-        
+
         return false;
     }
 
@@ -82,7 +79,8 @@ public class UiParser {
 
             tree.printUI();
         } catch (FileNotFoundException e) {
-        	System.out.println(i18nManager.translate("UIParser.FileNotFoundException" , new Object[]{filename}));
+        	IResourceBundle i18nBundle = new ResourceBundle();
+        	System.out.println(i18nBundle.getMessage("UIParser.FileNotFoundException" , new Object[]{filename}));
         }
     }
 
@@ -91,7 +89,8 @@ public class UiParser {
            UiParser parser = new UiParser();
            parser.parseFile(args[0]);
        }else{
-       		System.out.println(i18nManager.translate("UIParser.Usage" ));
+       		IResourceBundle i18nBundle = new ResourceBundle();
+       		System.out.println(i18nBundle.getMessage("UIParser.Usage" ));
 
        }
     }

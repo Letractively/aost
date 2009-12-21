@@ -14,11 +14,7 @@ import org.telluriumsource.event.EventHandler
 import org.telluriumsource.server.EmbeddedSeleniumServer
 import org.telluriumsource.widget.WidgetConfigurator
 import org.telluriumsource.test.helper.*
-
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
-
-
+import org.telluriumsource.i18n.IResourceBundle;
 import org.telluriumsource.bundle.BundleProcessor
 import org.telluriumsource.framework.Environment
 import org.telluriumsource.exception.ConfigNotFoundException
@@ -38,32 +34,8 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     String key = name.substring(5)
     def obj = this.props.get(key)
     if(obj == null){
-       throw new ConfigNotFoundException(i18nManager.translate("TelluriumConfigurator.ConfigNotFound.default" ,  key, "http://code.google.com/p/aost/wiki/TelluriumConfig070", "Tellurium user group at http://groups.google.com/group/tellurium-users" ))
+       throw new ConfigNotFoundException(i18nBundle.getMessage("TelluriumConfigurator.ConfigNotFound.default" ,  key, "http://code.google.com/p/aost/wiki/TelluriumConfig070", "Tellurium user group at http://groups.google.com/group/tellurium-users" ))
     }
-  }
-
-  protected InternationalizationManager configi18nManager(conf)
-  {
-	  InternationalizationManager manager = new InternationalizationManagerImpl()
-	  def locale = null
-
-      checkConfig("conf.tellurium.i18n.locale")
-	  if(conf != null  && conf.tellurium!=null && conf.tellurium.i18n!=null && conf.tellurium.i18n.locale!=null ){
-	    	String definedLocales = conf.tellurium.i18n.locale
-	    	String[] localeString = definedLocales.split("_")
-	    	if(localeString.length == 2)
-	    	  locale = new Locale(localeString[0] , localeString[1])
-	  else
-	    	  locale = Locale.getDefault();
-	  }
-	  else
-	      locale = Locale.getDefault();
-
-	  if(locale == null)
-	   	locale = new Locale("en" , "US");
-	  manager.defaultLocale = locale
-	  manager.addResourceBundle("DefaultMessagesBundle" , locale)
-	  return manager;
   }
 
   protected void configEmbeededServer(EmbeddedSeleniumServer server) {
@@ -81,7 +53,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
 
     checkConfig("conf.tellurium.embeddedserver.profile")
     server.setProperty("profileLocation", conf.tellurium.embeddedserver.profile)
-    
+
     checkConfig("conf.tellurium.embeddedserver.userExtension")
     server.setProperty("userExtension", conf.tellurium.embeddedserver.userExtension)
   }
@@ -148,7 +120,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     } else if ("ExcelFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)) {
       dataProvider.setProperty("reader", new ExcelDataReader())
     } else {
-      println i18nManager.translate("TelluriumConfigurator.UnsupportedReader", conf.tellurium.datadriven.dataprovider.reader)
+      println i18nBundle.getMessage("TelluriumConfigurator.UnsupportedReader", conf.tellurium.datadriven.dataprovider.reader)
     }
   }
 
@@ -272,17 +244,11 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     checkConfig("conf.tellurium.bundle.useMacroCommand")
     checkConfig("conf.tellurium.test.execution.trace")
     checkConfig("conf.tellurium.test.exception.captureScreenshot")
-    checkConfig("conf.tellurium.i18n.locale")     
 
     env.setProperty("maxMacroCmd", conf.tellurium.bundle.maxMacroCmd);
     env.setProperty("exploitBundle", conf.tellurium.bundle.useMacroCommand);
     env.setProperty("trace", conf.tellurium.test.execution.trace);
     env.setProperty("captureScreenshot", conf.tellurium.test.exception.captureScreenshot);
-    if (conf != null && conf.tellurium != null && conf.tellurium.i18n != null && conf.tellurium.i18n.locale != null) {
-      env.setProperty("locale", conf.tellurium.i18n.locale);
-    } else {
-      env.setProperty("locale", "en_US");
-    }
   }
 
   protected void configEnvironmentDefaultValues(Environment env) {
@@ -295,86 +261,84 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
 
   public void config(Configurable configurable) {
 
-	InternationalizationManager i18nManager = configi18nManager(conf) ;
-    
     if (conf != null) {
       if (configurable instanceof EmbeddedSeleniumServer) {
-        println i18nManager.translate("TelluriumConfigurator.EmbeddedSeleniumServer")
+        println i18nBundle.getMessage("TelluriumConfigurator.EmbeddedSeleniumServer")
         configEmbeededServer(configurable)
       } else if (configurable instanceof SeleniumConnector) {
-        println i18nManager.translate("TelluriumConfigurator.SeleniumClient")
+        println i18nBundle.getMessage("TelluriumConfigurator.SeleniumClient")
         configSeleniumConnector(configurable)
       } else if (configurable instanceof DataProvider) {
-        println i18nManager.translate("TelluriumConfigurator.DataProvider")
+        println i18nBundle.getMessage("TelluriumConfigurator.DataProvider")
         configDataProvider(configurable)
       } else if (configurable instanceof DefaultResultListener) {
-        println i18nManager.translate("TelluriumConfigurator.ResultListener")
+        println i18nBundle.getMessage("TelluriumConfigurator.ResultListener")
         configResultListener(configurable)
       } else if (configurable instanceof FileOutput) {
-        println i18nManager.translate("TelluriumConfigurator.FileOutput")
+        println i18nBundle.getMessage("TelluriumConfigurator.FileOutput")
         configFileOutput(configurable)
       } else if (configurable instanceof UiObjectBuilderRegistry) {
-        println i18nManager.translate("TelluriumConfigurator.UIObjectBuilder")
+        println i18nBundle.getMessage("TelluriumConfigurator.UIObjectBuilder")
         configUiObjectBuilder(configurable)
       } else if (configurable instanceof WidgetConfigurator) {
-        println i18nManager.translate("TelluriumConfigurator.WidgetModules");
+        println i18nBundle.getMessage("TelluriumConfigurator.WidgetModules");
         configWidgetModule(configurable)
       } else if (configurable instanceof EventHandler) {
-        println i18nManager.translate("TelluriumConfigurator.EventHandler");
+        println i18nBundle.getMessage("TelluriumConfigurator.EventHandler");
         configEventHandler(configurable)
       } else if (configurable instanceof Accessor) {
-        println i18nManager.translate("TelluriumConfigurator.DataAccessor");
+        println i18nBundle.getMessage("TelluriumConfigurator.DataAccessor");
         configAccessor(configurable)
       } else if (configurable instanceof Dispatcher) {
-        println i18nManager.translate("TelluriumConfigurator.Dispatcher");
+        println i18nBundle.getMessage("TelluriumConfigurator.Dispatcher");
         configDispatcher(configurable)
       } else if (configurable instanceof BundleProcessor) {
-        println i18nManager.translate("TelluriumConfigurator.Bundle")
+        println i18nBundle.getMessage("TelluriumConfigurator.Bundle")
         configBundleProcessor(configurable)
       } else if (configurable instanceof Environment) {
         configEnvironment(configurable)
       } else {
-        println i18nManager.translate("TelluriumConfigurator.UnsupportedType");
+        println i18nBundle.getMessage("TelluriumConfigurator.UnsupportedType");
       }
     } else {
       //use default values instead
       if (configurable instanceof EmbeddedSeleniumServer) {
-        println i18nManager.translate("TelluriumConfigurator.EmbeddedSeleniumServer.default")
+        println i18nBundle.getMessage("TelluriumConfigurator.EmbeddedSeleniumServer.default")
         configEmbeededServerDefaultValues(configurable)
       } else if (configurable instanceof SeleniumConnector) {
-        println i18nManager.translate("TelluriumConfigurator.SeleniumClient.default")
+        println i18nBundle.getMessage("TelluriumConfigurator.SeleniumClient.default")
         configSeleniumConnectorDefaultValues(configurable)
       } else if (configurable instanceof DataProvider) {
-        println i18nManager.translate("TelluriumConfigurator.DataProvider.default")
+        println i18nBundle.getMessage("TelluriumConfigurator.DataProvider.default")
         configDataProviderDefaultValues(configurable)
       } else if (configurable instanceof DefaultResultListener) {
-        println i18nManager.translate("TelluriumConfigurator.ResultListener.default")
+        println i18nBundle.getMessage("TelluriumConfigurator.ResultListener.default")
         configResultListenerDefaultValues(configurable)
       } else if (configurable instanceof FileOutput) {
-        println i18nManager.translate("TelluriumConfigurator.FileOutput.default")
+        println i18nBundle.getMessage("TelluriumConfigurator.FileOutput.default")
         configFileOutputDefaultValues(configurable)
       } else if (configurable instanceof UiObjectBuilderRegistry) {
-        println i18nManager.translate("TelluriumConfigurator.UIObjectBuilder.default")
+        println i18nBundle.getMessage("TelluriumConfigurator.UIObjectBuilder.default")
         configUiObjectBuilderDefaultValues(configurable)
       } else if (configurable instanceof WidgetConfigurator) {
-        println i18nManager.translate("TelluriumConfigurator.WidgetConfigurator.default")
+        println i18nBundle.getMessage("TelluriumConfigurator.WidgetConfigurator.default")
         configWidgetModuleDefaultValues(configurable)
       } else if (configurable instanceof EventHandler) {
-        println i18nManager.translate("TelluriumConfigurator.EventHandler.default")
+        println i18nBundle.getMessage("TelluriumConfigurator.EventHandler.default")
         configEventHandlerDefaultValues(configurable)
       } else if (configurable instanceof Accessor) {
-        println i18nManager.translate("TelluriumConfigurator.DataAccessor.default")
+        println i18nBundle.getMessage("TelluriumConfigurator.DataAccessor.default")
         configAccessorDefaultValues(configurable)
       } else if (configurable instanceof Dispatcher) {
-        println i18nManager.translate("TelluriumConfigurator.Dispatcher.default")
+        println i18nBundle.getMessage("TelluriumConfigurator.Dispatcher.default")
         configDispatcherDefaultValues(configurable)
       } else if (configurable instanceof BundleProcessor) {
-        println i18nManager.translate("TelluriumConfigurator.Bundle.default")
+        println i18nBundle.getMessage("TelluriumConfigurator.Bundle.default")
         configBundleProcessorDefaultValues(configurable)
       } else if (configurable instanceof Environment) {
         configEnvironmentDefaultValues(configurable)
       } else {
-        println i18nManager.translate("TelluriumConfigurator.UnsupportedType");
+        println i18nBundle.getMessage("TelluriumConfigurator.UnsupportedType");
       }
 
     }

@@ -41,7 +41,7 @@ public class StandardTable_UT extends GroovyTestCase {
    void testDump(){
      StandardTable1 table = new StandardTable1()
      table.defineUi()
-     
+
      table.dump("table1")
      table.dump("table2")
      table.useCssSelector();

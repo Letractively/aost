@@ -2,8 +2,8 @@ package org.telluriumsource.ddt.object.mapping.io
 
 import org.telluriumsource.Const;
 import org.telluriumsource.ddt.object.mapping.DataMappingException
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.framework.Environment;
+import org.telluriumsource.i18n.IResourceBundle;
 
 
 
@@ -13,13 +13,17 @@ import org.telluriumsource.i18n.InternationalizationManagerImpl;
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Aug 18, 2008
- * 
+ *
  */
 class CSVDataReader implements DataReader{
 		protected final static String FIELD_DELIMITER = ","
 		//	protected final static String ESCAPE_START = "\\Q"
 		//	protected final static String ESCAPE_END = "\\E"
-		protected InternationalizationManager i18nManager = new InternationalizationManagerImpl();
+		protected IResourceBundle i18nBundle;
+
+		public CSVDataReader(){
+			i18nBundle = Environment.instance.myResourceBundle()
+		}
 
 		public void setupDataStream(FileInputStream input)
 		{
@@ -38,25 +42,25 @@ class CSVDataReader implements DataReader{
 
 	    //read in a line from a file and then convert them to a String list
 	    public List readLine(BufferedReader reader) {
-	
+
 			List<String, String> lst = new ArrayList<String, String>()
-	
+
 	        try {
 				String line = reader.readLine()
 				//If we reached the end of the file, no more lines, just return.
 				if(line == null)
 					return lst
-	            
+
 	            String[] fields = line.split(FIELD_DELIMITER)
-	
+
 	            for(String s : fields){
 	                lst.add(s.trim())
 	            }
-	
+
 			} catch (IOException e) {
-				throw new DataMappingException(i18nManager.translate("DataReader.ReadDataException" , e.getMessage()))
+				throw new DataMappingException(i18nBundle.getMessage("DataReader.ReadDataException" , e.getMessage()))
 			}
-	
+
 			return lst
 		}
 }

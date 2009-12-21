@@ -1,10 +1,7 @@
 package org.telluriumsource.access
 
 import org.telluriumsource.config.Configurable
-
 import org.telluriumsource.util.Helper
-import org.telluriumsource.i18n.InternationalizationManager
-import org.telluriumsource.i18n.InternationalizationManagerImpl
 
 import org.telluriumsource.bundle.BundleProcessor
 import org.telluriumsource.dsl.WorkflowContext;
@@ -12,7 +9,6 @@ import org.telluriumsource.dsl.WorkflowContext;
 
 class Accessor implements Configurable {
 
-  private InternationalizationManager i18nManager = new InternationalizationManagerImpl();
 
   protected static final int ACCESS_WAIT_TIME = 50
 

@@ -1,7 +1,7 @@
 package org.telluriumsource.tool;
 
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.i18n.ResourceBundle;
+import org.telluriumsource.i18n.IResourceBundle;
 
 
 /**
@@ -13,9 +13,6 @@ import org.telluriumsource.i18n.InternationalizationManagerImpl;
  */
 public class XPathMatcher {
     public final static String DELIMITER = "/";
-    
-    protected static InternationalizationManager i18nManager = new InternationalizationManagerImpl();
-
 
     public static String match(String src, String dst){
         if(src == null || dst == null)
@@ -40,7 +37,7 @@ public class XPathMatcher {
             if(shortsplit[i].equals(longsplit[i])){
                 //match
                 if(i>0)
-                    sb.append(DELIMITER);        
+                    sb.append(DELIMITER);
                 sb.append(shortsplit[i]);
             }else
                 //not match
@@ -56,7 +53,7 @@ public class XPathMatcher {
         if(original.startsWith(prefix)){
             return original.substring(prefix.length());
         }
-
-        throw new RuntimeException(i18nManager.translate("XPathMatcher.RunTimeException" , new Object[] {original , prefix}));
+        IResourceBundle i18nBundle = new ResourceBundle();
+        throw new RuntimeException(i18nBundle.getMessage("XPathMatcher.RunTimeException" , new Object[] {original , prefix}));
     }
 }

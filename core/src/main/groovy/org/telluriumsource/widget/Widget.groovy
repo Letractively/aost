@@ -1,5 +1,6 @@
 package org.telluriumsource.widget
 
+import java.util.List
 import org.telluriumsource.access.Accessor
 import org.telluriumsource.dsl.UiDslParser
 import org.telluriumsource.dsl.UiID
@@ -12,12 +13,12 @@ import org.telluriumsource.object.UiObject
 import org.telluriumsource.util.Helper
 import org.telluriumsource.extend.Extension
 import org.stringtree.json.JSONReader
-
+import org.json.simple.JSONArray
 import org.telluriumsource.locator.JQueryOptimizer
 import org.json.simple.JSONObject
 import org.telluriumsource.locator.MetaCmd
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.framework.Environment;
+import org.telluriumsource.i18n.IResourceBundle;
 
 
 /**
@@ -34,8 +35,7 @@ import org.telluriumsource.i18n.InternationalizationManagerImpl;
  */
 //@Mixin(BaseDslContext)
 abstract class Widget extends UiObject {
-
-  protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
+  protected IResourceBundle i18nBundle
 
   protected static final String JQUERY_SELECTOR = "jquery="
   protected static final String JQUERY_SELECTOR_CACHE = "jquerycache="
@@ -52,7 +52,7 @@ abstract class Widget extends UiObject {
 
   //flag to decide whether we should cache jQuery selector
   protected boolean exploreSelectorCache = false
-  
+
   protected JQueryOptimizer optimizer = new JQueryOptimizer()
 
   //the reference xpath for widget's parent
@@ -63,6 +63,9 @@ abstract class Widget extends UiObject {
   //for example, if Dojo and ExtJS both has the widget called Accordion, we have to differentiate
   //them using name space, i.e., DOJO::Accordion and ExtJS::Accordion
 
+  public Widget(){
+	  i18nBundle = Environment.instance.myResourceBundle()
+  }
   public void updateParentRef(String ref) {
     this.pRef = ref
   }
@@ -108,10 +111,10 @@ abstract class Widget extends UiObject {
         lcr = "/" + lcr
       }
     }
-    
+
     return lcr
   }*/
-  
+
   protected String locatorMapping(WorkflowContext context, loc) {
     return locatorMappingWithOption(context, loc, null)
   }
@@ -304,7 +307,7 @@ abstract class Widget extends UiObject {
       return obj
     }
 
-    throw new UiObjectNotFoundException(i18nManager.translate("Widget.UiObjectError",uid))
+    throw new UiObjectNotFoundException(i18nBundle.getMessage("Widget.UiObjectError",uid))
   }
 
   def click(String uid) {
@@ -1215,7 +1218,7 @@ abstract class Widget extends UiObject {
       obj.traverse(context)
       ArrayList list = context.getUidList()
 
-      println(i18nManager.translate("Widget.LocatorInformation" , uid ))
+      println(i18nBundle.getMessage("Widget.LocatorInformation" , uid ))
 
       println("-------------------------------------------------------")
       list.each {String key->
@@ -1247,7 +1250,7 @@ abstract class Widget extends UiObject {
     if (nextid.equalsIgnoreCase(this.uid)) {
       return this
     } else {
-      println(i18nManager.translate("Widget.CannotFindUIObject" , nextid , this.uid ))
+      println(i18nBundle.getMessage("Widget.CannotFindUIObject" , nextid , this.uid ))
       return null
     }
   }

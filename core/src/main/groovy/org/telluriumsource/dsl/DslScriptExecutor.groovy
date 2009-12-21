@@ -1,7 +1,7 @@
 package org.telluriumsource.dsl
 
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.framework.Environment;
 
 class DslScriptExecutor {
 
@@ -10,15 +10,16 @@ class DslScriptExecutor {
             def dsl = new File(args[0]).text
             def script = """
                 import org.telluriumsource.dsl.DslScriptEngine
-                import org.telluriumsource.i18n.InternationalizationManager
+                import org.telluriumsource.framework.Environment;
+                import org.telluriumsource.i18n.IResourceBundle;
                 class DslTest extends DslScriptEngine{
                     def test(){
                         init()
                         ${dsl}
                         shutDown()
-                        InternationalizationManager i18nManager = new InternationalizationManagerImpl()
-                        
-                        println i18nManager.translate("DslScriptExecutor.DslTestDone")
+                        IResourceBundle i18nBundle = Environment.instance.myResourceBundle()
+
+                        println i18nBundle.getMessage("DslScriptExecutor.DslTestDone")
                     }
                 }
 
@@ -29,9 +30,9 @@ class DslScriptExecutor {
             new GroovyShell().evaluate(script)
 
        }else{
-    	   InternationalizationManager i18nManager = new InternationalizationManagerImpl()
-           
-           println i18nManager.translate("DslScriptExecutor.Usage")
+    	   IResourceBundle i18nBundle = Environment.instance.myResourceBundle()
+
+           println i18nBundle.getMessage("DslScriptExecutor.Usage")
        }
 
     }

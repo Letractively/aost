@@ -1,7 +1,7 @@
 package org.telluriumsource.dsl
 
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.framework.Environment;
+import org.telluriumsource.i18n.IResourceBundle;
 
 
 /**
@@ -13,7 +13,7 @@ import org.telluriumsource.i18n.InternationalizationManagerImpl;
  */
 
 public class DiagnosisResponse {
-  protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
+  protected IResourceBundle i18nBundle
 
   public static final String UID = "uid"
   private String uid;
@@ -34,6 +34,7 @@ public class DiagnosisResponse {
   private String html;
 
   def DiagnosisResponse() {
+	  i18nBundle = Environment.instance.myResourceBundle()
   }
 
   def DiagnosisResponse(Map map) {
@@ -43,20 +44,21 @@ public class DiagnosisResponse {
     this.parents = map.get(PARENTS);
     this.closest = map.get(CLOSEST);
     this.html = map.get(HTML);
+    i18nBundle = Environment.instance.myResourceBundle()
   }
 
   public void show() {
-    println i18nManager.translate("DiagnosisResponse.DiagnosisResult" , uid)
-    
+    println i18nBundle.getMessage("DiagnosisResponse.DiagnosisResult" , uid)
+
     println("\n-------------------------------------------------------\n")
 
-    println i18nManager.translate("DiagnosisResponse.MatchingCount" , count)
+    println i18nBundle.getMessage("DiagnosisResponse.MatchingCount" , count)
     if(matches != null && matches.size() > 0){
-      println i18nManager.translate("DiagnosisResponse.MatchingElement")
+      println i18nBundle.getMessage("DiagnosisResponse.MatchingElement")
       int i = 0;
       matches.each {String elem ->
         i++;
-        println i18nManager.translate("DiagnosisResponse.Element" , i)
+        println i18nBundle.getMessage("DiagnosisResponse.Element" , i)
         println(elem + "\n");
       }
     }
@@ -66,25 +68,25 @@ public class DiagnosisResponse {
       int j = 0;
       parents.each {String elem ->
         j++;
-        println i18nManager.translate("DiagnosisResponse.Parent" , j)
+        println i18nBundle.getMessage("DiagnosisResponse.Parent" , j)
         println(elem + "\n");
       }
     }
 
     if(closest != null && closest.size() > 0){
-      println i18nManager.translate("DiagnosisResponse.Closest")
+      println i18nBundle.getMessage("DiagnosisResponse.Closest")
       println("\n\tClosest: \n");
       int k = 0;
 
       closest.each {String elem ->
         k++;
-        println i18nManager.translate("DiagnosisResponse.ClosestElement" , k);
+        println i18nBundle.getMessage("DiagnosisResponse.ClosestElement" , k);
         println(elem + "\n");
       }
     }
 
     if(html != null){
-      println i18nManager.translate("DiagnosisResponse.HtmlSource")
+      println i18nBundle.getMessage("DiagnosisResponse.HtmlSource")
       println(html);
       println("\n");
     }

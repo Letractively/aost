@@ -1,26 +1,31 @@
 package org.telluriumsource.dsl
 
 import org.telluriumsource.builder.UiObjectBuilderRegistry
-
+import org.telluriumsource.dsl.UiID
+import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.exception.UiObjectNotFoundException
 import org.telluriumsource.object.*
 import org.telluriumsource.exception.InvalidObjectTypeException
 
-import org.telluriumsource.i18n.InternationalizationManager;
-import org.telluriumsource.i18n.InternationalizationManagerImpl;
+import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.framework.Environment;
+
 
 
 class UiDslParser extends BuilderSupport{
        public static final String UID = "uid"
        public static final String REF = "ref"
        public static final String INCLUDE = "Include"
-  	   protected InternationalizationManager i18nManager = new InternationalizationManagerImpl()
-  
+       protected IResourceBundle i18nBundle
+
        def registry = [:]
 
        //this should return a singleton class with default builders populated
        def UiObjectBuilderRegistry builderRegistry = new UiObjectBuilderRegistry()
 
+       public UiDslParser(){
+ 		  i18nBundle = Environment.instance.myResourceBundle()
+       }
        protected String nestObjectName(UiObject obj){
           String id
           if(obj.parent != null && obj.parent instanceof Table){
@@ -41,7 +46,7 @@ class UiDslParser extends BuilderSupport{
                 id = StandardTable.internalId(op.uid) + "." + id
             }else{
                 id = op.uid + "." + id
-            }            
+            }
            }
 
           return id
@@ -67,13 +72,13 @@ class UiDslParser extends BuilderSupport{
               if(fo != null){
                   return fo.walkTo(context, uiid)
               }else{
-                  println("Error: cannot find the top object ${first}")
+                  println(i18nBundle.getMessage("UiDslParser.CannotFindTopObject" , first))
                   return null
               }
           }
 
-          println i18nManager.translate("UiDslParser.IdNotEmpty")
-           
+          println i18nBundle.getMessage("UiDslParser.IdNotEmpty")
+
           return null
        }
 
@@ -88,10 +93,10 @@ class UiDslParser extends BuilderSupport{
          WorkflowContext context = WorkflowContext.getDefaultContext()
          UiObject obj = walkTo(context, ref)
          if(obj == null)
-             throw new UiObjectNotFoundException(i18nManager.translate("UiDslParser.CannotFindUiObject" , ref))
+             throw new UiObjectNotFoundException(i18nBundle.getMessage("UiDslParser.CannotFindUiObject" , ref))
 
          if(uid != null && (!uid.equalsIgnoreCase(obj.uid))){
-         //IF UID is specified and is not equals to the referenced obj uid, we need to clone 
+         //IF UID is specified and is not equals to the referenced obj uid, we need to clone
          //the object
            obj = obj.clone()
            obj.uid = uid
@@ -119,8 +124,8 @@ class UiDslParser extends BuilderSupport{
 
              return obj
            }else{
-        	   
-             throw new InvalidObjectTypeException(i18nManager.translate("UiDslParser.InvalidUIObject" , name))
+
+             throw new InvalidObjectTypeException(i18nBundle.getMessage("UiDslParser.InvalidUIObject" , name))
            }
 
        }
@@ -135,7 +140,7 @@ class UiDslParser extends BuilderSupport{
          if (INCLUDE.equalsIgnoreCase(name)) {
 
            return this.findIncludedUiObject(map)
-           
+
          }else {
            def builder = builderRegistry.getBuilder(name)
 
@@ -144,7 +149,7 @@ class UiDslParser extends BuilderSupport{
 
                 return obj
            }else{
-              throw new InvalidObjectTypeException(i18nManager.translate("UiDslParser.InvalidUIObject" , name))
+              throw new InvalidObjectTypeException(i18nBundle.getMessage("UiDslParser.InvalidUIObject" , name))
            }
          }
        }
@@ -157,7 +162,7 @@ class UiDslParser extends BuilderSupport{
 
                return obj
            }else{
-              throw new InvalidObjectTypeException(i18nManager.translate("UiDslParser.InvalidUIObject" , name))
+              throw new InvalidObjectTypeException(i18nBundle.getMessage("UiDslParser.InvalidUIObject" , name))
            }
        }
 
@@ -165,7 +170,7 @@ class UiDslParser extends BuilderSupport{
           //when the node is completed and its parent is null, it means this node is at the top level
           if(parent == null){
                UiObject uo = (UiObject)node
-               //only put the top level nodes into the registry 
+               //only put the top level nodes into the registry
                registry.put(uo.uid, node)
           }
 
