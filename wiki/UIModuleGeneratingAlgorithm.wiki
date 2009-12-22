@@ -641,3 +641,12 @@ ontainer(UID: 'root', clocator: [:]){
   }
 }
 }}}
+
+= Summary =
+
+The UI module generating algorithm in Tellurium UI Module Plugin (Trump) is based on a prefix tree and the procedure is more complicated than the one used in dictionary. In Trump 0.2.0 and later versions, the algorithm will be improved to automatically include some critical UI elements even users do not select them. Generalizing UI elements into UI templates is another big challenge.
+
+= Resources =
+
+  * [http://code.google.com/p/aost/wiki/TrUMP Tellurium UI Module Plugin]
+  * [http://en.wikipedia.org/wiki/Trie Trie] 
