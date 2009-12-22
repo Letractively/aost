@@ -1,0 +1,16 @@
+#summary The UI Module Generating Algorithm in Trump.
+#labels Phase-Design
+
+= Introduction =
+
+The [http://code.google.com/p/aost/wiki/TrUMP Tellurium UI Module Plugin] (Trump) automatically generates UI modules for users. The workflow of Trump is shown as follows:
+
+http://tellurium-users.googlegroups.com/web/TrUMPDiagramSmall.png?gda=9CFDmEcAAAD5mhXrH3CK0rVx4StVj0LYmqln6HzIDYRu0sy-jUnaq8nAtNENvOA6NOHkUCAqlOUVeY4b49xGcMK802iZZ8SFeV4duv6pDMGhhhZdjQlNAw&gsc=5FPzPwsAAAA9y3PlQReYHIKRUJU7LIYD
+
+You may wonder in step 2, how the UI module is generated. The main idea behind this is to get the full xpath for each UI element that a user selects. Then, construct the UI module based on the xpaths. 
+
+The core algorithm is a similar to the one to build a prefix tree. The data structure of the [http://en.wikipedia.org/wiki/Trie prefix tree, or Trie in short] can be illustrated by the following Figure, which representing a dictionary with prefix chains.
+
+http://upload.wikimedia.org/wikipedia/commons/b/be/Trie_example.svg
+
+
