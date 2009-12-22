@@ -177,19 +177,19 @@ A more general example is:
 
 Except for the "click" event, all of the "focus", "mouseOver", "mouseOut", and "blur" events are automatically fired by Tellurium during testing. Do not worry about the event order for the respond attribute as Tellurium automatically re-orders the events and then processes them appropriately. That is to say, the Event Handler will automatically trigger these events.
 
-== jQuery Selector (Improving Test Speed)==
+== CSS Selector (Improving Test Speed)==
 
-Use the jQuery Selector to improve the test speed in IE as IE lacks native XPath support and the XPath is slow. Tellurium exploits jQuery selector capability to improve test speed dramatically.
+Use the CSS Selector to improve the test speed in IE as IE lacks native XPath support and the XPath is slow. Tellurium exploits CSS selector capability to improve test speed dramatically.
 
-Tellurium supports both XPath and jQuery selector and still uses XPath as the default locator. To use jQuery selector, explicitly command Tellurium to use the jQuery selector.
+Tellurium supports both XPath and CSS selector and still uses XPath as the default locator. To use CSS selector, explicitly command Tellurium to use the CSS selector.
 
-To *enable* jQuery selector call the following method:
+To *enable* CSS selector call the following method:
 
-{{{useJQuerySelector():}}} to use jQuery selector.
+{{{useCssSelector():}}} to use CSS selector.
 
-To *disable* jQuery selector call the following method: 
+To *disable* CSS selector call the following method: 
 
-{{{disableJQuerySelector():}}} to switch back to XPath locator.
+{{{disableCssSelector():}}} to switch back to XPath locator.
 
 jQuery also switches back to the default locator. For example. XPath. jQuery is illustrated in the diagram as shown in Figure 2-4:
 
@@ -197,11 +197,11 @@ jQuery also switches back to the default locator. For example. XPath. jQuery is 
 
 http://tellurium-users.googlegroups.com/web/xpathjqsel.png?gda=BNGlpUAAAACXZPxEX7Ki-M5C2JpeBoXXvv3pQbLsTR0DEnS8qeQoBNY-98qTaiNg3Pwb0MuStQFtxVPdW1gYotyj7-X7wDON&gsc=aNwLeQsAAABDFDbDDy4icI5hL1ANoQtp
 
-Some of the jQuery functions are provided by the custom Selenium server, which is created by the Tellurium Engine project. Be aware that jQuery selector only works for the Composite locator, the {{{clocator}}}. _It is not for use with the base locator, such as the XPath, in the UI module_.
+Some of the jQuery functions are provided by the custom Selenium server, which is created by the Tellurium Engine project. Be aware that CSS selector only works for the Composite locator, the {{{clocator}}}. _It is not for use with the base locator, such as the XPath, in the UI module_.
 
-=== How Does the jQuery Selector Work? ===
+=== How Does the CSS Selector Work? ===
 
-jQuery Selector is used to customize Selenium Core to load the jQuery library at startup time. Add {{{jquery.js}}} into the {{{TestRunner.html}}} and {{{RemoteRunner.html}}}. 
+CSS Selector is used to customize Selenium Core to load the jQuery library at startup time. Add {{{jquery.js}}} into the {{{TestRunner.html}}} and {{{RemoteRunner.html}}}. 
 
 Another way is dump all {{{jquery.js}}} into {{{user-extensions.js}}}. As the Tellurium Engine prototype customizes Selenium core anyway, the former method is used.
 
@@ -295,19 +295,19 @@ class CustomSelenium extends DefaultSelenium {
 
 === New DSL Methods ===
 
-jQuery Selector provides the following additional Selenium methods, utilized in {{{DslContext}}} to form a set of new DSL methods:
+CSS Selector provides the following additional Selenium methods, utilized in {{{DslContext}}} to form a set of new DSL methods:
 
 {{{String getAllText(String locator): }}}
 <br />
-1. Get all the text from the set of elements corresponding to the jQuery Selector.
+1. Get all the text from the set of elements corresponding to the CSS Selector.
 {{{String getCSS(String locator, String cssName) : }}}
 
-2. Get the CSS properties for the set of elements corresponding to the jQuery Selector.
+2. Get the CSS properties for the set of elements corresponding to the CSS Selector.
 {{{Number getJQuerySelectorCount(String locator) : }}}
 
-3. Get the number of elements matching the corresponding jQuery Selector.
+3. Get the number of elements matching the corresponding CSS Selector.
 
-=== Additional jQuery Attribute Selectors ===
+=== Additional CSS Attribute Selectors ===
 
 jQuery also supports the following attribute selectors:
 
@@ -324,19 +324,19 @@ Apart from the above, Tellurium provides a set of locator agnostic methods.
 
 For example, the method automatically decides to use XPath or jQuery dependent on the {{{exploreJQuerySelector}}} flag, which can be turned on and off by the following two methods:
 
-  # public void {{{useJQuerySelector()}}}
-  # public void {{{disableJQuerySelector()}}}
+  # public void {{{useCssSelector()}}}
+  # public void {{{disableCssSelector()}}}
 
-Tellurium also provides the corresponding XPath specific and jQuery selector specific methods for your convenience. However, it is recommended that you use the locator agnostic methods until there is a good reason not to.
+Tellurium also provides the corresponding XPath specific and CSS selector specific methods for your convenience. However, it is recommended that you use the locator agnostic methods until there is a good reason not to.
 
-The new XPath and jQuery Selector specific methods are as follows:
+The new XPath and CSS Selector specific methods are as follows:
 
 1. Get the Generated locator from the UI module
 
 Locator agnostic:
 {{{String getLocator(String uid)}}}
 
-JQuery selector specific:
+CSS selector specific:
 {{{String getSelector(String uid)}}}
 
 XPath specific:
@@ -347,7 +347,7 @@ XPath specific:
 Locator agnostic:
 {{{Number getLocatorCount(String locator)}}}
 
-JQuery selector specific:
+CSS selector specific:
 {{{Number getJQuerySelectorCount(String jQuerySelector)}}}
 
 XPath specific:
@@ -371,7 +371,7 @@ Locator agnostic:
 
 {{{int getTableMaxTbodyNum(String uid)}}}
 
-JQuery selector specific:
+CSS selector specific:
 
 {{{int getTableHeaderColumnNumBySelector(String uid)}}}
 
@@ -409,7 +409,7 @@ XPath specific:
 Locator agnostic:
 {{{boolean isDisabled(String uid)}}}
 
-JQuery selector specific:
+CSS selector specific:
 {{{boolean isDisabledBySelector(String uid)}}}
 
 XPath specific:
@@ -427,12 +427,12 @@ Locator agnostic
 
 7. Get CSS Properties
 
-JQuery selector specific:
+CSS selector specific:
 {{{String[] getCSS(String uid, String cssName)}}}
 
 8. Get All Data from a Table
 
-JQuery selector specific:
+CSS selector specific:
 
 {{{String[] getAllTableCellText(String uid)}}}
 
@@ -443,16 +443,16 @@ JQuery selector specific:
 Locator agnostic:
 {{{int getListSize(String uid)}}}
 
-JQuery selector specific:
+CSS selector specific:
 {{{getListSizeBySelector(String uid)}}}
 
 XPath specific:
 {{{getListSizeByXPath(String uid)}}}
 
-There are issues to be aware of with jQuery Selector:
+There are issues to be aware of with CSS Selector:
 
-  * If you have a duplicate "id" attribute on the page, jQuery selector always returns the first DOM reference, ignoring other DOM references with the same "id" attribute.
-  * Some attributes may not be working in jQuery. For example, the "action" attribute in a form. Tellurium has a black list to automatically filter out the attributes that are not honored by jQuery selector.
+  * If you have a duplicate "id" attribute on the page, CSS selector always returns the first DOM reference, ignoring other DOM references with the same "id" attribute.
+  * Some attributes may not be working in jQuery. For example, the "action" attribute in a form. Tellurium has a black list to automatically filter out the attributes that are not honored by CSS selector.
   * The "src" attribute in Image has to be a full URL such as [http://www.google.com/ http://www.google.com]. One workaround is to put '{{{*}}}' before the URL.
 
 === jQuery Selector Cache Option ===
