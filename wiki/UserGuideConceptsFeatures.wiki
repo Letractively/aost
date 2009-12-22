@@ -397,28 +397,28 @@ public class TelluriumDownloadPageTestCase extends TelluriumJavaTestCase {
 }}}
 
 
-== jQuery Selector ==
+== CSS Selector ==
 
-The motivation behind the jQuery Selector is to improve the test speed in IE since IE lacks of native XPath support and the XPath is very slow. Tellurium exploits jQuery selector capability to improve the test speed dramatically. 
+The motivation behind the CSS Selector is to improve the test speed in IE since IE lacks of native XPath support and the XPath is very slow. Tellurium exploits CSS selector capability to improve the test speed dramatically. 
 
-Tellurium supports both XPath and jQuery selector and still uses XPath as the default locator. To use jQuery selector, you need to explicitly tell Tellurium to use jQuery selector. 
+Tellurium supports both XPath and CSS selector and still uses XPath as the default locator. To use CSS selector, you need to explicitly tell Tellurium to use CSS selector. 
 
-To enable jQuery selector call the following method.
+To enable CSS selector call the following method.
 
-   * {{{useJQuerySelector()}}}: Use jQuery selector.
+   * {{{useCssSelector()}}}: Use CSS selector.
 
-To disable jQuery selector call the following method, it also switches back to the default
+To disable CSS selector call the following method, it also switches back to the default
 locator. i.e. XPath
 
-   * {{{disableJQuerySelector()}}}: Switch back to XPath locator.
+   * {{{disableCssSelector()}}}: Switch back to XPath locator.
 
 The above can be better illustrated the following diagram.
 
-http://tellurium-users.googlegroups.com/web/xpathjqsel.png?gda=BNGlpUAAAACXZPxEX7Ki-M5C2JpeBoXXvv3pQbLsTR0DEnS8qeQoBNY-98qTaiNg3Pwb0MuStQFtxVPdW1gYotyj7-X7wDON&gsc=aNwLeQsAAABDFDbDDy4icI5hL1ANoQtp
+http://tellurium-users.googlegroups.com/web/xpathjqsel2.png?gda=ZcLbzkEAAACsdq5EJRKLPm_KNrr_VHB_i4k4E3yBw3ZwuTWAYUCsylo_LL8k1Ivp8OS586drcZpTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=4508XgsAAACdKjHXeYuQCiQefauhN3Sg
 
-Some of the jQuery functions are provided by the custom selenium server, which is created by our Tellurium Engine project. Be aware that jQuery selector only works for composite locator, i.e. clocator. You cannot have base locator, i.e., XPath, in your UI module.
+Some of the jQuery functions are provided by the custom selenium server, which is created by our Tellurium Engine project. Be aware that CSS selector only works for composite locator, i.e. clocator. You cannot have base locator, i.e., XPath, in your UI module.
 
-How does the jQuery selector work? The basic idea is to customize Selenium Core to load the jQuery library at startup time. You can add jquery.js in to the TestRunner.html and RemoteRunner.html. Another way is dump all jquery.js into user-extensions.js. Since our Engine prototype customizes Selenium core anyway, we used the former method.
+How does the CSS selector work?  The basic idea is to customize Selenium Core to load the jQuery library at startup time. You can add jquery.js in to the TestRunner.html and RemoteRunner.html. Another way is dump all jquery.js into user-extensions.js. Since our Engine prototype customizes Selenium core anyway, we used the former method.
 
 After that, we register a custom locate strategy "jquery", using the following Selenium API call:
 
@@ -492,15 +492,15 @@ class CustomSelenium extends DefaultSelenium {
 }
 }}}
 
-jQuery Selector provides the following additional Selenium methods, which are utilized in DslContext to form a set of new DSL methods.
+CSS Selector provides the following additional Selenium methods, which are utilized in DslContext to form a set of new DSL methods.
 
-   * {{{String getAllText(String locator)}}}: Get all text from the set of elements corresponding to the jQuery Selector.
+   * {{{String getAllText(String locator)}}}: Get all text from the set of elements corresponding to the CSS Selector.
 
-   * {{{String getCSS(String locator, String cssName)}}} : Get the CSS properties for the set of elements corresponding to the jQuery Selector.
+   * {{{String getCSS(String locator, String cssName)}}} : Get the CSS properties for the set of elements corresponding to the CSS Selector.
 
-   * {{{Number getJQuerySelectorCount(String locator)}}} : Get the number of elements matching the corresponding jQuery Selector
+   * {{{Number getJQuerySelectorCount(String locator)}}} : Get the number of elements matching the corresponding CSS Selector
 
-jQuery also supports the following attribute selectors.
+CSS also supports the following attribute selectors.
 
    * {{{attribute}}}: have the specified attribute.
 
@@ -517,12 +517,12 @@ jQuery also supports the following attribute selectors.
 Apart from the above, Tellurium provides a set of locator agnostic methods, i.e., the method will automatically decide to use XPath or jQuery dependent on the _exploreJQuerySelector_ flag, which can be turn on and off by the following two methods:
 
 {{{
-public void useJQuerySelector()
+public void useCssSelector()
 
-public void disableJQuerySelector()
+public void disableCssSelector()
 }}}
 
-In the meanwhile, Tellurium also provides the corresponding XPath specific and jQuery selector specific methods for your convenience. However, we recommend you to use the locator agnostic methods until you have a good reason not to. 
+In the meanwhile, Tellurium also provides the corresponding XPath specific and CSS selector specific methods for your convenience. However, we recommend you to use the locator agnostic methods until you have a good reason not to. 
 
 The new methods are listed here:
 
@@ -531,7 +531,7 @@ The new methods are listed here:
   Locator agnostic:
     * {{{String getLocator(String uid)}}}
 
-  JQuery selector specific:
+  CSS selector specific:
     * {{{String getSelector(String uid)}}}
 
   XPath specific: 
@@ -542,7 +542,7 @@ The new methods are listed here:
   Locator agnostic:
     * {{{Number getLocatorCount(String locator)}}}
 
-  JQuery selector specific:
+  CSS selector specific:
     * {{{Number getJQuerySelectorCount(String jQuerySelector)}}}
 
   XPath specific: 
@@ -559,7 +559,7 @@ The new methods are listed here:
     * {{{int getTableMaxColumnNumForTbody(String uid, int ntbody)}}}
     * {{{int getTableMaxTbodyNum(String uid)}}}
 
-  JQuery selector specific:
+  CSS selector specific:
     * {{{int getTableHeaderColumnNumBySelector(String uid)}}}
     * {{{int getTableFootColumnNumBySelector(String uid)}}}
     * {{{int getTableMaxRowNumBySelector(String uid)}}}
@@ -582,7 +582,7 @@ The new methods are listed here:
   Locator agnostic:
     * {{{boolean isDisabled(String uid)}}}
 
-  JQuery selector specific:
+  CSS selector specific:
     * {{{boolean isDisabledBySelector(String uid)}}}
 
   XPath specific: 
@@ -600,12 +600,12 @@ The new methods are listed here:
 
   * Get CSS Properties
 
-  JQuery selector specific:
+  CSS selector specific:
     * {{{String[] getCSS(String uid, String cssName)}}}
 
   * Get All Data from a Table
 
-  JQuery selector specific:
+  CSS selector specific:
     * {{{String[] getAllTableCellText(String uid)}}}
     * {{{String[] getAllTableCellTextForTbody(String uid, int index)}}}
 
@@ -614,15 +614,15 @@ The new methods are listed here:
   Locator agnostic:
     * {{{int getListSize(String uid)}}}
 
-  JQuery selector specific:
+  CSS selector specific:
     * {{{getListSizeBySelector(String uid)}}}
 
   XPath specific: 
     * {{{getListSizeByXPath(String uid)}}}
  
-The are something you should be aware of for jQuery Selector:
-  * If you have a duplicate "id" attribute on the page, jQuery selector always returns the first DOM reference, ignoring other DOM references with the same "id" attribute.
-  * Some attribute may not working in jQuery, for example, the "action" attribute in a form. Tellurium has a black list to automatically filter out the attributes that are not honored by jQuery selector.
+The are something you should be aware of for CSS Selector:
+  * If you have a duplicate "id" attribute on the page, CSS selector always returns the first DOM reference, ignoring other DOM references with the same "id" attribute.
+  * Some attribute may not working in jQuery, for example, the "action" attribute in a form. Tellurium has a black list to automatically filter out the attributes that are not honored by CSS selector.
   * Seems the "src" attribute in Image has to be full URL such as http://www.google.com. One workaround is to put '`*`' before the URL.
 
 
