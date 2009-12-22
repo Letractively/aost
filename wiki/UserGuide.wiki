@@ -535,7 +535,7 @@ locator. i.e. XPath
 
 The above can be better illustrated the following diagram.
 
-http://tellurium-users.googlegroups.com/web/xpathjqsel.png?gda=BNGlpUAAAACXZPxEX7Ki-M5C2JpeBoXXvv3pQbLsTR0DEnS8qeQoBNY-98qTaiNg3Pwb0MuStQFtxVPdW1gYotyj7-X7wDON&gsc=aNwLeQsAAABDFDbDDy4icI5hL1ANoQtp
+http://tellurium-users.googlegroups.com/web/xpathjqsel2.png?gda=ZcLbzkEAAACsdq5EJRKLPm_KNrr_VHB_i4k4E3yBw3ZwuTWAYUCsylo_LL8k1Ivp8OS586drcZpTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=4508XgsAAACdKjHXeYuQCiQefauhN3Sg
 
 Some of the jQuery functions are provided by the custom selenium server, which is created by our Tellurium Engine project. Be aware that CSS selector only works for composite locator, i.e. clocator. You cannot have base locator, i.e., XPath, in your UI module.
 
