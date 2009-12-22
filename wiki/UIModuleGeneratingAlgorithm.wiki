@@ -257,7 +257,9 @@ public class Trie_UT {
 
 The test output looks like the following result,
 
-{{{---------------------------- Trie/Prefix Tree ----------------------------
+{{{
+
+---------------------------- Trie/Prefix Tree ----------------------------
 
 {
   a{
@@ -611,3 +613,31 @@ Tree.prototype.printUI = function(){
 }}}
 
 If you want to understand more about the algorithm, please read the Javascript code at our [http://aost.googlecode.com/svn/trunk/tools/firefox-plugin/trump Trump] project.
+
+To demonstrate how the algorithm works, assume we have the following UI elements and their corresponding xpaths.
+
+{{{
+A:  "/html/body/table[@id='mt']"
+B:  "/html/body/table[@id='mt']/tbody/tr/th[3]"
+C:  "/html/body/table[@id='mt']/tbody/tr/th[3]/div"
+D:  "/html/body/div[@id='maincol']/div[@id='colcontrol']/div/div[@id='bub']"
+E:  "/html/body/div[@id='maincol']/div[@id='colcontrol']/div/div[@id='bub']/table[@id='resultstable']"
+F:  "/html/body/div[@id='maincol']/div[@id='colcontrol']/div/div[@id='bub']/table[@id='resultstable']/tbody/tr[2]/td[3]/a"
+}}}
+
+Run the algorithm, you will get the following UI module.
+
+{{{
+ontainer(UID: 'root', clocator: [:]){
+  Table(UID: 'A', clocator: [tag:'table']){
+    Container(UID: 'B', clocator: [tag:'th']){
+      DIV(UID: 'C', clocator: [tag:'div'])
+    }
+  }
+  Container(UID: 'D', clocator: [tag:'div']){
+    Table(UID: 'E', clocator: [id:'resultstable',tag:'table']){
+      UrlLink(UID: 'F', clocator: [tag:'a'])
+    }
+  }
+}
+}}}
