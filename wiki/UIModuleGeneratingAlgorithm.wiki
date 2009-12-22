@@ -9,8 +9,33 @@ http://tellurium-users.googlegroups.com/web/TrUMPDiagramSmall.png?gda=9CFDmEcAAA
 
 You may wonder in step 2, how the UI module is generated. The main idea behind this is to get the full xpath for each UI element that a user selects. Then, construct the UI module based on the xpaths. 
 
-The core algorithm is a similar to the one to build a prefix tree. The data structure of the [http://en.wikipedia.org/wiki/Trie prefix tree, or Trie in short] can be illustrated by the following Figure, which representing a dictionary with prefix chains.
-
-http://upload.wikimedia.org/wikipedia/commons/b/be/Trie_example.svg
+The core algorithm is a similar to the one to build a prefix tree. The data structure of the [http://en.wikipedia.org/wiki/Trie prefix tree, or Trie in short] can be illustrated by the following figure, which representing a dictionary with prefix chains.
 
 
+http://tellurium-users.googlegroups.com/web/Trie_example.png?gda=wQPArEIAAACsdq5EJRKLPm_KNrr_VHB_1oeA7nOF2iS8uQDPb9OlTU7sRkzRAxlFeFD9Wh0qRLFV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=1t-rGQsAAAAPdfdLxsCDbw1Fr9_YJcs3
+
+To better understand the UI module generating algorithm, we first show how to implement the trie based dictionary in Java, then explain the actual UI module generating algorithm.
+
+= A Trie Based Dictionary =
+
+Usually, a dictionary can be stored in the Trie data structure so that it is very easy to find the words with the same prefix and to do [http://en.wikipedia.org/wiki/Longest_prefix_match long prefix match].
+
+To create the Trie data structure, first, we need to define a node in the prefix tree.
+
+{{{
+public class Node {
+    public static final int LENGTH = 64;
+
+    //hold the String value for this node
+    private String elem;
+
+    //the level of this node in the Trie tree
+    private int level;
+
+    //pointer to its parent
+    private Node parent;
+
+    //child nodes 
+    private LinkedList<Node> children = new LinkedList<Node>();
+}
+}}}
