@@ -193,9 +193,9 @@ To *disable* CSS selector call the following method:
 
 jQuery also switches back to the default locator. For example. XPath. jQuery is illustrated in the diagram as shown in Figure 2-4:
 
-*Figure 2-4: jQuery Diagram*
+*Figure 2-4: CSS Diagram*
 
-http://tellurium-users.googlegroups.com/web/xpathjqsel.png?gda=BNGlpUAAAACXZPxEX7Ki-M5C2JpeBoXXvv3pQbLsTR0DEnS8qeQoBNY-98qTaiNg3Pwb0MuStQFtxVPdW1gYotyj7-X7wDON&gsc=aNwLeQsAAABDFDbDDy4icI5hL1ANoQtp
+http://tellurium-users.googlegroups.com/web/xpathjqsel2.png?gda=ZcLbzkEAAACsdq5EJRKLPm_KNrr_VHB_i4k4E3yBw3ZwuTWAYUCsylo_LL8k1Ivp8OS586drcZpTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=4508XgsAAACdKjHXeYuQCiQefauhN3Sg
 
 Some of the jQuery functions are provided by the custom Selenium server, which is created by the Tellurium Engine project. Be aware that CSS selector only works for the Composite locator, the {{{clocator}}}. _It is not for use with the base locator, such as the XPath, in the UI module_.
 
