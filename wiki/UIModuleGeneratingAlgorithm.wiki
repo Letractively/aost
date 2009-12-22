@@ -220,7 +220,7 @@ In addition, we need couple more help methods
     }
 }}}
 
-That's all. We can create a unit test for the Tire data structure. The code are in Tellurium Core project.
+That's all. We can create a unit test for the Tire data structure. The code are in [http://aost.googlecode.com/svn/trunk/core Tellurium Core] project.
 
 {{{
 public class Trie_UT {
