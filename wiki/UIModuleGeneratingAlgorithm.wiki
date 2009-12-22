@@ -1,5 +1,6 @@
 #summary The UI Module Generating Algorithm in Trump.
 #labels Phase-Design
+<wiki:toc max_depth="5" />
 
 = Introduction =
 
