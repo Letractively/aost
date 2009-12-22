@@ -61,7 +61,7 @@ The main features of Tellurium include:
   * Dynamically generate runtime locators to localize changes
   * UI templates for dynamic web content
   * XPath support
-  * jQuery selector support to improve test speed in IE
+  * CSS selector support to improve test speed in IE
   * Locator caching to improve speed
   * Javascript event support
   * Use Tellurium Firefox plugin, Trump, to automatically generate UI modules
@@ -75,7 +75,7 @@ The main features of Tellurium include:
  
 First of all, Tellurium does not use "record and replay." Instead, it uses the Tellurium Firefox plugin Trump to generate the UI module (not test code) for you. Then you need to create your test code based on the UI module. In this way, the UI and the test code are decoupled. The structured test code in Tellurium makes it much easier to refactor and maintain the code.
 
-The composite locator uses UI element attributes to define the UI, and the actual locator (e.g. xpath or jQuery selector) will be generated at runtime. Any updates to the composite locator will lead to different runtime locators, and the changes inside the UI module are localized. The Group locating is used to remove the dependency of the UI objects from external UI elements (i.e. external UI changes will not affect the current UI module for most cases) so that your test code is robust and responsive to changes up to a certain level.
+The composite locator uses UI element attributes to define the UI, and the actual locator (e.g. xpath or CSS selector) will be generated at runtime. Any updates to the composite locator will lead to different runtime locators, and the changes inside the UI module are localized. The Group locating is used to remove the dependency of the UI objects from external UI elements (i.e. external UI changes will not affect the current UI module for most cases) so that your test code is robust and responsive to changes up to a certain level.
 
 Tellurium uses the _respond_ attribute in a UI object for you to specify JavaScript events, and the rest will be handled automatically by the framework itself. UI templates are a powerful feature in Tellurium used to represent many identical UI elements or a dynamic size of different UI elements at runtime, which are extremely useful in testing dynamic web contexts such as a data grid. The _Option_ UI object is designed to automatically address dynamic web contexts with multiple possible UI patterns.
 
@@ -522,7 +522,7 @@ public class TelluriumDownloadPageTestCase extends TelluriumJavaTestCase {
 
 The motivation behind the CSS Selector is to improve the test speed in IE since IE lacks of native XPath support and the XPath is very slow. Tellurium exploits CSS selector capability to improve the test speed dramatically. 
 
-Tellurium supports both XPath and jQuery selector and still uses XPath as the default locator. To use CSS selector, you need to explicitly tell Tellurium to use CSS selector. 
+Tellurium supports both XPath and CSS selector and still uses XPath as the default locator. To use CSS selector, you need to explicitly tell Tellurium to use CSS selector. 
 
 To enable CSS selector call the following method.
 
@@ -613,13 +613,13 @@ class CustomSelenium extends DefaultSelenium {
 }
 }}}
 
-jQuery Selector provides the following additional Selenium methods, which are utilized in DslContext to form a set of new DSL methods.
+CSS Selector provides the following additional Selenium methods, which are utilized in DslContext to form a set of new DSL methods.
 
-   * {{{String getAllText(String locator)}}}: Get all text from the set of elements corresponding to the jQuery Selector.
+   * {{{String getAllText(String locator)}}}: Get all text from the set of elements corresponding to the CSS Selector.
 
-   * {{{String getCSS(String locator, String cssName)}}} : Get the CSS properties for the set of elements corresponding to the jQuery Selector.
+   * {{{String getCSS(String locator, String cssName)}}} : Get the CSS properties for the set of elements corresponding to the CSS Selector.
 
-   * {{{Number getJQuerySelectorCount(String locator)}}} : Get the number of elements matching the corresponding jQuery Selector
+   * {{{Number getJQuerySelectorCount(String locator)}}} : Get the number of elements matching the corresponding CSS Selector
 
 jQuery also supports the following attribute selectors.
 
@@ -652,7 +652,7 @@ The new methods are listed here:
   Locator agnostic:
     * {{{String getLocator(String uid)}}}
 
-  JQuery selector specific:
+  CSS selector specific:
     * {{{String getSelector(String uid)}}}
 
   XPath specific: 
@@ -663,7 +663,7 @@ The new methods are listed here:
   Locator agnostic:
     * {{{Number getLocatorCount(String locator)}}}
 
-  JQuery selector specific:
+  CSS selector specific:
     * {{{Number getJQuerySelectorCount(String jQuerySelector)}}}
 
   XPath specific: 
@@ -721,7 +721,7 @@ The new methods are listed here:
 
   * Get CSS Properties
 
-  JQuery selector specific:
+  CSS selector specific:
     * {{{String[] getCSS(String uid, String cssName)}}}
 
   * Get All Data from a Table
@@ -735,15 +735,15 @@ The new methods are listed here:
   Locator agnostic:
     * {{{int getListSize(String uid)}}}
 
-  JQuery selector specific:
+  CSS selector specific:
     * {{{getListSizeBySelector(String uid)}}}
 
   XPath specific: 
     * {{{getListSizeByXPath(String uid)}}}
  
-The are something you should be aware of for jQuery Selector:
-  * If you have a duplicate "id" attribute on the page, jQuery selector always returns the first DOM reference, ignoring other DOM references with the same "id" attribute.
-  * Some attribute may not working in jQuery, for example, the "action" attribute in a form. Tellurium has a black list to automatically filter out the attributes that are not honored by jQuery selector.
+The are something you should be aware of for CSS Selector:
+  * If you have a duplicate "id" attribute on the page, CSS selector always returns the first DOM reference, ignoring other DOM references with the same "id" attribute.
+  * Some attribute may not working in jQuery, for example, the "action" attribute in a form. Tellurium has a black list to automatically filter out the attributes that are not honored by CSS selector.
   * Seems the "src" attribute in Image has to be full URL such as http://www.google.com. One workaround is to put '`*`' before the URL.
 
 
