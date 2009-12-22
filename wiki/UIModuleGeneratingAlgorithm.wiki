@@ -628,19 +628,23 @@ F:  "/html/body/div[@id='maincol']/div[@id='colcontrol']/div/div[@id='bub']/tabl
 Run the algorithm, you will get the following UI module.
 
 {{{
-ontainer(UID: 'root', clocator: [:]){
-  Table(UID: 'A', clocator: [tag:'table']){
+ui.Container(UID: 'root', clocator: [:]){
+  Container(UID: 'A', clocator: [tag:'table']){
     Container(UID: 'B', clocator: [tag:'th']){
       DIV(UID: 'C', clocator: [tag:'div'])
     }
   }
   Container(UID: 'D', clocator: [tag:'div']){
-    Table(UID: 'E', clocator: [id:'resultstable',tag:'table']){
+    Container(UID: 'E', clocator: [id:'resultstable',tag:'table']){
       UrlLink(UID: 'F', clocator: [tag:'a'])
     }
   }
 }
 }}}
+
+The generated Trie tree is shown as follows,
+
+http://tellurium-users.googlegroups.com/web/uimodule_trie.png?gda=1D8QO0MAAACsdq5EJRKLPm_KNrr_VHB_XmnSH7TN7DozaffH78zyKasyKjZkDBLKqnneTcDd43IytiJ-HdGYYcPi_09pl8N7FWLveOaWjzbYnpnkpmxcWg&gsc=b9Q3UQsAAAAUaQdv2RDvtpfZgVA8VbAQ
 
 = Summary =
 
