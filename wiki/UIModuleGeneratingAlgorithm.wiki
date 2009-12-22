@@ -39,3 +39,245 @@ public class Node {
     private LinkedList<Node> children = new LinkedList<Node>();
 }
 }}}
+
+We can add couple methods for the node
+
+{{{
+    public void addChild(Node child){
+        children.add(child);
+    }
+
+    public void removeChild(Node child){
+        children.remove(child);
+    }
+
+    public int getChildrenSize(){
+        return this.children.size();
+    }
+
+    public void checkLevel(){
+        if(this.parent == null)
+            this.level = 0;
+        else
+            this.level = this.parent.getLevel() + 1;
+        if(this.children.size() > 0){
+            for(Node node: children){
+                node.checkLevel();
+            }
+        }
+    }
+
+    public String getFullWord(){
+        if(parent == null){
+            return this.elem;
+        }
+
+        return parent.getFullWord() + this.elem;
+    }
+
+    public void printMe(){
+        boolean hasChildren = false;
+        if(children.size() > 0)
+            hasChildren = true;
+        StringBuffer sb = new StringBuffer(LENGTH);
+        for(int i=0; i<this.level; i++){
+            sb.append("  ");
+        }
+        sb.append(this.elem);
+        if(hasChildren)
+            sb.append("{");
+        System.out.println(sb.toString());
+        if(hasChildren){
+            for(Node node: children){
+                node.printMe();
+            }
+        }
+        if(hasChildren){
+            StringBuffer indent = new StringBuffer(LENGTH);
+            for(int i=0; i<level; i++){
+                indent.append("  ");
+            }
+            indent.append("}");
+            System.out.println(indent.toString());
+        }
+    }
+}}}
+
+The Trie is actually a Tree structure.
+
+{{{
+public class Trie {
+    //the root of the Trie, or Prefix Tree
+    private Node root;
+}
+}}}
+
+To build a tree, we need the following methods,
+
+{{{
+    public void buildTree(String[] dictionary){
+        if(dictionary != null && dictionary.length > 0){
+            for(String word: dictionary){
+                this.insert(word);
+            }
+        }
+    }
+
+    public void insert(String word){
+        if(this.root == null){
+            //If it is the first time to insert an word to the Tire
+            this.root = new Node();
+            //root is an empty String, more like a logic node
+            this.root.setElem("");
+            this.root.setLevel(0);
+            this.root.setParent(null);
+
+            //add the word as the child of the root node
+            Node child = new Node();
+            child.setElem(word);
+            child.setParent(this.root);
+            this.root.addChild(child);
+        }else{
+            //not the first node, need to walk all the way down to find a place to insert
+            this.walk(this.root, word);
+        }
+    }
+
+    protected void walk(Node current, String word) {
+        //look at current node's children
+        if(current.getChildrenSize() == 0){
+            //no child yet, add itself as the first child
+            Node child = new Node();
+            child.setElem(word);
+            child.setParent(current);
+            current.addChild(child);
+        }else{
+            //there are children for the current node
+            //check if the new String is a prefix of a set of children
+            List<Node> common = new ArrayList<Node>();
+            for(Node node: current.getChildren()){
+                if(node.getElem().startsWith(word)){
+                    common.add(node);
+                }
+            }
+            //if the new String is indeed a prefix of a set of children
+            if(common.size() > 0){
+                Node shared = new Node();
+                shared.setElem(word);
+                shared.setParent(current);
+                for(Node node: common){
+                    //assume no duplication in the dictionary, otherwise, need to consider the empty string case for a child
+                    node.setElem(node.getElem().substring(word.length()));
+                    node.setParent(shared);
+                    shared.addChild(node);
+                    current.removeChild(node);
+                }
+                current.addChild(shared);
+            }else{
+                //not common prefix available, then check if the child is a prefix of the input String
+                boolean found = false;
+                Node next = null;
+                for(Node node: current.getChildren()){
+                    if(word.startsWith(node.getElem())){
+                        found = true;
+                        next = node;
+                        break;
+                    }
+                }
+                if(found){
+                    //not a duplication, otherwise, do nothing
+                    if(word.length() != next.getElem().length()){
+                        String leftover = word.substring(next.getElem().length());
+                        walk(next, leftover);
+                    }
+                }else{
+                    //not found, need to create a new node a the child of the current node
+                    Node child = new Node();
+                    child.setParent(current);
+                    child.setElem(word);
+                    current.addChild(child);
+                }
+            }
+        }
+    }
+}}}
+
+In addition, we need couple more help methods
+
+{{{
+    public void checkLevel(){
+        if(root != null){
+            root.checkLevel();
+        }
+    }
+
+    public void printMe(){
+        if(this.root != null){
+            System.out.println("---------------------------- Trie/Prefix Tree ----------------------------\n");
+            this.root.printMe();
+            System.out.println("--------------------------------------------------------------------------\n");
+        }        
+    }
+}}}
+
+That is all. We can create a unit test for the Tire data structure.
+
+{{{
+public class Trie_UT {
+    public String[] randomize(String[] dictionary){
+        if(dictionary != null && dictionary.length > 0){
+            Random rand = new Random();
+            List<String> list = new ArrayList<String>();
+            for(String str: dictionary){
+                list.add(str);
+            }
+            List<String> nlist = new ArrayList<String>();
+            while(list.size() > 0){
+                int index = rand.nextInt(list.size());
+                nlist.add(list.remove(index));
+            }
+
+            return nlist.toArray(new String[0]);
+        }
+
+        return null;
+    }
+
+    @Test
+    public void testInsert(){
+        String[] dictionary = {"a", "an", "and", "andy", "bo", "body", "bodyguard", "some", "someday", "goodluck", "joke"};
+        Trie trie = new Trie();
+        String[] ndict = randomize(dictionary);
+        trie.buildTree(ndict);
+        trie.checkLevel();
+        trie.printMe();   
+    }
+}
+}}}
+
+The test output looks like the following result,
+
+{{{---------------------------- Trie/Prefix Tree ----------------------------
+
+{
+  a{
+    n{
+      d{
+        y
+      }
+    }
+  }
+  joke
+  bo{
+    dy{
+      guard
+    }
+  }
+  goodluck
+  some{
+    day
+  }
+}
+--------------------------------------------------------------------------
+
+}}}
