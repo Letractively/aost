@@ -411,3 +411,19 @@ String.prototype.endsWith = function(t, i) {
         return (t.toLowerCase() == this.substring(this.length - t.length).toLowerCase());
     }
 };
+
+function dumpObject(obj) {
+    if (typeof(console) != "undefined") {
+        var output = '';
+        for (var p in obj)
+            output += p + '\n';
+
+        console.log(output);
+    }
+};
+
+function logFirebug(obj){
+    if (typeof(console) != "undefined") {
+        console.log(obj);
+    }
+};
