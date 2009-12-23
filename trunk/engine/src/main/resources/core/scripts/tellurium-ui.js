@@ -123,6 +123,12 @@ UiObject.prototype.locate = function(uialg){
     //need to push all its children into the object queue
 };
 
+UiObject.prototype.bind = function(snapshot, uialg){
+    var fuid = this.fullUid();
+    if(!this.lazy){
+        this.domRef = snapshot.getUi(fuid);
+    }
+};
 
 UiObject.prototype.snapshot = function(){
     if(this.generated)
@@ -263,6 +269,19 @@ objectExtends(Container.prototype, UiObject.prototype, {
                 uialg.addChildUiObject(component);
         }
     },
+
+    bind: function(snapshot, uialg) {
+        var fuid = this.fullUid();
+        if (!this.lazy) {
+            this.domRef = snapshot.getUi(fuid);
+        }
+        //need to push all its children into the object queue
+        var valset = this.components.valSet();
+        for(var component in valset){
+            if(!component.lazy)
+                uialg.addChildUiObject(component);
+        }
+    },
     
     prelocate: function(){
         if(this.amICacheable()){
@@ -300,6 +319,7 @@ objectExtends(Frame.prototype, Container.prototype, {
     title: null
 });
 
+//TODO: ui algorithm operations for List and Table 
 var List = classCreate();
 objectExtends(List.prototype, Container.prototype, {
     uiType: 'List',
@@ -1138,5 +1158,10 @@ UiAlg.prototype.takeSnapshot = function(uimodule, rootdom){
 };
 
 UiAlg.prototype.bindToUiModule = function(uimodule, snapshot){
-
+    this.oqueue.clear();
+    this.oqueue.push(uimodule.root);
+    while(this.oqueue.size() > 0){
+        var uiobj = this.oqueue.pop();
+        uiobj.bind(snapshot, this);
+    }   
 };
