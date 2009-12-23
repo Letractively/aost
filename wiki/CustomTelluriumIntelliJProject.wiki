@@ -40,7 +40,7 @@ http://tellurium-users.googlegroups.com/web/ui_package.png?gda=a8rE5EAAAACsdq5EJ
 
 http://tellurium-users.googlegroups.com/web/groovy_class.png?gda=AO8noEIAAACsdq5EJRKLPm_KNrr_VHB_rs_1bllq13ceSQv1YyBWZQeUrVoEA5FcVoITwkAodIFV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ
 
-  * Create a com.test.testcase package by right clicking src -> New -> Package 
+  * Create a *com.test.testcase* package by right clicking src -> New -> Package 
 
 http://tellurium-users.googlegroups.com/web/test_package.png?gda=6DlfyUIAAACsdq5EJRKLPm_KNrr_VHB_T5Rrh2I2VBiHoIgwQaOa3gQ4f2xCM-mnIF4GEPZVUTdV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ
 
@@ -58,15 +58,13 @@ http://tellurium-users.googlegroups.com/web/config.png?gsc=uYRTbwsAAADFfFhQNHNCv
 
 http://tellurium-users.googlegroups.com/web/compile_error.png?gsc=IXBBMgsAAAA7CVLrPDGRSyHvhacFT88S
 
-  * Right click on the *NewGoogleStartPageTestCase -> Run "NewGoogleStartPageTestCase"*
+  * Right click on the *NewGoogleStartPageTestCase* -> Run *NewGoogleStartPageTestCase*.
 
 http://tellurium-users.googlegroups.com/web/test_runner.png?gsc=IXBBMgsAAAA7CVLrPDGRSyHvhacFT88S
 
 http://tellurium-users.googlegroups.com/web/test_passed.png?gsc=IXBBMgsAAAA7CVLrPDGRSyHvhacFT88S
 
 The test will result as passed.
-
-
 
 
 
