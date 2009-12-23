@@ -83,160 +83,149 @@ function CompositeLocator(){
 };
 
 //base UI object
-function UiObject(){
+var UiObject = Class.extend({
+    init: function() {
+        this.uid = null;
 
-    this.uid = null;
+        //its parent UI object
+        this.parent = null;
 
-    //its parent UI object
-    this.parent = null;
+        //namespace, useful for XML, XHTML, XForms
+        this.namespace = null;
 
-    //namespace, useful for XML, XHTML, XForms
-    this.namespace = null;
-    
-    this.locator = null;
+        this.locator = null;
 
-    //event this object should be respond to
-    this.events = null;
+        //event this object should be respond to
+        this.events = null;
 
-    //should we do lazy locationg or not, i.e., wait to the time we actually use this UI object
-    //usually this flag is set because the content is dynamic at runtime
-    this.lazy = false;
+        //should we do lazy locationg or not, i.e., wait to the time we actually use this UI object
+        //usually this flag is set because the content is dynamic at runtime
+        this.lazy = false;
 
-    //Tellurium Core generated locator for this UI Object
-    this.generated = null;
+        //Tellurium Core generated locator for this UI Object
+        this.generated = null;
 
-    //dom reference
-    this.domRef = null;
-};
+        //dom reference
+        this.domRef = null;
+    },
 
-UiObject.prototype.goToPlace = function(uiid, uiobj){
+    goToPlace: function(uiid, uiobj) {
 
-    var ouid = uiid.pop();
-    objectCopy(this, uiobj);
-    if(uiid.length > 0){
-        alert("Wrong uiid " + ouid);
+        var ouid = uiid.pop();
+        objectCopy(this, uiobj);
+        if (uiid.length > 0) {
+            alert("Wrong uiid " + ouid);
+        }
+    },
+
+    locate: function(uialg) {
+        uialg.locateInAllSnapshots(this);
+        //need to push all its children into the object queue
+    },
+
+    bind: function(snapshot, uialg) {
+        var fuid = this.fullUid();
+        if (!this.lazy) {
+            this.domRef = snapshot.getUi(fuid);
+        }
+    },
+
+    snapshot: function() {
+        if (this.generated)
+            this.domRef = selenium.browserbot.findElement(this.generated);
+    },
+
+    prelocate: function() {
+        if (this.amICacheable())
+            this.snapshot();
+    },
+
+    walkTo: function(context, uiid) {
+        return this;
+    },
+
+    amICacheable: function() {
+        //check its parent and do not cache if its parent is not cacheable
+        //If an object is cacheable, the path from the root to itself should
+        //be all cacheable
+        if (this.parent != null) {
+            return this.cacheable && parent.amICacheable() && (!parent.noCacheForChildren);
+        }
+
+        return this.cacheable;
+    },
+
+    fullUid: function() {
+        if (this.parent != null) {
+            return this.parent.fullUid() + "." + this.uid;
+        }
+
+        return this.uid;
     }
-};
+});
 
-UiObject.prototype.locate = function(uialg){
-    uialg.locateInAllSnapshots(this);
-    //need to push all its children into the object queue
-};
-
-UiObject.prototype.bind = function(snapshot, uialg){
-    var fuid = this.fullUid();
-    if(!this.lazy){
-        this.domRef = snapshot.getUi(fuid);
-    }
-};
-
-UiObject.prototype.snapshot = function(){
-    if(this.generated)
-        this.domRef = selenium.browserbot.findElement(this.generated);    
-};
-
-UiObject.prototype.prelocate = function(){
-    if(this.amICacheable())
-        this.snapshot();
-};
-
-UiObject.prototype.walkTo = function(context, uiid){
-    return this;
-};
-
-UiObject.prototype.amICacheable = function() {
-    //check its parent and do not cache if its parent is not cacheable
-    //If an object is cacheable, the path from the root to itself should
-    //be all cacheable
-    if (this.parent != null){
-        return this.cacheable && parent.amICacheable() && (!parent.noCacheForChildren);
-    }
-
-    return this.cacheable;
-};
-
-UiObject.prototype.fullUid = function(){
-    if(this.parent != null){
-        return this.parent.fullUid() + "." + this.uid;
-    }
-
-    return this.uid;
-};
-
-var Button = classCreate();
-objectExtends(Button.prototype, UiObject.prototype, {
+var UiButton = UiObject.extend({
     uiType: 'Button',
     tag: "input"
 });
 
-var CheckBox = classCreate();
-objectExtends(CheckBox.prototype, UiObject.prototype, {
+var UiCheckBox = UiObject.extend({
     uiType: 'CheckBox',
     tag: "input",
     type: "checkbox"
 });
 
-var Div = classCreate();
-objectExtends(Div.prototype, UiObject.prototype, {
+
+var UiDiv = UiObject.extend({
     uiType: 'div',
     tag: "div"
 });
 
-var Icon = classCreate();
-objectExtends(Icon.prototype, UiObject.prototype, {
+var UiIcon = UiObject.extend({
     uiType: 'Icon'
 });
 
-var Image = classCreate();
-objectExtends(Image.prototype, UiObject.prototype, {
+var UiImage = UiObject.extend({
     uiType: 'Image',
     tag: "img"
 });
 
-var InputBox = classCreate();
-objectExtends(InputBox.prototype, UiObject.prototype, {
+var UiInputBox = UiObject.extend({
     uiType: 'InputBox',
     tag: "input"
 });
 
-var RadioButton = classCreate();
-objectExtends(RadioButton.prototype, UiObject.prototype, {
+var UiRadioButton = UiObject.extend({
     uiType: 'RadioButton',
     tag: "input",
     type: "radio"
 });
 
-var Selector = classCreate();
-objectExtends(Selector.prototype, UiObject.prototype, {
+var UiSelector = UiObject.extend({
     uiType: 'Selector',
     tag: "select"
 });
 
-var Span = classCreate();
-objectExtends(Span.prototype, UiObject.prototype, {
+var UiSpan = UiObject.extend({ 
     uiType: 'Span',
     tag: "span"
 });
 
-var SubmitButton = classCreate();
-objectExtends(SubmitButton.prototype, Button.prototype, {
+var UiSubmitButton = UiButton.extend({
     uiType: 'SubmitButton',
     type: "submit"
 });
 
-var TextBox = classCreate();
-objectExtends(TextBox.prototype, UiObject.prototype, {
+var UiTextBox = UiObject.extend({
     uiType: 'TextBox'
 });
 
-var UrlLink = classCreate();
-objectExtends(UrlLink.prototype, UiObject.prototype, {
+var UiUrlLink = UiObject.extend({
     uiType: 'UrlLink',
     tag: "a"
 });
 
-var Container = classCreate();
-objectExtends(Container.prototype, UiObject.prototype, {
+var UiContainer = UiObject.extend({ 
     uiType: 'Container',
     group: false,
     noCacheForChildren: false,
@@ -305,14 +294,12 @@ objectExtends(Container.prototype, UiObject.prototype, {
     }
 });
 
-var Form = classCreate();
-objectExtends(Form.prototype, Container.prototype, {
+var UiForm = UiContainer.extend({
     uiType: 'Form',
     tag: "form"
 });
 
-var Frame = classCreate();
-objectExtends(Frame.prototype, Container.prototype, {
+var UiFrame = UiContainer.extend({
     uiType: 'Frame',
     id: null,
     name: null,
@@ -320,11 +307,10 @@ objectExtends(Frame.prototype, Container.prototype, {
 });
 
 //TODO: ui algorithm operations for List and Table 
-var List = classCreate();
-objectExtends(List.prototype, Container.prototype, {
+var UiList = UiContainer.extend({
     uiType: 'List',
     separator: null,
-    defaultUi: new TextBox(),
+    defaultUi: new UiTextBox(),
     
     findUiObject: function(index) {
 
@@ -371,11 +357,10 @@ objectExtends(List.prototype, Container.prototype, {
     }
 });
 
-var Table  = classCreate();
-objectExtends(Table.prototype, Container.prototype, {
+var UiTable = UiContainer.extend({
     uiType: 'Table',
     tag: "table",
-    defaultUi: new TextBox(),
+    defaultUi: new UiTextBox(),
     headers: new Hashtable(),
     
     goToPlace:  function(uiid, uiobj) {
@@ -528,11 +513,10 @@ objectExtends(Table.prototype, Container.prototype, {
     }
 });
 
-var StandardTable  = classCreate();
-objectExtends(StandardTable.prototype, Container.prototype, {
+var UiStandardTable = UiContainer.extend({
     uiType: 'StandardTable',
     tag: "table",
-    defaultUi: new TextBox(),
+    defaultUi: new UiTextBox(),
     headers: new Hashtable(),
     footers: new Hashtable(),
 
@@ -779,13 +763,13 @@ objectExtends(StandardTable.prototype, Container.prototype, {
     }
 });
 
-var Window  = classCreate();
-objectExtends(Window.prototype, Container.prototype, {
+var UiWindow = UiContainer.extend({
     uiType: 'Window',
     id: null,
     name: null,
     title: null
 });
+
 
 function UiModule(){
     //top level UI object
@@ -812,61 +796,61 @@ UiModule.prototype.buildFromJSON = function(jsobj){
     var obj = null;
     switch(jsobj.uiType){
         case "Button":
-            obj = new Button();
+            obj = new UiButton();
             break;
         case "CheckBox":
-            obj = new CheckBox();
+            obj = new UiCheckBox();
             break;
         case "Div":
-            obj = new Div();
+            obj = new UiDiv();
             break;
         case "Icon":
-            obj = new Icon();
+            obj = new UiIcon();
             break;
         case "Image":
-            obj = new Image();
+            obj = new UiImage();
             break;
         case "InputBox":
-            obj = new InputBox();
+            obj = new UiInputBox();
             break;
         case "RadioButton":
-            obj = new RadioButton();
+            obj = new UiRadioButton();
             break;
         case "Selector":
-            obj = new Selector();
+            obj = new UiSelector();
             break;
         case "Span":
-            obj = new Span();
+            obj = new UiSpan();
             break;
         case "SubmitButton":
-            obj = new SubmitButton();
+            obj = new UiSubmitButton();
             break;
         case "TextBox":
-            obj = new TextBox();
+            obj = new UiTextBox();
             break;
         case "UrlLink":
-            obj = new UrlLink();
+            obj = new UiUrlLink();
             break;
         case "Container":
-            obj = new Container();
+            obj = new UiContainer();
             break;
         case "Form":
-            obj = new Form();
+            obj = new UiForm();
             break;
         case "Frame":
-            obj = new Frame();
+            obj = new UiFrame();
             break;
         case "List":
-            obj = new List();
+            obj = new UiList();
             break;
         case "Table":
-            obj = new Table();
+            obj = new UiTable();
             break;
         case "StandardTable":
-            obj = new StandardTable();
+            obj = new UiStandardTable();
             break;
         case "Window":
-            obj = new Window();
+            obj = new UiWindow();
             break;
     }
 
@@ -989,8 +973,8 @@ UiAlg.prototype.nextColor = function(){
 };
 
 UiAlg.prototype.locateInAllSnapshots = function(uiobj){
-    var finished = false
-    while(finished == false && this.squeue.size() > 0){
+    var finished = false;
+    while(!finished && this.squeue.size() > 0){
         var first = this.squeue.peek();
         //check the first element color
         if(this.currentColor == first.color){
@@ -1141,7 +1125,8 @@ UiAlg.prototype.takeSnapshot = function(uimodule, rootdom){
     }else{
         //try to find the current html body.
         // TODO: not very elegant, need to refactor this later
-        this.dom = selenium.browserbot.findElement("/html/body");
+//        this.dom = selenium.browserbot.findElement("/html/body");
+        this.dom = selenium.browserbot.findElement("jquery=html > body");
     }
     //start from the root element in the UI module
     this.oqueue.push(uimodule.root);
@@ -1159,7 +1144,7 @@ UiAlg.prototype.takeSnapshot = function(uimodule, rootdom){
        throw new SeleniumError("Found" + this.squeue.size() +  " matches for UI module " + uimodule.root.uid);
     }
     //found only one snapshot, happy path
-    var snapshot = this.squeue.pop()
+    var snapshot = this.squeue.pop();
     this.bindToUiModule(uimodule, snapshot);
 };
 
