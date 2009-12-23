@@ -141,6 +141,8 @@ function TelluriumCache(){
 
     this.cachePolicy = discardOldCachePolicy;
 
+    //Algorithm handler for UI
+    this.uiAlg = new UiAlg();
 };
 
 TelluriumCache.prototype.cleanCache = function(){
@@ -202,7 +204,8 @@ TelluriumCache.prototype.getCachedUiElement = function(uid){
 TelluriumCache.prototype.useUiModule = function(json){
     var uim = new UiModule();
     uim.parseUiModule(json);
-    uim.prelocate();
+//    uim.prelocate();
+    this.uiAlg.takeSnapshot(uim, null);
     var id = uim.getId();
     var cached = this.getCachedData(id);
     if(cached == null){

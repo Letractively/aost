@@ -1136,7 +1136,13 @@ UiAlg.prototype.getParentUid = function(uid){
 
 UiAlg.prototype.takeSnapshot = function(uimodule, rootdom){
     this.clear();
-    this.dom = rootdom;
+    if(rootdom != null){
+        this.dom = rootdom;
+    }else{
+        //try to find the current html body.
+        // TODO: not very elegant, need to refactor this later
+        this.dom = selenium.browserbot.findElement("/html/body");
+    }
     //start from the root element in the UI module
     this.oqueue.push(uimodule.root);
     var ust = new UiSnapshot();
