@@ -66,7 +66,7 @@ A Tellurium Project can be run in IntelliJ, NetBeans, Eclipse, or other IDEs tha
 
 If using Maven, open the POM file to let the IDE automatically build the project files.
 
-IntelliJ IDEA is commercial and a free trial version for 30 days that can be downloaded from [http://www.jetbrains.com/idea/download/index.html http://www.jetbrains.com/idea/download/index.html]. A detailed guide is found on [http://code.google.com/p/aost/wiki/CustomTelluriumIntelliJProject How to create your own Tellurium testing project with IntelliJ 7.0].
+IntelliJ IDEA Community edition is free and can be downloaded from [http://www.jetbrains.com/idea/download/ http://www.jetbrains.com/idea/download/]. A detailed guide is found on [http://code.google.com/p/aost/wiki/CustomTelluriumIntelliJProject How to create your own Tellurium testing project with IntelliJ 9.0 Community Edition] .
 
 For NetBeans users, detailed Guides can be found on [http://code.google.com/p/aost/wiki/TelluriumStarterUsingNetBeans the NetBeans Starters' guide page] and [http://code.google.com/p/aost/wiki/CustomTelluriumNetBeansProject How to create your own Tellurium testing project with NetBeans 6.5].
 
