@@ -252,6 +252,7 @@ var UiContainer = UiObject.extend({
     locate:  function(uialg){
         uialg.locateInAllSnapshots(this);
         //need to push all its children into the object queue
+        logFirebug(this.components.showMe());
         var valset = this.components.valSet();
         for(var component in valset){
             if(!component.lazy)
@@ -861,6 +862,7 @@ UiModule.prototype.buildFromJSON = function(jsobj){
 
 UiModule.prototype.parseUiModule = function(json){
     var ulst = JSON.parse(json, null);
+    dumpObject(ulst);
     var klst = new Array();
     for(var i=0; i<ulst.length; i++){
         var key = ulst[i].key;
@@ -1135,7 +1137,10 @@ UiAlg.prototype.takeSnapshot = function(uimodule, rootdom){
     this.squeue.push(ust);
     while(this.oqueue.size() > 0){
         var uiobj = this.oqueue.pop();
+        logFirebug(uiobj);
+        dumpObject(uiobj);
         uiobj.locate(this);
+        logFirebug(this.oqueue.size());
     }
     if(this.squeue.size() == 0){
          throw new SeleniumError("Cannot locate UI module " +  uimodule.root.uid);

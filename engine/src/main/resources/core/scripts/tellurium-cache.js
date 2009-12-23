@@ -203,7 +203,9 @@ TelluriumCache.prototype.getCachedUiElement = function(uid){
 
 TelluriumCache.prototype.useUiModule = function(json){
     var uim = new UiModule();
+    logFirebug(json);
     uim.parseUiModule(json);
+//    dumpObject(uim);
 //    uim.prelocate();
     this.uiAlg.takeSnapshot(uim, null);
     var id = uim.getId();

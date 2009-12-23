@@ -16,4 +16,10 @@ public class QUnitDemoTest extends QUnitTestCase {
         registerTest("demo");
         runTest("demo");
     }
+
+    @Test
+    public void testGoogleSearch(){
+        registerTest("googlesearch");
+        runTest("googlesearch");
+    }
 }
