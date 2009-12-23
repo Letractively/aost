@@ -926,7 +926,7 @@ QUnit.jsDump = (function() {
 				type = "function";
 			} else if (QUnit.is("Array", obj)) {
 				type = "array";
-			} else if (QUnit.is("Window", obj) || QUnit.is("global", obj)) {
+			} else if (QUnit.is("UiWindow", obj) || QUnit.is("global", obj)) {
 				type = "window";
 			} else if (QUnit.is("HTMLDocument", obj)) {
 				type = "document";
