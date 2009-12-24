@@ -861,8 +861,11 @@ UiModule.prototype.buildFromJSON = function(jsobj){
 };
 
 UiModule.prototype.parseUiModule = function(json){
-    var ulst = JSON.parse(json, null);
-    dumpObject(ulst);
+
+//    var ulst = JSON.parse(json, null);
+//XXX: Strange, JSON.parse does not work, assign directly?    
+    var ulst = json;
+    logFirebug(ulst);
     var klst = new Array();
     for(var i=0; i<ulst.length; i++){
         var key = ulst[i].key;
@@ -872,6 +875,8 @@ UiModule.prototype.parseUiModule = function(json){
     }
 
     this.buildTree(klst);
+//    this.valid = true;
+    logFirebug(this);
 };
 
 UiModule.prototype.buildTree = function(keys){
