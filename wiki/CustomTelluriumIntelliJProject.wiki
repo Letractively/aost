@@ -13,7 +13,7 @@
     http://code.google.com/p/aost/downloads/list
     }}}
   * Download *tellurium-0.6.0-dependencies.zip* into the created *lib* folder, which contains Tellurium dependent jar files from here. Unzip it.
-  * Download the *test_source.zip* file from the following location. Zip file contains the UI Groovy file, Java Test case and Config Groovy file.
+  * Download the *test_source.zip* file from the following location. Zip file contains the UI Groovy file, Java Test case and Config Groovy file, which will be used to setup the project.
     {{{
     http://code.google.com/p/aost/downloads/list
     }}}     
@@ -69,4 +69,3 @@ http://tellurium-users.googlegroups.com/web/test_runner.png?gsc=IXBBMgsAAAA7CVLr
 http://tellurium-users.googlegroups.com/web/test_passed.png?gsc=IXBBMgsAAAA7CVLrPDGRSyHvhacFT88S
 
 The test will result as passed.
-
