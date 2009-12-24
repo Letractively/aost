@@ -203,13 +203,13 @@ TelluriumCache.prototype.getCachedUiElement = function(uid){
 
 TelluriumCache.prototype.useUiModule = function(json){
     var uim = new UiModule();
-    logFirebug(json);
+    fbLog("Input JSON for UI Module: ", json);
     uim.parseUiModule(json);
 //    uim.prelocate();
     this.uiAlg.takeSnapshot(uim, null);
     //set the UI Module to be valid after it is located
     uim.valid = true;
-    logFirebug(uim);
+    fbLog("Ui Module after Group Locating: ", uim);
     var id = uim.getId();
     var cached = this.getCachedData(id);
     if(cached == null){

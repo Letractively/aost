@@ -415,11 +415,54 @@ function dumpObject(obj) {
     }
 };
 
-function logFirebug(obj){
+function fbLog(msg, obj){
     if (typeof(console) != "undefined") {
-        console.log(obj);
+        console.log(msg, obj);
     }
 };
+
+function fbInfo(msg, obj){
+    if (typeof(console) != "undefined") {
+        console.info(msg, obj);
+    }
+};
+
+function fbDebug(msg, obj){
+    if (typeof(console) != "undefined") {
+        console.debug(msg, obj);
+    }
+};
+
+function fbWarn(msg, obj){
+    if (typeof(console) != "undefined") {
+        console.warn(msg, obj);
+    }
+};
+
+function fbError(msg, obj){
+    if (typeof(console) != "undefined") {
+        console.error(msg, obj);
+    }
+};
+
+function fbTrace(){
+    if (typeof(console) != "undefined") {
+        console.trace();
+    }
+};
+
+function fbAssert(expr, obj){
+    if (typeof(console) != "undefined") {
+        console.assert(expr, obj);
+    }
+};
+
+function fbDir(obj){
+    if (typeof(console) != "undefined") {
+        console.dir(obj);
+    }
+};
+
 
 //code copied from http://ejohn.org/blog/simple-javascript-inheritance/
 // and the copywright belongs to John Resig

@@ -294,7 +294,7 @@ var UiContainer = UiObject.extend({
     locate:  function(uialg){
         uialg.locateInAllSnapshots(this);
         //need to push all its children into the object queue
-        logFirebug(this.components.showMe());
+        fbLog("Children for Container " + this.uid + ": " , this.components.showMe());
         var valset = this.components.valSet();
         for(var component in valset){
             if(!component.lazy)
@@ -916,9 +916,8 @@ UiModule.prototype.buildFromJSON = function(jsobj){
     }
 
     objectCopy(obj, jsobj);
-    logFirebug("Build from JSON ");
-    logFirebug(jsobj);
-    logFirebug(obj);
+    fbLog("Build from JSON: ", jsobj);
+    fbLog("Object built: ", obj);
     
     return obj;
 };
@@ -928,7 +927,6 @@ UiModule.prototype.parseUiModule = function(json){
 //    var ulst = JSON.parse(json, null);
 //XXX: Strange, JSON.parse does not work, assign directly?    
     var ulst = json;
-    logFirebug(ulst);
     var klst = new Array();
     for(var i=0; i<ulst.length; i++){
         var key = ulst[i].key;
@@ -939,7 +937,7 @@ UiModule.prototype.parseUiModule = function(json){
 
     this.buildTree(klst);
 //    this.valid = true;
-    logFirebug(this);
+    fbLog("Parsed Ui Module " + this.id + ": ", this);
 };
 
 UiModule.prototype.buildTree = function(keys){
@@ -1207,10 +1205,8 @@ UiAlg.prototype.takeSnapshot = function(uimodule, rootdom){
     this.squeue.push(ust);
     while(this.oqueue.size() > 0){
         var uiobj = this.oqueue.pop();
-        logFirebug(uiobj);
-        dumpObject(uiobj);
+        fbLog("Take snapshot for Object " + uiobj.uid + ": ", uiobj);
         uiobj.locate(this);
-        logFirebug(this.oqueue.size());
     }
     if(this.squeue.size() == 0){
          throw new SeleniumError("Cannot locate UI module " +  uimodule.root.uid);
