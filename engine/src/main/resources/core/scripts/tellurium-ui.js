@@ -852,10 +852,33 @@ UiModule.prototype.getId = function(){
     return null;
 };
 
-UiModule.prototype.buildFromJSON = function(jsobj){
+UiModule.prototype.parseUiModule = function(json){
+
+    var ulst = JSON.parse(json, null);
+//XXX: Strange, JSON.parse does not work, assign directly?    
+//    var ulst = json;
+    var klst = new Array();
+    fbLog("JSON Object ulst: ", ulst);
+    fbLog("ulst length: ", ulst.length);
+    for(var i=0; i<ulst.length; i++){
+//        var key = ulst[i].key;
+//        var obj = ulst[i].obj;
+        fbLog("i: ", i);
+        fbLog("Build from JSON object: ", ulst[i].obj);
+        this.map.put(ulst[i].key, this.buildFromJSON(ulst[i].obj));
+        klst.push(ulst[i].key);
+    }
+
+    this.buildTree(klst);
+//    this.valid = true;
+    fbLog("Parsed Ui Module " + this.id + ": ", this);
+};
+
+UiModule.prototype.buildFromJSON = function(jobj){
     //TODO: find a more elegant way to create a Javascript function by its name
+    fbTrace();
     var obj = null;
-    switch(jsobj.uiType){
+    switch(jobj.uiType){
         case "Button":
             obj = new UiButton();
             break;
@@ -915,29 +938,11 @@ UiModule.prototype.buildFromJSON = function(jsobj){
             break;
     }
 
-    objectCopy(obj, jsobj);
-    fbLog("Build from JSON: ", jsobj);
+    objectCopy(obj, jobj);
+    fbLog("Build from JSON: ", jobj);
     fbLog("Object built: ", obj);
-    
+
     return obj;
-};
-
-UiModule.prototype.parseUiModule = function(json){
-
-//    var ulst = JSON.parse(json, null);
-//XXX: Strange, JSON.parse does not work, assign directly?    
-    var ulst = json;
-    var klst = new Array();
-    for(var i=0; i<ulst.length; i++){
-        var key = ulst[i].key;
-        var obj = ulst[i].obj;
-        this.map.put(key, this.buildFromJSON(obj));
-        klst.push(key);
-    }
-
-    this.buildTree(klst);
-//    this.valid = true;
-    fbLog("Parsed Ui Module " + this.id + ": ", this);
 };
 
 UiModule.prototype.buildTree = function(keys){
