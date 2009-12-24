@@ -171,59 +171,92 @@ var UiObject = Class.extend({
 });
 
 var UiButton = UiObject.extend({
-    uiType: 'Button',
-    tag: "input"
+    init: function(){
+        this._super();
+        this.uiType = 'Button';
+        this.tag = "input";
+    }
 });
 
 var UiCheckBox = UiObject.extend({
-    uiType: 'CheckBox',
-    tag: "input",
-    type: "checkbox"
+    init: function(){
+        this._super();
+        this.uiType = 'CheckBox';
+        this.tag = "input";
+        this.type = "checkbox";
+    }
 });
 
 
 var UiDiv = UiObject.extend({
-    uiType: 'div',
-    tag: "div"
+    init: function(){
+        this._super();
+        this.uiType = 'div';
+        this.tag = "div";
+    }
 });
 
 var UiIcon = UiObject.extend({
-    uiType: 'Icon'
+    init: function(){
+        this._super();
+        this.uiType = 'Icon';
+    }
 });
 
 var UiImage = UiObject.extend({
-    uiType: 'Image',
-    tag: "img"
+    init: function(){
+        this._super();
+        this.uiType = 'Image';
+        this.tag = "img";
+    }
 });
 
 var UiInputBox = UiObject.extend({
-    uiType: 'InputBox',
-    tag: "input"
+    init: function(){
+        this._super();
+        this.uiType = 'InputBox';
+        this.tag = "input";
+    }
 });
 
 var UiRadioButton = UiObject.extend({
-    uiType: 'RadioButton',
-    tag: "input",
-    type: "radio"
+    init: function(){
+        this._super();
+        this.uiType = 'RadioButton';
+        this.tag = "input";
+        this.type = "radio";
+    }
 });
 
 var UiSelector = UiObject.extend({
-    uiType: 'Selector',
-    tag: "select"
+    init: function(){
+        this._super();
+        this.uiType = 'Selector';
+        this.tag = "select";
+    }
 });
 
-var UiSpan = UiObject.extend({ 
-    uiType: 'Span',
-    tag: "span"
+var UiSpan = UiObject.extend({
+    init: function(){
+        this._super();
+        this.uiType = 'Span';
+        this.tag = "span";
+    }
 });
 
 var UiSubmitButton = UiButton.extend({
-    uiType: 'SubmitButton',
-    type: "submit"
+    init: function(){
+        this._super();
+        this.uiType = 'SubmitButton';
+        this.type = "submit";
+    }
 });
 
 var UiTextBox = UiObject.extend({
-    uiType: 'TextBox'
+    init: function(){
+        this._super();
+        this.uiType = 'TextBox';
+    }
 });
 
 var UiUrlLink = UiObject.extend({
@@ -231,11 +264,14 @@ var UiUrlLink = UiObject.extend({
     tag: "a"
 });
 
-var UiContainer = UiObject.extend({ 
-    uiType: 'Container',
-    group: false,
-    noCacheForChildren: false,
-    components: new Hashtable(),
+var UiContainer = UiObject.extend({
+    init: function(){
+        this._super();
+        this.uiType = 'Container';
+        this.group = false;
+        this.noCacheForChildren = false;
+        this.components = new Hashtable();
+    },
 
     goToPlace:  function(uiid, uiobj) {
 
@@ -302,22 +338,31 @@ var UiContainer = UiObject.extend({
 });
 
 var UiForm = UiContainer.extend({
-    uiType: 'Form',
-    tag: "form"
+    init: function(){
+        this._super();
+        this.uiType = 'Form';
+        this.tag = "form";
+    }
 });
 
 var UiFrame = UiContainer.extend({
-    uiType: 'Frame',
-    id: null,
-    name: null,
-    title: null
+    init: function(){
+        this._super();
+        this.uiType = 'Frame';
+        this.id = null;
+        this.name = null;
+        this.title = null
+    }
 });
 
 //TODO: ui algorithm operations for List and Table 
 var UiList = UiContainer.extend({
-    uiType: 'List',
-    separator: null,
-    defaultUi: new UiTextBox(),
+    init: function(){
+        this._super();
+        this.uiType = 'List';
+        this.separator = null;
+        this.defaultUi = new UiTextBox();
+    },
     
     findUiObject: function(index) {
 
@@ -365,10 +410,13 @@ var UiList = UiContainer.extend({
 });
 
 var UiTable = UiContainer.extend({
-    uiType: 'Table',
-    tag: "table",
-    defaultUi: new UiTextBox(),
-    headers: new Hashtable(),
+    init: function(){
+        this._super();
+        this.uiType = 'Table';
+        this.tag = "table";
+        this.defaultUi = new UiTextBox();
+        this.headers = new Hashtable();
+    },
     
     goToPlace:  function(uiid, uiobj) {
 
@@ -521,11 +569,14 @@ var UiTable = UiContainer.extend({
 });
 
 var UiStandardTable = UiContainer.extend({
-    uiType: 'StandardTable',
-    tag: "table",
-    defaultUi: new UiTextBox(),
-    headers: new Hashtable(),
-    footers: new Hashtable(),
+    init: function(){
+        this._super();
+        this.uiType = 'StandardTable';
+        this.tag = "table";
+        this.defaultUi = new UiTextBox();
+        this.headers = new Hashtable();
+        this.footers = new Hashtable();
+    },
 
     goToPlace:  function(uiid, uiobj) {
 
@@ -771,10 +822,13 @@ var UiStandardTable = UiContainer.extend({
 });
 
 var UiWindow = UiContainer.extend({
-    uiType: 'Window',
-    id: null,
-    name: null,
-    title: null
+    init: function(){
+        this._super();
+        this.uiType = 'Window';
+        this.id = null;
+        this.name = null;
+        this.title = null;
+    }
 });
 
 
