@@ -296,9 +296,14 @@ var UiContainer = UiObject.extend({
         //need to push all its children into the object queue
         fbLog("Children for Container " + this.uid + ": " , this.components.showMe());
         var valset = this.components.valSet();
-        for(var component in valset){
-            if(!component.lazy)
+        fbLog("Val set: ", valset);
+        for(var i=0; i<valset.length; i++){
+             var component = valset[i];
+             fbLog("component: ", component);
+             if(!component.lazy){
+                fbLog("Add child of Container " + this.uid + " to UiAlg : ", component);
                 uialg.addChildUiObject(component);
+            }
         }
     },
 
