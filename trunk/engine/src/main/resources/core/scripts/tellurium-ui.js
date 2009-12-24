@@ -15,6 +15,12 @@ Uiid.prototype.pop = function(){
     return null;
 };
 
+Uiid.prototype.reverse = function(){
+    if(this.stack.length > 0){
+        this.stack.reverse();
+    }
+};
+
 Uiid.prototype.peek = function(){
     if(this.stack.length > 0){
         return this.stack[this.stack.length-1];
@@ -237,9 +243,9 @@ var UiContainer = UiObject.extend({
         if (this.uid == null)
             objectCopy(this, uiobj);
 
-        if (uiid.length > 0) {
+        if (uiid.size() > 0) {
             var cuid = uiid.peek();
-            var child = this.components[cuid];
+            var child = this.components.get(cuid);
             if (child != null) {
                 child.goToPlace(uiid, uiobj);
             } else {
@@ -856,7 +862,10 @@ UiModule.prototype.buildFromJSON = function(jsobj){
     }
 
     objectCopy(obj, jsobj);
-
+    logFirebug("Build from JSON ");
+    logFirebug(jsobj);
+    logFirebug(obj);
+    
     return obj;
 };
 
@@ -887,7 +896,9 @@ UiModule.prototype.buildTree = function(keys){
             this.id = uiobj.uid;
         }else{
             var uiid = new Uiid();
-            uiid.convertToUiid(uiobj.uid);
+//            uiid.convertToUiid(uiobj.uid);
+            uiid.convertToUiid(keys[i]);
+            uiid.reverse();
             this.root.goToPlace(uiid, uiobj);
         }
     }
