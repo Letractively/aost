@@ -1059,7 +1059,8 @@ UiAlg.prototype.locateInAllSnapshots = function(uiobj){
         //check the first element color
         if(this.currentColor == first.color){
             first = this.squeue.pop();
-            this.locate(uiobj.uid, uiobj.locator, first);
+//            this.locate(uiobj.uid, uiobj.locator, first);
+            this.locate(uiobj.fullUid(), uiobj.locator, first);
         }else{
             //exit when the snapshot color is marked for the next round
             finished = true;
@@ -1089,8 +1090,8 @@ UiAlg.prototype.locate = function(uid, clocator, snapshot){
     var csel = this.cssbuilder.buildCssSelector(clocator.tag, clocator.text, clocator.position, clocator.direct, clocator.attributes);
     var $found = teJQuery(pref).find(csel);
     //found any nodes in the DOM by using the
-    if($found.size() == 0){
-        //found exactly one, lucky path
+    if($found.size() == 1){
+        //found exactly one, happy path
         snapshot.addUi(uid, $found.get(0));
         snapshot.setColor(ncolor);
         this.squeue.push(snapshot);
@@ -1209,6 +1210,7 @@ UiAlg.prototype.takeSnapshot = function(uimodule, rootdom){
 //        this.dom = selenium.browserbot.findElement("/html/body");
         this.dom = selenium.browserbot.findElement("jquery=html > body");
     }
+    this.currentColor = this.colors.GRAY;
     //start from the root element in the UI module
     this.oqueue.push(uimodule.root);
     var ust = new UiSnapshot();
