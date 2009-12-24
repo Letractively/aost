@@ -18,6 +18,8 @@
     http://code.google.com/p/aost/downloads/list
     }}}     
 
+== Project Setup ==
+
   * Launch IntelliJ. Create a new Project.  *File > New Project > Create Project From Scratch*.
 
 http://tellurium-users.googlegroups.com/web/new_project.png?gsc=Lt2VpAsAAACYrUAQupYOFFjJqrec6c4b
