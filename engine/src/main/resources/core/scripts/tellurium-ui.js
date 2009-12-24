@@ -1065,6 +1065,7 @@ UiAlg.prototype.locateInAllSnapshots = function(uiobj){
             finished = true;
             this.currentColor = this.nextColor();
             if(this.squeue.size() == 0){
+                fbError("Cannot find UI element " + uiobj.uid);
                 throw new SeleniumError("Cannot find UI element " + uiobj.uid);
             }
         }
@@ -1219,10 +1220,12 @@ UiAlg.prototype.takeSnapshot = function(uimodule, rootdom){
         uiobj.locate(this);
     }
     if(this.squeue.size() == 0){
-         throw new SeleniumError("Cannot locate UI module " +  uimodule.root.uid);
+        fbError("Cannot locate UI module " +  uimodule.root.uid);
+        throw new SeleniumError("Cannot locate UI module " +  uimodule.root.uid);
     }
     if(this.squeue.size() > 1){
-       throw new SeleniumError("Found" + this.squeue.size() +  " matches for UI module " + uimodule.root.uid);
+       fbError("Found " + this.squeue.size() +  " matches for UI module " + uimodule.root.uid, this.squeue);
+       throw new SeleniumError("Found " + this.squeue.size() +  " matches for UI module " + uimodule.root.uid);
     }
     //found only one snapshot, happy path
     var snapshot = this.squeue.pop();
