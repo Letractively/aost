@@ -33,7 +33,7 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
         useCssSelector(true);
         useTelluriumApi(true);
         useTrace(true);
-//        useCache(true);
+        useCache(true);
     }
 
     @Before
