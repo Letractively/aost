@@ -358,7 +358,7 @@ public class GenericTable extends Container{
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
         String xpath = rl + "/${tagOfHead}/${tagOfHeadRow}/${tagOfHeadColumn}"
-        int columnum = accessor.getXpathCount(xpath)
+        int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return columnum
 
@@ -368,7 +368,7 @@ public class GenericTable extends Container{
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
         String xpath = rl + "/${tagOfFoot}/${tagOfFootRow}/${tagOfFootColumn}"
-        int columnum = accessor.getXpathCount(xpath)
+        int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return columnum
 
@@ -379,7 +379,7 @@ public class GenericTable extends Container{
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
         String xpath = rl + "/${tagOfBody}[1]/${tagOfBodyRow}/${tagOfBodyColumn}[1]"
-        int rownum = accessor.getXpathCount(xpath)
+        int rownum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return rownum
     }
@@ -389,7 +389,7 @@ public class GenericTable extends Container{
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
         String xpath = rl + "/${tagOfBody}[${ntbody}]/${tagOfBodyRow}/${tagOfBodyColumn}[1]"
-        int rownum = accessor.getXpathCount(xpath)
+        int rownum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return rownum
     }
@@ -400,7 +400,7 @@ public class GenericTable extends Container{
         Accessor accessor = new Accessor()
         String xpath = rl + "/${tagOfBody}[1]/${tagOfBodyRow}[1]/${tagOfBodyColumn}"
 
-        int columnum = accessor.getXpathCount(xpath)
+        int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return columnum
     }
@@ -411,7 +411,7 @@ public class GenericTable extends Container{
         Accessor accessor = new Accessor()
         String xpath = rl + "/${tagOfBody}[${ntbody}]/${tagOfBodyRow}[1]/${tagOfBodyColumn}"
 
-        int columnum = accessor.getXpathCount(xpath)
+        int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return columnum
     }
@@ -421,7 +421,7 @@ public class GenericTable extends Container{
         Accessor accessor = new Accessor()
         String xpath = rl + "/${tagOfBody}"
 
-        int tbodynum = accessor.getXpathCount(xpath)
+        int tbodynum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return tbodynum
     }

@@ -69,7 +69,7 @@ class Option extends UiObject{
                     guess =  "/" + guess
                 }
                 //check the current DOM to see if this xpath does exist
-                int count = accessor.getXpathCount(guess)
+                int count = accessor.getXpathCount(WorkflowContext.getDefaultContext(), guess)
                 //found the xpath for the given UIID
                 if(count == 1){
                      return lastOne

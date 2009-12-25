@@ -372,7 +372,7 @@ class Table extends Container {
     }else{
        xpath = rl + tbody + "/tr[child::th]/th"
     }
-    int columnum = accessor.getXpathCount(xpath)
+    int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
     return columnum
   }
@@ -388,7 +388,7 @@ class Table extends Container {
        xpath = rl + tbody + "/tr[child::td]/td[1]"
     }
 
-    int rownum = accessor.getXpathCount(xpath)
+    int rownum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
     return rownum
   }
@@ -404,7 +404,7 @@ class Table extends Container {
       xpath = xpath + tbody + "/tr[child::td][1]/td"
     }
 
-    int columnum = accessor.getXpathCount(xpath)
+    int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
     return columnum
   }

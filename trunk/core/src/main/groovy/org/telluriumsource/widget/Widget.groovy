@@ -799,7 +799,7 @@ abstract class Widget extends UiObject {
   }
 
   Number getXpathCount(String xpath) {
-    return accessor.getXpathCount(xpath)
+    return accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
   }
 
   Number getCssSelectorCount(String jQuerySelector){
