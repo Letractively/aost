@@ -16,11 +16,11 @@ public class JettyLogonModule extends DslContext {
     ui.Container(uid: "Form", clocator: [tag: "table"]){
         Container(uid: "Username", clocator: [tag: "tr"]){
             TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
-            InputBox(uid: "Input", clocator: [tag: "input", direct: "true", type: "text", name: "j_username"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
         }
         Container(uid: "Password", clocator: [tag: "tr"]){
             TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
-            InputBox(uid: "Input", clocator: [tag: "input", direct: "true", type: "password", name: "j_password"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j_password"])
         }
         SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login", name: "submit"])
     }
