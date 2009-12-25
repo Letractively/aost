@@ -30,7 +30,7 @@ public class TelluriumIssueGroovyTestCase extends GroovyTestCase{
   public void testDumpWithJQuerySelector() {
     tisp.useCssSelector();
 //    tisp.disableCache();
-    tisp.exploreSelectorCache = false;
+    tisp.setUseCacheFlag(false) //.disableCache();
     tisp.dump("issueSearch");
     tisp.dump("issueSearch.searchButton");
     tisp.dump("issueResult");
@@ -39,7 +39,7 @@ public class TelluriumIssueGroovyTestCase extends GroovyTestCase{
   public void testDumpWithJQuerySelectorCacheEnabled() {
     tisp.useCssSelector();
 //    tisp.enableCache();
-    tisp.exploreSelectorCache = true;
+    tisp.setUseCacheFlag(true) //.enableCache();
     tisp.dump("issueSearch");
     tisp.dump("issueSearch.searchButton");
     tisp.dump("issueResult");
