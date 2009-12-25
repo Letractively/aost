@@ -294,7 +294,7 @@ JQueryBuilder.prototype.attrSingleClass = function(clazz) {
 };
 
 JQueryBuilder.prototype.attrPairs = function(attr, val) {
-    if (val == null || trimString(val).length() == 0) {
+    if (val == null || trimString(val).length == 0) {
         return "[" + attr + "]";
     }
 
@@ -326,7 +326,7 @@ JQueryBuilder.prototype.includeSingleQuote = function(val) {
 };
 
 
-JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct, attributes) {
+JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct, attrs) {
     var sb = new StringBuffer(64);
     if (direct) {
         sb.append(this.CHILD_SEPARATOR);
@@ -336,9 +336,13 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
 
     //put the tag name first
     sb.append(this.checkTag(tag));
+    var attributes = new Hashtable();
+    for(var key in attrs){
+        attributes.put(key, attrs[key]);
+    }
     if (attributes != null && attributes.size() > 0) {
         var id = attributes.get(this.ID);
-        if (id != null && trimString(id).length() > 0) {
+        if (id != null && trimString(id).length > 0) {
             id = trimString(id);
             if (id.startsWith(this.START_PREFIX) || id.startsWith(this.END_PREFIX) || id.startsWith(this.ANY_PREFIX) || id.startsWith(this.NOT_PREFIX)) {
                 sb.append(this.attrId(id));
@@ -357,7 +361,8 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
         }
 
         var keys = attributes.keySet();
-        for (var key in keys) {
+        for (var i=0; i<keys.length; i++) {
+            var key = keys[i];
             var val = attributes.get(key);
             if ((key != this.ID) && (key != this.CLASS) && (!this.inBlackList(key))) {
                 sb.append(this.attrPairs(key, val));
