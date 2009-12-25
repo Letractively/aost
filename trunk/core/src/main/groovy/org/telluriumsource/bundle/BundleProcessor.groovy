@@ -113,7 +113,8 @@ public class BundleProcessor implements Configurable {
 
   public boolean needCacheUiModule(WorkflowContext context, String uid){
     if(uid != null && uid.trim().length() > 0 && context.isUseSelectorCache()){
-        return !this.isUiModulePublished();
+        String uimid = getUiModuleId(uid);
+        return !this.isUiModulePublished(uimid);
     }
 
     return false;

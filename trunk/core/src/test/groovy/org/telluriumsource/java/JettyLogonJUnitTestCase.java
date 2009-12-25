@@ -23,15 +23,22 @@ public class JettyLogonJUnitTestCase extends TelluriumJUnitTestCase {
     }
 
     @Before
-    public void connectToGoogle() {
-        connectUrl("http://localhost:8080/logon.html");
+    public void connectToLocal() {
+//        connectUrl("http://localhost:8080/logon.html");
+    }
+
+    @Test
+    public void testJsonfyUiModule(){
+        String json = jlm.jsonify("Form");
+        System.out.println(json);
     }
 
     @Ignore
     @Test
     public void testLogon() {
+        connectUrl("http://localhost:8080/logon.html");
         jlm.logon("test", "test");
-        pause(1000);
+//        pause(1000);
     }
 
     @AfterClass
