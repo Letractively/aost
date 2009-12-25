@@ -334,9 +334,9 @@ var UiContainer = UiObject.extend({
         }
         //need to push all its children into the object queue
         var valset = this.components.valSet();
-        for(var component in valset){
-            if(!component.lazy)
-                uialg.addChildUiObject(component);
+        for(var i=0; i<valset.length; i++){
+            if(!valset[i].lazy)
+                uialg.addChildUiObject(valset[i]);
         }
     },
     
