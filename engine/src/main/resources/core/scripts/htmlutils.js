@@ -815,6 +815,7 @@ function SeleniumError(message) {
         error.stack = result;
     }
     error.isSeleniumError = true;
+    fbError("Selenium Error: "+ message, error);
     return error;
 }
 
