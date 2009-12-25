@@ -45,6 +45,9 @@ class CompositeLocator {
         jso.put(TAG, tag)
       if(trailer != null && trailer.trim().length() > 0)
         jso.put(TRAILER, trailer)
+      if(text != null && text.trim().length() > 0){
+        jso.put(TEXT, text);
+      }
       if(position != null)
         jso.put(POSITION, position)
       if(direct)
