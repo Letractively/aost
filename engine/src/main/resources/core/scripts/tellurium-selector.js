@@ -298,6 +298,20 @@ JQueryBuilder.prototype.attrPairs = function(attr, val) {
         return "[" + attr + "]";
     }
 
+    //if the value includes single quote such as "I'm feeling luck" at Google
+    if(this.includeSingleQuote(val)){
+        var splited = val.split(this.SINGLE_QUOTE);
+        var max = splited[0];
+
+        for(var i=1; i<splited.length; i++){
+            if(splited[i].length > splited[0].length){
+                max = splited[i];
+            }
+        }
+        
+        return "[" + attr + "*=" + max + "]";
+    }
+
     if (val.startsWith(this.START_PREFIX)) {
         return "[" + attr + "^=" + val.substring(1) + "]";
     } else if (val.startsWith(this.END_PREFIX)) {
@@ -371,15 +385,29 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
     }
 
     if (text != null && trimString(text).length > 0) {
-        if (text.startsWith(this.CONTAIN_PREFIX)) {
-            sb.append(this.containText(text.substring(2)));
-        } else if (text.startsWith(this.START_PREFIX) || text.startsWith(this.END_PREFIX) || text.startsWith(this.ANY_PREFIX)) {
-            //TODO: need to refact this to use start, end, any partial match
-            sb.append(this.containText(text.substring(1)));
-        } else if (text.startsWith(this.NOT_PREFIX)) {
-            sb.append(":not(" + this.containText(text.substring(1)) + ")");
+        //if the value includes single quote such as "I'm feeling luck" at Google
+        if (this.includeSingleQuote(text)) {
+            var splited = text.split(this.SINGLE_QUOTE);
+            var max = splited[0];
+
+            for (var i = 1; i < splited.length; i++) {
+                if (splited[i].length > splited[0].length) {
+                    max = splited[i];
+                }
+            }
+
+            sb.append(this.containText(max));
         } else {
-            sb.append(this.attrText(text));
+            if (text.startsWith(this.CONTAIN_PREFIX)) {
+                sb.append(this.containText(text.substring(2)));
+            } else if (text.startsWith(this.START_PREFIX) || text.startsWith(this.END_PREFIX) || text.startsWith(this.ANY_PREFIX)) {
+                //TODO: need to refact this to use start, end, any partial match
+                sb.append(this.containText(text.substring(1)));
+            } else if (text.startsWith(this.NOT_PREFIX)) {
+                sb.append(":not(" + this.containText(text.substring(1)) + ")");
+            } else {
+                sb.append(this.attrText(text));
+            }
         }
     }
 
@@ -507,6 +535,20 @@ JQueryBuilder.prototype.buildText = function(text){
 JQueryBuilder.prototype.buildAttribute = function(attr, val) {
     if (val == null || trimString(val).length == 0) {
         return "[" + attr + "]";
+    }
+
+    //if the value includes single quote such as "I'm feeling luck" at Google
+    if(this.includeSingleQuote(val)){
+        var splited = val.split(this.SINGLE_QUOTE);
+        var max = splited[0];
+
+        for(var i=1; i<splited.length; i++){
+            if(splited[i].length > splited[0].length){
+                max = splited[i];
+            }
+        }
+
+        return "[" + attr + "*=" + max + "]";
     }
 
     if (val.startsWith(this.START_PREFIX)) {
