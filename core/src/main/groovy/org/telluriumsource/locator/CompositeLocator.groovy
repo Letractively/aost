@@ -33,6 +33,8 @@ class CompositeLocator {
     public static final String DIRECT = "direct"
     boolean direct = false
     boolean inside = false
+
+    public static final String ATTRIBUTES = "attributes";
     Map<String, String> attributes = [:]
 
     JSONObject toJSON(){
@@ -48,8 +50,13 @@ class CompositeLocator {
       if(direct)
         jso.put(DIRECT, direct)
 
-      attributes.each {key, val->
-        jso.put(key, val)
+      if(attributes.size() > 0){
+        JSONObject attrs = new JSONObject();
+        attributes.each {key, val->
+          attrs.put(key, val)
+        }
+
+        jso.put(ATTRIBUTES, attrs);
       }
 
       return jso
