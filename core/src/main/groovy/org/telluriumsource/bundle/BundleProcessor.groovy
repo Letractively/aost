@@ -47,6 +47,7 @@ public class BundleProcessor implements Configurable {
   }
 
   public boolean isUiModulePublished(String id){
+    //TODO: how to invalidate ui module cache, by commands or by exception code returning from Engine?
     UiModuleState state = states.get(id);
     if(state != null){
       return state.hasBeenPublished();

@@ -2,6 +2,7 @@ package org.telluriumsource.java;
 
 import org.telluriumsource.test.java.TelluriumJUnitTestCase;
 import org.telluriumsource.module.JettyLogonModule;
+import org.telluriumsource.module.GoogleSearchModule;
 import org.junit.*;
 
 /**
