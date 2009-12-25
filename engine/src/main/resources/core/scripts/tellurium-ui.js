@@ -1126,6 +1126,7 @@ UiAlg.prototype.hasChildren = function(one, gsel){
 };
 
 UiAlg.prototype.buildSelector = function(clocator){
+    
     var csel = this.cssbuilder.buildCssSelector(clocator.tag, clocator.text, clocator.position, clocator.direct, clocator.attributes);
 
     return csel;
