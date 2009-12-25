@@ -386,7 +386,7 @@ class StandardTable extends Container{
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
         String xpath = rl + "/thead/tr/td"
-        int columnum = accessor.getXpathCount(xpath)
+        int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return columnum
 
@@ -396,7 +396,7 @@ class StandardTable extends Container{
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
         String xpath = rl + "/tfoot/tr/td"
-        int columnum = accessor.getXpathCount(xpath)
+        int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return columnum
 
@@ -407,7 +407,7 @@ class StandardTable extends Container{
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
         String xpath = rl + "/tbody[1]/tr/td[1]"
-        int rownum = accessor.getXpathCount(xpath)
+        int rownum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return rownum
     }
@@ -417,7 +417,7 @@ class StandardTable extends Container{
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
         String xpath = rl + "/tbody[${ntbody}]/tr/td[1]"
-        int rownum = accessor.getXpathCount(xpath)
+        int rownum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return rownum
     }
@@ -428,7 +428,7 @@ class StandardTable extends Container{
         Accessor accessor = new Accessor()
         String xpath = rl + "/tbody[1]/tr[1]/td"
 
-        int columnum = accessor.getXpathCount(xpath)
+        int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return columnum
     }
@@ -439,7 +439,7 @@ class StandardTable extends Container{
         Accessor accessor = new Accessor()
         String xpath = rl + "/tbody[${ntbody}]/tr[1]/td"
 
-        int columnum = accessor.getXpathCount(xpath)
+        int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return columnum
     }
@@ -449,7 +449,7 @@ class StandardTable extends Container{
         Accessor accessor = new Accessor()
         String xpath = rl + "/tbody"
 
-        int tbodynum = accessor.getXpathCount(xpath)
+        int tbodynum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return tbodynum
     }
