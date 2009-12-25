@@ -129,6 +129,10 @@ var UiObject = Class.extend({
         //need to push all its children into the object queue
     },
 
+    lookChildren: function() {
+        return null;
+    },
+
     bind: function(snapshot, uialg) {
         var fuid = this.fullUid();
         if (!this.lazy) {
@@ -305,6 +309,22 @@ var UiContainer = UiObject.extend({
                 uialg.addChildUiObject(component);
             }
         }
+    },
+
+    lookChildren: function(){
+        var valset = this.components.valSet();
+        fbLog("Val set: ", valset);
+        var validChildren = new Array();
+        for(var i=0; i<valset.length; i++){
+             var component = valset[i];
+             fbLog("component: ", component);
+             if(!component.lazy){
+                fbLog("Add cachable child of Container " + this.uid + ": ", component);
+                validChildren.push(component);
+            }
+        }
+
+        return validChildren;
     },
 
     bind: function(snapshot, uialg) {
@@ -881,7 +901,7 @@ UiModule.prototype.parseUiModule = function(json){
 
 UiModule.prototype.buildFromJSON = function(jobj){
     //TODO: find a more elegant way to create a Javascript function by its name
-    fbTrace();
+//    fbTrace();
     var obj = null;
     switch(jobj.uiType){
         case "Button":
@@ -1060,7 +1080,8 @@ UiAlg.prototype.locateInAllSnapshots = function(uiobj){
         if(this.currentColor == first.color){
             first = this.squeue.pop();
 //            this.locate(uiobj.uid, uiobj.locator, first);
-            this.locate(uiobj.fullUid(), uiobj.locator, first);
+//            this.locate(uiobj.fullUid(), uiobj.locator, first);
+            this.locate(uiobj, first);
         }else{
             //exit when the snapshot color is marked for the next round
             finished = true;
@@ -1073,8 +1094,48 @@ UiAlg.prototype.locateInAllSnapshots = function(uiobj){
     }
 };
 
+UiAlg.prototype.lookAhead = function(uiobj, $found){
+    var children = uiobj.lookChildren();
+
+    if(children != null && children.length > 0){
+        var gsel = new Array();
+        for(var c=0; c < children.length; c++){
+            gsel.push(this.buildSelector(children[c].locator));
+        }
+        var result = new Array();
+        for(var i=0; i<$found.size(); i++){
+            if(this.hasChildren($found.get(i), gsel)){
+                result.push($found.get(i));
+            }
+        }
+
+        return teJQuery(result);
+    }
+
+    return $found;
+};
+
+UiAlg.prototype.hasChildren = function(one, gsel){
+    var result = true;
+    $me = teJQuery(one);
+    for(var i=0; i<gsel.length; i++){
+        result = result && ($me.find(gsel[i]).size() > 0);
+    }
+
+    return result;
+};
+
+UiAlg.prototype.buildSelector = function(clocator){
+    var csel = this.cssbuilder.buildCssSelector(clocator.tag, clocator.text, clocator.position, clocator.direct, clocator.attributes);
+
+    return csel;
+};
+
 //TODO: may need to pass in more attributes other than clocator, for instance, the separator in the List object
-UiAlg.prototype.locate = function(uid, clocator, snapshot){
+UiAlg.prototype.locate = function(uiobj, snapshot){
+    var uid = uiobj.fullUid();
+    var clocator = uiobj.locator;
+    
     //the next color to label the snapshot
     var ncolor = this.nextColor();
     //first find its parent uid
@@ -1087,8 +1148,14 @@ UiAlg.prototype.locate = function(uid, clocator, snapshot){
     }
 
     //build the CSS selector from the current element's composite locator
-    var csel = this.cssbuilder.buildCssSelector(clocator.tag, clocator.text, clocator.position, clocator.direct, clocator.attributes);
+//    var csel = this.cssbuilder.buildCssSelector(clocator.tag, clocator.text, clocator.position, clocator.direct, clocator.attributes);
+    var csel = this.buildSelector(clocator);
     var $found = teJQuery(pref).find(csel);
+    //if multiple matches, need to narrow down by looking ahead at the UI object's children
+    if($found.size() > 1){
+        $found = this.lookAhead(uiobj, $found);
+    }
+    
     //found any nodes in the DOM by using the
     if($found.size() == 1){
         //found exactly one, happy path
