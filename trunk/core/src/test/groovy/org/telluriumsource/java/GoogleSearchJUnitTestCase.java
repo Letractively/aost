@@ -43,6 +43,12 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
     }
 
     @Test
+    public void testJsonfyUiModule(){
+        String json = gsm.jsonify("Google");
+        System.out.println(json);
+    }
+
+    @Test
     public void testGoogleSearch() {
         gsm.doGoogleSearch("tellurium . ( Groovy ) Test");
     }
