@@ -22,7 +22,7 @@ public class GoogleStartPageGroovyTestNGTestCase extends TelluriumGroovyTestNGTe
     //initialize UI modules here
     ngsp = new NewGoogleStartPage()
     ngsp.defineUi()
-
+    connectSeleniumServer();
   }
 
   @Test
