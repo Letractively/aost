@@ -679,6 +679,34 @@ class StandardTable extends Container{
     context.popUid()
   }
 
+  @Override
+  public void treeWalk(WorkflowContext context){
+    this.jsonifyObject(context)
+    if(this.hasHeader()){
+      this.headers.each {key, component ->
+        if(component.cacheable){
+          component.treeWalk(context)
+        }
+      }
+    }
+
+    if (!this.noCacheForChildren) {
+      this.components.each {key, component ->
+        if (component.cacheable) {
+          component.treeWalk(context)
+        }
+      }
+    }
+    
+    if(this.foots.size() > 0){
+      this.foots.each {key, component ->
+        if(component.cacheable){
+          component.treeWalk(context)
+        }
+      }
+    }
+  }
+
   protected void traverseHeader(WorkflowContext context){
     if(this.hasHeader()){
       int max = 0

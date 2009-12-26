@@ -2,6 +2,7 @@ package org.telluriumsource.dsl
 
 import org.telluriumsource.locator.XPathProcessor
 import org.telluriumsource.locator.MetaCmd
+import org.json.simple.JSONArray
 
 /**
  * Hold metadata for execution workflow
@@ -17,6 +18,7 @@ class WorkflowContext {
   public static final String OPTION_LOCATOR = "Option_Locator"
   public static final String MATCH_ALL = "*"
   public static final String UID_LIST = "UID_List"
+  public static final String JSON_ARRAY = "JSON_Array"
   public static final String SKIP_NEXT = "SKIP_NEXT"
   public static final String TRUE = "true"
   public static final String DSLCONTEXT = "DSLCONTEXT"
@@ -103,6 +105,14 @@ class WorkflowContext {
     context.put(UID_LIST, list)
 
     return list
+  }
+
+  public JSONArray getJSONArray() {
+    return context.get(JSON_ARRAY);
+  }
+
+  public void setJSONArray(JSONArray jsarray){
+    context.put(JSON_ARRAY, jsarray);
   }
 
   public void setNewUid(String uid){
