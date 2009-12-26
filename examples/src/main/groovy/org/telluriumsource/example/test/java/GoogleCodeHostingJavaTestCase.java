@@ -43,6 +43,14 @@ public class GoogleCodeHostingJavaTestCase extends TelluriumJavaTestCase {
     }
 
     @Test
+    public void dumpUiModule(){
+        String uim = ngch.jsonify("labels_table");
+//  [{"obj":{"uid":"labels_table","locator":{"tag":"table"},"uiType":"Table"},"key":"labels_table"},{"obj":{"uid":"row: 1, column: 1","locator":{"text":"Explore hosted projects:","tag":"div"},"uiType":"TextBox"},"key":"labels_table[1][1]"},{"obj":{"uid":"row: 2, column: 1","locator":{"tag":"table","header":"\/div[@id=\"popular\"]"},"uiType":"Table"},"key":"labels_table[2][1]"},{"obj":{"uid":"row: 2, column: 1","locator":{"tag":"table","header":"\/div[@id=\"popular\"]"},"uiType":"Table"},"key":"labels_table[2][1][1][1]"},{"obj":{"uid":null,"locator":null,"uiType":"TextBox"},"key":"labels_table[3][2]"}]
+      
+        System.out.println(uim);
+    }
+
+    @Test
     public void testCodeLabelTable(){
         String label = ngch.getModuleLabel();
         assertEquals("Explore hosted projects:", label);
