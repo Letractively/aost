@@ -20,6 +20,7 @@ class FtDotComJavaTestCase extends TelluriumJavaTestCase {
     public static void initUi() {
         ft = new FtDotCom();
         ft.defineUi();
+        connectSeleniumServer();
     }
 
     //ignore the test since the web page has been changed

@@ -21,6 +21,7 @@ public class EcisTestCase extends TelluriumJavaTestCase {
         server = new MockHttpServer(8080);
         em = new EcisModule();
         em.defineUi();
+        connectSeleniumServer();
         server.registerHtmlBody("/nextgen/login.seam", em.generateHtml());
         server.start();
     }
