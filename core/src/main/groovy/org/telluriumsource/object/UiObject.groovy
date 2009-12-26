@@ -76,7 +76,11 @@ abstract class UiObject implements Cloneable{
       jso.put(UID, uid)
       if(!cacheable)
         jso.put(LAZY, this.cacheable)
-      jso.put(LOCATOR, locator.toJSON())
+      if(locator != null){
+        jso.put(LOCATOR, locator.toJSON())
+      }else{
+        jso.put(LOCATOR, null)
+      }
       if(namespace != null && namespace.trim().length() > 0)
         jso.put(NAMESPACE, namespace)
       if(respondToEvents != null && respondToEvents.length > 0)

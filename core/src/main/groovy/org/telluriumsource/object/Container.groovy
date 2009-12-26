@@ -70,7 +70,7 @@ class Container extends UiObject {
 
     public JSONObject toJSON() {
 
-      return buildJSON(){jso ->
+      return this.buildJSON(){jso ->
         jso.put(UI_TYPE, "Container")
       }
     }
