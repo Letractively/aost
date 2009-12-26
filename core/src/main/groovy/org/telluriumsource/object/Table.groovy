@@ -9,7 +9,6 @@ import org.telluriumsource.locator.XPathBuilder
 import org.telluriumsource.object.Container
 import org.telluriumsource.object.TextBox
 import org.telluriumsource.object.UiObject
-import org.telluriumsource.extend.Extension
 import org.json.simple.JSONObject
 
 
@@ -655,6 +654,26 @@ class Table extends Container {
     traverseHeader(context)
     traverseElement(context)
     context.popUid()
+  }
+
+  @Override
+  public void treeWalk(WorkflowContext context){
+    this.jsonifyObject(context)
+    if(this.hasHeader()){
+      this.headers.each {key, component ->
+        if(component.cacheable){
+          component.treeWalk(context)
+        }
+      }
+    }
+
+    if (!this.noCacheForChildren) {
+      this.components.each {key, component ->
+        if (component.cacheable) {
+          component.treeWalk(context)
+        }
+      }
+    }
   }
 
   protected void traverseHeader(WorkflowContext context){

@@ -1113,10 +1113,18 @@ abstract class BaseDslContext extends GlobalDslContext {
 
   public String jsonify(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
-    def obj = walkToWithException(context, uid)
-    context.setNewUid(uid)
+    def obj = walkToWithException(context, uid);
+    JSONArray arr = new JSONArray();
+    context.setJSONArray(arr);
+    obj.treeWalk(context);
+    JSONArray jsa = context.getJSONArray();
+
+    return jsa.toString();
+
+/*    context.setNewUid(uid)
     //TODO: This may not be correct or List or Table objects
-    obj.traverse(context)
+//    obj.traverse(context)
+    obj.treeWalk(context)
     ArrayList list = context.getUidList()
 
     JSONArray arr = new JSONArray()
@@ -1125,9 +1133,9 @@ abstract class BaseDslContext extends GlobalDslContext {
       context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
       def uio = walkToWithException(context, key)
 
-/*      if (this.exploreCssSelector()) {
+*//*      if (this.exploreCssSelector()) {
         loc = this.postProcessSelector(context, loc)
-      }*/
+      }*//*
 
 //      def uio = getUiElement(key)
 
@@ -1142,8 +1150,8 @@ abstract class BaseDslContext extends GlobalDslContext {
         arr.add(jso)
       }
     }
-
-    return arr.toString()
+      return arr.toString()
+    */
   }
 
   public DiagnosisResponse getDiagnosisResult(String uid) {

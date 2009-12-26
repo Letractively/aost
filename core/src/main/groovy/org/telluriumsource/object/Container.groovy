@@ -90,6 +90,7 @@ class Container extends UiObject {
       }
     }
 
+    @Override
     public void traverse(WorkflowContext context){
       context.appendToUidList(context.getUid())
       components.each {key, component->
@@ -99,7 +100,17 @@ class Container extends UiObject {
       context.popUid()
     }
 
-   @Override
+    @Override
+    public void treeWalk(WorkflowContext context){
+      this.jsonifyObject(context)
+      components.each {key, component->
+        if(component.cacheable){
+          component.treeWalk(context)
+        }
+      }
+    }
+
+    @Override
     public String generateHtml(){
       StringBuffer sb = new StringBuffer(64);
       String indent = getIndent();

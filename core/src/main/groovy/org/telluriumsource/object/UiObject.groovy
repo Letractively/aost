@@ -5,6 +5,7 @@ import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.event.Event
 
 import org.json.simple.JSONObject
+import org.json.simple.JSONArray
 
 /**
  *  Basic UI object
@@ -47,6 +48,10 @@ abstract class UiObject implements Cloneable{
         group reference xpath + reference xpath (related the the group reference xpath) + inherent xpath
 
   */
+    public static final String KEY = "key"
+
+    public static final String OBJECT = "obj"
+
     public static final String UI_TYPE = "uiType"
 
     public static final String UID = "uid"
@@ -193,6 +198,14 @@ abstract class UiObject implements Cloneable{
       c(locator)
     }
 
+    String fullUid() {
+        if (this.parent != null) {
+            return this.parent.fullUid() + "." + this.uid;
+        }
+
+        return this.uid;
+    }
+
     public boolean amICacheable(){
       //check its parent and do not cache if its parent is not cacheable
       //If an object is cacheable, the path from the root to itself should
@@ -223,6 +236,22 @@ abstract class UiObject implements Cloneable{
     public void traverse(WorkflowContext context){
        context.appendToUidList(context.getUid())
        context.popUid()
+    }
+
+    protected void jsonifyObject(WorkflowContext context) {
+      JSONObject jso = new JSONObject();
+      jso.put(KEY, this.fullUid());
+      def juio = this.toJSON();
+      jso.put(OBJECT, juio)
+      JSONArray arr = context.getJSONArray();
+      arr.add(jso)
+      context.setJSONArray(arr);
+    }
+
+    public void treeWalk(WorkflowContext context){
+//       context.appendToUidList(context.getUid())
+       this.jsonifyObject(context)
+//       context.popUid()
     }
 
     //walkTo through the object tree to until the Ui Object is found by the UID
