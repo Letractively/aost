@@ -29,7 +29,7 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase {
         useCssSelector(true);
         useTelluriumApi(true);
         useTrace(true);
-//        useCache(true);
+        useCache(true);
     }
 
     @BeforeMethod

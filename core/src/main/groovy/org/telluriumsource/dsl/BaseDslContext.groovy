@@ -1120,13 +1120,13 @@ abstract class BaseDslContext extends GlobalDslContext {
 
     JSONArray arr = new JSONArray()
     list.each {String key ->
-      String loc = getLocator(key)
+//      String loc = getLocator(key)
       context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
       def uio = walkToWithException(context, key)
 
-      if (this.exploreCssSelector()) {
+/*      if (this.exploreCssSelector()) {
         loc = this.postProcessSelector(context, loc)
-      }
+      }*/
 
 //      def uio = getUiElement(key)
       JSONObject jso = new JSONObject()
