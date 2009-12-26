@@ -25,6 +25,7 @@ public class DogselfDemosPageJavaTestCase extends TelluriumJavaTestCase {
     @Before
     public void setUpForTest() {
         d.initUi();
+        connectSeleniumServer();
         connectUrl("http://dogself.com/telluriumTest/");
     }
 

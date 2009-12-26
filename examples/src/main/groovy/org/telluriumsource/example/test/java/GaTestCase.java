@@ -47,7 +47,7 @@ public class GaTestCase extends TelluriumJavaTestCase {
         ggm.defineUi();
         openUrl("http://localhost:8080/groups.html");
         ggm.diagnose("ProgramList.list");
-        ggm.useCssSelector();
+        useCssSelector(true);
         ggm.diagnose("ProgramList.list");
     }
     

@@ -22,6 +22,9 @@ public class GoogleCodeHostingJavaTestCase extends TelluriumJavaTestCase {
     public static void initUi() {
         ngch = new NewGoogleCodeHosting();
         ngch.defineUi();
+        connectSeleniumServer();
+        useTrace(true);
+        useCache(true);
     }
 
     @AfterClass

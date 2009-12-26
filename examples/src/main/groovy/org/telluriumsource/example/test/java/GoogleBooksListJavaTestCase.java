@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.telluriumsource.test.java.TelluriumJavaTestCase;
+import org.telluriumsource.test.java.TelluriumJUnitTestCase;
 
 /**
  * Java version of Google Books List tests
@@ -13,13 +14,16 @@ import org.telluriumsource.test.java.TelluriumJavaTestCase;
  *
  *         Date: Aug 2, 2008
  */
-public class GoogleBooksListJavaTestCase extends TelluriumJavaTestCase {
+public class GoogleBooksListJavaTestCase extends TelluriumJUnitTestCase {
     private static NewGoogleBooksList ngbl;
 
     @BeforeClass
     public static void initUi() {
         ngbl = new NewGoogleBooksList();
         ngbl.defineUi();
+        connectSeleniumServer();
+        useTrace(true);
+        useCache(true);
     }
 
     @Test
