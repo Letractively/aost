@@ -1115,6 +1115,7 @@ abstract class BaseDslContext extends GlobalDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
     def obj = walkToWithException(context, uid)
     context.setNewUid(uid)
+    //TODO: This may not be correct or List or Table objects
     obj.traverse(context)
     ArrayList list = context.getUidList()
 
