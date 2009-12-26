@@ -1129,14 +1129,17 @@ abstract class BaseDslContext extends GlobalDslContext {
       }*/
 
 //      def uio = getUiElement(key)
-      JSONObject jso = new JSONObject()
-      jso.put(KEY, key)
-      def juio = uio.toJSON()
+
+      if (uio != null) {
+        JSONObject jso = new JSONObject()
+        jso.put(KEY, key)
+        def juio = uio.toJSON()
 //TODO: don't need to use generated locator for UI module cache, but comment out the following line, may affect other parts, double check!!
 //      juio.put(GENERATED, loc)
 //      jso.put(OBJECT, uio.toJSON())
-      jso.put(OBJECT, juio)
-      arr.add(jso)
+        jso.put(OBJECT, juio)
+        arr.add(jso)
+      }
     }
 
     return arr.toString()

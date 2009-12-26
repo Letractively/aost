@@ -32,6 +32,8 @@ public class Environment implements Configurable{
 
   protected boolean captureScreenshot = false;
 
+  protected String locale = "en_US";
+
   def envVariables = [:];
 
   protected boolean exploitTelluriumApi = false;
@@ -94,6 +96,14 @@ public class Environment implements Configurable{
 
   public IResourceBundle myResourceBundle(){
     return this.resourceBundle;
+  }
+
+  public String myLocale(){
+    return this.locale;
+  }
+
+  public void useLocale(String locale){
+    this.locale = locale;  
   }
 
   public void setCustomEnvironment(String name, Object value){
