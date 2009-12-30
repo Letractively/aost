@@ -1051,6 +1051,9 @@ function UiAlg(){
 
     //jQuery builder to build CSS selectors
     this.cssbuilder = new JQueryBuilder();
+
+    //array to hold all marked data("uid) so that we can remove them later
+    this.uidset = new Array();
 };
 
 UiAlg.prototype.clear = function(){
@@ -1058,6 +1061,17 @@ UiAlg.prototype.clear = function(){
     this.currentColor = this.colors.WHITE;
     this.squeue.clear();
     this.oqueue.clear();
+    this.uidset = new Array();
+};
+
+//remove all the marked data("uid")
+UiAlg.prototype.unmark = function(){
+    if(this.uidset != null){
+        for(var i=0; i< this.uidset.length; i++){
+            fbLog("Unmarking uid " + this.uidset[i].data("uid"), this.uidset[i]);
+            this.uidset[i].removeData("uid");
+        }
+    }
 };
 
 UiAlg.prototype.nextColor = function(){
@@ -1160,21 +1174,31 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
     //found any nodes in the DOM by using the
     if($found.size() == 1){
         //found exactly one, happy path
+        //temporially assign uid to the found element
+        fbLog("Marking uid " + uid, $found.eq(0));
+        $found.eq(0).data("uid", uid);
         snapshot.addUi(uid, $found.get(0));
+        //store all the elements with data("uid")
+        this.uidset.push($found.eq(0));
         snapshot.setColor(ncolor);
         this.squeue.push(snapshot);
     }else if($found.size() > 1){
         //multiple results, need to create more snapshots to expend the search
         for (var i = 1; i < $found.size(); i++){
-            var newsnapshot = snapshot.clone();
-            newsnapshot.addUi(uid, $found.get(i));
-            newsnapshot.setColor(ncolor);
-            this.squeue.push(newsnapshot);
+            //check if the element has the "uid" in data, if not try to clone it
+            if (typeof($found.eq(i)).data("uid") == "undefined"){
+                var newsnapshot = snapshot.clone();
+                newsnapshot.addUi(uid, $found.get(i));
+                newsnapshot.setColor(ncolor);
+                this.squeue.push(newsnapshot);
+            }
         }
         //still need the push back the orignail snapshot
-        snapshot.addUi(uid, $found.get(0));
-        snapshot.setColor(ncolor);
-        this.squeue.push(snapshot);
+        if (typeof($found.eq(0)).data("uid") == "undefined") {
+            snapshot.addUi(uid, $found.get(0));
+            snapshot.setColor(ncolor);
+            this.squeue.push(snapshot);
+        }
     }else{
         //if allow us to relax the clocator/attribute constraints and use the closest matching ones instead
         if(this.allowRelax){
@@ -1268,7 +1292,15 @@ UiAlg.prototype.getParentUid = function(uid){
     return null;
 };
 
-UiAlg.prototype.takeSnapshot = function(uimodule, rootdom){
+//
+//The santa algorithm, i.e., Tellurium UI module group locating algorithm
+//
+//The santa name comes from the fact that I designed and finalized the algorithm
+//during the Christmas season in 2009, which is a gift for me from Santa Claus
+//
+// by Jian Fang (John.Jian.Fang@gmail.com)
+//
+UiAlg.prototype.santa = function(uimodule, rootdom){
     this.clear();
     if(rootdom != null){
         this.dom = rootdom;
@@ -1276,7 +1308,8 @@ UiAlg.prototype.takeSnapshot = function(uimodule, rootdom){
         //try to find the current html body.
         // TODO: not very elegant, need to refactor this later
 //        this.dom = selenium.browserbot.findElement("/html/body");
-        this.dom = selenium.browserbot.findElement("jquery=html > body");
+//        this.dom = selenium.browserbot.findElement("jquery=html > body");
+        this.dom = selenium.browserbot.findElement("jquery=html");
     }
     this.currentColor = this.colors.GRAY;
     //start from the root element in the UI module
@@ -1300,6 +1333,7 @@ UiAlg.prototype.takeSnapshot = function(uimodule, rootdom){
     //found only one snapshot, happy path
     var snapshot = this.squeue.pop();
     this.bindToUiModule(uimodule, snapshot);
+    this.unmark();
 };
 
 UiAlg.prototype.bindToUiModule = function(uimodule, snapshot){
