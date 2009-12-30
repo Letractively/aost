@@ -866,6 +866,8 @@ function UiModule(){
     //the id of the UI module should be the root uid
 //    this.id = null;
 
+//    this.closestMatch = false;
+
     //hold a hashtable of the uids for fast access
     this.map = new Hashtable();
 };
@@ -1342,5 +1344,5 @@ UiAlg.prototype.bindToUiModule = function(uimodule, snapshot){
     while(this.oqueue.size() > 0){
         var uiobj = this.oqueue.pop();
         uiobj.bind(snapshot, this);
-    }   
+    }
 };
