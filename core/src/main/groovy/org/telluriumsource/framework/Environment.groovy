@@ -38,6 +38,12 @@ public class Environment implements Configurable{
 
   protected boolean exploitTelluriumApi = false;
 
+  protected boolean closestMatch = false;
+
+  public boolean isUseClosestMatch(){
+    return this.closestMatch;
+  }
+
   public boolean isUseCssSelector(){
     return this.exploitCssSelector;
   }
@@ -60,6 +66,10 @@ public class Environment implements Configurable{
 
   public boolean isUseTelluriumApi(){
     return this.exploitTelluriumApi;
+  }
+
+  public void useClosestMatch(boolean isUse){
+    this.closestMatch = isUse;  
   }
 
   public void useCssSelector(boolean isUse){

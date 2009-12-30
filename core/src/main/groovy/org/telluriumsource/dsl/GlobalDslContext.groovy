@@ -37,6 +37,20 @@ public class GlobalDslContext {
     return Environment.instance.isUseCache()
   }
 
+  public void enableClosestMatch(){
+    Environment.instance.useClosestMatch(true);
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+
+    extension.useClosestMatch(context, true);
+  }
+
+  public void disableClosestMatch(){
+    Environment.instance.useClosestMatch(false);
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+
+    extension.useClosestMatch(context, false)
+  }
+
   public void useCssSelector() {
     Environment.instance.useCssSelector(true);
   }

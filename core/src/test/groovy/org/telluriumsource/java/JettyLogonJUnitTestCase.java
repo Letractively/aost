@@ -47,6 +47,14 @@ public class JettyLogonJUnitTestCase extends TelluriumJUnitTestCase {
 //        pause(1000);
     }
 
+    @Test
+    public void testLogonWithClosestMatch() {
+        useClosestMatch(true);
+        jlm.logon("test", "test");
+        useClosestMatch(false);
+//        pause(1000);
+    }
+
     @AfterClass
     public static void tearDown(){
         server.stop();

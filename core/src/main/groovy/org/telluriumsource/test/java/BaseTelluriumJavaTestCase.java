@@ -91,6 +91,9 @@ public abstract class BaseTelluriumJavaTestCase {
         customConfig = new CustomConfig(runInternally, port, browser, useMultiWindows, profileLocation, serverHost, browserOptions);
     }
 
+    public static void useClosestMatch(boolean isUse){
+      tellurium.useClosestMatch(isUse);
+    }
 
     public static void useCssSelector(boolean isUse){
       tellurium.useCssSelector(isUse);

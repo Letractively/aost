@@ -231,6 +231,14 @@ class TelluriumFramework {
     return env.getCustomEnvironment(name);
   }
 
+  public void useClosestMatch(boolean isUse){
+    if (isUse) {
+      this.global.enableClosestMatch();
+    } else {
+      this.global.disableClosestMatch();
+    }      
+  }
+
   public void useCssSelector(boolean isUse) {
 
     if (isUse) {
