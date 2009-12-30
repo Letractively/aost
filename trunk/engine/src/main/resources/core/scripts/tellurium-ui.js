@@ -1188,7 +1188,7 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
         //multiple results, need to create more snapshots to expend the search
         for (var i = 1; i < $found.size(); i++){
             //check if the element has the "uid" in data, if not try to clone it
-            if (typeof($found.eq(i)).data("uid") == "undefined"){
+            if ($found.eq(i).data("uid") == undefined){
                 var newsnapshot = snapshot.clone();
                 newsnapshot.addUi(uid, $found.get(i));
                 newsnapshot.setColor(ncolor);
@@ -1196,7 +1196,7 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
             }
         }
         //still need the push back the orignail snapshot
-        if (typeof($found.eq(0)).data("uid") == "undefined") {
+        if ($found.eq(0).data("uid") == undefined) {
             snapshot.addUi(uid, $found.get(0));
             snapshot.setColor(ncolor);
             this.squeue.push(snapshot);
@@ -1205,23 +1205,37 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
         //if allow us to relax the clocator/attribute constraints and use the closest matching ones instead
         if(this.allowRelax){
             var $relaxed = this.relax(clocator, pref);
+            
+            if ($relaxed.size() > 1) {
+                $relaxed = this.lookAheadClosestMatchChildren(uiobj, $relaxed);
+            }
+
             if($relaxed.size() == 1){
                 //found exactly one
+                //temporially assign uid to the found element
+                fbLog("Marking closest match for uid " + uid, $relaxed.eq(0));
+                $relaxed.eq(0).data("uid", uid);
+
                 snapshot.addUi(uid, $relaxed.get(0));
                 snapshot.setColor(ncolor);
                 this.squeue.push(snapshot);
             }else if($relaxed.size() > 1){
                 //multiple results, need to create more snapshots to expend the search
                 for (var j = 1; j < $relaxed.size(); j++) {
-                    var nsnapshot = snapshot.clone();
-                    nsnapshot.addUi(uid, $relaxed.get(j));
-                    nsnapshot.setColor(ncolor);
-                    this.squeue.push(nsnapshot);
+                    if ($relaxed.eq(i).data("uid") == undefined) {
+
+                        var nsnapshot = snapshot.clone();
+                        nsnapshot.addUi(uid, $relaxed.get(j));
+                        nsnapshot.setColor(ncolor);
+                        this.squeue.push(nsnapshot);
+                    }
                 }
                 //still need the push back the orignail snapshot
-                snapshot.addUi(uid, $relaxed.get(0));
-                snapshot.setColor(ncolor);
-                this.squeue.push(snapshot);
+                if ($relaxed.eq(0).data("uid") == undefined) {
+                    snapshot.addUi(uid, $relaxed.get(0));
+                    snapshot.setColor(ncolor);
+                    this.squeue.push(snapshot);
+                }
             }else{
                 //otherwise, throw exception
 //                throw new SeleniumError("Cannot find UI element " + uid);
@@ -1237,20 +1251,24 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
 
 UiAlg.prototype.relax = function(clocator, pref) {
     var attrs = new Hashtable();
-    if(clocator.text != null && clocator.trim().length > 0){
+    if(clocator.text != null && clocator.text.trim().length > 0){
         attrs.put("text", clocator.text);
     }
     if(clocator.position != null){
         attrs.put("position", clocator.position);
     }
 
-    for (var key in clocator.attributes) {
-        if (!this.cssbuilder.inBlackList(key)) {
-            attrs.put(key, clocator.get(key));
+    var id = null;
+    if (clocator.attributes != undefined) {
+        for (var key in clocator.attributes) {
+            if (!this.cssbuilder.inBlackList(key)) {
+                attrs.put(key, clocator.attributes[key]);
+            }
         }
+
+        id = clocator.attributes["id"];
     }
     var jqs = "";
-    var id = clocator.attributes["id"];
     var tag = clocator.tag;
 
     if (tag == null || tag == undefined || tag.trim().length == 0) {
@@ -1279,6 +1297,36 @@ UiAlg.prototype.relax = function(clocator, pref) {
 
         return $closest;
     }
+};
+
+UiAlg.prototype.hasClosestMatchChildren = function(one, clocators){
+    var result = true;
+    for(var i=0; i<clocators.length; i++){
+        result = result && (this.relax(clocators[i], one).size() > 0);
+    }
+
+    return result;
+};
+
+UiAlg.prototype.lookAheadClosestMatchChildren = function(uiobj, $found){
+    var children = uiobj.lookChildren();
+
+    if(children != null && children.length > 0){
+        var clocators = new Array();
+        for(var c=0; c < children.length; c++){
+            clocators.push(children[c].locator);
+        }
+        var result = new Array();
+        for(var i=0; i<$found.size(); i++){
+            if(this.hasClosestMatchChildren($found.get(i), clocators)){
+                result.push($found.get(i));
+            }
+        }
+
+        return teJQuery(result);
+    }
+
+    return $found;
 };
 
 UiAlg.prototype.addChildUiObject = function(uiobj){
