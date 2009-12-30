@@ -145,6 +145,14 @@ function TelluriumCache(){
     this.uiAlg = new UiAlg();
 };
 
+TelluriumCache.prototype.useClosestMatch = function(isUse){
+    if ("true" == isUse || "TRUE" == isUse) {
+         this.uiAlg.allowRelax = true;
+     }else{
+         this.uiAlg.allowRelax = false;
+     }
+};
+
 TelluriumCache.prototype.cleanCache = function(){
     this.sCache.clear();
 };

@@ -374,3 +374,7 @@ Selenium.prototype.doUseTeApi = function(isUseApi){
          tellurium.isUseTeApi = false;
      }
 };
+
+Selenium.prototype.doUseClosestMatch = function(isUse){
+     tellurium.cache.useClosestMatch(isUse);
+};
