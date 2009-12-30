@@ -22,7 +22,7 @@ public class JettyLogonJUnitTestCase extends TelluriumJUnitTestCase {
         server.start();
 
         jlm = new  JettyLogonModule();
-        jlm.defineUi();
+        jlm.defineUi();    
         connectSeleniumServer();
         useCssSelector(true);
         useTelluriumApi(true);
@@ -50,7 +50,7 @@ public class JettyLogonJUnitTestCase extends TelluriumJUnitTestCase {
     @Test
     public void testLogonWithClosestMatch() {
         useClosestMatch(true);
-        jlm.logon("test", "test");
+        jlm.plogon("test", "test");
         useClosestMatch(false);
 //        pause(1000);
     }
