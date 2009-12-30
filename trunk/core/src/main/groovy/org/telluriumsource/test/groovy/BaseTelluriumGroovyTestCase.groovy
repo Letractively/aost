@@ -59,6 +59,10 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
         customConfig = new CustomConfig(runInternally, port, browser, useMultiWindows, profileLocation, serverHost, browserOptions)
     }
 
+    public void useClosestMatch(boolean isUse){
+      tellurium.useClosestMatch(isUse);
+    }
+
     public void useCssSelector(boolean isUse){
       tellurium.useCssSelector(isUse);
     }

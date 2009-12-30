@@ -278,4 +278,10 @@ class CustomSelenium extends DefaultSelenium {
 
        commandProcessor.doCommand("useTeApi", arr);
     }
+
+    public void useClosestMatch(boolean isUse){
+       String[] arr = [isUse];
+
+       commandProcessor.doCommand("useClosestMatch", arr);
+    }
 }

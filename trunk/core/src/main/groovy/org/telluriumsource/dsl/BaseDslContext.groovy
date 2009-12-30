@@ -1120,38 +1120,6 @@ abstract class BaseDslContext extends GlobalDslContext {
     JSONArray jsa = context.getJSONArray();
 
     return jsa.toString();
-
-/*    context.setNewUid(uid)
-    //TODO: This may not be correct or List or Table objects
-//    obj.traverse(context)
-    obj.treeWalk(context)
-    ArrayList list = context.getUidList()
-
-    JSONArray arr = new JSONArray()
-    list.each {String key ->
-//      String loc = getLocator(key)
-      context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
-      def uio = walkToWithException(context, key)
-
-*//*      if (this.exploreCssSelector()) {
-        loc = this.postProcessSelector(context, loc)
-      }*//*
-
-//      def uio = getUiElement(key)
-
-      if (uio != null) {
-        JSONObject jso = new JSONObject()
-        jso.put(KEY, key)
-        def juio = uio.toJSON()
-//TODO: don't need to use generated locator for UI module cache, but comment out the following line, may affect other parts, double check!!
-//      juio.put(GENERATED, loc)
-//      jso.put(OBJECT, uio.toJSON())
-        jso.put(OBJECT, juio)
-        arr.add(jso)
-      }
-    }
-      return arr.toString()
-    */
   }
 
   public DiagnosisResponse getDiagnosisResult(String uid) {
