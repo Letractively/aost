@@ -206,7 +206,7 @@ TelluriumCache.prototype.useUiModule = function(json){
     fbLog("Input JSON for UI Module: ", json);
     uim.parseUiModule(json);
 //    uim.prelocate();
-    this.uiAlg.takeSnapshot(uim, null);
+    this.uiAlg.santa(uim, null);
     //set the UI Module to be valid after it is located
     uim.valid = true;
     fbLog("Ui Module after Group Locating: ", uim);
