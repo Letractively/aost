@@ -24,12 +24,31 @@ public class JettyLogonModule extends DslContext {
         }
         SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login", name: "submit"])
     }
+
+    ui.Container(uid: "ProblematicForm", clocator: [tag: "table"]){
+        Container(uid: "Username", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j"])
+        }
+        Container(uid: "Password", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j"])
+        }
+        SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "logon", name: "submit"])
+    }
   }
 
   public void logon(String username, String password){
     keyType "Form.Username.Input", username
     keyType "Form.Password.Input", password
     click "Form.Submit"
+    waitForPageToLoad 30000
+  }
+
+  public void plogon(String username, String password){
+    keyType "ProblematicForm.Username.Input", username
+    keyType "ProblematicForm.Password.Input", password
+    click "ProblematicForm.Submit"
     waitForPageToLoad 30000
   }
 

@@ -68,6 +68,14 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
     }
 
     @Test
+    public void testClosestMatch(){
+        useClosestMatch(true);
+        String alt = gsm.getLogoAlt();
+        assertNotNull(alt);        
+        useClosestMatch(false);
+    }
+
+    @Test
     public void testIsDisabled(){
         useCssSelector(true);
         boolean result = gsm.isInputDisabled();
