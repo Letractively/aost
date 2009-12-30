@@ -5,7 +5,7 @@ import org.telluriumsource.locator.MetaCmd
 import org.json.simple.JSONArray
 
 /**
- * Hold metadata for execution workflow
+ * Hold meta data for execution workflow
  *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *

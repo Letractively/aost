@@ -114,12 +114,14 @@ class Table extends Container {
       if (component.uid.toUpperCase().trim().startsWith(HEADER)) {
         //this is a header
         String internHeaderId = internalHeaderId(component.uid)
+        component.tid = internHeaderId
         headers.put(internHeaderId, component)
       } else {
         //this is a regular element
         String internId = internalId(component.uid)
         //force to not use cache for table cell elements
 //        component.cacheable = false
+        component.tid = internId
         components.put(internId, component)
       }
     } else {

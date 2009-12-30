@@ -41,6 +41,8 @@ class List extends Container {
             String internId = internalId(component.uid)
             //force to not use cache for List elements
 //            component.cacheable = false
+            //add the template id as the internal id for the templates
+            component.tid = internId
             components.put(internId, component)
         } else {
             println i18nBundle.getMessage("Container.InvalidID" , {component.uid})

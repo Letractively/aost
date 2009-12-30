@@ -76,7 +76,7 @@ public class Trie {
                 }
                 current.addChild(shared);
             }else{
-                //not common prefix available, then check if the child is a prefix of the input String
+                //no common prefix available, then check if the child is a prefix of the input String
                 boolean found = false;
                 Node next = null;
                 for(Node node: current.getChildren()){

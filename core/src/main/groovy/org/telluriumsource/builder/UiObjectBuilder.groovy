@@ -70,6 +70,8 @@ abstract class UiObjectBuilder extends Const {
         map = makeCaseInsensitive(map)
 
         obj.uid = map.get(UID)
+        //by default, the ui object's template id is its uid, which is a String constant
+        obj.tid = obj.uid
         String ns = map.get(NAMESPACE)
         if(ns != null && ns.trim().length() > 0){
           obj.namespace = ns.trim()
