@@ -54,6 +54,10 @@ abstract class UiObject implements Cloneable{
 
     public static final String UI_TYPE = "uiType"
 
+    //Template ID
+    public static final String TID = "tid"
+    String tid
+
     public static final String UID = "uid"
     String uid
 
@@ -200,7 +204,7 @@ abstract class UiObject implements Cloneable{
 
     String fullUid() {
         if (this.parent != null) {
-            return this.parent.fullUid() + "." + this.uid;
+            return this.parent.fullUid() + "." + this.tid;
         }
 
         return this.uid;
