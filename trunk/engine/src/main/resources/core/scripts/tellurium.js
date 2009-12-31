@@ -229,7 +229,7 @@ function Tellurium (){
     this.isUseTeApi = false;
 
     //cache to hold the element corresponding to a UID in command bundle
-    this.cbCache = new Hashtable();
+//    this.cbCache = new Hashtable();
 
     this.teApi = new TelluriumApi(this.cache);
 
@@ -428,7 +428,7 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
 
 Tellurium.prototype.processMacroCmd = function(){
 
-    this.cbCache.clear();
+//    this.cbCache.clear();
 
     var response = new BundleResponse();
 
@@ -467,7 +467,7 @@ Tellurium.prototype.processMacroCmd = function(){
                             element = this.locate(locator);
                             if (element != null) {
                                 //TODO: need to check if the element is cachable??
-                                this.cbCache.put(cmd.uid, element);
+//                                this.cbCache.put(cmd.uid, element);
                             }else{
 
                                 throw SeleniumError("Cannot locate element for uid " + cmd.uid + " in Command " + cmd.name + ".");
