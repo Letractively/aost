@@ -28,7 +28,7 @@ public class BundleProcessor implements Configurable {
   public static final String NAME = "name";
   
   //sequence number for each command
-  private int sequence = 0;
+  private int sequence = 1;
 
   private Dispatcher dispatcher = new Dispatcher();
 
@@ -75,7 +75,7 @@ public class BundleProcessor implements Configurable {
   }
 
   protected def parseUseUiModuleResponse(String result){
-//    println("UseUiModuleResponse: " + result);
+
     if(result != null && result.trim().length() > 0){
       Map map = reader.read(result);
       UiModuleLocatingResponse response = new UiModuleLocatingResponse(map);
@@ -151,7 +151,9 @@ public class BundleProcessor implements Configurable {
     DslContext dslcontext = context.getContext(WorkflowContext.DSLCONTEXT);
     String json = dslcontext.jsonify(uid);
     def args = [json]
-    CmdRequest cmd = new CmdRequest(nextSeq(), uid, UiModuleLocatingRequest.CMD_NAME , args);
+//    CmdRequest cmd = new CmdRequest(nextSeq(), uid, UiModuleLocatingRequest.CMD_NAME , args);
+    //Use zero for the sequence ID so that it can be processed first
+    CmdRequest cmd = new CmdRequest(0, uid, UiModuleLocatingRequest.CMD_NAME , args);
 
     return cmd;
   }
