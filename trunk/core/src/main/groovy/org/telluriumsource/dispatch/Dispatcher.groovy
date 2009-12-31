@@ -65,4 +65,12 @@ class Dispatcher implements Configurable {
   def showTrace() {
     tracer.report()
   }
+
+  public void warn(String message){
+    tracer.warn(message);
+  }
+
+  public void log(String message){
+    tracer.log(message); 
+  }
 }

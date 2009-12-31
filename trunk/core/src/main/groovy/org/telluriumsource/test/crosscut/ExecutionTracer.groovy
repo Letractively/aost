@@ -8,5 +8,8 @@ package org.telluriumsource.test.crosscut
  * 
  */
 public interface ExecutionTracer extends ExecutionListener, ExecutionReporter{
+  
+   public void log(String message);
 
+   public void warn(String message);
 }

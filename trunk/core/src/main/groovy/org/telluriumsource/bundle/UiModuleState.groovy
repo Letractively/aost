@@ -1,5 +1,7 @@
 package org.telluriumsource.bundle
 
+import org.telluriumsource.dsl.UiModuleLocatingResponse
+
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -15,6 +17,9 @@ public class UiModuleState {
   //whether publish to the Engine
   private boolean published = false;
 
+  //UI Module locating result
+  private UiModuleLocatingResponse result;
+
   def UiModuleState(String id, boolean published) {
     this.id = id;
     this.published = published;
@@ -26,5 +31,13 @@ public class UiModuleState {
 
   public void setState(boolean published){
     this.published = published;
+  }
+
+  public void setLocatingResult(UiModuleLocatingResponse result){
+    this.result = result;
+  }
+
+  public UiModuleLocatingResponse getLocatingResult(){
+    return this.result;
   }
 }
