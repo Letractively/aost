@@ -27,6 +27,14 @@ public class DefaultExecutionTracer implements ExecutionTracer{
     logger.log("Name: ${testname}, start: ${start}, duration: ${duration}ms");
   }
 
+  public void log(String message){
+    logger.log(message);
+  }
+  
+  public void warn(String message){
+    logger.log("WARNING: " + message);  
+  }
+
    def report() {
       String result = reporter.report();
       logger.log(result);

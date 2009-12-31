@@ -80,8 +80,22 @@ public class BundleProcessor implements Configurable {
       Map map = reader.read(result);
       UiModuleLocatingResponse response = new UiModuleLocatingResponse(map);
       if(!response.found && response.relaxed){
-        println("Warning: The exact match for UI Module ${response.id} cannot be found, found the closest match: " + result);
+          dispatcher.warn("The exact match for UI Module '${response.id}' cannot be found, found the closest match: " + result);
+      }else if(response.found){
+          dispatcher.log("Found exact match for UI Module '${response.id}': " + result);
       }
+
+      UiModuleState state = states.get(response.id);
+      if(state != null){
+        state.setLocatingResult(response);
+      }else{
+        state = new UiModuleState();
+        state.id = response.id;
+        state.published = true;
+        state.setLocatingResult(response);
+      }
+      
+      states.put(response.id, state);
     }
   }
 
