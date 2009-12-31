@@ -125,7 +125,7 @@ public class BundleProcessor implements Configurable {
     DslContext dslcontext = context.getContext(WorkflowContext.DSLCONTEXT);
     String json = dslcontext.jsonify(uid);
     def args = [json]
-    CmdRequest cmd = new CmdRequest(nextSeq(), uid, "useUiModule", args);
+    CmdRequest cmd = new CmdRequest(nextSeq(), uid, "getUseUiModule", args);
 
     return cmd;
   }

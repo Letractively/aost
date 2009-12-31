@@ -262,9 +262,10 @@ class CustomSelenium extends DefaultSelenium {
         return commandProcessor.doCommand("getBundleResponse", arr);
     }
 
-    public void useUiModule(String json){
+    public String useUiModule(String json){
         String[] arr = [json];
-        commandProcessor.doCommand("useUiModule", arr);
+        String st = commandProcessor.doCommand("getUseUiModule", arr);
+        return st;
     }
 
     public boolean isUiModuleCached(String id){
