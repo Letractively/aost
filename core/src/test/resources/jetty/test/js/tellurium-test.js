@@ -28,6 +28,7 @@ TelluriumTestCase.prototype.testUiModule = function(){
     tellurium.cache.uiAlg.allowRelax = true;
     tellurium.cache.useUiModule(JSON.stringify(json));
     tellurium.getUiElementFromCache("ProblematicForm.Username.Input");
+    tellurium.getUiElementFromCache("ProblematicForm.Password.Input");
 };
                                    
 var teTestCase = new TelluriumTestCase();
