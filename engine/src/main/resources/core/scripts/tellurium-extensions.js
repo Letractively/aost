@@ -359,8 +359,8 @@ Selenium.prototype.getBundleResponse = function(bundle){
     return tellurium.processMacroCmd();
 };
 
-Selenium.prototype.doUseUiModule = function(json){
-    tellurium.cache.useUiModule(json);
+Selenium.prototype.getUseUiModule = function(json){
+    return tellurium.cache.useUiModule(json);
 };
 
 Selenium.prototype.isUiModuleCached = function(id){

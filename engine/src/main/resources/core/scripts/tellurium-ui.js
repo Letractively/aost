@@ -868,11 +868,17 @@ function UiModule(){
 
 //    this.closestMatch = false;
 
-    //hold a hashtable of the uids for fast access
+    //hold a hashtable of the uid to UI objects for fast access
     this.map = new Hashtable();
 
     //index for uid - dom reference for fast access
     this.indices = null;
+
+    //If the UI Module is relaxed, i.e., use closest match
+    this.relaxed = false;
+
+    //the relax details including the UIDs and their corresponding html source
+    this.relaxDetails = null;
 };
 
 UiModule.prototype.getId = function(){
@@ -1011,12 +1017,21 @@ UiModule.prototype.walkTo = function(context, uiid) {
     return null;
 };
 
-
+function RelaxDetail(){
+    //which UID got relaxed, i.e., closest Match
+    this.uid = null;
+    //the clocator defintion for the UI object corresponding to the UID
+    this.locator = null;
+    //The actual html source of the closest match element
+    this.html = null;
+}
 
 //a snapshot of the UI module in the DOM
 function UiSnapshot(){
     this.elements = new Hashtable();
     this.color = null;
+    this.relaxed = false; 
+    this.relaxDetails = new Array();
 };
 
 UiSnapshot.prototype.addUi = function(uid, domref){
@@ -1104,8 +1119,6 @@ UiAlg.prototype.locateInAllSnapshots = function(uiobj){
         //check the first element color
         if(this.currentColor == first.color){
             first = this.squeue.pop();
-//            this.locate(uiobj.uid, uiobj.locator, first);
-//            this.locate(uiobj.fullUid(), uiobj.locator, first);
             this.locate(uiobj, first);
         }else{
             //exit when the snapshot color is marked for the next round
@@ -1177,8 +1190,13 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
 //    var csel = this.cssbuilder.buildCssSelector(clocator.tag, clocator.text, clocator.position, clocator.direct, clocator.attributes);
     var csel = this.buildSelector(clocator);
     var $found = teJQuery(pref).find(csel);
+    var foundWithoutLookAhead = false;
+    if($found.size() > 0){
+        foundWithoutLookAhead = true;
+    }
     //if multiple matches, need to narrow down by looking ahead at the UI object's children
     if($found.size() > 1){
+
         $found = this.lookAhead(uiobj, $found);
     }
     
@@ -1226,6 +1244,16 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
                 fbLog("Marking closest match for uid " + uid, $relaxed.get(0));
                 $relaxed.eq(0).data("uid", uid);
 
+                if (!foundWithoutLookAhead) {
+                    //get the relaxed details
+                    var rdz = new RelaxDetail();
+                    rdz.uid = uid;
+                    rdz.locator = clocator;
+                    rdz.html = $relaxed.eq(0).outerHTML();
+                    snapshot.relaxed = true;
+                    snapshot.relaxDetails.push(rdz);
+                }
+
                 snapshot.addUi(uid, $relaxed.get(0));
                 snapshot.setColor(ncolor);
                 this.squeue.push(snapshot);
@@ -1235,6 +1263,17 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
                     if ($relaxed.eq(i).data("uid") == undefined) {
 
                         var nsnapshot = snapshot.clone();
+
+                        if (!foundWithoutLookAhead) {
+                            //get the relaxed details
+                            var rdi = new RelaxDetail();
+                            rdi.uid = uid;
+                            rdi.locator = clocator;
+                            rdi.html = $relaxed.eq(i).outerHTML();
+                            nsnapshot.relaxed = true;
+                            nsnapshot.relaxDetails.push(rdi);
+                        }
+
                         nsnapshot.addUi(uid, $relaxed.get(j));
                         nsnapshot.setColor(ncolor);
                         this.squeue.push(nsnapshot);
@@ -1242,6 +1281,17 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
                 }
                 //still need the push back the orignail snapshot
                 if ($relaxed.eq(0).data("uid") == undefined) {
+                    
+                    if (!foundWithoutLookAhead) {
+                        //get the relaxed details
+                        var rdf = new RelaxDetail();
+                        rdf.uid = uid;
+                        rdf.locator = clocator;
+                        rdf.html = $relaxed.eq(0).outerHTML();
+                        snapshot.relaxed = true;
+                        snapshot.relaxDetails.push(rdf);
+                    }
+
                     snapshot.addUi(uid, $relaxed.get(0));
                     snapshot.setColor(ncolor);
                     this.squeue.push(snapshot);
@@ -1452,4 +1502,6 @@ UiAlg.prototype.bindToUiModule = function(uimodule, snapshot){
     //add index to Ui Module for uid to dom reference reference for fast access
     fbLog("Adding uid to dom reference indices for UI module " + uimodule.root.uid, snapshot.elements);
     uimodule.indices = snapshot.elements;
+    uimodule.relaxed = snapshot.relaxed;
+    uimodule.relaxDetails = snapshot.relaxDetails;
 };
