@@ -1223,7 +1223,7 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
             if($relaxed.size() == 1){
                 //found exactly one
                 //temporially assign uid to the found element
-                fbLog("Marking closest match for uid " + uid, $relaxed.eq(0));
+                fbLog("Marking closest match for uid " + uid, $relaxed.get(0));
                 $relaxed.eq(0).data("uid", uid);
 
                 snapshot.addUi(uid, $relaxed.get(0));
@@ -1307,7 +1307,7 @@ UiAlg.prototype.relax = function(clocator, pref) {
         if (keys != null && keys.length > 0) {
             for (var m = 0; m < keys.length; m++) {
                 var attr = keys[m];
-                var tsel = this.cssbuilder.buildSelector(attr, attrs[attr]);
+                var tsel = this.cssbuilder.buildSelector(attr, attrs.get(attr));
                 var $mt = teJQuery(pref).find(jqs + tsel);
                 if ($mt.length > 0) {
                     $closest = $mt;
@@ -1333,16 +1333,20 @@ UiAlg.prototype.relax = function(clocator, pref) {
 
 UiAlg.prototype.hasClosestMatchChildren = function(one, clocators){
     var matches = 0;
-    var val = true;
+//    var val = true;
     for(var i=0; i<clocators.length; i++){
         var result = this.relax(clocators[i], one);
-        val = val && (result.closest.size() > 0);
-        matches = matches + result.matches;
+        if(result.closest == null || result.closest.size() == 0){
+            matches = 0;
+            break;
+        }else{
+            matches = matches + result.matches;
+        }
     }
 
-    if(!val){
-        matches = 0;
-    }
+//    if(!val){
+//        matches = 0;
+//    }
     
     return matches;
 };
