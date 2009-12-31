@@ -1204,7 +1204,8 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
     }else{
         //if allow us to relax the clocator/attribute constraints and use the closest matching ones instead
         if(this.allowRelax){
-            var $relaxed = this.relax(clocator, pref);
+            var result = this.relax(clocator, pref);
+            var $relaxed = result.closest;
             
             if ($relaxed.size() > 1) {
                 $relaxed = this.lookAheadClosestMatchChildren(uiobj, $relaxed);
@@ -1249,6 +1250,11 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
     }
 };
 
+function MatchResult(){
+    this.closest = null;
+    this.matches = 0;
+};
+
 UiAlg.prototype.relax = function(clocator, pref) {
     var attrs = new Hashtable();
     if(clocator.text != null && clocator.text.trim().length > 0){
@@ -1276,36 +1282,60 @@ UiAlg.prototype.relax = function(clocator, pref) {
         tag = "*";
     }
 
+    var result = new MatchResult();
     //Use tag for the initial search
     var $closest = teJQuery(pref).find(tag);
     if (id != null && id != undefined && (!this.cssbuilder.isPartial(id))) {
         jqs = this.cssbuilder.buildId(id);
         $closest = teJQuery(pref).find(jqs);
-        return $closest;
+        //Because ID is unique, if ID matches, ignore all others and assign it a big value
+        result.matches = 100;
+        result.closest = $closest;
+        return result;
     } else {
         jqs = tag;
         var keys = attrs.keySet();
-        for (var m = 0; m < keys.length; m++) {
-            var attr = keys[m];
-            var tsel = this.cssbuilder.buildSelector(attr, attrs[attr]);
-            var $mt = teJQuery(pref).find(jqs + tsel);
-            if ($mt.length > 0) {
-                $closest = $mt;
-                jqs = jqs + tsel;
+        if (keys != null && keys.length > 0) {
+            for (var m = 0; m < keys.length; m++) {
+                var attr = keys[m];
+                var tsel = this.cssbuilder.buildSelector(attr, attrs[attr]);
+                var $mt = teJQuery(pref).find(jqs + tsel);
+                if ($mt.length > 0) {
+                    $closest = $mt;
+                    result.closest = $closest;
+                    jqs = jqs + tsel;
+                    if (result.matches == 0) {
+                        result.matches = 2;
+                    } else {
+                        result.matches++;
+                    }
+                }
+            }
+        }else{
+            if($closest.size() > 0){
+                result.matches = 1;
+                result.closest = $closest;
             }
         }
 
-        return $closest;
+        return result;
     }
 };
 
 UiAlg.prototype.hasClosestMatchChildren = function(one, clocators){
-    var result = true;
+    var matches = 0;
+    var val = true;
     for(var i=0; i<clocators.length; i++){
-        result = result && (this.relax(clocators[i], one).size() > 0);
+        var result = this.relax(clocators[i], one);
+        val = val && (result.closest.size() > 0);
+        matches = matches + result.matches;
     }
 
-    return result;
+    if(!val){
+        matches = 0;
+    }
+    
+    return matches;
 };
 
 UiAlg.prototype.lookAheadClosestMatchChildren = function(uiobj, $found){
@@ -1317,12 +1347,24 @@ UiAlg.prototype.lookAheadClosestMatchChildren = function(uiobj, $found){
             clocators.push(children[c].locator);
         }
         var result = new Array();
+        var max = 0;
+        var closest = null;
         for(var i=0; i<$found.size(); i++){
-            if(this.hasClosestMatchChildren($found.get(i), clocators)){
-                result.push($found.get(i));
+            var matches = this.hasClosestMatchChildren($found.get(i), clocators);
+            if(matches > 0){
+//                result.push($found.get(i));
+                if(max < matches){
+                    //try to find the higest matches, for tied condition, i.e., multiple highest matches, select the first one
+                    max = matches;
+                    closest = $found.get(i);
+                }
             }
         }
 
+        if(closest != null){
+            result.push(closest);
+        }
+        
         return teJQuery(result);
     }
 
