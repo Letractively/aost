@@ -870,6 +870,9 @@ function UiModule(){
 
     //hold a hashtable of the uids for fast access
     this.map = new Hashtable();
+
+    //index for uid - dom reference for fast access
+    this.indices = null;
 };
 
 UiModule.prototype.getId = function(){
@@ -995,14 +998,20 @@ UiModule.prototype.prelocate = function(){
     }
 };
 
-UiModule.prototype.walkTo = function(context, uiid){
+UiModule.prototype.index = function(uid){
+    return this.indices.get(uid);
+};
+
+UiModule.prototype.walkTo = function(context, uiid) {
     var first = uiid.pop();
-    if(first == this.root.uid){
+    if (first == this.root.uid) {
         return this.root.walkTo(context, uiid);
     }
 
     return null;
 };
+
+
 
 //a snapshot of the UI module in the DOM
 function UiSnapshot(){
@@ -1424,6 +1433,7 @@ UiAlg.prototype.santa = function(uimodule, rootdom){
     }
     //found only one snapshot, happy path
     var snapshot = this.squeue.pop();
+    fbLog("Found UI Module " + uimodule.root.uid + " successfully. ", snapshot);
     this.bindToUiModule(uimodule, snapshot);
     this.unmark();
 };
@@ -1435,4 +1445,7 @@ UiAlg.prototype.bindToUiModule = function(uimodule, snapshot){
         var uiobj = this.oqueue.pop();
         uiobj.bind(snapshot, this);
     }
+    //add index to Ui Module for uid to dom reference reference for fast access
+    fbLog("Adding uid to dom reference indices for UI module " + uimodule.root.uid, snapshot.elements);
+    uimodule.indices = snapshot.elements;
 };

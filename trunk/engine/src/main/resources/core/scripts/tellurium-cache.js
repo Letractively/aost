@@ -134,7 +134,7 @@ function TelluriumCache(){
     //global flag to decide whether to cache jQuery selectors
     this.cacheOption = false;
 
-    //cache for jQuery selectors
+    //cache for UI modules
     this.sCache = new Hashtable();
 
     this.maxCacheSize = 50;
@@ -192,15 +192,28 @@ TelluriumCache.prototype.getCachedUiElement = function(uid){
 
     var uiid = new Uiid();
     uiid.convertToUiid(uid);
+    //TODO: seems the order of the generated Uiid is not correct, need to fix it. For the timebeing, reverse the queue.
+    uiid.reverse();
     if(uiid.size() > 0){
         var first = uiid.peek();
         var uim = this.sCache.get(first);
+        fbLog("Found cached UI module " + first, uim);
         if(uim != null){
-            var context = new WorkflowContext();
-            var obj = uim.walkTo(context, uiid);
+            var obj = uim.index(uid);
+            if(obj == null){
+                var context = new WorkflowContext();
+                obj = uim.walkTo(context, uiid);
+                fbLog("Get UI element " + uid + " by walking through the UI module " + first, obj);
+            }else{
+                fbLog("Get cached UI element " + uid + " from indices.", obj);
+            }
+
+/*
+            this logic is not correct any more since we cache UI module instead of individual CSS selectors
             if(obj != null){
                 this.sCache.updateToCache(first, uim);
             }
+*/
 
             return obj;
         }
@@ -221,8 +234,10 @@ TelluriumCache.prototype.useUiModule = function(json){
     var id = uim.getId();
     var cached = this.getCachedData(id);
     if(cached == null){
+        fbLog("Adding Ui Module " + id + " to cache...", uim);
         this.addToCache(id, uim);
     }else{
+        fbLog("Updating Ui Module "+ id + " to cache...", uim);
         this.updateToCache(id, uim);
     }
 };

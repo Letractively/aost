@@ -337,6 +337,13 @@ Tellurium.prototype.prepareArgumentList = function(handler, args, element){
 Tellurium.prototype.getUiElementFromCache = function(uid){
     var uielem = this.cache.getCachedUiElement(uid);
     if(uielem != null){
+        return uielem;
+    }
+
+    //TODO: Need to do individual locating either from its parent or use the generated locator 
+
+    return null;
+/*    if(uielem != null){
         var elem = uielem.domRef;
         if(elem != null){
             return elem;
@@ -351,7 +358,7 @@ Tellurium.prototype.getUiElementFromCache = function(uid){
     }else{
 //        throw SeleniumError("Cannot find Ui Element " + uid);
         return null;
-    }
+    }*/
 };
 
 Tellurium.prototype.dispatchCommand = function(response, cmd, element){
@@ -454,6 +461,7 @@ Tellurium.prototype.processMacroCmd = function(){
                     } else {
 //                        element = this.cbCache.get(cmd.uid);
                         element = this.getUiElementFromCache(cmd.uid);
+                        fbLog("Got UI element " + cmd.uid + " from Cache.", element);
 
                         if (element == null) {
                             element = this.locate(locator);
