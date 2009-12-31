@@ -1,5 +1,17 @@
 function Selenium(){
+    this.browserbot = new BrowserBot();
+};
 
+function BrowserBot(){
+
+};
+
+BrowserBot.prototype.findElement = function(locator){
+    if(locator.startsWith("jquery=")){
+        return teJQuery(locator.substring(7));
+    }
+
+    return null;
 };
 
 function SeleniumError(message) {
