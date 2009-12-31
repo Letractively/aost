@@ -12,10 +12,25 @@ import org.telluriumsource.locator.CompositeLocator
 
 public class RelaxDetail {
     //which UID got relaxed, i.e., closest Match
+    public static String UID = "uid";
     private String uid = null;
+
     //the clocator defintion for the UI object corresponding to the UID
+    public static String LOCATOR = "locator";
     private CompositeLocator locator = null;
 
     //The actual html source of the closest match element
+    public static String HTML = "html";
     private String html = null;
+
+    def RelaxDetail(){
+
+    }
+
+    def RelaxDetail(Map map){
+      this.uid = map.get(UID);
+      this.html = map.get(HTML);
+      this.locator = new CompositeLocator();
+      this.locator.build(map.get(LOCATOR));
+    }
 }

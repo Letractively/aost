@@ -37,6 +37,22 @@ class CompositeLocator {
     public static final String ATTRIBUTES = "attributes";
     Map<String, String> attributes = [:]
 
+    public CompositeLocator build(Map map){
+        this.header = map.get(HEADER);
+        this.tag = map.get(TAG);
+        this.trailer = map.get(TRAILER);
+        this.text = map.get(TEXT);
+        this.position = map.get(POSITION);
+        Map attrs = map.get(ATTRIBUTES);
+        if(attrs != null){
+          attrs.each {key, value ->
+            attributes.put(key, value);
+          }
+        }
+
+        return this;
+      }
+
     JSONObject toJSON(){
       JSONObject jso = new JSONObject()
       if(header != null && header.trim().length() > 0)

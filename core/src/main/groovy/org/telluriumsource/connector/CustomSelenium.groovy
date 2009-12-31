@@ -6,6 +6,7 @@ import org.telluriumsource.exception.*
 import org.telluriumsource.framework.Environment;
 import org.telluriumsource.grid.GridSupport
 import org.telluriumsource.i18n.IResourceBundle
+import org.telluriumsource.dsl.UiModuleLocatingRequest
 
 
 
@@ -264,7 +265,7 @@ class CustomSelenium extends DefaultSelenium {
 
     public String useUiModule(String json){
         String[] arr = [json];
-        String st = commandProcessor.doCommand("getUseUiModule", arr);
+        String st = commandProcessor.doCommand(UiModuleLocatingRequest.CMD_NAME, arr);
         return st;
     }
 
