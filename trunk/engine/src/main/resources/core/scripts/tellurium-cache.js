@@ -222,6 +222,20 @@ TelluriumCache.prototype.getCachedUiElement = function(uid){
     return null;
 };
 
+function UiModuleLocatingResponse(){
+    //ID for the UI module
+    this.id = null;
+
+    //Successfully found or not
+    this.found = false;
+
+    //whether this the UI module used closest Match or not
+    this.relaxed = false;
+
+    //details for the relax, i.e., closest match
+    this.relaxDetails = null;
+};
+
 TelluriumCache.prototype.useUiModule = function(json){
     var uim = new UiModule();
     fbLog("Input JSON for UI Module: ", json);
@@ -240,6 +254,16 @@ TelluriumCache.prototype.useUiModule = function(json){
         fbLog("Updating Ui Module "+ id + " to cache...", uim);
         this.updateToCache(id, uim);
     }
+
+    var response = new UiModuleLocatingResponse();
+    response.id = id;
+    response.relaxed = uim.relaxed;
+    if(!response.relaxed)
+        response.found = true;
+    response.relaxDetails = uim.relaxDetails;
+    fbLog("UseUiModule Response for " + id, response);
+
+    return JSON.stringify(response);
 };
 
 TelluriumCache.prototype.isUiModuleCached = function(id){

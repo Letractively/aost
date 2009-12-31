@@ -294,7 +294,7 @@ Tellurium.prototype.initialize = function(){
     this.registerApi("useDiscardInvalidPolicy", false, "VOID");
     this.registerApi("getCachePolicyName", false, "STRING");
 
-    this.registerApi("useUiModule", false, "VOID");
+    this.registerApi("getUseUiModule", false, "STRING");
     this.registerApi("isUiModuleCached", false, "BOOLEAN");
 
 };
@@ -408,6 +408,7 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
     // need to use selenium api name conversion to find the api
     var apiName = cmd.name;
     var result = null;
+    fbLog("Delegate Call " + cmd.name + " to Selenium", cmd);
     if (apiName.startsWith("is")) {
         result = selenium[apiName].apply(this, cmd.args);
         response.addResponse(cmd.sequ, apiName, "BOOLEAN", result);
@@ -589,6 +590,7 @@ Tellurium.prototype.validateResult = function($result, unique, selector){
     }
 };
 
+//TODO: depreciate this method since the UI module is built in
 Tellurium.prototype.locateElementByCacheAwareCSSSelector = function(locator, inDocument, inWindow){
     var input = this.parseLocator(locator);
     var $found = null;
