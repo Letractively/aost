@@ -9,6 +9,8 @@ import org.telluriumsource.dsl.DslContext
 import org.telluriumsource.dsl.UiID
 
 import org.telluriumsource.framework.Environment
+import org.telluriumsource.dsl.UiModuleLocatingRequest
+import org.telluriumsource.dsl.UiModuleLocatingResponse
 
 /**
  * Command Bundle Processor
@@ -23,7 +25,8 @@ import org.telluriumsource.framework.Environment
 public class BundleProcessor implements Configurable {
 
   public static final String OK = "ok";
-
+  public static final String NAME = "name";
+  
   //sequence number for each command
   private int sequence = 0;
 
@@ -71,6 +74,17 @@ public class BundleProcessor implements Configurable {
     return ++sequence;
   }
 
+  protected def parseUseUiModuleResponse(String result){
+//    println("UseUiModuleResponse: " + result);
+    if(result != null && result.trim().length() > 0){
+      Map map = reader.read(result);
+      UiModuleLocatingResponse response = new UiModuleLocatingResponse(map);
+      if(!response.found && response.relaxed){
+        println("Warning: The exact match for UI Module ${response.id} cannot be found, found the closest match: " + result);
+      }
+    }
+  }
+
   //TODO: how to parse the returning result?
   protected def parseReturnValue(String value){
 
@@ -86,6 +100,18 @@ public class BundleProcessor implements Configurable {
       //The result type is a map from JSON
 //      CmdResponse resp = list.get(0);
       def resp = list.get(0);
+
+      //check the UI Module locating command and do not propagate it up
+      String name = resp.get(NAME);
+      if(UiModuleLocatingRequest.CMD_NAME.equals(name)){
+         parseUseUiModuleResponse(resp.get(CmdResponse.RETURN_RESULT));
+      }
+
+      if(list.size() > 1){
+         resp = list.get(1);
+      }else{
+        return;
+      }
       def result = resp.get(CmdResponse.RETURN_RESULT);
 
       ReturnType type = ReturnType.valueOf(resp.get(CmdResponse.RETURN_TYPE).toUpperCase());
@@ -125,7 +151,7 @@ public class BundleProcessor implements Configurable {
     DslContext dslcontext = context.getContext(WorkflowContext.DSLCONTEXT);
     String json = dslcontext.jsonify(uid);
     def args = [json]
-    CmdRequest cmd = new CmdRequest(nextSeq(), uid, "getUseUiModule", args);
+    CmdRequest cmd = new CmdRequest(nextSeq(), uid, UiModuleLocatingRequest.CMD_NAME , args);
 
     return cmd;
   }
