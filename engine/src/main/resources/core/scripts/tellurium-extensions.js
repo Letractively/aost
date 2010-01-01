@@ -351,7 +351,8 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
 //       response.html =  teJQuery('<div>').append(this.getHtml().clone()).html();
        response.html = this.getHtmlSource();
     }
-    return JSON.stringify(response);
+//    return JSON.stringify(response);
+    return response;
 };
 
 Selenium.prototype.getBundleResponse = function(bundle){
