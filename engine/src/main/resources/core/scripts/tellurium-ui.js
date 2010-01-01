@@ -863,11 +863,6 @@ function UiModule(){
 
     this.valid = false;
 
-    //the id of the UI module should be the root uid
-//    this.id = null;
-
-//    this.closestMatch = false;
-
     //hold a hashtable of the uid to UI objects for fast access
     this.map = new Hashtable();
 
@@ -897,14 +892,10 @@ UiModule.prototype.getId = function(){
 UiModule.prototype.parseUiModule = function(json){
 
     var ulst = JSON.parse(json, null);
-//XXX: Strange, JSON.parse does not work, assign directly?    
-//    var ulst = json;
     var klst = new Array();
     fbLog("JSON Object ulst: ", ulst);
     fbLog("ulst length: ", ulst.length);
     for(var i=0; i<ulst.length; i++){
-//        var key = ulst[i].key;
-//        var obj = ulst[i].obj;
         fbLog("i: ", i);
         fbLog("Build from JSON object: ", ulst[i].obj);
         this.map.put(ulst[i].key, this.buildFromJSON(ulst[i].obj));
@@ -912,13 +903,11 @@ UiModule.prototype.parseUiModule = function(json){
     }
 
     this.buildTree(klst);
-//    this.valid = true;
     fbLog("Parsed Ui Module " + this.id + ": ", this);
 };
 
 UiModule.prototype.buildFromJSON = function(jobj){
     //TODO: find a more elegant way to create a Javascript function by its name
-//    fbTrace();
     var obj = null;
     switch(jobj.uiType){
         case "Button":
@@ -995,7 +984,6 @@ UiModule.prototype.buildTree = function(keys){
             this.id = uiobj.uid;
         }else{
             var uiid = new Uiid();
-//            uiid.convertToUiid(uiobj.uid);
             uiid.convertToUiid(keys[i]);
             uiid.reverse();
             this.root.goToPlace(uiid, uiobj);
@@ -1407,16 +1395,10 @@ UiAlg.prototype.relax = function(clocator, pref) {
                     }else{
                         nm++;
                     }
-/*                    if (result.score == 0) {
-                        result.score = 2;
-                    } else {
-                        result.score++;
-                    }*/
                 }
             }
         }else{
             if($closest.size() > 0){
-//                result.score = 1;
                 nm = 1;
                 result.closest = $closest;
             }
@@ -1432,7 +1414,6 @@ UiAlg.prototype.relax = function(clocator, pref) {
 
 UiAlg.prototype.hasClosestMatchChildren = function(one, clocators){
     var score = 0;
-//    var val = true;
     for(var i=0; i<clocators.length; i++){
         var result = this.relax(clocators[i], one);
         if(result.closest == null || result.closest.size() == 0){
@@ -1442,10 +1423,6 @@ UiAlg.prototype.hasClosestMatchChildren = function(one, clocators){
             score = score + result.score;
         }
     }
-
-//    if(!val){
-//        score = 0;
-//    }
     
     return score;
 };
@@ -1464,7 +1441,6 @@ UiAlg.prototype.lookAheadClosestMatchChildren = function(uiobj, $found, matchres
         for(var i=0; i<$found.size(); i++){
             var score = this.hasClosestMatchChildren($found.get(i), clocators);
             if(score > 0){
-//                result.push($found.get(i));
                 if(max < score){
                     //try to find the higest matches, for tied condition, i.e., multiple highest matches, select the first one
                     max = score;
