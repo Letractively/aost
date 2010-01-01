@@ -48,12 +48,13 @@ public class JettyLogonJUnitTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testDiagnose(){
-        
+        jlm.diagnose("Form.Username.Input");
         jlm.diagnose("ProblematicForm.Username.Input");
     }
 
     @Test
     public void testValidateUiModule(){
+        jlm.validateUiModule("Form");
         jlm.validateUiModule("ProblematicForm");
     }
 
