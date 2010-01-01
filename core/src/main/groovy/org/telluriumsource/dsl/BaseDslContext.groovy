@@ -55,6 +55,7 @@ abstract class BaseDslContext extends GlobalDslContext {
   public BaseDslContext(){
 	  i18nBundle = Environment.instance.myResourceBundle()
   }
+  
   abstract protected String locatorMapping(WorkflowContext context, loc)
 
   abstract protected String locatorMappingWithOption(WorkflowContext context, loc, optLoc)
@@ -98,6 +99,17 @@ abstract class BaseDslContext extends GlobalDslContext {
     return reader.read(out);
   }
 
+  protected UiModuleValidationResponse parseUseUiModuleResponse(String result) {
+    if (result.startsWith("OK,")) {
+      String out = result.substring(3);
+      Map map = reader.read(out);
+      UiModuleValidationResponse response = new UiModuleValidationResponse(map);
+
+      return response;
+    } else {
+      return null;
+    }
+  }
 
   def customUiCall(String uid, String method, Object[] args) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
@@ -1126,8 +1138,22 @@ abstract class BaseDslContext extends GlobalDslContext {
     return jsa.toString();
   }
 
-  public UiModuleValidationResponse validateUiModule(String uid){
-    
+
+  public UiModuleValidationResponse getUiModuleValidationResult(String uid){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    def obj = walkToWithException(context, uid);
+    JSONArray arr = new JSONArray();
+    context.setJSONArray(arr);
+    obj.treeWalk(context);
+    JSONArray jsa = context.getJSONArray();
+
+    String out = extension.getValidateUiModule(context, jsa.toString());
+    return parseUseUiModuleResponse(out);
+  }
+
+  public void validateUiModule(String uid){
+    UiModuleValidationResponse response = getUiModuleValidationResult(uid);
+    response?.showMe();
   }
 
   public DiagnosisResponse getDiagnosisResult(String uid) {
@@ -1170,12 +1196,12 @@ abstract class BaseDslContext extends GlobalDslContext {
 
   public void diagnose(String uid) {
     DiagnosisResponse resp = this.getDiagnosisResult(uid)
-    resp.show()
+    resp.showMe()
   }
 
   public void diagnose(String uid, DiagnosisOption options) {
     DiagnosisResponse resp = this.getDiagnosisResult(uid, options)
-    resp.show()
+    resp.showMe()
   }
 
   public String generateHtml(String uid) {

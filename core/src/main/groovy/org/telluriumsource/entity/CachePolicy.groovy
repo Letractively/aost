@@ -1,4 +1,4 @@
-package org.telluriumsource.framework
+package org.telluriumsource.entity
 
 /**
  * Enum for Cache Policies

@@ -2,7 +2,8 @@ package org.telluriumsource.java
 
 import org.telluriumsource.test.groovy.TelluriumGroovyTestCase
 import org.telluriumsource.module.GoogleSearchModule
-import org.telluriumsource.framework.CachePolicy
+import org.telluriumsource.entity.CachePolicy
+import org.telluriumsource.entity.CachePolicy
 
 /**
  *

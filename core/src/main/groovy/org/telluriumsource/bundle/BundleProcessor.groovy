@@ -11,9 +11,6 @@ import org.telluriumsource.dsl.UiID
 import org.telluriumsource.framework.Environment
 import org.telluriumsource.entity.UiModuleValidationRequest
 import org.telluriumsource.entity.UiModuleValidationResponse
-import org.telluriumsource.entity.UiModuleValidationRequest
-import org.telluriumsource.entity.UiModuleValidationResponse
-import org.telluriumsource.entity.UiModuleValidationRequest
 
 /**
  * Command Bundle Processor
@@ -29,7 +26,8 @@ public class BundleProcessor implements Configurable {
 
   public static final String OK = "ok";
   public static final String NAME = "name";
-  
+  public static final String[] EXCLUSIVE_LIST = ["diagnose", "getValidateUiModule"];
+
   //sequence number for each command
   private int sequence = 1;
 
@@ -155,8 +153,23 @@ public class BundleProcessor implements Configurable {
     return null;
   }
 
-  public boolean needCacheUiModule(WorkflowContext context, String uid){
+  protected boolean inExclusiveList(String cmd){
+    boolean result = false;
+    EXCLUSIVE_LIST.each {String elem ->
+      if(elem.equals(cmd)){
+        result = true;
+      }
+    }
+
+    return result;
+  }
+
+  public boolean needCacheUiModule(WorkflowContext context, String cmd, String uid){
     if(uid != null && uid.trim().length() > 0 && context.isUseSelectorCache()){
+        if(inExclusiveList(cmd)){
+          return false;
+        }
+      
         String uimid = getUiModuleId(uid);
         return !this.isUiModulePublished(uimid);
     }
@@ -184,7 +197,7 @@ public class BundleProcessor implements Configurable {
     CmdRequest cmd = new CmdRequest(nextSeq(), uid, name, args);
     if(bundle.shouldAppend(cmd)){
       //TODO: need to extract the root uid
-      if(this.needCacheUiModule(context, uid)){
+      if(this.needCacheUiModule(context, name, uid)){
         String id = this.getUiModuleId(uid);
         CmdRequest uum = this.getUseUiModuleRequest(context, id);
         bundle.addToBundle(uum);
@@ -202,7 +215,7 @@ public class BundleProcessor implements Configurable {
       return OK;
     }else{
       String json = bundle.extractAllAndConvertToJson();
-      if(this.needCacheUiModule(context, uid)){
+      if(this.needCacheUiModule(context, name, uid)){
         String id = this.getUiModuleId(uid);
         CmdRequest uum = this.getUseUiModuleRequest(context, id);
         bundle.addToBundle(uum);
@@ -219,7 +232,7 @@ public class BundleProcessor implements Configurable {
   def passThrough(WorkflowContext context, String uid, String name, args){
     //if no command on the bundle, call directly
     if(bundle.size() == 0){
-       if(this.needCacheUiModule(context, uid)){
+       if(this.needCacheUiModule(context, name, uid)){
         String id = this.getUiModuleId(uid);
         CmdRequest uum = this.getUseUiModuleRequest(context, id);
         dispatcher.metaClass.invokeMethod(dispatcher, uum.name, uum.args);
@@ -227,7 +240,7 @@ public class BundleProcessor implements Configurable {
      }
       return dispatcher.metaClass.invokeMethod(dispatcher, name, args);
     }else{
-       if(this.needCacheUiModule(context, uid)){
+       if(this.needCacheUiModule(context, name, uid)){
         String id = this.getUiModuleId(uid);
         CmdRequest uum = this.getUseUiModuleRequest(context, id);
         bundle.addToBundle(uum);
