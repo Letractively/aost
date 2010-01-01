@@ -295,6 +295,7 @@ Tellurium.prototype.initialize = function(){
     this.registerApi("getCachePolicyName", false, "STRING");
 
     this.registerApi("getUseUiModule", false, "STRING");
+    this.registerApi("getValidateUiModule", false, "STRING");
     this.registerApi("isUiModuleCached", false, "BOOLEAN");
 
 };

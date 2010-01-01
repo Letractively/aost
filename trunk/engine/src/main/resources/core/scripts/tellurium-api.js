@@ -317,6 +317,10 @@ TelluriumApi.prototype.getUseUiModule = function(json){
     return this.cache.useUiModule(json);
 };
 
+TelluriumApi.prototype.getValidateUiModule = function(json){
+    return tellurium.cache.validateUiModule(json);
+};
+
 TelluriumApi.prototype.isUiModuleCached = function(id){
     return this.cache.isUiModuleCached(id);
 };

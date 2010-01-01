@@ -363,8 +363,12 @@ Selenium.prototype.getUseUiModule = function(json){
     return tellurium.cache.useUiModule(json);
 };
 
+Selenium.prototype.getValidateUiModule = function(json){
+    return tellurium.cache.validateUiModule(json);
+};
+
 Selenium.prototype.isUiModuleCached = function(id){
-    return tellurium.cache.isUIModuleCached(id);
+    return tellurium.cache.isUiModuleCached(id);
 };
 
 Selenium.prototype.doUseTeApi = function(isUseApi){
