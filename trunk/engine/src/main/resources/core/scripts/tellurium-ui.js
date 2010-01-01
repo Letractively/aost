@@ -882,6 +882,9 @@ function UiModule(){
 
     //number of matched snapshots
     this.matches = 0;
+
+    //scaled score (0-100) for percentage of match
+    this.score = 0;
 };
 
 UiModule.prototype.getId = function(){
@@ -1035,6 +1038,8 @@ function UiSnapshot(){
     this.color = null;
     this.relaxed = false; 
     this.relaxDetails = new Array();
+    this.score = 0;
+    this.nelem = 0;
 };
 
 UiSnapshot.prototype.addUi = function(uid, domref){
@@ -1213,6 +1218,8 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
         //store all the elements with data("uid")
         this.uidset.push($found.eq(0));
         snapshot.setColor(ncolor);
+        snapshot.score += 100;
+        snapshot.nelem++;
         this.squeue.push(snapshot);
     }else if($found.size() > 1){
         //multiple results, need to create more snapshots to expend the search
@@ -1222,6 +1229,8 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
                 var newsnapshot = snapshot.clone();
                 newsnapshot.addUi(uid, $found.get(i));
                 newsnapshot.setColor(ncolor);
+                newsnapshot.score += 100;
+                newsnapshot.nelem++;
                 this.squeue.push(newsnapshot);
             }
         }
@@ -1229,6 +1238,8 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
         if ($found.eq(0).data("uid") == undefined) {
             snapshot.addUi(uid, $found.get(0));
             snapshot.setColor(ncolor);
+            snapshot.score += 100;
+            snapshot.nelem++;
             this.squeue.push(snapshot);
         }
     }else{
@@ -1238,7 +1249,7 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
             var $relaxed = result.closest;
             
             if ($relaxed.size() > 1) {
-                $relaxed = this.lookAheadClosestMatchChildren(uiobj, $relaxed);
+                $relaxed = this.lookAheadClosestMatchChildren(uiobj, $relaxed, result);
             }
 
             if($relaxed.size() == 1){
@@ -1259,6 +1270,8 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
 
                 snapshot.addUi(uid, $relaxed.get(0));
                 snapshot.setColor(ncolor);
+                snapshot.score += result.score;
+                snapshot.nelem++;
                 this.squeue.push(snapshot);
             }else if($relaxed.size() > 1){
                 //multiple results, need to create more snapshots to expend the search
@@ -1279,6 +1292,8 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
 
                         nsnapshot.addUi(uid, $relaxed.get(j));
                         nsnapshot.setColor(ncolor);
+                        nsnapshot.score += result.score;
+                        nsnapshot.nelem++;
                         this.squeue.push(nsnapshot);
                     }
                 }
@@ -1297,6 +1312,8 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
 
                     snapshot.addUi(uid, $relaxed.get(0));
                     snapshot.setColor(ncolor);
+                    snapshot.score += result.score;
+                    snapshot.nelem++;
                     this.squeue.push(snapshot);
                 }
             }else{
@@ -1426,7 +1443,7 @@ UiAlg.prototype.hasClosestMatchChildren = function(one, clocators){
     return score;
 };
 
-UiAlg.prototype.lookAheadClosestMatchChildren = function(uiobj, $found){
+UiAlg.prototype.lookAheadClosestMatchChildren = function(uiobj, $found, matchresult){
     var children = uiobj.lookChildren();
 
     if(children != null && children.length > 0){
@@ -1450,6 +1467,9 @@ UiAlg.prototype.lookAheadClosestMatchChildren = function(uiobj, $found){
         }
 
         if(closest != null){
+            //average the score over the element and its children
+            matchresult.score = (matchresult.score + max)/(children.length + 1);
+            matchresult.closest = closest;
             result.push(closest);
         }
         
@@ -1571,4 +1591,9 @@ UiAlg.prototype.bindToUiModule = function(uimodule, snapshot){
     uimodule.indices = snapshot.elements;
     uimodule.relaxed = snapshot.relaxed;
     uimodule.relaxDetails = snapshot.relaxDetails;
+    if(snapshot.nelem == 0){
+        uimodule.score = 0;
+    }else{
+        uimodule.score = snapshot.score/snapshot.nelem;
+    }
 };
