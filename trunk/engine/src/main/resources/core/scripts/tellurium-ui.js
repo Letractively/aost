@@ -1042,6 +1042,13 @@ function UiSnapshot(){
     this.nelem = 0;
 };
 
+UiSnapshot.prototype.getScaledScore = function(){
+    if(this.nelem == 0)
+        return 0;
+    else
+        return this.score/this.nelem;
+};
+
 UiSnapshot.prototype.addUi = function(uid, domref){
     this.elements.put(uid, domref);
 };
@@ -1569,9 +1576,18 @@ UiAlg.prototype.validate = function(uimodule, rootdom){
     if (this.squeue.size() >= 1) {
         fbLog("Found " + this.squeue.size() + " matches for UI module " + uimodule.root.uid, this.squeue);
         uimodule.matches = this.squeue.size();
-        //for multiple snapshots, only return the first one
-        //TODO: maybe we can use match score to select the best match
+        //use match score to select the best match
         var snapshot = this.squeue.pop();
+        var maxscore = snapshot.getScaledScore();
+        while (this.squeue.length > 0) {
+            var nsnapshot = this.squeue.pop();
+            var nscore = nsnapshot.getScaledScore();
+            if (nscore > maxscore) {
+                snapshot = nsnapshot;
+                maxscore = nscore;
+            }
+        }
+
         fbLog("Found UI Module " + uimodule.root.uid + " successfully. ", snapshot);
         this.bindToUiModule(uimodule, snapshot);
         this.unmark();
@@ -1591,9 +1607,5 @@ UiAlg.prototype.bindToUiModule = function(uimodule, snapshot){
     uimodule.indices = snapshot.elements;
     uimodule.relaxed = snapshot.relaxed;
     uimodule.relaxDetails = snapshot.relaxDetails;
-    if(snapshot.nelem == 0){
-        uimodule.score = 0;
-    }else{
-        uimodule.score = snapshot.score/snapshot.nelem;
-    }
+    uimodule.score = snapshot.getScaledScore();
 };

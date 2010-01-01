@@ -34,6 +34,10 @@ FifoQueue.prototype.pop = function(){
     return null;
 };
 
+FifoQueue.prototype.toArray = function(){
+    return this.queue;    
+};
+
 function HashMap()
 {
     // members
