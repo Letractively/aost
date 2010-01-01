@@ -7,7 +7,6 @@ import org.telluriumsource.framework.Environment;
 import org.telluriumsource.grid.GridSupport
 import org.telluriumsource.i18n.IResourceBundle
 import org.telluriumsource.entity.UiModuleValidationRequest
-import org.telluriumsource.entity.UiModuleValidationRequest
 
 /**
  * Customize Selenium RC so that we can add custom methods to Selenium RC
