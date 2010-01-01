@@ -92,23 +92,28 @@ abstract class BaseDslContext extends GlobalDslContext {
   protected Object parseSeleniumJSONReturnValue(String out) {
     if (out.startsWith("OK,")) {
       out = out.substring(3);
-    } else {
-      return null;
+    }
+    if(out.length() >0){
+      return reader.read(out);
     }
 
-    return reader.read(out);
+    return null;
   }
 
   protected UiModuleValidationResponse parseUseUiModuleResponse(String result) {
+    String out = result;
     if (result.startsWith("OK,")) {
-      String out = result.substring(3);
+      out = result.substring(3);
+    }
+
+    if(out.length() > 0){
       Map map = reader.read(out);
       UiModuleValidationResponse response = new UiModuleValidationResponse(map);
 
       return response;
-    } else {
-      return null;
     }
+
+    return null;
   }
 
   def customUiCall(String uid, String method, Object[] args) {
@@ -1169,7 +1174,7 @@ abstract class BaseDslContext extends GlobalDslContext {
       DiagnosisOption options = new DiagnosisOption()
       DiagnosisRequest request = new DiagnosisRequest(uid, ploc, loc, options)
 
-      String out = extension.diagnose(context, locator, request.toJson())
+      String out = extension.getDiagnosisResponse(context, locator, request.toJson())
 
       return new DiagnosisResponse(parseSeleniumJSONReturnValue(out))
     }
@@ -1188,7 +1193,7 @@ abstract class BaseDslContext extends GlobalDslContext {
 //      DiagnosisOption options = new DiagnosisOption()
       DiagnosisRequest request = new DiagnosisRequest(uid, ploc, loc, options)
 
-      String out = extension.diagnose(context, locator, request.toJson())
+      String out = extension.getDiagnosisResponse(context, locator, request.toJson())
 
       return new DiagnosisResponse(parseSeleniumJSONReturnValue(out))
     }

@@ -26,7 +26,7 @@ public class BundleProcessor implements Configurable {
 
   public static final String OK = "ok";
   public static final String NAME = "name";
-  public static final String[] EXCLUSIVE_LIST = ["diagnose", "getValidateUiModule"];
+  public static final String[] EXCLUSIVE_LIST = ["getDiagnosisResponse", "getValidateUiModule"];
 
   //sequence number for each command
   private int sequence = 1;
@@ -118,15 +118,15 @@ public class BundleProcessor implements Configurable {
 
       //check the UI Module locating command and do not propagate it up
       String name = resp.get(NAME);
-      if(UiModuleValidationRequest.CMD_NAME.equals(name)){
-         parseUseUiModuleResponse(resp.get(CmdResponse.RETURN_RESULT));
+      if (UiModuleValidationRequest.CMD_NAME.equals(name)) {
+        parseUseUiModuleResponse(resp.get(CmdResponse.RETURN_RESULT));
+        if (list.size() > 1) {
+          resp = list.get(1);
+        } else {
+          return;
+        }
       }
 
-      if(list.size() > 1){
-         resp = list.get(1);
-      }else{
-        return;
-      }
       def result = resp.get(CmdResponse.RETURN_RESULT);
 
       ReturnType type = ReturnType.valueOf(resp.get(CmdResponse.RETURN_TYPE).toUpperCase());
@@ -145,6 +145,9 @@ public class BundleProcessor implements Configurable {
           break;
         case ReturnType.ARRAY:
           //TODO: need to really convert the String array to the object array 
+          return result;
+          break;
+        default:
           return result;
           break;
       }
@@ -208,7 +211,7 @@ public class BundleProcessor implements Configurable {
         //need to issue the command bundle since it reaches the maximum limit
         String json = bundle.extractAllAndConvertToJson();
 
-        String val = dispatcher.issueBundle(json);
+        String val = dispatcher.getBundleResponse(json);
         return parseReturnValue(val);
       }
 
@@ -224,9 +227,25 @@ public class BundleProcessor implements Configurable {
 
       bundle.addToBundle(cmd);
       
-      String val = dispatcher.issueBundle(json);
+      String val = dispatcher.getBundleResponse(json);
       return parseReturnValue(val);
     }
+  }
+
+  def passBundledCommand(WorkflowContext context, String uid, String name, args){
+    if(this.needCacheUiModule(context, name, uid)) {
+      String id = this.getUiModuleId(uid);
+      CmdRequest uum = this.getUseUiModuleRequest(context, id);
+      bundle.addToBundle(uum);
+      this.publishUiModule(id);
+    }
+    //there are commands in the bundle, pigback this command with the commands in a bundle and issue it
+    CmdRequest cmd = new CmdRequest(nextSeq(), uid, name, args);
+    bundle.addToBundle(cmd);
+    String json = bundle.extractAllAndConvertToJson();
+
+    String val = dispatcher.getBundleResponse(json);
+    return parseReturnValue(val);
   }
 
   def passThrough(WorkflowContext context, String uid, String name, args){
@@ -251,7 +270,7 @@ public class BundleProcessor implements Configurable {
       bundle.addToBundle(cmd);
       String json = bundle.extractAllAndConvertToJson();
       
-      String val = dispatcher.issueBundle(json);
+      String val = dispatcher.getBundleResponse(json);
       return parseReturnValue(val);
     }
   }
@@ -261,7 +280,7 @@ public class BundleProcessor implements Configurable {
     if(bundle.size() > 0){
       String json = bundle.extractAllAndConvertToJson();
 
-      String val = dispatcher.issueBundle(json);
+      String val = dispatcher.getBundleResponse(json);
       return parseReturnValue(val);      
     }
 
@@ -292,7 +311,8 @@ public class BundleProcessor implements Configurable {
       return issueCommand(context, uid, name, params);
     }
 
-    return passThrough(context, uid, name, params);  
+//    return passThrough(context, uid, name, params);
+    return passBundledCommand(context, uid, name, params);
   }
 
   protected def methodMissing(String name, args) {

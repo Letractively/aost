@@ -247,7 +247,7 @@ abstract class Widget extends UiObject {
   }
 
   public String getCurrentCachePolicy(){
-    return extension.getCurrentCachePolicy()
+    return extension.getCachePolicyName()
   }
 
   public void useJQuerySelector(){

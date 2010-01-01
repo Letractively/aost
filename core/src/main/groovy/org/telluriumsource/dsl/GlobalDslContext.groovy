@@ -151,7 +151,7 @@ public class GlobalDslContext {
   public String getCurrentCachePolicy() {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
 
-    return extension.getCurrentCachePolicy(context)
+    return extension.getCachePolicyName(context)
   }
 
   public void useDefaultXPathLibrary() {
