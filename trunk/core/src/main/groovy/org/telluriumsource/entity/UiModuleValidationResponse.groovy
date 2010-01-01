@@ -25,13 +25,17 @@ public class UiModuleValidationResponse {
     public static String FOUND = "found";
     private boolean found = false;
 
+    //whether this the UI module used closest Match or not
+    public static String RELAXED = "relaxed";
+    private boolean relaxed = false;
+
     //match count
     public static String MATCHCOUNT = "matches";
     private int matches = 0;
 
-    //whether this the UI module used closest Match or not
-    public static String RELAXED = "relaxed";
-    private boolean relaxed = false;
+    //scaled match score (0-100)
+    public static String SCORE = "score";
+    private float score = 0.0;
 
     //details for the relax, i.e., closest match
     public static String RELAXDETAILS = "relaxDetails";
@@ -45,8 +49,9 @@ public class UiModuleValidationResponse {
     def UiModuleValidationResponse(Map map){
       this.id = map.get(ID);
       this.found = map.get(FOUND);
-      this.matches = map.get(MATCHCOUNT);
       this.relaxed = map.get(RELAXED);
+      this.matches = map.get(MATCHCOUNT);
+      this.score = map.get(SCORE);
       this.relaxDetails = new ArrayList();
       List lst = map.get(RELAXDETAILS);
       if(lst != null && lst.size() > 0){
@@ -68,6 +73,7 @@ public class UiModuleValidationResponse {
     println i18nBundle.getMessage("UiModuleValidationResponse.Found" , found);
     println i18nBundle.getMessage("UiModuleValidationResponse.Relaxed" , relaxed);
     println i18nBundle.getMessage("UiModuleValidationResponse.MatchCount" , matches);
+    println i18nBundle.getMessage("UiModuleValidationResponse.MatchScore" , score);
 
     if(relaxDetails != null && relaxDetails.size() > 0){
       println i18nBundle.getMessage("UiModuleValidationResponse.RelaxDetails");
