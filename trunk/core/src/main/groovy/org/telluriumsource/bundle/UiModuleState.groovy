@@ -1,6 +1,7 @@
 package org.telluriumsource.bundle
 
-import org.telluriumsource.dsl.UiModuleLocatingResponse
+import org.telluriumsource.dsl.UiModuleValidationResponse
+import org.telluriumsource.dsl.UiModuleValidationResponse
 
 /**
  * 
@@ -18,7 +19,7 @@ public class UiModuleState {
   private boolean published = false;
 
   //UI Module locating result
-  private UiModuleLocatingResponse result;
+  private UiModuleValidationResponse result;
 
   def UiModuleState(String id, boolean published) {
     this.id = id;
@@ -33,11 +34,11 @@ public class UiModuleState {
     this.published = published;
   }
 
-  public void setLocatingResult(UiModuleLocatingResponse result){
+  public void setLocatingResult(UiModuleValidationResponse result){
     this.result = result;
   }
 
-  public UiModuleLocatingResponse getLocatingResult(){
+  public UiModuleValidationResponse getLocatingResult(){
     return this.result;
   }
 }
