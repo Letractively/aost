@@ -1311,7 +1311,8 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
 
 function MatchResult(){
     this.closest = null;
-    this.matches = 0;
+    //scaled match score, 0 - 100, or 100 percentage
+    this.score = 0;
 };
 
 UiAlg.prototype.relax = function(clocator, pref) {
@@ -1348,13 +1349,24 @@ UiAlg.prototype.relax = function(clocator, pref) {
         jqs = this.cssbuilder.buildId(id);
         $closest = teJQuery(pref).find(jqs);
         //Because ID is unique, if ID matches, ignore all others and assign it a big value
-        result.matches = 100;
-        result.closest = $closest;
+        if($closest.size() > 0){
+            result.score = 100;
+            result.closest = $closest;
+        }
+        fbLog("Scaled Matching Score: " + result.score, result);
+           
         return result;
     } else {
         jqs = tag;
         var keys = attrs.keySet();
+
+        //number of properties, tag must be included
+        var np = 1;
+        //number of matched properties
+        var nm = 0;
+
         if (keys != null && keys.length > 0) {
+            np = np + keys.length;
             for (var m = 0; m < keys.length; m++) {
                 var attr = keys[m];
                 var tsel = this.cssbuilder.buildSelector(attr, attrs.get(attr));
@@ -1363,42 +1375,52 @@ UiAlg.prototype.relax = function(clocator, pref) {
                     $closest = $mt;
                     result.closest = $closest;
                     jqs = jqs + tsel;
-                    if (result.matches == 0) {
-                        result.matches = 2;
-                    } else {
-                        result.matches++;
+                    if(nm == 0){
+                        nm = 2;
+                    }else{
+                        nm++;
                     }
+/*                    if (result.score == 0) {
+                        result.score = 2;
+                    } else {
+                        result.score++;
+                    }*/
                 }
             }
         }else{
             if($closest.size() > 0){
-                result.matches = 1;
+//                result.score = 1;
+                nm = 1;
                 result.closest = $closest;
             }
         }
+
+        //calculate matching score, scaled to 100 percentage
+        result.score = 100*nm/np;
+        fbLog("Scaled Matching Score: " + result.score, result);
 
         return result;
     }
 };
 
 UiAlg.prototype.hasClosestMatchChildren = function(one, clocators){
-    var matches = 0;
+    var score = 0;
 //    var val = true;
     for(var i=0; i<clocators.length; i++){
         var result = this.relax(clocators[i], one);
         if(result.closest == null || result.closest.size() == 0){
-            matches = 0;
+            score = 0;
             break;
         }else{
-            matches = matches + result.matches;
+            score = score + result.score;
         }
     }
 
 //    if(!val){
-//        matches = 0;
+//        score = 0;
 //    }
     
-    return matches;
+    return score;
 };
 
 UiAlg.prototype.lookAheadClosestMatchChildren = function(uiobj, $found){
@@ -1413,12 +1435,12 @@ UiAlg.prototype.lookAheadClosestMatchChildren = function(uiobj, $found){
         var max = 0;
         var closest = null;
         for(var i=0; i<$found.size(); i++){
-            var matches = this.hasClosestMatchChildren($found.get(i), clocators);
-            if(matches > 0){
+            var score = this.hasClosestMatchChildren($found.get(i), clocators);
+            if(score > 0){
 //                result.push($found.get(i));
-                if(max < matches){
+                if(max < score){
                     //try to find the higest matches, for tied condition, i.e., multiple highest matches, select the first one
-                    max = matches;
+                    max = score;
                     closest = $found.get(i);
                 }
             }
