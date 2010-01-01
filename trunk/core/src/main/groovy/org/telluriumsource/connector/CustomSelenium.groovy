@@ -263,7 +263,7 @@ class CustomSelenium extends DefaultSelenium {
         return commandProcessor.doCommand("getBundleResponse", arr);
     }
 
-    public String useUiModule(String json){
+    public String getUseUiModule(String json){
         String[] arr = [json];
         String st = commandProcessor.doCommand(UiModuleLocatingRequest.CMD_NAME, arr);
         return st;
