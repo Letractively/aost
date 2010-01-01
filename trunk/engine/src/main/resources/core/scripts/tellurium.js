@@ -9,7 +9,33 @@ var tellurium = null;
 teJQuery(document).ready(function() {
     tellurium = new Tellurium();
     tellurium.initialize();
+
+/*
+    fbLog("Add jquery locate strategy", selenium);
+    var strategyFunction = tellurium.locateElementByCSSSelector(locator, inDocument, inWindow);
+    //selenium.locateByJQuery;
+
+    var safeStrategyFunction = function() {
+        try {
+            return strategyFunction.apply(selenium, arguments);
+        } catch (ex) {
+            throw new SeleniumError("Error executing strategy function jquery" + ": " + extractExceptionMessage(ex));
+        }
+    }
+    selenium.browserbot.locationStrategies["jquery"] = safeStrategyFunction;*/
+
+/*  //seems not really work
+    selenium.doAddLocationStrategy("jquery", "return tellurium.locateElementByCSSSelector(locator, inDocument, inWindow);");
+    fbLog("Add jquery locate strategy", selenium);*/
 });
+
+
+/*
+Selenium.prototype.locateByJQuery = function(locator, inDocument, inWindow){
+    return tellurium.locateElementByCSSSelector(locator, inDocument, inWindow);
+};
+*/
+
 
 //add custom jQuery Selector :te_text()
 //
@@ -411,10 +437,12 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
     var result = null;
     fbLog("Delegate Call " + cmd.name + " to Selenium", cmd);
     if (apiName.startsWith("is")) {
-        result = selenium[apiName].apply(this, cmd.args);
+//        result = selenium[apiName].apply(this, cmd.args);
+        result = selenium[apiName].apply(selenium, cmd.args);
         response.addResponse(cmd.sequ, apiName, "BOOLEAN", result);
     } else if (apiName.startsWith("get")) {
-        result = selenium[apiName].apply(this, cmd.args);
+//        result = selenium[apiName].apply(this, cmd.args);
+        result = selenium[apiName].apply(selenium, cmd.args);
         if(apiName.indexOf("All") != -1){
             //api Name includes "All" should return an array
             response.addResponse(cmd.sequ, apiName, "ARRAY", result);
@@ -424,7 +452,9 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
         }
     } else {
         apiName = this.camelizeApiName(apiName);
-        selenium[apiName].apply(this, cmd.args);
+        fbLog("Call Selenium method " + apiName, selenium);
+//        selenium[apiName].apply(this, cmd.args);
+        selenium[apiName].apply(selenium, cmd.args);
     }
 };
 
