@@ -20,7 +20,7 @@ import org.telluriumsource.entity.UiModuleValidationRequest
  */
 class CustomSelenium extends DefaultSelenium {
 
-    protected IResourceBundle i18nBundle;
+  protected IResourceBundle i18nBundle;
 
     protected CustomCommand customClass = null
     protected String userExtension = null
@@ -229,7 +229,7 @@ class CustomSelenium extends DefaultSelenium {
         commandProcessor.doCommand("useDiscardInvalidPolicy", arr);
     }
 
-    public String getCurrentCachePolicy(){
+    public String getCachePolicyName(){
         String[] arr = [];
         return commandProcessor.getString("getCachePolicyName", arr);
     }
@@ -244,7 +244,7 @@ class CustomSelenium extends DefaultSelenium {
         commandProcessor.doCommand("triggerEvent", arr);
     }
 
-    public String diagnose(String locator, String request){
+    public String getDiagnosisResponse(String locator, String request){
 		String[] arr = [locator, request];
 		String st = commandProcessor.doCommand("getDiagnosisResponse", arr);
 		return st;
@@ -255,7 +255,7 @@ class CustomSelenium extends DefaultSelenium {
         commandProcessor.doCommand("deleteAllCookies", arr);
     }
 
-    public String issueBundle(String json){
+    public String getBundleResponse(String json){
         String[] arr = [json];
 
         return commandProcessor.doCommand("getBundleResponse", arr);
