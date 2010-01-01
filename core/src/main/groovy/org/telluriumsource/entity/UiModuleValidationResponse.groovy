@@ -1,4 +1,7 @@
-package org.telluriumsource.dsl
+package org.telluriumsource.entity
+
+import org.telluriumsource.entity.RelaxDetail
+
 /**
  * The response object Passing back from Engine when do UI module locating and caching
  * 

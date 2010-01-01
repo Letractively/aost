@@ -17,7 +17,11 @@ import org.telluriumsource.object.UiObject;
 import org.telluriumsource.locator.JQueryProcessor
 import org.telluriumsource.locator.XPathProcessor
 import org.json.simple.JSONArray
-import org.telluriumsource.framework.Environment;
+import org.telluriumsource.framework.Environment
+import org.telluriumsource.entity.DiagnosisOption
+import org.telluriumsource.entity.DiagnosisRequest
+import org.telluriumsource.entity.DiagnosisResponse
+import org.telluriumsource.entity.UiModuleValidationResponse;
 
 /**
  *
@@ -1120,6 +1124,10 @@ abstract class BaseDslContext extends GlobalDslContext {
     JSONArray jsa = context.getJSONArray();
 
     return jsa.toString();
+  }
+
+  public UiModuleValidationResponse validateUiModule(String uid){
+    
   }
 
   public DiagnosisResponse getDiagnosisResult(String uid) {

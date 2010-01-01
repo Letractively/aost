@@ -1,4 +1,4 @@
-package org.telluriumsource.dsl
+package org.telluriumsource.entity
 
 import org.telluriumsource.locator.CompositeLocator
 

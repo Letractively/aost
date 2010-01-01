@@ -1,4 +1,4 @@
-package org.telluriumsource.dsl
+package org.telluriumsource.entity
 /**
  *
  * @author Jian Fang (John.Jian.Fang@gmail.com)

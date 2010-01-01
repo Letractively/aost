@@ -1,7 +1,7 @@
 package org.telluriumsource.bundle
 
-import org.telluriumsource.dsl.UiModuleValidationResponse
-import org.telluriumsource.dsl.UiModuleValidationResponse
+import org.telluriumsource.entity.UiModuleValidationResponse
+import org.telluriumsource.entity.UiModuleValidationResponse
 
 /**
  * 

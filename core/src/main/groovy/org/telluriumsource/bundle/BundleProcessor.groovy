@@ -9,10 +9,11 @@ import org.telluriumsource.dsl.DslContext
 import org.telluriumsource.dsl.UiID
 
 import org.telluriumsource.framework.Environment
-import org.telluriumsource.dsl.UiModuleValidationRequest
-import org.telluriumsource.dsl.UiModuleValidationResponse
-import org.telluriumsource.dsl.UiModuleValidationRequest
-import org.telluriumsource.dsl.UiModuleValidationResponse
+import org.telluriumsource.entity.UiModuleValidationRequest
+import org.telluriumsource.entity.UiModuleValidationResponse
+import org.telluriumsource.entity.UiModuleValidationRequest
+import org.telluriumsource.entity.UiModuleValidationResponse
+import org.telluriumsource.entity.UiModuleValidationRequest
 
 /**
  * Command Bundle Processor
