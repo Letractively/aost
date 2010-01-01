@@ -879,6 +879,9 @@ function UiModule(){
 
     //the relax details including the UIDs and their corresponding html source
     this.relaxDetails = null;
+
+    //number of matched snapshots
+    this.matches = 0;
 };
 
 UiModule.prototype.getId = function(){
@@ -1512,6 +1515,48 @@ UiAlg.prototype.santa = function(uimodule, rootdom){
     fbLog("Found UI Module " + uimodule.root.uid + " successfully. ", snapshot);
     this.bindToUiModule(uimodule, snapshot);
     this.unmark();
+    uimodule.matches = 1;
+};
+
+UiAlg.prototype.validate = function(uimodule, rootdom){
+    this.clear();
+    var relaxflag = this.allowRelax;
+    this.allowRelax = true;
+    if(rootdom != null){
+        this.dom = rootdom;
+    }else{
+        //try to find the current html body.
+        // TODO: not very elegant, need to refactor this later
+//        this.dom = selenium.browserbot.findElement("/html/body");
+//        this.dom = selenium.browserbot.findElement("jquery=html > body");
+        this.dom = selenium.browserbot.findElement("jquery=html");
+    }
+    this.currentColor = this.colors.GRAY;
+    //start from the root element in the UI module
+    this.oqueue.push(uimodule.root);
+    var ust = new UiSnapshot();
+    ust.color = this.colors.GRAY;
+    this.squeue.push(ust);
+    while(this.oqueue.size() > 0){
+        var uiobj = this.oqueue.pop();
+        fbLog("Take snapshot for Object " + uiobj.uid + ": ", uiobj);
+        uiobj.locate(this);
+    }
+    if(this.squeue.size() == 0){
+        fbError("Cannot locate UI module " +  uimodule.root.uid);
+        uimodule.matches = 0;
+    }
+    if (this.squeue.size() >= 1) {
+        fbLog("Found " + this.squeue.size() + " matches for UI module " + uimodule.root.uid, this.squeue);
+        uimodule.matches = this.squeue.size();
+        //for multiple snapshots, only return the first one
+        //TODO: maybe we can use match score to select the best match
+        var snapshot = this.squeue.pop();
+        fbLog("Found UI Module " + uimodule.root.uid + " successfully. ", snapshot);
+        this.bindToUiModule(uimodule, snapshot);
+        this.unmark();
+    }
+    this.allowRelax = relaxflag;
 };
 
 UiAlg.prototype.bindToUiModule = function(uimodule, snapshot){

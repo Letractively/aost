@@ -229,6 +229,9 @@ function UiModuleLocatingResponse(){
     //Successfully found or not
     this.found = false;
 
+    //number of matched snapshots
+    this.matches = 0;
+
     //whether this the UI module used closest Match or not
     this.relaxed = false;
 
@@ -261,6 +264,30 @@ TelluriumCache.prototype.useUiModule = function(json){
     if(!response.relaxed)
         response.found = true;
     response.relaxDetails = uim.relaxDetails;
+    response.matches = uim.matches;
+    fbLog("UseUiModule Response for " + id, response);
+
+    return JSON.stringify(response);
+};
+
+TelluriumCache.prototype.validateUiModule = function(json){
+    var uim = new UiModule();
+    fbLog("Input JSON for UI Module: ", json);
+    uim.parseUiModule(json);
+//    uim.prelocate();
+    this.uiAlg.validate(uim, null);
+    //set the UI Module to be valid after it is located
+    uim.valid = true;
+    fbLog("Ui Module after Group Locating: ", uim);
+    var id = uim.getId();
+
+    var response = new UiModuleLocatingResponse();
+    response.id = id;
+    response.relaxed = uim.relaxed;
+    if(!response.relaxed)
+        response.found = true;
+    response.relaxDetails = uim.relaxDetails;
+    response.matches = uim.matches;
     fbLog("UseUiModule Response for " + id, response);
 
     return JSON.stringify(response);
