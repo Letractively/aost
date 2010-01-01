@@ -268,6 +268,12 @@ class CustomSelenium extends DefaultSelenium {
         return st;
     }
 
+    public String getValidateUiModule(String json){
+        String[] arr = [json];
+        String st = commandProcessor.doCommand("getValidateUiModule", arr);
+        return st;
+    }
+
     public boolean isUiModuleCached(String id){
        String[] arr = [id];
 

@@ -44,7 +44,17 @@ public class JettyLogonJUnitTestCase extends TelluriumJUnitTestCase {
     @Test
     public void testLogon() {
         jlm.logon("test", "test");
-//        pause(1000);
+    }
+
+    @Test
+    public void testDiagnose(){
+        
+        jlm.diagnose("ProblematicForm.Username.Input");
+    }
+
+    @Test
+    public void testValidateUiModule(){
+        jlm.validateUiModule("ProblematicForm");
     }
 
     @Test
@@ -52,7 +62,6 @@ public class JettyLogonJUnitTestCase extends TelluriumJUnitTestCase {
         useClosestMatch(true);
         jlm.plogon("test", "test");
         useClosestMatch(false);
-//        pause(1000);
     }
 
     @AfterClass

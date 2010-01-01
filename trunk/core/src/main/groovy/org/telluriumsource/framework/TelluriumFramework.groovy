@@ -24,7 +24,8 @@ import org.telluriumsource.server.EmbeddedSeleniumServer
 import org.telluriumsource.widget.WidgetConfigurator
 import org.telluriumsource.i18n.IResourceBundle
 import org.telluriumsource.dsl.GlobalDslContext
-import org.telluriumsource.util.Helper;
+import org.telluriumsource.util.Helper
+import org.telluriumsource.entity.CachePolicy;
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here

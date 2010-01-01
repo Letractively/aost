@@ -13,7 +13,6 @@ import org.telluriumsource.i18n.IResourceBundle;
  */
 
 public class DiagnosisResponse {
-  protected IResourceBundle i18nBundle
 
   public static final String UID = "uid"
   private String uid;
@@ -34,7 +33,6 @@ public class DiagnosisResponse {
   private String html;
 
   def DiagnosisResponse() {
-	  i18nBundle = Environment.instance.myResourceBundle()
   }
 
   def DiagnosisResponse(Map map) {
@@ -44,21 +42,22 @@ public class DiagnosisResponse {
     this.parents = map.get(PARENTS);
     this.closest = map.get(CLOSEST);
     this.html = map.get(HTML);
-    i18nBundle = Environment.instance.myResourceBundle()
   }
 
-  public void show() {
-    println i18nBundle.getMessage("DiagnosisResponse.DiagnosisResult" , uid)
+  public void showMe() {
+    IResourceBundle i18nBundle  = Environment.instance.myResourceBundle();
 
-    println("\n-------------------------------------------------------\n")
+    println i18nBundle.getMessage("DiagnosisResponse.DiagnosisResult" , uid);
 
-    println i18nBundle.getMessage("DiagnosisResponse.MatchingCount" , count)
+    println("\n-------------------------------------------------------\n");
+
+    println i18nBundle.getMessage("DiagnosisResponse.MatchingCount" , count);
     if(matches != null && matches.size() > 0){
-      println i18nBundle.getMessage("DiagnosisResponse.MatchingElement")
+      println i18nBundle.getMessage("DiagnosisResponse.MatchingElement");
       int i = 0;
       matches.each {String elem ->
         i++;
-        println i18nBundle.getMessage("DiagnosisResponse.Element" , i)
+        println i18nBundle.getMessage("DiagnosisResponse.Element" , i);
         println(elem + "\n");
       }
     }
@@ -68,13 +67,13 @@ public class DiagnosisResponse {
       int j = 0;
       parents.each {String elem ->
         j++;
-        println i18nBundle.getMessage("DiagnosisResponse.Parent" , j)
+        println i18nBundle.getMessage("DiagnosisResponse.Parent" , j);
         println(elem + "\n");
       }
     }
 
     if(closest != null && closest.size() > 0){
-      println i18nBundle.getMessage("DiagnosisResponse.Closest")
+      println i18nBundle.getMessage("DiagnosisResponse.Closest");
       println("\n\tClosest: \n");
       int k = 0;
 
@@ -86,10 +85,10 @@ public class DiagnosisResponse {
     }
 
     if(html != null){
-      println i18nBundle.getMessage("DiagnosisResponse.HtmlSource")
+      println i18nBundle.getMessage("DiagnosisResponse.HtmlSource");
       println(html);
       println("\n");
     }
-    println("\n-------------------------------------------------------\n")
+    println("\n-------------------------------------------------------\n");
   }
 }

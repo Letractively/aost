@@ -4,7 +4,7 @@ import org.telluriumsource.config.CustomConfig;
 import org.telluriumsource.connector.SeleniumConnector;
 import org.telluriumsource.i18n.IResourceBundle;
 import org.telluriumsource.framework.TelluriumFramework;
-import org.telluriumsource.framework.CachePolicy;
+import org.telluriumsource.entity.CachePolicy;
 import org.telluriumsource.i18n.ResourceBundle;
 import org.telluriumsource.util.Helper;
 

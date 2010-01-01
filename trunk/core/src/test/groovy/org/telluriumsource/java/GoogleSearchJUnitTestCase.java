@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.telluriumsource.module.GoogleSearchModule;
-import org.telluriumsource.framework.CachePolicy;
+import org.telluriumsource.entity.CachePolicy;
 
 import java.util.ArrayList;
 import java.util.List;
