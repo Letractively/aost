@@ -9,8 +9,10 @@ import org.telluriumsource.dsl.DslContext
 import org.telluriumsource.dsl.UiID
 
 import org.telluriumsource.framework.Environment
-import org.telluriumsource.dsl.UiModuleLocatingRequest
-import org.telluriumsource.dsl.UiModuleLocatingResponse
+import org.telluriumsource.dsl.UiModuleValidationRequest
+import org.telluriumsource.dsl.UiModuleValidationResponse
+import org.telluriumsource.dsl.UiModuleValidationRequest
+import org.telluriumsource.dsl.UiModuleValidationResponse
 
 /**
  * Command Bundle Processor
@@ -78,7 +80,7 @@ public class BundleProcessor implements Configurable {
 
     if(result != null && result.trim().length() > 0){
       Map map = reader.read(result);
-      UiModuleLocatingResponse response = new UiModuleLocatingResponse(map);
+      UiModuleValidationResponse response = new UiModuleValidationResponse(map);
       if(!response.found && response.relaxed){
           dispatcher.warn("The exact match for UI Module '${response.id}' cannot be found, found the closest match: " + result);
       }else if(response.found){
@@ -117,7 +119,7 @@ public class BundleProcessor implements Configurable {
 
       //check the UI Module locating command and do not propagate it up
       String name = resp.get(NAME);
-      if(UiModuleLocatingRequest.CMD_NAME.equals(name)){
+      if(UiModuleValidationRequest.CMD_NAME.equals(name)){
          parseUseUiModuleResponse(resp.get(CmdResponse.RETURN_RESULT));
       }
 
@@ -165,9 +167,9 @@ public class BundleProcessor implements Configurable {
     DslContext dslcontext = context.getContext(WorkflowContext.DSLCONTEXT);
     String json = dslcontext.jsonify(uid);
     def args = [json]
-//    CmdRequest cmd = new CmdRequest(nextSeq(), uid, UiModuleLocatingRequest.CMD_NAME , args);
+//    CmdRequest cmd = new CmdRequest(nextSeq(), uid, UiModuleValidationRequest.CMD_NAME , args);
     //Use zero for the sequence ID so that it can be processed first
-    CmdRequest cmd = new CmdRequest(0, uid, UiModuleLocatingRequest.CMD_NAME , args);
+    CmdRequest cmd = new CmdRequest(0, uid, UiModuleValidationRequest.CMD_NAME , args);
 
     return cmd;
   }

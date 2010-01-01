@@ -8,7 +8,7 @@ package org.telluriumsource.dsl
  * 
  */
 
-public class UiModuleLocatingResponse {
+public class UiModuleValidationResponse {
     //ID for the UI module
     public static String ID = "id";
     private String id = null;
@@ -25,11 +25,13 @@ public class UiModuleLocatingResponse {
     public static String RELAXDETAILS = "relaxDetails";
     private List<RelaxDetail> relaxDetails = null;
 
-    def UiModuleLocatingResponse(){
+
+
+  def UiModuleValidationResponse(){
       
     }
 
-    def UiModuleLocatingResponse(Map map){
+    def UiModuleValidationResponse(Map map){
       this.id = map.get(ID);
       this.found = map.get(FOUND);
       this.relaxed = map.get(RELAXED);

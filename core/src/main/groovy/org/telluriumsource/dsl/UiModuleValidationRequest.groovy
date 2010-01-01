@@ -7,7 +7,7 @@ package org.telluriumsource.dsl
  * 
  */
 
-public class UiModuleLocatingRequest {
+public class UiModuleValidationRequest {
 
   public static final String CMD_NAME = "getUseUiModule";
 }
