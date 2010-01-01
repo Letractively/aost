@@ -100,6 +100,10 @@ abstract class BaseDslContext extends GlobalDslContext {
     return null;
   }
 
+  protected Object parseSeleniumJSONReturnValue(Map out) {
+    return out;
+  }
+
   protected UiModuleValidationResponse parseUseUiModuleResponse(String result) {
     String out = result;
     if (result.startsWith("OK,")) {
@@ -114,6 +118,11 @@ abstract class BaseDslContext extends GlobalDslContext {
     }
 
     return null;
+  }
+
+  protected UiModuleValidationResponse parseUseUiModuleResponse(Map result) {
+
+    return result;
   }
 
   def customUiCall(String uid, String method, Object[] args) {
@@ -729,7 +738,7 @@ abstract class BaseDslContext extends GlobalDslContext {
     walkToWithException(context, uid)?.getCSS(cssName) {loc ->
       String locator = locatorMapping(context, loc)
 
-      String out = extension.getCSS(context, locator, cssName)
+      def out = extension.getCSS(context, locator, cssName)
 
       return (ArrayList) parseSeleniumJSONReturnValue(out)
     }
@@ -746,7 +755,7 @@ abstract class BaseDslContext extends GlobalDslContext {
       String locator = locatorMappingWithOption(context, loc, cell)
 //      locator = locator + cell
 
-      String out = extension.getAllText(context, locator)
+      def out = extension.getAllText(context, locator)
 
       return (ArrayList) parseSeleniumJSONReturnValue(out)
     }
@@ -762,7 +771,7 @@ abstract class BaseDslContext extends GlobalDslContext {
       String locator = locatorMappingWithOption(context, loc, cell)
 //      locator = locator + cell
 
-      String out = extension.getAllText(context, locator)
+      def out = extension.getAllText(context, locator)
 
       return (ArrayList) parseSeleniumJSONReturnValue(out)
     }
@@ -1152,7 +1161,7 @@ abstract class BaseDslContext extends GlobalDslContext {
     obj.treeWalk(context);
     JSONArray jsa = context.getJSONArray();
 
-    String out = extension.getValidateUiModule(context, jsa.toString());
+    def out = extension.getValidateUiModule(context, jsa.toString());
     return parseUseUiModuleResponse(out);
   }
 
@@ -1174,7 +1183,7 @@ abstract class BaseDslContext extends GlobalDslContext {
       DiagnosisOption options = new DiagnosisOption()
       DiagnosisRequest request = new DiagnosisRequest(uid, ploc, loc, options)
 
-      String out = extension.getDiagnosisResponse(context, locator, request.toJson())
+      def out = extension.getDiagnosisResponse(context, locator, request.toJson())
 
       return new DiagnosisResponse(parseSeleniumJSONReturnValue(out))
     }
@@ -1193,7 +1202,7 @@ abstract class BaseDslContext extends GlobalDslContext {
 //      DiagnosisOption options = new DiagnosisOption()
       DiagnosisRequest request = new DiagnosisRequest(uid, ploc, loc, options)
 
-      String out = extension.getDiagnosisResponse(context, locator, request.toJson())
+      def out = extension.getDiagnosisResponse(context, locator, request.toJson())
 
       return new DiagnosisResponse(parseSeleniumJSONReturnValue(out))
     }
