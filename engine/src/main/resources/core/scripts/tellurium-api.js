@@ -293,19 +293,19 @@ TelluriumApi.prototype.getNamespace = function(prefix){
    return selenium.browserbot._namespaceResolver(prefix);
 };
 
-TelluriumApi.prototype.useDiscardNewPolicy = function(){
+TelluriumApi.prototype.useDiscardNewCachePolicy = function(){
     this.cache.useDiscardNewPolicy();
 };
 
-TelluriumApi.prototype.useDiscardOldPolicy = function(){
+TelluriumApi.prototype.useDiscardOldCachePolicy = function(){
     this.cache.useDiscardOldPolicy();
 };
 
-TelluriumApi.prototype.useDiscardLeastUsedPolicy = function(){
+TelluriumApi.prototype.useDiscardLeastUsedCachePolicy = function(){
     this.cache.useDiscardLeastUsedPolicy();
 };
 
-TelluriumApi.prototype.useDiscardInvalidPolicy = function(){
+TelluriumApi.prototype.useDiscardInvalidCachePolicy = function(){
     this.cache.useDiscardInvalidPolicy();
 };
 

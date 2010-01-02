@@ -314,10 +314,10 @@ Tellurium.prototype.initialize = function(){
     this.registerApi("getCacheUsage", false, "STRING");
     this.registerApi("addNamespace", false, "VOID");
     this.registerApi("getNamespace", false, "STRING");
-    this.registerApi("useDiscardNewPolicy", false, "VOID");
-    this.registerApi("useDiscardOldPolicy", false, "VOID");
-    this.registerApi("useDiscardLeastUsedPolicy", false, "VOID");
-    this.registerApi("useDiscardInvalidPolicy", false, "VOID");
+    this.registerApi("useDiscardNewCachePolicy", false, "VOID");
+    this.registerApi("useDiscardOldCachePolicy", false, "VOID");
+    this.registerApi("useDiscardLeastUsedCachePolicy", false, "VOID");
+    this.registerApi("useDiscardInvalidCachePolicy", false, "VOID");
     this.registerApi("getCachePolicyName", false, "STRING");
 
     this.registerApi("getUseUiModule", false, "STRING");

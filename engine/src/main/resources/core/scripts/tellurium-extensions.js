@@ -145,19 +145,19 @@ Selenium.prototype.getNamespace = function(prefix){
    return this.browserbot._namespaceResolver(prefix);
 };
 
-Selenium.prototype.doUseDiscardNewPolicy = function(){
+Selenium.prototype.doUseDiscardNewCachePolicy = function(){
     tellurium.cache.useDiscardNewPolicy();
 };
 
-Selenium.prototype.doUseDiscardOldPolicy = function(){
+Selenium.prototype.doUseDiscardOldCachePolicy = function(){
     tellurium.cache.useDiscardOldPolicy();
 };
 
-Selenium.prototype.doUseDiscardLeastUsedPolicy = function(){
+Selenium.prototype.doUseDiscardLeastUsedCachePolicy = function(){
     tellurium.cache.useDiscardLeastUsedPolicy();
 };
 
-Selenium.prototype.doUseDiscardInvalidPolicy = function(){
+Selenium.prototype.doUseDiscardInvalidCachePolicy = function(){
     tellurium.cache.useDiscardInvalidPolicy();
 };
 
