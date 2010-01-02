@@ -439,6 +439,9 @@ Tellurium.prototype.locate = function(locator){
 
 Tellurium.prototype.isLocator = function(locator){
     fbLog("Locator: ", locator);
+    if(typeof(locator) != "string")
+        return false;
+    
     return locator.startsWith('//') || locator.startsWith('jquery=') || locator.startsWith('jquerycache=') || locator.startsWith('document.');
 };
 
