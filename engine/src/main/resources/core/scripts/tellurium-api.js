@@ -318,9 +318,17 @@ TelluriumApi.prototype.getUseUiModule = function(json){
 };
 
 TelluriumApi.prototype.getValidateUiModule = function(json){
-    return tellurium.cache.validateUiModule(json);
+    return this.cache.validateUiModule(json);
 };
 
 TelluriumApi.prototype.isUiModuleCached = function(id){
     return this.cache.isUiModuleCached(id);
+};
+
+TelluriumApi.prototype.useClosestMatch = function(isUse){
+     this.cache.useClosestMatch(isUse);
+};  
+
+TelluriumApi.prototype.useTeApi = function(isUse){
+    tellurium.useTeApi(isUse);
 };

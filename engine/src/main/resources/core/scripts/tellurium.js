@@ -322,8 +322,22 @@ Tellurium.prototype.initialize = function(){
 
     this.registerApi("getUseUiModule", false, "STRING");
     this.registerApi("getValidateUiModule", false, "STRING");
+    this.registerApi("useClosestMatch", false, "VOID");
+    this.registerApi("useTeApi", false, "VOID"); 
     this.registerApi("isUiModuleCached", false, "BOOLEAN");
 
+};
+
+Tellurium.prototype.useTeApi = function(isUse){
+    if (typeof(isUse) == "boolean") {
+        tellurium.isUseTeApi = isUse;
+    } else {
+        if ("true" == isUse || "TRUE" == isUse) {
+            tellurium.isUseTeApi = true;
+        } else {
+            tellurium.isUseTeApi = false;
+        }
+    }
 };
 
 Tellurium.prototype.registerApi = function(apiName, requireElement, returnType){
@@ -424,6 +438,7 @@ Tellurium.prototype.locate = function(locator){
 };
 
 Tellurium.prototype.isLocator = function(locator){
+    fbLog("Locator: ", locator);
     return locator.startsWith('//') || locator.startsWith('jquery=') || locator.startsWith('jquerycache=') || locator.startsWith('document.');
 };
 
@@ -460,8 +475,6 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
 
 Tellurium.prototype.processMacroCmd = function(){
 
-//    this.cbCache.clear();
-
     var response = new BundleResponse();
 
     while (this.macroCmd.size() > 0) {
@@ -474,6 +487,7 @@ Tellurium.prototype.processMacroCmd = function(){
             this.delegateToSelenium(response, cmd);
         } else {
             var element = null;
+            fbLog("Process Macro Command: ", cmd);
             var locator = cmd.args[0];
             //some commands do not have any arguments, null guard args
             if (locator != null) {

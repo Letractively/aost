@@ -372,12 +372,8 @@ Selenium.prototype.isUiModuleCached = function(id){
     return tellurium.cache.isUiModuleCached(id);
 };
 
-Selenium.prototype.doUseTeApi = function(isUseApi){
-     if ("true" == isUseApi || "TRUE" == isUseApi) {
-         tellurium.isUseTeApi = true;
-     }else{
-         tellurium.isUseTeApi = false;
-     }
+Selenium.prototype.doUseTeApi = function(isUse){
+    tellurium.useTeApi(isUse);
 };
 
 Selenium.prototype.doUseClosestMatch = function(isUse){
