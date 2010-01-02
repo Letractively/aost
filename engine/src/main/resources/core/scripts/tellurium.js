@@ -498,11 +498,19 @@ Tellurium.prototype.processMacroCmd = function(){
                 //if the first argument is a locator
                 if (isLoc) {
                     //handle attribute locator for the getAttribute call
-                    if (cmd.name == "getAttribute") {
+                    //pay attention to the xpath such as
+                    // //descendant-or-self::table/descendant-or-self::input[@title="Google Search" and @name="q"]/self::node()[@disabled]
+                    if (cmd.name == "getAttribute" || cmd.name == "isElementPresent") {
                         var attributePos = locator.lastIndexOf("@");
                         var attributeName = locator.slice(attributePos + 1);
+                        if(attributeName.endsWith("]")){
+                            attributeName = attributeName.substr(0, attributeName.length-1);
+                        }
                         cmd.args.push(attributeName);
                         locator = locator.slice(0, attributePos);
+                        if(locator.endsWith("[")){
+                            locator = locator.substr(0, locator.length-1);
+                        }
                     }
 
                     if (cmd.uid == null) {
