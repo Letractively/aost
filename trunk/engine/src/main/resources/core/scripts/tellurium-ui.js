@@ -1238,6 +1238,7 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
             this.squeue.push(snapshot);
         }
     }else{
+        fbLog("allowRelax: ", this.allowRelax);
         //if allow us to relax the clocator/attribute constraints and use the closest matching ones instead
         if(this.allowRelax){
             var result = this.relax(clocator, pref);
@@ -1500,6 +1501,7 @@ UiAlg.prototype.santa = function(uimodule, rootdom){
     var ust = new UiSnapshot();
     ust.color = this.colors.GRAY;
     this.squeue.push(ust);
+    fbLog("UiAlg states before group locating: ", this);
     while(this.oqueue.size() > 0){
         var uiobj = this.oqueue.pop();
         fbLog("Take snapshot for Object " + uiobj.uid + ": ", uiobj);

@@ -146,11 +146,17 @@ function TelluriumCache(){
 };
 
 TelluriumCache.prototype.useClosestMatch = function(isUse){
-    if ("true" == isUse || "TRUE" == isUse) {
-         this.uiAlg.allowRelax = true;
-     }else{
-         this.uiAlg.allowRelax = false;
-     }
+    if (typeof(isUse) == "boolean") {
+        this.uiAlg.allowRelax = isUse;
+    } else {
+        if ("true" == isUse || "TRUE" == isUse) {
+            this.uiAlg.allowRelax = true;
+        } else {
+            this.uiAlg.allowRelax = false;
+        }
+    }
+
+    fbLog("Call useClosestMatch(" + isUse + ") to set allowRelax to ", this.uiAlg.allowRelax);
 };
 
 TelluriumCache.prototype.cleanCache = function(){
