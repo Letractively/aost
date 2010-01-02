@@ -211,22 +211,22 @@ class CustomSelenium extends DefaultSelenium {
 
     public void useDiscardNewCachePolicy(){
         String[] arr = [];
-        commandProcessor.doCommand("useDiscardNewPolicy", arr);
+        commandProcessor.doCommand("useDiscardNewCachePolicy", arr);
     }
 
     public void useDiscardOldCachePolicy(){
         String[] arr = [];
-        commandProcessor.doCommand("useDiscardOldPolicy", arr);
+        commandProcessor.doCommand("useDiscardOldCachePolicy", arr);
     }
 
     public void useDiscardLeastUsedCachePolicy(){
         String[] arr = [];
-        commandProcessor.doCommand("useDiscardLeastUsedPolicy", arr);
+        commandProcessor.doCommand("useDiscardLeastUsedCachePolicy", arr);
     }
 
     public void useDiscardInvalidCachePolicy(){
         String[] arr = [];
-        commandProcessor.doCommand("useDiscardInvalidPolicy", arr);
+        commandProcessor.doCommand("useDiscardInvalidCachePolicy", arr);
     }
 
     public String getCachePolicyName(){
