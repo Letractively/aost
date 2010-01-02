@@ -11,6 +11,7 @@ import org.telluriumsource.dsl.UiID
 import org.telluriumsource.framework.Environment
 import org.telluriumsource.entity.UiModuleValidationRequest
 import org.telluriumsource.entity.UiModuleValidationResponse
+import org.telluriumsource.util.Helper
 
 /**
  * Command Bundle Processor
@@ -197,7 +198,8 @@ public class BundleProcessor implements Configurable {
   }
 
   def issueCommand(WorkflowContext context, String uid, String name, args){
-    CmdRequest cmd = new CmdRequest(nextSeq(), uid, name, args);
+    context.setApiName("getBundleResponse");  
+    CmdRequest cmd = new CmdRequest(nextSeq(), uid, name, Helper.removeFirst(args));
     if(bundle.shouldAppend(cmd)){
       //TODO: need to extract the root uid
       if(this.needCacheUiModule(context, name, uid)){
@@ -211,7 +213,7 @@ public class BundleProcessor implements Configurable {
         //need to issue the command bundle since it reaches the maximum limit
         String json = bundle.extractAllAndConvertToJson();
 
-        String val = dispatcher.getBundleResponse(json);
+        String val = dispatcher.getBundleResponse(context, json);
         return parseReturnValue(val);
       }
 
@@ -227,12 +229,13 @@ public class BundleProcessor implements Configurable {
 
       bundle.addToBundle(cmd);
       
-      String val = dispatcher.getBundleResponse(json);
+      String val = dispatcher.getBundleResponse(context, json);
       return parseReturnValue(val);
     }
   }
 
   def passBundledCommand(WorkflowContext context, String uid, String name, args){
+    context.setApiName(name);
     if(this.needCacheUiModule(context, name, uid)) {
       String id = this.getUiModuleId(uid);
       CmdRequest uum = this.getUseUiModuleRequest(context, id);
@@ -240,15 +243,16 @@ public class BundleProcessor implements Configurable {
       this.publishUiModule(id);
     }
     //there are commands in the bundle, pigback this command with the commands in a bundle and issue it
-    CmdRequest cmd = new CmdRequest(nextSeq(), uid, name, args);
+    CmdRequest cmd = new CmdRequest(nextSeq(), uid, name,  Helper.removeFirst(args));
     bundle.addToBundle(cmd);
     String json = bundle.extractAllAndConvertToJson();
 
-    String val = dispatcher.getBundleResponse(json);
+    String val = dispatcher.getBundleResponse(context, json);
     return parseReturnValue(val);
   }
 
   def passThrough(WorkflowContext context, String uid, String name, args){
+    context.setApiName(name);
     //if no command on the bundle, call directly
     if(bundle.size() == 0){
        if(this.needCacheUiModule(context, name, uid)){
@@ -266,11 +270,11 @@ public class BundleProcessor implements Configurable {
         this.publishUiModule(id);
       }
       //there are commands in the bundle, pigback this command with the commands in a bundle and issue it
-      CmdRequest cmd = new CmdRequest(nextSeq(), uid, name, args); 
+      CmdRequest cmd = new CmdRequest(nextSeq(), uid, name, Helper.removeFirst(args));
       bundle.addToBundle(cmd);
       String json = bundle.extractAllAndConvertToJson();
       
-      String val = dispatcher.getBundleResponse(json);
+      String val = dispatcher.getBundleResponse(context, json);
       return parseReturnValue(val);
     }
   }
@@ -278,41 +282,35 @@ public class BundleProcessor implements Configurable {
   //push remaining commands in the bundle to the Engine before disconnect from it
   def flush(){
     if(bundle.size() > 0){
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      if(bundle.size() == 1){
+        context.setApiName(bundle.getFirstCmdName());
+      }else{
+        context.setApiName("getBundleResponse"); 
+      }
       String json = bundle.extractAllAndConvertToJson();
 
-      String val = dispatcher.getBundleResponse(json);
+      String val = dispatcher.getBundleResponse(context, json);
       return parseReturnValue(val);      
     }
 
     return null;
   }
 
-  protected Object[] removeWorkflowContext(Object[] args){
-    List list = new ArrayList();
-    for(int i=1; i<args.length; i++){
-      list.add(args[i]);
-    }
-
-    if(list.size() > 0)
-      return list.toArray();
-
-    return null;
-  }
-
   def process(String name, args) {
     WorkflowContext context = args[0]
+    
     String uid = null;
     MetaCmd cmd = context.extraMetaCmd();
     if(cmd != null)
       uid = cmd.uid;
-    Object[] params = this.removeWorkflowContext(args);
 
     if(this.exploitBundle() && context.isBundlingable()){
-      return issueCommand(context, uid, name, params);
+       return issueCommand(context, uid, name, args);
     }
 
-//    return passThrough(context, uid, name, params);
-    return passBundledCommand(context, uid, name, params);
+//    return passThrough(context, uid, name, args);
+      return passBundledCommand(context, uid, name, args);
   }
 
   protected def methodMissing(String name, args) {

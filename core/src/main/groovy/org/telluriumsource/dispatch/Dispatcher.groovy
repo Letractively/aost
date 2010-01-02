@@ -5,7 +5,9 @@ import org.telluriumsource.config.Configurable
 import org.telluriumsource.i18n.IResourceBundle;
 import org.telluriumsource.test.crosscut.DefaultExecutionTracer
 import org.telluriumsource.test.crosscut.ExecutionTracer
-import org.telluriumsource.framework.Environment;
+import org.telluriumsource.framework.Environment
+import org.telluriumsource.dsl.WorkflowContext
+import org.telluriumsource.util.Helper;
 
 
 
@@ -31,29 +33,32 @@ class Dispatcher implements Configurable {
     }
 
     def methodMissing(String name, args) {
+      WorkflowContext context = args[0]
+      String apiname = context.getApiName();
+      Object[] params = Helper.removeFirst(args);
 
-    //sometimes, the selenium client is not singleton ??
-    //here reset selenium client to use the new singleton instance which has the client set
-    if (sc.client == null || sc.client.getActiveSeleniumSession() == null)
-      sc = new SeleniumClient()
+      //sometimes, the selenium client is not singleton ??
+      //here reset selenium client to use the new singleton instance which has the client set
+      if (sc.client == null || sc.client.getActiveSeleniumSession() == null)
+        sc = new SeleniumClient()
 
-    try {
-      long beforeTime = System.currentTimeMillis()
-      def result = sc.client.getActiveSeleniumSession().metaClass.invokeMethod(sc.client.getActiveSeleniumSession(), name, args)
-      long duration = System.currentTimeMillis() - beforeTime
-      if (isUseTrace())
-        tracer.publish(name, beforeTime, duration)
+      try {
+        long beforeTime = System.currentTimeMillis()
+        def result = sc.client.getActiveSeleniumSession().metaClass.invokeMethod(sc.client.getActiveSeleniumSession(), name, params)
+        long duration = System.currentTimeMillis() - beforeTime
+        if (isUseTrace())
+          tracer.publish(apiname, beforeTime, duration)
 
-      return result
-    } catch (Exception e) {
-      if (isUseScreenshot()) {
-        long timestamp = System.currentTimeMillis()
-        String filename = filenamePattern.replaceFirst(PLACE_HOLDER, "${timestamp}")
-        sc.client.getActiveSeleniumSession().captureScreenshot(filename)
-        println i18nBundle.getMessage("Dispatcher.ExceptionMessage", e.getMessage(), filename)
+        return result
+      } catch (Exception e) {
+        if (isUseScreenshot()) {
+          long timestamp = System.currentTimeMillis()
+          String filename = filenamePattern.replaceFirst(PLACE_HOLDER, "${timestamp}")
+          sc.client.getActiveSeleniumSession().captureScreenshot(filename)
+          println i18nBundle.getMessage("Dispatcher.ExceptionMessage", e.getMessage(), filename)
+        }
+        throw e
       }
-      throw e
-    }
   }
 
  /*
@@ -73,4 +78,5 @@ class Dispatcher implements Configurable {
   public void log(String message){
     tracer.log(message); 
   }
+
 }
