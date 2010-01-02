@@ -264,6 +264,10 @@ function Tellurium (){
 
 };
 
+Tellurium.prototype.isUseCache = function(){
+    return this.cache.cacheOption;    
+};
+
 //TODO: How to handle custom calls?  delegate to Selenium?
 Tellurium.prototype.initialize = function(){
     this.registerApi("isElementPresent", true, "BOOLEAN");
@@ -516,10 +520,12 @@ Tellurium.prototype.processMacroCmd = function(){
                     if (cmd.uid == null) {
                         element = this.locate(locator);
                     } else {
-//                        element = this.cbCache.get(cmd.uid);
-                        element = this.getUiElementFromCache(cmd.uid);
-                        fbLog("Got UI element " + cmd.uid + " from Cache.", element);
-
+                        fbLog("Tellurium Cache option: ", this.isUseCache());
+                        if(this.isUseCache()){
+                            element = this.getUiElementFromCache(cmd.uid);
+                            fbLog("Got UI element " + cmd.uid + " from Cache.", element);
+                        }
+                        
                         if (element == null) {
                             element = this.locate(locator);
                             if (element != null) {
