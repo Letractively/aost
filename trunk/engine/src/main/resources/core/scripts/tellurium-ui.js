@@ -1511,16 +1511,39 @@ UiAlg.prototype.santa = function(uimodule, rootdom){
         fbError("Cannot locate UI module " +  uimodule.root.uid);
         throw new SeleniumError("Cannot locate UI module " +  uimodule.root.uid);
     }
-    if(this.squeue.size() > 1){
-       fbError("Found " + this.squeue.size() +  " matches for UI module " + uimodule.root.uid, this.squeue);
-       throw new SeleniumError("Found " + this.squeue.size() +  " matches for UI module " + uimodule.root.uid);
+
+    //if allow closest match
+    if (this.allowRelax) {
+        fbLog("Found " + this.squeue.size() + " matches for UI module " + uimodule.root.uid, this.squeue);
+        uimodule.matches = this.squeue.size();
+        //use match score to select the best match
+        var snapshot = this.squeue.pop();
+        var maxscore = snapshot.getScaledScore();
+        while (this.squeue.length > 0) {
+            var nsnapshot = this.squeue.pop();
+            var nscore = nsnapshot.getScaledScore();
+            if (nscore > maxscore) {
+                snapshot = nsnapshot;
+                maxscore = nscore;
+            }
+        }
+
+        fbLog("Found UI Module " + uimodule.root.uid + " successfully. ", snapshot);
+        this.bindToUiModule(uimodule, snapshot);
+        this.unmark();
+    } else {
+        //for exact match, cannot have multiple matches
+        if (this.squeue.size() > 1) {
+            fbError("Found " + this.squeue.size() + " matches for UI module " + uimodule.root.uid, this.squeue);
+            throw new SeleniumError("Found " + this.squeue.size() + " matches for UI module " + uimodule.root.uid);
+        }
+        //found only one snapshot, happy path
+        var osnapshot = this.squeue.pop();
+        fbLog("Found UI Module " + uimodule.root.uid + " successfully. ", osnapshot);
+        this.bindToUiModule(uimodule, osnapshot);
+        this.unmark();
+        uimodule.matches = 1;
     }
-    //found only one snapshot, happy path
-    var snapshot = this.squeue.pop();
-    fbLog("Found UI Module " + uimodule.root.uid + " successfully. ", snapshot);
-    this.bindToUiModule(uimodule, snapshot);
-    this.unmark();
-    uimodule.matches = 1;
 };
 
 UiAlg.prototype.validate = function(uimodule, rootdom){
