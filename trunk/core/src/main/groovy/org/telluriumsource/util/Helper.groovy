@@ -42,4 +42,16 @@ class Helper{
 
         return false;
     }
+
+   public static Object[] removeFirst(Object[] args){
+      List list = new ArrayList();
+      for(int i=1; i<args.length; i++){
+        list.add(args[i]);
+      }
+
+      if(list.size() > 0)
+        return list.toArray();
+
+      return null;
+  }
 }

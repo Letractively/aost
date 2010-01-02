@@ -30,6 +30,14 @@ public class MacroCmd implements BundleStrategy{
     return this.bundle;
   }
 
+  public String getFirstCmdName(){
+    if(this.bundle.size() > 0){
+      return this.bundle[0].name;
+    }
+    
+    return null;
+  }
+
   public List<CmdRequest> extractAllCmds(){
     List<CmdRequest> result = new ArrayList<CmdRequest>();
     result.addAll(bundle);

@@ -22,6 +22,7 @@ class WorkflowContext {
   public static final String SKIP_NEXT = "SKIP_NEXT"
   public static final String TRUE = "true"
   public static final String DSLCONTEXT = "DSLCONTEXT"
+  public static final String API_NAME = "API_Name"
 
   private boolean useOption = false
   //Table's child object's tag will be duplicated with the current relative xpath provided by xpath
@@ -263,6 +264,14 @@ class WorkflowContext {
   public void setReferenceLocator(String loc) {
 
     context.put(REFERENCE_LOCATOR, loc)
+  }
+
+  public String getApiName(){
+    return context.get(API_NAME)
+  }
+
+  public void setApiName(String name){
+    context.put(API_NAME, name)
   }
 
   //append the relative locator to the end of the reference locator
