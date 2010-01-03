@@ -1190,7 +1190,6 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
     }
 
     //build the CSS selector from the current element's composite locator
-//    var csel = this.cssbuilder.buildCssSelector(clocator.tag, clocator.text, clocator.position, clocator.direct, clocator.attributes);
     var csel = this.buildSelector(clocator);
     var $found = teJQuery(pref).find(csel);
     var foundWithoutLookAhead = false;
