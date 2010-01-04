@@ -36,4 +36,13 @@ public class GoogleSearchModule extends DslContext {
     waitForPageToLoad 30000
   }
 
+  //Test jQuery selector for attributes
+  public String getLogoAlt() {
+    return getImageAlt("Logo")
+  }
+
+  boolean isInputDisabled() {
+    return isDisabled("Google.Input")
+  }
+  
 }
