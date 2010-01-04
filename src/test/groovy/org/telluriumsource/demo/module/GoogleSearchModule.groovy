@@ -14,6 +14,8 @@ import org.telluriumsource.dsl.DslContext
 public class GoogleSearchModule extends DslContext {
 
   public void defineUi() {
+    ui.Image(uid: "Logo", clocator: [tag: "img", src: "*.gif"])
+
     ui.Container(uid: "Google", clocator: [tag: "table"]) {
       InputBox(uid: "Input", clocator: [tag: "input", title: "Google Search", name: "q"])
       SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit", value: "Google Search", name: "btnG"])
