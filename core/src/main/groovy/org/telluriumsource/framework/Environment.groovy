@@ -97,7 +97,10 @@ public class Environment implements Configurable{
   }
 
   public useMaxMacroCmd(int max){
-    this.maxMacroCmd = max;
+    if(max < 1)
+      this.maxMacroCmd = 1;
+    else
+      this.maxMacroCmd = max;
   }
 
   public int myMaxMacroCmd(){

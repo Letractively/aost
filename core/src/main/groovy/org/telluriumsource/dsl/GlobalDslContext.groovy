@@ -184,10 +184,10 @@ public class GlobalDslContext {
 
   def pause(int milliseconds) {
     //flush out remaining commands in the command bundle before disconnection
-    BundleProcessor processor = BundleProcessor.instance
-    processor.flush()
+    BundleProcessor processor = BundleProcessor.instance;
+    processor.flush();
 
-    Helper.pause(milliseconds)
+    Helper.pause(milliseconds);
   }
 
   public void enableMacroCmd() {
