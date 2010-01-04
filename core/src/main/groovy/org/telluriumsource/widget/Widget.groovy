@@ -141,7 +141,7 @@ abstract class Widget extends UiObject {
     //add parent reference xpath
     if (pRef != null)
       lcr = pRef + lcr
-    if(context.isUseJQuerySelector()){
+    if(context.isUseCssSelector()){
 //      lcr = optimizer.optimize(JQUERY_SELECTOR + lcr.trim())
       lcr = postProcessSelector(context, lcr.trim())
     } else {
@@ -159,7 +159,7 @@ abstract class Widget extends UiObject {
 
     String optimized = optimizer.optimize(jqs)
 
-    if (context.isUseSelectorCache()) {
+    if (context.isUseUiModuleCache()) {
       JSONObject obj = new JSONObject()
       //meta command shoud not be null for locators
       MetaCmd metaCmd = context.extraMetaCmd()

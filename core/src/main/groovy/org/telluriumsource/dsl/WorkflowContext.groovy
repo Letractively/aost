@@ -29,9 +29,9 @@ class WorkflowContext {
   //For example, /table/tr/td + /td/input
   private boolean tableDuplicateTag = false
 
-  private boolean exploreJQuerySelector = false
+  private boolean exploreCssSelector = false
 
-  private boolean exploreSelectorCache = false
+  private boolean exploreUiModuleCache = false
 
   private boolean bundlingable = false
 
@@ -221,39 +221,39 @@ class WorkflowContext {
     return context
   }
 
-  public static WorkflowContext getContextByEnvironment(boolean useJQuerySelector, boolean useSelectorCache){
+  public static WorkflowContext getContextByEnvironment(boolean useCssSelector, boolean useUiModuleCache){
     WorkflowContext context = new WorkflowContext()
 
-    context.setJQuerySelector(useJQuerySelector)
-    context.setSelectorCache(useSelectorCache)
+    context.setUseCssSelector(useCssSelector)
+    context.setUseUiModuleCache(useUiModuleCache)
     context.putContext(REFERENCE_LOCATOR, "")
 
     return context
   }
 
-  public boolean isUseJQuerySelector(){
+  public boolean isUseCssSelector(){
 
-    return this.exploreJQuerySelector
+    return this.exploreCssSelector
   }
 
-  public void disableJQuerySelector(){
-    this.exploreJQuerySelector = false
+  public void disableCssSelector(){
+    this.exploreCssSelector = false
   }
 
-  public void setJQuerySelector(boolean useJQuerySelector){
-    this.exploreJQuerySelector = useJQuerySelector
+  public void setUseCssSelector(boolean isUse){
+    this.exploreCssSelector = isUse
   }
 
-  public boolean isUseSelectorCache(){
-    return this.exploreSelectorCache
+  public boolean isUseUiModuleCache(){
+    return this.exploreUiModuleCache
   }
 
-  public void disableSelectorCache(){
-    this.exploreSelectorCache = false
+  public void disableUiModuleCache(){
+    this.exploreUiModuleCache = false
   }
 
-  public void setSelectorCache(boolean useSelectorCache){
-    this.exploreSelectorCache = useSelectorCache
+  public void setUseUiModuleCache(boolean isUse){
+    this.exploreUiModuleCache = isUse
   }
 
   public String getReferenceLocator() {
@@ -281,7 +281,7 @@ class WorkflowContext {
         return
 
       //matching all does not work for jQuery selector, skip it
-      if (this.exploreJQuerySelector && MATCH_ALL.equals(loc.trim())) {
+      if (this.exploreCssSelector && MATCH_ALL.equals(loc.trim())) {
         return
       }
 

@@ -77,7 +77,7 @@ class Container extends UiObject {
 
     protected void groupLocating(WorkflowContext context){
       if (this.useGroupInfo) {
-        if(context.isUseJQuerySelector()){
+        if(context.isUseCssSelector()){
           context.appendReferenceLocator(GroupLocateStrategy.select(this))
         }else{
           //need to use group information to help us locate the container xpath

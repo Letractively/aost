@@ -33,7 +33,7 @@ public class GlobalDslContext {
   }
 
   //flag to decide whether we should cache jQuery selector
-  protected boolean exploreEngineCache() {
+  protected boolean exploreUiModuleCache() {
     return Environment.instance.isUseCache()
   }
 
@@ -65,52 +65,52 @@ public class GlobalDslContext {
 
   public void enableCache() {
     Environment.instance.useCache(true);
-//      this.exploreEngineCache = true
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+//      this.exploreUiModuleCache = true
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     extension.enableCache(context)
   }
 
   public boolean disableCache() {
     Environment.instance.useCache(false);
-//      this.exploreEngineCache = false
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+//      this.exploreUiModuleCache = false
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     extension.disableCache(context)
   }
 
   public boolean cleanCache() {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     extension.cleanCache(context)
   }
 
   public boolean getCacheState() {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     return extension.getCacheState(context)
   }
 
   public void setCacheMaxSize(int size) {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     extension.setCacheMaxSize(context, size)
   }
 
   public int getCacheSize() {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     return extension.getCacheSize(context).intValue()
   }
 
   public int getCacheMaxSize() {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     return extension.getCacheMaxSize(context).intValue()
   }
 
   public Map<String, Long> getCacheUsage() {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     String out = extension.getCacheUsage(context);
     ArrayList list = (ArrayList) parseSeleniumJSONReturnValue(out)
@@ -125,58 +125,58 @@ public class GlobalDslContext {
   }
 
   public void useDiscardNewCachePolicy() {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     extension.useDiscardNewCachePolicy(context)
   }
 
   public void useDiscardOldCachePolicy() {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     extension.useDiscardOldCachePolicy(context)
   }
 
   public void useDiscardLeastUsedCachePolicy() {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     extension.useDiscardLeastUsedCachePolicy(context)
   }
 
   public void useDiscardInvalidCachePolicy() {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     extension.useDiscardInvalidCachePolicy(context)
   }
 
   public String getCurrentCachePolicy() {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     return extension.getCachePolicyName(context)
   }
 
   public void useDefaultXPathLibrary() {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
     accessor.useXpathLibrary(context, DEFAULT_XPATH)
   }
 
   public void useJavascriptXPathLibrary() {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
     accessor.useXpathLibrary(context, JAVASCRIPT_XPATH)
   }
 
   public void useAjaxsltXPathLibrary() {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
     accessor.useXpathLibrary(context, AJAXSLT_XPATH)
   }
 
   public void registerNamespace(String prefix, String namespace) {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     extension.addNamespace(context, prefix, namespace)
   }
 
   public String getNamespace(String prefix) {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreEngineCache())
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     return extension.getNamespace(context, prefix)
   }

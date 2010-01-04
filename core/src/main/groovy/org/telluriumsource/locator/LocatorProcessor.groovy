@@ -31,7 +31,7 @@ class LocatorProcessor{
             return DefaultLocateStrategy.locate(locator)
 
         if(locator instanceof CompositeLocator){
-            if(context.isUseJQuerySelector())
+            if(context.isUseCssSelector())
               return CompositeLocateStrategy.select(locator)
 
             return CompositeLocateStrategy.locate(locator)
