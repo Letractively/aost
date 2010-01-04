@@ -24,7 +24,7 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
     public static void initUi() {
         gsm = new GoogleSearchModule();
         gsm.defineUi();
-        gsm.useCssSelector();
+        gsm.enableCssSelector();
         gsm.registerNamespace("te", te_ns);
     }
 
@@ -53,7 +53,7 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
 
     @Test
     public void testIsDisabled(){
-        gsm.useCssSelector();
+        gsm.enableCssSelector();
         boolean result = gsm.isInputDisabled();
         assertFalse(result);
         gsm.disableCssSelector();
@@ -93,7 +93,7 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
 
     @Test
     public void testCachePolicy(){
-        gsm.useCssSelector();
+        gsm.enableCssSelector();
         gsm.enableCache();
         String policy = gsm.getCurrentCachePolicy();
         assertEquals("DiscardOldPolicy", policy);

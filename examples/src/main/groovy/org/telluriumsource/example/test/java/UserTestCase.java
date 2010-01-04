@@ -34,7 +34,7 @@ public class UserTestCase extends TelluriumJavaTestCase {
         lm.disableCssSelector();
         lm.doCreateAccount();
         connectUrl("http://localhost:8080/account.html");
-        lm.useCssSelector();
+        lm.enableCssSelector();
         lm.doCreateAccount();
     }
 
