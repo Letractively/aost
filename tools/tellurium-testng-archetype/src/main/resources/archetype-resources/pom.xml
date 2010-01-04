@@ -55,31 +55,31 @@
             <url>http://archiva.openqa.org/repository/releases</url>
         </repository>
     </repositories>
-    
+
     <dependencies>
         <dependency>
-            <groupId>org.codehaus.groovy.maven</groupId>
+            <groupId>org.codehaus.gmaven</groupId>
             <artifactId>gmaven-mojo</artifactId>
             <version>${dollar}{gmaven-version}</version>
             <exclusions>
                 <exclusion>
-                    <groupId>org.codehaus.groovy.maven.runtime</groupId>
+                    <groupId>org.codehaus.gmaven.runtime</groupId>
                     <artifactId>gmaven-runtime-1.5</artifactId>
                 </exclusion>
-            </exclusions>                      
+            </exclusions>
         </dependency>
 
         <dependency>
-            <groupId>org.codehaus.groovy.maven.runtime</groupId>
+            <groupId>org.codehaus.gmaven.runtime</groupId>
             <artifactId>gmaven-runtime-1.6</artifactId>
             <version>${dollar}{gmaven-version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>5.8</version>
-            <classifier>jdk15</classifier>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.7</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -87,6 +87,13 @@
             <artifactId>tellurium-core</artifactId>
             <version>${dollar}{tellurium-version}</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>5.8</version>
+            <classifier>jdk15</classifier>
         </dependency>
 
         <dependency>
@@ -115,12 +122,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-        <!--dependency>
-          <groupId>org.openqa.selenium.grid</groupId>
-          <artifactId>selenium-grid-tools</artifactId>
-          <version>1.0.2</version>
-        </dependency-->
 
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
@@ -254,90 +255,20 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.groovy.maven
-                </groupId>
+                <groupId>org.codehaus.gmaven</groupId>
                 <artifactId>gmaven-plugin</artifactId>
+                <configuration>
+                    <providerSelection>1.7</providerSelection>
+                    <targetBytecode>${java-version}</targetBytecode>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
                             <!-- The generateStubs goals are not yet working for enums and generics -->
-                            <!-- <goal>generateStubs</goal>-->
+                            <goal>generateStubs</goal>
                             <goal>compile</goal>
-                            <!--<goal>generateTestStubs</goal>-->
+                            <goal>generateTestStubs</goal>
                             <goal>testCompile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.3</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.ant</groupId>
-                        <artifactId>ant</artifactId>
-                        <version>1.7.1</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.ant</groupId>
-                        <artifactId>ant-launcher</artifactId>
-                        <version>1.7.1</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.ant</groupId>
-                        <artifactId>ant-nodeps</artifactId>
-                        <version>1.7.1</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>sun.jdk</groupId>
-                        <artifactId>tools</artifactId>
-                        <version>${dollar}{java-version}.0</version>
-                        <scope>system</scope>
-                        <systemPath>${dollar}{java.home}/../lib/tools.jar</systemPath>
-                    </dependency>
-                </dependencies>
-                <executions>
-                   <execution>
-                        <id>compile-java</id>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <tasks>
-                                <path id="compile.classpath">
-                                    <path refid="maven.compile.classpath"/>
-                                    <pathelement location="target/classes"/>
-                                </path>
-                                <mkdir dir="target/classes"/>
-                                <javac srcdir="src/main/groovy" debug="${dollar}{javac-debug}"
-                                       destdir="target/classes" classpathref="compile.classpath">
-                                    <include name="**/*.java"/>
-                                </javac>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>                    
-                    <execution>
-                        <id>compile-java-test</id>
-                        <phase>test-compile</phase>
-                        <configuration>
-                            <tasks>
-                                <path id="testcompile.classpath">
-                                    <path refid="maven.compile.classpath"/>
-                                    <path refid="maven.test.classpath"/>
-                                    <pathelement location="target/classes"/>
-                                    <pathelement location="target/test-classes"/>
-                                </path>
-                                <javac srcdir="src/test/groovy" debug="${dollar}{javac-debug}"
-                                       destdir="target/test-classes" classpathref="testcompile.classpath">
-                                    <include name="**/*.java"/>
-                                </javac>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -363,9 +294,9 @@
         </plugins>
     </reporting>
     <properties>
-        <java-version>1.5</java-version>
-        <groovy-version>1.6.0</groovy-version>
-        <gmaven-version>1.0-rc-5</gmaven-version>
+        <java-version>1.6</java-version>
+        <groovy-version>1.6.5</groovy-version>
+        <gmaven-version>1.2</gmaven-version>
         <selenium-version>1.0.1</selenium-version>
         <tellurium-version>0.7.0-SNAPSHOT</tellurium-version>
         <javac-debug>true</javac-debug>
