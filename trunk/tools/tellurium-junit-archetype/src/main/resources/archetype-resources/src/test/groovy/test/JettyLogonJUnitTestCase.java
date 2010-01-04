@@ -15,7 +15,7 @@ import module.JettyLogonModule;
  *
  */
 public class JettyLogonJUnitTestCase  extends TelluriumJUnitTestCase {
-    private static module.JettyLogonModule jlm;
+    private static JettyLogonModule jlm;
     private static MockHttpServer server;
 
     @BeforeClass
