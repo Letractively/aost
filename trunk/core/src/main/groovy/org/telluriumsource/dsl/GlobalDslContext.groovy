@@ -53,11 +53,11 @@ public class GlobalDslContext {
   }
 
   public void enableCssSelector() {
-    Environment.instance.enableCssSelector(true);
+    Environment.instance.useCssSelector(true);
   }
 
   public void disableCssSelector() {
-    Environment.instance.enableCssSelector(false);
+    Environment.instance.useCssSelector(false);
   }
 
   public void setUseCacheFlag(boolean isUse){
