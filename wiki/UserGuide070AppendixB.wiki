@@ -692,6 +692,60 @@ ui.StandardTable(uid: "table", clocator: [id: "std"]) {
 }
 }}}
 
+== How to Run Tellurium Tests in Different Browsers ==
+
+You could use the {{{openUrlWithBrowserParameters()}}} methods to change browser settings for different test cases in the same test class,
+
+{{{
+ public static void openUrlWithBrowserParameters(String url, String
+serverHost, int serverPort, String baseUrl, String browser, String
+browserOptions)
+
+   public static void openUrlWithBrowserParameters(String url, String
+serverHost, int serverPort, String browser, String browserOptions)
+
+   public static void openUrlWithBrowserParameters(String url, String
+serverHost, int serverPort, String browser)
+}}}
+
+For example,
+
+{{{
+public class GoogleStartPageTestNGTestCase extends TelluriumTestNGTestCase {
+   protected static NewGoogleStartPage ngsp;
+
+   @BeforeClass
+   public static void initUi() {
+       ngsp = new NewGoogleStartPage();
+       ngsp.defineUi();
+   }
+
+   @DataProvider(name = "browser-provider")
+   public Object[][] browserParameters() {
+       return new Object[][]{
+               new Object[] {"localhost", 4444, "*chrome"},
+               new Object[] {"localhost", 4444, "*firefox"}};
+   }
+
+   @Test(dataProvider = "browser-provider")
+   @Parameters({"serverHost", "serverPort", "browser"})
+   public void testGoogleSearch(String serverHost, int serverPort, String browser){
+       openUrlWithBrowserParameters("http://www.google.com", serverHost, serverPort, browser);
+       ngsp.doGoogleSearch("tellurium selenium Groovy Test");
+       disconnectSeleniumServer();
+  }
+
+  @Test(dataProvider = "browser-provider")
+  @Parameters({"serverHost", "serverPort", "browser"})
+  public void testGoogleSearchFeelingLucky(String serverHost, int serverPort, String browser){
+      openUrlWithBrowserParameters("http://www.google.com", serverHost, serverPort, browser);
+      ngsp.doImFeelingLucky("tellurium selenium DSL Testing");
+      disconnectSeleniumServer();
+  }
+}
+
+}}}
+ 
 == How to use the new XPath library in Selenium ==
 
 There are three methods in DslContext for you to select different XPath Library,
