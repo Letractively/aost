@@ -2,11 +2,11 @@ package test;
 
 import org.telluriumsource.test.java.TelluriumJUnitTestCase;
 import org.telluriumsource.test.mock.MockHttpServer;
-import module.JettyLogonModule;
 import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.AfterClass;
+import module.JettyLogonModule;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)

@@ -16,7 +16,7 @@ respectively.
 To create a new Tellurium JUnit test project, use the maven command
 
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
-    -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium
+    -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=org.telluriumsource
     -DarchetypeVersion=0.7.0-SNAPSHOT
 
 And for a new Tellurium TestNG test project, use
@@ -42,7 +42,7 @@ Before this, you must add Tellurium Maven repository into your_home/.m2/settings
                     <snapshots>
                         <enabled>true</enabled>
                     </snapshots>
-                    <url>http://kungfuters.org/nexus/content/repositories/snapshots</url>
+                    <url>http://maven.kungfuters.org/content/repositories/snapshots</url>
                 </repository>
                 <repository>
                     <id>kungfuters-public-releases-repo</id>
@@ -53,7 +53,7 @@ Before this, you must add Tellurium Maven repository into your_home/.m2/settings
                     <snapshots>
                         <enabled>false</enabled>
                     </snapshots>
-                    <url>http://kungfuters.org/nexus/content/repositories/releases</url>
+                    <url>http://maven.kungfuters.org/content/repositories/releases</url>
                 </repository>
             </repositories>
         </profile>
