@@ -156,6 +156,8 @@ Tellurium defines a set of DSLs to support Tellurium tests. The most often used 
 
 connectSeleniumServer(): Connect to the selenium server.
 
+disconnectSeleniumServer(): Disconnect the connection to the selenium server.
+
 openUrl(String url): establish a new connection to Selenium server for the given url. The DSL format is:
 
 {{{
