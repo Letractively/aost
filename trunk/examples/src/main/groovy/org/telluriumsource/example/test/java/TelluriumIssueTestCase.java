@@ -19,7 +19,7 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         connectSeleniumServer();
         tisp = new TelluriumIssueModule();
         tisp.defineUi();
-        tisp.useCssSelector();
+        tisp.enableCssSelector();
         tisp.enableCache();
         tisp.setCacheMaxSize(30);
     }

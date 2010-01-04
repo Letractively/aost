@@ -33,7 +33,7 @@ public class ListTestCase  extends TelluriumJavaTestCase {
         String attr = (String)lm.getParentAttribute("rotator.tnails[6]", "class");
         System.out.println("XPath: Class attribute for rotator.tnails[6] " + attr);
         assertEquals("thumbnail potd", attr);
-        lm.useCssSelector();
+        lm.enableCssSelector();
         attr = (String)lm.getParentAttribute("rotator.tnails[6]", "class");
         System.out.println("jQuery: Class attribute for rotator.tnails[6] " + attr);
         assertEquals("thumbnail potd", attr);

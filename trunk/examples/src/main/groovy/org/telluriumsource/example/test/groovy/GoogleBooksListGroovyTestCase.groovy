@@ -48,7 +48,7 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
         openUrl("http://books.google.com/")
         ngbl.disableCssSelector()
         int xsize = ngbl.getBookListSize()
-        ngbl.useCssSelector()
+        ngbl.enableCssSelector()
         int jsize = ngbl.getBookListSize()
         assertEquals(jsize, xsize)
     }
@@ -88,7 +88,7 @@ class GoogleBooksListGroovyTestCase extends TelluriumGroovyTestCase {
       ngbl.dump("NGoogleBooksList")
       ngbl.disableCssSelector()
       println ngbl.getSeparatorAttribute()
-      ngbl.useCssSelector()
+      ngbl.enableCssSelector()
       ngbl.dump("NGoogleBooksList")
       println ngbl.getSeparatorAttribute()
     }

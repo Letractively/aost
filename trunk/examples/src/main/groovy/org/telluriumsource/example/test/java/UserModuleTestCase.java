@@ -34,7 +34,7 @@ public class UserModuleTestCase extends TelluriumJavaTestCase {
         lm.disableCssSelector();
         lm.doCreateAccount();
         connectUrl("http://localhost:8080/mockFunction.do");
-        lm.useCssSelector();
+        lm.enableCssSelector();
         lm.doCreateAccount();
 //        System.out.println("Captured traffic: " + lm.captureNetworkTraffic("json"));
     }
