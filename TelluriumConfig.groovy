@@ -87,9 +87,9 @@ tellurium{
             trace = false
         }
         //at current stage, the result report is only for tellurium data driven testing
-        //we may add the result report for regular tellurium test case
+        //we may add the result report for regular tellurium org.telluriumsource.demo.test case
         result{
-            //specify what result reporter used for the test result
+            //specify what result reporter used for the org.telluriumsource.demo.test result
             //valid options include "SimpleResultReporter", "XMLResultReporter", and "StreamXMLResultReporter"
             reporter = "XMLResultReporter"
             //the output of the result
@@ -97,13 +97,13 @@ tellurium{
             //if the option is "File", you need to specify the file name, other wise it will use the default
             //file name "TestResults.output"
             output = "Console"
-            //test result output file name
+            //org.telluriumsource.demo.test result output file name
             filename = "TestResult.output"
         }
         exception{
             //whether Tellurium captures the screenshot when exception occurs.
             //Note that the exception is the one thrown by Selenium Server
-            //we do not care the test logic errors here
+            //we do not care the org.telluriumsource.demo.test logic errors here
             captureScreenshot = true
             //we may have a series of screenshots, specify the file name pattern here
             //Here the ? will be replaced by the timestamp and you might also want to put
