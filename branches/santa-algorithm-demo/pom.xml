@@ -82,7 +82,7 @@
         </dependency>
 
         <dependency>
-            <groupId>tellurium</groupId>
+            <groupId>org.telluriumsource</groupId>
             <artifactId>tellurium-core</artifactId>
             <version>${tellurium-version}</version>
             <scope>compile</scope>
@@ -141,10 +141,10 @@
         </resources>
         <testResources>
             <testResource>
-                <directory>src/test/groovy</directory>
+                <directory>src/org.telluriumsource.demo.test/groovy</directory>
             </testResource>
             <testResource>
-                <directory>src/test/resources</directory>
+                <directory>src/org.telluriumsource.demo.test/resources</directory>
             </testResource>
         </testResources>
 
