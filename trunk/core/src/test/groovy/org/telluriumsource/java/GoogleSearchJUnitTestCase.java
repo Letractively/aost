@@ -141,7 +141,7 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testCustomDirectCall(){
-        List list  = new ArrayList();
+        List<String> list  = new ArrayList<String>();
         list.add("//input[@title='Google Search']");
         gsm.customDirectCall("click", list.toArray());
     }
