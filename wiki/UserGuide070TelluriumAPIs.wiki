@@ -185,7 +185,7 @@ connectUrl(String url): use existing connect for the given url. The DSL format i
 {{{openUrlWithBrowserParameters()}}} is used to change browser settings for different test cases in the same test class. There are three methods:
 
 {{{
-public static void openUrlWithBrowserParameters(String url, String serverHost, int serverPort, String baseUrl, String browser, String browserOptions)
+   public static void openUrlWithBrowserParameters(String url, String serverHost, int serverPort, String baseUrl, String browser, String browserOptions)
 
    public static void openUrlWithBrowserParameters(String url, String serverHost, int serverPort, String browser, String browserOptions)
 
