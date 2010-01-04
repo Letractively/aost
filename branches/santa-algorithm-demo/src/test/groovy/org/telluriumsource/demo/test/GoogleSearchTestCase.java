@@ -7,11 +7,11 @@ import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
-import org.telluriumsource.test.java.TelluriumJavaTestCase;
-import org.telluriumsource.entity.CachePolicy;
+import org.telluriumsource.test.java.TelluriumJUnitTestCase;
 
 
 import org.telluriumsource.demo.module.GoogleSearchModule;
+import org.telluriumsource.entity.CachePolicy;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 /**
  * Test cases created based on the GoogleSearchModule UI module
  */
-public class GoogleSearchTestCase extends TelluriumJavaTestCase {
+public class GoogleSearchTestCase extends TelluriumJUnitTestCase {
 
     private static GoogleSearchModule gsm;
     private static String te_ns = "http://telluriumsource.org/ns";
@@ -141,6 +141,11 @@ public class GoogleSearchTestCase extends TelluriumJavaTestCase {
         gsm.customDirectCall("click", list.toArray());
     }
 
+    @Test
+    public void testDump(){
+        gsm.dump("Google");
+    }
+    
     @AfterClass
     public static void tearDown(){
         showTrace();
