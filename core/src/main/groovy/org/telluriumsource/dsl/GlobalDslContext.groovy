@@ -51,12 +51,12 @@ public class GlobalDslContext {
     extension.useClosestMatch(context, false)
   }
 
-  public void useCssSelector() {
-    Environment.instance.useCssSelector(true);
+  public void enableCssSelector() {
+    Environment.instance.enableCssSelector(true);
   }
 
   public void disableCssSelector() {
-    Environment.instance.useCssSelector(false);
+    Environment.instance.enableCssSelector(false);
   }
 
   public void setUseCacheFlag(boolean isUse){
@@ -185,7 +185,7 @@ public class GlobalDslContext {
     Helper.pause(milliseconds)
   }
 
-  public void useMacroCmd() {
+  public void enableMacroCmd() {
      Environment.instance.useBundle(true);
   }
 
@@ -224,6 +224,14 @@ public class GlobalDslContext {
 
   public boolean isUseTelluriumApi(){
     return Environment.instance.isUseTelluriumApi();
+  }
+
+  public void enableTelluriumApi(){
+    useTelluriumApi(true);
+  }
+
+  public void disableTelluriumApi(){
+    useTelluriumApi(false);
   }
 
   public void useTelluriumApi(boolean isUse){
