@@ -335,22 +335,6 @@ abstract class DslContext extends BaseDslContext {
         return xml
     }
 
-/*
-    public void useMacroCmd(){
-      BundleProcessor processor = BundleProcessor.instance
-      processor.useBundleFeature()
-    }
-
-    public void disableMacroCmd(){
-      BundleProcessor processor = BundleProcessor.instance
-      processor.disableBundleFeature()
-    }
-
-    public void showTrace(){
-      Dispatcher dispatcher = new Dispatcher();
-      dispatcher.showTrace()
-    }
-  */
     //let the missing property return the a string of the properity, this is useful for the onWidget method
     //so that we can pass in widget method directly, instead of passing in the method name as a String
     def propertyMissing(String name) {

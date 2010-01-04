@@ -174,7 +174,7 @@ public class JQueryBuilder_UT extends GroovyTestCase {
   public void testModuleWithHeader(){
     ModuleWithHeader mwh = new ModuleWithHeader()
     mwh.defineUi()
-    mwh.useCssSelector()
+    mwh.enableCssSelector()
     String jqsel = mwh.getLocator("SearchModule.Input")
     assertEquals("jquery=td div input[title=Google Search]", jqsel)
     jqsel = mwh.getLocator("SearchModule.Search")
