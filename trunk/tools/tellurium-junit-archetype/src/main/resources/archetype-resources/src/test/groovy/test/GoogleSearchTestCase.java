@@ -3,8 +3,16 @@ package test;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.AfterClass;
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import org.telluriumsource.test.java.TelluriumJUnitTestCase;
 
-import org.telluriumsource.test.java.TelluriumJavaTestCase;
+import org.telluriumsource.entity.CachePolicy;
+
+import java.util.List;
+import java.util.ArrayList;
 
 import module.GoogleSearchModule;
 
@@ -12,7 +20,7 @@ import module.GoogleSearchModule;
 /**
  * Test cases created based on the GoogleSearchModule UI module
  */
-public class GoogleSearchTestCase extends TelluriumJavaTestCase {
+public class GoogleSearchTestCase extends TelluriumJUnitTestCase {
     private static GoogleSearchModule gsm;
 
     @BeforeClass
