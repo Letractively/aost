@@ -86,7 +86,7 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
     }
 
     @Test
-    public void testUseSelectorCache(){
+    public void testUseCache(){
         useCache(true);
         boolean result = gsm.getCacheState();
         assertTrue(result);
@@ -116,19 +116,15 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
         useCache(true);
         String policy = getCurrentCachePolicy();
         assertEquals("DiscardOldPolicy", policy);
-//        gsm.useDiscardLeastUsedCachePolicy();
         useCachePolicy(CachePolicy.DISCARD_LEAST_USED);
         policy = getCurrentCachePolicy();
         assertEquals("DiscardLeastUsedPolicy", policy);
-//        gsm.useDiscardInvalidCachePolicy();
         useCachePolicy(CachePolicy.DISCARD_INVALID);
         policy = getCurrentCachePolicy();
         assertEquals("DiscardInvalidPolicy", policy);
-//        gsm.useDiscardNewCachePolicy();
         useCachePolicy(CachePolicy.DISCARD_NEW);
         policy = getCurrentCachePolicy();
         assertEquals("DiscardNewPolicy", policy);
-//        gsm.useDiscardOldCachePolicy();
         useCachePolicy(CachePolicy.DISCARD_OLD);
         policy = getCurrentCachePolicy();
         assertEquals("DiscardOldPolicy", policy);
@@ -144,5 +140,10 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
     @Test
     public void testDump(){
         gsm.dump("Google");
+    }
+
+    @AfterClass
+    public static void tearDown(){
+        showTrace();
     }
 }
