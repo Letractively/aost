@@ -14,7 +14,8 @@ import org.telluriumsource.entity.CachePolicy
  */
 
 public class GoogleSearchGroovyTestCase extends TelluriumGroovyTestCase {
-    private GoogleSearchModule gsm;
+
+  private GoogleSearchModule gsm;
     private String te_ns = "http://telluriumsource.org/ns";
 
     public void setUp() {
@@ -55,7 +56,7 @@ public class GoogleSearchGroovyTestCase extends TelluriumGroovyTestCase {
         assertFalse(result);
     }
 
-    public void testUseSelectorCache(){
+    public void testUseCache(){
         connectUrl("http://www.google.com");
         useCache(true);
         boolean result = gsm.getCacheState();
@@ -91,19 +92,15 @@ public class GoogleSearchGroovyTestCase extends TelluriumGroovyTestCase {
         useCache(true);
         String policy = getCurrentCachePolicy();
         assertEquals("DiscardOldPolicy", policy);
-//        gsm.useDiscardLeastUsedCachePolicy();
         useCachePolicy(CachePolicy.DISCARD_LEAST_USED);
         policy = getCurrentCachePolicy();
         assertEquals("DiscardLeastUsedPolicy", policy);
-//        gsm.useDiscardInvalidCachePolicy();
         useCachePolicy(CachePolicy.DISCARD_INVALID);
         policy = getCurrentCachePolicy();
         assertEquals("DiscardInvalidPolicy", policy);
-//        gsm.useDiscardNewCachePolicy();
         useCachePolicy(CachePolicy.DISCARD_NEW);
         policy = getCurrentCachePolicy();
         assertEquals("DiscardNewPolicy", policy);
-//        gsm.useDiscardOldCachePolicy();
         useCachePolicy(CachePolicy.DISCARD_OLD);
         policy = getCurrentCachePolicy();
         assertEquals("DiscardOldPolicy", policy);

@@ -323,7 +323,7 @@ class List extends Container {
 
         //append relative location, i.e., index to the locator
         String loc = null
-        if(context.isUseJQuerySelector()){
+        if(context.isUseCssSelector()){
           loc = getListSelector(nindex)
         }else{
           loc = getListLocator(nindex)
