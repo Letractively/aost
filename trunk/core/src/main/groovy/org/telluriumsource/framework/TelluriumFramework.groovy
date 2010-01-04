@@ -25,7 +25,8 @@ import org.telluriumsource.widget.WidgetConfigurator
 import org.telluriumsource.i18n.IResourceBundle
 import org.telluriumsource.dsl.GlobalDslContext
 import org.telluriumsource.util.Helper
-import org.telluriumsource.entity.CachePolicy;
+import org.telluriumsource.entity.CachePolicy
+import org.telluriumsource.bundle.BundleProcessor;
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
@@ -330,6 +331,10 @@ class TelluriumFramework {
   }
 
   def pause(int milliseconds) {
+    //flush out remaining commands in the command bundle before disconnection
+    BundleProcessor processor = BundleProcessor.instance
+    processor.flush()
+    
     Helper.pause(milliseconds);
   }
 

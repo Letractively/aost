@@ -7,6 +7,7 @@ import org.telluriumsource.framework.Environment
 import org.telluriumsource.util.Helper
 
 import org.telluriumsource.dispatch.Dispatcher
+import org.telluriumsource.bundle.BundleProcessor
 
 /**
  * Global methods, which should not be tired to an individual UI module
@@ -182,6 +183,10 @@ public class GlobalDslContext {
   }
 
   def pause(int milliseconds) {
+    //flush out remaining commands in the command bundle before disconnection
+    BundleProcessor processor = BundleProcessor.instance
+    processor.flush()
+
     Helper.pause(milliseconds)
   }
 

@@ -124,7 +124,8 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
     }
 
     public void pause(int milliseconds) {
-      Helper.pause(milliseconds);
+      tellurium.pause(milliseconds);
+//      Helper.pause(milliseconds);
     }
 
     public void useMacroCmd(boolean isUse){

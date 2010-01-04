@@ -27,6 +27,7 @@ public class JettyLogonJUnitTestCase extends TelluriumJUnitTestCase {
         useTelluriumApi(true);
         useTrace(true);
         useCache(true);
+        useMacroCmd(true);
     }
 
     @Before
