@@ -194,6 +194,11 @@ TelluriumCache.prototype.getCachedData = function(key){
     return this.sCache.get(key);
 };
 
+TelluriumCache.prototype.findUiElementFromAncestor = function(uid){
+    //TODO: Need to do individual locating either from its parent or use the generated locator
+
+};
+
 TelluriumCache.prototype.getCachedUiElement = function(uid){
 
     var uiid = new Uiid();
@@ -214,12 +219,15 @@ TelluriumCache.prototype.getCachedUiElement = function(uid){
                 fbLog("Get cached UI element " + uid + " from indices.", obj);
             }
 
-/*
-            this logic is not correct any more since we cache UI module instead of individual CSS selectors
-            if(obj != null){
-                this.sCache.updateToCache(first, uim);
+            var $ref = teJQuery(obj);
+            //validate the result
+            if(this.validateCache($ref)){
+                return obj;
+            }else{
+                //if the result is not valid any more
+                //then try to find the element by search from its ascendant
+                obj = this.findUiElementFromAncestor(uid);
             }
-*/
 
             return obj;
         }
