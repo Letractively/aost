@@ -453,45 +453,6 @@ Tellurium.prototype.camelizeApiName = function(apiName){
     return "do" + apiName.charAt(0).toUpperCase() + apiName.substring(1);
 };
 
-Tellurium.prototype.delegateToSelenium = function(response, cmd) {
-    // need to use selenium api name conversion to find the api
-    var apiName = cmd.name;
-    var result = null;
-    fbLog("Delegate Call " + cmd.name + " to Selenium", cmd);
-    if (apiName.startsWith("is")) {
-//        result = selenium[apiName].apply(this, cmd.args);
-        result = selenium[apiName].apply(selenium, cmd.args);
-        response.addResponse(cmd.sequ, apiName, "BOOLEAN", result);
-    } else if (apiName.startsWith("get")) {
-//        result = selenium[apiName].apply(this, cmd.args);
-        result = selenium[apiName].apply(selenium, cmd.args);
-        if(apiName.indexOf("All") != -1){
-            //api Name includes "All" should return an array
-            response.addResponse(cmd.sequ, apiName, "ARRAY", result);
-        }else{
-            //assume the rest return "String"
-            response.addResponse(cmd.sequ, apiName, "STRING", result);
-        }
-    } else {
-        apiName = this.camelizeApiName(apiName);
-        fbLog("Call Selenium method " + apiName, selenium);
-//        selenium[apiName].apply(this, cmd.args);
-        selenium[apiName].apply(selenium, cmd.args);
-    }
-};
-
-Tellurium.prototype.dispatchMacroCmd = function(){
-    var response = new BundleResponse();
-
-    while (this.macroCmd.size() > 0) {
-        var cmd = this.macroCmd.first();
-        if(cmd.name == "getUseUiModule"){
-            //do UI module locating
-            
-        }
-    }
-};
-
 Tellurium.prototype.processMacroCmd = function(){
 
     var response = new BundleResponse();
@@ -741,7 +702,6 @@ Tellurium.prototype.locateElementByCacheAwareCSSSelector = function(locator, inD
     }   
 };
 
-
 function CacheAwareLocator(){
     //runtime id
     this.rid = null;
@@ -762,3 +722,120 @@ function CacheAwareLocator(){
 Tellurium.prototype.locateElementWithCacheAware = function(locator, inDocument, inWindow){
 
 };
+
+Tellurium.prototype.dispatchMacroCmd = function(){
+    var response = new BundleResponse();
+
+    while (this.macroCmd.size() > 0) {
+        var cmd = this.macroCmd.first();
+        if(cmd.name == "getUseUiModule"){
+            //do UI module locating
+            this.delegateToTellurium(response, cmd);
+        }else{
+            //for other commands
+            this.updateArgumentList(cmd);
+            if ((!this.isUseTeApi) || this.isApiMissing(cmd.name)) {
+                this.delegateToSelenium(response, cmd);
+            }else{
+                this.delegateToTellurium(response, cmd);
+            }
+        }
+    }
+
+    return response.toJSon();
+};
+
+Tellurium.prototype.delegateToSelenium = function(response, cmd) {
+    // need to use selenium api name conversion to find the api
+    var apiName = cmd.name;
+    var result = null;
+    fbLog("Delegate Call " + cmd.name + " to Selenium", cmd);
+    if (apiName.startsWith("is")) {
+//        result = selenium[apiName].apply(this, cmd.args);
+        result = selenium[apiName].apply(selenium, cmd.args);
+        response.addResponse(cmd.sequ, apiName, "BOOLEAN", result);
+    } else if (apiName.startsWith("get")) {
+//        result = selenium[apiName].apply(this, cmd.args);
+        result = selenium[apiName].apply(selenium, cmd.args);
+        if(apiName.indexOf("All") != -1){
+            //api Name includes "All" should return an array
+            response.addResponse(cmd.sequ, apiName, "ARRAY", result);
+        }else{
+            //assume the rest return "String"
+            response.addResponse(cmd.sequ, apiName, "STRING", result);
+        }
+    } else {
+        apiName = this.camelizeApiName(apiName);
+        fbLog("Call Selenium method " + apiName, selenium);
+//        selenium[apiName].apply(this, cmd.args);
+        selenium[apiName].apply(selenium, cmd.args);
+    }
+};
+
+Tellurium.prototype.delegateToTellurium = function(response, cmd) {
+    var result = null;
+
+    var handler = this.apiMap.get(cmd.name);
+
+    if (handler != null) {
+        var api = handler.api;
+        //prepare the argument list
+        var params = cmd.args;
+        if (params != null && params.length > 0) {
+            if (handler.returnType == "VOID") {
+                api.apply(this, params);
+            } else {
+                result = api.apply(this, params);
+                response.addResponse(cmd.sequ, cmd.name, handler.returnType, result);
+            }
+        } else {
+            if (handler.returnType == "VOID") {
+                api.apply(this, params);
+            } else {
+                result = api.apply(this, params);
+                response.addResponse(cmd.sequ, cmd.name, handler.returnType, result);
+            }
+        }
+
+    } else {
+        throw SeleniumError("Unknown command " + cmd.name + " in Command Bundle.");
+    }
+};
+
+Tellurium.prototype.updateArgumentList = function(cmd){
+    if (cmd.args != null) {
+
+        //check the first argument to see if it is a locator or not
+        var locator = cmd.args[0];
+
+        if (this.isLocator(locator)) {
+            //if it is a locator
+            var cal = new CacheAwareLocator();
+            cal.rid = cmd.uid;
+            cal.orLocator = locator;
+            cal.locator = locator;
+
+            //check if it is an attribute locator
+            var attributePos = locator.lastIndexOf("@");
+            if (attributePos != -1) {
+                cal.isAttribute = true;
+                var attributeName = locator.slice(attributePos + 1);
+                if (attributeName.endsWith("]")) {
+                    attributeName = attributeName.substr(0, attributeName.length - 1);
+                }
+                cal.attribute = attributeName;
+
+                cal.locator = locator.slice(0, attributePos);
+                if (cal.locator.endsWith("[")) {
+                    cal.locator = cal.locator.substr(0, cal.locator.length - 1);
+                }
+            }
+
+            //convert to locator string so that selenium could use it
+            cmd.args[0] = "uimcal=" + JSON.stringify(cal);              
+            fbLog("Update argument list for command " + cmd.name, cmd);
+        }
+        //otherwise, no modification, use the original argument list
+    }
+};
+
