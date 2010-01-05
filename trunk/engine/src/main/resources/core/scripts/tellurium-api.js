@@ -21,96 +21,124 @@ function TelluriumApi(cache){
     this.cache = cache;
 };
 
-TelluriumApi.prototype.blur = function(element) {
+TelluriumApi.prototype.cacheAwareLocate = function(locator){
+    //This is not really elegant, but we have to share this
+    //locate strategy with Selenium. Otherwise, call Tellurium
+    //methods directly.
+    return selenium.browserbot.findElement(locator);
+};
+
+TelluriumApi.prototype.blur = function(locator) {
+    var element = this.cacheAwareLocate(locator);
     teJQuery(element).blur();
 };
 
-TelluriumApi.prototype.click = function(element) {
+TelluriumApi.prototype.click = function(locator) {
+    var element = this.cacheAwareLocate(locator);
     teJQuery(element).click();
 };
 
-TelluriumApi.prototype.clickAt = function(element, coordString) {
+TelluriumApi.prototype.clickAt = function(locator, coordString) {
+    var element = this.cacheAwareLocate(locator);
     var clientXY = getTargetXY(element, coordString);
     //TODO: how to do click at using jQuery
     teJQuery(element).click();
 };
 
-TelluriumApi.prototype.doubleClick = function(element){
+TelluriumApi.prototype.doubleClick = function(locator){
+    var element = this.cacheAwareLocate(locator);
     teJQuery(element).dblclick();
 };
 
-TelluriumApi.prototype.fireEvent = function(element, event){
+TelluriumApi.prototype.fireEvent = function(locator, event){
+    var element = this.cacheAwareLocate(locator);
     teJQuery(element).trigger(event);
 };
 
-TelluriumApi.prototype.focus = function(element){
+TelluriumApi.prototype.focus = function(locator){
+    var element = this.cacheAwareLocate(locator);
     teJQuery(element).focus();
 };
 
-TelluriumApi.prototype.typeKey = function(element, key){
+TelluriumApi.prototype.typeKey = function(locator, key){
+    var element = this.cacheAwareLocate(locator);
     var $elem = teJQuery(element);
 	$elem.val($elem.val()+key).trigger(getEvent("keydown", key)).trigger(getEvent("keypress", key)).trigger(getEvent("keyup", key));
 };
 
-TelluriumApi.prototype.keyDown = function(element, key){
+TelluriumApi.prototype.keyDown = function(locator, key){
+    var element = this.cacheAwareLocate(locator);
     var $elem = teJQuery(element);
     $elem.val($elem.val()).trigger(getEvent("keydown", key));
 };
 
-TelluriumApi.prototype.keyPress = function(element, key){
+TelluriumApi.prototype.keyPress = function(locator, key){
+    var element = this.cacheAwareLocate(locator);
     var $elem = teJQuery(element);
     $elem.val($elem.val()+key).trigger(getEvent("keypress", key));
 };
 
-TelluriumApi.prototype.keyUp = function(element, key){
+TelluriumApi.prototype.keyUp = function(locator, key){
+    var element = this.cacheAwareLocate(locator);
     var $elem = teJQuery(element);
     $elem.val($elem.val()).trigger(getEvent("keyup", key));
 };
 
-TelluriumApi.prototype.mouseOver = function(element){
-   teJQuery(element).trigger('mouseover');
+TelluriumApi.prototype.mouseOver = function(locator){
+    var element = this.cacheAwareLocate(locator);
+    teJQuery(element).trigger('mouseover');
 };
 
-TelluriumApi.prototype.mouseDown = function(element){
-   teJQuery(element).trigger('mousedown');
+TelluriumApi.prototype.mouseDown = function(locator){
+    var element = this.cacheAwareLocate(locator);
+    teJQuery(element).trigger('mousedown');
 };
 
-TelluriumApi.prototype.mouseDownRight = function(element){
+TelluriumApi.prototype.mouseDownRight = function(locator){
+    var element = this.cacheAwareLocate(locator);
     //TODO: how to fire right mouse down in jQuery?
     //   teJQuery(element).trigger('mousedown');
 };
 
-TelluriumApi.prototype.mouseEnter = function(element){
-   teJQuery(element).trigger('mouseenter');
+TelluriumApi.prototype.mouseEnter = function(locator){
+    var element = this.cacheAwareLocate(locator);
+    teJQuery(element).trigger('mouseenter');
 };
 
-TelluriumApi.prototype.mouseLeave = function(element){
-   teJQuery(element).trigger('mouseleave');
+TelluriumApi.prototype.mouseLeave = function(locator){
+    var element = this.cacheAwareLocate(locator);
+    teJQuery(element).trigger('mouseleave');
 };
 
-TelluriumApi.prototype.mouseOut = function(element){
-   teJQuery(element).trigger('mouseout');
+TelluriumApi.prototype.mouseOut = function(locator){
+    var element = this.cacheAwareLocate(locator);
+    teJQuery(element).trigger('mouseout');
 };
 
-TelluriumApi.prototype.submit = function(element){
-   teJQuery(element).submit();
+TelluriumApi.prototype.submit = function(locator){
+    var element = this.cacheAwareLocate(locator);
+    teJQuery(element).submit();
 };
 
-TelluriumApi.prototype.check = function(element){
+TelluriumApi.prototype.check = function(locator){
+    var element = this.cacheAwareLocate(locator);
     element.checked = true;
 };
 
-TelluriumApi.prototype.uncheck = function(element){
+TelluriumApi.prototype.uncheck = function(locator){
+    var element = this.cacheAwareLocate(locator);
     element.checked = false;
 };
 
-TelluriumApi.prototype.isElementPresent = function(element){
-    if(element == null)
+TelluriumApi.prototype.isElementPresent = function(locator){
+    var element = this.cacheAwareLocate(locator);
+    if (element == null)
         return false;
     return true;
 };
 
-TelluriumApi.prototype.getAttribute = function(element, attributeName){
+TelluriumApi.prototype.getAttribute = function(locator, attributeName){
+    var element = this.cacheAwareLocate(locator);
     return teJQuery(element).attr(attributeName);
 };
 
@@ -118,11 +146,13 @@ TelluriumApi.prototype.waitForPageToLoad = function(timeout){
     selenium.doWaitForPageToLoad(timeout);
 };
 
-TelluriumApi.prototype.type = function(element, val){
+TelluriumApi.prototype.type = function(locator, val){
+    var element = this.cacheAwareLocate(locator);
     teJQuery(element).val(val);
 };
 
-TelluriumApi.prototype.select = function(element, optionLocator){
+TelluriumApi.prototype.select = function(locator, optionLocator){
+    var element = this.cacheAwareLocate(locator);
     var $sel = teJQuery(element);
     //first, remove all selected element
     $sel.find("option").removeAttr("selected");
@@ -132,7 +162,8 @@ TelluriumApi.prototype.select = function(element, optionLocator){
     $sel.find(opt).attr("selected","selected");
 };
 
-TelluriumApi.prototype.addSelection = function(element, optionLocator){
+TelluriumApi.prototype.addSelection = function(locator, optionLocator){
+    var element = this.cacheAwareLocate(locator);
     var $sel = teJQuery(element);
     //construct the select option
     var opt = "option[" + optionLocator + "]";
@@ -140,7 +171,8 @@ TelluriumApi.prototype.addSelection = function(element, optionLocator){
     $sel.find(opt).attr("selected","selected");
 };
 
-TelluriumApi.prototype.removeSelection = function(element, optionLocator){
+TelluriumApi.prototype.removeSelection = function(locator, optionLocator){
+    var element = this.cacheAwareLocate(locator);
     var $sel = teJQuery(element);
     //construct the select option
     var opt = "option[" + optionLocator + "]";
@@ -148,7 +180,8 @@ TelluriumApi.prototype.removeSelection = function(element, optionLocator){
     $sel.find(opt).removeAttr("selected");
 };
 
-TelluriumApi.prototype.removeAllSelections = function(element){
+TelluriumApi.prototype.removeAllSelections = function(locator){
+    var element = this.cacheAwareLocate(locator);
     var $sel = teJQuery(element);
     //first, remove all selected element
     $sel.find("option").removeAttr("selected");
@@ -158,22 +191,26 @@ TelluriumApi.prototype.open = function(url){
     selenium.open(url);
 };
 
-TelluriumApi.prototype.getText = function(element) {
+TelluriumApi.prototype.getText = function(locator) {
+    var element = this.cacheAwareLocate(locator);
     return teJQuery(element).text();
 };
 
-TelluriumApi.prototype.isChecked = function(element) {
+TelluriumApi.prototype.isChecked = function(locator) {
+    var element = this.cacheAwareLocate(locator);
     if (element.checked == null) {
         throw new SeleniumError("Element is not a toggle-button.");
     }
     return element.checked;
 };
 
-TelluriumApi.prototype.isVisible = function(element) {
+TelluriumApi.prototype.isVisible = function(locator) {
+    var element = this.cacheAwareLocate(locator);
     return teJQuery(element).is(':visible');
 };
 
-TelluriumApi.prototype.isEditable = function(element) {
+TelluriumApi.prototype.isEditable = function(locator) {
+    var element = this.cacheAwareLocate(locator);
     if (element.value == undefined) {
         Assert.fail("Element " + locator + " is not an input.");
     }
@@ -202,7 +239,8 @@ TelluriumApi.prototype.getXpathCount = function(xpath) {
 
 
 //// NEW APIS
-TelluriumApi.prototype.getAllText = function(element) {
+TelluriumApi.prototype.getAllText = function(locator) {
+    var element = this.cacheAwareLocate(locator);
     var out = [];
     var $e = teJQuery(element);
     $e.each(function() {
@@ -211,7 +249,8 @@ TelluriumApi.prototype.getAllText = function(element) {
     return JSON.stringify(out);
 };
 
-TelluriumApi.prototype.getCssSelectorCount = function(element) {
+TelluriumApi.prototype.getCssSelectorCount = function(locator) {
+    var element = this.cacheAwareLocate(locator);
     var $e = teJQuery(element);
     if ($e == null)
         return 0;
@@ -219,7 +258,8 @@ TelluriumApi.prototype.getCssSelectorCount = function(element) {
     return $e.length;
 };
 
-TelluriumApi.prototype.getCSS = function(element, cssName) {
+TelluriumApi.prototype.getCSS = function(locator, cssName) {
+    var element = this.cacheAwareLocate(locator);
     var out = [];
     var $e = teJQuery(element);
     $e.each(function() {
@@ -228,7 +268,8 @@ TelluriumApi.prototype.getCSS = function(element, cssName) {
     return JSON.stringify(out);
 };
 
-TelluriumApi.prototype.isDisabled = function(element) {
+TelluriumApi.prototype.isDisabled = function(locator) {
+    var element = this.cacheAwareLocate(locator);
     var $e = teJQuery(element);
     if ($e == null || $e.length < 1)
         Assert.fail("Cannot find Element for " + locator);
@@ -237,7 +278,8 @@ TelluriumApi.prototype.isDisabled = function(element) {
     return $e.attr('disabled');
 };
 
-TelluriumApi.prototype.getListSize = function(element, separators) {
+TelluriumApi.prototype.getListSize = function(locator, separators) {
+    var element = this.cacheAwareLocate(locator);
     var $e = teJQuery(element);
     if ($e == null || $e.length < 1)
         Assert.fail("Cannot find Element for " + locator);
