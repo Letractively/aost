@@ -480,6 +480,18 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
     }
 };
 
+Tellurium.prototype.dispatchMacroCmd = function(){
+    var response = new BundleResponse();
+
+    while (this.macroCmd.size() > 0) {
+        var cmd = this.macroCmd.first();
+        if(cmd.name == "getUseUiModule"){
+            //do UI module locating
+            
+        }
+    }
+};
+
 Tellurium.prototype.processMacroCmd = function(){
 
     var response = new BundleResponse();
@@ -729,3 +741,24 @@ Tellurium.prototype.locateElementByCacheAwareCSSSelector = function(locator, inD
     }   
 };
 
+
+function CacheAwareLocator(){
+    //runtime id
+    this.rid = null;
+
+    //whether it includes attribute
+    this.isAttribute = false;
+
+    //original locator
+    this.orLocator = null;
+
+    //attribution portion
+    this.attribute = null;
+
+    //locator portion
+    this.locator = null;
+};
+
+Tellurium.prototype.locateElementWithCacheAware = function(locator, inDocument, inWindow){
+
+};
