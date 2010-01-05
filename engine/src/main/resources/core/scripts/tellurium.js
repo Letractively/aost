@@ -71,19 +71,6 @@ teJQuery.expr[':'].styles = function(obj, index, m){
               splitted.push(trimed);
           }
       }
-     /*
-      var fs = m[3].split(':');
-
-      for(var i=0; i<fs.length; i++){
-        var sfs = fs[i].split(';');
-        for(var j=0; j<sfs.length; j++){
-          if(teJQuery.trim(sfs[j]).length >0){
-            splitted.push(teJQuery.trim(sfs[j]));
-          }
-        }
-      }*/
-
-//      alert("splitted = " + splitted.join());
 
       var result = true;
 
@@ -388,22 +375,6 @@ Tellurium.prototype.getUiElementFromCache = function(uid){
     //TODO: Need to do individual locating either from its parent or use the generated locator 
 
     return null;
-/*    if(uielem != null){
-        var elem = uielem.domRef;
-        if(elem != null){
-            return elem;
-        }else{
-            elem = this.locate(elem.generated);
-            if(uielem.amICacheable()){
-                uielem.domRef = elem;
-            }
-
-            return elem;
-        }
-    }else{
-//        throw SeleniumError("Cannot find Ui Element " + uid);
-        return null;
-    }*/
 };
 
 Tellurium.prototype.dispatchCommand = function(response, cmd, element){
@@ -755,7 +726,6 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
         result = selenium[apiName].apply(selenium, cmd.args);
         response.addResponse(cmd.sequ, apiName, "BOOLEAN", result);
     } else if (apiName.startsWith("get")) {
-//        result = selenium[apiName].apply(this, cmd.args);
         result = selenium[apiName].apply(selenium, cmd.args);
         if(apiName.indexOf("All") != -1){
             //api Name includes "All" should return an array
@@ -767,7 +737,6 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
     } else {
         apiName = this.camelizeApiName(apiName);
         fbLog("Call Selenium method " + apiName, selenium);
-//        selenium[apiName].apply(this, cmd.args);
         selenium[apiName].apply(selenium, cmd.args);
     }
 };
@@ -779,7 +748,7 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
 
     if (handler != null) {
         var api = handler.api;
-        //prepare the argument list
+        //the argument list
         var params = cmd.args;
         if (params != null && params.length > 0) {
             if (handler.returnType == "VOID") {
