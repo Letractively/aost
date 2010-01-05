@@ -1158,7 +1158,7 @@ UiAlg.prototype.lookAhead = function(uiobj, $found){
 
 UiAlg.prototype.hasChildren = function(one, gsel){
     var result = true;
-    $me = teJQuery(one);
+    var $me = teJQuery(one);
     for(var i=0; i<gsel.length; i++){
         result = result && ($me.find(gsel[i]).size() > 0);
     }
@@ -1167,7 +1167,7 @@ UiAlg.prototype.hasChildren = function(one, gsel){
 };
 
 UiAlg.prototype.buildSelector = function(clocator){
-    
+    //TODO: need to add header and trailer to the selector if necessary
     var csel = this.cssbuilder.buildCssSelector(clocator.tag, clocator.text, clocator.position, clocator.direct, clocator.attributes);
 
     return csel;
