@@ -367,14 +367,16 @@ Tellurium.prototype.prepareArgumentList = function(handler, args, element){
 };
 
 Tellurium.prototype.getUiElementFromCache = function(uid){
+/*
     var uielem = this.cache.getCachedUiElement(uid);
     if(uielem != null){
         return uielem;
     }
 
-    //TODO: Need to do individual locating either from its parent or use the generated locator 
 
-    return null;
+    return null;*/
+
+    return this.cache.getCachedUiElement(uid);
 };
 
 Tellurium.prototype.dispatchCommand = function(response, cmd, element){
@@ -691,7 +693,29 @@ function CacheAwareLocator(){
 };
 
 Tellurium.prototype.locateElementWithCacheAware = function(locator, inDocument, inWindow){
+    var element = null;
+    
+    var json = locator.substring(7);
+    fbLog("JSON presentation of the cache aware locator: ", json);
+    var cal = JSON.parse(json, null);
+    fbLog("Parsed cache aware locator: ", cal);
+    
+    fbLog("Tellurium Cache option: ", this.isUseCache());
+    if (this.isUseCache()) {
+        //if Cache is used, try to get the UI element from the cache first
+        element = this.getUiElementFromCache(cal.rid);
+        fbLog("Got UI element " + cal.rid + " from Cache.", element);
+        if(element == null){
+            //If cannot find the UI element from the cache, locate it
+            element = this.locate(cal.orLocator);
+        }
+    }else{
+        element = this.locate(cal.orLocator);
+    }
 
+    if(element == null){
+        throw SeleniumError("Cannot locate element for uid " + cal.rid + " with locator " + cal.orLocator); 
+    }
 };
 
 Tellurium.prototype.dispatchMacroCmd = function(){
