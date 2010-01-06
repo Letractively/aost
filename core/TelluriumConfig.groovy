@@ -17,7 +17,7 @@ tellurium{
         //whether to trust all SSL certs, i.e., option "-trustAllSSLCertificates"
         trustAllSSLCertificates = true
         //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
-        runInternally = false
+        runInternally = true
         //By default, Selenium proxies every browser request; set this flag to make the browser use proxy only for URLs containing '/selenium-server'
         avoidProxy = false
         //stops re-initialization and spawning of the browser between tests
