@@ -102,7 +102,7 @@ Apart from that, Tellurium 0.7.0 also provides a handy method for you to validat
     validateUiModule("ProblematicForm");
 }}}
 
-You will get the details results including the closest matches.
+You will get the detailed validation results including the closest matches.
 
 {{{
 UI Module Validation Result for ProblematicForm
@@ -149,9 +149,9 @@ UI Module Validation Result for ProblematicForm
 
 == Bundle ==
 
-Tellurium 0.7.0 added a new bundle tier to automatically pack multiple Selenium commands into one call to reduce the round trip network latency.
+Tellurium 0.7.0 added a new bundle tier to automatically pack multiple Selenium API or Tellurium API commands into one call to reduce the round trip network latency.
 
-This feature can be easily turned on or off in Tellurium configuration file.
+This feature can be easily turned on or off in [http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile the Tellurium configuration file].
 
 {{{
     //the bundling tier
@@ -186,9 +186,11 @@ In the above example, the command bundle includes the following commands:
     keyPress "ProblematicForm.Username.Input", "t"
 }}}
 
+and they are combined as a single API call to the Tellurium Engine.
+
 == New Tellurium APIs ==
 
-Tellurium Engine in 0.7.0 implemented a set of Selenium APIs by exploiting jQuery and many more new APIs. For example,
+Tellurium Engine in 0.7.0 re-implemented a set of Selenium APIs by exploiting jQuery, plus many more new APIs. For example,
 
 {{{
 TelluriumApi.prototype.getCSS = function(locator, cssName) {
@@ -211,9 +213,15 @@ An incomplete list of other features include:
   * More flexible UI templates
   * Built-in trace on execution time 
   * Environment
+  * [http://code.google.com/p/aost/wiki/BetterReportingWithReportNG TestNG ReportNG support]
 
-Please check [http://code.google.com/p/aost/wiki/Tellurium070Update What's new in Tellurium 0.7.0] for updates.
+Please check [http://code.google.com/p/aost/wiki/Tellurium070Update What's new in Tellurium 0.7.0] for latest updates.
 
 = Code Samples =
 
 What to exploit the new features in Tellurium 0.7.0 right away? Please check out the Maven project from http://aost.googlecode.com/svn/branches/santa-algorithm-demo. Or download the whole project with all dependencies (under the lib directory) from [http://aost.googlecode.com/files/santa-algorithm-demo.tar.gz here].
+
+= Resources =
+
+  * [http://code.google.com/p/aost/wiki/UserGuide070Introduction Tellurium User Guide]
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group]
