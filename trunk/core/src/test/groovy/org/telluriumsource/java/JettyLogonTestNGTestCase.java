@@ -128,8 +128,8 @@ public class JettyLogonTestNGTestCase extends TelluriumTestNGTestCase {
 
     @AfterClass
     public static void tearDown(){
-        server.stop();
         showTrace();
+        server.stop();
     }
    
 }

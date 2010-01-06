@@ -67,7 +67,7 @@ public class JettyLogonJUnitTestCase extends TelluriumJUnitTestCase {
 
     @AfterClass
     public static void tearDown(){
-        server.stop();
         showTrace();
+        server.stop();
     }
 }
