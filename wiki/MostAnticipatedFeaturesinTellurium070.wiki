@@ -168,6 +168,14 @@ Or use the following commands in your code.
     void setMaxMacroCmd(int max);
 }}} 
 
+If you look at the server log and you will see what happened under the hood as follows.
+
+{{{
+14:57:49.584 INFO - Command request: getBundleResponse[[{"uid":"ProblematicForm.Username.Input","args":["jquery=table tr input[type=text][name=j]","t"],"name":"keyDown","sequ":44},{"uid":"ProblematicForm.Username.Input","args":["jquery=table tr input[type=text][name=j]","t"],"name":"keyPress","sequ":45},{"uid":"ProblematicForm.Username.Input","args":["jquery=table tr input[type=text][name=j]","t"],"name":"keyUp","sequ":46},{"uid":"ProblematicForm.Password.Input","args":["jquery=table tr input[type=password][name=j]","t"],"name":"keyDown","sequ":47},{"uid":"ProblematicForm.Password.Input","args":["jquery=table tr input[type=password][name=j]","t"],"name":"keyPress","sequ":48}], ] on session 9165cd68806a42fdbdef9f87e804a251
+14:57:49.617 INFO - Got result: OK,[] on session 9165cd68806a42fdbdef9f87e804a251
+
+}}}
+
 == New Tellurium APIs ==
 
 Tellurium Engine in 0.7.0 implemented a set of Selenium APIs by exploiting jQuery and many more new APIs. For example,
