@@ -137,8 +137,13 @@ class Container extends UiObject {
     public UiObject walkTo(WorkflowContext context, UiID uiid){
 
         //if not child listed, return itself
-        if(uiid.size() < 1)
+        if(uiid.size() < 1){
+            if(this.locator != null && this.useGroupInfo){
+                groupLocating(context)
+            }
+
             return this
+        }
 
         String child = uiid.pop()
 

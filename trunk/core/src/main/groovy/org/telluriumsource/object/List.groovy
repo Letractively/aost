@@ -298,9 +298,16 @@ class List extends Container {
     @Override
     public UiObject walkTo(WorkflowContext context, UiID uiid) {
 
+//        if (uiid.size() < 1)
+//            return this
         //if not child listed, return itself
-        if (uiid.size() < 1)
+        if(uiid.size() < 1){
+            if(this.locator != null && this.useGroupInfo){
+                groupLocating(context)
+            }
+
             return this
+        }
 
         String child = uiid.pop()
 
