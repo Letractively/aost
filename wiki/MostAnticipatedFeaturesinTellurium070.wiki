@@ -183,3 +183,6 @@ An incomplete list of other features include:
 
 Please check [http://code.google.com/p/aost/wiki/Tellurium070Update What's new in Tellurium 0.7.0 for updates.
 
+= Code Samples =
+
+What to exploit the new features in Tellurium 0.7.0 right away? Please check out the Maven project from http://aost.googlecode.com/svn/branches/santa-algorithm-demo.
