@@ -176,6 +176,16 @@ If you look at the server log and you will see what happened under the hood as f
 
 }}}
 
+In the above example, the command bundle includes the following commands:
+
+{{{
+    keyDown "ProblematicForm.Username.Input", "t"
+    keyPress "ProblematicForm.Username.Input", "t"
+    keyUp "ProblematicForm.Username.Input", "t"
+    keyDown "ProblematicForm.Username.Input", "t"
+    keyPress "ProblematicForm.Username.Input", "t"
+}}}
+
 == New Tellurium APIs ==
 
 Tellurium Engine in 0.7.0 implemented a set of Selenium APIs by exploiting jQuery and many more new APIs. For example,
