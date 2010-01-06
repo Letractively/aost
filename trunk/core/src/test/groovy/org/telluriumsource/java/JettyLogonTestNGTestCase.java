@@ -114,8 +114,8 @@ public class JettyLogonTestNGTestCase extends TelluriumTestNGTestCase {
     }
 
     //If the Ui Module cache is off, cannot locate the not-so-accurate UI element
-    @ExpectedExceptions(com.thoughtworks.selenium.SeleniumException.class)
-    @Test(dataProvider = "bad-provider")
+//    @ExpectedExceptions(com.thoughtworks.selenium.SeleniumException.class)
+    @Test(dataProvider = "bad-provider", expectedExceptions = com.thoughtworks.selenium.SeleniumException.class)
     @Parameters({"useSelector", "useCache", "useTeApi"})
     public void testBadLogonWithClosestMatch(boolean useSelector, boolean useCache, boolean useTeApi) {
         useClosestMatch(true);
