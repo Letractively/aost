@@ -146,6 +146,7 @@ function TelluriumCache(){
 };
 
 TelluriumCache.prototype.useClosestMatch = function(isUse){
+    fbLog("call useClosestMatch", isUse);
     if (typeof(isUse) == "boolean") {
         this.uiAlg.allowRelax = isUse;
     } else {
@@ -194,9 +195,38 @@ TelluriumCache.prototype.getCachedData = function(key){
     return this.sCache.get(key);
 };
 
-TelluriumCache.prototype.findUiElementFromAncestor = function(uid){
-    //TODO: Need to do individual locating either from its parent or use the generated locator
+/*
+Remove this, do relocating instead, possibly with reference uimodule to speed up the search
 
+TelluriumCache.prototype.findUiElementFromAncestor = function(uimodule, uid){
+    //TODO: Need to do individual locating either from its parent or use the generated locator
+    fbLog("Trying to find UI element" + uid + " from its ancestor in UI module", uimodule);
+    var context = new WorkflowContext();
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    uiid.reverse();
+    var queue = uimodule.findInvalidAncestor(context, uiid);
+    fbLog("Find invalid ancestor", queue);
+    
+};
+*/
+
+TelluriumCache.prototype.relocateUiModule = function(uid){
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    uiid.reverse();
+    if(uiid.size() > 0){
+        var first = uiid.peek();
+        var uim = this.sCache.get(first);
+        fbLog("Found cached UI module " + first, uim);
+        if (uim != null) {
+            //TODO: optimize this by using some still valid dom references in the UI module
+            this.uiAlg.santa(uim, null);
+            //set the UI Module to be valid after it is located
+            uim.valid = true;
+            fbLog("Ui Module after redoing Group Locating: ", uim);
+        }
+    }
 };
 
 TelluriumCache.prototype.getCachedUiElement = function(uid){
@@ -210,26 +240,23 @@ TelluriumCache.prototype.getCachedUiElement = function(uid){
         var uim = this.sCache.get(first);
         fbLog("Found cached UI module " + first, uim);
         if(uim != null){
-            var obj = uim.index(uid);
-            if(obj == null){
+            var domref = uim.index(uid);
+            fbLog("Get cached UI element " + uid + " from indices.", domref);
+            if(domref == null){
+                //if could not find directly from the UI module indices, then try to use walkTo to find the element first
+                //and then its domRef
                 var context = new WorkflowContext();
-                obj = uim.walkTo(context, uiid);
-                fbLog("Get UI element " + uid + " by walking through the UI module " + first, obj);
-            }else{
-                fbLog("Get cached UI element " + uid + " from indices.", obj);
+                context.alg = this.uiAlg;
+                var obj = uim.walkTo(context, uiid)
+                if(obj != null){
+                    //TODO: may get the dom reference from the WorkflowContext instead of the object's domRef
+//                    domref = obj.domRef;
+                    domref = context.domRef;
+                }
+                fbLog("Get UI element " + uid + " by walking through the UI module " + first, domref);
             }
-
-            var $ref = teJQuery(obj);
-            //validate the result
-            if(this.validateCache($ref)){
-                return obj;
-            }else{
-                //if the result is not valid any more
-                //then try to find the element by search from its ascendant
-                obj = this.findUiElementFromAncestor(uid);
-            }
-
-            return obj;
+            
+            return domref;
         }
     }
 
@@ -338,6 +365,7 @@ TelluriumCache.prototype.updateSelectorToCache = function(key, data){
     data.timestamp = Number(new Date());
     this.sCache.put(key, data);
 };
+
 
 TelluriumCache.prototype.validateCache = function($reference){
     //This may impose some problem if the DOM element becomes invisable instead of being removed

@@ -69,7 +69,9 @@ Uiid.prototype.preprocess = function(uid){
 };
 
 function WorkflowContext(){
-    this.refLocator = null;    
+    this.refLocator = null;
+    this.domRef = null;
+    this.alg = null;
 };
 
 //Base locator
@@ -151,6 +153,28 @@ var UiObject = Class.extend({
     },
 
     walkTo: function(context, uiid) {
+        if(this.domRef != null){
+            context.domRef = this.domRef;
+        }else{
+            //if the parent or root dom reference is null, cannot go any further
+            if (context.domRef != null) {
+
+                var alg = context.alg;
+                var sel = alg.buildSelector(this.locator);
+                var $found = teJQuery(context.domRef).find(sel);
+                if ($found.size() == 1) {
+                    context.domRef = $found.get(0);
+                } else {
+                    if ($found.size() == 0)
+                        fbError("Cannot find UI element " + uiid, this);
+                    if ($found.size() > 1) {
+                        fbError("Found multiple matches for UI element " + uiid, $found.get());
+                        context.domRef = null;
+                    }
+                }
+            }
+        }
+
         return this;
     },
 
@@ -352,6 +376,31 @@ var UiContainer = UiObject.extend({
     },
     
     walkTo: function(context, uiid){
+        if (this.domRef != null) {
+            context.domRef = this.domRef;
+        } else {
+            if (context.domRef != null) {
+                var alg = context.alg;
+                var sel = alg.buildSelector(this.locator);
+                var $found = teJQuery(context.domRef).find(sel);
+                if ($found.size() > 1) {
+                    //Use lookAHead to eliminate multipe matches
+                    $found = alg.lookAhead(this, $found);
+                }
+
+                if ($found.size() == 1) {
+                    context.domRef = $found.get(0);
+                } else {
+                    if ($found.size() == 0)
+                        fbError("Cannot find UI element " + uiid, this);
+                    if ($found.size() > 1) {
+                        fbError("Found multiple matches for UI element " + uiid, $found.get());
+                        context.domRef = null;
+                    }
+                }
+            }
+        }
+
         if(uiid.size() < 1)
             return this;
 
@@ -1009,6 +1058,21 @@ UiModule.prototype.walkTo = function(context, uiid) {
     }
 
     return null;
+};
+
+
+UiModule.prototype.findInvalidAncestor = function(context, uiid){
+    var obj = this.walkTo(context, uiid);
+    var queue = new FiloQueue();
+    queue.push(obj);
+    while(obj.parent != null){
+        if(!validateDomRef(obj.parent)){
+            queue.push(obj.parent);
+            obj = obj.parent;
+        }
+    }
+
+    return queue;
 };
 
 function RelaxDetail(){

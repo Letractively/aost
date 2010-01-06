@@ -67,7 +67,8 @@ TelluriumApi.prototype.typeKey = function(locator, key){
 };
 
 TelluriumApi.prototype.keyDown = function(locator, key){
-    var element = this.cacheAwareLocate(locator);
+    fbLog("Key Down cache aware locate", locator);
+    var element = this.cacheAwareLocate(locator);   
     var $elem = teJQuery(element);
     $elem.val($elem.val()).trigger(getEvent("keydown", key));
 };

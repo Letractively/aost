@@ -202,6 +202,10 @@ MacroCmd.prototype.first = function(){
     return this.bundle.shift();
 };
 
+MacroCmd.prototype.empty = function(){
+    this.bundle = new Array();
+};
+
 MacroCmd.prototype.addCmd = function(sequ, uid, name, args){
     var cmd = new CmdRequest();
     cmd.sequ = sequ;
@@ -212,6 +216,8 @@ MacroCmd.prototype.addCmd = function(sequ, uid, name, args){
 };
 
 MacroCmd.prototype.parse = function(json){
+    //Need to empty the bundle otherwise, old bundle commands will stay in the case of exception
+    this.empty();
     var cmdbundle = JSON.parse(json, null);
     for(var i=0; i<cmdbundle.length; i++){
         this.addCmd(cmdbundle[i].sequ,  cmdbundle[i].uid, cmdbundle[i].name, cmdbundle[i].args);
@@ -256,6 +262,7 @@ Tellurium.prototype.isUseCache = function(){
 };
 
 //TODO: How to handle custom calls?  delegate to Selenium?
+//TODO: Refactor --> use Javascript itself to do automatically discovery like selenium does instead of manually registering them
 Tellurium.prototype.initialize = function(){
     this.registerApi("isElementPresent", true, "BOOLEAN");
     this.registerApi("blur", true, "VOID");
@@ -366,15 +373,16 @@ Tellurium.prototype.prepareArgumentList = function(handler, args, element){
     return params;
 };
 
-Tellurium.prototype.getUiElementFromCache = function(uid){
-/*
-    var uielem = this.cache.getCachedUiElement(uid);
-    if(uielem != null){
-        return uielem;
+function validateDomRef(domref){
+    try{
+        return teJQuery(domref).is(':visible');
+    }catch(e){
+        fbError("Dom reference is not valid", e);
+        return false;
     }
+};
 
-
-    return null;*/
+Tellurium.prototype.getUiElementFromCache = function(uid){
 
     return this.cache.getCachedUiElement(uid);
 };
@@ -415,7 +423,6 @@ Tellurium.prototype.locate = function(locator){
 };
 
 Tellurium.prototype.isLocator = function(locator){
-    fbLog("Locator: ", locator);
     if(typeof(locator) != "string")
         return false;
     
@@ -680,22 +687,24 @@ function CacheAwareLocator(){
     this.rid = null;
 
     //whether it includes attribute
-    this.isAttribute = false;
+//    this.isAttribute = false;
 
     //original locator
-    this.orLocator = null;
+    this.locator = null;
+    //this.orLocator = null;
 
     //attribution portion
-    this.attribute = null;
+//    this.attribute = null;
 
     //locator portion
-    this.locator = null;
+//    this.locator = null;
 };
 
 Tellurium.prototype.locateElementWithCacheAware = function(locator, inDocument, inWindow){
     var element = null;
     
-    var json = locator.substring(7);
+//    var json = locator.substring(7);
+    var json = locator;
     fbLog("JSON presentation of the cache aware locator: ", json);
     var cal = JSON.parse(json, null);
     fbLog("Parsed cache aware locator: ", cal);
@@ -705,17 +714,34 @@ Tellurium.prototype.locateElementWithCacheAware = function(locator, inDocument, 
         //if Cache is used, try to get the UI element from the cache first
         element = this.getUiElementFromCache(cal.rid);
         fbLog("Got UI element " + cal.rid + " from Cache.", element);
-        if(element == null){
-            //If cannot find the UI element from the cache, locate it
-            element = this.locate(cal.orLocator);
+        
+        if (element != null) {
+            //need to validate the result from the cache
+            fbLog("Trying to validate the found UI element " + cal.rid, element);
+            if (!validateDomRef(element)) {
+                fbError("The UI element " + cal.rid + " from cache is not valid", element);
+                this.cache.relocateUiModule(cal.rid);
+                //after relocating the UI module, retry to get the UI element from the cache
+                element = this.getUiElementFromCache(cal.rid);
+                fbLog("After relocating UI module, found ui element" + cal.rid, element);
+            }
+        }else{
+            //If cannot find the UI element from the cache, locate it as the last resort
+            fbLog("Trying to locate the UI element " + cal.rid + " with its locator " + cal.locator + " because cannot find vaild one from cache");
+            element = this.locate(cal.locator);
         }
     }else{
-        element = this.locate(cal.orLocator);
-    }
+        fbLog("Trying to locate the UI element " + cal.rid + " with its locator " + cal.locator + " because cache option is off", cal);
+        element = this.locate(cal.locator);
+    } 
 
     if(element == null){
-        throw SeleniumError("Cannot locate element for uid " + cal.rid + " with locator " + cal.orLocator); 
+        fbError("Cannot locate element for uid " + cal.rid + " with locator " + cal.locator, element);
+        throw SeleniumError("Cannot locate element for uid " + cal.rid + " with locator " + cal.locator);
     }
+
+    fbLog("Returning found UI element ", element);
+    return element;
 };
 
 Tellurium.prototype.dispatchMacroCmd = function(){
@@ -730,8 +756,10 @@ Tellurium.prototype.dispatchMacroCmd = function(){
             //for other commands
             this.updateArgumentList(cmd);
             if ((!this.isUseTeApi) || this.isApiMissing(cmd.name)) {
+                fbLog("delegate command to Selenium", cmd);
                 this.delegateToSelenium(response, cmd);
             }else{
+                fbLog("delegate command to Tellurium", cmd);
                 this.delegateToTellurium(response, cmd);
             }
         }
@@ -776,16 +804,17 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
         var params = cmd.args;
         if (params != null && params.length > 0) {
             if (handler.returnType == "VOID") {
-                api.apply(this, params);
+//                api.apply(this, params);
+                api.apply(this.teApi, params);
             } else {
-                result = api.apply(this, params);
+                result = api.apply(this.teApi, params);
                 response.addResponse(cmd.sequ, cmd.name, handler.returnType, result);
             }
         } else {
             if (handler.returnType == "VOID") {
-                api.apply(this, params);
+                api.apply(this.teApi, params);
             } else {
-                result = api.apply(this, params);
+                result = api.apply(this.teApi, params);
                 response.addResponse(cmd.sequ, cmd.name, handler.returnType, result);
             }
         }
@@ -805,9 +834,12 @@ Tellurium.prototype.updateArgumentList = function(cmd){
             //if it is a locator
             var cal = new CacheAwareLocator();
             cal.rid = cmd.uid;
-            cal.orLocator = locator;
             cal.locator = locator;
+//            cal.locator = locator;
 
+/*
+            This is not really correct because XPATH could have the @ inside
+            
             //check if it is an attribute locator
             var attributePos = locator.lastIndexOf("@");
             if (attributePos != -1) {
@@ -823,6 +855,7 @@ Tellurium.prototype.updateArgumentList = function(cmd){
                     cal.locator = cal.locator.substr(0, cal.locator.length - 1);
                 }
             }
+*/
 
             //convert to locator string so that selenium could use it
             cmd.args[0] = "uimcal=" + JSON.stringify(cal);              

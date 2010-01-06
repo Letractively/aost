@@ -1,6 +1,43 @@
 //Util file to hold commonly used data structures
 
-//FIFo Queue
+//FILO (First In Last Out) QUEUE
+function FiloQueue(){
+    this.queue = new Array();
+};
+
+FiloQueue.prototype.clear = function(){
+    this.queue = new Array();
+};
+
+FiloQueue.prototype.size = function(){
+    return this.queue.length;
+};
+
+FiloQueue.prototype.peek = function(){
+    if(this.queue.length > 0){
+        return this.queue[this.queue.length - 1];
+    }
+
+    return null;
+};
+
+FiloQueue.prototype.push = function(obj){
+    this.queue.push(obj);
+};
+
+FiloQueue.prototype.pop = function(){
+    if(this.queue.length > 0){
+        return this.queue.pop();
+    }
+
+    return null;
+};
+
+FiloQueue.prototype.toArray = function(){
+    return this.queue;
+};
+
+//FIFo (First In Firt Out) Queue
 
 function FifoQueue(){
     this.queue = new Array();
