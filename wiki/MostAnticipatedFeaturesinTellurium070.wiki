@@ -78,7 +78,7 @@ Assume the html was changed recently and you still use the UI module defined som
 What will happen without the new group locating algorithm? You tests will be broken because the generated locators will not be correct any more. But if you use the latest Tellurium 0.7.0 snapshot, you will notice that the tests still work if you allow Tellurium to do closest match by calling
 
 {{{
-useClosestMatch(true);
+    useClosestMatch(true);
 }}}
 
 The magic is that the new Tellurium Engine will locate the UI module as a whole. It may have trouble to find the individual UI element such as "ProblematicForm.Username.Input", but it has no trouble to find the whole UI module structure in the DOM. 
@@ -86,7 +86,7 @@ The magic is that the new Tellurium Engine will locate the UI module as a whole.
 Apart from that, Tellurium 0.7.0 also provides a handy method for you to validate your UI module. For example, if you call
 
 {{{
-validateUiModule("ProblematicForm");
+    validateUiModule("ProblematicForm");
 }}}
 
 You will get the details results including the closest matches.
@@ -141,7 +141,7 @@ Tellurium 0.7.0 added a new bundle tier to automatically pack multiple Selenium 
 This feature can be easily turned on or off in Tellurium configuration file.
 
 {{{
-      //the bundling tier
+    //the bundling tier
     bundle{
         maxMacroCmd = 5
         useMacroCommand = false
@@ -157,4 +157,29 @@ Or use the following commands in your code.
 
 == New Tellurium APIs ==
 
-Tellurium Engine in 0.7.0 implemented a set of Selenium APIs by exploiting jQuery and many more new APIs. 
+Tellurium Engine in 0.7.0 implemented a set of Selenium APIs by exploiting jQuery and many more new APIs. For example,
+
+{{{
+TelluriumApi.prototype.getCSS = function(locator, cssName) {
+    var element = this.cacheAwareLocate(locator);
+    var out = [];
+    var $e = teJQuery(element);
+    $e.each(function() {
+        out.push(teJQuery(this).css(cssName));
+    });
+    return JSON.stringify(out);
+};
+}}}
+
+= Other Features =
+
+An incomplete list of other features include:
+ 
+  * [http://code.google.com/p/aost/wiki/InternationalizationSupportTellurium I18N support]
+  * UI module caching
+  * More flexible UI templates
+  * Built-in trace on execution time 
+  * Environment
+
+Please check [http://code.google.com/p/aost/wiki/Tellurium070Update What's new in Tellurium 0.7.0 for updates.
+
