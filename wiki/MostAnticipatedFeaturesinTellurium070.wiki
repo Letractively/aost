@@ -75,8 +75,62 @@ Assume the html was changed recently and you still use the UI module defined som
     }
 }}}
 
-What will happen without the new group locating algorithm? You tests will be broken because the generated locators will not be correct any more. But if you use the latest Tellurium 0.7.0 snapshot, you will notice that the tests still work if you allow Tellurium to do closest match by
+What will happen without the new group locating algorithm? You tests will be broken because the generated locators will not be correct any more. But if you use the latest Tellurium 0.7.0 snapshot, you will notice that the tests still work if you allow Tellurium to do closest match by calling
 
 {{{
+useClosestMatch(true);
+}}}
+
+The magic is that the new Tellurium Engine will locate the UI module as a whole. It may have trouble to find the individual UI element such as "ProblematicForm.Username.Input", but it has no trouble to find the whole UI module structure in the DOM. 
+
+Apart from that, Tellurium 0.7.0 also provides a handy method for you to validate your UI module. For example, if you call
+
+{{{
+validateUiModule("ProblematicForm");
+}}}
+
+You will get the details results including the closest matches.
+
+{{{
+UI Module Validation Result for ProblematicForm
+
+-------------------------------------------------------
+
+	Found Exact Match: false 
+
+	Found Closest Match: true 
+
+	Match Count: 1 
+
+	Match Score: 85.764 
+
+
+	Closest Match Details: 
+
+	--- Element ProblematicForm.Submit -->
+
+	 Composite Locator: <input name="submit" value="logon" type="submit"/> 
+
+	 Closest Matched Element: <input name="submit" value="Login" type="submit"> 
+
+
+
+	--- Element ProblematicForm.Username.Input -->
+
+	 Composite Locator: <input name="j" type="text"/> 
+
+	 Closest Matched Element: <input size="12" value="" name="j_username" maxlength="25" type="text"> 
+
+
+
+	--- Element ProblematicForm.Password.Input -->
+
+	 Composite Locator: <input name="j" type="password"/> 
+
+	 Closest Matched Element: <input size="12" value="" name="j_password" maxlength="25" type="password"> 
+
+
+-------------------------------------------------------
 
 }}}
+ 
