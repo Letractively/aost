@@ -4,6 +4,8 @@ import org.telluriumsource.object.Container
 import org.telluriumsource.object.UiObject
 import org.telluriumsource.exception.InvalidLocatorException
 import static org.telluriumsource.Const.*
+import org.telluriumsource.object.Table
+import org.telluriumsource.object.StandardTable
 
 
 /**
@@ -19,7 +21,107 @@ class GroupLocateStrategy {
     protected static final String ERROR_MESSAGE = "Required Composite Locator, Invalid locator"
 
     protected static final int LENGTH = 64
-  
+
+    def static String select(StandardTable obj){
+      if(!obj.locator instanceof CompositeLocator)
+        throw new InvalidLocatorException("${ERROR_MESSAGE} ${obj.uid}")
+
+        List<String> groupAttributes = new ArrayList<String>()
+        obj.headers?.each {
+            String key, UiObject child ->
+            //can only use the child's information in the CompositeLocator
+            //cannot use other Locator type for the timebeing
+            if(child.locator instanceof CompositeLocator){
+                CompositeLocator cloc = child.locator
+//                String gattr = JQueryBuilder.buildJQuerySelector(cloc.tag, cloc.text, cloc.position, cloc.direct, cloc.attributes)
+                String gattr = JQueryBuilder.buildJQuerySelector(cloc.tag, cloc.text, null, cloc.direct, cloc.attributes)
+                if(!MATCH_ALL.equals(gattr.trim()))
+                  groupAttributes.add(gattr.trim())
+            }
+
+        }
+
+        obj.components.each{ String key, UiObject child ->
+            //can only use the child's information in the CompositeLocator
+            //cannot use other Locator type for the timebeing
+            if(child.locator instanceof CompositeLocator){
+                CompositeLocator cloc = child.locator
+//                String gattr = JQueryBuilder.buildJQuerySelector(cloc.tag, cloc.text, cloc.position, cloc.direct, cloc.attributes)
+                String gattr = JQueryBuilder.buildJQuerySelector(cloc.tag, cloc.text, null, cloc.direct, cloc.attributes)
+                if(!MATCH_ALL.equals(gattr.trim()))
+                  groupAttributes.add(gattr.trim())
+            }
+        }
+      
+        obj.foots?.headers?.each {
+            String key, UiObject child ->
+            //can only use the child's information in the CompositeLocator
+            //cannot use other Locator type for the timebeing
+            if(child.locator instanceof CompositeLocator){
+                CompositeLocator cloc = child.locator
+//                String gattr = JQueryBuilder.buildJQuerySelector(cloc.tag, cloc.text, cloc.position, cloc.direct, cloc.attributes)
+                String gattr = JQueryBuilder.buildJQuerySelector(cloc.tag, cloc.text, null, cloc.direct, cloc.attributes)
+                if(!MATCH_ALL.equals(gattr.trim()))
+                  groupAttributes.add(gattr.trim())
+            }
+
+        }
+
+        CompositeLocator locator = obj.locator
+        String self = JQueryBuilder.buildJQuerySelector(locator.tag, locator.text, locator.position, locator.direct, locator.attributes)
+        StringBuffer sb = new StringBuffer(LENGTH)
+        sb.append(self)
+        //Do not need group locating if there is ID attribute in itself since ID is uniquely defined in jQuery
+        if(locator.noIdIncluded() && groupAttributes.size() > 0){
+          sb.append(HAS).append("(").append(groupAttributes.join(SELECTOR_SEPARATOR)).append(")")
+        }
+
+        return sb.toString()
+    }
+
+    def static String select(Table obj){
+      if(!obj.locator instanceof CompositeLocator)
+        throw new InvalidLocatorException("${ERROR_MESSAGE} ${obj.uid}")
+
+        List<String> groupAttributes = new ArrayList<String>()
+        obj.headers?.each {
+            String key, UiObject child ->
+            //can only use the child's information in the CompositeLocator
+            //cannot use other Locator type for the timebeing
+            if(child.locator instanceof CompositeLocator){
+                CompositeLocator cloc = child.locator
+//                String gattr = JQueryBuilder.buildJQuerySelector(cloc.tag, cloc.text, cloc.position, cloc.direct, cloc.attributes)
+                String gattr = JQueryBuilder.buildJQuerySelector(cloc.tag, cloc.text, null, cloc.direct, cloc.attributes)
+                if(!MATCH_ALL.equals(gattr.trim()))
+                  groupAttributes.add(gattr.trim())
+            }
+
+        }
+
+        obj.components.each{ String key, UiObject child ->
+            //can only use the child's information in the CompositeLocator
+            //cannot use other Locator type for the timebeing
+            if(child.locator instanceof CompositeLocator){
+                CompositeLocator cloc = child.locator
+//                String gattr = JQueryBuilder.buildJQuerySelector(cloc.tag, cloc.text, cloc.position, cloc.direct, cloc.attributes)
+                String gattr = JQueryBuilder.buildJQuerySelector(cloc.tag, cloc.text, null, cloc.direct, cloc.attributes)
+                if(!MATCH_ALL.equals(gattr.trim()))
+                  groupAttributes.add(gattr.trim())
+            }
+        }
+
+        CompositeLocator locator = obj.locator
+        String self = JQueryBuilder.buildJQuerySelector(locator.tag, locator.text, locator.position, locator.direct, locator.attributes)
+        StringBuffer sb = new StringBuffer(LENGTH)
+        sb.append(self)
+        //Do not need group locating if there is ID attribute in itself since ID is uniquely defined in jQuery
+        if(locator.noIdIncluded() && groupAttributes.size() > 0){
+          sb.append(HAS).append("(").append(groupAttributes.join(SELECTOR_SEPARATOR)).append(")")
+        }
+
+        return sb.toString()
+    }
+
     def static String select(Container obj){
       if(!obj.locator instanceof CompositeLocator)
         throw new InvalidLocatorException("${ERROR_MESSAGE} ${obj.uid}")
