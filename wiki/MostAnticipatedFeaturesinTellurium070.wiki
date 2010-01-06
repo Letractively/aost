@@ -75,6 +75,19 @@ Assume the html was changed recently and you still use the UI module defined som
     }
 }}}
 
+Here are the differences:
+
+{{{
+   InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
+   InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j"])
+   
+   InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j_password"])
+   InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j"])
+
+   SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login", name: "submit"])
+   SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "logon", name: "submit"])     
+}}}
+
 What will happen without the new group locating algorithm? You tests will be broken because the generated locators will not be correct any more. But if you use the latest Tellurium 0.7.0 snapshot, you will notice that the tests still work if you allow Tellurium to do closest match by calling
 
 {{{
