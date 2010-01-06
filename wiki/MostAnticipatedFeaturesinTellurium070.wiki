@@ -181,7 +181,7 @@ An incomplete list of other features include:
   * Built-in trace on execution time 
   * Environment
 
-Please check [http://code.google.com/p/aost/wiki/Tellurium070Update What's new in Tellurium 0.7.0 for updates.
+Please check [http://code.google.com/p/aost/wiki/Tellurium070Update What's new in Tellurium 0.7.0] for updates.
 
 = Code Samples =
 
