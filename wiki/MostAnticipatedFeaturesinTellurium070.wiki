@@ -216,4 +216,4 @@ Please check [http://code.google.com/p/aost/wiki/Tellurium070Update What's new i
 
 = Code Samples =
 
-What to exploit the new features in Tellurium 0.7.0 right away? Please check out the Maven project from http://aost.googlecode.com/svn/branches/santa-algorithm-demo.
+What to exploit the new features in Tellurium 0.7.0 right away? Please check out the Maven project from http://aost.googlecode.com/svn/branches/santa-algorithm-demo. Or download the whole project with all dependencies (under the lib directory) from [http://aost.googlecode.com/files/santa-algorithm-demo.tar.gz here].
