@@ -244,7 +244,7 @@ class TelluriumFramework {
   public void useCssSelector(boolean isUse) {
 
     if (isUse) {
-      this.global.exploreCssSelector();
+      this.global.enableCssSelector();
     } else {
       this.global.disableCssSelector();
     }
