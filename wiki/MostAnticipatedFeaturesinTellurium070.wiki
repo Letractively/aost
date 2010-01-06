@@ -204,18 +204,44 @@ TelluriumApi.prototype.getCSS = function(locator, cssName) {
 };
 }}}
 
+== UI Module Caching ==
+
+From Tellurium 0.6.0, we provides the cache capability for CSS selectors so that we can reuse them without doing re-locating. In 0.7.0, we move a step further to cache the whole UI module on the Engine side. Each UI module cache holds a snapshot of the DOM references for most of the UI elements in the UI module. The exceptions are dynamic web elements defined by Tellurium UI templates. For these dynamic web elements, the Engine will try to get the DOM reference of its parent and then do locating inside this subtree with its parent node as the root, which will improve the locating speed a lot.
+
+To turn on and off the caching capability, you just simply call the following method in your code.
+
+{{{
+    void useCache(boolean isUse);
+}}}
+
+Or use the following methods to do fine control of the cache.
+
+{{{
+    public void enableCache(); 
+    public boolean disableCache();
+    public boolean cleanCache();
+    public boolean getCacheState();
+    public void setCacheMaxSize(int size);
+    public int getCacheSize();
+    public void useDiscardNewCachePolicy();
+    public void useDiscardOldCachePolicy();
+    public void useDiscardLeastUsedCachePolicy();
+    public void useDiscardInvalidCachePolicy();
+    public String getCurrentCachePolicy();
+    public Map<String, Long> getCacheUsage();
+}}}
+
 = Other Features =
 
 An incomplete list of other features include:
  
   * [http://code.google.com/p/aost/wiki/InternationalizationSupportTellurium I18N support]
-  * UI module caching
   * More flexible UI templates
   * Built-in trace on execution time 
   * Environment
   * [http://code.google.com/p/aost/wiki/BetterReportingWithReportNG TestNG ReportNG support]
 
-Please check [http://code.google.com/p/aost/wiki/Tellurium070Update What's new in Tellurium 0.7.0] for latest updates.
+Please check [http://code.google.com/p/aost/wiki/Tellurium070Update What's new in Tellurium 0.7.0] for the latest updates.
 
 = Code Samples =
 
