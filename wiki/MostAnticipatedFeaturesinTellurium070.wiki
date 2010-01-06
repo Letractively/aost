@@ -133,4 +133,28 @@ UI Module Validation Result for ProblematicForm
 -------------------------------------------------------
 
 }}}
- 
+
+== Bundle ==
+
+Tellurium 0.7.0 added a new bundle tier to automatically pack multiple Selenium commands into one call to reduce the round trip network latency.
+
+This feature can be easily turned on or off in Tellurium configuration file.
+
+{{{
+      //the bundling tier
+    bundle{
+        maxMacroCmd = 5
+        useMacroCommand = false
+    }
+}}}
+
+Or use the following commands in your code.
+
+{{{
+    void useMacroCmd(boolean isUse);
+    void setMaxMacroCmd(int max);
+}}} 
+
+== New Tellurium APIs ==
+
+Tellurium Engine in 0.7.0 implemented a set of Selenium APIs by exploiting jQuery and many more new APIs. 
