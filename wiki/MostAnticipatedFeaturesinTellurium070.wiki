@@ -226,3 +226,4 @@ What to exploit the new features in Tellurium 0.7.0 right away? Please check out
   * [http://code.google.com/p/aost/wiki/UserGuide070Introduction Tellurium User Guide]
   * [http://groups.google.com/group/tellurium-users Tellurium User Group]
   * [http://code.google.com/p/aost/wiki/Tellurium070Update What's new in Tellurium 0.7.0]
+  * [http://www.slideshare.net/John.Jian.Fang/tellurium-at-rich-web-experience2009-2806967 Tellurium at Rich Web Experience 2009]
