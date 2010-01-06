@@ -28,6 +28,7 @@ public class BundleProcessor implements Configurable {
   public static final String OK = "ok";
   public static final String NAME = "name";
   public static final String[] EXCLUSIVE_LIST = ["getDiagnosisResponse", "getValidateUiModule"];
+  public static final String[] KILL_CACHE_LIST = ["open", "waitForPageToLoad"];
 
   //sequence number for each command
   private int sequence = 1;
@@ -49,6 +50,10 @@ public class BundleProcessor implements Configurable {
 //  private boolean exploitBundle = Environment.instance.&useBundle;
   private boolean exploitBundle(){
     return Environment.instance.isUseBundle();
+  }
+
+  public void cleanAllCache(){
+    this.states = new HashMap<String, UiModuleState>();
   }
 
   public boolean isUiModulePublished(String id){
@@ -157,15 +162,23 @@ public class BundleProcessor implements Configurable {
     return null;
   }
 
-  protected boolean inExclusiveList(String cmd){
+  protected boolean isInList(String str, String[] list){
     boolean result = false;
-    EXCLUSIVE_LIST.each {String elem ->
-      if(elem.equals(cmd)){
+    list.each {String elem ->
+      if(elem.equals(str)){
         result = true;
       }
     }
 
-    return result;
+    return result;    
+  }
+
+  protected boolean inExclusiveList(String cmd){
+    return isInList(cmd, EXCLUSIVE_LIST);
+  }
+
+  protected boolean inKillCacheList(String cmd){
+    return isInList(cmd, KILL_CACHE_LIST);
   }
 
   public boolean needCacheUiModule(WorkflowContext context, String cmd, String uid){
@@ -304,6 +317,10 @@ public class BundleProcessor implements Configurable {
     MetaCmd cmd = context.extraMetaCmd();
     if(cmd != null)
       uid = cmd.uid;
+
+    if(this.inKillCacheList(name)){
+      this.cleanAllCache();  
+    }
 
     if(this.exploitBundle() && context.isBundlingable()){
        return issueCommand(context, uid, name, args);

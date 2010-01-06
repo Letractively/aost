@@ -33,6 +33,7 @@ public class JettyLogonTestNGTestCase extends TelluriumTestNGTestCase {
 
     @DataProvider(name = "config-provider")
     public Object[][] configParameters() {
+        // boolean useSelector, boolean useCache, boolean useTeApi
         return new Object[][]{
                 new Object[]{true, true, true},
                 new Object[]{true, true, false},
@@ -40,6 +41,28 @@ public class JettyLogonTestNGTestCase extends TelluriumTestNGTestCase {
                 new Object[]{true, false, false},
                 new Object[]{false, true, true},
                 new Object[]{false, true, false},
+                new Object[]{false, false, true},
+                new Object[]{false, false, false}
+        };
+    }
+
+    @DataProvider(name = "good-provider")
+    public Object[][] configGoodParameters() {
+        //boolean useSelector, boolean useCache, boolean useTeApi
+        return new Object[][]{
+                new Object[]{true, true, true},
+                new Object[]{true, true, false},
+                new Object[]{false, true, true},
+                new Object[]{false, true, false},
+        };
+    }
+
+    @DataProvider(name = "bad-provider")
+    public Object[][] configBadParameters() {
+        //boolean useSelector, boolean useCache, boolean useTeApi
+        return new Object[][]{
+                new Object[]{true, false, true},
+                new Object[]{true, false, false},
                 new Object[]{false, false, true},
                 new Object[]{false, false, false}
         };
@@ -77,9 +100,24 @@ public class JettyLogonTestNGTestCase extends TelluriumTestNGTestCase {
         jlm.logon("test", "test");
     }
 
-    @Test(dataProvider = "config-provider")
+    //When UI Module cacheing is on, we can use closest match to find the UI module even though its definition may
+    // not be incorrect to some degree
+    @Test(dataProvider = "good-provider")
     @Parameters({"useSelector", "useCache", "useTeApi"})
-    public void testLogonWithClosestMatch(boolean useSelector, boolean useCache, boolean useTeApi) {
+    public void testGoodLogonWithClosestMatch(boolean useSelector, boolean useCache, boolean useTeApi) {
+        useClosestMatch(true);
+        useCssSelector(useSelector);
+        useCache(useCache);
+        useTelluriumApi(useTeApi);
+        jlm.plogon("test", "test");
+        useClosestMatch(false);
+    }
+
+    //If the Ui Module cache is off, cannot locate the not-so-accurate UI element
+    @ExpectedExceptions(com.thoughtworks.selenium.SeleniumException.class)
+    @Test(dataProvider = "bad-provider")
+    @Parameters({"useSelector", "useCache", "useTeApi"})
+    public void testBadLogonWithClosestMatch(boolean useSelector, boolean useCache, boolean useTeApi) {
         useClosestMatch(true);
         useCssSelector(useSelector);
         useCache(useCache);
