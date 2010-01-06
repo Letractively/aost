@@ -38,16 +38,23 @@ class SeleniumConnector implements Configurable {
     protected def customClass = null
 
     protected String options = null
-  
-    public void connect(String url){
-		sel.open(baseURL + url);
-//        sel.cleanCache();
-	}
 
-    public void connectUrl(String url){
-		sel.open(url);
+  public void connect(String url) {
+    sel.open(baseURL + url);
 //        sel.cleanCache();
-	}
+    //connect up cache
+    BundleProcessor processor = BundleProcessor.instance;
+    processor.cleanAllCache();
+  }
+
+  public void connectUrl(String url) {
+    sel.open(url);
+//        sel.cleanCache();
+    //connect up cache
+    BundleProcessor processor = BundleProcessor.instance;
+    processor.cleanAllCache();
+
+  }
 
     public void configBrowser(String serverHost, int serverPort, String baseUrl, String browser, String browserOptions){
         this.seleniumServerHost = serverHost;
