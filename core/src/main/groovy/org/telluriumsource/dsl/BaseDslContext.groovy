@@ -1283,4 +1283,17 @@ abstract class BaseDslContext extends GlobalDslContext {
     extension.deleteAllCookies(context)
   }
 
+  //Toggle displaying each of the set of matched elements.
+  //If they are shown, toggle makes them hidden.
+  //If they are hidden, toggle makes them shown 
+  void toggle(String uid){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+
+    walkToWithException(context, uid).toggle() {loc ->
+      String locator = locatorMapping(context, loc)
+
+      extension.toggle(context, locator)
+    }
+  }
+
 }

@@ -148,6 +148,10 @@ abstract class UiObject implements Cloneable{
       return c(locator, "class")
     }
 
+    def toggle(Closure c){
+      return c(locator)  
+    }
+
     def methodMissing(String name, args) {
          //check if the click action is used and if the object can respond to the "Click" event
          //if it is, then call the "click" method, i.e., the innerClick method here
