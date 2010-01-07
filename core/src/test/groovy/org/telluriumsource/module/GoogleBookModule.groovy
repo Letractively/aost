@@ -12,21 +12,34 @@ import org.telluriumsource.dsl.DslContext
 
 public class GoogleBookModule extends DslContext {
 
-    public void defineUi() {
-      ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"], group: "true"){
-            TextBox(uid: "category", clocator: [tag: "div", class: "sub_cat_title"])
-            List(uid: "subcategory", clocator: [tag: "div", class: "sub_cat_section"], separator: "p"){
-                UrlLink(uid: "all", clocator: [:])
-            }
-        }
+  public void defineUi() {
+/*    ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"], group: "true") {
+      TextBox(uid: "category", clocator: [tag: "div", class: "sub_cat_title"])
+      List(uid: "subcategory", clocator: [tag: "div", class: "sub_cat_section"], separator: "p") {
+        UrlLink(uid: "all", clocator: [:])
+      }
     }
+    */
+
+    ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"]) {
+      List(uid: "subcategory", clocator: [tag: "td", class: "sidebar"], separator: "div") {
+        Container(uid: "all") {
+          TextBox(uid: "title", clocator: [tag: "div", class: "sub_cat_title"])
+          List(uid: "links", separator: "p") {
+            UrlLink(uid: "all", clocator: [:])
+          }
+        }
+      }
+    }
+  }
 
     public static String HTML_BODY ="""
-<DIV class="sbr">
-    <DIV class="sub_cat_section">
-        <DIV class="sub_cat_title"
-             style="">Fiction
-        </DIV>
+<table id="hp_table" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+     <td class="sidebar" valign="top">
+     <DIV class="sub_cat_section">
+        <DIV class="sub_cat_title" style="">Fiction</DIV>
         <P><A href="http://books.google.com/books?q=+subject:%22+Literature+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_fict" style="">Literature</A></P>
 
         <P><A href="http://books.google.com/books?q=+subject:%22+Science+Fiction+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_fict" style="">Science fiction</A></P>
@@ -43,9 +56,7 @@ public class GoogleBookModule extends DslContext {
 
         <P><A href="http://books.google.com/books?q=+subject:%22+Poetry+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_fict" style="">Poetry</A></P></DIV>
     <DIV class="sub_cat_section">
-        <DIV
-                class="sub_cat_title">Non-fiction
-        </DIV>
+        <DIV class="sub_cat_title">Non-fiction</DIV>
         <P><A href="http://books.google.com/books?q=+subject:%22+Philosophy+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_nofict">Philosophy</A>
         </P>
 
@@ -68,8 +79,7 @@ public class GoogleBookModule extends DslContext {
 
         <P><A href="http://books.google.com/books?q=+subject:%22+Science+/+Life+Sciences+/+Biology+/+General+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_nofict">Biology</A>
         </P></DIV>
-    <DIV
-            class="sub_cat_section">
+    <DIV class="sub_cat_section">
         <DIV class="sub_cat_title">Random subjects</DIV>
         <P><A href="http://books.google.com/books?q=+subject:%22+Toys+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_subj">Toys</A>
         </P>
@@ -88,8 +98,11 @@ public class GoogleBookModule extends DslContext {
 
         <P><A href="http://books.google.com/books?q=+subject:%22+Inscriptions,+Latin+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_subj">Latin inscriptions</A></P>
 
-        <P><A href="http://books.google.com/books?q=+subject:%22+Nuclear+energy+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_subj">Nuclear energy</A></P></DIV>
-</DIV>
-
+        <P><A href="http://books.google.com/books?q=+subject:%22+Nuclear+energy+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_subj">Nuclear energy</A></P>
+    </DIV>
+</td>
+</tr>
+</tbody>
+</table>
     """
 }
