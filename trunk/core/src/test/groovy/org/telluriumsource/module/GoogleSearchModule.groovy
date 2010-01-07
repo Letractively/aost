@@ -24,6 +24,18 @@ public class GoogleSearchModule extends DslContext {
     waitForPageToLoad 30000
   }
 
+  public void doKeyType(def input) {
+    clearText "Google.Input"
+    keyType "Google.Input", input
+    pause 500
+  }
+
+  public void doType(def input) {
+    clearText "Google.Input"
+    type "Google.Input", input
+    pause 500
+  }
+
   public void doImFeelingLucky(String input) {
     type "Google.Input", input
     pause 500

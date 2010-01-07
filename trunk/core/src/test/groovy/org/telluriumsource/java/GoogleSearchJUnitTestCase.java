@@ -108,6 +108,26 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
     }
 
     @Test
+    public void testDifferentTypeInput(){
+        gsm.doType(null);
+        gsm.doType("telluriumsource.org");
+        gsm.doType(2515);
+        gsm.doType(12.15);
+        gsm.doType(true);
+        gsm.doType(gsm);
+    }
+
+    @Test
+    public void testDifferentKeyTypeInput(){
+        gsm.doKeyType(null);
+        gsm.doKeyType("telluriumsource.org");
+        gsm.doKeyType(2515);
+        gsm.doKeyType(12.15);
+        gsm.doKeyType(true);
+        gsm.doKeyType(gsm);
+    }
+
+    @Test
     public void testRegisterNamespace(){
         registerNamespace("te", te_ns);
         String ns = getNamespace("te");
