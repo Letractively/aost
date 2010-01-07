@@ -325,10 +325,10 @@ var UiContainer = UiObject.extend({
         fbLog("Children for Container " + this.uid + ": " , this.components.showMe());
         var valset = this.components.valSet();
         fbLog("Val set: ", valset);
-        for(var i=0; i<valset.length; i++){
-             var component = valset[i];
-             fbLog("component: ", component);
-             if(!component.lazy){
+        for (var i = 0; i < valset.length; i++) {
+            var component = valset[i];
+            fbLog("component: ", component);
+            if ((!this.noCacheForChildren) && (!component.lazy)) {
                 fbLog("Add child of Container " + this.uid + " to UiAlg : ", component);
                 uialg.addChildUiObject(component);
             }
@@ -342,8 +342,8 @@ var UiContainer = UiObject.extend({
         for(var i=0; i<valset.length; i++){
              var component = valset[i];
              fbLog("component: ", component);
-             if(!component.lazy){
-                fbLog("Add cachable child of Container " + this.uid + ": ", component);
+             if((!this.noCacheForChildren) && (!component.lazy)){
+                fbLog("Look ahead at cachable child of Container " + this.uid + ": ", component);
                 validChildren.push(component);
             }
         }
@@ -434,6 +434,7 @@ var UiList = UiContainer.extend({
     init: function(){
         this._super();
         this.uiType = 'List';
+        this.noCacheForChildren = true;
         this.separator = null;
         this.defaultUi = new UiTextBox();
     },
@@ -488,6 +489,7 @@ var UiTable = UiContainer.extend({
         this._super();
         this.uiType = 'Table';
         this.tag = "table";
+        this.noCacheForChildren = true;
         this.defaultUi = new UiTextBox();
         this.headers = new Hashtable();
     },
@@ -647,6 +649,7 @@ var UiStandardTable = UiContainer.extend({
         this._super();
         this.uiType = 'StandardTable';
         this.tag = "table";
+        this.noCacheForChildren = true;
         this.defaultUi = new UiTextBox();
         this.headers = new Hashtable();
         this.footers = new Hashtable();

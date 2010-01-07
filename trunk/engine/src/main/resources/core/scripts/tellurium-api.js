@@ -375,3 +375,8 @@ TelluriumApi.prototype.useClosestMatch = function(isUse){
 TelluriumApi.prototype.useTeApi = function(isUse){
     tellurium.useTeApi(isUse);
 };
+
+TelluriumApi.prototype.toggle = function(locator){
+    var element = this.cacheAwareLocate(locator);
+    teJQuery(element).toggle();
+};

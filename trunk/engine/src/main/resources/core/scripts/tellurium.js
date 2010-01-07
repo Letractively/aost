@@ -323,7 +323,7 @@ Tellurium.prototype.initialize = function(){
     this.registerApi("useClosestMatch", false, "VOID");
     this.registerApi("useTeApi", false, "VOID"); 
     this.registerApi("isUiModuleCached", false, "BOOLEAN");
-
+    this.registerApi("toggle", true, "VOID");
 };
 
 Tellurium.prototype.useTeApi = function(isUse){

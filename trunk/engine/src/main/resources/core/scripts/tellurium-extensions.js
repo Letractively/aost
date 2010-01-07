@@ -380,3 +380,9 @@ Selenium.prototype.doUseTeApi = function(isUse){
 Selenium.prototype.doUseClosestMatch = function(isUse){
      tellurium.cache.useClosestMatch(isUse);
 };
+
+Selenium.prototype.doToggle = function(locator){
+    var $elem = teJQuery(this.browserbot.findElement(locator));
+
+	$elem.toggle();
+};
