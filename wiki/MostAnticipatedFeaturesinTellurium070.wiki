@@ -204,6 +204,19 @@ TelluriumApi.prototype.getCSS = function(locator, cssName) {
 };
 }}}
 
+To switch between Tellurium new API and Selenium Core API, you can call the following method.
+
+{{{
+    public void useTelluriumApi(boolean isUse);
+}}}
+
+Or use the following DSL methods from DslContext.
+
+{{{
+   public void enableTelluriumApi();
+   public void disableTelluriumApi()
+}}}
+
 == UI Module Caching ==
 
 From Tellurium 0.6.0, we provides the cache capability for CSS selectors so that we can reuse them without doing re-locating. In 0.7.0, we move a step further to cache the whole UI module on the Engine side. Each UI module cache holds a snapshot of the DOM references for most of the UI elements in the UI module. The exceptions are dynamic web elements defined by Tellurium UI templates. For these dynamic web elements, the Engine will try to get the DOM reference of its parent and then do locating inside this subtree with its parent node as the root, which will improve the locating speed a lot.
