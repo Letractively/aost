@@ -21,6 +21,7 @@ public class MenuTestCase extends TelluriumJUnitTestCase {
         server.registerHtml("/menu.html", MenuModule.HTML);
         server.start();
         connectSeleniumServer();
+        useCssSelector(true);
     }
 
     @Test
