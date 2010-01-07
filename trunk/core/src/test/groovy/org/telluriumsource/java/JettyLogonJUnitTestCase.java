@@ -65,6 +65,13 @@ public class JettyLogonJUnitTestCase extends TelluriumJUnitTestCase {
         useClosestMatch(false);
     }
 
+    @Test
+    public void testToggle(){
+        jlm.toggle("Form.Username.Input");
+        pause(500);
+        jlm.toggle("Form.Username.Input");
+    }
+
     @AfterClass
     public static void tearDown(){
         showTrace();

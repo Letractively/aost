@@ -290,4 +290,9 @@ class CustomSelenium extends DefaultSelenium {
 
        commandProcessor.doCommand("useClosestMatch", arr);
     }
+  
+    public void toggle(String locator){
+        String[] arr = [locator];
+        commandProcessor.doCommand("toggle", arr);
+    }
 }
