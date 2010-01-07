@@ -44,7 +44,7 @@ Here is the list of experiences provided by Tellurium developers and users
   * [http://code.google.com/p/aost/downloads/list Tellurium Demo Video] (Online Version [http://vimeo.com/8598478 Part I]) ([http://vimeo.com/8599445 Part II])
   * [http://www.slideshare.net/John.Jian.Fang/telluriumanewapproachforwebtesting Online Presentation: Tellurium - A New Approach For Web Testing]
   * [http://www.slideshare.net/John.Jian.Fang/ten-minutes-to-tellurium Online Presentation: 10 Minutes to Tellurium] 
-  * [http://aost.googlecode.com/files/TenMinutesToTellurium.ogg Screencast video: 10 Minutes to Tellurium] ([http://www.youtube.com/watch?v=DyUPeg-Y-Yg  online version]) <wiki:video url="http://www.youtube.com/watch?v=DyUPeg-Y-Yg"/>
+  * [http://aost.googlecode.com/files/TenMinutesToTellurium.ogg Screencast video: 10 Minutes to Tellurium] ([http://vimeo.com/8600410 online version]) <wiki:video url="http://www.youtube.com/watch?v=DyUPeg-Y-Yg"/>
 
 == IDEs ==
 
