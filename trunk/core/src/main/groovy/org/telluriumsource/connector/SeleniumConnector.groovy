@@ -1,6 +1,5 @@
 package org.telluriumsource.connector
 
-//import com.thoughtworks.selenium.Selenium
 import org.telluriumsource.client.SeleniumClient
 import org.telluriumsource.config.Configurable
 
