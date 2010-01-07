@@ -37,17 +37,6 @@ public abstract class BaseTelluriumJavaTestCase {
         return this.i18nBundle;
     }
 
-/*    protected static void configBrowser(String serverHost, int serverPort, String baseUrl, String browser, String browserOptions){
-        connector.setProperty("seleniumServerHost", serverHost);
-        connector.setProperty("port", serverPort);
-        if(baseUrl != null)
-            connector.setProperty("baseURL", baseUrl);
-        connector.setProperty("browser", browser);
-        if(browserOptions != null)
-            connector.setProperty("options", browserOptions);
-    }
-    */
-
     public static void openUrlWithBrowserParameters(String url, String serverHost, int serverPort, String baseUrl, String browser, String browserOptions) {
         connector.configBrowser(serverHost, serverPort, baseUrl, browser, browserOptions);
         openUrl(url);
