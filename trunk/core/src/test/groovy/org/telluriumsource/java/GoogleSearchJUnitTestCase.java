@@ -97,6 +97,12 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
     }
 
     @Test
+    public void testKeyType(){
+        //Test case for Issue 290: key type event is not working in IE
+        gsm.doGoogleSearch("admin@telluriumsource.org");
+    }
+    
+    @Test
     public void testTypeRepeated(){
         gsm.doTypeRepeated("tellurium jQuery");
     }
