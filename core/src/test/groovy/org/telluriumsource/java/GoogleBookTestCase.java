@@ -46,6 +46,8 @@ public class GoogleBookTestCase extends TelluriumJUnitTestCase {
     @Test
     public void testDiagnose(){
         gbm.diagnose("GoogleBooksList.subcategory[1]");
+        gbm.diagnose("GoogleBooksList.subcategory[1].title");
+        gbm.diagnose("GoogleBooksList.subcategory[1].links[1]");
         gbm.diagnose("GoogleBooksList.subcategory[2]");
     }
 
