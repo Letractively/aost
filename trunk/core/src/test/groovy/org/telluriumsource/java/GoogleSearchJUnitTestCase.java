@@ -1,10 +1,7 @@
 package org.telluriumsource.java;
 
 import org.telluriumsource.test.java.TelluriumJUnitTestCase;
-import org.junit.BeforeClass;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.AfterClass;
+import org.junit.*;
 import static org.junit.Assert.*;
 import org.telluriumsource.module.GoogleSearchModule;
 import org.telluriumsource.entity.CachePolicy;
@@ -127,6 +124,7 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
         gsm.doKeyType(gsm);
     }
 
+
     @Test
     public void testRegisterNamespace(){
         registerNamespace("te", te_ns);
@@ -168,6 +166,25 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
         gsm.customDirectCall("click", list.toArray());
     }
 
+    @Ignore
+    @Test
+    public void testCookies(){
+        useTelluriumApi(false);
+        gsm.setCookieByJQuery("tellurium", "cool");
+        String cookie = gsm.getCookieByJQuery("tellurium");
+        assertEquals("cool", cookie);
+        gsm.deleteCookieByJQuery("tellurium");
+        cookie = gsm.getCookieByJQuery("tellurium");
+        assertNull(cookie);
+        gsm.setCookieByJQuery("aost", "cool");
+        gsm.setCookieByJQuery("tellurium", "great");
+        gsm.deleteAllCookiesByJQuery();
+        cookie = gsm.getCookieByJQuery("aost");
+        assertNull(cookie);
+        cookie = gsm.getCookieByJQuery("tellurium");
+        assertNull(cookie);
+    }
+    
     @AfterClass
     public static void tearDown(){
         showTrace();

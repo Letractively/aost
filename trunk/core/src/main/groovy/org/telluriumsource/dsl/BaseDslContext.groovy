@@ -1304,10 +1304,33 @@ abstract class BaseDslContext extends GlobalDslContext {
     accessor.deleteAllVisibleCookies(context)
   }
 
-  void deleteAllCookies() {
+  //NEW Cookie APIs based on jQuery Cookie plugin
+  void deleteAllCookiesByJQuery() {
     WorkflowContext context = WorkflowContext.getDefaultContext()
 
-    extension.deleteAllCookies(context)
+    extension.deleteAllCookiesByJQuery(context)
+  }
+
+  void deleteCookieByJQuery(String cookieName) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+
+    extension.deleteCookieByJQuery(context, cookieName);
+  }
+
+  void setCookieByJQuery(String cookieName, String value, def options){
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+
+    extension.setCookieByJQuery(context, cookieName, value, options);
+  }
+
+  void setCookieByJQuery(String cookieName, String value){
+    setCookieByJQuery(cookieName, value, null);
+  }
+
+  String getCookieByJQuery(String cookieName){
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+
+    return extension.getCookieByJQuery(context, cookieName);
   }
 
   //Toggle displaying each of the set of matched elements.

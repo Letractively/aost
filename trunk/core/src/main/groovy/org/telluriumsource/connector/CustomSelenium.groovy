@@ -250,11 +250,6 @@ class CustomSelenium extends DefaultSelenium {
 		return st;
     }
 
-    public void deleteAllCookies(){
-        String[] arr = [];
-        commandProcessor.doCommand("deleteAllCookies", arr);
-    }
-
     public String getBundleResponse(String json){
         String[] arr = [json];
 
@@ -294,5 +289,30 @@ class CustomSelenium extends DefaultSelenium {
     public void toggle(String locator){
         String[] arr = [locator];
         commandProcessor.doCommand("toggle", arr);
+    }
+
+    public void deleteAllCookiesByJQuery() {
+        String[] arr = [];
+        commandProcessor.doCommand("deleteAllCookiesByJQuery", arr);
+    }
+
+    public void deleteCookieByJQuery(cookieName){
+        String[] arr = [cookieName];
+        commandProcessor.doCommand("deleteCookieByJQuery", arr);
+    }
+
+    public void setCookieByJQuery(String cookieName, String value, def options){
+        String[] arr;
+        if(options != null){
+            arr = [cookieName, value, options].flatten();
+        }else{
+            arr = [cookieName, value];
+        }
+        commandProcessor.doCommand("setCookieByJQuery", arr);
+    }
+
+    public String getCookieByJQuery(String cookieName){
+        String[] arr = [cookieName];
+        return commandProcessor.doCommand("getCookieByJQuery", arr);
     }
 }
