@@ -283,14 +283,31 @@ Be aware that the caching mechanism is still under development.
 
 == Tellurium New APIs ==
 
-Tellurium provides a set of new APIs based on jQuery. Use the following methods to get the flag and enable or disable the New APIs.
+Tellurium Engine in 0.7.0 re-implemented a set of Selenium APIs by exploiting jQuery, plus many more new APIs. For example,
 
 {{{
-//Check to see if the flag for using Tellurium New APIs is on
-public boolean isUseTelluriumApi();
+TelluriumApi.prototype.getCSS = function(locator, cssName) {
+    var element = this.cacheAwareLocate(locator);
+    var out = [];
+    var $e = teJQuery(element);
+    $e.each(function() {
+        out.push(teJQuery(this).css(cssName));
+    });
+    return JSON.stringify(out);
+};
+}}}
 
-//Whether to use New Tellurium APIs
-public void useTelluriumApi(boolean isUse);
+To switch between Tellurium new API and Selenium Core API, you can call the following method.
+
+{{{
+    public void useTelluriumApi(boolean isUse);
+}}}
+
+Or use the following DSL methods from DslContext.
+
+{{{
+   public void enableTelluriumApi();
+   public void disableTelluriumApi()
 }}}
 
 Be aware, the New Tellurium APIs are still under development and are not fully tested. Use them at your discretion.
