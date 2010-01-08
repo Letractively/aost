@@ -60,6 +60,146 @@ public void useCssSelector();
 public void disableCssSelector(); 
 }}}
 
+== Group Locating ==
+
+Up to Tellurium 0.6.0, Tellurium still generates runtime locators such as XPath and CSS selector on the Tellurium Core side, then pass them to Selenium Core, which is basically still to locate one element in the UI module at a time. With the new Engine in Tellurium 0.7.0, the UI module will be located as a whole first, the subsequent calls will reuse the already located UI element in the DOM. 
+
+Group Locating has some fundamental impacts on Tellurium and this can be explained by an example.
+
+For instance, you have the following html on the page that you want to test.
+
+{{{
+<H1>FORM Authentication demo</H1>
+
+<div class="box-inner">
+    <a href="js/tellurium-test.js">Tellurium Test Cases</a>
+    <input name="submit" type="submit" value="Test">
+</div>
+
+<form method="POST" action="j_security_check">
+    <table border="0" cellspacing="2" cellpadding="1">
+        <tr>
+            <td>Username:</td>
+            <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input name="submit" type="submit" value="Login">
+            </td>
+        </tr>
+    </table>
+</form>
+}}} 
+
+The correct UI module is shown as follows,
+
+{{{
+    ui.Container(uid: "Form", clocator: [tag: "table"]){
+        Container(uid: "Username", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
+        }
+        Container(uid: "Password", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j_password"])
+        }
+        SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login", name: "submit"])
+    }
+}}}
+
+Assume the html was changed recently and you still use the UI module defined some time ago.
+
+{{{
+    ui.Container(uid: "ProblematicForm", clocator: [tag: "table"]){
+        Container(uid: "Username", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j"])
+        }
+        Container(uid: "Password", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j"])
+        }
+        SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "logon", name: "submit"])
+    }
+}}}
+
+Here are the differences:
+
+{{{
+   InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
+   InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j"])
+   
+   InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j_password"])
+   InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j"])
+
+   SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login", name: "submit"])
+   SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "logon", name: "submit"])     
+}}}
+
+What will happen without the new group locating algorithm? You tests will be broken because the generated locators will not be correct any more. But if you use the latest Tellurium 0.7.0 snapshot, you will notice that the tests still work if you allow Tellurium to do closest match by calling
+
+{{{
+    useClosestMatch(true);
+}}}
+
+The magic is that the new Tellurium Engine will locate the UI module as a whole. It may have trouble to find the individual UI element such as "ProblematicForm.Username.Input", but it has no trouble to find the whole UI module structure in the DOM. 
+
+Apart from that, Tellurium 0.7.0 also provides a handy method for you to validate your UI module. For example, if you call
+
+{{{
+    validateUiModule("ProblematicForm");
+}}}
+
+You will get the detailed validation results including the closest matches.
+
+{{{
+UI Module Validation Result for ProblematicForm
+
+-------------------------------------------------------
+
+	Found Exact Match: false 
+
+	Found Closest Match: true 
+
+	Match Count: 1 
+
+	Match Score: 85.764 
+
+
+	Closest Match Details: 
+
+	--- Element ProblematicForm.Submit -->
+
+	 Composite Locator: <input name="submit" value="logon" type="submit"/> 
+
+	 Closest Matched Element: <input name="submit" value="Login" type="submit"> 
+
+
+
+	--- Element ProblematicForm.Username.Input -->
+
+	 Composite Locator: <input name="j" type="text"/> 
+
+	 Closest Matched Element: <input size="12" value="" name="j_username" maxlength="25" type="text"> 
+
+
+
+	--- Element ProblematicForm.Password.Input -->
+
+	 Composite Locator: <input name="j" type="password"/> 
+
+	 Closest Matched Element: <input size="12" value="" name="j_password" maxlength="25" type="password"> 
+
+
+-------------------------------------------------------
+
+}}}
+
+
 == Macro Command ==
 
 Macro Command is a set of Selenium commands that are bundled together and sent to Selenium Core in one call. This will reduce the round trip latency from Tellurium Core to Engine and thus, improve the speed performance. Another advantage for Macro Command is that Tellurium Engine can reuse the locator because many times the commands in the same bundle act on the same UI element or same sub-tree in the DOM. 
