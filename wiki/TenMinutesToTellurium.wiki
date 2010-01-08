@@ -1,5 +1,5 @@
 #summary Ten Minutes To Tellurium
-#labels Phase-Implementation
+#labels Phase-Implementation,Featured
 <wiki:toc max_depth="5" />
 
 = Ten Minutes To Tellurium =
