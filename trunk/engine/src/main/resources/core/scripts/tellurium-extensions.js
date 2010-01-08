@@ -177,9 +177,21 @@ Selenium.prototype.doTriggerEvent = function(locator, event){
 	$elem.trigger(event);
 };
 
-Selenium.prototype.doDeleteAllCookies = function() {
+Selenium.prototype.doDeleteAllCookiesByJQuery = function() {
     jaaulde.utils.cookies.del(true);
-}
+};
+
+Selenium.prototype.doDeletelCookieByJQuery = function(cookieName) {
+    jaaulde.utils.cookies.del(cookieName);
+};
+
+Selenium.prototype.doSetCookieByJQuery = function(cookieName, value, options){
+    jaaulde.utils.cookies.set(cookieName, value, options);
+};
+
+Selenium.prototype.getCookieByJQuery = function(cookieName){
+    return jaaulde.utils.cookies.get(cookieName);
+};
 
 function DiagnosisRequest(){
     this.uid = null;

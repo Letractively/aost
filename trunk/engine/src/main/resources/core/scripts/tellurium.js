@@ -324,6 +324,10 @@ Tellurium.prototype.initialize = function(){
     this.registerApi("useTeApi", false, "VOID"); 
     this.registerApi("isUiModuleCached", false, "BOOLEAN");
     this.registerApi("toggle", true, "VOID");
+    this.registerApi("deleteAllCookiesByJQuery", false, "VOID");
+    this.registerApi("deletelCookieByJQuery", false, "VOID");
+    this.registerApi("setCookieByJQuery", false, "VOID");
+    this.registerApi("getCookieByJQuery", false, "STRING");
 };
 
 Tellurium.prototype.useTeApi = function(isUse){
