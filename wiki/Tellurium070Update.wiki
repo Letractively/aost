@@ -1029,4 +1029,7 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase {
 
 = What's Next ? =
 
+  * More flexible UI templates, i.e., UID Description Language (UDL)
+  * Tellurium Widget revisit
+
 = Resources =
