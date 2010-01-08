@@ -1,5 +1,5 @@
 #summary Frequently Asked Questions
-#labels Featured,Phase-Support
+#labels Phase-Support
 <wiki:toc max_depth="3" />
 
 == FAQs for Tellurium ==
