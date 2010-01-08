@@ -380,3 +380,19 @@ TelluriumApi.prototype.toggle = function(locator){
     var element = this.cacheAwareLocate(locator);
     teJQuery(element).toggle();
 };
+
+TelluriumApi.prototype.deleteAllCookiesByJQuery = function() {
+    teJQuery.cookies.del(true);
+};
+
+TelluriumApi.prototype.deletelCookieByJQuery = function(cookieName) {
+    teJQuery.cookies.del(cookieName);
+};
+
+TelluriumApi.prototype.setCookieByJQuery = function(cookieName, value, options){
+    teJQuery.cookies.set(cookieName, value, options);
+};
+
+TelluriumApi.prototype.getCookieByJQuery = function(cookieName){
+    return teJQuery.cookies.get(cookieName);
+};

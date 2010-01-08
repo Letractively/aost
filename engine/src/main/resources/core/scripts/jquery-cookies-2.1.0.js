@@ -271,7 +271,8 @@ jaaulde.utils.cookies = ( function()
 
 ( function()
 {
-	if( window.jQuery )
+//	if( window.jQuery )
+    if( window.teJQuery )
 	{
 		( function( $ )
 		{
@@ -408,6 +409,6 @@ jaaulde.utils.cookies = ( function()
 				$.fn[i] = this;
 			} );
 
-		} )( window.jQuery );
+		} )( window.teJQuery );
 	}
 } )();
