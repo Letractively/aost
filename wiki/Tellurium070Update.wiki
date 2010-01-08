@@ -227,6 +227,26 @@ and the following methods to DslContext to change the Macro command settings at 
     public int getMaxMacroCmd();
 }}}
 
+If you look at the server log and you will see what happened under the hood as follows.
+
+{{{
+14:57:49.584 INFO - Command request: getBundleResponse[[{"uid":"ProblematicForm.Username.Input","args":["jquery=table tr input[type=text][name=j]","t"],"name":"keyDown","sequ":44},{"uid":"ProblematicForm.Username.Input","args":["jquery=table tr input[type=text][name=j]","t"],"name":"keyPress","sequ":45},{"uid":"ProblematicForm.Username.Input","args":["jquery=table tr input[type=text][name=j]","t"],"name":"keyUp","sequ":46},{"uid":"ProblematicForm.Password.Input","args":["jquery=table tr input[type=password][name=j]","t"],"name":"keyDown","sequ":47},{"uid":"ProblematicForm.Password.Input","args":["jquery=table tr input[type=password][name=j]","t"],"name":"keyPress","sequ":48}], ] on session 9165cd68806a42fdbdef9f87e804a251
+14:57:49.617 INFO - Got result: OK,[] on session 9165cd68806a42fdbdef9f87e804a251
+
+}}}
+
+In the above example, the command bundle includes the following commands:
+
+{{{
+    keyDown "ProblematicForm.Username.Input", "t"
+    keyPress "ProblematicForm.Username.Input", "t"
+    keyUp "ProblematicForm.Username.Input", "t"
+    keyDown "ProblematicForm.Username.Input", "t"
+    keyPress "ProblematicForm.Username.Input", "t"
+}}}
+
+and they are combined as a single API call to the Tellurium Engine.
+
 == Caching Mechanism ==
 
 The Caching mechanism in 0.7.0 is UI module based instead of jQuery selector, thus, we changed the following methods
