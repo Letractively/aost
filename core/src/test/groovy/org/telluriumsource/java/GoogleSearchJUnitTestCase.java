@@ -39,7 +39,7 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
     @Before
     public void connectToGoogle() {
 
-        connectUrl("http://www.google.com");
+        connectUrl("http://www.google.com/intl/en/");
     }
 
     @Test
