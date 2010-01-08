@@ -4,6 +4,8 @@ import org.telluriumsource.test.java.TelluriumJUnitTestCase;
 import org.telluriumsource.test.mock.MockHttpServer;
 import org.telluriumsource.module.JettyLogonModule;
 import org.junit.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -72,6 +74,25 @@ public class JettyLogonJUnitTestCase extends TelluriumJUnitTestCase {
         jlm.toggle("Form.Username.Input");
     }
 
+    @Ignore
+    @Test
+    public void testCookies(){
+        useTelluriumApi(false);
+        jlm.setCookieByJQuery("tellurium", "cool");
+        String cookie = jlm.getCookieByJQuery("tellurium");
+        assertEquals("cool", cookie);
+        jlm.deleteCookieByJQuery("tellurium");
+        cookie = jlm.getCookieByJQuery("tellurium");
+        assertNull(cookie);
+        jlm.setCookieByJQuery("aost", "cool");
+        jlm.setCookieByJQuery("tellurium", "great");
+        jlm.deleteAllCookiesByJQuery();
+        cookie = jlm.getCookieByJQuery("aost");
+        assertNull(cookie);
+        cookie = jlm.getCookieByJQuery("tellurium");
+        assertNull(cookie);
+    }
+    
     @AfterClass
     public static void tearDown(){
         showTrace();
