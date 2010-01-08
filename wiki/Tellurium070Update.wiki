@@ -49,14 +49,14 @@ Accordingly, the Maven dependency should be changed as follows,
 One feedback we got from [http://code.google.com/p/aost/wiki/TelluriumAtRichWebExperience2009 the Rich Web Experience 2009] is that we should use the name "CSS selector" instead of "jQuery selector" because jQuery implements a subset of CSS selectors. As a result, we changed the following two methods in DslContext 
 
 {{{
-public void useJQuerySelector();
+public void enableJQuerySelector();
 public void disableJQuerySelector(); 
 }}}
 
 to
 
 {{{
-public void useCssSelector();
+public void enableCssSelector();
 public void disableCssSelector(); 
 }}}
 
@@ -247,36 +247,31 @@ In the above example, the command bundle includes the following commands:
 
 and they are combined as a single API call to the Tellurium Engine.
 
-== Caching Mechanism ==
+== UI Module Caching ==
 
-The Caching mechanism in 0.7.0 is UI module based instead of jQuery selector, thus, we changed the following methods
+From Tellurium 0.6.0, we provides the cache capability for CSS selectors so that we can reuse them without doing re-locating. In 0.7.0, we move a step further to cache the whole UI module on the Engine side. Each UI module cache holds a snapshot of the DOM references for most of the UI elements in the UI module. The exceptions are dynamic web elements defined by Tellurium UI templates. For these dynamic web elements, the Engine will try to get the DOM reference of its parent and then do locating inside this subtree with its parent node as the root, which will improve the locating speed a lot.
+
+To turn on and off the caching capability, you just simply call the following method in your code.
 
 {{{
-public void enableJQuerySelectorCache(); 
-public boolean disableJQuerySelectorCache();
+    void useCache(boolean isUse);
 }}}
 
-to
+Or use the following methods to do fine control of the cache.
 
 {{{
-public void enableCache(); 
-public boolean disableCache();
-}}}
-
-Other cache related APIs include
-
-{{{
-public boolean cleanCache();
-public boolean getCacheState(); 
-public void setCacheMaxSize(int size);
-public int getCacheSize();
-public int getCacheMaxSize();
-public Map<String, Long> getCacheUsage();
-public void useDiscardNewCachePolicy();
-public void useDiscardOldCachePolicy();
-public void useDiscardLeastUsedCachePolicy();
-public void useDiscardInvalidCachePolicy();
-public String getCurrentCachePolicy();     
+    public void enableCache(); 
+    public boolean disableCache();
+    public boolean cleanCache();
+    public boolean getCacheState();
+    public void setCacheMaxSize(int size);
+    public int getCacheSize();
+    public void useDiscardNewCachePolicy();
+    public void useDiscardOldCachePolicy();
+    public void useDiscardLeastUsedCachePolicy();
+    public void useDiscardInvalidCachePolicy();
+    public String getCurrentCachePolicy();
+    public Map<String, Long> getCacheUsage();
 }}}
 
 Be aware that the caching mechanism is still under development.
