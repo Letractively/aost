@@ -106,7 +106,7 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testIdMenu(){
-        tisp.disableCssSelector();
+        useCssSelector(false);
         tisp.clickOnTableHeader(2);
         tisp.mouseMoveIdMenu();
         tisp.clickIdMenuSortDown();
@@ -115,7 +115,7 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testSelectColumnMenu(){
-        tisp.disableCssSelector();
+        useCssSelector(false);
         tisp.toggleIdColumn("ID");
         tisp.toggleIdColumn("Owner");
     }
@@ -128,7 +128,7 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testGetCellCount(){
-        tisp.useCssSelector();
+        useCssSelector(true);
         int count = tisp.getTableCellCount();
         assertTrue(count > 0);
         System.out.println("Cell size: " + count);
@@ -139,7 +139,7 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
 
     @Test
     public void testSearchIssueTypes(){
-        tisp.useCssSelector();
+        useCssSelector(true);
         tisp.enableCache();
         tisp.setCacheMaxSize(10);
         String[] ists = tisp.getIsssueTypes();
@@ -153,11 +153,11 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase{
         tisp.disableCssSelector();
         tisp.dump("issueAdvancedSearch");
 
-        tisp.useCssSelector();
+        useCssSelector(true);
         tisp.disableCache();
         tisp.dump("issueAdvancedSearch");
 
-        tisp.useCssSelector();
+        useCssSelector(true);
         tisp.enableCache();
         tisp.dump("issueAdvancedSearch");
     }
