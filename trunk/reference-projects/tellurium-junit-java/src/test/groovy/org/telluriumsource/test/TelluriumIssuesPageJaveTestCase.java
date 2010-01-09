@@ -127,7 +127,7 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
     
     @Test
     public void testGetCellCount(){
-        tisp.useCssSelector();
+        useCssSelector(true);
         int count = tisp.getTableCellCount();
         assertTrue(count > 0);
         System.out.println("Cell size: " + count);
@@ -138,7 +138,7 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
 
     @Test
     public void testSearchIssueTypes(){
-        tisp.useCssSelector();
+        useCssSelector(true);
         tisp.enableCache();
         tisp.setCacheMaxSize(10);
         String[] ists = tisp.getIsssueTypes();
@@ -149,14 +149,14 @@ public class TelluriumIssuesPageJaveTestCase extends TelluriumJavaTestCase{
 
     @Test
     public void testDump(){
-        tisp.disableCssSelector();
+        useCssSelector(false);
         tisp.dump("issueAdvancedSearch");
 
-        tisp.useCssSelector();
+        useCssSelector(true);
         tisp.disableCache();
         tisp.dump("issueAdvancedSearch");
 
-        tisp.useCssSelector();
+        useCssSelector(true);
         tisp.enableCache();
         tisp.dump("issueAdvancedSearch");
     }
