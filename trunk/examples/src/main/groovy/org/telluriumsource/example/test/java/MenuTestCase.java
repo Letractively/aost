@@ -41,7 +41,11 @@ public class MenuTestCase extends TelluriumJUnitTestCase {
             System.out.println("\t" + str);
         }
         System.out.println("\nbackground-color");
-        String[] backgroundcolors = mm.getCSS("categories.body.categoryList[1].cat[1]", "background-color");
+        String[] backgroundcolors = mm.getCSS("categories.body.categoryList[1].cat[1]", "background-color");   //background-color
+        for (String str : backgroundcolors) {
+            System.out.println("\t" + str);
+        }
+        backgroundcolors = mm.getCSS("categories.body.categoryList[1].cat[1]", "backgroundColor");   //background-color
         for (String str : backgroundcolors) {
             System.out.println("\t" + str);
         }
