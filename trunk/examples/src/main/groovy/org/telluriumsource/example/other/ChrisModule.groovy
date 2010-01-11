@@ -16,6 +16,13 @@ public class ChrisModule extends DslContext {
     ui.Container(uid: "ShipInfo", clocator: [tag: "div", class: "refer_m"]){
 	  UrlLink(uid: "Update", clocator: [tag: "a", text: "Modify", id: "btn_consignee_edit"])
     }
+
+    ui.List(uid: "breadcrumb", clocator: [tag: "ul", id: "breadcrumb"]){
+      Container(uid: "all", clocator: [tag: "li"]){
+          UrlLink(uid: "urlLink", clocator: [tag: "a", text: "Home"])
+      }
+    }
+
   }
 
   public void update(){
