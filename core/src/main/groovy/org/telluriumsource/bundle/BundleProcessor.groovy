@@ -141,7 +141,8 @@ public class BundleProcessor implements Configurable {
         case ReturnType.VOID:
           break;
         case ReturnType.BOOLEAN:
-          return "true".equals(result);
+//          return "true".equals(result);
+          return (boolean)result;
           break;
         case ReturnType.NUMBER:
           return (int)result;
