@@ -87,6 +87,21 @@ teJQuery.fn.outerHTML = function() {
     return teJQuery("<div/>").append( teJQuery(this[0]).clone() ).html();
 };
 
+function getColor(elem, cssName){
+   var color = null;
+   var parent = elem.parentNode;
+
+   while (parent != null){
+        color = teJQuery(parent).css(cssName);
+        fbLog(cssName + " is " + color + " for ", parent);
+        if ( color != '' && color != 'transparent' || teJQuery.nodeName(parent, "body") )
+				break;
+       parent = parent.parentNode;
+   }
+
+   return color;
+};
+
 /*
 jQuery.fn.extend({
   inDOM = function() { return !!$(this).parents('html').length; }

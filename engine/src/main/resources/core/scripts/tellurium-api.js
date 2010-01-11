@@ -264,7 +264,12 @@ TelluriumApi.prototype.getCSS = function(locator, cssName) {
     var out = [];
     var $e = teJQuery(element);
     $e.each(function() {
-        out.push(teJQuery(this).css(cssName));
+        var val = teJQuery(this).css(cssName);
+        //need to walk up the tree if the color is transparent
+        if(val == "transparent" && (cssName == "background-color" || cssName == "backgroundColor" || cssName == "color")){
+            val = getColor(this, cssName);
+        }
+        out.push(val);
     });
     return JSON.stringify(out);
 };
