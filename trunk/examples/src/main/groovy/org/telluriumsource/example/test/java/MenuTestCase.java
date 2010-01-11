@@ -6,6 +6,7 @@ import org.telluriumsource.example.other.MenuModule;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.AfterClass;
+import org.junit.Before;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -14,9 +15,11 @@ import org.junit.AfterClass;
  */
 public class MenuTestCase extends TelluriumJUnitTestCase {
     private static MockHttpServer server;
-
+    private static MenuModule mm;
     @BeforeClass
     public static void setUp(){
+        mm = new MenuModule();
+        mm.defineUi();
         server = new MockHttpServer(8080);
         server.registerHtml("/menu.html", MenuModule.HTML);
         server.start();
@@ -24,11 +27,13 @@ public class MenuTestCase extends TelluriumJUnitTestCase {
         useCssSelector(true);
     }
 
+    @Before
+    public void connect(){
+        connectUrl("http://localhost:8080/menu.html");
+    }
+
     @Test
     public void testCSS() {
-        MenuModule mm = new MenuModule();
-        mm.defineUi();
-        connectUrl("http://localhost:8080/menu.html");
         mm.diagnose("categories.body.categoryList[1].cat[1]");
         System.out.println("\nbackground: ");
         String[] backgrounds = mm.getCSS("categories.body.categoryList[1].cat[1]", "background");
@@ -41,11 +46,35 @@ public class MenuTestCase extends TelluriumJUnitTestCase {
             System.out.println("\t" + str);
         }
         System.out.println("\nbackground-color");
-        String[] backgroundcolors = mm.getCSS("categories.body.categoryList[1].cat[1]", "background-color");   //background-color
+        String[] backgroundcolors = mm.getCSS("categories.body.categoryList[1].cat[1]", "background-color");  
         for (String str : backgroundcolors) {
             System.out.println("\t" + str);
         }
-        backgroundcolors = mm.getCSS("categories.body.categoryList[1].cat[1]", "backgroundColor");   //background-color
+        backgroundcolors = mm.getCSS("categories.body.categoryList[1].cat[1]", "backgroundColor");
+        for (String str : backgroundcolors) {
+            System.out.println("\t" + str);
+        }
+    }
+
+    @Test
+    public void testColors(){
+        System.out.println("\nbackground-color for colors.color1");
+        String[] backgroundcolors = mm.getCSS("colors.color1", "background-color");
+        for (String str : backgroundcolors) {
+            System.out.println("\t" + str);
+        }
+        System.out.println("\nbackground-color for colors.color2");
+        backgroundcolors = mm.getCSS("colors.color2", "background-color");
+        for (String str : backgroundcolors) {
+            System.out.println("\t" + str);
+        }
+        System.out.println("\nbackground-color for colors.color3");
+        backgroundcolors = mm.getCSS("colors.color3", "background-color");
+        for (String str : backgroundcolors) {
+            System.out.println("\t" + str);
+        }      
+        System.out.println("\nbackground-color for colors.color4");
+        backgroundcolors = mm.getCSS("colors.color4", "background-color");
         for (String str : backgroundcolors) {
             System.out.println("\t" + str);
         }

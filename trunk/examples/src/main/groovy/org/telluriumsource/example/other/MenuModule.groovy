@@ -24,6 +24,13 @@ public class MenuModule extends DslContext {
         }
       }
     }
+
+    ui.Container(uid: "colors", clocator: [tag: "div", class: "colors"]){
+      Div(uid: "color1", clocator: [tag: "div", position: "1"])
+      Div(uid: "color2", clocator: [tag: "div", position: "2"])
+      Div(uid: "color3", clocator: [tag: "div", position: "3"])
+      Div(uid: "color4", clocator: [tag: "div", position: "4"])
+    }
   }
 
   public static String HTML= """
@@ -66,6 +73,12 @@ background: red;
               </ul>
                </li>
     </ul>
+</div>
+<div class="colors">
+  <div style="background-color:blue;"></div>
+  <div style="background-color:rgb(15,99,30);"></div>
+  <div style="background-color:#123456;"></div>
+  <div style="background-color:#f11;"></div>
 </div>
 </div>
 </div>
