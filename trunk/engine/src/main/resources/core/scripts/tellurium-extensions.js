@@ -75,7 +75,13 @@ Selenium.prototype.getCSS = function(locator, cssName) {
     var out = [];
     var $e = teJQuery(this.browserbot.findElement(locator));
     $e.each(function() {
-        out.push(teJQuery(this).css(cssName));
+        var val = teJQuery(this).css(cssName);
+        //need to walk up the tree if the color is transparent
+        if(val == "transparent" && (cssName == "background-color" || cssName == "backgroundColor" || cssName == "color")){
+            val = getColor(this, cssName);
+        }
+        out.push(val);        
+//        out.push(teJQuery(this).css(cssName));
     });
     return JSON.stringify(out);
 };
@@ -177,20 +183,8 @@ Selenium.prototype.doTriggerEvent = function(locator, event){
 	$elem.trigger(event);
 };
 
-Selenium.prototype.doDeleteAllCookiesByJQuery = function() {
+Selenium.prototype.doDeleteAllCookies = function() {
     jaaulde.utils.cookies.del(true);
-};
-
-Selenium.prototype.doDeletelCookieByJQuery = function(cookieName) {
-    jaaulde.utils.cookies.del(cookieName);
-};
-
-Selenium.prototype.doSetCookieByJQuery = function(cookieName, value, options){
-    jaaulde.utils.cookies.set(cookieName, value, options);
-};
-
-Selenium.prototype.getCookieByJQuery = function(cookieName){
-    return jaaulde.utils.cookies.get(cookieName);
 };
 
 function DiagnosisRequest(){
