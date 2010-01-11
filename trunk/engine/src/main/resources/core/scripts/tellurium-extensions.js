@@ -77,6 +77,7 @@ Selenium.prototype.getCSS = function(locator, cssName) {
     for(var i=0; i<$e.length; i++){
         var elem = $e.get(i);
         var val = teJQuery(elem).css(cssName);
+        //['backgroundColor', 'borderBottomColor', 'borderLeftColor', 'borderRightColor', 'borderTopColor', 'color', 'outlineColor']
          //need to walk up the tree if the color is transparent
         if(val == "transparent" && (cssName == "background-color" || cssName == "backgroundColor" || cssName == "color")){
             val = getColor(elem, cssName);
