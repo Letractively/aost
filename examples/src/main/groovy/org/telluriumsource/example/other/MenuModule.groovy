@@ -29,7 +29,7 @@ public class MenuModule extends DslContext {
   public static String HTML= """
 <html>
 <head>
-
+<script src="http://localhost:4444/selenium-server/core/scripts/jquery-1.3.2.js"> </script>
 <style type="text/css">
 .content .division .category.selected {
 background: red;
