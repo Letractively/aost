@@ -89,15 +89,18 @@ teJQuery.fn.outerHTML = function() {
 
 function getColor(elem, cssName){
    var color = null;
-   var parent = elem.parentNode;
 
-   while (parent != null){
-        color = teJQuery(parent).css(cssName);
-        fbLog(cssName + " is " + color + " for ", parent);
-        if ( color != '' && color != 'transparent' || teJQuery.nodeName(parent, "body") )
-				break;
-       parent = parent.parentNode;
-   }
+   if (elem != null) {
+        var parent = elem.parentNode;
+
+        while (parent != null) {
+            color = teJQuery(parent).css(cssName);
+            fbLog(cssName + " is " + color + " for ", parent);
+            if (color != '' && color != 'transparent' || teJQuery.nodeName(parent, "body"))
+                break;
+            parent = parent.parentNode;
+        }
+    }
 
    return color;
 };

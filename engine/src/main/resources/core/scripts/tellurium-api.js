@@ -263,6 +263,17 @@ TelluriumApi.prototype.getCSS = function(locator, cssName) {
     var element = this.cacheAwareLocate(locator);
     var out = [];
     var $e = teJQuery(element);
+    for(var i=0; i<$e.length; i++){
+        var elem = $e.get(i);
+        var val = teJQuery(elem).css(cssName);
+         //need to walk up the tree if the color is transparent
+        if(val == "transparent" && (cssName == "background-color" || cssName == "backgroundColor" || cssName == "color")){
+            val = getColor(elem, cssName);
+        }
+        out.push(val);
+    }
+
+/*
     $e.each(function() {
         var val = teJQuery(this).css(cssName);
         //need to walk up the tree if the color is transparent
@@ -271,6 +282,7 @@ TelluriumApi.prototype.getCSS = function(locator, cssName) {
         }
         out.push(val);
     });
+*/
     return JSON.stringify(out);
 };
 

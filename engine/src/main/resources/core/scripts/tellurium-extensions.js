@@ -74,7 +74,16 @@ Selenium.prototype.getCssSelectorCount = function(locator) {
 Selenium.prototype.getCSS = function(locator, cssName) {
     var out = [];
     var $e = teJQuery(this.browserbot.findElement(locator));
-    $e.each(function() {
+    for(var i=0; i<$e.length; i++){
+        var elem = $e.get(i);
+        var val = teJQuery(elem).css(cssName);
+         //need to walk up the tree if the color is transparent
+        if(val == "transparent" && (cssName == "background-color" || cssName == "backgroundColor" || cssName == "color")){
+            val = getColor(elem, cssName);
+        }
+        out.push(val);
+    }
+/*    $e.each(function() {
         var val = teJQuery(this).css(cssName);
         //need to walk up the tree if the color is transparent
         if(val == "transparent" && (cssName == "background-color" || cssName == "backgroundColor" || cssName == "color")){
@@ -82,7 +91,7 @@ Selenium.prototype.getCSS = function(locator, cssName) {
         }
         out.push(val);        
 //        out.push(teJQuery(this).css(cssName));
-    });
+    });*/
     return JSON.stringify(out);
 };
 
