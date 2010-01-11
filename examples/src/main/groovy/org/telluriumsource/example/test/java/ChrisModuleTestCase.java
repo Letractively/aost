@@ -6,6 +6,8 @@ import org.telluriumsource.example.other.ChrisModule;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
+
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -23,6 +25,7 @@ public class ChrisModuleTestCase  extends TelluriumJUnitTestCase {
         cm.defineUi();
         connectSeleniumServer();
         server.registerHtmlBody("/ship.html", ChrisModule.HTML_BODY);
+        server.registerHtmlBody("/bread.html", cm.generateHtml("breadcrumb"));
         server.start();
     }
 
@@ -30,6 +33,13 @@ public class ChrisModuleTestCase  extends TelluriumJUnitTestCase {
     public void testClick() {
         connectUrl("http://localhost:8080/ship.html");
         cm.update();
+    }
+
+    @Test
+    public void testIsElementPresent(){
+        connectUrl("http://localhost:8080/bread.html");
+        assertTrue(cm.isElementPresent("breadcrumb[1].urlLink"));
+        assertEquals("Home", cm.getText("breadcrumb[1].urlLink"));
     }
 
     @AfterClass
