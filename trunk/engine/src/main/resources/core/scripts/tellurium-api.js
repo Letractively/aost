@@ -138,8 +138,29 @@ TelluriumApi.prototype.isElementPresent = function(locator){
     return true;
 };
 
-TelluriumApi.prototype.getAttribute = function(locator, attributeName){
-    var element = this.cacheAwareLocate(locator);
+TelluriumApi.prototype.getAttribute = function(attributeLocator){
+    var cal = JSON.parse(attributeLocator.substring(7), null);
+    fbLog("Parsed attribute locator", cal);
+    var locator = cal.locator;
+    var attributeName = null;
+    //get attribute name
+    var attributePos = locator.lastIndexOf("@");
+    if (attributePos != -1) {
+        attributeName = locator.slice(attributePos + 1);
+        if (attributeName.endsWith("]")) {
+            attributeName = attributeName.substr(0, attributeName.length - 1);
+        }
+        fbLog("attribute name", attributeName);
+        //update locator
+        cal.locator = locator.slice(0, attributePos);
+        if (cal.locator.endsWith("[")) {
+            cal.locator = cal.locator.substr(0, cal.locator.length - 1);
+        }
+    }
+
+    var json = "uimcal=" + JSON.stringify(cal);
+    fbLog("re-jsonified locator", json)
+    var element = this.cacheAwareLocate(json);
     return teJQuery(element).attr(attributeName);
 };
 
