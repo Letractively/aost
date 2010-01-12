@@ -13,7 +13,7 @@ import org.telluriumsource.dsl.DslContext
 public class JettyLogonModule extends DslContext {
 
   public void defineUi() {
-    ui.Container(uid: "Form", clocator: [tag: "table"]){
+    ui.Form(uid: "Form", clocator: [tag: "form"]){
         Container(uid: "Username", clocator: [tag: "tr"]){
             TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
             InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
@@ -25,7 +25,7 @@ public class JettyLogonModule extends DslContext {
         SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login", name: "submit"])
     }
 
-    ui.Container(uid: "ProblematicForm", clocator: [tag: "table"]){
+    ui.Form(uid: "ProblematicForm", clocator: [tag: "form"]){
         Container(uid: "Username", clocator: [tag: "tr"]){
             TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
             InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j"])
@@ -77,6 +77,20 @@ public class JettyLogonModule extends DslContext {
         </tr>
     </table>
 </form>
+
+<form method="POST" action="j_security_check">
+    <table border="0" cellspacing="2" cellpadding="1">
+        <tr>
+            <td>Test:</td>
+            <td><input size="12" value="" name="j_testname" maxlength="25" type="text"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input name="Test" type="submit" value="Test">
+            </td>
+        </tr>
+    </table>
+</form>  
 
   """
 }
