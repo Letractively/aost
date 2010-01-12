@@ -1501,10 +1501,35 @@ BrowserBot.prototype.locateElementByLinkText.prefix = "link";
  */
 BrowserBot.prototype.findAttribute = function(locator) {
     // Split into locator + attributeName
-    var attributePos = locator.lastIndexOf("@");
-    var elementLocator = locator.slice(0, attributePos);
-    var attributeName = locator.slice(attributePos + 1);
+    var elementLocator = null;
+    var attributeName = null;
+    var attributePos = null;
+    if (locator.startsWith("uimcal=")) {
+        var cal = JSON.parse(locator.substring(7), null);
+        fbLog("Parsed attribute locator", cal);
+        var loc = cal.locator;
+        //get attribute name
+        attributePos = loc.lastIndexOf("@");
+        if (attributePos != -1) {
+            attributeName = loc.slice(attributePos + 1);
+            if (attributeName.endsWith("]")) {
+                attributeName = attributeName.substr(0, attributeName.length - 1);
+            }
+            fbLog("attribute name", attributeName);
+            //update locator
+            cal.locator = loc.slice(0, attributePos);
+            if (cal.locator.endsWith("[")) {
+                cal.locator = cal.locator.substr(0, cal.locator.length - 1);
+            }
+        }
 
+        elementLocator = "uimcal=" + JSON.stringify(cal);
+
+    } else {
+        attributePos = locator.lastIndexOf("@");
+        elementLocator = locator.slice(0, attributePos);
+        attributeName = locator.slice(attributePos + 1);
+    }
     // Find the element.
     var element = this.findElement(elementLocator);
 
