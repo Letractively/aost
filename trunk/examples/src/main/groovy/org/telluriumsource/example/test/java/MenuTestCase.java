@@ -82,6 +82,13 @@ public class MenuTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testDirectCall(){
+/*
+    var $e = teJQuery("#selenium_myiframe").contents().find("#category-list > li.division:eq(0) ul > li:eq(0)");
+    fbLog("SUV", $e);
+    $e.css("background-color");
+    var elem = $e.get(0);
+    fbLog("elem background color", elem.style.background-color);
+*/
         String color = (String) mm.customDirectCall("getCSS", "jquery=#category-list > li.division:eq(0) ul > li:eq(0)", "background-color");
         System.out.println("background color: " + color);
     }
