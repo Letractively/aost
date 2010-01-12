@@ -80,6 +80,12 @@ public class MenuTestCase extends TelluriumJUnitTestCase {
         }
     }
 
+    @Test
+    public void testDirectCall(){
+        String color = (String) mm.customDirectCall("getCSS", "jquery=#category-list > li.division:eq(0) ul > li:eq(0)", "background-color");
+        System.out.println("background color: " + color);
+    }
+    
     @AfterClass
     public static void tearDown(){
         server.stop();
