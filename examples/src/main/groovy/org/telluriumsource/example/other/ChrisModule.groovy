@@ -18,7 +18,7 @@ public class ChrisModule extends DslContext {
     }
 
     ui.List(uid: "breadcrumb", clocator: [tag: "ul", id: "breadcrumb"]){
-      Container(uid: "all", clocator: [tag: "li"]){
+      Container(uid: "all", clocator: [tag: "li", class: "first"]){
           UrlLink(uid: "urlLink", clocator: [tag: "a", text: "Home"])
       }
     }

@@ -42,6 +42,24 @@ public class ChrisModuleTestCase  extends TelluriumJUnitTestCase {
         assertEquals("Home", cm.getText("breadcrumb[1].urlLink"));
     }
 
+    @Test
+    public void testGetAttributeWithSelenium(){
+        connectUrl("http://localhost:8080/bread.html");
+        useCache(false);
+        useTelluriumApi(false);
+        assertEquals("first", cm.getAttribute("breadcrumb[1]","class"));
+    }
+
+    @Test
+    public void testGetAttributeWithTellurium(){
+        connectUrl("http://localhost:8080/bread.html");
+        useCache(true);
+        useTelluriumApi(true);
+        assertEquals("first", cm.getAttribute("breadcrumb[1]","class"));
+        useCache(false);
+        useTelluriumApi(false);
+    }
+
     @AfterClass
     public static void tearDown() {
         server.stop();
