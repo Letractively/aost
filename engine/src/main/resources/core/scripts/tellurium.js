@@ -94,7 +94,8 @@ function getColor(elem, cssName){
         var parent = elem.parentNode;
 
         while (parent != null) {
-            color = teJQuery(parent).css(cssName);
+//            color = teJQuery(parent).css(cssName);
+            color = teJQuery.curCSS(parent, cssName);
             fbLog(cssName + " is " + color + " for ", parent);
             if (color != '' && color != 'transparent' || teJQuery.nodeName(parent, "body"))
                 break;
