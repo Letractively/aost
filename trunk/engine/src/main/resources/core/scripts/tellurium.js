@@ -154,6 +154,16 @@ jslogger.addAppender(new Log4js.ConsoleAppender());
 
 var jslogger = new DummyLogger();
 
+function Identifier(){
+    this.sn = 100;
+};
+
+Identifier.prototype.next = function(){
+    this.sn++;
+
+    return this.sn;
+};
+
 // Command Request for Command bundle
 function CmdRequest(){
     this.sequ = 0;
@@ -273,6 +283,8 @@ function Tellurium (){
     //api name to method mapping for command bundle processing
     this.apiMap = new Hashtable();
 
+    //identifier generator
+    this.idGen = new Identifier();
 };
 
 Tellurium.prototype.isUseCache = function(){

@@ -1678,6 +1678,9 @@ UiAlg.prototype.bindToUiModule = function(uimodule, snapshot){
 };
 
 function TrieNode() {
+    //identifier
+    this.key = -1;
+
     //hold the String value for this node
     this.elem = null;
 
@@ -1689,15 +1692,42 @@ function TrieNode() {
 
     //child nodes
     this.children = new Array();
-}
-;
+};
 
 TrieNode.prototype.addChild = function(child) {
     this.children.push(child);
 };
 
+TrieNode.prototype.removeArrayAt = function(ar, index )
+{
+  var part1 = ar.slice( 0, index);
+  var part2 = ar.slice( index+1 );
+
+  return( part1.concat( part2 ) );
+};
+
+TrieNode.prototype.findIt = function( key )
+{
+    var result = (-1);
+
+    for( var i = 0; i < this.children.length; i++ )
+    {
+        if( this.children[i] == key )
+        {
+            result = i;
+            break;
+        }
+    }
+    return result;
+};
+
 TrieNode.prototype.removeChild = function(child) {
-    //    this.children.remove(child);
+    var elementIndex = this.findIt(child.key);
+
+    if( elementIndex != -1 )
+    {
+        this.children = this.removeArrayAt(this.children, elementIndex);
+    }
 };
 
 TrieNode.prototype.getChildrenSize = function() {
@@ -1755,8 +1785,11 @@ function Trie() {
 
     this.root = null;
 
-}
-;
+};
+
+Trie.prototype.getKey = function(){
+    return tellurium.idGen.next();
+};
 
 Trie.prototype.insert = function(word) {
     if (this.root == null) {
@@ -1766,11 +1799,13 @@ Trie.prototype.insert = function(word) {
         this.root.elem = "";
         this.root.level = 0;
         this.root.parent = null;
+        this.root.key = this.getKey();
 
         //add the word as the child of the root node
         var child = new TrieNode();
         child.elem = word;
         child.parent = this.root;
+        child.key = this.getKey();
         this.root.addChild(child);
     } else {
         //not the first node, need to walk all the way down to find a place to insert
@@ -1785,6 +1820,7 @@ Trie.prototype.walk = function(current, word) {
         var child = new Node();
         child.elem = word;
         child.parent = current;
+        child.key = this.getKey();
         current.addChild(child);
     } else {
         //there are children for the current node
@@ -1801,6 +1837,7 @@ Trie.prototype.walk = function(current, word) {
             var shared = new Node();
             shared.elem = word;
             shared.parent = current;
+            shared.key = this.getKey();
             for (var j = 0; j < common.length; j++) {
                 var node = common[j];
                 //assume no duplication in the dictionary, otherwise, need to consider the empty string case for a child
@@ -1833,6 +1870,7 @@ Trie.prototype.walk = function(current, word) {
                 var achild = new Node();
                 achild.parent = current;
                 achild.elem = word;
+                achild.key = this.getKey();
                 current.addChild(achild);
             }
         }
