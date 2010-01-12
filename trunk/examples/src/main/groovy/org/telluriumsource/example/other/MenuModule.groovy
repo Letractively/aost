@@ -42,6 +42,10 @@ public class MenuModule extends DslContext {
 background-color: red;
 }
 
+.red{
+background-color: red;
+}
+
 </style>
 </head>
 <body>
@@ -78,7 +82,7 @@ background-color: red;
   <div style="background-color:blue;"></div>
   <div style="background-color:rgb(15,99,30);"></div>
   <div style="background-color:#123456;"></div>
-  <div style="background-color:#f11;"></div>
+  <div class="red"></div>
 </div>
 </div>
 </div>
