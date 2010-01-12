@@ -1676,3 +1676,179 @@ UiAlg.prototype.bindToUiModule = function(uimodule, snapshot){
     uimodule.relaxDetails = snapshot.relaxDetails;
     uimodule.score = snapshot.getScaledScore();
 };
+
+function TrieNode() {
+    //hold the String value for this node
+    this.elem = null;
+
+    //the level of this node in the Trie tree
+    this.level = 0;
+
+    //pointer to its parent
+    this.parent = null;
+
+    //child nodes
+    this.children = new Array();
+}
+;
+
+TrieNode.prototype.addChild = function(child) {
+    this.children.push(child);
+};
+
+TrieNode.prototype.removeChild = function(child) {
+    //    this.children.remove(child);
+};
+
+TrieNode.prototype.getChildrenSize = function() {
+    return this.children.length;
+};
+
+TrieNode.prototype.checkLevel = function() {
+    if (this.parent == null)
+        this.level = 0;
+    else
+        this.level = this.parent.level + 1;
+    if (this.children.length > 0) {
+        for (var i = 0; i < this.children.length; i++) {
+            this.children[i].checkLevel();
+        }
+    }
+};
+
+TrieNode.prototype.getFullWord = function() {
+    if (this.parent == null) {
+        return this.elem;
+    }
+
+    return this.parent.getFullWord() + this.elem;
+};
+
+TrieNode.prototype.printMe = function() {
+    var hasChildren = false;
+    if (this.children.length > 0)
+        hasChildren = true;
+    var sb = new StringBuffer(64);
+    for (var i = 0; i < this.level; i++) {
+        sb.append("  ");
+    }
+    sb.append(this.elem);
+    if (hasChildren)
+        sb.append("{");
+    fbLog(sb.toString(), this);
+    if (hasChildren) {
+        for (var n = 0; n < this.children.length; n++) {
+            this.children[n].printMe();
+        }
+    }
+    if (hasChildren) {
+        var indent = new StringBuffer(64);
+        for (var j = 0; j < this.level; j++) {
+            indent.append("  ");
+        }
+        indent.append("}");
+        fbLog(indent.toString(), this);
+    }
+};
+
+function Trie() {
+
+    this.root = null;
+
+}
+;
+
+Trie.prototype.insert = function(word) {
+    if (this.root == null) {
+        //If it is the first time to insert an word to the Tire
+        this.root = new Node();
+        //root is an empty String, more like a logic node
+        this.root.elem = "";
+        this.root.level = 0;
+        this.root.parent = null;
+
+        //add the word as the child of the root node
+        var child = new TrieNode();
+        child.elem = word;
+        child.parent = this.root;
+        this.root.addChild(child);
+    } else {
+        //not the first node, need to walk all the way down to find a place to insert
+        this.walk(this.root, word);
+    }
+};
+
+Trie.prototype.walk = function(current, word) {
+    //look at current node's children
+    if (current.getChildrenSize() == 0) {
+        //no child yet, add itself as the first child
+        var child = new Node();
+        child.elem = word;
+        child.parent = current;
+        current.addChild(child);
+    } else {
+        //there are children for the current node
+        //check if the new String is a prefix of a set of children
+        var common = new Array();
+        for (var i = 0; i < current.getChildrenSize(); i++) {
+            var anode = current.children[i];
+            if (anode.elem.startsWith(word)) {
+                common.push(anode);
+            }
+        }
+        //if the new String is indeed a prefix of a set of children
+        if (common.length > 0) {
+            var shared = new Node();
+            shared.elem = word;
+            shared.parent = current;
+            for (var j = 0; j < common.length; j++) {
+                var node = common[j];
+                //assume no duplication in the dictionary, otherwise, need to consider the empty string case for a child
+                node.elem = node.elem.substring(word.length);
+                node.parent = shared;
+                shared.addChild(node);
+                current.removeChild(node);
+            }
+            current.addChild(shared);
+        } else {
+            //no common prefix available, then check if the child is a prefix of the input String
+            var found = false;
+            var next = null;
+            for (var k = 0; k < current.getChildrenSize(); k++) {
+                var pnode = current.children[k];
+                if (word.startsWith(pnode.elem)) {
+                    found = true;
+                    next = pnode;
+                    break;
+                }
+            }
+            if (found) {
+                //not a duplication, otherwise, do nothing
+                if (word.length != next.elem.length) {
+                    var leftover = word.substring(next.elem.length);
+                    this.walk(next, leftover);
+                }
+            } else {
+                //not found, need to create a new node a the child of the current node
+                var achild = new Node();
+                achild.parent = current;
+                achild.elem = word;
+                current.addChild(achild);
+            }
+        }
+    }
+};
+
+Trie.prototype.checkLevel = function() {
+    if (this.root != null) {
+        this.root.checkLevel();
+    }
+};
+
+Trie.prototype.printMe = function() {
+    if (this.root != null) {
+        fbLog("---------------------------- Trie/Prefix Tree ----------------------------\n", this);
+        this.root.printMe();
+        fbLog("--------------------------------------------------------------------------\n", this);
+    }
+};
