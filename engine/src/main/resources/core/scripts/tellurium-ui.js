@@ -387,7 +387,7 @@ var UiContainer = UiObject.extend({
     walkTo: function(context, uiid){
         fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
-            if (this.domRef != null&& this.amICacheable()) {
+            if (this.domRef != null && this.amICacheable()) {
                 context.domRef = this.domRef;
             } else {
                 if (context.domRef != null) {
@@ -523,7 +523,7 @@ var UiList = UiContainer.extend({
     walkTo: function(context, uiid) {
         fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
-            if (this.domRef != null) {
+            if (this.domRef != null && this.amICacheable()) {
                 context.domRef = this.domRef;
             } else {
                 if (context.domRef != null) {
@@ -702,6 +702,17 @@ var UiTable = UiContainer.extend({
         return obj;
     },
 
+    getHeaderSelector: function(column) {
+        var t = column - 1;
+        return " > tbody > tr:has(th) > th:eq(" + t + ")";
+    },
+    
+    getCellSelector: function(row, column) {
+        var r = row-1;
+        var c = column-1;
+        return " > tbody > tr:has(td):eq(" + r + ") > td:eq(" + c + ")";
+    },
+
     walkToHeader: function(context, uiid) {
         //pop up the "header" indicator
         uiid.pop();
@@ -720,11 +731,37 @@ var UiTable = UiContainer.extend({
             cobj = this.defaultUi;
         }
 
+        if (context.domRef != null) {
+            var sel = this.getHeaderSelector(index);
+
+            var $found = teJQuery(context.domRef).find(sel);
+            fbLog("Found child " + index + " with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
+            if ($found.size() == 1) {
+                context.domRef = $found.get(0);
+                fbLog("Found element " + this.uid, context.domRef);
+            } else {
+                if ($found.size() == 0)
+                    fbError("Cannot find the child UI element " + index, this);
+                if ($found.size() > 1) {
+                    fbError("Found multiple matches for UI element " + index, $found.get());
+                    context.domRef = null;
+                }
+            }
+        }
+
+        if (cobj.locator != null) {
+            if ("th".equals(cobj.locator.tag) && cobj.locator.header == null) {
+                context.skipNext = true;
+            }
+        }
+
         if (uiid.size() < 1) {
             //not more child needs to be found
+            fbLog("Return Table head ", cobj);
             return cobj;
         } else {
             //recursively call walkTo until the object is found
+            fbLog("Walk to Table head ", cobj);
             return cobj.walkTo(context, uiid);
         }
     },
@@ -744,18 +781,77 @@ var UiTable = UiContainer.extend({
             cobj = this.defaultUi;
         }
 
+        if (context.domRef != null) {
+            var sel = this.getCellSelector(nrow, ncolumn);
+
+            var $found = teJQuery(context.domRef).find(sel);
+            fbLog("Found child with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
+            if ($found.size() == 1) {
+                context.domRef = $found.get(0);
+                fbLog("Found element " + this.uid, context.domRef);
+            } else {
+                if ($found.size() == 0)
+                    fbError("Cannot find the child UI element ", this);
+                if ($found.size() > 1) {
+                    fbError("Found multiple matches for UI element ", $found.get());
+                    context.domRef = null;
+                }
+            }
+        }
+
+        if (cobj.locator != null) {
+            if ("td".equals(cobj.locator.tag) && cobj.locator.header == null) {
+                context.skipNext = true;
+            }
+        }
+
         if (uiid.size() < 1) {
             //not more child needs to be found
+            fbLog("Return Table child ", cobj);
             return cobj;
         } else {
             //recursively call walkTo until the object is found
+            fbLog("Walk to Table child ", cobj);
             return cobj.walkTo(context, uiid);
         }
     },
 
     walkTo: function(context, uiid){
-      if (uiid.size() < 1)
-        return this;
+        fbLog("Walk to " + this.uiType + " " + this.uid, this);
+        if (!context.skipNext) {
+            if (this.domRef != null && this.amICacheable()) {
+                context.domRef = this.domRef;
+            } else {
+                if (context.domRef != null) {
+                    var alg = context.alg;
+                    var sel = alg.buildSelector(this.locator);
+                    var $found = teJQuery(context.domRef).find(sel);
+                    if ($found.size() > 1) {
+                        //Use bestGuess() to eliminate multipe matches
+                        //                       $found = alg.lookAhead(this, $found);
+                        $found = alg.bestGuess(this, $found);
+                    }
+
+                    if ($found.size() == 1) {
+                        context.domRef = $found.get(0);
+                        fbLog("Found element " + this.uid, context.domRef);
+                    } else {
+                        if ($found.size() == 0)
+                            fbError("Cannot find UI element " + this.uid, this);
+                        if ($found.size() > 1) {
+                            fbError("Found multiple matches for UI element " + this.uid, $found.get());
+                            context.domRef = null;
+                        }
+                    }
+                }
+            }
+        } else {
+            context.skipNext = false;
+        }
+        fbLog("Processing the List itself and got the context dom Referece", context.domRef);
+
+        if (uiid.size() < 1)
+            return this;
 
         var child = uiid.peek();
 
@@ -918,6 +1014,21 @@ var UiStandardTable = UiContainer.extend({
         return obj;
     },
 
+    getCellSelector: function(tbody, row, column) {
+
+        return " > tbody:eq(" + tbody + ") > tr:eq(" + (row-1) + "> td:eq(" + (column-1) + ")";
+    },
+
+    getHeaderSelector: function(column) {
+
+        return " > thread > tr > td:eq(" + (column-1) +")";
+    },
+
+    getFootSelector: function(column) {
+
+        return " > tfoot > tr > td:eq(" + (column-1) + ")";
+    },
+
     walkToHeader: function(context, uiid) {
         //pop up the "header" indicator
         uiid.pop();
@@ -936,11 +1047,37 @@ var UiStandardTable = UiContainer.extend({
             cobj = this.defaultUi;
         }
 
+        if (context.domRef != null) {
+            var sel = this.getHeaderSelector(index);
+
+            var $found = teJQuery(context.domRef).find(sel);
+            fbLog("Found child " + index + " with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
+            if ($found.size() == 1) {
+                context.domRef = $found.get(0);
+                fbLog("Found element " + this.uid, context.domRef);
+            } else {
+                if ($found.size() == 0)
+                    fbError("Cannot find the child UI element " + index, this);
+                if ($found.size() > 1) {
+                    fbError("Found multiple matches for UI element " + index, $found.get());
+                    context.domRef = null;
+                }
+            }
+        }
+
+        if (cobj.locator != null) {
+            if ("td".equals(cobj.locator.tag) && cobj.locator.header == null) {
+                context.skipNext = true;
+            }
+        }
+
         if (uiid.size() < 1) {
             //not more child needs to be found
+            fbLog("Return StandardTable head ", cobj);
             return cobj;
         } else {
             //recursively call walkTo until the object is found
+            fbLog("Walk to StandardTable head ", cobj);
             return cobj.walkTo(context, uiid);
         }
     },
@@ -963,11 +1100,37 @@ var UiStandardTable = UiContainer.extend({
             cobj = this.defaultUi;
         }
 
+        if (context.domRef != null) {
+            var sel = this.getFootSelector(index);
+
+            var $found = teJQuery(context.domRef).find(sel);
+            fbLog("Found child " + index + " with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
+            if ($found.size() == 1) {
+                context.domRef = $found.get(0);
+                fbLog("Found element " + this.uid, context.domRef);
+            } else {
+                if ($found.size() == 0)
+                    fbError("Cannot find the child UI element " + index, this);
+                if ($found.size() > 1) {
+                    fbError("Found multiple matches for UI element " + index, $found.get());
+                    context.domRef = null;
+                }
+            }
+        }
+
+        if (cobj.locator != null) {
+            if ("td".equals(cobj.locator.tag) && cobj.locator.header == null) {
+                context.skipNext = true;
+            }
+        }
+
         if (uiid.size() < 1) {
             //not more child needs to be found
+            fbLog("Return StandardTable foot ", cobj);
             return cobj;
         } else {
             //recursively call walkTo until the object is found
+            fbLog("Walk to StandardTable foot ", cobj);
             return cobj.walkTo(context, uiid);
         }
     },
@@ -996,17 +1159,75 @@ var UiStandardTable = UiContainer.extend({
             cobj = this.defaultUi;
         }
 
+        if (context.domRef != null) {
+            var sel = this.getCellSelector(ntbody, nrow, ncolumn);
+
+            var $found = teJQuery(context.domRef).find(sel);
+            fbLog("Found child with CSS selector '" + sel +"' for StandardTable " + this.uid, $found.get());
+            if ($found.size() == 1) {
+                context.domRef = $found.get(0);
+                fbLog("Found element " + this.uid, context.domRef);
+            } else {
+                if ($found.size() == 0)
+                    fbError("Cannot find the child UI element ", this);
+                if ($found.size() > 1) {
+                    fbError("Found multiple matches for UI element ", $found.get());
+                    context.domRef = null;
+                }
+            }
+        }
+
+        if (cobj.locator != null) {
+            if ("td".equals(cobj.locator.tag) && cobj.locator.header == null) {
+                context.skipNext = true;
+            }
+        }
+
         if (uiid.size() < 1) {
             //not more child needs to be found
+            fbLog("Return StandardTable child ", cobj);
             return cobj;
         } else {
             //recursively call walkTo until the object is found
+            fbLog("Walk to StandardTable child ", cobj);
             return cobj.walkTo(context, uiid);
         }
     },
 
     walkTo: function(context, uiid){
-      if (uiid.size() < 1)
+        fbLog("Walk to " + this.uiType + " " + this.uid, this);
+        if (!context.skipNext) {
+            if (this.domRef != null && this.amICacheable()) {
+                context.domRef = this.domRef;
+            } else {
+                if (context.domRef != null) {
+                    var alg = context.alg;
+                    var sel = alg.buildSelector(this.locator);
+                    var $found = teJQuery(context.domRef).find(sel);
+                    if ($found.size() > 1) {
+                        //Use bestGuess() to eliminate multipe matches
+                        $found = alg.bestGuess(this, $found);
+                    }
+
+                    if ($found.size() == 1) {
+                        context.domRef = $found.get(0);
+                        fbLog("Found element " + this.uid, context.domRef);
+                    } else {
+                        if ($found.size() == 0)
+                            fbError("Cannot find UI element " + this.uid, this);
+                        if ($found.size() > 1) {
+                            fbError("Found multiple matches for UI element " + this.uid, $found.get());
+                            context.domRef = null;
+                        }
+                    }
+                }
+            }
+        } else {
+            context.skipNext = false;
+        }
+        fbLog("Processing the List itself and got the context dom Referece", context.domRef);
+
+        if (uiid.size() < 1)
         return this;
 
         var child = uiid.peek();
