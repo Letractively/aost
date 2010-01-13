@@ -111,6 +111,8 @@ var UiObject = Class.extend({
         //usually this flag is set because the content is dynamic at runtime
         this.lazy = false;
 
+        this.uiType = null;
+
         //Tellurium Core generated locator for this UI Object
         this.generated = null;
 
@@ -154,8 +156,9 @@ var UiObject = Class.extend({
     },
 
     walkTo: function(context, uiid) {
+        fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
-            if (this.domRef != null) {
+            if (this.domRef != null && this.amICacheable()) {
                 context.domRef = this.domRef;
             } else {
                 //if the parent or root dom reference is null, cannot go any further
@@ -166,6 +169,7 @@ var UiObject = Class.extend({
                     var $found = teJQuery(context.domRef).find(sel);
                     if ($found.size() == 1) {
                         context.domRef = $found.get(0);
+                        fbLog("Found element " + this.uid, context.domRef);
                     } else {
                         if ($found.size() == 0)
                             fbError("Cannot find UI element " + uiid, this);
@@ -188,10 +192,10 @@ var UiObject = Class.extend({
         //If an object is cacheable, the path from the root to itself should
         //be all cacheable
         if (this.parent != null) {
-            return this.cacheable && parent.amICacheable() && (!parent.noCacheForChildren);
+            return (!this.lazy) && this.parent.amICacheable() && (!this.parent.noCacheForChildren);
         }
 
-        return this.cacheable;
+        return (!this.lazy);
     },
 
     fullUid: function() {
@@ -381,8 +385,9 @@ var UiContainer = UiObject.extend({
     },
     
     walkTo: function(context, uiid){
+        fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
-            if (this.domRef != null) {
+            if (this.domRef != null&& this.amICacheable()) {
                 context.domRef = this.domRef;
             } else {
                 if (context.domRef != null) {
@@ -396,11 +401,12 @@ var UiContainer = UiObject.extend({
 
                     if ($found.size() == 1) {
                         context.domRef = $found.get(0);
+                        fbLog("Found element " + this.uid, context.domRef);
                     } else {
                         if ($found.size() == 0)
-                            fbError("Cannot find UI element " + uiid, this);
+                            fbError("Cannot find UI element " + this.uid, this);
                         if ($found.size() > 1) {
-                            fbError("Found multiple matches for UI element " + uiid, $found.get());
+                            fbError("Found multiple matches for UI element " + this.uid, $found.get());
                             context.domRef = null;
                         }
                     }
@@ -417,7 +423,7 @@ var UiContainer = UiObject.extend({
         var child = this.components.get(cid);
         if(child != null){
             fbLog("Walk to child " + cid, child);
-            child.walkTo(context, uiid);
+            return child.walkTo(context, uiid);
         }else{
             fbError("Cannot find child " + cid, child);
             context.domRef = null;
@@ -473,20 +479,21 @@ var UiList = UiContainer.extend({
         if (this.separator == null || this.separator.trim().length == 0)
             return this.deriveListSelector(index);
 
-        var t = index -1;
+        var t = index-1;
         return " > " + this.separator + ":eq(" + t + ")";
     },
 
     deriveListSelector: function(index) {
         var locs = new Hashtable();
         var last = null;
+        var pl = null;
         for (var i = 1; i <= index; i++) {
             var obj = this.findUiObject(i);
 //            var pl = tellurium.jqbuilder.buildCssSelector(obj.locator.tag, obj.locator.text, null, obj.locator.direct, obj.locator.attributes);
             //XXX: double check here, if the generated css selectors are the same for two different objects,
             //error may occur, but does it make sense to have to different objects with the same css selectors?
             //seems not make sense.
-            var pl = obj.uid;
+            pl = obj.uid;
             var occur = locs.get(pl);
             if (occur == null) {
                 locs.put(pl, 1);
@@ -499,7 +506,8 @@ var UiList = UiContainer.extend({
             }
         }
 
-        var lastOccur = locs.get(last)-1;
+//        var lastOccur = locs.get(last)-1;
+        var lastOccur = locs.get(pl)-1;
 
 /*        if(last.locator.direct){
           return " > ${lastTag}:eq(${lastOccur-1})";
@@ -513,6 +521,7 @@ var UiList = UiContainer.extend({
     },
 
     walkTo: function(context, uiid) {
+        fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
             if (this.domRef != null) {
                 context.domRef = this.domRef;
@@ -529,11 +538,12 @@ var UiList = UiContainer.extend({
 
                     if ($found.size() == 1) {
                         context.domRef = $found.get(0);
+                        fbLog("Found element " + this.uid, context.domRef);
                     } else {
                         if ($found.size() == 0)
-                            fbError("Cannot find UI element " + uiid, this);
+                            fbError("Cannot find UI element " + this.uid, this);
                         if ($found.size() > 1) {
-                            fbError("Found multiple matches for UI element " + uiid, $found.get());
+                            fbError("Found multiple matches for UI element " + this.uid, $found.get());
                             context.domRef = null;
                         }
                     }
@@ -565,9 +575,10 @@ var UiList = UiContainer.extend({
             var sel = this.getListSelector(nindex);
 
             var $found = teJQuery(context.domRef).find(sel);
-            fbLog("Found child " + nindex + " with CSS selector " + sel, $found.get());
+            fbLog("Found child " + nindex + " with CSS selector '" + sel +"' for List " + this.uid, $found.get());
             if ($found.size() == 1) {
                 context.domRef = $found.get(0);
+                fbLog("Found element " + this.uid, context.domRef);
             } else {
                 if ($found.size() == 0)
                     fbError("Cannot find the child UI element " + nindex, this);
@@ -586,9 +597,11 @@ var UiList = UiContainer.extend({
 
         if (uiid.size() < 1) {
             //not more child needs to be found
+            fbLog("Return List child ", cobj);
             return cobj;
         } else {
             //recursively call walkTo until the object is found
+            fbLog("Walk to List child ", cobj);
             return cobj.walkTo(context, uiid);
         }
     }

@@ -241,19 +241,19 @@ TelluriumCache.prototype.getCachedUiElement = function(uid){
         fbLog("Found cached UI module " + first, uim);
         if(uim != null){
             var domref = uim.index(uid);
-            fbLog("Get cached UI element " + uid + " from indices.", domref);
+            fbLog("Got cached UI element " + uid + " from indices.", domref);
             if(domref == null){
                 //if could not find directly from the UI module indices, then try to use walkTo to find the element first
                 //and then its domRef
                 var context = new WorkflowContext();
                 context.alg = this.uiAlg;
-                var obj = uim.walkTo(context, uiid)
+                var obj = uim.walkTo(context, uiid);
+                fbLog("After walkTo, found object ", obj);
+                fbLog("After walkTo, context ", context);
                 if(obj != null){
-                    //TODO: may get the dom reference from the WorkflowContext instead of the object's domRef
-//                    domref = obj.domRef;
                     domref = context.domRef;
                 }
-                fbLog("Get UI element " + uid + " by walking through the UI module " + first, domref);
+                fbLog("Got UI element " + uid + " by walking through the UI module " + first, domref);
             }
             
             return domref;
