@@ -694,6 +694,7 @@ var UiTable = UiContainer.extend({
 
     locate:  function(uialg){
         uialg.locateInAllSnapshots(this);
+        
         if (!this.noCacheForChildren) {
             //need to push all its children into the object queue
             fbLog("Children for Table " + this.uid + ": ", this.components.showMe());
@@ -1780,6 +1781,18 @@ UiAlg.prototype.lookAhead = function(uiobj, $found){
     return $found;
 };
 
+UiAlg.prototype.calcBonus = function(one, gsel){
+    var bonus = 0;
+    var $me = teJQuery(one);
+    for(var i=0; i<gsel.length; i++){
+        if($me.find(gsel[i]).size() > 0){
+            bonus++;
+        }
+    }
+
+    return bonus;
+};
+
 UiAlg.prototype.hasChildren = function(one, gsel){
     var result = true;
     var $me = teJQuery(one);
@@ -1956,7 +1969,7 @@ function MatchResult(){
     this.score = 0;
 
     //bonus points for best guess when handle UI templates because each template may not be presented at runtime
-    this.bonus = 0;
+//    this.bonus = 0;
 };
 
 UiAlg.prototype.relax = function(clocator, pref) {
@@ -2092,8 +2105,38 @@ UiAlg.prototype.lookAheadClosestMatchChildren = function(uiobj, $found, matchres
 };
 
 UiAlg.prototype.bestGuess = function(uiobj, $found){
-    //TODO: Implement bestGuess() for UI templates   
-    return $found;        
+    //Implement bestGuess() for UI templates
+    var children = uiobj.lookChildrenNoMatterWhat();
+
+    if(children != null && children.length > 0){
+        var gsel = new Array();
+        for(var c=0; c < children.length; c++){
+            gsel.push(this.buildSelector(children[c].locator));
+        }
+
+        //calculate bonus point for each element first
+        var bonusArray = new Array();
+        var maxbonus = 0;
+        for(var i=0; i<$found.size(); i++){
+            var bonus = this.calcBonus($found.get(i), gsel);
+            bonusArray.push(bonus);
+            if(bonus > maxbonus){
+                maxbonus = bonus;
+            }
+        }
+        fbLog("calculated bonus points for " + uiobj.uid + "'s children", bonusArray);
+        var result = new Array();
+
+        for(var j=0; j<$found.size(); j++){
+            if(bonusArray[j] == maxbonus){
+                result.push($found.get(j));
+            }
+        }
+
+        fbLog("Get Best Guess result for " + uiobj.uid, result);
+        return teJQuery(result);
+    }
+    return $found;
 };
 
 UiAlg.prototype.addChildUiObject = function(uiobj){
