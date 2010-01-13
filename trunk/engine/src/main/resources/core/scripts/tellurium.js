@@ -286,6 +286,9 @@ function Tellurium (){
 
     //identifier generator
     this.idGen = new Identifier();
+
+    //JQuery Builder
+    this.jqbuilder = new JQueryBuilder();
 };
 
 Tellurium.prototype.isUseCache = function(){
