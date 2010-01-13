@@ -201,10 +201,24 @@ function JQueryBuilder(){
     this.CONTAIN_PREFIX = "%%";
 
     this.xpathProcessor = new XPathProcessor();
+
+    //regular expressions to escape special characters in jQuery
+//    this.specials = ['#', ';', '&', ',', '.', '+', '*', '~', "'", ':', '"', '!', '^', '$', '[', ']', '(', ')', '=', '>', '|', '/'];
+    this.specials = ['#', '&', '~', '=', '>', "'", ':', '"', '!', ';', ','];
+    this.regexSpecials = [ '.', '*', '+', '|', '[', ']', '(', ')', '/', '^', '$'];
+    this.sRE = new RegExp('(' + this.specials.join('|') + '|\\' + this.regexSpecials.join('|\\') + ')', 'g');
 };
 
 JQueryBuilder.prototype.inBlackList = function(attr){
     return this.ATTR_BLACK_LIST.indexOf(attr) != -1;
+};
+
+JQueryBuilder.prototype.escape = function(val){
+    if(val != null && trimString(val).length > 0){
+        return val.replace(this.sRE, '\\$1');     
+    }
+
+    return val;
 };
 
 JQueryBuilder.prototype.checkTag = function(tag){
@@ -232,10 +246,11 @@ JQueryBuilder.prototype.attrPosition = function(index){
     return ":eq(" + index + ")";
 };
 
+
 JQueryBuilder.prototype.attrId = function(id){
     if(id == null)
        return "[id]";
-
+    
     if (id.startsWith(this.START_PREFIX)) {
       return "[id^=" + id.substring(1) + "]";
     } else if (id.startsWith(this.END_PREFIX)) {
@@ -352,7 +367,8 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
     sb.append(this.checkTag(tag));
     var attributes = new Hashtable();
     for(var key in attrs){
-        attributes.put(key, attrs[key]);
+//        attributes.put(key, attrs[key]);
+        attributes.put(key, this.escape(attrs[key]));
     }
     if (attributes != null && attributes.size() > 0) {
         var id = attributes.get(this.ID);
@@ -386,6 +402,7 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
 
     if (text != null && trimString(text).length > 0) {
         //if the value includes single quote such as "I'm feeling luck" at Google
+        text = this.escape(text);
         if (this.includeSingleQuote(text)) {
             var splited = text.split(this.SINGLE_QUOTE);
             var max = splited[0];

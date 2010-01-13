@@ -2160,6 +2160,7 @@ UiAlg.prototype.getParentUid = function(uid){
 // by Jian Fang (John.Jian.Fang@gmail.com)
 //
 UiAlg.prototype.santa = function(uimodule, rootdom){
+    fbLog("call santa algorithm for UI Module ", uimodule);
     this.clear();
     if(rootdom != null){
         this.dom = rootdom;
@@ -2177,6 +2178,8 @@ UiAlg.prototype.santa = function(uimodule, rootdom){
     ust.color = this.colors.GRAY;
     this.squeue.push(ust);
     fbLog("UiAlg states before group locating: ", this);
+    fbLog("Initial object queue ", this.oqueue);
+    fbLog("Initial snapshot queue ", this.squeue);
     while(this.oqueue.size() > 0){
         var uiobj = this.oqueue.pop();
         fbLog("Take snapshot for Object " + uiobj.uid + ": ", uiobj);
