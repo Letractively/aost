@@ -482,8 +482,8 @@ function fbWarn(msg, obj){
 
 function fbError(msg, obj){
     if (typeof(console) != "undefined") {
-        console.error(msg, obj);
         console.trace();
+        console.error(msg, obj);
     }
 };
 
