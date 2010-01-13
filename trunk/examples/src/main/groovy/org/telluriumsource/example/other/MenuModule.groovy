@@ -32,17 +32,18 @@ public class MenuModule extends DslContext {
       Div(uid: "color4", clocator: [tag: "div", position: "4"])
     }
   }
+/*
+.red{
+background-color: red;
+}
 
+ */
   public static String HTML= """
 <html>
 <head>
 <script src="http://localhost:4444/selenium-server/core/scripts/jquery-1.3.2.js"> </script>
 <style type="text/css">
 .content .division .category.selected {
-background-color: red;
-}
-
-.red{
 background-color: red;
 }
 
