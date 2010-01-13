@@ -45,6 +45,17 @@ TelluriumTestCase.prototype.testBookUiModule = function(){
     var subcategorylink2 = uim.walkTo(context, "GoogleBooksList.subcategory[2]");
 };
 
+TelluriumTestCase.prototype.testExpandUiModule = function(){
+    var json = [{"obj":{"uid":"expand","locator":{"tag":"a","attributes":{"id":"qrForm:innie"}},"uiType":"UrlLink"},"key":"expand"}];
+    var uim = new UiModule();
+    uim.parseUiModule(JSON.stringify(json));
+    var alg = new UiAlg();
+    var dom = teJQuery("html");
+    alg.santa(uim, dom);
+    var context = new WorkflowContext();
+    var list = uim.walkTo(context, "expand");
+};
+
 TelluriumTestCase.prototype.testUiCache = function(){
 
     var json = [{"obj":{"uid":"ProblematicForm","locator":{"tag":"table"},"uiType":"Container"},"key":"ProblematicForm"},{"obj":{"uid":"Username","locator":{"tag":"tr"},"uiType":"Container"},"key":"ProblematicForm.Username"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Username:","tag":"td"},"uiType":"TextBox"},"key":"ProblematicForm.Username.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j","type":"text"}},"uiType":"InputBox"},"key":"ProblematicForm.Username.Input"},{"obj":{"uid":"Password","locator":{"tag":"tr"},"uiType":"Container"},"key":"ProblematicForm.Password"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Password:","tag":"td"},"uiType":"TextBox"},"key":"ProblematicForm.Password.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j","type":"password"}},"uiType":"InputBox"},"key":"ProblematicForm.Password.Input"},{"obj":{"uid":"Submit","locator":{"tag":"input","attributes":{"name":"submit","value":"logon","type":"submit"}},"uiType":"SubmitButton"},"key":"ProblematicForm.Submit"}];
@@ -58,7 +69,8 @@ TelluriumTestCase.prototype.testUiCache = function(){
 TelluriumTestCase.prototype.testSuite = function(){
 //    this.testUiid();
 //    this.testLogonUiModule();
-    this.testBookUiModule();
+//    this.testBookUiModule();
+      this.testExpandUiModule();
 //    this.testUiCache();
 };
                                    
