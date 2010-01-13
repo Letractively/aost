@@ -335,6 +335,7 @@ var UiContainer = UiObject.extend({
 
     locate:  function(uialg){
         uialg.locateInAllSnapshots(this);
+        
         if (!this.noCacheForChildren) {
             //need to push all its children into the object queue
             fbLog("Children for Container " + this.uid + ": ", this.components.showMe());
@@ -556,7 +557,6 @@ var UiList = UiContainer.extend({
                     var $found = teJQuery(context.domRef).find(sel);
                     if ($found.size() > 1) {
                         //Use bestGuess() to eliminate multipe matches
- //                       $found = alg.lookAhead(this, $found);
                         $found = alg.bestGuess(this, $found);
                     }
 
@@ -596,18 +596,18 @@ var UiList = UiContainer.extend({
         }
 
         if (context.domRef != null) {
-            var sel = this.getListSelector(nindex);
+            var selt = this.getListSelector(nindex);
 
-            var $found = teJQuery(context.domRef).find(sel);
-            fbLog("Found child " + nindex + " with CSS selector '" + sel +"' for List " + this.uid, $found.get());
-            if ($found.size() == 1) {
-                context.domRef = $found.get(0);
+            var $fnd = teJQuery(context.domRef).find(selt);
+            fbLog("Found child " + nindex + " with CSS selector '" + selt +"' for List " + this.uid, $fnd.get());
+            if ($fnd.size() == 1) {
+                context.domRef = $fnd.get(0);
                 fbLog("Found element " + this.uid, context.domRef);
             } else {
-                if ($found.size() == 0)
+                if ($fnd.size() == 0)
                     fbError("Cannot find the child UI element " + nindex, this);
-                if ($found.size() > 1) {
-                    fbError("Found multiple matches for UI element " + nindex, $found.get());
+                if ($fnd.size() > 1) {
+                    fbError("Found multiple matches for UI element " + nindex, $fnd.get());
                     context.domRef = null;
                 }
             }
@@ -1742,6 +1742,7 @@ UiAlg.prototype.nextColor = function(){
 
 UiAlg.prototype.locateInAllSnapshots = function(uiobj){
     var finished = false;
+    fbLog("Initial snapshot queue in LocateInAllSnapshots", this.squeue);
     while(!finished && this.squeue.size() > 0){
         var first = this.squeue.peek();
         //check the first element color
@@ -1805,9 +1806,7 @@ UiAlg.prototype.hasChildren = function(one, gsel){
 
 UiAlg.prototype.buildSelector = function(clocator){
     //TODO: need to add header and trailer to the selector if necessary
-    var csel = this.cssbuilder.buildCssSelector(clocator.tag, clocator.text, clocator.position, clocator.direct, clocator.attributes);
-
-    return csel;
+    return this.cssbuilder.buildCssSelector(clocator.tag, clocator.text, clocator.position, clocator.direct, clocator.attributes);
 };
 
 //TODO: may need to pass in more attributes other than clocator, for instance, the separator in the List object
