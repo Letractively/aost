@@ -25,6 +25,7 @@ public class MenuTestCase extends TelluriumJUnitTestCase {
         server.start();
         connectSeleniumServer();
         useCssSelector(true);
+        useCache(true);
     }
 
     @Before
