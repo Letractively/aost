@@ -138,6 +138,11 @@ var UiObject = Class.extend({
         return null;
     },
 
+    //add all children in no matter if they are cacheable or not, useful for templates
+    lookChildrenNoMatterWhat: function() {
+        return null;
+    },
+
     bind: function(snapshot, uialg) {
         var fuid = this.fullUid();
         if (!this.lazy) {
@@ -330,34 +335,53 @@ var UiContainer = UiObject.extend({
 
     locate:  function(uialg){
         uialg.locateInAllSnapshots(this);
-        //need to push all its children into the object queue
-        fbLog("Children for Container " + this.uid + ": " , this.components.showMe());
+        if (!this.noCacheForChildren) {
+            //need to push all its children into the object queue
+            fbLog("Children for Container " + this.uid + ": ", this.components.showMe());
+            var valset = this.components.valSet();
+            fbLog("Val set: ", valset);
+            for (var i = 0; i < valset.length; i++) {
+                var component = valset[i];
+                fbLog("component: ", component);
+                if (!component.lazy) {
+                    fbLog("Add child of Container " + this.uid + " to UiAlg : ", component);
+                    uialg.addChildUiObject(component);
+                }
+            }
+        }
+    },
+
+    lookChildren: function() {
+        var validChildren = new Array();
+
+        if (!this.noCacheForChildren) {
+            var valset = this.components.valSet();
+            fbLog("Val set: ", valset);
+            for (var i = 0; i < valset.length; i++) {
+                var component = valset[i];
+                fbLog("component: ", component);
+                if (!component.lazy) {
+                    fbLog("Look ahead at cachable child of Container " + this.uid + ": ", component);
+                    validChildren.push(component);
+                }
+            }
+        }
+
+        return validChildren;
+    },
+
+    lookChildrenNoMatterWhat: function() {
+        var children = new Array();
+
         var valset = this.components.valSet();
         fbLog("Val set: ", valset);
         for (var i = 0; i < valset.length; i++) {
             var component = valset[i];
             fbLog("component: ", component);
-            if ((!this.noCacheForChildren) && (!component.lazy)) {
-                fbLog("Add child of Container " + this.uid + " to UiAlg : ", component);
-                uialg.addChildUiObject(component);
-            }
-        }
-    },
-
-    lookChildren: function(){
-        var valset = this.components.valSet();
-        fbLog("Val set: ", valset);
-        var validChildren = new Array();
-        for(var i=0; i<valset.length; i++){
-             var component = valset[i];
-             fbLog("component: ", component);
-             if((!this.noCacheForChildren) && (!component.lazy)){
-                fbLog("Look ahead at cachable child of Container " + this.uid + ": ", component);
-                validChildren.push(component);
-            }
+            children.push(component);
         }
 
-        return validChildren;
+        return children;
     },
 
     bind: function(snapshot, uialg) {
@@ -446,7 +470,7 @@ var UiFrame = UiContainer.extend({
         this.uiType = 'Frame';
         this.id = null;
         this.name = null;
-        this.title = null
+        this.title = null;
     }
 });
 
@@ -666,6 +690,86 @@ var UiTable = UiContainer.extend({
                 child.prelocate();
             }
         }
+    },
+
+    locate:  function(uialg){
+        uialg.locateInAllSnapshots(this);
+        if (!this.noCacheForChildren) {
+            //need to push all its children into the object queue
+            fbLog("Children for Table " + this.uid + ": ", this.components.showMe());
+            var valset = this.components.valSet();
+            fbLog("Children val set: ", valset);
+            for (var i = 0; i < valset.length; i++) {
+                var component = valset[i];
+                fbLog("component: ", component);
+                if ((!component.lazy)) {
+                    fbLog("Add child of Table " + this.uid + " to UiAlg : ", component);
+                    uialg.addChildUiObject(component);
+                }
+            }
+
+            fbLog("Headers for Container " + this.uid + ": ", this.headers.showMe());
+            valset = this.headers.valSet();
+            fbLog("Headers val set: ", valset);
+            for (var j = 0; j < valset.length; j++) {
+                var header = valset[j];
+                fbLog("header: ", header);
+                if (!header.lazy) {
+                    fbLog("Add header of Table " + this.uid + " to UiAlg : ", header);
+                    uialg.addChildUiObject(header);
+                }
+            }
+        }
+    },
+
+    lookChildren: function(){
+        var validChildren = new Array();
+
+        if (!this.noCacheForChildren) {
+            var valset = this.components.valSet();
+            fbLog("Val set: ", valset);
+            for (var i = 0; i < valset.length; i++) {
+                var component = valset[i];
+                fbLog("component: ", component);
+                if (!component.lazy) {
+                    fbLog("Look ahead at cachable child of Table " + this.uid + ": ", component);
+                    validChildren.push(component);
+                }
+            }
+
+            valset = this.headers.valSet();
+            for (var j = 0; j < valset.length; j++) {
+                var header = valset[j];
+                fbLog("header: ", header);
+                if (!header.lazy) {
+                    fbLog("Look ahead at cachable header of Table " + this.uid + ": ", header);
+                    validChildren.push(header);
+                }
+            }
+        }
+        
+        return validChildren;
+    },
+
+    lookChildrenNoMatterWhat: function() {
+        var children = new Array();
+
+        var valset = this.components.valSet();
+        fbLog("Val set: ", valset);
+        for (var i = 0; i < valset.length; i++) {
+            var component = valset[i];
+            fbLog("component: ", component);
+            children.push(component);
+        }
+        
+        valset = this.headers.valSet();
+        for (var j = 0; j < valset.length; j++) {
+            var header = valset[j];
+            fbLog("header: ", header);
+            children.push(header);
+        }
+
+        return children;
     },
 
     findHeaderUiObject: function(index){
@@ -939,6 +1043,115 @@ var UiStandardTable = UiContainer.extend({
                 child.prelocate();
             }
         }
+    },
+
+    locate:  function(uialg){
+        uialg.locateInAllSnapshots(this);
+        if (!this.noCacheForChildren) {
+            //need to push all its children into the object queue
+            fbLog("Children for StandardTable " + this.uid + ": ", this.components.showMe());
+            var valset = this.components.valSet();
+            fbLog("Children val set: ", valset);
+            for (var i = 0; i < valset.length; i++) {
+                var component = valset[i];
+                fbLog("component: ", component);
+                if ((!component.lazy)) {
+                    fbLog("Add child of StandardTable " + this.uid + " to UiAlg : ", component);
+                    uialg.addChildUiObject(component);
+                }
+            }
+
+            fbLog("Headers for StandardTable " + this.uid + ": ", this.headers.showMe());
+            valset = this.headers.valSet();
+            fbLog("Headers val set: ", valset);
+            for (var j = 0; j < valset.length; j++) {
+                var header = valset[j];
+                fbLog("header: ", header);
+                if (!header.lazy) {
+                    fbLog("Add header of StandardTable " + this.uid + " to UiAlg : ", header);
+                    uialg.addChildUiObject(header);
+                }
+            }
+
+            fbLog("Footers for StandardTable " + this.uid + ": ", this.footers.showMe());
+            valset = this.footers.valSet();
+            fbLog("Footers val set: ", valset);
+            for (var k = 0; k < valset.length; k++) {
+                var footer = valset[k];
+                fbLog("footer: ", footer);
+                if (!footer.lazy) {
+                    fbLog("Add footer of StandardTable " + this.uid + " to UiAlg : ", footer);
+                    uialg.addChildUiObject(footer);
+                }
+            }
+        }
+    },
+
+    lookChildren: function(){
+        var validChildren = new Array();
+
+        if (!this.noCacheForChildren) {
+            var valset = this.components.valSet();
+            fbLog("Val set: ", valset);
+            for (var i = 0; i < valset.length; i++) {
+                var component = valset[i];
+                fbLog("component: ", component);
+                if (!component.lazy) {
+                    fbLog("Look ahead at cachable child of StandardTable " + this.uid + ": ", component);
+                    validChildren.push(component);
+                }
+            }
+
+            valset = this.headers.valSet();
+            for (var j = 0; j < valset.length; j++) {
+                var header = valset[j];
+                fbLog("header: ", header);
+                if (!header.lazy) {
+                    fbLog("Look ahead at cachable header of StandardTable " + this.uid + ": ", header);
+                    validChildren.push(header);
+                }
+            }
+
+            valset = this.footers.valSet();
+            for (var k = 0; k < valset.length; k++) {
+                var footer = valset[k];
+                fbLog("footer: ", footer);
+                if (!footer.lazy) {
+                    fbLog("Look ahead at cachable footer of StandardTable " + this.uid + ": ", footer);
+                    validChildren.push(footer);
+                }
+            }
+        }
+
+        return validChildren;
+    },
+
+    lookChildrenNoMatterWhat: function() {
+        var children = new Array();
+
+        var valset = this.components.valSet();
+        fbLog("Val set: ", valset);
+        for (var i = 0; i < valset.length; i++) {
+            var component = valset[i];
+            fbLog("component: ", component);
+            children.push(component);
+        }
+
+        valset = this.headers.valSet();
+        for (var j = 0; j < valset.length; j++) {
+            var header = valset[j];
+            fbLog("header: ", header);
+            children.push(header);
+        }
+
+        valset = this.footers.valSet();
+        for (var k = 0; k < valset.length; k++) {
+            var footer = valset[k];
+            fbLog("footer: ", footer);
+            children.push(footer);
+        }
+
+        return children;
     },
 
     findHeaderUiObject: function(index){
