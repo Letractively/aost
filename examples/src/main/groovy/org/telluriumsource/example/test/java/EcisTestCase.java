@@ -34,6 +34,7 @@ public class EcisTestCase extends TelluriumJavaTestCase {
     @Test
     public void testGetSeparatorAttribute(){
         connectUrl("http://localhost:8080/nextgen/login.seam");
+        useCache(true);
         assertTrue(em.checkExpend());
         em.diagnose("EcisPlusUiCAV.Save");     
         em.save();
