@@ -72,6 +72,7 @@ function WorkflowContext(){
     this.refLocator = null;
     this.domRef = null;
     this.alg = null;
+    this.skipNext = false;
 };
 
 //Base locator
@@ -153,26 +154,30 @@ var UiObject = Class.extend({
     },
 
     walkTo: function(context, uiid) {
-        if(this.domRef != null){
-            context.domRef = this.domRef;
-        }else{
-            //if the parent or root dom reference is null, cannot go any further
-            if (context.domRef != null) {
+        if (!context.skipNext) {
+            if (this.domRef != null) {
+                context.domRef = this.domRef;
+            } else {
+                //if the parent or root dom reference is null, cannot go any further
+                if (context.domRef != null) {
 
-                var alg = context.alg;
-                var sel = alg.buildSelector(this.locator);
-                var $found = teJQuery(context.domRef).find(sel);
-                if ($found.size() == 1) {
-                    context.domRef = $found.get(0);
-                } else {
-                    if ($found.size() == 0)
-                        fbError("Cannot find UI element " + uiid, this);
-                    if ($found.size() > 1) {
-                        fbError("Found multiple matches for UI element " + uiid, $found.get());
-                        context.domRef = null;
+                    var alg = context.alg;
+                    var sel = alg.buildSelector(this.locator);
+                    var $found = teJQuery(context.domRef).find(sel);
+                    if ($found.size() == 1) {
+                        context.domRef = $found.get(0);
+                    } else {
+                        if ($found.size() == 0)
+                            fbError("Cannot find UI element " + uiid, this);
+                        if ($found.size() > 1) {
+                            fbError("Found multiple matches for UI element " + uiid, $found.get());
+                            context.domRef = null;
+                        }
                     }
                 }
             }
+        } else {
+            context.skipNext = false;
         }
 
         return this;
@@ -376,29 +381,33 @@ var UiContainer = UiObject.extend({
     },
     
     walkTo: function(context, uiid){
-        if (this.domRef != null) {
-            context.domRef = this.domRef;
-        } else {
-            if (context.domRef != null) {
-                var alg = context.alg;
-                var sel = alg.buildSelector(this.locator);
-                var $found = teJQuery(context.domRef).find(sel);
-                if ($found.size() > 1) {
-                    //Use lookAHead to eliminate multipe matches
-                    $found = alg.lookAhead(this, $found);
-                }
-
-                if ($found.size() == 1) {
-                    context.domRef = $found.get(0);
-                } else {
-                    if ($found.size() == 0)
-                        fbError("Cannot find UI element " + uiid, this);
+        if (!context.skipNext) {
+            if (this.domRef != null) {
+                context.domRef = this.domRef;
+            } else {
+                if (context.domRef != null) {
+                    var alg = context.alg;
+                    var sel = alg.buildSelector(this.locator);
+                    var $found = teJQuery(context.domRef).find(sel);
                     if ($found.size() > 1) {
-                        fbError("Found multiple matches for UI element " + uiid, $found.get());
-                        context.domRef = null;
+                        //Use lookAHead to eliminate multipe matches
+                        $found = alg.lookAhead(this, $found);
+                    }
+
+                    if ($found.size() == 1) {
+                        context.domRef = $found.get(0);
+                    } else {
+                        if ($found.size() == 0)
+                            fbError("Cannot find UI element " + uiid, this);
+                        if ($found.size() > 1) {
+                            fbError("Found multiple matches for UI element " + uiid, $found.get());
+                            context.domRef = null;
+                        }
                     }
                 }
             }
+        } else {
+            context.skipNext = false;
         }
 
         if(uiid.size() < 1)
@@ -406,8 +415,14 @@ var UiContainer = UiObject.extend({
 
         var cid = uiid.pop();
         var child = this.components.get(cid);
-        if(child != null)
+        if(child != null){
+            fbLog("Walk to child " + cid, child);
             child.walkTo(context, uiid);
+        }else{
+            fbError("Cannot find child " + cid, child);
+            context.domRef = null;
+            return null;
+        }
     }
 });
 
@@ -454,8 +469,80 @@ var UiList = UiContainer.extend({
         return obj;
     },
 
-    walkTo: function(context, uiid) {
+    getListSelector: function(index) {
+        if (this.separator == null || this.separator.trim().length == 0)
+            return this.deriveListSelector(index);
 
+        var t = index -1;
+        return " > " + this.separator + ":eq(" + t + ")";
+    },
+
+    deriveListSelector: function(index) {
+        var locs = new Hashtable();
+        var last = null;
+        for (var i = 1; i <= index; i++) {
+            var obj = this.findUiObject(i);
+//            var pl = tellurium.jqbuilder.buildCssSelector(obj.locator.tag, obj.locator.text, null, obj.locator.direct, obj.locator.attributes);
+            //XXX: double check here, if the generated css selectors are the same for two different objects,
+            //error may occur, but does it make sense to have to different objects with the same css selectors?
+            //seems not make sense.
+            var pl = obj.uid;
+            var occur = locs.get(pl);
+            if (occur == null) {
+                locs.put(pl, 1);
+            } else {
+                locs.put(pl, occur + 1);
+            }
+            if (i == index) {
+//                last = pl;
+                last = tellurium.jqbuilder.buildCssSelector(obj.locator.tag, obj.locator.text, null, obj.locator.direct, obj.locator.attributes);
+            }
+        }
+
+        var lastOccur = locs.get(last)-1;
+
+/*        if(last.locator.direct){
+          return " > ${lastTag}:eq(${lastOccur-1})";
+        }else{
+          return " ${lastTag}:eq(${lastOccur-1})";
+        }
+*/
+
+        //force to be direct child (if consider List trailer) 
+        return " > " + last + ":eq(" + lastOccur + ")";
+    },
+
+    walkTo: function(context, uiid) {
+        if (!context.skipNext) {
+            if (this.domRef != null) {
+                context.domRef = this.domRef;
+            } else {
+                if (context.domRef != null) {
+                    var alg = context.alg;
+                    var sel = alg.buildSelector(this.locator);
+                    var $found = teJQuery(context.domRef).find(sel);
+                    if ($found.size() > 1) {
+                        //Use bestGuess() to eliminate multipe matches
+ //                       $found = alg.lookAhead(this, $found);
+                        $found = alg.bestGuess(this, $found);
+                    }
+
+                    if ($found.size() == 1) {
+                        context.domRef = $found.get(0);
+                    } else {
+                        if ($found.size() == 0)
+                            fbError("Cannot find UI element " + uiid, this);
+                        if ($found.size() > 1) {
+                            fbError("Found multiple matches for UI element " + uiid, $found.get());
+                            context.domRef = null;
+                        }
+                    }
+                }
+            }
+        } else {
+            context.skipNext = false;
+        }
+        fbLog("Processing the List itself and got the context dom Referece", context.domRef);
         //if not child listed, return itself
         if (uiid.size() < 1)
             return this;
@@ -472,6 +559,29 @@ var UiList = UiContainer.extend({
         //If cannot find the object as the object template, return the TextBox as the default object
         if (cobj == null) {
             cobj = this.defaultUi;
+        }
+
+        if (context.domRef != null) {
+            var sel = this.getListSelector(nindex);
+
+            var $found = teJQuery(context.domRef).find(sel);
+            fbLog("Found child " + nindex + " with CSS selector " + sel, $found.get());
+            if ($found.size() == 1) {
+                context.domRef = $found.get(0);
+            } else {
+                if ($found.size() == 0)
+                    fbError("Cannot find the child UI element " + nindex, this);
+                if ($found.size() > 1) {
+                    fbError("Found multiple matches for UI element " + nindex, $found.get());
+                    context.domRef = null;
+                }
+            }
+        }
+
+        //If the List does not have a separator
+        //tell WorkflowContext not to process the next object's locator because List has already added that
+        if(this.separator == null || this.separator.trim().length == 0){
+            context.skipNext = true;
         }
 
         if (uiid.size() < 1) {
@@ -1392,9 +1502,14 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
 };
 
 function MatchResult(){
+    //the closest match element
     this.closest = null;
+
     //scaled match score, 0 - 100, or 100 percentage
     this.score = 0;
+
+    //bonus points for best guess when handle UI templates because each template may not be presented at runtime
+    this.bonus = 0;
 };
 
 UiAlg.prototype.relax = function(clocator, pref) {
@@ -1527,6 +1642,11 @@ UiAlg.prototype.lookAheadClosestMatchChildren = function(uiobj, $found, matchres
     }
 
     return $found;
+};
+
+UiAlg.prototype.bestGuess = function(uiobj, $found){
+    //TODO: Implement bestGuess() for UI templates   
+    return $found;        
 };
 
 UiAlg.prototype.addChildUiObject = function(uiobj){
