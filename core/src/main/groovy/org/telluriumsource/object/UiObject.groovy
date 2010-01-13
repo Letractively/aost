@@ -92,9 +92,15 @@ abstract class UiObject implements Cloneable{
       }
       if(namespace != null && namespace.trim().length() > 0)
         jso.put(NAMESPACE, namespace)
-      if(respondToEvents != null && respondToEvents.length > 0)
-        jso.put(EVENTS, respondToEvents)
-
+      if(respondToEvents != null && respondToEvents.length > 0){
+        JSONArray jae = new JSONArray();
+        for(String event: respondToEvents){
+          jae.add(event);
+        }
+//        jso.put(EVENTS, respondToEvents)
+        jso.put(EVENTS, jae);
+      }
+      
       if(c != null)
         c(jso)
 
