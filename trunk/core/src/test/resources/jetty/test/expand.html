@@ -22,30 +22,38 @@
     </script>
 </head>
 <body>
-<table>
+<div>
     <input id="loginForm:name" type="text"/>
     <input id="loginForm:password" type="password"/>
     <a id="loginForm:loginButton"/>
-</table>
+</div>
 <form action="/nextgen/advancedSearch.seam" method="post">
     <input id="qrf:quickSearchTerm" type="text"/>
     <input id="qrf:quickSearchButton" type="submit"/>
 </form>
-<td>
-    <input id="cif:emailAddressDecorator:email" type="text" name="cif:emailAddressDecorator:email"/>
-</td>
-<a id="qrForm:innie"/>
-<a id="qrForm:outie"/>
-<td>
-    <a id="mailto"/>
-</td>
+<table>
+    <tbody>
+    <tr>
+        <td>
+            <input id="cif:emailAddressDecorator:email" type="text" name="cif:emailAddressDecorator:email"/>
+        </td>
+        <a id="qrForm:innie"/>
+        <a id="qrForm:outie"/>
+        <td>
+            <a id="mailto"/>
+        </td>
+
+    </tr>
+    </tbody>
+
+</table>
 
 <a id="mailToo"/>
 
-<table>
+<div>
     <input type="button" value="Save" name="cif:customerInfoSaveButton" id="cif:customerInfoSaveButton"
            class="btn saveButton"/>
-</table>
+</div>
 
 </body>
 </html>
