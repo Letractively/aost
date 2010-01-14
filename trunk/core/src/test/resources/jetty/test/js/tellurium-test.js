@@ -34,6 +34,31 @@ TelluriumTestCase.prototype.testLogonUiModule = function(){
     var smt = uim.walkTo(context, uiid.toUiid("Form.Submit"));
 };
 
+TelluriumTestCase.prototype.testLogoUiModule = function(){
+    var json = [{"obj":{"uid":"Logo","locator":{"tag":"img","attributes":{"alt":"Logo","src":"*.gif"}},"uiType":"Image"},"key":"Logo"}];
+    var uim = new UiModule();
+    uim.parseUiModule(JSON.stringify(json));
+    var alg = new UiAlg();
+    var dom = teJQuery("html");
+    alg.santa(uim, dom);
+    var context = new WorkflowContext();
+    var uiid = new Uiid();
+    var logo = uim.walkTo(context, uiid.toUiid("Logo"));
+};
+
+TelluriumTestCase.prototype.testThumbnailUiModule = function(){
+    var json = [{"obj":{"uid":"Thumbnail","locator":{"tag":"div","attributes":{"class":"thumbnail potd"}},"uiType":"Container"},"key":"Thumbnail"},{"obj":{"uid":"ICon","locator":{"tag":"div","attributes":{"class":"potd:icon png.fix"}},"uiType":"Container"},"key":"Thumbnail.ICon"},{"obj":{"uid":"Image","locator":{"tag":"img","attributes":{"src":"*.jpg"}},"uiType":"Image"},"key":"Thumbnail.ICon.Image"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"id":"Image:name","type":"text"}},"uiType":"InputBox"},"key":"Thumbnail.ICon.Input"}];
+    var uim = new UiModule();
+    uim.parseUiModule(JSON.stringify(json));
+    var alg = new UiAlg();
+    var dom = teJQuery("html");
+    alg.santa(uim, dom);
+    var context = new WorkflowContext();
+    var uiid = new Uiid();
+    var image = uim.walkTo(context, uiid.toUiid("Thumbnail.ICon.Image"));
+    var input = uim.walkTo(context, uiid.toUiid("Thumbnail.ICon.Input"));
+};
+
 TelluriumTestCase.prototype.testBookUiModule = function(){
 //    var json = [{"obj":{"uid":"GoogleBooksList","locator":{"tag":"table","attributes":{"id":"hp_table"}},"uiType":"Container"},"key":"GoogleBooksList"},{"obj":{"uid":"category","locator":{"tag":"div","attributes":{"class":"sub_cat_title"}},"uiType":"TextBox"},"key":"GoogleBooksList.category"},{"obj":{"uid":"subcategory","locator":{"tag":"div","attributes":{"class":"sub_cat_section"}},"uiType":"List","separator":"p"},"key":"GoogleBooksList.subcategory"},{"obj":{"uid":"all","locator":{"tag":"a"},"uiType":"UrlLink"},"key":"GoogleBooksList.subcategory._ALL"}];
     var json = [{"obj":{"uid":"GoogleBooksList","locator":{"tag":"table","attributes":{"id":"hp_table"}},"uiType":"Container"},"key":"GoogleBooksList"},{"obj":{"uid":"subcategory","locator":{"tag":"td","attributes":{"class":"sidebar"}},"uiType":"List","separator":"div"},"key":"GoogleBooksList.subcategory"},{"obj":{"uid":"all","locator":{"loc":null},"uiType":"Container"},"key":"GoogleBooksList.subcategory._ALL"},{"obj":{"uid":"title","locator":{"tag":"div","attributes":{"class":"sub_cat_title"}},"uiType":"TextBox"},"key":"GoogleBooksList.subcategory._ALL.title"},{"obj":{"uid":"links","locator":{"loc":null},"uiType":"List","separator":"p"},"key":"GoogleBooksList.subcategory._ALL.links"},{"obj":{"uid":"all","locator":{"tag":"a"},"uiType":"UrlLink"},"key":"GoogleBooksList.subcategory._ALL.links._ALL"}];
@@ -90,7 +115,9 @@ TelluriumTestCase.prototype.testUiCache = function(){
 
 TelluriumTestCase.prototype.testSuite = function(){
 //    this.testUiid();
-    this.testLogonUiModule();
+//    this.testLogonUiModule();
+//    this.testLogoUiModule();
+    this.testThumbnailUiModule();
 //    this.testBookUiModule();
 //      this.testExpandUiModule();
 //    this.testErisUiModule();
