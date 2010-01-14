@@ -1,15 +1,15 @@
 package org.telluriumsource.test.java;
 
-import org.junit.BeforeClass;
-import org.junit.AfterClass;
 import org.telluriumsource.test.mock.MockHttpServer;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterClass;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  *         Date: Jan 14, 2010
  */
-public class TelluriumMockJUnitTestCase extends TelluriumJUnitTestCase {
+public class TelluriumMockTestNGTestCase extends TelluriumTestNGTestCase {
     protected static MockHttpServer server;
 
     @BeforeClass
