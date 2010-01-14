@@ -64,4 +64,7 @@ public class MockHttpServer {
       server.stop(1);
   }
 
+  public String getHtmlFile(String file){
+    return new File(ClassLoader.getSystemResource("org/telluriumsource/html/${file}.html").getFile()).text;
+  }
 }
