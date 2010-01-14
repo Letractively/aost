@@ -18,11 +18,11 @@ public class EcisTestCase extends TelluriumJavaTestCase {
 
     @BeforeClass
     public static void setUp(){
-        server = new MockHttpServer(8080);
+        server = new MockHttpServer(8088);
         em = new EcisModule();
         em.defineUi();
         connectSeleniumServer();
-        server.registerHtmlBody("/nextgen/login.seam", em.generateHtml());
+        server.registerHtmlBody("/nextgen/login.seam", em.HTML_BODY);
         server.start();
     }
 
@@ -33,9 +33,10 @@ public class EcisTestCase extends TelluriumJavaTestCase {
     
     @Test
     public void testGetSeparatorAttribute(){
-        connectUrl("http://localhost:8080/nextgen/login.seam");
+        connectUrl("http://localhost:8088/nextgen/login.seam");
         useCache(true);
         assertTrue(em.checkExpend());
+        em.validateUiModule("EcisPlusUiCAV");
         em.diagnose("EcisPlusUiCAV.Save");     
         em.save();
         assertTrue(em.checkExpend());

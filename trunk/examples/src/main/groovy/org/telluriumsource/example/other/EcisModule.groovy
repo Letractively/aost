@@ -13,7 +13,7 @@ import org.telluriumsource.dsl.DslContext
 public class EcisModule extends DslContext{
 
   public void defineUi() {
-    ui.Container(uid: "EcisPlusUiLoginModule", clocator: [tag: "table"], group: "true"){
+    ui.Container(uid: "EcisPlusUiLoginModule", clocator: [tag: "div"], group: "true"){
       InputBox(uid: "Username", clocator: [id: "loginForm:name", type: "text"])
       InputBox(uid: "Password", clocator: [id: "loginForm:password", type: "password"])
       UrlLink(uid: "Login", clocator: [id: "loginForm:loginButton"])
@@ -46,7 +46,7 @@ public class EcisModule extends DslContext{
       UrlLink(uid: "MailToo", clocator: [id: "mailToo"])
     }
 
-    ui.Container(uid: "EcisPlusUiCAV", clocator: [tag: "table"])
+    ui.Container(uid: "EcisPlusUiCAV", clocator: [tag: "div"])
     {
       InputBox(uid: "Save", clocator: [tag: "input", type: "button", value: "Save", name: "cif:customerInfoSaveButton", id: "cif:customerInfoSaveButton", class: "btn saveButton"], respond: ["click"])
     }
@@ -63,4 +63,40 @@ public class EcisModule extends DslContext{
     println "isItThere: ${isItThere}"
     return isItThere
   }
+
+  public String HTML_BODY = """
+<div>
+    <input id="loginForm:name" type="text"/>
+    <input id="loginForm:password" type="password"/>
+    <a id="loginForm:loginButton"/>
+</div>
+<form action="/nextgen/advancedSearch.seam" method="post">
+    <input id="qrf:quickSearchTerm" type="text"/>
+    <input id="qrf:quickSearchButton" type="submit"/>
+</form>
+<table>
+    <tbody>
+    <tr>
+        <td>
+            <input id="cif:emailAddressDecorator:email" type="text" name="cif:emailAddressDecorator:email"/>
+        </td>
+        <a id="qrForm:innie"/>
+        <a id="qrForm:outie"/>
+        <td>
+            <a id="mailto"/>
+        </td>
+
+    </tr>
+    </tbody>
+
+</table>
+
+<a id="mailToo"/>
+
+<div>
+    <input type="button" value="Save" name="cif:customerInfoSaveButton" id="cif:customerInfoSaveButton"
+           class="btn saveButton"/>
+</div>
+
+"""
 }
