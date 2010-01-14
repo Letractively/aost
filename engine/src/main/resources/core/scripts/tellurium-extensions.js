@@ -193,9 +193,6 @@ Selenium.prototype.doTriggerEvent = function(locator, event){
 	$elem.trigger(event);
 };
 
-Selenium.prototype.doDeleteAllCookies = function() {
-    jaaulde.utils.cookies.del(true);
-};
 
 function DiagnosisRequest(){
     this.uid = null;
@@ -402,4 +399,24 @@ Selenium.prototype.doToggle = function(locator){
     var $elem = teJQuery(this.browserbot.findElement(locator));
 
 	$elem.toggle();
+};
+
+Selenium.prototype.doDeleteAllCookies = function() {
+    jaaulde.utils.cookies.del(true);
+};
+
+Selenium.prototype.doDeleteAllCookiesByJQuery = function() {
+    teJQuery.cookies.del(true);
+};
+
+Selenium.prototype.doDeletelCookieByJQuery = function(cookieName) {
+    teJQuery.cookies.del(cookieName);
+};
+
+Selenium.prototype.doSetCookieByJQuery = function(cookieName, value, options){
+    teJQuery.cookies.set(cookieName, value, options);
+};
+
+Selenium.prototype.getCookieByJQuery = function(cookieName){
+    return teJQuery.cookies.get(cookieName);
 };
