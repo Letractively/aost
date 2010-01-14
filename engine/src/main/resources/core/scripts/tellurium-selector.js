@@ -203,7 +203,6 @@ function JQueryBuilder(){
     this.xpathProcessor = new XPathProcessor();
 
     //regular expressions to escape special characters in jQuery
-//    this.specials = ['#', ';', '&', ',', '.', '+', '*', '~', "'", ':', '"', '!', '^', '$', '[', ']', '(', ')', '=', '>', '|', '/'];
     this.specials = ['#', '&', '~', '=', '>', "'", ':', '"', '!', ';', ','];
     this.regexSpecials = [ '.', '*', '+', '|', '[', ']', '(', ')', '/', '^', '$'];
     this.sRE = new RegExp('(' + this.specials.join('|') + '|\\' + this.regexSpecials.join('|\\') + ')', 'g');
@@ -214,9 +213,11 @@ JQueryBuilder.prototype.inBlackList = function(attr){
 };
 
 JQueryBuilder.prototype.escape = function(val){
+/*
     if(val != null && trimString(val).length > 0){
         return val.replace(this.sRE, '\\$1');     
     }
+*/
 
     return val;
 };
