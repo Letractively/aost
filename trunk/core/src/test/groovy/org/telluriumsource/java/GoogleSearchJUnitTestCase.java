@@ -57,6 +57,7 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testLogo(){
+        gsm.validateUiModule("Logo");
         gsm.diagnose("Logo");
         String alt = gsm.getLogoAlt();
         assertNotNull(alt);
@@ -166,7 +167,7 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
         gsm.customDirectCall("click", list.toArray());
     }
 
-    @Ignore
+//    @Ignore
     @Test
     public void testCookies(){
         useTelluriumApi(false);
@@ -188,5 +189,5 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
     @AfterClass
     public static void tearDown(){
         showTrace();
-    }
+     }
 }

@@ -7,7 +7,7 @@ public class GoogleSearchModule extends DslContext {
   public void defineUi() {
 
 //    ui.Image(uid: "Logo", clocator: [tag: "img", src: "*/intl/en_ALL/images/logo.gif"])
-      ui.Image(uid: "Logo", clocator: [tag: "img", src: "*.gif", alt: null])
+      ui.Image(uid: "Logo", clocator: [tag: "img", src: "*.gif", alt: "Google"])
 //    ui.Image(uid: "Logo", clocator: [tag: "img", alt: "Google"])
 
     ui.Container(uid: "Google", clocator: [tag: "table"]) {
