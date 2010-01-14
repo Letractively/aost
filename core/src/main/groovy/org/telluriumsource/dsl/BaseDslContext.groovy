@@ -1069,7 +1069,7 @@ abstract class BaseDslContext extends GlobalDslContext {
     return getListSizeByXPath(uid)
   }
 
-  def boolean isDisabledByXPath(String uid) {
+/*  def boolean isDisabledByXPath(String uid) {
     WorkflowContext context = WorkflowContext.getDefaultContext()
 
     return walkToWithException(context, uid).isDisabled() {loc ->
@@ -1095,6 +1095,16 @@ abstract class BaseDslContext extends GlobalDslContext {
       return isDisabledBySelector(uid)
 
     return isDisabledByXPath(uid)
+  }*/
+  
+  def boolean isDisabled(String uid) {
+     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+
+    return walkToWithException(context, uid).isDisabled() {loc ->
+      String locator = locatorMapping(context, loc)
+
+      extension.isDisabled(context, locator)
+    }
   }
 
   def getParentAttribute(String uid, String attribute) {

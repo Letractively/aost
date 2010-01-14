@@ -36,6 +36,15 @@ public class JettyLogonModule extends DslContext {
         }
         SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "logon", name: "submit"])
     }
+
+    ui.Image(uid: "Logo", clocator: [tag: "img", src: "*.gif", alt: "Logo"])
+
+    ui.Container(uid: "Thumbnail", clocator: [tag: "div", class: "thumbnail potd"]){
+        Container(uid: "ICon", clocator: [tag: "div", class: "potd:icon png.fix"]){
+            Image(uid: "Image", clocator:  [tag: "img", src: "*.jpg"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "text", id: "Image:name"])
+        }
+    }
   }
 
   public void logon(String username, String password){
@@ -50,6 +59,19 @@ public class JettyLogonModule extends DslContext {
     keyType "ProblematicForm.Password.Input", password
     click "ProblematicForm.Submit"
     waitForPageToLoad 30000
+  }
+
+  public String getLogoAlt(){
+    return getImageAlt("Logo")
+  }
+
+  public String getImageAlt(){
+    return getImageAlt("Thumbnail.ICon.Image")
+  }
+
+  public String typeImageName(String name){
+    keyType "Thumbnail.ICon.Input", name
+    pause 500
   }
 
   public static String HTML_BODY ="""
@@ -90,7 +112,16 @@ public class JettyLogonModule extends DslContext {
             </td>
         </tr>
     </table>
-</form>  
+</form>
+
+<img alt="Logo" src="/intl/en_ALL/images/logo.gif" height="110" width="276">
+
+<div class="thumbnail potd">
+    <div class="potd:icon png.fix">
+        <img alt="Image 5" src="/images_root/image_pictures/05.jpg"/>
+        <input id="Image:name" type="text"/>
+    </div>
+</div>
 
   """
 }

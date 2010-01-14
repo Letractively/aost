@@ -4,8 +4,7 @@ import org.telluriumsource.test.java.TelluriumJUnitTestCase;
 import org.telluriumsource.test.mock.MockHttpServer;
 import org.telluriumsource.module.JettyLogonModule;
 import org.junit.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -74,6 +73,17 @@ public class JettyLogonJUnitTestCase extends TelluriumJUnitTestCase {
         jlm.toggle("Form.Username.Input");
     }
 
+    @Test
+    public void testIsDisabled(){
+        useCssSelector(true);
+        boolean result = jlm.isDisabled("Form.Username.Input");
+        assertFalse(result);
+        useCssSelector(false);
+        result = jlm.isDisabled("Form.Username.Input");
+        assertFalse(result);
+        useCssSelector(true);
+    }
+
     @Ignore
     @Test
     public void testCookies(){
@@ -92,7 +102,24 @@ public class JettyLogonJUnitTestCase extends TelluriumJUnitTestCase {
         cookie = jlm.getCookieByJQuery("tellurium");
         assertNull(cookie);
     }
-    
+
+    @Test
+    public void testLogo(){
+        jlm.validateUiModule("Logo");
+        jlm.diagnose("Logo");
+        String alt = jlm.getLogoAlt();
+        assertNotNull(alt);
+        assertEquals("Logo", alt);
+    }
+
+    @Test
+    public void testSpecialCharacter(){
+        String alt = jlm.getImageAlt();
+        assertNotNull(alt);
+        assertEquals("Image 5", alt);
+        jlm.typeImageName("Image 5");
+    }
+
     @AfterClass
     public static void tearDown(){
         showTrace();
