@@ -1,6 +1,5 @@
 package org.telluriumsource.java;
 
-import org.telluriumsource.test.java.TelluriumJUnitTestCase;
 import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
 import org.telluriumsource.module.TelluriumIssueModule;
 import org.junit.BeforeClass;
@@ -19,7 +18,7 @@ public class TelluriumIssueTestCase extends TelluriumMockJUnitTestCase {
     public static void setup(){
         tim = new TelluriumIssueModule();
         tim.defineUi();
-        registerTest("TelluriumIssue");
+        registerHtml("TelluriumIssue");
     }
 
     @Before

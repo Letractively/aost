@@ -1,7 +1,6 @@
 package org.telluriumsource.java;
 
-import org.telluriumsource.test.java.TelluriumJUnitTestCase;
-import org.telluriumsource.test.mock.MockHttpServer;
+import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
 import org.telluriumsource.module.JettyLogonModule;
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -11,19 +10,15 @@ import static org.junit.Assert.*;
  *
  *         Date: Dec 23, 2009
  */
-public class JettyLogonJUnitTestCase extends TelluriumJUnitTestCase {
+public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     private static JettyLogonModule jlm;
-    private static MockHttpServer server;
 
     @BeforeClass
     public static void initUi() {
-        server = new MockHttpServer(8080);
-        server.registerHtmlBody("/logon.html", JettyLogonModule.HTML_BODY);
-        server.start();
+        registerHtmlBody("JettyLogon");
 
         jlm = new  JettyLogonModule();
-        jlm.defineUi();    
-        connectSeleniumServer();
+        jlm.defineUi();
         useCssSelector(true);
         useTelluriumApi(true);
         useTrace(true);
@@ -33,7 +28,7 @@ public class JettyLogonJUnitTestCase extends TelluriumJUnitTestCase {
 
     @Before
     public void connectToLocal() {
-        connectUrl("http://localhost:8080/logon.html");
+        connect("JettyLogon");
     }
 
     @Test
@@ -123,6 +118,5 @@ public class JettyLogonJUnitTestCase extends TelluriumJUnitTestCase {
     @AfterClass
     public static void tearDown(){
         showTrace();
-        server.stop();
     }
 }
