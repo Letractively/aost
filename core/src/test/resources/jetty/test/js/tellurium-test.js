@@ -54,9 +54,22 @@ TelluriumTestCase.prototype.testExpandUiModule = function(){
     alg.santa(uim, dom);
     var context = new WorkflowContext();
     var list = uim.walkTo(context, "expand");
-//    json = [{"obj":{"uid":"EcisPlusUiCAV","locator":{"tag":"table"},"uiType":"Container"},"key":"EcisPlusUiCAV"},{"obj":{"uid":"Save","locator":{"tag":"input","attributes":{"id":"cif:customerInfoSaveButton","name":"cif:customerInfoSaveButton","value":"Save","class":"btn saveButton","type":"button"}},"events":[Ljava.lang.String;@7e054643,"uiType":"InputBox"},"key":"EcisPlusUiCAV.Save"}];
-//    uim.parseUiModule(JSON.stringify(json));
+};
 
+TelluriumTestCase.prototype.testErisUiModule = function(){
+//    var json = [{"obj":{"uid":"EcisPlusUiCAV","locator":{"tag":"table"},"uiType":"Container"},"key":"EcisPlusUiCAV"},{"obj":{"uid":"Save","locator":{"tag":"input","attributes":{"id":"cif:customerInfoSaveButton","name":"cif:customerInfoSaveButton","value":"Save","class":"btn saveButton","type":"button"}},"events":["click"],"uiType":"InputBox"},"key":"EcisPlusUiCAV.Save"}];
+    var json = [{"obj":{"uid":"EcisPlusUiCAV","locator":{"tag":"div"},"uiType":"Container"},"key":"EcisPlusUiCAV"},{"obj":{"uid":"Save","locator":{"tag":"input","attributes":{"id":"cif:customerInfoSaveButton","name":"cif:customerInfoSaveButton","value":"Save","class":"btn saveButton","type":"button"}},"events":["click"],"uiType":"InputBox"},"key":"EcisPlusUiCAV.Save"}];
+    var uim = new UiModule();
+    uim.parseUiModule(JSON.stringify(json));
+    var alg = new UiAlg();
+    var dom = teJQuery("html");
+    alg.validate(uim, dom);
+    alg.santa(uim, dom);
+    var context = new WorkflowContext();
+    var uiid = new Uiid();
+    uiid.convertToUiid("EcisPlusUiCAV.Save");
+    uiid.reverse();
+    var save = uim.walkTo(context, uiid);
 };
 
 TelluriumTestCase.prototype.testUiCache = function(){
@@ -72,7 +85,8 @@ TelluriumTestCase.prototype.testSuite = function(){
 //    this.testUiid();
 //    this.testLogonUiModule();
 //    this.testBookUiModule();
-      this.testExpandUiModule();
+//      this.testExpandUiModule();
+    this.testErisUiModule();
 //    this.testUiCache();
 };
                                    
