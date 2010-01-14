@@ -40,6 +40,7 @@ Uiid.prototype.size = function(){
 Uiid.prototype.toUiid = function(uid){
     this.convertToUiid(uid);
     this.reverse();
+    return this;
 };
 
 Uiid.prototype.convertToUiid = function(uid){
@@ -55,6 +56,8 @@ Uiid.prototype.convertToUiid = function(uid){
             }
         }
     }
+
+    return this;
 };
 
 Uiid.prototype.preprocess = function(uid){
