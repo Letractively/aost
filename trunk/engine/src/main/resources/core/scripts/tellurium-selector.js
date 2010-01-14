@@ -213,8 +213,9 @@ JQueryBuilder.prototype.inBlackList = function(attr){
 };
 
 JQueryBuilder.prototype.escape = function(val){
-    if(val != null && trimString(val).length > 0){
-        return val.replace(this.sRE, '\\$1');     
+    if(val != null && trimString(val).length > 1){
+        //since we use the first character to indicate partial match, only do escape from character 2
+        return val.slice(0,1) + val.substring(1).replace(this.sRE, '\\$1');     
     }
 
     return val;
@@ -277,8 +278,8 @@ JQueryBuilder.prototype.attrClass = function(clazz) {
         } else {
 
             var sb = new StringBuffer();
-            for (var part in parts) {
-                sb.append(this.attrSingleClass(part));
+            for (var i=0; i<parts.length; i++) {
+                sb.append(this.attrSingleClass(parts[i]));
             }
 
             return sb.toString();
@@ -303,7 +304,7 @@ JQueryBuilder.prototype.attrSingleClass = function(clazz) {
     } else if (clazz.startsWith(this.NOT_PREFIX)) {
         return "[class!=" + clazz.substring(1) + "]";
     } else {
-        return this.CLASS_SELECTOR_PREFIX + clazz;
+        return this.CLASS_SELECTOR_PREFIX + this.escape(clazz);
     }
 };
 
@@ -379,7 +380,7 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
                 //should not add other attributes if the ID is presented since jQuery will only select the first element for
                 // the ID and additional attributes will not help at all
                 //also since id is unique, we do not need to include tag here
-                return " #" + id;
+                return " #" + this.escape(id);
             }
         }
 
@@ -401,6 +402,7 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
 
     if (text != null && trimString(text).length > 0) {
         //if the value includes single quote such as "I'm feeling luck" at Google
+        //do not escape text
 //        text = this.escape(text);
         if (this.includeSingleQuote(text)) {
             var splited = text.split(this.SINGLE_QUOTE);

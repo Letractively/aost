@@ -291,7 +291,7 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
     if(request.retClosest){
         response.closest = new Array();
         var $parents = null;
-        if(request.pLocator == null || trimString(request.pLocator).length == 0){
+        if(request.pLocator == null || trimString(request.pLocator).length == 0 || request.pLocator == "jquery="){
         //    $parents = teJQuery("html:first");
 //            $parents =  teJQuery("#selenium_myiframe").contents().find("html:first");
             $parents = this.getHtml();
