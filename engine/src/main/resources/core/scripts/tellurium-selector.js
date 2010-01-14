@@ -180,10 +180,10 @@ function JQueryBuilder(){
     this.ATTR_BLACK_LIST = ['action'];
     this.MATCH_ALL = "*";
     this.CONTAINS_FILTER = ":contains";
-    this.NOT_PREFIX = "!";
-    this.START_PREFIX = "^";
+    this.NOT_PREFIX = "\!";
+    this.START_PREFIX = "\^";
     this.END_PREFIX = "\$";
-    this.ANY_PREFIX = "*";
+    this.ANY_PREFIX = "\*";
     this.HAS = ":has";
     this.SELECTOR_SEPARATOR = ", ";
     this.SPACE = " ";
@@ -213,11 +213,9 @@ JQueryBuilder.prototype.inBlackList = function(attr){
 };
 
 JQueryBuilder.prototype.escape = function(val){
-/*
     if(val != null && trimString(val).length > 0){
         return val.replace(this.sRE, '\\$1');     
     }
-*/
 
     return val;
 };

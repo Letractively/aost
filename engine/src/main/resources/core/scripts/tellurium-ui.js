@@ -37,6 +37,11 @@ Uiid.prototype.size = function(){
     return this.stack.length;
 };
 
+Uiid.prototype.toUiid = function(uid){
+    this.convertToUiid(uid);
+    this.reverse();
+};
+
 Uiid.prototype.convertToUiid = function(uid){
     if(uid != null && trimString(uid).length > 0){
         var ids = uid.split(".");
