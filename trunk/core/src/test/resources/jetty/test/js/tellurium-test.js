@@ -15,17 +15,23 @@ TelluriumTestCase.prototype.testLogonUiModule = function(){
 //    var json = [{"obj":{"uid":"Form","locator":{"tag":"table"},"uiType":"Container"},"key":"Form"},{"obj":{"uid":"Username","locator":{"tag":"tr"},"uiType":"Container"},"key":"Form.Username"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Username:","tag":"td"},"uiType":"TextBox"},"key":"Form.Username.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_username","type":"text"}},"uiType":"InputBox"},"key":"Form.Username.Input"},{"obj":{"uid":"Password","locator":{"tag":"tr"},"uiType":"Container"},"key":"Form.Password"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Password:","tag":"td"},"uiType":"TextBox"},"key":"Form.Password.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_password","type":"password"}},"uiType":"InputBox"},"key":"Form.Password.Input"},{"obj":{"uid":"Submit","locator":{"tag":"input","attributes":{"name":"submit","value":"Login","type":"submit"}},"uiType":"SubmitButton"},"key":"Form.Submit"}];
 //    var json = [{"obj":{"uid":"Google","locator":{"tag":"table"},"uiType":"Container"},"key":"Google"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"title":"Google Search","name":"q"}},"uiType":"InputBox"},"key":"Google.Input"},{"obj":{"uid":"Search","locator":{"tag":"input","attributes":{"name":"btnG","value":"Google Search","type":"submit"}},"uiType":"SubmitButton"},"key":"Google.Search"},{"obj":{"uid":"ImFeelingLucky","locator":{"tag":"input","attributes":{"name":"btnI","value":"I'm Feeling Lucky","type":"submit"}},"uiType":"SubmitButton"},"key":"Google.ImFeelingLucky"}];
 //    var json = [{"obj":{"uid":"Google","locator":{"tag":"table"},"uiType":"Container"},"key":"Google"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"title":"Google Search","name":"q"}},"uiType":"InputBox"},"key":"Google.Input"},{"obj":{"uid":"Search","locator":{"tag":"input","attributes":{"name":"btnG","value":"Google Search","type":"submit"}},"uiType":"SubmitButton"},"key":"Google.Search"},{"obj":{"uid":"ImFeelingLucky","locator":{"tag":"input","attributes":{"name":"btnI","value":"I'm Feeling Lucky","type":"submit"}},"uiType":"SubmitButton"},"key":"Google.ImFeelingLucky"}];
-    var json = [{"obj":{"uid":"ProblematicForm","locator":{"tag":"table"},"uiType":"Container"},"key":"ProblematicForm"},{"obj":{"uid":"Username","locator":{"tag":"tr"},"uiType":"Container"},"key":"ProblematicForm.Username"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Username:","tag":"td"},"uiType":"TextBox"},"key":"ProblematicForm.Username.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j","type":"text"}},"uiType":"InputBox"},"key":"ProblematicForm.Username.Input"},{"obj":{"uid":"Password","locator":{"tag":"tr"},"uiType":"Container"},"key":"ProblematicForm.Password"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Password:","tag":"td"},"uiType":"TextBox"},"key":"ProblematicForm.Password.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j","type":"password"}},"uiType":"InputBox"},"key":"ProblematicForm.Password.Input"},{"obj":{"uid":"Submit","locator":{"tag":"input","attributes":{"name":"submit","value":"logon","type":"submit"}},"uiType":"SubmitButton"},"key":"ProblematicForm.Submit"}];
+
+//    var json = [{"obj":{"uid":"ProblematicForm","locator":{"tag":"table"},"uiType":"Container"},"key":"ProblematicForm"},{"obj":{"uid":"Username","locator":{"tag":"tr"},"uiType":"Container"},"key":"ProblematicForm.Username"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Username:","tag":"td"},"uiType":"TextBox"},"key":"ProblematicForm.Username.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j","type":"text"}},"uiType":"InputBox"},"key":"ProblematicForm.Username.Input"},{"obj":{"uid":"Password","locator":{"tag":"tr"},"uiType":"Container"},"key":"ProblematicForm.Password"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Password:","tag":"td"},"uiType":"TextBox"},"key":"ProblematicForm.Password.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j","type":"password"}},"uiType":"InputBox"},"key":"ProblematicForm.Password.Input"},{"obj":{"uid":"Submit","locator":{"tag":"input","attributes":{"name":"submit","value":"logon","type":"submit"}},"uiType":"SubmitButton"},"key":"ProblematicForm.Submit"}];
+
+    var json = [{"obj":{"uid":"Form","locator":{"tag":"form"},"uiType":"Form"},"key":"Form"},{"obj":{"uid":"Username","locator":{"tag":"tr"},"uiType":"Container"},"key":"Form.Username"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Username:","tag":"td"},"uiType":"TextBox"},"key":"Form.Username.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_username","type":"text"}},"uiType":"InputBox"},"key":"Form.Username.Input"},{"obj":{"uid":"Password","locator":{"tag":"tr"},"uiType":"Container"},"key":"Form.Password"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Password:","tag":"td"},"uiType":"TextBox"},"key":"Form.Password.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_password","type":"password"}},"uiType":"InputBox"},"key":"Form.Password.Input"},{"obj":{"uid":"Submit","locator":{"tag":"input","attributes":{"name":"submit","value":"Login","type":"submit"}},"uiType":"SubmitButton"},"key":"Form.Submit"}];
     var uim = new UiModule();
     uim.parseUiModule(JSON.stringify(json));
     var alg = new UiAlg();
-//    var dom = teJQuery("html > body");
     var dom = teJQuery("html");
     alg.santa(uim, dom);
     var context = new WorkflowContext();
-    var uinput = uim.walkTo(context, "ProblematicForm.Username.Input");
-    var pinput = uim.walkTo(context, "ProblematicForm.Password.Input");
-    var smt = uim.walkTo(context, "ProblematicForm.Submit");
+    var uiid = new Uiid();
+//    var uinput = uim.walkTo(context, "ProblematicForm.Username.Input");
+//    var pinput = uim.walkTo(context, "ProblematicForm.Password.Input");
+//    var smt = uim.walkTo(context, "ProblematicForm.Submit");
+    var uinput = uim.walkTo(context, uiid.toUiid("Form.Username.Input"));
+    var pinput = uim.walkTo(context, uiid.toUiid("Form.Password.Input"));
+    var smt = uim.walkTo(context, uiid.toUiid("Form.Submit"));
 };
 
 TelluriumTestCase.prototype.testBookUiModule = function(){
@@ -38,11 +44,12 @@ TelluriumTestCase.prototype.testBookUiModule = function(){
     var dom = teJQuery("html");
     alg.santa(uim, dom);
     var context = new WorkflowContext();
-    var list = uim.walkTo(context, "GoogleBooksList");
-    var category = uim.walkTo(context, "GoogleBooksList.category");
-    var subcategory = uim.walkTo(context, "GoogleBooksList.subcategory");
-    var subcategorylink1 = uim.walkTo(context, "GoogleBooksList.subcategory[1]");
-    var subcategorylink2 = uim.walkTo(context, "GoogleBooksList.subcategory[2]");
+    var uiid = new Uiid();
+    var list = uim.walkTo(context, uiid.toUiid("GoogleBooksList"));
+    var category = uim.walkTo(context, uiid.toUiid("GoogleBooksList.category"));
+    var subcategory = uim.walkTo(context, uiid.toUiid("GoogleBooksList.subcategory"));
+    var subcategorylink1 = uim.walkTo(context, uiid.toUiid("GoogleBooksList.subcategory[1]"));
+    var subcategorylink2 = uim.walkTo(context,  uiid.toUiid("GoogleBooksList.subcategory[2]"));
 };
 
 TelluriumTestCase.prototype.testExpandUiModule = function(){
@@ -83,10 +90,10 @@ TelluriumTestCase.prototype.testUiCache = function(){
 
 TelluriumTestCase.prototype.testSuite = function(){
 //    this.testUiid();
-//    this.testLogonUiModule();
+    this.testLogonUiModule();
 //    this.testBookUiModule();
 //      this.testExpandUiModule();
-    this.testErisUiModule();
+//    this.testErisUiModule();
 //    this.testUiCache();
 };
                                    
