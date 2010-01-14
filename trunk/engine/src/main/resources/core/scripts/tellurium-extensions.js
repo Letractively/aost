@@ -241,7 +241,8 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
     request.retMatch = dreq.retMatch;
     request.retHtml = dreq.retHtml;
     request.retParent = dreq.retParent;
-
+    fbLog("diagnosis request", request);
+    
     var response = new DiagnosisResponse();
     response.uid = request.uid;
     var $e = null;
@@ -267,7 +268,7 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
     if(request.retParent){
         response.parents = new Array();
         //if the parent is null or empty, return the whole html source
-        if(request.pLocator == null || trimString(request.pLocator).length == 0){
+        if(request.pLocator == null || trimString(request.pLocator).length == 0 || request.pLocator == "jquery="){
 //            response.parents.push(teJQuery('<div>').append(teJQuery("html:first").clone()).html());
              response.parents.push(teJQuery('<div>').append(this.getHtml().clone()).html());
         }else{

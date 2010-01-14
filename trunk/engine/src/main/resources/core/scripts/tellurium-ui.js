@@ -1834,10 +1834,16 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
     }
     //if multiple matches, need to narrow down by looking ahead at the UI object's children
     if($found.size() > 1){
-
-        $found = this.lookAhead(uiobj, $found);
+        if(uiobj.noCacheForChildren){
+            //if there is no cache for children for UI object uiobj
+            $found = this.bestGuess(uiobj, $found);
+            fbLog("UI object has no cache for children, best guess result for UI object " + uiobj.uid, $found.get());
+        }else{
+            $found = this.lookAhead(uiobj, $found);
+            fbLog("Look ahead result " + uiobj.uid, $found.get());
+        }
     }
-    
+
     //found any nodes in the DOM by using the
     if($found.size() == 1){
         //found exactly one, happy path
