@@ -180,10 +180,10 @@ function JQueryBuilder(){
     this.ATTR_BLACK_LIST = ['action'];
     this.MATCH_ALL = "*";
     this.CONTAINS_FILTER = ":contains";
-    this.NOT_PREFIX = "\!";
-    this.START_PREFIX = "\^";
+    this.NOT_PREFIX = "!";
+    this.START_PREFIX = "^";
     this.END_PREFIX = "\$";
-    this.ANY_PREFIX = "\*";
+    this.ANY_PREFIX = "*";
     this.HAS = ":has";
     this.SELECTOR_SEPARATOR = ", ";
     this.SPACE = " ";
@@ -366,8 +366,8 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
     sb.append(this.checkTag(tag));
     var attributes = new Hashtable();
     for(var key in attrs){
-//        attributes.put(key, attrs[key]);
-        attributes.put(key, this.escape(attrs[key]));
+        attributes.put(key, attrs[key]);
+//        attributes.put(key, this.escape(attrs[key]));
     }
     if (attributes != null && attributes.size() > 0) {
         var id = attributes.get(this.ID);
@@ -401,7 +401,7 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
 
     if (text != null && trimString(text).length > 0) {
         //if the value includes single quote such as "I'm feeling luck" at Google
-        text = this.escape(text);
+//        text = this.escape(text);
         if (this.includeSingleQuote(text)) {
             var splited = text.split(this.SINGLE_QUOTE);
             var max = splited[0];
