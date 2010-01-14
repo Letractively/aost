@@ -1073,8 +1073,10 @@ abstract class BaseDslContext extends GlobalDslContext {
     WorkflowContext context = WorkflowContext.getDefaultContext()
 
     return walkToWithException(context, uid).isDisabled() {loc ->
-      String locator = locatorMapping(context, loc) + "/self::node()[@disabled]"
-      accessor.isElementPresent(context, locator)
+//      String locator = locatorMapping(context, loc) + "/self::node()[@disabled]"
+//      accessor.isElementPresent(context, locator)
+      String locator = locatorMapping(context, loc);
+      extension.isDisabled(context, locator);
     }
   }
 
