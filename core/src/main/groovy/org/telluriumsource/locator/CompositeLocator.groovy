@@ -116,12 +116,16 @@ class CompositeLocator {
       if(attributes != null && attributes.size() > 0){
         attributes.each {String key, String val ->
           String aval = val;
-          if((val.startsWith(NOT_PREFIX) || val.startsWith(START_PREFIX) || val.startsWith(END_PREFIX) || val.startsWith(ANY_PREFIX))){
-            aval = val.substring(1);
-          }else if(val.startsWith(CONTAIN_PREFIX)){
-            aval = val.substring(2);
+          if (val == null) {
+            sb.append(" ${key}");
+          } else {
+            if ((val.startsWith(NOT_PREFIX) || val.startsWith(START_PREFIX) || val.startsWith(END_PREFIX) || val.startsWith(ANY_PREFIX))) {
+              aval = val.substring(1);
+            } else if (val.startsWith(CONTAIN_PREFIX)) {
+              aval = val.substring(2);
+            }
+            sb.append(" ${key}=\"${aval}\"");
           }
-          sb.append(" ${key}=\"${aval}\"");
         }
       }
       if(closeTag){
