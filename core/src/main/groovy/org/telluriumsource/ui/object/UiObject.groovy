@@ -2,7 +2,7 @@ package org.telluriumsource.ui.object
 
 import org.telluriumsource.dsl.UiID
 import org.telluriumsource.dsl.WorkflowContext
-import org.telluriumsource.layer.event.Event
+import org.telluriumsource.component.event.Event
 
 import org.json.simple.JSONObject
 import org.json.simple.JSONArray

@@ -1,6 +1,6 @@
 package org.telluriumsource.util.grid
 
-import org.telluriumsource.layer.connector.CustomSelenium
+import org.telluriumsource.component.connector.CustomSelenium
 
 /**
  * 

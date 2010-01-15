@@ -1,6 +1,6 @@
 package org.telluriumsource.ui.object
 
-import org.telluriumsource.layer.data.Accessor
+import org.telluriumsource.component.data.Accessor
 import org.telluriumsource.dsl.UiID
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.exception.InvalidUidException
@@ -10,7 +10,7 @@ import org.telluriumsource.ui.locator.LocatorProcessor
 import org.telluriumsource.ui.object.Container
 import org.telluriumsource.ui.object.TextBox
 import org.telluriumsource.ui.object.UiObject
-import org.telluriumsource.layer.custom.Extension
+import org.telluriumsource.component.custom.Extension
 import org.json.simple.JSONObject
 
 /**

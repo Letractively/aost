@@ -1,23 +1,23 @@
 package org.telluriumsource.framework
 
-import org.telluriumsource.layer.data.Accessor
-import org.telluriumsource.layer.data.AccessorMetaClass
+import org.telluriumsource.component.data.Accessor
+import org.telluriumsource.component.data.AccessorMetaClass
 import org.telluriumsource.ui.builder.UiObjectBuilder
 import org.telluriumsource.ui.builder.UiObjectBuilderRegistry
 import org.telluriumsource.ui.builder.UiObjectBuilderRegistryMetaClass
-import org.telluriumsource.layer.client.SeleniumClient
-import org.telluriumsource.layer.client.SeleniumClientMetaClass
+import org.telluriumsource.component.client.SeleniumClient
+import org.telluriumsource.component.client.SeleniumClientMetaClass
 import org.telluriumsource.framework.config.CustomConfig
 import org.telluriumsource.framework.config.TelluriumConfigurator
 import org.telluriumsource.framework.config.TelluriumConfiguratorMetaClass
-import org.telluriumsource.layer.connector.SeleniumConnector
-import org.telluriumsource.layer.connector.SeleniumConnectorMetaClass
-import org.telluriumsource.layer.dispatch.Dispatcher
-import org.telluriumsource.layer.dispatch.DispatcherMetaClass
-import org.telluriumsource.layer.event.EventHandler
-import org.telluriumsource.layer.event.EventHandlerMetaClass
-import org.telluriumsource.layer.custom.Extension
-import org.telluriumsource.layer.custom.ExtensionMetaClass
+import org.telluriumsource.component.connector.SeleniumConnector
+import org.telluriumsource.component.connector.SeleniumConnectorMetaClass
+import org.telluriumsource.component.dispatch.Dispatcher
+import org.telluriumsource.component.dispatch.DispatcherMetaClass
+import org.telluriumsource.component.event.EventHandler
+import org.telluriumsource.component.event.EventHandlerMetaClass
+import org.telluriumsource.component.custom.Extension
+import org.telluriumsource.component.custom.ExtensionMetaClass
 import org.telluriumsource.ui.locator.LocatorProcessor
 import org.telluriumsource.ui.locator.LocatorProcessorMetaClass
 import org.telluriumsource.server.EmbeddedSeleniumServer
@@ -26,7 +26,7 @@ import org.telluriumsource.i18n.IResourceBundle
 import org.telluriumsource.dsl.GlobalDslContext
 import org.telluriumsource.util.Helper
 import org.telluriumsource.entity.CachePolicy
-import org.telluriumsource.layer.bundle.BundleProcessor;
+import org.telluriumsource.component.bundle.BundleProcessor;
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here

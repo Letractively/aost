@@ -3,7 +3,7 @@ package org.telluriumsource.ui.object
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.dsl.UiID
 import org.telluriumsource.ui.locator.LocatorProcessor
-import org.telluriumsource.layer.data.Accessor
+import org.telluriumsource.component.data.Accessor
 
 import org.json.simple.JSONObject
 
