@@ -2,7 +2,7 @@ package org.telluriumsource.ddt.object.mapping.type
 /**
  * Registry to hold type handlers for different types of Java object
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 23, 2008
  *

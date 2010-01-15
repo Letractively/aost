@@ -10,7 +10,7 @@ import org.telluriumsource.ddt.object.mapping.FieldSetType
 /**
  * Handle Pipe format file
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 23, 2008
  *

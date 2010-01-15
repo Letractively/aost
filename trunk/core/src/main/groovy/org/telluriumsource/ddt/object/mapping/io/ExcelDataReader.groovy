@@ -14,7 +14,7 @@ import org.telluriumsource.Const;
 /**
  * The implementation for the field set reader to read excel files
  *
- * @author: Ajay Ravichandran (ajay.ravichandran@gmail.com)
+ * @author Ajay Ravichandran (ajay.ravichandran@gmail.com)
  *
  * Date: Jul 23, 2008
  *

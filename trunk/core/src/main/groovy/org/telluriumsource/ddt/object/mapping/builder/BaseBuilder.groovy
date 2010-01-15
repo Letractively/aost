@@ -2,7 +2,7 @@ package org.telluriumsource.ddt.object.mapping.builder
 /**
  * Shared code for builder
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 24, 2008
  *

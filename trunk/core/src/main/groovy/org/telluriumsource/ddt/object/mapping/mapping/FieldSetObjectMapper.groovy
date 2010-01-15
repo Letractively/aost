@@ -5,7 +5,7 @@ import org.telluriumsource.ddt.object.mapping.FieldSetType
 /**
  *  Interface for the field set object mapping
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 23, 2008
  *

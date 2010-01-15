@@ -2,7 +2,7 @@ package org.telluriumsource.ddt.object.mapping.type
 /**
  * set all type handlers to the registry
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 23, 2008
  *

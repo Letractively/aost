@@ -5,7 +5,7 @@ import org.telluriumsource.ddt.object.mapping.mapping.FieldSetMapResult
 /**
  * The registry holds the fieldset id to its value
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 23, 2008
  *
