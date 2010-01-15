@@ -1,7 +1,7 @@
 package org.telluriumsource.example.test.java;
 
 import org.telluriumsource.test.java.TelluriumJavaTestCase;
-import org.telluriumsource.object.UrlLink;
+import org.telluriumsource.ui.object.UrlLink;
 import org.telluriumsource.example.google.NewGoogleCodeHosting;
 import static org.junit.Assert.*;
 import org.junit.*;

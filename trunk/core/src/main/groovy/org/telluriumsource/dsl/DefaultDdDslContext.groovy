@@ -1,6 +1,6 @@
 package org.telluriumsource.dsl
 
-import org.telluriumsource.ddt.object.mapping.FieldSetParser
+import org.telluriumsource.test.ddt.mapping.FieldSetParser
 
 /**
  * The default DdDslContext concrete class

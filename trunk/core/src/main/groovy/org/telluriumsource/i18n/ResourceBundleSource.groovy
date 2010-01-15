@@ -6,7 +6,7 @@ import java.util.Set
 import java.util.ResourceBundle
 
 import groovy.lang.Singleton;
-import org.telluriumsource.config.Configurable
+import org.telluriumsource.framework.config.Configurable
 
 /**
  * ResourceBundleSource

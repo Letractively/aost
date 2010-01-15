@@ -1,9 +1,9 @@
 package org.telluriumsource.ut
 
-import org.telluriumsource.ddt.object.mapping.FieldSetRegistry
-import org.telluriumsource.ddt.object.mapping.FieldSetParser
-import org.telluriumsource.ddt.object.mapping.io.DataReader;
-import org.telluriumsource.ddt.object.mapping.io.ExcelDataReader;
+import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
+import org.telluriumsource.test.ddt.mapping.FieldSetParser
+import org.telluriumsource.test.ddt.mapping.io.DataReader;
+import org.telluriumsource.test.ddt.mapping.io.ExcelDataReader;
 
 /**
  *

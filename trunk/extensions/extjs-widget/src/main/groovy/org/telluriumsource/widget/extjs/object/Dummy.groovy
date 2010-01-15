@@ -1,6 +1,6 @@
-package org.telluriumsource.widget.extjs.object
+package org.telluriumsource.ui.widget.extjs.object
 
-import org.telluriumsource.widget.extjs.ExtJSWidget
+import org.telluriumsource.ui.widget.extjs.ExtJSWidget
 import org.json.simple.JSONObject
 
 /**

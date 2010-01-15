@@ -1,6 +1,6 @@
 package org.telluriumsource.ut
 
-import org.telluriumsource.config.TelluriumConfigParser
+import org.telluriumsource.framework.config.TelluriumConfigParser
 
 /**
  *

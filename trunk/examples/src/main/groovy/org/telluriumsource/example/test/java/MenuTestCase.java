@@ -8,6 +8,9 @@ import org.junit.Test;
 import org.junit.AfterClass;
 import org.junit.Before;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
@@ -90,7 +93,10 @@ public class MenuTestCase extends TelluriumJUnitTestCase {
     var elem = $e.get(0);
     fbLog("elem background color", elem.style.background-color);
 */
-        String color = (String) mm.customDirectCall("getCSS", "jquery=#category-list > li.division:eq(0) ul > li:eq(0)", "background-color");
+        List<String> args = new ArrayList<String>();
+        args.add("jquery=#category-list > li.division:eq(0) ul > li:eq(0)");
+        args.add("background-color");
+        String color = (String) mm.customDirectCall("getCSS", args.toArray(new String[0]));
         System.out.println("background color: " + color);
     }
     

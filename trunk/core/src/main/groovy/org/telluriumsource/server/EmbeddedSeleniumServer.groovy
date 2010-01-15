@@ -1,6 +1,6 @@
 package org.telluriumsource.server
 
-import org.telluriumsource.config.Configurable
+import org.telluriumsource.framework.config.Configurable
 
 import org.telluriumsource.util.Helper
 

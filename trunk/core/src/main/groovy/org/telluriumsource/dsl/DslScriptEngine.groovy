@@ -1,6 +1,6 @@
 package org.telluriumsource.dsl
 
-import org.telluriumsource.bootstrap.TelluriumSupport
+import org.telluriumsource.framework.bootstrap.TelluriumSupport
 import org.telluriumsource.test.groovy.DslTelluriumGroovyTestCase
 import org.telluriumsource.framework.TelluriumFramework
 

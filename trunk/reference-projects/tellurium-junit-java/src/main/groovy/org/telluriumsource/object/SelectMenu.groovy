@@ -1,9 +1,9 @@
-package org.telluriumsource.object
+package org.telluriumsource.ui.object
 
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.dsl.UiID
-import org.telluriumsource.locator.LocatorProcessor
-import org.telluriumsource.access.Accessor
+import org.telluriumsource.ui.locator.LocatorProcessor
+import org.telluriumsource.processor.access.Accessor
 
 import org.json.simple.JSONObject
 

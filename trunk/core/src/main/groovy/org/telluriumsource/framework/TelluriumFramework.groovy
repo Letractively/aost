@@ -1,32 +1,32 @@
 package org.telluriumsource.framework
 
-import org.telluriumsource.access.Accessor
-import org.telluriumsource.access.AccessorMetaClass
-import org.telluriumsource.builder.UiObjectBuilder
-import org.telluriumsource.builder.UiObjectBuilderRegistry
-import org.telluriumsource.builder.UiObjectBuilderRegistryMetaClass
-import org.telluriumsource.client.SeleniumClient
-import org.telluriumsource.client.SeleniumClientMetaClass
-import org.telluriumsource.config.CustomConfig
-import org.telluriumsource.config.TelluriumConfigurator
-import org.telluriumsource.config.TelluriumConfiguratorMetaClass
-import org.telluriumsource.connector.SeleniumConnector
-import org.telluriumsource.connector.SeleniumConnectorMetaClass
-import org.telluriumsource.dispatch.Dispatcher
-import org.telluriumsource.dispatch.DispatcherMetaClass
-import org.telluriumsource.event.EventHandler
-import org.telluriumsource.event.EventHandlerMetaClass
-import org.telluriumsource.extend.Extension
-import org.telluriumsource.extend.ExtensionMetaClass
-import org.telluriumsource.locator.LocatorProcessor
-import org.telluriumsource.locator.LocatorProcessorMetaClass
+import org.telluriumsource.processor.access.Accessor
+import org.telluriumsource.processor.access.AccessorMetaClass
+import org.telluriumsource.ui.builder.UiObjectBuilder
+import org.telluriumsource.ui.builder.UiObjectBuilderRegistry
+import org.telluriumsource.ui.builder.UiObjectBuilderRegistryMetaClass
+import org.telluriumsource.processor.client.SeleniumClient
+import org.telluriumsource.processor.client.SeleniumClientMetaClass
+import org.telluriumsource.framework.config.CustomConfig
+import org.telluriumsource.framework.config.TelluriumConfigurator
+import org.telluriumsource.framework.config.TelluriumConfiguratorMetaClass
+import org.telluriumsource.processor.connector.SeleniumConnector
+import org.telluriumsource.processor.connector.SeleniumConnectorMetaClass
+import org.telluriumsource.processor.dispatch.Dispatcher
+import org.telluriumsource.processor.dispatch.DispatcherMetaClass
+import org.telluriumsource.processor.event.EventHandler
+import org.telluriumsource.processor.event.EventHandlerMetaClass
+import org.telluriumsource.processor.extend.Extension
+import org.telluriumsource.processor.extend.ExtensionMetaClass
+import org.telluriumsource.ui.locator.LocatorProcessor
+import org.telluriumsource.ui.locator.LocatorProcessorMetaClass
 import org.telluriumsource.server.EmbeddedSeleniumServer
-import org.telluriumsource.widget.WidgetConfigurator
+import org.telluriumsource.ui.widget.WidgetConfigurator
 import org.telluriumsource.i18n.IResourceBundle
 import org.telluriumsource.dsl.GlobalDslContext
 import org.telluriumsource.util.Helper
 import org.telluriumsource.entity.CachePolicy
-import org.telluriumsource.bundle.BundleProcessor;
+import org.telluriumsource.processor.bundle.BundleProcessor;
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here

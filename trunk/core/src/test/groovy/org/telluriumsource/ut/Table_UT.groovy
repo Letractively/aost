@@ -1,10 +1,10 @@
 package org.telluriumsource.ut
 
 import org.telluriumsource.dsl.WorkflowContext
-import org.telluriumsource.object.Button
-import org.telluriumsource.object.TextBox
-import org.telluriumsource.object.UiObject
-import org.telluriumsource.object.UrlLink
+import org.telluriumsource.ui.object.Button
+import org.telluriumsource.ui.object.TextBox
+import org.telluriumsource.ui.object.UiObject
+import org.telluriumsource.ui.object.UrlLink
 
 /**
  * Unit tests for Table

@@ -1,6 +1,6 @@
 package org.telluriumsource.entity
 
-import org.telluriumsource.locator.CompositeLocator
+import org.telluriumsource.ui.locator.CompositeLocator
 
 /**
  * Relax detail for closest matching in Engine when do UI module locating and caching

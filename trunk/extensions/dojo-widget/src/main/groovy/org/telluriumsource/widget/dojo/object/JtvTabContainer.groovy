@@ -1,6 +1,6 @@
-package org.telluriumsource.widget.dojo.object
+package org.telluriumsource.ui.widget.dojo.object
 
-import org.telluriumsource.widget.dojo.DojoWidget
+import org.telluriumsource.ui.widget.dojo.DojoWidget
 import org.telluriumsource.dsl.WorkflowContext
 import org.json.simple.JSONObject
 

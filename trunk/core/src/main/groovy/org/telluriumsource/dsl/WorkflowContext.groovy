@@ -1,7 +1,7 @@
 package org.telluriumsource.dsl
 
-import org.telluriumsource.locator.XPathProcessor
-import org.telluriumsource.locator.MetaCmd
+import org.telluriumsource.ui.locator.XPathProcessor
+import org.telluriumsource.ui.locator.MetaCmd
 import org.json.simple.JSONArray
 
 /**

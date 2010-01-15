@@ -131,7 +131,7 @@ tellurium{
             //take the TableBuilder or ListBuilder as an example
 
             //example:
-           SelectMenu="org.telluriumsource.builder.SelectMenuBuilder"
+           SelectMenu="org.telluriumsource.ui.builder.SelectMenuBuilder"
 
         }
     }

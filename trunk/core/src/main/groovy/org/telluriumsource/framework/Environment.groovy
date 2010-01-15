@@ -2,7 +2,7 @@ package org.telluriumsource.framework
 import org.telluriumsource.i18n.ResourceBundle;
 import org.telluriumsource.i18n.IResourceBundle;
 
-import org.telluriumsource.config.Configurable
+import org.telluriumsource.framework.config.Configurable
 
 /**
  * Environment to hold runtime environment variables

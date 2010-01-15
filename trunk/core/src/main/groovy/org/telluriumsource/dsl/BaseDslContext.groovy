@@ -4,18 +4,18 @@ import org.json.simple.JSONObject;
 import org.stringtree.json.JSONReader;
 
 
-import org.telluriumsource.exception.UiObjectNotFoundException;
+import org.telluriumsource.framework.exception.UiObjectNotFoundException;
 
 
 import org.telluriumsource.i18n.IResourceBundle;
-import org.telluriumsource.locator.JQueryOptimizer;
-import org.telluriumsource.locator.LocatorProcessor;
-import org.telluriumsource.locator.MetaCmd;
-import org.telluriumsource.object.StandardTable;
+import org.telluriumsource.ui.locator.JQueryOptimizer;
+import org.telluriumsource.ui.locator.LocatorProcessor;
+import org.telluriumsource.ui.locator.MetaCmd;
+import org.telluriumsource.ui.object.StandardTable;
 
-import org.telluriumsource.object.UiObject;
-import org.telluriumsource.locator.JQueryProcessor
-import org.telluriumsource.locator.XPathProcessor
+import org.telluriumsource.ui.object.UiObject;
+import org.telluriumsource.ui.locator.JQueryProcessor
+import org.telluriumsource.ui.locator.XPathProcessor
 import org.json.simple.JSONArray
 import org.telluriumsource.framework.Environment
 import org.telluriumsource.entity.DiagnosisOption
@@ -1041,7 +1041,7 @@ abstract class BaseDslContext extends GlobalDslContext {
 
   int getListSizeByXPath(String uid) {
     WorkflowContext context = WorkflowContext.getDefaultContext()
-    org.telluriumsource.object.List obj = (org.telluriumsource.object.List) walkToWithException(context, uid)
+    org.telluriumsource.ui.object.List obj = (org.telluriumsource.ui.object.List) walkToWithException(context, uid)
     return obj.getListSizeByXPath() {loc ->
       String locator = locatorMapping(context, loc)
       locator
@@ -1051,7 +1051,7 @@ abstract class BaseDslContext extends GlobalDslContext {
   //use jQuery Selector to optimize the list operations
   int getListSizeBySelector(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreUiModuleCache())
-    org.telluriumsource.object.List obj = (org.telluriumsource.object.List) walkToWithException(context, uid)
+    org.telluriumsource.ui.object.List obj = (org.telluriumsource.ui.object.List) walkToWithException(context, uid)
     context.updateUniqueForMetaCmd(false)
     //force not to cache the selector
     context.updateCacheableForMetaCmd(false)
