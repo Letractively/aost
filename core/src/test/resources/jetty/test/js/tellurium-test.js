@@ -19,7 +19,10 @@ TelluriumTestCase.prototype.testPrie = function(){
     trie.insert("Form.Submit", "submit5");
     trie.checkLevel();
     trie.printMe();
-    trie.dumpMe();     
+    trie.dumpMe();
+    var form = trie.getChildren("Form");
+    var username = trie.getChildren("Form.Username");
+    var label = trie.getChildren("Form.Username.Label");
 };
 
 TelluriumTestCase.prototype.testLogonUiModule = function(){
