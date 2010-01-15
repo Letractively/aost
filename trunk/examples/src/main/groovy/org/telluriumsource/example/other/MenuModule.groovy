@@ -44,7 +44,7 @@ background-color: red;
 <script src="http://localhost:4444/selenium-server/core/scripts/jquery-1.4.js"> </script>
 <style type="text/css">
 .content .division .category.selected {
-background-color: red;
+background: red;
 }
 
 </style>
