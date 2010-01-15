@@ -1,6 +1,9 @@
-package org.telluriumsource.crosscut
+package org.telluriumsource.crosscut.trace
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.telluriumsource.crosscut.log.ConsoleAppender
+import org.telluriumsource.crosscut.log.SimpleLogger
+import org.telluriumsource.crosscut.log.Logger;
 
 
 

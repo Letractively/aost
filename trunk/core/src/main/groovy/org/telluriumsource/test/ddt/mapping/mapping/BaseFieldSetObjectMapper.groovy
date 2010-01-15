@@ -8,7 +8,7 @@ import org.telluriumsource.test.ddt.mapping.Field
 import org.telluriumsource.test.ddt.mapping.DataMappingException
 import org.telluriumsource.test.ddt.mapping.validator.FieldSetValidator
 import org.telluriumsource.test.ddt.mapping.FieldSetType
-import org.telluriumsource.i18n.IResourceBundle
+import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.framework.Environment
 
 

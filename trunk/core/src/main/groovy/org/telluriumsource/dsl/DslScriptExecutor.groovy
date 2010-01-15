@@ -1,6 +1,6 @@
 package org.telluriumsource.dsl
 
-import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.framework.Environment;
 
 class DslScriptExecutor {

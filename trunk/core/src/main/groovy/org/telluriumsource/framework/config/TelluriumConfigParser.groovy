@@ -3,7 +3,7 @@ package org.telluriumsource.framework.config
 import java.util.Locale;
 
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
 
 
 /**

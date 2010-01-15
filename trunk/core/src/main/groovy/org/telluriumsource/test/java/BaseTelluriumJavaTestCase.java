@@ -2,10 +2,10 @@ package org.telluriumsource.test.java;
 
 import org.telluriumsource.framework.config.CustomConfig;
 import org.telluriumsource.component.connector.SeleniumConnector;
-import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.framework.TelluriumFramework;
 import org.telluriumsource.entity.CachePolicy;
-import org.telluriumsource.i18n.ResourceBundle;
+import org.telluriumsource.crosscut.i18n.ResourceBundle;
 
 import java.util.Map;
 

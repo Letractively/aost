@@ -1,4 +1,4 @@
-package org.telluriumsource.i18n
+package org.telluriumsource.crosscut.i18n
 
 import java.text.DateFormat;
 import java.text.MessageFormat;

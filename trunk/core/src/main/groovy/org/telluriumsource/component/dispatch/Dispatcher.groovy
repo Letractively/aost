@@ -2,13 +2,14 @@ package org.telluriumsource.component.dispatch
 
 import org.telluriumsource.component.client.SeleniumClient
 import org.telluriumsource.framework.config.Configurable
-import org.telluriumsource.i18n.IResourceBundle;
-import org.telluriumsource.crosscut.DefaultExecutionTracer
-import org.telluriumsource.crosscut.ExecutionTracer
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.trace.DefaultExecutionTracer
+import org.telluriumsource.crosscut.trace.ExecutionTracer
 import org.telluriumsource.framework.Environment
 import org.telluriumsource.dsl.WorkflowContext
-import org.telluriumsource.util.Helper;
-
+import org.telluriumsource.util.Helper
+import org.telluriumsource.crosscut.trace.DefaultExecutionTracer
+import org.telluriumsource.crosscut.trace.ExecutionTracer
 
 class Dispatcher implements Configurable {
     public static final String PLACE_HOLDER = "\\?"

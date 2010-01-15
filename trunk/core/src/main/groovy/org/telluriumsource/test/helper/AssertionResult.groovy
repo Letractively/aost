@@ -2,7 +2,7 @@ package org.telluriumsource.test.helper
 
 import junit.framework.AssertionFailedError
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
 
 
 

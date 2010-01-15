@@ -2,7 +2,7 @@ package org.telluriumsource.ui.locator
 
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.exception.InvalidLocatorException
-import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.framework.Environment;
 
 

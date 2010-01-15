@@ -3,7 +3,7 @@ package org.telluriumsource.test.ddt.mapping.io
 import org.telluriumsource.Const;
 import org.telluriumsource.test.ddt.mapping.DataMappingException
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
 
 
 

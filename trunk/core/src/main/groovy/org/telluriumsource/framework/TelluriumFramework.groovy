@@ -22,7 +22,7 @@ import org.telluriumsource.ui.locator.LocatorProcessor
 import org.telluriumsource.ui.locator.LocatorProcessorMetaClass
 import org.telluriumsource.server.EmbeddedSeleniumServer
 import org.telluriumsource.ui.widget.WidgetConfigurator
-import org.telluriumsource.i18n.IResourceBundle
+import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.dsl.GlobalDslContext
 import org.telluriumsource.util.Helper
 import org.telluriumsource.entity.CachePolicy

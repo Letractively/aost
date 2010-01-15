@@ -9,8 +9,8 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.telluriumsource.i18n.ResourceBundle;
-import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.ResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
 
 
 /**

@@ -7,7 +7,7 @@ import org.telluriumsource.exception.UiObjectNotFoundException
 import org.telluriumsource.ui.object.*
 import org.telluriumsource.exception.InvalidObjectTypeException
 
-import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.framework.Environment;
 
 

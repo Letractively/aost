@@ -1,4 +1,6 @@
-package org.telluriumsource.crosscut
+package org.telluriumsource.crosscut.log
+
+import org.telluriumsource.crosscut.log.Appender
 
 /**
  * 

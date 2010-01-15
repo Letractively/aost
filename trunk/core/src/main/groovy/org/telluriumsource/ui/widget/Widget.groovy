@@ -18,7 +18,7 @@ import org.telluriumsource.ui.locator.JQueryOptimizer
 import org.json.simple.JSONObject
 import org.telluriumsource.ui.locator.MetaCmd
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
 
 
 /**

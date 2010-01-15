@@ -1,7 +1,7 @@
 package org.telluriumsource.trump;
 
-import org.telluriumsource.i18n.ResourceBundle;
-import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.ResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
 
 
 /**
