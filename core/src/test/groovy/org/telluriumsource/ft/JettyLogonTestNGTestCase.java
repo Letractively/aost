@@ -1,4 +1,4 @@
-package org.telluriumsource.java;
+package org.telluriumsource.ft;
 
 import org.telluriumsource.test.java.TelluriumMockTestNGTestCase;
 import org.telluriumsource.module.JettyLogonModule;
