@@ -11,7 +11,7 @@ import org.telluriumsource.framework.Environment;
  *
  * Bind the variable in the test script to the input data read from the file
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 23, 2008
  *

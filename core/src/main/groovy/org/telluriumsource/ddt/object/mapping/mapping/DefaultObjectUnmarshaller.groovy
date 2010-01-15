@@ -10,7 +10,7 @@ import org.telluriumsource.i18n.IResourceBundle
 /**
  * Default implementation to convert a data field to a Java object
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 23, 2008
  *

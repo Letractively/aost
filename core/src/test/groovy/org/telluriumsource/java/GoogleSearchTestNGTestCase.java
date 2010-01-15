@@ -12,7 +12,7 @@ import static org.testng.Assert.*;
 
 /**
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Dec 8, 2009
  *

@@ -5,7 +5,7 @@ import org.telluriumsource.ddt.object.mapping.FieldSet
 /**
  * Build FieldSet from a collection of attributes
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 24, 2008
  *

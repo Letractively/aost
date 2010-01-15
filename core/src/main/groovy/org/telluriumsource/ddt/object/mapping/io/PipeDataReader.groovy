@@ -9,7 +9,7 @@ import org.telluriumsource.i18n.IResourceBundle;
 /**
  * The implementation for the field set reader with pipe field delimiter
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 23, 2008
  *
