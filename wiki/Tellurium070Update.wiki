@@ -49,46 +49,48 @@ Accordingly, the Maven dependency should be changed as follows,
 The original core package structure was a flat one and it has been changed as follows,
 
 {{{
-└── org
-    └── telluriumsource
-        ├── component
-        │   ├── bundle
-        │   ├── client
-        │   ├── connector
-        │   ├── custom
-        │   ├── data
-        │   ├── dispatch
-        │   └── event
-        ├── dsl
-        ├── entity
-        ├── exception
-        ├── framework
-        │   ├── bootstrap
-        │   └── config
-        ├── i18n
-        ├── server
-        ├── test
-        │   ├── crosscut
-        │   ├── ddt
-        │   │   └── mapping
-        │   │       ├── bind
-        │   │       ├── builder
-        │   │       ├── io
-        │   │       ├── mapping
-        │   │       ├── type
-        │   │       └── validator
-        │   ├── groovy
-        │   ├── helper
-        │   ├── java
-        │   └── mock
-        ├── ui
-        │   ├── builder
-        │   ├── locator
-        │   ├── object
-        │   │   └── routing
-        │   └── widget
-        └── util
-            └── grid
+`-- org
+    `-- telluriumsource
+        |-- component
+        |   |-- bundle
+        |   |-- client
+        |   |-- connector
+        |   |-- custom
+        |   |-- data
+        |   |-- dispatch
+        |   `-- event
+        |-- crosscut
+        |   |-- i18n
+        |   |-- log
+        |   `-- trace
+        |-- dsl
+        |-- entity
+        |-- exception
+        |-- framework
+        |   |-- bootstrap
+        |   `-- config
+        |-- server
+        |-- test
+        |   |-- ddt
+        |   |   `-- mapping
+        |   |       |-- bind
+        |   |       |-- builder
+        |   |       |-- io
+        |   |       |-- mapping
+        |   |       |-- type
+        |   |       `-- validator
+        |   |-- groovy
+        |   |-- helper
+        |   |-- java
+        |   `-- mock
+        |-- ui
+        |   |-- builder
+        |   |-- locator
+        |   |-- object
+        |   |   `-- routing
+        |   `-- widget
+        `-- util
+            `-- grid
 }}}
 
 == CSS Selector ==
