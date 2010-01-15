@@ -2,7 +2,7 @@ package org.telluriumsource.test.ddt.mapping.bind
 
 import org.telluriumsource.test.ddt.mapping.DataMappingException
 import org.telluriumsource.test.ddt.mapping.mapping.FieldSetMapResult
-import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.framework.Environment;
 
 

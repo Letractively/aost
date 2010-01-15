@@ -5,7 +5,7 @@ import org.telluriumsource.framework.config.CustomConfig
 import org.telluriumsource.component.connector.SeleniumConnector
 import org.telluriumsource.framework.TelluriumFramework
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
 
 import org.testng.annotations.AfterClass
 import org.testng.annotations.BeforeClass

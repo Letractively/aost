@@ -9,7 +9,7 @@ import org.telluriumsource.util.Helper
 import java.awt.event.KeyEvent
 
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.component.bundle.BundleProcessor
 import org.telluriumsource.dsl.WorkflowContext;
 

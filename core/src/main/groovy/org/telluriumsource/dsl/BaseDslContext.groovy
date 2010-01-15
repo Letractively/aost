@@ -7,7 +7,7 @@ import org.stringtree.json.JSONReader;
 import org.telluriumsource.exception.UiObjectNotFoundException;
 
 
-import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.ui.locator.JQueryOptimizer;
 import org.telluriumsource.ui.locator.LocatorProcessor;
 import org.telluriumsource.ui.locator.MetaCmd;

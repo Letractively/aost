@@ -1,4 +1,9 @@
-package org.telluriumsource.crosscut
+package org.telluriumsource.crosscut.trace
+
+import org.telluriumsource.crosscut.log.ConsoleAppender
+import org.telluriumsource.crosscut.log.SimpleLogger
+import org.telluriumsource.crosscut.log.Logger
+
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)

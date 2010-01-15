@@ -7,7 +7,7 @@ import org.telluriumsource.ui.object.Container
 import org.telluriumsource.ui.object.UiObject
 import org.telluriumsource.Const
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
 
 
 

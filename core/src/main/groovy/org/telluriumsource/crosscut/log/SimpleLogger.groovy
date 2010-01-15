@@ -1,4 +1,7 @@
-package org.telluriumsource.crosscut
+package org.telluriumsource.crosscut.log
+
+import org.telluriumsource.crosscut.log.Appender
+
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)

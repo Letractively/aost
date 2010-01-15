@@ -17,7 +17,7 @@ import org.telluriumsource.framework.TelluriumFramework
 import org.telluriumsource.test.helper.*
 import org.telluriumsource.test.groovy.BaseTelluriumGroovyTestCase
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.i18n.IResourceBundle
+import org.telluriumsource.crosscut.i18n.IResourceBundle
 
 /**
  * Tellurium Data Driven test and it can include multiple data driven modules so that you do not have
