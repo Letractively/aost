@@ -1,4 +1,4 @@
-package org.telluriumsource.test.helper
+package org.telluriumsource.test.report
 /**
  * hold two parameters, expected and actual
  *

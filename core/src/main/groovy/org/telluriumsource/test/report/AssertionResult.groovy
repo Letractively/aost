@@ -1,4 +1,4 @@
-package org.telluriumsource.test.helper
+package org.telluriumsource.test.report
 
 import junit.framework.AssertionFailedError
 import org.telluriumsource.framework.Environment;

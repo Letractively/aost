@@ -1,4 +1,4 @@
-package org.telluriumsource.test.helper
+package org.telluriumsource.test.report
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)

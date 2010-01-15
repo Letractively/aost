@@ -1,4 +1,4 @@
-package org.telluriumsource.test.helper
+package org.telluriumsource.test.report
 import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
 

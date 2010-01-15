@@ -14,7 +14,7 @@ import org.telluriumsource.test.ddt.mapping.mapping.FieldSetMapResult
 import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistry
 import org.telluriumsource.dsl.UiDslParser
 import org.telluriumsource.framework.TelluriumFramework
-import org.telluriumsource.test.helper.*
+import org.telluriumsource.test.report.*
 import org.telluriumsource.test.groovy.BaseTelluriumGroovyTestCase
 import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
@@ -362,7 +362,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
         return null
     }
 
-    protected void listenForResult(org.telluriumsource.test.helper.TestResult result ){
+    protected void listenForResult(org.telluriumsource.test.report.TestResult result ){
         listener.listenForResult(result)
     }
 

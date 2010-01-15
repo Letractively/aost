@@ -13,7 +13,7 @@ import org.telluriumsource.component.dispatch.Dispatcher
 import org.telluriumsource.component.event.EventHandler
 import org.telluriumsource.server.EmbeddedSeleniumServer
 import org.telluriumsource.ui.widget.WidgetConfigurator
-import org.telluriumsource.test.helper.*
+import org.telluriumsource.test.report.*
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.component.bundle.BundleProcessor
 import org.telluriumsource.framework.Environment

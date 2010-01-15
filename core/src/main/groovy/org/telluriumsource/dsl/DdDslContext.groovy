@@ -9,11 +9,11 @@ import org.telluriumsource.test.ddt.mapping.mapping.FieldSetMapResult
 import org.telluriumsource.test.ddt.mapping.FieldSet
 import org.telluriumsource.test.ddt.mapping.TestField
 import org.telluriumsource.test.ddt.TestRegistry
-import org.telluriumsource.test.helper.DefaultResultListener
-import org.telluriumsource.test.helper.TestResult
-import org.telluriumsource.test.helper.ResultListener
-import org.telluriumsource.test.helper.StepStatus
-import org.telluriumsource.test.helper.AssertionResult
+import org.telluriumsource.test.report.DefaultResultListener
+import org.telluriumsource.test.report.TestResult
+import org.telluriumsource.test.report.ResultListener
+import org.telluriumsource.test.report.StepStatus
+import org.telluriumsource.test.report.AssertionResult
 import junit.framework.AssertionFailedError
 import org.telluriumsource.test.ddt.TestRegistry
 
@@ -184,7 +184,7 @@ abstract class DdDslContext extends DslContext{
         return null
     }
 
-    public void listenForResult(org.telluriumsource.test.helper.TestResult result ){
+    public void listenForResult(org.telluriumsource.test.report.TestResult result ){
         listener.listenForResult(result)    
     }
 
