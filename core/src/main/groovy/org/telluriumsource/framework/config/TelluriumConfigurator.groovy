@@ -1,6 +1,6 @@
 package org.telluriumsource.framework.config
 
-import org.telluriumsource.layer.access.Accessor
+import org.telluriumsource.layer.data.Accessor
 import org.telluriumsource.ui.builder.UiObjectBuilder
 import org.telluriumsource.ui.builder.UiObjectBuilderRegistry
 

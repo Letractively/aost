@@ -1,4 +1,4 @@
-package org.telluriumsource.layer.access
+package org.telluriumsource.layer.data
 
 import org.telluriumsource.framework.config.Configurable
 import org.telluriumsource.util.Helper

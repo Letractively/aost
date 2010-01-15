@@ -1,4 +1,4 @@
-package org.telluriumsource.layer.extend
+package org.telluriumsource.layer.custom
 
 /**
  * MetaClass of the Extension class
