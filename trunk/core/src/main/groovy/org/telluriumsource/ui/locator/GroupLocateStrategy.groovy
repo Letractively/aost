@@ -3,10 +3,9 @@ package org.telluriumsource.ui.locator
 import org.telluriumsource.ui.object.Container
 import org.telluriumsource.ui.object.UiObject
 import org.telluriumsource.exception.InvalidLocatorException
-import static org.telluriumsource.Const.*
+import static org.telluriumsource.ui.Const.*
 import org.telluriumsource.ui.object.Table
 import org.telluriumsource.ui.object.StandardTable
-
 
 /**
  *   Use group information, i.e., use its direct descedants' information to form its own locator

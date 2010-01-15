@@ -1,10 +1,10 @@
 package org.telluriumsource.test.ddt.mapping.io
 
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.Const;
+import org.telluriumsource.ui.Const;
 import org.telluriumsource.test.ddt.mapping.DataMappingException
-import org.telluriumsource.crosscut.i18n.IResourceBundle;
-
+import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.telluriumsource.ui.Const
 
 /**
  * The implementation for the field set reader with pipe field delimiter

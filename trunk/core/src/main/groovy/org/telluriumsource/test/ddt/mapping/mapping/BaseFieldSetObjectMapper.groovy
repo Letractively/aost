@@ -1,6 +1,6 @@
 package org.telluriumsource.test.ddt.mapping.mapping
 
-import org.telluriumsource.Const
+import org.telluriumsource.ui.Const
 import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
 import org.telluriumsource.test.ddt.mapping.io.DataReader
 import org.telluriumsource.test.ddt.mapping.FieldSet
@@ -10,7 +10,6 @@ import org.telluriumsource.test.ddt.mapping.validator.FieldSetValidator
 import org.telluriumsource.test.ddt.mapping.FieldSetType
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.framework.Environment
-
 
 /**
  * The default implemention of the FieldSet Object Mapper
