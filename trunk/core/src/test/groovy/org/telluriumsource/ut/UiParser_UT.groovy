@@ -1,6 +1,6 @@
 package org.telluriumsource.ut
 
-import org.telluriumsource.tool.UiParser
+import org.telluriumsource.trump.UiParser
 
 /**
  * 

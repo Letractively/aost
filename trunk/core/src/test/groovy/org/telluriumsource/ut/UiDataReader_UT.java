@@ -4,7 +4,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import org.junit.Test;
-import org.telluriumsource.tool.UiDataReader;
+import org.telluriumsource.trump.UiDataReader;
 
 import java.io.BufferedReader;
 import java.util.Map;
