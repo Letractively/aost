@@ -1,7 +1,7 @@
 package org.telluriumsource.ut
 
-import org.telluriumsource.layer.bundle.CmdRequest
-import org.telluriumsource.layer.bundle.MacroCmd
+import org.telluriumsource.component.bundle.CmdRequest
+import org.telluriumsource.component.bundle.MacroCmd
 
 /**
  *

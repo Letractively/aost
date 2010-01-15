@@ -1,7 +1,7 @@
 package org.telluriumsource.ui.object
 
 import org.telluriumsource.exception.InvalidUidException
-import org.telluriumsource.layer.data.Accessor
+import org.telluriumsource.component.data.Accessor
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.dsl.UiID
 import org.telluriumsource.ui.locator.CompositeLocator

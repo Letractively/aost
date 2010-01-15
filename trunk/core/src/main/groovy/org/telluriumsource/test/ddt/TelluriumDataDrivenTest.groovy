@@ -2,7 +2,7 @@ package org.telluriumsource.test.ddt
 
 import junit.framework.AssertionFailedError
 import org.telluriumsource.framework.bootstrap.TelluriumSupport
-import org.telluriumsource.layer.connector.SeleniumConnector
+import org.telluriumsource.component.connector.SeleniumConnector
 import org.telluriumsource.test.ddt.DataProvider
 import org.telluriumsource.test.ddt.TestRegistry
 import org.telluriumsource.test.ddt.TextContext
