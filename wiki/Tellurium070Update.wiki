@@ -534,6 +534,8 @@ where {{{setCustomEnvironment}}} and {{{getCustomEnvironment}}} can be used to p
 
 == I18N ==
 
+For details, please read [http://code.google.com/p/aost/wiki/InternationalizationSupportTellurium Internationalization Support in Tellurium]
+
 == JUnit ==
 
 JUnit is upgraded to 4.7 since it provides more features. One such a good feature is [http://blog.schauderhaft.de/2009/10/04/junit-rules/ the Rule annotation].
