@@ -3,8 +3,8 @@ package org.telluriumsource.component.dispatch
 import org.telluriumsource.component.client.SeleniumClient
 import org.telluriumsource.framework.config.Configurable
 import org.telluriumsource.i18n.IResourceBundle;
-import org.telluriumsource.test.crosscut.DefaultExecutionTracer
-import org.telluriumsource.test.crosscut.ExecutionTracer
+import org.telluriumsource.crosscut.DefaultExecutionTracer
+import org.telluriumsource.crosscut.ExecutionTracer
 import org.telluriumsource.framework.Environment
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.util.Helper;

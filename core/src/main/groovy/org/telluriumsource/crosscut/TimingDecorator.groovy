@@ -1,4 +1,4 @@
-package org.telluriumsource.test.crosscut
+package org.telluriumsource.crosscut
 import org.telluriumsource.framework.Environment;
 import org.telluriumsource.i18n.IResourceBundle;
 
