@@ -47,6 +47,9 @@ background-color: red;
 background: red;
 }
 
+.colors .red {
+background-color: red;
+}
 </style>
 </head>
 <body>
