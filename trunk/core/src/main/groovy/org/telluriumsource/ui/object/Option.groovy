@@ -2,7 +2,7 @@ package org.telluriumsource.ui.object
 
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.dsl.UiID
-import org.telluriumsource.layer.access.Accessor
+import org.telluriumsource.layer.data.Accessor
 import org.json.simple.JSONObject
 
 /**

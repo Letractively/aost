@@ -1,7 +1,7 @@
 package org.telluriumsource.framework
 
-import org.telluriumsource.layer.access.Accessor
-import org.telluriumsource.layer.access.AccessorMetaClass
+import org.telluriumsource.layer.data.Accessor
+import org.telluriumsource.layer.data.AccessorMetaClass
 import org.telluriumsource.ui.builder.UiObjectBuilder
 import org.telluriumsource.ui.builder.UiObjectBuilderRegistry
 import org.telluriumsource.ui.builder.UiObjectBuilderRegistryMetaClass
@@ -16,8 +16,8 @@ import org.telluriumsource.layer.dispatch.Dispatcher
 import org.telluriumsource.layer.dispatch.DispatcherMetaClass
 import org.telluriumsource.layer.event.EventHandler
 import org.telluriumsource.layer.event.EventHandlerMetaClass
-import org.telluriumsource.layer.extend.Extension
-import org.telluriumsource.layer.extend.ExtensionMetaClass
+import org.telluriumsource.layer.custom.Extension
+import org.telluriumsource.layer.custom.ExtensionMetaClass
 import org.telluriumsource.ui.locator.LocatorProcessor
 import org.telluriumsource.ui.locator.LocatorProcessorMetaClass
 import org.telluriumsource.server.EmbeddedSeleniumServer

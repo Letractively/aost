@@ -1,8 +1,8 @@
 package org.telluriumsource.dsl
 
 import org.telluriumsource.layer.event.EventHandler
-import org.telluriumsource.layer.access.Accessor
-import org.telluriumsource.layer.extend.Extension
+import org.telluriumsource.layer.data.Accessor
+import org.telluriumsource.layer.custom.Extension
 import org.telluriumsource.framework.Environment
 import org.telluriumsource.util.Helper
 

@@ -1,4 +1,4 @@
-package org.telluriumsource.layer.extend
+package org.telluriumsource.layer.custom
 
 import org.telluriumsource.layer.bundle.BundleProcessor
 
