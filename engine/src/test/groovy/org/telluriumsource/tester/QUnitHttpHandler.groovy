@@ -15,7 +15,7 @@ import com.sun.net.httpserver.Headers
 public class QUnitHttpHandler implements HttpHandler {
 
   /*
- <script src="http://code.jquery.com/jquery-1.3.2.js"> </script>
+ <script src="http://code.jquery.com/jquery-1.4.js"> </script>
  <link rel="stylesheet" href="http://github.com/jquery/qunit/raw/master/qunit/qunit.css" type="text/css" media="screen" />
  <script type="text/javascript" src="http://github.com/jquery/qunit/raw/master/qunit/qunit.js"></script>
 
@@ -27,7 +27,7 @@ public class QUnitHttpHandler implements HttpHandler {
         <head>
           <title>QUnit Tester</title>
           <link rel="stylesheet" href="qunit/qunit.css" type="text/css"/>
-          <script src="qunit/jquery-1.3.2.js"> </script>
+          <script src="qunit/jquery-1.4.js"> </script>
           <script type="text/javascript" src="qunit/qunit.js"></script>
           <script type="text/javascript">
             \$(document).ready(function(){
@@ -39,7 +39,7 @@ public class QUnitHttpHandler implements HttpHandler {
         <html>
         <head>
           <title>QUnit Tester</title>
-          <script src="http://code.jquery.com/jquery-1.3.2.js"> </script>
+          <script src="http://code.jquery.com/jquery-1.4.js"> </script>
           <link rel="stylesheet" href="http://github.com/jquery/qunit/raw/master/qunit/qunit.css" type="text/css" media="screen" />
           <script type="text/javascript" src="http://github.com/jquery/qunit/raw/master/qunit/qunit.js"></script>
           <script type="text/javascript">
