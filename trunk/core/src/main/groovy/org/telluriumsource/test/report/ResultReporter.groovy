@@ -1,4 +1,4 @@
-package org.telluriumsource.test.helper
+package org.telluriumsource.test.report
 
 /**
  * store, log, or other ways to process the test result
