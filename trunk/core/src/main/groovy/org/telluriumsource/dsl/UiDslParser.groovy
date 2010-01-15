@@ -3,9 +3,9 @@ package org.telluriumsource.dsl
 import org.telluriumsource.ui.builder.UiObjectBuilderRegistry
 import org.telluriumsource.dsl.UiID
 import org.telluriumsource.dsl.WorkflowContext
-import org.telluriumsource.framework.exception.UiObjectNotFoundException
+import org.telluriumsource.exception.UiObjectNotFoundException
 import org.telluriumsource.ui.object.*
-import org.telluriumsource.framework.exception.InvalidObjectTypeException
+import org.telluriumsource.exception.InvalidObjectTypeException
 
 import org.telluriumsource.i18n.IResourceBundle;
 import org.telluriumsource.framework.Environment;

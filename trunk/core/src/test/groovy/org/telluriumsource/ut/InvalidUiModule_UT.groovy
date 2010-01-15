@@ -1,6 +1,6 @@
 package org.telluriumsource.ut
 
-import org.telluriumsource.framework.exception.InvalidObjectTypeException
+import org.telluriumsource.exception.InvalidObjectTypeException
 
 /**
  *

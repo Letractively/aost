@@ -14,7 +14,7 @@ class ConsoleOutput implements ResultOutput{
         //simply printout the results to the screen
         print results
 
-        //still return the results so that other processor can process it
+        //still return the results so that other layer can process it
         return results
     }
 

@@ -2,7 +2,7 @@ package org.telluriumsource.ui.locator
 
 import org.telluriumsource.ui.object.Container
 import org.telluriumsource.ui.object.UiObject
-import org.telluriumsource.framework.exception.InvalidLocatorException
+import org.telluriumsource.exception.InvalidLocatorException
 import static org.telluriumsource.Const.*
 import org.telluriumsource.ui.object.Table
 import org.telluriumsource.ui.object.StandardTable
