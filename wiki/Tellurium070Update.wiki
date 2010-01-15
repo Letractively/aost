@@ -51,6 +51,14 @@ The original core package structure was a flat one and it has been changed as fo
 {{{
 └── org
     └── telluriumsource
+        ├── component
+        │   ├── bundle
+        │   ├── client
+        │   ├── connector
+        │   ├── custom
+        │   ├── data
+        │   ├── dispatch
+        │   └── event
         ├── dsl
         ├── entity
         ├── exception
@@ -58,14 +66,6 @@ The original core package structure was a flat one and it has been changed as fo
         │   ├── bootstrap
         │   └── config
         ├── i18n
-        ├── layer
-        │   ├── bundle
-        │   ├── client
-        │   ├── connector
-        │   ├── custom
-        │   ├── data
-        │   ├── dispatch
-        │   └── event
         ├── server
         ├── test
         │   ├── crosscut
