@@ -80,9 +80,9 @@ The original core package structure was a flat one and it has been changed as fo
         |   |       |-- type
         |   |       `-- validator
         |   |-- groovy
-        |   |-- helper
         |   |-- java
-        |   `-- mock
+        |   |-- mock
+        |   `-- report
         |-- ui
         |   |-- builder
         |   |-- locator
