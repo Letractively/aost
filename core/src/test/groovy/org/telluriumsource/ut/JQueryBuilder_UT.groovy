@@ -1,6 +1,6 @@
 package org.telluriumsource.ut
 
-import org.telluriumsource.locator.JQueryBuilder
+import org.telluriumsource.ui.locator.JQueryBuilder
 
 public class JQueryBuilder_UT extends GroovyTestCase {
 

@@ -2,8 +2,8 @@ package org.telluriumsource.test.java;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.telluriumsource.bootstrap.TelluriumSupport;
-import org.telluriumsource.connector.SeleniumConnector;
+import org.telluriumsource.framework.bootstrap.TelluriumSupport;
+import org.telluriumsource.processor.connector.SeleniumConnector;
 
 /**
  * Java TestCase with @BeforeClass and @AfterClass defined

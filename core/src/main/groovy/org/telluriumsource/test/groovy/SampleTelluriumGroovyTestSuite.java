@@ -5,7 +5,7 @@ import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.telluriumsource.bootstrap.TelluriumSupport;
+import org.telluriumsource.framework.bootstrap.TelluriumSupport;
 import org.telluriumsource.framework.TelluriumFramework;
 
 /**

@@ -99,7 +99,7 @@ tellurium{
             //take the TableBuilder or ListBuilder as an example
 
             //example:
-//           Icon="org.telluriumsource.builder.IconBuilder"
+//           Icon="org.telluriumsource.ui.builder.IconBuilder"
             
         }
     }

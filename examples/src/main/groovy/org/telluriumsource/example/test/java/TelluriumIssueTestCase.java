@@ -7,6 +7,7 @@ import org.junit.After;
 import static org.junit.Assert.*;
 import org.telluriumsource.test.java.TelluriumJavaTestCase;
 import org.telluriumsource.example.other.TelluriumIssueModule;
+import org.telluriumsource.entity.CachePolicy;
 
 import java.util.Map;
 import java.util.Set;
@@ -19,9 +20,9 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
         connectSeleniumServer();
         tisp = new TelluriumIssueModule();
         tisp.defineUi();
-        tisp.enableCssSelector();
-        tisp.enableCache();
-        tisp.setCacheMaxSize(30);
+        useCssSelector(true);
+        useCache(true);
+        setCacheMaxSize(30);
     }
 
     @Before
@@ -84,13 +85,13 @@ public class TelluriumIssueTestCase extends TelluriumJavaTestCase {
 
     @Test
     public void testCachePolicy(){
-        tisp.setCacheMaxSize(2);
-        tisp.useDiscardNewCachePolicy();
+        setCacheMaxSize(2);
+        useCachePolicy(CachePolicy.DISCARD_NEW);
         tisp.searchIssue("Alter");
         tisp.getTableCSS("font-size");
         tisp.getIsssueTypes();
         tisp.searchIssue("Alter");
-        tisp.setCacheMaxSize(30);
+        setCacheMaxSize(30);
     }
 
     @After

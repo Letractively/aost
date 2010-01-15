@@ -131,8 +131,8 @@ tellurium{
             //take the TableBuilder or ListBuilder as an example
 
             //example:
-           SelectMenu="org.telluriumsource.builder.SelectMenuBuilder"
-           ClickableRadioButton="org.telluriumsource.builder.ClickableRadioButtonBuilder"
+           SelectMenu="org.telluriumsource.ui.builder.SelectMenuBuilder"
+           ClickableRadioButton="org.telluriumsource.ui.builder.ClickableRadioButtonBuilder"
         }
     }
     widget{

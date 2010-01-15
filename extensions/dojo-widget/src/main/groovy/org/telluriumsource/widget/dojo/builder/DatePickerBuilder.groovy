@@ -1,7 +1,7 @@
-package org.telluriumsource.widget.dojo.builder
+package org.telluriumsource.ui.widget.dojo.builder
 
-import org.telluriumsource.widget.dojo.object.DatePicker
-import org.telluriumsource.builder.UiObjectBuilder
+import org.telluriumsource.ui.widget.dojo.object.DatePicker
+import org.telluriumsource.ui.builder.UiObjectBuilder
 
 /**
  * Builder for widget Date picker

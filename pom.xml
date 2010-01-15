@@ -247,8 +247,8 @@
     <modules>
         <module>core</module>
         <module>engine</module>
-        <module>extensions</module>
-        <module>reference-projects</module>
+        <!--module>extensions</module>
+        <module>reference-projects</module-->
         <module>examples</module>
         <!--module>tools</module-->
         <module>tellurium-assembly</module>

@@ -1,7 +1,7 @@
 package org.telluriumsource.example.google
 
 import org.telluriumsource.dsl.DslContext
-import org.telluriumsource.object.UiObject
+import org.telluriumsource.ui.object.UiObject
 
 /**
  *

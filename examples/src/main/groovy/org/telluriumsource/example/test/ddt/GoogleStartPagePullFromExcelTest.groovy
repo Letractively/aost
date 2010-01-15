@@ -1,6 +1,6 @@
 package org.telluriumsource.example.test.ddt
 
-import org.telluriumsource.config.TelluriumConfigurator;
+import org.telluriumsource.framework.config.TelluriumConfigurator;
 import org.telluriumsource.test.ddt.TelluriumDataDrivenTest;
 
 /**

@@ -1,9 +1,9 @@
-package org.telluriumsource.widget.dojo
+package org.telluriumsource.ui.widget.dojo
 
-import org.telluriumsource.widget.dojo.builder.DatePickerBuilder
-import org.telluriumsource.widget.dojo.builder.JtvTabContainerBuilder
-import org.telluriumsource.widget.WidgetBootstrap
-import org.telluriumsource.builder.UiObjectBuilderRegistry
+import org.telluriumsource.ui.widget.dojo.builder.DatePickerBuilder
+import org.telluriumsource.ui.widget.dojo.builder.JtvTabContainerBuilder
+import org.telluriumsource.ui.widget.WidgetBootstrap
+import org.telluriumsource.ui.builder.UiObjectBuilderRegistry
 
 /**
  * The bootstrap class for the Dojo widget module

@@ -1,6 +1,6 @@
-package org.telluriumsource.widget.extjs
+package org.telluriumsource.ui.widget.extjs
 
-import org.telluriumsource.widget.Widget
+import org.telluriumsource.ui.widget.Widget
 
 /**
  * Base class for Dojo widgets

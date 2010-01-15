@@ -1,6 +1,6 @@
 package org.telluriumsource.ut
 
-import org.telluriumsource.connector.CustomCommand
+import org.telluriumsource.processor.connector.CustomCommand
 
 /**
  * 

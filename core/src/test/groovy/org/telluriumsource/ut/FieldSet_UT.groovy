@@ -1,8 +1,8 @@
 package org.telluriumsource.ut
 
-import org.telluriumsource.ddt.object.mapping.FieldSetRegistry
-import org.telluriumsource.ddt.object.mapping.FieldSetParser
-import org.telluriumsource.ddt.object.mapping.FieldSet
+import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
+import org.telluriumsource.test.ddt.mapping.FieldSetParser
+import org.telluriumsource.test.ddt.mapping.FieldSet
 
 /**
  * Unit tests for Field Set

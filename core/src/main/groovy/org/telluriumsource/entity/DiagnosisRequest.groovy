@@ -1,6 +1,6 @@
 package org.telluriumsource.entity
 
-import org.telluriumsource.locator.CompositeLocator
+import org.telluriumsource.ui.locator.CompositeLocator
 import org.json.simple.JSONObject
 import org.telluriumsource.entity.DiagnosisOption
 

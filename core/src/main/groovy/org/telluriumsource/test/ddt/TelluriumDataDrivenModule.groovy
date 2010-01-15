@@ -1,11 +1,11 @@
 package org.telluriumsource.test.ddt
 
-import org.telluriumsource.ddt.DataProvider
-import org.telluriumsource.ddt.TestRegistry
-import org.telluriumsource.ddt.object.mapping.FieldSetParser
-import org.telluriumsource.ddt.object.mapping.FieldSetRegistry
-import org.telluriumsource.ddt.object.mapping.type.TypeHandlerRegistry
-import org.telluriumsource.ddt.object.mapping.type.TypeHandlerRegistryConfigurator
+import org.telluriumsource.test.ddt.DataProvider
+import org.telluriumsource.test.ddt.TestRegistry
+import org.telluriumsource.test.ddt.mapping.FieldSetParser
+import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
+import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistry
+import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistryConfigurator
 import org.telluriumsource.dsl.DslContext
 
 /**

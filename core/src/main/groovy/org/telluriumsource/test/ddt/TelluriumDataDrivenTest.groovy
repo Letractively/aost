@@ -1,25 +1,23 @@
 package org.telluriumsource.test.ddt
 
 import junit.framework.AssertionFailedError
-import org.telluriumsource.bootstrap.TelluriumSupport
-import org.telluriumsource.connector.SeleniumConnector
-import org.telluriumsource.ddt.DataProvider
-import org.telluriumsource.ddt.TestRegistry
-import org.telluriumsource.ddt.TextContext
-import org.telluriumsource.ddt.object.mapping.FieldSet
-import org.telluriumsource.ddt.object.mapping.FieldSetParser
-import org.telluriumsource.ddt.object.mapping.FieldSetRegistry
-import org.telluriumsource.ddt.object.mapping.TestField
-import org.telluriumsource.ddt.object.mapping.mapping.FieldSetMapResult
-import org.telluriumsource.ddt.object.mapping.type.TypeHandlerRegistry
+import org.telluriumsource.framework.bootstrap.TelluriumSupport
+import org.telluriumsource.processor.connector.SeleniumConnector
+import org.telluriumsource.test.ddt.DataProvider
+import org.telluriumsource.test.ddt.TestRegistry
+import org.telluriumsource.test.ddt.TextContext
+import org.telluriumsource.test.ddt.mapping.FieldSet
+import org.telluriumsource.test.ddt.mapping.FieldSetParser
+import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
+import org.telluriumsource.test.ddt.mapping.TestField
+import org.telluriumsource.test.ddt.mapping.mapping.FieldSetMapResult
+import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistry
 import org.telluriumsource.dsl.UiDslParser
 import org.telluriumsource.framework.TelluriumFramework
 import org.telluriumsource.test.helper.*
 import org.telluriumsource.test.groovy.BaseTelluriumGroovyTestCase
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.i18n.IResourceBundle;
-
-
+import org.telluriumsource.i18n.IResourceBundle
 
 /**
  * Tellurium Data Driven test and it can include multiple data driven modules so that you do not have

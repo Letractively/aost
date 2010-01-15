@@ -1,7 +1,7 @@
 package org.telluriumsource.test.helper
 
-import org.telluriumsource.config.Configurable
-import org.telluriumsource.config.TelluriumConfigurator
+import org.telluriumsource.framework.config.Configurable
+import org.telluriumsource.framework.config.TelluriumConfigurator
 
 /**
  * Default implementation of Test Listener

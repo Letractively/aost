@@ -1,5 +1,5 @@
 package org.telluriumsource.i18n
-import org.telluriumsource.config.Configurable;
+import org.telluriumsource.framework.config.Configurable;
 
 /**
  * IResourceBundle - provides internationalization support

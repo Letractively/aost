@@ -2,7 +2,7 @@ package org.telluriumsource.example.test.groovy
 
 import org.telluriumsource.test.groovy.TelluriumGroovyTestCase
 import org.telluriumsource.example.google.GoogleCodeHosting
-import org.telluriumsource.object.UrlLink
+import org.telluriumsource.ui.object.UrlLink
 import org.telluriumsource.example.google.NewGoogleCodeHosting
 
 /**

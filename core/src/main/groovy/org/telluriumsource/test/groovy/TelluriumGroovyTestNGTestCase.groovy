@@ -1,8 +1,8 @@
 package org.telluriumsource.test.groovy
 
-import org.telluriumsource.bootstrap.TelluriumSupport
-import org.telluriumsource.config.CustomConfig
-import org.telluriumsource.connector.SeleniumConnector
+import org.telluriumsource.framework.bootstrap.TelluriumSupport
+import org.telluriumsource.framework.config.CustomConfig
+import org.telluriumsource.processor.connector.SeleniumConnector
 import org.telluriumsource.framework.TelluriumFramework
 import org.telluriumsource.framework.Environment;
 import org.telluriumsource.i18n.IResourceBundle;

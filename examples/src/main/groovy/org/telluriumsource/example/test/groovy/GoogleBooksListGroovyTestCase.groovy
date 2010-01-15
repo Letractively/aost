@@ -2,8 +2,8 @@ package org.telluriumsource.example.test.groovy
 
 import org.telluriumsource.example.google.GoogleBooksList
 import org.telluriumsource.example.google.NewGoogleBooksList
-import org.telluriumsource.object.UiObject
-import org.telluriumsource.object.UrlLink
+import org.telluriumsource.ui.object.UiObject
+import org.telluriumsource.ui.object.UrlLink
 import org.telluriumsource.test.groovy.TelluriumGroovyTestCase
 
 /**

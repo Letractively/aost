@@ -3,7 +3,7 @@ package org.telluriumsource.entity
 import org.telluriumsource.entity.RelaxDetail
 import org.telluriumsource.i18n.IResourceBundle
 import org.telluriumsource.framework.Environment
-import org.telluriumsource.locator.CompositeLocator
+import org.telluriumsource.ui.locator.CompositeLocator
 
 /**
  * The response object Passing back from Engine when do UI module locating and caching
