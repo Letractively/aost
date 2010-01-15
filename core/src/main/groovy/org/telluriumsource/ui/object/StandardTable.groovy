@@ -1,16 +1,16 @@
 package org.telluriumsource.ui.object
 
-import org.telluriumsource.processor.access.Accessor
+import org.telluriumsource.layer.access.Accessor
 import org.telluriumsource.dsl.UiID
 import org.telluriumsource.dsl.WorkflowContext
-import org.telluriumsource.framework.exception.InvalidUidException
+import org.telluriumsource.exception.InvalidUidException
 import org.telluriumsource.ui.locator.CompositeLocator
 import org.telluriumsource.ui.locator.GroupLocateStrategy
 import org.telluriumsource.ui.locator.LocatorProcessor
 import org.telluriumsource.ui.object.Container
 import org.telluriumsource.ui.object.TextBox
 import org.telluriumsource.ui.object.UiObject
-import org.telluriumsource.processor.extend.Extension
+import org.telluriumsource.layer.extend.Extension
 import org.json.simple.JSONObject
 
 /**

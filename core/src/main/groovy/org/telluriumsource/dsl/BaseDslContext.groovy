@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 import org.stringtree.json.JSONReader;
 
 
-import org.telluriumsource.framework.exception.UiObjectNotFoundException;
+import org.telluriumsource.exception.UiObjectNotFoundException;
 
 
 import org.telluriumsource.i18n.IResourceBundle;

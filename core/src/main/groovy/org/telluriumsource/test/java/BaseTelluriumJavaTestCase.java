@@ -1,7 +1,7 @@
 package org.telluriumsource.test.java;
 
 import org.telluriumsource.framework.config.CustomConfig;
-import org.telluriumsource.processor.connector.SeleniumConnector;
+import org.telluriumsource.layer.connector.SeleniumConnector;
 import org.telluriumsource.i18n.IResourceBundle;
 import org.telluriumsource.framework.TelluriumFramework;
 import org.telluriumsource.entity.CachePolicy;

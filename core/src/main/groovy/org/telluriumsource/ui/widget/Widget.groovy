@@ -1,17 +1,17 @@
 package org.telluriumsource.ui.widget
 
 import java.util.List
-import org.telluriumsource.processor.access.Accessor
+import org.telluriumsource.layer.access.Accessor
 import org.telluriumsource.dsl.UiDslParser
 import org.telluriumsource.dsl.UiID
 import org.telluriumsource.dsl.WorkflowContext
-import org.telluriumsource.processor.event.EventHandler
-import org.telluriumsource.framework.exception.UiObjectNotFoundException
+import org.telluriumsource.layer.event.EventHandler
+import org.telluriumsource.exception.UiObjectNotFoundException
 import org.telluriumsource.ui.locator.LocatorProcessor
 import org.telluriumsource.ui.object.StandardTable
 import org.telluriumsource.ui.object.UiObject
 import org.telluriumsource.util.Helper
-import org.telluriumsource.processor.extend.Extension
+import org.telluriumsource.layer.extend.Extension
 import org.stringtree.json.JSONReader
 import org.json.simple.JSONArray
 import org.telluriumsource.ui.locator.JQueryOptimizer

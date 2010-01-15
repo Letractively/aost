@@ -1,7 +1,7 @@
 package org.telluriumsource.test.groovy
 
 import org.telluriumsource.framework.bootstrap.TelluriumSupport
-import org.telluriumsource.processor.connector.SeleniumConnector
+import org.telluriumsource.layer.connector.SeleniumConnector
 
 /**
  * This test case only applies to a standalone test case which will be run by itself. Should not use

@@ -3,7 +3,7 @@ package org.telluriumsource.example.test.java;
 import org.telluriumsource.example.google.NewGoogleStartPage;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.telluriumsource.framework.exception.UiObjectNotFoundException;
+import org.telluriumsource.exception.UiObjectNotFoundException;
 import org.telluriumsource.test.java.TelluriumJavaTestCase;
 import static org.testng.Assert.assertEquals;
 

@@ -1,23 +1,23 @@
 package org.telluriumsource.framework.config
 
-import org.telluriumsource.processor.access.Accessor
+import org.telluriumsource.layer.access.Accessor
 import org.telluriumsource.ui.builder.UiObjectBuilder
 import org.telluriumsource.ui.builder.UiObjectBuilderRegistry
 
-import org.telluriumsource.processor.connector.SeleniumConnector
+import org.telluriumsource.layer.connector.SeleniumConnector
 import org.telluriumsource.test.ddt.DataProvider
 import org.telluriumsource.test.ddt.mapping.io.CSVDataReader
 import org.telluriumsource.test.ddt.mapping.io.ExcelDataReader;
 import org.telluriumsource.test.ddt.mapping.io.PipeDataReader
-import org.telluriumsource.processor.dispatch.Dispatcher
-import org.telluriumsource.processor.event.EventHandler
+import org.telluriumsource.layer.dispatch.Dispatcher
+import org.telluriumsource.layer.event.EventHandler
 import org.telluriumsource.server.EmbeddedSeleniumServer
 import org.telluriumsource.ui.widget.WidgetConfigurator
 import org.telluriumsource.test.helper.*
 import org.telluriumsource.i18n.IResourceBundle;
-import org.telluriumsource.processor.bundle.BundleProcessor
+import org.telluriumsource.layer.bundle.BundleProcessor
 import org.telluriumsource.framework.Environment
-import org.telluriumsource.framework.exception.ConfigNotFoundException
+import org.telluriumsource.exception.ConfigNotFoundException
 import org.telluriumsource.test.ddt.DataProvider
 
 /**
@@ -65,13 +65,13 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
   }
 
   protected configBundleProcessor(BundleProcessor processor) {
-//    processor.setProperty("maxMacroCmd", conf.tellurium.bundle.maxMacroCmd)
-//    processor.setProperty("exploitBundle", conf.tellurium.bundle.useMacroCommand)
+//    layer.setProperty("maxMacroCmd", conf.tellurium.bundle.maxMacroCmd)
+//    layer.setProperty("exploitBundle", conf.tellurium.bundle.useMacroCommand)
   }
 
   protected configBundleProcessorDefaultValues(BundleProcessor processor) {
-//    processor.setProperty("maxMacroCmd", 5)
-//    processor.setProperty("exploitBundle", false)
+//    layer.setProperty("maxMacroCmd", 5)
+//    layer.setProperty("exploitBundle", false)
   }
 
   protected void configSeleniumConnector(SeleniumConnector connector) {

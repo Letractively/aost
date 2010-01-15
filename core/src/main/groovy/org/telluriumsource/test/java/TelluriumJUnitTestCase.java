@@ -3,7 +3,7 @@ package org.telluriumsource.test.java;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.telluriumsource.framework.bootstrap.TelluriumSupport;
-import org.telluriumsource.processor.connector.SeleniumConnector;
+import org.telluriumsource.layer.connector.SeleniumConnector;
 
 /**
  * Java TestCase with @BeforeClass and @AfterClass defined
