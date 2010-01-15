@@ -1,4 +1,4 @@
-package org.telluriumsource
+package org.telluriumsource.ui
 /**
  * 
  * Place to hold shared constants

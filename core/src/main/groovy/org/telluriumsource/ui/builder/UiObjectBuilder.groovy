@@ -5,11 +5,10 @@ import org.telluriumsource.ui.locator.CompositeLocator
 import org.telluriumsource.ui.locator.JQLocator
 import org.telluriumsource.ui.object.Container
 import org.telluriumsource.ui.object.UiObject
-import org.telluriumsource.Const
+import org.telluriumsource.ui.Const
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.crosscut.i18n.IResourceBundle;
-
-
+import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.telluriumsource.ui.Const
 
 /**
  *  Basic UI object builder

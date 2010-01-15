@@ -1,7 +1,6 @@
 package org.telluriumsource.ui.locator
 
-import static org.telluriumsource.Const.*
-
+import static org.telluriumsource.ui.Const.*
 
 /**
  *   A utility class to build xpath from a given parameter set

@@ -1,11 +1,12 @@
 package org.telluriumsource.test.ddt.mapping.mapping
 
-import org.telluriumsource.Const;
+import org.telluriumsource.ui.Const;
 import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistry
 import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
 
 import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistryConfigurator
 import org.telluriumsource.test.ddt.mapping.FieldSetType
+import org.telluriumsource.ui.Const
 
 /**
  * Handle Pipe format file
