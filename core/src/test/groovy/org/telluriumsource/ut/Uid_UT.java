@@ -2,7 +2,7 @@ package org.telluriumsource.ut;
 
 import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
-import org.telluriumsource.tool.Uid;
+import org.telluriumsource.trump.Uid;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)

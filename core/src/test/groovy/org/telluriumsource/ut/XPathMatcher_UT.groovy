@@ -1,6 +1,6 @@
 package org.telluriumsource.ut
 
-import org.telluriumsource.tool.XPathMatcher
+import org.telluriumsource.trump.XPathMatcher
 
 /**
  * 

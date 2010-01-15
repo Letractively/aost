@@ -1,4 +1,4 @@
-package org.telluriumsource.tool;
+package org.telluriumsource.trump;
 
 import org.telluriumsource.i18n.ResourceBundle;
 import org.telluriumsource.i18n.IResourceBundle;

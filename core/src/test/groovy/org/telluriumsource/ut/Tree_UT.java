@@ -1,8 +1,8 @@
 package org.telluriumsource.ut;
 
 import org.junit.Test;
-import org.telluriumsource.tool.Element;
-import org.telluriumsource.tool.Tree;
+import org.telluriumsource.trump.Element;
+import org.telluriumsource.trump.Tree;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
