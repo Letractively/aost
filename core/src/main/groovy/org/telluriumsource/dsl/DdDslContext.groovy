@@ -21,7 +21,7 @@ import junit.framework.AssertionFailedError
  *
  * Extended DslContext for Data Driven Test
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 24, 2008
  *

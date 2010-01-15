@@ -5,7 +5,7 @@ import org.telluriumsource.ddt.object.mapping.FieldSetParser
 /**
  * The default DdDslContext concrete class
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 25, 2008
  *

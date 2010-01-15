@@ -5,7 +5,7 @@ import org.telluriumsource.object.UiObject
 
 /**
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Aug 31, 2009
  *

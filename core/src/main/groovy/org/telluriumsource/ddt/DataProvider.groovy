@@ -11,7 +11,7 @@ import org.telluriumsource.config.TelluriumConfigurator
 /**
  * The data provider for different formats of input
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 24, 2008
  *

@@ -2,7 +2,7 @@ package org.telluriumsource.ddt.object.mapping
 /**
  * Exception for data mapping
  * 
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 23, 2008
  *
