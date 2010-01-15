@@ -12,7 +12,7 @@ import org.telluriumsource.bundle.BundleProcessor
 /**
  * Global methods, which should not be tired to an individual UI module
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Nov 26, 2009
  *

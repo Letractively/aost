@@ -3,7 +3,7 @@ package org.telluriumsource.ddt.object.mapping
  *
  * The field set includes multiple fields and it usually is a record
  * 
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  * 
  * Date: Jul 23, 2008
  *

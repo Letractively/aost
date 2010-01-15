@@ -8,7 +8,7 @@ import org.telluriumsource.ddt.object.mapping.builder.TestFieldBuilder
 /**
  * parse the Field Set definition
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 24, 2008
  *

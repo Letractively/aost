@@ -3,7 +3,7 @@ package org.telluriumsource.ddt.object.mapping
 /**
  * The identifier for a Field Set
  * 
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jul 25, 2008
  *
