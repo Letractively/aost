@@ -8,7 +8,7 @@ package org.telluriumsource.ut
  * Date: Jul 24, 2008
  *
  */
-class GoogleDdDslContext_FT extends GroovyTestCase{
+class GoogleDdDslContext_UT extends GroovyTestCase{
 
     public void testGoogleSearch(){
         GoogleDdDslContext gddc = new GoogleDdDslContext()

@@ -1,62 +1,52 @@
-package org.telluriumsource.java;
+package org.telluriumsource.ft
 
-import org.telluriumsource.test.java.TelluriumTestNGTestCase;
-import org.telluriumsource.module.GoogleSearchModule;
-import org.telluriumsource.entity.CachePolicy;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import org.testng.annotations.AfterClass;
-import static org.testng.Assert.*;
-
+import org.telluriumsource.test.groovy.TelluriumGroovyTestCase
+import org.telluriumsource.module.GoogleSearchModule
+import org.telluriumsource.entity.CachePolicy
 
 /**
  *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Dec 8, 2009
- *
+ * 
  */
-public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase {
-    private static GoogleSearchModule gsm;
-    private static String te_ns = "http://telluriumsource.org/ns";
 
-    @BeforeClass
-    public static void initUi() {
+public class GoogleSearchGroovyTestCase extends TelluriumGroovyTestCase {
+
+  private GoogleSearchModule gsm;
+    private String te_ns = "http://telluriumsource.org/ns";
+
+    public void setUp() {
+        setUpForClass();
         gsm = new GoogleSearchModule();
         gsm.defineUi();
         connectSeleniumServer();
         useCssSelector(true);
         useTelluriumApi(true);
         useTrace(true);
-        useCache(true);
+//        useCache(true);
     }
 
-    @BeforeMethod
-    public void connectToGoogle() {
-
-        connectUrl("http://www.google.com");
-    }
-
-    @Test
     public void testGoogleSearch() {
+        connectUrl("http://www.google.com");
         gsm.doGoogleSearch("tellurium . ( Groovy ) Test");
     }
 
-    @Test
     public void testGoogleSearchFeelingLucky() {
+        connectUrl("http://www.google.com");
         gsm.doImFeelingLucky("tellurium automated Testing");
     }
 
-    @Test
     public void testLogo(){
+        connectUrl("http://www.google.com");
         String alt = gsm.getLogoAlt();
         assertNotNull(alt);
 //        assertEquals("Google", alt);
     }
 
-    @Test
     public void testIsDisabled(){
+        connectUrl("http://www.google.com");
         useCssSelector(true);
         boolean result = gsm.isInputDisabled();
         assertFalse(result);
@@ -65,8 +55,8 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase {
         assertFalse(result);
     }
 
-    @Test
     public void testUseCache(){
+        connectUrl("http://www.google.com");
         useCache(true);
         boolean result = gsm.getCacheState();
         assertTrue(result);
@@ -76,13 +66,13 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase {
         assertFalse(result);
     }
 
-    @Test
     public void testTypeRepeated(){
+        connectUrl("http://www.google.com");
         gsm.doTypeRepeated("tellurium jQuery");
     }
 
-    @Test
     public void testRegisterNamespace(){
+        connectUrl("http://www.google.com");
         registerNamespace("te", te_ns);
         String ns = getNamespace("te");
         assertNotNull(ns);
@@ -95,8 +85,8 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase {
         assertEquals("http://www.w3.org/1998/Math/MathML", ns);
     }
 
-    @Test
     public void testCachePolicy(){
+        connectUrl("http://www.google.com");
         useCssSelector(true);
         useCache(true);
         String policy = getCurrentCachePolicy();
@@ -115,9 +105,8 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase {
         assertEquals("DiscardOldPolicy", policy);
     }
 
-    @AfterClass
-    public static void tearDown(){
+    public void tearDown(){
         showTrace();
+        tearDownForClass();
     }
-
 }

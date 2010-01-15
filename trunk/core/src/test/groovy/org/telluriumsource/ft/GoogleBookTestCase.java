@@ -1,4 +1,4 @@
-package org.telluriumsource.java;
+package org.telluriumsource.ft;
 
 import org.telluriumsource.test.java.TelluriumJUnitTestCase;
 import org.telluriumsource.test.mock.MockHttpServer;
