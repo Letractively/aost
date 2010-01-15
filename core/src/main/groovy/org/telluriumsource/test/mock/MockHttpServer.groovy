@@ -18,6 +18,8 @@ public class MockHttpServer {
   private HttpServer server = null;
   private MockHttpHandler handler;
 
+  private String htmlPath = "org/telluriumsource/html";
+
   public MockHttpServer() {
     this.handler = new MockHttpHandler();
     this.server = HttpServer.create();
@@ -33,6 +35,10 @@ public class MockHttpServer {
     this.port = port;
     this.handler = handler;
     this.server = HttpServer.create();
+  }
+
+  public void setHtmlClassPath(String path){
+    this.htmlPath = path;
   }
 
   public void setContentType(String contentType){
@@ -65,6 +71,6 @@ public class MockHttpServer {
   }
 
   public String getHtmlFile(String file){
-    return new File(ClassLoader.getSystemResource("org/telluriumsource/html/${file}.html").getFile()).text;
+    return new File(ClassLoader.getSystemResource("${this.htmlPath}/${file}.html").getFile()).text;
   }
 }

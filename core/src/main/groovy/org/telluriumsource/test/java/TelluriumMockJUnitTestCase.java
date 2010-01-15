@@ -27,6 +27,10 @@ public class TelluriumMockJUnitTestCase extends TelluriumJUnitTestCase {
        server.registerHtmlBody("/" + testname + ".html", server.getHtmlFile(testname));
     }
 
+    public static void setHtmlClassPath(String path){
+        server.setHtmlClassPath(path);
+    }
+
     public static void connect(String testname){
         connectUrl("http://localhost:8080/" + testname + ".html");
     }
