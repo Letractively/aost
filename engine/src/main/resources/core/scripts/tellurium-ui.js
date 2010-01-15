@@ -2432,6 +2432,120 @@ Trie.prototype.getKey = function(){
     return tellurium.idGen.next();
 };
 
+Trie.prototype.getChildren = function(id){
+    var result = new Array();
+    if(this.root == null || this.root.getChildrenSize() == 0)
+        return result;
+
+    return this.walk(this.root, id, result);
+};
+
+Trie.prototype.match = function(id1, id2){
+    if(id1 == null || id2 == null || id1.trim().length == 0 || id2.trim().length == 0)
+        return 0;
+
+    var count = 0;
+    var sp1 = id1.split(".");
+    var sp2 = id2.split(".");
+    var len = sp1.length;
+    if(sp2.length < sp1.length)
+        len = sp2.length;
+
+    for(var i=0; i<len; i++){
+        if(sp1[i] == sp2[i]){
+            count++;
+        }else{
+            break;
+        }
+    }
+
+    return count;
+};
+
+function TrieMatch(){
+    this.score = 0;
+    this.node = null;
+};
+
+Trie.prototype.walk = function(current, id, result){
+    //there are children for the current node
+    //check if the new String is a prefix of current node's child or a child is a prefix of the input String,
+    var matches = new Array();
+    var maxscore = 0;
+    var i;
+    for (i = 0; i < current.getChildrenSize(); i++) {
+        var anode = current.children[i];
+        var score = this.match(anode.id, id);
+        if (score > 0) {
+            var matchresult = new TrieMatch();
+            matchresult.score = score;
+            matchresult.node = anode;
+            if(maxscore < score)
+                maxscore = score;
+            matches.push(score);
+        }
+    }
+
+    //there may be multiple children
+    var child = new Array();
+    for(i=0; i < matches.length; i++){
+        if(matches[i].score == maxscore){
+            child.push(matches[i].node);
+        }
+    }
+
+    //found one child
+    if(child.length == 0){
+        //the child is the id itself
+        if(id.length <= child[0].id.length){
+            //return all the children for this node
+            for(i=0; i<child.getChildrenSize(); i++){
+                result.push(child.children[i].data);
+            }
+
+            return result;
+        }else{
+             //need to do further walk down
+            var leftover = id.substring(child[0].id.length);
+            return this.walk(child[0], leftover, result);
+        }
+
+    }else if(child.length > 0){
+        //more than one children match
+        //
+        //consider the scenario, the Prie is
+        //         Username.Input
+        //   Form
+        //         Username.Label
+        //
+        //  and the input String is
+        //
+        //    Form.Username.Submit
+        //
+        // In this case, it cannot find any children. But if the input String is,
+        //
+        //    Form.Username
+        //
+        // it found both Form.Username.Input and Form.Username.Label
+        //
+
+        var sp = id.split(".");
+        if(sp.length == maxscore){
+            //The id is a prefix of the found children
+            //That means all children are found
+            for(i=0; i<child.length; i++){
+                for(var j=0; j<child[i].getChildrenSize(); j++){
+                    result.push(child[i].children[j].data);
+                }
+            }
+        }
+        //otherwise, treat it as not found
+    }
+
+    //otherwise, cannot find the child, just return the result
+    return result;
+};
+
 Trie.prototype.insert = function(id, data) {
     if (this.root == null) {
         //If it is the first time to insert an word to the Tire
