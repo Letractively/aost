@@ -1,7 +1,7 @@
 package org.telluriumsource.exception;
 
 /**
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Dec 11, 2009
  * 

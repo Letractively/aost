@@ -5,7 +5,7 @@ import org.telluriumsource.bundle.BundleProcessor
 /**
  * Class to pass user custom methods to the delegator
  *
- * @author: John.Jian.Fang@gmail.com
+ * @author John.Jian.Fang@gmail.com
  *
  * Date: Mar 19, 2009
  *

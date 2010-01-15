@@ -3,7 +3,7 @@ package org.telluriumsource.extend
 /**
  * MetaClass of the Extension class
  *
- * @author: John.Jian.Fang@gmail.com
+ * @author John.Jian.Fang@gmail.com
  *
  * Date: Mar 19, 2009
  *
