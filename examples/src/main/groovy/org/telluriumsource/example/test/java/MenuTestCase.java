@@ -96,7 +96,7 @@ public class MenuTestCase extends TelluriumJUnitTestCase {
         List<String> args = new ArrayList<String>();
         args.add("jquery=#category-list > li.division:eq(0) ul > li:eq(0)");
         args.add("background-color");
-        String color = (String) mm.customDirectCall("getCSS", args.toArray(new String[0]));
+        String color = (String) mm.customDirectCall("getCSS", args.toArray());
         System.out.println("background color: " + color);
     }
     
