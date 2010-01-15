@@ -44,6 +44,53 @@ Accordingly, the Maven dependency should be changed as follows,
     <version>0.7.0-SNAPSHOT</version>
 }}}
 
+== Package Structure ==
+
+The original core package structure was a flat one and it has been changed as follows,
+
+{{{
+└── org
+    └── telluriumsource
+        ├── dsl
+        ├── entity
+        ├── exception
+        ├── framework
+        │   ├── bootstrap
+        │   └── config
+        ├── i18n
+        ├── layer
+        │   ├── bundle
+        │   ├── client
+        │   ├── connector
+        │   ├── custom
+        │   ├── data
+        │   ├── dispatch
+        │   └── event
+        ├── server
+        ├── test
+        │   ├── crosscut
+        │   ├── ddt
+        │   │   └── mapping
+        │   │       ├── bind
+        │   │       ├── builder
+        │   │       ├── io
+        │   │       ├── mapping
+        │   │       ├── type
+        │   │       └── validator
+        │   ├── groovy
+        │   ├── helper
+        │   ├── java
+        │   └── mock
+        ├── ui
+        │   ├── builder
+        │   ├── locator
+        │   ├── object
+        │   │   └── routing
+        │   └── widget
+        └── util
+            └── grid
+}}}
+
 == CSS Selector ==
 
 One feedback we got from [http://code.google.com/p/aost/wiki/TelluriumAtRichWebExperience2009 the Rich Web Experience 2009] is that we should use the name "CSS selector" instead of "jQuery selector" because jQuery implements a subset of CSS selectors. As a result, we changed the following two methods in DslContext 
