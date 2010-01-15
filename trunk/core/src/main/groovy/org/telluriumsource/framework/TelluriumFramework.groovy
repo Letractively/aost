@@ -31,7 +31,7 @@ import org.telluriumsource.bundle.BundleProcessor;
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Jun 2, 2008
  */

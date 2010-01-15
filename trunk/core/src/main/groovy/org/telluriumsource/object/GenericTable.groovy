@@ -8,7 +8,7 @@ import org.telluriumsource.locator.CompositeLocator
 
 /**
  * 
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Aug 28, 2009
  * 

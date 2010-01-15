@@ -4,7 +4,7 @@ import org.telluriumsource.connector.CustomSelenium
 
 /**
  * 
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Aug 12, 2009
  * 

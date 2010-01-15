@@ -3,7 +3,7 @@ package org.telluriumsource.entity
 /**
  * Enum for Cache Policies
  *
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Nov 26, 2009
  *
