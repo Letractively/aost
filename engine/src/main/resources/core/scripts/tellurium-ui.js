@@ -2308,8 +2308,11 @@ function TrieNode() {
     this.key = -1;
 
     //hold the String value for this node
-    this.elem = null;
+    this.id = null;
 
+    //the data this node holds
+    this.data = null;
+    
     //the level of this node in the Trie tree
     this.level = 0;
 
@@ -2338,7 +2341,7 @@ TrieNode.prototype.findIt = function( key )
 
     for( var i = 0; i < this.children.length; i++ )
     {
-        if( this.children[i] == key )
+        if( this.children[i].key == key )
         {
             result = i;
             break;
@@ -2372,15 +2375,15 @@ TrieNode.prototype.checkLevel = function() {
     }
 };
 
-TrieNode.prototype.getFullWord = function() {
+TrieNode.prototype.getFullId = function() {
     if (this.parent == null) {
-        return this.elem;
+        return this.id;
     }
 
-    return this.parent.getFullWord() + this.elem;
+    return this.parent.getFullId() + this.id;
 };
 
-TrieNode.prototype.printMe = function() {
+TrieNode.prototype.printMe = function(isTrace) {
     var hasChildren = false;
     if (this.children.length > 0)
         hasChildren = true;
@@ -2388,13 +2391,21 @@ TrieNode.prototype.printMe = function() {
     for (var i = 0; i < this.level; i++) {
         sb.append("  ");
     }
-    sb.append(this.elem);
+    if(this.parent == null){
+        sb.append("Trie").append(": ");
+    }else{
+        sb.append(this.id).append("[").append(this.data).append("]");
+    }
     if (hasChildren)
         sb.append("{");
-    fbLog(sb.toString(), this);
+    if(isTrace){
+        fbLog(sb.toString(), this);
+    }else{
+        fbLog(sb.toString(), "");
+    }
     if (hasChildren) {
         for (var n = 0; n < this.children.length; n++) {
-            this.children[n].printMe();
+            this.children[n].printMe(isTrace);
         }
     }
     if (hasChildren) {
@@ -2403,7 +2414,11 @@ TrieNode.prototype.printMe = function() {
             indent.append("  ");
         }
         indent.append("}");
-        fbLog(indent.toString(), this);
+        if(isTrace){
+            fbLog(indent.toString(), this);
+        }else{
+            fbLog(indent.toString(), "");
+        }
     }
 };
 
@@ -2417,34 +2432,36 @@ Trie.prototype.getKey = function(){
     return tellurium.idGen.next();
 };
 
-Trie.prototype.insert = function(word) {
+Trie.prototype.insert = function(id, data) {
     if (this.root == null) {
         //If it is the first time to insert an word to the Tire
-        this.root = new Node();
+        this.root = new TrieNode();
         //root is an empty String, more like a logic node
-        this.root.elem = "";
+        this.root.id = "";
         this.root.level = 0;
         this.root.parent = null;
         this.root.key = this.getKey();
 
         //add the word as the child of the root node
         var child = new TrieNode();
-        child.elem = word;
+        child.id = id;
+        child.data = data;
         child.parent = this.root;
         child.key = this.getKey();
         this.root.addChild(child);
     } else {
         //not the first node, need to walk all the way down to find a place to insert
-        this.walk(this.root, word);
+        this.build(this.root, id, data);
     }
 };
 
-Trie.prototype.walk = function(current, word) {
+Trie.prototype.build = function(current, id, data) {
     //look at current node's children
     if (current.getChildrenSize() == 0) {
         //no child yet, add itself as the first child
-        var child = new Node();
-        child.elem = word;
+        var child = new TrieNode();
+        child.id = id;
+        child.data = data;
         child.parent = current;
         child.key = this.getKey();
         current.addChild(child);
@@ -2454,20 +2471,21 @@ Trie.prototype.walk = function(current, word) {
         var common = new Array();
         for (var i = 0; i < current.getChildrenSize(); i++) {
             var anode = current.children[i];
-            if (anode.elem.startsWith(word)) {
+            if (anode.id.startsWith(id)) {
                 common.push(anode);
             }
         }
         //if the new String is indeed a prefix of a set of children
         if (common.length > 0) {
-            var shared = new Node();
-            shared.elem = word;
+            var shared = new TrieNode();
+            shared.id = id;
+            shared.data = data;
             shared.parent = current;
             shared.key = this.getKey();
             for (var j = 0; j < common.length; j++) {
                 var node = common[j];
-                //assume no duplication in the dictionary, otherwise, need to consider the empty string case for a child
-                node.elem = node.elem.substring(word.length);
+                //assume no duplication in the tree, otherwise, need to consider the empty string case for a child
+                node.id = node.id.substring(id.length);
                 node.parent = shared;
                 shared.addChild(node);
                 current.removeChild(node);
@@ -2479,7 +2497,7 @@ Trie.prototype.walk = function(current, word) {
             var next = null;
             for (var k = 0; k < current.getChildrenSize(); k++) {
                 var pnode = current.children[k];
-                if (word.startsWith(pnode.elem)) {
+                if (id.startsWith(pnode.id)) {
                     found = true;
                     next = pnode;
                     break;
@@ -2487,15 +2505,16 @@ Trie.prototype.walk = function(current, word) {
             }
             if (found) {
                 //not a duplication, otherwise, do nothing
-                if (word.length != next.elem.length) {
-                    var leftover = word.substring(next.elem.length);
-                    this.walk(next, leftover);
+                if (id.length != next.id.length) {
+                    var leftover = id.substring(next.id.length);
+                    this.build(next, leftover, data);
                 }
             } else {
                 //not found, need to create a new node a the child of the current node
-                var achild = new Node();
+                var achild = new TrieNode();
                 achild.parent = current;
-                achild.elem = word;
+                achild.id = id;
+                achild.data = data;
                 achild.key = this.getKey();
                 current.addChild(achild);
             }
@@ -2511,8 +2530,16 @@ Trie.prototype.checkLevel = function() {
 
 Trie.prototype.printMe = function() {
     if (this.root != null) {
+        fbLog("---------------------------- Trie/Prefix Tree ----------------------------\n", "");
+        this.root.printMe(false);
+        fbLog("--------------------------------------------------------------------------\n", "");
+    }
+};
+
+Trie.prototype.dumpMe = function() {
+    if (this.root != null) {
         fbLog("---------------------------- Trie/Prefix Tree ----------------------------\n", this);
-        this.root.printMe();
+        this.root.printMe(true);
         fbLog("--------------------------------------------------------------------------\n", this);
     }
 };
