@@ -159,7 +159,7 @@ TelluriumApi.prototype.getAttribute = function(attributeLocator){
     }
 
     var json = "uimcal=" + JSON.stringify(cal);
-    fbLog("re-jsonified locator", json)
+    fbLog("re-jsonified locator", json);
     var element = this.cacheAwareLocate(json);
     return teJQuery(element).attr(attributeName);
 };

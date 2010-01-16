@@ -1876,7 +1876,7 @@ UiAlg.prototype.locateInAllSnapshots = function(uiobj){
             finished = true;
             this.currentColor = this.nextColor();
             if(this.squeue.size() == 0){
-                fbError("Cannot find UI element " + uiobj.uid);
+                fbError("Cannot find UI element " + uiobj.uid, uiobj);
                 throw new SeleniumError("Cannot find UI element " + uiobj.uid);
             }
         }
@@ -1888,7 +1888,7 @@ UiAlg.prototype.lookId = function(uiobj, $found){
     if(ids != null && ids.length > 0){
          var gsel = new Array();
          for(var c=0; c < ids.length; c++){
-             gsel.push(this.buildIdSelector(ids[i]));
+             gsel.push(this.buildIdSelector(ids[c]));
          }
          var result = new Array();
          for(var i=0; i<$found.size(); i++){
@@ -1987,7 +1987,7 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
         }else{
             //first try lookId
             $found = this.lookId(uiobj, $found);
-            fbLog("Look Id result for " + uiobj.uid, $found.get())
+            fbLog("Look Id result for " + uiobj.uid, $found.get());
             if($found.size() > 1){
                 $found = this.lookAhead(uiobj, $found);
                 fbLog("Look ahead result for " + uiobj.uid, $found.get());
@@ -2406,7 +2406,7 @@ UiAlg.prototype.validate = function(uimodule, rootdom){
         uiobj.locate(this);
     }
     if(this.squeue.size() == 0){
-        fbError("Cannot locate UI module " +  uimodule.root.uid);
+        fbError("Cannot locate UI module " +  uimodule.root.uid, uimodule);
         uimodule.matches = 0;
     }
     if (this.squeue.size() >= 1) {
@@ -2530,7 +2530,7 @@ TrieNode.prototype.printMe = function(isTrace) {
     var hasChildren = false;
     if (this.children.length > 0)
         hasChildren = true;
-    var sb = new StringBuffer(64);
+    var sb = new StringBuffer();
     for (var i = 0; i < this.level; i++) {
         sb.append("  ");
     }
@@ -2552,7 +2552,7 @@ TrieNode.prototype.printMe = function(isTrace) {
         }
     }
     if (hasChildren) {
-        var indent = new StringBuffer(64);
+        var indent = new StringBuffer();
         for (var j = 0; j < this.level; j++) {
             indent.append("  ");
         }
