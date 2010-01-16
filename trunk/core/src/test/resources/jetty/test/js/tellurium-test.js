@@ -7,6 +7,10 @@ TelluriumTestCase.prototype.testUiid = function(){
     uiid.convertToUiid("ProblematicForm.Username.Input");
     fbLog("", uiid);
     fbLog("", uiid.peek());
+    var uiid1 = getUiid("Form.Username.Input");
+    var uiid2 = getUiid("Form.Username");
+    var match = uiid1.matchWith(uiid2);
+    var sub = uiid1.subUiid(uiid2.size());
 };
 
 TelluriumTestCase.prototype.testPrie = function(){
@@ -14,15 +18,15 @@ TelluriumTestCase.prototype.testPrie = function(){
     trie.insert("Form", "form1");
     trie.insert("Form.Password", "password2");
     trie.insert("Form.Username.Input", "input4");
-    trie.insert("Form.Username", "username3");
+    trie.insert("Form.Username.Label", "username3");
     trie.insert("Form.Password.Input", "input6");   
     trie.insert("Form.Submit", "submit5");
     trie.checkLevel();
     trie.printMe();
     trie.dumpMe();
-    var form = trie.getChildren("Form");
-    var username = trie.getChildren("Form.Username");
-    var label = trie.getChildren("Form.Username.Label");
+    var form = trie.getChildrenData("Form");
+    var username = trie.getChildrenData("Form.Username");
+    var label = trie.getChildrenData("Form.Username.Submit");
 };
 
 TelluriumTestCase.prototype.testLogonUiModule = function(){
@@ -130,7 +134,7 @@ TelluriumTestCase.prototype.testUiCache = function(){
 };
 
 TelluriumTestCase.prototype.testSuite = function(){
-//    this.testUiid();
+    this.testUiid();
     this.testPrie();
 //    this.testLogonUiModule();
 //    this.testLogoUiModule();
