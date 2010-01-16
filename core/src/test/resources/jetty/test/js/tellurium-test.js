@@ -49,9 +49,9 @@ TelluriumTestCase.prototype.testLogonUiModule = function(){
 //    var uinput = uim.walkTo(context, "ProblematicForm.Username.Input");
 //    var pinput = uim.walkTo(context, "ProblematicForm.Password.Input");
 //    var smt = uim.walkTo(context, "ProblematicForm.Submit");
-    var uinput = uim.walkTo(context, uiid.toUiid("Form.Username.Input"));
-    var pinput = uim.walkTo(context, uiid.toUiid("Form.Password.Input"));
-    var smt = uim.walkTo(context, uiid.toUiid("Form.Submit"));
+    var uinput = uim.walkTo(context, uiid.convertToUiid("Form.Username.Input"));
+    var pinput = uim.walkTo(context, uiid.convertToUiid("Form.Password.Input"));
+    var smt = uim.walkTo(context, uiid.convertToUiid("Form.Submit"));
 };
 
 TelluriumTestCase.prototype.testLogoUiModule = function(){
@@ -63,7 +63,7 @@ TelluriumTestCase.prototype.testLogoUiModule = function(){
     alg.santa(uim, dom);
     var context = new WorkflowContext();
     var uiid = new Uiid();
-    var logo = uim.walkTo(context, uiid.toUiid("Logo"));
+    var logo = uim.walkTo(context, uiid.convertToUiid("Logo"));
 };
 
 TelluriumTestCase.prototype.testThumbnailUiModule = function(){
@@ -75,8 +75,8 @@ TelluriumTestCase.prototype.testThumbnailUiModule = function(){
     alg.santa(uim, dom);
     var context = new WorkflowContext();
     var uiid = new Uiid();
-    var image = uim.walkTo(context, uiid.toUiid("Thumbnail.ICon.Image"));
-    var input = uim.walkTo(context, uiid.toUiid("Thumbnail.ICon.Input"));
+    var image = uim.walkTo(context, uiid.convertToUiid("Thumbnail.ICon.Image"));
+    var input = uim.walkTo(context, uiid.convertToUiid("Thumbnail.ICon.Input"));
 };
 
 TelluriumTestCase.prototype.testBookUiModule = function(){
@@ -90,11 +90,11 @@ TelluriumTestCase.prototype.testBookUiModule = function(){
     alg.santa(uim, dom);
     var context = new WorkflowContext();
     var uiid = new Uiid();
-    var list = uim.walkTo(context, uiid.toUiid("GoogleBooksList"));
-    var category = uim.walkTo(context, uiid.toUiid("GoogleBooksList.category"));
-    var subcategory = uim.walkTo(context, uiid.toUiid("GoogleBooksList.subcategory"));
-    var subcategorylink1 = uim.walkTo(context, uiid.toUiid("GoogleBooksList.subcategory[1]"));
-    var subcategorylink2 = uim.walkTo(context,  uiid.toUiid("GoogleBooksList.subcategory[2]"));
+    var list = uim.walkTo(context, uiid.convertToUiid("GoogleBooksList"));
+    var category = uim.walkTo(context, uiid.convertToUiid("GoogleBooksList.category"));
+    var subcategory = uim.walkTo(context, uiid.convertToUiid("GoogleBooksList.subcategory"));
+    var subcategorylink1 = uim.walkTo(context, uiid.convertToUiid("GoogleBooksList.subcategory[1]"));
+    var subcategorylink2 = uim.walkTo(context,  uiid.convertToUiid("GoogleBooksList.subcategory[2]"));
 };
 
 TelluriumTestCase.prototype.testExpandUiModule = function(){
@@ -136,7 +136,7 @@ TelluriumTestCase.prototype.testUiCache = function(){
 TelluriumTestCase.prototype.testSuite = function(){
     this.testUiid();
     this.testPrie();
-//    this.testLogonUiModule();
+    this.testLogonUiModule();
 //    this.testLogoUiModule();
 //    this.testThumbnailUiModule();
 //    this.testBookUiModule();
