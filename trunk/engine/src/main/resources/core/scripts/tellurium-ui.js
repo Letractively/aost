@@ -1,6 +1,5 @@
 function getUiid(uid){
     var uiid = new Uiid();
-//    uiid.toUiid(uid);
     uiid.convertToUiid(uid);
 
     return uiid;
@@ -106,12 +105,6 @@ Uiid.prototype.size = function(){
 
 Uiid.prototype.toArray = function(){
     return this.stack;    
-};
-
-Uiid.prototype.toUiid = function(uid){
-    this.convertToUiid(uid);
-//    this.reverse();
-    return this;
 };
 
 Uiid.prototype.convertToUiid = function(uid){
@@ -2503,7 +2496,7 @@ Trie.prototype.getKey = function(){
     return tellurium.idGen.next();
 };
 
-Trie.prototype.getChildren = function(id){
+Trie.prototype.getChildrenData = function(id){
     var result = new Array();
     if(this.root == null || this.root.getChildrenSize() == 0)
         return result;
@@ -2511,30 +2504,6 @@ Trie.prototype.getChildren = function(id){
     var uiid = getUiid(id);
 
     return this.walk(this.root, uiid, result);
-};
-
-Trie.prototype.match = function(id1, id2){
-    if(id1 == null || id2 == null || id1.trim().length == 0 || id2.trim().length == 0)
-        return 0;
-
-    var count = 0;
-    var sp1 = id1.split(".");
-    var sp2 = id2.split(".");
-    var len = sp1.length;
-    if(sp2.length < len)
-        len = sp2.length;
-
-    for (var i = 0; i < len; i++) {
-        if (sp1[i].trim().length != 0 && sp2[i].trim().length != 0) {
-            if (sp1[i] == sp2[i]) {
-                count++;
-            } else {
-                break;
-            }
-        }
-    }
-
-    return count;
 };
 
 function TrieMatch(){
@@ -2560,15 +2529,6 @@ Trie.prototype.walk = function(current, uiid, result){
             matchresult.node = anode;
             matches.push(matchresult);
         }
-/*        var score = this.match(anode.id, id);
-        if (score > 0) {
-            var matchresult = new TrieMatch();
-            matchresult.score = score;
-            matchresult.node = anode;
-            if(maxscore < score)
-                maxscore = score;
-            matches.push(matchresult);
-        }*/
     }
 
     //there may be multiple children
@@ -2582,13 +2542,15 @@ Trie.prototype.walk = function(current, uiid, result){
     //found one child
     if(mchildren.length == 1){
         //the child is the id itself
-        if(uiid.size() <= mchildren[0].id.size()){
+        if(uiid.size() == mchildren[0].id.size()){
             //return all the children for this node
             for(i=0; i<mchildren[0].getChildrenSize(); i++){
                 result.push(mchildren[0].children[i].data);
-            }
-
-            return result;
+            }            
+//            return result;
+        }else if(uiid.size() < mchildren[0].id.size()){
+            result.push(mchildren[0].data);
+//            return result;
         }else{
              //need to do further walk down
             var leftover = uiid.subUiid(mchildren[0].id.size());
@@ -2618,15 +2580,12 @@ Trie.prototype.walk = function(current, uiid, result){
             //The id is a prefix of the found children
             //That means all children are found
             for(i=0; i<mchildren.length; i++){
-                for(var j=0; j<mchildren[i].getChildrenSize(); j++){
-                    result.push(mchildren[i].children[j].data);
-                }
+                result.push(mchildren[i].data);
             }
         }
         //otherwise, treat it as not found
     }
 
-    //otherwise, cannot find the child, just return the result
     return result;
 };
 
