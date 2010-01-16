@@ -115,6 +115,13 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         jlm.typeImageName("Image 5");
     }
 
+    @Test
+    public void testLogicContainer(){
+        jlm.validateUiModule("AbstractForm");
+        jlm.diagnose("AbstractForm.Password.Password1.Label");
+        jlm.alogon("test", "test");
+    }
+
     @AfterClass
     public static void tearDown(){
         showTrace();
