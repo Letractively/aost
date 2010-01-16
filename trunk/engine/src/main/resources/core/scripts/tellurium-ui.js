@@ -1,6 +1,69 @@
+function getUiid(uid){
+    var uiid = new Uiid();
+    uiid.toUiid(uiid);
+
+    return uiid;
+};
+
+function matchUiid(uiid1, uiid2){
+    var result = new Array();
+    var ar1 = uiid1.toArray();
+    var ar2 = uiid2.toArray();
+    if(ar1.length > 0 && ar2.length > 0){
+        var len = ar1.length;
+        if(len > ar2.length)
+            len = ar2.length;
+        for(var i=0; i<len; i++){
+            if(ar1[i] == ar2[i]){
+                result.push(ar1[i]);
+            }else{
+                break;
+            }
+        }
+    }
+
+    return result;
+};
+
+function matchUid(uid1, uid2){
+    var uiid1 = getUiid(uid1);
+    var uiid2 = getUiid(uid2);
+
+    return matchUiid(uiid1, uiid2);
+};
+
+
 //Tellurium Internal ID presentation
 function Uiid(){
     this.stack = new Array();
+};
+
+Uiid.prototype.matchWith = function(uiid){
+    var result = new Array();
+    var ar1 = this.stack;
+    var ar2 = uiid.toArray();
+    if(ar1.length > 0 && ar2.length > 0){
+        var len = ar1.length;
+        if(len > ar2.length)
+            len = ar2.length;
+        for(var i=0; i<len; i++){
+            if(ar1[i] == ar2[i]){
+                result.push(ar1[i]);
+            }else{
+                break;
+            }
+        }
+    }
+
+    return result;        
+};
+
+Uiid.prototype.subUiid = function(index){
+    if(index >= 0 && index < this.stack.length){
+        this.stack = this.stack.slice(index);
+    }
+
+    return this;
 };
 
 Uiid.prototype.push = function(uid){
@@ -35,6 +98,10 @@ Uiid.prototype.getUid = function(){
 
 Uiid.prototype.size = function(){
     return this.stack.length;
+};
+
+Uiid.prototype.toArray = function(){
+    return this.stack;    
 };
 
 Uiid.prototype.toUiid = function(uid){
@@ -2448,14 +2515,16 @@ Trie.prototype.match = function(id1, id2){
     var sp1 = id1.split(".");
     var sp2 = id2.split(".");
     var len = sp1.length;
-    if(sp2.length < sp1.length)
+    if(sp2.length < len)
         len = sp2.length;
 
-    for(var i=0; i<len; i++){
-        if(sp1[i] == sp2[i]){
-            count++;
-        }else{
-            break;
+    for (var i = 0; i < len; i++) {
+        if (sp1[i].trim().length != 0 && sp2[i].trim().length != 0) {
+            if (sp1[i] == sp2[i]) {
+                count++;
+            } else {
+                break;
+            }
         }
     }
 
@@ -2482,7 +2551,7 @@ Trie.prototype.walk = function(current, id, result){
             matchresult.node = anode;
             if(maxscore < score)
                 maxscore = score;
-            matches.push(score);
+            matches.push(matchresult);
         }
     }
 
@@ -2495,12 +2564,12 @@ Trie.prototype.walk = function(current, id, result){
     }
 
     //found one child
-    if(child.length == 0){
+    if(child.length == 1){
         //the child is the id itself
         if(id.length <= child[0].id.length){
             //return all the children for this node
-            for(i=0; i<child.getChildrenSize(); i++){
-                result.push(child.children[i].data);
+            for(i=0; i<child[0].getChildrenSize(); i++){
+                result.push(child[0].children[i].data);
             }
 
             return result;
@@ -2510,7 +2579,7 @@ Trie.prototype.walk = function(current, id, result){
             return this.walk(child[0], leftover, result);
         }
 
-    }else if(child.length > 0){
+    }else if(child.length > 1){
         //more than one children match
         //
         //consider the scenario, the Prie is
@@ -2558,6 +2627,7 @@ Trie.prototype.insert = function(id, data) {
 
         //add the word as the child of the root node
         var child = new TrieNode();
+
         child.id = id;
         child.data = data;
         child.parent = this.root;
