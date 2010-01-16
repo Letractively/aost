@@ -371,7 +371,7 @@ JQueryBuilder.prototype.buildIdSelector = function(id) {
 };
 
 JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct, attrs) {
-    var sb = new StringBuffer(64);
+    var sb = new StringBuffer();
     if (direct) {
         sb.append(this.CHILD_SEPARATOR);
     } else {
@@ -381,8 +381,8 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
     //put the tag name first
     sb.append(this.checkTag(tag));
     var attributes = new Hashtable();
-    for(var key in attrs){
-        attributes.put(key, attrs[key]);
+    for(var akey in attrs){
+        attributes.put(akey, attrs[akey]);
 //        attributes.put(key, this.escape(attrs[key]));
     }
     if (attributes != null && attributes.size() > 0) {
@@ -423,9 +423,9 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
             var splited = text.split(this.SINGLE_QUOTE);
             var max = splited[0];
 
-            for (var i = 1; i < splited.length; i++) {
-                if (splited[i].length > splited[0].length) {
-                    max = splited[i];
+            for (var j = 1; j < splited.length; j++) {
+                if (splited[j].length > splited[0].length) {
+                    max = splited[j];
                 }
             }
 
@@ -457,7 +457,7 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
 JQueryBuilder.prototype.convHeader = function(header) {
     if (header != null && trimString(header).length > 0) {
         var xps = this.xpathProcessor.splitXPath(header);
-        var sb = new StringBuffer(64);
+        var sb = new StringBuffer();
 
         var tag = this.xpathProcessor.getTag(xps[0]);
 
@@ -476,7 +476,7 @@ JQueryBuilder.prototype.convHeader = function(header) {
 JQueryBuilder.prototype.convTrailer = function(trailer) {
     if (trailer != null && trimString(trailer).length > 0) {
         var xps = this.xpathProcessor.splitXPath(trailer);
-        var sb = new StringBuffer(64);
+        var sb = new StringBuffer();
 
         var tag = this.xpathProcessor.getTag(xps[0]);
 
