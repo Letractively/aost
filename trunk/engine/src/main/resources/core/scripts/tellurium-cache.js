@@ -214,7 +214,7 @@ TelluriumCache.prototype.findUiElementFromAncestor = function(uimodule, uid){
 TelluriumCache.prototype.relocateUiModule = function(uid){
     var uiid = new Uiid();
     uiid.convertToUiid(uid);
-    uiid.reverse();
+ //   uiid.reverse();
     if(uiid.size() > 0){
         var first = uiid.peek();
         var uim = this.sCache.get(first);
@@ -234,7 +234,7 @@ TelluriumCache.prototype.getCachedUiElement = function(uid){
     var uiid = new Uiid();
     uiid.convertToUiid(uid);
     //TODO: seems the order of the generated Uiid is not correct, need to fix it. For the timebeing, reverse the queue.
-    uiid.reverse();
+//    uiid.reverse();
     if(uiid.size() > 0){
         var first = uiid.peek();
         var uim = this.sCache.get(first);

@@ -1,6 +1,7 @@
 function getUiid(uid){
     var uiid = new Uiid();
-    uiid.toUiid(uiid);
+//    uiid.toUiid(uid);
+    uiid.convertToUiid(uid);
 
     return uiid;
 };
@@ -59,11 +60,12 @@ Uiid.prototype.matchWith = function(uiid){
 };
 
 Uiid.prototype.subUiid = function(index){
+    var nuiid = new Uiid();
     if(index >= 0 && index < this.stack.length){
-        this.stack = this.stack.slice(index);
+        nuiid.stack = this.stack.slice(index);
     }
 
-    return this;
+    return nuiid;
 };
 
 Uiid.prototype.push = function(uid){
@@ -72,7 +74,8 @@ Uiid.prototype.push = function(uid){
 
 Uiid.prototype.pop = function(){
     if(this.stack.length > 0){
-        return this.stack.pop();
+//        return this.stack.pop();
+        return this.stack.shift();
     }
 
     return null;
@@ -86,7 +89,8 @@ Uiid.prototype.reverse = function(){
 
 Uiid.prototype.peek = function(){
     if(this.stack.length > 0){
-        return this.stack[this.stack.length-1];
+//        return this.stack[this.stack.length-1];
+        return this.stack[0];
     }
 
     return null;
@@ -106,7 +110,7 @@ Uiid.prototype.toArray = function(){
 
 Uiid.prototype.toUiid = function(uid){
     this.convertToUiid(uid);
-    this.reverse();
+//    this.reverse();
     return this;
 };
 
@@ -1670,7 +1674,7 @@ UiModule.prototype.buildTree = function(keys){
         }else{
             var uiid = new Uiid();
             uiid.convertToUiid(keys[i]);
-            uiid.reverse();
+//            uiid.reverse();
             this.root.goToPlace(uiid, uiobj);
         }
     }
@@ -2444,10 +2448,10 @@ TrieNode.prototype.checkLevel = function() {
 
 TrieNode.prototype.getFullId = function() {
     if (this.parent == null) {
-        return this.id;
+        return this.id.getUid();
     }
 
-    return this.parent.getFullId() + this.id;
+    return this.parent.getFullId() + "." + this.id.getUid();
 };
 
 TrieNode.prototype.printMe = function(isTrace) {
@@ -2461,7 +2465,7 @@ TrieNode.prototype.printMe = function(isTrace) {
     if(this.parent == null){
         sb.append("Trie").append(": ");
     }else{
-        sb.append(this.id).append("[").append(this.data).append("]");
+        sb.append(this.id.getUid()).append("[").append(this.data).append("]");
     }
     if (hasChildren)
         sb.append("{");
@@ -2504,7 +2508,9 @@ Trie.prototype.getChildren = function(id){
     if(this.root == null || this.root.getChildrenSize() == 0)
         return result;
 
-    return this.walk(this.root, id, result);
+    var uiid = getUiid(id);
+
+    return this.walk(this.root, uiid, result);
 };
 
 Trie.prototype.match = function(id1, id2){
@@ -2536,7 +2542,7 @@ function TrieMatch(){
     this.node = null;
 };
 
-Trie.prototype.walk = function(current, id, result){
+Trie.prototype.walk = function(current, uiid, result){
     //there are children for the current node
     //check if the new String is a prefix of current node's child or a child is a prefix of the input String,
     var matches = new Array();
@@ -2544,7 +2550,17 @@ Trie.prototype.walk = function(current, id, result){
     var i;
     for (i = 0; i < current.getChildrenSize(); i++) {
         var anode = current.children[i];
-        var score = this.match(anode.id, id);
+        var pm = uiid.matchWith(anode.id);
+        var score = pm.length;
+        if(score > 0){
+            if(maxscore < score)
+                maxscore = score;
+            var matchresult = new TrieMatch();
+            matchresult.score = score;
+            matchresult.node = anode;
+            matches.push(matchresult);
+        }
+/*        var score = this.match(anode.id, id);
         if (score > 0) {
             var matchresult = new TrieMatch();
             matchresult.score = score;
@@ -2552,34 +2568,34 @@ Trie.prototype.walk = function(current, id, result){
             if(maxscore < score)
                 maxscore = score;
             matches.push(matchresult);
-        }
+        }*/
     }
 
     //there may be multiple children
-    var child = new Array();
+    var mchildren = new Array();
     for(i=0; i < matches.length; i++){
         if(matches[i].score == maxscore){
-            child.push(matches[i].node);
+            mchildren.push(matches[i].node);
         }
     }
 
     //found one child
-    if(child.length == 1){
+    if(mchildren.length == 1){
         //the child is the id itself
-        if(id.length <= child[0].id.length){
+        if(uiid.size() <= mchildren[0].id.size()){
             //return all the children for this node
-            for(i=0; i<child[0].getChildrenSize(); i++){
-                result.push(child[0].children[i].data);
+            for(i=0; i<mchildren[0].getChildrenSize(); i++){
+                result.push(mchildren[0].children[i].data);
             }
 
             return result;
         }else{
              //need to do further walk down
-            var leftover = id.substring(child[0].id.length);
-            return this.walk(child[0], leftover, result);
+            var leftover = uiid.subUiid(mchildren[0].id.size());
+            return this.walk(mchildren[0], leftover, result);
         }
 
-    }else if(child.length > 1){
+    }else if(mchildren.length > 1){
         //more than one children match
         //
         //consider the scenario, the Prie is
@@ -2598,13 +2614,12 @@ Trie.prototype.walk = function(current, id, result){
         // it found both Form.Username.Input and Form.Username.Label
         //
 
-        var sp = id.split(".");
-        if(sp.length == maxscore){
+        if(uiid.size() == maxscore){
             //The id is a prefix of the found children
             //That means all children are found
-            for(i=0; i<child.length; i++){
-                for(var j=0; j<child[i].getChildrenSize(); j++){
-                    result.push(child[i].children[j].data);
+            for(i=0; i<mchildren.length; i++){
+                for(var j=0; j<mchildren[i].getChildrenSize(); j++){
+                    result.push(mchildren[i].children[j].data);
                 }
             }
         }
@@ -2616,6 +2631,7 @@ Trie.prototype.walk = function(current, id, result){
 };
 
 Trie.prototype.insert = function(id, data) {
+    var uiid = getUiid(id);
     if (this.root == null) {
         //If it is the first time to insert an word to the Tire
         this.root = new TrieNode();
@@ -2628,23 +2644,23 @@ Trie.prototype.insert = function(id, data) {
         //add the word as the child of the root node
         var child = new TrieNode();
 
-        child.id = id;
+        child.id = uiid;
         child.data = data;
         child.parent = this.root;
         child.key = this.getKey();
         this.root.addChild(child);
     } else {
         //not the first node, need to walk all the way down to find a place to insert
-        this.build(this.root, id, data);
+        this.build(this.root, uiid, data);
     }
 };
 
-Trie.prototype.build = function(current, id, data) {
+Trie.prototype.build = function(current, uiid, data) {
     //look at current node's children
     if (current.getChildrenSize() == 0) {
         //no child yet, add itself as the first child
         var child = new TrieNode();
-        child.id = id;
+        child.id = uiid;
         child.data = data;
         child.parent = current;
         child.key = this.getKey();
@@ -2655,21 +2671,22 @@ Trie.prototype.build = function(current, id, data) {
         var common = new Array();
         for (var i = 0; i < current.getChildrenSize(); i++) {
             var anode = current.children[i];
-            if (anode.id.startsWith(id)) {
+//            if (anode.id.startsWith(id)) {
+            if(anode.id.matchWith(uiid).length == uiid.size()){
                 common.push(anode);
             }
         }
         //if the new String is indeed a prefix of a set of children
         if (common.length > 0) {
             var shared = new TrieNode();
-            shared.id = id;
+            shared.id = uiid;
             shared.data = data;
             shared.parent = current;
             shared.key = this.getKey();
             for (var j = 0; j < common.length; j++) {
                 var node = common[j];
                 //assume no duplication in the tree, otherwise, need to consider the empty string case for a child
-                node.id = node.id.substring(id.length);
+                node.id = node.id.subUiid(uiid.size());
                 node.parent = shared;
                 shared.addChild(node);
                 current.removeChild(node);
@@ -2681,7 +2698,8 @@ Trie.prototype.build = function(current, id, data) {
             var next = null;
             for (var k = 0; k < current.getChildrenSize(); k++) {
                 var pnode = current.children[k];
-                if (id.startsWith(pnode.id)) {
+//                if (uiid.startsWith(pnode.id)) {
+                if(uiid.matchWith(pnode.id).length == pnode.id.size()){
                     found = true;
                     next = pnode;
                     break;
@@ -2689,15 +2707,15 @@ Trie.prototype.build = function(current, id, data) {
             }
             if (found) {
                 //not a duplication, otherwise, do nothing
-                if (id.length != next.id.length) {
-                    var leftover = id.substring(next.id.length);
+                if (uiid.size() != next.id.size()) {
+                    var leftover = uiid.subUiid(next.id.size());
                     this.build(next, leftover, data);
                 }
             } else {
                 //not found, need to create a new node a the child of the current node
                 var achild = new TrieNode();
                 achild.parent = current;
-                achild.id = id;
+                achild.id = uiid;
                 achild.data = data;
                 achild.key = this.getKey();
                 current.addChild(achild);
