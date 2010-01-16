@@ -190,6 +190,23 @@ var UiObject = Class.extend({
 
         //dom reference
         this.domRef = null;
+
+        //UI Module reference, which UI module this UI object belongs to
+        this.uim = null;
+    },
+
+    getIdAttribute: function(){
+        //return the ID attribute
+        var ida = null;
+        if(this.locator != null && this.locator.attributes != null){
+            ida = this.locator.attributes.get("id");
+        }
+
+        return ida;
+    },
+
+    getChildrenIds: function(){
+        return null;
     },
 
     goToPlace: function(uiid, uiobj) {
@@ -387,6 +404,17 @@ var UiContainer = UiObject.extend({
         this.components = new Hashtable();
     },
 
+    getChildrenIds: function(){
+        var ids = null;
+        if(this.uim != null){
+            var fid = this.fullUid();
+            ids = this.uim.idTrie.getChildrenData(fid);
+            fbLog("Get children ids from ID Trie for " + fid, ids);
+        }
+
+        return ids;
+    },
+
     goToPlace:  function(uiid, uiobj) {
 
         uiid.pop();
@@ -492,8 +520,14 @@ var UiContainer = UiObject.extend({
                     var sel = alg.buildSelector(this.locator);
                     var $found = teJQuery(context.domRef).find(sel);
                     if ($found.size() > 1) {
-                        //Use lookAHead to eliminate multipe matches
-                        $found = alg.lookAhead(this, $found);
+                        //first try lookId
+                        $found = alg.lookId(this, $found);
+                        fbLog("Look Id result for " + this.uid, $found.get());
+                        if($found.size() > 1){
+                            //Use lookAHead to eliminate multipe matches
+                            $found = alg.lookAhead(this, $found);
+                            fbLog("Look Ahead result for " + this.uid, $found.get());
+                        }
                     }
 
                     if ($found.size() == 1) {
@@ -1562,6 +1596,9 @@ function UiModule(){
 
     //scaled score (0-100) for percentage of match
     this.score = 0;
+
+    //ID Prefix tree, i.e., Trie, for the lookForId operation in group locating
+    this.idTrie = new Trie();
 };
 
 UiModule.prototype.getId = function(){
@@ -1661,6 +1698,16 @@ UiModule.prototype.buildFromJSON = function(jobj){
 UiModule.prototype.buildTree = function(keys){
     for(var i=0; i<keys.length; i++){
         var uiobj = this.map.get(keys[i]);
+        //link the uiobject back to the ui module so that it knows which UI module it lives in
+        uiobj.uim = this;
+        var id = uiobj.getIdAttribute();
+        //build ID Prefix tree, i.e., Trie
+        //TODO: may consider stricter requirement that the ID cannot be partial, i.e., cannot starts with * ^ ! $
+        if(id != null && id.trim().length > 0){
+            fbLog("Add object " + keys[i] + "'s id " + id + " to ID Trie. ", uiobj);
+            this.idTrie.insert(keys[i], id);
+        }
+
         if(this.root == null){
             this.root = uiobj;
             this.id = uiobj.uid;
@@ -1833,6 +1880,26 @@ UiAlg.prototype.locateInAllSnapshots = function(uiobj){
     }
 };
 
+UiAlg.prototype.lookId = function(uiobj, $found){
+    var ids = uiobj.getChildrenIds();
+    if(ids != null && ids.length > 0){
+         var gsel = new Array();
+         for(var c=0; c < ids.length; c++){
+             gsel.push(this.buildIdSelector(ids[i]));
+         }
+         var result = new Array();
+         for(var i=0; i<$found.size(); i++){
+             if(this.hasChildren($found.get(i), gsel)){
+                 result.push($found.get(i));
+             }
+         }
+
+         return teJQuery(result);
+    }
+
+    return $found;
+};
+
 UiAlg.prototype.lookAhead = function(uiobj, $found){
     var children = uiobj.lookChildren();
 
@@ -1876,6 +1943,10 @@ UiAlg.prototype.hasChildren = function(one, gsel){
     return result;
 };
 
+UiAlg.prototype.buildIdSelector = function(id){
+    return this.cssbuilder.buildIdSelector(id);    
+};
+
 UiAlg.prototype.buildSelector = function(clocator){
     //TODO: need to add header and trailer to the selector if necessary
     return this.cssbuilder.buildCssSelector(clocator.tag, clocator.text, clocator.position, clocator.direct, clocator.attributes);
@@ -1911,8 +1982,13 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
             $found = this.bestGuess(uiobj, $found);
             fbLog("UI object has no cache for children, best guess result for UI object " + uiobj.uid, $found.get());
         }else{
-            $found = this.lookAhead(uiobj, $found);
-            fbLog("Look ahead result " + uiobj.uid, $found.get());
+            //first try lookId
+            $found = this.lookId(uiobj, $found);
+            fbLog("Look Id result for " + uiobj.uid, $found.get())
+            if($found.size() > 1){
+                $found = this.lookAhead(uiobj, $found);
+                fbLog("Look ahead result for " + uiobj.uid, $found.get());
+            }
         }
     }
 
