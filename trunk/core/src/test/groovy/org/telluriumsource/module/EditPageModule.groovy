@@ -19,7 +19,7 @@ class EditPageModule  extends DslContext {
         TextBox(uid: "Label", clocator: [tag: "div", text: "Test:", id: "label1"])
         InputBox(uid: "Test", clocator: [tag: "input", name: "testname", id: "input5", type: "text"])
       }
-      SubmitButton(uid: "save", clocator: [tag: "input", class: "btn", type: "submit", title: "Save", name: "save"])
+      SubmitButton(uid: "Save", clocator: [tag: "input", class: "btn", type: "submit", title: "Save", name: "save"])
     }
   }
 
