@@ -354,6 +354,21 @@ JQueryBuilder.prototype.includeSingleQuote = function(val) {
     return val != null && val.indexOf(this.SINGLE_QUOTE) > 0;
 };
 
+JQueryBuilder.prototype.buildIdSelector = function(id) {
+    if (id != null && trimString(id).length > 0) {
+        id = trimString(id);
+        if (id.startsWith(this.START_PREFIX) || id.startsWith(this.END_PREFIX) || id.startsWith(this.ANY_PREFIX) || id.startsWith(this.NOT_PREFIX)) {
+            return this.attrId(id);
+        } else {
+            //should not add other attributes if the ID is presented since jQuery will only select the first element for
+            // the ID and additional attributes will not help at all
+            //also since id is unique, we do not need to include tag here
+            return " #" + this.escape(id);
+        }
+    }
+
+    return "";
+};
 
 JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct, attrs) {
     var sb = new StringBuffer(64);
