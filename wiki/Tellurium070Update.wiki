@@ -44,6 +44,23 @@ Accordingly, the Maven dependency should be changed as follows,
     <version>0.7.0-SNAPSHOT</version>
 }}}
 
+For Maven archetypes, tellurium-junit-archetype becomes the following,
+
+{{{
+    <groupId>org.telluriumsource</groupId>
+    <artifactId>tellurium-junit-archetype</artifactId>
+    <version>0.7.0-SNAPSHOT</version>
+}}}
+
+Similarly, the tellurium-testng-archetype has been changed to 
+
+{{{
+    <groupId>org.telluriumsource</groupId>
+    <artifactId>tellurium-testng-archetype</artifactId>
+    <version>0.7.0-SNAPSHOT</version>
+}}}
+
+
 == Package Structure ==
 
 The original core package structure was a flat one and it has been changed as follows,
