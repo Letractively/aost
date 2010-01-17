@@ -701,6 +701,21 @@ where
   * tellurium-api.js: New Tellurium APIs based on jQuery
   * utils.js: Utility functions
  
+== Locate Strategies ==
+
+Moved the CSS selector locate strategy and the cache aware locate strategy from Core to the Engine. This is done by adding the following lines to the method {{{BrowserBot.prototype._registerAllLocatorFunctions}}} in the selenium-browserbot.js file:
+
+{{{
+    this.locationStrategies['jquery'] = function(locator, inDocument, inWindow) {
+        return tellurium.locateElementByCSSSelector(locator, inDocument, inWindow);
+    };
+
+    this.locationStrategies['uimcal'] = function(locator, inDocument, inWindow) {
+        return tellurium.locateElementWithCacheAware(locator, inDocument, inWindow);
+    };
+}}}
+
+
 == CSS Selector Support ==
 
 Actually, [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector the CSS selector support] was added in Tellurium 0.6.0 and we changed the name "jQuery Selector" to "CSS Selector" as suggested by Dylan. 
