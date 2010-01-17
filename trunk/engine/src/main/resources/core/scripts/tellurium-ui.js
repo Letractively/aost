@@ -259,7 +259,8 @@ var UiObject = Class.extend({
                 context.domRef = this.domRef;
             } else {
                 //if the parent or root dom reference is null, cannot go any further
-                if (context.domRef != null) {
+                //If its locator, i.e., itself is a logical object, do not do any locating
+                if (this.locator != null && context.domRef != null) {
 
                     var alg = context.alg;
                     var sel = alg.buildSelector(this.locator);
@@ -540,7 +541,7 @@ var UiContainer = UiObject.extend({
             if (this.domRef != null && this.amICacheable()) {
                 context.domRef = this.domRef;
             } else {
-                if (context.domRef != null) {
+                if (this.locator != null && context.domRef != null) {
                     var alg = context.alg;
                     var sel = alg.buildSelector(this.locator);
                     var $found = teJQuery(context.domRef).find(sel);
@@ -682,7 +683,7 @@ var UiList = UiContainer.extend({
             if (this.domRef != null && this.amICacheable()) {
                 context.domRef = this.domRef;
             } else {
-                if (context.domRef != null) {
+                if (this.locator != null && context.domRef != null) {
                     var alg = context.alg;
                     var sel = alg.buildSelector(this.locator);
                     var $found = teJQuery(context.domRef).find(sel);
@@ -1104,7 +1105,7 @@ var UiTable = UiContainer.extend({
             if (this.domRef != null && this.amICacheable()) {
                 context.domRef = this.domRef;
             } else {
-                if (context.domRef != null) {
+                if (this.locator != null && context.domRef != null) {
                     var alg = context.alg;
                     var sel = alg.buildSelector(this.locator);
                     var $found = teJQuery(context.domRef).find(sel);
@@ -1660,7 +1661,7 @@ var UiStandardTable = UiContainer.extend({
             if (this.domRef != null && this.amICacheable()) {
                 context.domRef = this.domRef;
             } else {
-                if (context.domRef != null) {
+                if (this.locator != null && context.domRef != null) {
                     var alg = context.alg;
                     var sel = alg.buildSelector(this.locator);
                     var $found = teJQuery(context.domRef).find(sel);
