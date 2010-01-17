@@ -11,6 +11,25 @@ Why is the algorithm named "Santa". This is because I have completed most of the
 
 = The Santa Algorithm =
 
+== Problem ==
+
+== Basic Concept ==
+
+Santa is basically a branch and trim search procedure on the runtime DOM.
+
+== Locate ==
+
+=== Branch and Trim ===
+
+=== Mark ===
+
+=== Look ID ===
+
+=== Look Ahead ===
+
+== Relax ==
+
+
 = Usage =
 
 = Resources =
