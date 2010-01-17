@@ -27,8 +27,11 @@ Santa is basically a branch and trim search procedure on the runtime DOM.
 
 === Look Ahead ===
 
+=== Best Guess ===
+
 == Relax ==
 
+=== Match Score ===
 
 = Usage =
 
