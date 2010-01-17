@@ -764,7 +764,7 @@ Tellurium.prototype.locateElementWithCacheAware = function(locator, inDocument, 
                 fbLog("After relocating UI module, found ui element" + cal.rid, element);
             }
         }else{
-            if(cal.locator != null){
+            if(cal.locator != null && cal.locator.trim().length > 0){
                 //If cannot find the UI element from the cache, locate it as the last resort
                 fbLog("Trying to locate the UI element " + cal.rid + " with its locator " + cal.locator + " because cannot find vaild one from cache");
                 element = this.locate(cal.locator);
