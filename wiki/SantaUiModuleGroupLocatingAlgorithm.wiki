@@ -1,5 +1,6 @@
 #summary Santa: The Tellurium UI Module Group Locating Algorithm.
 #labels Phase-Design,Phase-Support
+<wiki:toc max_depth="5" />
 
 = Introduction =
 
