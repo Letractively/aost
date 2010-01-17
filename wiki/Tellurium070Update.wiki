@@ -534,6 +534,18 @@ public class Environment {
 
 where {{{setCustomEnvironment}}} and {{{getCustomEnvironment}}} can be used to pass user defined environment variables.
 
+== type and keyType ==
+
+type and keyType now accept different types of objects and convert them to a String automatically by calling the toString() method. For example, you can use the following commands:
+
+{{{
+type "Google.Input", "Tellurium"
+
+type "Google.Input", 12.15
+
+type "Google.Input", true
+}}}
+
 == I18N ==
 
 For details, please read [http://code.google.com/p/aost/wiki/InternationalizationSupportTellurium Internationalization Support in Tellurium]
