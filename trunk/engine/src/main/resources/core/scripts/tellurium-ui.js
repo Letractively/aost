@@ -474,7 +474,7 @@ var UiContainer = UiObject.extend({
                         var ccr = component.lookChildren();
                         if(ccr != null && ccr.length > 0){
                             fbLog("Add logical container " + component.uid + "'s children. ", ccr);
-                            validChildren.concat(ccr);
+                            validChildren = validChildren.concat(ccr);
                         }
                     }
                 }
@@ -502,7 +502,7 @@ var UiContainer = UiObject.extend({
                 var ccr = component.lookChildrenNoMatterWhat();
                 if (ccr != null && ccr.length > 0) {
                     fbLog("Add logical container " + component.uid + "'s children. ", ccr);
-                    children.concat(ccr);
+                    children = children.concat(ccr);
                 }
             }
         }
@@ -874,7 +874,7 @@ var UiTable = UiContainer.extend({
                         var ccr = component.lookChildren();
                         if(ccr != null && ccr.length > 0){
                             fbLog("Add logical container " + component.uid + "'s children. ", ccr);
-                            validChildren.concat(ccr);
+                            validChildren = validChildren.concat(ccr);
                         }
                     }
                 }
@@ -895,7 +895,7 @@ var UiTable = UiContainer.extend({
                         var chr = header.lookChildren();
                         if(chr != null && chr.length > 0){
                             fbLog("Add logical container " + header.uid + "'s children. ", chr);
-                            validChildren.concat(chr);
+                            validChildren = validChildren.concat(chr);
                         }
                     }
                 }
@@ -921,7 +921,7 @@ var UiTable = UiContainer.extend({
                 var ccr = component.lookChildrenNoMatterWhat();
                 if (ccr != null && ccr.length > 0) {
                     fbLog("Add logical container " + component.uid + "'s children. ", ccr);
-                    children.concat(ccr);
+                    children = children.concat(ccr);
                 }
             }
 //            fbLog("component: ", component);
@@ -942,7 +942,7 @@ var UiTable = UiContainer.extend({
                 var chr = header.lookChildrenNoMatterWhat();
                 if (chr != null && chr.length > 0) {
                     fbLog("Add logical container " + header.uid + "'s children. ", chr);
-                    children.concat(chr);
+                    children = children.concat(chr);
                 }
             }
         }
@@ -1276,7 +1276,18 @@ var UiStandardTable = UiContainer.extend({
                 fbLog("component: ", component);
                 if (!component.lazy) {
                     fbLog("Look ahead at cachable child of StandardTable " + this.uid + ": ", component);
-                    validChildren.push(component);
+//                    validChildren.push(component);
+                    if(component.locator != null){
+                        validChildren.push(component);
+                    }else{
+                        //the component is a logical container, need to go further down to get its children
+                        fbLog("Found logical container " + component.uid + " and look for this children", component);
+                        var ccr = component.lookChildren();
+                        if(ccr != null && ccr.length > 0){
+                            fbLog("Add logical container " + component.uid + "'s children. ", ccr);
+                            validChildren = validChildren.concat(ccr);
+                        }
+                    }
                 }
             }
 
@@ -1286,7 +1297,18 @@ var UiStandardTable = UiContainer.extend({
                 fbLog("header: ", header);
                 if (!header.lazy) {
                     fbLog("Look ahead at cachable header of StandardTable " + this.uid + ": ", header);
-                    validChildren.push(header);
+//                    validChildren.push(header);
+                    if(header.locator != null){
+                        validChildren.push(header);
+                    }else{
+                        //the component is a logical container, need to go further down to get its children
+                        fbLog("Found logical container " + header.uid + " and look for this children", header);
+                        var chr = header.lookChildren();
+                        if(chr != null && chr.length > 0){
+                            fbLog("Add logical container " + header.uid + "'s children. ", chr);
+                            validChildren = validChildren.concat(chr);
+                        }
+                    }
                 }
             }
 
@@ -1296,7 +1318,18 @@ var UiStandardTable = UiContainer.extend({
                 fbLog("footer: ", footer);
                 if (!footer.lazy) {
                     fbLog("Look ahead at cachable footer of StandardTable " + this.uid + ": ", footer);
-                    validChildren.push(footer);
+//                    validChildren.push(footer);
+                    if(footer.locator != null){
+                        validChildren.push(footer);
+                    }else{
+                        //the component is a logical container, need to go further down to get its children
+                        fbLog("Found logical container " + footer.uid + " and look for this children", footer);
+                        var cfr = footer.lookChildren();
+                        if(cfr != null && cfr.length > 0){
+                            fbLog("Add logical container " + footer.uid + "'s children. ", cfr);
+                            validChildren = validChildren.concat(cfr);
+                        }
+                    }
                 }
             }
         }
@@ -1311,22 +1344,58 @@ var UiStandardTable = UiContainer.extend({
         fbLog("Val set: ", valset);
         for (var i = 0; i < valset.length; i++) {
             var component = valset[i];
-            fbLog("component: ", component);
-            children.push(component);
+//            fbLog("component: ", component);
+//            children.push(component);
+            fbLog("Look ahead nomatter what at cachable child of StandardTable " + this.uid + ": ", component);
+            if (component.locator != null) {
+                children.push(component);
+            } else {
+                //the component is a logical container, need to go further down to get its children
+                fbLog("Found logical container " + component.uid + " and look for this children", component);
+                var ccr = component.lookChildrenNoMatterWhat();
+                if (ccr != null && ccr.length > 0) {
+                    fbLog("Add logical container " + component.uid + "'s children. ", ccr);
+                    children = children.concat(ccr);
+                }
+            }
         }
 
         valset = this.headers.valSet();
         for (var j = 0; j < valset.length; j++) {
             var header = valset[j];
-            fbLog("header: ", header);
-            children.push(header);
+//            fbLog("header: ", header);
+//            children.push(header);
+            fbLog("Look ahead at cachable header of StandardTable " + this.uid + ": ", header);
+            if (header.locator != null) {
+                children.push(header);
+            } else {
+                //the component is a logical container, need to go further down to get its children
+                fbLog("Found logical container " + header.uid + " and look for this children", header);
+                var chr = header.lookChildrenNoMatterWhat();
+                if (chr != null && chr.length > 0) {
+                    fbLog("Add logical container " + header.uid + "'s children. ", chr);
+                    children = children.concat(chr);
+                }
+            }
         }
 
         valset = this.footers.valSet();
         for (var k = 0; k < valset.length; k++) {
             var footer = valset[k];
-            fbLog("footer: ", footer);
-            children.push(footer);
+//            fbLog("footer: ", footer);
+//            children.push(footer);
+            fbLog("Look ahead at cachable footer of StandardTable " + this.uid + ": ", footer);
+            if (footer.locator != null) {
+                children.push(footer);
+            } else {
+                //the component is a logical container, need to go further down to get its children
+                fbLog("Found logical container " + footer.uid + " and look for this children", footer);
+                var cfr = footer.lookChildrenNoMatterWhat();
+                if (cfr != null && cfr.length > 0) {
+                    fbLog("Add logical container " + footer.uid + "'s children. ", cfr);
+                    children = children.concat(cfr);
+                }
+            }
         }
 
         return children;
@@ -1977,7 +2046,8 @@ UiAlg.prototype.lookAhead = function(uiobj, $found){
     if(children != null && children.length > 0){
         var gsel = new Array();
         for(var c=0; c < children.length; c++){
-            gsel.push(this.buildSelector(children[c].locator));
+            if(children[c].locator != null)
+                gsel.push(this.buildSelector(children[c].locator));
         }
         var result = new Array();
         for(var i=0; i<$found.size(); i++){
