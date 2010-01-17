@@ -165,11 +165,12 @@ TelluriumTestCase.prototype.testSuite = function(){
 //    this.testUiid();
 //    this.testPrie();
 //    this.testLogonUiModule(); 
-    this.testEditPageModule();
+//    this.testEditPageModule();
+    this.testLogicalContainerModule();
 //    this.testLogoUiModule();
 //    this.testThumbnailUiModule();
 //    this.testBookUiModule();
-//      this.testExpandUiModule();
+//    this.testExpandUiModule();
 //    this.testErisUiModule();
 //    this.testUiCache();
 };
