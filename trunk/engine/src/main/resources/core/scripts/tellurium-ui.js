@@ -2007,7 +2007,13 @@ UiAlg.prototype.locateInAllSnapshots = function(uiobj){
         //check the first element color
         if(this.currentColor == first.color){
             first = this.squeue.pop();
-            this.locate(uiobj, first);
+            if(uiobj.locator != null){
+                this.locate(uiobj, first);
+            }else{
+                var ncolor = this.nextColor();
+                first.setColor(ncolor);
+                this.squeue.push(first);
+            }
         }else{
             //exit when the snapshot color is marked for the next round
             finished = true;
@@ -2101,7 +2107,12 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
     //the next color to label the snapshot
     var ncolor = this.nextColor();
     //first find its parent uid
-    var puid = this.getParentUid(uid);
+//    var puid = this.getParentUid(uid);
+    var vp = this.getValidParentFor(uiobj);
+    var puid = null;
+    if(vp != null)
+        puid = vp.fullUid();
+    
     var pref = null;
     if(puid != null){
         pref = snapshot.getUi(puid);
@@ -2444,6 +2455,21 @@ UiAlg.prototype.getParentUid = function(uid){
     }
 
     return null;
+};
+
+UiAlg.prototype.getValidParentFor = function(uiobj){
+    var validParent = uiobj.parent;
+
+    while(validParent != null){
+        if(validParent.locator == null){
+             //walk up if the parent is a logical container
+            validParent = validParent.parent;
+        }else{
+            break;
+        }
+    }
+
+    return validParent;
 };
 
 //
