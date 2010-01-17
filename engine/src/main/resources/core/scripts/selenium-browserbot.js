@@ -1173,6 +1173,14 @@ BrowserBot.prototype._registerAllLocatorFunctions = function() {
         }
         return this.locateElementByIdentifier(locator, inDocument, inWindow);
     };
+
+    this.locationStrategies['jquery'] = function(locator, inDocument, inWindow) {
+        return tellurium.locateElementByCSSSelector(locator, inDocument, inWindow);
+    };
+
+    this.locationStrategies['uimcal'] = function(locator, inDocument, inWindow) {
+        return tellurium.locateElementWithCacheAware(locator, inDocument, inWindow);
+    };
 }
 
 BrowserBot.prototype.getDocument = function() {
