@@ -565,6 +565,88 @@ public abstract class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase 
     }
 }}}
 
+== TelluriumMockJUnitTestCase and TelluriumMockTestNGTestCase ==
+
+TelluriumMockJUnitTestCase and TelluriumMockTestNGTestCase incorporated the Mock Http Server so that you can load up a html web page and test against it with minimal configuration.
+
+One example is as follows,
+
+{{{
+public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
+    private static JettyLogonModule jlm;
+
+    @BeforeClass
+    public static void initUi() {
+        registerHtmlBody("JettyLogon");
+
+        jlm = new  JettyLogonModule();
+        jlm.defineUi();
+        useCssSelector(true);
+        useTelluriumApi(true);
+        useTrace(true);
+        useCache(true);
+    }
+
+    @Before
+    public void connectToLocal() {
+        connect("JettyLogon");
+    }
+
+    @Test
+    public void testJsonfyUiModule(){
+        String json = jlm.jsonify("Form");
+        System.out.println(json);
+    }
+
+    @AfterClass
+    public static void tearDown(){
+        showTrace();
+    }
+}
+}}}
+
+where the html file "JettyLogon" lives in the class path "org/telluriumsource/html". You can change this by the following method:
+
+{{{
+public static void setHtmlClassPath(String path);
+}}}
+
+The implementation is simple as shown as follows.
+
+{{{
+public class TelluriumMockJUnitTestCase extends TelluriumJUnitTestCase {
+    protected static MockHttpServer server;
+
+    @BeforeClass
+    public static void init(){
+        server = new MockHttpServer(8080);
+        server.start();
+        connectSeleniumServer();
+    }
+
+    public static void registerHtml(String testname){
+       server.registerHtml("/" + testname + ".html", server.getHtmlFile(testname));
+    }
+
+    public static void registerHtmlBody(String testname){
+       server.registerHtmlBody("/" + testname + ".html", server.getHtmlFile(testname));
+    }
+
+    public static void setHtmlClassPath(String path){
+        server.setHtmlClassPath(path);
+    }
+
+    public static void connect(String testname){
+        connectUrl("http://localhost:8080/" + testname + ".html");
+    }
+
+    @AfterClass
+    public static void tearDown(){
+        server.stop();
+    }
+}
+}}}
+
 == Tellurium Configuration ==
 
 The configuration file TelluriumConfig.groovy includes three extra sections. That is to say, the bundle tier,
