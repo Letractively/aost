@@ -101,7 +101,7 @@ class SeleniumConnector implements Configurable {
 
       //jQuery CSS selector without any Cache mechanism
 
-      sel.addLocationStrategy("jquery", '''
+/*      sel.addLocationStrategy("jquery", '''
           return tellurium.locateElementByCSSSelector(locator, inDocument, inWindow);
       ''')
 
@@ -109,7 +109,7 @@ class SeleniumConnector implements Configurable {
      //Ui Module Cache Aware Locate Strategy
       sel.addLocationStrategy("uimcal", '''
           return tellurium.locateElementWithCacheAware(locator, inDocument, inWindow);
-      ''')
+      ''')*/
     }
 
 	public void disconnectSeleniumServer() {
