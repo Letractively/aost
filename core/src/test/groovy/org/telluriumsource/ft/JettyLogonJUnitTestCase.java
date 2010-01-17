@@ -118,7 +118,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     @Test
     public void testLogicContainer(){
         jlm.validateUiModule("AbstractForm");
-        jlm.diagnose("AbstractForm.Password.Password1.Label");
+        jlm.diagnose("AbstractForm.Form1.Password.Password1.Label");
         jlm.alogon("test", "test");
     }
 

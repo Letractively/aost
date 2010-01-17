@@ -74,7 +74,7 @@ public class JettyLogonModule extends DslContext {
   public void alogon(String username, String password){
     keyType "AbstractForm.Form1.Username.Input", username
     keyType "AbstractForm.Form1.Password.Password1.Input", password
-    click "AbstractForm.Submit"
+    click "AbstractForm.Form1.Submit"
     waitForPageToLoad 30000
   }
 
