@@ -466,7 +466,17 @@ var UiContainer = UiObject.extend({
                 fbLog("component: ", component);
                 if (!component.lazy) {
                     fbLog("Look ahead at cachable child of Container " + this.uid + ": ", component);
-                    validChildren.push(component);
+                    if(component.locator != null){
+                        validChildren.push(component);
+                    }else{
+                        //the component is a logical container, need to go further down to get its children
+                        fbLog("Found logical container " + component.uid + " and look for this children", component);
+                        var ccr = component.lookChildren();
+                        if(ccr != null && ccr.length > 0){
+                            fbLog("Add logical container " + component.uid + "'s children. ", ccr);
+                            validChildren.concat(ccr);
+                        }
+                    }
                 }
             }
         }
@@ -481,8 +491,20 @@ var UiContainer = UiObject.extend({
         fbLog("Val set: ", valset);
         for (var i = 0; i < valset.length; i++) {
             var component = valset[i];
-            fbLog("component: ", component);
-            children.push(component);
+//            fbLog("component: ", component);
+//            children.push(component);
+            fbLog("Look ahead nomatter what at cachable child of Container " + this.uid + ": ", component);
+            if (component.locator != null) {
+                children.push(component);
+            } else {
+                //the component is a logical container, need to go further down to get its children
+                fbLog("Found logical container " + component.uid + " and look for this children", component);
+                var ccr = component.lookChildrenNoMatterWhat();
+                if (ccr != null && ccr.length > 0) {
+                    fbLog("Add logical container " + component.uid + "'s children. ", ccr);
+                    children.concat(ccr);
+                }
+            }
         }
 
         return children;
