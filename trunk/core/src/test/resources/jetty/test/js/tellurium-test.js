@@ -52,10 +52,11 @@ TelluriumTestCase.prototype.testLogicalContainerModule = function(){
     var dom = teJQuery("html");
     alg.santa(uim, dom);
     var context = new WorkflowContext();
+    context.alg = alg;
     var uiid = new Uiid();
     var uinput = uim.walkTo(context, uiid.convertToUiid("AbstractForm.Form1.Username.Input"));
     var pinput = uim.walkTo(context, uiid.convertToUiid("AbstractForm.Form1.Password.Password1.Input"));
-    var smt = uim.walkTo(context, uiid.convertToUiid("AbstractForm.Submit")); 
+    var smt = uim.walkTo(context, uiid.convertToUiid("AbstractForm.Form1.Submit")); 
 };
 
 TelluriumTestCase.prototype.testLogonUiModule = function(){
