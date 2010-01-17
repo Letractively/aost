@@ -5,5 +5,12 @@
 
 UI Module is the heart of Tellurium Automated Testing Framework. Even UI Module was introduced at this prototype phase, but there was really no algorithm to locate the UI module as a whole. Up to Tellurium 0.6.0, we still need Tellurium core to generate runtime locators based on the UI module definition and then send Selenium commands to the Selenium core to locate each individual UI element. This procedure can be illustrated by the following diagram.
 
-The Santa algorithm is the missing half of the Tellurium UI module concept. The algorithm can locate the whole UI module in the runtime DOM and you can just pass in UI element's UID to find it in the cached UI module on Tellurium Engine side. That is to say, you don't need Tellurium Core to generate the runtime locators any more. For compatibility reason, Tellurium Core still generates runtime locators, but they are not really needed if you turn on UI module group locating and caching.  
+The Santa algorithm is the missing half of the Tellurium UI module concept. The algorithm can locate the whole UI module in the runtime DOM and you can just pass in UI element's UID to find it in the cached UI module on Tellurium Engine side. That is to say, you don't need Tellurium Core to generate the runtime locators any more. For compatibility reason, Tellurium Core still generates runtime locators, but they are not really needed if you turn on UI module group locating and caching. The new procedure is shown as follows.
 
+Why is the algorithm named "Santa". This is because I have completed most of the design and coding work during the Christmas season in 2009. It is like a gift for me from Santa Claus.  
+
+= The Santa Algorithm =
+
+= Usage =
+
+= Resources =
