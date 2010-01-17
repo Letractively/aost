@@ -1174,6 +1174,7 @@ BrowserBot.prototype._registerAllLocatorFunctions = function() {
         return this.locateElementByIdentifier(locator, inDocument, inWindow);
     };
 
+    //locate strategies used by Tellurium 
     this.locationStrategies['jquery'] = function(locator, inDocument, inWindow) {
         return tellurium.locateElementByCSSSelector(locator, inDocument, inWindow);
     };
