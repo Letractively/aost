@@ -113,11 +113,11 @@ abstract class UiObjectBuilder extends Const {
               obj.locator.namespace = obj.namespace
             }
         }else if (map.get(JQLOCATOR) != null){
-            //useString jquery locator
+            //use jquery locator
             obj.locator = buildJQueryLocator(map.get(JQLOCATOR))
         }else{
             //use default base Locator
-            obj.locator = new BaseLocator()
+ //           obj.locator = new BaseLocator()
         }
 
         //add respond to events
