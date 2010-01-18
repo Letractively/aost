@@ -18,6 +18,8 @@ Why is the algorithm named "Santa". This is because I have completed most of the
 
 Santa is basically a branch and trim search procedure on the runtime DOM.
 
+== Data Structures ==
+
 == Locate ==
 
 === Branch and Trim ===
