@@ -1,36 +1,46 @@
 package org.telluriumsource.test;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
 import org.telluriumsource.module.TelluriumIssuesPage;
-import org.telluriumsource.test.java.TelluriumJUnitTestCase;
+import org.telluriumsource.test.java.TelluriumTestNGTestCase;
 import org.telluriumsource.util.Helper;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.testng.Assert.*;
 
 /**
+ * Test case for Tellurium project issues page
+ *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Haroon Rasheed (haroonzone@gmail.com)
  *
  *         Date: Jan 18, 2010
  */
-public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
+public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
     private static TelluriumIssuesPage tisp;
 
     @BeforeClass
     public static void initUi() {
         tisp = new TelluriumIssuesPage();
         tisp.defineUi();
-        connectSeleniumServer();
         useCssSelector(false);
+        connectSeleniumServer();
     }
+
+    @BeforeMethod
+    public void setUpForMethod(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
+    }
+
 
     @Test
     public void testGetIssueTypes(){
-        connectUrl("http://code.google.com/p/aost/issues/list");
+
         String[] ists = tisp.getIsssueTypes();
         assertNotNull(ists);
         assertTrue(ists[2].contains("Open issues"));
@@ -40,7 +50,6 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testAdvancedSearch(){
-        connectUrl("http://code.google.com/p/aost/issues/advsearch");
         String[] ists = tisp.getAdvancedIsssueTypes();
         assertNotNull(ists);
         assertTrue(ists[1].contains("All issues"));
@@ -51,13 +60,11 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testAdvancedSearchTips(){
-        connectUrl("http://code.google.com/p/aost/issues/advsearch");
         tisp.clickMoreSearchTips();
     }
 
     @Test
     public void testIssueData(){
-        connectUrl("http://code.google.com/p/aost/issues/list");
         int mcolumn = tisp.getTableHeaderNum();
         assertEquals(10, mcolumn);
         List<String> list = tisp.getHeaderNames();
@@ -72,7 +79,6 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testClickIssueResult(){
-        connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.clickTable(1,2);
         connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.clickTable(1,3);
@@ -90,7 +96,6 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testClickHeader(){
-        connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.clickOnTableHeader(2);
         tisp.clickOnTableHeader(3);
         tisp.clickOnTableHeader(4);
@@ -102,7 +107,7 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testIdMenu(){
-        connectUrl("http://code.google.com/p/aost/issues/list");
+        useCssSelector(false);
         tisp.clickOnTableHeader(2);
         tisp.mouseMoveIdMenu();
         tisp.clickIdMenuSortDown();
@@ -111,15 +116,13 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testSelectColumnMenu(){
-        connectUrl("http://code.google.com/p/aost/issues/list");
+        useCssSelector(false);
         tisp.toggleIdColumn("ID");
         tisp.toggleIdColumn("Owner");
-//        tisp.toggleIdColumn("Closed");
     }
 
     @Test
     public void testSelectDataLayout(){
-        connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.selectDataLayout("Grid");
         tisp.selectDataLayout("List");
     }
@@ -171,5 +174,4 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
             System.out.println("UID: " + key + ", Count: " + usages.get(key));
         }
     }
-
 }
