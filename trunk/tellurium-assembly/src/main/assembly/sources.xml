@@ -23,16 +23,9 @@
         </dependencySet>
         <dependencySet>
             <includes>
-                <include>tellurium:tellurium-junit-java:jar:sources</include>
+                <include>tellurium:tellurium-website:jar:sources</include>
             </includes>
-            <outputDirectory>src/reference-projects/junit-java</outputDirectory>
-            <unpack>true</unpack>
-        </dependencySet>
-        <dependencySet>
-            <includes>
-                <include>tellurium:tellurium-testng-java:jar:sources</include>
-            </includes>
-            <outputDirectory>src/reference-projects/testng-java</outputDirectory>
+            <outputDirectory>src/reference-projects/tellurium-website</outputDirectory>
             <unpack>true</unpack>
         </dependencySet>
     </dependencySets>

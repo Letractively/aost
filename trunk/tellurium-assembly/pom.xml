@@ -67,12 +67,7 @@
 -->
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>tellurium-junit-java</artifactId>
-            <version>${pom.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${pom.groupId}</groupId>
-            <artifactId>tellurium-testng-java</artifactId>
+            <artifactId>tellurium-website</artifactId>
             <version>${pom.version}</version>
         </dependency>
         <dependency>
@@ -97,13 +92,7 @@
 -->
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>tellurium-junit-java</artifactId>
-            <version>${pom.version}</version>
-            <classifier>sources</classifier>
-        </dependency>
-        <dependency>
-            <groupId>${pom.groupId}</groupId>
-            <artifactId>tellurium-testng-java</artifactId>
+            <artifactId>tellurium-website</artifactId>
             <version>${pom.version}</version>
             <classifier>sources</classifier>
         </dependency>
