@@ -2,7 +2,7 @@ package org.telluriumsource.ft;
 
 import org.junit.*;
 import org.telluriumsource.entity.CachePolicy;
-import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
+import org.telluriumsource.test.java.TelluriumJUnitTestCase;
 import org.telluriumsource.module.TelluriumIssueModule;
 
 import java.util.Map;
@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
  *
  *         Date: Jan 6, 2010
  */
-public class TelluriumIssueTestCase extends TelluriumMockJUnitTestCase {
+public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
     private static TelluriumIssueModule tim;
     @BeforeClass
     public static void initUi() {
@@ -38,10 +38,21 @@ public class TelluriumIssueTestCase extends TelluriumMockJUnitTestCase {
     }
 
     @Test
+    public void testValidateUiModule(){
+        tim.validateUiModule("issueSearch");
+    }
+
+    @Test
     public void testSearchIssueTypes(){
         String[] ists = tim.getIsssueTypes();
         tim.selectIssueType(ists[2]);
         tim.searchIssue("Alter");
+    }
+
+    @Test
+    public void testGetAttribute(){
+        String clazz = (String)tim.getAttribute("issueSearch.searchBox","style");
+        System.out.println("Style for issueSearch.searchBox is" + clazz);
     }
 
     @Test
@@ -118,23 +129,4 @@ public class TelluriumIssueTestCase extends TelluriumMockJUnitTestCase {
     public static void tearDown(){
         showTrace();
     }
-    
-/*    
-    @BeforeClass
-    public static void setup(){
-         = new TelluriumIssueModule();
-        .defineUi();
-        registerHtml("TelluriumIssue");
-    }
-
-    @Before
-    public void connect(){
-        connect("TelluriumIssue");
-    }
-
-    @Test
-    public void testDump(){
-        useCssSelector(true);
-        .dump("issueResult");
-    }*/
 }
