@@ -4,6 +4,7 @@ import org.telluriumsource.dsl.BaseDslContext
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.exception.NotWidgetObjectException
 import org.telluriumsource.ui.widget.Widget
+import org.telluriumsource.framework.Environment
 
 abstract class DslContext extends BaseDslContext {
 
@@ -67,6 +68,12 @@ abstract class DslContext extends BaseDslContext {
     }
 
     protected String locatorMappingWithOption(WorkflowContext context, loc, optLoc) {
+      if(Environment.instance.isUseCache() && (!Environment.instance.isUseLocatorWithCache())){
+         if(optLoc != null)
+            return JQUERY_SELECTOR + optLoc;
+
+         return JQUERY_SELECTOR;
+      }else{
         //get ui object's locator
         String locator = locatorProcessor.locate(context, loc)
 
@@ -92,6 +99,8 @@ abstract class DslContext extends BaseDslContext {
         }
 
         return locator
+
+      }
     }
 
     def selectFrame(String uid) {

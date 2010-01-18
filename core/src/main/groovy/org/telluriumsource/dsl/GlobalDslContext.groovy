@@ -219,6 +219,14 @@ public class GlobalDslContext {
     return Environment.instance.getCustomEnvironment(name);
   }
 
+  public void enableLocatorWithCache(){
+    Environment.instance.useLocatorWithCache(true);
+  }
+
+  public void disableLocatorWithCache(){
+    Environment.instance.useLocatorWithCache(false);
+  }
+
   public useMaxMacroCmd(int max){
     Environment.instance.useMaxMacroCmd(max);
   }

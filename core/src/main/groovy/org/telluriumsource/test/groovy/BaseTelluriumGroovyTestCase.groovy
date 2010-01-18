@@ -59,6 +59,14 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
         customConfig = new CustomConfig(runInternally, port, browser, useMultiWindows, profileLocation, serverHost, browserOptions)
     }
 
+    public boolean isUseLocatorWithCache(){
+        return tellurium.isUseLocatorWithCache();
+    }
+
+    public void useLocatorWithCache(boolean isUse){
+        tellurium.useLocatorWithCache(isUse);
+    }
+
     public void useClosestMatch(boolean isUse){
       tellurium.useClosestMatch(isUse);
     }
