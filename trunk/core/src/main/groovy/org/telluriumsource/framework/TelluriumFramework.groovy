@@ -193,11 +193,19 @@ class TelluriumFramework {
   }
 
   public SeleniumConnector getConnector() {
-    return this.connector
+    return this.connector;
+  }
+
+  public boolean isUseLocatorWithCache(){
+    return env.isUseLocatorWithCache();
+  }
+
+  public void useLocatorWithCache(boolean isUse){
+    env.useLocatorWithCache(isUse);
   }
 
   public void useMacroCmd(boolean isUse) {
-    env.useBundle(isUse)
+    env.useBundle(isUse);
   }
 
   public setMaxMacroCmd(int max) {

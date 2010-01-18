@@ -40,6 +40,12 @@ public class Environment implements Configurable{
 
   protected boolean closestMatch = false;
 
+  protected boolean locatorWithCache = true;
+
+  public boolean isUseLocatorWithCache(){
+    return this.locatorWithCache;
+  }
+
   public boolean isUseClosestMatch(){
     return this.closestMatch;
   }
@@ -70,6 +76,10 @@ public class Environment implements Configurable{
 
   public void useClosestMatch(boolean isUse){
     this.closestMatch = isUse;  
+  }
+
+  public void useLocatorWithCache(boolean isUse){
+    this.locatorWithCache = isUse;  
   }
 
   public void useCssSelector(boolean isUse){
