@@ -150,7 +150,7 @@ function DiagnosisRequest(){
     this.retHtml = true;
     this.retParent = true;
     this.retClosest = true;
-};
+}
 
 function DiagnosisResponse(){
     this.uid = null;
@@ -159,7 +159,7 @@ function DiagnosisResponse(){
     this.parents = null;
     this.closest = null;
     this.html = null;
-};
+}
 
 Selenium.prototype.getHtml = function(){
     var $iframe = teJQuery("#selenium_myiframe");

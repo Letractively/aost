@@ -3,7 +3,7 @@
 //FILO (First In Last Out) QUEUE
 function FiloQueue(){
     this.queue = new Array();
-};
+}
 
 FiloQueue.prototype.clear = function(){
     this.queue = new Array();
@@ -41,7 +41,7 @@ FiloQueue.prototype.toArray = function(){
 
 function FifoQueue(){
     this.queue = new Array();
-};
+}
 
 FifoQueue.prototype.clear = function(){
     this.queue = new Array();
@@ -80,7 +80,7 @@ function HashMap()
     // members
     this.keyArray = new Array(); // Keys
     this.valArray = new Array(); // Values
-};
+}
 
 //clone a copy of the Hash Map
 HashMap.prototype.clone = function(){
@@ -204,7 +204,7 @@ HashMap.prototype.findIt = function( key )
 
 function StringBuffer() {
     this.buffer = [];
-};
+}
 
 StringBuffer.prototype.append = function(string) {
     this.buffer.push(string);
@@ -217,11 +217,11 @@ StringBuffer.prototype.toString = function() {
 
 function trimString(str) {
     return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-};
+}
 
 function SimpleCompare(){
 
-};
+}
 
 SimpleCompare.prototype.compare = function(a, b){
     return a > b;    
@@ -232,7 +232,7 @@ function PriorityQueue(){
     this.A = new Array();
     //you define your own comparator and overwrite this for our data
     this.comparator = new SimpleCompare();
-};
+}
 
 PriorityQueue.prototype.size = function(){
     return this.A.length;
@@ -310,7 +310,7 @@ PriorityQueue.prototype.buildHeap = function(){
 function Hashtable(){
     this.map = {};
     this.length = 0;
-};
+}
 
 Hashtable.prototype.exist = function(key){
     return typeof this.map[key] != "undefined";
@@ -390,22 +390,22 @@ String.prototype.trim = function(){
 
 
 function objectExtends(destination, source1, source2) {
-  for (var property in source1) {
-    destination[property] = source1[property];
+  for (var p1 in source1) {
+    destination[p1] = source1[p1];
   }
-  for (var property in source2) {
-    destination[property] = source2[property];
+  for (var p2 in source2) {
+    destination[p2] = source2[p2];
   }
 
   return destination;
-};
+}
 
 function objectCopy(destination, source) {
   for (var property in source) {
     destination[property] = source[property];
   }
   return destination;
-};
+}
 
 function getObjectClass(obj) {
     if (obj && obj.constructor && obj.constructor.toString) {
@@ -418,7 +418,7 @@ function getObjectClass(obj) {
     }
 
     return undefined;
-};
+}
 
 
 String.prototype.startsWith = function(str)
@@ -454,56 +454,56 @@ function dumpObject(obj) {
 
         console.log(output);
     }
-};
+}
 
 function fbLog(msg, obj){
     if (typeof(console) != "undefined") {
         console.log(msg, obj);
     }
-};
+}
 
 function fbInfo(msg, obj){
     if (typeof(console) != "undefined") {
         console.info(msg, obj);
     }
-};
+}
 
 function fbDebug(msg, obj){
     if (typeof(console) != "undefined") {
         console.debug(msg, obj);
     }
-};
+}
 
 function fbWarn(msg, obj){
     if (typeof(console) != "undefined") {
         console.warn(msg, obj);
     }
-};
+}
 
 function fbError(msg, obj){
     if (typeof(console) != "undefined") {
         console.trace();
         console.error(msg, obj);
     }
-};
+}
 
 function fbTrace(){
     if (typeof(console) != "undefined") {
         console.trace();
     }
-};
+}
 
 function fbAssert(expr, obj){
     if (typeof(console) != "undefined") {
         console.assert(expr, obj);
     }
-};
+}
 
 function fbDir(obj){
     if (typeof(console) != "undefined") {
         console.dir(obj);
     }
-};
+}
 
 
 //code copied from http://ejohn.org/blog/simple-javascript-inheritance/

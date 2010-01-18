@@ -104,7 +104,7 @@ function getColor(elem, cssName){
     }
 
    return color;
-};
+}
 
 /*
 jQuery.fn.extend({
@@ -115,7 +115,7 @@ jQuery.fn.extend({
 //dump logging message to dummy device, which sallows all messages == no logging
 function DummyLogger(){
 
-};
+}
 
 DummyLogger.prototype.info = function(msg){
 
@@ -157,7 +157,7 @@ var jslogger = new DummyLogger();
 
 function Identifier(){
     this.sn = 100;
-};
+}
 
 Identifier.prototype.next = function(){
     this.sn++;
@@ -171,7 +171,7 @@ function CmdRequest(){
     this.uid = null;
     this.name = null;
     this.args = null;
-};
+}
 
 // Command Request for Command bundle
 function CmdResponse(){
@@ -179,11 +179,11 @@ function CmdResponse(){
     this.name = null;
     this.returnType = null;
     this.returnResult = null;
-};
+}
 
 function BundleResponse(){
     this.response = new Array();
-};
+}
 
 BundleResponse.prototype.addVoidResponse = function(sequ, name){
     var resp = new CmdResponse();
@@ -221,7 +221,7 @@ BundleResponse.prototype.toJSon = function(){
 function MacroCmd(){
     this.bundle = new Array();
 
-};
+}
 
 MacroCmd.prototype.size = function(){
     return this.bundle.length;
@@ -260,7 +260,7 @@ function TelluriumCommandHandler(api, requireElement, returnType) {
     this.requireElement = requireElement;
     //return type
     this.returnType = returnType;
-};
+}
 
 function Tellurium (){
 
@@ -289,7 +289,7 @@ function Tellurium (){
 
     //JQuery Builder
     this.jqbuilder = new JQueryBuilder();
-};
+}
 
 Tellurium.prototype.isUseCache = function(){
     return this.cache.cacheOption;    
@@ -368,11 +368,7 @@ Tellurium.prototype.useTeApi = function(isUse){
     if (typeof(isUse) == "boolean") {
         tellurium.isUseTeApi = isUse;
     } else {
-        if ("true" == isUse || "TRUE" == isUse) {
-            tellurium.isUseTeApi = true;
-        } else {
-            tellurium.isUseTeApi = false;
-        }
+        tellurium.isUseTeApi = ("true" == isUse || "TRUE" == isUse);
     }
 };
 
@@ -418,7 +414,7 @@ function validateDomRef(domref){
         fbError("Dom reference is not valid", e);
         return false;
     }
-};
+}
 
 Tellurium.prototype.getUiElementFromCache = function(uid){
 
@@ -601,7 +597,7 @@ function MetaCmd(){
     this.uid = null;
     this.cacheable = true;
     this.unique = true;
-};
+}
 
 function TeInput(){
     this.metaCmd = null;
@@ -609,7 +605,7 @@ function TeInput(){
     this.optimized = null;
     this.isAttribute = false;
     this.attribute = null;
-};
+}
 
 Tellurium.prototype.parseLocator = function(locator){
     var input = new TeInput();
@@ -766,7 +762,7 @@ Tellurium.prototype.locateElementWithCacheAware = function(locator, inDocument, 
         }else{
             if(cal.locator != null && cal.locator.trim().length > 0){
                 //If cannot find the UI element from the cache, locate it as the last resort
-                fbLog("Trying to locate the UI element " + cal.rid + " with its locator " + cal.locator + " because cannot find vaild one from cache");
+                fbLog("Trying to locate the UI element " + cal.rid + " with its locator " + cal.locator + " because cannot find vaild one from cache", cal);
                 element = this.locate(cal.locator);
             }
         }
@@ -794,7 +790,9 @@ Tellurium.prototype.dispatchMacroCmd = function(){
             this.delegateToTellurium(response, cmd);
         }else{
             //for other commands
+            fbLog("Dispatching command: ", cmd);
             this.updateArgumentList(cmd);
+            fbLog("Command after updating argument list: ", cmd);
             if ((!this.isUseTeApi) || this.isApiMissing(cmd.name)) {
                 fbLog("delegate command to Selenium", cmd);
                 this.delegateToSelenium(response, cmd);

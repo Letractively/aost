@@ -3,7 +3,7 @@ function UmCacheData(){
     this.uiModule = null;
     this.count = 0;
     this.timestamp = Number(new Date());
-};
+}
 
 //Cached Data, use uid as the key to reference it
 function CacheData(){
@@ -18,13 +18,13 @@ function CacheData(){
     this.count = 0;
     //last use time
     this.timestamp = Number(new Date());
-};
+}
 
 //cache eviction policies
 //simply discard new selector
 function DiscardNewPolicy(){
     this.name = "DiscardNewPolicy";
-};
+}
 
 DiscardNewPolicy.prototype.applyPolicy = function (cache, key, data){
 
@@ -38,7 +38,7 @@ var discardNewCachePolicy = new DiscardNewPolicy();
 
 function DiscardOldPolicy(){
     this.name = "DiscardOldPolicy";
-};
+}
 
 DiscardOldPolicy.prototype.applyPolicy = function (cache, key, data){
     var keys = cache.keySet();
@@ -66,7 +66,7 @@ var discardOldCachePolicy = new DiscardOldPolicy();
 //remove the least used select in the cache
 function DiscardLeastUsedPolicy (){
     this.name = "DiscardLeastUsedPolicy";
-};
+}
 
 DiscardLeastUsedPolicy.prototype.applyPolicy = function(cache, key, data){
     var keys = cache.keySet();
@@ -95,7 +95,7 @@ var discardLeastUsedCachePolicy = new DiscardLeastUsedPolicy();
 //otherwise, discard the new one
 function DiscardInvalidPolicy(){
     this.name = "DiscardInvalidPolicy";
-};
+}
 
 DiscardInvalidPolicy.prototype.applyPolicy = function(cache, key, data){
     var keys = cache.keySet();
@@ -143,18 +143,14 @@ function TelluriumCache(){
 
     //Algorithm handler for UI
     this.uiAlg = new UiAlg();
-};
+}
 
 TelluriumCache.prototype.useClosestMatch = function(isUse){
     fbLog("call useClosestMatch", isUse);
     if (typeof(isUse) == "boolean") {
         this.uiAlg.allowRelax = isUse;
     } else {
-        if ("true" == isUse || "TRUE" == isUse) {
-            this.uiAlg.allowRelax = true;
-        } else {
-            this.uiAlg.allowRelax = false;
-        }
+        this.uiAlg.allowRelax = ("true" == isUse || "TRUE" == isUse);
     }
 
     fbLog("Call useClosestMatch(" + isUse + ") to set allowRelax to ", this.uiAlg.allowRelax);
@@ -281,7 +277,7 @@ function UiModuleLocatingResponse(){
 
     //details for the relax, i.e., closest match
     this.relaxDetails = null;
-};
+}
 
 TelluriumCache.prototype.useUiModule = function(json){
     var uim = new UiModule();

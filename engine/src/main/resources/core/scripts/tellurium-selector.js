@@ -206,7 +206,7 @@ function JQueryBuilder(){
     this.specials = ['#', '&', '~', '=', '>', "'", ':', '"', '!', ';', ','];
     this.regexSpecials = [ '.', '*', '+', '|', '[', ']', '(', ')', '/', '^', '$'];
     this.sRE = new RegExp('(' + this.specials.join('|') + '|\\' + this.regexSpecials.join('|\\') + ')', 'g');
-};
+}
 
 JQueryBuilder.prototype.inBlackList = function(attr){
     return this.ATTR_BLACK_LIST.indexOf(attr) != -1;
