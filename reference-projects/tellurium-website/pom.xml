@@ -147,10 +147,10 @@
         </resources>
         <testResources>
             <testResource>
-                <directory>src/test/groovy</directory>
+                <directory>src/org.telluriumsource.test/groovy</directory>
             </testResource>
             <testResource>
-                <directory>src/test/resources</directory>
+                <directory>src/org.telluriumsource.test/resources</directory>
             </testResource>
         </testResources>
 
