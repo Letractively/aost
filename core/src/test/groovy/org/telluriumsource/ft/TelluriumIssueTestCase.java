@@ -29,6 +29,7 @@ public class TelluriumIssueTestCase extends TelluriumMockJUnitTestCase {
         setCacheMaxSize(30);
         useTrace(true);
         useLocatorWithCache(false);
+        useClosestMatch(true);
     }
 
     @Before
