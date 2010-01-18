@@ -2334,7 +2334,7 @@ UiAlg.prototype.relax = function(clocator, pref) {
                 var attr = keys[m];
                 var tsel = this.cssbuilder.buildSelector(attr, attrs.get(attr));
                 var $mt = teJQuery(pref).find(jqs + tsel);
-                if ($mt.length > 0) {
+                if ($mt.size()> 0) {
                     $closest = $mt;
                     result.closest = $closest;
                     jqs = jqs + tsel;
@@ -2345,11 +2345,13 @@ UiAlg.prototype.relax = function(clocator, pref) {
                     }
                 }
             }
-        }else{
-            if($closest.size() > 0){
-                nm = 1;
-                result.closest = $closest;
-            }
+        }
+
+//        else{
+//         }
+        if($closest.size() > 0){
+             nm = 1;
+             result.closest = $closest;
         }
 
         //calculate matching score, scaled to 100 percentage
