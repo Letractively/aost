@@ -463,12 +463,12 @@
     </distributionManagement>
     <properties>
         <java-version>1.6</java-version>
-        <groovy-version>1.6.5</groovy-version>
+        <groovy-version>1.7.0</groovy-version>
         <gmaven-version>1.2</gmaven-version>
         <selenium-version>1.0.1</selenium-version>
         <selenium-server-version>1.0.1-te2</selenium-server-version>
     </properties>
-    <profiles>
+    <!--profiles>
         <profile>
             <id>windows</id>
             <activation>
@@ -516,5 +516,5 @@
                 </pluginManagement>
             </build>
         </profile>
-    </profiles>
+    </profiles-->
 </project>
