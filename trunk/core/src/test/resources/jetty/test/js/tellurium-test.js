@@ -34,6 +34,7 @@ TelluriumTestCase.prototype.testTelluriumIssueModule = function(){
     var uim = new UiModule();
     uim.parseUiModule(JSON.stringify(json));
     var alg = new UiAlg();
+    alg.allowRelax = true;
     var dom = teJQuery("html");
     alg.santa(uim, dom);
     var context = new WorkflowContext();
