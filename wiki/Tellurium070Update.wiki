@@ -567,6 +567,20 @@ type "Google.Input", true
 
 For details, please read [http://code.google.com/p/aost/wiki/InternationalizationSupportTellurium Internationalization Support in Tellurium]
 
+== Groovy and GMaven ==
+
+Groovy has been upgraded to the latest version 1.7.0.
+
+{{{
+   <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+      <version>1.7.0</version>
+   </dependency>
+}}}
+
+For GMaven, we use the latest version 1.2 and removed the Maven Antrun plugin.
+
 == JUnit ==
 
 JUnit is upgraded to 4.7 since it provides more features. One such a good feature is [http://blog.schauderhaft.de/2009/10/04/junit-rules/ the Rule annotation].
