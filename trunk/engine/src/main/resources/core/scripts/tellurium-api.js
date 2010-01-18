@@ -15,16 +15,17 @@ function getTargetXY(element, coordString) {
    }
    var offset = teJQuery(element).offset();
    return [offset.left + x, offset.top + y];
-};
+}
 
 function TelluriumApi(cache){
     this.cache = cache;
-};
+}
 
 TelluriumApi.prototype.cacheAwareLocate = function(locator){
     //This is not really elegant, but we have to share this
     //locate strategy with Selenium. Otherwise, call Tellurium
     //methods directly.
+    fbLog("Trying to find element with locator ", locator);
     return selenium.browserbot.findElement(locator);
 };
 
@@ -133,9 +134,8 @@ TelluriumApi.prototype.uncheck = function(locator){
 
 TelluriumApi.prototype.isElementPresent = function(locator){
     var element = this.cacheAwareLocate(locator);
-    if (element == null)
-        return false;
-    return true;
+    
+    return element != null;
 };
 
 TelluriumApi.prototype.getAttribute = function(attributeLocator){

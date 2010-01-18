@@ -3,7 +3,7 @@ function getUiid(uid){
     uiid.convertToUiid(uid);
 
     return uiid;
-};
+}
 
 function matchUiid(uiid1, uiid2){
     var result = new Array();
@@ -23,20 +23,20 @@ function matchUiid(uiid1, uiid2){
     }
 
     return result;
-};
+}
 
 function matchUid(uid1, uid2){
     var uiid1 = getUiid(uid1);
     var uiid2 = getUiid(uid2);
 
     return matchUiid(uiid1, uiid2);
-};
+}
 
 
 //Tellurium Internal ID presentation
 function Uiid(){
     this.stack = new Array();
-};
+}
 
 Uiid.prototype.matchWith = function(uiid){
     var result = new Array();
@@ -145,12 +145,12 @@ function WorkflowContext(){
     this.domRef = null;
     this.alg = null;
     this.skipNext = false;
-};
+}
 
 //Base locator
 function BaseLocator(){
     this.loc = null;
-};
+}
 
 //composite locator
 function CompositeLocator(){
@@ -161,7 +161,7 @@ function CompositeLocator(){
     this.header = null;
     this.trailer = null;
     this.attributes = new Hashtable();
-};
+}
 
 //base UI object
 var UiObject = Class.extend({
@@ -1740,7 +1740,7 @@ function UiModule(){
 
     //ID Prefix tree, i.e., Trie, for the lookForId operation in group locating
     this.idTrie = new Trie();
-};
+}
 
 UiModule.prototype.getId = function(){
     if(this.root != null)
@@ -1913,7 +1913,7 @@ function UiSnapshot(){
     this.relaxDetails = new Array();
     this.score = 0;
     this.nelem = 0;
-};
+}
 
 UiSnapshot.prototype.getScaledScore = function(){
     if(this.nelem == 0)
@@ -1968,7 +1968,7 @@ function UiAlg(){
 
     //array to hold all marked data("uid) so that we can remove them later
     this.uidset = new Array();
-};
+}
 
 UiAlg.prototype.clear = function(){
     this.dom = null;
@@ -2276,7 +2276,7 @@ function MatchResult(){
 
     //bonus points for best guess when handle UI templates because each template may not be presented at runtime
 //    this.bonus = 0;
-};
+}
 
 UiAlg.prototype.relax = function(clocator, pref) {
     var attrs = new Hashtable();
@@ -2629,7 +2629,7 @@ function TrieNode() {
 
     //child nodes
     this.children = new Array();
-};
+}
 
 TrieNode.prototype.addChild = function(child) {
     this.children.push(child);
@@ -2734,7 +2734,7 @@ function Trie() {
 
     this.root = null;
 
-};
+}
 
 Trie.prototype.getKey = function(){
     return tellurium.idGen.next();
@@ -2753,7 +2753,7 @@ Trie.prototype.getChildrenData = function(id){
 function TrieMatch(){
     this.score = 0;
     this.node = null;
-};
+}
 
 Trie.prototype.walk = function(current, uiid, result){
     //there are children for the current node
