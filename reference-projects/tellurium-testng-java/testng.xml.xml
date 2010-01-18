@@ -1,9 +1,0 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-
-<suite name="tellurium-testng" verbose="1" >
-  <test name="tellurium tests"   >
-    <packages>
-      <package name="org.telluriumsource.test" />
-   </packages>
- </test>
-</suite>
