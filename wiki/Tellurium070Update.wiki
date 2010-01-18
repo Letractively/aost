@@ -44,34 +44,6 @@ Accordingly, the Maven dependency should be changed as follows,
     <version>0.7.0-SNAPSHOT</version>
 }}}
 
-For Maven archetypes, tellurium-junit-archetype becomes the following,
-
-{{{
-    <groupId>org.telluriumsource</groupId>
-    <artifactId>tellurium-junit-archetype</artifactId>
-    <version>0.7.0-SNAPSHOT</version>
-}}}
-
-Similarly, the tellurium-testng-archetype has been changed to 
-
-{{{
-    <groupId>org.telluriumsource</groupId>
-    <artifactId>tellurium-testng-archetype</artifactId>
-    <version>0.7.0-SNAPSHOT</version>
-}}}
-
-To create a Tellurium project based on Tellurium 0.7.0 SNAPSHOT, you should use the Maven archetype 0.7.0-SNAPSHOT. To create a JUnit project, use the following Maven command:
-
-{{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
-}}}
-
-Similarly, to create a TestNG project, use the following command:
-
-{{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
-}}}
-
 == Package Structure ==
 
 The original core package structure was a flat one and it has been changed as follows,
@@ -1052,7 +1024,90 @@ After the domain name change, you need to use the following Tellurium dependenci
         </dependency>
 }}}
 
-Tellurium Maven archetypes will be updated soon.
+For Maven archetypes, tellurium-junit-archetype becomes the following,
+
+{{{
+    <groupId>org.telluriumsource</groupId>
+    <artifactId>tellurium-junit-archetype</artifactId>
+    <version>0.7.0-SNAPSHOT</version>
+}}}
+
+Similarly, the tellurium-testng-archetype has been changed to 
+
+{{{
+    <groupId>org.telluriumsource</groupId>
+    <artifactId>tellurium-testng-archetype</artifactId>
+    <version>0.7.0-SNAPSHOT</version>
+}}}
+
+To create a Tellurium project based on Tellurium 0.7.0 SNAPSHOT, you should use the Maven archetype 0.7.0-SNAPSHOT. To create a JUnit project, use the following Maven command:
+
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
+}}}
+
+Similarly, to create a TestNG project, use the following command:
+
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
+}}}
+
+= Reference Project =
+
+The old two reference projects, i.e., tellurium-junit-java and tellurium-testng-java reference projects have been updated and merged into one reference project, tellurium-website. The code structure is shown as follows,
+
+{{{
+.
+|-- HowTO
+|-- LICENSE.txt
+|-- README
+|-- TelluriumConfig.groovy
+|-- pom.xml
+|-- rundsl.bat
+|-- rundsl.sh
+|-- src
+|   |-- main
+|   |   |-- groovy
+|   |   |   `-- org
+|   |   |       `-- telluriumsource
+|   |   |           `-- ui
+|   |   |               |-- builder
+|   |   |               |   `-- SelectMenuBuilder.groovy
+|   |   |               `-- object
+|   |   |                   `-- SelectMenu.groovy
+|   |   `-- resources
+|   `-- test
+|       |-- groovy
+|       |   `-- org
+|       |       `-- telluriumsource
+|       |           |-- ddt
+|       |           |   |-- TelluriumIssuesDataDrivenTest.groovy
+|       |           |   `-- TelluriumIssuesModule.groovy
+|       |           |-- module
+|       |           |   |-- TelluriumDownloadsPage.groovy
+|       |           |   |-- TelluriumIssuesPage.groovy
+|       |           |   |-- TelluriumProjectPage.groovy
+|       |           |   `-- TelluriumWikiPage.groovy
+|       |           `-- test
+|       |               |-- TelluriumDownloadsPageJUnitTestCase.java
+|       |               |-- TelluriumDownloadsPageTestNGTestCase.java
+|       |               |-- TelluriumIssuesPageJUnitTestCase.java
+|       |               |-- TelluriumIssuesPageTestNGTestCase.java
+|       |               |-- TelluriumProjectPageJUnitTestCase.java
+|       |               |-- TelluriumProjectPageTestNGTestCase.java
+|       |               |-- TelluriumWikiPageJUnitTestCase.java
+|       |               `-- TelluriumWikiPageTestNGTestCase.java
+|       `-- resources
+|           `-- org
+|               `-- telluriumsource
+|                   |-- data
+|                   |   `-- TelluriumIssuesInput.txt
+|                   |-- dsl
+|                   |   `-- TelluriumPage.dsl
+|                   `-- test-suites
+|                       `-- reportng.xml
+
+}}}
 
 = Examples =
 
