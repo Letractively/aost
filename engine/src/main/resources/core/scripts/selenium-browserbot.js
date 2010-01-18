@@ -1533,7 +1533,7 @@ BrowserBot.prototype.findAttribute = function(locator) {
         }
 
         elementLocator = "uimcal=" + JSON.stringify(cal);
-
+        fbLog("Element Locator from the findAttribute method", elementLocator);
     } else {
         attributePos = locator.lastIndexOf("@");
         elementLocator = locator.slice(0, attributePos);
@@ -1541,6 +1541,7 @@ BrowserBot.prototype.findAttribute = function(locator) {
     }
     // Find the element.
     var element = this.findElement(elementLocator);
+    fbLog("Found Element from the findAttribute method", element);
 
     // Handle missing "class" attribute in IE.
     if (browserVersion.isIE && attributeName == "class") {
