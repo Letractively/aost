@@ -22,7 +22,6 @@
 		</dependency>
 	</dependencies>
 	<modules>
-		<module>tellurium-junit-java</module>
-		<module>tellurium-testng-java</module>
+		<module>tellurium-website</module>
 	</modules>
 </project>
