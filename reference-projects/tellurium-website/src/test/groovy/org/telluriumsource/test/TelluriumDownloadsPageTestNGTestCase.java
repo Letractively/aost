@@ -1,35 +1,35 @@
 package org.telluriumsource.test;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.telluriumsource.module.TelluriumDownloadsPage;
-import org.telluriumsource.test.java.TelluriumJUnitTestCase;
+import org.telluriumsource.test.java.TelluriumTestNGTestCase;
 import org.telluriumsource.util.Helper;
-
+import org.telluriumsource.module.TelluriumDownloadsPage;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
+import static org.testng.Assert.*;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Tests Downloads Page on Tellurium project website
- * 
+ *
  * @author Quan Bui (Quan.Bui@gmail.com)
+ * @author Haroon Rasheed (haroonzone@gmail.com)
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  *         Date: Jan 18, 2010
  */
-public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase {
+public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCase{
     private static TelluriumDownloadsPage downloadPage;
 
     @BeforeClass
     public static void initUi() {
         downloadPage = new TelluriumDownloadsPage();
         downloadPage.defineUi();
+        connectSeleniumServer();
     }
 
-    @Before
-    public void connect(){
+    @BeforeMethod
+    public void setUpForMethod(){
         connectUrl("http://code.google.com/p/aost/downloads/list");
     }
 
@@ -44,13 +44,12 @@ public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase 
     }
 
     @Test
-    public void testSelectAllDownloads(){
+    public void testDefaultDownloadType(){
         // Set download type with other value
         downloadPage.selectDownloadType(" All downloads");
-    }
 
-    @Test
-    public void testDefaultDownloadType(){
+        // Navigate away from download page
+        connectUrl("http://code.google.com/p/aost/downloads/list");
         String defaultType = downloadPage.getCurrentDownloadType();
         assertNotNull(defaultType);
         assertTrue(defaultType.contains("Current downloads"));
@@ -60,7 +59,7 @@ public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase 
     public void testSearchByText(){
         // Set download type with other value
         downloadPage.selectDownloadType(" All downloads");
-        downloadPage.searchDownload("Tellurium-0.6.0");
+        downloadPage.searchDownload("tellurium-0.6.0");
 
         List<String> list = downloadPage.getDownloadFileNames();
         assertNotNull(list);
@@ -77,7 +76,6 @@ public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase 
         List<String> list = downloadPage.getDownloadFileNames();
         assertNotNull(list);
         assertFalse(list.isEmpty());
-//        assertTrue(Helper.include(list, "tellurium-core-0.6.0.tar.gz"));
     }
 
     @Test
@@ -107,6 +105,7 @@ public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase 
     @Test
     public void testClickUploaded(){
         downloadPage.clickUploadedColumn(1);
+
     }
 
     @Test

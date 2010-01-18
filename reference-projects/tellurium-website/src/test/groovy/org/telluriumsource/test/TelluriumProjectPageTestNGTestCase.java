@@ -1,18 +1,19 @@
 package org.telluriumsource.test;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
 import org.telluriumsource.module.TelluriumProjectPage;
-import org.telluriumsource.test.java.TelluriumJUnitTestCase;
+import org.telluriumsource.test.java.TelluriumTestNGTestCase;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 /**
+ *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Haroon Rasheed (haroonzone@gmail.com)
  *
  *         Date: Jan 18, 2010
  */
-public class TelluriumProjectPageJUnitTestCase extends TelluriumJUnitTestCase {
+public class TelluriumProjectPageTestNGTestCase extends TelluriumTestNGTestCase {
     private static TelluriumProjectPage app;
 
     @BeforeClass
@@ -22,15 +23,14 @@ public class TelluriumProjectPageJUnitTestCase extends TelluriumJUnitTestCase {
         connectSeleniumServer();
     }
 
-    @Before
-    public void setUpForTest(){
+    @BeforeMethod
+    public void setUpForMethod(){
        connectUrl("http://code.google.com/p/aost/");
     }
 
     @Test
     public void testTelluriumProjectPage(){
         app.clickDownloads();
-        app.clickWiki();
         app.clickIssues();
         app.clickSource();
     }
@@ -41,8 +41,4 @@ public class TelluriumProjectPageJUnitTestCase extends TelluriumJUnitTestCase {
         app.searchProject("tellurium");
     }
 
-    @Test
-    public void testSeachWeb(){
-        app.searchWeb("tellurium selenium dsl groovy");
-    }
 }

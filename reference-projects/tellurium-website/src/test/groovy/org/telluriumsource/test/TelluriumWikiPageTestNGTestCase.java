@@ -1,40 +1,45 @@
 package org.telluriumsource.test;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 import org.telluriumsource.module.TelluriumWikiPage;
-import org.telluriumsource.test.java.TelluriumJUnitTestCase;
+import org.telluriumsource.test.java.TelluriumTestNGTestCase;
 import org.telluriumsource.util.Helper;
-
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import static org.testng.Assert.*;
 import java.util.List;
-import static org.junit.Assert.*;
 
 /**
  * Tests Wiki Page on Tellurium project website
  *
  * @author Quan Bui (Quan.Bui@gmail.com)
+ * @autoher Haroon Rasheed (haroonzone@gmail.com)
  * @author Jian Fang (John.Jian.Fang@gmail.com)
+ *
  *
  *         Date: Jan 18, 2010
  */
-public class TelluriumWikiPageJUnitTestCase extends TelluriumJUnitTestCase {
+public class TelluriumWikiPageTestNGTestCase extends TelluriumTestNGTestCase {
     private static TelluriumWikiPage wikiPage;
+
+    public static String newline = System.getProperty("line.separator");
 
     @BeforeClass
     public static void initUi() {
         wikiPage = new TelluriumWikiPage();
         wikiPage.defineUi();
         connectSeleniumServer();
+
     }
 
-    @Before
-    public void connect(){
+    @BeforeMethod
+    public void setUpForMethod(){
         connectUrl("http://code.google.com/p/aost/w/list");
     }
 
     @Test
     public void testPageTypes(){
+
         String[] types = wikiPage.getSearchOptions();
         assertNotNull(types);
         assertTrue(types[1].contains("All wiki pages"));
@@ -45,6 +50,7 @@ public class TelluriumWikiPageJUnitTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testSearchPageByText(){
+
         // Set download type with other value
         wikiPage.selectSearchType(" All wiki pages");
         wikiPage.searchForKeyword("Tutorial");
