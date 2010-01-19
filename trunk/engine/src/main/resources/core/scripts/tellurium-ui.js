@@ -688,8 +688,8 @@ var UiList = UiContainer.extend({
                     var sel = alg.buildSelector(this.locator);
                     var $found = teJQuery(context.domRef).find(sel);
                     if ($found.size() > 1) {
-                        //Use bestGuess() to eliminate multipe matches
-                        $found = alg.bestGuess(this, $found);
+                        //Use bestEffort() to eliminate multipe matches
+                        $found = alg.bestEffort(this, $found);
                     }
 
                     if ($found.size() == 1) {
@@ -1112,7 +1112,7 @@ var UiTable = UiContainer.extend({
                     if ($found.size() > 1) {
                         //Use bestGuess() to eliminate multipe matches
                         //                       $found = alg.lookAhead(this, $found);
-                        $found = alg.bestGuess(this, $found);
+                        $found = alg.bestEffort(this, $found);
                     }
 
                     if ($found.size() == 1) {
@@ -1667,7 +1667,7 @@ var UiStandardTable = UiContainer.extend({
                     var $found = teJQuery(context.domRef).find(sel);
                     if ($found.size() > 1) {
                         //Use bestGuess() to eliminate multipe matches
-                        $found = alg.bestGuess(this, $found);
+                        $found = alg.bestEffort(this, $found);
                     }
 
                     if ($found.size() == 1) {
@@ -2132,7 +2132,7 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
     if($found.size() > 1){
         if(uiobj.noCacheForChildren){
             //if there is no cache for children for UI object uiobj
-            $found = this.bestGuess(uiobj, $found);
+            $found = this.bestEffort(uiobj, $found);
             fbLog("UI object has no cache for children, best guess result for UI object " + uiobj.uid, $found.get());
         }else{
             //first try lookId
@@ -2412,7 +2412,7 @@ UiAlg.prototype.lookAheadClosestMatchChildren = function(uiobj, $found, matchres
     return $found;
 };
 
-UiAlg.prototype.bestGuess = function(uiobj, $found){
+UiAlg.prototype.bestEffort = function(uiobj, $found){
     //Implement bestGuess() for UI templates
     var children = uiobj.lookChildrenNoMatterWhat();
 
