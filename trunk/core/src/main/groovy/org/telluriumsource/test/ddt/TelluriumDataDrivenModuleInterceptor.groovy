@@ -12,6 +12,7 @@ package org.telluriumsource.test.ddt
  */
 class TelluriumDataDrivenModuleInterceptor implements Interceptor{
     private static final String OPEN_URL = "openUrl"
+    private static final String CONNECT_URL = "connectUrl"
     private static final String COMPARE_RESULT = "compareResult"
 
     //decide if we need to invoke the method or not
@@ -36,6 +37,9 @@ class TelluriumDataDrivenModuleInterceptor implements Interceptor{
         if (TelluriumDataDrivenModule.class.isAssignableFrom(object)){
             if(OPEN_URL.equals(methodName)){
                 return executor?.openUrl(arguments)
+            }
+            if(CONNECT_URL.equals(methodName)){
+                return executor?.connectUrl(arguments)
             }
             if(COMPARE_RESULT.equals(methodName)){
                return executor?.recordResult(arguments)

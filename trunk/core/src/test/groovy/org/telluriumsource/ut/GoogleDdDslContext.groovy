@@ -48,7 +48,7 @@ class GoogleDdDslContext extends DslScriptEngine{
             def phoneNumber = bind("fs4googlesearch.phoneNumber")
             String input = bind("input")
 
-            openUrl "http://www.google.com"
+            connectUrl "http://www.google.com"
             type "google_start_page.searchbox", input
             pause 500
 
@@ -63,7 +63,7 @@ class GoogleDdDslContext extends DslScriptEngine{
             def phoneNumber = bind("fs4googlesearch.phoneNumber")
             String input = bind("input")
 
-            openUrl "http://www.google.com"
+            connectUrl "http://www.google.com"
             type "google_start_page.searchbox", input
             pause 500
 
@@ -74,7 +74,7 @@ class GoogleDdDslContext extends DslScriptEngine{
 
             pause 1000
 
-            openUrl "http://www.google.com"
+            connectUrl "http://www.google.com"
             type "google_start_page.searchbox", phoneNumber
             click "google_start_page.Imfeelinglucky"
 

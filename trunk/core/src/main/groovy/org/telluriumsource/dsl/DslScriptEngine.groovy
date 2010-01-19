@@ -5,17 +5,18 @@ import org.telluriumsource.test.groovy.DslTelluriumGroovyTestCase
 import org.telluriumsource.framework.TelluriumFramework
 
 class DslScriptEngine extends DdDslContext{
-    
-    private DslTelluriumGroovyTestCase aost = new DslTelluriumGroovyTestCase()
+
+  private DslTelluriumGroovyTestCase aost = new DslTelluriumGroovyTestCase()
     protected TelluriumFramework af
 
     protected def init(){
         af = TelluriumSupport.addSupport()
         af.start()
         aost.conn = af.connector
+        aost.connectSeleniumServer();
    }
 
-    protected def openUrl(String url){
+    protected def connectUrl(String url){
         aost.connectUrl(url)
     }
 
@@ -24,8 +25,8 @@ class DslScriptEngine extends DdDslContext{
      protected def methodMissing(String name, args) {
          if("init".equals(name))
             return init()
-         if("openUrl".equals(name))
-            return openUrl(args)
+         if("connectUrl".equals(name))
+            return connectUrl(args)
          if("shutDown".equals(name))
             return shutDown()
          
