@@ -792,6 +792,31 @@ To debug the javascript code, follow the following step,
 
 For Firefox, you can debug using Firebug using the same steps. But you may need to use Firefox profile to start the custom server server so that Firebug will be included in the launched instance.
 
+== How to Debug Tellurium in IE ==
+
+(Contributed by Dominic Mooney).
+
+Script to add Firebug Lite to a page
+
+{{{
+String script = "var firebug=document.createElement('script');" +
+       "firebug.setAttribute('src','http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');" +
+       "document.body.appendChild(firebug);" +
+       "(function(){if(window.firebug.version){firebug.init();}else {setTimeout(arguments.callee);}})();" +
+       "void(firebug);";
+}}}
+
+Call addScript Selenium command, which will add a script to the Selenium runner window.
+{{{
+dslContext.customDirectCall("addScript", new Object[]{script,"scriptTag"});
+}}}
+
+After the code has run you should see a Firebug Lite window in the Selenium runner window (use milti-window mode). From there you can do the usual debug stuff, such as this, which uses jQuery to find all parents of an element.
+
+{{{
+teJQuery(selenium.browserbot.findElement("your-locator")).parents()
+}}}
+
 == How to use jQuery Selector with weird characters in its ID ==
 
 You should escape the "." or other jQuery reserved characters.
