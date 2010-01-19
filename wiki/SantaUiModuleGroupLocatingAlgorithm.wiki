@@ -26,13 +26,15 @@ Santa is basically a branch and trim search procedure on the runtime DOM.
 
 === Mark ===
 
-=== Look ID ===
+=== Look Ahead ===
+
+==== Look ID ====
 
 http://tellurium-users.googlegroups.com/web/SantaIDTrie.png?gda=Skg-3EEAAACsdq5EJRKLPm_KNrr_VHB_J0CZbtjXsLeARPZVJUaNOjH8Crsfg4rH8TcmaCdOA2ZTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=7nZfUgsAAADYli6m_0NtCfIY0QI1W24E
 
-=== Look Ahead ===
+==== Look Children ====
 
-=== Best Guess ===
+=== Best Effort===
 
 == Relax ==
 
