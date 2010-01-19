@@ -58,21 +58,21 @@ class SelectMenu extends UiObject{
             if(!guess.startsWith("//")){
                 guess =  "/" + guess
             }
-            int count = accessor.getXpathCount(guess)
+            int count = accessor.getXpathCount(context, guess)
             if(count < 1)
                 throw new RuntimeException("Cannot find XPath ${guess}")
 
             String menuitem
             //there is no span tag inside the td tag
             if(count == 1){
-                menuitem = accessor.getText(guess)
+                menuitem = accessor.getText(context, guess)
                 if(menuItem.contains(menuitem)){
                     return guess
                 }
             }else{
                 //there are span tag inside the td tag
                 guess = guess + "[3]"
-                menuitem = accessor.getText(guess)
+                menuitem = accessor.getText(context, guess)
                 if(menuItem.contains(menuitem)){
                     return guess
                 }
