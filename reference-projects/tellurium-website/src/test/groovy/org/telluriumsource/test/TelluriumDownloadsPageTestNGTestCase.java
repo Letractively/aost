@@ -64,7 +64,7 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
         List<String> list = downloadPage.getDownloadFileNames();
         assertNotNull(list);
         assertFalse(list.isEmpty());
-        assertTrue(Helper.include(list, "tellurium-core-0.6.0.tar.gz"));
+        assertTrue(Helper.include(list, "tellurium-core.0.6.0.tar.gz"));
     }
 
     @Test
@@ -89,7 +89,7 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
         list = downloadPage.getDownloadFileNames();
         assertNotNull(list);
         assertFalse(list.isEmpty());
-        assertTrue(Helper.include(list, "tellurium-core-0.6.0.tar.gz"));
+        assertTrue(Helper.include(list, "tellurium-core.0.6.0.tar.gz"));
     }
 
     @Test
