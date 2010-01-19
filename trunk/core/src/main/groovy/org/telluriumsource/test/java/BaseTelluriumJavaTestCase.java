@@ -193,4 +193,12 @@ public abstract class BaseTelluriumJavaTestCase {
     public static void allowNativeXpath(boolean allow) {
         tellurium.allowNativeXpath(allow);
     }
+
+    public static void addScript(String scriptContent, String scriptTagId){
+        tellurium.addScript(scriptContent, scriptTagId);
+    }
+
+    public static void removeScript(String scriptTagId){
+        tellurium.removeScript(scriptTagId);
+  }
 }

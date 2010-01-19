@@ -259,4 +259,14 @@ public class GlobalDslContext {
 
     accessor.allowNativeXpath(context, allow)
   }
+
+  void addScript(String scriptContent, String scriptTagId){
+     WorkflowContext context = WorkflowContext.getDefaultContext();
+     accessor.addScript(context, scriptContent, scriptTagId);
+  }
+
+  void removeScript(String scriptTagId){
+     WorkflowContext context = WorkflowContext.getDefaultContext();
+     accessor.removeScript(context, scriptTagId);
+  }
 }

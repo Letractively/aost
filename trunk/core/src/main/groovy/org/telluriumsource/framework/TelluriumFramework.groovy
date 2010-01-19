@@ -338,6 +338,14 @@ class TelluriumFramework {
     this.global.getNamespace(prefix);
   }
 
+  public void addScript(String scriptContent, String scriptTagId){
+    this.global.addScript(scriptContent, scriptTagId);
+  }
+
+  public void removeScript(String scriptTagId){
+    this.global.removeScript(scriptTagId);
+  }
+
   def pause(int milliseconds) {
     //flush out remaining commands in the command bundle before disconnection
     BundleProcessor processor = BundleProcessor.instance
