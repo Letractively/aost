@@ -93,7 +93,7 @@ class TelluriumIssuesModule extends TelluriumDataDrivenModule{
         }
 
         defineTest("OpenTelluriumIssuesPage") {
-            openUrl "http://code.google.com/p/aost/issues/list"
+            connectUrl "http://code.google.com/p/aost/issues/list"
             int headernum = getTableHeaderNum()
             checkResult(headernum) {
                 assertTrue(headernum >= 7)
