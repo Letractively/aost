@@ -29,16 +29,18 @@ class TelluriumDownloadsPage extends DslContext{
            //define table header
            //for the border column
            TextBox(uid: "header: 1", clocator: [:])
-           UrlLink(uid: "header: 2", clocator: [text: "%%Filename"])
-           UrlLink(uid: "header: 3", clocator: [text: "%%Summary + Labels"])
-           UrlLink(uid: "header: 4", clocator: [text: "%%Uploaded"])
-           UrlLink(uid: "header: 5", clocator: [text: "%%Size"])
-           UrlLink(uid: "header: 6", clocator: [text: "%%DownloadCount"])
-           UrlLink(uid: "header: 7", clocator: [text: "%%..."])
+           UrlLink(uid: "header: 2", clocator: [text: "*Filename"])
+           UrlLink(uid: "header: 3", clocator: [text: "*Summary + Labels"])
+           UrlLink(uid: "header: 4", clocator: [text: "*Uploaded"])
+           UrlLink(uid: "header: 5", clocator: [text: "Size"])
+
+           UrlLink(uid: "header: 6", clocator: [text: "*DownloadCount"])
+           UrlLink(uid: "header: 7", clocator: [text: "*..."])
 
            //define table elements
            //for the border column
            TextBox(uid: "row: *, column: 1", clocator: [:])
+         
            //the summary + labels column consists of a list of UrlLinks
            List(uid: "row:*, column: 3", clocator: [:]){
                UrlLink(uid: "all", clocator: [:])
@@ -47,7 +49,7 @@ class TelluriumDownloadsPage extends DslContext{
            UrlLink(uid: "all", clocator: [:])
        }
 
-       ui.ClickableRadioButton(uid: "test", clocator: [:])
+       ui.RadioButton(uid: "test", clocator: [:], respond: "click")
    }
 
     public String[] getAllDownloadTypes(){

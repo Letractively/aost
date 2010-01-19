@@ -26,6 +26,10 @@ public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase 
     public static void initUi() {
         downloadPage = new TelluriumDownloadsPage();
         downloadPage.defineUi();
+        connectSeleniumServer();
+        useCache(true);
+        useCssSelector(true);
+        useClosestMatch(true);
     }
 
     @Before
@@ -65,7 +69,7 @@ public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase 
         List<String> list = downloadPage.getDownloadFileNames();
         assertNotNull(list);
         assertFalse(list.isEmpty());
-        assertTrue(Helper.include(list, "tellurium-core-0.6.0.tar.gz"));
+        assertTrue(Helper.include(list, "tellurium-core.0.6.0.tar.gz"));
     }
 
     @Test
@@ -77,7 +81,7 @@ public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase 
         List<String> list = downloadPage.getDownloadFileNames();
         assertNotNull(list);
         assertFalse(list.isEmpty());
-//        assertTrue(Helper.include(list, "tellurium-core-0.6.0.tar.gz"));
+//        assertTrue(Helper.include(list, "tellurium-core.0.6.0.tar.gz"));
     }
 
     @Test
@@ -91,7 +95,7 @@ public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase 
         list = downloadPage.getDownloadFileNames();
         assertNotNull(list);
         assertFalse(list.isEmpty());
-        assertTrue(Helper.include(list, "tellurium-core-0.6.0.tar.gz"));
+        assertTrue(Helper.include(list, "tellurium-core.0.6.0.tar.gz"));
     }
 
     @Test
