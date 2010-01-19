@@ -175,4 +175,12 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
     public void allowNativeXpath(boolean allow){
       tellurium.allowNativeXpath(allow);
     }
+
+    public void addScript(String scriptContent, String scriptTagId){
+        tellurium.addScript(scriptContent, scriptTagId);
+    }
+
+    public void removeScript(String scriptTagId){
+        tellurium.removeScript(scriptTagId);
+    }
 }

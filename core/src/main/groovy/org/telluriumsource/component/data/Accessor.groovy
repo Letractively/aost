@@ -371,4 +371,12 @@ class Accessor implements Configurable {
     String allowed = (allow) ? "true" : "false";
     cbp.allowNativeXpath(context, allowed);
   }
+
+  void addScript(WorkflowContext context, String scriptContent, String scriptTagId){
+     cbp.addScript(context, scriptContent, scriptTagId);
+  }
+
+  void removeScript(WorkflowContext context, String scriptTagId){
+     cbp.removeScript(context, scriptTagId);
+  }
 }

@@ -122,6 +122,18 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         jlm.alogon("test", "test");
     }
 
+    @Test
+    public void testAddRemoveScript(){
+        String script = "var firebug=document.createElement('script');" +
+       "firebug.setAttribute('src','http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');" +
+       "document.body.appendChild(firebug);" +
+       "(function(){if(window.firebug.version){firebug.init();}else{setTimeout(arguments.callee);}})();" +
+       "void(firebug);";
+        addScript(script, "firebug-litle");
+        pause(500);
+        removeScript("firebug-litle");
+    }
+
     @AfterClass
     public static void tearDown(){
         showTrace();
