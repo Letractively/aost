@@ -485,6 +485,10 @@ New TelluriumGroovyTestCase provides the following list of new APIs for your con
 
     public void allowNativeXpath(boolean allow);
 
+    public void addScript(String scriptContent, String scriptTagId);
+
+    public void removeScript(String scriptTagId);
+
 }}}
 
 Tellurium Java test cases provide the same APIs and the only difference is that the APIs in Tellurium Java test cases are static.
