@@ -808,13 +808,19 @@ String script = "var firebug=document.createElement('script');" +
 
 Call addScript Selenium command, which will add a script to the Selenium runner window.
 {{{
-dslContext.customDirectCall("addScript", new Object[]{script,"scriptTag"});
+   addScript(script, "firebug-lite");
 }}}
 
 After the code has run you should see a Firebug Lite window in the Selenium runner window (use milti-window mode). From there you can do the usual debug stuff, such as this, which uses jQuery to find all parents of an element.
 
 {{{
 teJQuery(selenium.browserbot.findElement("your-locator")).parents()
+}}}
+
+Call the following command to remove the script.
+
+{{{
+   removeScript("firebug-lite);
 }}}
 
 == How to use jQuery Selector with weird characters in its ID ==
