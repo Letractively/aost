@@ -11,7 +11,7 @@ class DslScriptExecutor {
             def script = """
                 import org.telluriumsource.dsl.DslScriptEngine
                 import org.telluriumsource.framework.Environment;
-                import org.telluriumsource.i18n.IResourceBundle;
+                import org.telluriumsource.crosscut.i18n.IResourceBundle;
                 class DslTest extends DslScriptEngine{
                     def test(){
                         init()

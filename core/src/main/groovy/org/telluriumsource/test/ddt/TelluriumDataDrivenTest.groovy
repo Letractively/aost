@@ -76,6 +76,10 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     protected SeleniumConnector connector
 
     public void openUrl(String url){
+        getConnector().connect(url)
+    }
+
+    public void connectUrl(String url){
         getConnector().connectUrl(url)
     }
 
@@ -99,6 +103,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
         ui = dtddm.getUiDslParser()
         af.start(customConfig)
         this.connector = af.getConnector()
+        connectSeleniumServer();
    }
 
      protected void shutDown() {
@@ -208,7 +213,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
                     Closure closure = testreg.getTest(action)
                     closure()
 /*
-                    //use the proxy so that we can intercept calls for openUrl and compareResult
+                    //use the proxy so that we can intercept calls for connectUrl and compareResult
                     proxy.interceptor = this.interceptor
                     proxy.use{
                         closure()

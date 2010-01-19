@@ -97,6 +97,10 @@ abstract class TelluriumDataDrivenModule extends DslContext {
         runner?.openUrl(url)
     }
 
+    public void connectUrl(String url){
+        runner?.connectUrl(url)
+    }
+
     //add assertions here so that user can add custom compare result code in the closure
     public void assertTrue(boolean condition){
         runner?.assertTrue(condition)
