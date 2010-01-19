@@ -21,6 +21,8 @@ public class TelluriumProjectPageTestNGTestCase extends TelluriumTestNGTestCase 
         app = new TelluriumProjectPage();
         app.defineUi();
         connectSeleniumServer();
+        useCache(true);
+        useClosestMatch(true);
     }
 
     @BeforeMethod
