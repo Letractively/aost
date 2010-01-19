@@ -272,12 +272,27 @@ TelluriumApi.prototype.getAllText = function(locator) {
 };
 
 TelluriumApi.prototype.getCssSelectorCount = function(locator) {
+   fbLog("GetCssSelectorCount for Locator", locator);
+    if(locator.startsWith("jquery=")){
+        locator = locator.substring(7);
+    }else if(locator.startsWith("uimcal=")){
+        var cal = JSON.parse(locator.substring(7), null);
+        locator = cal.locator;
+    }
+    fbLog("Parsed locator", locator);
+    var $e = teJQuery(selenium.browserbot.findElement(locator));
+    fbLog("Found elements for CSS Selector", $e.get());
+    if ($e == null)
+        return 0;
+
+    return $e.length;
+/*
     var element = this.cacheAwareLocate(locator);
     var $e = teJQuery(element);
     if ($e == null)
         return 0;
 
-    return $e.length;
+    return $e.length;*/
 };
 
 TelluriumApi.prototype.getCSS = function(locator, cssName) {
