@@ -20,6 +20,8 @@ public class TelluriumProjectPageJUnitTestCase extends TelluriumJUnitTestCase {
         app = new TelluriumProjectPage();
         app.defineUi();
         connectSeleniumServer();
+        useCache(true);
+        useClosestMatch(true);
     }
 
     @Before

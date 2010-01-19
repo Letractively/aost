@@ -30,7 +30,7 @@ class TelluriumProjectPage extends DslContext{
         ui.Form(uid: "search", clocator: [:], group: "true"){
             InputBox(uid: "searchbox", clocator: [name: "q"])
             SubmitButton(uid: "search_project_button", clocator: [value: "Search projects"])
-//            SubmitButton(uid: "search_web_button", clocator: [value: "Search the Web"])
+            SubmitButton(uid: "search_web_button", clocator: [value: "Search the Web"])
         }
     }
 
