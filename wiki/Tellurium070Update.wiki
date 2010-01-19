@@ -534,16 +534,26 @@ public class Environment {
 
 where {{{setCustomEnvironment}}} and {{{getCustomEnvironment}}} can be used to pass user defined environment variables.
 
+== toggle ==
+
+Tellurium 0.7.0 provides a toggle method to animate the UI element on the web page. For example, you can the following commands to show the UI element under testing.
+
+{{{
+    toggle "Form.Username.Input"
+    pause 500
+    toggle "Form.Username.Input"
+}}}
+
 == type and keyType ==
 
 type and keyType now accept different types of objects and convert them to a String automatically by calling the toString() method. For example, you can use the following commands:
 
 {{{
-type "Google.Input", "Tellurium"
+    type "Google.Input", "Tellurium"
 
-type "Google.Input", 12.15
+    type "Google.Input", 12.15
 
-type "Google.Input", true
+    type "Google.Input", true
 }}}
 
 == I18N ==
@@ -758,6 +768,13 @@ Caused by: org.telluriumsource.exception.ConfigNotFoundException: Cannot find Te
 	at org.telluriumsource.config.TelluriumConfigurator.checkConfig(TelluriumConfigurator.groovy:41)
 
 }}}
+
+== Misc ==
+
+Exposed the following Selenium APIs to DslContext.
+
+  * {{{void addScript(String scriptContent, String scriptTagId)}}} 
+  * {{{void removeScript(String scriptTagId)}}}
 
 = Changes in Engine =
 
