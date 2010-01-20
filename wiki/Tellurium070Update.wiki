@@ -1313,6 +1313,11 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase {
 
   * More flexible UI templates, i.e., UID Description Language (UDL)
   * Tellurium Widget revisit
+  * Trump IDE upgrade to match 0.7.0
+
+= Want to Contribute ? =
+
+We welcome contributions for Tellurium from various aspects. More details on [http://code.google.com/p/aost/wiki/HowToContribute How to Contribute].
 
 = Resources =
 
