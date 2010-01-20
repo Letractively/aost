@@ -26,7 +26,8 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.dsl.GlobalDslContext
 import org.telluriumsource.util.Helper
 import org.telluriumsource.entity.CachePolicy
-import org.telluriumsource.component.bundle.BundleProcessor;
+import org.telluriumsource.component.bundle.BundleProcessor
+import org.telluriumsource.entity.EngineState;
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
@@ -344,6 +345,10 @@ class TelluriumFramework {
 
   public void removeScript(String scriptTagId){
     this.global.removeScript(scriptTagId);
+  }
+
+  public EngineState getEngineState(){
+    return this.global.getEngineState();  
   }
 
   def pause(int milliseconds) {

@@ -315,4 +315,14 @@ class CustomSelenium extends DefaultSelenium {
         String[] arr = [cookieName];
         return commandProcessor.doCommand("getCookieByJQuery", arr);
     }
+
+    public void updateEngineState(String state){
+        String[] arr = [state];
+        commandProcessor.doCommand("updateEngineState", arr);
+    }
+
+    public String getEngineState(){
+        String[] arr = [];
+        return commandProcessor.doCommand("getEngineState", arr);
+    }
 }

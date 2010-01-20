@@ -7,6 +7,7 @@ import org.telluriumsource.component.connector.SeleniumConnector
 import org.telluriumsource.framework.TelluriumFramework
 import org.telluriumsource.entity.CachePolicy
 import org.telluriumsource.util.Helper
+import org.telluriumsource.entity.EngineState
 
 abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
 
@@ -182,5 +183,9 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
 
     public void removeScript(String scriptTagId){
         tellurium.removeScript(scriptTagId);
+    }
+
+    public EngineState getEngineState(){
+        return tellurium.getEngineState();
     }
 }

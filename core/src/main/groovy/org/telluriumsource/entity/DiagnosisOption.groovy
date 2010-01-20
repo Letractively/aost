@@ -16,20 +16,5 @@ public class DiagnosisOption {
   boolean retParent = true;
 
   boolean retClosest = true;
-
-/*  public boolean isRetHtml() {
-    return retHtml;
-  }
-
-  public void setRetHtml(boolean retHtml) {
-    this.retHtml = retHtml;
-  }
-
-  public boolean isRetParent() {
-    return retParent;
-  }
-
-  public void setRetParent(boolean retParent) {
-    this.retParent = retParent;
-  }*/
+  
 }

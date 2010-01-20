@@ -16,10 +16,10 @@ import org.telluriumsource.framework.config.Configurable
 @Singleton
 public class Environment implements Configurable{
 
-  //flag to decide whether we should use jQuery Selector
+  //flag to decide whether we should use CSS Selector
   protected boolean exploitCssSelector = false;
 
-  //flag to decide whether we should cache jQuery selector
+  //flag to decide whether we should cache Ui Module
   protected boolean exploitEngineCache = false;
 
   protected IResourceBundle resourceBundle = new ResourceBundle();
