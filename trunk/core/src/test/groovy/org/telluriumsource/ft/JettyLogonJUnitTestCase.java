@@ -2,6 +2,7 @@ package org.telluriumsource.ft;
 
 import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
 import org.telluriumsource.module.JettyLogonModule;
+import org.telluriumsource.entity.EngineState;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -132,6 +133,13 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         addScript(script, "firebug-litle");
         pause(500);
         removeScript("firebug-litle");
+    }
+
+    @Test
+    public void testGetEngineState(){
+        EngineState state = getEngineState();
+        assertNotNull(state);
+        System.out.println(state.showMe());
     }
 
     @AfterClass

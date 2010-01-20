@@ -63,4 +63,8 @@ public class EngineState {
     this.closestMatch = map.get(CLOSEST_MATCH);
   }
 
+  public String showMe(){
+    
+    return "Engine State: [expolitCache: ${this.exploitEngineCache}, useTeApi: ${this.exploitTelluriumApi}, closestMatch: ${this.closestMatch}";
+  }
 }
