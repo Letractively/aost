@@ -515,13 +515,17 @@ Tellurium.prototype.processMacroCmd = function(){
                         
                         if (element == null) {
                             element = this.locate(locator);
+                            if(element == null)
+                               throw SeleniumError("Cannot locate element for uid " + cmd.uid + " in Command " + cmd.name + ".");
+
+                            /*
                             if (element != null) {
-                                //TODO: need to check if the element is cachable??
 //                                this.cbCache.put(cmd.uid, element);
                             }else{
 
                                 throw SeleniumError("Cannot locate element for uid " + cmd.uid + " in Command " + cmd.name + ".");
-                            }
+                            }*/
+
                         }
 
                     }
@@ -811,18 +815,33 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
     var apiName = cmd.name;
     var result = null;
     fbLog("Delegate Call " + cmd.name + " to Selenium", cmd);
+
+    var returnType = null;
+
+    //Try to get back the return type by looking at Tellurium API couterpart
+    var handler = this.apiMap.get(cmd.name);
+    if(handler != null){
+        returnType = handler.returnType;
+    }
+    
     if (apiName.startsWith("is")) {
 //        result = selenium[apiName].apply(this, cmd.args);
         result = selenium[apiName].apply(selenium, cmd.args);
-        response.addResponse(cmd.sequ, apiName, "BOOLEAN", result);
+        if(returnType == null)
+            returnType = "BOOLEAN";
+        response.addResponse(cmd.sequ, apiName, returnType, result);
     } else if (apiName.startsWith("get")) {
         result = selenium[apiName].apply(selenium, cmd.args);
         if(apiName.indexOf("All") != -1){
             //api Name includes "All" should return an array
-            response.addResponse(cmd.sequ, apiName, "ARRAY", result);
+            if(returnType == null)
+                returnType = "ARRAY";
+            response.addResponse(cmd.sequ, apiName, returnType, result);
         }else{
             //assume the rest return "String"
-            response.addResponse(cmd.sequ, apiName, "STRING", result);
+            if(returnType == null)
+                returnType = "STRING";
+            response.addResponse(cmd.sequ, apiName, returnType, result);
         }
     } else {
         apiName = this.camelizeApiName(apiName);
@@ -873,27 +892,6 @@ Tellurium.prototype.updateArgumentList = function(cmd){
             var cal = new CacheAwareLocator();
             cal.rid = cmd.uid;
             cal.locator = locator;
-//            cal.locator = locator;
-
-/*
-            This is not really correct because XPATH could have the @ inside
-            
-            //check if it is an attribute locator
-            var attributePos = locator.lastIndexOf("@");
-            if (attributePos != -1) {
-                cal.isAttribute = true;
-                var attributeName = locator.slice(attributePos + 1);
-                if (attributeName.endsWith("]")) {
-                    attributeName = attributeName.substr(0, attributeName.length - 1);
-                }
-                cal.attribute = attributeName;
-
-                cal.locator = locator.slice(0, attributePos);
-                if (cal.locator.endsWith("[")) {
-                    cal.locator = cal.locator.substr(0, cal.locator.length - 1);
-                }
-            }
-*/
 
             //convert to locator string so that selenium could use it
             cmd.args[0] = "uimcal=" + JSON.stringify(cal);              
