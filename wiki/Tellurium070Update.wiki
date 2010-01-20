@@ -489,6 +489,8 @@ New TelluriumGroovyTestCase provides the following list of new APIs for your con
 
     public void removeScript(String scriptTagId);
 
+    public void EngineState getEngineState();
+
 }}}
 
 Tellurium Java test cases provide the same APIs and the only difference is that the APIs in Tellurium Java test cases are static.
@@ -964,6 +966,8 @@ TelluriumApi.prototype.getCachePolicyName = function();
 TelluriumApi.prototype.useUiModule = function(json);
 
 TelluriumApi.prototype.isUiModuleCached = function(id);
+
+TelluriumApi.prototype.getEngineState = function();
 }}}
  
 As you can see, most of the new APIs have the same signature as the Selenium ones so that your test code is agnostic to which test driving engine that you use. You can always switch between the Tellurium Engine and Selenium Engine by the following API at Tellurium core.
