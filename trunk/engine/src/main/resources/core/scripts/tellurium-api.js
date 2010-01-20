@@ -286,13 +286,6 @@ TelluriumApi.prototype.getCssSelectorCount = function(locator) {
         return 0;
 
     return $e.length;
-/*
-    var element = this.cacheAwareLocate(locator);
-    var $e = teJQuery(element);
-    if ($e == null)
-        return 0;
-
-    return $e.length;*/
 };
 
 TelluriumApi.prototype.getCSS = function(locator, cssName) {
@@ -309,16 +302,6 @@ TelluriumApi.prototype.getCSS = function(locator, cssName) {
         out.push(val);
     }
 
-/*
-    $e.each(function() {
-        var val = teJQuery(this).css(cssName);
-        //need to walk up the tree if the color is transparent
-        if(val == "transparent" && (cssName == "background-color" || cssName == "backgroundColor" || cssName == "color")){
-            val = getColor(this, cssName);
-        }
-        out.push(val);
-    });
-*/
     return JSON.stringify(out);
 };
 
