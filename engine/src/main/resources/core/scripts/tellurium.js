@@ -262,6 +262,12 @@ function TelluriumCommandHandler(api, requireElement, returnType) {
     this.returnType = returnType;
 }
 
+function EngineState(){
+    this.cache = null;
+    this.teApi = null;
+    this.relax = null;
+};
+
 function Tellurium (){
 
     this.cache = new TelluriumCache();
@@ -362,6 +368,8 @@ Tellurium.prototype.initialize = function(){
     this.registerApi("deletelCookieByJQuery", false, "VOID");
     this.registerApi("setCookieByJQuery", false, "VOID");
     this.registerApi("getCookieByJQuery", false, "STRING");
+    this.registerApi("updateEngineState", false, "VOID");
+    this.registerApi("getEngineState", false, "STRING");
 };
 
 Tellurium.prototype.useTeApi = function(isUse){
