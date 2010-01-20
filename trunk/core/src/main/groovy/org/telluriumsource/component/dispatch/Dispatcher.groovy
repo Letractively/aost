@@ -8,8 +8,6 @@ import org.telluriumsource.crosscut.trace.ExecutionTracer
 import org.telluriumsource.framework.Environment
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.util.Helper
-import org.telluriumsource.crosscut.trace.DefaultExecutionTracer
-import org.telluriumsource.crosscut.trace.ExecutionTracer
 
 class Dispatcher implements Configurable {
     public static final String PLACE_HOLDER = "\\?"
@@ -23,6 +21,14 @@ class Dispatcher implements Configurable {
     public Dispatcher(){
     	i18nBundle = Environment.instance.myResourceBundle()
     }
+  
+    public boolean isConnected(){
+      if(sc.client == null || sc.client.getActiveSeleniumSession() == null)
+        return false;
+
+      return true;
+    }
+
     private boolean isUseScreenshot(){
       return Environment.instance.isUseScreenshot();
     }

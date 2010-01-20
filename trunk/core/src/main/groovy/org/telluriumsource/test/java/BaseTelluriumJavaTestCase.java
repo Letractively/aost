@@ -5,6 +5,7 @@ import org.telluriumsource.component.connector.SeleniumConnector;
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.framework.TelluriumFramework;
 import org.telluriumsource.entity.CachePolicy;
+import org.telluriumsource.entity.EngineState;
 import org.telluriumsource.crosscut.i18n.ResourceBundle;
 
 import java.util.Map;
@@ -200,5 +201,9 @@ public abstract class BaseTelluriumJavaTestCase {
 
     public static void removeScript(String scriptTagId){
         tellurium.removeScript(scriptTagId);
-  }
+    }
+
+    public static EngineState getEngineState(){
+        return tellurium.getEngineState();
+    }
 }

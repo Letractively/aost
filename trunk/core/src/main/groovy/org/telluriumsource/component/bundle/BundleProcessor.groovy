@@ -29,7 +29,8 @@ public class BundleProcessor implements Configurable {
   public static final String NAME = "name";
   public static final String[] EXCLUSIVE_LIST = ["getDiagnosisResponse", "getValidateUiModule"];
   public static final String[] KILL_CACHE_LIST = ["open", "waitForPageToLoad"];
-
+  public static final String[] STATE_UPDATE_LIST = ["enableCache", "disableCache", "useTeApi", "useClosestMatch"];
+  
   //sequence number for each command
   private int sequence = 1;
 
@@ -41,6 +42,8 @@ public class BundleProcessor implements Configurable {
 
   private Map<String, UiModuleState> states = new HashMap<String, UiModuleState>();
 
+  private EngineStateTracer tracer = new EngineStateTracer();
+  
   //maximum number of commands in a bundle
   private int maxMacroCmd(){
     return Environment.instance.myMaxMacroCmd();
@@ -180,6 +183,10 @@ public class BundleProcessor implements Configurable {
 
   protected boolean inKillCacheList(String cmd){
     return isInList(cmd, KILL_CACHE_LIST);
+  }
+
+  protected boolean inStateUpdateList(String cmd){
+    return isInList(cmd, STATE_UPDATE_LIST);
   }
 
   public boolean needCacheUiModule(WorkflowContext context, String cmd, String uid){

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Google search module test case to demonstrate the usage of composite locator and JQuery selector
+ * Google search module test case to demonstrate the usage of composite locator and CSS selector
  *
  *  @author Jian Fang (John.Jian.Fang@gmail.com)
  *

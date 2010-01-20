@@ -8,6 +8,8 @@ import org.telluriumsource.util.Helper
 
 import org.telluriumsource.component.dispatch.Dispatcher
 import org.telluriumsource.component.bundle.BundleProcessor
+import org.stringtree.json.JSONReader
+import org.telluriumsource.entity.EngineState
 
 /**
  * Global methods, which should not be tired to an individual UI module
@@ -28,6 +30,32 @@ public class GlobalDslContext {
   Accessor accessor = new Accessor()
   Extension extension = new Extension()
 
+  protected JSONReader reader = new JSONReader()
+
+  protected Object parseSeleniumJSONReturnValue(String out) {
+    if (out.startsWith("OK,")) {
+      out = out.substring(3);
+    }
+    if(out.length() >0){
+      return reader.read(out);
+    }
+
+    return null;
+  }
+
+  protected Object parseSeleniumJSONReturnValue(Map out) {
+    return out;
+  }
+
+  public EngineState getEngineState(){
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    String out = extension.getEngineState(context);
+    Map map = parseSeleniumJSONReturnValue(out);
+    EngineState state = new EngineState();
+    state.parseJson(map);
+    
+    return state;
+  }
   //flag to decide whether we should use jQuery Selector
   protected boolean exploreCssSelector() {
     return Environment.instance.isUseCssSelector();

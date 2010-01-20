@@ -21,7 +21,8 @@ import org.telluriumsource.framework.Environment
 import org.telluriumsource.entity.DiagnosisOption
 import org.telluriumsource.entity.DiagnosisRequest
 import org.telluriumsource.entity.DiagnosisResponse
-import org.telluriumsource.entity.UiModuleValidationResponse;
+import org.telluriumsource.entity.UiModuleValidationResponse
+import org.telluriumsource.entity.EngineState;
 
 /**
  *
@@ -35,7 +36,6 @@ abstract class BaseDslContext extends GlobalDslContext {
   protected IResourceBundle i18nBundle
 
   protected static final String JQUERY_SELECTOR = "jquery="
-//  protected static final String UIModule_CACHE = "jquerycache="
   protected static final String DEFAULT_XPATH = "default"
   protected static final String JAVASCRIPT_XPATH = "javascript-xpath"
   protected static final String AJAXSLT_XPATH = "ajaxslt"
@@ -87,23 +87,6 @@ abstract class BaseDslContext extends GlobalDslContext {
     */
     
     return JQUERY_SELECTOR + optimized
-  }
-
-  private JSONReader reader = new JSONReader()
-
-  protected Object parseSeleniumJSONReturnValue(String out) {
-    if (out.startsWith("OK,")) {
-      out = out.substring(3);
-    }
-    if(out.length() >0){
-      return reader.read(out);
-    }
-
-    return null;
-  }
-
-  protected Object parseSeleniumJSONReturnValue(Map out) {
-    return out;
   }
 
   protected UiModuleValidationResponse parseUseUiModuleResponse(String result) {
@@ -1215,7 +1198,7 @@ abstract class BaseDslContext extends GlobalDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
     walkToWithException(context, uid)?.diagnose() {loc ->
       String locator = locatorMapping(context, loc)
-      String ploc = null
+      String ploc;
       if (this.exploreCssSelector()) {
         ploc = JQueryProcessor.popLast(locator)
       } else {
