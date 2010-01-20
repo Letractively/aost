@@ -432,3 +432,19 @@ TelluriumApi.prototype.setCookieByJQuery = function(cookieName, value, options){
 TelluriumApi.prototype.getCookieByJQuery = function(cookieName){
     return teJQuery.cookies.get(cookieName);
 };
+
+TelluriumApi.prototype.updateEngineState = function(json){
+    var state = JSON.parse(json, null);
+    tellurium.cache.useClosestMatch(state.relax);
+    tellurium.useTeApi(state.teApi);
+    tellurium.cache.cacheOption = state.cache;
+};
+
+TelluriumApi.prototype.getEngineState = function(){
+    var state = new EngineState();
+    state.relax = tellurium.cache.uiAlg.allowRelax;
+    state.teApi = tellurium.isUseTeApi;
+    state.cache = tellurium.cache.cacheOption;
+
+    return JSON.stringify(state);
+};
