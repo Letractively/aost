@@ -13,6 +13,7 @@ import org.telluriumsource.entity.UiModuleValidationRequest
 import org.telluriumsource.entity.UiModuleValidationResponse
 import org.telluriumsource.util.Helper
 import org.telluriumsource.exception.EngineNotConnectedException
+import org.telluriumsource.entity.EngineState
 
 /**
  * Command Bundle Processor
@@ -214,6 +215,14 @@ public class BundleProcessor implements Configurable {
     return cmd;
   }
 
+  public CmdRequest getEngineStateUpdateRequest(WorkflowContext context, EngineState state){
+    String json = state.toJson();
+    def args = [json]
+    CmdRequest cmd = new CmdRequest(nextSeq(), null, "updateEngineState" , args);
+
+    return cmd;
+  }
+
   protected String getUiModuleId(String uid){
     UiID uiid = UiID.convertToUiID(uid);
     return uiid.pop();
@@ -335,6 +344,10 @@ public class BundleProcessor implements Configurable {
 
       throw new EngineNotConnectedException(i18nBundle.getMessage("Engine.NotConnectedForCommand", name));
     } else {
+      if(tracer.haveStateUpdate()){
+        checkEngineUpdate(context, name, args);
+        tracer.cleanStateUpdate();
+      }
 
       if(this.inKillCacheList(name)){
         this.cleanAllCache();
@@ -350,6 +363,11 @@ public class BundleProcessor implements Configurable {
   }
 
   def checkEngineUpdate(context, name, args){
+    EngineState state = tracer.getEngineStateUpdate();
+    if(state != null){
+        CmdRequest uec = this.getEngineStateUpdateRequest(state);
+        bundle.addToBundle(uec);
+    }
   }
 
   protected def methodMissing(String name, args) {

@@ -49,4 +49,16 @@ public class EngineStateTracer {
     this.state.useTelluriumApi(env.isUseTelluriumApi());
     this.state.useClosestMatch(env.isUseClosestMatch());
   }
+
+  public EngineState getEngineStateUpdate(){
+    Environment env = Environment.instance;
+
+    if(this.state.isUseCache() == env.isUseCache() && this.state.isUseTelluriumApi() == env.isUseTelluriumApi() && this.state.isUseClosestMatch() == env.isUseClosestMatch()){
+      return null;
+    }else{
+      this.updateEngineStateFromEnvironment();
+
+      return this.state;
+    }
+  }
 }
