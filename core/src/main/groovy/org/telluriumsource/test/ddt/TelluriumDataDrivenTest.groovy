@@ -29,7 +29,8 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle
  *
  */
 abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
-    protected static final String STEP = "step"
+
+  protected static final String STEP = "step"
     protected static final String STEP_OVER = "stepOver"
     protected static final String STEP_TO_END = "stepToEnd"
     protected static final String CLOSE_DATA = "closeData"
@@ -54,7 +55,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     protected UiDslParser ui
     //= dtddm.getUiDslParser()
 
-    protected TelluriumFramework af
+//    protected TelluriumFramework tellurium
 
 //    protected TelluriumDataDrivenModuleInterceptor interceptor = new TelluriumDataDrivenModuleInterceptor(this)
 
@@ -73,7 +74,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     // Test management methods
     //----------------------------------------------------------------------------------------------------------
 
-    protected SeleniumConnector connector
+//    protected SeleniumConnector connector
 
     public void openUrl(String url){
         getConnector().connect(url)
@@ -84,14 +85,14 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     }
 
     public SeleniumConnector getConnector() {
-        if(this.connector == null)
-            return new SeleniumConnector()
+        if(this.conn == null)
+            return new SeleniumConnector();
         else
-            return this.connector
+            return this.conn;
     }
 
     protected def init(){
-        af = TelluriumSupport.addSupport()
+        tellurium = TelluriumSupport.addSupport()
         //should put here, other the UI builder is not updated with customer settings in TelluriumConfig.groovy
         thr  = new TypeHandlerRegistry()
         fsr = new FieldSetRegistry()
@@ -101,14 +102,14 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
         listener = new DefaultResultListener()
         dtddm = new DefaultTelluriumDataDrivenModule(thr, fsr, fs, testreg, dataProvider)
         ui = dtddm.getUiDslParser()
-        af.start(customConfig)
-        this.connector = af.getConnector()
+        tellurium.start(customConfig)
+        this.conn = tellurium.getConnector()
         connectSeleniumServer();
    }
 
      protected void shutDown() {
-        if(af != null)
-            af.stop()
+        if(tellurium != null)
+            tellurium.stop()
      }
 
     public void setUp(){

@@ -339,6 +339,7 @@ public class BundleProcessor implements Configurable {
     if (!this.dispatcher.isConnected()) {
       if (this.inStateUpdateList(name)) {
         this.tracer.callStateUpdate();
+        this.dispatcher.log("Warning: the Engine is not connected. Engine state is updated offline!"); 
         return;
       }
 
@@ -365,7 +366,7 @@ public class BundleProcessor implements Configurable {
   def checkEngineUpdate(context, name, args){
     EngineState state = tracer.getEngineStateUpdate();
     if(state != null){
-        CmdRequest uec = this.getEngineStateUpdateRequest(state);
+        CmdRequest uec = this.getEngineStateUpdateRequest(context, state);
         bundle.addToBundle(uec);
     }
   }
