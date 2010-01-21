@@ -566,6 +566,41 @@ type and keyType now accept different types of objects and convert them to a Str
 
 For details, please read [http://code.google.com/p/aost/wiki/InternationalizationSupportTellurium Internationalization Support in Tellurium]
 
+== Engine State Offline Update ==
+
+For some reasons, you may need to make Engine state calls before you actually connect to the Engine. For examples, call one of the following methods.
+
+{{{
+   public void enableCache();
+   public void disableCache();
+   public void useTelluriumApi(boolean isUse);
+   public void useClosestMatch(boolean isUse);
+}}}
+
+We added an Engine State tracer in the bundle tier to record all the requests if the Engine is not connected and aggregate them. Once the Engine is connected, Tellurium will automatically send out the Engine state update request. 
+
+For example, the following test code works fine in 0.7.0.
+
+{{{
+    @Test
+    public void testOfflineEngineStateUpdate(){
+        JettyLogonModule jlm = new  JettyLogonModule();
+        jlm.defineUi();
+        useCssSelector(true);
+        useTrace(true);
+        //Engine state offline update
+        useTelluriumApi(true);
+        useCache(true);
+        connectSeleniumServer();
+        connectUrl("http://localhost:8080/logon.html");
+        jlm.logon("test", "test");
+        //Back to state online update
+        useClosestMatch(true);
+        connectUrl("http://localhost:8080/logon.html");
+        jlm.plogon("test", "test");
+    }
+}}}
+
 == Groovy and GMaven ==
 
 Groovy has been upgraded to the latest version 1.7.0.
