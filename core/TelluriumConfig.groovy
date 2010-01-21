@@ -71,6 +71,7 @@ tellurium{
         //user's class to hold custom selenium methods associated with user-extensions.js
         //should in full class name, for instance, "com.mycom.CustomSelenium"
         customClass = "org.telluriumsource.ut.MyCommand"
+//        customClass = ""
         //browser options such as
         //    options = "captureNetworkTraffic=true, addCustomRequestHeader=true"
         options = ""
