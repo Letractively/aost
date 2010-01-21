@@ -581,6 +581,53 @@ Excel file reader has been added to Tellurium Data Driven Test. If you have exce
 
 }}}
 
+== Standard Table ==
+
+The Standard Table is used table multiple "tbody" sections. The Table layout is as follows.
+
+{{{
+  table
+      thead
+         tr
+           th
+           ...
+           th
+      tbody
+         tr
+           td
+           ...
+           td
+         ...
+      tbody (Could have multiple ones)
+         tr
+           td
+           ...
+           td
+         ...
+      tfoot
+         tr
+           td
+           ...
+           td
+}}}
+
+To overwrite the default layout, Tellurium provides the following variables.
+  * _hrt_: header row tag, default one is "tr".
+  * _hct_: header column tag, default one is "th".
+  * _frt_: footer row tag, default one is "tr".
+  * _fct_: footer column tag, default one is "td".
+
+To overwrite the above tags, simply define them in the object definition. For example,
+
+{{{
+    ui.StandardTable(uid: "table3", clocator: [:], hct: "td"){
+      TextBox(uid: "header: all", clocator: [:])
+      TextBox(uid: "footer: all", clocator: [:])
+    }
+}}}
+
+Also be aware that the footer definition has been changed from "foot" to "footer" to be more accurate. 
+
 == Engine State Offline Update ==
 
 For some reasons, you may need to make Engine state calls before you actually connect to the Engine. For examples, call one of the following methods.
