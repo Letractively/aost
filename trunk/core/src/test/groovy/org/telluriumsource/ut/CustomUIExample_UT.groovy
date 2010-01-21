@@ -9,6 +9,7 @@ package org.telluriumsource.ut
  */
 
 public class CustomUIExample_UT extends GroovyTestCase {
+  
   public void testDump(){
     CustomUIExample cue = new CustomUIExample();
     cue.defineUi();

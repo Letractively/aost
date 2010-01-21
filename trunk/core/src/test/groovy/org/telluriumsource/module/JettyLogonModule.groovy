@@ -11,7 +11,34 @@ import org.telluriumsource.dsl.DslContext
  */
 
 public class JettyLogonModule extends DslContext {
+  public static String HTML_BODY ="""
+      <H1>FORM Authentication demo</H1>
 
+<div class="box-inner">
+    <a href="js/tellurium-test.js">Tellurium Test Cases</a>
+    <input name="submit" type="submit" value="Test">
+</div>
+
+<form method="POST" action="j_security_check">
+    <table border="0" cellspacing="2" cellpadding="1">
+        <tr>
+            <td>Username:</td>
+            <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input name="submit" type="submit" value="Login">
+            </td>
+        </tr>
+    </table>
+</form>
+
+  """
+  
   public void defineUi() {
     ui.Form(uid: "Form", clocator: [tag: "form"]){
         Container(uid: "Username", clocator: [tag: "tr"]){
