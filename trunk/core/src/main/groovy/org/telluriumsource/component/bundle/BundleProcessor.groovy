@@ -12,6 +12,7 @@ import org.telluriumsource.framework.Environment
 import org.telluriumsource.entity.UiModuleValidationRequest
 import org.telluriumsource.entity.UiModuleValidationResponse
 import org.telluriumsource.util.Helper
+import org.telluriumsource.exception.EngineNotConnectedException
 
 /**
  * Command Bundle Processor
@@ -326,16 +327,29 @@ public class BundleProcessor implements Configurable {
     if(cmd != null)
       uid = cmd.uid;
 
-    if(this.inKillCacheList(name)){
-      this.cleanAllCache();  
-    }
+    if (!this.dispatcher.isConnected()) {
+      if (this.inStateUpdateList(name)) {
+        this.tracer.callStateUpdate();
+        return;
+      }
 
-    if(this.exploitBundle() && context.isBundlingable()){
-       return issueCommand(context, uid, name, args);
-    }
+      throw new EngineNotConnectedException(i18nBundle.getMessage("Engine.NotConnectedForCommand", name));
+    } else {
+
+      if(this.inKillCacheList(name)){
+        this.cleanAllCache();
+      }
+
+      if (this.exploitBundle() && context.isBundlingable()) {
+        return issueCommand(context, uid, name, args);
+      }
 
 //    return passThrough(context, uid, name, args);
       return passBundledCommand(context, uid, name, args);
+    }
+  }
+
+  def checkEngineUpdate(context, name, args){
   }
 
   protected def methodMissing(String name, args) {
