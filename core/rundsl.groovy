@@ -1,4 +1,3 @@
-println 'Running DSL test script ' + args[0]
 
 @Grab(group='org.codehaus.groovy', module='groovy-all', version='1.7.0')
 @Grab(group='org.seleniumhq.selenium.server', module='selenium-server', version='1.0.1-te2')
@@ -10,8 +9,31 @@ println 'Running DSL test script ' + args[0]
 @Grab(group='org.telluriumsource', module='tellurium-core', version='0.7.0-SNAPSHOT')
 
 def runDsl(String[] args) {
-  org.telluriumsource.dsl.DslScriptExecutor.main(args);
+  def cli = new CliBuilder(usage: 'rundsl.groovy -[hf] [scriptname]')
+  cli.with {
+    h longOpt: 'help', 'Show usage information'
+    f longOpt: 'scriptname',   'DSL script name'
+  }
+  def options = cli.parse(args)
+  if (!options) {
+    return
+  }
+  if (options.h) {
+    cli.usage()
+    return
+  }
+  if (options.f) {
+    def extraArguments = options.arguments()
+    if (extraArguments) {
+      extraArguments.each {String name ->
+        def input = [name]
+        org.telluriumsource.dsl.DslScriptExecutor.main(input)
+      }
+    }
+  }
+
 }
 
 println "Running DSL test script, press Ctrl+C to stop."
-runDsl(args);
+
+runDsl(args)
