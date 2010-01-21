@@ -1482,7 +1482,7 @@ var UiStandardTable = UiContainer.extend({
 
     getHeaderSelector: function(column) {
 
-        return " > thread > tr > td:eq(" + (column-1) +")";
+        return " > thread > tr > th:eq(" + (column-1) +")";
     },
 
     getFootSelector: function(column) {
@@ -1527,7 +1527,7 @@ var UiStandardTable = UiContainer.extend({
         }
 
         if (cobj.locator != null) {
-            if ("td".equals(cobj.locator.tag) && cobj.locator.header == null) {
+            if ("th".equals(cobj.locator.tag) && cobj.locator.header == null) {
                 context.skipNext = true;
             }
         }
@@ -1695,7 +1695,7 @@ var UiStandardTable = UiContainer.extend({
 
         if (trimString(child) == "header") {
             return this.walkToHeader(context, uiid);
-        } else if(trimString(child) == "foot"){
+        } else if(trimString(child) == "footer"){
             return this.walkToFooter(context, uiid);
         } else {
             return this.walkToElement(context, uiid);
@@ -1713,6 +1713,158 @@ var UiWindow = UiContainer.extend({
     }
 });
 
+
+function UiButtonBuilder(){
+
+}
+
+UiButtonBuilder.prototype.build = function(){
+   return new UiButton();
+};
+
+function UiCheckBoxBuilder(){
+
+}
+
+UiCheckBoxBuilder.prototype.build = function(){
+   return new UiCheckBox();
+};
+
+function UiDivBuilder(){
+
+}
+
+UiDivBuilder.prototype.build = function(){
+    return new UiDiv();
+};
+
+function UiIconBuilder(){
+
+}
+
+UiIconBuilder.prototype.build = function(){
+    return new UiIcon();
+};
+
+function UiImageBuilder(){
+
+}
+
+UiImageBuilder.prototype.build = function(){
+    return new UiImage();
+};
+
+function UiInputBoxBuilder(){
+
+}
+
+UiInputBoxBuilder.prototype.build = function(){
+    return new UiInputBox();
+};
+
+function UiRadioButtonBuilder(){
+
+}
+
+UiRadioButtonBuilder.prototype.build = function(){
+    return new UiRadioButton();
+};
+
+function UiSelectorBuilder(){
+
+}
+
+UiSelectorBuilder.prototype.build = function(){
+    return new UiSelector();
+};
+
+function UiSpanBuilder(){
+
+}
+
+UiSpanBuilder.prototype.build = function(){
+    return new UiSpan();
+};
+
+function UiSubmitButtonBuilder(){
+
+}
+
+UiSubmitButtonBuilder.prototype.build = function(){
+    return new UiSubmitButton();
+};
+
+function UiTextBoxBuilder(){
+
+}
+
+UiTextBoxBuilder.prototype.build = function(){
+     return new UiTextBox();
+};
+
+function UiUrlLinkBuilder(){
+
+}
+
+UiUrlLinkBuilder.prototype.build = function(){
+    return new UiUrlLink();
+};
+
+function UiContainerBuilder(){
+
+}
+
+UiContainerBuilder.prototype.build = function(){
+    return new UiContainer();
+}
+
+function UiFormBuilder(){
+
+}
+
+UiFormBuilder.prototype.build = function(){
+    return new UiForm();
+};
+
+function UiFrameBuilder(){
+
+}
+
+UiFrameBuilder.prototype.build = function(){
+    return new UiFrame();
+};
+
+function UiListBuilder(){
+
+}
+
+UiListBuilder.prototype.build = function(){
+    return new UiList();
+};
+
+function UiTableBuilder(){
+
+}
+
+UiTableBuilder.prototype.build = function(){
+    return new UiTable();
+};
+
+function UiStandardTableBuilder(){
+
+}
+
+UiStandardTableBuilder.prototype.build = function(){
+    return new UiStandardTable();
+};
+
+function UiWindowBuilder(){
+
+}
+
+UiWindowBuilder.prototype.build = function(){
+    return new UiWindow();
+};
 
 function UiModule(){
     //top level UI object
@@ -1767,69 +1919,14 @@ UiModule.prototype.parseUiModule = function(json){
 };
 
 UiModule.prototype.buildFromJSON = function(jobj){
-    //TODO: find a more elegant way to create a Javascript function by its name
+    var builder = tellurium.uiBuilderMap.get(jobj.uiType);
+
     var obj = null;
-    switch(jobj.uiType){
-        case "Button":
-            obj = new UiButton();
-            break;
-        case "CheckBox":
-            obj = new UiCheckBox();
-            break;
-        case "Div":
-            obj = new UiDiv();
-            break;
-        case "Icon":
-            obj = new UiIcon();
-            break;
-        case "Image":
-            obj = new UiImage();
-            break;
-        case "InputBox":
-            obj = new UiInputBox();
-            break;
-        case "RadioButton":
-            obj = new UiRadioButton();
-            break;
-        case "Selector":
-            obj = new UiSelector();
-            break;
-        case "Span":
-            obj = new UiSpan();
-            break;
-        case "SubmitButton":
-            obj = new UiSubmitButton();
-            break;
-        case "TextBox":
-            obj = new UiTextBox();
-            break;
-        case "UrlLink":
-            obj = new UiUrlLink();
-            break;
-        case "Container":
-            obj = new UiContainer();
-            break;
-        case "Form":
-            obj = new UiForm();
-            break;
-        case "Frame":
-            obj = new UiFrame();
-            break;
-        case "List":
-            obj = new UiList();
-            break;
-        case "Table":
-            obj = new UiTable();
-            break;
-        case "StandardTable":
-            obj = new UiStandardTable();
-            break;
-        case "Window":
-            obj = new UiWindow();
-            break;
-        //for unknow object type, use Container to represent it
-        default: obj = new UiContainer();
-            break;
+    if(builder  != null){
+        obj = builder.build();
+    }
+    if(obj == null){
+        obj = new UiContainer();
     }
 
     objectCopy(obj, jobj);
