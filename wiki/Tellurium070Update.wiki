@@ -583,7 +583,7 @@ Excel file reader has been added to Tellurium Data Driven Test. If you have exce
 
 == Standard Table ==
 
-The Standard Table is used table multiple "tbody" sections. The Table layout is as follows.
+The Standard Table is used for table with multiple "tbody" sections. The Table layout is as follows.
 
 {{{
   table
@@ -611,11 +611,11 @@ The Standard Table is used table multiple "tbody" sections. The Table layout is 
            td
 }}}
 
-To overwrite the default layout, Tellurium provides the following variables.
-  * _hrt_: header row tag, default one is "tr".
-  * _hct_: header column tag, default one is "th".
-  * _frt_: footer row tag, default one is "tr".
-  * _fct_: footer column tag, default one is "td".
+To overwrite the default layout, Tellurium core provides the following attributes in the StandardTable object.
+  * _hrt_: header row tag, the default tag is "tr".
+  * _hct_: header column tag, the default tag is "th".
+  * _frt_: footer row tag, the default tag is "tr".
+  * _fct_: footer column tag, the default tag is "td".
 
 To overwrite the above tags, simply define them in the object definition. For example,
 
@@ -626,7 +626,9 @@ To overwrite the above tags, simply define them in the object definition. For ex
     }
 }}}
 
-Also be aware that the footer definition has been changed from "foot" to "footer" to be more accurate. 
+The header column tag is overwritten to be "td" instead of the default tag "th". 
+
+To be more accurate, the footer definition has been changed from "foot" to "footer". 
 
 == Engine State Offline Update ==
 
