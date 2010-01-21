@@ -1827,6 +1827,9 @@ UiModule.prototype.buildFromJSON = function(jobj){
         case "Window":
             obj = new UiWindow();
             break;
+        //for unknow object type, use Container to represent it
+        default: obj = new UiContainer();
+            break;
     }
 
     objectCopy(obj, jobj);
