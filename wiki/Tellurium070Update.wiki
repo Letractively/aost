@@ -566,6 +566,21 @@ type and keyType now accept different types of objects and convert them to a Str
 
 For details, please read [http://code.google.com/p/aost/wiki/InternationalizationSupportTellurium Internationalization Support in Tellurium]
 
+== Excel File Reader in Data Driven Test ==
+
+Excel file reader has been added to Tellurium Data Driven Test. If you have excel input files, you can specify the reader in the configuration file TelluriumConfig.groovy as follows,
+
+{{{
+    datadriven{
+        dataprovider{
+            //specify which data reader you like the data provider to use
+            //the valid options include "PipeFileReader", "CVSFileReader", and "ExcelFileReader" at this point
+            reader = "ExcelFileReader"
+        }
+    }
+
+}}}
+
 == Engine State Offline Update ==
 
 For some reasons, you may need to make Engine state calls before you actually connect to the Engine. For examples, call one of the following methods.
