@@ -16,14 +16,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../core/src/test/groovy/org/telluriumsource/ft/JettyLogonOfflineTestCase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../core/src/test/groovy/org/telluriumsource/ut/CustomUIExample_UT.groovy" afterPath="$PROJECT_DIR$/../../core/src/test/groovy/org/telluriumsource/ut/CustomUIExample_UT.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/ddt/TelluriumIssuesDataDrivenTest.groovy" afterPath="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/ddt/TelluriumIssuesDataDrivenTest.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium-website.iws" afterPath="$PROJECT_DIR$/tellurium-website.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../core/src/test/groovy/org/telluriumsource/module/JettyLogonModule.groovy" afterPath="$PROJECT_DIR$/../../core/src/test/groovy/org/telluriumsource/module/JettyLogonModule.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/ddt/TelluriumIssuesModule.groovy" afterPath="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/ddt/TelluriumIssuesModule.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../core/src/main/groovy/org/telluriumsource/component/bundle/BundleProcessor.groovy" afterPath="$PROJECT_DIR$/../../core/src/main/groovy/org/telluriumsource/component/bundle/BundleProcessor.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../core/src/main/groovy/org/telluriumsource/test/ddt/TelluriumDataDrivenTest.groovy" afterPath="$PROJECT_DIR$/../../core/src/main/groovy/org/telluriumsource/test/ddt/TelluriumDataDrivenTest.groovy" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../core/rundsl.groovy" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rundsl.groovy" />
     </list>
     <ignored path=".idea/workspace.xml" />
     <ignored path="tellurium-website.iws" />
@@ -44,19 +39,6 @@
   <component name="DebuggerManager">
     <line_breakpoints>
       <breakpoint url="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/module/TelluriumDownloadsPage.groovy" line="87" class="Class at TelluriumDownloadsPage.groovy:87" package="">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/ddt/TelluriumIssuesDataDrivenTest.groovy" line="22" class="Class at TelluriumIssuesDataDrivenTest.groovy:22" package="">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -138,10 +120,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TelluriumIssuesDataDrivenTest.groovy" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="TelluriumIssuesDataDrivenTest.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/ddt/TelluriumIssuesDataDrivenTest.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="0" selection-start="524" selection-end="524" vertical-scroll-proportion="0.25465837">
+            <state line="22" column="0" selection-start="524" selection-end="524" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rundsl.groovy" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/rundsl.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="43" selection-start="43" selection-end="43" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -821,15 +812,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="2048" y="25" width="1024" height="718" extended-state="1" />
-    <editor active="false" />
+    <frame x="1024" y="25" width="1024" height="718" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32905984" sideWeight="0.5" order="1" side_tool="false" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29094076" sideWeight="0.5" order="3" side_tool="false" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29094076" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
@@ -839,7 +830,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5836237" order="3" side_tool="false" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37190083" sideWeight="0.6968641" order="0" side_tool="false" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37086776" sideWeight="0.6968641" order="0" side_tool="false" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4825784" sideWeight="0.5" order="2" side_tool="false" />
@@ -915,20 +906,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/target/generated-sources/groovy-stubs/main/org/telluriumsource/ui/object/SelectMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumIssuesPageTestNGTestCase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="137" column="0" selection-start="3953" selection-end="3953" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumProjectPageJUnitTestCase.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="9" selection-start="621" selection-end="676" vertical-scroll-proportion="0.0">
@@ -1020,9 +997,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/rundsl.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/ddt/TelluriumIssuesDataDrivenTest.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="524" selection-end="524" vertical-scroll-proportion="0.25465837">
+        <state line="22" column="0" selection-start="524" selection-end="524" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rundsl.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="43" selection-start="43" selection-end="43" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
