@@ -45,14 +45,14 @@ class TelluriumIssuesModule extends TelluriumDataDrivenModule{
             //define table header
             //for the border column
             TextBox(uid: "header: 1", clocator: [:])
-            UrlLink(uid: "header: 2", clocator: [text: "%%ID"])
-            UrlLink(uid: "header: 3", clocator: [text: "%%Type"])
-            UrlLink(uid: "header: 4", clocator: [text: "%%Status"])
-            UrlLink(uid: "header: 5", clocator: [text: "%%Priority"])
-            UrlLink(uid: "header: 6", clocator: [text: "%%Milestone"])
-            UrlLink(uid: "header: 7", clocator: [text: "%%Owner"])
-            UrlLink(uid: "header: 9", clocator: [text: "%%Summary + Labels"])
-            UrlLink(uid: "header: 10", clocator: [text: "%%..."])
+            UrlLink(uid: "header: 2", clocator: [text: "*ID"])
+            UrlLink(uid: "header: 3", clocator: [text: "*Type"])
+            UrlLink(uid: "header: 4", clocator: [text: "*Status"])
+            UrlLink(uid: "header: 5", clocator: [text: "*Priority"])
+            UrlLink(uid: "header: 6", clocator: [text: "*Milestone"])
+            UrlLink(uid: "header: 7", clocator: [text: "*Owner"])
+            UrlLink(uid: "header: 9", clocator: [text: "*Summary + Labels"])
+            UrlLink(uid: "header: 10", clocator: [text: "*..."])
 
             //define table elements
             //for the border column
