@@ -1327,3 +1327,4 @@ We welcome contributions for Tellurium from various aspects. More details on [ht
   * [http://vimeo.com/8601173 Tellurium video tutorial by Vivek Mongolu]
   * [http://www.slideshare.net/John.Jian.Fang/telluriumanewapproachforwebtesting Tellurium - A New Approach For Web Testing]
   * [http://vimeo.com/8600410 10 Minutes to Tellurium]
+  * [http://aost.googlecode.com/files/santa-algorithm-demo.tar.gz Tellurium 0.7.0 Demo Project]
