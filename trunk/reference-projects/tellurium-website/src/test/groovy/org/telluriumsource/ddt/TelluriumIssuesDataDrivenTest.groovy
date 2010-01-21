@@ -20,6 +20,9 @@ class TelluriumIssuesDataDrivenTest extends TelluriumDataDrivenTest{
         //load file
         loadData "src/test/resources/org/telluriumsource/data/TelluriumIssuesInput.txt"
 
+        useCache(true);
+        useClosestMatch(true);
+      
         //read each line and run the test script until the end of the file
         stepToEnd()
 
