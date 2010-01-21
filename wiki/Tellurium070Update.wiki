@@ -874,6 +874,11 @@ Caused by: org.telluriumsource.exception.ConfigNotFoundException: Cannot find Te
 
 }}}
 
+== Run DSL Script ==
+
+We are working on using [http://groovy.codehaus.org/Grape Groovy Grape] to automatically download all dependencies and run DSL script.
+
+ 
 == Misc ==
 
 Exposed the following Selenium APIs to DslContext.
