@@ -295,6 +295,9 @@ function Tellurium (){
 
     //JQuery Builder
     this.jqbuilder = new JQueryBuilder();
+
+    //UI object name to Javascript object builder mapping
+    this.uiBuilderMap = new Hashtable();
 }
 
 Tellurium.prototype.isUseCache = function(){
@@ -304,6 +307,37 @@ Tellurium.prototype.isUseCache = function(){
 //TODO: How to handle custom calls?  delegate to Selenium?
 //TODO: Refactor --> use Javascript itself to do automatically discovery like selenium does instead of manually registering them
 Tellurium.prototype.initialize = function(){
+    this.registerTeApis();
+    this.registerDefaultUiBuilders();
+};
+
+Tellurium.prototype.registerDefaultUiBuilders = function(){
+    this.uiBuilderMap.put("Button", new UiButtonBuilder());
+    this.uiBuilderMap.put("CheckBox", new UiCheckBoxBuilder());
+    this.uiBuilderMap.put("Div", new UiDivBuilder());
+    this.uiBuilderMap.put("Icon", new UiIconBuilder());
+    this.uiBuilderMap.put("Image", new UiImageBuilder());
+    this.uiBuilderMap.put("InputBox", new UiInputBoxBuilder());
+    this.uiBuilderMap.put("RadioButton", new UiRadioButtonBuilder());
+    this.uiBuilderMap.put("Selector", new UiSelectorBuilder());
+    this.uiBuilderMap.put("Span", new UiSpanBuilder());
+    this.uiBuilderMap.put("SubmitButton", new UiSubmitButtonBuilder());
+    this.uiBuilderMap.put("TextBox", new UiTextBoxBuilder());
+    this.uiBuilderMap.put("UrlLink", new UiUrlLinkBuilder());
+    this.uiBuilderMap.put("Container", new UiContainerBuilder());
+    this.uiBuilderMap.put("Frame", new UiFrameBuilder());
+    this.uiBuilderMap.put("List", new UiListBuilder());
+    this.uiBuilderMap.put("Table", new UiTableBuilder());
+    this.uiBuilderMap.put("StandardTable", new UiStandardTableBuilder());
+    this.uiBuilderMap.put("Window", new UiWindowBuilder());
+};
+
+//expose this so that users can hook in their own custom UI objects or even overwrite the default UI objects
+Tellurium.prototype.registerUiBuilder = function(name, builder){
+    this.uiBuilderMap.put(name, builder);
+};
+
+Tellurium.prototype.registerTeApis = function(){
     this.registerApi("isElementPresent", true, "BOOLEAN");
     this.registerApi("blur", true, "VOID");
     this.registerApi("click", true, "VOID");
@@ -361,7 +395,7 @@ Tellurium.prototype.initialize = function(){
     this.registerApi("getUseUiModule", false, "STRING");
     this.registerApi("getValidateUiModule", false, "STRING");
     this.registerApi("useClosestMatch", false, "VOID");
-    this.registerApi("useTeApi", false, "VOID"); 
+    this.registerApi("useTeApi", false, "VOID");
     this.registerApi("isUiModuleCached", false, "BOOLEAN");
     this.registerApi("toggle", true, "VOID");
     this.registerApi("deleteAllCookiesByJQuery", false, "VOID");
