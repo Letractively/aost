@@ -5,12 +5,9 @@ import org.telluriumsource.dsl.UiID
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.exception.InvalidUidException
 import org.telluriumsource.ui.locator.CompositeLocator
-import org.telluriumsource.ui.locator.GroupLocateStrategy
-import org.telluriumsource.ui.locator.LocatorProcessor
 import org.telluriumsource.ui.object.Container
 import org.telluriumsource.ui.object.TextBox
 import org.telluriumsource.ui.object.UiObject
-import org.telluriumsource.component.custom.Extension
 import org.json.simple.JSONObject
 
 /**
@@ -19,9 +16,9 @@ import org.json.simple.JSONObject
  *  table
  *     thead
  *        tr
- *          td
+ *          th
  *          ...
- *          td
+ *          th
  *     tbody
  *        tr
  *          td
@@ -58,8 +55,17 @@ class StandardTable extends Container{
      public static final String ROW = "ROW"
      public static final String COLUMN = "COLUMN"
      public static final String HEADER = "HEADER"
-     public static final String FOOT = "FOOT"
+     public static final String FOOTER = "FOOTER"
      public static final String TBODY = "TBODY"
+     public static final String HEAD_ROW_TAG = "hrt"
+     public static final String HEAD_COLUMN_TAG = "hct"
+     public static final String FOOT_ROW_TAG = "frt"
+     public static final String FOOT_COLUMN_TAG = "fct"
+  
+     protected String headRowTag = "tr"
+     protected String headColumnTag = "th"
+     protected String footRowTag = "tr"
+     protected String footColumnTag = "td"
 
      protected TextBox defaultUi = new TextBox()
      //add a map to hold all the header elements
@@ -83,7 +89,7 @@ class StandardTable extends Container{
                 String internHeaderId = internalHeaderId(component.uid)
                 component.tid = internHeaderId
                 headers.put(internHeaderId, component)
-            }else if(component.uid.toUpperCase().trim().startsWith(FOOT)){
+            }else if(component.uid.toUpperCase().trim().startsWith(FOOTER)){
                 //this is a foot
                 String internFootId = internalFootId(component.uid)
                 component.tid = internFootId
@@ -259,7 +265,7 @@ class StandardTable extends Container{
 
         //check if this object is for the foot in the format of
         // "foot: 2", "foot: all"
-        if (upperId.startsWith(FOOT)) {
+        if (upperId.startsWith(FOOTER)) {
             return validateFoot(id)
         }
 
@@ -292,7 +298,7 @@ class StandardTable extends Container{
         parts[0] = parts[0].trim()
         parts[1] = parts[1].trim()
 
-        if (!FOOT.equalsIgnoreCase(parts[0]))
+        if (!FOOTER.equalsIgnoreCase(parts[0]))
             return false
 
         //check the template, which could either be "*", "all", or numbers
@@ -359,22 +365,24 @@ class StandardTable extends Container{
 
     protected String getHeaderLocator(int column) {
 
-        return "/thead/tr/td[${column}]"
+//        return "/thead/tr/td[${column}]"
+        return "/thead/${this.headRowTag}/${this.headColumnTag}[${column}]"
     }
 
     protected String getHeaderSelector(int column) {
 
-        return " > thread > tr > td:eq(${column-1})"
+//        return " > thread > tr > td:eq(${column-1})"
+        return " > thread > ${this.headRowTag} > ${this.headColumnTag}:eq(${column-1})"
     }
 
     protected String getFootLocator(int column) {
 
-        return "/tfoot/tr/td[${column}]"
+        return "/tfoot/${this.footRowTag}/${this.footColumnTag}[${column}]"
     }
 
     protected String getFootSelector(int column) {
 
-        return " > tfoot > tr > td:eq(${column-1})"
+        return " > tfoot > ${this.footRowTag} > ${this.footColumnTag}:eq(${column-1})"
     }
 
     String[] getAllTableCellText(Closure c) {
@@ -388,7 +396,8 @@ class StandardTable extends Container{
     int getTableHeaderColumnNumByXPath(Closure c) {
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
-        String xpath = rl + "/thead/tr/td"
+//        String xpath = rl + "/thead/tr/td"
+        String xpath = rl + "/thead/${this.headRowTag}/${this.headColumnTag}"
         int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return columnum
@@ -398,7 +407,7 @@ class StandardTable extends Container{
     int getTableFootColumnNumByXPath(Closure c) {
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
-        String xpath = rl + "/tfoot/tr/td"
+        String xpath = rl + "/tfoot/${this.footRowTag}/${this.footColumnTag}"
         int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return columnum
@@ -458,11 +467,11 @@ class StandardTable extends Container{
     }
 
     int getTableHeaderColumnNumBySelector(Closure c) {
-        return c(this.locator, " > thead > tr:eq(0) > td")
+        return c(this.locator, " > thead > ${this.headRowTag}:eq(0) > ${this.headColumnTag}")
     }
 
     int getTableFootColumnNumBySelector(Closure c) {
-        return c(this.locator, " > tfoot > tr:eq(0) > td")
+        return c(this.locator, " > tfoot > ${this.footRowTag}:eq(0) > ${this.footColumnTag}")
     }
 
     int getTableMaxRowNumBySelector(Closure c) {
@@ -583,7 +592,8 @@ class StandardTable extends Container{
         if(cobj.locator != null){
           if(cobj.locator instanceof CompositeLocator){
             CompositeLocator cl = (CompositeLocator)cobj.locator
-            if("td".equals(cl.tag) && cl.header == null){
+ //           if("td".equals(cl.tag) && cl.header == null){
+           if(this.headColumnTag.equals(cl.tag) && cl.header == null){
               //context.setTableDuplicateTag()
               context.skipNext()
             }
@@ -636,7 +646,7 @@ class StandardTable extends Container{
         if(cobj.locator != null){
           if(cobj.locator instanceof CompositeLocator){
             CompositeLocator cl = (CompositeLocator)cobj.locator
-            if("td".equals(cl.tag) && cl.header == null){
+            if(this.footColumnTag.equals(cl.tag) && cl.header == null){
               //context.setTableDuplicateTag()
               context.skipNext()
             }
@@ -672,7 +682,7 @@ class StandardTable extends Container{
 
         if (child.trim().equalsIgnoreCase(HEADER)) {
             return walkToHeader(context, uiid)
-        }else if(child.trim().equalsIgnoreCase(FOOT)){
+        }else if(child.trim().equalsIgnoreCase(FOOTER)){
             return walkToFoot(context, uiid)
         }else {
             return walkToElement(context, uiid)
@@ -745,7 +755,7 @@ class StandardTable extends Container{
       this.foots.each {key, component ->
         String aid = key.replaceFirst('_', '')
         if (aid ==~ /[0-9]+/) {
-          context.pushUid("foot[${aid}]")
+          context.pushUid("footer[${aid}]")
           component.traverse(context)
           if (max < Integer.parseInt(aid))
             max = Integer.parseInt(aid)
@@ -755,7 +765,7 @@ class StandardTable extends Container{
       UiObject obj = this.foots.get("_ALL")
       if(obj != null){
         max++
-        context.pushUid("foot[${max}]")
+        context.pushUid("footer[${max}]")
         obj.traverse(context)
       }
     }

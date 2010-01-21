@@ -25,7 +25,7 @@ public class GenericTable extends Container{
      public static final String ROW = "ROW"
      public static final String COLUMN = "COLUMN"
      public static final String HEADER = "HEADER"
-     public static final String FOOT = "FOOT"
+     public static final String FOOT = "FOOTER"
      public static final String TBODY = "TBODY"
 
      protected static final String INVALID_UID_ERROR_MESSAGE = "Invalid UID "
