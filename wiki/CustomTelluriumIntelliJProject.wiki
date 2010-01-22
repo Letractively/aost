@@ -3,6 +3,10 @@
 
 == Prerequisites ==
 
+  * Download IntelliJ IDEA Community edition
+   {{{
+   http://www.jetbrains.com/idea/download/
+   }}}
   * Download Groovy 1.6.x from the following location and unpack to your system.
      {{{
      http://groovy.codehaus.org/Download
