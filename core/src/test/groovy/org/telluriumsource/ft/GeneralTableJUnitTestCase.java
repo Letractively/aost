@@ -26,7 +26,7 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
         useCssSelector(true);
 //        useTelluriumApi(true);
         useTrace(true);
-
+//        useCache(false);
     }
 
     @Before
@@ -36,6 +36,7 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testToJSON(){
+
         System.out.println(gtm.toJSON("GT"));    
     }
 

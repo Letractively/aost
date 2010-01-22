@@ -399,10 +399,12 @@ class StandardTable extends Container{
     protected String getHeaderSelector(int column) {
 
 //        return " > thread > tr > td:eq(${column-1})"
-        return " > ${this.headTag}:eq(0) > ${this.headRowTag} > ${this.headColumnTag}:eq(${column-1})"
+        return " > ${this.headTag}:first > ${this.headRowTag} > ${this.headColumnTag}:eq(${column-1})"
     }
 
     protected String getFootLocator(int column) {
+      //XXX: be aware that the count is not accurate if you have multiple tbodies.
+      //Please use the css selector, which is accurate
         int count = 1;
         if(this.footTag.equals(this.headTag))
           count++
@@ -410,21 +412,28 @@ class StandardTable extends Container{
           count++
 
         return "/${this.footTag}[${count}]/${this.footRowTag}/${this.footColumnTag}[${column}]"
+
     }
 
     protected String getFootSelector(int column) {
-        int count = 0;
+/*        int count = 0;
         if(this.footTag.equals(this.headTag))
           count++
         if(this.footTag.equals(this.bodyTag))
           count++
+          return " > ${this.footTag}:eq(${count}) > ${this.footRowTag} > ${this.footColumnTag}:eq(${column-1})"
+          */
 
-        return " > ${this.footTag}:eq(${count}) > ${this.footRowTag} > ${this.footColumnTag}:eq(${column-1})"
+        return " > ${this.footTag}:last > ${this.footRowTag} > ${this.footColumnTag}:eq(${column-1})"
     }
 
     String[] getAllTableCellText(Closure c) {
+        int index = 0
+        if(this.bodyTag.equals(this.headTag)){
+          index++;
+        }
 
-        return c(this.locator, " > ${this.bodyTag} > ${this.bodyRowTag} > ${this.bodyColumnTag}")
+        return c(this.locator, " > ${this.bodyTag}:eq(${index} > ${this.bodyRowTag} > ${this.bodyColumnTag}")
     }
 
     String[] getAllTableCellTextForTbody(int tbody, Closure c) {
@@ -544,17 +553,20 @@ class StandardTable extends Container{
     }
 
     int getTableHeaderColumnNumBySelector(Closure c) {
-        return c(this.locator, " > ${this.headTag}:eq(0) > ${this.headRowTag}:eq(0) > ${this.headColumnTag}")
+        return c(this.locator, " > ${this.headTag}:first > ${this.headRowTag}:eq(0) > ${this.headColumnTag}")
     }
 
     int getTableFootColumnNumBySelector(Closure c) {
+/*
         int count = 0;
         if(this.footTag.equals(this.headTag))
           count++
         if(this.footTag.equals(this.bodyTag))
           count++
+         return c(this.locator, " > ${this.footTag}:eq(${count}) > ${this.footRowTag}:eq(0) > ${this.footColumnTag}")
+*/
 
-        return c(this.locator, " > ${this.footTag}:eq(${count}) > ${this.footRowTag}:eq(0) > ${this.footColumnTag}")
+        return c(this.locator, " > ${this.footTag}:last > ${this.footRowTag}:eq(0) > ${this.footColumnTag}")
     }
 
     int getTableMaxRowNumBySelector(Closure c) {
