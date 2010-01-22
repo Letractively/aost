@@ -35,6 +35,11 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
     }
 
     @Test
+    public void testToJSON(){
+        System.out.println(gtm.toJSON("GT"));    
+    }
+
+    @Test
     public void testValidateUiModule(){
         gtm.validate("GT");
     }
