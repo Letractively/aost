@@ -365,7 +365,7 @@ class StandardTable extends Container{
 
     protected String getCellLocator(int tbody, int row, int column) {
         int index = tbody
-        if(this.bodyRowTag.equals(this.headTag)){
+        if(this.bodyTag.equals(this.headTag)){
           index++;
         }
 
@@ -374,7 +374,7 @@ class StandardTable extends Container{
 
     protected String getCellSelector(int tbody, int row, int column) {
         int index = tbody - 1
-        if(this.bodyRowTag.equals(this.headTag)){
+        if(this.bodyTag.equals(this.headTag)){
           index++;
         }
 
@@ -420,7 +420,7 @@ class StandardTable extends Container{
 
     String[] getAllTableCellTextForTbody(int tbody, Closure c) {
         int index = tbody
-        if(this.bodyRowTag.equals(this.headTag)){
+        if(this.bodyTag.equals(this.headTag)){
           index++;
         }
 
@@ -459,7 +459,7 @@ class StandardTable extends Container{
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
         int index = 1
-        if(this.headTag.equals(this.bodyRowTag)){
+        if(this.headTag.equals(this.bodyTag)){
           index++;
         }
       
@@ -475,7 +475,7 @@ class StandardTable extends Container{
         Accessor accessor = new Accessor()
 
         int index = ntbody
-        if(this.headTag.equals(this.bodyRowTag)){
+        if(this.headTag.equals(this.bodyTag)){
           index++;
         }
 
@@ -491,7 +491,7 @@ class StandardTable extends Container{
         Accessor accessor = new Accessor()
 
         int index = 1
-        if(this.headTag.equals(this.bodyRowTag)){
+        if(this.headTag.equals(this.bodyTag)){
           index++;
         }
 
@@ -508,7 +508,7 @@ class StandardTable extends Container{
         Accessor accessor = new Accessor()
 
         int index = ntbody
-        if(this.headTag.equals(this.bodyRowTag)){
+        if(this.headTag.equals(this.bodyTag)){
           index++;
         }
 
@@ -621,7 +621,7 @@ class StandardTable extends Container{
         }
 
         //append relative location, i.e., tbody, row, column to the locator
-        String loc = null
+        String loc
         if(context.isUseCssSelector()){
           //jquery eq() starts from zero, while xpath starts from one
 //          loc = getCellSelector(ntbody-1, nrow-1, ncolumn-1)
@@ -676,7 +676,7 @@ class StandardTable extends Container{
         }
 
         //append relative location, i.e., row, column to the locator
-        String loc =  null
+        String loc
         if(context.isUseCssSelector()){
           loc = getHeaderSelector(index)
         }else{
