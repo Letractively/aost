@@ -3,7 +3,8 @@ package org.telluriumsource.ui.locator
 import org.json.simple.JSONObject
 
 class BaseLocator{
-    public static final String LOC = "loc"
+
+  public static final String LOC = "loc"
     String loc
 
     public String getTag(){
@@ -11,7 +12,7 @@ class BaseLocator{
         return ""
     }
 
-    public generateHtml(boolean closeTag){
+    public toHTML(boolean closeTag){
       //Do not support generate Html for base locator
       return ""
     }

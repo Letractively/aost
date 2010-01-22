@@ -41,7 +41,7 @@ public class CustomUIExample_UT extends GroovyTestCase {
     cue.dump("accountEdit");
     cue.enableCssSelector();
     cue.dump("accountEdit");
-    println cue.generateHtml("accountEdit");
+    println cue.toHTML("accountEdit");
   }
 
   public void testPartialMatching(){

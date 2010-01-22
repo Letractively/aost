@@ -12,7 +12,8 @@ import org.json.simple.JSONObject
  * 
  */
 class CompositeLocator {
-    //obtained from UI object and should not be specified in clocator
+
+  //obtained from UI object and should not be specified in clocator
     String namespace
 
     public static final String HEADER = "header"
@@ -107,7 +108,7 @@ class CompositeLocator {
       return !isIdIncluded()
     }
 
-    public String generateHtml(boolean closeTag){ 
+    public String toHTML(boolean closeTag){ 
       if(tag == null)
         return "";
 

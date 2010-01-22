@@ -14,6 +14,7 @@ import org.telluriumsource.entity.UiModuleValidationResponse
 import org.telluriumsource.util.Helper
 import org.telluriumsource.exception.EngineNotConnectedException
 import org.telluriumsource.entity.EngineState
+import org.telluriumsource.crosscut.i18n.IResourceBundle
 
 /**
  * Command Bundle Processor
@@ -45,7 +46,9 @@ public class BundleProcessor implements Configurable {
   private Map<String, UiModuleState> states = new HashMap<String, UiModuleState>();
 
   private EngineStateTracer tracer = new EngineStateTracer();
-  
+
+  protected IResourceBundle i18nBundle = Environment.instance.myResourceBundle();
+
   //maximum number of commands in a bundle
   private int maxMacroCmd(){
     return Environment.instance.myMaxMacroCmd();

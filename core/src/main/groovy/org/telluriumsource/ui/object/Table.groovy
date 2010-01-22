@@ -480,12 +480,12 @@ class Table extends Container {
   }
 
   @Override
-  public String generateHtml() {
+  public String toHTML() {
     StringBuffer sb = new StringBuffer(128);
     String indent = getIndent();
 
     if (this.locator != null)
-        sb.append(indent + this.locator.generateHtml(false)).append("\n").append(indent + " <tbody>\n");
+        sb.append(indent + this.locator.toHTML(false)).append("\n").append(indent + " <tbody>\n");
     else
         sb.append(indent + "<table>\n").append(indent + " <tbody>\n");
 
@@ -498,7 +498,7 @@ class Table extends Container {
           if (obj == null) {
             obj = this.defaultUi
           }
-          sb.append(obj.generateHtml()).append("\n");
+          sb.append(obj.toHTML()).append("\n");
           sb.append(indent + "   </th>\n")
       }
       sb.append(indent + "  </tr>\n");
@@ -516,7 +516,7 @@ class Table extends Container {
           if (elem == null) {
             elem = this.defaultUi
           }
-          sb.append(elem.generateHtml()).append("\n");
+          sb.append(elem.toHTML()).append("\n");
           sb.append(indent + "   </td>\n");
         }
         sb.append(indent + "  </tr>\n");

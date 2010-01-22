@@ -13,6 +13,7 @@ class GoogleDdDslContext_UT extends GroovyTestCase{
     public void testGoogleSearch(){
         GoogleDdDslContext gddc = new GoogleDdDslContext()
         gddc.init()
+        gddc.connectSeleniumServer()
         gddc.test()
         gddc.shutDown()
     }
