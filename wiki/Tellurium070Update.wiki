@@ -928,6 +928,11 @@ Exposed the following Selenium APIs to DslContext.
   * {{{void addScript(String scriptContent, String scriptTagId)}}} 
   * {{{void removeScript(String scriptTagId)}}}
 
+The following methods in DslContext have been renamed
+
+  * {{{String jsonify(String uid)}}} is renamed to {{{String toJSON(String uid)}}}
+  * {{{String generateHtml(String uid)}}} is renamed to {{{String toHTML(String uid)}}}
+ 
 = Changes in Engine =
 
 Tellurium 0.7.0 include a new Engine embedded in Selenium Core. The main functionalities of the Tellurium Engine include
