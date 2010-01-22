@@ -108,7 +108,7 @@ public class GlobalDslContext {
     extension.disableCache(context)
   }
 
-  public boolean cleanCache() {
+  public void cleanCache() {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     extension.cleanCache(context)
@@ -210,7 +210,7 @@ public class GlobalDslContext {
     return extension.getNamespace(context, prefix)
   }
 
-  def pause(int milliseconds) {
+  public void pause(int milliseconds) {
     //flush out remaining commands in the command bundle before disconnection
     BundleProcessor processor = BundleProcessor.instance;
     processor.flush();
