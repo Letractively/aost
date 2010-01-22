@@ -39,7 +39,7 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testValidateUiModule(){
-        tim.validateUiModule("issueSearch");
+        tim.validate("issueSearch");
     }
 
     @Test

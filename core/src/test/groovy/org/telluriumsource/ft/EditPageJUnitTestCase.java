@@ -36,7 +36,7 @@ public class EditPageJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testValidateUiModule(){
-        epm.validateUiModule("Account");
+        epm.validate("Account");
     }
 
     @Test

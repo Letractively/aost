@@ -603,7 +603,7 @@ class Table extends Container {
     }
 
     //append relative location, i.e., row, column to the locator
-    String loc = null
+    String loc
     if(context.isUseCssSelector()){
       loc = getHeaderSelector(index)
     }else{

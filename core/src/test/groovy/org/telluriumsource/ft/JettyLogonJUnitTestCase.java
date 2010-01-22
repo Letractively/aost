@@ -47,8 +47,8 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testValidateUiModule(){
-        jlm.validateUiModule("Form");
-        jlm.validateUiModule("ProblematicForm");
+        jlm.validate("Form");
+        jlm.validate("ProblematicForm");
     }
 
     @Test
@@ -102,7 +102,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testLogo(){
-        jlm.validateUiModule("Logo");
+        jlm.validate("Logo");
         jlm.diagnose("Logo");
         String alt = jlm.getLogoAlt();
         assertNotNull(alt);
@@ -119,7 +119,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testLogicContainer(){
-        jlm.validateUiModule("AbstractForm");
+        jlm.validate("AbstractForm");
         jlm.diagnose("AbstractForm.Form1.Password.Password1.Label");
         jlm.alogon("test", "test");
     }
