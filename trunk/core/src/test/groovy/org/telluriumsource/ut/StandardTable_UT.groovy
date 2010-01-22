@@ -7,7 +7,7 @@ public class StandardTable_UT extends GroovyTestCase {
       table1.defineUi()
       String result = table1.getTableLocator("table1.header[2]")
       assertNotNull(result)
-      assertEquals("//descendant-or-self::table[@id=\"std\"]/thead/tr/td[2]/descendant-or-self::a[contains(text(),\"Filename\")]", result)
+      assertEquals("//descendant-or-self::table[@id=\"std\"]/thead[1]/tr/td[2]/descendant-or-self::a[contains(text(),\"Filename\")]", result)
       result = table1.getTableLocator("table1[1][1][3]")
       assertEquals("//descendant-or-self::table[@id=\"std\"]/tbody[1]/tr[1]/td[3]/descendant-or-self::select[@name=\"can\"]", result)
       result = table1.getTableLocator("table1[1][1][4]")
@@ -21,7 +21,7 @@ public class StandardTable_UT extends GroovyTestCase {
       result = table1.getTableLocator("table1[2][1][2]")
       assertEquals("//descendant-or-self::table[@id=\"std\"]/tbody[2]/tr[1]/td[2]", result)
       result = table1.getTableLocator("table1.footer[2]")
-      assertEquals("//descendant-or-self::table[@id=\"std\"]/tfoot/tr/td[2]", result)
+      assertEquals("//descendant-or-self::table[@id=\"std\"]/tfoot[1]/tr/td[2]", result)
   }
 
   void testTable2(){
