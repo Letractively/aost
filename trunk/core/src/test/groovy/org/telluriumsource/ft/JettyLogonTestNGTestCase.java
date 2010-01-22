@@ -83,8 +83,8 @@ public class JettyLogonTestNGTestCase extends TelluriumMockTestNGTestCase {
 
     @Test
     public void testValidateUiModule(){
-        jlm.validateUiModule("Form");
-        jlm.validateUiModule("ProblematicForm");
+        jlm.validate("Form");
+        jlm.validate("ProblematicForm");
     }
 
     @Test(dataProvider = "config-provider")

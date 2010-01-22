@@ -1189,7 +1189,7 @@ abstract class BaseDslContext extends GlobalDslContext {
     return parseUseUiModuleResponse(out);
   }
 
-  public void validateUiModule(String uid){
+  public void validate(String uid){
     UiModuleValidationResponse response = getUiModuleValidationResult(uid);
     response?.showMe();
   }

@@ -53,7 +53,7 @@ public class GoogleBookTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testValidateUiModule(){
-        gbm.validateUiModule("GoogleBooksList");
+        gbm.validate("GoogleBooksList");
     }
    
     @AfterClass

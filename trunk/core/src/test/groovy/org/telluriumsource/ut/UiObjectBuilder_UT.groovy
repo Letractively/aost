@@ -35,6 +35,7 @@ class UiObjectBuilder_UT extends GroovyTestCase{
     public void testNamespace(){
       SampleUI sample = new SampleUI()
       sample.defineUIWithNamespace()
+      sample.disableCssSelector()
       String xpath = sample.getLocator("SubmitForm.Input")
       assertNotNull(xpath)
       assertEquals("//descendant-or-self::xforms:form/descendant-or-self::xforms:input[@module=\"clinicalExaminationModel\"]", xpath)

@@ -58,7 +58,7 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testLogo(){
-        gsm.validateUiModule("Logo");
+        gsm.validate("Logo");
         gsm.diagnose("Logo");
         String alt = gsm.getLogoAlt();
         assertNotNull(alt);
