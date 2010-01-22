@@ -18,7 +18,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     public static void initUi() {
         registerHtmlBody("JettyLogon");
 
-        jlm = new  JettyLogonModule();
+        jlm = new JettyLogonModule();
         jlm.defineUi();
         useCssSelector(true);
         useTelluriumApi(true);
@@ -49,6 +49,14 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     public void testValidateUiModule(){
         jlm.validate("Form");
         jlm.validate("ProblematicForm");
+    }
+
+    @Test
+    public void testShow(){
+        useCache(true);        
+        jlm.show("Form", 5000);
+        jlm.show("Form.Password", 5000);
+        jlm.show("Form.Username.Input", 5000);
     }
 
     @Test

@@ -23,6 +23,7 @@ class Dispatcher implements Configurable {
     }
   
     public boolean isConnected(){
+      //TODO: sometimes, the selenium client is not singleton ??  Fix it
       if(sc.client == null)
         sc = new SeleniumClient()
       
@@ -45,7 +46,7 @@ class Dispatcher implements Configurable {
       String apiname = context.getApiName();
       Object[] params = Helper.removeFirst(args);
 
-      //sometimes, the selenium client is not singleton ??
+      //TODO: sometimes, the selenium client is not singleton ??  Fix it
       //here reset selenium client to use the new singleton instance which has the client set
       if (sc.client == null || sc.client.getActiveSeleniumSession() == null)
         sc = new SeleniumClient()

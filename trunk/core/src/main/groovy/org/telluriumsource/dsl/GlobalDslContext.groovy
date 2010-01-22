@@ -218,6 +218,12 @@ public class GlobalDslContext {
     Helper.pause(milliseconds);
   }
 
+  public void flush() {
+    //flush out remaining commands in the command bundle before disconnection
+    BundleProcessor processor = BundleProcessor.instance;
+    processor.flush();
+  }
+
   public void enableMacroCmd() {
      Environment.instance.useBundle(true);
   }
