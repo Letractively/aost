@@ -612,8 +612,13 @@ The Standard Table is used for table with multiple "tbody" sections. The Table l
 }}}
 
 To overwrite the default layout, Tellurium core provides the following attributes in the StandardTable object.
+  * _ht_: header tag.
   * _hrt_: header row tag, the default tag is "tr".
   * _hct_: header column tag, the default tag is "th".
+  * _bt_: body tag.
+  * _brt_: body row tag, the default tag is "tr".
+  * _bct_: body column tag, the default tag is "td". 
+  * _ft_: footer tag.
   * _frt_: footer row tag, the default tag is "tr".
   * _fct_: footer column tag, the default tag is "td".
 
