@@ -1033,7 +1033,7 @@ var UiTable = UiContainer.extend({
         }
 
         if (cobj.locator != null) {
-            if ("th".equals(cobj.locator.tag) && cobj.locator.header == null) {
+            if ("th" == cobj.locator.tag && cobj.locator.header == null) {
                 context.skipNext = true;
             }
         }
@@ -1083,7 +1083,7 @@ var UiTable = UiContainer.extend({
         }
 
         if (cobj.locator != null) {
-            if ("td".equals(cobj.locator.tag) && cobj.locator.header == null) {
+            if ("td" == cobj.locator.tag && cobj.locator.header == null) {
                 context.skipNext = true;
             }
         }
@@ -1155,6 +1155,20 @@ var UiStandardTable = UiContainer.extend({
         this.defaultUi = new UiTextBox();
         this.headers = new Hashtable();
         this.footers = new Hashtable();
+        //table header
+        this.ht = "thead";
+        this.hrt = "tr";
+        this.hct = "th";
+
+        //table body
+        this.bt = "tbody";
+        this.brt = "tr";
+        this.bct = "td";
+
+        //table footer
+        this.ft = "tfoot";
+        this.frt = "tr";
+        this.fct = "td";
     },
 
     goToPlace:  function(uiid, uiobj) {
@@ -1476,18 +1490,29 @@ var UiStandardTable = UiContainer.extend({
     },
 
     getCellSelector: function(tbody, row, column) {
-
-        return " > tbody:eq(" + tbody + ") > tr:eq(" + (row-1) + "> td:eq(" + (column-1) + ")";
+        var index = tbody -1;
+        if(this.bt == this.ht){
+            index++;
+        }
+        return " > " + this.bt + ":eq(" + index + ") > " + this.brt + ":eq(" + (row-1) + "> " + this.bct + ":eq(" + (column-1) + ")";
     },
 
     getHeaderSelector: function(column) {
 
-        return " > thead > tr > th:eq(" + (column-1) +")";
+        return " > " + this.ht + ":first > " + this.hrt + " > " + this.hct + ":eq(" + (column-1) +")";
     },
 
     getFootSelector: function(column) {
+/*
+        var index = 0;
+        if(this.ft == this.ht)
+            index++;
+        if(this.ft == this.bt)
+            index++;
+       return " > " this.ft + ":eq(" + index + " > " + this.frt + " > " + this.fct + ":eq(" + (column-1) + ")";
+*/
 
-        return " > tfoot > tr > td:eq(" + (column-1) + ")";
+        return " > " this.ft + ":last " + this.frt + " > " + this.fct + ":eq(" + (column-1) + ")";
     },
 
     walkToHeader: function(context, uiid) {
@@ -1527,7 +1552,7 @@ var UiStandardTable = UiContainer.extend({
         }
 
         if (cobj.locator != null) {
-            if ("th".equals(cobj.locator.tag) && cobj.locator.header == null) {
+            if (this.hct ==  cobj.locator.tag && cobj.locator.header == null) {
                 context.skipNext = true;
             }
         }
@@ -1580,7 +1605,7 @@ var UiStandardTable = UiContainer.extend({
         }
 
         if (cobj.locator != null) {
-            if ("td".equals(cobj.locator.tag) && cobj.locator.header == null) {
+            if (this.fct == cobj.locator.tag && cobj.locator.header == null) {
                 context.skipNext = true;
             }
         }
@@ -1639,7 +1664,7 @@ var UiStandardTable = UiContainer.extend({
         }
 
         if (cobj.locator != null) {
-            if ("td".equals(cobj.locator.tag) && cobj.locator.header == null) {
+            if (this.bct == cobj.locator.tag && cobj.locator.header == null) {
                 context.skipNext = true;
             }
         }
@@ -1816,7 +1841,7 @@ function UiContainerBuilder(){
 
 UiContainerBuilder.prototype.build = function(){
     return new UiContainer();
-}
+};
 
 function UiFormBuilder(){
 
