@@ -88,6 +88,15 @@ class StandardTable extends Container{
 
         return buildJSON() {jso ->
           jso.put(UI_TYPE, "StandardTable")
+          jso.put(HEAD_TAG, this.headTag)
+          jso.put(HEAD_ROW_TAG, this.headRowTag)
+          jso.put(HEAD_COLUMN_TAG, this.headColumnTag)
+          jso.put(BODY_TAG, this.bodyTag)
+          jso.put(BODY_ROW_TAG, this.bodyRowTag)
+          jso.put(BODY_COLUMN_TAG, this.bodyColumnTag)
+          jso.put(FOOT_TAG, this.footTag)
+          jso.put(FOOT_ROW_TAG, this.footRowTag)
+          jso.put(FOOT_COLUMN_TAG, this.footColumnTag)
         }
       }
 
