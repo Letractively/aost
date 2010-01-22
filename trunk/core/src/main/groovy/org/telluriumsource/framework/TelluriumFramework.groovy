@@ -134,8 +134,6 @@ class TelluriumFramework {
 
     connector = new SeleniumConnector()
     telluriumConfigurator.config(connector)
-
-//    connector.connectSeleniumServer()
   }
 
   public void start(CustomConfig customConfig) {
@@ -169,8 +167,6 @@ class TelluriumFramework {
         connector.setProperty("seleniumServerHost", customConfig.getServerHost())
       }
       println i18nBundle.getMessage("TelluriumFramework.OverwriteSeleniumConnectorSettings")
-
-//      connector.connectSeleniumServer()
 
     }
   }
