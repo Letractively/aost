@@ -1010,7 +1010,7 @@ abstract class BaseDslContext extends GlobalDslContext {
     }
   }
 
-  //use jQuery Selector to optimize the list operations
+  //use CSS Selector to optimize the list operations
   int getListSizeBySelector(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreUiModuleCache())
     org.telluriumsource.ui.object.List obj = (org.telluriumsource.ui.object.List) walkToWithException(context, uid)
@@ -1092,6 +1092,35 @@ abstract class BaseDslContext extends GlobalDslContext {
     return false
   }
 
+  //Toggle displaying each of the set of matched elements.
+  //If they are shown, toggle makes them hidden.
+  //If they are hidden, toggle makes them shown
+  void toggle(String uid) {
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+
+    walkToWithException(context, uid).toggle() {loc ->
+      String locator = locatorMapping(context, loc)
+
+      extension.toggle(context, locator)
+    }
+  }
+
+  //delay in milliseconds
+  void show(String uid, long delay) {
+    Environment env = Environment.instance;
+    if(!env.isUseCache()){
+      println(i18nBundle.getMessage("BaseDslContext.ShowRequirement", uid))
+    }else{
+      WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+
+      def obj = walkToWithException(context, uid)
+      if(obj != null){
+        extension.showUi(context, uid, delay)
+        flush()
+      }
+    }
+  }
+
   public void dump(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
     def obj = walkToWithException(context, uid)
@@ -1127,6 +1156,10 @@ abstract class BaseDslContext extends GlobalDslContext {
     return jsa.toString();
   }
 
+  public void validate(String uid) {
+    UiModuleValidationResponse response = getUiModuleValidationResult(uid);
+    response?.showMe();
+  }
 
   public UiModuleValidationResponse getUiModuleValidationResult(String uid){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
@@ -1138,11 +1171,6 @@ abstract class BaseDslContext extends GlobalDslContext {
 
     def out = extension.getValidateUiModule(context, jsa.toString());
     return parseUseUiModuleResponse(out);
-  }
-
-  public void validate(String uid){
-    UiModuleValidationResponse response = getUiModuleValidationResult(uid);
-    response?.showMe();
   }
 
   public DiagnosisResponse getDiagnosisResult(String uid) {
@@ -1277,18 +1305,5 @@ abstract class BaseDslContext extends GlobalDslContext {
     WorkflowContext context = WorkflowContext.getDefaultContext();
 
     return extension.getCookieByJQuery(context, cookieName);
-  }
-
-  //Toggle displaying each of the set of matched elements.
-  //If they are shown, toggle makes them hidden.
-  //If they are hidden, toggle makes them shown 
-  void toggle(String uid){
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
-
-    walkToWithException(context, uid).toggle() {loc ->
-      String locator = locatorMapping(context, loc)
-
-      extension.toggle(context, locator)
-    }
   }
 }

@@ -325,4 +325,9 @@ class CustomSelenium extends DefaultSelenium {
         String[] arr = [];
         return commandProcessor.doCommand("getEngineState", arr);
     }
+
+    public void showUi(String uid, long delay){
+        String[] arr = [uid, delay];
+        commandProcessor.doCommand("showUi", arr);
+    }
 }
