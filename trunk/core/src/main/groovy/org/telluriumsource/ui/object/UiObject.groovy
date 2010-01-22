@@ -239,9 +239,9 @@ abstract class UiObject implements Cloneable{
 
     }
 
-    public String generateHtml(){
+    public String toHTML(){
       if(this.locator != null){
-        return getIndent() + this.locator.generateHtml(true) + "\n";
+        return getIndent() + this.locator.toHTML(true) + "\n";
       }
 
       return "\n";

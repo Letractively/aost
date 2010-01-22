@@ -23,6 +23,9 @@ class Dispatcher implements Configurable {
     }
   
     public boolean isConnected(){
+      if(sc.client == null)
+        sc = new SeleniumClient()
+      
       if(sc.client == null || sc.client.getActiveSeleniumSession() == null)
         return false;
 

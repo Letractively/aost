@@ -1242,16 +1242,16 @@ abstract class BaseDslContext extends GlobalDslContext {
     resp.showMe()
   }
 
-  public String generateHtml(String uid) {
+  public String toHTML(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
     def obj = walkToWithException(context, uid)
-    return obj.generateHtml()
+    return obj.toHTML()
   }
 
-  public String generateHtml() {
+  public String toHTML() {
     StringBuffer sb = new StringBuffer(128)
     ui.registry.each {String key, UiObject val ->
-      sb.append(val.generateHtml())
+      sb.append(val.toHTML())
     }
 
     return sb.toString()

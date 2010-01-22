@@ -82,7 +82,7 @@ public class UiModuleValidationResponse {
         CompositeLocator locator = rd.locator;
         String cl = "<>";
         if(locator != null){
-          cl = locator.generateHtml(true);
+          cl = locator.toHTML(true);
         }
         println i18nBundle.getMessage("UiModuleValidationResponse.CompositeLocator" , cl);
         println i18nBundle.getMessage("UiModuleValidationResponse.Html" , rd.html);

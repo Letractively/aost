@@ -10,6 +10,7 @@ class DslScriptEngine extends DdDslContext {
   private DslTelluriumGroovyTestCase aost = new DslTelluriumGroovyTestCase()
 //    protected TelluriumFramework tellurium
 
+/*
   protected def init() {
     tellurium = TelluriumSupport.addSupport()
     tellurium.start()
@@ -17,7 +18,6 @@ class DslScriptEngine extends DdDslContext {
     aost.connectSeleniumServer();
   }
 
-/*
   protected def connectUrl(String url) {
     aost.connectUrl(url)
   }
@@ -40,10 +40,11 @@ class DslScriptEngine extends DdDslContext {
 
     throw new MissingMethodException(name, DslScriptEngine.class, args)
   }
-  */
+
 
   protected void shutDown() {
     if (tellurium != null)
       tellurium.stop()
   }
+  */
 }

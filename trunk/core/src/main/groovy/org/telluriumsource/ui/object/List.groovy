@@ -225,12 +225,12 @@ class List extends Container {
 
 
   @Override
-  public String generateHtml() {
+  public String toHTML() {
     StringBuffer sb = new StringBuffer(64);
     String ident = getIndent();
     if (this.components.size() > 0) {
       if (this.locator != null)
-        sb.append(ident + this.locator.generateHtml(false)).append("\n");
+        sb.append(ident + this.locator.toHTML(false)).append("\n");
 
       int max = 0;
       boolean hasAll = false;
@@ -256,7 +256,7 @@ class List extends Container {
         UiObject obj = findUiObject(i)
         if(obj == null)
           obj = defaultUi
-        sb.append(obj.generateHtml());
+        sb.append(obj.toHTML());
         if(this.separator != null && this.separator.trim().length() > 0){
           sb.append(ident + "  </${separator}>\n")
         }

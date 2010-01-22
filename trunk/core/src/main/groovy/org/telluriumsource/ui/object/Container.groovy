@@ -16,7 +16,7 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle;
  */
 class Container extends UiObject {
 
-    public static final String GROUP = "group"
+  public static final String GROUP = "group"
     protected IResourceBundle i18nBundle
 
     //if it uses group informtion to infer its locator
@@ -115,21 +115,21 @@ class Container extends UiObject {
     }
 
     @Override
-    public String generateHtml(){
+    public String toHTML(){
       StringBuffer sb = new StringBuffer(64);
       String indent = getIndent();
 
       if(this.components.size() > 0){
         if(this.locator != null)
-          sb.append(indent + this.locator.generateHtml(false)).append("\n");
+          sb.append(indent + this.locator.toHTML(false)).append("\n");
         this.components.each {String uid, UiObject obj ->
-          sb.append(obj.generateHtml());
+          sb.append(obj.toHTML());
         }
         if(this.locator != null)
           sb.append(indent + this.locator.generateCloseTag()).append("\n");
       }else{
         if(this.locator != null){
-          sb.append(this.locator.generateHtml(true)).append("\n")
+          sb.append(this.locator.toHTML(true)).append("\n")
         }
       }
 

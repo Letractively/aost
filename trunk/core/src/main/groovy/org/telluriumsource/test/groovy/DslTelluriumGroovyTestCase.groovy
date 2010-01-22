@@ -1,11 +1,13 @@
 package org.telluriumsource.test.groovy
 
 import org.telluriumsource.component.connector.SeleniumConnector
+import org.telluriumsource.framework.bootstrap.TelluriumSupport
 
 /**
  * Used by the DSL Script Engine
  *
- * User: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
+ * 
  */
 class DslTelluriumGroovyTestCase extends BaseTelluriumGroovyTestCase{
     
@@ -20,5 +22,17 @@ class DslTelluriumGroovyTestCase extends BaseTelluriumGroovyTestCase{
 
 
     public void testAlwaysSucceeds() {
+    }
+
+    public void init(){
+        tellurium = TelluriumSupport.addSupport()
+        tellurium.start(customConfig)
+        conn = tellurium.connector
+    }
+
+
+    public void shutDown(){
+        if (tellurium != null)
+          tellurium.stop()  
     }
 }
