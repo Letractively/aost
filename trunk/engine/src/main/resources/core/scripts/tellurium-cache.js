@@ -225,12 +225,54 @@ TelluriumCache.prototype.relocateUiModule = function(uid){
     }
 };
 
+TelluriumCache.prototype.getIndexedTree = function(uid){
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var elist = new Array();
+
+    if(uiid.size() > 0){
+        var first = uiid.peek();
+        var uim = this.sCache.get(first);
+        fbLog("Found cached UI module " + first, uim);
+        if(uim != null){
+            var elems = uim.indices.valSet();
+            elist = elist.concat(elems);
+        }
+    }
+
+    fbLog("Get Indexed Tree for " + uid, elist);
+    return elist;
+};
+
+TelluriumCache.prototype.getSubtree = function(uid){
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var elist = new Array();
+
+    if(uiid.size() > 0){
+        var first = uiid.peek();
+        var uim = this.sCache.get(first);
+        fbLog("Found cached UI module " + first, uim);
+        if(uim != null){
+            var context = new WorkflowContext();
+            var obj = uim.walkTo(context, uiid);
+            fbLog("After walkTo, found object ", obj);
+            fbLog("After walkTo, context ", context);
+            if (obj != null) {
+
+            }
+            
+        }
+    }
+
+    return elist;
+};
+
 TelluriumCache.prototype.getCachedUiElement = function(uid){
 
     var uiid = new Uiid();
     uiid.convertToUiid(uid);
-    //TODO: seems the order of the generated Uiid is not correct, need to fix it. For the timebeing, reverse the queue.
-//    uiid.reverse();
+
     if(uiid.size() > 0){
         var first = uiid.peek();
         var uim = this.sCache.get(first);
