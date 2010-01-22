@@ -364,42 +364,66 @@ class StandardTable extends Container{
     }
 
     protected String getCellLocator(int tbody, int row, int column) {
+        int index = tbody
+        if(this.bodyRowTag.equals(this.headTag)){
+          index++;
+        }
 
-        return "/${this.bodyTag}[${tbody}]/${this.bodyRowTag}[${row}]/${this.bodyColumnTag}[${column}]"
+        return "/${this.bodyTag}[${index}]/${this.bodyRowTag}[${row}]/${this.bodyColumnTag}[${column}]"
     }
 
     protected String getCellSelector(int tbody, int row, int column) {
+        int index = tbody - 1
+        if(this.bodyRowTag.equals(this.headTag)){
+          index++;
+        }
 
-        return " > ${this.bodyTag}:eq(${tbody}) > ${this.bodyRowTag}:eq(${row-1}) > ${this.bodyColumnTag}:eq(${column-1})"
+        return " > ${this.bodyTag}:eq(${index}) > ${this.bodyRowTag}:eq(${row-1}) > ${this.bodyColumnTag}:eq(${column-1})"
     }
 
     protected String getHeaderLocator(int column) {
 
 //        return "/thead/tr/td[${column}]"
-        return "/${this.headTag}/${this.headRowTag}/${this.headColumnTag}[${column}]"
+        return "/${this.headTag}[1]/${this.headRowTag}/${this.headColumnTag}[${column}]"
     }
 
     protected String getHeaderSelector(int column) {
 
 //        return " > thread > tr > td:eq(${column-1})"
-        return " > ${this.headTag} > ${this.headRowTag} > ${this.headColumnTag}:eq(${column-1})"
+        return " > ${this.headTag}:eq(0) > ${this.headRowTag} > ${this.headColumnTag}:eq(${column-1})"
     }
 
     protected String getFootLocator(int column) {
+        int count = 1;
+        if(this.footTag.equals(this.headTag))
+          count++
+        if(this.footTag.equals(this.bodyTag))
+          count++
 
-        return "/${this.footTag}/${this.footRowTag}/${this.footColumnTag}[${column}]"
+        return "/${this.footTag}[${count}]/${this.footRowTag}/${this.footColumnTag}[${column}]"
     }
 
     protected String getFootSelector(int column) {
+        int count = 0;
+        if(this.footTag.equals(this.headTag))
+          count++
+        if(this.footTag.equals(this.bodyTag))
+          count++
 
-        return " > ${this.footTag} > ${this.footRowTag} > ${this.footColumnTag}:eq(${column-1})"
+        return " > ${this.footTag}:eq(${count}) > ${this.footRowTag} > ${this.footColumnTag}:eq(${column-1})"
     }
 
     String[] getAllTableCellText(Closure c) {
+
         return c(this.locator, " > ${this.bodyTag} > ${this.bodyRowTag} > ${this.bodyColumnTag}")
     }
 
-    String[] getAllTableCellTextForTbody(int index, Closure c) {
+    String[] getAllTableCellTextForTbody(int tbody, Closure c) {
+        int index = tbody
+        if(this.bodyRowTag.equals(this.headTag)){
+          index++;
+        }
+
         return c(this.locator, " > ${this.bodyTag}:eq(${index-1}) > ${this.bodyRowTag} > ${this.bodyColumnTag}")
     }
 
@@ -407,7 +431,7 @@ class StandardTable extends Container{
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
 //        String xpath = rl + "/thead/tr/td"
-        String xpath = rl + "/${this.headTag}/${this.headRowTag}/${this.headColumnTag}"
+        String xpath = rl + "/${this.headTag}[1]/${this.headRowTag}/${this.headColumnTag}"
         int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return columnum
@@ -417,7 +441,13 @@ class StandardTable extends Container{
     int getTableFootColumnNumByXPath(Closure c) {
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
-        String xpath = rl + "/${this.footTag}/${this.footRowTag}/${this.footColumnTag}"
+        int count = 1;
+        if(this.footTag.equals(this.headTag))
+          count++
+        if(this.footTag.equals(this.bodyTag))
+          count++
+
+        String xpath = rl + "/${this.footTag}[${count}]/${this.footRowTag}/${this.footColumnTag}"
         int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return columnum
@@ -432,6 +462,7 @@ class StandardTable extends Container{
         if(this.headTag.equals(this.bodyRowTag)){
           index++;
         }
+      
         String xpath = rl + "/${this.bodyTag}[${index}]/${this.bodyRowTag}/${this.bodyColumnTag}[1]"
         int rownum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
