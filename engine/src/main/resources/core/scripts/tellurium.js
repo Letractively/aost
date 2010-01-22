@@ -6,36 +6,18 @@ var getEvent = function(name, key){
 
 var tellurium = null;
 
+
 teJQuery(document).ready(function() {
     tellurium = new Tellurium();
     tellurium.initialize();
 
-/*
-    fbLog("Add jquery locate strategy", selenium);
-    var strategyFunction = tellurium.locateElementByCSSSelector(locator, inDocument, inWindow);
-    //selenium.locateByJQuery;
-
-    var safeStrategyFunction = function() {
-        try {
-            return strategyFunction.apply(selenium, arguments);
-        } catch (ex) {
-            throw new SeleniumError("Error executing strategy function jquery" + ": " + extractExceptionMessage(ex));
-        }
-    }
-    selenium.browserbot.locationStrategies["jquery"] = safeStrategyFunction;*/
-
-/*  //seems not really work
-    selenium.doAddLocationStrategy("jquery", "return tellurium.locateElementByCSSSelector(locator, inDocument, inWindow);");
-    fbLog("Add jquery locate strategy", selenium);*/
 });
 
 
-/*
-Selenium.prototype.locateByJQuery = function(locator, inDocument, inWindow){
-    return tellurium.locateElementByCSSSelector(locator, inDocument, inWindow);
-};
-*/
-
+function initTellurium(){
+    tellurium = new Tellurium();
+    tellurium.initialize();
+}
 
 //add custom jQuery Selector :te_text()
 //
