@@ -34,7 +34,8 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testJsonfyUiModule(){
-        String json = jlm.jsonify("Form");
+//        String json = jlm.jsonify("Form");
+        String json = jlm.toJSON("Form");
         System.out.println(json);
     }
 
