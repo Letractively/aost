@@ -3,7 +3,7 @@
 
 == Prerequisites ==
 
-  * Download IntelliJ IDEA Community edition
+  * Download IntelliJ IDEA Community edition. Its free and its got the best Groovy support.
    {{{
    http://www.jetbrains.com/idea/download/
    }}}
