@@ -210,13 +210,6 @@ abstract class BaseDslContext extends GlobalDslContext {
     }
   }
 
-/*  def type(String uid, String input) {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
-    walkToWithException(context, uid)?.type(input) {loc, String[] events ->
-      String locator = locatorMapping(context, loc)
-      eventHandler.type(context, locator, input, events)
-    }
-  }*/
 
   def keyType(String uid, def input) {
     String str = (input==null) ? "" : input.toString();
@@ -227,13 +220,6 @@ abstract class BaseDslContext extends GlobalDslContext {
     }
   }
 
-/*  def keyType(String uid, String input) {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
-    walkToWithException(context, uid)?.keyType(input) {loc, String[] events ->
-      String locator = locatorMapping(context, loc)
-      eventHandler.keyType(context, locator, input, events)
-    }
-  }*/
 
   def typeAndReturn(String uid, def input) {
     String str = (input==null) ? "" : input.toString();
@@ -244,13 +230,6 @@ abstract class BaseDslContext extends GlobalDslContext {
     }
   }
 
-/*  def typeAndReturn(String uid, String input) {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
-    walkToWithException(context, uid)?.typeAndReturn(input) {loc, String[] events ->
-      String locator = locatorMapping(context, loc)
-      eventHandler.typeAndReturn(context, locator, input, events)
-    }
-  }*/
 
   def clearText(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
@@ -1051,34 +1030,6 @@ abstract class BaseDslContext extends GlobalDslContext {
 
     return getListSizeByXPath(uid)
   }
-
-/*  def boolean isDisabledByXPath(String uid) {
-    WorkflowContext context = WorkflowContext.getDefaultContext()
-
-    return walkToWithException(context, uid).isDisabled() {loc ->
-//      String locator = locatorMapping(context, loc) + "/self::node()[@disabled]"
-//      accessor.isElementPresent(context, locator)
-      String locator = locatorMapping(context, loc);
-      extension.isDisabled(context, locator);
-    }
-  }
-
-  def boolean isDisabledBySelector(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
-
-    return walkToWithException(context, uid).isDisabled() {loc ->
-      String locator = locatorMapping(context, loc)
-
-      extension.isDisabled(context, locator)
-    }
-  }
-
-  def boolean isDisabled(String uid) {
-    if (this.exploreCssSelector())
-      return isDisabledBySelector(uid)
-
-    return isDisabledByXPath(uid)
-  }*/
   
   def boolean isDisabled(String uid) {
      WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
@@ -1217,13 +1168,13 @@ abstract class BaseDslContext extends GlobalDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
     walkToWithException(context, uid)?.diagnose() {loc ->
       String locator = locatorMapping(context, loc)
-      String ploc = null
+      String ploc
       if (this.exploreCssSelector()) {
         ploc = JQueryProcessor.popLast(locator)
       } else {
         ploc = XPathProcessor.popXPath(locator)
       }
-//      DiagnosisOption options = new DiagnosisOption()
+
       DiagnosisRequest request = new DiagnosisRequest(uid, ploc, loc, options)
 
       def out = extension.getDiagnosisResponse(context, locator, request.toJson())
