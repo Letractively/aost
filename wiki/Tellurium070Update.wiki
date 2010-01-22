@@ -1158,6 +1158,10 @@ Once the UI module is cached. All locating procedure will be on the DOM sub-tree
 
 Again, this feature is still under developement. Please don't use it for the timebeing.
  
+== jQuery ==
+
+The jQuery in Engine has been upgraded from 1.3.2 to 1.4.
+
 = Changes in Maven Build =
 
 Our Maven repository is moved and the Maven Repositories are changed as well.
