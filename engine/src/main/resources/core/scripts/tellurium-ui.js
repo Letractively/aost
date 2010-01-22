@@ -1503,16 +1503,36 @@ var UiStandardTable = UiContainer.extend({
     },
 
     getFootSelector: function(column) {
-/*
-        var index = 0;
-        if(this.ft == this.ht)
-            index++;
-        if(this.ft == this.bt)
-            index++;
-       return " > " this.ft + ":eq(" + index + " > " + this.frt + " > " + this.fct + ":eq(" + (column-1) + ")";
-*/
 
         return " > " this.ft + ":last " + this.frt + " > " + this.fct + ":eq(" + (column-1) + ")";
+    },
+
+    getAllBodyCell: function(context, worker){
+        if (context.domRef != null) {
+            var $found = teJQuery(context.domRef).find(this.bt);
+            var bodylist = new Array();
+
+            if ($found.size() >0) {
+                //If the header tag is the same as the body tag
+                if (this.ht != this.bt) {
+                    bodylist.push($found.first());
+                }
+                for (var i = 1; i < $found.size() - 1; i++) {
+                    bodylist.push($found.eq(i));
+                }
+                //check the footer tag
+                if (this.bt != this.ft) {
+                    bodylist.push($found.last());
+                }
+
+                var elements = teJQuery(bodylist).find(this.brt + " > " + this.bct);
+                if(elements != null && elements.length > 0){
+                    return worker.work(context, elements);
+                }
+            }
+        }
+        
+        return null;
     },
 
     walkToHeader: function(context, uiid) {
@@ -1890,6 +1910,16 @@ function UiWindowBuilder(){
 UiWindowBuilder.prototype.build = function(){
     return new UiWindow();
 };
+
+//base UI Worker
+var UiWorker = Class.extend({
+     init: function() {
+
+     },
+     work: function(context, elements){
+
+     }
+});
 
 function UiModule(){
     //top level UI object

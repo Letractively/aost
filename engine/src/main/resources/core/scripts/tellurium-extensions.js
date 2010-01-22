@@ -327,6 +327,10 @@ Selenium.prototype.getDiagnosisResponse = function(locator, req){
 };
 
 Selenium.prototype.getBundleResponse = function(bundle){
+    if(tellurium == null){
+        initTellurium();
+    }
+    
     tellurium.parseMacroCmd(bundle);
 //    return tellurium.processMacroCmd();
     return tellurium.dispatchMacroCmd();
