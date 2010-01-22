@@ -19,12 +19,34 @@ class StandardTableBuilder extends UiObjectBuilder{
        df.put(TAG, StandardTable.TAG)
        StandardTable table = this.internBuild(new StandardTable(), map, df)
 
+       String ht = map.get(StandardTable.HEAD_TAG)
+       if(ht != null){
+         table.headTag = ht
+       }
        String hrt = map.get(StandardTable.HEAD_ROW_TAG)
        if(hrt != null)
           table.headRowTag = hrt
        String hct = map.get(StandardTable.HEAD_COLUMN_TAG)
        if(hct != null)
           table.headColumnTag = hct
+
+       String bt = map.get(StandardTable.BODY_TAG)
+       if(bt != null){
+         table.bodyTag = bt
+       }
+       String brt = map.get(StandardTable.BODY_ROW_TAG)
+       if(brt != null){
+         table.bodyRowTag = brt
+       }
+       String bct = map.get(StandardTable.BODY_COLUMN_TAG)
+       if(bct != null){
+         table.bodyColumnTag = bct
+       }
+     
+       String ft = map.get(StandardTable.FOOT_TAG)
+       if(ft != null){
+         table.footTag = ft
+       }
        String frt = map.get(StandardTable.FOOT_ROW_TAG)
        if(frt != null){
           table.footRowTag = frt
