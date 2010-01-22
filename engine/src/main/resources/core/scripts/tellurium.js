@@ -398,12 +398,14 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("useTeApi", false, "VOID");
     this.registerApi("isUiModuleCached", false, "BOOLEAN");
     this.registerApi("toggle", true, "VOID");
+    this.registerApi("showUi", false, "VOID");
     this.registerApi("deleteAllCookiesByJQuery", false, "VOID");
     this.registerApi("deletelCookieByJQuery", false, "VOID");
     this.registerApi("setCookieByJQuery", false, "VOID");
     this.registerApi("getCookieByJQuery", false, "STRING");
     this.registerApi("updateEngineState", false, "VOID");
     this.registerApi("getEngineState", false, "STRING");
+    
 };
 
 Tellurium.prototype.useTeApi = function(isUse){
@@ -457,6 +459,11 @@ function validateDomRef(domref){
         return false;
     }
 }
+
+Tellurium.prototype.getUiElementAndDescendant = function(uid){
+    //TODO: need to change it to getSubtree(uid) after implement that
+    return this.cache.getIndexedTree(uid);
+};
 
 Tellurium.prototype.getUiElementFromCache = function(uid){
 

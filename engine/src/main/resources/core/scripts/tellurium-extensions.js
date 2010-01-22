@@ -397,3 +397,45 @@ Selenium.prototype.getEngineState = function(){
 
     return JSON.stringify(state);
 };
+
+Selenium.prototype.doShowUi = function(uid, delay){
+/*    var elist = tellurium.getUiElementAndDescendant(uid);
+    if(elist != null && elist.length > 0){
+        var $es = teJQuery(elist);
+        $es.each(function() {
+            var $te = teJQuery(this);
+            $te.data("te-color-bak", $te.css("color"));
+        });
+        $es.css("color", "read");
+        $es.delay(delay);
+        $es.each(function() {
+            //back to the original color
+            var $te = teJQuery(this);
+            $te.css("color", $te.data("te-color-bak"));
+            $te.removeData("te-color-bak");
+        });
+    }*/
+    var elist = tellurium.getUiElementAndDescendant(uid);
+
+    if(elist != null && elist.length > 0){
+        var $es = teJQuery(elist);
+        $es.each(function() {
+            var $te = teJQuery(this);
+            $te.data("te-color-bak", $te.css("background-color"));
+        });
+        $es.css("background-color", "red");
+        fbLog("Set elements to red for " + uid, $es.get());
+//        $es.delay(delay);
+//        $es.slideDown().delay(delay).fadeIn();
+//        $es.first().slideUp(300).delay(800).fadeIn(400);
+        $es.first().slideUp(100).slideDown(100).delay(delay).fadeOut(100).fadeIn(100);
+        fbLog("Delayed for " + delay, this);
+        $es.each(function() {
+            //back to the original color
+            var $te = teJQuery(this);
+            $te.css("background-color", $te.data("te-color-bak"));
+            $te.removeData("te-color-bak");
+        });
+        fbLog("Elements' color restored to original ones for " + uid, $es.get());
+    }
+};

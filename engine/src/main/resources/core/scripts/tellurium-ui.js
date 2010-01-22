@@ -1176,7 +1176,7 @@ var UiStandardTable = UiContainer.extend({
                     uiobj.parent = this;
                     this.headers.push(cuid, uiobj);
                 }
-            }else if(cuid == "foot"){
+            }else if(cuid == "footer"){
                 uiid.pop();
                 cuid = uiid.pop();
                 child = this.footers[cuid];
@@ -1482,7 +1482,7 @@ var UiStandardTable = UiContainer.extend({
 
     getHeaderSelector: function(column) {
 
-        return " > thread > tr > th:eq(" + (column-1) +")";
+        return " > thead > tr > th:eq(" + (column-1) +")";
     },
 
     getFootSelector: function(column) {
