@@ -1494,7 +1494,7 @@ var UiStandardTable = UiContainer.extend({
         if(this.bt == this.ht){
             index++;
         }
-        return " > " + this.bt + ":eq(" + index + ") > " + this.brt + ":eq(" + (row-1) + "> " + this.bct + ":eq(" + (column-1) + ")";
+        return " > " + this.bt + ":eq(" + index + ") > " + this.brt + ":eq(" + (row-1) + ") > " + this.bct + ":eq(" + (column-1) + ")";
     },
 
     getHeaderSelector: function(column) {
