@@ -1,8 +1,5 @@
 package org.telluriumsource.dsl
 
-import org.json.simple.JSONObject;
-import org.stringtree.json.JSONReader;
-
 
 import org.telluriumsource.exception.UiObjectNotFoundException;
 
@@ -10,7 +7,6 @@ import org.telluriumsource.exception.UiObjectNotFoundException;
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.ui.locator.JQueryOptimizer;
 import org.telluriumsource.ui.locator.LocatorProcessor;
-import org.telluriumsource.ui.locator.MetaCmd;
 import org.telluriumsource.ui.object.StandardTable;
 
 import org.telluriumsource.ui.object.UiObject;
@@ -22,7 +18,6 @@ import org.telluriumsource.entity.DiagnosisOption
 import org.telluriumsource.entity.DiagnosisRequest
 import org.telluriumsource.entity.DiagnosisResponse
 import org.telluriumsource.entity.UiModuleValidationResponse
-import org.telluriumsource.entity.EngineState;
 
 /**
  *
@@ -739,8 +734,10 @@ abstract class BaseDslContext extends GlobalDslContext {
   String[] getAllTableCellText(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreUiModuleCache())
     if(this.exploreUiModuleCache()){
-      return walkToWithException(context, uid).getAllTableCellText(){loc, cell ->
+      def obj = walkToWithException(context, uid)
+      if(obj != null && obj.respondsTo("getAllTableCellText")){
         def out = extension.getAllTableBodyText(context, uid)
+        
         return (ArrayList) parseSeleniumJSONReturnValue(out)
       }
     } else {

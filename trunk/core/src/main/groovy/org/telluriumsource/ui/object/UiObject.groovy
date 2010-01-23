@@ -158,6 +158,18 @@ abstract class UiObject implements Cloneable{
       return c(locator)  
     }
 
+    public boolean respondsTo(String name){
+      java.util.List<MetaMethod> list = this.metaClass.respondsTo(this, name)
+
+      return (list != null && list.size() > 0)
+    }
+
+    public boolean respondsTo(String name,  Object[] argTypes){
+      List<MetaMethod> list = this.metaClass.respondsTo(this, name, argTypes)
+
+      return (list != null && list.size() > 0)
+    }
+
     def methodMissing(String name, args) {
          //check if the click action is used and if the object can respond to the "Click" event
          //if it is, then call the "click" method, i.e., the innerClick method here
