@@ -10,14 +10,8 @@ var tellurium = null;
 teJQuery(document).ready(function() {
     tellurium = new Tellurium();
     tellurium.initialize();
-
+    fbLog("Tellurium initialized after document ready", tellurium);
 });
-
-
-function initTellurium(){
-    tellurium = new Tellurium();
-    tellurium.initialize();
-}
 
 //add custom jQuery Selector :te_text()
 //

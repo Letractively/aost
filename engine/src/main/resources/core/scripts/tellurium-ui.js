@@ -1504,7 +1504,7 @@ var UiStandardTable = UiContainer.extend({
 
     getFootSelector: function(column) {
 
-        return " > " this.ft + ":last " + this.frt + " > " + this.fct + ":eq(" + (column-1) + ")";
+        return " > " + this.ft + ":last " + this.frt + " > " + this.fct + ":eq(" + (column-1) + ")";
     },
 
     getAllBodyCell: function(context, worker){
