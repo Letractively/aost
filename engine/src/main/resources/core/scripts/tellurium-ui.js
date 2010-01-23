@@ -216,7 +216,7 @@ var UiObject = Class.extend({
 
         var ouid = uiid.pop();
         objectCopy(this, uiobj);
-        if (uiid.length > 0) {
+        if (uiid.size() > 0) {
             alert("Wrong uiid " + ouid);
         }
     },
@@ -779,7 +779,7 @@ var UiTable = UiContainer.extend({
         if (this.uid == null)
             objectCopy(this, uiobj);
 
-        if (uiid.length > 0) {
+        if (uiid.size() > 0) {
             var cuid = uiid.peek();
             var child = null;
             if(cuid == "header"){
@@ -1177,7 +1177,7 @@ var UiStandardTable = UiContainer.extend({
         if (this.uid == null)
             objectCopy(this, uiobj);
 
-        if (uiid.length > 0) {
+        if (uiid.size() > 0) {
             var cuid = uiid.peek();
             var child = null;
             if(cuid == "header"){
@@ -1188,7 +1188,7 @@ var UiStandardTable = UiContainer.extend({
                     child.goToPlace(uiid, uiobj);
                 } else {
                     uiobj.parent = this;
-                    this.headers.push(cuid, uiobj);
+                    this.headers.put(cuid, uiobj);
                 }
             }else if(cuid == "footer"){
                 uiid.pop();
@@ -1198,7 +1198,7 @@ var UiStandardTable = UiContainer.extend({
                     child.goToPlace(uiid, uiobj);
                 } else {
                     uiobj.parent = this;
-                    this.footers.push(cuid, uiobj);
+                    this.footers.put(cuid, uiobj);
                 }
             }else{
                 cuid = uiid.pop();
@@ -1207,7 +1207,7 @@ var UiStandardTable = UiContainer.extend({
                     child.goToPlace(uiid, uiobj);
                 } else {
                     uiobj.parent = this;
-                    this.components.push(cuid, uiobj);
+                    this.components.put(cuid, uiobj);
                 }
             }
         }
