@@ -39,9 +39,12 @@ TelluriumTestCase.prototype.testGeneralTableModule = function(){
     alg.santa(uim, dom);
     var context = new WorkflowContext();
     var uiid = new Uiid();
-    var uinput = uim.walkTo(context, uiid.convertToUiid("GT[1][1]"));
-    var pinput = uim.walkTo(context, uiid.convertToUiid("GT[1][2].Input"));
-    var smt = uim.walkTo(context, uiid.convertToUiid("GT[1][2].Some.Link"));
+    var tb = uim.walkTo(context, uiid.convertToUiid("GT"));
+    var worker = new TextUiWorker();
+    var out = tb.getAllBodyCell(context, worker);
+    var uinput = uim.walkTo(new WorkflowContext(), uiid.convertToUiid("GT[1][1]"));
+    var pinput = uim.walkTo(new WorkflowContext(), uiid.convertToUiid("GT[1][2].Input"));
+    var smt = uim.walkTo(new WorkflowContext(), uiid.convertToUiid("GT[1][2].Some.Link"));
 };
 
 TelluriumTestCase.prototype.testTelluriumIssueModule = function(){
