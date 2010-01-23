@@ -738,17 +738,24 @@ abstract class BaseDslContext extends GlobalDslContext {
   //This only works for jQuery selector
   String[] getAllTableCellText(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreUiModuleCache())
-    return walkToWithException(context, uid)?.getAllTableCellText() {loc, cell ->
-      //for bulk data, the selector will not return a unique element
-      context.updateUniqueForMetaCmd(false)
-      //force not to cache the selector
-      context.updateCacheableForMetaCmd(false)
-      String locator = locatorMappingWithOption(context, loc, cell)
+    if(this.exploreUiModuleCache()){
+      return walkToWithException(context, uid).getAllTableCellText(){loc, cell ->
+        def out = extension.getAllTableBodyText(context, uid)
+        return (ArrayList) parseSeleniumJSONReturnValue(out)
+      }
+    } else {
+      return walkToWithException(context, uid)?.getAllTableCellText() {loc, cell ->
+        //for bulk data, the selector will not return a unique element
+        context.updateUniqueForMetaCmd(false)
+        //force not to cache the selector
+        context.updateCacheableForMetaCmd(false)
+        String locator = locatorMappingWithOption(context, loc, cell)
 //      locator = locator + cell
 
-      def out = extension.getAllText(context, locator)
+        def out = extension.getAllText(context, locator)
 
-      return (ArrayList) parseSeleniumJSONReturnValue(out)
+        return (ArrayList) parseSeleniumJSONReturnValue(out)
+      }
     }
   }
 

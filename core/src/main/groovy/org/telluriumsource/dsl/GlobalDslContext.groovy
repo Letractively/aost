@@ -47,6 +47,10 @@ public class GlobalDslContext {
     return out;
   }
 
+  protected Object parseSeleniumJSONReturnValue(List out) {
+    return out;
+  }
+
   public EngineState getEngineState(){
     WorkflowContext context = WorkflowContext.getDefaultContext();
     String out = extension.getEngineState(context);

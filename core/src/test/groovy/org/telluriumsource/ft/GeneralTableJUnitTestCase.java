@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Test StandardTable with more general layout
@@ -59,6 +60,18 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
         System.out.println(gtm.getText("GT.header[2]"));
         System.out.println(gtm.getText("GT[1][1]"));
         gtm.work("Tellurium jQuery");
+    }
+
+    @Test
+    public void testGetTableText(){
+        useCache(true);
+        useTelluriumApi(true);
+        String[] texts = gtm.getAllTableCellText("GT");
+        assertNotNull(texts);
+        System.out.println("Get Table body text for GT");
+        for(String text: texts){
+            System.out.println(text);
+        }
     }
 
     @AfterClass
