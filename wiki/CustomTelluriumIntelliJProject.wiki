@@ -1,4 +1,6 @@
 #labels Phase-Deploy,Phase-Support
+<wiki:toc max_depth="5" />
+
 = How to create your own Tellurium testing project with IntelliJ 9.0 Community Edition=
 
 == Prerequisites ==
@@ -75,3 +77,17 @@ http://tellurium-users.googlegroups.com/web/test_runner.png?gsc=IXBBMgsAAAA7CVLr
 http://tellurium-users.googlegroups.com/web/test_passed.png?gsc=IXBBMgsAAAA7CVLrPDGRSyHvhacFT88S
 
 The test will result as passed.
+
+= Summary ==
+
+This wiki guide is for Ant users to manually create a Tellurium project. For Maven users, you can simply use [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_Maven_Archetypes Tellurium archetypes] to create a Tellurium project and then load them up to IntelliJ IDEA as a Maven project. Apart from that, you can also use Tellurium reference project as a template project instead of creating everything from scratch. 
+
+= Resources = 
+
+  * [http://twitter.com/TelluriumSource Tellurium on Twitter]
+  * [http://www.slideshare.net/John.Jian.Fang/tellurium-at-rich-web-experience2009-2806967 Tellurium at Rich Web Experience 2009 by Jian Fang and Vivek Mongolu]
+  * [http://www.slideshare.net/John.Jian.Fang/tellurium-060-user-guide Tellurium 0.6.0 User Guide]
+  * [http://vimeo.com/8601173 Tellurium video tutorial by Vivek Mongolu]
+  * [http://www.slideshare.net/John.Jian.Fang/telluriumanewapproachforwebtesting Tellurium - A New Approach For Web Testing]
+  * [http://vimeo.com/8600410 10 Minutes to Tellurium]
+  * [http://aost.googlecode.com/files/santa-algorithm-demo.tar.gz Tellurium 0.7.0 Demo Project]
