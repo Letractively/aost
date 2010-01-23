@@ -785,7 +785,7 @@ var UiTable = UiContainer.extend({
             if(cuid == "header"){
                 uiid.pop();
                 cuid = uiid.pop();
-                child = this.headers[cuid];
+                child = this.headers.get(cuid);
                 if (child != null) {
                     child.goToPlace(uiid, uiobj);
                 } else {
@@ -794,7 +794,7 @@ var UiTable = UiContainer.extend({
                 }
             }else{
                 cuid = uiid.pop();
-                child = this.components[cuid];
+                child = this.components.get(cuid);
                 if (child != null) {
                     child.goToPlace(uiid, uiobj);
                 } else {
@@ -1183,7 +1183,7 @@ var UiStandardTable = UiContainer.extend({
             if(cuid == "header"){
                 uiid.pop();
                 cuid = uiid.pop();
-                child = this.headers[cuid];
+                child = this.headers.get(cuid);
                 if (child != null) {
                     child.goToPlace(uiid, uiobj);
                 } else {
@@ -1193,7 +1193,7 @@ var UiStandardTable = UiContainer.extend({
             }else if(cuid == "footer"){
                 uiid.pop();
                 cuid = uiid.pop();
-                child = this.footers[cuid];
+                child = this.footers.get(cuid);
                 if (child != null) {
                     child.goToPlace(uiid, uiobj);
                 } else {
@@ -1202,7 +1202,7 @@ var UiStandardTable = UiContainer.extend({
                 }
             }else{
                 cuid = uiid.pop();
-                child = this.components[cuid];
+                child = this.components.get(cuid);
                 if (child != null) {
                     child.goToPlace(uiid, uiobj);
                 } else {
@@ -1731,10 +1731,10 @@ var UiStandardTable = UiContainer.extend({
         } else {
             context.skipNext = false;
         }
-        fbLog("Processing the List itself and got the context dom Referece", context.domRef);
+        fbLog("Processing the StandardTable itself and got the context dom Referece", context.domRef);
 
         if (uiid.size() < 1)
-        return this;
+            return this;
 
         var child = uiid.peek();
 
