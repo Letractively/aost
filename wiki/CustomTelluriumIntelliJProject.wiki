@@ -1,3 +1,4 @@
+#summary How to create your own Tellurium testing project with IntelliJ 9.0 Community Edition.
 #labels Phase-Deploy,Phase-Support
 <wiki:toc max_depth="5" />
 
