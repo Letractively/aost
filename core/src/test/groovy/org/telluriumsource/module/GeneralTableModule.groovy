@@ -33,7 +33,7 @@ public class GeneralTableModule extends DslContext {
   }
 
 public static String HTML_BODY = """
-<table id="xyz">
+table id="xyz">
 <tbody>
  <tr>
     <th>one</th>
@@ -44,16 +44,19 @@ public static String HTML_BODY = """
 
 <tbody>
  <tr>
-  <td><div class="abc">some text</div></td>
+  <td><div class="abc">Profile</div></td>
   <td><input class="123" /><br/>
-         <div class="someclass">
-        <span class="x">some text</span><br/>
-        <a href="http://code.google.com/p/aost">Tellurium</a></div>
+        <div class="someclass">
+            <span class="x">Framework</span><br/>
+            <a href="http://code.google.com/p/aost">Tellurium</a>
+        </div>
+   </td>
+   <td>
+       Hello World!
    </td>
  </tr>
 
 </tbody>
 </table>
-
   """
 }
