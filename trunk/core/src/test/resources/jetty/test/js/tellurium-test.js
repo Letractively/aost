@@ -29,6 +29,21 @@ TelluriumTestCase.prototype.testPrie = function(){
     var label = trie.getChildrenData("Form.Username.Submit");
 };
 
+TelluriumTestCase.prototype.testGeneralTableModule = function(){
+    var json = [{"obj":{"uid":"GT","hrt":"tr","locator":{"tag":"table","attributes":{"id":"xyz"}},"ht":"tbody","bct":"td","frt":"tr","hct":"th","ft":"tfoot","brt":"tr","uiType":"StandardTable","fct":"td","bt":"tbody"},"key":"GT"},{"obj":{"uid":"header: all","locator":{},"uiType":"TextBox"},"key":"GT._ALL"},{"obj":{"uid":"row: 1, column: 1","locator":{"tag":"div","attributes":{"class":"abc"}},"uiType":"TextBox"},"key":"GT._1_1_1"},{"obj":{"uid":"row: 1, column: 2","locator":null,"uiType":"Container"},"key":"GT._1_1_2"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"class":"123"}},"uiType":"InputBox"},"key":"GT._1_1_2.Input"},{"obj":{"uid":"Some","locator":{"tag":"div","attributes":{"class":"someclass"}},"uiType":"Container"},"key":"GT._1_1_2.Some"},{"obj":{"uid":"Span","locator":{"tag":"span","attributes":{"class":"x"}},"uiType":"Span"},"key":"GT._1_1_2.Some.Span"},{"obj":{"uid":"Link","locator":{"tag":"a"},"uiType":"UrlLink"},"key":"GT._1_1_2.Some.Link"}];
+    var uim = new UiModule();
+    uim.parseUiModule(JSON.stringify(json));
+    var alg = new UiAlg();
+    alg.allowRelax = true;
+    var dom = teJQuery("html");
+    alg.santa(uim, dom);
+    var context = new WorkflowContext();
+    var uiid = new Uiid();
+    var uinput = uim.walkTo(context, uiid.convertToUiid("GT[1][1]"));
+    var pinput = uim.walkTo(context, uiid.convertToUiid("GT[1][2].Input"));
+    var smt = uim.walkTo(context, uiid.convertToUiid("GT[1][2].Some.Link"));
+};
+
 TelluriumTestCase.prototype.testTelluriumIssueModule = function(){
     var json = [{"obj":{"uid":"issueSearch","locator":{"tag":"form","attributes":{"action":"list","method":"get"}},"uiType":"Form"},"key":"issueSearch"},{"obj":{"uid":"issueType","locator":{"tag":"select","attributes":{"id":"can","name":"can"}},"uiType":"Selector"},"key":"issueSearch.issueType"},{"obj":{"uid":"searchLabel","locator":{"text":"*for","tag":"span"},"uiType":"TextBox"},"key":"issueSearch.searchLabel"},{"obj":{"uid":"searchBox","locator":{"tag":"input","attributes":{"name":"q","type":"text"}},"uiType":"InputBox"},"key":"issueSearch.searchBox"},{"obj":{"uid":"searchButton","locator":{"tag":"input","attributes":{"value":"Search","type":"submit"}},"uiType":"SubmitButton"},"key":"issueSearch.searchButton"}];
     var uim = new UiModule();
@@ -184,7 +199,8 @@ TelluriumTestCase.prototype.testSuite = function(){
 //    this.testLogonUiModule(); 
 //    this.testEditPageModule();
 //    this.testLogicalContainerModule();
-    this.testTelluriumIssueModule();
+//    this.testTelluriumIssueModule();
+    this.testGeneralTableModule();
 //    this.testLogoUiModule();
 //    this.testThumbnailUiModule();
 //    this.testBookUiModule();
