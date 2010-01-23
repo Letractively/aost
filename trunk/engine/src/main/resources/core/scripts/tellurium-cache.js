@@ -106,20 +106,6 @@ DiscardInvalidPolicy.prototype.applyPolicy = function(cache, key, data){
             cache.put(key, data);
             break;            
         }
-/*
-        var $ref = cache.get(akey).reference;
-        var isVisible = false;
-        try{
-           isVisible = $ref.is(':visible');
-        }catch(e){
-            isVisible = false;
-        }
-        if(!isVisible){
-            cache.remove(akey);
-            cache.put(key, data);
-            break;
-        }
-*/
     }
 };
 
@@ -266,6 +252,25 @@ TelluriumCache.prototype.getSubtree = function(uid){
     }
 
     return elist;
+};
+
+TelluriumCache.prototype.walkToUiObject = function(context, uid){
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = null;
+
+    if(uiid.size() > 0){
+        var first = uiid.peek();
+        var uim = this.sCache.get(first);
+        fbLog("Found cached UI module " + first, uim);
+        if(uim != null){
+            obj = uim.walkTo(context, uiid);
+            fbLog("After walkTo, found object ", obj);
+            fbLog("After walkTo, context ", context);
+        }
+    }
+
+    return obj;
 };
 
 TelluriumCache.prototype.getCachedUiElement = function(uid){

@@ -996,6 +996,18 @@ var UiTable = UiContainer.extend({
         return " > tbody > tr:has(td):eq(" + r + ") > td:eq(" + c + ")";
     },
 
+    getAllBodyCell: function(context, worker){
+        if (context.domRef != null) {
+            var $found = teJQuery(context.domRef).find("> tbody > tr > td");
+
+            if ($found.size() >0) {
+                return worker.work(context, $found.get());
+            }
+        }
+
+        return null;
+    },
+
     walkToHeader: function(context, uiid) {
         //pop up the "header" indicator
         uiid.pop();
@@ -1508,11 +1520,13 @@ var UiStandardTable = UiContainer.extend({
     },
 
     getAllBodyCell: function(context, worker){
+        fbLog("Check context in getAllBodyCell", context);
         if (context.domRef != null) {
             var $found = teJQuery(context.domRef).find(this.bt);
+            fbLog("Found table body ", $found.get());
             var bodylist = new Array();
 
-            if ($found.size() >0) {
+            if ($found.size() > 0) {
                 //If the header tag is the same as the body tag
                 if (this.ht != this.bt) {
                     bodylist.push($found.first());
@@ -1525,7 +1539,16 @@ var UiStandardTable = UiContainer.extend({
                     bodylist.push($found.last());
                 }
 
-                var elements = teJQuery(bodylist).find(this.brt + " > " + this.bct);
+                fbLog("Valid table body ", bodylist);
+                fbLog("Type of bodylist ", typeof bodylist);
+                var elements = new Array();
+                for(var j=0; j<bodylist.length; j++){
+                    var $el = teJQuery(bodylist[j]).find(" > " + this.brt + " > " + this.bct);
+                    if($el.size() > 0){
+                        elements = elements.concat($el.get());
+                    }
+                }
+                fbLog("Found table body cells ", elements);
                 if(elements != null && elements.length > 0){
                     return worker.work(context, elements);
                 }
@@ -1916,9 +1939,25 @@ var UiWorker = Class.extend({
      init: function() {
 
      },
+    
      work: function(context, elements){
-
      }
+});
+
+var TextUiWorker = UiWorker.extend({
+    work: function(context, elements){
+        var out = [];
+        fbLog("Starting to collect text for elements ", elements);
+        if(elements != null && elements.length > 0){
+            var $e = teJQuery(elements);
+            $e.each(function() {
+                out.push(teJQuery(this).text());
+            });
+            fbLog("Collected text for element ", out);
+        }
+
+        return out;
+    }
 });
 
 function UiModule(){

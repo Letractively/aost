@@ -19,6 +19,7 @@ function getTargetXY(element, coordString) {
 
 function TelluriumApi(cache){
     this.cache = cache;
+    this.textWorker = new TextUiWorker();
 }
 
 TelluriumApi.prototype.cacheAwareLocate = function(locator){
@@ -447,6 +448,25 @@ TelluriumApi.prototype.getEngineState = function(){
     state.cache = tellurium.cache.cacheOption;
 
     return JSON.stringify(state);
+};
+
+TelluriumApi.prototype.getAllTableBodyText = function(uid) {
+    var context = new WorkflowContext();
+    var obj = this.cache.walkToUiObject(context, uid);
+    if(obj == null){
+        fbError("Cannot find UI object " + uid, this);
+        throw new SeleniumError("Cannot find UI object " + uid);
+    }else{
+        if(obj["getAllBodyCell"] != undefined){
+            var out = obj.getAllBodyCell(context, this.textWorker);
+            fbLog("Get All Table Body Text Result", out);
+
+            return out;
+        }else{
+            fbError("UI Object " + uid + " does not have the method getAllBodyCell", obj);
+            throw new SeleniumError("UI Object " + uid + " does not have the method getAllBodyCell");
+        }
+    }
 };
 
 TelluriumApi.prototype.showUi = function(uid, delay){
