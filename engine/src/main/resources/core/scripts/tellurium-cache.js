@@ -211,7 +211,7 @@ TelluriumCache.prototype.relocateUiModule = function(uid){
     }
 };
 
-TelluriumCache.prototype.getIndexedTree = function(uid){
+TelluriumCache.prototype.getIndexedTree = function(context, uid){
     var uiid = new Uiid();
     uiid.convertToUiid(uid);
     var elist = new Array();

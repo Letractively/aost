@@ -20,6 +20,8 @@ function getTargetXY(element, coordString) {
 function TelluriumApi(cache){
     this.cache = cache;
     this.textWorker = new TextUiWorker();
+    this.toggleWorker = new ToggleUiWorker();
+    this.colorWorker = new ColorUiWorker();
 }
 
 TelluriumApi.prototype.cacheAwareLocate = function(locator){
@@ -470,9 +472,16 @@ TelluriumApi.prototype.getAllTableBodyText = function(uid) {
 };
 
 TelluriumApi.prototype.showUi = function(uid, delay){
+    var context = new WorkflowContext();
+    var elist = this.cache.getIndexedTree(context, uid);
+    this.toggleWorker.work(context, elist, delay);
+//    this.colorWorker.work(context, elist, delay);
+
+/*
     var elist = tellurium.getUiElementAndDescendant(uid);
     
     if(elist != null && elist.length > 0){
+
         var $es = teJQuery(elist);
         $es.each(function() {
             var $te = teJQuery(this);
@@ -491,5 +500,7 @@ TelluriumApi.prototype.showUi = function(uid, delay){
             $te.removeData("te-color-bak");
         });
         fbLog("Elements' color restored to original ones for " + uid, $es.get());
+
     }
+    */
 };

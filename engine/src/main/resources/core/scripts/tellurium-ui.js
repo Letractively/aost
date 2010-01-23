@@ -1939,8 +1939,9 @@ var UiWorker = Class.extend({
      init: function() {
 
      },
-    
+
      work: function(context, elements){
+         return elements;
      }
 });
 
@@ -1957,6 +1958,43 @@ var TextUiWorker = UiWorker.extend({
         }
 
         return out;
+    }
+});
+
+var ToggleUiWorker = UiWorker.extend({
+    work: function(context, elements, delay){
+        fbLog("Starting to toggle elements ", elements);
+        if(elements != null && elements.length > 0){
+            var $e = teJQuery(elements);
+            $e.each(function(){
+                teJQuery(this).toggle("slow").fadeIn(delay).toggle("slow");
+
+            });
+        }
+        fbLog("Finish toggle elements", elements);
+    }
+});
+
+var ColorUiWorker = UiWorker.extend({
+    work: function(context, elements, delay) {
+        if (elements != null && elements.length > 0) {
+            var $e = teJQuery(elements);
+            $e.each(function() {
+                var $te = teJQuery(this);
+                $te.data("te-color-bak", $te.css("background-color"));
+            });
+            $e.css("background-color", "red");
+            fbLog("Set elements to red for ", elements);
+            $e.slideUp(100).slideDown(100).delay(delay).fadeOut(100).fadeIn(100);
+            fbLog("Delayed for " + delay, this);
+            $e.each(function() {
+                //back to the original color
+                var $te = teJQuery(this);
+                $te.css("background-color", $te.data("te-color-bak"));
+                $te.removeData("te-color-bak");
+            });
+            fbLog("Elements' color restored to original ones for ", elements);
+        }
     }
 });
 

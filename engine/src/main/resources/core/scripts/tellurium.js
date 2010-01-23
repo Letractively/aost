@@ -439,7 +439,8 @@ function validateDomRef(domref){
 
 Tellurium.prototype.getUiElementAndDescendant = function(uid){
     //TODO: need to change it to getSubtree(uid) after implement that
-    return this.cache.getIndexedTree(uid);
+    var context = new WorkflowContext();
+    return this.cache.getIndexedTree(context, uid);
 };
 
 Tellurium.prototype.getUiElementFromCache = function(uid){
