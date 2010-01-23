@@ -74,6 +74,13 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
         }
     }
 
+    @Test
+    public void testShowUiModule(){
+        useCache(true);
+        useTelluriumApi(true);
+        gtm.show("GT", 2000);
+    }
+
     @AfterClass
     public static void tearDown(){
         showTrace();
