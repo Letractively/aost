@@ -33,3 +33,4 @@
   * [http://code.google.com/p/aost/wiki/RunQUnitFromJava Run QUnit Tests from Java]
   * [http://code.google.com/p/aost/wiki/UIModuleGeneratingAlgorithm The UI Module Generating Algorithm in Trump]
   * [http://code.google.com/p/aost/wiki/MostAnticipatedFeaturesinTellurium070 The Most Anticipated Features in Tellurium 0.7.0]
+  * [http://code.google.com/p/aost/wiki/CustomTelluriumIntelliJProject How to create your own Tellurium testing project with IntelliJ 9.0 Community Edition]
