@@ -1113,7 +1113,7 @@ abstract class BaseDslContext extends GlobalDslContext {
   }
 
   //delay in milliseconds
-  void show(String uid, long delay) {
+  void show(String uid, int delay) {
     Environment env = Environment.instance;
     if(!env.isUseCache()){
       println(i18nBundle.getMessage("BaseDslContext.ShowRequirement", uid))
@@ -1123,7 +1123,7 @@ abstract class BaseDslContext extends GlobalDslContext {
       def obj = walkToWithException(context, uid)
       if(obj != null){
         extension.showUi(context, uid, delay)
-        flush()
+        pause(delay)
       }
     }
   }
