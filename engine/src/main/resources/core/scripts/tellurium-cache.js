@@ -273,6 +273,16 @@ TelluriumCache.prototype.walkToUiObject = function(context, uid){
     return obj;
 };
 
+TelluriumCache.prototype.walkToUiObjectWithException = function(context, uid){
+    var obj = this.walkToUiObject(context, uid);
+    if (obj == null) {
+        fbError("Cannot find UI object " + uid, this);
+        throw new SeleniumError("Cannot find UI object " + uid);
+    }
+
+    return obj;
+};
+
 TelluriumCache.prototype.getCachedUiElement = function(uid){
 
     var uiid = new Uiid();

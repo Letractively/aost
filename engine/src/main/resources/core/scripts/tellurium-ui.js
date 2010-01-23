@@ -302,6 +302,24 @@ var UiObject = Class.extend({
         }
 
         return this.uid;
+    },
+
+    respondsTo: function(methodName){
+        if(this[methodName] != undefined){
+            return true;
+        }
+
+        return false;
+    },
+
+    respondsToWithException: function(methodName){
+        if(this[methodName] != undefined){
+            return true;
+        }else{
+            var fid = this.fullUid();
+            fbError("UI Object " + fid + " does not have the method " + methodName, this);
+            throw new SeleniumError("UI Object " + fid + " does not have the method " + methodName);
+        }
     }
 });
 

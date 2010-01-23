@@ -454,6 +454,20 @@ TelluriumApi.prototype.getEngineState = function(){
 
 TelluriumApi.prototype.getAllTableBodyText = function(uid) {
     var context = new WorkflowContext();
+    var obj = this.cache.walkToUiObjectWithException(context, uid);
+    if(obj.respondsToWithException("getAllBodyCell")){
+        var out = obj.getAllBodyCell(context, this.textWorker);
+        fbLog("Get All Table Body Text Result", out);
+
+        return out;
+    }
+
+    return null;
+};
+
+/*
+TelluriumApi.prototype.getAllTableBodyText = function(uid) {
+    var context = new WorkflowContext();
     var obj = this.cache.walkToUiObject(context, uid);
     if(obj == null){
         fbError("Cannot find UI object " + uid, this);
@@ -469,7 +483,7 @@ TelluriumApi.prototype.getAllTableBodyText = function(uid) {
             throw new SeleniumError("UI Object " + uid + " does not have the method getAllBodyCell");
         }
     }
-};
+};*/
 
 TelluriumApi.prototype.showUi = function(uid, delay){
     var context = new WorkflowContext();
