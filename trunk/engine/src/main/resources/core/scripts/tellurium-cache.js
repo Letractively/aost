@@ -1,3 +1,4 @@
+/*
 //Ui Module cache data
 function UmCacheData(){
     this.uiModule = null;
@@ -5,6 +6,8 @@ function UmCacheData(){
     this.timestamp = Number(new Date());
 }
 
+
+//XXX: Depreciated, the cached data is UI module now
 //Cached Data, use uid as the key to reference it
 function CacheData(){
     //jQuery selector associated with the DOM reference, which is a whole selector
@@ -19,6 +22,7 @@ function CacheData(){
     //last use time
     this.timestamp = Number(new Date());
 }
+*/
 
 //cache eviction policies
 //simply discard new selector
@@ -71,10 +75,12 @@ function DiscardLeastUsedPolicy (){
 DiscardLeastUsedPolicy.prototype.applyPolicy = function(cache, key, data){
     var keys = cache.keySet();
     var toBeRemoved = keys[0];
-    var leastCount = cache.get(toBeRemoved).count;
+//    var leastCount = cache.get(toBeRemoved).count;
+    var leastCount = cache.get(toBeRemoved).cacheHit;
     for(var i=1; i<keys.length; i++){
         var akey = keys[i];
-        var val = cache.get(akey).count;
+//        var val = cache.get(akey).count;
+        var val = cache.get(akey).cacheHit;
         if(val < leastCount){
             toBeRemoved = akey;
             leastCount = val;
@@ -166,6 +172,7 @@ TelluriumCache.prototype.updateUseCount = function(key, data){
 
 TelluriumCache.prototype.addToCache = function(key, val){
     if(this.sCache.size() < this.maxCacheSize){
+        val.timestamp = Number(new Date());
         this.sCache.put(key, val);
     }else{
         this.cachePolicy.applyPolicy(this.sCache, key, val);
@@ -174,7 +181,7 @@ TelluriumCache.prototype.addToCache = function(key, val){
 
 //update existing data to the cache
 TelluriumCache.prototype.updateToCache = function(key, val){
-    val.count++;
+//    val.count++;
     val.timestamp = Number(new Date());
     this.sCache.put(key, val);
 };
@@ -303,7 +310,7 @@ TelluriumCache.prototype.getCachedUiElement = function(uid){
             var domref = uim.index(uid);
             fbLog("Got cached UI element " + uid + " from indices.", domref);
             if(domref == null){
-                uim.cacheMiss++;
+                uim.increaseCacheMiss();
                 //if could not find directly from the UI module indices, then try to use walkTo to find the element first
                 //and then its domRef
                 var context = new WorkflowContext();
@@ -316,7 +323,7 @@ TelluriumCache.prototype.getCachedUiElement = function(uid){
                 }
                 fbLog("Got UI element " + uid + " by walking through the UI module " + first, domref);
             }else{
-                uim.cacheHit++;
+                uim.increaseCacheHit();
             }
             
             return domref;

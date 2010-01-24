@@ -2048,7 +2048,20 @@ function UiModule(){
 
     //Cache miss, i.e., have to use walkTo to locate elements
     this.cacheMiss = 0;
+
+    //the latest timestamp for the cache access
+    this.timestamp = null;
 }
+
+UiModule.prototype.increaseCacheHit = function(){
+    this.cacheHit++;
+    this.timestamp = Number(new Date());
+};
+
+UiModule.prototype.increaseCacheMiss = function(){
+    this.cacheMiss++;
+    this.timestamp = Number(new Date());
+};
 
 UiModule.prototype.getCacheUsage = function(){
     var cusage = new CacheUsage();
