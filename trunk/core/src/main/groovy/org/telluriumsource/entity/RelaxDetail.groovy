@@ -1,6 +1,7 @@
 package org.telluriumsource.entity
 
 import org.telluriumsource.ui.locator.CompositeLocator
+import org.json.simple.JSONObject
 
 /**
  * Relax detail for closest matching in Engine when do UI module locating and caching
@@ -32,5 +33,21 @@ public class RelaxDetail {
       this.html = map.get(HTML);
       this.locator = new CompositeLocator();
       this.locator.build(map.get(LOCATOR));
+    }
+
+    public JSONObject toJSON(){
+      JSONObject obj = new JSONObject();
+
+      obj.put(UID, this.uid);
+      obj.put(HTML, this.html);
+      obj.put(LOCATOR, this.locator?.toJSON());
+
+      return obj;
+    }
+
+    public String toString(){
+      JSONObject obj = this.toJSON();
+      
+      return obj.toString();
     }
 }

@@ -13,5 +13,6 @@ public enum ReturnType {
   NUMBER,
   STRING,
   BOOLEAN,
-  ARRAY
+  ARRAY,
+  OBJECT
 }

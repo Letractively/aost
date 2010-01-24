@@ -4,6 +4,8 @@ import org.telluriumsource.entity.RelaxDetail
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.framework.Environment
 import org.telluriumsource.ui.locator.CompositeLocator
+import org.json.simple.JSONObject
+import org.json.simple.JSONArray
 
 /**
  * The response object Passing back from Engine when do UI module locating and caching
@@ -37,6 +39,7 @@ public class UiModuleValidationResponse {
     public static String SCORE = "score";
     private float score = 0.0;
 
+    public static String RELAXDETAIL = "relaxDetail";
     //details for the relax, i.e., closest match
     public static String RELAXDETAILS = "relaxDetails";
     private List<RelaxDetail> relaxDetails = null;
@@ -62,6 +65,28 @@ public class UiModuleValidationResponse {
         }
       }
     }
+
+  public JSONObject toJSON(){
+    JSONObject obj = new JSONObject();
+    obj.put(ID, this.id);
+    obj.put(FOUND, this.found);
+    obj.put(RELAXED, relaxed);
+    obj.put(MATCHCOUNT, this.matches);
+    obj.put(SCORE, this.score);
+    JSONArray ar = new JSONArray();
+    this.relaxDetails?.each { RelaxDetail rd ->
+      ar.add(rd.toJSON());
+    }
+    obj.put(RELAXDETAILS, ar);
+
+    return obj;
+  }
+
+  public String toString(){
+    JSONObject obj = this.toJSON();
+
+    return obj.toString();
+  }
 
   public void showMe() {
     IResourceBundle i18nBundle  = Environment.instance.myResourceBundle();

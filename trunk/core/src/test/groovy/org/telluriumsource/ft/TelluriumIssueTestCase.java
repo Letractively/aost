@@ -57,7 +57,7 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testAllIssues(){
-        String[] details = tim.getAllText();
+        String[] details = (String[])tim.getAllText();
         assertNotNull(details);
         for(String content: details){
             System.out.println(content);

@@ -187,6 +187,9 @@ public class BundleProcessor implements Configurable {
           //TODO: need to really convert the String array to the object array 
           return result;
           break;
+         case ReturnType.OBJECT:
+          return result;
+          break;
         default:
           return result;
           break;
@@ -248,8 +251,9 @@ public class BundleProcessor implements Configurable {
   }
 
   public CmdRequest getEngineStateUpdateRequest(WorkflowContext context, EngineState state){
-    String json = state.toJson();
-    def args = [json]
+//    String json = state.toJSON();
+//    def args = [json]
+    def args = [state.toJSON()];
     CmdRequest cmd = new CmdRequest(nextSeq(), null, "updateEngineState" , args);
 
     return cmd;

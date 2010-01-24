@@ -1206,7 +1206,7 @@ abstract class BaseDslContext extends GlobalDslContext {
       DiagnosisOption options = new DiagnosisOption()
       DiagnosisRequest request = new DiagnosisRequest(uid, ploc, loc, options)
 
-      def out = extension.getDiagnosisResponse(context, locator, request.toJson())
+      def out = extension.getDiagnosisResponse(context, locator, request.toJSON())
 
       return new DiagnosisResponse(parseSeleniumJSONReturnValue(out))
     }
@@ -1225,7 +1225,7 @@ abstract class BaseDslContext extends GlobalDslContext {
 
       DiagnosisRequest request = new DiagnosisRequest(uid, ploc, loc, options)
 
-      def out = extension.getDiagnosisResponse(context, locator, request.toJson())
+      def out = extension.getDiagnosisResponse(context, locator, request.toJSON())
 
       return new DiagnosisResponse(parseSeleniumJSONReturnValue(out))
     }

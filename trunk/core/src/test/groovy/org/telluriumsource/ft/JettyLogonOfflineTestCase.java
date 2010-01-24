@@ -3,9 +3,11 @@ package org.telluriumsource.ft;
 import org.telluriumsource.test.java.TelluriumJUnitTestCase;
 import org.telluriumsource.test.mock.MockHttpServer;
 import org.telluriumsource.module.JettyLogonModule;
+import org.telluriumsource.entity.EngineState;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Test Engine state update offline
@@ -39,6 +41,15 @@ public class JettyLogonOfflineTestCase extends TelluriumJUnitTestCase {
         useClosestMatch(true);
         connectUrl("http://localhost:8080/logon.html");
         jlm.plogon("test", "test");
+    }
+
+    @Test
+    public void testGetEngineState(){
+        connectSeleniumServer();
+        connectUrl("http://localhost:8080/logon.html");
+        EngineState state = getEngineState();
+        assertNotNull(state);
+        System.out.println(state.showMe());
     }
 
     @AfterClass

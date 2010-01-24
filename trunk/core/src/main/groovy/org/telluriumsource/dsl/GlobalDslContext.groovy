@@ -53,8 +53,9 @@ public class GlobalDslContext {
 
   public EngineState getEngineState(){
     WorkflowContext context = WorkflowContext.getDefaultContext();
-    String out = extension.getEngineState(context);
-    Map map = parseSeleniumJSONReturnValue(out);
+//    String out = extension.getEngineState(context);
+//    Map map = parseSeleniumJSONReturnValue(out);
+    Map map = extension.getEngineState(context);
     EngineState state = new EngineState();
     state.parseJson(map);
     
