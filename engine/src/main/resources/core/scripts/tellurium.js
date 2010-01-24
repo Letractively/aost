@@ -82,6 +82,13 @@ function getColor(elem, cssName){
    return color;
 }
 
+function LogManager(){
+    this.isUseLog = false;
+    this.logLevel = "info";
+}
+
+var logManager = new LogManager();
+
 /*
 jQuery.fn.extend({
   inDOM = function() { return !!$(this).parents('html').length; }
