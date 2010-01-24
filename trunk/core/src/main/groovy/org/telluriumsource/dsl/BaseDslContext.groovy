@@ -1150,14 +1150,29 @@ abstract class BaseDslContext extends GlobalDslContext {
   }
 
   public String toJSON(String uid) {
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+/*    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
     def obj = walkToWithException(context, uid);
     JSONArray arr = new JSONArray();
     context.setJSONArray(arr);
     obj.treeWalk(context);
     JSONArray jsa = context.getJSONArray();
 
-    return jsa.toString();
+    return jsa.toString();*/
+    JSONArray ar = toJSONArray(uid);
+    if(ar != null)
+      return ar.toString();
+
+    return null;
+  }
+
+  public JSONArray toJSONArray(String uid) {
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    def obj = walkToWithException(context, uid);
+    JSONArray arr = new JSONArray();
+    context.setJSONArray(arr);
+    obj.treeWalk(context);
+
+    return context.getJSONArray();
   }
 
   public void validate(String uid) {
@@ -1172,8 +1187,10 @@ abstract class BaseDslContext extends GlobalDslContext {
     context.setJSONArray(arr);
     obj.treeWalk(context);
     JSONArray jsa = context.getJSONArray();
+    
+//    def out = extension.getValidateUiModule(context, jsa.toString());
+    def out = extension.getValidateUiModule(context, jsa);
 
-    def out = extension.getValidateUiModule(context, jsa.toString());
     return parseUseUiModuleResponse(out);
   }
 

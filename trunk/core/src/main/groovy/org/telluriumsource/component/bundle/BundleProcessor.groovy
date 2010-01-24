@@ -15,6 +15,7 @@ import org.telluriumsource.util.Helper
 import org.telluriumsource.exception.EngineNotConnectedException
 import org.telluriumsource.entity.EngineState
 import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.json.simple.JSONArray
 
 /**
  * Command Bundle Processor
@@ -89,7 +90,7 @@ public class BundleProcessor implements Configurable {
     return ++sequence;
   }
 
-  protected def parseUseUiModuleResponse(String result){
+/*  protected def parseUseUiModuleResponse(String result){
 
     if(result != null && result.trim().length() > 0){
       Map map = reader.read(result);
@@ -113,7 +114,31 @@ public class BundleProcessor implements Configurable {
       states.put(response.id, state);
     }
   }
+  */
 
+   protected def parseUseUiModuleResponse(Map map){
+
+    if(map != null && map.size() > 0){
+      UiModuleValidationResponse response = new UiModuleValidationResponse(map);
+      if(!response.found && response.relaxed){
+          dispatcher.warn("The exact match for UI Module '${response.id}' cannot be found, found the closest match: " + response.toString());
+      }else if(response.found){
+          dispatcher.log("Found exact match for UI Module '${response.id}': " + response.toString());
+      }
+
+      UiModuleState state = states.get(response.id);
+      if(state != null){
+        state.setLocatingResult(response);
+      }else{
+        state = new UiModuleState();
+        state.id = response.id;
+        state.published = true;
+        state.setLocatingResult(response);
+      }
+
+      states.put(response.id, state);
+    }
+  }
   //TODO: how to parse the returning result?
   protected def parseReturnValue(String value){
 
@@ -210,8 +235,11 @@ public class BundleProcessor implements Configurable {
   public CmdRequest getUseUiModuleRequest(WorkflowContext context, String uid){
     DslContext dslcontext = context.getContext(WorkflowContext.DSLCONTEXT);
 //    String json = dslcontext.jsonify(uid);
-    String json = dslcontext.toJSON(uid);
-    def args = [json]
+/*    String json = dslcontext.toJSON(uid);
+    def args = [json];*/
+    JSONArray ar = dslcontext.toJSONArray(uid);
+    def args = [ar];
+
 //    CmdRequest cmd = new CmdRequest(nextSeq(), uid, UiModuleValidationRequest.CMD_NAME , args);
     //Use zero for the sequence ID so that it can be processed first
     CmdRequest cmd = new CmdRequest(0, uid, UiModuleValidationRequest.CMD_NAME , args);
