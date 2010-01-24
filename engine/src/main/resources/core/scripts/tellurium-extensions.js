@@ -187,8 +187,8 @@ Selenium.prototype.getHtml = function(){
     return $p;
 };
 
-Selenium.prototype.getDiagnosisResponse = function(locator, req){
-    var dreq = JSON.parse(req, null);
+Selenium.prototype.getDiagnosisResponse = function(locator, dreq){
+ //   var dreq = JSON.parse(req, null);
 
     var request = new DiagnosisRequest();
     request.uid = dreq.uid;
@@ -384,8 +384,8 @@ Selenium.prototype.doUseClosestMatch = function(isUse){
     tellurium.cache.useClosestMatch(isUse);
 };
 
-Selenium.prototype.doUpdateEngineState = function(json){
-    var state = JSON.parse(json, null);
+Selenium.prototype.doUpdateEngineState = function(state){
+//    var state = JSON.parse(json, null);
     tellurium.cache.useClosestMatch(state.relax);
     tellurium.useTeApi(state.teApi);
     tellurium.cache.cacheOption = state.cache;
@@ -397,6 +397,7 @@ Selenium.prototype.getEngineState = function(){
     state.teApi = tellurium.isUseTeApi;
     state.cache = tellurium.cache.cacheOption;
 
-    return JSON.stringify(state);
+//    return JSON.stringify(state);
+    return state;
 };
 

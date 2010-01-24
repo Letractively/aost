@@ -380,7 +380,7 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("setCookieByJQuery", false, "VOID");
     this.registerApi("getCookieByJQuery", false, "STRING");
     this.registerApi("updateEngineState", false, "VOID");
-    this.registerApi("getEngineState", false, "STRING");
+    this.registerApi("getEngineState", false, "OBJECT");
     this.registerApi("getAllTableBodyText", true, "ARRAY");
     
 };
