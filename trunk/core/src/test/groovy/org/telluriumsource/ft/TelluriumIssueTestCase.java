@@ -66,6 +66,8 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testGetCellCount(){
+        useCache(true);
+        useTelluriumApi(true);
         int count = tim.getTableCellCount();
         assertTrue(count > 0);
         System.out.println("Cell size: " + count);
@@ -76,7 +78,7 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testCSS(){
-        tim.disableCache();
+        useCache(false);
         String[] css = tim.getTableCSS("font-size");
         assertNotNull(css);
     }
@@ -104,7 +106,7 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
     @Test
     public void testCachePolicy(){
         setCacheMaxSize(2);
-        useCachePolicy(CachePolicy.DISCARD_NEW);
+        useCachePolicy(CachePolicy.DISCARD_OLD);
         tim.searchIssue("Alter");
         tim.getTableCSS("font-size");
         tim.getIsssueTypes();
