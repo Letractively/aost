@@ -12,11 +12,11 @@ import org.telluriumsource.module.GoogleSearchModule
 
 public class UiModuleJSonConverter_UT extends GroovyTestCase {
 
-  public void testToJson(){
+  public void testToJSONString(){
     GoogleSearchModule gsm = new GoogleSearchModule();
     gsm.defineUi();
 
 //    println gsm.jsonify("Google");
-    println gsm.toJSON("Google");
+    println gsm.toString("Google");
   }
 }

@@ -71,7 +71,7 @@ public class JettyLogonTestNGTestCase extends TelluriumMockTestNGTestCase {
     @Test
     public void testJsonfyUiModule(){
 //        String json = jlm.jsonify("Form");
-        String json = jlm.toJSON("Form");
+        String json = jlm.toString("Form");
         System.out.println(json);
     }
 
