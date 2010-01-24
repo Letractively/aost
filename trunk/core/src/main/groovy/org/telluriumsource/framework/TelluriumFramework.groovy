@@ -284,7 +284,7 @@ class TelluriumFramework {
     return this.global.getCacheMaxSize();
   }
 
-  public Map<String, Long> getCacheUsage() {
+  public String getCacheUsage() {
     return this.global.getCacheUsage();
   }
 
