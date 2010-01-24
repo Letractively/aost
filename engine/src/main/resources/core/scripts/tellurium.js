@@ -366,7 +366,7 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("setCacheMaxSize", false, "VOID");
     this.registerApi("getCacheSize", false, "NUMBER");
     this.registerApi("getCacheMaxSize", false, "NUMBER");
-    this.registerApi("getCacheUsage", false, "STRING");
+    this.registerApi("getCacheUsage", false, "ARRAY");
     this.registerApi("addNamespace", false, "VOID");
     this.registerApi("getNamespace", false, "STRING");
     this.registerApi("useDiscardNewCachePolicy", false, "VOID");
