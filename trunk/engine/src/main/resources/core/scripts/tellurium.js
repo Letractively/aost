@@ -347,7 +347,7 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("getXpathCount", false, "NUMBER");
 
     //converted from custom selenium apis, tellurium-extensions.js
-    this.registerApi("getAllText", true, "STRING");
+    this.registerApi("getAllText", true, "ARRAY");
     this.registerApi("getCssSelectorCount", true, "NUMBER");
     this.registerApi("getCSS", true, "STRING");
     this.registerApi("isDisable", true, "BOOLEAN");
@@ -852,7 +852,6 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
     }
     
     if (apiName.startsWith("is")) {
-//        result = selenium[apiName].apply(this, cmd.args);
         result = selenium[apiName].apply(selenium, cmd.args);
         if(returnType == null)
             returnType = "BOOLEAN";
