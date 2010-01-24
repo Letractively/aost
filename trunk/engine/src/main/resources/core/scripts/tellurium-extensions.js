@@ -332,12 +332,12 @@ Selenium.prototype.getBundleResponse = function(bundle){
     return tellurium.dispatchMacroCmd();
 };
 
-Selenium.prototype.getUseUiModule = function(json){
-    return tellurium.cache.useUiModule(json);
+Selenium.prototype.getUseUiModule = function(jsonarray){
+    return tellurium.cache.useUiModule(jsonarray);
 };
 
-Selenium.prototype.getValidateUiModule = function(json){
-    return tellurium.cache.validateUiModule(json);
+Selenium.prototype.getValidateUiModule = function(jsonarray){
+    return tellurium.cache.validateUiModule(jsonarray);
 };
 
 Selenium.prototype.isUiModuleCached = function(id){
