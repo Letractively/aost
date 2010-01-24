@@ -436,8 +436,8 @@ TelluriumApi.prototype.getCookieByJQuery = function(cookieName){
     return teJQuery.cookies.get(cookieName);
 };
 
-TelluriumApi.prototype.updateEngineState = function(json){
-    var state = JSON.parse(json, null);
+TelluriumApi.prototype.updateEngineState = function(state){
+//    var state = JSON.parse(json, null);
     tellurium.cache.useClosestMatch(state.relax);
     tellurium.useTeApi(state.teApi);
     tellurium.cache.cacheOption = state.cache;
@@ -449,7 +449,8 @@ TelluriumApi.prototype.getEngineState = function(){
     state.teApi = tellurium.isUseTeApi;
     state.cache = tellurium.cache.cacheOption;
 
-    return JSON.stringify(state);
+//    return JSON.stringify(state);
+    return state;
 };
 
 TelluriumApi.prototype.getAllTableBodyText = function(uid) {
