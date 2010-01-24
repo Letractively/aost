@@ -118,7 +118,7 @@ public abstract class BaseTelluriumJavaTestCase {
         return tellurium.getCacheMaxSize();
     }
 
-    public static Map<String, Long> getCacheUsage() {
+    public static String getCacheUsage() {
         return tellurium.getCacheUsage();
     }
 

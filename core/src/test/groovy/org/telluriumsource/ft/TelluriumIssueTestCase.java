@@ -105,7 +105,7 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testCachePolicy(){
-        setCacheMaxSize(2);
+        setCacheMaxSize(5);
         useCachePolicy(CachePolicy.DISCARD_OLD);
         tim.searchIssue("Alter");
         tim.getTableCSS("font-size");
@@ -114,21 +114,23 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
         setCacheMaxSize(30);
     }
 
-    @After
-    public void showCacheUsage(){
+    public static void showCacheUsage(){
         int size = tim.getCacheSize();
         int maxSize = tim.getCacheMaxSize();
         System.out.println("Cache Size: " + size + ", Cache Max Size: " + maxSize);
-        System.out.println("Cache Usage: ");
-        Map<String, Long> usages = tim.getCacheUsage();
+
+        System.out.println("Cache Usage: " + tim.getCacheUsage());
+        
+/*        Map<String, Long> usages = tim.getCacheUsage();
         Set<String> keys = usages.keySet();
         for(String key: keys){
             System.out.println("UID: " + key + ", Count: " + usages.get(key));
-        }
+        }*/
     }
 
     @AfterClass
     public static void tearDown(){
         showTrace();
+        showCacheUsage();
     }
 }

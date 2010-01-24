@@ -100,7 +100,7 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
       return tellurium.getCacheMaxSize();
     }
 
-    public Map<String, Long> getCacheUsage(){
+    public String getCacheUsage(){
       return tellurium.getCacheUsage();
     }
 

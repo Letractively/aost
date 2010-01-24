@@ -10,6 +10,7 @@ import org.telluriumsource.component.dispatch.Dispatcher
 import org.telluriumsource.component.bundle.BundleProcessor
 import org.stringtree.json.JSONReader
 import org.telluriumsource.entity.EngineState
+import org.telluriumsource.entity.CacheUsageResponse
 
 /**
  * Global methods, which should not be tired to an individual UI module
@@ -143,9 +144,15 @@ public class GlobalDslContext {
     return extension.getCacheMaxSize(context).intValue()
   }
 
-  public Map<String, Long> getCacheUsage() {
+  public String getCacheUsage(){
+    CacheUsageResponse resp = this.getCacheUsageResponse();
+    return resp.toString();
+  }
+  
+  public CacheUsageResponse getCacheUsageResponse() {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
+/*
     String out = extension.getCacheUsage(context);
     ArrayList list = (ArrayList) parseSeleniumJSONReturnValue(out)
     Map<String, Long> usages = new HashMap<String, Long>()
@@ -156,6 +163,12 @@ public class GlobalDslContext {
     }
 
     return usages
+*/
+    List out = extension.getCacheUsage(context);
+    CacheUsageResponse resp = new CacheUsageResponse();
+    resp.parseJSON(out);
+
+    return resp;
   }
 
   public void useDiscardNewCachePolicy() {
