@@ -733,7 +733,7 @@ abstract class BaseDslContext extends GlobalDslContext {
   //This only works for jQuery selector
   String[] getAllTableCellText(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreUiModuleCache())
-    if(this.exploreUiModuleCache()){
+    if(this.exploreUiModuleCache() && this.isUseTelluriumApi()){
       def obj = walkToWithException(context, uid)
       if(obj != null && obj.respondsTo("getAllTableCellText")){
         def out = extension.getAllTableBodyText(context, uid)
@@ -1111,8 +1111,7 @@ abstract class BaseDslContext extends GlobalDslContext {
 
   //delay in milliseconds
   void show(String uid, int delay) {
-    Environment env = Environment.instance;
-    if(!env.isUseCache()){
+    if(!this.exploreUiModuleCache() || !this.isUseTelluriumApi()){
       println(i18nBundle.getMessage("BaseDslContext.ShowRequirement", uid))
     }else{
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
