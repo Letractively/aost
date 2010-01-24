@@ -395,12 +395,12 @@ TelluriumApi.prototype.getCachePolicyName = function(){
     return this.cache.getCachePolicyName();
 };
 
-TelluriumApi.prototype.getUseUiModule = function(json){
-    return this.cache.useUiModule(json);
+TelluriumApi.prototype.getUseUiModule = function(jsonarray){
+    return this.cache.useUiModule(jsonarray);
 };
 
-TelluriumApi.prototype.getValidateUiModule = function(json){
-    return this.cache.validateUiModule(json);
+TelluriumApi.prototype.getValidateUiModule = function(jsonarray){
+    return this.cache.validateUiModule(jsonarray);
 };
 
 TelluriumApi.prototype.isUiModuleCached = function(id){

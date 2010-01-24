@@ -336,10 +336,10 @@ function UiModuleLocatingResponse(){
     this.relaxDetails = null;
 }
 
-TelluriumCache.prototype.useUiModule = function(json){
+TelluriumCache.prototype.useUiModule = function(jsonarray){
     var uim = new UiModule();
-    fbLog("Input JSON for UI Module: ", json);
-    uim.parseUiModule(json);
+    fbLog("Input JSON Array for UI Module: ", jsonarray);
+    uim.parseUiModule(jsonarray);
 //    uim.prelocate();
     this.uiAlg.santa(uim, null);
     //set the UI Module to be valid after it is located
@@ -365,13 +365,14 @@ TelluriumCache.prototype.useUiModule = function(json){
     response.score = uim.score;
     fbLog("UseUiModule Response for " + id, response);
 
-    return JSON.stringify(response);
+//    return JSON.stringify(response);
+    return response;
 };
 
-TelluriumCache.prototype.validateUiModule = function(json){
+TelluriumCache.prototype.validateUiModule = function(jsonarray){
     var uim = new UiModule();
-    fbLog("Input JSON for UI Module: ", json);
-    uim.parseUiModule(json);
+    fbLog("Input JSON for UI Module: ", jsonarray);
+    uim.parseUiModule(jsonarray);
 //    uim.prelocate();
     this.uiAlg.validate(uim, null);
     //set the UI Module to be valid after it is located
@@ -389,7 +390,8 @@ TelluriumCache.prototype.validateUiModule = function(json){
     response.score = uim.score;
     fbLog("UseUiModule Response for " + id, response);
 
-    return JSON.stringify(response);
+//    return JSON.stringify(response);
+    return response;
 };
 
 TelluriumCache.prototype.isUiModuleCached = function(id){

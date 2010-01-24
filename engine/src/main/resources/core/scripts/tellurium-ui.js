@@ -2051,9 +2051,10 @@ UiModule.prototype.getId = function(){
     return null;
 };
 
-UiModule.prototype.parseUiModule = function(json){
+UiModule.prototype.parseUiModule = function(jsonarray){
 
-    var ulst = JSON.parse(json, null);
+//    var ulst = JSON.parse(json, null);
+    var ulst = jsonarray;
     var klst = new Array();
     fbLog("JSON Object ulst: ", ulst);
     fbLog("ulst length: ", ulst.length);
