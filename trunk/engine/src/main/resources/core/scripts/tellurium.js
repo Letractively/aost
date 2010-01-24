@@ -349,7 +349,7 @@ Tellurium.prototype.registerTeApis = function(){
     //converted from custom selenium apis, tellurium-extensions.js
     this.registerApi("getAllText", true, "ARRAY");
     this.registerApi("getCssSelectorCount", true, "NUMBER");
-    this.registerApi("getCSS", true, "STRING");
+    this.registerApi("getCSS", true, "Array");
     this.registerApi("isDisable", true, "BOOLEAN");
     this.registerApi("getListSize", true, "NUMBER");
     this.registerApi("getCacheState", false, "STRING");

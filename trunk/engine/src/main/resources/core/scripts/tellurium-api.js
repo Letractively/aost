@@ -271,7 +271,8 @@ TelluriumApi.prototype.getAllText = function(locator) {
     $e.each(function() {
         out.push(teJQuery(this).text());
     });
-    return JSON.stringify(out);
+//    return JSON.stringify(out);
+    return out;
 };
 
 TelluriumApi.prototype.getCssSelectorCount = function(locator) {
@@ -305,7 +306,8 @@ TelluriumApi.prototype.getCSS = function(locator, cssName) {
         out.push(val);
     }
 
-    return JSON.stringify(out);
+//    return JSON.stringify(out);
+    return out;
 };
 
 TelluriumApi.prototype.isDisabled = function(locator) {
