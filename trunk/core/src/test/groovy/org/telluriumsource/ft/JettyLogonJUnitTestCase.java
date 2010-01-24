@@ -34,7 +34,6 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testJsonfyUiModule(){
-//        String json = jlm.jsonify("Form");
         String json = jlm.toString("Form");
         System.out.println(json);
     }
@@ -87,6 +86,13 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         result = jlm.isDisabled("Form.Username.Input");
         assertFalse(result);
         useCssSelector(true);
+    }
+
+    @Test
+    public void testGetCSS(){
+        String[] css = jlm.getCSS("Form.Username.Input", "background-color");
+        assertNotNull(css);
+        System.out.println("Background color for Form.Username.Input: " + css[0]);
     }
 
     @Ignore
