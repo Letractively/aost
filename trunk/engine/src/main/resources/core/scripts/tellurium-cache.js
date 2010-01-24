@@ -115,6 +115,13 @@ DiscardInvalidPolicy.prototype.myName = function(){
 
 var discardInvalidCachePolicy = new DiscardInvalidPolicy();
 
+function CacheUsage(){
+    this.totalCall = 0;
+    this.cacheHit = 0;
+    //percentage of the cacheHit/totalCall
+    this.usage = 0;
+}
+
 function TelluriumCache(){
 
     //global flag to decide whether to cache jQuery selectors
@@ -296,6 +303,7 @@ TelluriumCache.prototype.getCachedUiElement = function(uid){
             var domref = uim.index(uid);
             fbLog("Got cached UI element " + uid + " from indices.", domref);
             if(domref == null){
+                uim.cacheMiss++;
                 //if could not find directly from the UI module indices, then try to use walkTo to find the element first
                 //and then its domRef
                 var context = new WorkflowContext();
@@ -307,6 +315,8 @@ TelluriumCache.prototype.getCachedUiElement = function(uid){
                     domref = context.domRef;
                 }
                 fbLog("Got UI element " + uid + " by walking through the UI module " + first, domref);
+            }else{
+                uim.cacheHit++;
             }
             
             return domref;
@@ -505,13 +515,14 @@ TelluriumCache.prototype.getCacheUsage = function(){
     var keys = this.sCache.keySet();
     for(var i=0; i< keys.length; i++){
         var key = keys[i];
-        var val = this.sCache.get(key);
+        var uim = this.sCache.get(key);
         var usage = {};
-        usage[key] = val.count;
+        usage[key] = uim.getCacheUsage();
         out.push(usage);
     }
 
-    return JSON.stringify(out);
+    return out;
+//    return JSON.stringify(out);
 };
 
 TelluriumCache.prototype.useDiscardNewPolicy = function(){

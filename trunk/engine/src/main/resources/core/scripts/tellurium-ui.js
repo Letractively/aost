@@ -2042,7 +2042,25 @@ function UiModule(){
 
     //ID Prefix tree, i.e., Trie, for the lookForId operation in group locating
     this.idTrie = new Trie();
+
+    //Cache hit, i.e., direct get dom reference from the cache
+    this.cacheHit = 0;
+
+    //Cache miss, i.e., have to use walkTo to locate elements
+    this.cacheMiss = 0;
 }
+
+UiModule.prototype.getCacheUsage = function(){
+    var cusage = new CacheUsage();
+    cusage.cacheHit = this.cacheHit;
+    cusage.totalCall = this.cacheHit + this.cacheMiss;
+    if(cusage.totalCall > 0){
+        cusage.usage = 100*cusage.cacheHit/cusage.totalCall;
+    }
+
+    fbLog("Get Cache Usage for UI Module " + this.id, cusage);
+    return cusage;
+};
 
 UiModule.prototype.getId = function(){
     if(this.root != null)
@@ -2051,10 +2069,10 @@ UiModule.prototype.getId = function(){
     return null;
 };
 
-UiModule.prototype.parseUiModule = function(jsonarray){
+UiModule.prototype.parseUiModule = function(ulst){
 
 //    var ulst = JSON.parse(json, null);
-    var ulst = jsonarray;
+//    var ulst = jsonarray;
     var klst = new Array();
     fbLog("JSON Object ulst: ", ulst);
     fbLog("ulst length: ", ulst.length);
