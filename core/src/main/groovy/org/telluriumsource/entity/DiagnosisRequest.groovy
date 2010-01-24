@@ -60,7 +60,7 @@ public class DiagnosisRequest {
     this.retClosest = options.retClosest;
   }
 
-  public String toJson(){
+  public JSONObject toJSON(){
     JSONObject obj = new JSONObject();
     obj.put(UID, this.uid);
     obj.put(PARENT_LOCATOR, this.pLocator);
@@ -77,6 +77,13 @@ public class DiagnosisRequest {
     obj.put(RETURN_PARENT, retParent);
     obj.put(RETURN_CLOSEST, retClosest);
     
-    return obj.toString()
+//    return obj.toString()
+    return obj;
+  }
+
+  public String toString(){
+    JSONObject obj = this.toJSON();
+    
+    return obj.toString();
   }
 }

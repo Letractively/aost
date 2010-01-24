@@ -49,12 +49,19 @@ public class EngineState {
     this.exploitTelluriumApi = isUse;
   }
 
-  public String toJson(){
+  public JSONObject toJSON(){
     JSONObject obj = new JSONObject();
     obj.put(EXPLOIT_ENGINE_CACHE, this.exploitEngineCache);
     obj.put(EXPLOIT_TELLURIUM_API, this.exploitTelluriumApi);
     obj.put(CLOSEST_MATCH, this.closestMatch);
-    return obj.toString()
+//    return obj.toString()
+    return obj;
+  }
+
+  public String toString(){
+    JSONObject obj = this.toJSON();
+    
+    return obj.toString();
   }
 
   public void parseJson(Map map) {
