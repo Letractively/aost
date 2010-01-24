@@ -1148,7 +1148,7 @@ abstract class BaseDslContext extends GlobalDslContext {
     }
   }
 
-  public String toJSON(String uid) {
+  public String toString(String uid) {
 /*    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
     def obj = walkToWithException(context, uid);
     JSONArray arr = new JSONArray();
