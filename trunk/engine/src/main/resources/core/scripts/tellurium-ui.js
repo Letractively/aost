@@ -285,6 +285,10 @@ var UiObject = Class.extend({
         return this;
     },
 
+    traverse: function(context, snapshotTree, visitor){
+        
+    },
+
     amICacheable: function() {
         //check its parent and do not cache if its parent is not cacheable
         //If an object is cacheable, the path from the root to itself should
@@ -2222,6 +2226,32 @@ UiSnapshot.prototype.clone = function(){
 UiSnapshot.prototype.setColor = function(color){
     this.color = color;
 };
+
+function UiSnapshotNode(){
+    //runtime ID
+    this.rid = null;
+
+    //point to its parent in the UI SNAPSHOT tree
+    this.parent = null;
+
+    //UI object, which is defined in the UI module, reference
+    this.objRef = null;
+
+    //DOM reference
+    this.domRef = null;
+
+    //children nodes
+    this.children = null;
+}
+
+function UiSnapshotTree(){
+    //the root node
+    this.root = null;
+
+    //the reference point to the UI module that the UI Snapshot tree is derived
+    this.uimRef = null;
+}
+
 
 //algorithms to handle UI modules and UI Objects
 function UiAlg(){
