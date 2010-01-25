@@ -7,6 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.AfterClass;
 import org.junit.Test;
+import org.telluriumsource.util.LogLevels;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -26,7 +27,10 @@ public class GoogleBookTestCase extends TelluriumJUnitTestCase {
         gbm = new  GoogleBookModule();
         gbm.defineUi();
         connectSeleniumServer();
+        enableLogging(LogLevels.ALL);        
+
         useCssSelector(true);
+
         useTelluriumApi(true);
         useTrace(true);
         useCache(true);
