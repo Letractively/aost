@@ -3,6 +3,7 @@ package org.telluriumsource.ft
 import org.telluriumsource.test.groovy.TelluriumGroovyTestCase
 import org.telluriumsource.module.GoogleSearchModule
 import org.telluriumsource.entity.CachePolicy
+import org.telluriumsource.util.LogLevels
 
 /**
  *
@@ -23,8 +24,12 @@ public class GoogleSearchGroovyTestCase extends TelluriumGroovyTestCase {
         gsm.defineUi();
         connectSeleniumServer();
         useCssSelector(true);
+        enableLogging(LogLevels.ALL);
+
         useTelluriumApi(true);
+
         useTrace(true);
+
 //        useCache(true);
     }
 
