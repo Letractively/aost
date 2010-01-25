@@ -145,14 +145,14 @@ function TelluriumCache(){
 }
 
 TelluriumCache.prototype.useClosestMatch = function(isUse){
-    fbLog("call useClosestMatch", isUse);
+    !tellurium.logManager.isUseLog || fbLog("call useClosestMatch", isUse);
     if (typeof(isUse) == "boolean") {
         this.uiAlg.allowRelax = isUse;
     } else {
         this.uiAlg.allowRelax = ("true" == isUse || "TRUE" == isUse);
     }
 
-    fbLog("Call useClosestMatch(" + isUse + ") to set allowRelax to ", this.uiAlg.allowRelax);
+    !tellurium.logManager.isUseLog || fbLog("Call useClosestMatch(" + isUse + ") to set allowRelax to ", this.uiAlg.allowRelax);
 };
 
 TelluriumCache.prototype.cleanCache = function(){
@@ -196,13 +196,13 @@ Remove this, do relocating instead, possibly with reference uimodule to speed up
 
 TelluriumCache.prototype.findUiElementFromAncestor = function(uimodule, uid){
     //TODO: Need to do individual locating either from its parent or use the generated locator
-    fbLog("Trying to find UI element" + uid + " from its ancestor in UI module", uimodule);
+    !tellurium.logManager.isUseLog || fbLog("Trying to find UI element" + uid + " from its ancestor in UI module", uimodule);
     var context = new WorkflowContext();
     var uiid = new Uiid();
     uiid.convertToUiid(uid);
     uiid.reverse();
     var queue = uimodule.findInvalidAncestor(context, uiid);
-    fbLog("Find invalid ancestor", queue);
+    !tellurium.logManager.isUseLog || fbLog("Find invalid ancestor", queue);
     
 };
 */
@@ -214,13 +214,13 @@ TelluriumCache.prototype.relocateUiModule = function(uid){
     if(uiid.size() > 0){
         var first = uiid.peek();
         var uim = this.sCache.get(first);
-        fbLog("Found cached UI module " + first, uim);
+        !tellurium.logManager.isUseLog || fbLog("Found cached UI module " + first, uim);
         if (uim != null) {
             //TODO: optimize this by using some still valid dom references in the UI module
             this.uiAlg.santa(uim, null);
             //set the UI Module to be valid after it is located
             uim.valid = true;
-            fbLog("Ui Module after redoing Group Locating: ", uim);
+            !tellurium.logManager.isUseLog || fbLog("Ui Module after redoing Group Locating: ", uim);
         }
     }
 };
@@ -233,14 +233,14 @@ TelluriumCache.prototype.getIndexedTree = function(context, uid){
     if(uiid.size() > 0){
         var first = uiid.peek();
         var uim = this.sCache.get(first);
-        fbLog("Found cached UI module " + first, uim);
+        !tellurium.logManager.isUseLog || fbLog("Found cached UI module " + first, uim);
         if(uim != null){
             var elems = uim.indices.valSet();
             elist = elist.concat(elems);
         }
     }
 
-    fbLog("Get Indexed Tree for " + uid, elist);
+    !tellurium.logManager.isUseLog || fbLog("Get Indexed Tree for " + uid, elist);
     return elist;
 };
 
@@ -252,12 +252,12 @@ TelluriumCache.prototype.getSubtree = function(uid){
     if(uiid.size() > 0){
         var first = uiid.peek();
         var uim = this.sCache.get(first);
-        fbLog("Found cached UI module " + first, uim);
+        !tellurium.logManager.isUseLog || fbLog("Found cached UI module " + first, uim);
         if(uim != null){
             var context = new WorkflowContext();
             var obj = uim.walkTo(context, uiid);
-            fbLog("After walkTo, found object ", obj);
-            fbLog("After walkTo, context ", context);
+            !tellurium.logManager.isUseLog || fbLog("After walkTo, found object ", obj);
+            !tellurium.logManager.isUseLog || fbLog("After walkTo, context ", context);
             if (obj != null) {
 
             }
@@ -276,11 +276,11 @@ TelluriumCache.prototype.walkToUiObject = function(context, uid){
     if(uiid.size() > 0){
         var first = uiid.peek();
         var uim = this.sCache.get(first);
-        fbLog("Found cached UI module " + first, uim);
+        !tellurium.logManager.isUseLog || fbLog("Found cached UI module " + first, uim);
         if(uim != null){
             obj = uim.walkTo(context, uiid);
-            fbLog("After walkTo, found object ", obj);
-            fbLog("After walkTo, context ", context);
+            !tellurium.logManager.isUseLog || fbLog("After walkTo, found object ", obj);
+            !tellurium.logManager.isUseLog || fbLog("After walkTo, context ", context);
         }
     }
 
@@ -305,10 +305,10 @@ TelluriumCache.prototype.getCachedUiElement = function(uid){
     if(uiid.size() > 0){
         var first = uiid.peek();
         var uim = this.sCache.get(first);
-        fbLog("Found cached UI module " + first, uim);
+        !tellurium.logManager.isUseLog || fbLog("Found cached UI module " + first, uim);
         if(uim != null){
             var domref = uim.index(uid);
-            fbLog("Got cached UI element " + uid + " from indices.", domref);
+            !tellurium.logManager.isUseLog || fbLog("Got cached UI element " + uid + " from indices.", domref);
             if(domref == null){
                 uim.increaseCacheMiss();
                 //if could not find directly from the UI module indices, then try to use walkTo to find the element first
@@ -316,12 +316,12 @@ TelluriumCache.prototype.getCachedUiElement = function(uid){
                 var context = new WorkflowContext();
                 context.alg = this.uiAlg;
                 var obj = uim.walkTo(context, uiid);
-                fbLog("After walkTo, found object ", obj);
-                fbLog("After walkTo, context ", context);
+                !tellurium.logManager.isUseLog || fbLog("After walkTo, found object ", obj);
+                !tellurium.logManager.isUseLog || fbLog("After walkTo, context ", context);
                 if(obj != null){
                     domref = context.domRef;
                 }
-                fbLog("Got UI element " + uid + " by walking through the UI module " + first, domref);
+                !tellurium.logManager.isUseLog || fbLog("Got UI element " + uid + " by walking through the UI module " + first, domref);
             }else{
                 uim.increaseCacheHit();
             }
@@ -355,20 +355,20 @@ function UiModuleLocatingResponse(){
 
 TelluriumCache.prototype.useUiModule = function(jsonarray){
     var uim = new UiModule();
-    fbLog("Input JSON Array for UI Module: ", jsonarray);
+    !tellurium.logManager.isUseLog || fbLog("Input JSON Array for UI Module: ", jsonarray);
     uim.parseUiModule(jsonarray);
 //    uim.prelocate();
     this.uiAlg.santa(uim, null);
     //set the UI Module to be valid after it is located
     uim.valid = true;
-    fbLog("Ui Module after Group Locating: ", uim);
+    !tellurium.logManager.isUseLog || fbLog("Ui Module after Group Locating: ", uim);
     var id = uim.getId();
     var cached = this.getCachedData(id);
     if(cached == null){
-        fbLog("Adding Ui Module " + id + " to cache...", uim);
+        !tellurium.logManager.isUseLog || fbLog("Adding Ui Module " + id + " to cache...", uim);
         this.addToCache(id, uim);
     }else{
-        fbLog("Updating Ui Module "+ id + " to cache...", uim);
+        !tellurium.logManager.isUseLog || fbLog("Updating Ui Module "+ id + " to cache...", uim);
         this.updateToCache(id, uim);
     }
 
@@ -380,7 +380,7 @@ TelluriumCache.prototype.useUiModule = function(jsonarray){
     response.relaxDetails = uim.relaxDetails;
     response.matches = uim.matches;
     response.score = uim.score;
-    fbLog("UseUiModule Response for " + id, response);
+    !tellurium.logManager.isUseLog || fbLog("UseUiModule Response for " + id, response);
 
 //    return JSON.stringify(response);
     return response;
@@ -388,13 +388,13 @@ TelluriumCache.prototype.useUiModule = function(jsonarray){
 
 TelluriumCache.prototype.validateUiModule = function(jsonarray){
     var uim = new UiModule();
-    fbLog("Input JSON for UI Module: ", jsonarray);
+    !tellurium.logManager.isUseLog || fbLog("Input JSON for UI Module: ", jsonarray);
     uim.parseUiModule(jsonarray);
 //    uim.prelocate();
     this.uiAlg.validate(uim, null);
     //set the UI Module to be valid after it is located
     uim.valid = true;
-    fbLog("Ui Module after Group Locating: ", uim);
+    !tellurium.logManager.isUseLog || fbLog("Ui Module after Group Locating: ", uim);
     var id = uim.getId();
 
     var response = new UiModuleLocatingResponse();
@@ -405,7 +405,7 @@ TelluriumCache.prototype.validateUiModule = function(jsonarray){
     response.relaxDetails = uim.relaxDetails;
     response.matches = uim.matches; 
     response.score = uim.score;
-    fbLog("UseUiModule Response for " + id, response);
+    !tellurium.logManager.isUseLog || fbLog("UseUiModule Response for " + id, response);
 
 //    return JSON.stringify(response);
     return response;

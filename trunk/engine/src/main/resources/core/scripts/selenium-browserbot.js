@@ -1515,7 +1515,7 @@ BrowserBot.prototype.findAttribute = function(locator) {
     var attributePos = null;
     if (locator.startsWith("uimcal=")) {
         var cal = JSON.parse(locator.substring(7), null);
-        fbLog("Parsed attribute locator", cal);
+        !tellurium.logManager.isUseLog || fbLog("Parsed attribute locator", cal);
         var loc = cal.locator;
         //get attribute name
         attributePos = loc.lastIndexOf("@");
@@ -1524,7 +1524,7 @@ BrowserBot.prototype.findAttribute = function(locator) {
             if (attributeName.endsWith("]")) {
                 attributeName = attributeName.substr(0, attributeName.length - 1);
             }
-            fbLog("attribute name", attributeName);
+            !tellurium.logManager.isUseLog || fbLog("attribute name", attributeName);
             //update locator
             cal.locator = loc.slice(0, attributePos);
             if (cal.locator.endsWith("[")) {
@@ -1533,7 +1533,7 @@ BrowserBot.prototype.findAttribute = function(locator) {
         }
 
         elementLocator = "uimcal=" + JSON.stringify(cal);
-        fbLog("Element Locator from the findAttribute method", elementLocator);
+        !tellurium.logManager.isUseLog || fbLog("Element Locator from the findAttribute method", elementLocator);
     } else {
         attributePos = locator.lastIndexOf("@");
         elementLocator = locator.slice(0, attributePos);
@@ -1541,7 +1541,7 @@ BrowserBot.prototype.findAttribute = function(locator) {
     }
     // Find the element.
     var element = this.findElement(elementLocator);
-    fbLog("Found Element from the findAttribute method", element);
+    !tellurium.logManager.isUseLog || fbLog("Found Element from the findAttribute method", element);
 
     // Handle missing "class" attribute in IE.
     if (browserVersion.isIE && attributeName == "class") {
