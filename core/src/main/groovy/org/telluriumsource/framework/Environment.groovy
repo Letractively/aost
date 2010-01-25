@@ -45,7 +45,7 @@ public class Environment implements Configurable{
 
   protected boolean logEngine = false;
 
-  protected LogLevels loggingLevel = LogLevels.OFF
+  //protected LogLevels loggingLevel = LogLevels.OFF
   
   public boolean isUseEngineLog(){
     return this.logEngine;
@@ -119,9 +119,11 @@ public class Environment implements Configurable{
     this.exploitTelluriumApi = isUse;
   }
 
+  /*
   public void enableLogging(LogLevels loggingLevel) {
     this.loggingLevel = loggingLevel;
   }
+  */
 
   public useMaxMacroCmd(int max){
     if(max < 1)

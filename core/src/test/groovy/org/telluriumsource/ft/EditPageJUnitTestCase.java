@@ -26,7 +26,7 @@ public class EditPageJUnitTestCase extends TelluriumMockJUnitTestCase {
         epm.defineUi();
         useCssSelector(true);
         useTelluriumApi(false);
-        enableLogging(LogLevels.ALL);        
+        //enableLogging(LogLevels.ALL);
 
         useTrace(true);
         useCache(true);

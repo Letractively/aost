@@ -327,11 +327,12 @@ class CustomSelenium extends DefaultSelenium {
         return commandProcessor.doCommand("getEngineState", arr);
     }
     
-    public void enableLogging(LogLevels loggingLevels){
+    /*public void enableLogging(LogLevels loggingLevels){
        String[] arr = [loggingLevels.toString()];
 
        commandProcessor.doCommand("enableLogging", arr);
     }
+    */
 
     public void showUi(String uid, long delay){
         String[] arr = [uid, delay];

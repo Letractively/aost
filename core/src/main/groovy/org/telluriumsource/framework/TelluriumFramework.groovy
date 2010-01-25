@@ -223,10 +223,11 @@ class TelluriumFramework {
     this.global.useTelluriumApi(isUse);
   }
 
-  public void enableLogging(LogLevels loggingLevel) {
+  /*public void enableLogging(LogLevels loggingLevel) {
     env.enableLogging(loggingLevel);
     this.global.enableLogging(loggingLevel);
   }
+  */
 
   public void useTrace(boolean isUse) {
     env.useTrace(isUse);
