@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.telluriumsource.module.EditPageModule;
 import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
+import org.telluriumsource.util.LogLevels;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -17,6 +18,7 @@ public class EditPageJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @BeforeClass
     public static void initUi() {
+
         setHtmlClassPath("org/telluriumsource/html");
         registerHtmlBody("EditPage");
 
@@ -24,6 +26,8 @@ public class EditPageJUnitTestCase extends TelluriumMockJUnitTestCase {
         epm.defineUi();
         useCssSelector(true);
         useTelluriumApi(false);
+        enableLogging(LogLevels.ALL);        
+
         useTrace(true);
         useCache(true);
         useMacroCmd(true);

@@ -6,6 +6,8 @@ import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.AfterClass;
+import org.telluriumsource.util.LogLevels;
+
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -24,6 +26,8 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
 
         gtm = new GeneralTableModule();
         gtm.defineUi();
+        enableLogging(LogLevels.ALL);
+
         useCssSelector(true);
 //        useTelluriumApi(true);
         useTrace(true);
