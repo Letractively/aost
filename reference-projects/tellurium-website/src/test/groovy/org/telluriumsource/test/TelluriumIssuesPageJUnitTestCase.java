@@ -29,7 +29,7 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testToString(){
-        JSONArray ar = tisp.toJSONArray("IdMenu");
+        JSONArray ar = tisp.toJSONArray("selectColumnMenu");
         System.out.println(ar.toString());    
     }
 
