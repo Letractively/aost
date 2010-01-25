@@ -521,3 +521,9 @@ TelluriumApi.prototype.showUi = function(uid, delay){
     }
     */
 };
+
+TelluriumApi.prototype.useEngineLog = function(isUse){
+    tellurium.logManager.isUseLog = isUse;
+    if(firebug != undefined)
+        firebug.env.debug = isUse;
+};
