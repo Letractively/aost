@@ -22,15 +22,10 @@ var UiSelectMenu = UiObject.extend({
                     var sel = alg.buildSelector(this.locator);
                     var $found = teJQuery(context.domRef).find(sel);
                     if ($found.size() > 1) {
-                        //first try lookId
-                        $found = alg.lookId(this, $found);
-                        !tellurium.logManager.isUseLog || fbLog("Look Id result for " + this.uid, $found.get());
-                        if($found.size() > 1){
-                            //Use lookAHead to eliminate multipe matches
-                            $found = alg.lookAhead(this, $found);
-                            !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + this.uid, $found.get());
+                        if(this.header != null){
+                            $found = $found.filter("has(table > tbody > tr:eq(0) > th:te_text(" + this.header + "))");
                         }
-                    }
+                    }              
 
                     if ($found.size() == 1) {
                         context.domRef = $found.get(0);
@@ -79,3 +74,14 @@ var UiSelectMenu = UiObject.extend({
 
 });
 
+function UiSelectMenuBuilder(){
+
+}
+
+UiSelectMenuBuilder.prototype.build = function(){
+     return new UiSelectMenuBuilder();
+};
+
+teJQuery(document).ready(function() {
+    tellurium.registerUiBuilder("SelectMenu", new UiSelectMenuBuilder());
+});
