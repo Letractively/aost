@@ -331,7 +331,7 @@ Selenium.prototype.getDiagnosisResponse = function(locator, dreq){
 };
 
 Selenium.prototype.getBundleResponse = function(bundle){
-    !logManager.isUseLog || fbLog("Issue Bundle Command ", bundle);    
+    !tellurium.logManager.isUseLog || fbLog("Issue Bundle Command ", bundle);
     tellurium.parseMacroCmd(bundle);
 //    return tellurium.processMacroCmd();
     return tellurium.dispatchMacroCmd();
@@ -404,3 +404,8 @@ Selenium.prototype.getEngineState = function(){
     return state;
 };
 
+Selenium.prototype.useEngineLog = function(isUse){
+    tellurium.logManager.isUseLog = isUse;
+    if(firebug != undefined)
+        firebug.env.debug = isUse;    
+};

@@ -11,6 +11,15 @@ teJQuery(document).ready(function() {
     tellurium = new Tellurium();
     tellurium.initialize();
     fbLog("Tellurium initialized after document ready", tellurium);
+//    document.body.appendChild(firebug);
+    (function() {
+        if (window.firebug.version) {
+            firebug.init();
+        } else {
+            setTimeout(arguments.callee);
+        }
+    })();
+    void(firebug);
 });
 
 //add custom jQuery Selector :te_text()
@@ -87,7 +96,7 @@ function LogManager(){
     this.logLevel = "info";
 }
 
-var logManager = new LogManager();
+//var logManager = new LogManager();
 
 /*
 jQuery.fn.extend({
@@ -281,6 +290,9 @@ function Tellurium (){
 
     //UI object name to Javascript object builder mapping
     this.uiBuilderMap = new Hashtable();
+
+    //log manager for Tellurium
+    this.logManager = new LogManager();
 }
 
 Tellurium.prototype.isUseCache = function(){
@@ -389,7 +401,17 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("updateEngineState", false, "VOID");
     this.registerApi("getEngineState", false, "OBJECT");
     this.registerApi("getAllTableBodyText", true, "ARRAY");
-    
+    this.registerApi("useEngineLog", false, "VOID");
+};
+
+Tellurium.prototype.flipLog = function(){
+    this.logManager.isUseLog = !this.logManager.isUseLog;
+    if(firebug != undefined)
+        firebug.env.debug = this.logManager.isUseLog;  
+};
+
+Tellurium.prototype.isUseLog = function(){
+    return this.logManager.isUseLog;
 };
 
 Tellurium.prototype.useTeApi = function(isUse){
