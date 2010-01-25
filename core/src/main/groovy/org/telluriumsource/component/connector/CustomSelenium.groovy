@@ -7,6 +7,7 @@ import org.telluriumsource.framework.Environment;
 import org.telluriumsource.util.grid.GridSupport
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.entity.UiModuleValidationRequest
+import org.telluriumsource.util.LogLevels
 
 /**
  * Customize Selenium RC so that we can add custom methods to Selenium RC
@@ -324,6 +325,12 @@ class CustomSelenium extends DefaultSelenium {
     public String getEngineState(){
         String[] arr = [];
         return commandProcessor.doCommand("getEngineState", arr);
+    }
+    
+    public void enableLogging(LogLevels loggingLevels){
+       String[] arr = [loggingLevels.toString()];
+
+       commandProcessor.doCommand("enableLogging", arr);
     }
 
     public void showUi(String uid, long delay){

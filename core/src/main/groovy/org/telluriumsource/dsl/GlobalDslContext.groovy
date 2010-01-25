@@ -11,6 +11,7 @@ import org.telluriumsource.component.bundle.BundleProcessor
 import org.stringtree.json.JSONReader
 import org.telluriumsource.entity.EngineState
 import org.telluriumsource.entity.CacheUsageResponse
+import org.telluriumsource.util.LogLevels
 
 /**
  * Global methods, which should not be tired to an individual UI module
@@ -322,6 +323,12 @@ public class GlobalDslContext {
      accessor.removeScript(context, scriptTagId);
   }
 
+   void enableLogging(LogLevels levels){
+    Environment.instance.enableLogging(levels);
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+
+    extension.enableLogging(context, levels.toString());
+  }
   void enableEngineLog(){
      WorkflowContext context = WorkflowContext.getDefaultContext();
      Environment.instance.useEngineLog(true);

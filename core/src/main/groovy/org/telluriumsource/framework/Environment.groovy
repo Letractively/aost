@@ -3,7 +3,8 @@ import org.telluriumsource.crosscut.i18n.ResourceBundle;
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
 
 import org.telluriumsource.framework.config.Configurable
-
+import org.telluriumsource.util.LogLevels
+                     
 /**
  * Environment to hold runtime environment variables
  *
@@ -44,6 +45,8 @@ public class Environment implements Configurable{
 
   protected boolean logEngine = false;
 
+  protected LogLevels loggingLevel = LogLevels.OFF
+  
   public boolean isUseEngineLog(){
     return this.logEngine;
   }
@@ -114,6 +117,10 @@ public class Environment implements Configurable{
 
   public void useTelluriumApi(boolean isUse) {
     this.exploitTelluriumApi = isUse;
+  }
+
+  public void enableLogging(LogLevels loggingLevel) {
+    this.loggingLevel = loggingLevel;
   }
 
   public useMaxMacroCmd(int max){
