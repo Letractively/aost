@@ -188,4 +188,8 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
     public EngineState getEngineState(){
         return tellurium.getEngineState();
     }
+
+    public void useEngineLog(boolean isUse){
+        tellurium.useEngineLog(isUse);
+    }
 }

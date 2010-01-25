@@ -206,4 +206,8 @@ public abstract class BaseTelluriumJavaTestCase {
     public static EngineState getEngineState(){
         return tellurium.getEngineState();
     }
+
+    public static void useEngineLog(boolean isUse){
+        tellurium.useEngineLog(isUse);
+    }
 }
