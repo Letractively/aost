@@ -200,7 +200,7 @@ The magic is that the new Tellurium Engine will locate the UI module as a whole.
 Apart from that, Tellurium 0.7.0 also provides a handy method for you to validate your UI module. For example, if you call
 
 {{{
-    validateUiModule("ProblematicForm");
+    validate("ProblematicForm");
 }}}
 
 You will get the detailed validation results including the closest matches.
@@ -491,6 +491,8 @@ New TelluriumGroovyTestCase provides the following list of new APIs for your con
 
     public void EngineState getEngineState();
 
+    public void useEngineLog(boolean isUse);
+
 }}}
 
 Tellurium Java test cases provide the same APIs and the only difference is that the APIs in Tellurium Java test cases are static.
@@ -514,6 +516,8 @@ public class Environment {
 
   public boolean isUseTelluriumApi();
 
+  public boolean isUseEngineLog();
+
   public void useCssSelector(boolean isUse);
 
   public void useCache(boolean isUse);
@@ -525,6 +529,8 @@ public class Environment {
   public void useTrace(boolean isUse);
 
   public void useTelluriumApi(boolean isUse);
+
+  public void useEngineLog(boolean isUse);
 
   public useMaxMacroCmd(int max);
 
@@ -550,6 +556,25 @@ Tellurium 0.7.0 provides a toggle method to animate the UI element on the web pa
     toggle "Form.Username.Input"
 }}}
 
+== show ==
+
+The show command is used to show the UI module that you defined on the actual web page.
+
+{{{
+    public show(String uid, int delay);
+}}}
+
+where delay is in milliseconds. Be aware that _show_ is available in Tellurium API.
+
+Example:
+
+{{{
+   useCache(true);
+   useTelluriumApi(true);
+   JettyLogonModule jlm = new JettyLogonModule();       
+   jlm.show("Form", 5000);
+}}}
+ 
 == type and keyType ==
 
 type and keyType now accept different types of objects and convert them to a String automatically by calling the toString() method. For example, you can use the following commands:
@@ -1124,6 +1149,8 @@ TelluriumApi.prototype.useUiModule = function(json);
 TelluriumApi.prototype.isUiModuleCached = function(id);
 
 TelluriumApi.prototype.getEngineState = function();
+
+TelluriumApi.prototype.useEngineLog = function(isUse);
 }}}
  
 As you can see, most of the new APIs have the same signature as the Selenium ones so that your test code is agnostic to which test driving engine that you use. You can always switch between the Tellurium Engine and Selenium Engine by the following API at Tellurium core.
