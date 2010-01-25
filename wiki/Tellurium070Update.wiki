@@ -1169,8 +1169,7 @@ The jQuery in Engine has been upgraded from 1.3.2 to 1.4.
 
 == Engine Logging ==
 
-Tellurium Engine uses [http://getfirebug.com/lite.html
- Firebug Lite] to add debug information to the console. By default the Firebug Lite is off and you will only see a Firebug icon on the bottom right as shown in the following figure.
+Tellurium Engine uses [http://getfirebug.com/lite.html Firebug Lite] to add debug information to the console. By default the Firebug Lite is off and you will only see a Firebug icon on the bottom right as shown in the following figure.
 
 http://tellurium-users.googlegroups.com/web/telluriumEngineFirebugLiteOff.png?gda=g8Q-1lMAAACsdq5EJRKLPm_KNrr_VHB_DVXQX3coVrzCE0wbgZNX0sYl7qkjkLygZeJEraCq1Nizt3T_4awU0H2oK-9nYgtIMrYifh3RmGHD4v9PaZfDexVi73jmlo822J6Z5KZsXFo&gsc=jh3WkgsAAABHX8Z8u5jajkir99LhxBO3
 
