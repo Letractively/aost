@@ -177,9 +177,10 @@ public abstract class BaseTelluriumJavaTestCase {
         tellurium.useTelluriumApi(isUse);
     }
 
-    public static void enableLogging(LogLevels loggingLevel){
+    /*public static void enableLogging(LogLevels loggingLevel){
       tellurium.enableLogging(loggingLevel) ;
     }
+    */
 
     public static void useTrace(boolean isUse){
       tellurium.useTrace(isUse);

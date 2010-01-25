@@ -27,7 +27,7 @@ public class GoogleBookTestCase extends TelluriumJUnitTestCase {
         gbm = new  GoogleBookModule();
         gbm.defineUi();
         connectSeleniumServer();
-        enableLogging(LogLevels.ALL);        
+        //enableLogging(LogLevels.ALL);        
 
         useCssSelector(true);
 

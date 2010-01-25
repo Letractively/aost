@@ -323,12 +323,13 @@ public class GlobalDslContext {
      accessor.removeScript(context, scriptTagId);
   }
 
-   void enableLogging(LogLevels levels){
+   /*void enableLogging(LogLevels levels){
     Environment.instance.enableLogging(levels);
     WorkflowContext context = WorkflowContext.getDefaultContext();
 
     extension.enableLogging(context, levels.toString());
   }
+  */
   void enableEngineLog(){
      WorkflowContext context = WorkflowContext.getDefaultContext();
      Environment.instance.useEngineLog(true);

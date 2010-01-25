@@ -158,9 +158,10 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
       tellurium.useTelluriumApi(isUse) ;
     }
 
-   public void enableLogging(LogLevels loggingLevel){
+   /*public void enableLogging(LogLevels loggingLevel){
       tellurium.enableLogging(loggingLevel) ;
     }
+    */
 
     public void useTrace(boolean isUse){
       tellurium.useTrace(isUse);
