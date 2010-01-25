@@ -7,6 +7,7 @@ import org.telluriumsource.component.connector.SeleniumConnector
 import org.telluriumsource.framework.TelluriumFramework
 import org.telluriumsource.entity.CachePolicy
 import org.telluriumsource.util.Helper
+import org.telluriumsource.util.LogLevels
 import org.telluriumsource.entity.EngineState
 
 abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
@@ -155,6 +156,10 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
 
     public void useTelluriumApi(boolean isUse){
       tellurium.useTelluriumApi(isUse) ;
+    }
+
+   public void enableLogging(LogLevels loggingLevel){
+      tellurium.enableLogging(loggingLevel) ;
     }
 
     public void useTrace(boolean isUse){

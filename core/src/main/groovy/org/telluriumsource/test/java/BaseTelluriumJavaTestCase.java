@@ -7,6 +7,8 @@ import org.telluriumsource.framework.TelluriumFramework;
 import org.telluriumsource.entity.CachePolicy;
 import org.telluriumsource.entity.EngineState;
 import org.telluriumsource.crosscut.i18n.ResourceBundle;
+import org.telluriumsource.util.Helper;
+import org.telluriumsource.util.LogLevels;
 
 import java.util.Map;
 
@@ -175,8 +177,12 @@ public abstract class BaseTelluriumJavaTestCase {
         tellurium.useTelluriumApi(isUse);
     }
 
-    public static void useTrace(boolean isUse) {
-        tellurium.useTrace(isUse);
+    public static void enableLogging(LogLevels loggingLevel){
+      tellurium.enableLogging(loggingLevel) ;
+    }
+
+    public static void useTrace(boolean isUse){
+      tellurium.useTrace(isUse);
     }
 
     public static void showTrace() {

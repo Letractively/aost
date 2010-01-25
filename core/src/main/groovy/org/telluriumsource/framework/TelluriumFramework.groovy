@@ -28,6 +28,7 @@ import org.telluriumsource.util.Helper
 import org.telluriumsource.entity.CachePolicy
 import org.telluriumsource.component.bundle.BundleProcessor
 import org.telluriumsource.entity.EngineState;
+import org.telluriumsource.util.LogLevels
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
@@ -220,6 +221,11 @@ class TelluriumFramework {
   public void useTelluriumApi(boolean isUse) {
     env.useTelluriumApi(isUse);
     this.global.useTelluriumApi(isUse);
+  }
+
+  public void enableLogging(LogLevels loggingLevel) {
+    env.enableLogging(loggingLevel);
+    this.global.enableLogging(loggingLevel);
   }
 
   public void useTrace(boolean isUse) {
