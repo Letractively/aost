@@ -355,4 +355,8 @@ class TelluriumFramework {
     Helper.pause(milliseconds);
   }
 
+  public void useEngineLog(boolean isUse){
+    this.global.useEngineLog(isUse);
+  }
+
 }

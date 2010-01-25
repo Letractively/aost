@@ -42,6 +42,16 @@ public class Environment implements Configurable{
 
   protected boolean locatorWithCache = true;
 
+  protected boolean logEngine = false;
+
+  public boolean isUseEngineLog(){
+    return this.logEngine;
+  }
+
+  public void useEngineLog(boolean isUse){
+    this.logEngine = isUse;
+  }
+
   public boolean isUseLocatorWithCache(){
     return this.locatorWithCache;
   }

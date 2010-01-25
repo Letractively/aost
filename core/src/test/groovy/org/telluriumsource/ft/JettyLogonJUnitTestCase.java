@@ -138,6 +138,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         jlm.alogon("test", "test");
     }
 
+    @Ignore
     @Test
     public void testAddRemoveScript(){
         String script = "var firebug=document.createElement('script');" +
@@ -155,6 +156,15 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         EngineState state = getEngineState();
         assertNotNull(state);
         System.out.println(state.showMe());
+    }
+
+    @Test
+    public void testUseEngineLog(){
+        useEngineLog(true);
+        jlm.logon("tellurium", "source");
+        useEngineLog(false);
+        connect("JettyLogon");
+        jlm.logon("tellurium", "testing");
     }
 
     @AfterClass

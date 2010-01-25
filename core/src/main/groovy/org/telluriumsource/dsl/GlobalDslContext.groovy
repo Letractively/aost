@@ -321,4 +321,22 @@ public class GlobalDslContext {
      WorkflowContext context = WorkflowContext.getDefaultContext();
      accessor.removeScript(context, scriptTagId);
   }
+
+  void enableEngineLog(){
+     WorkflowContext context = WorkflowContext.getDefaultContext();
+     Environment.instance.useEngineLog(true);
+     extension.useEngineLog(context, true);
+  }
+
+  void disableEngineLog(){
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    Environment.instance.useEngineLog(false);
+    extension.useEngineLog(context, false);
+  }
+
+  void useEngineLog(boolean isUse){
+     WorkflowContext context = WorkflowContext.getDefaultContext();
+     Environment.instance.useEngineLog(isUse);
+     extension.useEngineLog(context, isUse);   
+  }
 }
