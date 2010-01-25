@@ -32,7 +32,8 @@ TelluriumTestCase.prototype.testPrie = function(){
 TelluriumTestCase.prototype.testGeneralTableModule = function(){
     var json = [{"obj":{"uid":"GT","hrt":"tr","locator":{"tag":"table","attributes":{"id":"xyz"}},"ht":"tbody","bct":"td","frt":"tr","hct":"th","ft":"tfoot","brt":"tr","uiType":"StandardTable","fct":"td","bt":"tbody"},"key":"GT"},{"obj":{"uid":"header: all","locator":{},"uiType":"TextBox"},"key":"GT._ALL"},{"obj":{"uid":"row: 1, column: 1","locator":{"tag":"div","attributes":{"class":"abc"}},"uiType":"TextBox"},"key":"GT._1_1_1"},{"obj":{"uid":"row: 1, column: 2","locator":null,"uiType":"Container"},"key":"GT._1_1_2"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"class":"123"}},"uiType":"InputBox"},"key":"GT._1_1_2.Input"},{"obj":{"uid":"Some","locator":{"tag":"div","attributes":{"class":"someclass"}},"uiType":"Container"},"key":"GT._1_1_2.Some"},{"obj":{"uid":"Span","locator":{"tag":"span","attributes":{"class":"x"}},"uiType":"Span"},"key":"GT._1_1_2.Some.Span"},{"obj":{"uid":"Link","locator":{"tag":"a"},"uiType":"UrlLink"},"key":"GT._1_1_2.Some.Link"}];
     var uim = new UiModule();
-    uim.parseUiModule(JSON.stringify(json));
+//    uim.parseUiModule(JSON.stringify(json));
+    uim.parseUiModule(json);
     var alg = new UiAlg();
     alg.allowRelax = true;
     var dom = teJQuery("html");
@@ -50,7 +51,8 @@ TelluriumTestCase.prototype.testGeneralTableModule = function(){
 TelluriumTestCase.prototype.testTelluriumIssueModule = function(){
     var json = [{"obj":{"uid":"issueSearch","locator":{"tag":"form","attributes":{"action":"list","method":"get"}},"uiType":"Form"},"key":"issueSearch"},{"obj":{"uid":"issueType","locator":{"tag":"select","attributes":{"id":"can","name":"can"}},"uiType":"Selector"},"key":"issueSearch.issueType"},{"obj":{"uid":"searchLabel","locator":{"text":"*for","tag":"span"},"uiType":"TextBox"},"key":"issueSearch.searchLabel"},{"obj":{"uid":"searchBox","locator":{"tag":"input","attributes":{"name":"q","type":"text"}},"uiType":"InputBox"},"key":"issueSearch.searchBox"},{"obj":{"uid":"searchButton","locator":{"tag":"input","attributes":{"value":"Search","type":"submit"}},"uiType":"SubmitButton"},"key":"issueSearch.searchButton"}];
     var uim = new UiModule();
-    uim.parseUiModule(JSON.stringify(json));
+//    uim.parseUiModule(JSON.stringify(json));
+    uim.parseUiModule(json);
     var alg = new UiAlg();
     alg.allowRelax = true;
     var dom = teJQuery("html");
@@ -65,7 +67,8 @@ TelluriumTestCase.prototype.testTelluriumIssueModule = function(){
 TelluriumTestCase.prototype.testEditPageModule = function(){
     var json = [{"obj":{"uid":"Account","locator":{"tag":"form","attributes":{"method":"post"}},"uiType":"Form"},"key":"Account"},{"obj":{"uid":"Name","locator":{"tag":"input","attributes":{"name":"A","type":"text"}},"uiType":"InputBox"},"key":"Account.Name"},{"obj":{"uid":"Site","locator":{"tag":"input","attributes":{"name":"B","type":"text"}},"uiType":"InputBox"},"key":"Account.Site"},{"obj":{"uid":"Revenue","locator":{"tag":"input","attributes":{"name":"C","type":"text"}},"uiType":"InputBox"},"key":"Account.Revenue"},{"obj":{"uid":"Info","locator":{"tag":"div","attributes":{"class":"info"}},"uiType":"Container"},"key":"Account.Info"},{"obj":{"uid":"Label","locator":{"text":"Test:","tag":"div","attributes":{"id":"label1"}},"uiType":"TextBox"},"key":"Account.Info.Label"},{"obj":{"uid":"Test","locator":{"tag":"input","attributes":{"id":"input5","name":"testname","type":"text"}},"uiType":"InputBox"},"key":"Account.Info.Test"},{"obj":{"uid":"save","locator":{"tag":"input","attributes":{"title":"Save","name":"save","class":"btn","type":"submit"}},"uiType":"SubmitButton"},"key":"Account.Save"}];
     var uim = new UiModule();
-    uim.parseUiModule(JSON.stringify(json));
+//    uim.parseUiModule(JSON.stringify(json));
+    uim.parseUiModule(json);
     var alg = new UiAlg();
     var dom = teJQuery("html");
     alg.santa(uim, dom);
@@ -80,7 +83,8 @@ TelluriumTestCase.prototype.testLogicalContainerModule = function(){
 //    var json = [{"obj":{"uid":"AbstractForm","locator":{"tag":"form"},"uiType":"Form"},"key":"AbstractForm"},{"obj":{"uid":"Form1","locator":{"loc":null},"uiType":"Container"},"key":"AbstractForm.Form1"},{"obj":{"uid":"Username","locator":{"tag":"tr"},"uiType":"Container"},"key":"AbstractForm.Form1.Username"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Username:","tag":"td"},"uiType":"TextBox"},"key":"AbstractForm.Form1.Username.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_username","type":"text"}},"uiType":"InputBox"},"key":"AbstractForm.Form1.Username.Input"},{"obj":{"uid":"Password","locator":{"tag":"tr"},"uiType":"Container"},"key":"AbstractForm.Form1.Password"},{"obj":{"uid":"Password1","locator":{"loc":null},"uiType":"Container"},"key":"AbstractForm.Form1.Password.Password1"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Password:","tag":"td"},"uiType":"TextBox"},"key":"AbstractForm.Form1.Password.Password1.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_password","type":"password"}},"uiType":"InputBox"},"key":"AbstractForm.Form1.Password.Password1.Input"},{"obj":{"uid":"Submit","locator":{"tag":"input","attributes":{"name":"submit","value":"Login","type":"submit"}},"uiType":"SubmitButton"},"key":"AbstractForm.Form1.Submit"}];
     var json = [{"obj":{"uid":"AbstractForm","locator":{"tag":"form"},"uiType":"Form"},"key":"AbstractForm"},{"obj":{"uid":"Form1","locator":null,"uiType":"Container"},"key":"AbstractForm.Form1"},{"obj":{"uid":"Username","locator":{"tag":"tr"},"uiType":"Container"},"key":"AbstractForm.Form1.Username"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Username:","tag":"td"},"uiType":"TextBox"},"key":"AbstractForm.Form1.Username.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_username","type":"text"}},"uiType":"InputBox"},"key":"AbstractForm.Form1.Username.Input"},{"obj":{"uid":"Password","locator":{"tag":"tr"},"uiType":"Container"},"key":"AbstractForm.Form1.Password"},{"obj":{"uid":"Password1","locator":null,"uiType":"Container"},"key":"AbstractForm.Form1.Password.Password1"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Password:","tag":"td"},"uiType":"TextBox"},"key":"AbstractForm.Form1.Password.Password1.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_password","type":"password"}},"uiType":"InputBox"},"key":"AbstractForm.Form1.Password.Password1.Input"},{"obj":{"uid":"Submit","locator":{"tag":"input","attributes":{"name":"submit","value":"Login","type":"submit"}},"uiType":"SubmitButton"},"key":"AbstractForm.Form1.Submit"}];
     var uim = new UiModule();
-    uim.parseUiModule(JSON.stringify(json));
+//    uim.parseUiModule(JSON.stringify(json));
+    uim.parseUiModule(json);
     var alg = new UiAlg();
     var dom = teJQuery("html");
     alg.santa(uim, dom);
@@ -103,7 +107,8 @@ TelluriumTestCase.prototype.testLogonUiModule = function(){
 
     var json = [{"obj":{"uid":"Form","locator":{"tag":"form"},"uiType":"Form"},"key":"Form"},{"obj":{"uid":"Username","locator":{"tag":"tr"},"uiType":"Container"},"key":"Form.Username"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Username:","tag":"td"},"uiType":"TextBox"},"key":"Form.Username.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_username","type":"text"}},"uiType":"InputBox"},"key":"Form.Username.Input"},{"obj":{"uid":"Password","locator":{"tag":"tr"},"uiType":"Container"},"key":"Form.Password"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Password:","tag":"td"},"uiType":"TextBox"},"key":"Form.Password.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_password","type":"password"}},"uiType":"InputBox"},"key":"Form.Password.Input"},{"obj":{"uid":"Submit","locator":{"tag":"input","attributes":{"name":"submit","value":"Login","type":"submit"}},"uiType":"SubmitButton"},"key":"Form.Submit"}];
     var uim = new UiModule();
-    uim.parseUiModule(JSON.stringify(json));
+//    uim.parseUiModule(JSON.stringify(json));
+    uim.parseUiModule(json);
     var alg = new UiAlg();
     var dom = teJQuery("html");
     alg.santa(uim, dom);
@@ -120,7 +125,8 @@ TelluriumTestCase.prototype.testLogonUiModule = function(){
 TelluriumTestCase.prototype.testLogoUiModule = function(){
     var json = [{"obj":{"uid":"Logo","locator":{"tag":"img","attributes":{"alt":"Logo","src":"*.gif"}},"uiType":"Image"},"key":"Logo"}];
     var uim = new UiModule();
-    uim.parseUiModule(JSON.stringify(json));
+//    uim.parseUiModule(JSON.stringify(json));
+    uim.parseUiModule(json);
     var alg = new UiAlg();
     var dom = teJQuery("html");
     alg.santa(uim, dom);
@@ -132,7 +138,8 @@ TelluriumTestCase.prototype.testLogoUiModule = function(){
 TelluriumTestCase.prototype.testThumbnailUiModule = function(){
     var json = [{"obj":{"uid":"Thumbnail","locator":{"tag":"div","attributes":{"class":"thumbnail potd"}},"uiType":"Container"},"key":"Thumbnail"},{"obj":{"uid":"ICon","locator":{"tag":"div","attributes":{"class":"potd:icon png.fix"}},"uiType":"Container"},"key":"Thumbnail.ICon"},{"obj":{"uid":"Image","locator":{"tag":"img","attributes":{"src":"*.jpg"}},"uiType":"Image"},"key":"Thumbnail.ICon.Image"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"id":"Image:name","type":"text"}},"uiType":"InputBox"},"key":"Thumbnail.ICon.Input"}];
     var uim = new UiModule();
-    uim.parseUiModule(JSON.stringify(json));
+//    uim.parseUiModule(JSON.stringify(json));
+    uim.parseUiModule(json);
     var alg = new UiAlg();
     var dom = teJQuery("html");
     alg.santa(uim, dom);
@@ -146,7 +153,8 @@ TelluriumTestCase.prototype.testBookUiModule = function(){
 //    var json = [{"obj":{"uid":"GoogleBooksList","locator":{"tag":"table","attributes":{"id":"hp_table"}},"uiType":"Container"},"key":"GoogleBooksList"},{"obj":{"uid":"category","locator":{"tag":"div","attributes":{"class":"sub_cat_title"}},"uiType":"TextBox"},"key":"GoogleBooksList.category"},{"obj":{"uid":"subcategory","locator":{"tag":"div","attributes":{"class":"sub_cat_section"}},"uiType":"List","separator":"p"},"key":"GoogleBooksList.subcategory"},{"obj":{"uid":"all","locator":{"tag":"a"},"uiType":"UrlLink"},"key":"GoogleBooksList.subcategory._ALL"}];
     var json = [{"obj":{"uid":"GoogleBooksList","locator":{"tag":"table","attributes":{"id":"hp_table"}},"uiType":"Container"},"key":"GoogleBooksList"},{"obj":{"uid":"subcategory","locator":{"tag":"td","attributes":{"class":"sidebar"}},"uiType":"List","separator":"div"},"key":"GoogleBooksList.subcategory"},{"obj":{"uid":"all","locator":{"loc":null},"uiType":"Container"},"key":"GoogleBooksList.subcategory._ALL"},{"obj":{"uid":"title","locator":{"tag":"div","attributes":{"class":"sub_cat_title"}},"uiType":"TextBox"},"key":"GoogleBooksList.subcategory._ALL.title"},{"obj":{"uid":"links","locator":{"loc":null},"uiType":"List","separator":"p"},"key":"GoogleBooksList.subcategory._ALL.links"},{"obj":{"uid":"all","locator":{"tag":"a"},"uiType":"UrlLink"},"key":"GoogleBooksList.subcategory._ALL.links._ALL"}];
     var uim = new UiModule();
-    uim.parseUiModule(JSON.stringify(json));
+//    uim.parseUiModule(JSON.stringify(json));
+    uim.parseUiModule(json);
     var alg = new UiAlg();
 //    var dom = teJQuery("html > body");
     var dom = teJQuery("html");
@@ -163,7 +171,8 @@ TelluriumTestCase.prototype.testBookUiModule = function(){
 TelluriumTestCase.prototype.testExpandUiModule = function(){
     var json = [{"obj":{"uid":"expand","locator":{"tag":"a","attributes":{"id":"qrForm:innie"}},"uiType":"UrlLink"},"key":"expand"}];
     var uim = new UiModule();
-    uim.parseUiModule(JSON.stringify(json));
+//    uim.parseUiModule(JSON.stringify(json));
+    uim.parseUiModule(json);
     var alg = new UiAlg();
     var dom = teJQuery("html");
     alg.santa(uim, dom);
@@ -175,7 +184,8 @@ TelluriumTestCase.prototype.testErisUiModule = function(){
 //    var json = [{"obj":{"uid":"EcisPlusUiCAV","locator":{"tag":"table"},"uiType":"Container"},"key":"EcisPlusUiCAV"},{"obj":{"uid":"Save","locator":{"tag":"input","attributes":{"id":"cif:customerInfoSaveButton","name":"cif:customerInfoSaveButton","value":"Save","class":"btn saveButton","type":"button"}},"events":["click"],"uiType":"InputBox"},"key":"EcisPlusUiCAV.Save"}];
     var json = [{"obj":{"uid":"EcisPlusUiCAV","locator":{"tag":"div"},"uiType":"Container"},"key":"EcisPlusUiCAV"},{"obj":{"uid":"Save","locator":{"tag":"input","attributes":{"id":"cif:customerInfoSaveButton","name":"cif:customerInfoSaveButton","value":"Save","class":"btn saveButton","type":"button"}},"events":["click"],"uiType":"InputBox"},"key":"EcisPlusUiCAV.Save"}];
     var uim = new UiModule();
-    uim.parseUiModule(JSON.stringify(json));
+//    uim.parseUiModule(JSON.stringify(json));
+    uim.parseUiModule(json);
     var alg = new UiAlg();
     var dom = teJQuery("html");
     alg.validate(uim, dom);
@@ -191,7 +201,8 @@ TelluriumTestCase.prototype.testUiCache = function(){
 
     var json = [{"obj":{"uid":"ProblematicForm","locator":{"tag":"table"},"uiType":"Container"},"key":"ProblematicForm"},{"obj":{"uid":"Username","locator":{"tag":"tr"},"uiType":"Container"},"key":"ProblematicForm.Username"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Username:","tag":"td"},"uiType":"TextBox"},"key":"ProblematicForm.Username.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j","type":"text"}},"uiType":"InputBox"},"key":"ProblematicForm.Username.Input"},{"obj":{"uid":"Password","locator":{"tag":"tr"},"uiType":"Container"},"key":"ProblematicForm.Password"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Password:","tag":"td"},"uiType":"TextBox"},"key":"ProblematicForm.Password.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j","type":"password"}},"uiType":"InputBox"},"key":"ProblematicForm.Password.Input"},{"obj":{"uid":"Submit","locator":{"tag":"input","attributes":{"name":"submit","value":"logon","type":"submit"}},"uiType":"SubmitButton"},"key":"ProblematicForm.Submit"}];
     tellurium.cache.uiAlg.allowRelax = true;
-    tellurium.cache.useUiModule(JSON.stringify(json));
+//    tellurium.cache.useUiModule(JSON.stringify(json));  
+    tellurium.cache.useUiModule(json);
     tellurium.getUiElementFromCache("ProblematicForm.Username.Input");
     tellurium.getUiElementFromCache("ProblematicForm.Password.Input");
 };
