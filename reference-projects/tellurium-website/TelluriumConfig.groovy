@@ -34,7 +34,7 @@ tellurium{
 //        profile = "/home/jiafan1/.mozilla/firefox/820j3ca9.default"
       profile = ""
       //user-extension.js file
-      userExtension = ""
+      userExtension = "target/classes/user-extensions.js"
     }
     //event handler
     eventhandler{

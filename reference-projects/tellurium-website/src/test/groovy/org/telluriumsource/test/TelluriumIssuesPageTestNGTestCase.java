@@ -167,11 +167,6 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
         int size = getCacheSize();
         int maxSize = getCacheMaxSize();
         System.out.println("Cache Size: " + size + ", Cache Max Size: " + maxSize);
-        System.out.println("Cache Usage: ");
-        Map<String, Long> usages = getCacheUsage();
-        Set<String> keys = usages.keySet();
-        for(String key: keys){
-            System.out.println("UID: " + key + ", Count: " + usages.get(key));
-        }
+        System.out.println("Cache Usage: " + getCacheUsage());
     }
 }
