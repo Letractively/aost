@@ -253,7 +253,7 @@ var UiObject = Class.extend({
     },
 
     walkTo: function(context, uiid) {
-        fbLog("Walk to " + this.uiType + " " + this.uid, this);
+        !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
             if (this.domRef != null && this.amICacheable()) {
                 context.domRef = this.domRef;
@@ -267,7 +267,7 @@ var UiObject = Class.extend({
                     var $found = teJQuery(context.domRef).find(sel);
                     if ($found.size() == 1) {
                         context.domRef = $found.get(0);
-                        fbLog("Found element " + this.uid, context.domRef);
+                        !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
                     } else {
                         if ($found.size() == 0)
                             fbError("Cannot find UI element " + uiid, this);
@@ -431,7 +431,7 @@ var UiContainer = UiObject.extend({
         if(this.uim != null){
             var fid = this.fullUid();
             ids = this.uim.idTrie.getChildrenData(fid);
-            fbLog("Get children ids from ID Trie for " + fid, ids);
+            !tellurium.logManager.isUseLog || fbLog("Get children ids from ID Trie for " + fid, ids);
         }
 
         return ids;
@@ -460,14 +460,14 @@ var UiContainer = UiObject.extend({
         
         if (!this.noCacheForChildren) {
             //need to push all its children into the object queue
-            fbLog("Children for Container " + this.uid + ": ", this.components.showMe());
+            !tellurium.logManager.isUseLog || fbLog("Children for Container " + this.uid + ": ", this.components.showMe());
             var valset = this.components.valSet();
-            fbLog("Val set: ", valset);
+            !tellurium.logManager.isUseLog || fbLog("Val set: ", valset);
             for (var i = 0; i < valset.length; i++) {
                 var component = valset[i];
-                fbLog("component: ", component);
+                !tellurium.logManager.isUseLog || fbLog("component: ", component);
                 if (!component.lazy) {
-                    fbLog("Add child of Container " + this.uid + " to UiAlg : ", component);
+                    !tellurium.logManager.isUseLog || fbLog("Add child of Container " + this.uid + " to UiAlg : ", component);
                     uialg.addChildUiObject(component);
                 }
             }
@@ -479,20 +479,20 @@ var UiContainer = UiObject.extend({
 
         if (!this.noCacheForChildren) {
             var valset = this.components.valSet();
-            fbLog("Val set: ", valset);
+            !tellurium.logManager.isUseLog || fbLog("Val set: ", valset);
             for (var i = 0; i < valset.length; i++) {
                 var component = valset[i];
-                fbLog("component: ", component);
+                !tellurium.logManager.isUseLog || fbLog("component: ", component);
                 if (!component.lazy) {
-                    fbLog("Look ahead at cachable child of Container " + this.uid + ": ", component);
+                    !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable child of Container " + this.uid + ": ", component);
                     if(component.locator != null){
                         validChildren.push(component);
                     }else{
                         //the component is a logical container, need to go further down to get its children
-                        fbLog("Found logical container " + component.uid + " and look for this children", component);
+                        !tellurium.logManager.isUseLog || fbLog("Found logical container " + component.uid + " and look for this children", component);
                         var ccr = component.lookChildren();
                         if(ccr != null && ccr.length > 0){
-                            fbLog("Add logical container " + component.uid + "'s children. ", ccr);
+                            !tellurium.logManager.isUseLog || fbLog("Add logical container " + component.uid + "'s children. ", ccr);
                             validChildren = validChildren.concat(ccr);
                         }
                     }
@@ -507,20 +507,20 @@ var UiContainer = UiObject.extend({
         var children = new Array();
 
         var valset = this.components.valSet();
-        fbLog("Val set: ", valset);
+        !tellurium.logManager.isUseLog || fbLog("Val set: ", valset);
         for (var i = 0; i < valset.length; i++) {
             var component = valset[i];
-//            fbLog("component: ", component);
+//            !tellurium.logManager.isUseLog || fbLog("component: ", component);
 //            children.push(component);
-            fbLog("Look ahead nomatter what at cachable child of Container " + this.uid + ": ", component);
+            !tellurium.logManager.isUseLog || fbLog("Look ahead nomatter what at cachable child of Container " + this.uid + ": ", component);
             if (component.locator != null) {
                 children.push(component);
             } else {
                 //the component is a logical container, need to go further down to get its children
-                fbLog("Found logical container " + component.uid + " and look for this children", component);
+                !tellurium.logManager.isUseLog || fbLog("Found logical container " + component.uid + " and look for this children", component);
                 var ccr = component.lookChildrenNoMatterWhat();
                 if (ccr != null && ccr.length > 0) {
-                    fbLog("Add logical container " + component.uid + "'s children. ", ccr);
+                    !tellurium.logManager.isUseLog || fbLog("Add logical container " + component.uid + "'s children. ", ccr);
                     children = children.concat(ccr);
                 }
             }
@@ -554,7 +554,7 @@ var UiContainer = UiObject.extend({
     },
     
     walkTo: function(context, uiid){
-        fbLog("Walk to " + this.uiType + " " + this.uid, this);
+        !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
             if (this.domRef != null && this.amICacheable()) {
                 context.domRef = this.domRef;
@@ -566,17 +566,17 @@ var UiContainer = UiObject.extend({
                     if ($found.size() > 1) {
                         //first try lookId
                         $found = alg.lookId(this, $found);
-                        fbLog("Look Id result for " + this.uid, $found.get());
+                        !tellurium.logManager.isUseLog || fbLog("Look Id result for " + this.uid, $found.get());
                         if($found.size() > 1){
                             //Use lookAHead to eliminate multipe matches
                             $found = alg.lookAhead(this, $found);
-                            fbLog("Look Ahead result for " + this.uid, $found.get());
+                            !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + this.uid, $found.get());
                         }
                     }
 
                     if ($found.size() == 1) {
                         context.domRef = $found.get(0);
-                        fbLog("Found element " + this.uid, context.domRef);
+                        !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
                     } else {
                         if ($found.size() == 0)
                             fbError("Cannot find UI element " + this.uid, this);
@@ -597,7 +597,7 @@ var UiContainer = UiObject.extend({
         var cid = uiid.pop();
         var child = this.components.get(cid);
         if(child != null){
-            fbLog("Walk to child " + cid, child);
+            !tellurium.logManager.isUseLog || fbLog("Walk to child " + cid, child);
             return child.walkTo(context, uiid);
         }else{
             fbError("Cannot find child " + cid, child);
@@ -696,7 +696,7 @@ var UiList = UiContainer.extend({
     },
 
     walkTo: function(context, uiid) {
-        fbLog("Walk to " + this.uiType + " " + this.uid, this);
+        !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
             if (this.domRef != null && this.amICacheable()) {
                 context.domRef = this.domRef;
@@ -712,7 +712,7 @@ var UiList = UiContainer.extend({
 
                     if ($found.size() == 1) {
                         context.domRef = $found.get(0);
-                        fbLog("Found element " + this.uid, context.domRef);
+                        !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
                     } else {
                         if ($found.size() == 0)
                             fbError("Cannot find UI element " + this.uid, this);
@@ -726,7 +726,7 @@ var UiList = UiContainer.extend({
         } else {
             context.skipNext = false;
         }
-        fbLog("Processing the List itself and got the context dom Referece", context.domRef);
+        !tellurium.logManager.isUseLog || fbLog("Processing the List itself and got the context dom Referece", context.domRef);
         //if not child listed, return itself
         if (uiid.size() < 1)
             return this;
@@ -749,10 +749,10 @@ var UiList = UiContainer.extend({
             var selt = this.getListSelector(nindex);
 
             var $fnd = teJQuery(context.domRef).find(selt);
-            fbLog("Found child " + nindex + " with CSS selector '" + selt +"' for List " + this.uid, $fnd.get());
+            !tellurium.logManager.isUseLog || fbLog("Found child " + nindex + " with CSS selector '" + selt +"' for List " + this.uid, $fnd.get());
             if ($fnd.size() == 1) {
                 context.domRef = $fnd.get(0);
-                fbLog("Found element " + this.uid, context.domRef);
+                !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
             } else {
                 if ($fnd.size() == 0)
                     fbError("Cannot find the child UI element " + nindex, this);
@@ -771,11 +771,11 @@ var UiList = UiContainer.extend({
 
         if (uiid.size() < 1) {
             //not more child needs to be found
-            fbLog("Return List child ", cobj);
+            !tellurium.logManager.isUseLog || fbLog("Return List child ", cobj);
             return cobj;
         } else {
             //recursively call walkTo until the object is found
-            fbLog("Walk to List child ", cobj);
+            !tellurium.logManager.isUseLog || fbLog("Walk to List child ", cobj);
             return cobj.walkTo(context, uiid);
         }
     }
@@ -847,26 +847,26 @@ var UiTable = UiContainer.extend({
         
         if (!this.noCacheForChildren) {
             //need to push all its children into the object queue
-            fbLog("Children for Table " + this.uid + ": ", this.components.showMe());
+            !tellurium.logManager.isUseLog || fbLog("Children for Table " + this.uid + ": ", this.components.showMe());
             var valset = this.components.valSet();
-            fbLog("Children val set: ", valset);
+            !tellurium.logManager.isUseLog || fbLog("Children val set: ", valset);
             for (var i = 0; i < valset.length; i++) {
                 var component = valset[i];
-                fbLog("component: ", component);
+                !tellurium.logManager.isUseLog || fbLog("component: ", component);
                 if ((!component.lazy)) {
-                    fbLog("Add child of Table " + this.uid + " to UiAlg : ", component);
+                    !tellurium.logManager.isUseLog || fbLog("Add child of Table " + this.uid + " to UiAlg : ", component);
                     uialg.addChildUiObject(component);
                 }
             }
 
-            fbLog("Headers for Container " + this.uid + ": ", this.headers.showMe());
+            !tellurium.logManager.isUseLog || fbLog("Headers for Container " + this.uid + ": ", this.headers.showMe());
             valset = this.headers.valSet();
-            fbLog("Headers val set: ", valset);
+            !tellurium.logManager.isUseLog || fbLog("Headers val set: ", valset);
             for (var j = 0; j < valset.length; j++) {
                 var header = valset[j];
-                fbLog("header: ", header);
+                !tellurium.logManager.isUseLog || fbLog("header: ", header);
                 if (!header.lazy) {
-                    fbLog("Add header of Table " + this.uid + " to UiAlg : ", header);
+                    !tellurium.logManager.isUseLog || fbLog("Add header of Table " + this.uid + " to UiAlg : ", header);
                     uialg.addChildUiObject(header);
                 }
             }
@@ -878,21 +878,21 @@ var UiTable = UiContainer.extend({
 
         if (!this.noCacheForChildren) {
             var valset = this.components.valSet();
-            fbLog("Val set: ", valset);
+            !tellurium.logManager.isUseLog || fbLog("Val set: ", valset);
             for (var i = 0; i < valset.length; i++) {
                 var component = valset[i];
-                fbLog("component: ", component);
+                !tellurium.logManager.isUseLog || fbLog("component: ", component);
                 if (!component.lazy) {
-                    fbLog("Look ahead at cachable child of Table " + this.uid + ": ", component);
+                    !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable child of Table " + this.uid + ": ", component);
 //                    validChildren.push(component);
                     if(component.locator != null){
                         validChildren.push(component);
                     }else{
                         //the component is a logical container, need to go further down to get its children
-                        fbLog("Found logical container " + component.uid + " and look for this children", component);
+                        !tellurium.logManager.isUseLog || fbLog("Found logical container " + component.uid + " and look for this children", component);
                         var ccr = component.lookChildren();
                         if(ccr != null && ccr.length > 0){
-                            fbLog("Add logical container " + component.uid + "'s children. ", ccr);
+                            !tellurium.logManager.isUseLog || fbLog("Add logical container " + component.uid + "'s children. ", ccr);
                             validChildren = validChildren.concat(ccr);
                         }
                     }
@@ -902,18 +902,18 @@ var UiTable = UiContainer.extend({
             valset = this.headers.valSet();
             for (var j = 0; j < valset.length; j++) {
                 var header = valset[j];
-                fbLog("header: ", header);
+                !tellurium.logManager.isUseLog || fbLog("header: ", header);
                 if (!header.lazy) {
-                    fbLog("Look ahead at cachable header of Table " + this.uid + ": ", header);
+                    !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable header of Table " + this.uid + ": ", header);
 //                    validChildren.push(header);
                     if(header.locator != null){
                         validChildren.push(header);
                     }else{
                         //the component is a logical container, need to go further down to get its children
-                        fbLog("Found logical container " + header.uid + " and look for this children", header);
+                        !tellurium.logManager.isUseLog || fbLog("Found logical container " + header.uid + " and look for this children", header);
                         var chr = header.lookChildren();
                         if(chr != null && chr.length > 0){
-                            fbLog("Add logical container " + header.uid + "'s children. ", chr);
+                            !tellurium.logManager.isUseLog || fbLog("Add logical container " + header.uid + "'s children. ", chr);
                             validChildren = validChildren.concat(chr);
                         }
                     }
@@ -928,39 +928,39 @@ var UiTable = UiContainer.extend({
         var children = new Array();
 
         var valset = this.components.valSet();
-        fbLog("Val set: ", valset);
+        !tellurium.logManager.isUseLog || fbLog("Val set: ", valset);
         for (var i = 0; i < valset.length; i++) {
             var component = valset[i];
-            fbLog("Look ahead nomatter what at cachable child of Table " + this.uid + ": ", component);
+            !tellurium.logManager.isUseLog || fbLog("Look ahead nomatter what at cachable child of Table " + this.uid + ": ", component);
             if (component.locator != null) {
                 children.push(component);
             } else {
                 //the component is a logical container, need to go further down to get its children
-                fbLog("Found logical container " + component.uid + " and look for this children", component);
+                !tellurium.logManager.isUseLog || fbLog("Found logical container " + component.uid + " and look for this children", component);
                 var ccr = component.lookChildrenNoMatterWhat();
                 if (ccr != null && ccr.length > 0) {
-                    fbLog("Add logical container " + component.uid + "'s children. ", ccr);
+                    !tellurium.logManager.isUseLog || fbLog("Add logical container " + component.uid + "'s children. ", ccr);
                     children = children.concat(ccr);
                 }
             }
-//            fbLog("component: ", component);
+//            !tellurium.logManager.isUseLog || fbLog("component: ", component);
 //            children.push(component);
         }
         
         valset = this.headers.valSet();
         for (var j = 0; j < valset.length; j++) {
             var header = valset[j];
-//            fbLog("header: ", header);
+//            !tellurium.logManager.isUseLog || fbLog("header: ", header);
 //            children.push(header);
-            fbLog("Look ahead at cachable header of Table " + this.uid + ": ", header);
+            !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable header of Table " + this.uid + ": ", header);
             if (header.locator != null) {
                 children.push(header);
             } else {
                 //the component is a logical container, need to go further down to get its children
-                fbLog("Found logical container " + header.uid + " and look for this children", header);
+                !tellurium.logManager.isUseLog || fbLog("Found logical container " + header.uid + " and look for this children", header);
                 var chr = header.lookChildrenNoMatterWhat();
                 if (chr != null && chr.length > 0) {
-                    fbLog("Add logical container " + header.uid + "'s children. ", chr);
+                    !tellurium.logManager.isUseLog || fbLog("Add logical container " + header.uid + "'s children. ", chr);
                     children = children.concat(chr);
                 }
             }
@@ -1048,10 +1048,10 @@ var UiTable = UiContainer.extend({
             var sel = this.getHeaderSelector(index);
 
             var $found = teJQuery(context.domRef).find(sel);
-            fbLog("Found child " + index + " with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
+            !tellurium.logManager.isUseLog || fbLog("Found child " + index + " with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
             if ($found.size() == 1) {
                 context.domRef = $found.get(0);
-                fbLog("Found element " + this.uid, context.domRef);
+                !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
             } else {
                 if ($found.size() == 0)
                     fbError("Cannot find the child UI element " + index, this);
@@ -1070,11 +1070,11 @@ var UiTable = UiContainer.extend({
 
         if (uiid.size() < 1) {
             //not more child needs to be found
-            fbLog("Return Table head ", cobj);
+            !tellurium.logManager.isUseLog || fbLog("Return Table head ", cobj);
             return cobj;
         } else {
             //recursively call walkTo until the object is found
-            fbLog("Walk to Table head ", cobj);
+            !tellurium.logManager.isUseLog || fbLog("Walk to Table head ", cobj);
             return cobj.walkTo(context, uiid);
         }
     },
@@ -1098,10 +1098,10 @@ var UiTable = UiContainer.extend({
             var sel = this.getCellSelector(nrow, ncolumn);
 
             var $found = teJQuery(context.domRef).find(sel);
-            fbLog("Found child with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
+            !tellurium.logManager.isUseLog || fbLog("Found child with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
             if ($found.size() == 1) {
                 context.domRef = $found.get(0);
-                fbLog("Found element " + this.uid, context.domRef);
+                !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
             } else {
                 if ($found.size() == 0)
                     fbError("Cannot find the child UI element ", this);
@@ -1120,17 +1120,17 @@ var UiTable = UiContainer.extend({
 
         if (uiid.size() < 1) {
             //not more child needs to be found
-            fbLog("Return Table child ", cobj);
+            !tellurium.logManager.isUseLog || fbLog("Return Table child ", cobj);
             return cobj;
         } else {
             //recursively call walkTo until the object is found
-            fbLog("Walk to Table child ", cobj);
+            !tellurium.logManager.isUseLog || fbLog("Walk to Table child ", cobj);
             return cobj.walkTo(context, uiid);
         }
     },
 
     walkTo: function(context, uiid){
-        fbLog("Walk to " + this.uiType + " " + this.uid, this);
+        !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
             if (this.domRef != null && this.amICacheable()) {
                 context.domRef = this.domRef;
@@ -1147,7 +1147,7 @@ var UiTable = UiContainer.extend({
 
                     if ($found.size() == 1) {
                         context.domRef = $found.get(0);
-                        fbLog("Found element " + this.uid, context.domRef);
+                        !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
                     } else {
                         if ($found.size() == 0)
                             fbError("Cannot find UI element " + this.uid, this);
@@ -1161,7 +1161,7 @@ var UiTable = UiContainer.extend({
         } else {
             context.skipNext = false;
         }
-        fbLog("Processing the List itself and got the context dom Referece", context.domRef);
+        !tellurium.logManager.isUseLog || fbLog("Processing the List itself and got the context dom Referece", context.domRef);
 
         if (uiid.size() < 1)
             return this;
@@ -1272,38 +1272,38 @@ var UiStandardTable = UiContainer.extend({
         uialg.locateInAllSnapshots(this);
         if (!this.noCacheForChildren) {
             //need to push all its children into the object queue
-            fbLog("Children for StandardTable " + this.uid + ": ", this.components.showMe());
+            !tellurium.logManager.isUseLog || fbLog("Children for StandardTable " + this.uid + ": ", this.components.showMe());
             var valset = this.components.valSet();
-            fbLog("Children val set: ", valset);
+            !tellurium.logManager.isUseLog || fbLog("Children val set: ", valset);
             for (var i = 0; i < valset.length; i++) {
                 var component = valset[i];
-                fbLog("component: ", component);
+                !tellurium.logManager.isUseLog || fbLog("component: ", component);
                 if ((!component.lazy)) {
-                    fbLog("Add child of StandardTable " + this.uid + " to UiAlg : ", component);
+                    !tellurium.logManager.isUseLog || fbLog("Add child of StandardTable " + this.uid + " to UiAlg : ", component);
                     uialg.addChildUiObject(component);
                 }
             }
 
-            fbLog("Headers for StandardTable " + this.uid + ": ", this.headers.showMe());
+            !tellurium.logManager.isUseLog || fbLog("Headers for StandardTable " + this.uid + ": ", this.headers.showMe());
             valset = this.headers.valSet();
-            fbLog("Headers val set: ", valset);
+            !tellurium.logManager.isUseLog || fbLog("Headers val set: ", valset);
             for (var j = 0; j < valset.length; j++) {
                 var header = valset[j];
-                fbLog("header: ", header);
+                !tellurium.logManager.isUseLog || fbLog("header: ", header);
                 if (!header.lazy) {
-                    fbLog("Add header of StandardTable " + this.uid + " to UiAlg : ", header);
+                    !tellurium.logManager.isUseLog || fbLog("Add header of StandardTable " + this.uid + " to UiAlg : ", header);
                     uialg.addChildUiObject(header);
                 }
             }
 
-            fbLog("Footers for StandardTable " + this.uid + ": ", this.footers.showMe());
+            !tellurium.logManager.isUseLog || fbLog("Footers for StandardTable " + this.uid + ": ", this.footers.showMe());
             valset = this.footers.valSet();
-            fbLog("Footers val set: ", valset);
+            !tellurium.logManager.isUseLog || fbLog("Footers val set: ", valset);
             for (var k = 0; k < valset.length; k++) {
                 var footer = valset[k];
-                fbLog("footer: ", footer);
+                !tellurium.logManager.isUseLog || fbLog("footer: ", footer);
                 if (!footer.lazy) {
-                    fbLog("Add footer of StandardTable " + this.uid + " to UiAlg : ", footer);
+                    !tellurium.logManager.isUseLog || fbLog("Add footer of StandardTable " + this.uid + " to UiAlg : ", footer);
                     uialg.addChildUiObject(footer);
                 }
             }
@@ -1315,21 +1315,21 @@ var UiStandardTable = UiContainer.extend({
 
         if (!this.noCacheForChildren) {
             var valset = this.components.valSet();
-            fbLog("Val set: ", valset);
+            !tellurium.logManager.isUseLog || fbLog("Val set: ", valset);
             for (var i = 0; i < valset.length; i++) {
                 var component = valset[i];
-                fbLog("component: ", component);
+                !tellurium.logManager.isUseLog || fbLog("component: ", component);
                 if (!component.lazy) {
-                    fbLog("Look ahead at cachable child of StandardTable " + this.uid + ": ", component);
+                    !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable child of StandardTable " + this.uid + ": ", component);
 //                    validChildren.push(component);
                     if(component.locator != null){
                         validChildren.push(component);
                     }else{
                         //the component is a logical container, need to go further down to get its children
-                        fbLog("Found logical container " + component.uid + " and look for this children", component);
+                        !tellurium.logManager.isUseLog || fbLog("Found logical container " + component.uid + " and look for this children", component);
                         var ccr = component.lookChildren();
                         if(ccr != null && ccr.length > 0){
-                            fbLog("Add logical container " + component.uid + "'s children. ", ccr);
+                            !tellurium.logManager.isUseLog || fbLog("Add logical container " + component.uid + "'s children. ", ccr);
                             validChildren = validChildren.concat(ccr);
                         }
                     }
@@ -1339,18 +1339,18 @@ var UiStandardTable = UiContainer.extend({
             valset = this.headers.valSet();
             for (var j = 0; j < valset.length; j++) {
                 var header = valset[j];
-                fbLog("header: ", header);
+                !tellurium.logManager.isUseLog || fbLog("header: ", header);
                 if (!header.lazy) {
-                    fbLog("Look ahead at cachable header of StandardTable " + this.uid + ": ", header);
+                    !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable header of StandardTable " + this.uid + ": ", header);
 //                    validChildren.push(header);
                     if(header.locator != null){
                         validChildren.push(header);
                     }else{
                         //the component is a logical container, need to go further down to get its children
-                        fbLog("Found logical container " + header.uid + " and look for this children", header);
+                        !tellurium.logManager.isUseLog || fbLog("Found logical container " + header.uid + " and look for this children", header);
                         var chr = header.lookChildren();
                         if(chr != null && chr.length > 0){
-                            fbLog("Add logical container " + header.uid + "'s children. ", chr);
+                            !tellurium.logManager.isUseLog || fbLog("Add logical container " + header.uid + "'s children. ", chr);
                             validChildren = validChildren.concat(chr);
                         }
                     }
@@ -1360,18 +1360,18 @@ var UiStandardTable = UiContainer.extend({
             valset = this.footers.valSet();
             for (var k = 0; k < valset.length; k++) {
                 var footer = valset[k];
-                fbLog("footer: ", footer);
+                !tellurium.logManager.isUseLog || fbLog("footer: ", footer);
                 if (!footer.lazy) {
-                    fbLog("Look ahead at cachable footer of StandardTable " + this.uid + ": ", footer);
+                    !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable footer of StandardTable " + this.uid + ": ", footer);
 //                    validChildren.push(footer);
                     if(footer.locator != null){
                         validChildren.push(footer);
                     }else{
                         //the component is a logical container, need to go further down to get its children
-                        fbLog("Found logical container " + footer.uid + " and look for this children", footer);
+                        !tellurium.logManager.isUseLog || fbLog("Found logical container " + footer.uid + " and look for this children", footer);
                         var cfr = footer.lookChildren();
                         if(cfr != null && cfr.length > 0){
-                            fbLog("Add logical container " + footer.uid + "'s children. ", cfr);
+                            !tellurium.logManager.isUseLog || fbLog("Add logical container " + footer.uid + "'s children. ", cfr);
                             validChildren = validChildren.concat(cfr);
                         }
                     }
@@ -1386,20 +1386,20 @@ var UiStandardTable = UiContainer.extend({
         var children = new Array();
 
         var valset = this.components.valSet();
-        fbLog("Val set: ", valset);
+        !tellurium.logManager.isUseLog || fbLog("Val set: ", valset);
         for (var i = 0; i < valset.length; i++) {
             var component = valset[i];
-//            fbLog("component: ", component);
+//            !tellurium.logManager.isUseLog || fbLog("component: ", component);
 //            children.push(component);
-            fbLog("Look ahead nomatter what at cachable child of StandardTable " + this.uid + ": ", component);
+            !tellurium.logManager.isUseLog || fbLog("Look ahead nomatter what at cachable child of StandardTable " + this.uid + ": ", component);
             if (component.locator != null) {
                 children.push(component);
             } else {
                 //the component is a logical container, need to go further down to get its children
-                fbLog("Found logical container " + component.uid + " and look for this children", component);
+                !tellurium.logManager.isUseLog || fbLog("Found logical container " + component.uid + " and look for this children", component);
                 var ccr = component.lookChildrenNoMatterWhat();
                 if (ccr != null && ccr.length > 0) {
-                    fbLog("Add logical container " + component.uid + "'s children. ", ccr);
+                    !tellurium.logManager.isUseLog || fbLog("Add logical container " + component.uid + "'s children. ", ccr);
                     children = children.concat(ccr);
                 }
             }
@@ -1408,17 +1408,17 @@ var UiStandardTable = UiContainer.extend({
         valset = this.headers.valSet();
         for (var j = 0; j < valset.length; j++) {
             var header = valset[j];
-//            fbLog("header: ", header);
+//            !tellurium.logManager.isUseLog || fbLog("header: ", header);
 //            children.push(header);
-            fbLog("Look ahead at cachable header of StandardTable " + this.uid + ": ", header);
+            !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable header of StandardTable " + this.uid + ": ", header);
             if (header.locator != null) {
                 children.push(header);
             } else {
                 //the component is a logical container, need to go further down to get its children
-                fbLog("Found logical container " + header.uid + " and look for this children", header);
+                !tellurium.logManager.isUseLog || fbLog("Found logical container " + header.uid + " and look for this children", header);
                 var chr = header.lookChildrenNoMatterWhat();
                 if (chr != null && chr.length > 0) {
-                    fbLog("Add logical container " + header.uid + "'s children. ", chr);
+                    !tellurium.logManager.isUseLog || fbLog("Add logical container " + header.uid + "'s children. ", chr);
                     children = children.concat(chr);
                 }
             }
@@ -1427,17 +1427,17 @@ var UiStandardTable = UiContainer.extend({
         valset = this.footers.valSet();
         for (var k = 0; k < valset.length; k++) {
             var footer = valset[k];
-//            fbLog("footer: ", footer);
+//            !tellurium.logManager.isUseLog || fbLog("footer: ", footer);
 //            children.push(footer);
-            fbLog("Look ahead at cachable footer of StandardTable " + this.uid + ": ", footer);
+            !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable footer of StandardTable " + this.uid + ": ", footer);
             if (footer.locator != null) {
                 children.push(footer);
             } else {
                 //the component is a logical container, need to go further down to get its children
-                fbLog("Found logical container " + footer.uid + " and look for this children", footer);
+                !tellurium.logManager.isUseLog || fbLog("Found logical container " + footer.uid + " and look for this children", footer);
                 var cfr = footer.lookChildrenNoMatterWhat();
                 if (cfr != null && cfr.length > 0) {
-                    fbLog("Add logical container " + footer.uid + "'s children. ", cfr);
+                    !tellurium.logManager.isUseLog || fbLog("Add logical container " + footer.uid + "'s children. ", cfr);
                     children = children.concat(cfr);
                 }
             }
@@ -1538,10 +1538,10 @@ var UiStandardTable = UiContainer.extend({
     },
 
     getAllBodyCell: function(context, worker){
-        fbLog("Check context in getAllBodyCell", context);
+        !tellurium.logManager.isUseLog || fbLog("Check context in getAllBodyCell", context);
         if (context.domRef != null) {
             var $found = teJQuery(context.domRef).find(this.bt);
-            fbLog("Found table body ", $found.get());
+            !tellurium.logManager.isUseLog || fbLog("Found table body ", $found.get());
             var bodylist = new Array();
 
             if ($found.size() > 0) {
@@ -1557,8 +1557,8 @@ var UiStandardTable = UiContainer.extend({
                     bodylist.push($found.last());
                 }
 
-                fbLog("Valid table body ", bodylist);
-                fbLog("Type of bodylist ", typeof bodylist);
+                !tellurium.logManager.isUseLog || fbLog("Valid table body ", bodylist);
+                !tellurium.logManager.isUseLog || fbLog("Type of bodylist ", typeof bodylist);
                 var elements = new Array();
                 for(var j=0; j<bodylist.length; j++){
                     var $el = teJQuery(bodylist[j]).find(" > " + this.brt + " > " + this.bct);
@@ -1566,7 +1566,7 @@ var UiStandardTable = UiContainer.extend({
                         elements = elements.concat($el.get());
                     }
                 }
-                fbLog("Found table body cells ", elements);
+                !tellurium.logManager.isUseLog || fbLog("Found table body cells ", elements);
                 if(elements != null && elements.length > 0){
                     return worker.work(context, elements);
                 }
@@ -1598,10 +1598,10 @@ var UiStandardTable = UiContainer.extend({
             var sel = this.getHeaderSelector(index);
 
             var $found = teJQuery(context.domRef).find(sel);
-            fbLog("Found child " + index + " with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
+            !tellurium.logManager.isUseLog || fbLog("Found child " + index + " with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
             if ($found.size() == 1) {
                 context.domRef = $found.get(0);
-                fbLog("Found element " + this.uid, context.domRef);
+                !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
             } else {
                 if ($found.size() == 0)
                     fbError("Cannot find the child UI element " + index, this);
@@ -1620,11 +1620,11 @@ var UiStandardTable = UiContainer.extend({
 
         if (uiid.size() < 1) {
             //not more child needs to be found
-            fbLog("Return StandardTable head ", cobj);
+            !tellurium.logManager.isUseLog || fbLog("Return StandardTable head ", cobj);
             return cobj;
         } else {
             //recursively call walkTo until the object is found
-            fbLog("Walk to StandardTable head ", cobj);
+            !tellurium.logManager.isUseLog || fbLog("Walk to StandardTable head ", cobj);
             return cobj.walkTo(context, uiid);
         }
     },
@@ -1651,10 +1651,10 @@ var UiStandardTable = UiContainer.extend({
             var sel = this.getFootSelector(index);
 
             var $found = teJQuery(context.domRef).find(sel);
-            fbLog("Found child " + index + " with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
+            !tellurium.logManager.isUseLog || fbLog("Found child " + index + " with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
             if ($found.size() == 1) {
                 context.domRef = $found.get(0);
-                fbLog("Found element " + this.uid, context.domRef);
+                !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
             } else {
                 if ($found.size() == 0)
                     fbError("Cannot find the child UI element " + index, this);
@@ -1673,11 +1673,11 @@ var UiStandardTable = UiContainer.extend({
 
         if (uiid.size() < 1) {
             //not more child needs to be found
-            fbLog("Return StandardTable foot ", cobj);
+            !tellurium.logManager.isUseLog || fbLog("Return StandardTable foot ", cobj);
             return cobj;
         } else {
             //recursively call walkTo until the object is found
-            fbLog("Walk to StandardTable foot ", cobj);
+            !tellurium.logManager.isUseLog || fbLog("Walk to StandardTable foot ", cobj);
             return cobj.walkTo(context, uiid);
         }
     },
@@ -1710,10 +1710,10 @@ var UiStandardTable = UiContainer.extend({
             var sel = this.getCellSelector(ntbody, nrow, ncolumn);
 
             var $found = teJQuery(context.domRef).find(sel);
-            fbLog("Found child with CSS selector '" + sel +"' for StandardTable " + this.uid, $found.get());
+            !tellurium.logManager.isUseLog || fbLog("Found child with CSS selector '" + sel +"' for StandardTable " + this.uid, $found.get());
             if ($found.size() == 1) {
                 context.domRef = $found.get(0);
-                fbLog("Found element " + this.uid, context.domRef);
+                !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
             } else {
                 if ($found.size() == 0)
                     fbError("Cannot find the child UI element ", this);
@@ -1732,17 +1732,17 @@ var UiStandardTable = UiContainer.extend({
 
         if (uiid.size() < 1) {
             //not more child needs to be found
-            fbLog("Return StandardTable child ", cobj);
+            !tellurium.logManager.isUseLog || fbLog("Return StandardTable child ", cobj);
             return cobj;
         } else {
             //recursively call walkTo until the object is found
-            fbLog("Walk to StandardTable child ", cobj);
+            !tellurium.logManager.isUseLog || fbLog("Walk to StandardTable child ", cobj);
             return cobj.walkTo(context, uiid);
         }
     },
 
     walkTo: function(context, uiid){
-        fbLog("Walk to " + this.uiType + " " + this.uid, this);
+        !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
             if (this.domRef != null && this.amICacheable()) {
                 context.domRef = this.domRef;
@@ -1758,7 +1758,7 @@ var UiStandardTable = UiContainer.extend({
 
                     if ($found.size() == 1) {
                         context.domRef = $found.get(0);
-                        fbLog("Found element " + this.uid, context.domRef);
+                        !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
                     } else {
                         if ($found.size() == 0)
                             fbError("Cannot find UI element " + this.uid, this);
@@ -1772,7 +1772,7 @@ var UiStandardTable = UiContainer.extend({
         } else {
             context.skipNext = false;
         }
-        fbLog("Processing the StandardTable itself and got the context dom Referece", context.domRef);
+        !tellurium.logManager.isUseLog || fbLog("Processing the StandardTable itself and got the context dom Referece", context.domRef);
 
         if (uiid.size() < 1)
             return this;
@@ -1966,13 +1966,13 @@ var UiWorker = Class.extend({
 var TextUiWorker = UiWorker.extend({
     work: function(context, elements){
         var out = [];
-        fbLog("Starting to collect text for elements ", elements);
+        !tellurium.logManager.isUseLog || fbLog("Starting to collect text for elements ", elements);
         if(elements != null && elements.length > 0){
             var $e = teJQuery(elements);
             $e.each(function() {
                 out.push(teJQuery(this).text());
             });
-            fbLog("Collected text for element ", out);
+            !tellurium.logManager.isUseLog || fbLog("Collected text for element ", out);
         }
 
         return out;
@@ -1981,7 +1981,7 @@ var TextUiWorker = UiWorker.extend({
 
 var ToggleUiWorker = UiWorker.extend({
     work: function(context, elements, delay){
-        fbLog("Starting to toggle elements ", elements);
+        !tellurium.logManager.isUseLog || fbLog("Starting to toggle elements ", elements);
         if(elements != null && elements.length > 0){
             var $e = teJQuery(elements);
             $e.each(function(){
@@ -1989,7 +1989,7 @@ var ToggleUiWorker = UiWorker.extend({
 
             });
         }
-        fbLog("Finish toggle elements", elements);
+        !tellurium.logManager.isUseLog || fbLog("Finish toggle elements", elements);
     }
 });
 
@@ -2002,16 +2002,16 @@ var ColorUiWorker = UiWorker.extend({
                 $te.data("te-color-bak", $te.css("background-color"));
             });
             $e.css("background-color", "red");
-            fbLog("Set elements to red for ", elements);
+            !tellurium.logManager.isUseLog || fbLog("Set elements to red for ", elements);
             $e.slideUp(100).slideDown(100).delay(delay).fadeOut(100).fadeIn(100);
-            fbLog("Delayed for " + delay, this);
+            !tellurium.logManager.isUseLog || fbLog("Delayed for " + delay, this);
             $e.each(function() {
                 //back to the original color
                 var $te = teJQuery(this);
                 $te.css("background-color", $te.data("te-color-bak"));
                 $te.removeData("te-color-bak");
             });
-            fbLog("Elements' color restored to original ones for ", elements);
+            !tellurium.logManager.isUseLog || fbLog("Elements' color restored to original ones for ", elements);
         }
     }
 });
@@ -2071,7 +2071,7 @@ UiModule.prototype.getCacheUsage = function(){
         cusage.usage = 100*cusage.cacheHit/cusage.totalCall;
     }
 
-    fbLog("Get Cache Usage for UI Module " + this.id, cusage);
+    !tellurium.logManager.isUseLog || fbLog("Get Cache Usage for UI Module " + this.id, cusage);
     return cusage;
 };
 
@@ -2087,17 +2087,17 @@ UiModule.prototype.parseUiModule = function(ulst){
 //    var ulst = JSON.parse(json, null);
 //    var ulst = jsonarray;
     var klst = new Array();
-    fbLog("JSON Object ulst: ", ulst);
-    fbLog("ulst length: ", ulst.length);
+    !tellurium.logManager.isUseLog || fbLog("JSON Object ulst: ", ulst);
+    !tellurium.logManager.isUseLog || fbLog("ulst length: ", ulst.length);
     for(var i=0; i<ulst.length; i++){
-        fbLog("i: ", i);
-        fbLog("Build from JSON object: ", ulst[i].obj);
+        !tellurium.logManager.isUseLog || fbLog("i: ", i);
+        !tellurium.logManager.isUseLog || fbLog("Build from JSON object: ", ulst[i].obj);
         this.map.put(ulst[i].key, this.buildFromJSON(ulst[i].obj));
         klst.push(ulst[i].key);
     }
 
     this.buildTree(klst);
-    fbLog("Parsed Ui Module " + this.id + ": ", this);
+    !tellurium.logManager.isUseLog || fbLog("Parsed Ui Module " + this.id + ": ", this);
 };
 
 UiModule.prototype.buildFromJSON = function(jobj){
@@ -2112,8 +2112,8 @@ UiModule.prototype.buildFromJSON = function(jobj){
     }
 
     objectCopy(obj, jobj);
-    fbLog("Build from JSON: ", jobj);
-    fbLog("Object built: ", obj);
+    !tellurium.logManager.isUseLog || fbLog("Build from JSON: ", jobj);
+    !tellurium.logManager.isUseLog || fbLog("Object built: ", obj);
 
     return obj;
 };
@@ -2127,7 +2127,7 @@ UiModule.prototype.buildTree = function(keys){
         //build ID Prefix tree, i.e., Trie
         //TODO: may consider stricter requirement that the ID cannot be partial, i.e., cannot starts with * ^ ! $
         if(id != null && id.trim().length > 0){
-            fbLog("Add object " + keys[i] + "'s id " + id + " to ID Trie. ", uiobj);
+            !tellurium.logManager.isUseLog || fbLog("Add object " + keys[i] + "'s id " + id + " to ID Trie. ", uiobj);
             this.idTrie.insert(keys[i], id);
         }
 
@@ -2264,7 +2264,7 @@ UiAlg.prototype.clear = function(){
 UiAlg.prototype.unmark = function(){
     if(this.uidset != null){
         for(var i=0; i< this.uidset.length; i++){
-            fbLog("Unmarking uid " + this.uidset[i].data("uid"), this.uidset[i]);
+            !tellurium.logManager.isUseLog || fbLog("Unmarking uid " + this.uidset[i].data("uid"), this.uidset[i]);
             this.uidset[i].removeData("uid");
         }
     }
@@ -2284,7 +2284,7 @@ UiAlg.prototype.nextColor = function(){
 
 UiAlg.prototype.locateInAllSnapshots = function(uiobj){
     var finished = false;
-    fbLog("Initial snapshot queue in LocateInAllSnapshots", this.squeue);
+    !tellurium.logManager.isUseLog || fbLog("Initial snapshot queue in LocateInAllSnapshots", this.squeue);
     while(!finished && this.squeue.size() > 0){
         var first = this.squeue.peek();
         //check the first element color
@@ -2415,14 +2415,14 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
         if(uiobj.noCacheForChildren){
             //if there is no cache for children for UI object uiobj
             $found = this.bestEffort(uiobj, $found);
-            fbLog("UI object has no cache for children, best guess result for UI object " + uiobj.uid, $found.get());
+            !tellurium.logManager.isUseLog || fbLog("UI object has no cache for children, best guess result for UI object " + uiobj.uid, $found.get());
         }else{
             //first try lookId
             $found = this.lookId(uiobj, $found);
-            fbLog("Look Id result for " + uiobj.uid, $found.get());
+            !tellurium.logManager.isUseLog || fbLog("Look Id result for " + uiobj.uid, $found.get());
             if($found.size() > 1){
                 $found = this.lookAhead(uiobj, $found);
-                fbLog("Look ahead result for " + uiobj.uid, $found.get());
+                !tellurium.logManager.isUseLog || fbLog("Look ahead result for " + uiobj.uid, $found.get());
             }
         }
     }
@@ -2431,7 +2431,7 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
     if($found.size() == 1){
         //found exactly one, happy path
         //temporially assign uid to the found element
-        fbLog("Marking uid " + uid, $found.eq(0));
+        !tellurium.logManager.isUseLog || fbLog("Marking uid " + uid, $found.eq(0));
         $found.eq(0).data("uid", uid);
         snapshot.addUi(uid, $found.get(0));
         //store all the elements with data("uid")
@@ -2462,7 +2462,7 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
             this.squeue.push(snapshot);
         }
     }else{
-        fbLog("allowRelax: ", this.allowRelax);
+        !tellurium.logManager.isUseLog || fbLog("allowRelax: ", this.allowRelax);
         //if allow us to relax the clocator/attribute constraints and use the closest matching ones instead
         if(this.allowRelax){
             var result = this.relax(clocator, pref);
@@ -2475,7 +2475,7 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
             if($relaxed.size() == 1){
                 //found exactly one
                 //temporially assign uid to the found element
-                fbLog("Marking closest match for uid " + uid, $relaxed.get(0));
+                !tellurium.logManager.isUseLog || fbLog("Marking closest match for uid " + uid, $relaxed.get(0));
                 $relaxed.eq(0).data("uid", uid);
 
                 if (!foundWithoutLookAhead) {
@@ -2598,7 +2598,7 @@ UiAlg.prototype.relax = function(clocator, pref) {
             result.score = 100;
             result.closest = $closest;
         }
-        fbLog("Scaled Matching Score: " + result.score, result);
+        !tellurium.logManager.isUseLog || fbLog("Scaled Matching Score: " + result.score, result);
            
         return result;
     } else {
@@ -2638,7 +2638,7 @@ UiAlg.prototype.relax = function(clocator, pref) {
 
         //calculate matching score, scaled to 100 percentage
         result.score = 100*nm/np;
-        fbLog("Scaled Matching Score: " + result.score, result);
+        !tellurium.logManager.isUseLog || fbLog("Scaled Matching Score: " + result.score, result);
 
         return result;
     }
@@ -2714,7 +2714,7 @@ UiAlg.prototype.bestEffort = function(uiobj, $found){
                 maxbonus = bonus;
             }
         }
-        fbLog("calculated bonus points for " + uiobj.uid + "'s children", bonusArray);
+        !tellurium.logManager.isUseLog || fbLog("calculated bonus points for " + uiobj.uid + "'s children", bonusArray);
         var result = new Array();
 
         for(var j=0; j<$found.size(); j++){
@@ -2723,7 +2723,7 @@ UiAlg.prototype.bestEffort = function(uiobj, $found){
             }
         }
 
-        fbLog("Get Best Guess result for " + uiobj.uid, result);
+        !tellurium.logManager.isUseLog || fbLog("Get Best Guess result for " + uiobj.uid, result);
         return teJQuery(result);
     }
     return $found;
@@ -2766,7 +2766,7 @@ UiAlg.prototype.getValidParentFor = function(uiobj){
 // by Jian Fang (John.Jian.Fang@gmail.com)
 //
 UiAlg.prototype.santa = function(uimodule, rootdom){
-    fbLog("call santa algorithm for UI Module ", uimodule);
+    !tellurium.logManager.isUseLog || fbLog("call santa algorithm for UI Module ", uimodule);
     this.clear();
     if(rootdom != null){
         this.dom = rootdom;
@@ -2783,12 +2783,12 @@ UiAlg.prototype.santa = function(uimodule, rootdom){
     var ust = new UiSnapshot();
     ust.color = this.colors.GRAY;
     this.squeue.push(ust);
-    fbLog("UiAlg states before group locating: ", this);
-    fbLog("Initial object queue ", this.oqueue);
-    fbLog("Initial snapshot queue ", this.squeue);
+    !tellurium.logManager.isUseLog || fbLog("UiAlg states before group locating: ", this);
+    !tellurium.logManager.isUseLog || fbLog("Initial object queue ", this.oqueue);
+    !tellurium.logManager.isUseLog || fbLog("Initial snapshot queue ", this.squeue);
     while(this.oqueue.size() > 0){
         var uiobj = this.oqueue.pop();
-        fbLog("Take snapshot for Object " + uiobj.uid + ": ", uiobj);
+        !tellurium.logManager.isUseLog || fbLog("Take snapshot for Object " + uiobj.uid + ": ", uiobj);
         uiobj.locate(this);
     }
     if(this.squeue.size() == 0){
@@ -2798,7 +2798,7 @@ UiAlg.prototype.santa = function(uimodule, rootdom){
 
     //if allow closest match
     if (this.allowRelax) {
-        fbLog("Found " + this.squeue.size() + " matches for UI module " + uimodule.root.uid, this.squeue);
+        !tellurium.logManager.isUseLog || fbLog("Found " + this.squeue.size() + " matches for UI module " + uimodule.root.uid, this.squeue);
         uimodule.matches = this.squeue.size();
         //use match score to select the best match
         var snapshot = this.squeue.pop();
@@ -2812,7 +2812,7 @@ UiAlg.prototype.santa = function(uimodule, rootdom){
             }
         }
 
-        fbLog("Found UI Module " + uimodule.root.uid + " successfully. ", snapshot);
+        !tellurium.logManager.isUseLog || fbLog("Found UI Module " + uimodule.root.uid + " successfully. ", snapshot);
         this.bindToUiModule(uimodule, snapshot);
         this.unmark();
     } else {
@@ -2823,7 +2823,7 @@ UiAlg.prototype.santa = function(uimodule, rootdom){
         }
         //found only one snapshot, happy path
         var osnapshot = this.squeue.pop();
-        fbLog("Found UI Module " + uimodule.root.uid + " successfully. ", osnapshot);
+        !tellurium.logManager.isUseLog || fbLog("Found UI Module " + uimodule.root.uid + " successfully. ", osnapshot);
         this.bindToUiModule(uimodule, osnapshot);
         this.unmark();
         uimodule.matches = 1;
@@ -2851,7 +2851,7 @@ UiAlg.prototype.validate = function(uimodule, rootdom){
     this.squeue.push(ust);
     while(this.oqueue.size() > 0){
         var uiobj = this.oqueue.pop();
-        fbLog("Take snapshot for Object " + uiobj.uid + ": ", uiobj);
+        !tellurium.logManager.isUseLog || fbLog("Take snapshot for Object " + uiobj.uid + ": ", uiobj);
         uiobj.locate(this);
     }
     if(this.squeue.size() == 0){
@@ -2859,7 +2859,7 @@ UiAlg.prototype.validate = function(uimodule, rootdom){
         uimodule.matches = 0;
     }
     if (this.squeue.size() >= 1) {
-        fbLog("Found " + this.squeue.size() + " matches for UI module " + uimodule.root.uid, this.squeue);
+        !tellurium.logManager.isUseLog || fbLog("Found " + this.squeue.size() + " matches for UI module " + uimodule.root.uid, this.squeue);
         uimodule.matches = this.squeue.size();
         //use match score to select the best match
         var snapshot = this.squeue.pop();
@@ -2873,7 +2873,7 @@ UiAlg.prototype.validate = function(uimodule, rootdom){
             }
         }
 
-        fbLog("Found UI Module " + uimodule.root.uid + " successfully. ", snapshot);
+        !tellurium.logManager.isUseLog || fbLog("Found UI Module " + uimodule.root.uid + " successfully. ", snapshot);
         this.bindToUiModule(uimodule, snapshot);
         this.unmark();
     }
@@ -2888,7 +2888,7 @@ UiAlg.prototype.bindToUiModule = function(uimodule, snapshot){
         uiobj.bind(snapshot, this);
     }
     //add index to Ui Module for uid to dom reference reference for fast access
-    fbLog("Adding uid to dom reference indices for UI module " + uimodule.root.uid, snapshot.elements);
+    !tellurium.logManager.isUseLog || fbLog("Adding uid to dom reference indices for UI module " + uimodule.root.uid, snapshot.elements);
     uimodule.indices = snapshot.elements;
     uimodule.relaxed = snapshot.relaxed;
     uimodule.relaxDetails = snapshot.relaxDetails;
@@ -2991,9 +2991,9 @@ TrieNode.prototype.printMe = function(isTrace) {
     if (hasChildren)
         sb.append("{");
     if(isTrace){
-        fbLog(sb.toString(), this);
+        !tellurium.logManager.isUseLog || fbLog(sb.toString(), this);
     }else{
-        fbLog(sb.toString(), "");
+        !tellurium.logManager.isUseLog || fbLog(sb.toString(), "");
     }
     if (hasChildren) {
         for (var n = 0; n < this.children.length; n++) {
@@ -3007,9 +3007,9 @@ TrieNode.prototype.printMe = function(isTrace) {
         }
         indent.append("}");
         if(isTrace){
-            fbLog(indent.toString(), this);
+            !tellurium.logManager.isUseLog || fbLog(indent.toString(), this);
         }else{
-            fbLog(indent.toString(), "");
+            !tellurium.logManager.isUseLog || fbLog(indent.toString(), "");
         }
     }
 };
@@ -3219,16 +3219,16 @@ Trie.prototype.checkLevel = function() {
 
 Trie.prototype.printMe = function() {
     if (this.root != null) {
-        fbLog("---------------------------- Trie/Prefix Tree ----------------------------\n", "");
+        !tellurium.logManager.isUseLog || fbLog("---------------------------- Trie/Prefix Tree ----------------------------\n", "");
         this.root.printMe(false);
-        fbLog("--------------------------------------------------------------------------\n", "");
+        !tellurium.logManager.isUseLog || fbLog("--------------------------------------------------------------------------\n", "");
     }
 };
 
 Trie.prototype.dumpMe = function() {
     if (this.root != null) {
-        fbLog("---------------------------- Trie/Prefix Tree ----------------------------\n", this);
+        !tellurium.logManager.isUseLog || fbLog("---------------------------- Trie/Prefix Tree ----------------------------\n", this);
         this.root.printMe(true);
-        fbLog("--------------------------------------------------------------------------\n", this);
+        !tellurium.logManager.isUseLog || fbLog("--------------------------------------------------------------------------\n", this);
     }
 };

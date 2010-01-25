@@ -9,21 +9,21 @@ Selenium.prototype.getAllText = function(locator) {
         out.push(teJQuery(this).text());
     });
 //    return JSON.stringify(out);
-    fbLog("GetAllText result ", out);
+    !tellurium.logManager.isUseLog || fbLog("GetAllText result ", out);
     return out;
 };
 
 Selenium.prototype.getCssSelectorCount = function(locator) {
-    fbLog("GetCssSelectorCount for Locator", locator);
+    !tellurium.logManager.isUseLog || fbLog("GetCssSelectorCount for Locator", locator);
     if(locator.startsWith("jquery=")){
         locator = locator.substring(7);
     }else if(locator.startsWith("uimcal=")){
         var cal = JSON.parse(locator.substring(7), null);
          locator = cal.locator;
     }
-    fbLog("Parsed locator", locator);
+    !tellurium.logManager.isUseLog || fbLog("Parsed locator", locator);
     var $e = teJQuery(this.browserbot.findElement(locator));
-    fbLog("Found elements for CSS Selector", $e.get());
+    !tellurium.logManager.isUseLog || fbLog("Found elements for CSS Selector", $e.get());
     if ($e == null)
         return 0;
 
@@ -199,7 +199,7 @@ Selenium.prototype.getDiagnosisResponse = function(locator, dreq){
     request.retMatch = dreq.retMatch;
     request.retHtml = dreq.retHtml;
     request.retParent = dreq.retParent;
-    fbLog("diagnosis request", request);
+    !tellurium.logManager.isUseLog || fbLog("diagnosis request", request);
     
     var response = new DiagnosisResponse();
     response.uid = request.uid;
@@ -331,7 +331,7 @@ Selenium.prototype.getDiagnosisResponse = function(locator, dreq){
 };
 
 Selenium.prototype.getBundleResponse = function(bundle){
-    !tellurium.logManager.isUseLog || fbLog("Issue Bundle Command ", bundle);
+    !tellurium.logManager.isUseLog || !tellurium.logManager.isUseLog || fbLog("Issue Bundle Command ", bundle);
     tellurium.parseMacroCmd(bundle);
 //    return tellurium.processMacroCmd();
     return tellurium.dispatchMacroCmd();

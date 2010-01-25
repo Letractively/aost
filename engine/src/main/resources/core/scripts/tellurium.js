@@ -10,7 +10,7 @@ var tellurium = null;
 teJQuery(document).ready(function() {
     tellurium = new Tellurium();
     tellurium.initialize();
-    fbLog("Tellurium initialized after document ready", tellurium);
+    !tellurium.logManager.isUseLog || fbLog("Tellurium initialized after document ready", tellurium);
 //    document.body.appendChild(firebug);
     (function() {
         if (window.firebug.version) {
@@ -81,7 +81,7 @@ function getColor(elem, cssName){
         while (parent != null) {
 //            color = teJQuery(parent).css(cssName);
             color = teJQuery.curCSS(parent, cssName);
-            fbLog(cssName + " is " + color + " for ", parent);
+            !tellurium.logManager.isUseLog || fbLog(cssName + " is " + color + " for ", parent);
             if (color != '' && color != 'transparent' || teJQuery.nodeName(parent, "body"))
                 break;
             parent = parent.parentNode;
@@ -537,7 +537,7 @@ Tellurium.prototype.processMacroCmd = function(){
             this.delegateToSelenium(response, cmd);
         } else {
             var element = null;
-            fbLog("Process Macro Command: ", cmd);
+            !tellurium.logManager.isUseLog || fbLog("Process Macro Command: ", cmd);
             var locator = cmd.args[0];
             //some commands do not have any arguments, null guard args
             if (locator != null) {
@@ -563,10 +563,10 @@ Tellurium.prototype.processMacroCmd = function(){
                     if (cmd.uid == null) {
                         element = this.locate(locator);
                     } else {
-                        fbLog("Tellurium Cache option: ", this.isUseCache());
+                        !tellurium.logManager.isUseLog || fbLog("Tellurium Cache option: ", this.isUseCache());
                         if(this.isUseCache()){
                             element = this.getUiElementFromCache(cmd.uid);
-                            fbLog("Got UI element " + cmd.uid + " from Cache.", element);
+                            !tellurium.logManager.isUseLog || fbLog("Got UI element " + cmd.uid + " from Cache.", element);
                         }
                         
                         if (element == null) {
@@ -799,35 +799,35 @@ Tellurium.prototype.locateElementWithCacheAware = function(locator, inDocument, 
     
 //    var json = locator.substring(7);
     var json = locator;
-    fbLog("JSON presentation of the cache aware locator: ", json);
+    !tellurium.logManager.isUseLog || fbLog("JSON presentation of the cache aware locator: ", json);
     var cal = JSON.parse(json, null);
-    fbLog("Parsed cache aware locator: ", cal);
+    !tellurium.logManager.isUseLog || fbLog("Parsed cache aware locator: ", cal);
     
-    fbLog("Tellurium Cache option: ", this.isUseCache());
+    !tellurium.logManager.isUseLog || fbLog("Tellurium Cache option: ", this.isUseCache());
     if (this.isUseCache()) {
         //if Cache is used, try to get the UI element from the cache first
         element = this.getUiElementFromCache(cal.rid);
-        fbLog("Got UI element " + cal.rid + " from Cache.", element);
+        !tellurium.logManager.isUseLog || fbLog("Got UI element " + cal.rid + " from Cache.", element);
         
         if (element != null) {
             //need to validate the result from the cache
-            fbLog("Trying to validate the found UI element " + cal.rid, element);
+            !tellurium.logManager.isUseLog || fbLog("Trying to validate the found UI element " + cal.rid, element);
             if (!validateDomRef(element)) {
                 fbError("The UI element " + cal.rid + " from cache is not valid", element);
                 this.cache.relocateUiModule(cal.rid);
                 //after relocating the UI module, retry to get the UI element from the cache
                 element = this.getUiElementFromCache(cal.rid);
-                fbLog("After relocating UI module, found ui element" + cal.rid, element);
+                !tellurium.logManager.isUseLog || fbLog("After relocating UI module, found ui element" + cal.rid, element);
             }
         }else{
             if(cal.locator != null && cal.locator.trim().length > 0){
                 //If cannot find the UI element from the cache, locate it as the last resort
-                fbLog("Trying to locate the UI element " + cal.rid + " with its locator " + cal.locator + " because cannot find vaild one from cache", cal);
+                !tellurium.logManager.isUseLog || fbLog("Trying to locate the UI element " + cal.rid + " with its locator " + cal.locator + " because cannot find vaild one from cache", cal);
                 element = this.locate(cal.locator);
             }
         }
     }else{
-        fbLog("Trying to locate the UI element " + cal.rid + " with its locator " + cal.locator + " because cache option is off", cal);
+        !tellurium.logManager.isUseLog || fbLog("Trying to locate the UI element " + cal.rid + " with its locator " + cal.locator + " because cache option is off", cal);
         element = this.locate(cal.locator);
     } 
 
@@ -836,7 +836,7 @@ Tellurium.prototype.locateElementWithCacheAware = function(locator, inDocument, 
         throw SeleniumError("Cannot locate element for uid " + cal.rid + " with locator " + cal.locator);
     }
 
-    fbLog("Returning found UI element ", element);
+    !tellurium.logManager.isUseLog || fbLog("Returning found UI element ", element);
     return element;
 };
 
@@ -850,14 +850,14 @@ Tellurium.prototype.dispatchMacroCmd = function(){
             this.delegateToTellurium(response, cmd);
         }else{
             //for other commands
-            fbLog("Dispatching command: ", cmd);
+            !tellurium.logManager.isUseLog || fbLog("Dispatching command: ", cmd);
             this.updateArgumentList(cmd);
-            fbLog("Command after updating argument list: ", cmd);
+            !tellurium.logManager.isUseLog || fbLog("Command after updating argument list: ", cmd);
             if ((!this.isUseTeApi) || this.isApiMissing(cmd.name)) {
-                fbLog("delegate command to Selenium", cmd);
+                !tellurium.logManager.isUseLog || fbLog("delegate command to Selenium", cmd);
                 this.delegateToSelenium(response, cmd);
             }else{
-                fbLog("delegate command to Tellurium", cmd);
+                !tellurium.logManager.isUseLog || fbLog("delegate command to Tellurium", cmd);
                 this.delegateToTellurium(response, cmd);
             }
         }
@@ -870,7 +870,7 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
     // need to use selenium api name conversion to find the api
     var apiName = cmd.name;
     var result = null;
-    fbLog("Delegate Call " + cmd.name + " to Selenium", cmd);
+    !tellurium.logManager.isUseLog || fbLog("Delegate Call " + cmd.name + " to Selenium", cmd);
 
     var returnType = null;
 
@@ -900,7 +900,7 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
         }
     } else {
         apiName = this.camelizeApiName(apiName);
-        fbLog("Call Selenium method " + apiName, selenium);
+        !tellurium.logManager.isUseLog || fbLog("Call Selenium method " + apiName, selenium);
         selenium[apiName].apply(selenium, cmd.args);
     }
 };
@@ -950,7 +950,7 @@ Tellurium.prototype.updateArgumentList = function(cmd){
 
             //convert to locator string so that selenium could use it
             cmd.args[0] = "uimcal=" + JSON.stringify(cal);              
-            fbLog("Update argument list for command " + cmd.name, cmd);
+            !tellurium.logManager.isUseLog || fbLog("Update argument list for command " + cmd.name, cmd);
         }
         //otherwise, no modification, use the original argument list
     }

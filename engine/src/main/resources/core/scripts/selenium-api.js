@@ -2289,7 +2289,7 @@ Selenium.prototype.getXpathCount = function(xpath) {
     //Consider Tellurium cache aware locator case
     if(xpath.startsWith("uimcal=")){
         var cal = JSON.parse(xpath.substring(7), null);
-        fbLog("Parsed locator", cal);
+        !tellurium.logManager.isUseLog || fbLog("Parsed locator", cal);
         xpath = cal.locator;       
     }
 

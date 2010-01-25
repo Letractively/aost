@@ -28,7 +28,7 @@ TelluriumApi.prototype.cacheAwareLocate = function(locator){
     //This is not really elegant, but we have to share this
     //locate strategy with Selenium. Otherwise, call Tellurium
     //methods directly.
-    fbLog("Trying to find element with locator ", locator);
+    !tellurium.logManager.isUseLog || fbLog("Trying to find element with locator ", locator);
     return selenium.browserbot.findElement(locator);
 };
 
@@ -71,7 +71,7 @@ TelluriumApi.prototype.typeKey = function(locator, key){
 };
 
 TelluriumApi.prototype.keyDown = function(locator, key){
-    fbLog("Key Down cache aware locate", locator);
+    !tellurium.logManager.isUseLog || fbLog("Key Down cache aware locate", locator);
     var element = this.cacheAwareLocate(locator);   
     var $elem = teJQuery(element);
     $elem.val($elem.val()).trigger(getEvent("keydown", key));
@@ -143,7 +143,7 @@ TelluriumApi.prototype.isElementPresent = function(locator){
 
 TelluriumApi.prototype.getAttribute = function(attributeLocator){
     var cal = JSON.parse(attributeLocator.substring(7), null);
-    fbLog("Parsed attribute locator", cal);
+    !tellurium.logManager.isUseLog || fbLog("Parsed attribute locator", cal);
     var locator = cal.locator;
     var attributeName = null;
     //get attribute name
@@ -153,7 +153,7 @@ TelluriumApi.prototype.getAttribute = function(attributeLocator){
         if (attributeName.endsWith("]")) {
             attributeName = attributeName.substr(0, attributeName.length - 1);
         }
-        fbLog("attribute name", attributeName);
+        !tellurium.logManager.isUseLog || fbLog("attribute name", attributeName);
         //update locator
         cal.locator = locator.slice(0, attributePos);
         if (cal.locator.endsWith("[")) {
@@ -162,7 +162,7 @@ TelluriumApi.prototype.getAttribute = function(attributeLocator){
     }
 
     var json = "uimcal=" + JSON.stringify(cal);
-    fbLog("re-jsonified locator", json);
+    !tellurium.logManager.isUseLog || fbLog("re-jsonified locator", json);
     var element = this.cacheAwareLocate(json);
     return teJQuery(element).attr(attributeName);
 };
@@ -276,16 +276,16 @@ TelluriumApi.prototype.getAllText = function(locator) {
 };
 
 TelluriumApi.prototype.getCssSelectorCount = function(locator) {
-   fbLog("GetCssSelectorCount for Locator", locator);
+   !tellurium.logManager.isUseLog || fbLog("GetCssSelectorCount for Locator", locator);
     if(locator.startsWith("jquery=")){
         locator = locator.substring(7);
     }else if(locator.startsWith("uimcal=")){
         var cal = JSON.parse(locator.substring(7), null);
         locator = cal.locator;
     }
-    fbLog("Parsed locator", locator);
+    !tellurium.logManager.isUseLog || fbLog("Parsed locator", locator);
     var $e = teJQuery(selenium.browserbot.findElement(locator));
-    fbLog("Found elements for CSS Selector", $e.get());
+    !tellurium.logManager.isUseLog || fbLog("Found elements for CSS Selector", $e.get());
     if ($e == null)
         return 0;
 
@@ -460,7 +460,7 @@ TelluriumApi.prototype.getAllTableBodyText = function(uid) {
     var obj = this.cache.walkToUiObjectWithException(context, uid);
     if(obj.respondsToWithException("getAllBodyCell")){
         var out = obj.getAllBodyCell(context, this.textWorker);
-        fbLog("Get All Table Body Text Result", out);
+        !tellurium.logManager.isUseLog || fbLog("Get All Table Body Text Result", out);
 
         return out;
     }
@@ -478,7 +478,7 @@ TelluriumApi.prototype.getAllTableBodyText = function(uid) {
     }else{
         if(obj["getAllBodyCell"] != undefined){
             var out = obj.getAllBodyCell(context, this.textWorker);
-            fbLog("Get All Table Body Text Result", out);
+            !tellurium.logManager.isUseLog || fbLog("Get All Table Body Text Result", out);
 
             return out;
         }else{
@@ -505,18 +505,18 @@ TelluriumApi.prototype.showUi = function(uid, delay){
             $te.data("te-color-bak", $te.css("background-color"));
         });
         $es.css("background-color", "red");
-        fbLog("Set elements to red for " + uid, $es.get());
+        !tellurium.logManager.isUseLog || fbLog("Set elements to red for " + uid, $es.get());
 //        $es.delay(delay);
 //        $es.slideDown().delay(delay).fadeIn();
         $es.first().slideUp(100).slideDown(100).delay(delay).fadeOut(100).fadeIn(100);
-        fbLog("Delayed for " + delay, this);
+        !tellurium.logManager.isUseLog || fbLog("Delayed for " + delay, this);
         $es.each(function() {
             //back to the original color
             var $te = teJQuery(this);
             $te.css("background-color", $te.data("te-color-bak"));
             $te.removeData("te-color-bak");
         });
-        fbLog("Elements' color restored to original ones for " + uid, $es.get());
+        !tellurium.logManager.isUseLog || fbLog("Elements' color restored to original ones for " + uid, $es.get());
 
     }
     */
