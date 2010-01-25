@@ -7,10 +7,9 @@ import org.telluriumsource.test.java.TelluriumJUnitTestCase;
 import org.telluriumsource.util.Helper;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import static org.junit.Assert.*;
+import org.json.simple.JSONArray;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -26,6 +25,12 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
         tisp.defineUi();
         connectSeleniumServer();
         useCssSelector(false);
+    }
+
+    @Test
+    public void testToString(){
+        JSONArray ar = tisp.toJSONArray("IdMenu");
+        System.out.println(ar.toString());    
     }
 
     @Test
@@ -164,12 +169,7 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
         int size = getCacheSize();
         int maxSize = getCacheMaxSize();
         System.out.println("Cache Size: " + size + ", Cache Max Size: " + maxSize);
-        System.out.println("Cache Usage: ");
-        Map<String, Long> usages = getCacheUsage();
-        Set<String> keys = usages.keySet();
-        for(String key: keys){
-            System.out.println("UID: " + key + ", Count: " + usages.get(key));
-        }
+        System.out.println("Cache Usage: " + getCacheUsage());
     }
 
 }

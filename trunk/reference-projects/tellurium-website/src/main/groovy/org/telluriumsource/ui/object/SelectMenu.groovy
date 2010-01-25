@@ -13,12 +13,14 @@ import org.json.simple.JSONObject
  * 
  */
 class SelectMenu extends UiObject{   
-    public static final String TAG = "div"
+    public static final String TAG = "div";
 
-    String header = null
+    public static final String HEADER = "header";
+    String header = null;
 
+    public static final String MENU_ITEMS = "menuItems";
     //map to hold the alias name for the menu item in the format of "alias name" : "menu item"
-    Map<String, String> aliasMap
+    Map<String, String> aliasMap;
 
     def click(Closure c){
         c(null)
@@ -113,11 +115,18 @@ class SelectMenu extends UiObject{
         //For menu, do not allow child nodes, no more walk and just return itself
         return this
     }
-
+  
+    @Override
     public JSONObject toJSON() {
 
       return buildJSON() {jso ->
-        jso.put(UI_TYPE, "SelectMenu")
+        jso.put(UI_TYPE, "SelectMenu");
+        jso.put(HEADER, this.header);
+        JSONObject alias = new JSONObject();
+        this.aliasMap.each {String key, String val ->
+          alias.put(key, val);
+        }
+        jso.put(MENU_ITEMS, alias);
       }
     }
 }
