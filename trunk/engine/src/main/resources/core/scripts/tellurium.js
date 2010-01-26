@@ -13,13 +13,14 @@ teJQuery(document).ready(function() {
     !tellurium.logManager.isUseLog || fbLog("Tellurium initialized after document ready", tellurium);
 //    document.body.appendChild(firebug);
     (function() {
-        if (window.firebug.version) {
+        if (window.firebug != undefined && window.firebug.version) {
             firebug.init();
         } else {
             setTimeout(arguments.callee);
         }
     })();
-    void(firebug);
+    if(typeof (firebug) != "undefined")
+        void(firebug);
 });
 
 //add custom jQuery Selector :te_text()
