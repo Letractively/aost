@@ -48,6 +48,21 @@ TelluriumTestCase.prototype.testGeneralTableModule = function(){
     var smt = uim.walkTo(new WorkflowContext(), uiid.convertToUiid("GT[1][2].Some.Link"));
 };
 
+TelluriumTestCase.prototype.testTelluriumDownloadResult = function(){
+    var json = [{"obj":{"uid":"downloadResult","locator":{"tag":"table","attributes":{"id":"resultstable","class":"results"}},"uiType":"Table"},"key":"downloadResult"},{"obj":{"uid":"header: 1","locator":{},"uiType":"TextBox"},"key":"downloadResult._1"},{"obj":{"uid":"header: 2","locator":{"text":"*Filename","tag":"a"},"uiType":"UrlLink"},"key":"downloadResult._2"},{"obj":{"uid":"header: 3","locator":{"text":"*Summary + Labels","tag":"a"},"uiType":"UrlLink"},"key":"downloadResult._3"},{"obj":{"uid":"header: 4","locator":{"text":"*Uploaded","tag":"a"},"uiType":"UrlLink"},"key":"downloadResult._4"},{"obj":{"uid":"header: 5","locator":{"text":"Size","tag":"a"},"uiType":"UrlLink"},"key":"downloadResult._5"},{"obj":{"uid":"header: 6","locator":{"text":"*DownloadCount","tag":"a"},"uiType":"UrlLink"},"key":"downloadResult._6"},{"obj":{"uid":"header: 7","locator":{"text":"*...","tag":"a"},"uiType":"UrlLink"},"key":"downloadResult._7"},{"obj":{"uid":"row: *, column: 1","locator":{},"uiType":"TextBox"},"key":"downloadResult._ALL_1"},{"obj":{"uid":"row:*, column: 3","locator":{},"uiType":"List"},"key":"downloadResult._ALL_3"},{"obj":{"uid":"all","locator":{"tag":"a"},"uiType":"UrlLink"},"key":"downloadResult._ALL_3._ALL"},{"obj":{"uid":"all","locator":{"tag":"a"},"uiType":"UrlLink"},"key":"downloadResult._ALL_ALL"}];
+    var uim = new UiModule();
+    uim.parseUiModule(json);
+    var alg = new UiAlg();
+    alg.allowRelax = true;
+    var dom = teJQuery("html");
+    alg.santa(uim, dom);
+    var context = new WorkflowContext();
+    var uiid = new Uiid();
+    var dr = uim.walkTo(context, uiid.convertToUiid("downloadResult"));
+    var dr13 = uim.walkTo(context, uiid.convertToUiid("downloadResult[1][3]"));
+    var dr131 = uim.walkTo(context, uiid.convertToUiid("downloadResult[1][3].[1]"));
+};
+
 TelluriumTestCase.prototype.testTelluriumIssueModule = function(){
     var json = [{"obj":{"uid":"issueSearch","locator":{"tag":"form","attributes":{"action":"list","method":"get"}},"uiType":"Form"},"key":"issueSearch"},{"obj":{"uid":"issueType","locator":{"tag":"select","attributes":{"id":"can","name":"can"}},"uiType":"Selector"},"key":"issueSearch.issueType"},{"obj":{"uid":"searchLabel","locator":{"text":"*for","tag":"span"},"uiType":"TextBox"},"key":"issueSearch.searchLabel"},{"obj":{"uid":"searchBox","locator":{"tag":"input","attributes":{"name":"q","type":"text"}},"uiType":"InputBox"},"key":"issueSearch.searchBox"},{"obj":{"uid":"searchButton","locator":{"tag":"input","attributes":{"value":"Search","type":"submit"}},"uiType":"SubmitButton"},"key":"issueSearch.searchButton"}];
     var uim = new UiModule();
@@ -214,7 +229,8 @@ TelluriumTestCase.prototype.testSuite = function(){
 //    this.testEditPageModule();
 //    this.testLogicalContainerModule();
 //    this.testTelluriumIssueModule();
-    this.testGeneralTableModule();
+//    this.testGeneralTableModule();  
+    this.testTelluriumDownloadResult();
 //    this.testLogoUiModule();
 //    this.testThumbnailUiModule();
 //    this.testBookUiModule();
