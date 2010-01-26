@@ -39,6 +39,7 @@ TelluriumTestCase.prototype.testGeneralTableModule = function(){
     var dom = teJQuery("html");
     alg.santa(uim, dom);
     var context = new WorkflowContext();
+    context.alg = alg;
     var uiid = new Uiid();
     var tb = uim.walkTo(context, uiid.convertToUiid("GT"));
     var worker = new TextUiWorker();
@@ -57,6 +58,7 @@ TelluriumTestCase.prototype.testTelluriumDownloadResult = function(){
     var dom = teJQuery("html");
     alg.santa(uim, dom);
     var context = new WorkflowContext();
+    context.alg = alg;
     var uiid = new Uiid();
     var dr = uim.walkTo(context, uiid.convertToUiid("downloadResult"));
     var dr13 = uim.walkTo(context, uiid.convertToUiid("downloadResult[1][3]"));
