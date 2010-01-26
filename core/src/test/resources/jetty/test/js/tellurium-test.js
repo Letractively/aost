@@ -73,6 +73,7 @@ TelluriumTestCase.prototype.testTelluriumIssueModule = function(){
     var dom = teJQuery("html");
     alg.santa(uim, dom);
     var context = new WorkflowContext();
+    context.alg = alg;
     var uiid = new Uiid();
     var uinput = uim.walkTo(context, uiid.convertToUiid("issueSearch.issueType"));
     var pinput = uim.walkTo(context, uiid.convertToUiid("issueSearch.searchBox"));
@@ -88,6 +89,7 @@ TelluriumTestCase.prototype.testEditPageModule = function(){
     var dom = teJQuery("html");
     alg.santa(uim, dom);
     var context = new WorkflowContext();
+    context.alg = alg;
     var uiid = new Uiid();
     var uinput = uim.walkTo(context, uiid.convertToUiid("Account.Site"));
     var pinput = uim.walkTo(context, uiid.convertToUiid("Account.Info.Test"));
@@ -128,6 +130,7 @@ TelluriumTestCase.prototype.testLogonUiModule = function(){
     var dom = teJQuery("html");
     alg.santa(uim, dom);
     var context = new WorkflowContext();
+    context.alg = alg;
     var uiid = new Uiid();
 //    var uinput = uim.walkTo(context, "ProblematicForm.Username.Input");
 //    var pinput = uim.walkTo(context, "ProblematicForm.Password.Input");
@@ -146,6 +149,7 @@ TelluriumTestCase.prototype.testLogoUiModule = function(){
     var dom = teJQuery("html");
     alg.santa(uim, dom);
     var context = new WorkflowContext();
+    context.alg = alg;
     var uiid = new Uiid();
     var logo = uim.walkTo(context, uiid.convertToUiid("Logo"));
 };
@@ -159,6 +163,7 @@ TelluriumTestCase.prototype.testThumbnailUiModule = function(){
     var dom = teJQuery("html");
     alg.santa(uim, dom);
     var context = new WorkflowContext();
+    context.alg = alg;
     var uiid = new Uiid();
     var image = uim.walkTo(context, uiid.convertToUiid("Thumbnail.ICon.Image"));
     var input = uim.walkTo(context, uiid.convertToUiid("Thumbnail.ICon.Input"));
@@ -175,6 +180,7 @@ TelluriumTestCase.prototype.testBookUiModule = function(){
     var dom = teJQuery("html");
     alg.santa(uim, dom);
     var context = new WorkflowContext();
+    context.alg = alg;
     var uiid = new Uiid();
     var list = uim.walkTo(context, uiid.convertToUiid("GoogleBooksList"));
     var category = uim.walkTo(context, uiid.convertToUiid("GoogleBooksList.category"));
@@ -192,6 +198,7 @@ TelluriumTestCase.prototype.testExpandUiModule = function(){
     var dom = teJQuery("html");
     alg.santa(uim, dom);
     var context = new WorkflowContext();
+    context.alg = alg;
     var list = uim.walkTo(context, "expand");
 };
 
@@ -206,6 +213,7 @@ TelluriumTestCase.prototype.testErisUiModule = function(){
     alg.validate(uim, dom);
     alg.santa(uim, dom);
     var context = new WorkflowContext();
+    context.alg = alg;
     var uiid = new Uiid();
     uiid.convertToUiid("EcisPlusUiCAV.Save");
 //    uiid.reverse();
