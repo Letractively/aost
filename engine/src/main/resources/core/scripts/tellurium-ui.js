@@ -284,10 +284,11 @@ var UiObject = Class.extend({
 
         return this;
     },
-
+    
+/*
     traverse: function(context, snapshotTree, visitor){
         
-    },
+    },*/
 
     amICacheable: function() {
         //check its parent and do not cache if its parent is not cacheable
@@ -2227,22 +2228,64 @@ UiSnapshot.prototype.setColor = function(color){
     this.color = color;
 };
 
-function UiSnapshotNode(){
-    //runtime ID
-    this.rid = null;
+function UiTemplateAvatar(){
+    //shared template UID
+    this.uid = null;
 
-    //point to its parent in the UI SNAPSHOT tree
-    this.parent = null;
-
-    //UI object, which is defined in the UI module, reference
-    this.objRef = null;
-
-    //DOM reference
-    this.domRef = null;
-
-    //children nodes
-    this.children = null;
+    //the actual runtime elements that mapping to the same template
+    this.avatar = new Array();
 }
+
+var UiSnapshotNode = Class.extend({
+    init: function() {
+        //UID
+        this.uid = null;
+
+        //the index of the element with the same UID
+        this.index = 0;
+
+        //point to its parent in the UI SNAPSHOT tree
+        this.parent = null;
+
+        //UI object, which is defined in the UI module, reference
+        this.objRef = null;
+
+        //DOM reference
+        this.domRef = null;
+    }
+});
+
+var UiContainerSnapshotNode = UiSnapshotNode.extend({
+    init: function(){
+        this._super();
+        //children nodes, regular UI Nodes
+        this.components = new Array();
+    }
+});
+
+var UiListSnapshotNode = UiSnapshotNode.extend({
+    init: function(){
+        this._super();
+
+        //children nodes with key as the template UID and value as the UI template Avatar
+        this.components = new Hashtable();
+    }
+});
+
+var UiTableSnapshotNode = UiSnapshotNode.extend({
+    init: function(){
+        this._super();
+
+        //header nodes with key as the template UID and value as the UI template Avatar
+        this.headers = new Hashtable();
+
+        //footer node with key as the template UID and value as the UI template Avatar
+        this.footers = new Hashtable();
+
+        //body nodes with key as the template UID and value as the UI template Avatar
+        this.components = new Hashtable();
+    }
+});
 
 function UiSnapshotTree(){
     //the root node
