@@ -163,6 +163,22 @@ function CompositeLocator(){
     this.attributes = new Hashtable();
 }
 
+var UiVisitor = Class.extend({
+    init: function(){
+
+    },
+
+    visit: function(context, uiobj){
+        
+    }
+});
+
+var UiDumpVisitor = UiVisitor.extend({
+    visit: function(context, uiobj){
+        fbLog("UI Object " + uiobj.fullUid(), uiobj);    
+    }
+});
+
 //base UI object
 var UiObject = Class.extend({
     init: function() {
@@ -193,6 +209,14 @@ var UiObject = Class.extend({
 
         //UI Module reference, which UI module this UI object belongs to
         this.uim = null;
+    },
+
+    checkLevel: function(){
+        if(this.parent != null){
+            return this.parent.checkLevel() + 1;
+        }
+
+        return 1;
     },
 
     getIdAttribute: function(){
@@ -284,11 +308,10 @@ var UiObject = Class.extend({
 
         return this;
     },
-    
-/*
-    traverse: function(context, snapshotTree, visitor){
-        
-    },*/
+
+    traverse: function(context, visitor){
+        visitor.visit(context, this);
+    },
 
     amICacheable: function() {
         //check its parent and do not cache if its parent is not cacheable
@@ -557,7 +580,18 @@ var UiContainer = UiObject.extend({
             }
         }
     },
-    
+
+    traverse: function(context, visitor){
+        visitor.visit(context, this);
+        if(this.components != null && this.components.length > 0){
+            var keys = this.components.keySet();
+            for(var i=0; i<keys.length; i++){
+                var child = this.components.get(keys[i]);
+                child.traverse(context, visitor);
+            }
+        }
+    },
+
     walkTo: function(context, uiid){
         !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
@@ -1135,6 +1169,25 @@ var UiTable = UiContainer.extend({
         }
     },
 
+    traverse: function(context, visitor){
+        visitor.visit(context, this);
+        if(this.headers != null && this.headers.length > 0){
+            var hkeys = this.headers.keySet();
+            for(var i=0; i<this.headers.length; i++){
+                var header = this.headers.get(hkeys[i]);
+                header.traverse(context, visitor);
+            }
+        }
+
+        if(this.components != null && this.components.length > 0){
+            var keys = this.components.keySet();
+            for(var j=0; j<keys.length; j++){
+                var child = this.components.get(keys[j]);
+                child.traverse(context, visitor);
+            }
+        }
+    },
+
     walkTo: function(context, uiid){
         !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
@@ -1580,6 +1633,33 @@ var UiStandardTable = UiContainer.extend({
         }
         
         return null;
+    },
+
+    traverse: function(context, visitor){
+        visitor.visit(context, this);
+        if(this.headers != null && this.headers.length > 0){
+            var hkeys = this.headers.keySet();
+            for(var i=0; i<this.headers.length; i++){
+                var header = this.headers.get(hkeys[i]);
+                header.traverse(context, visitor);
+            }
+        }
+
+        if(this.components != null && this.components.length > 0){
+            var keys = this.components.keySet();
+            for(var j=0; j<keys.length; j++){
+                var child = this.components.get(keys[j]);
+                child.traverse(context, visitor);
+            }
+        }
+
+        if(this.footers != null && this.footers.length > 0){
+            var fkeys = this.footers.keySet();
+            for(var k=0; k<this.footers.length; k++){
+                var footer = this.footers.get(fkeys[k]);
+                footer.traverse(context, visitor);
+            }
+        }
     },
 
     walkToHeader: function(context, uiid) {
@@ -2057,7 +2137,18 @@ function UiModule(){
 
     //the latest timestamp for the cache access
     this.timestamp = null;
+
+    //UI module dump visitor
+    this.dumpVisitor = new UiDumpVisitor();
 }
+
+UiModule.prototype.dumpMe = function(){
+    if(this.root != null){
+        fbLog("Dump UI Module " + this.id, this);
+        var context = new WorkflowContext();
+        this.root.traverse(context, this.dumpVisitor);
+    }
+};
 
 UiModule.prototype.increaseCacheHit = function(){
     this.cacheHit++;
@@ -2104,6 +2195,8 @@ UiModule.prototype.parseUiModule = function(ulst){
 
     this.buildTree(klst);
     !tellurium.logManager.isUseLog || fbLog("Parsed Ui Module " + this.id + ": ", this);
+    if(tellurium.logManager.isUseLog)
+        this.dumpMe();
 };
 
 UiModule.prototype.buildFromJSON = function(jobj){
@@ -3081,9 +3174,9 @@ TrieNode.prototype.printMe = function(isTrace) {
     if (hasChildren)
         sb.append("{");
     if(isTrace){
-        !tellurium.logManager.isUseLog || fbLog(sb.toString(), this);
+        fbLog(sb.toString(), this);
     }else{
-        !tellurium.logManager.isUseLog || fbLog(sb.toString(), "");
+        fbLog(sb.toString(), "");
     }
     if (hasChildren) {
         for (var n = 0; n < this.children.length; n++) {
@@ -3097,9 +3190,9 @@ TrieNode.prototype.printMe = function(isTrace) {
         }
         indent.append("}");
         if(isTrace){
-            !tellurium.logManager.isUseLog || fbLog(indent.toString(), this);
+            fbLog(indent.toString(), this);
         }else{
-            !tellurium.logManager.isUseLog || fbLog(indent.toString(), "");
+            fbLog(indent.toString(), "");
         }
     }
 };
@@ -3309,16 +3402,16 @@ Trie.prototype.checkLevel = function() {
 
 Trie.prototype.printMe = function() {
     if (this.root != null) {
-        !tellurium.logManager.isUseLog || fbLog("---------------------------- Trie/Prefix Tree ----------------------------\n", "");
+        fbLog("---------------------------- Trie/Prefix Tree ----------------------------\n", "");
         this.root.printMe(false);
-        !tellurium.logManager.isUseLog || fbLog("--------------------------------------------------------------------------\n", "");
+        fbLog("--------------------------------------------------------------------------\n", "");
     }
 };
 
 Trie.prototype.dumpMe = function() {
     if (this.root != null) {
-        !tellurium.logManager.isUseLog || fbLog("---------------------------- Trie/Prefix Tree ----------------------------\n", this);
+        fbLog("---------------------------- Trie/Prefix Tree ----------------------------\n", this);
         this.root.printMe(true);
-        !tellurium.logManager.isUseLog || fbLog("--------------------------------------------------------------------------\n", this);
+        fbLog("--------------------------------------------------------------------------\n", this);
     }
 };
