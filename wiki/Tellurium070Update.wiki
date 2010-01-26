@@ -1037,81 +1037,81 @@ Actually, [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector the CSS se
 Right now, new Tellurium jQuery-based APIs include
 
 {{{
-TelluriumApi.prototype.blur = function(element);
+TelluriumApi.prototype.blur = function(locator);
 
-TelluriumApi.prototype.click = function(element);
+TelluriumApi.prototype.click = function(locator);
 
-TelluriumApi.prototype.clickAt = function(element, coordString);
+TelluriumApi.prototype.clickAt = function(locator, coordString);
 
-TelluriumApi.prototype.doubleClick = function(element);
+TelluriumApi.prototype.doubleClick = function(locator);
 
-TelluriumApi.prototype.fireEvent = function(element, event);
+TelluriumApi.prototype.fireEvent = function(locator, event);
 
-TelluriumApi.prototype.focus = function(element);
+TelluriumApi.prototype.focus = function(locator);
 
-TelluriumApi.prototype.typeKey = function(element, key);
+TelluriumApi.prototype.typeKey = function(locator, key);
 
-TelluriumApi.prototype.keyDown = function(element, key);
+TelluriumApi.prototype.keyDown = function(locator, key);
 
-TelluriumApi.prototype.keyPress = function(element, key);
+TelluriumApi.prototype.keyPress = function(locator, key);
 
-TelluriumApi.prototype.keyUp = function(element, key);
+TelluriumApi.prototype.keyUp = function(locator, key);
 
-TelluriumApi.prototype.mouseOver = function(element);
+TelluriumApi.prototype.mouseOver = function(locator);
 
-TelluriumApi.prototype.mouseDown = function(element);
+TelluriumApi.prototype.mouseDown = function(locator);
 
-TelluriumApi.prototype.mouseDownRight = function(element);
+TelluriumApi.prototype.mouseDownRight = function(locator);
 
-TelluriumApi.prototype.mouseEnter = function(element);
+TelluriumApi.prototype.mouseEnter = function(locator);
 
-TelluriumApi.prototype.mouseLeave = function(element);
+TelluriumApi.prototype.mouseLeave = function(locator);
 
-TelluriumApi.prototype.mouseOut = function(element);
+TelluriumApi.prototype.mouseOut = function(locator);
 
-TelluriumApi.prototype.submit = function(element);
+TelluriumApi.prototype.submit = function(locator);
 
-TelluriumApi.prototype.check = function(element);
+TelluriumApi.prototype.check = function(locator);
 
-TelluriumApi.prototype.uncheck = function(element);
+TelluriumApi.prototype.uncheck = function(locator);
 
-TelluriumApi.prototype.isElementPresent = function(element);
+TelluriumApi.prototype.isElementPresent = function(locator);
 
-TelluriumApi.prototype.getAttribute = function(element, attributeName);
+TelluriumApi.prototype.getAttribute = function(locator, attributeName);
 
 TelluriumApi.prototype.waitForPageToLoad = function(timeout);
 
-TelluriumApi.prototype.type = function(element, val);
+TelluriumApi.prototype.type = function(locator, val);
 
-TelluriumApi.prototype.select = function(element, optionLocator);
+TelluriumApi.prototype.select = function(locator, optionLocator);
 
-TelluriumApi.prototype.addSelection = function(element, optionLocator);
+TelluriumApi.prototype.addSelection = function(locator, optionLocator);
 
-TelluriumApi.prototype.removeSelection = function(element, optionLocator);
+TelluriumApi.prototype.removeSelection = function(locator, optionLocator);
 
-TelluriumApi.prototype.removeAllSelections = function(element);
+TelluriumApi.prototype.removeAllSelections = function(locator);
 
 TelluriumApi.prototype.open = function(url);
 
-TelluriumApi.prototype.getText = function(element);
+TelluriumApi.prototype.getText = function(locator);
 
-TelluriumApi.prototype.isChecked = function(element);
+TelluriumApi.prototype.isChecked = function(locator);
 
-TelluriumApi.prototype.isVisible = function(element);
+TelluriumApi.prototype.isVisible = function(locator);
 
-TelluriumApi.prototype.isEditable = function(element) ;
+TelluriumApi.prototype.isEditable = function(locator) ;
 
 TelluriumApi.prototype.getXpathCount = function(xpath);
 
-TelluriumApi.prototype.getAllText = function(element);
+TelluriumApi.prototype.getAllText = function(locator);
 
-TelluriumApi.prototype.getCssSelectorCount = function(element);
+TelluriumApi.prototype.getCssSelectorCount = function(locator);
 
-TelluriumApi.prototype.getCSS = function(element, cssName);
+TelluriumApi.prototype.getCSS = function(locator, cssName);
 
-TelluriumApi.prototype.isDisabled = function(element);
+TelluriumApi.prototype.isDisabled = function(locator);
 
-TelluriumApi.prototype.getListSize = function(element, separators);
+TelluriumApi.prototype.getListSize = function(locator, separators);
 
 
 TelluriumApi.prototype.getCacheState = function();
