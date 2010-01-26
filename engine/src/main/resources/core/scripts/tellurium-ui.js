@@ -651,6 +651,7 @@ var UiList = UiContainer.extend({
             key = "_ALL";
             obj = this.components.get(key);
         }
+        !tellurium.logManager.isUseLog || fbLog("Found List UI object for index " + index, obj);
 
         return obj;
     },
@@ -2828,6 +2829,22 @@ UiAlg.prototype.getValidParentFor = function(uiobj){
     }
 
     return validParent;
+};
+
+//traverse the UI module to build a snapshot tree
+UiAlg.prototype.buildSnapshotTree = function(uimodule){
+    this.clear();
+    var tree = new UiSnapshotTree();
+    this.currentColor = this.colors.GRAY;
+    //start from the root element in the UI module
+    this.oqueue.push(uimodule.root);
+    while(this.oqueue.size() > 0){
+        var uiobj = this.oqueue.pop();
+        !tellurium.logManager.isUseLog || fbLog("Traverse for Object " + uiobj.uid + ": ", uiobj);
+//        uiobj.locate(this);
+    }
+
+    return tree;
 };
 
 //
