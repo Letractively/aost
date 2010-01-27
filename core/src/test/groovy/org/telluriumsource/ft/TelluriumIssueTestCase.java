@@ -30,6 +30,7 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
         useTrace(true);
         useLocatorWithCache(false);
         useClosestMatch(true);
+        useEngineLog(true);
     }
 
     @Before
