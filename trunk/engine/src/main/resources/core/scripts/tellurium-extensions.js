@@ -404,7 +404,7 @@ Selenium.prototype.getEngineState = function(){
     return state;
 };
 
-Selenium.prototype.useEngineLog = function(isUse){
+Selenium.prototype.doUseEngineLog = function(isUse){
     tellurium.logManager.isUseLog = isUse;
     if(firebug != undefined)
         firebug.env.debug = isUse;    
