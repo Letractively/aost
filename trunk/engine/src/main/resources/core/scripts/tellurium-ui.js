@@ -238,10 +238,11 @@ var UiObject = Class.extend({
 
     goToPlace: function(uiid, uiobj) {
 
-        var ouid = uiid.pop();
-        objectCopy(this, uiobj);
-        if (uiid.size() > 0) {
-            alert("Wrong uiid " + ouid);
+        if(uiid.size() == 1){
+            uiid.pop();
+            objectCopy(this, uiobj);
+        }else{
+             fbError("Wrong uiid ",  uiid);
         }
     },
 
@@ -466,21 +467,40 @@ var UiContainer = UiObject.extend({
     },
 
     goToPlace:  function(uiid, uiobj) {
+        if(uiid.size() == 1){
+            uiid.pop();
+//            if (this.uid == null)
+            objectCopy(this, uiobj);            
+        }else{
+            uiid.pop();
+            var cuid = uiid.peek();
 
-        uiid.pop();
-        if (this.uid == null)
-            objectCopy(this, uiobj);
+            if(uiid.size() == 1){
+                uiid.pop();
+                uiobj.parent = this;
+                this.components.put(cuid, uiobj);
+            }else{
+                var child = this.components.get(cuid);
+                child.goToPlace(uiid, uiobj);
+            }
+        }
 
-        if (uiid.size() > 0) {
+/*        if (uiid.size() > 0) {
             var cuid = uiid.peek();
             var child = this.components.get(cuid);
+
             if (child != null) {
                 child.goToPlace(uiid, uiobj);
             } else {
-                uiobj.parent = this;
-                this.components.put(cuid, uiobj);
-            }
-        }
+                uiid.pop();
+                if(uiid.size() == 0){               
+                    uiobj.parent = this;
+                    this.components.put(cuid, uiobj);
+                }else{
+                    fbError("Error to goToPlace for ", uiid);
+                }
+             }
+        }*/
     },
 
     locate:  function(uialg){
@@ -832,7 +852,32 @@ var UiTable = UiContainer.extend({
     },
     
     goToPlace:  function(uiid, uiobj) {
+        if(uiid.size() == 1){
+            uiid.pop();
+            objectCopy(this, uiobj);
+        }else{
+            uiid.pop();
+            var cuid = uiid.peek();
+            if(uiid.size() == 1){
+                uiid.pop();
+                uiobj.parent = this;
+                if(cuid.startsWith("_HEADER")){
+                    this.headers.put(cuid, uiobj);                        
+                }else{
+                    this.components.put(cuid, uiobj);
+                }
+            }else{
+                if(cuid.startsWith("_HEADER")){
+                    var header = this.headers.get(cuid);
+                    header.goToPlace(uiid, uiobj);
+                }else{
+                    var child = this.components.get(cuid);
+                    child.goToPlace(uiid, uiobj);
+                }
+            }
+        }
 
+/*
         uiid.pop();
         if (this.uid == null)
             objectCopy(this, uiobj);
@@ -862,6 +907,7 @@ var UiTable = UiContainer.extend({
                 }
             }
         }
+*/
     },
 
     prelocate: function(){
