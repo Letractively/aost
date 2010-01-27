@@ -1512,6 +1512,15 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase {
 
 }}}
 
+= Where to Find ? =
+
+Where to find the latest 0.7.0 snapshots? 
+
+They are in our Maven repo.
+
+  * [http://maven.kungfuters.org/content/repositories/snapshots/org/telluriumsource/tellurium-core/0.7.0-SNAPSHOT/ Tellurium Core 0.7.0 Snapshot]
+  * [http://maven.kungfuters.org/content/repositories/thirdparty/org/seleniumhq/selenium/server/selenium-server/1.0-te-2/ Custom Selenium Server with Tellurium Engine]
+
 = What's Next ? =
 
   * More flexible UI templates, i.e., UID Description Language (UDL)
