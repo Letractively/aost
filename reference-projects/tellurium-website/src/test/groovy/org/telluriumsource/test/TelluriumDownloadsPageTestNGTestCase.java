@@ -26,6 +26,9 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
         downloadPage = new TelluriumDownloadsPage();
         downloadPage.defineUi();
         connectSeleniumServer();
+        useCache(true);
+//        useCssSelector(true);
+        useClosestMatch(true);
     }
 
     @BeforeMethod
@@ -59,7 +62,7 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
     public void testSearchByText(){
         // Set download type with other value
         downloadPage.selectDownloadType(" All downloads");
-        downloadPage.searchDownload("tellurium-0.6.0");
+        downloadPage.searchDownload("Tellurium-0.6.0");
 
         List<String> list = downloadPage.getDownloadFileNames();
         assertNotNull(list);
