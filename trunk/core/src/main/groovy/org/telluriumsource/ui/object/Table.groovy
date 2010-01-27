@@ -586,7 +586,7 @@ class Table extends Container {
     //reach the actual uiid for the header element
     String child = uiid.pop()
 
-    child = child.replaceFirst('_', '')
+    child = child.replaceFirst('_', '').replaceFirst('HEADER', '')
     int index = Integer.parseInt(child.trim())
 
     //try to find its child
@@ -689,7 +689,7 @@ class Table extends Container {
     if(this.hasHeader()){
       int max = 0
       this.headers.each {key, component ->
-        String aid = key.replaceFirst('_', '')
+        String aid = key.replaceFirst('_', '').replaceFirst('HEADER', '')
         if (aid ==~ /[0-9]+/) {
           context.pushUid("header[${aid}]")
           component.traverse(context)
