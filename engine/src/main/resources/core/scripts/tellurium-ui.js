@@ -840,8 +840,9 @@ var UiTable = UiContainer.extend({
         if (uiid.size() > 0) {
             var cuid = uiid.peek();
             var child = null;
-            if(cuid == "header"){
-                uiid.pop();
+ //           if(cuid == "header"){
+            if(cuid.startsWith("_HEADER")){
+//                uiid.pop();
                 cuid = uiid.pop();
                 child = this.headers.get(cuid);
                 if (child != null) {
@@ -1010,11 +1011,11 @@ var UiTable = UiContainer.extend({
     },
 
     findHeaderUiObject: function(index){
-        var key = "_" + index;
+        var key = "_HEADER_" + index;
         var obj = this.headers.get(key);
 
         if(obj == null){
-            key = "_ALL";
+            key = "_HEADER_ALL";
             obj = this.headers.get(key);
         }
 
@@ -1072,7 +1073,7 @@ var UiTable = UiContainer.extend({
         //reach the actual uiid for the header element
         var child = uiid.pop();
 
-        child = child.replace(/^_/, '');
+        child = child.replace(/^_/, '').replace(/HEADER/, '');
 
         var index = parseInt(trimString(child));
 
@@ -1227,7 +1228,8 @@ var UiTable = UiContainer.extend({
 
         var child = uiid.peek();
 
-        if (trimString(child) == "header") {
+ //       if (trimString(child) == "header") {
+        if(child.startsWith("_HEADER")){
             return this.walkToHeader(context, uiid);
         } else {
             return this.walkToElement(context, uiid);
