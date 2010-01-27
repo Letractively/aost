@@ -135,9 +135,9 @@ class StandardTable extends Container{
          parts[0] = parts[0].trim()
          parts[1] = parts[1].trim()
          if(ID_WILD_CASE.equalsIgnoreCase(parts[1]) || ALL_MATCH.equalsIgnoreCase(parts[1]))
-            return "_ALL"
+            return "_HEADER_ALL"
          else
-            return "_${parts[1].toUpperCase()}"
+            return "_HEADER_${parts[1].toUpperCase()}"
      }
 
      public static String internalFootId(String id){
@@ -145,9 +145,9 @@ class StandardTable extends Container{
          parts[0] = parts[0].trim()
          parts[1] = parts[1].trim()
          if(ID_WILD_CASE.equalsIgnoreCase(parts[1]) || ALL_MATCH.equalsIgnoreCase(parts[1]))
-            return "_ALL"
+            return "_FOOTER_ALL"
          else
-            return "_${parts[1].toUpperCase()}"
+            return "_FOOTER_${parts[1].toUpperCase()}"
      }
 
      //should validate the uid before call this to convert it to internal representation
@@ -192,12 +192,12 @@ class StandardTable extends Container{
 
     public UiObject findHeaderUiObject(int index) {
         //first check _i format
-        String key = "_${index}"
+        String key = "_HEADER_${index}"
         UiObject obj = headers.get(key)
 
         //then, check _ALL format
         if (obj == null) {
-            key = "_ALL"
+            key = "_HEADER_ALL"
             obj = headers.get(key)
         }
 
@@ -206,12 +206,12 @@ class StandardTable extends Container{
 
     public UiObject findFootUiObject(int index) {
         //first check _i format
-        String key = "_${index}"
+        String key = "_FOOTER_${index}"
         UiObject obj = foots.get(key)
 
         //then, check _ALL format
         if (obj == null) {
-            key = "_ALL"
+            key = "_FOOTER_ALL"
             obj = foots.get(key)
         }
 
@@ -680,7 +680,7 @@ class StandardTable extends Container{
         //reach the actual uiid for the header element
         String child = uiid.pop()
 
-        child = child.replaceFirst('_', '')
+        child = child.replaceFirst('_', '').replaceFirst("HEADER", '')
         int index = Integer.parseInt(child.trim())
 
         //try to find its child
@@ -734,7 +734,7 @@ class StandardTable extends Container{
         //reach the actual uiid for the foot element
         String child = uiid.pop()
 
-        child = child.replaceFirst('_', '')
+        child = child.replaceFirst('_', '').replaceFirst("FOOTER", '')
         int index = Integer.parseInt(child.trim())
 
         //try to find its child
@@ -751,7 +751,7 @@ class StandardTable extends Container{
         }
 
         //append relative location, i.e., row, column to the locator
-        String loc =  null
+        String loc
         if(context.isUseCssSelector()){
           loc = getFootSelector(index)
         }else{
@@ -848,7 +848,7 @@ class StandardTable extends Container{
     if(this.hasHeader()){
       int max = 0
       this.headers.each {key, component ->
-        String aid = key.replaceFirst('_', '')
+        String aid = key.replaceFirst('_', '').replaceFirst("HEADER", '')
         if (aid ==~ /[0-9]+/) {
           context.pushUid("header[${aid}]")
           component.traverse(context)
@@ -857,7 +857,7 @@ class StandardTable extends Container{
         }
       }
 
-      UiObject obj = this.headers.get("_ALL")
+      UiObject obj = this.headers.get("_HEADER_ALL")
       if(obj != null){
         max++
         context.pushUid("header[${max}]")
@@ -870,7 +870,7 @@ class StandardTable extends Container{
     if(this.foots.size() > 0){
       int max = 0
       this.foots.each {key, component ->
-        String aid = key.replaceFirst('_', '')
+        String aid = key.replaceFirst('_', '').replaceFirst("FOOTER", '')
         if (aid ==~ /[0-9]+/) {
           context.pushUid("footer[${aid}]")
           component.traverse(context)
@@ -879,7 +879,7 @@ class StandardTable extends Container{
         }
       }
 
-      UiObject obj = this.foots.get("_ALL")
+      UiObject obj = this.foots.get("_FOOTER_ALL")
       if(obj != null){
         max++
         context.pushUid("footer[${max}]")
