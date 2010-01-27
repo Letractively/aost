@@ -51,6 +51,7 @@ tellurium{
       //the bundling tier
     bundle{
         maxMacroCmd = 5
+        //false means  maxMacroCmd = 1
         useMacroCommand = false
     }
     //the configuration for the connector that connects the selenium client to the selenium server

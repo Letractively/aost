@@ -31,7 +31,7 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
         useCssSelector(true);
 //        useTelluriumApi(true);
         useTrace(true);
-//        useCache(false);
+//        useCache(true);
     }
 
     @Before
