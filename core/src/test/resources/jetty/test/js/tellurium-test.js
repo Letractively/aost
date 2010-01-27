@@ -67,6 +67,7 @@ TelluriumTestCase.prototype.testTelluriumDownloadResult = function(){
     var dr = uim.walkTo(context, uiid.convertToUiid("downloadResult"));
     var dr13 = uim.walkTo(context, uiid.convertToUiid("downloadResult[1][3]"));
     var dr131 = uim.walkTo(context, uiid.convertToUiid("downloadResult[1][3].[1]"));
+    var dr122 = uim.walkTo(context, uiid.convertToUiid("downloadResult[12][2]"));  //12 and up
 };
 
 TelluriumTestCase.prototype.testTelluriumIssueModule = function(){

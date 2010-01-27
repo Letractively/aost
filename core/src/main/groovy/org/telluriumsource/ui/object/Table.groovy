@@ -698,7 +698,7 @@ class Table extends Container {
         }
       }
 
-      UiObject obj = this.headers.get("_ALL")
+      UiObject obj = this.headers.get("_HEADER_ALL")
       if(obj != null){
         max++
         context.pushUid("header[${max}]")
