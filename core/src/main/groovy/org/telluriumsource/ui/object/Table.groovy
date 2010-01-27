@@ -151,9 +151,9 @@ class Table extends Container {
     parts[0] = parts[0].trim()
     parts[1] = parts[1].trim()
     if (ID_WILD_CASE.equalsIgnoreCase(parts[1]) || ALL_MATCH.equalsIgnoreCase(parts[1]))
-      return "_ALL"
+      return "_HEADER_ALL"
     else
-      return "_${parts[1].toUpperCase()}"
+      return "_HEADER_${parts[1].toUpperCase()}"
   }
 
   //should validate the uid before call this to convert it to internal representation
@@ -215,12 +215,12 @@ class Table extends Container {
 
   public UiObject findHeaderUiObject(int index) {
     //first check _i format
-    String key = "_${index}"
+    String key = "_HEADER_${index}"
     UiObject obj = headers.get(key)
 
     //then, check _ALL format
     if (obj == null) {
-      key = "_ALL"
+      key = "_HEADER_ALL"
       obj = headers.get(key)
     }
 
@@ -428,7 +428,7 @@ class Table extends Container {
     boolean hasAll = false;
     if (this.headers.size() > 0) {
       this.headers.each {String uid, UiObject obj ->
-        String auid = uid.replaceFirst('_', '')
+        String auid = uid.replaceFirst('_', '').replace('HEADER', '')
         if ("ALL".equalsIgnoreCase(auid.trim())) {
           hasAll = true;
         }else{
