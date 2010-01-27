@@ -1309,8 +1309,37 @@ var UiStandardTable = UiContainer.extend({
     },
 
     goToPlace:  function(uiid, uiobj) {
+         if(uiid.size() == 1){
+            uiid.pop();
+            objectCopy(this, uiobj);
+        }else{
+            uiid.pop();
+            var cuid = uiid.peek();
+            if(uiid.size() == 1){
+                uiid.pop();
+                uiobj.parent = this;
+                if(cuid.startsWith("_HEADER")){
+                    this.headers.put(cuid, uiobj);
+                }else if(cuid.startsWith("_FOOTER")){
+                    this.footers.put(cuid, uiobj);
+                }else{
+                    this.components.put(cuid, uiobj);
+                }
+            }else{
+                if(cuid.startsWith("_HEADER")){
+                    var header = this.headers.get(cuid);
+                    header.goToPlace(uiid, uiobj);
+                }else if(cuid.startsWith("_FOOTER")){
+                    var footer = this.footers.get(cuid);
+                    footer.goToPlace(uiid, uiobj);
+                }else{
+                    var child = this.components.get(cuid);
+                    child.goToPlace(uiid, uiobj);
+                }
+            }
+        }
 
-        uiid.pop();
+/*        uiid.pop();
         if (this.uid == null)
             objectCopy(this, uiobj);
 
@@ -1347,7 +1376,7 @@ var UiStandardTable = UiContainer.extend({
                     this.components.put(cuid, uiobj);
                 }
             }
-        }
+        }*/
     },
 
     prelocate: function(){
@@ -1554,11 +1583,11 @@ var UiStandardTable = UiContainer.extend({
     },
 
     findHeaderUiObject: function(index){
-        var key = "_" + index;
+        var key = "_HEADER_" + index;
         var obj = this.headers.get(key);
 
         if(obj == null){
-            key = "_ALL";
+            key = "_HEADER_ALL";
             obj = this.headers.get(key);
         }
 
@@ -1566,11 +1595,11 @@ var UiStandardTable = UiContainer.extend({
     },
 
     findFooterUiObject: function(index){
-        var key = "_" + index;
+        var key = "_FOOTER_" + index;
         var obj = this.footers.get(key);
 
         if(obj == null){
-            key = "_ALL";
+            key = "_FOOTER_ALL";
             obj = this.footers.get(key);
         }
 
@@ -1716,7 +1745,7 @@ var UiStandardTable = UiContainer.extend({
         //reach the actual uiid for the header element
         var child = uiid.pop();
 
-        child = child.replace(/^_/, '');
+        child = child.replace(/^_/, '').replace(/HEADER/, '');
 
         var index = parseInt(trimString(child));
 
@@ -1769,7 +1798,7 @@ var UiStandardTable = UiContainer.extend({
         //reach the actual uiid for the header element
         var child = uiid.pop();
 
-        child = child.replace(/^_/, '');
+        child = child.replace(/^_/, '').replace(/FOOTER/, '');
 
         var index = parseInt(trimString(child));
 
@@ -1913,9 +1942,11 @@ var UiStandardTable = UiContainer.extend({
 
         var child = uiid.peek();
 
-        if (trimString(child) == "header") {
+//        if (trimString(child) == "header") {
+        if(child.startsWith("_HEADER")){
             return this.walkToHeader(context, uiid);
-        } else if(trimString(child) == "footer"){
+//        } else if(trimString(child) == "footer"){
+        }else if(child.startsWith("_FOOTER")){
             return this.walkToFooter(context, uiid);
         } else {
             return this.walkToElement(context, uiid);
