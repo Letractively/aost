@@ -42,7 +42,8 @@ class TelluriumDownloadsPage extends DslContext{
            TextBox(uid: "row: *, column: 1", clocator: [:])
          
            //the summary + labels column consists of a list of UrlLinks
-           List(uid: "row:*, column: 3", clocator: [:]){
+ //          List(uid: "row:*, column: 3", clocator: [:]){
+          List(uid: "row:*, column: 3"){
                UrlLink(uid: "all", clocator: [:])
            }
            //For the rest, just UrlLink
