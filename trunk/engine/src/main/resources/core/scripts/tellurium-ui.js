@@ -755,6 +755,50 @@ var UiList = UiContainer.extend({
         return " > " + last + ":eq(" + lastOccur + ")";
     },
 
+    getListSize: function(context){
+        //First, get the DOM reference of the List itself
+        var dmr = this.domRef;
+        if(dmr == null)
+            dmr = context.domRef;
+
+        if(dmr == null){
+            fbError("The DOM reference for List " + this.uid + " is null", this);
+            throw new SeleniumError("The DOM reference for List " + this.uid + " is null");
+        }
+        
+        var $found = teJQuery(dmr);
+        if(this.separator != null){
+            $found = $found.find(" > " + this.separator);
+        }
+        var num = 0;
+        if(this.components != null && this.components.size() > 0){
+            var alg = context.alg;
+            var keys = this.components.keySet();
+            for(var i=0; i<keys.length; i++){
+                var component = this.components.get(keys[i]);
+                if(component.locator != null){
+                    var sel = alg.buildSelector(component.locator);
+                    num = num + $found.find(sel);
+                }else{
+                    //handle logical container
+                    var ccr = component.lookChildrenNoMatterWhat();
+                    if(ccr != null && ccr.length > 0){
+                        for(var j=0; j< ccr.length; j++){
+                            var ccsel = alg.buildSelector(ccr[i].locator);
+                            num = num + $found.find(ccsel).size();
+                        }
+                    }
+                }
+            }
+        }else{
+            //otherwise, consider all immediate children for the List
+            num = $found.children().size();
+        }
+        
+        return num;
+        
+    },
+
     walkTo: function(context, uiid) {
         !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
@@ -1101,6 +1145,7 @@ var UiTable = UiContainer.extend({
         return " > tbody > tr:has(td):eq(" + r + ") > td:eq(" + c + ")";
     },
 
+
     getAllBodyCell: function(context, worker){
         if (context.domRef != null) {
             var $found = teJQuery(context.domRef).find("> tbody > tr > td");
@@ -1111,6 +1156,54 @@ var UiTable = UiContainer.extend({
         }
 
         return null;
+    },
+
+    getHeaderColumnNum: function(context){
+        //First, get the DOM reference of the Table itself
+        var dmr = this.domRef;
+        if(dmr == null)
+            dmr = context.domRef;
+
+        if(dmr == null){
+            fbError("The DOM reference for Table " + this.uid + " is null", this);
+            throw new SeleniumError("The DOM reference for Table " + this.uid + " is null");
+        }
+
+        var $found = teJQuery(dmr).find("> tbody > tr:has(th):eq(0) > th");
+
+        return $found.size();
+    },
+
+    getTableRowNum: function(context){
+         //First, get the DOM reference of the Table itself
+        var dmr = this.domRef;
+        if(dmr == null)
+            dmr = context.domRef;
+
+        if(dmr == null){
+            fbError("The DOM reference for Table " + this.uid + " is null", this);
+            throw new SeleniumError("The DOM reference for Table " + this.uid + " is null");
+        }
+
+        var $found = teJQuery(dmr).find(" > tbody > tr:has(td)");
+
+        return $found.size();
+    },
+
+    getTableColumnNum: function(context){
+          //First, get the DOM reference of the Table itself
+        var dmr = this.domRef;
+        if(dmr == null)
+            dmr = context.domRef;
+
+        if(dmr == null){
+            fbError("The DOM reference for Table " + this.uid + " is null", this);
+            throw new SeleniumError("The DOM reference for Table " + this.uid + " is null");
+        }
+
+        var $found = teJQuery(dmr).find("> tbody > tr:has(td):eq(0) > td");
+
+        return $found.size();       
     },
 
     walkToHeader: function(context, uiid) {
@@ -1712,6 +1805,144 @@ var UiStandardTable = UiContainer.extend({
         return null;
     },
 
+    getHeaderColumnNum: function(context){
+        //First, get the DOM reference of the Standard Table itself
+        var dmr = this.domRef;
+        if(dmr == null)
+            dmr = context.domRef;
+
+        if(dmr == null){
+            fbError("The DOM reference for Standard Table " + this.uid + " is null", this);
+            throw new SeleniumError("The DOM reference for Standard Table " + this.uid + " is null");
+        }
+
+        var $found = teJQuery(dmr).find("> " + this.ht + ":first > " + this.hrt + ":eq(0) > " + this.hct);
+
+        return $found.size();
+    },
+
+    getFooterColumnNum: function(context){
+        //First, get the DOM reference of the Standard Table itself
+        var dmr = this.domRef;
+        if(dmr == null)
+            dmr = context.domRef;
+
+        if(dmr == null){
+            fbError("The DOM reference for Standard Table " + this.uid + " is null", this);
+            throw new SeleniumError("The DOM reference for Standard Table " + this.uid + " is null");
+        }
+
+        var $found = teJQuery(dmr).find("> " + this.ft + ":last > " + this.frt + ":eq(0) > " + this.fct);
+
+        return $found.size();
+    },
+
+    getTableRowNum: function(context){
+         //First, get the DOM reference of the Standard Table itself
+        var dmr = this.domRef;
+        if(dmr == null)
+            dmr = context.domRef;
+
+        if(dmr == null){
+            fbError("The DOM reference for Table " + this.uid + " is null", this);
+            throw new SeleniumError("The DOM reference for Table " + this.uid + " is null");
+        }
+
+        var count = 0;
+        if(this.bt == this.ht){
+            count++;
+        }
+
+        var $found = teJQuery(dmr).find(" > " + this.bt + ":eq(" + count + ") > " + this.brt + ":has(" + this.bct + ")");
+
+        return $found.size();
+    },
+
+    getTableRowNumForTbody: function(context, ntbody){
+         //First, get the DOM reference of the Standard Table itself
+        var dmr = this.domRef;
+        if(dmr == null)
+            dmr = context.domRef;
+
+        if(dmr == null){
+            fbError("The DOM reference for Table " + this.uid + " is null", this);
+            throw new SeleniumError("The DOM reference for Table " + this.uid + " is null");
+        }
+
+        var count = ntbody -1;
+        if(this.bt == this.ht){
+            count++;
+        }
+
+        var $found = teJQuery(dmr).find(" > " + this.bt + ":eq(" + count + ") > " + this.brt + ":has(" + this.bct + ")");
+
+        return $found.size();
+    },
+
+    getTableColumnNum: function(context){
+          //First, get the DOM reference of the Standard Table itself
+        var dmr = this.domRef;
+        if(dmr == null)
+            dmr = context.domRef;
+
+        if(dmr == null){
+            fbError("The DOM reference for Table " + this.uid + " is null", this);
+            throw new SeleniumError("The DOM reference for Table " + this.uid + " is null");
+        }
+
+        var count = 0;
+        if(this.bt == this.ht){
+            count++;
+        }
+
+        var $found = teJQuery(dmr).find(" > " + this.bt + ":eq(" + count + ") > " + this.brt + ":eq(0) > " + this.bct);
+
+        return $found.size();
+    },
+
+    getTableColumnNumForTbody: function(context, ntbody){
+          //First, get the DOM reference of the Standard Table itself
+        var dmr = this.domRef;
+        if(dmr == null)
+            dmr = context.domRef;
+
+        if(dmr == null){
+            fbError("The DOM reference for Table " + this.uid + " is null", this);
+            throw new SeleniumError("The DOM reference for Table " + this.uid + " is null");
+        }
+
+        var count = ntbody - 1;
+        if(this.bt == this.ht){
+            count++;
+        }
+
+        var $found = teJQuery(dmr).find(" > " + this.bt + ":eq(" + count + ") > " + this.brt + ":eq(0) > " + this.bct);
+
+        return $found.size();
+    },
+
+    getTableTbodyNum: function(context){
+        //First, get the DOM reference of the Standard Table itself
+        var dmr = this.domRef;
+        if (dmr == null)
+            dmr = context.domRef;
+
+        if (dmr == null) {
+            fbError("The DOM reference for Table " + this.uid + " is null", this);
+            throw new SeleniumError("The DOM reference for Table " + this.uid + " is null");
+        }
+
+        var count = 0;
+        if (this.bt == this.ht)
+            count++;
+        if (this.bt == this.ft)
+            count++;
+
+        var $found = teJQuery(dmr).find(" > " + this.bt);
+
+        return $found.size() - count
+    },
+
     traverse: function(context, visitor){
         visitor.visit(context, this);
         if(this.headers != null && this.headers.length > 0){
@@ -2187,7 +2418,7 @@ function UiModule(){
 
     this.valid = false;
 
-    //hold a hashtable of the uid to UI objects for fast access
+    //hold a hash table of the uid to UI objects for fast access
     this.map = new Hashtable();
 
     //index for uid - dom reference for fast access
