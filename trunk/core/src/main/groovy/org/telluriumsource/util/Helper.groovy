@@ -35,7 +35,7 @@ class Helper{
             return false;
 
         for(String elem: list){
-            if(name.contains(elem)){
+            if(name.contains(elem) || elem.contains(name)){
                 return true;
             }
         }
