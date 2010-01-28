@@ -482,6 +482,112 @@ TelluriumApi.prototype.getTeListSize = function(uid) {
 
     return 0;    
 };
+
+TelluriumApi.prototype.getTeTableHeaderColumnNum = function(uid) {
+    var context = new WorkflowContext();
+    context.alg = this.cache.uiAlg;
+
+    var obj = this.cache.walkToUiObjectWithException(context, uid);
+    if(obj.respondsToWithException("getHeaderColumnNum")){
+        var out = obj.getHeaderColumnNum(context);
+        !tellurium.logManager.isUseLog || fbLog("Get getHeaderColumnNum Result", out);
+
+        return out;
+    }
+
+    return 0;
+};
+
+TelluriumApi.prototype.getTeTableFootColumnNum = function(uid) {
+    var context = new WorkflowContext();
+    context.alg = this.cache.uiAlg;
+
+    var obj = this.cache.walkToUiObjectWithException(context, uid);
+    if(obj.respondsToWithException("getFooterColumnNum")){
+        var out = obj.getFooterColumnNum(context);
+        !tellurium.logManager.isUseLog || fbLog("Get getFooterColumnNum Result", out);
+
+        return out;
+    }
+
+    return 0;
+};
+
+TelluriumApi.prototype.getTeTableRowNum = function(uid) {
+    var context = new WorkflowContext();
+    context.alg = this.cache.uiAlg;
+
+    var obj = this.cache.walkToUiObjectWithException(context, uid);
+    if(obj.respondsToWithException("getTableRowNum")){
+        var out = obj.getTableRowNum(context);
+        !tellurium.logManager.isUseLog || fbLog("Get getTableRowNum Result", out);
+
+        return out;
+    }
+
+    return 0;
+};
+
+TelluriumApi.prototype.getTeTableColumnNum = function(uid) {
+    var context = new WorkflowContext();
+    context.alg = this.cache.uiAlg;
+
+    var obj = this.cache.walkToUiObjectWithException(context, uid);
+    if(obj.respondsToWithException("getTableColumnNum")){
+        var out = obj.getTableColumnNum(context);
+        !tellurium.logManager.isUseLog || fbLog("Get getTableColumnNum Result", out);
+
+        return out;
+    }
+
+    return 0;
+};
+
+TelluriumApi.prototype.getTeTableRowNumForTbody = function(uid, ntbody) {
+    var context = new WorkflowContext();
+    context.alg = this.cache.uiAlg;
+
+    var obj = this.cache.walkToUiObjectWithException(context, uid);
+    if(obj.respondsToWithException("getTableRowNumForTbody")){
+        var out = obj.getTableRowNumForTbody(context, ntbody);
+        !tellurium.logManager.isUseLog || fbLog("Get getTableRowNumForTbody Result", out);
+
+        return out;
+    }
+
+    return 0;
+};
+
+TelluriumApi.prototype.getTeTableColumnNumForTbody = function(uid, ntbody) {
+    var context = new WorkflowContext();
+    context.alg = this.cache.uiAlg;
+
+    var obj = this.cache.walkToUiObjectWithException(context, uid);
+    if(obj.respondsToWithException("getTableColumnNumForTbody")){
+        var out = obj.getTableColumnNumForTbody(context, ntbody);
+        !tellurium.logManager.isUseLog || fbLog("Get getTableColumnNumForTbody Result", out);
+
+        return out;
+    }
+
+    return 0;
+};
+
+TelluriumApi.prototype.getTeTableTbodyNum = function(uid) {
+    var context = new WorkflowContext();
+    context.alg = this.cache.uiAlg;
+
+    var obj = this.cache.walkToUiObjectWithException(context, uid);
+    if(obj.respondsToWithException("getTableTbodyNum")){
+        var out = obj.getTableTbodyNum(context);
+        !tellurium.logManager.isUseLog || fbLog("Get getTableTbodyNum Result", out);
+
+        return out;
+    }
+
+    return 0;
+};
+
 /*
 TelluriumApi.prototype.getAllTableBodyText = function(uid) {
     var context = new WorkflowContext();
