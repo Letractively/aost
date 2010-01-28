@@ -401,9 +401,16 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("getCookieByJQuery", false, "STRING");
     this.registerApi("updateEngineState", false, "VOID");
     this.registerApi("getEngineState", false, "OBJECT");
+    this.registerApi("useEngineLog", false, "VOID");
     this.registerApi("getAllTableBodyText", true, "ARRAY");
     this.registerApi("getTeListSize", true, "NUMBER");
-    this.registerApi("useEngineLog", false, "VOID");
+    this.registerApi("getTeTableTbodyNum", true, "NUMBER");
+    this.registerApi("getTeTableColumnNumForTbody", true, "NUMBER");
+    this.registerApi("getTeTableRowNumForTbody", true, "NUMBER");
+    this.registerApi("getTeTableColumnNum", true, "NUMBER");
+    this.registerApi("getTeTableRowNum", true, "NUMBER");
+    this.registerApi("getTeTableFootColumnNum", true, "NUMBER");
+    this.registerApi("getTeTableHeaderColumnNum", true, "NUMBER");
 };
 
 Tellurium.prototype.flipLog = function(){
