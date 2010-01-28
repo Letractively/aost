@@ -72,10 +72,15 @@ class TelluriumDownloadsPage extends DslContext{
     }
 
     public int getTableHeaderNum(){
+        enableCache();
+        enableTelluriumApi();
         return getTableHeaderColumnNum("downloadResult")
     }
 
     public List<String> getHeaderNames(){
+        enableCache();
+        enableTelluriumApi();
+
         List<String> headernames = new ArrayList<String>()
         int mcolumn = getTableHeaderColumnNum("downloadResult")
         for(int i=1; i<=mcolumn; i++){
@@ -86,6 +91,9 @@ class TelluriumDownloadsPage extends DslContext{
     }
 
     public List<String> getDownloadFileNames(){
+        enableCache();
+        enableTelluriumApi();
+
         int mcolumn = getTableMaxRowNum("downloadResult")
         List<String> filenames = new ArrayList<String>()
         for(int i=1; i<=mcolumn; i++){

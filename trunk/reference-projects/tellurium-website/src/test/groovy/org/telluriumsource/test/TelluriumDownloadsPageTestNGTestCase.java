@@ -28,7 +28,7 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
         connectSeleniumServer();
         useCache(true);
 //        useCssSelector(true);
-        useClosestMatch(true);
+//        useClosestMatch(true);
     }
 
     @BeforeMethod

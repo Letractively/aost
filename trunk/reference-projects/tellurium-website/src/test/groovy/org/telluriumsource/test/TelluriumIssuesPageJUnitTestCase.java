@@ -24,7 +24,8 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
         tisp = new TelluriumIssuesPage();
         tisp.defineUi();
         connectSeleniumServer();
-        useCssSelector(false);
+        useCssSelector(true);
+//        useCache(true);
     }
 
     @Test
