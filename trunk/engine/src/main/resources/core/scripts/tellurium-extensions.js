@@ -371,7 +371,7 @@ Selenium.prototype.doDeleteAllCookiesByJQuery = function() {
     teJQuery.cookies.del(true);
 };
 
-Selenium.prototype.doDeletelCookieByJQuery = function(cookieName) {
+Selenium.prototype.doDeleteCookieByJQuery = function(cookieName) {
     teJQuery.cookies.del(cookieName);
 };
 

@@ -259,7 +259,7 @@ function EngineState(){
     this.cache = null;
     this.teApi = null;
     this.relax = null;
-};
+}
 
 function Tellurium (){
 
@@ -531,7 +531,7 @@ Tellurium.prototype.processMacroCmd = function(){
     while (this.macroCmd.size() > 0) {
         var cmd = this.macroCmd.first();
         //If don't want to use Tellurium APIs
-        //or counld not find the approporiate API from Tellurium APIs, delete it to selenium directly
+        //or could not find the appropriate API from Tellurium APIs, delegate it to selenium directly
         //TODO: pay attention to tellurium only APIs, should not delegate to selenium if they are Tellurium only
         //should be fine if the same methods are duplicated in Selenium as well
         if ((!this.isUseTeApi) || this.isApiMissing(cmd.name)) {
@@ -574,15 +574,6 @@ Tellurium.prototype.processMacroCmd = function(){
                             element = this.locate(locator);
                             if(element == null)
                                throw SeleniumError("Cannot locate element for uid " + cmd.uid + " in Command " + cmd.name + ".");
-
-                            /*
-                            if (element != null) {
-//                                this.cbCache.put(cmd.uid, element);
-                            }else{
-
-                                throw SeleniumError("Cannot locate element for uid " + cmd.uid + " in Command " + cmd.name + ".");
-                            }*/
-
                         }
 
                     }
@@ -875,7 +866,7 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
 
     var returnType = null;
 
-    //Try to get back the return type by looking at Tellurium API couterpart
+    //Try to get back the return type by looking at Tellurium API counterpart
     var handler = this.apiMap.get(cmd.name);
     if(handler != null){
         returnType = handler.returnType;
