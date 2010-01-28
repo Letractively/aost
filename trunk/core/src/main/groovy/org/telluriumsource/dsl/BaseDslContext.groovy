@@ -956,53 +956,130 @@ abstract class BaseDslContext extends GlobalDslContext {
     }
   }
 
-  int getTableHeaderColumnNum(String uid) {
-    if (this.exploreCssSelector())
-      return getTableHeaderColumnNumBySelector(uid)
+  int getTeTableHeaderColumnNum(String uid){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    walkToWithException(context, uid)
 
-    return getTableHeaderColumnNumByXPath(uid)
+    return extension.getTeTableHeaderColumnNum(context, uid)
+  }
+
+  int getTableHeaderColumnNum(String uid) {
+    if(this.exploreUiModuleCache() && this.isUseTelluriumApi()){
+      return getTeTableHeaderColumnNum(uid)
+    }else{
+      if (this.exploreCssSelector())
+        return getTableHeaderColumnNumBySelector(uid)
+
+      return getTableHeaderColumnNumByXPath(uid)      
+    }
+  }
+
+  int getTeTableFootColumnNum(String uid){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    walkToWithException(context, uid)
+
+    return extension.getTeTableFootColumnNum(context, uid)
   }
 
   int getTableFootColumnNum(String uid) {
-    if (this.exploreCssSelector())
-      return getTableFootColumnNumBySelector(uid)
+    if(this.exploreUiModuleCache() && this.isUseTelluriumApi()){
+      return getTeTableFootColumnNum(uid)
+    }else{
+      if (this.exploreCssSelector())
+        return getTableFootColumnNumBySelector(uid)
 
-    return getTableFootColumnNumByXPath(uid)
+      return getTableFootColumnNumByXPath(uid)
+    }
+  }
+
+  int getTeTableRowNum(String uid){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    walkToWithException(context, uid)
+
+    return extension.getTeTableRowNum(context, uid)
   }
 
   int getTableMaxRowNum(String uid) {
-    if (this.exploreCssSelector())
-      return getTableMaxRowNumBySelector(uid)
+    if(this.exploreUiModuleCache() && this.isUseTelluriumApi()){
+      return getTeTableRowNum(uid)
+    }else{
+      if (this.exploreCssSelector())
+        return getTableMaxRowNumBySelector(uid)
 
-    return getTableMaxRowNumByXPath(uid)
+      return getTableMaxRowNumByXPath(uid)
+    }
+   }
+
+  int getTeTableColumnNum(String uid){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    walkToWithException(context, uid)
+
+    return extension.getTeTableColumnNum(context, uid)
   }
 
   int getTableMaxColumnNum(String uid) {
-    if (this.exploreCssSelector())
-      return getTableMaxColumnNumBySelector(uid)
+    if(this.exploreUiModuleCache() && this.isUseTelluriumApi()){
+      return getTeTableColumnNum(uid)
+    }else{
+      if (this.exploreCssSelector())
+        return getTableMaxColumnNumBySelector(uid)
 
-    return getTableMaxColumnNumByXPath(uid)
+      return getTableMaxColumnNumByXPath(uid)
+    }  
+  }
+
+  int getTeTableRowNumForTbody(String uid, int ntbody){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    walkToWithException(context, uid)
+
+    return extension.getTeTableRowNumForTbody(context, uid, ntbody)
   }
 
   int getTableMaxRowNumForTbody(String uid, int ntbody) {
-    if (this.exploreCssSelector())
-      return getTableMaxRowNumForTbodyBySelector(uid, ntbody)
+    if(this.exploreUiModuleCache() && this.isUseTelluriumApi()){
+      return getTeTableRowNumForTbody(uid, ntbody)
+    }else{
+      if (this.exploreCssSelector())
+        return getTableMaxRowNumForTbodyBySelector(uid, ntbody)
 
-    return getTableMaxRowNumForTbodyByXPath(uid, ntbody)
+      return getTableMaxRowNumForTbodyByXPath(uid, ntbody)
+    }
+  }
+
+  int getTeTableColumnNumForTbody(String uid, int ntbody){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    walkToWithException(context, uid)
+
+    return extension.getTeTableColumnNumForTbody(context, uid, ntbody)
   }
 
   int getTableMaxColumnNumForTbody(String uid, int ntbody) {
-    if (this.exploreCssSelector())
-      return getTableMaxColumnNumForTbodyBySelector(uid, ntbody)
+    if(this.exploreUiModuleCache() && this.isUseTelluriumApi()){
+      return getTeTableColumnNumForTbody(uid, ntbody)
+    }else{
+      if (this.exploreCssSelector())
+        return getTableMaxColumnNumForTbodyBySelector(uid, ntbody)
 
-    return getTableMaxColumnNumForTbodyByXPath(uid, ntbody)
+      return getTableMaxColumnNumForTbodyByXPath(uid, ntbody)
+    }    
+  }
+
+  int getTeTableTbodyNum(String uid){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    walkToWithException(context, uid)
+
+    return extension.getTeTableTbodyNum(context, uid)
   }
 
   int getTableMaxTbodyNum(String uid) {
-    if (this.exploreCssSelector())
-      return getTableMaxTbodyNumBySelector(uid)
+    if(this.exploreUiModuleCache() && this.isUseTelluriumApi()){
+      return getTeTableTbodyNum(uid)
+    }else{
+      if (this.exploreCssSelector())
+        return getTableMaxTbodyNumBySelector(uid)
 
-    return getTableMaxTbodyNumByXPath(uid)
+      return getTableMaxTbodyNumByXPath(uid)
+    }
   }
 
   int getListSizeByXPath(String uid) {
