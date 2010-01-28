@@ -31,7 +31,7 @@ class TelluriumIssuesPage extends DslContext{
                InputBox(uid: "row:2, column:3", clocator:[name: "words"])
                InputBox(uid: "row:3, column:3", clocator:[name: "without"])
                InputBox(uid: "row:5, column:3", clocator:[name: "labels"])
-               Table(uid: "row:6, column:1", clocator:[:]){
+               Table(uid: "row:6, column:1"){
                    UrlLink(uid: "row:1, column:1", clocator:[text: "*Search Tips"])
                }
                InputBox(uid: "row:6, column:3", clocator:[name: "statuses"])
@@ -55,9 +55,12 @@ class TelluriumIssuesPage extends DslContext{
 
          //define table elements
          //for the border column
-         TextBox(uid: "row: *, column: 1", clocator: [:])
-         TextBox(uid: "row: *, column: 8", clocator: [:])
-         TextBox(uid: "row: *, column: 10", clocator: [:])
+//         TextBox(uid: "row: *, column: 1", clocator: [:])
+//         TextBox(uid: "row: *, column: 8", clocator: [:])
+//         TextBox(uid: "row: *, column: 10", clocator: [:])
+         TextBox(uid: "row: *, column: 1")
+         TextBox(uid: "row: *, column: 8")
+         TextBox(uid: "row: *, column: 10")
          //For the rest, just UrlLink
          UrlLink(uid: "all", clocator: [:])
        }

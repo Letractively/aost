@@ -29,7 +29,7 @@ public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase 
         connectSeleniumServer();
         useCache(true);
         useCssSelector(true);
-        useClosestMatch(true);
+//        useClosestMatch(true);
     }
 
     @Before
