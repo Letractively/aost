@@ -4,9 +4,9 @@
 Jian Fang     (John.Jian.Fang@gmail.com)
 Vivek Mongolu (vivekmongolu@gmail.com)
 Matt Senter   (matt.senter@gmail.com)
-Quan Bui      (Quan.Bui@gmail.com)
 Haroon Rasheed (haroonzone@gmail.com)
 Mikhail Koryak (koryak@gmail.com)
+Ajay Ravichandran (ajay.ravichandran@gmail.com)
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 The Tellurium Automated Testing Framework (Tellurium) is a UI module-based automated testing framework for web
@@ -64,36 +64,6 @@ Your feedback and comments are very important to us. Please post your comments a
 group or write directly to us.
 
 Thanks.
-
---------------------------------------------------Project Structure----------------------------------------------------------------
-
-src/main              ---------------- Tellurium source code
-
-src/test/             ---------------- Tellurium testing code
-
-        org/tellurium/test  ----------------- Unit tests and functional tests for Tellurium framework itself
-
-        example/
-                dsl/        -----------------  DSL testing scripts
-                google/     -----------------  Ui modules for Tellurium testing using Google web sites as references
-                tellurium/  -----------------  Ui modules for Tellurium testing using Tellurium project web site as a reference
-
-                test/       -----------------  Actual tests
-                     ddt/   -----------------  Tellurium Data Driven tests
-                     groovy/-----------------  Tellurium Groovy test cases
-                     java/  -----------------  Tellurium Java test cases
-
-
-lib/                 ---------------------- Lib directory including all required jars
-
-build.properties     ---------------------- configuration file for ant build.xml
-build.xml            ---------------------- ant build script
-rundsl.sh            ---------------------- shell script to run DSL testing scripts in Unix or Linux sytems
-rundsl.bat           ---------------------- windows script to run DSL testing scripts
-LICENSE.txt          ---------------------- License file
-README               ---------------------- This file
-
----------------------------------------------------------------------------------------------------------------------------------
 
 RESOURCES
 
