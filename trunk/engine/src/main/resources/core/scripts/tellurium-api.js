@@ -468,6 +468,20 @@ TelluriumApi.prototype.getAllTableBodyText = function(uid) {
     return null;
 };
 
+TelluriumApi.prototype.getTeListSize = function(uid) {
+    var context = new WorkflowContext();
+    context.alg = this.cache.uiAlg;
+    
+    var obj = this.cache.walkToUiObjectWithException(context, uid);
+    if(obj.respondsToWithException("getListSize")){
+        var out = obj.getListSize(context);
+        !tellurium.logManager.isUseLog || fbLog("Get List Size Result", out);
+
+        return out;
+    }
+
+    return 0;    
+};
 /*
 TelluriumApi.prototype.getAllTableBodyText = function(uid) {
     var context = new WorkflowContext();

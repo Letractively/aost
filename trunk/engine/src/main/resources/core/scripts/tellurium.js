@@ -402,6 +402,7 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("updateEngineState", false, "VOID");
     this.registerApi("getEngineState", false, "OBJECT");
     this.registerApi("getAllTableBodyText", true, "ARRAY");
+    this.registerApi("getTeListSize", true, "NUMBER");
     this.registerApi("useEngineLog", false, "VOID");
 };
 

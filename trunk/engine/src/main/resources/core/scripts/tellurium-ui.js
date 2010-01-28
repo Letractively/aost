@@ -778,9 +778,11 @@ var UiList = UiContainer.extend({
                 var component = this.components.get(keys[i]);
                 if(component.locator != null){
                     var sel = alg.buildSelector(component.locator);
-                    num = num + $found.find(sel);
+                    num = num + $found.find(sel).size();
                 }else{
                     //handle logical container
+                    num = $found.size();
+/*
                     var ccr = component.lookChildrenNoMatterWhat();
                     if(ccr != null && ccr.length > 0){
                         for(var j=0; j< ccr.length; j++){
@@ -788,6 +790,7 @@ var UiList = UiContainer.extend({
                             num = num + $found.find(ccsel).size();
                         }
                     }
+*/
                 }
             }
         }else{
