@@ -1028,11 +1028,22 @@ abstract class BaseDslContext extends GlobalDslContext {
     }
   }
 
-  int getListSize(String uid) {
-    if (this.exploreCssSelector())
-      return getListSizeBySelector(uid)
+  int getTeListSize(String uid){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    walkToWithException(context, uid)
 
-    return getListSizeByXPath(uid)
+    return extension.getTeListSize(context, uid)
+  }
+
+  int getListSize(String uid) {
+    if(this.exploreUiModuleCache() && this.isUseTelluriumApi()){
+      return getTeListSize(uid)
+    }else{
+      if (this.exploreCssSelector())
+        return getListSizeBySelector(uid)
+
+      return getListSizeByXPath(uid)
+    }    
   }
   
   def boolean isDisabled(String uid) {

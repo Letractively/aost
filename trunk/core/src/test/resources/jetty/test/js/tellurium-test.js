@@ -184,7 +184,8 @@ TelluriumTestCase.prototype.testThumbnailUiModule = function(){
 
 TelluriumTestCase.prototype.testBookUiModule = function(){
 //    var json = [{"obj":{"uid":"GoogleBooksList","locator":{"tag":"table","attributes":{"id":"hp_table"}},"uiType":"Container"},"key":"GoogleBooksList"},{"obj":{"uid":"category","locator":{"tag":"div","attributes":{"class":"sub_cat_title"}},"uiType":"TextBox"},"key":"GoogleBooksList.category"},{"obj":{"uid":"subcategory","locator":{"tag":"div","attributes":{"class":"sub_cat_section"}},"uiType":"List","separator":"p"},"key":"GoogleBooksList.subcategory"},{"obj":{"uid":"all","locator":{"tag":"a"},"uiType":"UrlLink"},"key":"GoogleBooksList.subcategory._ALL"}];
-    var json = [{"obj":{"uid":"GoogleBooksList","locator":{"tag":"table","attributes":{"id":"hp_table"}},"uiType":"Container"},"key":"GoogleBooksList"},{"obj":{"uid":"subcategory","locator":{"tag":"td","attributes":{"class":"sidebar"}},"uiType":"List","separator":"div"},"key":"GoogleBooksList.subcategory"},{"obj":{"uid":"all","locator":{"loc":null},"uiType":"Container"},"key":"GoogleBooksList.subcategory._ALL"},{"obj":{"uid":"title","locator":{"tag":"div","attributes":{"class":"sub_cat_title"}},"uiType":"TextBox"},"key":"GoogleBooksList.subcategory._ALL.title"},{"obj":{"uid":"links","locator":{"loc":null},"uiType":"List","separator":"p"},"key":"GoogleBooksList.subcategory._ALL.links"},{"obj":{"uid":"all","locator":{"tag":"a"},"uiType":"UrlLink"},"key":"GoogleBooksList.subcategory._ALL.links._ALL"}];
+//    var json = [{"obj":{"uid":"GoogleBooksList","locator":{"tag":"table","attributes":{"id":"hp_table"}},"uiType":"Container"},"key":"GoogleBooksList"},{"obj":{"uid":"subcategory","locator":{"tag":"td","attributes":{"class":"sidebar"}},"uiType":"List","separator":"div"},"key":"GoogleBooksList.subcategory"},{"obj":{"uid":"all","locator":{"loc":null},"uiType":"Container"},"key":"GoogleBooksList.subcategory._ALL"},{"obj":{"uid":"title","locator":{"tag":"div","attributes":{"class":"sub_cat_title"}},"uiType":"TextBox"},"key":"GoogleBooksList.subcategory._ALL.title"},{"obj":{"uid":"links","locator":{"loc":null},"uiType":"List","separator":"p"},"key":"GoogleBooksList.subcategory._ALL.links"},{"obj":{"uid":"all","locator":{"tag":"a"},"uiType":"UrlLink"},"key":"GoogleBooksList.subcategory._ALL.links._ALL"}];
+    var json = [{"obj":{"uid":"GoogleBooksList","locator":{"tag":"table","attributes":{"id":"hp_table"}},"uiType":"Container"},"key":"GoogleBooksList"},{"obj":{"uid":"subcategory","locator":{"tag":"td","attributes":{"class":"sidebar"}},"uiType":"List","separator":"div"},"key":"GoogleBooksList.subcategory"},{"obj":{"uid":"all","locator":null,"uiType":"Container"},"key":"GoogleBooksList.subcategory._ALL"},{"obj":{"uid":"title","locator":{"tag":"div","attributes":{"class":"sub_cat_title"}},"uiType":"TextBox"},"key":"GoogleBooksList.subcategory._ALL.title"},{"obj":{"uid":"links","locator":null,"uiType":"List","separator":"p"},"key":"GoogleBooksList.subcategory._ALL.links"},{"obj":{"uid":"all","locator":{"tag":"a"},"uiType":"UrlLink"},"key":"GoogleBooksList.subcategory._ALL.links._ALL"}];
     tellurium.logManager.isUseLog = true;
     var uim = new UiModule();
 //    uim.parseUiModule(JSON.stringify(json));
@@ -197,9 +198,12 @@ TelluriumTestCase.prototype.testBookUiModule = function(){
     context.alg = alg;
     var uiid = new Uiid();
     var list = uim.walkTo(context, uiid.convertToUiid("GoogleBooksList"));
-    var category = uim.walkTo(context, uiid.convertToUiid("GoogleBooksList.category"));
+//    var category = uim.walkTo(context, uiid.convertToUiid("GoogleBooksList.category"));
     var subcategory = uim.walkTo(context, uiid.convertToUiid("GoogleBooksList.subcategory"));
+    var size = subcategory.getListSize(context);
     var subcategorylink1 = uim.walkTo(context, uiid.convertToUiid("GoogleBooksList.subcategory[1]"));
+    var links = uim.walkTo(context, uiid.convertToUiid("GoogleBooksList.subcategory[1].links"));
+    size = links.getListSize(context);
     var subcategorylink2 = uim.walkTo(context,  uiid.convertToUiid("GoogleBooksList.subcategory[2]"));
 };
 
@@ -255,10 +259,10 @@ TelluriumTestCase.prototype.testSuite = function(){
 //    this.testLogicalContainerModule();
 //    this.testTelluriumIssueModule();
 //    this.testGeneralTableModule();  
-    this.testTelluriumDownloadResult();
+//    this.testTelluriumDownloadResult();
 //    this.testLogoUiModule();
 //    this.testThumbnailUiModule();
-//    this.testBookUiModule();
+    this.testBookUiModule();
 //    this.testExpandUiModule();
 //    this.testErisUiModule();
 //    this.testUiCache();
