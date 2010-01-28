@@ -120,13 +120,7 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
         int maxSize = tim.getCacheMaxSize();
         System.out.println("Cache Size: " + size + ", Cache Max Size: " + maxSize);
 
-        System.out.println("Cache Usage: " + tim.getCacheUsage());
-        
-/*        Map<String, Long> usages = tim.getCacheUsage();
-        Set<String> keys = usages.keySet();
-        for(String key: keys){
-            System.out.println("UID: " + key + ", Count: " + usages.get(key));
-        }*/
+        System.out.println("Cache Usage: " + tim.getCacheUsage());        
     }
 
     @AfterClass

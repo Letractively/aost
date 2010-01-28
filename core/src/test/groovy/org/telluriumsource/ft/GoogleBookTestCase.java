@@ -9,6 +9,8 @@ import org.junit.AfterClass;
 import org.junit.Test;
 import org.telluriumsource.util.LogLevels;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
@@ -58,6 +60,16 @@ public class GoogleBookTestCase extends TelluriumJUnitTestCase {
     @Test
     public void testValidateUiModule(){
         gbm.validate("GoogleBooksList");
+    }
+
+    @Test
+    public void testListSize(){
+        int size = gbm.getListSize("GoogleBooksList.subcategory");
+        assertEquals(3, size);
+        for(int i=1; i<=size; i++){
+            int ls = gbm.getListSize("GoogleBooksList.subcategory[" + i + "].links");
+            assertEquals(8, ls);
+        }
     }
    
     @AfterClass
