@@ -6,8 +6,8 @@ import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.AfterClass;
-import org.telluriumsource.util.LogLevels;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -83,6 +83,26 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
         useCache(true);
         useTelluriumApi(true);
         gtm.show("GT", 2000);
+    }
+
+    @Test
+    public void testGetTableSize(){
+        useCache(true);
+        useTelluriumApi(true);
+        int size = gtm.getTableMaxTbodyNum("GT");
+        assertEquals(1, size);
+        size = gtm.getTableMaxColumnNumForTbody("GT", 1);
+        assertEquals(3, size);
+        size = gtm.getTableMaxRowNumForTbody("GT", 1);
+        assertEquals(1, size);
+        size = gtm.getTableMaxColumnNum("GT");
+        assertEquals(3, size);
+        size = gtm.getTableMaxRowNum("GT");
+        assertEquals(1, size);
+        size = gtm.getTableFootColumnNum("GT");
+        assertEquals(0, size);
+        size = gtm.getTableHeaderColumnNum("GT");
+        assertEquals(3, size);
     }
 
     @AfterClass
