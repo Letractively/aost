@@ -15,31 +15,28 @@ import org.telluriumsource.dsl.DslContext
 class TelluriumIssuesPage extends DslContext{
 
    public void defineUi() {
-
        //define UI module of a form include issue type selector and issue search
         ui.Form(uid: "issueSearch", clocator: [action: "list", method: "GET"], group: "true") {
-          Selector(uid: "issueType", clocator: [name: "can", id: "can"])
-          TextBox(uid: "searchLabel", clocator: [tag: "span", text: "*for"])
-          InputBox(uid: "searchBox", clocator: [type: "text", name: "q"])
-          SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+          Selector(uid: "issueType", clocator: [name: "can", id: "can", direct: "true"])
+          TextBox(uid: "searchLabel", clocator: [tag: "span", text: "for"])
+          InputBox(uid: "searchBox", clocator: [type: "text", name: "q", id: "q"])
+          SubmitButton(uid: "searchButton", clocator: [value: "Search", direct: "true"])
         }
-
+ 
        ui.Form(uid: "issueAdvancedSearch", clocator: [action: "advsearch.do", method: "POST"], group: "true"){
-           Table(uid: "searchTable", clocator: [class: "advquery"]){
-               Selector(uid: "row:1, column: 3", clocator: [name: "can"])
-               SubmitButton(uid: "row:1, column:4", clocator: [value: "Search", name: "btn"])
-               InputBox(uid: "row:2, column:3", clocator:[name: "words"])
-               InputBox(uid: "row:3, column:3", clocator:[name: "without"])
-               InputBox(uid: "row:5, column:3", clocator:[name: "labels"])
-               Table(uid: "row:6, column:1"){
-                   UrlLink(uid: "row:1, column:1", clocator:[text: "*Search Tips"])
-               }
-               InputBox(uid: "row:6, column:3", clocator:[name: "statuses"])
-               InputBox(uid: "row:7, column:2", clocator:[name: "reporters"])
-               InputBox(uid: "row:8, column:2", clocator:[name: "owners"])
-               InputBox(uid: "row:9, column:2", clocator:[name: "cc"])
-               InputBox(uid: "row:10, column:3", clocator:[name: "commentby"])
-           }
+         Container(uid: "searchTable", clocator: [class: "advquery"]){
+             Selector(uid: "issueTypes", clocator: [name: "can"])
+             SubmitButton(uid: "search", clocator: [value: "Search", name: "btn"])
+             InputBox(uid: "include", clocator:[name: "words"])
+             InputBox(uid: "exclude", clocator:[name: "without"])
+             InputBox(uid: "labels", clocator:[name: "labels"])
+             UrlLink(uid: "searchTips", clocator:[text: "*Search Tips"])
+             InputBox(uid: "statuses", clocator:[name: "statuses"])
+             InputBox(uid: "reporters", clocator:[name: "reporters"])
+             InputBox(uid: "owners", clocator:[name: "owners"])
+             InputBox(uid: "cc", clocator:[name: "cc"])
+             InputBox(uid: "commentBy", clocator:[name: "commentby"])
+         }
        }
 
        ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], group: "true") {
@@ -51,7 +48,7 @@ class TelluriumIssuesPage extends DslContext{
          UrlLink(uid: "header: 6", clocator: [text: "*Milestone"])
          UrlLink(uid: "header: 7", clocator: [text: "*Owner"])
          UrlLink(uid: "header: 9", clocator: [text: "*Summary + Labels"])
-         UrlLink(uid: "header: 10", clocator: [text: "...", href: "#columnprefs"])
+         UrlLink(uid: "header: 10", clocator: [text: "*..."])
 
          //define table elements
          //for the border column
@@ -101,54 +98,54 @@ class TelluriumIssuesPage extends DslContext{
         waitForPageToLoad 30000
     }
 
-    public String[] getAdvancedIsssueTypes(){
-        return  getSelectOptions("issueAdvancedSearch.searchTable[1][3]")
+    public String[] getAdvancedIssueTypes(){
+        return  getSelectOptions("issueAdvancedSearch.searchTable.issueTypes")
     }
 
     public void advancedSearchIssue(String issueType, String words, String without, String labels, String statuses,
         String reporters, String owners, String cc, String commentby){
         if(issueType != null){
-            selectByLabel "issueAdvancedSearch.searchTable[1][3]", issueType
+            selectByLabel "issueAdvancedSearch.searchTable.issueTypes", issueType
         }
 
         if(words != null){
-            keyType "issueAdvancedSearch.searchTable[2][3]", words
+            keyType "issueAdvancedSearch.searchTable.include", words
         }
 
         if(without != null){
-            keyType "issueAdvancedSearch.searchTable[3][3]", without
+            keyType "issueAdvancedSearch.searchTable.exclude", without
         }
 
         if(labels != null){
-            keyType "issueAdvancedSearch.searchTable[5][3]", labels
+            keyType "issueAdvancedSearch.searchTable.labels", labels
         }
 
         if(statuses != null){
-            keyType "issueAdvancedSearch.searchTable[6][3]", statuses
+            keyType "issueAdvancedSearch.searchTable.statuses", statuses
         }
 
         if(reporters != null){
-            keyType "issueAdvancedSearch.searchTable[7][2]", reporters
+            keyType "issueAdvancedSearch.searchTable.reporters", reporters
         }
 
         if(owners != null){
-            keyType "issueAdvancedSearch.searchTable[8][2]", owners
+            keyType "issueAdvancedSearch.searchTable.owners", owners
         }
 
         if(cc != null){
-           keyType "issueAdvancedSearch.searchTable[9][2]", cc
+           keyType "issueAdvancedSearch.searchTable.cc", cc
         }
 
         if(commentby != null){
-           keyType "issueAdvancedSearch.searchTable[10][3]", commentby
+           keyType "issueAdvancedSearch.searchTable.commentBy", commentby
         }
 
-        click "issueAdvancedSearch.searchTable[1][4]"
+        click "issueAdvancedSearch.searchTable.search"
         waitForPageToLoad 30000
     }
 
     public void clickMoreSearchTips(){
-        click "issueAdvancedSearch.searchTable[6][1].[1][1]"
+        click "issueAdvancedSearch.searchTable.searchTips"
         waitForPageToLoad 30000
     }
 

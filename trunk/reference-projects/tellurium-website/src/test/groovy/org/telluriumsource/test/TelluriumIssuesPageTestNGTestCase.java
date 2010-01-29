@@ -3,6 +3,7 @@ package org.telluriumsource.test;
 import org.telluriumsource.module.TelluriumIssuesPage;
 import org.telluriumsource.test.java.TelluriumTestNGTestCase;
 import org.telluriumsource.util.Helper;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -34,12 +35,12 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
 
     @BeforeMethod
     public void setUpForMethod(){
-        connectUrl("http://code.google.com/p/aost/issues/list");
-    }
+     }
 
 
     @Test
     public void testGetIssueTypes(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
 
         String[] ists = tisp.getIsssueTypes();
         assertNotNull(ists);
@@ -50,7 +51,9 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
 
     @Test
     public void testAdvancedSearch(){
-        String[] ists = tisp.getAdvancedIsssueTypes();
+        connectUrl("http://code.google.com/p/aost/issues/advsearch");
+
+        String[] ists = tisp.getAdvancedIssueTypes();
         assertNotNull(ists);
         assertTrue(ists[1].contains("All issues"));
         tisp.selectIssueType(ists[1]);
@@ -60,11 +63,14 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
 
     @Test
     public void testAdvancedSearchTips(){
+        connectUrl("http://code.google.com/p/aost/issues/advsearch");
         tisp.clickMoreSearchTips();
     }
 
     @Test
     public void testIssueData(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
+
         int mcolumn = tisp.getTableHeaderNum();
         assertEquals(10, mcolumn);
         List<String> list = tisp.getHeaderNames();
@@ -79,6 +85,7 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
 
     @Test
     public void testClickIssueResult(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.clickTable(1,2);
         connectUrl("http://code.google.com/p/aost/issues/list");
         tisp.clickTable(1,3);
@@ -96,6 +103,8 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
 
     @Test
     public void testClickHeader(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
+
         tisp.clickOnTableHeader(2);
         tisp.clickOnTableHeader(3);
         tisp.clickOnTableHeader(4);
@@ -107,6 +116,8 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
 
     @Test
     public void testIdMenu(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
+
         useCssSelector(false);
         tisp.clickOnTableHeader(2);
         tisp.mouseMoveIdMenu();
@@ -116,6 +127,8 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
 
     @Test
     public void testSelectColumnMenu(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
+
         useCssSelector(false);
         tisp.toggleIdColumn("ID");
         tisp.toggleIdColumn("Owner");
@@ -123,12 +136,16 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
 
     @Test
     public void testSelectDataLayout(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
+
         tisp.selectDataLayout("Grid");
         tisp.selectDataLayout("List");
     }
 
     @Test
     public void testGetCellCount(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
+
         useCssSelector(true);
         int count = tisp.getTableCellCount();
         assertTrue(count > 0);
@@ -140,6 +157,8 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
 
     @Test
     public void testSearchIssueTypes(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
+
         useCssSelector(true);
         useCache(true);
         setCacheMaxSize(10);
@@ -151,6 +170,7 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
 
     @Test
     public void testDump(){
+//        connectUrl("http://code.google.com/p/aost/issues/advsearch");
         useCssSelector(false);
         tisp.dump("issueAdvancedSearch");
 
@@ -163,7 +183,8 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
         tisp.dump("issueAdvancedSearch");
     }
 
-    protected void showCacheUsage(){
+    @AfterClass
+    public static void showCacheUsage(){
         int size = getCacheSize();
         int maxSize = getCacheMaxSize();
         System.out.println("Cache Size: " + size + ", Cache Max Size: " + maxSize);

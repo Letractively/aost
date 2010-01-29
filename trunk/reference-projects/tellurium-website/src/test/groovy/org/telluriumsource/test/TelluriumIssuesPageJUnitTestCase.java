@@ -1,5 +1,6 @@
 package org.telluriumsource.test;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.telluriumsource.module.TelluriumIssuesPage;
@@ -25,9 +26,33 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
         tisp.defineUi();
         connectSeleniumServer();
         useCssSelector(true);
-//        useCache(true);
+        useCache(true);
     }
 
+    @Test
+    public void testDiagnoseAdvancedSearch(){
+        connectUrl("http://code.google.com/p/aost/issues/advsearch");
+        tisp.diagnose("issueAdvancedSearch");
+    }
+
+    @Test
+    public void testValidateAdvancedSearch(){
+        connectUrl("http://code.google.com/p/aost/issues/advsearch");
+        tisp.validate("issueAdvancedSearch");
+    }
+    
+    @Test
+    public void testDiagnoseIssueSearch(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
+        tisp.diagnose("issueSearch.searchButton");
+    }
+
+    @Test
+    public void testValidateIssueSearch(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
+        tisp.validate("issueSearch");
+    }
+    
     @Test
     public void testToString(){
         JSONArray ar = tisp.toJSONArray("selectColumnMenu");
@@ -47,7 +72,7 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
     @Test
     public void testAdvancedSearch(){
         connectUrl("http://code.google.com/p/aost/issues/advsearch");
-        String[] ists = tisp.getAdvancedIsssueTypes();
+        String[] ists = tisp.getAdvancedIssueTypes();
         assertNotNull(ists);
         assertTrue(ists[1].contains("All issues"));
         tisp.selectIssueType(ists[1]);
@@ -166,7 +191,8 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
         tisp.dump("issueAdvancedSearch");
     }
 
-    protected void showCacheUsage(){
+    @AfterClass
+    public static void showCacheUsage(){
         int size = getCacheSize();
         int maxSize = getCacheMaxSize();
         System.out.println("Cache Size: " + size + ", Cache Max Size: " + maxSize);
