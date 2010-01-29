@@ -91,8 +91,8 @@ class TelluriumDownloadsPage extends DslContext{
     }
 
     public List<String> getDownloadFileNames(){
-        enableCache();
-        enableTelluriumApi();
+//        enableCache();
+ //       enableTelluriumApi();
 
         int mcolumn = getTableMaxRowNum("downloadResult")
         List<String> filenames = new ArrayList<String>()
