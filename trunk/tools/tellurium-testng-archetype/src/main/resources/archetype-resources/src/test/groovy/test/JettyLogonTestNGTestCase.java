@@ -75,7 +75,7 @@ public class JettyLogonTestNGTestCase  extends TelluriumTestNGTestCase {
 
     @Test
     public void testJsonfyUiModule(){
-        String json = jlm.jsonify("Form");
+        String json = jlm.toString("Form");
         System.out.println(json);
     }
 
@@ -87,8 +87,8 @@ public class JettyLogonTestNGTestCase  extends TelluriumTestNGTestCase {
 
     @Test
     public void testValidateUiModule(){
-        jlm.validateUiModule("Form");
-        jlm.validateUiModule("ProblematicForm");
+        jlm.validate("Form");
+        jlm.validate("ProblematicForm");
     }
 
     @Test(dataProvider = "config-provider")
