@@ -1,5 +1,6 @@
 package org.telluriumsource.test;
 
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -66,7 +67,11 @@ public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase 
         downloadPage.selectDownloadType(" All downloads");
         downloadPage.searchDownload("Tellurium-0.6.0");
 
+        useTelluriumApi(true);
+        useEngineLog(true);
         List<String> list = downloadPage.getDownloadFileNames();
+        useTelluriumApi(false);
+        useEngineLog(false);
         assertNotNull(list);
         assertFalse(list.isEmpty());
         assertTrue(Helper.include(list, "tellurium-core.0.6.0.tar.gz"));
@@ -78,7 +83,11 @@ public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase 
         downloadPage.selectDownloadType(" All downloads");
         downloadPage.searchDownload("label:Featured");
 
+        useTelluriumApi(true);
+        useEngineLog(true);
         List<String> list = downloadPage.getDownloadFileNames();
+        useTelluriumApi(false);
+        useEngineLog(false);
         assertNotNull(list);
         assertFalse(list.isEmpty());
 //        assertTrue(Helper.include(list, "tellurium-core.0.6.0.tar.gz"));
@@ -92,7 +101,9 @@ public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase 
         assertNotNull(list);
         assertEquals(7, list.size());
         assertTrue(Helper.include(list, "Filename"));
+        useTelluriumApi(true);
         list = downloadPage.getDownloadFileNames();
+        useTelluriumApi(false);
         assertNotNull(list);
         assertFalse(list.isEmpty());
         assertTrue(Helper.include(list, "tellurium-core.0.6.0.tar.gz"));
@@ -130,5 +141,13 @@ public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase 
         downloadPage.clickOnTableHeader(4);
         downloadPage.clickOnTableHeader(5);
         downloadPage.clickOnTableHeader(6);
+    }
+
+    @AfterClass
+    public static void showUsage(){
+        int size = getCacheSize();
+        int maxSize = getCacheMaxSize();
+        System.out.println("Cache Size: " + size + ", Cache Max Size: " + maxSize);
+        System.out.println("Cache Usage: " + getCacheUsage());
     }
 }

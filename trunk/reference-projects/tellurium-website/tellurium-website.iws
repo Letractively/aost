@@ -16,7 +16,9 @@
   </component>
   <component name="ChangeListManager" verified="true">
     <list default="true" readonly="true" id="f38faf49-1bb9-4adb-b9b5-0cf78c45d1a2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumIssuesPageTestNGTestCase.java" afterPath="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumIssuesPageTestNGTestCase.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageTestNGTestCase.java" afterPath="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageTestNGTestCase.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageJUnitTestCase.java" afterPath="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageJUnitTestCase.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/module/TelluriumDownloadsPage.groovy" afterPath="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/module/TelluriumDownloadsPage.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tellurium-website.iws" afterPath="$PROJECT_DIR$/tellurium-website.iws" />
     </list>
     <ignored path=".idea/workspace.xml" />
@@ -55,7 +57,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/module/TelluriumDownloadsPage.groovy" line="96" class="Class at TelluriumDownloadsPage.groovy:96" package="">
+      <breakpoint url="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageJUnitTestCase.java" line="71" class="org.telluriumsource.test.TelluriumDownloadsPageJUnitTestCase" package="org.telluriumsource.test">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -68,7 +70,46 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/module/TelluriumDownloadsPage.groovy" line="98" class="Class at TelluriumDownloadsPage.groovy:98" package="">
+      <breakpoint url="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageJUnitTestCase.java" line="74" class="org.telluriumsource.test.TelluriumDownloadsPageJUnitTestCase" package="org.telluriumsource.test">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageJUnitTestCase.java" line="87" class="org.telluriumsource.test.TelluriumDownloadsPageJUnitTestCase" package="org.telluriumsource.test">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageJUnitTestCase.java" line="147" class="org.telluriumsource.test.TelluriumDownloadsPageJUnitTestCase" package="org.telluriumsource.test">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageJUnitTestCase.java" line="90" class="org.telluriumsource.test.TelluriumDownloadsPageJUnitTestCase" package="org.telluriumsource.test">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -123,37 +164,19 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TelluriumDownloadsPage.groovy" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="TelluriumDownloadsPage.groovy" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/module/TelluriumDownloadsPage.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="98" column="0" selection-start="3331" selection-end="3331" vertical-scroll-proportion="0.0">
+            <state line="98" column="0" selection-start="3335" selection-end="3335" vertical-scroll-proportion="2.1292639">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TelluriumIssuesPage.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/module/TelluriumIssuesPage.groovy">
+      <file leaf-file-name="TelluriumDownloadsPageTestNGTestCase.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageTestNGTestCase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="80" column="104" selection-start="4312" selection-end="4312" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TelluriumIssuesPageTestNGTestCase.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumIssuesPageTestNGTestCase.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="24" selection-start="1389" selection-end="1389" vertical-scroll-proportion="0.84615386">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WorkflowContext.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/telluriumsource/tellurium-core/0.7.0-SNAPSHOT/tellurium-core-0.7.0-SNAPSHOT-sources.jar!/org/telluriumsource/dsl/WorkflowContext.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="32" column="24" selection-start="1017" selection-end="1017" vertical-scroll-proportion="-3.0">
               <folding />
             </state>
           </provider>
@@ -168,37 +191,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UrlLink.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/telluriumsource/tellurium-core/0.7.0-SNAPSHOT/tellurium-core-0.7.0-SNAPSHOT-sources.jar!/org/telluriumsource/ui/object/UrlLink.groovy">
+      <file leaf-file-name="TelluriumDownloadsPageJUnitTestCase.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageJUnitTestCase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Option.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/telluriumsource/tellurium-core/0.7.0-SNAPSHOT/tellurium-core-0.7.0-SNAPSHOT-sources.jar!/org/telluriumsource/ui/object/Option.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UiDslParser.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/telluriumsource/tellurium-core/0.7.0-SNAPSHOT/tellurium-core-0.7.0-SNAPSHOT-sources.jar!/org/telluriumsource/dsl/UiDslParser.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TelluriumProjectPage.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/module/TelluriumProjectPage.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="6" selection-start="268" selection-end="268" vertical-scroll-proportion="0.0">
+            <state line="151" column="0" selection-start="4581" selection-end="4581" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -207,7 +203,7 @@
       <file leaf-file-name="TelluriumIssuesPageJUnitTestCase.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumIssuesPageJUnitTestCase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="166" column="30" selection-start="5173" selection-end="5173" vertical-scroll-proportion="0.0">
+            <state line="207" column="22" selection-start="6172" selection-end="6395" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -233,12 +229,12 @@
         <option value="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumWikiPageJUnitTestCase.java" />
         <option value="$PROJECT_DIR$/HowTO" />
         <option value="$PROJECT_DIR$/LICENSE.txt" />
-        <option value="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/module/TelluriumDownloadsPage.groovy" />
-        <option value="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageJUnitTestCase.java" />
-        <option value="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageTestNGTestCase.java" />
         <option value="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumIssuesPageJUnitTestCase.java" />
         <option value="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/module/TelluriumIssuesPage.groovy" />
         <option value="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumIssuesPageTestNGTestCase.java" />
+        <option value="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/module/TelluriumDownloadsPage.groovy" />
+        <option value="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageTestNGTestCase.java" />
+        <option value="$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageJUnitTestCase.java" />
       </list>
     </option>
   </component>
@@ -770,103 +766,7 @@
       <recent name="org.telluriumsource.ui" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.TelluriumIssuesPageTestNGTestCase">
-    <configuration default="false" name="TelluriumIssuesPageTestNGTestCase" type="TestNG" factoryName="TestNG" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" runner="emma">
-        <pattern>
-          <option name="PATTERN" value="org.telluriumsource.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <extension name="snapshooter" />
-      <module name="tellurium-website" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" value="org.telluriumsource.test" />
-      <option name="MAIN_CLASS_NAME" value="org.telluriumsource.test.TelluriumIssuesPageTestNGTestCase" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="TelluriumIssuesPageJUnitTestCase.testGetIssueTypes" type="JUnit" factoryName="JUnit" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" runner="emma">
-        <pattern>
-          <option name="PATTERN" value="org.telluriumsource.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <extension name="snapshooter" />
-      <module name="tellurium-website" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.telluriumsource.test" />
-      <option name="MAIN_CLASS_NAME" value="org.telluriumsource.test.TelluriumIssuesPageJUnitTestCase" />
-      <option name="METHOD_NAME" value="testGetIssueTypes" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="57996" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <ConfigurationWrapper RunnerId="Debug" />
-      <method />
-    </configuration>
-    <configuration default="false" name="TelluriumIssuesPageJUnitTestCase.testDiagnoseIssueSearch" type="JUnit" factoryName="JUnit" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" runner="emma">
-        <pattern>
-          <option name="PATTERN" value="org.telluriumsource.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <extension name="snapshooter" />
-      <module name="tellurium-website" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.telluriumsource.test" />
-      <option name="MAIN_CLASS_NAME" value="org.telluriumsource.test.TelluriumIssuesPageJUnitTestCase" />
-      <option name="METHOD_NAME" value="testDiagnoseIssueSearch" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="JUnit.TelluriumDownloadsPageJUnitTestCase">
     <configuration default="false" name="TelluriumIssuesPageJUnitTestCase.testValidateIssueSearch" type="JUnit" factoryName="JUnit" temporary="true">
       <extension name="coverage" enabled="false" merge="false" runner="emma">
         <pattern>
@@ -925,6 +825,112 @@
         <option name="LOCAL" value="true" />
       </RunnerSettings>
       <ConfigurationWrapper RunnerId="Debug" />
+      <method />
+    </configuration>
+    <configuration default="false" name="TelluriumDownloadsPageTestNGTestCase" type="TestNG" factoryName="TestNG" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="emma">
+        <pattern>
+          <option name="PATTERN" value="org.telluriumsource.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="snapshooter" />
+      <module name="tellurium-website" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" value="org.telluriumsource.test" />
+      <option name="MAIN_CLASS_NAME" value="org.telluriumsource.test.TelluriumDownloadsPageTestNGTestCase" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="TelluriumDownloadsPageTestNGTestCase.testValidate" type="TestNG" factoryName="TestNG" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="emma">
+        <pattern>
+          <option name="PATTERN" value="org.telluriumsource.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="snapshooter" />
+      <module name="tellurium-website" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" value="org.telluriumsource.test" />
+      <option name="MAIN_CLASS_NAME" value="org.telluriumsource.test.TelluriumDownloadsPageTestNGTestCase" />
+      <option name="METHOD_NAME" value="testValidate" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="TelluriumDownloadsPageJUnitTestCase" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="emma">
+        <pattern>
+          <option name="PATTERN" value="org.telluriumsource.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="snapshooter" />
+      <module name="tellurium-website" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="org.telluriumsource.test" />
+      <option name="MAIN_CLASS_NAME" value="org.telluriumsource.test.TelluriumDownloadsPageJUnitTestCase" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="36477" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" break_at_first_line="false" browser="DEFAULT" class_file="" class="" config_file="" directory="" file="" is_config_by_xml="false" is_groups_set="false" method_class="" method_file="" method="" open_page_automatically="false" scope="Class" stop_session_after_first_page="true" web_path="">
@@ -1154,11 +1160,11 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="JUnit.TelluriumDownloadsPageJUnitTestCase.testSearchByLabel" />
-      <item index="1" class="java.lang.String" itemvalue="TestNG.TelluriumIssuesPageTestNGTestCase" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.TelluriumIssuesPageJUnitTestCase.testGetIssueTypes" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.TelluriumIssuesPageJUnitTestCase.testDiagnoseIssueSearch" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.TelluriumIssuesPageJUnitTestCase.testValidateIssueSearch" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.TelluriumIssuesPageJUnitTestCase.testIdMenu" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.TelluriumIssuesPageJUnitTestCase.testValidateIssueSearch" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.TelluriumIssuesPageJUnitTestCase.testIdMenu" />
+      <item index="3" class="java.lang.String" itemvalue="TestNG.TelluriumDownloadsPageTestNGTestCase" />
+      <item index="4" class="java.lang.String" itemvalue="TestNG.TelluriumDownloadsPageTestNGTestCase.testValidate" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.TelluriumDownloadsPageJUnitTestCase" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -1242,7 +1248,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1280" height="750" extended-state="1" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890365" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1257,9 +1263,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5836237" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27064595" sideWeight="0.53488374" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27636957" sideWeight="0.60299003" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.45348838" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45182723" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1370,27 +1376,7 @@
         <state line="32" column="26" selection-start="920" selection-end="920" vertical-scroll-proportion="1.6382252" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageTestNGTestCase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="16" selection-start="2438" selection-end="2438" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageJUnitTestCase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="21" selection-start="2363" selection-end="2363" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/telluriumsource/tellurium-core/0.7.0-SNAPSHOT/tellurium-core-0.7.0-SNAPSHOT-sources.jar!/org/telluriumsource/dsl/WorkflowContext.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/telluriumsource/tellurium-core/0.7.0-SNAPSHOT/tellurium-core-0.7.0-SNAPSHOT-sources.jar!/org/telluriumsource/ui/object/UrlLink.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/telluriumsource/tellurium-core/0.7.0-SNAPSHOT/tellurium-core-0.7.0-SNAPSHOT-sources.jar!/org/telluriumsource/ui/object/Option.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
@@ -1400,14 +1386,35 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/module/TelluriumProjectPage.groovy">
+    <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumIssuesPageTestNGTestCase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="6" selection-start="268" selection-end="268" vertical-scroll-proportion="0.0" />
+        <state line="49" column="24" selection-start="1389" selection-end="1389" vertical-scroll-proportion="0.9124424">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/module/TelluriumDownloadsPage.groovy">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/telluriumsource/tellurium-core/0.7.0-SNAPSHOT/tellurium-core-0.7.0-SNAPSHOT-sources.jar!/org/telluriumsource/ui/object/Option.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="0" selection-start="3331" selection-end="3331" vertical-scroll-proportion="0.0" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/telluriumsource/tellurium-core/0.7.0-SNAPSHOT/tellurium-core-0.7.0-SNAPSHOT-sources.jar!/org/telluriumsource/ui/object/UrlLink.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/module/TelluriumIssuesPage.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="80" column="104" selection-start="4312" selection-end="4312" vertical-scroll-proportion="0.45627376">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/module/TelluriumProjectPage.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="6" selection-start="268" selection-end="268" vertical-scroll-proportion="0.05703422">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/telluriumsource/tellurium-core/0.7.0-SNAPSHOT/tellurium-core-0.7.0-SNAPSHOT-sources.jar!/org/telluriumsource/dsl/BaseDslContext.groovy">
@@ -1417,23 +1424,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageTestNGTestCase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="24" selection-start="1017" selection-end="1017" vertical-scroll-proportion="-3.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumIssuesPageJUnitTestCase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="166" column="30" selection-start="5173" selection-end="5173" vertical-scroll-proportion="0.0">
+        <state line="207" column="22" selection-start="6172" selection-end="6395" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/module/TelluriumIssuesPage.groovy">
+    <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumDownloadsPageJUnitTestCase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="104" selection-start="4312" selection-end="4312" vertical-scroll-proportion="0.0">
+        <state line="151" column="0" selection-start="4581" selection-end="4581" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/test/TelluriumIssuesPageTestNGTestCase.java">
+    <entry file="file://$PROJECT_DIR$/src/test/groovy/org/telluriumsource/module/TelluriumDownloadsPage.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="24" selection-start="1389" selection-end="1389" vertical-scroll-proportion="0.84615386">
+        <state line="98" column="0" selection-start="3335" selection-end="3335" vertical-scroll-proportion="2.1292639">
           <folding />
         </state>
       </provider>

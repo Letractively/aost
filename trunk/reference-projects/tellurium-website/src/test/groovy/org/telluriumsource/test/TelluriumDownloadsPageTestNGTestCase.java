@@ -37,6 +37,11 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
     }
 
     @Test
+    public void testValidate(){
+        downloadPage.validate("downloadResult");    
+    }
+
+    @Test
     public void testDownloadTypes(){
         String[] allTypes = downloadPage.getAllDownloadTypes();
         assertNotNull(allTypes);
@@ -64,7 +69,9 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
         downloadPage.selectDownloadType(" All downloads");
         downloadPage.searchDownload("Tellurium-0.6.0");
 
+        useTelluriumApi(true);
         List<String> list = downloadPage.getDownloadFileNames();
+        useTelluriumApi(false);
         assertNotNull(list);
         assertFalse(list.isEmpty());
         assertTrue(Helper.include(list, "tellurium-core.0.6.0.tar.gz"));
@@ -76,7 +83,9 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
         downloadPage.selectDownloadType(" All downloads");
         downloadPage.searchDownload("label:Featured");
 
+        useTelluriumApi(true);
         List<String> list = downloadPage.getDownloadFileNames();
+        useTelluriumApi(false);
         assertNotNull(list);
         assertFalse(list.isEmpty());
     }
