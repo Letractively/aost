@@ -960,7 +960,7 @@ Exposed the following Selenium APIs to DslContext.
 
 The following methods in DslContext have been renamed
 
-  * {{{String jsonify(String uid)}}} is renamed to {{{String toJSON(String uid)}}}
+  * {{{String jsonify(String uid)}}} is renamed to {{{String toString(String uid)}}}
   * {{{String generateHtml(String uid)}}} is renamed to {{{String toHTML(String uid)}}}
  
 = Changes in Engine =
