@@ -91,7 +91,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium.server</groupId>
             <artifactId>selenium-server</artifactId>
-            <version>${selenium-version}-te2-SNAPSHOT</version>
+            <version>${selenium-version}-${tellurium-engine-version}</version>
             <!--classifier>standalone</classifier-->
         </dependency>
         <dependency>
@@ -307,6 +307,7 @@
         <groovy-version>1.7.0</groovy-version>
         <gmaven-version>1.2</gmaven-version>
         <selenium-version>1.0.1</selenium-version>
+        <tellurium-engine-version>te2-SNAPSHOT</tellurium-engine-version>
         <tellurium-version>0.7.0-SNAPSHOT</tellurium-version>
         <javac-debug>true</javac-debug>
     </properties>
