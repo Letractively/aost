@@ -73,12 +73,12 @@ class TelluriumIssuesPage extends DslContext{
        //The selector to choose the data grid layout as List or Grid
        ui.Option(uid: "layoutSelector"){
            Container(uid: "layoutSelector", clocator: [tag: "div"], group: "true") {
-               TextBox(uid: "List", clocator: [tag: "b", text: "List", direct: "true"])
+               TextBox(uid: "List", clocator: [tag: "b", text: "List", direct: "true"], respond: ["click"])
                UrlLink(uid: "Grid", clocator: [text: "Grid", direct: "true"])
            }
            Container(uid: "layoutSelector", clocator: [tag: "div"], group: "true") {
                UrlLink(uid: "List", clocator: [text: "List", direct: "true"])
-               TextBox(uid: "Grid", clocator: [tag: "b", text: "Grid", direct: "true"])
+               TextBox(uid: "Grid", clocator: [tag: "b", text: "Grid", direct: "true"], respond: ["click"])
            }
        }
    }

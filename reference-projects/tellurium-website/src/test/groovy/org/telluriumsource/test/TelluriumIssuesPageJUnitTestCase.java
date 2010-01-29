@@ -134,25 +134,37 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
     @Test
     public void testIdMenu(){
         connectUrl("http://code.google.com/p/aost/issues/list");
+        useCache(false);
+        useCssSelector(false);
         tisp.clickOnTableHeader(2);
         tisp.mouseMoveIdMenu();
         tisp.clickIdMenuSortDown();
         tisp.clickIdMenuSortUp();
+        useCache(true);
+        useCssSelector(true);
     }
 
     @Test
     public void testSelectColumnMenu(){
         connectUrl("http://code.google.com/p/aost/issues/list");
+        useCache(false);
+        useCssSelector(false);
         tisp.toggleIdColumn("ID");
         tisp.toggleIdColumn("Owner");
 //        tisp.toggleIdColumn("Closed");
+        useCache(true);
+        useCssSelector(false);
     }
 
     @Test
     public void testSelectDataLayout(){
         connectUrl("http://code.google.com/p/aost/issues/list");
+        useCache(false);
+        useCssSelector(false);
         tisp.selectDataLayout("Grid");
         tisp.selectDataLayout("List");
+        useCache(true);
+        useCssSelector(false);
     }
 
     @Test
