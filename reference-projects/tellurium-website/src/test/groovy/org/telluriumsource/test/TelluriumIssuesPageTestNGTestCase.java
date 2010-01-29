@@ -35,18 +35,19 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
 
     @BeforeMethod
     public void setUpForMethod(){
-     }
+    }
 
 
     @Test
     public void testGetIssueTypes(){
         connectUrl("http://code.google.com/p/aost/issues/list");
-
+        useCache(true);
         String[] ists = tisp.getIsssueTypes();
         assertNotNull(ists);
         assertTrue(ists[2].contains("Open issues"));
         tisp.selectIssueType(ists[2]);
         tisp.searchIssue("Alter");
+        useCache(false);
     }
 
     @Test
@@ -123,6 +124,7 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
         tisp.mouseMoveIdMenu();
         tisp.clickIdMenuSortDown();
         tisp.clickIdMenuSortUp();
+        useCssSelector(true);
     }
 
     @Test
@@ -132,14 +134,16 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
         useCssSelector(false);
         tisp.toggleIdColumn("ID");
         tisp.toggleIdColumn("Owner");
+        useCssSelector(true);
     }
 
     @Test
     public void testSelectDataLayout(){
         connectUrl("http://code.google.com/p/aost/issues/list");
-
+        useCssSelector(false);
         tisp.selectDataLayout("Grid");
         tisp.selectDataLayout("List");
+        useCssSelector(true);
     }
 
     @Test
@@ -166,6 +170,7 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
         tisp.selectIssueType(ists[2]);
         tisp.searchIssue("Alter");
         showCacheUsage();
+        useCache(false);
     }
 
     @Test
@@ -181,6 +186,7 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
         useCssSelector(true);
         useCache(true);
         tisp.dump("issueAdvancedSearch");
+        useCache(false);
     }
 
     @AfterClass
