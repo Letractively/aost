@@ -135,6 +135,7 @@ tellurium{
             //example:
 //           Icon="org.telluriumsource.ui.builder.IconBuilder"
             SelectMenu="org.telluriumsource.ui.builder.SelectMenuBuilder"
+            SimpleMenu="org.telluriumsource.ui.builder.SimpleMenuBuilder"
         }
     }
     widget{
