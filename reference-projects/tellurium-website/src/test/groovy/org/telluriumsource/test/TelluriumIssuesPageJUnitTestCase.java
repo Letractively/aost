@@ -169,17 +169,22 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testGetCellCount(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
         useCssSelector(true);
+        useCache(true);
+        useTelluriumApi(true);
         int count = tisp.getTableCellCount();
         assertTrue(count > 0);
         System.out.println("Cell size: " + count);
         String[] details = tisp.getAllText();
+        useTelluriumApi(false);
         assertNotNull(details);
         assertEquals(details.length, count);
     }
 
     @Test
     public void testSearchIssueTypes(){
+        connectUrl("http://code.google.com/p/aost/issues/list");
         useCssSelector(true);
         useCache(true);
         setCacheMaxSize(10);
