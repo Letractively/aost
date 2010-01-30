@@ -195,7 +195,7 @@ var UiObject = Class.extend({
         //event this object should be respond to
         this.events = null;
 
-        //should we do lazy locationg or not, i.e., wait to the time we actually use this UI object
+        //should we do lazy locating or not, i.e., wait to the time we actually use this UI object
         //usually this flag is set because the content is dynamic at runtime
         this.lazy = false;
 
@@ -484,23 +484,6 @@ var UiContainer = UiObject.extend({
                 child.goToPlace(uiid, uiobj);
             }
         }
-
-/*        if (uiid.size() > 0) {
-            var cuid = uiid.peek();
-            var child = this.components.get(cuid);
-
-            if (child != null) {
-                child.goToPlace(uiid, uiobj);
-            } else {
-                uiid.pop();
-                if(uiid.size() == 0){               
-                    uiobj.parent = this;
-                    this.components.put(cuid, uiobj);
-                }else{
-                    fbError("Error to goToPlace for ", uiid);
-                }
-             }
-        }*/
     },
 
     locate:  function(uialg){
@@ -744,13 +727,6 @@ var UiList = UiContainer.extend({
 //        var lastOccur = locs.get(last)-1;
         var lastOccur = locs.get(pl)-1;
 
-/*        if(last.locator.direct){
-          return " > ${lastTag}:eq(${lastOccur-1})";
-        }else{
-          return " ${lastTag}:eq(${lastOccur-1})";
-        }
-*/
-
         //force to be direct child (if consider List trailer) 
         return " > " + last + ":eq(" + lastOccur + ")";
     },
@@ -923,38 +899,6 @@ var UiTable = UiContainer.extend({
                 }
             }
         }
-
-/*
-        uiid.pop();
-        if (this.uid == null)
-            objectCopy(this, uiobj);
-
-        if (uiid.size() > 0) {
-            var cuid = uiid.peek();
-            var child = null;
- //           if(cuid == "header"){
-            if(cuid.startsWith("_HEADER")){
-//                uiid.pop();
-                cuid = uiid.pop();
-                child = this.headers.get(cuid);
-                if (child != null) {
-                    child.goToPlace(uiid, uiobj);
-                } else {
-                     uiobj.parent = this;
-                     this.headers.put(cuid, uiobj);
-                }
-            }else{
-                cuid = uiid.pop();
-                child = this.components.get(cuid);
-                if (child != null) {
-                    child.goToPlace(uiid, uiobj);
-                } else {
-                    uiobj.parent = this;
-                    this.components.put(cuid, uiobj);
-                }
-            }
-        }
-*/
     },
 
     prelocate: function(){
@@ -1077,15 +1021,11 @@ var UiTable = UiContainer.extend({
                     children = children.concat(ccr);
                 }
             }
-//            !tellurium.logManager.isUseLog || fbLog("component: ", component);
-//            children.push(component);
         }
         
         valset = this.headers.valSet();
         for (var j = 0; j < valset.length; j++) {
             var header = valset[j];
-//            !tellurium.logManager.isUseLog || fbLog("header: ", header);
-//            children.push(header);
             !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable header of Table " + this.uid + ": ", header);
             if (header.locator != null) {
                 children.push(header);
@@ -1370,7 +1310,6 @@ var UiTable = UiContainer.extend({
 
         var child = uiid.peek();
 
- //       if (trimString(child) == "header") {
         if(child.startsWith("_HEADER")){
             return this.walkToHeader(context, uiid);
         } else {
@@ -1434,45 +1373,6 @@ var UiStandardTable = UiContainer.extend({
                 }
             }
         }
-
-/*        uiid.pop();
-        if (this.uid == null)
-            objectCopy(this, uiobj);
-
-        if (uiid.size() > 0) {
-            var cuid = uiid.peek();
-            var child = null;
-            if(cuid == "header"){
-                uiid.pop();
-                cuid = uiid.pop();
-                child = this.headers.get(cuid);
-                if (child != null) {
-                    child.goToPlace(uiid, uiobj);
-                } else {
-                    uiobj.parent = this;
-                    this.headers.put(cuid, uiobj);
-                }
-            }else if(cuid == "footer"){
-                uiid.pop();
-                cuid = uiid.pop();
-                child = this.footers.get(cuid);
-                if (child != null) {
-                    child.goToPlace(uiid, uiobj);
-                } else {
-                    uiobj.parent = this;
-                    this.footers.put(cuid, uiobj);
-                }
-            }else{
-                cuid = uiid.pop();
-                child = this.components.get(cuid);
-                if (child != null) {
-                    child.goToPlace(uiid, uiobj);
-                } else {
-                    uiobj.parent = this;
-                    this.components.put(cuid, uiobj);
-                }
-            }
-        }*/
     },
 
     prelocate: function(){
@@ -1553,7 +1453,6 @@ var UiStandardTable = UiContainer.extend({
                 !tellurium.logManager.isUseLog || fbLog("component: ", component);
                 if (!component.lazy) {
                     !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable child of StandardTable " + this.uid + ": ", component);
-//                    validChildren.push(component);
                     if(component.locator != null){
                         validChildren.push(component);
                     }else{
@@ -1595,7 +1494,6 @@ var UiStandardTable = UiContainer.extend({
                 !tellurium.logManager.isUseLog || fbLog("footer: ", footer);
                 if (!footer.lazy) {
                     !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable footer of StandardTable " + this.uid + ": ", footer);
-//                    validChildren.push(footer);
                     if(footer.locator != null){
                         validChildren.push(footer);
                     }else{
@@ -1621,8 +1519,7 @@ var UiStandardTable = UiContainer.extend({
         !tellurium.logManager.isUseLog || fbLog("Val set: ", valset);
         for (var i = 0; i < valset.length; i++) {
             var component = valset[i];
-//            !tellurium.logManager.isUseLog || fbLog("component: ", component);
-//            children.push(component);
+
             !tellurium.logManager.isUseLog || fbLog("Look ahead nomatter what at cachable child of StandardTable " + this.uid + ": ", component);
             if (component.locator != null) {
                 children.push(component);
@@ -1640,8 +1537,7 @@ var UiStandardTable = UiContainer.extend({
         valset = this.headers.valSet();
         for (var j = 0; j < valset.length; j++) {
             var header = valset[j];
-//            !tellurium.logManager.isUseLog || fbLog("header: ", header);
-//            children.push(header);
+
             !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable header of StandardTable " + this.uid + ": ", header);
             if (header.locator != null) {
                 children.push(header);
@@ -1659,8 +1555,7 @@ var UiStandardTable = UiContainer.extend({
         valset = this.footers.valSet();
         for (var k = 0; k < valset.length; k++) {
             var footer = valset[k];
-//            !tellurium.logManager.isUseLog || fbLog("footer: ", footer);
-//            children.push(footer);
+
             !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable footer of StandardTable " + this.uid + ": ", footer);
             if (footer.locator != null) {
                 children.push(footer);
@@ -2176,10 +2071,8 @@ var UiStandardTable = UiContainer.extend({
 
         var child = uiid.peek();
 
-//        if (trimString(child) == "header") {
         if(child.startsWith("_HEADER")){
             return this.walkToHeader(context, uiid);
-//        } else if(trimString(child) == "footer"){
         }else if(child.startsWith("_FOOTER")){
             return this.walkToFooter(context, uiid);
         } else {
@@ -2448,7 +2341,7 @@ function UiModule(){
     //Cache miss, i.e., have to use walkTo to locate elements
     this.cacheMiss = 0;
 
-    //the latest timestamp for the cache access
+    //the latest time stamp for the cache access
     this.timestamp = null;
 
     //UI module dump visitor
@@ -2549,7 +2442,6 @@ UiModule.prototype.buildTree = function(keys){
         }else{
             var uiid = new Uiid();
             uiid.convertToUiid(keys[i]);
-//            uiid.reverse();
             this.root.goToPlace(uiid, uiobj);
         }
     }
@@ -2870,7 +2762,6 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
     //the next color to label the snapshot
     var ncolor = this.nextColor();
     //first find its parent uid
-//    var puid = this.getParentUid(uid);
     var vp = this.getValidParentFor(uiobj);
     var puid = null;
     if(vp != null)
@@ -2910,7 +2801,7 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
     //found any nodes in the DOM by using the
     if($found.size() == 1){
         //found exactly one, happy path
-        //temporially assign uid to the found element
+        //temporally assign uid to the found element
         !tellurium.logManager.isUseLog || fbLog("Marking uid " + uid, $found.eq(0));
         $found.eq(0).data("uid", uid);
         snapshot.addUi(uid, $found.get(0));
@@ -2954,7 +2845,7 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
 
             if($relaxed.size() == 1){
                 //found exactly one
-                //temporially assign uid to the found element
+                //temporally assign uid to the found element
                 !tellurium.logManager.isUseLog || fbLog("Marking closest match for uid " + uid, $relaxed.get(0));
                 $relaxed.eq(0).data("uid", uid);
 
@@ -3570,11 +3461,9 @@ Trie.prototype.walk = function(current, uiid, result){
             //return all the children for this node
             for(i=0; i<mchildren[0].getChildrenSize(); i++){
                 result.push(mchildren[0].children[i].data);
-            }            
-//            return result;
+            }
         }else if(uiid.size() < mchildren[0].id.size()){
             result.push(mchildren[0].data);
-//            return result;
         }else{
              //need to do further walk down
             var leftover = uiid.subUiid(mchildren[0].id.size());
