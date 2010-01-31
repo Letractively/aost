@@ -14,6 +14,7 @@ public class CustomUIExample_UT extends GroovyTestCase {
     CustomUIExample cue = new CustomUIExample();
     cue.defineUi();
     cue.dump("switch");
+    cue.dump("familyScreen");
   }
 
   public void testCustomUICall(){
