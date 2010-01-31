@@ -51,6 +51,12 @@ public class CustomUIExample extends DslContext {
     }
 
     ui.TextBox(uid: "confirmation", clocator: [tag: "h3", text: "\$Confirmation"])
+
+    ui.Container(uid: "familyScreen", clocator: [tag: "table"], group: "true") {
+        List(uid: "familyDetails", clocator: [id: "AddAnotherDependent"], separator: "table", group: "true") {
+          InputBox(uid: "dependentFirstName", clocator: [id: '^ctl00_ctl00_bcr_bcr_ucDependent_RFirstName_'])
+        }
+    }
   }
 
   public String getXCaseStatus(int tabnum){
