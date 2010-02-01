@@ -2594,6 +2594,10 @@ function UiSnapshotTree(){
     this.uimRef = null;
 }
 
+UiSnapshotTree.prototype.walkTo = function(context, uiid){
+
+};
+
 
 //algorithms to handle UI modules and UI Objects
 function UiAlg(){
@@ -3126,6 +3130,18 @@ UiAlg.prototype.getValidParentFor = function(uiobj){
     }
 
     return validParent;
+};
+
+UiAlg.prototype.buildSnapshotNode = function(context, parentTreeNode, uiobj){
+
+};
+
+UiAlg.prototype.buildSnapshotContainerNode = function(context, parentTreeNode, uiobj){
+
+};
+
+UiAlg.prototype.buildSnapshotTableNode = function(context, parentTreeNode, uiobj){
+
 };
 
 //traverse the UI module to build a snapshot tree
