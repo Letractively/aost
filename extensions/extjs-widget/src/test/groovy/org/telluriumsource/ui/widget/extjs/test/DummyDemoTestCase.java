@@ -1,7 +1,7 @@
-package org.telluriumsource.widget.extjs.test;
+package org.telluriumsource.ui.widget.extjs.test;
 
 import org.telluriumsource.test.java.TelluriumJavaTestCase;
-import org.telluriumsource.widget.extjs.module.DummyDemo;
+import org.telluriumsource.ui.widget.extjs.module.DummyDemo;
 import org.junit.BeforeClass;
 import org.junit.Test;import static junit.framework.Assert.assertEquals;
 

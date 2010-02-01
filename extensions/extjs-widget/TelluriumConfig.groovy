@@ -72,6 +72,9 @@ tellurium{
         //should in full class name, for instance, "com.mycom.CustomSelenium"
 //        customClass = "org.telluriumsource.test.MyCommand"
         customClass = ""
+        //browser options such as
+        //    options = "captureNetworkTraffic=true, addCustomRequestHeader=true"
+        options = ""
     }
     datadriven{
         dataprovider{
