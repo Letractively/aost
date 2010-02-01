@@ -4,7 +4,7 @@
     <groupId>org.telluriumsource</groupId>
     <artifactId>petclinic-example</artifactId>
     <version>0.7.0-SNAPSHOT</version>
-    <name>Tellurium TestNG Test Project</name>
+    <name>Tellurium Example Project for the Petclinic Application</name>
 
     <repositories>
         <repository>
