@@ -55,7 +55,7 @@ class WidgetConfigurator implements Configurable{
         }else{
             //use the name conversion org.telluriumsource.ui.widget.MODULE.Init
             //where Bootstrap should implement the interface WidgetBootstrap
-            return "org.telluriumsource.widget.${trimed}.Init"
+            return "org.telluriumsource.ui.widget.${trimed}.Init"
         }
     }
 }
