@@ -251,6 +251,23 @@ var UiObject = Class.extend({
         //need to push all its children into the object queue
     },
 
+    buildSnapshotTree: function(context, tree, alg){
+        if(this.parent == null){
+            alg.buidSnapshotNode(context, tree, null, this);
+        }else{
+            var pid = this.parent.fullUid();
+            var uiid = getUiid(pid);
+            var parents = tree.walkTo(context, uiid);
+            if(parents == null){
+                throw new SeleniumError("Cannot find Parent " + pid);
+            }else{
+                for(var i=0; i<parents.length; i++){
+                    alg.buildSnapshotNode(context, tree, parents[i], this);
+                }
+            }
+        }
+    },
+
     lookChildren: function() {
         return null;
     },
@@ -3294,19 +3311,61 @@ UiAlg.prototype.getValidParentFor = function(uiobj){
     return validParent;
 };
 
-UiAlg.prototype.buildSnapshotNode = function(context, parentTreeNode, uiobj){
+UiAlg.prototype.buildSnapshotNode = function(context, tree, parentTreeNode, uiobj){
+    var pref = null;
+    if(parentTreeNode != null){
+        pref = parentTreeNode.domRef;
+    }else{
+        pref = this.dom;
+    }
+    var clocator = uiobj.locator;
+    var csel = this.buildSelector(clocator);
+    var $found = teJQuery(pref).find(csel);
+    var foundWithoutLookAhead = false;
+    if($found.size() > 0){
+        foundWithoutLookAhead = true;
+    }
+    if($found.size() > 1){
+        if(uiobj.noCacheForChildren){
+            //if there is no cache for children for UI object uiobj
+            $found = this.bestEffort(uiobj, $found);
+            !tellurium.logManager.isUseLog || fbLog("UI object has no cache for children, best guess result for UI object " + uiobj.uid, $found.get());
+        }else{
+            //first try lookId
+            $found = this.lookId(uiobj, $found);
+            !tellurium.logManager.isUseLog || fbLog("Look Id result for " + uiobj.uid, $found.get());
+            if($found.size() > 1){
+                $found = this.lookAhead(uiobj, $found);
+                !tellurium.logManager.isUseLog || fbLog("Look ahead result for " + uiobj.uid, $found.get());
+            }
+        }
+    }
+
+    if($found.size() == 1){
+        var node = new UiSnapshotNode();
+        node.uid = uiobj.uid;
+        node.index = 0;
+        node.parent = parentTreeNode;
+        node.objRef = uiobj;
+        node.domRef = $found.get(0);
+        !tellurium.logManager.isUseLog || fbError("Found snapshot for UI element " + uiobj.uid, $found.get(0));
+    }else{
+        !tellurium.logManager.isUseLog || fbError("Found multiple snapshots for UI element " + uiobj.uid, $found.get());
+        throw new SeleniumError("Found multiple snapshots for UI element " + uiobj.uid);
+    }
+    //TODO: insert the node to the tree
+    
+};
+
+UiAlg.prototype.buildSnapshotContainerNode = function(context, tree, parentTreeNode, uiobj){
 
 };
 
-UiAlg.prototype.buildSnapshotContainerNode = function(context, parentTreeNode, uiobj){
+UiAlg.prototype.buildSnapshotListNode = function(context, tree, parentTreeNode, uiobj){
 
 };
 
-UiAlg.prototype.buildSnapshotListNode = function(context, parentTreeNode, uiobj){
-
-};
-
-UiAlg.prototype.buildSnapshotTableNode = function(context, parentTreeNode, uiobj){
+UiAlg.prototype.buildSnapshotTableNode = function(context, tree, parentTreeNode, uiobj){
 
 };
 
@@ -3320,7 +3379,17 @@ UiAlg.prototype.buildSnapshotTree = function(uimodule){
     while(this.oqueue.size() > 0){
         var uiobj = this.oqueue.pop();
         !tellurium.logManager.isUseLog || fbLog("Traverse for Object " + uiobj.uid + ": ", uiobj);
-//        uiobj.locate(this);
+        var context = new WorkflowContext();
+        uiobj.buildSnapshotTree(context, tree, this);
+
+/*
+        if(uiobj.parent == null){
+
+        }else{
+            tree.walkTo(context, uiobj)
+            uiobj.buildSnapshotTree(tree, this);
+        }
+        */
     }
 
     return tree;
