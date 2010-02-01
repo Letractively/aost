@@ -59,7 +59,7 @@ tellurium{
         //please change the host if you run the Selenium server remotely
         serverHost = "localhost"
         //server port number the client needs to connect
-        port = "4445"
+        port = "4444"
         //base URL
         baseUrl = "http://localhost:8080"
         //Browser setting, valid options are
@@ -72,6 +72,9 @@ tellurium{
         //should in full class name, for instance, "com.mycom.CustomSelenium"
 //        customClass = "org.telluriumsource.test.MyCommand"
         customClass = ""
+        //browser options such as
+        //    options = "captureNetworkTraffic=true, addCustomRequestHeader=true"
+        options = ""
     }
     datadriven{
         dataprovider{
