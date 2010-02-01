@@ -24,6 +24,7 @@ public class DatePickerDemoTestCase extends TelluriumJavaTestCase {
     public static void initUi() {
         dpd = new DatePickerDemo();
         dpd.defineUi();
+        connectSeleniumServer();
     }
 
     @Test
