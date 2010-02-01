@@ -4,7 +4,8 @@ import org.telluriumsource.dsl.UiID
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.ui.object.UiObject
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.crosscut.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.telluriumsource.dsl.UiDslParser;
 
 
 /**
@@ -30,16 +31,17 @@ abstract class Widget extends UiObject {
   //we need namespace to differentiate the same widget name from different widget modules
   //for example, if Dojo and ExtJS both has the widget called Accordion, we have to differentiate
   //them using name space, i.e., DOJO::Accordion and ExtJS::Accordion
-
   public Widget(){
 	  i18nBundle = Environment.instance.myResourceBundle();
   }
+
 
   abstract public void defineWidget();
 
   @Delegate
   private WidgetDslContext dsl = new WidgetDslContext();
 
+  UiDslParser ui = dsl.ui;
 
 /*
   protected static final String JQUERY_SELECTOR = "jquery="
