@@ -3,7 +3,8 @@ package org.telluriumsource.ui.widget.extjs.test;
 import org.telluriumsource.test.java.TelluriumJavaTestCase;
 import org.telluriumsource.ui.widget.extjs.module.DummyDemo;
 import org.junit.BeforeClass;
-import org.junit.Test;import static junit.framework.Assert.assertEquals;
+import org.junit.Test;
+import static junit.framework.Assert.assertEquals;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
