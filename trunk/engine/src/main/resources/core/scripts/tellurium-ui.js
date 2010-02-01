@@ -2551,6 +2551,11 @@ var UiSnapshotNode = Class.extend({
 
         //DOM reference
         this.domRef = null;
+    },
+    
+    walkTo: function(context, uiid) {
+        !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Node", this);
+        return this;
     }
 });
 
@@ -2558,7 +2563,25 @@ var UiContainerSnapshotNode = UiSnapshotNode.extend({
     init: function(){
         this._super();
         //children nodes, regular UI Nodes
-        this.components = new Array();
+//        this.components = new Array();
+        this.components = new Hashtable();
+    },
+
+    walkTo: function(context, uiid) {
+        !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Container Node", this);
+
+        if (uiid.size() < 1)
+            return this;
+
+        var cid = uiid.pop();
+        var child = this.components.get(cid);
+        if (child != null) {
+            !tellurium.logManager.isUseLog || fbLog("Walk to child " + cid, child);
+            return child.walkTo(context, uiid);
+        } else {
+            fbError("Cannot find child " + cid, child);
+            return null;
+        }
     }
 });
 
@@ -2568,6 +2591,30 @@ var UiListSnapshotNode = UiSnapshotNode.extend({
 
         //children nodes with key as the template UID and value as the UI template Avatar
         this.components = new Hashtable();
+    },
+
+    walkTo: function(context, uiid) {
+        !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Container Node", this);
+
+        if (uiid.size() < 1)
+            return this;
+
+        var cid = uiid.pop();
+        var child = this.components.get(cid);
+        if (child != null) {
+            var childAvatar = child.avatar;
+            !tellurium.logManager.isUseLog || fbLog("Walk to child " + cid, child);
+            var lst = new Array();
+            for(var i=0; i<childAvatar.length; i++){
+                var ret = childAvatar[i].walkTo(context, uiid);
+                lst.push(ret);
+            }
+//            return child.walkTo(context, uiid);
+            return ret;
+        } else {
+            fbError("Cannot find child " + cid, child);
+            return null;
+        }
     }
 });
 
@@ -2583,6 +2630,117 @@ var UiTableSnapshotNode = UiSnapshotNode.extend({
 
         //body nodes with key as the template UID and value as the UI template Avatar
         this.components = new Hashtable();
+    },
+
+    walkToHeader: function(context, uiid){
+         //pop up the "header" indicator
+        uiid.pop();
+        //reach the actual uiid for the header element
+        var child = uiid.pop();
+
+        child = child.replace(/^_/, '').replace(/HEADER/, '');
+
+        var index = parseInt(trimString(child));
+
+        //try to find its child
+        var cobj = this.findHeaderUiObject(index);
+
+        //If cannot find the object as the object template, return the TextBox as the default object
+        if (cobj == null) {
+            cobj = this.defaultUi;
+        }
+
+        if (uiid.size() < 1) {
+            //not more child needs to be found
+            !tellurium.logManager.isUseLog || fbLog("Return Table head ", cobj);
+            return cobj.avatar;
+        } else {
+            //recursively call walkTo until the object is found
+            !tellurium.logManager.isUseLog || fbLog("Walk to Table head ", cobj);
+            var lst = new Array();
+            for(var i=0; i<cobj.avatar.length; i++){
+                var ret = cobj.avatar[i].walkTo(context, uiid);
+                lst.push(ret);
+            }
+//            return cobj.walkTo(context, uiid);
+            return lst;
+        }
+
+    },
+
+    walkToFooter: function(context, uiid) {
+        //pop up the "foot" indicator
+        uiid.pop();
+        //reach the actual uiid for the header element
+        var child = uiid.pop();
+
+        child = child.replace(/^_/, '').replace(/FOOTER/, '');
+
+        var index = parseInt(trimString(child));
+
+        //try to find its child
+        var cobj = this.findFooterUiObject(index);
+
+        //If cannot find the object as the object template, return the TextBox as the default object
+        if (cobj == null) {
+            cobj = this.defaultUi;
+        }
+
+        if (uiid.size() < 1) {
+            //not more child needs to be found
+            !tellurium.logManager.isUseLog || fbLog("Return Table foot ", cobj);
+            return cobj.avatar;
+        } else {
+            //recursively call walkTo until the object is found
+            !tellurium.logManager.isUseLog || fbLog("Walk to Table foot ", cobj);
+            var lst = new Array();
+            for(var i=0; i<cobj.avatar.length; i++){
+                var ret = cobj.avatar[i].walkTo(context, uiid);
+                lst.push(ret);
+            }
+//            return cobj.walkTo(context, uiid);
+            return lst;
+        }
+    },
+
+    walkToElement: function(context, uiid) {
+        var child = uiid.pop();
+        var parts = child.replace(/^_/, '').split("_");
+        var ntbody;
+        var nrow;
+        var ncolumn;
+        if(parts.length == 3){
+            ntbody = parseInt(parts[0]);
+            nrow = parseInt(parts[1]);
+            ncolumn = parseInt(parts[2]);
+        }else{
+            ntbody = 1;
+            nrow = parseInt(parts[0]);
+            ncolumn = parseInt(parts[1]);
+        }
+
+        //otherwise, try to find its child
+        var cobj = this.findUiObject(ntbody, nrow, ncolumn);
+
+        //If cannot find the object as the object template, return the TextBox as the default object
+        if (cobj == null) {
+            cobj = this.defaultUi;
+        }
+        if (uiid.size() < 1) {
+            //not more child needs to be found
+            !tellurium.logManager.isUseLog || fbLog("Return Table body ", cobj);
+            return cobj.avatar;
+        } else {
+            //recursively call walkTo until the object is found
+            !tellurium.logManager.isUseLog || fbLog("Walk to Table body ", cobj);
+            var lst = new Array();
+            for(var i=0; i<cobj.avatar.length; i++){
+                var ret = cobj.avatar[i].walkTo(context, uiid);
+                lst.push(ret);
+            }
+            return lst;
+//             return cobj.walkTo(context, uiid);
+        }
     }
 });
 
@@ -2595,7 +2753,11 @@ function UiSnapshotTree(){
 }
 
 UiSnapshotTree.prototype.walkTo = function(context, uiid){
+    !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Node", this);
+    if(this.root != null)
+        return this.root.walkTo(context, uiid);
 
+    return null;
 };
 
 
@@ -3137,6 +3299,10 @@ UiAlg.prototype.buildSnapshotNode = function(context, parentTreeNode, uiobj){
 };
 
 UiAlg.prototype.buildSnapshotContainerNode = function(context, parentTreeNode, uiobj){
+
+};
+
+UiAlg.prototype.buildSnapshotListNode = function(context, parentTreeNode, uiobj){
 
 };
 
