@@ -1,22 +1,8 @@
 package org.telluriumsource.ui.widget
 
-import java.util.List
-import org.telluriumsource.component.data.Accessor
-import org.telluriumsource.dsl.UiDslParser
 import org.telluriumsource.dsl.UiID
 import org.telluriumsource.dsl.WorkflowContext
-import org.telluriumsource.component.event.EventHandler
-import org.telluriumsource.exception.UiObjectNotFoundException
-import org.telluriumsource.ui.locator.LocatorProcessor
-import org.telluriumsource.ui.object.StandardTable
 import org.telluriumsource.ui.object.UiObject
-import org.telluriumsource.util.Helper
-import org.telluriumsource.component.custom.Extension
-import org.stringtree.json.JSONReader
-import org.json.simple.JSONArray
-import org.telluriumsource.ui.locator.JQueryOptimizer
-import org.json.simple.JSONObject
-import org.telluriumsource.ui.locator.MetaCmd
 import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
 
@@ -35,14 +21,33 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle;
  */
 //@Mixin(BaseDslContext)
 abstract class Widget extends UiObject {
-  protected IResourceBundle i18nBundle
+  protected IResourceBundle i18nBundle;
 
+  public final static String NAMESPACE_SUFFIX = "_";
+
+
+  //Note:
+  //we need namespace to differentiate the same widget name from different widget modules
+  //for example, if Dojo and ExtJS both has the widget called Accordion, we have to differentiate
+  //them using name space, i.e., DOJO::Accordion and ExtJS::Accordion
+
+  public Widget(){
+	  i18nBundle = Environment.instance.myResourceBundle();
+  }
+
+  abstract public void defineWidget();
+
+  @Delegate
+  private WidgetDslContext dsl = new WidgetDslContext();
+
+
+/*
   protected static final String JQUERY_SELECTOR = "jquery="
   protected static final String JQUERY_SELECTOR_CACHE = "jquerycache="
   protected static final String DEFAULT_XPATH = "default"
   protected static final String JAVASCRIPT_XPATH = "javascript-xpath"
   protected static final String AJAXSLT_XPATH = "ajaxslt"
-  public final static String NAMESPACE_SUFFIX = "_"
+
 
   protected static final String LOCATOR = "locator"
   protected static final String OPTIMIZED_LOCATOR = "optimized"
@@ -58,19 +63,11 @@ abstract class Widget extends UiObject {
   //the reference xpath for widget's parent
   private String pRef;
 
-  //Note:
-  //we need namespace to differentiate the same widget name from different widget modules
-  //for example, if Dojo and ExtJS both has the widget called Accordion, we have to differentiate
-  //them using name space, i.e., DOJO::Accordion and ExtJS::Accordion
-
-  public Widget(){
-	  i18nBundle = Environment.instance.myResourceBundle()
-  }
   public void updateParentRef(String ref) {
     this.pRef = ref
   }
 
-  abstract public void defineWidget()
+
 
   UiDslParser ui = new UiDslParser()
   //decoupling eventhandler, locateProcessor, and accessor from UI objects
@@ -83,6 +80,7 @@ abstract class Widget extends UiObject {
 
   private JSONReader reader = new JSONReader()
 
+*/
 /*  protected String locatorMapping(WorkflowContext context, loc) {
     //get ui object's locator
     String lcr = locatorProcessor.locate(context, loc)
@@ -113,7 +111,8 @@ abstract class Widget extends UiObject {
     }
 
     return lcr
-  }*/
+  }*//*
+
 
   protected String locatorMapping(WorkflowContext context, loc) {
     return locatorMappingWithOption(context, loc, null)
@@ -1234,6 +1233,7 @@ abstract class Widget extends UiObject {
       println("-------------------------------------------------------\n")
     }
   }
+*/
 
   //walkTo through the object tree to until the Ui Object is found by the UID
   public UiObject walkTo(WorkflowContext context, UiID uiid) {
