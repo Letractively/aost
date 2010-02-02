@@ -567,3 +567,8 @@ function fbDir(obj){
     return Class;
   };
 })();
+
+function KeyValuePair(){
+    this.key = null;
+    this.val = null;
+}
