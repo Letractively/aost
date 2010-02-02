@@ -637,10 +637,90 @@ var UiContainer = UiObject.extend({
         }
     },
     
-    buildSNode: function(context){
+    buildSNode: function(context, domref){
+
         var node = new UiContainerSNode();
 
+        if(domref != null && this.components.size() > 0){
+            var keys = this.components.keySet();
+            for(var i=0; i<keys.length; i++){
+                var key = keys[i];
+                var child = this.components.get(key);
+                var cdomref = child.domRef;
+                if(cdomref == null){
+                    cdomref = this.locateChild(context, domref, child);
+                }
+                var csdata = new UiSData(key, key, child, cdomref);
+                var alg = context.alg;
+                alg.addChildUiObject(csdata);
+            }
+        }
+
         return node;
+    },
+
+    locateChildren: function(context, domRef, child){
+        if(child.locator != null && domRef != null){
+            var alg = context.alg;
+            var sel = alg.buildSelector(child.locator);
+            var $found = teJQuery(context.domRef).find(sel);
+            if ($found.size() > 1) {
+                $found = alg.lookId(child, $found);
+                !tellurium.logManager.isUseLog || fbLog("Look Id result for " + child.uid, $found.get());
+                if($found.size() > 1){
+                    if(child.noCacheForChildren){
+                        //Use bestEffort to eliminate multiple matches
+                        $found = alg.bestEffort(child, $found);
+                        !tellurium.logManager.isUseLog || fbLog("Best Effort result for " + child.uid, $found.get());
+                    }else{
+                        //Use lookAHead to eliminate multiple matches
+                        $found = alg.lookAhead(child, $found);
+                        !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + child.uid, $found.get());
+                    }
+                }
+
+                return $found.get();
+            }
+        }else{
+            var result = new Array();
+            result.push(domRef);
+            return result;
+        }
+    },
+
+    locateChild: function(context, domRef, child){
+        if(child.locator != null && domRef != null){
+            var alg = context.alg;
+            var sel = alg.buildSelector(child.locator);
+            var $found = teJQuery(context.domRef).find(sel);
+            if ($found.size() > 1) {
+                $found = alg.lookId(child, $found);
+                !tellurium.logManager.isUseLog || fbLog("Look Id result for " + child.uid, $found.get());
+                if($found.size() > 1){
+                    if(child.noCacheForChildren){
+                        //Use bestEffort to eliminate multiple matches
+                        $found = alg.bestEffort(child, $found);
+                        !tellurium.logManager.isUseLog || fbLog("Best Effort result for " + child.uid, $found.get());
+                    }else{
+                        //Use lookAHead to eliminate multiple matches
+                        $found = alg.lookAhead(child, $found);
+                        !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + child.uid, $found.get());
+                    }
+                }
+                if ($found.size() == 1) {
+                    !tellurium.logManager.isUseLog || fbLog("Found element " + child.uid, $found.get(0));
+                    return $found.get(0);
+                }else if($found.size() == 0){
+                    fbError("Cannot find UI element " + child.uid, child);
+                    throw new SeleniumError("Cannot find UI element " + child.uid);
+                }else{
+                    fbError("Found " + $found.size() + " matches for UI element " + child.uid, $found.get());
+                    throw new SeleniumError("Found " + $found.size() + " matches for UI element " + child.uid);                    
+                }
+            }
+        }
+
+        return domRef;
     },
 
     walkTo: function(context, uiid){
@@ -740,6 +820,10 @@ var UiList = UiContainer.extend({
 
         return obj;
     },
+    // Get runtime ID
+    getRid: function(index){
+        return  "_" + index;    
+    },
 
     getListSelector: function(index) {
         if (this.separator == null || this.separator.trim().length == 0)
@@ -826,8 +910,64 @@ var UiList = UiContainer.extend({
         
     },
 
-    buildSNode: function(context){
+    buildSNode: function(context, domref){
+
         var node = new UiListSNode();
+
+        if(domref != null && this.components.size() > 0){
+            var keys = this.components.keySet();
+            var alg = context.alg;
+
+            for(var i=0; i<keys.length; i++){
+                var key = keys[i];
+                var child = this.components.get(keys[i]);
+                var part = key.replace(/^_/, '');
+                if(part != "ALL"){
+                    var nindex = parseInt(part);
+                    var selt = this.getListSelector(nindex);
+                    var $fnd = teJQuery(domref).find(selt);
+                    !tellurium.logManager.isUseLog || fbLog("Found child " + nindex + " with CSS selector '" + selt +"' for List " + this.uid, $fnd.get());
+                    if ($fnd.size() == 1) {
+                        !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $fnd.get(0));
+                        var cdomref = this.locateChild(context, $fnd.get(0), child);
+                        var csdata = new UiSData(key, this.getRid(nindex), child, cdomref);
+                        alg.addChildUiObject(csdata);
+                    }else if($fnd.size() == 0){
+                        fbError("Cannot find UI element " + child.uid, child);
+                        throw new SeleniumError("Cannot find UI element " + child.uid);
+                    }else{
+                        fbError("Found " + $fnd.size() + " matches for UI element " + child.uid, $fnd.get());
+                        throw new SeleniumError("Found " + $fnd.size() + " matches for UI element " + child.uid);
+                    }
+                }else{
+                    //handle the "_ALL" case
+                    var lsz = this.getListSize();
+                    for(var j=0; j<lsz; j++){
+                        var rid = this.getRid(j);
+                        //only cares about elements that are covered by "_ALL", not by other templates
+                        if(this.components.get(rid) == null){
+                            var sel = this.getListSelector(j);
+                            var $found = teJQuery(domref).find(sel);
+                            !tellurium.logManager.isUseLog || fbLog("Found child " + j + " with CSS selector '" + sel +"' for List " + this.uid, $found.get());
+                            if ($found.size() == 1) {
+                                !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
+                                var cdrf = this.locateChild(context, $found.get(0), child);
+                                var csd = new UiSData(key, rid, child, cdrf);
+                                alg.addChildUiObject(csd);
+                            } else if ($found.size() == 0) {
+                                fbError("Cannot find UI element " + child.uid, child);
+                                throw new SeleniumError("Cannot find UI element " + child.uid);
+                            } else {
+                                fbError("Found " + $found.size() + " matches for UI element " + child.uid, $found.get());
+                                throw new SeleniumError("Found " + $found.size() + " matches for UI element " + child.uid);
+                            }
+
+                        }
+                    }
+                }
+
+            }
+        }
 
         return node;
     },
@@ -2605,6 +2745,13 @@ function UiTemplateAvatar(){
     this.avatar = new Hashtable();
 }
 
+function UiSData(uid, rid, objRef, domRef){
+    this.uid = uid;
+    this.rid = rid;
+    this.objRef = objRef;
+    this.domRef = domRef;
+}
+
 var UiSNode = Class.extend({
     init: function() {
         //UID
@@ -2640,6 +2787,9 @@ var UiContainerSNode = UiSNode.extend({
         //children nodes, regular UI Nodes
 //        this.components = new Array();
         this.components = new Hashtable();
+        
+        //children index, hold rid to dom reference mapping for children
+//        this.childrenIndex = new Hashtable();
     },
 
     walkTo: function(context, uiid) {
