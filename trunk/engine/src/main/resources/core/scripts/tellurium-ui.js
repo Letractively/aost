@@ -1605,10 +1605,10 @@ var UiTable = UiContainer.extend({
             }
         }
 
-        if(this.headers != null && this.headers.length > 0){
-            var keys = this.headers.keySet();
+        if(this.components != null && this.components.length > 0){
+            var keys = this.components.keySet();
             for(var j=0; j<keys.length; j++){
-                var child = this.headers.get(keys[j]);
+                var child = this.components.get(keys[j]);
                 child.traverse(context, visitor);
             }
         }
@@ -3158,6 +3158,10 @@ var UiSNode = Class.extend({
         throw new SeleniumError("Come to the Wrong SNode, expected node is " + id + ", but actual is " + this.uid);
     },
 
+    traverse: function(context, visitor){
+        visitor.visit(context, this);
+    },
+
     insert: function(context, node){
         fbError(this.uid + " is not a container type node and it cannot have children", this);
         throw new SeleniumError(this.uid + "is not a container type node and it cannot have children");
@@ -3191,7 +3195,18 @@ var UiContainerSNode = UiSNode.extend({
             return null;
         }
     },
-    
+
+    traverse: function(context, visitor){
+        visitor.visit(context, this);
+        if(this.components != null && this.components.length > 0){
+            var keys = this.components.keySet();
+            for(var i=0; i<keys.length; i++){
+                var child = this.components.get(keys[i]);
+                child.traverse(context, visitor);
+            }
+        }
+    },
+
     insert: function(context, node){
         var rid = node.rid;
         this.components.put(rid, node);
@@ -3229,9 +3244,21 @@ var UiListSNode = UiSNode.extend({
             return null;
         }
     },
+
+    traverse: function(context, visitor){
+        visitor.visit(context, this);
+        if(this.components != null && this.components.length > 0){
+            var keys = this.components.keySet();
+            for(var i=0; i<keys.length; i++){
+                var child = this.components.get(keys[i]);
+                child.traverse(context, visitor);
+            }
+        }
+    },
     
     insert: function(context, node){        
-/*      //no need for avatar anymore since we use rid
+/*  TODO: may need to roll the avatar back for walkTo to work properly   
+    //no need for avatar anymore since we use rid
         var avatar = new UiTemplateAvatar();
         avatar.avatar = nodemap;
         avatar.uid = uiobj.uid;*/
@@ -3251,6 +3278,33 @@ var UiTableSNode = UiSNode.extend({
 
         //body nodes with key as the template UID and value as the UI template Avatar
         this.components = new Hashtable();
+    },
+
+    traverse: function(context, visitor){
+        visitor.visit(context, this);
+        if(this.headers != null && this.headers.length > 0){
+            var hkeys = this.headers.keySet();
+            for(var i=0; i<this.headers.length; i++){
+                var header = this.headers.get(hkeys[i]);
+                header.traverse(context, visitor);
+            }
+        }
+
+        if(this.components != null && this.components.length > 0){
+            var keys = this.components.keySet();
+            for(var j=0; j<keys.length; j++){
+                var child = this.components.get(keys[j]);
+                child.traverse(context, visitor);
+            }
+        }
+
+        if(this.footers != null && this.footers.length > 0){
+            var fkeys = this.footers.keySet();
+            for(var k=0; k<this.footers.length; k++){
+                var footer = this.footers.get(fkeys[k]);
+                footer.traverse(context, visitor);
+            }
+        }
     },
 
     walkToHeader: function(context, uiid){
@@ -3391,6 +3445,12 @@ UiSTree.prototype.walkTo = function(context, uiid){
         return this.root.walkTo(context, uiid);
 
     return null;
+};
+
+UiSTree.prototype.traverse = function(context, visitor){
+    if(this.root != null){
+        this.root.traverse(context, visitor);
+    }
 };
 
 UiSTree.prototype.insert = function(context, node){
@@ -3937,53 +3997,6 @@ UiAlg.prototype.getValidParentFor = function(uiobj){
     return validParent;
 };
 
-UiAlg.prototype.buildSNode = function(context, tree, parentTreeNode, uiobj){
-    var pref = null;
-    if(parentTreeNode != null){
-        pref = parentTreeNode.domRef;
-    }else{
-        pref = this.dom;
-    }
-    var clocator = uiobj.locator;
-    var csel = this.buildSelector(clocator);
-    var $found = teJQuery(pref).find(csel);
-    var foundWithoutLookAhead = false;
-    if($found.size() > 0){
-        foundWithoutLookAhead = true;
-    }
-    if($found.size() > 1){
-        if(uiobj.noCacheForChildren){
-            //if there is no cache for children for UI object uiobj
-            $found = this.bestEffort(uiobj, $found);
-            !tellurium.logManager.isUseLog || fbLog("UI object has no cache for children, best guess result for UI object " + uiobj.uid, $found.get());
-        }else{
-            //first try lookId
-            $found = this.lookId(uiobj, $found);
-            !tellurium.logManager.isUseLog || fbLog("Look Id result for " + uiobj.uid, $found.get());
-            if($found.size() > 1){
-                $found = this.lookAhead(uiobj, $found);
-                !tellurium.logManager.isUseLog || fbLog("Look ahead result for " + uiobj.uid, $found.get());
-            }
-        }
-    }
-
-    if($found.size() == 1){
-        var node = new UiSnapshotNode();
-        node.uid = uiobj.uid;
-        node.index = 0;
-        node.parent = parentTreeNode;
-        node.objRef = uiobj;
-        node.domRef = $found.get(0);
-        !tellurium.logManager.isUseLog || fbError("Found snapshot for UI element " + uiobj.uid, $found.get(0));
-    }else{
-        !tellurium.logManager.isUseLog || fbError("Found multiple snapshots for UI element " + uiobj.uid, $found.get());
-        throw new SeleniumError("Found multiple snapshots for UI element " + uiobj.uid);
-    }
-    //TODO: insert the node to the tree
-    
-};
-
-
 //traverse the UI module to build a snapshot tree
 UiAlg.prototype.buildSTree = function(uimodule){
     this.clear();
@@ -4001,6 +4014,8 @@ UiAlg.prototype.buildSTree = function(uimodule){
         var obj = this.oqueue.pop();
         !tellurium.logManager.isUseLog || fbLog("Traverse for Object " + uiobj.uid + ": ", uiobj);
         var context = new WorkflowContext();
+        context.alg = this;
+        context.domRef = obj.domRef;
         var node = obj.objRef.buildSNode(context, obj.rid, obj.domRef);
         tree.insert(context, node);
     }
