@@ -297,6 +297,20 @@ TelluriumCache.prototype.walkToUiObjectWithException = function(context, uid){
     return obj;
 };
 
+TelluriumCache.prototype.takeSnapshot = function(uid){
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var stree = null;
+    if(uiid.size() > 0){
+        var first = uiid.peek();
+        var uim = this.sCache.get(first);
+        !tellurium.logManager.isUseLog || fbLog("Found cached UI module " + first, uim);
+        stree = this.uiAlg.buildSTree(uim);
+    }
+
+    return stree;
+};
+
 TelluriumCache.prototype.getCachedUiElement = function(uid){
 
     var uiid = new Uiid();
