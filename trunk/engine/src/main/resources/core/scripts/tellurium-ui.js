@@ -251,21 +251,46 @@ var UiObject = Class.extend({
         //need to push all its children into the object queue
     },
 
-    buildSnapshotTree: function(context, tree, alg){
-        if(this.parent == null){
-            alg.buidSnapshotNode(context, tree, null, this);
-        }else{
-            var pid = this.parent.fullUid();
-            var uiid = getUiid(pid);
-            var parents = tree.walkTo(context, uiid);
-            if(parents == null){
-                throw new SeleniumError("Cannot find Parent " + pid);
-            }else{
-                for(var i=0; i<parents.length; i++){
-                    alg.buildSnapshotNode(context, tree, parents[i], this);
+    buildSNode: function(context){
+        var node = new UiSNode();
+        node.objRef = this;
+        node.index = 0;
+        node.uid = this.uid;
+        
+        if (this.locator != null && context.domRef != null) {
+            var alg = context.alg;
+            var sel = alg.buildSelector(this.locator);
+            var $found = teJQuery(context.domRef).find(sel);
+            if ($found.size() > 1) {
+                //first try lookId
+                $found = alg.lookId(this, $found);
+                !tellurium.logManager.isUseLog || fbLog("Look Id result for " + this.uid, $found.get());
+                if($found.size() > 1){
+                    //Use lookAHead to eliminate multipe matches
+                    $found = alg.lookAhead(this, $found);
+                    !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + this.uid, $found.get());
                 }
             }
+
+            if ($found.size() == 1) {
+                node.domRef = $found.get(0);
+                context.domRef = node.domRef;
+                !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
+            } else {
+                if ($found.size() == 0){
+                    fbError("Cannot find UI element " + this.uid, this);
+                    throw new SeleniumError("Cannot find UI element " + this.uid);
+                }
+                if ($found.size() > 1) {
+                    fbError("Found " + $found.size() + " matches for UI element " + this.uid, $found.get());
+                    throw new SeleniumError("Found " + $found.size() + " matches for UI element " + this.uid);
+                }
+            }
+        }else{
+            node.domRef = context.domRef;
         }
+
+        return node;
     },
 
     lookChildren: function() {
@@ -611,6 +636,12 @@ var UiContainer = UiObject.extend({
             }
         }
     },
+    
+    buildSNode: function(context){
+        var node = new UiContainerSNode();
+
+        return node;
+    },
 
     walkTo: function(context, uiid){
         !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid, this);
@@ -793,6 +824,12 @@ var UiList = UiContainer.extend({
         
         return num;
         
+    },
+
+    buildSNode: function(context){
+        var node = new UiListSNode();
+
+        return node;
     },
 
     walkTo: function(context, uiid) {
@@ -1164,6 +1201,12 @@ var UiTable = UiContainer.extend({
         var $found = teJQuery(dmr).find("> tbody > tr:has(td):eq(0) > td");
 
         return $found.size();       
+    },
+
+    buildSNode: function(context){
+        var node = new UiTableSNode();
+
+        return node;
     },
 
     walkToHeader: function(context, uiid) {
@@ -1885,6 +1928,12 @@ var UiStandardTable = UiContainer.extend({
         }
     },
 
+    buildSNode: function(context){
+        var node = new UiTableSNode();
+
+        return node;
+    },
+    
     walkToHeader: function(context, uiid) {
         //pop up the "header" indicator
         uiid.pop();
@@ -2549,10 +2598,14 @@ function UiTemplateAvatar(){
     this.uid = null;
 
     //the actual runtime elements that mapping to the same template
-    this.avatar = new Array();
+//    this.avatar = new Array();
+    //run time id (rid) to snapshot node map
+    //Need
+    //  uid <--> rid mapping
+    this.avatar = new Hashtable();
 }
 
-var UiSnapshotNode = Class.extend({
+var UiSNode = Class.extend({
     init: function() {
         //UID
         this.uid = null;
@@ -2573,10 +2626,15 @@ var UiSnapshotNode = Class.extend({
     walkTo: function(context, uiid) {
         !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Node", this);
         return this;
+    },
+
+    insert: function(context, uiobj){
+        fbError("Not a container type node and it cannot have children", this);
+        throw new SeleniumError("Not a container type node and it cannot have children");
     }
 });
 
-var UiContainerSnapshotNode = UiSnapshotNode.extend({
+var UiContainerSNode = UiSNode.extend({
     init: function(){
         this._super();
         //children nodes, regular UI Nodes
@@ -2599,10 +2657,15 @@ var UiContainerSnapshotNode = UiSnapshotNode.extend({
             fbError("Cannot find child " + cid, child);
             return null;
         }
+    },
+    
+    insert: function(context, uiobj){
+        var node = uiobj.buildSNode(context);
+        this.components.put(uiobj.uid, node);
     }
 });
 
-var UiListSnapshotNode = UiSnapshotNode.extend({
+var UiListSNode = UiSNode.extend({
     init: function(){
         this._super();
 
@@ -2632,10 +2695,18 @@ var UiListSnapshotNode = UiSnapshotNode.extend({
             fbError("Cannot find child " + cid, child);
             return null;
         }
+    },
+    
+    insert: function(context, uiobj){
+        var nodemap = uiobj.buildSNode(context);
+        var avatar = new UiTemplateAvatar();
+        avatar.avatar = nodemap;
+        avatar.uid = uiobj.uid;
+        this.components.put(uiobj.uid, avatar);
     }
 });
 
-var UiTableSnapshotNode = UiSnapshotNode.extend({
+var UiTableSNode = UiSNode.extend({
     init: function(){
         this._super();
 
@@ -2758,10 +2829,25 @@ var UiTableSnapshotNode = UiSnapshotNode.extend({
             return lst;
 //             return cobj.walkTo(context, uiid);
         }
+    },
+
+    insert: function(context, uiobj){
+        var nodemap = uiobj.buildSNode(context);
+        var avatar = new UiTemplateAvatar();
+        avatar.avatar = nodemap;
+        avatar.uid = uiobj.uid;
+        
+        if(uiobj.uid.startsWith("_HEADER")){
+            this.headers.put(uiobj.uid, avatar);
+        }else if(uiobj.uid.startsWith("_FOOTER")){
+            this.footers.put(uiobj.uid, avatar);
+        } else {
+            this.components.put(uiobj.uid, avatar);
+        }
     }
 });
 
-function UiSnapshotTree(){
+function UiSTree(){
     //the root node
     this.root = null;
 
@@ -2769,7 +2855,7 @@ function UiSnapshotTree(){
     this.uimRef = null;
 }
 
-UiSnapshotTree.prototype.walkTo = function(context, uiid){
+UiSTree.prototype.walkTo = function(context, uiid){
     !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Node", this);
     if(this.root != null)
         return this.root.walkTo(context, uiid);
@@ -2777,6 +2863,16 @@ UiSnapshotTree.prototype.walkTo = function(context, uiid){
     return null;
 };
 
+UiSTree.prototype.insert = function(context, uiobj){
+    if(this.root == null){
+        this.root = uiobj.buidSNode(context); 
+    }else{
+        var pid = uiobj.parent.fullUid();
+        var uiid = getUiid(pid);
+        var pnode = this.root.walkTo(context, uiid);
+        pnode.insert(context, uiobj);
+    }
+};
 
 //algorithms to handle UI modules and UI Objects
 function UiAlg(){
@@ -3311,7 +3407,7 @@ UiAlg.prototype.getValidParentFor = function(uiobj){
     return validParent;
 };
 
-UiAlg.prototype.buildSnapshotNode = function(context, tree, parentTreeNode, uiobj){
+UiAlg.prototype.buildSNode = function(context, tree, parentTreeNode, uiobj){
     var pref = null;
     if(parentTreeNode != null){
         pref = parentTreeNode.domRef;
@@ -3357,20 +3453,20 @@ UiAlg.prototype.buildSnapshotNode = function(context, tree, parentTreeNode, uiob
     
 };
 
-UiAlg.prototype.buildSnapshotContainerNode = function(context, tree, parentTreeNode, uiobj){
+UiAlg.prototype.buildContainerSNode = function(context, tree, parentTreeNode, uiobj){
 
 };
 
-UiAlg.prototype.buildSnapshotListNode = function(context, tree, parentTreeNode, uiobj){
+UiAlg.prototype.buildListSNode = function(context, tree, parentTreeNode, uiobj){
 
 };
 
-UiAlg.prototype.buildSnapshotTableNode = function(context, tree, parentTreeNode, uiobj){
+UiAlg.prototype.buildTableSNode = function(context, tree, parentTreeNode, uiobj){
 
 };
 
 //traverse the UI module to build a snapshot tree
-UiAlg.prototype.buildSnapshotTree = function(uimodule){
+UiAlg.prototype.buildSTree = function(uimodule){
     this.clear();
     var tree = new UiSnapshotTree();
     this.currentColor = this.colors.GRAY;
@@ -3380,7 +3476,7 @@ UiAlg.prototype.buildSnapshotTree = function(uimodule){
         var uiobj = this.oqueue.pop();
         !tellurium.logManager.isUseLog || fbLog("Traverse for Object " + uiobj.uid + ": ", uiobj);
         var context = new WorkflowContext();
-        uiobj.buildSnapshotTree(context, tree, this);
+//        uiobj.buildSnapshotTree(context, tree, this);
 
 /*
         if(uiobj.parent == null){
