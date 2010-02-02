@@ -251,31 +251,15 @@ var UiObject = Class.extend({
         //need to push all its children into the object queue
     },
 
-    buildSNode: function(context){
-        var node = new UiSNode();
-        node.objRef = this;
-        node.index = 0;
-        node.uid = this.uid;
-        
-        if (this.locator != null && context.domRef != null) {
+    locateSelf: function(context, domRef){
+        if (this.locator != null && domRef != null) {
             var alg = context.alg;
             var sel = alg.buildSelector(this.locator);
-            var $found = teJQuery(context.domRef).find(sel);
-            if ($found.size() > 1) {
-                //first try lookId
-                $found = alg.lookId(this, $found);
-                !tellurium.logManager.isUseLog || fbLog("Look Id result for " + this.uid, $found.get());
-                if($found.size() > 1){
-                    //Use lookAHead to eliminate multipe matches
-                    $found = alg.lookAhead(this, $found);
-                    !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + this.uid, $found.get());
-                }
-            }
+            var $found = teJQuery(domRef).find(sel);
 
             if ($found.size() == 1) {
-                node.domRef = $found.get(0);
-                context.domRef = node.domRef;
-                !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
+                !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
+                return $found.get(0);
             } else {
                 if ($found.size() == 0){
                     fbError("Cannot find UI element " + this.uid, this);
@@ -287,8 +271,21 @@ var UiObject = Class.extend({
                 }
             }
         }else{
-            node.domRef = context.domRef;
+            return domRef;
         }
+    },
+
+    buildSNode: function(context, rid, domref){
+        var node = new UiSNode();
+        node.objRef = this;
+        node.rid = rid;
+        node.uid = this.uid;
+/*        if(this.domRef != null){
+            node.domRef = this.domRef;
+        }else{
+            node.domRef = this.locateSelf(context, domref);
+        }*/
+        node.domRef = domref;
 
         return node;
     },
@@ -637,10 +634,14 @@ var UiContainer = UiObject.extend({
         }
     },
     
-    buildSNode: function(context, domref){
+    buildSNode: function(context, rid, domref){
 
         var node = new UiContainerSNode();
-
+        node.objRef = this;
+        node.rid = rid;
+        node.uid = this.uid;
+        node.domRef = domref;
+        
         if(domref != null && this.components.size() > 0){
             var keys = this.components.keySet();
             for(var i=0; i<keys.length; i++){
@@ -795,7 +796,6 @@ var UiFrame = UiContainer.extend({
     }
 });
 
-//TODO: ui algorithm operations for List and Table 
 var UiList = UiContainer.extend({
     init: function(){
         this._super();
@@ -820,6 +820,7 @@ var UiList = UiContainer.extend({
 
         return obj;
     },
+    
     // Get runtime ID
     getRid: function(index){
         return  "_" + index;    
@@ -910,10 +911,14 @@ var UiList = UiContainer.extend({
         
     },
 
-    buildSNode: function(context, domref){
+    buildSNode: function(context, rid, domref){
 
         var node = new UiListSNode();
-
+        node.objRef = this;
+        node.rid = rid;
+        node.uid = this.uid;
+        node.domRef = domref;
+        
         if(domref != null && this.components.size() > 0){
             var keys = this.components.keySet();
             var alg = context.alg;
@@ -1237,6 +1242,16 @@ var UiTable = UiContainer.extend({
         return children;
     },
 
+    // Get runtime ID
+    getHeaderRid: function(index){
+        return  "_HEADER_" + index;
+    },
+
+    // Get runtime ID
+    getBodyRid: function(row, column){
+        return   "_" + row + "_" + column;
+    },
+
     findHeaderUiObject: function(index){
         var key = "_HEADER_" + index;
         var obj = this.headers.get(key);
@@ -1343,8 +1358,79 @@ var UiTable = UiContainer.extend({
         return $found.size();       
     },
 
-    buildSNode: function(context){
+    buildSNodeForHeader: function(context, domref){
+        if(domref != null && this.headers.size() > 0){
+            var keys = this.headers.keySet();
+            var alg = context.alg;
+
+            for(var i=0; i<keys.length; i++){
+                var key = keys[i];
+                var child = this.headers.get(keys[i]);
+                var part = key.replace(/^_/, '');
+                if(part != "ALL"){
+                    var nindex = parseInt(part);
+                    var selt = this.getHeaderSelector(nindex);
+                    var $fnd = teJQuery(domref).find(selt);
+                    !tellurium.logManager.isUseLog || fbLog("Found child " + nindex + " with CSS selector '" + selt +"' for List " + this.uid, $fnd.get());
+                    if ($fnd.size() == 1) {
+                        !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $fnd.get(0));
+                        var cdomref = this.locateChild(context, $fnd.get(0), child);
+                        var csdata = new UiSData(key, this.getHeaderRid(nindex), child, cdomref);
+                        alg.addChildUiObject(csdata);
+                    }else if($fnd.size() == 0){
+                        fbError("Cannot find UI element " + child.uid, child);
+                        throw new SeleniumError("Cannot find UI element " + child.uid);
+                    }else{
+                        fbError("Found " + $fnd.size() + " matches for UI element " + child.uid, $fnd.get());
+                        throw new SeleniumError("Found " + $fnd.size() + " matches for UI element " + child.uid);
+                    }
+                }else{
+                    //handle the "_ALL" case
+                    var lsz = this.getHeaderColumnNum(context);
+                    for(var j=0; j<lsz; j++){
+                        var rid = this.getHeaderRid(j);
+                        //only cares about elements that are covered by "_ALL", not by other templates
+                        if(this.headers.get(rid) == null){
+                            var sel = this.getHeaderSelector(j);
+                            var $found = teJQuery(domref).find(sel);
+                            !tellurium.logManager.isUseLog || fbLog("Found child " + j + " with CSS selector '" + sel +"' for List " + this.uid, $found.get());
+                            if ($found.size() == 1) {
+                                !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
+                                var cdrf = this.locateChild(context, $found.get(0), child);
+                                var csd = new UiSData(key, rid, child, cdrf);
+                                alg.addChildUiObject(csd);
+                            } else if ($found.size() == 0) {
+                                fbError("Cannot find UI element " + child.uid, child);
+                                throw new SeleniumError("Cannot find UI element " + child.uid);
+                            } else {
+                                fbError("Found " + $found.size() + " matches for UI element " + child.uid, $found.get());
+                                throw new SeleniumError("Found " + $found.size() + " matches for UI element " + child.uid);
+                            }
+
+                        }
+                    }
+                }
+
+            }
+        }
+
+    },
+
+    buildSNodeForBody: function(context, domref){
+        if(domref != null && this.components.size() > 0){
+
+        }
+    },
+
+    buildSNode: function(context, rid, domref){
         var node = new UiTableSNode();
+        node.objRef = this;
+        node.rid = rid;
+        node.uid = this.uid;
+        node.domRef = domref;
+        
+        this.buildSNodeForHeader(context, domref);
+        this.buildSNodeForBody(context, domref);
 
         return node;
     },
@@ -1462,10 +1548,10 @@ var UiTable = UiContainer.extend({
             }
         }
 
-        if(this.components != null && this.components.length > 0){
-            var keys = this.components.keySet();
+        if(this.headers != null && this.headers.length > 0){
+            var keys = this.headers.keySet();
             for(var j=0; j<keys.length; j++){
-                var child = this.components.get(keys[j]);
+                var child = this.headers.get(keys[j]);
                 child.traverse(context, visitor);
             }
         }
@@ -2758,7 +2844,9 @@ var UiSNode = Class.extend({
         this.uid = null;
 
         //the index of the element with the same UID
-        this.index = 0;
+//        this.index = 0;
+        //rid, runtime id
+        this.rid = null;
 
         //point to its parent in the UI SNAPSHOT tree
         this.parent = null;
