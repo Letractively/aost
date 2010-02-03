@@ -627,9 +627,9 @@ TelluriumApi.prototype.getAllTableBodyText = function(uid) {
 TelluriumApi.prototype.showUi = function(uid, delay){
     var context = new WorkflowContext();
     var elist = this.cache.getIndexedTree(context, uid);
-    this.toggleWorker.work(context, elist, delay);
+//    this.toggleWorker.work(context, elist, delay);
 //    this.colorWorker.work(context, elist, delay);
-
+    this.decoratorWorker.work(context, elist, delay);
 /*
     var elist = tellurium.getUiElementAndDescendant(uid);
     
