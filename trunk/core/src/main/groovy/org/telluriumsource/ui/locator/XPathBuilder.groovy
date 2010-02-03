@@ -132,6 +132,10 @@ class XPathBuilder {
     return internBuildXPathWithHeader(tag, text, -1, direct, attributes, header, null)
   }
 
+  public static String buildOptionalXPathWithHeader(String tag, String text, int position, boolean direct, Map<String, String> attributes, String header) {
+      return internBuildXPathWithHeader(tag, text, position, direct, attributes, header, null)
+  }
+
   protected static String internBuildXPathWithHeader(String tag, String text, int position, boolean direct, Map<String, String> attributes, String header, Closure c) {
     String appendheader = ""
 
