@@ -1344,6 +1344,17 @@ abstract class BaseDslContext extends GlobalDslContext {
     return sb.toString()
   }
 
+  public void getHTMLSource(String uid){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    def out = extension.getHTMLSource(context, uid);
+    Map map = parseSeleniumJSONReturnValue(out);
+    if(map != null && map.size() > 0){
+      map.each{String key, String val ->
+        println(key + ": " + val);  
+      }
+    }
+  }
+
   void setTimeout(long timeoutInMilliseconds) {
     WorkflowContext context = WorkflowContext.getDefaultContext()
 
