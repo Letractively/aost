@@ -84,6 +84,30 @@ public class JListTestJUnitCase extends TelluriumMockJUnitTestCase {
         String arrivalTime = jlm.getText("SailingForm.Section[1].Option[1].Details.ShipInfo.Arrival.Time");
         assertEquals("11:45", arrivalTime);
     }
+
+    @Test
+    public void testRepeatForCache(){
+        connect("JForm");
+        useTelluriumApi(true);
+        useCache(true);
+        useEngineLog(true);
+        int num = jlm.getRepeatNum("SailingForm.Section");
+        assertEquals(2, num);
+        num = jlm.getRepeatNum("SailingForm.Section[1].Option");
+        assertEquals(2, num);
+        int size = jlm.getListSize("SailingForm.Section[1].Option[1].Fares");
+        assertEquals(2, size);
+        String ship = jlm.getText("SailingForm.Section[1].Option[1].Details.ShipInfo.Ship");
+        assertEquals("A", ship);
+        String departureTime = jlm.getText("SailingForm.Section[1].Option[1].Details.ShipInfo.Departure.Time");
+        assertEquals("08:00", departureTime);
+        String arrivalTime = jlm.getText("SailingForm.Section[1].Option[1].Details.ShipInfo.Arrival.Time");
+        assertEquals("11:45", arrivalTime);
+        useTelluriumApi(false);
+        useCache(false);
+        useEngineLog(false);
+    }
+
     @AfterClass
     public static void tearDown(){
         showTrace();

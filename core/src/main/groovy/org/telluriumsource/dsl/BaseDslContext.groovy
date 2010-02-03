@@ -1103,12 +1103,22 @@ abstract class BaseDslContext extends GlobalDslContext {
       return extension.getCssSelectorCount(context, jq)
     }
   }
+  int getTeRepeatNum(String uid){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    walkToWithException(context, uid)
 
-  int getRepeatNum(String uid) { WorkflowContext context
+    return extension.getRepeatNum(context, uid)
+  }
+
+  int getRepeatNum(String uid) {
+    if (this.exploreUiModuleCache() && this.isUseTelluriumApi()) {
+      return getTeRepeatNum(uid)
+    } else {
       if (this.exploreCssSelector())
         return getRepeatNumByCssSelector(uid)
 
       return getRepeatNumByXPath(uid)
+    }
   }
 
   int getListSizeByXPath(String uid) {
