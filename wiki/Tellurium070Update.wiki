@@ -695,6 +695,180 @@ For example, the following test code works fine in 0.7.0.
     }
 }}}
 
+== Repeat Object ==
+
+Very often, we need to use the same UI elements for multiple times on the web page. For example, we have the following html.
+
+{{{
+   <div class="segment clearfix">
+       <div class="option">
+           <ul class="fares">
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Economy</label>
+               </li>
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Flexible</label>
+               </li>
+           </ul>
+           <div class="details">
+               <dl>
+                   <dt>Ship:</dt>
+                   <dd>A</dd>
+                   <dt>Departs</dt>
+                   <dd>
+                       <em>08:00</em>
+                   </dd>
+                   <dt>Arrives</dt>
+                   <dd>
+                       <em>11:45</em>
+                   </dd>
+               </dl>
+           </div>
+       </div>
+       <div class="option">
+           <ul class="fares">
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Economy</label>
+               </li>
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Flexible</label>
+               </li>
+           </ul>
+           <div class="details">
+               <dl>
+                   <dt>Ship:</dt>
+                   <dd>B</dd>
+                   <dt>Departs</dt>
+                   <dd>
+                       <em>17:30</em>
+                   </dd>
+                   <dt>Arrives</dt>
+                   <dd>
+                       <em>21:15</em>
+                   </dd>
+               </dl>
+           </div>
+       </div>
+   </div>
+   <div class="segment clearfix">
+       <div class="option">
+           <ul class="fares">
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Economy</label>
+               </li>
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Flexible</label>
+               </li>
+           </ul>
+           <div class="details">
+               <div class="photo"><img/></div>
+               <dl>
+                   <dt>Ship:</dt>
+                   <dd>C</dd>
+                   <dt>Departs</dt>
+                   <dd>
+                       <em>02:00</em>
+                   </dd>
+                   <dt>Arrives</dt>
+                   <dd>
+                       <em>06:00</em>
+                   </dd>
+               </dl>
+           </div>
+       </div>
+       <div class="option">
+           <ul class="fares">
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Economy</label>
+               </li>
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Flexible</label>
+               </li>
+           </ul>
+           <div class="details">
+               <dl>
+                   <dt>Ship:</dt>
+                   <dd>D</dd>
+                   <dt>Departs</dt>
+                   <dd>
+                       <em>12:45</em>
+                   </dd>
+                   <dt>Arrives</dt>
+                   <dd>
+                       <em>16:30</em>
+                   </dd>
+               </dl>
+           </div>
+       </div>
+   </div>
+</form>
+}}}
+
+You can see the elements {{{<div class="segment clearfix">}}} and {{{<div class="option">}}} repeated for couple times. We can use the Repeat object for this UI module. The Repeat object inherits the Container object and You can use it just like a Container. The difference is that you should use index to refer to a Repeat object.  
+
+For the above html source, we can create the following UI module
+
+{{{
+    ui.Form(uid: "SailingForm", clocator: [name: "selectedSailingsForm"] ){
+      Repeat(uid: "Section", clocator: [tag: "div", class: "segment clearfix"]){
+        Repeat(uid: "Option", clocator: [tag: "div", class: "option", direct: "true"]){
+          List(uid: "Fares", clocator: [tag: "ul", class: "fares", direct: "true"], separator: "li"){
+
+            Container(uid: "all"){
+                RadioButton(uid: "radio", clocator: [:], respond: ["click"])
+                TextBox(uid: "label", clocator: [tag: "label"])
+            }
+          }
+          Container(uid: "Details", clocator: [tag: "div", class: "details"]){
+            Container(uid: "ShipInfo", clocator: [tag: "dl"]){
+              TextBox(uid: "ShipLabel", clocator: [tag: "dt", position: "1"])
+              TextBox(uid: "Ship", clocator: [tag: "dd", position: "1"])
+              TextBox(uid: "DepartureLabel", clocator: [tag: "dt", position: "2"])
+              Container(uid: "Departure", clocator: [tag: "dd", position: "2"]){
+                TextBox(uid: "Time", clocator: [tag: "em"])
+              }
+              TextBox(uid: "ArrivalLabel", clocator: [tag: "dt", position: "3"])
+              Container(uid: "Arrival", clocator: [tag: "dd", position: "3"]){
+                TextBox(uid: "Time", clocator: [tag: "em"])
+              }
+            }
+          }
+        }
+      }
+    }
+}}}
+
+To test the UI module, we can create the following test case.
+
+{{{
+    @Test
+    public void testRepeat(){
+        connect("JForm");
+//        useCssSelector(true);            //uncomment this line if you choose to use css selector
+        int num = jlm.getRepeatNum("SailingForm.Section");
+        assertEquals(2, num);
+        num = jlm.getRepeatNum("SailingForm.Section[1].Option");
+        assertEquals(2, num);
+        int size = jlm.getListSize("SailingForm.Section[1].Option[1].Fares");
+        assertEquals(2, size);
+        String ship = jlm.getText("SailingForm.Section[1].Option[1].Details.ShipInfo.Ship");
+        assertEquals("A", ship);
+        String departureTime = jlm.getText("SailingForm.Section[1].Option[1].Details.ShipInfo.Departure.Time");
+        assertEquals("08:00", departureTime);
+        String arrivalTime = jlm.getText("SailingForm.Section[1].Option[1].Details.ShipInfo.Arrival.Time");
+        assertEquals("11:45", arrivalTime);
+    }
+
+}}}
+
 == Groovy and GMaven ==
 
 Groovy has been upgraded to the latest version 1.7.0.
