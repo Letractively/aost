@@ -24,6 +24,8 @@ class Repeat extends Container {
     }
 
     protected void groupLocating(WorkflowContext context, int index){
+      //TODO: double check this! seems something is wrong here for Repeat, if useGroupInfo is true,
+      //it may return the locator twice 
       if (this.useGroupInfo) {
         if(context.isUseCssSelector()){
           context.appendReferenceLocator(GroupLocateStrategy.select(this, index))
@@ -54,10 +56,11 @@ class Repeat extends Container {
 
         //if not child listed, return itself
         if(uiid.size() < 1){
-            if(this.locator != null && this.useGroupInfo){
+            if(this.locator != null){
                 groupLocating(context, nindex)
+                context.noMoreProcess = true;
             }
-
+          
             return this
         }
 

@@ -43,6 +43,7 @@ TelluriumTestCase.prototype.testRepeat = function(){
     var uiid = new Uiid();
     var section = uim.walkTo(context, uiid.convertToUiid("SailingForm.Section"));
     var num = section.getRepeatNum(context);
+    var invalid =  uim.walkTo(context, uiid.convertToUiid("SailingForm.Section[3]"));
 };
 
 TelluriumTestCase.prototype.testGeneralTableModule = function(){

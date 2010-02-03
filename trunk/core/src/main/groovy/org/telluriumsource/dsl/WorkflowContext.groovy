@@ -35,6 +35,8 @@ class WorkflowContext {
 
   private boolean bundlingable = false
 
+  private boolean noMoreProcess = false;
+
 //  private boolean locatorSpecific = true
 
 //  private ReturnType returnType;
