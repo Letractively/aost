@@ -29,6 +29,22 @@ TelluriumTestCase.prototype.testPrie = function(){
     var label = trie.getChildrenData("Form.Username.Submit");
 };
 
+TelluriumTestCase.prototype.testRepeat = function(){
+    var json = [{"obj":{"uid":"SailingForm","locator":{"tag":"form","attributes":{"name":"selectedSailingsForm"}},"uiType":"Form"},"key":"SailingForm"},{"obj":{"uid":"Section","locator":{"tag":"div","attributes":{"class":"segment clearfix"}},"uiType":"Repeat"},"key":"SailingForm.Section"},{"obj":{"uid":"Option","locator":{"direct":true,"tag":"div","attributes":{"class":"option"}},"uiType":"Repeat"},"key":"SailingForm.Section.Option"},{"obj":{"uid":"Fares","locator":{"direct":true,"tag":"ul","attributes":{"class":"fares"}},"uiType":"List","separator":"li"},"key":"SailingForm.Section.Option.Fares"},{"obj":{"uid":"all","locator":null,"uiType":"Container"},"key":"SailingForm.Section.Option.Fares._ALL"},{"obj":{"uid":"radio","locator":{"tag":"input","attributes":{"type":"radio"}},"events":["click"],"uiType":"RadioButton"},"key":"SailingForm.Section.Option.Fares._ALL.radio"},{"obj":{"uid":"label","locator":{"tag":"label"},"uiType":"TextBox"},"key":"SailingForm.Section.Option.Fares._ALL.label"},{"obj":{"uid":"Details","locator":{"tag":"div","attributes":{"class":"details"}},"uiType":"Container"},"key":"SailingForm.Section.Option.Details"},{"obj":{"uid":"ShipInfo","locator":{"tag":"dl"},"uiType":"Container"},"key":"SailingForm.Section.Option.Details.ShipInfo"},{"obj":{"uid":"ShipLabel","locator":{"position":"1","tag":"dt"},"uiType":"TextBox"},"key":"SailingForm.Section.Option.Details.ShipInfo.ShipLabel"},{"obj":{"uid":"Ship","locator":{"position":"1","tag":"dd"},"uiType":"TextBox"},"key":"SailingForm.Section.Option.Details.ShipInfo.Ship"},{"obj":{"uid":"DepartureLabel","locator":{"position":"2","tag":"dt"},"uiType":"TextBox"},"key":"SailingForm.Section.Option.Details.ShipInfo.DepartureLabel"},{"obj":{"uid":"Departure","locator":{"position":"2","tag":"dd"},"uiType":"Container"},"key":"SailingForm.Section.Option.Details.ShipInfo.Departure"},{"obj":{"uid":"Time","locator":{"tag":"em"},"uiType":"TextBox"},"key":"SailingForm.Section.Option.Details.ShipInfo.Departure.Time"},{"obj":{"uid":"ArrivalLabel","locator":{"position":"3","tag":"dt"},"uiType":"TextBox"},"key":"SailingForm.Section.Option.Details.ShipInfo.ArrivalLabel"},{"obj":{"uid":"Arrival","locator":{"position":"3","tag":"dd"},"uiType":"Container"},"key":"SailingForm.Section.Option.Details.ShipInfo.Arrival"},{"obj":{"uid":"Time","locator":{"tag":"em"},"uiType":"TextBox"},"key":"SailingForm.Section.Option.Details.ShipInfo.Arrival.Time"}];
+    tellurium.logManager.isUseLog = true;
+    var uim = new UiModule();
+    uim.parseUiModule(json);
+    var alg = new UiAlg();
+    alg.allowRelax = true;
+    var dom = teJQuery("html");
+    alg.santa(uim, dom);
+    var context = new WorkflowContext();
+    context.alg = alg;
+    var uiid = new Uiid();
+    var section = uim.walkTo(context, uiid.convertToUiid("SailingForm.Section"));
+    var num = section.getRepeatNum(context);
+};
+
 TelluriumTestCase.prototype.testGeneralTableModule = function(){
     var json = [{"obj":{"uid":"GT","hrt":"tr","locator":{"tag":"table","attributes":{"id":"xyz"}},"ht":"tbody","bct":"td","frt":"tr","hct":"th","ft":"tfoot","brt":"tr","uiType":"StandardTable","fct":"td","bt":"tbody"},"key":"GT"},{"obj":{"uid":"header: all","locator":{},"uiType":"TextBox"},"key":"GT._ALL"},{"obj":{"uid":"row: 1, column: 1","locator":{"tag":"div","attributes":{"class":"abc"}},"uiType":"TextBox"},"key":"GT._1_1_1"},{"obj":{"uid":"row: 1, column: 2","locator":null,"uiType":"Container"},"key":"GT._1_1_2"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"class":"123"}},"uiType":"InputBox"},"key":"GT._1_1_2.Input"},{"obj":{"uid":"Some","locator":{"tag":"div","attributes":{"class":"someclass"}},"uiType":"Container"},"key":"GT._1_1_2.Some"},{"obj":{"uid":"Span","locator":{"tag":"span","attributes":{"class":"x"}},"uiType":"Span"},"key":"GT._1_1_2.Some.Span"},{"obj":{"uid":"Link","locator":{"tag":"a"},"uiType":"UrlLink"},"key":"GT._1_1_2.Some.Link"}];
     tellurium.logManager.isUseLog = true;
@@ -262,10 +278,11 @@ TelluriumTestCase.prototype.testSuite = function(){
 //    this.testTelluriumDownloadResult();
 //    this.testLogoUiModule();
 //    this.testThumbnailUiModule();
-    this.testBookUiModule();
+//    this.testBookUiModule();
 //    this.testExpandUiModule();
 //    this.testErisUiModule();
 //    this.testUiCache();
+    this.testRepeat();
 };
                                    
 var teTestCase = new TelluriumTestCase();
