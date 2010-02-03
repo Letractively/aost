@@ -588,6 +588,21 @@ TelluriumApi.prototype.getTeTableTbodyNum = function(uid) {
     return 0;
 };
 
+TelluriumApi.prototype.getRepeatNum = function(uid){
+    var context = new WorkflowContext();
+    context.alg = this.cache.uiAlg;
+
+    var obj = this.cache.walkToUiObjectWithException(context, uid);
+    if(obj.respondsToWithException("getRepeatNum")){
+        var out = obj.getRepeatNum(context);
+        !tellurium.logManager.isUseLog || fbLog("Get getRepeatNum Result", out);
+
+        return out;
+    }
+
+    return 0;
+};
+
 /*
 TelluriumApi.prototype.getAllTableBodyText = function(uid) {
     var context = new WorkflowContext();

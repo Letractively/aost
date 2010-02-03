@@ -326,6 +326,7 @@ Tellurium.prototype.registerDefaultUiBuilders = function(){
     this.uiBuilderMap.put("Table", new UiTableBuilder());
     this.uiBuilderMap.put("StandardTable", new UiStandardTableBuilder());
     this.uiBuilderMap.put("Window", new UiWindowBuilder());
+    this.uiBuilderMap.put("Repeat", new UiRepeatBuilder());
 };
 
 //expose this so that users can hook in their own custom UI objects or even overwrite the default UI objects
@@ -412,6 +413,7 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("getTeTableFootColumnNum", true, "NUMBER");
     this.registerApi("getTeTableHeaderColumnNum", true, "NUMBER");
     this.registerApi("getHTMLSource", true, "MAP");
+    this.registerApi("getRepeatNum", true, "NUMBER");
 };
 
 Tellurium.prototype.flipLog = function(){
