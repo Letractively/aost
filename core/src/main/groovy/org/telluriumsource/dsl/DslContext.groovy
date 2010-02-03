@@ -75,7 +75,13 @@ abstract class DslContext extends BaseDslContext {
          return JQUERY_SELECTOR;
       }else{
         //get ui object's locator
-        String locator = locatorProcessor.locate(context, loc)
+
+        String locator;
+        if(context.noMoreProcess){
+          locator = ""
+        }else{
+          locator = locatorProcessor.locate(context, loc)
+        }
 
         //get the reference locator all the way to the ui object
         if (context.getReferenceLocator() != null){

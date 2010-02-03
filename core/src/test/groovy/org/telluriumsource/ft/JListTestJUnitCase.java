@@ -5,6 +5,7 @@ import org.telluriumsource.module.JListModule;
 import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -106,6 +107,25 @@ public class JListTestJUnitCase extends TelluriumMockJUnitTestCase {
         useTelluriumApi(false);
         useCache(false);
         useEngineLog(false);
+    }
+
+    @Test
+    public void testShowUI(){
+        connect("JForm");
+        useTelluriumApi(true);
+        useCache(true);
+        useEngineLog(true);
+        jlm.show("SailingForm", 5000);
+    }
+
+    @Test
+    public void testIsElementPresent(){
+        connect("JForm");
+        useTelluriumApi(true);
+        useCache(true);
+        useEngineLog(true);
+        boolean present = jlm.isElementPresent("SailingForm.Section[3]");
+        assertFalse(present);
     }
 
     @AfterClass
