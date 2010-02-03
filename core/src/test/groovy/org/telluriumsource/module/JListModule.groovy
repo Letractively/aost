@@ -34,5 +34,14 @@ class JListModule extends DslContext {
         }
       }
     }
+
+    ui.Form(uid: "SailingForm", clocator: [name: "selectedSailingsForm"] ){
+      List(uid: "Section", clocator: [tag: "div", class: "segment clearfix"]){
+        List(uid: "Option", clocator: [tag: "div", class: "option"]){
+
+        }
+
+      }
+    }
   }
 }

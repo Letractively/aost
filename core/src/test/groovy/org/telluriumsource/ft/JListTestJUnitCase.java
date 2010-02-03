@@ -1,9 +1,6 @@
 package org.telluriumsource.ft;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.telluriumsource.module.JListModule;
 import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
 
@@ -34,6 +31,7 @@ public class JListTestJUnitCase extends TelluriumMockJUnitTestCase {
         connect("JList");
     }
 
+    @Ignore
     @Test
     public void testGetListSize(){
         int size = jlm.getListSize("selectedSailings.outgoingSailings[1].fares");
