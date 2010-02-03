@@ -78,9 +78,3 @@ var UiDumpVisitor = UiVisitor.extend({
         fbLog("UI Object " + uiobj.fullUid(), uiobj);
     }
 });
-
-var UiHTMLSourceVisitor = UiVisitor.extend({
-    visit: function(context, uiobj){
-        fbLog("UI Object " + uiobj.fullUid(), uiobj);
-    }
-});
