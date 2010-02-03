@@ -565,8 +565,11 @@ var UiContainer = UiObject.extend({
                         context.domRef = $found.get(0);
                         !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
                     } else {
-                        if ($found.size() == 0)
+                        if ($found.size() == 0){
+                            context.domRef = null;
                             fbError("Cannot find UI element " + this.uid, this);
+                        }
+
                         if ($found.size() > 1) {
                             fbError("Found multiple matches for UI element " + this.uid, $found.get());
                             context.domRef = null;
@@ -667,6 +670,7 @@ var UiRepeat = UiContainer.extend({
                     var alg = context.alg;
                     var sel = alg.buildSelector(this.locator, index);
                     var $found = teJQuery(context.domRef).find(sel);
+
                     if ($found.size() > 1) {
                         //Use lookAHead to eliminate multiple matches
                         $found = alg.lookAhead(this, $found);
@@ -690,8 +694,10 @@ var UiRepeat = UiContainer.extend({
                         context.domRef = $found.get(0);
                         !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
                     } else {
-                        if ($found.size() == 0)
+                        if ($found.size() == 0){
+                            context.domRef = null;
                             fbError("Cannot find UI element " + this.uid, this);
+                        }
                         if ($found.size() > 1) {
                             fbError("Found multiple matches for UI element " + this.uid, $found.get());
                             context.domRef = null;
@@ -937,8 +943,11 @@ var UiList = UiContainer.extend({
                         context.domRef = $found.get(0);
                         !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
                     } else {
-                        if ($found.size() == 0)
+                        if ($found.size() == 0){
+                            context.domRef = null;
                             fbError("Cannot find UI element " + this.uid, this);
+                        }
+                            
                         if ($found.size() > 1) {
                             fbError("Found multiple matches for UI element " + this.uid, $found.get());
                             context.domRef = null;
@@ -977,8 +986,11 @@ var UiList = UiContainer.extend({
                 context.domRef = $fnd.get(0);
                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
             } else {
-                if ($fnd.size() == 0)
+                if ($fnd.size() == 0){
+                    context.domRef = null;
                     fbError("Cannot find the child UI element " + nindex, this);
+                }
+
                 if ($fnd.size() > 1) {
                     fbError("Found multiple matches for UI element " + nindex, $fnd.get());
                     context.domRef = null;
@@ -1460,8 +1472,11 @@ var UiTable = UiContainer.extend({
                 context.domRef = $found.get(0);
                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
             } else {
-                if ($found.size() == 0)
+                if ($found.size() == 0){
+                    context.domRef = null;
                     fbError("Cannot find the child UI element " + index, this);
+                }
+
                 if ($found.size() > 1) {
                     fbError("Found multiple matches for UI element " + index, $found.get());
                     context.domRef = null;
@@ -1510,8 +1525,11 @@ var UiTable = UiContainer.extend({
                 context.domRef = $found.get(0);
                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
             } else {
-                if ($found.size() == 0)
+                if ($found.size() == 0){
+                    context.domRef = null;
                     fbError("Cannot find the child UI element ", this);
+                }
+
                 if ($found.size() > 1) {
                     fbError("Found multiple matches for UI element ", $found.get());
                     context.domRef = null;
@@ -1575,8 +1593,11 @@ var UiTable = UiContainer.extend({
                         context.domRef = $found.get(0);
                         !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
                     } else {
-                        if ($found.size() == 0)
+                        if ($found.size() == 0){
+                            context.domRef = null;
                             fbError("Cannot find UI element " + this.uid, this);
+                        }
+
                         if ($found.size() > 1) {
                             fbError("Found multiple matches for UI element " + this.uid, $found.get());
                             context.domRef = null;
@@ -2418,8 +2439,11 @@ var UiStandardTable = UiContainer.extend({
                 context.domRef = $found.get(0);
                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
             } else {
-                if ($found.size() == 0)
+                if ($found.size() == 0){
+                    context.domRef = null;
                     fbError("Cannot find the child UI element " + index, this);
+                }
+
                 if ($found.size() > 1) {
                     fbError("Found multiple matches for UI element " + index, $found.get());
                     context.domRef = null;
@@ -2471,8 +2495,11 @@ var UiStandardTable = UiContainer.extend({
                 context.domRef = $found.get(0);
                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
             } else {
-                if ($found.size() == 0)
+                if ($found.size() == 0){
+                    context.domRef = null;
                     fbError("Cannot find the child UI element " + index, this);
+                }
+
                 if ($found.size() > 1) {
                     fbError("Found multiple matches for UI element " + index, $found.get());
                     context.domRef = null;
@@ -2530,8 +2557,11 @@ var UiStandardTable = UiContainer.extend({
                 context.domRef = $found.get(0);
                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
             } else {
-                if ($found.size() == 0)
+                if ($found.size() == 0){
+                    context.domRef = null;
                     fbError("Cannot find the child UI element ", this);
+                }
+
                 if ($found.size() > 1) {
                     fbError("Found multiple matches for UI element ", $found.get());
                     context.domRef = null;
@@ -2575,8 +2605,11 @@ var UiStandardTable = UiContainer.extend({
                         context.domRef = $found.get(0);
                         !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
                     } else {
-                        if ($found.size() == 0)
+                        if ($found.size() == 0){
+                            context.domRef = null;
                             fbError("Cannot find UI element " + this.uid, this);
+                        }
+
                         if ($found.size() > 1) {
                             fbError("Found multiple matches for UI element " + this.uid, $found.get());
                             context.domRef = null;

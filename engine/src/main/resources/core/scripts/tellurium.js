@@ -521,7 +521,7 @@ Tellurium.prototype.dispatchCommand = function(response, cmd, element){
 
 Tellurium.prototype.locate = function(locator){
 
-    return selenium.browserbot.findElement(locator);
+    return selenium.browserbot.findElementOrNull(locator);
 };
 
 Tellurium.prototype.isLocator = function(locator){
@@ -836,7 +836,9 @@ Tellurium.prototype.locateElementWithCacheAware = function(locator, inDocument, 
 
     if(element == null){
         fbError("Cannot locate element for uid " + cal.rid + " with locator " + cal.locator, element);
-        throw SeleniumError("Cannot locate element for uid " + cal.rid + " with locator " + cal.locator);
+        
+        //Disable this and let the caller to decide whether to throw exception or not
+//        throw SeleniumError("Cannot locate element for uid " + cal.rid + " with locator " + cal.locator);
     }
 
     !tellurium.logManager.isUseLog || fbLog("Returning found UI element ", element);
