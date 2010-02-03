@@ -503,7 +503,13 @@ UiAlg.prototype.buildSelector = function(clocator){
     return this.cssbuilder.buildCssSelector(clocator.tag, clocator.text, clocator.position, clocator.direct, clocator.attributes);
 };
 
+UiAlg.prototype.buildSelector = function(clocator, position){
+    //TODO: need to add header and trailer to the selector if necessary
+    return this.cssbuilder.buildCssSelector(clocator.tag, clocator.text, position, clocator.direct, clocator.attributes);
+};
+
 //TODO: may need to pass in more attributes other than clocator, for instance, the separator in the List object
+//TODO: need to consider the Repeat object when calling locate
 UiAlg.prototype.locate = function(uiobj, snapshot){
     var uid = uiobj.fullUid();
     var clocator = uiobj.locator;

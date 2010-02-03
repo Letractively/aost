@@ -192,12 +192,8 @@ var UiObject = Class.extend({
         return this.uid;
     },
 
-    respondsTo: function(methodName){
-        if(this[methodName] != undefined){
-            return true;
-        }
-
-        return false;
+    respondsTo: function(methodName) {
+        return this[methodName] != undefined; 
     },
 
     respondsToWithException: function(methodName){
@@ -544,6 +540,131 @@ var UiContainer = UiObject.extend({
         return domRef;
     },
 
+    getRepeatNum: function(context){
+        !tellurium.logManager.isUseLog || fbLog("Calling getRepeatNum for " + this.uid, this);
+        if (this.locator != null && context.domRef != null) {
+            var alg = context.alg;
+            var sel = alg.buildSelector(this.locator);
+            var $found = teJQuery(context.domRef).find(sel);
+            !tellurium.logManager.isUseLog || fbLog("Context domRef is ", context.domRef);
+            !tellurium.logManager.isUseLog || fbLog("Found elements for CSS " + sel, $found.get());
+            if ($found.size() > 1) {
+                //Use lookAHead to eliminate multiple matches
+                $found = alg.lookAhead(this, $found);
+                !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + this.uid, $found.get());
+            }
+
+            return $found.size();
+        }
+
+        //return 0 if cannot find the Repeat
+        return 0;
+    },
+
+    walkTo: function(context, uiid){
+        if(uiid.size() < 1)
+            return this;
+
+        var index = uiid.pop().replace(/^_/, '');
+
+        !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid + "[" + index + "]", this);
+        if (!context.skipNext) {
+            if (this.domRef != null && this.amICacheable()) {
+                context.domRef = this.domRef;
+            } else {
+                if (this.locator != null && context.domRef != null) {
+                    var alg = context.alg;
+                    var sel = alg.buildSelector(this.locator, index);
+                    var $found = teJQuery(context.domRef).find(sel);
+                    if ($found.size() > 1) {
+                        //Use lookAHead to eliminate multiple matches
+                        $found = alg.lookAhead(this, $found);
+                        !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + this.uid, $found.get());
+                    }
+
+                    /*
+                    //It does not make sense to have Repeat children with ID attributes, no need to call lookId()
+                    if ($found.size() > 1) {
+                        //first try lookId
+                        $found = alg.lookId(this, $found);
+                        !tellurium.logManager.isUseLog || fbLog("Look Id result for " + this.uid, $found.get());
+                        if($found.size() > 1){
+                            //Use lookAHead to eliminate multiple matches
+                            $found = alg.lookAhead(this, $found);
+                            !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + this.uid, $found.get());
+                        }
+                    }*/
+
+                    if ($found.size() == 1) {
+                        context.domRef = $found.get(0);
+                        !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
+                    } else {
+                        if ($found.size() == 0)
+                            fbError("Cannot find UI element " + this.uid, this);
+                        if ($found.size() > 1) {
+                            fbError("Found multiple matches for UI element " + this.uid, $found.get());
+                            context.domRef = null;
+                        }
+                    }
+                }
+            }
+        } else {
+            context.skipNext = false;
+        }
+
+        if(uiid.size() < 1)
+            return this;
+
+        var cid = uiid.pop();
+        var child = this.components.get(cid);
+        if(child != null){
+            !tellurium.logManager.isUseLog || fbLog("Walk to child " + cid, child);
+            return child.walkTo(context, uiid);
+        }else{
+            fbError("Cannot find child " + cid, child);
+            context.domRef = null;
+            return null;
+        }
+    }
+});
+
+var UiRepeat = UiContainer.extend({
+    init: function(){
+        this._super();
+        this.uiType = 'Repeat';
+        //Repeat will return multiple elements for the same locator at runtime, should not cache it
+        this.lazy = true;
+        //Since Repeat is not unique at runtime, its children are dynamic as well
+        this.noCacheForChildren = true;
+        this.components = new Hashtable();
+    },
+
+    buildSNode: function(context, rid, domref){
+
+        var node = new UiContainerSNode();
+        node.objRef = this;
+        node.rid = rid;
+        node.uid = this.uid;
+        node.domRef = domref;
+
+        if(domref != null && this.components.size() > 0){
+            var keys = this.components.keySet();
+            for(var i=0; i<keys.length; i++){
+                var key = keys[i];
+                var child = this.components.get(key);
+                var cdomref = child.domRef;
+                if(cdomref == null){
+                    cdomref = this.locateChild(context, domref, child);
+                }
+                var csdata = new UiSData(key, key, child, cdomref);
+                var alg = context.alg;
+                alg.addChildUiObject(csdata);
+            }
+        }
+
+        return node;
+    },
+    
     walkTo: function(context, uiid){
         !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
@@ -2596,6 +2717,14 @@ function UiContainerBuilder(){
 
 UiContainerBuilder.prototype.build = function(){
     return new UiContainer();
+};
+
+function UiRepeatBuilder(){
+
+}
+
+UiRepeatBuilder.prototype.build = function(){
+    return new UiRepeat();
 };
 
 function UiFormBuilder(){
