@@ -71,7 +71,7 @@ class Repeat extends Container {
             //update reference locator by append the relative locator for this container
             if(this.locator != null){
 //              context.appendReferenceLocatorForUiObject(this)
-                groupLocating(context)
+                groupLocating(context, nindex)
 
             }
             if(uiid.size() < 1){
