@@ -539,61 +539,27 @@ var UiContainer = UiObject.extend({
 
         return domRef;
     },
-
-    getRepeatNum: function(context){
-        !tellurium.logManager.isUseLog || fbLog("Calling getRepeatNum for " + this.uid, this);
-        if (this.locator != null && context.domRef != null) {
-            var alg = context.alg;
-            var sel = alg.buildSelector(this.locator);
-            var $found = teJQuery(context.domRef).find(sel);
-            !tellurium.logManager.isUseLog || fbLog("Context domRef is ", context.domRef);
-            !tellurium.logManager.isUseLog || fbLog("Found elements for CSS " + sel, $found.get());
-            if ($found.size() > 1) {
-                //Use lookAHead to eliminate multiple matches
-                $found = alg.lookAhead(this, $found);
-                !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + this.uid, $found.get());
-            }
-
-            return $found.size();
-        }
-
-        //return 0 if cannot find the Repeat
-        return 0;
-    },
-
+    
     walkTo: function(context, uiid){
-        if(uiid.size() < 1)
-            return this;
-
-        var index = uiid.pop().replace(/^_/, '');
-
-        !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid + "[" + index + "]", this);
+        !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
             if (this.domRef != null && this.amICacheable()) {
                 context.domRef = this.domRef;
             } else {
                 if (this.locator != null && context.domRef != null) {
                     var alg = context.alg;
-                    var sel = alg.buildSelector(this.locator, index);
+                    var sel = alg.buildSelector(this.locator);
                     var $found = teJQuery(context.domRef).find(sel);
-                    if ($found.size() > 1) {
-                        //Use lookAHead to eliminate multiple matches
-                        $found = alg.lookAhead(this, $found);
-                        !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + this.uid, $found.get());
-                    }
-
-                    /*
-                    //It does not make sense to have Repeat children with ID attributes, no need to call lookId()
                     if ($found.size() > 1) {
                         //first try lookId
                         $found = alg.lookId(this, $found);
                         !tellurium.logManager.isUseLog || fbLog("Look Id result for " + this.uid, $found.get());
                         if($found.size() > 1){
-                            //Use lookAHead to eliminate multiple matches
+                            //Use lookAHead to eliminate multipe matches
                             $found = alg.lookAhead(this, $found);
                             !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + this.uid, $found.get());
                         }
-                    }*/
+                    }
 
                     if ($found.size() == 1) {
                         context.domRef = $found.get(0);
@@ -664,27 +630,61 @@ var UiRepeat = UiContainer.extend({
 
         return node;
     },
-    
+
+    getRepeatNum: function(context){
+        !tellurium.logManager.isUseLog || fbLog("Calling getRepeatNum for " + this.uid, this);
+        if (this.locator != null && context.domRef != null) {
+            var alg = context.alg;
+            var sel = alg.buildSelector(this.locator);
+            var $found = teJQuery(context.domRef).find(sel);
+            !tellurium.logManager.isUseLog || fbLog("Context domRef is ", context.domRef);
+            !tellurium.logManager.isUseLog || fbLog("Found elements for CSS " + sel, $found.get());
+            if ($found.size() > 1) {
+                //Use lookAHead to eliminate multiple matches
+                $found = alg.lookAhead(this, $found);
+                !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + this.uid, $found.get());
+            }
+
+            return $found.size();
+        }
+
+        //return 0 if cannot find the Repeat
+        return 0;
+    },
+
     walkTo: function(context, uiid){
-        !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid, this);
+        if(uiid.size() < 1)
+            return this;
+
+        var index = uiid.pop().replace(/^_/, '');
+
+        !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid + "[" + index + "]", this);
         if (!context.skipNext) {
             if (this.domRef != null && this.amICacheable()) {
                 context.domRef = this.domRef;
             } else {
                 if (this.locator != null && context.domRef != null) {
                     var alg = context.alg;
-                    var sel = alg.buildSelector(this.locator);
+                    var sel = alg.buildSelector(this.locator, index);
                     var $found = teJQuery(context.domRef).find(sel);
+                    if ($found.size() > 1) {
+                        //Use lookAHead to eliminate multiple matches
+                        $found = alg.lookAhead(this, $found);
+                        !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + this.uid, $found.get());
+                    }
+
+                    /*
+                    //It does not make sense to have Repeat children with ID attributes, no need to call lookId()
                     if ($found.size() > 1) {
                         //first try lookId
                         $found = alg.lookId(this, $found);
                         !tellurium.logManager.isUseLog || fbLog("Look Id result for " + this.uid, $found.get());
                         if($found.size() > 1){
-                            //Use lookAHead to eliminate multipe matches
+                            //Use lookAHead to eliminate multiple matches
                             $found = alg.lookAhead(this, $found);
                             !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + this.uid, $found.get());
                         }
-                    }
+                    }*/
 
                     if ($found.size() == 1) {
                         context.domRef = $found.get(0);
