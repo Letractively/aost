@@ -13,4 +13,9 @@ class DefaultLocateStrategy{
 
         locator.loc
     }
+
+    def static String locate(BaseLocator locator, int index){
+
+        locator.loc + "[${index}]"
+    }
 }

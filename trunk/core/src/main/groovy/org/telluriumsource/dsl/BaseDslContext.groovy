@@ -18,6 +18,7 @@ import org.telluriumsource.entity.DiagnosisOption
 import org.telluriumsource.entity.DiagnosisRequest
 import org.telluriumsource.entity.DiagnosisResponse
 import org.telluriumsource.entity.UiModuleValidationResponse
+import org.telluriumsource.ui.object.Repeat
 
 /**
  *
@@ -1082,6 +1083,34 @@ abstract class BaseDslContext extends GlobalDslContext {
     }
   }
 
+  int getRepeatNumByXPath(String uid){
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    Repeat obj = (Repeat) walkToWithException(context, uid)
+    return obj.getRepeatNum() {loc ->
+      String locator = locatorMapping(context, loc)
+
+      return accessor.getXpathCount(context, locator)
+    }
+  }
+
+  int getRepeatNumByCssSelector(String uid) {
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreUiModuleCache())
+    Repeat obj = (Repeat) walkToWithException(context, uid)
+    return obj.getRepeatNum() {loc ->
+      String locator = locatorMapping(context, loc)
+      String jq = postProcessSelector(context, locator.trim())
+
+      return extension.getCssSelectorCount(context, jq)
+    }
+  }
+
+  int getRepeatNum(String uid) { WorkflowContext context
+      if (this.exploreCssSelector())
+        return getRepeatNumByCssSelector(uid)
+
+      return getRepeatNumByXPath(uid)
+  }
+
   int getListSizeByXPath(String uid) {
     WorkflowContext context = WorkflowContext.getDefaultContext()
     org.telluriumsource.ui.object.List obj = (org.telluriumsource.ui.object.List) walkToWithException(context, uid)
@@ -1095,9 +1124,9 @@ abstract class BaseDslContext extends GlobalDslContext {
   int getListSizeBySelector(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreUiModuleCache())
     org.telluriumsource.ui.object.List obj = (org.telluriumsource.ui.object.List) walkToWithException(context, uid)
-    context.updateUniqueForMetaCmd(false)
+//    context.updateUniqueForMetaCmd(false)
     //force not to cache the selector
-    context.updateCacheableForMetaCmd(false)
+//    context.updateCacheableForMetaCmd(false)
     return obj.getListSizeByCssSelector() {loc, separators ->
       String locator = locatorMapping(context, loc)
 
