@@ -46,5 +46,6 @@ class UiObjectBuilderRegistry implements Configurable{
         registerBuilder("ClickableUi", new ClickableUiBuilder())
         registerBuilder("Frame", new FrameBuilder())
         registerBuilder("Window", new WindowBuilder())
+        registerBuilder("Repeat", new RepeatBuilder())
     }
 }

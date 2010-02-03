@@ -23,6 +23,23 @@ class LocatorProcessor{
 
     }
 
+    def String locate(WorkflowContext context, locator, int index){
+        if(locator == null)
+            return ""
+
+        if(locator instanceof BaseLocator)
+            return DefaultLocateStrategy.locate(locator, index)
+
+        if(locator instanceof CompositeLocator){
+            if(context.isUseCssSelector())
+              return CompositeLocateStrategy.select(locator, index)
+
+            return CompositeLocateStrategy.locate(locator, index)
+        }
+
+        throw new InvalidLocatorException(i18nBundle.getMessage("LocatorProcessor.CannnotHandleLocator" , locator.getClass()))
+    }
+
     def String locate(WorkflowContext context, locator){
         if(locator == null)
             return ""
@@ -37,15 +54,6 @@ class LocatorProcessor{
             return CompositeLocateStrategy.locate(locator)
 
         }
-
-/*		if(locator instanceof JQLocator){
-			  return JQueryLocateStrategy.locate(locator);
-		}*/
-
-        //should not process here, let the walkTo() method to handle that since it can handle
-        //the relationship along its path and it has more information about objects and its children
-//        if(locator instanceof GroupLocator)
-//            return GroupLocateStrategy.locate(locator)
 
         throw new InvalidLocatorException(i18nBundle.getMessage("LocatorProcessor.CannnotHandleLocator" , locator.getClass()))
     }
