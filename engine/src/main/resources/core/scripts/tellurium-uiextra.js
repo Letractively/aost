@@ -68,11 +68,15 @@ var DecorateUiWorker = UiWorker.extend({
         this.decorator = new UiDecorator();
     },
 
-    work: function(context, elements) {
+    work: function(context, elements, delay) {
          if (elements != null && elements.length > 0) {
             this.decorator.cleanShowNode();
             for(var i; i<elements.length; i++){
-                this.decorator.showNode(elements[i]);
+//                teJQuery("#TE_ENGINE_SHOW_NODE").remove();
+                var elem = elements[i];
+                teJQuery(elem).append("<div id='TE_ENGINE_SHOW_NODE'>ShowMe</div>");
+                this.decorator.showNode(elem);
+                teJQuery(elem).find("#TE_ENGINE_SHOW_NODE").fadeIn(100).delay(delay).fadeOut(100);
             }
          }
     }
