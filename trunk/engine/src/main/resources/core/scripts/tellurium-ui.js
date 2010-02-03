@@ -3151,8 +3151,12 @@ var UiSNode = Class.extend({
     walkTo: function(context, uiid) {
         !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Node", this);
         var id = uiid.pop();
-        if (id == this.uid)
-            return this;
+        if (id == this.uid) {
+            var result = new Array();
+            result.push(this);
+
+            return result;
+        }  
         
         fbError("Come to the Wrong SNode, expected node is " + id + ", but actual is " + this.uid, this);
         throw new SeleniumError("Come to the Wrong SNode, expected node is " + id + ", but actual is " + this.uid);
@@ -3182,8 +3186,12 @@ var UiContainerSNode = UiSNode.extend({
     walkTo: function(context, uiid) {
         !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Container Node", this);
 
-        if (uiid.size() < 1)
-            return this;
+        if (uiid.size() < 1) {
+            var result = new Array();
+            result.push(this);
+
+            return result;
+        } 
 
         var cid = uiid.pop();
         var child = this.components.get(cid);
@@ -3224,8 +3232,12 @@ var UiListSNode = UiSNode.extend({
     walkTo: function(context, uiid) {
         !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Container Node", this);
 
-        if (uiid.size() < 1)
-            return this;
+        if (uiid.size() < 1) {
+            var result = new Array();
+            result.push(this);
+
+            return result;
+        }
 
         var cid = uiid.pop();
         var child = this.components.get(cid);
@@ -3250,19 +3262,26 @@ var UiListSNode = UiSNode.extend({
         if(this.components != null && this.components.length > 0){
             var keys = this.components.keySet();
             for(var i=0; i<keys.length; i++){
-                var child = this.components.get(keys[i]);
-                child.traverse(context, visitor);
+                var key = keys[i];
+                var avatar = this.components.get(key).avatar.valSet();
+                for(var j=0; j<avatar.size(); j++){
+                    var child = avatar[j];
+                    child.traverse(context, visitor);
+                }  
             }
         }
     },
     
     insert: function(context, node){        
-/*  TODO: may need to roll the avatar back for walkTo to work properly   
-    //no need for avatar anymore since we use rid
-        var avatar = new UiTemplateAvatar();
-        avatar.avatar = nodemap;
-        avatar.uid = uiobj.uid;*/
-        this.components.put(node.rid, node);
+        var uid = node.uid;
+        var rid = node.rid;
+        var avatar = this.components.get(uid);
+        if(avatar == null){
+            avatar = new UiTemplateAvatar();
+            avatar.uid = uid;
+        }
+        avatar.avatar.put(rid, node);
+        this.components.put(uid, avatar);
     }
 });
 
@@ -3283,28 +3302,65 @@ var UiTableSNode = UiSNode.extend({
     traverse: function(context, visitor){
         visitor.visit(context, this);
         if(this.headers != null && this.headers.length > 0){
-            var hkeys = this.headers.keySet();
-            for(var i=0; i<this.headers.length; i++){
-                var header = this.headers.get(hkeys[i]);
-                header.traverse(context, visitor);
+            var i;
+            var j;
+            var avatar;
+            var keys;
+            var child;
+
+            keys = this.headers.keySet();
+            for(i=0; i<this.headers.length; i++){
+                avatar = this.headers.get(keys[i]).avatar.valSet();
+                for(j=0; j<avatar.length; j++){
+                    child = avatar[j];
+                    child.traverse(context, visitor);
+                }
             }
         }
 
         if(this.components != null && this.components.length > 0){
-            var keys = this.components.keySet();
-            for(var j=0; j<keys.length; j++){
-                var child = this.components.get(keys[j]);
-                child.traverse(context, visitor);
+            keys = this.components.keySet();
+            for(i=0; i<keys.length; i++){
+                avatar = this.components.get(keys[i]).avatar.valSet();
+                for(j=0; j<avatar.length; j++){
+                    child = avatar[j];
+                    child.traverse(context, visitor);
+                }
             }
         }
 
         if(this.footers != null && this.footers.length > 0){
-            var fkeys = this.footers.keySet();
-            for(var k=0; k<this.footers.length; k++){
-                var footer = this.footers.get(fkeys[k]);
-                footer.traverse(context, visitor);
+            keys = this.footers.keySet();
+            for(i=0; i<this.footers.length; i++){
+                avatar = this.footers.get(keys[i]).avatar.valSet();
+                for(j=0; j<avatar.length; j++){
+                    child = avatar[j];
+                    child.traverse(context, visitor);
+                }
             }
         }
+    },
+    
+    walkTo: function(context, uiid) {
+        !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Container Node", this);
+
+        if (uiid.size() < 1) {
+            var result = new Array();
+            result.push(this);
+
+            return result;
+        }
+
+        var child = uiid.peek();
+
+        if(child.startsWith("_HEADER")){
+            return this.walkToHeader(context, uiid);
+        }else if(child.startsWith("_FOOTER")){
+            return this.walkToFooter(context, uiid);
+        } else {
+            return this.walkToElement(context, uiid);
+        }
+
     },
 
     walkToHeader: function(context, uiid){
@@ -3328,7 +3384,10 @@ var UiTableSNode = UiSNode.extend({
         if (uiid.size() < 1) {
             //not more child needs to be found
             !tellurium.logManager.isUseLog || fbLog("Return Table head ", cobj);
-            return cobj.avatar;
+            var result = new Array();
+            result.push(cobj);
+            return result;
+//            return cobj.avatar;
         } else {
             //recursively call walkTo until the object is found
             !tellurium.logManager.isUseLog || fbLog("Walk to Table head ", cobj);
@@ -3364,7 +3423,10 @@ var UiTableSNode = UiSNode.extend({
         if (uiid.size() < 1) {
             //not more child needs to be found
             !tellurium.logManager.isUseLog || fbLog("Return Table foot ", cobj);
-            return cobj.avatar;
+            var result = new Array();
+            result.push(cobj);
+            return result;
+//            return cobj.avatar;
         } else {
             //recursively call walkTo until the object is found
             !tellurium.logManager.isUseLog || fbLog("Walk to Table foot ", cobj);
@@ -3404,7 +3466,10 @@ var UiTableSNode = UiSNode.extend({
         if (uiid.size() < 1) {
             //not more child needs to be found
             !tellurium.logManager.isUseLog || fbLog("Return Table body ", cobj);
-            return cobj.avatar;
+            var result = new Array();
+            result.push(cobj);
+            return result;
+//            return cobj.avatar;
         } else {
             //recursively call walkTo until the object is found
             !tellurium.logManager.isUseLog || fbLog("Walk to Table body ", cobj);
@@ -3418,15 +3483,27 @@ var UiTableSNode = UiSNode.extend({
         }
     },
 
+    insertInto: function(context, hashtable, node){
+        var uid = node.uid;
+        var rid = node.rid;
+        var avatar = hashtable.get(uid);
+        if(avatar == null){
+            avatar = new UiTemplateAvatar();
+            avatar.uid = uid;
+        }
+        avatar.avatar.put(rid, node);
+        hashtable.put(uid, avatar);
+    },
+    
     insert: function(context, node){
         var rid = node.rid;
         
         if(rid.startsWith("_HEADER")){
-            this.headers.put(rid, node);
+            this.insertInto(context, this.headers, node);
         }else if(rid.startsWith("_FOOTER")){
-            this.footers.put(rid, node);
+            this.insertInto(context, this.footers, node);
         } else {
-            this.components.put(rid, node);
+            this.insertInto(context, this.components, node);
         }
     }
 });
@@ -3460,7 +3537,9 @@ UiSTree.prototype.insert = function(context, node){
         var pid = node.objRef.parent.fullUid();
         var uiid = getUiid(pid);
         var pnode = this.root.walkTo(context, uiid);
-        pnode.insert(context, node);
+        //TODO: if pnode returns an array, how to handle that
+        //pnode.insert(context, node);
+        pnode[0].insert(context, node);
     }
 };
 
