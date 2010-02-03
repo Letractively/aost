@@ -63,6 +63,21 @@ var ColorUiWorker = UiWorker.extend({
     }
 });
 
+var DecorateUiWorker = UiWorker.extend({
+    init: function() {
+        this.decorator = new UiDecorator();
+    },
+
+    work: function(context, elements) {
+         if (elements != null && elements.length > 0) {
+            this.decorator.cleanShowNode();
+            for(var i; i<elements.length; i++){
+                this.decorator.showNode(elements[i]);
+            }
+         }
+    }
+});
+
 var UiVisitor = Class.extend({
     init: function(){
 
@@ -78,3 +93,55 @@ var UiDumpVisitor = UiVisitor.extend({
         fbLog("UI Object " + uiobj.fullUid(), uiobj);
     }
 });
+
+function UiDecorator(){
+    this.bgColor = "#A9DA92";
+    this.showBgColor = "#00FFFF";
+//    this.showBgColor = "#FF00FF";
+    this.originalBgColor = "";
+    this.outLine = "2px solid #000";
+    this.showLine = "3px solid #0000FF";
+    this.noBgColor = "";
+    this.lastShownNode = null;
+    this.currentShownNode = null;
+}
+
+UiDecorator.prototype.backupBackground = function(node){
+   this.originalBgColor = node.style.backgroundColor;
+};
+
+UiDecorator.prototype.restoreBackground = function(node){
+   node.style.backgroundColor = this.originalBgColor;     
+};
+
+UiDecorator.prototype.addBackground = function(node){
+    node.style.backgroundColor = this.bgColor;
+};
+
+UiDecorator.prototype.removeBackground = function(node){
+    node.style.backgroundColor = this.noBgColor;
+};
+
+UiDecorator.prototype.addOutline = function(node){
+    node.style.outline = this.outLine;
+};
+
+UiDecorator.prototype.removeOutline = function(node){
+    node.style.outline = "";
+};
+
+UiDecorator.prototype.showNode = function(node){
+//    this.cleanShowNode(node);
+
+//    node.style.backgroundColor = this.showBgColor;
+    this.cleanShowNode();
+    node.style.outline = this.showLine;
+    this.currentShownNode = node;
+};
+
+UiDecorator.prototype.cleanShowNode = function(){
+    if(this.currentShownNode != null){
+//        this.currentShownNode.style.backgroundColor = this.noBgColor;
+        this.currentShownNode.style.outline = "";
+    }
+};

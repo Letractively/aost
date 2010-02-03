@@ -22,6 +22,7 @@ function TelluriumApi(cache){
     this.textWorker = new TextUiWorker();
     this.toggleWorker = new ToggleUiWorker();
     this.colorWorker = new ColorUiWorker();
+    this.decoratorWorker = new DecorateUiWorker();
 }
 
 TelluriumApi.prototype.cacheAwareLocate = function(locator){
