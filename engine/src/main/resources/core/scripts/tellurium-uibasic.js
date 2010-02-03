@@ -140,6 +140,11 @@ Uiid.prototype.preprocess = function(uid){
     return [uid];
 };
 
+//TODO: add RID internal presentation to DSL presentation converter
+//i.e., DSL Presentation Table[1][2], its internal RID presentation is Table._1_2
+//need a converter for:
+//                Table[1][2]  <---> Table._1_2
+
 function WorkflowContext(){
     this.refLocator = null;
     this.domRef = null;

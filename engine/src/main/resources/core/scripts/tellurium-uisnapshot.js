@@ -73,6 +73,14 @@ var UiSNode = Class.extend({
         this.domRef = null;
     },
 
+    getFullRid: function(){
+        if(this.parent != null){
+            return this.parent.getFullRid() + "." + this.rid;
+        }
+
+        return this.rid;
+    },
+
     walkTo: function(context, uiid) {
         !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Node", this);
         var id = uiid.pop();
@@ -142,6 +150,7 @@ var UiContainerSNode = UiSNode.extend({
 
     insert: function(context, node){
         var rid = node.rid;
+        node.parent = this;
         this.components.put(rid, node);
     }
 });
@@ -200,6 +209,7 @@ var UiListSNode = UiSNode.extend({
     insert: function(context, node){
         var uid = node.uid;
         var rid = node.rid;
+        node.parent = this;
         var avatar = this.components.get(uid);
         if(avatar == null){
             avatar = new UiTemplateAvatar();
@@ -411,6 +421,7 @@ var UiTableSNode = UiSNode.extend({
     insertInto: function(context, hashtable, node){
         var uid = node.uid;
         var rid = node.rid;
+        node.parent = this;
         var avatar = hashtable.get(uid);
         if(avatar == null){
             avatar = new UiTemplateAvatar();
@@ -467,3 +478,27 @@ UiSTree.prototype.insert = function(context, node){
         pnode[0].insert(context, node);
     }
 };
+
+var STreeVisitor = Class.extend({
+    init: function(){
+
+    },
+
+    visit: function(context, snode){
+
+    }
+});
+
+var UiHTMLSourceVisitor = STreeVisitor.extend({
+    init: function(){
+        this.htmlsource = new Hashtable();
+    },
+
+    visit: function(context, snode){
+        var domref = snode.domRef;
+        var html = teJQuery(domref).outerHTML();
+        var frid = snode.getFullRid();
+        this.htmlsource.put(frid, html);
+        !tellurium.logManager.isUseLog || fbLog("HTML Source for " + frid, html);
+    }
+});
