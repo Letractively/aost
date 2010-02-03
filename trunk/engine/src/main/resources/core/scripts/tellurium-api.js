@@ -137,7 +137,9 @@ TelluriumApi.prototype.uncheck = function(locator){
 };
 
 TelluriumApi.prototype.isElementPresent = function(locator){
-    var element = this.cacheAwareLocate(locator);
+    var element = selenium.browserbot.findElementOrNull(locator);
+//    this.cacheAwareLocate(locator);
+    !tellurium.logManager.isUseLog || fbLog("Found element for isElementPresented", element);
     
     return element != null;
 };
