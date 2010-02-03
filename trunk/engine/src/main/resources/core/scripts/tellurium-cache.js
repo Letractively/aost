@@ -347,26 +347,6 @@ TelluriumCache.prototype.getCachedUiElement = function(uid){
     return null;
 };
 
-function UiModuleLocatingResponse(){
-    //ID for the UI module
-    this.id = null;
-
-    //Successfully found or not
-    this.found = false;
-
-    //whether this the UI module used closest Match or not
-    this.relaxed = false;
-
-    //number of matched snapshots
-    this.matches = 0;
-
-    //scaled score (0-100) for percentage of match
-    this.score = 0;
-
-    //details for the relax, i.e., closest match
-    this.relaxDetails = null;
-}
-
 TelluriumCache.prototype.useUiModule = function(jsonarray){
     var uim = new UiModule();
     !tellurium.logManager.isUseLog || fbLog("Input JSON Array for UI Module: ", jsonarray);
