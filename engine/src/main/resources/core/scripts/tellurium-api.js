@@ -647,3 +647,17 @@ TelluriumApi.prototype.useEngineLog = function(isUse){
     if(firebug != undefined)
         firebug.env.debug = isUse;
 };
+
+TelluriumApi.prototype.getHTMLSource = function(uid) {
+    var stree = this.cache.takeSnapshot(uid);
+    if(stree == null){
+        fbError("Cannot find UI module " + uid + " from cache", this.cache);
+        throw new SeleniumError("Cannot find UI module " + uid + " from cache");
+    }
+
+    var visitor = UiHTMLSourceVisitor();
+    var context = new WorkflowContext();
+    stree.traverse(context, visitor);
+
+    return visitor.htmlsource;
+};

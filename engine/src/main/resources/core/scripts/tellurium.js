@@ -411,6 +411,7 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("getTeTableRowNum", true, "NUMBER");
     this.registerApi("getTeTableFootColumnNum", true, "NUMBER");
     this.registerApi("getTeTableHeaderColumnNum", true, "NUMBER");
+    this.registerApi("getHTMLSource", true, "MAP");
 };
 
 Tellurium.prototype.flipLog = function(){
@@ -792,7 +793,7 @@ function CacheAwareLocator(){
 
     //locator portion
 //    this.locator = null;
-};
+}
 
 Tellurium.prototype.locateElementWithCacheAware = function(locator, inDocument, inWindow){
     var element = null;
