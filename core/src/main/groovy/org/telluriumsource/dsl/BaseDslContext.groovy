@@ -1245,8 +1245,9 @@ abstract class BaseDslContext extends GlobalDslContext {
 
       def obj = walkToWithException(context, uid)
       if(obj != null){
-        extension.showUi(context, uid, delay)
+        extension.showUi(context, uid)
         pause(delay)
+        extension.cleanUi(context, uid)
       }
     }
   }
