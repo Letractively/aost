@@ -33,7 +33,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     }
 
     @Test
-    public void testJsonfyUiModule(){
+    public void testStringifyUiModule(){
         String json = jlm.toString("Form");
         System.out.println(json);
     }
@@ -48,14 +48,6 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     public void testValidateUiModule(){
         jlm.validate("Form");
         jlm.validate("ProblematicForm");
-    }
-
-    @Test
-    public void testShow(){
-        useCache(true);        
-        jlm.show("Form", 5000);
-        jlm.show("Form.Password", 5000);
-        jlm.show("Form.Username.Input", 5000);
     }
 
     @Test
@@ -172,8 +164,15 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         useEngineLog(true);
         useTelluriumApi(true);
         useCache(true);
-        connect("JettyLogon");
         jlm.getHTMLSource("Form");
+    }
+
+    @Test
+    public void testShowUi(){
+        useEngineLog(true);
+        useTelluriumApi(true);
+        useCache(true);
+        jlm.show("Form", 5000);
     }
 
     @AfterClass
