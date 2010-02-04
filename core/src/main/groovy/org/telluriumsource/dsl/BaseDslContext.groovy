@@ -1383,13 +1383,21 @@ abstract class BaseDslContext extends GlobalDslContext {
     return sb.toString()
   }
 
-  public void getHTMLSource(String uid){
+  public Map getHTMLSourceResponse(String uid){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
-    def out = extension.getHTMLSource(context, uid);
-    Map map = parseSeleniumJSONReturnValue(out);
+    walkToWithException(context, uid)
+    def out = extension.getHTMLSource(context, uid)
+
+    return parseSeleniumJSONReturnValue(out);
+  }
+
+  public void getHTMLSource(String uid){
+    Map map =  getHTMLSourceResponse(uid);
     if(map != null && map.size() > 0){
       map.each{String key, String val ->
-        println(key + ": " + val);  
+        println(key + ": ");
+        println("\t" + val);
+        println("");
       }
     }
   }
