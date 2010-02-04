@@ -697,7 +697,8 @@ var UiSimpleTipCleaner = STreeVisitor.extend({
         var elem = snode.domRef;
         var frid = snode.getFullRid();
 
-        teJQuery(elem).removeData("simpletip");
+//        teJQuery(elem).removeData("simpletip");
+        teJQuery(elem).find(" > div.tooltip").remove();
 
         !tellurium.logManager.isUseLog || fbLog("Clean simple tip for " + frid, elem);
     }
