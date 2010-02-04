@@ -22,6 +22,10 @@
                      .addClass(conf.baseClass)
                      .addClass( (conf.fixed) ? conf.fixedClass : '' )
                      .addClass( (conf.persistent) ? conf.persistentClass : '' )
+                     .css({'z-index': '2', 'position': 'absolute', 'padding': '10', 'color': '#303030', 
+                            'background-color': '#f5f5b5', 'border': '1', 'solid': '#DECA7E',
+                            'font-family': 'sans-serif', 'font-size': '12', 'line-height': '18px', 'text-align': 'center'
+                          })
                      .html(conf.content)
                      .appendTo(elem);
       
