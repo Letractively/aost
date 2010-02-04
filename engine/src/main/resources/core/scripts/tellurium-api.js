@@ -673,7 +673,7 @@ TelluriumApi.prototype.getHTMLSource = function(uid) {
         throw new SeleniumError("Cannot find UI module " + uid + " from cache");
     }
 
-    var visitor = UiHTMLSourceVisitor();
+    var visitor = new UiHTMLSourceVisitor();
     var context = new WorkflowContext();
     stree.traverse(context, visitor);
 
