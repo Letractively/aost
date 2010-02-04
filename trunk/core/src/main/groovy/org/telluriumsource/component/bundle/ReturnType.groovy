@@ -14,5 +14,6 @@ public enum ReturnType {
   STRING,
   BOOLEAN,
   ARRAY,
+  MAP,
   OBJECT
 }
