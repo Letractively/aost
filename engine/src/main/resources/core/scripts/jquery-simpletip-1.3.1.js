@@ -11,7 +11,7 @@
  * Version : 1.3.1
  * Released: February 5, 2009 - 11:04am
  */
-(function(teJQuery){
+(function($){
 
    function Simpletip(elem, conf)
    {
