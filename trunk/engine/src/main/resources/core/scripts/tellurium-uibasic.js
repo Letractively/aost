@@ -150,7 +150,20 @@ function WorkflowContext(){
     this.domRef = null;
     this.alg = null;
     this.skipNext = false;
+    this.context = null;
 }
+
+WorkflowContext.prototype.setContext = function(key, val){
+    if(this.context == null)
+        this.context = new Hashtable();
+    this.context.put(key, val);
+};
+
+WorkflowContext.prototype.getContext = function(key){
+    if(this.context == null)
+        return null;
+    return this.context.get(key);
+};
 
 //Base locator
 function BaseLocator(){

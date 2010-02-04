@@ -22,7 +22,8 @@ function TelluriumApi(cache){
     this.textWorker = new TextUiWorker();
     this.toggleWorker = new ToggleUiWorker();
     this.colorWorker = new ColorUiWorker();
-    this.decoratorWorker = new DecorateUiWorker();
+//    this.decoratorWorker = new DecorateUiWorker();
+    this.decorator = new UiDecorationVisitor();
 }
 
 TelluriumApi.prototype.cacheAwareLocate = function(locator){
@@ -626,12 +627,12 @@ TelluriumApi.prototype.getAllTableBodyText = function(uid) {
     }
 };*/
 
-TelluriumApi.prototype.showUi = function(uid, delay){
-    var context = new WorkflowContext();
-    var elist = this.cache.getIndexedTree(context, uid);
+//TelluriumApi.prototype.showUi = function(uid, delay){
+//    var context = new WorkflowContext();
+//    var elist = this.cache.getIndexedTree(context, uid);
 //    this.toggleWorker.work(context, elist, delay);
 //    this.colorWorker.work(context, elist, delay);
-    this.decoratorWorker.work(context, elist, delay);
+//    this.decoratorWorker.work(context, elist, delay);
 /*
     var elist = tellurium.getUiElementAndDescendant(uid);
     
@@ -658,6 +659,19 @@ TelluriumApi.prototype.showUi = function(uid, delay){
 
     }
     */
+//};
+
+TelluriumApi.prototype.showUi = function(uid, delay){
+    var stree = this.cache.takeSnapshot(uid);
+    if(stree == null){
+        fbError("Cannot find UI module " + uid + " from cache", this.cache);
+        throw new SeleniumError("Cannot find UI module " + uid + " from cache");
+    }
+
+    var context = new WorkflowContext();
+    context.setContext("DELAY", delay);
+    stree.traverse(context, this.decorator);
+    this.decorator.cleanShowNode();
 };
 
 TelluriumApi.prototype.useEngineLog = function(isUse){

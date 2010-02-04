@@ -592,3 +592,24 @@ var UiHTMLSourceVisitor = STreeVisitor.extend({
         !tellurium.logManager.isUseLog || fbLog("HTML Source for " + frid, html);
     }
 });
+
+var UiDecorationVisitor = STreeVisitor.extend({
+    init: function(){
+        this.decorator = new UiDecorator();
+    },
+
+    visit: function(context, snode){
+        var elem = snode.domRef;
+        var frid = snode.getFullRid();
+//        var delay = context.getContext("DELAY");
+
+        this.decorator.cleanShowNode();
+        teJQuery(elem).append("<div id='TE_ENGINE_SHOW_NODE'>" + frid + "</div>");
+        this.decorator.showNode(elem);
+/*        if(delay != null)
+            teJQuery(elem).find("#TE_ENGINE_SHOW_NODE").fadeIn(100).delay(500).fadeOut(100);*/
+        !tellurium.logManager.isUseLog || fbLog("Decoration for " + frid, elem);
+
+        teJQuery(elem).find("#TE_ENGINE_SHOW_NODE").remove();
+    }
+});
