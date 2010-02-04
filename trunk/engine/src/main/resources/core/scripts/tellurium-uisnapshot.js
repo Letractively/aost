@@ -598,7 +598,7 @@ var STreeChainVisitor = Class.extend({
 
     visit: function(context, snode){
         for(var i=0; i<this.chain.length; i++){
-            this.chain[i].work(context, snode);
+            this.chain[i].visit(context, snode);
         }
     }
 });
