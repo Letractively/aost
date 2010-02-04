@@ -172,7 +172,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         useEngineLog(true);
         useTelluriumApi(true);
         useCache(true);
-        jlm.show("Form", 5000);
+        jlm.show("Form", 10000);
     }
 
     @AfterClass
