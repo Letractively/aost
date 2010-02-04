@@ -579,6 +579,30 @@ var STreeVisitor = Class.extend({
     }
 });
 
+var STreeChainVisitor = Class.extend({
+    init: function(){
+        this.chain = new Array();
+    },
+
+    removeAll: function(){
+        this.chain = new Array();
+    },
+
+    addVisitor: function(visitor){
+        this.chain.push(visitor);
+    },
+
+    size: function(){
+        return this.chain.length;
+    },
+
+    visit: function(context, snode){
+        for(var i=0; i<this.chain.length; i++){
+            this.chain[i].work(context, snode);
+        }
+    }
+});
+
 var UiHTMLSourceVisitor = STreeVisitor.extend({
     init: function(){
         this.htmlsource = new Hashtable();
@@ -593,6 +617,7 @@ var UiHTMLSourceVisitor = STreeVisitor.extend({
     }
 });
 
+/*
 var UiDecorationVisitor = STreeVisitor.extend({
     init: function(){
         this.decorator = new UiDecorator();
@@ -606,10 +631,74 @@ var UiDecorationVisitor = STreeVisitor.extend({
         this.decorator.cleanShowNode();
         teJQuery(elem).append("<div id='TE_ENGINE_SHOW_NODE'>" + frid + "</div>");
         this.decorator.showNode(elem);
-/*        if(delay != null)
-            teJQuery(elem).find("#TE_ENGINE_SHOW_NODE").fadeIn(100).delay(500).fadeOut(100);*/
+*//*        if(delay != null)
+            teJQuery(elem).find("#TE_ENGINE_SHOW_NODE").fadeIn(100).delay(500).fadeOut(100);*//*
         !tellurium.logManager.isUseLog || fbLog("Decoration for " + frid, elem);
 
         teJQuery(elem).find("#TE_ENGINE_SHOW_NODE").remove();
+    }
+});
+*/
+
+var UiCollectVisitor = STreeVisitor.extend({
+    init: function(){
+        this.elements = new Array();
+    },
+
+    visit: function(context, snode){
+        var elem = snode.domRef;
+        this.elements.push(elem);
+
+        !tellurium.logManager.isUseLog || fbLog("Collect " + snode.getFullRid(), elem);
+    }
+});
+
+var UiOutlineVisitor = STreeVisitor.extend({
+    init: function(){
+//        this.outLine = "2px solid #000";
+        this.outLine = "3px solid #0000FF";
+    },
+    
+    visit: function(context, snode){
+        var elem = snode.domRef;     
+        elem.style.outline = this.outLine;
+
+        !tellurium.logManager.isUseLog || fbLog("Add outline for " + snode.getFullRid(), elem);
+    }
+});
+
+var UiOutlineCleaner = STreeVisitor.extend({
+    visit: function(context, snode){
+        var elem = snode.domRef;
+        elem.style.outline = "";
+
+        !tellurium.logManager.isUseLog || fbLog("Clean outline for " + snode.getFullRid(), elem);
+    } 
+});
+
+var UiSimpleTipVisitor = STreeVisitor.extend({
+
+    visit: function(context, snode){
+        var elem = snode.domRef;
+        var frid = snode.getFullRid();
+
+        teJQuery(elem).simpletip({
+            // Configuration properties
+            content: frid,
+            fixed: false
+        });
+
+        !tellurium.logManager.isUseLog || fbLog("Add simple tip for " + frid, elem);
+    }
+});
+
+var UiSimpleTipCleaner = STreeVisitor.extend({
+    visit: function(context, snode){
+        var elem = snode.domRef;
+        var frid = snode.getFullRid();
+
+        teJQuery(elem).removeData("simpletip");
+
+        !tellurium.logManager.isUseLog || fbLog("Clean simple tip for " + frid, elem);
     }
 });

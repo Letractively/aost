@@ -396,6 +396,7 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("isUiModuleCached", false, "BOOLEAN");
     this.registerApi("toggle", true, "VOID");
     this.registerApi("showUi", false, "VOID");
+    this.registerApi("cleanUi", false, "VOID");
     this.registerApi("deleteAllCookiesByJQuery", false, "VOID");
     this.registerApi("deletelCookieByJQuery", false, "VOID");
     this.registerApi("setCookieByJQuery", false, "VOID");
