@@ -157,6 +157,8 @@ TelluriumTestCase.prototype.testLogonUiModule = function(){
     var alg = new UiAlg();
     var dom = teJQuery("html");
     alg.santa(uim, dom);
+    tellurium.cache.cacheOption = true;
+    tellurium.cache.addToCache("Form", uim);
     var context = new WorkflowContext();
     context.alg = alg;
     var uiid = new Uiid();
@@ -166,6 +168,7 @@ TelluriumTestCase.prototype.testLogonUiModule = function(){
     var uinput = uim.walkTo(context, uiid.convertToUiid("Form.Username.Input"));
     var pinput = uim.walkTo(context, uiid.convertToUiid("Form.Password.Input"));
     var smt = uim.walkTo(context, uiid.convertToUiid("Form.Submit"));
+    tellurium.teApi.getHTMLSource("Form");
 };
 
 TelluriumTestCase.prototype.testLogoUiModule = function(){
@@ -271,7 +274,7 @@ TelluriumTestCase.prototype.testUiCache = function(){
 TelluriumTestCase.prototype.testSuite = function(){
 //    this.testUiid();
 //    this.testPrie();
-//    this.testLogonUiModule(); 
+    this.testLogonUiModule(); 
 //    this.testEditPageModule();
 //    this.testLogicalContainerModule();
 //    this.testTelluriumIssueModule();
@@ -283,7 +286,7 @@ TelluriumTestCase.prototype.testSuite = function(){
 //    this.testExpandUiModule();
 //    this.testErisUiModule();
 //    this.testUiCache();
-    this.testRepeat();
+//    this.testRepeat();
 };
                                    
 var teTestCase = new TelluriumTestCase();
