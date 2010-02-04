@@ -23,7 +23,10 @@ function TelluriumApi(cache){
     this.toggleWorker = new ToggleUiWorker();
     this.colorWorker = new ColorUiWorker();
 //    this.decoratorWorker = new DecorateUiWorker();
-    this.decorator = new UiDecorationVisitor();
+//    this.outlineVisitor = new UiOutlineVisitor();
+//    this.collectVisitor = new UiCollectVisitor();
+//    this.tipVisitor = new UiSimpleTipVisitor();
+//    this.chainVisitor = new STreeChainVisitor();
 }
 
 TelluriumApi.prototype.cacheAwareLocate = function(locator){
@@ -660,8 +663,11 @@ TelluriumApi.prototype.getAllTableBodyText = function(uid) {
     }
     */
 //};
-
 TelluriumApi.prototype.showUi = function(uid, delay){
+
+};
+
+TelluriumApi.prototype.showUi = function(uid){
     var stree = this.cache.takeSnapshot(uid);
     if(stree == null){
         fbError("Cannot find UI module " + uid + " from cache", this.cache);
@@ -669,9 +675,30 @@ TelluriumApi.prototype.showUi = function(uid, delay){
     }
 
     var context = new WorkflowContext();
-    context.setContext("DELAY", delay);
-    stree.traverse(context, this.decorator);
-    this.decorator.cleanShowNode();
+    var outlineVisitor = new UiOutlineVisitor();
+//    var collectVisitor = new UiCollectVisitor();
+    var tipVisitor = new UiSimpleTipVisitor();
+    var chainVisitor = new STreeChainVisitor();
+//    chainVisitor.addVisitor(collectVisitor);
+    chainVisitor.addVisitor(outlineVisitor);
+    chainVisitor.addVisitor(tipVisitor);
+    stree.traverse(context, chainVisitor);
+};
+
+TelluriumApi.prototype.cleanUi = function(uid){
+    var stree = this.cache.takeSnapshot(uid);
+    if(stree == null){
+        fbError("Cannot find UI module " + uid + " from cache", this.cache);
+        throw new SeleniumError("Cannot find UI module " + uid + " from cache");
+    }
+
+    var context = new WorkflowContext();
+    var outlineCleaner = new UiOutlineCleaner();
+    var tipCleaner = new UiSimpleTipCleaner();
+    var chainVisitor = new STreeChainVisitor();
+    chainVisitor.addVisitor(outlineCleaner);
+    chainVisitor.addVisitor(tipCleaner);
+    stree.traverse(context, chainVisitor);
 };
 
 TelluriumApi.prototype.useEngineLog = function(isUse){
