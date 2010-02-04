@@ -574,7 +574,82 @@ Example:
    JettyLogonModule jlm = new JettyLogonModule();       
    jlm.show("Form", 5000);
 }}}
+
+== getHTMLSource ==
+
+Use {{{getHTMLSource}}}, users can get back the runtime html source for a UI module. Tellurium provided two methods for this purpose.
+
+{{{
+public Map getHTMLSourceResponse(String uid);
+
+public void getHTMLSource(String uid);
+}}}
+
+The first method get back the html source as a uid-to-html map and the second one simply print out the html source on the console. Be aware, {{{getHTMLSource}}} is only available in Tellurium new APIs.
+
+Example:
+
+{{{
+    @Test
+    public void testGetHTMLSource(){
+        useEngineLog(true);
+        useTelluriumApi(true);
+        useCache(true);
+        connect("JettyLogon");
+        jlm.getHTMLSource("Form");
+    }
+}}}
  
+and the output is as follows:
+
+{{{
+Form.Username: 
+	<tr>
+            <td>Username:</td>
+            <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
+        </tr>
+
+Form.Username.Label: 
+	<td>Username:</td>
+
+Form: 
+	<form method="POST" action="j_security_check">
+    <table border="0" cellpadding="1" cellspacing="2">
+        <tbody><tr>
+            <td>Username:</td>
+            <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input name="submit" value="Login" type="submit">
+            </td>
+        </tr>
+    </tbody></table>
+</form>
+
+Form.Password: 
+	<tr>
+            <td>Password:</td>
+            <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
+        </tr>
+
+Form.Username.Input: 
+	<input size="12" value="" name="j_username" maxlength="25" type="text">
+
+Form.Password.Label: 
+	<td>Password:</td>
+
+Form.Submit: 
+	<input name="submit" value="Login" type="submit">
+
+Form.Password.Input: 
+	<input size="12" value="" name="j_password" maxlength="25" type="password">
+
+}}}
 == type and keyType ==
 
 type and keyType now accept different types of objects and convert them to a String automatically by calling the toString() method. For example, you can use the following commands:
