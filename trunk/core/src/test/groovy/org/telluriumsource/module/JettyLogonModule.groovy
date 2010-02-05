@@ -40,6 +40,10 @@ public class JettyLogonModule extends DslContext {
   """
   
   public void defineUi() {
+    ui.Container(uid: "Welcome", clocator: [tag: "div", class: "welcome"]){
+      UrlLink(uid: "MenuLink", clocator: [text: "Menu Nav"])  
+    }
+
     ui.Form(uid: "Form", clocator: [tag: "form"]){
         Container(uid: "Username", clocator: [tag: "tr"]){
             TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
