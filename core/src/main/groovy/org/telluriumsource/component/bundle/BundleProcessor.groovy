@@ -130,9 +130,9 @@ public class BundleProcessor implements Configurable {
       if(state != null){
         state.setLocatingResult(response);
       }else{
-        state = new UiModuleState();
-        state.id = response.id;
-        state.published = true;
+        state = new UiModuleState(response.id, true);
+//        state.id = response.id;
+//        state.published = true;
         state.setLocatingResult(response);
       }
 

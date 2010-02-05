@@ -12,7 +12,7 @@ import org.telluriumsource.dsl.DslContext
 class MenuNavModule extends DslContext {
 
   public void defineUi(){
-    ui.Container(uid: "mainnav", clocator: [tag: "div", 'class': "mainMenu"], group: true) {
+    ui.Container(uid: "mainnav", clocator: [tag: "div", class: "mainMenu"], group: true) {
       UrlLink(uid: "events", clocator: [text: "Events"])
       UrlLink(uid: "suppliers", clocator: [text: "Suppliers"])
       UrlLink(uid: "venues", clocator: [text: "Venues"])
@@ -21,7 +21,7 @@ class MenuNavModule extends DslContext {
       UrlLink(uid: "help", clocator: [text: "Help"])
     }
 
-    ui.Container(uid: "mainnav2", clocator: [tag: "div", 'class': "mainMenu"]) {
+    ui.Container(uid: "mainnav2", clocator: [tag: "div", class: "mainMenu"]) {
       UrlLink(uid: "events", clocator: [text: "Events"])
       UrlLink(uid: "suppliers", clocator: [text: "Suppliers"])
       UrlLink(uid: "venues", clocator: [text: "Venues"])
