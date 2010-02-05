@@ -710,14 +710,14 @@ var UiSimpleTipVisitor = STreeVisitor.extend({
         var elem = snode.domRef;
         var frid = snode.getFullRid();
 
-        if(snode.isLeaf()){
+//        if(snode.isLeaf()){
             teJQuery(elem).simpletip({
                 // Configuration properties
                 content: frid,
                 fixed: false
             });
             !tellurium.logManager.isUseLog || fbLog("Add simple tip for " + frid, elem);
-        }
+//        }
     }
 });
 
@@ -726,7 +726,7 @@ var UiSimpleTipCleaner = STreeVisitor.extend({
         var elem = snode.domRef;
         var frid = snode.getFullRid();
 
-        teJQuery(elem).find(" > div.tooltip").remove();
+        teJQuery(elem).find(" > div.teengine.tooltip").remove();
 
         !tellurium.logManager.isUseLog || fbLog("Clean simple tip for " + frid, elem);
     }
