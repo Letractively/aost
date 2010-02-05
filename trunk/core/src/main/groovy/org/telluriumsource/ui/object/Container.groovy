@@ -142,8 +142,9 @@ class Container extends UiObject {
 
         //if not child listed, return itself
         if(uiid.size() < 1){
-            if(this.locator != null && this.useGroupInfo){
+            if(this.locator != null){ // && this.useGroupInfo
                 groupLocating(context)
+                context.noMoreProcess = true;
             }
 
             return this

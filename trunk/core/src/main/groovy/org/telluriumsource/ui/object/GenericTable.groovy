@@ -633,8 +633,10 @@ public class GenericTable extends Container{
 //        if (uiid.size() < 1)
 //            return this
         if(uiid.size() < 1){
-            if(this.locator != null && this.useGroupInfo){
+//            if(this.locator != null && this.useGroupInfo){
+            if(this.locator != null){
                 groupLocating(context)
+                context.noMoreProcess = true;
             }
 
             return this

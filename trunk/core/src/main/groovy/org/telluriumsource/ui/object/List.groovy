@@ -302,8 +302,10 @@ class List extends Container {
 //            return this
         //if not child listed, return itself
         if(uiid.size() < 1){
-            if(this.locator != null && this.useGroupInfo){
-                groupLocating(context)
+//            if(this.locator != null && this.useGroupInfo){
+            if(this.locator != null){
+                groupLocating(context)  
+                context.noMoreProcess = true;
             }
 
             return this
