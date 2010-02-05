@@ -68,7 +68,6 @@ var UiObject = Class.extend({
 
     locate: function(uialg) {
         uialg.locateInAllSnapshots(this);
-        //need to push all its children into the object queue
     },
 
     locateSelf: function(context, domRef){
@@ -95,11 +94,19 @@ var UiObject = Class.extend({
         }
     },
 
-    buildSNode: function(context, rid, domref){
+    buildPid: function(pid, rid){
+        if(pid == null)
+            return rid;
+        
+        return pid + "." + rid;
+    },
+
+    buildSNode: function(context, pid, rid, domref){
         var node = new UiSNode();
         node.objRef = this;
         node.rid = rid;
-        node.uid = this.uid;
+        node.pid = pid;
+//        node.uid = this.uid;
 /*        if(this.domRef != null){
             node.domRef = this.domRef;
         }else{
@@ -450,12 +457,13 @@ var UiContainer = UiObject.extend({
         }
     },
     
-    buildSNode: function(context, rid, domref){
+    buildSNode: function(context, pid, rid, domref){
 
         var node = new UiContainerSNode();
         node.objRef = this;
         node.rid = rid;
-        node.uid = this.uid;
+//        node.uid = this.uid;
+        node.pid = pid;
         node.domRef = domref;
         
         if(domref != null && this.components.size() > 0){
@@ -467,7 +475,8 @@ var UiContainer = UiObject.extend({
                 if(cdomref == null){
                     cdomref = this.locateChild(context, domref, child);
                 }
-                var csdata = new UiSData(key, key, child, cdomref);
+//                var csdata = new UiSData(key, key, child, cdomref);
+                var csdata = new UiSData(this.buildPid(pid, rid), key, child, cdomref);
                 var alg = context.alg;
                 alg.addChildUiObject(csdata);
             }
@@ -608,35 +617,74 @@ var UiRepeat = UiContainer.extend({
         this.components = new Hashtable();
     },
 
-    buildSNode: function(context, rid, domref){
-
+    buildSNode: function(context, pid, rid, domref){
         var node = new UiContainerSNode();
         node.objRef = this;
         node.rid = rid;
-        node.uid = this.uid;
+        node.pid = pid;
         node.domRef = domref;
 
-        if(domref != null && this.components.size() > 0){
+        var selves = this.locateSelf(context);
+        if (selves != null && selves.length > 0) {
             var keys = this.components.keySet();
-            for(var i=0; i<keys.length; i++){
-                var key = keys[i];
-                var child = this.components.get(key);
-                var cdomref = child.domRef;
-                if(cdomref == null){
-                    cdomref = this.locateChild(context, domref, child);
+            var alg = context.alg;
+            var npid = this.buildPid(pid, rid);
+
+            for (var i = 0; i < selves.length; i++) {
+                var cnode = new UiContainerSNode();
+                cnode.objRef = this;
+//                    cnode.rid = rid + "_" + (i-1);
+                cnode.rid = "_" + (i - 1);
+                cnode.pid = npid;
+                cnode.domRef = selves[i];
+                cnode.parent = node;
+
+                for (var j = 0; j < keys.length; j++) {
+                    var child = this.components.get(keys[j]);
+                    var cdmf = this.locateChild(context, selves[i], child);
+                    var csdata = new UiSData(this.buildPid(npid, cnode.rid), keys[j], child, cdmf);
+
+                    alg.addChildUiObject(csdata);
                 }
-                var csdata = new UiSData(key, key, child, cdomref);
-                var alg = context.alg;
-                alg.addChildUiObject(csdata);
+            }
+
+            for (i = 0; i < selves.length; i++) {
             }
         }
 
         return node;
     },
 
+    locateSelf: function(context){
+        !tellurium.logManager.isUseLog || fbLog("Calling locateSelf for " + this.uid, this);
+        if (this.locator != null && context.domRef != null) {
+            var alg = context.alg;
+            var sel = alg.buildSelector(this.locator);
+            var $found = teJQuery(context.domRef).find(sel);
+            !tellurium.logManager.isUseLog || fbLog("Context domRef is ", context.domRef);
+            !tellurium.logManager.isUseLog || fbLog("Found elements for CSS " + sel, $found.get());
+            if ($found.size() > 1) {
+                //Use lookAHead to eliminate multiple matches
+                $found = alg.lookAhead(this, $found);
+                !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + this.uid, $found.get());
+            }
+
+            return $found.get();
+        }
+
+
+        return null;
+    },
+
     getRepeatNum: function(context){
         !tellurium.logManager.isUseLog || fbLog("Calling getRepeatNum for " + this.uid, this);
-        if (this.locator != null && context.domRef != null) {
+        var lst = this.locateSelf(context);
+        if(lst == null)
+            return 0;
+
+        return lst.length;
+        
+/*        if (this.locator != null && context.domRef != null) {
             var alg = context.alg;
             var sel = alg.buildSelector(this.locator);
             var $found = teJQuery(context.domRef).find(sel);
@@ -652,7 +700,7 @@ var UiRepeat = UiContainer.extend({
         }
 
         //return 0 if cannot find the Repeat
-        return 0;
+        return 0;*/
     },
 
     walkTo: function(context, uiid){
@@ -858,14 +906,17 @@ var UiList = UiContainer.extend({
         
     },
 
-    buildSNode: function(context, rid, domref){
+    buildSNode: function(context, pid, rid, domref){
 
-        var node = new UiListSNode();
+//        var node = new UiListSNode();
+        var node = new UiContainerSNode();
         node.objRef = this;
         node.rid = rid;
-        node.uid = this.uid;
+        node.pid = pid;
         node.domRef = domref;
-        
+
+        var npid = this.buildPid(pid, rid);
+
         if(domref != null && this.components.size() > 0){
             var keys = this.components.keySet();
             var alg = context.alg;
@@ -882,7 +933,7 @@ var UiList = UiContainer.extend({
                     if ($fnd.size() == 1) {
                         !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $fnd.get(0));
                         var cdomref = this.locateChild(context, $fnd.get(0), child);
-                        var csdata = new UiSData(key, this.getRid(nindex), child, cdomref);
+                        var csdata = new UiSData(npid, this.getRid(nindex), child, cdomref);
                         alg.addChildUiObject(csdata);
                     }else if($fnd.size() == 0){
                         fbError("Cannot find UI element " + child.uid, child);
@@ -904,7 +955,7 @@ var UiList = UiContainer.extend({
                             if ($found.size() == 1) {
                                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
                                 var cdrf = this.locateChild(context, $found.get(0), child);
-                                var csd = new UiSData(key, tid, child, cdrf);
+                                var csd = new UiSData(npid, tid, child, cdrf);
                                 alg.addChildUiObject(csd);
                             } else if ($found.size() == 0) {
                                 fbError("Cannot find UI element " + child.uid, child);
@@ -1340,7 +1391,7 @@ var UiTable = UiContainer.extend({
         return $found.size();       
     },
 
-    buildSNodeForHeader: function(context, domref){
+    buildSNodeForHeader: function(context, npid, domref){
         if(domref != null && this.headers.size() > 0){
             var keys = this.headers.keySet();
             var alg = context.alg;
@@ -1357,7 +1408,7 @@ var UiTable = UiContainer.extend({
                     if ($fnd.size() == 1) {
                         !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $fnd.get(0));
                         var cdomref = this.locateChild(context, $fnd.get(0), child);
-                        var csdata = new UiSData(key, this.getHeaderRid(nindex), child, cdomref);
+                        var csdata = new UiSData(npid, this.getHeaderRid(nindex), child, cdomref);
                         alg.addChildUiObject(csdata);
                     }else if($fnd.size() == 0){
                         fbError("Cannot find UI element " + child.uid, child);
@@ -1379,7 +1430,7 @@ var UiTable = UiContainer.extend({
                             if ($found.size() == 1) {
                                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
                                 var cdrf = this.locateChild(context, $found.get(0), child);
-                                var csd = new UiSData(key, rid, child, cdrf);
+                                var csd = new UiSData(npid, rid, child, cdrf);
                                 alg.addChildUiObject(csd);
                             } else if ($found.size() == 0) {
                                 fbError("Cannot find UI element " + child.uid, child);
@@ -1398,7 +1449,7 @@ var UiTable = UiContainer.extend({
 
     },
 
-    buildSNodeForBody: function(context, domref){
+    buildSNodeForBody: function(context, npid, domref){
         if(domref != null && this.components.size() > 0){
             var alg = context.alg;
             var rownum = this.getTableRowNum(context);
@@ -1408,7 +1459,7 @@ var UiTable = UiContainer.extend({
                     var pair = this.findBodyKeyTemplatePair(i, j);
                     //we only care about the UI elements that have templates defined, otherwise, ignore them    
                     if(pair != null){
-                        var tid = pair.key;
+//                        var tid = pair.key;
                         var rid = this.getBodyRid(i, j);
                         var child = pair.val;
                         var sel = this.getCellSelector(i, j);
@@ -1417,7 +1468,7 @@ var UiTable = UiContainer.extend({
                         if ($found.size() == 1) {
                             !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
                             var cdomref = this.locateChild(context, $found.get(0), child);
-                            var csdata = new UiSData(tid, rid, child, cdomref);
+                            var csdata = new UiSData(npid, rid, child, cdomref);
                             alg.addChildUiObject(csdata);
                         } else if ($found.size() == 0) {
                             fbError("Cannot find UI element " + child.uid, child);
@@ -1432,15 +1483,17 @@ var UiTable = UiContainer.extend({
         }
     },
 
-    buildSNode: function(context, rid, domref){
+    buildSNode: function(context, pid, rid, domref){
         var node = new UiTableSNode();
         node.objRef = this;
         node.rid = rid;
-        node.uid = this.uid;
+        node.pid = pid;
         node.domRef = domref;
-        
-        this.buildSNodeForHeader(context, domref);
-        this.buildSNodeForBody(context, domref);
+
+        var npid = this.buildPid(pid, rid);
+
+        this.buildSNodeForHeader(context, npid, domref);
+        this.buildSNodeForBody(context, npid, domref);
 
         return node;
     },
@@ -2244,7 +2297,7 @@ var UiStandardTable = UiContainer.extend({
         }
     },
 
-    buildSNodeForHeader: function(context, domref){
+    buildSNodeForHeader: function(context, npid, domref){
         if(domref != null && this.headers.size() > 0){
             var keys = this.headers.keySet();
             var alg = context.alg;
@@ -2261,7 +2314,7 @@ var UiStandardTable = UiContainer.extend({
                     if ($fnd.size() == 1) {
                         !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $fnd.get(0));
                         var cdomref = this.locateChild(context, $fnd.get(0), child);
-                        var csdata = new UiSData(key, this.getHeaderRid(nindex), child, cdomref);
+                        var csdata = new UiSData(npid, this.getHeaderRid(nindex), child, cdomref);
                         alg.addChildUiObject(csdata);
                     }else if($fnd.size() == 0){
                         fbError("Cannot find UI element " + child.uid, child);
@@ -2283,7 +2336,7 @@ var UiStandardTable = UiContainer.extend({
                             if ($found.size() == 1) {
                                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
                                 var cdrf = this.locateChild(context, $found.get(0), child);
-                                var csd = new UiSData(key, rid, child, cdrf);
+                                var csd = new UiSData(npid, rid, child, cdrf);
                                 alg.addChildUiObject(csd);
                             } else if ($found.size() == 0) {
                                 fbError("Cannot find UI element " + child.uid, child);
@@ -2302,7 +2355,7 @@ var UiStandardTable = UiContainer.extend({
 
     },
 
-    buildSNodeForFooter: function(context, domref){
+    buildSNodeForFooter: function(context, npid, domref){
         if(domref != null && this.footers.size() > 0){
             var keys = this.footers.keySet();
             var alg = context.alg;
@@ -2319,7 +2372,7 @@ var UiStandardTable = UiContainer.extend({
                     if ($fnd.size() == 1) {
                         !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $fnd.get(0));
                         var cdomref = this.locateChild(context, $fnd.get(0), child);
-                        var csdata = new UiSData(key, this.getFooterRid(nindex), child, cdomref);
+                        var csdata = new UiSData(npid, this.getFooterRid(nindex), child, cdomref);
                         alg.addChildUiObject(csdata);
                     }else if($fnd.size() == 0){
                         fbError("Cannot find UI element " + child.uid, child);
@@ -2341,7 +2394,7 @@ var UiStandardTable = UiContainer.extend({
                             if ($found.size() == 1) {
                                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
                                 var cdrf = this.locateChild(context, $found.get(0), child);
-                                var csd = new UiSData(key, rid, child, cdrf);
+                                var csd = new UiSData(npid, rid, child, cdrf);
                                 alg.addChildUiObject(csd);
                             } else if ($found.size() == 0) {
                                 fbError("Cannot find UI element " + child.uid, child);
@@ -2360,7 +2413,7 @@ var UiStandardTable = UiContainer.extend({
 
     },
 
-    buildSNodeForBody: function(context, domref){
+    buildSNodeForBody: function(context, npid, domref){
         if(domref != null && this.components.size() > 0){
             var alg = context.alg;
             var bodynum = this.getTableTbodyNum(context);
@@ -2372,7 +2425,7 @@ var UiStandardTable = UiContainer.extend({
                         var pair = this.findBodyKeyTemplatePair(i, j, k);
                         //we only care about the UI elements that have templates defined, otherwise, ignore them
                         if (pair != null) {
-                            var tid = pair.key;
+//                            var tid = pair.key;
                             var rid = this.getBodyRid(i, j, k);
                             var child = pair.val;
                             var sel = this.getCellSelector(i, j, k);
@@ -2381,7 +2434,7 @@ var UiStandardTable = UiContainer.extend({
                             if ($found.size() == 1) {
                                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
                                 var cdomref = this.locateChild(context, $found.get(0), child);
-                                var csdata = new UiSData(tid, rid, child, cdomref);
+                                var csdata = new UiSData(npid, rid, child, cdomref);
                                 alg.addChildUiObject(csdata);
                             } else if ($found.size() == 0) {
                                 fbError("Cannot find UI element " + child.uid, child);
@@ -2398,16 +2451,18 @@ var UiStandardTable = UiContainer.extend({
         }
     },
 
-    buildSNode: function(context, rid, domref){
+    buildSNode: function(context, pid, rid, domref){
         var node = new UiTableSNode();
         node.objRef = this;
         node.rid = rid;
-        node.uid = this.uid;
+        node.pid = pid;
         node.domRef = domref;
 
-        this.buildSNodeForHeader(context, domref);
-        this.buildSNodeForFooter(context, domref);
-        this.buildSNodeForBody(context, domref);
+        var npid = this.buildPid(pid, rid);
+
+        this.buildSNodeForHeader(context, npid, domref);
+        this.buildSNodeForFooter(context, npid, domref);
+        this.buildSNodeForBody(context, npid, domref);
 
         return node;
     },

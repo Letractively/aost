@@ -895,15 +895,15 @@ UiAlg.prototype.buildSTree = function(uimodule){
     tree.uimRef = uimodule;
     //start from the root element in the UI module
 
-    var first = new UiSData(root.uid,  root.uid, root, root.domRef);
+    var first = new UiSData(null, root.uid, root, root.domRef);
     this.oqueue.push(first);
     while(this.oqueue.size() > 0){
-        var obj = this.oqueue.pop();
-        !tellurium.logManager.isUseLog || fbLog("Traverse for Object " + obj.uid + ": ", obj);
+        var sdata = this.oqueue.pop();
+        !tellurium.logManager.isUseLog || fbLog("Traverse for Object " + sdata.rid + ": ", sdata);
         var context = new WorkflowContext();
         context.alg = this;
-        context.domRef = obj.domRef;
-        var node = obj.objRef.buildSNode(context, obj.rid, obj.domRef);
+        context.domRef = sdata.domRef;
+        var node = sdata.objRef.buildSNode(context, sdata.pid, sdata.rid, sdata.domRef);
         tree.insert(context, node);
     }
 
