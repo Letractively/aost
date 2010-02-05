@@ -20,14 +20,17 @@
       
       var tooltip = teJQuery(document.createElement('div'))
                      .addClass(conf.baseClass)
+                     .addClass("teengine")
                      .addClass( (conf.fixed) ? conf.fixedClass : '' )
                      .addClass( (conf.persistent) ? conf.persistentClass : '' )
-                     .css({'z-index': '2', 'position': 'absolute', 'padding': '10', 'color': '#303030', 
+                     .css({'z-index': '2', 'position': 'right', 'padding': '8', 'color': '#303030',
                             'background-color': '#f5f5b5', 'border': '1', 'solid': '#DECA7E',
-                            'font-family': 'sans-serif', 'font-size': '12', 'line-height': '18px', 'text-align': 'center'
+                            'font-family': 'sans-serif', 'font-size': '8', 'line-height': '12px', 'text-align': 'center'
                           })
                      .html(conf.content)
-                     .appendTo(elem);
+//                     .insertBefore(elem);
+                     .insertAfter(elem);
+//                     .appendTo(elem);
       
       if(!conf.hidden) tooltip.show();
       else tooltip.hide();
