@@ -184,7 +184,6 @@ public class BundleProcessor implements Configurable {
           return result;
           break;
         case ReturnType.ARRAY:
-          //TODO: need to really convert the String array to the object array 
           return result;
           break;
          case ReturnType.OBJECT:
