@@ -34,6 +34,7 @@ public class MenuNavJUnitTestCase  extends TelluriumMockJUnitTestCase {
         useTrace(true);
 //        useCache(true);
 //        useMacroCmd(true);
+        useEngineLog(true);
     }
 
     @Before
@@ -58,7 +59,7 @@ public class MenuNavJUnitTestCase  extends TelluriumMockJUnitTestCase {
         assertFalse(mnm.isElementPresent("mainnav3.Link"));
         mnm.click("mainnav2.suppliers");
         mnm.waitForPageToLoad(20000);
-        assertTrue(jlm.isElementPresent("welcome.MenuLink"));
+        assertTrue(jlm.isElementPresent("Welcome.MenuLink"));
     }
 
     @Test
@@ -72,7 +73,7 @@ public class MenuNavJUnitTestCase  extends TelluriumMockJUnitTestCase {
         assertFalse(mnm.isElementPresent("mainnav3.Link"));
         mnm.click("mainnav2.suppliers");
         mnm.waitForPageToLoad(20000);
-        assertTrue(jlm.isElementPresent("welcome.MenuLink"));
+        assertTrue(jlm.isElementPresent("Welcome.MenuLink"));
         useTelluriumApi(false);
     }
 
@@ -87,7 +88,7 @@ public class MenuNavJUnitTestCase  extends TelluriumMockJUnitTestCase {
         assertFalse(mnm.isElementPresent("mainnav3.Link"));
         mnm.click("mainnav2.suppliers");
         mnm.waitForPageToLoad(20000);
-        assertTrue(jlm.isElementPresent("welcome.MenuLink"));
+        assertTrue(jlm.isElementPresent("Welcome.MenuLink"));
         useCache(false);
     }
 
@@ -102,7 +103,7 @@ public class MenuNavJUnitTestCase  extends TelluriumMockJUnitTestCase {
         assertFalse(mnm.isElementPresent("mainnav3.Link"));
         mnm.click("mainnav2.suppliers");
         mnm.waitForPageToLoad(20000);
-        assertTrue(jlm.isElementPresent("welcome.MenuLink"));
+        assertTrue(jlm.isElementPresent("Welcome.MenuLink"));
         useTelluriumApi(false);
         useCache(false);
     }
