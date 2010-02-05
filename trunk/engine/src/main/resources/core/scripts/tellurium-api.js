@@ -668,6 +668,7 @@ TelluriumApi.prototype.showUi = function(uid, delay){
 };
 
 TelluriumApi.prototype.showUi = function(uid){
+    //Always construct a new snapshot
     var stree = this.cache.takeSnapshot(uid);
     if(stree == null){
         fbError("Cannot find UI module " + uid + " from cache", this.cache);
@@ -684,7 +685,12 @@ TelluriumApi.prototype.showUi = function(uid){
 };
 
 TelluriumApi.prototype.cleanUi = function(uid){
-    var stree = this.cache.takeSnapshot(uid);
+    var stree = this.cache.getSTree(uid);
+    if(stree == null){
+        fbWarn("Cannot find STree for UI Module" + uid + " from cache", this.cache);
+        stree = this.cache.takeSnapshot(uid);
+    }
+
     if(stree == null){
         fbError("Cannot find UI module " + uid + " from cache", this.cache);
         throw new SeleniumError("Cannot find UI module " + uid + " from cache");
