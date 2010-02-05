@@ -50,8 +50,11 @@ TelluriumApi.prototype.click = function(locator) {
     var $elem = teJQuery(element);
     if(element.href){
         $elem.click(function() {
-//            window.location = teJQuery(this).attr('href');
             selenium.browserbot.currentWindow.location = teJQuery(this).attr('href');
+        });
+    }else if(element.url){
+        $elem.click(function() {
+            selenium.browserbot.currentWindow.location = teJQuery(this).attr('url');
         });
     }
 
