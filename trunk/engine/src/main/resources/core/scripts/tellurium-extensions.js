@@ -409,3 +409,56 @@ Selenium.prototype.doUseEngineLog = function(isUse){
     if(firebug != undefined)
         firebug.env.debug = isUse;    
 };
+
+
+Selenium.prototype.clickElementForTe = function (element){
+    var elementWithHref = getAncestorOrSelfWithJavascriptHref(element);
+
+    if (browserVersion.isChrome && elementWithHref != null) {
+        // SEL-621: Firefox chrome: Race condition bug in alert-handling code
+        //
+        // This appears to be because javascript href's are being executed in a
+        // separate thread from the main thread when running in chrome mode.
+        //
+        // This workaround injects a callback into the executing href that
+        // lowers a flag, which is initially raised. Execution of this click
+        // command will wait for the flag to be lowered.
+
+        var win = elementWithHref.ownerDocument.defaultView;
+        var originalLocation = win.location.href;
+        var originalHref = elementWithHref.href;
+
+        elementWithHref.href = 'javascript:try { '
+            + originalHref.replace(/^\s*javascript:/i, "")
+            + ' } finally { window._executingJavascriptHref = undefined; }' ;
+
+        win._executingJavascriptHref = true;
+
+        this.browserbot.clickElement(element);
+
+        return Selenium.decorateFunctionWithTimeout(function() {
+            if (win.closed) {
+                return true;
+            }
+            if (win.location.href != originalLocation) {
+                // navigated to some other page ... javascript from previous
+                // page can't still be executing!
+                return true;
+            }
+            if (! win._executingJavascriptHref) {
+                try {
+                    elementWithHref.href = originalHref;
+                }
+                catch (e) {
+                    // maybe the javascript removed the element ... should be
+                    // no danger in not reverting its href attribute
+                }
+                return true;
+            }
+
+            return false;
+        }, this.defaultTimeout);
+    }
+
+    this.browserbot.clickElement(element);
+};
