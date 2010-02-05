@@ -1248,6 +1248,35 @@ abstract class BaseDslContext extends GlobalDslContext {
         extension.showUi(context, uid)
         pause(delay)
         extension.cleanUi(context, uid)
+        pause(200)
+      }
+    }
+  }
+
+  void startShow(String uid) {
+    if(!this.exploreUiModuleCache() || !this.isUseTelluriumApi()){
+      println(i18nBundle.getMessage("BaseDslContext.ShowRequirement", uid))
+    }else{
+      WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+
+      def obj = walkToWithException(context, uid)
+      if(obj != null){
+        extension.showUi(context, uid)
+        pause(200)
+      }
+    }
+  }
+
+  void endShow(String uid) {
+    if(!this.exploreUiModuleCache() || !this.isUseTelluriumApi()){
+      println(i18nBundle.getMessage("BaseDslContext.ShowRequirement", uid))
+    }else{
+      WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+
+      def obj = walkToWithException(context, uid)
+      if(obj != null){
+        extension.cleanUi(context, uid)
+        pause(200)
       }
     }
   }

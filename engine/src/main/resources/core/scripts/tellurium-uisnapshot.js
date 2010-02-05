@@ -656,7 +656,7 @@ var UiCollectVisitor = STreeVisitor.extend({
 var UiOutlineVisitor = STreeVisitor.extend({
     init: function(){
 //        this.outLine = "2px solid #000";
-        this.outLine = "3px solid #0000FF";
+        this.outLine = "2px solid #0000FF";
     },
     
     visit: function(context, snode){
