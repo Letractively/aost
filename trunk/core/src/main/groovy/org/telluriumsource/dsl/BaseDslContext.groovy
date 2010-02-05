@@ -1413,7 +1413,7 @@ abstract class BaseDslContext extends GlobalDslContext {
     return sb.toString()
   }
 
-  public List getHTMLSourceResponse(String uid){
+  public java.util.List getHTMLSourceResponse(String uid){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
     walkToWithException(context, uid)
     def out = extension.getHTMLSource(context, uid)
@@ -1422,7 +1422,7 @@ abstract class BaseDslContext extends GlobalDslContext {
   }
 
   public void getHTMLSource(String uid){
-    List list =  getHTMLSourceResponse(uid);
+    java.util.List list =  getHTMLSourceResponse(uid);
     if(list != null && list.size() > 0){
       list.each{Map map ->
         String key = map.get("key");
