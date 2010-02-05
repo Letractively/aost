@@ -413,7 +413,7 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("getTeTableRowNum", true, "NUMBER");
     this.registerApi("getTeTableFootColumnNum", true, "NUMBER");
     this.registerApi("getTeTableHeaderColumnNum", true, "NUMBER");
-    this.registerApi("getHTMLSource", true, "MAP");
+    this.registerApi("getHTMLSource", true, "ARRAY");
     this.registerApi("getRepeatNum", true, "NUMBER");
 };
 
