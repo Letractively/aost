@@ -459,7 +459,7 @@ var UiContainer = UiObject.extend({
     
     buildSNode: function(context, pid, rid, domref){
 
-        var node = new UiContainerSNode();
+        var node = new UiCNode();
         node.objRef = this;
         node.rid = rid;
 //        node.uid = this.uid;
@@ -618,7 +618,7 @@ var UiRepeat = UiContainer.extend({
     },
 
     buildSNode: function(context, pid, rid, domref){
-        var node = new UiContainerSNode();
+        var node = new UiCNode();
         node.objRef = this;
         node.rid = rid;
         node.pid = pid;
@@ -631,7 +631,7 @@ var UiRepeat = UiContainer.extend({
             var npid = this.buildPid(pid, rid);
 
             for (var i = 0; i < selves.length; i++) {
-                var cnode = new UiContainerSNode();
+                var cnode = new UiCNode();
                 cnode.objRef = this;
 //                    cnode.rid = rid + "_" + (i-1);
                 cnode.rid = "_" + (i - 1);
@@ -909,7 +909,7 @@ var UiList = UiContainer.extend({
     buildSNode: function(context, pid, rid, domref){
 
 //        var node = new UiListSNode();
-        var node = new UiContainerSNode();
+        var node = new UiCNode();
         node.objRef = this;
         node.rid = rid;
         node.pid = pid;
@@ -1484,7 +1484,7 @@ var UiTable = UiContainer.extend({
     },
 
     buildSNode: function(context, pid, rid, domref){
-        var node = new UiTableSNode();
+        var node = new UiTNode();
         node.objRef = this;
         node.rid = rid;
         node.pid = pid;
@@ -2452,7 +2452,7 @@ var UiStandardTable = UiContainer.extend({
     },
 
     buildSNode: function(context, pid, rid, domref){
-        var node = new UiTableSNode();
+        var node = new UiTNode();
         node.objRef = this;
         node.rid = rid;
         node.pid = pid;

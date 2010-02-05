@@ -56,13 +56,10 @@ function UiSData(pid, rid, objRef, domRef){
 
 var UiSNode = Class.extend({
     init: function() {
-        //UID
-//        this.uid = null;
+
         //parent's rid
         this.pid = null;
 
-        //the index of the element with the same UID
-//        this.index = 0;
         //rid, runtime id
         this.rid = null;
 
@@ -84,9 +81,13 @@ var UiSNode = Class.extend({
         return this.rid;
     },
 
+    isLeaf: function(){
+        return true;
+    },
+
     walkTo: function(context, uiid) {
         !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Node", this);
-        var id = uiid.pop();
+        uiid.pop();
 /*        if (id == this.uid) {
             var result = new Array();
             result.push(this);
@@ -106,7 +107,7 @@ var UiSNode = Class.extend({
     }
 });
 
-var UiContainerSNode = UiSNode.extend({
+var UiCNode = UiSNode.extend({
     init: function(){
         this._super();
         //children nodes, regular UI Nodes
@@ -114,6 +115,10 @@ var UiContainerSNode = UiSNode.extend({
 
         //children index, hold rid to dom reference mapping for children
 //        this.childrenIndex = new Hashtable();
+    },
+
+    isLeaf: function(){
+        return (this.components.size() == 0);    
     },
 
     walkTo: function(context, uiid) {
@@ -222,7 +227,7 @@ var UiListSNode = UiSNode.extend({
 });
 */
 
-var UiTableSNode = UiSNode.extend({
+var UiTNode = UiSNode.extend({
     init: function(){
         this._super();
 
@@ -234,6 +239,10 @@ var UiTableSNode = UiSNode.extend({
 
         //body nodes with key as the template UID and value as the UI template Avatar
         this.components = new Hashtable();
+    },
+
+    isLeaf: function(){
+        return !(this.components.size() > 0 || this.headers.size() > 0 && this.footers.size() > 0);
     },
 
     traverse: function(context, visitor){
@@ -343,7 +352,7 @@ var UiTableSNode = UiSNode.extend({
 //            return cobj.avatar;
         } else {
             //recursively call walkTo until the object is found
-            !tellurium.logManager.isUseLog || fbLog("Walk to Table head ", cobj);
+            !tellurium.logManager.isUseLog || fbLog("Walk to Table head ", this);
             //reach the actual uiid for the header element
             var cid = uiid.pop();
             var child = this.headers.get("_HEADER" + cid);
@@ -444,7 +453,8 @@ var UiTableSNode = UiSNode.extend({
     },
 */
     walkToElement: function(context, uiid) {
-        var child = uiid.pop();
+        uiid.pop();
+        
         if (uiid.size() < 1) {
              !tellurium.logManager.isUseLog || fbLog("Return Table body ", this);
              return this;
@@ -700,13 +710,14 @@ var UiSimpleTipVisitor = STreeVisitor.extend({
         var elem = snode.domRef;
         var frid = snode.getFullRid();
 
-        teJQuery(elem).simpletip({
-            // Configuration properties
-            content: frid,
-            fixed: false
-        });
-
-        !tellurium.logManager.isUseLog || fbLog("Add simple tip for " + frid, elem);
+        if(snode.isLeaf()){
+            teJQuery(elem).simpletip({
+                // Configuration properties
+                content: frid,
+                fixed: false
+            });
+            !tellurium.logManager.isUseLog || fbLog("Add simple tip for " + frid, elem);
+        }
     }
 });
 
