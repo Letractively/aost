@@ -77,12 +77,21 @@ abstract class UiObjectBuilder extends Const {
         }
 
         String useGroup = map.get(USE_GROUP_INFO)
-        if(useGroup != null && TRUE.equals(useGroup.toUpperCase())){
+        if(useGroup != null){
+          if(TRUE.equalsIgnoreCase(useGroup.toUpperCase())){
             ((Container)obj).useGroupInfo = true
+          }else{
+            ((Container)obj).useGroupInfo = false
+          }
         }
+      
         String cache = map.get(CACHEABLE)
-        if(cache != null && TRUE.equals(cache.toUpperCase())){
-          obj.cacheable = true
+        if(cache != null){
+          if(TRUE.equalsIgnoreCase(cache.toUpperCase())){
+            obj.cacheable = true
+          }else{
+            obj.cacheable = false
+          }
         }
 
         String nocachechildren = map.get(NO_CACHE_FOR_CHILDREN)

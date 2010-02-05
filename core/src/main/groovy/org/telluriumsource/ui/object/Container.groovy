@@ -51,7 +51,7 @@ class Container extends UiObject {
       JSONObject jso = new JSONObject()
       jso.put(UID, uid)
       if (!cacheable)
-        jso.put(LAZY, this.cacheable)
+        jso.put(LAZY, !this.cacheable)
       if(locator != null)
         jso.put(LOCATOR, locator.toJSON())
       else

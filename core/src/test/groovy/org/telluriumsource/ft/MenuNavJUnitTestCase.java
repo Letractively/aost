@@ -96,7 +96,7 @@ public class MenuNavJUnitTestCase  extends TelluriumMockJUnitTestCase {
     public void testFlowWithTelluriumAndCaching() {
         connect("JettyLogon");
         useTelluriumApi(true);
-        useCache(false);
+        useCache(true);
         jlm.click("Welcome.MenuLink");
         jlm.waitForPageToLoad(10000);
         assertTrue("Did not find main menu", mnm.isElementPresent("mainnav"));
