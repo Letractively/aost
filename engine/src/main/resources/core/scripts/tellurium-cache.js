@@ -304,11 +304,31 @@ TelluriumCache.prototype.takeSnapshot = function(uid){
     if(uiid.size() > 0){
         var first = uiid.peek();
         var uim = this.sCache.get(first);
-        !tellurium.logManager.isUseLog || fbLog("Found cached UI module " + first, uim);
-        stree = this.uiAlg.buildSTree(uim);
+        if(uim == null){
+            fbError("Cannot find UI Module " + first, this.sCache);
+        }else{
+            !tellurium.logManager.isUseLog || fbLog("Found cached UI module " + first, uim);
+            stree = this.uiAlg.buildSTree(uim);
+            uim.stree = stree;
+        }
+
     }
 
     return stree;
+};
+
+TelluriumCache.prototype.getSTree = function(uid){
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+
+    if (uiid.size() > 0) {
+        var first = uiid.peek();
+        var uim = this.sCache.get(first);
+        if (uim != null)
+            return uim.stree;
+    }
+
+    return null;
 };
 
 TelluriumCache.prototype.getCachedUiElement = function(uid){

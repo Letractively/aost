@@ -36,6 +36,9 @@ function UiModule(){
 
     //UI module dump visitor
     this.dumpVisitor = new UiDumpVisitor();
+
+    //Snapshot Tree, i.e., STree
+    this.stree = null;
 }
 
 UiModule.prototype.dumpMe = function(){
