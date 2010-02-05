@@ -932,10 +932,15 @@ UiAlg.prototype.santa = function(uimodule, rootdom){
     }
     this.currentColor = this.colors.GRAY;
     //start from the root element in the UI module
-    this.oqueue.push(uimodule.root);
-    var ust = new UiSnapshot();
-    ust.color = this.colors.GRAY;
-    this.squeue.push(ust);
+    if(!uimodule.root.lazy){
+        this.oqueue.push(uimodule.root);
+        var ust = new UiSnapshot();
+        ust.color = this.colors.GRAY;
+        this.squeue.push(ust);
+    }else{
+        fbWarn("Ui Module " + uimodule.root.uid + " is not cachable", uimodule.root);
+        return false;
+    }
     !tellurium.logManager.isUseLog || fbLog("UiAlg states before group locating: ", this);
     !tellurium.logManager.isUseLog || fbLog("Initial object queue ", this.oqueue);
     !tellurium.logManager.isUseLog || fbLog("Initial snapshot queue ", this.squeue);
@@ -981,6 +986,8 @@ UiAlg.prototype.santa = function(uimodule, rootdom){
         this.unmark();
         uimodule.matches = 1;
     }
+
+    return true;
 };
 
 UiAlg.prototype.validate = function(uimodule, rootdom){
