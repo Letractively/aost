@@ -44,7 +44,21 @@ TelluriumApi.prototype.blur = function(locator) {
 
 TelluriumApi.prototype.click = function(locator) {
     var element = this.cacheAwareLocate(locator);
-    teJQuery(element).click();
+    !tellurium.logManager.isUseLog || fbLog("clicking on element ", element);
+//    selenium.clickElementForTe(element);
+    
+    var $elem = teJQuery(element);
+    if(element.href){
+        $elem.click(function() {
+//            window.location = teJQuery(this).attr('href');
+            selenium.browserbot.currentWindow.location = teJQuery(this).attr('href');
+        });
+    }
+
+    $elem.click();
+
+//    teJQuery(element).click();
+//    teJQuery(element).trigger('click')
 };
 
 TelluriumApi.prototype.clickAt = function(locator, coordString) {
