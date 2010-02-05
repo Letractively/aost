@@ -633,14 +633,19 @@ var STreeChainVisitor = Class.extend({
 
 var UiHTMLSourceVisitor = STreeVisitor.extend({
     init: function(){
-        this.htmlsource = new Hashtable();
+//        this.htmlsource = new Hashtable();
+        this.htmlsource = new Array();
     },
 
     visit: function(context, snode){
         var domref = snode.domRef;
         var html = teJQuery(domref).outerHTML();
         var frid = snode.getFullRid();
-        this.htmlsource.put(frid, html);
+        var pair = new KeyValuePair();
+        pair.key = frid;
+        pair.val = html;
+        this.htmlsource.push(pair);
+//        this.htmlsource.put(frid, html);
         !tellurium.logManager.isUseLog || fbLog("HTML Source for " + frid, html);
     }
 });
@@ -726,7 +731,7 @@ var UiSimpleTipCleaner = STreeVisitor.extend({
         var elem = snode.domRef;
         var frid = snode.getFullRid();
 
-        teJQuery(elem).find(" > div.teengine.tooltip").remove();
+        teJQuery(elem).find("~ div.teengine.tooltip").remove();
 
         !tellurium.logManager.isUseLog || fbLog("Clean simple tip for " + frid, elem);
     }

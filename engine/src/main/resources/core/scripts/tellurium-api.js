@@ -676,10 +676,8 @@ TelluriumApi.prototype.showUi = function(uid){
 
     var context = new WorkflowContext();
     var outlineVisitor = new UiOutlineVisitor();
-//    var collectVisitor = new UiCollectVisitor();
     var tipVisitor = new UiSimpleTipVisitor();
     var chainVisitor = new STreeChainVisitor();
-//    chainVisitor.addVisitor(collectVisitor);
     chainVisitor.addVisitor(outlineVisitor);
     chainVisitor.addVisitor(tipVisitor);
     stree.traverse(context, chainVisitor);
