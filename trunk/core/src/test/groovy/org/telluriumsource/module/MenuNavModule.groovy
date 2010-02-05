@@ -30,7 +30,7 @@ class MenuNavModule extends DslContext {
       UrlLink(uid: "help", clocator: [text: "Help"])
     }
 
-    ui.Container(uid: "mainnav3", clocator: [tag: "div", class: "welcome"]){
+    ui.Container(uid: "mainnav3", clocator: [tag: "div", class: "welcome"], group: true, cacheable: false){
       UrlLink(uid: "Link", clocator: [text: "Menu Nav"])
     }    
   }
