@@ -372,31 +372,32 @@ TelluriumCache.prototype.useUiModule = function(jsonarray){
     !tellurium.logManager.isUseLog || fbLog("Input JSON Array for UI Module: ", jsonarray);
     uim.parseUiModule(jsonarray);
 //    uim.prelocate();
-    this.uiAlg.santa(uim, null);
-    //set the UI Module to be valid after it is located
-    uim.valid = true;
-    !tellurium.logManager.isUseLog || fbLog("Ui Module after Group Locating: ", uim);
-    var id = uim.getId();
-    var cached = this.getCachedData(id);
-    if(cached == null){
-        !tellurium.logManager.isUseLog || fbLog("Adding Ui Module " + id + " to cache...", uim);
-        this.addToCache(id, uim);
-    }else{
-        !tellurium.logManager.isUseLog || fbLog("Updating Ui Module "+ id + " to cache...", uim);
-        this.updateToCache(id, uim);
+    var response = new UiModuleLocatingResponse();
+    var result = this.uiAlg.santa(uim, null);
+    if(result){
+        //set the UI Module to be valid after it is located
+        uim.valid = true;
+        !tellurium.logManager.isUseLog || fbLog("Ui Module after Group Locating: ", uim);
+        var id = uim.getId();
+        var cached = this.getCachedData(id);
+        if (cached == null) {
+            !tellurium.logManager.isUseLog || fbLog("Adding Ui Module " + id + " to cache...", uim);
+            this.addToCache(id, uim);
+        } else {
+            !tellurium.logManager.isUseLog || fbLog("Updating Ui Module " + id + " to cache...", uim);
+            this.updateToCache(id, uim);
+        }
+
+        response.id = id;
+        response.relaxed = uim.relaxed;
+        if (!response.relaxed)
+            response.found = true;
+        response.relaxDetails = uim.relaxDetails;
+        response.matches = uim.matches;
+        response.score = uim.score;
+        !tellurium.logManager.isUseLog || fbLog("UseUiModule Response for " + id, response);
     }
 
-    var response = new UiModuleLocatingResponse();
-    response.id = id;
-    response.relaxed = uim.relaxed;
-    if(!response.relaxed)
-        response.found = true;
-    response.relaxDetails = uim.relaxDetails;
-    response.matches = uim.matches;
-    response.score = uim.score;
-    !tellurium.logManager.isUseLog || fbLog("UseUiModule Response for " + id, response);
-
-//    return JSON.stringify(response);
     return response;
 };
 
