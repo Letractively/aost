@@ -578,7 +578,7 @@ Example:
 The UI module on the web page will be outlined and if user hives over the UI module,
 the UIDs of the selected UI element's and its ancestors' will be shown in a tooltip as shown in the following figure.
 
-http://tellurium-users.googlegroups.com/web/telluriumshowuisnapshot.png?gda=XpJcnE0AAACsdq5EJRKLPm_KNrr_VHB_cZU_ZdvvQCXY_Fao85jo3IBs4RzukN2p4-NZziI_5n8iZMW-eMgovHvA1EjQ7PsC5Tb_vjspK02CR95VRrtmeQ&gsc=H-6fZAsAAACVFQpy731QgJmOa3ExnX1l
+http://tellurium-users.googlegroups.com/web/teshowuisnapshotcoloroutline.png?gda=QFLx4lIAAACsdq5EJRKLPm_KNrr_VHB_3bdqdUlgM5p9LxU9B-G7VGI4VaZQIUmR7BTITIeHhJw-4xIeevXbuhZMOIi4CXKoVeLt2muIgCMmECKmxvZ2j4IeqPHHCwbz-gobneSjMyE&gsc=WUr0egsAAADl-yofJNPAI7ohFyS8aj5h
 
 You may be a bit confused by the multiple UID labels. The above UI module is defined as
 
@@ -597,8 +597,7 @@ ui.Form(uid: "Form", clocator: [tag: "form"]){
 }}}
 
 When user hives over the Username Input box, its parent Username and its grandparent Form
-are shown as well. How the layout maps to each individual UI element can be illustrated by
-the following figure.
+are shown as well. We added color coding to the outlines. Different levels in the hierarchy have different colors. How the layout maps to each individual UI element can be illustrated more clearly by the following figure.
  
 http://tellurium-users.googlegroups.com/web/telluriumshowuisnapshot2.png?gda=jciJlU4AAACsdq5EJRKLPm_KNrr_VHB__uAWGGGjpMtQflLHIKHYYIBs4RzukN2p4-NZziI_5n9VyjA3JensFE0ElYzuCQ7x47Cl1bPl-23V2XOW7kn5sQ&gsc=oz20hwsAAAD_weMBWNZir9C-tYu9DiER
 
