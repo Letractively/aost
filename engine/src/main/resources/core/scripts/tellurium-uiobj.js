@@ -406,8 +406,6 @@ var UiContainer = UiObject.extend({
         !tellurium.logManager.isUseLog || fbLog("Val set: ", valset);
         for (var i = 0; i < valset.length; i++) {
             var component = valset[i];
-//            !tellurium.logManager.isUseLog || fbLog("component: ", component);
-//            children.push(component);
             !tellurium.logManager.isUseLog || fbLog("Look ahead nomatter what at cachable child of Container " + this.uid + ": ", component);
             if (component.locator != null) {
                 children.push(component);
@@ -527,7 +525,6 @@ var UiContainer = UiObject.extend({
         if(child.locator != null && domRef != null){
             var alg = context.alg;
             var sel = alg.buildSelector(child.locator);
-//            var $found = teJQuery(context.domRef);
             var $found = teJQuery(domRef);
             if(sel != null && sel.trim().length > 0){
                 $found = $found.find(sel);
@@ -560,12 +557,10 @@ var UiContainer = UiObject.extend({
         if(child.locator != null && domRef != null){
             var alg = context.alg;
             var sel = alg.buildSelector(child.locator);
-//            var $found = teJQuery(context.domRef);
             var $found = teJQuery(domRef);
             if(sel != null && sel.trim().length > 0){
                 $found = $found.find(sel);
             }
-//            var $found = teJQuery(context.domRef).find(sel);
             if ($found.size() > 1) {
                 $found = alg.lookId(child, $found);
                 !tellurium.logManager.isUseLog || fbLog("Look Id result for " + child.uid, $found.get());
@@ -916,15 +911,6 @@ var UiList = UiContainer.extend({
                 }else{
                     //handle logical container
                     num = $found.size();
-/*
-                    var ccr = component.lookChildrenNoMatterWhat();
-                    if(ccr != null && ccr.length > 0){
-                        for(var j=0; j< ccr.length; j++){
-                            var ccsel = alg.buildSelector(ccr[i].locator);
-                            num = num + $found.find(ccsel).size();
-                        }
-                    }
-*/
                 }
             }
         }else{
@@ -937,8 +923,6 @@ var UiList = UiContainer.extend({
     },
 
     buildSNode: function(context, pid, rid, domref){
-
-//        var node = new UiListSNode();
         var node = new UiCNode();
         node.objRef = this;
         node.rid = rid;
