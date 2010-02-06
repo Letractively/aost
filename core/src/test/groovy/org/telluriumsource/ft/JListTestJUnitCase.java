@@ -121,6 +121,15 @@ public class JListTestJUnitCase extends TelluriumMockJUnitTestCase {
     }
 
     @Test
+    public void testGetHTMLSource(){
+        connect("JForm");
+        useTelluriumApi(true);
+        useCache(true);
+        useEngineLog(true);
+        jlm.getHTMLSource("SailingForm");
+    }
+
+    @Test
     public void testIsElementPresent(){
         connect("JForm");
         useTelluriumApi(true);
