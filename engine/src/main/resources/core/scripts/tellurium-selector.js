@@ -371,6 +371,8 @@ JQueryBuilder.prototype.buildIdSelector = function(id) {
 };
 
 JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct, attrs) {
+    if(tag == null && text == null && position == null && attrs == null)
+        return " ";
     var sb = new StringBuffer();
     if (direct) {
         sb.append(this.CHILD_SEPARATOR);

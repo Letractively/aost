@@ -155,7 +155,10 @@ var UiObject = Class.extend({
 
                     var alg = context.alg;
                     var sel = alg.buildSelector(this.locator);
-                    var $found = teJQuery(context.domRef).find(sel);
+                    var $found = teJQuery(context.domRef);
+                    if(sel !=null && sel.trim().length > 0){
+                        $found = $found.find(sel);
+                    }
                     if ($found.size() == 1) {
                         context.domRef = $found.get(0);
                         !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
@@ -489,7 +492,10 @@ var UiContainer = UiObject.extend({
         if(child.locator != null && domRef != null){
             var alg = context.alg;
             var sel = alg.buildSelector(child.locator);
-            var $found = teJQuery(context.domRef).find(sel);
+            var $found = teJQuery(context.domRef);
+            if(sel != null && sel.trim().length > 0){
+                $found = $found.find(sel);
+            }
             if ($found.size() > 1) {
                 $found = alg.lookId(child, $found);
                 !tellurium.logManager.isUseLog || fbLog("Look Id result for " + child.uid, $found.get());
@@ -518,7 +524,11 @@ var UiContainer = UiObject.extend({
         if(child.locator != null && domRef != null){
             var alg = context.alg;
             var sel = alg.buildSelector(child.locator);
-            var $found = teJQuery(context.domRef).find(sel);
+            var $found = teJQuery(context.domRef);
+            if(sel != null && sel.trim().length > 0){
+                $found = $found.find(sel);
+            }
+//            var $found = teJQuery(context.domRef).find(sel);
             if ($found.size() > 1) {
                 $found = alg.lookId(child, $found);
                 !tellurium.logManager.isUseLog || fbLog("Look Id result for " + child.uid, $found.get());
@@ -558,7 +568,11 @@ var UiContainer = UiObject.extend({
                 if (this.locator != null && context.domRef != null) {
                     var alg = context.alg;
                     var sel = alg.buildSelector(this.locator);
-                    var $found = teJQuery(context.domRef).find(sel);
+
+                    var $found = teJQuery(context.domRef);
+                    if(sel != null && sel.trim().length > 0){
+                        $found = $found.find(sel);
+                    }
                     if ($found.size() > 1) {
                         //first try lookId
                         $found = alg.lookId(this, $found);
@@ -634,7 +648,7 @@ var UiRepeat = UiContainer.extend({
                 var cnode = new UiCNode();
                 cnode.objRef = this;
 //                    cnode.rid = rid + "_" + (i-1);
-                cnode.rid = "_" + (i - 1);
+                cnode.rid = "_" + (i + 1);
                 cnode.pid = npid;
                 cnode.domRef = selves[i];
                 cnode.parent = node;
@@ -647,9 +661,6 @@ var UiRepeat = UiContainer.extend({
                     alg.addChildUiObject(csdata);
                 }
             }
-
-            for (i = 0; i < selves.length; i++) {
-            }
         }
 
         return node;
@@ -660,7 +671,11 @@ var UiRepeat = UiContainer.extend({
         if (this.locator != null && context.domRef != null) {
             var alg = context.alg;
             var sel = alg.buildSelector(this.locator);
-            var $found = teJQuery(context.domRef).find(sel);
+
+            var $found = teJQuery(context.domRef);
+            if(sel != null && sel.trim().length > 0){
+                $found = $found.find(sel);
+            }
             !tellurium.logManager.isUseLog || fbLog("Context domRef is ", context.domRef);
             !tellurium.logManager.isUseLog || fbLog("Found elements for CSS " + sel, $found.get());
             if ($found.size() > 1) {
@@ -717,7 +732,10 @@ var UiRepeat = UiContainer.extend({
                 if (this.locator != null && context.domRef != null) {
                     var alg = context.alg;
                     var sel = alg.buildSelector(this.locator, index);
-                    var $found = teJQuery(context.domRef).find(sel);
+                    var $found = teJQuery(context.domRef);
+                    if(sel != null && sel.trim().length > 0){
+                        $found = $found.find(sel);
+                    }
 
                     if ($found.size() > 1) {
                         //Use lookAHead to eliminate multiple matches
@@ -945,7 +963,7 @@ var UiList = UiContainer.extend({
                 }else{
                     //handle the "_ALL" case
                     var lsz = this.getListSize();
-                    for(var j=0; j<lsz; j++){
+                    for(var j=1; j<=lsz; j++){
                         var tid = this.getRid(j);
                         //only cares about elements that are covered by "_ALL", not by other templates
                         if(this.components.get(tid) == null){
@@ -984,7 +1002,10 @@ var UiList = UiContainer.extend({
                 if (this.locator != null && context.domRef != null) {
                     var alg = context.alg;
                     var sel = alg.buildSelector(this.locator);
-                    var $found = teJQuery(context.domRef).find(sel);
+                    var $found = teJQuery(context.domRef);
+                    if(sel != null && sel.trim().length > 0){
+                        $found = $found.find(sel);
+                    }
                     if ($found.size() > 1) {
                         //Use bestEffort() to eliminate multipe matches
                         $found = alg.bestEffort(this, $found);
@@ -1399,7 +1420,7 @@ var UiTable = UiContainer.extend({
             for(var i=0; i<keys.length; i++){
                 var key = keys[i];
                 var child = this.headers.get(keys[i]);
-                var part = key.replace(/^_/, '').replace("HEADER", '');
+                var part = key.replace(/^_/, '').replace("HEADER", '').replace(/^_/, '');
                 if(part != "ALL"){
                     var nindex = parseInt(part);
                     var selt = this.getHeaderSelector(nindex);
@@ -1420,7 +1441,7 @@ var UiTable = UiContainer.extend({
                 }else{
                     //handle the "_ALL" case
                     var lsz = this.getHeaderColumnNum(context);
-                    for(var j=0; j<lsz; j++){
+                    for(var j=1; j<=lsz; j++){
                         var rid = this.getHeaderRid(j);
                         //only cares about elements that are covered by "_ALL", not by other templates
                         if(this.headers.get(rid) == null){
@@ -1454,8 +1475,8 @@ var UiTable = UiContainer.extend({
             var alg = context.alg;
             var rownum = this.getTableRowNum(context);
             var colnum = this.getTableColumnNum(context);
-            for(var i=0; i<rownum; i++){
-                for(var j=0; j<colnum; j++){
+            for(var i=1; i<=rownum; i++){
+                for(var j=1; j<=colnum; j++){
                     var pair = this.findBodyKeyTemplatePair(i, j);
                     //we only care about the UI elements that have templates defined, otherwise, ignore them    
                     if(pair != null){
@@ -1519,7 +1540,10 @@ var UiTable = UiContainer.extend({
         if (context.domRef != null) {
             var sel = this.getHeaderSelector(index);
 
-            var $found = teJQuery(context.domRef).find(sel);
+            var $found = teJQuery(context.domRef);
+            if(sel != null && sel.trim().length > 0){
+                $found = $found.find(sel);
+            }
             !tellurium.logManager.isUseLog || fbLog("Found child " + index + " with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
             if ($found.size() == 1) {
                 context.domRef = $found.get(0);
@@ -1572,7 +1596,10 @@ var UiTable = UiContainer.extend({
         if (context.domRef != null) {
             var sel = this.getCellSelector(nrow, ncolumn);
 
-            var $found = teJQuery(context.domRef).find(sel);
+            var $found = teJQuery(context.domRef);
+            if(sel != null && sel.trim().length > 0){
+                $found = $found.find(sel);
+            }
             !tellurium.logManager.isUseLog || fbLog("Found child with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
             if ($found.size() == 1) {
                 context.domRef = $found.get(0);
@@ -1635,7 +1662,10 @@ var UiTable = UiContainer.extend({
                 if (this.locator != null && context.domRef != null) {
                     var alg = context.alg;
                     var sel = alg.buildSelector(this.locator);
-                    var $found = teJQuery(context.domRef).find(sel);
+                    var $found = teJQuery(context.domRef);
+                    if(sel != null && sel.trim().length > 0){
+                        $found = $found.find(sel);
+                    }
                     if ($found.size() > 1) {
                         //Use bestGuess() to eliminate multipe matches
                         //                       $found = alg.lookAhead(this, $found);
@@ -2305,7 +2335,7 @@ var UiStandardTable = UiContainer.extend({
             for(var i=0; i<keys.length; i++){
                 var key = keys[i];
                 var child = this.headers.get(keys[i]);
-                var part = key.replace(/^_/, '').replace("HEADER", '');
+                var part = key.replace(/^_/, '').replace("HEADER", '').replace(/^_/, '');
                 if(part != "ALL"){
                     var nindex = parseInt(part);
                     var selt = this.getHeaderSelector(nindex);
@@ -2326,7 +2356,7 @@ var UiStandardTable = UiContainer.extend({
                 }else{
                     //handle the "_ALL" case
                     var lsz = this.getHeaderColumnNum(context);
-                    for(var j=0; j<lsz; j++){
+                    for(var j=1; j<=lsz; j++){
                         var rid = this.getHeaderRid(j);
                         //only cares about elements that are covered by "_ALL", not by other templates
                         if(this.headers.get(rid) == null){
@@ -2362,8 +2392,8 @@ var UiStandardTable = UiContainer.extend({
 
             for(var i=0; i<keys.length; i++){
                 var key = keys[i];
-                var child = this.footers.get(keys[i]).replace("FOOTER", '');
-                var part = key.replace(/^_/, '');
+                var child = this.footers.get(keys[i]);
+                var part = key.replace(/^_/, '').replace("FOOTER", '').replace(/^_/, '');
                 if(part != "ALL"){
                     var nindex = parseInt(part);
                     var selt = this.getFooterSelector(nindex);
@@ -2384,7 +2414,7 @@ var UiStandardTable = UiContainer.extend({
                 }else{
                     //handle the "_ALL" case
                     var lsz = this.getHeaderColumnNum(context);
-                    for(var j=0; j<lsz; j++){
+                    for(var j=1; j<=lsz; j++){
                         var rid = this.getFooterRid(j);
                         //only cares about elements that are covered by "_ALL", not by other templates
                         if(this.footers.get(rid) == null){
@@ -2419,9 +2449,9 @@ var UiStandardTable = UiContainer.extend({
             var bodynum = this.getTableTbodyNum(context);
             var rownum = this.getTableRowNum(context);
             var colnum = this.getTableColumnNum(context);
-            for(var i=0; i<bodynum; i++){
-                for(var j=0; j<rownum; j++){
-                    for(var k=0; k<colnum; k++){
+            for(var i=1; i<=bodynum; i++){
+                for(var j=1; j<=rownum; j++){
+                    for(var k=1; k<=colnum; k++){
                         var pair = this.findBodyKeyTemplatePair(i, j, k);
                         //we only care about the UI elements that have templates defined, otherwise, ignore them
                         if (pair != null) {
@@ -2488,7 +2518,10 @@ var UiStandardTable = UiContainer.extend({
         if (context.domRef != null) {
             var sel = this.getHeaderSelector(index);
 
-            var $found = teJQuery(context.domRef).find(sel);
+            var $found = teJQuery(context.domRef);
+            if(sel != null && sel.trim().length > 0){
+                $found = $found.find(sel);
+            }
             !tellurium.logManager.isUseLog || fbLog("Found child " + index + " with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
             if ($found.size() == 1) {
                 context.domRef = $found.get(0);
@@ -2544,7 +2577,10 @@ var UiStandardTable = UiContainer.extend({
         if (context.domRef != null) {
             var sel = this.getFooterSelector(index);
 
-            var $found = teJQuery(context.domRef).find(sel);
+            var $found = teJQuery(context.domRef);
+            if(sel != null && sel.trim().length > 0){
+                $found = $found.find(sel);
+            }
             !tellurium.logManager.isUseLog || fbLog("Found child " + index + " with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
             if ($found.size() == 1) {
                 context.domRef = $found.get(0);
@@ -2606,7 +2642,10 @@ var UiStandardTable = UiContainer.extend({
         if (context.domRef != null) {
             var sel = this.getCellSelector(ntbody, nrow, ncolumn);
 
-            var $found = teJQuery(context.domRef).find(sel);
+            var $found = teJQuery(context.domRef);
+            if(sel != null && sel.trim().length > 0){
+                $found = $found.find(sel);
+            }
             !tellurium.logManager.isUseLog || fbLog("Found child with CSS selector '" + sel +"' for StandardTable " + this.uid, $found.get());
             if ($found.size() == 1) {
                 context.domRef = $found.get(0);
@@ -2650,7 +2689,10 @@ var UiStandardTable = UiContainer.extend({
                 if (this.locator != null && context.domRef != null) {
                     var alg = context.alg;
                     var sel = alg.buildSelector(this.locator);
-                    var $found = teJQuery(context.domRef).find(sel);
+                    var $found = teJQuery(context.domRef);
+                    if(sel != null && sel.trim().length > 0){
+                        $found = $found.find(sel);
+                    }
                     if ($found.size() > 1) {
                         //Use bestGuess() to eliminate multipe matches
                         $found = alg.bestEffort(this, $found);
