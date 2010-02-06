@@ -580,6 +580,29 @@ the UIDs of the selected UI element's and its ancestors' will be shown in a tool
 
 http://tellurium-users.googlegroups.com/web/telluriumshowuisnapshot.png?gda=XpJcnE0AAACsdq5EJRKLPm_KNrr_VHB_cZU_ZdvvQCXY_Fao85jo3IBs4RzukN2p4-NZziI_5n8iZMW-eMgovHvA1EjQ7PsC5Tb_vjspK02CR95VRrtmeQ&gsc=H-6fZAsAAACVFQpy731QgJmOa3ExnX1l
 
+You may be a bit confused by the multiple UID labels. The above UI module is defined as
+
+{{{
+ui.Form(uid: "Form", clocator: [tag: "form"]){
+        Container(uid: "Username", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
+        }
+        Container(uid: "Password", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j_password"])
+        }
+        SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login", name: "submit"])
+    }
+}}}
+
+When user hives over the Username Input box, its parent Username and its grandparent Form
+are shown as well. How the layout maps to each individual UI element can be illustrated by
+the following figure.
+ 
+http://tellurium-users.googlegroups.com/web/telluriumshowuisnapshot2.png?gda=jciJlU4AAACsdq5EJRKLPm_KNrr_VHB__uAWGGGjpMtQflLHIKHYYIBs4RzukN2p4-NZziI_5n9VyjA3JensFE0ElYzuCQ7x47Cl1bPl-23V2XOW7kn5sQ&gsc=oz20hwsAAAD_weMBWNZir9C-tYu9DiER
+
+
 In the meanwhile, Tellurium Core also exposes the following two methods for users to start showing UI and clean up UI.
 
 {{{
