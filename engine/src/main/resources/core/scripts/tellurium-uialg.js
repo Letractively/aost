@@ -503,7 +503,7 @@ UiAlg.prototype.buildSelector = function(clocator){
     return this.cssbuilder.buildCssSelector(clocator.tag, clocator.text, clocator.position, clocator.direct, clocator.attributes);
 };
 
-UiAlg.prototype.buildSelector = function(clocator, position){
+UiAlg.prototype.buildSelectorWithPosition = function(clocator, position){
     //TODO: need to add header and trailer to the selector if necessary
     return this.cssbuilder.buildCssSelector(clocator.tag, clocator.text, position, clocator.direct, clocator.attributes);
 };

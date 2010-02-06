@@ -769,7 +769,7 @@ var UiRepeat = UiContainer.extend({
             } else {
                 if (this.locator != null && context.domRef != null) {
                     var alg = context.alg;
-                    var sel = alg.buildSelector(this.locator, index);
+                    var sel = alg.buildSelectorWithPosition(this.locator, index);
                     var $found = teJQuery(context.domRef);
                     if(sel != null && sel.trim().length > 0){
                         $found = $found.find(sel);
