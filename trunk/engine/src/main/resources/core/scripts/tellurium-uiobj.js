@@ -736,24 +736,6 @@ var UiRepeat = UiContainer.extend({
             return 0;
 
         return lst.length;
-        
-/*        if (this.locator != null && context.domRef != null) {
-            var alg = context.alg;
-            var sel = alg.buildSelector(this.locator);
-            var $found = teJQuery(context.domRef).find(sel);
-            !tellurium.logManager.isUseLog || fbLog("Context domRef is ", context.domRef);
-            !tellurium.logManager.isUseLog || fbLog("Found elements for CSS " + sel, $found.get());
-            if ($found.size() > 1) {
-                //Use lookAHead to eliminate multiple matches
-                $found = alg.lookAhead(this, $found);
-                !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + this.uid, $found.get());
-            }
-
-            return $found.size();
-        }
-
-        //return 0 if cannot find the Repeat
-        return 0;*/
     },
 
     walkTo: function(context, uiid){
@@ -780,19 +762,6 @@ var UiRepeat = UiContainer.extend({
                         $found = alg.lookAhead(this, $found);
                         !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + this.uid, $found.get());
                     }
-
-                    /*
-                    //It does not make sense to have Repeat children with ID attributes, no need to call lookId()
-                    if ($found.size() > 1) {
-                        //first try lookId
-                        $found = alg.lookId(this, $found);
-                        !tellurium.logManager.isUseLog || fbLog("Look Id result for " + this.uid, $found.get());
-                        if($found.size() > 1){
-                            //Use lookAHead to eliminate multiple matches
-                            $found = alg.lookAhead(this, $found);
-                            !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + this.uid, $found.get());
-                        }
-                    }*/
 
                     if ($found.size() == 1) {
                         context.domRef = $found.get(0);
