@@ -27,6 +27,10 @@ function TelluriumApi(cache){
 //    this.collectVisitor = new UiCollectVisitor();
 //    this.tipVisitor = new UiSimpleTipVisitor();
 //    this.chainVisitor = new STreeChainVisitor();
+    this.ctrl = false;
+    this.shift = false;
+    this.alt = false;
+    this.meta = false
 }
 
 TelluriumApi.prototype.cacheAwareLocate = function(locator){
@@ -89,26 +93,59 @@ TelluriumApi.prototype.focus = function(locator){
 TelluriumApi.prototype.typeKey = function(locator, key){
     var element = this.cacheAwareLocate(locator);
     var $elem = teJQuery(element);
-	$elem.val($elem.val()+key).trigger(getEvent("keydown", key)).trigger(getEvent("keypress", key)).trigger(getEvent("keyup", key));
+    $elem.val($elem.val()+key).trigger(getEvent("keydown", key ,this)).trigger(getEvent("keypress", key, this)).trigger(getEvent("keyup", key, this));
 };
 
 TelluriumApi.prototype.keyDown = function(locator, key){
     !tellurium.logManager.isUseLog || fbLog("Key Down cache aware locate", locator);
-    var element = this.cacheAwareLocate(locator);   
+    var element = this.cacheAwareLocate(locator);
     var $elem = teJQuery(element);
-    $elem.val($elem.val()).trigger(getEvent("keydown", key));
+    $elem.val($elem.val()).trigger(getEvent("keydown", key  ,this));
 };
 
 TelluriumApi.prototype.keyPress = function(locator, key){
     var element = this.cacheAwareLocate(locator);
     var $elem = teJQuery(element);
-    $elem.val($elem.val()+key).trigger(getEvent("keypress", key));
+    $elem.val($elem.val()+key).trigger(getEvent("keypress", key , this));
 };
 
 TelluriumApi.prototype.keyUp = function(locator, key){
     var element = this.cacheAwareLocate(locator);
     var $elem = teJQuery(element);
-    $elem.val($elem.val()).trigger(getEvent("keyup", key));
+    $elem.val($elem.val()).trigger(getEvent("keyup", key , this));
+};
+
+TelluriumApi.prototype.altKeyUp = function(){
+    !tellurium.logManager.isUseLog || fbLog("ALT key up ");
+    this.alt = true;
+};
+TelluriumApi.prototype.altKeyDown = function(){
+    !tellurium.logManager.isUseLog || fbLog("ALT key down ");
+    this.alt = false;
+};
+TelluriumApi.prototype.ctrlKeyUp = function(){
+    !tellurium.logManager.isUseLog || fbLog("CTRL key up ");
+    this.ctrl = true;
+};
+TelluriumApi.prototype.ctrlKeyDown = function(){
+    !tellurium.logManager.isUseLog || fbLog("CTRL key down ");
+    this.ctrl = false;
+};
+TelluriumApi.prototype.shiftKeyUp = function(){
+    !tellurium.logManager.isUseLog || fbLog("SHIFT key up ");
+    this.shift = true;
+};
+TelluriumApi.prototype.shiftKeyDown = function(){
+    !tellurium.logManager.isUseLog || fbLog("SHIFT key down ");
+    this.shift = false;
+};
+TelluriumApi.prototype.metaKeyUp = function(){
+    !tellurium.logManager.isUseLog || fbLog("META key up ");
+    this.meta = true;
+};
+TelluriumApi.prototype.metaKeyDown = function(){
+    !tellurium.logManager.isUseLog || fbLog("META key down ");
+    this.meta = false;
 };
 
 TelluriumApi.prototype.mouseOver = function(locator){
