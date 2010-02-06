@@ -546,9 +546,9 @@ var UiContainer = UiObject.extend({
                         !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + child.uid, $found.get());
                     }
                 }
-
-                return $found.get();
             }
+
+            return $found.get();
         }else{
             var result = new Array();
             result.push(domRef);
@@ -580,16 +580,17 @@ var UiContainer = UiObject.extend({
                         !tellurium.logManager.isUseLog || fbLog("Look Ahead result for " + child.uid, $found.get());
                     }
                 }
-                if ($found.size() == 1) {
-                    !tellurium.logManager.isUseLog || fbLog("Found element " + child.uid, $found.get(0));
-                    return $found.get(0);
-                }else if($found.size() == 0){
-                    fbError("Cannot find UI element " + child.uid, child);
-                    throw new SeleniumError("Cannot find UI element " + child.uid);
-                }else{
-                    fbError("Found " + $found.size() + " matches for UI element " + child.uid, $found.get());
-                    throw new SeleniumError("Found " + $found.size() + " matches for UI element " + child.uid);                    
-                }
+            }
+            
+            if ($found.size() == 1) {
+                !tellurium.logManager.isUseLog || fbLog("Found element " + child.uid, $found.get(0));
+                return $found.get(0);
+            }else if($found.size() == 0){
+                fbError("Cannot find UI element " + child.uid, child);
+                throw new SeleniumError("Cannot find UI element " + child.uid);
+            }else{
+                fbError("Found " + $found.size() + " matches for UI element " + child.uid, $found.get());
+                throw new SeleniumError("Found " + $found.size() + " matches for UI element " + child.uid);
             }
         }
 
@@ -999,7 +1000,8 @@ var UiList = UiContainer.extend({
                     }
                 }else{
                     //handle the "_ALL" case
-                    var lsz = this.getListSize();
+                    context.domRef = domref;
+                    var lsz = this.getListSize(context);
                     for(var j=1; j<=lsz; j++){
                         var tid = this.getRid(j);
                         //only cares about elements that are covered by "_ALL", not by other templates
