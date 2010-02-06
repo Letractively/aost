@@ -1,6 +1,10 @@
-var getEvent = function(name, key){
+var getEvent = function(name, key , objRef){
     var e = teJQuery.Event(name);
     e.which = key.charCodeAt(0);
+    e.ctrlKey = objRef.ctrl;
+    e.shiftKey = objRef.shift;
+    e.altKey = objRef.alt;
+    e.metaKey = objRef.metaKey;
     return e;
 };
 
@@ -379,6 +383,14 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("keyDown", true, "VOID");
     this.registerApi("keyPress", true, "VOID");
     this.registerApi("keyUp", true, "VOID");
+    this.registerApi("altKeyUp", false, "VOID");
+    this.registerApi("altKeydown", false, "VOID");
+    this.registerApi("ctrlKeyUp", false, "VOID");
+    this.registerApi("ctrlKeydown", false, "VOID");
+    this.registerApi("shiftKeyUp", false, "VOID");
+    this.registerApi("shiftKeydown", false, "VOID");
+    this.registerApi("metaKeyUp", false, "VOID");
+    this.registerApi("metaKeydown", false, "VOID");
     this.registerApi("mouseOver", true, "VOID");
     this.registerApi("mouseDown", true, "VOID");
     this.registerApi("mouseEnter", true, "VOID");
