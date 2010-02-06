@@ -465,7 +465,6 @@ var UiContainer = UiObject.extend({
         var node = new UiCNode();
         node.objRef = this;
         node.rid = rid;
-//        node.uid = this.uid;
         node.pid = pid;
         node.domRef = domref;
         
@@ -474,18 +473,53 @@ var UiContainer = UiObject.extend({
             for(var i=0; i<keys.length; i++){
                 var key = keys[i];
                 var child = this.components.get(key);
-                var cdomref = child.domRef;
-                if(cdomref == null){
-                    cdomref = this.locateChild(context, domref, child);
+                if(child.uiType == "Repeat"){
+                    this.buildSNodeForRepeat(context, node, child);
+                }else{
+                     var cdomref = child.domRef;
+                     if(cdomref == null){
+                         cdomref = this.locateChild(context, domref, child);
+                     }
+                     var csdata = new UiSData(this.buildPid(pid, rid), key, child, cdomref);
+                     var alg = context.alg;
+                     alg.addChildUiObject(csdata);
                 }
-//                var csdata = new UiSData(key, key, child, cdomref);
-                var csdata = new UiSData(this.buildPid(pid, rid), key, child, cdomref);
-                var alg = context.alg;
-                alg.addChildUiObject(csdata);
             }
         }
 
         return node;
+    },
+
+    buildSNodeForRepeat: function(context, pnode, repeat){
+        var cdoms = this.locateChildren(context, pnode.domRef, repeat);
+        if(cdoms != null && cdoms.length > 0){
+            var keys = repeat.components.keySet();
+
+            for(var i=0; i<cdoms.length; i++){
+                var rnode = new UiCNode();
+                rnode.objRef = repeat;
+                rnode.parent = pnode;
+                rnode.pid = this.buildPid(pnode.pid, pnode.rid);
+                rnode.rid = repeat.uid + "_" + (i+1);
+                rnode.domRef = cdoms[i];
+
+                for(var j=0; j<keys.length; j++){
+                    var key = keys[j];
+                    var child = repeat.components.get(key);
+                    if(child.uiType == "Repeat"){
+                        this.buildSNodeForRepeat(context, rnode, child);
+                    }else{
+                         var cdomref = child.domRef;
+                         if(cdomref == null){
+                             cdomref = this.locateChild(context, rnode.domRef, child);
+                         }
+                         var csdata = new UiSData(this.buildPid(rnode.pid, rnode.rid), key, child, cdomref);
+                         var alg = context.alg;
+                         alg.addChildUiObject(csdata);
+                    }                    
+                }
+            }
+        }
     },
 
     locateChildren: function(context, domRef, child){
@@ -631,7 +665,7 @@ var UiRepeat = UiContainer.extend({
         this.components = new Hashtable();
     },
 
-    buildSNode: function(context, pid, rid, domref){
+/*    buildSNode: function(context, pid, rid, domref){
         var node = new UiCNode();
         node.objRef = this;
         node.rid = rid;
@@ -664,7 +698,7 @@ var UiRepeat = UiContainer.extend({
         }
 
         return node;
-    },
+    },*/
 
     locateSelf: function(context){
         !tellurium.logManager.isUseLog || fbLog("Calling locateSelf for " + this.uid, this);
