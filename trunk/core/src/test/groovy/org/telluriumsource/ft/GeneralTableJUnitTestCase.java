@@ -105,6 +105,16 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
         assertEquals(3, size);
     }
 
+    @Test
+    public void testShowUi() {
+        useEngineLog(true);
+        useTelluriumApi(true);
+        useCache(true);
+//        gtm.show("GT", 10000);
+        gtm.startShow("GT");
+        gtm.endShow("GT");
+    }
+
     @AfterClass
     public static void tearDown(){
         showTrace();
