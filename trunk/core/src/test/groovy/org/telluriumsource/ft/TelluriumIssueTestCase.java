@@ -39,6 +39,25 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
     }
 
     @Test
+    public void testGetHTMLSource(){
+        useTelluriumApi(true);
+        useCache(true);
+        useEngineLog(true);
+        tim.getHTMLSource("issueSearch");
+        useTelluriumApi(false);
+    }
+
+    @Test
+    public void testShowUI(){
+        useTelluriumApi(true);
+        useCache(true);
+        useEngineLog(true);
+        tim.startShow("issueResult");
+        tim.endShow("issueResult");
+        useTelluriumApi(false);
+    }
+
+    @Test
     public void testValidateUiModule(){
         tim.validate("issueSearch");
     }
