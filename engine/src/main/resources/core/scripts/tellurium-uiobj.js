@@ -560,7 +560,8 @@ var UiContainer = UiObject.extend({
         if(child.locator != null && domRef != null){
             var alg = context.alg;
             var sel = alg.buildSelector(child.locator);
-            var $found = teJQuery(context.domRef);
+//            var $found = teJQuery(context.domRef);
+            var $found = teJQuery(domRef);
             if(sel != null && sel.trim().length > 0){
                 $found = $found.find(sel);
             }
