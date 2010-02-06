@@ -47,7 +47,8 @@ TelluriumTestCase.prototype.testRepeat = function(){
 };
 
 TelluriumTestCase.prototype.testGeneralTableModule = function(){
-    var json = [{"obj":{"uid":"GT","hrt":"tr","locator":{"tag":"table","attributes":{"id":"xyz"}},"ht":"tbody","bct":"td","frt":"tr","hct":"th","ft":"tfoot","brt":"tr","uiType":"StandardTable","fct":"td","bt":"tbody"},"key":"GT"},{"obj":{"uid":"header: all","locator":{},"uiType":"TextBox"},"key":"GT._ALL"},{"obj":{"uid":"row: 1, column: 1","locator":{"tag":"div","attributes":{"class":"abc"}},"uiType":"TextBox"},"key":"GT._1_1_1"},{"obj":{"uid":"row: 1, column: 2","locator":null,"uiType":"Container"},"key":"GT._1_1_2"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"class":"123"}},"uiType":"InputBox"},"key":"GT._1_1_2.Input"},{"obj":{"uid":"Some","locator":{"tag":"div","attributes":{"class":"someclass"}},"uiType":"Container"},"key":"GT._1_1_2.Some"},{"obj":{"uid":"Span","locator":{"tag":"span","attributes":{"class":"x"}},"uiType":"Span"},"key":"GT._1_1_2.Some.Span"},{"obj":{"uid":"Link","locator":{"tag":"a"},"uiType":"UrlLink"},"key":"GT._1_1_2.Some.Link"}];
+//    var json = [{"obj":{"uid":"GT","hrt":"tr","locator":{"tag":"table","attributes":{"id":"xyz"}},"ht":"tbody","bct":"td","frt":"tr","hct":"th","ft":"tfoot","brt":"tr","uiType":"StandardTable","fct":"td","bt":"tbody"},"key":"GT"},{"obj":{"uid":"header: all","locator":{},"uiType":"TextBox"},"key":"GT._ALL"},{"obj":{"uid":"row: 1, column: 1","locator":{"tag":"div","attributes":{"class":"abc"}},"uiType":"TextBox"},"key":"GT._1_1_1"},{"obj":{"uid":"row: 1, column: 2","locator":null,"uiType":"Container"},"key":"GT._1_1_2"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"class":"123"}},"uiType":"InputBox"},"key":"GT._1_1_2.Input"},{"obj":{"uid":"Some","locator":{"tag":"div","attributes":{"class":"someclass"}},"uiType":"Container"},"key":"GT._1_1_2.Some"},{"obj":{"uid":"Span","locator":{"tag":"span","attributes":{"class":"x"}},"uiType":"Span"},"key":"GT._1_1_2.Some.Span"},{"obj":{"uid":"Link","locator":{"tag":"a"},"uiType":"UrlLink"},"key":"GT._1_1_2.Some.Link"}];
+    var json = [{"obj":{"uid":"GT","hrt":"tr","locator":{"tag":"table","attributes":{"id":"xyz"}},"ht":"tbody","bct":"td","frt":"tr","hct":"th","ft":"tfoot","brt":"tr","uiType":"StandardTable","fct":"td","bt":"tbody"},"key":"GT"},{"obj":{"uid":"header: all","locator":{},"uiType":"TextBox"},"key":"GT._HEADER_ALL"},{"obj":{"uid":"row: 1, column: 1","locator":{"tag":"div","attributes":{"class":"abc"}},"uiType":"TextBox"},"key":"GT._1_1_1"},{"obj":{"uid":"row: 1, column: 2","locator":null,"uiType":"Container"},"key":"GT._1_1_2"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"class":"123"}},"uiType":"InputBox"},"key":"GT._1_1_2.Input"},{"obj":{"uid":"Some","locator":{"tag":"div","attributes":{"class":"someclass"}},"uiType":"Container"},"key":"GT._1_1_2.Some"},{"obj":{"uid":"Span","locator":{"tag":"span","attributes":{"class":"x"}},"uiType":"Span"},"key":"GT._1_1_2.Some.Span"},{"obj":{"uid":"Link","locator":{"tag":"a"},"uiType":"UrlLink"},"key":"GT._1_1_2.Some.Link"}];
     tellurium.logManager.isUseLog = true;
     var uim = new UiModule();
 //    uim.parseUiModule(JSON.stringify(json));
@@ -56,15 +57,18 @@ TelluriumTestCase.prototype.testGeneralTableModule = function(){
     alg.allowRelax = true;
     var dom = teJQuery("html");
     alg.santa(uim, dom);
+    tellurium.cache.cacheOption = true;
+    tellurium.cache.addToCache("GT", uim);    
     var context = new WorkflowContext();
     context.alg = alg;
     var uiid = new Uiid();
     var tb = uim.walkTo(context, uiid.convertToUiid("GT"));
     var worker = new TextUiWorker();
     var out = tb.getAllBodyCell(context, worker);
-    var uinput = uim.walkTo(new WorkflowContext(), uiid.convertToUiid("GT[1][1]"));
-    var pinput = uim.walkTo(new WorkflowContext(), uiid.convertToUiid("GT[1][2].Input"));
-    var smt = uim.walkTo(new WorkflowContext(), uiid.convertToUiid("GT[1][2].Some.Link"));
+    var uinput = uim.walkTo(context, uiid.convertToUiid("GT[1][1]"));
+    var pinput = uim.walkTo(context, uiid.convertToUiid("GT[1][2].Input"));
+    var smt = uim.walkTo(context, uiid.convertToUiid("GT[1][2].Some.Link"));
+    tellurium.teApi.getHTMLSource("GT");
 };
 
 TelluriumTestCase.prototype.testTelluriumDownloadResult = function(){
