@@ -73,6 +73,13 @@ var UiSNode = Class.extend({
         this.domRef = null;
     },
 
+    getLevel: function(){
+        if(this.parent == null)
+            return 0;
+
+        return this.parent.getLevel() + 1;  
+    },
+
     getFullRid: function(){
         if(this.parent != null){
             return this.parent.getFullRid() + "." + this.rid;
@@ -687,14 +694,16 @@ var UiCollectVisitor = STreeVisitor.extend({
 });
 
 var UiOutlineVisitor = STreeVisitor.extend({
-    init: function(){
+/*    init: function(){
 //        this.outLine = "2px solid #000";
         this.outLine = "2px solid #0000FF";
     },
+    */
     
     visit: function(context, snode){
         var elem = snode.domRef;     
-        elem.style.outline = this.outLine;
+//        elem.style.outline = this.outLine;
+        elem.style.outline = tellurium.outlines.getDefaultOutline();
 
         !tellurium.logManager.isUseLog || fbLog("Add outline for " + snode.getFullRid(), elem);
     }
@@ -711,18 +720,30 @@ var UiOutlineCleaner = STreeVisitor.extend({
 
 var UiSimpleTipVisitor = STreeVisitor.extend({
 
-    visit: function(context, snode){
+    visit: function(context, snode) {
         var elem = snode.domRef;
         var frid = snode.getFullRid();
 
-//        if(snode.isLeaf()){
-            teJQuery(elem).simpletip({
-                // Configuration properties
-                content: frid,
-                fixed: false
-            });
-            !tellurium.logManager.isUseLog || fbLog("Add simple tip for " + frid, elem);
-//        }
+        var $elem = teJQuery(elem);
+        $elem.data("level", snode.getLevel());
+        !tellurium.logManager.isUseLog || fbLog("element with simpletip ", elem);
+        $elem.simpletip({
+            // Configuration properties
+            onShow: function() {
+                var parent = this.getParent().get(0);
+                !tellurium.logManager.isUseLog || fbLog("Get Parent for element", parent);
+                var level = teJQuery(parent).data("level");
+                parent.style.outline = tellurium.outlines.getOutline(level);
+            },
+            onHide: function() {
+                var parent = this.getParent().get(0);
+                parent.style.outline = tellurium.outlines.getDefaultOutline();
+            },
+
+            content: frid,
+            fixed: false
+        });
+        !tellurium.logManager.isUseLog || fbLog("Add simple tip for " + frid, elem);
     }
 });
 
@@ -731,7 +752,9 @@ var UiSimpleTipCleaner = STreeVisitor.extend({
         var elem = snode.domRef;
         var frid = snode.getFullRid();
 
-        teJQuery(elem).find("~ div.teengine.tooltip").remove();
+        $elem = teJQuery(elem);
+        $elem.removeData("level");
+        $elem.find("~ div.teengine.tooltip").remove();
 
         !tellurium.logManager.isUseLog || fbLog("Clean simple tip for " + frid, elem);
     }
