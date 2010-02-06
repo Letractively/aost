@@ -669,6 +669,11 @@ var UiRepeat = UiContainer.extend({
         this.components = new Hashtable();
     },
 
+    buildSNode: function(context, pid, rid, domref){
+        fbError("You should never reach here ", this);
+        throw new SeleniumError("You should never reach here ");
+    },
+
 /*    buildSNode: function(context, pid, rid, domref){
         var node = new UiCNode();
         node.objRef = this;
