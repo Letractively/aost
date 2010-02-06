@@ -4,6 +4,35 @@ var getEvent = function(name, key){
     return e;
 };
 
+function Outlines(){
+    this.defaultOutline = null;
+    this.outlines = new Array();
+}
+
+Outlines.prototype.init = function(){
+    this.defaultOutLine = "2px solid #0000FF";
+    //Red
+    this.outlines.push("2px solid #FF0000");
+    //Yellow
+    this.outlines.push("2px solid #FFFF00");
+    //Pastel Green
+    this.outlines.push("2px solid #00FF00");
+    //Pink
+    this.outlines.push("2px solid #FF00FF");
+    //Brown
+    this.outlines.push("2px solid #804000");
+};
+
+Outlines.prototype.getDefaultOutline = function(){
+    return this.defaultOutLine;
+};
+
+Outlines.prototype.getOutline = function(index){
+    var i = index % this.outlines.length;
+
+    return this.outlines[i];
+};
+
 var tellurium = null;
 
 
@@ -294,6 +323,9 @@ function Tellurium (){
 
     //log manager for Tellurium
     this.logManager = new LogManager();
+
+    //outlines
+    this.outlines = new Outlines();
 }
 
 Tellurium.prototype.isUseCache = function(){
@@ -303,6 +335,7 @@ Tellurium.prototype.isUseCache = function(){
 //TODO: How to handle custom calls?  delegate to Selenium?
 //TODO: Refactor --> use Javascript itself to do automatically discovery like selenium does instead of manually registering them
 Tellurium.prototype.initialize = function(){
+    this.outlines.init();
     this.registerTeApis();
     this.registerDefaultUiBuilders();
 };
