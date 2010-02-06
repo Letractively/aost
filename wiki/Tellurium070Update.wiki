@@ -556,7 +556,7 @@ Tellurium 0.7.0 provides a toggle method to animate the UI element on the web pa
     toggle "Form.Username.Input"
 }}}
 
-== show ==
+== UI Module Live Show ==
 
 The show command is used to show the UI module that you defined on the actual web page.
 
