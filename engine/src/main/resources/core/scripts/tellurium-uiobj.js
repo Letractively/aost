@@ -502,6 +502,7 @@ var UiContainer = UiObject.extend({
                 rnode.pid = this.buildPid(pnode.pid, pnode.rid);
                 rnode.rid = repeat.uid + "_" + (i+1);
                 rnode.domRef = cdoms[i];
+                pnode.insert(context, rnode);
 
                 for(var j=0; j<keys.length; j++){
                     var key = keys[j];
