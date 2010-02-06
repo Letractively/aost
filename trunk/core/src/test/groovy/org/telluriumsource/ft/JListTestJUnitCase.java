@@ -115,7 +115,9 @@ public class JListTestJUnitCase extends TelluriumMockJUnitTestCase {
         useTelluriumApi(true);
         useCache(true);
         useEngineLog(true);
-        jlm.show("SailingForm", 5000);
+//        jlm.show("SailingForm", 5000);
+        jlm.startShow("SailingForm");
+        jlm.endShow("SailingForm");
     }
 
     @Test

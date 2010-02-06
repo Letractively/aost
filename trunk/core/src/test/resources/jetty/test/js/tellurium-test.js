@@ -38,12 +38,15 @@ TelluriumTestCase.prototype.testRepeat = function(){
     alg.allowRelax = true;
     var dom = teJQuery("html");
     alg.santa(uim, dom);
+    tellurium.cache.cacheOption = true;
+    tellurium.cache.addToCache("SailingForm", uim);
     var context = new WorkflowContext();
     context.alg = alg;
     var uiid = new Uiid();
     var section = uim.walkTo(context, uiid.convertToUiid("SailingForm.Section"));
     var num = section.getRepeatNum(context);
     var invalid =  uim.walkTo(context, uiid.convertToUiid("SailingForm.Section[3]"));
+    tellurium.teApi.getHTMLSource("GT");
 };
 
 TelluriumTestCase.prototype.testGeneralTableModule = function(){
