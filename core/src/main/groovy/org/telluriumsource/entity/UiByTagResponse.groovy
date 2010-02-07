@@ -11,12 +11,18 @@ class UiByTagResponse {
   //tag name
   String tag;
 
-  //better not to use it when generating locator
-  int index;
+  Map filters
 
-  //UID, if not set, use tid
-  String uid;
+  //temporally assigned IDs
+  String[] tids;
 
-  //temporally assigned ID
-  String tid;
+  def UiByTagResponse(){
+
+  }
+  
+  def UiByTagResponse(tag, filters, tids) {
+    this.tag = tag;
+    this.filters = filters;
+    this.tids = tids;
+  }
 }
