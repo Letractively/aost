@@ -47,6 +47,7 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
         useTelluriumApi(false);
     }
 
+    @Ignore
     @Test
     public void testShowUI(){
         useTelluriumApi(true);
