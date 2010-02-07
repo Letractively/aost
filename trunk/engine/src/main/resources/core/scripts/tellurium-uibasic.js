@@ -150,7 +150,7 @@ function convertRidToUid(rid){
         var idl = new StringBuffer();
         var last = null;
         for(var i=0; i<ids.length; i++){
-            var t = convertRidField(ids[i])
+            var t = convertRidField(ids[i]);
             if(last != null){
                 if(!t.match(/^\[/) || last.match(/\]$/)){
                     idl.append(".");
