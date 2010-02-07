@@ -13,6 +13,27 @@ TelluriumTestCase.prototype.testUiid = function(){
     var sub = uiid1.subUiid(uiid2.size());
 };
 
+TelluriumTestCase.prototype.testConvertRidToUid = function(){
+    var rid = "Form";
+    var uid = convertRidToUid(rid);
+    fbLog("uid " + uid, uid == "Form");
+    rid = "Form.Password";
+    uid = convertRidToUid(rid);
+    fbLog("uid " + uid, uid == "Form.Password");
+    rid = "SailingForm.Section_3";
+    uid = convertRidToUid(rid);
+    fbLog("uid " + uid, uid == "SailingForm.Section[3]");
+    rid = "GT._1_2.Input";
+    uid = convertRidToUid(rid);
+    fbLog("uid " + uid, uid == "GT[1][2].Input");
+    rid = "downloadResult._1_3._1";
+    uid = convertRidToUid(rid);
+    fbLog("uid " + uid, uid == "downloadResult[1][3].[1]");
+    rid = "GT._HEADER_3";
+    uid = convertRidToUid(rid);
+    fbLog("uid " + uid, uid == "GT.HEADER[3]");
+};
+
 TelluriumTestCase.prototype.testPrie = function(){
     var trie = new Trie();
     trie.insert("Form", "form1");
