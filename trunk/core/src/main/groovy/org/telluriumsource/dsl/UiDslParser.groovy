@@ -87,6 +87,10 @@ class UiDslParser extends BuilderSupport{
            registry.put(nestObjectName(obj), obj)
        }
 
+      def removeUiObjectFromRegistry(UiObject obj){
+          registry.remove(nestObjectName(obj));
+      }
+
        UiObject findIncludedUiObject(Map map){
          String uid = map.get(UID)
          String ref = map.get(REF)

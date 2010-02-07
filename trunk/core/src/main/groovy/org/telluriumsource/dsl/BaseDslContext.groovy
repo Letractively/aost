@@ -21,6 +21,8 @@ import org.telluriumsource.entity.UiModuleValidationResponse
 import org.telluriumsource.ui.object.Repeat
 import org.telluriumsource.entity.KeyValuePairs
 import org.telluriumsource.entity.UiByTagResponse
+import org.telluriumsource.ui.object.AllPurposeObject
+import org.telluriumsource.ui.builder.AllPurposeObjectBuilder
 
 /**
  *
@@ -1512,21 +1514,27 @@ abstract class BaseDslContext extends GlobalDslContext {
   }
 
 
-  java.util.List<UiByTagResponse> getUiByTag(Map filters, boolean markUid){
+  UiByTagResponse getUiByTag(String tag, Map filters){
     KeyValuePairs pairs = new KeyValuePairs(filters);
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
-    def out = extension.getUiByTag(context, pairs.toJSON(), markUid);
+    def out = extension.getUiByTag(context, tag, pairs.toJSON());
 
-    //TODO: convert the format to List<UiByTagResponse>
-    //TODO: register a custom obj to the object registry so that users can use dsl to work on the objects
-    return out;
+    UiByTagResponse response = new UiByTagResponse(tag, filters, out);
+    
+    if(out != null && out.size() > 0){
+      for(int i=0; i<out.size(); i++){
+        AllPurposeObject obj = AllPurposeObjectBuilder.build(out[i], out[i], tag, filters, false);
+        ui.addUiObjectToRegistry(obj);
+      }
+    }
+    
+    return response;
   }
 
   void removeMarkedUids(){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
-    //TODO: remove registerd custom objects
-    def out = extension.removeMarkedUids(context);
+    extension.removeMarkedUids(context);
   }
 }

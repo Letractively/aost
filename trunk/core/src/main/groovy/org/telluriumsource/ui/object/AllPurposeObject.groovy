@@ -13,7 +13,7 @@ class AllPurposeObject extends UiObject{
 
   JSONObject toJSON() {
 
-    return buildJSON() {jso ->
+  return buildJSON() {jso ->
       jso.put(UI_TYPE, "AllPurposeObject");
     }
   }
