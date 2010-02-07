@@ -467,15 +467,10 @@ var UiCollectVisitor = STreeVisitor.extend({
 });
 
 var UiOutlineVisitor = STreeVisitor.extend({
-/*    init: function(){
-//        this.outLine = "2px solid #000";
-        this.outLine = "2px solid #0000FF";
-    },
-    */
     
     visit: function(context, snode){
-        var elem = snode.domRef;     
-//        elem.style.outline = this.outLine;
+        var elem = snode.domRef;
+        teJQuery(elem).data("originalOutline", elem.style.outline);
         elem.style.outline = tellurium.outlines.getDefaultOutline();
 
         !tellurium.logManager.isUseLog || fbLog("Add outline for " + snode.getFullRid(), elem);
@@ -485,7 +480,11 @@ var UiOutlineVisitor = STreeVisitor.extend({
 var UiOutlineCleaner = STreeVisitor.extend({
     visit: function(context, snode){
         var elem = snode.domRef;
-        elem.style.outline = "";
+        var $elem = teJQuery(elem);
+        var outline = $elem.data("originalOutline");
+//        elem.style.outline = "";
+        elem.style.outline = outline;
+        $elem.removeData("originalOutline");
 
         !tellurium.logManager.isUseLog || fbLog("Clean outline for " + snode.getFullRid(), elem);
     } 
@@ -503,14 +502,25 @@ var UiSimpleTipVisitor = STreeVisitor.extend({
         $elem.simpletip({
             // Configuration properties
             onShow: function() {
-                var parent = this.getParent().get(0);
+                var $parent = this.getParent();
+                var parent = $parent.get(0);
                 !tellurium.logManager.isUseLog || fbLog("Get Parent for element", parent);
-                var level = teJQuery(parent).data("level");
+                var level = $parent.data("level");
+
+                var outline = $parent.data("outline");
+                if(outline == undefined || outline == null){
+                    $parent.data("outline", parent.style.outline);
+                }
+
                 parent.style.outline = tellurium.outlines.getOutline(level);
             },
             onHide: function() {
-                var parent = this.getParent().get(0);
-                parent.style.outline = tellurium.outlines.getDefaultOutline();
+                var $parent = this.getParent();
+                var parent = $parent.get(0);
+                var outline = $parent.data("outline");
+                parent.style.outline = outline;
+
+//                parent.style.outline = tellurium.outlines.getDefaultOutline();
             },
 
             content: frid,
@@ -525,7 +535,8 @@ var UiSimpleTipCleaner = STreeVisitor.extend({
         var elem = snode.domRef;
         var frid = snode.getFullRid();
 
-        $elem = teJQuery(elem);
+        var $elem = teJQuery(elem);
+        $elem.removeData("outline");
         $elem.removeData("level");
         $elem.find("~ div.teengine.tooltip").remove();
 
