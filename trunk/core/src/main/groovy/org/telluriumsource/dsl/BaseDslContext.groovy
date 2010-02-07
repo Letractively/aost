@@ -61,7 +61,7 @@ abstract class BaseDslContext extends GlobalDslContext {
   }
 
   protected String postProcessSelector(WorkflowContext context, String jqs) {
-    String locator = jqs
+//    String locator = jqs
 
     String optimized = optimizer.optimize(jqs)
 
@@ -101,8 +101,8 @@ abstract class BaseDslContext extends GlobalDslContext {
     return null;
   }
 
-  protected UiModuleValidationResponse parseUseUiModuleResponse(Map result) {
-
+//  protected UiModuleValidationResponse parseUseUiModuleResponse(Map result) {
+  protected Map parseUseUiModuleResponse(Map result) {
     return result;
   }
 
@@ -741,6 +741,7 @@ abstract class BaseDslContext extends GlobalDslContext {
         
         return (ArrayList) parseSeleniumJSONReturnValue(out)
       }
+
     } else {
       return walkToWithException(context, uid)?.getAllTableCellText() {loc, cell ->
         //for bulk data, the selector will not return a unique element
@@ -755,6 +756,8 @@ abstract class BaseDslContext extends GlobalDslContext {
         return (ArrayList) parseSeleniumJSONReturnValue(out)
       }
     }
+
+    return null;
   }
 
   //This only works for jQuery selector and Standard Table
