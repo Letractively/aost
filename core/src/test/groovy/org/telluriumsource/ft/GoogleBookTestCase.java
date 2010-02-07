@@ -71,7 +71,15 @@ public class GoogleBookTestCase extends TelluriumJUnitTestCase {
             assertEquals(8, ls);
         }
     }
-   
+
+    @Test
+    public void testGetHTMLSource(){
+        useEngineLog(true);
+        useTelluriumApi(true);
+        useCache(true);
+        gbm.getHTMLSource("GoogleBooksList");
+    }
+
     @AfterClass
     public static void tearDown(){
         showTrace();
