@@ -422,36 +422,12 @@ var UiHTMLSourceVisitor = STreeVisitor.extend({
         var html = teJQuery(domref).outerHTML();
         var frid = snode.getFullRid();
         var pair = new KeyValuePair();
-        pair.key = frid;
+        pair.key = convertRidToUid(frid);
         pair.val = html;
         this.htmlsource.push(pair);
-//        this.htmlsource.put(frid, html);
         !tellurium.logManager.isUseLog || fbLog("HTML Source for " + frid, html);
     }
 });
-
-/*
-var UiDecorationVisitor = STreeVisitor.extend({
-    init: function(){
-        this.decorator = new UiDecorator();
-    },
-
-    visit: function(context, snode){
-        var elem = snode.domRef;
-        var frid = snode.getFullRid();
-//        var delay = context.getContext("DELAY");
-
-        this.decorator.cleanShowNode();
-        teJQuery(elem).append("<div id='TE_ENGINE_SHOW_NODE'>" + frid + "</div>");
-        this.decorator.showNode(elem);
-*//*        if(delay != null)
-            teJQuery(elem).find("#TE_ENGINE_SHOW_NODE").fadeIn(100).delay(500).fadeOut(100);*//*
-        !tellurium.logManager.isUseLog || fbLog("Decoration for " + frid, elem);
-
-        teJQuery(elem).find("#TE_ENGINE_SHOW_NODE").remove();
-    }
-});
-*/
 
 var UiCollectVisitor = STreeVisitor.extend({
     init: function(){
@@ -517,13 +493,11 @@ var UiSimpleTipVisitor = STreeVisitor.extend({
             onHide: function() {
                 var $parent = this.getParent();
                 var parent = $parent.get(0);
-                var outline = $parent.data("outline");
-                parent.style.outline = outline;
 
-//                parent.style.outline = tellurium.outlines.getDefaultOutline();
+                parent.style.outline = $parent.data("outline");
             },
 
-            content: frid,
+            content: convertRidToUid(frid),
             fixed: false
         });
         !tellurium.logManager.isUseLog || fbLog("Add simple tip for " + frid, elem);
