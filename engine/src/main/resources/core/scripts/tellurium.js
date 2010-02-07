@@ -14,13 +14,15 @@ function Outlines(){
 }
 
 Outlines.prototype.init = function(){
-    this.defaultOutLine = "2px solid #0000FF";
+//    this.defaultOutLine = "2px solid #0000FF";
+    //Green
+    this.defaultOutLine = "2px solid #00FF00";
     //Red
     this.outlines.push("2px solid #FF0000");
     //Yellow
     this.outlines.push("2px solid #FFFF00");
-    //Pastel Green
-    this.outlines.push("2px solid #00FF00");
+    //Blue
+    this.outlines.push("2px solid #0000FF");
     //Pink
     this.outlines.push("2px solid #FF00FF");
     //Brown
