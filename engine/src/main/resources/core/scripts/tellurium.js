@@ -127,62 +127,6 @@ function getColor(elem, cssName){
    return color;
 }
 
-function LogManager(){
-    this.isUseLog = false;
-    this.logLevel = "info";
-}
-
-//var logManager = new LogManager();
-
-/*
-jQuery.fn.extend({
-  inDOM = function() { return !!$(this).parents('html').length; }
-});
-*/
-
-//dump logging message to dummy device, which sallows all messages == no logging
-function DummyLogger(){
-
-}
-
-DummyLogger.prototype.info = function(msg){
-
-};
-
-DummyLogger.prototype.warn = function(msg){
-
-};
-
-DummyLogger.prototype.error = function(msg){
-
-};
-
-DummyLogger.prototype.fatal = function(msg){
-
-};
-
-DummyLogger.prototype.debug = function(msg){
-
-};
-
-DummyLogger.prototype.trace = function(msg){
-
-};
-
-
- //uncomment this and comment the next line if you want to see the logging message in window
- //but it would slow down the testing dramatically, for debugging purpose only.
-
-/*
-var jslogger = new Log4js.getLogger("TeEngine");
-jslogger.setLevel(Log4js.Level.ALL);
-//jslogger.addAppender(new Log4js.MozillaJSConsoleAppender());
-jslogger.addAppender(new Log4js.ConsoleAppender());
-*/
-
-
-var jslogger = new DummyLogger();
-
 function Identifier(){
     this.sn = 100;
 }
