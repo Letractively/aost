@@ -12,8 +12,6 @@ import org.stringtree.json.JSONReader
 import org.telluriumsource.entity.EngineState
 import org.telluriumsource.entity.CacheUsageResponse
 import org.telluriumsource.util.LogLevels
-import org.telluriumsource.entity.UiByTagResponse
-import org.telluriumsource.entity.KeyValuePairs
 
 /**
  * Global methods, which should not be tired to an individual UI module
@@ -350,20 +348,4 @@ public class GlobalDslContext {
      extension.useEngineLog(context, isUse);   
   }
 
-  java.util.List<UiByTagResponse> getUiByTag(Map filters, boolean markUid){
-    KeyValuePairs pairs = new KeyValuePairs(filters);
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
-
-    def out = extension.getUiByTag(context, pairs.toJSON(), markUid);
-
-    //TODO: convert the format to List<UiByTagResponse>
-    //TODO: register a custom obj to the object registry so that users can use dsl to work on the objects
-    return out;
-  }
-
-  void removeMarkedUids(){
-    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
-
-    def out = extension.removeMarkedUids(context);
-  }
 }

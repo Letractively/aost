@@ -19,6 +19,8 @@ import org.telluriumsource.entity.DiagnosisRequest
 import org.telluriumsource.entity.DiagnosisResponse
 import org.telluriumsource.entity.UiModuleValidationResponse
 import org.telluriumsource.ui.object.Repeat
+import org.telluriumsource.entity.KeyValuePairs
+import org.telluriumsource.entity.UiByTagResponse
 
 /**
  *
@@ -1507,5 +1509,24 @@ abstract class BaseDslContext extends GlobalDslContext {
     WorkflowContext context = WorkflowContext.getDefaultContext();
 
     return extension.getCookieByJQuery(context, cookieName);
+  }
+
+
+  java.util.List<UiByTagResponse> getUiByTag(Map filters, boolean markUid){
+    KeyValuePairs pairs = new KeyValuePairs(filters);
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+
+    def out = extension.getUiByTag(context, pairs.toJSON(), markUid);
+
+    //TODO: convert the format to List<UiByTagResponse>
+    //TODO: register a custom obj to the object registry so that users can use dsl to work on the objects
+    return out;
+  }
+
+  void removeMarkedUids(){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+
+    //TODO: remove registerd custom objects
+    def out = extension.removeMarkedUids(context);
   }
 }
