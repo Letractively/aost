@@ -751,11 +751,11 @@ TelluriumApi.prototype.cleanUi = function(uid){
     }
 
     var context = new WorkflowContext();
-    var outlineCleaner = new UiOutlineCleaner();
     var tipCleaner = new UiSimpleTipCleaner();
+    var outlineCleaner = new UiOutlineCleaner();
     var chainVisitor = new STreeChainVisitor();
-    chainVisitor.addVisitor(outlineCleaner);
     chainVisitor.addVisitor(tipCleaner);
+    chainVisitor.addVisitor(outlineCleaner);
     stree.traverse(context, chainVisitor);
 };
 
