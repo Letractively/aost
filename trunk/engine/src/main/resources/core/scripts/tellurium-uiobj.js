@@ -217,6 +217,13 @@ var UiObject = Class.extend({
     }
 });
 
+var UiAllPurposeObject = UiObject.extend({
+    init: function(){
+        this._super();
+        this.uiType = 'AllPurposeObject';
+    }
+});
+
 var UiButton = UiObject.extend({
     init: function(){
         this._super();
@@ -2741,6 +2748,14 @@ var UiWindow = UiContainer.extend({
     }
 });
 
+
+function UiAllPurposeObjectBuilder(){
+
+}
+
+UiAllPurposeObjectBuilder.prototype.build = function(){
+   return new UiAllPurposeObject();
+};
 
 function UiButtonBuilder(){
 
