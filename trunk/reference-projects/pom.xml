@@ -23,5 +23,6 @@
 	</dependencies>
 	<modules>
 		<module>tellurium-website</module>
+        <module>tellurium-examples</module>
 	</modules>
 </project>
