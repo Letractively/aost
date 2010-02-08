@@ -801,7 +801,8 @@ TelluriumApi.prototype.getUiByTag = function(tag, attributes){
     }
     
     var sel = this.cache.uiAlg.cssbuilder.buildCssSelector(tag, text, position, false, attrs);
-    var $found = teJQuery(selenium.browserbot.currentWindow).find(sel);
+//    var $found = teJQuery(selenium.browserbot.currentWindow).find(sel);
+    var $found = teJQuery(selenium.browserbot.findElementOrNull("jquery=" + sel));
     var teuids = new Array();
     for(i=0; i<$found.size(); i++){
         var $e = $found.eq(i);
