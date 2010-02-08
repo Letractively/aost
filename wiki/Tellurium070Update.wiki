@@ -1313,6 +1313,27 @@ If you are behind a firewall
 groovy -Dhttp.proxyHost=proxy_host -Dhttp.proxyPort=proxy_port rundsl.groovy -f DSL_script_name
 }}}
  
+== useTelluriumEngine ==
+
+To make it convenient for users, Tellurium provides a {{{useTelluriumEngine}}} command as follows,
+
+{{{
+    void useTelluriumEngine(boolean isUse){
+        useCache(isUse);
+        useMacroCmd(isUse);
+        useTelluriumApi(isUse);
+    }   
+}}}
+
+As you can see, this command actually consists of three commands. In DslContext, Tellurium also provides two handy DSL style methods.
+
+{{{
+   void enableTelluriumEngine();
+
+   void disableTelluriumEngine();
+}}}
+
+
 == Misc ==
 
 Exposed the following Selenium APIs to DslContext.
