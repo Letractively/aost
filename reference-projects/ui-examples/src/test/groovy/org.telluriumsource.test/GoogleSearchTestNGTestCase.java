@@ -31,9 +31,8 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase{
         gsm.defineUi();
         connectSeleniumServer();
         useCssSelector(true);
-        useTelluriumApi(true);
+        useTelluriumEngine(true);
         useTrace(true);
-        useCache(true);
     }
 
     @BeforeMethod

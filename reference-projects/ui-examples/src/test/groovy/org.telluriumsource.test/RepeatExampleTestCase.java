@@ -24,10 +24,8 @@ public class RepeatExampleTestCase extends TelluriumMockJUnitTestCase {
         rem = new RepeatExampleModule();
         rem.defineUi();
         useCssSelector(true);
-        useTelluriumApi(true);
+        useTelluriumEngine(true);
         useTrace(true);
-        useCache(true);
-        useMacroCmd(true);
         useEngineLog(true);
     }
 

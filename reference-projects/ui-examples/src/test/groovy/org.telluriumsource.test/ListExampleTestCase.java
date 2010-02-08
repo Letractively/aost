@@ -21,10 +21,8 @@ public class ListExampleTestCase extends TelluriumMockJUnitTestCase {
         lem = new ListExampleModule();
         lem.defineUi();
         useCssSelector(true);
-        useTelluriumApi(true);
+        useTelluriumEngine(true);
         useTrace(true);
-        useCache(true);
-        useMacroCmd(true);
     }
     
     @Before

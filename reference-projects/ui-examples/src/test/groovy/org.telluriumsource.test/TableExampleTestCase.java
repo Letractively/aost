@@ -26,9 +26,8 @@ public class TableExampleTestCase  extends TelluriumMockJUnitTestCase {
         tem.defineUi();
 
         useCssSelector(true);
-        useTelluriumApi(true);
+        useTelluriumEngine(true);
         useTrace(true);
-        useCache(true);
     }
 
     @Before

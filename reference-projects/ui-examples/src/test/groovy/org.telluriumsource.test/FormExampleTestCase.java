@@ -26,11 +26,8 @@ public class FormExampleTestCase extends TelluriumMockTestNGTestCase {
 
         fem = new FormExampleModule();
         fem.defineUi();
-        useCssSelector(true);
-        useTelluriumApi(true);
+        useTelluriumEngine(true);
         useTrace(true);
-        useCache(true);
-        useMacroCmd(true);
     }
 
     @DataProvider(name = "config-provider")
