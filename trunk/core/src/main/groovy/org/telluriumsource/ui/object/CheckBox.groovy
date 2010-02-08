@@ -15,21 +15,21 @@ class CheckBox extends UiObject{
     public static final String TAG = "input"
     public static final String TYPE = "checkbox"
     
-    def check(Closure c){
+  def click(Closure c) {
 
-        c(locator, respondToEvents)
-    }
+      c(locator, respondToEvents)
+  }
 
-    def boolean isChecked(Closure c){
+  def doubleClick(Closure c) {
 
-//        c(locator, respondToEvents)
-          c(locator)
-    }
+      c(locator, respondToEvents)
+  }
 
-    def uncheck(Closure c){
+  def clickAt(String coordination, Closure c) {
 
-        c(locator, respondToEvents)
-    }
+      c(locator, respondToEvents)
+  }
+
 
     public JSONObject toJSON() {
 
