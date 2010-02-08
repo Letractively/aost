@@ -1,4 +1,0 @@
-#summary Tellurium UI Module Visual Effect.
-#labels Phase-Implementation,Phase-Support
-
-= Introduction =
