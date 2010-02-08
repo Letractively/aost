@@ -1,5 +1,6 @@
 package org.telluriumsource.test;
 
+import org.telluriumsource.module.GoogleSearchModule;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
@@ -12,7 +13,6 @@ import org.telluriumsource.entity.CachePolicy;
 import java.util.List;
 import java.util.ArrayList;
 
-import module.GoogleSearchModule;
 
 
 /**
