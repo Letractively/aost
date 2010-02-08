@@ -349,4 +349,15 @@ public class GlobalDslContext {
      extension.useEngineLog(context, isUse);   
   }
 
+  void enableTelluriumEngine(){
+    this.enableCache();
+    this.enableTelluriumApi();
+    this.enableMacroCmd();
+  }
+
+  void disableTelluriumEngine(){
+    this.disableCache();
+    this.disableTelluriumApi();
+    this.disableMacroCmd();
+  }
 }

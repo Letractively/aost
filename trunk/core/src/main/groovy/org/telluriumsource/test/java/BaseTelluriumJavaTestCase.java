@@ -217,4 +217,10 @@ public abstract class BaseTelluriumJavaTestCase {
     public static void useEngineLog(boolean isUse){
         tellurium.useEngineLog(isUse);
     }
+
+    public static void useTelluriumEngine(boolean isUse){
+        useCache(isUse);
+        useMacroCmd(isUse);
+        useTelluriumApi(isUse);
+    }   
 }

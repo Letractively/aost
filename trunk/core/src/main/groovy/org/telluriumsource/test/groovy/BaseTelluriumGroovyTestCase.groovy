@@ -198,4 +198,10 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
     public void useEngineLog(boolean isUse){
         tellurium.useEngineLog(isUse);
     }
+  
+    public void useTelluriumEngine(boolean isUse){
+        this.useCache(isUse);
+        this.useMacroCmd(isUse);
+        this.useTelluriumApi(isUse);
+    }
 }
