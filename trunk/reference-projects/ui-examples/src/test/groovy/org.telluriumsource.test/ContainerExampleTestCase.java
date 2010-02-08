@@ -24,11 +24,8 @@ public class ContainerExampleTestCase extends TelluriumMockJUnitTestCase {
 
         cem = new ContainerExampleModule();
         cem.defineUi();
-        useCssSelector(true);
-        useTelluriumApi(true);
+        useTelluriumEngine(true);
         useTrace(true);
-        useCache(true);
-        useMacroCmd(true);
         useEngineLog(true);
     }
 
@@ -43,7 +40,7 @@ public class ContainerExampleTestCase extends TelluriumMockJUnitTestCase {
     }
 
     @Test
-    public void testFlowWithTelluriumAndCaching() {
+    public void testIsElementPresent() {
         cem.click("mainnav.events");
         cem.waitForPageToLoad(10000);
         assertTrue(cem.isElementPresent("mainnav"));
