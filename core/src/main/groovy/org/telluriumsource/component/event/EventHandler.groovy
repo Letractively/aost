@@ -186,6 +186,32 @@ class EventHandler implements Configurable{
         }
     }
 
+    def altKeyUp(WorkflowContext context) {
+        cbp.altKeyUp(context)
+	}
+    def altKeyDown(WorkflowContext context) {
+        cbp.altKeyDown(context)
+	}
+    def shiftKeyUp(WorkflowContext context) {
+         cbp.shiftKeyUp(context)
+	}
+    def shiftKeyDown(WorkflowContext context) {
+         cbp.shiftKeyDown(context)
+	}
+    def ctrlKeyUp(WorkflowContext context) {
+        cbp.ctrlKeyUp(context)
+	}
+    def ctrlKeyDown(WorkflowContext context) {
+        cbp.ctrlKeyDown(context)
+	}
+    def metaKeyUp(WorkflowContext context) {
+        cbp.metaKeyUp(context)
+	}
+    def metaKeyDown(WorkflowContext context) {
+        cbp.metaKeyDown(context)
+	}
+
+
 	def type(WorkflowContext context, String locator, String input, String[] events) {
         String[] defaultEvents = null
         if(extraEvent)

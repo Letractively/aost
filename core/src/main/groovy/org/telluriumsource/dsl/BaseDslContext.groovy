@@ -230,6 +230,38 @@ abstract class BaseDslContext extends GlobalDslContext {
     }
   }
 
+  def altKeyUp() {
+      WorkflowContext context = WorkflowContext.getDefaultContext()
+      eventHandler.altKeyUp(context)
+  }
+  def altKeyDown() {
+      WorkflowContext context = WorkflowContext.getDefaultContext()
+      eventHandler.altKeyDown(context)
+  }
+  def ctrlKeyUp() {
+      WorkflowContext context = WorkflowContext.getDefaultContext()
+      eventHandler.ctrlKeyUp(context)
+  }
+  def ctrlKeyDown() {
+      WorkflowContext context = WorkflowContext.getDefaultContext()
+      eventHandler.ctrlKeyDown(context)
+  }
+  def shiftKeyUp() {
+      WorkflowContext context = WorkflowContext.getDefaultContext()
+      eventHandler.shiftKeyUp(context)
+  }
+  def shiftKeyDown() {
+      WorkflowContext context = WorkflowContext.getDefaultContext()
+      eventHandler.shiftKeyDown(context)
+  }
+  def metaKeyUp() {
+      WorkflowContext context = WorkflowContext.getDefaultContext()
+      eventHandler.metaKeyUp(context)
+  }
+  def metaKeyDown() {
+      WorkflowContext context = WorkflowContext.getDefaultContext()
+      eventHandler.metaKeyDown(context)
+  }
 
   def clearText(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
