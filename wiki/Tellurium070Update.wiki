@@ -574,7 +574,35 @@ where the tids are assigned by Tellurium Engine. Under the hood, Tellurium core 
 
 The second method cleans up all the temporally assigned IDs by the Tellurium Engine.
 
+Example:
 
+In UI module JettyLogonModule, we define the following method:
+
+{{{
+  public String[] getInputBox(){
+     def attrs = ["type" : "text"];
+     UiByTagResponse resp = getUiByTag("input", attrs);
+    
+     return resp.tids;
+  }
+}}}
+
+The test case is as follows 
+
+{{{
+    @Test
+    public void testGetUiByTag(){
+        useEngineLog(true);
+        useTelluriumApi(true);
+        useCache(true);
+        String[] teuids = jlm.getInputBox();
+        assertNotNull(teuids);
+        for(String teuid: teuids){
+            jlm.keyType(teuid, "Tellurium Source");
+        }
+        jlm.removeMarkedUids("input");
+    }
+}}}
 
 == toggle ==
 
