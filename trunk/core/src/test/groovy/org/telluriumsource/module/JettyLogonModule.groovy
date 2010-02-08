@@ -1,6 +1,7 @@
 package org.telluriumsource.module
 
 import org.telluriumsource.dsl.DslContext
+import org.telluriumsource.entity.UiByTagResponse
 
 /**
  * 
@@ -127,5 +128,12 @@ public class JettyLogonModule extends DslContext {
   public String typeImageName(String name){
     keyType "Thumbnail.ICon.Input", name
     pause 500
+  }
+
+  public String[] getInputBox(){
+     def attrs = ["type" : "text"];
+     UiByTagResponse resp = getUiByTag("input", attrs);
+    
+     return resp.tids;
   }
 }

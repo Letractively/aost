@@ -1513,7 +1513,6 @@ abstract class BaseDslContext extends GlobalDslContext {
     return extension.getCookieByJQuery(context, cookieName);
   }
 
-
   UiByTagResponse getUiByTag(String tag, Map filters){
     KeyValuePairs pairs = new KeyValuePairs(filters);
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
@@ -1521,10 +1520,10 @@ abstract class BaseDslContext extends GlobalDslContext {
     def out = extension.getUiByTag(context, tag, pairs.toJSON());
 
     UiByTagResponse response = new UiByTagResponse(tag, filters, out);
-    
+    AllPurposeObjectBuilder builder = new AllPurposeObjectBuilder();
     if(out != null && out.size() > 0){
       for(int i=0; i<out.size(); i++){
-        AllPurposeObject obj = AllPurposeObjectBuilder.build(out[i], out[i], tag, filters, false);
+        AllPurposeObject obj = builder.build(out[i], out[i], tag, filters, false);
         ui.addUiObjectToRegistry(obj);
       }
     }
@@ -1532,9 +1531,9 @@ abstract class BaseDslContext extends GlobalDslContext {
     return response;
   }
 
-  void removeMarkedUids(){
+  void removeMarkedUids(String tag){
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
-    extension.removeMarkedUids(context);
+    extension.removeMarkedUids(context, tag);
   }
 }

@@ -197,6 +197,9 @@ TelluriumTestCase.prototype.testLogonUiModule = function(){
     var pinput = uim.walkTo(context, uiid.convertToUiid("Form.Password.Input"));
     var smt = uim.walkTo(context, uiid.convertToUiid("Form.Submit"));
     tellurium.teApi.getHTMLSource("Form");
+    var attrs = [{"val":"text","key":"type"}];
+    var teuids = tellurium.teApi.getUiByTag("input", attrs);
+    fbLog("result ", teuids);
 };
 
 TelluriumTestCase.prototype.testLogoUiModule = function(){
