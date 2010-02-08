@@ -46,7 +46,8 @@ public class GlobalDslContext {
   }
 
   protected Object parseSeleniumJSONReturnValue(Map out) {
-    return out.get("map");
+//    return out.get("map");
+    return out;
   }
 
   protected Object parseSeleniumJSONReturnValue(List out) {
