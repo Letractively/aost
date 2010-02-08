@@ -187,6 +187,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         for(String teuid: teuids){
             jlm.keyType(teuid, "Tellurium Source");
         }
+        jlm.removeMarkedUids("input");
     }
 
     @AfterClass
