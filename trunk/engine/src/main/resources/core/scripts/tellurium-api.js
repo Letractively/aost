@@ -806,6 +806,7 @@ TelluriumApi.prototype.getUiByTag = function(tag, attributes){
     var teuids = new Array();
     for(i=0; i<$found.size(); i++){
         var $e = $found.eq(i);
+        !tellurium.logManager.isUseLog || fbLog("Found element for getUiByTag " + tag, $e.get());
         var teuid = "te-" + tellurium.idGen.next();
         $e.attr("teuid", teuid);
         teuids.push(teuid);
