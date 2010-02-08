@@ -755,8 +755,6 @@ UiAlg.prototype.relax = function(clocator, pref) {
             }
         }
 
-//        else{
-//         }
         if($closest.size() > 0){
              nm = 1;
              result.closest = $closest;
