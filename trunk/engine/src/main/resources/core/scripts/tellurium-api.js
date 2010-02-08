@@ -778,3 +778,44 @@ TelluriumApi.prototype.getHTMLSource = function(uid) {
 
     return visitor.htmlsource;
 };
+
+TelluriumApi.prototype.getUiByTag = function(tag, attributes){
+//    var attrs = new Hashtable();
+    var attrs = {};
+    var position = null;
+    var text = null;
+    var i;
+    if(attributes != null && attributes.length > 0){
+        for(i=0; i<attributes.length; i++){
+            var key = attributes[i]["key"];
+            var val = attributes[i]["val"];
+            fbLog("Key " + key + ", val " + val, attributes);
+            if(key == "text"){
+                text = val;
+            }else if(key == "position"){
+                position = val;
+            }else{
+                attrs[key] = val;
+            }
+        }
+    }
+    
+    var sel = this.cache.uiAlg.cssbuilder.buildCssSelector(tag, text, position, false, attrs);
+    var $found = teJQuery(selenium.browserbot.currentWindow).find(sel);
+    var teuids = new Array();
+    for(i=0; i<$found.size(); i++){
+        var $e = $found.eq(i);
+        var teuid = "te-" + tellurium.idGen.next();
+        $e.attr("teuid", teuid);
+        teuids.push(teuid);
+    }
+
+    return teuids;
+};
+
+TelluriumApi.prototype.removeMarkedUids = function(tag){
+    var $found = teJQuery(selenium.browserbot.currentWindow).find(tag + "[teuid]");
+    if($found.size() > 0){
+        $found.removeAttr("teuid");
+    }
+};

@@ -309,7 +309,10 @@ JQueryBuilder.prototype.attrSingleClass = function(clazz) {
 };
 
 JQueryBuilder.prototype.attrPairs = function(attr, val) {
-    if (val == null || trimString(val).length == 0) {
+//    if (val == null || trimString(val).length == 0) {
+    fbLog("attr " + attr + ", val " + val, val);
+    
+    if (val == null || val.trim().length == 0) {
         return "[" + attr + "]";
     }
 

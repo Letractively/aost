@@ -407,6 +407,8 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("getTeTableHeaderColumnNum", true, "NUMBER");
     this.registerApi("getHTMLSource", true, "ARRAY");
     this.registerApi("getRepeatNum", true, "NUMBER");
+    this.registerApi("getUiByTag", false, "ARRAY");
+    this.registerApi("removeMarkedUids", false, "ARRAY");
 };
 
 Tellurium.prototype.flipLog = function(){
