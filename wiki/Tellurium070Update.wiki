@@ -546,6 +546,36 @@ public class Environment {
 
 where {{{setCustomEnvironment}}} and {{{getCustomEnvironment}}} can be used to pass user defined environment variables.
 
+== Get UIs by Tag Name ==
+
+As requested by users, Tellurium 0.7.0 added the following two methods.
+
+{{{
+UiByTagResponse getUiByTag(String tag, Map filters);
+
+void removeMarkedUids(String tag);
+}}}
+
+The first method passes in the tag name and the attributes as filters and get back the UI elements associated with the tag. The response object is defined as
+
+{{{
+class UiByTagResponse {
+  //tag name
+  String tag;
+
+  Map filters
+
+  //temporally assigned IDs
+  String[] tids;
+}
+}}}
+
+where the tids are assigned by Tellurium Engine. Under the hood, Tellurium core creates one AllPurposeObject for each _tid_ in the _tids_ array and registers it to Core so that users can use the _tid_ as the UID to act on the UI object. 
+
+The second method cleans up all the temporally assigned IDs by the Tellurium Engine.
+
+
+
 == toggle ==
 
 Tellurium 0.7.0 provides a toggle method to animate the UI element on the web page. For example, you can the following commands to show the UI element under testing.
