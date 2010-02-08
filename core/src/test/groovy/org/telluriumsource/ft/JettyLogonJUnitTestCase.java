@@ -177,6 +177,18 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         jlm.endShow("Form");
     }
 
+    @Test
+    public void testGetUiByTag(){
+        useEngineLog(true);
+        useTelluriumApi(true);
+        useCache(true);
+        String[] teuids = jlm.getInputBox();
+        assertNotNull(teuids);
+        for(String teuid: teuids){
+            jlm.keyType(teuid, "Tellurium Source");
+        }
+    }
+
     @AfterClass
     public static void tearDown(){
         showTrace();

@@ -15,18 +15,18 @@ class AllPurposeObjectBuilder extends Const {
 
   public static final String TEUID = "teuid";
 
-  public static AllPurposeObject build(String uid, String teuid, String tag, Map attributes, boolean isCacheable){
+  public AllPurposeObject build(String uid, String teuid, String tag, Map attributes, boolean isCacheable){
     AllPurposeObject obj = new AllPurposeObject();
     obj.uid = uid;
     obj.cacheable = isCacheable;
     
     CompositeLocator locator = new CompositeLocator();
-    Map<String, String> attrs = [:]
+    Map<String, String> attrs = [:];
     locator.tag = tag;
-    locator.text = map.get(TEXT)
-    locator.position = map.get(POSITION)
+    locator.text = attributes.get(TEXT);
+    locator.position = attributes.get(POSITION);
 
-    map.each { String key, value ->
+    attributes.each { String key, value ->
         if(!HEADER.equals(key) && !TRAILER.equals(key) && !TAG.equals(key) && !TEXT.equals(key) && !POSITION.equals(key) && !DIRECT.equals(key))
             attrs.put(key, value);
     }
