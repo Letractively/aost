@@ -987,6 +987,18 @@ To test the UI module, we can create the following test case.
 
 }}}
 
+== All Purpose Object ==
+
+Tellurium 0.7.0 added an all purpose object for internal usage only. The object is defined as
+
+{{{
+class AllPurposeObject extends UiObject {
+
+}
+}}}
+
+This object includes all methods for non-Container type objects.
+
 == Groovy and GMaven ==
 
 Groovy has been upgraded to the latest version 1.7.0.
