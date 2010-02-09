@@ -350,14 +350,12 @@ public class FormExampleTestCase extends TelluriumMockTestNGTestCase {
         fem = new FormExampleModule();
         fem.defineUi();
         useTelluriumEngine(true);
-        useTrace(true);
+        useTrace(true);        
+        useEngineLog(true);
     }
 
     @Test
     public void testShowUi(){
-        useEngineLog(true);
-        useTelluriumApi(true);
-        useCache(true);
 //        fem.show("Form", 10000);
         fem.startShow("Form");
         fem.endShow("Form");
