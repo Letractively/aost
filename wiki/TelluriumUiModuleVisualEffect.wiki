@@ -425,4 +425,5 @@ We welcome contributions for Tellurium from various aspects. More details on [ht
   * [http://groups.google.com/group/tellurium-users Tellurium User Group]
   * [http://craigsworks.com/projects/simpletip/ jQuery Simpletip Plugin]
   * [http://vimeo.com/9305675 the Tellurium UI Module Visual Demo at Vimeo]
+  * [http://aost.googlecode.com/files/tellurium-examples-0.7.0-SNAPSHOT.tar.gz Tellurium ui-examples Reference Project]
   * [http://www.slideshare.net/John.Jian.Fang/tellurium-at-rich-web-experience2009-2806967 Tellurium at Rich Web Experience 2009 by Jian Fang and Vivek Mongolu]
