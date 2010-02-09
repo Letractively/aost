@@ -431,7 +431,7 @@ The whole process is shown in [http://vimeo.com/9305675 the Tellurium UI Module 
 
 = Want to Contribute ? =
 
-We welcome contributions for Tellurium from various aspects. More details on [http://code.google.com/p/aost/wiki/HowToContribute How to Contribute].
+We welcome contributions for Tellurium from various aspects. Right now, we are looking for new members to join our dev team. More details on [http://code.google.com/p/aost/wiki/HowToContribute How to Contribute].
 
 = Resources =
 
