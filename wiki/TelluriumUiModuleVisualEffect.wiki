@@ -2,3 +2,75 @@
 #labels Phase-Implementation,Phase-Support
 
 = Introduction =
+
+Have you ever thought of seeing the actual UI on the web page under testing? Tellurium 0.7.0 provides a cool feature to show this visual effect. 
+
+Tellurium provides a _show_ command to display the UI module that you defined on the actual web page.
+
+{{{
+    public show(String uid, int delay);
+}}}
+
+where delay is in milliseconds. In the meanwhile, Tellurium Core exposes the following two methods for users to start showing UI and clean up UI.
+
+{{{
+   public void startShow(String uid);
+
+   public void endShow(String uid);
+}}}
+
+
+= How it Works ? =
+
+Under the hood, Tellurium Engine does the following steps.
+
+== Build a Snapshot Tree ==
+
+The Snapshot Tree, or STree in short, is different from the UI module. The UI module defines how the UI looks like. Even [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the UI module group locating algorithm - Santa] only locates the cachable UI elements and leaves out the dynamic elements. The snapshot tree, however, needs to include every UI elements inside the UI module. For example, the following Google Book List UI module is very simple.
+
+{{{
+    ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"]) {
+      List(uid: "subcategory", clocator: [tag: "td", class: "sidebar"], separator: "div") {
+        Container(uid: "all") {
+          TextBox(uid: "title", clocator: [tag: "div", class: "sub_cat_title"])
+          List(uid: "links", separator: "p") {
+            UrlLink(uid: "all", clocator: [:])
+          }
+        }
+      }
+    }
+}}} 
+
+But its STree may include many book categories and books.
+
+A snapshot tree includes the following different types of nodes.
+
+=== SNode ===
+
+SNode can present a non-container type UI object, i.e., UI element without chidlren.
+
+{{{
+var UiSNode = Class.extend({
+    init: function() {
+
+        //parent's rid
+        this.pid = null;
+
+        //rid, runtime id
+        this.rid = null;
+
+        //point to its parent in the UI SNAPSHOT tree
+        this.parent = null;
+
+        //UI object, which is defined in the UI module, reference
+        this.objRef = null;
+
+        //DOM reference
+        this.domRef = null;
+    },
+...
+}
+}}}
+
+===  ===  
+http://craigsworks.com/projects/simpletip/
