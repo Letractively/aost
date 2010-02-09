@@ -371,4 +371,8 @@ UI Module Validation Result for ProblematicForm
 
 = Resources =
 
+  * [http://twitter.com/TelluriumSource Tellurium on Twitter] 
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group]
   * [http://code.google.com/p/aost/wiki/UIModuleGeneratingAlgorithm#A_Trie_Based_Dictionary The UI Module Generating Algorithm in Trump]
+  * [http://code.google.com/p/aost/wiki/Tellurium070Update What's new in Tellurium 0.7.0]
+  * [http://code.google.com/p/aost/wiki/UserGuide070Introduction Tellurium User Guide]
