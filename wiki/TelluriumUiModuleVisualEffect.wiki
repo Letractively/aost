@@ -190,8 +190,92 @@ For the show UI method, the following two Visitors are designed.
 
 === Outline Visitor ===
 
-The outline visitor is used to mark the UI elements inside a UI module so that the UI looks as follows when users do not mouse over the UI module.
+The outline visitor is used to mark the UI elements inside a UI module to differentiate the UI elements in the UI module from other UI elements.
 
+The outline visitor include a visitor to outline an element.
 
+{{{
 
-http://craigsworks.com/projects/simpletip/
+var UiOutlineVisitor = STreeVisitor.extend({
+    
+    visit: function(context, snode){
+        var elem = snode.domRef;
+        teJQuery(elem).data("originalOutline", elem.style.outline);
+        elem.style.outline = tellurium.outlines.getDefaultOutline();
+    }
+});
+}}}
+
+and a cleaner to restore the UI to the original one.
+
+{{{
+var UiOutlineCleaner = STreeVisitor.extend({
+    visit: function(context, snode){
+        var elem = snode.domRef;
+        var $elem = teJQuery(elem);
+        var outline = $elem.data("originalOutline");
+        elem.style.outline = outline;
+        $elem.removeData("originalOutline");
+    } 
+});
+
+}}}
+
+=== Tooltip Visitor ===
+
+The Tooltip visitor is used to show the full UID of an element in a tooltip fasion. Tellurium exploited [http://craigsworks.com/projects/simpletip/ jQuery Simpletip plugin] to achieve this visual effect. In additional to that, the tooltip visitor also changes the outlines of the selected UI elements.
+
+Like the outline visitor, the tooltip visitor include a visitor to set up the visual effects,
+
+{{{
+var UiSimpleTipVisitor = STreeVisitor.extend({
+
+    visit: function(context, snode) {
+        var elem = snode.domRef;
+        var frid = snode.getFullRid();
+
+        var $elem = teJQuery(elem);
+        $elem.data("level", snode.getLevel());
+        $elem.simpletip({
+            // Configuration properties
+            onShow: function() {
+                var $parent = this.getParent();
+                var parent = $parent.get(0);
+                var level = $parent.data("level");
+
+                var outline = $parent.data("outline");
+                if(outline == undefined || outline == null){
+                    $parent.data("outline", parent.style.outline);
+                }
+
+                parent.style.outline = tellurium.outlines.getOutline(level);
+            },
+            onHide: function() {
+                var $parent = this.getParent();
+                var parent = $parent.get(0);
+
+                parent.style.outline = $parent.data("outline");
+            },
+
+            content: convertRidToUid(frid),
+            fixed: false
+        });
+    }
+});
+}}}
+
+and a cleaner to remove the visual effects.
+
+{{{
+var UiSimpleTipCleaner = STreeVisitor.extend({
+    visit: function(context, snode){
+        var elem = snode.domRef;
+        var frid = snode.getFullRid();
+
+        var $elem = teJQuery(elem);
+        $elem.removeData("outline");
+        $elem.removeData("level");
+        $elem.find("~ div.teengine.tooltip").remove();
+    }
+});
+}}}
