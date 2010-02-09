@@ -191,7 +191,11 @@ http://tellurium-users.googlegroups.com/web/SantaLocateLookChildren.png?gda=giCJ
 
 ==== Look ID ====
 
-http://tellurium-users.googlegroups.com/web/SantaIDTrie.png?gda=Skg-3EEAAACsdq5EJRKLPm_KNrr_VHB_J0CZbtjXsLeARPZVJUaNOjH8Crsfg4rH8TcmaCdOA2ZTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=7nZfUgsAAADYli6m_0NtCfIY0QI1W24E
+The ID attribute uniquely defined a UI element on a web page and locating DOM element by ID is very fast, thus, Tellurium Engine builds an ID prefix tree, i.e., Trie, when it parses the JSON presentation of the UI module. For example, assume the UI module has four elements, A, D, F, and G, with the ID attribute. The Trie is as follows.
+
+http://tellurium-users.googlegroups.com/web/SantaLookIDTrie.png?gda=H9_7kUUAAACsdq5EJRKLPm_KNrr_VHB_Nen3NTP9dP3oTwzmB8VfKSSWhnpA9T1yOhjOCab04vJzlqnWZQD3y6jZqCMfSFQ6Gu1iLHeqhw4ZZRj3RjJ_-A&gsc=_MkLKwsAAACPGU9cKreSbkxa0SOycyXv
+
+When Santa locates the UI element A, it can use the IDs for element A and D to help itself to reduce multiple matches. If Santa locates element D, only the ID of element G is helpful.
 
 ==== Best Effort ====
 
