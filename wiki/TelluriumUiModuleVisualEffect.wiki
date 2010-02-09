@@ -368,3 +368,29 @@ public class FormExampleTestCase extends TelluriumMockTestNGTestCase {
         showTrace();
     }
 }}}
+
+== Visual Effects ==
+
+First, you can download the above example by check out the ui-examples reference project from subversion or download it from 
+
+http://aost.googlecode.com/files/tellurium-examples-0.7.0-SNAPSHOT.tar.gz
+
+Then, load the project into an IDE and put a breakpoint at the line
+
+{{{
+fem.startShow("Form");
+}}}
+
+After that, debug the test case {{{testShowUi()}}}.
+
+Before the {{{startShow}}} command, the UI looks as follows,
+
+http://tellurium-users.googlegroups.com/web/teshowuinoeffect.png?gda=K7wvOUYAAACsdq5EJRKLPm_KNrr_VHB_D4HLj40ELs-zhpN3Bl4yREf8cXQvcxDOBRa54Ef7YmV3riz0RlMs_1ov_iNdB7P8E-Ea7GxYMt0t6nY0uV5FIQ&gsc=oGileAsAAACCUi6IlstSnnhb_xNbAycZ
+
+and after the {{{startShow}}} command, the UI module is outlined by the outline visitor.
+
+http://tellurium-users.googlegroups.com/web/teshowuidefault.png?gda=O6D890UAAACsdq5EJRKLPm_KNrr_VHB_D4HLj40ELs-zhpN3Bl4yRN5qC_dOTsTgqGqvK1ZkNDxzlqnWZQD3y6jZqCMfSFQ6Gu1iLHeqhw4ZZRj3RjJ_-A&gsc=oGileAsAAACCUi6IlstSnnhb_xNbAycZ
+
+If you mouse over the UI module, you will see the visual effects as follows.
+
+http://tellurium-users.googlegroups.com/web/teshowuimouseover.png?gda=hwCMV0cAAACsdq5EJRKLPm_KNrr_VHB_D4HLj40ELs-zhpN3Bl4yRLXL3uGDhcmmKEh-Qhrel1EVeY4b49xGcMK802iZZ8SFeV4duv6pDMGhhhZdjQlNAw&gsc=oGileAsAAACCUi6IlstSnnhb_xNbAycZ
