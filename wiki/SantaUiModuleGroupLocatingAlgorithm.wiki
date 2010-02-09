@@ -236,6 +236,139 @@ Be aware, there is one requirement the match must satisfy, i.e., the tag name mu
 
 = Usage =
 
+For instance, we have the following html snippet to test.
+
+{{{
+<H1>FORM Authentication demo</H1>
+
+<div class="box-inner">
+    <a href="js/tellurium-test.js">Tellurium Test Cases</a>
+    <input name="submit" type="submit" value="Test">
+</div>
+
+<form method="POST" action="j_security_check">
+    <table border="0" cellspacing="2" cellpadding="1">
+        <tr>
+            <td>Username:</td>
+            <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input name="submit" type="submit" value="Login">
+            </td>
+        </tr>
+    </table>
+</form>
+}}} 
+
+The correct UI module is shown as follows,
+
+{{{
+    ui.Container(uid: "Form", clocator: [tag: "table"]){
+        Container(uid: "Username", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
+        }
+        Container(uid: "Password", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j_password"])
+        }
+        SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login", name: "submit"])
+    }
+}}}
+
+Assume the html was changed recently and you still use the UI module defined some time ago.
+
+{{{
+    ui.Container(uid: "ProblematicForm", clocator: [tag: "table"]){
+        Container(uid: "Username", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j"])
+        }
+        Container(uid: "Password", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j"])
+        }
+        SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "logon", name: "submit"])
+    }
+}}}
+
+Here are the differences:
+
+{{{
+   InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
+   InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j"])
+   
+   InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j_password"])
+   InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j"])
+
+   SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login", name: "submit"])
+   SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "logon", name: "submit"])     
+}}}
+
+What will happen without the Santa algorithm? You tests will be broken because the generated locators will not be correct any more. But if you use the latest Tellurium 0.7.0 snapshot, you will notice that the tests still work if you allow Tellurium to do closest match by calling
+
+{{{
+    useClosestMatch(true);
+}}}
+
+The magic is that the new Tellurium Engine will locate the UI module as a whole. It may have trouble to find the individual UI element such as "ProblematicForm.Username.Input", but it has no trouble to find the whole UI module structure in the DOM. 
+
+Apart from that, Tellurium 0.7.0 also provides a handy method for you to validate your UI module. For example, if you call
+
+{{{
+    validateUiModule("ProblematicForm");
+}}}
+
+You will get the detailed validation results including the closest matches.
+
+{{{
+UI Module Validation Result for ProblematicForm
+
+-------------------------------------------------------
+
+	Found Exact Match: false 
+
+	Found Closest Match: true 
+
+	Match Count: 1 
+
+	Match Score: 85.764 
+
+
+	Closest Match Details: 
+
+	--- Element ProblematicForm.Submit -->
+
+	 Composite Locator: <input name="submit" value="logon" type="submit"/> 
+
+	 Closest Matched Element: <input name="submit" value="Login" type="submit"> 
+
+
+
+	--- Element ProblematicForm.Username.Input -->
+
+	 Composite Locator: <input name="j" type="text"/> 
+
+	 Closest Matched Element: <input size="12" value="" name="j_username" maxlength="25" type="text"> 
+
+
+
+	--- Element ProblematicForm.Password.Input -->
+
+	 Composite Locator: <input name="j" type="password"/> 
+
+	 Closest Matched Element: <input size="12" value="" name="j_password" maxlength="25" type="password"> 
+
+
+-------------------------------------------------------
+
+}}}
+
 = Resources =
 
   * [http://code.google.com/p/aost/wiki/UIModuleGeneratingAlgorithm#A_Trie_Based_Dictionary The UI Module Generating Algorithm in Trump]
