@@ -78,7 +78,7 @@ function UiModule(){
 
 From above, you can see the UI module has two indices for fast access. One is UID to UI object mapping and the other is the UID to DOM reference mapping. 
 
-An ID prefix tree, Trie, is built if the UI module includes elements with the ID attribute. The Trie is used by the Santa look ID operation.
+An ID prefix tree, Trie, is built if the UI module includes elements with the ID attribute. The Trie is used by the Santa look ID operation. A more detailed Trie build process can be found at the wiki [http://code.google.com/p/aost/wiki/UIModuleGeneratingAlgorithm#A_Trie_Based_Dictionary The UI Module Generating Algorithm in Trump]
 
 The scaled score is used by the relax operation for partial matching and the score stands for how close the UI module matches the runtime DOM. 100 is a perfect match.
  
@@ -237,3 +237,5 @@ Be aware, there is one requirement the match must satisfy, i.e., the tag name mu
 = Usage =
 
 = Resources =
+
+  * [http://code.google.com/p/aost/wiki/UIModuleGeneratingAlgorithm#A_Trie_Based_Dictionary The UI Module Generating Algorithm in Trump]
