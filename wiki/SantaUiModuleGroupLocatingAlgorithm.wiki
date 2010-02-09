@@ -369,6 +369,10 @@ UI Module Validation Result for ProblematicForm
 
 }}}
 
+= Want to Contribute ? =
+
+We welcome contributions for Tellurium from various aspects. Right now, we are looking for new members to join our dev team. More details on [http://code.google.com/p/aost/wiki/HowToContribute How to Contribute].
+
 = Resources =
 
   * [http://twitter.com/TelluriumSource Tellurium on Twitter] 
@@ -376,3 +380,4 @@ UI Module Validation Result for ProblematicForm
   * [http://code.google.com/p/aost/wiki/UIModuleGeneratingAlgorithm#A_Trie_Based_Dictionary The UI Module Generating Algorithm in Trump]
   * [http://code.google.com/p/aost/wiki/Tellurium070Update What's new in Tellurium 0.7.0]
   * [http://code.google.com/p/aost/wiki/UserGuide070Introduction Tellurium User Guide]
+  * [http://aost.googlecode.com/files/tellurium-examples-0.7.0-SNAPSHOT.tar.gz Tellurium ui-examples Reference Project]
