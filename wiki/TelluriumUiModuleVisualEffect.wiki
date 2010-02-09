@@ -72,5 +72,126 @@ var UiSNode = Class.extend({
 }
 }}}
 
-===  ===  
+=== CNode ===  
+
+CNode is a container type node and it has children.
+
+{{{
+
+var UiCNode = UiSNode.extend({
+    init: function(){
+        this._super();
+        //children nodes, regular UI Nodes
+        this.components = new Hashtable();
+    },
+
+...
+}
+}}}
+
+=== TNode ===
+
+The TNode stands for a table with headers, footers, and bodies. 
+{{{
+var UiTNode = UiSNode.extend({
+    init: function(){
+        this._super();
+
+        //header nodes with key as the template UID and value as the UI template Avatar
+        this.headers = new Hashtable();
+
+        //footer node with key as the template UID and value as the UI template Avatar
+        this.footers = new Hashtable();
+
+        //body nodes with key as the template UID and value as the UI template Avatar
+        this.components = new Hashtable();
+    },
+...
+}}}
+
+Finally, the Snapshot tree is defined as
+
+{{{
+function UiSTree(){
+    //the root node
+    this.root = null;
+
+    //the reference point to the UI module that the UI Snapshot tree is derived
+    this.uimRef = null;
+}
+}}}
+
+The STree build process is quite complicated. The basic idea is to use the cached DOM references in a cached UI module and use some Santa algorithm functionalities to find dynamic UI elements. 
+
+== STree Visitors ==
+
+The STree defines a traverse method, so that we can pass in different visitor to work on each individual UI element for different purpose.
+
+{{{
+UiSTree.prototype.traverse = function(context, visitor){
+    if(this.root != null){
+        this.root.traverse(context, visitor);
+    }
+};
+
+var UiSNode = Class.extend({
+...
+    traverse: function(context, visitor){
+        visitor.visit(context, this);
+    },
+...
+}
+
+}}}
+
+The STree Visitor class is defined as
+
+{{{
+var STreeVisitor = Class.extend({
+    init: function(){
+
+    },
+
+    visit: function(context, snode){
+
+    }
+});
+}}}
+  
+Tellurium Engine also defines a Visitor Chain to pass in multiple visitors.
+
+{{{
+var STreeChainVisitor = Class.extend({
+    init: function(){
+        this.chain = new Array();
+    },
+
+    removeAll: function(){
+        this.chain = new Array();
+    },
+
+    addVisitor: function(visitor){
+        this.chain.push(visitor);
+    },
+
+    size: function(){
+        return this.chain.length;
+    },
+
+    visit: function(context, snode){
+        for(var i=0; i<this.chain.length; i++){
+            this.chain[i].visit(context, snode);
+        }
+    }
+});
+}}}
+
+For the show UI method, the following two Visitors are designed.
+
+=== Outline Visitor ===
+
+The outline visitor is used to mark the UI elements inside a UI module so that the UI looks as follows when users do not mouse over the UI module.
+
+
+
 http://craigsworks.com/projects/simpletip/
