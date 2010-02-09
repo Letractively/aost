@@ -25,14 +25,14 @@ http://tellurium-users.googlegroups.com/web/EngineGroupLocatingFlow.png?gda=CL1f
 First, the Tellurium Engine API accepts a JSON presentation of the UI module. For example,
 
 {{{
-    var json = [{"obj":{"uid":"Form","locator":{"tag":"form"},"uiType":"Form"},"key":"Form"},
+  var json = [{"obj":{"uid":"Form","locator":{"tag":"form"},"uiType":"Form"},"key":"Form"},
    {"obj":{"uid":"Username","locator":{"tag":"tr"},"uiType":"Container"},"key":"Form.Username"},
    {"obj":{"uid":"Label","locator":{"direct":true,"text":"Username:","tag":"td"},"uiType":"TextBox"},"key":"Form.Username.Label"},
    {"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_username","type":"text"}},"uiType":"InputBox"},"key":"Form.Username.Input"},
    {"obj":{"uid":"Password","locator":{"tag":"tr"},"uiType":"Container"},"key":"Form.Password"},
    {"obj":{"uid":"Label","locator":{"direct":true,"text":"Password:","tag":"td"},"uiType":"TextBox"},"key":"Form.Password.Label"},
    {"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_password","type":"password"}},"uiType":"InputBox"},"key":"Form.Password.Input"},
-  {"obj":{"uid":"Submit","locator":{"tag":"input","attributes":{"name":"submit","value":"Login","type":"submit"}},"uiType":"SubmitButton"},"key":"Form.Submit"}];
+   {"obj":{"uid":"Submit","locator":{"tag":"input","attributes":{"name":"submit","value":"Login","type":"submit"}},"uiType":"SubmitButton"},"key":"Form.Submit"}];
 
 }}}
 
@@ -230,7 +230,9 @@ For a dynamic UI element, which is defined by UI templates, it may have zero, on
 
 == Relax ==
 
-=== Match Score ===
+The relax procedure is to match the UI attribute with the DOM node as close as possible. A *Match Score* is defined to measure how many attributes match the one on the DOM node. The total score is scaled to 0-100 at the end. The snapshot with the highest match score is chosen as the result.
+
+Be aware, there is one requirement the match must satisfy, i.e., the tag name must match the DOM node. Otherwise, the relax returns the match as not found.
 
 = Usage =
 
