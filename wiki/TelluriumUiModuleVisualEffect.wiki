@@ -394,3 +394,21 @@ http://tellurium-users.googlegroups.com/web/teshowuidefault.png?gda=O6D890UAAACs
 If you mouse over the UI module, you will see the visual effects as follows.
 
 http://tellurium-users.googlegroups.com/web/teshowuimouseover.png?gda=hwCMV0cAAACsdq5EJRKLPm_KNrr_VHB_D4HLj40ELs-zhpN3Bl4yRLXL3uGDhcmmKEh-Qhrel1EVeY4b49xGcMK802iZZ8SFeV4duv6pDMGhhhZdjQlNAw&gsc=oGileAsAAACCUi6IlstSnnhb_xNbAycZ
+
+You may be a bit confused by the multiple UID labels. For example, When user hives over the Username Input box, its parent "Username" and its grandparent "Form" are shown as well. We added color coding to the outlines. Different levels in the hierarchy are presented by different colors. How the layout maps to each individual UI element can be illustrated more clearly by the following figure.
+ 
+http://tellurium-users.googlegroups.com/web/telluriumshowuisnapshot2.png?gda=jciJlU4AAACsdq5EJRKLPm_KNrr_VHB__uAWGGGjpMtQflLHIKHYYIBs4RzukN2p4-NZziI_5n9VyjA3JensFE0ElYzuCQ7x47Cl1bPl-23V2XOW7kn5sQ&gsc=oz20hwsAAAD_weMBWNZir9C-tYu9DiER
+
+Once you call the following command
+
+{{{
+   endShow("Form");
+}}}
+
+The visual effects are removed and the UI is restored to the original one. 
+
+== Screen Cast ==
+
+The whole process is shown in [http://vimeo.com/9305675 the Tellurium UI Module Visual Demo].
+
+ 
