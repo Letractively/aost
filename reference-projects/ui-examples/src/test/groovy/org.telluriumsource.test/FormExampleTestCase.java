@@ -28,6 +28,7 @@ public class FormExampleTestCase extends TelluriumMockTestNGTestCase {
         fem.defineUi();
         useTelluriumEngine(true);
         useTrace(true);
+        useEngineLog(true);
     }
 
     @DataProvider(name = "config-provider")
@@ -83,9 +84,6 @@ public class FormExampleTestCase extends TelluriumMockTestNGTestCase {
 
     @Test
     public void testShowUi(){
-        useEngineLog(true);
-        useTelluriumApi(true);
-        useCache(true);
 //        fem.show("Form", 10000);
         fem.startShow("Form");
         fem.endShow("Form");
