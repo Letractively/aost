@@ -279,3 +279,92 @@ var UiSimpleTipCleaner = STreeVisitor.extend({
     }
 });
 }}}
+
+= Demo =
+
+== Example ==
+
+To show the UI module visual effect, we consider the following html snippet
+
+{{{
+<H1>FORM Authentication demo</H1>
+
+<form method="POST" action="j_security_check">
+    <table border="0" cellspacing="2" cellpadding="1">
+        <tr>
+            <td>Username:</td>
+            <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input name="submit" type="submit" value="Login">
+            </td>
+        </tr>
+    </table>
+</form>
+}}}
+
+Based on the html source, we can define the UI module as follows,
+
+{{{
+public class FormExampleModule extends DslContext {
+
+  public void defineUi() {
+    ui.Form(uid: "Form", clocator: [tag: "table"]){
+        Container(uid: "Username", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
+        }
+        Container(uid: "Password", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j_password"])
+        }
+        SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login", name: "submit"])
+    }
+  }
+
+  public void logon(String username, String password){
+    keyType "Form.Username.Input", username
+    keyType "Form.Password.Input", password
+    click "Form.Submit"
+    waitForPageToLoad 30000
+  }
+
+}
+}}}
+
+The corresponding test case is as follows.
+
+{{{
+public class FormExampleTestCase extends TelluriumMockTestNGTestCase {
+    private static FormExampleModule fem;
+
+    @BeforeClass
+    public static void initUi() {
+        registerHtmlBody("FormExample");
+
+        fem = new FormExampleModule();
+        fem.defineUi();
+        useTelluriumEngine(true);
+        useTrace(true);
+    }
+
+    @Test
+    public void testShowUi(){
+        useEngineLog(true);
+        useTelluriumApi(true);
+        useCache(true);
+//        fem.show("Form", 10000);
+        fem.startShow("Form");
+        fem.endShow("Form");
+    }
+
+    @AfterClass
+    public static void tearDown(){
+        showTrace();
+    }
+}}}
