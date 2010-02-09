@@ -14,27 +14,43 @@ Why is the algorithm named "Santa". This is because I have completed most of the
 
 == Problem ==
 
-== Basic Concept ==
+Ui Module Group Locating is to locate all elements defined in a UI module by exploiting the relationship among themselves. The problem is to locate the UI module as a whole, not an individual UI element. 
 
-Santa is basically a branch and trim search procedure on the runtime DOM.
+== Basic Flow ==
 
+The UI module group locating basic flow is illustrated in the following graph.
+
+http://tellurium-users.googlegroups.com/web/EngineGroupLocatingFlow.png?gda=CL1f3U0AAACsdq5EJRKLPm_KNrr_VHB_RXAKJQtsnhpNGAFrVZVazbOp4BK91V4s-7udPy6DfdsU9ZdtcfNy08LkG6vh24c05Tb_vjspK02CR95VRrtmeQ&gsc=Yrh2TwsAAAAVdtSV2dFRYROnJX5TWJ5C
+
+First, the Tellurium Engine API accepts a JSON presentation of the UI module. For example,
+
+{{{
+    var json = [{"obj":{"uid":"Form","locator":{"tag":"form"},"uiType":"Form"},"key":"Form"},{"obj":{"uid":"Username","locator":{"tag":"tr"},"uiType":"Container"},"key":"Form.Username"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Username:","tag":"td"},"uiType":"TextBox"},"key":"Form.Username.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_username","type":"text"}},"uiType":"InputBox"},"key":"Form.Username.Input"},{"obj":{"uid":"Password","locator":{"tag":"tr"},"uiType":"Container"},"key":"Form.Password"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Password:","tag":"td"},"uiType":"TextBox"},"key":"Form.Password.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_password","type":"password"}},"uiType":"InputBox"},"key":"Form.Password.Input"},{"obj":{"uid":"Submit","locator":{"tag":"input","attributes":{"name":"submit","value":"Login","type":"submit"}},"uiType":"SubmitButton"},"key":"Form.Submit"}];
+
+}}}
+
+The UI tree, i.e., UTree, builder in Tellurium Engine builds a tree based on the input. Then Tellurium Engine calls the Santa algorithm to locate all UI elements in the UI module except the elements that are defined as not cacheable by the two UI object attributes _lazy"_ and _noCacheForChildren_.
+
+Once an element in a UI module is located, its DOM reference is stored into the UI Tree and an index for fast access. After the Santa algorithm is finished, the UI module is stored into a cache.
 
 
 == Data Structures ==
 
+The UI module is defined as follows.
 
 {{{
 function UiModule(){
     //top level UI object
     this.root = null;
 
+    //whether the UI module is valid
     this.valid = false;
 
     //hold a hash table of the uid to UI objects for fast access
     this.map = new Hashtable();
 
     //index for uid - dom reference for fast access
-    this.indices = null;
+    this.indices = new Hashtable();
 
     //If the UI Module is relaxed, i.e., use closest match
     this.relaxed = false;
@@ -53,7 +69,16 @@ function UiModule(){
 }
 }}}
 
+From above, you can see the UI module has two indices for fast access. One is UID to UI object mapping and the other is the UID to DOM reference mapping. 
+
+An ID prefix tree, Trie, is built if the UI module includes elements with the ID attribute. The Trie is used by the Santa look ID operation.
+
+The scaled score is used by the relax operation for partial matching and the score stands for how close the UI module matches the runtime DOM. 100 is a perfect match.
+ 
 == Locate ==
+
+=== Main Flow===
+
 
 Assume we have UI module as shown in the following graph.
 
@@ -62,6 +87,8 @@ http://tellurium-users.googlegroups.com/web/SantaTeUiModule.png?gda=efAxLkUAAACs
 The group locating procedure is a breadth first search algorithm. That is to say, it starts from the root node and then its children, its grandchildren, until all UI module tree has been searched. Santa marks already searched node in the UI module and you can see the color changes during the search procedure.
 
 === Branch and Trim ===
+
+Santa is basically a branch and trim search procedure on the runtime DOM.
 
 At some point, the Santa algorithm located UI elements A, B, and C. A snapshot has been generated as shown in the following graph.
 
