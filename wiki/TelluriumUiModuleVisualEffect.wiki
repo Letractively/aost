@@ -409,6 +409,8 @@ The visual effects are removed and the UI is restored to the original one.
 
 == Screen Cast ==
 
-The whole process is shown in [http://vimeo.com/9305675 the Tellurium UI Module Visual Demo].
+The whole process is shown in [http://vimeo.com/9305675 the Tellurium UI Module Visual Demo at Vimeo]. Or from Youtube.
+
+  <wiki:video url="http://www.youtube.com/watch?v=J1-NN9VK2WE/>
 
  
