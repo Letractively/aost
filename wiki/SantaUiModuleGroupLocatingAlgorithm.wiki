@@ -28,13 +28,15 @@ Assume we have UI module as shown in the following graph.
 
 http://tellurium-users.googlegroups.com/web/SantaTeUiModule.png?gda=efAxLkUAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCHMSn2U_NL2M92cFu9ULQMZzlqnWZQD3y6jZqCMfSFQ6Gu1iLHeqhw4ZZRj3RjJ_-A&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
 
+The group locating procedure is a breadth first search algorithm. That is to say, it starts from the root node and then its children, its grandchildren, until all UI module tree has been searched. Santa marks already searched node in the UI module and you can see the color changes during the search procedure.
+
 === Branch and Trim ===
 
 At some point, the Santa algorithm located UI elements A, B, and C. A snapshot has been generated as shown in the following graph.
 
 http://tellurium-users.googlegroups.com/web/SantaLocate1.png?gda=YaAO4EIAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCDC-P9WsSQjHe215MPg7qVZV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
 
-When Santa locates UI element D, it finds two matches. Santa branches the snapshot tree and create two separate ones. 
+When Santa locates UI element D, it finds two matches. Santa branches the snapshot tree and create two separate ones.
 
 http://tellurium-users.googlegroups.com/web/SantaLocate2.png?gda=mouCvUIAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCBn8D5nQVokhIuqb621TkD1V4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
 
@@ -48,7 +50,16 @@ As you can see from the above procedure, it would be time-consuming if Santa bra
 
 ==== Mark ====
 
+When Santa locates a node in the DOM, it marks it with its UID.
 
+{{{
+        $found.eq(0).data("uid", uid);
+}}}
+
+In this way, Santa will skip this DOM node when it tries to locate other UI elements in the UI module. 
+
+When Santa finishes the group locating procedure, it unmakr all the uids from the DOM nodes.
+ 
 ==== Look Ahead ====
 
 Look Ahead means to look at not only the current UI element but also its children when Santa locates it. For example, when Santa locates the node D, it also looks at this children G and H. Hopefully, this will eliminate multiple matches and only one match returns.
@@ -59,8 +70,29 @@ http://tellurium-users.googlegroups.com/web/SantaLocateLookChildren.png?gda=giCJ
 
 http://tellurium-users.googlegroups.com/web/SantaIDTrie.png?gda=Skg-3EEAAACsdq5EJRKLPm_KNrr_VHB_J0CZbtjXsLeARPZVJUaNOjH8Crsfg4rH8TcmaCdOA2ZTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=7nZfUgsAAADYli6m_0NtCfIY0QI1W24E
 
-
 ==== Best Effort ====
+
+Best effort is similar to Look Ahead mechanism, but it is for dynamic UI elements. For dynamic elements, Tellurium defines the following two attributes to determine whether it and its children are cachable.
+
+{{{
+var UiObject = Class.extend({
+    init: function(){
+        ...
+        //should we do lazy locating or not, i.e., wait to the time we actually use this UI object
+        //usually this flag is set because the content is dynamic at runtime
+        this.lazy = false;
+    }
+});
+
+var UiContainer = UiObject.extend({
+    init: function(){
+        ...
+        this.noCacheForChildren = false;
+    },
+
+}}}
+
+For a dynamic UI element, which is defined by UI templates, it may have zero, one, or multiple matches at runtime. Santa defines a bonus point system for dynamic UI elements. If the DOM matches more attributes in the UI templates, the candidate UI element usually gets higher bonus point. Santa choose the candidate with the highest bonus point to the snapshot tree.
 
 == Relax ==
 
