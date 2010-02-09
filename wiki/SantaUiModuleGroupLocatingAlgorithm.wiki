@@ -42,18 +42,25 @@ When Santa locates the next UI element E, it removes one of the snapshot tree an
 
 http://tellurium-users.googlegroups.com/web/SantaLocate3.png?gda=JTuot0IAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCGmSNtHn62Je2_5tj0zzNNhV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
 
+=== Multiple-Match Elimination Mechanisms ===
 
-=== Mark ===
+As you can see from the above procedure, it would be time-consuming if Santa branches too often and creates too many snapshot trees since Santa needs to exploit every possible snapshots. As a result, Santa includes the following multiple-match elimination mechanisms to reduce the number of snapshot trees it need to search on.
 
-=== Look Ahead ===
+==== Mark ====
+
+
+==== Look Ahead ====
+
+Look Ahead means to look at not only the current UI element but also its children when Santa locates it. For example, when Santa locates the node D, it also looks at this children G and H. Hopefully, this will eliminate multiple matches and only one match returns.
+
+http://tellurium-users.googlegroups.com/web/SantaLocateLookChildren.png?gda=giCJ100AAACsdq5EJRKLPm_KNrr_VHB_DQbB4dkECwACM3mZO-ksNZbYqNF9gYK0tqjCPQpPzwk78QNvYVH-EzLyPyoQaO3f5Tb_vjspK02CR95VRrtmeQ&gsc=L_MyaAsAAAAFA-mmrSq3wKWi9zbFEGr6
 
 ==== Look ID ====
 
 http://tellurium-users.googlegroups.com/web/SantaIDTrie.png?gda=Skg-3EEAAACsdq5EJRKLPm_KNrr_VHB_J0CZbtjXsLeARPZVJUaNOjH8Crsfg4rH8TcmaCdOA2ZTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=7nZfUgsAAADYli6m_0NtCfIY0QI1W24E
 
-==== Look Children ====
 
-=== Best Effort===
+==== Best Effort ====
 
 == Relax ==
 
