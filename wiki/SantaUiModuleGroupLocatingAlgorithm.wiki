@@ -79,6 +79,48 @@ The scaled score is used by the relax operation for partial matching and the sco
 
 === Main Flow===
 
+The main flow of group locating can be demonstrated by the following greatly simplified code snippet.
+
+{{{
+UiAlg.prototype.locate = function(uiobj, snapshot){
+    //get full UID
+    var uid = uiobj.fullUid();
+    var clocator = uiobj.locator;
+
+    //get parent's DOM reference
+    var pref = snapshot.getUi(puid);
+    
+    //Build CSS selector from UI object's attributes
+    var csel = this.buildSelector(clocator);
+    //Starting from its parent, search for the UI element
+    var $found = teJQuery(pref).find(csel);
+
+    //if multiple matches, need to narrow down
+    if($found.size() > 1){
+        if(uiobj.noCacheForChildren){
+            //dynamic elements, use bestEffort operation
+            $found = this.bestEffort(uiobj, $found);
+ 
+        }else{
+            //first try lookId operation
+            $found = this.lookId(uiobj, $found);
+            if($found.size() > 1){
+                //then try lookAhead operation
+                $found = this.lookAhead(uiobj, $found);
+            }
+        }
+    }
+
+   ...
+   if($found.size() == 0){
+        if(this.allowRelax){
+            //use the relax operation
+            var result = this.relax(clocator, pref);
+        }  
+   }
+};
+
+}}}
 
 Assume we have UI module as shown in the following graph.
 
