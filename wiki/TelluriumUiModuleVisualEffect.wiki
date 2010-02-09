@@ -225,6 +225,24 @@ var UiOutlineCleaner = STreeVisitor.extend({
 
 The Tooltip visitor is used to show the full UID of an element in a tooltip fasion. Tellurium exploited [http://craigsworks.com/projects/simpletip/ jQuery Simpletip plugin] to achieve this visual effect. In additional to that, the tooltip visitor also changes the outlines of the selected UI elements.
 
+We need to change Simpletip plugin code a bit. By default Simpletip create a div element and insert this element inside a UI element that you want to show tooltip. But this would not work if the tag of the UI element is "input", thus, we changed this code to use insertAfter as follows. 
+
+{{{
+      var tooltip = teJQuery(document.createElement('div'))
+                     .addClass(conf.baseClass)
+                     .addClass("teengine")
+                     .addClass( (conf.fixed) ? conf.fixedClass : '' )
+                     .addClass( (conf.persistent) ? conf.persistentClass : '' )
+                     .css({'z-index': '2', 'position': 'right', 'padding': '8', 'color': '#303030',
+                            'background-color': '#f5f5b5', 'border': '1', 'solid': '#DECA7E',
+                            'font-family': 'sans-serif', 'font-size': '8', 'line-height': '12px', 'text-align': 'center'
+                          })
+                     .html(conf.content)
+                     .insertAfter(elem);
+}}}
+
+In additional to that, we added a class "teengine" for the div tag so that it will conflict with users' web content.
+
 Like the outline visitor, the tooltip visitor includes a worker to set up the visual effects,
 
 {{{
