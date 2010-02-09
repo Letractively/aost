@@ -3,7 +3,7 @@
 
 = Introduction =
 
-Have you ever thought of seeing the actual UI on the web page under testing? Tellurium 0.7.0 provides a cool feature to show this visual effect. 
+Have you ever thought of seeing the actual UI on the web page under testing? Tellurium 0.7.0 adds a cool feature to show this visual effect. 
 
 Tellurium provides a _show_ command to display the UI module that you defined on the actual web page.
 
@@ -11,7 +11,7 @@ Tellurium provides a _show_ command to display the UI module that you defined on
     public show(String uid, int delay);
 }}}
 
-where delay is in milliseconds. In the meanwhile, Tellurium Core exposes the following two methods for users to start showing UI and clean up UI.
+where _uid_ is the UI module name and _delay_ is in milliseconds. In the meanwhile, Tellurium Core exposes the following two methods for users to start showing UI and clean up UI manually.
 
 {{{
    public void startShow(String uid);
@@ -22,11 +22,11 @@ where delay is in milliseconds. In the meanwhile, Tellurium Core exposes the fol
 
 = How it Works ? =
 
-Under the hood, Tellurium Engine does the following steps.
+Under the hood, Tellurium Engine does the following things.
 
 == Build a Snapshot Tree ==
 
-The Snapshot Tree, or STree in short, is different from the UI module. The UI module defines how the UI looks like. Even [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the UI module group locating algorithm - Santa] only locates the cachable UI elements and leaves out the dynamic elements. The snapshot tree, however, needs to include every UI elements inside the UI module. For example, the following Google Book List UI module is very simple.
+The Snapshot Tree, or STree in short, is different from the UI module. The UI module defines how the UI looks like. Even [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the UI module group locating algorithm - Santa] only locates cachable UI elements and leaves out the dynamic elements. The snapshot tree, however, needs to include every UI elements inside the UI module. For example, the following Google Book List UI module is very simple.
 
 {{{
     ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"]) {
@@ -47,7 +47,7 @@ A snapshot tree includes the following different types of nodes.
 
 === SNode ===
 
-SNode can present a non-container type UI object, i.e., UI element without chidlren.
+SNode can present a non-container type UI object, i.e., UI element without any child.
 
 {{{
 var UiSNode = Class.extend({
@@ -91,19 +91,19 @@ var UiCNode = UiSNode.extend({
 
 === TNode ===
 
-The TNode stands for a table with headers, footers, and bodies. 
+The TNode stands for a table with headers, footers, and one or multiple bodies. 
 {{{
 var UiTNode = UiSNode.extend({
     init: function(){
         this._super();
 
-        //header nodes with key as the template UID and value as the UI template Avatar
+        //header nodes
         this.headers = new Hashtable();
 
-        //footer node with key as the template UID and value as the UI template Avatar
+        //footer nodes
         this.footers = new Hashtable();
 
-        //body nodes with key as the template UID and value as the UI template Avatar
+        //body nodes
         this.components = new Hashtable();
     },
 ...
@@ -121,11 +121,11 @@ function UiSTree(){
 }
 }}}
 
-The STree build process is quite complicated. The basic idea is to use the cached DOM references in a cached UI module and use some Santa algorithm functionalities to find dynamic UI elements. 
+The STree build process is quite complicated. The basic idea is to use the cached DOM references in a cached UI module and use a subset of the Santa algorithm to locate dynamic UI elements. 
 
 == STree Visitors ==
 
-The STree defines a traverse method, so that we can pass in different visitor to work on each individual UI element for different purpose.
+The STree defines a traverse method, so that we can pass in different visitors to work on each individual node in the tree for different purpose.
 
 {{{
 UiSTree.prototype.traverse = function(context, visitor){
@@ -186,13 +186,13 @@ var STreeChainVisitor = Class.extend({
 });
 }}}
 
-For the show UI method, the following two Visitors are designed.
+For the show UI method, the following two Visitors are implemented.
 
 === Outline Visitor ===
 
 The outline visitor is used to mark the UI elements inside a UI module to differentiate the UI elements in the UI module from other UI elements.
 
-The outline visitor include a visitor to outline an element.
+The outline visitor include a worker to outline an element.
 
 {{{
 
@@ -225,7 +225,7 @@ var UiOutlineCleaner = STreeVisitor.extend({
 
 The Tooltip visitor is used to show the full UID of an element in a tooltip fasion. Tellurium exploited [http://craigsworks.com/projects/simpletip/ jQuery Simpletip plugin] to achieve this visual effect. In additional to that, the tooltip visitor also changes the outlines of the selected UI elements.
 
-Like the outline visitor, the tooltip visitor include a visitor to set up the visual effects,
+Like the outline visitor, the tooltip visitor includes a worker to set up the visual effects,
 
 {{{
 var UiSimpleTipVisitor = STreeVisitor.extend({
@@ -371,7 +371,7 @@ public class FormExampleTestCase extends TelluriumMockTestNGTestCase {
 
 == Visual Effects ==
 
-First, you can download the above example by check out the ui-examples reference project from subversion or download it from 
+First, you can download the above example by checking out the ui-examples reference project from [http://aost.googlecode.com/svn/trunk/reference-projects/ui-examples subversion] or download it from 
 
 http://aost.googlecode.com/files/tellurium-examples-0.7.0-SNAPSHOT.tar.gz
 
@@ -395,7 +395,7 @@ If you mouse over the UI module, you will see the visual effects as follows.
 
 http://tellurium-users.googlegroups.com/web/teshowuimouseover.png?gda=hwCMV0cAAACsdq5EJRKLPm_KNrr_VHB_D4HLj40ELs-zhpN3Bl4yRLXL3uGDhcmmKEh-Qhrel1EVeY4b49xGcMK802iZZ8SFeV4duv6pDMGhhhZdjQlNAw&gsc=oGileAsAAACCUi6IlstSnnhb_xNbAycZ
 
-You may be a bit confused by the multiple UID labels. For example, When user hives over the Username Input box, its parent "Username" and its grandparent "Form" are shown as well. We added color coding to the outlines. Different levels in the hierarchy are presented by different colors. How the layout maps to each individual UI element can be illustrated more clearly by the following figure.
+You may be a bit confused by the multiple UID labels. For example, When user hives over the Username Input box, its parent "Username" and its grandparent "Form" are shown as well. We added color coding to the outlines. Different levels in the hierarchy are presented by different colors. How the layout maps to each individual UI element in the STree can be illustrated more clearly by the following figure.
  
 http://tellurium-users.googlegroups.com/web/telluriumshowuisnapshot2.png?gda=jciJlU4AAACsdq5EJRKLPm_KNrr_VHB__uAWGGGjpMtQflLHIKHYYIBs4RzukN2p4-NZziI_5n9VyjA3JensFE0ElYzuCQ7x47Cl1bPl-23V2XOW7kn5sQ&gsc=oz20hwsAAAD_weMBWNZir9C-tYu9DiER
 
@@ -413,6 +413,10 @@ The whole process is shown in [http://vimeo.com/9305675 the Tellurium UI Module 
 
   <wiki:video url="http://www.youtube.com/watch?v=J1-NN9VK2WE/>
 
+= Want to Contribute ? =
+
+We welcome contributions for Tellurium from various aspects. More details on [http://code.google.com/p/aost/wiki/HowToContribute How to Contribute].
+
 = Resources =
 
   * [http://twitter.com/TelluriumSource Tellurium on Twitter] 
@@ -421,3 +425,4 @@ The whole process is shown in [http://vimeo.com/9305675 the Tellurium UI Module 
   * [http://groups.google.com/group/tellurium-users Tellurium User Group]
   * [http://craigsworks.com/projects/simpletip/ jQuery Simpletip Plugin]
   * [http://vimeo.com/9305675 the Tellurium UI Module Visual Demo at Vimeo]
+  * [http://www.slideshare.net/John.Jian.Fang/tellurium-at-rich-web-experience2009-2806967 Tellurium at Rich Web Experience 2009 by Jian Fang and Vivek Mongolu]
