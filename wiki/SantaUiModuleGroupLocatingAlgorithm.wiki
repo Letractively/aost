@@ -77,9 +77,40 @@ The scaled score is used by the relax operation for partial matching and the sco
  
 == Locate ==
 
+Assume we have UI module as shown in the following graph.
+
+http://tellurium-users.googlegroups.com/web/SantaTeUiModule.png?gda=efAxLkUAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCHMSn2U_NL2M92cFu9ULQMZzlqnWZQD3y6jZqCMfSFQ6Gu1iLHeqhw4ZZRj3RjJ_-A&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
+
+The group locating procedure is a breadth first search algorithm. That is to say, it starts from the root node and then its children, its grandchildren, until all UI module tree has been searched. Santa marks already searched node in the UI module and you can see the color changes during the search procedure.
+
 === Main Flow===
 
-The main flow of group locating can be demonstrated by the following greatly simplified code snippet.
+The main flow of group locating can be self-explained by the following greatly simplified code snippet.
+
+{{{
+UiAlg.prototype.santa = function(uimodule, rootdom){
+    //start from the root element in the UI module
+    if(!uimodule.root.lazy){
+        //object Queue
+        this.oqueue.push(uimodule.root);
+
+        var ust = new UiSnapshot();
+        //Snapshot Queue
+        this.squeue.push(ust);
+    }
+    while(this.oqueue.size() > 0){
+        var uiobj = this.oqueue.pop();
+        uiobj.locate(this);
+   }
+
+   //bind snapshot to the UI Module
+   this.bindToUiModule(uimodule, snapshot);
+
+   //unmark marked UID during the locating procedure
+   this.unmark();     
+}}}
+
+Where the locate procedure is defined as follows.
 
 {{{
 UiAlg.prototype.locate = function(uiobj, snapshot){
@@ -122,17 +153,9 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
 
 }}}
 
-Assume we have UI module as shown in the following graph.
-
-http://tellurium-users.googlegroups.com/web/SantaTeUiModule.png?gda=efAxLkUAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCHMSn2U_NL2M92cFu9ULQMZzlqnWZQD3y6jZqCMfSFQ6Gu1iLHeqhw4ZZRj3RjJ_-A&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
-
-The group locating procedure is a breadth first search algorithm. That is to say, it starts from the root node and then its children, its grandchildren, until all UI module tree has been searched. Santa marks already searched node in the UI module and you can see the color changes during the search procedure.
-
 === Branch and Trim ===
 
-Santa is basically a branch and trim search procedure on the runtime DOM.
-
-At some point, the Santa algorithm located UI elements A, B, and C. A snapshot has been generated as shown in the following graph.
+Santa is basically a branch and trim search procedure on the runtime DOM. Assume at some point, the Santa algorithm located UI elements A, B, and C. A snapshot has been generated as shown in the following graph.
 
 http://tellurium-users.googlegroups.com/web/SantaLocate1.png?gda=YaAO4EIAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCDC-P9WsSQjHe215MPg7qVZV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
 
