@@ -18,19 +18,30 @@ Why is the algorithm named "Santa". This is because I have completed most of the
 
 Santa is basically a branch and trim search procedure on the runtime DOM.
 
-http://tellurium-users.googlegroups.com/web/SantaTeUiModule.png?gda=efAxLkUAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCHMSn2U_NL2M92cFu9ULQMZzlqnWZQD3y6jZqCMfSFQ6Gu1iLHeqhw4ZZRj3RjJ_-A&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
 
-http://tellurium-users.googlegroups.com/web/SantaLocate1.png?gda=YaAO4EIAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCDC-P9WsSQjHe215MPg7qVZV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
-
-http://tellurium-users.googlegroups.com/web/SantaLocate2.png?gda=mouCvUIAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCBn8D5nQVokhIuqb621TkD1V4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
-
-http://tellurium-users.googlegroups.com/web/SantaLocate3.png?gda=JTuot0IAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCGmSNtHn62Je2_5tj0zzNNhV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
 
 == Data Structures ==
 
 == Locate ==
 
+Assume we have UI module as shown in the following graph.
+
+http://tellurium-users.googlegroups.com/web/SantaTeUiModule.png?gda=efAxLkUAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCHMSn2U_NL2M92cFu9ULQMZzlqnWZQD3y6jZqCMfSFQ6Gu1iLHeqhw4ZZRj3RjJ_-A&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
+
 === Branch and Trim ===
+
+At some point, the Santa algorithm located UI elements A, B, and C. A snapshot has been generated as shown in the following graph.
+
+http://tellurium-users.googlegroups.com/web/SantaLocate1.png?gda=YaAO4EIAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCDC-P9WsSQjHe215MPg7qVZV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
+
+When Santa locates UI element D, it finds two matches. Santa branches the snapshot tree and create two separate ones. 
+
+http://tellurium-users.googlegroups.com/web/SantaLocate2.png?gda=mouCvUIAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCBn8D5nQVokhIuqb621TkD1V4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
+
+When Santa locates the next UI element E, it removes one of the snapshot tree and only one snapshot tree is left.
+
+http://tellurium-users.googlegroups.com/web/SantaLocate3.png?gda=JTuot0IAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCGmSNtHn62Je2_5tj0zzNNhV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
+
 
 === Mark ===
 
