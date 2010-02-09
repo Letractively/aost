@@ -22,6 +22,37 @@ Santa is basically a branch and trim search procedure on the runtime DOM.
 
 == Data Structures ==
 
+
+{{{
+function UiModule(){
+    //top level UI object
+    this.root = null;
+
+    this.valid = false;
+
+    //hold a hash table of the uid to UI objects for fast access
+    this.map = new Hashtable();
+
+    //index for uid - dom reference for fast access
+    this.indices = null;
+
+    //If the UI Module is relaxed, i.e., use closest match
+    this.relaxed = false;
+
+    //number of matched snapshots
+    this.matches = 0;
+
+    //scaled score (0-100) for percentage of match
+    this.score = 0;
+
+    //ID Prefix tree, i.e., Trie, for the look Id operation in group locating
+    this.idTrie = new Trie();
+
+    //Snapshot Tree, i.e., STree
+    this.stree = null;
+}
+}}}
+
 == Locate ==
 
 Assume we have UI module as shown in the following graph.
