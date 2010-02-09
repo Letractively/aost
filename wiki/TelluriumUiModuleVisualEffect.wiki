@@ -413,4 +413,11 @@ The whole process is shown in [http://vimeo.com/9305675 the Tellurium UI Module 
 
   <wiki:video url="http://www.youtube.com/watch?v=J1-NN9VK2WE/>
 
- 
+= Resources =
+
+  * [http://twitter.com/TelluriumSource Tellurium on Twitter] 
+  * [http://code.google.com/p/aost/wiki/Tellurium070Update What's New in Tellurium 0.7.0]
+  * [http://code.google.com/p/aost/wiki/UserGuide070Introduction?tm=6 Tellurium User Guide]
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group]
+  * [http://craigsworks.com/projects/simpletip/ jQuery Simpletip Plugin]
+  * [http://vimeo.com/9305675 the Tellurium UI Module Visual Demo at Vimeo]
