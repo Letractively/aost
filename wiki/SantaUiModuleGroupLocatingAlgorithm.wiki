@@ -175,17 +175,19 @@ When Santa locates UI element D, it finds two matches. Santa branches the snapsh
 
 http://tellurium-users.googlegroups.com/web/SantaLocate2.png?gda=mouCvUIAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCBn8D5nQVokhIuqb621TkD1V4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
 
-When Santa locates the next UI element E, it removes one of the snapshot trees and only one snapshot tree is left.
+After couple steps, Santa locates the UI element G, it removes one of the snapshot trees because it cannot find G from the removed snapshot. Hence, only one snapshot tree is left. 
 
-http://tellurium-users.googlegroups.com/web/SantaLocate3.png?gda=JTuot0IAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCGmSNtHn62Je2_5tj0zzNNhV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
+http://tellurium-users.googlegroups.com/web/SantaLocatingTrim.png?gda=47DSH0cAAACsdq5EJRKLPm_KNrr_VHB_Vlnhy29Pl04MMzeNE9O6BpUJa53osfU1upinOmkFwyIVeY4b49xGcMK802iZZ8SFeV4duv6pDMGhhhZdjQlNAw&gsc=Y395mgsAAABmTw12zWjEGVzs38bDXQRc
+
+Of course, the actual locating procedure is much more complicated than what described here. But this should be able to give you some idea on how the branch and trim procedure works.
 
 === Multiple-Match Reduction Mechanisms ===
 
-As you can see from the above procedure, it would be time-consuming if Santa branches too often and creates too many snapshot trees since Santa needs to exploit every possible snapshots. As a result, Santa includes the following multiple-match reduction mechanisms to reduce the number of snapshot trees it needs to search on.
+As you can see from the above procedure, it would be time-consuming if Santa branches too frequently and creates too many snapshot trees because Santa needs to exploit every possible snapshot. As a result, Santa introduced the following multiple-match reduction mechanisms to reduce the number of snapshot trees it needs to search on.
 
 ==== Mark ====
 
-When Santa locates a node in the DOM, it marks it with its UID.
+When Santa locates a node at the DOM, it marks it with its UID.
 
 {{{
         $found.eq(0).data("uid", uid);
@@ -193,25 +195,25 @@ When Santa locates a node in the DOM, it marks it with its UID.
 
 In this way, Santa will skip this DOM node when it tries to locate other UI elements in the UI module. 
 
-When Santa finishes the group locating procedure, it unmakr all the uids from the DOM nodes.
+When Santa finishes the group locating procedure, it unmarks all the uids from the DOM nodes.
  
 ==== Look Ahead ====
 
-Look Ahead means to look at not only the current UI element but also its children when Santa locates it. For example, when Santa locates the node D, it also looks at this children G and H. Hopefully, this will eliminate multiple matches and only one match returns.
+Look Ahead means to look at not only the current UI element but also its children when Santa locates it. For example, when Santa locates the node D, it also looks at its children G and H. This could decrease snapshot trees at the early search stage and thus reduce the UI module locating time.
 
 http://tellurium-users.googlegroups.com/web/SantaLocateLookChildren.png?gda=giCJ100AAACsdq5EJRKLPm_KNrr_VHB_DQbB4dkECwACM3mZO-ksNZbYqNF9gYK0tqjCPQpPzwk78QNvYVH-EzLyPyoQaO3f5Tb_vjspK02CR95VRrtmeQ&gsc=L_MyaAsAAAAFA-mmrSq3wKWi9zbFEGr6
 
 ==== Look ID ====
 
-The ID attribute uniquely defined a UI element on a web page and locating DOM element by ID is very fast, thus, Tellurium Engine builds an ID prefix tree, i.e., Trie, when it parses the JSON presentation of the UI module. For example, assume the UI module has four elements, A, D, F, and G, with the ID attribute. The Trie is as follows.
+The ID attribute uniquely defines a UI element on a web page and locating a DOM element by its ID is very fast, thus, Tellurium Engine builds an ID prefix tree, i.e., Trie, when it parses the JSON presentation of the UI module. For example, assume the UI module has four elements, A, D, F, and G, with an ID attribute. The Trie looks as follows.
 
 http://tellurium-users.googlegroups.com/web/SantaLookIDTrie.png?gda=H9_7kUUAAACsdq5EJRKLPm_KNrr_VHB_Nen3NTP9dP3oTwzmB8VfKSSWhnpA9T1yOhjOCab04vJzlqnWZQD3y6jZqCMfSFQ6Gu1iLHeqhw4ZZRj3RjJ_-A&gsc=_MkLKwsAAACPGU9cKreSbkxa0SOycyXv
 
-When Santa locates the UI element A, it can use the IDs for element A and D to help itself to reduce multiple matches. If Santa locates element D, only the ID of element G is helpful.
+When Santa locates the UI element A, it can use the IDs for element A and D to reduce multiple matches. If Santa locates element D, only the ID of element G is helpful.
 
 ==== Best Effort ====
 
-Best effort is similar to Look Ahead mechanism, but it is for dynamic UI elements. For dynamic elements, Tellurium defines the following two attributes to determine whether it and its children are cachable.
+Best effort is similar to the Look Ahead mechanism, but it is for dynamic UI elements defined Tellurium templates. For dynamic elements, Tellurium defines the following two attributes to determine whether it and its children are cacheable.
 
 {{{
 var UiObject = Class.extend({
@@ -219,6 +221,7 @@ var UiObject = Class.extend({
         ...
         //should we do lazy locating or not, i.e., wait to the time we actually use this UI object
         //usually this flag is set because the content is dynamic at runtime
+        //This flag is correspond to the cacheable attribute in a Tellurium Core UI object
         this.lazy = false;
     }
 });
@@ -231,7 +234,7 @@ var UiContainer = UiObject.extend({
 
 }}}
 
-For a dynamic UI element, which is defined by UI templates, it may have zero, one, or multiple matches at runtime. Santa defines a *bonus point* system for dynamic UI elements. The bonus calculation is straight as shown in the following _calcBonus_ method, where one is the parent DOM reference and gsel is a set of CSS selectors for its children defined by [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UI_Templates Tellurium UI templates].   
+For a dynamic UI element defined by a UI template, it may have zero, one, or multiple matches at runtime. Santa defines a *Bonus Point* for dynamic UI elements. The bonus calculation is straightforward as shown in the following _calcBonus_ method, where variable _one_ is the parent DOM reference and _gsel_ is a set of CSS selectors of current node's children defined by [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UI_Templates Tellurium UI templates].   
 
 {{{
 UiAlg.prototype.calcBonus = function(one, gsel){
@@ -247,11 +250,11 @@ UiAlg.prototype.calcBonus = function(one, gsel){
 };
 }}}
 
-If the DOM matches more attributes in the UI templates, the candidate UI element usually gets higher bonus point. Santa choose the candidate with the highest bonus point to the snapshot tree.
+If the DOM matches more attributes defined by a UI template, the candidate DOM reference usually gets a higher bonus point. Santa chooses the candidate with the highest bonus point into the snapshot tree.
 
 == Relax ==
 
-The relax procedure, i.e., closest match, is to match the UI attribute with the DOM node as close as possible. A *Match Score* is defined to measure how many attributes match the one on the DOM node. The total score is scaled to 0-100 at the end. The snapshot with the highest match score is chosen as the result.
+The relax procedure, i.e., closest match, is to match the UI attribute with the DOM node as closely as possible. A *Match Score* is defined to measure how many attributes match the one on the DOM node. The total score is scaled to 0-100 at the end. The snapshot with the highest match score is selected.
 
 The following simplified code snippet should give you some idea of how the relax procedure works.
 
@@ -284,11 +287,11 @@ The following simplified code snippet should give you some idea of how the relax
             }
         }
 
-        //calculate matching score, scaled to 100 percentage
+        //calculate match score, scaled to 100 percentage
         var score = 100*nm/np;
 }}}
 
-As shown in the above code, the relax must satisfy one requirement, i.e., the tag name must match the one in the DOM node. Otherwise, the relax result returns as "not found".
+As shown in the above code, the relax must satisfy one requirement, i.e., the tag name must match the one on the DOM node. Otherwise, the relax result returns as "not found".
 
 = Usage =
 
@@ -337,7 +340,7 @@ The correct UI module is shown as follows,
     }
 }}}
 
-Assume the html was changed recently and you still use the UI module defined some time ago.
+Assume the html was changed recently and you still use the following UI module defined some time ago.
 
 {{{
     ui.Container(uid: "ProblematicForm", clocator: [tag: "table"]){
@@ -366,13 +369,13 @@ Here are the differences:
    SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "logon", name: "submit"])     
 }}}
 
-What will happen without the Santa algorithm? You tests will be broken because the generated locators will not be correct any more. But if you use the latest Tellurium 0.7.0 snapshot, you will notice that the tests still work if you allow Tellurium to do closest match by calling
+What will happen without using the Santa algorithm? You tests will be broken because the generated locators will not be correct any more. But if you use the latest Tellurium 0.7.0 snapshot, you will notice that the tests still work if you allow Tellurium to do closest match by calling
 
 {{{
     useClosestMatch(true);
 }}}
 
-The magic is that the new Tellurium Engine will locate the UI module as a whole. It may have trouble to find the individual UI element such as "ProblematicForm.Username.Input", but it has no trouble to find the whole UI module structure in the DOM. 
+The magic is that the new Tellurium Engine will locate the UI module as a whole. It may have some trouble to find some individual UI elements such as "ProblematicForm.Username.Input", but it has no problem to locate the whole UI module structure in the DOM. 
 
 Apart from that, Tellurium 0.7.0 also provides a handy method for you to validate your UI module. For example, if you call
 
