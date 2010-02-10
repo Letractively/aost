@@ -1,5 +1,5 @@
 #summary Tellurium New Reference Projects.
-#labels Phase-Implementation,Phase-Support
+#labels Phase-Implementation,Phase-Support,Featured
 
 = Introduction =
 
