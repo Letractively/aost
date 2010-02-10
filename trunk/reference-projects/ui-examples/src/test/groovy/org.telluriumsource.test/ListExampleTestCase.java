@@ -62,8 +62,6 @@ public class ListExampleTestCase extends TelluriumMockJUnitTestCase {
     @Test
     public void testGetHTMLSource(){
         useEngineLog(true);
-        useTelluriumApi(true);
-        useCache(true);
         lem.getHTMLSource("GoogleBooksList");
     }
 
