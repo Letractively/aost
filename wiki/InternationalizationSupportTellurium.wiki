@@ -10,7 +10,7 @@ Tellurium now has support for internationalization and localization.
   * [http://maven.kungfuters.org/content/repositories/snapshots/tellurium/tellurium-core/0.7.0-SNAPSHOT/ Tellurium Core 0.7.0-SNAPSHOT]
   * Java 6
 
-=== Introduction ===
+== Introduction ==
 
 Tellurium now provides support for internationalization of strings and exception messages. Any software system should have support for regional language settings and options to be effective. Internationalization and localization provides this support. Locales define the language and region. Locales can define how region specific data is presented to users. Every locale will have a language code followed by a region code. Ex: fr_FR represents french language in the region of France. Internationalized strings for each locale is provided through a MessageBundle engineered for a specific locale which is of the format `<MessageBundleName>_<language-code>_<country code>.properties`
 
@@ -67,7 +67,7 @@ to utilize the getMessage function support in their own test code. International
 
 3. Now use the `getMessage` function to internationalize strings
 
-=== Simple Example ===
+== Simple Example ==
 
 Here is a simple example of code from a GoogleBooksListGroovyTestCase. I assume that user has already defined a MessagesBundle.properties,located at src/main/resources, as follows
 
@@ -132,6 +132,7 @@ class SampleGroovyTestCase extends TelluriumGroovyTestCase {
      }
 }
 }}}
-=== Future Work ===
+
+== Future Work ==
 
 We expect to provide internationalization support for Selenium messages on the console in the future.
