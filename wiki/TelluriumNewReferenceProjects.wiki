@@ -536,3 +536,192 @@ The test result looks as follows,
   ...
 </TestResults>
 }}}
+
+= Tellurium ui-examples Project =
+
+Some of the html sources in the ui-examples project are contributed by tellurium users. Thanks for their contributions. ui-examples project includes the following different types of UI objects.
+
+== Container ==
+
+HTML source:
+
+{{{
+<div class="mainMenu">
+    <a href="http://localhost:8080/ContainerExample.html">Events</a>
+    <a href="http://localhost:8080/ContainerExample.html">Suppliers</a>
+    <a href="http://localhost:8080/ContainerExample.html">Venues</a>
+    <a href="http://localhost:8080/ContainerExample.html">Booking Report</a>
+    <a href="http://localhost:8080/ContainerExample.html">Notifications</a>
+    <a href="http://localhost:8080/ContainerExample.html">Help</a>
+</div>
+}}}
+
+UI Module:
+
+{{{
+class ContainerExampleModule extends DslContext {
+
+  public void defineUi(){
+    
+    ui.Container(uid: "mainnav", clocator: [tag: "div", class: "mainMenu"], group: true) {
+      UrlLink(uid: "events", clocator: [text: "Events"])
+      UrlLink(uid: "suppliers", clocator: [text: "Suppliers"])
+      UrlLink(uid: "venues", clocator: [text: "Venues"])
+      UrlLink(uid: "bookingReport", clocator: [text: "Booking Report"])
+      UrlLink(uid: "notifications", clocator: [text: "Notifications"])
+      UrlLink(uid: "help", clocator: [text: "Help"])
+    }
+  }
+}
+}}}
+
+== Form ==
+
+HTML Source:
+
+{{{
+<H1>FORM Authentication demo</H1>
+
+<form method="POST" action="j_security_check">
+    <table border="0" cellspacing="2" cellpadding="1">
+        <tr>
+            <td>Username:</td>
+            <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input name="submit" type="submit" value="Login">
+            </td>
+        </tr>
+    </table>
+</form>
+}}}
+
+UI Module:
+
+{{{
+public class FormExampleModule extends DslContext {
+
+  public void defineUi() {
+    ui.Form(uid: "Form", clocator: [tag: "table"]){
+        Container(uid: "Username", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
+        }
+        Container(uid: "Password", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j_password"])
+        }
+        SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login", name: "submit"])
+    }
+  }
+
+  public void logon(String username, String password){
+    keyType "Form.Username.Input", username
+    keyType "Form.Password.Input", password
+    click "Form.Submit"
+    waitForPageToLoad 30000
+  }
+}
+}}}
+
+== List ==
+
+HTML Source:
+
+{{{
+<table id="hp_table" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+     <td class="sidebar" valign="top">
+     <DIV class="sub_cat_section">
+        <DIV class="sub_cat_title" style="">Fiction</DIV>
+        <P><A href="http://books.google.com/books?q=+subject:%22+Literature+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_fict" style="">Literature</A></P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Science+Fiction+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_fict" style="">Science fiction</A></P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Fantasy+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_fict" style="">Fantasy</A></P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Romance+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_fict" style="">Romance</A></P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Fiction+/+Mystery+%26+detective+/+General+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_fict" style="">Mystery</A></P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Fairy+tales+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_fict" style="">Fairy tales</A></P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Short+Stories+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_fict" style="">Short stories</A></P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Poetry+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_fict" style="">Poetry</A></P></DIV>
+    <DIV class="sub_cat_section">
+        <DIV class="sub_cat_title">Non-fiction</DIV>
+        <P><A href="http://books.google.com/books?q=+subject:%22+Philosophy+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_nofict">Philosophy</A>
+        </P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Economics+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_nofict">Economics</A>
+        </P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Political+Science+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_nofict">Political science</A></P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Linguistics+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_nofict">Linguistics</A>
+        </P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Mathematics+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_nofict">Mathematics</A>
+        </P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Science+/+Physics+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_nofict">Physics</A>
+        </P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Science+/+Chemistry+/+General+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_nofict">Chemistry</A>
+        </P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Science+/+Life+Sciences+/+Biology+/+General+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_nofict">Biology</A>
+        </P></DIV>
+    <DIV class="sub_cat_section">
+        <DIV class="sub_cat_title">Random subjects</DIV>
+        <P><A href="http://books.google.com/books?q=+subject:%22+Toys+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_subj">Toys</A>
+        </P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Solar+houses+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_subj">Solar houses</A></P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Stories+in+rhyme+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_subj">Stories in rhyme</A></P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Courtship+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_subj">Courtship</A>
+        </P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Mythology+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_subj">Mythology</A>
+        </P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Differential+equations+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_subj">Differential equations</A></P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Inscriptions,+Latin+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_subj">Latin inscriptions</A></P>
+
+        <P><A href="http://books.google.com/books?q=+subject:%22+Nuclear+energy+%22&amp;as_brr=3&amp;rview=1&amp;source=gbs_hplp_subj">Nuclear energy</A></P>
+    </DIV>
+</td>
+</tr>
+</tbody>
+</table>
+}}}
+
+UI Module:
+
+{{{
+class ListExampleModule extends DslContext {
+
+  public void defineUi() {
+    ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"]) {
+      List(uid: "subcategory", clocator: [tag: "td", class: "sidebar"], separator: "div") {
+        Container(uid: "all") {
+          TextBox(uid: "title", clocator: [tag: "div", class: "sub_cat_title"])
+          List(uid: "links", separator: "p") {
+            UrlLink(uid: "all", clocator: [:])
+          }
+        }
+      }
+    }
+  }
+}
+}}}
