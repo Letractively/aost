@@ -4,11 +4,17 @@
 
 = Introduction =
 
-UI Module is the heart of Tellurium Automated Testing Framework. Even UI Module was introduced at this prototype phase, but there was really no algorithm to locate the UI module as a whole. Up to Tellurium 0.6.0, we still need Tellurium core to generate runtime locators based on the UI module definition and then send Selenium commands to the Selenium core to locate each individual UI element. This procedure can be illustrated by the following diagram.
+UI Module is the heart of Tellurium Automated Testing Framework. Even UI Module was introduced at the prototype phase, but there was really no algorithm to locate the UI module as a whole. Up to Tellurium 0.6.0, we still need Tellurium core to generate runtime locators based on the UI module definition and then pass Selenium commands to the Selenium core to locate each individual UI element. This procedure can be illustrated by the following diagram.
 
-The Santa algorithm is the missing half of the Tellurium UI module concept. The algorithm can locate the whole UI module in the runtime DOM and you can just pass in UI element's UID to find it in the cached UI module on Tellurium Engine side. That is to say, you don't need Tellurium Core to generate the runtime locators any more. For compatibility reason, Tellurium Core still generates runtime locators, but they are not really needed if you turn on UI module group locating and caching. The new procedure is shown as follows.
+http://tellurium-users.googlegroups.com/web/xpathjqsel2.png?gda=ZcLbzkEAAACsdq5EJRKLPm_KNrr_VHB_i4k4E3yBw3ZwuTWAYUCsylo_LL8k1Ivp8OS586drcZpTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=4508XgsAAACdKjHXeYuQCiQefauhN3Sg
 
-Why is the algorithm named "Santa". This is because I have completed most of the design and coding work during the Christmas season in 2009. It is like a gift for me from Santa Claus.  
+The Santa algorithm is the missing half of the Tellurium UI module concept. The algorithm can locate the whole UI module at the runtime DOM. After that, you can just pass in UI element's UID to find it in the cached UI module on Tellurium Engine. That is to say, you don't need Tellurium Core to generate the runtime locators any more. For compatibility reason, Tellurium Core still generates runtime locators, but they are not really needed if you turn on UI module group locating and caching by calling
+
+{{{
+   useTelluriumEngine(true);
+}}}
+
+Why is the algorithm named *Santa*. This is because I have completed most of the design and coding work during the Christmas season in 2009. It is like a gift for me from Santa Claus.  
 
 = The Santa Algorithm =
 
@@ -18,7 +24,7 @@ Ui Module Group Locating is to locate all elements defined in a UI module by exp
 
 == Basic Flow ==
 
-The UI module group locating basic flow is illustrated in the following graph.
+The UI module group locating basic flow is illustrated in the following diagram.
 
 http://tellurium-users.googlegroups.com/web/EngineGroupLocatingFlow.png?gda=CL1f3U0AAACsdq5EJRKLPm_KNrr_VHB_RXAKJQtsnhpNGAFrVZVazbOp4BK91V4s-7udPy6DfdsU9ZdtcfNy08LkG6vh24c05Tb_vjspK02CR95VRrtmeQ&gsc=Yrh2TwsAAAAVdtSV2dFRYROnJX5TWJ5C
 
@@ -36,14 +42,13 @@ First, the Tellurium Engine API accepts a JSON presentation of the UI module. Fo
 
 }}}
 
-The UI tree, i.e., UTree, builder in Tellurium Engine builds a tree based on the input. Then Tellurium Engine calls the Santa algorithm to locate all UI elements in the UI module except the elements that are defined as not cacheable by the two UI object attributes _lazy"_ and _noCacheForChildren_.
+The UI tree, i.e., UTree, builder in Tellurium Engine builds a UTree based on the JSON input. Then Tellurium Engine calls the Santa algorithm to locate all UI elements in the UI module except the elements that are defined as not *cacheable* by two UI object attributes, i.e., _lazy"_ and _noCacheForChildren_. Dynamic elements can be located by searching from its parent and use a subset of the Santa algorithm, which will not be covered here.
 
-Once an element in a UI module is located, its DOM reference is stored into the UI Tree and an index for fast access. After the Santa algorithm is finished, the UI module is stored into a cache.
-
+Once an element in a UI module is located, its DOM reference is stored into the UTree and an index is also created for fast access. After the Santa algorithm is finished, the UI module is stored into a cache. 
 
 == Data Structures ==
 
-The UI module is defined as follows.
+The UI module at Tellurium Engine is defined as follows.
 
 {{{
 function UiModule(){
@@ -76,11 +81,11 @@ function UiModule(){
 }
 }}}
 
-From above, you can see the UI module has two indices for fast access. One is UID to UI object mapping and the other is the UID to DOM reference mapping. 
+From above, you can see the UI module has two indices for fast access. One is UID to UI object mapping and the other one is the UID to DOM reference mapping. 
 
-An ID prefix tree, Trie, is built if the UI module includes elements with the ID attribute. The Trie is used by the Santa look ID operation. A more detailed Trie build process can be found at the wiki [http://code.google.com/p/aost/wiki/UIModuleGeneratingAlgorithm#A_Trie_Based_Dictionary The UI Module Generating Algorithm in Trump]
+An ID prefix tree, i.e., Trie, is built from UI module JSON presentation if the UI module includes elements with an ID attribute. The Trie is used by the Santa _lookID_ operation. A more detailed Trie build process can be found on the wiki [http://code.google.com/p/aost/wiki/UIModuleGeneratingAlgorithm#A_Trie_Based_Dictionary The UI Module Generating Algorithm in Trump]
 
-The scaled score is used by the relax operation for partial matching and the score stands for how close the UI module matches the runtime DOM. 100 is a perfect match.
+The scaled score is used by the _relax_ operation for partial matching, i.e., closest match, and the score stands for how close the UI module matches the runtime DOM. 100 is a perfect match and zero is no found. This is very powerful to create robust Tellurium test code. That is to say, the Santa algorithm is adapt to changes on the web page under testing to some degree.
  
 == Locate ==
 
@@ -88,7 +93,7 @@ Assume we have UI module as shown in the following graph.
 
 http://tellurium-users.googlegroups.com/web/SantaTeUiModule.png?gda=efAxLkUAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCHMSn2U_NL2M92cFu9ULQMZzlqnWZQD3y6jZqCMfSFQ6Gu1iLHeqhw4ZZRj3RjJ_-A&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
 
-The group locating procedure is a breadth first search algorithm. That is to say, it starts from the root node and then its children, its grandchildren, until all UI module tree has been searched. Santa marks already searched node in the UI module and you can see the color changes during the search procedure.
+The group locating procedure is basically a breadth first search algorithm. That is to say, it starts from the root node of the UTree and then its children, its grandchildren, ..., until all node in the UTree has been searched. Santa marks color for already searched node in the UTree and you can see the color changes during the search procedure.
 
 === Main Flow===
 
@@ -162,15 +167,15 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
 
 === Branch and Trim ===
 
-Santa is basically a branch and trim search procedure on the runtime DOM. Assume at some point, the Santa algorithm located UI elements A, B, and C. A snapshot has been generated as shown in the following graph.
+Santa is basically a branch and trim search procedure on the runtime DOM. Assume at some point, the Santa algorithm has located UI elements A, B, and C. A snapshot has been generated as shown in the following diagram.
 
 http://tellurium-users.googlegroups.com/web/SantaLocate1.png?gda=YaAO4EIAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCDC-P9WsSQjHe215MPg7qVZV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
 
-When Santa locates UI element D, it finds two matches. Santa branches the snapshot tree and create two separate ones.
+When Santa locates UI element D, it finds two matches. Santa branches the snapshot tree and create two separate ones with each hold a different D node.
 
 http://tellurium-users.googlegroups.com/web/SantaLocate2.png?gda=mouCvUIAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCBn8D5nQVokhIuqb621TkD1V4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
 
-When Santa locates the next UI element E, it removes one of the snapshot tree and only one snapshot tree is left.
+When Santa locates the next UI element E, it removes one of the snapshot trees and only one snapshot tree is left.
 
 http://tellurium-users.googlegroups.com/web/SantaLocate3.png?gda=JTuot0IAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCGmSNtHn62Je2_5tj0zzNNhV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
 
