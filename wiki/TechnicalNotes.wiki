@@ -29,6 +29,7 @@
   * [http://code.google.com/p/aost/wiki/HowTelluriumDDTImplemented How is Tellurium Data Driven Test Implemented]
   * [http://code.google.com/p/aost/wiki/TelluriumAtRichWebExperience2009 Tellurium at Rich Web Experience 2009]
   * [http://code.google.com/p/aost/wiki/PracticalUseOfDiagnose Practical use of Diagnose in Tellurium]
+  * [http://code.google.com/p/aost/w/edit/InternationalizationSupportTellurium Internationalization support in Tellurium]
   * [http://code.google.com/p/aost/wiki/Tellurium070Update What's New in Tellurium 0.7.0]
   * [http://code.google.com/p/aost/wiki/RunQUnitFromJava Run QUnit Tests from Java]
   * [http://code.google.com/p/aost/wiki/UIModuleGeneratingAlgorithm The UI Module Generating Algorithm in Trump]
