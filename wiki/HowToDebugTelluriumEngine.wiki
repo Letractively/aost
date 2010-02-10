@@ -246,6 +246,8 @@ function fbDir(obj){
 }
 }}}
 
+For browsers other than Firefox, Tellurium provides the Firebug Lite script in the custom selenium server so that you can still use the above logging wrapper.
+
 == Run the Test ==
 
 To run the above test page, first, I copy the above page to {{{JETTY_HOME/webapps/test/}}} directory. Copy the test script and Selenium mock script to {{{JETTY_HOME/webapps/test/js/}}} directory. Then start the Jetty server and open the firefox browser to point to {{{http://localhost:8080/testpagename.html}}}. I can see all Javascript code including Tellurium Engine code and the test script. Set a breakpoint somewhere and refresh the page, Firebug will stop at breakpoint and I can start to debug the application.
