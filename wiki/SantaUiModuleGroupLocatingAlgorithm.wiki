@@ -226,11 +226,27 @@ var UiContainer = UiObject.extend({
 
 }}}
 
-For a dynamic UI element, which is defined by UI templates, it may have zero, one, or multiple matches at runtime. Santa defines a bonus point system for dynamic UI elements. If the DOM matches more attributes in the UI templates, the candidate UI element usually gets higher bonus point. Santa choose the candidate with the highest bonus point to the snapshot tree.
+For a dynamic UI element, which is defined by UI templates, it may have zero, one, or multiple matches at runtime. Santa defines a *bonus point* system for dynamic UI elements. The bonus calculation is straight as shown in the following _calcBonus_ method, where one is the parent DOM reference and gsel is a set of CSS selectors for its children defined by [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UI_Templates Tellurium UI templates].   
+
+{{{
+UiAlg.prototype.calcBonus = function(one, gsel){
+    var bonus = 0;
+    var $me = teJQuery(one);
+    for(var i=0; i<gsel.length; i++){
+        if($me.find(gsel[i]).size() > 0){
+            bonus++;
+        }
+    }
+
+    return bonus;
+};
+}}}
+
+If the DOM matches more attributes in the UI templates, the candidate UI element usually gets higher bonus point. Santa choose the candidate with the highest bonus point to the snapshot tree.
 
 == Relax ==
 
-The relax procedure is to match the UI attribute with the DOM node as close as possible. A *Match Score* is defined to measure how many attributes match the one on the DOM node. The total score is scaled to 0-100 at the end. The snapshot with the highest match score is chosen as the result.
+The relax procedure, i.e., closest match, is to match the UI attribute with the DOM node as close as possible. A *Match Score* is defined to measure how many attributes match the one on the DOM node. The total score is scaled to 0-100 at the end. The snapshot with the highest match score is chosen as the result.
 
 Be aware, there is one requirement the match must satisfy, i.e., the tag name must match the DOM node. Otherwise, the relax returns the match as not found.
 
