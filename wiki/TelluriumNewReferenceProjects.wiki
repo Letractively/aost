@@ -394,6 +394,17 @@ runDsl(args)
 
 }}}
 
+Then run 
+
+{{{
+groovy rundsl.groovy -f DSL_script_name
+}}}
+
+If you are behind a firewall
+{{{
+groovy -Dhttp.proxyHost=proxy_host -Dhttp.proxyPort=proxy_port rundsl.groovy -f DSL_script_name
+}}}
+
 == Data Driven Testing ==
 
 We use Tellurium Issue page as the data driven testing example, we define tests to search issues assigned to a Tellurium team member and use the input file to define which team members we want the result for.
