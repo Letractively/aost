@@ -1,5 +1,6 @@
 #summary Tellurium New Reference Projects.
 #labels Phase-Implementation,Phase-Support,Featured
+<wiki:toc max_depth="5" />
 
 = Introduction =
 
