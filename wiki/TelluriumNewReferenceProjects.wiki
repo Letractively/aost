@@ -192,9 +192,9 @@ class TelluriumDownloadsPage extends DslContext{
 }
 }}}
  
-== Create JUnit Test Cases ==
+== Create Java Test Cases ==
 
-You can create JUnit Test Cases by extending the TelluriumJUnitTestCase or TelluriumTestNGTestCase class. Nothing special, just like regular JUnit test cases. For instance,
+You can create Java Test Cases by extending the TelluriumJUnitTestCase or TelluriumTestNGTestCase class. Nothing special, just like regular JUnit test cases. For instance,
 
 {{{
 public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCase{
