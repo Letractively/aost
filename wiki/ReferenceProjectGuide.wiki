@@ -1,5 +1,5 @@
 #summary Guide for the Reference Projects
-#labels Phase-Deploy,Featured,Phase-Support
+#labels Phase-Deploy,Phase-Support
 <wiki:toc max_depth="5" />
 
 = Guide for the Reference Projects =
