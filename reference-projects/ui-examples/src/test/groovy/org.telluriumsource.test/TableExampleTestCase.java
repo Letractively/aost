@@ -52,6 +52,7 @@ public class TableExampleTestCase  extends TelluriumMockJUnitTestCase {
         System.out.println(tem.getText("GT.header[2]"));
         System.out.println(tem.getText("GT[1][1]"));
         tem.work("Tellurium jQuery");
+        useCache(true);
     }
 
     @Test
@@ -64,8 +65,6 @@ public class TableExampleTestCase  extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testGetTableText(){
-        useCache(true);
-        useTelluriumApi(true);
         String[] texts = tem.getAllTableCellText("GT");
         assertNotNull(texts);
         System.out.println("Get Table body text for GT");
@@ -75,16 +74,7 @@ public class TableExampleTestCase  extends TelluriumMockJUnitTestCase {
     }
 
     @Test
-    public void testShowUiModule(){
-        useCache(true);
-        useTelluriumApi(true);
-        tem.show("GT", 2000);
-    }
-
-    @Test
     public void testGetTableSize(){
-        useCache(true);
-        useTelluriumApi(true);
         int size = tem.getTableMaxTbodyNum("GT");
         assertEquals(1, size);
         size = tem.getTableMaxColumnNumForTbody("GT", 1);
@@ -104,8 +94,6 @@ public class TableExampleTestCase  extends TelluriumMockJUnitTestCase {
     @Test
     public void testShowUi() {
         useEngineLog(true);
-        useTelluriumApi(true);
-        useCache(true);
 //        tem.show("GT", 10000);
         tem.startShow("GT");
         tem.endShow("GT");

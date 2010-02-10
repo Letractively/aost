@@ -70,8 +70,6 @@ public class RepeatExampleTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testRepeatForCache(){
-        useTelluriumApi(true);
-        useCache(true);
         useEngineLog(true);
         int num = rem.getRepeatNum("SailingForm.Section");
         assertEquals(2, num);
@@ -85,15 +83,10 @@ public class RepeatExampleTestCase extends TelluriumMockJUnitTestCase {
         assertEquals("08:00", departureTime);
         String arrivalTime = rem.getText("SailingForm.Section[1].Option[1].Details.ShipInfo.Arrival.Time");
         assertEquals("11:45", arrivalTime);
-        useTelluriumApi(false);
-        useCache(false);
-        useEngineLog(false);
     }
 
     @Test
     public void testShowUI(){
-        useTelluriumApi(true);
-        useCache(true);
         useEngineLog(true);
 //        rem.show("SailingForm", 5000);
         rem.startShow("SailingForm");
@@ -102,16 +95,12 @@ public class RepeatExampleTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testGetHTMLSource(){
-        useTelluriumApi(true);
-        useCache(true);
         useEngineLog(true);
         rem.getHTMLSource("SailingForm");
     }
 
     @Test
     public void testIsElementPresent(){
-        useTelluriumApi(true);
-        useCache(true);
         useEngineLog(true);
         boolean present = rem.isElementPresent("SailingForm.Section[3]");
         assertFalse(present);

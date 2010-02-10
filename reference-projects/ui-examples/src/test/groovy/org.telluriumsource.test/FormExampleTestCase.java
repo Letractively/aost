@@ -76,9 +76,6 @@ public class FormExampleTestCase extends TelluriumMockTestNGTestCase {
 
     @Test
     public void testGetHTMLSource(){
-        useEngineLog(true);
-        useTelluriumApi(true);
-        useCache(true);
         fem.getHTMLSource("Form");
     }
 
@@ -91,9 +88,6 @@ public class FormExampleTestCase extends TelluriumMockTestNGTestCase {
 
     @Test
     public void testGetUiByTag(){
-        useEngineLog(true);
-        useTelluriumApi(true);
-        useCache(true);
         Map filter = new HashMap();
         filter.put("type", "text");
         UiByTagResponse resp = fem.getUiByTag("input", filter);
