@@ -1355,14 +1355,27 @@ Tellurium 0.7.0 include a new Engine embedded in Selenium Core. The main functio
 
 == Code Structure ==
 
-The following files are Javascript files in the Engine project:
+The following are Javascript files in the Engine project:
 
 {{{
 [jfang@Mars engine]$ tree src/main/resources/core/scripts/
 src/main/resources/core/scripts/
+|-- firebuglite
+|   |-- errorIcon.png
+|   |-- firebug-lite.css
+|   |-- firebug-lite.js
+|   |-- firebug.gif
+|   |-- firebug_logo.png
+|   |-- infoIcon.png
+|   |-- progress.gif
+|   |-- spacer.gif
+|   |-- tree_close.gif
+|   |-- tree_open.gif
+|   `-- warningIcon.png
 |-- htmlutils.js
 |-- jquery-1.4.1.js
 |-- jquery-cookies-2.1.0.js
+|-- jquery-simpletip-1.3.1.js
 |-- json2.js
 |-- log4js.js
 |-- selenium-api.js
@@ -1377,9 +1390,17 @@ src/main/resources/core/scripts/
 |-- tellurium-api.js
 |-- tellurium-cache.js
 |-- tellurium-extensions.js
+|-- tellurium-logging.js
 |-- tellurium-selector.js
-|-- tellurium-ui.js
+|-- tellurium-uialg.js
+|-- tellurium-uibasic.js
+|-- tellurium-uiextra.js
+|-- tellurium-uimodule.js
+|-- tellurium-uiobj.js
+|-- tellurium-uisnapshot.js
 |-- tellurium.js
+|-- tooltip
+|   `-- simpletip.css
 |-- user-extensions.js
 |-- utils.js
 `-- xmlextras.js
@@ -1390,7 +1411,12 @@ where
   * jquery-cookies-2.1.0.js: jQuery Cookies Plugin to support more cookie related operation
   * tellurium.js: Entry point for Tellurium Engine code and it defined the {{{Tellurium}}} function.
   * tellurium-selector.js: CSS selector builder
-  * tellurium-ui.js: Tellurium UI module definition on Engine side
+  * tellurium-uialg.js: Tellurium UI algorithm
+  * tellurium-uibasic.js Tellurium UI basic
+  * tellurium-uiextra.js Tellurium extra UI functionalities
+  * tellurium-uimodule.js Tellurium UI module definition on Engine side
+  * tellurium-uiobj.js Tellurium UI object
+  * tellurium-uisnapshot Tellurium UI snapshot
   * tellurium-cache.js: Tellurium Engine caching for UI modules and locators
   * telurium-extension.js: Extra Tellurium APIs for Selenium
   * tellurium-api.js: New Tellurium APIs based on jQuery
