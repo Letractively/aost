@@ -7,4 +7,10 @@ For the past three months, I have worked on [http://code.google.com/p/aost/wiki/
 
 Tellurium Engine is similar to Selenium core to drive browser events to simulate users physically work on the web application. If you are familiar with Selenium core, you may find that it is very difficult to debug Selenium core. As a result, I took a different approach to do debugging and like to share my experience with you here.
 
-= Details =
+= Basic Idea =
+
+The basic idea is to write a Javascript test to call Tellurium Engine and embed the test in the header of the html page that I want to test. Then I can set a breakpoint in the Javascript code using Firebug and refresh the web page to run the test. Some part of Tellurium Engine need to call Selenium core, I can mock that up.
+
+= Prerequisites =
+
+To use Firebug, I need to have Firebug installed to either the Firebug profile or the customized Selenium server.
