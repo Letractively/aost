@@ -174,9 +174,9 @@ When Santa locates the next UI element E, it removes one of the snapshot tree an
 
 http://tellurium-users.googlegroups.com/web/SantaLocate3.png?gda=JTuot0IAAACsdq5EJRKLPm_KNrr_VHB_bIUfD7-F6G2KdUD5D4MxCGmSNtHn62Je2_5tj0zzNNhV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=-csxfQsAAABJvX1AkrZakeAe14rL-ExC
 
-=== Multiple-Match Elimination Mechanisms ===
+=== Multiple-Match Reduction Mechanisms ===
 
-As you can see from the above procedure, it would be time-consuming if Santa branches too often and creates too many snapshot trees since Santa needs to exploit every possible snapshots. As a result, Santa includes the following multiple-match elimination mechanisms to reduce the number of snapshot trees it need to search on.
+As you can see from the above procedure, it would be time-consuming if Santa branches too often and creates too many snapshot trees since Santa needs to exploit every possible snapshots. As a result, Santa includes the following multiple-match reduction mechanisms to reduce the number of snapshot trees it needs to search on.
 
 ==== Mark ====
 
@@ -248,7 +248,42 @@ If the DOM matches more attributes in the UI templates, the candidate UI element
 
 The relax procedure, i.e., closest match, is to match the UI attribute with the DOM node as close as possible. A *Match Score* is defined to measure how many attributes match the one on the DOM node. The total score is scaled to 0-100 at the end. The snapshot with the highest match score is chosen as the result.
 
-Be aware, there is one requirement the match must satisfy, i.e., the tag name must match the DOM node. Otherwise, the relax returns the match as not found.
+The following simplified code snippet should give you some idea of how the relax procedure works.
+
+{{{
+        //the tag must be matched 
+        var jqs = tag;
+        //attrs is the attributes defined by a UI template
+        var keys = attrs.keySet();
+
+        //number of properties, tag must be included
+        var np = 1;
+        //number of matched properties
+        var nm = 0;
+
+        if (keys != null && keys.length > 0) {
+            np = np + keys.length;
+            for (var m = 0; m < keys.length; m++) {
+                var attr = keys[m];
+                //build css selector
+                var tsel = this.cssbuilder.buildSelector(attr, attrs.get(attr));
+                var $mt = teJQuery(pref).find(jqs + tsel);
+                if ($mt.size()> 0) {
+                    jqs = jqs + tsel;
+                    if(nm == 0){
+                        nm = 2;
+                    }else{
+                        nm++;
+                    }
+                }
+            }
+        }
+
+        //calculate matching score, scaled to 100 percentage
+        var score = 100*nm/np;
+}}}
+
+As shown in the above code, the relax must satisfy one requirement, i.e., the tag name must match the one in the DOM node. Otherwise, the relax result returns as "not found".
 
 = Usage =
 
