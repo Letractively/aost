@@ -13,4 +13,132 @@ The basic idea is to write a Javascript test to call Tellurium Engine and embed 
 
 = Prerequisites =
 
-To use Firebug, I need to have Firebug installed to either the Firebug profile or the customized Selenium server.
+To use Firebug, I need to have Firebug installed to either the Firebug profile or the customized Selenium server. How to add the Firebug support is described in details in the wiki page [http://code.google.com/p/aost/w/edit/TelluriumJQueryFirebug Use Firebug and JQuery to Trace Problems in Tellurium Tests].
+
+= Details =
+
+== Jetty ==
+First, I installed a Jetty server and use the Jetty server to load up the web page I want to run tellurium Engine test on. 
+
+== Example ==
+
+Take the following html source as an example,
+
+{{{
+H1>FORM Authentication demo</H1>
+
+<div class="box-inner">
+    <a href="js/tellurium-test.js">Tellurium Test Cases</a>
+    <input name="submit" type="submit" value="Test" onclick="teTestCase.testSuite();">
+</div>
+
+<form method="POST" action="j_security_check">
+    <table border="0" cellspacing="2" cellpadding="1">
+        <tr>
+            <td>Username:</td>
+            <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input name="submit" type="submit" value="Login">
+            </td>
+        </tr>
+    </table>
+</form>
+
+}}}
+
+The UI module for the above html source is defined as
+
+{{{
+    ui.Form(uid: "Form", clocator: [tag: "form"]){
+        Container(uid: "Username", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
+        }
+        Container(uid: "Password", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j_password"])
+        }
+        SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login", name: "submit"])
+    }
+}}}
+
+== Create Test Page ==
+
+First, I added the following headers to it.
+
+{{{
+head>
+  <title>Tellurium Test Page</title>
+          <script src="js/selenium-mock.js"> </script>
+          <script src="http://localhost:4444/selenium-server/core/scripts/jquery-1.4.js"> </script>
+          <script src="http://localhost:4444/selenium-server/core/scripts/json2.js"> </script>
+          <script src="http://localhost:4444/selenium-server/core/scripts/utils.js"> </script>
+          <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-logging.js"></script> 
+          <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-api.js"> </script>
+          <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-cache.js"> </script>
+          <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-extensions.js"> </script>
+          <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-selector.js"> </script>
+          <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-uibasic.js"> </script>
+          <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-uiobj.js"> </script>
+          <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-uimodule.js"> </script>
+          <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-uisnapshot.js"> </script>
+          <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-uialg.js"> </script>
+          <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-uiextra.js"> </script>    
+          <script src="http://localhost:4444/selenium-server/core/scripts/tellurium.js"> </script>
+          <script src="js/tellurium-test.js"> </script>
+          <script type="text/javascript">
+            teJQuery(document).ready(function(){
+                   var testcase = new TelluriumTestCase();
+                   testcase.testLogonUiModule();      
+            });
+          </script>
+</head>
+}}}
+
+Where the tellurium-test.js is the actual Javascript test file to test the Tellurium Engine. The above header loads up the Tellurium Engine code when the page is served by Jetty.
+
+== Engine Test Script ==
+
+I defined a test class as follows,
+
+{{{
+function TelluriumTestCase(){
+
+};
+
+TelluriumTestCase.prototype.testLogonUiModule = function(){
+
+    var json = [{"obj":{"uid":"Form","locator":{"tag":"form"},"uiType":"Form"},"key":"Form"},{"obj":{"uid":"Username","locator":{"tag":"tr"},"uiType":"Container"},"key":"Form.Username"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Username:","tag":"td"},"uiType":"TextBox"},"key":"Form.Username.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_username","type":"text"}},"uiType":"InputBox"},"key":"Form.Username.Input"},{"obj":{"uid":"Password","locator":{"tag":"tr"},"uiType":"Container"},"key":"Form.Password"},{"obj":{"uid":"Label","locator":{"direct":true,"text":"Password:","tag":"td"},"uiType":"TextBox"},"key":"Form.Password.Label"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_password","type":"password"}},"uiType":"InputBox"},"key":"Form.Password.Input"},{"obj":{"uid":"Submit","locator":{"tag":"input","attributes":{"name":"submit","value":"Login","type":"submit"}},"uiType":"SubmitButton"},"key":"Form.Submit"}];
+    tellurium.logManager.isUseLog = true;
+    var uim = new UiModule();
+    uim.parseUiModule(json);
+    var alg = new UiAlg();
+    var dom = teJQuery("html");
+    alg.santa(uim, dom);
+    tellurium.cache.cacheOption = true;
+    tellurium.cache.addToCache("Form", uim);
+    var context = new WorkflowContext();
+    context.alg = alg;
+    var uiid = new Uiid();
+    var uinput = uim.walkTo(context, uiid.convertToUiid("Form.Username.Input"));
+    var pinput = uim.walkTo(context, uiid.convertToUiid("Form.Password.Input"));
+    var smt = uim.walkTo(context, uiid.convertToUiid("Form.Submit"));
+    tellurium.teApi.getHTMLSource("Form");
+    var attrs = [{"val":"text","key":"type"}];
+    var teuids = tellurium.teApi.getUiByTag("input", attrs);
+    fbLog("result ", teuids);
+};
+
+}}}
+
+The variable json is the JSON presentation of the UI module. You can obtain the JSON string of a UI module by calling the following method in DslContext.
+
+{{{
+    public String toString(String uid); 
+}}}
