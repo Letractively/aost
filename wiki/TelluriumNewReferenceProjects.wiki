@@ -9,10 +9,9 @@ Tellurium 0.7.0 merged the original tellurium-junit-java and tellurium-testng-ja
 
 The tellurium website project illustrates the following usages of Tellurium:
 
-  * How to create your own Tellurium testing project using tellurium jar files.
   * How to create your own UI Objects and wire them into Tellurium core
   * How to create UI module files in Groovy
-  * How to create JUnit tellurium testing files in Java
+  * How to create JUnit or TestNG tellurium testing files in Java
   * How to create and run DSL scripts
   * How to create Tellurium Data Driven tests
 
