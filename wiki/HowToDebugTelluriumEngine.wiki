@@ -3,12 +3,8 @@
 
 = Introduction =
 
-Add your content here.
+For the past three months, I have worked on [http://code.google.com/p/aost/wiki/TelluriumEngineProject the new Tellurium Engine project] heavily. A lot of new ideas, for example, [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the Santa algorithm] and [http://code.google.com/p/aost/wiki/TelluriumUiModuleVisualEffect UI module visual effect], become a reality. Debugging Tellurium Engine is a critical task for me everyday. I cannot image I can finish all the implementations with out a good debug technology.
 
+Tellurium Engine is similar to Selenium core to drive browser events to simulate users physically work on the web application. If you are familiar with Selenium core, you may find that it is very difficult to debug Selenium core. As a result, I took a different approach to do debugging and like to share my experience with you here.
 
 = Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
