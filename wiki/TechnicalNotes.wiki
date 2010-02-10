@@ -36,3 +36,4 @@
   * [http://code.google.com/p/aost/wiki/CustomTelluriumIntelliJProject How to create your own Tellurium testing project with IntelliJ 9.0 Community Edition]
   * [http://code.google.com/p/aost/wiki/TelluriumUiModuleVisualEffect Tellurium UI Module Visual Effect]
   * [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm Santa: The Tellurium UI Module Group Locating Algorithm]
+  * [http://code.google.com/p/aost/wiki/HowToDebugTelluriumEngine How to Debug Tellurium Engine]
