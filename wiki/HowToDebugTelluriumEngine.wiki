@@ -150,3 +150,109 @@ The variable json is the JSON presentation of the UI module. You can obtain the 
 }}}
 
 The following test case first runs the Santa algorithm to do group locating and then call walkTo to find the UI element DOM reference. After than, I test the _getHTMLSource_ and _getUiByTag_ Tellurium APIs.
+
+As I said, Tellurium Engine needs to call Selenium Core code somewhere. I need to mock up Selenium core as follows.
+
+{{{
+function Selenium(){
+    this.browserbot = new BrowserBot();
+};
+
+function BrowserBot(){
+
+};
+
+BrowserBot.prototype.findElement = function(locator){
+    if(locator.startsWith("jquery=")){
+        return teJQuery(locator.substring(7));
+    }
+
+    return null;
+};
+
+function SeleniumError(message) {
+    var error = new Error(message);
+    if (typeof(arguments.caller) != 'undefined') { // IE, not ECMA
+        var result = '';
+        for (var a = arguments.caller; a != null; a = a.caller) {
+            result += '> ' + a.callee.toString() + '\n';
+            if (a.caller == a) {
+                result += '*';
+                break;
+            }
+        }
+        error.stack = result;
+    }
+    error.isSeleniumError = true;
+    return error;
+}
+
+var selenium = new Selenium();
+}}}
+
+== Logging ==
+
+Firebug provides very powerful console logging capability, where you can inspect the Javascript object. Tellurium Engine provides the following wrapper for Firebug console logging.
+
+{{{
+function fbLog(msg, obj){
+    if (typeof(console) != "undefined") {
+        console.log(msg, obj);
+    }
+}
+
+function fbInfo(msg, obj){
+    if (typeof(console) != "undefined") {
+        console.info(msg, obj);
+    }
+}
+
+function fbDebug(msg, obj){
+    if (typeof(console) != "undefined") {
+        console.debug(msg, obj);
+    }
+}
+
+function fbWarn(msg, obj){
+    if (typeof(console) != "undefined") {
+        console.warn(msg, obj);
+    }
+}
+
+function fbError(msg, obj){
+    if (typeof(console) != "undefined") {
+        console.trace();
+        console.error(msg, obj);
+    }
+}
+
+function fbTrace(){
+    if (typeof(console) != "undefined") {
+        console.trace();
+    }
+}
+
+function fbAssert(expr, obj){
+    if (typeof(console) != "undefined") {
+        console.assert(expr, obj);
+    }
+}
+
+function fbDir(obj){
+    if (typeof(console) != "undefined") {
+        console.dir(obj);
+    }
+}
+}}}
+
+== Run the Test ==
+
+To run the above test page, first, I copy the above page to {{{JETTY_HOME/webapps/test/}}} directory. Copy the test script and Selenium mock script to {{{JETTY_HOME/webapps/test/js/}}} directory. Then start the Jetty server and open the firefox browser to point to {{{http://localhost:8080/testpagename.html}}}. I can see all Javascript code including Tellurium Engine code and the test script. Set a breakpoint somewhere and refresh the page, Firebug will stop at breakpoint and I can start to debug the application.
+
+= Resource =
+
+  * [http://twitter.com/TelluriumSource Tellurium on Twitter] 
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group]
+  * [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the Santa algorithm]
+  * [http://code.google.com/p/aost/wiki/TelluriumUiModuleVisualEffect UI module visual effect]
+  * [http://code.google.com/p/aost/w/edit/TelluriumJQueryFirebug Use Firebug and JQuery to Trace Problems in Tellurium Tests]
