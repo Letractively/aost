@@ -2360,7 +2360,7 @@ Selenium.prototype.doWaitForCondition = function(script, timeout) {
    * @param script the JavaScript snippet to run
    * @param timeout a timeout in milliseconds, after which this command will return with an error
    */
-   
+    !tellurium.logManager.isUseLog || fbLog("waitForCondition(script=" + script + ", timeout=" + timeout, this);
     return Selenium.decorateFunctionWithTimeout(function () {
         var window = selenium.browserbot.getCurrentWindow();
         return eval(script);
