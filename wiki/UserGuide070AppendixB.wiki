@@ -891,6 +891,36 @@ clocator: [href:'\$xevent']
 clocator: [href:'*xevent']
 }}}
    
+== How to register a custom method in Tellurium API ==
+
+For a custom method, the new Tellurium Engine provides the following method for users to register the custom method.
+
+{{{
+    Tellurium.prototype.registerApi = function(apiName, requireElement, returnType)
+}}}
+
+where _apiName_ is the method name, _requireElement_ means it requires a locator. The _returnType_ is defined by the enum in core
+
+{{{
+public enum ReturnType {
+  VOID,
+  NUMBER,
+  STRING,
+  BOOLEAN,
+  ARRAY,
+  MAP,
+  OBJECT
+}
+}}}
+
+For example, you can register a custom method as follows,
+
+{{{
+teJQuery(document).ready(function() {
+    tellurium.registerApi("getUiByTag", false, "ARRAY");
+});
+}}}   
+
 == How to Access Tellurium Maven Repo Behind a Firewall ==
 
 You can download [http://ntlmaps.sourceforge.net/ NTLM Authorization Proxy Server] and install it as a local proxy. Then add the following proxy settings in your HOME/.m2/settings.xml.
