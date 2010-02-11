@@ -1,4 +1,4 @@
-package org.telluriumsource.component.bundle
+package org.telluriumsource.entity
 
 /**
  * Return types of a Selenium method
