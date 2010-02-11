@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<project name="tellurium-core" default="compile-maven-test" basedir=".">
+
+    <target name="compile-maven-test">
+
+        <echo message="compile classpath: ${compile_classpath}"/>
+        <path id="project.class.path">
+            <path path="${plugin_classpath}"/>
+            <path path="${compile_classpath}"/>
+            <fileset dir="${basedir}/target/classes">
+                <exclude name="*.groovy"/>
+                <exclude name="*.java"/>
+                <include name="*.class"/>
+            </fileset>
+            <fileset dir="${basedir}/target/test-classes">
+                <exclude name="*.groovy"/>
+                <exclude name="*.java"/>
+                <include name="*.class"/>
+            </fileset>
+        </path>
+
+        <echo message="Compiling maven test.."/>
+        <!--taskdef name="groovyc"
+                 classname="org.codehaus.groovy.ant.Groovyc"
+                 classpathref="project.class.path"/>
+        
+        <groovyc srcdir="${basedir}/src/test/groovy" destdir="${basedir}/target/test-classes">
+            <classpath refid="project.class.path"/>
+            <include name="**"/>
+            <javac source="1.5" target="1.5" debug="on"/>
+        </groovyc-->
+        <javac srcdir="${basedir}/src/test/groovy"
+            destdir="${basedir}/target/test-classes" classpathref="project.class.path">
+            <include name="**/*.java" />
+        </javac>
+
+    </target>
+
+</project>
+
+
