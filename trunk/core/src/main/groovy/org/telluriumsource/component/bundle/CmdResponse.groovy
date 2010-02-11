@@ -1,5 +1,7 @@
 package org.telluriumsource.component.bundle
 
+import org.telluriumsource.entity.ReturnType
+
 /**
  *
  * Response from a selenium call

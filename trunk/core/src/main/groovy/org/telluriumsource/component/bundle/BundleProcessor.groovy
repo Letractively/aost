@@ -16,6 +16,7 @@ import org.telluriumsource.exception.EngineNotConnectedException
 import org.telluriumsource.entity.EngineState
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.json.simple.JSONArray
+import org.telluriumsource.entity.ReturnType
 
 /**
  * Command Bundle Processor
