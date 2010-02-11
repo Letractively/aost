@@ -21,10 +21,9 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         jlm = new JettyLogonModule();
         jlm.defineUi();
         useCssSelector(true);
-        useTelluriumApi(true);
+        useTelluriumEngine(true);
         useTrace(true);
-        useCache(true);
-        useMacroCmd(true);
+        useEngineLog(true);
     }
 
     @Before
@@ -35,6 +34,11 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     @Test
     public void testDumpEnvironment(){
         dumpEnvironment();    
+    }
+
+    @Test
+    public void testDump(){
+        jlm.dump("Form");
     }
 
     @Test
@@ -167,8 +171,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     @Test
     public void testGetHTMLSource(){
         useEngineLog(true);
-        useTelluriumApi(true);
-        useCache(true);
+        useTelluriumEngine(true);
         jlm.getHTMLSource("Form");
     }
 
@@ -185,14 +188,24 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     @Test
     public void testGetUiByTag(){
         useEngineLog(true);
-        useTelluriumApi(true);
-        useCache(true);
+        useTelluriumEngine(true);
         String[] teuids = jlm.getInputBox();
         assertNotNull(teuids);
         for(String teuid: teuids){
             jlm.keyType(teuid, "Tellurium Source");
         }
         jlm.removeMarkedUids("input");
+    }
+
+    @Test
+    public void testWaitForCondition(){
+        useEngineLog(true); 
+        useTelluriumEngine(false);
+        jlm.waitForCondition("try {var doc =selenium.browserbot.getCurrentWindow(true).document;doc.readyState =='incomplete'}catch(err){false}", 10000);
+        jlm.waitForCondition("selenium.getText(\"//input[@type='text' and @name='j_username']\")=='Tellurium'", 10000);
+        useTelluriumEngine(true);
+        jlm.waitForCondition("try {var doc =selenium.browserbot.getCurrentWindow(true).document;doc.readyState =='incomplete'}catch(err){false}", 10000);
+        jlm.waitForCondition("selenium.getText(\"//input[@type='text' and @name='j_username']\")=='Tellurium'", 10000);
     }
 
     @AfterClass
