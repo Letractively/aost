@@ -598,6 +598,16 @@ Tellurium Team
 
 Tellurium 0.7.0 RC1 is out now. Over 150 issues have been closed. The issues include new features, bugs fixings, and other enhancements requested by users. There are some fundamental changes in Tellurium 0.7.0 compared with Tellurium 0.6.0 such as the group locating algorithm, UI module caching, Macro command, jQuery-based new APIs, and i18n support. 
 
+=== New Features ===
+
+  * Santa Algorithm: The *Santa algorithm* is the missing half of the Tellurium UI module concept. The algorithm can locate the whole UI module at the runtime DOM. After that, you can just pass in UI element's UID to find it in the cached UI module on Tellurium Engine. That is to say, you don't need Tellurium Core to generate the runtime locators any more. 
+  * Macro Command: *Macro Command* is a set of Selenium commands that are bundled together and sent to Selenium Core in one call. This will reduce the round trip latency from Tellurium Core to Engine and thus, improve the speed performance. Another advantage for Macro Command is that Tellurium Engine can reuse the locator because many times the commands in the same bundle act on the same UI element or same sub-tree in the DOM. 
+  * UI Module Caching: From Tellurium 0.6.0, we provides the cache capability for CSS selectors so that we can reuse them without doing re-locating. In 0.7.0, we move a step further to cache the whole UI module on the Engine side. Each UI module cache holds a snapshot of the DOM references for most of the UI elements in the UI module. 
+  * Tellurium New APIs: Tellurium Engine in 0.7.0 re-implemented a set of Selenium APIs by exploiting jQuery, plus many more new APIs.
+  * Trace: Tellurium 0.7.0 provides built-in support for the command execution time including execution time for each command, total run time, and aggregated times for each command.
+  * UI Module Live Show: The _show_ command is used to show the UI module that you defined on the actual web page. The UI module on the web page will be outlined and if user hives over the UI module, the UIDs of the selected UI element's and its ancestors' will be shown as a tooltip.   
+  * I18n support: Tellurium now provides support for internationalization of strings and exception messages. Internationalized strings for each locale is provided through a MessageBundle for a specific locale which is of the format <MessageBundleName>_<language-code>_<country code>.properties. 
+
 === Directory Structure ===
 
 The directory structure is as follows.
