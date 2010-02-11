@@ -493,6 +493,9 @@ New TelluriumGroovyTestCase provides the following list of new APIs for your con
 
     public void useEngineLog(boolean isUse);
 
+    public void useTelluriumEngine(boolean isUse);
+
+    public void dumpEnvironment();
 }}}
 
 Tellurium Java test cases provide the same APIs and the only difference is that the APIs in Tellurium Java test cases are static.
@@ -544,8 +547,32 @@ public class Environment {
 }
 }}}
 
-where {{{setCustomEnvironment}}} and {{{getCustomEnvironment}}} can be used to pass user defined environment variables.
+where {{{setCustomEnvironment}}} and {{{getCustomEnvironment}}} can be used to pass user defined environment variables. 
 
+Tellurium provides the following method for users to dump out all the current environment variables.
+
+{{{
+    public void dumpEnvironment();
+}}}
+
+The output is like the following.
+
+{{{
+    Environment Variables:
+      useEngineCache: true
+      useClosestMatch: false
+      useMacroCommand: true
+      maxMacroCmd: 5
+      useTelluriumApi: true
+      locatorWithCache: true
+      useCSSSelector: true
+      useTrace: true
+      logEngine: false
+      locale: en_US
+}}}
+
+If any exception is thrown at the dispatcher tier, the environment variable will also be printed out.
+ 
 == Get UIs by Tag Name ==
 
 As requested by users, Tellurium 0.7.0 added the following two methods.
