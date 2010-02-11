@@ -593,3 +593,8 @@ We will schedule the time when our Tellurium members are available on the channe
 Thanks,
 
 Tellurium Team
+
+== Tellurium 0.7.0 RC1 is Available Now ==
+
+Tellurium 0.7.0 RC1 is out now. Over 150 issues have been closed. The issues include new features, bugs fixings, and other enhancements requested by users. There are some fundamental changes in Tellurium 0.7.0 compared with Tellurium 0.6.0 such as the group locating algorithm, UI module caching, Macro command, jQuery-based new APIs, and i18n support. 
+
