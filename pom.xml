@@ -4,7 +4,7 @@
     <artifactId>tellurium</artifactId>
     <packaging>pom</packaging>
     <name>Tellurium Automated Testing Framework</name>
-    <version>0.7.0-SNAPSHOT</version>
+    <version>0.7.0-RC1</version>
     <description>Tellurium is a quick and easy test framework for
         automated web UI testing.
     </description>
@@ -247,9 +247,9 @@
     <modules>
         <module>core</module>
         <module>engine</module>
-        <module>extensions</module>
+        <!--module>extensions</module-->
         <module>reference-projects</module>
-        <module>tools</module>
+        <!--module>tools</module-->
         <module>tellurium-assembly</module>
     </modules>
     <repositories>
@@ -465,55 +465,6 @@
         <groovy-version>1.7.0</groovy-version>
         <gmaven-version>1.2</gmaven-version>
         <selenium-version>1.0.1</selenium-version>
-        <selenium-server-version>1.0.1-te2-SNAPSHOT</selenium-server-version>
+        <selenium-server-version>1.0.1-te2-RC1</selenium-server-version>
     </properties>
-    <!--profiles>
-        <profile>
-            <id>windows</id>
-            <activation>
-                <os>
-                    <family>windows</family>
-                </os>
-            </activation>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-antrun-plugin</artifactId>
-                            <version>1.3</version>
-                            <dependencies>
-                                <dependency>
-                                    <groupId>sun.jdk</groupId>
-                                    <artifactId>tools</artifactId>
-                                    <version>1.5.0</version>
-                                    <scope>system</scope>
-                                    <systemPath>${java.home}/../lib/tools.jar</systemPath>
-                                </dependency>
-                            </dependencies>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-        </profile>
-        <profile>
-            <id>mac</id>
-            <activation>
-                <os>
-                    <family>mac</family>
-                </os>
-            </activation>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-antrun-plugin</artifactId>
-                            <version>1.3</version>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-        </profile>
-    </profiles-->
 </project>
