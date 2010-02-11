@@ -1,14 +1,14 @@
-README
+                    README
 
 -----------------------------------------------------------
 
     Tellurium Team (TelluriumSource@gmail.com)
 
-                Feb 10, 2010
+                Feb 11, 2010
 
 -----------------------------------------------------------
 
-This directory include Tellurium 0.7.0 RC1 Release code, dependencies, and documents.
+This directory includes Tellurium 0.7.0 RC1 Release code, dependencies, and documents.
 
 The structure is as follows.
 
@@ -34,11 +34,12 @@ The structure is as follows.
 |   `-- ui-examples
 
 
-The Core is the Tellurium Core project. Engine is Tellurium project. The reference projects
-include tellurium-website and ui-examples. The dependencies include all jars you need to
-run Tellurium tests. The doc folder includes Tellurium 0.7.0 update and 0.6.0 user guide.
+The Core is the Tellurium Core project. Engine is Tellurium Engine project. The reference projects
+include tellurium-website and ui-examples sub-projects. The dependencies include all jars you need to
+run Tellurium tests. The doc folder holds Tellurium 0.7.0 update and 0.6.0 user guide.
 
 Please provide any comments and suggestions to Tellurium user group at
+   http://groups.google.com/group/tellurium-users
 
 Resources:
 
