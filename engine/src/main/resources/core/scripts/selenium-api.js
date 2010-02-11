@@ -192,11 +192,13 @@ Selenium.decorateFunctionWithTimeout = function(f, timeout) {
     }
     
     var timeoutTime = getTimeoutTime(timeout);
-    
+    !tellurium.logManager.isUseLog || fbLog("timeoutTime for f " + timeoutTime, f);
+
     return function() {
         if (new Date().getTime() > timeoutTime) {
             throw new SeleniumError("Timed out after " + timeout + "ms");
         }
+        !tellurium.logManager.isUseLog || fbLog("call f at " + new Date().getTime(), f);
         return f();
     };
 }
