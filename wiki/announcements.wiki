@@ -634,3 +634,41 @@ The directory structure is as follows, i.e., the RC1 release include Tellurium C
 |   |-- tellurium-website
 |   `-- ui-examples
 }}}
+
+=== How to Obtain Tellurium 0.7.0 RC1 ===
+
+Tellurium 0.7.0 RC1 bundle can be downloaded from http://aost.googlecode.com/files/tellurium-0.7.0-RC1.tar.gz. You can also find Tellurium core and custom selenium server from the following Maven repositories, respectively.
+
+http://maven.kungfuters.org/content/repositories/releases/org/telluriumsource/tellurium-core/0.7.0-RC1/
+
+http://maven.kungfuters.org/content/repositories/thirdparty/org/seleniumhq/selenium/server/selenium-server/1.0.1-te2-RC1/
+
+If you Tellurium Maven archetypes, you can use the following command to create a Tellurium JUnit test project.
+
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
+    -DarchetypeArtifactId=tellurium-junit-archetype \
+    -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-RC1 \
+    -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/releases 
+}}}
+
+Similarly, use the following Maven command for a Tellurium TestNG project,
+
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
+    -DarchetypeArtifactId=tellurium-testng-archetype \
+    -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-RC1 \
+    -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/releases 
+}}}
+
+=== Feedback ===
+
+Please report any problems back to Tellurium User Group at
+
+http://groups.google.com/group/tellurium-users
+
+and follow Tellurium on Twitter (http://twitter.com/TelluriumSource) for any the latest update.
+
+Thanks,
+
+Tellurium Team 
