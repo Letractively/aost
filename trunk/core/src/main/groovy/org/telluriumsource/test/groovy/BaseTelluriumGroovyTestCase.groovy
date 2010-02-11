@@ -204,4 +204,8 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
         this.useMacroCmd(isUse);
         this.useTelluriumApi(isUse);
     }
+
+    public void dumpEnvironment(){
+        tellurium.dumpEnvironment();
+    }
 }

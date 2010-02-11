@@ -366,4 +366,8 @@ class TelluriumFramework {
     this.global.useEngineLog(isUse);
   }
 
+  public String dumpEnvironment(){
+    println env.toString();
+  }
+
 }
