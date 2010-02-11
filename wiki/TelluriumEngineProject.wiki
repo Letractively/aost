@@ -1,4 +1,4 @@
-#summary Tellurium Engine Project.
+#summary Tellurium Engine Pave the Way for Future.
 #labels Phase-Implementation,Phase-Support
 
 = Introduction =
