@@ -605,12 +605,12 @@ Tellurium 0.7.0 RC1 is out now. Over 150 issues have been closed. The issues inc
   * UI Module Caching: From Tellurium 0.6.0, we provides the cache capability for CSS selectors so that we can reuse them without doing re-locating. In 0.7.0, we move a step further to cache the whole UI module on the Engine side. Each UI module cache holds a snapshot of the DOM references for most of the UI elements in the UI module. 
   * Tellurium New APIs: Tellurium Engine in 0.7.0 re-implemented a set of Selenium APIs by exploiting jQuery, plus many more new APIs.
   * Trace: Tellurium 0.7.0 provides built-in support for the command execution time including execution time for each command, total run time, and aggregated times for each command.
-  * UI Module Live Show: The _show_ command is used to show the UI module that you defined on the actual web page. The UI module on the web page will be outlined and if user hives over the UI module, the UIDs of the selected UI element's and its ancestors' will be shown as a tooltip.   
-  * I18n support: Tellurium now provides support for internationalization of strings and exception messages. Internationalized strings for each locale is provided through a MessageBundle for a specific locale which is of the format <MessageBundleName>_<language-code>_<country code>.properties. 
+  * UI Module Live Show: The *show* command is used to show the UI module that you defined on the actual web page. The UI module on the web page will be outlined and if user hives over the UI module, the UIDs of the selected UI element's and its ancestors' will be shown as a tooltip.   
+  * I18n support: Tellurium now provides support for internationalization of strings and exception messages. Internationalized strings for each locale is provided through a MessageBundle for a specific locale which is of the format {{{<MessageBundleName>_<language-code>_<country code>.properties}}}. 
 
 === Directory Structure ===
 
-The directory structure is as follows.
+The directory structure is as follows, i.e., the RC1 release include Tellurium Core, Engine, tellurium-website, and ui-examples project. The documents and dependencies are also included.
 
 {{{
 
