@@ -66,6 +66,9 @@ class Dispatcher implements Configurable {
           sc.client.getActiveSeleniumSession().captureScreenshot(filename)
           println i18nBundle.getMessage("Dispatcher.ExceptionMessage", e.getMessage(), filename)
         }
+        //dump Environment variables
+        println Environment.instance.toString();
+
         throw e
       }
   }

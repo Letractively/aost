@@ -222,5 +222,9 @@ public abstract class BaseTelluriumJavaTestCase {
         useCache(isUse);
         useMacroCmd(isUse);
         useTelluriumApi(isUse);
-    }   
+    }
+
+    public static void dumpEnvironment(){
+        tellurium.dumpEnvironment();
+    }
 }

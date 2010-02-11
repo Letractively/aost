@@ -46,7 +46,25 @@ public class Environment implements Configurable{
   protected boolean logEngine = false;
 
   //protected LogLevels loggingLevel = LogLevels.OFF
-  
+
+  public String toString(){
+    String result = """
+    Environment Variables:
+      useEngineCache: ${this.exploitEngineCache}
+      useClosestMatch: ${closestMatch}
+      useMacroCommand: ${this.exploitBundle}
+      maxMacroCmd: ${this.maxMacroCmd}
+      useTelluriumApi: ${this.exploitTelluriumApi}
+      locatorWithCache: ${this.locatorWithCache}
+      useCSSSelector: ${this.exploitCssSelector}
+      useTrace: ${this.trace}
+      logEngine: ${this.logEngine}
+      locale: ${this.locale}
+      """
+
+      return result;
+  }
+
   public boolean isUseEngineLog(){
     return this.logEngine;
   }
