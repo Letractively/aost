@@ -291,8 +291,8 @@
         <groovy-version>1.7.0</groovy-version>
         <gmaven-version>1.2</gmaven-version>
         <selenium-version>1.0.1</selenium-version>
-        <tellurium-engine-version>te2-SNAPSHOT</tellurium-engine-version>
-        <tellurium-version>0.7.0-SNAPSHOT</tellurium-version>
+        <tellurium-engine-version>te2-RC1</tellurium-engine-version>
+        <tellurium-version>0.7.0-RC1</tellurium-version>
         <javac-debug>true</javac-debug>
     </properties>
 

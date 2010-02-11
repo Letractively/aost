@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.telluriumsource</groupId>
     <artifactId>tellurium-testng-archetype</artifactId>
-    <version>0.7.0-SNAPSHOT</version>
+    <version>0.7.0-RC1</version>
     <name>Archetype - tellurium-testng-archetype</name>
     <description>A Tellurium plugin for Firefox</description>
     <scm>
