@@ -598,3 +598,29 @@ Tellurium Team
 
 Tellurium 0.7.0 RC1 is out now. Over 150 issues have been closed. The issues include new features, bugs fixings, and other enhancements requested by users. There are some fundamental changes in Tellurium 0.7.0 compared with Tellurium 0.6.0 such as the group locating algorithm, UI module caching, Macro command, jQuery-based new APIs, and i18n support. 
 
+=== Directory Structure ===
+
+The directory structure is as follows.
+
+{{{
+
+|-- core
+|-- dependencies
+|   |-- groovy-all-1.7.0.jar
+|   |-- json_simple-r1.jar
+|   |-- junit-4.7.jar
+|   |-- poi-3.0.1-FINAL.jar
+|   |-- reportng-0.9.8.jar
+|   |-- selenium-java-client-driver-1.0.1.jar
+|   |-- selenium-server-1.0.1-te2-RC1.jar
+|   |-- stringtree-json-2.0.10.jar
+|   |-- tellurium-core-0.7.0-RC1.jar
+|   `-- testng-5.8-jdk15.jar
+|-- doc
+|   |-- Tellurium0.7.0Update.pdf
+|   `-- TelluriumUserGuide.0.6.0.pdf
+|-- engine
+|-- reference-projects
+|   |-- tellurium-website
+|   `-- ui-examples
+}}}
