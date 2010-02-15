@@ -240,6 +240,21 @@ abstract class DslContext extends BaseDslContext {
         accessor.captureScreenshot(context, filename)
     }
 
+    void captureEntirePageScreenshot(String filename, String kwargs){
+        WorkflowContext context = WorkflowContext.getDefaultContext()
+        accessor.captureEntirePageScreenshot(context, filename, kwargs)
+    }
+
+    String captureScreenshotToString(){
+       WorkflowContext context = WorkflowContext.getDefaultContext()
+       return accessor.captureScreenshotToString(context)
+    }
+
+    String captureEntirePageScreenshotToString(String kwargs){
+       WorkflowContext context = WorkflowContext.getDefaultContext()
+       return accessor.captureEntirePageScreenshotToString(context, kwargs)
+    }
+
     void chooseCancelOnNextConfirmation() {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         eventHandler.chooseCancelOnNextConfirmation(context)

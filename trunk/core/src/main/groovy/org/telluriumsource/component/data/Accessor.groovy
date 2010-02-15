@@ -241,6 +241,18 @@ class Accessor implements Configurable {
     cbp.captureScreenshot(context, filename)
   }
 
+  void captureEntirePageScreenshot(WorkflowContext context, String filename, String kwargs) {
+    cbp.captureEntirePageScreenshot(context, filename, kwargs)
+  }
+
+  String captureScreenshotToString(WorkflowContext context) {
+    return cbp.captureScreenshotToString(context)
+  }
+
+  String captureEntirePageScreenshotToString(WorkflowContext context, String kwargs) {
+    return cbp.captureEntirePageScreenshotToString(context, kwargs)
+  }
+
   boolean isAlertPresent(WorkflowContext context) {
 
     return cbp.isAlertPresent(context)
