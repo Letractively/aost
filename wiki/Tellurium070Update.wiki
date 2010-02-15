@@ -1367,6 +1367,10 @@ Exposed the following Selenium APIs to DslContext.
 
   * {{{void addScript(String scriptContent, String scriptTagId)}}} 
   * {{{void removeScript(String scriptTagId)}}}
+  * {{{void captureEntirePageScreenshot(String filename, String kwargs)}}}
+  * {{{String captureScreenshotToString()}}}
+  * {{{String captureEntirePageScreenshotToString(String kwargs)}}}
+  * {{{String retrieveLastRemoteControlLogs()}}}
 
 The following methods in DslContext have been renamed
 
