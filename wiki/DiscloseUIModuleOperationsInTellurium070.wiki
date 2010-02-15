@@ -236,3 +236,141 @@ The first method shows the UI module visual effect for some time (delay in milli
 }}}
 
 === Result ===
+
+== validate ==
+
+The _validate_ method is used to validate if the UI module is correct and returns the mismatches at runtime.
+
+=== API ===
+
+{{{
+   UiModuleValidationResponse getUiModuleValidationResult(String uid);
+   void validate(String uid)
+}}}
+
+The first method returns the validation result as a UiModuleValidationResponse object,
+
+{{{
+public class UiModuleValidationResponse {
+  
+    //ID for the UI module
+    public static String ID = "id";
+    private String id = null;
+
+    //Successfully found or not
+    public static String FOUND = "found";
+    private boolean found = false;
+
+    //whether this the UI module used closest Match or not
+    public static String RELAXED = "relaxed";
+    private boolean relaxed = false;
+
+    //match count
+    public static String MATCHCOUNT = "matches";
+    private int matches = 0;
+
+    //scaled match score (0-100)
+    public static String SCORE = "score";
+    private float score = 0.0;
+
+    public static String RELAXDETAIL = "relaxDetail";
+    //details for the relax, i.e., closest match
+    public static String RELAXDETAILS = "relaxDetails";
+    private List<RelaxDetail> relaxDetails = null;
+}}}
+
+and the RelaxDetail is defined as follows,
+
+{{{
+public class RelaxDetail {
+    //which UID got relaxed, i.e., closest Match
+    public static String UID = "uid";
+    private String uid = null;
+
+    //the clocator defintion for the UI object corresponding to the UID
+    public static String LOCATOR = "locator";
+    private CompositeLocator locator = null;
+
+    //The actual html source of the closest match element
+    public static String HTML = "html";
+    private String html = null;
+}}}
+
+The second one simply prints out the result to console.
+
+=== Test Case ===
+
+{{{
+    @Test
+    public void testValidate(){
+        gsm.validate("Google");
+        gsm.validate("ProblematicGoogle");
+    }
+}}}
+
+Here we validate the correct UI module "Google" and the not-so-correct UI module "ProblematicGoogle".
+
+=== Result ===
+
+{{{
+TE: Name: getValidateUiModule, start: 1266260203639, duration: 68ms
+
+UI Module Validation Result for Google
+
+-------------------------------------------------------
+
+	Found Exact Match: true 
+
+	Found Closest Match: false 
+
+	Match Count: 1 
+
+	Match Score: 100 
+
+
+-------------------------------------------------------
+
+TE: Name: getValidateUiModule, start: 1266260203774, duration: 41ms
+
+UI Module Validation Result for ProblematicGoogle
+
+-------------------------------------------------------
+
+	Found Exact Match: false 
+
+	Found Closest Match: true 
+
+	Match Count: 1 
+
+	Match Score: 32.292 
+
+
+	Closest Match Details: 
+
+	--- Element ProblematicGoogle.Input -->
+
+	 Composite Locator: <input title="Google Search" name="p"/> 
+
+	 Closest Matched Element: <input autocomplete="off" onblur="google&amp;&amp;google.fade&amp;&amp;google.fade()" maxlength="2048" name="q" size="55" class="lst" title="Google Search" value=""> 
+
+
+
+	--- Element ProblematicGoogle.Search -->
+
+	 Composite Locator: <input name="btns" value="Google Search" type="submit"/> 
+
+	 Closest Matched Element: <input name="btnG" value="Google Search" class="lsb" onclick="this.checked=1" type="submit"> 
+
+
+
+	--- Element ProblematicGoogle.ImFeelingLucky -->
+
+	 Composite Locator: <input name="btnf" value="I'm Feeling Lucky" type="submit"/> 
+
+	 Closest Matched Element: <input name="btnI" value="I'm Feeling Lucky" class="lsb" onclick="this.checked=1" type="submit"> 
+
+-------------------------------------------------------
+
+}}}
+
+As we can see, the correct UI module returns a score as 100 and the problematic UI module returns a score less than 100.
