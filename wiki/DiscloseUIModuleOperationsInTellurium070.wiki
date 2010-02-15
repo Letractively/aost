@@ -153,3 +153,58 @@ The first method generates the HTML source for a UI module and the second one ge
       <input type="submit" value="I'm Feeling Lucky" name="btnI"/>
    </table>
 }}} 
+
+== getHTMLSource ==
+
+The getHTMLSource method returns the runtime HTML source for a UI module.
+
+=== API ===
+
+{{{   
+   java.util.List getHTMLSourceResponse(String uid);
+   void getHTMLSource(String uid);
+}}}
+
+The first method gets back the HTML source as a list of _key_ and _val_ pair and the second one prints out them to console.
+
+{{{
+   class KeyValuePair {
+     public static final String KEY = "key";
+     String key;
+
+     public static final String VAL = "val";
+     String val;
+   }
+}}}
+
+=== Test Case ===
+
+{{{
+    @Test
+    public void testGetHTMLSource(){
+        gsm.getHTMLSource("Google");
+    }
+}}}
+
+=== Result ===
+
+{{{
+TE: Name: getHTMLSource, start: 1266260182744, duration: 67ms
+TE: Found exact match for UI Module 'Google': {"id":"Google","relaxDetails":[],"matches":1,"relaxed":false,"score":100.0,"found":true}
+Google: 
+
+<table cellpadding="0" cellspacing="0"><tbody><tr valign="top"><td width="25%">&nbsp;</td><td nowrap="nowrap" align="center"><input name="hl" value="en" type="hidden"><input name="source" value="hp" type="hidden"><input autocomplete="off" onblur="google&amp;&amp;google.fade&amp;&amp;google.fade()" maxlength="2048" name="q" size="55" class="lst" title="Google Search" value=""><br><input name="btnG" value="Google Search" class="lsb" onclick="this.checked=1" type="submit"><input name="btnI" value="I'm Feeling Lucky" class="lsb" onclick="this.checked=1" type="submit"></td><td id="sbl" nowrap="nowrap" width="25%" align="left"><font size="-2">&nbsp;&nbsp;<a href="/advanced_search?hl=en">Advanced Search</a><br>&nbsp;&nbsp;<a href="/language_tools?hl=en">Language Tools</a></font></td></tr></tbody></table>
+
+Google.Input: 
+
+<input autocomplete="off" onblur="google&amp;&amp;google.fade&amp;&amp;google.fade()" maxlength="2048" name="q" size="55" class="lst" title="Google Search" value="">
+
+Google.Search: 
+
+<input name="btnG" value="Google Search" class="lsb" onclick="this.checked=1" type="submit">
+
+Google.ImFeelingLucky: 
+
+<input name="btnI" value="I'm Feeling Lucky" class="lsb" onclick="this.checked=1" type="submit">
+
+}}}
