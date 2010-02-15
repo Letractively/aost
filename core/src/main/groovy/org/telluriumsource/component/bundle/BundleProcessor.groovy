@@ -35,6 +35,7 @@ public class BundleProcessor implements Configurable {
   public static final String[] EXCLUSIVE_LIST = ["getDiagnosisResponse", "getValidateUiModule"];
   public static final String[] KILL_CACHE_LIST = ["open", "waitForPageToLoad"];
   public static final String[] STATE_UPDATE_LIST = ["enableCache", "disableCache", "useTeApi", "useClosestMatch"];
+  public static final String[] NO_BUNDLE_LIST = ["waitForCondition", "captureScreenshotToString", "captureEntirePageScreenshotToString", "retrieveLastRemoteControlLogs"];
   
   //sequence number for each command
   private int sequence = 1;
@@ -222,6 +223,10 @@ public class BundleProcessor implements Configurable {
     return isInList(cmd, STATE_UPDATE_LIST);
   }
 
+  protected boolean inNoBundleList(String cmd){
+    return isInList(cmd, NO_BUNDLE_LIST);
+  }
+
   public boolean needCacheUiModule(WorkflowContext context, String cmd, String uid){
     if(uid != null && uid.trim().length() > 0 && context.isUseUiModuleCache()){
         if(inExclusiveList(cmd)){
@@ -318,6 +323,13 @@ public class BundleProcessor implements Configurable {
     return parseReturnValue(val);
   }
 
+  //call directly instead of using bundle, which is useful for some methods that require the Selenium RC to process
+  def directCall(WorkflowContext context, String name, args){
+    flush()
+    context.setApiName(name);
+    return dispatcher.metaClass.invokeMethod(dispatcher, name, args);
+  }
+
   def passThrough(WorkflowContext context, String uid, String name, args){
     context.setApiName(name);
     //if no command on the bundle, call directly
@@ -388,6 +400,10 @@ public class BundleProcessor implements Configurable {
 
       if(this.inKillCacheList(name)){
         this.cleanAllCache();
+      }
+
+      if(this.inNoBundleList(name)){
+        return this.directCall(context, name, args);  
       }
 
       if (this.exploitBundle() && context.isBundlingable()) {
