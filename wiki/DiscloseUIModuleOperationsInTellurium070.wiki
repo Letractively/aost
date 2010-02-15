@@ -374,3 +374,151 @@ UI Module Validation Result for ProblematicGoogle
 }}}
 
 As we can see, the correct UI module returns a score as 100 and the problematic UI module returns a score less than 100.
+
+== Closest Match ==
+
+The UI module closest match, i.e., partial match, is extremely important to keep your test code robust to changes to some degree. By partial match, Tellurium uses the [ http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm Santa algorithm] to locate the whole UI module by using only partial information inside the UI module.
+
+=== API ===
+
+{{{
+   enableClosestMatch();
+   disableClosestMatch();
+   useClosestMatch(boolean isUse);
+}}}
+
+The first two methods are used in DslContext to enable and disable the closest match feature. The last one is used on Groovy or Java test case for the same purpose. Be aware that this feature only works with UI module caching, i.e., you should call either
+
+{{{
+   useTelluriumEngine(true);
+}}}
+
+or
+
+{{{
+   useCache(true);
+}}}
+
+before use this feature.
+
+=== Example ===
+
+Here we run our test code based on the problematic UI module "ProblematicGoogle".
+
+{{{
+    @Test
+    public void testClosestMatch(){
+        useClosestMatch(true);
+        gsm.doProblematicGoogleSearch("Tellurium Source");
+        useClosestMatch(false);
+    }
+}}}
+
+=== Result ===
+
+The test case passed successfully. What happens if you disable the closest match feature by calling
+
+{{{
+   useClosestMatch(true);
+}}}
+
+The above test case will break and you will get a red bar in IDE.
+
+== Summary ==
+
+To summarize, we provide the full test code as follows,
+
+{{{
+package org.telluriumsource.ft;
+
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.telluriumsource.module.GoogleSearchModule;
+import org.telluriumsource.test.java.TelluriumJUnitTestCase;
+
+public class UiModuleDemoTestCase extends TelluriumJUnitTestCase {
+    private static GoogleSearchModule gsm;
+
+    @BeforeClass
+    public static void initUi() {
+        gsm = new GoogleSearchModule();
+        gsm.defineUi();
+        connectSeleniumServer();
+        useTelluriumEngine(true);
+        useTrace(true);
+    }
+
+    @Before
+    public void connectToGoogle() {
+
+        connectUrl("http://www.google.com/intl/en/");
+    }
+
+    @Test
+    public void testDump(){
+        useCssSelector(false);
+        gsm.dump("Google");
+        useCssSelector(true);
+        gsm.dump("Google");
+    }
+
+    @Test
+    public void testToString(){
+        String json = gsm.toString("Google");
+        System.out.println(json);
+    }
+
+    @Test
+    public void testToHTML(){
+        String html = gsm.toHTML("Google");
+        System.out.println(html);
+    }
+
+    @Test
+    public void testGetHTMLSource(){
+        gsm.getHTMLSource("Google");
+    }
+
+    @Test
+    public void testShow(){
+        gsm.show("Google", 10000);
+//        gsm.startShow("Form");
+//        gsm.endShow("Form");
+    }
+
+    @Test
+    public void testValidate(){
+        gsm.validate("Google");
+        gsm.validate("ProblematicGoogle");
+    }
+
+    @Test
+    public void testClosestMatch(){
+        useClosestMatch(true);
+        gsm.doProblematicGoogleSearch("Tellurium Source");
+        useClosestMatch(false);
+    }
+
+    @AfterClass
+    public static void tearDown(){
+        showTrace();
+    }
+}
+}}}
+
+How to run the above test case? First, you can create a Tellurium 0.7.0 test project by using either [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_Maven_Archetypes Tellurium Maven archetypes] or one of [http://code.google.com/p/aost/wiki/TelluriumNewReferenceProjects  the reference projects] in [http://aost.googlecode.com/files/tellurium-0.7.0-RC1.tar.gz 0.7.0 RC1]. Copy the GoogleSearchModule and the UiModuleDemoTestCase into the project. Then run it.
+
+= Resources ==
+
+ * [http://code.google.com/p/aost/ Tellurium Project website] 
+  * [http://twitter.com/TelluriumSource Tellurium on Twitter]
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group] 
+  * [http://www.linkedin.com/groups?gid=1900807 Tellurium Automated Testing Framework LinkedIn Group]
+  * [http://www.slideshare.net/John.Jian.Fang/tellurium-at-rich-web-experience2009-2806967 Tellurium at Rich Web Experience 2009 by Jian Fang and Vivek Mongolu]
+  * [http://www.slideshare.net/John.Jian.Fang/tellurium-060-user-guide Tellurium 0.6.0 User Guide]
+  * [http://vimeo.com/8601173 Tellurium video tutorial by Vivek Mongolu]
+  * [http://www.slideshare.net/John.Jian.Fang/telluriumanewapproachforwebtesting Tellurium - A New Approach For Web Testing]
+  * [http://vimeo.com/8600410 10 Minutes to Tellurium]
+  * [http://code.google.com/p/aost/wiki/CustomTelluriumIntelliJProject How to create your own Tellurium testing project with IntelliJ 9.0 Community Edition]
