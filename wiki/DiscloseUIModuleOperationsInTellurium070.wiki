@@ -1,0 +1,49 @@
+#summary Disclose UI Module Operations in Tellurium 0.7.0.
+#labels Phase-Implementation,Phase-Support
+
+= Introduction =
+
+UI Module presents a group of nested UI elements or a UI widget and it is the heart of Tellurium Automated Testing Framework (Tellurium). You may not be aware that Tellurium 0.7.0 provides a set of UI module level APIs. Here we go over them one by one.
+
+
+= UI Module Operations =
+
+== Example ==
+
+First of all, we like to use Google Search module as an example so that everyone can run the test code in this article.
+
+For Google Search Module, we define the UI module class as
+
+{{{
+package org.telluriumsource.module
+
+import org.telluriumsource.dsl.DslContext
+
+public class GoogleSearchModule extends DslContext {
+
+  public void defineUi() {
+    ui.Container(uid: "Google", clocator: [tag: "table"]) {
+      InputBox(uid: "Input", clocator: [tag: "input", title: "Google Search", name: "q"])
+      SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit", value: "Google Search", name: "btnG"])
+      SubmitButton(uid: "ImFeelingLucky", clocator: [tag: "input", type: "submit", value: "I'm Feeling Lucky", name: "btnI"])
+    }
+
+    ui.Container(uid: "ProblematicGoogle", clocator: [tag: "table"]) {
+      InputBox(uid: "Input", clocator: [tag: "input", title: "Google Search", name: "p"])
+      SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit", value: "Google Search", name: "btns"])
+      SubmitButton(uid: "ImFeelingLucky", clocator: [tag: "input", type: "submit", value: "I'm Feeling Lucky", name: "btnf"])
+    }    
+  }
+
+  public void doProblematicGoogleSearch(String input) {
+    keyType "ProblematicGoogle.Input", input
+    pause 500
+    click "ProblematicGoogle.Search"
+    waitForPageToLoad 30000
+  }
+}
+}}}
+
+where UI Module "Google" is a correct UI Module definition for Google Search and "ProblematicGoogle" is a not-so-correct UI module to demonstrate the power of UI module partial matching in Tellurium 0.7.0.
+
+ 
