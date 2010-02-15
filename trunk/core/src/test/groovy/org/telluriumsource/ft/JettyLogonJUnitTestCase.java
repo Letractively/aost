@@ -211,9 +211,11 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     @Test
     public void testCaptureScreen(){
         jlm.captureScreenshot("jettyLogon1.png");
+        //XXX: this method requires absolute path !!!
         jlm.captureEntirePageScreenshot("\\tmp\\jettylogon2.png", "background=#CCFFDD");
     }
 
+    @Ignore
     @Test
     public void testCaptureScreenToString(){
         String shot1 = jlm.captureScreenshotToString();
@@ -222,6 +224,15 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         String shot2 = jlm.captureEntirePageScreenshotToString("background=#CCFFDD");
         assertNotNull(shot2);
         System.out.println("Entire Screenshot: \n" + shot2);
+    }
+
+    @Ignore
+    @Test
+    public void testRetrieveLastRemoteControlLogs(){
+        jlm.logon("tellurium", "testing");
+        String log = jlm.retrieveLastRemoteControlLogs();
+        assertNotNull(log);
+        System.out.println(log);
     }
 
     @AfterClass

@@ -255,6 +255,11 @@ abstract class DslContext extends BaseDslContext {
        return accessor.captureEntirePageScreenshotToString(context, kwargs)
     }
 
+    String retrieveLastRemoteControlLogs(){
+       WorkflowContext context = WorkflowContext.getDefaultContext()
+       return accessor.retrieveLastRemoteControlLogs(context)
+    }
+  
     void chooseCancelOnNextConfirmation() {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         eventHandler.chooseCancelOnNextConfirmation(context)
