@@ -50,12 +50,14 @@ where UI Module "Google" is a correct UI Module definition for Google Search and
 
 The dump method prints out the generated runtime locators by Tellurium core.
 
+=== API ===
+
 {{{
    void dump(String uid);
 }}}
 where _uid_ is the UI module name, i.e., the root element UID of a UI module.
 
-Test case:
+=== Test case ===
 
 {{{
     @Test
@@ -69,7 +71,7 @@ Test case:
 
 Note that here we ask Tellurium core to generate xpath and CSS selector locators, respectively.
 
-Result output:
+=== Results ===
 
 {{{
 Dump locator information for Google
@@ -89,4 +91,32 @@ Google.ImFeelingLucky: jquery=table input[type=submit][value$=m Feeling Lucky][n
 -------------------------------------------------------
 }}}
 
+== toString ==
+
+The _toString_ method converts a UI module to a JSON presentation. Tellurium Core actually provides two methods for your convenience.
+
+=== API ===
+
+{{{
+   public String toString(String uid);
+   public JSONArray toJSONArray(String uid);
+}}}
   
+The _toString_ method calls the _toJSONArray_ method first under the hood and then prints out the JSON array as a string.
+
+=== Test case ===
+
+{{{
+    @Test
+    public void testToString(){
+        String json = gsm.toString("Google");
+        System.out.println(json);
+    }
+}}}
+
+=== Results ===
+
+{{{
+   [{"obj":{"uid":"Google","locator":{"tag":"table"},"uiType":"Container"},"key":"Google"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"title":"Google Search","name":"q"}},"uiType":"InputBox"},"key":"Google.Input"},{"obj":{"uid":"Search","locator":{"tag":"input","attributes":{"name":"btnG","value":"Google Search","type":"submit"}},"uiType":"SubmitButton"},"key":"Google.Search"},{"obj":{"uid":"ImFeelingLucky","locator":{"tag":"input","attributes":{"name":"btnI","value":"I'm Feeling Lucky","type":"submit"}},"uiType":"SubmitButton"},"key":"Google.ImFeelingLucky"}]
+
+}}}
