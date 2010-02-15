@@ -253,6 +253,10 @@ class Accessor implements Configurable {
     return cbp.captureEntirePageScreenshotToString(context, kwargs)
   }
 
+  String retrieveLastRemoteControlLogs(context) {
+    return cbp.retrieveLastRemoteControlLogs(context)
+  }
+
   boolean isAlertPresent(WorkflowContext context) {
 
     return cbp.isAlertPresent(context)
