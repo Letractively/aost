@@ -4,7 +4,7 @@
 
 = Introduction =
 
-UI Module presents a group of nested UI elements or a UI widget and it is the heart of Tellurium Automated Testing Framework (Tellurium). You may not be aware that Tellurium 0.7.0 provides a set of UI module level APIs. Here we go over them one by one.
+UI Module represents a group of nested UI elements or a UI widget and it is the heart of Tellurium Automated Testing Framework (Tellurium). You may not be aware that Tellurium 0.7.0 provides a set of UI module level APIs. Here we go over them one by one.
 
 
 = UI Module APIs =
