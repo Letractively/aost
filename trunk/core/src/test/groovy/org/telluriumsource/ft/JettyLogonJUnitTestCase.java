@@ -215,7 +215,6 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         jlm.captureEntirePageScreenshot("\\tmp\\jettylogon2.png", "background=#CCFFDD");
     }
 
-    @Ignore
     @Test
     public void testCaptureScreenToString(){
         String shot1 = jlm.captureScreenshotToString();
@@ -226,7 +225,6 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         System.out.println("Entire Screenshot: \n" + shot2);
     }
 
-    @Ignore
     @Test
     public void testRetrieveLastRemoteControlLogs(){
         jlm.logon("tellurium", "testing");
