@@ -237,6 +237,10 @@ The first method shows the UI module visual effect for some time (delay in milli
 
 === Result ===
 
+The visual effect is illustrated in the following graph.
+
+http://tellurium-users.googlegroups.com/web/GoogleSearchShowUi.png?gda=qOZnC0gAAACsdq5EJRKLPm_KNrr_VHB_3eE2qYcIelEaKO4G2gjlKg0yV8_RHJOjV4bPZr7T9lYlzhb83kORdLwM2moY-MeuGjVgdwNi-BwrUzBGT2hOzg&gsc=m1-YYgsAAADW8LgqTyA9jlZ6blL9elJr
+
 == validate ==
 
 The _validate_ method is used to validate if the UI module is correct and returns the mismatches at runtime.
