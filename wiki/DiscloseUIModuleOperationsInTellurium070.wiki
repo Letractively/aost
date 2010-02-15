@@ -1,12 +1,13 @@
-#summary Disclose UI Module Operations in Tellurium 0.7.0.
+#summary Disclose UI Module APIs in Tellurium 0.7.0.
 #labels Phase-Implementation,Phase-Support
+<wiki:toc max_depth="5" />
 
 = Introduction =
 
 UI Module presents a group of nested UI elements or a UI widget and it is the heart of Tellurium Automated Testing Framework (Tellurium). You may not be aware that Tellurium 0.7.0 provides a set of UI module level APIs. Here we go over them one by one.
 
 
-= UI Module Operations =
+= UI Module APIs =
 
 == Example ==
 
@@ -208,3 +209,30 @@ Google.ImFeelingLucky:
 <input name="btnI" value="I'm Feeling Lucky" class="lsb" onclick="this.checked=1" type="submit">
 
 }}}
+
+== show ==
+
+The _show_ method outlines the UI module on the web page under testing and shows [http://code.google.com/p/aost/wiki/TelluriumUiModuleVisualEffect some visual effects] when a user mouses over it. 
+
+=== API ===
+
+{{{
+   void show(String uid, int delay);
+   void startShow(String uid);
+   void endShow(String uid);
+}}}
+
+The first method shows the UI module visual effect for some time (delay in milliseconds). The other two methods are used to manually start and end the visual effect.
+
+=== Test Case ===
+
+{{{
+    @Test
+    public void testShow(){
+        gsm.show("Google", 10000);
+//        gsm.startShow("Form");
+//        gsm.endShow("Form");
+    }
+}}}
+
+=== Result ===
