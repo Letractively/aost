@@ -46,4 +46,47 @@ public class GoogleSearchModule extends DslContext {
 
 where UI Module "Google" is a correct UI Module definition for Google Search and "ProblematicGoogle" is a not-so-correct UI module to demonstrate the power of UI module partial matching in Tellurium 0.7.0.
 
- 
+== dump ==
+
+The dump method prints out the generated runtime locators by Tellurium core.
+
+{{{
+   void dump(String uid);
+}}}
+where _uid_ is the UI module name, i.e., the root element UID of a UI module.
+
+Test case:
+
+{{{
+    @Test
+    public void testDump(){
+        useCssSelector(false);
+        gsm.dump("Google");
+        useCssSelector(true);
+        gsm.dump("Google");
+    }
+}}}
+
+Note that here we ask Tellurium core to generate xpath and CSS selector locators, respectively.
+
+Result output:
+
+{{{
+Dump locator information for Google
+-------------------------------------------------------
+Google: //descendant-or-self::table
+Google.Input: //descendant-or-self::table/descendant-or-self::input[@title="Google Search" and @name="q"]
+Google.Search: //descendant-or-self::table/descendant-or-self::input[@type="submit" and @value="Google Search" and @name="btnG"]
+Google.ImFeelingLucky: //descendant-or-self::table/descendant-or-self::input[@type="submit" and @value="I'm Feeling Lucky" and @name="btnI"]
+-------------------------------------------------------
+
+Dump locator information for Google
+-------------------------------------------------------
+Google: jquery=table
+Google.Input: jquery=table input[title=Google Search][name=q]
+Google.Search: jquery=table input[type=submit][value=Google Search][name=btnG]
+Google.ImFeelingLucky: jquery=table input[type=submit][value$=m Feeling Lucky][name=btnI]
+-------------------------------------------------------
+}}}
+
+  
