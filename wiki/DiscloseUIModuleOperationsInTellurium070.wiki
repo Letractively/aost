@@ -120,3 +120,36 @@ The _toString_ method calls the _toJSONArray_ method first under the hood and th
    [{"obj":{"uid":"Google","locator":{"tag":"table"},"uiType":"Container"},"key":"Google"},{"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"title":"Google Search","name":"q"}},"uiType":"InputBox"},"key":"Google.Input"},{"obj":{"uid":"Search","locator":{"tag":"input","attributes":{"name":"btnG","value":"Google Search","type":"submit"}},"uiType":"SubmitButton"},"key":"Google.Search"},{"obj":{"uid":"ImFeelingLucky","locator":{"tag":"input","attributes":{"name":"btnI","value":"I'm Feeling Lucky","type":"submit"}},"uiType":"SubmitButton"},"key":"Google.ImFeelingLucky"}]
 
 }}}
+
+== toHTML ==
+
+The _toHTML_ method converts the UI module to a HTML source by [http://code.google.com/p/aost/wiki/GenerateHtmlFromUIModule reverse engineering]. This API is extremely useful to work with [http://code.google.com/p/aost/wiki/TelluriumMockHttpServer Tellurium mock http server] if we want to diagnose problems in other people's UI module definitions while we have no access to their html sources. 
+
+=== API ===
+
+{{{
+   public String toHTML(String uid);
+   public String toHTML();
+}}}
+
+The first method generates the HTML source for a UI module and the second one generates the HTML source for all UI modules defined in the current UI module class.
+
+=== Test Case ===
+
+{{{
+   @Test
+   public void testToHTML(){
+       String html = gsm.toHTML("Google");
+       System.out.println(html);
+   }
+}}}
+
+=== Result ===
+
+{{{
+   <table>
+      <input title="Google Search" name="q"/>
+      <input type="submit" value="Google Search" name="btnG"/>
+      <input type="submit" value="I'm Feeling Lucky" name="btnI"/>
+   </table>
+}}} 
