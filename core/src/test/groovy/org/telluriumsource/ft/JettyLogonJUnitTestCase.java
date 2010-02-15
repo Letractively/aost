@@ -208,6 +208,22 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         jlm.waitForCondition("selenium.getText(\"//input[@type='text' and @name='j_username']\")=='Tellurium'", 10000);
     }
 
+    @Test
+    public void testCaptureScreen(){
+        jlm.captureScreenshot("jettyLogon1.png");
+        jlm.captureEntirePageScreenshot("\\tmp\\jettylogon2.png", "background=#CCFFDD");
+    }
+
+    @Test
+    public void testCaptureScreenToString(){
+        String shot1 = jlm.captureScreenshotToString();
+        assertNotNull(shot1);
+        System.out.println("Screenshot: \n" + shot1);
+        String shot2 = jlm.captureEntirePageScreenshotToString("background=#CCFFDD");
+        assertNotNull(shot2);
+        System.out.println("Entire Screenshot: \n" + shot2);
+    }
+
     @AfterClass
     public static void tearDown(){
         showTrace();
