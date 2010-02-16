@@ -97,8 +97,10 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
     @Test
     public void testLogo(){
         gsm.diagnose("Logo");
+        useClosestMatch(true);
         String alt = gsm.getLogoAlt();
         assertNotNull(alt);
+        useClosestMatch(false);
 //        assertEquals("Google", alt);
 //        assertEquals("E.C. Segar's Birthday", alt);
     }
