@@ -515,8 +515,8 @@ public class UiModuleDemoTestCase extends TelluriumJUnitTestCase {
 How to run the above test case? First, you can create a Tellurium 0.7.0 test project by using either [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_Maven_Archetypes Tellurium Maven archetypes] or one of [http://code.google.com/p/aost/wiki/TelluriumNewReferenceProjects  the reference projects] in [http://aost.googlecode.com/files/tellurium-0.7.0-RC1.tar.gz 0.7.0 RC1]. Copy the GoogleSearchModule and the UiModuleDemoTestCase into the project, then run it. Or you can simply check out Tellurium subversion trunk/core project, the above code are in the core project.
 
 = Resources ==
-
- * [http://code.google.com/p/aost/ Tellurium Project website] 
+ 
+  * [http://code.google.com/p/aost/ Tellurium Project website] 
   * [http://twitter.com/TelluriumSource Tellurium on Twitter]
   * [http://groups.google.com/group/tellurium-users Tellurium User Group] 
   * [http://www.linkedin.com/groups?gid=1900807 Tellurium Automated Testing Framework LinkedIn Group]
