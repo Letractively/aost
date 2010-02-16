@@ -1,4 +1,4 @@
-package module
+package org.telluriumsource.module
 
 import org.telluriumsource.dsl.DslContext
 

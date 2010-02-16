@@ -12,7 +12,7 @@ import org.telluriumsource.entity.CachePolicy;
 import java.util.List;
 import java.util.ArrayList;
 
-import module.GoogleSearchModule;
+import org.telluriumsource.module.GoogleSearchModule;
 
 
 /**
