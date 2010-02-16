@@ -1,4 +1,4 @@
-package test;
+package org.telluriumsource.test;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterClass;
