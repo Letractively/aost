@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.AfterClass;
 import module.JettyLogonModule;
+import static org.junit.Assert.*;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -28,9 +29,8 @@ public class JettyLogonJUnitTestCase  extends TelluriumJUnitTestCase {
         jlm.defineUi();
         connectSeleniumServer();
         useCssSelector(true);
-        useTelluriumApi(true);
+        useTelluriumEngine(true);
         useTrace(true);
-        useCache(true);
     }
 
     @Before
@@ -39,7 +39,7 @@ public class JettyLogonJUnitTestCase  extends TelluriumJUnitTestCase {
     }
 
     @Test
-    public void testJsonfyUiModule(){
+    public void testStringifyUiModule(){
         String json = jlm.toString("Form");
         System.out.println(json);
     }
@@ -66,6 +66,16 @@ public class JettyLogonJUnitTestCase  extends TelluriumJUnitTestCase {
         useClosestMatch(true);
         jlm.plogon("test", "test");
         useClosestMatch(false);
+    }
+
+    @Test
+    public void testGetUiByTag(){
+        String[] teuids = jlm.getInputBox();
+        assertNotNull(teuids);
+        for(String teuid: teuids){
+            jlm.keyType(teuid, "Tellurium Source");
+        }
+        jlm.removeMarkedUids("input");
     }
 
     @AfterClass

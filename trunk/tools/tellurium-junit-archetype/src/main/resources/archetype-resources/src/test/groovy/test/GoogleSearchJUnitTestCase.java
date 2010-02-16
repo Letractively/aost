@@ -30,22 +30,58 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
         gsm = new GoogleSearchModule();
         gsm.defineUi();
         connectSeleniumServer();
-        useCssSelector(true);
-        useTelluriumApi(true);
+        useTelluriumEngine(true);
         useTrace(true);
-        useCache(true);
     }
 
     @Before
     public void connectToGoogle() {
-
-        connectUrl("http://www.google.com");
+        connectUrl("http://www.google.com/intl/en/");
     }
 
     @Test
-    public void testJsonfyUiModule(){
+    public void testDump(){
+        useCssSelector(false);
+        gsm.dump("Google");
+        useCssSelector(true);
+        gsm.dump("Google");
+    }
+
+    @Test
+    public void testToString(){
         String json = gsm.toString("Google");
         System.out.println(json);
+    }
+
+    @Test
+    public void testToHTML(){
+        String html = gsm.toHTML("Google");
+        System.out.println(html);
+    }
+
+    @Test
+    public void testGetHTMLSource(){
+        gsm.getHTMLSource("Google");
+    }
+
+    @Test
+    public void testShow(){
+        gsm.show("Google", 10000);
+//        gsm.startShow("Form");
+//        gsm.endShow("Form");
+    }
+
+    @Test
+    public void testValidate(){
+        gsm.validate("Google");
+        gsm.validate("ProblematicGoogle");
+    }
+
+    @Test
+    public void testClosestMatch(){
+        useClosestMatch(true);
+        gsm.doProblematicGoogleSearch("Tellurium Source");
+        useClosestMatch(false);
     }
 
     @Test
@@ -67,6 +103,7 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
 //        assertEquals("E.C. Segar's Birthday", alt);
     }
 
+/*
     @Test
     public void testClosestMatch(){
         useClosestMatch(true);
@@ -74,6 +111,7 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
         assertNotNull(alt);
         useClosestMatch(false);
     }
+    */
 
     @Test
     public void testIsDisabled(){
@@ -94,6 +132,7 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
         useCache(false);
         result = gsm.getCacheState();
         assertFalse(result);
+        useCache(true);
     }
 
     @Test
@@ -113,7 +152,6 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
     @Test
     public void testCachePolicy(){
         useCssSelector(true);
-        useCache(true);
         String policy = getCurrentCachePolicy();
         assertEquals("DiscardOldPolicy", policy);
         useCachePolicy(CachePolicy.DISCARD_LEAST_USED);
@@ -135,11 +173,6 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
         List<String> list  = new ArrayList<String>();
         list.add("//input[@title='Google Search']");
         gsm.customDirectCall("click", list.toArray());
-    }
-
-    @Test
-    public void testDump(){
-        gsm.dump("Google");
     }
 
     @AfterClass
