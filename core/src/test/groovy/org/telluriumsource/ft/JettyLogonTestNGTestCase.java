@@ -4,6 +4,8 @@ import org.telluriumsource.test.java.TelluriumMockTestNGTestCase;
 import org.telluriumsource.module.JettyLogonModule;
 import org.testng.annotations.*;
 
+import static org.testng.AssertJUnit.assertNotNull;
+
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
@@ -122,6 +124,16 @@ public class JettyLogonTestNGTestCase extends TelluriumMockTestNGTestCase {
         useClosestMatch(false);
     }
 
+    @Test
+    public void testGetUiByTag(){
+        String[] teuids = jlm.getInputBox();
+        assertNotNull(teuids);
+        for(String teuid: teuids){
+            jlm.keyType(teuid, "Tellurium Source");
+        }
+        jlm.removeMarkedUids("input");
+    }
+    
     @AfterClass
     public static void tearDown(){
         showTrace();
