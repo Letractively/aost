@@ -405,7 +405,7 @@ or
 
 before use this feature.
 
-=== Example ===
+=== Test Case ===
 
 Here we run our test code based on the problematic UI module "ProblematicGoogle".
 
