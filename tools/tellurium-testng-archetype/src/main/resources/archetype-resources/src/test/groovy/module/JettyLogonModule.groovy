@@ -1,6 +1,7 @@
 package module
 
 import org.telluriumsource.dsl.DslContext
+import org.telluriumsource.entity.UiByTagResponse
 
 /**
  * 
@@ -50,6 +51,13 @@ public class JettyLogonModule extends DslContext {
     keyType "ProblematicForm.Password.Input", password
     click "ProblematicForm.Submit"
     waitForPageToLoad 30000
+  }
+
+  public String[] getInputBox() {
+    def attrs = ["type": "text"];
+    UiByTagResponse resp = getUiByTag("input", attrs);
+
+    return resp.tids;
   }
 
   public static String HTML_BODY ="""

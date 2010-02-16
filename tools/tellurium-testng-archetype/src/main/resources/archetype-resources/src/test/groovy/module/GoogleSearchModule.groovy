@@ -20,8 +20,21 @@ public class GoogleSearchModule extends DslContext {
       SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit", value: "Google Search", name: "btnG"])
       SubmitButton(uid: "ImFeelingLucky", clocator: [tag: "input", type: "submit", value: "I'm Feeling Lucky", name: "btnI"])
     }
+
+    ui.Container(uid: "ProblematicGoogle", clocator: [tag: "table"]) {
+      InputBox(uid: "Input", clocator: [tag: "input", title: "Google Search", name: "p"])
+      SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit", value: "Google Search", name: "btns"])
+      SubmitButton(uid: "ImFeelingLucky", clocator: [tag: "input", type: "submit", value: "I'm Feeling Lucky", name: "btnf"])
+    }    
   }
 
+  public void doProblematicGoogleSearch(String input) {
+    keyType "ProblematicGoogle.Input", input
+    pause 500
+    click "ProblematicGoogle.Search"
+    waitForPageToLoad 30000
+  }
+  
   public void doGoogleSearch(String input) {
     type "Google.Input", input
     pause 500

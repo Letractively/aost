@@ -3,6 +3,7 @@ package test;
 import org.telluriumsource.test.java.TelluriumTestNGTestCase;
 import org.telluriumsource.test.mock.MockHttpServer;
 import org.testng.annotations.*;
+import static org.testng.Assert.*;
 
 import module.JettyLogonModule;
 
@@ -26,9 +27,8 @@ public class JettyLogonTestNGTestCase  extends TelluriumTestNGTestCase {
         jlm.defineUi();
         connectSeleniumServer();
         useCssSelector(true);
-        useTelluriumApi(true);
+        useTelluriumEngine(true);
         useTrace(true);
-        useCache(true);
     }
 
     @DataProvider(name = "config-provider")
@@ -74,7 +74,7 @@ public class JettyLogonTestNGTestCase  extends TelluriumTestNGTestCase {
     }
 
     @Test
-    public void testJsonfyUiModule(){
+    public void testStringifyUiModule(){
         String json = jlm.toString("Form");
         System.out.println(json);
     }
