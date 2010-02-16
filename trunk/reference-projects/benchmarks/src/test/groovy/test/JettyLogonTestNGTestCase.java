@@ -3,9 +3,8 @@ package test;
 import org.telluriumsource.test.java.TelluriumTestNGTestCase;
 import org.telluriumsource.test.mock.MockHttpServer;
 import org.testng.annotations.*;
-import static org.testng.Assert.*;
 
-import module.JettyLogonModule;
+import org.telluriumsource.module.JettyLogonModule;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
