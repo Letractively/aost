@@ -31,21 +31,58 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase{
         gsm.defineUi();
         connectSeleniumServer();
         useCssSelector(true);
-        useTelluriumApi(true);
+        useTelluriumEngine(true);
         useTrace(true);
-        useCache(true);
     }
 
     @BeforeMethod
     public void connectToGoogle() {
-
-        connectUrl("http://www.google.com");
+        connectUrl("http://www.google.com/intl/en/");
     }
 
     @Test
-    public void testJsonfyUiModule(){
+    public void testDump(){
+        useCssSelector(false);
+        gsm.dump("Google");
+        useCssSelector(true);
+        gsm.dump("Google");
+    }
+
+    @Test
+    public void testToString(){
         String json = gsm.toString("Google");
         System.out.println(json);
+    }
+
+    @Test
+    public void testToHTML(){
+        String html = gsm.toHTML("Google");
+        System.out.println(html);
+    }
+
+    @Test
+    public void testGetHTMLSource(){
+        gsm.getHTMLSource("Google");
+    }
+
+    @Test
+    public void testShow(){
+        gsm.show("Google", 10000);
+//        gsm.startShow("Form");
+//        gsm.endShow("Form");
+    }
+
+    @Test
+    public void testValidate(){
+        gsm.validate("Google");
+        gsm.validate("ProblematicGoogle");
+    }
+
+    @Test
+    public void testClosestMatch(){
+        useClosestMatch(true);
+        gsm.doProblematicGoogleSearch("Tellurium Source");
+        useClosestMatch(false);
     }
 
     @Test
@@ -67,13 +104,13 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase{
 //        assertEquals("E.C. Segar's Birthday", alt);
     }
 
-    @Test
+/*    @Test
     public void testClosestMatch(){
         useClosestMatch(true);
         String alt = gsm.getLogoAlt();
         assertNotNull(alt);
         useClosestMatch(false);
-    }
+    }*/
 
     @Test
     public void testIsDisabled(){
@@ -83,6 +120,7 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase{
         useCssSelector(false);
         result = gsm.isInputDisabled();
         assertFalse(result);
+        useCssSelector(true);
     }
 
     @Test
@@ -94,6 +132,7 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase{
         useCache(false);
         result = gsm.getCacheState();
         assertFalse(result);
+        useCache(true);
     }
 
     @Test
@@ -113,7 +152,6 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase{
     @Test
     public void testCachePolicy(){
         useCssSelector(true);
-        useCache(true);
         String policy = getCurrentCachePolicy();
         assertEquals("DiscardOldPolicy", policy);
         useCachePolicy(CachePolicy.DISCARD_LEAST_USED);
@@ -135,11 +173,6 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase{
         List<String> list  = new ArrayList<String>();
         list.add("//input[@title='Google Search']");
         gsm.customDirectCall("click", list.toArray());
-    }
-
-    @Test
-    public void testDump(){
-        gsm.dump("Google");
     }
 
     @AfterClass
