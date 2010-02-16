@@ -54,6 +54,16 @@
             <url>http://archiva.openqa.org/repository/releases</url>
         </repository>
     </repositories>
+    
+    <pluginRepositories>
+        <pluginRepository>
+            <id>codehaus snapshot repository</id>
+            <url>http://snapshots.repository.codehaus.org/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
 
     <dependencies>
         <dependency>
@@ -205,6 +215,64 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <!--plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <configuration>
+                    <wait>false</wait>
+                    <container>
+                        <containerId>jetty6x</containerId>
+                        <type>embedded</type>
+                        <log>${project.build.directory}/log</log>
+                        <dependencies>
+                            <dependency>
+                                <groupId>javax.servlet</groupId>
+                                <artifactId>jstl</artifactId>
+                            </dependency>
+                            <dependency>
+                                <groupId>taglibs</groupId>
+                                <artifactId>standard</artifactId>
+                            </dependency>
+                        </dependencies>
+                        <systemProperties>
+                            <DEBUG>true</DEBUG>
+                        </systemProperties>
+                    </container>
+                    <configuration>
+                        <properties>
+                            <cargo.servlet.port>8088</cargo.servlet.port>
+                            <cargo.logging>high</cargo.logging>
+                        </properties>
+                        <deployables>
+                            <deployable>
+                                <groupId>test</groupId>
+                                <artifactId>web</artifactId>
+                                <type>war</type>
+                                <properties>
+                                    <context>taglibs-test</context>
+                                </properties>
+                            </deployable>
+                        </deployables>
+                    </configuration>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>start-container</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop-container</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin-->
+
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
