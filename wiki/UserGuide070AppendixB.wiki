@@ -1057,4 +1057,4 @@ We also expect to have some Evangelism Team members, who could write blogs and a
 
 == Tellurium Future Directions ==
 
-Tellurium 0.6.0 added jQuery Selector support and a cache mechanism to increase the reuse of UI elements. From the next release, i.e., 0.7.0, we will work on our own Engine project to better support UI modules and achieve more robust performance and better speed. In the meanwhile, We will improve our Trump plugin to automatically generate DSL testing scripts for non-developers. 
+Tellurium 0.6.0 added jQuery Selector support and a cache mechanism to increase the reuse of UI elements. In 0.7.0, we go a step further to cache the whole UI module and work on our own Engine project to better support UI modules and achieve more robust performance and better speed. In the meanwhile, We will improve our Trump plugin to automatically generate DSL testing scripts for non-developers. 
