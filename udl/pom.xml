@@ -37,6 +37,26 @@
     </dependencies>
 
     <build>
+         <resources>
+            <resource>
+                <directory>src/main/java</directory>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/gen</directory>
+            </resource>             
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/java</directory>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
+       
         <plugins>
             <plugin>
                 <groupId>org.antlr</groupId>
@@ -54,7 +74,8 @@
                             <nfa>false</nfa>
                             <libDirectory>src/main/antlr3/imports</libDirectory>
                             <messageFormat>antlr</messageFormat>
-                            <outputDirectory>target/generated-sources/antlr3</outputDirectory>
+                            <!--outputDirectory>target/generated-sources/antlr3</outputDirectory-->
+                            <outputDirectory>src/main/gen</outputDirectory>
                             <printGrammar>false</printGrammar>
                             <profile>false</profile>
                             <report>false</report>
@@ -66,6 +87,21 @@
                 </executions>
 
             </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>src/main/gen</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+           
         </plugins>
     </build>
 </project>    
