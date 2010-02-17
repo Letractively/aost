@@ -245,6 +245,7 @@
         </plugins>
     </build>
     <modules>
+        <module>udl</module>
         <module>core</module>
         <module>engine</module>
         <module>extensions</module>
