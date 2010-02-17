@@ -14,12 +14,13 @@ The basic idea is to write a Javascript test to call Tellurium Engine and embed 
 
 = Prerequisites =
 
-To use Firebug, I need to have Firebug installed to either the Firebug profile or the customized Selenium server. How to add the Firebug support is described in details in the wiki page [http://code.google.com/p/aost/w/edit/TelluriumJQueryFirebug Use Firebug and JQuery to Trace Problems in Tellurium Tests].
+To use Firebug, I need to have Firebug installed to either a Firebug profile or the customized Selenium server. How to add Firebug support is described in details on the wiki page [http://code.google.com/p/aost/w/edit/TelluriumJQueryFirebug Use Firebug and JQuery to Trace Problems in Tellurium Tests].
 
 = Details =
 
 == Jetty ==
-First, I installed a Jetty server and use the Jetty server to load up the web page I want to run tellurium Engine test on. 
+
+First, I installed a Jetty server and use the Jetty server to load up the web page that I want to run tellurium Engine tests on. 
 
 == Example ==
 
@@ -71,10 +72,10 @@ The UI module for the above html source is defined as
 
 == Create Test Page ==
 
-First, I added the following headers to it.
+First, I added the following headers to the above html source.
 
 {{{
-head>
+<head>
   <title>Tellurium Test Page</title>
           <script src="js/selenium-mock.js"> </script>
           <script src="http://localhost:4444/selenium-server/core/scripts/jquery-1.4.js"> </script>
@@ -102,7 +103,7 @@ head>
 </head>
 }}}
 
-Where the tellurium-test.js is the actual Javascript test file to test the Tellurium Engine. The above header loads up the Tellurium Engine code when the page is served by Jetty.
+Where the tellurium-test.js is the Engine test script. The above header loads up the Tellurium Engine code when the web page is served by Jetty.
 
 == Engine Test Script ==
 
@@ -150,7 +151,7 @@ The variable json is the JSON presentation of the UI module. You can obtain the 
     public String toString(String uid); 
 }}}
 
-The following test case first runs the Santa algorithm to do group locating and then call walkTo to find the UI element DOM reference. After than, I test the _getHTMLSource_ and _getUiByTag_ Tellurium APIs.
+The following test case first runs the Santa algorithm to do group locating and then call _walkTo_ to find the DOM reference for the UI element. After that, I test the two Tellurium APIs, _getHTMLSource_ and _getUiByTag_.
 
 As I said, Tellurium Engine needs to call Selenium Core code somewhere. I need to mock up Selenium core as follows.
 
@@ -193,7 +194,7 @@ var selenium = new Selenium();
 
 == Logging ==
 
-Firebug provides very powerful console logging capability, where you can inspect the Javascript object. Tellurium Engine provides the following wrapper for Firebug console logging.
+Firebug provides very powerful console logging capability, where you can inspect the JavaScript object. Tellurium Engine provides the following wrapper for Firebug console logging.
 
 {{{
 function fbLog(msg, obj){
@@ -246,11 +247,11 @@ function fbDir(obj){
 }
 }}}
 
-For browsers other than Firefox, Tellurium provides the Firebug Lite script in the custom selenium server so that you can still use the above logging wrapper.
+For browsers other than Firefox, Tellurium provides [http://code.google.com/p/aost/wiki/Tellurium070Update#Engine_Logging the Firebug Lite] in the custom selenium server so that you can still use the above logging wrapper.
 
 == Run the Test ==
 
-To run the above test page, first, I copy the above page to {{{JETTY_HOME/webapps/test/}}} directory. Copy the test script and Selenium mock script to {{{JETTY_HOME/webapps/test/js/}}} directory. Then start the Jetty server and open the firefox browser to point to {{{http://localhost:8080/testpagename.html}}}. I can see all Javascript code including Tellurium Engine code and the test script. Set a breakpoint somewhere and refresh the page, Firebug will stop at breakpoint and I can start to debug the application.
+To run the above test page, first, I copy the above page to {{{JETTY_HOME/webapps/test/}}} directory. Copy the test script and Selenium mock script to {{{JETTY_HOME/webapps/test/js/}}} directory. Then start the Jetty server and open the Firefox browser to point to {{{http://localhost:8080/testpagename.html}}}. I can see all JavaScript code including Tellurium Engine code and the test script. Set a breakpoint somewhere and refresh the page, Firebug will stop at breakpoint and then I can start to debug the Engine.
 
 = Resource =
 
