@@ -4,13 +4,13 @@
 
 = Introduction =
 
-For the past three months, I have worked on [http://code.google.com/p/aost/wiki/TelluriumEngineProject the new Tellurium Engine project] heavily. A lot of new ideas, for example, [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the Santa algorithm] and [http://code.google.com/p/aost/wiki/TelluriumUiModuleVisualEffect UI module visual effect], become a reality. Debugging Tellurium Engine is a critical task for me everyday. I cannot image I can finish all the implementations with out a good debug technology.
+For the past three months, I have worked on [http://code.google.com/p/aost/wiki/TelluriumEngineProject the new Tellurium Engine project] heavily. A lot of new ideas, for example, [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the Santa algorithm] and [http://code.google.com/p/aost/wiki/TelluriumUiModuleVisualEffect UI module visual effect], became a reality. Debugging Tellurium Engine is a critical task for me everyday. I cannot image I could have finished all the implementations without a good debug skill.
 
-Tellurium Engine is similar to Selenium core to drive browser events to simulate users physically work on the web application. If you are familiar with Selenium core, you may find that it is very difficult to debug Selenium core. As a result, I took a different approach to do debugging and like to share my experience with you here.
+Tellurium Engine is similar to Selenium core to drive browser events to simulate users who physically work on the web application. If you are familiar with Selenium core, you may know that it is very difficult to debug Selenium core. As a result, I took a different approach to do debugging and like to share my experience with you here, especially for tellurium developers.
 
 = Basic Idea =
 
-The basic idea is to write a Javascript test to call Tellurium Engine and embed the test in the header of the html page that I want to test. Then I can set a breakpoint in the Javascript code using Firebug and refresh the web page to run the test. Some part of Tellurium Engine need to call Selenium core, I can mock that up.
+The basic idea is to write a Javascript test to call Tellurium Engine and embed the test code in the header of the html page that I want to test. Then I can set a breakpoint in the JavaScript code using Firebug. After refresh the web page, I can run the test code, which will stop at the breakpoint. One obstacle is that some parts of Tellurium Engine need to call Selenium core, I work around this problem by mocking Selenium Core.
 
 = Prerequisites =
 
