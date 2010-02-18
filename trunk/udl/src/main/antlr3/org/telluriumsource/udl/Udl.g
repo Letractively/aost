@@ -43,7 +43,13 @@ tableFooterUid
 	;
 tableBodyUid
         :	'{' ROW ':' INDEX ',' COLUMN ':' INDEX '}' AS ID
+        |	'{' ROW '=' ID ',' COLUMN ':' INDEX '}' AS ID
+        |	'{' ROW ':' INDEX ',' COLUMN '=' ID '}' AS ID 
+        |	'{' ROW '=' ID ',' COLUMN '=' ID '}' AS ID
         |       '{' TBODY ':' INDEX ',' ROW ':' INDEX ',' COLUMN ':' INDEX '}' AS ID
+        |	'{' TBODY ':' INDEX ',' ROW '=' ID ',' COLUMN ':' INDEX '}' AS ID
+        |    	'{' TBODY ':' INDEX ',' ROW ':' INDEX ',' COLUMN '=' ID '}' AS ID
+        |	'{' TBODY ':' INDEX ',' ROW '=' ID ',' COLUMN '=' ID '}' AS ID
         |       ALL
         ;
         			
