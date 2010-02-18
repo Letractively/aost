@@ -84,8 +84,8 @@ public class UdlParserTestCase {
         try{
 		    MetaData data = parser.uid();
             assertNotNull(data);
-            assertTrue(data instanceof TableHeaderMetaData);
-            TableHeaderMetaData th = (TableHeaderMetaData)data;
+            assertTrue(data instanceof TableFooterMetaData);
+            TableFooterMetaData th = (TableFooterMetaData)data;
             assertEquals("B", th.getId());
             assertEquals("all", th.getIndex().getValue());
             assertEquals(IndexType.VAL, th.getIndex().getType());

@@ -42,7 +42,7 @@ baseUid returns [MetaData metadata]
 	:	ID {metadata = new MetaData($ID.text);}
 	;
 listUid returns [ListMetaData metadata]
-	:	'{' INDEX '}' AS ID {metadata = new ListMetaData($ID.text, $INDEX.text);}
+	:	'{' INDEX '}' 'as' ID {metadata = new ListMetaData($ID.text, $INDEX.text);}
 	;
 		
 tableUid returns [MetaData metadata]
@@ -52,40 +52,41 @@ tableUid returns [MetaData metadata]
 	;
 	
 tableHeaderUid returns [TableHeaderMetaData metadata]
-	:	'{' HEADER ':' INDEX '}' AS ID {metadata = new TableHeaderMetaData($ID.text, $INDEX.text);}
+	:	'{' 'header' ':' INDEX '}' 'as' ID {metadata = new TableHeaderMetaData($ID.text, $INDEX.text);}
 	;
 	
 tableFooterUid returns [TableFooterMetaData metadata]
-	:       '{' FOOTER ':' INDEX '}' AS ID {metadata = new TableFooterMetaData($ID.text, $INDEX.text);}
+	:       '{' 'footer' ':' INDEX '}' 'as' ID {metadata = new TableFooterMetaData($ID.text, $INDEX.text);}
 	;
 	
 tableBodyUid returns [TableBodyMetaData metadata]
-        :	'{' ROW ':' inx1=INDEX ',' COLUMN ':' inx2=INDEX '}' AS ID {metadata = new TableBodyMetaData($ID.text); metadata.setRow(new Index(inx1.getText())); metadata.setColumn(new Index(inx2.getText())); }
-        |	'{' ROW '=' id1=ID ',' COLUMN ':' INDEX '}' AS id2=ID {metadata = new TableBodyMetaData(id2.getText()); metadata.setRow(new Index(IndexType.REF, id1.getText()));  metadata.setColumn(new Index($INDEX.text));}
-        |	'{' ROW ':' INDEX ',' COLUMN '=' id1=ID '}' AS id2=ID {metadata = new TableBodyMetaData(id2.getText()); metadata.setRow(new Index($INDEX.text)); metadata.setColumn(new Index(IndexType.REF, id1.getText()));}
-        |	'{' ROW '=' id1=ID ',' COLUMN '=' id2=ID '}' AS id3=ID {metadata = new TableBodyMetaData(id3.getText()); metadata.setRow(new Index(IndexType.REF, id1.getText())); metadata.setColumn(new Index(IndexType.REF, id2.getText()));}
-        |       '{' TBODY ':' inx1=INDEX ',' ROW ':' inx2=INDEX ',' COLUMN ':' inx3=INDEX '}' AS ID {metadata = new TableBodyMetaData($ID.text); metadata.setTbody(new Index(inx1.getText())); metadata.setRow(new Index(inx2.getText())); metadata.setColumn(new Index(inx3.getText()));}
-        |	'{' TBODY ':' inx1=INDEX ',' ROW '=' id1=ID ',' COLUMN ':' inx2=INDEX '}' AS id2=ID {metadata = new TableBodyMetaData(id2.getText()); metadata.setTbody(new Index(inx1.getText())); metadata.setRow(new Index(IndexType.REF, id1.getText())); metadata.setColumn(new Index(inx2.getText()));}
-        |    	'{' TBODY ':' inx1=INDEX ',' ROW ':' inx2=INDEX ',' COLUMN '=' id1=ID '}' AS id2=ID {metadata = new TableBodyMetaData(id2.getText()); metadata.setTbody(new Index(inx1.getText())); metadata.setRow(new Index(inx2.getText())); metadata.setColumn(new Index(IndexType.REF, id1.getText()));}
-        |	'{' TBODY ':' INDEX ',' ROW '=' id1=ID ',' COLUMN '=' id2=ID '}' AS id3=ID {metadata = new TableBodyMetaData(id3.getText()); metadata.setTbody(new Index($INDEX.text)); metadata.setRow(new Index(IndexType.REF, id1.getText())); metadata.setColumn(new Index(IndexType.REF, id2.getText()));}
+        :	'{' 'row' ':' inx1=INDEX ',' 'column' ':' inx2=INDEX '}' 'as' ID {metadata = new TableBodyMetaData($ID.text); metadata.setRow(new Index(inx1.getText())); metadata.setColumn(new Index(inx2.getText())); }
+        |	'{' 'row' '=' id1=ID ',' 'column' ':' INDEX '}' 'as' id2=ID {metadata = new TableBodyMetaData(id2.getText()); metadata.setRow(new Index(IndexType.REF, id1.getText()));  metadata.setColumn(new Index($INDEX.text));}
+        |	'{' 'row' ':' INDEX ',' 'column' '=' id1=ID '}' 'as' id2=ID {metadata = new TableBodyMetaData(id2.getText()); metadata.setRow(new Index($INDEX.text)); metadata.setColumn(new Index(IndexType.REF, id1.getText()));}
+        |	'{' 'row' '=' id1=ID ',' 'column' '=' id2=ID '}' 'as' id3=ID {metadata = new TableBodyMetaData(id3.getText()); metadata.setRow(new Index(IndexType.REF, id1.getText())); metadata.setColumn(new Index(IndexType.REF, id2.getText()));}
+        |       '{' 'tbody' ':' inx1=INDEX ',' 'row' ':' inx2=INDEX ',' 'column' ':' inx3=INDEX '}' 'as' ID {metadata = new TableBodyMetaData($ID.text); metadata.setTbody(new Index(inx1.getText())); metadata.setRow(new Index(inx2.getText())); metadata.setColumn(new Index(inx3.getText()));}
+        |	'{' 'tbody' ':' inx1=INDEX ',' 'row' '=' id1=ID ',' 'column' ':' inx2=INDEX '}' 'as' id2=ID {metadata = new TableBodyMetaData(id2.getText()); metadata.setTbody(new Index(inx1.getText())); metadata.setRow(new Index(IndexType.REF, id1.getText())); metadata.setColumn(new Index(inx2.getText()));}
+        |    	'{' 'tbody' ':' inx1=INDEX ',' 'row' ':' inx2=INDEX ',' 'column' '=' id1=ID '}' 'as' id2=ID {metadata = new TableBodyMetaData(id2.getText()); metadata.setTbody(new Index(inx1.getText())); metadata.setRow(new Index(inx2.getText())); metadata.setColumn(new Index(IndexType.REF, id1.getText()));}
+        |	'{' 'tbody' ':' INDEX ',' 'row' '=' id1=ID ',' 'column' '=' id2=ID '}' 'as' id3=ID {metadata = new TableBodyMetaData(id3.getText()); metadata.setTbody(new Index($INDEX.text)); metadata.setRow(new Index(IndexType.REF, id1.getText())); metadata.setColumn(new Index(IndexType.REF, id2.getText()));}
 //        |       ALL {metadata = new TableBodyMetaData($ALL.text); metadata.setTbody(new Index($ALL.text)); metadata.setRow(new Index($ALL.text)); metadata.setColumn(new Index($ALL.text)); }
         ;
                			
-HEADER 	:	'header';	
-FOOTER	:	'footer';
-ROW	:	'row';
-COLUMN  : 	'column';	
-TBODY	:	'tbody';
-AS	:	'as';
-ALL     :	'all';
-ODD	:	'odd';
-EVEN 	:	'even';
-FIRST   :	'first';
-LAST	:	'last';			
-ANY     :	'any';
+//HEADER 	:	'header';	
+//FOOTER	:	'footer';
+//ROW	:	'row';
+//COLUMN  : 	'column';	
+//TBODY	:	'tbody';
+//AS	:	'as';
+//ALL     :	'all';
+//ODD	:	'odd';
+//EVEN 	:	'even';
+//FIRST   :	'first';
+//LAST	:	'last';			
+//ANY     :	'any';
 							
 fragment LETTER : ('a'..'z' | 'A'..'Z') ;
 fragment DIGIT : '0'..'9';
-INDEX	:	(DIGIT+ | ALL | ODD | EVEN | ANY | FIRST | LAST );    
+//INDEX	:	(DIGIT+ | ALL | ODD | EVEN | ANY | FIRST | LAST );  
+INDEX	:	(DIGIT+ |'all' | 'odd' | 'even' | 'any' | 'first' | 'last' );   
 ID 	: 	LETTER (LETTER | DIGIT)*;
 WS 	: 	(' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
