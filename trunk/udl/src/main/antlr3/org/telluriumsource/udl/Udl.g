@@ -33,9 +33,9 @@ options {
 }
 
 uid	returns [MetaData metadata]
-	: 	baseUid
-	|	listUid
-	|	tableUid	
+	: 	bu=baseUid {metadata=bu;}
+	|	lu=listUid {metadata=lu;}
+	|	tu=tableUid {metadata=tu;}	
 	;
 	
 baseUid returns [MetaData metadata]
@@ -46,9 +46,9 @@ listUid returns [ListMetaData metadata]
 	;
 		
 tableUid returns [MetaData metadata]
-	:	tableHeaderUid
-	|	tableFooterUid
-	|	tableBodyUid
+	:	thu=tableHeaderUid {metadata = thu;}
+	|	tfu=tableFooterUid {metadata = tfu;}
+	|	tbu=tableBodyUid {metadata = tbu;}
 	;
 	
 tableHeaderUid returns [TableHeaderMetaData metadata]
