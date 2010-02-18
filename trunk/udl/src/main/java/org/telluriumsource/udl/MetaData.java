@@ -6,6 +6,6 @@ package org.telluriumsource.udl;
  *         Date: Feb 17, 2010
  *
  */
-public class Uid {
+public class MetaData {
     
 }

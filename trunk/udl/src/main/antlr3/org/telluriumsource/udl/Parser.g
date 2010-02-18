@@ -12,6 +12,10 @@ options {
   package org.telluriumsource.example;
 }
 
+@members{
+  MetaData metaData = new MetaData();  	  	
+}
+
 uid	: ID	
 	;
 
