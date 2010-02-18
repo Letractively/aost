@@ -9,6 +9,13 @@ package org.telluriumsource.udl;
 public class MetaData {
     protected String id;
 
+    public MetaData() {
+    }
+
+    public MetaData(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }

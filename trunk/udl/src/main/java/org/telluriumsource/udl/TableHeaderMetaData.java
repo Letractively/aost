@@ -6,4 +6,12 @@ package org.telluriumsource.udl;
  *         Date: Feb 18, 2010
  */
 public class TableHeaderMetaData extends ListMetaData {
+
+    public TableHeaderMetaData(String id, Index index) {
+        super(id, index);
+    }
+
+    public TableHeaderMetaData(String id, String index) {
+        super(id, index);
+    }
 }

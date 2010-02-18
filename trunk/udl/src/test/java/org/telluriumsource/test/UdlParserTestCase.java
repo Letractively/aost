@@ -5,9 +5,11 @@ import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.TokenStream;
+import org.telluriumsource.udl.MetaData;
 import org.telluriumsource.udl.UdlLexer;
 import org.telluriumsource.udl.UdlParser;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -24,7 +26,7 @@ public class UdlParserTestCase {
 		TokenStream tokenStream = new CommonTokenStream(lexer);
 		UdlParser parser = new UdlParser(tokenStream);
         try{
-		    parser.uid();
+		    MetaData data = parser.uid();
         }catch(RecognitionException e){
             fail(e.getMessage());
         }
@@ -39,7 +41,8 @@ public class UdlParserTestCase {
 		TokenStream tokenStream = new CommonTokenStream(lexer);
 		UdlParser parser = new UdlParser(tokenStream);
         try{
-		    parser.uid();
+		    MetaData data = parser.uid();
+            assertNotNull(data);
         }catch(RecognitionException e){
             fail(e.getMessage());
         }
