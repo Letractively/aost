@@ -68,36 +68,24 @@ tableBodyUid returns [TableBodyMetaData metadata]
         |	'{' TBODY ':' inx1=INDEX ',' ROW '=' id1=ID ',' COLUMN ':' inx2=INDEX '}' AS id2=ID {metadata = new TableBodyMetaData(id2.getText()); metadata.setTbody(new Index(inx1.getText())); metadata.setRow(new Index(IndexType.REF, id1.getText())); metadata.setColumn(new Index(inx2.getText()));}
         |    	'{' TBODY ':' inx1=INDEX ',' ROW ':' inx2=INDEX ',' COLUMN '=' id1=ID '}' AS id2=ID {metadata = new TableBodyMetaData(id2.getText()); metadata.setTbody(new Index(inx1.getText())); metadata.setRow(new Index(inx2.getText())); metadata.setColumn(new Index(IndexType.REF, id1.getText()));}
         |	'{' TBODY ':' INDEX ',' ROW '=' id1=ID ',' COLUMN '=' id2=ID '}' AS id3=ID {metadata = new TableBodyMetaData(id3.getText()); metadata.setTbody(new Index($INDEX.text)); metadata.setRow(new Index(IndexType.REF, id1.getText())); metadata.setColumn(new Index(IndexType.REF, id2.getText()));}
-        |       ALL {metadata = new TableBodyMetaData($ALL.text); metadata.setTbody(new Index($ALL.text)); metadata.setRow(new Index($ALL.text)); metadata.setColumn(new Index($ALL.text)); }
+//        |       ALL {metadata = new TableBodyMetaData($ALL.text); metadata.setTbody(new Index($ALL.text)); metadata.setRow(new Index($ALL.text)); metadata.setColumn(new Index($ALL.text)); }
         ;
-        			
-HEADER 	:	'header'
-	;	
-FOOTER	:	'footer'
-	;
-ROW	:	'row'
-	;
-COLUMN  : 	'column'
-	;	
-TBODY	:	'tbody'
-	;
-AS	:	'as'
-	;
-ALL     :	'all'
-	;
-ODD	:	'odd'
-	;
-EVEN 	:	'even'
-	;
-FIRST   :	'first'
-	;
-LAST	:	'last'
-	;			
-ANY     :	'any'
-	;
+               			
+HEADER 	:	'header';	
+FOOTER	:	'footer';
+ROW	:	'row';
+COLUMN  : 	'column';	
+TBODY	:	'tbody';
+AS	:	'as';
+ALL     :	'all';
+ODD	:	'odd';
+EVEN 	:	'even';
+FIRST   :	'first';
+LAST	:	'last';			
+ANY     :	'any';
 							
 fragment LETTER : ('a'..'z' | 'A'..'Z') ;
 fragment DIGIT : '0'..'9';
-INDEX	:	(DIGIT+ | ALL | ODD | EVEN | ANY | FIRST | LAST );
+INDEX	:	(DIGIT+ | ALL | ODD | EVEN | ANY | FIRST | LAST );    
 ID 	: 	LETTER (LETTER | DIGIT)*;
 WS 	: 	(' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
