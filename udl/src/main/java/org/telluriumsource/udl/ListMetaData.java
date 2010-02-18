@@ -7,6 +7,16 @@ package org.telluriumsource.udl;
  */
 public class ListMetaData extends MetaData {
 
+    public ListMetaData(String id, Index index) {
+        super(id);
+        this.index = index;
+    }
+
+    public ListMetaData(String id, String index) {
+        super(id);
+        this.index = new Index(index);
+    }
+
     protected Index index;
 
     public Index getIndex() {

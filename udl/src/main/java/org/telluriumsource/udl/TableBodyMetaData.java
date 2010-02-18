@@ -6,6 +6,14 @@ package org.telluriumsource.udl;
  *         Date: Feb 18, 2010
  */
 public class TableBodyMetaData extends MetaData {
+    public TableBodyMetaData(){
+
+    }
+    
+    public TableBodyMetaData(String id) {
+        super(id);
+    }
+
     protected Index tbody;
 
     protected Index row;
