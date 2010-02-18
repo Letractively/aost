@@ -20,33 +20,30 @@ options {
   MetaData metaData = new MetaData();  	  	
 }
 
-uid	: 	baseuid
-	|	listuid
-	|	tableuid	
+uid	: 	baseUid
+	|	listUid
+	|	tableUid	
 	;
 	
-baseuid 
+baseUid 
 	:	ID
 	;
-listuid	:	ID AS INTEGER
-	|	ALL
+listUid	:	'{' INDEX '}' AS ID 
 	;
 		
-tableuid:	tableheaderuid
-	|	tablefooteruid
-	|	tablebodyuid
+tableUid:	tableHeaderUid
+	|	tableFooterUid
+	|	tableBodyUid
 	;
-tableheaderuid
-	:	ID AS HEADER ':' INTEGER 
-	|       HEADER ':' ALL
+tableHeaderUid
+	:	'{' HEADER ':' INDEX '}' AS ID 
 	;
-tablefooteruid
-	:       ID AS FOOTER ':' INTEGER
-	|       FOOTER ':' ALL
+tableFooterUid
+	:       '{' FOOTER ':' INDEX '}' AS ID
 	;
-tablebodyuid
-        :	ID AS ROW ':' INTEGER ',' COLUMN ':' INTEGER
-        |       ID AS TBODY ':'INTEGER ',' ROW ':' INTEGER ',' COLUMN ':' INTEGER
+tableBodyUid
+        :	'{' ROW ':' INDEX ',' COLUMN ':' INDEX '}' AS ID
+        |       '{' TBODY ':' INDEX ',' ROW ':' INDEX ',' COLUMN ':' INDEX '}' AS ID
         |       ALL
         ;
         			
@@ -63,10 +60,20 @@ TBODY	:	'tbody'
 AS	:	'as'
 	;
 ALL     :	'all'
-	;	
-						
+	;
+ODD	:	'odd'
+	;
+EVEN 	:	'even'
+	;
+FIRST   :	'first'
+	;
+LAST	:	'last'
+	;			
+ANY     :	'any'
+	;
+							
 fragment LETTER : ('a'..'z' | 'A'..'Z') ;
 fragment DIGIT : '0'..'9';
-INTEGER : DIGIT+ ;
-ID : LETTER (LETTER | DIGIT)*;
-WS : (' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
+INDEX	:	(DIGIT+ | ALL | ODD | EVEN | ANY | FIRST | LAST );
+ID 	: 	LETTER (LETTER | DIGIT)*;
+WS 	: 	(' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
