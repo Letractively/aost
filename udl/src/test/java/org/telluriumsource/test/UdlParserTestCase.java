@@ -6,11 +6,13 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.TokenStream;
 import org.telluriumsource.udl.MetaData;
+import org.telluriumsource.udl.TableBodyMetaData;
 import org.telluriumsource.udl.UdlLexer;
 import org.telluriumsource.udl.UdlParser;
+import org.telluriumsource.udl.code.IndexType;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
+
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
@@ -34,7 +36,7 @@ public class UdlParserTestCase {
     }
 
     @Test
-    public void testTableBodyUid(){
+    public void testTableBodyValUid(){
 		CharStream stream =
 			new ANTLRStringStream("{tbody : 1, row : 2, column : 3} as Search");
 		UdlLexer lexer = new UdlLexer(stream);
@@ -43,9 +45,41 @@ public class UdlParserTestCase {
         try{
 		    MetaData data = parser.uid();
             assertNotNull(data);
+            assertEquals("Search", data.getId());
+            assertTrue(data instanceof TableBodyMetaData);
+            TableBodyMetaData tbmd = (TableBodyMetaData)data;
+            assertEquals("1", tbmd.getTbody().getValue());
+            assertEquals(IndexType.VAL, tbmd.getTbody().getType());
+            assertEquals("2", tbmd.getRow().getValue());
+            assertEquals(IndexType.VAL, tbmd.getRow().getType());
+            assertEquals("3", tbmd.getColumn().getValue());
+            assertEquals(IndexType.VAL, tbmd.getColumn().getType());
         }catch(RecognitionException e){
             fail(e.getMessage());
         }
-		System.out.println("ok");
+    }
+
+    @Test
+    public void testTableBodyRefUid(){
+		CharStream stream =
+			new ANTLRStringStream("{tbody : 1, row = good, column = bad} as Search");
+		UdlLexer lexer = new UdlLexer(stream);
+		TokenStream tokenStream = new CommonTokenStream(lexer);
+		UdlParser parser = new UdlParser(tokenStream);
+        try{
+		    MetaData data = parser.uid();
+            assertNotNull(data);
+            assertEquals("Search", data.getId());
+            assertTrue(data instanceof TableBodyMetaData);
+            TableBodyMetaData tbmd = (TableBodyMetaData)data;
+            assertEquals("1", tbmd.getTbody().getValue());
+            assertEquals(IndexType.VAL, tbmd.getTbody().getType());
+            assertEquals("good", tbmd.getRow().getValue());
+            assertEquals(IndexType.REF, tbmd.getRow().getType());
+            assertEquals("bad", tbmd.getColumn().getValue());
+            assertEquals(IndexType.REF, tbmd.getColumn().getType());
+        }catch(RecognitionException e){
+            fail(e.getMessage());
+        }
     }
 }
