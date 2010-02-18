@@ -28,8 +28,7 @@ options {
   import org.telluriumsource.udl.TableBodyMetaData;  
 }
 
-@members{
-//  MetaData metaData;  	  	
+@members{ 	  	
 }
 
 uid	returns [MetaData metadata]
@@ -69,24 +68,10 @@ tableBodyUid returns [TableBodyMetaData metadata]
         |    	'{' 'tbody' ':' inx1=INDEX ',' 'row' ':' inx2=INDEX ',' 'column' '=' id1=ID '}' 'as' id2=ID {metadata = new TableBodyMetaData(id2.getText()); metadata.setTbody(new Index(inx1.getText())); metadata.setRow(new Index(inx2.getText())); metadata.setColumn(new Index(IndexType.REF, id1.getText()));}
         |	'{' 'tbody' ':' INDEX ',' 'row' '=' id1=ID ',' 'column' '=' id2=ID '}' 'as' id3=ID {metadata = new TableBodyMetaData(id3.getText()); metadata.setTbody(new Index($INDEX.text)); metadata.setRow(new Index(IndexType.REF, id1.getText())); metadata.setColumn(new Index(IndexType.REF, id2.getText()));}
 //        |       ALL {metadata = new TableBodyMetaData($ALL.text); metadata.setTbody(new Index($ALL.text)); metadata.setRow(new Index($ALL.text)); metadata.setColumn(new Index($ALL.text)); }
-        ;
-               			
-//HEADER 	:	'header';	
-//FOOTER	:	'footer';
-//ROW	:	'row';
-//COLUMN  : 	'column';	
-//TBODY	:	'tbody';
-//AS	:	'as';
-//ALL     :	'all';
-//ODD	:	'odd';
-//EVEN 	:	'even';
-//FIRST   :	'first';
-//LAST	:	'last';			
-//ANY     :	'any';
+        ;              			
 							
 fragment LETTER : ('a'..'z' | 'A'..'Z') ;
 fragment DIGIT : '0'..'9';
-//INDEX	:	(DIGIT+ | ALL | ODD | EVEN | ANY | FIRST | LAST );  
 INDEX	:	(DIGIT+ |'all' | 'odd' | 'even' | 'any' | 'first' | 'last' );   
 ID 	: 	LETTER (LETTER | DIGIT)*;
 WS 	: 	(' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
