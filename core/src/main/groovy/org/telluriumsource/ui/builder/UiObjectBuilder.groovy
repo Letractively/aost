@@ -94,6 +94,15 @@ abstract class UiObjectBuilder extends Const {
           }
         }
 
+        String self = map.get(SELF)
+        if(self != null){
+          if(TRUE.equalsIgnoreCase(self.toUpperCase())){
+            obj.self = true
+          }else{
+            obj.self = false
+          }
+        }
+
         String nocachechildren = map.get(NO_CACHE_FOR_CHILDREN)
         if(nocachechildren != null && nocachechildren.trim().length() > 0){
           if(obj instanceof Container){
