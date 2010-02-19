@@ -68,6 +68,9 @@ abstract class UiObject implements Cloneable{
     //UI object is cacheable by default
     boolean cacheable = true
 
+    public static final String SELF = "self"
+    boolean self = false
+
     public static final String LOCATOR = "locator"
     def locator
 
@@ -85,6 +88,8 @@ abstract class UiObject implements Cloneable{
       jso.put(UID, uid)
       if(!cacheable)
         jso.put(LAZY, !this.cacheable)
+      if(self)
+        jso.put(SELF, self)
       if(locator != null){
         jso.put(LOCATOR, locator.toJSON())
       }else{
