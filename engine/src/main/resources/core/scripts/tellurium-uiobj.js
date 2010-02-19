@@ -19,6 +19,9 @@ var UiObject = Class.extend({
         //usually this flag is set because the content is dynamic at runtime
         this.lazy = false;
 
+        //If it is contained in its parent or not
+        this.self = false;
+
         this.uiType = null;
 
         //Tellurium Core generated locator for this UI Object
@@ -2347,7 +2350,13 @@ var UiStandardTable = UiContainer.extend({
                     !tellurium.logManager.isUseLog || fbLog("Found child " + nindex + " with CSS selector '" + selt +"' for List " + this.uid, $fnd.get());
                     if ($fnd.size() == 1) {
                         !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $fnd.get(0));
-                        var cdomref = this.locateChild(context, $fnd.get(0), child);
+                        var cdomref;
+                        if(child.self){
+                           cdomref = $fnd.get(0);
+                        }else{
+                           cdomref = this.locateChild(context, $fnd.get(0), child); 
+                        }
+//                        var cdomref = this.locateChild(context, $fnd.get(0), child);
                         var csdata = new UiSData(npid, this.getHeaderRid(nindex), child, cdomref);
                         alg.addChildUiObject(csdata);
                     }else if($fnd.size() == 0){
@@ -2369,7 +2378,13 @@ var UiStandardTable = UiContainer.extend({
                             !tellurium.logManager.isUseLog || fbLog("Found child " + j + " with CSS selector '" + sel +"' for List " + this.uid, $found.get());
                             if ($found.size() == 1) {
                                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
-                                var cdrf = this.locateChild(context, $found.get(0), child);
+                                var cdrf;
+                                if(child.self){
+                                    cdrf = $found.get(0);
+                                }else{
+                                    cdrf = this.locateChild(context, $found.get(0), child);
+                                }
+//                                var cdrf = this.locateChild(context, $found.get(0), child);
                                 var csd = new UiSData(npid, rid, child, cdrf);
                                 alg.addChildUiObject(csd);
                             } else if ($found.size() == 0) {
@@ -2405,7 +2420,13 @@ var UiStandardTable = UiContainer.extend({
                     !tellurium.logManager.isUseLog || fbLog("Found child " + nindex + " with CSS selector '" + selt +"' for List " + this.uid, $fnd.get());
                     if ($fnd.size() == 1) {
                         !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $fnd.get(0));
-                        var cdomref = this.locateChild(context, $fnd.get(0), child);
+                        var cdomref;
+                        if(child.self){
+                            cdomref = $fnd.get(0);
+                        }else{
+                            cdomref = this.locateChild(context, $fnd.get(0), child);
+                        }
+//                        var cdomref = this.locateChild(context, $fnd.get(0), child);
                         var csdata = new UiSData(npid, this.getFooterRid(nindex), child, cdomref);
                         alg.addChildUiObject(csdata);
                     }else if($fnd.size() == 0){
@@ -2427,7 +2448,13 @@ var UiStandardTable = UiContainer.extend({
                             !tellurium.logManager.isUseLog || fbLog("Found child " + j + " with CSS selector '" + sel +"' for List " + this.uid, $found.get());
                             if ($found.size() == 1) {
                                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
-                                var cdrf = this.locateChild(context, $found.get(0), child);
+                                var cdrf;
+                                if(child.self){
+                                    cdrf = $found.get(0);
+                                }else{
+                                    cdrf = this.locateChild(context, $found.get(0), child);
+                                }
+//                                var cdrf = this.locateChild(context, $found.get(0), child);
                                 var csd = new UiSData(npid, rid, child, cdrf);
                                 alg.addChildUiObject(csd);
                             } else if ($found.size() == 0) {
@@ -2467,7 +2494,13 @@ var UiStandardTable = UiContainer.extend({
                             !tellurium.logManager.isUseLog || fbLog("Found child " + rid + " with CSS selector '" + sel + "' for Table " + this.uid, $found.get());
                             if ($found.size() == 1) {
                                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
-                                var cdomref = this.locateChild(context, $found.get(0), child);
+                                var cdomref;
+                                if(child.self){
+                                    cdomref =$found.get(0);
+                                }else{
+                                    cdomref = this.locateChild(context, $found.get(0), child);
+                                }
+//                                var cdomref = this.locateChild(context, $found.get(0), child);
                                 var csdata = new UiSData(npid, rid, child, cdomref);
                                 alg.addChildUiObject(csdata);
                             } else if ($found.size() == 0) {
