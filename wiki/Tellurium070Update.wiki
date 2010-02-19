@@ -863,6 +863,72 @@ The header column tag is overwritten to be "td" instead of the default tag "th".
 
 To be more accurate, the footer definition has been changed from "foot" to "footer". 
 
+== self attribute ==
+
+Some times, elements inside a Table usually are inside its parent tag, for instance, we have the following HTML source.
+
+{{{
+<div id="table">
+   <div>
+       <div id="name">
+           <div>Data</div>
+           <div>
+               <img/>
+           </div>
+       </div>
+       <div id="shortname">
+           <div>Bezeichnung</div>
+           <div>
+               <img/>
+           </div>
+       </div>
+       <div id="type">
+           <div>Typ</div>
+           <div>
+               <img/>
+           </div>
+       </div>
+   </div>
+   <div id="client-area">
+       <div>
+           <div>Bildsystem</div>
+           <div>Bildsystem</div>
+           <div>Bildserver</div>
+       </div>
+       <div>
+           <div>Partner</div>
+           <div>Partner</div>
+           <div>Bestandssystem</div>
+       </div>
+       <div>
+           <div>MS</div>
+           <div>MS</div>
+           <div>MS</div>
+       </div>
+   </div>
+</div>
+}}}
+
+where the "Data" element and many others are inside its parent tag "div". To module this, we added a self attribute to the UiObject class and the default is "false". 
+
+To describe the above html, we can define the following UI module.
+
+{{{
+    ui.StandardTable(uid: "Table", clocator: [id: "table"], bt: "div", brt: "div", bct: "div"){
+      TextBox(uid: "tbody: 1, row: *, column: 1", clocator: [tag: "div"], self: "true")
+      Image(uid: "tbody: 1, row: *, column: 2", clocator: [:])
+      TextBox(uid: "tbody: 2, row: *, column: 1", clocator: [tag: "div"], self: "true")
+      TextBox(uid: "tbody: 2, row: *, column: 2", clocator: [tag: "div"], self: "true")
+      TextBox(uid: "tbody: 2, row: *, column: 3", clocator: [tag: "div"], self: "true")
+    }
+}}}
+
+To test the UI module, you can simply call the following api.
+
+{{{
+   getHTMLSource("Table");
+}}}
+ 
 == Engine State Offline Update ==
 
 For some reasons, you may need to make Engine state calls before you actually connect to the Engine. For examples, call one of the following methods.
