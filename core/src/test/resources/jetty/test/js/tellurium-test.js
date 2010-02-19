@@ -50,6 +50,25 @@ TelluriumTestCase.prototype.testPrie = function(){
     var label = trie.getChildrenData("Form.Username.Submit");
 };
 
+TelluriumTestCase.prototype.testTwoDim = function(){
+    var json = [{"obj":{"uid":"Table","hrt":"tr","locator":{"tag":"table","attributes":{"id":"table"}},"ht":"thead","bct":"div","frt":"tr","hct":"th","ft":"tfoot","brt":"div","uiType":"StandardTable","fct":"td","bt":"div"},"key":"Table"},{"obj":{"uid":"tbody: 1, row: *, column: 1","locator":{"tag":"div"},"uiType":"TextBox"},"key":"Table._1_ALL_1"},{"obj":{"uid":"tbody: 1, row: *, column: 2","locator":{"tag":"img"},"uiType":"Image"},"key":"Table._1_ALL_2"},{"obj":{"uid":"tbody: 2, row: *, column: 1","locator":{"tag":"div"},"uiType":"TextBox"},"key":"Table._2_ALL_1"},{"obj":{"uid":"tbody: 2, row: *, column: 2","locator":{"tag":"div"},"uiType":"TextBox"},"key":"Table._2_ALL_2"},{"obj":{"uid":"tbody: 2, row: *, column: 3","locator":{"tag":"div"},"uiType":"TextBox"},"key":"Table._2_ALL_3"}];
+    tellurium.logManager.isUseLog = true;
+    var uim = new UiModule();
+    uim.parseUiModule(json);
+    var alg = new UiAlg();
+    alg.allowRelax = true;
+    var dom = teJQuery("html");
+    alg.santa(uim, dom);
+    tellurium.cache.cacheOption = true;
+    tellurium.cache.addToCache("Table", uim);
+    var context = new WorkflowContext();
+    context.alg = alg;
+    var uiid = new Uiid();
+    var tb111 = uim.walkTo(context, uiid.convertToUiid("Table[1][1][1]"));
+    var tb211 = uim.walkTo(context, uiid.convertToUiid("Table[2][1][1]"));
+    tellurium.teApi.getHTMLSource("Table");
+}
+
 TelluriumTestCase.prototype.testRepeat = function(){
     var json = [{"obj":{"uid":"SailingForm","locator":{"tag":"form","attributes":{"name":"selectedSailingsForm"}},"uiType":"Form"},"key":"SailingForm"},{"obj":{"uid":"Section","locator":{"tag":"div","attributes":{"class":"segment clearfix"}},"uiType":"Repeat"},"key":"SailingForm.Section"},{"obj":{"uid":"Option","locator":{"direct":true,"tag":"div","attributes":{"class":"option"}},"uiType":"Repeat"},"key":"SailingForm.Section.Option"},{"obj":{"uid":"Fares","locator":{"direct":true,"tag":"ul","attributes":{"class":"fares"}},"uiType":"List","separator":"li"},"key":"SailingForm.Section.Option.Fares"},{"obj":{"uid":"all","locator":null,"uiType":"Container"},"key":"SailingForm.Section.Option.Fares._ALL"},{"obj":{"uid":"radio","locator":{"tag":"input","attributes":{"type":"radio"}},"events":["click"],"uiType":"RadioButton"},"key":"SailingForm.Section.Option.Fares._ALL.radio"},{"obj":{"uid":"label","locator":{"tag":"label"},"uiType":"TextBox"},"key":"SailingForm.Section.Option.Fares._ALL.label"},{"obj":{"uid":"Details","locator":{"tag":"div","attributes":{"class":"details"}},"uiType":"Container"},"key":"SailingForm.Section.Option.Details"},{"obj":{"uid":"ShipInfo","locator":{"tag":"dl"},"uiType":"Container"},"key":"SailingForm.Section.Option.Details.ShipInfo"},{"obj":{"uid":"ShipLabel","locator":{"position":"1","tag":"dt"},"uiType":"TextBox"},"key":"SailingForm.Section.Option.Details.ShipInfo.ShipLabel"},{"obj":{"uid":"Ship","locator":{"position":"1","tag":"dd"},"uiType":"TextBox"},"key":"SailingForm.Section.Option.Details.ShipInfo.Ship"},{"obj":{"uid":"DepartureLabel","locator":{"position":"2","tag":"dt"},"uiType":"TextBox"},"key":"SailingForm.Section.Option.Details.ShipInfo.DepartureLabel"},{"obj":{"uid":"Departure","locator":{"position":"2","tag":"dd"},"uiType":"Container"},"key":"SailingForm.Section.Option.Details.ShipInfo.Departure"},{"obj":{"uid":"Time","locator":{"tag":"em"},"uiType":"TextBox"},"key":"SailingForm.Section.Option.Details.ShipInfo.Departure.Time"},{"obj":{"uid":"ArrivalLabel","locator":{"position":"3","tag":"dt"},"uiType":"TextBox"},"key":"SailingForm.Section.Option.Details.ShipInfo.ArrivalLabel"},{"obj":{"uid":"Arrival","locator":{"position":"3","tag":"dd"},"uiType":"Container"},"key":"SailingForm.Section.Option.Details.ShipInfo.Arrival"},{"obj":{"uid":"Time","locator":{"tag":"em"},"uiType":"TextBox"},"key":"SailingForm.Section.Option.Details.ShipInfo.Arrival.Time"}];
     tellurium.logManager.isUseLog = true;
