@@ -11,7 +11,7 @@ import org.telluriumsource.dsl.DslContext
  */
 class TwoDimModule  extends DslContext {
   public void defineUi(){
-    ui.StandardTable(uid: "Table", clocator: [id: "table"], ht: "div", bt: "div", brt: "div", bct: "div"){
+    ui.StandardTable(uid: "Table", clocator: [id: "table"], bt: "div", brt: "div", bct: "div"){
       TextBox(uid: "tbody: 1, row: *, column: 1", clocator: [tag: "div"])
       Image(uid: "tbody: 1, row: *, column: 2", clocator: [:])
       TextBox(uid: "tbody: 2, row: *, column: 1", clocator: [tag: "div"])
