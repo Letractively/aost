@@ -956,7 +956,13 @@ var UiList = UiContainer.extend({
                     !tellurium.logManager.isUseLog || fbLog("Found child " + nindex + " with CSS selector '" + selt +"' for List " + this.uid, $fnd.get());
                     if ($fnd.size() == 1) {
                         !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $fnd.get(0));
-                        var cdomref = this.locateChild(context, $fnd.get(0), child);
+                        var cdomref;
+                        if(child.self){
+                            cdomref = $fnd.get(0);
+                        }else{
+                            cdomref = this.locateChild(context, $fnd.get(0), child);
+                        }
+//                        var cdomref = this.locateChild(context, $fnd.get(0), child);
                         var csdata = new UiSData(npid, this.getRid(nindex), child, cdomref);
                         alg.addChildUiObject(csdata);
                     }else if($fnd.size() == 0){
@@ -979,7 +985,13 @@ var UiList = UiContainer.extend({
                             !tellurium.logManager.isUseLog || fbLog("Found child " + j + " with CSS selector '" + sel +"' for List " + this.uid, $found.get());
                             if ($found.size() == 1) {
                                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
-                                var cdrf = this.locateChild(context, $found.get(0), child);
+                                var cdrf;
+                                if(child.self){
+                                    cdrf = $found.get(0);
+                                }else{
+                                    cdrf = this.locateChild(context, $found.get(0), child);
+                                }
+//                                var cdrf = this.locateChild(context, $found.get(0), child);
                                 var csd = new UiSData(npid, tid, child, cdrf);
                                 alg.addChildUiObject(csd);
                             } else if ($found.size() == 0) {
@@ -1079,7 +1091,7 @@ var UiList = UiContainer.extend({
 
         //If the List does not have a separator
         //tell WorkflowContext not to process the next object's locator because List has already added that
-        if(this.separator == null || this.separator.trim().length == 0){
+        if(this.separator == null || this.separator.trim().length == 0 || child.self){
             context.skipNext = true;
         }
 
@@ -1435,7 +1447,13 @@ var UiTable = UiContainer.extend({
                     !tellurium.logManager.isUseLog || fbLog("Found child " + nindex + " with CSS selector '" + selt +"' for List " + this.uid, $fnd.get());
                     if ($fnd.size() == 1) {
                         !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $fnd.get(0));
-                        var cdomref = this.locateChild(context, $fnd.get(0), child);
+                        var cdomref;
+                        if(child.self){
+                            cdomref = $fnd.get(0);
+                        }else{
+                            cdomref = this.locateChild(context, $fnd.get(0), child);
+                        }
+//                        var cdomref = this.locateChild(context, $fnd.get(0), child);
                         var csdata = new UiSData(npid, this.getHeaderRid(nindex), child, cdomref);
                         alg.addChildUiObject(csdata);
                     }else if($fnd.size() == 0){
@@ -1457,7 +1475,13 @@ var UiTable = UiContainer.extend({
                             !tellurium.logManager.isUseLog || fbLog("Found child " + j + " with CSS selector '" + sel +"' for List " + this.uid, $found.get());
                             if ($found.size() == 1) {
                                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
-                                var cdrf = this.locateChild(context, $found.get(0), child);
+                                var cdrf;
+                                if(child.self){
+                                    cdrf = $found.get(0);
+                                }else{
+                                    cdrf = this.locateChild(context, $found.get(0), child);
+                                }
+//                                var cdrf = this.locateChild(context, $found.get(0), child);
                                 var csd = new UiSData(npid, rid, child, cdrf);
                                 alg.addChildUiObject(csd);
                             } else if ($found.size() == 0) {
@@ -1495,7 +1519,13 @@ var UiTable = UiContainer.extend({
                         !tellurium.logManager.isUseLog || fbLog("Found child " + rid + " with CSS selector '" + sel + "' for Table " + this.uid, $found.get());
                         if ($found.size() == 1) {
                             !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
-                            var cdomref = this.locateChild(context, $found.get(0), child);
+                            var cdomref;
+                            if(child.self){
+                                cdomref = $found.get(0);
+                            }else{
+                                cdomref = this.locateChild(context, $found.get(0), child);
+                            }
+//                            var cdomref = this.locateChild(context, $found.get(0), child);
                             var csdata = new UiSData(npid, rid, child, cdomref);
                             alg.addChildUiObject(csdata);
                         } else if ($found.size() == 0) {
@@ -1569,7 +1599,8 @@ var UiTable = UiContainer.extend({
         }
 
         if (cobj.locator != null) {
-            if ("th" == cobj.locator.tag && cobj.locator.header == null) {
+//            if ("th" == cobj.locator.tag && cobj.locator.header == null) {
+            if(cobj.self){
                 context.skipNext = true;
             }
         }
@@ -1625,7 +1656,8 @@ var UiTable = UiContainer.extend({
         }
 
         if (cobj.locator != null) {
-            if ("td" == cobj.locator.tag && cobj.locator.header == null) {
+//            if ("td" == cobj.locator.tag && cobj.locator.header == null) {
+            if(cobj.self){
                 context.skipNext = true;
             }
         }
@@ -2577,7 +2609,8 @@ var UiStandardTable = UiContainer.extend({
         }
 
         if (cobj.locator != null) {
-            if (this.hct ==  cobj.locator.tag && cobj.locator.header == null) {
+//            if (this.hct ==  cobj.locator.tag && cobj.locator.header == null) {
+            if(cobj.self){                
                 context.skipNext = true;
             }
         }
@@ -2636,7 +2669,8 @@ var UiStandardTable = UiContainer.extend({
         }
 
         if (cobj.locator != null) {
-            if (this.fct == cobj.locator.tag && cobj.locator.header == null) {
+//            if (this.fct == cobj.locator.tag && cobj.locator.header == null) {
+            if(cobj.self){
                 context.skipNext = true;
             }
         }
@@ -2701,7 +2735,8 @@ var UiStandardTable = UiContainer.extend({
         }
 
         if (cobj.locator != null) {
-            if (this.bct == cobj.locator.tag && cobj.locator.header == null) {
+//            if (this.bct == cobj.locator.tag && cobj.locator.header == null) {
+            if(cobj.self){
                 context.skipNext = true;
             }
         }
