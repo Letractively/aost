@@ -929,6 +929,8 @@ To test the UI module, you can simply call the following api.
    getHTMLSource("Table");
 }}}
  
+Be aware that the self can be "true" *ONLY* for UI elements inside a List, a Table, or a StandardTable Object.
+
 == Engine State Offline Update ==
 
 For some reasons, you may need to make Engine state calls before you actually connect to the Engine. For examples, call one of the following methods.
