@@ -391,7 +391,7 @@ var UiContainer = UiObject.extend({
                 !tellurium.logManager.isUseLog || fbLog("component: ", component);
                 if (!component.lazy) {
                     !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable child of Container " + this.uid + ": ", component);
-                    if(component.locator != null){
+                    if(component.locator != null && (!component.self)){
                         validChildren.push(component);
                     }else{
                         //the component is a logical container, need to go further down to get its children
@@ -417,7 +417,7 @@ var UiContainer = UiObject.extend({
         for (var i = 0; i < valset.length; i++) {
             var component = valset[i];
             !tellurium.logManager.isUseLog || fbLog("Look ahead nomatter what at cachable child of Container " + this.uid + ": ", component);
-            if (component.locator != null) {
+            if (component.locator != null && (!component.self)) {
                 children.push(component);
             } else {
                 //the component is a logical container, need to go further down to get its children
@@ -1206,7 +1206,7 @@ var UiTable = UiContainer.extend({
                 if (!component.lazy) {
                     !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable child of Table " + this.uid + ": ", component);
 //                    validChildren.push(component);
-                    if(component.locator != null){
+                    if(component.locator != null && (!component.self)){
                         validChildren.push(component);
                     }else{
                         //the component is a logical container, need to go further down to get its children
@@ -1227,7 +1227,7 @@ var UiTable = UiContainer.extend({
                 if (!header.lazy) {
                     !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable header of Table " + this.uid + ": ", header);
 //                    validChildren.push(header);
-                    if(header.locator != null){
+                    if(header.locator != null && (!header.self)){
                         validChildren.push(header);
                     }else{
                         //the component is a logical container, need to go further down to get its children
@@ -1253,7 +1253,7 @@ var UiTable = UiContainer.extend({
         for (var i = 0; i < valset.length; i++) {
             var component = valset[i];
             !tellurium.logManager.isUseLog || fbLog("Look ahead nomatter what at cachable child of Table " + this.uid + ": ", component);
-            if (component.locator != null) {
+            if (component.locator != null && (!component.self)) {
                 children.push(component);
             } else {
                 //the component is a logical container, need to go further down to get its children
@@ -1270,7 +1270,7 @@ var UiTable = UiContainer.extend({
         for (var j = 0; j < valset.length; j++) {
             var header = valset[j];
             !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable header of Table " + this.uid + ": ", header);
-            if (header.locator != null) {
+            if (header.locator != null && (!header.self)) {
                 children.push(header);
             } else {
                 //the component is a logical container, need to go further down to get its children
@@ -1880,7 +1880,7 @@ var UiStandardTable = UiContainer.extend({
                 !tellurium.logManager.isUseLog || fbLog("component: ", component);
                 if (!component.lazy) {
                     !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable child of StandardTable " + this.uid + ": ", component);
-                    if(component.locator != null){
+                    if(component.locator != null && (!component.self)){
                         validChildren.push(component);
                     }else{
                         //the component is a logical container, need to go further down to get its children
@@ -1901,7 +1901,7 @@ var UiStandardTable = UiContainer.extend({
                 if (!header.lazy) {
                     !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable header of StandardTable " + this.uid + ": ", header);
 //                    validChildren.push(header);
-                    if(header.locator != null){
+                    if(header.locator != null && (!header.self)){
                         validChildren.push(header);
                     }else{
                         //the component is a logical container, need to go further down to get its children
@@ -1921,7 +1921,7 @@ var UiStandardTable = UiContainer.extend({
                 !tellurium.logManager.isUseLog || fbLog("footer: ", footer);
                 if (!footer.lazy) {
                     !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable footer of StandardTable " + this.uid + ": ", footer);
-                    if(footer.locator != null){
+                    if(footer.locator != null && (!footer.self)){
                         validChildren.push(footer);
                     }else{
                         //the component is a logical container, need to go further down to get its children
@@ -1948,7 +1948,7 @@ var UiStandardTable = UiContainer.extend({
             var component = valset[i];
 
             !tellurium.logManager.isUseLog || fbLog("Look ahead nomatter what at cachable child of StandardTable " + this.uid + ": ", component);
-            if (component.locator != null) {
+            if (component.locator != null && (!component.self)) {
                 children.push(component);
             } else {
                 //the component is a logical container, need to go further down to get its children
@@ -1966,7 +1966,7 @@ var UiStandardTable = UiContainer.extend({
             var header = valset[j];
 
             !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable header of StandardTable " + this.uid + ": ", header);
-            if (header.locator != null) {
+            if (header.locator != null && (!header.self)) {
                 children.push(header);
             } else {
                 //the component is a logical container, need to go further down to get its children
@@ -1984,7 +1984,7 @@ var UiStandardTable = UiContainer.extend({
             var footer = valset[k];
 
             !tellurium.logManager.isUseLog || fbLog("Look ahead at cachable footer of StandardTable " + this.uid + ": ", footer);
-            if (footer.locator != null) {
+            if (footer.locator != null && (!footer.self)) {
                 children.push(footer);
             } else {
                 //the component is a logical container, need to go further down to get its children
