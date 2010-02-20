@@ -9,6 +9,10 @@ import org.telluriumsource.ui.Const
 import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.ui.Const
+import org.telluriumsource.udl.MetaData
+import org.telluriumsource.udl.UidParser
+import org.antlr.runtime.RecognitionException
+import org.telluriumsource.exception.UidRecognitionException
 
 /**
  *  Basic UI object builder
@@ -68,8 +72,15 @@ abstract class UiObjectBuilder extends Const {
         //make all lower cases
         map = makeCaseInsensitive(map)
 
- //       String dsluid = map.get(UID); 
-        obj.uid = map.get(UID)
+        String dsluid = map.get(UID);
+        try{
+          obj.metaData = UidParser.parse(dsluid)
+        }catch(RecognitionException e){
+          throw new UidRecognitionException(i18nBundle.getMessage("UidParser.CannotParseUid" , dsluid))
+        }
+
+//        obj.uid = map.get(UID)
+        obj.uid = dsluid;
         //by default, the ui object's template id is its uid, which is a String constant
         obj.tid = obj.uid
         String ns = map.get(NAMESPACE)
