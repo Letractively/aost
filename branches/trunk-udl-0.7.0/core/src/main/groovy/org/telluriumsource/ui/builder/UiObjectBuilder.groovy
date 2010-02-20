@@ -39,10 +39,10 @@ abstract class UiObjectBuilder extends Const {
             return false
         }
 
-        if(map.get(LOCATOR) != null && map.get(CLOCATOR) != null){
+/*        if(map.get(LOCATOR) != null && map.get(CLOCATOR) != null){
             println i18nBundle.getMessage("UIObjectBuilder.LocatorRequired")
             return false
-        }
+        }*/
 
         if(map.get(USE_GROUP_INFO) != null && (!Container.class.isAssignableFrom(obj.getClass())) ){
            println i18nBundle.getMessage("UIObjectBuilder.GroupInfoRequired")
@@ -68,6 +68,7 @@ abstract class UiObjectBuilder extends Const {
         //make all lower cases
         map = makeCaseInsensitive(map)
 
+ //       String dsluid = map.get(UID); 
         obj.uid = map.get(UID)
         //by default, the ui object's template id is its uid, which is a String constant
         obj.tid = obj.uid
