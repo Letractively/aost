@@ -144,8 +144,9 @@ Selenium.prototype.getCachePolicyName = function(){
 
 Selenium.prototype.doTypeKey = function(locator, key){
     var $elem = teJQuery(this.browserbot.findElement(locator));
+    var objRef = $elem.get(0);
 
-	$elem.val($elem.val()+key).trigger(getEvent("keydown", key)).trigger(getEvent("keypress", key)).trigger(getEvent("keyup", key));
+	$elem.val($elem.val()+key).trigger(getEvent("keydown", key, objRef)).trigger(getEvent("keypress", key, objRef)).trigger(getEvent("keyup", key, objRef));
 };
 
 Selenium.prototype.doTriggerEvent = function(locator, event){
