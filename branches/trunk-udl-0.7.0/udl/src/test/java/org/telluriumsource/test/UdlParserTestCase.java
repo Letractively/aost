@@ -141,4 +141,25 @@ public class UdlParserTestCase {
             fail(e.getMessage());
         }
     }
+
+    @Test
+    public void TestParser() {
+        try {
+            MetaData data = Parser.parse("{tbody : 1, row = good, column = bad} as Search");
+            assertNotNull(data);
+            assertEquals("Search", data.getId());
+            assertTrue(data instanceof TableBodyMetaData);
+            TableBodyMetaData tbmd = (TableBodyMetaData) data;
+            assertEquals("1", tbmd.getTbody().getValue());
+            assertEquals(IndexType.VAL, tbmd.getTbody().getType());
+            assertEquals("good", tbmd.getRow().getValue());
+            assertEquals(IndexType.REF, tbmd.getRow().getType());
+            assertEquals("bad", tbmd.getColumn().getValue());
+            assertEquals(IndexType.REF, tbmd.getColumn().getType());
+        } catch (RecognitionException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+
+    }
 }
