@@ -145,7 +145,7 @@ public class UdlParserTestCase {
     @Test
     public void TestParser() {
         try {
-            MetaData data = Parser.parse("{tbody : 1, row = good, column = bad} as Search");
+            MetaData data = UidParser.parse("{tbody : 1, row = good, column = bad} as Search");
             assertNotNull(data);
             assertEquals("Search", data.getId());
             assertTrue(data instanceof TableBodyMetaData);
