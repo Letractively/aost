@@ -340,7 +340,7 @@ class List extends Container {
         context.appendReferenceLocator(loc)
         //If the List does not have a separator
         //tell WorkflowContext not to process the next object's locator because List has already added that
-        if(this.separator == null || this.separator.trim().length() == 0){
+        if(this.separator == null || this.separator.trim().length() == 0 || cobj.self){
           context.skipNext()
         }
 

@@ -562,7 +562,8 @@ class Table extends Container {
     if(cobj.locator != null){
       if(cobj.locator instanceof CompositeLocator){
         CompositeLocator cl = (CompositeLocator)cobj.locator
-        if("td".equals(cl.tag) && cl.header == null){
+//        if("td".equals(cl.tag) && cl.header == null){
+        if(cobj.self){
           //context.setTableDuplicateTag()
           context.skipNext()
         }
@@ -615,7 +616,8 @@ class Table extends Container {
     if(cobj.locator != null){
       if(cobj.locator instanceof CompositeLocator){
         CompositeLocator cl = (CompositeLocator)cobj.locator
-        if("th".equals(cl.tag) && cl.header == null){
+//        if("th".equals(cl.tag) && cl.header == null){
+        if(cobj.self){
 //          context.setTableDuplicateTag()
           context.skipNext()
         }
