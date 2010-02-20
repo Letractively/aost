@@ -6,6 +6,7 @@ import org.telluriumsource.component.event.Event
 
 import org.json.simple.JSONObject
 import org.json.simple.JSONArray
+import org.telluriumsource.udl.MetaData
 
 /**
  *  Basic UI object
@@ -60,6 +61,8 @@ abstract class UiObject implements Cloneable{
 
     public static final String UID = "uid"
     String uid
+
+    MetaData metaData;
 
     public static final String NAMESPACE = "namespace"
     String namespace = null
