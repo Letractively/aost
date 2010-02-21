@@ -525,7 +525,7 @@ As we can see, the correct UI module returns a score as 100 and the problematic 
 
 === Closest Match ===
 
-The UI module closest match, i.e., partial match, is extremely important to keep your test code robust to changes to some degree. By partial match, Tellurium uses the [ http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm Santa algorithm] to locate the whole UI module by using only partial information inside the UI module.
+The UI module closest match, i.e., partial match, is extremely important to keep your test code robust to changes to some degree. By partial match, Tellurium uses  [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the Santa algorithm] to locate the whole UI module by using only partial information inside the UI module.
 
 ==== API ====
 
