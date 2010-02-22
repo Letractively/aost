@@ -15,14 +15,18 @@ abstract class RTree {
   RNode root;
 
   //ID to UI template mapping
-  Map<String, UiObject> index;
+  Map<String, UiObject> indices;
 
   //setup the routing tree structure before actually insert the UI object into the tree
   abstract public void preBuild();
 
   abstract public void insert(UiObject object);
 
+  abstract public UiObject route(String key);
+
+  abstract public UiObject walkTo(String key);
+
   public void createIndex(String key, UiObject){
-    this.index.put(key, UiObject);  
+    this.indices.put(key, UiObject);
   }
 }

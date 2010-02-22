@@ -48,4 +48,32 @@ class RNode {
 
     return null;
   }
+
+  public RNode walkTo(String key){
+    if(this.presented){
+      if(this.key.equalsIgnoreCase(key)){
+        return this;
+      }else{
+        if(this.children != null && this.children.size() > 0){
+          for(RNode node: children){
+            RNode result = node.walkTo(key);
+            if(result != null)
+              return result;
+          }
+        }
+
+        return this;
+      }  
+    }else{
+        if(this.children != null && this.children.size() > 0){
+          for(RNode node: children){
+            RNode result = node.walkTo(key);
+            if(result != null)
+              return result;
+          }
+        }
+    }
+
+    return null;
+  }
 }

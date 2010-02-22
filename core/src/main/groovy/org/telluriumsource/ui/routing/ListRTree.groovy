@@ -17,7 +17,7 @@ class ListRTree extends RTree{
 
   void insert(UiObject object) {
     ListMetaData meta = object.metaData;
-    createIndex(meta.id);
+    createIndex(meta.id, object);
     String index = meta.getIndex().getValue();
     if("all".equalsIgnoreCase(index)){
       this.root.objectRef = object;
@@ -54,13 +54,26 @@ class ListRTree extends RTree{
   }
 
   void preBuild() {
-    this.index = new HashMap<String, UiObject>();
+    this.indices = new HashMap<String, UiObject>();
     TextBox defaultUi = new TextBox();
-    RNode allNode = new RNode("all", null, defaultUi, false);
+    RNode allNode = new RNode("all", null, defaultUi, true);
     this.root = allNode;
     RNode oddNode = new RNode('odd', allNode, defaultUi, false);
     this.root.addChild(oddNode);
     RNode evenNode = new RNode('even', allNode, defaultUi, false);
     this.root.addChild(evenNode);
+  }
+
+  UiObject route(String key) {
+    UiObject object = this.indices.get(key);
+    if(object != null){
+      object = this.walkTo(key);
+    }
+
+    return object;
+  }
+
+  UiObject walkTo(String key) {
+    return this.root.walkTo(key);
   }
 }
