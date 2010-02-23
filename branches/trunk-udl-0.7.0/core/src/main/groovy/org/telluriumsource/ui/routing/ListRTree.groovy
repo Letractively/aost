@@ -68,7 +68,7 @@ class ListRTree extends RTree{
 
   UiObject route(String key) {
     UiObject object = this.indices.get(key);
-    if(object != null){
+    if(object == null){
       object = this.walkTo(key);
     }
 
@@ -76,6 +76,11 @@ class ListRTree extends RTree{
   }
 
   UiObject walkTo(String key) {
-    return this.root.walkTo(key);
+    RNode node = this.root.walkTo(key);
+    if(node != null){
+      return node.objectRef;
+    }
+
+    return null;
   }
 }
