@@ -30,9 +30,11 @@ class ListRTree extends RTree{
       RNode evenNode = this.root.findChild("even");
       evenNode.presented = true;
       evenNode.objectRef = object;
-    }else if("last".equalsIgnoreCase(index) || "any".equalsIgnoreCase(index)){
+    }else if("last".equalsIgnoreCase(index)){
+      RNode last = new RNode("last", this.root, object, true);
+      this.root.addChild(last);
+    }else if("any".equalsIgnoreCase(index)){
       //do nothing
-
     }else if("first".equalsIgnoreCase(index)){
       RNode oddNode = this.root.findChild("odd");
       RNode first = new RNode("1", oddNode, object, true);
@@ -45,7 +47,7 @@ class ListRTree extends RTree{
         oddNode.addChild(inode);
       }else{
         RNode evenNode = this.root.findChild("even");
-        RNode inode = new RNode(index, oddNode, object, true);
+        RNode inode = new RNode(index, evenNode, object, true);
         evenNode.addChild(inode);
       }
     }else{

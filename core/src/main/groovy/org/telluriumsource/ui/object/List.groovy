@@ -7,6 +7,9 @@ import org.json.simple.JSONObject
 import org.telluriumsource.ui.locator.CompositeLocator
 import org.telluriumsource.ui.locator.XPathBuilder
 import org.telluriumsource.ui.locator.JQueryBuilder
+import org.telluriumsource.udl.MetaData
+import org.telluriumsource.udl.ListMetaData
+import org.telluriumsource.ui.routing.ListRTree
 
 /**
  * Abstracted class for a list, which holds one dimension array of Ui objects
@@ -22,6 +25,9 @@ class List extends Container {
     public static final String SEPARATOR = "separator"
     //the separator for the list, it is empty by default
     protected String separator = ""
+  
+    //Routing tree
+    ListRTree rTree;
 
     @Override
     public JSONObject toJSON() {
@@ -37,6 +43,19 @@ class List extends Container {
 
     @Override
     def add(UiObject component) {
+        MetaData metaData = component.metaData;
+        if(metaData instanceof ListMetaData){
+            components.put(metaData.getId(), component);
+            if(this.rTree == null){
+              this.rTree = new ListRTree();
+              this.rTree.preBuild();
+            }
+            this.rTree.insert(component);
+//            component.tid = internalId(component.uid)
+        }else{
+           println i18nBundle.getMessage("Container.InvalidID" , {component.uid})
+        }
+ /*     
         if (validId(component.uid)) {
             String internId = internalId(component.uid)
             //force to not use cache for List elements
@@ -47,6 +66,7 @@ class List extends Container {
         } else {
             println i18nBundle.getMessage("Container.InvalidID" , {component.uid})
         }
+        */
     }
 
 
