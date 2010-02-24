@@ -19,7 +19,8 @@
 	</webflow:flow-registry>
 		
 	<!-- Plugs in a custom creator for Web Flow views -->
-	<webflow:flow-builder-services id="flowBuilderServices"  view-factory-creator="mvcViewFactoryCreator" conversion-service="conversionService" development="true" />
+	<!--webflow:flow-builder-services id="flowBuilderServices"  view-factory-creator="mvcViewFactoryCreator" conversion-service="conversionService" development="true" /-->
+    <webflow:flow-builder-services id="flowBuilderServices"  view-factory-creator="mvcViewFactoryCreator" conversion-service="webflowConversionService" development="true" />
 
 	<bean id="mvcViewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator"> 
 		<property name="viewResolvers" ref="wizardViewResolver"/> 
