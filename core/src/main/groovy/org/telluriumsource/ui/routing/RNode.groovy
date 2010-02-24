@@ -12,17 +12,6 @@ import org.telluriumsource.ui.object.UiObject
  */
 class RNode {
 
-  def RNode() {
-  }
-
-  def RNode(key, parent, objectRef, presented) {
-    this.key = key;
-    this.parent = parent;
-    this.objectRef = objectRef;
-    this.presented = presented;
-    this.children = new LinkedList<RNode>();
-  }
-
   String key;
 
   RNode parent;
@@ -33,6 +22,17 @@ class RNode {
 
   //whether this node is actually presented or not
   boolean presented;
+
+  def RNode() {
+  }
+
+  def RNode(key, parent, objectRef, presented) {
+    this.key = key;
+    this.parent = parent;
+    this.objectRef = objectRef;
+    this.presented = presented;
+    this.children = new LinkedList<RNode>();
+  }
 
   public void addChild(RNode child) {
     children.add(child);
@@ -49,30 +49,41 @@ class RNode {
     return null;
   }
 
-  public RNode walkTo(String key){
-    if(this.presented){
-      if(this.key.equalsIgnoreCase(key)){
-        return this;
-      }else{
-        if(this.children != null && this.children.size() > 0){
-          for(RNode node: children){
-            RNode result = node.walkTo(key);
-            if(result != null)
-              return result;
-          }
-        }
-
-        return this;
-      }  
-    }else{
-        if(this.children != null && this.children.size() > 0){
-          for(RNode node: children){
-            RNode result = node.walkTo(key);
-            if(result != null)
-              return result;
-          }
-        }
+  protected boolean isInPath(String key, String[] path){
+    boolean result = false;
+    path?.each {String elem ->
+      if(elem.equals(key)){
+        result = true;
+      }
     }
+
+    return result;
+  }
+
+  public RNode walkTo(String key, Path path){
+    if(path.size() > 0){
+      String next = path.pop();
+      if(this.children != null && this.children.size() > 0){
+        for(RNode node: children){
+          if(next.equalsIgnoreCase(node.key)){
+            RNode result = node.walkTo(key, path);
+            if(result != null)
+              return result;
+          }
+        }
+      }
+    }else{
+      if(this.children != null && this.children.size() > 0){
+        for(RNode node: children){
+          if(key.equalsIgnoreCase(node.key)){
+            return node;
+          }
+        }
+      }
+    }
+
+    if(this.presented)
+      return this;
 
     return null;
   }

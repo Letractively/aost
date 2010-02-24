@@ -4,6 +4,7 @@ import org.telluriumsource.udl.ListMetaData
 import org.telluriumsource.ui.object.TextBox
 import org.telluriumsource.ui.object.UiObject
 import org.telluriumsource.ui.routing.ListRTree
+import org.telluriumsource.exception.InvalidIndexException
 
 /**
  * 
@@ -14,7 +15,7 @@ import org.telluriumsource.ui.routing.ListRTree
  */
 class ListRTree_UT extends GroovyTestCase {
 
-  public void testList(){
+  public void testFullTree(){
     ListMetaData allMeta = new ListMetaData("Rest", "all");
     UiObject all = new TextBox();
     all.metaData = allMeta;
@@ -65,10 +66,75 @@ class ListRTree_UT extends GroovyTestCase {
     assertEquals("E", b.metaData.id);
     assertEquals("last", b.metaData.index.value);
 
-    UiObject c = tree.route("3");
+    UiObject c = tree.route("odd");
     assertNotNull(c);
-    assertEquals("G", c.metaData.id);
-    assertEquals("3", c.metaData.index.value);
+    assertEquals("B", c.metaData.id);
+    assertEquals("odd", c.metaData.index.value);
+
+    UiObject d = tree.route("3");
+    assertNotNull(d);
+    assertEquals("G", d.metaData.id);
+    assertEquals("3", d.metaData.index.value);
+
+    UiObject e = tree.route("4");
+    assertNotNull(e);
+    assertEquals("C", e.metaData.id);
+    assertEquals("even", e.metaData.index.value);
+    
+    UiObject f = tree.route("7");
+    assertNotNull(f);
+    assertEquals("B", f.metaData.id);
+    assertEquals("odd", f.metaData.index.value);
+  }
+
+  public void testPartialTree(){
+    ListMetaData oddMeta = new ListMetaData("B", "odd");
+    UiObject odd = new TextBox();
+    odd.metaData = oddMeta;
+    ListMetaData twoMeta = new ListMetaData("F", "2");
+    UiObject two = new TextBox();
+    two.metaData = twoMeta;
+    ListMetaData threeMeta = new ListMetaData("G", "3");
+    UiObject three = new TextBox();
+    three.metaData = threeMeta;
+    ListRTree tree = new ListRTree();
+    tree.preBuild();
+    tree.insert(odd);
+    tree.insert(two);
+    tree.insert(three);
+
+    try{
+      UiObject a = tree.route("A");
+      fail("Should throw InvalidIndexException");
+    }catch(InvalidIndexException e){
+    }
+
+    UiObject b = tree.route("last");
+    assertNotNull(b);
+    assertNull(b.metaData);
+
+    UiObject c = tree.route("odd");
+    assertNotNull(c);
+    assertEquals("B", c.metaData.id);
+    assertEquals("odd", c.metaData.index.value);
+
+    UiObject d = tree.route("3");
+    assertNotNull(d);
+    assertEquals("G", d.metaData.id);
+    assertEquals("3", d.metaData.index.value);
+
+    UiObject e = tree.route("4");
+    assertNotNull(e);
+    assertNull(e.metaData);
+
+    UiObject f = tree.route("7");
+    assertNotNull(f);
+    assertEquals("B", f.metaData.id);
+    assertEquals("odd", f.metaData.index.value);
+
+    UiObject g = tree.route("all");
+    assertNotNull(g);
+    assertNull(g.metaData);
   }
 
 }

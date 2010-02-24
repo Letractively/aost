@@ -24,7 +24,7 @@ abstract class RTree {
 
   abstract public UiObject route(String key);
 
-  abstract public UiObject walkTo(String key);
+  abstract public UiObject walkTo(String key, Path path);
 
   public void createIndex(String key, UiObject){
     this.indices.put(key, UiObject);
