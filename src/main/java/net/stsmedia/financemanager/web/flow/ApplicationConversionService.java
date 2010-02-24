@@ -10,6 +10,9 @@ import net.stsmedia.financemanager.web.converters.StringToProduct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.convert.converters.StringToDate;
 import org.springframework.binding.convert.service.DefaultConversionService;
+//import org.springframework.core.convert.support.DefaultConversionService;
+
+import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,7 +22,7 @@ import org.springframework.stereotype.Component;
  * @since 0.3
  *
  */
-@Component("conversionService")
+@Component("webflowConversionService")   //conversionService
 public class ApplicationConversionService extends DefaultConversionService {
 	
 	@Autowired
@@ -39,5 +42,4 @@ public class ApplicationConversionService extends DefaultConversionService {
 		addConverter(new StringToPerson(personService));
 		addConverter(new LongToProduct(productService));
     }
-
 }
