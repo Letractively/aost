@@ -14,7 +14,11 @@ import org.telluriumsource.framework.Environment
  * 
  */
 class ListRTree extends RTree{
-
+  String[] EMPTY_PATH = [];
+  String[] ROOT_PATH = ["all"];
+  String[] ODD_PATH = ["all", "odd"];
+  String[] EVEN_PATH = ["all", "even"];
+  
   void insert(UiObject object) {
     ListMetaData meta = object.metaData;
     createIndex(meta.id, object);
@@ -57,6 +61,7 @@ class ListRTree extends RTree{
 
   void preBuild() {
     this.indices = new HashMap<String, UiObject>();
+    //TODO: how to add meta data for the default UI?
     TextBox defaultUi = new TextBox();
     RNode allNode = new RNode("all", null, defaultUi, true);
     this.root = allNode;
@@ -69,16 +74,41 @@ class ListRTree extends RTree{
   UiObject route(String key) {
     UiObject object = this.indices.get(key);
     if(object == null){
-      object = this.walkTo(key);
+      String[] list = this.generatePath(key);
+      Path path = new Path(list);
+      object = this.walkTo(key, path);
     }
 
     return object;
   }
 
-  UiObject walkTo(String key) {
-    RNode node = this.root.walkTo(key);
-    if(node != null){
-      return node.objectRef;
+  String[] generatePath(String key){
+    if("odd".equalsIgnoreCase(key) || "even".equalsIgnoreCase(key) || "last".equalsIgnoreCase(key)){
+      return ROOT_PATH;
+    }else if(key =~ /^\d+$/){
+      int inx = Integer.parseInt(key);
+      if((inx % 2) == 1){
+        return ODD_PATH;
+      }else{
+        return EVEN_PATH;
+      }
+    }else if("all".equalsIgnoreCase(key)){
+      return EMPTY_PATH;  
+    }else{
+      throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", key));      
+    }
+  }
+
+  UiObject walkTo(String key, Path path) {
+    if(key.equalsIgnoreCase("all"))
+      return this.root.objectRef;
+
+    if(path != null && path.size() > 0){
+      path.pop();
+      RNode node = this.root.walkTo(key, path);
+      if(node != null){
+        return node.objectRef;
+      }
     }
 
     return null;
