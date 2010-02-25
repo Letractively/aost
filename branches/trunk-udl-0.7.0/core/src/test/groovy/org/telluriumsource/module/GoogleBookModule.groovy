@@ -23,10 +23,10 @@ public class GoogleBookModule extends DslContext {
 
     ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"]) {
       List(uid: "subcategory", clocator: [tag: "td", class: "sidebar"], separator: "div") {
-        Container(uid: "all") {
+        Container(uid: "{all} as category") {
           TextBox(uid: "title", clocator: [tag: "div", class: "sub_cat_title"])
           List(uid: "links", separator: "p") {
-            UrlLink(uid: "all", clocator: [:])
+            UrlLink(uid: "{all} as text", clocator: [:])
           }
         }
       }

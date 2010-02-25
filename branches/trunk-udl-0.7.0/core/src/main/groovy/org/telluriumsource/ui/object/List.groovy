@@ -10,6 +10,7 @@ import org.telluriumsource.ui.locator.JQueryBuilder
 import org.telluriumsource.udl.MetaData
 import org.telluriumsource.udl.ListMetaData
 import org.telluriumsource.ui.routing.ListRTree
+import org.telluriumsource.exception.InvalidUidException
 
 /**
  * Abstracted class for a list, which holds one dimension array of Ui objects
@@ -79,7 +80,7 @@ class List extends Container {
         return "_${upperId}"
     }
 
-    public UiObject findUiObject(int index) {
+/*    public UiObject findUiObject(int index) {
 
         //first check _index format
         String key = "_${index}"
@@ -92,6 +93,11 @@ class List extends Container {
         }
 
         return obj
+    }
+    */
+
+    public UiObject locateChild(String id){
+      return this.rTree.route(id);
     }
 
     public boolean validId(String id) {
@@ -118,7 +124,7 @@ class List extends Container {
 
     // example:
     // //div/descendant-or-self::table[2]/descendant-or-self::table
-    protected String deriveListLocator(int index) {
+/*    protected String deriveListLocator(int index) {
         Map<String, Integer> locs = new HashMap<String, Integer>()
         String last = null
         for (int i = 1; i <= index; i++) {
@@ -140,12 +146,12 @@ class List extends Container {
 //        Integer lastOccur = loc.get(lastTag)
           Integer lastOccur = locs.get(last)
 
-/*        if(last.locator.direct){
+*//*        if(last.locator.direct){
           return "/${lastTag}[${lastOccur}]"
         }else{
           return "/descendant::${lastTag}[${lastOccur}]"
         }
-*/
+*//*
 
         //force to be direct child (if consider List trailer)
         if(this.namespace != null && this.namespace.trim().length() > 0){
@@ -153,8 +159,9 @@ class List extends Container {
         }
         return "/${last}[${lastOccur}]"
     }
+    */
 
-    protected String deriveListSelector(int index) {
+/*    protected String deriveListSelector(int index) {
         Map<String, Integer> locs = new HashMap<String, Integer>()
         String last = null
         for (int i = 1; i <= index; i++) {
@@ -174,17 +181,134 @@ class List extends Container {
 
         Integer lastOccur = locs.get(last)
 
-/*        if(last.locator.direct){
+*//*        if(last.locator.direct){
           return " > ${lastTag}:eq(${lastOccur-1})"
         }else{
           return " ${lastTag}:eq(${lastOccur-1})"
         }
-*/
+*//*
 
         //force to be direct child (if consider List trailer)
         return " > ${last}:eq(${lastOccur-1})"
+    }*/
+
+    String getListLocator(String key, UiObject obj){
+      ListMetaData meta = (ListMetaData)obj.metaData;
+      String index = meta.getIndex().getValue();
+      if(separator != null && separator.trim().size() > 0){
+        if("any".equalsIgnoreCase(index)){
+          return this.getAnyLocatorWithSeparator(obj);
+        }else if("first".equalsIgnoreCase(index)){
+          return this.getFirstLocatorWithSeparator();
+        }else if("last".equalsIgnoreCase(index)){
+          return this.getLastLocatorWithSeparator();
+        }else if(key ==~ /[0-9]+/){
+          return this.getLocatorByIndexWithSeparator(key);
+        }else if(index ==~ /[0-9]+/){
+          return this.getLocatorByIndexWithSeparator(key);
+        }else{
+          //TODO: rename Container.InvalidID to UiObject.InvalidID
+          throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID" , key));
+        }
+      }else{
+       if("any".equalsIgnoreCase(index)){
+          return this.getAnyLocatorWithoutSeparator(obj);
+        }else if("first".equalsIgnoreCase(index)){
+          return this.getFirstLocatorWithoutSeparator(obj);
+        }else if("last".equalsIgnoreCase(index)){
+          return this.getLastLocatorWithoutSeparator(obj);
+        }else if(key ==~ /[0-9]+/){
+          return this.getLocatorByIndexWithoutSeparator(key);
+        }else if(index ==~ /[0-9]+/){
+          return this.getLocatorByIndexWithoutSeparator(key);
+        }else{
+          //TODO: rename Container.InvalidID to UiObject.InvalidID
+          throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID" , key));
+        }
+      }
     }
 
+    protected String getAnyLocatorWithSeparator(UiObject obj){
+      String loc = this.buildLocatorWithoutPosition(obj.locator);
+      if(this.namespace != null && this.namespace.trim().length() > 0){
+        return "/${this.namespace}:" + separator + "[${loc}]"
+      }
+
+      return "/" + separator + "[${loc}]"
+    }
+
+    protected String getAnyLocatorWithoutSeparator(UiObject obj){
+      String loc = this.buildLocatorWithoutPosition(obj.locator);
+      
+      return "/${loc}";
+    }
+
+    protected String getFirstLocatorWithSeparator(){
+      if (this.namespace != null && this.namespace.trim().length() > 0) {
+        return "/${this.namespace}:" + separator + "[1]"
+      }
+      
+      return "/" + separator + "[1]"
+    }
+
+    protected String getFirstLocatorWithoutSeparator(UiObject obj){
+      String loc = this.buildLocatorWithoutPosition(obj.locator);
+
+      return "/${loc}[1]";      
+    }
+
+    protected String getLastLocatorWithSeparator(){
+      if (this.namespace != null && this.namespace.trim().length() > 0) {
+        return "/${this.namespace}:" + separator + "[last()]"
+      }
+
+      return "/" + separator + "[last()]"
+    }
+
+    protected String getLastLocatorWithoutSeparator(UiObject obj){
+      String loc = this.buildLocatorWithoutPosition(obj.locator);
+
+      return "/${loc}[last()]";
+    }
+
+    protected String getLocatorByIndexWithSeparator(String index){
+        if(this.namespace != null && this.namespace.trim().length() > 0){
+          return "/${this.namespace}:" + separator + "[${index}]";
+        }
+
+        return "/" + separator + "[${index}]";
+    }
+
+    protected String getLocatorByIndexWithoutSeparator(String index){
+        Map<String, Integer> locs = new HashMap<String, Integer>();
+        String last = null;
+        int inx = Integer.parseInt(index);
+        for (int i = 1; i <= inx; i++) {
+            UiObject obj = this.locateChild("${i}");
+            String pl = this.buildLocatorWithoutPosition(obj.locator)
+            Integer occur = locs.get(pl)
+            if (occur == null) {
+                locs.put(pl, 1)
+            } else {
+                locs.put(pl, occur + 1)
+            }
+            if (i == index) {
+                last = pl
+            }
+        }
+
+          Integer lastOccur = locs.get(last)
+
+
+        //force to be direct child (if consider List trailer)
+        if(this.namespace != null && this.namespace.trim().length() > 0){
+          return "/${this.namespace}:${last}[${lastOccur}]"
+        }
+      
+        return "/${last}[${lastOccur}]"
+    }
+
+/*
     String getListLocator(int index) {
         if (separator == null || separator.trim().size() == 0)
             return deriveListLocator(index)
@@ -197,7 +321,107 @@ class List extends Container {
 
         return "/" + separator + "[${index}]"
     }
+    */
+  
+    String getListSelector(String key, UiObject obj){
+      ListMetaData meta = (ListMetaData)obj.metaData;
+      String index = meta.getIndex().getValue();
+      if(separator != null && separator.trim().size() > 0){
+        if("any".equalsIgnoreCase(index)){
+          return this.getAnySelectorWithSeparator(obj);
+        }else if("first".equalsIgnoreCase(index)){
+          return this.getFirstSelectorWithSeparator();
+        }else if("last".equalsIgnoreCase(index)){
+          return this.getLastSelectorWithSeparator();
+        }else if(key ==~ /[0-9]+/){
+          return this.getSelectorByIndexWithSeparator(key);
+        }else if(index ==~ /[0-9]+/){
+          return this.getSelectorByIndexWithSeparator(key);
+        }else{
+          //TODO: rename Container.InvalidID to UiObject.InvalidID
+          throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID" , key));
+        }
+      }else{
+       if("any".equalsIgnoreCase(index)){
+          return this.getAnySelectorWithoutSeparator(obj);
+        }else if("first".equalsIgnoreCase(index)){
+          return this.getFirstSelectorWithoutSeparator(obj);
+        }else if("last".equalsIgnoreCase(index)){
+          return this.getLastSelectorWithoutSeparator(obj);
+        }else if(key ==~ /[0-9]+/){
+          return this.getSelectorByIndexWithoutSeparator(key);
+        }else if(index ==~ /[0-9]+/){
+          return this.getSelectorByIndexWithoutSeparator(key);
+        }else{
+          //TODO: rename Container.InvalidID to UiObject.InvalidID
+          throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID" , key));
+        }
+      }
+    }
 
+    protected String getAnySelectorWithSeparator(UiObject obj){
+      String sel = this.buildJQuerySelectorWithoutPosition(obj.locator);
+
+      return " > " + separator + "has[${sel}]"
+    }
+
+    protected String getAnySelectorWithoutSeparator(UiObject obj){
+
+      return this.buildJQuerySelectorWithoutPosition(obj.locator);
+    }
+
+    protected String getFirstSelectorWithSeparator(){
+
+      return " > " + separator + ":first";
+    }
+
+    protected String getFirstSelectorWithoutSeparator(UiObject obj){
+      String sel = this.buildJQuerySelectorWithoutPosition(obj.locator);
+
+      return " > ${sel}:first";
+    }
+
+    protected String getLastSelectorWithSeparator(){
+
+      return " > " + separator + ":last"
+    }
+
+    protected String getLastSelectorWithoutSeparator(UiObject obj){
+      String sel = this.buildJQuerySelectorWithoutPosition(obj.locator);
+
+      return " > ${sel}:last";
+    }
+
+    protected String getSelectorByIndexWithSeparator(String index){
+        int inx = Integer.parseInt(index) - 1;
+        return " > " + separator + ":eq(${inx})";
+    }
+
+    protected String getSelectorByIndexWithoutSeparator(String index){
+        Map<String, Integer> locs = new HashMap<String, Integer>();
+        String last = null;
+        int inx = Integer.parseInt(index);
+        for (int i = 1; i <= inx; i++) {
+            UiObject obj = this.locateChild("${inx}");
+            String pl = this.buildJQuerySelectorWithoutPosition(obj.locator)
+            Integer occur = locs.get(pl)
+            if (occur == null) {
+                locs.put(pl, 1)
+            } else {
+                locs.put(pl, occur + 1)
+            }
+            if (i == index) {
+                last = pl
+            }
+        }
+
+        Integer lastOccur = locs.get(last)
+
+        //force to be direct child (if consider List trailer)
+        return " > ${last}:eq(${lastOccur-1})"
+    }
+  
+/*
     String getListSelector(int index) {
         if (separator == null || separator.trim().size() == 0)
             return deriveListSelector(index)
@@ -205,6 +429,7 @@ class List extends Container {
 //        return " " + separator + ":eq(${index-1})"
         return " > " + separator + ":eq(${index-1})"
     }
+    */
 
     int getListSizeByXPath(Closure c) {
 
@@ -219,7 +444,7 @@ class List extends Container {
         return accessor.getXpathCount(context, rl + "/${this.separator}")
       } else {
         int index = 1
-        while (accessor.isElementPresent(context, rl + getListLocator(index))) {
+        while (accessor.isElementPresent(context, rl + getLocatorByIndexWithoutSeparator("${index}"))) {
           index++
         }
 
@@ -259,7 +484,7 @@ class List extends Container {
         if ("ALL".equalsIgnoreCase(auid.trim())) {
           hasAll = true;
         }else{
-          int indx = Integer.parseInt()
+          int indx = Integer.parseInt(auid)
           if (indx > max) {
             max = indx
           }
@@ -333,12 +558,16 @@ class List extends Container {
 
         String child = uiid.pop()
 
-        String part = child.replaceFirst('_', '')
+        String key = child.replaceFirst('_', '')
 
+        UiObject cobj = this.locateChild(key);
+
+/*
         int nindex = Integer.parseInt(part)
 
         //otherwise, try to find its child
         UiObject cobj = this.findUiObject(nindex)
+*/
 
         //If cannot find the object as the object template, return the TextBox as the default object
         if (cobj == null) {
@@ -351,11 +580,13 @@ class List extends Container {
         }
 
         //append relative location, i.e., index to the locator
-        String loc = null
+        String loc
         if(context.isUseCssSelector()){
-          loc = getListSelector(nindex)
+//          loc = getListSelector(nindex)
+          loc = getListSelector(key, cobj);
         }else{
-          loc = getListLocator(nindex)
+//          loc = getListLocator(nindex)
+          loc = getListLocator(key, cobj);
         }
         context.appendReferenceLocator(loc)
         //If the List does not have a separator
