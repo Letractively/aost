@@ -9,7 +9,7 @@ import org.telluriumsource.ui.object.StandardTable
 import org.telluriumsource.ui.object.Repeat
 
 /**
- *   Use group information, i.e., use its direct descedants' information to form its own locator
+ *   Use group information, i.e., use its direct descendants' information to form its own locator
  *   In the future, we may consider deeper information such as grandchild descendants'. Note, only
  *   Container and its extended classes can use GroupLocateStrategy
  *

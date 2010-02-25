@@ -74,6 +74,9 @@ class ListRTree extends RTree{
   UiObject route(String key) {
     UiObject object = this.indices.get(key);
     if(object == null){
+      if("first".equalsIgnoreCase(key)){
+        key = "1";
+      }
       String[] list = this.generatePath(key);
       Path path = new Path(list);
       object = this.walkTo(key, path);
