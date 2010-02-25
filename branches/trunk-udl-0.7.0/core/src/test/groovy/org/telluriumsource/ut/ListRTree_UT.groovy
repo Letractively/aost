@@ -109,7 +109,7 @@ class ListRTree_UT extends GroovyTestCase {
     tree.insert(three);
 
     try{
-      UiObject a = tree.route("A");
+      tree.route("A");
       fail("Should throw InvalidIndexException");
     }catch(InvalidIndexException e){
     }
