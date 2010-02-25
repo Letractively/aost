@@ -5,8 +5,6 @@ import org.telluriumsource.dsl.UiID
 import org.telluriumsource.ui.locator.LocatorProcessor
 import org.telluriumsource.ui.locator.GroupLocateStrategy
 import org.json.simple.JSONObject
-import org.telluriumsource.framework.Environment;
-import org.telluriumsource.crosscut.i18n.IResourceBundle;
 
 /**
  *  container
@@ -16,8 +14,7 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle;
  */
 class Container extends UiObject {
 
-  public static final String GROUP = "group"
-    protected IResourceBundle i18nBundle
+    public static final String GROUP = "group"
 
     //if it uses group informtion to infer its locator
     protected boolean useGroupInfo = false
@@ -31,9 +28,6 @@ class Container extends UiObject {
     //since we use map, the component name must be unique
     def components = [:]
 
-    public Container(){
-    	  i18nBundle = Environment.instance.myResourceBundle()
-    }
     def add(UiObject component){
         components.put(component.uid, component)
     }

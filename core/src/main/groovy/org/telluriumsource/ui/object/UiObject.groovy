@@ -7,6 +7,8 @@ import org.telluriumsource.component.event.Event
 import org.json.simple.JSONObject
 import org.json.simple.JSONArray
 import org.telluriumsource.udl.MetaData
+import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.telluriumsource.framework.Environment
 
 /**
  *  Basic UI object
@@ -18,7 +20,7 @@ abstract class UiObject implements Cloneable{
 
   /*
   Let UI Object be a pure data structure and only include placeholders for
-  methods wich should be responsed to.
+  methods which should be responded to.
 
   decoupling them and let them be handled by DSL ddc framework
 
@@ -83,6 +85,12 @@ abstract class UiObject implements Cloneable{
     //respond to JavaScript events
     public static final String EVENTS = "events"
     String[] respondToEvents
+
+    protected IResourceBundle i18nBundle
+
+    public UiObject(){
+      i18nBundle = Environment.instance.myResourceBundle()
+    }
 
     abstract JSONObject toJSON()
 

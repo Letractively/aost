@@ -31,12 +31,12 @@ public class GoogleBookTestCase extends TelluriumJUnitTestCase {
         connectSeleniumServer();
         //enableLogging(LogLevels.ALL);        
 
-        useCssSelector(true);
+/*        useCssSelector(true);
 
         useTelluriumApi(true);
         useTrace(true);
         useCache(true);
-        useMacroCmd(true);
+        useMacroCmd(true);*/
     }
 
     @Before
