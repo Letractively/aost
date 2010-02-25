@@ -85,6 +85,11 @@ class ListRTree_UT extends GroovyTestCase {
     assertNotNull(f);
     assertEquals("B", f.metaData.id);
     assertEquals("odd", f.metaData.index.value);
+
+    UiObject g = tree.route("first");
+    assertNotNull(g);
+    assertEquals("D", g.metaData.id);
+    assertEquals("first", g.metaData.index.value);
   }
 
   public void testPartialTree(){
