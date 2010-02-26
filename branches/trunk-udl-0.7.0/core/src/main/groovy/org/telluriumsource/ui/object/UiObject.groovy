@@ -64,6 +64,7 @@ abstract class UiObject implements Cloneable{
     public static final String UID = "uid"
     String uid
 
+    public static final String META_DATA = "metaData"
     MetaData metaData;
 
     public static final String NAMESPACE = "namespace"
@@ -96,7 +97,10 @@ abstract class UiObject implements Cloneable{
 
     protected JSONObject buildJSON(Closure c){
       JSONObject jso = new JSONObject()
-      jso.put(UID, uid)
+//      jso.put(UID, uid)
+      jso.put(UID, tid)
+      if(this.metaData != null)
+        jso.put(META_DATA, this.metaData.toJSON())
       if(!cacheable)
         jso.put(LAZY, !this.cacheable)
       if(self)
@@ -181,7 +185,7 @@ abstract class UiObject implements Cloneable{
     }
 
     public boolean respondsTo(String name,  Object[] argTypes){
-      List<MetaMethod> list = this.metaClass.respondsTo(this, name, argTypes)
+      java.util.List<MetaMethod> list = this.metaClass.respondsTo(this, name, argTypes)
 
       return (list != null && list.size() > 0)
     }
