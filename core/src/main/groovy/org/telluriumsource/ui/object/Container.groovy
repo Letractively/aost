@@ -43,7 +43,8 @@ class Container extends UiObject {
     @Override
     protected JSONObject buildJSON(Closure c){
       JSONObject jso = new JSONObject()
-      jso.put(UID, uid)
+//      jso.put(UID, uid)
+      jso.put(UID, tid)
       if (!cacheable)
         jso.put(LAZY, !this.cacheable)
       if(locator != null)
