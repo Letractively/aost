@@ -21,7 +21,7 @@ import org.telluriumsource.exception.InvalidUidException
  */
 class List extends Container {
 
-  public static final String ALL_MATCH = "ALL";
+    public static final String ALL_MATCH = "ALL";
 
     public static final String SEPARATOR = "separator"
     //the separator for the list, it is empty by default
@@ -480,9 +480,18 @@ class List extends Container {
       int max = 0;
       boolean hasAll = false;
       this.components.each {String uid, UiObject obj ->
-        String auid = uid.replaceFirst('_', '')
-        if ("ALL".equalsIgnoreCase(auid.trim())) {
+//        String auid = uid.replaceFirst('_', '')
+        String auid = obj.metaData.getIndex().getValue()
+        if ("ALL".equalsIgnoreCase(auid)) {
           hasAll = true;
+        }else if("any".equalsIgnoreCase(auid)){
+          if(this.separator != null && this.separator.trim().length() > 0){
+             sb.append(ident + "  <${separator}>\n")
+          }
+          sb.append(obj.toHTML());
+          if (this.separator != null && this.separator.trim().length() > 0) {
+            sb.append(ident + "  </${separator}>\n")
+          }
         }else{
           int indx = Integer.parseInt(auid)
           if (indx > max) {
@@ -498,7 +507,8 @@ class List extends Container {
         if(this.separator != null && this.separator.trim().length() > 0){
           sb.append(ident + "  <${separator}>\n")
         }
-        UiObject obj = findUiObject(i)
+//        UiObject obj = findUiObject(i)
+        UiObject obj = this.locateChild("${i}")
         if(obj == null)
           obj = defaultUi
         sb.append(obj.toHTML());
@@ -521,21 +531,32 @@ class List extends Container {
 
       int max = 0
       components.each {key, component->
-        String aid = key.replaceFirst('_', '')
+//        String aid = key.replaceFirst('_', '')
+        String aid = component.metaData.getIndex().getValue()
         if(aid ==~ /[0-9]+/){
           context.directPushUid("[${aid}]")
           component.traverse(context)
           if(max < Integer.parseInt(aid))
             max = Integer.parseInt(aid)
+        }else if("any".equalsIgnoreCase(aid) || "last".equalsIgnoreCase(aid) || "first".equalsIgnoreCase(aid)){
+           String id =component.metaData.getId() 
+           context.directPushUid("[${id}]")
+           component.traverse(context)
+        }else if("all".equalsIgnoreCase(aid)){
+           max++;
+           context.directPushUid("[${max}]")
+           component.traverse(context)
         }
       }
 
+/*
       UiObject obj = components.get("_ALL")
       max++;
       if(obj == null)
         obj = defaultUi
       context.directPushUid("[${max}]")
       obj.traverse(context)
+      */
       context.popUid()
     }
 
