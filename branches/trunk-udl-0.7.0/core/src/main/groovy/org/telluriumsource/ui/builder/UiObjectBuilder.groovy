@@ -30,7 +30,7 @@ abstract class UiObjectBuilder extends Const {
     	i18nBundle = Environment.instance.myResourceBundle();
     }
     boolean validate(UiObject obj, Map map){
-    	Environment env = Environment.instance
+//    	Environment env = Environment.instance
         boolean valid = true
         if(map == null || map.isEmpty()){
 
@@ -82,7 +82,8 @@ abstract class UiObjectBuilder extends Const {
 //        obj.uid = map.get(UID)
         obj.uid = dsluid;
         //by default, the ui object's template id is its uid, which is a String constant
-        obj.tid = obj.uid
+//        obj.tid = obj.uid
+        obj.tid = obj.metaData.getId();
         String ns = map.get(NAMESPACE)
         if(ns != null && ns.trim().length() > 0){
           obj.namespace = ns.trim()
