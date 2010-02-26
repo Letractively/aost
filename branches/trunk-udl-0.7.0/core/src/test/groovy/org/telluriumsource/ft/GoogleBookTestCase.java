@@ -73,6 +73,11 @@ public class GoogleBookTestCase extends TelluriumJUnitTestCase {
     }
 
     @Test
+    public void testToHTML(){
+        System.out.println(gbm.toHTML("GoogleBooksList"));
+    }
+
+    @Test
     public void testGetHTMLSource(){
         useEngineLog(true);
         useTelluriumApi(true);
