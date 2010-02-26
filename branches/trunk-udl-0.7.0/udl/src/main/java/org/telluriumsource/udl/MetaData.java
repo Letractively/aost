@@ -1,5 +1,9 @@
 package org.telluriumsource.udl;
 
+import org.json.simple.JSONObject;
+
+import java.rmi.server.UID;
+
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
@@ -7,6 +11,7 @@ package org.telluriumsource.udl;
  *
  */
 public class MetaData {
+    public static String ID = "id";
     protected String id;
 
     public MetaData() {
@@ -23,4 +28,11 @@ public class MetaData {
     public void setId(String id) {
         this.id = id;
     }
+
+    public JSONObject toJSON() {
+        JSONObject jso = new JSONObject();
+        jso.put(ID, this.id);
+        return jso;
+    }
+
 }

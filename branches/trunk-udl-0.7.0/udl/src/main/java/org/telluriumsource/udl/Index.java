@@ -1,5 +1,6 @@
 package org.telluriumsource.udl;
 
+import org.json.simple.JSONObject;
 import org.telluriumsource.udl.code.IndexType;
 
 /**
@@ -8,7 +9,10 @@ import org.telluriumsource.udl.code.IndexType;
  *         Date: Feb 18, 2010
  */
 public class Index {
+    public static final String TYPE = "type";
     IndexType type;
+
+    public static final String VALUE = "value";
     String value;
 
     public Index() {
@@ -38,5 +42,13 @@ public class Index {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public JSONObject toJSON() {
+        JSONObject jso = new JSONObject();
+        jso.put(TYPE, this.type.name());
+        jso.put(VALUE, this.value);
+        
+        return jso;
     }
 }
