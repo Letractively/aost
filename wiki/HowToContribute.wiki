@@ -14,7 +14,7 @@ Tellurium is like a newborn and he needs your support and contribution. We welco
 
 For very active users in Tellurium user group, we will consider you as Tellurium contributors. We will provide you the open source license for the IntelliJ IDEA. A Tellurium contributor can be nominated by one of Tellurium team members as a new Tellurium team member. Tellurium team members will vote if we accept the contributor as a member. If most existing members agree, then the contributor will become a project member and contribute more to Tellurium.
 
-Our project team is open for new members and is expecting new members. We will recruit new members from Tellurium contributors. But if you think you are exceptional and want to contribute to Tellurium code immediately, please contact Jian Fang (John.Jian.Fang@gmail.com) or other existing Tellurium members.
+Our project team is open for new members and is expecting new members. We will recruit new members from Tellurium contributors. But if you think you are exceptional and want to contribute to Tellurium code immediately, please contact Jian Fang or other existing Tellurium members.
 
 We need some new developers who are JavaScript and jQuery experts to join our development team. If you have free time and want to contribute to Tellurium, please contact Jian Fang or other existing Tellurium members.
  
