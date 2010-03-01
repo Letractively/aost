@@ -15,6 +15,13 @@ class CheckBox extends UiObject{
   public static final String TAG = "input"
   public static final String TYPE = "checkbox"
 
+  public JSONObject toJSON() {
+
+    return buildJSON() {jso ->
+      jso.put(UI_TYPE, "CheckBox")
+    }
+  }
+  
   def click(Closure c) {
 
     c(locator, respondToEvents)
@@ -30,14 +37,24 @@ class CheckBox extends UiObject{
     c(locator, respondToEvents)
   }
 
+  def check(Closure c) {
+
+    c(locator, respondToEvents)
+  }
+
+  def boolean isChecked(Closure c) {
+
+//        c(locator, respondToEvents)
+    c(locator)
+  }
+
+  def uncheck(Closure c) {
+
+    c(locator, respondToEvents)
+  }
+
   String getValue(Closure c) {
     return c(locator)
   }
 
-  public JSONObject toJSON() {
-
-    return buildJSON() {jso ->
-      jso.put(UI_TYPE, "CheckBox")
-    }
-  }
 }
