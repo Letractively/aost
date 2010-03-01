@@ -12,29 +12,32 @@ import org.json.simple.JSONObject
  */
 class CheckBox extends UiObject{
 
-    public static final String TAG = "input"
-    public static final String TYPE = "checkbox"
-    
+  public static final String TAG = "input"
+  public static final String TYPE = "checkbox"
+
   def click(Closure c) {
 
-      c(locator, respondToEvents)
+    c(locator, respondToEvents)
   }
 
   def doubleClick(Closure c) {
 
-      c(locator, respondToEvents)
+    c(locator, respondToEvents)
   }
 
   def clickAt(String coordination, Closure c) {
 
-      c(locator, respondToEvents)
+    c(locator, respondToEvents)
   }
 
+  String getValue(Closure c) {
+    return c(locator)
+  }
 
-    public JSONObject toJSON() {
+  public JSONObject toJSON() {
 
-      return buildJSON(){jso ->
-        jso.put(UI_TYPE, "CheckBox")
-      }
+    return buildJSON() {jso ->
+      jso.put(UI_TYPE, "CheckBox")
     }
+  }
 }
