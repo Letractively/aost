@@ -1,7 +1,34 @@
+function Index(){
+    this.type = null;
+    this.value = null;
+}
+
+var MetaData = Class.extend({
+   init: function() {
+       this.id = null;
+   }
+});
+
+var ListMetaData = MetaData.extend({
+    init: function(){
+        this._super();
+        this.index = null;
+    }
+});
+
+var TableMetaData = MetaData.extend({
+    init: function(){
+        this._super();
+        this.tbody = null;
+        this.row = null;
+        this.column = null;
+    }
+});
 
 //base UI object
 var UiObject = Class.extend({
     init: function() {
+        //UI object identification
         this.uid = null;
 
         //meta data
