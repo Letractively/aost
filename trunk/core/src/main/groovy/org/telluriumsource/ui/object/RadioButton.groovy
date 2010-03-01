@@ -12,34 +12,50 @@ import org.json.simple.JSONObject
  */
 class RadioButton extends UiObject {
 
-    public static final String TAG = "input"
-    public static final String TYPE = "radio"
+  public static final String TAG = "input"
+  public static final String TYPE = "radio"
 
-    public JSONObject toJSON() {
+  public JSONObject toJSON() {
 
-      return buildJSON() {jso ->
-        jso.put(UI_TYPE, "RadioButton")
-      }
+    return buildJSON() {jso ->
+      jso.put(UI_TYPE, "RadioButton")
     }
+  }
 
-    def check(Closure c){
+  def click(Closure c) {
 
-        c(locator, respondToEvents)
-    }
+    c(locator, respondToEvents)
+  }
 
-    def boolean isChecked(Closure c){
+  def doubleClick(Closure c) {
+
+    c(locator, respondToEvents)
+  }
+
+  def clickAt(String coordination, Closure c) {
+
+    c(locator, respondToEvents)
+  }
+
+
+  def check(Closure c) {
+
+    c(locator, respondToEvents)
+  }
+
+  def boolean isChecked(Closure c) {
 
 //        c(locator, respondToEvents)
-        c(locator)
-    }
+    c(locator)
+  }
 
-    def uncheck(Closure c){
+  def uncheck(Closure c) {
 
-        c(locator, respondToEvents)
-    }
+    c(locator, respondToEvents)
+  }
 
-    String getValue(Closure c){
-       return c(locator)
-    }
+  String getValue(Closure c) {
+    return c(locator)
+  }
 
 }
