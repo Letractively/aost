@@ -26,7 +26,8 @@ class Container extends UiObject {
     protected boolean noCacheForChildren = false
 
     //since we use map, the component name must be unique
-    def components = [:]
+//    def components = [:]
+   Map<String, UiObject> components = new HashMap<String, UiObject>();
 
     def add(UiObject component){
         components.put(component.uid, component)
