@@ -4,6 +4,9 @@ var UiObject = Class.extend({
     init: function() {
         this.uid = null;
 
+        //meta data
+        this.metaData = null;
+
         //its parent UI object
         this.parent = null;
 
