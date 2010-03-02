@@ -91,7 +91,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium.server</groupId>
             <artifactId>selenium-server</artifactId>
-            <version>${selenium-version}-${tellurium-engine-version}</version>
+            <version>${selenium-server-version}-${tellurium-engine-version}</version>
             <!--classifier>standalone</classifier-->
         </dependency>
         <dependency>
