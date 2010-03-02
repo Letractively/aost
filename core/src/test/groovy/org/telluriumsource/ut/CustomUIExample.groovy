@@ -57,6 +57,15 @@ public class CustomUIExample extends DslContext {
           InputBox(uid: "dependentFirstName", clocator: [id: '^ctl00_ctl00_bcr_bcr_ucDependent_RFirstName_'])
         }
     }
+
+    ui.Container(uid: "repeat", clocator:[tag: "div"]){
+      Repeat(uid:'expender',clocator:[tag:'div',class:'Expander !narrow'],respond:['click']){
+        UrlLink(uid: "link", clocator:[:])
+      }
+      Repeat(uid:'narrow',clocator:[tag:'div',class:'Expander narrow'],respond:['click']){
+        UrlLink(uid: "link", clocator:[:])
+      }
+    }
   }
 
   public String getXCaseStatus(int tabnum){

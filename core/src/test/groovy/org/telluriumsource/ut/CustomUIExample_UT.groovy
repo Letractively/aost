@@ -50,4 +50,11 @@ public class CustomUIExample_UT extends GroovyTestCase {
     cue.defineUi();
     cue.dump("confirmation");
   }
+
+  public void testNotSelectorForClassAttribute(){
+    CustomUIExample cue = new CustomUIExample();
+    cue.defineUi();
+    cue.enableCssSelector();
+    cue.dump("repeat");
+  }
 }
