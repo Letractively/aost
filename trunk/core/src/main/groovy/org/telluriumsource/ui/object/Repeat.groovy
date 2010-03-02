@@ -44,7 +44,17 @@ class Repeat extends Container {
 
       return c(this.locator)
     }
-  
+
+/*    @Override
+    public void traverse(WorkflowContext context){
+      context.appendToUidList(context.getUid() + "[1]")
+      components.each {key, component->
+        context.pushUid("[1]." + key)
+        component.traverse(context)
+      }
+      context.popUid()
+    }*/
+
     @Override
     public UiObject walkTo(WorkflowContext context, UiID uiid){
       

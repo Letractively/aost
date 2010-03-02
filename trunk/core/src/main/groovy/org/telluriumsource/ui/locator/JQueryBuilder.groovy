@@ -120,7 +120,8 @@ public class JQueryBuilder {
     }else if(val.startsWith(ANY_PREFIX)){
       return "[class*=${val.substring(1)}]"
     }else if(val.startsWith(NOT_PREFIX)){
-      return "[class!=${val.substring(1)}]"
+//      return "[class!=${val.substring(1)}]"
+      return ":not(${CLASS_SELECTOR_PREFIX}${val.substring(1)})"
     }else{
       return "${CLASS_SELECTOR_PREFIX}${val}"
     }

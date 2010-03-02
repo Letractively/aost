@@ -98,7 +98,11 @@ class Container extends UiObject {
     public void traverse(WorkflowContext context){
       context.appendToUidList(context.getUid())
       components.each {key, component->
-        context.pushUid(key)
+        if(component instanceof Repeat){
+          context.pushUid(key + "[1]")
+        }else{
+          context.pushUid(key)
+        }
         component.traverse(context)
       }
       context.popUid()
