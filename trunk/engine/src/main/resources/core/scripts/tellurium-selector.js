@@ -302,7 +302,8 @@ JQueryBuilder.prototype.attrSingleClass = function(clazz) {
     } else if (clazz.startsWith(this.ANY_PREFIX)) {
         return "[class*=" + clazz.substring(1) + "]";
     } else if (clazz.startsWith(this.NOT_PREFIX)) {
-        return "[class!=" + clazz.substring(1) + "]";
+//        return "[class!=" + clazz.substring(1) + "]";
+        return ":not(." + clazz.substring(1) + ")";
     } else {
         return this.CLASS_SELECTOR_PREFIX + this.escape(clazz);
     }
@@ -524,7 +525,8 @@ JQueryBuilder.prototype.buildSingleClass = function(clazz){
     }else if(clazz.startsWith("*")){
         return "[class*=" + clazz.substring(1) + "]";
     }else if(clazz.startsWith("!")){
-        return "[class!=" + clazz.substring(1) + "]";
+//        return "[class!=" + clazz.substring(1) + "]";
+        return ":not(." + clazz.substring(1) + ")";
     }else{
         return "." + clazz;
     }
