@@ -55,6 +55,52 @@
 			<name>SpringSource Enterprise Bundle Repository - External Bundle Milestones</name>
 			<url>http://maven.springframework.org/milestone</url>
 		</repository>
+        <repository>
+            <id>caja</id>
+            <url>http://google-caja.googlecode.com/svn/maven</url>
+        </repository>
+        <repository>
+            <id>kungfuters-public-snapshots-repo</id>
+            <name>Kungfuters.org Public Snapshot Repository</name>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <url>http://maven.kungfuters.org/content/repositories/snapshots</url>
+        </repository>
+        <repository>
+            <id>kungfuters-public-releases-repo</id>
+            <name>Kungfuters.org Public Releases Repository</name>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://maven.kungfuters.org/content/repositories/releases</url>
+        </repository>
+        <repository>
+            <id>kungfuters-thirdparty-releases-repo</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://maven.kungfuters.org/content/repositories/thirdparty</url>
+        </repository>
+        <repository>
+            <id>openqa-release-repo</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://archiva.openqa.org/repository/releases</url>
+        </repository>        
 	</repositories>
     
     <pluginRepositories>
@@ -70,6 +116,14 @@
                 <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
+        <pluginRepository>
+            <id>codehaus snapshot repository</id>
+            <url>http://snapshots.repository.codehaus.org/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+        
     </pluginRepositories>
 
 	<dependencies>
@@ -175,16 +229,16 @@
 			<artifactId>org.springframework.context</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
- <dependency>
-  <groupId>org.springframework</groupId>
-  <artifactId>spring-context-support</artifactId>
-  <version>${spring.version}</version>
-</dependency>
-<dependency>
-  <groupId>org.springframework</groupId>
-  <artifactId>spring-tx</artifactId>
-  <version>${spring.version}</version>
-</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
         
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -323,10 +377,115 @@
             <artifactId>spring-core</artifactId>
             <version>3.0.0.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.codehaus.gmaven</groupId>
+            <artifactId>gmaven-mojo</artifactId>
+            <version>${gmaven-version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.gmaven.runtime</groupId>
+                    <artifactId>gmaven-runtime-1.5</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.gmaven.runtime</groupId>
+            <artifactId>gmaven-runtime-1.6</artifactId>
+            <version>${gmaven-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.7</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.telluriumsource</groupId>
+            <artifactId>tellurium-core</artifactId>
+            <version>${tellurium-version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>5.8</version>
+            <classifier>jdk15</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium.server</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>${selenium-version}-${tellurium-engine-version}</version>
+            <!--classifier>standalone</classifier-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium.client-drivers</groupId>
+            <artifactId>selenium-java-client-driver</artifactId>
+            <version>${selenium-version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.groovy.maven.runtime</groupId>
+                    <artifactId>gmaven-runtime-default</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium.core</groupId>
+                    <artifactId>selenium-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium.server</groupId>
+                    <artifactId>selenium-server</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>caja</groupId>
+            <artifactId>json_simple</artifactId>
+            <version>r1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.stringtree</groupId>
+            <artifactId>stringtree-json</artifactId>
+            <version>2.0.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.0.1-FINAL</version>
+        </dependency>
 
     </dependencies>
 
 	<build>
+         <resources>
+            <resource>
+                <directory>src/main/java</directory>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/java</directory>
+            </testResource>
+            <testResource>
+                <directory>src/test/groovy</directory>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>       
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -345,8 +504,10 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.0.2</version>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<!--source>1.5</source>
+					<target>1.5</target-->
+                    <source>${java-version}</source>
+					<target>${java-version}</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -508,6 +669,28 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>${gmaven-version}</version>
+                <configuration>
+                    <providerSelection>1.7</providerSelection>
+                    <targetBytecode>${java-version}</targetBytecode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <!-- The generateStubs goals are not yet working for enums and generics -->
+                            <goal>generateStubs</goal>
+                            <goal>compile</goal>
+                            <goal>generateTestStubs</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
 		</plugins>
 	</build>
 	<properties>
@@ -515,5 +698,12 @@
 		<webflow.version>2.0.8.RELEASE</webflow.version>
 		<aspectj.version>1.6.5.RELEASE</aspectj.version>
 		<spring.security.version>3.0.0.RELEASE</spring.security.version>
+        <java-version>1.6</java-version>
+        <groovy-version>1.7.0</groovy-version>
+        <gmaven-version>1.2</gmaven-version>
+        <selenium-version>1.0.1</selenium-version>
+        <tellurium-engine-version>te2-SNAPSHOT</tellurium-engine-version>
+        <tellurium-version>0.7.0-SNAPSHOT</tellurium-version>
+        <javac-debug>true</javac-debug>        
 	</properties>
 </project>
