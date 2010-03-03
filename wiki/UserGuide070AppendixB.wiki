@@ -57,7 +57,7 @@ Tellurium also provides data driven testing. Data Driven Testing is a different 
 
 Tellurium UI Model Plugin (TrUMP) is a Firefox Plugin used to automatically generate UI modules simply by clicking on the web page under testing. A user can download it from the Tellurium download page at:
 
-[http://code.google.com/p/aost/downloads/list http://code.google.com/p/aost/downloads/list]
+[http://code.google.com/p/aost/downloads/list http://code.google.com/p/aost/download/list]
 
 or from Firefox Addons site at:
 
@@ -89,15 +89,16 @@ As a result, you can create a Tellurium project using one Maven command. For a T
 
 {{{
 mvn archetype:create -DgroupId =your_group_id -DartifactId=your_artifact_id \
--DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium\ -DarchetypeVersion=0.7.0-SNAPSHOT \ -DarchetypeRepository
-= [http://maven.kungfuters.org/content/repositories/snapshots http://maven.kungfuters.org/content/repositories/snapshots]
+-DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium\ -DarchetypeVersion=0.7.0-SNAPSHOT \ 
+-DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
 }}}
 
 and for a Tellurium TestNG project, use
 
 {{{
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
--DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium \ -DarchetypeVersion=0.7.0-SNAPSHOT \ -DarchetypeRepository=[http://maven.kungfuters.org/content/repositories/snapshots http://maven.kungfuters.org/content/repositories/snapshots]
+-DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium \ -DarchetypeVersion=0.7.0-SNAPSHOT \ 
+-DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots 
 }}}
 For more details, please read "Tellurium Maven archetypes",
 
