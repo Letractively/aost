@@ -1,4 +1,4 @@
-package org.telluriumsource.test;
+package org.telluriumsource.integration;
 
 import org.junit.*;
 import org.telluriumsource.module.AccountModule;
@@ -12,7 +12,7 @@ import java.util.Date;
  *
  *         Date: Mar 3, 2010
  */
-public class AccountTestCase extends TelluriumJUnitTestCase {
+public class Account_IT extends TelluriumJUnitTestCase {
     private static AccountModule acm;
     @BeforeClass
     public static void initUi() {
