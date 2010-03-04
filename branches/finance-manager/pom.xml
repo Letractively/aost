@@ -154,6 +154,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>com.springsource.org.testng</artifactId>
+			<version>5.8.0</version>
+			<scope>test</scope>
+		</dependency>        
+		<dependency>
 			<groupId>org.apache.log4j</groupId>
 			<artifactId>com.springsource.org.apache.log4j</artifactId>
 			<version>1.2.15</version>
@@ -375,7 +381,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>3.0.0.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.gmaven</groupId>
@@ -508,6 +514,7 @@
 				<version>2.4.3</version>
                 <configuration>
                     <junitArtifactName>org.junit:com.springsource.org.junit</junitArtifactName>
+                    <testNGArtifactName>org.testng:com.springsource.org.testng</testNGArtifactName>
                     <excludes>
                         <exclude>**/integration/**</exclude>
                     </excludes>
@@ -588,8 +595,8 @@
                         <home>/usr/local/tomcat</home>
                     </container>
                     <configuration>
-                        &lt;!&ndash;<type>standalone</type>&ndash;&gt;
-                        &lt;!&ndash;<home>target/tomcat6x</home>&ndash;&gt;
+&lt;!&ndash;                        <type>standalone</type>
+                        <home>target/tomcat6x</home>&ndash;&gt;
                         <type>existing</type>
                         <home>/usr/local/tomcat</home>
                         <properties>
@@ -610,8 +617,8 @@
                             </deployable>
                         </deployables>
                     </deployer>
-                </configuration>-->
-                    <container>
+                   </configuration>-->
+                   <container>
                         <containerId>tomcat6x</containerId>
 
                         <zipUrlInstaller>
@@ -647,7 +654,7 @@
                         <id>start-container</id>
                         <phase>pre-integration-test</phase>
                         <goals>
-                           <!--<goal>deployer-deploy</goal>-->
+                            <!--<goal>deployer-deploy</goal>-->
                             <goal>start</goal>
                             <goal>deploy</goal>
                         </goals>
