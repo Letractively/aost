@@ -4,7 +4,7 @@
 
 = Introduction =
 
-Tellurium provides users with a way to create structured integration tests. This article introduces how to use the [http://cargo.codehaus.org/Maven2+plugin Maven Cargo Plugin] to automatically deploy web application and run Tellurium Integration Tests.
+Tellurium provides users with a way to create structured integration tests. This article introduced how to use the [http://cargo.codehaus.org/Maven2+plugin Maven Cargo Plugin] to automatically deploy web application and run Tellurium Integration Tests.
 
 = Example =
 
