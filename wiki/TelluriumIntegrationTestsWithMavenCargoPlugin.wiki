@@ -181,10 +181,10 @@ We need to add the following update to the original pom.xml for the Spring Finan
 === Plugins ===
 
 {{{
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.4.3</version>
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-surefire-plugin</artifactId>
+		<version>2.4.3</version>
                 <configuration>
                     <junitArtifactName>org.junit:com.springsource.org.junit</junitArtifactName>
                     <testNGArtifactName>org.testng:com.springsource.org.testng</testNGArtifactName>
@@ -460,5 +460,28 @@ The configuration looks somehow different.
                     </execution>
                 </executions>
             </plugin>
-
 }}}
+
+= Run =
+
+To run the tellurium integration tests, simply run 
+
+{{{
+mvn install
+}}}
+
+or 
+
+{{{
+mvn integration-test
+}}}
+
+= Resources =
+
+  * [http://twitter.com/TelluriumSource Tellurium on Twitter] 
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group]  
+  * [http://cargo.codehaus.org/Maven2+plugin Cargo Maven 2 Plugin]
+  * [http://dpillay.wordpress.com/2009/04/12/maven-cargo-tomcat-auto-deployment/ Maven + Cargo + Tomcat = Auto-deployment]
+  * [http://java.dzone.com/articles/automated-deployment-cargo-and Automated Deployment With Cargo and Maven - a Short Primer]
+
+  
