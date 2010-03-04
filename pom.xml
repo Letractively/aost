@@ -681,7 +681,6 @@
                 <executions>
                     <execution>
                         <goals>
-                            <!-- The generateStubs goals are not yet working for enums and generics -->
                             <goal>generateStubs</goal>
                             <goal>compile</goal>
                             <goal>generateTestStubs</goal>
