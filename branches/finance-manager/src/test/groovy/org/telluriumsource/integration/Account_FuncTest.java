@@ -12,7 +12,7 @@ import java.util.Date;
  *
  *         Date: Mar 3, 2010
  */
-public class Account_IT extends TelluriumJUnitTestCase {
+public class Account_FuncTest extends TelluriumJUnitTestCase {
     private static AccountModule acm;
     @BeforeClass
     public static void initUi() {
@@ -26,7 +26,7 @@ public class Account_IT extends TelluriumJUnitTestCase {
 
     @Before
     public void connectToFinanceManager() {
-        connectUrl("http://localhost:8088/account");
+        connectUrl("http://localhost:8080/account");
     }
 
     @Test

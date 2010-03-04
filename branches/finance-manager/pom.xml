@@ -395,26 +395,12 @@
             <version>${gmaven-version}</version>
         </dependency>
 
-        <!--dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.7</version>
-            <scope>test</scope>
-        </dependency-->
-
         <dependency>
             <groupId>org.telluriumsource</groupId>
             <artifactId>tellurium-core</artifactId>
             <version>${tellurium-version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!--dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>5.8</version>
-            <classifier>jdk15</classifier>
-        </dependency-->
 
         <dependency>
             <groupId>org.seleniumhq.selenium.server</groupId>
@@ -541,7 +527,7 @@
                                 <exclude>none</exclude>
                             </excludes>
                             <includes>
-                                <include>**/integration/*_IT.java</include>
+                                <include>**/integration/*_FuncTest.java</include>
                             </includes>
                         </configuration>
                     </execution>
@@ -596,29 +582,32 @@
                 <artifactId>cargo-maven2-plugin</artifactId>
                 <configuration>
                     <wait>false</wait>
-                    <!--container>
+                    <container>
                         <containerId>tomcat6x</containerId>
-                        <home>/usr/local/apache-tomcat-6.0.20</home>                        
+                        <home>/usr/local/tomcat</home>
                     </container>
                     <configuration>
                         <type>standalone</type>
                         <home>target/tomcat6x</home>
                         <properties>
-                            <cargo.servlet.port>8088</cargo.servlet.port>
+                            <cargo.servlet.port>8080</cargo.servlet.port>
                             <cargo.logging>high</cargo.logging>
                         </properties>
                     </configuration>                  
                     <deployer>
                         <deployables>
                             <deployable>
-                                <groupId>net.stsmedia.financemanager</groupId>
+                               <groupId>net.stsmedia.financemanager</groupId>
                                 <artifactId>FinanceManager</artifactId>
                                 <type>war</type>
+                                <properties>
+                                    <context>FinanceManager</context>
+                                </properties>
                             </deployable>
                         </deployables>
                     </deployer>
-                </configuration-->
-                <container>
+                </configuration>
+<!--                <container>
                         <containerId>tomcat6x</containerId>
 
                         <zipUrlInstaller>
@@ -630,18 +619,30 @@
 
                     <configuration>
                         <home>${project.build.directory}/tomcat6x/config</home>
-                         <properties>
-                            <cargo.servlet.port>8088</cargo.servlet.port>
+                        <properties>
+                            <cargo.servlet.port>8080</cargo.servlet.port>
                             <cargo.logging>high</cargo.logging>
-                        </properties>                     
+                        </properties>
                     </configuration>
-                    
-                </configuration>
+                    <deployer>
+                        <deployables>
+                            <deployable>
+                                <groupId>net.stsmedia.financemanager</groupId>
+                                <artifactId>FinanceManager</artifactId>
+                                <type>war</type>
+                                <properties>
+                                    <context>FinanceManager</context>
+                                </properties>
+                            </deployable>
+                        </deployables>
+                    </deployer>
+                </configuration-->
                 <executions>
                     <execution>
                         <id>start-container</id>
                         <phase>pre-integration-test</phase>
                         <goals>
+                            <!--<goal>deployer-deploy</goal>-->
                             <goal>start</goal>
                         </goals>
                     </execution>
@@ -649,7 +650,8 @@
                         <id>stop-container</id>
                         <phase>post-integration-test</phase>
                         <goals>
-                            <goal>stop</goal>
+                            <!--<goal>deployer-undeploy</goal>-->
+                           <goal>stop</goal>
                         </goals>
                     </execution>
                 </executions>
