@@ -395,18 +395,18 @@
             <version>${gmaven-version}</version>
         </dependency>
 
-        <dependency>
+        <!--dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.7</version>
             <scope>test</scope>
-        </dependency>
+        </dependency-->
 
         <dependency>
             <groupId>org.telluriumsource</groupId>
             <artifactId>tellurium-core</artifactId>
             <version>${tellurium-version}</version>
-            <scope>compile</scope>
+            <scope>test</scope>
         </dependency>
 
         <!--dependency>
@@ -421,12 +421,14 @@
             <artifactId>selenium-server</artifactId>
             <version>${selenium-version}-${tellurium-engine-version}</version>
             <!--classifier>standalone</classifier-->
+            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.seleniumhq.selenium.client-drivers</groupId>
             <artifactId>selenium-java-client-driver</artifactId>
             <version>${selenium-version}</version>
+            <scope>test</scope>
             <exclusions>
                 <exclusion>
                     <groupId>org.codehaus.groovy.maven.runtime</groupId>
@@ -491,6 +493,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.0.2</version>
+ 
 				<!--
 					<configuration> <webXml>target/web.xml</webXml> </configuration>
 				-->
@@ -504,8 +507,6 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.0.2</version>
 				<configuration>
-					<!--source>1.5</source>
-					<target>1.5</target-->
                     <source>${java-version}</source>
 					<target>${java-version}</target>
 				</configuration>
@@ -519,17 +520,33 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.4.3</version>
-				<!--configuration>
-					<junitArtifactName>org.junit:com.springsource.org.junit</junitArtifactName>
-				</configuration-->
                 <configuration>
                     <junitArtifactName>org.junit:com.springsource.org.junit</junitArtifactName>
+                    <excludes>
+                        <exclude>**/integration/**</exclude>
+                    </excludes>
+
                     <includes>
                         <include>**/*Test.java</include>
-                       <include>**/*TestCase.java</include>
                     </includes>
                 </configuration>
-			</plugin>
+                <executions>
+                    <execution>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>none</exclude>
+                            </excludes>
+                            <includes>
+                                <include>**/integration/*_IT.java</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -580,38 +597,6 @@
                 <configuration>
                     <wait>false</wait>
                     <!--container>
-                        <containerId>jetty6x</containerId>
-                        <type>embedded</type>
-                        <log>${project.build.directory}/log</log>
-                        <dependencies>
-                            <dependency>
-                                <groupId>javax.servlet</groupId>
-                                <artifactId>jstl</artifactId>
-                            </dependency>
-                            <dependency>
-                                <groupId>taglibs</groupId>
-                                <artifactId>standard</artifactId>
-                            </dependency>
-                        </dependencies>
-                        <systemProperties>
-                            <DEBUG>true</DEBUG>
-                        </systemProperties>
-                    </container>
-                    
-                    <configuration>
-                        <properties>
-                            <cargo.servlet.port>8088</cargo.servlet.port>
-                            <cargo.logging>high</cargo.logging>
-                        </properties>
-                        <deployables>
-                            <deployable>
-                                <groupId>net.stsmedia.financemanager</groupId>
-                                <artifactId>FinanceManager</artifactId>
-                                <type>war</type>
-                            </deployable>
-                        </deployables>
-                    </configuration-->
-                    <!--container>
                         <containerId>tomcat6x</containerId>
                         <home>/usr/local/apache-tomcat-6.0.20</home>                        
                     </container>
@@ -648,28 +633,21 @@
                          <properties>
                             <cargo.servlet.port>8088</cargo.servlet.port>
                             <cargo.logging>high</cargo.logging>
-                        </properties>
-                        <deployables>
-                            <deployable>
-                                <groupId>net.stsmedia.financemanager</groupId>
-                                <artifactId>FinanceManager</artifactId>
-                                <type>war</type>
-                            </deployable>
-                        </deployables>                       
+                        </properties>                     
                     </configuration>
                     
                 </configuration>
                 <executions>
                     <execution>
                         <id>start-container</id>
-                        <phase>test-compile</phase>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>start</goal>
                         </goals>
                     </execution>
                     <execution>
                         <id>stop-container</id>
-                        <phase>package</phase>
+                        <phase>post-integration-test</phase>
                         <goals>
                             <goal>stop</goal>
                         </goals>
