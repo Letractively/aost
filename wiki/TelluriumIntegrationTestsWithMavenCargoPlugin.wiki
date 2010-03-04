@@ -1,0 +1,6 @@
+#summary Run Tellurium Integration Tests with Maven Cargo Plugin.
+#labels Phase-Support
+
+= Introduction =
+
+Tellurium provides users with a way to create structured integration tests. This article introduces how to use the [http://cargo.codehaus.org/Maven2+plugin Maven Cargo Plugin] to automatically web application and run Tellurium Integration Tests.
