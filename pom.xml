@@ -582,14 +582,14 @@
                 <artifactId>cargo-maven2-plugin</artifactId>
                 <configuration>
                     <wait>false</wait>
-                    <container>
+<!--                    <container>
                         <type>installed</type>
                         <containerId>tomcat6x</containerId>
                         <home>/usr/local/tomcat</home>
                     </container>
                     <configuration>
-                        <!--<type>standalone</type>-->
-                        <!--<home>target/tomcat6x</home>-->
+                        &lt;!&ndash;<type>standalone</type>&ndash;&gt;
+                        &lt;!&ndash;<home>target/tomcat6x</home>&ndash;&gt;
                         <type>existing</type>
                         <home>/usr/local/tomcat</home>
                         <properties>
@@ -610,8 +610,8 @@
                             </deployable>
                         </deployables>
                     </deployer>
-                </configuration>
-<!--                <container>
+                </configuration>-->
+                    <container>
                         <containerId>tomcat6x</containerId>
 
                         <zipUrlInstaller>
@@ -629,6 +629,7 @@
                         </properties>
                     </configuration>
                     <deployer>
+                        <type>installed</type>
                         <deployables>
                             <deployable>
                                 <groupId>net.stsmedia.financemanager</groupId>
@@ -640,15 +641,15 @@
                             </deployable>
                         </deployables>
                     </deployer>
-                </configuration-->
+                </configuration>
                 <executions>
                     <execution>
                         <id>start-container</id>
                         <phase>pre-integration-test</phase>
                         <goals>
-                           <goal>deployer-deploy</goal>
+                           <!--<goal>deployer-deploy</goal>-->
                             <goal>start</goal>
-                            <!--<goal>deploy</goal>-->
+                            <goal>deploy</goal>
                         </goals>
                     </execution>
                     <execution>
