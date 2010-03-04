@@ -11,7 +11,17 @@ import org.telluriumsource.dsl.DslContext
  * 
  */
 class LoginModule extends DslContext {
+  
   public void defineUi() {
+    ui.Container(uid: "LoginMenu", clocator: [tag: "ul"]) {
+      TextBox(uid: "Security", clocator: [tag: "h2", text: "Security"])
+      UrlLink(uid: "Login", clocator: [tag: "a", text: "Login", href: "/FinanceManager/login.jsp"])
+      TextBox(uid: "Product", clocator: [tag: "h2", text: "Product"])
+      UrlLink(uid: "List", clocator: [tag: "a", text: "List", href: "/FinanceManager/product"])
+    }
+
+    ui.Span(uid: "LoginSlide", clocator: [tag: "span", text: "Spring Security Login", class: "dijitTitlePaneTextNode"])
+
     ui.Form(uid: "Login", clocator: [tag: "form", method: "POST", action: "/FinanceManager/j_spring_security_check", name: "f"]) {
       TextBox(uid: "UserNameLabel", clocator: [tag: "label", text: "Email:"])
       InputBox(uid: "UserName", clocator: [tag: "input", type: "text", name: "j_username", class: "dijitReset", id: "j_username"])
@@ -27,5 +37,19 @@ class LoginModule extends DslContext {
     keyType "Login.Password", password
     click "Login.Submit"
     waitForPageToLoad 30000
+  }
+
+  public void selectLogin(){
+    click "LoginMenu.Login"
+    waitForPageToLoad 30000
+  }
+
+  public void listProduct(){
+    click "LoginMenu.List"
+    waitForPageToLoad 30000
+  }
+
+  public void toggle(){
+    click "LoginSlide"
   }
 }
