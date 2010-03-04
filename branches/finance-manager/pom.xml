@@ -583,18 +583,22 @@
                 <configuration>
                     <wait>false</wait>
                     <container>
+                        <type>installed</type>
                         <containerId>tomcat6x</containerId>
                         <home>/usr/local/tomcat</home>
                     </container>
                     <configuration>
-                        <type>standalone</type>
-                        <home>target/tomcat6x</home>
+                        <!--<type>standalone</type>-->
+                        <!--<home>target/tomcat6x</home>-->
+                        <type>existing</type>
+                        <home>/usr/local/tomcat</home>
                         <properties>
                             <cargo.servlet.port>8080</cargo.servlet.port>
                             <cargo.logging>high</cargo.logging>
                         </properties>
                     </configuration>                  
                     <deployer>
+                        <type>installed</type>
                         <deployables>
                             <deployable>
                                <groupId>net.stsmedia.financemanager</groupId>
@@ -642,8 +646,9 @@
                         <id>start-container</id>
                         <phase>pre-integration-test</phase>
                         <goals>
-                            <!--<goal>deployer-deploy</goal>-->
+                           <goal>deployer-deploy</goal>
                             <goal>start</goal>
+                            <!--<goal>deploy</goal>-->
                         </goals>
                     </execution>
                     <execution>
@@ -651,7 +656,7 @@
                         <phase>post-integration-test</phase>
                         <goals>
                             <!--<goal>deployer-undeploy</goal>-->
-                           <goal>stop</goal>
+                            <goal>stop</goal>
                         </goals>
                     </execution>
                 </executions>

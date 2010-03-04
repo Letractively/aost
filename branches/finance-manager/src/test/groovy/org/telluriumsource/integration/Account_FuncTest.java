@@ -26,7 +26,7 @@ public class Account_FuncTest extends TelluriumJUnitTestCase {
 
     @Before
     public void connectToFinanceManager() {
-        connectUrl("http://localhost:8080/account");
+        connectUrl("http://localhost:8080/FinanceManager/account");
     }
 
     @Test
