@@ -334,3 +334,131 @@ public class FinanceManager_FuncTest extends TelluriumTestNGTestCase {
     }
 }
 }}}
+
+= Cargo Maven Plugin =
+
+The cargo Maven plugin is difficult to configure and we managed to set up cargo Maven plugin to deploy the web application to an installed tomcat instance and to download and create a tomcat instance.
+
+== Use An Installed Tomcat ==
+
+Assume we have a tomcat 6 installed at {{{/usr/local/tomcat}}}, the configuration is as follows.
+
+{{{
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <configuration>
+                    <wait>false</wait>
+                    <container>
+                        <type>installed</type>
+                        <containerId>tomcat6x</containerId>
+                        <home>/usr/local/tomcat</home>
+                    </container>
+                    <configuration>
+                        <type>existing</type>
+                        <home>/usr/local/tomcat</home>
+                        <properties>
+                            <cargo.servlet.port>8080</cargo.servlet.port>
+                            <cargo.logging>high</cargo.logging>
+                        </properties>
+                    </configuration>                  
+                    <deployer>
+                        <type>installed</type>
+                        <deployables>
+                            <deployable>
+                               <groupId>net.stsmedia.financemanager</groupId>
+                                <artifactId>FinanceManager</artifactId>
+                                <type>war</type>
+                                <properties>
+                                    <context>FinanceManager</context>
+                                </properties>
+                            </deployable>
+                        </deployables>
+                    </deployer>
+                   </configuration>
+
+               <executions>
+                    <execution>
+                        <id>start-container</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>deployer-deploy</goal>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop-container</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+}}}
+
+Be aware the line {{{<context>FinanceManager</context>}}} is used to override the default context from FinanceManager-0.5 to FinanceManager, otherwise the web application will break.
+
+Seems if the {{{<deployer>}}} section is defined, we have to call {{{<goal>deployer-deploy</goal>}}} explicitly. 
+
+== Download and Install A New Tomcat Instance ==
+
+The configuration looks somehow different. 
+
+{{{
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <configuration>
+                    <wait>false</wait>
+                   <container>
+                        <containerId>tomcat6x</containerId>
+
+                        <zipUrlInstaller>
+                            <url>http://www.apache.org/dist/tomcat/tomcat-6/v6.0.24/bin/apache-tomcat-6.0.24.zip</url>
+                            <installDir>${project.build.directory}/cargoinstalls</installDir>
+                        </zipUrlInstaller>
+                        <log>${project.build.directory}/tomcat6x/cargo.log</log>
+                    </container>
+
+                    <configuration>
+                        <home>${project.build.directory}/tomcat6x/config</home>
+                        <properties>
+                            <cargo.servlet.port>8080</cargo.servlet.port>
+                            <cargo.logging>high</cargo.logging>
+                        </properties>
+                    </configuration>
+                    <deployer>
+                        <type>installed</type>
+                        <deployables>
+                            <deployable>
+                                <groupId>net.stsmedia.financemanager</groupId>
+                                <artifactId>FinanceManager</artifactId>
+                                <type>war</type>
+                                <properties>
+                                    <context>FinanceManager</context>
+                                </properties>
+                            </deployable>
+                        </deployables>
+                    </deployer>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>start-container</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop-container</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+}}}
