@@ -4,3 +4,168 @@
 = Introduction =
 
 Tellurium provides users with a way to create structured integration tests. This article introduces how to use the [http://cargo.codehaus.org/Maven2+plugin Maven Cargo Plugin] to automatically web application and run Tellurium Integration Tests.
+
+= Example =
+
+We use the [http://code.google.com/p/spring-finance-manager/ Spring Finance Manager sample application] as the example. We upgraded this web application to Spring 3.0 release and all the code examples are available from [http://aost.googlecode.com/svn/branches/finance-manager Tellurium project].
+
+== Tellurium Code Structure ==
+
+To add Tellurium tests to the Spring Finance Manager sample application, we need to create the following directory to support GMaven.
+
+{{{
+src
+└── test
+    ├── groovy
+    │   └── org
+    │       └── telluriumsource
+    │           ├── integration
+    │           │   └── FinanceManager_FuncTest.java
+    │           └── module
+    │               ├── AccountModule.groovy
+    │               ├── LoginModule.groovy
+    │               └── MainMenu.groovy
+
+}}}
+
+== Maven Update ==
+
+We need to add the following update to the original pom.xml for the Spring Finance Manager sample application.
+
+=== Repositories ===
+
+{{{
+       <repository>
+            <id>caja</id>
+            <url>http://google-caja.googlecode.com/svn/maven</url>
+        </repository>
+        <repository>
+            <id>kungfuters-public-snapshots-repo</id>
+            <name>Kungfuters.org Public Snapshot Repository</name>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <url>http://maven.kungfuters.org/content/repositories/snapshots</url>
+        </repository>
+        <repository>
+            <id>kungfuters-public-releases-repo</id>
+            <name>Kungfuters.org Public Releases Repository</name>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://maven.kungfuters.org/content/repositories/releases</url>
+        </repository>
+        <repository>
+            <id>kungfuters-thirdparty-releases-repo</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://maven.kungfuters.org/content/repositories/thirdparty</url>
+        </repository>
+        <repository>
+            <id>openqa-release-repo</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://archiva.openqa.org/repository/releases</url>
+        </repository>        
+}}}
+
+=== Dependencies ===
+
+{{{
+	<dependency>
+		<groupId>org.testng</groupId>
+		<artifactId>com.springsource.org.testng</artifactId>
+		<version>5.8.0</version>
+		<scope>test</scope>
+	</dependency> 
+
+       <dependency>
+            <groupId>org.codehaus.gmaven</groupId>
+            <artifactId>gmaven-mojo</artifactId>
+            <version>${gmaven-version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.gmaven.runtime</groupId>
+                    <artifactId>gmaven-runtime-1.5</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.gmaven.runtime</groupId>
+            <artifactId>gmaven-runtime-1.6</artifactId>
+            <version>${gmaven-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.telluriumsource</groupId>
+            <artifactId>tellurium-core</artifactId>
+            <version>${tellurium-version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium.server</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>${selenium-version}-${tellurium-engine-version}</version>
+            <!--classifier>standalone</classifier-->
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium.client-drivers</groupId>
+            <artifactId>selenium-java-client-driver</artifactId>
+            <version>${selenium-version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.groovy.maven.runtime</groupId>
+                    <artifactId>gmaven-runtime-default</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium.core</groupId>
+                    <artifactId>selenium-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium.server</groupId>
+                    <artifactId>selenium-server</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>caja</groupId>
+            <artifactId>json_simple</artifactId>
+            <version>r1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.stringtree</groupId>
+            <artifactId>stringtree-json</artifactId>
+            <version>2.0.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.0.1-FINAL</version>
+        </dependency>
+
+}}}
