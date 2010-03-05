@@ -410,7 +410,7 @@ class List extends Container {
             } else {
                 locs.put(pl, occur + 1)
             }
-            if (i == index) {
+            if (i == inx) {
                 last = pl
             }
         }
