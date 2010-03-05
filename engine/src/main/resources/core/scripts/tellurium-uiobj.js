@@ -1107,8 +1107,135 @@ var UiList = UiContainer.extend({
         this.noCacheForChildren = true;
         this.separator = null;
         this.defaultUi = new UiTextBox();
+        this.rTree= new ListRTree();
+        this.rTree.preBuild();
+        this.components = this.rTree.indices;
     },
-    
+
+    goToPlace:  function(uiid, uiobj) {
+        if(uiid.size() == 1){
+            uiid.pop();
+//            if (this.uid == null)
+            objectCopy(this, uiobj);
+        }else{
+            uiid.pop();
+            var cuid = uiid.peek();
+
+            if(uiid.size() == 1){
+                uiid.pop();
+                uiobj.parent = this;
+//                this.components.put(cuid, uiobj);     
+                this.rTree.insert(uiobj);
+            }else{
+                var child = this.components.get(cuid);
+                child.goToPlace(uiid, uiobj);
+            }
+        }
+    },
+
+    locateChild: function(id){
+      return this.rTree.route(id);
+    },
+
+    buildSelectorWithoutPosition: function(locator){
+        return tellurium.jqbuilder.buildCssSelector(locator.tag, locator.text, null, locator.direct, locator.attributes);
+    },
+
+    getAnySelectorWithSeparator: function(obj){
+      var sel = this.buildSelectorWithoutPosition(obj.locator);
+
+      return " > " + this.separator + "has[" + sel + "]";
+    },
+
+    getAnySelectorWithoutSeparator: function(obj){
+
+      return this.buildSelectorWithoutPosition(obj.locator);
+    },
+
+    getFirstSelectorWithSeparator: function(){
+
+      return " > " + this.separator + ":first";
+    },
+
+    getFirstSelectorWithoutSeparator: function(obj){
+      var sel = this.buildSelectorWithoutPosition(obj.locator);
+
+      return " > " + sel + ":first";
+    },
+
+    getLastSelectorWithSeparator: function(){
+
+      return " > " + this.separator + ":last";
+    },
+
+    getLastSelectorWithoutSeparator: function(obj){
+      var sel = this.buildSelectorWithoutPosition(obj.locator);
+
+      return " > " + sel + ":last";
+    },
+
+    getSelectorByIndexWithSeparator: function(index){
+        var inx = parseInt(index) - 1;
+        return " > " + this.separator + ":eq(" + inx + ")";
+    },
+
+    getSelectorByIndexWithoutSeparator: function(index){
+        var locs = new Hashtable();
+        var last = null;
+        var inx = parseInt(index);
+        for (var i = 1; i <= inx; i++) {
+            var obj = this.locateChild(inx);
+            var pl = this.buildSelectorWithoutPosition(obj.locator);
+            var occur = locs.get(pl);
+            if (occur == null) {
+                locs.put(pl, 1);
+            } else {
+                locs.put(pl, occur + 1);
+            }
+            if (i == inx) {
+                last = pl;
+            }
+        }
+
+        var lastOccur = locs.get(pl)-1;
+
+        //force to be direct child (if consider List trailer)
+        return " > " + last + ":eq(" + lastOccur + ")";
+    },
+
+    getListSelector: function(key, obj){
+      var index = obj.metaData.index.value;
+      if(this.separator != null && this.separator.trim().length > 0){
+        if("any" == index){
+          return this.getAnySelectorWithSeparator(obj);
+        }else if("first" == index){
+          return this.getFirstSelectorWithSeparator();
+        }else if("last" == index){
+          return this.getLastSelectorWithSeparator();
+        }else if(key.match(/[0-9]+/)){
+          return this.getSelectorByIndexWithSeparator(key);
+        }else if(index.match(/[0-9]+/)){
+          return this.getSelectorByIndexWithSeparator(key);
+        }else{
+          throw new SeleniumError("Invalid ID " + key);
+        }
+      }else{
+       if("any" == index){
+          return this.getAnySelectorWithoutSeparator(obj);
+        }else if("first" == index){
+          return this.getFirstSelectorWithoutSeparator(obj);
+        }else if("last" == index){
+          return this.getLastSelectorWithoutSeparator(obj);
+        }else if(key.match(/[0-9]+/)){
+          return this.getSelectorByIndexWithoutSeparator(key);
+        }else if(index.match(/[0-9]+/)){
+          return this.getSelectorByIndexWithoutSeparator(key);
+        }else{
+          throw new SeleniumError("Invalid ID " + key);
+        }
+      }
+    },
+
     findUiObject: function(index) {
 
         //first check _index format
@@ -1130,6 +1257,7 @@ var UiList = UiContainer.extend({
         return  "_" + index;    
     },
 
+/*
     getListSelector: function(index) {
         if (this.separator == null || this.separator.trim().length == 0)
             return this.deriveListSelector(index);
@@ -1137,6 +1265,7 @@ var UiList = UiContainer.extend({
         var t = index-1;
         return " > " + this.separator + ":eq(" + t + ")";
     },
+    */
 
     deriveListSelector: function(index) {
         var locs = new Hashtable();
@@ -1330,12 +1459,15 @@ var UiList = UiContainer.extend({
 
         var child = uiid.pop();
 
-        var part = child.replace(/^_/, '');
-
-        var nindex = parseInt(part);
+//        var part = child.replace(/^_/, '');
+//
+//        var nindex = parseInt(part);
 
         //otherwise, try to find its child
-        var cobj = this.findUiObject(nindex);
+//        var cobj = this.findUiObject(nindex);
+        var key = child.replace(/^_/, '');
+
+        var cobj = this.locateChild(key);
 
         //If cannot find the object as the object template, return the TextBox as the default object
         if (cobj == null) {
