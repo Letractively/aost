@@ -32,7 +32,7 @@ function Path(){
 Path.prototype.init = function(paths) {
     if (paths != null && paths.length > 0) {
         for (var i = paths.length - 1; i >= 0; i--) {
-            this.push(paths[i]);
+            this.stack.push(paths[i]);
         }
     }
 };
@@ -1133,7 +1133,7 @@ var UiList = UiContainer.extend({
         }
     },
 
-    locateChild: function(id){
+    findChild: function(id){
       return this.rTree.route(id);
     },
 
@@ -1184,7 +1184,7 @@ var UiList = UiContainer.extend({
         var last = null;
         var inx = parseInt(index);
         for (var i = 1; i <= inx; i++) {
-            var obj = this.locateChild(inx);
+            var obj = this.findChild(inx);
             var pl = this.buildSelectorWithoutPosition(obj.locator);
             var occur = locs.get(pl);
             if (occur == null) {
@@ -1205,6 +1205,7 @@ var UiList = UiContainer.extend({
 
     getListSelector: function(key, obj){
       var index = obj.metaData.index.value;
+      key = key + "";  
       if(this.separator != null && this.separator.trim().length > 0){
         if("any" == index){
           return this.getAnySelectorWithSeparator(obj);
@@ -1351,12 +1352,15 @@ var UiList = UiContainer.extend({
             for(var i=0; i<keys.length; i++){
                 var key = keys[i];
                 var child = this.components.get(keys[i]);
-                var part = key.replace(/^_/, '');
-                if(part != "ALL"){
-                    var nindex = parseInt(part);
-                    var selt = this.getListSelector(nindex);
+                var indx = child.metaData.index.value;
+                var part = indx.replace(/^_/, '');
+//                var cobj = this.findChild(part);
+                if(indx != "all"){
+//                if(part != "ALL"){
+//                    var nindex = parseInt(part);
+                    var selt = this.getListSelector(part, child);
                     var $fnd = teJQuery(domref).find(selt);
-                    !tellurium.logManager.isUseLog || fbLog("Found child " + nindex + " with CSS selector '" + selt +"' for List " + this.uid, $fnd.get());
+                    !tellurium.logManager.isUseLog || fbLog("Found child " + part + " with CSS selector '" + selt +"' for List " + this.uid, $fnd.get());
                     if ($fnd.size() == 1) {
                         !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $fnd.get(0));
                         var cdomref;
@@ -1366,7 +1370,7 @@ var UiList = UiContainer.extend({
                             cdomref = this.locateChild(context, $fnd.get(0), child);
                         }
 //                        var cdomref = this.locateChild(context, $fnd.get(0), child);
-                        var csdata = new UiSData(npid, this.getRid(nindex), child, cdomref);
+                        var csdata = new UiSData(npid, this.getRid(part), child, cdomref);
                         alg.addChildUiObject(csdata);
                     }else if($fnd.size() == 0){
                         fbError("Cannot find UI element " + child.uid, child);
@@ -1383,7 +1387,7 @@ var UiList = UiContainer.extend({
                         var tid = this.getRid(j);
                         //only cares about elements that are covered by "_ALL", not by other templates
                         if(this.components.get(tid) == null){
-                            var sel = this.getListSelector(j);
+                            var sel = this.getListSelector(j, child);
                             var $found = teJQuery(domref).find(sel);
                             !tellurium.logManager.isUseLog || fbLog("Found child " + j + " with CSS selector '" + sel +"' for List " + this.uid, $found.get());
                             if ($found.size() == 1) {
@@ -1467,7 +1471,7 @@ var UiList = UiContainer.extend({
 //        var cobj = this.findUiObject(nindex);
         var key = child.replace(/^_/, '');
 
-        var cobj = this.locateChild(key);
+        var cobj = this.findChild(key);
 
         //If cannot find the object as the object template, return the TextBox as the default object
         if (cobj == null) {
@@ -1475,10 +1479,11 @@ var UiList = UiContainer.extend({
         }
 
         if (context.domRef != null) {
-            var selt = this.getListSelector(nindex);
+//            var selt = this.getListSelector(nindex);
+            var selt = this.getListSelector(key, cobj);
 
             var $fnd = teJQuery(context.domRef).find(selt);
-            !tellurium.logManager.isUseLog || fbLog("Found child " + nindex + " with CSS selector '" + selt +"' for List " + this.uid, $fnd.get());
+            !tellurium.logManager.isUseLog || fbLog("Found child " + key + " with CSS selector '" + selt + "' for List " + this.uid, $fnd.get());
             if ($fnd.size() == 1) {
                 context.domRef = $fnd.get(0);
                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
