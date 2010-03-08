@@ -46,6 +46,8 @@ class Container extends UiObject {
       JSONObject jso = new JSONObject()
 //      jso.put(UID, uid)
       jso.put(UID, tid)
+      if(this.metaData != null)
+        jso.put(META_DATA, this.metaData.toJSON())      
       if (!cacheable)
         jso.put(LAZY, !this.cacheable)
       if(locator != null)
