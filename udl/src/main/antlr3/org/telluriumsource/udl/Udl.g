@@ -50,12 +50,12 @@ tableUid returns [MetaData metadata]
 	|	tbu=tableBodyUid {metadata = tbu;}
 	;
 	
-tableHeaderUid returns [TableHeaderMetaData metadata]
-	:	'{' 'header' ':' INDEX '}' 'as' ID {metadata = new TableHeaderMetaData($ID.text, $INDEX.text);}
+tableHeaderUid returns [ListMetaData metadata]
+	:	'{' 'header' ':' INDEX '}' 'as' ID {metadata = new ListMetaData($ID.text, $INDEX.text);}
 	;
 	
-tableFooterUid returns [TableFooterMetaData metadata]
-	:       '{' 'footer' ':' INDEX '}' 'as' ID {metadata = new TableFooterMetaData($ID.text, $INDEX.text);}
+tableFooterUid returns [ListMetaData metadata]
+	:       '{' 'footer' ':' INDEX '}' 'as' ID {metadata = new ListMetaData($ID.text, $INDEX.text);}
 	;
 	
 tableBodyUid returns [TableBodyMetaData metadata]
