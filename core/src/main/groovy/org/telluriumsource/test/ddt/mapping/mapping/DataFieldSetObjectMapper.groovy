@@ -25,7 +25,7 @@ class DataFieldSetObjectMapper extends BaseFieldSetObjectMapper{
 //        reader = new PipeDataReader()
 //        this.reader = reader
         marshaller = new DefaultObjectUnmarshaller()
-        //configurate the default type handlers and put them into the registry
+        //configure the default type handlers and put them into the registry
         TypeHandlerRegistryConfigurator.configure(thr)
         marshaller.setTypeHandlerRegistry(thr)
         this.registry = fsr
@@ -48,8 +48,7 @@ class DataFieldSetObjectMapper extends BaseFieldSetObjectMapper{
     protected FieldSetMapResult readNextFieldSet(){
         List<String, String> fieldData = this.readNextLine(br)
         FieldSetType type = this.checkFieldSetType(fieldData)
-        //TODO: skip the meta data for the timebeing, need to refactor this
-        //part if we decide to useString meta data
+        //TODO: skip the meta data for the time being, need to refactor this part if we decide to use meta data
         while(type != FieldSetType.REGULAR && type != FieldSetType.END){
             fieldData = this.readNextLine(br)
             type = this.checkFieldSetType(fieldData)
