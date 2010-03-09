@@ -5,9 +5,7 @@ import org.telluriumsource.dsl.UiID
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.exception.InvalidUidException
 import org.telluriumsource.ui.locator.CompositeLocator
-import org.telluriumsource.ui.object.Container
-import org.telluriumsource.ui.object.TextBox
-import org.telluriumsource.ui.object.UiObject
+
 import org.json.simple.JSONObject
 
 /**
@@ -81,7 +79,7 @@ class StandardTable extends Container{
      //add a map to hold all the header elements
      def headers = [:]
      //add a map to hold all the tfoot elements
-     def foots = [:]
+     def footers = [:]
 
      @Override
      public JSONObject toJSON() {
@@ -112,7 +110,7 @@ class StandardTable extends Container{
                 //this is a foot
                 String internFootId = internalFootId(component.uid)
                 component.tid = internFootId
-                foots.put(internFootId, component)
+                footers.put(internFootId, component)
             }else{
                 //this is a regular element
                 String internId = internalId(component.uid)
@@ -207,12 +205,12 @@ class StandardTable extends Container{
     public UiObject findFootUiObject(int index) {
         //first check _i format
         String key = "_FOOTER_${index}"
-        UiObject obj = foots.get(key)
+        UiObject obj = footers.get(key)
 
         //then, check _ALL format
         if (obj == null) {
             key = "_FOOTER_ALL"
-            obj = foots.get(key)
+            obj = footers.get(key)
         }
 
         return obj
@@ -840,8 +838,8 @@ class StandardTable extends Container{
       }
     }
     
-    if(this.foots.size() > 0){
-      this.foots.each {key, component ->
+    if(this.footers.size() > 0){
+      this.footers.each {key, component ->
         if(component.cacheable){
           component.treeWalk(context)
         }
@@ -872,9 +870,9 @@ class StandardTable extends Container{
   }
 
   protected void traverseFoot(WorkflowContext context){
-    if(this.foots.size() > 0){
+    if(this.footers.size() > 0){
       int max = 0
-      this.foots.each {key, component ->
+      this.footers.each {key, component ->
         String aid = key.replaceFirst('_', '').replaceFirst("FOOTER", '')
         if (aid ==~ /[0-9]+/) {
           context.pushUid("footer[${aid}]")
@@ -884,7 +882,7 @@ class StandardTable extends Container{
         }
       }
 
-      UiObject obj = this.foots.get("_FOOTER_ALL")
+      UiObject obj = this.footers.get("_FOOTER_ALL")
       if(obj != null){
         max++
         context.pushUid("footer[${max}]")

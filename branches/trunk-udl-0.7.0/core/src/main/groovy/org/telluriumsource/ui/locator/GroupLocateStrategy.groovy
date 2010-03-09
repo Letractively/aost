@@ -53,7 +53,8 @@ class GroupLocateStrategy {
             }
         }
       
-        obj.foots?.headers?.each {
+//        obj.footers?.headers?.each {
+       obj.footers?.each {
             String key, UiObject child ->
             //can only use the child's information in the CompositeLocator
             //cannot use other Locator type for the timebeing
