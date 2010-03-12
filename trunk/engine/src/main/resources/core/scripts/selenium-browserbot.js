@@ -26,6 +26,26 @@
 
 // The window to which the commands will be sent.  For example, to click on a
 // popup window, first select that window, and then do a normal click command.
+
+//Added to support custom namespace
+function NamespaceMap(){
+    this.namespaceMap =  new Hashtable();
+    this.namespaceMap.put("html", "http://www.w3.org/1999/xhtml");
+    this.namespaceMap.put("xhtml", "http://www.w3.org/1999/xhtml");
+    this.namespaceMap.put("x", "http://www.w3.org/1999/xhtml");
+    this.namespaceMap.put("mathml", "http://www.w3.org/1998/Math/MathML");
+};
+
+NamespaceMap.prototype.put = function(prefix, namespace){
+    this.namespaceMap.put(prefix, namespace);
+};
+
+NamespaceMap.prototype.get = function(prefix){
+    return this.namespaceMap.get(prefix);
+};
+
+var globalNamespaceMap = new NamespaceMap();
+
 var BrowserBot = function(topLevelApplicationWindow) {
     this.topWindow = topLevelApplicationWindow;
     this.topFrame = this.topWindow;
@@ -1254,6 +1274,15 @@ BrowserBot.prototype._registerAllLocatorFunctions = function() {
         }
         return this.locateElementByIdentifier(locator, inDocument, inWindow);
     };
+
+    //locate strategies used by Tellurium
+    this.locationStrategies['jquery'] = function(locator, inDocument, inWindow) {
+        return tellurium.locateElementByCSSSelector(locator, inDocument, inWindow);
+    };
+
+    this.locationStrategies['uimcal'] = function(locator, inDocument, inWindow) {
+        return tellurium.locateElementWithCacheAware(locator, inDocument, inWindow);
+    };
 }
 
 BrowserBot.prototype.getDocument = function() {
@@ -1514,11 +1543,18 @@ BrowserBot.prototype._namespaceResolver = function(prefix) {
         return 'http://www.w3.org/1999/xhtml';
     } else if (prefix == 'mathml') {
         return 'http://www.w3.org/1998/Math/MathML';
+    }else if(prefix == 'xforms'){
+        return 'http://www.w3.org/2002/xforms';
     } else {
-        throw new Error("Unknown namespace: " + prefix + ".");
+        //modified to support custom name spaces
+        var nsFromMap = globalNamespaceMap.get(prefix);
+        if(nsFromMap == null){
+            throw new Error("Unknown namespace: " + prefix + ".");
+        }
+
+        return nsFromMap;
     }
 }
-
 /**
  * Returns the number of xpath results.
  */
@@ -1549,12 +1585,38 @@ BrowserBot.prototype.locateElementByLinkText.prefix = "link";
  */
 BrowserBot.prototype.findAttribute = function(locator) {
     // Split into locator + attributeName
-    var attributePos = locator.lastIndexOf("@");
-    var elementLocator = locator.slice(0, attributePos);
-    var attributeName = locator.slice(attributePos + 1);
+    var elementLocator = null;
+    var attributeName = null;
+    var attributePos = null;
+    if (locator.startsWith("uimcal=")) {
+        var cal = JSON.parse(locator.substring(7), null);
+        !tellurium.logManager.isUseLog || fbLog("Parsed attribute locator", cal);
+        var loc = cal.locator;
+        //get attribute name
+        attributePos = loc.lastIndexOf("@");
+        if (attributePos != -1) {
+            attributeName = loc.slice(attributePos + 1);
+            if (attributeName.endsWith("]")) {
+                attributeName = attributeName.substr(0, attributeName.length - 1);
+            }
+            !tellurium.logManager.isUseLog || fbLog("attribute name", attributeName);
+            //update locator
+            cal.locator = loc.slice(0, attributePos);
+            if (cal.locator.endsWith("[")) {
+                cal.locator = cal.locator.substr(0, cal.locator.length - 1);
+            }
+        }
 
+        elementLocator = "uimcal=" + JSON.stringify(cal);
+        !tellurium.logManager.isUseLog || fbLog("Element Locator from the findAttribute method", elementLocator);
+    } else {
+        attributePos = locator.lastIndexOf("@");
+        elementLocator = locator.slice(0, attributePos);
+        attributeName = locator.slice(attributePos + 1);
+    }
     // Find the element.
     var element = this.findElement(elementLocator);
+    !tellurium.logManager.isUseLog || fbLog("Found Element from the findAttribute method", element);
 
     // Handle missing "class" attribute in IE.
     if (browserVersion.isIE && attributeName == "class") {

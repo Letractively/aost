@@ -192,7 +192,8 @@ Selenium.decorateFunctionWithTimeout = function(f, timeout, callback) {
     }
     
     var timeoutTime = getTimeoutTime(timeout);
-   
+    !tellurium.logManager.isUseLog || fbLog("timeoutTime for f " + timeoutTime, f);
+
     return function() {
         if (new Date().getTime() > timeoutTime) {
             if (callback != null) {
@@ -200,6 +201,7 @@ Selenium.decorateFunctionWithTimeout = function(f, timeout, callback) {
             }
             throw new SeleniumError("Timed out after " + timeout + "ms");
         }
+        !tellurium.logManager.isUseLog || fbLog("call f at " + new Date().getTime(), f);
         return f();
     };
 }
@@ -2335,6 +2337,14 @@ Selenium.prototype.getXpathCount = function(xpath) {
     * @param xpath the xpath expression to evaluate. do NOT wrap this expression in a 'count()' function; we will do that for you.
     * @return number the number of nodes that match the specified xpath
     */
+
+    //Consider Tellurium cache aware locator case
+    if(xpath.startsWith("uimcal=")){
+        var cal = JSON.parse(xpath.substring(7), null);
+        !tellurium.logManager.isUseLog || fbLog("Parsed locator", cal);
+        xpath = cal.locator;
+    }
+
     var result = this.browserbot.evaluateXPathCount(xpath, this.browserbot.getDocument());
     return result;
 }
@@ -2402,7 +2412,7 @@ Selenium.prototype.doWaitForCondition = function(script, timeout) {
    * @param script the JavaScript snippet to run
    * @param timeout a timeout in milliseconds, after which this command will return with an error
    */
-   
+    !tellurium.logManager.isUseLog || fbLog("waitForCondition(script=" + script + ", timeout=" + timeout, this);
     return Selenium.decorateFunctionWithTimeout(function () {
         var window = selenium.browserbot.getCurrentWindow();
         return eval(script);
