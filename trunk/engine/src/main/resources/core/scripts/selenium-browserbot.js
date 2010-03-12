@@ -1538,6 +1538,12 @@ BrowserBot.prototype.locateElementByXPath = function(xpath, inDocument, inWindow
         this._namespaceResolver);
 };
 
+//modified to support custom namespaces
+BrowserBot.prototype.addNamespace = function(prefix, namespace) {
+//    this.namespaceMap.put(prefix, namespace) ;
+    globalNamespaceMap.put(prefix, namespace);
+};
+
 BrowserBot.prototype._namespaceResolver = function(prefix) {
     if (prefix == 'html' || prefix == 'xhtml' || prefix == 'x') {
         return 'http://www.w3.org/1999/xhtml';
