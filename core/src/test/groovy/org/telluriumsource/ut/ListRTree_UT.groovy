@@ -3,7 +3,7 @@ package org.telluriumsource.ut
 import org.telluriumsource.udl.ListMetaData
 import org.telluriumsource.ui.object.TextBox
 import org.telluriumsource.ui.object.UiObject
-import org.telluriumsource.ui.routing.ListRTree
+import org.telluriumsource.ui.routing.RTree
 import org.telluriumsource.exception.InvalidIndexException
 
 /**
@@ -44,7 +44,7 @@ class ListRTree_UT extends GroovyTestCase {
     UiObject five = new TextBox();
     five.metaData = fiveMeta;
 
-    ListRTree tree = new ListRTree();
+    RTree tree = new RTree();
     tree.preBuild();
     tree.insert(all);
     tree.insert(any);
@@ -107,7 +107,7 @@ class ListRTree_UT extends GroovyTestCase {
     ListMetaData threeMeta = new ListMetaData("G", "3");
     UiObject three = new TextBox();
     three.metaData = threeMeta;
-    ListRTree tree = new ListRTree();
+    RTree tree = new RTree();
     tree.preBuild();
     tree.insert(odd);
     tree.insert(two);
