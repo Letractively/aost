@@ -64,7 +64,8 @@ public class JQueryBuilder_UT extends GroovyTestCase {
 
     clazz = "!good"
     result =  JQueryBuilder.attrClass(clazz)
-    assertEquals("[class!=good]", result)
+//    assertEquals("[class!=good]", result)
+    assertEquals(":not(.good)", result)
 
     clazz = "\$good"
     result =  JQueryBuilder.attrClass(clazz)
