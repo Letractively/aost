@@ -353,8 +353,6 @@ AssertHandler.prototype.execute = function(seleniumApi, command) {
             throw e;
         }
         if (this.haltOnFailure) {
-            fbError("e.failureMessage", e);
-            fbTrace();
             var error = new SeleniumError(e.failureMessage);
             throw error;
         }

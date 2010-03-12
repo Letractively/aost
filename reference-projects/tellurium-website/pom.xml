@@ -302,7 +302,7 @@
                 </reportSets>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+                <groupId>org.apache.maven.plugins</groupId>     
                 <artifactId>maven-jxr-plugin</artifactId>
             </plugin>
         </plugins>
@@ -312,7 +312,7 @@
         <groovy-version>1.7.0</groovy-version>
         <gmaven-version>1.2</gmaven-version>
         <selenium-version>1.0.3</selenium-version>
-        <selenium-server-version>1.0.1</selenium-server-version>
+        <selenium-server-version>1.0.3</selenium-server-version>
         <tellurium-engine-version>te2-SNAPSHOT</tellurium-engine-version>
         <tellurium-version>0.7.0-SNAPSHOT</tellurium-version>
         <javac-debug>true</javac-debug>
