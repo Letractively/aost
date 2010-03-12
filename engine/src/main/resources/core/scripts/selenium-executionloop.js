@@ -121,9 +121,13 @@ TestLoop.prototype = {
             LOG.exception(e);
             var msg = "Command execution failure. Please search the forum at http://clearspace.openqa.org for error details from the log window.";
             msg += "  The error message is: " + extractExceptionMessage(e);
+            fbTrace();
+            fbError(msg, e);
             return this.commandError(msg);
         } else {
             LOG.error(e.message);
+            fbTrace();
+            fbError(e.message, e);
             return this.commandError(e.message);
         }
     },
