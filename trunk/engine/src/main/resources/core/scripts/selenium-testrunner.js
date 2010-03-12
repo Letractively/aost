@@ -29,7 +29,6 @@ objectExtend(HtmlTestRunner.prototype, {
         this.currentTest = null;
         this.runAllTests = false;
         this.appWindow = null;
-
         // we use a timeout here to make sure the LOG has loaded first, so we can see _every_ error
         setTimeout(fnBind(function() {
             this.loadSuiteFrame();
