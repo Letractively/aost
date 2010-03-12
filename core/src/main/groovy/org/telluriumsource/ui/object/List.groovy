@@ -122,76 +122,6 @@ class List extends Container {
        return JQueryBuilder.buildJQuerySelectorWithoutPosition(locator.getTag(), locator.getText(), locator.getAttributes())
     }
 
-    // example:
-    // //div/descendant-or-self::table[2]/descendant-or-self::table
-/*    protected String deriveListLocator(int index) {
-        Map<String, Integer> locs = new HashMap<String, Integer>()
-        String last = null
-        for (int i = 1; i <= index; i++) {
-            UiObject obj = findUiObject(i)
-//            String tag = obj.locator.getTag()
-            String pl = this.buildLocatorWithoutPosition(obj.locator)
-            Integer occur = locs.get(pl)
-            if (occur == null) {
-                locs.put(pl, 1)
-            } else {
-                locs.put(pl, occur + 1)
-            }
-            if (i == index) {
-                last = pl
-            }
-        }
-
-//        String lastTag = last.locator.getTag()
-//        Integer lastOccur = loc.get(lastTag)
-          Integer lastOccur = locs.get(last)
-
-*//*        if(last.locator.direct){
-          return "/${lastTag}[${lastOccur}]"
-        }else{
-          return "/descendant::${lastTag}[${lastOccur}]"
-        }
-*//*
-
-        //force to be direct child (if consider List trailer)
-        if(this.namespace != null && this.namespace.trim().length() > 0){
-          return "/${this.namespace}:${last}[${lastOccur}]"
-        }
-        return "/${last}[${lastOccur}]"
-    }
-    */
-
-/*    protected String deriveListSelector(int index) {
-        Map<String, Integer> locs = new HashMap<String, Integer>()
-        String last = null
-        for (int i = 1; i <= index; i++) {
-            UiObject obj = findUiObject(i)
-//            String pl = obj.locator.getTag()
-            String pl = this.buildJQuerySelectorWithoutPosition(obj.locator)
-            Integer occur = locs.get(pl)
-            if (occur == null) {
-                locs.put(pl, 1)
-            } else {
-                locs.put(pl, occur + 1)
-            }
-            if (i == index) {
-                last = pl
-            }
-        }
-
-        Integer lastOccur = locs.get(last)
-
-*//*        if(last.locator.direct){
-          return " > ${lastTag}:eq(${lastOccur-1})"
-        }else{
-          return " ${lastTag}:eq(${lastOccur-1})"
-        }
-*//*
-
-        //force to be direct child (if consider List trailer)
-        return " > ${last}:eq(${lastOccur-1})"
-    }*/
-
     String getListLocator(String key, UiObject obj){
       ListMetaData meta = (ListMetaData)obj.metaData;
       String index = meta.getIndex().getValue();
@@ -307,21 +237,6 @@ class List extends Container {
       
         return "/${last}[${lastOccur}]"
     }
-
-/*
-    String getListLocator(int index) {
-        if (separator == null || separator.trim().size() == 0)
-            return deriveListLocator(index)
-
-//        return "/descendant::" + separator + "[${index}]"
-                     //force to be direct child (if consider List trailer)
-        if(this.namespace != null && this.namespace.trim().length() > 0){
-          return "/${this.namespace}:" + separator + "[${index}]"
-        }
-
-        return "/" + separator + "[${index}]"
-    }
-    */
   
     String getListSelector(String key, UiObject obj){
       ListMetaData meta = (ListMetaData)obj.metaData;
@@ -420,16 +335,6 @@ class List extends Container {
         //force to be direct child (if consider List trailer)
         return " > ${last}:eq(${lastOccur-1})"
     }
-  
-/*
-    String getListSelector(int index) {
-        if (separator == null || separator.trim().size() == 0)
-            return deriveListSelector(index)
-
-//        return " " + separator + ":eq(${index-1})"
-        return " > " + separator + ":eq(${index-1})"
-    }
-    */
 
     int getListSizeByXPath(Closure c) {
 
