@@ -52,24 +52,10 @@ class List extends Container {
               this.rTree.preBuild();
             }
             this.rTree.insert(component);
-//            component.tid = internalId(component.uid)
         }else{
            println i18nBundle.getMessage("Container.InvalidID" , {component.uid})
         }
- /*     
-        if (validId(component.uid)) {
-            String internId = internalId(component.uid)
-            //force to not use cache for List elements
-//            component.cacheable = false
-            //add the template id as the internal id for the templates
-            component.tid = internId
-            components.put(internId, component)
-        } else {
-            println i18nBundle.getMessage("Container.InvalidID" , {component.uid})
-        }
-        */
     }
-
 
     //should validate the uid before call this to convert it to internal representation
     public static String internalId(String id) {
@@ -79,22 +65,6 @@ class List extends Container {
 
         return "_${upperId}"
     }
-
-/*    public UiObject findUiObject(int index) {
-
-        //first check _index format
-        String key = "_${index}"
-        UiObject obj = components.get(key)
-
-        //then, check _ALL format
-        if (obj == null) {
-            key = "_ALL"
-            obj = components.get(key)
-        }
-
-        return obj
-    }
-    */
 
     public UiObject locateChild(String id){
       return this.rTree.route(id);
@@ -365,7 +335,6 @@ class List extends Container {
         separators.add(this.separator)
       }else{
         this.components.each {key, component->
-//          separators.add(component.locator.tag)
           separators.add(this.buildJQuerySelectorWithoutPosition(component.locator))
         }
       }
@@ -436,7 +405,6 @@ class List extends Container {
 
       int max = 0
       components.each {key, component->
-//        String aid = key.replaceFirst('_', '')
         String aid = component.metaData.getIndex().getValue()
         if(aid ==~ /[0-9]+/){
           context.directPushUid("[${aid}]")
@@ -454,14 +422,6 @@ class List extends Container {
         }
       }
 
-/*
-      UiObject obj = components.get("_ALL")
-      max++;
-      if(obj == null)
-        obj = defaultUi
-      context.directPushUid("[${max}]")
-      obj.traverse(context)
-      */
       context.popUid()
     }
 
@@ -469,8 +429,6 @@ class List extends Container {
     @Override
     public UiObject walkTo(WorkflowContext context, UiID uiid) {
 
-//        if (uiid.size() < 1)
-//            return this
         //if not child listed, return itself
         if(uiid.size() < 1){
 //            if(this.locator != null && this.useGroupInfo){
@@ -487,13 +445,6 @@ class List extends Container {
         String key = child.replaceFirst('_', '')
 
         UiObject cobj = this.locateChild(key);
-
-/*
-        int nindex = Integer.parseInt(part)
-
-        //otherwise, try to find its child
-        UiObject cobj = this.findUiObject(nindex)
-*/
 
         //If cannot find the object as the object template, return the TextBox as the default object
         if (cobj == null) {
