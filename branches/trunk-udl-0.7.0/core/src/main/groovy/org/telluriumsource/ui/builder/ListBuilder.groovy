@@ -19,7 +19,7 @@ class ListBuilder extends UiObjectBuilder{
        List list = this.internBuild(new List(), map, df)
        list.rTree = new RTree();
        list.rTree.preBuild();
-//       list.rTree.indices = list.components;
+       list.rTree.indices = list.components;
        if(map.get(SEPARATOR) != null){
            list.separator = map.get(SEPARATOR)
        }
