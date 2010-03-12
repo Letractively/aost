@@ -34,7 +34,7 @@ function NamespaceMap(){
     this.namespaceMap.put("xhtml", "http://www.w3.org/1999/xhtml");
     this.namespaceMap.put("x", "http://www.w3.org/1999/xhtml");
     this.namespaceMap.put("mathml", "http://www.w3.org/1998/Math/MathML");
-};
+}
 
 NamespaceMap.prototype.put = function(prefix, namespace){
     this.namespaceMap.put(prefix, namespace);
