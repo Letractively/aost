@@ -1428,6 +1428,54 @@ As you can see, this command actually consists of three commands. In DslContext,
    void disableTelluriumEngine();
 }}}
 
+== Selenium Upgrade ==
+
+Selenium is updated to 1.0.3. Please use the following Maven dependencies.
+
+{{{
+        <dependency>
+            <groupId>org.seleniumhq.selenium.server</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>${selenium-server-version}</version>
+            <!--classifier>standalone</classifier-->
+            <exclusions>
+                <exclusion>
+                    <groupId>ant</groupId>
+                    <artifactId>ant</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium.client-drivers</groupId>
+            <artifactId>selenium-java-client-driver</artifactId>
+            <version>${selenium-version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.gmaven.runtime</groupId>
+                    <artifactId>gmaven-runtime-default</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium.core</groupId>
+                    <artifactId>selenium-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium.server</groupId>
+                    <artifactId>selenium-server</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+}}}
+
+where the properties are defined as
+
+{{{
+    <properties>
+        ...
+        <selenium-version>1.0.3</selenium-version>
+        <selenium-server-version>1.0.3-te2-SNAPSHOT</selenium-server-version>
+    </properties>
+}}}
+
 
 == Misc ==
 
