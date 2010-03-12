@@ -32,7 +32,7 @@ class RTree {
 
   void insert(UiObject object) {
     ListMetaData meta = object.metaData;
-    createIndex(meta.id, object);
+//    createIndex(meta.id, object);
     String index = meta.getIndex().getValue();
     if("all".equalsIgnoreCase(index)){
       this.root.objectRef = object;
