@@ -22,10 +22,11 @@ public class JettyLogonTestNGTestCase extends TelluriumMockTestNGTestCase {
         jlm = new  JettyLogonModule();
         jlm.defineUi();
         useCssSelector(true);
-        useTelluriumApi(true);
+        useTelluriumEngine(true);
+//        useTelluriumApi(true);
         useTrace(true);
-        useCache(true);
-        useMacroCmd(true);
+//        useCache(true);
+//        useMacroCmd(true);
     }
 
     @DataProvider(name = "config-provider")
