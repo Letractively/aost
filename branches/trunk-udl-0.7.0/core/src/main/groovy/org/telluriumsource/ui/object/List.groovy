@@ -9,7 +9,7 @@ import org.telluriumsource.ui.locator.XPathBuilder
 import org.telluriumsource.ui.locator.JQueryBuilder
 import org.telluriumsource.udl.MetaData
 import org.telluriumsource.udl.ListMetaData
-import org.telluriumsource.ui.routing.ListRTree
+import org.telluriumsource.ui.routing.RTree
 import org.telluriumsource.exception.InvalidUidException
 
 /**
@@ -28,7 +28,7 @@ class List extends Container {
     protected String separator = ""
   
     //Routing tree
-    ListRTree rTree;
+    RTree rTree;
 
     @Override
     public JSONObject toJSON() {
@@ -48,7 +48,7 @@ class List extends Container {
         if(metaData instanceof ListMetaData){
             components.put(metaData.getId(), component);
             if(this.rTree == null){
-              this.rTree = new ListRTree();
+              this.rTree = new RTree();
               this.rTree.preBuild();
             }
             this.rTree.insert(component);

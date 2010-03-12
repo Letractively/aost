@@ -2,7 +2,7 @@ package org.telluriumsource.ui.builder
 
 import org.telluriumsource.ui.object.UiObject
 import org.telluriumsource.ui.object.List
-import org.telluriumsource.ui.routing.ListRTree
+import org.telluriumsource.ui.routing.RTree
 
 /**
  * List builder
@@ -17,7 +17,7 @@ class ListBuilder extends UiObjectBuilder{
    def build(Map map, Closure closure){
        def df = [:]
        List list = this.internBuild(new List(), map, df)
-       list.rTree = new ListRTree();
+       list.rTree = new RTree();
        list.rTree.preBuild();
 //       list.rTree.indices = list.components;
        if(map.get(SEPARATOR) != null){
