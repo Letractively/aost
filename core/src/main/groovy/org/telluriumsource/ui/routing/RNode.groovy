@@ -23,7 +23,7 @@ class RNode {
   //whether this node is actually presented or not
   boolean presented;
 
-  Adjacency adjacency;
+  Set<RNode> linkTo;
 
   def RNode() {
   }
