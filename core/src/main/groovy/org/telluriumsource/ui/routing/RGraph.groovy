@@ -45,8 +45,12 @@ class RGraph {
     String rx = meta.row.getValue();
     String cx = meta.column.getValue();
 
-    return "_${tx}_${rx}_${cx}"
+    return "_${tx}_${rx}_${cx}";
   }
+
+   protected String getInternalId(String tx, String rx, String cx){
+     return "_${tx}_${rx}_${cx}";
+   }
   
   public void storeTemplate(UiObject object){
     String iid = this.getInternalId(object);
@@ -255,7 +259,7 @@ class RGraph {
       list = this.generatePath(y);
       path = new Path(list);
       RNode ny = this.walkTo(this.r, y, path);
-      list = this.generatePath(y);
+      list = this.generatePath(z);
       path = new Path(list);
       RNode nz = this.walkTo(this.c, z, path);
 
@@ -268,8 +272,14 @@ class RGraph {
     return object;
   }
 
+  boolean shareTemplate(RNode x, RNode y, RNode z){
+    String iid = this.getInternalId(x.getKey(), y.getKey(), z.getKey());
+
+    return x.templates.contains(iid) && y.templates.contains(iid) && z.templates.contains(iid);
+  }
+
   String[] generatePath(String key){
-    if("odd".equalsIgnoreCase(key) || "even".equalsIgnoreCase(key) || "last".equalsIgnoreCase(key)){
+    if("odd".equalsIgnoreCase(key) || "even".equalsIgnoreCase(key) || "last".equalsIgnoreCase(key) || "any".equalsIgnoreCase(key)){
       return ROOT_PATH;
     }else if(key =~ /^\d+$/){
       int inx = Integer.parseInt(key);
