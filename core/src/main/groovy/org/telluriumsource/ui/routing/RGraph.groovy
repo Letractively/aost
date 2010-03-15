@@ -206,6 +206,74 @@ class RGraph {
   }
 
   UiObject route(String key) {
+    UiObject object = this.indices.get(key);
+    if(object == null){
+      String[] ids= key.replaceFirst('_', '').split('_');
+      String x = ids[0];
+      if("first".equalsIgnoreCase(x)){
+        x = "1";
+      }
+      String y = ids[1];
+      if("first".equalsIgnoreCase(y)){
+        y = "1";
+      }
+      String z = ids[2];
+      if("first".equalsIgnoreCase(z)){
+        z = "1";
+      }
+      
+      String[] list = this.generatePath(x);
+      Path path = new Path(list);
+      RNode nx = this.walkTo(this.t, x, path);
+      list = this.generatePath(y);
+      path = new Path(list);
+      RNode ny = this.walkTo(this.r, y, path);
+      list = this.generatePath(y);
+      path = new Path(list);
+      RNode nz = this.walkTo(this.c, z, path);
+
+      boolean isLinked = false;
+      //check for a direct link
+      nx.linkTo.contains(ny.getKey() && ny.linkTo.contains(nz.getKey())) {
+        isLinked = true;
+      }
+
+
+
+    }
+
+    return object;
+  }
+
+  String[] generatePath(String key){
+    if("odd".equalsIgnoreCase(key) || "even".equalsIgnoreCase(key) || "last".equalsIgnoreCase(key)){
+      return ROOT_PATH;
+    }else if(key =~ /^\d+$/){
+      int inx = Integer.parseInt(key);
+      if((inx % 2) == 1){
+        return ODD_PATH;
+      }else{
+        return EVEN_PATH;
+      }
+    }else if("all".equalsIgnoreCase(key)){
+      return EMPTY_PATH;
+    }else{
+      throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", key));
+    }
+  }
+
+  RNode walkTo(RNode root, String key, Path path) {
+    if(key.equalsIgnoreCase("all"))
+      return root;
+
+    if(path != null && path.size() > 0){
+      path.pop();
+      RNode node = root.walkTo(key, path);
+      if(node != null){
+        return node;
+      }
+    }
+
     return null;
   }
 }
