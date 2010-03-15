@@ -23,9 +23,10 @@ class RNode {
   //whether this node is actually presented or not
   boolean presented;
 
-  Set<RNode> linkTo;
+  Set<String> linkTo;
 
   def RNode() {
+    this.linkTo = new HashSet<String>();
   }
 
   def RNode(key, parent, objectRef, presented) {
@@ -34,6 +35,7 @@ class RNode {
     this.objectRef = objectRef;
     this.presented = presented;
     this.children = new LinkedList<RNode>();
+    this.linkTo = new HashSet<String>();
   }
 
   public void addChild(RNode child) {
