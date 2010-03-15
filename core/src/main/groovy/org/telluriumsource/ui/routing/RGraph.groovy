@@ -20,8 +20,11 @@ class RGraph {
   String[] ODD_PATH = ["all", "odd"];
   String[] EVEN_PATH = ["all", "even"];
   
-  //ID to UI template mapping
+  //Key to UI template mapping
   Map<String, UiObject> indices;
+
+  //Internal ID to Template mapping
+  Map<String, UiObject> templates;
 
   //row
   RNode r;
@@ -36,49 +39,62 @@ class RGraph {
     this.indices.put(key, obj);
   }
 
-  void insertTBody(UiObject object){
+  protected String getInternalId(UiObject object){
+    TableBodyMetaData meta = object.metaData;
+    String tx = meta.tbody.getValue();
+    String rx = meta.row.getValue();
+    String cx = meta.column.getValue();
+
+    return "_${tx}_${rx}_${cx}"
+  }
+  
+  public void storeTemplate(UiObject object){
+    String iid = this.getInternalId(object);
+    this.templates.put(iid, object);
+  }
+
+  void insertTBody(UiObject object, String iid){
     TableBodyMetaData meta = object.metaData;
     String index = meta.tbody.getValue();
-    String next = meta.row.getValue();
 
     if("all".equalsIgnoreCase(index)){
       this.t.objectRef = object;
       this.t.presented = true;
-      this.t.linkTo.add(next);
+      this.t.templates.add(iid);
     }else if("odd".equalsIgnoreCase(index)){
       RNode oddNode = this.t.findChild("odd");
       oddNode.presented = true;
       oddNode.objectRef = object;
-      oddNode.linkTo.add(next);
+      oddNode.templates.add(iid);
     }else if("even".equalsIgnoreCase(index)){
       RNode evenNode = this.t.findChild("even");
       evenNode.presented = true;
       evenNode.objectRef = object;
-      evenNode.linkTo.add(next);
+      evenNode.templates.add(iid);
     }else if("last".equalsIgnoreCase(index)){
       RNode last = new RNode("last", this.t, object, true);
-      last.linkTo.add(next);
+      last.templates.add(iid);
       this.t.addChild(last);
     }else if("any".equalsIgnoreCase(index)){
       RNode any = new RNode("any", this.t, object, true);
-      any.linkTo.add(next);
+      any.templates.add(iid);
       this.t.addChild(any);
     }else if("first".equalsIgnoreCase(index)){
       RNode oddNode = this.t.findChild("odd");
       RNode first = new RNode("1", oddNode, object, true);
-      first.linkTo.add(next);
+      first.templates.add(iid);
       oddNode.addChild(first);
     }else if(index =~ /^\d+$/){
       int inx = Integer.parseInt(index);
       if((inx % 2) == 1){
         RNode oddNode = this.t.findChild("odd");
         RNode inode = new RNode(index, oddNode, object, true);
-        inode.linkTo.add(next);
+        inode.templates.add(iid);
         oddNode.addChild(inode);
       }else{
         RNode evenNode = this.t.findChild("even");
         RNode inode = new RNode(index, evenNode, object, true);
-        inode.linkTo.add(next);
+        inode.templates.add(iid);
         evenNode.addChild(inode);
       }
     }else{
@@ -86,49 +102,48 @@ class RGraph {
     } 
   }
 
-  void insertRow(UiObject object){
+  void insertRow(UiObject object, String iid){
     TableBodyMetaData meta = object.metaData;
     String index = meta.row.getValue();
-    String next = meta.column.getValue();
     
     if("all".equalsIgnoreCase(index)){
       this.r.objectRef = object;
       this.r.presented = true;
-      this.r.linkTo.add(next);
+      this.r.templates.add(iid);
     }else if("odd".equalsIgnoreCase(index)){
       RNode oddNode = this.r.findChild("odd");
       oddNode.presented = true;
       oddNode.objectRef = object;
-      oddNode.linkTo.add(next);
+      oddNode.templates.add(iid);
     }else if("even".equalsIgnoreCase(index)){
       RNode evenNode = this.r.findChild("even");
       evenNode.presented = true;
       evenNode.objectRef = object;
-      evenNode.linkTo.add(next);
+      evenNode.templates.add(iid);
     }else if("last".equalsIgnoreCase(index)){
       RNode last = new RNode("last", this.r, object, true);
-      last.linkTo.add(next);
+      last.templates.add(iid);
       this.r.addChild(last);
     }else if("any".equalsIgnoreCase(index)){
       RNode any = new RNode("any", this.r, object, true);
-      any.linkTo.add(next);
+      any.templates.add(iid);
       this.r.addChild(any);
     }else if("first".equalsIgnoreCase(index)){
       RNode oddNode = this.r.findChild("odd");
       RNode first = new RNode("1", oddNode, object, true);
-      first.linkTo.add(next);
+      first.templates.add(iid);
       oddNode.addChild(first);
     }else if(index =~ /^\d+$/){
       int inx = Integer.parseInt(index);
       if((inx % 2) == 1){
         RNode oddNode = this.r.findChild("odd");
         RNode inode = new RNode(index, oddNode, object, true);
-        inode.linkTo.add(next);
+        inode.templates.add(iid);
         oddNode.addChild(inode);
       }else{
         RNode evenNode = this.r.findChild("even");
         RNode inode = new RNode(index, evenNode, object, true);
-        inode.linkTo.add(next);
+        inode.templates.add(iid);
         evenNode.addChild(inode);
       }
     }else{
@@ -136,40 +151,48 @@ class RGraph {
     }
   }
 
-  void insertColumn(UiObject object){
+  void insertColumn(UiObject object, String iid){
     TableBodyMetaData meta = object.metaData;
     String index = meta.column.getValue();
 
     if("all".equalsIgnoreCase(index)){
       this.c.objectRef = object;
       this.c.presented = true;
+      this.c.templates.add(iid);
     }else if("odd".equalsIgnoreCase(index)){
       RNode oddNode = this.c.findChild("odd");
       oddNode.presented = true;
       oddNode.objectRef = object;
+      oddNode.templates.add(iid);
     }else if("even".equalsIgnoreCase(index)){
       RNode evenNode = this.c.findChild("even");
       evenNode.presented = true;
       evenNode.objectRef = object;
+      evenNode.templates.add(iid);
     }else if("last".equalsIgnoreCase(index)){
       RNode last = new RNode("last", this.c, object, true);
+      last.templates.add(iid);
       this.c.addChild(last);
     }else if("any".equalsIgnoreCase(index)){
       RNode any = new RNode("any", this.c, object, true);
+      any.templates.add(iid);
       this.c.addChild(any);      
     }else if("first".equalsIgnoreCase(index)){
       RNode oddNode = this.c.findChild("odd");
       RNode first = new RNode("1", oddNode, object, true);
+      first.templates.add(iid);
       oddNode.addChild(first);
     }else if(index =~ /^\d+$/){
       int inx = Integer.parseInt(index);
       if((inx % 2) == 1){
         RNode oddNode = this.c.findChild("odd");
         RNode inode = new RNode(index, oddNode, object, true);
+        inode.templates.add(iid);
         oddNode.addChild(inode);
       }else{
         RNode evenNode = this.c.findChild("even");
         RNode inode = new RNode(index, evenNode, object, true);
+        inode.templates.add(iid);
         evenNode.addChild(inode);
       }
     }else{
@@ -178,12 +201,16 @@ class RGraph {
   }
 
   void insert(UiObject object) {
-    insertRow(object);
-    insertColumn(object);
-    insertTBody(object);
+    String iid = this.getInternalId(object);
+    this.templates.put(iid, object);
+
+    insertRow(object, iid);
+    insertColumn(object, iid);
+    insertTBody(object, iid);
   }
   
   void preBuild() {
+    this.templates = new HashMap<String, UiObject>();
     TextBox defaultUi = new TextBox();
     RNode raNode = new RNode("all", null, defaultUi, true);
     this.r = raNode;
@@ -233,11 +260,7 @@ class RGraph {
       RNode nz = this.walkTo(this.c, z, path);
 
       boolean isLinked = false;
-      //check for a direct link
-      nx.linkTo.contains(ny.getKey() && ny.linkTo.contains(nz.getKey())) {
-        isLinked = true;
-      }
-
+      //check for a shared template
 
 
     }
