@@ -38,6 +38,13 @@ class RNode {
     this.templates = new HashSet<String>();
   }
 
+  public int getLevel(){
+    if(this.parent == null)
+      return 0;
+    else
+      return this.parent.getLevel() + 1;
+  }
+
   public void addChild(RNode child) {
     children.add(child);
   }
