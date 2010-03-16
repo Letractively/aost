@@ -105,7 +105,7 @@ class List extends Container {
         }else if(key ==~ /[0-9]+/){
           return this.getLocatorByIndexWithSeparator(key);
         }else if(index ==~ /[0-9]+/){
-          return this.getLocatorByIndexWithSeparator(key);
+          return this.getLocatorByIndexWithSeparator(index);
         }else{
           //TODO: rename Container.InvalidID to UiObject.InvalidID
           throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID" , key));
@@ -120,7 +120,7 @@ class List extends Container {
         }else if(key ==~ /[0-9]+/){
           return this.getLocatorByIndexWithoutSeparator(key);
         }else if(index ==~ /[0-9]+/){
-          return this.getLocatorByIndexWithoutSeparator(key);
+          return this.getLocatorByIndexWithoutSeparator(index);
         }else{
           //TODO: rename Container.InvalidID to UiObject.InvalidID
           throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID" , key));
@@ -221,7 +221,7 @@ class List extends Container {
         }else if(key ==~ /[0-9]+/){
           return this.getSelectorByIndexWithSeparator(key);
         }else if(index ==~ /[0-9]+/){
-          return this.getSelectorByIndexWithSeparator(key);
+          return this.getSelectorByIndexWithSeparator(index);
         }else{
           //TODO: rename Container.InvalidID to UiObject.InvalidID
           throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID" , key));
@@ -236,7 +236,7 @@ class List extends Container {
         }else if(key ==~ /[0-9]+/){
           return this.getSelectorByIndexWithoutSeparator(key);
         }else if(index ==~ /[0-9]+/){
-          return this.getSelectorByIndexWithoutSeparator(key);
+          return this.getSelectorByIndexWithoutSeparator(index);
         }else{
           //TODO: rename Container.InvalidID to UiObject.InvalidID
           throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID" , key));
