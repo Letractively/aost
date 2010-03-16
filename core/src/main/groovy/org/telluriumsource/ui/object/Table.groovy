@@ -10,7 +10,11 @@ import org.telluriumsource.ui.object.Container
 import org.telluriumsource.ui.object.TextBox
 import org.telluriumsource.ui.object.UiObject
 import org.json.simple.JSONObject
-
+import org.telluriumsource.udl.MetaData
+import org.telluriumsource.udl.TableHeaderMetaData
+import org.telluriumsource.ui.routing.RGraph
+import org.telluriumsource.ui.routing.RTree
+import org.telluriumsource.udl.TableBodyMetaData
 
 /**
  *   This is a table without header tag "thead' and foot "tfoot", but in the format of
@@ -99,6 +103,8 @@ class Table extends Container {
 
   def headers = [:]
   def bodyAttributes = [:]
+  RTree rTree;
+  RGraph rGraph;
 
   @Override
   public JSONObject toJSON() {
@@ -110,6 +116,26 @@ class Table extends Container {
 
   @Override
   def add(UiObject component) {
+     MetaData metaData = component.metaData;
+     if(this.rTree == null){
+       this.rTree = new RTree();
+       this.rTree.preBuild();
+     }
+     if(this.rGraph == null) {
+       this.rGraph = new RGraph();
+       this.rGraph.preBuild();
+     }
+
+     if(metaData instanceof TableHeaderMetaData){
+        headers.put(metaData.getId(), component);
+        this.rTree.insert(component);
+     }else if(metaData instanceof TableBodyMetaData){
+        components.put(metaData.getId(), component);
+        this.rGraph.insert(component);
+     } else {
+        throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidUID" , {component.uid}))
+    }
+/*
     if (validId(component.uid)) {
       if (component.uid.toUpperCase().trim().startsWith(HEADER)) {
         //this is a header
@@ -127,6 +153,7 @@ class Table extends Container {
     } else {
         throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidUID" , {component.uid}))
     }
+    */
   }
 
   public setBodyAttributes(Map attributes) {
