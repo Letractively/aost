@@ -10,8 +10,8 @@ package org.telluriumsource.ui.routing
 class RNodeComparator implements Comparator<RNode>{
 
   int compare(RNode first, RNode second) {
-    double f1 = first.getFairness();
-    double f2 = second.getFairness();
+    double f1 = first.getFitness();
+    double f2 = second.getFitness();
     if(f1 < f2)
       return -1;
     if(f1 == f2)
