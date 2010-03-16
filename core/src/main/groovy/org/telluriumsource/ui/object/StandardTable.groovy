@@ -7,6 +7,12 @@ import org.telluriumsource.exception.InvalidUidException
 import org.telluriumsource.ui.locator.CompositeLocator
 
 import org.json.simple.JSONObject
+import org.telluriumsource.ui.routing.RTree
+import org.telluriumsource.ui.routing.RGraph
+import org.telluriumsource.udl.MetaData
+import org.telluriumsource.udl.TableHeaderMetaData
+import org.telluriumsource.udl.TableFooterMetaData
+import org.telluriumsource.udl.TableBodyMetaData
 
 /**
  * Standard table is in the format of
@@ -81,6 +87,12 @@ class StandardTable extends Container{
      //add a map to hold all the tfoot elements
      def footers = [:]
 
+     RTree hTree;
+
+     RTree fTree;
+
+     RGraph rGraph;
+
      @Override
      public JSONObject toJSON() {
 
@@ -100,7 +112,34 @@ class StandardTable extends Container{
 
      @Override
      def add(UiObject component){
-        if(validId(component.uid)){
+        if(this.hTree == null){
+          this.hTree = new RTree();
+          this.hTree.preBuild();
+        }
+        if(this.fTree == null){
+          this.fTree = new RTree();
+          this.fTree.preBuild();
+        }
+        if(this.rGraph == null){
+          this.rGraph = new RGraph();
+          this.rGraph.preBuild();
+        }
+
+        MetaData metaData = component.metaData;
+        if(metaData instanceof TableHeaderMetaData){
+          this.headers.put(metaData.getId(), component);
+          this.hTree.insert(component);
+        }else if(metaData instanceof TableFooterMetaData){
+          this.footers.put(metaData.getId(), component);
+          this.fTree.insert(component);
+        }else if(metaData instanceof TableBodyMetaData){
+          this.components.put(metaData.getId(), component);
+          this.rGraph.insert(component);
+        }else{
+            throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidUID" , {component.uid}))
+        }
+       
+/*        if(validId(component.uid)){
             if(component.uid.toUpperCase().trim().startsWith(HEADER)){
                 //this is a header
                 String internHeaderId = internalHeaderId(component.uid)
@@ -121,7 +160,7 @@ class StandardTable extends Container{
             }
         }else{
             throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidUID" , {component.uid}))
-        }
+        }*/
      }
 
      public boolean hasHeader(){
