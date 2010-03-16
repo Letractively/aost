@@ -2,6 +2,8 @@ package org.telluriumsource.ui.builder
 
 import org.telluriumsource.ui.object.Table
 import org.telluriumsource.ui.object.UiObject
+import org.telluriumsource.ui.routing.RGraph
+import org.telluriumsource.ui.routing.RTree
 
 /**
  * Table builder
@@ -26,6 +28,10 @@ class TableBuilder extends UiObjectBuilder{
         }
         Table table = this.internBuild(new Table(), map, df)
         table.setBodyAttributes(tbody)
+        table.rGraph = new RGraph();
+        table.rGraph.preBuild();
+        table.rTree = new RTree();
+        table.rTree.preBuild();
       
         if (closure)
             closure(table)
