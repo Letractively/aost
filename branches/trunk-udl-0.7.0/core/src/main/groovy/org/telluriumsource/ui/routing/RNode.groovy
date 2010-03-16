@@ -14,7 +14,7 @@ class RNode {
 
   String key;
 
-  double extra;
+  double bias;
 
   RNode parent;
 
@@ -40,11 +40,11 @@ class RNode {
     this.templates = new HashSet<String>();
   }
 
-  public double getFairness(){
+  public double getFitness(){
     if(this.parent == null)
-      return extra;
+      return bias;
     else
-      return this.parent.getFairness() + 1;
+      return this.parent.getFitness() + 1;
   }
 
   public void addChild(RNode child) {
