@@ -59,10 +59,10 @@ tableFooterUid returns [ListMetaData metadata]
 	;
 	
 tableBodyUid returns [TableBodyMetaData metadata]
-        :	'{' 'row' ':' inx1=INDEX ',' 'column' ':' inx2=INDEX '}' 'as' ID {metadata = new TableBodyMetaData($ID.text); metadata.setRow(new Index(inx1.getText())); metadata.setColumn(new Index(inx2.getText())); }
-        |	'{' 'row' '=' id1=ID ',' 'column' ':' INDEX '}' 'as' id2=ID {metadata = new TableBodyMetaData(id2.getText()); metadata.setRow(new Index(IndexType.REF, id1.getText()));  metadata.setColumn(new Index($INDEX.text));}
-        |	'{' 'row' ':' INDEX ',' 'column' '=' id1=ID '}' 'as' id2=ID {metadata = new TableBodyMetaData(id2.getText()); metadata.setRow(new Index($INDEX.text)); metadata.setColumn(new Index(IndexType.REF, id1.getText()));}
-        |	'{' 'row' '=' id1=ID ',' 'column' '=' id2=ID '}' 'as' id3=ID {metadata = new TableBodyMetaData(id3.getText()); metadata.setRow(new Index(IndexType.REF, id1.getText())); metadata.setColumn(new Index(IndexType.REF, id2.getText()));}
+        :	'{' 'row' ':' inx1=INDEX ',' 'column' ':' inx2=INDEX '}' 'as' ID {metadata = new TableBodyMetaData($ID.text); metadata.setTbody(new Index("1")); metadata.setRow(new Index(inx1.getText())); metadata.setColumn(new Index(inx2.getText())); }
+        |	'{' 'row' '=' id1=ID ',' 'column' ':' INDEX '}' 'as' id2=ID {metadata = new TableBodyMetaData(id2.getText()); metadata.setTbody(new Index("1")); metadata.setRow(new Index(IndexType.REF, id1.getText()));  metadata.setColumn(new Index($INDEX.text));}
+        |	'{' 'row' ':' INDEX ',' 'column' '=' id1=ID '}' 'as' id2=ID {metadata = new TableBodyMetaData(id2.getText()); metadata.setTbody(new Index("1")); metadata.setRow(new Index($INDEX.text)); metadata.setColumn(new Index(IndexType.REF, id1.getText()));}
+        |	'{' 'row' '=' id1=ID ',' 'column' '=' id2=ID '}' 'as' id3=ID {metadata = new TableBodyMetaData(id3.getText()); metadata.setTbody(new Index("1")); metadata.setRow(new Index(IndexType.REF, id1.getText())); metadata.setColumn(new Index(IndexType.REF, id2.getText()));}
         |       '{' 'tbody' ':' inx1=INDEX ',' 'row' ':' inx2=INDEX ',' 'column' ':' inx3=INDEX '}' 'as' ID {metadata = new TableBodyMetaData($ID.text); metadata.setTbody(new Index(inx1.getText())); metadata.setRow(new Index(inx2.getText())); metadata.setColumn(new Index(inx3.getText()));}
         |	'{' 'tbody' ':' inx1=INDEX ',' 'row' '=' id1=ID ',' 'column' ':' inx2=INDEX '}' 'as' id2=ID {metadata = new TableBodyMetaData(id2.getText()); metadata.setTbody(new Index(inx1.getText())); metadata.setRow(new Index(IndexType.REF, id1.getText())); metadata.setColumn(new Index(inx2.getText()));}
         |    	'{' 'tbody' ':' inx1=INDEX ',' 'row' ':' inx2=INDEX ',' 'column' '=' id1=ID '}' 'as' id2=ID {metadata = new TableBodyMetaData(id2.getText()); metadata.setTbody(new Index(inx1.getText())); metadata.setRow(new Index(inx2.getText())); metadata.setColumn(new Index(IndexType.REF, id1.getText()));}
