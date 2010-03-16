@@ -218,18 +218,21 @@ class RGraph {
     TextBox defaultUi = new TextBox();
     RNode raNode = new RNode("all", null, defaultUi, true);
     this.r = raNode;
+    this.r.extra = 0.2;
     RNode roNode = new RNode('odd', raNode, defaultUi, false);
     this.r.addChild(roNode);
     RNode reNode = new RNode('even', raNode, defaultUi, false);
     this.r.addChild(reNode);
     RNode caNode = new RNode("all", null, defaultUi, true);
     this.c = caNode;
+    this.c.extra = 0.3;
     RNode coNode = new RNode('odd', caNode, defaultUi, false);
     this.c.addChild(coNode);
     RNode ceNode = new RNode('even', caNode, defaultUi, false);
     this.c.addChild(ceNode);
     RNode taNode = new RNode("all", null, defaultUi, true);
     this.t = taNode;
+    this.t.extra = 0.1;
     RNode toNode = new RNode('odd', taNode, defaultUi, false);
     this.t.addChild(toNode);
     RNode teNode = new RNode('even', taNode, defaultUi, false);
@@ -262,11 +265,39 @@ class RGraph {
       list = this.generatePath(z);
       path = new Path(list);
       RNode nz = this.walkTo(this.c, z, path);
+      String iid = this.getInternalId(nx.getKey(), ny.getKey(), nz.getKey());
+      if(nx.templates.contains(iid) && ny.templates.contains(iid) && nz.templates.contains(iid)){
 
-      boolean isLinked = false;
-      //check for a shared template
+        return this.templates.get(iid);    
+      }else{
+        PriorityQueue<RNode> priority = new PriorityQueue(new RNodeComparator());
+        priority.add(nx);
+        priority.add(ny);
+        priority.add(nz);
 
+        while (priority.size() > 0) {
+          RNode r1 = priority.poll();
+          RNode r2 = priority.poll();
+          RNode r3 = priority.poll();
+          iid = this.getInternalId(r1.getKey(), r2.getKey(), r3.getKey());
+          if (r1.templates.contains(iid) && r2.templates.contains(iid) && r3.templates.contains(iid)) {
+            return this.templates.get(iid);
+          } else {
+            if(r1.getFairness() < 1 && r2.getFairness() < 1 && r3.getFairness() < 1){
+              return null;
+            }else{
+              if (r1.parent != null) {
+                r1 = r1.parent;
+              }
+              priority.add(r1);
+              priority.add(r2);
+              priority.add(r3);
+            }
+          }
+        }
 
+        return null;
+      }
     }
 
     return object;

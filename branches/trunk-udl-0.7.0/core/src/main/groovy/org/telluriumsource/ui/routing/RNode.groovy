@@ -14,6 +14,8 @@ class RNode {
 
   String key;
 
+  double extra;
+
   RNode parent;
 
   LinkedList<RNode> children;
@@ -38,11 +40,11 @@ class RNode {
     this.templates = new HashSet<String>();
   }
 
-  public int getLevel(){
+  public double getFairness(){
     if(this.parent == null)
-      return 0;
+      return extra;
     else
-      return this.parent.getLevel() + 1;
+      return this.parent.getFairness() + 1;
   }
 
   public void addChild(RNode child) {
