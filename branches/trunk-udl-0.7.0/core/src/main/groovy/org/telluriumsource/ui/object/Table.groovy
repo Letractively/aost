@@ -1124,59 +1124,49 @@ class Table extends Container {
     }
   }
 
-  @Override
-  public void traverse(WorkflowContext context) {
-    context.appendToUidList(context.getUid())
-
-    traverseHeader(context)
-    traverseElement(context)
-    context.popUid()
-  }
-
-  @Override
-  public void treeWalk(WorkflowContext context){
-    this.jsonifyObject(context)
-    if(this.hasHeader()){
-      this.headers.each {key, component ->
-        if(component.cacheable){
-          component.treeWalk(context)
-        }
-      }
-    }
-
-    if (!this.noCacheForChildren) {
-      this.components.each {key, component ->
-        if (component.cacheable) {
-          component.treeWalk(context)
-        }
-      }
-    }
-  }
-
   protected void traverseHeader(WorkflowContext context){
     if(this.hasHeader()){
       int max = 0
       this.headers.each {key, component ->
-        String aid = key.replaceFirst('_', '').replaceFirst('HEADER', '')
+        String aid = component.metaData.getIndex().getValue();
         if (aid ==~ /[0-9]+/) {
           context.pushUid("header[${aid}]")
-          component.traverse(context)
+          component.traverse(context);
           if (max < Integer.parseInt(aid))
             max = Integer.parseInt(aid)
+        }else if("any".equalsIgnoreCase(aid) || "last".equalsIgnoreCase(aid) || "first".equalsIgnoreCase(aid)){
+          String id =component.metaData.getId();
+          context.pushUid("header[${id}]")
+          component.traverse(context);
+        }else if("all".equalsIgnoreCase(aid)){
+          max++;
+          context.pushUid("header[${max}]")
+          component.traverse(context)
         }
-      }
-
-      UiObject obj = this.headers.get("_HEADER_ALL")
-      if(obj != null){
-        max++
-        context.pushUid("header[${max}]")
-        obj.traverse(context)
       }
     }
   }
 
   protected void traverseElement(WorkflowContext context){
-
+    int max = 0
+    this.components.each {key, component ->
+      String aid = component.metaData.getIndex().getValue();
+      if (aid ==~ /[0-9]+/) {
+        context.pushUid("header[${aid}]")
+        component.traverse(context);
+        if (max < Integer.parseInt(aid))
+          max = Integer.parseInt(aid)
+      } else if ("any".equalsIgnoreCase(aid) || "last".equalsIgnoreCase(aid) || "first".equalsIgnoreCase(aid)) {
+        String id = component.metaData.getId();
+        context.pushUid("header[${id}]")
+        component.traverse(context);
+      } else if ("all".equalsIgnoreCase(aid)) {
+        max++;
+        context.pushUid("header[${max}]")
+        component.traverse(context)
+      }
+    }
+/*
     int rmax = 0
     int cmax = 0
     this.components.each {key, component->
@@ -1213,5 +1203,36 @@ class Table extends Container {
       context.directPushUid("[${rmax}][${cmax}]")
       defaultUi.traverse(context)
     }
+    */
   }
+
+  @Override
+  public void traverse(WorkflowContext context) {
+    context.appendToUidList(context.getUid())
+
+    traverseHeader(context)
+    traverseElement(context)
+    context.popUid()
+  }
+
+  @Override
+  public void treeWalk(WorkflowContext context){
+    this.jsonifyObject(context)
+    if(this.hasHeader()){
+      this.headers.each {key, component ->
+        if(component.cacheable){
+          component.treeWalk(context)
+        }
+      }
+    }
+
+    if (!this.noCacheForChildren) {
+      this.components.each {key, component ->
+        if (component.cacheable) {
+          component.treeWalk(context)
+        }
+      }
+    }
+  }
+
 }
