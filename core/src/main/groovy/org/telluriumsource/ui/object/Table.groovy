@@ -929,7 +929,25 @@ class Table extends Container {
       loc = this.getCellSelector(child, cobj);
     }else{
       loc = this.getCellLocator(child, cobj);
-    }    
+    }
+    context.appendReferenceLocator(loc)
+
+    if(cobj.locator != null){
+      if(cobj.locator instanceof CompositeLocator){
+        CompositeLocator cl = (CompositeLocator)cobj.locator
+        if(cobj.self){
+          context.skipNext()
+        }
+      }
+    }
+
+    if (uiid.size() < 1) {
+      //not more child needs to be found
+      return cobj
+    } else {
+      //recursively call walkTo until the object is found
+      return cobj.walkTo(context, uiid)
+    }
   }
 
   //walk to a regular UI element in the table
@@ -981,7 +999,53 @@ class Table extends Container {
       //recursively call walkTo until the object is found
       return cobj.walkTo(context, uiid)
     }
+  }
 
+  //walk to a header UI element in the table
+  protected walkToHeaderNew(WorkflowContext context, UiID uiid) {
+    //pop up the "header" indicator
+    uiid.pop();
+    
+    //reach the actual uiid for the header element
+    String child = uiid.pop();
+
+    //try to find its child
+    UiObject cobj = this.locateHeaderChild(child);
+
+    //If cannot find the object as the object template, return the TextBox as the default object
+    if (cobj == null) {
+      cobj = this.defaultUi;
+    }
+
+    //update reference locator by append the relative locator for this container
+    if (this.locator != null) {
+      groupLocating(context)
+    }
+    //append relative location, i.e., row, column to the locator
+    String loc
+    if(context.isUseCssSelector()){
+      loc = this.getHeaderSelector(child, cobj);
+    }else{
+      loc = this.getHeaderSelector(child, cobj);
+    }
+
+    context.appendReferenceLocator(loc)
+    if(cobj.locator != null){
+      if(cobj.locator instanceof CompositeLocator){
+        CompositeLocator cl = (CompositeLocator)cobj.locator
+        if(cobj.self){
+          context.skipNext()
+        }
+      }
+    }
+    
+    if (uiid.size() < 1) {
+      //not more child needs to be found
+      return cobj
+    } else {
+      //recursively call walkTo until the object is found
+      return cobj.walkTo(context, uiid)
+    }
   }
 
   //walk to a header UI element in the table
@@ -1042,11 +1106,7 @@ class Table extends Container {
   @Override
   public UiObject walkTo(WorkflowContext context, UiID uiid) {
 
-    //if not child listed, return itself
-//    if (uiid.size() < 1)
-//      return this
     if (uiid.size() < 1) {
-//      if (this.locator != null && this.useGroupInfo) {
       if (this.locator != null){
         groupLocating(context)
         context.noMoreProcess = true;
@@ -1058,9 +1118,9 @@ class Table extends Container {
     String child = uiid.peek()
 
     if (child.trim().equalsIgnoreCase(HEADER)) {
-      return walkToHeader(context, uiid)
+      return walkToHeaderNew(context, uiid)
     } else {
-      return walkToElement(context, uiid)
+      return walkToElementNew(context, uiid)
     }
   }
 
