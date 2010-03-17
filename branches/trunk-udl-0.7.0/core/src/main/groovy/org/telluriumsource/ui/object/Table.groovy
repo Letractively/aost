@@ -1140,6 +1140,9 @@ class Table extends Container {
           component.traverse(context);
         }else if("all".equalsIgnoreCase(aid)){
           max++;
+          if(max < this.headers.size()){
+            max = this.headers.size();
+          }
           context.pushUid("header[${max}]")
           component.traverse(context)
         }
@@ -1148,24 +1151,15 @@ class Table extends Container {
   }
 
   protected void traverseElement(WorkflowContext context){
-    int max = 0
-    this.components.each {key, component ->
-      String aid = component.metaData.getIndex().getValue();
-      if (aid ==~ /[0-9]+/) {
-        context.pushUid("header[${aid}]")
-        component.traverse(context);
-        if (max < Integer.parseInt(aid))
-          max = Integer.parseInt(aid)
-      } else if ("any".equalsIgnoreCase(aid) || "last".equalsIgnoreCase(aid) || "first".equalsIgnoreCase(aid)) {
-        String id = component.metaData.getId();
-        context.pushUid("header[${id}]")
-        component.traverse(context);
-      } else if ("all".equalsIgnoreCase(aid)) {
-        max++;
-        context.pushUid("header[${max}]")
-        component.traverse(context)
+    int max = this.components.size();
+    for(int i=0; i<max; i++){
+      for(int j=0; j<max; j++){
+         context.directPushUid("[${i}][${j}]");
+         UiObject obj = this.locateTBodyChild("_${i}_${j}");
+         obj.traverse(context);
       }
     }
+   
 /*
     int rmax = 0
     int cmax = 0

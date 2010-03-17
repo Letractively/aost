@@ -356,7 +356,7 @@ class List extends Container {
       this.components.each {String uid, UiObject obj ->
 //        String auid = uid.replaceFirst('_', '')
         String auid = obj.metaData.getIndex().getValue()
-        if ("ALL".equalsIgnoreCase(auid)) {
+        if ("all".equalsIgnoreCase(auid)) {
           hasAll = true;
         }else if("any".equalsIgnoreCase(auid)){
           if(this.separator != null && this.separator.trim().length() > 0){
