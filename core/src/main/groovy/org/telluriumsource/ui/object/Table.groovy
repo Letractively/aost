@@ -808,11 +808,12 @@ class Table extends Container {
     boolean hasAll = false;
     if (this.headers.size() > 0) {
       this.headers.each {String uid, UiObject obj ->
-        String auid = uid.replaceFirst('_', '').replace('HEADER', '')
-        if ("ALL".equalsIgnoreCase(auid.trim())) {
+//        String auid = uid.replaceFirst('_', '').replace('HEADER', '')
+        String auid = obj.metaData.index.value;
+        if ("all".equalsIgnoreCase(auid)) {
           hasAll = true;
         }else{
-          int indx = Integer.parseInt(uid.replaceFirst('_', ''));
+          int indx = Integer.parseInt(auid);
           if (indx > max) {
             max = indx;
           }
@@ -823,6 +824,10 @@ class Table extends Container {
     if(hasAll)
       max++;
 
+    if(max < this.headers.size()){
+      max = this.headers.size();
+    }
+
     return max;
   }
 
@@ -832,21 +837,27 @@ class Table extends Container {
     boolean rowHasAll = false;
     boolean colHasAll = false;
     components.each {String uid, UiObject obj ->
-      String[] splitted = uid.replaceFirst('_', '').split("_");
-      if("ALL".equalsIgnoreCase(splitted[0])){
+      Index r = obj.metaData.row;
+      if(r.value.equalsIgnoreCase("all")){
         rowHasAll = true;
-      }else{
-        int rowindx = Integer.parseInt(splitted[0]);
+      }else if(r.value ==~ /[0-9]+/){
+        int rowindx = Integer.parseInt(r.value);
         if(rowindx > maxrow)
           maxrow = rowindx;
+      }else{
+        maxrow++;
       }
 
-      if("ALL".equalsIgnoreCase(splitted[1])){
+      Index c = obj.metaData.column;
+
+      if("all".equalsIgnoreCase(c.value)){
         colHasAll = true;
-      }else{
-        int colindx = Integer.parseInt(splitted[1]);
+      }else if(c.value ==~ /[0-9]+/){
+        int colindx = Integer.parseInt(c.value);
         if(colindx > maxcol)
           maxcol = colindx;
+      }else{
+        maxcol++;
       }
     }
 
@@ -874,7 +885,8 @@ class Table extends Container {
       sb.append(indent + "  <tr>\n");
       for(int i=1; i<=maxheader; i++){
           sb.append(indent + "   <th>\n")
-          UiObject obj = this.findHeaderUiObject(i);
+//          UiObject obj = this.findHeaderUiObject(i);
+          UiObject obj = this.locateHeaderChild("${i}")
           if (obj == null) {
             obj = this.defaultUi
           }
@@ -892,9 +904,10 @@ class Table extends Container {
         sb.append(indent + "  <tr>\n");
         for(int k=1; k<=maxcol; k++){
           sb.append(indent + "   <td>\n");
-          UiObject elem = this.findUiObject(j, k);
+//          UiObject elem = this.findUiObject(j, k);
+          UiObject elem = this.locateTBodyChild("_${j}_${k}");
           if (elem == null) {
-            elem = this.defaultUi
+            elem = this.defaultUi;
           }
           sb.append(elem.toHTML()).append("\n");
           sb.append(indent + "   </td>\n");
