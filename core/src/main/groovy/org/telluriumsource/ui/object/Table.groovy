@@ -288,6 +288,10 @@ class Table extends Container {
     return this.rGraph.route(id);
   }
 
+  public UiObject locateHeaderChild(String id) {
+    return this.rTree.route(id);
+  }
+  
   public boolean validId(String id) {
     //UID cannot be empty
     if (id == null || (id.trim().length() <= 0))
@@ -375,9 +379,97 @@ class Table extends Container {
     return JQueryBuilder.buildJQuerySelectorWithoutPosition(locator.getTag(), locator.getText(), locator.getAttributes())
   }
 
+  protected String getHeaderSelector(String index, UiObject obj){
+    if ("any".equalsIgnoreCase(index)) {
+      return this.getAnyHeaderSelector(obj);
+    } else if ("first".equalsIgnoreCase(index)) {
+      return this.getFirstHeaderSelector();
+    } else if ("last".equalsIgnoreCase(index)) {
+      return this.getLastHeaderSelector();
+    } else if (index ==~ /[0-9]+/) {
+      return this.getIndexedHeaderSelector(Integer.parseInt(index));
+    } else {
+      //TODO: rename Container.InvalidID to UiObject.InvalidID
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", index));
+    }
+  }
+
+  protected String getAnyHeaderSelector(UiObject obj) {
+    String sel = this.buildJQuerySelectorWithoutPosition(obj.locator);
+    
+    return "> tbody > tr:has(th) > th:has(${sel})";
+  }
+
+  protected String getFirstHeaderSelector() {
+
+    return " > tbody > tr:has(th) > th:first";
+  }
+
+  protected String getLastHeaderSelector() {
+
+    return " > tbody > tr:has(th) > th:last"
+  }
+
+  protected String getIndexedHeaderSelector(int row) {
+    return " > tbody > tr:has(th) > th:eq(${row - 1})"
+  }
+
+  protected String getHeaderLocator(String index, UiObject obj){
+    if ("any".equalsIgnoreCase(index)) {
+      return this.getAnyHeaderLocator(obj);
+    } else if ("first".equalsIgnoreCase(index)) {
+      return this.getFirstHeaderLocator();
+    } else if ("last".equalsIgnoreCase(index)) {
+      return this.getLastHeaderLocator();
+    } else if (index ==~ /[0-9]+/) {
+      return this.getIndexedHeaderLocator(Integer.parseInt(index));
+    } else {
+      //TODO: rename Container.InvalidID to UiObject.InvalidID
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", index));
+    }
+  }
+
+  protected String getAnyHeaderLocator(UiObject obj) {
+    String sel = this.buildLocatorWithoutPosition(obj.locator);
+    if(this.hasNamespace()){
+      return "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th[${sel}]"
+    }
+    return "/tbody/tr[child::th]/th[${sel}]";
+  }
+
+  protected String getFirstHeaderLocator() {
+    if(this.hasNamespace()){
+      return "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th[1]"
+    }
+    return "/tbody/tr[child::th]/th[1]";
+  }
+
+  protected String getLastHeaderLocator() {
+    if(this.hasNamespace()){
+      return "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th[last()]"
+    }
+    return "/tbody/tr[child::th]/th[last()]";
+  }
+
+  protected String getIndexedHeaderLocator(int row) {
+    if(this.hasNamespace()){
+      return "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th[${row}]"
+    }
+    return "/tbody/tr[child::th]/th[${row}]";
+  }
+
+  int getHeaderIndex(UiObject obj){
+
+  }
+
   Index findHeaderIndex(String key){
     UiObject obj = this.headers.get(key);
     if(obj != null){
+      if("any".equalsIgnoreCase(obj.metaData.index.value)){
+        int inx = this.getHeaderIndex(obj);
+        return new Index("${inx}")
+      }
+
       return obj.metaData.index;
     }
 
@@ -436,9 +528,9 @@ class Table extends Container {
     } else if ("last".equalsIgnoreCase(index)) {
       return this.getLastRowSelector();
     } else if (key ==~ /[0-9]+/) {
-      return this.getIndexedRowSelector(key);
+      return this.getIndexedRowSelector(Integer.parseInt(key));
     } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedRowSelector(index);
+      return this.getIndexedRowSelector(Integer.parseInt(index));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
       throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
@@ -448,7 +540,7 @@ class Table extends Container {
   protected String getAnyRowSelector(UiObject obj) {
     String sel = this.buildJQuerySelectorWithoutPosition(obj.locator);
 
-    return " > tr:has(td):has[${sel}]"
+    return " > tr:has(td):has(${sel})"
   }
 
   protected String getFirstRowSelector() {
@@ -462,7 +554,7 @@ class Table extends Container {
   }
 
   protected String getIndexedRowSelector(int row) {
-    return " > tr:has(td):eq(${row - 1}"
+    return " > tr:has(td):eq(${row - 1})"
   }
 
   protected String getColumnSelector(RIndex ri, String key, UiObject obj){
@@ -474,9 +566,9 @@ class Table extends Container {
     } else if ("last".equalsIgnoreCase(index)) {
       return this.getLastColumnSelector();
     } else if (key ==~ /[0-9]+/) {
-      return this.getIndexedColumnSelector(key);
+      return this.getIndexedColumnSelector(Integer.parseInt(key));
     } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedColumnSelector(index);
+      return this.getIndexedColumnSelector(Integer.parseInt(index));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
       throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
@@ -500,7 +592,7 @@ class Table extends Container {
   }
 
   protected String getIndexedColumnSelector(int column) {
-    return " > td:eq(${column - 1}"
+    return " > td:eq(${column - 1})"
   }
 
   String getCellLocator(String key, UiObject obj) {
@@ -526,9 +618,9 @@ class Table extends Container {
     } else if ("last".equalsIgnoreCase(index)) {
       return this.getLastRowSelector();
     } else if (key ==~ /[0-9]+/) {
-      return this.getIndexedRowSelector(key);
+      return this.getIndexedRowSelector(Integer.parseInt(key));
     } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedRowSelector(index);
+      return this.getIndexedRowSelector(Integer.parseInt(index));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
       throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
@@ -577,9 +669,9 @@ class Table extends Container {
     } else if ("last".equalsIgnoreCase(index)) {
       return this.getLastColumnSelector();
     } else if (key ==~ /[0-9]+/) {
-      return this.getIndexedColumnSelector(key);
+      return this.getIndexedColumnSelector(Integer.parseInt(key));
     } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedColumnSelector(index);
+      return this.getIndexedColumnSelector(Integer.parseInt(index));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
       throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
@@ -632,10 +724,9 @@ class Table extends Container {
     return " > tbody > tr:has(td):eq(${row-1}) > td:eq(${column-1})"
   }
 
+  
 
   protected String getHeaderLocator(int column) {
-
-//        return "/tbody/tr[1]/th[${column}]"
     if(this.hasNamespace()){
       return "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th[${column}]"
     }
