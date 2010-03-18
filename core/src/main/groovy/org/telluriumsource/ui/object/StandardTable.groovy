@@ -16,6 +16,9 @@ import org.telluriumsource.udl.TableBodyMetaData
 import org.telluriumsource.udl.Index
 import org.telluriumsource.ui.routing.RIndex
 import org.telluriumsource.exception.InvalidIndexRefException
+import org.telluriumsource.ui.locator.XPathBuilder
+import org.telluriumsource.ui.locator.JQueryBuilder
+import org.telluriumsource.udl.code.IndexType
 
 /**
  * Standard table is in the format of
@@ -416,6 +419,104 @@ class StandardTable extends Container{
     return JQueryBuilder.buildJQuerySelectorWithoutPosition(locator.getTag(), locator.getText(), locator.getAttributes())
   }
 
+  protected String getFooterSelector(String index, UiObject obj){
+    if ("any".equalsIgnoreCase(index)) {
+      return this.getAnyFooterSelector(obj);
+    } else if ("first".equalsIgnoreCase(index)) {
+      return this.getFirstFooterSelector();
+    } else if ("last".equalsIgnoreCase(index)) {
+      return this.getLastFooterSelector();
+    } else if (index ==~ /[0-9]+/) {
+      return this.getIndexedFooterSelector(Integer.parseInt(index));
+    } else {
+      //TODO: rename Container.InvalidID to UiObject.InvalidID
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", index));
+    }
+  }
+
+  protected String getAnyFooterSelector(UiObject obj) {
+    String sel = this.buildJQuerySelectorWithoutPosition(obj.locator);
+
+    return "> tbody > tr:has(th) > th:has(${sel})";
+  }
+
+  protected String getFirstFooterSelector() {
+
+    return " > tbody > tr:has(th) > th:first";
+  }
+
+  protected String getLastFooterSelector() {
+
+    return " > tbody > tr:has(th) > th:last"
+  }
+
+  protected String getIndexedFooterSelector(int row) {
+    return " > tbody > tr:has(th) > th:eq(${row - 1})"
+  }
+
+  protected String getFooterLocator(String index, UiObject obj){
+    if ("any".equalsIgnoreCase(index)) {
+      return this.getAnyFooterLocator(obj);
+    } else if ("first".equalsIgnoreCase(index)) {
+      return this.getFirstFooterLocator();
+    } else if ("last".equalsIgnoreCase(index)) {
+      return this.getLastFooterLocator();
+    } else if (index ==~ /[0-9]+/) {
+      return this.getIndexedFooterLocator(Integer.parseInt(index));
+    } else {
+      //TODO: rename Container.InvalidID to UiObject.InvalidID
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", index));
+    }
+  }
+
+  protected String getAnyFooterLocator(UiObject obj) {
+    String sel = this.buildLocatorWithoutPosition(obj.locator);
+    if(this.hasNamespace()){
+      return "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th[${sel}]"
+    }
+    return "/tbody/tr[child::th]/th[${sel}]";
+  }
+
+  protected String getFirstFooterLocator() {
+    if(this.hasNamespace()){
+      return "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th[1]"
+    }
+    return "/tbody/tr[child::th]/th[1]";
+  }
+
+  protected String getLastFooterLocator() {
+    if(this.hasNamespace()){
+      return "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th[last()]"
+    }
+    return "/tbody/tr[child::th]/th[last()]";
+  }
+
+  protected String getIndexedFooterLocator(int row) {
+    if(this.hasNamespace()){
+      return "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th[${row}]"
+    }
+    return "/tbody/tr[child::th]/th[${row}]";
+  }
+
+  int getFooterIndex(UiObject obj){
+
+  }
+
+  Index findFooterIndex(String key){
+    UiObject obj = this.footers.get(key);
+    if(obj != null){
+      if("any".equalsIgnoreCase(obj.metaData.index.value)){
+        int inx = this.getFooterIndex(obj);
+        return new Index("${inx}")
+      }
+
+      return obj.metaData.index;
+    }
+
+    return null;
+  }
+
+
 
   protected String getHeaderSelector(String index, UiObject obj){
     if ("any".equalsIgnoreCase(index)) {
@@ -560,8 +661,28 @@ class StandardTable extends Container{
     return " > tbody ";
   }
 
+  protected String getAnyBodySelector(UiObject obj) {
+    String sel = this.buildJQuerySelectorWithoutPosition(obj.locator);
+
+    return " > tbody:has(${sel})"
+  }
+
+  protected String getFirstBodySelector() {
+
+    return " > tbody:first";
+  }
+
+  protected String getLastBodySelector() {
+
+    return " > tbody:last"
+  }
+
+  protected String getIndexedBodySelector(int index) {
+    return " > tbody:eq(${index - 1})"
+  }
+
   protected String getRowSelector(RIndex ri, String key, UiObject obj){
-    String index = ri.x;
+    String index = ri.y;
     if ("any".equalsIgnoreCase(index)) {
       return this.getAnyRowSelector(obj);
     } else if ("first".equalsIgnoreCase(index)) {
@@ -599,7 +720,7 @@ class StandardTable extends Container{
   }
 
   protected String getColumnSelector(RIndex ri, String key, UiObject obj){
-    String index = ri.x;
+    String index = ri.z;
     if ("any".equalsIgnoreCase(index)) {
       return this.getAnyColumnSelector(obj);
     } else if ("first".equalsIgnoreCase(index)) {
@@ -651,8 +772,41 @@ class StandardTable extends Container{
     return "/tbody";
   }
 
+  protected String getAnyBodyLocator(UiObject obj) {
+    String loc = this.buildLocatorWithoutPosition(obj.locator);
+    if (this.namespace != null && this.namespace.trim().length() > 0) {
+      return "/${this.namespace}:tbody[${loc}]";
+    }
+
+    return "/tbody[${loc}]";
+  }
+
+  protected String getFirstBodyLocator() {
+    if (this.namespace != null && this.namespace.trim().length() > 0) {
+      return "/${this.namespace}:tbody[1]"
+    }
+
+    return "/tbody[1]"
+  }
+
+  protected String getLastBodyLocator() {
+    if (this.namespace != null && this.namespace.trim().length() > 0) {
+      return "/${this.namespace}:tbody[last()]"
+    }
+
+    return "/tbody[last()]"
+  }
+
+  protected String getIndexedBodyLocator(String index) {
+    if (this.namespace != null && this.namespace.trim().length() > 0) {
+      return "/${this.namespace}:tbody[${index}]";
+    }
+
+    return "/tbody[${index}]";
+  }
+
   protected String getRowLocator(RIndex ri, String key, UiObject obj){
-    String index = ri.x;
+    String index = ri.y;
     if ("any".equalsIgnoreCase(index)) {
       return this.getAnyRowLocator(obj);
     } else if ("first".equalsIgnoreCase(index)) {
@@ -703,7 +857,7 @@ class StandardTable extends Container{
   }
 
   protected String getColumnLocator(RIndex ri, String key, UiObject obj){
-    String index = ri.x;
+    String index = ri.z;
     if ("any".equalsIgnoreCase(index)) {
       return this.getAnyColumnLocator(obj);
     } else if ("first".equalsIgnoreCase(index)) {
@@ -1038,7 +1192,7 @@ class StandardTable extends Container{
 
         if(cobj.locator != null){
            if(cobj.locator instanceof CompositeLocator){
-              CompositeLocator cl = (CompositeLocator)cobj.locator
+//              CompositeLocator cl = (CompositeLocator)cobj.locator
 //              if(this.bodyColumnTag.equals(cl.tag) && cl.header == null){
              if(cobj.self){
                 //context.setTableDuplicateTag()

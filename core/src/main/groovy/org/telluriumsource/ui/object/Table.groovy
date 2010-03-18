@@ -506,7 +506,7 @@ class Table extends Container {
   }
 
   protected String getRowSelector(RIndex ri, String key, UiObject obj){
-    String index = ri.x;
+    String index = ri.y;
     if ("any".equalsIgnoreCase(index)) {
       return this.getAnyRowSelector(obj);
     } else if ("first".equalsIgnoreCase(index)) {
@@ -544,7 +544,7 @@ class Table extends Container {
   }
 
   protected String getColumnSelector(RIndex ri, String key, UiObject obj){
-    String index = ri.x;
+    String index = ri.z;
     if ("any".equalsIgnoreCase(index)) {
       return this.getAnyColumnSelector(obj);
     } else if ("first".equalsIgnoreCase(index)) {
@@ -597,7 +597,7 @@ class Table extends Container {
   }
 
   protected String getRowLocator(RIndex ri, String key, UiObject obj){
-    String index = ri.x;
+    String index = ri.y;
     if ("any".equalsIgnoreCase(index)) {
       return this.getAnyRowLocator(obj);
     } else if ("first".equalsIgnoreCase(index)) {
@@ -648,7 +648,7 @@ class Table extends Container {
   }
 
   protected String getColumnLocator(RIndex ri, String key, UiObject obj){
-    String index = ri.x;
+    String index = ri.z;
     if ("any".equalsIgnoreCase(index)) {
       return this.getAnyColumnLocator(obj);
     } else if ("first".equalsIgnoreCase(index)) {
