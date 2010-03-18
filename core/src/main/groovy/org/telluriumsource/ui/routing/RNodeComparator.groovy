@@ -12,7 +12,7 @@ class RNodeComparator implements Comparator<RNode>{
   int compare(RNode first, RNode second) {
     double f1 = first.getFitness();
     double f2 = second.getFitness();
-    if(f1 < f2)
+    if(f1 > f2)
       return -1;
     if(f1 == f2)
       return 0;
