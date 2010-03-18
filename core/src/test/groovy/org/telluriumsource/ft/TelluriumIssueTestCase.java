@@ -25,11 +25,11 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
         tim.defineUi();
         connectSeleniumServer();
         useCssSelector(true);
-        useCache(true);
-        setCacheMaxSize(30);
+//        useCache(true);
+//        setCacheMaxSize(30);
         useTrace(true);
-        useLocatorWithCache(false);
-        useClosestMatch(true);
+//        useLocatorWithCache(false);
+//        useClosestMatch(true);
         useEngineLog(true);
     }
 
@@ -40,22 +40,22 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testGetHTMLSource(){
-        useTelluriumApi(true);
-        useCache(true);
+//        useTelluriumApi(true);
+//        useCache(true);
         useEngineLog(true);
         tim.getHTMLSource("issueSearch");
-        useTelluriumApi(false);
+//        useTelluriumApi(false);
     }
 
     @Ignore
     @Test
     public void testShowUI(){
-        useTelluriumApi(true);
-        useCache(true);
+//        useTelluriumApi(true);
+//        useCache(true);
         useEngineLog(true);
         tim.startShow("issueResult");
         tim.endShow("issueResult");
-        useTelluriumApi(false);
+//        useTelluriumApi(false);
     }
 
     @Test
@@ -87,8 +87,8 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testGetCellCount(){
-        useCache(true);
-        useTelluriumApi(true);
+//        useCache(true);
+//        useTelluriumApi(true);
         int count = tim.getTableCellCount();
         assertTrue(count > 0);
         System.out.println("Cell size: " + count);

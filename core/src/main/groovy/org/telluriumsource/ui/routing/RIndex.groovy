@@ -18,4 +18,15 @@ class RIndex {
   //for column
   String z;
 
+  public void setTBody(String x){
+    this.x = x;
+  }
+
+  public void setRow(String y){
+    this.y = y;
+  }
+
+  public void setColumn(String z){
+    this.z = z;
+  }
 }
