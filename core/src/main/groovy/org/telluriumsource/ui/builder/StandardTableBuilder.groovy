@@ -21,10 +21,13 @@ class StandardTableBuilder extends UiObjectBuilder{
        df.put(TAG, StandardTable.TAG)
        StandardTable table = this.internBuild(new StandardTable(), map, df)
        table.hTree = new RTree();
+       table.hTree.indices = table.headers;
        table.hTree.preBuild();
        table.fTree = new RTree();
+       table.fTree.indices = table.footers;
        table.fTree.preBuild();
        table.rGraph = new RGraph();
+       table.rGraph.indices = table.components;
        table.rGraph.preBuild();
      
        String ht = map.get(StandardTable.HEAD_TAG)

@@ -122,10 +122,12 @@ class Table extends Container {
      MetaData metaData = component.metaData;
      if(this.rTree == null){
        this.rTree = new RTree();
+       this.rTree.indices = this.headers;
        this.rTree.preBuild();
      }
      if(this.rGraph == null) {
        this.rGraph = new RGraph();
+       this.rGraph.indices = this.components;
        this.rGraph.preBuild();
      }
 
