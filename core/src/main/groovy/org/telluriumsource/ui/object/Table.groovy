@@ -932,7 +932,7 @@ class Table extends Container {
 
     if(cobj.locator != null){
       if(cobj.locator instanceof CompositeLocator){
-        CompositeLocator cl = (CompositeLocator)cobj.locator
+//        CompositeLocator cl = (CompositeLocator)cobj.locator
         if(cobj.self){
           context.skipNext()
         }
@@ -1159,45 +1159,6 @@ class Table extends Container {
          obj.traverse(context);
       }
     }
-   
-/*
-    int rmax = 0
-    int cmax = 0
-    this.components.each {key, component->
-      String[] parts = key.replaceFirst('_', '').split("_")
-      if(parts[0] ==~ /[0-9]+/ && rmax < Integer.parseInt(parts[0])){
-        rmax = Integer.parseInt(parts[0])
-      }
-      if(parts[1] ==~ /[0-9]+/ && cmax < Integer.parseInt(parts[1])){
-        cmax = Integer.parseInt(parts[1])
-      }
-    }
-
-    rmax++
-    cmax++
-    boolean includeMatchAll = false
-
-    this.components.each {key, component->
-      String[] parts = key.replaceFirst('_', '').split("_")
-      if(parts[0] ==~ /[0-9]+/ && parts[1] ==~ /[0-9]+/){
-        context.directPushUid("[${parts[0]}][${parts[1]}]")
-      }else if(parts[0] ==~ /[0-9]+/ && ALL_MATCH.equalsIgnoreCase(parts[1])){
-        context.directPushUid("[${parts[0]}][${cmax}]")
-      }else if(ALL_MATCH.equalsIgnoreCase(parts[0]) && parts[1]==~ /[0-9]+/){
-        context.directPushUid("[${rmax}][${parts[1]}]")
-      }else{
-        includeMatchAll = true
-        context.directPushUid("[${rmax}][${cmax}]")
-      }
-
-      component.traverse(context)
-    }
-
-    if(!includeMatchAll){
-      context.directPushUid("[${rmax}][${cmax}]")
-      defaultUi.traverse(context)
-    }
-    */
   }
 
   @Override
