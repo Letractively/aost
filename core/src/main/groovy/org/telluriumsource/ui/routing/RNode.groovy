@@ -40,6 +40,10 @@ class RNode {
     this.templates = new HashSet<String>();
   }
 
+  public void addTemplate(String template){
+    this.templates.add(template);
+  }
+
   public double getFitness(){
     if(this.parent == null)
       return bias;

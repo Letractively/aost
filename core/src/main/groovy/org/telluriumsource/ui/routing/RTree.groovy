@@ -72,9 +72,9 @@ class RTree {
   
   //setup the routing tree structure before actually insert the UI object into the tree
   void preBuild() {
-//    this.indices = new HashMap<String, UiObject>();
-    //TODO: how to add meta data for the default UI?
     TextBox defaultUi = new TextBox();
+    ListMetaData meta = new ListMetaData("defaultUi", "all");
+    defaultUi.metaData = meta;
     RNode allNode = new RNode("all", null, defaultUi, true);
     this.root = allNode;
     RNode oddNode = new RNode('odd', allNode, defaultUi, false);

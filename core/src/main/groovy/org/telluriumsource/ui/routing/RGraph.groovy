@@ -5,6 +5,7 @@ import org.telluriumsource.ui.object.TextBox
 import org.telluriumsource.udl.TableBodyMetaData
 import org.telluriumsource.exception.InvalidIndexException
 import org.telluriumsource.framework.Environment
+import org.telluriumsource.udl.Index
 
 /**
  * 
@@ -216,7 +217,16 @@ class RGraph {
   void preBuild() {
     this.templates = new HashMap<String, UiObject>();
     TextBox defaultUi = new TextBox();
+    TableBodyMetaData meta = new TableBodyMetaData();
+    meta.setTbody(new Index("all"));
+    meta.setRow(new Index("all"));
+    meta.setColumn(new Index("all"));
+    meta.setId("defaultUi");
+    defaultUi.metaData = meta;
+    this.templates.put("_all_all_all", defaultUi);
+
     RNode raNode = new RNode("all", null, defaultUi, true);
+    raNode.addTemplate("_all_all_all");
     this.r = raNode;
     this.r.bias = 0.2;
     RNode roNode = new RNode('odd', raNode, defaultUi, false);
@@ -224,6 +234,7 @@ class RGraph {
     RNode reNode = new RNode('even', raNode, defaultUi, false);
     this.r.addChild(reNode);
     RNode caNode = new RNode("all", null, defaultUi, true);
+    caNode.addTemplate("_all_all_all");
     this.c = caNode;
     this.c.bias = 0.3;
     RNode coNode = new RNode('odd', caNode, defaultUi, false);
@@ -231,6 +242,7 @@ class RGraph {
     RNode ceNode = new RNode('even', caNode, defaultUi, false);
     this.c.addChild(ceNode);
     RNode taNode = new RNode("all", null, defaultUi, true);
+    taNode.addTemplate("_all_all_all");
     this.t = taNode;
     this.t.bias = 0.1;
     RNode toNode = new RNode('odd', taNode, defaultUi, false);

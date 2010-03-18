@@ -459,36 +459,34 @@ class Table extends Container {
 
   RIndex preprocess(TableBodyMetaData meta){
     RIndex ri = new RIndex();
-    Index t = meta.tbody;
-    if(t.type == IndexType.REF){
-      Index tRef = this.findHeaderIndex(t.value);
+    Index t = meta.getTbody();
+    if(t.getType() == IndexType.REF){
+      Index tRef = this.findHeaderIndex(t.getValue());
       if(tRef == null)
         throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , t.value))
-      ri.x = tRef.value;
+      ri.x = tRef.getValue();
     }else{
-      ri.x = t.value;
+      ri.x = t.getValue();
     }
 
-    Index r = meta.row;
-    if(r.type == IndexType.REF){
-      Index rRef = this.findHeaderIndex(r.value);
+    Index r = meta.getRow();
+    if(r.getType() == IndexType.REF){
+      Index rRef = this.findHeaderIndex(r.getValue());
       if(rRef == null)
         throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , r.value))
-      ri.y = rRef.value;
+      ri.y = rRef.getValue();
     }else{
-      ri.y = r.value;
+      ri.y = r.getValue();
     }
 
-    Index c = meta.column;
-    if(c.type == IndexType.REF){
-      Index cRef = this.findHeaderIndex(c.value);
+    Index c = meta.getColumn();
+    if(c.getType() == IndexType.REF){
+      Index cRef = this.findHeaderIndex(c.getValue());
       if(cRef == null)
         throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , c.value))
-//      ri.z = cRef.value;
-      ri.setColumn(c.value);
+      ri.setColumn(c.getValue());
     }else{
-//      ri.z = c.value;
-      ri.setColumn(c.value);
+      ri.setColumn(c.getValue());
     }
 
     return ri;
@@ -497,7 +495,8 @@ class Table extends Container {
   String getCellSelector(String key, UiObject obj) {
     TableBodyMetaData meta = (TableBodyMetaData) obj.metaData;
     RIndex ri = this.preprocess(meta);
-    return this.getTBodySelector() + this.getRowSelector(ri, key, obj) + this.getColumnSelector(ri, key, obj);
+    String[] parts = key.replaceFirst('_', '').split("_");
+    return this.getTBodySelector() + this.getRowSelector(ri, parts[1], obj) + this.getColumnSelector(ri, parts[2], obj);
   }
 
   protected String getTBodySelector() {
@@ -583,7 +582,8 @@ class Table extends Container {
   String getCellLocator(String key, UiObject obj) {
     TableBodyMetaData meta = (TableBodyMetaData) obj.metaData;
     RIndex ri = this.preprocess(meta);
-    return this.getTBodyLocator() + this.getRowLocator(ri, key, obj) + this.getColumnLocator(ri, key, obj);
+    String[] parts = key.replaceFirst('_', '').split("_");
+    return this.getTBodyLocator() + this.getRowLocator(ri, parts[1], obj) + this.getColumnLocator(ri, parts[2], obj);
   }
 
   protected String getTBodyLocator() {
