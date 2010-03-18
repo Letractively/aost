@@ -104,11 +104,16 @@ teJQuery.expr[':'].styles = function(obj, index, m){
       return result;
 };
 
-teJQuery.expr[':'].next_to_last = function(obj, index, m){
-      var $this = teJQuery(obj);
+teJQuery.expr[':'].nextToLast = function(obj, index, m){
+    var $this = teJQuery(obj);
 
-//      return $this.find(m[3]).last().prev();
-      return $this.find(m[3]).slice(-2, -1);
+    //      return $this.find(m[3]).last().prev();
+//    return $this.find(m[3]).slice(-2, -1);
+    if ($this.index() == $this.siblings().length - 1) {
+        return true;
+    } else {
+        return false;
+    }
 };
 
 teJQuery.fn.outerHTML = function() {
