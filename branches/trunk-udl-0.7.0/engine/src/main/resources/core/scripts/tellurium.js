@@ -104,6 +104,12 @@ teJQuery.expr[':'].styles = function(obj, index, m){
       return result;
 };
 
+teJQuery.expr[':'].next_to_last = function(obj, index, m){
+      var $this = teJQuery(obj);
+
+      return $this.find(m[3]).last().prev();
+};
+
 teJQuery.fn.outerHTML = function() {
     return teJQuery("<div/>").append( teJQuery(this[0]).clone() ).html();
 };
