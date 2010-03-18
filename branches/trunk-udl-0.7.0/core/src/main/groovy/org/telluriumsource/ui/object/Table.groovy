@@ -138,25 +138,6 @@ class Table extends Container {
      } else {
         throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidUID" , {component.uid}))
     }
-/*
-    if (validId(component.uid)) {
-      if (component.uid.toUpperCase().trim().startsWith(HEADER)) {
-        //this is a header
-        String internHeaderId = internalHeaderId(component.uid)
-        component.tid = internHeaderId
-        headers.put(internHeaderId, component)
-      } else {
-        //this is a regular element
-        String internId = internalId(component.uid)
-        //force to not use cache for table cell elements
-//        component.cacheable = false
-        component.tid = internId
-        components.put(internId, component)
-      }
-    } else {
-        throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidUID" , {component.uid}))
-    }
-    */
   }
 
   public setBodyAttributes(Map attributes) {
@@ -503,10 +484,14 @@ class Table extends Container {
       Index cRef = this.findHeaderIndex(c.value);
       if(cRef == null)
         throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , c.value))
-      ri.z = cRef.value;
+//      ri.z = cRef.value;
+      ri.setColumn(c.value);
     }else{
-      ri.z = c.value;
+//      ri.z = c.value;
+      ri.setColumn(c.value);
     }
+
+    return ri;
   }
 
   String getCellSelector(String key, UiObject obj) {
@@ -1022,8 +1007,10 @@ class Table extends Container {
     //reach the actual uiid for the header element
     String child = uiid.pop();
 
+    String key = child.replaceFirst('_', '');
+
     //try to find its child
-    UiObject cobj = this.locateHeaderChild(child);
+    UiObject cobj = this.locateHeaderChild(key);
 
     //If cannot find the object as the object template, return the TextBox as the default object
     if (cobj == null) {
@@ -1037,9 +1024,9 @@ class Table extends Container {
     //append relative location, i.e., row, column to the locator
     String loc
     if(context.isUseCssSelector()){
-      loc = this.getHeaderSelector(child, cobj);
+      loc = this.getHeaderSelector(key, cobj);
     }else{
-      loc = this.getHeaderSelector(child, cobj);
+      loc = this.getHeaderSelector(key, cobj);
     }
 
     context.appendReferenceLocator(loc)
@@ -1129,7 +1116,7 @@ class Table extends Container {
     }
 
     String child = uiid.peek()
-
+    
     if (child.trim().equalsIgnoreCase(HEADER)) {
       return walkToHeaderNew(context, uiid)
     } else {
