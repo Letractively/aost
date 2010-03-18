@@ -452,7 +452,7 @@ class StandardTable extends Container{
 
   protected String getLastBodySelector() {
     if(hasFooter() && this.bodyTag.equals(this.footTag)){
-      return " > ${this.bodyTag}:next_to_last";
+      return " > ${this.bodyTag}:nextToLast";
     }
     return " > ${this.bodyTag}:last"
   }
