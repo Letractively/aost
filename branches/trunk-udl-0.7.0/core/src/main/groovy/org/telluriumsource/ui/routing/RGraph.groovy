@@ -270,7 +270,7 @@ class RGraph {
 
         return this.templates.get(iid);    
       }else{
-        PriorityQueue<RNode> priority = new PriorityQueue(new RNodeComparator());
+        PriorityQueue<RNode> priority = new PriorityQueue(6, new RNodeComparator());
         priority.add(nx);
         priority.add(ny);
         priority.add(nz);
