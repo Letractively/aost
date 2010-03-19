@@ -793,7 +793,6 @@ class Table extends Container {
     boolean hasAll = false;
     if (this.headers.size() > 0) {
       this.headers.each {String uid, UiObject obj ->
-//        String auid = uid.replaceFirst('_', '').replace('HEADER', '')
         String auid = obj.metaData.index.value;
         if ("all".equalsIgnoreCase(auid)) {
           hasAll = true;

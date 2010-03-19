@@ -764,18 +764,18 @@ class StandardTable extends Container{
         return " > ${this.headTag}:first > ${this.headRowTag} > ${this.headColumnTag}:eq(${column-1})"
     }
 
-    protected String getFootLocator(int column) {
-      //XXX: be aware that the count is not accurate if you have multiple tbodies.
-      //Please use the css selector, which is accurate
-        int count = 1;
-        if(hasFooter() && hasHeader() && this.footTag.equals(this.headTag))
-          count++
-        if(hasFooter() && this.footTag.equals(this.bodyTag))
-          count++
+  protected String getFootLocator(int column) {
+    //XXX: be aware that the count is not accurate if you have multiple tbodies.
+    //Please use the css selector, which is accurate
+    int count = 1;
+    if (hasFooter() && hasHeader() && this.footTag.equals(this.headTag))
+      count++
+    if (hasFooter() && this.footTag.equals(this.bodyTag))
+      count++
 
-        return "/${this.footTag}[${count}]/${this.footRowTag}/${this.footColumnTag}[${column}]"
+    return "/${this.footTag}[${count}]/${this.footRowTag}/${this.footColumnTag}[${column}]"
 
-    }
+  }
 
     protected String getFootSelector(int column) {
 
@@ -1254,5 +1254,156 @@ class StandardTable extends Container{
         }
       }
     }
+  }
+
+  protected int getMaxHeaderIndex(){
+    int max = 0;
+     this.headers.each {key, component ->
+        String aid = component.metaData.getIndex().getValue();
+        if (aid ==~ /[0-9]+/) {
+          if (max < Integer.parseInt(aid))
+            max = Integer.parseInt(aid)
+        }else if("any".equalsIgnoreCase(aid) || "last".equalsIgnoreCase(aid) || "first".equalsIgnoreCase(aid)){
+          max++;
+        }else if("all".equalsIgnoreCase(aid)){
+          max++;
+        }
+      }
+
+      if (max < this.headers.size()) {
+        max = this.headers.size();
+      }
+
+      return max;
+  }
+
+  protected int getMaxFooterIndex(){
+    int max = 0;
+     this.footers.each {key, component ->
+        String aid = component.metaData.getIndex().getValue();
+        if (aid ==~ /[0-9]+/) {
+          if (max < Integer.parseInt(aid))
+            max = Integer.parseInt(aid)
+        }else if("any".equalsIgnoreCase(aid) || "last".equalsIgnoreCase(aid) || "first".equalsIgnoreCase(aid)){
+          max++;
+        }else if("all".equalsIgnoreCase(aid)){
+          max++;
+        }
+      }
+
+      if (max < this.footers.size()) {
+        max = this.footers.size();
+      }
+
+      return max;
+  }
+
+  Integer[] getMaxBodyIndices(){
+    int tmax = 0
+    int rmax = 0
+    int cmax = 0
+
+    this.components.each {key, component ->
+      TableBodyMetaData meta = (TableBodyMetaData)component;
+      String t = meta.getTbody().getValue();
+      if (t ==~ /[0-9]+/) {
+        if(tmax < Integer.parseInt(t)){
+          tmax = Integer.parseInt(t);
+        }
+      }
+      String r = meta.getRow().getValue();
+      if(r ==~ /[0-9]+/){
+        if(rmax < Integer.parseInt(r)){
+          rmax = Integer.parseInt(r);
+        }
+      }
+      String c = meta.getColumn().getValue();
+      if(c ==~ /[0-9]+/){
+        if(cmax < Integer.parseInt(c)){
+          cmax = Integer.parseInt(c);
+        }
+      }
+    }
+
+    int max = this.components.size();
+    if(tmax < 1)
+      tmax = 1;
+    if(rmax < max)
+      rmax = max;
+    if(cmax < max)
+      cmax = max;
+
+    return [tmax, rmax, cmax];
+  }
+
+  @Override
+  public String toHTML() {
+    StringBuffer sb = new StringBuffer(256);
+    String indent = getIndent();
+
+    if (this.locator != null)
+        sb.append(indent + this.locator.toHTML(false)).append("\n").append(indent + " <${this.bodyTag}>\n");
+    else
+        sb.append(indent + "<${this.locator.tag}>\n");
+
+    if(this.hasHeader()){
+      int maxheader = this.getMaxHeaderIndex();
+      sb.append(indent + " <${this.headTag}>\n").append(indent + "  <${this.headRowTag}>\n");
+      for(int l=1; l<=maxheader; l++){
+          sb.append(indent + "   <${this.headColumnTag}>\n")
+          UiObject obj = this.locateHeaderChild("${l}")
+          if (obj == null) {
+            obj = this.defaultUi
+          }
+          sb.append(obj.toHTML()).append("\n");
+          sb.append(indent + "   </${this.headColumnTag}>\n")
+      }
+      sb.append(indent + "  </${this.headRowTag}>\n");
+      sb.append(indent + " </${this.headTag}>\n");
+    }
+
+    if (this.components.size() > 0) {
+      Integer[] val = this.getMaxBodyIndices();
+      int maxtbody = val[0];
+      int maxrow = val[1];
+      int maxcol = val[2];
+      sb.append(indent + " <${this.bodyTag}>\n")
+      for (int i = 1; i <= maxtbody; i++) {
+        for (int j = 1; j <= maxrow; j++) {
+          sb.append(indent + "  <${this.bodyRowTag}>\n");
+          for (int k = 1; k <= maxcol; k++) {
+            sb.append(indent + "   <${this.bodyColumnTag}>\n");
+            UiObject elem = this.locateTBodyChild("_${i}_${j}_${k}");
+            if (elem == null) {
+              elem = this.defaultUi;
+            }
+            sb.append(elem.toHTML()).append("\n");
+            sb.append(indent + "   </${this.bodyColumnTag}>\n");
+          }
+          sb.append(indent + "  </${this.bodyRowTag}>\n");
+          sb.append(indent + " </${this.bodyTag}>\n");
+        }
+      }
+    }
+
+    if(this.hasFooter()){
+      int maxfooter = this.getMaxFooterIndex();
+      sb.append(indent + " <${this.footTag}>\n").append(indent + "  <${this.footRowTag}>\n");
+      for(int i=1; i<=maxfooter; i++){
+          sb.append(indent + "   <${this.footColumnTag}>\n")
+          UiObject obj = this.locateFooterChild("${i}")
+          if (obj == null) {
+            obj = this.defaultUi
+          }
+          sb.append(obj.toHTML()).append("\n");
+          sb.append(indent + "   </${this.footColumnTag}>\n")
+      }
+      sb.append(indent + "  </${this.footRowTag}>\n");
+      sb.append(indent + " </${this.footTag}>\n");
+    }
+
+    sb.append(indent + "</${this.locator.tag}>\n");
+
+    return sb.toString();
   }
 }
