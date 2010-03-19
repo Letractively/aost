@@ -104,6 +104,7 @@ teJQuery.expr[':'].styles = function(obj, index, m){
       return result;
 };
 
+/*
 teJQuery.expr[':'].nextToLast = function(obj, index, m){
     var $this = teJQuery(obj);
 
@@ -114,6 +115,25 @@ teJQuery.expr[':'].nextToLast = function(obj, index, m){
     } else {
         return false;
     }
+};
+*/
+
+// this is a selector called nextToLast. its sole purpose is to return the next to last
+// element of the array of elements supplied to it.
+// the parameters in the function below are as follows;
+// obj => the current node being checked
+// ind => the index of obj in the array of objects being checked
+// prop => the properties passed in with the expression
+// node => the array of nodes being checked
+teJQuery.expr[':'].nextToLast = function(obj, ind, prop, node){
+
+     // if ind is 1 less than the length of the array of nodes, keep it
+     if (ind == node.length-1) {
+          return true;
+     } else {
+          // else, remove the node
+          return false;
+     }
 };
 
 teJQuery.fn.outerHTML = function() {
