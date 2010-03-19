@@ -89,9 +89,9 @@ class StandardTable extends Container{
 
   protected TextBox defaultUi = new TextBox()
   //add a map to hold all the header elements
-  def headers = [:]
+  Map<String, UiObject> headers = [:]
   //add a map to hold all the tfoot elements
-  def footers = [:]
+  Map<String, UiObject> footers = [:]
 
   RTree hTree;
 
