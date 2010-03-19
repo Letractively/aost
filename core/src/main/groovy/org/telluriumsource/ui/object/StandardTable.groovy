@@ -778,13 +778,6 @@ class StandardTable extends Container{
     }
 
     protected String getFootSelector(int column) {
-/*        int count = 0;
-        if(this.footTag.equals(this.headTag))
-          count++
-        if(this.footTag.equals(this.bodyTag))
-          count++
-          return " > ${this.footTag}:eq(${count}) > ${this.footRowTag} > ${this.footColumnTag}:eq(${column-1})"
-          */
 
         return " > ${this.footTag}:last > ${this.footRowTag} > ${this.footColumnTag}:eq(${column-1})"
     }
