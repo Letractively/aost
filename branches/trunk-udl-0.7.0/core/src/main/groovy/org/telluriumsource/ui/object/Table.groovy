@@ -975,7 +975,7 @@ class Table extends Container {
     if(context.isUseCssSelector()){
       loc = this.getHeaderSelector(key, cobj);
     }else{
-      loc = this.getHeaderSelector(key, cobj);
+      loc = this.getHeaderLocator(key, cobj);
     }
 
     context.appendReferenceLocator(loc)
