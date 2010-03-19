@@ -41,7 +41,8 @@ baseUid returns [MetaData metadata]
 	:	ID {metadata = new MetaData($ID.text);}
 	;
 listUid returns [ListMetaData metadata]
-	:	'{' INDEX '}' 'as' ID {metadata = new ListMetaData($ID.text, $INDEX.text);}
+	:       '{' INDEX '}' {metadata = new ListMetaData('_' +  $INDEX.text, $INDEX.text);}
+	|	'{' INDEX '}' 'as' ID {metadata = new ListMetaData($ID.text, $INDEX.text);}
 	;
 		
 tableUid returns [MetaData metadata]
@@ -51,11 +52,13 @@ tableUid returns [MetaData metadata]
 	;
 	
 tableHeaderUid returns [TableHeaderMetaData metadata]
-	:	'{' 'header' ':' INDEX '}' 'as' ID {metadata = new TableHeaderMetaData($ID.text, $INDEX.text);}
+	: 	'{' 'header' ':' INDEX '}' {metadata = new TableHeaderMetaData('_'+$INDEX.text, $INDEX.text);}	
+	| 	'{' 'header' ':' INDEX '}' 'as' ID {metadata = new TableHeaderMetaData($ID.text, $INDEX.text);}
 	;
 	
 tableFooterUid returns [TableFooterMetaData metadata]
-	:       '{' 'footer' ':' INDEX '}' 'as' ID {metadata = new TableFooterMetaData($ID.text, $INDEX.text);}
+	:       '{' 'footer' ':' INDEX '}' {metadata = new TableFooterMetaData('_'+$INDEX.text, $INDEX.text);}
+	|  	'{' 'footer' ':' INDEX '}' 'as' ID {metadata = new TableFooterMetaData($ID.text, $INDEX.text);}
 	;
 	
 tableBodyUid returns [TableBodyMetaData metadata]
