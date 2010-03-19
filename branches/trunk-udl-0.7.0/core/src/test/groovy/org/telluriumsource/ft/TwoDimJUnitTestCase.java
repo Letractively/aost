@@ -42,6 +42,14 @@ public class TwoDimJUnitTestCase extends TelluriumMockJUnitTestCase {
         tdm.getHTMLSource("Table");
     }
 
+    @Test
+    public void testGetText(){
+        System.out.println(tdm.getText("Table[1][1][1]"));
+        System.out.println(tdm.getText("Table[2][2][1]"));
+        System.out.println(tdm.getText("Table[2][2][2]"));
+        System.out.println(tdm.getText("Table[2][2][3]"));
+    }
+
     @AfterClass
     public static void tearDown(){
         showTrace();
