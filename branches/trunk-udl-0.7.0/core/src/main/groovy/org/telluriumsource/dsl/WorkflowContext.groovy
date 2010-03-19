@@ -130,7 +130,6 @@ class WorkflowContext implements Serializable {
   }
 
   public String getUid(){
-//    return this.uiid.reverse().join(".").replaceAll("\\._\\[","\\[")
     return this.uiid.join(".").replaceAll("\\._\\[","\\[")
   }
 
@@ -274,27 +273,5 @@ class WorkflowContext implements Serializable {
 
       context.put(REFERENCE_LOCATOR, rl)
     }
-  }
-
-  protected String checkTableDuplicateTag(String rl, String loc) {
-
-    String xp = XPathProcessor.lastXPath(rl)
-    String tag = XPathProcessor.getTagFromXPath(xp)
-    
-    //assume loc is only the xpath for one element
-    String ntag = XPathProcessor.getTagFromXPath(loc)
-    if (tag.equals(ntag)) {
-      int pos = XPathProcessor.checkPosition(xp)
-      if (pos != -1) {
-        String nloc = XPathProcessor.addPositionAttribute(loc, pos)
-        rl = XPathProcessor.popXPath(rl) + nloc
-      }else{
-        rl = XPathProcessor.popXPath(rl) + loc
-      }
-    }else{
-      rl = rl + loc
-    }
-
-    return rl
   }
 }
