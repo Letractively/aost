@@ -179,7 +179,7 @@ and he also suggested [http://www.tentonaxe.com/2010/03/custom-jquery-selectors.
 teJQuery.expr[':'].nextToLast = function(obj, ind, prop, node){
 
      // if ind is 1 less than the length of the array of nodes, keep it
-     if (ind == node.length-1) {
+     if (ind == node.length-2) {
           return true;
      } else {
           // else, remove the node
