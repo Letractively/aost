@@ -912,14 +912,6 @@ class StandardTable extends Container{
     }
 
     int getTableFootColumnNumBySelector(Closure c) {
-/*
-        int count = 0;
-        if(this.footTag.equals(this.headTag))
-          count++
-        if(this.footTag.equals(this.bodyTag))
-          count++
-         return c(this.locator, " > ${this.footTag}:eq(${count}) > ${this.footRowTag}:eq(0) > ${this.footColumnTag}")
-*/
 
         return c(this.locator, " > ${this.footTag}:last > ${this.footRowTag}:eq(0) > ${this.footColumnTag}")
     }
@@ -966,123 +958,94 @@ class StandardTable extends Container{
          return c(this.locator, " > ${this.bodyTag}") - count
     }
 
-    //walk to a regular UI element in the table
-    protected walkToElement(WorkflowContext context, UiID uiid) {
-        String child = uiid.pop()
-        String[] parts = child.replaceFirst('_', '').split("_")
-        int nrow
-        int ncolumn
-        int ntbody
-        if(parts.length == 3){
-          ntbody = Integer.parseInt(parts[0])
-          nrow = Integer.parseInt(parts[1])
-          ncolumn = Integer.parseInt(parts[2])
-        }else{
-          ntbody = 1
-          nrow = Integer.parseInt(parts[0])
-          ncolumn = Integer.parseInt(parts[1])
-        }
-
-        //otherwise, try to find its child
-        UiObject cobj = this.findUiObject(ntbody, nrow, ncolumn)
-
-        //If cannot find the object as the object template, return the TextBox as the default object
-        if (cobj == null) {
-            cobj = this.defaultUi
-        }
-
-        //update reference locator by append the relative locator for this container
-        if (this.locator != null) {
-          groupLocating(context)
-        }
-
-        //append relative location, i.e., tbody, row, column to the locator
-        String loc
-        if(context.isUseCssSelector()){
-          //jquery eq() starts from zero, while xpath starts from one
-//          loc = getCellSelector(ntbody-1, nrow-1, ncolumn-1)
-          loc = getCellSelector(ntbody, nrow, ncolumn)
-        }else{
-          loc = getCellLocator(ntbody, nrow, ncolumn)
-        }
-
-        context.appendReferenceLocator(loc)
-
-        if(cobj.locator != null){
-           if(cobj.locator instanceof CompositeLocator){
-//              CompositeLocator cl = (CompositeLocator)cobj.locator
-//              if(this.bodyColumnTag.equals(cl.tag) && cl.header == null){
-             if(cobj.self){
-                //context.setTableDuplicateTag()
-                context.skipNext()
-              }
-            }
-        }
-
-        if (uiid.size() < 1) {
-            //not more child needs to be found
-            return cobj
-        } else {
-            //recursively call walkTo until the object is found
-            return cobj.walkTo(context, uiid)
-        }
-
+  //walk to a regular UI element in the table
+  protected walkToElement(WorkflowContext context, UiID uiid) {
+    String child = uiid.pop();
+    UiObject cobj = this.locateTBodyChild(child);
+    //If cannot find the object as the object template, return the TextBox as the default object
+    if (cobj == null) {
+      cobj = this.defaultUi
+    }
+    //update reference locator by append the relative locator for this container
+    if (this.locator != null) {
+      groupLocating(context)
     }
 
-    //walk to a header UI element in the table
-    protected walkToHeader(WorkflowContext context, UiID uiid) {
-        //pop up the "header" indicator
-        uiid.pop()
-        //reach the actual uiid for the header element
-        String child = uiid.pop()
-
-        child = child.replaceFirst('_', '').replaceFirst("HEADER", '')
-        int index = Integer.parseInt(child.trim())
-
-        //try to find its child
-        UiObject cobj = this.findHeaderUiObject(index)
-
-        //If cannot find the object as the object template, return the TextBox as the default object
-        if (cobj == null) {
-            cobj = this.defaultUi
-        }
-
-        //update reference locator by append the relative locator for this container
-        if (this.locator != null) {
-          groupLocating(context)
-        }
-
-        //append relative location, i.e., row, column to the locator
-        String loc
-        if(context.isUseCssSelector()){
-          loc = getHeaderSelector(index)
-        }else{
-          loc = getHeaderLocator(index)
-        }
-
-        context.appendReferenceLocator(loc)
-
-        if(cobj.locator != null){
-          if(cobj.locator instanceof CompositeLocator){
-            CompositeLocator cl = (CompositeLocator)cobj.locator
- //           if("td".equals(cl.tag) && cl.header == null){
-//           if(this.headColumnTag.equals(cl.tag) && cl.header == null){
-            if(cobj.self){
-              //context.setTableDuplicateTag()
-              context.skipNext()
-            }
-          }
-        }
-
-        if (uiid.size() < 1) {
-            //not more child needs to be found
-            return cobj
-        } else {
-            //recursively call walkTo until the object is found
-            return cobj.walkTo(context, uiid)
-        }
-
+    //append relative location, i.e., row, column to the locator
+    String loc;
+    if (context.isUseCssSelector()) {
+      //jquery eq() starts from zero, while xpath starts from one
+      loc = this.getCellSelector(child, cobj);
+    } else {
+      loc = this.getCellLocator(child, cobj);
     }
+    context.appendReferenceLocator(loc)
+
+    if (cobj.locator != null) {
+      if (cobj.locator instanceof CompositeLocator) {
+        if (cobj.self) {
+          context.skipNext()
+        }
+      }
+    }
+
+    if (uiid.size() < 1) {
+      //not more child needs to be found
+      return cobj
+    } else {
+      //recursively call walkTo until the object is found
+      return cobj.walkTo(context, uiid)
+    }
+  }
+
+  //walk to a header UI element in the table
+  protected walkToHeader(WorkflowContext context, UiID uiid) {
+    //pop up the "header" indicator
+    uiid.pop();
+
+    //reach the actual uiid for the header element
+    String child = uiid.pop();
+
+    String key = child.replaceFirst('_', '');
+
+    //try to find its child
+    UiObject cobj = this.locateHeaderChild(key);
+
+    //If cannot find the object as the object template, return the TextBox as the default object
+    if (cobj == null) {
+      cobj = this.defaultUi;
+    }
+
+    //update reference locator by append the relative locator for this container
+    if (this.locator != null) {
+      groupLocating(context)
+    }
+    //append relative location, i.e., row, column to the locator
+    String loc
+    if (context.isUseCssSelector()) {
+      loc = this.getHeaderSelector(key, cobj);
+    } else {
+      loc = this.getHeaderLocator(key, cobj);
+    }
+
+    context.appendReferenceLocator(loc)
+    if (cobj.locator != null) {
+      if (cobj.locator instanceof CompositeLocator) {
+        if (cobj.self) {
+          context.skipNext()
+        }
+      }
+    }
+
+    if (uiid.size() < 1) {
+      //not more child needs to be found
+      return cobj
+    } else {
+      //recursively call walkTo until the object is found
+      return cobj.walkTo(context, uiid)
+    }
+  }
+
 
     //walk to a foot UI element in the table
     protected walkToFoot(WorkflowContext context, UiID uiid) {
@@ -1317,248 +1280,4 @@ class StandardTable extends Container{
     }
   }
 
-/*
-     public static String internalHeaderId(String id){
-         String[] parts = id.trim().split(ID_FIELD_SEPARATOR)
-         parts[0] = parts[0].trim()
-         parts[1] = parts[1].trim()
-         if(ID_WILD_CASE.equalsIgnoreCase(parts[1]) || ALL_MATCH.equalsIgnoreCase(parts[1]))
-            return "_HEADER_ALL"
-         else
-            return "_HEADER_${parts[1].toUpperCase()}"
-     }
-
-     public static String internalFootId(String id){
-         String[] parts = id.trim().split(ID_FIELD_SEPARATOR)
-         parts[0] = parts[0].trim()
-         parts[1] = parts[1].trim()
-         if(ID_WILD_CASE.equalsIgnoreCase(parts[1]) || ALL_MATCH.equalsIgnoreCase(parts[1]))
-            return "_FOOTER_ALL"
-         else
-            return "_FOOTER_${parts[1].toUpperCase()}"
-     }
-
-     //should validate the uid before call this to convert it to internal representation
-     public static String internalId(String id){
-        String row
-        String column
-        String tbody
-
-         //convert to upper case so that it is case insensitive
-        String upperId = id.trim().toUpperCase()
-
-         //check match all case
-        if(ALL_MATCH.equals(upperId)){
-            row = "ALL"
-            column = "ALL"
-            tbody = "ALL"
-
-            return "_${tbody}_${row}_${column}"
-        }
-
-        String[] parts = upperId.split(ID_SEPARATOR);
-        def ids = [:]
-        parts.each { String part ->
-           String[] fields = part.trim().split(ID_FIELD_SEPARATOR)
-           fields[0] = fields[0].trim()
-           fields[1] = fields[1].trim()
-           if(ID_WILD_CASE.equalsIgnoreCase(fields[1])){
-             fields[1] = "ALL"
-           }
-           ids.put(fields[0], fields[1])
-        }
-        row = ids.get(ROW)
-        column = ids.get(COLUMN)
-        tbody = ids.get(TBODY)
-        if(tbody == null){
-          //if tbody is not defined, assume it is the first one
-          tbody = "1"
-        }
-
-        return "_${tbody}_${row}_${column}"
-     }
-
-    public UiObject findHeaderUiObject(int index) {
-        //first check _i format
-        String key = "_HEADER_${index}"
-        UiObject obj = headers.get(key)
-
-        //then, check _ALL format
-        if (obj == null) {
-            key = "_HEADER_ALL"
-            obj = headers.get(key)
-        }
-
-        return obj
-    }
-
-    public UiObject findFootUiObject(int index) {
-        //first check _i format
-        String key = "_FOOTER_${index}"
-        UiObject obj = footers.get(key)
-
-        //then, check _ALL format
-        if (obj == null) {
-            key = "_FOOTER_ALL"
-            obj = footers.get(key)
-        }
-
-        return obj
-    }
-
-  public UiObject findUiObject(int tbody, int row, int column) {
-
-    //first check _i_j_k format
-    String key = "_${tbody}_${row}_${column}"
-    UiObject obj = components.get(key)
-
-    //thirdly, check _i_j_ALL format
-    if (obj == null) {
-      key = "_${tbody}_${row}_ALL"
-      obj = components.get(key)
-    }
-
-    //then, check _i_ALL_K format
-    if (obj == null) {
-      key = "_${tbody}_ALL_${column}"
-      obj = components.get(key)
-    }
-
-    //check _ALL_j_k format
-    if (obj == null) {
-      key = "_ALL_${row}_${column}"
-      obj = components.get(key)
-    }
-
-    //check _i_ALL_ALL
-    if(obj == null){
-      key = "_${tbody}_ALL_ALL"
-      obj = components.get(key)
-    }
-
-    //check _ALL_j_ALL
-    if(obj == null){
-      key = "_ALL_${row}_ALL"
-      obj = components.get(key)
-    }
-
-    //check _ALL_ALL_k
-    if(obj == null){
-      key = "_ALL_ALL_${column}"
-      obj = components.get(key)
-    }
-
-    //last, check ALL format
-    if (obj == null) {
-      key = "_ALL_ALL_ALL"
-      obj = components.get(key)
-    }
-
-    return obj
-  }
-
-    public boolean validId(String id) {
-        //UID cannot be empty
-        if (id == null || (id.trim().length() <= 0))
-            return false
-
-        //convert to upper case so that it is case insensitive
-        String upperId = id.trim().toUpperCase()
-        //check if this object is for the header in the format of
-        // "header: 2", "header: all"
-        if (upperId.startsWith(HEADER)) {
-            return validateHeader(id)
-        }
-
-        //check if this object is for the foot in the format of
-        // "foot: 2", "foot: all"
-        if (upperId.startsWith(FOOTER)) {
-            return validateFoot(id)
-        }
-
-        //check match all case
-        if (ALL_MATCH.equals(upperId))
-            return true
-
-        String[] parts = upperId.split(ID_SEPARATOR)
-        //should not be more than three parts, i.e., column, row, and tbody
-        if (parts.length > 3)
-            return false
-
-        parts.each { String part ->
-          if(!validateField(part)){
-            return false
-          }
-        }
-
-        return true
-    }
-
-    protected boolean validateFoot(String id) {
-        if (id == null || (id.trim().length() <= 0))
-            return false
-
-        String[] parts = id.trim().split(ID_FIELD_SEPARATOR)
-        if (parts.length != 2)
-            return false
-
-        parts[0] = parts[0].trim()
-        parts[1] = parts[1].trim()
-
-        if (!FOOTER.equalsIgnoreCase(parts[0]))
-            return false
-
-        //check the template, which could either be "*", "all", or numbers
-        if (ID_WILD_CASE.equalsIgnoreCase(parts[1]) || ALL_MATCH.equalsIgnoreCase(parts[1]))
-            return true
-        else {
-            return (parts[1] ==~ /[0-9]+/)
-        }
-    }
-
-    protected boolean validateHeader(String id) {
-        if (id == null || (id.trim().length() <= 0))
-            return false
-
-        String[] parts = id.trim().split(ID_FIELD_SEPARATOR)
-        if (parts.length != 2)
-            return false
-
-        parts[0] = parts[0].trim()
-        parts[1] = parts[1].trim()
-
-        if (!HEADER.equalsIgnoreCase(parts[0]))
-            return false
-
-        //check the template, which could either be "*", "all", or numbers
-        if (ID_WILD_CASE.equalsIgnoreCase(parts[1]) || ALL_MATCH.equalsIgnoreCase(parts[1]))
-            return true
-        else {
-            return (parts[1] ==~ /[0-9]+/)
-        }
-    }
-
-    protected boolean validateField(String field) {
-        if (field == null || (field.trim().length() <= 0))
-            return false
-
-        String[] parts = field.trim().split(ID_FIELD_SEPARATOR)
-        if (parts.length != 2)
-            return false
-
-        parts[0] = parts[0].trim()
-        parts[1] = parts[1].trim()
-
-        //must start with "ROW", "COLUMN", or "TBODY"
-        if (!ROW.equals(parts[0]) && !COLUMN.equals(parts[0]) && !TBODY.equals(parts[0]))
-            return false
-
-        if (ID_WILD_CASE.equals(parts[1]) )
-            return true
-        else {
-            return (parts[1] ==~ /[0-9]+/)
-        }
-    }
-
-*/
 }
