@@ -907,7 +907,10 @@ class Table extends Container {
 
   protected UiObject walkToElement(WorkflowContext context, UiID uiid){
     //tbody is 1 for a Table without tbody defined
-    String child = "_1" + uiid.pop();
+    String child = uiid.pop();
+/*    if(child ==~ /[0-9]+/){
+      child = "_1" + child;
+    }*/
     UiObject cobj = this.locateTBodyChild(child);
     //If cannot find the object as the object template, return the TextBox as the default object
     if (cobj == null) {
