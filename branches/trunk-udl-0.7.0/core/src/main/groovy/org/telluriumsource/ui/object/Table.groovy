@@ -906,7 +906,7 @@ class Table extends Container {
     return sb.toString();
   }
 
-  protected UiObject walkToElementNew(WorkflowContext context, UiID uiid){
+  protected UiObject walkToElement(WorkflowContext context, UiID uiid){
     //tbody is 1 for a Table without tbody defined
     String child = "_1" + uiid.pop();
     UiObject cobj = this.locateTBodyChild(child);
@@ -948,59 +948,8 @@ class Table extends Container {
     }
   }
 
-  //walk to a regular UI element in the table
-  protected walkToElement(WorkflowContext context, UiID uiid) {
-    String child = uiid.pop()
-    String[] parts = child.replaceFirst('_', '').split("_")
-
-    int nrow = Integer.parseInt(parts[0])
-    int ncolumn = Integer.parseInt(parts[1])
-    //otherwise, try to find its child
-    UiObject cobj = this.findUiObject(nrow, ncolumn)
-
-    //If cannot find the object as the object template, return the TextBox as the default object
-    if (cobj == null) {
-      cobj = this.defaultUi
-    }
-
-    //update reference locator by append the relative locator for this container
-    if (this.locator != null) {
-      groupLocating(context)
-    }
-
-    //append relative location, i.e., row, column to the locator
-    String loc = null
-    if(context.isUseCssSelector()){
-      //jquery eq() starts from zero, while xpath starts from one
-      loc = getCellSelector(nrow, ncolumn)
-    }else{
-      loc = getCellLocator(nrow, ncolumn)
-    }
-
-    context.appendReferenceLocator(loc)
-
-    if(cobj.locator != null){
-      if(cobj.locator instanceof CompositeLocator){
-        CompositeLocator cl = (CompositeLocator)cobj.locator
-//        if("td".equals(cl.tag) && cl.header == null){
-        if(cobj.self){
-          //context.setTableDuplicateTag()
-          context.skipNext()
-        }
-      }
-    }
-
-    if (uiid.size() < 1) {
-      //not more child needs to be found
-      return cobj
-    } else {
-      //recursively call walkTo until the object is found
-      return cobj.walkTo(context, uiid)
-    }
-  }
-
   //walk to a header UI element in the table
-  protected walkToHeaderNew(WorkflowContext context, UiID uiid) {
+  protected walkToHeader(WorkflowContext context, UiID uiid) {
     //pop up the "header" indicator
     uiid.pop();
     
@@ -1048,60 +997,6 @@ class Table extends Container {
     }
   }
 
-  //walk to a header UI element in the table
-  protected walkToHeader(WorkflowContext context, UiID uiid) {
-    //pop up the "header" indicator
-    uiid.pop()
-    //reach the actual uiid for the header element
-    String child = uiid.pop()
-
-    child = child.replaceFirst('_', '').replaceFirst('HEADER', '')
-    int index = Integer.parseInt(child.trim())
-
-    //try to find its child
-    UiObject cobj = this.findHeaderUiObject(index)
-
-    //If cannot find the object as the object template, return the TextBox as the default object
-    if (cobj == null) {
-      cobj = this.defaultUi
-    }
-
-    //update reference locator by append the relative locator for this container
-    if (this.locator != null) {
-      groupLocating(context)
-    }
-
-    //append relative location, i.e., row, column to the locator
-    String loc
-    if(context.isUseCssSelector()){
-      loc = getHeaderSelector(index)
-    }else{
-      loc = getHeaderLocator(index)
-    }
-
-    context.appendReferenceLocator(loc)
-
-    if(cobj.locator != null){
-      if(cobj.locator instanceof CompositeLocator){
-        CompositeLocator cl = (CompositeLocator)cobj.locator
-//        if("th".equals(cl.tag) && cl.header == null){
-        if(cobj.self){
-//          context.setTableDuplicateTag()
-          context.skipNext()
-        }
-      }
-    }
-
-    if (uiid.size() < 1) {
-      //not more child needs to be found
-      return cobj
-    } else {
-      //recursively call walkTo until the object is found
-      return cobj.walkTo(context, uiid)
-    }
-
-  }
-
   //walkTo through the object tree to until the UI object is found by the UID from the stack
   @Override
   public UiObject walkTo(WorkflowContext context, UiID uiid) {
@@ -1118,9 +1013,9 @@ class Table extends Container {
     String child = uiid.peek()
     
     if (child.trim().equalsIgnoreCase(HEADER)) {
-      return walkToHeaderNew(context, uiid)
+      return walkToHeader(context, uiid)
     } else {
-      return walkToElementNew(context, uiid)
+      return walkToElement(context, uiid)
     }
   }
 
@@ -1190,4 +1085,114 @@ class Table extends Container {
     }
   }
 
+  /*
+
+  //walk to a regular UI element in the table
+  protected walkToElement(WorkflowContext context, UiID uiid) {
+    String child = uiid.pop()
+    String[] parts = child.replaceFirst('_', '').split("_")
+
+    int nrow = Integer.parseInt(parts[0])
+    int ncolumn = Integer.parseInt(parts[1])
+    //otherwise, try to find its child
+    UiObject cobj = this.findUiObject(nrow, ncolumn)
+
+    //If cannot find the object as the object template, return the TextBox as the default object
+    if (cobj == null) {
+      cobj = this.defaultUi
+    }
+
+    //update reference locator by append the relative locator for this container
+    if (this.locator != null) {
+      groupLocating(context)
+    }
+
+    //append relative location, i.e., row, column to the locator
+    String loc = null
+    if(context.isUseCssSelector()){
+      //jquery eq() starts from zero, while xpath starts from one
+      loc = getCellSelector(nrow, ncolumn)
+    }else{
+      loc = getCellLocator(nrow, ncolumn)
+    }
+
+    context.appendReferenceLocator(loc)
+
+    if(cobj.locator != null){
+      if(cobj.locator instanceof CompositeLocator){
+        CompositeLocator cl = (CompositeLocator)cobj.locator
+//        if("td".equals(cl.tag) && cl.header == null){
+        if(cobj.self){
+          //context.setTableDuplicateTag()
+          context.skipNext()
+        }
+      }
+    }
+
+    if (uiid.size() < 1) {
+      //not more child needs to be found
+      return cobj
+    } else {
+      //recursively call walkTo until the object is found
+      return cobj.walkTo(context, uiid)
+    }
+  }
+
+
+  //walk to a header UI element in the table
+  protected walkToHeader(WorkflowContext context, UiID uiid) {
+    //pop up the "header" indicator
+    uiid.pop()
+    //reach the actual uiid for the header element
+    String child = uiid.pop()
+
+    child = child.replaceFirst('_', '').replaceFirst('HEADER', '')
+    int index = Integer.parseInt(child.trim())
+
+    //try to find its child
+    UiObject cobj = this.findHeaderUiObject(index)
+
+    //If cannot find the object as the object template, return the TextBox as the default object
+    if (cobj == null) {
+      cobj = this.defaultUi
+    }
+
+    //update reference locator by append the relative locator for this container
+    if (this.locator != null) {
+      groupLocating(context)
+    }
+
+    //append relative location, i.e., row, column to the locator
+    String loc
+    if(context.isUseCssSelector()){
+      loc = getHeaderSelector(index)
+    }else{
+      loc = getHeaderLocator(index)
+    }
+
+    context.appendReferenceLocator(loc)
+
+    if(cobj.locator != null){
+      if(cobj.locator instanceof CompositeLocator){
+        CompositeLocator cl = (CompositeLocator)cobj.locator
+//        if("th".equals(cl.tag) && cl.header == null){
+        if(cobj.self){
+//          context.setTableDuplicateTag()
+          context.skipNext()
+        }
+      }
+    }
+
+    if (uiid.size() < 1) {
+      //not more child needs to be found
+      return cobj
+    } else {
+      //recursively call walkTo until the object is found
+      return cobj.walkTo(context, uiid)
+    }
+
+  }
+  
+
+   */
 }
