@@ -1162,20 +1162,24 @@ class StandardTable extends Container{
     if(this.hasHeader()){
       int max = 0
       this.headers.each {key, component ->
-        String aid = key.replaceFirst('_', '').replaceFirst("HEADER", '')
+        String aid = component.metaData.getIndex().getValue();
         if (aid ==~ /[0-9]+/) {
           context.pushUid("header[${aid}]")
           component.traverse(context)
           if (max < Integer.parseInt(aid))
             max = Integer.parseInt(aid)
+        }else if("any".equalsIgnoreCase(aid) || "last".equalsIgnoreCase(aid) || "first".equalsIgnoreCase(aid)){
+          String id =component.metaData.getId();
+          context.pushUid("header[${id}]")
+          component.traverse(context);
+        }else if("all".equalsIgnoreCase(aid)){
+          max++;
+          if(max < this.headers.size()){
+            max = this.headers.size();
+          }
+          context.pushUid("header[${max}]")
+          component.traverse(context)
         }
-      }
-
-      UiObject obj = this.headers.get("_HEADER_ALL")
-      if(obj != null){
-        max++
-        context.pushUid("header[${max}]")
-        obj.traverse(context)
       }
     }
   }
@@ -1184,20 +1188,24 @@ class StandardTable extends Container{
     if(this.footers.size() > 0){
       int max = 0
       this.footers.each {key, component ->
-        String aid = key.replaceFirst('_', '').replaceFirst("FOOTER", '')
+        String aid = component.metaData.getIndex().getValue();
         if (aid ==~ /[0-9]+/) {
           context.pushUid("footer[${aid}]")
           component.traverse(context)
           if (max < Integer.parseInt(aid))
             max = Integer.parseInt(aid)
+        }else if("any".equalsIgnoreCase(aid) || "last".equalsIgnoreCase(aid) || "first".equalsIgnoreCase(aid)){
+          String id =component.metaData.getId();
+          context.pushUid("footer[${id}]")
+          component.traverse(context);
+        }else if("all".equalsIgnoreCase(aid)){
+          max++;
+          if(max < this.headers.size()){
+            max = this.headers.size();
+          }
+          context.pushUid("footer[${max}]")
+          component.traverse(context)
         }
-      }
-
-      UiObject obj = this.footers.get("_FOOTER_ALL")
-      if(obj != null){
-        max++
-        context.pushUid("footer[${max}]")
-        obj.traverse(context)
       }
     }
   }
@@ -1206,69 +1214,45 @@ class StandardTable extends Container{
     int tmax = 0
     int rmax = 0
     int cmax = 0
+
     this.components.each {key, component ->
-//      String[] parts = key.replaceFirst('_', '').split("_")
-      String[] parts = key.replaceFirst('_', '').split("_")
-      if (parts.length == 2) {
-        if (parts[0] ==~ /[0-9]+/ && rmax < Integer.parseInt(parts[0])) {
-          rmax = Integer.parseInt(parts[0])
+      TableBodyMetaData meta = (TableBodyMetaData)component;
+      String t = meta.getTbody().getValue();
+      if (t ==~ /[0-9]+/) {
+        if(tmax < Integer.parseInt(t)){
+          tmax = Integer.parseInt(t);
         }
-        if (parts[1] ==~ /[0-9]+/ && cmax < Integer.parseInt(parts[1])) {
-          cmax = Integer.parseInt(parts[1])
+      }
+      String r = meta.getRow().getValue();
+      if(r ==~ /[0-9]+/){
+        if(rmax < Integer.parseInt(r)){
+          rmax = Integer.parseInt(r);
         }
-      } else {
-        if (parts[0] ==~ /[0-9]+/ && tmax < Integer.parseInt(parts[0])) {
-          tmax = Integer.parseInt(parts[0])
-        }
-        if (parts[1] ==~ /[0-9]+/ && rmax < Integer.parseInt(parts[1])) {
-          rmax = Integer.parseInt(parts[1])
-        }
-        if (parts[2] ==~ /[0-9]+/ && cmax < Integer.parseInt(parts[2])) {
-          cmax = Integer.parseInt(parts[2])
+      }
+      String c = meta.getColumn().getValue();
+      if(c ==~ /[0-9]+/){
+        if(cmax < Integer.parseInt(c)){
+          cmax = Integer.parseInt(c);
         }
       }
     }
 
-    tmax++
-    rmax++
-    cmax++
-    boolean includeMatchAll = false
+    int max = this.components.size();
+    if(tmax < 1)
+      tmax = 1;
+    if(rmax < max)
+      rmax = max;
+    if(cmax < max)
+      cmax = max;
 
-    this.components.each {key, component ->
-      String[] parts = key.replaceFirst('_', '').split("_")
-
-      if (parts.length == 2) {
-        String part0 = processField(parts[0], rmax)
-        String part1 = processField(parts[1], cmax)
-        context.directPushUid("[${tmax}][${part0}][${part1}]")
-        if (ALL_MATCH.equalsIgnoreCase(parts[0]) && ALL_MATCH.equalsIgnoreCase(parts[1])) {
-          includeMatchAll = true
-        }
-      } else {
-        String part0 = processField(parts[0], tmax)
-        String part1 = processField(parts[1], rmax)
-        String part2 = processField(parts[2], cmax)
-        context.directPushUid("[${part0}][${part1}][${part2}]")
-        if (ALL_MATCH.equalsIgnoreCase(parts[0]) && ALL_MATCH.equalsIgnoreCase(parts[1]) && ALL_MATCH.equalsIgnoreCase(parts[2])) {
-          includeMatchAll = true
+    for(int i=0; i<tmax; i++){
+      for(int j=0; j<rmax; j++){
+        for(int k=0; k<cmax; k++){
+         context.directPushUid("[${i}][${j}][${k}]");
+         UiObject obj = this.locateTBodyChild("_${i}_${j}_${k}");
+         obj.traverse(context);
         }
       }
-
-      component.traverse(context)
-    }
-
-    if (!includeMatchAll) {
-      context.directPushUid("[${tmax}][${rmax}][${cmax}]")
-      defaultUi.traverse(context)
     }
   }
-
-  protected String processField(String field, int max){
-    if(field ==~ /[0-9]+/){
-      return field
-    }else{
-      return "${max}"
-    }
-  }
-
 }

@@ -1046,9 +1046,33 @@ class Table extends Container {
   }
 
   protected void traverseElement(WorkflowContext context){
+    int rmax = 0
+    int cmax = 0
+
+    this.components.each {key, component ->
+      TableBodyMetaData meta = (TableBodyMetaData)component;
+      String r = meta.getRow().getValue();
+      if(r ==~ /[0-9]+/){
+        if(rmax < Integer.parseInt(r)){
+          rmax = Integer.parseInt(r);
+        }
+      }
+      String c = meta.getColumn().getValue();
+      if(c ==~ /[0-9]+/){
+        if(cmax < Integer.parseInt(c)){
+          cmax = Integer.parseInt(c);
+        }
+      }
+    }
+
     int max = this.components.size();
-    for(int i=0; i<max; i++){
-      for(int j=0; j<max; j++){
+    if(rmax < max)
+      rmax = max;
+    if(cmax < max)
+      cmax = max;
+
+    for(int i=0; i<rmax; i++){
+      for(int j=0; j<cmax; j++){
          context.directPushUid("[${i}][${j}]");
          UiObject obj = this.locateTBodyChild("_${i}_${j}");
          obj.traverse(context);
