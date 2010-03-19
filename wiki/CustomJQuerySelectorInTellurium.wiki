@@ -219,12 +219,13 @@ If you are a Javascript or jQuery guru and like to contribute to Tellurium, plea
 
 = Acknowledgements =
 
-Special thanks to folks in [http://groups.google.com/group/jquery-en jQuery group] for providing us helps on custom jQuery selectors and functions.
+Special thanks to folks in [http://forum.jquery.com/ jQuery forum] for providing us helps on custom jQuery selectors and functions.
 
 = Resources =
 
   * [http://jquery.com/ jQuery]
   * [http://groups.google.com/group/jquery-en jQuery group]
+  * [http://forum.jquery.com/ jQuery forum]
   * [http://jquery-howto.blogspot.com/2009/06/jquery-custom-selectors-with-parameters.html jQuery Custom Selectors with Parameters]
   * [http://code.google.com/p/aost/wiki/TelluriumjQuerySelector Tellurium jQuery selector]
   * [http://code.google.com/p/aost/wiki/jQuerySelectorCache Tellurium jQuery Cache]
