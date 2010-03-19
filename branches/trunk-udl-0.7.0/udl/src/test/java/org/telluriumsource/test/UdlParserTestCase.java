@@ -1,5 +1,6 @@
 package org.telluriumsource.test;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CharStream;
@@ -55,6 +56,67 @@ public class UdlParserTestCase {
     }
 
     @Test
+    public void testListUidNoId(){
+  		CharStream stream =
+			new ANTLRStringStream("{10}");
+		UdlLexer lexer = new UdlLexer(stream);
+		TokenStream tokenStream = new CommonTokenStream(lexer);
+		UdlParser parser = new UdlParser(tokenStream);
+        try{
+		    MetaData data = parser.uid();
+            assertNotNull(data);
+            assertEquals("_10", data.getId());
+            assertTrue(data instanceof ListMetaData);
+            ListMetaData lm = (ListMetaData)data;
+            assertEquals("10", lm.getIndex().getValue());
+            assertEquals(IndexType.VAL, lm.getIndex().getType());
+        }catch(RecognitionException e){
+            fail(e.getMessage());
+        }
+    }
+
+    @Ignore
+    @Test
+    public void testStarListUid(){
+  		CharStream stream =
+			new ANTLRStringStream("{*}");
+		UdlLexer lexer = new UdlLexer(stream);
+		TokenStream tokenStream = new CommonTokenStream(lexer);
+		UdlParser parser = new UdlParser(tokenStream);
+        try{
+		    MetaData data = parser.uid();
+            assertNotNull(data);
+            assertEquals("_all", data.getId());
+            assertTrue(data instanceof ListMetaData);
+            ListMetaData lm = (ListMetaData)data;
+            assertEquals("all", lm.getIndex().getValue());
+            assertEquals(IndexType.VAL, lm.getIndex().getType());
+        }catch(RecognitionException e){
+            fail(e.getMessage());
+        }
+    }
+
+     @Test
+    public void testTableHeaderUidNoId(){
+ 		CharStream stream =
+			new ANTLRStringStream("{header: 3}");
+		UdlLexer lexer = new UdlLexer(stream);
+		TokenStream tokenStream = new CommonTokenStream(lexer);
+		UdlParser parser = new UdlParser(tokenStream);
+        try{
+		    MetaData data = parser.uid();
+            assertNotNull(data);
+            assertTrue(data instanceof TableHeaderMetaData);
+            TableHeaderMetaData th = (TableHeaderMetaData)data;
+            assertEquals("_3", th.getId());
+            assertEquals("3", th.getIndex().getValue());
+            assertEquals(IndexType.VAL, th.getIndex().getType());
+        }catch(RecognitionException e){
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
     public void testTableHeaderUid(){
  		CharStream stream =
 			new ANTLRStringStream("{header: 3} as A");
@@ -68,6 +130,26 @@ public class UdlParserTestCase {
             TableHeaderMetaData th = (TableHeaderMetaData)data;
             assertEquals("A", th.getId());
             assertEquals("3", th.getIndex().getValue());
+            assertEquals(IndexType.VAL, th.getIndex().getType());
+        }catch(RecognitionException e){
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testTableFooterUidNoId(){
+ 		CharStream stream =
+			new ANTLRStringStream("{footer: all}");
+		UdlLexer lexer = new UdlLexer(stream);
+		TokenStream tokenStream = new CommonTokenStream(lexer);
+		UdlParser parser = new UdlParser(tokenStream);
+        try{
+		    MetaData data = parser.uid();
+            assertNotNull(data);
+            assertTrue(data instanceof TableFooterMetaData);
+            TableFooterMetaData th = (TableFooterMetaData)data;
+            assertEquals("_all", th.getId());
+            assertEquals("all", th.getIndex().getValue());
             assertEquals(IndexType.VAL, th.getIndex().getType());
         }catch(RecognitionException e){
             fail(e.getMessage());
