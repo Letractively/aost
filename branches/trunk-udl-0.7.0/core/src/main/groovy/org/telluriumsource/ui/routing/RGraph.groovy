@@ -77,30 +77,45 @@ class RGraph {
       evenNode.objectRef = object;
       evenNode.templates.add(iid);
     }else if("last".equalsIgnoreCase(index)){
-      RNode last = new RNode("last", this.t, object, true);
+      RNode last = this.t.findChild("last");
+      if(last == null){
+        last = new RNode("last", this.t, object, true);
+        this.t.addChild(last);
+      }
       last.templates.add(iid);
-      this.t.addChild(last);
     }else if("any".equalsIgnoreCase(index)){
-      RNode any = new RNode("any", this.t, object, true);
+      RNode any = this.t.findChild("any");
+      if(any == null){
+         any = new RNode("any", this.t, object, true);
+         this.t.addChild(any);
+      }
       any.templates.add(iid);
-      this.t.addChild(any);
     }else if("first".equalsIgnoreCase(index)){
       RNode oddNode = this.t.findChild("odd");
-      RNode first = new RNode("1", oddNode, object, true);
+      RNode first = oddNode.findChild("1");
+      if(first == null){
+        first = new RNode("1", oddNode, object, true);
+        oddNode.addChild(first);
+      }
       first.templates.add(iid);
-      oddNode.addChild(first);
     }else if(index =~ /^\d+$/){
       int inx = Integer.parseInt(index);
       if((inx % 2) == 1){
         RNode oddNode = this.t.findChild("odd");
-        RNode inode = new RNode(index, oddNode, object, true);
+        RNode inode = oddNode.findChild(index);
+        if(inode == null){
+          inode = new RNode(index, oddNode, object, true);
+          oddNode.addChild(inode);
+        }
         inode.templates.add(iid);
-        oddNode.addChild(inode);
       }else{
         RNode evenNode = this.t.findChild("even");
-        RNode inode = new RNode(index, evenNode, object, true);
+        RNode inode = evenNode.findChild(index);
+        if(inode == null){
+          inode = new RNode(index, evenNode, object, true);
+          evenNode.addChild(inode);
+        }
         inode.templates.add(iid);
-        evenNode.addChild(inode);
       }
     }else{
        throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", index))
@@ -126,30 +141,45 @@ class RGraph {
       evenNode.objectRef = object;
       evenNode.templates.add(iid);
     }else if("last".equalsIgnoreCase(index)){
-      RNode last = new RNode("last", this.r, object, true);
+      RNode last = this.r.findChild("last");
+      if(last == null){
+         last = new RNode("last", this.r, object, true);
+         this.r.addChild(last);
+      }
       last.templates.add(iid);
-      this.r.addChild(last);
     }else if("any".equalsIgnoreCase(index)){
-      RNode any = new RNode("any", this.r, object, true);
+      RNode any = this.r.findChild("any");
+      if(any == null){
+         any = new RNode("any", this.r, object, true);
+         this.r.addChild(any);
+      }
       any.templates.add(iid);
-      this.r.addChild(any);
     }else if("first".equalsIgnoreCase(index)){
       RNode oddNode = this.r.findChild("odd");
-      RNode first = new RNode("1", oddNode, object, true);
+      RNode first = oddNode.findChild("1");
+      if(first == null){
+        first = new RNode("1", oddNode, object, true);
+        oddNode.addChild(first);
+      }
       first.templates.add(iid);
-      oddNode.addChild(first);
     }else if(index =~ /^\d+$/){
       int inx = Integer.parseInt(index);
       if((inx % 2) == 1){
         RNode oddNode = this.r.findChild("odd");
-        RNode inode = new RNode(index, oddNode, object, true);
+        RNode inode = oddNode.findChild(index);
+        if(inode == null){
+          inode = new RNode(index, oddNode, object, true);
+          oddNode.addChild(inode);
+        }
         inode.templates.add(iid);
-        oddNode.addChild(inode);
       }else{
         RNode evenNode = this.r.findChild("even");
-        RNode inode = new RNode(index, evenNode, object, true);
+        RNode inode = evenNode.findChild(index);
+        if(inode == null){
+          inode = new RNode(index, evenNode, object, true);
+          evenNode.addChild(inode);
+        }
         inode.templates.add(iid);
-        evenNode.addChild(inode);
       }
     }else{
        throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", index))
@@ -175,30 +205,45 @@ class RGraph {
       evenNode.objectRef = object;
       evenNode.templates.add(iid);
     }else if("last".equalsIgnoreCase(index)){
-      RNode last = new RNode("last", this.c, object, true);
+      RNode last = this.c.findChild("last");
+      if(last == null){
+        last = new RNode("last", this.c, object, true);
+        this.c.addChild(last);
+      }
       last.templates.add(iid);
-      this.c.addChild(last);
     }else if("any".equalsIgnoreCase(index)){
-      RNode any = new RNode("any", this.c, object, true);
+      RNode any = this.c.findChild("any");
+      if(any == null){
+        any = new RNode("any", this.c, object, true);
+        this.c.addChild(any);
+      }
       any.templates.add(iid);
-      this.c.addChild(any);      
     }else if("first".equalsIgnoreCase(index)){
       RNode oddNode = this.c.findChild("odd");
-      RNode first = new RNode("1", oddNode, object, true);
+      RNode first = oddNode.findChild("1");
+      if(first == null){
+        first = new RNode("1", oddNode, object, true);
+        oddNode.addChild(first);
+      }
       first.templates.add(iid);
-      oddNode.addChild(first);
     }else if(index =~ /^\d+$/){
       int inx = Integer.parseInt(index);
       if((inx % 2) == 1){
         RNode oddNode = this.c.findChild("odd");
-        RNode inode = new RNode(index, oddNode, object, true);
+        RNode inode = oddNode.findChild(index);
+        if(inode == null){
+          inode = new RNode(index, oddNode, object, true);
+          oddNode.addChild(inode);
+        }
         inode.templates.add(iid);
-        oddNode.addChild(inode);
       }else{
         RNode evenNode = this.c.findChild("even");
-        RNode inode = new RNode(index, evenNode, object, true);
+        RNode inode = evenNode.findChild(index);
+        if(inode == null){
+          inode = new RNode(index, evenNode, object, true);
+          evenNode.addChild(inode);
+        }
         inode.templates.add(iid);
-        evenNode.addChild(inode);
       }
     }else{
        throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", index))
@@ -208,10 +253,10 @@ class RGraph {
   void insert(UiObject object) {
     String iid = this.getInternalId(object);
     this.templates.put(iid, object);
-
+    
+    insertTBody(object, iid);
     insertRow(object, iid);
     insertColumn(object, iid);
-    insertTBody(object, iid);
   }
   
   void preBuild() {

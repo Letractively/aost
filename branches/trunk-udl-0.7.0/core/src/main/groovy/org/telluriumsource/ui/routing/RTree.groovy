@@ -32,7 +32,6 @@ class RTree {
 
   void insert(UiObject object) {
     ListMetaData meta = object.metaData;
-//    createIndex(meta.id, object);
     String index = meta.getIndex().getValue();
     if("all".equalsIgnoreCase(index)){
       this.root.objectRef = object;
@@ -46,24 +45,36 @@ class RTree {
       evenNode.presented = true;
       evenNode.objectRef = object;
     }else if("last".equalsIgnoreCase(index)){
-      RNode last = new RNode("last", this.root, object, true);
-      this.root.addChild(last);
+      RNode last = this.root.findChild("last");
+      if(last == null){
+        last = new RNode("last", this.root, object, true);
+        this.root.addChild(last);
+      }
     }else if("any".equalsIgnoreCase(index)){
       //do nothing
     }else if("first".equalsIgnoreCase(index)){
       RNode oddNode = this.root.findChild("odd");
-      RNode first = new RNode("1", oddNode, object, true);
-      oddNode.addChild(first);
+      RNode first = oddNode.findChild("1");
+      if(first == null){
+        first = new RNode("1", oddNode, object, true);
+        oddNode.addChild(first);
+      }
     }else if(index =~ /^\d+$/){
       int inx = Integer.parseInt(index);
       if((inx % 2) == 1){
         RNode oddNode = this.root.findChild("odd");
-        RNode inode = new RNode(index, oddNode, object, true);
-        oddNode.addChild(inode);
+        RNode inode = oddNode.findChild(index);
+        if(inode == null){
+          inode = new RNode(index, oddNode, object, true);
+          oddNode.addChild(inode);
+        }
       }else{
         RNode evenNode = this.root.findChild("even");
-        RNode inode = new RNode(index, evenNode, object, true);
-        evenNode.addChild(inode);
+        RNode inode = evenNode.findChild(index);
+        if(inode == null){
+          inode = new RNode(index, evenNode, object, true);
+          evenNode.addChild(inode);
+        }
       }
     }else{
        throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", index))
