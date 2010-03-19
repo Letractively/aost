@@ -1046,88 +1046,79 @@ class StandardTable extends Container{
     }
   }
 
+  //walk to a foot UI element in the table
+  protected walkToFoot(WorkflowContext context, UiID uiid) {
+    //pop up the "foot" indicator
+    uiid.pop()
+    //reach the actual uiid for the foot element
+    String child = uiid.pop()
 
-    //walk to a foot UI element in the table
-    protected walkToFoot(WorkflowContext context, UiID uiid) {
-        //pop up the "foot" indicator
-        uiid.pop()
-        //reach the actual uiid for the foot element
-        String child = uiid.pop()
+    String key = child.replaceFirst('_', '');
 
-        child = child.replaceFirst('_', '').replaceFirst("FOOTER", '')
-        int index = Integer.parseInt(child.trim())
+    //try to find its child
+    UiObject cobj = this.locateFooterChild(key);
 
-        //try to find its child
-        UiObject cobj = this.findFootUiObject(index)
-
-        //If cannot find the object as the object template, return the TextBox as the default object
-        if (cobj == null) {
-            cobj = this.defaultUi
-        }
-
-        //update reference locator by append the relative locator for this container
-        if (this.locator != null) {
-          groupLocating(context)
-        }
-
-        //append relative location, i.e., row, column to the locator
-        String loc
-        if(context.isUseCssSelector()){
-          loc = getFootSelector(index)
-        }else{
-          loc = getFootLocator(index)
-        }
-
-        context.appendReferenceLocator(loc)
-
-        if(cobj.locator != null){
-          if(cobj.locator instanceof CompositeLocator){
-            CompositeLocator cl = (CompositeLocator)cobj.locator
-//            if(this.footColumnTag.equals(cl.tag) && cl.header == null){
-            if(cobj.self){
-              //context.setTableDuplicateTag()
-              context.skipNext()
-            }
-          }
-        }
-
-        if (uiid.size() < 1) {
-            //not more child needs to be found
-            return cobj
-        } else {
-            //recursively call walkTo until the object is found
-            return cobj.walkTo(context, uiid)
-        }
-
+    //If cannot find the object as the object template, return the TextBox as the default object
+    if (cobj == null) {
+      cobj = this.defaultUi
     }
 
-    //walkTo through the object tree to until the UI object is found by the UID from the stack
-    @Override
-    public UiObject walkTo(WorkflowContext context, UiID uiid) {
-
-        //if not child listed, return itself
-//        if (uiid.size() < 1)
-//            return this
-        if(uiid.size() < 1){
-//            if(this.locator != null && this.useGroupInfo){
-            if(this.locator != null){
-                groupLocating(context)
-                context.noMoreProcess = true;
-            }
-
-            return this
-        }
-
-        String child = uiid.peek()
-
-        if (child.trim().equalsIgnoreCase(HEADER)) {
-            return walkToHeader(context, uiid)
-        }else if(child.trim().equalsIgnoreCase(FOOTER)){
-            return walkToFoot(context, uiid)
-        }else {
-            return walkToElement(context, uiid)
-        }
+    //update reference locator by append the relative locator for this container
+    if (this.locator != null) {
+      groupLocating(context)
     }
+
+    //append relative location, i.e., row, column to the locator
+    String loc
+    if (context.isUseCssSelector()) {
+      loc = getFootSelector(key, cobj)
+    } else {
+      loc = getFootLocator(key, cobj)
+    }
+
+    context.appendReferenceLocator(loc)
+
+    if (cobj.locator != null) {
+      if (cobj.locator instanceof CompositeLocator) {
+        if (cobj.self) {
+          context.skipNext()
+        }
+      }
+    }
+
+    if (uiid.size() < 1) {
+      //not more child needs to be found
+      return cobj
+    } else {
+      //recursively call walkTo until the object is found
+      return cobj.walkTo(context, uiid)
+    }
+  }
+
+  //walkTo through the object tree to until the UI object is found by the UID from the stack
+  @Override
+  public UiObject walkTo(WorkflowContext context, UiID uiid) {
+
+    //if not child listed, return itself
+    if (uiid.size() < 1) {
+      if (this.locator != null) {
+        groupLocating(context)
+        context.noMoreProcess = true;
+      }
+
+      return this;
+    }
+
+    String child = uiid.peek()
+
+    if (child.trim().equalsIgnoreCase(HEADER)) {
+      return walkToHeader(context, uiid)
+    } else if (child.trim().equalsIgnoreCase(FOOTER)) {
+      return walkToFoot(context, uiid)
+    } else {
+      return walkToElement(context, uiid)
+    }
+  }
 
   @Override
   public void traverse(WorkflowContext context) {
