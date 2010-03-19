@@ -427,8 +427,14 @@ class StandardTable extends Container{
     TableBodyMetaData meta = (TableBodyMetaData) obj.metaData;
     RIndex ri = this.preprocess(meta);
     String[] parts = key.replaceFirst('_', '').split("_");
+    String[] inx = parts;
+    if(parts.length == 1){
+      inx = ["", "", parts].flatten();
+    }else if(parts.length == 2){
+      inx = ["1", parts].flatten();
+    }
 
-    return this.getTBodySelector(ri, parts[0], obj) + this.getRowSelector(ri, parts[1], obj) + this.getColumnSelector(ri, parts[2], obj);
+    return this.getTBodySelector(ri, inx[0], obj) + this.getRowSelector(ri, inx[1], obj) + this.getColumnSelector(ri, inx[2], obj);
   }
 
   protected String getTBodySelector(RIndex ri, String key, UiObject obj) {
