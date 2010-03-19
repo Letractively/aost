@@ -11,7 +11,7 @@ import org.json.simple.JSONObject
  *  @author Jian Fang (John.Jian.Fang@gmail.com)
  * 
  */
-class CompositeLocator {
+class CompositeLocator implements Serializable {
 
   //obtained from UI object and should not be specified in clocator
     String namespace
