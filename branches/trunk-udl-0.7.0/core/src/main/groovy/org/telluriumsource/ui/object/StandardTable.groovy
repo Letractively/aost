@@ -585,9 +585,9 @@ class StandardTable extends Container{
     } else if ("last".equalsIgnoreCase(index)) {
       return this.getLastBodyLocator();
     } else if (key ==~ /[0-9]+/) {
-      return this.getIndexedBodyLocator(Integer.parseInt(key));
+      return this.getIndexedBodyLocator(key);
     } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedBodyLocator(Integer.parseInt(index));
+      return this.getIndexedBodyLocator(key);
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
       throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
@@ -632,7 +632,7 @@ class StandardTable extends Container{
   }
 
   protected String getIndexedBodyLocator(String index) {
-    int inx = index;
+    int inx = Integer.parseInt(index);
     if (hasHeader() && this.bodyTag.equals(this.headTag)) {
       inx++;
     }
@@ -652,9 +652,9 @@ class StandardTable extends Container{
     } else if ("last".equalsIgnoreCase(index)) {
       return this.getLastRowLocator();
     } else if (key ==~ /[0-9]+/) {
-      return this.getIndexedRowLocator(Integer.parseInt(key));
+      return this.getIndexedRowLocator(key);
     } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedRowLocator(Integer.parseInt(index));
+      return this.getIndexedRowLocator(index);
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
       throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
@@ -703,9 +703,9 @@ class StandardTable extends Container{
     } else if ("last".equalsIgnoreCase(index)) {
       return this.getLastColumnLocator();
     } else if (key ==~ /[0-9]+/) {
-      return this.getIndexedColumnLocator(Integer.parseInt(key));
+      return this.getIndexedColumnLocator(key);
     } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedColumnLocator(Integer.parseInt(index));
+      return this.getIndexedColumnLocator(index);
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
       throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
@@ -777,7 +777,7 @@ class StandardTable extends Container{
         return " > ${this.headTag}:first > ${this.headRowTag} > ${this.headColumnTag}:eq(${column-1})"
     }
 
-  protected String getFootLocator(int column) {
+  protected String getFooterLocator(int column) {
     //XXX: be aware that the count is not accurate if you have multiple tbodies.
     //Please use the css selector, which is accurate
     int count = 1;
@@ -790,7 +790,7 @@ class StandardTable extends Container{
 
   }
 
-    protected String getFootSelector(int column) {
+    protected String getFooterSelector(int column) {
 
         return " > ${this.footTag}:last > ${this.footRowTag} > ${this.footColumnTag}:eq(${column-1})"
     }
@@ -1084,9 +1084,9 @@ class StandardTable extends Container{
     //append relative location, i.e., row, column to the locator
     String loc
     if (context.isUseCssSelector()) {
-      loc = getFootSelector(key, cobj)
+      loc = getFooterSelector(key, cobj)
     } else {
-      loc = getFootLocator(key, cobj)
+      loc = getFooterLocator(key, cobj)
     }
 
     context.appendReferenceLocator(loc)
@@ -1224,9 +1224,9 @@ class StandardTable extends Container{
   }
 
   protected void traverseElement(WorkflowContext context) {
-    int tmax = 0
-    int rmax = 0
-    int cmax = 0
+    int tmax = 0;
+    int rmax = 0;
+    int cmax = 0;
 
     this.components.each {key, component ->
       TableBodyMetaData meta = (TableBodyMetaData)component;
@@ -1311,7 +1311,7 @@ class StandardTable extends Container{
       return max;
   }
 
-  Integer[] getMaxBodyIndices(){
+  def getMaxBodyIndices(){
     int tmax = 0
     int rmax = 0
     int cmax = 0
@@ -1376,7 +1376,7 @@ class StandardTable extends Container{
     }
 
     if (this.components.size() > 0) {
-      Integer[] val = this.getMaxBodyIndices();
+      def val = this.getMaxBodyIndices();
       int maxtbody = val[0];
       int maxrow = val[1];
       int maxcol = val[2];

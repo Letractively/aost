@@ -104,7 +104,7 @@ class Table extends Container {
 
   protected String tbody = TBODY
 
-  def headers = [:]
+  Map<String, UiObject> headers = [:]
   def bodyAttributes = [:]
   RTree rTree;
   RGraph rGraph;
@@ -605,9 +605,9 @@ class Table extends Container {
     } else if ("last".equalsIgnoreCase(index)) {
       return this.getLastRowLocator();
     } else if (key ==~ /[0-9]+/) {
-      return this.getIndexedRowLocator(Integer.parseInt(key));
+      return this.getIndexedRowLocator(key);
     } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedRowLocator(Integer.parseInt(index));
+      return this.getIndexedRowLocator(index);
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
       throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
@@ -656,9 +656,9 @@ class Table extends Container {
     } else if ("last".equalsIgnoreCase(index)) {
       return this.getLastColumnLocator();
     } else if (key ==~ /[0-9]+/) {
-      return this.getIndexedColumnLocator(Integer.parseInt(key));
+      return this.getIndexedColumnLocator(key);
     } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedColumnLocator(Integer.parseInt(index));
+      return this.getIndexedColumnLocator(index);
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
       throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
@@ -881,7 +881,7 @@ class Table extends Container {
     }
 
     if (this.components.size() > 0) {
-      Integer[] val = this.getMaxRowColumnIndices();
+      def val = this.getMaxRowColumnIndices();
       int maxrow = val[0];
       int maxcol = val[1];
       for(int j=1; j<=maxrow; j++){
@@ -983,7 +983,6 @@ class Table extends Container {
     context.appendReferenceLocator(loc)
     if(cobj.locator != null){
       if(cobj.locator instanceof CompositeLocator){
-        CompositeLocator cl = (CompositeLocator)cobj.locator
         if(cobj.self){
           context.skipNext()
         }
@@ -1048,8 +1047,8 @@ class Table extends Container {
   }
 
   protected void traverseElement(WorkflowContext context){
-    int rmax = 0
-    int cmax = 0
+    int rmax = 0;
+    int cmax = 0;
 
     this.components.each {key, component ->
       TableBodyMetaData meta = (TableBodyMetaData)component;
