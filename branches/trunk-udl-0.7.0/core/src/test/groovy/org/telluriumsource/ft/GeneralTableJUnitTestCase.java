@@ -59,6 +59,14 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
     }
 
     @Test
+    public void testGwork(){
+        useCache(false);
+        System.out.println(gtm.getText("GT.header[2]"));
+        System.out.println(gtm.getText("GT.Label"));
+        gtm.gwork("Tellurium jQuery");
+    }
+
+    @Test
     public void testWorkWithCache(){
         useCache(true);
         System.out.println(gtm.getText("GT.header[2]"));

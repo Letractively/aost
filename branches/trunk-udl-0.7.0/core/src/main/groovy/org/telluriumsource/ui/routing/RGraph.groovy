@@ -254,7 +254,11 @@ class RGraph {
   UiObject route(String key) {
     UiObject object = this.indices.get(key);
     if(object == null){
-      String[] ids= key.replaceFirst('_', '').split('_');
+      String[] parts= key.replaceFirst('_', '').split('_');
+      String[] ids = parts;
+      if(parts.length < 3){
+        ids = ["1", parts].flatten();
+      }
       String x = ids[0];
       if("first".equalsIgnoreCase(x)){
         x = "1";
