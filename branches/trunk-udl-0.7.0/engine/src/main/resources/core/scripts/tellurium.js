@@ -127,8 +127,8 @@ teJQuery.expr[':'].nextToLast = function(obj, index, m){
 // node => the array of nodes being checked
 teJQuery.expr[':'].nextToLast = function(obj, ind, prop, node){
 
-     // if ind is 1 less than the length of the array of nodes, keep it
-     if (ind == node.length-1) {
+     // if ind is 2 less than the length of the array of nodes, keep it
+     if (ind == node.length-2) {
           return true;
      } else {
           // else, remove the node
