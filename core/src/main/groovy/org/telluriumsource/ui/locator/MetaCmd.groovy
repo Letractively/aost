@@ -8,7 +8,7 @@ package org.telluriumsource.ui.locator
  * 
  */
 
-public class MetaCmd {
+public class MetaCmd implements Serializable {
 
   public static final String UID = "uid"
 

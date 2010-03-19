@@ -2,7 +2,7 @@ package org.telluriumsource.ui.locator
 
 import org.json.simple.JSONObject
 
-class BaseLocator{
+class BaseLocator implements Serializable {
 
   public static final String LOC = "loc"
     String loc
