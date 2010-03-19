@@ -603,11 +603,11 @@ class Table extends Container {
     } else if ("first".equalsIgnoreCase(index)) {
       return this.getFirstRowLocator();
     } else if ("last".equalsIgnoreCase(index)) {
-      return this.getLastRowSelector();
+      return this.getLastRowLocator();
     } else if (key ==~ /[0-9]+/) {
-      return this.getIndexedRowSelector(Integer.parseInt(key));
+      return this.getIndexedRowLocator(Integer.parseInt(key));
     } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedRowSelector(Integer.parseInt(index));
+      return this.getIndexedRowLocator(Integer.parseInt(index));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
       throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
@@ -654,11 +654,11 @@ class Table extends Container {
     } else if ("first".equalsIgnoreCase(index)) {
       return this.getFirstColumnLocator();
     } else if ("last".equalsIgnoreCase(index)) {
-      return this.getLastColumnSelector();
+      return this.getLastColumnLocator();
     } else if (key ==~ /[0-9]+/) {
-      return this.getIndexedColumnSelector(Integer.parseInt(key));
+      return this.getIndexedColumnLocator(Integer.parseInt(key));
     } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedColumnSelector(Integer.parseInt(index));
+      return this.getIndexedColumnLocator(Integer.parseInt(index));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
       throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
@@ -691,7 +691,7 @@ class Table extends Container {
     return "/td[last()]";
   }
 
-  protected String IndexedColumnLocator(String index){
+  protected String getIndexedColumnLocator(String index){
     if (this.namespace != null && this.namespace.trim().length() > 0) {
       return "/${this.namespace}:td[${index}]";
     }
@@ -710,8 +710,6 @@ class Table extends Container {
     //TODO: :has(td) is not the same as child::td, for example, if we have another embedded table. Need to address this case
     return " > tbody > tr:has(td):eq(${row-1}) > td:eq(${column-1})"
   }
-
-  
 
   protected String getHeaderLocator(int column) {
     if(this.hasNamespace()){

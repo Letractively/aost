@@ -428,14 +428,28 @@ class StandardTable extends Container{
     RIndex ri = this.preprocess(meta);
     String[] parts = key.replaceFirst('_', '').split("_");
 
-    return this.getTBodySelector() + this.getRowSelector(ri, parts[1], obj) + this.getColumnSelector(ri, parts[2], obj);
+    return this.getTBodySelector(ri, parts[0], obj) + this.getRowSelector(ri, parts[1], obj) + this.getColumnSelector(ri, parts[2], obj);
   }
 
-  protected String getTBodySelector() {
-    return " > ${this.bodyTag} ";
+  protected String getTBodySelector(RIndex ri, String key, UiObject obj) {
+    String index = ri.x;
+    if ("any".equalsIgnoreCase(index)) {
+      return this.getAnyBodySelector(obj);
+    } else if ("first".equalsIgnoreCase(index)) {
+      return this.getFirstBodySelector();
+    } else if ("last".equalsIgnoreCase(index)) {
+      return this.getLastBodySelector();
+    } else if (key ==~ /[0-9]+/) {
+      return this.getIndexedBodySelector(Integer.parseInt(key));
+    } else if (index ==~ /[0-9]+/) {
+      return this.getIndexedBodySelector(Integer.parseInt(index));
+    } else {
+      //TODO: rename Container.InvalidID to UiObject.InvalidID
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
+    }
   }
 
-  protected String getAnyBodySelector(int inx, UiObject obj) {
+  protected String getAnyBodySelector(UiObject obj) {
     String sel = this.buildJQuerySelectorWithoutPosition(obj.locator);
 
     return " > ${this.bodyTag}:has(${sel})"
@@ -546,15 +560,25 @@ class StandardTable extends Container{
     TableBodyMetaData meta = (TableBodyMetaData) obj.metaData;
     RIndex ri = this.preprocess(meta);
     String[] parts = key.replaceFirst('_', '').split("_");
-    return this.getTBodyLocator() + this.getRowLocator(ri, parts[1], obj) + this.getColumnLocator(ri, parts[2], obj);
+    return this.getTBodyLocator(ri, parts[0], obj) + this.getRowLocator(ri, parts[1], obj) + this.getColumnLocator(ri, parts[2], obj);
   }
 
-  protected String getTBodyLocator() {
-    if (hasNamespace()) {
-      return "/${this.namespace}:${this.bodyTag}";
+  protected String getTBodyLocator(RIndex ri, String key, UiObject obj) {
+    String index = ri.x;
+    if ("any".equalsIgnoreCase(index)) {
+      return this.getAnyBodyLocator(obj);
+    } else if ("first".equalsIgnoreCase(index)) {
+      return this.getFirstBodyLocator();
+    } else if ("last".equalsIgnoreCase(index)) {
+      return this.getLastBodyLocator();
+    } else if (key ==~ /[0-9]+/) {
+      return this.getIndexedBodyLocator(Integer.parseInt(key));
+    } else if (index ==~ /[0-9]+/) {
+      return this.getIndexedBodyLocator(Integer.parseInt(index));
+    } else {
+      //TODO: rename Container.InvalidID to UiObject.InvalidID
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
     }
-
-    return "/${this.bodyTag}";
   }
 
   protected String getAnyBodyLocator(UiObject obj) {
@@ -613,11 +637,11 @@ class StandardTable extends Container{
     } else if ("first".equalsIgnoreCase(index)) {
       return this.getFirstRowLocator();
     } else if ("last".equalsIgnoreCase(index)) {
-      return this.getLastRowSelector();
+      return this.getLastRowLocator();
     } else if (key ==~ /[0-9]+/) {
-      return this.getIndexedRowSelector(Integer.parseInt(key));
+      return this.getIndexedRowLocator(Integer.parseInt(key));
     } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedRowSelector(Integer.parseInt(index));
+      return this.getIndexedRowLocator(Integer.parseInt(index));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
       throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
@@ -664,11 +688,11 @@ class StandardTable extends Container{
     } else if ("first".equalsIgnoreCase(index)) {
       return this.getFirstColumnLocator();
     } else if ("last".equalsIgnoreCase(index)) {
-      return this.getLastColumnSelector();
+      return this.getLastColumnLocator();
     } else if (key ==~ /[0-9]+/) {
-      return this.getIndexedColumnSelector(Integer.parseInt(key));
+      return this.getIndexedColumnLocator(Integer.parseInt(key));
     } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedColumnSelector(Integer.parseInt(index));
+      return this.getIndexedColumnLocator(Integer.parseInt(index));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
       throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
@@ -701,7 +725,7 @@ class StandardTable extends Container{
     return "/${this.bodyColumnTag}[last()]";
   }
 
-  protected String IndexedColumnLocator(String index){
+  protected String getIndexedColumnLocator(String index){
     if (this.namespace != null && this.namespace.trim().length() > 0) {
       return "/${this.namespace}:${this.bodyColumnTag}[${index}]";
     }
