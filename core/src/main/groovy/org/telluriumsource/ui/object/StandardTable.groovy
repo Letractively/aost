@@ -385,14 +385,14 @@ class StandardTable extends Container{
 
     return null;
   }
-  
-
 
   RIndex preprocess(TableBodyMetaData meta){
     RIndex ri = new RIndex();
     Index t = meta.getTbody();
     if(t.getType() == IndexType.REF){
       Index tRef = this.findHeaderIndex(t.getValue());
+      if(tRef == null)
+        tRef = this.findFooterIndex(t.getValue());
       if(tRef == null)
         throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , t.value))
       ri.x = tRef.getValue();
@@ -404,6 +404,8 @@ class StandardTable extends Container{
     if(r.getType() == IndexType.REF){
       Index rRef = this.findHeaderIndex(r.getValue());
       if(rRef == null)
+        rRef = this.findFooterIndex(r.getValue());
+      if(rRef == null)
         throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , r.value))
       ri.y = rRef.getValue();
     }else{
@@ -413,6 +415,8 @@ class StandardTable extends Container{
     Index c = meta.getColumn();
     if(c.getType() == IndexType.REF){
       Index cRef = this.findHeaderIndex(c.getValue());
+      if(cRef == null)
+        cRef = this.findFooterIndex(c.getValue());
       if(cRef == null)
         throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , c.value))
       ri.setColumn(c.getValue());
