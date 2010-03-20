@@ -72,7 +72,7 @@ class SeleniumConnector implements Configurable {
       this.options = browserOptions;
   }
 
-  public void connectSeleniumServer() {
+  public synchronized void connectSeleniumServer() {
 
     //The selenium server startup logic is moved to EmbeddedSeleniumServer so that we can
     //decouple the selenium client and the selenium server.
@@ -85,6 +85,7 @@ class SeleniumConnector implements Configurable {
     // CustomSelenium with the new argument CommandProcess
     // This is done to make sure that implementing the Selenium Grid does
     // not break the inheritance model for CustomSelenium.
+
     customSelenium = new CustomSelenium(commandProcessor)
     customSelenium.setUserExt(this.userExtension)
     customSelenium.customClass = this.customClass
@@ -97,26 +98,9 @@ class SeleniumConnector implements Configurable {
 
     SeleniumClient sc = new SeleniumClient()
     sc.client = customSelenium
-
-    //MK: add the jquery location strategy
-
-    //use Get to return the DOM reference.
-    //need to check if it is an attribute locator in the format of locator@attr
-
-    //jQuery CSS selector without any Cache mechanism
-
-/*      sel.addLocationStrategy("jquery", '''
-          return tellurium.locateElementByCSSSelector(locator, inDocument, inWindow);
-      ''')
-
-
-     //Ui Module Cache Aware Locate Strategy
-      sel.addLocationStrategy("uimcal", '''
-          return tellurium.locateElementWithCacheAware(locator, inDocument, inWindow);
-      ''')*/
   }
 
-  public void disconnectSeleniumServer() {
+  public synchronized void disconnectSeleniumServer() {
     if (customSelenium != null) {
       CustomSelenium aseles = customSelenium.getActiveSeleniumSession();
       if (aseles != null) {
