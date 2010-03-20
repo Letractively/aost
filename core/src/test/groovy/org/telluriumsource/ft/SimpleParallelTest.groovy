@@ -15,8 +15,13 @@ class SimpleParallelTest extends TelluriumGroovyTestNGTestCase {
 
   public void initUi() { }
 
+/*  public void setUp(){
+    setUpForClass();  
+  }*/
+
   @Test
   public void testOne() {
+    setUpForClass();
 //    connectSeleniumServer();
     1.upto(10) {
       openUrl("http://google.com");
@@ -27,6 +32,7 @@ class SimpleParallelTest extends TelluriumGroovyTestNGTestCase {
 
   @Test
   public void testTwo() {
+    setUpForClass();
 //    connectSeleniumServer();
     1.upto(10) {
       openUrl("http://amazon.com");
