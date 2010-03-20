@@ -498,7 +498,13 @@ class Table extends Container {
     TableBodyMetaData meta = (TableBodyMetaData) obj.metaData;
     RIndex ri = this.preprocess(meta);
     String[] parts = key.replaceFirst('_', '').split("_");
-    return this.getTBodySelector() + this.getRowSelector(ri, parts[1], obj) + this.getColumnSelector(ri, parts[2], obj);
+    String[] inx = parts;
+    if(parts.length == 1){
+      inx = ["", "", parts].flatten();
+    }else if(parts.length == 2){
+      inx = ["1", parts].flatten();
+    }
+    return this.getTBodySelector() + this.getRowSelector(ri, inx[1], obj) + this.getColumnSelector(ri, inx[2], obj);
   }
 
   protected String getTBodySelector() {
@@ -585,7 +591,14 @@ class Table extends Container {
     TableBodyMetaData meta = (TableBodyMetaData) obj.metaData;
     RIndex ri = this.preprocess(meta);
     String[] parts = key.replaceFirst('_', '').split("_");
-    return this.getTBodyLocator() + this.getRowLocator(ri, parts[1], obj) + this.getColumnLocator(ri, parts[2], obj);
+    String[] inx = parts;
+    if(parts.length == 1){
+      inx = ["", "", parts].flatten();
+    }else if(parts.length == 2){
+      inx = ["1", parts].flatten();
+    }
+    
+    return this.getTBodyLocator() + this.getRowLocator(ri, inx[1], obj) + this.getColumnLocator(ri, inx[2], obj);
   }
 
   protected String getTBodyLocator() {
