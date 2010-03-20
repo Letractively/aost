@@ -19,6 +19,8 @@ import org.telluriumsource.exception.InvalidIndexRefException
 import org.telluriumsource.ui.locator.XPathBuilder
 import org.telluriumsource.ui.locator.JQueryBuilder
 import org.telluriumsource.udl.code.IndexType
+import org.telluriumsource.util.Helper
+import org.telluriumsource.ui.locator.JQueryOptimizer
 
 /**
  * Standard table is in the format of
@@ -256,13 +258,49 @@ class StandardTable extends Container{
 
   protected String getIndexedHeaderLocator(int row) {
     if(this.hasNamespace()){
-      return "/${this.namespace}:${this.headTag}[1]/${this.namespace}:${this.headRowTag}/${this.namespace}:${this.headColumnTag}[${row}]"
+      return "/${this.namespace}:${this.headTag}[1]/${this.namespace}:${this.headRowTag}/${this.namespace}:${this.headColumnTag}[${row}]";
     }
     return "/${this.headTag}[1]/${this.headRowTag}/${this.headColumnTag}[${row}]";
   }
 
-  int getHeaderIndex(WorkflowContext context, UiObject obj){
+  int getHeaderIndex(WorkflowContext context, UiObject cobj){
+    WorkflowContext ctx = (WorkflowContext)Helper.clone(context);
 
+    //append relative location
+    String loc;
+    TableHeaderMetaData meta = (TableHeaderMetaData)cobj.getMetaData();
+    if (ctx.isUseCssSelector()) {
+      loc = this.getHeaderSelector(meta.getIndex().getValue(), cobj);
+    } else {
+      loc = this.getHeaderLocator(meta.getIndex().getValue(), cobj);
+    }
+
+    ctx.appendReferenceLocator(loc)
+/*    if (cobj.locator != null) {
+      if (cobj.locator instanceof CompositeLocator) {
+        if (!cobj.self) {
+          if (ctx.isUseCssSelector()) {
+            ctx.appendReferenceLocator(":has(" + this.buildJQuerySelectorWithoutPosition(cobj.locator) + ")");
+          }else{
+            ctx.appendReferenceLocator("[" + this.buildLocatorWithoutPosition(cobj.locator) + "]");
+          }
+        }
+      }
+    }*/
+
+    String lst = ctx.getReferenceLocator();
+    if(ctx.isUseCssSelector()){
+      JQueryOptimizer optimizer = new JQueryOptimizer();
+      lst = "jquery=" + optimizer.optimize(lst);
+    }else{
+      if (lst != null && (!lst.startsWith("//"))) {
+        lst = "/" + lst;
+      }
+    }
+
+    Accessor accessor = new Accessor();
+
+    return accessor.getIndex(ctx, lst);
   }
 
   Index findHeaderIndex(WorkflowContext context, String key){
@@ -270,7 +308,7 @@ class StandardTable extends Container{
     if(obj != null){
       if("any".equalsIgnoreCase(obj.metaData.index.value)){
         int inx = this.getHeaderIndex(context, obj);
-        return new Index("${inx}")
+        return new Index("${inx}");
       }
 
       return obj.metaData.index;
@@ -323,7 +361,7 @@ class StandardTable extends Container{
       count++;
     if (hasFooter() && this.footTag.equals(this.bodyTag))
       count++;
-    
+
     if ("any".equalsIgnoreCase(index)) {
       return this.getAnyFooterLocator(count, obj);
     } else if ("first".equalsIgnoreCase(index)) {
@@ -368,8 +406,44 @@ class StandardTable extends Container{
     return "/${this.footTag}[${count}]/${this.footRowTag}/${this.footColumnTag}[${column}]";
   }
 
-  int getFooterIndex(WorkflowContext context, UiObject obj){
+  int getFooterIndex(WorkflowContext context, UiObject cobj){
+    WorkflowContext ctx = (WorkflowContext)Helper.clone(context);
 
+    //append relative location
+    String loc;
+    TableFooterMetaData meta = (TableFooterMetaData)cobj.getMetaData();
+    if (ctx.isUseCssSelector()) {
+      loc = this.getFooterSelector(meta.getIndex().getValue(), cobj);
+    } else {
+      loc = this.getFooterLocator(meta.getIndex().getValue(), cobj);
+    }
+
+/*    ctx.appendReferenceLocator(loc)
+    if (cobj.locator != null) {
+      if (cobj.locator instanceof CompositeLocator) {
+        if (!cobj.self) {
+          if (ctx.isUseCssSelector()) {
+            ctx.appendReferenceLocator(":has(" + this.buildJQuerySelectorWithoutPosition(cobj.locator) + ")");
+          }else{
+            ctx.appendReferenceLocator("[" + this.buildLocatorWithoutPosition(cobj.locator) + "]");
+          }
+        }
+      }
+    }*/
+
+    String lst = ctx.getReferenceLocator();
+    if(ctx.isUseCssSelector()){
+      JQueryOptimizer optimizer = new JQueryOptimizer();
+      lst = "jquery=" + optimizer.optimize(lst);
+    }else{
+      if (lst != null && (!lst.startsWith("//"))) {
+        lst = "/" + lst;
+      }
+    }
+
+    Accessor accessor = new Accessor();
+
+    return accessor.getIndex(ctx, lst);
   }
 
   Index findFooterIndex(WorkflowContext context, String key){
@@ -470,7 +544,7 @@ class StandardTable extends Container{
     if (hasHeader() && this.bodyTag.equals(this.headTag)) {
       inx++;
     }
-    
+
     return " > ${this.bodyTag}:${inx - 1}";
   }
 
@@ -751,35 +825,33 @@ class StandardTable extends Container{
   }
 
 
-    protected String getCellLocator(int tbody, int row, int column) {
-        int index = tbody
-        if(hasHeader() && this.bodyTag.equals(this.headTag)){
-          index++;
-        }
-
-        return "/${this.bodyTag}[${index}]/${this.bodyRowTag}[${row}]/${this.bodyColumnTag}[${column}]"
+  protected String getCellLocator(int tbody, int row, int column) {
+    int index = tbody
+    if (hasHeader() && this.bodyTag.equals(this.headTag)) {
+      index++;
     }
 
-    protected String getCellSelector(int tbody, int row, int column) {
-        int index = tbody - 1
-        if(hasHeader() && this.bodyTag.equals(this.headTag)){
-          index++;
-        }
+    return "/${this.bodyTag}[${index}]/${this.bodyRowTag}[${row}]/${this.bodyColumnTag}[${column}]"
+  }
 
-        return " > ${this.bodyTag}:eq(${index}) > ${this.bodyRowTag}:eq(${row-1}) > ${this.bodyColumnTag}:eq(${column-1})"
+  protected String getCellSelector(int tbody, int row, int column) {
+    int index = tbody - 1
+    if (hasHeader() && this.bodyTag.equals(this.headTag)) {
+      index++;
     }
 
-    protected String getHeaderLocator(int column) {
+    return " > ${this.bodyTag}:eq(${index}) > ${this.bodyRowTag}:eq(${row - 1}) > ${this.bodyColumnTag}:eq(${column - 1})"
+  }
 
-//        return "/thead/tr/td[${column}]"
-        return "/${this.headTag}[1]/${this.headRowTag}/${this.headColumnTag}[${column}]"
-    }
+  protected String getHeaderLocator(int column) {
 
-    protected String getHeaderSelector(int column) {
+    return "/${this.headTag}[1]/${this.headRowTag}/${this.headColumnTag}[${column}]"
+  }
 
-//        return " > thread > tr > td:eq(${column-1})"
-        return " > ${this.headTag}:first > ${this.headRowTag} > ${this.headColumnTag}:eq(${column-1})"
-    }
+  protected String getHeaderSelector(int column) {
+
+    return " > ${this.headTag}:first > ${this.headRowTag} > ${this.headColumnTag}:eq(${column - 1})"
+  }
 
   protected String getFooterLocator(int column) {
     //XXX: be aware that the count is not accurate if you have multiple tbodies.
@@ -794,88 +866,88 @@ class StandardTable extends Container{
 
   }
 
-    protected String getFooterSelector(int column) {
+  protected String getFooterSelector(int column) {
 
-        return " > ${this.footTag}:last > ${this.footRowTag} > ${this.footColumnTag}:eq(${column-1})"
+    return " > ${this.footTag}:last > ${this.footRowTag} > ${this.footColumnTag}:eq(${column - 1})"
+  }
+
+  String[] getAllTableCellText(Closure c) {
+    int index = 0
+    if (hasHeader() && this.bodyTag.equals(this.headTag)) {
+      index++;
     }
 
-    String[] getAllTableCellText(Closure c) {
-        int index = 0
-        if(hasHeader() && this.bodyTag.equals(this.headTag)){
-          index++;
-        }
+    return c(this.locator, " > ${this.bodyTag}:eq(${index} > ${this.bodyRowTag} > ${this.bodyColumnTag}")
+  }
 
-        return c(this.locator, " > ${this.bodyTag}:eq(${index} > ${this.bodyRowTag} > ${this.bodyColumnTag}")
+  String[] getAllTableCellTextForTbody(int tbody, Closure c) {
+    int index = tbody
+    if (hasHeader() && this.bodyTag.equals(this.headTag)) {
+      index++;
     }
 
-    String[] getAllTableCellTextForTbody(int tbody, Closure c) {
-        int index = tbody
-        if(hasHeader() && this.bodyTag.equals(this.headTag)){
-          index++;
-        }
+    return c(this.locator, " > ${this.bodyTag}:eq(${index - 1}) > ${this.bodyRowTag} > ${this.bodyColumnTag}")
+  }
 
-        return c(this.locator, " > ${this.bodyTag}:eq(${index-1}) > ${this.bodyRowTag} > ${this.bodyColumnTag}")
-    }
-
-    int getTableHeaderColumnNumByXPath(Closure c) {
-        String rl = c(this.locator)
-        Accessor accessor = new Accessor()
+  int getTableHeaderColumnNumByXPath(Closure c) {
+    String rl = c(this.locator)
+    Accessor accessor = new Accessor()
 //        String xpath = rl + "/thead/tr/td"
-        String xpath = rl + "/${this.headTag}[1]/${this.headRowTag}/${this.headColumnTag}"
-        int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
+    String xpath = rl + "/${this.headTag}[1]/${this.headRowTag}/${this.headColumnTag}"
+    int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
-        return columnum
+    return columnum
 
+  }
+
+  int getTableFootColumnNumByXPath(Closure c) {
+    String rl = c(this.locator)
+    Accessor accessor = new Accessor()
+    int count = 1;
+    if (hasHeader() && hasFooter() && this.footTag.equals(this.headTag))
+      count++
+    if (hasFooter() && this.footTag.equals(this.bodyTag))
+      count++
+
+    String xpath = rl + "/${this.footTag}[${count}]/${this.footRowTag}/${this.footColumnTag}"
+    int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
+
+    return columnum
+
+  }
+
+  int getTableMaxRowNumByXPath(Closure c) {
+
+    String rl = c(this.locator)
+    Accessor accessor = new Accessor()
+    int index = 1
+    if (hasHeader() && this.headTag.equals(this.bodyTag)) {
+      index++;
     }
 
-    int getTableFootColumnNumByXPath(Closure c) {
-        String rl = c(this.locator)
-        Accessor accessor = new Accessor()
-        int count = 1;
-        if(hasHeader() && hasFooter() && this.footTag.equals(this.headTag))
-          count++
-        if(hasFooter() && this.footTag.equals(this.bodyTag))
-          count++
+    String xpath = rl + "/${this.bodyTag}[${index}]/${this.bodyRowTag}/${this.bodyColumnTag}[1]"
+    int rownum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
-        String xpath = rl + "/${this.footTag}[${count}]/${this.footRowTag}/${this.footColumnTag}"
-        int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
+    return rownum
+  }
 
-        return columnum
+  int getTableMaxRowNumForTbodyByXPath(int ntbody, Closure c) {
 
+    String rl = c(this.locator)
+    Accessor accessor = new Accessor()
+
+    int index = ntbody
+    if (hasHeader() && this.headTag.equals(this.bodyTag)) {
+      index++;
     }
 
-    int getTableMaxRowNumByXPath(Closure c) {
+    String xpath = rl + "/${this.bodyTag}[${index}]/${this.bodyRowTag}/${this.bodyColumnTag}[1]"
+    int rownum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
-        String rl = c(this.locator)
-        Accessor accessor = new Accessor()
-        int index = 1
-        if(hasHeader() && this.headTag.equals(this.bodyTag)){
-          index++;
-        }
-      
-        String xpath = rl + "/${this.bodyTag}[${index}]/${this.bodyRowTag}/${this.bodyColumnTag}[1]"
-        int rownum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
+    return rownum
+  }
 
-        return rownum
-    }
-
-    int getTableMaxRowNumForTbodyByXPath(int ntbody, Closure c) {
-
-        String rl = c(this.locator)
-        Accessor accessor = new Accessor()
-
-        int index = ntbody
-        if(hasHeader() && this.headTag.equals(this.bodyTag)){
-          index++;
-        }
-
-        String xpath = rl + "/${this.bodyTag}[${index}]/${this.bodyRowTag}/${this.bodyColumnTag}[1]"
-        int rownum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
-
-        return rownum
-    }
-
-    int getTableMaxColumnNumByXPath(Closure c) {
+  int getTableMaxColumnNumByXPath(Closure c) {
 
         String rl = c(this.locator)
         Accessor accessor = new Accessor()
@@ -1165,7 +1237,7 @@ class StandardTable extends Container{
         }
       }
     }
-    
+
     if(this.footers.size() > 0){
       this.footers.each {key, component ->
         if(component.cacheable){
