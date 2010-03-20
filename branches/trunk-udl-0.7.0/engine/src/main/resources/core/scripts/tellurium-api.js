@@ -821,3 +821,8 @@ TelluriumApi.prototype.removeMarkedUids = function(tag){
         $found.removeAttr("teuid");
     }
 };
+
+TelluriumApi.prototype.getIndex = function(locator){
+    var elem = selenium.browserbot.findElement(locator);
+    return teJQuery(elem).index();
+};
