@@ -163,7 +163,7 @@ class WorkflowContext implements Serializable {
   }
 
   public void updateCacheableForMetaCmd(boolean cacheable){
-    this.metaCmd.setProperty(MetaCmd.CACHEABLE, cacheable) 
+    this.metaCmd.setProperty(MetaCmd.CACHEABLE, cacheable)
   }
 
   public void setTableDuplicateTag() {

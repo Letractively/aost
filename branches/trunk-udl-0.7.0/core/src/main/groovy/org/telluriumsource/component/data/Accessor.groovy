@@ -395,4 +395,8 @@ class Accessor implements Configurable {
   void removeScript(WorkflowContext context, String scriptTagId){
      cbp.removeScript(context, scriptTagId);
   }
+  
+  int getIndex(WorkflowContext context, String locator){
+     return cbp.getIndex(context, locator);
+  }
 }
