@@ -36,11 +36,11 @@ public class TelluriumIssueModule extends DslContext {
 
       //define table elements
       //for the border column
-      TextBox(uid: "{row: all, column: 1} as c1", clocator: [:])
-      TextBox(uid: "{row: all, column: 8} as c8", clocator: [:])
-      TextBox(uid: "{row: all, column: 10} as c10", clocator: [:])
+      TextBox(uid: "{row: all, column: 1}", clocator: [:])
+      TextBox(uid: "{row: all, column: 8}", clocator: [:])
+      TextBox(uid: "{row: all, column: 10}", clocator: [:])
       //For the rest, just UrlLink
-      UrlLink(uid: "{row: all, column: all} as rest", clocator: [:])
+      UrlLink(uid: "{row: all, column: all}", clocator: [:])
     }
 
     ui.Table(uid: "issueResultWithCache", cacheable: "true", noCacheForChildren: "false", clocator: [id: "resultstable", class: "results"], group: "true") {
@@ -58,11 +58,11 @@ public class TelluriumIssueModule extends DslContext {
 
       //define table elements
       //for the border column
-      TextBox(uid: "{row: all, column: 1} as c1", clocator: [:])
-      TextBox(uid: "{row: all, column: 8} as c8", clocator: [:])
-      TextBox(uid: "{row: all, column: 10} as c10", clocator: [:])
+      TextBox(uid: "{row: all, column: 1}", clocator: [:])
+      TextBox(uid: "{row: all, column: 8}", clocator: [:])
+      TextBox(uid: "{row: all, column: 10}", clocator: [:])
       //For the rest, just UrlLink
-      UrlLink(uid: "{row: all, column: all} as rest", clocator: [:])
+      UrlLink(uid: "{row: all, column: all}", clocator: [:])
     }
 
   }
