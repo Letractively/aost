@@ -463,3 +463,8 @@ Selenium.prototype.clickElementForTe = function (element){
 
     this.browserbot.clickElement(element);
 };
+
+Selenium.prototype.getIndex = function(locator){
+    var elem = this.browserbot.findElement(locator);
+    return teJQuery(elem).index();
+};
