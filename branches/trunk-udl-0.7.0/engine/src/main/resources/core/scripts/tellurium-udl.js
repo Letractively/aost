@@ -1,7 +1,14 @@
-function Index(){
-    this.type = null;
-    this.value = null;
-}
+var Index = Class.extend({
+    init: function(){
+        this.type = null;
+        this.value = null;
+    },
+
+    constDefaultIndex: function(inx){
+        this.type = "VAL";
+        this.value = inx;
+    }
+});
 
 function RIndex() {
   //for tbody
@@ -170,22 +177,22 @@ var RTree = Class.extend({
         this.EVEN_PATH = ["all", "even"];
 
         this.root = null;
-        this.indices = new Hashtable();
+        this.indices = null;
     },
     
     insert: function(object){
+        var oddNode, evenNode, node;
         var meta = object.metaData;
-//        this.createIndex(meta.id, object);
         var index = meta.index.value;
         if("all" == index){
             this.root.objectRef = object;
             this.root.presented = true;
         }else if("odd" == index){
-            var oddNode = this.root.findChild("odd");
+            oddNode = this.root.findChild("odd");
             oddNode.presented = true;
             oddNode.objectRef = object;
         }else if("even" == index){
-            var evenNode = this.root.findChild("even");
+            evenNode = this.root.findChild("even");
             evenNode.presented = true;
             evenNode.objectRef = object;
         }else if("last" == index){
@@ -198,30 +205,30 @@ var RTree = Class.extend({
         }else if("any" == index){
 
         }else if("first" == index){
-            var oNode = this.root.findChild("odd");
-            var f = oNode.findChild("1");
-            if(f == null){
-                f = new RNode();
-                f.create("1", oNode, object, true);
-                oNode.addChild(f);   
+            oddNode = this.root.findChild("odd");
+            var first = oddNode.findChild("1");
+            if(first == null){
+                first = new RNode();
+                first.create("1", oddNode, object, true);
+                oddNode.addChild(first);
             }
         }else if(index.match(/^\d+$/)){
             var inx = parseInt(index);
             if((inx % 2) == 1 ){
-                var odNode = this.root.findChild("odd");
-                var inode = odNode.findChild(index);
-                if(inode == null){
-                    inode = new RNode();
-                    inode.create(index, odNode, object, true);
-                    odNode.addChild(inode);
+                oddNode = this.root.findChild("odd");
+                node = oddNode.findChild(index);
+                if(node == null){
+                    node = new RNode();
+                    node.create(index, oddNode, object, true);
+                    oddNode.addChild(node);
                 }
             }else{
-                var eNode = this.root.findChild("even");
-                var nNode = eNode.findChild(Index);
-                if(nNode == null){
-                    nNode = new RNode();
-                    nNode.create(index, eNode, object, true);
-                    eNode.addChild(nNode);
+                evenNode = this.root.findChild("even");
+                node = evenNode.findChild(Index);
+                if(node == null){
+                    node = new RNode();
+                    node.create(index, evenNode, object, true);
+                    evenNode.addChild(node);
                 }
             }
         }else{
@@ -231,6 +238,11 @@ var RTree = Class.extend({
 
     preBuild: function(){
         var defaultUi = new UiTextBox();
+        var meta = new ListMetaData();
+        meta.index = new Index();
+        meta.index.constDefaultIndex("all");
+        defaultUi.metaData = meta;
+
         var allNode = new RNode();
         allNode.create("all", null, defaultUi, true);
         this.root = allNode;
@@ -291,7 +303,315 @@ var RTree = Class.extend({
         return null;
     },
 
-    createIndex: function(key, uiobject){
-        this.indices.put(key, uiobject);
+    createIndex: function(key, obj){
+        this.indices.put(key, obj);
     }
+});
+
+function RNodeComparator(){
+
+}
+
+RNodeComparator.prototype.compare = function(a, b){
+    var f1 = a.getFitness();
+    var f2 = b.getFitness();
+    if(f1 > f2)
+      return -1;
+    if(f1 == f2)
+      return 0;
+    else
+      return 1;   
+};
+
+var RGraph = Class.extend({
+    init: function(){
+        this.EMPTY_PATH = [];
+        this.ROOT_PATH = ["all"];
+        this.ODD_PATH = ["all", "odd"];
+        this.EVEN_PATH = ["all", "even"];
+
+        this.indices = null;
+
+        //Internal ID to Template mapping
+        this.templates = new Hashtable();
+
+        //tbody RTree
+        this.t = null;
+
+        //row RTree
+        this.r = null;
+
+        //column RTree
+        this.c = null;
+    },
+
+    createIndex: function(key, obj){
+        this.indices.put(key, obj);
+    },
+
+    //Internal id
+    getIId: function(obj){
+        var meta = obj.metaData;
+        var tx = meta.tbody.value;
+        var rx = meta.row.value;
+        var cx = meta.column.value;
+
+        return "_" + tx + "_" + rx + "_" + cx;
+    },
+
+    getIIdStr: function(tx, rx, cx){
+       return "_" + tx + "_" + rx + "_" + cx;
+    },
+
+    storeTemplate: function(obj){
+        var iid = this.getIId(obj);
+        this.templates.put(iid, obj);
+    },
+
+    insertRTree: function(rTree, index, obj, iid){
+        var oddNode, evenNode, node;
+
+        if("all" == index){
+            rTree.objectRef = obj;
+            rTree.presented = true;
+            rTree.addTemplate(iid);
+        }else if("odd" == index){
+            oddNode = rTree.findChild("odd");
+            oddNode.presented = true;
+            oddNode.objectRef =obj;
+            oddNode.addTemplate(iid);
+        }else if("even" == index){
+            evenNode = rTree.findChild("even");
+            evenNode.presented = true;
+            evenNode.objectRef = obj;
+            evenNode.addTemplate(iid);
+        }else if("last" == index){
+            var last = rTree.findChild("last");
+            if(last == null){
+                last = new RNode("last", rTree, obj, true);
+                rTree.addChild(last);
+            }
+            last.addTemplate(iid);
+        }else if("any" == index){
+            var any = rTree.findChild("any");
+            if(any == null){
+                any = new RNode("any", rTree, obj, true);
+                rTree.addChild(any);
+            }
+            any.addTemplate(iid);
+        }else if("first" == index){
+            oddNode = rTree.findChild("odd");
+            var first = oddNode.findChild("1");
+            if(first == null){
+                first = new RNode("1", oddNode, obj, true);
+                oddNode.addChild(first);
+            }
+            first.addTemplate(iid);
+        }else if(index.match(/^\d+$/)){
+            var inx = parseInt(index);
+            if((inx % 2) == 1){
+                oddNode = rTree.findChild("odd");
+                node = oddNode.findChild(index);
+                if(node == null){
+                    node = new RNode(index, oddNode, obj, true);
+                    oddNode.addChild(node);
+                }
+                node.addTemplate(iid);
+            }else{
+                evenNode = rTree.findChild("even");
+                node = evenNode.findChild(index);
+                if(node == null){
+                    node = new RNode(index, evenNode, obj, true);
+                    evenNode.addChild(node);
+                }
+                node.addTemplate(iid);
+            }
+        }else{
+            throw new SeleniumError("Invalid Index" + index);
+        }
+    },
+
+    insertTBody: function(obj, iid){
+        var meta = obj.metaData;
+        var index = meta.tbody.value;
+        this.insertRTree(this.t, index, obj, iid);
+    },
+
+    insertRow: function(obj, iid){
+        var meta = obj.metaData;
+        var index = meta.row.value;
+        this.insertRTree(this.r, index, obj, iid);
+    },
+
+    insertColumn: function(obj, iid){
+        var meta = obj.metaData;
+        var index = meta.column.value;
+        this.insertRTree(this.c, index, obj, iid);
+    },
+
+    insert: function(obj){
+        var iid = this.getIId(obj);
+        this.templates.put(iid, obj);
+        this.insertTBody(obj, iid);
+        this.insertRow(obj, iid);
+        this.insertColumn(obj, iid);
+    },
+
+    preBuild: function(){
+        var defaultUi = new UiTextBox();
+        var meta = new TableMetaData();
+        meta.tbody = new Index();
+        meta.tbody.constDefaultIndex("all");
+        meta.row = new Index();
+        meta.row.constDefaultIndex("all");
+        meta.column = new Index();
+        meta.column.constDefaultIndex("all");
+        meta.id = "defaultUi";
+        defaultUi.metaData = meta;
+        this.templates.put("_all_all_all", defaultUi);
+
+        var taNode = new RNode("all", null, defaultUi, true);
+        taNode.addTemplate("_all_all_all");
+        this.t = taNode;
+        this.t.bias = 0.1;
+        var toNode = new RNode('odd', taNode, defaultUi, false);
+        this.t.addChild(toNode);
+        var teNode = new RNode('even', taNode, defaultUi, false);
+        this.t.addChild(teNode);
+
+        var raNode = new RNode("all", null, defaultUi, true);
+        raNode.addTemplate("_all_all_all");
+        this.r = raNode;
+        this.r.bias = 0.2;
+        var roNode = new RNode('odd', raNode, defaultUi, false);
+        this.r.addChild(roNode);
+        var reNode = new RNode('even', raNode, defaultUi, false);
+        this.r.addChild(reNode);
+
+        var caNode = new RNode("all", null, defaultUi, true);
+        caNode.addTemplate("_all_all_all");
+        this.c = caNode;
+        this.c.bias = 0.3;
+        var coNode = new RNode('odd', caNode, defaultUi, false);
+        this.c.addChild(coNode);
+        var ceNode = new RNode('even', caNode, defaultUi, false);
+        this.c.addChild(ceNode);
+    },
+
+    generatePath: function(key){
+        if("odd" == key || "even" == key || "last" == key || "any" == key){
+            return this.ROOT_PATH;
+        }else if(key.match(/^\d+$/)){
+            var inx = parseInt(key);
+            if((inx % 2) == 1){
+                return this.ODD_PATH;
+            }else{
+                return this.EVEN_PATH;
+            }
+        }else if("all" == key){
+            return this.EMPTY_PATH;
+        }else{
+            throw new SeleniumError("Invalid Index" + key);
+        }
+    },
+
+    route: function(key){
+        var object = this.indices.get(key);
+        if(object == null){
+            var parts = key.replace(/_/g," ").trim().split(" ");
+            var ids = new Array();
+            if(parts.length < 3){
+                ids.push("1");
+            }
+            for (var i = 0; i < parts.length; i++) {
+                ids.push(parts[i]);
+            }
+
+            var x = ids[0];
+            if("first" == x){
+                x = "1";
+            }
+
+            var y = ids[1];
+            if("first" == y){
+                y = "1";
+            }
+
+            var z = ids[2];
+            if("first" == z){
+                z = "1";
+            }
+
+            var list = this.generatePath(x);
+            var path = new Path();
+            path.init(list);
+            var nx = this.walkTo(this.t, x, path);
+            list = this.generatePath(y);
+            path = new Path();
+            path.init(list);
+            var ny = this.walkTo(this.r, y, path);
+            list = this.generatePath(z);
+            path = new Path();
+            path.init(list);
+            var nz = this.walkTo(this.c, z, path);
+            var iid = this.getIIdStr(nx.key, ny,key, nz,key);
+            if(nx.contains(iid) && ny.contains(iid) && nz.contains(iid)){
+                return this.templates.get(iid);
+            }else{
+                var queue = new PriorityQueue();
+                queue.comparator = new RNodeComparator();
+                queue.insert(nx);
+                queue.insert(ny);
+                queue.insert(nz);
+                while(queue.size() > 0){
+                    var r1 = queue.extractMax();
+                    var r2 = queue.extractMax();
+                    var r3 = queue.extractMax();
+                    iid = this.getIId(r1.key, r2,key, r3,key);
+                    if(r1.contains(iid) && r2.contains(iid) && r3.contains(iid)){
+                        return this.templates.get(iid);
+                    }else{
+                        if(r1.getFitness() < 1 && r2.getFitness() < 1 && r3.getFitness() < 1){
+                            //have reached the root and cannot find a matching template
+                            return null;
+                        }else{
+                            if(r1.parent != null){
+                                r1 = r1.parent;
+                            }
+                            queue.insert(r1);
+                            queue.insert(r2);
+                            queue.insert(r3);
+                        }
+                    }
+                }
+
+                return null;
+            }
+        }
+
+        return object;
+    },
+
+    shareTemplate: function(x, y, z){
+        var iid = this.getIId(x.key, y.key, z.key);
+
+        return x.contains(iid) && y.contains(iid) && z.contains(iid);
+    },
+
+    walkTo: function(root, key, path){
+        if(key == "all"){
+            return root;
+        }
+
+        if(path != null && path.size() > 0){
+            path.pop();
+            var node = root.walkTo(key, path);
+            if(node != null){
+                return node;
+            }
+        }
+
+        return null;
+    }
+
 });
