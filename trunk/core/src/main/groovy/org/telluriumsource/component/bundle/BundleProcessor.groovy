@@ -35,7 +35,7 @@ public class BundleProcessor implements Configurable {
   public static final String[] EXCLUSIVE_LIST = ["getDiagnosisResponse", "getValidateUiModule"];
   public static final String[] KILL_CACHE_LIST = ["open", "waitForPageToLoad"];
   public static final String[] STATE_UPDATE_LIST = ["enableCache", "disableCache", "useTeApi", "useClosestMatch"];
-  public static final String[] NO_BUNDLE_LIST = ["waitForCondition", "captureScreenshotToString", "captureEntirePageScreenshotToString", "retrieveLastRemoteControlLogs"];
+  public static final String[] NO_BUNDLE_LIST = ["waitForPageToLoad", "waitForCondition", "captureScreenshotToString", "captureEntirePageScreenshotToString", "retrieveLastRemoteControlLogs"];
   
   //sequence number for each command
   private int sequence = 1;
