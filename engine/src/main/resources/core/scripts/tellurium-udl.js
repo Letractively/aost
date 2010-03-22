@@ -3,6 +3,19 @@ function Index(){
     this.value = null;
 }
 
+function RIndex() {
+  //for tbody
+  this.x = null;
+
+  //for row
+  this.y = null;
+
+  //for column
+  this.z = null;
+}
+
+
+
 var MetaData = Class.extend({
    init: function() {
        this.id = null;
@@ -52,10 +65,12 @@ Path.prototype.pop = function(){
 var RNode = Class.extend({
     init: function() {
         this.key = null;
+        this.bias = 0;
         this.parent = null;
         this.children = new Array();
         this.objectRef = null;
         this.presented = false;
+        this.templates = new Array();
     },
 
     create: function(key, parent, objectRef, presented) {
@@ -63,6 +78,20 @@ var RNode = Class.extend({
         this.parent = parent;
         this.objectRef = objectRef;
         this.presented = presented;
+    },
+
+    addTemplate: function(template){
+        if(!this.contains(template))
+            this.templates.push(template);
+    },
+
+    contains: function(template){
+        for(var i=0; i<this.templates.length; i++){
+            if(template == this.templates[i])
+                return true;
+        }
+
+        return false;
     },
 
     addChild: function(child) {
@@ -79,6 +108,13 @@ var RNode = Class.extend({
         }
 
         return null;
+    },
+
+    getFitness: function() {
+        if (this.parent == null)
+            return this.bias;
+        else
+            return this.parent.getFitness() + 1;
     },
 
     isInPath: function(key, paths){
@@ -128,43 +164,18 @@ var RNode = Class.extend({
 
 var RTree = Class.extend({
     init: function(){
-        this.root = null;
-        this.indices = new Hashtable();
-    },
-
-    preBuild: function(){
-
-    },
-
-    insert: function(object){
-
-    },
-
-    route: function(key){
-
-    },
-
-    walkTo: function(key, path){
-
-    },
-
-    createIndex: function(key, uiobject){
-        this.indices.put(key, uiobject);
-    }
-});
-
-var ListRTree = RTree.extend({
-    init: function() {
-        this._super();
         this.EMPTY_PATH = [];
         this.ROOT_PATH = ["all"];
         this.ODD_PATH = ["all", "odd"];
         this.EVEN_PATH = ["all", "even"];
-    },
 
+        this.root = null;
+        this.indices = new Hashtable();
+    },
+    
     insert: function(object){
         var meta = object.metaData;
-        this.createIndex(meta.id, object);
+//        this.createIndex(meta.id, object);
         var index = meta.index.value;
         if("all" == index){
             this.root.objectRef = object;
@@ -174,32 +185,44 @@ var ListRTree = RTree.extend({
             oddNode.presented = true;
             oddNode.objectRef = object;
         }else if("even" == index){
-            var evenNode = this.root.firstChild("even");
+            var evenNode = this.root.findChild("even");
             evenNode.presented = true;
             evenNode.objectRef = object;
         }else if("last" == index){
-            var last = new RNode();
-            last.create("last", this.root, object, true);
-            this.root.addChild(last);
+            var last = this.root.findChild("last");
+            if(last == null){
+                last = new RNode();
+                last.create("last", this.root, object, true);
+                this.root.addChild(last);
+            }
         }else if("any" == index){
 
         }else if("first" == index){
             var oNode = this.root.findChild("odd");
-            var f = new RNode();
-            f.create("1", oNode, object, true);
-            oNode.addChild(f);
+            var f = oNode.findChild("1");
+            if(f == null){
+                f = new RNode();
+                f.create("1", oNode, object, true);
+                oNode.addChild(f);   
+            }
         }else if(index.match(/^\d+$/)){
             var inx = parseInt(index);
             if((inx % 2) == 1 ){
                 var odNode = this.root.findChild("odd");
-                var inode = new RNode();
-                inode.create(index, odNode, object, true);
-                odNode.addChild(inode);
+                var inode = odNode.findChild(index);
+                if(inode == null){
+                    inode = new RNode();
+                    inode.create(index, odNode, object, true);
+                    odNode.addChild(inode);
+                }
             }else{
                 var eNode = this.root.findChild("even");
-                var nNode = new RNode();
-                nNode.create(index, eNode, object, true);
-                eNode.addChild(nNode);
+                var nNode = eNode.findChild(Index);
+                if(nNode == null){
+                    nNode = new RNode();
+                    nNode.create(index, eNode, object, true);
+                    eNode.addChild(nNode);
+                }
             }
         }else{
             throw new SeleniumError("Invalid Index" + index);
@@ -266,5 +289,9 @@ var ListRTree = RTree.extend({
         }
 
         return null;
+    },
+
+    createIndex: function(key, uiobject){
+        this.indices.put(key, uiobject);
     }
 });
