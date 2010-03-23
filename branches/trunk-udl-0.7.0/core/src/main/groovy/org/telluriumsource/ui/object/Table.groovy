@@ -18,6 +18,8 @@ import org.telluriumsource.udl.Index
 import org.telluriumsource.udl.code.IndexType
 import org.telluriumsource.exception.InvalidIndexRefException
 import org.telluriumsource.ui.locator.JQueryBuilder
+import org.telluriumsource.ui.locator.JQueryOptimizer
+import org.telluriumsource.util.Helper
 
 /**
  *   This is a table without header tag "thead' and foot "tfoot", but in the format of
@@ -442,7 +444,32 @@ class Table extends Container {
   }
 
   int getHeaderIndex(UiObject obj){
+    WorkflowContext ctx = (WorkflowContext)Helper.clone(context);
 
+    //append relative location
+    String loc;
+    TableHeaderMetaData meta = (TableHeaderMetaData)cobj.getMetaData();
+    if (ctx.isUseCssSelector()) {
+      loc = this.getHeaderSelector(meta.getIndex().getValue(), cobj);
+    } else {
+      loc = this.getHeaderLocator(meta.getIndex().getValue(), cobj);
+    }
+
+    ctx.appendReferenceLocator(loc);
+
+    String lst = ctx.getReferenceLocator();
+    if(ctx.isUseCssSelector()){
+      JQueryOptimizer optimizer = new JQueryOptimizer();
+      lst = "jquery=" + optimizer.optimize(lst);
+    }else{
+      if (lst != null && (!lst.startsWith("//"))) {
+        lst = "/" + lst;
+      }
+    }
+
+    Accessor accessor = new Accessor();
+
+    return accessor.getIndex(ctx, lst);
   }
 
   Index findHeaderIndex(String key){
