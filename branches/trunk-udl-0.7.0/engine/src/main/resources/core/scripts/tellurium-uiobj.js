@@ -2121,6 +2121,16 @@ var UiStandardTable = UiContainer.extend({
         this.defaultUi = new UiTextBox();
         this.headers = new Hashtable();
         this.footers = new Hashtable();
+        this.hTree= new RTree();
+        this.hTree.indices = this.headers;
+        this.hTree.preBuild();
+        this.fTree= new RTree();
+        this.fTree.indices = this.footers;
+        this.fTree.preBuild();
+        this.rGraph = new RGraph();
+        this.rGraph.indices = this.components;
+        this.rGraph.preBuild();
+
         //table header
         this.ht = "thead";
         this.hrt = "tr";
@@ -2135,6 +2145,8 @@ var UiStandardTable = UiContainer.extend({
         this.ft = "tfoot";
         this.frt = "tr";
         this.fct = "td";
+
+
     },
 
     goToPlace:  function(uiid, uiobj) {
@@ -2144,29 +2156,367 @@ var UiStandardTable = UiContainer.extend({
         }else{
             uiid.pop();
             var cuid = uiid.peek();
+            var meta = uiobj.metaData;
+
             if(uiid.size() == 1){
                 uiid.pop();
                 uiobj.parent = this;
-                if(cuid.startsWith("_HEADER")){
+                if(meta.type == "Header"){
                     this.headers.put(cuid, uiobj);
-                }else if(cuid.startsWith("_FOOTER")){
+                    this.hTree.insert(uiobj);
+                }else if(meta.type == "Footer"){
                     this.footers.put(cuid, uiobj);
-                }else{
+                    this.fTree.insert(uiobj);
+                }else if(meta.type == "TBody"){
                     this.components.put(cuid, uiobj);
+                    this.rGraph.insert(uiobj);
+                }else{
+                    throw new SeleniumError("Invalid meta data type " + meta.type);
                 }
             }else{
-                if(cuid.startsWith("_HEADER")){
+                if(meta.type == "Header"){
                     var header = this.headers.get(cuid);
                     header.goToPlace(uiid, uiobj);
-                }else if(cuid.startsWith("_FOOTER")){
+                }else if(meta.type == "Footer"){
                     var footer = this.footers.get(cuid);
                     footer.goToPlace(uiid, uiobj);
-                }else{
+                }else if(meta.type == "TBody"){
                     var child = this.components.get(cuid);
                     child.goToPlace(uiid, uiobj);
+                }else{
+                    throw new SeleniumError("Invalid meta data type " + meta.type);
                 }
             }
         }
+    },
+
+    locateTBodyChild: function(id) {
+        return this.rGraph.route(id);
+    },
+
+    locateHeaderChild: function(id) {
+        return this.hTree.route(id);
+    },
+
+    locateFooterChild: function(id) {
+        return this.fTree.route(id);
+    },
+
+    buildSelectorWithoutPosition: function(locator){
+        return tellurium.jqbuilder.buildCssSelector(locator.tag, locator.text, null, locator.direct, locator.attributes);
+    },
+
+    getHeaderSelector: function(index, obj) {
+        if ("any" == index) {
+            return this.getAnyHeaderSelector(obj);
+        } else if ("first" == index) {
+            return this.getFirstHeaderSelector();
+        } else if ("last" == index) {
+            return this.getLastHeaderSelector();
+        } else if (index.match(/[0-9]+/)) {
+            return this.getIndexedHeaderSelector(parseInt(index));
+        } else {
+            throw new SeleniumError("Invalid Index " + index);
+        }
+    },
+
+    getAnyHeaderSelector: function(obj) {
+        var sel = this.buildSelectorWithoutPosition(obj.locator);
+
+        return " > " + this.ht + ":first > " + this.hrt + " > " + this.hct + ":has(" + sel + ")";
+    },
+
+    getFirstHeaderSelector: function() {
+
+        return " > " + this.ht + ":first > " + this.hrt + " > " + this.hct + ":first";
+    },
+
+    getLastHeaderSelector: function() {
+
+        return " > " + this.ht + ":first > " + this.hrt + " > " + this.hct + ":last";
+    },
+
+    getIndexedHeaderSelector: function(column) {
+        return " > " + this.ht + ":first > " + this.hrt + " > " + this.hct + ":eq(" + (column-1) +")";
+    },
+
+    getHeaderIndex: function(context, obj){
+        //First, get the DOM reference of the Table itself
+        var dmr = this.domRef;
+        if(dmr == null)
+            dmr = context.domRef;
+
+        if(dmr == null){
+            fbError("The DOM reference for Table " + this.uid + " is null", this);
+            throw new SeleniumError("The DOM reference for Table " + this.uid + " is null");
+        }
+
+        var sel = this.getHeaderSelector(obj.metaData.index.value, obj);
+        var $found = teJQuery(dmr).find(sel);
+
+        return $found.index();
+    },
+
+    findHeaderIndex: function(context, key) {
+        var obj = this.headers.get(key);
+        if (obj != null) {
+            if ("any" == obj.metaData.index.value) {
+                var inx = this.getHeaderIndex(context, obj);
+                var index = new Index();
+                index.constDefaultIndex(inx);
+                return index;
+            }
+
+            return obj.metaData.index;
+        }
+
+        return null;
+    },
+
+    getFooterSelector: function(index, obj) {
+        if ("any" == index) {
+            return this.getAnyFooterSelector(obj);
+        } else if ("first" == index) {
+            return this.getFirstFooterSelector();
+        } else if ("last" == index) {
+            return this.getLastFooterSelector();
+        } else if (index.match(/[0-9]+/)) {
+            return this.getIndexedFooterSelector(parseInt(index));
+        } else {
+            throw new SeleniumError("Invalid Index " + index);
+        }
+    },
+
+    getAnyFooterSelector: function(obj) {
+        var sel = this.buildSelectorWithoutPosition(obj.locator);
+
+        return " > " + this.ft + ":last > " + this.frt + " > " + this.fct + ":has(" + sel + ")";
+    },
+
+    getFirstFooterSelector: function() {
+
+        return " > " + this.ft + ":last > " + this.frt + " > " + this.fct + ":first";
+    },
+
+    getLastFooterSelector: function() {
+
+        return " > " + this.ft + ":last > " + this.frt + " > " + this.fct + ":last";
+    },
+
+    getIndexedFooterSelector: function(column) {
+        return " > " + this.ft + ":last > " + this.frt + " > " + this.fct + ":eq(" + (column-1) +")";
+    },
+
+    getFooterIndex: function(context, obj){
+        //First, get the DOM reference of the Table itself
+        var dmr = this.domRef;
+        if(dmr == null)
+            dmr = context.domRef;
+
+        if(dmr == null){
+            fbError("The DOM reference for Table " + this.uid + " is null", this);
+            throw new SeleniumError("The DOM reference for Table " + this.uid + " is null");
+        }
+
+        var sel = this.getFooterSelector(obj.metaData.index.value, obj);
+        var $found = teJQuery(dmr).find(sel);
+
+        return $found.index();
+    },
+
+    findFooterIndex: function(context, key) {
+        var obj = this.footers.get(key);
+        if (obj != null) {
+            if ("any" == obj.metaData.index.value) {
+                var inx = this.getFooterIndex(context, obj);
+                var index = new Index();
+                index.constDefaultIndex(inx);
+                return index;
+            }
+
+            return obj.metaData.index;
+        }
+
+        return null;
+    },
+
+    preprocess: function(context, meta) {
+        var ri = new RIndex();
+        var t = meta.tbody;
+        if (t.type == "REF") {
+            var tRef = this.findHeaderIndex(context, t.value);
+            if(tRef == null)
+                tRef = this.findFooterIndex(context, t.value);
+            if (tRef == null)
+                throw new SeleniumError("Invalid Index reference " + t.value);
+            ri.x = tRef.value;
+        } else {
+            ri.x = t.value;
+        }
+
+        var r = meta.row;
+        if (r.type == "REF") {
+            var rRef = this.findHeaderIndex(context, r.value);
+            if(rRef == null)
+                rRef = this.findFooterIndex(context, r.value);
+            if (rRef == null)
+                throw new SeleniumError("Invalid Index reference " + r.value);
+            ri.y = rRef.value;
+        } else {
+            ri.y = r.value;
+        }
+
+        var c = meta.column;
+        if (c.type == "REF") {
+            var cRef = this.findHeaderIndex(context, c.value);
+            if(cRef == null)
+                cRef = this.findFooterIndex(context, c.value);
+            if (cRef == null)
+                throw new SeleniumError("Invalid Index reference " + c.value);
+            ri.z = cRef.value;
+        } else {
+            ri.z = c.value;
+        }
+
+        return ri;
+    },
+
+    getCellSelector: function(context, key, obj) {
+        var meta = obj.metaData;
+        var ri = this.preprocess(context, meta);
+        var parts = key.replace(/^_/, '').split("_");
+        var inx = new Array();
+        if (parts.length < 3) {
+            inx.push("1");
+        }
+        for (var i = 0; i < parts.length; i++) {
+            inx.push(parts[i]);
+        }
+
+        return this.getTBodySelector(ri, inx[0], obj) + this.getRowSelector(ri, inx[1], obj) + this.getColumnSelector(ri, inx[2], obj);
+    },
+
+    getTBodySelector: function(ri, key, obj) {
+        var index = ri.x;
+        if ("any" == index) {
+            return this.getAnyRowSelector(obj);
+        } else if ("first" == index) {
+            return this.getFirstRowSelector();
+        } else if ("last" == index) {
+            return this.getLastRowSelector();
+        } else if (key.match(/[0-9]+/)) {
+            return this.getIndexedRowSelector(parseInt(key));
+        } else if (index.match(/[0-9]+/)) {
+            return this.getIndexedRowSelector(parseInt(index));
+        } else {
+            throw new SeleniumError("Invalid ID " + key);
+        }
+    },
+
+    getAnyBodySelector: function(obj) {
+        var sel = this.buildSelectorWithoutPosition(obj.locator);
+
+        return " > " + this.bt + ":has(" + sel + ")";
+    },
+
+    getFirstBodySelector: function() {
+        var inx = 1;
+        if(this.headers.size() > 0 && this.bt == this.ht){
+            inx++;
+        }
+
+        return " > " + this.bt + ":eq(" + (inx-1) + ")";
+    },
+
+    getLastBodySelector: function() {
+        if(this.footers.size() > 0 && this.bt == this.ft){
+            return " > " + this.bt + ":nextToLast";
+        }
+
+        return " > " + this.bt + ":last";
+    },
+
+    getIndexedBodySelector: function(index) {
+        var inx = index;
+        if(this.headers.size() > 0 && this.bt == this.ht){
+            inx++;
+        }
+
+        return " > " + this.bt + ":eq(" + (inx-1) + ")";
+    },
+
+    getRowSelector: function(ri, key, obj) {
+        var index = ri.y;
+        if ("any" == index) {
+            return this.getAnyRowSelector(obj);
+        } else if ("first" == index) {
+            return this.getFirstRowSelector();
+        } else if ("last" == index) {
+            return this.getLastRowSelector();
+        } else if (key.match(/[0-9]+/)) {
+            return this.getIndexedRowSelector(parseInt(key));
+        } else if (index.match(/[0-9]+/)) {
+            return this.getIndexedRowSelector(parseInt(index));
+        } else {
+            throw new SeleniumError("Invalid ID " + key);
+        }
+    },
+
+    getAnyRowSelector: function(obj) {
+        var sel = this.buildSelectorWithoutPosition(obj.locator);
+
+        return " > " + this.brt + ":has(" + sel + ")";
+    },
+
+    getFirstRowSelector: function() {
+
+        return " > " + this.brt + ":first";
+    },
+
+    getLastRowSelector: function() {
+
+        return " > " + this.brt + ":last";
+    },
+
+    getIndexedRowSelector: function(row) {
+        return " > " + this.brt + ":eq(" + (row - 1) + ")";
+    },
+
+    getColumnSelector: function(ri, key, obj) {
+        var index = ri.z;
+        if ("any" == index) {
+            return this.getAnyColumnSelector(obj);
+        } else if ("first" == index) {
+            return this.getFirstColumnSelector();
+        } else if ("last" == index) {
+            return this.getLastColumnSelector();
+        } else if (key.match(/[0-9]+/)) {
+            return this.getIndexedColumnSelector(parseInt(key));
+        } else if (index.match(/[0-9]+/)) {
+            return this.getIndexedColumnSelector(parseInt(index));
+        } else {
+            throw new SeleniumError("Invalid Index " + index);
+        }
+    },
+
+    getAnyColumnSelector: function(obj) {
+        var sel = this.buildSelectorWithoutPosition(obj.locator);
+
+        return " > " + this.bct + ":has(" + sel + ")";
+    },
+
+    getFirstColumnSelector: function() {
+
+        return " > " + this.bct + ":first";
+    },
+
+    getLastColumnSelector: function() {
+
+        return " > " this.bct + ":last";
+    },
+
+    getIndexedColumnSelector: function(column) {
+        return " > " + this.bct + ":eq(" + (column - 1) + ")";
     },
 
     prelocate: function(){
@@ -2511,6 +2861,7 @@ var UiStandardTable = UiContainer.extend({
         return obj;
     },
 
+/*
     getCellSelector: function(tbody, row, column) {
         var index = tbody -1;
         if(this.bt == this.ht){
@@ -2528,6 +2879,7 @@ var UiStandardTable = UiContainer.extend({
 
         return " > " + this.ft + ":last " + this.frt + " > " + this.fct + ":eq(" + (column-1) + ")";
     },
+    */
 
     getAllBodyCell: function(context, worker){
         !tellurium.logManager.isUseLog || fbLog("Check context in getAllBodyCell", context);
