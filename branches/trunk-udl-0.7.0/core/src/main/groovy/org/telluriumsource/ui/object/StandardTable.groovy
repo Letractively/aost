@@ -519,7 +519,7 @@ class StandardTable extends Container{
       inx++;
     }
 
-    return " > ${this.bodyTag}:${inx - 1}";
+    return " > ${this.bodyTag}:eq(${inx - 1})";
   }
 
   protected String getLastBodySelector() {
