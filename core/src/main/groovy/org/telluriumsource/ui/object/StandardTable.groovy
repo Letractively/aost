@@ -275,18 +275,7 @@ class StandardTable extends Container{
       loc = this.getHeaderLocator(meta.getIndex().getValue(), cobj);
     }
 
-    ctx.appendReferenceLocator(loc)
-/*    if (cobj.locator != null) {
-      if (cobj.locator instanceof CompositeLocator) {
-        if (!cobj.self) {
-          if (ctx.isUseCssSelector()) {
-            ctx.appendReferenceLocator(":has(" + this.buildJQuerySelectorWithoutPosition(cobj.locator) + ")");
-          }else{
-            ctx.appendReferenceLocator("[" + this.buildLocatorWithoutPosition(cobj.locator) + "]");
-          }
-        }
-      }
-    }*/
+    ctx.appendReferenceLocator(loc);
 
     String lst = ctx.getReferenceLocator();
     if(ctx.isUseCssSelector()){
@@ -418,18 +407,7 @@ class StandardTable extends Container{
       loc = this.getFooterLocator(meta.getIndex().getValue(), cobj);
     }
 
-/*    ctx.appendReferenceLocator(loc)
-    if (cobj.locator != null) {
-      if (cobj.locator instanceof CompositeLocator) {
-        if (!cobj.self) {
-          if (ctx.isUseCssSelector()) {
-            ctx.appendReferenceLocator(":has(" + this.buildJQuerySelectorWithoutPosition(cobj.locator) + ")");
-          }else{
-            ctx.appendReferenceLocator("[" + this.buildLocatorWithoutPosition(cobj.locator) + "]");
-          }
-        }
-      }
-    }*/
+    ctx.appendReferenceLocator(loc);
 
     String lst = ctx.getReferenceLocator();
     if(ctx.isUseCssSelector()){
