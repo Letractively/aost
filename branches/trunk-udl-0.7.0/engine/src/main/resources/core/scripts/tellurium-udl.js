@@ -519,7 +519,8 @@ var RGraph = Class.extend({
     route: function(key){
         var object = this.indices.get(key);
         if(object == null){
-            var parts = key.replace(/_/g," ").trim().split(" ");
+//            var parts = key.replace(/_/g," ").trim().split(" ");
+            var parts = key.replace(/^_/, '').split("_");
             var ids = new Array();
             if(parts.length < 3){
                 ids.push("1");

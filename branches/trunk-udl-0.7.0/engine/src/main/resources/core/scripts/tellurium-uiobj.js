@@ -1412,6 +1412,99 @@ var UiTable = UiContainer.extend({
         return ri;
     },
 
+    getCellSelector: function(context, key, obj) {
+        var meta = obj.metaData;
+        var ri = this.preprocess(context, meta);
+        var parts = key.replace(/^_/, '').split("_");
+        var inx = new Array();
+        if (parts.length < 3) {
+            inx.push("1");
+        }
+        for (var i = 0; i < parts.length; i++) {
+            inx.push(parts[i]);
+        }
+
+        return this.getTBodySelector() + this.getRowSelector(ri, inx[1], obj) + this.getColumnSelector(ri, inx[2], obj);
+    },
+
+    getTBodySelector: function() {
+        return " > tbody ";
+    },
+
+    getRowSelector: function(ri, key, obj) {
+        var index = ri.y;
+        if ("any" == index) {
+            return this.getAnyRowSelector(obj);
+        } else if ("first" == index) {
+            return this.getFirstRowSelector();
+        } else if ("last" == index) {
+            return this.getLastRowSelector();
+        } else if (key.match(/[0-9]+/)) {
+            return this.getIndexedRowSelector(parseInt(key));
+        } else if (index.match(/[0-9]+/)) {
+            return this.getIndexedRowSelector(parseInt(index));
+        } else {
+            throw new SeleniumError("Invalid ID " + key);
+        }
+    },
+
+    getAnyRowSelector: function(obj) {
+        var sel = this.buildSelectorWithoutPosition(obj.locator);
+
+        return " > tr:has(td):has(" + sel + ")";
+    },
+
+    getFirstRowSelector: function() {
+
+        return " > tr:has(td):first";
+    },
+
+    getLastRowSelector: function() {
+
+        return " > tr:has(td):last";
+    },
+
+    getIndexedRowSelector: function(row) {
+        return " > tr:has(td):eq(" + (row - 1) + ")";
+    },
+
+    getColumnSelector: function(ri, key, obj) {
+        var index = ri.z;
+        if ("any" == index) {
+            return this.getAnyColumnSelector(obj);
+        } else if ("first" == index) {
+            return this.getFirstColumnSelector();
+        } else if ("last" == index) {
+            return this.getLastColumnSelector();
+        } else if (key.match(/[0-9]+/)) {
+            return this.getIndexedColumnSelector(parseInt(key));
+        } else if (index.match(/[0-9]+/)) {
+            return this.getIndexedColumnSelector(parseInt(index));
+        } else {
+            throw new SeleniumError("Invalid Index " + index);
+        }
+    },
+
+    getAnyColumnSelector: function(obj) {
+        var sel = this.buildSelectorWithoutPosition(obj.locator);
+
+        return " > td:has(" + sel + ")";
+    },
+
+    getFirstColumnSelector: function() {
+
+        return " > td:first";
+    },
+
+    getLastColumnSelector: function() {
+
+        return " > td:last";
+    },
+
+    getIndexedColumnSelector: function(column) {
+        return " > td:eq(" + (column - 1) + ")";
+    },
+
     prelocate: function(){
         if(this.amICacheable()){
             this.snapshot();
@@ -1632,14 +1725,14 @@ var UiTable = UiContainer.extend({
         var t = column - 1;
         return " > tbody > tr:has(th) > th:eq(" + t + ")";
     },
-    */
-    
+
     getCellSelector: function(row, column) {
         var r = row-1;
         var c = column-1;
         return " > tbody > tr:has(td):eq(" + r + ") > td:eq(" + c + ")";
     },
-
+*/
+    
 
     getAllBodyCell: function(context, worker){
         if (context.domRef != null) {
