@@ -1344,6 +1344,24 @@ var UiTable = UiContainer.extend({
         return " > tbody > tr:has(th) > th:eq(" + (row - 1) + ")";
     },
 
+    getHeaderIndex: function(context, obj){
+         //First, get the DOM reference of the Table itself
+        var dmr = this.domRef;
+        if(dmr == null)
+            dmr = context.domRef;
+
+        if(dmr == null){
+            fbError("The DOM reference for Table " + this.uid + " is null", this);
+            throw new SeleniumError("The DOM reference for Table " + this.uid + " is null");
+        }
+
+        var $found = teJQuery(dmr).find(" > tbody > tr:has(td)");
+
+        return $found.size();
+    },
+
+    },
+
     prelocate: function(){
         if(this.amICacheable()){
             this.snapshot();

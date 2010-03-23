@@ -443,7 +443,7 @@ class Table extends Container {
     return "/tbody/tr[child::th]/th[${row}]";
   }
 
-  int getHeaderIndex(UiObject obj){
+  int getHeaderIndex(WorkflowContext context, UiObject obj){
     WorkflowContext ctx = (WorkflowContext)Helper.clone(context);
 
     //append relative location
@@ -472,11 +472,11 @@ class Table extends Container {
     return accessor.getIndex(ctx, lst);
   }
 
-  Index findHeaderIndex(String key){
+  Index findHeaderIndex(WorkflowContext context, String key){
     UiObject obj = this.headers.get(key);
     if(obj != null){
       if("any".equalsIgnoreCase(obj.metaData.index.value)){
-        int inx = this.getHeaderIndex(obj);
+        int inx = this.getHeaderIndex(context, obj);
         return new Index("${inx}")
       }
 
@@ -486,11 +486,11 @@ class Table extends Container {
     return null;
   }
 
-  RIndex preprocess(TableBodyMetaData meta){
+  RIndex preprocess(WorkflowContext context, TableBodyMetaData meta){
     RIndex ri = new RIndex();
     Index t = meta.getTbody();
     if(t.getType() == IndexType.REF){
-      Index tRef = this.findHeaderIndex(t.getValue());
+      Index tRef = this.findHeaderIndex(context, t.getValue());
       if(tRef == null)
         throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , t.value))
       ri.x = tRef.getValue();
@@ -500,7 +500,7 @@ class Table extends Container {
 
     Index r = meta.getRow();
     if(r.getType() == IndexType.REF){
-      Index rRef = this.findHeaderIndex(r.getValue());
+      Index rRef = this.findHeaderIndex(context, r.getValue());
       if(rRef == null)
         throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , r.value))
       ri.y = rRef.getValue();
@@ -510,7 +510,7 @@ class Table extends Container {
 
     Index c = meta.getColumn();
     if(c.getType() == IndexType.REF){
-      Index cRef = this.findHeaderIndex(c.getValue());
+      Index cRef = this.findHeaderIndex(context, c.getValue());
       if(cRef == null)
         throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , c.value))
       ri.setColumn(c.getValue());
@@ -521,9 +521,9 @@ class Table extends Container {
     return ri;
   }
 
-  String getCellSelector(String key, UiObject obj) {
+  String getCellSelector(WorkflowContext context, String key, UiObject obj) {
     TableBodyMetaData meta = (TableBodyMetaData) obj.metaData;
-    RIndex ri = this.preprocess(meta);
+    RIndex ri = this.preprocess(context, meta);
     String[] parts = key.replaceFirst('_', '').split("_");
     String[] inx = parts;
     if(parts.length == 1){
@@ -614,9 +614,9 @@ class Table extends Container {
     return " > td:eq(${column - 1})"
   }
 
-  String getCellLocator(String key, UiObject obj) {
+  String getCellLocator(WorkflowContext context, String key, UiObject obj) {
     TableBodyMetaData meta = (TableBodyMetaData) obj.metaData;
-    RIndex ri = this.preprocess(meta);
+    RIndex ri = this.preprocess(context, meta);
     String[] parts = key.replaceFirst('_', '').split("_");
     String[] inx = parts;
     if(parts.length == 1){
@@ -962,9 +962,9 @@ class Table extends Container {
     String loc;
     if(context.isUseCssSelector()){
       //jquery eq() starts from zero, while xpath starts from one
-      loc = this.getCellSelector(child, cobj);
+      loc = this.getCellSelector(context, child, cobj);
     }else{
-      loc = this.getCellLocator(child, cobj);
+      loc = this.getCellLocator(context, child, cobj);
     }
     context.appendReferenceLocator(loc)
 
