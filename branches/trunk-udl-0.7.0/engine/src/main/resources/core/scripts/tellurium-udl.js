@@ -25,6 +25,7 @@ function RIndex() {
 
 var MetaData = Class.extend({
    init: function() {
+       this.type = null;
        this.id = null;
    }
 });

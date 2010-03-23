@@ -1080,7 +1080,8 @@ var UiList = UiContainer.extend({
 
             for(var i=0; i<keys.length; i++){
                 var key = keys[i];
-                var child = this.components.get(keys[i]);
+//                var child = this.components.get(keys[i]);
+                var child = this.components.get(key);
                 var indx = child.metaData.index.value;
                 var part = indx.replace(/^_/, '');
 //                var cobj = this.findChild(part);
