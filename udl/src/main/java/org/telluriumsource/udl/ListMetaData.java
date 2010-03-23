@@ -32,6 +32,7 @@ public class ListMetaData extends MetaData {
     public JSONObject toJSON() {
         JSONObject jso = super.toJSON();
         jso.put(INDEX, this.index.toJSON());
+        jso.put(TYPE, "List");
 
         return jso;
     }
