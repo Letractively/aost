@@ -1925,12 +1925,16 @@ var UiTable = UiContainer.extend({
         //reach the actual uiid for the header element
         var child = uiid.pop();
 
-        child = child.replace(/^_/, '').replace(/HEADER/, '');
+        var key = child.replace(/^_/, '');
 
-        var index = parseInt(trimString(child));
+        var cobj = this.locateHeaderChild(key);
+
+//        child = child.replace(/^_/, '').replace(/HEADER/, '');
+
+//        var index = parseInt(trimString(child));
 
         //try to find its child
-        var cobj = this.findHeaderUiObject(index);
+//        var cobj = this.findHeaderUiObject(index);
 
         //If cannot find the object as the object template, return the TextBox as the default object
         if (cobj == null) {
@@ -1938,31 +1942,30 @@ var UiTable = UiContainer.extend({
         }
 
         if (context.domRef != null) {
-            var sel = this.getHeaderSelector(index);
+            var sel = this.getHeaderSelector(cobj);
 
             var $found = teJQuery(context.domRef);
             if(sel != null && sel.trim().length > 0){
                 $found = $found.find(sel);
             }
-            !tellurium.logManager.isUseLog || fbLog("Found child " + index + " with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
+            !tellurium.logManager.isUseLog || fbLog("Found child " + key + " with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
             if ($found.size() == 1) {
                 context.domRef = $found.get(0);
                 !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, context.domRef);
             } else {
                 if ($found.size() == 0){
                     context.domRef = null;
-                    fbError("Cannot find the child UI element " + index, this);
+                    fbError("Cannot find the child UI element " + key, this);
                 }
 
                 if ($found.size() > 1) {
-                    fbError("Found multiple matches for UI element " + index, $found.get());
+                    fbError("Found multiple matches for UI element " + key, $found.get());
                     context.domRef = null;
                 }
             }
         }
 
         if (cobj.locator != null) {
-//            if ("th" == cobj.locator.tag && cobj.locator.header == null) {
             if(cobj.self){
                 context.skipNext = true;
             }
@@ -1981,13 +1984,14 @@ var UiTable = UiContainer.extend({
 
     walkToElement: function(context, uiid) {
         var child = uiid.pop();
-        var parts = child.replace(/^_/, '').split("_");
-
-        var nrow = parseInt(parts[0]);
-        var ncolumn = parseInt(parts[1]);
-
-        //otherwise, try to find its child
-        var cobj = this.findUiObject(nrow, ncolumn);
+//        var parts = child.replace(/^_/, '').split("_");
+//
+//        var nrow = parseInt(parts[0]);
+//        var ncolumn = parseInt(parts[1]);
+//
+//        //otherwise, try to find its child
+//        var cobj = this.findUiObject(nrow, ncolumn);
+        var cobj = this.locateTBodyChild(child);
 
         //If cannot find the object as the object template, return the TextBox as the default object
         if (cobj == null) {
@@ -1995,7 +1999,7 @@ var UiTable = UiContainer.extend({
         }
 
         if (context.domRef != null) {
-            var sel = this.getCellSelector(nrow, ncolumn);
+            var sel = this.getCellSelector(context, child, cobj);
 
             var $found = teJQuery(context.domRef);
             if(sel != null && sel.trim().length > 0){
