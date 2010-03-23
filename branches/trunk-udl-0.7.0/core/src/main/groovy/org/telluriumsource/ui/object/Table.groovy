@@ -771,7 +771,7 @@ class Table extends Container {
 
     String rl = c(this.locator)
     Accessor accessor = new Accessor()
-//        String xpath = rl + "/tbody/tr[1]/th"
+
     String xpath;
     if(this.hasNamespace()){
        xpath = rl + "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th"
@@ -909,7 +909,6 @@ class Table extends Container {
       sb.append(indent + "  <tr>\n");
       for(int i=1; i<=maxheader; i++){
           sb.append(indent + "   <th>\n")
-//          UiObject obj = this.findHeaderUiObject(i);
           UiObject obj = this.locateHeaderChild("${i}")
           if (obj == null) {
             obj = this.defaultUi
@@ -928,7 +927,6 @@ class Table extends Container {
         sb.append(indent + "  <tr>\n");
         for(int k=1; k<=maxcol; k++){
           sb.append(indent + "   <td>\n");
-//          UiObject elem = this.findUiObject(j, k);
           UiObject elem = this.locateTBodyChild("_${j}_${k}");
           if (elem == null) {
             elem = this.defaultUi;
@@ -948,9 +946,7 @@ class Table extends Container {
   protected UiObject walkToElement(WorkflowContext context, UiID uiid){
     //tbody is 1 for a Table without tbody defined
     String child = uiid.pop();
-/*    if(child ==~ /[0-9]+/){
-      child = "_1" + child;
-    }*/
+
     UiObject cobj = this.locateTBodyChild(child);
     //If cannot find the object as the object template, return the TextBox as the default object
     if (cobj == null) {
@@ -974,7 +970,6 @@ class Table extends Container {
 
     if(cobj.locator != null){
       if(cobj.locator instanceof CompositeLocator){
-//        CompositeLocator cl = (CompositeLocator)cobj.locator
         if(cobj.self){
           context.skipNext()
         }
