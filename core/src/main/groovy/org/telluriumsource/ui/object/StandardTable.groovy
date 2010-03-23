@@ -601,7 +601,7 @@ class StandardTable extends Container{
     //TODO: should not include this constraint on all tbody, row, and column, put on only one place
     String sel = this.buildJQuerySelectorWithoutPosition(obj.locator);
 
-    return " > ${this.bodyColumnTag}:has[${sel}]"
+    return " > ${this.bodyColumnTag}:has(${sel})"
   }
 
   protected String getFirstColumnSelector() {

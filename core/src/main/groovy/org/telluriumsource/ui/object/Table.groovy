@@ -597,7 +597,7 @@ class Table extends Container {
   protected String getAnyColumnSelector(UiObject obj) {
     String sel = this.buildJQuerySelectorWithoutPosition(obj.locator);
 
-    return " > td:has[${sel}]"
+    return " > td:has(${sel})"
   }
 
   protected String getFirstColumnSelector() {
