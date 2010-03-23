@@ -3291,12 +3291,16 @@ var UiStandardTable = UiContainer.extend({
         //reach the actual uiid for the header element
         var child = uiid.pop();
 
-        child = child.replace(/^_/, '').replace(/HEADER/, '');
+        var key = child.replace(/^_/, '');
 
-        var index = parseInt(trimString(child));
+        var cobj = this.locateHeaderChild(key);
 
-        //try to find its child
-        var cobj = this.findHeaderUiObject(index);
+//        child = child.replace(/^_/, '').replace(/HEADER/, '');
+//
+//        var index = parseInt(trimString(child));
+//
+//        //try to find its child
+//        var cobj = this.findHeaderUiObject(index);
 
         //If cannot find the object as the object template, return the TextBox as the default object
         if (cobj == null) {
@@ -3304,7 +3308,7 @@ var UiStandardTable = UiContainer.extend({
         }
 
         if (context.domRef != null) {
-            var sel = this.getHeaderSelector(index);
+            var sel = this.getHeaderSelector(cobj);
 
             var $found = teJQuery(context.domRef);
             if(sel != null && sel.trim().length > 0){
@@ -3351,12 +3355,15 @@ var UiStandardTable = UiContainer.extend({
         //reach the actual uiid for the header element
         var child = uiid.pop();
 
-        child = child.replace(/^_/, '').replace(/FOOTER/, '');
+        var key = child.replace(/^_/, '');
+        var cobj = this.locateFooterChild(key);
 
-        var index = parseInt(trimString(child));
-
-        //try to find its child
-        var cobj = this.findFooterUiObject(index);
+//        child = child.replace(/^_/, '').replace(/FOOTER/, '');
+//
+//        var index = parseInt(trimString(child));
+//
+//        //try to find its child
+//        var cobj = this.findFooterUiObject(index);
 
         //If cannot find the object as the object template, return the TextBox as the default object
         if (cobj == null) {
@@ -3364,7 +3371,7 @@ var UiStandardTable = UiContainer.extend({
         }
 
         if (context.domRef != null) {
-            var sel = this.getFooterSelector(index);
+            var sel = this.getFooterSelector(cobj);
 
             var $found = teJQuery(context.domRef);
             if(sel != null && sel.trim().length > 0){
@@ -3407,22 +3414,24 @@ var UiStandardTable = UiContainer.extend({
 
     walkToElement: function(context, uiid) {
         var child = uiid.pop();
-        var parts = child.replace(/^_/, '').split("_");
-        var ntbody;
-        var nrow;
-        var ncolumn;
-        if(parts.length == 3){
-            ntbody = parseInt(parts[0]);
-            nrow = parseInt(parts[1]);
-            ncolumn = parseInt(parts[2]);
-        }else{
-            ntbody = 1;
-            nrow = parseInt(parts[0]);
-            ncolumn = parseInt(parts[1]);
-        }
+        var cobj = this.locateTBodyChild(child);
 
-        //otherwise, try to find its child
-        var cobj = this.findUiObject(ntbody, nrow, ncolumn);
+//        var parts = child.replace(/^_/, '').split("_");
+//        var ntbody;
+//        var nrow;
+//        var ncolumn;
+//        if(parts.length == 3){
+//            ntbody = parseInt(parts[0]);
+//            nrow = parseInt(parts[1]);
+//            ncolumn = parseInt(parts[2]);
+//        }else{
+//            ntbody = 1;
+//            nrow = parseInt(parts[0]);
+//            ncolumn = parseInt(parts[1]);
+//        }
+//
+//        //otherwise, try to find its child
+//        var cobj = this.findUiObject(ntbody, nrow, ncolumn);
 
         //If cannot find the object as the object template, return the TextBox as the default object
         if (cobj == null) {
@@ -3430,7 +3439,7 @@ var UiStandardTable = UiContainer.extend({
         }
 
         if (context.domRef != null) {
-            var sel = this.getCellSelector(ntbody, nrow, ncolumn);
+            var sel = this.getCellSelector(context, child, cobj);
 
             var $found = teJQuery(context.domRef);
             if(sel != null && sel.trim().length > 0){
