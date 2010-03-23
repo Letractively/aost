@@ -58,196 +58,83 @@ class RGraph {
     this.templates.put(iid, object);
   }
 
-  void insertTBody(UiObject object, String iid){
+  void insertRTree(RNode root, String index, UiObject object, String iid){
+    if("all".equalsIgnoreCase(index)){
+      root.objectRef = object;
+      root.presented = true;
+      root.templates.add(iid);
+    }else if("odd".equalsIgnoreCase(index)){
+      RNode oddNode = root.findChild("odd");
+      oddNode.presented = true;
+      oddNode.objectRef = object;
+      oddNode.templates.add(iid);
+    }else if("even".equalsIgnoreCase(index)){
+      RNode evenNode = root.findChild("even");
+      evenNode.presented = true;
+      evenNode.objectRef = object;
+      evenNode.templates.add(iid);
+    }else if("last".equalsIgnoreCase(index)){
+      RNode last = root.findChild("last");
+      if(last == null){
+        last = new RNode("last", root, object, true);
+        root.addChild(last);
+      }
+      last.templates.add(iid);
+    }else if("any".equalsIgnoreCase(index)){
+      RNode any = root.findChild("any");
+      if(any == null){
+         any = new RNode("any", root, object, true);
+         root.addChild(any);
+      }
+      any.templates.add(iid);
+    }else if("first".equalsIgnoreCase(index)){
+      RNode oddNode = root.findChild("odd");
+      RNode first = oddNode.findChild("1");
+      if(first == null){
+        first = new RNode("1", oddNode, object, true);
+        oddNode.addChild(first);
+      }
+      first.templates.add(iid);
+    }else if(index =~ /^\d+$/){
+      int inx = Integer.parseInt(index);
+      if((inx % 2) == 1){
+        RNode oddNode = root.findChild("odd");
+        RNode inode = oddNode.findChild(index);
+        if(inode == null){
+          inode = new RNode(index, oddNode, object, true);
+          oddNode.addChild(inode);
+        }
+        inode.templates.add(iid);
+      }else{
+        RNode evenNode = root.findChild("even");
+        RNode inode = evenNode.findChild(index);
+        if(inode == null){
+          inode = new RNode(index, evenNode, object, true);
+          evenNode.addChild(inode);
+        }
+        inode.templates.add(iid);
+      }
+    }else{
+       throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", index))
+    }
+  }
+
+  void insertTBody(UiObject object, String iid) {
     TableBodyMetaData meta = object.metaData;
     String index = meta.tbody.getValue();
-
-    if("all".equalsIgnoreCase(index)){
-      this.t.objectRef = object;
-      this.t.presented = true;
-      this.t.templates.add(iid);
-    }else if("odd".equalsIgnoreCase(index)){
-      RNode oddNode = this.t.findChild("odd");
-      oddNode.presented = true;
-      oddNode.objectRef = object;
-      oddNode.templates.add(iid);
-    }else if("even".equalsIgnoreCase(index)){
-      RNode evenNode = this.t.findChild("even");
-      evenNode.presented = true;
-      evenNode.objectRef = object;
-      evenNode.templates.add(iid);
-    }else if("last".equalsIgnoreCase(index)){
-      RNode last = this.t.findChild("last");
-      if(last == null){
-        last = new RNode("last", this.t, object, true);
-        this.t.addChild(last);
-      }
-      last.templates.add(iid);
-    }else if("any".equalsIgnoreCase(index)){
-      RNode any = this.t.findChild("any");
-      if(any == null){
-         any = new RNode("any", this.t, object, true);
-         this.t.addChild(any);
-      }
-      any.templates.add(iid);
-    }else if("first".equalsIgnoreCase(index)){
-      RNode oddNode = this.t.findChild("odd");
-      RNode first = oddNode.findChild("1");
-      if(first == null){
-        first = new RNode("1", oddNode, object, true);
-        oddNode.addChild(first);
-      }
-      first.templates.add(iid);
-    }else if(index =~ /^\d+$/){
-      int inx = Integer.parseInt(index);
-      if((inx % 2) == 1){
-        RNode oddNode = this.t.findChild("odd");
-        RNode inode = oddNode.findChild(index);
-        if(inode == null){
-          inode = new RNode(index, oddNode, object, true);
-          oddNode.addChild(inode);
-        }
-        inode.templates.add(iid);
-      }else{
-        RNode evenNode = this.t.findChild("even");
-        RNode inode = evenNode.findChild(index);
-        if(inode == null){
-          inode = new RNode(index, evenNode, object, true);
-          evenNode.addChild(inode);
-        }
-        inode.templates.add(iid);
-      }
-    }else{
-       throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", index))
-    } 
+    insertRTree(this.t, index, object, iid);
   }
 
-  void insertRow(UiObject object, String iid){
+  void insertRow(UiObject object, String iid) {
     TableBodyMetaData meta = object.metaData;
     String index = meta.row.getValue();
-    
-    if("all".equalsIgnoreCase(index)){
-      this.r.objectRef = object;
-      this.r.presented = true;
-      this.r.templates.add(iid);
-    }else if("odd".equalsIgnoreCase(index)){
-      RNode oddNode = this.r.findChild("odd");
-      oddNode.presented = true;
-      oddNode.objectRef = object;
-      oddNode.templates.add(iid);
-    }else if("even".equalsIgnoreCase(index)){
-      RNode evenNode = this.r.findChild("even");
-      evenNode.presented = true;
-      evenNode.objectRef = object;
-      evenNode.templates.add(iid);
-    }else if("last".equalsIgnoreCase(index)){
-      RNode last = this.r.findChild("last");
-      if(last == null){
-         last = new RNode("last", this.r, object, true);
-         this.r.addChild(last);
-      }
-      last.templates.add(iid);
-    }else if("any".equalsIgnoreCase(index)){
-      RNode any = this.r.findChild("any");
-      if(any == null){
-         any = new RNode("any", this.r, object, true);
-         this.r.addChild(any);
-      }
-      any.templates.add(iid);
-    }else if("first".equalsIgnoreCase(index)){
-      RNode oddNode = this.r.findChild("odd");
-      RNode first = oddNode.findChild("1");
-      if(first == null){
-        first = new RNode("1", oddNode, object, true);
-        oddNode.addChild(first);
-      }
-      first.templates.add(iid);
-    }else if(index =~ /^\d+$/){
-      int inx = Integer.parseInt(index);
-      if((inx % 2) == 1){
-        RNode oddNode = this.r.findChild("odd");
-        RNode inode = oddNode.findChild(index);
-        if(inode == null){
-          inode = new RNode(index, oddNode, object, true);
-          oddNode.addChild(inode);
-        }
-        inode.templates.add(iid);
-      }else{
-        RNode evenNode = this.r.findChild("even");
-        RNode inode = evenNode.findChild(index);
-        if(inode == null){
-          inode = new RNode(index, evenNode, object, true);
-          evenNode.addChild(inode);
-        }
-        inode.templates.add(iid);
-      }
-    }else{
-       throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", index))
-    }
+    insertRTree(this.r, index, object, iid);
   }
 
-  void insertColumn(UiObject object, String iid){
+  void insertColumn(UiObject object, String iid) {
     TableBodyMetaData meta = object.metaData;
     String index = meta.column.getValue();
-
-    if("all".equalsIgnoreCase(index)){
-      this.c.objectRef = object;
-      this.c.presented = true;
-      this.c.templates.add(iid);
-    }else if("odd".equalsIgnoreCase(index)){
-      RNode oddNode = this.c.findChild("odd");
-      oddNode.presented = true;
-      oddNode.objectRef = object;
-      oddNode.templates.add(iid);
-    }else if("even".equalsIgnoreCase(index)){
-      RNode evenNode = this.c.findChild("even");
-      evenNode.presented = true;
-      evenNode.objectRef = object;
-      evenNode.templates.add(iid);
-    }else if("last".equalsIgnoreCase(index)){
-      RNode last = this.c.findChild("last");
-      if(last == null){
-        last = new RNode("last", this.c, object, true);
-        this.c.addChild(last);
-      }
-      last.templates.add(iid);
-    }else if("any".equalsIgnoreCase(index)){
-      RNode any = this.c.findChild("any");
-      if(any == null){
-        any = new RNode("any", this.c, object, true);
-        this.c.addChild(any);
-      }
-      any.templates.add(iid);
-    }else if("first".equalsIgnoreCase(index)){
-      RNode oddNode = this.c.findChild("odd");
-      RNode first = oddNode.findChild("1");
-      if(first == null){
-        first = new RNode("1", oddNode, object, true);
-        oddNode.addChild(first);
-      }
-      first.templates.add(iid);
-    }else if(index =~ /^\d+$/){
-      int inx = Integer.parseInt(index);
-      if((inx % 2) == 1){
-        RNode oddNode = this.c.findChild("odd");
-        RNode inode = oddNode.findChild(index);
-        if(inode == null){
-          inode = new RNode(index, oddNode, object, true);
-          oddNode.addChild(inode);
-        }
-        inode.templates.add(iid);
-      }else{
-        RNode evenNode = this.c.findChild("even");
-        RNode inode = evenNode.findChild(index);
-        if(inode == null){
-          inode = new RNode(index, evenNode, object, true);
-          evenNode.addChild(inode);
-        }
-        inode.templates.add(iid);
-      }
-    }else{
-       throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", index))
-    }
+    insertRTree(this.c, index, object, iid);
   }
 
   void insert(UiObject object) {
@@ -402,3 +289,197 @@ class RGraph {
     return null;
   }
 }
+
+/*
+  void insertTBody(UiObject object, String iid){
+    TableBodyMetaData meta = object.metaData;
+    String index = meta.tbody.getValue();
+
+    if("all".equalsIgnoreCase(index)){
+      this.t.objectRef = object;
+      this.t.presented = true;
+      this.t.templates.add(iid);
+    }else if("odd".equalsIgnoreCase(index)){
+      RNode oddNode = this.t.findChild("odd");
+      oddNode.presented = true;
+      oddNode.objectRef = object;
+      oddNode.templates.add(iid);
+    }else if("even".equalsIgnoreCase(index)){
+      RNode evenNode = this.t.findChild("even");
+      evenNode.presented = true;
+      evenNode.objectRef = object;
+      evenNode.templates.add(iid);
+    }else if("last".equalsIgnoreCase(index)){
+      RNode last = this.t.findChild("last");
+      if(last == null){
+        last = new RNode("last", this.t, object, true);
+        this.t.addChild(last);
+      }
+      last.templates.add(iid);
+    }else if("any".equalsIgnoreCase(index)){
+      RNode any = this.t.findChild("any");
+      if(any == null){
+         any = new RNode("any", this.t, object, true);
+         this.t.addChild(any);
+      }
+      any.templates.add(iid);
+    }else if("first".equalsIgnoreCase(index)){
+      RNode oddNode = this.t.findChild("odd");
+      RNode first = oddNode.findChild("1");
+      if(first == null){
+        first = new RNode("1", oddNode, object, true);
+        oddNode.addChild(first);
+      }
+      first.templates.add(iid);
+    }else if(index =~ /^\d+$/){
+      int inx = Integer.parseInt(index);
+      if((inx % 2) == 1){
+        RNode oddNode = this.t.findChild("odd");
+        RNode inode = oddNode.findChild(index);
+        if(inode == null){
+          inode = new RNode(index, oddNode, object, true);
+          oddNode.addChild(inode);
+        }
+        inode.templates.add(iid);
+      }else{
+        RNode evenNode = this.t.findChild("even");
+        RNode inode = evenNode.findChild(index);
+        if(inode == null){
+          inode = new RNode(index, evenNode, object, true);
+          evenNode.addChild(inode);
+        }
+        inode.templates.add(iid);
+      }
+    }else{
+       throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", index))
+    }
+  }
+
+  void insertRow(UiObject object, String iid){
+    TableBodyMetaData meta = object.metaData;
+    String index = meta.row.getValue();
+
+    if("all".equalsIgnoreCase(index)){
+      this.r.objectRef = object;
+      this.r.presented = true;
+      this.r.templates.add(iid);
+    }else if("odd".equalsIgnoreCase(index)){
+      RNode oddNode = this.r.findChild("odd");
+      oddNode.presented = true;
+      oddNode.objectRef = object;
+      oddNode.templates.add(iid);
+    }else if("even".equalsIgnoreCase(index)){
+      RNode evenNode = this.r.findChild("even");
+      evenNode.presented = true;
+      evenNode.objectRef = object;
+      evenNode.templates.add(iid);
+    }else if("last".equalsIgnoreCase(index)){
+      RNode last = this.r.findChild("last");
+      if(last == null){
+         last = new RNode("last", this.r, object, true);
+         this.r.addChild(last);
+      }
+      last.templates.add(iid);
+    }else if("any".equalsIgnoreCase(index)){
+      RNode any = this.r.findChild("any");
+      if(any == null){
+         any = new RNode("any", this.r, object, true);
+         this.r.addChild(any);
+      }
+      any.templates.add(iid);
+    }else if("first".equalsIgnoreCase(index)){
+      RNode oddNode = this.r.findChild("odd");
+      RNode first = oddNode.findChild("1");
+      if(first == null){
+        first = new RNode("1", oddNode, object, true);
+        oddNode.addChild(first);
+      }
+      first.templates.add(iid);
+    }else if(index =~ /^\d+$/){
+      int inx = Integer.parseInt(index);
+      if((inx % 2) == 1){
+        RNode oddNode = this.r.findChild("odd");
+        RNode inode = oddNode.findChild(index);
+        if(inode == null){
+          inode = new RNode(index, oddNode, object, true);
+          oddNode.addChild(inode);
+        }
+        inode.templates.add(iid);
+      }else{
+        RNode evenNode = this.r.findChild("even");
+        RNode inode = evenNode.findChild(index);
+        if(inode == null){
+          inode = new RNode(index, evenNode, object, true);
+          evenNode.addChild(inode);
+        }
+        inode.templates.add(iid);
+      }
+    }else{
+       throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", index))
+    }
+  }
+
+  void insertColumn(UiObject object, String iid){
+    TableBodyMetaData meta = object.metaData;
+    String index = meta.column.getValue();
+
+    if("all".equalsIgnoreCase(index)){
+      this.c.objectRef = object;
+      this.c.presented = true;
+      this.c.templates.add(iid);
+    }else if("odd".equalsIgnoreCase(index)){
+      RNode oddNode = this.c.findChild("odd");
+      oddNode.presented = true;
+      oddNode.objectRef = object;
+      oddNode.templates.add(iid);
+    }else if("even".equalsIgnoreCase(index)){
+      RNode evenNode = this.c.findChild("even");
+      evenNode.presented = true;
+      evenNode.objectRef = object;
+      evenNode.templates.add(iid);
+    }else if("last".equalsIgnoreCase(index)){
+      RNode last = this.c.findChild("last");
+      if(last == null){
+        last = new RNode("last", this.c, object, true);
+        this.c.addChild(last);
+      }
+      last.templates.add(iid);
+    }else if("any".equalsIgnoreCase(index)){
+      RNode any = this.c.findChild("any");
+      if(any == null){
+        any = new RNode("any", this.c, object, true);
+        this.c.addChild(any);
+      }
+      any.templates.add(iid);
+    }else if("first".equalsIgnoreCase(index)){
+      RNode oddNode = this.c.findChild("odd");
+      RNode first = oddNode.findChild("1");
+      if(first == null){
+        first = new RNode("1", oddNode, object, true);
+        oddNode.addChild(first);
+      }
+      first.templates.add(iid);
+    }else if(index =~ /^\d+$/){
+      int inx = Integer.parseInt(index);
+      if((inx % 2) == 1){
+        RNode oddNode = this.c.findChild("odd");
+        RNode inode = oddNode.findChild(index);
+        if(inode == null){
+          inode = new RNode(index, oddNode, object, true);
+          oddNode.addChild(inode);
+        }
+        inode.templates.add(iid);
+      }else{
+        RNode evenNode = this.c.findChild("even");
+        RNode inode = evenNode.findChild(index);
+        if(inode == null){
+          inode = new RNode(index, evenNode, object, true);
+          evenNode.addChild(inode);
+        }
+        inode.templates.add(iid);
+      }
+    }else{
+       throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", index))
+    }
+  }
+*/
