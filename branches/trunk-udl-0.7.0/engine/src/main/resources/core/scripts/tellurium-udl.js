@@ -142,7 +142,7 @@ var RNode = Class.extend({
     walkTo: function(key, path){
         var i;
         if(path.size() > 0){
-            var next = path.pop();
+            path.pop();
             if(this.children != null && this.children.length > 0){
                 for(i=0; i<this.children.length; i++){
                     if(key == this.children[i].key){
