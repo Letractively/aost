@@ -513,7 +513,7 @@ class Table extends Container {
       Index cRef = this.findHeaderIndex(context, c.getValue());
       if(cRef == null)
         throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , c.value))
-      ri.setColumn(c.getValue());
+      ri.setColumn(cRef.getValue());
     }else{
       ri.setColumn(c.getValue());
     }
