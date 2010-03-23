@@ -1345,7 +1345,7 @@ var UiTable = UiContainer.extend({
     },
 
     getHeaderIndex: function(context, obj){
-         //First, get the DOM reference of the Table itself
+        //First, get the DOM reference of the Table itself
         var dmr = this.domRef;
         if(dmr == null)
             dmr = context.domRef;
@@ -1355,11 +1355,61 @@ var UiTable = UiContainer.extend({
             throw new SeleniumError("The DOM reference for Table " + this.uid + " is null");
         }
 
-        var $found = teJQuery(dmr).find(" > tbody > tr:has(td)");
+        var sel = this.getHeaderSelector(obj.metaData.index.value, obj);
+        var $found = teJQuery(dmr).find(sel);
 
-        return $found.size();
+        return $found.index();
     },
 
+    findHeaderIndex: function(context, key) {
+        var obj = this.headers.get(key);
+        if (obj != null) {
+            if ("any" == obj.metaData.index.value) {
+                var inx = this.getHeaderIndex(context, obj);
+                var index = new Index();
+                index.constDefaultIndex(inx);
+                return index;
+            }
+
+            return obj.metaData.index;
+        }
+
+        return null;
+    },
+
+    preprocess: function(context, meta) {
+        var ri = new RIndex();
+        var t = meta.tbody;
+        if (t.type == "REF") {
+            var tRef = this.findHeaderIndex(context, t.value);
+            if (tRef == null)
+                throw new SeleniumError("Invalid Index reference " + t.value);
+            ri.x = tRef.value;
+        } else {
+            ri.x = t.value;
+        }
+
+        var r = meta.row;
+        if (r.type == "REF") {
+            var rRef = this.findHeaderIndex(context, r.value);
+            if (rRef == null)
+                throw new SeleniumError("Invalid Index reference " + r.value);
+            ri.y = rRef.value;
+        } else {
+            ri.y = r.value;
+        }
+
+        var c = meta.column;
+        if (c.type == "REF") {
+            var cRef = this.findHeaderIndex(context, c.value);
+            if (cRef == null)
+                throw new SeleniumError("Invalid Index reference " + c.value);
+            ri.z = c.value;
+        } else {
+            ri.z = c.value;
+        }
+
+        return ri;
     },
 
     prelocate: function(){
