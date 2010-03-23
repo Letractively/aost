@@ -837,15 +837,14 @@ var UiList = UiContainer.extend({
         this.noCacheForChildren = true;
         this.separator = null;
         this.defaultUi = new UiTextBox();
-        this.rTree= new ListRTree();
+        this.rTree= new RTree();
         this.rTree.preBuild();
-        this.components = this.rTree.indices;
+        this.rTree.indices = this.components;
     },
 
     goToPlace:  function(uiid, uiobj) {
         if(uiid.size() == 1){
             uiid.pop();
-//            if (this.uid == null)
             objectCopy(this, uiobj);
         }else{
             uiid.pop();
@@ -854,7 +853,7 @@ var UiList = UiContainer.extend({
             if(uiid.size() == 1){
                 uiid.pop();
                 uiobj.parent = this;
-//                this.components.put(cuid, uiobj);     
+                this.components.put(cuid, uiobj);     
                 this.rTree.insert(uiobj);
             }else{
                 var child = this.components.get(cuid);
