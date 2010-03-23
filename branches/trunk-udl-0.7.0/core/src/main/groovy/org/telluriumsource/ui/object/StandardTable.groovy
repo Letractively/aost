@@ -9,16 +9,12 @@ import org.telluriumsource.ui.locator.CompositeLocator
 import org.json.simple.JSONObject
 import org.telluriumsource.ui.routing.RTree
 import org.telluriumsource.ui.routing.RGraph
-import org.telluriumsource.udl.MetaData
-import org.telluriumsource.udl.TableHeaderMetaData
-import org.telluriumsource.udl.TableFooterMetaData
-import org.telluriumsource.udl.TableBodyMetaData
-import org.telluriumsource.udl.Index
+
 import org.telluriumsource.ui.routing.RIndex
 import org.telluriumsource.exception.InvalidIndexRefException
 import org.telluriumsource.ui.locator.XPathBuilder
 import org.telluriumsource.ui.locator.JQueryBuilder
-import org.telluriumsource.udl.code.IndexType
+
 import org.telluriumsource.util.Helper
 import org.telluriumsource.ui.locator.JQueryOptimizer
 
@@ -215,8 +211,8 @@ class StandardTable extends Container{
     return " > ${this.headTag}:first > ${this.headRowTag} > ${this.headColumnTag}:last"
   }
 
-  protected String getIndexedHeaderSelector(int row) {
-    return " > ${this.headTag}:first > ${this.headRowTag} > ${this.headColumnTag}:eq(${row - 1})"
+  protected String getIndexedHeaderSelector(int column) {
+    return " > ${this.headTag}:first > ${this.headRowTag} > ${this.headColumnTag}:eq(${column - 1})"
   }
 
   protected String getHeaderLocator(String index, UiObject obj){
@@ -256,11 +252,11 @@ class StandardTable extends Container{
     return "/${this.headTag}[1]/${this.headRowTag}/${this.headColumnTag}[last()]";
   }
 
-  protected String getIndexedHeaderLocator(int row) {
+  protected String getIndexedHeaderLocator(int column) {
     if(this.hasNamespace()){
-      return "/${this.namespace}:${this.headTag}[1]/${this.namespace}:${this.headRowTag}/${this.namespace}:${this.headColumnTag}[${row}]";
+      return "/${this.namespace}:${this.headTag}[1]/${this.namespace}:${this.headRowTag}/${this.namespace}:${this.headColumnTag}[${column}]";
     }
-    return "/${this.headTag}[1]/${this.headRowTag}/${this.headColumnTag}[${row}]";
+    return "/${this.headTag}[1]/${this.headRowTag}/${this.headColumnTag}[${column}]";
   }
 
   int getHeaderIndex(WorkflowContext context, UiObject cobj){
@@ -338,8 +334,8 @@ class StandardTable extends Container{
     return " > ${this.footTag}:last > ${this.footRowTag} > ${this.footColumnTag}:last"
   }
 
-  protected String getIndexedFooterSelector(int row) {
-    return " > ${this.footTag}:last > ${this.footRowTag} > ${this.footColumnTag}:eq(${row - 1})"
+  protected String getIndexedFooterSelector(int column) {
+    return " > ${this.footTag}:last > ${this.footRowTag} > ${this.footColumnTag}:eq(${column - 1})"
   }
 
   protected String getFooterLocator(String index, UiObject obj){
