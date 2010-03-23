@@ -1404,7 +1404,7 @@ var UiTable = UiContainer.extend({
             var cRef = this.findHeaderIndex(context, c.value);
             if (cRef == null)
                 throw new SeleniumError("Invalid Index reference " + c.value);
-            ri.z = c.value;
+            ri.z = cRef.value;
         } else {
             ri.z = c.value;
         }
