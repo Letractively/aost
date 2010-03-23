@@ -54,6 +54,7 @@ public class TableBodyMetaData extends MetaData {
         jso.put(TBODY, this.tbody.toJSON());
         jso.put(ROW, this.row.toJSON());
         jso.put(COLUMN, this.column.toJSON());
+        jso.put(TYPE, "TBody");
 
         return jso;
     }

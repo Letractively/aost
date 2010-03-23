@@ -14,6 +14,8 @@ public class MetaData {
     public static String ID = "id";
     protected String id;
 
+    public static String TYPE = "type";
+
     public MetaData() {
     }
 
@@ -32,6 +34,7 @@ public class MetaData {
     public JSONObject toJSON() {
         JSONObject jso = new JSONObject();
         jso.put(ID, this.id);
+        jso.put(TYPE, "UiObject");
         return jso;
     }
 
