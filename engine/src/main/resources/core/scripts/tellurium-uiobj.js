@@ -1220,11 +1220,11 @@ var UiList = UiContainer.extend({
             } else {
                 if ($fnd.size() == 0){
                     context.domRef = null;
-                    fbError("Cannot find the child UI element " + nindex, this);
+                    fbError("Cannot find the child UI element " + key, this);
                 }
 
                 if ($fnd.size() > 1) {
-                    fbError("Found multiple matches for UI element " + nindex, $fnd.get());
+                    fbError("Found multiple matches for UI element " + key, $fnd.get());
                     context.domRef = null;
                 }
             }
@@ -1271,24 +1271,77 @@ var UiTable = UiContainer.extend({
         }else{
             uiid.pop();
             var cuid = uiid.peek();
+            var meta = uiobj.metaData;
             if(uiid.size() == 1){
                 uiid.pop();
                 uiobj.parent = this;
-                if(cuid.startsWith("_HEADER")){
-                    this.headers.put(cuid, uiobj);                        
-                }else{
+                if(meta.type == "Header"){
+                    this.headers.put(cuid, uiobj);
+                    this.rTree.insert(uiobj);
+                }else if(meta.type == "TBody"){
                     this.components.put(cuid, uiobj);
+                    this.rGraph.insert(uiobj);
+                }else{
+                    throw new SeleniumError("Invalid meta data type " + meta.type);
                 }
             }else{
-                if(cuid.startsWith("_HEADER")){
+                if(meta.type == "Header"){
                     var header = this.headers.get(cuid);
                     header.goToPlace(uiid, uiobj);
-                }else{
+                }else if(meta.type == "TBody"){
                     var child = this.components.get(cuid);
                     child.goToPlace(uiid, uiobj);
+                }else{
+                    throw new SeleniumError("Invalid meta data type " + meta.type);
                 }
             }
         }
+    },
+
+    locateTBodyChild: function(id) {
+        return this.rGraph.route(id);
+    },
+
+    locateHeaderChild: function(id) {
+        return this.rTree.route(id);
+    },
+
+    buildSelectorWithoutPosition: function(locator){
+        return tellurium.jqbuilder.buildCssSelector(locator.tag, locator.text, null, locator.direct, locator.attributes);
+    },
+
+    getHeaderSelector: function(index, obj) {
+        if ("any" == index) {
+            return this.getAnyHeaderSelector(obj);
+        } else if ("first" == index) {
+            return this.getFirstHeaderSelector();
+        } else if ("last" == index) {
+            return this.getLastHeaderSelector();
+        } else if (index.match(/[0-9]+/)) {
+            return this.getIndexedHeaderSelector(parseInt(index));
+        } else {
+            throw new SeleniumError("Invalid Index " + index);
+        }
+    },
+
+    getAnyHeaderSelector: function(obj) {
+        var sel = this.buildSelectorWithoutPosition(obj.locator);
+
+        return "> tbody > tr:has(th) > th:has(" + sel + ")";
+    },
+
+    getFirstHeaderSelector: function() {
+
+        return " > tbody > tr:has(th) > th:first";
+    },
+
+    getLastHeaderSelector: function() {
+
+        return " > tbody > tr:has(th) > th:last";
+    },
+
+    getIndexedHeaderSelector: function(row) {
+        return " > tbody > tr:has(th) > th:eq(" + (row - 1) + ")";
     },
 
     prelocate: function(){
@@ -1506,10 +1559,12 @@ var UiTable = UiContainer.extend({
         return obj;
     },
 
+/*    
     getHeaderSelector: function(column) {
         var t = column - 1;
         return " > tbody > tr:has(th) > th:eq(" + t + ")";
     },
+    */
     
     getCellSelector: function(row, column) {
         var r = row-1;
