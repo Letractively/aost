@@ -838,8 +838,8 @@ var UiList = UiContainer.extend({
         this.separator = null;
         this.defaultUi = new UiTextBox();
         this.rTree= new RTree();
-        this.rTree.preBuild();
         this.rTree.indices = this.components;
+        this.rTree.preBuild();
     },
 
     goToPlace:  function(uiid, uiobj) {
@@ -1255,6 +1255,12 @@ var UiTable = UiContainer.extend({
         this.noCacheForChildren = true;
         this.defaultUi = new UiTextBox();
         this.headers = new Hashtable();
+        this.rTree= new RTree();
+        this.rTree.indices = this.headers;
+        this.rTree.preBuild();
+        this.rGraph = new RGraph();
+        this.rGraph.indices = this.components;
+        this.rGraph.preBuild();
     },
     
     goToPlace:  function(uiid, uiobj) {
