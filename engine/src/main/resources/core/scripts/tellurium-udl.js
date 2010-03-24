@@ -497,6 +497,7 @@ var RGraph = Class.extend({
         this.c.addChild(coNode);
         var ceNode = new RNode('even', caNode, defaultUi, false);
         this.c.addChild(ceNode);
+        !tellurium.logManager.isUseLog || fbLog("RGraph after preBuild ", this);
     },
 
     generatePath: function(key){
