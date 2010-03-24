@@ -26,6 +26,7 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
 
         gtm = new GeneralTableModule();
         gtm.defineUi();
+        useEngineLog(true);
         //enableLogging(LogLevels.ALL);
 
         useCssSelector(true);
