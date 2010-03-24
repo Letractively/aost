@@ -194,13 +194,29 @@ TelluriumApi.prototype.uncheck = function(locator){
     element.checked = false;
 };
 
+TelluriumApi.prototype.isElementPresent = function(uid){
+    if(this.cache.cacheOption){
+        var context = new WorkflowContext();
+        context.alg = this.cache.uiAlg;
+        var obj = this.cache.walkToUiObject(context, uid);
+        return obj != null;
+    } else {
+        var element = selenium.browserbot.findElementOrNull(uid);
+        !tellurium.logManager.isUseLog || fbLog("Found element for isElementPresented", element);
+
+        return element != null;
+    }
+};
+
+/*
 TelluriumApi.prototype.isElementPresent = function(locator){
+
     var element = selenium.browserbot.findElementOrNull(locator);
 //    this.cacheAwareLocate(locator);
     !tellurium.logManager.isUseLog || fbLog("Found element for isElementPresented", element);
     
     return element != null;
-};
+};*/
 
 TelluriumApi.prototype.getAttribute = function(attributeLocator){
     var cal = JSON.parse(attributeLocator.substring(7), null);

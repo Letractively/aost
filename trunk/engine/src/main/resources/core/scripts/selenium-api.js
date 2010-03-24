@@ -201,7 +201,7 @@ Selenium.decorateFunctionWithTimeout = function(f, timeout, callback) {
             }
             throw new SeleniumError("Timed out after " + timeout + "ms");
         }
-        !tellurium.logManager.isUseLog || fbLog("call f at " + new Date().getTime(), f);
+//        !tellurium.logManager.isUseLog || fbLog("call f at " + new Date().getTime(), f);
         return f();
     };
 }
