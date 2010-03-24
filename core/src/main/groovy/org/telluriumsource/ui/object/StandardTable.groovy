@@ -22,6 +22,7 @@ import org.telluriumsource.udl.TableFooterMetaData
 import org.telluriumsource.udl.TableBodyMetaData
 import org.telluriumsource.udl.MetaData
 import org.telluriumsource.udl.Index
+import org.telluriumsource.udl.code.IndexType
 
 /**
  * Standard table is in the format of
