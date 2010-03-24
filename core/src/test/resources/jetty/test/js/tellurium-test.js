@@ -111,6 +111,7 @@ TelluriumTestCase.prototype.testGeneralTableModule = function(){
     var tb = uim.walkTo(context, uiid.convertToUiid("GT"));
     var worker = new TextUiWorker();
     var out = tb.getAllBodyCell(context, worker);
+    var header = uim.walkTo(context, uiid.convertToUiid("GT.header[2]"));
     var uinput = uim.walkTo(context, uiid.convertToUiid("GT[1][1]"));
     var pinput = uim.walkTo(context, uiid.convertToUiid("GT[1][2].Input"));
     var smt = uim.walkTo(context, uiid.convertToUiid("GT[1][2].Some.Link"));
