@@ -441,10 +441,15 @@ abstract class BaseDslContext extends GlobalDslContext {
 
   boolean isElementPresent(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
-    def obj = walkToWithException(context, uid)
-    return obj.isElementPresent() {loc ->
-      String locator = locatorMapping(context, loc)
-      accessor.isElementPresent(context, locator)
+    if(this.exploreUiModuleCache() && Environment.instance.isUseTelluriumApi()){
+      walkToWithException(context, uid);
+      return extension.isElementPresent(context, uid);  
+    }else{
+      def obj = walkToWithException(context, uid);
+      return obj.isElementPresent() {loc ->
+        String locator = locatorMapping(context, loc);
+        accessor.isElementPresent(context, locator);
+      }
     }
   }
 

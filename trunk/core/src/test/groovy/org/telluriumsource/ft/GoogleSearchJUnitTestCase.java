@@ -28,6 +28,7 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
         gsm.defineUi();
         connectSeleniumServer();
         useCssSelector(true);
+        useEngineLog(true);
         useTelluriumEngine(true);
 //        useTelluriumApi(true);
         useTrace(true);
@@ -54,6 +55,12 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
     @Test
     public void testGoogleSearchFeelingLucky() {
         gsm.doImFeelingLucky("tellurium automated Testing");
+    }
+
+    @Test
+    public void testIsElementPresent(){
+        assertTrue(gsm.isElementPresent("Google.Input"));
+//        assertFalse(gsm.isElementPresent("Logo"));
     }
 
     @Test
