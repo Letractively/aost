@@ -157,22 +157,6 @@ class RGraph {
     defaultUi.metaData = meta;
     this.templates.put("_all_all_all", defaultUi);
 
-    RNode raNode = new RNode("all", null, defaultUi, true);
-    raNode.addTemplate("_all_all_all");
-    this.r = raNode;
-    this.r.bias = 0.2;
-    RNode roNode = new RNode('odd', raNode, defaultUi, false);
-    this.r.addChild(roNode);
-    RNode reNode = new RNode('even', raNode, defaultUi, false);
-    this.r.addChild(reNode);
-    RNode caNode = new RNode("all", null, defaultUi, true);
-    caNode.addTemplate("_all_all_all");
-    this.c = caNode;
-    this.c.bias = 0.3;
-    RNode coNode = new RNode('odd', caNode, defaultUi, false);
-    this.c.addChild(coNode);
-    RNode ceNode = new RNode('even', caNode, defaultUi, false);
-    this.c.addChild(ceNode);
     RNode taNode = new RNode("all", null, defaultUi, true);
     taNode.addTemplate("_all_all_all");
     this.t = taNode;
@@ -181,6 +165,24 @@ class RGraph {
     this.t.addChild(toNode);
     RNode teNode = new RNode('even', taNode, defaultUi, false);
     this.t.addChild(teNode);
+
+    RNode raNode = new RNode("all", null, defaultUi, true);
+    raNode.addTemplate("_all_all_all");
+    this.r = raNode;
+    this.r.bias = 0.2;
+    RNode roNode = new RNode('odd', raNode, defaultUi, false);
+    this.r.addChild(roNode);
+    RNode reNode = new RNode('even', raNode, defaultUi, false);
+    this.r.addChild(reNode);
+    
+    RNode caNode = new RNode("all", null, defaultUi, true);
+    caNode.addTemplate("_all_all_all");
+    this.c = caNode;
+    this.c.bias = 0.3;
+    RNode coNode = new RNode('odd', caNode, defaultUi, false);
+    this.c.addChild(coNode);
+    RNode ceNode = new RNode('even', caNode, defaultUi, false);
+    this.c.addChild(ceNode);
   }
 
   UiObject route(String key) {
