@@ -1942,7 +1942,7 @@ var UiTable = UiContainer.extend({
         }
 
         if (context.domRef != null) {
-            var sel = this.getHeaderSelector(cobj);
+            var sel = this.getHeaderSelector(key, cobj);
 
             var $found = teJQuery(context.domRef);
             if(sel != null && sel.trim().length > 0){
@@ -2104,7 +2104,7 @@ var UiTable = UiContainer.extend({
 
         var child = uiid.peek();
 
-        if(child.startsWith("_HEADER")){
+        if(child == "header" || child.startsWith("_HEADER")){
             return this.walkToHeader(context, uiid);
         } else {
             return this.walkToElement(context, uiid);
@@ -3095,10 +3095,12 @@ var UiStandardTable = UiContainer.extend({
             for(var i=0; i<keys.length; i++){
                 var key = keys[i];
                 var child = this.headers.get(keys[i]);
-                var part = key.replace(/^_/, '').replace("HEADER", '').replace(/^_/, '');
-                if(part != "ALL"){
-                    var nindex = parseInt(part);
-                    var selt = this.getHeaderSelector(nindex);
+                var part = child.metaData.index.value.replace(/^_/, '');
+//                var part = key.replace(/^_/, '').replace("HEADER", '').replace(/^_/, '');
+                if(part != "all"){
+//                    var nindex = parseInt(part);
+//                    var selt = this.getHeaderSelector(nindex);
+                    var selt = this.getHeaderSelector(part, child);
                     var $fnd = teJQuery(domref).find(selt);
                     !tellurium.logManager.isUseLog || fbLog("Found child " + nindex + " with CSS selector '" + selt +"' for List " + this.uid, $fnd.get());
                     if ($fnd.size() == 1) {
@@ -3310,7 +3312,7 @@ var UiStandardTable = UiContainer.extend({
         }
 
         if (context.domRef != null) {
-            var sel = this.getHeaderSelector(cobj);
+            var sel = this.getHeaderSelector(key, cobj);
 
             var $found = teJQuery(context.domRef);
             if(sel != null && sel.trim().length > 0){
@@ -3524,10 +3526,11 @@ var UiStandardTable = UiContainer.extend({
             return this;
 
         var child = uiid.peek();
-
-        if(child.startsWith("_HEADER")){
+        !tellurium.logManager.isUseLog || fbLog("Peek child " + child, this);
+        
+        if(child == "header" || child.startsWith("_HEADER")){
             return this.walkToHeader(context, uiid);
-        }else if(child.startsWith("_FOOTER")){
+        }else if(child == "footer" || child.startsWith("_FOOTER")){
             return this.walkToFooter(context, uiid);
         } else {
             return this.walkToElement(context, uiid);
