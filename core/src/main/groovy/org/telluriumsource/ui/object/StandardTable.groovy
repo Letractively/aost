@@ -17,6 +17,11 @@ import org.telluriumsource.ui.locator.JQueryBuilder
 
 import org.telluriumsource.util.Helper
 import org.telluriumsource.ui.locator.JQueryOptimizer
+import org.telluriumsource.udl.TableHeaderMetaData
+import org.telluriumsource.udl.TableFooterMetaData
+import org.telluriumsource.udl.TableBodyMetaData
+import org.telluriumsource.udl.MetaData
+import org.telluriumsource.udl.Index
 
 /**
  * Standard table is in the format of
