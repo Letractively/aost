@@ -1272,6 +1272,7 @@ var UiTable = UiContainer.extend({
             uiid.pop();
             var cuid = uiid.peek();
             var meta = uiobj.metaData;
+            var child;
             if(uiid.size() == 1){
                 uiid.pop();
                 uiobj.parent = this;
@@ -1289,10 +1290,11 @@ var UiTable = UiContainer.extend({
                     var header = this.headers.get(cuid);
                     header.goToPlace(uiid, uiobj);
                 }else if(meta.type == "TBody"){
-                    var child = this.components.get(cuid);
+                    child = this.components.get(cuid);
                     child.goToPlace(uiid, uiobj);
                 }else{
-                    throw new SeleniumError("Invalid meta data type " + meta.type);
+                    child = this.components.get(cuid);
+                    child.goToPlace(uiid, uiobj);
                 }
             }
         }
@@ -1366,9 +1368,7 @@ var UiTable = UiContainer.extend({
         if (obj != null) {
             if ("any" == obj.metaData.index.value) {
                 var inx = this.getHeaderIndex(context, obj);
-                var index = new Index(inx);
-//                index.constDefaultIndex(inx);
-                return index;
+                return new Index(inx);
             }
 
             return obj.metaData.index;
@@ -2157,6 +2157,7 @@ var UiStandardTable = UiContainer.extend({
             uiid.pop();
             var cuid = uiid.peek();
             var meta = uiobj.metaData;
+            var child;
 
             if(uiid.size() == 1){
                 uiid.pop();
@@ -2181,10 +2182,11 @@ var UiStandardTable = UiContainer.extend({
                     var footer = this.footers.get(cuid);
                     footer.goToPlace(uiid, uiobj);
                 }else if(meta.type == "TBody"){
-                    var child = this.components.get(cuid);
+                    child = this.components.get(cuid);
                     child.goToPlace(uiid, uiobj);
                 }else{
-                    throw new SeleniumError("Invalid meta data type " + meta.type);
+                    child = this.components.get(cuid);
+                    child.goToPlace(uiid, uiobj);
                 }
             }
         }
