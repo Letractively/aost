@@ -1366,8 +1366,8 @@ var UiTable = UiContainer.extend({
         if (obj != null) {
             if ("any" == obj.metaData.index.value) {
                 var inx = this.getHeaderIndex(context, obj);
-                var index = new Index();
-                index.constDefaultIndex(inx);
+                var index = new Index(inx);
+//                index.constDefaultIndex(inx);
                 return index;
             }
 
@@ -2262,8 +2262,8 @@ var UiStandardTable = UiContainer.extend({
         if (obj != null) {
             if ("any" == obj.metaData.index.value) {
                 var inx = this.getHeaderIndex(context, obj);
-                var index = new Index();
-                index.constDefaultIndex(inx);
+                var index = new Index(inx);
+//                index.constDefaultIndex(inx);
                 return index;
             }
 
@@ -2329,8 +2329,8 @@ var UiStandardTable = UiContainer.extend({
         if (obj != null) {
             if ("any" == obj.metaData.index.value) {
                 var inx = this.getFooterIndex(context, obj);
-                var index = new Index();
-                index.constDefaultIndex(inx);
+                var index = new Index(inx);
+//                index.constDefaultIndex(inx);
                 return index;
             }
 
