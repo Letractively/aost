@@ -2264,9 +2264,9 @@ var UiStandardTable = UiContainer.extend({
         if (obj != null) {
             if ("any" == obj.metaData.index.value) {
                 var inx = this.getHeaderIndex(context, obj);
-                var index = new Index(inx);
+//                var index = new Index(inx);
 //                index.constDefaultIndex(inx);
-                return index;
+                return new Index(inx);
             }
 
             return obj.metaData.index;
@@ -2401,15 +2401,15 @@ var UiStandardTable = UiContainer.extend({
     getTBodySelector: function(ri, key, obj) {
         var index = ri.x;
         if ("any" == index) {
-            return this.getAnyRowSelector(obj);
+            return this.getAnyBodySelector(obj);
         } else if ("first" == index) {
-            return this.getFirstRowSelector();
+            return this.getFirstBodySelector();
         } else if ("last" == index) {
-            return this.getLastRowSelector();
+            return this.getLastBodySelector();
         } else if (key.match(/[0-9]+/)) {
-            return this.getIndexedRowSelector(parseInt(key));
+            return this.getIndexedBodySelector(parseInt(key));
         } else if (index.match(/[0-9]+/)) {
-            return this.getIndexedRowSelector(parseInt(index));
+            return this.getIndexedBodySelector(parseInt(index));
         } else {
             throw new SeleniumError("Invalid ID " + key);
         }

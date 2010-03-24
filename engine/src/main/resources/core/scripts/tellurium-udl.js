@@ -545,7 +545,8 @@ var RGraph = Class.extend({
             path = new Path();
             path.init(list);
             var nz = this.walkTo(this.c, z, path);
-            var iid = this.getIIdStr(nx.key, ny,key, nz,key);
+            var iid = this.getIIdStr(nx.key, ny.key, nz.key);
+            !tellurium.logManager.isUseLog || fbLog("Route for iid " + iid, this);
             if(nx.contains(iid) && ny.contains(iid) && nz.contains(iid)){
                 return this.templates.get(iid);
             }else{
@@ -558,7 +559,7 @@ var RGraph = Class.extend({
                     var r1 = queue.extractMax();
                     var r2 = queue.extractMax();
                     var r3 = queue.extractMax();
-                    iid = this.getIId(r1.key, r2,key, r3,key);
+                    iid = this.getIId(r1.key, r2.key, r3.key);
                     if(r1.contains(iid) && r2.contains(iid) && r3.contains(iid)){
                         return this.templates.get(iid);
                     }else{
