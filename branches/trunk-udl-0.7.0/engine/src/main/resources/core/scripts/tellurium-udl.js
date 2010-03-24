@@ -1,7 +1,7 @@
 var Index = Class.extend({
-    init: function(){
-        this.type = null;
-        this.value = null;
+    init: function(inx){
+        this.type = "VAL";
+        this.value = inx;
     },
 
     constDefaultIndex: function(inx){
@@ -71,13 +71,13 @@ Path.prototype.pop = function(){
 };
 
 var RNode = Class.extend({
-    init: function() {
-        this.key = null;
+    init: function(key, parent, objectRef, presented) {
+        this.key = key;
         this.bias = 0;
-        this.parent = null;
+        this.parent = parent;
         this.children = new Array();
-        this.objectRef = null;
-        this.presented = false;
+        this.objectRef = objectRef;
+        this.presented = presented;
         this.templates = new Array();
     },
 
@@ -199,8 +199,8 @@ var RTree = Class.extend({
         }else if("last" == index){
             var last = this.root.findChild("last");
             if(last == null){
-                last = new RNode();
-                last.create("last", this.root, object, true);
+                last = new RNode("last", this.root, object, true);
+//                last.create("last", this.root, object, true);
                 this.root.addChild(last);
             }
         }else if("any" == index){
@@ -209,8 +209,8 @@ var RTree = Class.extend({
             oddNode = this.root.findChild("odd");
             var first = oddNode.findChild("1");
             if(first == null){
-                first = new RNode();
-                first.create("1", oddNode, object, true);
+                first = new RNode("1", oddNode, object, true);
+//                first.create("1", oddNode, object, true);
                 oddNode.addChild(first);
             }
         }else if(index.match(/^\d+$/)){
@@ -219,16 +219,16 @@ var RTree = Class.extend({
                 oddNode = this.root.findChild("odd");
                 node = oddNode.findChild(index);
                 if(node == null){
-                    node = new RNode();
-                    node.create(index, oddNode, object, true);
+                    node = new RNode(index, oddNode, object, true);
+//                    node.create(index, oddNode, object, true);
                     oddNode.addChild(node);
                 }
             }else{
                 evenNode = this.root.findChild("even");
                 node = evenNode.findChild(Index);
                 if(node == null){
-                    node = new RNode();
-                    node.create(index, evenNode, object, true);
+                    node = new RNode(index, evenNode, object, true);
+//                    node.create(index, evenNode, object, true);
                     evenNode.addChild(node);
                 }
             }
@@ -240,18 +240,18 @@ var RTree = Class.extend({
     preBuild: function(){
         var defaultUi = new UiTextBox();
         var meta = new ListMetaData();
-        meta.index = new Index();
-        meta.index.constDefaultIndex("all");
+        meta.index = new Index("all");
+//        meta.index.constDefaultIndex("all");
         defaultUi.metaData = meta;
 
-        var allNode = new RNode();
-        allNode.create("all", null, defaultUi, true);
+        var allNode = new RNode("all", null, defaultUi, true);
+//        allNode.create("all", null, defaultUi, true);
         this.root = allNode;
-        var oddNode = new RNode();
-        oddNode.create("odd", allNode, defaultUi, false);
+        var oddNode = new RNode("odd", allNode, defaultUi, false);
+//        oddNode.create("odd", allNode, defaultUi, false);
         this.root.addChild(oddNode);
-        var evenNode = new RNode();
-        evenNode.create("even", allNode, defaultUi, false);
+        var evenNode = new RNode("even", allNode, defaultUi, false);
+//        evenNode.create("even", allNode, defaultUi, false);
         this.root.addChild(evenNode);
     },
 
@@ -461,12 +461,12 @@ var RGraph = Class.extend({
     preBuild: function(){
         var defaultUi = new UiTextBox();
         var meta = new TableMetaData();
-        meta.tbody = new Index();
-        meta.tbody.constDefaultIndex("all");
-        meta.row = new Index();
-        meta.row.constDefaultIndex("all");
-        meta.column = new Index();
-        meta.column.constDefaultIndex("all");
+        meta.tbody = new Index("all");
+//        meta.tbody.constDefaultIndex("all");
+        meta.row = new Index("all");
+//        meta.row.constDefaultIndex("all");
+        meta.column = new Index("all");
+//        meta.column.constDefaultIndex("all");
         meta.id = "defaultUi";
         defaultUi.metaData = meta;
         this.templates.put("_all_all_all", defaultUi);
