@@ -7,8 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.AfterClass;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * Test StandardTable with more general layout
@@ -29,9 +28,9 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
         //enableLogging(LogLevels.ALL);
 
         useCssSelector(true);
-//        useTelluriumApi(true);
+        useTelluriumApi(true);
         useTrace(true);
-//        useCache(true);
+        useCache(true);
     }
 
     @Before
@@ -48,6 +47,13 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
     @Test
     public void testValidateUiModule(){
         gtm.validate("GT");
+    }
+
+    @Test
+    public void testIsElementPresent(){
+        useCache(true);
+        assertTrue(gtm.isElementPresent("GT.header[2]"));
+        assertFalse(gtm.isElementPresent("GT[12][12]"));
     }
 
     @Test
