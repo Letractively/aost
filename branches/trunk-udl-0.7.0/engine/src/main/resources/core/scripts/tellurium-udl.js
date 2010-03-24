@@ -264,6 +264,7 @@ var RTree = Class.extend({
     },
 
     generatePath: function(key){
+        !tellurium.logManager.isUseLog || fbLog("generate path for key " + key, this);
         if("odd" == key || "even" == key || "last" == key){
             return this.ROOT_PATH;
         }else if(key.match(/^\d+$/)){
@@ -276,7 +277,7 @@ var RTree = Class.extend({
         }else if("all" == key){
             return this.EMPTY_PATH;
         }else{
-            throw new SeleniumError("Invalid Index" + key);
+            throw new SeleniumError("Invalid Index " + key);
         }
     },
 
@@ -490,6 +491,7 @@ var RGraph = Class.extend({
     },
 
     generatePath: function(key){
+        !tellurium.logManager.isUseLog || fbLog("generate path for key " + key, this);
         if("odd" == key || "even" == key || "last" == key || "any" == key){
             return this.ROOT_PATH;
         }else if(key.match(/^\d+$/)){
@@ -502,11 +504,12 @@ var RGraph = Class.extend({
         }else if("all" == key){
             return this.EMPTY_PATH;
         }else{
-            throw new SeleniumError("Invalid Index" + key);
+            throw new SeleniumError("Invalid Index " + key);
         }
     },
 
     route: function(key){
+        !tellurium.logManager.isUseLog || fbLog("route key " + key, this);
         var object = this.indices.get(key);
         if(object == null){
             var parts = key.replace(/^_/, '').split("_");
