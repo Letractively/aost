@@ -115,6 +115,7 @@ TelluriumTestCase.prototype.testGeneralTableModule = function(){
     var uinput = uim.walkTo(context, uiid.convertToUiid("GT[1][1]"));
     var pinput = uim.walkTo(context, uiid.convertToUiid("GT[1][2].Input"));
     var smt = uim.walkTo(context, uiid.convertToUiid("GT[1][2].Some.Link"));
+    var stree = tellurium.cache.takeSnapshot("GT");
     tellurium.teApi.getHTMLSource("GT");
 };
 
