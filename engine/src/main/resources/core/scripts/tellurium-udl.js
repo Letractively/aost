@@ -264,6 +264,7 @@ var RTree = Class.extend({
     },
 
     generatePath: function(key){
+        key = key + "";
         !tellurium.logManager.isUseLog || fbLog("generate path for key " + key, this);
         if("odd" == key || "even" == key || "last" == key){
             return this.ROOT_PATH;
