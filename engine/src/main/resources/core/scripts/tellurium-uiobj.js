@@ -987,16 +987,6 @@ var UiList = UiContainer.extend({
         return  "_" + index;    
     },
 
-/*
-    getListSelector: function(index) {
-        if (this.separator == null || this.separator.trim().length == 0)
-            return this.deriveListSelector(index);
-
-        var t = index-1;
-        return " > " + this.separator + ":eq(" + t + ")";
-    },
-    */
-
     deriveListSelector: function(index) {
         var locs = new Hashtable();
         var last = null;
@@ -1126,92 +1116,6 @@ var UiList = UiContainer.extend({
 
         return node;
     },
-    
-/*
-    buildSNode: function(context, pid, rid, domref){
-        var node = new UiCNode();
-        node.objRef = this;
-        node.rid = rid;
-        node.pid = pid;
-        node.domRef = domref;
-
-        var npid = this.buildPid(pid, rid);
-
-        if(domref != null && this.components.size() > 0){
-            var keys = this.components.keySet();
-            var alg = context.alg;
-
-            for(var i=0; i<keys.length; i++){
-                var key = keys[i];
-//                var child = this.components.get(keys[i]);
-                var child = this.components.get(key);
-                var indx = child.metaData.index.value;
-                var part = indx.replace(/^_/, '');
-//                var cobj = this.findChild(part);
-                if(indx != "all"){
-//                if(part != "ALL"){
-//                    var nindex = parseInt(part);
-                    var selt = this.getListSelector(part, child);
-                    var $fnd = teJQuery(domref).find(selt);
-                    !tellurium.logManager.isUseLog || fbLog("Found child " + part + " with CSS selector '" + selt +"' for List " + this.uid, $fnd.get());
-                    if ($fnd.size() == 1) {
-                        !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $fnd.get(0));
-                        var cdomref;
-                        if(child.self){
-                            cdomref = $fnd.get(0);
-                        }else{
-                            cdomref = this.locateChild(context, $fnd.get(0), child);
-                        }
-//                        var cdomref = this.locateChild(context, $fnd.get(0), child);
-                        var csdata = new UiSData(npid, this.getRid(part), child, cdomref);
-                        alg.addChildUiObject(csdata);
-                    }else if($fnd.size() == 0){
-                        fbError("Cannot find UI element " + child.uid, child);
-                        throw new SeleniumError("Cannot find UI element " + child.uid);
-                    }else{
-                        fbError("Found " + $fnd.size() + " matches for UI element " + child.uid, $fnd.get());
-                        throw new SeleniumError("Found " + $fnd.size() + " matches for UI element " + child.uid);
-                    }
-                }else{
-                    //handle the "_ALL" case
-                    context.domRef = domref;
-                    var lsz = this.getListSize(context);
-                    for(var j=1; j<=lsz; j++){
-                        var tid = this.getRid(j);
-                        //only cares about elements that are covered by "_ALL", not by other templates
-                        if(this.components.get(tid) == null){
-                            var sel = this.getListSelector(j, child);
-                            var $found = teJQuery(domref).find(sel);
-                            !tellurium.logManager.isUseLog || fbLog("Found child " + j + " with CSS selector '" + sel +"' for List " + this.uid, $found.get());
-                            if ($found.size() == 1) {
-                                !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
-                                var cdrf;
-                                if(child.self){
-                                    cdrf = $found.get(0);
-                                }else{
-                                    cdrf = this.locateChild(context, $found.get(0), child);
-                                }
-//                                var cdrf = this.locateChild(context, $found.get(0), child);
-                                var csd = new UiSData(npid, tid, child, cdrf);
-                                alg.addChildUiObject(csd);
-                            } else if ($found.size() == 0) {
-                                fbError("Cannot find UI element " + child.uid, child);
-                                throw new SeleniumError("Cannot find UI element " + child.uid);
-                            } else {
-                                fbError("Found " + $found.size() + " matches for UI element " + child.uid, $found.get());
-                                throw new SeleniumError("Found " + $found.size() + " matches for UI element " + child.uid);
-                            }
-
-                        }
-                    }
-                }
-
-            }
-        }
-
-        return node;
-    },
-*/
 
     walkTo: function(context, uiid) {
         !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid, this);
@@ -1782,19 +1686,6 @@ var UiTable = UiContainer.extend({
         return obj;
     },
 
-/*    
-    getHeaderSelector: function(column) {
-        var t = column - 1;
-        return " > tbody > tr:has(th) > th:eq(" + t + ")";
-    },
-
-    getCellSelector: function(row, column) {
-        var r = row-1;
-        var c = column-1;
-        return " > tbody > tr:has(td):eq(" + r + ") > td:eq(" + c + ")";
-    },
-*/ 
-
     getAllBodyCell: function(context, worker){
         if (context.domRef != null) {
             var $found = teJQuery(context.domRef).find("> tbody > tr > td");
@@ -1905,81 +1796,6 @@ var UiTable = UiContainer.extend({
         }
     },
 
-/*
-    buildSNodeForHeader: function(context, npid, domref){
-        if(domref != null && this.headers.size() > 0){
-            var keys = this.headers.keySet();
-            var alg = context.alg;
-
-            for(var i=0; i<keys.length; i++){
-                var key = keys[i];
-                var child = this.headers.get(keys[i]);
-//                var part = key.replace(/^_/, '').replace("HEADER", '').replace(/^_/, '');
-                var part = child.metaData.index.value;
-                if(part != "all"){
-//                    var nindex = parseInt(part);
-//                    var selt = this.getHeaderSelector(nindex);
-                    var selt = this.getHeaderSelector(key, child);
-                    var $fnd = teJQuery(domref).find(selt);
-                    !tellurium.logManager.isUseLog || fbLog("Found child " + key + " with CSS selector '" + selt +"' for List " + this.uid, $fnd.get());
-                    if ($fnd.size() == 1) {
-                        !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $fnd.get(0));
-                        var cdomref;
-                        if(child.self){
-                            cdomref = $fnd.get(0);
-                        }else{
-                            cdomref = this.locateChild(context, $fnd.get(0), child);
-                        }
-//                        var cdomref = this.locateChild(context, $fnd.get(0), child);
-//                        var csdata = new UiSData(npid, this.getHeaderRid(nindex), child, cdomref);
-                        var csdata = new UiSData(npid, this.getHeaderRid(key), child, cdomref);
-                        alg.addChildUiObject(csdata);
-                    }else if($fnd.size() == 0){
-                        fbError("Cannot find UI element " + child.uid, child);
-                        throw new SeleniumError("Cannot find UI element " + child.uid);
-                    }else{
-                        fbError("Found " + $fnd.size() + " matches for UI element " + child.uid, $fnd.get());
-                        throw new SeleniumError("Found " + $fnd.size() + " matches for UI element " + child.uid);
-                    }
-                }else{
-                    //handle the "_ALL" case
-                    var lsz = this.getHeaderColumnNum(context);
-                    for(var j=1; j<=lsz; j++){
-                        var rid = this.getHeaderRid(j);
-                        //only cares about elements that are covered by "_ALL", not by other templates
-                        if(this.headers.get(rid) == null){
-                            var sel = this.getHeaderSelector(j);
-                            var $found = teJQuery(domref).find(sel);
-                            !tellurium.logManager.isUseLog || fbLog("Found child " + j + " with CSS selector '" + sel +"' for List " + this.uid, $found.get());
-                            if ($found.size() == 1) {
-                                !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
-                                var cdrf;
-                                if(child.self){
-                                    cdrf = $found.get(0);
-                                }else{
-                                    cdrf = this.locateChild(context, $found.get(0), child);
-                                }
-//                                var cdrf = this.locateChild(context, $found.get(0), child);
-                                var csd = new UiSData(npid, rid, child, cdrf);
-                                alg.addChildUiObject(csd);
-                            } else if ($found.size() == 0) {
-                                fbError("Cannot find UI element " + child.uid, child);
-                                throw new SeleniumError("Cannot find UI element " + child.uid);
-                            } else {
-                                fbError("Found " + $found.size() + " matches for UI element " + child.uid, $found.get());
-                                throw new SeleniumError("Found " + $found.size() + " matches for UI element " + child.uid);
-                            }
-
-                        }
-                    }
-                }
-
-            }
-        }
-
-    },
-    */
-
     buildBodySData: function(context, npid, domref, key, child){
         var alg = context.alg;
         var sel = this.getCellSelector(context, key, child);
@@ -2020,47 +1836,6 @@ var UiTable = UiContainer.extend({
        }
     },
 
- /*
-    buildSNodeForBody: function(context, npid, domref){
-        if(domref != null && this.components.size() > 0){
-            var alg = context.alg;
-            var rownum = this.getTableRowNum(context);
-            var colnum = this.getTableColumnNum(context);
-            for(var i=1; i<=rownum; i++){
-                for(var j=1; j<=colnum; j++){
-                    var pair = this.findBodyKeyTemplatePair(i, j);
-                    //we only care about the UI elements that have templates defined, otherwise, ignore them    
-                    if(pair != null){
-//                        var tid = pair.key;
-                        var rid = this.getBodyRid(i, j);
-                        var child = pair.val;
-                        var sel = this.getCellSelector(i, j);
-                        var $found = teJQuery(domref).find(sel);
-                        !tellurium.logManager.isUseLog || fbLog("Found child " + rid + " with CSS selector '" + sel + "' for Table " + this.uid, $found.get());
-                        if ($found.size() == 1) {
-                            !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
-                            var cdomref;
-                            if(child.self){
-                                cdomref = $found.get(0);
-                            }else{
-                                cdomref = this.locateChild(context, $found.get(0), child);
-                            }
-//                            var cdomref = this.locateChild(context, $found.get(0), child);
-                            var csdata = new UiSData(npid, rid, child, cdomref);
-                            alg.addChildUiObject(csdata);
-                        } else if ($found.size() == 0) {
-                            fbError("Cannot find UI element " + child.uid, child);
-                            throw new SeleniumError("Cannot find UI element " + child.uid);
-                        } else {
-                            fbError("Found " + $found.size() + " matches for UI element " + child.uid, $found.get());
-                            throw new SeleniumError("Found " + $found.size() + " matches for UI element " + child.uid);
-                        }
-                    }
-                }
-            }
-        }
-    },
-*/
     buildSNode: function(context, pid, rid, domref){
         var node = new UiTNode();
         node.objRef = this;
@@ -2870,6 +2645,7 @@ var UiStandardTable = UiContainer.extend({
 
         return children;
     },
+
     // Get runtime ID
     getHeaderRid: function(index){
         return  "_HEADER_" + index;
@@ -3014,26 +2790,6 @@ var UiStandardTable = UiContainer.extend({
 
         return obj;
     },
-
-/*
-    getCellSelector: function(tbody, row, column) {
-        var index = tbody -1;
-        if(this.bt == this.ht){
-            index++;
-        }
-        return " > " + this.bt + ":eq(" + index + ") > " + this.brt + ":eq(" + (row-1) + ") > " + this.bct + ":eq(" + (column-1) + ")";
-    },
-
-    getHeaderSelector: function(column) {
-
-        return " > " + this.ht + ":first > " + this.hrt + " > " + this.hct + ":eq(" + (column-1) +")";
-    },
-
-    getFooterSelector: function(column) {
-
-        return " > " + this.ft + ":last " + this.frt + " > " + this.fct + ":eq(" + (column-1) + ")";
-    },
-    */
 
     getAllBodyCell: function(context, worker){
         !tellurium.logManager.isUseLog || fbLog("Check context in getAllBodyCell", context);
@@ -3289,80 +3045,6 @@ var UiStandardTable = UiContainer.extend({
         }
     },
 
-/*
-    buildSNodeForHeader: function(context, npid, domref){
-        if(domref != null && this.headers.size() > 0){
-            var keys = this.headers.keySet();
-            var alg = context.alg;
-
-            for(var i=0; i<keys.length; i++){
-                var key = keys[i];
-                var child = this.headers.get(keys[i]);
-                var part = child.metaData.index.value.replace(/^_/, '');
-//                var part = key.replace(/^_/, '').replace("HEADER", '').replace(/^_/, '');
-                if(part != "all"){
-//                    var nindex = parseInt(part);
-//                    var selt = this.getHeaderSelector(nindex);
-                    var selt = this.getHeaderSelector(part, child);
-                    var $fnd = teJQuery(domref).find(selt);
-                    !tellurium.logManager.isUseLog || fbLog("Found child " + key + " with CSS selector '" + selt +"' for List " + this.uid, $fnd.get());
-                    if ($fnd.size() == 1) {
-                        !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $fnd.get(0));
-                        var cdomref;
-                        if(child.self){
-                           cdomref = $fnd.get(0);
-                        }else{
-                           cdomref = this.locateChild(context, $fnd.get(0), child); 
-                        }
-//                        var cdomref = this.locateChild(context, $fnd.get(0), child);
-                        var csdata = new UiSData(npid, this.getHeaderRid(nindex), child, cdomref);
-                        alg.addChildUiObject(csdata);
-                    }else if($fnd.size() == 0){
-                        fbError("Cannot find UI element " + child.uid, child);
-                        throw new SeleniumError("Cannot find UI element " + child.uid);
-                    }else{
-                        fbError("Found " + $fnd.size() + " matches for UI element " + child.uid, $fnd.get());
-                        throw new SeleniumError("Found " + $fnd.size() + " matches for UI element " + child.uid);
-                    }
-                }else{
-                    //handle the "_ALL" case
-                    var lsz = this.getHeaderColumnNum(context);
-                    for(var j=1; j<=lsz; j++){
-                        var rid = this.getHeaderRid(j);
-                        //only cares about elements that are covered by "_ALL", not by other templates
-                        if(this.headers.get(rid) == null){
-                            var sel = this.getHeaderSelector(j);
-                            var $found = teJQuery(domref).find(sel);
-                            !tellurium.logManager.isUseLog || fbLog("Found child " + j + " with CSS selector '" + sel +"' for List " + this.uid, $found.get());
-                            if ($found.size() == 1) {
-                                !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
-                                var cdrf;
-                                if(child.self){
-                                    cdrf = $found.get(0);
-                                }else{
-                                    cdrf = this.locateChild(context, $found.get(0), child);
-                                }
-//                                var cdrf = this.locateChild(context, $found.get(0), child);
-                                var csd = new UiSData(npid, rid, child, cdrf);
-                                alg.addChildUiObject(csd);
-                            } else if ($found.size() == 0) {
-                                fbError("Cannot find UI element " + child.uid, child);
-                                throw new SeleniumError("Cannot find UI element " + child.uid);
-                            } else {
-                                fbError("Found " + $found.size() + " matches for UI element " + child.uid, $found.get());
-                                throw new SeleniumError("Found " + $found.size() + " matches for UI element " + child.uid);
-                            }
-
-                        }
-                    }
-                }
-
-            }
-        }
-
-    },
-    */
-
     buildFooterSData: function(context, npid, domref, key, child){
         var alg = context.alg;
         var sel = this.getFooterSelector(key, child);
@@ -3413,78 +3095,6 @@ var UiStandardTable = UiContainer.extend({
         }
     },
 
-/*
-    buildSNodeForFooter: function(context, npid, domref){
-        if(domref != null && this.footers.size() > 0){
-            var keys = this.footers.keySet();
-            var alg = context.alg;
-
-            for(var i=0; i<keys.length; i++){
-                var key = keys[i];
-                var child = this.footers.get(keys[i]);
-                var part = key.replace(/^_/, '').replace("FOOTER", '').replace(/^_/, '');
-                if(part != "ALL"){
-                    var nindex = parseInt(part);
-                    var selt = this.getFooterSelector(nindex);
-                    var $fnd = teJQuery(domref).find(selt);
-                    !tellurium.logManager.isUseLog || fbLog("Found child " + nindex + " with CSS selector '" + selt +"' for List " + this.uid, $fnd.get());
-                    if ($fnd.size() == 1) {
-                        !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $fnd.get(0));
-                        var cdomref;
-                        if(child.self){
-                            cdomref = $fnd.get(0);
-                        }else{
-                            cdomref = this.locateChild(context, $fnd.get(0), child);
-                        }
-//                        var cdomref = this.locateChild(context, $fnd.get(0), child);
-                        var csdata = new UiSData(npid, this.getFooterRid(nindex), child, cdomref);
-                        alg.addChildUiObject(csdata);
-                    }else if($fnd.size() == 0){
-                        fbError("Cannot find UI element " + child.uid, child);
-                        throw new SeleniumError("Cannot find UI element " + child.uid);
-                    }else{
-                        fbError("Found " + $fnd.size() + " matches for UI element " + child.uid, $fnd.get());
-                        throw new SeleniumError("Found " + $fnd.size() + " matches for UI element " + child.uid);
-                    }
-                }else{
-                    //handle the "_ALL" case
-                    var lsz = this.getHeaderColumnNum(context);
-                    for(var j=1; j<=lsz; j++){
-                        var rid = this.getFooterRid(j);
-                        //only cares about elements that are covered by "_ALL", not by other templates
-                        if(this.footers.get(rid) == null){
-                            var sel = this.getFooterSelector(j);
-                            var $found = teJQuery(domref).find(sel);
-                            !tellurium.logManager.isUseLog || fbLog("Found child " + j + " with CSS selector '" + sel +"' for List " + this.uid, $found.get());
-                            if ($found.size() == 1) {
-                                !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
-                                var cdrf;
-                                if(child.self){
-                                    cdrf = $found.get(0);
-                                }else{
-                                    cdrf = this.locateChild(context, $found.get(0), child);
-                                }
-//                                var cdrf = this.locateChild(context, $found.get(0), child);
-                                var csd = new UiSData(npid, rid, child, cdrf);
-                                alg.addChildUiObject(csd);
-                            } else if ($found.size() == 0) {
-                                fbError("Cannot find UI element " + child.uid, child);
-                                throw new SeleniumError("Cannot find UI element " + child.uid);
-                            } else {
-                                fbError("Found " + $found.size() + " matches for UI element " + child.uid, $found.get());
-                                throw new SeleniumError("Found " + $found.size() + " matches for UI element " + child.uid);
-                            }
-
-                        }
-                    }
-                }
-
-            }
-        }
-
-    },
-*/
-
     buildBodySData: function(context, npid, domref, key, child){
         var alg = context.alg;
         var sel = this.getCellSelector(context, key, child);
@@ -3526,52 +3136,6 @@ var UiStandardTable = UiContainer.extend({
             }
         }
     },
-
-/*
-    buildSNodeForBody: function(context, npid, domref){
-        if(domref != null && this.components.size() > 0){
-            var alg = context.alg;
-            var bodynum = this.getTableTbodyNum(context);
-            var rownum = this.getTableRowNum(context);
-            var colnum = this.getTableColumnNum(context);
-            for(var i=1; i<=bodynum; i++){
-                for(var j=1; j<=rownum; j++){
-                    for(var k=1; k<=colnum; k++){
-                        var pair = this.findBodyKeyTemplatePair(i, j, k);
-                        //we only care about the UI elements that have templates defined, otherwise, ignore them
-                        if (pair != null) {
-//                            var tid = pair.key;
-                            var rid = this.getBodyRid(i, j, k);
-                            var child = pair.val;
-                            var sel = this.getCellSelector(i, j, k);
-                            var $found = teJQuery(domref).find(sel);
-                            !tellurium.logManager.isUseLog || fbLog("Found child " + rid + " with CSS selector '" + sel + "' for Table " + this.uid, $found.get());
-                            if ($found.size() == 1) {
-                                !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
-                                var cdomref;
-                                if(child.self){
-                                    cdomref =$found.get(0);
-                                }else{
-                                    cdomref = this.locateChild(context, $found.get(0), child);
-                                }
-//                                var cdomref = this.locateChild(context, $found.get(0), child);
-                                var csdata = new UiSData(npid, rid, child, cdomref);
-                                alg.addChildUiObject(csdata);
-                            } else if ($found.size() == 0) {
-                                fbError("Cannot find UI element " + child.uid, child);
-                                throw new SeleniumError("Cannot find UI element " + child.uid);
-                            } else {
-                                fbError("Found " + $found.size() + " matches for UI element " + child.uid, $found.get());
-                                throw new SeleniumError("Found " + $found.size() + " matches for UI element " + child.uid);
-                            }
-                        }
-
-                    }
-                }
-            }
-        }
-    },
-    */
 
     buildSNode: function(context, pid, rid, domref){
         var node = new UiTNode();
