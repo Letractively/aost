@@ -1109,7 +1109,7 @@ var UiList = UiContainer.extend({
 
             for(i=1; i<=max; i++){
                 child = this.findChild(i);
-                this.buildSData(context, npid, domref, i, child);
+                this.buildSData(context, npid, domref, i.toString(), child);
             }
         }
     },
@@ -1900,7 +1900,7 @@ var UiTable = UiContainer.extend({
 
             for(i=1; i<=max; i++){
                 child = this.locateHeaderChild(i);
-                this.buildHeaderSData(context, npid, domref, i, child);
+                this.buildHeaderSData(context, npid, domref, i.toString(), child);
             }
         }
     },
@@ -3284,7 +3284,7 @@ var UiStandardTable = UiContainer.extend({
 
             for(i=1; i<=max; i++){
                 child = this.locateHeaderChild(i);
-                this.buildHeaderSData(context, npid, domref, i, child);
+                this.buildHeaderSData(context, npid, domref, i.toString(), child);
             }
         }
     },
@@ -3408,7 +3408,7 @@ var UiStandardTable = UiContainer.extend({
 
             for(i=1; i<=max; i++){
                 child = this.locateFooterChild(i);
-                this.buildFooterSData(context, npid, domref, i, child);
+                this.buildFooterSData(context, npid, domref, i.toString(), child);
             }
         }
     },
