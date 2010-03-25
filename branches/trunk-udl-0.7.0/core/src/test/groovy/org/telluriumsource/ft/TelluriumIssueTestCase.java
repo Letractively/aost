@@ -25,12 +25,12 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
         tim.defineUi();
         connectSeleniumServer();
         useCssSelector(true);
-//        useCache(true);
 //        setCacheMaxSize(30);
         useTrace(true);
 //        useLocatorWithCache(false);
 //        useClosestMatch(true);
         useEngineLog(true);
+        useTelluriumEngine(true);
     }
 
     @Before
