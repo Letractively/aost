@@ -936,11 +936,11 @@ var UiList = UiContainer.extend({
       var index = obj.metaData.index.value;
       key = key + "";  
       if(this.separator != null && this.separator.trim().length > 0){
-        if("any" == index){
+        if("any" == index || key == "any"){
           return this.getAnySelectorWithSeparator(obj);
-        }else if("first" == index){
+        }else if("first" == index || key == "first"){
           return this.getFirstSelectorWithSeparator();
-        }else if("last" == index){
+        }else if("last" == index || key == "last"){
           return this.getLastSelectorWithSeparator();
         }else if(key.match(/[0-9]+/)){
           return this.getSelectorByIndexWithSeparator(key);
@@ -950,11 +950,11 @@ var UiList = UiContainer.extend({
           throw new SeleniumError("Invalid ID " + key);
         }
       }else{
-       if("any" == index){
+       if("any" == index || key == "any"){
           return this.getAnySelectorWithoutSeparator(obj);
-        }else if("first" == index){
+        }else if("first" == index || key == "first"){
           return this.getFirstSelectorWithoutSeparator(obj);
-        }else if("last" == index){
+        }else if("last" == index || key == "last"){
           return this.getLastSelectorWithoutSeparator(obj);
         }else if(key.match(/[0-9]+/)){
           return this.getSelectorByIndexWithoutSeparator(key);
