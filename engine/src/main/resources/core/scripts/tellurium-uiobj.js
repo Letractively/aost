@@ -1982,7 +1982,7 @@ var UiTable = UiContainer.extend({
 
     buildBodySData: function(context, npid, domref, key, child){
         var alg = context.alg;
-        var sel = this.getCellSelector(key, child);
+        var sel = this.getCellSelector(context, key, child);
         var $found = teJQuery(domref).find(sel);
         !tellurium.logManager.isUseLog || fbLog("Found child " + key + " with CSS selector '" + sel + "' for " + this.uid, $found.get());
         if ($found.size() == 1) {
@@ -3487,7 +3487,7 @@ var UiStandardTable = UiContainer.extend({
 
     buildBodySData: function(context, npid, domref, key, child){
         var alg = context.alg;
-        var sel = this.getCellSelector(key, child);
+        var sel = this.getCellSelector(context, key, child);
         var $found = teJQuery(domref).find(sel);
         !tellurium.logManager.isUseLog || fbLog("Found child " + key + " with CSS selector '" + sel + "' for " + this.uid, $found.get());
         if ($found.size() == 1) {
