@@ -1078,6 +1078,8 @@ var UiList = UiContainer.extend({
             }
             var csdata = new UiSData(npid, this.getRid(index), child, cdomref);
             alg.addChildUiObject(csdata);
+
+            return index;
         } else if ($found.size() == 0) {
             fbError("Cannot find UI element " + child.uid, child);
             throw new SeleniumError("Cannot find UI element " + child.uid);
@@ -1090,25 +1092,30 @@ var UiList = UiContainer.extend({
     buildSNodeForList: function(context, npid, domref){
         if(domref != null && this.components.size() > 0){
             var keys = this.components.keySet();
-            var i, child, index;
+            var i, child, index, inx;
+            var included = new Array();
             for(i=0; i<keys.length; i++){
                 child = this.components.get(keys[i]);
                 index = child.metaData.index.value;
                 if(index == "any"){
-                    this.buildSData(context, npid, domref, index, child);
+                    inx = this.buildSData(context, npid, domref, index, child);
+                    included.push(inx);
                 }
             }
 
             var max = this.getListSize(context);
             child = this.findChild("last");
             if(child != null){
-                this.buildSData(context, npid, domref, "last", child);
+                inx = this.buildSData(context, npid, domref, "last", child);
+                included.push(inx);
                 max = max - 1;
             }
 
             for(i=1; i<=max; i++){
-                child = this.findChild(i);
-                this.buildSData(context, npid, domref, i.toString(), child);
+                if (teJQuery.inArray(i, included) == -1) {
+                    child = this.findChild(i);
+                    this.buildSData(context, npid, domref, i.toString(), child);
+                }
             }
         }
     },
@@ -1768,7 +1775,14 @@ var UiTable = UiContainer.extend({
             } else {
                 cdomref = this.locateChild(context, $found.get(0), child);
             }
-            var csdata = new UiSData(npid, this.getHeaderRid(key), child, cdomref);
+            
+            var index;
+            if(key.match(/[0-9]+/)){
+                index = key;
+            }else{
+                index = $found.index() + 1;
+            }
+            var csdata = new UiSData(npid, this.getHeaderRid(index), child, cdomref);
             alg.addChildUiObject(csdata);
         } else if ($found.size() == 0) {
             fbError("Cannot find UI element " + child.uid, child);
@@ -3017,8 +3031,17 @@ var UiStandardTable = UiContainer.extend({
             } else {
                 cdomref = this.locateChild(context, $found.get(0), child);
             }
-            var csdata = new UiSData(npid, this.getHeaderRid(key), child, cdomref);
+
+            var index;
+            if(key.match(/[0-9]+/)){
+                index = key;
+            }else{
+                index = $found.index() + 1;
+            }
+            var csdata = new UiSData(npid, this.getHeaderRid(index), child, cdomref);
             alg.addChildUiObject(csdata);
+
+            return index;
         } else if ($found.size() == 0) {
             fbError("Cannot find UI element " + child.uid, child);
             throw new SeleniumError("Cannot find UI element " + child.uid);
@@ -3031,25 +3054,30 @@ var UiStandardTable = UiContainer.extend({
     buildSNodeForHeader: function(context, npid, domref){
         if(domref != null && this.headers.size() > 0){
             var keys = this.headers.keySet();
-            var i, child, index;
+            var i, child, inx, index;
+            var included = new Array();
             for(i=0; i<keys.length; i++){
                 child = this.headers.get(keys[i]);
                 index = child.metaData.index.value;
                 if(index == "any"){
-                    this.buildHeaderSData(context, npid, domref, index, child);
+                    inx = this.buildHeaderSData(context, npid, domref, index, child);
+                    included.push(inx);
                 }
             }
 
             var max = this.getHeaderColumnNum(context);
             child = this.locateHeaderChild("last");
             if(child != null){
-                this.buildHeaderSData(context, npid, domref, "last", child);
+                inx = this.buildHeaderSData(context, npid, domref, "last", child);
+                included.push(inx);
                 max = max - 1;
             }
 
-            for(i=1; i<=max; i++){
-                child = this.locateHeaderChild(i);
-                this.buildHeaderSData(context, npid, domref, i.toString(), child);
+            for (i = 1; i <= max; i++) {
+                if (teJQuery.inArray(i, included) == -1) {
+                    child = this.locateHeaderChild(i);
+                    this.buildHeaderSData(context, npid, domref, i.toString(), child);
+                }
             }
         }
     },
@@ -3067,8 +3095,17 @@ var UiStandardTable = UiContainer.extend({
             } else {
                 cdomref = this.locateChild(context, $found.get(0), child);
             }
-            var csdata = new UiSData(npid, this.getFooterRid(key), child, cdomref);
+
+            var index;
+            if(key.match(/[0-9]+/)){
+                index = key;
+            }else{
+                index = $found.index() + 1;
+            }
+            var csdata = new UiSData(npid, this.getFooterRid(index), child, cdomref);
             alg.addChildUiObject(csdata);
+
+            return index;
         } else if ($found.size() == 0) {
             fbError("Cannot find UI element " + child.uid, child);
             throw new SeleniumError("Cannot find UI element " + child.uid);
@@ -3081,25 +3118,30 @@ var UiStandardTable = UiContainer.extend({
     buildSNodeForFooter: function(context, npid, domref){
         if(domref != null && this.footers.size() > 0){
             var keys = this.footers.keySet();
-            var i, child, index;
+            var i, child, inx, index;
+            var included = new Array();
             for(i=0; i<keys.length; i++){
                 child = this.footers.get(keys[i]);
                 index = child.metaData.index.value;
                 if(index == "any"){
-                    this.buildFooterSData(context, npid, domref, index, child);
+                    inx = this.buildFooterSData(context, npid, domref, index, child);
+                    included.push(inx);
                 }
             }
 
             var max = this.getFooterColumnNum(context);
             child = this.locateFooterChild("last");
             if(child != null){
-                this.buildFooterSData(context, npid, domref, "last", child);
+                inx = this.buildFooterSData(context, npid, domref, "last", child);
+                included.push(inx);
                 max = max - 1;
             }
 
             for(i=1; i<=max; i++){
-                child = this.locateFooterChild(i);
-                this.buildFooterSData(context, npid, domref, i.toString(), child);
+                if (teJQuery.inArray(i, included) == -1) {
+                    child = this.locateFooterChild(i);
+                    this.buildFooterSData(context, npid, domref, i.toString(), child);
+                }
             }
         }
     },
