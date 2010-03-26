@@ -93,9 +93,6 @@ The original core package structure was a flat one and it has been changed as fo
             `-- grid
 }}}
 
-== Configuration File ==
-
-The configuration parser has been refactored to read the configuration file TelluriumConfig.groovy from the class path instead of the project root. As a result, you can put the TelluriumConfig.groovy file under the resources directory if you use Maven.
 
 == CSS Selector ==
 
@@ -1280,6 +1277,8 @@ public class TelluriumMockJUnitTestCase extends TelluriumJUnitTestCase {
 }}}
 
 == Tellurium Configuration ==
+
+The configuration parser has been refactored to read the configuration file TelluriumConfig.groovy from the class path instead of the project root. As a result, you can put the TelluriumConfig.groovy file under the resources directory if you use Maven.
 
 The configuration file TelluriumConfig.groovy includes three extra sections. That is to say, the bundle tier,
 
