@@ -1296,6 +1296,20 @@ var UiTable = UiContainer.extend({
         return $found.closest('tr').prevAll().has('td').size();
     },
 
+    getRowColumn: function(key){
+        var parts = key.replace(/^_/, '').split("_");
+        var m=0;
+        var rc = new Array();
+        if(parts.length == 3){
+            m++;
+        }
+        for(var i=m; i<parts.length; i++){
+            rc.push(m);
+        }
+
+        return rc;
+    },
+    
     buildSelectorWithoutPosition: function(locator){
         return tellurium.jqbuilder.buildCssSelector(locator.tag, locator.text, null, locator.direct, locator.attributes);
     },
@@ -1830,6 +1844,23 @@ var UiTable = UiContainer.extend({
         }
     },
 
+    buildIndex: function(key, $found){
+        var rc = this.getRowColumn(key);
+        var r, c;
+        if(rc[0].match(/[0-9]+/)){
+            r = rc[0];
+        }else{
+            r = this.getRowIndex($found) + 1;
+        }
+        if(rc[1].match(/[0-9]+/)){
+            c = rc[1];
+        }else{
+            c = $found.index();
+        }
+
+        return "_" + r + "_" + c;
+    },
+
     buildBodySData: function(context, npid, domref, key, child){
         var alg = context.alg;
         var sel = this.getCellSelector(context, key, child);
@@ -1844,8 +1875,11 @@ var UiTable = UiContainer.extend({
                 cdomref = this.locateChild(context, $found.get(0), child);
             }
 
+//            var index = this.buildIndex(key, $found);
             var csdata = new UiSData(npid, key, child, cdomref);
             alg.addChildUiObject(csdata);
+            
+//            return index;
         } else if ($found.size() == 0) {
             fbError("Cannot find UI element " + child.uid, child);
             throw new SeleniumError("Cannot find UI element " + child.uid);
