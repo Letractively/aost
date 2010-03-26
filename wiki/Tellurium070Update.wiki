@@ -93,6 +93,10 @@ The original core package structure was a flat one and it has been changed as fo
             `-- grid
 }}}
 
+== Configuration File ==
+
+The configuration parser has been refactored to read the configuration file TelluriumConfig.groovy from the class path instead of the project root. As a result, you can put the TelluriumConfig.groovy file under the resources directory if you use Maven.
+
 == CSS Selector ==
 
 One feedback we got from [http://code.google.com/p/aost/wiki/TelluriumAtRichWebExperience2009 the Rich Web Experience 2009] is that we should use the name "CSS selector" instead of "jQuery selector" because jQuery implements a subset of CSS selectors. As a result, we changed the following two methods in DslContext 
