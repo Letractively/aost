@@ -785,7 +785,6 @@ abstract class BaseDslContext extends GlobalDslContext {
         //force not to cache the selector
         context.updateCacheableForMetaCmd(false)
         String locator = locatorMappingWithOption(context, loc, cell)
-//      locator = locator + cell
 
         def out = extension.getAllText(context, locator)
 
@@ -804,7 +803,6 @@ abstract class BaseDslContext extends GlobalDslContext {
       //force not to cache the selector
       context.updateCacheableForMetaCmd(false)
       String locator = locatorMappingWithOption(context, loc, cell)
-//      locator = locator + cell
 
       def out = extension.getAllText(context, locator)
 
