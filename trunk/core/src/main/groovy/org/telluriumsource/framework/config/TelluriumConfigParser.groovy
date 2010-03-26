@@ -27,7 +27,8 @@ class TelluriumConfigParser {
     public void parse(String fileName){
        try{
             println i18nBundle.getMessage("TelluriumConfigParser.parseConfigFileText" , fileName)
-            conf = new ConfigSlurper().parse(new File(fileName).toURL())
+//            conf = new ConfigSlurper().parse(new File(fileName).toURL())
+            conf = new ConfigSlurper().parse(ClassLoader.getSystemResource(fileName))
             //convert the ConfigObject to properties to check if it is defined
             props = conf.toProperties()
        }catch(Exception e){
