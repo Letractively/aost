@@ -932,38 +932,38 @@ var UiList = UiContainer.extend({
         return " > " + last + ":eq(" + lastOccur + ")";
     },
 
-    getListSelector: function(key, obj){
-      var index = obj.metaData.index.value;
-      key = key + "";  
-      if(this.separator != null && this.separator.trim().length > 0){
-        if("any" == index || key == "any"){
-          return this.getAnySelectorWithSeparator(obj);
-        }else if("first" == index || key == "first"){
-          return this.getFirstSelectorWithSeparator();
-        }else if("last" == index || key == "last"){
-          return this.getLastSelectorWithSeparator();
-        }else if(key.match(/[0-9]+/)){
-          return this.getSelectorByIndexWithSeparator(key);
-        }else if(index.match(/[0-9]+/)){
-          return this.getSelectorByIndexWithSeparator(key);
-        }else{
-          throw new SeleniumError("Invalid ID " + key);
+    getListSelector: function(key, obj) {
+        var index = obj.metaData.index.value;
+        key = key + "";
+        if (this.separator != null && this.separator.trim().length > 0) {
+            if ("any" == index || key == "any") {
+                return this.getAnySelectorWithSeparator(obj);
+            } else if ("first" == index || key == "first") {
+                return this.getFirstSelectorWithSeparator();
+            } else if ("last" == index || key == "last") {
+                return this.getLastSelectorWithSeparator();
+            } else if (key.match(/[0-9]+/)) {
+                return this.getSelectorByIndexWithSeparator(key);
+            } else if (index.match(/[0-9]+/)) {
+                return this.getSelectorByIndexWithSeparator(key);
+            } else {
+                throw new SeleniumError("Invalid ID " + key);
+            }
+        } else {
+            if ("any" == index || key == "any") {
+                return this.getAnySelectorWithoutSeparator(obj);
+            } else if ("first" == index || key == "first") {
+                return this.getFirstSelectorWithoutSeparator(obj);
+            } else if ("last" == index || key == "last") {
+                return this.getLastSelectorWithoutSeparator(obj);
+            } else if (key.match(/[0-9]+/)) {
+                return this.getSelectorByIndexWithoutSeparator(key);
+            } else if (index.match(/[0-9]+/)) {
+                return this.getSelectorByIndexWithoutSeparator(key);
+            } else {
+                throw new SeleniumError("Invalid ID " + key);
+            }
         }
-      }else{
-       if("any" == index || key == "any"){
-          return this.getAnySelectorWithoutSeparator(obj);
-        }else if("first" == index || key == "first"){
-          return this.getFirstSelectorWithoutSeparator(obj);
-        }else if("last" == index || key == "last"){
-          return this.getLastSelectorWithoutSeparator(obj);
-        }else if(key.match(/[0-9]+/)){
-          return this.getSelectorByIndexWithoutSeparator(key);
-        }else if(index.match(/[0-9]+/)){
-          return this.getSelectorByIndexWithoutSeparator(key);
-        }else{
-          throw new SeleniumError("Invalid ID " + key);
-        }
-      }
     },
 
     findUiObject: function(index) {
@@ -1290,6 +1290,10 @@ var UiTable = UiContainer.extend({
 
     locateHeaderChild: function(id) {
         return this.rTree.route(id);
+    },
+
+    getRowIndex: function($found){
+        return $found.closest('tr').prevAll().has('td').size();
     },
 
     buildSelectorWithoutPosition: function(locator){
@@ -1784,6 +1788,8 @@ var UiTable = UiContainer.extend({
             }
             var csdata = new UiSData(npid, this.getHeaderRid(index), child, cdomref);
             alg.addChildUiObject(csdata);
+
+            return index;
         } else if ($found.size() == 0) {
             fbError("Cannot find UI element " + child.uid, child);
             throw new SeleniumError("Cannot find UI element " + child.uid);
@@ -1796,25 +1802,30 @@ var UiTable = UiContainer.extend({
     buildSNodeForHeader: function(context, npid, domref){
         if(domref != null && this.headers.size() > 0){
             var keys = this.headers.keySet();
-            var i, child, index;
+            var i, child, inx, index;
+            var included = new Array();
             for(i=0; i<keys.length; i++){
                 child = this.headers.get(keys[i]);
                 index = child.metaData.index.value;
                 if(index == "any"){
-                    this.buildHeaderSData(context, npid, domref, index, child);
+                    inx = this.buildHeaderSData(context, npid, domref, index, child);
+                    included.push(inx);
                 }
             }
 
             var max = this.getHeaderColumnNum(context);
             child = this.locateHeaderChild("last");
             if(child != null){
-                this.buildHeaderSData(context, npid, domref, "last", child);
+                inx = this.buildHeaderSData(context, npid, domref, "last", child);
+                included.push(inx);
                 max = max - 1;
             }
 
             for(i=1; i<=max; i++){
-                child = this.locateHeaderChild(i);
-                this.buildHeaderSData(context, npid, domref, i.toString(), child);
+                if (teJQuery.inArray(i, included) == -1) {
+                    child = this.locateHeaderChild(i);
+                    this.buildHeaderSData(context, npid, domref, i.toString(), child);
+                }
             }
         }
     },
