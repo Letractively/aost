@@ -13,14 +13,6 @@ import org.telluriumsource.dsl.DslContext
 public class GoogleBookModule extends DslContext {
 
   public void defineUi() {
-/*    ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"], group: "true") {
-      TextBox(uid: "category", clocator: [tag: "div", class: "sub_cat_title"])
-      List(uid: "subcategory", clocator: [tag: "div", class: "sub_cat_section"], separator: "p") {
-        UrlLink(uid: "all", clocator: [:])
-      }
-    }
-    */
-
     ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"]) {
       List(uid: "subcategory", clocator: [tag: "td", class: "sidebar"], separator: "div") {
         Container(uid: "{all} as category") {
