@@ -141,28 +141,11 @@ public class SeleniumServerDaemon {
             server = new SeleniumServer(config);
 			server.boot()
 
-			//String[] args = getParams();
-			//SeleniumServer.main(args);
             listening = true;
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
-
-        /*
-		try {
-            server = new SeleniumServer(port);
-            server.multiWindow = useMultiWindows
-            server.start()
-
-            //String[] args = getParams();
-			//SeleniumServer.main(args);
-            listening = true;
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-		*/
 	}
 
     public void stop(){
