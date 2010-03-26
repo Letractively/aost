@@ -863,7 +863,7 @@ var UiList = UiContainer.extend({
     },
 
     findChild: function(id){
-      return this.rTree.route(id);
+        return this.rTree.route(id);
     },
 
     buildSelectorWithoutPosition: function(locator){
@@ -871,36 +871,36 @@ var UiList = UiContainer.extend({
     },
 
     getAnySelectorWithSeparator: function(obj){
-      var sel = this.buildSelectorWithoutPosition(obj.locator);
+        var sel = this.buildSelectorWithoutPosition(obj.locator);
 
-      return " > " + this.separator + "has[" + sel + "]";
+        return " > " + this.separator + "has[" + sel + "]";
     },
 
     getAnySelectorWithoutSeparator: function(obj){
 
-      return this.buildSelectorWithoutPosition(obj.locator);
+        return this.buildSelectorWithoutPosition(obj.locator);
     },
 
     getFirstSelectorWithSeparator: function(){
 
-      return " > " + this.separator + ":first";
+        return " > " + this.separator + ":first";
     },
 
     getFirstSelectorWithoutSeparator: function(obj){
-      var sel = this.buildSelectorWithoutPosition(obj.locator);
+        var sel = this.buildSelectorWithoutPosition(obj.locator);
 
-      return " > " + sel + ":first";
+        return " > " + sel + ":first";
     },
 
     getLastSelectorWithSeparator: function(){
 
-      return " > " + this.separator + ":last";
+        return " > " + this.separator + ":last";
     },
 
     getLastSelectorWithoutSeparator: function(obj){
-      var sel = this.buildSelectorWithoutPosition(obj.locator);
+        var sel = this.buildSelectorWithoutPosition(obj.locator);
 
-      return " > " + sel + ":last";
+        return " > " + sel + ":last";
     },
 
     getSelectorByIndexWithSeparator: function(index){
@@ -1067,7 +1067,16 @@ var UiList = UiContainer.extend({
             } else {
                 cdomref = this.locateChild(context, $found.get(0), child);
             }
-            var csdata = new UiSData(npid, this.getRid(key), child, cdomref);
+
+//            var csdata = new UiSData(npid, this.getRid(key), child, cdomref);
+            //XXX: for list without separator, this may not work. BE aware, don't use "any" for list without separator
+            var index;
+            if(key.match(/[0-9]+/)){
+                index = key;
+            }else{
+                index = $found.index() + 1;
+            }
+            var csdata = new UiSData(npid, this.getRid(index), child, cdomref);
             alg.addChildUiObject(csdata);
         } else if ($found.size() == 0) {
             fbError("Cannot find UI element " + child.uid, child);
