@@ -1249,14 +1249,6 @@ var UiTable = UiContainer.extend({
         this.multiSet = ["all", "odd", "even"];
     },
 
-    inMultiSet: function(key){
-        if(teJQuery.inArray(key, this.multiSet) != -1){
-            return true;
-        }
-        
-        return false;
-    },
-    
     goToPlace:  function(uiid, uiobj) {
         if(uiid.size() == 1){
             uiid.pop();
@@ -1301,6 +1293,10 @@ var UiTable = UiContainer.extend({
         return this.rTree.route(id);
     },
 
+    inMultiSet: function(key){
+        return (teJQuery.inArray(key, this.multiSet) != -1);
+    },
+
     getRowIndex: function($found){
         return $found.closest('tr').prevAll().has('td').size();
     },
@@ -1317,6 +1313,23 @@ var UiTable = UiContainer.extend({
         }
 
         return rc;
+    },
+
+    buildIndex: function(key, $found){
+        var rc = this.getRowColumn(key);
+        var r, c;
+        if(rc[0].match(/[0-9]+/)){
+            r = rc[0];
+        }else{
+            r = this.getRowIndex($found) + 1;
+        }
+        if(rc[1].match(/[0-9]+/)){
+            c = rc[1];
+        }else{
+            c = $found.index();
+        }
+
+        return "_1_" + r + "_" + c;
     },
     
     buildSelectorWithoutPosition: function(locator){
@@ -1853,23 +1866,6 @@ var UiTable = UiContainer.extend({
         }
     },
 
-    buildIndex: function(key, $found){
-        var rc = this.getRowColumn(key);
-        var r, c;
-        if(rc[0].match(/[0-9]+/)){
-            r = rc[0];
-        }else{
-            r = this.getRowIndex($found) + 1;
-        }
-        if(rc[1].match(/[0-9]+/)){
-            c = rc[1];
-        }else{
-            c = $found.index();
-        }
-
-        return "_1_" + r + "_" + c;
-    },
-
     buildBodySData: function(context, npid, domref, key, child){
         var alg = context.alg;
         var sel = this.getCellSelector(context, key, child);
@@ -1897,7 +1893,6 @@ var UiTable = UiContainer.extend({
             throw new SeleniumError("Found " + $found.size() + " matches for UI element " + child.uid);
         }
     },
-
 
     buildSNodeForBody: function(context, npid, domref){
        if(domref != null && this.components.size() > 0){
@@ -2098,7 +2093,7 @@ var UiTable = UiContainer.extend({
                     }
                     if ($found.size() > 1) {
                         //Use bestGuess() to eliminate multipe matches
-                        //                       $found = alg.lookAhead(this, $found);
+//                       $found = alg.lookAhead(this, $found);
                         $found = alg.bestEffort(this, $found);
                     }
 
