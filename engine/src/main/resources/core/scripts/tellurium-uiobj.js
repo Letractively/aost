@@ -1246,6 +1246,15 @@ var UiTable = UiContainer.extend({
         this.rGraph = new RGraph();
         this.rGraph.indices = this.components;
         this.rGraph.preBuild();
+        this.multiSet = ["all", "odd", "even"];
+    },
+
+    inMultiSet: function(key){
+        if(teJQuery.inArray(key, this.multiSet) != -1){
+            return true;
+        }
+        
+        return false;
     },
     
     goToPlace:  function(uiid, uiobj) {
@@ -1858,7 +1867,7 @@ var UiTable = UiContainer.extend({
             c = $found.index();
         }
 
-        return "_" + r + "_" + c;
+        return "_1_" + r + "_" + c;
     },
 
     buildBodySData: function(context, npid, domref, key, child){
@@ -1875,11 +1884,11 @@ var UiTable = UiContainer.extend({
                 cdomref = this.locateChild(context, $found.get(0), child);
             }
 
-//            var index = this.buildIndex(key, $found);
-            var csdata = new UiSData(npid, key, child, cdomref);
+            var index = this.buildIndex(key, $found);
+            var csdata = new UiSData(npid, index, child, cdomref);
             alg.addChildUiObject(csdata);
             
-//            return index;
+            return index;
         } else if ($found.size() == 0) {
             fbError("Cannot find UI element " + child.uid, child);
             throw new SeleniumError("Cannot find UI element " + child.uid);
@@ -1889,16 +1898,31 @@ var UiTable = UiContainer.extend({
         }
     },
 
+
     buildSNodeForBody: function(context, npid, domref){
        if(domref != null && this.components.size() > 0){
+           var i, j, key, child;
+           var included = new Array();
+           var keySet = this.components.keySet();
+            for(i=0; i<keySet.size(); i++){
+                key = keySet[i];
+                var meta = this.components.get(key).metaData;
+                if(!(this.inMultiSet(meta.row.index.value) || this.inMultiSet(meta.column.index.value))){
+                    key = "_1_" + meta.row.index.value + "_" + meta.column.index.value;
+                    var index = this.buildBodySData(context, npid, domref, key, this.components.get(key));
+                    included.push(index);
+                }
+            }
             var rownum = this.getTableRowNum(context);
             var colnum = this.getTableColumnNum(context);
-            for(var i=1; i<=rownum; i++){
-                for(var j=1; j<=colnum; j++){
-//                    var key = "_1_" + i + "_" + j;
-                    var key = this.getBodyRid(1, i, j);
-                    var child = this.locateTBodyChild(key);
-                    this.buildBodySData(context, npid, domref, key, child);
+            for(i=1; i<=rownum; i++){
+                for(j=1; j<=colnum; j++){
+                    key = "_1_" + i + "_" + j;
+                    if (teJQuery.inArray(key, included) == -1) {
+                        key = this.getBodyRid(1, i, j);
+                        child = this.locateTBodyChild(key);
+                        this.buildBodySData(context, npid, domref, key, child);
+                    }
                 }
             }
        }
