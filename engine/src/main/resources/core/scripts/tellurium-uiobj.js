@@ -1326,7 +1326,7 @@ var UiTable = UiContainer.extend({
         if(rc[1].match(/[0-9]+/)){
             c = rc[1];
         }else{
-            c = $found.index();
+            c = $found.index() + 1;
         }
 
         return "_1_" + r + "_" + c;
@@ -3383,7 +3383,6 @@ var UiStandardTable = UiContainer.extend({
         }
 
         if (cobj.locator != null) {
-//            if (this.hct ==  cobj.locator.tag && cobj.locator.header == null) {
             if(cobj.self){                
                 context.skipNext = true;
             }
