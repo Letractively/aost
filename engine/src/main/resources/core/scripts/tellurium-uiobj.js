@@ -1896,9 +1896,9 @@ var UiTable = UiContainer.extend({
 
     buildSNodeForBody: function(context, npid, domref){
        if(domref != null && this.components.size() > 0){
-           var i, j, key, child;
-           var included = new Array();
-           var keySet = this.components.keySet();
+            var i, j, key, child;
+            var included = new Array();
+            var keySet = this.components.keySet();
             for(i=0; i<keySet.size(); i++){
                 key = keySet[i];
                 var meta = this.components.get(key).metaData;
@@ -2042,7 +2042,6 @@ var UiTable = UiContainer.extend({
         }
 
         if (cobj.locator != null) {
-//            if ("td" == cobj.locator.tag && cobj.locator.header == null) {
             if(cobj.self){
                 context.skipNext = true;
             }
@@ -2164,8 +2163,8 @@ var UiStandardTable = UiContainer.extend({
         this.ft = "tfoot";
         this.frt = "tr";
         this.fct = "td";
-
-
+        
+        this.multiSet = ["all", "odd", "even"];
     },
 
     goToPlace:  function(uiid, uiobj) {
@@ -2221,6 +2220,57 @@ var UiStandardTable = UiContainer.extend({
 
     locateFooterChild: function(id) {
         return this.fTree.route(id);
+    },
+
+    inMultiSet: function(key){
+        return (teJQuery.inArray(key, this.multiSet) != -1);
+    },
+
+    getColumnIndex: function($found){
+        return $found.index();
+    },
+
+    getRowIndex: function($found){
+        return $found.closest(this.brt).prevAll().has(this.bct).size();
+    },
+
+    getBodyIndex: function($found){
+        var num = $found.closest(this.bt).prevAll().size();
+        if(this.headers.size() > 0 && this.bt == this.ht){
+            num--;
+        }
+
+        return num;
+    },
+
+    buildIndex: function(key, $found){
+        var parts = key.replace(/^_/, '').split("_");
+        var rc = new Array();
+        if(parts.length == 2){
+            rc.push("1");
+        }
+        for(var i=0; i<parts.length; i++){
+            rc.push(parts[i]);
+        }
+        var b, r, c;
+
+        if(rc[0].match(/[0-9]+/)){
+            b = rc[0];
+        }else{
+            r = this.getBodyIndex($found) + 1;
+        }
+        if(rc[1].match(/[0-9]+/)){
+            r = rc[1];
+        }else{
+            r = this.getRowIndex($found) + 1;
+        }
+        if(rc[2].match(/[0-9]+/)){
+            c = rc[2];
+        }else{
+            c = $found.index() + 1;
+        }
+
+        return "_" + b + "_" + r + "_" + c;
     },
 
     buildSelectorWithoutPosition: function(locator){
@@ -3224,8 +3274,11 @@ var UiStandardTable = UiContainer.extend({
                 cdomref = this.locateChild(context, $found.get(0), child);
             }
 
-            var csdata = new UiSData(npid, key, child, cdomref);
+            var index = this.buildIndex(key, $found);
+            var csdata = new UiSData(npid, index, child, cdomref);
             alg.addChildUiObject(csdata);
+
+            return index;
         } else if ($found.size() == 0) {
             fbError("Cannot find UI element " + child.uid, child);
             throw new SeleniumError("Cannot find UI element " + child.uid);
@@ -3237,15 +3290,30 @@ var UiStandardTable = UiContainer.extend({
 
     buildSNodeForBody: function(context, npid, domref) {
         if (domref != null && this.components.size() > 0) {
+            var i, j, key, child;
+            var included = new Array();
+            var keySet = this.components.keySet();
+            for(i=0; i<keySet.size(); i++){
+                key = keySet[i];
+                var meta = this.components.get(key).metaData;
+                if(!(this.inMultiSet(meta.tbody.index.value) || this.inMultiSet(meta.row.index.value) || this.inMultiSet(meta.column.index.value))){
+                    key = "_" + meta.tbody.index.value + "_" + meta.row.index.value + "_" + meta.column.index.value;
+                    var index = this.buildBodySData(context, npid, domref, key, this.components.get(key));
+                    included.push(index);
+                }
+            }
+
             var bodynum = this.getTableTbodyNum(context);
             var rownum = this.getTableRowNum(context);
             var colnum = this.getTableColumnNum(context);
-            for (var i = 1; i <= bodynum; i++) {
-                for (var j = 1; j <= rownum; j++) {
-                    for (var k = 1; k <= colnum; k++) {
-                        var key = this.getBodyRid(i, j, k);
-                        var child = this.locateTBodyChild(key);
-                        this.buildBodySData(context, npid, domref, key, child);
+            for (i = 1; i <= bodynum; i++) {
+                for (j = 1; j <= rownum; j++) {
+                    for (k = 1; k <= colnum; k++) {
+                        key = this.getBodyRid(i, j, k);
+                        if (teJQuery.inArray(key, included) == -1) {
+                            child = this.locateTBodyChild(key);
+                            this.buildBodySData(context, npid, domref, key, child);
+                        }
                     }
                 }
             }
