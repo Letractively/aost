@@ -1899,12 +1899,14 @@ var UiTable = UiContainer.extend({
             var i, j, key, child;
             var included = new Array();
             var keySet = this.components.keySet();
-            for(i=0; i<keySet.size(); i++){
+            for(i=0; i<keySet.length; i++){
                 key = keySet[i];
-                var meta = this.components.get(key).metaData;
-                if(!(this.inMultiSet(meta.row.index.value) || this.inMultiSet(meta.column.index.value))){
-                    key = "_1_" + meta.row.index.value + "_" + meta.column.index.value;
-                    var index = this.buildBodySData(context, npid, domref, key, this.components.get(key));
+                child = this.components.get(key);
+                var meta = child.metaData;
+                !tellurium.logManager.isUseLog || fbLog("Meta Data for key " + key, meta);
+                if(!(this.inMultiSet(meta.row.value) || this.inMultiSet(meta.column.value))){
+                    key = "_1_" + meta.row.value + "_" + meta.column.value;
+                    var index = this.buildBodySData(context, npid, domref, key, child);
                     included.push(index);
                 }
             }
@@ -3293,12 +3295,14 @@ var UiStandardTable = UiContainer.extend({
             var i, j, key, child;
             var included = new Array();
             var keySet = this.components.keySet();
-            for(i=0; i<keySet.size(); i++){
+            for(i=0; i<keySet.length; i++){
                 key = keySet[i];
-                var meta = this.components.get(key).metaData;
-                if(!(this.inMultiSet(meta.tbody.index.value) || this.inMultiSet(meta.row.index.value) || this.inMultiSet(meta.column.index.value))){
-                    key = "_" + meta.tbody.index.value + "_" + meta.row.index.value + "_" + meta.column.index.value;
-                    var index = this.buildBodySData(context, npid, domref, key, this.components.get(key));
+                child = this.components.get(key);
+                var meta = child.metaData;
+                !tellurium.logManager.isUseLog || fbLog("Meta Data for key " + key, meta);
+                if(!(this.inMultiSet(meta.tbody.value) || this.inMultiSet(meta.row.value) || this.inMultiSet(meta.column.value))){
+                    key = "_" + meta.tbody.value + "_" + meta.row.value + "_" + meta.column.value;
+                    var index = this.buildBodySData(context, npid, domref, key, child);
                     included.push(index);
                 }
             }
