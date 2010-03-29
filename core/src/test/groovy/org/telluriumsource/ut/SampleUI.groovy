@@ -19,7 +19,7 @@ class SampleUI extends DslContext {
       TextBox(uid: "textbox1", locator: "//div[3]/p")
       UrlLink(uid: "urllink1", locator: "//a[@href='text.htm'")
       Table(uid: "table1", locator: "//table") {
-        Button(uid: "{all}", locator: "/input[@type='submit']")
+        Button(uid: "{row: all, column: all}", locator: "/input[@type='submit']")
       }
       List(uid: "subcategory", locator: "/p", separator: "/p") {
         UrlLink(uid: "{all}", locator: "/a")
@@ -38,7 +38,7 @@ class SampleUI extends DslContext {
       TextBox(uid: "textbox1", clocator: [tag: "div", position: "3"])
       UrlLink(uid: "urllink1", clocator: [tag: "a", href: "text.htm"])
       Table(uid: "table1", clocator: [tag: "table"]) {
-        Button(uid: "{all}", clocator: [tag: "input", type: "submit"])
+        Button(uid: "{row: all, column: all}", clocator: [tag: "input", type: "submit"])
       }
       List(uid: "subcategory", clocator: [tag: "p"], separator: "/p") {
         UrlLink(uid: "{all}", clocator: [tag: "a"])
@@ -57,7 +57,7 @@ class SampleUI extends DslContext {
       TextBox(uid: "textbox1", locator: "//div[3]/p")
       UrlLink(uid: "urllink1", locator: "//a[@href='text.htm'")
       Table(uid: "table1", locator: "//table") {
-        Button(uid: "{all}", locator: "/input[@type='submit']")
+        Button(uid: "{row: all, column: all}", locator: "/input[@type='submit']")
       }
       List(uid: "subcategory", locator: "/p", separator: "/p") {
         UrlLink(uid: "{all}", locator: "/a")
@@ -74,7 +74,7 @@ class SampleUI extends DslContext {
       TextBox(uid: "textbox1", clocator: [tag: "div", position: "3"])
       UrlLink(uid: "urllink1", clocator: [tag: "a", href: "text.htm"])
       Table(uid: "table1", clocator: [tag: "table"]) {
-        Button(uid: "{all}", clocator: [tag: "input", type: "submit"])
+        Button(uid: "{row: all, column: all}", clocator: [tag: "input", type: "submit"])
       }
       List(uid: "subcategory", clocator: [tag: "p"], separator: "/p") {
         UrlLink(uid: "{all}", clocator: [tag: "a"])
@@ -82,7 +82,7 @@ class SampleUI extends DslContext {
     }
 
     ui.Table(uid: "table2", clocator: [tag: "table"]) {
-      Button(uid: "{all}", clocator: [tag: "input", type: "submit"])
+      Button(uid: "{row: all, column: all}", clocator: [tag: "input", type: "submit"])
     }
 
     ui.List(uid: "list2", clocator: [tag: "p"], separator: "/p") {
