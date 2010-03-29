@@ -118,6 +118,13 @@ var RNode = Class.extend({
         return null;
     },
 
+    getLevel: function(){
+        if(this.parent == null)
+            return 1;
+        else
+            return this.parent.getLevel() + 1;
+    },
+
     getFitness: function() {
         if (this.parent == null)
             return this.bias;
@@ -549,9 +556,34 @@ var RGraph = Class.extend({
             path = new Path();
             path.init(list);
             var nz = this.walkTo(this.c, z, path);
-            var iid = this.getIIdStr(nx.key, ny.key, nz.key);
-            !tellurium.logManager.isUseLog || fbLog("Route for iid " + iid, this);
-            if(nx.contains(iid) && ny.contains(iid) && nz.contains(iid)){
+            
+            var iid;
+            var smallestFitness = 100 * 4;
+            var xp = nx;
+            while (xp != null) {
+                var yp = ny;
+                while (yp != null) {
+                    var zp = nz;
+                    while (zp != null) {
+                        iid = this.getIIdStr(xp.key, yp.key, zp.key);
+                        if (xp.contains(iid) && yp.contains(iid) && zp.contains(iid)) {
+                            var fitness = (nx.getLevel() - xp.getLevel()) * 100 + (ny.getLevel() - yp.getLevel()) * 10 + (nz.getLevel() - zp.getLevel());
+                            if (fitness < smallestFitness) {
+                                object = this.templates.get(iid);
+                                smallestFitness = fitness;
+                                !tellurium.logManager.isUseLog || fbLog("Search for iid " + iid, object);
+                            }
+                        }
+                        zp = zp.parent;
+                    }
+                    yp = yp.parent;
+                }
+                xp = xp.parent;
+            }
+        }
+            
+/*
+        if(nx.contains(iid) && ny.contains(iid) && nz.contains(iid)){
                 return this.templates.get(iid);
             }else{
                 var queue = new PriorityQueue();
@@ -584,7 +616,7 @@ var RGraph = Class.extend({
                 return null;
             }
         }
-
+  */
         return object;
     },
 
