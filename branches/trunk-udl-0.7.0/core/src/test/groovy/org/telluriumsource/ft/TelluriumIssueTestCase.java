@@ -40,9 +40,10 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testGetHTMLSource(){
-//        useTelluriumApi(true);
-//        useCache(true);
+        useTelluriumApi(true);
+        useCache(true);
         useEngineLog(true);
+        tim.validate("issueSearch");
         tim.getHTMLSource("issueSearch");
 //        useTelluriumApi(false);
     }
@@ -128,6 +129,7 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
     public void testCachePolicy(){
         setCacheMaxSize(5);
         useCachePolicy(CachePolicy.DISCARD_OLD);
+        tim.validate("issueSearch");
         tim.searchIssue("Alter");
         tim.getTableCSS("font-size");
         tim.getIsssueTypes();

@@ -16,7 +16,7 @@ public class TelluriumIssueModule extends DslContext {
   public void defineUi() {
 
     //define UI module of a form include issue type selector and issue search
-    ui.Form(uid: "issueSearch", clocator: [action: "list", method: "get"], group: "true") {
+    ui.Form(uid: "issueSearch", clocator: [action: "list", method: "GET"], group: "true") {
       Selector(uid: "issueType", clocator: [name: "can", id: "can"])
       TextBox(uid: "searchLabel", clocator: [tag: "span", text: "*for"])
       InputBox(uid: "searchBox", clocator: [type: "text", name: "q"])
