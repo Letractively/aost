@@ -16,36 +16,55 @@ import org.telluriumsource.exception.InvalidIndexException
 class ListRTree_UT extends GroovyTestCase {
 
   public void testFullTree(){
+    RTree tree = new RTree();
+    tree.preBuild();
+    tree.indices = new HashMap<String, UiObject>();
+
     ListMetaData allMeta = new ListMetaData("Rest", "all");
     UiObject all = new TextBox();
     all.metaData = allMeta;
+    tree.indices.put("Rest", all);
+
     ListMetaData anyMeta = new ListMetaData("A", "any");
     UiObject any = new TextBox();
     any.metaData = anyMeta;
+    tree.indices.put("A", any);
+
     ListMetaData oddMeta = new ListMetaData("B", "odd");
     UiObject odd = new TextBox();
     odd.metaData = oddMeta;
+    tree.indices.put("B", odd);
+
     ListMetaData evenMeta = new ListMetaData("C", "even");
     UiObject even = new TextBox();
     even.metaData = evenMeta;
+    tree.indices.put("C", even);
+
     ListMetaData firstMeta = new ListMetaData("D", "first");
     UiObject first = new TextBox();
     first.metaData = firstMeta;
+    tree.indices.put("D", first);
+
     ListMetaData lastMeta = new ListMetaData("E", "last");
     UiObject last = new TextBox();
     last.metaData = lastMeta;
+    tree.indices.put("E", last);
+
     ListMetaData twoMeta = new ListMetaData("F", "2");
     UiObject two = new TextBox();
     two.metaData = twoMeta;
+    tree.indices.put("F", two);
+
     ListMetaData threeMeta = new ListMetaData("G", "3");
     UiObject three = new TextBox();
     three.metaData = threeMeta;
+    tree.indices.put("G", three);
+
     ListMetaData fiveMeta = new ListMetaData("H", "5");
     UiObject five = new TextBox();
     five.metaData = fiveMeta;
+    tree.indices.put("H", three);
 
-    RTree tree = new RTree();
-    tree.preBuild();
     tree.insert(all);
     tree.insert(any);
     tree.insert(odd);
@@ -98,17 +117,25 @@ class ListRTree_UT extends GroovyTestCase {
   }
 
   public void testPartialTree(){
+    RTree tree = new RTree();
+    tree.preBuild();
+    tree.indices = new HashMap<String, UiObject>();
+
     ListMetaData oddMeta = new ListMetaData("B", "odd");
     UiObject odd = new TextBox();
     odd.metaData = oddMeta;
+    tree.indices.put("B", odd);
+
     ListMetaData twoMeta = new ListMetaData("F", "2");
     UiObject two = new TextBox();
     two.metaData = twoMeta;
+    tree.indices.put("F", two);
+
     ListMetaData threeMeta = new ListMetaData("G", "3");
     UiObject three = new TextBox();
     three.metaData = threeMeta;
-    RTree tree = new RTree();
-    tree.preBuild();
+    tree.indices.put("G", three);
+    
     tree.insert(odd);
     tree.insert(two);
     tree.insert(three);
@@ -121,7 +148,7 @@ class ListRTree_UT extends GroovyTestCase {
 
     UiObject b = tree.route("last");
     assertNotNull(b);
-    assertNull(b.metaData);
+    assertNotNull(b.metaData);
 
     UiObject c = tree.route("odd");
     assertNotNull(c);
@@ -135,7 +162,7 @@ class ListRTree_UT extends GroovyTestCase {
 
     UiObject e = tree.route("4");
     assertNotNull(e);
-    assertNull(e.metaData);
+    assertNotNull(e.metaData);
 
     UiObject f = tree.route("7");
     assertNotNull(f);
@@ -144,7 +171,7 @@ class ListRTree_UT extends GroovyTestCase {
 
     UiObject g = tree.route("all");
     assertNotNull(g);
-    assertNull(g.metaData);
+    assertNotNull(g.metaData);
   }
 
 }

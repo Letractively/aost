@@ -140,7 +140,7 @@ class Table extends Container {
         components.put(metaData.getId(), component);
         this.rGraph.insert(component);
      } else {
-        throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidUID" , {component.uid}))
+        throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidUID" , component.uid))
     }
   }
 
