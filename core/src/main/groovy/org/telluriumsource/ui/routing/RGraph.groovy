@@ -215,6 +215,33 @@ class RGraph {
       list = this.generatePath(z);
       path = new Path(list);
       RNode nz = this.walkTo(this.c, z, path);
+
+      RNode xp = nx;
+      UiObject result = null;
+      int smallestFitness = 100 * 4;
+      while (xp != null) {
+        RNode yp = ny;
+        while (yp != null) {
+          RNode zp = nz;
+          while(zp != null){
+            String iid = this.getInternalId(xp.getKey(), yp.getKey(), zp.getKey());
+            if(xp.templates.contains(iid) && yp.templates.contains(iid) && zp.templates.contains(iid)){
+              int fitness = (nx.getLevel() - xp.getLevel()) * 100 + (ny.getLevel() - yp.getLevel()) * 10 + (nz.getLevel() - zp.getLevel());
+              if(fitness < smallestFitness){
+                result = this.templates.get(iid);
+                smallestFitness = fitness;
+              }
+            }
+            zp = zp.parent;
+          }
+          yp = yp.parent;
+         }
+
+        xp = xp.parent;
+      }
+
+      return result;
+/*
       String iid = this.getInternalId(nx.getKey(), ny.getKey(), nz.getKey());
       if(nx.templates.contains(iid) && ny.templates.contains(iid) && nz.templates.contains(iid)){
 
@@ -248,6 +275,7 @@ class RGraph {
 
         return null;
       }
+      */
     }
 
     return object;
