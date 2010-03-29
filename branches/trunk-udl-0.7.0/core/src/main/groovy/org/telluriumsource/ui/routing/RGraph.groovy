@@ -216,9 +216,8 @@ class RGraph {
       path = new Path(list);
       RNode nz = this.walkTo(this.c, z, path);
 
-      RNode xp = nx;
-      UiObject result = null;
       int smallestFitness = 100 * 4;
+      RNode xp = nx;
       while (xp != null) {
         RNode yp = ny;
         while (yp != null) {
@@ -228,7 +227,7 @@ class RGraph {
             if(xp.templates.contains(iid) && yp.templates.contains(iid) && zp.templates.contains(iid)){
               int fitness = (nx.getLevel() - xp.getLevel()) * 100 + (ny.getLevel() - yp.getLevel()) * 10 + (nz.getLevel() - zp.getLevel());
               if(fitness < smallestFitness){
-                result = this.templates.get(iid);
+                object = this.templates.get(iid);
                 smallestFitness = fitness;
               }
             }
@@ -239,43 +238,6 @@ class RGraph {
 
         xp = xp.parent;
       }
-
-      return result;
-/*
-      String iid = this.getInternalId(nx.getKey(), ny.getKey(), nz.getKey());
-      if(nx.templates.contains(iid) && ny.templates.contains(iid) && nz.templates.contains(iid)){
-
-        return this.templates.get(iid);    
-      }else{
-        PriorityQueue<RNode> priority = new PriorityQueue(6, new RNodeComparator());
-        priority.add(nx);
-        priority.add(ny);
-        priority.add(nz);
-
-        while (priority.size() > 0) {
-          RNode r1 = priority.poll();
-          RNode r2 = priority.poll();
-          RNode r3 = priority.poll();
-          iid = this.getInternalId(r1.getKey(), r2.getKey(), r3.getKey());
-          if (r1.templates.contains(iid) && r2.templates.contains(iid) && r3.templates.contains(iid)) {
-            return this.templates.get(iid);
-          } else {
-            if(r1.getFitness() < 1 && r2.getFitness() < 1 && r3.getFitness() < 1){
-              return null;
-            }else{
-              if (r1.parent != null) {
-                r1 = r1.parent;
-              }
-              priority.add(r1);
-              priority.add(r2);
-              priority.add(r3);
-            }
-          }
-        }
-
-        return null;
-      }
-      */
     }
 
     return object;
