@@ -582,46 +582,11 @@ var RGraph = Class.extend({
             }
         }
             
-/*
-        if(nx.contains(iid) && ny.contains(iid) && nz.contains(iid)){
-                return this.templates.get(iid);
-            }else{
-                var queue = new PriorityQueue();
-                queue.comparator = new RNodeComparator();
-                queue.insert(nx);
-                queue.insert(ny);
-                queue.insert(nz);
-                while(queue.size() > 0){
-                    var r1 = queue.extractMax();
-                    var r2 = queue.extractMax();
-                    var r3 = queue.extractMax();
-                    iid = this.getIId(r1.key, r2.key, r3.key);
-                    if(r1.contains(iid) && r2.contains(iid) && r3.contains(iid)){
-                        return this.templates.get(iid);
-                    }else{
-                        if(r1.getFitness() < 1 && r2.getFitness() < 1 && r3.getFitness() < 1){
-                            //have reached the root and cannot find a matching template
-                            return null;
-                        }else{
-                            if(r1.parent != null){
-                                r1 = r1.parent;
-                            }
-                            queue.insert(r1);
-                            queue.insert(r2);
-                            queue.insert(r3);
-                        }
-                    }
-                }
-
-                return null;
-            }
-        }
-  */
         return object;
     },
 
     shareTemplate: function(x, y, z){
-        var iid = this.getIId(x.key, y.key, z.key);
+        var iid = this.getIIdStr(x.key, y.key, z.key);
 
         return x.contains(iid) && y.contains(iid) && z.contains(iid);
     },
