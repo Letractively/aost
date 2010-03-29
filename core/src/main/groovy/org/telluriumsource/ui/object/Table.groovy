@@ -660,7 +660,7 @@ class Table extends Container {
       return "/${this.namespace}:tr[child::${this.namespace}:td][${loc}]";
     }
 
-    return "/tr[child:td][${loc}]";
+    return "/tr[child::td][${loc}]";
   }
 
   protected String getFirstRowLocator() {
@@ -668,7 +668,7 @@ class Table extends Container {
       return "/${this.namespace}:tr[child::${this.namespace}:td][1]"
     }
 
-    return "/tr[child:td][1]"
+    return "/tr[child::td][1]"
   }
 
   protected String getLastRowLocator() {
@@ -676,7 +676,7 @@ class Table extends Container {
       return "/${this.namespace}:tr[child::${this.namespace}:td][last()]"
     }
 
-    return "/tr[child:td][last()]"
+    return "/tr[child::td][last()]"
   }
 
   protected String getIndexedRowLocator(String index) {
@@ -684,7 +684,7 @@ class Table extends Container {
       return "/${this.namespace}:tr[child::${this.namespace}:td][${index}]";
     }
 
-    return "/tr[child:td][${index}]";
+    return "/tr[child::td][${index}]";
   }
 
   protected String getColumnLocator(RIndex ri, String key, UiObject obj){

@@ -192,7 +192,8 @@ class List extends Container {
             } else {
                 locs.put(pl, occur + 1)
             }
-            if (i == index) {
+//            if (i == index) {
+            if (i == inx) {
                 last = pl
             }
         }
@@ -431,7 +432,6 @@ class List extends Container {
 
         //if not child listed, return itself
         if(uiid.size() < 1){
-//            if(this.locator != null && this.useGroupInfo){
             if(this.locator != null){
                 groupLocating(context)  
                 context.noMoreProcess = true;
