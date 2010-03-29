@@ -1057,33 +1057,39 @@ class Table extends Container {
 
   protected void traverseHeader(WorkflowContext context){
     if(this.hasHeader()){
-      int max = 0
+      int max = 1;
+      UiObject mp = null;
+
       this.headers.each {key, component ->
         String aid = component.metaData.getIndex().getValue();
         if (aid ==~ /[0-9]+/) {
-          context.pushUid("header[${aid}]")
+          context.pushUid("header[${aid}]");
           component.traverse(context);
           if (max < Integer.parseInt(aid))
-            max = Integer.parseInt(aid)
+            max = Integer.parseInt(aid);
         }else if("any".equalsIgnoreCase(aid) || "last".equalsIgnoreCase(aid) || "first".equalsIgnoreCase(aid)){
           String id =component.metaData.getId();
-          context.pushUid("header[${id}]")
+          context.pushUid("header[${id}]");
           component.traverse(context);
         }else if("all".equalsIgnoreCase(aid)){
           max++;
           if(max < this.headers.size()){
             max = this.headers.size();
           }
-          context.pushUid("header[${max}]")
-          component.traverse(context)
+          mp = component;
         }
+      }
+
+      if(mp != null){
+          context.pushUid("header[${max}]");
+          mp.traverse(context);
       }
     }
   }
 
   protected void traverseElement(WorkflowContext context){
-    int rmax = 0;
-    int cmax = 0;
+    int rmax = 1;
+    int cmax = 1;
 
     this.components.each {key, component ->
       TableBodyMetaData meta = (TableBodyMetaData)component;
@@ -1107,8 +1113,8 @@ class Table extends Container {
     if(cmax < max)
       cmax = max;
 
-    for(int i=0; i<rmax; i++){
-      for(int j=0; j<cmax; j++){
+    for(int i=1; i<=rmax; i++){
+      for(int j=1; j<=cmax; j++){
          context.directPushUid("[${i}][${j}]");
          UiObject obj = this.locateTBodyChild("_${i}_${j}");
          obj.traverse(context);
