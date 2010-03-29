@@ -16,7 +16,7 @@ public class InvalidUIModule extends DslContext {
     ui.Container(uid: "subnav", clocator: [tag: "ul", id: "subnav"]) {
       Container(uid: "CoreLinks", clocator: [tag: "li", id: "core_links"]) {
         List(uid: "links", clocator: [tag: "ul"], separator: "li") {
-          UrlLink(uid: "all", clocator: [:])
+          UrlLink(uid: "{all}", clocator: [:])
         }
       }
       UlrLink(uid: "subscribe", colocator: [tag: "li", id: "subscribe"])
