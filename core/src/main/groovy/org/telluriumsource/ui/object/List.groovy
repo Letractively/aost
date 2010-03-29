@@ -405,6 +405,7 @@ class List extends Container {
       context.appendToUidList(context.getUid())
 
       int max = 0
+      UiObject mcomponent = null;
       components.each {key, component->
         String aid = component.metaData.getIndex().getValue()
         if(aid ==~ /[0-9]+/){
@@ -418,11 +419,15 @@ class List extends Container {
            component.traverse(context)
         }else if("all".equalsIgnoreCase(aid)){
            max++;
-           context.directPushUid("[${max}]")
-           component.traverse(context)
+           mcomponent = component;
         }
       }
 
+      if (mcomponent != null) {
+        context.directPushUid("[${max}]")
+        mcomponent.traverse(context);
+      }
+    
       context.popUid()
     }
 
