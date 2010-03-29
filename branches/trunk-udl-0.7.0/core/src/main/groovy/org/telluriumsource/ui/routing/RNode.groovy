@@ -44,6 +44,13 @@ class RNode {
     this.templates.add(template);
   }
 
+  public int getLevel(){
+    if(this.parent == null)
+      return 1;
+    else
+      return this.parent.getLevel() + 1;
+  }
+
   public double getFitness(){
     if(this.parent == null)
       return bias;
