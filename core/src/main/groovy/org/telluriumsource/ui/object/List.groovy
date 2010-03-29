@@ -404,7 +404,7 @@ class List extends Container {
     public void traverse(WorkflowContext context){
       context.appendToUidList(context.getUid())
 
-      int max = 0
+      int max = 1;
       UiObject mcomponent = null;
       components.each {key, component->
         String aid = component.metaData.getIndex().getValue()
