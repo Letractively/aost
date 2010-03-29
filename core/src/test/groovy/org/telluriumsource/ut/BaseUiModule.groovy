@@ -14,7 +14,7 @@ public class BaseUiModule extends DslContext {
     ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"], group: "true") {
       TextBox(uid: "category", clocator: [tag: "div", class: "sub_cat_title"])
       List(uid: "subcategory", clocator: [tag: "div", class: "sub_cat_section"], separator: "p") {
-        UrlLink(uid: "all", clocator: [:])
+        UrlLink(uid: "{all}", clocator: [:])
       }
     }
 
