@@ -1229,7 +1229,8 @@ class StandardTable extends Container{
 
   protected void traverseHeader(WorkflowContext context){
     if(this.hasHeader()){
-      int max = 0
+      int max = 1;
+      UiObject mp = null;
       this.headers.each {key, component ->
         String aid = component.metaData.getIndex().getValue();
         if (aid ==~ /[0-9]+/) {
@@ -1246,16 +1247,21 @@ class StandardTable extends Container{
           if(max < this.headers.size()){
             max = this.headers.size();
           }
-          context.pushUid("header[${max}]")
-          component.traverse(context)
+          mp = component;
         }
+      }
+
+      if(mp != null){
+          context.pushUid("header[${max}]")
+          mp.traverse(context)
       }
     }
   }
 
   protected void traverseFoot(WorkflowContext context){
     if(this.footers.size() > 0){
-      int max = 0
+      int max = 1;
+      UiObject mp = null;
       this.footers.each {key, component ->
         String aid = component.metaData.getIndex().getValue();
         if (aid ==~ /[0-9]+/) {
@@ -1272,20 +1278,24 @@ class StandardTable extends Container{
           if(max < this.headers.size()){
             max = this.headers.size();
           }
-          context.pushUid("footer[${max}]")
-          component.traverse(context)
+          mp = component;
         }
+      }
+
+      if(mp != null){
+          context.pushUid("footer[${max}]")
+          mp.traverse(context)
       }
     }
   }
 
   protected void traverseElement(WorkflowContext context) {
-    int tmax = 0;
-    int rmax = 0;
-    int cmax = 0;
+    int tmax = 1;
+    int rmax = 1;
+    int cmax = 1;
 
     this.components.each {key, component ->
-      TableBodyMetaData meta = (TableBodyMetaData)component;
+      TableBodyMetaData meta = (TableBodyMetaData)component.metaData;
       String t = meta.getTbody().getValue();
       if (t ==~ /[0-9]+/) {
         if(tmax < Integer.parseInt(t)){
@@ -1314,9 +1324,9 @@ class StandardTable extends Container{
     if(cmax < max)
       cmax = max;
 
-    for(int i=0; i<tmax; i++){
-      for(int j=0; j<rmax; j++){
-        for(int k=0; k<cmax; k++){
+    for(int i=1; i<=tmax; i++){
+      for(int j=1; j<=rmax; j++){
+        for(int k=1; k<=cmax; k++){
          context.directPushUid("[${i}][${j}][${k}]");
          UiObject obj = this.locateTBodyChild("_${i}_${j}_${k}");
          obj.traverse(context);
