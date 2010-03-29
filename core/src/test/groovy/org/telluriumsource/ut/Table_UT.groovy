@@ -124,7 +124,7 @@ class Table_UT extends GroovyTestCase{
        UiObject obj = table8.ui.walkTo(context, "IdMenu[1][1")
        assertNotNull(obj)
        assertTrue(obj instanceof TextBox)
-       assertEquals("/descendant-or-self::div[@class='popup' and @id='pop_0']/table[descendant::*[normalize-space(text())=normalize-space(\"Sort Up\")] and descendant::*[normalize-space(text())=normalize-space(\"Sort Down\")] and descendant::*[normalize-space(text())=normalize-space(\"Hide Column\")]]/tbody/tr[child::td][1]/td[1]", context.getReferenceLocator())
+       assertEquals("/descendant-or-self::div[@class='popup' and @id='pop_0']/table[descendant::*[normalize-space(text())=normalize-space(\"Sort Up\")] and descendant::*[normalize-space(text())=normalize-space(\"Hide Column\")] and descendant::*[normalize-space(text())=normalize-space(\"Sort Down\")]]/tbody/tr[child::td][1]/td[1]", context.getReferenceLocator())
    }
 
   void testTable9(){
@@ -134,10 +134,11 @@ class Table_UT extends GroovyTestCase{
        UiObject obj = table9.ui.walkTo(context, "IdMenu[1][1")
        assertNotNull(obj)
        assertTrue(obj instanceof TextBox)
-       assertEquals("/descendant-or-self::table[@id=\"someId\"]/tbody[@id=\"tbody1_Id\"]/tr[child::td][1]/td[1]", context.getReferenceLocator())     
+//       assertEquals("/descendant-or-self::table[@id=\"someId\"]/tbody[@id=\"tbody1_Id\"]/tr[child::td][1]/td[1]", context.getReferenceLocator())
+       assertEquals("/descendant-or-self::table[@id=\"someId\"]/tbody/tr[child::td][1]/td[1]", context.getReferenceLocator()) 
   }
 
-  void testTablbe10(){
+  void testTable10(){
       Table10 table10 = new Table10()
       table10.defineUi()
       String result = table10.getTableLocator("Actions.header[1]")

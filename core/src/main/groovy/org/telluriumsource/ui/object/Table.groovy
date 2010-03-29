@@ -1092,7 +1092,7 @@ class Table extends Container {
     int cmax = 1;
 
     this.components.each {key, component ->
-      TableBodyMetaData meta = (TableBodyMetaData)component;
+      TableBodyMetaData meta = (TableBodyMetaData)component.metaData;
       String r = meta.getRow().getValue();
       if(r ==~ /[0-9]+/){
         if(rmax < Integer.parseInt(r)){
