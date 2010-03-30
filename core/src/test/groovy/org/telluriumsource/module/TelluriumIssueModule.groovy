@@ -83,7 +83,7 @@ public class TelluriumIssueModule extends DslContext {
 
   public void dumpDataForRow(int row){
     println "----------------- Data for Row ${row} -------------------"
-//    println "ID: " + getText("issueResult[${row}][ID]");
+    println "ID: " + getText("issueResult[${row}][ID]");
     println "Type: " + getText("issueResult[${row}][Type]");
     println "Status: " + getText("issueResult[${row}][Status]");
     println "Priority: " + getText("issueResult[${row}][Priority]");
