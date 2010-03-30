@@ -724,7 +724,7 @@ Tellurium.prototype.validateResult = function($result, unique, selector){
     }
 };
 
-//TODO: depreciate this method since the UI module is built in
+/*
 Tellurium.prototype.locateElementByCacheAwareCSSSelector = function(locator, inDocument, inWindow){
     var input = this.parseLocator(locator);
     var $found = null;
@@ -800,6 +800,7 @@ Tellurium.prototype.locateElementByCacheAwareCSSSelector = function(locator, inD
         }
     }   
 };
+*/
 
 function CacheAwareLocator(){
     //runtime id
@@ -809,11 +810,11 @@ function CacheAwareLocator(){
     this.locator = null;
 }
 
-Tellurium.prototype.locateElementWithCacheAware = function(locator, inDocument, inWindow){
+Tellurium.prototype.locateElementWithCacheAware = function(json, inDocument, inWindow){
     var element = null;
     
 //    var json = locator.substring(7);
-    var json = locator;
+//    var json = locator;
     !tellurium.logManager.isUseLog || fbLog("JSON presentation of the cache aware locator: ", json);
     var cal = JSON.parse(json, null);
     !tellurium.logManager.isUseLog || fbLog("Parsed cache aware locator: ", cal);
