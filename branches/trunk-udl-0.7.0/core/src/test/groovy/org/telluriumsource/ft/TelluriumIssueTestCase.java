@@ -27,7 +27,7 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
         useCssSelector(true);
         useTelluriumEngine(true);
 //        setCacheMaxSize(30);
-        useTrace(true);
+//        useTrace(true);
 //        useLocatorWithCache(false);
 //        useClosestMatch(true);
         useEngineLog(true);
@@ -105,11 +105,11 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testDumpRow(){
-        useTelluriumEngine(false);
+//        useTelluriumEngine(false);
         int num = tim.getRowNum();
         for(int i=1; i<=num; i++)
             tim.dumpDataForRow(i);
-        useTelluriumEngine(true);      
+//        useTelluriumEngine(true);      
     }
 
     @Test
