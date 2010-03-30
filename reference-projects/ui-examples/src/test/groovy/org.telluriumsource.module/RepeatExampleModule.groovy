@@ -17,7 +17,7 @@ class RepeatExampleModule extends DslContext {
       Repeat(uid: "Section", clocator: [tag: "div", class: "segment clearfix"]){
         Repeat(uid: "Option", clocator: [tag: "div", class: "option", direct: "true"]){
           List(uid: "Fares", clocator: [tag: "ul", class: "fares", direct: "true"], separator: "li"){
-            Container(uid: "all"){
+            Container(uid: "{all}"){
                 RadioButton(uid: "radio", clocator: [:], respond: ["click"])
                 TextBox(uid: "label", clocator: [tag: "label"])
             }
