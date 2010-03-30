@@ -1410,10 +1410,10 @@ var UiTable = UiContainer.extend({
             if (tRef == null)
                 throw new SeleniumError("Invalid Index reference " + t.value);
             ri.x = tRef.value;
-        }else if("all" == t.value && this.rGraph.isRef(inx[0])){
-        tRef = this.findHeaderIndex(context, inx[0]);
-        if(tRef == null)
-            throw new SeleniumError("Invalid Index reference " + inx[0]);
+        } else if ("all" == t.value && this.rGraph.isRef(inx[0])) {
+            tRef = this.findHeaderIndex(context, inx[0]);
+            if (tRef == null)
+                throw new SeleniumError("Invalid Index reference " + inx[0]);
             ri.x = tRef.value;
         } else {
             ri.x = t.value;
@@ -1472,7 +1472,7 @@ var UiTable = UiContainer.extend({
     },
 
     getRowSelector: function(ri, key, obj) {
-        var index = ri.y;
+        var index = ri.y + "";
         if ("any" == index) {
             return this.getAnyRowSelector(obj);
         } else if ("first" == index) {
@@ -2426,7 +2426,7 @@ var UiStandardTable = UiContainer.extend({
         return null;
     },
 
-    preprocess: function(context, meta) {
+    preprocess: function(context, inx, meta) {
         var ri = new RIndex();
         var t = meta.tbody;
         if (t.type == "REF") {
@@ -2435,6 +2435,11 @@ var UiStandardTable = UiContainer.extend({
                 tRef = this.findFooterIndex(context, t.value);
             if (tRef == null)
                 throw new SeleniumError("Invalid Index reference " + t.value);
+            ri.x = tRef.value;
+        } else if ("all" == t.value && this.rGraph.isRef(inx[0])) {
+            tRef = this.findHeaderIndex(context, inx[0]);
+            if (tRef == null)
+                throw new SeleniumError("Invalid Index reference " + inx[0]);
             ri.x = tRef.value;
         } else {
             ri.x = t.value;
@@ -2448,6 +2453,11 @@ var UiStandardTable = UiContainer.extend({
             if (rRef == null)
                 throw new SeleniumError("Invalid Index reference " + r.value);
             ri.y = rRef.value;
+        }else if("all" == r.value && this.rGraph.isRef(inx[1])){
+            rRef = this.findHeaderIndex(context, inx[1]);
+            if(rRef == null)
+            throw new SeleniumError("Invalid Index reference " + inx[0]);
+            ri.y = rRef.value;
         } else {
             ri.y = r.value;
         }
@@ -2460,6 +2470,11 @@ var UiStandardTable = UiContainer.extend({
             if (cRef == null)
                 throw new SeleniumError("Invalid Index reference " + c.value);
             ri.z = cRef.value;
+        }else if("all" == c.value && this.rGraph.isRef(inx[2])){
+            cRef = this.findHeaderIndex(context, inx[2]);
+            if(cRef == null)
+            throw new SeleniumError("Invalid Index reference " + inx[2]);
+            ri.z = cRef.value;
         } else {
             ri.z = c.value;
         }
@@ -2469,7 +2484,6 @@ var UiStandardTable = UiContainer.extend({
 
     getCellSelector: function(context, key, obj) {
         var meta = obj.metaData;
-        var ri = this.preprocess(context, meta);
         var parts = key.replace(/^_/, '').split("_");
         var inx = new Array();
         if (parts.length < 3) {
@@ -2478,12 +2492,13 @@ var UiStandardTable = UiContainer.extend({
         for (var i = 0; i < parts.length; i++) {
             inx.push(parts[i]);
         }
+        var ri = this.preprocess(context, inx, meta);
 
         return this.getTBodySelector(ri, inx[0], obj) + this.getRowSelector(ri, inx[1], obj) + this.getColumnSelector(ri, inx[2], obj);
     },
 
     getTBodySelector: function(ri, key, obj) {
-        var index = ri.x;
+        var index = ri.x + "";
         if ("any" == index) {
             return this.getAnyBodySelector(obj);
         } else if ("first" == index) {
@@ -2532,7 +2547,7 @@ var UiStandardTable = UiContainer.extend({
     },
 
     getRowSelector: function(ri, key, obj) {
-        var index = ri.y;
+        var index = ri.y + "";
         if ("any" == index) {
             return this.getAnyRowSelector(obj);
         } else if ("first" == index) {
@@ -2569,7 +2584,7 @@ var UiStandardTable = UiContainer.extend({
     },
 
     getColumnSelector: function(ri, key, obj) {
-        var index = ri.z;
+        var index = ri.z + "";
         if ("any" == index) {
             return this.getAnyColumnSelector(obj);
         } else if ("first" == index) {
@@ -3309,7 +3324,7 @@ var UiStandardTable = UiContainer.extend({
 
     buildSNodeForBody: function(context, npid, domref) {
         if (domref != null && this.components.size() > 0) {
-            var i, j, key, child;
+            var i, j, k, key, child;
             var included = new Array();
             var keySet = this.components.keySet();
             for(i=0; i<keySet.length; i++){
