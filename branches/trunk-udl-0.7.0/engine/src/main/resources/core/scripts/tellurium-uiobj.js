@@ -1509,7 +1509,8 @@ var UiTable = UiContainer.extend({
     },
 
     getColumnSelector: function(ri, key, obj) {
-        var index = ri.z;
+        var index = ri.z + "";
+        !tellurium.logManager.isUseLog || fbLog("index " + index, ri);
         if ("any" == index) {
             return this.getAnyColumnSelector(obj);
         } else if ("first" == index) {
