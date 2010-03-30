@@ -26,9 +26,7 @@ class TableExampleModule extends DslContext {
   }
 
   public void work(String input){
-//    keyType "GT[1][2].Input", input
-//    click "GT[1][2].Some.Link"
-    keyType "GT.A.Input", input
+    keyType "GT.B.Input", input
     click "GT.B.Some.Link"
     waitForPageToLoad 30000
   }
