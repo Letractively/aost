@@ -183,11 +183,20 @@ var RTree = Class.extend({
         this.ROOT_PATH = ["all"];
         this.ODD_PATH = ["all", "odd"];
         this.EVEN_PATH = ["all", "even"];
-
+        this.INDEX_LIST = ["all", "odd", "even", "any", "first", "last"];
+        
         this.root = null;
         this.indices = null;
     },
-    
+
+    isIndex: function(key) {
+        return (key.match(/^\d+$/) || this.INDEX_LIST.indexOf(key) != -1);
+    },
+
+    isRef: function(key) {
+        return !this.isIndex(key);
+    },
+
     insert: function(object){
         var oddNode, evenNode, node;
         var meta = object.metaData;
@@ -429,7 +438,13 @@ var RGraph = Class.extend({
                 node.addTemplate(iid);
             }
         }else{
-            throw new SeleniumError("Invalid Index" + index);
+            //reference node
+            var ref = rTree.findChild(index);
+            if(ref == null){
+                ref = new RNode(index, rTree, obj, true);
+                rTree.addChild(any);
+            }
+            ref.addTemplate(iid);
         }
     },
 
@@ -512,7 +527,7 @@ var RGraph = Class.extend({
         }else if("all" == key){
             return this.EMPTY_PATH;
         }else{
-            throw new SeleniumError("Invalid Index " + key);
+            return this.ROOT_PATH;
         }
     },
 

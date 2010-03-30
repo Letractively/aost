@@ -1384,7 +1384,7 @@ var UiTable = UiContainer.extend({
         var sel = this.getHeaderSelector(obj.metaData.index.value, obj);
         var $found = teJQuery(dmr).find(sel);
 
-        return $found.index();
+        return $found.index() + 1;
     },
 
     findHeaderIndex: function(context, key) {
@@ -1401,13 +1401,19 @@ var UiTable = UiContainer.extend({
         return null;
     },
 
-    preprocess: function(context, meta) {
+    preprocess: function(context, inx, meta) {
         var ri = new RIndex();
         var t = meta.tbody;
+        var tRef, rRef, cRef;
         if (t.type == "REF") {
-            var tRef = this.findHeaderIndex(context, t.value);
+            tRef = this.findHeaderIndex(context, t.value);
             if (tRef == null)
                 throw new SeleniumError("Invalid Index reference " + t.value);
+            ri.x = tRef.value;
+        }else if("all" == t.value && this.rGraph.isRef(inx[0])){
+        tRef = this.findHeaderIndex(context, inx[0]);
+        if(tRef == null)
+            throw new SeleniumError("Invalid Index reference " + inx[0]);
             ri.x = tRef.value;
         } else {
             ri.x = t.value;
@@ -1415,9 +1421,14 @@ var UiTable = UiContainer.extend({
 
         var r = meta.row;
         if (r.type == "REF") {
-            var rRef = this.findHeaderIndex(context, r.value);
+            rRef = this.findHeaderIndex(context, r.value);
             if (rRef == null)
                 throw new SeleniumError("Invalid Index reference " + r.value);
+            ri.y = rRef.value;
+        }else if("all" == r.value && this.rGraph.isRef(inx[1])){
+            rRef = this.findHeaderIndex(context, inx[1]);
+            if(rRef == null)
+            throw new SeleniumError("Invalid Index reference " + inx[0]);
             ri.y = rRef.value;
         } else {
             ri.y = r.value;
@@ -1425,9 +1436,14 @@ var UiTable = UiContainer.extend({
 
         var c = meta.column;
         if (c.type == "REF") {
-            var cRef = this.findHeaderIndex(context, c.value);
+            cRef = this.findHeaderIndex(context, c.value);
             if (cRef == null)
                 throw new SeleniumError("Invalid Index reference " + c.value);
+            ri.z = cRef.value;
+        }else if("all" == c.value && this.rGraph.isRef(inx[2])){
+            cRef = this.findHeaderIndex(context, inx[2]);
+            if(cRef == null)
+            throw new SeleniumError("Invalid Index reference " + inx[2]);
             ri.z = cRef.value;
         } else {
             ri.z = c.value;
@@ -1438,7 +1454,6 @@ var UiTable = UiContainer.extend({
 
     getCellSelector: function(context, key, obj) {
         var meta = obj.metaData;
-        var ri = this.preprocess(context, meta);
         var parts = key.replace(/^_/, '').split("_");
         var inx = new Array();
         if (parts.length < 3) {
@@ -1447,6 +1462,7 @@ var UiTable = UiContainer.extend({
         for (var i = 0; i < parts.length; i++) {
             inx.push(parts[i]);
         }
+        var ri = this.preprocess(context, inx, meta);
 
         return this.getTBodySelector() + this.getRowSelector(ri, inx[1], obj) + this.getColumnSelector(ri, inx[2], obj);
     },
@@ -2327,7 +2343,7 @@ var UiStandardTable = UiContainer.extend({
         var sel = this.getHeaderSelector(obj.metaData.index.value, obj);
         var $found = teJQuery(dmr).find(sel);
 
-        return $found.index();
+        return $found.index() + 1;
     },
 
     findHeaderIndex: function(context, key) {
