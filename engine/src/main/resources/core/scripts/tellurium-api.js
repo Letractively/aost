@@ -821,6 +821,21 @@ TelluriumApi.prototype.removeMarkedUids = function(tag){
 
 TelluriumApi.prototype.getIndex = function(locator){
     var elem = selenium.browserbot.findElement(locator);
-    return teJQuery(elem).index() + 1;
+    teJQuery(elem).data("id", "found");
+    var tag = elem.tagName;
+    var $elems = teJQuery(elem.parentNode).find(" > " + tag);
+
+    var index = 0;
+    for(var i=0; i<$elems.size(); i++){
+        var $elem = $elems.eq(i);
+        if($elem.data("id") == "found"){
+            index = i;
+            $elem.removeData("id");
+            break;
+        }
+    }
+
+    return index + 1;
+//    return teJQuery(elem).index() + 1;
 //    return teJQuery(elem).prevAll().size() + 2;
 };
