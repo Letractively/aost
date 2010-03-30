@@ -442,7 +442,7 @@ var RGraph = Class.extend({
             var ref = rTree.findChild(index);
             if(ref == null){
                 ref = new RNode(index, rTree, obj, true);
-                rTree.addChild(any);
+                rTree.addChild(ref);
             }
             ref.addTemplate(iid);
         }
