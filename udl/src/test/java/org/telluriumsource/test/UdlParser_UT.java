@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  *
  *         Date: Feb 18, 2010
  */
-public class UdlParserTestCase {
+public class UdlParser_UT {
 
     @Test
     public void testBaseUid(){
@@ -227,7 +227,7 @@ public class UdlParserTestCase {
     @Test
     public void testTableBodyRefUidNoId(){
 		CharStream stream =
-			new ANTLRStringStream("{tbody : 1, row = good, column = bad}");
+			new ANTLRStringStream("{tbody : 1, row -> good, column -> bad}");
 		UdlLexer lexer = new UdlLexer(stream);
 		TokenStream tokenStream = new CommonTokenStream(lexer);
 		UdlParser parser = new UdlParser(tokenStream);
@@ -251,7 +251,7 @@ public class UdlParserTestCase {
     @Test
     public void testTableBodyRefUid(){
 		CharStream stream =
-			new ANTLRStringStream("{tbody : 1, row = good, column = bad} as Search");
+			new ANTLRStringStream("{tbody : 1, row -> good, column -> bad} as Search");
 		UdlLexer lexer = new UdlLexer(stream);
 		TokenStream tokenStream = new CommonTokenStream(lexer);
 		UdlParser parser = new UdlParser(tokenStream);
@@ -275,7 +275,7 @@ public class UdlParserTestCase {
     @Test
     public void TestTableBodyMixedUidNoId() {
         try {
-            MetaData data = UidParser.parse("{row:3, column = bad}");
+            MetaData data = UidParser.parse("{row:3, column-> bad}");
             assertNotNull(data);
             assertEquals("_1_3_bad", data.getId());
             assertTrue(data instanceof TableBodyMetaData);
@@ -295,7 +295,7 @@ public class UdlParserTestCase {
     @Test
     public void TestTableBodyMixedUid() {
         try {
-            MetaData data = UidParser.parse("{row:3, column = bad} as Search");
+            MetaData data = UidParser.parse("{row:3, column -> bad} as Search");
             assertNotNull(data);
             assertEquals("Search", data.getId());
             assertTrue(data instanceof TableBodyMetaData);
