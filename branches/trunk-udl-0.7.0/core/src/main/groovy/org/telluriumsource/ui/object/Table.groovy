@@ -540,11 +540,17 @@ class Table extends Container {
     TableBodyMetaData meta = (TableBodyMetaData) obj.metaData;
     String[] parts = key.replaceFirst('_', '').split("_");
     String[] inx = parts;
-    if(parts.length == 1){
-      inx = ["", "", parts].flatten();
-    }else if(parts.length == 2){
-      inx = ["1", parts].flatten();
+    if (parts.length == 1) {
+      //the key must be a real key
+      inx = [meta.tbody.value, meta.row.value, meta.column.value]
+    } else {
+      if (parts.length == 1) {
+        inx = ["", "", parts].flatten();
+      } else if (parts.length == 2) {
+        inx = ["1", parts].flatten();
+      }
     }
+
     RIndex ri = this.preprocess(context, inx, meta);
 
     return this.getTBodySelector() + this.getRowSelector(ri, inx[1], obj) + this.getColumnSelector(ri, inx[2], obj);
