@@ -128,12 +128,7 @@ teJQuery.expr[':'].nextToLast = function(obj, index, m){
 teJQuery.expr[':'].nextToLast = function(obj, ind, prop, node){
 
      // if ind is 2 less than the length of the array of nodes, keep it
-     if (ind == node.length-2) {
-          return true;
-     } else {
-          // else, remove the node
-          return false;
-     }
+     return ind == node.length - 2;
 };
 
 teJQuery.fn.outerHTML = function() {
@@ -314,7 +309,6 @@ Tellurium.prototype.isUseCache = function(){
     return this.cache.cacheOption;    
 };
 
-//TODO: How to handle custom calls?  delegate to Selenium?
 //TODO: Refactor --> use Javascript itself to do automatically discovery like selenium does instead of manually registering them
 Tellurium.prototype.initialize = function(){
     this.outlines.init();
@@ -811,18 +805,8 @@ function CacheAwareLocator(){
     //runtime id
     this.rid = null;
 
-    //whether it includes attribute
-//    this.isAttribute = false;
-
     //original locator
     this.locator = null;
-    //this.orLocator = null;
-
-    //attribution portion
-//    this.attribute = null;
-
-    //locator portion
-//    this.locator = null;
 }
 
 Tellurium.prototype.locateElementWithCacheAware = function(locator, inDocument, inWindow){
@@ -949,7 +933,6 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
         var params = cmd.args;
         if (params != null && params.length > 0) {
             if (handler.returnType == "VOID") {
-//                api.apply(this, params);
                 api.apply(this.teApi, params);
             } else {
                 result = api.apply(this.teApi, params);
