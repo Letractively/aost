@@ -532,8 +532,27 @@ class StandardTable extends Container{
     return ri;
   }
 */
-
   String getCellSelector(WorkflowContext context, String key, UiObject obj) {
+    TableBodyMetaData meta = (TableBodyMetaData) obj.metaData;
+    String[] parts = key.replaceFirst('_', '').split("_");
+    String[] inx = parts;
+    if (parts.length == 1) {
+      //the key must be a real key
+      inx = [meta.tbody.value, meta.row.value, meta.column.value]
+    } else {
+      if (parts.length == 1) {
+        inx = ["", "", parts].flatten();
+      } else if (parts.length == 2) {
+        inx = ["1", parts].flatten();
+      }
+    }
+
+    RIndex ri = this.preprocess(context, inx, meta);
+
+    return this.getTBodySelector(ri, inx[0], obj) + this.getRowSelector(ri, inx[1], obj) + this.getColumnSelector(ri, inx[2], obj);
+  }
+
+/*  String getCellSelector(WorkflowContext context, String key, UiObject obj) {
     TableBodyMetaData meta = (TableBodyMetaData) obj.metaData;
     String[] parts = key.replaceFirst('_', '').split("_");
     String[] inx = parts;
@@ -546,7 +565,7 @@ class StandardTable extends Container{
     RIndex ri = this.preprocess(context, inx, meta);
 
     return this.getTBodySelector(ri, inx[0], obj) + this.getRowSelector(ri, inx[1], obj) + this.getColumnSelector(ri, inx[2], obj);
-  }
+  }*/
 
   protected String getTBodySelector(RIndex ri, String key, UiObject obj) {
     String index = ri.x;

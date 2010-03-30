@@ -28,6 +28,7 @@ public class TableExampleTestCase  extends TelluriumMockJUnitTestCase {
         useCssSelector(true);
         useTelluriumEngine(true);
         useTrace(true);
+        useEngineLog(true);
     }
 
     @Before
@@ -50,7 +51,7 @@ public class TableExampleTestCase  extends TelluriumMockJUnitTestCase {
     public void testWork(){
         useCache(false);
         System.out.println(tem.getText("GT.header[2]"));
-        System.out.println(tem.getText("GT[1][1]"));
+        System.out.println(tem.getText("GT.A"));
         tem.work("Tellurium jQuery");
         useCache(true);
     }
@@ -59,7 +60,7 @@ public class TableExampleTestCase  extends TelluriumMockJUnitTestCase {
     public void testWorkWithCache(){
         useCache(true);
         System.out.println(tem.getText("GT.header[2]"));
-        System.out.println(tem.getText("GT[1][1]"));
+        System.out.println(tem.getText("GT.A"));
         tem.work("Tellurium jQuery");
     }
 
