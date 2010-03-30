@@ -38,7 +38,7 @@ public class TelluriumIssueModule extends DslContext {
       //for the border column
 //      TextBox(uid: "{row: all, column: 1}", clocator: [:])
 //      TextBox(uid: "{row: all, column: 8}", clocator: [:])
-      TextBox(uid: "{row: all, column=Extra}", clocator: [:])
+      TextBox(uid: "{row: all, column -> Extra}", clocator: [:])
       //For the rest, just UrlLink
       UrlLink(uid: "{row: all, column: all}", clocator: [:])
     }
@@ -60,7 +60,7 @@ public class TelluriumIssueModule extends DslContext {
       //for the border column
 //      TextBox(uid: "{row: all, column: 1}", clocator: [:])
 //      TextBox(uid: "{row: all, column: 8}", clocator: [:])
-      TextBox(uid: "{row: all, column=Extra}", clocator: [:])
+      TextBox(uid: "{row: all, column -> Extra}", clocator: [:])
       //For the rest, just UrlLink
       UrlLink(uid: "{row: all, column: all}", clocator: [:])
     }
