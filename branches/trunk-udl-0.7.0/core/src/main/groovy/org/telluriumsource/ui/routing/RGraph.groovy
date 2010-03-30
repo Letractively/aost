@@ -20,6 +20,7 @@ class RGraph {
   String[] ROOT_PATH = ["all"];
   String[] ODD_PATH = ["all", "odd"];
   String[] EVEN_PATH = ["all", "even"];
+  String[] INDEX_LIST = ["all", "odd", "even", "any", "first", "last"];
   
   //Key to UI template mapping
   Map<String, UiObject> indices;
@@ -35,6 +36,25 @@ class RGraph {
 
   //tbody
   RNode t;
+
+  protected boolean isInList(String str, String[] list){
+    boolean result = false;
+    list.each {String elem ->
+      if(elem.equals(str)){
+        result = true;
+      }
+    }
+
+    return result;
+  }
+
+  public boolean isIndex(key){
+    return (key =~ /^\d+$/ || isInList(key, INDEX_LIST));
+  }
+
+  public boolean isRef(key){
+    return !isIndex(key);
+  }
 
   public void createIndex(String key, UiObject obj){
     this.indices.put(key, obj);
@@ -115,7 +135,15 @@ class RGraph {
         inode.templates.add(iid);
       }
     }else{
-       throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", index))
+      //reference node
+      RNode ref = root.findChild(index);
+      if (ref == null) {
+        ref = new RNode(index, root, object, true);
+        root.addChild(ref);
+      }
+      ref.templates.add(iid);
+     
+//       throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", index))
     }
   }
 
@@ -262,7 +290,8 @@ class RGraph {
     }else if("all".equalsIgnoreCase(key)){
       return EMPTY_PATH;
     }else{
-      throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", key));
+      return ROOT_PATH;
+//      throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", key));
     }
   }
 

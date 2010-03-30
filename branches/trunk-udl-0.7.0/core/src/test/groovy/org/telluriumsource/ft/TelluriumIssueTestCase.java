@@ -97,10 +97,19 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
     
     @Test
     public void checkCacheable(){
-        boolean result = tim.checkamICacheable("issueResult[1][1]");
+        boolean result = tim.checkamICacheable("issueResult[1][ID]");
         assertTrue(result);
         result = tim.checkamICacheable("issueResult");
         assertTrue(result);
+    }
+
+    @Test
+    public void testDumpRow(){
+        useTelluriumEngine(false);
+        int num = tim.getRowNum();
+        for(int i=1; i<=num; i++)
+            tim.dumpDataForRow(i);
+        useTelluriumEngine(true);      
     }
 
     @Test
