@@ -443,7 +443,7 @@ class Table extends Container {
     return "/tbody/tr[child::th]/th[${row}]";
   }
 
-  int getHeaderIndex(WorkflowContext context, UiObject obj){
+  int getHeaderIndex(WorkflowContext context, UiObject cobj){
     WorkflowContext ctx = (WorkflowContext)Helper.clone(context);
 
     //append relative location
@@ -486,13 +486,18 @@ class Table extends Container {
     return null;
   }
 
-  RIndex preprocess(WorkflowContext context, TableBodyMetaData meta){
+  RIndex preprocess(WorkflowContext context, String[] inx, TableBodyMetaData meta){
     RIndex ri = new RIndex();
     Index t = meta.getTbody();
     if(t.getType() == IndexType.REF){
       Index tRef = this.findHeaderIndex(context, t.getValue());
       if(tRef == null)
         throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , t.value))
+      ri.x = tRef.getValue();
+    }else if("all".equalsIgnoreCase(t.getValue()) && rGraph.isRef(inx[0])){
+      Index tRef = this.findHeaderIndex(context, inx[0]);
+      if(tRef == null)
+        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , inx[0]))
       ri.x = tRef.getValue();
     }else{
       ri.x = t.getValue();
@@ -504,6 +509,11 @@ class Table extends Container {
       if(rRef == null)
         throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , r.value))
       ri.y = rRef.getValue();
+    }else if("all".equalsIgnoreCase(r.getValue()) && rGraph.isRef(inx[1])){
+      Index rRef = this.findHeaderIndex(context, inx[1]);
+      if(rRef == null)
+        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , inx[1]))
+      ri.y = rRef.getValue();
     }else{
       ri.y = r.getValue();
     }
@@ -514,6 +524,11 @@ class Table extends Container {
       if(cRef == null)
         throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , c.value))
       ri.setColumn(cRef.getValue());
+    }else if("all".equalsIgnoreCase(c.getValue()) && rGraph.isRef(inx[2])){
+      Index cRef = this.findHeaderIndex(context, inx[2]);
+      if(cRef == null)
+        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , inx[2]))
+      ri.setColumn(cRef.getValue());
     }else{
       ri.setColumn(c.getValue());
     }
@@ -523,7 +538,6 @@ class Table extends Container {
 
   String getCellSelector(WorkflowContext context, String key, UiObject obj) {
     TableBodyMetaData meta = (TableBodyMetaData) obj.metaData;
-    RIndex ri = this.preprocess(context, meta);
     String[] parts = key.replaceFirst('_', '').split("_");
     String[] inx = parts;
     if(parts.length == 1){
@@ -531,6 +545,8 @@ class Table extends Container {
     }else if(parts.length == 2){
       inx = ["1", parts].flatten();
     }
+    RIndex ri = this.preprocess(context, inx, meta);
+
     return this.getTBodySelector() + this.getRowSelector(ri, inx[1], obj) + this.getColumnSelector(ri, inx[2], obj);
   }
 
@@ -616,7 +632,6 @@ class Table extends Container {
 
   String getCellLocator(WorkflowContext context, String key, UiObject obj) {
     TableBodyMetaData meta = (TableBodyMetaData) obj.metaData;
-    RIndex ri = this.preprocess(context, meta);
     String[] parts = key.replaceFirst('_', '').split("_");
     String[] inx = parts;
     if(parts.length == 1){
@@ -624,7 +639,8 @@ class Table extends Container {
     }else if(parts.length == 2){
       inx = ["1", parts].flatten();
     }
-    
+    RIndex ri = this.preprocess(context, inx, meta);
+
     return this.getTBodyLocator() + this.getRowLocator(ri, inx[1], obj) + this.getColumnLocator(ri, inx[2], obj);
   }
 
