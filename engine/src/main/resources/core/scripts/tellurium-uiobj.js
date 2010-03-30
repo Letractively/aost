@@ -1456,11 +1456,19 @@ var UiTable = UiContainer.extend({
         var meta = obj.metaData;
         var parts = key.replace(/^_/, '').split("_");
         var inx = new Array();
-        if (parts.length < 3) {
-            inx.push("1");
-        }
-        for (var i = 0; i < parts.length; i++) {
-            inx.push(parts[i]);
+
+        if(parts.length == 1){
+            //the key must be a real key
+            inx.push(meta.tbody.value);
+            inx.push(meta.row.value);
+            inx.push(meta.column.value);
+        }else{
+            if (parts.length < 3) {
+                inx.push("1");
+            }
+            for (var i = 0; i < parts.length; i++) {
+                inx.push(parts[i]);
+            }
         }
         var ri = this.preprocess(context, inx, meta);
 
@@ -2486,14 +2494,23 @@ var UiStandardTable = UiContainer.extend({
         var meta = obj.metaData;
         var parts = key.replace(/^_/, '').split("_");
         var inx = new Array();
-        if (parts.length < 3) {
-            inx.push("1");
-        }
-        for (var i = 0; i < parts.length; i++) {
-            inx.push(parts[i]);
+        if(parts.length == 1){
+            //the key must be a real key
+            inx.push(meta.tbody.value);
+            inx.push(meta.row.value);
+            inx.push(meta.column.value);
+        }else{
+            if (parts.length < 3) {
+                inx.push("1");
+            }
+            for (var i = 0; i < parts.length; i++) {
+                inx.push(parts[i]);
+            }  
         }
         var ri = this.preprocess(context, inx, meta);
 
+        !tellurium.logManager.isUseLog || fbLog("Get Cell selector inx for key " + key, inx);
+        
         return this.getTBodySelector(ri, inx[0], obj) + this.getRowSelector(ri, inx[1], obj) + this.getColumnSelector(ri, inx[2], obj);
     },
 
