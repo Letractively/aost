@@ -21,7 +21,7 @@ class RGraph {
   String[] ODD_PATH = ["all", "odd"];
   String[] EVEN_PATH = ["all", "even"];
   String[] INDEX_LIST = ["all", "odd", "even", "any", "first", "last"];
-  
+
   //Key to UI template mapping
   Map<String, UiObject> indices;
 
@@ -48,11 +48,11 @@ class RGraph {
     return result;
   }
 
-  public boolean isIndex(key){
+  public boolean isIndex(String key){
     return (key =~ /^\d+$/ || isInList(key, INDEX_LIST));
   }
 
-  public boolean isRef(key){
+  public boolean isRef(String key){
     return !isIndex(key);
   }
 

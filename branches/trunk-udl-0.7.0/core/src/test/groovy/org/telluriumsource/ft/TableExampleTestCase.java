@@ -65,6 +65,23 @@ public class TableExampleTestCase  extends TelluriumMockJUnitTestCase {
     }
 
     @Test
+    public void testIndex(){
+        useCache(true);
+        System.out.println(tem.getText("GT.header.One"));
+        System.out.println(tem.getText("GT.header.Two"));
+        System.out.println(tem.getText("GT.header.Three"));
+        System.out.println(tem.getText("GT.header[1]"));
+        System.out.println(tem.getText("GT.header[2]"));
+        System.out.println(tem.getText("GT.header[3]"));
+        System.out.println(tem.getText("GT.A"));
+        System.out.println(tem.getText("GT[1][1]"));
+        System.out.println(tem.getText("GT[1][One]"));
+        System.out.println(tem.getText("GT.Hello"));
+        System.out.println(tem.getText("GT[1][3]"));
+        System.out.println(tem.getText("GT[1][Three]"));
+    }
+
+    @Test
     public void testGetTableText(){
         String[] texts = tem.getAllTableCellText("GT");
         assertNotNull(texts);
