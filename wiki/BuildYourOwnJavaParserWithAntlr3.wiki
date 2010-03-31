@@ -98,7 +98,7 @@ We also need the [http://mojo.codehaus.org/antlr3-maven-plugin/ Antlr3 Maven Plu
     </build>
 }}}
 
-= IDE Supports =
+= IDE Support =
 
 [http://www.antlr.org/works/index.html ANTLRWorks] is a novel grammar development environment for ANTLR v3 grammars. ANTLRWorks has an [http://plugins.intellij.net/plugin/?id=953 IntelliJ IDEA Plugin]. There are also [http://www.antlr.org/wiki/display/ANTLR3/Integration+with+Development+Environments other IDE plugins] available. 
 
