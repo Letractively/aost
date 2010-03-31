@@ -26,6 +26,17 @@ class RTree {
   String[] ODD_PATH = ["all", "odd"];
   String[] EVEN_PATH = ["all", "even"];
   String[] INDEX_LIST = ["all", "odd", "even", "any", "first", "last"];
+  
+  protected boolean isInList(String str, String[] list){
+    boolean result = false;
+    list.each {String elem ->
+      if(elem.equals(str)){
+        result = true;
+      }
+    }
+
+    return result;
+  }
 
   public boolean isIndex(String key){
     return (key =~ /^\d+$/ || isInList(key, INDEX_LIST));
