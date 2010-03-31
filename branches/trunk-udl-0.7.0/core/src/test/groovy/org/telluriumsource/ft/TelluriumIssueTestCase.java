@@ -126,7 +126,7 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testCachePolicy(){
-        setCacheMaxSize(5);
+        setCacheMaxSize(10);
         useCachePolicy(CachePolicy.DISCARD_LEAST_USED);
         tim.validate("issueSearch");
         tim.searchIssue("Alter");
