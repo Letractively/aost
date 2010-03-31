@@ -99,6 +99,23 @@ public class TableExampleTestCase  extends TelluriumMockJUnitTestCase {
         tem.endShow("GT");
     }
 
+    @Test
+    public void testIndex(){
+        useCache(true);
+        System.out.println(tem.getText("NGT.header.One"));
+        System.out.println(tem.getText("NGT.header.Two"));
+        System.out.println(tem.getText("NGT.header.Three"));
+        System.out.println(tem.getText("NGT.header[1]"));
+        System.out.println(tem.getText("NGT.header[2]"));
+        System.out.println(tem.getText("NGT.header[3]"));
+        System.out.println(tem.getText("NGT.A"));
+        System.out.println(tem.getText("NGT[1][1]"));
+        System.out.println(tem.getText("NGT[1][One]"));
+        System.out.println(tem.getText("NGT.Hello"));
+        System.out.println(tem.getText("NGT[1][3]"));
+        System.out.println(tem.getText("NGT[1][Three]"));
+    }
+
     @AfterClass
     public static void tearDown(){
         showTrace();
