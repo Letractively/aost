@@ -149,9 +149,9 @@ class Table_UT extends GroovyTestCase{
       result = table10.getTableLocator("Actions[2][2]")
       assertEquals("//descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][2]/td[2]/descendant-or-self::a[normalize-space(text())=normalize-space(\"Y100000542\")]", result)
       result = table10.getTableLocator("Actions[2][3]")
-      assertEquals("//descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][2]/td[3]", result)
+      assertEquals("//descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][2]/td[3]/descendant-or-self::td[@class=\"abc\"]", result)
       result = table10.getTableLocator("Actions[3][4]")
-      assertEquals("//descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][3]/td[4]", result)
+      assertEquals("//descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][3]/td[4]/descendant-or-self::td[@class=\"abc\"]", result)
   }
 
   void testTable11(){
