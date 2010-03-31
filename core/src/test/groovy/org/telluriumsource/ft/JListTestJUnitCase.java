@@ -22,10 +22,8 @@ public class JListTestJUnitCase extends TelluriumMockJUnitTestCase {
         jlm = new JListModule();
         jlm.defineUi();
 //        useCssSelector(true);
-//        useTelluriumApi(true);
+        useTelluriumEngine(true);
         useTrace(true);
-//        useCache(true);
-//        useMacroCmd(true);
         useEngineLog(true);
     }
 
