@@ -365,17 +365,22 @@ class Table extends Container {
   }
 
   protected String getHeaderSelector(String index, UiObject obj){
-    if ("any".equalsIgnoreCase(index)) {
+    String key = index;
+    if(this.rGraph.isRef(index)){
+      key = obj.metaData.index.value;
+    }
+
+    if ("any".equalsIgnoreCase(key)) {
       return this.getAnyHeaderSelector(obj);
-    } else if ("first".equalsIgnoreCase(index)) {
+    } else if ("first".equalsIgnoreCase(key)) {
       return this.getFirstHeaderSelector();
-    } else if ("last".equalsIgnoreCase(index)) {
+    } else if ("last".equalsIgnoreCase(key)) {
       return this.getLastHeaderSelector();
-    } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedHeaderSelector(Integer.parseInt(index));
+    } else if (key ==~ /[0-9]+/) {
+      return this.getIndexedHeaderSelector(Integer.parseInt(key));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
-      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", index));
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
     }
   }
 
@@ -400,17 +405,22 @@ class Table extends Container {
   }
 
   protected String getHeaderLocator(String index, UiObject obj){
-    if ("any".equalsIgnoreCase(index)) {
+    String key = index;
+    if(this.rGraph.isRef(index)){
+      key = obj.metaData.index.value;
+    }
+
+    if ("any".equalsIgnoreCase(key)) {
       return this.getAnyHeaderLocator(obj);
-    } else if ("first".equalsIgnoreCase(index)) {
+    } else if ("first".equalsIgnoreCase(key)) {
       return this.getFirstHeaderLocator();
-    } else if ("last".equalsIgnoreCase(index)) {
+    } else if ("last".equalsIgnoreCase(key)) {
       return this.getLastHeaderLocator();
-    } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedHeaderLocator(Integer.parseInt(index));
+    } else if (key ==~ /[0-9]+/) {
+      return this.getIndexedHeaderLocator(Integer.parseInt(key));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
-      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", index));
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
     }
   }
 
