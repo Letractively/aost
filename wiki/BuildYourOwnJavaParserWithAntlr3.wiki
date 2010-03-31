@@ -398,4 +398,4 @@ public class UdlParser_UT {
   * [http://code.google.com/p/aost Tellurium Automated Testing Framework]
   * [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage Tellurium UID Description Language]
   * [http://twitter.com/TelluriumSource Tellurium on Twitter]
-  * [[http://telluriumsource.org TelluriumSource.org]
+  * [http://telluriumsource.org TelluriumSource]
