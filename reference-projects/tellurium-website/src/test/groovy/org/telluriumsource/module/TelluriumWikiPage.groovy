@@ -28,22 +28,22 @@ class TelluriumWikiPage extends DslContext{
        ui.Table(uid: "wikiResult", clocator: [id: "resultstable", class: "results"], group: "true"){
            //define table header
            //for the border column
-           TextBox(uid: "header: 1", clocator: [:])
-           UrlLink(uid: "header: 2", clocator: [text: "%%PageName"])
-           UrlLink(uid: "header: 3", clocator: [text: "%%Summary + Labels"])
-           UrlLink(uid: "header: 4", clocator: [text: "%%Changed"])
-           UrlLink(uid: "header: 5", clocator: [text: "%%ChangedBy"])
-           UrlLink(uid: "header: 6", clocator: [text: "%%..."])
+           TextBox(uid: "{header: 1}", clocator: [:])
+           UrlLink(uid: "{header: 2} as PageName", clocator: [text: "*PageName"])
+           UrlLink(uid: "{header: 3} as Summary", clocator: [text: "*Summary + Labels"])
+           UrlLink(uid: "{header: 4} as Changed", clocator: [text: "*Changed"])
+           UrlLink(uid: "{header: 5} as ChangedBy", clocator: [text: "*ChangedBy"])
+           UrlLink(uid: "{header: 6} as Extra", clocator: [text: "*..."])
 
            //define table elements
            //for the border column
-           TextBox(uid: "row: *, column: 1", clocator: [:])
+           TextBox(uid: "{row: all, column: 1}", clocator: [:])
            //the summary + labels column consists of a list of UrlLinks
-           List(uid: "row:*, column: 3", clocator: [:]){
-               UrlLink(uid: "all", clocator: [:])
+           List(uid: "{row: all, column: 3}", clocator: [:]){
+               UrlLink(uid: "{all}", clocator: [:])
            }
            //For the rest, just UrlLink
-           UrlLink(uid: "all", clocator: [:])
+           UrlLink(uid: "{row: all, column: all}", clocator: [:])
        }
    }
 
