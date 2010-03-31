@@ -932,33 +932,32 @@ var UiList = UiContainer.extend({
         return " > " + last + ":eq(" + lastOccur + ")";
     },
 
-    getListSelector: function(key, obj) {
-        var index = obj.metaData.index.value;
-        key = key + "";
+    getListSelector: function(index, obj) {
+        var key = index + "";
+        if(this.rTree.isId(key)){
+            key = obj.metaData.index.value + "";
+        }
+
         if (this.separator != null && this.separator.trim().length > 0) {
-            if ("any" == index || key == "any") {
+            if (key == "any") {
                 return this.getAnySelectorWithSeparator(obj);
-            } else if ("first" == index || key == "first") {
+            } else if (key == "first") {
                 return this.getFirstSelectorWithSeparator();
-            } else if ("last" == index || key == "last") {
+            } else if (key == "last") {
                 return this.getLastSelectorWithSeparator();
             } else if (key.match(/[0-9]+/)) {
-                return this.getSelectorByIndexWithSeparator(key);
-            } else if (index.match(/[0-9]+/)) {
                 return this.getSelectorByIndexWithSeparator(key);
             } else {
                 throw new SeleniumError("Invalid ID " + key);
             }
         } else {
-            if ("any" == index || key == "any") {
+            if (key == "any") {
                 return this.getAnySelectorWithoutSeparator(obj);
-            } else if ("first" == index || key == "first") {
+            } else if (key == "first") {
                 return this.getFirstSelectorWithoutSeparator(obj);
-            } else if ("last" == index || key == "last") {
+            } else if (key == "last") {
                 return this.getLastSelectorWithoutSeparator(obj);
             } else if (key.match(/[0-9]+/)) {
-                return this.getSelectorByIndexWithoutSeparator(key);
-            } else if (index.match(/[0-9]+/)) {
                 return this.getSelectorByIndexWithoutSeparator(key);
             } else {
                 throw new SeleniumError("Invalid ID " + key);
@@ -1337,16 +1336,20 @@ var UiTable = UiContainer.extend({
     },
 
     getHeaderSelector: function(index, obj) {
-        if ("any" == index) {
+        var key = index;
+        if(this.rGraph.isRef(index)){
+            key = obj.metaData.index.value;
+        }
+        if ("any" == key) {
             return this.getAnyHeaderSelector(obj);
-        } else if ("first" == index) {
+        } else if ("first" == key) {
             return this.getFirstHeaderSelector();
-        } else if ("last" == index) {
+        } else if ("last" == key) {
             return this.getLastHeaderSelector();
-        } else if (index.match(/[0-9]+/)) {
-            return this.getIndexedHeaderSelector(parseInt(index));
+        } else if (key.match(/[0-9]+/)) {
+            return this.getIndexedHeaderSelector(parseInt(key));
         } else {
-            throw new SeleniumError("Invalid Index " + index);
+            throw new SeleniumError("Invalid Index " + key);
         }
     },
 
