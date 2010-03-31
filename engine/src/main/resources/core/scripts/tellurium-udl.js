@@ -183,9 +183,18 @@ var RTree = Class.extend({
         this.ROOT_PATH = ["all"];
         this.ODD_PATH = ["all", "odd"];
         this.EVEN_PATH = ["all", "even"];
+        this.INDEX_LIST = ["all", "odd", "even", "any", "first", "last"];
 
         this.root = null;
         this.indices = null;
+    },
+
+    isIndex: function(key) {
+        return (key.match(/^\d+$/) || this.INDEX_LIST.indexOf(key) != -1);
+    },
+
+    isId: function(key) {
+        return !this.isIndex(key);
     },
 
     insert: function(object){
