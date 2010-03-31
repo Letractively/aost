@@ -25,7 +25,16 @@ class RTree {
   String[] ROOT_PATH = ["all"];
   String[] ODD_PATH = ["all", "odd"];
   String[] EVEN_PATH = ["all", "even"];
+  String[] INDEX_LIST = ["all", "odd", "even", "any", "first", "last"];
 
+  public boolean isIndex(String key){
+    return (key =~ /^\d+$/ || isInList(key, INDEX_LIST));
+  }
+
+  public boolean isId(String key){
+    return !isIndex(key);
+  }
+  
   public void createIndex(String key, UiObject obj){
     this.indices.put(key, obj);
   }

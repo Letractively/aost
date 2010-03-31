@@ -209,35 +209,34 @@ class List extends Container {
         return "/${last}[${lastOccur}]"
     }
   
-    String getListSelector(String key, UiObject obj){
-      ListMetaData meta = (ListMetaData)obj.metaData;
-      String index = meta.getIndex().getValue();
+    String getListSelector(String index, UiObject obj){
+      String key = index;
+      if(this.rTree.isId(index)){
+        key = obj.metaData.index.value;
+      }
+
       if(separator != null && separator.trim().size() > 0){
-        if("any".equalsIgnoreCase(index)){
+        if("any".equalsIgnoreCase(key)){
           return this.getAnySelectorWithSeparator(obj);
-        }else if("first".equalsIgnoreCase(index)){
+        }else if("first".equalsIgnoreCase(key)){
           return this.getFirstSelectorWithSeparator();
-        }else if("last".equalsIgnoreCase(index)){
+        }else if("last".equalsIgnoreCase(key)){
           return this.getLastSelectorWithSeparator();
         }else if(key ==~ /[0-9]+/){
           return this.getSelectorByIndexWithSeparator(key);
-        }else if(index ==~ /[0-9]+/){
-          return this.getSelectorByIndexWithSeparator(index);
         }else{
           //TODO: rename Container.InvalidID to UiObject.InvalidID
           throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID" , key));
         }
       }else{
-       if("any".equalsIgnoreCase(index)){
+       if("any".equalsIgnoreCase(key)){
           return this.getAnySelectorWithoutSeparator(obj);
-        }else if("first".equalsIgnoreCase(index)){
+        }else if("first".equalsIgnoreCase(key) ){
           return this.getFirstSelectorWithoutSeparator(obj);
-        }else if("last".equalsIgnoreCase(index)){
+        }else if("last".equalsIgnoreCase(key)){
           return this.getLastSelectorWithoutSeparator(obj);
         }else if(key ==~ /[0-9]+/){
           return this.getSelectorByIndexWithoutSeparator(key);
-        }else if(index ==~ /[0-9]+/){
-          return this.getSelectorByIndexWithoutSeparator(index);
         }else{
           //TODO: rename Container.InvalidID to UiObject.InvalidID
           throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID" , key));
