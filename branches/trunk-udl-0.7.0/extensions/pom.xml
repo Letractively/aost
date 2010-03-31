@@ -16,11 +16,16 @@
 	</scm>
 	<dependencies>
 		<dependency>
-			<groupId>${pom.groupId}</groupId>
+			<groupId>org.telluriumsource</groupId>
 			<artifactId>tellurium-core</artifactId>
-			<version>0.7.0-SNAPSHOT</version>
+            <version>${pom.version}</version>			
 		</dependency>
-	</dependencies>
+		<dependency>
+			<groupId>org.telluriumsource</groupId>
+			<artifactId>tellurium-udl</artifactId>
+			<version>${pom.version}</version>
+		</dependency>
+    </dependencies>
 	<modules>
 		<module>dojo-widget</module>
 		<module>extjs-widget</module>
