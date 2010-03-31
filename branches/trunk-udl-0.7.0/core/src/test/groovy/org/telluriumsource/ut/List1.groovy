@@ -53,23 +53,23 @@ class List1 extends DslContext {
             Table(uid: "{all}", clocator: [:]){
                 UrlLink(uid: "{row: 1, column: 1}", clocator: [text: "*My Label"])
             }
-            Container(uid: "{2}", clocator: [tag: "div"]){
+            Container(uid: "{2} as T", clocator: [tag: "div"]){
                 TextBox(uid: "text", clocator: [tag: "br"])
             }
-            InputBox(uid: "{4}", clocator: [title: "cool"])
+            InputBox(uid: "{4} as Cool", clocator: [title: "cool"])
         }
     }
 
     public void defineList() {
       ui.List(uid: "A", clocator: [tag: "table", trailer: "/tbody"], separator: "tr") {
-        InputBox(uid: "{1}", clocator: [:])
-        Selector(uid: "{2}", clocator: [:])
+        InputBox(uid: "{1} as Input", clocator: [:])
+        Selector(uid: "{2} as Select", clocator: [:])
         TextBox(uid: "{all}", clocator: [tag: "div"])
       }
       
       ui.List(uid: "B", clocator: [tag: "table", trailer: "/tbody/tr"]) {
-        InputBox(uid: "{1}", clocator: [:])
-        Selector(uid: "{2}", clocator: [:])
+        InputBox(uid: "{1} as Input", clocator: [:])
+        Selector(uid: "{2} as Select", clocator: [:])
         TextBox(uid: "{all}", clocator: [tag: "div"])
       }
     }

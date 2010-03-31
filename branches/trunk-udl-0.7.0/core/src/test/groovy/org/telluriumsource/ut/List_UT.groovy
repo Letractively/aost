@@ -25,7 +25,7 @@ class List_UT extends GroovyTestCase{
         assertEquals("/descendant-or-self::div/table[1]/tbody/tr[child::td][1]/td[1]", context.getReferenceLocator())
 
         context = WorkflowContext.getDefaultContext()
-        obj = list.ui.walkTo(context, "sample[2].text")
+        obj = list.ui.walkTo(context, "sample.T.text")
         assertNotNull(obj)
         assertTrue(obj instanceof TextBox)
         assertEquals("/descendant-or-self::div/div[1]", context.getReferenceLocator())
@@ -37,7 +37,7 @@ class List_UT extends GroovyTestCase{
         assertEquals("/descendant-or-self::div/table[2]/tbody/tr[child::td][1]/td[1]", context.getReferenceLocator())
 
         context = WorkflowContext.getDefaultContext()
-        obj = list.ui.walkTo(context, "sample[4]")
+        obj = list.ui.walkTo(context, "sample.Cool")
         assertNotNull(obj)
         assertTrue(obj instanceof InputBox)
         assertEquals("/descendant-or-self::div/input[@title=\"cool\"][1]", context.getReferenceLocator())
