@@ -2305,16 +2305,20 @@ var UiStandardTable = UiContainer.extend({
     },
 
     getHeaderSelector: function(index, obj) {
-        if ("any" == index) {
+        var key = index;
+        if(this.rGraph.isRef(index)){
+            key = obj.metaData.index.value;
+        }
+        if ("any" == key) {
             return this.getAnyHeaderSelector(obj);
-        } else if ("first" == index) {
+        } else if ("first" == key) {
             return this.getFirstHeaderSelector();
-        } else if ("last" == index) {
+        } else if ("last" == key) {
             return this.getLastHeaderSelector();
-        } else if (index.match(/[0-9]+/)) {
-            return this.getIndexedHeaderSelector(parseInt(index));
+        } else if (key.match(/[0-9]+/)) {
+            return this.getIndexedHeaderSelector(parseInt(key));
         } else {
-            throw new SeleniumError("Invalid Index " + index);
+            throw new SeleniumError("Invalid Index " + key);
         }
     },
 
@@ -2370,16 +2374,20 @@ var UiStandardTable = UiContainer.extend({
     },
 
     getFooterSelector: function(index, obj) {
-        if ("any" == index) {
+        var key = index;
+        if(this.rGraph.isRef(index)){
+            key = obj.metaData.index.value;
+        }
+        if ("any" == key) {
             return this.getAnyFooterSelector(obj);
-        } else if ("first" == index) {
+        } else if ("first" == key) {
             return this.getFirstFooterSelector();
-        } else if ("last" == index) {
+        } else if ("last" == key) {
             return this.getLastFooterSelector();
-        } else if (index.match(/[0-9]+/)) {
-            return this.getIndexedFooterSelector(parseInt(index));
+        } else if (key.match(/[0-9]+/)) {
+            return this.getIndexedFooterSelector(parseInt(key));
         } else {
-            throw new SeleniumError("Invalid Index " + index);
+            throw new SeleniumError("Invalid Index " + key);
         }
     },
 
