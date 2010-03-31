@@ -187,17 +187,21 @@ class StandardTable extends Container{
   }
 
   protected String getHeaderSelector(String index, UiObject obj){
-    if ("any".equalsIgnoreCase(index)) {
+    String key = index;
+    if(this.rGraph.isRef(index)){
+      key = obj.metaData.index.value;
+    }
+    if ("any".equalsIgnoreCase(key)) {
       return this.getAnyHeaderSelector(obj);
-    } else if ("first".equalsIgnoreCase(index)) {
+    } else if ("first".equalsIgnoreCase(key)) {
       return this.getFirstHeaderSelector();
-    } else if ("last".equalsIgnoreCase(index)) {
+    } else if ("last".equalsIgnoreCase(key)) {
       return this.getLastHeaderSelector();
-    } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedHeaderSelector(Integer.parseInt(index));
+    } else if (key ==~ /[0-9]+/) {
+      return this.getIndexedHeaderSelector(Integer.parseInt(key));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
-      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", index));
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
     }
   }
 
@@ -222,17 +226,22 @@ class StandardTable extends Container{
   }
 
   protected String getHeaderLocator(String index, UiObject obj){
-    if ("any".equalsIgnoreCase(index)) {
+    String key = index;
+    if(this.rGraph.isRef(index)){
+      key = obj.metaData.index.value;
+    }
+
+    if ("any".equalsIgnoreCase(key)) {
       return this.getAnyHeaderLocator(obj);
-    } else if ("first".equalsIgnoreCase(index)) {
+    } else if ("first".equalsIgnoreCase(key)) {
       return this.getFirstHeaderLocator();
-    } else if ("last".equalsIgnoreCase(index)) {
+    } else if ("last".equalsIgnoreCase(key)) {
       return this.getLastHeaderLocator();
-    } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedHeaderLocator(Integer.parseInt(index));
+    } else if (key ==~ /[0-9]+/) {
+      return this.getIndexedHeaderLocator(Integer.parseInt(key));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
-      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", index));
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
     }
   }
 
@@ -310,17 +319,21 @@ class StandardTable extends Container{
 
 
   protected String getFooterSelector(String index, UiObject obj){
-    if ("any".equalsIgnoreCase(index)) {
+    String key = index;
+    if(this.rGraph.isRef(index)){
+      key = obj.metaData.index.value;
+    }
+    if ("any".equalsIgnoreCase(key)) {
       return this.getAnyFooterSelector(obj);
-    } else if ("first".equalsIgnoreCase(index)) {
+    } else if ("first".equalsIgnoreCase(key)) {
       return this.getFirstFooterSelector();
-    } else if ("last".equalsIgnoreCase(index)) {
+    } else if ("last".equalsIgnoreCase(key)) {
       return this.getLastFooterSelector();
-    } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedFooterSelector(Integer.parseInt(index));
+    } else if (key ==~ /[0-9]+/) {
+      return this.getIndexedFooterSelector(Integer.parseInt(key));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
-      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", index));
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
     }
   }
 
@@ -353,17 +366,22 @@ class StandardTable extends Container{
     if (hasFooter() && this.footTag.equals(this.bodyTag))
       count++;
 
-    if ("any".equalsIgnoreCase(index)) {
+    String key = index;
+    if(this.rGraph.isRef(index)){
+      key = obj.metaData.index.value;
+    }
+
+    if ("any".equalsIgnoreCase(key)) {
       return this.getAnyFooterLocator(count, obj);
-    } else if ("first".equalsIgnoreCase(index)) {
+    } else if ("first".equalsIgnoreCase(key)) {
       return this.getFirstFooterLocator(count);
-    } else if ("last".equalsIgnoreCase(index)) {
+    } else if ("last".equalsIgnoreCase(key)) {
       return this.getLastFooterLocator(count);
-    } else if (index ==~ /[0-9]+/) {
-      return this.getIndexedFooterLocator(count, Integer.parseInt(index));
+    } else if (key ==~ /[0-9]+/) {
+      return this.getIndexedFooterLocator(count, Integer.parseInt(key));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
-      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", index));
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
     }
   }
 
@@ -490,48 +508,6 @@ class StandardTable extends Container{
     return ri;
   }
 
-/*
-  RIndex preprocess(WorkflowContext context, TableBodyMetaData meta){
-    RIndex ri = new RIndex();
-    Index t = meta.getTbody();
-    if(t.getType() == IndexType.REF){
-      Index tRef = this.findHeaderIndex(context, t.getValue());
-      if(tRef == null)
-        tRef = this.findFooterIndex(context, t.getValue());
-      if(tRef == null)
-        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , t.value))
-      ri.x = tRef.getValue();
-    }else{
-      ri.x = t.getValue();
-    }
-
-    Index r = meta.getRow();
-    if(r.getType() == IndexType.REF){
-      Index rRef = this.findHeaderIndex(context, r.getValue());
-      if(rRef == null)
-        rRef = this.findFooterIndex(context, r.getValue());
-      if(rRef == null)
-        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , r.value))
-      ri.y = rRef.getValue();
-    }else{
-      ri.y = r.getValue();
-    }
-
-    Index c = meta.getColumn();
-    if(c.getType() == IndexType.REF){
-      Index cRef = this.findHeaderIndex(context, c.getValue());
-      if(cRef == null)
-        cRef = this.findFooterIndex(context, c.getValue());
-      if(cRef == null)
-        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , c.value))
-      ri.setColumn(cRef.getValue());
-    }else{
-      ri.setColumn(c.getValue());
-    }
-
-    return ri;
-  }
-*/
   String getCellSelector(WorkflowContext context, String key, UiObject obj) {
     TableBodyMetaData meta = (TableBodyMetaData) obj.metaData;
     String[] parts = key.replaceFirst('_', '').split("_");
