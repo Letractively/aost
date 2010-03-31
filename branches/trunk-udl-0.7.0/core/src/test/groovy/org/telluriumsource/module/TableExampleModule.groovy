@@ -13,7 +13,6 @@ class TableExampleModule extends DslContext {
 
   public void defineUi() {
     ui.StandardTable(uid: "GT", clocator: [id: "xyz"], ht: "tbody"){
-//      TextBox(uid: "{header: all}", clocator: [:])
       TextBox(uid: "{header: first} as One", clocator: [tag: "th", text: "one"], self: true)
       TextBox(uid: "{header: 2} as Two", clocator: [tag: "th", text: "two"], self: true)
       TextBox(uid: "{header: last} as Three", clocator: [tag: "th", text: "three"], self: true)
