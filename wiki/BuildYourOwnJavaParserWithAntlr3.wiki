@@ -323,17 +323,12 @@ public class UidParser {
 To test the generated parser, UidParser, we can use JUnit 4 to test it.
 
 {{{
-public class UdlParser_UT {
+public class UidParser_UT {
 
     @Test
     public void testBaseUid(){
- 	CharStream stream =
-	new ANTLRStringStream("Tellurium");
-	UdlLexer lexer = new UdlLexer(stream);
-	TokenStream tokenStream = new CommonTokenStream(lexer);
-	UdlParser parser = new UdlParser(tokenStream);
         try{
-            MetaData data = parser.uid();
+            MetaData data = UidParser.parse("Tellurium");
             assertNotNull(data);
             assertEquals("Tellurium", data.getId());
         }catch(RecognitionException e){
@@ -343,14 +338,9 @@ public class UdlParser_UT {
 
     @Test
     public void testTableHeaderUid(){
- 	CharStream stream =
-	new ANTLRStringStream("{header: 3} as A");
-	UdlLexer lexer = new UdlLexer(stream);
-	TokenStream tokenStream = new CommonTokenStream(lexer);
-	UdlParser parser = new UdlParser(tokenStream);
         try{
 		    
-            MetaData data = parser.uid();
+            MetaData data = UidParser.parse("{header: 3} as A");
             assertNotNull(data);
             assertTrue(data instanceof TableHeaderMetaData);
             TableHeaderMetaData th = (TableHeaderMetaData)data;
@@ -364,14 +354,9 @@ public class UdlParser_UT {
 
     @Test
     public void testTableBodyRefUid(){
-        CharStream stream =
-	new ANTLRStringStream("{tbody : 1, row -> good, column -> bad} as Search");
-	UdlLexer lexer = new UdlLexer(stream);
-	TokenStream tokenStream = new CommonTokenStream(lexer);
-	UdlParser parser = new UdlParser(tokenStream);
         try{
 		    
-            MetaData data = parser.uid();
+            MetaData data = UidParser.parse("{tbody : 1, row -> good, column -> bad} as Search");
             assertNotNull(data);
             assertEquals("Search", data.getId());
             assertTrue(data instanceof TableBodyMetaData);
