@@ -105,11 +105,23 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testDumpRow(){
-//        useTelluriumEngine(false);
         int num = tim.getRowNum();
+        if(num > 10)
+            num = 10;
         for(int i=1; i<=num; i++)
             tim.dumpDataForRow(i);
-//        useTelluriumEngine(true);      
+    }
+
+   @Test
+    public void testDumpRowNoCache(){
+        useCache(false);
+        useTelluriumApi(true);
+        int num = tim.getRowNum();
+        if(num > 10)
+            num = 10;
+        for(int i=1; i<=num; i++)
+            tim.dumpDataForRow(i);
+        useTelluriumEngine(true);
     }
 
     @Test
