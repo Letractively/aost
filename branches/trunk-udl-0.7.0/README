@@ -1,12 +1,11 @@
                         README
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
-Jian Fang     (John.Jian.Fang@gmail.com)
-Vivek Mongolu (vivekmongolu@gmail.com)
-Matt Senter   (matt.senter@gmail.com)
-Haroon Rasheed (haroonzone@gmail.com)
-Mikhail Koryak (koryak@gmail.com)
-Ajay Ravichandran (ajay.ravichandran@gmail.com)
+
+             Tellurium Team (TelluriumSource@Gmail.com)
+
+                   (http://code.google.com/p/aost)
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 The Tellurium Automated Testing Framework (Tellurium) is a UI module-based automated testing framework for web
@@ -38,10 +37,10 @@ dynamic size of different UI elements at runtime, which are extremely useful to 
 One typical data grid example is as follows,
 
 ui.Table(uid: "table", clocator: [:]){
-   InputBox(uid: "row: 1, column: 1", clocator: [:])
-   Selector(uid: "row: *, column: 2", clocator: [:])
-   UrlLink(uid: "row: 3, column: *", clocator: [:])
-   TextBox(uid: "all", clocator: [:])
+   InputBox(uid: "{row: 1, column: 1} as Input", clocator: [:])
+   Selector(uid: "{row: all, column: 2}", clocator: [:])
+   UrlLink(uid: "{row: 3, column: all}", clocator: [:])
+   TextBox(uid: "{row: all, column: all}", clocator: [:])
 }
 
 Data Driven Testing is another important feature of Tellurium. You can define data format in an expressive way.
