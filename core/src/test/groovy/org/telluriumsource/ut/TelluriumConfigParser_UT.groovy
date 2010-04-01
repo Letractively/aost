@@ -18,7 +18,4 @@ class TelluriumConfigParser_UT extends GroovyTestCase{
         assertNotNull(config)
         assertEquals("4444", config.tellurium.embeddedserver.port)
     }
-
-    
-
 }
