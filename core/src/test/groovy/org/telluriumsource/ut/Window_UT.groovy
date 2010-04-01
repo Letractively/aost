@@ -16,11 +16,11 @@ class Window_UT extends TelluriumGroovyTestCase {
     }
 
     public void setUp(){
-        setUpForClass()
+//        setUpForClass()
     }
 
     public void tearDown(){
-        tearDownForClass()
+//        tearDownForClass()
     }
 
     public void testWaitForPopup(){
