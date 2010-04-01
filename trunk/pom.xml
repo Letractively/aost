@@ -236,13 +236,34 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <goals>
-                            <!-- The generateStubs goals are not yet working for enums and generics -->
+                        <goals>   
                             <goal>generateStubs</goal>
                             <goal>compile</goal>
                             <goal>generateTestStubs</goal>
                             <goal>testCompile</goal>
                         </goals>
+                        <configuration>
+                            <sources>
+                                 <fileset>
+                                    <directory>${pom.basedir}/src/main/groovy</directory>
+                                    <includes>
+                                        <include>**/*.groovy</include>                          
+                                    </includes>
+                                </fileset>                               
+                                 <fileset>
+                                    <directory>${pom.basedir}/src/test/groovy</directory>
+                                    <includes>
+                                        <include>**/*.groovy</include>
+                                    </includes>
+                                </fileset>
+                                <fileset>
+                                    <directory>${pom.basedir}/src/test/resources</directory>
+                                    <excludes>
+                                        <exclude>**/*.groovy</exclude>
+                                    </excludes>
+                                </fileset>
+                            </sources>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
