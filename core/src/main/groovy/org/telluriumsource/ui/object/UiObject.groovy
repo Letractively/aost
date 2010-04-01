@@ -6,6 +6,9 @@ import org.telluriumsource.component.event.Event
 
 import org.json.simple.JSONObject
 import org.json.simple.JSONArray
+import org.telluriumsource.udl.MetaData
+import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.telluriumsource.framework.Environment
 
 /**
  *  Basic UI object
@@ -15,39 +18,6 @@ import org.json.simple.JSONArray
  */
 abstract class UiObject implements Cloneable{
 
-  /*
-  Let UI Object be a pure data structure and only include placeholders for
-  methods wich should be responsed to.
-
-  decoupling them and let them be handled by DSL ddc framework
-
-
-  TODO: some ui object must be reactive to certain Events such as kekUP,
-   We must add that feature in so that the UI object will automatically add
-   the event during the simulation.
-
-  Another good idea is to let the ui object to be specific in the last element
-  in the xpath, the element before it should be just a reference xpath.
-  For example, an input box should be //input[@attribute] for the last part of
-  the xpath. A url link usually should be //a[@attribute]
-  In that way, we can have (reference xpath + inherent xpath) to be the actual
-  xpath.
-  For example,
-    An input box has the xpath
-       //div[contains(@uid,'showmanager_modlet_ShowManTaskCoordinator')]/descendant::div[contains(@uid,'jupiter_widget_SearchTextbox')]/descendant::input[@type='button' and @dojoattachpoint='dap_findBtn']
-    Here
-       //div[contains(@uid,'showmanager_modlet_ShowManTaskCoordinator')]/descendant::div[contains(@uid,'jupiter_widget_SearchTextbox')]
-
-    is the reference xpath and
-       input[@type='button' and @dojoattachpoint='dap_findBtn'] is the inherent xpath, i.e., it is specific for that ui object
-
-   The same idea can be applied to a group of composited ui objects.
-
-   The composited ui objects always come with a reference xpath and each ui object inside the composited ui object
-   has the xpath in the format:
-        group reference xpath + reference xpath (related the the group reference xpath) + inherent xpath
-
-  */
     public static final String KEY = "key"
 
     public static final String OBJECT = "obj"
@@ -61,12 +31,18 @@ abstract class UiObject implements Cloneable{
     public static final String UID = "uid"
     String uid
 
+    public static final String META_DATA = "metaData"
+    MetaData metaData;
+
     public static final String NAMESPACE = "namespace"
     String namespace = null
 
     public static final String LAZY = "lazy"
     //UI object is cacheable by default
     boolean cacheable = true
+
+    public static final String SELF = "self"
+    boolean self = false
 
     public static final String LOCATOR = "locator"
     def locator
@@ -78,13 +54,24 @@ abstract class UiObject implements Cloneable{
     public static final String EVENTS = "events"
     String[] respondToEvents
 
+    protected IResourceBundle i18nBundle
+
+    public UiObject(){
+      i18nBundle = Environment.instance.myResourceBundle()
+    }
+
     abstract JSONObject toJSON()
 
     protected JSONObject buildJSON(Closure c){
       JSONObject jso = new JSONObject()
-      jso.put(UID, uid)
+//      jso.put(UID, uid)
+      jso.put(UID, tid)
+      if(this.metaData != null)
+        jso.put(META_DATA, this.metaData.toJSON())
       if(!cacheable)
         jso.put(LAZY, !this.cacheable)
+      if(self)
+        jso.put(SELF, self)
       if(locator != null){
         jso.put(LOCATOR, locator.toJSON())
       }else{
@@ -165,7 +152,7 @@ abstract class UiObject implements Cloneable{
     }
 
     public boolean respondsTo(String name,  Object[] argTypes){
-      List<MetaMethod> list = this.metaClass.respondsTo(this, name, argTypes)
+      java.util.List<MetaMethod> list = this.metaClass.respondsTo(this, name, argTypes)
 
       return (list != null && list.size() > 0)
     }

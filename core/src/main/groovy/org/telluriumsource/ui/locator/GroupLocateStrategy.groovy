@@ -9,7 +9,7 @@ import org.telluriumsource.ui.object.StandardTable
 import org.telluriumsource.ui.object.Repeat
 
 /**
- *   Use group information, i.e., use its direct descedants' information to form its own locator
+ *   Use group information, i.e., use its direct descendants' information to form its own locator
  *   In the future, we may consider deeper information such as grandchild descendants'. Note, only
  *   Container and its extended classes can use GroupLocateStrategy
  *
@@ -53,7 +53,8 @@ class GroupLocateStrategy {
             }
         }
       
-        obj.foots?.headers?.each {
+//        obj.footers?.headers?.each {
+       obj.footers?.each {
             String key, UiObject child ->
             //can only use the child's information in the CompositeLocator
             //cannot use other Locator type for the timebeing

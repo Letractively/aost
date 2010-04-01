@@ -13,10 +13,10 @@ class JListModule extends DslContext {
 
   public void defineUi(){
     ui.Form(uid: "selectedSailings", clocator: [name: "selectedSailingsForm"]) {
-      List(uid: "outgoingSailings", locator: "/div[1]") {
-        Container(uid: "all", clocator: [tag: "div", 'class': "option"]) {
+      List(uid: "outgoingSailings", clocator: [tag: "div", position: "1"]) {
+        Container(uid: "{all} as option", clocator: [tag: "div", 'class': "option"]) {
           List(uid: "fares", clocator: [tag: "ul"]) {
-            Container(uid: "all", clocator: [tag: "li"]) {
+            Container(uid: "{all}", clocator: [tag: "li"]) {
               RadioButton(uid: "radio", clocator: [:], respond: ["click"])
               TextBox(uid: "label", clocator: [tag: "label"])
             }
@@ -28,7 +28,7 @@ class JListModule extends DslContext {
 
     ui.Form(uid: "Sailings", clocator: [name: "selectedSailingsForm"]){
       List(uid: "Fares", clocator: [tag: "ul", class: "fares"], separator: "li"){
-        Container(uid: "all"){
+        Container(uid: "{all}"){
             RadioButton(uid: "radio", clocator: [:], respond: ["click"])
             TextBox(uid: "label", clocator: [tag: "label"])
         }
@@ -39,7 +39,7 @@ class JListModule extends DslContext {
       Repeat(uid: "Section", clocator: [tag: "div", class: "segment clearfix"]){
         Repeat(uid: "Option", clocator: [tag: "div", class: "option", direct: "true"]){
           List(uid: "Fares", clocator: [tag: "ul", class: "fares", direct: "true"], separator: "li"){
-            Container(uid: "all"){
+            Container(uid: "{all}"){
                 RadioButton(uid: "radio", clocator: [:], respond: ["click"])
                 TextBox(uid: "label", clocator: [tag: "label"])
             }

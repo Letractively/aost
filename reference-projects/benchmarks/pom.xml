@@ -104,6 +104,13 @@
         </dependency>
 
         <dependency>
+            <groupId>org.telluriumsource</groupId>
+            <artifactId>tellurium-udl</artifactId>
+            <version>${tellurium-version}</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>5.8</version>

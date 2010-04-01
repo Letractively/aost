@@ -10,12 +10,12 @@ import org.telluriumsource.dsl.DslContext
  * 
  */
 class DListModule extends DslContext {
-  public void defineUi(){
+  public void defineUi() {
     ui.Container(uid: "div1", clocator: [tag: "div", id: "div1"]) {
       Container(uid: "div2", clocator: [id: "div2"]) {
         List(uid: "list1", clocator: [tag: "ul"], separator: "li")
                 {
-                  Container(uid: "all")
+                  Container(uid: "{all}")
                           {
                             List(uid: "list2", clocator: [tag: "ul"], separator: "li") {
                             }

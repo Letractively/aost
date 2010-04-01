@@ -5,8 +5,6 @@ import org.telluriumsource.dsl.UiID
 import org.telluriumsource.ui.locator.LocatorProcessor
 import org.telluriumsource.ui.locator.GroupLocateStrategy
 import org.json.simple.JSONObject
-import org.telluriumsource.framework.Environment;
-import org.telluriumsource.crosscut.i18n.IResourceBundle;
 
 /**
  *  container
@@ -16,8 +14,7 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle;
  */
 class Container extends UiObject {
 
-  public static final String GROUP = "group"
-    protected IResourceBundle i18nBundle
+    public static final String GROUP = "group"
 
     //if it uses group informtion to infer its locator
     protected boolean useGroupInfo = false
@@ -29,11 +26,9 @@ class Container extends UiObject {
     protected boolean noCacheForChildren = false
 
     //since we use map, the component name must be unique
-    def components = [:]
+//    def components = [:]
+   Map<String, UiObject> components = new HashMap<String, UiObject>();
 
-    public Container(){
-    	  i18nBundle = Environment.instance.myResourceBundle()
-    }
     def add(UiObject component){
         components.put(component.uid, component)
     }
@@ -49,7 +44,10 @@ class Container extends UiObject {
     @Override
     protected JSONObject buildJSON(Closure c){
       JSONObject jso = new JSONObject()
-      jso.put(UID, uid)
+//      jso.put(UID, uid)
+      jso.put(UID, tid)
+      if(this.metaData != null)
+        jso.put(META_DATA, this.metaData.toJSON())      
       if (!cacheable)
         jso.put(LAZY, !this.cacheable)
       if(locator != null)

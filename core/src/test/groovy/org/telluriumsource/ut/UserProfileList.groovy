@@ -13,10 +13,9 @@ import org.telluriumsource.dsl.DslContext
 public class UserProfileList extends DslContext {
   public void defineUi() {
     ui.Container(uid: "MainPanel1", clocator: [tag: "div", id: "main"]) {
-      List(uid: "UserProfileDetails", clocator: [tag: "div",
-              class: "myBox"], separator: "div") {
-        TextBox(uid: "1", clocator: [tag: "div"])
-        Container(uid: "all", clocator: [tag: "div"]) {
+      List(uid: "UserProfileDetails", clocator: [tag: "div", class: "myBox"], separator: "div") {
+        TextBox(uid: "{1}", clocator: [tag: "div"])
+        Container(uid: "{all}", clocator: [tag: "div"]) {
           TextBox(uid: "Name", clocator: [tag: "div",
                   position: "1"])
           TextBox(uid: "Value", clocator: [tag: "div",
@@ -27,16 +26,11 @@ public class UserProfileList extends DslContext {
     }
 
     ui.Container(uid: "MainPanel2", clocator: [tag: "div", id: "main"]) {
-      List(uid: "UserProfileDetails", clocator: [tag: "div",
-              class: "myBox"]) {
-        TextBox(uid: "1", clocator: [tag: "div",
-                direct: "true"])
-        Container(uid: "all", clocator: [tag: "div",
-                direct: "true"]) {
-          TextBox(uid: "Name", clocator: [tag: "div",
-                  direct: "true", position: "1"])
-          TextBox(uid: "Value", clocator: [tag: "div",
-                  direct: "true", position: "2"])
+      List(uid: "UserProfileDetails", clocator: [tag: "div", class: "myBox"]) {
+        TextBox(uid: "{1}", clocator: [tag: "div", direct: "true"])
+        Container(uid: "{all}", clocator: [tag: "div", direct: "true"]) {
+          TextBox(uid: "Name", clocator: [tag: "div", direct: "true", position: "1"])
+          TextBox(uid: "Value", clocator: [tag: "div", direct: "true", position: "2"])
         }
       }
     }

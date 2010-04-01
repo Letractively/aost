@@ -371,7 +371,6 @@ TelluriumCache.prototype.useUiModule = function(jsonarray){
     var uim = new UiModule();
     !tellurium.logManager.isUseLog || fbLog("Input JSON Array for UI Module: ", jsonarray);
     uim.parseUiModule(jsonarray);
-//    uim.prelocate();
     var response = new UiModuleLocatingResponse();
     var result = this.uiAlg.santa(uim, null);
     if(result){
@@ -405,7 +404,6 @@ TelluriumCache.prototype.validateUiModule = function(jsonarray){
     var uim = new UiModule();
     !tellurium.logManager.isUseLog || fbLog("Input JSON for UI Module: ", jsonarray);
     uim.parseUiModule(jsonarray);
-//    uim.prelocate();
     this.uiAlg.validate(uim, null);
     //set the UI Module to be valid after it is located
     uim.valid = true;

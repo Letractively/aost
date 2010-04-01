@@ -6,11 +6,20 @@ import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.exception.InvalidUidException
 import org.telluriumsource.ui.locator.CompositeLocator
 import org.telluriumsource.ui.locator.XPathBuilder
-import org.telluriumsource.ui.object.Container
-import org.telluriumsource.ui.object.TextBox
-import org.telluriumsource.ui.object.UiObject
-import org.json.simple.JSONObject
 
+import org.json.simple.JSONObject
+import org.telluriumsource.udl.MetaData
+import org.telluriumsource.udl.TableHeaderMetaData
+import org.telluriumsource.ui.routing.RGraph
+import org.telluriumsource.ui.routing.RTree
+import org.telluriumsource.udl.TableBodyMetaData
+import org.telluriumsource.ui.routing.RIndex
+import org.telluriumsource.udl.Index
+import org.telluriumsource.udl.code.IndexType
+import org.telluriumsource.exception.InvalidIndexRefException
+import org.telluriumsource.ui.locator.JQueryBuilder
+import org.telluriumsource.ui.locator.JQueryOptimizer
+import org.telluriumsource.util.Helper
 
 /**
  *   This is a table without header tag "thead' and foot "tfoot", but in the format of
@@ -97,8 +106,10 @@ class Table extends Container {
 
   protected String tbody = TBODY
 
-  def headers = [:]
+  Map<String, UiObject> headers = [:]
   def bodyAttributes = [:]
+  RTree rTree;
+  RGraph rGraph;
 
   @Override
   public JSONObject toJSON() {
@@ -110,22 +121,26 @@ class Table extends Container {
 
   @Override
   def add(UiObject component) {
-    if (validId(component.uid)) {
-      if (component.uid.toUpperCase().trim().startsWith(HEADER)) {
-        //this is a header
-        String internHeaderId = internalHeaderId(component.uid)
-        component.tid = internHeaderId
-        headers.put(internHeaderId, component)
-      } else {
-        //this is a regular element
-        String internId = internalId(component.uid)
-        //force to not use cache for table cell elements
-//        component.cacheable = false
-        component.tid = internId
-        components.put(internId, component)
-      }
-    } else {
-        throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidUID" , {component.uid}))
+     MetaData metaData = component.metaData;
+     if(this.rTree == null){
+       this.rTree = new RTree();
+       this.rTree.indices = this.headers;
+       this.rTree.preBuild();
+     }
+     if(this.rGraph == null) {
+       this.rGraph = new RGraph();
+       this.rGraph.indices = this.components;
+       this.rGraph.preBuild();
+     }
+
+     if(metaData instanceof TableHeaderMetaData){
+        headers.put(metaData.getId(), component);
+        this.rTree.insert(component);
+     }else if(metaData instanceof TableBodyMetaData){
+        components.put(metaData.getId(), component);
+        this.rGraph.insert(component);
+     } else {
+        throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidUID" , component.uid))
     }
   }
 
@@ -254,6 +269,14 @@ class Table extends Container {
     return obj
   }
 
+  public UiObject locateTBodyChild(String id) {
+    return this.rGraph.route(id);
+  }
+
+  public UiObject locateHeaderChild(String id) {
+    return this.rTree.route(id);
+  }
+  
   public boolean validId(String id) {
     //UID cannot be empty
     if (id == null || (id.trim().length() <= 0))
@@ -332,6 +355,419 @@ class Table extends Container {
   protected boolean hasNamespace(){
     return this.namespace != null && this.namespace.trim().length() > 0
   }
+
+  protected String buildLocatorWithoutPosition(CompositeLocator locator) {
+    return XPathBuilder.buildXPathWithoutPosition(locator.getTag(), locator.getText(), locator.getAttributes())
+  }
+
+  protected String buildJQuerySelectorWithoutPosition(CompositeLocator locator) {
+    return JQueryBuilder.buildJQuerySelectorWithoutPosition(locator.getTag(), locator.getText(), locator.getAttributes())
+  }
+
+  protected String getHeaderSelector(String index, UiObject obj){
+    String key = index;
+    if(this.rGraph.isRef(index)){
+      key = obj.metaData.index.value;
+    }
+
+    if ("any".equalsIgnoreCase(key)) {
+      return this.getAnyHeaderSelector(obj);
+    } else if ("first".equalsIgnoreCase(key)) {
+      return this.getFirstHeaderSelector();
+    } else if ("last".equalsIgnoreCase(key)) {
+      return this.getLastHeaderSelector();
+    } else if (key ==~ /[0-9]+/) {
+      return this.getIndexedHeaderSelector(Integer.parseInt(key));
+    } else {
+      //TODO: rename Container.InvalidID to UiObject.InvalidID
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
+    }
+  }
+
+  protected String getAnyHeaderSelector(UiObject obj) {
+    String sel = this.buildJQuerySelectorWithoutPosition(obj.locator);
+    
+    return "> tbody > tr:has(th) > th:has(${sel})";
+  }
+
+  protected String getFirstHeaderSelector() {
+
+    return " > tbody > tr:has(th) > th:first";
+  }
+
+  protected String getLastHeaderSelector() {
+
+    return " > tbody > tr:has(th) > th:last"
+  }
+
+  protected String getIndexedHeaderSelector(int row) {
+    return " > tbody > tr:has(th) > th:eq(${row - 1})"
+  }
+
+  protected String getHeaderLocator(String index, UiObject obj){
+    String key = index;
+    if(this.rGraph.isRef(index)){
+      key = obj.metaData.index.value;
+    }
+
+    if ("any".equalsIgnoreCase(key)) {
+      return this.getAnyHeaderLocator(obj);
+    } else if ("first".equalsIgnoreCase(key)) {
+      return this.getFirstHeaderLocator();
+    } else if ("last".equalsIgnoreCase(key)) {
+      return this.getLastHeaderLocator();
+    } else if (key ==~ /[0-9]+/) {
+      return this.getIndexedHeaderLocator(Integer.parseInt(key));
+    } else {
+      //TODO: rename Container.InvalidID to UiObject.InvalidID
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
+    }
+  }
+
+  protected String getAnyHeaderLocator(UiObject obj) {
+    String sel = this.buildLocatorWithoutPosition(obj.locator);
+    if(this.hasNamespace()){
+      return "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th[${sel}]"
+    }
+    return "/tbody/tr[child::th]/th[${sel}]";
+  }
+
+  protected String getFirstHeaderLocator() {
+    if(this.hasNamespace()){
+      return "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th[1]"
+    }
+    return "/tbody/tr[child::th]/th[1]";
+  }
+
+  protected String getLastHeaderLocator() {
+    if(this.hasNamespace()){
+      return "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th[last()]"
+    }
+    return "/tbody/tr[child::th]/th[last()]";
+  }
+
+  protected String getIndexedHeaderLocator(int row) {
+    if(this.hasNamespace()){
+      return "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th[${row}]"
+    }
+    return "/tbody/tr[child::th]/th[${row}]";
+  }
+
+  int getHeaderIndex(WorkflowContext context, UiObject cobj){
+    WorkflowContext ctx = (WorkflowContext)Helper.clone(context);
+
+    //append relative location
+    String loc;
+    TableHeaderMetaData meta = (TableHeaderMetaData)cobj.getMetaData();
+    if (ctx.isUseCssSelector()) {
+      loc = this.getHeaderSelector(meta.getIndex().getValue(), cobj);
+    } else {
+      loc = this.getHeaderLocator(meta.getIndex().getValue(), cobj);
+    }
+
+    ctx.appendReferenceLocator(loc);
+
+    String lst = ctx.getReferenceLocator();
+    if(ctx.isUseCssSelector()){
+      JQueryOptimizer optimizer = new JQueryOptimizer();
+      lst = "jquery=" + optimizer.optimize(lst);
+    }else{
+      if (lst != null && (!lst.startsWith("//"))) {
+        lst = "/" + lst;
+      }
+    }
+
+    Accessor accessor = new Accessor();
+
+    return accessor.getIndex(ctx, lst);
+  }
+
+  Index findHeaderIndex(WorkflowContext context, String key){
+    UiObject obj = this.headers.get(key);
+    if(obj != null){
+      if("any".equalsIgnoreCase(obj.metaData.index.value)){
+        int inx = this.getHeaderIndex(context, obj);
+        return new Index("${inx}")
+      }
+
+      return obj.metaData.index;
+    }
+
+    return null;
+  }
+
+  RIndex preprocess(WorkflowContext context, String[] inx, TableBodyMetaData meta){
+    RIndex ri = new RIndex();
+    Index t = meta.getTbody();
+    if(t.getType() == IndexType.REF){
+      Index tRef = this.findHeaderIndex(context, t.getValue());
+      if(tRef == null)
+        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , t.value))
+      ri.x = tRef.getValue();
+    }else if("all".equalsIgnoreCase(t.getValue()) && rGraph.isRef(inx[0])){
+      Index tRef = this.findHeaderIndex(context, inx[0]);
+      if(tRef == null)
+        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , inx[0]))
+      ri.x = tRef.getValue();
+    }else{
+      ri.x = t.getValue();
+    }
+
+    Index r = meta.getRow();
+    if(r.getType() == IndexType.REF){
+      Index rRef = this.findHeaderIndex(context, r.getValue());
+      if(rRef == null)
+        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , r.value))
+      ri.y = rRef.getValue();
+    }else if("all".equalsIgnoreCase(r.getValue()) && rGraph.isRef(inx[1])){
+      Index rRef = this.findHeaderIndex(context, inx[1]);
+      if(rRef == null)
+        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , inx[1]))
+      ri.y = rRef.getValue();
+    }else{
+      ri.y = r.getValue();
+    }
+
+    Index c = meta.getColumn();
+    if(c.getType() == IndexType.REF){
+      Index cRef = this.findHeaderIndex(context, c.getValue());
+      if(cRef == null)
+        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , c.value))
+      ri.setColumn(cRef.getValue());
+    }else if("all".equalsIgnoreCase(c.getValue()) && rGraph.isRef(inx[2])){
+      Index cRef = this.findHeaderIndex(context, inx[2]);
+      if(cRef == null)
+        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , inx[2]))
+      ri.setColumn(cRef.getValue());
+    }else{
+      ri.setColumn(c.getValue());
+    }
+
+    return ri;
+  }
+
+  String getCellSelector(WorkflowContext context, String key, UiObject obj) {
+    TableBodyMetaData meta = (TableBodyMetaData) obj.metaData;
+    String[] parts = key.replaceFirst('_', '').split("_");
+    String[] inx = parts;
+    if (parts.length == 1) {
+      //the key must be a real key
+      inx = [1, meta.row.value, meta.column.value]
+    } else if (parts.length == 2) {
+      inx = ["1", parts].flatten();
+    }
+
+    RIndex ri = this.preprocess(context, inx, meta);
+
+    return this.getTBodySelector() + this.getRowSelector(ri, inx[1], obj) + this.getColumnSelector(ri, inx[2], obj);
+  }
+
+  protected String getTBodySelector() {
+    return " > tbody ";
+  }
+
+  protected String getRowSelector(RIndex ri, String key, UiObject obj){
+    String index = ri.y;
+    if ("any".equalsIgnoreCase(index)) {
+      return this.getAnyRowSelector(obj);
+    } else if ("first".equalsIgnoreCase(index)) {
+      return this.getFirstRowSelector();
+    } else if ("last".equalsIgnoreCase(index)) {
+      return this.getLastRowSelector();
+    } else if (key ==~ /[0-9]+/) {
+      return this.getIndexedRowSelector(Integer.parseInt(key));
+    } else if (index ==~ /[0-9]+/) {
+      return this.getIndexedRowSelector(Integer.parseInt(index));
+    } else {
+      //TODO: rename Container.InvalidID to UiObject.InvalidID
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
+    }
+  }
+
+  protected String getAnyRowSelector(UiObject obj) {
+    String sel = this.buildJQuerySelectorWithoutPosition(obj.locator);
+
+    return " > tr:has(td):has(${sel})"
+  }
+
+  protected String getFirstRowSelector() {
+
+    return " > tr:has(td):first";
+  }
+
+  protected String getLastRowSelector() {
+
+    return " > tr:has(td):last"
+  }
+
+  protected String getIndexedRowSelector(int row) {
+    return " > tr:has(td):eq(${row - 1})"
+  }
+
+  protected String getColumnSelector(RIndex ri, String key, UiObject obj){
+    String index = ri.z;
+    if ("any".equalsIgnoreCase(index)) {
+      return this.getAnyColumnSelector(obj);
+    } else if ("first".equalsIgnoreCase(index)) {
+      return this.getFirstColumnSelector();
+    } else if ("last".equalsIgnoreCase(index)) {
+      return this.getLastColumnSelector();
+    } else if (key ==~ /[0-9]+/) {
+      return this.getIndexedColumnSelector(Integer.parseInt(key));
+    } else if (index ==~ /[0-9]+/) {
+      return this.getIndexedColumnSelector(Integer.parseInt(index));
+    } else {
+      //TODO: rename Container.InvalidID to UiObject.InvalidID
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
+    }
+  }
+
+  protected String getAnyColumnSelector(UiObject obj) {
+    String sel = this.buildJQuerySelectorWithoutPosition(obj.locator);
+
+    return " > td:has(${sel})"
+  }
+
+  protected String getFirstColumnSelector() {
+
+    return " > td:first";
+  }
+
+  protected String getLastColumnSelector() {
+
+    return " > td:last"
+  }
+
+  protected String getIndexedColumnSelector(int column) {
+    return " > td:eq(${column - 1})"
+  }
+
+  String getCellLocator(WorkflowContext context, String key, UiObject obj) {
+    TableBodyMetaData meta = (TableBodyMetaData) obj.metaData;
+    String[] parts = key.replaceFirst('_', '').split("_");
+    String[] inx = parts;
+    if(parts.length == 1){
+      //the key must be a real ID
+      inx = [1, meta.row.value, meta.column.value]
+    }else if(parts.length == 2){
+      inx = ["1", parts].flatten();
+    }
+    RIndex ri = this.preprocess(context, inx, meta);
+
+    return this.getTBodyLocator() + this.getRowLocator(ri, inx[1], obj) + this.getColumnLocator(ri, inx[2], obj);
+  }
+
+  protected String getTBodyLocator() {
+    if (hasNamespace()) {
+      return "/${this.namespace}:tbody";
+    }
+
+    return "/tbody";
+  }
+
+  protected String getRowLocator(RIndex ri, String key, UiObject obj){
+    String index = ri.y;
+    if ("any".equalsIgnoreCase(index)) {
+      return this.getAnyRowLocator(obj);
+    } else if ("first".equalsIgnoreCase(index)) {
+      return this.getFirstRowLocator();
+    } else if ("last".equalsIgnoreCase(index)) {
+      return this.getLastRowLocator();
+    } else if (key ==~ /[0-9]+/) {
+      return this.getIndexedRowLocator(key);
+    } else if (index ==~ /[0-9]+/) {
+      return this.getIndexedRowLocator(index);
+    } else {
+      //TODO: rename Container.InvalidID to UiObject.InvalidID
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
+    }
+  }
+
+  protected String getAnyRowLocator(UiObject obj) {
+    String loc = this.buildLocatorWithoutPosition(obj.locator);
+    if (this.namespace != null && this.namespace.trim().length() > 0) {
+      return "/${this.namespace}:tr[child::${this.namespace}:td][${loc}]";
+    }
+
+    return "/tr[child::td][${loc}]";
+  }
+
+  protected String getFirstRowLocator() {
+    if (this.namespace != null && this.namespace.trim().length() > 0) {
+      return "/${this.namespace}:tr[child::${this.namespace}:td][1]"
+    }
+
+    return "/tr[child::td][1]"
+  }
+
+  protected String getLastRowLocator() {
+    if (this.namespace != null && this.namespace.trim().length() > 0) {
+      return "/${this.namespace}:tr[child::${this.namespace}:td][last()]"
+    }
+
+    return "/tr[child::td][last()]"
+  }
+
+  protected String getIndexedRowLocator(String index) {
+    if (this.namespace != null && this.namespace.trim().length() > 0) {
+      return "/${this.namespace}:tr[child::${this.namespace}:td][${index}]";
+    }
+
+    return "/tr[child::td][${index}]";
+  }
+
+  protected String getColumnLocator(RIndex ri, String key, UiObject obj){
+    String index = ri.z;
+    if ("any".equalsIgnoreCase(index)) {
+      return this.getAnyColumnLocator(obj);
+    } else if ("first".equalsIgnoreCase(index)) {
+      return this.getFirstColumnLocator();
+    } else if ("last".equalsIgnoreCase(index)) {
+      return this.getLastColumnLocator();
+    } else if (key ==~ /[0-9]+/) {
+      return this.getIndexedColumnLocator(key);
+    } else if (index ==~ /[0-9]+/) {
+      return this.getIndexedColumnLocator(index);
+    } else {
+      //TODO: rename Container.InvalidID to UiObject.InvalidID
+      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
+    }
+  }
+
+  protected String getAnyColumnLocator(UiObject obj) {
+    String loc = this.buildLocatorWithoutPosition(obj.locator);
+
+    if (this.namespace != null && this.namespace.trim().length() > 0) {
+      return "/${this.namespace}:td[${loc}]";
+    }
+
+    return "/td[${loc}]";
+  }
+
+  protected String getFirstColumnLocator(){
+    if (this.namespace != null && this.namespace.trim().length() > 0) {
+      return "/${this.namespace}:td[1]";
+    }
+
+    return "/td[1]";
+  }
+
+  protected String getLastColumnLocator(){
+    if (this.namespace != null && this.namespace.trim().length() > 0) {
+      return "/${this.namespace}:td[last()]";
+    }
+
+    return "/td[last()]";
+  }
+
+  protected String getIndexedColumnLocator(String index){
+    if (this.namespace != null && this.namespace.trim().length() > 0) {
+      return "/${this.namespace}:td[${index}]";
+    }
+
+    return "/td[${index}]";
+  }    
+
   protected String getCellLocator(int row, int column) {
     if(hasNamespace()){
       return  "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:td][${row}]/${this.namespace}:td[${column}]"
@@ -345,8 +781,6 @@ class Table extends Container {
   }
 
   protected String getHeaderLocator(int column) {
-
-//        return "/tbody/tr[1]/th[${column}]"
     if(this.hasNamespace()){
       return "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th[${column}]"
     }
@@ -366,7 +800,7 @@ class Table extends Container {
 
     String rl = c(this.locator)
     Accessor accessor = new Accessor()
-//        String xpath = rl + "/tbody/tr[1]/th"
+
     String xpath;
     if(this.hasNamespace()){
        xpath = rl + "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:th]/${this.namespace}:th"
@@ -428,11 +862,11 @@ class Table extends Container {
     boolean hasAll = false;
     if (this.headers.size() > 0) {
       this.headers.each {String uid, UiObject obj ->
-        String auid = uid.replaceFirst('_', '').replace('HEADER', '')
-        if ("ALL".equalsIgnoreCase(auid.trim())) {
+        String auid = obj.metaData.index.value;
+        if ("all".equalsIgnoreCase(auid)) {
           hasAll = true;
         }else{
-          int indx = Integer.parseInt(uid.replaceFirst('_', ''));
+          int indx = Integer.parseInt(auid);
           if (indx > max) {
             max = indx;
           }
@@ -443,6 +877,10 @@ class Table extends Container {
     if(hasAll)
       max++;
 
+    if(max < this.headers.size()){
+      max = this.headers.size();
+    }
+
     return max;
   }
 
@@ -452,21 +890,27 @@ class Table extends Container {
     boolean rowHasAll = false;
     boolean colHasAll = false;
     components.each {String uid, UiObject obj ->
-      String[] splitted = uid.replaceFirst('_', '').split("_");
-      if("ALL".equalsIgnoreCase(splitted[0])){
+      Index r = obj.metaData.row;
+      if(r.value.equalsIgnoreCase("all")){
         rowHasAll = true;
-      }else{
-        int rowindx = Integer.parseInt(splitted[0]);
+      }else if(r.value ==~ /[0-9]+/){
+        int rowindx = Integer.parseInt(r.value);
         if(rowindx > maxrow)
           maxrow = rowindx;
+      }else{
+        maxrow++;
       }
 
-      if("ALL".equalsIgnoreCase(splitted[1])){
+      Index c = obj.metaData.column;
+
+      if("all".equalsIgnoreCase(c.value)){
         colHasAll = true;
-      }else{
-        int colindx = Integer.parseInt(splitted[1]);
+      }else if(c.value ==~ /[0-9]+/){
+        int colindx = Integer.parseInt(c.value);
         if(colindx > maxcol)
           maxcol = colindx;
+      }else{
+        maxcol++;
       }
     }
 
@@ -494,7 +938,7 @@ class Table extends Container {
       sb.append(indent + "  <tr>\n");
       for(int i=1; i<=maxheader; i++){
           sb.append(indent + "   <th>\n")
-          UiObject obj = this.findHeaderUiObject(i);
+          UiObject obj = this.locateHeaderChild("${i}")
           if (obj == null) {
             obj = this.defaultUi
           }
@@ -505,16 +949,16 @@ class Table extends Container {
     }
 
     if (this.components.size() > 0) {
-      Integer[] val = this.getMaxRowColumnIndices();
+      def val = this.getMaxRowColumnIndices();
       int maxrow = val[0];
       int maxcol = val[1];
       for(int j=1; j<=maxrow; j++){
         sb.append(indent + "  <tr>\n");
         for(int k=1; k<=maxcol; k++){
           sb.append(indent + "   <td>\n");
-          UiObject elem = this.findUiObject(j, k);
+          UiObject elem = this.locateTBodyChild("_${j}_${k}");
           if (elem == null) {
-            elem = this.defaultUi
+            elem = this.defaultUi;
           }
           sb.append(elem.toHTML()).append("\n");
           sb.append(indent + "   </td>\n");
@@ -528,16 +972,11 @@ class Table extends Container {
     return sb.toString();
   }
 
-  //walk to a regular UI element in the table
-  protected walkToElement(WorkflowContext context, UiID uiid) {
-    String child = uiid.pop()
-    String[] parts = child.replaceFirst('_', '').split("_")
+  protected UiObject walkToElement(WorkflowContext context, UiID uiid){
+    //tbody is 1 for a Table without tbody defined
+    String child = uiid.pop();
 
-    int nrow = Integer.parseInt(parts[0])
-    int ncolumn = Integer.parseInt(parts[1])
-    //otherwise, try to find its child
-    UiObject cobj = this.findUiObject(nrow, ncolumn)
-
+    UiObject cobj = this.locateTBodyChild(child);
     //If cannot find the object as the object template, return the TextBox as the default object
     if (cobj == null) {
       cobj = this.defaultUi
@@ -549,21 +988,18 @@ class Table extends Container {
     }
 
     //append relative location, i.e., row, column to the locator
-    String loc = null
+    String loc;
     if(context.isUseCssSelector()){
       //jquery eq() starts from zero, while xpath starts from one
-      loc = getCellSelector(nrow, ncolumn)
+      loc = this.getCellSelector(context, child, cobj);
     }else{
-      loc = getCellLocator(nrow, ncolumn)
+      loc = this.getCellLocator(context, child, cobj);
     }
-
     context.appendReferenceLocator(loc)
 
     if(cobj.locator != null){
       if(cobj.locator instanceof CompositeLocator){
-        CompositeLocator cl = (CompositeLocator)cobj.locator
-        if("td".equals(cl.tag) && cl.header == null){
-          //context.setTableDuplicateTag()
+        if(cobj.self){
           context.skipNext()
         }
       }
@@ -576,52 +1012,47 @@ class Table extends Container {
       //recursively call walkTo until the object is found
       return cobj.walkTo(context, uiid)
     }
-
   }
 
   //walk to a header UI element in the table
   protected walkToHeader(WorkflowContext context, UiID uiid) {
     //pop up the "header" indicator
-    uiid.pop()
+    uiid.pop();
+    
     //reach the actual uiid for the header element
-    String child = uiid.pop()
+    String child = uiid.pop();
 
-    child = child.replaceFirst('_', '').replaceFirst('HEADER', '')
-    int index = Integer.parseInt(child.trim())
+    String key = child.replaceFirst('_', '');
 
     //try to find its child
-    UiObject cobj = this.findHeaderUiObject(index)
+    UiObject cobj = this.locateHeaderChild(key);
 
     //If cannot find the object as the object template, return the TextBox as the default object
     if (cobj == null) {
-      cobj = this.defaultUi
+      cobj = this.defaultUi;
     }
 
     //update reference locator by append the relative locator for this container
     if (this.locator != null) {
       groupLocating(context)
     }
-
     //append relative location, i.e., row, column to the locator
     String loc
     if(context.isUseCssSelector()){
-      loc = getHeaderSelector(index)
+      loc = this.getHeaderSelector(key, cobj);
     }else{
-      loc = getHeaderLocator(index)
+      loc = this.getHeaderLocator(key, cobj);
     }
 
     context.appendReferenceLocator(loc)
-
     if(cobj.locator != null){
       if(cobj.locator instanceof CompositeLocator){
-        CompositeLocator cl = (CompositeLocator)cobj.locator
-        if("th".equals(cl.tag) && cl.header == null){
-//          context.setTableDuplicateTag()
+        if(cobj.self){
           context.skipNext()
         }
       }
     }
-
+    
     if (uiid.size() < 1) {
       //not more child needs to be found
       return cobj
@@ -629,18 +1060,13 @@ class Table extends Container {
       //recursively call walkTo until the object is found
       return cobj.walkTo(context, uiid)
     }
-
   }
 
   //walkTo through the object tree to until the UI object is found by the UID from the stack
   @Override
   public UiObject walkTo(WorkflowContext context, UiID uiid) {
 
-    //if not child listed, return itself
-//    if (uiid.size() < 1)
-//      return this
     if (uiid.size() < 1) {
-//      if (this.locator != null && this.useGroupInfo) {
       if (this.locator != null){
         groupLocating(context)
         context.noMoreProcess = true;
@@ -650,11 +1076,78 @@ class Table extends Container {
     }
 
     String child = uiid.peek()
-
+    
     if (child.trim().equalsIgnoreCase(HEADER)) {
       return walkToHeader(context, uiid)
     } else {
       return walkToElement(context, uiid)
+    }
+  }
+
+  protected void traverseHeader(WorkflowContext context){
+    if(this.hasHeader()){
+      int max = 1;
+      UiObject mp = null;
+
+      this.headers.each {key, component ->
+        String aid = component.metaData.getIndex().getValue();
+        if (aid ==~ /[0-9]+/) {
+          context.pushUid("header[${aid}]");
+          component.traverse(context);
+          if (max < Integer.parseInt(aid))
+            max = Integer.parseInt(aid);
+        }else if("any".equalsIgnoreCase(aid) || "last".equalsIgnoreCase(aid) || "first".equalsIgnoreCase(aid)){
+          String id =component.metaData.getId();
+          context.pushUid("header[${id}]");
+          component.traverse(context);
+        }else if("all".equalsIgnoreCase(aid)){
+          max++;
+          if(max < this.headers.size()){
+            max = this.headers.size();
+          }
+          mp = component;
+        }
+      }
+
+      if(mp != null){
+          context.pushUid("header[${max}]");
+          mp.traverse(context);
+      }
+    }
+  }
+
+  protected void traverseElement(WorkflowContext context){
+    int rmax = 1;
+    int cmax = 1;
+
+    this.components.each {key, component ->
+      TableBodyMetaData meta = (TableBodyMetaData)component.metaData;
+      String r = meta.getRow().getValue();
+      if(r ==~ /[0-9]+/){
+        if(rmax < Integer.parseInt(r)){
+          rmax = Integer.parseInt(r);
+        }
+      }
+      String c = meta.getColumn().getValue();
+      if(c ==~ /[0-9]+/){
+        if(cmax < Integer.parseInt(c)){
+          cmax = Integer.parseInt(c);
+        }
+      }
+    }
+
+    int max = this.components.size();
+    if(rmax < max)
+      rmax = max;
+    if(cmax < max)
+      cmax = max;
+
+    for(int i=1; i<=rmax; i++){
+      for(int j=1; j<=cmax; j++){
+         context.directPushUid("[${i}][${j}]");
+         UiObject obj = this.locateTBodyChild("_${i}_${j}");
+         obj.traverse(context);
+      }
     }
   }
 
@@ -684,68 +1177,6 @@ class Table extends Container {
           component.treeWalk(context)
         }
       }
-    }
-  }
-
-  protected void traverseHeader(WorkflowContext context){
-    if(this.hasHeader()){
-      int max = 0
-      this.headers.each {key, component ->
-        String aid = key.replaceFirst('_', '').replaceFirst('HEADER', '')
-        if (aid ==~ /[0-9]+/) {
-          context.pushUid("header[${aid}]")
-          component.traverse(context)
-          if (max < Integer.parseInt(aid))
-            max = Integer.parseInt(aid)
-        }
-      }
-
-      UiObject obj = this.headers.get("_HEADER_ALL")
-      if(obj != null){
-        max++
-        context.pushUid("header[${max}]")
-        obj.traverse(context)
-      }
-    }
-  }
-
-  protected void traverseElement(WorkflowContext context){
-
-    int rmax = 0
-    int cmax = 0
-    this.components.each {key, component->
-      String[] parts = key.replaceFirst('_', '').split("_")
-      if(parts[0] ==~ /[0-9]+/ && rmax < Integer.parseInt(parts[0])){
-        rmax = Integer.parseInt(parts[0])
-      }
-      if(parts[1] ==~ /[0-9]+/ && cmax < Integer.parseInt(parts[1])){
-        cmax = Integer.parseInt(parts[1])
-      }
-    }
-
-    rmax++
-    cmax++
-    boolean includeMatchAll = false
-
-    this.components.each {key, component->
-      String[] parts = key.replaceFirst('_', '').split("_")
-      if(parts[0] ==~ /[0-9]+/ && parts[1] ==~ /[0-9]+/){
-        context.directPushUid("[${parts[0]}][${parts[1]}]")
-      }else if(parts[0] ==~ /[0-9]+/ && ALL_MATCH.equalsIgnoreCase(parts[1])){
-        context.directPushUid("[${parts[0]}][${cmax}]")
-      }else if(ALL_MATCH.equalsIgnoreCase(parts[0]) && parts[1]==~ /[0-9]+/){
-        context.directPushUid("[${rmax}][${parts[1]}]")
-      }else{
-        includeMatchAll = true
-        context.directPushUid("[${rmax}][${cmax}]")
-      }
-
-      component.traverse(context)
-    }
-
-    if(!includeMatchAll){
-      context.directPushUid("[${rmax}][${cmax}]")
-      defaultUi.traverse(context)
     }
   }
 }

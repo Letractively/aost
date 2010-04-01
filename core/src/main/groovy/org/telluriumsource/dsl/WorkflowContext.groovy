@@ -12,7 +12,7 @@ import org.json.simple.JSONArray
  * Date: Jul 2, 2008
  *
  */
-class WorkflowContext {
+class WorkflowContext implements Serializable {
 
   public static final String REFERENCE_LOCATOR = "Reference_Locator"
   public static final String OPTION_LOCATOR = "Option_Locator"
@@ -37,33 +37,11 @@ class WorkflowContext {
 
   private boolean noMoreProcess = false;
 
-//  private boolean locatorSpecific = true
-
-//  private ReturnType returnType;
-
   private MetaCmd metaCmd = new MetaCmd();
 
   private Stack<String> uiid = new Stack<String>();
 
   def context = [:]
-
-/*
-  public boolean isCallLocatorSpecific(){
-    return this.locatorSpecific
-  }
-
-  public void setCallLocatorSpecific(boolean isLocatorSpecific){
-    this.locatorSpecific = isLocatorSpecific
-  }
-
-  public void setCallReturnType(ReturnType returnType){
-    this.returnType = returnType
-  }
-
-  public ReturnType getCallReturnType(){
-    return this.returnType
-  }
-*/
 
   public void notBundlingable(){
     this.bundlingable = false
@@ -122,7 +100,6 @@ class WorkflowContext {
     this.uiid = new Stack();
     if(uid != null && (uid.trim().length() > 0)){
       String[] ids = uid.split(UiID.ID_SEPARATOR)
-//      for(int i=ids.length-1; i>=0; i--){
       for(int i=0; i<ids.length; i++){
         String[] pp = preprocess(ids[i])
         if(pp.length == 1){
@@ -153,7 +130,6 @@ class WorkflowContext {
   }
 
   public String getUid(){
-//    return this.uiid.reverse().join(".").replaceAll("\\._\\[","\\[")
     return this.uiid.join(".").replaceAll("\\._\\[","\\[")
   }
 
@@ -187,7 +163,7 @@ class WorkflowContext {
   }
 
   public void updateCacheableForMetaCmd(boolean cacheable){
-    this.metaCmd.setProperty(MetaCmd.CACHEABLE, cacheable) 
+    this.metaCmd.setProperty(MetaCmd.CACHEABLE, cacheable)
   }
 
   public void setTableDuplicateTag() {
@@ -293,40 +269,9 @@ class WorkflowContext {
         rl = loc
       } else {
         rl = rl + loc
-
-      /*        if (this.tableDuplicateTag) {
-        this.tableDuplicateTag = false
-        //simply skip the next loc because position unquely defines the location
-      } else {
-        //regular routine
-        rl = rl + loc
-      }
-      */
       }
 
       context.put(REFERENCE_LOCATOR, rl)
     }
-  }
-
-  protected String checkTableDuplicateTag(String rl, String loc) {
-
-    String xp = XPathProcessor.lastXPath(rl)
-    String tag = XPathProcessor.getTagFromXPath(xp)
-    
-    //assume loc is only the xpath for one element
-    String ntag = XPathProcessor.getTagFromXPath(loc)
-    if (tag.equals(ntag)) {
-      int pos = XPathProcessor.checkPosition(xp)
-      if (pos != -1) {
-        String nloc = XPathProcessor.addPositionAttribute(loc, pos)
-        rl = XPathProcessor.popXPath(rl) + nloc
-      }else{
-        rl = XPathProcessor.popXPath(rl) + loc
-      }
-    }else{
-      rl = rl + loc
-    }
-
-    return rl
   }
 }

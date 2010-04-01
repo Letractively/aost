@@ -116,35 +116,35 @@ TelluriumApi.prototype.keyUp = function(locator, key){
 };
 
 TelluriumApi.prototype.altKeyUp = function(){
-    !tellurium.logManager.isUseLog || fbLog("ALT key up ");
+    !tellurium.logManager.isUseLog || fbLog("ALT key up ", this);
     this.alt = true;
 };
 TelluriumApi.prototype.altKeyDown = function(){
-    !tellurium.logManager.isUseLog || fbLog("ALT key down ");
+    !tellurium.logManager.isUseLog || fbLog("ALT key down ", this);
     this.alt = false;
 };
 TelluriumApi.prototype.ctrlKeyUp = function(){
-    !tellurium.logManager.isUseLog || fbLog("CTRL key up ");
+    !tellurium.logManager.isUseLog || fbLog("CTRL key up ", this);
     this.ctrl = true;
 };
 TelluriumApi.prototype.ctrlKeyDown = function(){
-    !tellurium.logManager.isUseLog || fbLog("CTRL key down ");
+    !tellurium.logManager.isUseLog || fbLog("CTRL key down ", this);
     this.ctrl = false;
 };
 TelluriumApi.prototype.shiftKeyUp = function(){
-    !tellurium.logManager.isUseLog || fbLog("SHIFT key up ");
+    !tellurium.logManager.isUseLog || fbLog("SHIFT key up ", this);
     this.shift = true;
 };
 TelluriumApi.prototype.shiftKeyDown = function(){
-    !tellurium.logManager.isUseLog || fbLog("SHIFT key down ");
+    !tellurium.logManager.isUseLog || fbLog("SHIFT key down ", this);
     this.shift = false;
 };
 TelluriumApi.prototype.metaKeyUp = function(){
-    !tellurium.logManager.isUseLog || fbLog("META key up ");
+    !tellurium.logManager.isUseLog || fbLog("META key up ", this);
     this.meta = true;
 };
 TelluriumApi.prototype.metaKeyDown = function(){
-    !tellurium.logManager.isUseLog || fbLog("META key down ");
+    !tellurium.logManager.isUseLog || fbLog("META key down ", this);
     this.meta = false;
 };
 
@@ -269,7 +269,7 @@ TelluriumApi.prototype.addSelection = function(locator, optionLocator){
     var $sel = teJQuery(element);
     //construct the select option
     var opt = "option[" + optionLocator + "]";
-    //select the approporiate option
+    //select the appropriate option
     $sel.find(opt).attr("selected","selected");
 };
 
@@ -383,7 +383,6 @@ TelluriumApi.prototype.getCSS = function(locator, cssName) {
         out.push(val);
     }
 
-//    return JSON.stringify(out);
     return out;
 };
 
@@ -516,7 +515,6 @@ TelluriumApi.prototype.getCookieByJQuery = function(cookieName){
 };
 
 TelluriumApi.prototype.updateEngineState = function(state){
-//    var state = JSON.parse(json, null);
     tellurium.cache.useClosestMatch(state.relax);
     tellurium.useTeApi(state.teApi);
     tellurium.cache.cacheOption = state.cache;
@@ -528,7 +526,6 @@ TelluriumApi.prototype.getEngineState = function(){
     state.teApi = tellurium.isUseTeApi;
     state.cache = tellurium.cache.cacheOption;
 
-//    return JSON.stringify(state);
     return state;
 };
 
@@ -836,4 +833,25 @@ TelluriumApi.prototype.removeMarkedUids = function(tag){
     if($found.size() > 0){
         $found.removeAttr("teuid");
     }
+};
+
+TelluriumApi.prototype.getIndex = function(locator){
+    var elem = selenium.browserbot.findElement(locator);
+    teJQuery(elem).data("id", "found");
+    var tag = elem.tagName;
+    var $elems = teJQuery(elem.parentNode).find(" > " + tag);
+
+    var index = 0;
+    for(var i=0; i<$elems.size(); i++){
+        var $elem = $elems.eq(i);
+        if($elem.data("id") == "found"){
+            index = i;
+            $elem.removeData("id");
+            break;
+        }
+    }
+
+    return index + 1;
+//    return teJQuery(elem).index() + 1;
+//    return teJQuery(elem).prevAll().size() + 2;
 };

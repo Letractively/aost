@@ -104,6 +104,33 @@ teJQuery.expr[':'].styles = function(obj, index, m){
       return result;
 };
 
+/*
+teJQuery.expr[':'].nextToLast = function(obj, index, m){
+    var $this = teJQuery(obj);
+
+    //      return $this.find(m[3]).last().prev();
+//    return $this.find(m[3]).slice(-2, -1);
+    if ($this.index() == $this.siblings().length - 1) {
+        return true;
+    } else {
+        return false;
+    }
+};
+*/
+
+// this is a selector called nextToLast. its sole purpose is to return the next to last
+// element of the array of elements supplied to it.
+// the parameters in the function below are as follows;
+// obj => the current node being checked
+// ind => the index of obj in the array of objects being checked
+// prop => the properties passed in with the expression
+// node => the array of nodes being checked
+teJQuery.expr[':'].nextToLast = function(obj, ind, prop, node){
+
+     // if ind is 2 less than the length of the array of nodes, keep it
+     return ind == node.length - 2;
+};
+
 teJQuery.fn.outerHTML = function() {
     return teJQuery("<div/>").append( teJQuery(this[0]).clone() ).html();
 };
@@ -282,7 +309,6 @@ Tellurium.prototype.isUseCache = function(){
     return this.cache.cacheOption;    
 };
 
-//TODO: How to handle custom calls?  delegate to Selenium?
 //TODO: Refactor --> use Javascript itself to do automatically discovery like selenium does instead of manually registering them
 Tellurium.prototype.initialize = function(){
     this.outlines.init();
@@ -409,6 +435,7 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("getRepeatNum", true, "NUMBER");
     this.registerApi("getUiByTag", false, "ARRAY");
     this.registerApi("removeMarkedUids", false, "ARRAY");
+    this.registerApi("getIndex", true, "NUMBER");
 };
 
 Tellurium.prototype.flipLog = function(){
@@ -697,7 +724,7 @@ Tellurium.prototype.validateResult = function($result, unique, selector){
     }
 };
 
-//TODO: depreciate this method since the UI module is built in
+/*
 Tellurium.prototype.locateElementByCacheAwareCSSSelector = function(locator, inDocument, inWindow){
     var input = this.parseLocator(locator);
     var $found = null;
@@ -773,30 +800,21 @@ Tellurium.prototype.locateElementByCacheAwareCSSSelector = function(locator, inD
         }
     }   
 };
+*/
 
 function CacheAwareLocator(){
     //runtime id
     this.rid = null;
 
-    //whether it includes attribute
-//    this.isAttribute = false;
-
     //original locator
     this.locator = null;
-    //this.orLocator = null;
-
-    //attribution portion
-//    this.attribute = null;
-
-    //locator portion
-//    this.locator = null;
 }
 
-Tellurium.prototype.locateElementWithCacheAware = function(locator, inDocument, inWindow){
+Tellurium.prototype.locateElementWithCacheAware = function(json, inDocument, inWindow){
     var element = null;
     
 //    var json = locator.substring(7);
-    var json = locator;
+//    var json = locator;
     !tellurium.logManager.isUseLog || fbLog("JSON presentation of the cache aware locator: ", json);
     var cal = JSON.parse(json, null);
     !tellurium.logManager.isUseLog || fbLog("Parsed cache aware locator: ", cal);
@@ -916,7 +934,6 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
         var params = cmd.args;
         if (params != null && params.length > 0) {
             if (handler.returnType == "VOID") {
-//                api.apply(this, params);
                 api.apply(this.teApi, params);
             } else {
                 result = api.apply(this.teApi, params);

@@ -2,6 +2,8 @@ package org.telluriumsource.ui.builder
 
 import org.telluriumsource.ui.object.StandardTable
 import org.telluriumsource.ui.object.UiObject
+import org.telluriumsource.ui.routing.RTree
+import org.telluriumsource.ui.routing.RGraph
 
 /**
  * Build Standard Table
@@ -18,7 +20,16 @@ class StandardTableBuilder extends UiObjectBuilder{
        def df = [:]
        df.put(TAG, StandardTable.TAG)
        StandardTable table = this.internBuild(new StandardTable(), map, df)
-
+       table.hTree = new RTree();
+       table.hTree.indices = table.headers;
+       table.hTree.preBuild();
+       table.fTree = new RTree();
+       table.fTree.indices = table.footers;
+       table.fTree.preBuild();
+       table.rGraph = new RGraph();
+       table.rGraph.indices = table.components;
+       table.rGraph.preBuild();
+     
        String ht = map.get(StandardTable.HEAD_TAG)
        if(ht != null){
          table.headTag = ht
