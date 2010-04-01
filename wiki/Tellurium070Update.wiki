@@ -1278,7 +1278,7 @@ public class TelluriumMockJUnitTestCase extends TelluriumJUnitTestCase {
 
 == Tellurium Configuration ==
 
-The configuration parser has been refactored to read the configuration file TelluriumConfig.groovy from the class path instead of the project root. As a result, you can put the TelluriumConfig.groovy file under the resources directory if you use Maven.
+The configuration parser has been refactored. Tellurium loads the configuration file TelluriumConfig.groovy first from the project root. If not found, it loads it from the class path. As a result, you can put the TelluriumConfig.groovy file under the resources directory if you use Maven.
 
 The configuration file TelluriumConfig.groovy includes three extra sections. That is to say, the bundle tier,
 
