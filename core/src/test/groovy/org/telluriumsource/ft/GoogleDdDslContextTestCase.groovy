@@ -10,7 +10,7 @@ import org.junit.Ignore
  * Date: Jul 24, 2008
  *
  */
-class GoogleDdDslContext_UT extends GroovyTestCase{
+class GoogleDdDslContextTestCase extends GroovyTestCase{
 
     @Ignore
     public void testGoogleSearch(){
