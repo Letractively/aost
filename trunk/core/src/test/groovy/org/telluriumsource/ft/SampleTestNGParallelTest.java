@@ -25,7 +25,7 @@ public class SampleTestNGParallelTest extends TelluriumTestNGTestCase {
     public void testOne() {
 
       connectUrl("http://google.com");
-      assertEquals("location should be google", "http://www.google.com/", connector.getSelenium().getProperty("location"));
+      assertEquals("location should be google", "http://www.google.com/", connector.getSelenium().getLocation());
         try {
             sleep(500);
         } catch (InterruptedException e) {
@@ -36,7 +36,7 @@ public class SampleTestNGParallelTest extends TelluriumTestNGTestCase {
     @Test(threadPoolSize = 5, invocationCount = 10)
     public void testTwo() {
       connectUrl("http://amazon.com");
-      assertEquals("location should be amazon", "http://www.amazon.com/", connector.getSelenium().getProperty("location"));
+      assertEquals("location should be amazon", "http://www.amazon.com/", connector.getSelenium().getLocation());
         try {
             sleep(500);
         } catch (InterruptedException e) {
