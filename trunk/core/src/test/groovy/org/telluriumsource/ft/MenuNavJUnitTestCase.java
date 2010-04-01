@@ -39,7 +39,6 @@ public class MenuNavJUnitTestCase  extends TelluriumMockJUnitTestCase {
 
     @Before
     public void connectToLocal() {
- //       connect("JettyLogon");
     }
 
     @Test

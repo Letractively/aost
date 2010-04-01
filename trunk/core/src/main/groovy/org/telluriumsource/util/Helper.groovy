@@ -54,4 +54,14 @@ class Helper{
 
       return null;
   }
+
+  //deep copy, quite expensive
+  def static clone(object) {
+    ByteArrayOutputStream bos = new ByteArrayOutputStream()
+    ObjectOutputStream oos = new ObjectOutputStream(bos)
+    oos.writeObject(object); oos.flush()
+    ByteArrayInputStream bin = new ByteArrayInputStream(bos.toByteArray())
+    ObjectInputStream ois = new ObjectInputStream(bin)
+    return ois.readObject()
+  }
 }

@@ -124,7 +124,7 @@ class Table_UT extends GroovyTestCase{
        UiObject obj = table8.ui.walkTo(context, "IdMenu[1][1")
        assertNotNull(obj)
        assertTrue(obj instanceof TextBox)
-       assertEquals("/descendant-or-self::div[@class='popup' and @id='pop_0']/table[descendant::*[normalize-space(text())=normalize-space(\"Sort Up\")] and descendant::*[normalize-space(text())=normalize-space(\"Sort Down\")] and descendant::*[normalize-space(text())=normalize-space(\"Hide Column\")]]/tbody/tr[child::td][1]/td[1]", context.getReferenceLocator())
+       assertEquals("/descendant-or-self::div[@class='popup' and @id='pop_0']/table[descendant::*[normalize-space(text())=normalize-space(\"Sort Up\")] and descendant::*[normalize-space(text())=normalize-space(\"Hide Column\")] and descendant::*[normalize-space(text())=normalize-space(\"Sort Down\")]]/tbody/tr[child::td][1]/td[1]", context.getReferenceLocator())
    }
 
   void testTable9(){
@@ -134,10 +134,11 @@ class Table_UT extends GroovyTestCase{
        UiObject obj = table9.ui.walkTo(context, "IdMenu[1][1")
        assertNotNull(obj)
        assertTrue(obj instanceof TextBox)
-       assertEquals("/descendant-or-self::table[@id=\"someId\"]/tbody[@id=\"tbody1_Id\"]/tr[child::td][1]/td[1]", context.getReferenceLocator())     
+//       assertEquals("/descendant-or-self::table[@id=\"someId\"]/tbody[@id=\"tbody1_Id\"]/tr[child::td][1]/td[1]", context.getReferenceLocator())
+       assertEquals("/descendant-or-self::table[@id=\"someId\"]/tbody/tr[child::td][1]/td[1]", context.getReferenceLocator()) 
   }
 
-  void testTablbe10(){
+  void testTable10(){
       Table10 table10 = new Table10()
       table10.defineUi()
       String result = table10.getTableLocator("Actions.header[1]")
@@ -148,9 +149,9 @@ class Table_UT extends GroovyTestCase{
       result = table10.getTableLocator("Actions[2][2]")
       assertEquals("//descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][2]/td[2]/descendant-or-self::a[normalize-space(text())=normalize-space(\"Y100000542\")]", result)
       result = table10.getTableLocator("Actions[2][3]")
-      assertEquals("//descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][2]/td[3]", result)
+      assertEquals("//descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][2]/td[3]/descendant-or-self::td[@class=\"abc\"]", result)
       result = table10.getTableLocator("Actions[3][4]")
-      assertEquals("//descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][3]/td[4]", result)
+      assertEquals("//descendant-or-self::table[@id=\"ipclb1\" and @class=\"coolBar\"]/tbody/tr[child::td][3]/td[4]/descendant-or-self::td[@class=\"abc\"]", result)
   }
 
   void testTable11(){

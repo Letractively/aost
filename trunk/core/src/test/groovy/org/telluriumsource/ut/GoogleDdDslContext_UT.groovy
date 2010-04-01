@@ -1,5 +1,7 @@
 package org.telluriumsource.ut
 
+import org.junit.Ignore
+
 /**
  * Functional Test for GoogleDdDslContext
  * 
@@ -10,6 +12,7 @@ package org.telluriumsource.ut
  */
 class GoogleDdDslContext_UT extends GroovyTestCase{
 
+    @Ignore
     public void testGoogleSearch(){
         GoogleDdDslContext gddc = new GoogleDdDslContext()
         gddc.init()

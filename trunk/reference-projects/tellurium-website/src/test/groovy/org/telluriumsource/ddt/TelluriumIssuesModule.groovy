@@ -25,40 +25,40 @@ class TelluriumIssuesModule extends TelluriumDataDrivenModule{
 
         ui.Form(uid: "issueAdvancedSearch", clocator: [action: "advsearch.do", method: "POST"], group: "true") {
             Table(uid: "searchTable", clocator: [class: "advquery"]) {
-                Selector(uid: "row:1, column: 3", clocator: [name: "can"])
-                SubmitButton(uid: "row:1, column:4", clocator: [value: "Search", name: "btn"])
-                InputBox(uid: "row:2, column:3", clocator: [name: "words"])
-                InputBox(uid: "row:3, column:3", clocator: [name: "without"])
-                InputBox(uid: "row:5, column:3", clocator: [name: "labels"])
-                Table(uid: "row:6, column:1", clocator: [:]) {
-                    UrlLink(uid: "row:1, column:1", clocator: [text: "*Search Tips"])
+                Selector(uid: "{row:1, column: 3} as Type", clocator: [name: "can"])
+                SubmitButton(uid: "{row:1, column:4} as Search", clocator: [value: "Search", name: "btn"])
+                InputBox(uid: "{row:2, column:3} as Words", clocator: [name: "words"])
+                InputBox(uid: "{row:3, column:3} as Without", clocator: [name: "without"])
+                InputBox(uid: "{row:5, column:3} as Labels", clocator: [name: "labels"])
+                Table(uid: "{row:6, column:1} as Tips", clocator: [:]) {
+                    UrlLink(uid: "{row:1, column:1} as SearchTips", clocator: [text: "*Search Tips"])
                 }
-                InputBox(uid: "row:6, column:3", clocator: [name: "statuses"])
-                InputBox(uid: "row:7, column:2", clocator: [name: "reporters"])
-                InputBox(uid: "row:8, column:2", clocator: [name: "owners"])
-                InputBox(uid: "row:9, column:2", clocator: [name: "cc"])
-                InputBox(uid: "row:10, column:3", clocator: [name: "commentby"])
+                InputBox(uid: "{row:6, column:3} as Status", clocator: [name: "statuses"])
+                InputBox(uid: "{row:7, column:2} as Reporter", clocator: [name: "reporters"])
+                InputBox(uid: "{row:8, column:2} as Owner", clocator: [name: "owners"])
+                InputBox(uid: "{row:9, column:2} as CC", clocator: [name: "cc"])
+                InputBox(uid: "{row:10, column:3} as CommentBy", clocator: [name: "commentby"])
             }
         }
 
         ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], group: "true") {
             //define table header
             //for the border column
-            TextBox(uid: "header: 1", clocator: [:])
-            UrlLink(uid: "header: 2", clocator: [text: "*ID"])
-            UrlLink(uid: "header: 3", clocator: [text: "*Type"])
-            UrlLink(uid: "header: 4", clocator: [text: "*Status"])
-            UrlLink(uid: "header: 5", clocator: [text: "*Priority"])
-            UrlLink(uid: "header: 6", clocator: [text: "*Milestone"])
-            UrlLink(uid: "header: 7", clocator: [text: "*Owner"])
-            UrlLink(uid: "header: 9", clocator: [text: "*Summary + Labels"])
-            UrlLink(uid: "header: 10", clocator: [text: "*..."])
+            TextBox(uid: "{header: 1}", clocator: [:])
+            UrlLink(uid: "{header: 2} as ID", clocator: [text: "*ID"])
+            UrlLink(uid: "{header: 3} as Type", clocator: [text: "*Type"])
+            UrlLink(uid: "{header: 4} as Status", clocator: [text: "*Status"])
+            UrlLink(uid: "{header: 5} as Priority", clocator: [text: "*Priority"])
+            UrlLink(uid: "{header: 6} as Milestone", clocator: [text: "*Milestone"])
+            UrlLink(uid: "{header: 7} as Owner", clocator: [text: "*Owner"])
+            UrlLink(uid: "{header: 9} as Summary", clocator: [text: "*Summary + Labels"])
+            UrlLink(uid: "{header: 10} as Extra", clocator: [text: "*..."])
 
             //define table elements
             //for the border column
-            TextBox(uid: "row: *, column: 1", clocator: [:])
+            TextBox(uid: "{row: all, column: 1}", clocator: [:])
             //For the rest, just UrlLink
-            UrlLink(uid: "all", clocator: [:])
+            UrlLink(uid: "{row: all, column: all}", clocator: [:])
         }
 
         //items is a map in the format of "alias name" : menu_item

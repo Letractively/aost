@@ -13,8 +13,7 @@ import org.telluriumsource.dsl.DslContext
 public class CaseRecordModule extends DslContext {
 
   public void defineUi() {
-    ui.Container(uid: "caseRecordPopUp", clocator: [id: "CaseRecordsPopUp",
-            tag: "div"], namespace: "xhtml", group: "true") {
+    ui.Container(uid: "caseRecordPopUp", clocator: [id: "CaseRecordsPopUp", tag: "div"], namespace: "xhtml", group: "true") {
         Container(uid: "date", clocator: [id: "caseRecordPopUpDate", tag: "input"], namespace: "xforms")
         Container(uid: "complaints", clocator: [id: "caseRecordPopUpComplaints", tag: "input"], namespace: "xforms")
         Container(uid: "weight", clocator: [id: "caseRecordPopUpWeight", tag: "input"], namespace: "xforms")

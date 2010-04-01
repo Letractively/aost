@@ -1,23 +1,20 @@
 package org.telluriumsource.udl;
 
+import org.json.simple.JSONObject;
+
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  *         Date: Feb 18, 2010
  */
 public class TableBodyMetaData extends MetaData {
-    public TableBodyMetaData(){
-
-    }
-    
-    public TableBodyMetaData(String id) {
-        super(id);
-    }
-
+    public static final String TBODY = "tbody";
     protected Index tbody;
 
+    public static final String ROW = "row";
     protected Index row;
 
+    public static final String COLUMN = "column";
     protected Index column;
 
     public Index getTbody() {
@@ -42,5 +39,24 @@ public class TableBodyMetaData extends MetaData {
 
     public void setColumn(Index column) {
         this.column = column;
+    }
+
+    public TableBodyMetaData(){
+
+    }
+
+    public TableBodyMetaData(String id) {
+        super(id);
+    }
+
+    @Override
+    public JSONObject toJSON() {
+        JSONObject jso = super.toJSON();
+        jso.put(TBODY, this.tbody.toJSON());
+        jso.put(ROW, this.row.toJSON());
+        jso.put(COLUMN, this.column.toJSON());
+        jso.put(TYPE, "TBody");
+
+        return jso;
     }
 }

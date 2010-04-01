@@ -154,6 +154,7 @@ UiModule.prototype.index = function(uid){
 UiModule.prototype.walkTo = function(context, uiid) {
     var first = uiid.pop();
     if (first == this.root.uid) {
+        context.domRef = this.root.domRef;
         return this.root.walkTo(context, uiid);
     }
 

@@ -28,26 +28,26 @@ class TelluriumDownloadsPage extends DslContext{
        ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"], group: "true"){
            //define table header
            //for the border column
-           TextBox(uid: "header: 1", clocator: [:])
-           UrlLink(uid: "header: 2", clocator: [text: "*Filename"])
-           UrlLink(uid: "header: 3", clocator: [text: "*Summary + Labels"])
-           UrlLink(uid: "header: 4", clocator: [text: "*Uploaded"])
-           UrlLink(uid: "header: 5", clocator: [text: "*Size"])
+           TextBox(uid: "{header: 1}", clocator: [:])
+           UrlLink(uid: "{header: 2} as Filename", clocator: [text: "*Filename"])
+           UrlLink(uid: "{header: 3} as Summary", clocator: [text: "*Summary + Labels"])
+           UrlLink(uid: "{header: 4} as Uploaded", clocator: [text: "*Uploaded"])
+           UrlLink(uid: "{header: 5} as Size", clocator: [text: "*Size"])
 
-           UrlLink(uid: "header: 6", clocator: [text: "*DownloadCount"])
-           UrlLink(uid: "header: 7", clocator: [text: "*..."])
+           UrlLink(uid: "{header: 6} as Count", clocator: [text: "*DownloadCount"])
+           UrlLink(uid: "{header: 7} as Extra", clocator: [text: "*..."])
 
            //define table elements
            //for the border column
-           TextBox(uid: "row: *, column: 1", clocator: [:])
+           TextBox(uid: "{row: all, column: 1}", clocator: [:])
          
            //the summary + labels column consists of a list of UrlLinks
  //          List(uid: "row:*, column: 3", clocator: [:]){
-          List(uid: "row:*, column: 3"){
-               UrlLink(uid: "all", clocator: [:])
+          List(uid: "{row: all, column: 3}"){
+               UrlLink(uid: "{all}", clocator: [:])
            }
            //For the rest, just UrlLink
-           UrlLink(uid: "all", clocator: [:])
+           UrlLink(uid: "{row: all, column: all}", clocator: [:])
        }
 
        ui.RadioButton(uid: "test", clocator: [:], respond: "click")

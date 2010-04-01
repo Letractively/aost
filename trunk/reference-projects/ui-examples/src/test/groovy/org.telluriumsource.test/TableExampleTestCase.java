@@ -50,7 +50,7 @@ public class TableExampleTestCase  extends TelluriumMockJUnitTestCase {
     public void testWork(){
         useCache(false);
         System.out.println(tem.getText("GT.header[2]"));
-        System.out.println(tem.getText("GT[1][1]"));
+        System.out.println(tem.getText("GT.A"));
         tem.work("Tellurium jQuery");
         useCache(true);
     }
@@ -59,7 +59,7 @@ public class TableExampleTestCase  extends TelluriumMockJUnitTestCase {
     public void testWorkWithCache(){
         useCache(true);
         System.out.println(tem.getText("GT.header[2]"));
-        System.out.println(tem.getText("GT[1][1]"));
+        System.out.println(tem.getText("GT.A"));
         tem.work("Tellurium jQuery");
     }
 
@@ -97,6 +97,23 @@ public class TableExampleTestCase  extends TelluriumMockJUnitTestCase {
 //        tem.show("GT", 10000);
         tem.startShow("GT");
         tem.endShow("GT");
+    }
+
+    @Test
+    public void testIndex(){
+        useCache(true);
+        System.out.println(tem.getText("NGT.header.One"));
+        System.out.println(tem.getText("NGT.header.Two"));
+        System.out.println(tem.getText("NGT.header.Three"));
+        System.out.println(tem.getText("NGT.header[1]"));
+        System.out.println(tem.getText("NGT.header[2]"));
+        System.out.println(tem.getText("NGT.header[3]"));
+        System.out.println(tem.getText("NGT.A"));
+        System.out.println(tem.getText("NGT[1][1]"));
+        System.out.println(tem.getText("NGT[1][One]"));
+        System.out.println(tem.getText("NGT.Hello"));
+        System.out.println(tem.getText("NGT[1][3]"));
+        System.out.println(tem.getText("NGT[1][Three]"));
     }
 
     @AfterClass

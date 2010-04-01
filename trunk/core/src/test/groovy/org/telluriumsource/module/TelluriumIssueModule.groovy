@@ -16,7 +16,7 @@ public class TelluriumIssueModule extends DslContext {
   public void defineUi() {
 
     //define UI module of a form include issue type selector and issue search
-    ui.Form(uid: "issueSearch", clocator: [action: "list", method: "get"], group: "true") {
+    ui.Form(uid: "issueSearch", clocator: [action: "list", method: "GET"], group: "true") {
       Selector(uid: "issueType", clocator: [name: "can", id: "can"])
       TextBox(uid: "searchLabel", clocator: [tag: "span", text: "*for"])
       InputBox(uid: "searchBox", clocator: [type: "text", name: "q"])
@@ -24,47 +24,77 @@ public class TelluriumIssueModule extends DslContext {
     }
 
     ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], group: "true") {
-      TextBox(uid: "header: 1", clocator: [:])
-      UrlLink(uid: "header: 2", clocator: [text: "*ID"])
-      UrlLink(uid: "header: 3", clocator: [text: "*Type"])
-      UrlLink(uid: "header: 4", clocator: [text: "*Status"])
-      UrlLink(uid: "header: 5", clocator: [text: "*Priority"])
-      UrlLink(uid: "header: 6", clocator: [text: "*Milestone"])
-      UrlLink(uid: "header: 7", clocator: [text: "*Owner"])
-      UrlLink(uid: "header: 9", clocator: [text: "*Summary + Labels"])
-      UrlLink(uid: "header: 10", clocator: [text: "*..."])
+//      TextBox(uid: "{header: 1} as h1", clocator: [:])
+      UrlLink(uid: "{header: any} as ID", clocator: [text: "*ID"])
+      UrlLink(uid: "{header: any} as Type", clocator: [text: "*Type"])
+      UrlLink(uid: "{header: any} as Status", clocator: [text: "*Status"])
+      UrlLink(uid: "{header: any} as Priority", clocator: [text: "*Priority"])
+      UrlLink(uid: "{header: any} as Milestone", clocator: [text: "*Milestone"])
+      UrlLink(uid: "{header: any} as Owner", clocator: [text: "*Owner"])
+      UrlLink(uid: "{header: any} as Summary", clocator: [text: "*Summary + Labels"])
+      UrlLink(uid: "{header: any} as Extra", clocator: [text: "*..."])
 
       //define table elements
       //for the border column
-      TextBox(uid: "row: *, column: 1", clocator: [:])
-      TextBox(uid: "row: *, column: 8", clocator: [:])
-      TextBox(uid: "row: *, column: 10", clocator: [:])
+//      TextBox(uid: "{row: all, column: 1}", clocator: [:])
+//      TextBox(uid: "{row: all, column: 8}", clocator: [:])
+      TextBox(uid: "{row: all, column -> Extra}", clocator: [:])
       //For the rest, just UrlLink
-      UrlLink(uid: "all", clocator: [:])
+      UrlLink(uid: "{row: all, column: all}", clocator: [:])
     }
 
     ui.Table(uid: "issueResultWithCache", cacheable: "true", noCacheForChildren: "false", clocator: [id: "resultstable", class: "results"], group: "true") {
       //define table header
       //for the border column
-      TextBox(uid: "header: 1", clocator: [:])
-      UrlLink(uid: "header: 2", clocator: [text: "*ID"])
-      UrlLink(uid: "header: 3", clocator: [text: "*Type"])
-      UrlLink(uid: "header: 4", clocator: [text: "*Status"])
-      UrlLink(uid: "header: 5", clocator: [text: "*Priority"])
-      UrlLink(uid: "header: 6", clocator: [text: "*Milestone"])
-      UrlLink(uid: "header: 7", clocator: [text: "*Owner"])
-      UrlLink(uid: "header: 9", clocator: [text: "*Summary + Labels"])
-      UrlLink(uid: "header: 10", clocator: [text: "*..."])
+//      TextBox(uid: "{header: 1} as h1", clocator: [:])
+      UrlLink(uid: "{header: any} as ID", clocator: [text: "*ID"])
+      UrlLink(uid: "{header: any} as Type", clocator: [text: "*Type"])
+      UrlLink(uid: "{header: any} as Status", clocator: [text: "*Status"])
+      UrlLink(uid: "{header: any} as Priority", clocator: [text: "*Priority"])
+      UrlLink(uid: "{header: any} as Milestone", clocator: [text: "*Milestone"])
+      UrlLink(uid: "{header: any} as Owner", clocator: [text: "*Owner"])
+      UrlLink(uid: "{header: any} as Summary", clocator: [text: "*Summary + Labels"])
+      UrlLink(uid: "{header: any} as Extra", clocator: [text: "*..."])
 
       //define table elements
       //for the border column
-      TextBox(uid: "row: *, column: 1", clocator: [:])
-      TextBox(uid: "row: *, column: 8", clocator: [:])
-      TextBox(uid: "row: *, column: 10", clocator: [:])
+//      TextBox(uid: "{row: all, column: 1}", clocator: [:])
+//      TextBox(uid: "{row: all, column: 8}", clocator: [:])
+      TextBox(uid: "{row: all, column -> Extra}", clocator: [:])
       //For the rest, just UrlLink
-      UrlLink(uid: "all", clocator: [:])
+      UrlLink(uid: "{row: all, column: all}", clocator: [:])
     }
 
+  }
+
+  public java.util.List<String> getDataForRow(int row){
+    java.util.List<String> lst = new ArrayList<String>()
+    lst.add(getText("issueResult[${row}][ID]"));
+    lst.add(getText("issueResult[${row}][Type]"));
+    lst.add(getText("issueResult[${row}][Status]"));
+    lst.add(getText("issueResult[${row}][Priority]"));
+    lst.add(getText("issueResult[${row}][Milestone]"));
+    lst.add(getText("issueResult[${row}][Owner]"));
+    lst.add(getText("issueResult[${row}][Summary]"));
+    lst.add(getText("issueResult[${row}][Extra]"));
+
+    return lst;
+  }
+
+  public void dumpDataForRow(int row){
+    println "----------------- Data for Row ${row} -------------------"
+    println "ID: " + getText("issueResult[${row}][ID]");
+    println "Type: " + getText("issueResult[${row}][Type]");
+    println "Status: " + getText("issueResult[${row}][Status]");
+    println "Priority: " + getText("issueResult[${row}][Priority]");
+    println "Milestone: " + getText("issueResult[${row}][Milestone]");
+    println "Owner: " + getText("issueResult[${row}][Owner]");
+    println "Summary: " + getText("issueResult[${row}][Summary]");
+    println "Extra: " + getText("issueResult[${row}][Extra]");
+  }
+
+  public int getRowNum(){
+    return getTableMaxRowNum("issueResult");
   }
 
   public java.util.List<String> getDataForColumn(int column){

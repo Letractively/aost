@@ -75,7 +75,12 @@
             <artifactId>poi</artifactId>
             <version>3.0.1-FINAL</version>
         </dependency>
-
+         <dependency>
+            <groupId>org.telluriumsource</groupId>
+            <artifactId>tellurium-udl</artifactId>
+            <version>${pom.version}</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>org.stringtree</groupId>
             <artifactId>stringtree-json</artifactId>

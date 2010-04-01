@@ -94,6 +94,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>org.telluriumsource</groupId>
+            <artifactId>tellurium-udl</artifactId>
+            <version>${tellurium-version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.seleniumhq.selenium.server</groupId>
             <artifactId>selenium-server</artifactId>
             <version>${selenium-server-version}-${tellurium-engine-version}</version>

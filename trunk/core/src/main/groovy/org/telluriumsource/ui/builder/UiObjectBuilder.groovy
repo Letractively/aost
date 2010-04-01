@@ -9,6 +9,10 @@ import org.telluriumsource.ui.Const
 import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.ui.Const
+import org.telluriumsource.udl.MetaData
+import org.telluriumsource.udl.UidParser
+import org.antlr.runtime.RecognitionException
+import org.telluriumsource.exception.UidRecognitionException
 
 /**
  *  Basic UI object builder
@@ -26,7 +30,7 @@ abstract class UiObjectBuilder extends Const {
     	i18nBundle = Environment.instance.myResourceBundle();
     }
     boolean validate(UiObject obj, Map map){
-    	Environment env = Environment.instance
+//    	Environment env = Environment.instance
         boolean valid = true
         if(map == null || map.isEmpty()){
 
@@ -39,10 +43,10 @@ abstract class UiObjectBuilder extends Const {
             return false
         }
 
-        if(map.get(LOCATOR) != null && map.get(CLOCATOR) != null){
+/*        if(map.get(LOCATOR) != null && map.get(CLOCATOR) != null){
             println i18nBundle.getMessage("UIObjectBuilder.LocatorRequired")
             return false
-        }
+        }*/
 
         if(map.get(USE_GROUP_INFO) != null && (!Container.class.isAssignableFrom(obj.getClass())) ){
            println i18nBundle.getMessage("UIObjectBuilder.GroupInfoRequired")
@@ -68,9 +72,18 @@ abstract class UiObjectBuilder extends Const {
         //make all lower cases
         map = makeCaseInsensitive(map)
 
-        obj.uid = map.get(UID)
+        String dsluid = map.get(UID);
+        try{
+          obj.metaData = UidParser.parse(dsluid)
+        }catch(RecognitionException e){
+          throw new UidRecognitionException(i18nBundle.getMessage("UidParser.CannotParseUid" , dsluid))
+        }
+
+//        obj.uid = map.get(UID)
+        obj.uid = dsluid;
         //by default, the ui object's template id is its uid, which is a String constant
-        obj.tid = obj.uid
+//        obj.tid = obj.uid
+        obj.tid = obj.metaData.getId();
         String ns = map.get(NAMESPACE)
         if(ns != null && ns.trim().length() > 0){
           obj.namespace = ns.trim()
@@ -91,6 +104,15 @@ abstract class UiObjectBuilder extends Const {
             obj.cacheable = true
           }else{
             obj.cacheable = false
+          }
+        }
+
+        String self = map.get(SELF)
+        if(self != null){
+          if(TRUE.equalsIgnoreCase(self.toUpperCase())){
+            obj.self = true
+          }else{
+            obj.self = false
           }
         }
 
