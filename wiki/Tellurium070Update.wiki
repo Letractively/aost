@@ -1482,6 +1482,26 @@ where the properties are defined as
 
 == Misc ==
 
+The default locator in Tellurium Engine is CSS selector by default. That is to say, we set
+
+{{{
+    exploitCssSelector = true
+}}}
+
+in the {{{Environment}}} class and you can use
+
+{{{
+    disableCssSelector()
+}}}
+
+or
+
+{{{
+    useCssSelector(false)
+}}}
+
+to switch back to xpath if you like to.
+
 Exposed the following Selenium APIs to DslContext.
 
   * {{{void addScript(String scriptContent, String scriptTagId)}}} 
