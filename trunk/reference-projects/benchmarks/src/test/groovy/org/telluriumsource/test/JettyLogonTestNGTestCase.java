@@ -25,7 +25,6 @@ public class JettyLogonTestNGTestCase  extends TelluriumTestNGTestCase {
         jlm = new  JettyLogonModule();
         jlm.defineUi();
         connectSeleniumServer();
-        useCssSelector(true);
         useTelluriumEngine(true);
         useTrace(true);
     }

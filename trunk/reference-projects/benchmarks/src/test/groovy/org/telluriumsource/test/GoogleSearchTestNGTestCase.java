@@ -30,7 +30,6 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase{
         gsm = new GoogleSearchModule();
         gsm.defineUi();
         connectSeleniumServer();
-        useCssSelector(true);
         useTelluriumEngine(true);
         useTrace(true);
     }
