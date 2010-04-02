@@ -271,7 +271,14 @@ objectExtend(RemoteRunner.prototype, {
     },
 
     commandError : function(message) {
-        postResult = "ERROR: " + message;
+        var jstack = "";
+        if (tellurium.logManager.isUseLog) {
+            jstack = printStackTrace();
+            if (jstack != null && typeof(jstack) != 'undefined') {
+                message = message + "\nJavaScript Error Stack: \n" + jstack.join('\n\n');
+            }
+        }
+        postResult = "ERROR: " + message + jstack;
         this.commandNode.style.backgroundColor = errorColor;
         this.commandNode.titcle = message;
     },
