@@ -83,5 +83,5 @@ tableBodyUid returns [TableBodyMetaData metadata]
 fragment LETTER : ('a'..'z' | 'A'..'Z') ;
 fragment DIGIT : '0'..'9';
 INDEX	:	(DIGIT+ | 'all' | 'odd' | 'even' | 'any' | 'first' | 'last' );   
-ID 	: 	LETTER (LETTER | DIGIT)*;
+ID 	: 	LETTER (LETTER | DIGIT | '_')*;
 WS 	: 	(' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
