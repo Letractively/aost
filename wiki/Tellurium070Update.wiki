@@ -1543,7 +1543,7 @@ src/main/resources/core/scripts/
 |   |-- tree_open.gif
 |   `-- warningIcon.png
 |-- htmlutils.js
-|-- jquery-1.4.1.js
+|-- jquery-1.4.2.js
 |-- jquery-cookies-2.1.0.js
 |-- jquery-simpletip-1.3.1.js
 |-- json2.js
@@ -1577,7 +1577,7 @@ src/main/resources/core/scripts/
 }}}
 
 where
-  * jquery-1.4.1.js: jQuery is updated to the latest version 1.4.1. 
+  * jquery-1.4.2.js: jQuery is updated to the latest version 1.4.2. 
   * jquery-cookies-2.1.0.js: jQuery Cookies Plugin to support more cookie related operation
   * tellurium.js: Entry point for Tellurium Engine code and it defined the {{{Tellurium}}} function.
   * tellurium-selector.js: CSS selector builder
@@ -1601,6 +1601,7 @@ Moved the CSS selector locate strategy and the cache aware locate strategy from 
         return tellurium.locateElementByCSSSelector(locator, inDocument, inWindow);
     };
 
+    //used internally by Tellurium Engine
     this.locationStrategies['uimcal'] = function(locator, inDocument, inWindow) {
         return tellurium.locateElementWithCacheAware(locator, inDocument, inWindow);
     };
@@ -1787,6 +1788,85 @@ To turn on the debug, you should either click on the "Tellurium Log" button or c
 
 {{{
     void useEngineLog(boolean isUse);
+}}}
+
+== Add JavaScript Error Stack to Selenium Errors ==
+
+We leverage [http://github.com/emwendelin/javascript-stacktrace the JavaScript Stack Trace project] to Selenium Errors in Selenium Core so that the JavaScript Error Stack will be passed back Tellurium Core.
+
+The implementation is in htmlutils.js in Selenium Core as follows.
+
+{{{
+function SeleniumError(message) {
+    if(tellurium.logManager.isUseLog){
+        var jstack = printStackTrace();
+        if(jstack != null && typeof(jstack) != 'undefined'){
+            message = message + "\nJavaScript Error Stack: \n" + jstack.join('\n\n');
+        }
+    }
+    var error = new Error(message);
+    if (typeof(arguments.caller) != 'undefined') { // IE, not ECMA
+        var result = '';
+        for (var a = arguments.caller; a != null; a = a.caller) {
+            result += '> ' + a.callee.toString() + '\n';
+            if (a.caller == a) {
+                result += '*';
+                break;
+            }
+        }
+        error.stack = result;
+    }
+    error.isSeleniumError = true;
+    fbError("Selenium Error: "+ message, error);
+    return error;
+}
+}}}
+
+where {{{printStackTrace()}}} is the stacktrace project API. Be aware that the
+JavaScript error stack will only be passed back to Tellurium Core if the Engine 
+log is enabled by calling.
+
+{{{
+   useEngineLog(true);
+}}}
+
+Example output:
+
+{{{
+com.thoughtworks.selenium.SeleniumException: ERROR: Element uimcal={"rid":"search.search_project_button","locator":"jquery=form:group(input[name=q], input[value=Search projects][type=submit], input[value=Search the Web][type=submit]) input[value=Search projects][type=submit]"} not found
+JavaScript Error Stack: 
+{anonymous}(null)@http://localhost:4444/selenium-server/core/scripts/utils.js:589
+
+printStackTrace()@http://localhost:4444/selenium-server/core/scripts/utils.js:574
+
+SeleniumError("Element uimcal={\"rid\":\"search.search_project_button\",\"locator\":\"jquery=form:group(input[name=q], input[value=Search projects][type=submit], input[value=Search the Web][type=submit]) input[value=Search projects][type=submit]\"} not found")@http://localhost:4444/selenium-server/core/scripts/htmlutils.js:806
+
+{anonymous}("uimcal={\"rid\":\"search.search_project_button\",\"locator\":\"jquery=form:group(input[name=q], input[value=Search projects][type=submit], input[value=Search the Web][type=submit]) input[value=Search projects][type=submit]\"}")@http://localhost:4444/selenium-server/core/scripts/selenium-browserbot.js:1341
+
+{anonymous}("uimcal={\"rid\":\"search.search_project_button\",\"locator\":\"jquery=form:group(input[name=q], input[value=Search projects][type=submit], input[value=Search the Web][type=submit]) input[value=Search projects][type=submit]\"}")@http://localhost:4444/selenium-server/core/scripts/selenium-api.js:227
+
+{anonymous}([object Object],[object Object])@http://localhost:4444/selenium-server/core/scripts/tellurium.js:922
+
+{anonymous}()@http://localhost:4444/selenium-server/core/scripts/tellurium.js:876
+
+{anonymous}("[{\"uid\":\"search.search_project_button\",\"args\":[\"jquery=form:group(input[name=q], input[value=Search projects][type=submit], input[value=Search the Web][type=submit]) input[value=Search projects][type=submit]\"],\"name\":\"click\",\"sequ\":7}]","")@http://localhost:4444/selenium-server/core/scripts/tellurium-extensions.js:338
+
+{anonymous}("[{\"uid\":\"search.search_project_button\",\"args\":[\"jquery=form:group(input[name=q], input[value=Search projects][type=submit], input[value=Search the Web][type=submit]) input[value=Search projects][type=submit]\"],\"name\":\"click\",\"sequ\":7}]","")@http://localhost:4444/selenium-server/core/scripts/htmlutils.js:60
+
+{anonymous}([object Object],[object Object])@http://localhost:4444/selenium-server/core/scripts/selenium-commandhandlers.js:330
+
+{anonymous}()@http://localhost:4444/selenium-server/core/scripts/selenium-executionloop.js:112
+
+{anonymous}(-3)@http://localhost:4444/selenium-server/core/scripts/selenium-executionloop.js:78
+
+{anonymous}(-3)@http://localhost:4444/selenium-server/core/scripts/htmlutils.js:60
+	at com.thoughtworks.selenium.HttpCommandProcessor.throwAssertionFailureExceptionOrError(HttpCommandProcessor.java:97)
+	at com.thoughtworks.selenium.HttpCommandProcessor.doCommand(HttpCommandProcessor.java:91)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+
 }}}
 
 = Changes in Maven Build =
