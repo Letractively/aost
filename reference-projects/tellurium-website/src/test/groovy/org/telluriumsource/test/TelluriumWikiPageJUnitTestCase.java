@@ -26,7 +26,8 @@ public class TelluriumWikiPageJUnitTestCase extends TelluriumJUnitTestCase {
         wikiPage = new TelluriumWikiPage();
         wikiPage.defineUi();
         connectSeleniumServer();
-        useEngineLog(true);
+        useTelluriumEngine(true);
+//        useEngineLog(true);
     }
 
     @Before
@@ -46,6 +47,7 @@ public class TelluriumWikiPageJUnitTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testSearchPageByText(){
+        wikiPage.validate("wikiSearch");
         // Set download type with other value
         wikiPage.selectSearchType(" All wiki pages");
         wikiPage.searchForKeyword("Tutorial");

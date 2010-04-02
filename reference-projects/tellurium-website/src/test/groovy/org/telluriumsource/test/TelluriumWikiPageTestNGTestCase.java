@@ -29,7 +29,8 @@ public class TelluriumWikiPageTestNGTestCase extends TelluriumTestNGTestCase {
         wikiPage = new TelluriumWikiPage();
         wikiPage.defineUi();
         connectSeleniumServer();
-
+        useTelluriumEngine(true);
+//        useEngineLog(true);
     }
 
     @BeforeMethod
