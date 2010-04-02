@@ -1,5 +1,6 @@
 #summary Tellurium UID Description Language (UDL).
 #labels Phase-Design,Phase-Support
+<wiki:toc max_depth="5" />
 
 = Introduction =
 
@@ -18,10 +19,16 @@ The answer is that UID is not just the name of a UI object, it is also used to d
 
 Tellurium UI templates have two purposes:
 
-  # When there are many identical UI elements, use one template to represent them all
+  # When there are many identical UI elements, use one template to represent them all.
   # When there are variable/dynamic sizes of UI elements at runtime, the patterns are known, but not the size.
 
 More specifically, Table, StandardTable, and List are the three Tellurium objects that define UI templates. The Table object is a special case of the StandardTable object.
 
-  # *Table* and *StandardTable* defines two dimensional UI templates 
-  # *List* defines one dimensional UI templates 
+  # *Table* and *StandardTable* define two dimensional UI templates. 
+  # *List* defines one dimensional UI templates. 
+
+As a result, the Tellurium UID Description Language (UDL) is used to 
+  # address the dynamic factors in Tellurium UI templates
+  # increase the flexibility of Tellurium UI templates.
+
+ 
