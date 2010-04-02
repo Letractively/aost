@@ -34,7 +34,7 @@ function NamespaceMap(){
     this.namespaceMap.put("xhtml", "http://www.w3.org/1999/xhtml");
     this.namespaceMap.put("x", "http://www.w3.org/1999/xhtml");
     this.namespaceMap.put("mathml", "http://www.w3.org/1998/Math/MathML");
-}
+};
 
 NamespaceMap.prototype.put = function(prefix, namespace){
     this.namespaceMap.put(prefix, namespace);
@@ -57,8 +57,8 @@ var BrowserBot = function(topLevelApplicationWindow) {
     this.currentWindow = this.topWindow;
     this.currentWindowName = null;
     this.allowNativeXpath = true;
-    this.xpathEvaluator = new XPathEvaluator('ajaxslt');  // change to "javascript-xpath" for the newer, faster engine
-    
+    this.xpathLibrary = this.defaultXpathLibrary = 'ajaxslt' // change to "javascript-xpath" for the newer, faster engine
+
     // We need to know this in advance, in case the frame closes unexpectedly
     this.isSubFrameSelected = false;
 
@@ -77,15 +77,6 @@ var BrowserBot = function(topLevelApplicationWindow) {
     this.newPageLoaded = false;
     this.pageLoadError = null;
 
-    this.ignoreResponseCode = false;
-    this.xhr = null;
-    this.abortXhr = false;
-    this.isXhrSent = false;
-    this.isXhrDone = false;
-    this.xhrOpenLocation = null;
-    this.xhrResponseCode = null;
-    this.xhrStatusText = null;
-
     this.shouldHighlightLocatedElement = false;
 
     this.uniqueId = "seleniumMarker" + new Date().getTime();
@@ -94,6 +85,17 @@ var BrowserBot = function(topLevelApplicationWindow) {
     this.windowPollers = new Array();
     // DGF for backwards compatibility
     this.browserbot = this;
+
+    //Added to support custom namespace
+//    this.namespaceMap = globalNamespaceMap;
+
+/*
+    this.namespaceMap =  new HashMap();
+    this.namespaceMap.put("html", "http://www.w3.org/1999/xhtml");
+    this.namespaceMap.put("xhtml", "http://www.w3.org/1999/xhtml");
+    this.namespaceMap.put("x", "http://www.w3.org/1999/xhtml");
+    this.namespaceMap.put("mathml", "http://www.w3.org/1998/Math/MathML");
+*/
 
     var self = this;
 
@@ -126,42 +128,9 @@ var BrowserBot = function(topLevelApplicationWindow) {
             this.pageLoadError = null;
             throw e;
         }
+        return self.newPageLoaded;
+    };
 
-        if (self.ignoreResponseCode) {
-            return self.newPageLoaded;
-        } else {
-            if (self.isXhrSent && self.isXhrDone) {
-                if (!((self.xhrResponseCode >= 200 && self.xhrResponseCode <= 399) || self.xhrResponseCode == 0)) {
-                     // TODO: for IE status like: 12002, 12007, ... provide corresponding statusText messages also.
-                     LOG.error("XHR failed with message " + self.xhrStatusText);
-                     var e = "XHR ERROR: URL = " + self.xhrOpenLocation + " Response_Code = " + self.xhrResponseCode + " Error_Message = " + self.xhrStatusText
-                     self.abortXhr = false;
-                     self.isXhrSent = false;
-                     self.isXhrDone = false;
-                     self.xhrResponseCode = null;
-                     self.xhrStatusText = null;
-                     throw new SeleniumError(e);
-                }
-           }
-          return self.newPageLoaded && (self.isXhrSent ? (self.abortXhr || self.isXhrDone) : true); 
-        }
-    };
-    
-    this.setAllowNativeXPath = function(allow) {
-        this.xpathEvaluator.setAllowNativeXPath(allow);
-    };
-    
-    this.setIgnoreAttributesWithoutValue = function(ignore) {
-        this.xpathEvaluator.setIgnoreAttributesWithoutValue(ignore);
-    };
-    
-    this.setXPathEngine = function(engineName) {
-        this.xpathEvaluator.setCurrentEngine(engineName);
-    };
-    
-    this.getXPathEngine = function() {
-        return this.xpathEvaluator.getCurrentEngine();
-    };
 };
 
 // DGF PageBot exists for backwards compatibility with old user-extensions
@@ -569,82 +538,12 @@ BrowserBot.prototype.doesThisFrameMatchFrameExpression = function(currentFrameSt
     return false;
 };
 
-BrowserBot.prototype.abortXhrRequest = function() {
-    if (this.ignoreResponseCode) {
-       LOG.debug("XHR response code being ignored. Nothing to abort.");
-    } else {
-        if (this.abortXhr == false && this.isXhrSent && !this.isXhrDone) {
-            LOG.info("abortXhrRequest(): aborting request");
-            this.abortXhr = true;
-            this.xhr.abort();
-        }
-    }
-}
-
-BrowserBot.prototype.onXhrStateChange = function(method) {
-      LOG.info("onXhrStateChange(): xhr.readyState = " + this.xhr.readyState + " method = " + method + " time = " + new Date().getTime());
-      if (this.xhr.readyState == 4) {
-
-          // check if the request got aborted.
-          if (this.abortXhr == true) {
-              this.xhrResponseCode = 0;
-              this.xhrStatusText = "Request Aborted";
-              this.isXhrDone = true;
-              return;
-          }
-
-          try {
-              if (method == "HEAD" && (this.xhr.status == 501 || this.xhr.status == 405)) {
-                 LOG.info("onXhrStateChange(): HEAD ajax returned 501 or 405, retrying with GET");
-                 // handle 501 response code from servers that do not support 'HEAD' method.
-                 // send GET ajax request with range 0-1.
-                 this.xhr = XmlHttp.create();
-                 this.xhr.onreadystatechange = this.onXhrStateChange.bind(this, "GET");
-                 this.xhr.open("GET", this.xhrOpenLocation, true);
-                 this.xhr.setRequestHeader("Range", "bytes:0-1");
-                 this.xhr.send("");
-                 this.isXhrSent = true;
-                 return;
-              }
-              this.xhrResponseCode = this.xhr.status;
-              this.xhrStatusText = this.xhr.statusText;
-          } catch (ex) {
-              LOG.info("encountered exception while reading xhrResponseCode." + ex.message);
-              this.xhrResponseCode = -1;
-    	      this.xhrStatusText = "Request Error";
-          }
-
-          this.isXhrDone = true;
-      }
-};
-
-BrowserBot.prototype.checkedOpen = function(target) {
-    var url = absolutify(target, this.baseUrl);
-    LOG.debug("checkedOpen(): url = " + url);
-    this.isXhrDone = false;
-    this.abortXhr = false;
-    this.xhrResponseCode = null;
-    this.xhrOpenLocation = url;
-    try {
-        this.xhr = XmlHttp.create();
-    } catch (ex) {
-        LOG.error("Your browser doesnt support Xml Http Request");
-        return;
-    }
-    this.xhr.onreadystatechange =  this.onXhrStateChange.bind(this, "HEAD");
-    this.xhr.open("HEAD", url, true);
-    this.xhr.send("");
-    this.isXhrSent = true;
-}
-
 BrowserBot.prototype.openLocation = function(target) {
     // We're moving to a new page - clear the current one
     var win = this.getCurrentWindow();
     LOG.debug("openLocation newPageLoaded = false");
     this.newPageLoaded = false;
-    if (!this.ignoreResponseCode) {
-        this.checkedOpen(target);
-    }
+
     this.setOpenLocation(win, target);
 };
 
@@ -1275,7 +1174,7 @@ BrowserBot.prototype._registerAllLocatorFunctions = function() {
         return this.locateElementByIdentifier(locator, inDocument, inWindow);
     };
 
-    //locate strategies used by Tellurium
+    //locate strategies used by Tellurium 
     this.locationStrategies['jquery'] = function(locator, inDocument, inWindow) {
         return tellurium.locateElementByCSSSelector(locator, inDocument, inWindow);
     };
@@ -1448,9 +1347,7 @@ BrowserBot.prototype.findElement = function(locator, win) {
  * we search separately by id and name.
  */
 BrowserBot.prototype.locateElementByIdentifier = function(identifier, inDocument, inWindow) {
-    // HBC - use "this" instead of "BrowserBot.prototype"; otherwise we lose
-    // the non-prototype fields of the object!
-    return this.locateElementById(identifier, inDocument, inWindow)
+    return BrowserBot.prototype.locateElementById(identifier, inDocument, inWindow)
             || BrowserBot.prototype.locateElementByName(identifier, inDocument, inWindow)
             || null;
 };
@@ -1465,22 +1362,9 @@ BrowserBot.prototype.locateElementById = function(identifier, inDocument, inWind
     }
     else if (browserVersion.isIE || browserVersion.isOpera) {
         // SEL-484
-        var elements = inDocument.getElementsByTagName('*');
-        
-        for (var i = 0, n = elements.length; i < n; ++i) {
-            element = elements[i];
-            
-            if (element.tagName.toLowerCase() == 'form') {
-                if (element.attributes['id'].nodeValue == identifier) {
-                    return element;
-                }
-            }
-            else if (element.getAttribute('id') == identifier) {
-                return element;
-            }
-        }
-        
-        return null;
+        var xpath = '/descendant::*[@id=' + identifier.quoteForXPath() + ']';
+        return BrowserBot.prototype
+            .locateElementByXPath(xpath, inDocument, inWindow);
     }
     else {
         return null;
@@ -1534,9 +1418,30 @@ BrowserBot.prototype.locateElementByDomTraversal.prefix = "dom";
  * begin with "//".
  */
 BrowserBot.prototype.locateElementByXPath = function(xpath, inDocument, inWindow) {
-    return this.xpathEvaluator.selectSingleNode(inDocument, xpath, null,
-        this._namespaceResolver);
+    var results = eval_xpath(xpath, inDocument, {
+        returnOnFirstMatch          : true,
+        ignoreAttributesWithoutValue: this.ignoreAttributesWithoutValue,
+        allowNativeXpath            : this.allowNativeXpath,
+        xpathLibrary                : this.xpathLibrary,
+        namespaceResolver           : this._namespaceResolver
+    });
+    return (results.length > 0) ? results[0] : null;
 };
+
+/*
+    Tellurium Extension
+
+BrowserBot.prototype.locateElementByJquery = function(xpath, inDocument, inWindow) {
+    var strategyName = "jquery";
+    var safeStrategyFunction = function() {
+        try {
+            return Tellurium.locateElementByJquery.apply(this, arguments);
+        } catch (ex) {
+            throw new SeleniumError("Error executing strategy function " + strategyName + ": " + extractExceptionMessage(ex));
+        }
+    }
+    this.locationStrategies[strategyName] = safeStrategyFunction;
+};*/
 
 //modified to support custom namespaces
 BrowserBot.prototype.addNamespace = function(prefix, namespace) {
@@ -1552,21 +1457,35 @@ BrowserBot.prototype._namespaceResolver = function(prefix) {
     }else if(prefix == 'xforms'){
         return 'http://www.w3.org/2002/xforms';
     } else {
-        //modified to support custom name spaces
+        //modified to support custom namespaces
         var nsFromMap = globalNamespaceMap.get(prefix);
         if(nsFromMap == null){
             throw new Error("Unknown namespace: " + prefix + ".");
         }
 
-        return nsFromMap;
+        return nsFromMap; 
     }
+    
+/*    if (prefix == 'html' || prefix == 'xhtml' || prefix == 'x') {
+        return 'http://www.w3.org/1999/xhtml';
+    } else if (prefix == 'mathml') {
+        return 'http://www.w3.org/1998/Math/MathML';
+    } else {
+        throw new Error("Unknown namespace: " + prefix + ".");
+    }*/
 }
+
 /**
  * Returns the number of xpath results.
  */
 BrowserBot.prototype.evaluateXPathCount = function(xpath, inDocument) {
-    return this.xpathEvaluator.countNodes(inDocument, xpath, null,
-        this._namespaceResolver);
+    var results = eval_xpath(xpath, inDocument, {
+        ignoreAttributesWithoutValue: this.ignoreAttributesWithoutValue,
+        allowNativeXpath            : this.allowNativeXpath,
+        xpathLibrary                : this.xpathLibrary,
+        namespaceResolver           : this._namespaceResolver
+    });
+    return results.length;
 };
 
 /**

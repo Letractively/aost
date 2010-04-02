@@ -186,7 +186,7 @@ Selenium.DEFAULT_TIMEOUT = 30 * 1000;
 Selenium.DEFAULT_MOUSE_SPEED = 10;
 Selenium.RIGHT_MOUSE_CLICK = 2;
 
-Selenium.decorateFunctionWithTimeout = function(f, timeout, callback) {
+Selenium.decorateFunctionWithTimeout = function(f, timeout) {
     if (f == null) {
         return null;
     }
@@ -196,12 +196,9 @@ Selenium.decorateFunctionWithTimeout = function(f, timeout, callback) {
 
     return function() {
         if (new Date().getTime() > timeoutTime) {
-            if (callback != null) {
-                 callback();
-            }
             throw new SeleniumError("Timed out after " + timeout + "ms");
         }
-//        !tellurium.logManager.isUseLog || fbLog("call f at " + new Date().getTime(), f);
+        !tellurium.logManager.isUseLog || fbLog("call f at " + new Date().getTime(), f);
         return f();
     };
 }
@@ -243,58 +240,22 @@ Selenium.prototype.doClick = function(locator) {
         // command will wait for the flag to be lowered.
         
         var win = elementWithHref.ownerDocument.defaultView;
-        var originalLocation = win.location.href.replace(/#.*/,"");
+        var originalLocation = win.location.href;
         var originalHref = elementWithHref.href;
         
-        var newHref = 'javascript:try { '
+        elementWithHref.href = 'javascript:try { '
             + originalHref.replace(/^\s*javascript:/i, "")
             + ' } finally { window._executingJavascriptHref = undefined; }' ;
-        elementWithHref.href = newHref; 
         
         win._executingJavascriptHref = true;
-
-        var savedEvent = null;
-        var evtListener =  function(evt) {
-          savedEvent = evt;
-        };
-
-        element.addEventListener("click", evtListener, false);
-
+        
         this.browserbot.clickElement(element);
-
-        element.removeEventListener("click", evtListener, false);
-
-        // We're relying on javascript that's owned by
-        // elementWithHref getting executed.  It might not
-        // get executed if:
-        // 1) the click event was cancelled
-        // 2) the page changed the href value on us
-        // 3) the elementWithHref was removed from the document
-
-        if (savedEvent && savedEvent.getPreventDefault()) {
-          // click was canceled by event listener
-          win._executingJavascriptHref = undefined;
-        } else if (elementWithHref.href != newHref) {
-          // the page changed the href value on us
-          win._executingJavascriptHref = undefined;
-        } else {
-          // check that elementWithHref is still in the document
-          var d = elementWithHref.ownerDocument;
-          var html = d ? d.documentElement : null;
-          var curElem = elementWithHref;
-          while (curElem && html && !curElem.isSameNode(html)) {
-            curElem = curElem.parentNode;
-          }
-          if (!html || !curElem) {
-            win._executingJavascriptHref = undefined;
-          }
-        }
         
         return Selenium.decorateFunctionWithTimeout(function() {
             if (win.closed) {
                 return true;
             }
-            if (win.location.href.replace(/#.*/,"") != originalLocation) {
+            if (win.location.href != originalLocation) {
                 // navigated to some other page ... javascript from previous
                 // page can't still be executing!
                 return true;
@@ -928,14 +889,12 @@ Selenium.prototype.makePageLoadCondition = function(timeout) {
     }
     // if the timeout is zero, we won't wait for the page to load before returning
     if (timeout == 0) {
-	  // abort XHR request  
-          this._abortXhrRequest(); 	   
     	  return;
     }
-    return Selenium.decorateFunctionWithTimeout(fnBind(this._isNewPageLoaded, this), timeout, fnBind(this._abortXhrRequest, this));
+    return Selenium.decorateFunctionWithTimeout(fnBind(this._isNewPageLoaded, this), timeout);
 };
 
-Selenium.prototype.doOpen = function(url, ignoreResponseCode) {
+Selenium.prototype.doOpen = function(url) {
     /**
    * Opens an URL in the test frame. This accepts both relative and absolute
    * URLs.
@@ -949,16 +908,7 @@ Selenium.prototype.doOpen = function(url, ignoreResponseCode) {
    * new browser session on that domain.
    *
    * @param url the URL to open; may be relative or absolute
-   * @param ignoreResponseCode (optional) turn off ajax head request functionality
-   *
    */
-    if (ignoreResponseCode == null) {
-        this.browserbot.ignoreResponseCode = false;
-    } else if (ignoreResponseCode.toLowerCase() == "true") {
-        this.browserbot.ignoreResponseCode = true;
-    } else {
-        this.browserbot.ignoreResponseCode = false;
-    }
     this.browserbot.openLocation(url);
     if (window["proxyInjectionMode"] == null || !window["proxyInjectionMode"]) {
         return this.makePageLoadCondition();
@@ -1854,7 +1804,7 @@ Selenium.prototype.getAllFields = function() {
 };
 
 Selenium.prototype.getAttributeFromAllWindows = function(attributeName) {
-    /** Returns an array of JavaScript property values from all known windows having one.
+    /** Returns every instance of some attribute from all known windows.
     *
     * @param attributeName name of an attribute on the windows
     * @return string[] the set of values of this attribute from all known windows.
@@ -2342,7 +2292,7 @@ Selenium.prototype.getXpathCount = function(xpath) {
     if(xpath.startsWith("uimcal=")){
         var cal = JSON.parse(xpath.substring(7), null);
         !tellurium.logManager.isUseLog || fbLog("Parsed locator", cal);
-        xpath = cal.locator;
+        xpath = cal.locator;       
     }
 
     var result = this.browserbot.evaluateXPathCount(xpath, this.browserbot.getDocument());
@@ -2374,7 +2324,7 @@ Selenium.prototype.doAllowNativeXpath = function(allow) {
     if ("false" == allow || "0" == allow) { // The strings "false" and "0" are true values in JS
         allow = false;
     }
-    this.browserbot.setAllowNativeXPath(allow);
+    this.browserbot.allowNativeXpath = allow;
 }
 
 Selenium.prototype.doIgnoreAttributesWithoutValue = function(ignore) {
@@ -2396,7 +2346,7 @@ Selenium.prototype.doIgnoreAttributesWithoutValue = function(ignore) {
     if ('false' == ignore || '0' == ignore) {
         ignore = false;
     }
-    this.browserbot.setIgnoreAttributesWithoutValue(ignore);
+    this.browserbot.ignoreAttributesWithoutValue = ignore;
 }
 
 Selenium.prototype.doWaitForCondition = function(script, timeout) {
@@ -2474,10 +2424,6 @@ Selenium.prototype.doWaitForFrameToLoad = function(frameAddress, timeout) {
 
 Selenium.prototype._isNewPageLoaded = function() {
     return this.browserbot.isNewPageLoaded();
-};
-
-Selenium.prototype._abortXhrRequest = function() {
-    return this.browserbot.abortXhrRequest();
 };
 
 Selenium.prototype.doWaitForPageToLoad.dontCheckAlertsAndConfirms = true;
@@ -3142,27 +3088,30 @@ Selenium.prototype.doRemoveScript = function(scriptTagId) {
 
 Selenium.prototype.doUseXpathLibrary = function(libraryName) {
     /**
-    * Allows choice of one of the available libraries.
+	* Allows choice of one of the available libraries.
     * @param libraryName name of the desired library
-    * Only the following can be chosen:
+    * Only the following three can be chosen:
     * <ul>
     *   <li>"ajaxslt" - Google's library</li>
     *   <li>"javascript-xpath" - Cybozu Labs' faster library</li>
-    *   <li>"rpc-optimizing-ajaxslt" - the RPC optimizing strategy, delegating to ajaxslt</li>
-    *   <li>"rpc-optimizing-jsxpath" - the RPC optimizing strategy, delegating to javascript-xpath</li>
     *   <li>"default" - The default library.  Currently the default library is "ajaxslt" .</li>
     * </ul>
-    * If libraryName isn't one of these, it may be the name of another engine
-    * registered to the browserbot's XPathEvaluator, for example by overriding
-    * XPathEvaluator.prototype.init() . If it is not a registered engine
-    * either, then no change will be made.
+    * If libraryName isn't one of these three, then 
+    * no change will be made.
+    *   
     */
 
-    if (! this.browserbot.getXPathEngine(libraryName)) {
+    if (libraryName == "default") {
+        this.browserbot.xpathLibrary = this.browserbot.defaultXpathLibrary;
         return;
     }
-    
-    this.browserbot.setXPathEngine(libraryName);
+
+	if ((libraryName != 'ajaxslt') && (libraryName != 'javascript-xpath')) {
+		return;
+	}
+	
+	this.browserbot.xpathLibrary = libraryName;	
+	
 };
 
 /**
