@@ -14,8 +14,8 @@ import org.telluriumsource.dsl.DslContext
 public class StandardTable1 extends DslContext {
   public void defineUi() {
     ui.StandardTable(uid: "table1", clocator: [id: "std"], hct: "td") {
-      UrlLink(uid: "{header: 2}", clocator: [text: "*Filename"])
-      UrlLink(uid: "{header: 3}", clocator: [text: "*Uploaded"])
+      UrlLink(uid: "{header: 2} as H_2", clocator: [text: "*Filename"])
+      UrlLink(uid: "{header: 3} as H_3", clocator: [text: "*Uploaded"])
       UrlLink(uid: "{header: 4}", clocator: [text: "*Size"])
       TextBox(uid: "{header: all}", clocator: [:])
 
