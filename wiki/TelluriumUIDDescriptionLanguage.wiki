@@ -3,3 +3,12 @@
 
 = Introduction =
 
+UI Object ID (UID) is used to identify and describe a UI object in Tellurium Automated Testing Framework. For example, in the following Google Search Module, the uid attribute is the UID. UID "Input" is the name of the InputBox.
+
+{{{
+   ui.Container(uid: "GoogleSearchModule", clocator: [tag: "td"], group: "true"){
+     InputBox(uid: "Input", clocator: [title: "Google Search"])
+     SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+     SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
+   }
+}}}  
