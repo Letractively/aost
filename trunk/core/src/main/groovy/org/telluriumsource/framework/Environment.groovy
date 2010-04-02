@@ -18,7 +18,7 @@ import org.telluriumsource.util.LogLevels
 public class Environment implements Configurable{
 
   //flag to decide whether we should use CSS Selector
-  protected boolean exploitCssSelector = false;
+  protected boolean exploitCssSelector = true;
 
   //flag to decide whether we should cache Ui Module
   protected boolean exploitEngineCache = false;
