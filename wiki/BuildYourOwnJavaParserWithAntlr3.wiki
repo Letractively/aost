@@ -159,8 +159,8 @@ tableBodyUid
         |	'{' 'tbody' ':' INDEX ',' 'row' '->' ID ',' 'column' ':' INDEX '}' 'as' ID
         |       '{' 'tbody' ':' INDEX ',' 'row' ':' INDEX ',' 'column' '->' ID '}'
         |       '{' 'tbody' ':' INDEX ',' 'row' ':' INDEX ',' 'column' '->' ID '}' 'as' ID
-        |	'{' 'tbody' ':' INDEX ',' 'row' '->' id1=ID ',' 'column' '->' ID '}'
-        |	'{' 'tbody' ':' INDEX ',' 'row' '->' id1=ID ',' 'column' '->' ID '}' 'as' ID
+        |	'{' 'tbody' ':' INDEX ',' 'row' '->' ID ',' 'column' '->' ID '}'
+        |	'{' 'tbody' ':' INDEX ',' 'row' '->' ID ',' 'column' '->' ID '}' 'as' ID
         ;              			
 							
 fragment LETTER : ('a'..'z' | 'A'..'Z') ;
