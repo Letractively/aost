@@ -1792,7 +1792,7 @@ To turn on the debug, you should either click on the "Tellurium Log" button or c
 
 == Add JavaScript Error Stack to Selenium Errors ==
 
-We utilized [http://github.com/emwendelin/javascript-stacktrace the JavaScript Stack Trace project] to Selenium Errors in Selenium Core so that the JavaScript Error Stack will be passed back Tellurium Core.
+We utilized [http://github.com/emwendelin/javascript-stacktrace the JavaScript Stack Trace project] to refactor Selenium Errors in Selenium Core so that the JavaScript Error Stack will be passed back Tellurium Core.
 
 The implementation is in htmlutils.js in Selenium Core as follows.
 
