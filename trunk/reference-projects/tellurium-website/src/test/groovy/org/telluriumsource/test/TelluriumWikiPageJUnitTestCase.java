@@ -26,6 +26,7 @@ public class TelluriumWikiPageJUnitTestCase extends TelluriumJUnitTestCase {
         wikiPage = new TelluriumWikiPage();
         wikiPage.defineUi();
         connectSeleniumServer();
+        useEngineLog(true);
     }
 
     @Before
