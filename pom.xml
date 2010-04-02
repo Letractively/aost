@@ -242,6 +242,7 @@
                             <goal>generateTestStubs</goal>
                             <goal>testCompile</goal>
                         </goals>
+<!--
                         <configuration>
                             <sources>
                                  <fileset>
@@ -264,6 +265,7 @@
                                 </fileset>
                             </sources>
                         </configuration>
+-->
                     </execution>
                 </executions>
             </plugin>
@@ -467,7 +469,7 @@
         <java-version>1.6</java-version>
         <groovy-version>1.7.0</groovy-version>
         <gmaven-version>1.2</gmaven-version>
-        <selenium-version>1.0.3</selenium-version>
-        <selenium-server-version>1.0.3-te2-SNAPSHOT</selenium-server-version>
+        <selenium-version>1.0.1</selenium-version>
+        <selenium-server-version>1.0.1-te2-SNAPSHOT</selenium-server-version>
     </properties>
 </project>
