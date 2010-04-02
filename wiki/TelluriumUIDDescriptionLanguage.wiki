@@ -3,7 +3,7 @@
 
 = Introduction =
 
-UI Object ID (UID) is used to identify and describe a UI object in Tellurium Automated Testing Framework. For example, in the following Google Search Module, the uid attribute is the UID. UID "Input" is the name of the InputBox.
+[http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UiID_Attribute UI Object ID] (UID) is used to identify and describe a UI object in Tellurium Automated Testing Framework. For example, in the following Google Search Module, the uid attribute is the UID. UID "Input" is the name of the InputBox.
 
 {{{
    ui.Container(uid: "GoogleSearchModule", clocator: [tag: "td"], group: "true"){
@@ -12,3 +12,16 @@ UI Object ID (UID) is used to identify and describe a UI object in Tellurium Aut
      SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
    }
 }}}  
+
+Why do we need a language to describe the name of a UI object in Tellurium, then?
+The answer is that UID is not just the name of a UI object, it is also used to describe the dynamic factors in a [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UI_Templates Tellurium UI template].
+
+Tellurium UI templates have two purposes:
+
+  # When there are many identical UI elements, use one template to represent them all
+  # When there are variable/dynamic sizes of UI elements at runtime, the patterns are known, but not the size.
+
+More specifically, Table, StandardTable, and List are the three Tellurium objects that define UI templates. The Table object is a special case of the StandardTable object.
+
+  # *Table* and *StandardTable* defines two dimensional UI templates 
+  # *List* defines one dimensional UI templates 
