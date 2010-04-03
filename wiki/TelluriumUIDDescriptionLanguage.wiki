@@ -27,7 +27,7 @@ More specifically, Table, StandardTable, and List are the three Tellurium object
   # *Table* and *StandardTable* define two dimensional UI templates. 
   # *List* defines one dimensional UI templates. 
 
-As a result, the Tellurium UID Description Language (UDL) is design to 
+As a result, the Tellurium UID Description Language (UDL) is designed to 
   # address the dynamic factors in Tellurium UI templates
   # increase the flexibility of Tellurium UI templates.
 
