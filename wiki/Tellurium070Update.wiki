@@ -324,7 +324,78 @@ Or use the following methods to do fine control of the cache.
     public Map<String, Long> getCacheUsage();
 }}}
 
-Be aware that the caching mechanism is still under development.
+== Tellurium UID Description Language ==
+
+The Tellurium UID Description Language (UDL) is designed to 
+  # address the dynamic factors in Tellurium UI templates
+  # increase the flexibility of Tellurium UI templates.
+
+UDL is implemented with [http://www.antlr.org/ the Antlr 3 parser generator]. The implementation details can be found [http://code.google.com/p/aost/wiki/BuildYourOwnJavaParserWithAntlr3 here]. The grammars and technical details are recovered in [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage Tellurium UID Description Language].
+
+To migrate your UI templates from 0.6.0 to 0.7.0, please make the following changes:
+  * Put "{}" around 0.6.0 UI template uids
+  * Replace "*" with "all" 
+  * Replace "all" in table with "row: all, column: all"
+  * You can add an ID for each UI template object, where the ID starts with a letter and is followed by digits, letters, and "`_`".
+
+For example the following TableExampleModule UI module in the ui-examples reference project.
+
+{{{
+class TableExampleModule extends DslContext {
+
+  public void defineUi() {
+    ui.StandardTable(uid: "GT", clocator: [id: "xyz"], ht: "tbody"){
+      TextBox(uid: "header: all", clocator: [:])
+      TextBox(uid: "row: 1, column: 1", clocator: [tag: "div", class: "abc"])
+      Container(uid: "row: 1, column: 2"){
+        InputBox(uid: "Input", clocator: [tag: "input", class: "123"])
+        Container(uid: "Some", clocator: [tag: "div", class: "someclass"]){
+          Span(uid: "Span", clocator: [tag: "span", class: "x"])
+          UrlLink(uid: "Link", clocator: [:])
+        }
+      }
+    }
+  }
+
+  public void work(String input){
+    keyType "GT[1][2].Input", input
+    click "GT[1][2].Some.Link"
+    waitForPageToLoad 30000
+  }
+}
+
+}}}   
+
+Now, this UI module can be re-defined in a more flexible way with UDL as follows.
+
+{{{
+class TableExampleModule extends DslContext {
+
+  public void defineUi() {
+    ui.StandardTable(uid: "GT", clocator: [id: "xyz"], ht: "tbody"){
+      TextBox(uid: "{header: first} as One", clocator: [tag: "th", text: "one"], self: true)
+      TextBox(uid: "{header: 2} as Two", clocator: [tag: "th", text: "two"], self: true)
+      TextBox(uid: "{header: last} as Three", clocator: [tag: "th", text: "three"], self: true)
+      TextBox(uid: "{row: 1, column -> One} as A", clocator: [tag: "div", class: "abc"])
+      Container(uid: "{row: 1, column -> Two} as B"){
+        InputBox(uid: "Input", clocator: [tag: "input", class: "123"])
+        Container(uid: "Some", clocator: [tag: "div", class: "someclass"]){
+          Span(uid: "Span", clocator: [tag: "span", class: "x"])
+          UrlLink(uid: "Link", clocator: [:])
+        }
+      }
+      TextBox(uid: "{row: 1, column -> Three} as Hello", clocator: [tag: "td"], self: true)
+    }
+  }
+
+  public void work(String input){
+    getText "GT.A"
+    keyType "GT.B.Input", input
+    click "GT.B.Some.Link"
+    waitForPageToLoad 30000
+  }
+}
+}}}
 
 == Tellurium New APIs ==
 
