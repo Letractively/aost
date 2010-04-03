@@ -106,6 +106,12 @@ The grammars defined the UIDs for the following three categories of [http://code
   # List type UI object, i.e., [http://code.google.com/p/aost/wiki/UserGuide070UIObjects#List List]
   # Table type UI objects including [http://code.google.com/p/aost/wiki/UserGuide070UIObjects#Table Table] and [http://code.google.com/p/aost/wiki/UserGuide070UIObjects#Standard_Table StandardTable]. 
 
+We like to go over the grammars in details.
 
+=== ID ===
+
+The ID in the grammar starts with a letter and is followed by digits, letters, and "_" as follows.
+ 
+http://tellurium-users.googlegroups.com/web/udl_id.jpg?gda=qMY0wDwAAAA7fMi2EBxrNTLhqoq3FzPrYxkpUpFnzJyAbOi2fmAIqphN994tpHQvlLtY7uJzmPP9Wm-ajmzVoAFUlE7c_fAt&gsc=6cd9zQsAAAAkIbFAyUaYDIw1XZeMnNrq
 
  
