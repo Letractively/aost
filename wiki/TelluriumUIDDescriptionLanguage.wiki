@@ -33,7 +33,7 @@ As a result, the Tellurium UID Description Language (UDL) is used to
 
 = Tellurium UID Description Language =
 
-Tellurium UID Description Language (UDL) is implemented with [http://www.antlr.org/ the Antlr 3] parser generator. The implementation details can be found [http://code.google.com/p/aost/wiki/BuildYourOwnJavaParserWithAntlr3 here]. 
+Tellurium UID Description Language (UDL) is implemented with [http://www.antlr.org/ the Antlr 3 parser generator]. The implementation details can be found [http://code.google.com/p/aost/wiki/BuildYourOwnJavaParserWithAntlr3 here]. 
 
 We like to focus on the grammars and the use of UDL.
 
@@ -110,8 +110,21 @@ We like to go over the grammars in details.
 
 === ID ===
 
-The ID in the grammar starts with a letter and is followed by digits, letters, and "_" as follows.
+ID is the name of the UI object. The ID in the UDL starts with a letter and is followed by digits, letters, and "`_`" as follows.
  
+
 http://tellurium-users.googlegroups.com/web/udl_id.jpg?gda=qMY0wDwAAAA7fMi2EBxrNTLhqoq3FzPrYxkpUpFnzJyAbOi2fmAIqphN994tpHQvlLtY7uJzmPP9Wm-ajmzVoAFUlE7c_fAt&gsc=6cd9zQsAAAAkIbFAyUaYDIw1XZeMnNrq
 
- 
+=== Index ===
+
+Index defines the position of the UI object. The index in the UDL can be any of the following values:
+
+  * Number, for example, "5".
+  * "first", the first element.
+  * "last", the last element.
+  * "any", any position, usually the position is dynamic at runtime.
+  * "odd", the odd elements.
+  * "even", the even elements
+  * "all", matching all if not exact matches.
+
+ http://tellurium-users.googlegroups.com/web/udl_index.jpg?gda=IiTkhD8AAAA7fMi2EBxrNTLhqoq3FzPrmWBudP5qiPQkac1peLSYWg56keJ9cuAKmA_YKbtH6VuccyFKn-rNKC-d1pM_IdV0&gsc=myTuAgsAAABNyAlnqKoVxICsBHUflUOz
