@@ -125,6 +125,14 @@ Index defines the position of the UI object. The index in the UDL can be any of 
   * "any", any position, usually the position is dynamic at runtime.
   * "odd", the odd elements.
   * "even", the even elements
-  * "all", matching all if not exact matches.
+  * "all", wild match if not exact matches found.
 
  http://tellurium-users.googlegroups.com/web/udl_index.jpg?gda=IiTkhD8AAAA7fMi2EBxrNTLhqoq3FzPrmWBudP5qiPQkac1peLSYWg56keJ9cuAKmA_YKbtH6VuccyFKn-rNKC-d1pM_IdV0&gsc=myTuAgsAAABNyAlnqKoVxICsBHUflUOz
+
+=== Regular UI Objects ===
+
+For most [http://code.google.com/p/aost/wiki/UserGuide070UIObjects Tellurium UI objects] without UI templates, the UID is an ID, i.e., a name. They don't need any index description since the name and the UI object is one to one mapping.
+
+http://tellurium-users.googlegroups.com/web/udl_baseuid.jpg?gda=i6sK9EEAAAA7fMi2EBxrNTLhqoq3FzPrmWBudP5qiPQkac1peLSYWuuh6eJkplv9T-qV3sY7HytTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=myTuAgsAAABNyAlnqKoVxICsBHUflUOz
+
+For example, the UID of the container is "GoogleSearchModule" and "Search" is the name of one SubmitButton in the previous Google search module.
