@@ -24,7 +24,7 @@ public class TelluriumIssueModule extends DslContext {
     }
 
     ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], group: "true") {
-//      TextBox(uid: "{header: 1} as h1", clocator: [:])
+      //Define the header elements
       UrlLink(uid: "{header: any} as ID", clocator: [text: "*ID"])
       UrlLink(uid: "{header: any} as Type", clocator: [text: "*Type"])
       UrlLink(uid: "{header: any} as Status", clocator: [text: "*Status"])
@@ -34,12 +34,10 @@ public class TelluriumIssueModule extends DslContext {
       UrlLink(uid: "{header: any} as Summary", clocator: [text: "*Summary + Labels"])
       UrlLink(uid: "{header: any} as Extra", clocator: [text: "*..."])
 
-      //define table elements
-      //for the border column
-//      TextBox(uid: "{row: all, column: 1}", clocator: [:])
-//      TextBox(uid: "{row: all, column: 8}", clocator: [:])
+      //Define table body elements
+      //Column "Extra" are TextBoxs
       TextBox(uid: "{row: all, column -> Extra}", clocator: [:])
-      //For the rest, just UrlLink
+      //For the rest, they are UrlLinks
       UrlLink(uid: "{row: all, column: all}", clocator: [:])
     }
 
