@@ -31,4 +31,81 @@ As a result, the Tellurium UID Description Language (UDL) is used to
   # address the dynamic factors in Tellurium UI templates
   # increase the flexibility of Tellurium UI templates.
 
+= Tellurium UID Description Language =
+
+Tellurium UID Description Language (UDL) is implemented with [http://www.antlr.org/ the Antlr 3] parser generator. The implementation details can be found [http://code.google.com/p/aost/wiki/BuildYourOwnJavaParserWithAntlr3 here]. 
+
+We like to focus on the grammars and the use of UDL.
+
+== UDL Grammars ==
+
+The UDL grammars are defined as follows,
+
+{{{
+grammar Udl;
+
+uid	
+	: 	baseUid
+	|	listUid
+	|	tableUid	
+	;
+	
+baseUid 
+	:	ID
+	;
+	
+listUid
+	:	'{' INDEX '}'
+	|	'{' INDEX '}' 'as' ID
+	;
+		
+tableUid 
+	:	tableHeaderUid
+	|	tableFooterUid 
+	|	tableBodyUid
+	;
+	
+tableHeaderUid
+	:	'{' 'header' ':' INDEX '}'
+	|	'{' 'header' ':' INDEX '}' 'as' ID
+	;
+	
+tableFooterUid
+	:       '{' 'footer' ':' INDEX '}'
+	|       '{' 'footer' ':' INDEX '}' 'as' ID
+	;
+	
+tableBodyUid
+        :	'{' 'row' ':' INDEX ',' 'column' ':' INDEX '}'
+        |	'{' 'row' ':' INDEX ',' 'column' ':' INDEX '}' 'as' ID
+        |	'{' 'row' '->' ID ',' 'column' ':' INDEX '}'
+        |	'{' 'row' '->' ID ',' 'column' ':' INDEX '}' 'as' ID
+        |	'{' 'row' ':' INDEX ',' 'column' '->' ID '}'
+        |	'{' 'row' ':' INDEX ',' 'column' '->' ID '}' 'as' ID
+        |	'{' 'row' '->' ID ',' 'column' '->' ID '}'
+        |	'{' 'row' '->' ID ',' 'column' '->' ID '}' 'as' ID
+        |       '{' 'tbody' ':' INDEX ',' 'row' ':' INDEX ',' 'column' ':' INDEX '}'
+        |       '{' 'tbody' ':' INDEX ',' 'row' ':' INDEX ',' 'column' ':' INDEX '}' 'as' ID
+        |	'{' 'tbody' ':' INDEX ',' 'row' '->' ID ',' 'column' ':' INDEX '}'
+        |	'{' 'tbody' ':' INDEX ',' 'row' '->' ID ',' 'column' ':' INDEX '}' 'as' ID
+        |       '{' 'tbody' ':' INDEX ',' 'row' ':' INDEX ',' 'column' '->' ID '}'
+        |       '{' 'tbody' ':' INDEX ',' 'row' ':' INDEX ',' 'column' '->' ID '}' 'as' ID
+        |	'{' 'tbody' ':' INDEX ',' 'row' '->' ID ',' 'column' '->' ID '}'
+        |	'{' 'tbody' ':' INDEX ',' 'row' '->' ID ',' 'column' '->' ID '}' 'as' ID
+        ;              			
+							
+fragment LETTER : ('a'..'z' | 'A'..'Z') ;
+fragment DIGIT : '0'..'9';
+INDEX	:	(DIGIT+ |'all' | 'odd' | 'even' | 'any' | 'first' | 'last' );   
+ID 	: 	LETTER (LETTER | DIGIT)*;
+WS 	: 	(' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
+}}}
+
+The grammars defined the UIDs for the following three categories of [http://code.google.com/p/aost/wiki/UserGuide070UIObjects Tellurium UI Objects].
+  # Regular UI objects without UI templates such as [http://code.google.com/p/aost/wiki/UserGuide070UIObjects#Input_Box Input Box] and [http://code.google.com/p/aost/wiki/UserGuide070UIObjects#Container Container]
+  # List type UI object, i.e., [http://code.google.com/p/aost/wiki/UserGuide070UIObjects#List List]
+  # Table type UI objects including [http://code.google.com/p/aost/wiki/UserGuide070UIObjects#Table Table] and [http://code.google.com/p/aost/wiki/UserGuide070UIObjects#Standard_Table StandardTable]. 
+
+
+
  
