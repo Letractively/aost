@@ -136,3 +136,28 @@ For most [http://code.google.com/p/aost/wiki/UserGuide070UIObjects Tellurium UI 
 http://tellurium-users.googlegroups.com/web/udl_baseuid.jpg?gda=i6sK9EEAAAA7fMi2EBxrNTLhqoq3FzPrmWBudP5qiPQkac1peLSYWuuh6eJkplv9T-qV3sY7HytTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=myTuAgsAAABNyAlnqKoVxICsBHUflUOz
 
 For example, the UID of the container is "GoogleSearchModule" and "Search" is the name of one SubmitButton in the previous Google search module.
+
+=== List ===
+
+[http://code.google.com/p/aost/wiki/UserGuide070UIObjects#List The List object] defines an array of UI objects and its UID consists of an index and an optional name.
+
+
+http://tellurium-users.googlegroups.com/web/udl_list.jpg?gda=lwZHAT4AAAA7fMi2EBxrNTLhqoq3FzPrmWBudP5qiPQkac1peLSYWjrjWAqsK6h2ox84bV_5MMfjsKXVs-X7bdXZc5buSfmx&gsc=myTuAgsAAABNyAlnqKoVxICsBHUflUOz
+
+For example, the following List "A", defines the following Ui Objects:
+
+  * InputBox, position at "1" and name "Input".
+  * Selector, position at "2" and name "Select".
+  * TextBox, represents the rest objects not at position "1" and "2".
+
+{{{
+   ui.List(uid: "A", clocator: [tag: "table"], separator: "tr") {
+      InputBox(uid: "{1} as Input", clocator: [:])
+      Selector(uid: "{2} as Select", clocator: [:])
+      TextBox(uid: "{all}", clocator: [tag: "div"])
+   }
+}}}
+
+We can use "A[1]" or "A.Input" to reference the InputBox object. "A[3]" and "A[6]" are mapped to the TextBox object.
+
+
