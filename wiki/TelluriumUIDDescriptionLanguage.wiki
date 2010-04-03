@@ -159,3 +159,7 @@ For example, the following List "A", defines the following Ui Objects:
 }}}
 
 We can use {{{"A[1]"}}} or {{{"A.Input"}}} to reference the InputBox object. {{{"A[3]"}}} and {{{"A[6]"}}} are mapped to the TextBox object.
+
+=== Table ===
+
+As we said, the [http://code.google.com/p/aost/wiki/UserGuide070UIObjects#Table Table object] is a special case of the more general object [http://code.google.com/p/aost/wiki/UserGuide070UIObjects#Standard_Table StandardTable], which includes a header, a footer, and one or multiple body sections.
