@@ -249,14 +249,6 @@ var UiCheckBox = UiObject.extend({
 });
 
 
-var UiDiv = UiObject.extend({
-    init: function(){
-        this._super();
-        this.uiType = 'div';
-        this.tag = "div";
-    }
-});
-
 var UiIcon = UiObject.extend({
     init: function(){
         this._super();
@@ -809,6 +801,14 @@ var UiRepeat = UiContainer.extend({
             context.domRef = null;
             return null;
         }
+    }
+});
+
+var UiDiv = UiContainer.extend({
+    init: function(){
+        this._super();
+        this.uiType = 'div';
+        this.tag = "div";
     }
 });
 
