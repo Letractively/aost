@@ -3,13 +3,13 @@ package org.telluriumsource.ui.object
 import org.json.simple.JSONObject
 
 /**
- * Created by IntelliJ IDEA.
+ * 
  * User: vivmon1
  * Date: Jul 25, 2008
  * Time: 5:16:01 PM
- * To change this template use File | Settings | File Templates.
+ *
  */
-class Div extends UiObject{
+class Div extends Container {
     public static final String TAG = "div"
 
     def click(Closure c){
