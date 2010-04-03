@@ -158,6 +158,4 @@ For example, the following List "A", defines the following Ui Objects:
    }
 }}}
 
-We can use "A[1]" or "A.Input" to reference the InputBox object. "A[3]" and "A[6]" are mapped to the TextBox object.
-
-
+We can use {{{"A[1]"}}} or {{{"A.Input"}}} to reference the InputBox object. {{{"A[3]"}}} and {{{"A[6]"}}} are mapped to the TextBox object.
