@@ -397,6 +397,17 @@ class TableExampleModule extends DslContext {
 }
 }}}
 
+Apart from that, you need to add the UDL dependency to you project.
+
+{{{
+       <dependency>
+           <groupId>org.telluriumsource</groupId>
+           <artifactId>tellurium-udl</artifactId>
+           <version>0.7.0-SNAPSHOT</version>
+           <scope>compile</scope>
+       </dependency>
+}}}
+
 == Tellurium New APIs ==
 
 Tellurium Engine in 0.7.0 re-implemented a set of Selenium APIs by exploiting jQuery, plus many more new APIs. For example,
