@@ -184,3 +184,26 @@ http://tellurium-users.googlegroups.com/web/udl_tablebody.jpg?gda=iMD3okMAAAA7fM
 
 The tbody can be omitted if we have only one tbody. Thus, we can reduce the above subrules to 8. The subrules look complicated, but they are not. Each row and column can be either an index just like that in the List object or a reference to the ID of a header or a footer. The reference is defined by the {{{->}}} symbol. In this way, the row or column position can be dynamic and follow a header or a footer UI object.
 
+=== Example ===
+
+The Table grammars are better to be explained by an example. The issue search result UI in the issue page of the Tellurium project can be described as follows.
+
+{{{
+   ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], group: "true") {
+      //Define the header elements
+      UrlLink(uid: "{header: any} as ID", clocator: [text: "*ID"])
+      UrlLink(uid: "{header: any} as Type", clocator: [text: "*Type"])
+      UrlLink(uid: "{header: any} as Status", clocator: [text: "*Status"])
+      UrlLink(uid: "{header: any} as Priority", clocator: [text: "*Priority"])
+      UrlLink(uid: "{header: any} as Milestone", clocator: [text: "*Milestone"])
+      UrlLink(uid: "{header: any} as Owner", clocator: [text: "*Owner"])
+      UrlLink(uid: "{header: any} as Summary", clocator: [text: "*Summary + Labels"])
+      UrlLink(uid: "{header: any} as Extra", clocator: [text: "*..."])
+
+      //Define table body elements
+      //Column "Extra" are TextBoxs
+      TextBox(uid: "{row: all, column -> Extra}", clocator: [:])
+      //For the rest, they are UrlLinks
+      UrlLink(uid: "{row: all, column: all}", clocator: [:])
+   }
+}}}
