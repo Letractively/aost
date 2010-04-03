@@ -632,6 +632,20 @@ The test case is as follows
     }
 }}}
 
+== Div ==
+
+The Div object has been changed to be a Container type object. For example, you can define the following UI module.
+
+{{{
+   ui.Div(uid: "div1", clocator: [id: "div1"]) {
+      Div(uid: "div2", clocator: [id: "div2"]) {
+        List(uid: "list1", clocator: [tag: "ul"], separator: "li"){
+          UrlLink(uid: "{all}", clocator: [:])
+        }
+      } 
+   }
+}}}
+
 == toggle ==
 
 Tellurium 0.7.0 provides a toggle method to animate the UI element on the web page. For example, you can the following commands to show the UI element under testing.
