@@ -163,3 +163,24 @@ We can use {{{"A[1]"}}} or {{{"A.Input"}}} to reference the InputBox object. {{{
 === Table ===
 
 As we said, the [http://code.google.com/p/aost/wiki/UserGuide070UIObjects#Table Table object] is a special case of the more general object [http://code.google.com/p/aost/wiki/UserGuide070UIObjects#Standard_Table StandardTable], which includes a header, a footer, and one or multiple body sections.
+
+==== Header ====
+
+Table header is very much similar to the List, but its index starts with the "header" indicator.
+
+http://tellurium-users.googlegroups.com/web/udl_tableheader.jpg?gda=Ido_lkUAAAA7fMi2EBxrNTLhqoq3FzPrmWBudP5qiPQkac1peLSYWlkJCT0fa5iWqwJzQkXxz1JzlqnWZQD3y6jZqCMfSFQ6Gu1iLHeqhw4ZZRj3RjJ_-A&gsc=myTuAgsAAABNyAlnqKoVxICsBHUflUOz
+
+==== Footer ====
+
+The footer is similar to header and its index starts with the "footer" indicator.
+
+http://tellurium-users.googlegroups.com/web/udl_tablefooter.jpg?gda=P8Ka3UUAAAA7fMi2EBxrNTLhqoq3FzPrmWBudP5qiPQkac1peLSYWm264Vj_bu4ncefYGcb6mYpzlqnWZQD3y6jZqCMfSFQ6Gu1iLHeqhw4ZZRj3RjJ_-A&gsc=myTuAgsAAABNyAlnqKoVxICsBHUflUOz
+
+==== Body ====
+
+The body is more complicated since it is represented by the triple {{{[tbody, row, column]}}}.
+
+http://tellurium-users.googlegroups.com/web/udl_tablebody.jpg?gda=iMD3okMAAAA7fMi2EBxrNTLhqoq3FzPrmWBudP5qiPQkac1peLSYWuiuCXJQSXdF4sM7I0Qg4aMytiJ-HdGYYcPi_09pl8N7FWLveOaWjzbYnpnkpmxcWg&gsc=myTuAgsAAABNyAlnqKoVxICsBHUflUOz
+
+The tbody can be omitted if we have only one tbody. Thus, we can reduce the above subrules to 8. The subrules look complicated, but they are not. Each row and column can be either an index just like that in the List object or a reference to the ID of a header or a footer. The reference is defined by the {{{->}}} symbol. In this way, the row or column position can be dynamic and follow a header or a footer UI object.
+
