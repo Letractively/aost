@@ -215,5 +215,12 @@ For the body, we have one TextBox for the "Extra" column, i.e., the column where
   * {{{issueResult[1][ID]}}} refers to the UI object in the first row and the same column as the header "ID".
   * {{{issueResult[3][Extra]}}} refers to the UI object in the third row and the same column as the "Extra" header.
 
+== Routing ==
 
+= Resources =
+
+  * [http://code.google.com/p/aost/wiki/BuildYourOwnJavaParserWithAntlr3 Build Your Own Java Parser with Antlr 3]
+  * [http://code.google.com/p/aost/wiki/Tellurium070Update What's New in Tellurium 0.7.0]
+  * [http://twitter.com/TelluriumSource Tellurium on Twitter]
+  * [http://telluriumsource.org TelluriumSource] 
  
