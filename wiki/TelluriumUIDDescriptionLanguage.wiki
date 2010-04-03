@@ -207,3 +207,13 @@ The Table grammars are better to be explained by an example. The issue search re
       UrlLink(uid: "{row: all, column: all}", clocator: [:])
    }
 }}}
+
+The headers of the issue search results can be dragged to different columns and thus, we use "any" to represent the dynamic runtime index. Each header comes with a name so that the body could reference them.
+
+For the body, we have one TextBox for the "Extra" column, i.e., the column where the header "Extra" is at, and all the others are UrlLinks. As a result, we have the following references to the table UI objects:
+  * {{{issueResult.header.ID}}} refers to the ID header
+  * {{{issueResult[1][ID]}}} refers to the UI object in the first row and the same column as the header "ID".
+  * {{{issueResult[3][Extra]}}} refers to the UI object in the third row and the same column as the "Extra" header.
+
+
+ 
