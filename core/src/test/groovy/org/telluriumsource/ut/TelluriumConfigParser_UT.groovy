@@ -13,7 +13,7 @@ class TelluriumConfigParser_UT extends GroovyTestCase{
 
     public void testParse(){
         TelluriumConfigParser parser = new TelluriumConfigParser()
-        parser.parse(ClassLoader.getSystemResource("config/TelluriumConfigForExcelReader.groovy").getFile())
+        parser.parse("config/TelluriumConfigForExcelReader.groovy")
         def config = parser.getProperty("conf")
         assertNotNull(config)
         assertEquals("4444", config.tellurium.embeddedserver.port)
