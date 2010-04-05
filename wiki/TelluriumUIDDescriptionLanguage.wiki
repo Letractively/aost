@@ -369,7 +369,7 @@ Take the previous [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLan
    "issueResult[2[[Type]   --> UrlLink
 }}}
 
-Be aware that the "Extra", "ID", and "Type" are index references to the header columns of the header "Extra", "ID", and "Type" respectively and they will be replaced by the runtime index of the headers. 
+Be aware that the "Extra", "ID", and "Type" are index references to the header columns of the header "Extra", "ID", and "Type" respectively and they will be replaced by the actual column number of the corresponding header at runtime. 
 
 = Resources =
 
