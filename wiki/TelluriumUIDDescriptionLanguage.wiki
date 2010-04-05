@@ -260,6 +260,7 @@ By the RTree routing algorithm, the runtime uid mappings are shown as follows.
  
    //List Referenced by Index 
    "Example[first]" ---> InputBox
+   "Example[1]"     ---> InputBox
    "Example[2]"     ---> TextBox
    "Example[3]"     ---> Button
    "Example[4]"     ---> Selector
@@ -268,8 +269,96 @@ By the RTree routing algorithm, the runtime uid mappings are shown as follows.
 
 === RGraph ===
 
+The Table type of objects usually include one header, one or multiple tbodies, and one footers. That is to say, the Table object is represented by triple {{{[tbody, row, column]}}}. Each tuple is represented by a RTree and the three RTrees form a RGraph. The reason it is called a graph is that each tuple is not separated. If multiple nodes in the RGraph form a UI template, we can draw a dash line to connect together. For example, the node "4" in tbody, the "even" node in row, and the "odd" node in the column form a UI template such as
+
+{{{
+   UrlLink(uid: "tbody: 4, row: even, column: odd", clocator: [:])
+}}} 
+
 http://tellurium-users.googlegroups.com/web/udl_rgraph.png?gda=yR6UdkAAAAA7fMi2EBxrNTLhqoq3FzPr0b4O3mWwoz9GTCgGtTU-umb7kTUGkceVGqWQIEBe0zxtxVPdW1gYotyj7-X7wDON&gsc=UJYYUgsAAADkd6yl1NLvBg_VFBAXAGpd
 
+In this way, the three RTrees actually form a graph. As a result, the routing problem becomes "how to find a UI template in the RGraph that is the closest one to the runtime UID ?".
+
+To do this, we assign a fitness, i.e., weight, to tbody, row, and column respectively. Usually, we select the weight as follows:
+
+{{{
+   tbody > row > column
+}}}
+
+That is to say, we always try to match the tbody first, then the row and the column.
+
+The routing algorithm can be illustrated by the following code snippet.
+
+{{{
+  UiObject route(String key) {
+    //check the ID reference
+    UiObject object = this.indices.get(key);
+
+    //this is a index reference
+    if(object == null){
+      //normalize the index
+      String[] parts= key.replaceFirst('_', '').split('_');
+      String[] ids = parts;
+      if(parts.length < 3){
+        ids = ["1", parts].flatten();
+      }
+      String x = ids[0];
+      if("first".equalsIgnoreCase(x)){
+        x = "1";
+      }
+      String y = ids[1];
+      if("first".equalsIgnoreCase(y)){
+        y = "1";
+      }
+      String z = ids[2];
+      if("first".equalsIgnoreCase(z)){
+        z = "1";
+      }
+      
+      //Find match nodes separately for tbody, row, and column
+      String[] list = this.generatePath(x);
+      Path path = new Path(list);
+      RNode nx = this.walkTo(this.t, x, path);
+      list = this.generatePath(y);
+      path = new Path(list);
+      RNode ny = this.walkTo(this.r, y, path);
+      list = this.generatePath(z);
+      path = new Path(list);
+      RNode nz = this.walkTo(this.c, z, path);
+
+      //Use the fitness to select the closest match
+      int smallestFitness = 100 * 4;
+      RNode xp = nx;
+      while (xp != null) {
+        RNode yp = ny;
+        while (yp != null) {
+          RNode zp = nz;
+          while(zp != null){
+            //internal representation of the index
+            String iid = this.getInternalId(xp.getKey(), yp.getKey(), zp.getKey());
+            //If they form a UI template 
+            if(xp.templates.contains(iid) && yp.templates.contains(iid) && zp.templates.contains(iid)){
+              int fitness = (nx.getLevel() - xp.getLevel()) * 100 + (ny.getLevel() - yp.getLevel()) * 10 + (nz.getLevel() - zp.getLevel());
+              if(fitness < smallestFitness){
+                object = this.templates.get(iid);
+                smallestFitness = fitness;
+              }
+            }
+            //walk up the RGraph
+            zp = zp.parent;
+          }
+          //walk up the RGraph
+          yp = yp.parent;
+         }
+        //walk up the RGraph 
+        xp = xp.parent;
+      }
+    }
+
+    //return the closest match
+    return object;
+  }
+}}}
 
 = Resources =
 
