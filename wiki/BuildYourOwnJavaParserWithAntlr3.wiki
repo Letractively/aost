@@ -175,6 +175,11 @@ WS 	: 	(' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
 To create the parser, we need couple Java objects to map to the Antlr 3 grammars. For example, we define the following classes.
 
 {{{
+public enum IndexType {
+    VAL,
+    REF
+}
+
 public class Index {
 
     IndexType type;
