@@ -217,11 +217,31 @@ For the body, we have one TextBox for the "Extra" column, i.e., the column where
 
 == Routing ==
 
-The routing mechanism maps the run time uid reference to the appropriate UI template. 
+The routing mechanism maps the runtime UID reference to the appropriate UI template. We will cover the routing mechanism for UI templates in the List and Table objects.
  
 === List ===
 
+For a List object, the index could be any of the following:
+  * _digits_, such as "1", "3", and "5".
+  * _first_, which is converted to "1".
+  * _last_, the last element.
+  * _any_, any position.
+  * _odd_, odd elements.
+  * _even_, even elements.
+  * _all_, match all and default UI element.
+   
+The routing tree for a List object is called a *RTree* as follows.
+
 http://tellurium-users.googlegroups.com/web/udl_rtree.png?gda=AU9R4z8AAAA7fMi2EBxrNTLhqoq3FzPrRTp9-cAEkfvWUJNGZ-Y9si741iQgkgWcrEC79tDnFNaccyFKn-rNKC-d1pM_IdV0&gsc=UJYYUgsAAADkd6yl1NLvBg_VFBAXAGpd
+
+The root is the "all" node and the digits, "any", and "last" are leaf nodes. "odd" and "even" nodes are parents of the digit nodes. The routing algorithm always to match the runtime uid to one of the leaf node, if not found, go up to match its parent node until it reaches the "all" node, which presents a default UI object.
+
+For example, we have the following List defined:
+
+{{{
+
+}}}
+
 
 === Table ===
 
