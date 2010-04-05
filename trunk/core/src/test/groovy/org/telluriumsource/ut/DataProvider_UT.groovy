@@ -50,7 +50,7 @@ class DataProvider_UT extends GroovyTestCase{
         FieldSetMapResult result = dataProvider.nextFieldSet()
         assertNotNull(result)
         assertFalse(result.isEmpty())
-        boolean var1 = dataProvider.bind("regularSearch")
+        boolean var1 = dataProvider.bind("fs4googlesearch.regularSearch")
         def var2 = dataProvider.bind("fs4googlesearch.phoneNumber")
         String var3 = dataProvider.bind("fs4googlesearch.input")
         assertTrue(var1)
@@ -72,14 +72,14 @@ class DataProvider_UT extends GroovyTestCase{
 
     public void testFetchExcelData(){   
     	TelluriumConfigurator telluriumConfigurator = new TelluriumConfigurator()
-        telluriumConfigurator.parse(ClassLoader.getSystemResource("config/TelluriumConfigForExcelReader.groovy").getFile())
+        telluriumConfigurator.parse("config/TelluriumConfigForExcelReader.groovy")
         
     	dataProvider.useFile(ClassLoader.getSystemResource("data/excelDataReaderTest.xls").getFile())
         
         FieldSetMapResult result = dataProvider.nextFieldSet()
         assertNotNull(result)
         assertFalse(result.isEmpty())
-        boolean var1 = dataProvider.bind("regularSearch")
+        boolean var1 = dataProvider.bind("fs4googlesearch.regularSearch")
         def var2 = dataProvider.bind("fs4googlesearch.phoneNumber")
         String var3 = dataProvider.bind("fs4googlesearch.input")
         assertTrue(var1)
