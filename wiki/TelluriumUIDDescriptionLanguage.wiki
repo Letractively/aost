@@ -360,6 +360,17 @@ The routing algorithm can be illustrated by the following code snippet.
   }
 }}}
 
+Take the previous [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage#Example Tellurium Issue Result UI module] as an example, we have the following runtime UID to UI object mapping.
+
+{{{
+   //Runtime UID               mapped UI object
+   "issueResult[1][Extra]" --> TextBox
+   "issueResult[1][ID]     --> UrlLink
+   "issueResult[2[[Type]   --> UrlLink
+}}}
+
+Be aware that the "Extra", "ID", and "Type" are index references to the header columns of the header "Extra", "ID", and "Type" respectively and they will be replaced by the runtime index of the headers. 
+
 = Resources =
 
   * [http://code.google.com/p/aost/wiki/BuildYourOwnJavaParserWithAntlr3 Build Your Own Java Parser with Antlr 3]
