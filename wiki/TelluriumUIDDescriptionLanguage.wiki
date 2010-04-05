@@ -248,6 +248,23 @@ For example, we have the following List defined:
    }
 }}}
 
+By the RTree routing algorithm, the runtime uid mappings are shown as follows.
+
+{{{
+   //Runtime uid         mapped UI object
+
+   //List Referenced by ID
+   "Example.Input"  ---> InputBox
+   "Example.Select" ---> Selector
+   "Example.Submit" ---> SubmitButton
+ 
+   //List Referenced by Index 
+   "Example[first]" ---> InputBox
+   "Example[2]"     ---> TextBox
+   "Example[3]"     ---> Button
+   "Example[4]"     ---> Selector
+   "Example[last]"  ---> SubmitButton
+}}}
 
 === RGraph ===
 
