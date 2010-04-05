@@ -182,7 +182,7 @@ The body is more complicated since it is represented by the triple {{{[tbody, ro
 
 http://tellurium-users.googlegroups.com/web/udl_tablebody.jpg?gda=iMD3okMAAAA7fMi2EBxrNTLhqoq3FzPrmWBudP5qiPQkac1peLSYWuiuCXJQSXdF4sM7I0Qg4aMytiJ-HdGYYcPi_09pl8N7FWLveOaWjzbYnpnkpmxcWg&gsc=myTuAgsAAABNyAlnqKoVxICsBHUflUOz
 
-The tbody can be omitted if we have only one tbody. Thus, we can reduce the above subrules to 8. The subrules look complicated, but they are not. Each row and column can be either an index just like that in the List object or a reference to the ID of a header or a footer. The reference is defined by the {{{->}}} symbol. In this way, the row or column position can be dynamic and follow a header or a footer UI object.
+The tbody can be omitted if we have only one tbody. Thus, we can reduce the above subrules to 8. The subrules look complicated, but they are not. Each row and column can be either an index just like that in the List object or a reference to the ID of a header or a footer. The reference is defined by the "{{{->}}}" symbol. In this way, the row or column position can be dynamic and follow a header or a footer UI object.
 
 ==== Example ====
 
@@ -217,6 +217,8 @@ For the body, we have one TextBox for the "Extra" column, i.e., the column where
 
 == Routing ==
 
+The routing mechanism maps the run time uid reference to the appropriate UI template. 
+ 
 === List ===
 
 http://tellurium-users.googlegroups.com/web/udl_rtree.png?gda=AU9R4z8AAAA7fMi2EBxrNTLhqoq3FzPrRTp9-cAEkfvWUJNGZ-Y9si741iQgkgWcrEC79tDnFNaccyFKn-rNKC-d1pM_IdV0&gsc=UJYYUgsAAADkd6yl1NLvBg_VFBAXAGpd
