@@ -40,3 +40,4 @@
   * [http://code.google.com/p/aost/wiki/DiscloseUIModuleOperationsInTellurium070 Disclose UI module APIs in Tellurium 0.7.0]
   * [http://code.google.com/p/aost/wiki/TelluriumIntegrationTestsWithMavenCargoPlugin Run Tellurium Integration Tests with Maven Cargo Plugin]
   * [http://code.google.com/p/aost/wiki/BuildYourOwnJavaParserWithAntlr3 Build Your Own Java Parser with Antlr 3]
+  * [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage Tellurium UID Description Language]
