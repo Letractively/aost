@@ -1,7 +1,7 @@
 //define Tellurium project menu
-ui.Container(uid: "menu", clocator: [tag: "table", id: "mt", trailer: "/tbody/tr/th"], group: "true"){
-    //since the actual text is  Project&nbsp;Home, we can use partial match here. Note "%%" stands for partial match
-    UrlLink(uid: "project_home", clocator: [text: "%%Home"])
+ui.Container(uid: "menu", clocator: [tag: "table", id: "mt"], group: "true"){
+    //since the actual text is  Project&nbsp;Home, we can use partial match here. Note "*" stands for partial match
+    UrlLink(uid: "project_home", clocator: [text: "*Home"])
     UrlLink(uid: "downloads", clocator: [text: "Downloads"])
     UrlLink(uid: "wiki", clocator: [text: "Wiki"])
     UrlLink(uid: "issues", clocator: [text: "Issues"])
