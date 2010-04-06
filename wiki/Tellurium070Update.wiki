@@ -337,6 +337,7 @@ To migrate your UI templates from 0.6.0 to 0.7.0, please make the following chan
   * Replace "`*`" with "all" 
   * Replace "all" in table with "row: all, column: all"
   * You can add an ID for each UI template object, where the ID starts with a letter and is followed by digits, letters, and "`_`".
+  * The implicit tokens defined in UDL such as "header", "footer", "row", "column", and "tbody" are all reserved and they cannot be used as IDs. But UDL is case-sensitive, you can still use "Header", "Footer", "Row", "Column", and "TBody" as IDs.
 
 For example the following TableExampleModule UI module in the ui-examples reference project.
 
