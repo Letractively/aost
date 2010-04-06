@@ -66,6 +66,13 @@ public class CustomUIExample extends DslContext {
         UrlLink(uid: "link", clocator:[:])
       }
     }
+
+    ui.Container(uid: "header", locator: "//table[@class ='outerBox']/tbody/tr[1]") {
+         Container(uid: "nav", clocator: [tag: "table"]) {
+            UrlLink(uid: "logout", clocator: [href: "*logout.do"])
+         }
+    }
+
   }
 
   public String getXCaseStatus(int tabnum){
