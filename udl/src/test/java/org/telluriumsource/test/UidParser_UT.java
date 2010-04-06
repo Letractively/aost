@@ -193,7 +193,7 @@ public class UidParser_UT {
     }
 
     @Test
-    public void TestTableBodyMixedUidNoId() {
+    public void testTableBodyMixedUidNoId() {
         try {
             MetaData data = UidParser.parse("{row:3, column-> bad}");
             assertNotNull(data);
@@ -213,7 +213,7 @@ public class UidParser_UT {
     }
 
     @Test
-    public void TestTableBodyMixedUid() {
+    public void testTableBodyMixedUid() {
         try {
             MetaData data = UidParser.parse("{row:3, column -> bad} as Search");
             assertNotNull(data);
@@ -228,6 +228,29 @@ public class UidParser_UT {
             assertEquals(IndexType.REF, tbmd.getColumn().getType());
         } catch (RecognitionException e) {
             e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testHeaderAsId(){
+
+        try{
+		    MetaData data = UidParser.parse("Header");
+            assertNotNull(data);
+            assertEquals("Header", data.getId());
+        }catch(RecognitionException e){
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testRowAsId(){
+         try{
+		    MetaData data = UidParser.parse("Row");
+            assertNotNull(data);
+            assertEquals("Row", data.getId());
+        }catch(RecognitionException e){
             fail(e.getMessage());
         }
     }

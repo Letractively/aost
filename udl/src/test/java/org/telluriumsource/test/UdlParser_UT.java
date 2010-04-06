@@ -273,7 +273,7 @@ public class UdlParser_UT {
     }
 
     @Test
-    public void TestTableBodyMixedUidNoId() {
+    public void testTableBodyMixedUidNoId() {
         try {
             MetaData data = UidParser.parse("{row:3, column-> bad}");
             assertNotNull(data);
@@ -293,7 +293,7 @@ public class UdlParser_UT {
     }
 
     @Test
-    public void TestTableBodyMixedUid() {
+    public void testTableBodyMixedUid() {
         try {
             MetaData data = UidParser.parse("{row:3, column -> bad} as Search");
             assertNotNull(data);
