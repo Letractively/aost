@@ -443,16 +443,13 @@ You can do the following steps:
 
 {{{
 /customProfileDirCUSTFF/extensions/readyst...@openqa.org/install.rdf
-./customProfileDirCUSTFF/extensions/{538F0036-F358-4f84-
-A764-89FB437166B4}/install.rdf
-./customProfileDirCUSTFFCHROME/extensions/readyst...@openqa.org/
-install.rdf
-./customProfileDirCUSTFFCHROME/extensions/{503A0CD4-
-EDC8-489b-853B-19E0BAA8F0A4}/install.rdf
-./customProfileDirCUSTFFCHROME/extensions/{538F0036-F358-4f84-
-A764-89FB437166B4}/install.rdf
-./customProfileDirCUSTFFCHROME/extensions/{636fd8b0-ce2b-4e00-
-b812-2afbe77ee899}/install.rdf
+./customProfileDirCUSTFF/extensions/{538F0036-F358-4f84-A764-89FB437166B4}/install.rdf
+./customProfileDirCUSTFFCHROME/extensions/readyst...@openqa.org/install.rdf
+./customProfileDirCUSTFFCHROME/extensions/{503A0CD4-EDC8-489b-853B-19E0BAA8F0A4}/install.rdf
+./customProfileDirCUSTFFCHROME/extensions/{538F0036-F358-4f84-A764-89FB437166B4}/install.rdf
+./customProfileDirCUSTFFCHROME/extensions/{636fd8b0-ce2b-4e00-b812-2afbe77ee899}/install.rdf
+
+change the versions from 
 
         <em:targetApplication>
             <Description>
