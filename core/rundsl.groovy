@@ -3,7 +3,7 @@ import groovy.grape.Grape;
 Grape.grab(group:'org.telluriumsource', module:'tellurium-core', version:'0.7.0-SNAPSHOT', classLoader:this.class.classLoader.rootLoader)
 Grape.grab(group:'org.stringtree', module:'stringtree-json', version:'2.0.10', classLoader:this.class.classLoader.rootLoader)
 Grape.grab(group:'caja', module:'json_simple', version:'r1', classLoader:this.class.classLoader.rootLoader)
-Grape.grab(group:'org.seleniumhq.selenium.server', module:'selenium-server', version:'1.0.1-te2', classLoader:this.class.classLoader.rootLoader)
+Grape.grab(group:'org.seleniumhq.selenium.server', module:'selenium-server', version:'1.0.1-te3-SNAPSHOT', classLoader:this.class.classLoader.rootLoader)
 Grape.grab(group:'org.seleniumhq.selenium.client-drivers', module:'selenium-java-client-driver', version:'1.0.1', classLoader:this.class.classLoader.rootLoader)
 Grape.grab(group:'org.apache.poi', module:'poi', version:'3.0.1-FINAL', classLoader:this.class.classLoader.rootLoader)
 Grape.grab(group:'junit', module:'junit', version:'4.7', classLoader:this.class.classLoader.rootLoader)
@@ -12,7 +12,7 @@ import org.telluriumsource.dsl.DslScriptExecutor
 
 @Grapes([
    @Grab(group='org.codehaus.groovy', module='groovy-all', version='1.7.0'),
-   @Grab(group='org.seleniumhq.selenium.server', module='selenium-server', version='1.0.1-te2'),
+   @Grab(group='org.seleniumhq.selenium.server', module='selenium-server', version='1.0.1-te3-SNAPSHOT'),
    @Grab(group='org.seleniumhq.selenium.client-drivers', module='selenium-java-client-driver', version='1.0.1'),
    @Grab(group='junit', module='junit', version='4.7'),
    @Grab(group='caja', module='json_simple', version='r1'),
