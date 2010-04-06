@@ -17,12 +17,29 @@ class TelluriumIssuesModule extends TelluriumDataDrivenModule{
     public void defineModule() {
         //define UI module
         ui.Form(uid: "issueSearch", clocator: [action: "list", method: "GET"], group: "true") {
-            Selector(uid: "issueType", clocator: [name: "can", id: "can"])
+            Selector(uid: "issueType", clocator: [name: "can", id: "can", direct: "true"])
             TextBox(uid: "searchLabel", clocator: [tag: "span", text: "for"])
-            InputBox(uid: "searchBox", clocator: [type: "text", name: "q"])
-            SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+            InputBox(uid: "searchBox", clocator: [type: "text", name: "q", id: "q"])
+            SubmitButton(uid: "searchButton", clocator: [value: "Search", direct: "true"])
         }
 
+        ui.Form(uid: "issueAdvancedSearch", clocator: [action: "advsearch.do", method: "POST"], group: "true"){
+         Container(uid: "searchTable", clocator: [class: "advquery"]){
+             Selector(uid: "issueTypes", clocator: [name: "can"])
+             SubmitButton(uid: "search", clocator: [value: "Search", name: "btn"])
+             InputBox(uid: "include", clocator:[name: "words"])
+             InputBox(uid: "exclude", clocator:[name: "without"])
+             InputBox(uid: "labels", clocator:[name: "labels"])
+             UrlLink(uid: "searchTips", clocator:[text: "*Search Tips"])
+             InputBox(uid: "statuses", clocator:[name: "statuses"])
+             InputBox(uid: "reporters", clocator:[name: "reporters"])
+             InputBox(uid: "owners", clocator:[name: "owners"])
+             InputBox(uid: "cc", clocator:[name: "cc"])
+             InputBox(uid: "commentBy", clocator:[name: "commentby"])
+         }
+       }
+
+/*
         ui.Form(uid: "issueAdvancedSearch", clocator: [action: "advsearch.do", method: "POST"], group: "true") {
             Table(uid: "searchTable", clocator: [class: "advquery"]) {
                 Selector(uid: "{row:1, column: 3} as Type", clocator: [name: "can"])
@@ -40,6 +57,7 @@ class TelluriumIssuesModule extends TelluriumDataDrivenModule{
                 InputBox(uid: "{row:10, column:3} as CommentBy", clocator: [name: "commentby"])
             }
         }
+*/
 
         ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], group: "true") {
             //define table header
@@ -57,6 +75,9 @@ class TelluriumIssuesModule extends TelluriumDataDrivenModule{
             //define table elements
             //for the border column
             TextBox(uid: "{row: all, column: 1}", clocator: [:])
+            TextBox(uid: "{row: all, column: 8}")
+            TextBox(uid: "{row: all, column: 10}")
+          
             //For the rest, just UrlLink
             UrlLink(uid: "{row: all, column: all}", clocator: [:])
         }
