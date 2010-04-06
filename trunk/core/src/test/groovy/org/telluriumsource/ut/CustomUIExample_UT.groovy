@@ -64,8 +64,8 @@ public class CustomUIExample_UT extends GroovyTestCase {
   public void testIdHeadert(){
     CustomUIExample cue = new CustomUIExample();
     cue.defineUi();
-    cue.dump("header");
+    cue.dump("Header");
     cue.disableCssSelector();
-    cue.dump("header");
+    cue.dump("Header");
   }
 }
