@@ -60,4 +60,12 @@ public class CustomUIExample_UT extends GroovyTestCase {
     cue.enableCssSelector();
     cue.dump("repeat");
   }
+
+  public void testIdHeadert(){
+    CustomUIExample cue = new CustomUIExample();
+    cue.defineUi();
+    cue.dump("header");
+    cue.disableCssSelector();
+    cue.dump("header");
+  }
 }
