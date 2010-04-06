@@ -37,9 +37,6 @@ uid	returns [MetaData metadata]
 	|	tu=tableUid {metadata=tu;}	
 	;
 	
-baseUid returns [MetaData metadata]
-	:	ID {metadata = new MetaData($ID.text);}
-	;
 listUid returns [ListMetaData metadata]
 	:       '{' INDEX '}' {metadata = new ListMetaData('_' +  $INDEX.text, $INDEX.text);}
 	|	'{' INDEX '}' 'as' ID {metadata = new ListMetaData($ID.text, $INDEX.text);}
@@ -79,9 +76,13 @@ tableBodyUid returns [TableBodyMetaData metadata]
         |	'{' 'tbody' ':' INDEX ',' 'row' '->' id1=ID ',' 'column' '->' id2=ID '}' {metadata = new TableBodyMetaData('_' + $INDEX.text + '_' + id1.getText() + '_' + id2.getText()); metadata.setTbody(new Index($INDEX.text)); metadata.setRow(new Index(IndexType.REF, id1.getText())); metadata.setColumn(new Index(IndexType.REF, id2.getText()));}
         |	'{' 'tbody' ':' INDEX ',' 'row' '->' id1=ID ',' 'column' '->' id2=ID '}' 'as' id3=ID {metadata = new TableBodyMetaData(id3.getText()); metadata.setTbody(new Index($INDEX.text)); metadata.setRow(new Index(IndexType.REF, id1.getText())); metadata.setColumn(new Index(IndexType.REF, id2.getText()));}
         ;              			
-							
+        
+baseUid returns [MetaData metadata]
+	:	ID {metadata = new MetaData($ID.text);}
+	;
+								
 fragment LETTER : ('a'..'z' | 'A'..'Z') ;
-fragment DIGIT : '0'..'9';
+fragment DIGIT  : '0'..'9';
 INDEX	:	(DIGIT+ | 'all' | 'odd' | 'even' | 'any' | 'first' | 'last' );   
 ID 	: 	LETTER (LETTER | DIGIT | '_')*;
 WS 	: 	(' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
