@@ -431,6 +431,54 @@ This brings up one interesting question "why should I put assertions inside comp
 If you put assertions in compareResult and the assertion fails, the AssertionFailedError will be captured and that comparison fails, but the rest script inside a test will continue executing. But if you put assertions outside of compareResult, the AssertionFailedError will lead to the failure of the current test. The exception will be
 recorded and the current test will be stopped. The next test will take over and execute. 
 
+== How to upgrade Firefox version in Selenium server ==
+
+You can do the following steps:
+  * unpack the custom selenium-server by running
+{{{
+   jar xvf selenium-server.jar
+}}}
+
+  * Find the versions in install.rdf and change them, for instance,
+
+{{{
+/customProfileDirCUSTFF/extensions/readyst...@openqa.org/install.rdf
+./customProfileDirCUSTFF/extensions/{538F0036-F358-4f84-
+A764-89FB437166B4}/install.rdf
+./customProfileDirCUSTFFCHROME/extensions/readyst...@openqa.org/
+install.rdf
+./customProfileDirCUSTFFCHROME/extensions/{503A0CD4-
+EDC8-489b-853B-19E0BAA8F0A4}/install.rdf
+./customProfileDirCUSTFFCHROME/extensions/{538F0036-F358-4f84-
+A764-89FB437166B4}/install.rdf
+./customProfileDirCUSTFFCHROME/extensions/{636fd8b0-ce2b-4e00-
+b812-2afbe77ee899}/install.rdf
+
+        <em:targetApplication>
+            <Description>
+                <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+                <em:minVersion>1.4.1</em:minVersion>
+                <em:maxVersion>3.5.*</em:maxVersion>
+            </Description>
+        </em:targetApplication>
+
+to
+
+        <em:targetApplication>
+            <Description>
+                <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+                <em:minVersion>1.4.1</em:minVersion>
+                <em:maxVersion>3.6.*</em:maxVersion>
+            </Description>
+        </em:targetApplication>
+}}}
+
+  * repack the jar file.
+
+{{{
+   jar cmf META-INF/MANIFEST.MF selenium-server.jar *
+}}}
+ 
 == How to run Selenium server remotely in Tellurium ==
 
 The steps to use remote selenium server in Tellurium are as follows,
