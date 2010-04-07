@@ -1538,9 +1538,9 @@ As you can see, this command actually consists of three commands. In DslContext,
    void disableTelluriumEngine();
 }}}
 
-== Selenium Upgrade ==
+== Selenium RC ==
 
-Selenium is updated to 1.0.3. Please use the following Maven dependencies.
+Selenium RC is 1.0.1 in Tellurium 0.7.0. Please use the following Maven dependencies.
 
 {{{
         <dependency>
@@ -1581,8 +1581,8 @@ where the properties are defined as
 {{{
     <properties>
         ...
-        <selenium-version>1.0.3</selenium-version>
-        <selenium-server-version>1.0.3-te2-SNAPSHOT</selenium-server-version>
+        <selenium-version>1.0.1</selenium-version>
+        <selenium-server-version>1.0.1-te3-SNAPSHOT</selenium-server-version>
     </properties>
 }}}
 
@@ -2016,7 +2016,7 @@ After the domain name change, you need to use the following Tellurium dependenci
         <dependency>
             <groupId>org.seleniumhq.selenium.server</groupId>
             <artifactId>selenium-server</artifactId>
-            <version>1.0.1-te2</version>
+            <version>1.0.1-te3-SNAPSHOT</version>
         </dependency>
 }}}
 
@@ -2287,7 +2287,7 @@ Where to find the latest 0.7.0 snapshots?
 They are in our Maven repo.
 
   * [http://maven.kungfuters.org/content/repositories/snapshots/org/telluriumsource/tellurium-core/0.7.0-SNAPSHOT/ Tellurium Core 0.7.0 Snapshot]
-  * [http://maven.kungfuters.org/content/repositories/snapshots/org/seleniumhq/selenium/server/selenium-server/1.0.1-te2-SNAPSHOT/ Custom Selenium Server with Tellurium Engine]
+  * [http://maven.kungfuters.org/content/repositories/snapshots/org/seleniumhq/selenium/server/selenium-server/1.0.1-te3-SNAPSHOT/ Custom Selenium Server with Tellurium Engine]
 
 If you use Maven, you need the following dependencies
 
@@ -2301,7 +2301,7 @@ If you use Maven, you need the following dependencies
         <dependency>
             <groupId>org.seleniumhq.selenium.server</groupId>
             <artifactId>selenium-server</artifactId>
-            <version>1.0.1-te2-SNAPSHOT</version>
+            <version>1.0.1-te3-SNAPSHOT</version>
         </dependency>
 }}}
 
@@ -2401,7 +2401,7 @@ Here is a sample POM file.
         <dependency>
             <groupId>org.seleniumhq.selenium.server</groupId>
             <artifactId>selenium-server</artifactId>
-            <version>${selenium-version}-te2-SNAPSHOT</version>
+            <version>${selenium-version}-te3-SNAPSHOT</version>
             <!--classifier>standalone</classifier-->
         </dependency>
         <dependency>
