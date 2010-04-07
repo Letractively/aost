@@ -542,20 +542,7 @@ After that, you can run the test just like using the embedded selenium server. B
 
 Container is most like an abstract object and it can be of any type of UI objects that can hold other UI objects. The UI objects inside the Container are fixed once it is defined and inner objects can be referred directly by "container_uid.object_uid". Be aware that Tellurium Container type objects can hold any UI objects including container type objects and nested UI can be constructed in this way.
 
-Table and List are both Container type UI objects and are designed mainly for dynamic size UI objects. For example, table can be used to mode data grid, whose size is not fixed and is dynamic at run-time. For this purpose, the UI objects inside the table can be used as templates and how they are used is totally dependent on their UIDs.
-
-For table, the UID of its inner objects is in the following formats:
-
-  # {{{"row: i, colum: j"}}}, which defines the UI object for the {{{[i][j]}}} element.
-  # {{{"row: *, column: j"}}}, which defines the UI objects for all elements in column j.
-  # {{{"row: i, column: *"}}}, similarly defines the UI objects for all elements in row i.
-  # "all", which defines the UI objects for all elements.
-
-At runtime, the following rules applies if any of them are defined:
-{{{
-1) > 2) > 3) > 4)
-}}}
-In this way, you can always define various templates for your table.
+Table and List are both Container type UI objects and are designed mainly for dynamic size UI objects. For example, table can be used to mode data grid, whose size is not fixed and is dynamic at run-time. For this purpose, the UI objects inside the table can be used as templates and how they are used is totally dependent on their UIDs. For more details on how the UIDs for List and Table are defined, please see [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage Tellurium UID Description Language].
 
 Once the templates are defined and you use {{{table[i][j]}}} to refer the inner object, Tellurium will automatically apply the above rules and find the actual UI object for you. If no templates can be found, Tellurium will use default UI object TextBox.
 
@@ -564,22 +551,15 @@ One such good example is the data grid of Tellurium downloads page:
 ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"], group: "true"){
     //define table elements
     //for the border column
-    TextBox(uid: "row: *, column: 1", clocator: [:])
+    TextBox(uid: "{row: all, column: 1}", clocator: [:])
     //the summary + labels column consists of a list of UrlLinks
-    List(uid: "row:*, column: 3", clocator: [:]){
-        UrlLink(uid: "all", clocator: [:])
+    List(uid: "{row:all, column: 3}", clocator: [:]){
+        UrlLink(uid: "{all}", clocator: [:])
     }
     //For the rest, just UrlLink
-    UrlLink(uid: "all", clocator: [:])
+    UrlLink(uid: "{row: all, column: all}", clocator: [:])
 }
 }}}
-
-List is similar to the Table, but it is one dimension. As a result, its UID uses the following formats:
-
-  # "i": the i-th element
-  # "all": all elements
-
-the rule is {{{1) > 2)}}}.
 
 == How do I use a Firefox profile in Tellurium ==
 
