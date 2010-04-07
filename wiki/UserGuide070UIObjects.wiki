@@ -377,18 +377,11 @@ ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"]
 Be aware, the templates inside the Table follow the name convention:
 
   * For the i-th row, j-th column, the uid should be "row: i, column: j"
-  * The wild case for row or column is {{{"*"}}}
-  * "all" stands for matching all rows and columns
+  * The wild case for row or column is {{{"all"}}}
 
-As a result, {{{"row : *, column : 3"}}} refers to the 3rd column for all rows. Once the templates are defined for the table, Tellurium uses a special way to find a matching for a Ui element {{{"table[i][j]"}}} in the table. 
+As a result, {{{"row : all, column : 3"}}} refers to the 3rd column for all rows. Once the templates are defined for the table, Tellurium uses a special way to find a matching for a Ui element {{{"table[i][j]"}}} in the table. 
 
-For example, the following rules apply:
-
-  * Tellurium tries to find the template defined for the i-th row, j-th column.
-  * If not found, Tellurium tries to search for a general template {{{"row: *, column: j"}}}, for example, the template for column j.
-  * If not found, Tellurium tries to search for another general template {{{"row: i, column: *"}}}, i.e., the template for row i.
-  * If not found either, Tellurium tries to find the template matching all rows and columns.
-  * If still out of luck, Tellurium uses a TextBox as the default element for this element.
+For more details on how Tellurium maps the runtime uid to UI templates, please see [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage Tellurium UID Description Language]. 
 
 Generally speaking, Tellurium always searches for the special case first, then broadening the search for more general cases, until all matching cases are found. In this way, user can define very flexible templates for tables.
 
