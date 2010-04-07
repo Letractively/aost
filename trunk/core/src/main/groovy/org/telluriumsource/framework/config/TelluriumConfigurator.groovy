@@ -14,11 +14,10 @@ import org.telluriumsource.component.event.EventHandler
 import org.telluriumsource.server.EmbeddedSeleniumServer
 import org.telluriumsource.ui.widget.WidgetConfigurator
 import org.telluriumsource.test.report.*
-import org.telluriumsource.crosscut.i18n.IResourceBundle;
+
 import org.telluriumsource.component.bundle.BundleProcessor
 import org.telluriumsource.framework.Environment
 import org.telluriumsource.exception.ConfigNotFoundException
-import org.telluriumsource.test.ddt.DataProvider
 
 /**
  * Tellurium Configurator
@@ -38,7 +37,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     }
   }
 
-  protected void configEmbeededServer(EmbeddedSeleniumServer server) {
+  protected void configEmbeddedServer(EmbeddedSeleniumServer server) {
     checkConfig("conf.tellurium.embeddedserver.port")
     server.setProperty("port", Integer.parseInt(conf.tellurium.embeddedserver.port))
 
@@ -58,7 +57,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     server.setProperty("userExtension", conf.tellurium.embeddedserver.userExtension)
   }
 
-  protected void configEmbeededServerDefaultValues(EmbeddedSeleniumServer server) {
+  protected void configEmbeddedServerDefaultValues(EmbeddedSeleniumServer server) {
     server.setProperty("port", 4444)
     server.setProperty("useMultiWindows", false)
     server.setProperty("runSeleniumServerInternally", true)
@@ -266,7 +265,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     if (conf != null) {
       if (configurable instanceof EmbeddedSeleniumServer) {
         println i18nBundle.getMessage("TelluriumConfigurator.EmbeddedSeleniumServer")
-        configEmbeededServer(configurable)
+        configEmbeddedServer(configurable)
       } else if (configurable instanceof SeleniumConnector) {
         println i18nBundle.getMessage("TelluriumConfigurator.SeleniumClient")
         configSeleniumConnector(configurable)
@@ -306,7 +305,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
       //use default values instead
       if (configurable instanceof EmbeddedSeleniumServer) {
         println i18nBundle.getMessage("TelluriumConfigurator.EmbeddedSeleniumServer.default")
-        configEmbeededServerDefaultValues(configurable)
+        configEmbeddedServerDefaultValues(configurable)
       } else if (configurable instanceof SeleniumConnector) {
         println i18nBundle.getMessage("TelluriumConfigurator.SeleniumClient.default")
         configSeleniumConnectorDefaultValues(configurable)
