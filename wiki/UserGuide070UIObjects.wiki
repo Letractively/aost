@@ -86,7 +86,7 @@ Tellurium UI objects have default attributes as shown in Table 2-1:
 ||Frame|| ||group, id, name, title||no||
 ||Window|| ||group, id, name, title||no||
 
-== UI Object List Description ==
+== UI Object Description ==
 
 === Button ===
 
@@ -356,21 +356,21 @@ ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"]
 {
    //define table header
    //for the border column 
-   TextBox(uid: "header: 1", clocator: [:])
-   UrlLink(uid: "header: 2", clocator: [text: "%%Filename"])
-   UrlLink(uid: "header: 3", clocator: [text: "%%Summary + Labels"])
-   UrlLink(uid: "header: 4", clocator: [text: "%%Uploaded"])
-   UrlLink(uid: "header: 5", clocator: [text: "%%Size"])
-   UrlLink(uid: "header: 6", clocator: [text: "%%DownloadCount"])
-   UrlLink(uid: "header: 7", clocator: [text: "%%..."])
+   TextBox(uid: "{header: 1}", clocator: [:])
+   UrlLink(uid: "{header: 2} as Filename", clocator: [text: "*Filename"])
+   UrlLink(uid: "{header: 3} as Summary", clocator: [text: "*Summary + Labels"])
+   UrlLink(uid: "{header: 4} as Uploaded", clocator: [text: "*Uploaded"])
+   UrlLink(uid: "{header: 5} as Size", clocator: [text: "*Size"])
+   UrlLink(uid: "{header: 6} as DownloadCount", clocator: [text: "*DownloadCount"])
+   UrlLink(uid: "{header: 7} as Extra", clocator: [text: "*..."])
 
    //define Ui object for the second row and the second column
-   InputBox(uid: "row: 2, colum: 2" clocator: [:])
+   InputBox(uid: "{row: 2, column: 2}" clocator: [:])
    //define table elements
    //for the border column
-   TextBox(uid: "row: *, column: 1", clocator: [:])
+   TextBox(uid: "{row: all, column: 1}", clocator: [:])
    //For the rest, just UrlLink
-   UrlLink(uid: "all", clocator: [:])
+   UrlLink(uid: "{row: all, column: all}", clocator: [:])
 }
 }}}
 
@@ -461,18 +461,18 @@ Example:
 
 {{{
 ui.StandardTable(uid: "table", clocator: [id: "std"]) {
-   UrlLink(uid: "header: 2", clocator: [text: "%%Filename"])
-   UrlLink(uid: "header: 3", clocator: [text: "%%Uploaded"])
-   UrlLink(uid: "header: 4", clocator: [text: "%%Size"])
-   TextBox(uid: "header: all", clocator: [:])
+   UrlLink(uid: "{header: 2} as Filename", clocator: [text: "*Filename"])
+   UrlLink(uid: "{header: 3} as Uploaded", clocator: [text: "*Uploaded"])
+   UrlLink(uid: "{header: 4} as Size", clocator: [text: "*Size"])
+   TextBox(uid: "{header: all}", clocator: [:])
 
-   Selector(uid: "tbody: 1, row:1, column: 3", clocator: [name: "can"])
-   SubmitButton(uid: "tbody: 1, row:1, column:4", clocator: [value: "Search", name: "btn"])
-   InputBox(uid: "tbody: 1, row:2, column:3", clocator: [name: "words"])
-   InputBox(uid: "tbody: 2, row:2, column:3", clocator: [name: "without"])
-   InputBox(uid: "tbody: 2, row:*, column:1", clocator: [name: "labels"])
+   Selector(uid: "{tbody: 1, row:1, column: 3} as Select", clocator: [name: "can"])
+   SubmitButton(uid: "{tbody: 1, row:1, column:4} as Search", clocator: [value: "Search", name: "btn"])
+   InputBox(uid: "{tbody: 1, row:2, column:3} as Words", clocator: [name: "words"])
+   InputBox(uid: "{tbody: 2, row:2, column:3} as Without", clocator: [name: "without"])
+   InputBox(uid: "{tbody: 2, row:*, column:1} as Labels", clocator: [name: "labels"])
 
-   TextBox(uid: "foot: all", clocator: [tag: "td"])
+   TextBox(uid: "{foot: all}", clocator: [tag: "td"])
 }
 }}}
 
@@ -487,8 +487,8 @@ Example:
 {{{
 
 List(uid: "subcategory", locator: "", separator: "p"){
-    InputBox(uid: "2", clocator: [title: "Google Search"])
-    UrlLink(uid: "all", clocator: [:])
+    InputBox(uid: "{2} as Search", clocator: [title: "Google Search"])
+    UrlLink(uid: "{all}", clocator: [:])
 }
 }}} 
 
