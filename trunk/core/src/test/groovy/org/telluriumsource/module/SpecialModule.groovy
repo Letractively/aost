@@ -13,8 +13,8 @@ class SpecialModule extends DslContext{
 
   public void defineUi(){
     ui.Form(uid: "Form", clocator: [method: "POST", action: "check_phone"]){
-      Selector(uid: "Country", clocator: [name: "Profile/Customer/Telephone/@CountryAccessCode"])
-      InputBox(uid: "Number", clocator: [name: "Profile/Customer/Telephone/@PhoneNumber"])
+      Selector(uid: "Country", clocator: [name: "\$CountryAccessCode"])
+      InputBox(uid: "Number", clocator: [name: "\$PhoneNumber"])
       SubmitButton(uid: "check", clocator: [value: "Check"])
     }
   }

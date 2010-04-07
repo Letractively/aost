@@ -22,7 +22,7 @@ public class SpecialJunitTestCase extends TelluriumMockJUnitTestCase {
         sm = new SpecialModule();
         sm.defineUi();
         //comment out the following line, the test will break
-//        useTelluriumEngine(true);
+        useTelluriumEngine(true);
         useTrace(true);
         useEngineLog(true);
     }
