@@ -307,8 +307,18 @@ TelluriumApi.prototype.isChecked = function(locator) {
 };
 
 TelluriumApi.prototype.isVisible = function(locator) {
-    var element = this.cacheAwareLocate(locator);
-    return teJQuery(element).is(':visible');
+    var element = teJQuery(this.cacheAwareLocate(locator));
+    var isHiddenCSS = element.css("visibility")=="hidden"? true:false;
+    var isHidden = element.is(":hidden");
+
+    if(isHidden){
+    	return false;
+    } else if(isHiddenCSS){
+    	return false;
+    } else {
+    	return true;
+    }
+
 };
 
 TelluriumApi.prototype.isEditable = function(locator) {
