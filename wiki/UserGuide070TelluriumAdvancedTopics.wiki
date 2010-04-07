@@ -135,10 +135,10 @@ http://tellurium-users.googlegroups.com/web/TelluriumDDTModule.png?gda=oIfzLkgAA
 
 {{{
 ui.Table(uid: "labels_table", clocator: [:], group: "true"){
-   TextBox(uid: "row: 1, column: 1", clocator: [tag: "div", 
+   TextBox(uid: "{row: 1, column: 1} as Label", clocator: [tag: "div", 
            text: "Example project labels:"])
-   Table(uid: "row: 2, column: 1", clocator: [header: "/div[@id=\"popular\"]"]){
-        UrlLink(uid: "all", locator: "/a")
+   Table(uid: "{row: 2, column: 1}", clocator: [header: "/div[@id=\"popular\"]"]){
+        UrlLink(uid: "{row: all, column: all}", locator: "/a")
    }
 }
 }}}
@@ -667,7 +667,7 @@ public class ListModule extends DslContext {
   public void defineUi() {
     ui.Container(uid: "rotator", clocator: [tag: "div", class: "thumbnails"]) {
       List(uid: "tnails", clocator: [tag: "ul"], separator: "li") {
-        UrlLink(uid: "all", clocator: [:])
+        UrlLink(uid: "{all}", clocator: [:])
       }
     }
   }
@@ -875,7 +875,7 @@ We have the following UI module with a List, which defines a set of URL links us
     ui.Container(uid: "subnav", clocator: [tag: "ul", id: "subnav"]) {
         Container(uid: "CoreLinks", clocator: [tag: "li", id: "core_links"]) {
           List(uid: "links", clocator: [tag: "ul"], separator: "li") {
-            UrlLink(uid: "all", clocator: [:])
+            UrlLink(uid: "{all}", clocator: [:])
           }
         }
         UrlLink(uid: "subscribe", clocator: [tag: "li", id: "subscribe"])
@@ -903,23 +903,23 @@ Table is a frequently used UI object with UI templates, the Tellurium Issue web 
 
 {{{
     ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], group: "true") {
-        TextBox(uid: "header: 1", clocator: [:])
-        UrlLink(uid: "header: 2", clocator: [text: "*ID"])
-        UrlLink(uid: "header: 3", clocator: [text: "*Type"])
-        UrlLink(uid: "header: 4", clocator: [text: "*Status"])
-        UrlLink(uid: "header: 5", clocator: [text: "*Priority"])
-        UrlLink(uid: "header: 6", clocator: [text: "*Milestone"])
-        UrlLink(uid: "header: 7", clocator: [text: "*Owner"])
-        UrlLink(uid: "header: 9", clocator: [text: "*Summary + Labels"])
-        UrlLink(uid: "header: 10", clocator: [text: "*..."])
+        TextBox(uid: "{header: 1}", clocator: [:])
+        UrlLink(uid: "{header: 2} as ID", clocator: [text: "*ID"])
+        UrlLink(uid: "{header: 3} as Type", clocator: [text: "*Type"])
+        UrlLink(uid: "{header: 4} as Status", clocator: [text: "*Status"])
+        UrlLink(uid: "{header: 5} as Priority", clocator: [text: "*Priority"])
+        UrlLink(uid: "{header: 6} as Milestone", clocator: [text: "*Milestone"])
+        UrlLink(uid: "{header: 7} as Owner", clocator: [text: "*Owner"])
+        UrlLink(uid: "{header: 9} as Summary", clocator: [text: "*Summary + Labels"])
+        UrlLink(uid: "{header: 10} as Extra", clocator: [text: "*..."])
 
         //define table elements
         //for the border column
-        TextBox(uid: "row: *, column: 1", clocator: [:])
-        TextBox(uid: "row: *, column: 8", clocator: [:])
-        TextBox(uid: "row: *, column: 10", clocator: [:])
+        TextBox(uid: "{row: all, column: 1}", clocator: [:])
+        TextBox(uid: "{row: all, column: 8}", clocator: [:])
+        TextBox(uid: "{row: all, column: 10}", clocator: [:])
         //For the rest, just UrlLink
-        UrlLink(uid: "all", clocator: [:])
+        UrlLink(uid: "{row: all, column: all}", clocator: [:])
     }
 }}}
 
