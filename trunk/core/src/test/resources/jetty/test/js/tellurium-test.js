@@ -50,6 +50,25 @@ TelluriumTestCase.prototype.testPrie = function(){
     var label = trie.getChildrenData("Form.Username.Submit");
 };
 
+TelluriumTestCase.prototype.testSpecial = function(){
+    var json = [{"obj":{"uid":"Form","locator":{"tag":"form","attributes":{"action":"check_phone","method":"POST"}},"uiType":"Form","metaData":{"id":"Form","type":"UiObject"}},"key":"Form"},{"obj":{"uid":"check","locator":{"tag":"input","attributes":{"value":"Check","type":"submit"}},"uiType":"SubmitButton","metaData":{"id":"check","type":"UiObject"}},"key":"Form.check"},{"obj":{"uid":"Number","locator":{"tag":"input","attributes":{"name":"Profile\/Customer\/Telephone\/@PhoneNumber"}},"uiType":"InputBox","metaData":{"id":"Number","type":"UiObject"}},"key":"Form.Number"},{"obj":{"uid":"Country","locator":{"tag":"select","attributes":{"name":"Profile\/Customer\/Telephone\/@CountryAccessCode"}},"uiType":"Selector","metaData":{"id":"Country","type":"UiObject"}},"key":"Form.Country"}];
+    tellurium.logManager.isUseLog = true;
+    var uim = new UiModule();
+    uim.parseUiModule(json);
+    var alg = new UiAlg();
+//    alg.allowRelax = true;
+    var dom = teJQuery("html");
+    alg.santa(uim, dom);
+    tellurium.cache.cacheOption = false;
+//    tellurium.cache.addToCache("Form", uim);
+//    var context = new WorkflowContext();
+//    context.alg = alg;
+//    var uiid = new Uiid();
+//    var tb111 = uim.walkTo(context, uiid.convertToUiid("Form.Number"));
+    tellurium.teApi.click("jquery=form[method=POST] select[name=Profile/Customer/Telephone/@CountryAccessCode]");
+
+};
+
 TelluriumTestCase.prototype.testTwoDim = function(){
 //    var json = [{"obj":{"uid":"Table","hrt":"tr","locator":{"tag":"table","attributes":{"id":"table"}},"ht":"thead","bct":"div","frt":"tr","hct":"th","ft":"tfoot","brt":"div","uiType":"StandardTable","fct":"td","bt":"div"},"key":"Table"},{"obj":{"uid":"tbody: 1, row: *, column: 1","locator":{"tag":"div"},"uiType":"TextBox"},"key":"Table._1_ALL_1"},{"obj":{"uid":"tbody: 1, row: *, column: 2","locator":{"tag":"img"},"uiType":"Image"},"key":"Table._1_ALL_2"},{"obj":{"uid":"tbody: 2, row: *, column: 1","locator":{"tag":"div"},"uiType":"TextBox"},"key":"Table._2_ALL_1"},{"obj":{"uid":"tbody: 2, row: *, column: 2","locator":{"tag":"div"},"uiType":"TextBox"},"key":"Table._2_ALL_2"},{"obj":{"uid":"tbody: 2, row: *, column: 3","locator":{"tag":"div"},"uiType":"TextBox"},"key":"Table._2_ALL_3"}];
     var json = [{"obj":{"uid":"Table","hrt":"tr","locator":{"tag":"table","attributes":{"id":"table"}},"ht":"thead","bct":"div","frt":"tr","hct":"th","ft":"tfoot","brt":"div","uiType":"StandardTable","fct":"td","bt":"div"},"key":"Table"},{"obj":{"uid":"tbody: 1, row: *, column: 1","locator":{"tag":"div"},"self":true,"uiType":"TextBox"},"key":"Table._1_ALL_1"},{"obj":{"uid":"tbody: 1, row: *, column: 2","locator":{"tag":"img"},"uiType":"Image"},"key":"Table._1_ALL_2"},{"obj":{"uid":"tbody: 2, row: *, column: 1","locator":{"tag":"div"},"self":true,"uiType":"TextBox"},"key":"Table._2_ALL_1"},{"obj":{"uid":"tbody: 2, row: *, column: 2","locator":{"tag":"div"},"self":true,"uiType":"TextBox"},"key":"Table._2_ALL_2"},{"obj":{"uid":"tbody: 2, row: *, column: 3","locator":{"tag":"div"},"self":true,"uiType":"TextBox"},"key":"Table._2_ALL_3"}];
