@@ -199,6 +199,7 @@ TelluriumApi.prototype.isElementPresent = function(uid){
         var context = new WorkflowContext();
         context.alg = this.cache.uiAlg;
         var obj = this.cache.walkToUiObject(context, uid);
+        !tellurium.logManager.isUseLog || fbLog("Found cached element for isElementPresented", obj);
         return obj != null;
     } else {
         var element = selenium.browserbot.findElementOrNull(uid);

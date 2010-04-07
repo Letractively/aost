@@ -702,7 +702,7 @@ Tellurium.prototype.parseLocator = function(locator){
         input.attribute = locator.substring(inx + 1);
         input.isAttribute = true;
     }
-
+//    alert("Pured locator " + purged);
     var tecmd = JSON.parse(purged, null);
 
     input.selector = tecmd.locator;

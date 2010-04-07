@@ -776,10 +776,12 @@ var UiRepeat = UiContainer.extend({
                         if ($found.size() == 0){
                             context.domRef = null;
                             fbError("Cannot find UI element " + this.uid, this);
+                            return null;
                         }
                         if ($found.size() > 1) {
                             fbError("Found multiple matches for UI element " + this.uid, $found.get());
                             context.domRef = null;
+                            return null;
                         }
                     }
                 }
