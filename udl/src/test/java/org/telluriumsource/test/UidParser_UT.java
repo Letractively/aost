@@ -268,6 +268,7 @@ public class UidParser_UT {
             assertEquals(2, variables.size());
             assertEquals("key", variables.get(0));
             assertEquals("value", variables.get(1));
+            System.out.println(data.toJSON().toString());
         } catch (RecognitionException e) {
             fail(e.getMessage());
         }
@@ -288,6 +289,7 @@ public class UidParser_UT {
             assertEquals(2, variables.size());
             assertEquals("id1", variables.get(0));
             assertEquals("id_b", variables.get(1));            
+            System.out.println(data.toJSON().toString());
         } catch (RecognitionException e) {
             fail(e.getMessage());
         }
@@ -312,7 +314,8 @@ public class UidParser_UT {
             assertEquals(3, variables.size());
             assertEquals("id", variables.get(0));
             assertEquals("name", variables.get(1));
-            assertEquals("text", variables.get(2));  
+            assertEquals("text", variables.get(2));
+            System.out.println(data.toJSON().toString());
         } catch (RecognitionException e) {
             e.printStackTrace();
             fail(e.getMessage());

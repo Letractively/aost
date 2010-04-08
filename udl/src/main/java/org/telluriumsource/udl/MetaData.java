@@ -1,5 +1,6 @@
 package org.telluriumsource.udl;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.rmi.server.UID;
@@ -47,6 +48,15 @@ public class MetaData {
         JSONObject jso = new JSONObject();
         jso.put(ID, this.id);
         jso.put(TYPE, "UiObject");
+        
+        if(this.variables != null && this.variables.size() > 0){
+            JSONArray ar = new JSONArray();
+            for(String var: this.variables){
+                ar.add(var);
+            }
+            jso.put(VARIABLES, ar);
+        }
+
         return jso;
     }
 
