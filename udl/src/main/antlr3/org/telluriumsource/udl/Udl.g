@@ -7,6 +7,8 @@ options {
 @header {
   package org.telluriumsource.udl;
   
+  import java.util.List;
+  import java.util.ArrayList;
   import org.telluriumsource.udl.code.IndexType;
   import org.telluriumsource.udl.Index;
   import org.telluriumsource.udl.MetaData;
@@ -18,7 +20,9 @@ options {
 
 @lexer::header {
   package org.telluriumsource.udl;
-  
+
+  import java.util.List;
+  import java.util.ArrayList;
   import org.telluriumsource.udl.code.IndexType;
   import org.telluriumsource.udl.Index;
   import org.telluriumsource.udl.MetaData;
@@ -28,17 +32,22 @@ options {
   import org.telluriumsource.udl.TableBodyMetaData;  
 }
 
-@members{ 	  	
+@members{
+    List<String> variables = new ArrayList<String>();
 }
 
 uid	returns [MetaData metadata]
-	: 	bu=baseUid {metadata=bu;}
-	|	lu=listUid {metadata=lu;}
-	|	tu=tableUid {metadata=tu;}	
+	: 	bu=baseUid (',' variable)* {metadata=bu; metadata.setVariables(variables);}
+	|	lu=listUid (',' variable)* {metadata=lu; metadata.setVariables(variables);}
+	|	tu=tableUid (',' variable)* {metadata=tu; metadata.setVariables(variables);}
 	;
         
 baseUid returns [MetaData metadata]
 	:	ID {metadata = new MetaData($ID.text);}
+	;
+
+variable
+	: 'var' ID {variables.add($ID.text);}
 	;
 	
 listUid returns [ListMetaData metadata]

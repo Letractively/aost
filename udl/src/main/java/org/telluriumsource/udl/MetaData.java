@@ -3,6 +3,7 @@ package org.telluriumsource.udl;
 import org.json.simple.JSONObject;
 
 import java.rmi.server.UID;
+import java.util.List;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -15,6 +16,17 @@ public class MetaData {
     protected String id;
 
     public static String TYPE = "type";
+
+    public static String VARIABLES = "variables";
+    List<String> variables;
+
+    public List<String> getVariables() {
+        return variables;
+    }
+
+    public void setVariables(List<String> variables) {
+        this.variables = variables;
+    }
 
     public MetaData() {
     }
