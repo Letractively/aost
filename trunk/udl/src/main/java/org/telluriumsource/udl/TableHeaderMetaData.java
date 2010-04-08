@@ -1,5 +1,6 @@
 package org.telluriumsource.udl;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -22,6 +23,14 @@ public class TableHeaderMetaData extends ListMetaData {
         JSONObject jso = super.toJSON();
         jso.put(INDEX, this.index.toJSON());
         jso.put(TYPE, "Header");
+
+        if(this.variables != null && this.variables.size() > 0){
+            JSONArray ar = new JSONArray();
+            for(String var: this.variables){
+                ar.add(var);
+            }
+            jso.put(VARIABLES, ar);
+        }
 
         return jso;
     }
