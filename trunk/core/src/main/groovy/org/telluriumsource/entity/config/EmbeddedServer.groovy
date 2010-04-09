@@ -25,7 +25,7 @@ class EmbeddedServer {
 
   //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
   public static String RUN_INTERNALLY = "runInternally";
-  boolean runInternally = false;
+  boolean runInternally = true;
 
   //By default, Selenium proxies every browser request; set this flag to make the browser use proxy only for URLs containing '/selenium-server'
   public static String AVOID_PROXY = "avoidProxy";
