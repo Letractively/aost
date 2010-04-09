@@ -10,22 +10,22 @@ import org.json.simple.JSONObject
  * 
  * 
  */
-class Builder {
-  Map<String, String> map;
+class Builder extends HashMap<String, String>{
 
   def Builder() {
   }
 
   def Builder(Map map) {
-    this.map = map;
+    if(map != null && !map.isEmpty()){
+        this.putAll(map);
+    }
   }
 
   public JSONObject toJSON() {
     JSONObject obj = new JSONObject();
-    if (this.map != null && this.map.size() > 0) {
-      Set<String> keys = this.map.keySet();
-      for (String key: keys) {
-        obj.put(key, this.map.get(key));
+    if (this.size() > 0) {
+      this.each {String key, String val->
+          obj.put(key, val);
       }
     }
 
@@ -33,8 +33,8 @@ class Builder {
   }
   
   public void toProperties(Properties properties, String path){
-    if(map != null && !map.isEmpty()){
-      map.each {String key, String val ->
+    if(!isEmpty()){
+      this.each {String key, String val ->
         properties.setProperty(path + "." + key, val);
       }
     }
