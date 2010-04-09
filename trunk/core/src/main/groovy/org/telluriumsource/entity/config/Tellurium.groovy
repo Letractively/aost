@@ -10,10 +10,10 @@ import org.json.simple.JSONObject
  * 
  */
 class Tellurium {
-  public static String EMBEDDED_SERVER = "embeddedServer";
+  public static String EMBEDDED_SERVER = "embeddedserver";
   EmbeddedServer embeddedServer;
 
-  public static String EVENT_HANDLER = "eventHandler";
+  public static String EVENT_HANDLER = "eventhandler";
   EventHandler eventHandler;
 
   public static String ACCESSOR = "accessor";
