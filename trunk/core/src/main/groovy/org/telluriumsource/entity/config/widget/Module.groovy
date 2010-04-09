@@ -32,4 +32,8 @@ class Module {
 
     return obj;
   }
+
+  public void toProperties(Properties properties, String path){
+     properties.setProperty(path + "." + INCLUDED, this.included);
+  }  
 }

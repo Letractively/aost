@@ -80,23 +80,31 @@ class TelluriumFramework {
     registry.setMetaClass(SeleniumConnector, new SeleniumConnectorMetaClass())
     registry.setMetaClass(TelluriumConfigurator, new TelluriumConfiguratorMetaClass())
 
-    telluriumConfigurator = new TelluriumConfigurator()
-
-    String fileName = "TelluriumConfig.groovy"
     IResourceBundle i18nBundle = env.myResourceBundle()
 
-//    telluriumConfigurator.parse("TelluriumConfig.groovy")
-    File file = new File(fileName)
-    if (file != null && file.exists()) {
-      println i18nBundle.getMessage("TelluriumFramework.ParseFromRootDirectory" , fileName)
-      telluriumConfigurator.parse(file)
+    telluriumConfigurator = new TelluriumConfigurator()
+
+//    String fileName = "TelluriumConfig.groovy"
+    //Honor the JSON String configuration over the file
+    String jsonConf = env.configString;
+    if (jsonConf != null && jsonConf.trim().length() > 0) {
+      println i18nBundle.getMessage("TelluriumFramework.ParseFromJSONString", jsonConf)
+      telluriumConfigurator.parseJSON(jsonConf)
     } else {
-      URL url = ClassLoader.getSystemResource(fileName)
-      if (url != null) {
-        println i18nBundle.getMessage("TelluriumFramework.ParseFromClassPath" , fileName)
-        telluriumConfigurator.parse(url)
+      String fileName = env.configFileName;
+
+      File file = new File(fileName)
+      if (file != null && file.exists()) {
+        println i18nBundle.getMessage("TelluriumFramework.ParseFromRootDirectory", fileName)
+        telluriumConfigurator.parse(file)
       } else {
-          println i18nBundle.getMessage("TelluriumFramework.CannotFindConfigFile" , fileName)
+        URL url = ClassLoader.getSystemResource(fileName)
+        if (url != null) {
+          println i18nBundle.getMessage("TelluriumFramework.ParseFromClassPath", fileName)
+          telluriumConfigurator.parse(url)
+        } else {
+          println i18nBundle.getMessage("TelluriumFramework.CannotFindConfigFile", fileName)
+        }
       }
     }
 

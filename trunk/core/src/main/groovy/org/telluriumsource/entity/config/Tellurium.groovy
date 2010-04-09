@@ -110,4 +110,16 @@ class Tellurium {
     this.widget = new Widget();
     this.widget.getDefault();
   }
+
+  public void toProperties(Properties properties, String path){
+    this.embeddedserver.toProperties(properties, path + "." + EMBEDDED_SERVER);
+    this.eventhandler.toProperties(properties, path + "." + EVENT_HANDLER);
+    this.accessor.toProperties(properties, path + "." + ACCESSOR);
+    this.bundle.toProperties(properties, path + "." + BUNDLE);
+    this.connector.toProperties(properties, path + "." + CONNECTOR);
+    this.datadriven.toProperties(properties, path + "." + DATA_DRIVEN);
+    this.test.toProperties(properties, path + "." + TEST);
+    this.uiobject.toProperties(properties, path + "." + UIOBJECT);
+    this.widget.toProperties(properties, path + "." + WIDGET);
+  }
 }

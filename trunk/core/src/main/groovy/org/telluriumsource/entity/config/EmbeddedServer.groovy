@@ -121,4 +121,19 @@ class EmbeddedServer {
     return obj;
   }
 
+  public void toProperties(Properties properties, String path){
+    properties.setProperty(path + "." + PORT, this.port);
+    properties.setProperty(path + "." + USE_MULTI_WINDOWS, Boolean.toString(this.useMultiWindows));
+    properties.setProperty(path + "." + TRUST_ALL_SSL_CERTIFICATES, Boolean.toString(this.trustAllSSLCertificates));
+    properties.setProperty(path + "." + RUN_INTERNALLY, Boolean.toString(this.runInternally));
+    properties.setProperty(path + "." + AVOID_PROXY, Boolean.toString(this.avoidProxy));
+    properties.setProperty(path + "." + BROWSER_SESSION_REUSE, Boolean.toString(this.browserSessionReuse));
+    properties.setProperty(path + "." + ENSURE_CLEAN_SESSION, Boolean.toString(this.ensureCleanSession));
+    properties.setProperty(path + "." + DEBUG_MODE, Boolean.toString(this.debugMode));
+    properties.setProperty(path + "." + INTERACTIVE, Boolean.toString(this.interactive));
+    properties.setProperty(path + "." + TIMEOUT_IN_SECONDS, Integer.toString(this.timeoutInSeconds));
+    properties.setProperty(path + "." + PROFILE, this.profile);
+    properties.setProperty(path + "." + USER_EXTENSION, this.userExtension);
+  }
+
 }

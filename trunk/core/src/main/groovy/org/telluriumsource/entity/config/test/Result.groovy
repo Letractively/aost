@@ -51,4 +51,10 @@ class Result {
 
     return obj;
   }
+
+  public void toProperties(Properties properties, String path){
+    properties.setProperty(path + "." + REPORTER, this.reporter);
+    properties.setProperty(path + "." + OUTPUT, this.output);
+    properties.setProperty(path + "." + FILENAME, this.filename);
+  }  
 }

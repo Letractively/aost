@@ -1,5 +1,6 @@
 package org.telluriumsource.ft;
 
+import org.telluriumsource.framework.Environment;
 import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
 import org.telluriumsource.module.JettyLogonModule;
 import org.telluriumsource.entity.EngineState;
@@ -13,6 +14,10 @@ import static org.junit.Assert.*;
  */
 public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     private static JettyLogonModule jlm;
+    static{
+        Environment env = Environment.getEnvironment();
+        env.useConfigString(JettyLogonModule.JSON_CONF);
+    }
 
     @BeforeClass
     public static void initUi() {

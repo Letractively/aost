@@ -31,5 +31,9 @@ class DataProvider {
     obj.put(READER, this.reader);
 
     return obj;
-  }     
+  }
+
+  public void toProperties(Properties properties, String path){
+    properties.setProperty(path + "." + READER, this.reader);
+  }  
 }

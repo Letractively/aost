@@ -31,4 +31,8 @@ class Execution {
     
     return obj;
   }
+
+  public void toProperties(Properties properties, String path){
+    properties.setProperty(path + "." + TRACE, Boolean.toString(this.trace));
+  }  
 }

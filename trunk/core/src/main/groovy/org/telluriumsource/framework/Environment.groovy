@@ -17,6 +17,10 @@ import org.telluriumsource.util.LogLevels
 @Singleton
 public class Environment implements Configurable{
 
+  protected String configFileName = "TelluriumConfig.groovy";
+
+  protected String configString = "";
+
   //flag to decide whether we should use CSS Selector
   protected boolean exploitCssSelector = true;
 
@@ -50,6 +54,8 @@ public class Environment implements Configurable{
   public String toString(){
     String result = """
     Environment Variables:
+      configFileName: ${this.configFileName}
+      configString: ${this.configString}
       useEngineCache: ${this.exploitEngineCache}
       useClosestMatch: ${closestMatch}
       useMacroCommand: ${this.exploitBundle}
@@ -63,6 +69,14 @@ public class Environment implements Configurable{
       """
 
       return result;
+  }
+
+  public static Environment getEnvironment(){
+    return Environment.instance;
+  }
+
+  public void useConfigString(String json){
+    this.configString = json;
   }
 
   public boolean isUseEngineLog(){

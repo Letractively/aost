@@ -16,7 +16,7 @@ class EventHandler {
   boolean checkElement = false
   
   //wether we add additional events like "mouse over"
-  public static String EXTRA_EVENT = "xtraEvent";
+  public static String EXTRA_EVENT = "extraEvent";
   boolean extraEvent = false
 
   def EventHandler() {
@@ -38,5 +38,10 @@ class EventHandler {
     obj.put(EXTRA_EVENT, this.extraEvent);
 
     return obj;
+  }
+
+  public void toProperties(Properties properties, String path){
+    properties.setProperty(path + "." + CHECK_ELEMENT, Boolean.toString(this.checkElement));
+    properties.setProperty(path + "." + EXTRA_EVENT, Boolean.toString(this.extraEvent));
   }
 }

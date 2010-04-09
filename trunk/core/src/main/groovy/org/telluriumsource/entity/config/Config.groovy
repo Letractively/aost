@@ -35,4 +35,11 @@ class Config {
     this.tellurium.getDefault();
   }
 
+  public Properties toProperties(){
+    Properties properties = new Properties();
+    this.tellurium.toProperties(properties, TELLURIUM);
+
+    return properties;
+  }
+
 }

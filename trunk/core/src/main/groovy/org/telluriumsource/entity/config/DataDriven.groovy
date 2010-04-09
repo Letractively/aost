@@ -35,4 +35,8 @@ class DataDriven {
   public void getDefault(){
     this.dataprovider = new DataProvider();
   }
+
+  public void toProperties(Properties properties, String path){
+   this.dataprovider.toProperties(properties, path + "." + DATA_PROVIDER);
+  }
 }

@@ -38,5 +38,9 @@ class Bundle {
 
     return obj;
   }
-
+  
+  public void toProperties(Properties properties, String path){
+    properties.setProperty(path + "." + MAX_MACRO_CMD, Integer.toString(this.maxMacroCmd));
+    properties.setProperty(path + "." + USE_MACRO_COMMAND, Boolean.toString(this.useMacroCommand));
+  }
 }

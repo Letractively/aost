@@ -53,6 +53,12 @@ class Test {
     this.result = new Result();
     this.exception = new Exception();
   }
+
+  public void toProperties(Properties properties, String path){
+    this.execution.toProperties(properties, path + "." + EXECUTION);
+    this.result.toProperties(properties, path + "." + RESULT);
+    this.exception.toProperties(properties, path + "." + EXCEPTION);
+  }
 }
 
 
