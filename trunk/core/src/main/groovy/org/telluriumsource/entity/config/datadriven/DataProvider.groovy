@@ -32,5 +32,4 @@ class DataProvider {
 
     return obj;
   }     
-
 }

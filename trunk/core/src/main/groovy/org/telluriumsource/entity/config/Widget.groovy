@@ -31,4 +31,8 @@ class Widget {
 
     return obj;
   }
+
+  public void getDefault(){
+    this.module = new Module();
+  }
 }

@@ -31,4 +31,8 @@ class UiObject {
 
     return obj;
   }
+
+  public void getDefault(){
+    this.builder = new Builder();
+  }
 }

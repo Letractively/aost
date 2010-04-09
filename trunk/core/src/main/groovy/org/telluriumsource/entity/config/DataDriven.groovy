@@ -31,4 +31,8 @@ class DataDriven {
     
     return obj;
   }
+
+  public void getDefault(){
+    this.dataProvider = new DataProvider();
+  }
 }

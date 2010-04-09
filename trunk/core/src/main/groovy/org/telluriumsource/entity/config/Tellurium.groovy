@@ -94,4 +94,20 @@ class Tellurium {
 
     return obj;
   }
+
+  public void getDefault(){
+    this.embeddedServer = new EmbeddedServer();
+    this.eventHandler = new EventHandler();
+    this.accessor = new Accessor();
+    this.bundle = new Bundle();
+    this.connector = new Connector();
+    this.dataDriven = new DataDriven();
+    this.dataDriven.getDefault();
+    this.test = new Test();
+    this.test.getDefault();
+    this.uiobject = new UiObject();
+    this.uiobject.getDefault();
+    this.widget = new Widget();
+    this.widget.getDefault();
+  }
 }

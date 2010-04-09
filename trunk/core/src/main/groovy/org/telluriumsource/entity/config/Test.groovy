@@ -47,6 +47,12 @@ class Test {
 
     return obj;
   }
+
+  public void getDefault(){
+    this.execution = new Execution();
+    this.result = new Result();
+    this.exception = new Exception();
+  }
 }
 
 
