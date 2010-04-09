@@ -11,10 +11,10 @@ import org.json.simple.JSONObject
  */
 class Tellurium {
   public static String EMBEDDED_SERVER = "embeddedserver";
-  EmbeddedServer embeddedServer;
+  EmbeddedServer embeddedserver;
 
   public static String EVENT_HANDLER = "eventhandler";
-  EventHandler eventHandler;
+  EventHandler eventhandler;
 
   public static String ACCESSOR = "accessor";
   Accessor accessor;
@@ -26,7 +26,7 @@ class Tellurium {
   Connector connector;
 
   public static String DATA_DRIVEN = "datadriven";
-  DataDriven dataDriven;
+  DataDriven datadriven;
 
   public static String TEST = "test";
   Test test;
@@ -44,11 +44,11 @@ class Tellurium {
     if (map != null) {
       Map es = map.get(EMBEDDED_SERVER);
       if (es != null)
-        this.embeddedServer = new EmbeddedServer(es);
+        this.embeddedserver = new EmbeddedServer(es);
 
       Map eh = map.get(EVENT_HANDLER);
       if (eh != null)
-        this.eventHandler = new EventHandler(eh);
+        this.eventhandler = new EventHandler(eh);
 
       Map ac = map.get(ACCESSOR);
       if (ac != null)
@@ -64,7 +64,7 @@ class Tellurium {
 
       Map dd = map.get(DATA_DRIVEN);
       if (dd != null)
-        this.dataDriven = new DataDriven(dd);
+        this.datadriven = new DataDriven(dd);
 
       Map tt = map.get(TEST);
       if (tt != null)
@@ -82,12 +82,12 @@ class Tellurium {
 
   public JSONObject toJSON(){
     JSONObject obj = new JSONObject();
-    obj.put(EMBEDDED_SERVER, this.embeddedServer?.toJSON());
-    obj.put(EVENT_HANDLER, this.eventHandler?.toJSON());
+    obj.put(EMBEDDED_SERVER, this.embeddedserver?.toJSON());
+    obj.put(EVENT_HANDLER, this.eventhandler?.toJSON());
     obj.put(ACCESSOR, this.accessor?.toJSON());
     obj.put(BUNDLE, this.bundle?.toJSON());
     obj.put(CONNECTOR, this.connector?.toJSON());
-    obj.put(DATA_DRIVEN, this.dataDriven?.toJSON());
+    obj.put(DATA_DRIVEN, this.datadriven?.toJSON());
     obj.put(TEST, this.test?.toJSON());
     obj.put(UIOBJECT, this.uiobject?.toJSON());
     obj.put(WIDGET, this.widget?.toJSON());
@@ -96,13 +96,13 @@ class Tellurium {
   }
 
   public void getDefault(){
-    this.embeddedServer = new EmbeddedServer();
-    this.eventHandler = new EventHandler();
+    this.embeddedserver = new EmbeddedServer();
+    this.eventhandler = new EventHandler();
     this.accessor = new Accessor();
     this.bundle = new Bundle();
     this.connector = new Connector();
-    this.dataDriven = new DataDriven();
-    this.dataDriven.getDefault();
+    this.datadriven = new DataDriven();
+    this.datadriven.getDefault();
     this.test = new Test();
     this.test.getDefault();
     this.uiobject = new UiObject();

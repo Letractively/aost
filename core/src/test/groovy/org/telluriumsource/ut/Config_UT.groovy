@@ -1,6 +1,5 @@
 package org.telluriumsource.ut
 
-import org.telluriumsource.entity.config.Tellurium
 import org.telluriumsource.entity.config.Config
 import org.stringtree.json.JSONReader
 
