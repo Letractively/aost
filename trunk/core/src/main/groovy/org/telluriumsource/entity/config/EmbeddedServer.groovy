@@ -64,18 +64,43 @@ class EmbeddedServer {
   }
 
   def EmbeddedServer(Map map) {
-    this.port = map.get(PORT);
-    this.useMultiWindows = map.get(USE_MULTI_WINDOWS);
-    this.trustAllSSLCertificates = map.get(TRUST_ALL_SSL_CERTIFICATES);
-    this.runInternally = map.get(RUN_INTERNALLY);
-    this.avoidProxy = map.get(AVOID_PROXY);
-    this.browserSessionReuse = map(BROWSER_SESSION_REUSE);
-    this.ensureCleanSession = map(ENSURE_CLEAN_SESSION);
-    this.debugMode = map.get(DEBUG_MODE);
-    this.interactive = map.get(INTERACTIVE);
-    this.timeoutInSeconds = map.get(TIMEOUT_IN_SECONDS);
-    this.profile = map.get(PROFILE);
-    this.userExtension = map.get(USER_EXTENSION);
+    if (map != null) {
+      if (map.get(PORT) != null)
+        this.port = map.get(PORT);
+
+      if (map.get(USE_MULTI_WINDOWS) != null)
+        this.useMultiWindows = map.get(USE_MULTI_WINDOWS);
+
+      if (map.get(TRUST_ALL_SSL_CERTIFICATES) != null)
+        this.trustAllSSLCertificates = map.get(TRUST_ALL_SSL_CERTIFICATES);
+
+      if (map.get(RUN_INTERNALLY) != null)
+        this.runInternally = map.get(RUN_INTERNALLY);
+
+      if (map.get(AVOID_PROXY) != null)
+        this.avoidProxy = map.get(AVOID_PROXY);
+
+      if (map(BROWSER_SESSION_REUSE) != null)
+        this.browserSessionReuse = map(BROWSER_SESSION_REUSE);
+
+      if (map(ENSURE_CLEAN_SESSION) != null)
+        this.ensureCleanSession = map(ENSURE_CLEAN_SESSION);
+
+      if (map.get(DEBUG_MODE) != null)
+        this.debugMode = map.get(DEBUG_MODE);
+
+      if (map.get(INTERACTIVE) != null)
+        this.interactive = map.get(INTERACTIVE);
+
+      if (map.get(TIMEOUT_IN_SECONDS) != null)
+        this.timeoutInSeconds = map.get(TIMEOUT_IN_SECONDS);
+
+      if (map.get(PROFILE) != null)
+        this.profile = map.get(PROFILE);
+
+      if (map.get(USER_EXTENSION) != null)
+        this.userExtension = map.get(USER_EXTENSION);
+    }
   }
 
   public JSONObject toJSON(){

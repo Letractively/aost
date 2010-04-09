@@ -20,7 +20,10 @@ class DataProvider {
   }
 
   def DataProvider(Map map) {
-    this.reader = map.get(READER);
+    if (map != null) {
+      if (map.get(READER) != null)
+        this.reader = map.get(READER);
+    }
   }
 
   public JSONObject toJSON(){

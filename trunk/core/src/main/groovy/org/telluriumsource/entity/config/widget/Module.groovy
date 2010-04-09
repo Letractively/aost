@@ -20,7 +20,10 @@ class Module {
   }
 
   def Module(Map map) {
-    this.included = map.get(INCLUDED);
+    if (map != null) {
+      if (map.get(INCLUDED) != null)
+        this.included = map.get(INCLUDED);
+    }
   }
 
   public JSONObject toJSON(){

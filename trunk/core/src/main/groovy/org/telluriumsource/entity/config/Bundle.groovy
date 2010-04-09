@@ -23,8 +23,13 @@ class Bundle {
   }
 
   def Bundle(Map map) {
-    this.maxMacroCmd = map.get(MAX_MACRO_CMD);
-    this.useMacroCommand = map.get(USE_MACRO_COMMAND);
+    if (map != null) {
+      if (map.get(MAX_MACRO_CMD) != null)
+        this.maxMacroCmd = map.get(MAX_MACRO_CMD);
+
+      if (map.get(USE_MACRO_COMMAND) != null)
+        this.useMacroCommand = map.get(USE_MACRO_COMMAND);
+    }
   }
 
   public JSONObject toJSON(){

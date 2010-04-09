@@ -19,13 +19,15 @@ class UiObject {
   }
 
   def UiObject(Map map) {
-    Map b = map.get(BUILDER);
-    this.builder = new Builder(b);
+    if (map != null) {
+      Map b = map.get(BUILDER);
+      this.builder = new Builder(b);
+    }
   }
 
   public JSONObject toJSON(){
     JSONObject obj = new JSONObject();
-    obj.put(BUILDER, this.builder.toJSON());
+    obj.put(BUILDER, this.builder?.toJSON());
 
     return obj;
   }

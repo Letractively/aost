@@ -23,8 +23,13 @@ class EventHandler {
   }
 
   def EventHandler(Map map) {
-    this.checkElement = map.get(CHECK_ELEMENT);
-    this.extraEvent = map.get(EXTRA_EVENT);
+    if (map != null) {
+      if (map.get(CHECK_ELEMENT) != null)
+        this.checkElement = map.get(CHECK_ELEMENT);
+
+      if (map.get(EXTRA_EVENT) != null)
+        this.extraEvent = map.get(EXTRA_EVENT);
+    }
   }
 
   public JSONObject toJSON(){
