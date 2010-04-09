@@ -19,13 +19,15 @@ class Widget {
   }
 
   def Widget(Map map) {
-    Map m = map.get(MODULE);
-    this.module = new Module(m);
+    if (map != null) {
+      Map m = map.get(MODULE);
+      this.module = new Module(m);
+    }
   }
 
   public JSONObject toJSON(){
     JSONObject obj = new JSONObject();
-    obj.put(MODULE, this.module.toJSON());
+    obj.put(MODULE, this.module?.toJSON());
 
     return obj;
   }

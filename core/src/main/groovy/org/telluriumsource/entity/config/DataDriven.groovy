@@ -19,13 +19,15 @@ class DataDriven {
   }
 
   def DataDriven(Map map) {
-    Map m = map.get(DATA_PROVIDER);
-    this.dataProvider = new DataProvider(m);
+    if (map != null) {
+      Map m = map.get(DATA_PROVIDER);
+      this.dataProvider = new DataProvider(m);
+    }
   }
 
   public JSONObject toJSON(){
     JSONObject obj = new JSONObject();
-    obj.put(DATA_PROVIDER, this.dataProvider.toJSON());
+    obj.put(DATA_PROVIDER, this.dataProvider?.toJSON());
     
     return obj;
   }

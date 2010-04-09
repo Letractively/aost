@@ -31,9 +31,16 @@ class Result {
   }
 
   def Result(Map map) {
-    this.reporter = map.get(REPORTER);
-    this.output = map.get(OUTPUT);
-    this.filename = map.get(FILENAME);
+    if (map != null) {
+      if (map.get(REPORTER) != null)
+        this.reporter = map.get(REPORTER);
+
+      if (map.get(OUTPUT) != null)
+        this.output = map.get(OUTPUT);
+
+      if (map.get(FILENAME) != null)
+        this.filename = map.get(FILENAME);
+    }
   }
 
   public JSONObject toJSON(){

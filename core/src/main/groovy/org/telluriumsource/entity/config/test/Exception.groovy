@@ -27,8 +27,13 @@ class Exception {
   }
 
   def Exception(Map map) {
-    this.captureScreenshot = map.get(CAPTURE_SCREEN_SHOT);
-    this.filenamePattern = map.get(FILENAME_PATTERN);
+    if (map != null) {
+      if (map.get(CAPTURE_SCREEN_SHOT) != null)
+        this.captureScreenshot = map.get(CAPTURE_SCREEN_SHOT);
+
+      if (map.get(FILENAME_PATTERN) != null)
+        this.filenamePattern = map.get(FILENAME_PATTERN);
+    }
   }
 
   public JSONObject toJSON(){

@@ -19,7 +19,10 @@ class Execution {
   }
 
   def Execution(Map map) {
-    this.trace = map.get(TRACE);
+    if (map != null) {
+      if (map.get(TRACE) != null)
+        this.trace = map.get(TRACE);
+    }
   }
 
   public JSONObject toJSON(){

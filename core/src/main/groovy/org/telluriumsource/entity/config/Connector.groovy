@@ -46,11 +46,22 @@ class Connector {
   }
 
   def Connector(Map map) {
-    this.serverHost = map.get(SERVER_HOST);
-    this.port = map.get(PORT);
-    this.baseUrl = map.get(BASE_URL);
-    this.customClass = map.get(CUSTOM_CLASS);
-    this.options = map.get(OPTIONS);
+    if (map != null) {
+      if (map.get(SERVER_HOST) != null)
+        this.serverHost = map.get(SERVER_HOST);
+
+      if (map.get(PORT) != null)
+        this.port = map.get(PORT);
+
+      if (map.get(BASE_URL) != null)
+        this.baseUrl = map.get(BASE_URL);
+
+      if (map.get(CUSTOM_CLASS) != null)
+        this.customClass = map.get(CUSTOM_CLASS);
+
+      if (map.get(OPTIONS) != null)
+        this.options = map.get(OPTIONS);
+    }
   }
 
   public JSONObject toJSON(){

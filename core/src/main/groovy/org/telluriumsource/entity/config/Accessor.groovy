@@ -19,7 +19,10 @@ class Accessor {
   }
 
   def Accessor(Map map) {
-    this.checkElement = map.get(CHECK_ELEMENT);
+    if (map != null) {
+      if (map.get(CHECK_ELEMENT) != null)
+        this.checkElement = map.get(CHECK_ELEMENT);
+    }
   }
   
   public JSONObject toJSON(){

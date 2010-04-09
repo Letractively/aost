@@ -41,41 +41,43 @@ class Tellurium {
   }
 
   def Tellurium(Map map) {
-    Map es = map.get(EMBEDDED_SERVER);
-    if(es != null)
-      this.embeddedServer = new EmbeddedServer(es);
+    if (map != null) {
+      Map es = map.get(EMBEDDED_SERVER);
+      if (es != null)
+        this.embeddedServer = new EmbeddedServer(es);
 
-    Map eh = map.get(EVENT_HANDLER);
-    if(eh != null)
-      this.eventHandler = new EventHandler(eh);
+      Map eh = map.get(EVENT_HANDLER);
+      if (eh != null)
+        this.eventHandler = new EventHandler(eh);
 
-    Map ac = map.get(ACCESSOR);
-    if(ac != null)
-      this.accessor = new Accessor(ac);
+      Map ac = map.get(ACCESSOR);
+      if (ac != null)
+        this.accessor = new Accessor(ac);
 
-    Map bu = map.get(BUNDLE);
-    if(bu != null)
-      this.bundle = new Bundle(bu);
+      Map bu = map.get(BUNDLE);
+      if (bu != null)
+        this.bundle = new Bundle(bu);
 
-    Map cn = map.get(CONNECTOR);
-    if(cn != null)
-      this.connector = new Connector(cn);
+      Map cn = map.get(CONNECTOR);
+      if (cn != null)
+        this.connector = new Connector(cn);
 
-    Map dd = map.get(DATA_DRIVEN);
-    if(dd != null)
-      this.dataDriven = new DataDriven(dd);
+      Map dd = map.get(DATA_DRIVEN);
+      if (dd != null)
+        this.dataDriven = new DataDriven(dd);
 
-    Map tt = map.get(TEST);
-    if(tt != null)
-      this.test = new Test(tt);
+      Map tt = map.get(TEST);
+      if (tt != null)
+        this.test = new Test(tt);
 
-    Map uo = map.get(UIOBJECT);
-    if(uo != null)
-      this.uiobject = new UiObject(uo);
+      Map uo = map.get(UIOBJECT);
+      if (uo != null)
+        this.uiobject = new UiObject(uo);
 
-    Map wg = map.get(WIDGET);
-    if(wg != null)
-      this.widget = new Widget(wg);
+      Map wg = map.get(WIDGET);
+      if (wg != null)
+        this.widget = new Widget(wg);
+    }
   }
 
   public JSONObject toJSON(){
