@@ -3,7 +3,9 @@ package org.telluriumsource.framework.config
 import java.util.Locale;
 
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.crosscut.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.stringtree.json.JSONReader
+import org.telluriumsource.entity.config.Config;
 
 
 /**
@@ -57,5 +59,16 @@ class TelluriumConfigParser {
           conf = null
           println i18nBundle.getMessage("TelluriumConfigParser.cannotOpenConfigFile" , e.getMessage())
        }
+    }
+
+    public void parseJSON(String json){
+      try {
+        JSONReader reader = new JSONReader();
+        Map map = reader.read(json);
+        conf = new Config(map);
+      } catch (Exception e) {
+        conf = null
+        println i18nBundle.getMessage("TelluriumConfigParser.cannotParseJSONConfig", e.getMessage())
+      }
     }
 }

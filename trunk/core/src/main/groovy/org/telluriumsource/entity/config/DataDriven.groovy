@@ -13,7 +13,7 @@ import org.json.simple.JSONObject
  */
 class DataDriven {
   public String DATA_PROVIDER = "dataprovider";
-  DataProvider dataProvider;
+  DataProvider dataprovider;
 
   def DataDriven() {
   }
@@ -21,18 +21,18 @@ class DataDriven {
   def DataDriven(Map map) {
     if (map != null) {
       Map m = map.get(DATA_PROVIDER);
-      this.dataProvider = new DataProvider(m);
+      this.dataprovider = new DataProvider(m);
     }
   }
 
   public JSONObject toJSON(){
     JSONObject obj = new JSONObject();
-    obj.put(DATA_PROVIDER, this.dataProvider?.toJSON());
+    obj.put(DATA_PROVIDER, this.dataprovider?.toJSON());
     
     return obj;
   }
 
   public void getDefault(){
-    this.dataProvider = new DataProvider();
+    this.dataprovider = new DataProvider();
   }
 }

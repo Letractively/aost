@@ -8,7 +8,6 @@ import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
 import org.telluriumsource.test.ddt.mapping.mapping.FieldSetMapResult
 import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistry
 import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistryConfigurator
-import org.telluriumsource.test.ddt.DataProvider
 
 /**
  *
@@ -44,7 +43,7 @@ class DataProvider_UT extends GroovyTestCase{
             true | 865-692-6000 | tellurium groovy
             false| 865-123-4444 | tellurium selenium.test
         """
-//        dataProvider.start("src/example/test/ddt/googlesearchpullinput.txt")
+//        dataprovider.start("src/example/test/ddt/googlesearchpullinput.txt")
         dataProvider.useString(data)
         
         FieldSetMapResult result = dataProvider.nextFieldSet()
