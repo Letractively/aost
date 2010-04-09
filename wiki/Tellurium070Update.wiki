@@ -4,7 +4,7 @@
 
 = Introduction =
 
-Tellurium 0.7.0 RC1 release is on the way. Over 100 issues have been closed. The issues include new features, bugs fixings, and other enhancements requested by users. There are some fundamental changes in Tellurium 0.7.0 compared with Tellurium 0.6.0 such as the group locating algorithm, UI module caching, Macro command, jQuery-based new APIs, and i18n support. To make your life easier, We list all the changes here so that you can update your existing Tellurium testing project accordingly.
+Tellurium 0.7.0 RC1 release is on the way. Over 150 issues have been closed. The issues include new features, bugs fixings, and other enhancements requested by users. There are some fundamental changes in Tellurium 0.7.0 compared with Tellurium 0.6.0 such as the group locating algorithm, UI module caching, Macro command, jQuery-based new APIs, and i18n support. To make your life easier, We list all the changes here so that you can update your existing Tellurium testing project accordingly.
 
 The architecture of Tellurium 0.7.0 has been changed and the system diagram is shown as follows,
 
@@ -1461,6 +1461,74 @@ Caused by: org.telluriumsource.exception.ConfigNotFoundException: Cannot find Te
 
 }}}
 
+{{{
+{"tellurium":{"test":{"result":{"reporter":"XMLResultReporter","filename":"TestResult.output","output":"Console"},"exception":{"filenamePattern":"Screenshot?.png","captureScreenshot":"false"},"execution":{"trace":false}},"accessor":{"checkElement":false},"embeddedserver":{"port":"4444","browserSessionReuse":false,"debugMode":false,"ensureCleanSession":false,"interactive":false,"avoidProxy":false,"timeoutInSeconds":30,"runInternally":false,"trustAllSSLCertificates":true,"useMultiWindows":false,"userExtension":"","profile":""},"uiobject":{"builder":{}},"eventhandler":{"checkElement":false,"xtraEvent":false},"connector":{"port":"4444","customClass":"","serverHost":"localhost","options":""},"bundle":{"maxMacroCmd":5,"useMacroCommand":true},"datadriven":{"dataprovider":{"reader":"PipeFileReader"}},"widget":{"module":{"included":""}}}}
+}}}
+
+{{{
+{
+    "tellurium": {
+        "test": {
+            "result": {
+                "reporter": "XMLResultReporter",
+                "filename": "TestResult.output",
+                "output": "Console"
+            },
+            "exception": {
+                "filenamePattern": "Screenshot?.png",
+                "captureScreenshot": "false"
+            },
+            "execution": {
+                "trace": false
+            }
+        },
+        "accessor": {
+            "checkElement": false
+        },
+        "embeddedserver": {
+            "port": "4444",
+            "browserSessionReuse": false,
+            "debugMode": false,
+            "ensureCleanSession": false,
+            "interactive": false,
+            "avoidProxy": false,
+            "timeoutInSeconds": 30,
+            "runInternally": false,
+            "trustAllSSLCertificates": true,
+            "useMultiWindows": false,
+            "userExtension": "",
+            "profile": ""
+        },
+        "uiobject": {
+            "builder": { }
+        },
+        "eventhandler": {
+            "checkElement": false,
+            "xtraEvent": false
+        },
+        "connector": {
+            "port": "4444",
+            "customClass": "",
+            "serverHost": "localhost",
+            "options": ""
+        },
+        "bundle": {
+            "maxMacroCmd": 5,
+            "useMacroCommand": true
+        },
+        "datadriven": {
+            "dataprovider": {
+                "reader": "PipeFileReader"
+            }
+        },
+        "widget": {
+            "module": {
+                "included": ""
+            }
+        }
+    }
+}
+}}}
 == Run DSL Script ==
 
 Tellurium 0.7.0 provides a rundsl.groovy script for users to run DSL test script. The rundsl.groovy uses [http://groovy.codehaus.org/Grape Groovy Grape] to automatically download all dependencies and then run DSL script.
