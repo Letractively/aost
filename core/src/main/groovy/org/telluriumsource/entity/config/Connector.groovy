@@ -56,6 +56,9 @@ class Connector {
       if (map.get(BASE_URL) != null)
         this.baseUrl = map.get(BASE_URL);
 
+      if(map.get(BROWSER) != null)
+        this.browser = map.get(BROWSER);
+
       if (map.get(CUSTOM_CLASS) != null)
         this.customClass = map.get(CUSTOM_CLASS);
 
@@ -68,9 +71,20 @@ class Connector {
     JSONObject obj = new JSONObject();
     obj.put(SERVER_HOST, this.serverHost);
     obj.put(PORT, this.port);
+    obj.put(BASE_URL, this.baseUrl);
+    obj.put(BROWSER, this.browser);
     obj.put(CUSTOM_CLASS, this.customClass);
     obj.put(OPTIONS, this.options);
 
     return obj;
+  }
+
+  public void toProperties(Properties properties, String path){
+    properties.setProperty(path + "." + SERVER_HOST, this.serverHost);
+    properties.setProperty(path + "." + PORT, this.port);
+    properties.setProperty(path + "." + BASE_URL, this.baseUrl);
+    properties.setProperty(path + "." + BROWSER, this.browser);
+    properties.setProperty(path + "." + CUSTOM_CLASS, this.customClass);
+    properties.setProperty(path + "." + OPTIONS, this.options);
   }
 }

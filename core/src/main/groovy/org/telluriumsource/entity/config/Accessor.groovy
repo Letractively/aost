@@ -31,4 +31,8 @@ class Accessor {
 
     return obj;
   }
+
+  public void toProperties(Properties properties, String path){
+    properties.setProperty(path + "." + CHECK_ELEMENT, Boolean.toString(this.checkElement));
+  }
 }

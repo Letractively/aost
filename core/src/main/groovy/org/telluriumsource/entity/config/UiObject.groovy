@@ -35,4 +35,8 @@ class UiObject {
   public void getDefault(){
     this.builder = new Builder();
   }
+
+  public void toProperties(Properties properties, String path){
+    this.builder.toProperties(properties, path + "." + BUILDER);
+  }
 }

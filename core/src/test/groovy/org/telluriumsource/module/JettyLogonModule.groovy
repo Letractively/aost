@@ -12,6 +12,8 @@ import org.telluriumsource.entity.UiByTagResponse
  */
 
 public class JettyLogonModule extends DslContext {
+  public static String JSON_CONF = """{"tellurium":{"test":{"result":{"reporter":"XMLResultReporter","filename":"TestResult.output","output":"Console"},"exception":{"filenamePattern":"Screenshot?.png","captureScreenshot":false},"execution":{"trace":false}},"accessor":{"checkElement":false},"embeddedserver":{"port":"4444","browserSessionReuse":false,"debugMode":false,"ensureCleanSession":false,"interactive":false,"avoidProxy":false,"timeoutInSeconds":30,"runInternally":false,"trustAllSSLCertificates":true,"useMultiWindows":false,"userExtension":"","profile":""},"uiobject":{"builder":{}},"eventhandler":{"checkElement":false,"extraEvent":false},"connector":{"baseUrl":"http:\/\/localhost:8080","port":"4444","browser":"*chrome","customClass":"","serverHost":"localhost","options":""},"bundle":{"maxMacroCmd":5,"useMacroCommand":true},"datadriven":{"dataprovider":{"reader":"PipeFileReader"}},"widget":{"module":{"included":""}}}}""";
+
   public static String HTML_BODY ="""
       <H1>FORM Authentication demo</H1>
 
@@ -125,7 +127,7 @@ public class JettyLogonModule extends DslContext {
     return getImageAlt("Thumbnail.ICon.Image")
   }
 
-  public String typeImageName(String name){
+  public void typeImageName(String name){
     keyType "Thumbnail.ICon.Input", name
     pause 500
   }

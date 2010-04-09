@@ -15,7 +15,7 @@ class Exception {
   //Note that the exception is the one thrown by Selenium Server
   //we do not care the test logic errors here
   public static String CAPTURE_SCREEN_SHOT = "captureScreenshot";
-  String captureScreenshot = false;
+  boolean captureScreenshot = false;
 
   //we may have a series of screenshots, specify the file name pattern here
   //Here the ? will be replaced by the timestamp and you might also want to put
@@ -42,5 +42,10 @@ class Exception {
     obj.put(FILENAME_PATTERN, this.filenamePattern);
 
     return obj;
+  }
+
+  public void toProperties(Properties properties, String path){
+    properties.setProperty(path + "." + CAPTURE_SCREEN_SHOT, Boolean.toString(this.captureScreenshot));
+    properties.setProperty(path + "." + FILENAME_PATTERN, this.filenamePattern);
   }  
 }

@@ -31,4 +31,13 @@ class Builder {
 
     return obj;
   }
+  
+  public void toProperties(Properties properties, String path){
+    if(map != null && !map.isEmpty()){
+      map.each {String key, String val ->
+        properties.setProperty(path + "." + key, val);
+      }
+    }
+
+  }
 }

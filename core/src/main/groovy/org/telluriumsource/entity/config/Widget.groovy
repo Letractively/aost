@@ -35,4 +35,8 @@ class Widget {
   public void getDefault(){
     this.module = new Module();
   }
+
+  public void toProperties(Properties properties, String path){
+    this.module.toProperties(properties, path + "." + MODULE);
+  }
 }
