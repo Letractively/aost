@@ -80,11 +80,11 @@ class EmbeddedServer {
       if (map.get(AVOID_PROXY) != null)
         this.avoidProxy = map.get(AVOID_PROXY);
 
-      if (map(BROWSER_SESSION_REUSE) != null)
-        this.browserSessionReuse = map(BROWSER_SESSION_REUSE);
+      if (map.get(BROWSER_SESSION_REUSE) != null)
+        this.browserSessionReuse = map.get(BROWSER_SESSION_REUSE);
 
-      if (map(ENSURE_CLEAN_SESSION) != null)
-        this.ensureCleanSession = map(ENSURE_CLEAN_SESSION);
+      if (map.get(ENSURE_CLEAN_SESSION) != null)
+        this.ensureCleanSession = map.get(ENSURE_CLEAN_SESSION);
 
       if (map.get(DEBUG_MODE) != null)
         this.debugMode = map.get(DEBUG_MODE);
