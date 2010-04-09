@@ -1,5 +1,7 @@
 package org.telluriumsource.entity.config.widget
 
+import org.json.simple.JSONObject
+
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -11,5 +13,20 @@ package org.telluriumsource.entity.config.widget
 class Module {
 //define your widget modules here, for example Dojo or ExtJs
 //            included="dojo, extjs"
+  public static String INCLUDED = "included";
   String included = "";
+
+  def Module() {
+  }
+
+  def Module(Map map) {
+    this.included = map.get(INCLUDED);
+  }
+
+  public JSONObject toJSON(){
+    JSONObject obj = new JSONObject();
+    obj.put(INCLUDED, this.included);
+
+    return obj;
+  }
 }
