@@ -13,12 +13,12 @@ class DynamicModule extends DslContext {
 
   public void defineUi(){
     ui.Table(uid: "keyValue", clocator: [class: "keyValueTable"]){
-      TextBox(uid: "{row: all, column: 1}, var key", clocator: [text: "key"], self: "true")
-      TextBox(uid: "{row: all, column: 1}, var value", clocator: [text: "value"], self: "true")
+      TextBox(uid: "{row: any, column: 1} as p1, var key", clocator: [text: "key"], self: "true")
+      TextBox(uid: "{row: any, column: 2} as p2, var value", clocator: [text: "value"], self: "true")
     }
 
     ui.List(uid: "Views", clocator: [tag: "div", id: "view"], separator: "p"){
-      UrlLink(uid: "{all}, var view_id", clocator: [id: "view_id", text: "View"])
+      UrlLink(uid: "{any}, var view_id", clocator: [id: "view_id", text: "View"])
     }
   }
 }
