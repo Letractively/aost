@@ -1,5 +1,7 @@
 package org.telluriumsource.entity.config.datadriven
 
+import org.json.simple.JSONObject
+
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -11,5 +13,21 @@ package org.telluriumsource.entity.config.datadriven
 class DataProvider {
   //specify which data reader you like the data provider to use
   //the valid options include "PipeFileReader", "CSVFileReader" , "ExcelFileReader" at this point
+  public static String READER = "reader";
   String reader = "PipeFileReader";
+
+  def DataProvider() {
+  }
+
+  def DataProvider(Map map) {
+    this.reader = map.get(READER);
+  }
+
+  public JSONObject toJSON(){
+    JSONObject obj = new JSONObject();
+    obj.put(READER, this.reader);
+
+    return obj;
+  }     
+
 }

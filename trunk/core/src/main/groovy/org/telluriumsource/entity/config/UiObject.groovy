@@ -1,5 +1,8 @@
 package org.telluriumsource.entity.config
 
+import org.telluriumsource.entity.uiobject.Builder
+import org.json.simple.JSONObject
+
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -9,4 +12,21 @@ package org.telluriumsource.entity.config
  * 
  */
 class UiObject {
+  public static String BUILDER = "builder";
+  Builder builder;
+
+  def UiObject() {
+  }
+
+  def UiObject(Map map) {
+    Map b = map.get(BUILDER);
+    this.builder = new Builder(b);
+  }
+
+  public JSONObject toJSON(){
+    JSONObject obj = new JSONObject();
+    obj.put(BUILDER, this.builder.toJSON());
+
+    return obj;
+  }
 }
