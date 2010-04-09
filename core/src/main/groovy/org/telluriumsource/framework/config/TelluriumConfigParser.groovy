@@ -66,7 +66,7 @@ class TelluriumConfigParser {
         JSONReader reader = new JSONReader();
         Map map = reader.read(json);
         conf = new Config(map);
-        props = map;
+        props = conf.toProperties();
       } catch (Exception e) {
         conf = null
         println i18nBundle.getMessage("TelluriumConfigParser.cannotParseJSONConfig", e.getMessage())
