@@ -18,7 +18,6 @@ class Bundle {
   public static String USE_MACRO_COMMAND = "useMacroCommand";
   boolean useMacroCommand = true;
 
-
   def Bundle() {
   }
 
