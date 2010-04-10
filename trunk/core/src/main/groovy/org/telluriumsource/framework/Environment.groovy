@@ -177,7 +177,10 @@ public class Environment implements Configurable{
   }
 
   public void useLocale(String locale){
-    this.locale = locale;  
+    this.locale = locale;
+    String[] split = locale.split("_");
+    Locale loc = new Locale(split[0], split[1]);
+    this.resourceBundle.updateDefaultLocale(loc);
   }
 
   public void setCustomEnvironment(String name, Object value){

@@ -18,6 +18,11 @@ class ResourceBundle implements IResourceBundle
 	public ResourceBundle(){
 		ResourceBundleSource.instance.init()
 	}
+
+    public void updateDefaultLocale(Locale locale){
+        ResourceBundleSource.instance.updateDefaultLocale(locale)
+    }
+
 	public void addResourceBundle(String resourceBundle, Locale specificLocale = null){
 		ResourceBundleSource.instance.addResourceBundle(resourceBundle , specificLocale)
 	}
