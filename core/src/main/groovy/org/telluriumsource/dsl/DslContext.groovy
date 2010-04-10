@@ -1,7 +1,5 @@
 package org.telluriumsource.dsl
 
-import org.telluriumsource.dsl.BaseDslContext
-import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.exception.NotWidgetObjectException
 import org.telluriumsource.ui.widget.Widget
 import org.telluriumsource.framework.Environment
