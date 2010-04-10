@@ -28,6 +28,9 @@ class Tellurium {
   public static String DATA_DRIVEN = "datadriven";
   DataDriven datadriven;
 
+  public static String I18N = "i18n";
+  I18N i18n;
+
   public static String TEST = "test";
   Test test;
 
@@ -66,6 +69,10 @@ class Tellurium {
       if (dd != null)
         this.datadriven = new DataDriven(dd);
 
+      Map min = map.get(I18N);
+      if(min != null)
+        this.i18n = new I18N(min);
+
       Map tt = map.get(TEST);
       if (tt != null)
         this.test = new Test(tt);
@@ -88,6 +95,7 @@ class Tellurium {
     obj.put(BUNDLE, this.bundle?.toJSON());
     obj.put(CONNECTOR, this.connector?.toJSON());
     obj.put(DATA_DRIVEN, this.datadriven?.toJSON());
+    obj.put(I18N, this.i18n?.toJSON());
     obj.put(TEST, this.test?.toJSON());
     obj.put(UIOBJECT, this.uiobject?.toJSON());
     obj.put(WIDGET, this.widget?.toJSON());
@@ -102,6 +110,7 @@ class Tellurium {
     this.bundle = new Bundle();
     this.connector = new Connector();
     this.datadriven = new DataDriven();
+    this.i18n = new I18N();
     this.datadriven.getDefault();
     this.test = new Test();
     this.test.getDefault();
@@ -118,6 +127,7 @@ class Tellurium {
     this.bundle.toProperties(properties, path + "." + BUNDLE);
     this.connector.toProperties(properties, path + "." + CONNECTOR);
     this.datadriven.toProperties(properties, path + "." + DATA_DRIVEN);
+    this.i18n.toProperties(properties, path + "." + I18N);
     this.test.toProperties(properties, path + "." + TEST);
     this.uiobject.toProperties(properties, path + "." + UIOBJECT);
     this.widget.toProperties(properties, path + "." + WIDGET);
