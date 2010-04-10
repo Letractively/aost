@@ -17,7 +17,7 @@ tellurium{
         //whether to trust all SSL certs, i.e., option "-trustAllSSLCertificates"
         trustAllSSLCertificates = true
         //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
-        runInternally = true
+        runInternally = false
         //By default, Selenium proxies every browser request; set this flag to make the browser use proxy only for URLs containing '/selenium-server'
         avoidProxy = false
         //stops re-initialization and spawning of the browser between tests
@@ -46,7 +46,7 @@ tellurium{
     //data accessor
     accessor{
         //whether we should check if the UI element is presented
-        checkElement = true
+        checkElement = false
     }
       //the bundling tier
     bundle{
@@ -84,6 +84,15 @@ tellurium{
             reader = "PipeFileReader"
         }
     }
+    //this section allows users to define the internationalization required
+    //if this section is removed, we take the default locale
+    //from the system
+    //enter only one locale at a time, and use this only if you want to explicitly
+    //set the locale, preferrable way is to comment out this section
+    i18n{
+      //locales = "fr_FR"
+      locales = "en_US"
+    }
     test{
         execution{
             //whether to trace the execution timing
@@ -107,7 +116,7 @@ tellurium{
             //whether Tellurium captures the screenshot when exception occurs.
             //Note that the exception is the one thrown by Selenium Server
             //we do not care the test logic errors here
-            captureScreenshot = true
+            captureScreenshot = false
             //we may have a series of screenshots, specify the file name pattern here
             //Here the ? will be replaced by the timestamp and you might also want to put
             //file path in the file name pattern
