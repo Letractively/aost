@@ -86,4 +86,7 @@ class ResourceBundleSource implements Configurable {
 		return defaultLocale
 	}
 
+    public void updateDefaultLocale(Locale locale){
+        this.defaultLocale = locale;
+    } 
 }

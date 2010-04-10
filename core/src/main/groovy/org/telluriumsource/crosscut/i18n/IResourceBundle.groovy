@@ -12,6 +12,7 @@ import org.telluriumsource.framework.config.Configurable;
 
 interface IResourceBundle extends Configurable
 {
+    public void updateDefaultLocale(Locale locale);
 	public Locale getLocale();
 	public String getCurrency(Double doubleValue)
     public String getCurrency(Double doubleValue, Locale specificLocale)
