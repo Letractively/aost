@@ -1375,7 +1375,136 @@ public class TelluriumMockJUnitTestCase extends TelluriumJUnitTestCase {
 
 == Tellurium Configuration ==
 
-The configuration parser has been refactored. Tellurium loads the configuration file TelluriumConfig.groovy first from the project root. If not found, it loads it from the class path. As a result, you can put the TelluriumConfig.groovy file under the resources directory if you use Maven.
+The configuration parser has been refactored. The configuration file name is stored in the Environment class as follows.
+
+{{{
+@Singleton
+public class Environment implements Configurable{
+
+  protected String configFileName = "TelluriumConfig.groovy";
+
+  protected String configString = "";
+
+  public static Environment getEnvironment(){
+    return Environment.instance;
+  }
+
+  public void useConfigString(String json){
+    this.configString = json;
+  }
+
+  ...
+
+}}}
+
+That is to say, you can get the Environment singleton instance and change the file name before Tellurium core is loaded up if you have a good reason to do that. In the meanwhile, we add support to load the configuration from a JSON string, which will be stored in the {{{configString}}}} variable in the Environment.
+
+If the {{{configString}}} variable is not null or empty, Tellurium core will honor the JSON string and will ignore the configuration file. One way to use the JSON string is illustrated by the following example.
+
+{{{
+public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
+   private static JettyLogonModule jlm;
+   static{
+       Environment env = Environment.getEnvironment();
+       env.useConfigString(JettyLogonModule.JSON_CONF);
+   }
+
+   ...
+
+}}}
+
+where variable {{{JSON_CONF}}} is the JSON configuration string.
+
+{{{
+public class JettyLogonModule extends DslContext {
+ public static String JSON_CONF = """{"tellurium":{"test":{"result":
+{"reporter":"XMLResultReporter","filename":"TestResult.output","output":"Console"},"exception":
+{"filenamePattern":"Screenshot?.png","captureScreenshot":false},"execution":
+{"trace":false}},"accessor":{"checkElement":false},"embeddedserver":
+{"port":"4444","browserSessionReuse":false,"debugMode":false,"ensureCleanSession":false,"interactive":false,"avoidProxy":false,"timeoutInSeconds":
+30,"runInternally":true,"trustAllSSLCertificates":true,"useMultiWindows":false,"userExtension":"","profile":""},"uiobject":
+{"builder":{}},"eventhandler":
+{"checkElement":false,"extraEvent":false},"connector":
+{"baseUrl":"http://localhost:
+8080","port":"4444","browser":"*chrome","customClass":"","serverHost":"localhost","options":""},"bundle":
+{"maxMacroCmd":5,"useMacroCommand":true},"datadriven":{"dataprovider":
+{"reader":"PipeFileReader"}},"widget":{"module":{"included":""}}}}""";
+
+...
+}
+}}}
+
+If we want a pretty look of the JSON String, we can use [http://chris.photobooks.com/json/ JSON Visualization] to format it as follows.
+
+{{{
+{
+    "tellurium": {
+        "test": {
+            "result": {
+                "reporter": "XMLResultReporter",
+                "filename": "TestResult.output",
+                "output": "Console"
+            },
+            "exception": {
+                "filenamePattern": "Screenshot?.png",
+                "captureScreenshot": false
+            },
+            "execution": {
+                "trace": false
+            }
+        },
+        "accessor": {
+            "checkElement": false
+        },
+        "embeddedserver": {
+            "port": "4444",
+            "browserSessionReuse": false,
+            "debugMode": false,
+            "ensureCleanSession": false,
+            "interactive": false,
+            "avoidProxy": false,
+            "timeoutInSeconds": 30,
+            "runInternally": true,
+            "trustAllSSLCertificates": true,
+            "useMultiWindows": false,
+            "userExtension": "",
+            "profile": ""
+        },
+        "uiobject": {
+            "builder": { }
+        },
+        "eventhandler": {
+            "checkElement": false,
+            "extraEvent": false
+        },
+        "connector": {
+            "baseUrl": "http://localhost:8080",
+            "port": "4444",
+            "browser": "*chrome",
+            "customClass": "",
+            "serverHost": "localhost",
+            "options": ""
+        },
+        "bundle": {
+            "maxMacroCmd": 5,
+            "useMacroCommand": true
+        },
+        "datadriven": {
+            "dataprovider": {
+                "reader": "PipeFileReader"
+            }
+        },
+        "widget": {
+            "module": {
+                "included": ""
+            }
+        }
+    }
+}
+
+}}}
+
+If the JSON String is empty or null, Tellurium loads the configuration file TelluriumConfig.groovy first from the project root. If not found, it loads it from the class path. As a result, you can put the TelluriumConfig.groovy file under the resources directory if you use Maven.
 
 The configuration file TelluriumConfig.groovy includes three extra sections. That is to say, the bundle tier,
 
@@ -1461,74 +1590,9 @@ Caused by: org.telluriumsource.exception.ConfigNotFoundException: Cannot find Te
 
 }}}
 
-{{{
-{"tellurium":{"test":{"result":{"reporter":"XMLResultReporter","filename":"TestResult.output","output":"Console"},"exception":{"filenamePattern":"Screenshot?.png","captureScreenshot":"false"},"execution":{"trace":false}},"accessor":{"checkElement":false},"embeddedserver":{"port":"4444","browserSessionReuse":false,"debugMode":false,"ensureCleanSession":false,"interactive":false,"avoidProxy":false,"timeoutInSeconds":30,"runInternally":false,"trustAllSSLCertificates":true,"useMultiWindows":false,"userExtension":"","profile":""},"uiobject":{"builder":{}},"eventhandler":{"checkElement":false,"extraEvent":false},"connector":{"port":"4444","customClass":"","serverHost":"localhost","options":""},"bundle":{"maxMacroCmd":5,"useMacroCommand":true},"datadriven":{"dataprovider":{"reader":"PipeFileReader"}},"widget":{"module":{"included":""}}}}
-}}}
 
-{{{
-{
-    "tellurium": {
-        "test": {
-            "result": {
-                "reporter": "XMLResultReporter",
-                "filename": "TestResult.output",
-                "output": "Console"
-            },
-            "exception": {
-                "filenamePattern": "Screenshot?.png",
-                "captureScreenshot": "false"
-            },
-            "execution": {
-                "trace": false
-            }
-        },
-        "accessor": {
-            "checkElement": false
-        },
-        "embeddedserver": {
-            "port": "4444",
-            "browserSessionReuse": false,
-            "debugMode": false,
-            "ensureCleanSession": false,
-            "interactive": false,
-            "avoidProxy": false,
-            "timeoutInSeconds": 30,
-            "runInternally": false,
-            "trustAllSSLCertificates": true,
-            "useMultiWindows": false,
-            "userExtension": "",
-            "profile": ""
-        },
-        "uiobject": {
-            "builder": { }
-        },
-        "eventhandler": {
-            "checkElement": false,
-            "extraEvent": false
-        },
-        "connector": {
-            "port": "4444",
-            "customClass": "",
-            "serverHost": "localhost",
-            "options": ""
-        },
-        "bundle": {
-            "maxMacroCmd": 5,
-            "useMacroCommand": true
-        },
-        "datadriven": {
-            "dataprovider": {
-                "reader": "PipeFileReader"
-            }
-        },
-        "widget": {
-            "module": {
-                "included": ""
-            }
-        }
-    }
-}
-}}}
+ 
+
 == Run DSL Script ==
 
 Tellurium 0.7.0 provides a rundsl.groovy script for users to run DSL test script. The rundsl.groovy uses [http://groovy.codehaus.org/Grape Groovy Grape] to automatically download all dependencies and then run DSL script.
