@@ -308,9 +308,25 @@
          
          // Callbacks
          onBeforeShow: function(){},
-         onShow: function(){},
+         onShow: function() {
+              var $parent = this.getParent();
+              var parent = $parent.get(0);
+              var level = $parent.data("level");
+
+              var outline = $parent.data("outline");
+              if (outline == undefined || outline == null) {
+                  $parent.data("outline", parent.style.outline);
+              }
+
+              parent.style.outline = tellurium.outlines.getOutline(level);
+         },
          onBeforeHide: function(){},
-         onHide: function(){},
+         onHide: function() {
+              var $parent = this.getParent();
+              var parent = $parent.get(0);
+
+              parent.style.outline = $parent.data("outline");
+         },
          beforeContentLoad: function(){},
          onContentLoad: function(){}
       };
