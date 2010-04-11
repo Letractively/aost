@@ -131,6 +131,19 @@ teJQuery.expr[':'].nextToLast = function(obj, ind, prop, node){
      return ind == node.length - 2;
 };
 
+teJQuery.expr[':'].regex = function(elem, index, match) {
+    var matchParams = match[3].split(','),
+        validLabels = /^(data|css):/,
+        attr = {
+            method: matchParams[0].match(validLabels) ?
+                        matchParams[0].split(':')[0] : 'attr',
+            property: matchParams.shift().replace(validLabels,'')
+        },
+        regexFlags = 'ig',
+        regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
+    return regex.test(teJQuery(elem)[attr.method](attr.property));
+};
+
 teJQuery.fn.outerHTML = function() {
     return teJQuery("<div/>").append( teJQuery(this[0]).clone() ).html();
 };
