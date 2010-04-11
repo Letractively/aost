@@ -5,7 +5,8 @@ function UiType() {
         CHECKBOX : "checkbox",
         RADIO : "radio",
         SUBMIT : "submit",
-        BUTTON : "button"
+        BUTTON : "button",
+        IMAGE : "image"
     }
 
     this.map = new HashMap();
@@ -36,7 +37,7 @@ function UiType() {
 
 UiType.prototype.getType = function(tag, hasChildren) {
     return this.getTypeWithExtra(tag, null, hasChildren);
-}
+};
 
 UiType.prototype.getTypeWithExtra = function(tag, extra, hasChildren) {
     var addition = "N";
@@ -65,6 +66,11 @@ UiType.prototype.getTypeWithExtra = function(tag, extra, hasChildren) {
             } else if (this.constants.SUBMIT == type) {
                 uitype = "SubmitButton";
             }
+        }
+
+        var img = extra.get(this.constants.IMAGE);
+        if(img != null){
+            uitype = "Button";         
         }
     }
 

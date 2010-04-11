@@ -79,7 +79,7 @@ UiObject.prototype.strUiObject = function(level){
         }
         sb.append("]");
     }
-    if(this.group == true){
+    if(this.group){
         sb.append(", group: \"true\"");
     }
     //comment this line out if you do not want xpath to display
@@ -93,7 +93,7 @@ UiObject.prototype.strUiObject = function(level){
     sb.append("\n");
 
     return sb.toString();
-}
+};
 
 UiObject.prototype.descObject = function(){
     var sb = new StringBuffer();
