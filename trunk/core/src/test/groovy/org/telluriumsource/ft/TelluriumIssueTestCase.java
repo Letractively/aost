@@ -47,6 +47,9 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
     @Ignore
     @Test
     public void testShowUI(){
+        int colnum = tim.getTableMaxColumnNum("issueResult");
+        int rownum = tim.getTableMaxRowNum("issueResult");
+        System.out.println("Row num: " + rownum + ", Column num: " + colnum);
         tim.startShow("issueResult");
         tim.endShow("issueResult");
     }
