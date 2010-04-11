@@ -477,7 +477,7 @@ var UiSimpleTipVisitor = STreeVisitor.extend({
         !tellurium.logManager.isUseLog || fbLog("element with simpletip ", elem);
         $elem.simpletip({
             // Configuration properties
-            onShow: function() {
+/*            onShow: function() {
                 var $parent = this.getParent();
                 var parent = $parent.get(0);
                 !tellurium.logManager.isUseLog || fbLog("Get Parent for element", parent);
@@ -490,13 +490,14 @@ var UiSimpleTipVisitor = STreeVisitor.extend({
 
                 parent.style.outline = tellurium.outlines.getOutline(level);
             },
+
             onHide: function() {
                 var $parent = this.getParent();
                 var parent = $parent.get(0);
 
                 parent.style.outline = $parent.data("outline");
             },
-
+           */
             content: convertRidToUid(frid),
             fixed: false
         });

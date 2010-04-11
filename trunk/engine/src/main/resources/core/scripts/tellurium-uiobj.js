@@ -1304,13 +1304,14 @@ var UiTable = UiContainer.extend({
 
     getRowColumn: function(key){
         var parts = key.replace(/^_/, '').split("_");
+        !tellurium.logManager.isUseLog || fbLog("Parts for Key " + key, parts);
         var m=0;
         var rc = new Array();
         if(parts.length == 3){
             m++;
         }
         for(var i=m; i<parts.length; i++){
-            rc.push(m);
+            rc.push(parts[i]);
         }
 
         return rc;
@@ -1318,13 +1319,20 @@ var UiTable = UiContainer.extend({
 
     buildIndex: function(key, $found){
         var rc = this.getRowColumn(key);
+        !tellurium.logManager.isUseLog || fbLog("RC for getRowColumn", rc);
         var r, c;
-        if(rc[0].match(/[0-9]+/)){
+
+        if(typeof rc[0] === "number"){
+           r = rc[0];
+        }else if(rc[0].match(/[0-9]+/)){
             r = rc[0];
         }else{
             r = this.getRowIndex($found) + 1;
         }
-        if(rc[1].match(/[0-9]+/)){
+        
+        if(typeof rc[1] === "number"){
+            c = rc[1];
+        }else if(rc[1].match(/[0-9]+/)){
             c = rc[1];
         }else{
             c = $found.index() + 1;
@@ -1705,8 +1713,8 @@ var UiTable = UiContainer.extend({
     },
 
     // Get runtime ID
-    getBodyRid: function(row, column){
-        return   "_" + row + "_" + column;
+    getBodyRid: function(body, row, column){
+        return   "_" + body + "_" + row + "_" + column;
     },
 
     findHeaderUiObject: function(index){
@@ -1900,6 +1908,7 @@ var UiTable = UiContainer.extend({
         var alg = context.alg;
         var sel = this.getCellSelector(context, key, child);
         var $found = teJQuery(domref).find(sel);
+//        !tellurium.logManager.isUseLog || fbLog("domref", domref);
         !tellurium.logManager.isUseLog || fbLog("Found child " + key + " with CSS selector '" + sel + "' for " + this.uid, $found.get());
         if ($found.size() == 1) {
             !tellurium.logManager.isUseLog || fbLog("Found element " + this.uid, $found.get(0));
@@ -1945,8 +1954,9 @@ var UiTable = UiContainer.extend({
             for(i=1; i<=rownum; i++){
                 for(j=1; j<=colnum; j++){
                     key = "_1_" + i + "_" + j;
+//                    !tellurium.logManager.isUseLog || fbLog("Table rownum " + rownum + " colnum " + colnum + ", key " + key, this);
                     if (teJQuery.inArray(key, included) == -1) {
-                        key = this.getBodyRid(1, i, j);
+//                        key = this.getBodyRid(1, i, j);
                         child = this.locateTBodyChild(key);
                         this.buildBodySData(context, npid, domref, key, child);
                     }
@@ -2286,17 +2296,25 @@ var UiStandardTable = UiContainer.extend({
         }
         var b, r, c;
 
-        if(rc[0].match(/[0-9]+/)){
+        if(typeof rc[0] === "number"){
+            b = rc[0];
+        }else if(rc[0].match(/[0-9]+/)){
             b = rc[0];
         }else{
-            r = this.getBodyIndex($found) + 1;
+            b = this.getBodyIndex($found) + 1;
         }
-        if(rc[1].match(/[0-9]+/)){
+
+        if(typeof rc[1] === "number"){
+            r = rc[1];
+        }else if(rc[1].match(/[0-9]+/)){
             r = rc[1];
         }else{
             r = this.getRowIndex($found) + 1;
         }
-        if(rc[2].match(/[0-9]+/)){
+
+        if(typeof rc[2] === "number"){
+            c = rc[2];
+        }else if(rc[2].match(/[0-9]+/)){
             c = rc[2];
         }else{
             c = $found.index() + 1;
