@@ -1,4 +1,5 @@
 #summary Tellurium User Guide: Tellurium Subprojects
+#labels Phase-Implementation,Phase-Design
 
 
 
@@ -48,7 +49,9 @@ The tellurium-junit-java project illustrates the following usages of Tellurium:
 
 == Tellurium Maven Archetypes ==
 
-Tellurium provides [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes two maven archetypes]. For example: tellurium-junit-archetype for Tellurium JUnit test projects and tellurium-testing-archetype for Tellurium TestNG test projects.
+Tellurium provides [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes three maven archetypes]. For example: tellurium-junit-archetype for Tellurium JUnit test projects, tellurium-testing-archetype for Tellurium TestNG test projects, and tellurium-widget-archetype for Tellurium Widget projects.
+
+=== Tellurium JUnit Archetype ===
 
 Run the following Maven command to create a new JUnit test project:
 
@@ -67,6 +70,14 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
      -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/releases
 }}}
 
+To create a Tellurium project based on Tellurium 0.7.0 SNAPSHOT, you should use the Maven archetype 0.7.0-SNAPSHOT. To create a JUnit project, use the following Maven command:
+
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
+}}}
+
+=== Tellurium TestNG Archetype ===
+
 For a TestNG archetype project, use a different archetype:
 
 {{{
@@ -76,17 +87,20 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
      -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/releases
 }}}
 
-To create a Tellurium project based on Tellurium 0.7.0 SNAPSHOT, you should use the Maven archetype 0.7.0-SNAPSHOT. To create a JUnit project, use the following Maven command:
-
-{{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
-}}}
-
-Similarly, to create a TestNG project, use the following command:
+To create a TestNG project, use the following command:
 
 {{{
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
 }}}
+
+=== Tellurium Widget Archetype ===
+
+To create a Tellurium UI widget project, we can use Tellurium Widget archetype as follows,
+
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-widget-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
+}}}
+
 
 == Tellurium UI Module Plugin (TrUMP) ==
 
