@@ -121,7 +121,7 @@ The workflow of TrUMP is shown in Figure 3-3:
 
 http://tellurium-users.googlegroups.com/web/TrUMPDiagramSmall.png?gda=9CFDmEcAAAD5mhXrH3CK0rVx4StVj0LYmqln6HzIDYRu0sy-jUnaq8nAtNENvOA6NOHkUCAqlOUVeY4b49xGcMK802iZZ8SFeV4duv6pDMGhhhZdjQlNAw&gsc=5FPzPwsAAAA9y3PlQReYHIKRUJU7LIYD
 
-== TrUMP Workflow Procedure ==
+=== TrUMP Workflow Procedure ===
 
   # Click onto a web page. The corresponding UI element is pushed into an array. <br />*Note*: If the element is clicked again, the UI element is removed from the array.
   # Click the "Generate" button. TrUMP implements the following two steps: 
