@@ -2757,7 +2757,6 @@ Here is a sample POM file.
 
 = What's Next ? =
 
-  * More flexible UI templates, i.e., UID Description Language (UDL)
   * Tellurium Widget revisit
   * Trump IDE upgrade to match 0.7.0
 
