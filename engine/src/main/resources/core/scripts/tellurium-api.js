@@ -261,7 +261,8 @@ TelluriumApi.prototype.select = function(locator, optionLocator){
     $sel.find("option").removeAttr("selected");
     //construct the select option
     var opt = "option[" + optionLocator + "]";
-    //select the approporiate option
+    !tellurium.logManager.isUseLog || fbLog("For optionLocator " + optionLocator + ", opt " + opt, $sel);
+    //select the appropriate option
     $sel.find(opt).attr("selected","selected");
 };
 
@@ -421,7 +422,6 @@ TelluriumApi.prototype.getListSize = function(locator, separators) {
 
     return list.length;
 };
-
 
 TelluriumApi.prototype.getCacheState = function(){
 
