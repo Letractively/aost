@@ -2172,6 +2172,12 @@ Similarly, to create a TestNG project, use the following command:
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
 }}}
 
+To create a Tellurium UI widget project, we can use Tellurium Widget archetype as follows.
+
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-widget-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
+}}}
+
 = Reference Project =
 
 The old two reference projects, i.e., tellurium-junit-java and tellurium-testng-java reference projects have been updated and merged into one reference project, tellurium-website. The code structure is shown as follows,
