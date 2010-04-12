@@ -6,6 +6,8 @@
 
 Tellurium team is refactoring the trunk code base into multiple sub-projects. One purpose is to separate tellurium core framework from its extensions. Tellurium widget is a good example of tellurium extensions. Tellurium provides you the capability to composite UI objects into a widget object and then you can use the widget directly just like using a tellurium UI object. The advantage is that you do not need to deal with the UI at the link or button level for the widget, you just work on the high level methods. Another advantage is that this widget is reusable. 
 
+== Widget Implementation ==
+
 Usually, Java script frameworks provide a lot of widgets. Take the Dojo framework as an example. We use the widget DatePicker to prototype the tellurium widget. The steps to define and use the widget are listed as follows,
 
 === Extend the widget object and define the DojoWidget object with its name space as "DOJO" ===
@@ -151,3 +153,11 @@ onWidget "dropdown.datePicker", selectPrevYear
 }}}
 
 This prototype is on the tellurium trunk/extensions/dojo-widget project. Please see the project for details and try out by yourself. Your feedback is always welcome.
+
+== Tellurium Widget Archetype ==
+
+To create a Tellurium UI widget project, we can use Tellurium Widget archetype as follows,
+
+{{{
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-widget-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
+}}}
