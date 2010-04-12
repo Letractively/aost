@@ -260,7 +260,7 @@
                 <artifactId>gmaven-plugin</artifactId>
                 <configuration>
                     <providerSelection>1.7</providerSelection>
-                    <targetBytecode>${java-version}</targetBytecode>
+                    <targetBytecode>${dollar}{java-version}</targetBytecode>
                 </configuration>
                 <executions>
                     <execution>
