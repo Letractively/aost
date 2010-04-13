@@ -438,7 +438,7 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
             if (text.startsWith(this.CONTAIN_PREFIX)) {
                 sb.append(this.containText(text.substring(2)));
             } else if (text.startsWith(this.START_PREFIX) || text.startsWith(this.END_PREFIX) || text.startsWith(this.ANY_PREFIX)) {
-                //TODO: need to refact this to use start, end, any partial match
+                //TODO: need to refactor this to use start, end, any partial match
                 sb.append(this.containText(text.substring(1)));
             } else if (text.startsWith(this.NOT_PREFIX)) {
                 sb.append(":not(" + this.containText(text.substring(1)) + ")");
