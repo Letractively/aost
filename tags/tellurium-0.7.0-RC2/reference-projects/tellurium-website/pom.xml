@@ -3,12 +3,12 @@
     <parent>
         <groupId>org.telluriumsource</groupId>
         <artifactId>tellurium-reference-projects</artifactId>
-        <version>0.7.0-SNAPSHOT</version>
+        <version>0.7.0-RC2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.telluriumsource</groupId>
     <artifactId>tellurium-website</artifactId>
-    <version>0.7.0-SNAPSHOT</version>
+    <version>0.7.0-RC2</version>
     <name>Tellurium Reference Project - Tellurium Website</name>
 
     <repositories>
@@ -319,8 +319,8 @@
         <gmaven-version>1.2</gmaven-version>
         <selenium-version>1.0.1</selenium-version>
         <selenium-server-version>1.0.1</selenium-server-version>
-        <tellurium-engine-version>te3-SNAPSHOT</tellurium-engine-version>
-        <tellurium-version>0.7.0-SNAPSHOT</tellurium-version>
+        <tellurium-engine-version>te3-RC2</tellurium-engine-version>
+        <tellurium-version>0.7.0-RC2</tellurium-version>
         <javac-debug>true</javac-debug>
     </properties>
 
