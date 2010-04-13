@@ -757,7 +757,7 @@ Be aware, the above {{{target}}} variable can be a partial matching as follows.
   * {{{*text}}}: contains text.
   * {{{!text}}}: does not contain text.
 
-=== Example ===
+We can use the following example to demonstrate the use of the new Selector APIs.
 
 HTML snippet:
 {{{
