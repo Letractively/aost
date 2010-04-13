@@ -2,6 +2,7 @@
     <dependencySets>
         <dependencySet>
             <excludes>
+                <exclude>tellurium:tellurium-udl</exclude>
                 <exclude>tellurium:tellurium-core</exclude>
                 <exclude>tellurium:tellurium-dojo-widget</exclude>
                 <exclude>tellurium:tellurium-extjs-widget</exclude>
