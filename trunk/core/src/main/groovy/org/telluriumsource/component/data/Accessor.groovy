@@ -29,8 +29,10 @@ class Accessor implements Configurable {
   }
 
   protected void checkElement(WorkflowContext context, String locator) {
+    cbp.flush()
     if (checkElement && (!cbp.isElementPresent(context, locator))) {
       waitForElementPresent(context, locator, ACCESS_WAIT_TIME)
+      cbp.flush()
     }
   }
 
