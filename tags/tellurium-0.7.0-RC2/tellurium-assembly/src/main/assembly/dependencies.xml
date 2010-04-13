@@ -1,0 +1,13 @@
+<component>
+    <dependencySets>
+        <dependencySet>
+            <excludes>
+                <exclude>tellurium:tellurium-core</exclude>
+                <exclude>tellurium:tellurium-dojo-widget</exclude>
+                <exclude>tellurium:tellurium-extjs-widget</exclude>
+                <exclude>tellurium:tellurium-website</exclude>
+            </excludes>
+            <outputDirectory>lib</outputDirectory>
+        </dependencySet>
+    </dependencySets>    
+</component>
