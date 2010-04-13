@@ -4,12 +4,12 @@
 	<!--parent>
 		<groupId>org.telluriumsource</groupId>
 		<artifactId>tellurium-tools</artifactId>
-		<version>0.7.0-SNAPSHOT</version>
+		<version>0.7.0-RC2</version>
 	</parent-->    
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.telluriumsource</groupId>
   <artifactId>tellurium-widget-archetype</artifactId>
-  <version>0.7.0-SNAPSHOT</version>
+  <version>0.7.0-RC2</version>
   <packaging>maven-archetype</packaging>
   <name>tellurium-widget-archetype</name>
   <build>
