@@ -469,7 +469,8 @@ abstract class BaseDslContext extends GlobalDslContext {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
     if(this.exploreUiModuleCache() && Environment.instance.isUseTelluriumApi()){
       walkToWithException(context, uid);
-      return extension.isElementPresent(context, uid);  
+//      return extension.isElementPresent(context, uid);
+      return accessor.isElementPresent(context, uid); 
     }else{
       def obj = walkToWithException(context, uid);
       return obj.isElementPresent() {loc ->

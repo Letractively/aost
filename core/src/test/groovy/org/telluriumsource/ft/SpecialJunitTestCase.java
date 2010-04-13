@@ -63,7 +63,7 @@ public class SpecialJunitTestCase extends TelluriumMockJUnitTestCase {
         sm.selectByLabel("Form.Country", "US");
         String selected = sm.getSelectedLabel("Form.Country");
         assertEquals("US", selected);
-        sm.selectByLabel("Form.Country", "^E");
+        sm.selectByLabel("Form.Country", "$E");
         selected = sm.getSelectedLabel("Form.Country");
         assertEquals("BE", selected);
         sm.selectByValue("Form.Country", "8");
