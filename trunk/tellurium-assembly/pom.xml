@@ -50,6 +50,11 @@
     <dependencies>
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
+			<artifactId>tellurium-udl</artifactId>
+			<version>${pom.version}</version>
+		</dependency>        
+		<dependency>
+			<groupId>${pom.groupId}</groupId>
 			<artifactId>tellurium-core</artifactId>
 			<version>${pom.version}</version>
 		</dependency>
@@ -70,6 +75,17 @@
             <artifactId>tellurium-website</artifactId>
             <version>${pom.version}</version>
         </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>ui-examples</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>tellurium-udl</artifactId>
+            <version>${pom.version}</version>
+            <classifier>sources</classifier>
+        </dependency>        
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>tellurium-core</artifactId>
@@ -96,5 +112,11 @@
             <version>${pom.version}</version>
             <classifier>sources</classifier>
         </dependency>
-	</dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>ui-examples</artifactId>
+            <version>${pom.version}</version>
+            <classifier>sources</classifier>
+        </dependency>
+    </dependencies>
 </project>
