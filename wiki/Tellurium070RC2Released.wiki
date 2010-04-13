@@ -21,17 +21,21 @@ http://maven.kungfuters.org/content/repositories/thirdparty/org/seleniumhq/selen
 
 If you Tellurium Maven archetypes, you can use the following command to create a Tellurium JUnit test project.
 
+{{{
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
 -DarchetypeArtifactId=tellurium-junit-archetype \
 -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-RC2 \
 -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/releases
+}}}
 
 Similarly, use the following Maven command for a Tellurium TestNG project,
 
+{{{
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
 -DarchetypeArtifactId=tellurium-testng-archetype \
 -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-RC2 \
 -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/releases
+}}}
 
 = Release File Directory Structure =
 
@@ -84,3 +88,15 @@ This directory includes Tellurium 0.7.0 RC2 Release source code, dependencies, a
 
 
 The Core is the Tellurium Core project. Engine is Tellurium Engine project. The reference projects include tellurium-website and ui-examples sub-projects. The dependencies include all jars you need to run Tellurium tests. The doc folder holds Tellurium 0.7.0 update and 0.6.0 user guide.
+
+= Feedback =
+
+After 0.7.0 RC2, there will be no major feature update in 0.7.0. Thus, it is a good time for you to try out 0.7.0 RC2 release. Please report any problems back to Tellurium User Group at
+
+http://groups.google.com/group/tellurium-users
+
+and follow [http://twitter.com/TelluriumSource Tellurium on Twitter] for any the latest update.
+
+Thanks,
+
+Tellurium Team 
