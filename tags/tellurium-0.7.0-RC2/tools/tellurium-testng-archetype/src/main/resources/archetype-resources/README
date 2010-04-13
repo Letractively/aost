@@ -17,13 +17,13 @@ To create a new Tellurium JUnit test project, use the maven command
 
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
     -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=org.telluriumsource
-    -DarchetypeVersion=0.7.0-SNAPSHOT
+    -DarchetypeVersion=0.7.0-RC2
 
 And for a new Tellurium TestNG test project, use
 
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
     -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=org.telluriumsource
-    -DarchetypeVersion=0.7.0-SNAPSHOT
+    -DarchetypeVersion=0.7.0-RC2
 
 Before this, you must add Tellurium Maven repository into your_home/.m2/settings.xml
 
