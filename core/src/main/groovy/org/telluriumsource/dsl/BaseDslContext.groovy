@@ -341,6 +341,16 @@ abstract class BaseDslContext extends GlobalDslContext {
     }
   }
 
+  String[] getSelectValues(String uid) {
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    def obj = walkToWithException(context, uid)
+
+    return obj.getSelectValues() {loc ->
+      String locator = locatorMapping(context, loc)
+      accessor.getSelectValues(context, locator)
+    }
+  }
+
   String[] getSelectedLabels(String uid) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
     def obj = walkToWithException(context, uid)
