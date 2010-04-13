@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.telluriumsource.module.SpecialModule;
 import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
@@ -46,6 +48,33 @@ public class SpecialJunitTestCase extends TelluriumMockJUnitTestCase {
     @Test
     public void testCheck(){
         sm.check("US", "123456789");
+    }
+
+    @Test
+    public void testSelect(){
+        String[] countries = sm.getSelectOptions("Form.Country");
+        for(String country: countries){
+            System.out.println("Country: " + country);
+        }
+        String[] values = sm.getSelectValues("Form.Country");
+        for(String value: values){
+            System.out.println("Value: " + value);
+        }
+        sm.selectByLabel("Form.Country", "US");
+        String selected = sm.getSelectedLabel("Form.Country");
+        assertEquals("US", selected);
+        sm.selectByLabel("Form.Country", "^E");
+        selected = sm.getSelectedLabel("Form.Country");
+        assertEquals("BE", selected);
+        sm.selectByValue("Form.Country", "8");
+        selected = sm.getSelectedLabel("Form.Country");
+        assertEquals("VG", selected);
+        sm.selectByIndex("Form.Country", 6);
+        selected = sm.getSelectedLabel("Form.Country");
+        assertEquals("ES", selected);
+        sm.selectById("Form.Country", "uk");
+        selected = sm.getSelectedLabel("Form.Country");
+        assertEquals("UK", selected);
     }
 
     @AfterClass
