@@ -729,6 +729,100 @@ The Div object has been changed to be a Container type object. For example, you 
    }
 }}}
 
+== Selector ==
+
+For the Selector UI object, the following DSL methods have been implemented in the Tellurium new Engine:
+
+  * {{{select(String uid, String target)}}}: Equals to {{{selectByLabel}}}.
+  * {{{selectByLabel(String uid, String target)}}}: Select based on the text attribute.
+  * {{{selectByValue(String uid, String target)}}}: Select based on the value attribute.
+  * {{{selectByIndex(String uid, int target)}}}: Select based on index (starting from 1).
+  * {{{selectById(String uid, String target)}}}: Select based on the ID attribute.
+  * {{{String[] getSelectOptions(String uid)}}}: Get all option texts.
+  * {{{String[] getSelectValues(String uid)}}}: Get all option values.
+  * {{{String[] getSelectedLabels(String uid)}}}: Get selected texts.
+  * {{{String getSelectedLabel(String uid)}}}: Get selected text, for multiple selections, return the first one.
+  * {{{String[] getSelectedValues(String uid)}}}: Get selected values.
+  * {{{String getSelectedValue(String uid)}}}: Get selected value, for multiple selections, return the first one.
+  * {{{addSelectionByLabel(String uid, String target)}}}: Add selection based on text.
+  * {{{addSelectionByValue(String uid, String target)}}}: Add selection based on value.
+  * {{{removeSelectionByLabel(String uid, String target)}}}: Remove selection based on text.
+  * {{{removeSelectionByValue(String uid, String target)}}}: Remove selection based on value.
+  * {{{removeAllSelections(String uid)}}}: Remove all selections.
+
+Be aware, the above {{{target}}} variable can be a partial matching as follows.
+ 
+  * {{{^text}}}: starts with text.
+  * {{{$text}}}: ends with text.
+  * {{{*text}}}: contains text.
+  * {{{!text}}}: does not contain text.
+
+=== Example ===
+
+HTML snippet:
+{{{
+<form method="POST" action="check_phone">
+    <select name="Profile/Customer/Telephone/@CountryAccessCode" style="font-size:92%">
+        <option value="1" selected=selected>US</option>
+        <option value="2" id="uk">UK</option>
+        <option value="3">AT</option>
+        <option value="4">BE</option>
+        <option value="4" id="ca">CA</option>
+        <option value="6">CN</option>
+        <option value="7">ES</option>
+        <option value="8">VG</option>
+    </select>
+    <input type="text" class="medium paxFerryNameInput" value="" name="Profile/Customer/Telephone/@PhoneNumber"
+           maxlength="16" id="phone1" tabindex="26">
+    <input name="submit" type="submit" value="Check">
+</form>
+}}}
+
+UI Module definition:
+
+{{{
+   ui.Form(uid: "Form", clocator: [method: "POST", action: "check_phone"]){
+      Selector(uid: "Country", clocator: [name: "\$CountryAccessCode"])
+      InputBox(uid: "Number", clocator: [name: "\$PhoneNumber"])
+      SubmitButton(uid: "check", clocator: [value: "Check"])
+   }
+}}}
+
+Test Cases:
+
+{{{
+    @Test
+    public void testSelect(){
+        String[] countries = sm.getSelectOptions("Form.Country");
+        for(String country: countries){
+            System.out.println("Country: " + country);
+        }
+        String[] values = sm.getSelectValues("Form.Country");
+        for(String value: values){
+            System.out.println("Value: " + value);
+        }
+        sm.selectByLabel("Form.Country", "US");
+        String selected = sm.getSelectedLabel("Form.Country");
+        assertEquals("US", selected);
+        sm.selectByLabel("Form.Country", "$E");
+        selected = sm.getSelectedLabel("Form.Country");
+        assertEquals("BE", selected);
+        sm.selectByLabel("Form.Country", "^E");
+        selected = sm.getSelectedLabel("Form.Country");
+        assertEquals("ES", selected);
+        sm.selectByValue("Form.Country", "8");
+        selected = sm.getSelectedLabel("Form.Country");
+        assertEquals("VG", selected);
+        sm.selectByIndex("Form.Country", 6);
+        selected = sm.getSelectedLabel("Form.Country");
+        assertEquals("CN", selected);
+        sm.selectById("Form.Country", "uk");
+        selected = sm.getSelectedLabel("Form.Country");
+        assertEquals("UK", selected);
+    }
+}}}
+
+
 == toggle ==
 
 Tellurium 0.7.0 provides a toggle method to animate the UI element on the web page. For example, you can the following commands to show the UI element under testing.
