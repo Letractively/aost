@@ -7,6 +7,7 @@
                 <exclude>tellurium:tellurium-dojo-widget</exclude>
                 <exclude>tellurium:tellurium-extjs-widget</exclude>
                 <exclude>tellurium:tellurium-website</exclude>
+                <exclude>tellurium:ui-examples</exclude>
             </excludes>
             <outputDirectory>lib</outputDirectory>
         </dependencySet>
