@@ -315,6 +315,9 @@ TelluriumApi.prototype.select = function(locator, optionLocator){
     !tellurium.logManager.isUseLog || fbLog("For optionLocator " + optionLocator + ", opt " + opt, $sel);
     //select the appropriate option
     $sel.find(opt).attr("selected","selected");
+//    $sel.find(opt).each(function() {
+//        teJQuery(this).attr("selected","selected");
+//    });
     if (teJQuery.browser.msie) {
         element.fireEvent("onchange");
     } else {
@@ -349,6 +352,47 @@ TelluriumApi.prototype.removeAllSelections = function(locator){
     var $sel = teJQuery(element);
     //first, remove all selected element
     $sel.find("option").removeAttr("selected");
+};
+
+TelluriumApi.prototype.findSelectedOptionProperties = function(locator, property) {
+   var element = this.cacheAwareLocate(locator);
+   if (!("options" in element)) {
+        throw new SeleniumError("Specified element is not a Select (has no options)");
+    }
+
+    var $selected = teJQuery(element).find("option:selected");
+    var selectedOptions = [];
+    $selected.each(function() {
+        selectedOptions.push(this[property]);
+    });
+
+    return selectedOptions;
+};
+
+TelluriumApi.prototype.getSelectedLabel = function(selectLocator){
+    var options = this.findSelectedOptionProperties(selectLocator, "text");
+    if(options.length > 1){
+        fbWarn("Multiple Selected options ", options);
+    }
+
+    return options[0];
+};
+
+TelluriumApi.prototype.getSelectedLabels = function(selectLocator){
+   return this.findSelectedOptionProperties(selectLocator, "text");
+};
+
+TelluriumApi.prototype.getSelectedValue = function(selectLocator){
+    var options = this.findSelectedOptionProperties(selectLocator, "value");
+    if(options.length > 1){
+        fbWarn("Multiple Selected options ", options);
+    }
+
+    return options[0];
+};
+
+TelluriumApi.prototype.getSelectedValues = function(selectLocator){
+   return this.findSelectedOptionProperties(selectLocator, "value");
 };
 
 TelluriumApi.prototype.open = function(url){

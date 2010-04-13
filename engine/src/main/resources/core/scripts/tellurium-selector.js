@@ -562,7 +562,8 @@ JQueryBuilder.prototype.buildText = function(text){
         } else if(text.startsWith(this.END_PREFIX)){
             return "[text$=" + text.substring(1) + "]";
         } else if(text.startsWith(this.ANY_PREFIX)) {
-            return "[text*=" + text.substring(1) + "]";
+//            return "[text*=" + text.substring(1) + "]";
+            return this.containText(text.substring(1));
         } else if (text.startsWith(this.NOT_PREFIX)) {
             return ":not(" + this.containText(text.substring(1)) + ")";
         } else {
