@@ -360,7 +360,7 @@ Tellurium.prototype.registerUiBuilder = function(name, builder){
 Tellurium.prototype.registerTeApis = function(){
     this.registerApi("isElementPresent", true, "BOOLEAN");
     this.registerApi("blur", true, "VOID");
-    this.registerApi("click", true, "VOID");
+//    this.registerApi("click", true, "VOID");
     this.registerApi("doubleClick", true, "VOID");
     this.registerApi("fireEvent", true, "VOID");
     this.registerApi("focus", true, "VOID");
