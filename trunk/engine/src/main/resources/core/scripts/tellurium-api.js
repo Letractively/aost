@@ -50,9 +50,20 @@ TelluriumApi.prototype.blur = function(locator) {
 TelluriumApi.prototype.click = function(locator) {
     var element = this.cacheAwareLocate(locator);
     !tellurium.logManager.isUseLog || fbLog("clicking on element ", element);
-//    selenium.clickElementForTe(element);
-    
-    var $elem = teJQuery(element);
+
+    if (element.href || element.url) {
+        if (teJQuery.browser.msie) {
+            element.fireEvent("onclick");
+        } else {
+            var evObj = document.createEvent('HTMLEvents');
+            evObj.initEvent('click', true, true);
+            element.dispatchEvent(evObj);
+        }
+    } else {
+        teJQuery(element).click();
+    }
+
+    /*    var $elem = teJQuery(element);
     if(element.href){
         $elem.click(function() {
             selenium.browserbot.currentWindow.location = teJQuery(this).attr('href');
@@ -64,9 +75,7 @@ TelluriumApi.prototype.click = function(locator) {
     }
 
     $elem.click();
-
-//    teJQuery(element).click();
-//    teJQuery(element).trigger('click')
+    */
 };
 
 TelluriumApi.prototype.clickAt = function(locator, coordString) {
