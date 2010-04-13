@@ -340,7 +340,7 @@ TelluriumApi.prototype.removeSelection = function(locator, optionLocator){
     //construct the select option
 //    var opt = "option[" + optionLocator + "]";
     var opt = this.getOptionSelector(optionLocator);
-    //select the approporiate option
+    //select the appropriate option
     $sel.find(opt).removeAttr("selected");
 };
 
