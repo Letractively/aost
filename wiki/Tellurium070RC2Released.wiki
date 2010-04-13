@@ -87,7 +87,7 @@ This directory includes Tellurium 0.7.0 RC2 Release source code, dependencies, a
 }}}
 
 
-The Core is the Tellurium Core project. Engine is Tellurium Engine project. The reference projects include tellurium-website and ui-examples sub-projects. The dependencies include all jars you need to run Tellurium tests. The doc folder holds Tellurium 0.7.0 update and 0.6.0 user guide.
+The udl is the UDL parser project. The Core is the Tellurium Core project. Engine is Tellurium Engine project. The reference projects include tellurium-website and ui-examples sub-projects, where are a good starting point for you to learn Tellurium and experience the cool features in 0.7.0. The dependencies directory includes all jars you need to run Tellurium tests and a sample Tellurium Configuration file. The doc folder holds Tellurium 0.7.0 update and 0.6.0 user guide.
 
 = Feedback =
 
