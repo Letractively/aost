@@ -393,6 +393,10 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("addSelection", true, "VOID");
     this.registerApi("removeSelection", true, "VOID");
     this.registerApi("removeAllSelections", true, "VOID");
+    this.registerApi("getSelectedLabel", true, "STRING");
+    this.registerApi("getSelectedLabels", true, "ARRAY");
+    this.registerApi("getSelectedValue", true, "STRING");
+    this.registerApi("getSelectedValues", true, "ARRAY");    
     this.registerApi("open", false, "VOID");
     this.registerApi("getText", true, "STRING");
     this.registerApi("isChecked", true, "BOOLEAN");
