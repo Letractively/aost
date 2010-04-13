@@ -9,7 +9,7 @@ Two months after the release of [http://docs.codehaus.org/display/GROOVY/2010/02
 
 In addition to the features already in 0.7.0 RC1 such as [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the Santa Group Locating Algorithm], [http://code.google.com/p/aost/wiki/Tellurium070Update#Macro_Command Macro Command], [http://code.google.com/p/aost/wiki/Tellurium070Update#UI_Module_Caching UI Module Caching], and [http://code.google.com/p/aost/wiki/InternationalizationSupportTellurium I18n support], 0.7.0 RC2 added [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage the Tellurium UID Description Language] (UDL) to address the dynamic factors in Tellurium UI templates and increase the flexibility of Tellurium UI templates. 
 
-There are over 50 issues and tasks are closed for 0.7.0 RC2 with many bug fixes and feature enhancements. For more detailed feature list, please read [http://code.google.com/p/aost/wiki/Tellurium070Update What's New in Tellurium 0.7.0].
+Over 50 issues and tasks are closed for 0.7.0 RC2 with many bug fixes and feature enhancements. For more detailed feature list, please read [http://code.google.com/p/aost/wiki/Tellurium070Update What's New in Tellurium 0.7.0].
 
 = How to Obtain Tellurium 0.7.0 RC2 =
 
