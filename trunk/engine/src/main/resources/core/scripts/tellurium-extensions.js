@@ -468,3 +468,21 @@ Selenium.prototype.getIndex = function(locator){
     var elem = this.browserbot.findElement(locator);
     return teJQuery(elem).index();
 };
+
+Selenium.prototype.getSelectValues = function(selectLocator) {
+    /** Gets all option labels in the specified select drop-down.
+   *
+   * @param selectLocator an <a href="#locators">element locator</a> identifying a drop-down menu
+   * @return string[] an array of all option labels in the specified select drop-down
+   */
+    var element = this.browserbot.findElement(selectLocator);
+
+    var selectValues = [];
+
+    for (var i = 0; i < element.options.length; i++) {
+        var option = element.options[i].value;
+        selectValues.push(option);
+    }
+
+    return selectValues;
+};

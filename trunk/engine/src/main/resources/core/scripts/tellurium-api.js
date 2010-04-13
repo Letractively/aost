@@ -293,14 +293,14 @@ TelluriumApi.prototype.getSelectOptions = function(selectLocator) {
 TelluriumApi.prototype.getSelectValues = function(selectLocator) {
     var element = this.cacheAwareLocate(selectLocator);
 
-    var selectOptions = [];
+    var selectValues = [];
 
     for (var i = 0; i < element.options.length; i++) {
         var option = element.options[i].value;
-        selectOptions.push(option);
+        selectValues.push(option);
     }
 
-    return selectOptions;
+    return selectValues;
 };
 
 TelluriumApi.prototype.select = function(locator, optionLocator){
