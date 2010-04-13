@@ -557,9 +557,12 @@ JQueryBuilder.prototype.buildText = function(text){
     if (text != null && trimString(text).length > 0) {
         if (text.startsWith(this.CONTAIN_PREFIX)) {
             return this.containText(text.substring(2));
-        } else if (text.startsWith(this.START_PREFIX) || text.startsWith(this.END_PREFIX) || text.startsWith(this.ANY_PREFIX)) {
-            //TODO: need to refact this to use start, end, any partial match
-            return this.containText(text.substring(1));
+        } else if (text.startsWith(this.START_PREFIX)){
+            return "[text^=" + text.substring(1) + "]";
+        } else if(text.startsWith(this.END_PREFIX)){
+            return "[text$=" + text.substring(1) + "]";
+        } else if(text.startsWith(this.ANY_PREFIX)) {
+            return "[text*=" + text.substring(1) + "]";
         } else if (text.startsWith(this.NOT_PREFIX)) {
             return ":not(" + this.containText(text.substring(1)) + ")";
         } else {
