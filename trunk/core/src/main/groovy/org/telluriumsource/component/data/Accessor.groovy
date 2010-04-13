@@ -133,6 +133,12 @@ class Accessor implements Configurable {
     return cbp.getSelectOptions(context, locator)
   }
 
+  def String[] getSelectValues(WorkflowContext context, String locator) {
+    checkElement(context, locator)
+
+    return cbp.getSelectValues(context, locator)
+  }
+
   String[] getSelectedLabels(WorkflowContext context, String locator) {
     checkElement(context, locator)
 
