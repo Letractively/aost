@@ -387,6 +387,8 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("uncheck", true, "VOID");
     this.registerApi("waitForPageToLoad", false, "VOID");
     this.registerApi("getAttribute", true, "STRING");
+    this.registerApi("getSelectOptions", true, "ARRAY");
+    this.registerApi("getSelectValues", true, "ARRAY");
     this.registerApi("select", true, "VOID");
     this.registerApi("addSelection", true, "VOID");
     this.registerApi("removeSelection", true, "VOID");

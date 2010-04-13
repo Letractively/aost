@@ -31,6 +31,7 @@ function TelluriumApi(cache){
     this.shift = false;
     this.alt = false;
     this.meta = false
+    this.cssBuilder = new JQueryBuilder();
 }
 
 TelluriumApi.prototype.cacheAwareLocate = function(locator){
@@ -254,23 +255,81 @@ TelluriumApi.prototype.type = function(locator, val){
     teJQuery(element).val(val);
 };
 
+TelluriumApi.prototype.getOptionSelector = function(optionLocator){
+    var split = optionLocator.split("=");
+    var sel = "";
+    split[0] = split[0].trim();
+    split[1] = split[1].trim();
+    if(split[0] == "label" || split[0] == "text"){
+        sel = this.cssBuilder.buildText(split[1]);
+    }else if(split[0] == "value"){
+        sel = this.cssBuilder.buildAttribute(split[0], split[1]);
+    }else if(split[0] == "index"){
+        var inx = parseInt(split[1]) - 1;
+        sel = ":eq(" + inx + ")"
+    }else if(split[0] == "id"){
+        sel = this.cssBuilder.buildId(split[1]);
+    }else{
+        fbError("Invalid Selector optionLocator " + optionLocator, split);
+        throw new SeleniumError("Invalid Selector optionLocator " + optionLocator);
+    }
+
+    return sel;
+};
+
+TelluriumApi.prototype.getSelectOptions = function(selectLocator) {
+    var element = this.cacheAwareLocate(selectLocator);
+
+    var selectOptions = [];
+
+    for (var i = 0; i < element.options.length; i++) {
+        var option = element.options[i].text;
+        selectOptions.push(option);
+    }
+
+    return selectOptions;
+};
+
+TelluriumApi.prototype.getSelectValues = function(selectLocator) {
+    var element = this.cacheAwareLocate(selectLocator);
+
+    var selectOptions = [];
+
+    for (var i = 0; i < element.options.length; i++) {
+        var option = element.options[i].value;
+        selectOptions.push(option);
+    }
+
+    return selectOptions;
+};
+
 TelluriumApi.prototype.select = function(locator, optionLocator){
     var element = this.cacheAwareLocate(locator);
     var $sel = teJQuery(element);
     //first, remove all selected element
     $sel.find("option").removeAttr("selected");
     //construct the select option
-    var opt = "option[" + optionLocator + "]";
+
+//    var opt = "option[" + optionLocator + "]";
+     var opt = "option" + this.getOptionSelector(optionLocator);
     !tellurium.logManager.isUseLog || fbLog("For optionLocator " + optionLocator + ", opt " + opt, $sel);
     //select the appropriate option
     $sel.find(opt).attr("selected","selected");
+    if (teJQuery.browser.msie) {
+        element.fireEvent("onchange");
+    } else {
+        var evObj = document.createEvent('HTMLEvents');
+        evObj.initEvent('change', true, true);
+        element.dispatchEvent(evObj);
+    }
 };
 
 TelluriumApi.prototype.addSelection = function(locator, optionLocator){
     var element = this.cacheAwareLocate(locator);
     var $sel = teJQuery(element);
     //construct the select option
-    var opt = "option[" + optionLocator + "]";
+//    var opt = "option[" + optionLocator + "]";
+    var opt = this.getOptionSelector(optionLocator);
     //select the appropriate option
     $sel.find(opt).attr("selected","selected");
 };
@@ -279,7 +338,8 @@ TelluriumApi.prototype.removeSelection = function(locator, optionLocator){
     var element = this.cacheAwareLocate(locator);
     var $sel = teJQuery(element);
     //construct the select option
-    var opt = "option[" + optionLocator + "]";
+//    var opt = "option[" + optionLocator + "]";
+    var opt = this.getOptionSelector(optionLocator);
     //select the approporiate option
     $sel.find(opt).removeAttr("selected");
 };
