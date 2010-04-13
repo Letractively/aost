@@ -27,6 +27,15 @@ class Selector extends UiObject {
         c(locator, "value=${value}", respondToEvents)
     }
 
+    def selectByIndex(int target, Closure c){
+        c(locator, "index=${target}", respondToEvents)
+    }
+
+    def selectById(String value, Closure c){
+
+        c(locator, "id=${value}", respondToEvents)
+    }
+
     def addSelectionByLabel(String target, Closure c){
          c(locator, "label=${target}")
     }
@@ -48,6 +57,10 @@ class Selector extends UiObject {
     }
 
     String[] getSelectOptions(Closure c){
+        c(locator)
+    }
+
+    String[] getSelectValues(Closure c){
         c(locator)
     }
 

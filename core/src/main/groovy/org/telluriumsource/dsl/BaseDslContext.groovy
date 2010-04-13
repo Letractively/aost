@@ -291,6 +291,22 @@ abstract class BaseDslContext extends GlobalDslContext {
     }
   }
 
+  def selectByIndex(String uid, int target) {
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    walkToWithException(context, uid)?.selectByIndex(target) {loc, optloc, String[] events ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.select(context, locator, optloc, events)
+    }
+  }
+
+  def selectById(String uid, String target) {
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    walkToWithException(context, uid)?.selectById(target) {loc, optloc, String[] events ->
+      String locator = locatorMapping(context, loc)
+      eventHandler.select(context, locator, optloc, events)
+    }
+  }
+
   def addSelectionByLabel(String uid, String target) {
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
     walkToWithException(context, uid)?.addSelectionByLabel(target) {loc, optloc ->
