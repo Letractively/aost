@@ -16,14 +16,15 @@ Tellurium began as a small core project and quickly generated multiple sub-proje
 
 *Figure 3-1 Tellurium Subprojects*
 
-http://tellurium-users.googlegroups.com/web/TelluriumSubprojects.png?gda=KOo7BEoAAAD5mhXrH3CK0rVx4StVj0LYlNqOmuvSTE_gHzistV7TYU3GrA4woUylGAUAJF3_rdDbYV_6pXuFBwitfyYTkV3q_e3Wg0GnqfdKOwDqUih1tA&gsc=JDDH5gsAAACcJEKey8RXDXypkrHyWRpX
+http://tellurium-users.googlegroups.com/web/NewTelluriumSubProjects.png?gda=o-ZCE00AAAA7fMi2EBxrNTLhqoq3FzPr5YJ3INtuBNJW9vEluZUY6gWcRD5mEYHWd5K6yh20QaANn3YpWhqxIh1wjgDZawPl5Tb_vjspK02CR95VRrtmeQ&gsc=T5RWbwsAAAAqnE8-k4IrUFInYdtt3cMF
 
-  * Tellurium JUnit and TestNG Reference Projects: Use the Tellurium project site for examples illustrating how to use different features in Tellurium and how to create Tellurium test cases.
+  * Tellurium Reference Projects: Use the Tellurium project site for examples illustrating how to use different features in Tellurium and how to create Tellurium test cases.
   * Tellurium Maven Archetypes: Maven archetypes to generate skeleton Tellurium JUnit and Tellurium TestNG projects using one Maven command.
-  * Tellurium UI Module Plugin (TrUMP): A Firefox plugin to automatically generate the UI module after users select the UI elements from the web under testing.
+  * Tellurium UI Module Plugin (Trump): A Firefox plugin to automatically generate the UI module after users select the UI elements from the web under testing.
   * Tellurium Extensions: Dojo Javascript widgets and ExtJS Javascript widgets.
   * Tellurium Core: UI module, APIs, DSL, Object to Runtime Locator mapping, and test support.
   * Tellurium Engine: Based on Selenium Core with UI module, jQuery selectors, command bundle, and exception hierarchy support.
+  * Tellurium UDL: Tellurium UID Description Language (UDL) Parser.
 
 == Tellurium Reference Projects ==
 
