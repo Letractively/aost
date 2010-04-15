@@ -8,12 +8,14 @@ Tellurium 0.7.0 RC1 release is on the way. Over 150 issues have been closed. The
 
 The architecture of Tellurium 0.7.0 has been changed and the system diagram is shown as follows,
 
-http://tellurium-developers.googlegroups.com/web/telluriumengine.gif?gda=PI9dhkUAAABfqXGjliAPh6eFpGfZMLEM3czrmB-8Q8hosgAcjunb3RjQ1TnBn_Bw7f_85usIiO0cn8WIbWh5zqeDKtDBmq67Gu1iLHeqhw4ZZRj3RjJ_-A
+http://tellurium-users.googlegroups.com/web/telluriumnewarchitecture070.png?gda=A9o6hlEAAAA7fMi2EBxrNTLhqoq3FzPrHtAOAsxxNa15yodhsuIGtSj9p0mTDab5g6bwssabHmxXgg0UR0O9X9-Irzu_uB8AUwk_6Qi3BU8HCN0q6OYwM5VxXgp_nHWJXhfr7YhqVgA
 
 The main changes include
   * The bundle tier to support Macro Command
   * New Tellurium API in Engine
+  * Santa group locating algorithm
   * UI Module based Caching
+  * Tellurium UID description language (UDL)
   * Runtime Environment
 
 The details are covered in the subsequent sections.
