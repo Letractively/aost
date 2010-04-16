@@ -15,7 +15,6 @@ import org.telluriumsource.test.report.ResultListener
 import org.telluriumsource.test.report.StepStatus
 import org.telluriumsource.test.report.AssertionResult
 import junit.framework.AssertionFailedError
-import org.telluriumsource.test.ddt.TestRegistry
 
 /**
  *
@@ -219,6 +218,8 @@ abstract class DdDslContext extends DslContext{
         assertResult.setProperty("passed", passed)
         result.addAssertationResult(assertResult)
         listenForResult(result)
+
+        return passed
     }
 
     //add assertions here so that user can add custom compare result code in the closure
