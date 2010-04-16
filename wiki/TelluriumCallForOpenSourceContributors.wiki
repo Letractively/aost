@@ -37,7 +37,7 @@ We define the UI module as follows.
 
 == Advantages ==
 
-There are couple advantages to describe the UI elements as a UI module.
+If we think Selenium as the "C" language, Tellurium is like the "C++" language, which uses a different testing concept. There are couple advantages to describe the UI elements as a UI module.
 
 === Expressive ===
 
