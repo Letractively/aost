@@ -7,7 +7,32 @@
 
 == Why Tellurium is Novel ==
 
+For most existing web testing frameworks like Selenium, they mainly focus on individual UI elements as follows.
 
+http://tellurium-users.googlegroups.com/web/tellurium3.png?gda=qQDUfkAAAAA7fMi2EBxrNTLhqoq3FzPrF8K8RGYmf_XbIOeVYiYYx0i5CODg-kyjcKh65ubVQ_xtxVPdW1gYotyj7-X7wDON
+
+For example:
+
+{{{
+   selenium.click("//div[3]/input[@value='Create']");
+}}}
+
+For Tellurium, we treated the whole UI elements as a widget and we call it a UI module.
+
+http://tellurium-users.googlegroups.com/web/tellurium4.png?gda=_wJL8UAAAAA7fMi2EBxrNTLhqoq3FzPrF8K8RGYmf_XbIOeVYiYYxzl0DZWo_xwjp4raCAkSDqVtxVPdW1gYotyj7-X7wDON
+
+We define the UI module as follows.
+
+{{{
+    ui.Form(uid: "Form", clocator: [tag: "form"]){
+        Div(uid: "Username", clocator: [:]){
+            Selector(uid: "Sex", clocator: [:])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
+        }
+        Container(uid: "Finish", clocator: [tag: "tr"]){
+            SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login", name: "submit"])
+        }
+    }
+}}}
 
 = Details =
-
