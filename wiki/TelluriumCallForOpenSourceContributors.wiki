@@ -1,0 +1,13 @@
+#summary Tellurium Calls for Open Source Contributors.
+#labels Phase-Implementation,Phase-Support
+
+= What is Tellurium =
+
+[http://code.google.com/p/aost/ The Tellurium Automated Testing Framework] (Tellurium) is an automated testing framework for web applications. Tellurium grew up from [http://seleniumhq.org/ the Selenium framework], but with a different testing concept. Starting from Tellurium 0.7.0, Tellurium added Tellurium Engine to replace the Selenium Core to better support Tellurium. 
+
+== Why Tellurium is Novel ==
+
+
+
+= Details =
+
