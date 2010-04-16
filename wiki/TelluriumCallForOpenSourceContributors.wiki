@@ -9,7 +9,7 @@
 
 For most existing web testing frameworks like Selenium, they mainly focus on individual UI elements as follows.
 
-http://tellurium-users.googlegroups.com/web/tellurium3.png?gda=qQDUfkAAAAA7fMi2EBxrNTLhqoq3FzPrF8K8RGYmf_XbIOeVYiYYx0i5CODg-kyjcKh65ubVQ_xtxVPdW1gYotyj7-X7wDON
+http://tellurium-users.googlegroups.com/web/tellurium3.png?gda=aZZ_w0AAAAA7fMi2EBxrNTLhqoq3FzPrzblq5HA-QkbWcQ1F-Scqtki5CODg-kyjcKh65ubVQ_xtxVPdW1gYotyj7-X7wDON&gsc=jkTIIgsAAACI9y1tsPXdLT5_3omT2FAm
 
 For example:
 
@@ -19,13 +19,13 @@ For example:
 
 For Tellurium, we treated the whole UI elements as a widget and we call it a UI module.
 
-http://tellurium-users.googlegroups.com/web/tellurium4.png?gda=_wJL8UAAAAA7fMi2EBxrNTLhqoq3FzPrF8K8RGYmf_XbIOeVYiYYxzl0DZWo_xwjp4raCAkSDqVtxVPdW1gYotyj7-X7wDON
+http://tellurium-users.googlegroups.com/web/tellurium4.png?gda=Fw6DGUAAAAA7fMi2EBxrNTLhqoq3FzPrzblq5HA-QkbWcQ1F-Scqtjl0DZWo_xwjp4raCAkSDqVtxVPdW1gYotyj7-X7wDON&gsc=jkTIIgsAAACI9y1tsPXdLT5_3omT2FAm
 
 We define the UI module as follows.
 
 {{{
     ui.Form(uid: "Form", clocator: [tag: "form"]){
-        Div(uid: "Username", clocator: [:]){
+        Div(uid: "User", clocator: [:]){
             Selector(uid: "Sex", clocator: [:])
             InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
         }
@@ -34,5 +34,16 @@ We define the UI module as follows.
         }
     }
 }}}
+
+Then, we can have DSL style test code such as
+
+{{{
+   type "Form.User.Input", "John Fang"
+}}}
+
+There are couple advantages to describe the UI elements as a UI module.
+  * _Expressive_: You can see clearly what the UI you are testing against.
+  * _Robust_: Tellurium uses UI attributes to describe UI. If we chage the
+
 
 = Details =
