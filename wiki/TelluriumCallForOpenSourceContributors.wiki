@@ -1,5 +1,5 @@
 #summary Tellurium Calls for Open Source Contributors.
-#labels Phase-Implementation,Phase-Support
+#labels Phase-Implementation,Phase-Support,Featured
 <wiki:toc max_depth="5" />
 
 = What is Tellurium =
