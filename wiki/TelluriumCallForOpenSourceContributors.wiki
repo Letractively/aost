@@ -151,8 +151,31 @@ There are couple very interesting future directions:
   * Add Behavior Driven Testing support
   * Add testing flow support. Many unit testing and functional testing frameworks do not really have the testing flow/stage concept. 
   * IDE and other plugins.
+  * Improve code quality.
+
+== How can You Help US ==
 
 
+Tellurium is still young and he needs your love, tender, and care. We welcome contributions in many different ways, for example,
 
+  # Try out Tellurium
+  # Use Tellurium in your project and report bugs
+  # Ask questions and answer other users' questions
+  # Promote Tellurium and post your experience on Tellurium
+  # Fix bugs for Tellurium
+  # Improve Tellurium documents
+  # Bring in new ideas and suggestions
+
+As an open source contributor, you can contribute to Tellurium in two ways. First, you can fork [http://github.com/telluriumsource/tellurium Tellurium repository on GitHub] and contribute back your bug fixes and new features. Please also join [http://groups.google.com/group/tellurium-developers Tellurium developer group] to discussion about any code changes to Tellurium.
+
+Alternatively, you can join Tellurium team and work as a core committer. To be a core committer, you must be active and have time to contribute to Tellurium on a regular basis. If you are interested, please contact Tellurium team (telluriumsource@gmail.com).
+
+= Resources =
+
+  * [http://code.google.com/p/aost/ Tellurium Project Home]
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group]
+  * [http://groups.google.com/group/tellurium-developers Tellurium Developer Group]
+  * [http://twitter.com/TelluriumSource Tellurium on Twitter]
+  * [http://telluriumsource.org TelluriumSource]
 
  
