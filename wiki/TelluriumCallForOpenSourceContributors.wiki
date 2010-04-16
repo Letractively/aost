@@ -139,6 +139,20 @@ Due to limited available resources in our Tellurium team, we need more people to
 
 First, Tellurium tackles the right problem for web automated testing, i.e., improve test robust and expressive and make tests easy to write and maintenance. Many users will be benefited by capabilities the framework provides.
 
-Second, Tellurium uses a set of very hot techniques such as [http://code.google.com/p/aost/wiki/GroovyPatternsInTellurium Groovy for DSL], [http://code.google.com/p/aost/wiki/CustomJQuerySelectorInTellurium jQuery for Engine], [http://code.google.com/p/aost/wiki/BuildYourOwnJavaParserWithAntlr3 Antlr 3 for UDL parser], and Maven for build.
+Second, Tellurium uses a set of very hot techniques such as [http://code.google.com/p/aost/wiki/GroovyPatternsInTellurium Groovy for DSL], [http://code.google.com/p/aost/wiki/CustomJQuerySelectorInTellurium jQuery for Engine], [http://code.google.com/p/aost/wiki/BuildYourOwnJavaParserWithAntlr3 Antlr 3 for UDL parser], and [http://code.google.com/p/aost/wiki/MavenHowTo Maven for build].
+
+There are couple very interesting future directions:
+
+  * Use jQuery to re-implement Selenium APIs. 0.7.0 has implemented a set of Selenium APIs, but there are still a lot of remaining work.
+  * Algorithm design, for example, automatically build UI module from HTML source. Reverse engineering to build UI templates from HTML source is very challenging.
+  * Tellurium Widgets, create reusable Dojo, ExtJS widgets so that other people can reuse the widgets simply by including the jar files to their projects.
+  * Tellurium UID Description Language improvement.
+  * Improve Trump Firefox Plugin, for example, generate test script as well as UI modules so that Tellurium is not only good for developers, but also QA people.
+  * Add Behavior Driven Testing support
+  * Add testing flow support. Many unit testing and functional testing frameworks do not really have the testing flow/stage concept. 
+  * IDE and other plugins.
+
+
+
 
  
