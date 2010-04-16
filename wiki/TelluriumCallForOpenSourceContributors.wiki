@@ -131,3 +131,14 @@ http://tellurium-users.googlegroups.com/web/TelluriumRunningMode2.png?gda=kwN3wE
 
 The Tellurium Core will convert the UI module into a JSON representation and pass it to Tellurium Engine for the first time when the UI module is used. The Tellurium Engine uses the Santa algorithm to locate the whole UI module and put it into a cache. For the sequent calls, the cached UI module will be used instead of locating them again. Another new features in Tellurium 0.7.0 is the [http://code.google.com/p/aost/wiki/Tellurium070Update#Macro_Command Macro Command], which combine multiple commands into one batch and then send them to Tellurium engine in one call to reduce the round trip latency. For more new features in 0.7.0, please read [http://code.google.com/p/aost/wiki/Tellurium070Update What's New in Tellurium 0.7.0].
 
+= Call for Participation =
+
+Due to limited available resources in our Tellurium team, we need more people to join Tellurium community and more open source contributors to contribute to Tellurium to make it solid and a popular framework.
+
+== Why Tellurium is Worthy for Your Contributions ==
+
+First, Tellurium tackles the right problem for web automated testing, i.e., improve test robust and expressive and make tests easy to write and maintenance. Many users will be benefited by capabilities the framework provides.
+
+Second, Tellurium uses a set of very hot techniques such as [http://code.google.com/p/aost/wiki/GroovyPatternsInTellurium Groovy for DSL], [http://code.google.com/p/aost/wiki/CustomJQuerySelectorInTellurium jQuery for Engine], [http://code.google.com/p/aost/wiki/BuildYourOwnJavaParserWithAntlr3 Antlr 3 for UDL parser], and Maven for build.
+
+ 
