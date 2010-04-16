@@ -1,5 +1,6 @@
 #summary Tellurium Calls for Open Source Contributors.
 #labels Phase-Implementation,Phase-Support
+<wiki:toc max_depth="5" />
 
 = What is Tellurium =
 
@@ -80,4 +81,19 @@ The [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UI_Templates
 
 Tellurium emphasizes the decoupling of UI from test code. The structured test code makes Tellurium easier to maintain and refactor.
 
+= Tellurium Project =
+
+We like to introduce the current status of the Tellurium project.
+
+== History ==
+
+Tellurium was started in June 2007 as an internal project and became [http://code.google.com/p/aost an open source project on Google Code] in June 2008. We release on a regular basis and the latest release 0.7.0 will be out next month.
+
+http://tellurium-users.googlegroups.com/web/telluriumhistory.png?gda=GD0dGUYAAAA7fMi2EBxrNTLhqoq3FzPraJRXcLj8Noz0FE1yhGyZ4COuya-lMN3FcE5U0RlBOxV3riz0RlMs_1ov_iNdB7P8E-Ea7GxYMt0t6nY0uV5FIQ&gsc=jkTIIgsAAACI9y1tsPXdLT5_3omT2FAm
   
+== Team and Community ==
+
+[http://code.google.com/p/aost/wiki/ContributorList Tellurium Team] consists of 4-5 active team members and couple more contributors. We have [http://groups.google.com/group/tellurium-users Tellurium user group] and [http://groups.google.com/group/tellurium-developers Tellurium developer group]. Latest update information are available on [ http://twitter.com/TelluriumSource twitter]. Tellurium also provides a community repository on [http://github.com/telluriumsource/tellurium GitHub] so that anyone can fork Tellurium and contribute back to us. Tellurium wiki documents will be migrated to [http://telluriumsource.org/display/TE/Home TelluriumSource.org], a domain owned by us.
+
+
+
