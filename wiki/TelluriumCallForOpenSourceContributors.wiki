@@ -141,6 +141,10 @@ First, Tellurium tackles the right problem for web automated testing, i.e., impr
 
 Second, Tellurium uses a set of very hot techniques such as [http://code.google.com/p/aost/wiki/GroovyPatternsInTellurium Groovy for DSL], [http://code.google.com/p/aost/wiki/CustomJQuerySelectorInTellurium jQuery for Engine], [http://code.google.com/p/aost/wiki/BuildYourOwnJavaParserWithAntlr3 Antlr 3 for UDL parser], and [http://code.google.com/p/aost/wiki/MavenHowTo Maven for build].
 
+Third, Tellurium provides many interesting future directions as discussed in the next subsection.
+
+== Tellurium Future Directions ==
+
 There are couple very interesting future directions:
 
   * Use jQuery to re-implement Selenium APIs. 0.7.0 has implemented a set of Selenium APIs, but there are still a lot of remaining work.
@@ -150,6 +154,8 @@ There are couple very interesting future directions:
   * Improve Trump Firefox Plugin, for example, generate test script as well as UI modules so that Tellurium is not only good for developers, but also QA people.
   * Add Behavior Driven Testing support
   * Add testing flow support. Many unit testing and functional testing frameworks do not really have the testing flow/stage concept. 
+  * Tellurium as a cloud testing tool.
+  * Tellurium as a web security testing tool.
   * IDE and other plugins.
   * Improve code quality.
 
