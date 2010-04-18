@@ -24,6 +24,8 @@ Tellurium Contributors are categorized into development team, support team, evan
   
   * *Harihara Vinayakaram*:
 
+  * *Rajan Pokhrel*: 
+
 === Build and Release ===
 
   * *Matt Senter*: Came up with the name "Tellurium", Tellurium Maven support, Tellurium build and release, and Tellurium Maven repository and Hudson maintenance. Donated Tellurium Maven Nexus server and Tellurium Hudson server.
