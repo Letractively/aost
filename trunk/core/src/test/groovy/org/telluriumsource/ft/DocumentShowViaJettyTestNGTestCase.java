@@ -41,7 +41,7 @@ public class DocumentShowViaJettyTestNGTestCase extends TelluriumTestNGTestCase 
 
    @Test
    public void testGetCellTextForDetailGroup(){
-       dsm.getCellTextForDetailGroup(1);
+       dsm.getCellTextForDetailGroup(1);  
        dsm.getCellTextForDetailGroup(2);
    }
 
