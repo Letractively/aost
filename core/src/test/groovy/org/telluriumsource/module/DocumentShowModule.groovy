@@ -22,7 +22,10 @@ defined in HTML_BODY.
     */
    def getCellTextForDetailGroup(int num) {
        def tableCellText = getAllTableCellText("DetailGroupCollection[${num}].FieldTable")
-       println("\ntableCellText: ${tableCellText.dump()}\n")
+//       println("\ntableCellText: ${tableCellText.dump()}\n")
+       tableCellText?.each{ String val ->
+        println "Text: " + val;  
+       }
        tableCellText
    }
 
