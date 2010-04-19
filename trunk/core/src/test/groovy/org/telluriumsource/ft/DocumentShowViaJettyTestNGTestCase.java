@@ -22,8 +22,9 @@ public class DocumentShowViaJettyTestNGTestCase extends TelluriumTestNGTestCase 
        dsm = new  DocumentShowModule();
        dsm.defineUi();
        connectSeleniumServer();
-       useCssSelector(true);
+//       useCssSelector(true);
        useTelluriumEngine(true);
+       useEngineLog(true);
        useTrace(true);
    }
 
@@ -34,9 +35,15 @@ public class DocumentShowViaJettyTestNGTestCase extends TelluriumTestNGTestCase 
 
    @Test
    public void testDocumentShow(){
-       dsm.printDetailGroupTitles();
+       dsm.printDetailGroupTitles(1);
+       dsm.printDetailGroupTitles(2);
    }
 
+   @Test
+   public void testGetCellTextForDetailGroup(){
+       dsm.getCellTextForDetailGroup(1);
+       dsm.getCellTextForDetailGroup(2);
+   }
 
    @AfterClass
    public static void tearDown(){

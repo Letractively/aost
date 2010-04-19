@@ -20,8 +20,8 @@ class DocumentShowModule extends DslContext {
     * Should dump the table cell text for the 2nd keyValueTable
 defined in HTML_BODY.
     */
-   def getCellTextForFirstDetailGroup() {
-       def tableCellText = getAllTableCellText("DetailGroupCollection[1].FieldTable")
+   def getCellTextForDetailGroup(int num) {
+       def tableCellText = getAllTableCellText("DetailGroupCollection[${num}].FieldTable")
        println("\ntableCellText: ${tableCellText.dump()}\n")
        tableCellText
    }
@@ -30,9 +30,9 @@ defined in HTML_BODY.
     * Should print a list size of 2 and the title 'Detail Group Title
 B' for the 2nd keyValueGroup.
     */
-   def printDetailGroupTitles() {
+   def printDetailGroupTitles(int num) {
        println("\nlistSize: ${getListSize('DetailGroupCollection')}")
-       println("\ntableCellTitle: ${getText('DetailGroupCollection[1].DetailGroupTitle')}\n")
+       println("\ntableCellTitle " + getText("DetailGroupCollection[${num}].DetailGroupTitle"))
    }
 
    public static String HTML_BODY ="""
