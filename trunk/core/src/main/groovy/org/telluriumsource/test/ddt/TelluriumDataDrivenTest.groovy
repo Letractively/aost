@@ -74,8 +74,13 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
 
 //    protected SeleniumConnector connector
 
+    public void connectSeleniumServer(){
+        getConnector().connectSeleniumServer()
+    }
+
     public void openUrl(String url){
-        getConnector().connect(url)
+        getConnector().connectSeleniumServer()
+        getConnector().connectUrl(url)
     }
 
     public void connectUrl(String url){
