@@ -4,6 +4,8 @@ import org.telluriumsource.module.DynamicModule;
 import org.telluriumsource.test.java.TelluriumMockTestNGTestCase;
 import org.testng.annotations.*;
 
+import static org.testng.Assert.assertNotNull;
+
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
@@ -57,6 +59,15 @@ public class DynamicTestNGTestCase extends TelluriumMockTestNGTestCase {
     @Parameters({"part1", "part2"})
     public void testIds(String part1, String part2){
 
+    }
+
+    @Test
+    public void getAllText(){
+        String[] texts = dm.getAllTableCellText("keyValue");
+        assertNotNull(texts);
+        for(String text: texts){
+            System.out.println("Text: " + text);
+        }
     }
 
     @AfterClass
