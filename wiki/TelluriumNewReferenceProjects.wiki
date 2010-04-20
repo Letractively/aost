@@ -109,25 +109,25 @@ class TelluriumDownloadsPage extends DslContext{
        ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"], group: "true"){
            //define table header
            //for the border column
-           TextBox(uid: "header: 1", clocator: [:])
-           UrlLink(uid: "header: 2", clocator: [text: "*Filename"])
-           UrlLink(uid: "header: 3", clocator: [text: "*Summary + Labels"])
-           UrlLink(uid: "header: 4", clocator: [text: "*Uploaded"])
-           UrlLink(uid: "header: 5", clocator: [text: "*Size"])
+           TextBox(uid: "{header: 1}", clocator: [:])
+           UrlLink(uid: "{header: 2}", clocator: [text: "*Filename"])
+           UrlLink(uid: "{header: 3}", clocator: [text: "*Summary + Labels"])
+           UrlLink(uid: "{header: 4}", clocator: [text: "*Uploaded"])
+           UrlLink(uid: "{header: 5}", clocator: [text: "*Size"])
 
-           UrlLink(uid: "header: 6", clocator: [text: "*DownloadCount"])
-           UrlLink(uid: "header: 7", clocator: [text: "*..."])
+           UrlLink(uid: "{header: 6}", clocator: [text: "*DownloadCount"])
+           UrlLink(uid: "{header: 7}", clocator: [text: "*..."])
 
            //define table elements
            //for the border column
-           TextBox(uid: "row: *, column: 1", clocator: [:])
+           TextBox(uid: "{row: all, column: 1}", clocator: [:])
          
            //the summary + labels column consists of a list of UrlLinks
-          List(uid: "row:*, column: 3"){
-               UrlLink(uid: "all", clocator: [:])
+          List(uid: "{row: all, column: 3}"){
+               UrlLink(uid: "{all}", clocator: [:])
            }
            //For the rest, just UrlLink
-           UrlLink(uid: "all", clocator: [:])
+           UrlLink(uid: "{all}", clocator: [:])
        }
 
        ui.RadioButton(uid: "test", clocator: [:], respond: "click")
@@ -345,7 +345,7 @@ import groovy.grape.Grape;
 Grape.grab(group:'org.telluriumsource', module:'tellurium-core', version:'0.7.0-SNAPSHOT', classLoader:this.class.classLoader.rootLoader)
 Grape.grab(group:'org.stringtree', module:'stringtree-json', version:'2.0.10', classLoader:this.class.classLoader.rootLoader)
 Grape.grab(group:'caja', module:'json_simple', version:'r1', classLoader:this.class.classLoader.rootLoader)
-Grape.grab(group:'org.seleniumhq.selenium.server', module:'selenium-server', version:'1.0.1-te2', classLoader:this.class.classLoader.rootLoader)
+Grape.grab(group:'org.seleniumhq.selenium.server', module:'selenium-server', version:'1.0.1-te3-SNAPSHOT', classLoader:this.class.classLoader.rootLoader)
 Grape.grab(group:'org.seleniumhq.selenium.client-drivers', module:'selenium-java-client-driver', version:'1.0.1', classLoader:this.class.classLoader.rootLoader)
 Grape.grab(group:'org.apache.poi', module:'poi', version:'3.0.1-FINAL', classLoader:this.class.classLoader.rootLoader)
 Grape.grab(group:'junit', module:'junit', version:'4.7', classLoader:this.class.classLoader.rootLoader)
@@ -354,7 +354,7 @@ import org.telluriumsource.dsl.DslScriptExecutor
 
 @Grapes([
    @Grab(group='org.codehaus.groovy', module='groovy-all', version='1.7.0'),
-   @Grab(group='org.seleniumhq.selenium.server', module='selenium-server', version='1.0.1-te2'),
+   @Grab(group='org.seleniumhq.selenium.server', module='selenium-server', version='1.0.1-te3-SNAPSHOT'),
    @Grab(group='org.seleniumhq.selenium.client-drivers', module='selenium-java-client-driver', version='1.0.1'),
    @Grab(group='junit', module='junit', version='4.7'),
    @Grab(group='caja', module='json_simple', version='r1'),
@@ -725,10 +725,10 @@ class ListExampleModule extends DslContext {
   public void defineUi() {
     ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"]) {
       List(uid: "subcategory", clocator: [tag: "td", class: "sidebar"], separator: "div") {
-        Container(uid: "all") {
+        Container(uid: "{all}") {
           TextBox(uid: "title", clocator: [tag: "div", class: "sub_cat_title"])
           List(uid: "links", separator: "p") {
-            UrlLink(uid: "all", clocator: [:])
+            UrlLink(uid: "{all}", clocator: [:])
           }
         }
       }
@@ -778,9 +778,9 @@ UI Module:
 class TableExampleModule extends DslContext {
   public void defineUi() {
     ui.StandardTable(uid: "GT", clocator: [id: "xyz"], ht: "tbody"){
-      TextBox(uid: "header: all", clocator: [:])
-      TextBox(uid: "row: 1, column: 1", clocator: [tag: "div", class: "abc"])
-      Container(uid: "row: 1, column: 2"){
+      TextBox(uid: "{header: all}", clocator: [:])
+      TextBox(uid: "{row: 1, column: 1}", clocator: [tag: "div", class: "abc"])
+      Container(uid: "{row: 1, column: 2}"){
         InputBox(uid: "Input", clocator: [tag: "input", class: "123"])
         Container(uid: "Some", clocator: [tag: "div", class: "someclass"]){
           Span(uid: "Span", clocator: [tag: "span", class: "x"])
@@ -927,7 +927,7 @@ class RepeatExampleModule extends DslContext {
       Repeat(uid: "Section", clocator: [tag: "div", class: "segment clearfix"]){
         Repeat(uid: "Option", clocator: [tag: "div", class: "option", direct: "true"]){
           List(uid: "Fares", clocator: [tag: "ul", class: "fares", direct: "true"], separator: "li"){
-            Container(uid: "all"){
+            Container(uid: "{all}"){
                 RadioButton(uid: "radio", clocator: [:], respond: ["click"])
                 TextBox(uid: "label", clocator: [tag: "label"])
             }
