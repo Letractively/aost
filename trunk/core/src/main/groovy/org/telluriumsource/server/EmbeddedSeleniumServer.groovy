@@ -43,12 +43,19 @@ class EmbeddedSeleniumServer implements Configurable{
 
     protected String userExtension = null;
 
+    protected boolean useXvfb = false;
+
+    protected Xvfb xvfb = new Xvfb();
+
     public final boolean isUseMultiWindows() {
 		return useMultiWindows;
 	}
 
     public void setUpSeleniumServer(){
-
+        if(useXvfb){
+          xvfb.run();
+        }
+        
 		try {
 			daemon = new SeleniumServerDaemon (port, logFile, useMultiWindows, this.trustAllSSLCertificates,
                     this.avoidProxy, this.browserSessionReuse, this.ensureCleanSession, this.debugMode, this.interactive,
