@@ -1,5 +1,9 @@
 package org.telluriumsource.server
 
+import org.telluriumsource.crosscut.log.Logger
+import org.telluriumsource.crosscut.log.SimpleLogger
+import org.telluriumsource.crosscut.log.ConsoleAppender
+
 /**
  *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -83,6 +87,15 @@ class Xvfb {
 
   def ant = new AntBuilder()
 
+  Logger logger
+
+  Properties props;
+
+  def Xvfb() {
+    logger = SimpleLogger.getInstance()
+    logger.addAppender(new ConsoleAppender())
+  }
+
   void run() {
 
     // Figure out what the display number is, and generate the properties file
@@ -92,6 +105,7 @@ class Xvfb {
     else {
       if (isDisplayInUse(display)) {
 //        fail("It appears that the configured display is already in use: $display")
+        logger.log("It appears that the configured display is already in use: $display")
       }
     }
 
@@ -99,12 +113,19 @@ class Xvfb {
       setupXauthority()
     }
 
-    createDisplayProperties()
+//    createDisplayProperties()
+    getDisplayProperties()
 
     def launcher = new ProcessLauncher(name: 'Xvfb', background: background)
 
     launcher.process = {
       ant.exec(executable: xvfbExecutable, failonerror: true) {
+        //set display properties
+        props?.each{key, value ->
+          logger.log("Setup Display Properties: " + key + ": " + value)
+          env(key: key, value: value)
+        }
+
         if (xauthEnabled) {
           env(key: 'XAUTHORITY', file: authenticationFile)
         }
@@ -147,6 +168,19 @@ class Xvfb {
     }
 
     props.store(displayPropertiesFile.newOutputStream(), 'Xvfb Display Properties')
+  }
+
+  private Properties getDisplayProperties() {
+    props = new Properties()
+    props.setProperty('DISPLAY', display)
+
+    // Write the xauth file so clients pick up the right perms
+    if (xauthEnabled) {
+      assert authenticationFile
+      props.setProperty('XAUTHORITY', authenticationFile.canonicalPath)
+    }
+
+    return props
   }
 
   /**
@@ -193,6 +227,7 @@ class Xvfb {
 
     if (!authenticationFile.exists()) {
 //            fail("It appears that 'xauth' failed to create the Xauthority file: $authenticationFile")
+      logger.log("It appears that 'xauth' failed to create the Xauthority file: $authenticationFile")
     }
   }
 
