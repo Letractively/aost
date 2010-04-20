@@ -28,25 +28,29 @@ http://tellurium-users.googlegroups.com/web/NewTelluriumSubProjects.png?gda=o-ZC
 
 == Tellurium Reference Projects ==
 
-Tellurium has created reference projects to demonstrate how to use Tellurium for a user’s testing project. In the reference projects, Tellurium project web site is used as an example of illustrating how to write real-world Tellurium tests. The reference projects only use tellurium jar files and there are two sub-projects at the time of this document:
+Tellurium has created [http://code.google.com/p/aost/wiki/TelluriumNewReferenceProjects reference projects] to demonstrate how to use Tellurium for a user’s testing project. In the reference projects, Tellurium project web site is used as an example of illustrating how to write real-world Tellurium tests. The reference projects only use tellurium jar files.
 
-  * tellurium-junit-java
-  * tellurium-testng-java
+Tellurium 0.7.0 merged the original tellurium-junit-java and tellurium-testng-java two reference projects into a new reference project tellurium-website and add a new reference project ui-examples. The first one is real world tellurium tests using tellurium website as an example and the second one uses html source, mostly contributed by Tellurium users, to demonstrate the usage of different Tellurium UI objects.
 
-Basically, the two sub-projects are the same and the only difference is that tellurium-junit-java uses JUnit 4 and tellurium-testng-java uses TestNG. Hence, the only focus is on the tellurium-junit-java project.
+=== Tellurium Website Project ===
 
-The tellurium-junit-java project illustrates the following usages of Tellurium:
+The tellurium website project illustrates the following usages of Tellurium:
 
-  * How to create your own Tellurium testing project using tellurium jar files.
   * How to create your own UI Objects and wire them into Tellurium core
   * How to create UI module files in Groovy
-  * How to create JUnit tellurium testing files in Java
+  * How to create JUnit or TestNG tellurium testing files in Java
   * How to create and run DSL scripts
   * How to create Tellurium Data Driven tests
-  * How to configure Tellurium with the configuration file TelluriumConfig.groovy
-  * Ant build script
-  * Maven support
-  * Support Eclipse, NetBeans, and IntelliJ IDEs
+
+
+=== Tellurium ui-examples Project ===
+
+Some of the html sources in the ui-examples project are contributed by tellurium users. Thanks for their contributions. ui-examples project includes the following different types of UI objects. 
+  * Container
+  * Form
+  * List
+  * Table
+  * Repeat
 
 == Tellurium Maven Archetypes ==
 
