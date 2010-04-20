@@ -385,10 +385,10 @@ One typical data grid example is as follows:
 
 {{{
 ui.Table(uid: "table", clocator: [:]){
-   InputBox(uid: "row: 1, column: 1", clocator: [:])
-   Selector(uid: "row: *, column: 2", clocator: [:])
-   UrlLink(uid: "row: 3, column: *", clocator: [:])
-   TextBox(uid: "all", clocator: [:])
+   InputBox(uid: "{row: 1, column: 1}", clocator: [:])
+   Selector(uid: "{row: all, column: 2}", clocator: [:])
+   UrlLink(uid: "{row: 3, column: all}", clocator: [:])
+   TextBox(uid: "{row: all, column: all}", clocator: [:])
 } 
 }}}
 
