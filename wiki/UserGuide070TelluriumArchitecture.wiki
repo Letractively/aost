@@ -14,6 +14,34 @@ http://tellurium-users.googlegroups.com/web/telluriumnewarchitecture070.png?gda=
 
 There are two major parts, i.e., the Tellurium Core, which does Java/Groovy object to runtime locator mapping, event handling, and command bundling. The Tellurium Engine is embedded inside the Selenium server and is a test driving engine for Tellurium. The two are connected by Selenium RC.
 
+The DSL parser consists of the DSL Object Parser, Object Builders, and the Object Registry.
+
+Using Groovy builder pattern, UI objects are defined expressively and in a nested fashion. The DSL object parser parses the DSL object definition recursively and uses object builders to build the objects on the fly. An object builder registry is designed to hold all predefined UI object builders in the Tellurium framework, and the DSL object parser looks at the builder registry to find the appropriate builders. 
+
+Since the registry is a hash map, you can override a builder with a new one using the same UI name. Users can also add their customer builders into the builder registry. The DSL object definition always comes first with a container type object. An object registry (a hash map) is used to store all top level UI Objects. As a result, for each DSL object definition, the top object IDs must be unique in the DslContext. The object registry is used by the framework to search for objects by their IDs and fetch objects for different actions.
+
+The Object Locator Mapping (OLM) is the core of the Tellurium framework and it includes UI ID mapping, XPath builder, jQuery selector builder, and Group Locating.
+
+The UI ID supports nested objects. For example, "menu.wiki" stands for a URL Link "wiki" inside a container called "menu". 
+
+The UI ID also supports one-dimensional and two-dimensional indices for tables and lists. For example, {{{"main.table[2][3]"}}} stands for the UI object of the 2nd row and the 3rd column of a table inside the container "main".
+
+XPath builder builds the XPath from the composite locator. For example, a set of attributes. Starting with version 0.6.0, Tellurium supports jQuery selectors to address the problem of poor performance of XPath in Internet Explorer.
+
+jQuery selector builders are used to automatically generate jQuery selectors instead of XPath with the following advantages:
+
+  * Provides faster performance in IE
+  * Leverages the power of jQuery to retrieve bulk data from the web by testing with one method call
+  * Provides new features using jQuery attribute selectors
+
+The Group Locating Concept (GLC) exploits the group information inside a collection of UI objects to assist in finding the locator of the UI objects collection.
+
+The Eventhandler handles all events such as "click", "type", "select", etc. 
+
+The Data Accessor fetches data or UI status from the DOM. The dispatcher delegates all calls it receives from the Eventhandler and the data accessor attached to the connector is also connected to the Tellurium engine. 
+
+The dispatcher is designed to decouple the rest of the Tellurium framework from the base test driving engine so that it can be switched to a different test driving engine by simply changing the dispatcher logic.
+
 = How Tellurium Works =
 
 Tellurium works in two mode. The first one is to work as a wrap of the Selenium framework.
