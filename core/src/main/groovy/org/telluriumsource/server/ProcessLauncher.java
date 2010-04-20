@@ -7,7 +7,7 @@ import groovy.lang.Closure;
     http://grepcode.com/file/repo1.maven.org/maven2/org.codehaus.groovy.maven/gmaven-mojo-support/1.0/org/codehaus/groovy/maven/mojo/support/ProcessLauncher.java
 
  */
-public class ProcessLauncher extends java.lang.Object implements groovy.lang.GroovyObject {
+public class ProcessLauncher implements groovy.lang.GroovyObject {
     private java.lang.String name = null;
     public java.lang.String getName() {
         throw new InternalError("Stubbed method");
