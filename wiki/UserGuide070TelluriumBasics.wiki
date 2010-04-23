@@ -266,9 +266,9 @@ locator@attribute
 }}}
 
 *Procedures:*
+  # Create a set of custom Selenium methods
+  # Add the appropriate Selenium RC Java methods. 
 
-1. Create a set of custom Selenium methods <br />
-2. Add the appropriate Selenium RC Java methods. 
  For example, the following Selenium method was created:
 {{{
 Selenium.prototype.getAllText = function(locator){
@@ -282,7 +282,7 @@ Selenium.prototype.getAllText = function(locator){
 };
 }}}
 
-3. Create the corresponding Java method by extending Selenium
+  # Create the corresponding Java method by extending Selenium
 {{{
 class CustomSelenium extends DefaultSelenium {
 
@@ -578,6 +578,164 @@ Otherwise, validate the cached DOM reference and use it directly. If the cacheab
 Tellurium Core provides the following methods for jQuery Selector cache control:
 
   * Methods 
+== toggle ==
+
+Tellurium 0.7.0 provides a toggle method to animate the UI element on the web page. For example, you can the following commands to show the UI element under testing.
+
+{{{
+    toggle "Form.Username.Input"
+    pause 500
+    toggle "Form.Username.Input"
+}}}
+
+== UI Module Live Show ==
+
+The show command is used to show the UI module that you defined on the actual web page.
+
+{{{
+    public show(String uid, int delay);
+}}}
+
+where delay is in milliseconds. Be aware that _show_ is available in Tellurium API.
+
+Example:
+
+{{{
+   useCache(true);
+   useTelluriumApi(true);
+   JettyLogonModule jlm = new JettyLogonModule();       
+   jlm.show("Form", 5000);
+}}}
+
+The UI module on the web page will be outlined and if user hives over the UI module,
+the UIDs of the selected UI element's and its ancestors' will be shown in a tooltip as shown in the following figure.
+
+http://tellurium-users.googlegroups.com/web/teshowuisnapshotcoloroutline.png?gda=QFLx4lIAAACsdq5EJRKLPm_KNrr_VHB_3bdqdUlgM5p9LxU9B-G7VGI4VaZQIUmR7BTITIeHhJw-4xIeevXbuhZMOIi4CXKoVeLt2muIgCMmECKmxvZ2j4IeqPHHCwbz-gobneSjMyE&gsc=WUr0egsAAADl-yofJNPAI7ohFyS8aj5h
+
+You may be a bit confused by the multiple UID labels. The above UI module is defined as
+
+{{{
+ui.Form(uid: "Form", clocator: [tag: "form"]){
+        Container(uid: "Username", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
+        }
+        Container(uid: "Password", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j_password"])
+        }
+        SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login", name: "submit"])
+    }
+}}}
+
+When user hives over the Username Input box, its parent Username and its grandparent Form
+are shown as well. We added color coding to the outlines. Different levels in the hierarchy have different colors. How the layout maps to each individual UI element can be illustrated more clearly by the following figure.
+ 
+http://tellurium-users.googlegroups.com/web/telluriumshowuisnapshot2.png?gda=jciJlU4AAACsdq5EJRKLPm_KNrr_VHB__uAWGGGjpMtQflLHIKHYYIBs4RzukN2p4-NZziI_5n9VyjA3JensFE0ElYzuCQ7x47Cl1bPl-23V2XOW7kn5sQ&gsc=oz20hwsAAAD_weMBWNZir9C-tYu9DiER
+
+
+In the meanwhile, Tellurium Core also exposes the following two methods for users to start showing UI and clean up UI.
+
+{{{
+   public void startShow(String uid);
+
+   public void endShow(String uid);
+}}}
+
+== getHTMLSource ==
+
+Use {{{getHTMLSource}}}, users can get back the runtime html source for a UI module. Tellurium provided two methods for this purpose.
+
+{{{
+public Map getHTMLSourceResponse(String uid);
+
+public void getHTMLSource(String uid);
+}}}
+
+The first method get back the html source as a uid-to-html map and the second one simply print out the html source on the console. Be aware, {{{getHTMLSource}}} is only available in Tellurium new APIs.
+
+Example:
+
+{{{
+    @Test
+    public void testGetHTMLSource(){
+        useEngineLog(true);
+        useTelluriumApi(true);
+        useCache(true);
+        connect("JettyLogon");
+        jlm.getHTMLSource("Form");
+    }
+}}}
+ 
+and the output is as follows:
+
+{{{
+Form: 
+
+<form method="POST" action="j_security_check">
+    <table border="0" cellpadding="1" cellspacing="2">
+        <tbody><tr>
+            <td>Username:</td>
+            <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input name="submit" value="Login" type="submit">
+            </td>
+        </tr>
+    </tbody></table>
+</form>
+
+Form.Username: 
+
+	<tr>
+            <td>Username:</td>
+            <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
+        </tr>
+
+Form.Username.Label: 
+
+	<td>Username:</td>
+
+Form.Username.Input: 
+
+	<input size="12" value="" name="j_username" maxlength="25" type="text">
+
+Form.Password: 
+
+	<tr>
+            <td>Password:</td>
+            <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
+        </tr>
+
+Form.Password.Label: 
+
+	<td>Password:</td>
+
+Form.Password.Input: 
+
+	<input size="12" value="" name="j_password" maxlength="25" type="password">
+
+Form.Submit: 
+
+	<input name="submit" value="Login" type="submit">
+}}}
+
+== type and keyType ==
+
+type and keyType now accept different types of objects and convert them to a String automatically by calling the toString() method. For example, you can use the following commands:
+
+{{{
+    type "Google.Input", "Tellurium"
+
+    type "Google.Input", 12.15
+
+    type "Google.Input", true
+}}}
 
 == UI Templates ==
 
