@@ -486,10 +486,12 @@ TelluriumApi.prototype.getCssSelectorCount = function(locator) {
         locator = cal.locator;
     }
     !tellurium.logManager.isUseLog || fbLog("Parsed locator", locator);
-    var $e = teJQuery(selenium.browserbot.findElement(locator));
-    !tellurium.logManager.isUseLog || fbLog("Found elements for CSS Selector", $e.get());
-    if ($e == null)
+    var elem = selenium.browserbot.findElementOrNull(locator);
+    if(elem == null)
         return 0;
+    
+    var $e = teJQuery(elem);
+    !tellurium.logManager.isUseLog || fbLog("Found elements for CSS Selector", $e.get());
 
     return $e.length;
 };
