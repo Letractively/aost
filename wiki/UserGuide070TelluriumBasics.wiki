@@ -1271,18 +1271,57 @@ issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="c
 -------------------------------------------------------
 }}}
 
+== Engine State Offline Update ==
+
+For some reasons, you may need to make Engine state calls before you actually connect to the Engine. For examples, call one of the following methods.
+
+{{{
+   public void enableCache();
+   public void disableCache();
+   public void useTelluriumApi(boolean isUse);
+   public void useClosestMatch(boolean isUse);
+}}}
+
+We added an Engine State tracer in the bundle tier to record all the requests if the Engine is not connected and aggregate them. Once the Engine is connected, Tellurium will automatically send out the Engine state update request. 
+
+For example, the following test code works fine in 0.7.0.
+
+{{{
+    @Test
+    public void testOfflineEngineStateUpdate(){
+        JettyLogonModule jlm = new  JettyLogonModule();
+        jlm.defineUi();
+        useCssSelector(true);
+        useTrace(true);
+        //Engine state offline update
+        useTelluriumApi(true);
+        useCache(true);
+        connectSeleniumServer();
+        connectUrl("http://localhost:8080/logon.html");
+        jlm.logon("test", "test");
+        //Back to state online update
+        useClosestMatch(true);
+        connectUrl("http://localhost:8080/logon.html");
+        jlm.plogon("test", "test");
+    }
+}}}
 
 == Testing Support ==
 
 In the package *org.tellurium.test*, Tellurium provides three different ways to write Tellurium tests:
 
-  # TelluriumJavaTestCase
+  # TelluriumJUnitTestCase
   # TelluriumTestNGTestCase
   # TelluriumGroovyTestCase
+  # TelluriumMockJUnitTestCase 
+  # TelluriumMockTestNGTestCase
 
-=== Tellurium Java Test Case ===
+=== Tellurium JUnit Test Case ===
 
 Used for JUnit, and supports the following JUnit 4 annotations:
+JUnit is upgraded to 4.7 since it provides more features. One such a good feature is [http://blog.schauderhaft.de/2009/10/04/junit-rules/ the Rule annotation].
+
+To be consistent with TestNG test case, the class TelluriumJavaTestCase is deprecated and you should use TelluriumJUnitTestCase instead.
 
   * @BeforeClass
   * @AfterClass
@@ -1309,6 +1348,25 @@ Used for TestNG. Similarly, using the following annotations:
   * @Parameters
   * @Test
 
+TelluriumTestNGTestCase was changed to allow the setup and teardown procedures only work once for all the tests. The magic are the @BeforeTest and @AfterTest annotations. See the following code for more details,
+
+{{{
+public abstract class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase {
+
+    @BeforeTest(alwaysRun = true)
+    public static void setUpForTest() {
+        tellurium = TelluriumSupport.addSupport();
+        tellurium.start(customConfig);
+        connector = (SeleniumConnector) tellurium.getConnector();
+    }
+
+    @AfterTest(alwaysRun = true)
+    public static void tearDownForTest() {
+        if(tellurium != null)
+            tellurium.stop();
+    }
+}}}
+
 === Tellurium Groovy Test Case ===
 
 Used for Groovy test cases.
@@ -1318,3 +1376,86 @@ Data Driven Testing: Tellurium provides the class {{{TelluriumDataDrivenModule}}
 Class {{{TelluriumDataDrivenTest}}} is used to drive the actual tests.
 
 Tellurium also provides users the capability of writing Tellurium tests and Tellurium data driven tests in pure DSL scripts. The {{{DslScriptExecutor}}} is used to run the .dsl files.
+
+
+=== TelluriumMockJUnitTestCase and TelluriumMockTestNGTestCase ===
+
+TelluriumMockJUnitTestCase and TelluriumMockTestNGTestCase incorporated the Mock Http Server so that you can load up a html web page and test against it with minimal configuration.
+
+One example is as follows,
+
+{{{
+public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
+    private static JettyLogonModule jlm;
+
+    @BeforeClass
+    public static void initUi() {
+        registerHtmlBody("JettyLogon");
+
+        jlm = new  JettyLogonModule();
+        jlm.defineUi();
+        useCssSelector(true);
+        useTelluriumApi(true);
+        useTrace(true);
+        useCache(true);
+    }
+
+    @Before
+    public void connectToLocal() {
+        connect("JettyLogon");
+    }
+
+    @Test
+    public void testJsonfyUiModule(){
+        String json = jlm.jsonify("Form");
+        System.out.println(json);
+    }
+
+    @AfterClass
+    public static void tearDown(){
+        showTrace();
+    }
+}
+}}}
+
+where the html file "JettyLogon" lives in the class path "org/telluriumsource/html". You can change this by the following method:
+
+{{{
+public static void setHtmlClassPath(String path);
+}}}
+
+The implementation is simple as shown as follows.
+
+{{{
+public class TelluriumMockJUnitTestCase extends TelluriumJUnitTestCase {
+    protected static MockHttpServer server;
+
+    @BeforeClass
+    public static void init(){
+        server = new MockHttpServer(8080);
+        server.start();
+        connectSeleniumServer();
+    }
+
+    public static void registerHtml(String testname){
+       server.registerHtml("/" + testname + ".html", server.getHtmlFile(testname));
+    }
+
+    public static void registerHtmlBody(String testname){
+       server.registerHtmlBody("/" + testname + ".html", server.getHtmlFile(testname));
+    }
+
+    public static void setHtmlClassPath(String path){
+        server.setHtmlClassPath(path);
+    }
+
+    public static void connect(String testname){
+        connectUrl("http://localhost:8080/" + testname + ".html");
+    }
+
+    @AfterClass
+    public static void tearDown(){
+        server.stop();
+    }
+}
+}}}
