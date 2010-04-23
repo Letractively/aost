@@ -80,6 +80,7 @@ Tellurium UI objects have default attributes as shown in Table 2-1:
 ||Span||tag: "span"|| ||no||
 ||SubmitButton||tag: "input", type: "submit"|| ||no||
 ||UrlLink||tag: "a"|| ||no||
+||Repeat|| || ||no||
 ||List|| ||separator||yes||
 ||Table||tag: "table"||group, header||yes||
 ||StandardTable||tag: "table"||group, header, footer||yes||
