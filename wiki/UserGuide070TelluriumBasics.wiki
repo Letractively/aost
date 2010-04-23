@@ -1727,3 +1727,23 @@ Grape.grab(group:'org.telluriumsource', module:'tellurium-website', version:'0.7
    @Grab(group='org.telluriumsource', module='tellurium-website', version='0.7.0-SNAPSHOT')
 }}}
  
+
+== useTelluriumEngine ==
+
+To make it convenient for users, Tellurium provides a {{{useTelluriumEngine}}} command as follows,
+
+{{{
+    void useTelluriumEngine(boolean isUse){
+        useCache(isUse);
+        useMacroCmd(isUse);
+        useTelluriumApi(isUse);
+    }   
+}}}
+
+As you can see, this command actually consists of three commands. In DslContext, Tellurium also provides two handy DSL style methods.
+
+{{{
+   void enableTelluriumEngine();
+
+   void disableTelluriumEngine();
+}}}
