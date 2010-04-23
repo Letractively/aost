@@ -711,6 +711,30 @@ table
            td 
 }}}
 
+To overwrite the default layout, Tellurium core provides the following attributes in the StandardTable object.
+  * _ht_: header tag.
+  * _hrt_: header row tag, the default tag is "tr".
+  * _hct_: header column tag, the default tag is "th".
+  * _bt_: body tag.
+  * _brt_: body row tag, the default tag is "tr".
+  * _bct_: body column tag, the default tag is "td". 
+  * _ft_: footer tag.
+  * _frt_: footer row tag, the default tag is "tr".
+  * _fct_: footer column tag, the default tag is "td".
+
+To overwrite the above tags, simply define them in the object definition. For example,
+
+{{{
+    ui.StandardTable(uid: "table3", clocator: [:], hct: "td"){
+      TextBox(uid: "header: all", clocator: [:])
+      TextBox(uid: "footer: all", clocator: [:])
+    }
+}}}
+
+The header column tag is overwritten to be "td" instead of the default tag "th". 
+
+To be more accurate, the footer definition has been changed from "foot" to "footer". 
+
 For a StandardTable, you can specify UI templates for different tbodies. Apart from the methods in Table, it has the following additional methods:
 
   * int getTableFootColumnNum()
