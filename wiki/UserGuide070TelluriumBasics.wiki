@@ -1842,6 +1842,279 @@ SeleniumError("Element uimcal={\"rid\":\"search.search_project_button\",\"locato
 	at java.lang.reflect.Method.invoke(Method.java:597)
 
 }}}
+== Trace ==
+
+Tellurium 0.7.0 provides built-in support for the command execution time including 
+  * Execution time for each command
+  * Total run time
+  * Aggregated times for each command
+
+For example, you can see the output as follows,
+
+{{{
+TE: Name: getCurrentCachePolicy, start: 1260496075484, duration: 28ms
+TE: Name: useDiscardNewCachePolicy, start: 1260496075514, duration: 51ms
+TE: Name: getCurrentCachePolicy, start: 1260496075566, duration: 74ms
+TE: Name: useDiscardOldCachePolicy, start: 1260496075642, duration: 35ms
+TE: Name: getCurrentCachePolicy, start: 1260496075678, duration: 42ms
+TE: Start Time: 1260496060373
+End Time: 1260496075720
+Total Runtime: 15347ms
+Name: keyPress, count: 24, total: 1277ms, average: 53ms
+Name: getCurrentCachePolicy, count: 5, total: 222ms, average: 44ms
+Name: useDiscardOldCachePolicy, count: 1, total: 35ms, average: 35ms
+Name: useDiscardInvalidCachePolicy, count: 1, total: 33ms, average: 33ms
+Name: enableCache, count: 2, total: 151ms, average: 75ms
+Name: click, count: 3, total: 194ms, average: 64ms
+Name: isElementPresent, count: 2, total: 100ms, average: 50ms
+Name: useDiscardLeastUsedCachePolicy, count: 1, total: 39ms, average: 39ms
+Name: type, count: 1, total: 81ms, average: 81ms
+Name: typeKey, count: 3, total: 124ms, average: 41ms
+}}}
+ 
+We added the following settings to TelluriumConfig.groovy
+
+{{{
+    test{
+        execution{
+            //whether to trace the execution timing
+            trace = false
+        }      
+
+}}}
+
+You can use the follow methods in DslContext to turn on or off the trace, and get the trace data.
+
+{{{
+
+  public void enableTrace();
+
+  public void disableTrace();
+  
+  public void showTrace();
+}}}
+
+
+== Methods Accessible in Test Cases ==
+
+There are many Tellurium APIs that used to be available only in DslContext. That is to say, you have to extend DslContext to use them. For example, you often see code in a test case likes this,
+
+{{{
+GoogleSearchModule gsm = new GoogleSearchModule();
+gsm.defineUi();
+gsm.usejQuerySelector();
+gsm.registerNamespace("te", te_ns);
+}}}
+
+Now, many of them, which are not really tied to a specific UI module, are made available in Tellurium test cases. For example, the above code can be changed as follows,
+
+{{{
+GoogleSearchModule gsm = new GoogleSearchModule();
+gsm.defineUi();
+useCssSelector();
+registerNamespace("te", te_ns);
+}}}
+
+New TelluriumGroovyTestCase provides the following list of new APIs for your convenience.
+
+{{{
+    public void useCssSelector(boolean isUse);
+
+    public void useCache(boolean isUse);
+
+    public void cleanCache();
+
+    public boolean isUsingCache();
+
+    public void setCacheMaxSize(int size);
+
+    public int getCacheSize();
+
+    public int getCacheMaxSize();
+
+    public Map<String, Long> getCacheUsage();
+
+    public void useCachePolicy(CachePolicy policy);
+
+    public String getCurrentCachePolicy();
+
+    public void useDefaultXPathLibrary();
+
+    public void useJavascriptXPathLibrary();
+
+    public void useAjaxsltXPathLibrary();
+
+    public void registerNamespace(String prefix, String namespace);
+
+    public String getNamespace(String prefix);
+
+    public void pause(int milliseconds);
+
+    public void useMacroCmd(boolean isUse);
+
+    public void setMaxMacroCmd(int max);
+
+    public int getMaxMacroCmd();
+
+    public boolean isUseTelluriumApi();
+
+    public void useTelluriumApi(boolean isUse);
+  
+    public void useTrace(boolean isUse);
+
+    public void showTrace();
+
+    public void setEnvironment(String name, Object value);
+
+    public Object getEnvironment(String name);
+
+    public void allowNativeXpath(boolean allow);
+
+    public void addScript(String scriptContent, String scriptTagId);
+
+    public void removeScript(String scriptTagId);
+
+    public void EngineState getEngineState();
+
+    public void useEngineLog(boolean isUse);
+
+    public void useTelluriumEngine(boolean isUse);
+
+    public void dumpEnvironment();
+}}}
+
+Tellurium Java test cases provide the same APIs and the only difference is that the APIs in Tellurium Java test cases are static.
+
+== Environment ==
+
+We added an Environment class to Tellurium Core so that you can change the runtime environment. The Environment class is defined as follows,
+
+{{{
+public class Environment {
+  def envVariables = [:];
+  public boolean isUseCssSelector();
+
+  public boolean isUseCache();
+
+  public boolean isUseBundle();
+
+  public boolean isUseScreenshot();
+
+  public boolean isUseTrace();
+
+  public boolean isUseTelluriumApi();
+
+  public boolean isUseEngineLog();
+
+  public void useCssSelector(boolean isUse);
+
+  public void useCache(boolean isUse);
+
+  public void useBundle(boolean isUse);
+
+  public void useScreenshot(boolean isUse);
+
+  public void useTrace(boolean isUse);
+
+  public void useTelluriumApi(boolean isUse);
+
+  public void useEngineLog(boolean isUse);
+
+  public useMaxMacroCmd(int max);
+
+  public int myMaxMacroCmd();
+
+  public String myLocale();
+  
+  public void setCustomEnvironment(String name, Object value);
+
+  public Object getCustomEnvironment(String name);
+}
+}}}
+
+where {{{setCustomEnvironment}}} and {{{getCustomEnvironment}}} can be used to pass user defined environment variables. 
+
+Tellurium provides the following method for users to dump out all the current environment variables.
+
+{{{
+    public void dumpEnvironment();
+}}}
+
+The output is like the following.
+
+{{{
+    Environment Variables:
+      useEngineCache: true
+      useClosestMatch: false
+      useMacroCommand: true
+      maxMacroCmd: 5
+      useTelluriumApi: true
+      locatorWithCache: true
+      useCSSSelector: true
+      useTrace: true
+      logEngine: false
+      locale: en_US
+}}}
+
+If any exception is thrown at the dispatcher tier, the environment variable will also be printed out.
+ 
+== Get UIs by Tag Name ==
+
+As requested by users, Tellurium 0.7.0 added the following two methods.
+
+{{{
+UiByTagResponse getUiByTag(String tag, Map filters);
+
+void removeMarkedUids(String tag);
+}}}
+
+The first method passes in the tag name and the attributes as filters and get back the UI elements associated with the tag. The response object is defined as
+
+{{{
+class UiByTagResponse {
+  //tag name
+  String tag;
+
+  Map filters
+
+  //temporally assigned IDs
+  String[] tids;
+}
+}}}
+
+where the tids are assigned by Tellurium Engine. Under the hood, Tellurium core creates one AllPurposeObject for each _tid_ in the _tids_ array and registers it to Core so that users can use the _tid_ as the UID to act on the UI object. 
+
+The second method cleans up all the temporally assigned IDs by the Tellurium Engine.
+
+Example:
+
+In UI module JettyLogonModule, we define the following method:
+
+{{{
+  public String[] getInputBox(){
+     def attrs = ["type" : "text"];
+     UiByTagResponse resp = getUiByTag("input", attrs);
+    
+     return resp.tids;
+  }
+}}}
+
+The test case is as follows 
+
+{{{
+    @Test
+    public void testGetUiByTag(){
+        useEngineLog(true);
+        useTelluriumApi(true);
+        useCache(true);
+        String[] teuids = jlm.getInputBox();
+        assertNotNull(teuids);
+        for(String teuid: teuids){
+            jlm.keyType(teuid, "Tellurium Source");
+        }
+        jlm.removeMarkedUids("input");
+    }
+}}}
 
 == Misc ==
 
