@@ -245,7 +245,7 @@ A more general example is:
 
 Except for the "click" event, all of the "focus", "mouseOver", "mouseOut", and "blur" events are automatically fired by Tellurium during testing. Do not worry about the event order for the respond attribute as Tellurium automatically re-orders the events and then processes them appropriately. That is to say, the Event Handler will automatically trigger these events.
 
-== CSS Selector (Improving Test Speed)==
+== CSS Selector ==
 
 Use the CSS Selector to improve the test speed in IE as IE lacks native XPath support and the XPath is slow. Tellurium exploits CSS selector capability to improve test speed dramatically.
 
@@ -524,128 +524,131 @@ There are issues to be aware of with CSS Selector:
   * Some attributes may not be working in jQuery. For example, the "action" attribute in a form. Tellurium has a black list to automatically filter out the attributes that are not honored by CSS selector.
   * The "src" attribute in Image has to be a full URL such as [http://www.google.com/ http://www.google.com]. One workaround is to put '{{{*}}}' before the URL.
 
-=== jQuery Selector Cache Option ===
-
-jQuery cache is a mechanism used to further improve the testing speed by reusing the found DOM reference for a given jQuery selector. Tellurium benchmark results show that the jQuery cache can improve the speed of testing by up to 14% over the regular jQuery selector and over 27% for some extreme cases. 
-
-But the improvement of jQuery cache over regular jQuery selector has upper bounds, which is that portion of jQuery locating time out of the round trip time from Tellurium core to Selenium core. 
-
-*Caution:* jQuery cache is considered to be experimental at this current stage. Use it at your own discretion.
-
-*_Make the jQuery Selector Cache Option Configurable_*
-
-To make the cache option configurable in the Tellurium UI Module, Tellurium introduces a cacheable attribute to the UI object. This is set to be true by default. 
-
-For a Container type object, there is an additional attribute: {{{noCacheForChildren}}} to control whether or not to cache its children.
-
-One example of a UI module using jQuery Selector Cache Option is defined as follows:
+Right now, new Tellurium jQuery-based APIs include
 
 {{{
- ui.Table(uid: "issueResultWithCache", cacheable: "true", noCacheForChildren: "true",
-      clocator: [id: "resultstable", class: "results"], group: "true") {
-               
-            ......
+TelluriumApi.prototype.blur = function(locator);
 
-    //define table elements
-    //for the border column
-    TextBox(uid: "{row: all, column: 1}", clocator: [:])
-    TextBox(uid: "{row: all, column: 8}", clocator: [:])
-    TextBox(uid: "{row: all, column: 10}", clocator: [:])
-    //For the rest, just UrlLink
-    UrlLink(uid: "{row: all, column: all}", clocator: [:])
-   }
+TelluriumApi.prototype.click = function(locator);
+
+TelluriumApi.prototype.clickAt = function(locator, coordString);
+
+TelluriumApi.prototype.doubleClick = function(locator);
+
+TelluriumApi.prototype.fireEvent = function(locator, event);
+
+TelluriumApi.prototype.focus = function(locator);
+
+TelluriumApi.prototype.typeKey = function(locator, key);
+
+TelluriumApi.prototype.keyDown = function(locator, key);
+
+TelluriumApi.prototype.keyPress = function(locator, key);
+
+TelluriumApi.prototype.keyUp = function(locator, key);
+
+TelluriumApi.prototype.mouseOver = function(locator);
+
+TelluriumApi.prototype.mouseDown = function(locator);
+
+TelluriumApi.prototype.mouseDownRight = function(locator);
+
+TelluriumApi.prototype.mouseEnter = function(locator);
+
+TelluriumApi.prototype.mouseLeave = function(locator);
+
+TelluriumApi.prototype.mouseOut = function(locator);
+
+TelluriumApi.prototype.submit = function(locator);
+
+TelluriumApi.prototype.check = function(locator);
+
+TelluriumApi.prototype.uncheck = function(locator);
+
+TelluriumApi.prototype.isElementPresent = function(locator);
+
+TelluriumApi.prototype.getAttribute = function(locator, attributeName);
+
+TelluriumApi.prototype.waitForPageToLoad = function(timeout);
+
+TelluriumApi.prototype.type = function(locator, val);
+
+TelluriumApi.prototype.select = function(locator, optionLocator);
+
+TelluriumApi.prototype.addSelection = function(locator, optionLocator);
+
+TelluriumApi.prototype.removeSelection = function(locator, optionLocator);
+
+TelluriumApi.prototype.removeAllSelections = function(locator);
+
+TelluriumApi.prototype.open = function(url);
+
+TelluriumApi.prototype.getText = function(locator);
+
+TelluriumApi.prototype.isChecked = function(locator);
+
+TelluriumApi.prototype.isVisible = function(locator);
+
+TelluriumApi.prototype.isEditable = function(locator) ;
+
+TelluriumApi.prototype.getXpathCount = function(xpath);
+
+TelluriumApi.prototype.getAllText = function(locator);
+
+TelluriumApi.prototype.getCssSelectorCount = function(locator);
+
+TelluriumApi.prototype.getCSS = function(locator, cssName);
+
+TelluriumApi.prototype.isDisabled = function(locator);
+
+TelluriumApi.prototype.getListSize = function(locator, separators);
+
+
+TelluriumApi.prototype.getCacheState = function();
+
+TelluriumApi.prototype.enableCache = function();
+
+TelluriumApi.prototype.disableCache = function();
+
+TelluriumApi.prototype.cleanCache = function();
+
+TelluriumApi.prototype.setCacheMaxSize = function(size);
+
+TelluriumApi.prototype.getCacheSize = function();
+
+TelluriumApi.prototype.getCacheMaxSize = function();
+
+TelluriumApi.prototype.getCacheUsage = function();
+
+TelluriumApi.prototype.addNamespace = function(prefix, namespace);
+
+TelluriumApi.prototype.getNamespace = function(prefix);
+
+TelluriumApi.prototype.useDiscardNewPolicy = function();
+
+TelluriumApi.prototype.useDiscardOldPolicy = function();
+
+TelluriumApi.prototype.useDiscardLeastUsedPolicy = function();
+
+TelluriumApi.prototype.useDiscardInvalidPolicy = function();
+
+TelluriumApi.prototype.getCachePolicyName = function();
+
+TelluriumApi.prototype.useUiModule = function(json);
+
+TelluriumApi.prototype.isUiModuleCached = function(id);
+
+TelluriumApi.prototype.getEngineState = function();
+
+TelluriumApi.prototype.useEngineLog = function(isUse);
 }}}
-
-Where the cacheable can overwrite the default value found in the UI object and {{{noCacheForChildren}}}, in the above example, Tellurium is forced into not cacheing its children.
-
-When the jQuery Cache mechanism is chosen, the Tellurium core passes both the jQuery selector and a meta command to the Tellurium Engine, embedded inside the Selenium core at this stage. 
-
-The format taking the Tellurium issue searching UI is shown in the following example:
+ 
+As you can see, most of the new APIs have the same signature as the Selenium ones so that your test code is agnostic to which test driving engine that you use. You can always switch between the Tellurium Engine and Selenium Engine by the following API at Tellurium core.
 
 {{{
-jquerycache={
-  "locator":"form[method=get]:has(#can, span:contains(for), input[type=text][name=q],  
-           input[value=Search][type=submit]) #can",
-  "optimized":"#can",
-  "uid":"issueSearch.issueType",
-  "cacheable":true,
-  "unique":true
-}
+public void useTelluriumApi(boolean isUse);
 }}}
 
-*Where* the locator is the regular jQuery selector and is optimized by the jQuery selector optimizer in the Tellurium core. The locator is used for the child UI element to derive a partial jQuery selector from its parent. The optimized jQuery selector is used for actual DOM searching.
-
-The other three parameters are Meta commands. {{{uid}}} is the UID for the corresponding jQuery selector. The cacheable tells the Engine whether to cache the selector or not. The reason is that some UI elements on the web are dynamic; for instance, the UI element is inside a data grid. As a result, it may not be useful to cache the jQuery selector in this instance.
-
-The last unique method tells the Engine whether the jQuery selector expects multiple elements or not. This is very useful to handle in a case where jQuery selector is expected to return one element, but actually returns multiple ones. In such a case, a Selenium Error is thrown.
-
-On the Engine side, the cache is defined as:
-
-{{{
-   //global flag to decide whether to cache jQuery selectors
-   this.cacheSelector = false;
-
-   //cache for jQuery selectors
-   this.sCache = new Hashtable();
-
-   this.maxCacheSize = 50;
-
-   this.cachePolicy = discardOldCachePolicy;
-}}}
-
-The cache system includes a global flag used to decide whether to use the cache capability, a hash table to store the cached data, a cache size limit, and a cache eviction policy once the cache is filled up.
-
-*_jQuery Selector Cache Structure_*
-
-The cached data structure is defined as:
-
-
-
-{{{
-
-//Cached Data, use uid as the key to reference it
-function CacheData(){
-   //jQuery selector associated with the DOM reference, which is a whole selector
-   //without optimization so that it is easier to find the reminding selector 
-   //for its children
-   this.selector = null;
-   //optimized selector for actual DOM search
-   this.optimized = null;
-  //jQuery object for DOM reference
-   this.reference = null;
-   //number of reuse
-   this.count = 0;
-   //last use time
-   this.timestamp = Number(new Date());
-};
-}}}
-
-*_jQuery Selecor Cache Eviction Policies_*
-
-The Tellurium Engine provides the following jQuery Selector cache eviction policies:
-
-  # *DiscardNewPolicy:* Discard new jQuery selector.
-  # *DiscardOldPolicy:* Discard the oldest jQuery selector measured by the last update time.
-  # *DiscardLeastUsedPolicy:* Discard the least used jQuery selector.
-  # *DiscardInvalidPolicy:* Discard the invalid jQuery selector first.
-
-It is important to know when the cached data become invalid. There are three mechanisms to utilize:
-
-  # Listen for page refresh event and invalidate the cache data accordingly
-  # Intercept Ajax response to decide when the web is an update and if the cache is to be updated.
-  # Validate the cached jQuery selector before using it.
-
-Currently the Tellurium Engine uses the 3rd mechanism to verify if the cached data is valid or not. The first two mechanisms are still under development.
-
-Whenever the Tellurium Core passes a locator to the Engine, the Engine first looks at the meta command cacheable. If this flag is true, it first tries to look up the DOM reference from the cache. If no cached DOM reference is available, implement a fresh jQuery search and cache the DOM reference. 
-
-Otherwise, validate the cached DOM reference and use it directly. If the cacheable flag is false, the Engine looks for the ancestor of the UI element by its UID and initiates a jQuery search starting from its ancestor, if possible.
-
-*_jQuery Selector Cache Control_*
-
-Tellurium Core provides the following methods for jQuery Selector cache control:
-
-  * Methods 
 == toggle ==
 
 Tellurium 0.7.0 provides a toggle method to animate the UI element on the web page. For example, you can the following commands to show the UI element under testing.
