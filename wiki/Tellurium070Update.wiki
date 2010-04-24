@@ -1,5 +1,5 @@
 #summary What's New in Tellurium 0.7.0.
-#labels Phase-Support
+#labels Phase-Support,Phase-Implementation
 <wiki:toc max_depth="5" />
 
 = Introduction =
@@ -302,6 +302,33 @@ and they are combined as a single API call to the Tellurium Engine.
 == UI Module Caching ==
 
 From Tellurium 0.6.0, we provides the cache capability for CSS selectors so that we can reuse them without doing re-locating. In 0.7.0, we move a step further to cache the whole UI module on the Engine side. Each UI module cache holds a snapshot of the DOM references for most of the UI elements in the UI module. The exceptions are dynamic web elements defined by Tellurium UI templates. For these dynamic web elements, the Engine will try to get the DOM reference of its parent and then do locating inside this subtree with its parent node as the root, which will improve the locating speed a lot.
+
+On the Tellurium Core side, all UI modules are converted into a JSON object. That is why you can see the Tellurium UI objects must implement the following method,
+
+{{{
+   abstract JSONObject toJSON();
+}}}
+
+For most UI objects, you only need to implement this method simply as follows if we take the UrlLink object as an example,
+
+{{{
+    public JSONObject toJSON() {
+
+      return buildJSON() {jso ->
+        jso.put(UI_TYPE, "UrlLink")
+      }
+    }
+}}}
+
+For more complicated implementation, please refer to the List object.
+
+Tellurium Core automatically push the UI module definition to the Engine by calling the following method.
+
+{{{
+   public void useUiModule(String json);
+}}}
+
+Once the UI module is cached. All locating procedure will be on the DOM sub-tree the UI module represents to reuse the locators and make the locating very fast. 
 
 To turn on and off the caching capability, you just simply call the following method in your code.
 
@@ -1109,11 +1136,11 @@ To describe the above html, we can define the following UI module.
 
 {{{
     ui.StandardTable(uid: "Table", clocator: [id: "table"], bt: "div", brt: "div", bct: "div"){
-      TextBox(uid: "tbody: 1, row: *, column: 1", clocator: [tag: "div"], self: "true")
-      Image(uid: "tbody: 1, row: *, column: 2", clocator: [:])
-      TextBox(uid: "tbody: 2, row: *, column: 1", clocator: [tag: "div"], self: "true")
-      TextBox(uid: "tbody: 2, row: *, column: 2", clocator: [tag: "div"], self: "true")
-      TextBox(uid: "tbody: 2, row: *, column: 3", clocator: [tag: "div"], self: "true")
+      TextBox(uid: "{tbody: 1, row: all, column: 1}", clocator: [tag: "div"], self: "true")
+      Image(uid: "{tbody: 1, row: all, column: 2}", clocator: [:])
+      TextBox(uid: "{tbody: 2, row: all, column: 1}", clocator: [tag: "div"], self: "true")
+      TextBox(uid: "{tbody: 2, row: all, column: 2}", clocator: [tag: "div"], self: "true")
+      TextBox(uid: "{tbody: 2, row: all, column: 3}", clocator: [tag: "div"], self: "true")
     }
 }}}
 
@@ -2067,37 +2094,6 @@ As you can see, most of the new APIs have the same signature as the Selenium one
 {{{
 public void useTelluriumApi(boolean isUse);
 }}}
-
-== UI Module Caching ==
-
-On the Tellurium Core side, all UI modules are converted into a JSON object. That is why you can see the Tellurium UI objects must implement the following method,
-
-{{{
-abstract JSONObject toJSON();
-}}}
-
-For most UI objects, you only need to implement this method simply as follows if we take the UrlLink object as an example,
-
-{{{
-    public JSONObject toJSON() {
-
-      return buildJSON() {jso ->
-        jso.put(UI_TYPE, "UrlLink")
-      }
-    }
-}}}
-
-For more complicated implementation, please refer to the List object.
-
-Tellurium Core automatically push the UI module definition to the Engine by calling the following method.
-
-{{{
-public void useUiModule(String json);
-}}}
-
-Once the UI module is cached. All locating procedure will be on the DOM sub-tree the UI module represents to reuse the locators and make the locating very fast. 
-
-Again, this feature is still under developement. Please don't use it for the timebeing.
  
 == jQuery ==
 
