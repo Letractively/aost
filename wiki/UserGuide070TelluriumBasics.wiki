@@ -524,6 +524,8 @@ There are issues to be aware of with CSS Selector:
   * Some attributes may not be working in jQuery. For example, the "action" attribute in a form. Tellurium has a black list to automatically filter out the attributes that are not honored by CSS selector.
   * The "src" attribute in Image has to be a full URL such as [http://www.google.com/ http://www.google.com]. One workaround is to put '{{{*}}}' before the URL.
 
+=== New Tellurium jQuery-based APIs ===
+
 Right now, new Tellurium jQuery-based APIs include
 
 {{{
