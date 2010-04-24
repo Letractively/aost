@@ -152,6 +152,18 @@ Div is often used in the Dojo framework and it can represent many objects. Its t
 Div(uid: "dialog", clocator: [class: 'dojoDialog', id: 'loginDialog'])
 }}}
 
+The Div object has been changed to be a Container type object. For example, you can define the following UI module.
+
+{{{
+   ui.Div(uid: "div1", clocator: [id: "div1"]) {
+      Div(uid: "div2", clocator: [id: "div2"]) {
+        List(uid: "list1", clocator: [tag: "ul"], separator: "li"){
+          UrlLink(uid: "{all}", clocator: [:])
+        }
+      } 
+   }
+}}}
+
 === Image ===
 
 Image is used to abstract the "img" tag and it comes with the following additional methods:
