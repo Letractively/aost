@@ -254,6 +254,7 @@
         <module>extensions</module>
         <module>reference-projects</module>
         <module>tools</module>
+        <module>userguide</module>
         <module>tellurium-assembly</module>
     </modules>
     <repositories>
