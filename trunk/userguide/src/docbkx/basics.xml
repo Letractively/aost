@@ -2,11 +2,11 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 
-<chapter id="te-overview">
-  <title>Tellurium Overview</title>
+<chapter id="te-basics">
+  <title>Tellurium Basics</title>
 
-  <section id="te-introduction">
-    <title>Introduction</title>
+  <section id="uid-attributes">
+    <title>UID attributes</title>
   </section>
 
 </chapter>
