@@ -10,11 +10,13 @@
     <pubdate>May 15, 2010</pubdate>
     <releaseinfo>v0.7.0</releaseinfo>
 
-    <mediaobject>
-      <imageobject role="fo">
-        <imagedata align="center" fileref="media/logo.png" format="PNG"/>
-      </imageobject>
-    </mediaobject>
+    <figure>
+          <mediaobject>
+              <imageobject role="fo">
+                  <imagedata align="center" fileref="media/logo.png" format="PNG"/>
+              </imageobject>
+          </mediaobject>
+     </figure>
 
      <authorgroup>
       <author>
@@ -65,14 +67,111 @@
   </bookinfo>
 
   <chapter>
-    <title>This is a chapter</title>
+    <title>Overview of Tellurium</title>
 
     <section>
-      <title>This is a section</title>
+      <title>Introduction</title>
 
-      <para>This is a paragraph.</para>
+      <para>Introduction of Tellurium</para>
     </section>
 
-    <xi:include href="included_section.xml" />
+    <xi:include href="overview.xml" />
+  </chapter>
+    
+  <chapter>
+    <title>What's New in Tellurium 0.7.0</title>
+
+    <section>
+      <title>Package name</title>
+
+      <para>Package rename</para>
+    </section>
+
+    <xi:include href="whatsnew.xml" />
+  </chapter>
+
+  <chapter>
+    <title>Tellurium Basics</title>
+
+    <section>
+      <title>Tellurium Concepts</title>
+
+      <para>Tellurium Concepts</para>
+    </section>
+    <section>
+      <title>Tellurium UI Objects</title>
+
+      <para>Tellurium UI Objects</para>
+    </section>
+    <xi:include href="basics.xml" />
+  </chapter>
+    
+   <chapter>
+    <title>Tellurium APIs</title>
+
+    <section>
+      <title>Tellurium APIs</title>
+
+      <para>Tellurium APIs</para>
+    </section>
+    <xi:include href="apis.xml" />
+  </chapter>
+
+   <chapter>
+    <title>Tellurium Advanced Topics</title>
+
+    <section>
+      <title>Data Driven Testing</title>
+
+      <para>Data Driven Testing</para>
+    </section>
+
+    <section>
+      <title>Group Locating</title>
+
+      <para>Group Locating</para>
+    </section>
+
+    <section>
+      <title>UI Module Caching</title>
+
+      <para>UI Module Caching</para>
+    </section>
+
+    <section>
+      <title>Macro Command</title>
+
+      <para>Macro Command</para>
+    </section>
+
+    <section>
+      <title>Tellurium UID Description Language</title>
+
+      <para>UDL</para>
+    </section>         
+    <xi:include href="advanced-topics.xml" />
+  </chapter>
+
+   <chapter>
+    <title>Appendices</title>
+
+    <section>
+      <title>Appendix A: Examples</title>
+
+      <para>Examples</para>
+    </section>
+
+    <section>
+      <title>Appendix B: FAQs</title>
+
+      <para>Frequently Asked Questions</para>
+    </section>
+
+    <section>
+      <title>Appendix C: Resources</title>
+
+      <para>Resources</para>
+    </section>       
+    <xi:include href="appendices.xml" />
   </chapter>
 </book>
