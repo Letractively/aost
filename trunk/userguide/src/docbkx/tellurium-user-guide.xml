@@ -10,15 +10,13 @@
     <pubdate>May 15, 2010</pubdate>
     <releaseinfo>v0.7.0</releaseinfo>
 
-    <figure>
-          <mediaobject>
-              <imageobject role="fo">
-                  <imagedata align="center" fileref="media/logo.png" format="PNG"/>
-              </imageobject>
-          </mediaobject>
-     </figure>
+      <mediaobject>
+          <imageobject role="fo">
+              <imagedata align="center" fileref="media/logo.png" format="PNG"/>
+          </imageobject>
+      </mediaobject>
 
-     <authorgroup>
+      <authorgroup>
       <author>
         <firstname>Jian</firstname>
 
