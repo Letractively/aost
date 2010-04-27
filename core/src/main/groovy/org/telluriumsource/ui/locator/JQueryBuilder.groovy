@@ -127,13 +127,24 @@ public class JQueryBuilder {
     }
   }
 
-  protected static String attrStyle(String style){
+  protected static String attrStyle(String style) {
     String val = style
-    if(val == null || val.trim().length() == 0){
+    if (val == null || val.trim().length() == 0) {
       return "[style]"
     }
 
-    return ":styles(${val})"
+    if (val.startsWith(START_PREFIX)) {
+      return "[style^=${val.substring(1)}]"
+    } else if (val.startsWith(END_PREFIX)) {
+      return "[style\$=${val.substring(1)}]"
+    } else if (val.startsWith(ANY_PREFIX)) {
+      return "[style*=${val.substring(1)}]"
+    } else if (val.startsWith(NOT_PREFIX)) {
+      return "[style!=${val.substring(1)}]"
+    } else {
+
+      return ":styles(${val})"
+    }
   }
 
   protected static String attrPairs(String attr, String val){
