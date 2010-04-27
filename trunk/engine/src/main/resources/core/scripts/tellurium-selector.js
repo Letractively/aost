@@ -611,7 +611,18 @@ JQueryBuilder.prototype.buildStyle = function(style){
       return "[style]";
     }
 
-    return ":styles(" + style + ")";
+    if(style.startsWith("^")){
+        return "[style^=" + style.substring(1) + "]";
+    }else if(style.startsWith("$")){
+        return "[style$=" + style.substring(1) + "]";
+    }else if(style.startsWith("*")){
+        return "[style*=" + style.substring(1) + "]";
+    }else if(style.startsWith("!")){
+        return "[style!=" + style.substring(1) + "]";
+    }else{
+
+        return ":styles(" + style + ")";
+    }
 };
 
 JQueryBuilder.prototype.buildSelector = function(attr, val){
