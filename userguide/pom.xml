@@ -32,7 +32,7 @@
                             <!-- per execution configuration -->
                             <!--includes>book.xml</includes-->
                             <includes>tellurium-user-guide.xml</includes>
-                            <draftMode>yes</draftMode>
+                            <!--<draftMode>yes</draftMode>-->
                         </configuration>
                     </execution>
                 </executions>
