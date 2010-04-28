@@ -1092,4 +1092,14 @@ We also expect to have some Evangelism Team members, who could write blogs and a
 
 == Tellurium Future Directions ==
 
-Tellurium 0.6.0 added jQuery Selector support and a cache mechanism to increase the reuse of UI elements. In 0.7.0, we go a step further to cache the whole UI module and work on our own Engine project to better support UI modules and achieve more robust performance and better speed. In the meanwhile, We will improve our Trump plugin to automatically generate DSL testing scripts for non-developers. 
+  * Use jQuery to re-implement Selenium APIs. 0.7.0 has implemented a set of Selenium APIs, but there are still a lot of remaining work.
+  * Algorithm design, for example, automatically build UI module from HTML source. Reverse engineering to build UI templates from HTML source is very challenging.
+  * Tellurium Widgets, create reusable Dojo, ExtJS widgets so that other people can reuse the widgets simply by including the jar files to their projects.
+  * Tellurium UID Description Language improvement.
+  * Improve Trump Firefox Plugin, for example, generate test script as well as UI modules so that Tellurium is not only good for developers, but also QA people.
+  * Add Behavior Driven Testing support
+  * Add testing flow support. Many unit testing and functional testing frameworks do not really have the testing flow/stage concept. 
+  * Tellurium as a cloud testing tool.
+  * Tellurium as a web security testing tool.
+  * IDE and other plugins.
+  * Improve code quality.
