@@ -3,173 +3,109 @@
       xmlns:xlink="http://www.w3.org/1999/xlink"
       xmlns:xi="http://www.w3.org/2001/XInclude"
       xmlns:db="http://docbook.org/ns/docbook" xml:lang="en">
-  <info>
-    <title>Tellurium User Guide</title>
-    <productname>Tellurium Automated Testing Framework</productname>
-    <subtitle>Tellurium Automated Testing Framework</subtitle>
-    <pubdate>May 15, 2010</pubdate>
-    <releaseinfo>v0.7.0</releaseinfo>
+    <info>
+        <title>Tellurium User Guide</title>
+        <productname>Tellurium Automated Testing Framework</productname>
+        <subtitle>Tellurium Automated Testing Framework</subtitle>
+        <pubdate>May 15, 2010</pubdate>
+        <releaseinfo>v0.7.0</releaseinfo>
 
-      <mediaobject>
-          <imageobject role="fo">
-              <imagedata align="center" fileref="./media/logo.png" format="PNG"/>
-          </imageobject>
-      </mediaobject>
+        <mediaobject>
+            <imageobject role="fo">
+                <imagedata align="center" fileref="./media/logo.png" format="PNG"/>
+            </imageobject>
+        </mediaobject>
 
-      <authorgroup>
-      <author>
-        <firstname>Jian</firstname>
+        <authorgroup>
+            <author>
+                <firstname>Jian</firstname>
 
-        <surname>Fang</surname>
-      </author>
+                <surname>Fang</surname>
+            </author>
 
-      <author>
-        <firstname>Ajay</firstname>
+            <author>
+                <firstname>Ajay</firstname>
 
-        <surname>Ravichandran</surname>
-      </author>
+                <surname>Ravichandran</surname>
+            </author>
 
-      <author>
-        <firstname>Rajan</firstname>
+            <author>
+                <firstname>Rajan</firstname>
 
-        <surname>Pokhrel</surname>
-      </author>
+                <surname>Pokhrel</surname>
+            </author>
 
-     </authorgroup>
+        </authorgroup>
 
-      <copyright>
-      <year>2010</year>
-      <holder>Tellurium Team</holder>
-     </copyright>
+        <copyright>
+            <year>2010</year>
+            <holder>Tellurium Team</holder>
+        </copyright>
 
-      <legalnotice>
-          <para>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
-              file except in compliance with the License. You may obtain a copy of the License at:
-          </para>
-          <para>
-              http://www.apache.org/licenses/LICENSE-2.0
-          </para>
-          <para>
-              Unless required by applicable law or agreed to in writing, software distributed under the
-              License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-              CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
-              language governing permissions and limitations under the License.
-          </para>
-          <para>Copies of this document may be made for your own use and for
-              distribution to others, provided that you do not charge any fee for such
-              copies and further provided that each copy contains this Copyright
-              Notice, whether distributed in print or electronically.
-          </para>
-      </legalnotice>
+        <legalnotice>
+            <para>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
+                file except in compliance with the License. You may obtain a copy of the License at:
+            </para>
+            <para>
+                http://www.apache.org/licenses/LICENSE-2.0
+            </para>
+            <para>
+                Unless required by applicable law or agreed to in writing, software distributed under the
+                License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+                CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+                language governing permissions and limitations under the License.
+            </para>
+            <para>Copies of this document may be made for your own use and for
+                distribution to others, provided that you do not charge any fee for such
+                copies and further provided that each copy contains this Copyright
+                Notice, whether distributed in print or electronically.
+            </para>
+        </legalnotice>
 
-  </info>
+    </info>
 
-  <chapter>
-    <title>Overview of Tellurium</title>
+    <chapter>
+        <title>Overview of Tellurium</title>
 
-    <section>
-      <title>Introduction</title>
+        <xi:include href="overview.xml"/>
+    </chapter>
 
-      <para>Introduction of Tellurium</para>
-    </section>
+    <chapter>
+        <title>What's New in Tellurium 0.7.0</title>
 
-    <xi:include href="overview.xml" />
-  </chapter>
-    
-  <chapter>
-    <title>What's New in Tellurium 0.7.0</title>
+        <xi:include href="whatsnew.xml"/>
+    </chapter>
 
-    <section>
-      <title>Package name</title>
+    <chapter>
+        <title>Tellurium Basics</title>
 
-      <para>Package rename</para>
-    </section>
+        <xi:include href="basics.xml"/>
+    </chapter>
 
-    <xi:include href="whatsnew.xml" />
-  </chapter>
+    <chapter>
+        <title>Tellurium APIs</title>
 
-  <chapter>
-    <title>Tellurium Basics</title>
+        <xi:include href="apis.xml"/>
+    </chapter>
 
-    <section>
-      <title>Tellurium Concepts</title>
+    <chapter>
+        <title>Tellurium Advanced Topics</title>
 
-      <para>Tellurium Concepts</para>
-    </section>
-    <section>
-      <title>Tellurium UI Objects</title>
+        <xi:include href="advanced-topics.xml"/>
+    </chapter>
 
-      <para>Tellurium UI Objects</para>
-    </section>
-    <xi:include href="basics.xml" />
-  </chapter>
-    
-   <chapter>
-    <title>Tellurium APIs</title>
+    <appendix id="Examples">
+        <title>Examples</title>
+        <xi:include href="examples.xml"/>
+    </appendix>
 
-    <section>
-      <title>Tellurium APIs</title>
+    <appendix id="Faqs">
+        <title>FAQs</title>
+        <xi:include href="faqs.xml"/>
+    </appendix>
 
-      <para>Tellurium APIs</para>
-    </section>
-    <xi:include href="apis.xml" />
-  </chapter>
-
-   <chapter>
-    <title>Tellurium Advanced Topics</title>
-
-    <section>
-      <title>Data Driven Testing</title>
-
-      <para>Data Driven Testing</para>
-    </section>
-
-    <section>
-      <title>Group Locating</title>
-
-      <para>Group Locating</para>
-    </section>
-
-    <section>
-      <title>UI Module Caching</title>
-
-      <para>UI Module Caching</para>
-    </section>
-
-    <section>
-      <title>Macro Command</title>
-
-      <para>Macro Command</para>
-    </section>
-
-    <section>
-      <title>Tellurium UID Description Language</title>
-
-      <para>UDL</para>
-    </section>         
-    <xi:include href="advanced-topics.xml" />
-  </chapter>
-
-   <chapter>
-    <title>Appendices</title>
-
-    <section>
-      <title>Appendix A: Examples</title>
-
-      <para>Examples</para>
-    </section>
-
-    <section>
-      <title>Appendix B: FAQs</title>
-
-      <para>Frequently Asked Questions</para>
-    </section>
-
-    <section>
-      <title>Appendix C: Resources</title>
-
-      <para>Resources</para>
-    </section>       
-    <xi:include href="appendices.xml" />
-  </chapter>
+    <appendix id="Resources">
+        <title>Resources</title>
+        <xi:include href="resources.xml"/>
+    </appendix>
 </book>
