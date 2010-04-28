@@ -520,4 +520,97 @@ click "GoogleSearchModule.Search"
                 New in Tellurium 0.7.0</link>.
         </para>
     </section>
+
+    <section>
+        <title>History of Tellurium</title>
+        <para>Tellurium was started in June 2007 as an internal project and became
+            <link xlink:href="http://code.google.com/p/aost">an open source project on Google Code</link>
+            in June 2008. We release on a regular basis and the latest release 0.7.0 will be out next
+            month.
+        </para>
+
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="./media/telluriumhistory.png" scalefit="1" width="100%"></imagedata>
+            </imageobject>
+        </mediaobject>
+
+    </section>
+
+    <section>
+        <title>Tellurium Team and Community</title>
+        <para>
+            <link xlink:href="http://code.google.com/p/aost/wiki/ContributorList">Tellurium Team</link>
+            consists of 4-5 active team members and couple more contributors. We have
+            <link xlink:href="http://groups.google.com/group/tellurium-users">Tellurium user group</link>
+            and<link xlink:href="http://groups.google.com/group/tellurium-developers">Tellurium developer
+            group</link>. Latest update information are available on<link xlink:href="">
+            http://twitter.com/TelluriumSource twitter</link>. Tellurium also provides a community
+            repository on
+            <link xlink:href="http://github.com/telluriumsource/tellurium">GitHub</link>
+            so that anyone can fork Tellurium and contribute back to us. Tellurium wiki documents will
+            be migrated to<link xlink:href="http://telluriumsource.org/display/TE/Home">
+            TelluriumSource.org</link>, a domain owned by us.
+        </para>
+
+    </section>
+
+    <section>
+        <title>Tellurium Sub-projects</title>
+        <para>Tellurium began as a small core project and
+                            quickly generated multiple sub-projects including: UDL, Core, Engine, Widget extensions,
+                            Maven Archetypes, and Trump sub-projects as shown in the following diagram.
+                        </para>
+
+         <mediaobject>
+            <imageobject>
+                <imagedata fileref="./media/NewTelluriumSubProjects.png" scalefit="1" width="100%"></imagedata>
+            </imageobject>
+        </mediaobject>
+
+        <itemizedlist>
+            <listitem>
+                <para>Tellurium UDL:
+                    <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage">
+                        Tellurium UID Description Language
+                    </link>
+                    (UDL) Parser.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Tellurium Engine: Based on Selenium Core with UI module, CSS selector, command
+                    bundle, and exception hierarchy support.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Tellurium Core: UI module, APIs, DSL, Object to Runtime Locator mapping (OLM), and
+                    test support.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Tellurium Extensions: Dojo Javascript widgets and ExtJS Javascript widgets.</para>
+            </listitem>
+            <listitem>
+                <para>Tellurium UI Module Plugin (Trump):
+                    <link xlink:href="http://code.google.com/p/aost/wiki/TrUMP">A Firefox plugin</link>
+                    to automatically generate the UI module after users select the UI elements from the
+                    web under testing.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Tellurium Maven Archetypes:
+                    <link xlink:href="http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_Maven_Archetypes">
+                        Maven archetypes
+                    </link>
+                    to generate skeleton Tellurium JUnit and Tellurium TestNG projects using one Maven
+                    command.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Tellurium Reference Projects: Use Tellurium project site as examples to illustrate
+                    how to use different features in Tellurium and how to create Tellurium test cases.
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
 </section>
