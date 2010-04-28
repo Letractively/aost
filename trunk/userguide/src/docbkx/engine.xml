@@ -6,13 +6,6 @@
          xmlns:ns4="http://www.w3.org/1998/Math/MathML"
          xmlns:ns3="http://www.w3.org/1999/xhtml"
          xmlns:db="http://docbook.org/ns/docbook">
-  <title>This is an included section</title>
 
-  <para>This is an included paragraph.</para>
 
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="media/martin-luther-king.jpg"></imagedata>
-    </imageobject>
-  </mediaobject>
 </section>

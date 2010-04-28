@@ -77,15 +77,51 @@
     </chapter>
 
     <chapter>
-        <title>Tellurium Basics</title>
+        <title>Tellurium Core Basics</title>
 
         <xi:include href="basics.xml"/>
     </chapter>
 
     <chapter>
-        <title>Tellurium APIs</title>
+        <title>Tellurium Core APIs</title>
 
         <xi:include href="apis.xml"/>
+    </chapter>
+
+    <chapter>
+        <title>Tellurium UID Description Language</title>
+
+        <xi:include href="udl.xml"/>
+    </chapter>
+
+    <chapter>
+        <title>Tellurium Widgets</title>
+
+        <xi:include href="widgets.xml"/>
+    </chapter>
+
+    <chapter>
+        <title>Tellurium Engine</title>
+
+        <xi:include href="engine.xml"/>
+    </chapter>
+
+    <chapter>
+        <title>Tellurium Maven Archetypes</title>
+
+        <xi:include href="mavenarchetypes.xml"/>
+    </chapter>
+
+     <chapter>
+        <title>Tellurium UI Module Firefox Plugin</title>
+
+        <xi:include href="trump.xml"/>
+    </chapter>
+
+    <chapter>
+        <title>Tellurium Reference Projects</title>
+
+        <xi:include href="referenceprojects.xml"/>
     </chapter>
 
     <chapter>
