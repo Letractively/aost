@@ -6,6 +6,133 @@
          xmlns:ns4="http://www.w3.org/1998/Math/MathML"
          xmlns:ns3="http://www.w3.org/1999/xhtml"
          xmlns:db="http://docbook.org/ns/docbook">
+    <section>
+        <title>Introduction</title>
+        <para>Tellurium UID Description Language (UDL) is the Language to definite
+            the UID field in Tellurium UI objects. In Tellurium, the UI object is referred to by its
+            UID, i.e., the UI object identifier.
+        </para>
+        <para>For nested UI objects, the UID of the UI Object is a concatenated UI objects&apos; uids
+            along its path to the UI Object.
+        </para>
+        <para>For example, in the following nested UI Module shown below, the TextBox is referred to as
+            the<literal>&quot;parent_ui.child_ui.grand_child.textbox1&quot;</literal>.
+        </para>
+        <programlisting language="java">
+<![CDATA[
+ui.Container(uid: "parent_ui"){
+  InputBox(uid: "inputbox1", locator: "...")
+  Button(uid: "button1", locator: "...")
+  Container(uid: "child_ui){
+    Selector(uid: "selector1", locator: "...")
+    ...
+    Container(uid: "grand_child"){
+      TextBox(uid: "textbox1", locator: "...")
+      ...
+    }
+  }
+}
+]]>
+        </programlisting>
 
+        <para>The exceptions are tables and lists, which use
+            <literal>[x][y]</literal>
+            or
+            <literal>[x]</literal>
+            to reference the elements inside. For example,
+            <literal>labels_table[2][1]</literal>
+            and<literal>GoogleBooksList.subcategory[2]</literal>. The Table header can be referred in
+            the format of<literal>issueResult.header[2]</literal>.
+        </para>
+
+        <para>More
+            general cases are illustrated by the following UI module:
+        </para>
+
+        <programlisting language="java">
+<![CDATA[
+ui.Form(uid: "A", clocator: [:]){
+  InputBox(uid: "B", clocator: [:])
+  Container(uid: "C", clocator: [tag: "div"]){
+     Selector(uid: "D", clocator: [:])
+     List(uid: "E", clocator: [tag: "ul"], separator: "li"){
+        UrlLink(uid: "{1} as Link", clocator: [:])
+        InputBox(uid: "{all}", clocator: [:])
+     }
+  }
+}
+]]>
+        </programlisting>
+
+        <para>The UID name convention can be illustrated by the following graph.</para>
+
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="./media/TelluriumUID.png" scalefit="1" width="100%"></imagedata>
+            </imageobject>
+        </mediaobject>
+
+        <para>For example, the UID of the List
+            <emphasis>E</emphasis>
+            in the above diagram is
+            <literal>A.C.E</literal>
+            and the InputButton in the List
+            <emphasis>E</emphasis>
+            is referred by its index n. For example: A.C.En.
+        </para>
+        <para>As we said above, UID is used to identify and describe a UI object in Tellurium, but why do we
+            need a language to describe the name of a UI object in Tellurium?
+        </para>
+        <para>The answer is that UID is not just the name of a UI object, it is also used to describe the
+            dynamic factors in a<link
+                    xlink:href="http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UI_Templates">
+                Tellurium UI template</link>.
+        </para>
+        <para>Tellurium UI templates have two purposes:</para>
+        <orderedlist>
+            <listitem>
+                <para>When there are many identical UI elements, use one template to represent them all.
+                </para>
+            </listitem>
+            <listitem>
+                <para>When there are variable/dynamic sizes of UI elements at runtime, the patterns are
+                    known, but not the size.
+                </para>
+            </listitem>
+        </orderedlist>
+        <para>More specifically, Table, StandardTable, and List are the three Tellurium objects that
+            define UI templates. The Table object is a special case of the StandardTable object.
+        </para>
+        <orderedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Table</emphasis>
+                    and
+                    <emphasis role="bold">StandardTable</emphasis>
+                    define two dimensional UI templates.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">List</emphasis>
+                    defines one dimensional UI templates.
+                </para>
+            </listitem>
+        </orderedlist>
+        <para>As a result, the Tellurium UID Description Language (UDL) is designed to</para>
+        <orderedlist>
+            <listitem>
+                <para>address the dynamic factors in Tellurium UI templates</para>
+            </listitem>
+            <listitem>
+                <para>increase the flexibility of Tellurium UI templates.</para>
+            </listitem>
+        </orderedlist>
+        <para>Tellurium UID Description Language (UDL) is implemented with<link
+                xlink:href="http://www.antlr.org/">the Antlr 3 parser generator</link>. We will first cover
+            the grammars of UDL and then the implementation details.
+        </para>
+
+    </section>
 
 </section>
