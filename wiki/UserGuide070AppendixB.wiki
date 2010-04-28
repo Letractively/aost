@@ -926,6 +926,103 @@ The rules for the ID definition are as follows:
   * Starts with a letter and followed by either letter, digits, or underscore "_".
   * {{{row}}}, {{{column}}}, {{{header}}}, {{{tbody}}}, {{{tfooter}}} are reserved by UDL as tokens and you should not use them as IDs.
 
+== How to load Tellurium configuration from a String ==
+
+From 0.7.0, Tellurium added support to load Tellurium configuration from a JSON String. For example, you can define the Tellurium configuration JSON string as follows.
+
+{{{
+public class JettyLogonModule extends DslContext {
+ public static String JSON_CONF = """{"tellurium":{"test":{"result":{"reporter":"XMLResultReporter","filename":"TestResult.output","output":"Console"},"exception":{"filenamePattern":"Screenshot?.png","captureScreenshot":false},"execution":{"trace":false}},"accessor":{"checkElement":false},"embeddedserver":{"port":"4444","browserSessionReuse":false,"debugMode":false,"ensureCleanSession":false,"interactive":false,"avoidProxy":false,"timeoutInSeconds":30,"runInternally":true,"trustAllSSLCertificates":true,"useMultiWindows":false,"userExtension":"","profile":""},"uiobject":{"builder":{}},"eventhandler":{"checkElement":false,"extraEvent":false},"i18n":{"locale":"en_US"},"connector":{"baseUrl":"http://localhost:8080","port":"4444","browser":"*chrome","customClass":"","serverHost":"localhost","options":""},"bundle":{"maxMacroCmd":5,"useMacroCommand":true},"datadriven":{"dataprovider":{"reader":"PipeFileReader"}},"widget":{"module":{"included":""}}}}""";
+
+...
+}
+}}}
+
+where the pretty look version of the JSON String is shown as follows.
+
+{{{
+{
+    "tellurium": {
+        "test": {
+            "result": {
+                "reporter": "XMLResultReporter",
+                "filename": "TestResult.output",
+                "output": "Console"
+            },
+            "exception": {
+                "filenamePattern": "Screenshot?.png",
+                "captureScreenshot": false
+            },
+            "execution": {
+                "trace": false
+            }
+        },
+        "accessor": {
+            "checkElement": false
+        },
+        "embeddedserver": {
+            "port": "4444",
+            "browserSessionReuse": false,
+            "debugMode": false,
+            "ensureCleanSession": false,
+            "interactive": false,
+            "avoidProxy": false,
+            "timeoutInSeconds": 30,
+            "runInternally": true,
+            "trustAllSSLCertificates": true,
+            "useMultiWindows": false,
+            "userExtension": "",
+            "profile": ""
+        },
+        "uiobject": {
+            "builder": { }
+        },
+        "eventhandler": {
+            "checkElement": false,
+            "extraEvent": false
+        },
+        "i18n": {
+            "locale": "en_US"
+        },
+        "connector": {
+            "baseUrl": "http://localhost:8080",
+            "port": "4444",
+            "browser": "*chrome",
+            "customClass": "",
+            "serverHost": "localhost",
+            "options": ""
+        },
+        "bundle": {
+            "maxMacroCmd": 5,
+            "useMacroCommand": true
+        },
+        "datadriven": {
+            "dataprovider": {
+                "reader": "PipeFileReader"
+            }
+        },
+        "widget": {
+            "module": {
+                "included": ""
+            }
+        }
+    }
+}
+}}}
+
+Then in the test case, we can load the configuration.
+
+{{{
+public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
+   private static JettyLogonModule jlm;
+   static{
+       Environment env = Environment.getEnvironment();
+       env.useConfigString(JettyLogonModule.JSON_CONF);
+   }
+
+   ...
+}}}
+
 == How to register a custom method in Tellurium API ==
 
 For a custom method, the new Tellurium Engine provides the following method for users to register the custom method.
