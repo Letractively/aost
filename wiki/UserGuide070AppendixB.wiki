@@ -923,7 +923,7 @@ With the addition of Tellurium UID Description Language (UDL), for most UI objec
 
 The rules for the ID definition are as follows:
 
-  * Starts with a letter and followed by either letter, digits, or underscore "_".
+  * Starts with a letter and followed by either letter, digits, or underscore `"_"`.
   * {{{row}}}, {{{column}}}, {{{header}}}, {{{tbody}}}, {{{tfooter}}} are reserved by UDL as tokens and you should not use them as IDs.
 
 == How to load Tellurium configuration from a String ==
