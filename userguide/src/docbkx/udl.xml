@@ -306,7 +306,7 @@ WS      :       (' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
 
                  <mediaobject>
                     <imageobject>
-                        <imagedata fileref="./media/udl_baseuid.jpg" scalefit="1" width="100%"></imagedata>
+                        <imagedata fileref="./media/udl_baseuid.jpg"></imagedata>
                     </imageobject>
                 </mediaobject>
 
@@ -524,7 +524,7 @@ ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"],
                     
         <mediaobject>
             <imageobject>
-                <imagedata fileref="./media/udl_rtree.png" scalefit="1" width="60%"></imagedata>
+                <imagedata fileref="./media/udl_rtree.png"></imagedata>
             </imageobject>
         </mediaobject>
 

@@ -564,7 +564,7 @@ click "GoogleSearchModule.Search"
 
          <mediaobject>
             <imageobject>
-                <imagedata fileref="./media/NewTelluriumSubProjects.png" scalefit="1" width="100%"></imagedata>
+                <imagedata fileref="./media/NewTelluriumSubProjects.png"></imagedata>
             </imageobject>
         </mediaobject>
 
