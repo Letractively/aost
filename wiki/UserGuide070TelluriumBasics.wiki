@@ -1,5 +1,5 @@
 #summary Tellurium Basics.
-#labels Phase-Support
+#labels Phase-Support,Phase-Design
 
 (A PDF version of the user guide is available [http://aost.googlecode.com/files/TelluriumUserGuide.0.6.0.pdf here])
 
@@ -44,6 +44,7 @@ ui.Form(uid: "A", clocator: [:]){
         InputBox(uid: "{all}", clocator: [:])
      }
   }
+}
 }}}
 
 *Figure 2-3: General Cases Search Example*
