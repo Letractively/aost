@@ -1,5 +1,5 @@
 #summary Tellurium User Guide: Appendix B FAQs.
-#labels Phase-Implementation
+#labels Phase-Implementation,Phase-Support
 
 (A PDF version of the user guide is available [http://aost.googlecode.com/files/TelluriumUserGuide.0.6.0.pdf here])
 
@@ -917,6 +917,15 @@ clocator: [href:'\$xevent']
 clocator: [href:'*xevent']
 }}}
    
+== What are the rules to define Tellurium UIDs ==
+
+With the addition of Tellurium UID Description Language (UDL), for most UI objects, the UIDs are IDs, but for List and Table objects, the UIDs include UI template definitions and IDs. 
+
+The rules for the ID definition are as follows:
+
+  * Starts with a letter and followed by either letter, digits, or underscore "_".
+  * _row_, _column_, _header_, _tbody_, _tfooter_ are resolved by UDL as tokens and you should not use them as IDs.
+
 == How to register a custom method in Tellurium API ==
 
 For a custom method, the new Tellurium Engine provides the following method for users to register the custom method.
