@@ -9,7 +9,7 @@
 
 == UiID Attribute ==
 
-In Tellurium, the UI object is referred to by its UiID or the UI object dentifier. 
+In Tellurium, the UI object is referred to by its UiID or the UI object identifier. 
 
 For nested Ui objects, the UiID of the UI Object is a concatenated UI objects' uids along its path to the UI Object. 
 
