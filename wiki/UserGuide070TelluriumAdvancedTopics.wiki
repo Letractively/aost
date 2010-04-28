@@ -1349,6 +1349,44 @@ Then, the new runtime jQuery selector becomes,
 div:group(a:te_text(Program), div) div:group(input:styles(width: 343px;)[type=text][readonly=true], img:styles(overflow: auto; width: 356px; height: 100px;)) img:styles(overflow: auto; width: 356px; height: 100px;)
 }}}
 
+==== :nextToLast ====
+
+One implemented suggested by Kevin is shown as follows,
+
+{{{
+teJQuery.expr[':'].nextToLast = function(obj, index, m){
+    var $this = teJQuery(obj);
+
+    if ($this.index() == $this.siblings().length - 1) {
+        return true;
+    } else {
+        return false;
+    }
+};
+}}}
+
+and he also suggested [http://www.tentonaxe.com/2010/03/custom-jquery-selectors.html a more efficient implementation].
+
+{{{
+// this is a selector called nextToLast. its sole purpose is to return the next to last
+// element of the array of elements supplied to it.
+// the parameters in the function below are as follows;
+// obj => the current node being checked
+// ind => the index of obj in the array of objects being checked
+// prop => the properties passed in with the expression
+// node => the array of nodes being checked
+teJQuery.expr[':'].nextToLast = function(obj, ind, prop, node){
+
+     // if ind is 2 less than the length of the array of nodes, keep it
+     if (ind == node.length-2) {
+          return true;
+     } else {
+          // else, remove the node
+          return false;
+     }
+};
+}}}
+
 === Custom jQuery Plugins ===
  
 ==== outerHTML ====
