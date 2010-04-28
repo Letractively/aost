@@ -30,7 +30,7 @@
         </mediaobject>
 
         <para>For example:</para>
-        <programlisting language="java">
+        <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
     selenium.click("//div[3]/input[@value='Create']");
 ]]>
@@ -45,7 +45,7 @@
         </mediaobject>
 
         <para>We define the UI module as follows.</para>
-        <programlisting language="java">
+        <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 ui.Form(uid: "Form", clocator: [tag: "form"]){
    Div(uid: "User", clocator: [:]){
@@ -71,7 +71,7 @@ ui.Form(uid: "Form", clocator: [tag: "form"]){
             test code, you have DSL style test code such as:
         </para>
 
-        <programlisting language="java">
+        <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
     type "Form.User.Input", "TelluriumSource"
 ]]>
@@ -101,7 +101,7 @@ ui.Form(uid: "Form", clocator: [tag: "form"]){
             can be easily represented as follows.
         </para>
 
-        <programlisting language="java">
+        <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"],
    group: "true") {
@@ -240,7 +240,7 @@ ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"],
             search UI module can be expressed as follows:
         </para>
 
-        <programlisting language="java">
+        <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 ui.Container(uid: "GoogleSearchModule", clocator: [tag: "td"], group: "true"){
   InputBox(uid: "Input", clocator: [title: "Google Search"])
@@ -267,7 +267,7 @@ ui.Container(uid: "GoogleSearchModule", clocator: [tag: "td"], group: "true"){
       <para>For example, once the Google Search UI module is defined as previously shown, the test code
                             is written as follows:
                         </para>
-        <programlisting language="java">
+        <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 type "GoogleSearchModule.Input", "Tellurium test"
 click "GoogleSearchModule.Search"
