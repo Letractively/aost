@@ -18,7 +18,7 @@
         <para>For example, in the following nested UI Module shown below, the TextBox is referred to as
             the<literal>&quot;parent_ui.child_ui.grand_child.textbox1&quot;</literal>.
         </para>
-        <programlisting language="java">
+        <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 ui.Container(uid: "parent_ui"){
   InputBox(uid: "inputbox1", locator: "...")
@@ -49,7 +49,7 @@ ui.Container(uid: "parent_ui"){
             general cases are illustrated by the following UI module:
         </para>
 
-        <programlisting language="java">
+        <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 ui.Form(uid: "A", clocator: [:]){
   InputBox(uid: "B", clocator: [:])
@@ -143,7 +143,7 @@ ui.Form(uid: "A", clocator: [:]){
             <para>The UDL grammars are defined as follows,
             </para>
 
-         <programlisting language="java">
+         <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 grammar Udl;
 
@@ -342,7 +342,7 @@ WS      :       (' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
                             </listitem>
                         </itemizedlist>
 
-        <programlisting language="java">
+        <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 ui.List(uid: "A", clocator: [tag: "table"], separator: "tr") {
    InputBox(uid: "{1} as Input", clocator: [:])
@@ -413,7 +413,7 @@ ui.List(uid: "A", clocator: [tag: "table"], separator: "tr") {
                         issue page of the Tellurium project can be described as follows.
                     </para>
 
-         <programlisting language="java">
+         <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"],
     group: "true") {
@@ -538,7 +538,7 @@ ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"],
                         For example, we have the following List defined:
                     </para>
 
-         <programlisting language="java">
+         <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 ui.List(uid: "Example", clocator: [tag:"div"], separator: "p"){
   InputBox(uid: "{first} as Input", clocator: [:])
@@ -554,7 +554,7 @@ ui.List(uid: "Example", clocator: [tag:"div"], separator: "p"){
                         By the RTree routing algorithm, the runtime uid mappings are shown as follows.
                     </para>
 
-         <programlisting language="xml">
+         <programlisting language="xml"><?db-font-size 75% ?>
 <![CDATA[
    //Runtime uid         mapped UI object
 
@@ -587,7 +587,7 @@ ui.List(uid: "Example", clocator: [tag:"div"], separator: "p"){
                         such as
                     </para>
 
-        <programlisting language="java">
+        <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 UrlLink(uid: "tbody: 4, row: even, column: odd", clocator: [:])
 ]]>
@@ -615,7 +615,7 @@ UrlLink(uid: "tbody: 4, row: even, column: odd", clocator: [:])
                     <para>The routing algorithm can be illustrated by the following code snippet.
                     </para>
 
-         <programlisting language="java">
+         <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 UiObject route(String key) {
 //check the ID reference
@@ -724,7 +724,7 @@ return object;
                 parser generator. To use Antlr 3, we can define the Maven dependencies as follows.
             </para>
 
-        <programlisting language="xml">
+        <programlisting language="xml"><?db-font-size 75% ?>
 <![CDATA[
     <dependency>
         <groupId>org.antlr</groupId>
@@ -746,7 +746,7 @@ return object;
                 to automatically generate the Java parser code from Antlr 3 grammar.
             </para>
 
-         <programlisting language="xml">
+         <programlisting language="xml"><?db-font-size 75% ?>
 <![CDATA[
 <build>
  <resources>
@@ -836,7 +836,7 @@ return object;
                 example, we define the following classes.
             </para>
 
-         <programlisting language="java">
+         <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 public enum IndexType {
     VAL,
@@ -880,7 +880,7 @@ public class TableBodyMetaData extends MetaData {
             <para>To get data from the parser, we can embed Java code inside the Antlr 3 grammars as follows.
             </para>
 
-        <programlisting language="java">
+        <programlisting language="java"><?db-font-size 65% ?>
 <![CDATA[
 grammar Udl;
 
@@ -1048,7 +1048,7 @@ WS      :       (' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
             <para>The above Antlr 3 Maven plugin generates a lexer,
                 UdlLexer, and a parser, UdlParser. To wrap things up, we define a parser class as follows.
             </para>
-        <programlisting language="java">
+        <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 public class UidParser {
 
@@ -1072,7 +1072,7 @@ public class UidParser {
             <para>To test the generated parser, UidParser, we can use JUnit 4 to test it.
             </para>
 
-         <programlisting language="java">
+         <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 public class UidParser_UT {
 
