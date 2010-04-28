@@ -7,4 +7,106 @@
          xmlns:ns3="http://www.w3.org/1999/xhtml"
          xmlns:db="http://docbook.org/ns/docbook">
 
+    <title>What's New in Tellurium 0.7.0</title>
+    <para>
+        We have closed over 150 issues and have included several interesting new features. There have been a lot of
+        fundamental changes in Tellurium 0.7.0 as compared to 0.6.0 such as the group locating algorithm, module
+        caching, macro command, jquery based APIs and i18n support.
+    </para>
+    <para>
+        <emphasis>New features</emphasis>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Santa Algorithm</emphasis>: The Santa algorithm is the missing
+                    half of the Tellurium UI module concept. The algorithm can locate the whole UI module
+                    at the runtime DOM. After that, you can just pass in UI element's UID to find it in
+                    the cached UI module on Tellurium Engine. That is to say, you don't need Tellurium Core
+                    to generate the runtime locators any more.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Macro command</emphasis>: Macro Command is a set of Selenium
+                    commands that are bundled together and sent to Selenium Core in one call. This will
+                    reduce the round trip latency from Tellurium Core to Engine and thus, improve the
+                    speed performance. Another advantage for Macro Command is that Tellurium Engine can
+                    reuse the locator because many times the commands in the same bundle act on the same
+                    UI element or same sub-tree in the DOM.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">UI Module Caching</emphasis>: From Tellurium 0.6.0, Tellurium
+                    provides the cache capability for CSS selectors so that Tellurium can reuse them without
+                    doing re-locating. In 0.7.0, Tellurium moves a step further to cache the whole UI module
+                    on the Engine side. Each UI module cache holds a snapshot of the DOM references for the
+                    UI elements in the UI module.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Tellurium New APIs</emphasis>: Tellurium Engine in 0.7.0
+                    re-implemented a set of Selenium APIs by exploiting jQuery, plus many more new APIs.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">Trace</emphasis>: Tellurium 0.7.0 provides built-in support for the
+                    command execution time including execution time for each command, total run time,
+                    and aggregated times for each command.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">UI Module Live Show</emphasis>: The show command is used to show
+                    the UI module that you defined on the actual web page. The UI module on the web page is
+                    outlined and if a user hives over the UI module, the UIDs of the selected UI element's
+                    and its ancestors' are shown as a tooltip. 
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role="bold">i18n Support</emphasis>: Tellurium now provides support for
+                    internationalization of strings and exception messages. Internationalized strings for each
+                    locale is provided through a MessageBundle for a specific locale which is of the
+                    format
+                    <programlisting>
+                        <![CDATA[
+                            <MessageBundleName>_<language-code>_<country code>.properties.
+                        ]]>
+                    </programlisting>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </para>
+    <para>
+        <emphasis>Tellurium Maven Archetypes</emphasis>
+        Tellurium includes two maven archetypes, i.e., tellurium-junit-archetype and
+        tellurium-testng-archetype for Tellurium JUnit test project and Tellurium TestNG test project,
+        respectively. 
+        <para>
+            To create a JUnit Tellurium test project, run
+    <programlisting>
+        <![CDATA[
+            mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
+        ]]>
+    </programlisting>
+        </para>
+        <para>
+            To create a TestNG Tellurium test  project, run
+            <programlisting>
+    <![CDATA[
+        mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
+    ]]>
+            </programlisting>
+        </para>
+    </para>
+    <para>
+        <emphasis>How to Obtain Tellurium 0.7.0RC1</emphasis>
+        Tellurium 0.7.0 RC1 bundle can be downloaded from <link xlink:href="http://aost.googlecode.com/files/tellurium-0.7.0-RC1.tar.gz">Tellurium repository link</link>
+        You can also find Tellurium core and custom selenium server from the following Maven repositories, respectively.
+        <link xlink:href="http://maven.kungfuters.org/content/repositories/releases/org/telluriumsource/tellurium-core/0.7.0-RC1/">Tellurium Core</link>
+        <link xlink:href="http://maven.kungfuters.org/content/repositories/thirdparty/org/seleniumhq/selenium/server/selenium-server/1.0.1-te2-RC1/">Custom Selenium Server</link>             
+    </para>
 </section>
