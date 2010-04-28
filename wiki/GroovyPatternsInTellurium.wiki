@@ -182,6 +182,15 @@ Eventhandler handler = new EventHandler()
 
 will return the same Instance, i.e., it is a singleton. Our Tellurium framework heavily depends on this pattern so that we do not need to use another framework to wiring different object together.
 
+Groovy 1.7.0 supports the {{{@Singleton}}} annotation to make the singleton definition much easier. For example, we define the BundleProcessor class as follows.
+
+{{{
+@Singleton
+public class BundleProcessor implements Configurable {
+...
+}
+}}}
+
 === GString ===
 
 GString can be used to embed variable in a String and the value will be resolved at run time. This makes it very convenient to write XPath template. For example, In the Selector object, we have
