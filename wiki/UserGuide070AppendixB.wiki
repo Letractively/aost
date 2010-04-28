@@ -631,7 +631,7 @@ public class BaseUiModule extends DslContext {
       List(uid: "subcategory", clocator: [tag: "div", class: "sub_cat_section"],
           separator: "p") 
       {
-        UrlLink(uid: "all", clocator: [:])
+        UrlLink(uid: "{all}", clocator: [:])
       }
     }
   }
@@ -702,19 +702,19 @@ For a StandardTable, you can specify UI templates for different tbodies. For Exa
 
 {{{
 ui.StandardTable(uid: "table", clocator: [id: "std"]) {
-   UrlLink(uid: "header: 2", clocator: [text: "*Filename"])
-   UrlLink(uid: "header: 3", clocator: [text: "*Uploaded"])
-   UrlLink(uid: "header: 4", clocator: [text: "*Size"])
-   TextBox(uid: "header: all", clocator: [:])
+   UrlLink(uid: "{header: 2}", clocator: [text: "*Filename"])
+   UrlLink(uid: "{header: 3}", clocator: [text: "*Uploaded"])
+   UrlLink(uid: "{header: 4", clocator: [text: "*Size"])
+   TextBox(uid: "{header: all}", clocator: [:])
 
-   Selector(uid: "tbody: 1, row:1, column: 3", clocator: [name: "can"])
-   SubmitButton(uid: "tbody: 1, row:1, column:4", 
+   Selector(uid: "{tbody: 1, row:1, column: 3}", clocator: [name: "can"])
+   SubmitButton(uid: "{tbody: 1, row:1, column:4}", 
                                 clocator: [value: "Search", name: "btn"])
-   InputBox(uid: "tbody: 1, row:2, column:3", clocator: [name: "words"])
-   InputBox(uid: "tbody: 2, row:2, column:3", clocator: [name: "without"])
-   InputBox(uid: "tbody: 2, row:*, column:1", clocator: [name: "labels"])
+   InputBox(uid: "{tbody: 1, row:2, column:3}", clocator: [name: "words"])
+   InputBox(uid: "{tbody: 2, row:2, column:3}", clocator: [name: "without"])
+   InputBox(uid: "{tbody: 2, row:all, column:1}", clocator: [name: "labels"])
 
-   TextBox(uid: "foot: all", clocator: [tag: "td"])
+   TextBox(uid: "{foot: all}", clocator: [tag: "td"])
 }
 }}}
 
@@ -924,7 +924,7 @@ With the addition of Tellurium UID Description Language (UDL), for most UI objec
 The rules for the ID definition are as follows:
 
   * Starts with a letter and followed by either letter, digits, or underscore "_".
-  * _row_, _column_, _header_, _tbody_, _tfooter_ are resolved by UDL as tokens and you should not use them as IDs.
+  * {{{row}}}, {{{column}}}, {{{header}}}, {{{tbody}}}, {{{tfooter}}} are reserved by UDL as tokens and you should not use them as IDs.
 
 == How to register a custom method in Tellurium API ==
 
