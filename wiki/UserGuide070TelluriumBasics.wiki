@@ -34,6 +34,18 @@ The exceptions are tables and lists, which use {{{[x][y]}}} or {{{[x]}}} to refe
 
 More general cases are shown in Figure 2-3 General Cases Search Example:
 
+{{{
+ui.Form(uid: "A", clocator: [:]){
+  InputBox(uid: "B", clocator: [:])
+  Container(uid: "C", clocator: [tag: "div"]){
+     Selector(uid: "D", clocator: [:])
+     List(uid: "E", clocator: [tag: "ul"], separator: "li"){
+	UrlLink(uid: "{1} as Link", clocator: [:])
+        InputBox(uid: "{all}", clocator: [:])
+     }
+  }
+}}}
+
 *Figure 2-3: General Cases Search Example*
 
 http://tellurium-users.googlegroups.com/web/TelluriumUID.png?gda=Ewu9OkIAAAD5mhXrH3CK0rVx4StVj0LYJWJZMftxLZyWDn45QfUHefQJMzacoSN0t8eFUXmEG4hV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=D-2lBwsAAABkwKwxr1YSWDDrmKhvxTo1
