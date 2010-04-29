@@ -522,8 +522,8 @@ runDsl(args)
                 If you are behind a firewall, you can use the http proxy as follow.
             </para>
             <screen>
-                groovy -Dhttp.proxyHost=proxy_host -Dhttp.proxyPort=proxy_port \
-                    rundsl.groovy -f DSL_script_name
+groovy -Dhttp.proxyHost=proxy_host -Dhttp.proxyPort=proxy_port \
+    rundsl.groovy -f DSL_script_name
             </screen>
 
             <para>If you defined custom UI objects in your project, you should first build the jar artifact, and install
@@ -622,13 +622,13 @@ defineTest("SearchIssueForOwner") {
             </para>
 
             <screen>
-                OpenTelluriumIssuesPage
-                ## Test Name | Issue Type | Owner
-                SearchIssueForOwner|Open| all
-                SearchIssueForOwner|All| matt.senter
-                SearchIssueForOwner|Open|John.Jian.Fang
-                SearchIssueForOwner|All|  vivekmongolu
-                SearchIssueForOwner|All|  haroonzone
+OpenTelluriumIssuesPage
+## Test Name | Issue Type | Owner
+SearchIssueForOwner|Open| all
+SearchIssueForOwner|All| matt.senter
+SearchIssueForOwner|Open|John.Jian.Fang
+SearchIssueForOwner|All|  vivekmongolu
+SearchIssueForOwner|All|  haroonzone
             </screen>
 
             <para>The actual test class is very simple
