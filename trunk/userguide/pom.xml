@@ -30,7 +30,7 @@
                         </goals>
                         <configuration>
                             <!-- per execution configuration -->
-                            <includes>tellurium-user-guide.xml</includes>
+                            <includes>user-guide.xml</includes>
                             <!--<draftMode>yes</draftMode>-->
                         </configuration>
                     </execution>

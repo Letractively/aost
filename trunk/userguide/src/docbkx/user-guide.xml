@@ -89,6 +89,12 @@
     </chapter>
 
     <chapter>
+        <title>Tellurium Core Advanced Topics</title>
+
+        <xi:include href="advanced-topics.xml"/>
+    </chapter>
+
+    <chapter>
         <title>Tellurium UID Description Language</title>
 
         <xi:include href="udl.xml"/>
@@ -122,12 +128,6 @@
         <title>Tellurium Reference Projects</title>
 
         <xi:include href="referenceprojects.xml"/>
-    </chapter>
-
-    <chapter>
-        <title>Tellurium Advanced Topics</title>
-
-        <xi:include href="advanced-topics.xml"/>
     </chapter>
 
     <appendix id="Examples">
