@@ -6,8 +6,7 @@
          xmlns:ns4="http://www.w3.org/1998/Math/MathML"
          xmlns:ns3="http://www.w3.org/1999/xhtml"
          xmlns:db="http://docbook.org/ns/docbook">
-    <para>Tellurium
-        provides<link xlink:href="http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes">three
+    <para>Tellurium provides <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes">three
             maven archetypes</link>. For example: tellurium-junit-archetype for Tellurium JUnit test
         projects, tellurium-testing-archetype for Tellurium TestNG test projects, and
         tellurium-widget-archetype for Tellurium Widget projects.
@@ -15,11 +14,11 @@
 
     <section>
         <title>Prerequisites</title>
-        <para>You will need to be running Maven, downloadable from<link
+        <para>You will need to be running Maven, downloadable from <link
                 xlink:href="http://maven.apache.org/download.html">
             http://maven.apache.org/download.html</link>.
         </para>
-        <para>If you never installed Maven before, please follow<link
+        <para>If you never installed Maven before, please follow <link
                 xlink:href="http://maven.apache.org/download.html#Installation">the official Maven
             Installation Guide</link>.
         </para>
