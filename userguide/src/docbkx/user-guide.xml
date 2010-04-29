@@ -94,6 +94,8 @@
     
     <xi:include href="intellijsetup.xml"/>
 
+    <xi:include href="cargoplugin.xml"/>
+
     <xi:include href="resources.xml"/>
     
 </book>
