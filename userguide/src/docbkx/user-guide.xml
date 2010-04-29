@@ -91,6 +91,8 @@
     <xi:include href="sampleconfig.xml"/>
 
     <xi:include href="faqs.xml"/>
+    
+    <xi:include href="intellijsetup.xml"/>
 
     <xi:include href="resources.xml"/>
     
