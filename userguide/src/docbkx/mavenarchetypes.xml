@@ -6,6 +6,221 @@
          xmlns:ns4="http://www.w3.org/1998/Math/MathML"
          xmlns:ns3="http://www.w3.org/1999/xhtml"
          xmlns:db="http://docbook.org/ns/docbook">
+    <para>Tellurium
+        provides<link xlink:href="http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes">three
+            maven archetypes</link>. For example: tellurium-junit-archetype for Tellurium JUnit test
+        projects, tellurium-testing-archetype for Tellurium TestNG test projects, and
+        tellurium-widget-archetype for Tellurium Widget projects.
+    </para>
 
+    <section>
+        <title>Prerequisites</title>
+        <para>You will need to be running Maven, downloadable from<link
+                xlink:href="http://maven.apache.org/download.html">
+            http://maven.apache.org/download.html</link>.
+        </para>
+        <para>If you never installed Maven before, please follow<link
+                xlink:href="http://maven.apache.org/download.html#Installation">the official Maven
+            Installation Guide</link>.
+        </para>
+
+    </section>
+
+    <section>
+        <title>settings.xml</title>
+        <para>
+            Here is a sample settings.xml that will allow you to automatically include Tellurium
+            artifacts in your Maven project. This should go in your ~/.m2/settings.xml file:
+        </para>
+
+        <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<settings>
+    <profiles>
+        <profile>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                 <repository>
+                    <id>kungfuters-public-snapshots-repo</id>
+                    <name>Kungfuters.org Public Snapshot Repository</name>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <url>http://maven.kungfuters.org/content/repositories/snapshots</url>
+                </repository>
+                <repository>
+                    <id>kungfuters-public-releases-repo</id>
+                    <name>Kungfuters.org Public Releases Repository</name>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <url>http://maven.kungfuters.org/content/repositories/releases</url>
+                </repository>
+                <repository>
+                    <id>kungfuters-thirdparty-releases-repo</id>
+                    <name>Kungfuters.org Third Party Releases Repository</name>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <url>http://kungfuters.org/nexus/content/repositories/thirdparty</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+</settings>
+]]>
+        </programlisting>
+        
+    </section>
+
+    <section>
+        <title>Tellurium JUnit Archetype</title>
+        <para>
+            Run the following Maven command to create a new JUnit test project:
+        </para>
+        <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
+             -DarchetypeArtifactId=tellurium-junit-archetype \
+             -DarchetypeGroupId=org.telluriumsource \
+           -DarchetypeVersion=0.7.0
+]]>
+        </programlisting>
+        <para>
+            Without adding the Tellurium Maven repository, specify it in the command line as:
+        </para>
+        <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
+                     -DarchetypeArtifactId=tellurium-junit-archetype \
+                     -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0\
+     -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/releases
+]]>
+        </programlisting>
+
+        <para>To create a Tellurium project based on Tellurium 0.8.0 SNAPSHOT, you should
+            use the Maven archetype 0.8.0-SNAPSHOT. To create a JUnit project, use the following Maven
+            command:
+        </para>
+       <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
+   -DarchetypeArtifactId=tellurium-junit-archetype \
+   -DarchetypeGroupId=org.telluriumsource \
+   -DarchetypeVersion=0.8.0-SNAPSHOT \
+   -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
+]]>
+        </programlisting>
+        <para>
+            After the project is created, you will find the following files
+        </para>
+        <screen>
+|-- README
+|--TelluriumConfig.groovy
+|-- pom.xml
+`-- src
+    |-- main
+    |   |-- groovy
+    |   `-- resources
+    `-- test
+        |-- groovy
+        |   |-- module
+        |   |   |-- GoogleSearchModule.groovy
+        |   |   `--JettyLogonModule.groovy
+        |   `-- test
+        |       |-- GoogleSearchJUnitTestCase.java
+        |       `--JettyLogonJUnitTestCase.java
+        `-- resources
+        </screen>
+        <para>The GoogleSearchModule UI module is created using the
+            Trump plugin and the GoogleSearchTestCase is an example Tellurium JUnit Test case.
+        </para>
+        <para>You should use your IDE to open the project, for example, in IntelliJ IDEA, do the following
+            steps
+        </para>
+       <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+New Project > Import project from external model > Maven > Project directory > Finish        
+]]>
+        </programlisting>
+
+        <para>You will open up a Maven project and make sure you are using Groovy 1.7.0 in your project.
+            After that, compile the project and run the example test GoogleSearchTestCase.
+        </para>
+        <para>
+            If you want to run the tests in command line, you can use the following command
+        </para>
+        <screen>
+mvn test
+        </screen>
+
+    </section>
+
+    <section>
+        <title>Tellurium TestNG Archetype</title>
+        <para>For a TestNG archetype project, use a different archetype:
+        </para>
+        <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
+     -DarchetypeArtifactId=tellurium-testng-archetype \
+     -DarchetypeGroupId=org.telluriumsource \
+    -DarchetypeVersion=0.7.0 \
+     -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/releases
+]]>
+        </programlisting>
+        <para>
+            To create a 0.8.0-SNAPSHOT TestNG project, use the following command:
+        </para>
+        <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
+       -DarchetypeArtifactId=tellurium-testng-archetype \
+       -DarchetypeGroupId=org.telluriumsource \
+      -DarchetypeVersion=0.8.0-SNAPSHOT \
+ -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots        
+]]>
+        </programlisting>
+
+    </section>
+
+    <section>
+        <title>Tellurium Widget Archetype</title>
+        <para>To create a Tellurium UI widget project, we can use Tellurium Widget archetype as follows,
+                        </para>
+        <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
+   -DarchetypeArtifactId=tellurium-widget-archetype \
+   -DarchetypeGroupId=org.telluriumsource \
+   -DarchetypeVersion=0.7.0 \
+   -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/releases
+]]>
+        </programlisting>
+        <para>
+            create a 0.8.0-SNAPSHOT project, use the following command:
+        </para>
+        <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id\
+    -DarchetypeArtifactId=tellurium-widget-archetype \
+    -DarchetypeGroupId=org.telluriumsource \
+    -DarchetypeVersion=0.8.0-SNAPSHOT \
+    -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
+]]>
+        </programlisting>
+
+    </section>
 
 </section>
