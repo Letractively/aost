@@ -130,9 +130,14 @@
         <xi:include href="referenceprojects.xml"/>
     </chapter>
 
-    <appendix id="Examples">
-        <title>Examples</title>
-        <xi:include href="examples.xml"/>
+    <appendix id="SamplePom">
+        <title>Sample Tellurium Project Maven POM</title>
+        <xi:include href="samplepom.xml"/>
+    </appendix>
+
+    <appendix id="SampleConfig">
+        <title>Sample Tellurium Project Configuration</title>
+        <xi:include href="sampleconfig.xml"/>
     </appendix>
 
     <appendix id="Faqs">
