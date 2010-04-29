@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section version="5.0" xmlns="http://docbook.org/ns/docbook"
+<chapter version="5.0" xmlns="http://docbook.org/ns/docbook"
          xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:ns5="http://www.w3.org/2000/svg"
          xmlns:ns4="http://www.w3.org/1998/Math/MathML"
          xmlns:ns3="http://www.w3.org/1999/xhtml"
          xmlns:db="http://docbook.org/ns/docbook">
+
+    <title>Tellurium UID Description Language</title>
+
     <section>
         <title>Introduction</title>
         <para>Tellurium UID Description Language (UDL) is the Language to definite
@@ -470,7 +473,8 @@ ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"],
                 </section>
                 
             </section>
-            <section>
+        </section>
+             <section>
                 <title>Routing</title>
                 <para>The routing mechanism maps the runtime UID reference to the appropriate UI template. We will
                     cover the routing mechanism for UI templates in the List and Table objects.
@@ -521,7 +525,7 @@ ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"],
                         <emphasis role="bold">RTree</emphasis>
                         as follows.
                     </para>
-                    
+
         <mediaobject>
             <imageobject>
                 <imagedata fileref="./media/udl_rtree.png"></imagedata>
@@ -711,8 +715,7 @@ return object;
 
                 </section>
             </section>
-
-        </section>
+       
     </section>
 
     <section>
@@ -1132,4 +1135,4 @@ public class UidParser_UT {
     </section>
 
 
-</section>
+</chapter>
