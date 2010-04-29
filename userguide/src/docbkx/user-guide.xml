@@ -62,91 +62,36 @@
             </para>
         </legalnotice>
 
-    </info>
+     </info>
 
-    <chapter>
-        <title>Overview of Tellurium</title>
+    <xi:include href="overview.xml"/>
+    <xi:include href="whatsnew.xml"/>
+    <xi:include href="basics.xml"/>
 
-        <xi:include href="overview.xml"/>
-    </chapter>
+    <xi:include href="apis.xml"/>
 
-    <chapter>
-        <title>What's New in Tellurium 0.7.0</title>
+    <xi:include href="advanced-topics.xml"/>
 
-        <xi:include href="whatsnew.xml"/>
-    </chapter>
+    <xi:include href="udl.xml"/>
 
-    <chapter>
-        <title>Tellurium Core Basics</title>
+    <xi:include href="widgets.xml"/>
 
-        <xi:include href="basics.xml"/>
-    </chapter>
 
-    <chapter>
-        <title>Tellurium Core APIs</title>
+    <xi:include href="engine.xml"/>
 
-        <xi:include href="apis.xml"/>
-    </chapter>
+    <xi:include href="mavenarchetypes.xml"/>
 
-    <chapter>
-        <title>Tellurium Core Advanced Topics</title>
+    <xi:include href="trump.xml"/>
 
-        <xi:include href="advanced-topics.xml"/>
-    </chapter>
 
-    <chapter>
-        <title>Tellurium UID Description Language</title>
+    <xi:include href="referenceprojects.xml"/>
 
-        <xi:include href="udl.xml"/>
-    </chapter>
+    <xi:include href="samplepom.xml"/>
 
-    <chapter>
-        <title>Tellurium Widgets</title>
+    <xi:include href="sampleconfig.xml"/>
 
-        <xi:include href="widgets.xml"/>
-    </chapter>
+    <xi:include href="faqs.xml"/>
 
-    <chapter>
-        <title>Tellurium Engine</title>
-
-        <xi:include href="engine.xml"/>
-    </chapter>
-
-    <chapter>
-        <title>Tellurium Maven Archetypes</title>
-
-        <xi:include href="mavenarchetypes.xml"/>
-    </chapter>
-
-     <chapter>
-        <title>Tellurium UI Module Firefox Plugin</title>
-
-        <xi:include href="trump.xml"/>
-    </chapter>
-
-    <chapter>
-        <title>Tellurium Reference Projects</title>
-
-        <xi:include href="referenceprojects.xml"/>
-    </chapter>
-
-    <appendix id="SamplePom">
-        <title>Sample Tellurium Project Maven POM</title>
-        <xi:include href="samplepom.xml"/>
-    </appendix>
-
-    <appendix id="SampleConfig">
-        <title>Sample Tellurium Project Configuration</title>
-        <xi:include href="sampleconfig.xml"/>
-    </appendix>
-
-    <appendix id="Faqs">
-        <title>FAQs</title>
-        <xi:include href="faqs.xml"/>
-    </appendix>
-
-    <appendix id="Resources">
-        <title>Resources</title>
-        <xi:include href="resources.xml"/>
-    </appendix>
+    <xi:include href="resources.xml"/>
+    
 </book>
