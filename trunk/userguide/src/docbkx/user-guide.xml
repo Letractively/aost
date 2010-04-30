@@ -96,6 +96,8 @@
 
     <xi:include href="cargoplugin.xml"/>
 
+    <xi:include href="trace.xml"/>
+
     <xi:include href="resources.xml"/>
 
     <xi:include href="samplepom.xml"/>
