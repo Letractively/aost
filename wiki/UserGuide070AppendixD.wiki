@@ -13,9 +13,12 @@
 
   * [http://code.google.com/p/aost/ Tellurium Project website] 
   * [http://groups.google.com/group/tellurium-users Tellurium User Group] 
-  * [http://www.linkedin.com/groups?gid=1900807 Tellurium Automated Testing Framework LinkedIn Group]
-  * [http://www.facebook.com/group.php?gid=298577410337&ref=mf Tellurium Facebook Group]
+  * [http://groups.google.com/group/tellurium-developers Tellurium Developer Group] 
   * [http://twitter.com/TelluriumSource Tellurium on Twitter]
+  * [http://github.com/telluriumsource/tellurium Tellurium on GitHub]
+  * [http://telluriumsource.org TelluriumSource]
+  * [http://www.linkedin.com/groups?gid=1900807 Tellurium LinkedIn Group]
+  * [http://www.facebook.com/group.php?gid=298577410337&ref=mf Tellurium Facebook Group]
   * [http://www.reddit.com/r/Tellurium/ Tellurium on Reddit] 
   * [http://en.wikipedia.org/wiki/Tellurium_%28software%29 Tellurium on Wikipedia]
 
