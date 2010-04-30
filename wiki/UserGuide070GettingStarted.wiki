@@ -68,7 +68,7 @@ If using Maven, open the POM file to let the IDE automatically build the project
 IntelliJ IDEA Community edition is free and can be downloaded from [http://www.jetbrains.com/idea/download/ http://www.jetbrains.com/idea/download/]. A detailed guide is found on 
 [http://code.google.com/p/aost/wiki/CustomTelluriumIntelliJProject How to create your own Tellurium testing project with IntelliJ 9.0 Community Edition].
 
-=== NetBeans ===
+=== NetBeans IDE ===
 
 For NetBeans users, detailed Guides can be found on [http://code.google.com/p/aost/wiki/TelluriumStarterUsingNetBeans the NetBeans Starters' guide page] and [http://code.google.com/p/aost/wiki/CustomTelluriumNetBeansProject How to create your own Tellurium testing project with NetBeans 6.5].
 
