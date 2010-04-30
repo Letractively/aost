@@ -20,7 +20,7 @@ Create a Tellurium Project in one of the following methods:
 
 http://tellurium-users.googlegroups.com/web/HowToUseTellurium.png?gda=E2fneEcAAACXZPxEX7Ki-M5C2JpeBoXXwOvr7XA0t7SnOHKVzf4DhFd6vDxrTQI8X2xdNkWs9mIVeY4b49xGcMK802iZZ8SFeV4duv6pDMGhhhZdjQlNAw&gsc=YyVqmwsAAABmHtz3tZj6NRBcOVGYgXTk
 
-=== Tellurium Maven Archtypes ===
+=== Tellurium Maven Archetypes ===
 
 The easiest way to create a Tellurium project is to use Tellurium Maven archetypes. Tellurium provides two Maven archetypes for Tellurium JUnit test projects and Tellurium TestNG test projects respectively. 
 
