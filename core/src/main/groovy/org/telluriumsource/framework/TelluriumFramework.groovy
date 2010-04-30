@@ -91,7 +91,10 @@ class TelluriumFramework {
       println i18nBundle.getMessage("TelluriumFramework.ParseFromJSONString", jsonConf)
       telluriumConfigurator.parseJSON(jsonConf)
     } else {
-      String fileName = env.configFileName;
+
+      String fileName = System.properties.getProperty("telluriumConfigFile");
+      if(fileName == null)
+        fileName = env.configFileName;
 
       File file = new File(fileName)
       if (file != null && file.exists()) {
