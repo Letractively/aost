@@ -6,10 +6,79 @@
          xmlns:ns4="http://www.w3.org/1998/Math/MathML"
          xmlns:ns3="http://www.w3.org/1999/xhtml"
          xmlns:db="http://docbook.org/ns/docbook">
-    
-    <title>Sample Tellurium Project Maven POM</title>
 
-        <programlisting language="java"><?db-font-size 75% ?>
+
+    <title>Sample Maven Configurations</title>
+
+    <section>
+        <title>settings.xml</title>
+        <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<settings>
+  <!-- comment out the proxy section if you connect directly to Internet-->
+  <proxies>
+   <proxy>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>localhost</host>
+      <port>5865</port>
+      <!--username>proxyuser</username>
+      <password>somepassword</password-->
+      <nonProxyHosts></nonProxyHosts>
+    </proxy>
+  </proxies>
+    <profiles>
+        <profile>
+            <id>tellurium</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                 <repository>
+                    <id>kungfuters-public-snapshots-repo</id>
+                    <name>Kungfuters.org Public Snapshot Repository</name>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <url>http://kungfuters.org/nexus/content/repositories/snapshots</url>
+                </repository>
+                <repository>
+                    <id>kungfuters-public-releases-repo</id>
+                    <name>Kungfuters.org Public Releases Repository</name>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <url>http://kungfuters.org/nexus/content/repositories/releases</url>
+                </repository>
+               <repository>
+                    <id>kungfuters-thirdparty-releases-repo</id>
+                    <name>Kungfuters.org Third Party Releases Repository</name>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <url>http://kungfuters.org/nexus/content/repositories/thirdparty</url>
+                </repository>
+            </repositories>
+        </profile>
+   </profiles>
+</settings>
+]]>
+        </programlisting>
+    </section>
+
+    <section>
+        <title>Sample Tellurium Project Maven POM</title>
+
+        <programlisting language="xml"><?db-font-size 75% ?>
 <![CDATA[
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -83,20 +152,17 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
         <dependency>
             <groupId>org.codehaus.gmaven.runtime</groupId>
             <artifactId>gmaven-runtime-1.6</artifactId>
             <version>${gmaven-version}</version>
         </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.7</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.telluriumsource</groupId>
             <artifactId>tellurium-core</artifactId>
@@ -315,8 +381,8 @@
         <tellurium-version>0.7.0</tellurium-version>
         <javac-debug>true</javac-debug>
     </properties>
-
 </project>
 ]]>
         </programlisting>
+    </section>
 </appendix>

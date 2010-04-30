@@ -104,4 +104,5 @@
 
     <xi:include href="sampleantscript.xml"/>
 
+    <xi:include href="samplerundsl.xml"/>
 </book>
