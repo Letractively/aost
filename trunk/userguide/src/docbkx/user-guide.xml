@@ -4,9 +4,9 @@
       xmlns:xi="http://www.w3.org/2001/XInclude"
       xmlns:db="http://docbook.org/ns/docbook" xml:lang="en">
     <info>
-        <title>Tellurium User Guide</title>
+        <title>Tellurium Automated Testing Framework</title>
         <productname>Tellurium Automated Testing Framework</productname>
-        <subtitle>Tellurium Automated Testing Framework</subtitle>
+        <subtitle>User's Guide</subtitle>
         <pubdate>May 15, 2010</pubdate>
         <releaseinfo>v0.7.0</releaseinfo>
 
