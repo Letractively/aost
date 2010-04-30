@@ -90,10 +90,6 @@
 
     <xi:include href="referenceprojects.xml"/>
 
-    <xi:include href="samplepom.xml"/>
-
-    <xi:include href="sampleconfig.xml"/>
-
     <xi:include href="faqs.xml"/>
     
     <xi:include href="intellijsetup.xml"/>
@@ -101,5 +97,11 @@
     <xi:include href="cargoplugin.xml"/>
 
     <xi:include href="resources.xml"/>
-    
+
+    <xi:include href="samplepom.xml"/>
+
+    <xi:include href="sampleconfig.xml"/>
+
+    <xi:include href="sampleantscript.xml"/>
+
 </book>
