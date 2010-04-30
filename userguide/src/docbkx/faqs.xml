@@ -9,4 +9,1903 @@
 
      <title>FAQs</title>
 
+    <section>
+        <title>When Did Tellurium Start?</title>
+        <para>
+            Tellurium is over one year old in June 2010 if we count
+            the date from the day it became an open source project. But actually, Tellurium had been
+            through two phases of prototyping before that. The first prototype was created in 2007 to
+            test our company&apos;s Dojo web applications, which was basically a Java framework based on
+            Spring XML wiring and no UI modules. You have to use factories to create all UI objects.
+        </para>
+        <para>
+            As a result, it was not convenient to use. The second
+            prototype was created in early 2008 to improve the usability of the first prototype. The UI
+            module was introduced in the second prototype. Both prototypes had been used for a few
+            internal projects before it was re-written in Groovy and became an open source project in
+            June 2008. Notice that prototype framework is called AOST and it was officially renamed to
+            the Tellurium Automated Testing framework (Tellurium) in July 2008 when it moved out of the
+            prototyping phase and became a team project.
+        </para>
+    </section>
+
+    <section>
+        <title>What Are the Main Differences Between Tellurium and Selenium?</title>
+        <para>
+            Tellurium was created when I was a Selenium
+            user and tried to address some of the shortcomings of the Selenium framework such as
+            verbosity and fragility to changes. Selenium is a great web testing framework and up to
+            0.6.0, Tellurium uses Selenium core as the test driving engine. From Tellurium 0.7.0, we
+            will gradually replace the Selenium core with our own Engine.
+        </para>
+        <para>Although Tellurium was born from Selenium, there are some
+            fundamental differences between Tellurium and Selenium, which mainly come from the fact that
+            Tellurium is a UI module-based testing framework. For example, Tellurium focuses on a set of
+            UI elements instead of individual ones. The UI module represents a composite UI object in
+            the format of nested basic UI elements. For example, the download search module in Tellurium
+            project site is defined as follows:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
+   Selector(uid: "downloadType", clocator: [name: "can", id: "can"])
+   InputBox(uid: "searchBox", clocator: [name: "q"])
+   SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+}
+]]>
+        </programlisting>
+        <para>With the UI module, Tellurium automatically
+            generates runtime locators for you and there is no need to define XPaths or other types of
+            locators by yourself. Tellurium is robust, expressive, flexible, and reusable.
+        </para>
+
+    </section>
+
+    <section>
+        <title>Do I Need to Know Groovy Before I Use Tellurium?</title>
+        <para>Tellurium Core is implemented in Groovy and Java to achieve expressiveness.
+            But that does not mean you have to be familiar with Groovy before you start to use
+            Tellurium. Tellurium creates DSL expressions for UI module, actions, and testing. Use a
+            Groovy class to implement the UI module by extending the DslContext Groovy class. Then the
+            user can write the rest using Java syntax. The test cases can be created in Java, Groovy, or
+            Dsl scripts. However, we do encourage geting familiar with Groovy to leverage its meta
+            programming features.
+        </para>
+        <para>To create a Tellurium project, install a Groovy plugin for your IDE. There are
+            Groovy plugins for commonly used IDEs such as Eclipse, Netbeans, and IntelliJ. Refer to the
+            following WIKI pages on how to set up Groovy and use Tellurium in different IDEs,
+        </para>
+        <para>
+            <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumReferenceProjectEclipseSetup">
+                http://code.google.com/p/aost/wiki/TelluriumReferenceProjectEclipseSetup
+            </link>
+        </para>
+        <para>
+            <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumReferenceProjectNetBeansSetup">
+                http://code.google.com/p/aost/wiki/TelluriumReferenceProjectNetBeansSetup
+            </link>
+        </para>
+        <para>
+            <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumReferenceProjectIntelliJSetup">
+                http://code.google.com/p/aost/wiki/TelluriumReferenceProjectIntelliJSetup
+            </link>
+        </para>
+    </section>
+
+    <section>
+        <title>What Unit Test and Functional Test Frameworks Does Tellurium Support?</title>
+        <para>Tellurium supports both JUnit and TestNG frameworks. Extend
+            TelluriumJavaTestCase for JUnit and TelluriumTestNGTestCase for TestNG. For more details,
+            please check the following WIKI pages:
+        </para>
+        <para>
+            <link xlink:href="http://code.google.com/p/aost/wiki/BasicExample">
+                http://code.google.com/p/aost/wiki/BasicExample
+            </link>
+        </para>
+        <para>
+            <link xlink:href="http://code.google.com/p/aost/wiki/Introduction">
+                http://code.google.com/p/aost/wiki/Introduction
+            </link>
+        </para>
+        <para>Tellurium also provides data driven testing. Data Driven Testing is a different way to
+            write tests. For example, test data are separated from the test scripts and the test flow is
+            not controlled by the test scripts, but by the input file instead. In the input file, users
+            can specify which test to run, what the input parameters are, and what the expected results
+            are. More details can be found from &quot;Tellurium Data Driven Testing&quot; WIKI page,
+        </para>
+        <para>
+            <link xlink:href="http://code.google.com/p/aost/wiki/DataDrivenTesting">
+                http://code.google.com/p/aost/wiki/DataDrivenTesting
+            </link>
+        </para>
+    </section>
+
+    <section>
+        <title>Does Tellurium Provide Any Tools to Automatically Generate UI Modules?</title>
+        <para>Tellurium UI Model Plugin (TrUMP) is a Firefox Plugin used
+            to automatically generate UI modules simply by clicking on the web page under testing. A
+            user can download it from the Tellurium download page at:
+        </para>
+        <para>
+            <link xlink:href="http://code.google.com/p/aost/downloads/list">
+                http://code.google.com/p/aost/download/list
+            </link>
+        </para>
+        <para>or from Firefox Addons site at:</para>
+        <para>
+            <link xlink:href="https://addons.mozilla.org/en-US/firefox/addon/11035">
+                https://addons.mozilla.org/en-US/firefox/addon/11035
+            </link>
+        </para>
+        <para>The detailed user guide for TrUMP 0.1.0 is at:</para>
+        <para>
+            <link xlink:href="http://code.google.com/p/aost/wiki/TrUMP">
+                http://code.google.com/p/aost/wiki/TrUMP
+            </link>
+        </para>
+        <para>To understand more about how TrUMP works, please read &quot;How does TrUMP work?&quot; at:
+        </para>
+        <para>
+            <link xlink:href="http://code.google.com/p/aost/wiki/HowTrUMPWorks">
+                http://code.google.com/p/aost/wiki/HowTrUMPWorks
+            </link>
+        </para>
+    </section>
+
+    <section>
+        <title>What Build System Does Tellurium Use?</title>
+        <para>Tellurium supports both Ant and Maven build systems. The ant build
+            scripts are provided in Tellurium core and Tellurium reference projects. For Maven, please
+            check out the Tellurium Maven guide at:
+        </para>
+        <para>
+            <link xlink:href="http://code.google.com/p/aost/wiki/MavenHowTo">
+                http://code.google.com/p/aost/wiki/MavenHowTo
+            </link>
+        </para>
+    </section>
+
+    <section>
+        <title>What is the Best Way to Create a Tellurium Project?</title>
+        <para>Tellurium provides two reference projects for JUnit and TestNG project, respectively. Use
+            one of them as a template project. Please see the reference project guide at:
+        </para>
+        <para>
+            <link xlink:href="http://code.google.com/p/aost/wiki/ReferenceProjectGuide">
+                http://code.google.com/p/aost/wiki/ReferenceProjectGuide
+            </link>
+        </para>
+        <para>However, the best and easiest way to create a Tellurium project is to use Tellurium Maven
+            archetypes. Tellurium provides two Maven archetypes. For example, tellurium-junit-archetype
+            and tellurium-testng-archetype for Tellurium JUnit test project and Tellurium TestNG test
+            project, respectively.
+        </para>
+        <para>As a result, you can create a Tellurium project using one Maven command. For a Tellurium
+            JUnit project, use:
+        </para>
+
+         <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+mvn archetype:create -DgroupId =your_group_id -DartifactId=your_artifact_id \
+   -DarchetypeArtifactId=tellurium-junit-archetype\
+   -DarchetypeGroupId=org.telluriumsource\
+   -DarchetypeVersion=0.7.0-SNAPSHOT \
+   -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
+]]>
+         </programlisting>
+        <para>and for a Tellurium TestNG project, use</para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
+   -DarchetypeArtifactId=tellurium-testng-archetype\
+   -DarchetypeGroupId=org.telluriumsource \
+   -DarchetypeVersion=0.7.0-SNAPSHOT \
+   -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots 
+]]>
+        </programlisting>
+        <para>For more details, please read &quot;Tellurium Maven archetypes&quot;,</para>
+        <para>
+            <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes">
+                http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes
+            </link>
+        </para>
+
+    </section>
+
+    <section>
+        <title>Where Can I Find API Documents for Tellurium?</title>
+        <para>The user guide for Tellurium DSLs, other APIs, and default UI objects could be found at:
+        </para>
+        <para>
+            <link xlink:href="http://code.google.com/p/aost/wiki/UserGuide070Introduction">
+                http://code.google.com/p/aost/wiki/UserGuide070Introduction
+            </link>
+        </para>
+    </section>
+
+    <section>
+        <title>Is There a Tellurium Tutorial Available?</title>
+        <para>Tellurium provides very detailed tutorials including basic examples, advanced
+            examples, data driven testing examples, and Dsl script examples. We also provide Tellurium
+            Tutorial Series. Please use Tellurium tutorial WIKI page as your starting point,
+        </para>
+        <para>
+            <link xlink:href="http://code.google.com/p/aost/wiki/Tutorial">
+                http://code.google.com/p/aost/wiki/Tutorial
+            </link>
+        </para>
+        <para>We also provide a quick start, &quot;Ten Minutes To Tellurium&quot;, at</para>
+        <para>
+            <link xlink:href="http://code.google.com/p/aost/wiki/TenMinutesToTellurium">
+                http://code.google.com/p/aost/wiki/TenMinutesToTellurium
+            </link>
+        </para>
+    </section>
+
+    <section>
+        <title>Where Can I Find a Sample Tellurium Configuration File?</title>
+        <para>Tellurium Sample Configuration File is available
+            <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile">here
+            </link>
+        </para>
+    </section>
+
+    <section>
+        <title>Tellurium Dependencies</title>
+        <para>Tellurium is built on top of Selenium at the
+            current stage and it uses Selenium 1.0.1. Tellurium 0.7.0 was tested with Grooy 1.7.0 and
+            Maven 2.0.9.
+        </para>
+        <para>You can go to Tellurium core and run the following Maven command to check the dependencies. For example,
+            the dependency tree for 0.7.0 is shown as follows:
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+$ mvn dependency:tree
+
+[INFO] [dependency:tree {execution: default-cli}]
+[INFO] org.telluriumsource:tellurium-core:jar:0.7.0-SNAPSHOT
+[INFO] +- junit:junit:jar:4.7:compile
+[INFO] +- org.testng:testng:jar:jdk15:5.8:compile
+[INFO] +- caja:json_simple:jar:r1:compile
+[INFO] +- org.apache.poi:poi:jar:3.0.1-FINAL:compile
+[INFO] |  \- commons-logging:commons-logging:jar:1.1:compile
+[INFO] |     \- log4j:log4j:jar:1.2.13:compile
+[INFO] +- org.telluriumsource:tellurium-udl:jar:0.7.0-SNAPSHOT:compile
+[INFO] |  \- org.antlr:antlr:jar:3.1.3:compile
+[INFO] |     \- org.antlr:antlr-runtime:jar:3.1.3:compile
+[INFO] |        \- org.antlr:stringtemplate:jar:3.2:compile
+[INFO] |           \- antlr:antlr:jar:2.7.7:compile
+[INFO] +- org.stringtree:stringtree-json:jar:2.0.10:compile
+[INFO] +- org.seleniumhq.selenium.server:selenium-server:jar:1.0.1-te3-SNAPSHOT:compile
+[INFO] +- org.seleniumhq.selenium.client-drivers:selenium-java-client-driver:jar:1.0.1:compile
+[INFO] +- org.codehaus.groovy:groovy-all:jar:1.7.0:compile
+[INFO] |  \- jline:jline:jar:0.9.94:compile
+[INFO] +- org.codehaus.gmaven.runtime:gmaven-runtime-1.6:jar:1.2:compile
+[INFO] |  +- org.slf4j:slf4j-api:jar:1.5.10:compile
+[INFO] |  +- org.codehaus.gmaven.feature:gmaven-feature-support:jar:1.2:compile
+[INFO] |  |  \- org.codehaus.gmaven.feature:gmaven-feature-api:jar:1.2:compile
+[INFO] |  \- org.codehaus.gmaven.runtime:gmaven-runtime-support:jar:1.2:compile
+[INFO] |     +- org.codehaus.gmaven.runtime:gmaven-runtime-api:jar:1.2:compile
+[INFO] |     +- org.sonatype.gshell:gshell-io:jar:2.0:compile
+[INFO] |     |  \- org.sonatype.gossip:gossip:jar:1.0:compile
+[INFO] |     +- org.codehaus.plexus:plexus-utils:jar:1.5.5:compile
+[INFO] |     \- com.thoughtworks.qdox:qdox:jar:1.8:compile
+[INFO] \- bouncycastle:bcprov-jdk15:jar:140:compile
+[INFO] ------------------------------------------------------------------------
+]]>
+        </programlisting>
+        <para>But be aware that some of the dependencies are
+            required ONLY for Maven itself, for example, gmaven-runtime, bouncycastle, and plexus.
+        </para>
+
+        <para>If
+            you use ant, please download
+            <link xlink:href="">
+                http://maven.kungfuters.org/content/repositories/thirdparty/org/seleniumhq/selenium/server/selenium-server/1.0-te-3/
+                selenium-server-1.0.1-te3.jar
+            </link>
+            and<link xlink:href="http://poi.apache.org/download.html">the Apache POI - the Java API for
+                Microsoft Documents</link>.
+        </para>
+    </section>
+
+    <section>
+        <title>What Is the ui. in UI Module?</title>
+        <para>Very often, you will see the ui. symbol when you define Tellurium UI modules. For instance, look at the
+            following GoogleSearchModule UI module:
+        </para>
+         <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Container(uid: "GoogleSearchModule", clocator: [tag: "td"], group: "true"){
+   InputBox(uid: "Input", clocator: [title: "Google Search"])
+   SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+   SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
+}
+]]>
+        </programlisting>
+        <para>If you have read the Tellurium core code, you will find the following line in the
+            BaseDslContext class,
+        </para>
+        <para>
+            <literal>UiDslParser ui = new UiDslParser()</literal>
+        </para>
+        <para>The ui is actually an instance of UiDslParser. On the above UI module, call
+            the method &quot;Container&quot; on UiDslParser with a map of attributes plus a Closure with
+            the following nested code.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+{
+   InputBox(uid: "Input", clocator: [title: "Google Search"])
+   SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+   SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
+}
+]]>
+        </programlisting>
+        <para>Look at what the UiDslParser actually does from the source code:
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class UiDslParser extends BuilderSupport{
+
+   def registry = [:]
+
+   def UiObjectBuilderRegistry builderRegistry = new UiObjectBuilderRegistry()
+
+   protected Object createNode(Object name) {
+   }
+
+   ....
+}
+]]>
+        </programlisting>
+        <para>The UiDslParser extends the Groovy
+            <literal>BuilderSupport</literal>
+            class and works as a parser for what ever you passed in starting from
+            <literal>Container(uid: &quot;GoogleSearchModule&quot;, clocator: [tag: &quot;td&quot;],
+                group: &quot;true&quot;)
+            </literal>
+            in the above example.
+        </para>
+        <para>You may notice that the
+            <literal>BuilderSupport</literal>
+            class needs to handle couple call back methods such as:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+protected Object createNode(Object name)
+
+protected Object createNode(Object name, Object value)
+
+protected Object createNode(Object name, Map map)
+
+protected Object createNode(Object name, Map map, Object value)
+
+protected void nodeCompleted(Object parent, Object node)
+
+protected void setParent(Object parent, Object child)
+]]>
+        </programlisting>
+
+        <para>If you are familiar with XML parser, you will see that this
+            is really similar to the XML PUSH style parser. Define call back methods and the parser will
+            parse the message to the end automatically.
+        </para>
+        <para>The above callback methods are doing the similar thing. For example, to create a UI object when
+            it sees the name like &quot;Container&quot;, &quot;InputBox&quot;, and &quot;SubmitButton&quot;.
+            The different createNode methods are used for different use cases.
+        </para>
+        <para>Basically, what the UiDslParser does is to get the object name such as &quot;Container&quot;
+            and then look at the UI builder registry to find the builder for that object, then use the
+            builder to build that UI object. The UI builder registry is a hash map and you can find the
+            Container builder by the object name &quot;Container&quot;.
+        </para>
+        <para>Also the UiDslParser will keep the parse results. For example, UI objects in a registry so that you
+            can refer to them by UID such as &quot;GoogleSearchModule.Search&quot;, The object hierarchy
+            is handled by the setParent method.
+        </para>
+    </section>
+
+    <section>
+        <title>How Do I Add My Own UI Object to Tellurium?</title>
+        <para>First, create your UI object groovy class by
+            extending class UiObject or Container if it is a container type object. Then, create your UI
+            object builder by extending class UiObjectBuilder. Finally, register your ui builder for
+            your ui object by call method in class TelluriumFramework:
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public void registerBuilder(String uiObjectName, UiObjectBuilder builder)
+]]>
+        </programlisting>
+
+        <para>You can also register your builder in class UiObjectBuilderRegistry if you work on Tellurium
+            source code directly.
+        </para>
+        <para>From Tellurium 0.4.0, a global configuration file TelluriumConfig.groovy is used to customize
+            Tellurium. You can also define your own UI object in this file as follows,
+        </para>
+
+         <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+    uiobject{
+        builder{
+           Icon="org.tellurium.builder.IconBuilder"
+        }
+    }
+]]>
+        </programlisting>
+
+        <para>That is to say,
+            create the UI object and its builder and then in the configuration file specify the UI
+            object name and its builder full class name. &apos;&apos;&apos;Note&apos;&apos;&apos;: this
+            feature is included from Tellurium 0.5.0.
+        </para>
+    </section>
+
+    <section>
+        <title>How to Build Tellurium from Sourc</title>
+        <para>If you want to build Tellurium from source, you can check out the trunk code using the
+            subversion command:
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+svn checkout http://aost.googlecode.com/svn/trunk/ tellurium
+]]>
+        </programlisting>
+
+        <para>or using the Maven command:  </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+mvn scm:checkout -DconnectionUrl=scm:svn:http://aost.googlecode.com/svn/trunk \
+    -DcheckoutDirectory=tellurium
+]]>
+        </programlisting>
+
+        <para>Be aware that the Maven command calls the subversion client to
+            do the job and you must have the client installed in your system.
+        </para>
+        <para>To build the whole project, use:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+mvn clean install
+]]>
+        </programlisting>
+
+        <para>and Maven compiles source code and resources, compiles test code and
+            test resources, runs all tests, and then installs all artifacts to your local repository
+            under YOUR_HOME/.m2/repository.
+        </para>
+
+        <para>Sometimes, tests may break and if you still want to proceed, please use the ignore flag:
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+mvn clean install -Dmaven.test.failure.ignore=true
+]]>
+        </programlisting>
+
+        <para>To build an individual project, go to that project directory and run the same command as
+            above.
+        </para>
+        <para>To run the tests, use the
+            command:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+mvn test
+]]>
+        </programlisting>
+
+        <para>The sub-projects under the tools directory include Tellurium
+            Maven archetypes and TrUMP code, you may not really want to build them by yourself. For
+            TrUMP, the artifacts include a .xpi file.
+        </para>
+        <para>The assembly project just creates a set of tar files and you may not need to build it
+            either.
+        </para>
+        <para>Tellurium also provides ant build scripts. You may need to change
+            some of the settings in the build.properties file so that it matches your environment. For
+            example, the settings for javahome and javac.compiler.
+        </para>
+    </section>
+
+    <section>
+        <title>What is the Issue with Selenium XPath Expressions and Why is There a Need to Create a UI Module?</title>
+        <para>The problem is not in XPath itself, but the way you use it. If the following XPath locator
+            is:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+"//div/table[@id='something']/div[2]/div[3]/div[1]/div[6]"
+]]>
+        </programlisting>
+       <para>then the problem is easily seen. It is not robust. Along the path
+                        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+div -> table -> div -> div ->div -> div
+]]>
+        </programlisting>
+
+        <para>if anything is changed there, your XPath is no
+            longer valid. For example, if you add additional UI elements and the new XPath was changed
+            to:
+        </para>
+        
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+"//div[2]/table[@id='something']/div[3]/div[3]/div[1]/div[6]"
+]]>
+        </programlisting>
+
+        <para>you would have to keep updating the XPath. For Tellurium, it focuses on element attributes,
+            not the XPath, and it can be adaptive to the changes to some degree.
+        </para>
+        <para>More importantly, Tellurium uses the group locating concept to use information
+            from a group of UI elements to locate them in the DOM. In most cases, the group of elements
+            are enough to decide their locations in the DOM, that is to say, your UI element&apos;s
+            location does not depend on any parent or grandparent elements.
+        </para>
+
+        <para>For instance, in the example above, if you use the
+            group locating concept to find locators for the following part of UI elements directly:
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+"div[3]/div[1]/div[6]"
+]]>
+        </programlisting>
+
+        <para>then they do not depend on the portion certainly.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+"div[2]/table[@id='something']/div[3]"
+]]>
+        </programlisting>        
+        <para>The UI elements can address any changes in the portion of :
+                        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+"div[2]/table[@id='something']/div[3]"
+]]>
+        </programlisting>
+        <para>
+            <emphasis role="bold">Note:</emphasis>
+            In Tellurium, the user will not use an XPath locator directly.
+        </para>
+
+        <para>Furthermore, the syntax of:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+selenium.type("//input[@title='Google Search']", input)
+selenium.click("//input[@name='btnG' and @type='submit']")
+
+...
+
+selenium.type("//input[@title='Google Search']", input)
+selenium.click("//input[@name='btnG' and @type='submit']")
+
+...
+
+selenium.type("//input[@title='Google Search']", input)
+selenium.click("//input[@name='btnG' and @type='submit']")
+
+...
+]]>
+        </programlisting>
+
+        <para>everywhere is really ugly to users. Especially if someone needs to take over your code. In
+            Tellurium, the UiID is used and it is very clear to users what you are acting upon.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+click "google_start_page.googlesearch"
+]]>
+        </programlisting>
+
+        <para>The test script created by Selenium IDE is a mess of actions, not modularized. Other people may
+            take quite some time to figure out what the script actually does. And it is quite difficult
+            to refactor and reuse them. Even the UI is not changed, there are data dependence there and
+            for most cases, you simply cannot just &quot;record and replay&quot; in practical tests.
+        </para>
+        <para>In Tellurium, once you defined the UI module, for example, the Google search module, you can always
+            reuse them and write as many test cases as possible.
+        </para>
+        <para>Selenium is cool and the idea is brilliant. But it is really for low level testing
+            only, focusing on one element at a time and it does not have the whole UI module in mind.
+            That is why another tier on top of it is needed so that you can have a UI module-oriented
+            testing script and not the locator-oriented one. Tellurium is one of the frameworks designed
+            for this purpose.
+        </para>
+        <para>As mentioned above, Selenium is quite a low level process and it is really
+            difficult to handle more complicated UI components like a data grid. Tellurium can handle
+            them easily. Please see the test scripts for the Tellurium project web site.
+        </para>
+
+    </section>
+
+    <section>
+        <title>How to write assertions in Tellurium DSL scripts</title>
+        <para>Tellurium DSL scripts are actually Groovy scripts written in DSL syntax. Thus, Tellurium DSL
+            scripts support all assertions in JUnit 3.8, which GroovyTestCase extends.
+        </para>
+        <para>But for Tellurium Data Driven testing scripts, it is a bit different. Usually, you should
+            use:
+        </para>
+         <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+compareResult expected, actual
+]]>
+        </programlisting>
+
+        <para>and it in turn calls
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+assertEquals(expected, actual)
+]]>
+        </programlisting>
+        <para>This is because DDT script has to be general enough for different input data.
+            If you want to use your own assertions, Tellurium provides the capability for that. You
+            should use a Groovy closure to replace the default asserEquals. For example, in your DDT DSL
+            script, you can overwrite the default behaviour using
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+compareResult(expected, actual){
+        assertNotNull(expected)
+        assertNotNull(actual)
+        assertTrue(expected.size() == actual.size())
+}
+]]>
+        </programlisting>
+
+        <para>This brings up one interesting question &quot;why should I put assertions
+            inside compareResult, not anywhere in the script?&quot; The answer is that you can put
+            assertions any where in the DDT script, but that will cause different behaviour if the
+            assertion fails.
+        </para>
+
+        <para>If you put assertions in compareResult and the assertion fails, the AssertionFailedError will be captured
+            and that comparison fails, but the rest script inside a test will continue executing. But if
+            you put assertions outside of compareResult, the AssertionFailedError will lead to the
+            failure of the current test. The exception will be recorded and the current test will be
+            stopped. The next test will take over and execute.
+        </para>
+
+    </section>
+
+    <section>
+        <title>How to upgrade Firefox version in Selenium server</title>
+        <para>You can do the following steps:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>unpack the custom selenium-server by running
+                </para>
+         <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+jar xvf selenium-server.jar
+]]>
+        </programlisting>
+            </listitem>
+        </itemizedlist>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Find the versions in install.rdf and change them, for instance,
+                </para>
+         <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+/customProfileDirCUSTFF/extensions/readyst...@openqa.org/install.rdf
+./customProfileDirCUSTFF/extensions/{538F0036-F358-4f84-A764-89FB437166B4}/install.rdf
+./customProfileDirCUSTFFCHROME/extensions/readyst...@openqa.org/install.rdf
+./customProfileDirCUSTFFCHROME/extensions/{503A0CD4-EDC8-489b-853B-19E0BAA8F0A4}/install.rdf
+./customProfileDirCUSTFFCHROME/extensions/{538F0036-F358-4f84-A764-89FB437166B4}/install.rdf
+./customProfileDirCUSTFFCHROME/extensions/{636fd8b0-ce2b-4e00-b812-2afbe77ee899}/install.rdf
+]]>
+        </programlisting>
+
+                <para>change the versions from</para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+
+        <em:targetApplication>
+            <Description>
+                <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+                <em:minVersion>1.4.1</em:minVersion>
+                <em:maxVersion>3.5.*</em:maxVersion>
+            </Description>
+        </em:targetApplication>
+
+]]>
+        </programlisting>
+
+                <para>to</para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+        <em:targetApplication>
+            <Description>
+                <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+                <em:minVersion>1.4.1</em:minVersion>
+                <em:maxVersion>3.6.*</em:maxVersion>
+            </Description>
+        </em:targetApplication>
+]]>
+        </programlisting>
+            </listitem>
+        </itemizedlist>
+
+        <itemizedlist>
+            <listitem>
+                <para>repack the jar file.
+                </para>
+         <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+jar cmf META-INF/MANIFEST.MF selenium-server.jar *
+]]>
+        </programlisting>               
+            </listitem>
+        </itemizedlist>
+
+    </section>
+
+    <section>
+        <title>How to run Selenium server remotely in Tellurium</title>
+        <para>The steps to use remote selenium server in Tellurium are first to run selenium sever on the remote
+            machine, saying 192.168.1.106
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+java -jar selenium-server.jar -port 4444
+]]>
+        </programlisting>
+        <para>for more selenium server options, please use the following commands:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+java -jar selenium-server.jar --help
+]]>
+        </programlisting>
+
+        <para>Then, you should modify the TelluriumConfig.groovy as follows,
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+tellurium{
+   //embedded selenium server configuration
+   embeddedserver {
+       //port number
+       port = "4444"
+       //whether to use multiple windows
+       useMultiWindows = false
+       //whether to run the embedded selenium server.
+       //If false, you need to manually set up a selenium server
+       runInternally = false
+   }
+   //the configuration for the connector that connects the selenium client
+   //to the selenium server
+   connector{
+       //selenium server host
+       //please change the host if you run the Selenium server remotely
+       serverHost = "192.168.1.106"
+
+       //server port number the client needs to connect
+       port = "4444"
+       //base URL
+       baseUrl = "http://localhost:8080"
+       //Browser setting, valid options are
+       //  *firefox [absolute path]
+       //  *iexplore [absolute path]
+       //  *chrome
+       browser = "*iehta"
+   }
+......
+}
+]]>
+        </programlisting>
+
+        <para>That is to say, you should disable the embedded selenium server by specifying
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+runInternally = false
+]]>
+        </programlisting>
+        <para>and specify the remote selenium server host as
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+serverHost = "192.168.1.106"
+]]>
+        </programlisting>
+
+        <para>After that, you can run the test just like using the embedded
+            selenium server. But be aware that there are some performance degradation, i.e., the test is
+            slower with remote selenium server.
+        </para>
+    </section>
+
+    <section>
+        <title>Differences among Tellurium Table, List, and Container</title>
+        <para>Container is most like an abstract object and it can be of any type of UI
+            objects that can hold other UI objects. The UI objects inside the Container are fixed once
+            it is defined and inner objects can be referred directly by &quot;container_uid.object_uid&quot;.
+            Be aware that Tellurium Container type objects can hold any UI objects including container
+            type objects and nested UI can be constructed in this way.
+        </para>
+        <para>
+            >Table and List are both Container type UI objects and are
+            designed mainly for dynamic size UI objects. For example, table can be used to mode data
+            grid, whose size is not fixed and is dynamic at run-time. For this purpose, the UI objects
+            inside the table can be used as templates and how they are used is totally dependent on
+            their UIDs. For more details on how the UIDs for List and Table are defined, please see<link
+                xlink:href="http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage">
+            Tellurium UID Description Language</link>.
+        </para>
+        <para>Once the templates are defined and you use
+            <literal>table[i][j]</literal>
+            to refer the inner object, Tellurium will automatically apply the above rules and find the
+            actual UI object for you. If no templates can be found, Tellurium will use default UI object
+            TextBox.
+        </para>
+        <para>One such good example is the data grid of Tellurium downloads page:</para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"]){
+    //define table elements
+    //for the border column
+    TextBox(uid: "{row: all, column: 1}", clocator: [:])
+    //the summary + labels column consists of a list of UrlLinks
+    List(uid: "{row:all, column: 3}", clocator: [:]){
+        UrlLink(uid: "{all}", clocator: [:])
+    }
+    //For the rest, just UrlLink
+    UrlLink(uid: "{row: all, column: all}", clocator: [:])
+}
+]]>
+        </programlisting>
+        
+    </section>
+
+    <section>
+        <title>How do I use a Firefox profile in Tellurium</title>
+        <para>You can specify the profile in Tellurium Configuration file TelluriumConfig.groovy as
+            follows,
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+embeddedserver {
+
+       ......
+
+       //profile location, for example,
+       profile = "/home/jfang/.mozilla/firefox/820j3ca9.default"
+   }
+]]>
+        </programlisting>
+
+        <para>This is especially useful if you are behind a firewall. Please read more about<link
+                xlink:href="http://support.mozilla.com/en-US/kb/Profiles#On_Windows_2000_and_XP">
+            Firefox Profiles</link>.
+        </para>
+        <para>If you run the Selenium server externally, you can specify the Firefox profile using the
+            following option:
+        </para>
+        <screen>  -firefoxProfileTemplate &lt;dir&gt;: normally, we generate a fresh empty Firefox
+            profile
+                 every time we launch.  You can specify a directory to make us copy your profile
+            directory instead.
+        </screen>
+        
+    </section>
+
+    <section>
+        <title>How to Overwrite Tellurium Settings in My Test Class</title>
+        <para>TelluriumConfig.groovy acts like a global setting file if you do not want to manually
+            change it. Now, the BaseTelluriumJavaTestCase provides two methods for you to overwrite the
+            default settings,
+        </para>
+        
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public static void setCustomConfig(boolean runInternally, int port, String browser,
+                      boolean useMultiWindows, String profileLocation)
+
+public static void setCustomConfig(boolean runInternally, int port, String browser,
+                      boolean useMultiWindows, String profileLocation, String serverHost)
+]]>
+        </programlisting>
+        <para>As you result, if you want to use your custom settings for your specific test class, you can use the
+            following way taking the Google test case as an example,
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase
+{
+   static{
+       setCustomConfig(true, 5555, "*chrome", true, null);
+   }
+
+...
+
+}
+]]>
+        </programlisting>
+
+    </section>
+
+    <section>
+        <title>How to reuse a frequently used set of elements</title>
+        <para>The &quot;Include&quot; syntax in Ui module
+            definition can be used for this purpose. You can put frequently used UI modules into a base
+            class, for example,
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public class BaseUiModule extends DslContext {
+  public void defineBaseUi() {
+    ui.Container(uid: "SearchModule", clocator: [tag: "td"], group: "true") {
+      InputBox(uid: "Input", clocator: [title: "Google Search"])
+      SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+      SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
+    }
+
+    ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"],
+                 group: "true")
+    {
+      TextBox(uid: "category", clocator: [tag: "div", class: "sub_cat_title"])
+      List(uid: "subcategory", clocator: [tag: "div", class: "sub_cat_section"],
+          separator: "p")
+      {
+        UrlLink(uid: "{all}", clocator: [:])
+      }
+    }
+  }
+}
+]]>
+        </programlisting>
+
+        <para>Then you can extend this base Ui module as follows,
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public class ExtendUiModule extends BaseUiModule {
+
+  public void defineUi() {
+    defineBaseUi()
+
+    ui.Container(uid: "Google", clocator: [tag: "table"]) {
+      Include(ref: "SearchModule")
+      Container(uid: "Options", clocator: [tag: "td", position: "3"]) {
+        UrlLink(uid: "LanguageTools", clocator: [tag: "a", text: "Language Tools"])
+        UrlLink(uid: "SearchPreferences", clocator: [tag: "a",
+                                                       text: "Search Preferences"])
+        UrlLink(uid: "AdvancedSearch", clocator: [tag: "a", text: "Advanced Search"])
+      }
+    }
+
+    ui.Container(uid: "Test", clocator: [tag: "div"]) {
+      Include(uid: "newcategory", ref: "GoogleBooksList.category")
+      Include(uid: "secondcategory", ref: "GoogleBooksList.category")
+      Include(uid: "newsubcategory", ref: "GoogleBooksList.subcategory")
+    }
+  }
+}
+]]>
+        </programlisting>
+
+        <para>Note that the &quot;Include&quot; must have the ref attribute to refer to the element it wants to include.
+            You can still specify the uid for the object (if you do not need a different uid, you do not
+            need the uid), if the object uid is not equal to the original one, Tellurium will clone a
+            new object for you so that you can have multiple objects with different uids.
+        </para>
+        
+    </section>
+
+    <section>
+        <title>How to handle Table with multiple tbody elements</title>
+        <para>The StandardTable is designed for tables with the following format
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+table
+      thead
+         tr
+           td
+           ...
+           td
+      tbody
+         tr
+           td
+           ...
+           td
+         ...
+       tbody (multiple tbodies)
+         tr
+           td
+           ...
+           td
+         ...
+      tfoot
+         tr
+           td
+           ...
+           td
+]]>
+        </programlisting>
+
+        <para>For a StandardTable, you can specify UI templates for different tbodies. For Example:
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.StandardTable(uid: "table", clocator: [id: "std"]) {
+   UrlLink(uid: "{header: 2}", clocator: [text: "*Filename"])
+   UrlLink(uid: "{header: 3}", clocator: [text: "*Uploaded"])
+   UrlLink(uid: "{header: 4", clocator: [text: "*Size"])
+   TextBox(uid: "{header: all}", clocator: [:])
+
+   Selector(uid: "{tbody: 1, row:1, column: 3}", clocator: [name: "can"])
+   SubmitButton(uid: "{tbody: 1, row:1, column:4}",
+                                clocator: [value: "Search", name: "btn"])
+   InputBox(uid: "{tbody: 1, row:2, column:3}", clocator: [name: "words"])
+   InputBox(uid: "{tbody: 2, row:2, column:3}", clocator: [name: "without"])
+   InputBox(uid: "{tbody: 2, row:all, column:1}", clocator: [name: "labels"])
+
+   TextBox(uid: "{footer: all}", clocator: [tag: "td"])
+}
+]]>
+        </programlisting>
+    </section>
+
+    <section>
+        <title>How to Run Tellurium Tests in Different Browsers</title>
+        <para>You could use the
+            <literal>openUrlWithBrowserParameters()</literal>
+            methods to change browser settings for different test cases in the same test class,
+        </para>
+        
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public static void openUrlWithBrowserParameters(String url, String
+  serverHost, int serverPort, String baseUrl, String browser, String
+  browserOptions)
+
+public static void openUrlWithBrowserParameters(String url, String
+  serverHost, int serverPort, String browser, String browserOptions)
+
+public static void openUrlWithBrowserParameters(String url, String
+  serverHost, int serverPort, String browser)
+]]>
+        </programlisting>
+        <para>
+            For example,
+        </para>
+        
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public class GoogleStartPageTestNGTestCase extends TelluriumTestNGTestCase {
+   protected static NewGoogleStartPage ngsp;
+
+   @BeforeClass
+   public static void initUi() {
+       ngsp = new NewGoogleStartPage();
+       ngsp.defineUi();
+   }
+
+   @DataProvider(name = "browser-provider")
+   public Object[][] browserParameters() {
+       return new Object[][]{
+               new Object[] {"localhost", 4444, "*chrome"},
+               new Object[] {"localhost", 4444, "*firefox"}};
+   }
+
+   @Test(dataProvider = "browser-provider")
+   @Parameters({"serverHost", "serverPort", "browser"})
+   public void testGoogleSearch(String serverHost, int serverPort, String browser){
+       openUrlWithBrowserParameters("http://www.google.com", serverHost,
+            serverPort, browser);
+       ngsp.doGoogleSearch("tellurium selenium Groovy Test");
+       disconnectSeleniumServer();
+  }
+
+  @Test(dataProvider = "browser-provider")
+  @Parameters({"serverHost", "serverPort", "browser"})
+  public void testGoogleSearchFeelingLucky(String serverHost, int serverPort,
+    String browser){
+      openUrlWithBrowserParameters("http://www.google.com", serverHost,
+            serverPort, browser);
+      ngsp.doImFeelingLucky("tellurium selenium DSL Testing");
+      disconnectSeleniumServer();
+  }
+}
+]]>
+        </programlisting>
+
+    </section>
+
+    <section>
+        <title>How to use the new XPath library in Selenium</title>
+        <para>
+            There are three methods in DslContext for you to select different XPath Library,
+        </para>
+        
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+    public void useDefaultXPathLibrary()
+
+    public void useJavascriptXPathLibrary()
+
+    public void useAjaxsltXPathLibrary()
+]]>
+        </programlisting>
+
+        <para>The default one is the same as the &quot;Ajaxslt&quot; one. To use faster xpathlibrary,
+            please call<literal>useJavascriptXPathLibrary()</literal>.
+        </para>
+        <para>For example, in the test case file,
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+    protected static NewGoogleStartPage ngsp;
+
+    @BeforeClass
+    public static void initUi() {
+        ngsp = new NewGoogleStartPage();
+        ngsp.defineUi();
+        ngsp.useJavascriptXPathLibrary();
+    }
+]]>
+        </programlisting>
+        
+    </section>
+
+    <section>
+        <title>How to Debug Selenium Core</title>
+        <para>You can use Microsoft Script Debugger to debug the Selenium Core in IE. To debug
+            the JavaScript code, follow the following step,
+        </para>
+
+        <orderedlist>
+            <listitem>
+                <para>
+                    Start custom selenium server in multiWindow mode and another useful command option
+                    is<literal>-debug</literal>, which will print out all trace messages
+                </para>
+                <screen>
+java -jar selenium-server -multiWindow
+                </screen>
+            </listitem>
+            <listitem>
+                <para>
+                    Debug the Java code in IDE and set a break point somewhere in the code
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Once the Java process paused, open up the Microsoft script debugger or Editor
+                    MSE7.exe.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Attach you debugger to the running IE instance and you will see the JavaScript you
+                    want to debug, set a break point there.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Resume you Java process and it will wait there once the breakpoint is hit in the JavaScript debugger.
+                    Then you can step into, step over, or run the JavaScript.
+                </para>
+            </listitem>
+        </orderedlist>
+
+        <para>For Firefox, you can debug using Firebug using the same steps. But
+            you may need to use Firefox profile to start the custom server server so that Firebug will
+            be included in the launched instance.
+        </para>
+        
+    </section>
+
+    <section>
+        <title>How to Debug Tellurium in IE</title>
+        <para>Script to add Firebug Lite to a page
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+String script = "var firebug=document.createElement('script');" +
+       "firebug.setAttribute('src',
+          'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');"
+          + "document.body.appendChild(firebug);" +
+       "(function(){if(window.firebug.version){firebug.init();}else
+       {setTimeout(arguments.callee);}})();" + "void(firebug);";
+]]>
+        </programlisting>
+
+        <para>Call addScript Selenium command, which will add a script to the Selenium runner window.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+addScript(script, "firebug-lite");
+]]>
+        </programlisting>
+        <para>After the code has run you should see a Firebug Lite window in the Selenium runner window (use
+            milti-window mode). From there you can do the usual debug stuff, such as this, which uses jQuery to find
+            all parents of an element.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+teJQuery(selenium.browserbot.findElement("your-locator")).parents()
+]]>
+        </programlisting>
+
+        <para>Call the following command to remove the script. </para>
+        
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+removeScript("firebug-lite);
+]]>
+        </programlisting>
+        
+    </section>
+
+    <section>
+        <title>How to use jQuery Selector with weird characters in its ID</title>
+        <para>You should escape the &quot;.&quot; or other jQuery reserved characters.
+            For example, use &quot;dateOfBirth.\\month&quot; for &quot;dateOfBirth.month&quot; as the
+            ID.
+        </para>
+    </section>
+
+    <section>
+        <title>How to Use Tellurium for XHTML</title>
+        <para>For XHTML, you need to use the
+            <emphasis>namespace</emphasis> attribute in the UI object, for example,
+        </para>
+        
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Container(uid:"caseRecordPopUp", clocator:[id:"CaseRecordsPopUp",
+              tag:"div"],namespace:"xhtml",group:"true") {
+    Container(uid:"date",clocator:[id:"caseRecordPopUpDate",
+              tag:"input"], namespace:"xforms")
+    ......
+
+}
+]]>
+        </programlisting>
+        <para>You can register a custom namespace as follows,</para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+registerNamespace("xforms", "http://www.w3.org/2002/xforms")
+]]>
+        </programlisting>
+
+        <para>and use the following method to get back the namespace</para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+getNamespace("xforms");
+]]>
+        </programlisting>
+        
+    </section>
+
+    <section>
+        <title>hat Are the Differences Between connectUrl and openUrl</title>
+        <para>Starting from Tellurium 0.7.0,
+            <literal>connectUrl()</literal>
+            and
+            <literal>openUrl()</literal>
+            are used for different purposes. That is to say,
+            <literal>openUrl()</literal>
+            is used to instantiate a new browser session for each call, while
+            <literal>connectUrl()</literal>
+            reuses the same browser session. Under the hood, you have
+        </para>
+
+         <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+openUrl() = connectSeleniumServer() + connectUrl()
+]]>
+        </programlisting>
+
+        <para>As a result, you need to call
+            <literal>connectSeleniumServer()</literal>
+            before you call
+            <literal>connectUrl()</literal>
+            and then keep calling
+            <literal>connectUrl()</literal>
+            if you want to reuse the same browser session.
+        </para>
+        
+    </section>
+
+    <section>
+        <title>How to do Attribute Partial Matching in Tellurium</title>
+        <para>
+            Tellurium adopts jQuery style partial matching, that is to say, you should use the following
+            format for partial matching:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+"PARTIAL_MATCHING_SIGNYour_string"
+]]>
+        </programlisting>
+
+        <para>where the partial matching signs include: </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis>
+                        <literal>!</literal>
+                    </emphasis>
+                    : either don&apos;t have the specified attribute or do have the specified attribute
+                    but not with a certain value.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis>
+                        <literal>^</literal>
+                    </emphasis>
+                    : have the specified attribute and it starts with a certain value.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis>
+                        <literal>\$</literal>
+                    </emphasis>
+                    : have the specified attribute and it ends with a certain value. Be aware that
+                    <literal>$</literal>
+                    is reserved in Groovy for GString, please add &quot;\&quot; to escape it.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis>
+                        <literal>*</literal>
+                    </emphasis>
+                    : have the specified attribute and it contains a certain value.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>Be aware, due to the limitations of XPath,
+            <emphasis>
+                <literal>$</literal>
+            </emphasis>
+            and
+            <emphasis>
+                <literal>*</literal>
+            </emphasis>
+            are the same in XPath locator.
+        </para>
+        
+        <para>>Examples:</para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+clocator: [href:'!xevent']
+clocator: [href:'^xevent']
+clocator: [href:'\$xevent']
+clocator: [href:'*xevent']
+]]>
+        </programlisting>
+        
+    </section>
+
+    <section>
+        <title>What are the rules to define Tellurium UIDs</title>
+        <para>With the addition of Tellurium UID Description Language (UDL), for most UI
+            objects, the UIDs are IDs, but for List and Table objects, the UIDs include UI template
+            definitions and IDs.
+        </para>
+        <para>The rules for the ID
+            definition are as follows:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Starts with a letter and followed by either letter, digits, or underscore<literal>
+                    &quot;_&quot;</literal>.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>row</literal>,<literal>column</literal>,<literal>header</literal>,<literal>
+                    tbody</literal>,
+                    <literal>tfooter</literal>
+                    are reserved by UDL as tokens and you should not use them as IDs.
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+
+    <section>
+        <title>How to load Tellurium configuration from a String</title>
+        <para>From 0.7.0, Tellurium added support to load Tellurium configuration from a JSON String. For
+            example, you can define the Tellurium configuration JSON string as follows.
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public class JettyLogonModule extends DslContext {
+ public static String JSON_CONF = """{"tellurium":{"test":{"result":
+    {"reporter":"XMLResultReporter","filename":"TestResult.output",
+        "output":"Console"},"exception":{"filenamePattern":
+        "Screenshot?.png","captureScreenshot":false},"execution":
+        {"trace":false}},"accessor":{"checkElement":false},
+        "embeddedserver":{"port":"4444","browserSessionReuse":false,
+        "debugMode":false,"ensureCleanSession":false,"interactive":
+        false,"avoidProxy":false,"timeoutInSeconds":30,"runInternally"
+        :true,"trustAllSSLCertificates":true,"useMultiWindows":false,
+        "userExtension":"","profile":""},"uiobject":{"builder":{}},
+        "eventhandler":{"checkElement":false,"extraEvent":false},
+        "i18n":{"locale":"en_US"},"connector":{"baseUrl":
+        "http://localhost:8080","port":"4444","browser":"*chrome",
+        "customClass":"","serverHost":"localhost","options":""},
+        "bundle":{"maxMacroCmd":5,"useMacroCommand":true},"datadriven":
+        {"dataprovider":{"reader":"PipeFileReader"}},"widget":
+        {"module":{"included":""}}}}""";
+...
+}
+]]>
+        </programlisting>
+
+        <para>where the pretty look version of the JSON String is shown as follows.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+{
+    "tellurium": {
+        "test": {
+            "result": {
+                "reporter": "XMLResultReporter",
+                "filename": "TestResult.output",
+                "output": "Console"
+            },
+            "exception": {
+                "filenamePattern": "Screenshot?.png",
+                "captureScreenshot": false
+            },
+            "execution": {
+                "trace": false
+            }
+        },
+        "accessor": {
+            "checkElement": false
+        },
+        "embeddedserver": {
+            "port": "4444",
+            "browserSessionReuse": false,
+            "debugMode": false,
+            "ensureCleanSession": false,
+            "interactive": false,
+            "avoidProxy": false,
+            "timeoutInSeconds": 30,
+            "runInternally": true,
+            "trustAllSSLCertificates": true,
+            "useMultiWindows": false,
+            "userExtension": "",
+            "profile": ""
+        },
+        "uiobject": {
+            "builder": { }
+        },
+        "eventhandler": {
+            "checkElement": false,
+            "extraEvent": false
+        },
+        "i18n": {
+            "locale": "en_US"
+        },
+        "connector": {
+            "baseUrl": "http://localhost:8080",
+            "port": "4444",
+            "browser": "*chrome",
+            "customClass": "",
+            "serverHost": "localhost",
+            "options": ""
+        },
+        "bundle": {
+            "maxMacroCmd": 5,
+            "useMacroCommand": true
+        },
+        "datadriven": {
+            "dataprovider": {
+                "reader": "PipeFileReader"
+            }
+        },
+        "widget": {
+            "module": {
+                "included": ""
+            }
+        }
+    }
+}
+]]>
+        </programlisting>
+
+        <para>Then in the test case, we can load the configuration.</para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
+   private static JettyLogonModule jlm;
+   static{
+       Environment env = Environment.getEnvironment();
+       env.useConfigString(JettyLogonModule.JSON_CONF);
+   }
+
+   ...
+]]>
+        </programlisting>
+
+    </section>
+
+    <section>
+        <title>How to register a custom method in Tellurium API</title>
+        <para>For a custom method, the new Tellurium Engine provides the following method for users to
+            register the custom method.
+        </para>
+        
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+Tellurium.prototype.registerApi = function(apiName, requireElement, returnType)
+]]>
+        </programlisting>
+
+        <para>where
+            <emphasis>apiName</emphasis>
+            is the method name,
+            <emphasis>requireElement</emphasis>
+            means it requires a locator. The
+            <emphasis>returnType</emphasis>
+            is defined by the enum in core
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public enum ReturnType {
+  VOID,
+  NUMBER,
+  STRING,
+  BOOLEAN,
+  ARRAY,
+  MAP,
+  OBJECT
+}
+]]>
+        </programlisting>
+
+        <para>For example, you can register a custom method as follows, </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+teJQuery(document).ready(function() {
+    tellurium.registerApi("getUiByTag", false, "ARRAY");
+});
+]]>
+        </programlisting>
+
+    </section>
+
+    <section>
+        <title>How to Access Tellurium Maven Repo Behind a Firewall</title>
+        <para>You can download
+            <link xlink:href="http://ntlmaps.sourceforge.net/">NTLM Authorization Proxy Server</link>
+            and install it as a local proxy. Then add the following proxy settings in your
+            HOME/.m2/settings.xml.
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+  <proxies>
+   <proxy>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>localhost</host>
+      <port>5865</port>
+    </proxy>
+  </proxies>
+]]>
+        </programlisting>
+
+        <para>The
+            <emphasis>nonProxyHosts</emphasis>
+            parameter should include all the hosts you don&apos;t want them to go through the proxy
+            server, for example, we have the following setting for that.
+        </para>
+        
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+<nonProxyHosts>*.mycompany.com|*.mycompanydoman2.com</nonProxyHosts>
+]]>
+        </programlisting>
+        
+    </section>
+
+    <section>
+        <title>How to Generate IDE project files</title>
+        <para>Tellurium provides
+            <link xlink:href="http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_Maven_Archetypes">
+                Maven archetypes
+            </link>
+            for you to generate a Tellurium Maven project. Once you create the Maven project, you can
+            create the IDE project files automatically.
+        </para>
+        <para>For IntelliJ IDEA, you don&apos;t need to do anything and just simply open the project by
+            picking the pom file.
+        </para>
+        <para>For NetBeans, you can use
+            <link xlink:href="http://maven.apache.org/guides/mini/guide-ide-netbeans/guide-ide-netbeans.html">
+                the following Maven command
+            </link>
+            to create NetBeans project files.
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+mvn netbeans-freeform:generate-netbeans-project
+]]>
+        </programlisting>
+
+        <para>For Eclipse, you can use
+            <link xlink:href="http://maven.apache.org/guides/mini/guide-ide-eclipse.html">a similar Maven
+                command
+            </link>
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+mvn eclipse:eclipse
+]]>
+        </programlisting>
+        
+    </section>
+
+    <section>
+        <title>How to Run Tellurium Tests in Google Chrome</title>
+        <para>Selenium supports the following web browsers, </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+  *firefox
+  *mock
+  *firefoxproxy
+  *pifirefox
+  *chrome
+  *iexploreproxy
+  *iexplore
+  *firefox3
+  *safariproxy
+  *googlechrome
+  *konqueror
+  *firefox2
+  *safari
+  *piiexplore
+  *firefoxchrome
+  *opera
+  *iehta
+  *custom
+]]>
+        </programlisting>
+
+        <para>For Google Chrome, you should use<literal>*googlechrome</literal>. But there are bugs for
+            the current Google Chrome support in Selenium:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    There have been reports that Chrome support for selenium won&apos;t work on Windows
+                    XP 64-bit.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    The Google Chrome launcher does not support the avoidProxy option (
+                    <link xlink:href="http://jira.openqa.org/browse/SRC-524">SRC-524</link>
+                    )
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>http://localhost</literal>
+                    doesn&apos;t work as a starting URL in Google Chrome (<link
+                        xlink:href="http://jira.openqa.org/browse/SRC-529">SRC-529</link>)
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+
+    <section>
+        <title>How to run headless tests with Xvfb</title>
+        <para>First, you need to install Xvfb. In linux, do
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+[root@Mars ~]# yum search Xvfb
+]]>
+        </programlisting>
+
+        <para>you will see which rpm is for your linux os. For example, I found xorg-x11-server-Xvfb.x86_64 : A X
+            Windows System virtual framebuffer X server.
+        </para>
+
+        <para>I use the following command to install it.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+[root@Mars ~]# yum install xorg-x11-server-Xvfb.x86_64
+]]>
+        </programlisting>
+
+        <para>If you use Maven to run test, you can use the following script
+        </para>
+        
+        <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+#!/bin/bash
+
+nohup startx -- `which Xvfb` :20 -screen 0 1024x768x24 & sleep 7
+DISPLAY=:20 firefox  &     DISPLAY=:20 mvn test
+pkill Xvfb
+]]>
+        </programlisting>
+
+        <para>For ant, you can replace &quot;mvn test&quot; with your ant task.
+        </para>
+
+    </section>
+
+    <section>
+        <title>How to Search Tellurium Documents</title>
+        <para>The trick is to use google&apos;s site meta command, which will narrow the search to one domain. You can
+            use the following key words to do Google search,
+        </para>
+        
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+site:aost.googlecode.com YOUR_KEY_WORDS
+]]>
+        </programlisting>
+
+        <para>For example,
+        </para>
+        
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+site:aost.googlecode.com datepicker
+]]>
+        </programlisting>
+
+    </section>
+
+    <section>
+        <title>How to Contribute to Tellurium</title>
+        <para>We welcome contributions in many different ways, for example,
+        </para>
+        <orderedlist>
+            <listitem>
+                <para>
+                    Try out Tellurium
+                </para>
+            </listitem>
+            <listitem>
+                <para>Use Tellurium in your project and report bugs
+                </para>
+            </listitem>
+            <listitem>
+                <para>Ask questions and answer other users&apos; questions
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Promote Tellurium and post your experience on Tellurium
+                </para>
+            </listitem>
+            <listitem>
+                <para>Fix bugs for Tellurium
+                </para>
+            </listitem>
+            <listitem>
+                <para>Bring in new ideas and suggestions
+                </para>
+            </listitem>
+        </orderedlist>
+
+        <para>Our project team is open for new members and is expecting new members. We need some new developers who are
+            JavaScript and jQuery experts to join our development team. If you have free time and want
+            to contribute to Tellurium, please contact Jian Fang or other existing Tellurium members.
+        </para>
+        <para>We also expect to have some Evangelism Team members, who could write blogs and articles about Tellurium,
+            or present Tellurium to people, i.e., promote Tellurium in various ways. We welcome
+            Evangelism Team members from different parts of the world and promote Tellurium in different
+            Languages.
+        </para>
+    </section>
+
+    <section>
+        <title>Tellurium Future Directions</title>
+        <itemizedlist>
+            <listitem>
+                <para>Use jQuery to re-implement Selenium APIs. 0.7.0 has
+                    implemented a set of Selenium APIs, but there are still a lot of remaining work.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Algorithm design, for example, automatically build UI module from HTML source. Reverse engineering to
+                    build UI templates from HTML source is very challenging.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Tellurium Widgets, create reusable Dojo, ExtJS
+                    widgets so that other people can reuse the widgets simply by including the jar files
+                    to their projects.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Tellurium UID Description Language improvement.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Improve Trump Firefox Plugin, for example, generate test script as well as UI modules so that Tellurium is
+                    not only good for developers, but also QA people.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Add Behavior Driven Testing support
+                </para>
+            </listitem>
+            <listitem>
+                <para>Add testing flow support. Many unit testing and
+                    functional testing frameworks do not really have the testing flow/stage concept.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Tellurium as a cloud testing tool.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Tellurium as a web security testing tool.
+                </para>
+            </listitem>
+            <listitem>
+                <para>IDE and other plugins.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Improve code quality.
+                </para>
+            </listitem>
+        </itemizedlist>
+
+    </section>
+
 </appendix>
