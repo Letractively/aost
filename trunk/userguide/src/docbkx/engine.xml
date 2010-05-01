@@ -205,7 +205,7 @@ enableCssSelector()
 
         <mediaobject>
             <imageobject>
-                <imagedata fileref="./media/pathjqsel2.png"></imagedata>
+                <imagedata fileref="./media/xpathjqsel2.png" scale="100"></imagedata>
             </imageobject>
         </mediaobject>
 
@@ -744,7 +744,674 @@ useTelluriumEngine(true);
             from Santa Claus.
         </para>
 
-        
+         <section>
+             <title>Basic Flow</title>
+             <para>Ui Module Group Locating is to locate all elements
+                 defined in a UI module by exploiting the relationship among themselves. The problem is to
+                 locate the UI module as a whole, not an individual UI element.
+             </para>
+             <para>The UI module group locating basic flow is illustrated in the following diagram.
+             </para>
+
+         <mediaobject>
+            <imageobject>
+                <imagedata fileref="./media/EngineGroupLocatingFlow.png" scalefit="1" width="100%"></imagedata>
+            </imageobject>
+        </mediaobject>
+
+             <para>First, the Tellurium Engine API accepts a JSON presentation of the UI module. For example,
+             </para>
+
+         <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+var json = [{"obj":{"uid":"Form","locator":{"tag":"form"},"uiType":"Form"},"key":"Form"},
+   {"obj":{"uid":"Username","locator":{"tag":"tr"},"uiType":"Container"},"key":"Form.Username"},
+   {"obj":{"uid":"Label","locator":{"direct":true,"text":"Username:","tag":"td"},
+    "uiType":"TextBox"},"key":"Form.Username.Label"},
+   {"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_username",
+    "type":"text"}},"uiType":"InputBox"},"key":"Form.Username.Input"},
+   {"obj":{"uid":"Password","locator":{"tag":"tr"},"uiType":"Container"},"key":"Form.Password"},
+   {"obj":{"uid":"Label","locator":{"direct":true,"text":"Password:","tag":"td"},
+    "uiType":"TextBox"},"key":"Form.Password.Label"},
+   {"obj":{"uid":"Input","locator":{"tag":"input","attributes":{"name":"j_password",
+    "type":"password"}},"uiType":"InputBox"},"key":"Form.Password.Input"},
+   {"obj":{"uid":"Submit","locator":{"tag":"input","attributes":{"name":"submit",
+    "value":"Login","type":"submit"}},"uiType":"SubmitButton"},"key":"Form.Submit"}];
+]]>
+        </programlisting>
+             <para>The UI tree, i.e., UTree, builder in Tellurium Engine
+                 builds a UTree based on the JSON input. Then Tellurium Engine calls the Santa algorithm to
+                 locate all UI elements in the UI module except the elements that are defined as not
+                 <emphasis role="bold">cacheable</emphasis>
+                 by two UI object attributes, i.e.,
+                 <emphasis>lazy&quot;</emphasis>
+                 and<emphasis>noCacheForChildren</emphasis>. Dynamic elements can be located by searching
+                 from its parent and use a subset of the Santa algorithm, which will not be covered here.
+             </para>
+
+             <para>Once an element in a UI module is located, its DOM
+                 reference is stored into the UTree and an index is also created for fast access. After the
+                 Santa algorithm is finished, the UI module is stored into a cache.
+             </para>
+         </section>
+
+        <section>
+            <title>Data Structures</title>
+            <para>The UI object definition in Tellurium Engine is
+                very much similar to the one defined in Tellurium Core. The basic UI object is defined as,
+            </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+//base UI object
+var UiObject = Class.extend({
+    init: function() {
+        //UI object identification
+        this.uid = null;
+
+        //meta data
+        this.metaData = null;
+
+        //its parent UI object
+        this.parent = null;
+
+        //namespace, useful for XML, XHTML, XForms
+        this.namespace = null;
+
+        this.locator = null;
+
+        //event this object should be respond to
+        this.events = null;
+
+        //should we do lazy locating or not, i.e.,
+        //wait to the time we actually use this UI object
+        //usually this flag is set because the content is dynamic at runtime
+        this.lazy = false;
+
+        //If it is contained in its parent or not
+        this.self = false;
+
+        this.uiType = null;
+
+        //Tellurium Core generated locator for this UI Object
+        this.generated = null;
+
+        //dom reference
+        this.domRef = null;
+
+        //UI Module reference, which UI module this UI object belongs to
+        this.uim = null;
+    },
+    ...
+}
+]]>
+        </programlisting>
+            <para>All UI objects extend this basic UI object. For example, the Container object is defined as
+                follows.
+            </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+var UiContainer = UiObject.extend({
+    init: function(){
+        this._super();
+        this.uiType = 'Container';
+        this.group = false;
+        this.noCacheForChildren = false;
+        this.components = new Hashtable();
+    },
+    ...
+}
+]]>
+        </programlisting>
+            <para>The UI module at Tellurium Engine is defined as follows.</para>
+            
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+function UiModule(){
+    //top level UI object
+    this.root = null;
+
+    this.valid = false;
+
+    //hold a hash table of the uid to UI objects for fast access
+    this.map = new Hashtable();
+
+    //index for uid - dom reference for fast access
+    this.indices = null;
+
+    //If the UI Module is relaxed, i.e., use closest match
+    this.relaxed = false;
+
+    //the relax details including the UIDs and their corresponding html source
+    this.relaxDetails = null;
+
+    //number of matched snapshots
+    this.matches = 0;
+
+    //scaled score (0-100) for percentage of match
+    this.score = 0;
+
+    //ID Prefix tree, i.e., Trie, for the lookForId operation in group locating
+    this.idTrie = new Trie();
+
+    //Cache hit, i.e., direct get dom reference from the cache
+    this.cacheHit = 0;
+
+    //Cache miss, i.e., have to use walkTo to locate elements
+    this.cacheMiss = 0;
+
+    //the latest time stamp for the cache access
+    this.timestamp = null;
+
+    //UI module dump visitor
+    this.dumpVisitor = new UiDumpVisitor();
+
+    //Snapshot Tree, i.e., STree
+    this.stree = null;
+}
+]]>
+        </programlisting>
+            <para>From above, you can see the UI module has two indices for fast access. One is UID to UI object
+                mapping and the other one is the UID to DOM reference mapping.
+            </para>
+            <para>An ID prefix tree, i.e., Trie, is
+                built from UI module JSON presentation if the UI module includes elements with an ID
+                attribute. The Trie is used by the Santa
+                <emphasis>lookID</emphasis>
+                operation. A more detailed Trie build process can be found on the wiki
+                <link xlink:href="http://code.google.com/p/aost/wiki/UIModuleGeneratingAlgorithm#A_Trie_Based_Dictionary">
+                    The UI Module Generating Algorithm in Trump
+                </link>
+            </para>
+            <para>The scaled score is used by the
+                <emphasis>relax</emphasis>
+                operation for partial matching, i.e., closest match, and the score stands for how close the
+                UI module matches the runtime DOM. 100 is a perfect match and zero is no found. This is very
+                powerful to create robust Tellurium test code. That is to say, the Santa algorithm is adapt
+                to changes on the web page under testing to some degree.
+            </para>
+        </section>
+
+        <section>
+            <title>Locate</title>
+            <para>Assume we have UI module as shown in the following graph. </para>
+
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="./media/SantaTeUiModule.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+            <para>The group locating procedure is basically a breadth first
+                search algorithm. That is to say, it starts from the root node of the UTree and then its
+                children, its grandchildren, ..., until all node in the UTree has been searched. Santa marks
+                color for already searched node in the UTree and you can see the color changes during the
+                search procedure.
+            </para>
+
+            <section>
+                <title>Algorithm</title>
+                <para>The main flow of group locating can be self-explained by the following greatly simplified
+                    code snippet.
+                </para>
+         <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+UiAlg.prototype.santa = function(uimodule, rootdom){
+    //start from the root element in the UI module
+    if(!uimodule.root.lazy){
+        //object Queue
+        this.oqueue.push(uimodule.root);
+
+        var ust = new UiSnapshot();
+        //Snapshot Queue
+        this.squeue.push(ust);
+    }
+    while(this.oqueue.size() > 0){
+        var uiobj = this.oqueue.pop();
+        uiobj.locate(this);
+   }
+
+   //bind snapshot to the UI Module
+   this.bindToUiModule(uimodule, snapshot);
+
+   //unmark marked UID during the locating procedure
+   this.unmark();
+   ...
+}
+]]>
+        </programlisting>
+                <para>where the locate procedure is defined as follows.</para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+UiAlg.prototype.locate = function(uiobj, snapshot){
+    //get full UID
+    var uid = uiobj.fullUid();
+    var clocator = uiobj.locator;
+
+    //get parent's DOM reference
+    var pref = snapshot.getUi(puid);
+
+    //Build CSS selector from UI object's attributes
+    var csel = this.buildSelector(clocator);
+    //Starting from its parent, search for the UI element
+    var $found = teJQuery(pref).find(csel);
+
+    //if multiple matches, need to narrow down
+    if($found.size() > 1){
+        if(uiobj.noCacheForChildren){
+            //dynamic elements, use bestEffort operation
+            $found = this.bestEffort(uiobj, $found);
+
+        }else{
+            //first try lookId operation
+            $found = this.lookId(uiobj, $found);
+            if($found.size() > 1){
+                //then try lookAhead operation
+                $found = this.lookAhead(uiobj, $found);
+            }
+        }
+    }
+
+   ...
+   if($found.size() == 0){
+        if(this.allowRelax){
+            //use the relax operation
+            var result = this.relax(clocator, pref);
+        }
+   }
+};
+]]>
+        </programlisting>
+
+            </section>
+            <section>
+                <title>Branch and Trim</title>
+                <para>Santa is basically a branch and trim search
+                    procedure on the runtime DOM. Assume at some point, the Santa algorithm has located UI
+                    elements A, B, and C. A snapshot has been generated as shown in the following diagram.
+                </para>
+
+         <mediaobject>
+            <imageobject>
+                <imagedata fileref="./media/SantaLocate1.png" scalefit="1" width="100%"></imagedata>
+            </imageobject>
+        </mediaobject>
+                <para>When Santa locates UI element D, it finds two matches. Santa branches the snapshot tree and create
+                    two separate
+                    ones with each hold a different D node.
+                </para>
+
+         <mediaobject>
+            <imageobject>
+                <imagedata fileref="./media/SantaLocate2.png" scalefit="1" width="100%"></imagedata>
+            </imageobject>
+        </mediaobject>
+                <para>After couple steps, Santa locates the UI element G, it removes one of the
+                    snapshot trees because it cannot find G from the removed snapshot. Hence, only one snapshot
+                    tree is left.
+                </para>
+
+         <mediaobject>
+            <imageobject>
+                <imagedata fileref="./media/SantaLocatingTrim.png" scalefit="1" width="100%"></imagedata>
+            </imageobject>
+        </mediaobject>
+                <para>Of course, the actual locating procedure is much more complicated than what
+                    described here. But this should be able to give you some idea on how the branch and trim
+                    procedure works.
+                </para>
+
+            </section>
+
+            <section>
+                <title>Multiple-Match Reduction Mechanisms</title>
+                <para>As you can see from the above procedure, it would be
+                    time-consuming if Santa branches too frequently and creates too many snapshot trees because
+                    Santa needs to exploit every possible snapshot. As a result, Santa introduced the following
+                    multiple-match reduction mechanisms to reduce the number of snapshot trees it needs to
+                    search on.
+                </para>
+
+                <section>
+                    <title>Mark</title>
+                    <para>When Santa locates a node at the DOM, it marks it with its UID.</para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+$found.eq(0).data("uid", uid);
+]]>
+        </programlisting>
+
+                    <para>
+                        In this way, Santa will skip this DOM node when it tries to locate other UI elements in the
+                        UI module.
+                    </para>
+                    <para>
+                        When Santa finishes the group locating procedure, it unmarks all the uids from the DOM
+                        nodes.
+                    </para>
+
+                </section>
+
+                <section>
+                    <title>Look Ahead</title>
+                    <para>Look Ahead means to look at not only the current UI element but also its children when Santa
+                        locates it. For example, when Santa locates the node D, it also looks at its children G and H. This
+                        could decrease snapshot trees at the early search stage and thus reduce the UI module
+                        locating time.
+                    </para>
+
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="./media/SantaLocateLookChildren.png" scalefit="1" width="100%"></imagedata>
+            </imageobject>
+        </mediaobject>
+
+                </section>
+
+                <section>
+                    <title>Look ID</title>
+                    <para>The ID attribute uniquely defines a UI element on a web page
+                        and locating a DOM element by its ID is very fast, thus, Tellurium Engine builds an ID
+                        prefix tree, i.e., Trie, when it parses the JSON presentation of the UI module. For example,
+                        assume the UI module has four elements, A, D, F, and G, with an ID attribute. The Trie looks
+                        as follows.
+                    </para>
+
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="./media/SantaLookIDTrie.png"></imagedata>
+                        </imageobject>
+                    </mediaobject>
+                    <para>When Santa locates the UI element A, it can use the IDs for element A and D to reduce multiple
+                        matches. If Santa locates element D, only the ID of element G is helpful.
+                    </para>
+                    
+                </section>
+
+                <section>
+                    <title>Best Effort</title>
+                    <para>Best effort is similar to the Look Ahead mechanism, but it is for dynamic UI elements defined
+                        Tellurium templates. For dynamic elements, Tellurium defines the following two attributes to
+                        determine whether it and its children are cacheable.
+                    </para>
+                    <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+var UiObject = Class.extend({
+    init: function(){
+        ...
+        //should we do lazy locating or not, i.e., wait to the time we actually use
+        //this UI object usually this flag is set because the content is dynamic at runtime
+        //This flag is correspond to the cacheable attribute in a Tellurium Core UI object
+        this.lazy = false;
+    }
+});
+
+var UiContainer = UiObject.extend({
+    init: function(){
+        ...
+        this.noCacheForChildren = false;
+    },
+    ...
+}
+]]>
+                    </programlisting>
+                    <para>For a dynamic UI element defined by a UI template, it may have zero, one, or multiple
+                        matches at runtime. Santa defines a
+                        <emphasis role="bold">Bonus Point</emphasis>
+                        for dynamic UI elements. The bonus calculation is straightforward as shown in the following
+                        <emphasis>calcBonus</emphasis>
+                        method, where variable
+                        <emphasis>one</emphasis>
+                        is the parent DOM reference and
+                        <emphasis>gsel</emphasis>
+                        is a set of CSS selectors of current node&apos;s children defined by<link
+                                xlink:href="http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UI_Templates">
+                            Tellurium UI templates</link>.
+                    </para>
+
+                    <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+UiAlg.prototype.calcBonus = function(one, gsel){
+    var bonus = 0;
+    var $me = teJQuery(one);
+    for(var i=0; i<gsel.length; i++){
+        if($me.find(gsel[i]).size() > 0){
+            bonus++;
+        }
+    }
+
+    return bonus;
+};
+]]>
+                    </programlisting>
+                    <para>If the DOM matches more attributes defined by a UI template, the candidate DOM reference
+                        usually gets a higher bonus point. Santa chooses the candidate with the highest bonus point
+                        into the snapshot tree.
+                    </para>
+
+                </section>
+            </section>
+        </section>
+
+        <section>
+            <title>Relax</title>
+            <para>The relax procedure, i.e., closest match, is to match the UI attribute with the
+                DOM node as closely as possible. A
+                <emphasis role="bold">Match Score</emphasis>
+                is defined to measure how many attributes match the one on the DOM node. The total score is
+                scaled to 0-100 at the end. The snapshot with the highest match score is selected.
+            </para>
+            <para>The following simplified code snippet should give you some idea of how the relax procedure
+                works.
+            </para>
+
+            <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+//the tag must be matched
+var jqs = tag;
+//attrs is the attributes defined by a UI template
+var keys = attrs.keySet();
+
+//number of properties, tag must be included
+var np = 1;
+//number of matched properties
+var nm = 0;
+
+if (keys != null && keys.length > 0) {
+    np = np + keys.length;
+    for (var m = 0; m < keys.length; m++) {
+        var attr = keys[m];
+        //build css selector
+        var tsel = this.cssbuilder.buildSelector(attr, attrs.get(attr));
+        var $mt = teJQuery(pref).find(jqs + tsel);
+        if ($mt.size()> 0) {
+            jqs = jqs + tsel;
+            if(nm == 0){
+                nm = 2;
+            }else{
+                nm++;
+            }
+        }
+    }
+}
+
+//calculate match score, scaled to 100 percentage
+var score = 100*nm/np;
+]]>
+            </programlisting>
+            <para>As shown in the above code, the relax must satisfy one requirement, i.e.,
+                the tag name must match the one on the DOM node. Otherwise, the relax result returns as
+                &quot;not found&quot;.
+            </para>
+        </section>
+
+        <section>
+            <title>Usage</title>
+            <para>For instance, we have the following html snippet to test. </para>
+        <programlisting language="html"><?db-font-size 75% ?>
+<![CDATA[
+<H1>FORM Authentication demo</H1>
+
+<div class="box-inner">
+    <a href="js/tellurium-test.js">Tellurium Test Cases</a>
+    <input name="submit" type="submit" value="Test">
+</div>
+
+<form method="POST" action="j_security_check">
+    <table border="0" cellspacing="2" cellpadding="1">
+        <tr>
+            <td>Username:</td>
+            <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input name="submit" type="submit" value="Login">
+            </td>
+        </tr>
+    </table>
+</form>
+]]>
+        </programlisting>
+            <para>The correct UI module is shown as follows,</para>
+            
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Container(uid: "Form", clocator: [tag: "table"]){
+    Container(uid: "Username", clocator: [tag: "tr"]){
+        TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
+        InputBox(uid: "Input", clocator: [tag: "input", type: "text",
+            name: "j_username"])
+    }
+    Container(uid: "Password", clocator: [tag: "tr"]){
+        TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
+        InputBox(uid: "Input", clocator: [tag: "input", type: "password",
+            name: "j_password"])
+    }
+    SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit",
+        value: "Login", name: "submit"])
+}
+]]>
+        </programlisting>
+            <para>Assume the html was changed recently and you still use the following UI module defined some
+                time ago.
+            </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Container(uid: "ProblematicForm", clocator: [tag: "table"]){
+    Container(uid: "Username", clocator: [tag: "tr"]){
+        TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
+        InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j"])
+    }
+    Container(uid: "Password", clocator: [tag: "tr"]){
+        TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
+        InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j"])
+    }
+    SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "logon",
+        name: "submit"])
+}
+]]>
+        </programlisting>
+            <para>Here are the differences:</para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+InputBox(uid: "Input", clocator: [tag: "input", type: "text",
+    name: "j_username"])
+InputBox(uid: "Input", clocator: [tag: "input", type: "text",
+    name: "j"])
+
+InputBox(uid: "Input", clocator: [tag: "input", type: "password",
+    name: "j_password"])
+InputBox(uid: "Input", clocator: [tag: "input", type: "password",
+    name: "j"])
+
+SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit",
+    value: "Login", name: "submit"])
+SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit",
+    value: "logon", name: "submit"])
+]]>
+        </programlisting>
+            <para>What will happen without using the Santa algorithm?
+                You tests will be broken because the generated locators will not be correct any more. But if
+                you use the latest Tellurium 0.7.0 snapshot, you will notice that the tests still work if
+                you allow Tellurium to do closest match by calling
+            </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+useClosestMatch(true);
+]]>
+        </programlisting>
+            <para>The magic is that the new Tellurium Engine will locate the UI module
+                as a whole. It may have some trouble to find some individual UI elements such as &quot;ProblematicForm.Username.Input&quot;,
+                but it has no problem to locate the whole UI module structure in the DOM.
+            </para>
+
+            <para>Apart from that, Tellurium 0.7.0 also provides a handy method for you to validate your UI
+                module. For example, if you call
+            </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+validateUiModule("ProblematicForm");
+]]>
+        </programlisting>
+
+             <para>You will get the detailed validation results including the closest matches.
+             </para>
+
+        <programlisting language="sh"><?db-font-size 75% ?>
+<![CDATA[
+UI Module Validation Result for ProblematicForm
+
+-------------------------------------------------------
+
+        Found Exact Match: false
+
+        Found Closest Match: true
+
+        Match Count: 1
+
+        Match Score: 85.764
+
+
+        Closest Match Details:
+
+        --- Element ProblematicForm.Submit -->
+
+         Composite Locator: <input name="submit" value="logon"
+            type="submit"/>
+
+         Closest Matched Element: <input name="submit" value="Login"
+            type="submit">
+
+
+        --- Element ProblematicForm.Username.Input -->
+
+         Composite Locator: <input name="j" type="text"/>
+
+         Closest Matched Element: <input size="12" value="" name="j_username"
+            maxlength="25" type="text">
+
+        --- Element ProblematicForm.Password.Input -->
+
+         Composite Locator: <input name="j" type="password"/>
+
+         Closest Matched Element: <input size="12" value="" name="j_password"
+            maxlength="25" type="password">
+
+-------------------------------------------------------
+]]>
+        </programlisting>
+            
+        </section>
 
     </section>
 
