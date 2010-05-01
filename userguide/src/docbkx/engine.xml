@@ -9,4 +9,743 @@
 
      <title>Tellurium Engine</title>
     
+    <para>Tellurium 0.7.0 include a new Engine embedded in Selenium Core. The main functionalities
+        of the Tellurium Engine include
+    </para>
+    <itemizedlist>
+        <listitem>
+            <para>CSS Selector support based on jQuery</para>
+        </listitem>
+        <listitem>
+            <para>UI module group locating</para>
+        </listitem>
+        <listitem>
+            <para>UI module Caching</para>
+        </listitem>
+        <listitem>
+            <para>New APIs based on jQuery</para>
+        </listitem>
+    </itemizedlist>
+
+    <section>
+        <title>Code Structure</title>
+        <para>The following are Javascript files in the Engine project:</para>
+
+        <programlisting language="sh"><?db-font-size 75% ?>
+<![CDATA[
+[jfang@Mars engine]$ tree src/main/resources/core/scripts/
+src/main/resources/core/scripts/
+|-- firebuglite
+|   |-- errorIcon.png
+|   |-- firebug-lite.css
+|   |-- firebug-lite.js
+|   |-- firebug.gif
+|   |-- firebug_logo.png
+|   |-- infoIcon.png
+|   |-- progress.gif
+|   |-- spacer.gif
+|   |-- tree_close.gif
+|   |-- tree_open.gif
+|   `-- warningIcon.png
+|-- htmlutils.js
+|-- jquery-1.4.2.js
+|-- jquery-cookies-2.1.0.js
+|-- jquery-simpletip-1.3.1.js
+|-- json2.js
+|-- log4js.js
+|-- selenium-api.js
+|-- selenium-browserbot.js
+|-- selenium-browserdetect.js
+|-- selenium-commandhandlers.js
+|-- selenium-executionloop.js
+|-- selenium-logging.js
+|-- selenium-remoterunner.js
+|-- selenium-testrunner.js
+|-- selenium-version.js
+|-- tellurium-api.js
+|-- tellurium-cache.js
+|-- tellurium-extensions.js
+|-- tellurium-logging.js
+|-- tellurium-selector.js
+|-- tellurium-udl.js
+|-- tellurium-uialg.js
+|-- tellurium-uibasic.js
+|-- tellurium-uiextra.js
+|-- tellurium-uimodule.js
+|-- tellurium-uiobj.js
+|-- tellurium-uisnapshot.js
+|-- tellurium.js
+|-- tooltip
+|   `-- simpletip.css
+|-- user-extensions.js
+|-- utils.js
+`-- xmlextras.js
+]]>
+        </programlisting>
+
+        <para>where
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    jquery-1.4.2.js: jQuery is updated to the latest version 1.4.2.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    jquery-cookies-2.1.0.js: jQuery Cookies Plugin to support more cookie related
+                    operation
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                     tellurium.js: Entry point for Tellurium Engine code and it defined the
+                    <literal>Tellurium</literal>
+                    function.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    tellurium-selector.js: CSS selector builder
+                </para>
+            </listitem>
+            <listitem>
+                <para>tellurium-udl.js: Tellurium UDL processing
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    tellurium-uialg.js: Tellurium UI algorithm
+                </para>
+            </listitem>
+            <listitem>
+                <para>tellurium-uibasic.js: Tellurium UI basic
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    tellurium-uiextra.js: Tellurium extra UI functionalities
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    tellurium-uimodule.js: Tellurium UI module definition on Engine side
+                </para>
+            </listitem>
+            <listitem>
+                <para>tellurium-uiobj.js: Tellurium UI object
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    tellurium-uisnapshot.js: Tellurium UI snapshot
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    tellurium-cache.js: Tellurium Engine caching for UI modules and locators
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    telurium-extension.js: Extra Tellurium APIs for Selenium
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    tellurium-api.js: New Tellurium APIs based on jQuery
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    utils.js: Utility functions
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+
+    <section>
+        <title>CSS Selector Support</title>
+        <para>Started from version 0.6.0, Tellurium supports
+            a CSS selector to address the problem of poor performance of xpath in Internet Explorer.
+            Auto-generating jQuery instead of xpath has the following advantages:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Faster performance in IE
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    The power of CSS selector to call methods on jQuery collections to retrieve bulk
+                    data
+                </para>
+            </listitem>
+            <listitem>
+                <para>New CSS selector based Engine to replace Selenium Core
+                </para>
+            </listitem>
+        </itemizedlist>
+
+        <para>Tellurium Core automatically builds runtime xpath or CSS
+            selector based on a flag in DslContext. Tellurium Core uses CSS selector as the default
+            locator. To switch back to XPath from CSS selector, you should call
+        </para>
+        <screen>
+disableCssSelector()
+        </screen>
+        <para>and use
+        </para>
+        <screen>
+enableCssSelector()
+        </screen>
+        <para>to go back to CSS selector as shown in the following diagram.
+        </para>
+
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="./media/pathjqsel2.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+
+        <para>Be aware that CSS selector only works for composite locator, i.e.,<emphasis>
+            clocator</emphasis>. If you have base locator, which is pre-generated locator, then the
+            CSS selector will not work for you.
+        </para>
+        <para>How does the CSS Selector Work? The basic idea is to
+            customize Selenium Core to load the jQuery library at startup time. In other words, we add
+            jquery.js in to the TestRunner.html and RemoteRunner.html.
+        </para>
+        <para>After that, we register a custom locate strategy &quot;jquery&quot; in Selenium Core. This
+            is done by adding the following lines to the method
+            <literal>BrowserBot.prototype._registerAllLocatorFunctions</literal>
+            in the selenium-browserbot.js file. Note that the locate strategy &quot;uimcal&quot; is used
+            by Tellurium Engine internally.
+        </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+this.locationStrategies['jquery'] = function(locator, inDocument, inWindow) {
+    return tellurium.locateElementByCSSSelector(locator, inDocument, inWindow);
+};
+
+//used internally by Tellurium Engine
+this.locationStrategies['uimcal'] = function(locator, inDocument, inWindow) {
+    return tellurium.locateElementWithCacheAware(locator, inDocument, inWindow);
+};
+]]>
+        </programlisting>
+        <para>This defines new functions for
+            Selenium to locate elements on the page. For example, for the strategy &quot;jquery&quot;,
+            if someone runs click(&quot;jquery=div#myid&quot;), Selenium Core will find the element by
+            CSS selector<literal>div#myid</literal>. Selenium passed three arguments to the location
+            strategy function:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>locator: the string the user passed in
+                </para>
+            </listitem>
+            <listitem>
+                <para>inWindow: the currently selected window
+                </para>
+            </listitem>
+            <listitem>
+                <para>inDocument: the currently selected document
+                </para>
+            </listitem>
+        </itemizedlist>
+
+        <para>The function must return null if the element can&apos;t be found.
+        </para>
+        <para>The actual implementation can be illustrated by the
+            <literal>locateElementByCSSSelector</literal>
+            method.
+        </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+Tellurium.prototype.locateElementByCSSSelector =
+                   function(locator, inDocument, inWindow){
+    var loc = locator;
+    var attr = null;
+    var isattr = false;
+    //check attribute locator
+    var inx = locator.lastIndexOf('@');
+    if (inx != -1) {
+        loc = locator.substring(0, inx);
+        attr = locator.substring(inx + 1);
+        isattr = true;
+    }
+    //find element by jQuery CSS selector
+    var found = teJQuery(inDocument).find(loc);
+    if (found.length == 1) {
+        if (isattr) {
+            return found[0].getAttributeNode(attr);
+        } else {
+            return found[0];
+        }
+    } else if (found.length > 1) {
+        if (isattr) {
+            return found.get().getAttributeNode(attr);
+        } else {
+            return found.get();
+        }
+    } else {
+        return null;
+    }
+};
+]]>
+        </programlisting>
+
+        <para>The code is pretty straightforward. When we find
+            one element, return its DOM reference (Note: Selenium does not accept returning an array
+            with only one element) and if we find multiple elements, we use jQuery get() method to
+            return an array of DOM references. Otherwise, return null.
+        </para>
+        <para>
+            As shown in the code, we use the same format of attribute locator as the XPath one, i.e.,
+        </para>
+        <screen>
+locator@attribute
+        </screen>
+        <para>
+            With the adoption of jQuery, we also need some custom jQuery selectors and plugins to meet
+            our needs.
+        </para>
+        <para>
+            To design jQuery custom selectors, we need to understand the jQuery selector syntax:
+        </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+$.expr[':'].selector_name = function(obj, index, meta, stack){
+......
+}
+]]>
+        </programlisting>
+
+        <para>where
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis>obj</emphasis>: a current DOM element
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis>index</emphasis>: the current loop index in stack
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis>meta</emphasis>: meta data about your selector
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis>stack</emphasis>: stack of all elements to loop
+                </para>
+            </listitem>
+        </itemizedlist>
+
+        <para>The above function returns true to include current element and returns false to exclude current element. A
+            more detailed explanation could be found from<link
+                    xlink:href="http://jquery-howto.blogspot.com/2009/06/jquery-custom-selectors-with-parameters.html">
+                jQuery Custom Selectors with Parameters</link>.
+        </para>
+        <para>To avoid conflicts with user&apos;s jQuery library, we yield the &quot;$&quot; symbol and
+            rename jQuery to teJQuery in Tellurium.
+        </para>
+
+        <para>We defined the following Custom jQuery Selectors.</para>
+
+        <section>
+            <title>:te_text</title>
+            <para>The
+                <emphasis>:te_text</emphasis>
+                selector is created to select a UI element whose text attribute is a given string. The
+                implementation is simple,
+            </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+teJQuery.extend(teJQuery.expr[':'], {
+    te_text: function(a, i, m) {
+        return teJQuery.trim(teJQuery(a).text()) === teJQuery.trim(m[3]);
+    }
+});
+]]>
+        </programlisting>
+            <para>
+                You may wonder why we use
+                <emphasis>
+                    <literal>m[3]</literal>
+                </emphasis>
+                here, the variable
+                <emphasis>m</emphasis>
+                includes the following parameters
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        <emphasis>
+                            <literal>m[0]</literal>
+                        </emphasis>
+                        :
+                        <literal>te_text(argument)</literal>
+                        full selector
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis>
+                            <literal>m[1]</literal>
+                        </emphasis>
+                        :
+                        <literal>te_text</literal>
+                        selector name
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis>
+                            <literal>m[2]</literal>
+                        </emphasis>
+                        :
+                        <literal>&apos;&apos;</literal>
+                        quotes used
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis>
+                            <literal>m[3]</literal>
+                        </emphasis>
+                        :
+                        <literal>argument</literal>
+                        parameters
+                    </para>
+                </listitem>
+            </itemizedlist>
+
+            <para>As a result, the selector picks up the elements whose text attribute, obtained by<literal>
+                text()</literal>, is equal to the passed in parameter
+                <emphasis>
+                    <literal>m[3]</literal>
+                </emphasis>
+                .
+            </para>
+
+        </section>
+
+        <section>
+            <title>:group</title>
+            <para>The
+                <emphasis>:group</emphasis>
+                selector is used to implement
+                <link xlink:href="http://code.google.com/p/aost/wiki/UserGuide#Group_Locating">the group
+                    locating
+                </link>
+                in Tellurium. For example, we want to select a &quot;div&quot; whose children include one
+                &quot;input&quot;, one &quot;img&quot;, and one &quot;span&quot; tags. How to express this
+                using jQuery?
+            </para>
+            <para>One way is to use the following selector,</para>
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+teJQuery.expr[':'].group = function(obj){
+      var $this = teJQuery(obj);
+      return ($this.find("input").length > 0) && ($this.find("img").length > 0)
+       && ($this.find("span").length > 0);
+};
+]]>
+        </programlisting>
+            <para>That is to say, only a DOM node satisfying all the three conditions, i.e, whose children
+                include &quot;input&quot;, &quot;img&quot;, and &quot;span&quot;, is selected because the
+                AND conditions. Remember, only the node that returns true for the above function is
+                selected.
+            </para>
+            <para>However, in real world, we may have many conditions and we cannot use this hard-coded
+                style selector and we need to use the custom selector with parameters instead. Here is our
+                implementation,
+            </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+teJQuery.expr[':'].group = function(obj, index, m){
+      var $this = teJQuery(obj);
+
+      var splitted = m[3].split(",");
+      var result = true;
+
+      for(var i=0; i<splitted.length; i++){
+         result = result && ($this.find(splitted[i]).length > 0);
+      }
+
+      return result;
+};
+]]>
+        </programlisting>
+
+            <para>If we use firebug to debug the code by running the following jQuery selector</para>
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+teJQuery("div:group(input, img, span)")
+]]>
+        </programlisting>
+            <para>We can see the variable
+                <emphasis>m</emphasis>
+                includes the following parameters
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        <emphasis>
+                            <literal>m[0]</literal>
+                        </emphasis>
+                        :
+                        <literal>group(input, img, span)</literal>
+                        full selector
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis>
+                            <literal>m[1]</literal>
+                        </emphasis>
+                        :
+                        <literal>group</literal>
+                        selector name
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis>
+                            <literal>m[2]</literal>
+                        </emphasis>
+                        :
+                        <literal>&apos;&apos;</literal>
+                        quotes used
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis>
+                            <literal>m[3]</literal>
+                        </emphasis>
+                        :
+                        <literal>input, img, span</literal>
+                        parameters
+                    </para>
+                </listitem>
+            </itemizedlist>
+
+        </section>
+
+        <section>
+            <title>:styles</title>
+            <para>We can see the variable m includes the following parameters</para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Container(uid: "Program", clocator: [tag: "div"], group: "true") {
+  Div(uid: "label", clocator: [tag: "a", text: "Program"])
+  Container(uid: "triggerBox", clocator: [tag: "div"], group: "true") {
+    InputBox(uid: "inputBox", clocator: [tag: "input", type: "text",
+        readonly: "true", style: "width: 343px;"], respond: ["click"])
+    Image(uid: "trigger", clocator: [tag: "img",  style: "overflow: auto;
+        width: 356px; height: 100px;"], respond: ["click"])
+  }
+}
+]]>
+        </programlisting>
+            <para>Unfortunately, the following generated jQuery selector does not work.
+            </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ $('div:has(input[type=text][readonly=true][style="width: 343px;"],
+    img[style="overflow: auto; width: 356px;height: 100px;"])
+    img[style="overflow: auto; width: 356px; height: 100px;"]')
+]]>
+        </programlisting>
+            <para>We have to use a custom jQuery selector to handle the style attribute as follows,
+            </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+teJQuery.expr[':'].styles = function(obj, index, m){
+      var $this = teJQuery(obj);
+
+      var splitted = new Array();
+      var fs = m[3].split(/:|;/);
+      for(var i=0; i<fs.length; i++){
+          var trimed = teJQuery.trim(fs[i]);
+          if(trimed.length > 0){
+              splitted.push(trimed);
+          }
+      }
+
+      var result = true;
+
+      var l=0;
+      while(l < splitted.length){
+         result = result &&
+            (teJQuery.trim($this.css(splitted[l])) == splitted[l+1]);
+         l=l+2;
+      }
+
+      return result;
+};
+]]>
+        </programlisting>
+
+            <para>The main idea is to split the content of the style attribute into
+                multiple single-css classes, then try to match each css class one by one. This approach may
+                not be the optimal one, but it works.
+            </para>
+            <para>Then, the new runtime jQuery selector becomes,
+            </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+div:group(a:te_text(Program), div) div:group(input:styles(width: 343px;)
+    [type=text][readonly=true], img:styles(overflow: auto; width: 356px;
+    height: 100px;)) img:styles(overflow: auto; width: 356px; height: 100px;)
+]]>
+        </programlisting>
+
+        </section>
+        <section>
+            <title>:nextToLast</title>
+            <para>One implemented suggested by Kevin is shown as follows,</para>
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+teJQuery.expr[':'].nextToLast = function(obj, index, m){
+    var $this = teJQuery(obj);
+
+    if ($this.index() == $this.siblings().length - 1) {
+        return true;
+    } else {
+        return false;
+    }
+};
+]]>
+        </programlisting>
+            <para>and he also
+                suggested<link xlink:href="http://www.tentonaxe.com/2010/03/custom-jquery-selectors.html">a
+                    more efficient implementation</link>.
+            </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+// this is a selector called nextToLast. its sole purpose is to
+// return the next to last element of the array of elements supplied
+// to it. The parameters in the function below are as follows;
+//
+// obj => the current node being checked
+// ind => the index of obj in the array of objects being checked
+// prop => the properties passed in with the expression
+// node => the array of nodes being checked
+teJQuery.expr[':'].nextToLast = function(obj, ind, prop, node){
+
+     // if ind is 2 less than the length of the array of nodes, keep it
+     if (ind == node.length-2) {
+          return true;
+     } else {
+          // else, remove the node
+          return false;
+     }
+};
+]]>
+        </programlisting>
+
+        </section>
+        <para>We also have the following custom jQuery plugin.</para>
+        <section>
+            <title>outerHTML</title>
+            <para>When we worked on<link
+                    xlink:href="http://code.google.com/p/aost/wiki/TelluriumPowerUtilityDiagnose">the diagnose
+                utility</link>, we were frustrated because we need to get the HTML source of a DOM node, but
+                the
+                <literal>html()</literal>
+                method in jQuery only returns innerHTML. We posted a question to
+                <link xlink:href="http://groups.google.com/group/jquery-en">jQuery group</link>
+                and got the answer,
+            </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+$('<div>').append( $(jQuery_Selector).clone() ).html()
+]]>
+        </programlisting>
+            <para>and as suggested by another person, we went further to implement this as a simple jQuery
+                plugin,
+            </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+teJQuery.fn.outerHTML = function() {
+    return teJQuery("<div/>").append( teJQuery(this[0]).clone() ).html();
+};
+]]>
+        </programlisting>
+            <para>We made two changes here.</para>
+            <orderedlist>
+                <listitem>
+                    <para>
+                        <emphasis>outerHTML</emphasis>
+                        is defined as a new property of
+                        <literal>jQuery.fn</literal>
+                        rather than as a standalone function. This registers the function as a plug-in
+                        method.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>We use the keyword
+                        <emphasis>this</emphasis>
+                        as a replacement for the jQuery selector. Within a plug-in method,
+                        <emphasis>this</emphasis>
+                        refers to the jQuery object that is being acted upon.
+                    </para>
+                </listitem>
+            </orderedlist>
+
+        </section>
+    </section>
+
+    <section>
+        <title>UI Module Group Locating</title>
+        <para>UI Module is the heart of Tellurium Automated Testing Framework. Even UI Module
+            was introduced at the prototype phase, but there was really no algorithm to locate the UI
+            module as a whole. Up to Tellurium 0.6.0, we still need Tellurium core to generate runtime
+            locators based on the UI module definition and then pass Selenium commands to the Selenium
+            core to locate each individual UI element.
+        </para>
+        <para>The Santa algorithm is the missing half of the Tellurium UI module concept. The algorithm can locate the
+            whole UI module at the runtime DOM. After that, you can just pass in UI element&apos;s UID
+            to find it in the cached UI module on Tellurium Engine. That is to say, you don&apos;t need
+            Tellurium Core to generate the runtime locators any more. For compatibility reason,
+            Tellurium Core still generates runtime locators, but they are not really needed if you turn
+            on UI module group locating and caching by calling
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+useTelluriumEngine(true);
+]]>
+        </programlisting>
+
+        <para>Why is the algorithm named<emphasis role="bold">Santa</emphasis>. This is because I have completed most
+            of the design and coding work during the Christmas season in 2009. It is like a gift for me
+            from Santa Claus.
+        </para>
+
+        
+
+    </section>
+
 </chapter>
