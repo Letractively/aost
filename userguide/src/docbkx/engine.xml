@@ -1415,4 +1415,643 @@ UI Module Validation Result for ProblematicForm
 
     </section>
 
+    <section>
+        <title>UI Module Caching</title>
+        <para>From Tellurium 0.6.0, we provides the cache capability for CSS selectors so
+            that we can reuse them without doing re-locating. In 0.7.0, we move a step further to cache
+            the whole UI module on the Engine side. Each UI module cache holds a snapshot of the DOM
+            references for most of the UI elements in the UI module. The exceptions are dynamic web
+            elements defined by Tellurium UI templates. For these dynamic web elements, the Engine will
+            try to get the DOM reference of its parent and then do locating inside this subtree with its
+            parent node as the root, which will improve the locating speed a lot.
+        </para>
+        <para>On the Engine side the cache is defined as
+        </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+function TelluriumCache(){
+
+    //global flag to decide whether to cache jQuery selectors
+    this.cacheOption = false;
+
+    //cache for UI modules
+    this.sCache = new Hashtable();
+
+    this.maxCacheSize = 50;
+
+    this.cachePolicy = discardOldCachePolicy;
+
+    //Algorithm handler for UI
+    this.uiAlg = new UiAlg();
+}
+]]>
+        </programlisting>
+
+        <para>Tellurium Engine provides the following cache eviction policies:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    DiscardNewPolicy: discard new jQuery selector.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    DiscardOldPolicy: discard the oldest jQuery selector measured by the last update
+                    time.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    DiscardLeastUsedPolicy: discard the least used jQuery selector.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    DiscardInvalidPolicy: discard the invalid jQuery selector first.
+                </para>
+            </listitem>
+        </itemizedlist>
+        <para>To turn on and off the caching capability, you just simply call the following method in your
+            code.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+void useCache(boolean isUse);
+]]>
+        </programlisting>
+
+        <para>Or use the following methods to do fine control of the cache.</para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public void enableCache();
+public boolean disableCache();
+public boolean cleanCache();
+public boolean getCacheState();
+public void setCacheMaxSize(int size);
+public int getCacheSize();
+public void useDiscardNewCachePolicy();
+public void useDiscardOldCachePolicy();
+public void useDiscardLeastUsedCachePolicy();
+public void useDiscardInvalidCachePolicy();
+public String getCurrentCachePolicy();
+public Map<String, Long> getCacheUsage();
+]]>
+        </programlisting>
+
+        <para>How the cached UI modules are used? Tellurium Core checks if a
+            UI module has been located or not when it calls a method on the UI module. If not, it calls
+            the
+            <literal>useUiModule(json)</literal>
+            API to Engine and the Engine calls the following method to do group locating using the Santa
+            algorithm and then push the UI module into the cache.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+TelluriumCache.prototype.useUiModule = function(jsonarray){
+    var uim = new UiModule();
+    uim.parseUiModule(jsonarray);
+    var response = new UiModuleLocatingResponse();
+    var result = this.uiAlg.santa(uim, null);
+    if(result){
+        //set the UI Module to be valid after it is located
+        uim.valid = true;
+        var id = uim.getId();
+        var cached = this.getCachedData(id);
+        if (cached == null) {
+             this.addToCache(id, uim);
+        } else {
+            this.updateToCache(id, uim);
+        }
+
+        response.id = id;
+        response.relaxed = uim.relaxed;
+        if (!response.relaxed)
+            response.found = true;
+        response.relaxDetails = uim.relaxDetails;
+        response.matches = uim.matches;
+        response.score = uim.score;
+    }
+
+    return response;
+};
+]]>
+        </programlisting>
+        <para>For subsequent calls, the Engine will check the UI object UID to see if it
+            can find the UI module from the cache. If the UI module has been cached, a UI object
+            traverse is called to get back the runtime dom reference for the corresponding UI object.
+        </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+TelluriumCache.prototype.getCachedUiElement = function(uid){
+
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+
+    if(uiid.size() > 0){
+        var first = uiid.peek();
+        var uim = this.sCache.get(first);
+        if(uim != null){
+            var domref = uim.index(uid);
+            if(domref == null){
+                uim.increaseCacheMiss();
+                //if could not find directly from the UI module indices,
+                //then try to use walkTo to find the element first
+                //and then its domRef
+                var context = new WorkflowContext();
+                context.alg = this.uiAlg;
+                var obj = uim.walkTo(context, uiid);
+                if(obj != null){
+                    domref = context.domRef;
+                }
+            }else{
+                uim.increaseCacheHit();
+            }
+
+            return domref;
+        }
+    }
+
+    return null;
+};
+]]>
+        </programlisting>
+
+        <para>To measure the cache usage, Tellurium Engine defined the following class.
+        </para>
+
+         <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+function CacheUsage(){
+    this.totalCall = 0;
+    this.cacheHit = 0;
+    //percentage of the cacheHit/totalCall
+    this.usage = 0;
+}
+]]>
+        </programlisting>
+
+        <para>The following method can be called from Tellurium Core to get back the actual cache usage.
+                        </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+public Map<String, Long> getCacheUsage();
+]]>
+        </programlisting>
+
+    </section>
+    <section>
+        <title>New APIs</title>
+        <para>With the addition of jQuery in the Engine, it is pretty easy to create a set of custom Selenium methods.
+            For example, we can create a
+            <literal>getAllText()</literal>
+            method to get back all texts.
+        </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+TelluriumApi.prototype.getAllText = function(locator) {
+    var element = this.cacheAwareLocate(locator);
+    var out = [];
+    var $e = teJQuery(element);
+    $e.each(function() {
+        out.push(teJQuery(this).text());
+    });
+    return out;
+};
+]]>
+        </programlisting>
+
+        <para>Tellurium Engine provides another running mode, i.e., the Tellurium core does not need to
+            generate the runtime locator anymore and it can simply pass the object UID to the Engine.
+            For example, Tellurium Engine only needs UID in the following method.
+        </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+TelluriumApi.prototype.getAllTableBodyText = function(uid) {
+    var context = new WorkflowContext();
+    context.alg = this.cache.uiAlg;
+
+    var obj = this.cache.walkToUiObjectWithException(context, uid);
+    if(obj.respondsToWithException("getAllBodyCell")){
+        var out = obj.getAllBodyCell(context, this.textWorker);
+
+        return out;
+    }
+
+    return null;
+};
+]]>
+        </programlisting>
+
+        <para>Right now, new Tellurium jQuery-based APIs include</para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+TelluriumApi.prototype.blur = function(locator);
+
+TelluriumApi.prototype.click = function(locator);
+
+TelluriumApi.prototype.clickAt = function(locator, coordString);
+
+TelluriumApi.prototype.doubleClick = function(locator);
+
+TelluriumApi.prototype.fireEvent = function(locator, event);
+
+TelluriumApi.prototype.focus = function(locator);
+
+TelluriumApi.prototype.typeKey = function(locator, key);
+
+TelluriumApi.prototype.keyDown = function(locator, key);
+
+TelluriumApi.prototype.keyPress = function(locator, key);
+
+TelluriumApi.prototype.keyUp = function(locator, key);
+
+TelluriumApi.prototype.mouseOver = function(locator);
+
+TelluriumApi.prototype.mouseDown = function(locator);
+
+TelluriumApi.prototype.mouseDownRight = function(locator);
+
+TelluriumApi.prototype.mouseEnter = function(locator);
+
+TelluriumApi.prototype.mouseLeave = function(locator);
+
+TelluriumApi.prototype.mouseOut = function(locator);
+
+TelluriumApi.prototype.submit = function(locator);
+
+TelluriumApi.prototype.check = function(locator);
+
+TelluriumApi.prototype.uncheck = function(locator);
+
+TelluriumApi.prototype.isElementPresent = function(locator);
+
+TelluriumApi.prototype.getAttribute = function(locator, attributeName);
+
+TelluriumApi.prototype.waitForPageToLoad = function(timeout);
+
+TelluriumApi.prototype.type = function(locator, val);
+
+TelluriumApi.prototype.select = function(locator, optionLocator);
+
+TelluriumApi.prototype.addSelection = function(locator, optionLocator);
+
+TelluriumApi.prototype.removeSelection = function(locator, optionLocator);
+
+TelluriumApi.prototype.removeAllSelections = function(locator);
+
+TelluriumApi.prototype.open = function(url);
+
+TelluriumApi.prototype.getText = function(locator);
+
+TelluriumApi.prototype.isChecked = function(locator);
+
+TelluriumApi.prototype.isVisible = function(locator);
+
+TelluriumApi.prototype.isEditable = function(locator) ;
+
+TelluriumApi.prototype.getXpathCount = function(xpath);
+
+TelluriumApi.prototype.getAllText = function(locator);
+
+TelluriumApi.prototype.getCssSelectorCount = function(locator);
+
+TelluriumApi.prototype.getCSS = function(locator, cssName);
+
+TelluriumApi.prototype.isDisabled = function(locator);
+
+TelluriumApi.prototype.getListSize = function(locator, separators);
+
+TelluriumApi.prototype.getCacheState = function();
+
+TelluriumApi.prototype.enableCache = function();
+
+TelluriumApi.prototype.disableCache = function();
+
+TelluriumApi.prototype.cleanCache = function();
+
+TelluriumApi.prototype.setCacheMaxSize = function(size);
+
+TelluriumApi.prototype.getCacheSize = function();
+
+TelluriumApi.prototype.getCacheMaxSize = function();
+
+TelluriumApi.prototype.getCacheUsage = function();
+
+TelluriumApi.prototype.addNamespace = function(prefix, namespace);
+
+TelluriumApi.prototype.getNamespace = function(prefix);
+
+TelluriumApi.prototype.useDiscardNewPolicy = function();
+
+TelluriumApi.prototype.useDiscardOldPolicy = function();
+
+TelluriumApi.prototype.useDiscardLeastUsedPolicy = function();
+
+TelluriumApi.prototype.useDiscardInvalidPolicy = function();
+
+TelluriumApi.prototype.getCachePolicyName = function();
+
+TelluriumApi.prototype.useUiModule = function(json);
+
+TelluriumApi.prototype.isUiModuleCached = function(id);
+
+TelluriumApi.prototype.getEngineState = function();
+
+TelluriumApi.prototype.useEngineLog = function(isUse);
+]]>
+        </programlisting>
+
+        <para>As you can see, most of the new APIs have the same signature as the Selenium ones so that
+            your test code is agnostic to which test driving engine that you use. You can always switch
+            between the Tellurium Engine and Selenium Engine by the following API at Tellurium core.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public void useTelluriumApi(boolean isUse);
+]]>
+        </programlisting>
+        
+    </section>
+
+    <section>
+        <title>Debug Tellurium Engine</title>
+        <para>Tellurium Engine is similar to Selenium core to drive browser events to simulate users who physically work
+            on the web application. The basic idea is to write a Javascript test to call Tellurium Engine
+            and embed the test code in the header of the html page that we want to test. Then we can set
+            a breakpoint in the JavaScript code using Firebug. After refresh the web page, we can run
+            the test code, which will stop at the breakpoint. One obstacle is that some parts of
+            Tellurium Engine need to call Selenium core, we work around this problem by mocking Selenium
+            Core.
+        </para>
+
+        <para>First, we installed a Jetty server and use the Jetty server to load up the web
+            page that we want to run tellurium Engine tests on.
+        </para>
+
+        <para>Take the following html source as an example,</para>
+
+        <programlisting language="html"><?db-font-size 75% ?>
+<![CDATA[
+<H1>FORM Authentication demo</H1>
+
+<div class="box-inner">
+    <a href="js/tellurium-test.js">Tellurium Test Cases</a>
+    <input name="submit" type="submit" value="Test"
+        onclick="teTestCase.testSuite();">
+</div>
+
+<form method="POST" action="j_security_check">
+    <table border="0" cellspacing="2" cellpadding="1">
+        <tr>
+            <td>Username:</td>
+            <td><input size="12" value="" name="j_username" maxlength="25"
+                type="text"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input size="12" value="" name="j_password" maxlength="25"
+                type="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input name="submit" type="submit" value="Login">
+            </td>
+        </tr>
+    </table>
+</form>
+]]>
+        </programlisting>
+
+        <para>First, we added the following headers to the above html source.
+        </para>
+
+        <programlisting language="html"><?db-font-size 75% ?>
+<![CDATA[
+<head>
+  <title>Tellurium Test Page</title>
+  <script src="js/selenium-mock.js"> </script>
+  <script src="http://localhost:4444/selenium-server/core/scripts/jquery-1.4.js"/>
+  <script src="http://localhost:4444/selenium-server/core/scripts/json2.js"/>
+  <script src="http://localhost:4444/selenium-server/core/scripts/utils.js"/>
+  <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-logging.js"/>
+  <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-api.js"/>
+  <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-cache.js"/>
+  <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-extensions.js"/>
+  <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-selector.js"/>
+  <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-uibasic.js"/>
+  <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-uiobj.js"/>
+  <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-uimodule.js"/>
+  <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-uisnapshot.js"/>
+  <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-uialg.js"/>
+  <script src="http://localhost:4444/selenium-server/core/scripts/tellurium-uiextra.js"/>
+  <script src="http://localhost:4444/selenium-server/core/scripts/tellurium.js"/> 
+  <script src="js/tellurium-test.js"> </script>
+  <script type="text/javascript">
+    teJQuery(document).ready(function(){
+           var testcase = new TelluriumTestCase();
+           testcase.testLogonUiModule();
+    });
+  </script>
+</head>
+]]>
+        </programlisting>
+
+        <para>
+            where the tellurium-test.js is the Engine test script. The above header loads up the Tellurium Engine code
+            when the web page is served by Jetty.
+        </para>
+
+        <para>Then, we defined a test class as follows, </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+function TelluriumTestCase(){
+
+};
+
+TelluriumTestCase.prototype.testLogonUiModule = function(){
+  var json = [{"obj":{"uid":"Form","locator":{"tag":"form"},"uiType":"Form"}
+   ,"key":"Form"}, {"obj":{"uid":"Username","locator":{"tag":"tr"},
+   "uiType":"Container"},"key":"Form.Username"}, {"obj":{"uid":"Label","locator":
+   {"direct":true,"text":"Username:","tag":"td"},"uiType":"TextBox"},"key":
+   "Form.Username.Label"}, {"obj":{"uid":"Input","locator":{"tag":"input",
+   "attributes":{"name":"j_username","type":"text"}},"uiType":"InputBox"},
+   "key":"Form.Username.Input"}, {"obj":{"uid":"Password","locator":{"tag":"tr"},
+   "uiType":"Container"},"key":"Form.Password"},{"obj":{"uid":"Label","locator":
+   {"direct":true,"text":"Password:","tag":"td"},"uiType":"TextBox"},
+   "key":"Form.Password.Label"},{"obj":{"uid":"Input","locator":{"tag":"input",
+   "attributes":{"name":"j_password","type":"password"}},"uiType":"InputBox"},
+   "key":"Form.Password.Input"}, {"obj":{"uid":"Submit","locator":{"tag":"input",
+   "attributes":{"name":"submit","value":"Login","type":"submit"}},"uiType":
+   "SubmitButton"},"key":"Form.Submit"}];
+    tellurium.logManager.isUseLog = true;
+    var uim = new UiModule();
+    uim.parseUiModule(json);
+    var alg = new UiAlg();
+    var dom = teJQuery("html");
+    alg.santa(uim, dom);
+    tellurium.cache.cacheOption = true;
+    tellurium.cache.addToCache("Form", uim);
+    var context = new WorkflowContext();
+    context.alg = alg;
+    var uiid = new Uiid();
+    var uinput = uim.walkTo(context,
+        uiid.convertToUiid("Form.Username.Input"));
+    var pinput = uim.walkTo(context,
+        uiid.convertToUiid("Form.Password.Input"));
+    var smt = uim.walkTo(context, uiid.convertToUiid("Form.Submit"));
+    tellurium.teApi.getHTMLSource("Form");
+    var attrs = [{"val":"text","key":"type"}];
+    var teuids = tellurium.teApi.getUiByTag("input", attrs);
+    fbLog("result ", teuids);
+};
+]]>
+        </programlisting>
+        <para>The variable json is the JSON presentation of the UI module.
+            You can obtain the JSON string of a UI module by calling the following method in DslContext.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public String toString(String uid);
+]]>
+        </programlisting>
+
+        <para>The following test case first runs the Santa algorithm to do group locating and then call
+            <emphasis>walkTo</emphasis>
+            to find the DOM reference for the UI element. After that, we test the two Tellurium APIs,
+            <emphasis>getHTMLSource</emphasis>
+            and<emphasis>getUiByTag</emphasis>.
+        </para>
+
+        <para>As we said, Tellurium Engine needs to call Selenium Core code somewhere. we need to mock up
+            Selenium core as follows.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+function Selenium(){
+    this.browserbot = new BrowserBot();
+};
+
+function BrowserBot(){
+
+};
+
+BrowserBot.prototype.findElement = function(locator){
+    if(locator.startsWith("jquery=")){
+        return teJQuery(locator.substring(7));
+    }
+
+    return null;
+};
+
+function SeleniumError(message) {
+    var error = new Error(message);
+    if (typeof(arguments.caller) != 'undefined') { 
+        var result = '';
+        for (var a = arguments.caller; a != null; a = a.caller) {
+            result += '> ' + a.callee.toString() + '\n';
+            if (a.caller == a) {
+                result += '*';
+                break;
+            }
+        }
+        error.stack = result;
+    }
+    error.isSeleniumError = true;
+    return error;
+}
+
+var selenium = new Selenium();
+]]>
+        </programlisting>
+
+        <para>Firebug provides very powerful console logging capability, where you can inspect
+            the JavaScript object. Tellurium Engine provides the following wrapper for Firebug console
+            logging.
+        </para>
+
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+function fbLog(msg, obj){
+    if (typeof(console) != "undefined") {
+        console.log(msg, obj);
+    }
+}
+
+function fbInfo(msg, obj){
+    if (typeof(console) != "undefined") {
+        console.info(msg, obj);
+    }
+}
+
+function fbDebug(msg, obj){
+    if (typeof(console) != "undefined") {
+        console.debug(msg, obj);
+    }
+}
+
+function fbWarn(msg, obj){
+    if (typeof(console) != "undefined") {
+        console.warn(msg, obj);
+    }
+}
+
+function fbError(msg, obj){
+    if (typeof(console) != "undefined") {
+        console.trace();
+        console.error(msg, obj);
+    }
+}
+
+function fbTrace(){
+    if (typeof(console) != "undefined") {
+        console.trace();
+    }
+}
+
+function fbAssert(expr, obj){
+    if (typeof(console) != "undefined") {
+        console.assert(expr, obj);
+    }
+}
+
+function fbDir(obj){
+    if (typeof(console) != "undefined") {
+        console.dir(obj);
+    }
+}
+]]>
+        </programlisting>
+
+        <para>For browsers
+            other than Firefox, Tellurium provides
+            <link xlink:href="http://code.google.com/p/aost/wiki/Tellurium070Update#Engine_Logging">the
+                Firebug Lite
+            </link>
+            in the custom selenium server so that you can still use the above logging wrapper.
+        </para>
+        <para>To run the above test page, first, we copy the above page to
+            <literal>JETTY_HOME/webapps/test/</literal>
+            directory. Copy the test script and Selenium mock script to
+            <literal>JETTY_HOME/webapps/test/js/</literal>
+            directory. Then start the Jetty server and open the Firefox browser to point to<literal>
+                http://localhost:8080/testpagename.html</literal>. we can see all JavaScript code
+            including Tellurium Engine code and the test script. Set a breakpoint somewhere and refresh
+            the page, Firebug will stop at breakpoint and then we can start to debug the Engine.
+        </para>
+    </section>
+
 </chapter>
