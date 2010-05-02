@@ -755,7 +755,7 @@ useTelluriumEngine(true);
 
          <mediaobject>
             <imageobject>
-                <imagedata fileref="./media/EngineGroupLocatingFlow.png" scalefit="1" width="100%"></imagedata>
+                <imagedata fileref="./media/EngineGroupLocatingFlow.png" scale="100"></imagedata>
             </imageobject>
         </mediaobject>
 
@@ -1121,7 +1121,7 @@ $found.eq(0).data("uid", uid);
 
                     <mediaobject>
                         <imageobject>
-                            <imagedata fileref="./media/SantaLookIDTrie.png"></imagedata>
+                            <imagedata fileref="./media/SantaLookIDTrie.png" scale="100"></imagedata>
                         </imageobject>
                     </mediaobject>
                     <para>When Santa locates the UI element A, it can use the IDs for element A and D to reduce multiple
@@ -2052,6 +2052,618 @@ function fbDir(obj){
             including Tellurium Engine code and the test script. Set a breakpoint somewhere and refresh
             the page, Firebug will stop at breakpoint and then we can start to debug the Engine.
         </para>
+    </section>
+
+    <section>
+        <title>Tellurium UI Module Visual Effect</title>
+        <para>Have you ever thought of seeing the actual UI on the
+            web page under testing? Tellurium 0.7.0 adds a cool feature to show this visual effect.
+        </para>
+        <para>Tellurium provides a
+            <emphasis>show</emphasis>
+            command to display the UI module that you defined on the actual web page.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public show(String uid, int delay);
+]]>
+        </programlisting>
+
+        <para>where
+            <emphasis>uid</emphasis>
+            is the UI module name and
+            <emphasis>delay</emphasis>
+            is in milliseconds. In the meanwhile, Tellurium Core exposes the following two methods for
+            users to start showing UI and clean up UI manually.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public void startShow(String uid);
+
+public void endShow(String uid);
+]]>
+        </programlisting>
+
+        <para>How it Works ? Under the hood, Tellurium Engine does the following things.
+        </para>
+
+        <section>
+            <title>Build a Snapshot Tree</title>
+            <para>The Snapshot Tree, or STree in short, is different from the UI module. The UI module defines
+                how the UI looks like. Even
+                <link xlink:href="http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm">the
+                    UI module group locating algorithm - Santa
+                </link>
+                only locates cachable UI elements and leaves out the dynamic elements. The snapshot tree,
+                however, needs to include every UI elements inside the UI module. For example, the following
+                Google Book List UI module is very simple.
+            </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Container(uid: "GoogleBooksList", clocator: [tag: "table", id: "hp_table"]){
+  List(uid: "subcategory", clocator: [tag: "td", class: "sidebar"],
+        separator: "div") {
+    Container(uid: "all") {
+      TextBox(uid: "title", clocator: [tag: "div", class: "sub_cat_title"])
+      List(uid: "links", separator: "p") {
+        UrlLink(uid: "all", clocator: [:])
+      }
+    }
+  }
+}
+]]>
+        </programlisting>
+            <para>But its STree may include many book categories and books.</para>
+            <para>A snapshot tree includes the following different types of nodes.</para>
+            <section>
+                <title>SNode</title>
+                <para>SNode can present a non-container type UI object, i.e., UI element without any child.
+                </para>
+
+                <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+var UiSNode = Class.extend({
+    init: function() {
+
+        //parent's rid
+        this.pid = null;
+
+        //rid, runtime id
+        this.rid = null;
+
+        //point to its parent in the UI SNAPSHOT tree
+        this.parent = null;
+
+        //UI object, which is defined in the UI module, reference
+        this.objRef = null;
+
+        //DOM reference
+        this.domRef = null;
+    },
+...
+}
+]]>
+                </programlisting>
+
+            </section>
+
+            <section>
+                <title>CNode</title>
+                <para>CNode is a container type node and it has children. </para>
+                <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+var UiCNode = UiSNode.extend({
+    init: function(){
+        this._super();
+        //children nodes, regular UI Nodes
+        this.components = new Hashtable();
+    },
+
+...
+}
+]]>
+                </programlisting>
+            </section>
+
+            <section>
+                <title>TNode</title>
+                <para>The TNode stands for a table with headers, footers, and one or multiple bodies.
+                </para>
+
+                <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+var UiTNode = UiSNode.extend({
+    init: function(){
+        this._super();
+
+        //header nodes
+        this.headers = new Hashtable();
+
+        //footer nodes
+        this.footers = new Hashtable();
+
+        //body nodes
+        this.components = new Hashtable();
+    },
+...
+]]>
+                </programlisting>
+                <para>Finally, the Snapshot tree is defined as</para>
+
+                <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+function UiSTree(){
+    //the root node
+    this.root = null;
+
+    //the reference point to the UI module that the UI Snapshot tree is derived
+    this.uimRef = null;
+}
+]]>
+                </programlisting>
+
+                <para>The STree build process is quite complicated. The basic idea is to use
+                    the cached DOM references in a cached UI module and use a subset of the Santa algorithm to
+                    locate dynamic UI elements.
+                </para>
+            </section>
+
+            <section>
+                <title>STree Visitors</title>
+                <para>The STree defines a traverse method, so that we can pass in different visitors to work on each
+                    individual node in the tree for different purpose.
+                </para>
+
+                <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+UiSTree.prototype.traverse = function(context, visitor){
+    if(this.root != null){
+        this.root.traverse(context, visitor);
+    }
+};
+
+var UiSNode = Class.extend({
+...
+    traverse: function(context, visitor){
+        visitor.visit(context, this);
+    },
+...
+}
+]]>
+                </programlisting>
+                <para>The STree Visitor class is defined as</para>
+
+                <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+var STreeVisitor = Class.extend({
+    init: function(){
+
+    },
+
+    visit: function(context, snode){
+
+    }
+});
+]]>
+                </programlisting>
+
+                <para>
+                    Tellurium Engine also defines a Visitor Chain to pass in multiple visitors.
+                </para>
+
+                <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+var STreeChainVisitor = Class.extend({
+    init: function(){
+        this.chain = new Array();
+    },
+
+    removeAll: function(){
+        this.chain = new Array();
+    },
+
+    addVisitor: function(visitor){
+        this.chain.push(visitor);
+    },
+
+    size: function(){
+        return this.chain.length;
+    },
+
+    visit: function(context, snode){
+        for(var i=0; i<this.chain.length; i++){
+            this.chain[i].visit(context, snode);
+        }
+    }
+});
+]]>
+                </programlisting>
+
+                <para>For the show UI method, the following two Visitors are implemented. </para>
+                
+            </section>
+
+            <section>
+                <title>Outline Visitor</title>
+                <para>The outline visitor is used to mark the UI elements inside a UI module to differentiate the
+                    UI elements in the UI module from other UI elements.
+                </para>
+                <para>outline visitor include a worker to outline an element.
+                </para>
+
+                <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+var UiOutlineVisitor = STreeVisitor.extend({
+
+    visit: function(context, snode){
+        var elem = snode.domRef;
+        teJQuery(elem).data("originalOutline", elem.style.outline);
+        elem.style.outline = tellurium.outlines.getDefaultOutline();
+    }
+});
+]]>
+                </programlisting>
+
+                <para>and a cleaner to restore the UI to the original one.
+                </para>
+
+                <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+var UiOutlineCleaner = STreeVisitor.extend({
+    visit: function(context, snode){
+        var elem = snode.domRef;
+        var $elem = teJQuery(elem);
+        var outline = $elem.data("originalOutline");
+        elem.style.outline = outline;
+        $elem.removeData("originalOutline");
+    }
+});
+]]>
+                </programlisting>
+            </section>
+
+            <section>
+                <title>Tooltip Visitor</title>
+                <para>The Tooltip visitor is used to show the full UID of an element in a tooltip fasion.
+                    Tellurium exploited
+                    <link xlink:href="http://craigsworks.com/projects/simpletip/">jQuery Simpletip plugin</link>
+                    to achieve this visual effect. In additional to that, the tooltip visitor also changes the
+                    outlines of the selected UI elements.
+                </para>
+                <para>We need to change Simpletip plugin code a bit. By default Simpletip create a div element
+                    and insert this element inside a UI element that you want to show tooltip. But this would
+                    not work if the tag of the UI element is &quot;input&quot;, thus, we changed this code to
+                    use insertAfter as follows.
+                </para>
+
+                <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+var tooltip = teJQuery(document.createElement('div'))
+             .addClass(conf.baseClass)
+             .addClass("teengine")
+             .addClass( (conf.fixed) ? conf.fixedClass : '' )
+             .addClass( (conf.persistent) ? conf.persistentClass : '' )
+             .css({'z-index': '2', 'position': 'right', 'padding': '8',
+                    'color': '#303030','background-color': '#f5f5b5',
+                    'border': '1', 'solid': '#DECA7E','font-family':
+                    'sans-serif', 'font-size': '8', 'line-height':
+                    '12px', 'text-align': 'center'
+                  })
+             .html(conf.content)
+             .insertAfter(elem);
+]]>
+                </programlisting>
+                <para>In additional to that, we added a class &quot;teengine&quot; for the div tag so that it
+                    will conflict with users&apos; web content.
+                </para>
+                <para>Like the outline visitor, the tooltip visitor includes a worker to set up the visual
+                    effects,
+                </para>
+
+                <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+var UiSimpleTipVisitor = STreeVisitor.extend({
+
+    visit: function(context, snode) {
+        var elem = snode.domRef;
+        var frid = snode.getFullRid();
+
+        var $elem = teJQuery(elem);
+        $elem.data("level", snode.getLevel());
+        $elem.simpletip({
+            // Configuration properties
+            onShow: function() {
+                var $parent = this.getParent();
+                var parent = $parent.get(0);
+                var level = $parent.data("level");
+
+                var outline = $parent.data("outline");
+                if(outline == undefined || outline == null){
+                    $parent.data("outline", parent.style.outline);
+                }
+
+                parent.style.outline = tellurium.outlines.getOutline(level);
+            },
+            onHide: function() {
+                var $parent = this.getParent();
+                var parent = $parent.get(0);
+
+                parent.style.outline = $parent.data("outline");
+            },
+
+            content: convertRidToUid(frid),
+            fixed: false
+        });
+    }
+});
+]]>
+                </programlisting>
+
+                <para>and a cleaner to remove the visual effects.</para>
+                <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+var UiSimpleTipCleaner = STreeVisitor.extend({
+    visit: function(context, snode){
+        var elem = snode.domRef;
+        var frid = snode.getFullRid();
+
+        var $elem = teJQuery(elem);
+        $elem.removeData("outline");
+        $elem.removeData("level");
+        $elem.find("~ div.teengine.tooltip").remove();
+    }
+});
+]]>
+                </programlisting>
+
+            </section>
+
+        </section>
+
+        <section>
+            <title>Demo</title>
+            <para>To show the UI module visual effect, we consider a Login UI module as follows.
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public class FormExampleModule extends DslContext {
+
+  public void defineUi() {
+    ui.Form(uid: "Form", clocator: [tag: "table"]){
+        Container(uid: "Username", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "text",
+                name: "j_username"])
+        }
+        Container(uid: "Password", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "password",
+                name: "j_password"])
+        }
+        SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login",
+            name: "submit"])
+    }
+  }
+}
+]]>
+            </programlisting>
+            <para>Before the
+                <literal>startShow(&quot;Form&quot;)</literal>
+                command, the UI looks as follows,
+            </para>
+
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="./media/teshowuinoeffect.png" scale="100"></imagedata>
+                </imageobject>
+            </mediaobject>
+
+            <para>and after the
+                <literal>startShow</literal>
+                command, the UI module is outlined by the outline visitor.
+            </para>
+
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="./media/teshowuidefault.png" scale="100"></imagedata>
+                </imageobject>
+            </mediaobject>
+
+            <para>If you mouse over the UI module, you will see the visual effects as follows.
+            </para>
+
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="./media/teshowuimouseover.png" scale="100"></imagedata>
+                </imageobject>
+            </mediaobject>
+
+            <para>You may be a bit confused by the multiple UID labels. For
+                example, When user hives over the Username Input box, its parent &quot;Username&quot; and
+                its grandparent &quot;Form&quot; are shown as well. We added color coding to the outlines.
+                Different levels in the hierarchy are presented by different colors. How the layout maps to
+                each individual UI element in the STree can be illustrated more clearly by the following
+                figure.
+            </para>
+
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="./media/telluriumshowuisnapshot2.png" scalefit="1" width="100%"></imagedata>
+                </imageobject>
+            </mediaobject>
+            
+            <para>Once you call the following command</para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+endShow("Form");
+]]>
+            </programlisting>
+
+            <para>The visual effects are removed and the UI is restored to the original one.
+            </para>
+        </section>
+
+    </section>
+
+    <section>
+        <title>Engine Logging</title>
+        <para>Tellurium Engine uses
+            <link xlink:href="http://getfirebug.com/lite.html">Firebug Lite</link>
+            to add debug information to the console. By default the Firebug Lite is off and you will
+            only see a Firebug icon on the bottom right as shown in the following figure.
+        </para>
+
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="./media/telluriumEngineFirebugLiteOff.png" scalefit="1" width="100%"></imagedata>
+            </imageobject>
+        </mediaobject>
+
+        <para>If you click on the icon and the Firebug Lite console will appear and the log information
+            will be shown on the console as follows.
+        </para>
+
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="./media/telluriumEngineFirebugLiteOn.png" scalefit="1" width="100%"></imagedata>
+            </imageobject>
+        </mediaobject>
+        
+        <para>To turn on the debug, you should either click on the &quot;Tellurium Log&quot; button or
+            call the following method from your test case.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+void useEngineLog(boolean isUse);
+]]>
+        </programlisting>
+    </section>
+
+    <section>
+        <title>JavaScript Error Stack</title>
+        <para>We utilized
+            <link xlink:href="http://github.com/emwendelin/javascript-stacktrace">the JavaScript Stack
+                Trace project
+            </link>
+            to refactor Selenium Errors in Selenium Core so that the JavaScript Error Stack will be
+            passed back Tellurium Core.
+        </para>
+        <para>The implementation is in htmlutils.js in Selenium Core as follows.</para>
+        
+        <programlisting language="javascript"><?db-font-size 75% ?>
+<![CDATA[
+function SeleniumError(message) {
+    if(tellurium.logManager.isUseLog){
+        var jstack = printStackTrace();
+        if(jstack != null && typeof(jstack) != 'undefined'){
+            message = message + "\nJavaScript Error Stack: \n"
+                + jstack.join('\n\n');
+        }
+    }
+    var error = new Error(message);
+    if (typeof(arguments.caller) != 'undefined') {
+        var result = '';
+        for (var a = arguments.caller; a != null; a = a.caller) {
+            result += '> ' + a.callee.toString() + '\n';
+            if (a.caller == a) {
+                result += '*';
+                break;
+            }
+        }
+        error.stack = result;
+    }
+    error.isSeleniumError = true;
+    fbError("Selenium Error: "+ message, error);
+    return error;
+}
+]]>
+        </programlisting>
+        <para>where <literal>printStackTrace()</literal>
+            is the stacktrace project API. Be aware that the JavaScript error stack will only be passed
+            back to Tellurium Core if the Engine log is enabled by calling.
+        </para>
+        
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+useEngineLog(true);
+]]>
+        </programlisting>
+
+        <para>Example output:</para>
+        <programlisting language="sh"><?db-font-size 75% ?>
+<![CDATA[
+com.thoughtworks.selenium.SeleniumException: ERROR: Element uimcal={"rid":
+    "search.search_project_button","locator":"jquery=form:group(input[name=q],
+    input[value=Search projects][type=submit], input[value=Search the Web]
+    [type=submit]) input[value=Search projects][type=submit]"} not found
+JavaScript Error Stack:
+{anonymous}(null)@http://localhost:4444/selenium-server/core/scripts/utils.js:589
+
+printStackTrace()@http://localhost:4444/selenium-server/core/scripts/utils.js:574
+
+SeleniumError("Element uimcal={\"rid\":\"search.search_project_button\",
+    \"locator\":\"jquery=form:group(input[name=q], input[value=Search projects]
+    [type=submit], input[value=Search the Web][type=submit]) input
+    [value=Search projects][type=submit]\"} not found")
+    @http://localhost:4444/selenium-server/core/scripts/htmlutils.js:806
+
+{anonymous}("uimcal={\"rid\":\"search.search_project_button\",\"locator\":
+    \"jquery=form:group(input[name=q], input[value=Search projects][type=submit],
+    input[value=Search the Web][type=submit]) input[value=Search projects]
+    [type=submit]\"}")
+    @http://localhost:4444/selenium-server/core/scripts/selenium-browserbot.js:1341
+
+{anonymous}("uimcal={\"rid\":\"search.search_project_button\",\"locator\":
+    \"jquery=form:group(input[name=q], input[value=Search projects][type=submit],
+    input[value=Search the Web][type=submit]) input[value=Search projects]
+    [type=submit]\"}")
+    @http://localhost:4444/selenium-server/core/scripts/selenium-api.js:227
+
+{anonymous}([object Object],[object Object])@http://localhost:4444/
+    selenium-server/core/scripts/tellurium.js:922
+
+{anonymous}()@http://localhost:4444/selenium-server/core/scripts/tellurium.js:876
+
+{anonymous}("[{\"uid\":\"search.search_project_button\",\"args\":
+    [\"jquery=form:group(input[name=q], input[value=Search projects][type=submit],
+    input[value=Search the Web][type=submit]) input[value=Search projects]
+    [type=submit]\"],\"name\":\"click\",\"sequ\":7}]","")
+    @http://localhost:4444/selenium-server/core/scripts/tellurium-extensions.js:338
+
+{anonymous}("[{\"uid\":\"search.search_project_button\",\"args\":
+    [\"jquery=form:group(input[name=q], input[value=Search projects][type=submit],
+    input[value=Search the Web][type=submit]) input[value=Search projects]
+    [type=submit]\"],\"name\":\"click\",\"sequ\":7}]","")
+    @http://localhost:4444/selenium-server/core/scripts/htmlutils.js:60
+
+{anonymous}([object Object],[object Object])@http://localhost:4444/
+    selenium-server/core/scripts/selenium-commandhandlers.js:330
+
+{anonymous}()@http://localhost:4444/selenium-server/core/scripts/
+    selenium-executionloop.js:112
+
+{anonymous}(-3)@http://localhost:4444/selenium-server/core/scripts/
+    selenium-executionloop.js:78
+
+{anonymous}(-3)@http://localhost:4444/selenium-server/core/scripts/htmlutils.js:60
+        at com.thoughtworks.selenium.HttpCommandProcessor.
+            throwAssertionFailureExceptionOrError(HttpCommandProcessor.java:97)
+        at com.thoughtworks.selenium.HttpCommandProcessor.
+            doCommand(HttpCommandProcessor.java:91)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.
+            invoke(NativeMethodAccessorImpl.java:39)
+        at sun.reflect.DelegatingMethodAccessorImpl.
+            invoke(DelegatingMethodAccessorImpl.java:25)
+        at java.lang.reflect.Method.invoke(Method.java:597)
+]]>
+        </programlisting>
     </section>
 
 </chapter>
