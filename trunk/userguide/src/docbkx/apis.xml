@@ -8,5 +8,1236 @@
          xmlns:db="http://docbook.org/ns/docbook">
 
     <title>Tellurium Core APIs</title>
+
+    <para>Tellurium APIs include all methods defined in DslContext. This chapter provides tables showing the
+        various API methods and the action/result of each method when used:
+    </para>
+    <itemizedlist>
+        <listitem>
+            <para>DSL Methods
+            </para>
+        </listitem>
+        <listitem>
+            <para>Data Access Methods
+            </para>
+        </listitem>
+        <listitem>
+            <para>UI Module APIs
+            </para>
+        </listitem>
+        <listitem>
+            <para>Test Support DSLs
+            </para>
+        </listitem>
+    </itemizedlist>
+
+    <section>
+        <title>DSL Methods</title>
+        <para>This section contains a list of all available
+            Tellurium methods that can be used as DSLs in DslContext and their corresponding DSL syntax.
+        </para>
+        <para>
+            <emphasis role="bold">Note</emphasis>
+            the id here refers to the UiID in the format of &quot;issueSearch.issueType&quot; and the
+            time units are all in milliseconds, if not specified.
+        </para>
+        <para>Be aware, the user can only apply the methods to the Ui Object if it has these methods
+            previously defined.
+        </para>
+
+        <itemizedlist>
+            <listitem>
+                <para><literal>mouseOver id</literal>: Simulates a user hovering a mouse over the specified element.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>mouseOut id</literal>: Simulates a user moving the mouse pointer away from the specified element.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>mouseDown id</literal>:Simulates a user pressing the mouse button (without releasing it yet) on the specified element.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>click id</literal>:Clicks on a link, button, checkbox or radio button. If the click action causes a new page to load
+                    (like a link usually does), call <classname>waitForPageToLoad</classname>.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>doubleClick id</literal>: Double clicks on a link, button, checkbox or radio button.
+                    If the double click action causes a new page to load (like a link usually does), call <classname>waitForPageToLoad</classname>.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>clickAt id, coordination:</literal>: Clicks on a link, button, checkbox or radio button. If the click action causes a new page to load (like a link usually does), call waitForPageToLoad.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>check id</literal>: Clicks on a link, button, checkbox or radio button. If the click action causes a new page to load (like a link usually does), call waitForPageToLoad.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>uncheck id</literal>: Uncheck a toggle-button (checkbox/radio).
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>keyType id, value</literal>: Simulates keystroke events on the specified element, as though the user typed the value key-by-key.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>type id, input</literal>: Sets the value of an input field, as though typed it in.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>typeAndReturn id, input</literal>: Sets the value of an input field followed by Return key.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>clearText id</literal>: Resets input field to an empty value.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>select id, optionLocator</literal>: Select an option from a drop-down using an option locator.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>selectByLabel id, optionLocator</literal>: Select an option from a drop-down using an option label.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>selectByValue id, optionLocator</literal>: Select an option from a drop-down using an option value.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>addSelectionByLabel id, optionLocator</literal>: Add a selection to the set of selected options in a multi-select element using an option label.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>addSelectionByValue id, optionLocator</literal>: Add a selection to the set of selected options in a multi-select element using an option value.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>removeSelectionByLabel id, optionLocator</literal>: Remove a selection from the set of selected options in a multi-select element using an option label.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>removeSelectionByValue id, optionLocator</literal>: Remove a selection from the set of selected options in a multi-select element using an option value.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>removeAllSelections id</literal>: Unselects all of the selected options in a multi-select element.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>pause time</literal>: Suspend the current thread for a specified milliseconds.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>submit id, attribute</literal>: Submit the specified form. This is particularly useful for forms without submit buttons. For example: single-input "Search" forms.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>openWindow UID, url</literal>: Opens a popup window. (If a window with that specific ID is not already open). After opening the window, select it using the selectWindow command.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>selectWindow UID</literal>: Selects a popup window; once a popup window has been selected, all commands go to that window. To select the main window again, use null as the target.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>closeWindow UID</literal>: Close the popup window.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>selectMainWindows</literal>: Select the original window. For example: the Main window.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>selectFrame frameName</literal>: Selects a frame within the current window.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>selectParentFrameFrom frameName</literal>: Select the parent frame from the frame identified by the "frameName".
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>selectTopFrameFrom</literal>: Select the main frame from the frame identified by the "frameName".
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>waitForPopUp UID, timeout</literal>: Waits for a popup window to appear and load up.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>waitForPageToLoad timeout</literal>: Waits for a new page to load.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>waitForFrameToLoad uid, timeout</literal>: Waits for a new frame to load. Be aware that Selenium uses the name attribute to locate a Frame.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>runScript script</literal>: Creates a new "script" tag in the body of the current test window, and adds the specified text into the body of the command. Scripts run this way can often be debugged more easily than scripts executed using Selenium's "getEval" command.
+                </para>
+            </listitem>
+        </itemizedlist>
+
+        <para>Beware that JS exceptions thrown in these script tags
+            are not managed by Selenium, so the user should wrap the script in try/catch blocks if there
+            is any chance that the script will throw an exception.
+        </para>
+
+        <itemizedlist>
+            <listitem>
+                <para><literal>captureScreenshot filename</literal>: Captures a PNG screenshot to the specified file.
+                </para>
+            </listitem>
+
+             <listitem>
+                <para><literal>chooseCancelOnNextConfirmation</literal>: By default, Selenium's overridden window.confirm() function returns true, as if the user had manually clicked OK.
+                </para>
+            </listitem>
+        </itemizedlist>
+
+        <para>After running this command, the next call to confirm() returns false, as if the user had clicked
+            Cancel. Selenium then resumes using the default behavior for future confirmations,
+            automatically returning true (OK) unless/until the user explicitly calls this command for
+            each confirmation.
+        </para>
+        
+        <itemizedlist>
+            <listitem>
+                <para><literal>chooseOkOnNextConfirmation</literal>: Undo the effect of calling chooseCancelOnNextConfirmation.
+                </para>
+            </listitem>
+        </itemizedlist>
+
+        <para>
+            <emphasis role="bold">Note:</emphasis>
+            Selenium&apos;s overridden
+            <literal>window.confirm()</literal>
+            function normally automatically returns true, as if the user had manually clicked OK. The
+            user does not need to use this command unless for some reason there is a need to change
+            prior to the next confirmation.
+        </para>
+
+        <para>After any confirmation, Selenium resumes using the
+            default behavior for future confirmations, automatically returning true (OK) unless/until
+            the user explicitly calls chooseCancelOnNextConfirmation for each confirmation.
+        </para>
+
+        <itemizedlist>
+            <listitem>
+                <para><literal>answerOnNextPrompt(String answer)</literal>: Instructs Selenium to return the specified answer string in response to the next JavaScript prompt window.prompt()
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>goBack</literal>: Simulates the user clicking the "back" button on their browser.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>refresh</literal>: Simulates the user clicking the "Refresh" button on their browser.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>dragAndDrop(uid, movementsString)</literal>: Drags an element a certain distance and then drops it.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>dragAndDropTo(sourceUid, targetUid)</literal>: Drags an element and drops it on another element.
+                </para>
+            </listitem>
+        </itemizedlist>        
+        
+    </section>
+
+    <section>
+        <title>Data Access Methods</title>
+        <para>In addition to the DSL methods, Tellurium provides Selenium-compatible data access methods so that a
+            user can get data or the status of UIs from the web.
+        </para>
+
+         <itemizedlist>
+            <listitem>
+                <para><literal>String getConsoleInput()</literal>: Gets input from Console.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String[] getSelectOptions(id)</literal>: Gets all option labels in the specified select drop-down.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String[] getSelectedLabels(id)</literal>: Gets all selected labels in the specified select drop-down.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String getSelectedLabel(id)</literal>: Gets a single selected label in the specified select drop-down.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String[] getSelectedValues(id)</literal>: Gets all selected values in the specified select drop-down.
+                </para>
+            </listitem>
+             <listitem>
+                <para><literal>String getSelectedValue(id)</literal>: Gets a single selected value in the specified select drop-down.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String[] getSelectedIndexes(id)</literal>: Gets all selected indexes in the specified select drop-down.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String getSelectedIndex(id)</literal>: Gets a single selected index in the specified select drop-down.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String[] getSelectedIds(id)</literal>: Gets option element ID for selected option in the specified select element.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String getSelectedId(id)</literal>: Gets a single element ID for selected option in the specified select element.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>boolean isSomethingSelected(id)</literal>: Determines whether some option in a drop-down menu is selected.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String waitForText(id, timeout)</literal>: Waits for a text event.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>int getTableHeaderColumnNum(id)</literal>: Gets the column header count of a table.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>int getTableMaxRowNum(id)</literal>: Gets the maximum row count of a table.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>int getTableMaxColumnNum(id)</literal>: Gets the maximum column count of a table.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>int getTableFootColumnNum(id)</literal>: Gets the maximum foot column count of a standard table.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>int getTableMaxTbodyNum(id)</literal>: Gets the maximum tbody count of a standard table.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>int getTableMaxRowNumForTbody(id, index)</literal>: Gets the maximum row number of the index-th tbody of a standard table.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>int getTableMaxColumnNumForTbody(id, index)</literal>: Gets the maximum column number of the index-th tbody of a standard table.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>int getListSize(id)</literal>: Gets the item count of a list.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>getUiElement(id)</literal>:  Gets the UIObject of an element.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>boolean isElementPresent(id)</literal>: Verifies that the specified element is somewhere on the page.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>boolean isVisible(id)</literal>: Determines if the specified element is visible.
+                </para>
+            </listitem>
+        </itemizedlist>
+
+        <para>An element can be rendered invisible by setting the CSS &quot;visibility&quot; property
+            to &quot;hidden&quot;, or the &quot;display&quot; property to &quot;none&quot;, either for
+            the element itself or one if its ancestors. This method will fail if the element is not
+            present.
+        </para>
+
+        <itemizedlist>
+            <listitem>
+                <para><literal>boolean isChecked(id)</literal>: Gets whether a toggle-button (checkbox/radio) is checked. Fails if the specified element doesn't exist or isn't a toggle-button.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>boolean isDisabled(id)</literal>: Determines if an element is disabled or not.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>boolean isEnabled(id)</literal>: Determines if an element is enabled or not.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>boolean waitForElementPresent(id, timeout)</literal>: Wait for the Ui object to be present.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>boolean waitForElementPresent(id, timeout, step)</literal>: Wait for the Ui object to be present and check the status by step.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>boolean waitForCondition(script, timeout)</literal>: Runs the specified JavaScript snippet repeatedly until it evaluates to "true". The snippet may have multiple lines, but only the result of the last line will be considered.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String getText(id)</literal>: Gets the text of an element.
+                </para>
+            </listitem>
+        </itemizedlist>
+
+        <para>This works for any element that contains text. This
+            command uses either the textContent (Mozilla-like browsers) or the innerText (IE-like
+            browsers) of the element, which is the rendered text shown to the user.
+        </para>
+
+        <itemizedlist>
+            <listitem>
+                <para><literal>String getValue(id)</literal>: Gets the (whitespace-trimmed) value of an input field (or anything else with a value parameter). 
+                </para>
+            </listitem>
+        </itemizedlist>
+
+        <para>For checkbox/radio elements, the value will be &quot;on&quot; or &quot;off&quot; depending
+            on whether the element is checked or not.
+        </para>
+
+        <itemizedlist>
+            <listitem>
+                <para><literal>String getLink(id)</literal>: Get the href of an element.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String getImageSource(id)</literal>: Get the image source element.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String getImageAlt(id)</literal>: Get the image alternative text of an element.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String getImageTitle(id)</literal>: Get the image title of an element.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>getAttribute(id, attribute)</literal>: Get an attribute of an element.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>getParentAttribute(id, attribute)</literal>: Get an attribute of the parent of an element.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String getBodyText()</literal>: Gets the entire text of the page.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>boolean isTextPresent(pattern)</literal>: Verifies that the specified text pattern appears somewhere on the rendered page shown to the user.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>boolean isEditable(id)</literal>: Determines whether the specified input element is editable, ie hasn't been disabled. This method will fail if the specified element isn't an input element.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String getHtmlSource()</literal>: Returns the entire HTML source between the opening and closing "html" tags.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String getExpression(expression)</literal>: Returns the specified expression.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>getXpathCount(xpath)</literal>: Returns the number of nodes that match the specified xpath, eg. "//table" would give the number of tables.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String getCookie()</literal>: Return all cookies of the current page under test.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>boolean isAlertPresent()</literal>: Has an alert occurred?
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>boolean isPromptPresent()</literal>: Has a prompt occurred?
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>boolean isConfirmationPresent()</literal>: Has confirm() been called?
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String getAlert()</literal>: Retrieves the message of a JavaScript alert generated during the previous action, or fail if there were no alerts.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String getConfirmation()</literal>: Retrieves the message of a JavaScript confirmation dialog generated during the previous action.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String getPrompt()</literal>: Retrieves the message of a JavaScript question prompt dialog generated during the previous action.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String getLocation()</literal>: Gets the absolute URL of the current page.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String getTitle()</literal>: Gets the title of the current page.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String[] getAllButtons()</literal>: Returns the IDs of all buttons on the page.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String[] getAllLinks()</literal>: Returns the IDs of all links on the page.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String[] getAllFields()</literal>: Returns the IDs of all input fields on the page.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String[] getAllWindowIds()</literal>: Returns the IDs of all windows that the browser knows about.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String[] getAllWindowNames()</literal>: Returns the names of all windows that the browser knows about.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>String[] getAllWindowTitles()</literal>: Returns the titles of all windows that the browser knows about.
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>allowNativeXpath(boolean allow)</literal>: Specifies whether Selenium should use the native in-browser implementation of XPath (if any native version is available); if you pass false to this function, we will always use our pure-JavaScript xpath library.
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+
+    <section>
+        <title>UI Module APIs</title>
+        <para>UI Module represents a group of nested UI elements or a UI widget and it is
+            the heart of Tellurium Automated Testing Framework (Tellurium). You may not be aware that
+            Tellurium 0.7.0 provides a set of UI module level APIs. Here we go over them one by one.
+        </para>
+
+        <section>
+            <title>Example</title>
+            <para>First of all, we like to use Google Search module as an example so that everyone can run the
+                test code in this article.
+            </para>
+
+            <para>For Google Search Module, we define the UI module class as </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+package org.telluriumsource.module
+
+import org.telluriumsource.dsl.DslContext
+
+public class GoogleSearchModule extends DslContext {
+
+  public void defineUi() {
+    ui.Container(uid: "Google", clocator: [tag: "table"]) {
+      InputBox(uid: "Input", clocator: [tag: "input", title: "Google Search", name: "q"])
+      SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit",
+        value: "Google Search", name: "btnG"])
+      SubmitButton(uid: "ImFeelingLucky", clocator: [tag: "input", type: "submit",
+        value: "I'm Feeling Lucky", name: "btnI"])
+    }
+
+    ui.Container(uid: "ProblematicGoogle", clocator: [tag: "table"]) {
+      InputBox(uid: "Input", clocator: [tag: "input", title: "Google Search", name: "p"])
+      SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit",
+        value: "Google Search", name: "btns"])
+      SubmitButton(uid: "ImFeelingLucky", clocator: [tag: "input", type: "submit",
+        value: "I'm Feeling Lucky", name: "btnf"])
+    }
+  }
+
+  public void doProblematicGoogleSearch(String input) {
+    keyType "ProblematicGoogle.Input", input
+    pause 500
+    click "ProblematicGoogle.Search"
+    waitForPageToLoad 30000
+  }
+}
+]]>
+            </programlisting>
+            <para>where UI Module &quot;Google&quot; is a correct UI Module
+                definition for Google Search and &quot;ProblematicGoogle&quot; is a not-so-correct UI module
+                to demonstrate the power of UI module partial matching in Tellurium 0.7.0.
+            </para>
+        </section>
+
+        <section>
+            <title>dump</title>
+            <para>The
+                <emphasis>dump</emphasis>
+                method prints out the generated runtime locators by Tellurium core.
+            </para>
+            <section>
+                <title>API</title>
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+void dump(String uid);
+]]>
+                </programlisting>
+                <para>where
+                    <emphasis>uid</emphasis>
+                    is the UI module name, i.e., the root element UID of a UI module.
+                </para>
+            </section>
+
+            <section>
+                <title>Test case</title>
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+@Test
+public void testDump(){
+    useCssSelector(false);
+    gsm.dump("Google");
+    useCssSelector(true);
+    gsm.dump("Google");
+}
+]]>
+                </programlisting>
+                <para>Note that here we ask Tellurium core to generate xpath and CSS selector locators,
+                    respectively.
+                </para>
+            </section>
+
+            <section>
+                <title>Results</title>
+                <programlisting language="sh"><?db-font-size 75% ?>
+<![CDATA[
+Dump locator information for Google
+-------------------------------------------------------
+Google: //descendant-or-self::table
+Google.Input: //descendant-or-self::table/descendant-or-self::
+    input[@title="Google Search" and @name="q"]
+Google.Search: //descendant-or-self::table/descendant-or-self::
+    input[@type="submit" and @value="Google Search" and @name="btnG"]
+Google.ImFeelingLucky: //descendant-or-self::table/descendant-or-self::
+    input[@type="submit" and @value="I'm Feeling Lucky" and @name="btnI"]
+-------------------------------------------------------
+
+Dump locator information for Google
+-------------------------------------------------------
+Google: jquery=table
+Google.Input: jquery=table input[title=Google Search][name=q]
+Google.Search: jquery=table input[type=submit][value=Google Search]
+    [name=btnG]
+Google.ImFeelingLucky: jquery=table input[type=submit]
+    [value$=m Feeling Lucky][name=btnI]
+-------------------------------------------------------
+]]>
+                </programlisting>
+            </section>
+        </section>
+
+        <section>
+            <title>toString</title>
+            <para>The
+                <emphasis>toString</emphasis>
+                method converts a UI module to a JSON presentation. Tellurium Core actually provides two
+                methods for your convenience.
+            </para>
+            
+            <section>
+                <title>API</title>
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public String toString(String uid);
+public JSONArray toJSONArray(String uid);
+]]>
+                </programlisting>
+                <para>The
+                    <emphasis>toString</emphasis>
+                    method calls the
+                    <emphasis>toJSONArray</emphasis>
+                    method first under the hood and then prints out the JSON array as a string.
+                </para>
+            </section>
+
+            <section>
+                <title>Test case</title>
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+@Test
+public void testToString(){
+    String json = gsm.toString("Google");
+    System.out.println(json);
+}
+]]>
+                </programlisting>
+                
+            </section>
+            <section>
+                <title>Results</title>
+                <programlisting language="sh"><?db-font-size 75% ?>
+<![CDATA[
+[{"obj":{"uid":"Google","locator":{"tag":"table"},"uiType":"Container"},
+    "key":"Google"},{"obj":{"uid":"Input","locator":{"tag":"input",
+    "attributes":{"title":"Google Search","name":"q"}},"uiType":
+    "InputBox"},"key":"Google.Input"},{"obj":{"uid":"Search","locator":
+    {"tag":"input","attributes":{"name":"btnG","value":"Google Search",
+    "type":"submit"}},"uiType":"SubmitButton"},"key":"Google.Search"},
+    {"obj":{"uid":"ImFeelingLucky","locator":{"tag":"input","attributes"
+    :{"name":"btnI","value":"I'm Feeling Lucky","type":"submit"}},
+    "uiType":"SubmitButton"},"key":"Google.ImFeelingLucky"}]
+]]>
+                </programlisting>
+            </section>
+        </section>
+
+        <section>
+            <title>toHTML</title>
+            <para>The
+                <emphasis>toHTML</emphasis>
+                method converts the UI module to a HTML source by<link
+                        xlink:href="http://code.google.com/p/aost/wiki/GenerateHtmlFromUIModule">reverse
+                    engineering</link>. This API is extremely useful to work with
+                <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumMockHttpServer">Tellurium mock
+                    http server
+                </link>
+                if we want to diagnose problems in other people&apos;s UI module definitions while we have
+                no access to their html sources.
+            </para>
+
+            <section>
+                <title>API</title>
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public String toHTML(String uid);
+public String toHTML();
+]]>
+                </programlisting>
+
+                <para>The first method generates the HTML source for a UI module and the second one generates the HTML
+                    source for all UI modules defined in the current UI module class.
+                </para>
+
+            </section>
+
+            <section>
+                <title>Test Case</title>
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+@Test
+public void testToHTML(){
+   String html = gsm.toHTML("Google");
+   System.out.println(html);
+}
+]]>
+                </programlisting>
+            </section>
+
+            <section>
+                <title>Result</title>
+                <programlisting language="html"><?db-font-size 75% ?>
+<![CDATA[
+<table>
+  <input title="Google Search" name="q"/>
+  <input type="submit" value="Google Search" name="btnG"/>
+  <input type="submit" value="I'm Feeling Lucky" name="btnI"/>
+</table>
+]]>
+                </programlisting>
+            </section>
+        </section>
+
+        <section>
+            <title>getHTMLSource</title>
+            <para>
+                The getHTMLSource method returns the runtime HTML source for a UI module.
+            </para>
+
+            <section>
+                <title>API</title>
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+java.util.List getHTMLSourceResponse(String uid);
+void getHTMLSource(String uid);
+]]>
+                </programlisting>
+                <para>The first method gets back the HTML source as a list of
+                    <emphasis>key</emphasis>
+                    and
+                    <emphasis>val</emphasis>
+                    pair and the second one prints out them to console.
+                </para>
+
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class KeyValuePair {
+ public static final String KEY = "key";
+ String key;
+
+ public static final String VAL = "val";
+ String val;
+}
+]]>
+                </programlisting>
+            </section>
+
+            <section>
+                <title>Test Case</title>
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+@Test
+public void testGetHTMLSource(){
+    gsm.getHTMLSource("Google");
+}
+]]>
+                </programlisting>
+            </section>
+
+            <section>
+                <title>Result</title>
+                <programlisting language="html"><?db-font-size 75% ?>
+<![CDATA[
+TE: Name: getHTMLSource, start: 1266260182744, duration: 67ms
+TE: Found exact match for UI Module 'Google': {"id":"Google","relaxDetails":
+    [],"matches":1,"relaxed":false,"score":100.0,"found":true}
+Google:
+
+<table cellpadding="0" cellspacing="0"><tbody><tr valign="top"><td width="25%">
+    &nbsp;</td><td nowrap="nowrap" align="center"><input name="hl" value="en"
+    type="hidden"><input name="source" value="hp" type="hidden"><input
+    autocomplete="off" onblur="google&amp;&amp;google.fade&amp;&amp;google.fade()"
+    maxlength="2048" name="q" size="55" class="lst" title="Google Search"
+    value=""><br><input name="btnG" value="Google Search" class="lsb"
+    onclick="this.checked=1" type="submit"><input name="btnI"
+    value="I'm Feeling Lucky" class="lsb" onclick="this.checked=1"
+    type="submit"></td><td id="sbl" nowrap="nowrap" width="25%" align="left">
+    <font size="-2">&nbsp;&nbsp;<a href="/advanced_search?hl=en">Advanced Search
+    </a><br>&nbsp;&nbsp;<a href="/language_tools?hl=en">Language Tools</a>
+    </font></td></tr></tbody></table>
+
+Google.Input:
+
+<input autocomplete="off" onblur="google&amp;&amp;google.fade&amp;&amp;
+    google.fade()" maxlength="2048" name="q" size="55" class="lst"
+    title="Google Search" value="">
+
+Google.Search:
+
+<input name="btnG" value="Google Search" class="lsb" onclick=
+    "this.checked=1" type="submit">
+
+Google.ImFeelingLucky:
+
+<input name="btnI" value="I'm Feeling Lucky" class="lsb"
+    onclick="this.checked=1" type="submit">
+]]>
+                </programlisting>
+                
+            </section>
+        </section>
+        <section>
+            <title>show</title>
+            <para>The
+                <emphasis>show</emphasis>
+                method outlines the UI module on the web page under testing and shows
+                <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumUiModuleVisualEffect">some visual
+                    effects
+                </link>
+                when a user mouses over it.
+            </para>
+
+            <section>
+                <title>API</title>
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+void show(String uid, int delay);
+void startShow(String uid);
+void endShow(String uid);
+]]>
+                </programlisting>
+                <para>The first method shows the UI module visual effect for some time (delay in milliseconds). The
+                    other two methods are used to manually start and end the visual effect.
+                </para>
+            </section>
+
+            <section>
+                <title>Test Case</title>
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+@Test
+public void testShow(){
+    gsm.show("Google", 10000);
+//  gsm.startShow("Form");
+//  gsm.endShow("Form");
+}
+]]>
+                </programlisting>
+            </section>
+
+            <section>
+                <title>Result</title>
+                <para>The visual effect is illustrated in the following graph. </para>
+
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="./media/GoogleSearchShowUi.png" scalefit="1" width="100%"></imagedata>
+                    </imageobject>
+                </mediaobject>
+
+            </section>
+        </section>
+
+        <section>
+            <title>validate</title>
+            <para>The
+                <emphasis>validate</emphasis>
+                method is used to validate if the UI module is correct and returns the mismatches at
+                runtime.
+            </para>
+
+            <section>
+                <title>API</title>
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+UiModuleValidationResponse getUiModuleValidationResult(String uid);
+void validate(String uid)
+]]>
+                </programlisting>
+                <para>The first method returns the validation result as a <classname>UiModuleValidationResponse</classname> object,
+                </para>
+
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public class UiModuleValidationResponse {
+
+    //ID for the UI module
+    public static String ID = "id";
+    private String id = null;
+
+    //Successfully found or not
+    public static String FOUND = "found";
+    private boolean found = false;
+
+    //whether this the UI module used closest Match or not
+    public static String RELAXED = "relaxed";
+    private boolean relaxed = false;
+
+    //match count
+    public static String MATCHCOUNT = "matches";
+    private int matches = 0;
+
+    //scaled match score (0-100)
+    public static String SCORE = "score";
+    private float score = 0.0;
+
+    public static String RELAXDETAIL = "relaxDetail";
+    //details for the relax, i.e., closest match
+    public static String RELAXDETAILS = "relaxDetails";
+    private List<RelaxDetail> relaxDetails = null;
+    ...
+}
+]]>
+                </programlisting>
+                <para>and the RelaxDetail is defined as follows, </para>
+
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public class RelaxDetail {
+    //which UID got relaxed, i.e., closest Match
+    public static String UID = "uid";
+    private String uid = null;
+
+    //the clocator defintion for the UI object corresponding to the UID
+    public static String LOCATOR = "locator";
+    private CompositeLocator locator = null;
+
+    //The actual html source of the closest match element
+    public static String HTML = "html";
+    private String html = null;
+    ...
+}
+]]>
+                </programlisting>
+                <para>The second one simply prints out the result to console.</para> 
+            </section>
+
+            <section>
+                <title>Test Case</title>
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+@Test
+public void testValidate(){
+    gsm.validate("Google");
+    gsm.validate("ProblematicGoogle");
+}
+]]>
+                </programlisting>
+
+                <para>Here we validate the correct UI module &quot;Google&quot; and the not-so-correct UI module
+                    &quot;ProblematicGoogle&quot;.
+                </para>
+            </section>
+
+            <section>
+                <title>Result</title>
+                <programlisting language="sh"><?db-font-size 75% ?>
+<![CDATA[
+TE: Name: getValidateUiModule, start: 1266260203639, duration: 68ms
+
+UI Module Validation Result for Google
+
+-------------------------------------------------------
+
+        Found Exact Match: true
+
+        Found Closest Match: false
+
+        Match Count: 1
+
+        Match Score: 100
+
+
+-------------------------------------------------------
+
+TE: Name: getValidateUiModule, start: 1266260203774, duration: 41ms
+
+UI Module Validation Result for ProblematicGoogle
+
+-------------------------------------------------------
+
+        Found Exact Match: false
+
+        Found Closest Match: true
+
+        Match Count: 1
+
+        Match Score: 32.292
+
+
+        Closest Match Details:
+
+        --- Element ProblematicGoogle.Input -->
+
+         Composite Locator: <input title="Google Search" name="p"/>
+
+         Closest Matched Element: <input autocomplete="off" onblur=
+            "google&amp;&amp;google.fade&amp;&amp;google.fade()"
+            maxlength="2048" name="q" size="55" class="lst"
+            title="Google Search" value="">
+
+
+        --- Element ProblematicGoogle.Search -->
+
+         Composite Locator: <input name="btns" value="Google Search"
+            type="submit"/>
+
+         Closest Matched Element: <input name="btnG" value=
+            "Google Search" class="lsb" onclick="this.checked=1"
+            type="submit">
+
+
+        --- Element ProblematicGoogle.ImFeelingLucky -->
+
+         Composite Locator: <input name="btnf" value="I'm Feeling Lucky"
+            type="submit"/>
+
+         Closest Matched Element: <input name="btnI" value=
+            "I'm Feeling Lucky" class="lsb" onclick="this.checked=1"
+            type="submit">
+
+-------------------------------------------------------
+]]>
+                </programlisting>
+
+                <para>As we can see, the correct UI module returns a score as 100 and the problematic UI module
+                    returns a score less than 100.
+                </para>
+            </section>
+        </section>
+
+        <section>
+            <title>Closest Match</title>
+            <para>The UI module closest match, i.e., partial match, is extremely important to keep your test code robust
+                to changes to some degree. By partial match, Tellurium uses
+                <link xlink:href="http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm">the
+                    Santa algorithm
+                </link>
+                to locate the whole UI module by using only partial information inside the UI module.
+            </para>
+
+            <section>
+                <title>API</title>
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+enableClosestMatch();
+disableClosestMatch();
+useClosestMatch(boolean isUse);
+]]>
+                </programlisting>
+
+                <para>The first two methods are used in DslContext to enable and disable the
+                    closest match feature. The last one is used on Groovy or Java test case for the same
+                    purpose. Be aware that this feature only works with UI module caching, i.e., you should call
+                    either
+                </para>
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+useTelluriumEngine(true);
+]]>
+                </programlisting>
+                <para>or</para>
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+useCache(true);
+]]>
+                </programlisting>
+
+                <para>before use this feature. </para>
+
+            </section>
+
+            <section>
+                <title>Test Case</title>
+                <para>Here we run our test code based on the problematic UI module &quot;ProblematicGoogle&quot;.
+                </para>
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+@Test
+public void testClosestMatch(){
+    useClosestMatch(true);
+    gsm.doProblematicGoogleSearch("Tellurium Source");
+    useClosestMatch(false);
+}
+]]>
+                </programlisting>
+            </section>
+
+            <section>
+                <title>Result</title>
+                <para>The test case passed successfully. What happens if you disable the closest match feature by calling</para>
+                <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+useClosestMatch(true);
+]]>
+                </programlisting>
+                <para>The above test case will break and you will get a red bar in IDE. </para>
+            </section>
+        </section>
+    </section>
+    <section>
+        <title>Test Support DSLs</title>
+        <para>Tellurium defines a set of DSLs to support Tellurium tests. The most often used ones
+            include:
+        </para>
+        <para>
+            <literal>connectSeleniumServer()</literal>: Connect to the selenium server.
+        </para>
+        <para><literal>disconnectSeleniumServer()</literal>: Disconnect the connection to the selenium server.
+        </para>
+        <para>
+            <literal>openUrl(String url)</literal>: establish a new connection to Selenium server for the given url. The
+            DSL format is:
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+openUrl url
+]]>
+        </programlisting>
+
+        <section>
+            <title>Example:</title>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+openUrl "http://code.google.com/p/aost/"
+]]>
+            </programlisting>
+
+        </section>
+        <para><literal>connectUrl(String url)</literal>: use existing connect for the given url. The DSL format is:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+connectUrl url
+]]>
+        </programlisting>
+
+        <section>
+            <title>Example:</title>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+connectUrl "http://code.google.com/p/aost/" 
+]]>
+            </programlisting>
+        </section>
+
+        <para>
+            <literal>openUrlWithBrowserParameters()</literal>
+            is used to change browser settings for different test cases in the same test class. There
+            are three methods:
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public static void openUrlWithBrowserParameters(String url, String serverHost,
+    int serverPort, String baseUrl, String browser, String browserOptions)
+
+public static void openUrlWithBrowserParameters(String url, String serverHost,
+    int serverPort, String browser, String browserOptions)
+
+public static void openUrlWithBrowserParameters(String url, String serverHost,
+    int serverPort, String browser) 
+]]>
+        </programlisting>
+
+        <para>For example,</para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public class GoogleStartPageTestNGTestCase extends TelluriumTestNGTestCase {
+   protected static NewGoogleStartPage ngsp;
+
+   @BeforeClass
+   public static void initUi() {
+       ngsp = new NewGoogleStartPage();
+       ngsp.defineUi();
+   }
+
+   @DataProvider(name = "browser-provider")
+   public Object[][] browserParameters() {
+       return new Object[][]{
+               new Object[] {"localhost", 4444, "*chrome"},
+               new Object[] {"localhost", 4444, "*firefox"}};
+   }
+
+   @Test(dataProvider = "browser-provider")
+   @Parameters({"serverHost", "serverPort", "browser"})
+   public void testGoogleSearch(String serverHost, int serverPort,
+    String browser){
+       openUrlWithBrowserParameters("http://www.google.com", serverHost,
+            serverPort, browser);
+       ngsp.doGoogleSearch("tellurium selenium Groovy Test");
+       disconnectSeleniumServer();
+  }
+
+  @Test(dataProvider = "browser-provider")
+  @Parameters({"serverHost", "serverPort", "browser"})
+  public void testGoogleSearchFeelingLucky(String serverHost, int serverPort,
+    String browser){
+      openUrlWithBrowserParameters("http://www.google.com", serverHost,
+        serverPort, browser);
+      ngsp.doImFeelingLucky("tellurium selenium DSL Testing");
+      disconnectSeleniumServer();
+  }
+}
+]]>
+        </programlisting>
+    </section>
     
 </chapter>
