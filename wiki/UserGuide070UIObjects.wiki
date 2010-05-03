@@ -22,6 +22,10 @@ A UI element is referred to simply by appending the names (uids) along the path 
 
 This frees up the testers to write better tests rather than spending precious testing time identifying and resolving test failures due to XPath changes.
 
+The following class diagram illustrates the relationship among UI objects.
+
+http://tellurium-users.googlegroups.com/web/uiobjectsclassdiagram.png?gda=VowyaEsAAAA7fMi2EBxrNTLhqoq3FzPr8-lHGHYf1lh09U1h9nXl9Zkd8ga5dUQpIAfkYTP3A3dkQsC9FE1SZNdLMNocxqCPBkXa90K8pT5MNmkW1w_4BQ
+
 == Basic UI Object ==
 
 Tellurium provides a set of predefined UI objects to be used directly when setting up a test.
