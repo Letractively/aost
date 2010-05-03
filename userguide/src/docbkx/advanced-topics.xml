@@ -20,7 +20,7 @@
 
         <mediaobject>
             <imageobject>
-                <imagedata fileref="./media/TelluriumDataDrivenSmall.jpg" scale="100"></imagedata>
+                <imagedata fileref="./media/TelluriumDataDrivenSmall.jpg"  scalefit="1" width="80%"></imagedata>
             </imageobject>
         </mediaobject>
         <para>The Tellurium Data Driven Test consists of three main parts:
@@ -576,7 +576,7 @@ step{
 
             <mediaobject>
                 <imageobject>
-                    <imagedata fileref="./media/FsomArchitecture.png" scale="100"></imagedata>
+                    <imagedata fileref="./media/FsomArchitecture.png" scalefit="1" width="80%"></imagedata>
                 </imageobject>
             </mediaobject>
             
