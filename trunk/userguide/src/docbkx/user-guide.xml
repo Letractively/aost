@@ -69,7 +69,9 @@
     <xi:include href="whatsnew.xml"/>
 
     <xi:include href="quickstart.xml"/>
-    
+
+    <xi:include href="uiobjects.xml"/>
+
     <xi:include href="basics.xml"/>
 
     <xi:include href="apis.xml"/>

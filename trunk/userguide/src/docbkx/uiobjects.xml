@@ -1,0 +1,1604 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/2000/svg"
+         xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+
+    <title>Tellurium UI Objects</title>
+    <para>
+        The UI Module is the heart of Tellurium. The UI module is a collection of UI elements grouped together.
+        Usually, the UI module represents a composite UI object in the format of nested basic UI elements. For
+        example, the download search module in Tellurium's project site is defined as follows:
+    </para>
+    <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"], group: "true") {
+   Selector(uid: "downloadType", clocator: [name: "can", id: "can"])
+   InputBox(uid: "searchBox", clocator: [name: "q"])
+   SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+}
+]]>
+    </programlisting>
+    <para>
+        Tellurium is built on the foundation of the UI module. The UI module makes it possible to build locators for UI
+        elements at runtime. First, this makes Tellurium robust and responsive to changes from internal UI elements.
+        Second, the UI module makes Tellurium expressive.
+    </para>
+
+    <para>
+        A UI element is referred to simply by appending the names (uids) along the path to the specific element. This
+        also enables Tellurium's "Group Locating" feature, making composite objects reusable and addressing dynamic web
+        pages.
+    </para>
+
+    <para>
+        This frees up the testers to write better tests rather than spending precious testing time identifying and
+        resolving test failures due to XPath changes.
+    </para>
+
+    <para>The following class diagram illustrates the relationship among UI objects.</para>
+
+    <mediaobject>
+        <imageobject>
+            <imagedata fileref="./media/uiobjectsclassdiagram.png" scalefit="1" width="100%"></imagedata>
+        </imageobject>
+    </mediaobject>
+
+    <section>
+        <title>Basic UI Object</title>
+        <para>
+            Tellurium provides a set of predefined UI objects to be used directly when setting up a test.
+        </para>
+
+        <para>
+            The basic UI object is an abstract class. Users cannot instantiate it directly. The basic UI Object works as
+            the base class for all UI objects and it includes the following attributes:
+        </para>
+
+         <table id="uiobjectattributes">
+          <title>UI Object Attributes</title>
+          <tgroup cols="2">
+            <colspec colname="c1" colwidth="1*" />
+
+            <colspec colname="c2" colwidth="1*" />
+
+            <thead>
+              <row>
+                <entry>ATTRIBUTE</entry>
+
+                <entry>DESCRIPTION</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry>UI Object</entry>
+
+                <entry>Basic Tellurium component</entry>
+              </row>
+
+              <row>
+                <entry>UiID</entry>
+
+                <entry>UI object's identifier</entry>
+              </row>
+
+              <row>
+                <entry>Namespace</entry>
+
+                <entry>Used for XHTML</entry>
+              </row>
+
+              <row>
+                <entry>Locator</entry>
+
+                <entry>UI Object Locator including Base Locator and Composite Locator</entry>
+              </row>
+                
+              <row>
+                <entry>Group</entry>
+
+                <entry>Group Locating attribute that only applies to a collection type of UI object such as Container, Table, List, Form</entry>
+              </row>
+
+              <row>
+                <entry>Respond</entry>
+
+                <entry>JavaScript events the UI object responds to</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+
+        <para>
+            The value is a list and the base UI object provides the following methods:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    boolean isElementPresent()
+                </para>
+            </listitem>
+            <listitem>
+                <para>boolean isVisible()
+                </para>
+            </listitem>
+            <listitem>
+                <para>boolean isDisabled()
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    waitForElementPresent(int timeout), where the time unit is ms.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    waitForElementPresent(int timeout, int step)
+                </para>
+            </listitem>
+            <listitem>
+                <para>String getText()
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    getAttribute(String attribute)
+                </para>
+            </listitem>
+        </itemizedlist>
+
+        <para>All UI Objects inherit the above attributes and methods. Do not call these methods directly but use DSL syntax instead. </para>
+        <para>For example, use: </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+click "GoogleSearchModule.Search"
+]]>
+        </programlisting>
+
+        <para>
+            In this way, Tellurium first maps the UIID "GoogleSearchModule.Search" to the actual UI Object. Then the
+            user calls the click method on the UI Object. If that UI Object does not have the click method defined, an
+            error displays.
+        </para>
+
+        <para>The UML class diagram is shown as follows. </para>
+
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="./media/UiObject.png" scale="100"></imagedata>
+            </imageobject>
+        </mediaobject>
+
+    </section>
+
+    <section>
+        <title>UI Object Default Attributes</title>
+
+        <para>Tellurium UI objects have default attributes as shown in the following table</para>
+
+        <table id="uiobjectdefaultattributes">
+          <title>UI Object Default Attributes</title>
+          <tgroup cols="4">
+            <colspec colname="c1" colwidth="1*" />
+
+            <colspec colname="c2" colwidth="1*" />
+
+            <colspec colname="c3" colwidth="1*" />
+
+            <colspec colname="c4" colwidth="1*" />
+            <thead>
+              <row>
+                <entry>Tellurium Object</entry>
+                <entry>Locator Default Attributes</entry>
+                <entry>Extra Attributes</entry>
+                <entry>UI Template</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry>Button</entry>
+                <entry>tag: "input"</entry>
+                <entry></entry>
+                <entry>no</entry>
+              </row>
+              <row>
+                <entry>Container</entry>
+                <entry></entry>
+                <entry>group</entry>
+                <entry>no</entry>
+              </row>
+              <row>
+                <entry>CheckBox</entry>
+                <entry>tag: "input", type: "checkbox"</entry>
+                <entry></entry>
+                <entry>no</entry>
+              </row>
+              <row>
+                <entry>Div</entry>
+                <entry>tag: "div"</entry>
+                <entry></entry>
+                <entry>no</entry>
+              </row>
+              <row>
+                <entry>Form</entry>
+                <entry>tag: "form"</entry>
+                <entry>group</entry>
+                <entry>no</entry>
+              </row>
+              <row>
+                <entry>Image</entry>
+                <entry>tag: "img"</entry>
+                <entry></entry>
+                <entry>no</entry>
+              </row>
+              <row>
+                <entry>InputBox</entry>
+                <entry>tag: "input"</entry>
+                <entry></entry>
+                <entry>no</entry>
+              </row>
+              <row>
+                <entry>RadioButton</entry>
+                <entry>	tag: "input", type: "radio"</entry>
+                <entry></entry>
+                <entry>no</entry>
+              </row>
+              <row>
+                <entry>Selector</entry>
+                <entry>tag: "select"</entry>
+                <entry></entry>
+                <entry>no</entry>
+              </row>
+              <row>
+                <entry>Span</entry>
+                <entry>tag: "span"</entry>
+                <entry></entry>
+                <entry>no</entry>
+              </row>
+              <row>
+                <entry>SubmitButton</entry>
+                <entry>tag: "input", type: "submit"</entry>
+                <entry></entry>
+                <entry>no</entry>
+              </row>
+              <row>
+                <entry>UrlLink</entry>
+                <entry>tag: "a"</entry>
+                <entry></entry>
+                <entry>no</entry>
+              </row>
+              <row>
+                <entry>Repeat</entry>
+                <entry></entry>
+                <entry></entry>
+                <entry>no</entry>
+              </row>
+              <row>
+                <entry>List</entry>
+                <entry></entry>
+                <entry>separator</entry>
+                <entry>yes</entry>
+              </row>
+              <row>
+                <entry>Table</entry>
+                <entry>tag: "table"</entry>
+                <entry>group, header</entry>
+                <entry>yes</entry>
+              </row>
+              <row>
+                <entry>StandardTable</entry>
+                <entry>tag: "table"</entry>
+                <entry>group, header, footer</entry>
+                <entry>yes</entry>
+              </row>
+              <row>
+                <entry>Frame</entry>
+                <entry></entry>
+                <entry>group, id, name, title</entry>
+                <entry>no</entry>
+              </row>
+              <row>
+                <entry>Window</entry>
+                <entry></entry>
+                <entry>group, id, name, title</entry>
+                <entry>no</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+
+    </section>
+
+    <section>
+        <title>UI Object Description</title>
+        <section>
+            <title>Button</title>
+            <para>Button represents various Buttons on the web and its default tag is &quot;input&quot;. The
+                following methods can be applied to Button:
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>click()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>doubleClick()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        clickAt(String coordination)
+                    </para>
+                </listitem>
+            </itemizedlist>
+            <para>
+                <emphasis role="bold">Example:</emphasis>
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+Button(uid: "searchButton", clocator: [value: "Search", name: "btn"])
+]]>
+            </programlisting>
+        </section>
+
+        <section>
+            <title>Submit Button</title>
+            <para>
+                SubmitButton is a special Button with its type being &quot;submit&quot;.
+            </para>
+            <para>
+                <emphasis role="bold">Example:</emphasis>
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+SubmitButton(uid: "search_web_button", clocator: [value: "Search the Web"])
+]]>
+            </programlisting>
+        </section>
+
+        <section>
+            <title>Check Box</title>
+            <para>The CheckBox on the web is abstracted as &quot;CheckBox&quot; Ui object. The default tag
+                for CheckBox is &quot;input&quot; and its type is &quot;checkbox&quot;. CheckBox comes with
+                the following methods:
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>check()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>boolean isChecked()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>uncheck()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>String getValue()
+                    </para>
+                </listitem>
+            </itemizedlist>
+            <para>
+                <emphasis role="bold">Example:</emphasis>
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+CheckBox(uid: "autoRenewal", clocator: [dojoattachpoint: 'dap_auto_renew'])
+]]>
+            </programlisting>
+        </section>
+
+        <section>
+            <title>Div</title>
+            <para>Div is often used in the Dojo framework and it can represent many objects. Its tag is &quot;div&quot;
+                and it has the following method:
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>click()
+                    </para>
+                </listitem>
+            </itemizedlist>
+            <para>
+                <emphasis role="bold">Example:</emphasis>
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+Div(uid: "dialog", clocator: [class: 'dojoDialog', id: 'loginDialog'])
+]]>
+            </programlisting>
+
+            <para>The Div object has been changed to be a Container type object. For example, you can define
+                the following UI module.
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Div(uid: "div1", clocator: [id: "div1"]) {
+  Div(uid: "div2", clocator: [id: "div2"]) {
+    List(uid: "list1", clocator: [tag: "ul"], separator: "li"){
+      UrlLink(uid: "{all}", clocator: [:])
+    }
+  }
+}
+]]>
+            </programlisting>
+        </section>
+
+        <section>
+            <title>Image</title>
+            <para>Image is used to abstract the &quot;img&quot; tag and it comes with the following additional
+                methods:
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>getImageSource()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>getImageAlt()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>String getImageTitle()
+                    </para>
+                </listitem>
+            </itemizedlist>
+            <para>
+                <emphasis role="bold">Example:</emphasis>
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+Image(uid: "dropDownArrow", clocator: [src: 'drop_down_arrow.gif'])
+]]>
+            </programlisting>
+        </section>
+
+        <section>
+            <title>Icon</title>
+            <para>Icon is similar to the Image object, but user can perform
+                actions on it. As a result, it can have the following additional methods:
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>click()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>doubleClick()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>clickAt(String coordination)
+                    </para>
+                </listitem>
+            </itemizedlist>
+            <para>
+                <emphasis role="bold">Example:</emphasis>
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+Icon(uid: "taskIcon", clocator:[tag: "p", dojoonclick: 'doClick', img: "Show_icon.gif"])
+]]>
+            </programlisting>
+        </section>
+
+        <section>
+            <title>Radio Button</title>
+            <para>RadioButton is the abstract object for the Radio Button Ui. As a result, its default
+                tag is &quot;input&quot; and its type is &quot;radio&quot;. RadioButton has the following
+                additional methods:
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>check()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>boolean isChecked()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>uncheck()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>String getValue()
+                    </para>
+                </listitem>
+            </itemizedlist>
+            <para>
+                <emphasis role="bold">Example:</emphasis>
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+RadioButton(uid: "autoRenewal", clocator: [dojoattachpoint: 'dap_auto_renew'])
+]]>
+            </programlisting>
+        </section>
+
+        <section>
+            <title>Text Box</title>
+            <para>TextBox is the abstract Ui object from which the user returns to the text. For example, it
+                comes with the following method:
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>String waitForText(int timeout)
+                    </para>
+                </listitem>
+            </itemizedlist>
+            <para>
+                <emphasis role="bold">Note</emphasis>: TextBox can have various types of tags.
+            </para>
+            <para>
+                <emphasis role="bold">Example:</emphasis>
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+TextBox(uid: "searchLabel", clocator: [tag: "span"])
+]]>
+            </programlisting>
+
+        </section>
+
+        <section>
+            <title>Input Box</title>
+            <para>InputBox is the Ui where user types in input data. As its name stands, InputBox&apos;s default
+                tag is &quot;input&quot;. InputBox has the following additional methods:
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>type(String input)
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        keyType(String input), used to simulate keyboard typing
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        typeAndReturn(String input)
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>clearText()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>boolean isEditable()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>String getValue()
+                    </para>
+                </listitem>
+            </itemizedlist>
+            <para>
+                <emphasis role="bold">Example:</emphasis>
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+InputBox(uid: "searchBox", clocator: [name: "q"])
+]]>
+            </programlisting>
+        </section>
+
+        <section>
+            <title>URL Link</title>
+            <para>UrlLink stands for the web url link, i.e., its tag is &quot;a&quot;. UrlLink has the
+                following additional methods:
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>String getLink()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>click()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>doubleClick()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        clickAt(String coordination)
+                    </para>
+                </listitem>
+            </itemizedlist>
+            <para>
+                <emphasis role="bold">Example:</emphasis>
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+UrlLink(uid: "Grid", clocator: [text: "Grid", direct: "true"])
+]]>
+            </programlisting>
+        </section>
+
+        <section>
+            <title>Repeat Object</title>
+
+            <para>Very often, we need to use the same UI elements for multiple times on the web page. For
+                example, we have the following html.
+            </para>
+            <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<div class="segment clearfix">
+       <div class="option">
+           <ul class="fares">
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Economy</label>
+               </li>
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Flexible</label>
+               </li>
+           </ul>
+           <div class="details">
+               <dl>
+                   <dt>Ship:</dt>
+                   <dd>A</dd>
+                   <dt>Departs</dt>
+                   <dd>
+                       <em>08:00</em>
+                   </dd>
+                   <dt>Arrives</dt>
+                   <dd>
+                       <em>11:45</em>
+                   </dd>
+               </dl>
+           </div>
+       </div>
+       <div class="option">
+           <ul class="fares">
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Economy</label>
+               </li>
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Flexible</label>
+               </li>
+           </ul>
+           <div class="details">
+               <dl>
+                   <dt>Ship:</dt>
+                   <dd>B</dd>
+                   <dt>Departs</dt>
+                   <dd>
+                       <em>17:30</em>
+                   </dd>
+                   <dt>Arrives</dt>
+                   <dd>
+                       <em>21:15</em>
+                   </dd>
+               </dl>
+           </div>
+       </div>
+   </div>
+   <div class="segment clearfix">
+       <div class="option">
+           <ul class="fares">
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Economy</label>
+               </li>
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Flexible</label>
+               </li>
+           </ul>
+           <div class="details">
+               <div class="photo"><img/></div>
+               <dl>
+                   <dt>Ship:</dt>
+                   <dd>C</dd>
+                   <dt>Departs</dt>
+                   <dd>
+                       <em>02:00</em>
+                   </dd>
+                   <dt>Arrives</dt>
+                   <dd>
+                       <em>06:00</em>
+                   </dd>
+               </dl>
+           </div>
+       </div>
+       <div class="option">
+           <ul class="fares">
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Economy</label>
+               </li>
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Flexible</label>
+               </li>
+           </ul>
+           <div class="details">
+               <dl>
+                   <dt>Ship:</dt>
+                   <dd>D</dd>
+                   <dt>Departs</dt>
+                   <dd>
+                       <em>12:45</em>
+                   </dd>
+                   <dt>Arrives</dt>
+                   <dd>
+                       <em>16:30</em>
+                   </dd>
+               </dl>
+           </div>
+       </div>
+   </div>
+</form>
+]]>
+            </programlisting>
+
+            <para>You can see the elements
+                <literal>&lt;div class=&quot;segment clearfix&quot;&gt;</literal>
+                and
+                <literal>&lt;div class=&quot;option&quot;&gt;</literal>
+                repeated for couple times. We can use the Repeat object for this UI module. The Repeat
+                object inherits the Container object and You can use it just like a Container. The
+                difference is that you should use index to refer to a Repeat object.
+            </para>
+            <para>For the above html source, we can create the following UI module
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Form(uid: "SailingForm", clocator: [name: "selectedSailingsForm"] ){
+  Repeat(uid: "Section", clocator: [tag: "div", class: "segment clearfix"]){
+    Repeat(uid: "Option", clocator: [tag: "div", class: "option",
+        direct: "true"]){
+      List(uid: "Fares", clocator: [tag: "ul", class: "fares", direct: "true"],
+        separator: "li"){
+        Container(uid: "all"){
+            RadioButton(uid: "radio", clocator: [:], respond: ["click"])
+            TextBox(uid: "label", clocator: [tag: "label"])
+        }
+      }
+      Container(uid: "Details", clocator: [tag: "div", class: "details"]){
+        Container(uid: "ShipInfo", clocator: [tag: "dl"]){
+          TextBox(uid: "ShipLabel", clocator: [tag: "dt", position: "1"])
+          TextBox(uid: "Ship", clocator: [tag: "dd", position: "1"])
+          TextBox(uid: "DepartureLabel", clocator: [tag: "dt", position: "2"])
+          Container(uid: "Departure", clocator: [tag: "dd", position: "2"]){
+            TextBox(uid: "Time", clocator: [tag: "em"])
+          }
+          TextBox(uid: "ArrivalLabel", clocator: [tag: "dt", position: "3"])
+          Container(uid: "Arrival", clocator: [tag: "dd", position: "3"]){
+            TextBox(uid: "Time", clocator: [tag: "em"])
+          }
+        }
+      }
+    }
+  }
+}
+]]>
+            </programlisting>            
+            <para>To test the UI module, we can create the following test case.</para>
+            
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+    @Test
+    public void testRepeat(){
+        connect("JForm");
+        int num = jlm.getRepeatNum("SailingForm.Section");
+        assertEquals(2, num);
+        num = jlm.getRepeatNum("SailingForm.Section[1].Option");
+        assertEquals(2, num);
+        int size = jlm.getListSize("SailingForm.Section[1].Option[1].Fares");
+        assertEquals(2, size);
+        String ship = jlm.getText("SailingForm.Section[1].Option[1].
+            Details.ShipInfo.Ship");
+        assertEquals("A", ship);
+        String departureTime = jlm.getText("SailingForm.Section[1].Option[1].
+            Details.ShipInfo.Departure.Time");
+        assertEquals("08:00", departureTime);
+        String arrivalTime = jlm.getText("SailingForm.Section[1].Option[1].
+            Details.ShipInfo.Arrival.Time");
+        assertEquals("11:45", arrivalTime);
+    }
+]]>
+            </programlisting>
+        </section>
+
+        <section>
+            <title>Selector</title>
+            <para>Selector represents the Ui with tag &quot;select&quot;. The user can select from a set of
+                options. Selector has methods, such as:
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        selectByLabel(String target)
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        selectByValue(String value)
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        addSelectionByLabel(String target)
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        addSelectionByValue(String value)
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        removeSelectionByLabel(String target)
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        removeSelectionByValue(String value)
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        removeAllSelections()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>String getSelectOptions()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>String getSelectedLabels()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>String getSelectedLabel()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>String getSelectedValues()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>String getSelectedValue()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>String getSelectedIndexes()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>String getSelectedIndex()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>String getSelectedIds()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>String getSelectedId()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>boolean isSomethingSelected()
+                    </para>
+                </listitem>
+            </itemizedlist>
+            <para>
+                <emphasis role="bold">Example:</emphasis>
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+Selector(uid: "issueType", clocator: [name: "can", id: "can"])
+]]>
+            </programlisting>
+
+            <para>
+                For the Selector UI object, the following DSL methods have been implemented in the Tellurium
+                new Engine:
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        <literal>select(String uid, String target)</literal>: Equals to<literal>
+                        selectByLabel</literal>.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>selectByLabel(String uid, String target)</literal>: Select based on the
+                        text attribute.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>selectByValue(String uid, String target)</literal>: Select based on the
+                        value attribute.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>selectByIndex(String uid, int target)</literal>: Select based on index
+                        (starting from 1).
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>selectById(String uid, String target)</literal>: Select based on the ID
+                        attribute.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>String[] getSelectOptions(String uid)</literal>: Get all option texts.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>String[] getSelectValues(String uid)</literal>: Get all option values.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>String[] getSelectedLabels(String uid)</literal>: Get selected texts.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>String getSelectedLabel(String uid)</literal>: Get selected text, for
+                        multiple selections, return the first one.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>String[] getSelectedValues(String uid)</literal>: Get selected values.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>String getSelectedValue(String uid)</literal>: Get selected value, for
+                        multiple selections, return the first one.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>addSelectionByLabel(String uid, String target)</literal>: Add selection
+                        based on text.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>addSelectionByValue(String uid, String target)</literal>: Add selection
+                        based on value.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>removeSelectionByLabel(String uid, String target)</literal>: Remove
+                        selection based on text.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>removeSelectionByValue(String uid, String target)</literal>: Remove
+                        selection based on value.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>removeAllSelections(String uid)</literal>: Remove all selections.
+                    </para>
+                </listitem>
+            </itemizedlist>
+            <para>
+                Be aware, the above
+                <literal>target</literal>
+                variable can be a partial matching as follows.
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        <literal>^text</literal>: starts with text.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>$text</literal>: ends with text.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>*text</literal>: contains text.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <literal>!text</literal>: does not contain text.
+                    </para>
+                </listitem>
+            </itemizedlist>
+            <para>
+                We can use the following example to demonstrate the use of the new Selector APIs.
+            </para>
+            <para>HTML snippet:
+            </para>
+
+            <programlisting language="html"><?db-font-size 75% ?>
+<![CDATA[
+<form method="POST" action="check_phone">
+    <select name="Profile/Customer/Telephone/@CountryAccessCode" style="font-size:92%">
+        <option value="1" selected=selected>US</option>
+        <option value="2" id="uk">UK</option>
+        <option value="3">AT</option>
+        <option value="4">BE</option>
+        <option value="4" id="ca">CA</option>
+        <option value="6">CN</option>
+        <option value="7">ES</option>
+        <option value="8">VG</option>
+    </select>
+    <input type="text" class="medium paxFerryNameInput" value=""
+           name="Profile/Customer/Telephone/@PhoneNumber"
+           maxlength="16" id="phone1" tabindex="26">
+    <input name="submit" type="submit" value="Check">
+</form>
+]]>
+            </programlisting>
+
+            <para>UI Module definition: </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Form(uid: "Form", clocator: [method: "POST", action: "check_phone"]){
+  Selector(uid: "Country", clocator: [name: "\$CountryAccessCode"])
+  InputBox(uid: "Number", clocator: [name: "\$PhoneNumber"])
+  SubmitButton(uid: "check", clocator: [value: "Check"])
+}
+]]>
+            </programlisting>
+
+            <para>Test Cases: </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+@Test
+public void testSelect(){
+    String[] countries = sm.getSelectOptions("Form.Country");
+    for(String country: countries){
+        System.out.println("Country: " + country);
+    }
+    String[] values = sm.getSelectValues("Form.Country");
+    for(String value: values){
+        System.out.println("Value: " + value);
+    }
+    sm.selectByLabel("Form.Country", "US");
+    String selected = sm.getSelectedLabel("Form.Country");
+    assertEquals("US", selected);
+    sm.selectByLabel("Form.Country", "$E");
+    selected = sm.getSelectedLabel("Form.Country");
+    assertEquals("BE", selected);
+    sm.selectByLabel("Form.Country", "^E");
+    selected = sm.getSelectedLabel("Form.Country");
+    assertEquals("ES", selected);
+    sm.selectByValue("Form.Country", "8");
+    selected = sm.getSelectedLabel("Form.Country");
+    assertEquals("VG", selected);
+    sm.selectByIndex("Form.Country", 6);
+    selected = sm.getSelectedLabel("Form.Country");
+    assertEquals("CN", selected);
+    sm.selectById("Form.Country", "uk");
+    selected = sm.getSelectedLabel("Form.Country");
+    assertEquals("UK", selected);
+}
+]]>
+            </programlisting>
+        </section>
+
+        <section>
+            <title>Container</title>
+            <para>Container is an abstract object that can hold a collection of Ui objects. As a result, the Container
+                has a special attribute "useGroupInfo" and its default value is false. If this attribute is true, the
+                Group Locating is enabled. But make sure all the Ui objects inside the Container are children nodes of
+                the Container in the DOM, otherwise, you should not use the Group Locating capability.
+            </para>
+
+            <para>Example:</para>
+            
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
+   InputBox(uid: "searchbox", clocator: [title: "Google Search"])
+   SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
+   SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
+}
+]]>
+            </programlisting>
+        </section>
+
+        <section>
+            <title>Form</title>
+            <para>Form is a type of Container with its tag being "form" and it represents web form. Like Container, it
+                has the capability to use Group Locating and it has a special method:
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        submit() 
+                    </para>
+                </listitem>
+            </itemizedlist>
+
+            <para>This method is useful and can be used to submit input data if the form does not have a submit button. </para>
+            <para>Example:</para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"],
+    group: "true") {
+   Selector(uid: "downloadType", clocator: [name: "can", id: "can"])
+   TextBox(uid: "searchLabel", clocator: [tag: "span"])
+
+   InputBox(uid: "searchBox", clocator: [name: "q"])
+   SubmitButton(uid: "searchButton", clocator: [value: "Search"])
+}
+]]>
+            </programlisting>
+        </section>
+
+        <section>
+            <title>Table</title>
+            <para>Table is one of the most complicated Ui Object and also the most often used one. Obviously, its tag is
+                "table" and a table can have headers besides rows and columns.
+                Table is a good choice for a data grid. Tellurium can handle its header, rows, and columns
+                automatically. Table has one important feature: a different UiID than other Ui objects.
+            </para>
+
+            <para>
+                For example, if the id of the table is "table1", then its i-th row and j-th column is referred as
+                "table1[i][j]" and its m-th header is "table1.header[m]".
+                Another distinguished feature of Table is that a user can define Ui templates for its elements.
+            </para>
+
+            <para>For example, the following example defines different table headers and the template for the first
+                column, the element on the second row and the second column, and the template for all the other elements
+                in other rows and columns.
+            </para>
+
+            <programlisting language="java"><?db-font-size 70% ?>
+<![CDATA[
+ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"], 
+      group: "true")
+{
+   //define table header
+   //for the border column
+   TextBox(uid: "{header: 1}", clocator: [:])
+   UrlLink(uid: "{header: 2} as Filename", clocator: [text: "*Filename"])
+   UrlLink(uid: "{header: 3} as Summary", clocator: [text: "*Summary + Labels"])
+   UrlLink(uid: "{header: 4} as Uploaded", clocator: [text: "*Uploaded"])
+   UrlLink(uid: "{header: 5} as Size", clocator: [text: "*Size"])
+   UrlLink(uid: "{header: 6} as DownloadCount", clocator: [text: "*DownloadCount"])
+   UrlLink(uid: "{header: 7} as Extra", clocator: [text: "*..."])
+
+   //define Ui object for the second row and the second column
+   InputBox(uid: "{row: 2, column: 2}" clocator: [:])
+   //define table elements
+   //for the border column
+   TextBox(uid: "{row: all, column: 1}", clocator: [:])
+   //For the rest, just UrlLink
+   UrlLink(uid: "{row: all, column: all}", clocator: [:])
+}
+]]>
+            </programlisting>
+
+            <para>
+                Be aware, the templates inside the Table follow the name convention:
+            </para>
+
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        For the i-th row, j-th column, the uid should be "{row: i, column: j} as whatever_id"
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        The wild case for row or column is "all"
+                    </para>
+                </listitem>
+            </itemizedlist>
+
+            <para>As a result, "row : all, column : 3" refers to the 3rd column for all rows. Once the templates are
+                defined for the table, Tellurium uses a special way to find a matching for a Ui element "table[i][j]" in
+                the table.
+            </para>
+
+            <para>For more details on how Tellurium maps the runtime uid to UI templates, please see 
+                <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage">Tellurium UID Description Language</link>.
+            </para>
+
+            <para>Generally speaking, Tellurium always searches for the special case first, then broadening the search
+                for more general cases, until all matching cases are found. In this way, user can define very flexible
+                templates for tables.
+            </para>
+
+            <para>
+                Table is a type of Container and thus, it can use the Group Locating feature. Table has the following special methods:
+            </para>
+
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        boolean hasHeader()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        int getTableHeaderColumnNum() 
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                       int getTableMaxRowNum() 
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                       int getTableMaxColumnNum() 
+                    </para>
+                </listitem>
+            </itemizedlist>
+
+        </section>
+
+        <section>
+            <title>Standard Table</title>
+            <para>A StandardTable is a table in the following format </para>
+            <programlisting language="sh"><?db-font-size 75% ?>
+<![CDATA[
+table
+      thead
+         tr
+           td
+           ...
+           td
+      tbody
+         tr
+           td
+           ...
+           td
+         ...
+       tbody (multiple tbodies)
+         tr
+           td
+           ...
+           td
+         ...
+      tfoot
+         tr
+           td
+           ...
+           td
+]]>
+            </programlisting>
+
+            <para>To overwrite the default layout, Tellurium core provides the following attributes in the StandardTable object. </para>
+            <itemizedlist>
+                <listitem>
+                    <para><literal>ht</literal>: header tag.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para><literal>hrt</literal>: header row tag, the default tag is "tr". 
+                    </para>
+                </listitem>
+                <listitem>
+                    <para><literal>hct</literal>: header column tag, the default tag is "th". 
+                    </para>
+                </listitem>
+                <listitem>
+                    <para><literal>bt</literal>: body tag.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para><literal>brt</literal>: body row tag, the default tag is "tr".
+                    </para>
+                </listitem>
+                <listitem>
+                    <para><literal>bct</literal>: body column tag, the default tag is "td". 
+                    </para>
+                </listitem>
+                <listitem>
+                    <para><literal>ft</literal>: footer tag. 
+                    </para>
+                </listitem>
+                <listitem>
+                    <para><literal>frt</literal>: footer row tag, the default tag is "tr". 
+                    </para>
+                </listitem>
+                <listitem>
+                    <para><literal>fct</literal>: footer column tag, the default tag is "td". 
+                    </para>
+                </listitem>
+            </itemizedlist>
+
+            <para>To overwrite the above tags, simply define them in the object definition. For example, </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.StandardTable(uid: "table3", clocator: [:], hct: "td"){
+  TextBox(uid: "header: all", clocator: [:])
+  TextBox(uid: "footer: all", clocator: [:])
+}
+]]>
+            </programlisting>
+
+            <para>The header column tag is overwritten to be "td" instead of the default tag "th".
+                To be more accurate, the footer definition has been changed from "foot" to "footer".
+            </para>
+
+            <para>For a StandardTable, you can specify UI templates for different tbodies. Apart from the methods in
+                Table, it has the following additional methods:
+            </para>
+
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        int getTableFootColumnNum()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        int getTableMaxTbodyNum()
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        int getTableMaxRowNumForTbody(int tbody_index) 
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        int getTableMaxColumnNumForTbody(int body_index) 
+                    </para>
+                </listitem>
+            </itemizedlist>
+
+            <para>Example: </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.StandardTable(uid: "table", clocator: [id: "std"]) {
+   UrlLink(uid: "{header: 2} as Filename", clocator: [text: "*Filename"])
+   UrlLink(uid: "{header: 3} as Uploaded", clocator: [text: "*Uploaded"])
+   UrlLink(uid: "{header: 4} as Size", clocator: [text: "*Size"])
+   TextBox(uid: "{header: all}", clocator: [:])
+
+   Selector(uid: "{tbody: 1, row:1, column: 3} as Select", clocator: [name: "can"])
+   SubmitButton(uid: "{tbody: 1, row:1, column:4} as Search", clocator: [value:
+        "Search", name: "btn"])
+   InputBox(uid: "{tbody: 1, row:2, column:3} as Words", clocator: [name: "words"])
+   InputBox(uid: "{tbody: 2, row:2, column:3} as Without", clocator: [name: "without"])
+   InputBox(uid: "{tbody: 2, row:*, column:1} as Labels", clocator: [name: "labels"])
+
+   TextBox(uid: "{foot: all}", clocator: [tag: "td"])
+}
+]]>
+            </programlisting>
+            
+        </section>
+        <section>
+            <title>List</title>
+            <para>List is also a Container type abstract Ui object and it can be used to represent any list like Ui
+                objects. Very much like Table, users can define Ui templates for List and following rule of "the special
+                case first and then the general case". The index number is used to specify an element and "all" is used
+                to match all elements in the List. List also uses TextBox as the default Ui if no template could be
+                found. Since List is a Container type, it can use the Group Locating feature.
+            </para>
+
+            <para>
+                List has one special attribute "separator", which is used to indicate the tag used to separate different
+                List UI elements. If "separator" is not specified or "", all UI elements must be under the same DOM
+                node, i.e., they are siblings.
+            </para>
+
+            <para>Example: </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.List(uid: "subcategory", locator: "", separator: "p"){
+    InputBox(uid: "{2} as Search", clocator: [title: "Google Search"])
+    UrlLink(uid: "{all}", clocator: [:])
+}
+]]>
+            </programlisting>
+
+            <para>The List includes the following additional methods: </para>
+
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        int getListSize(id): Gets the item count of a list
+                    </para>
+                </listitem>
+            </itemizedlist>
+            
+        </section>
+
+        <section>
+            <title>Frame</title>
+            <para>Frame is a type of Container and is used to mode Frame or IFrame. It includes the following attributes: </para>
+
+            <itemizedlist>
+                <listitem>
+                    <para>id</para>
+                </listitem>
+                <listitem>
+                    <para>name</para>
+                </listitem>
+                <listitem>
+                    <para>title</para>
+                </listitem>
+            </itemizedlist>
+
+            <para>and the following methods </para>
+            
+            <itemizedlist>
+                <listitem>
+                    <para>selectParentFrame()</para>
+                </listitem>
+                <listitem>
+                    <para>selectTopFrame()</para>
+                </listitem>
+                <listitem>
+                    <para>selectFrame(locator)</para>
+                </listitem>
+                <listitem>
+                    <para>getWhetherThisFrameMatchFrameExpression(currentFrameString, target)</para>
+                </listitem>
+                <listitem>
+                    <para>waitForFrameToLoad(frameAddress, timeout)</para>
+                </listitem>
+            </itemizedlist>
+
+            <para>
+                When you test website with IFrames, you should use multiple window mode, i.e., set the option
+                useMultiWindows to be true in TelluriumConfig.groovy. Be aware that Selenium uses the name attribute to
+                locate a Frame.
+            </para>
+
+            <para>Example: </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Frame(uid: "SubscribeFrame", name: "subscrbe"){
+   Form(uid: "LoginForm", clocator: [name: "loginForm"]){
+      InputBox(uid: "UserName", clocator: [id: "username", type: "text"])
+      InputBox(uid: "Password", clocator: [id: "password", type: "password"])
+      Button(uid: "Login", clocator: [type: "image", class: "login"])
+      CheckBox(uid: "RememberMe", clocator: [id: "rememberme"])
+   }
+} 
+]]>
+            </programlisting>            
+        </section>
+
+        <section>
+            <title>Window</title>
+            <para>Window is a type of Container and is used to mode Popup Window. It includes the following attributes: </para>
+
+            <itemizedlist>
+                <listitem>
+                    <para>id</para>
+                </listitem>
+                <listitem>
+                    <para>name</para>
+                </listitem>
+                <listitem>
+                    <para>title</para>
+                </listitem>
+            </itemizedlist>
+
+            <para>and the following methods</para>
+            
+            <itemizedlist>
+                <listitem>
+                    <para>openWindow(String UID, String url)</para>
+                </listitem>
+                <listitem>
+                    <para>selectWindow(String UID)</para>
+                </listitem>
+                <listitem>
+                    <para>closeWindow(String UID)</para>
+                </listitem>
+                <listitem>
+                    <para>boolean getWhetherThisWindowMatchWindowExpression(String currentWindowString, String target)</para>
+                </listitem>
+                <listitem>
+                    <para>waitForPopup(String UID, int timeout)</para>
+                </listitem>
+            </itemizedlist>
+
+            <para>Example: </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Window(uid: "HelpWindow", name: "HelpWindow"){
+...
+}
+
+openWindow helpUrl, "HelpWindow"
+waitForPopUp "HelpWindow", 2000
+selectWindow "HelpWindow"
+...
+selectMainWindow()
+]]>
+            </programlisting>
+        </section>
+
+        <section>
+            <title>Option</title>
+            <para>Option is also designed to be adaptive the dynamic web. Option is a pure abstract object and it holds
+                multiple UIs with each representing a possible UI pattern at runtime. For example, the List/Grid
+                selector on the issue page can described as:
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+//The selector to choose the data grid layout as List or Grid
+ui.Option(uid: "layoutSelector"){
+    Container(uid: "layoutSelector", clocator: [tag: "div"], group: "true") {
+        TextBox(uid: "List", clocator: [tag: "b", text: "List", direct: "true"])
+        UrlLink(uid: "Grid", clocator: [text: "Grid", direct: "true"])
+    }
+    Container(uid: "layoutSelector", clocator: [tag: "div"], group: "true") {
+        UrlLink(uid: "List", clocator: [text: "List", direct: "true"])
+        TextBox(uid: "Grid", clocator: [tag: "b", text: "Grid", direct: "true"])
+    }
+}
+]]>
+            </programlisting>
+
+            <para>Note, the option's uid must be the same as the next UI objects it represent and in this way, you do
+                not need to include option's uid in the UiID. For example, you can just use
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+click "layoutSelector.List"
+]]>
+            </programlisting>
+
+            <para>instead of </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+click "layoutSelector.layoutSelector.List"
+]]>
+            </programlisting>
+
+            <para>The option object will automatically detect which UI pattern you need to use at runtime. </para>
+        </section>
+
+        <section>
+            <title>All Purpose Object</title>
+            <para>Tellurium 0.7.0 added an all purpose object for internal usage only. The object is defined as </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class AllPurposeObject extends UiObject {
+
+}
+]]>
+            </programlisting>
+            
+            <para>This object includes all methods for non-Container type objects.</para>
+        </section>
+    </section>
+
+</chapter>
