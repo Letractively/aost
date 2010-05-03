@@ -1252,4 +1252,927 @@ public class ListTestCase  extends TelluriumJavaTestCase {
         </section>
     </section>
 
+    <section>
+        <title>Generate Html Source From UI Modules</title>
+        <para>Very often, some Tellurium users asked us to help them to
+            track problems in their Tellurium test code. Due to some company policy, they cannot
+            provide us the HTML source directly, but the UI module instead. Without the HTML source,
+            there is no way for us to debug their test code because we do not have access to their
+            web applications.
+        </para>
+        <para>
+            However, if we can do reverse engineering to generate the HTML source from the given UI
+            module, we can use the
+            <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumMockHttpServer">mock http
+                server
+            </link>
+            to test the generated HTML Source without the need to access their web applications.
+        </para>
+        <para>Driven by this motivation, we provided the following new method in
+            <literal>DslContext</literal>
+            for users to generate HTML source from UI modules:
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public String generateHtml(String uid)
+]]>
+        </programlisting>
+
+        <para>The
+            <literal>generateHtml(uid)</literal>
+            method is really helpful if you want to help other people to track the problem in their
+            Tellurium test code but you have not access to their web applications and HTML sources.
+            Once the HTML source is generated, you can use the
+            <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumMockHttpServer">mock http
+                server
+            </link>
+            to test the generated HTML Source].
+        </para>
+
+        <section>
+            <title>Implementation</title>
+            <para>
+                The key is to generate the HTML source for each individual UI object from the composite
+                locator, denoted by<literal>clocator</literal>. As a result, we added two methods to the
+                <literal>CompositeLocator</literal>
+                class:
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class CompositeLocator {
+    String header
+    String tag
+    String text
+    String trailer
+    Map<String, String> attributes = [:]
+
+    public String generateHtml(boolean closeTag){
+      ......
+    }
+
+    public String generateCloseTag(){
+      ......
+    }
+}
+]]>
+            </programlisting>
+
+            <para>where
+                <literal>generateHtml(boolean closeTag)</literal>
+                returns the generated HTML source from the composite locator and the boolean variable
+                <emphasis>closeTag</emphasis>
+                indicates whether to generate the closing tag for the HTML source. For Container type UI
+                objects, most likely, you will not generate the closing tag directly, but use the other
+                method
+                <literal>generateCloseTag()</literal>
+                to generate the closing tag separately so that we can include its child elements in
+                between.
+            </para>
+            <para>
+                Then on the base class UiObject, we add the
+                <literal>generateHtml()</literal>
+                method as follows,
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+abstract class UiObject implements Cloneable{
+    String uid
+    String namespace = null
+
+    def locator
+
+    //reference back to its parent
+    def Container parent
+
+    public String generateHtml(){
+      if(this.locator != null){
+        return getIndent() + this.locator.generateHtml(true) + "\n";
+      }
+
+      return "\n";
+    }
+
+    public String getIndent(){
+      if(parent != null){
+          return parent.getIndent() + "    ";
+      }else{
+        return "";
+      }
+    }
+}
+]]>
+            </programlisting>
+
+            <para>To make pretty print, we add a
+                <literal>getIndent()</literal>
+                method in the UiObject to get the indentation for the current UI object.
+            </para>
+
+            <para>Once we added the
+                <literal>generateHtml()</literal>
+                method, all the concrete UI objects such as Button, InputBox, and UrlLink inherit this
+                method to generate HTML source. However, for a Contain type, the implementation is
+                different because we need to include its child UI objects in the HTML source. As a
+                result, we overwrite the
+                <literal>generateHtml()</literal>
+                method in the UiObject.
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class Container extends UiObject {
+    def components = [:]
+
+    @Override
+    public String generateHtml(){
+      StringBuffer sb = new StringBuffer(64);
+      String indent = getIndent();
+
+      if(this.components.size() > 0){
+        if(this.locator != null)
+          sb.append(indent + this.locator.generateHtml(false)).append("\n");
+        this.components.each {String uid, UiObject obj ->
+          sb.append(obj.generateHtml());
+        }
+        if(this.locator != null)
+          sb.append(indent + this.locator.generateCloseTag()).append("\n");
+      }else{
+        if(this.locator != null){
+          sb.append(this.locator.generateHtml(true)).append("\n")
+        }
+      }
+
+      return sb.toString();
+    }
+}
+]]>
+            </programlisting>
+
+            <para>UI templates in Tellurium objects such as
+                List and Table make things more complicated. The basic idea is to elaborate all UI
+                templates and key is to get the appropriate List size and Table size. We use an
+                algorithm to determine the sizes and we don&apos;t want to go over the details here.
+            </para>
+            <para>
+                Finally, we add the
+                <literal>generateHtml(String uid)</literal>
+                method to the
+                <literal>DslContext</literal>
+                class
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ public String generateHtml(String uid){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(
+        this.exploreJQuerySelector, this.exploreSelectorCache)
+    def obj = walkToWithException(context, uid)
+    return obj.generateHtml()
+  }
+]]>
+            </programlisting>
+
+            <para>Another method
+                <literal>generateHtml()</literal>
+                is used to generate the HTML source for all UI modules defined in a UI module class
+                file.
+            </para>
+
+           <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public String generateHtml(){
+    StringBuffer sb = new StringBuffer(128)
+    ui.registry.each {String key, UiObject val ->
+        sb.append(val.generateHtml())
+    }
+
+    return sb.toString()
+}
+]]>
+            </programlisting>
+
+        </section>
+
+        <section>
+            <title>Usage</title>
+
+            <para>We used the following UI module </para>
+
+           <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Form(uid: "accountEdit", clocator: [tag: "form", id: "editPage", method: "post"]) {
+    InputBox(uid: "accountName", clocator: [tag: "input", type: "text", name: "acc2",
+        id: "acc2"])
+    InputBox(uid: "accountSite", clocator: [tag: "input", type: "text", name: "acc23",
+        id: "acc23"])
+    InputBox(uid: "accountRevenue", clocator: [tag: "input", type: "text", name: "acc8",
+        id: "acc8"])
+    TextBox(uid: "heading", clocator: [tag: "h2", text: "*Account Edit "])
+    SubmitButton(uid: "save", clocator: [tag: "input", class: "btn", type: "submit",
+        title: "Save", name: "save"])
+}
+]]>
+            </programlisting>
+
+            <para><anchor xml:id="Container.3" xreflabel="Call the generateHtml() method "/>Call the
+                <literal>generateHtml()</literal>
+                method
+            </para>
+           <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+generateHtml("accountEdit");        
+]]>
+            </programlisting>
+
+            <para>and it generates the HTML source as follows,
+            </para>
+
+           <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ <form id="editPage" method="post">
+    <input type="text" name="acc2" id="acc2"/>
+    <input type="text" name="acc23" id="acc23"/>
+    <input type="text" name="acc8" id="acc8"/>
+    <h2>Account Edit </h2>
+    <input class="btn" type="submit" title="Save" name="save"/>
+</form>
+]]>
+            </programlisting>
+        </section>
+    </section>
+
+    <section>
+        <title>Tellurium Powerful Utility: Diagnose</title>
+
+        <para>Usually, the main problem that users have in Tellurium is that their UI modules are not defined
+            correctly. As a result, the generated runtime locator is either not unique or cannot be
+            found. Very often, users ask our developers to trace or debug their test code. However,
+            it is a difficult task for our Tellurium developers, too because usually the web
+            application and their full test code are not available to us. It would be more important
+            to provide users some utilities for them to trace/debug their code by themselves instead
+            of relying on our Tellurium developers.
+        </para>
+        <para>The utility method
+            <emphasis>diagnose</emphasis>
+            is designed for this purpose, which is available in the DslContext class and the method
+            signature is as follows,
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public void diagnose(String uid)
+]]>
+         </programlisting>
+
+        <para>
+            What it actually does is to dump the following information to console,
+        </para>
+        <orderedlist>
+            <listitem>
+                <para>
+                    The number of the matching UI element for the runtime locator corresponding to
+                    the<emphasis>uid</emphasis>.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    The html source for the parent UI object of the UI object<emphasis>
+                    uid</emphasis>.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    The closest matching UI elements in the DOM for the generated locator.
+                </para>
+            </listitem>
+            <listitem>
+                <para>The html source for the entire page.
+                </para>
+            </listitem>
+        </orderedlist>
+        <para>
+            Most of the above are optional, and thus, Tellurium provides you three more methods for
+            your convenience.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public DiagnosisResponse getDiagnosisResult(String uid)
+
+public void diagnose(String uid, DiagnosisOption options)
+
+public DiagnosisResponse getDiagnosisResult(String uid,
+    DiagnosisOption options)
+]]>
+         </programlisting>
+
+        <para>where DiagnosisResponse is defined as
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public class DiagnosisResponse {
+  private String uid;
+
+  private int count;
+
+  private ArrayList<String> matches;
+
+  private ArrayList<String> parents;
+
+  private ArrayList<String> closest;
+
+  private String html;
+}
+]]>
+         </programlisting>
+
+        <para>
+            so that you can process the result programmatically.
+            DiagnosisOption is used to configure the return result,
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public class DiagnosisOption {
+
+  boolean retMatch = true;
+
+  boolean retHtml = true;
+
+  boolean retParent = true;
+
+  boolean retClosest = true;
+}
+]]>
+         </programlisting>
+
+        <section>
+            <title>Implementation</title>
+            <para>Under the hood, Tellurium core first creates a request for the diagnose call, </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public class DiagnosisRequest {
+  //uid for the UI object
+  private String uid;
+
+  //parent UI object's locator
+  private String pLocator;
+
+  //UI objects attributes obtaining from the composite locator
+  private Map<String, String> attributes;
+
+  //options for the return results
+  private boolean retMatch;
+
+  private boolean retHtml;
+
+  private boolean retParent;
+
+  private boolean retClosest;
+}
+]]>
+            </programlisting>
+            
+            <para>The request is then converted into a JSON string so that we can pass the request to
+                Selenium as a custom method,
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class CustomSelenium extends DefaultSelenium {
+    ......
+
+    public String diagnose(String locator, String request){
+      String[] arr = [locator, request];
+      String st = commandProcessor.doCommand("getDiagnosisResponse", arr);
+      return st;
+    }
+}
+]]>
+            </programlisting>
+
+            <para>
+                The custom Selenium server includes
+                <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumjQuerySelector">our jQuery
+                    selector
+                </link>
+                support. We add the following new Selenium method,
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+Selenium.prototype.getDiagnosisResponse = function(locator, req){
+......
+}
+]]>
+            </programlisting>
+
+            <para>I wouldn&apos;t go over the implementation details for this method and you can read
+                the source code on Tellurium Engine project if you are really interested.
+            </para>
+        </section>
+
+        <section>
+            <title>Usage</title>
+            <para>Assume we have the following Tellurium UI module defined
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public class ProgramModule extends DslContext {
+
+    public static String HTML_BODY = """
+<div id="ext-gen437" class="x-form-item" tabindex="-1">
+    <label class="x-form-item-label" style="width: 125px;" for="ext-comp-1043">
+        <a class="help-tip-link" onclick="openTip('Program','program');return false;"
+        title="click for more info" href="http://localhost:8080">Program</a>
+    </label>
+
+    <div id="x-form-el-ext-comp-1043" class="x-form-element" style="padding-left: 130px;">
+        <div id="ext-gen438" class="x-form-field-wrap" style="width: 360px;">
+            <input id="programId" type="hidden" name="programId" value=""/>
+            <input id="ext-comp-1043" class="x-form-text x-form-field x-combo-noedit"
+                   type="text" autocomplete="off"
+                   size="24" readonly="true" style="width: 343px;"/>
+            <img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger"
+                src="images/s.gif"/>
+        </div>
+    </div>
+    <div class="x-form-clear-left"/>
+</div>
+    """
+
+  public void defineUi() {
+    ui.Container(uid: "Program", clocator: [tag: "div"], group: "true") {
+      Div(uid: "label", clocator: [tag: "a", text: "Program"])
+      Container(uid: "triggerBox", clocator: [tag: "div"], group: "true") {
+        InputBox(uid: "inputBox", clocator: [tag: "input", type: "text", readonly: "true"],
+            respond: ["click"])
+        Image(uid: "trigger", clocator: [tag: "img", src: "*images/s.gif"], respond: ["click"])
+      }
+    }
+  }
+}
+]]>
+            </programlisting>
+            
+            <para>We create a Tellurium test case using the
+                <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumMockHttpServer">
+                    MockHttpServer
+                </link>
+                without running an actual web application.
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public class ProgramModuleTestCase extends TelluriumJavaTestCase{
+    private static MockHttpServer server;
+
+    @BeforeClass
+    public static void setUp(){
+        server = new MockHttpServer(8080);
+        server.registerHtmlBody("/program.html", ProgramModule.HTML_BODY);
+        server.start();
+    }
+
+    @Test
+    public void testGetSeparatorAttribute(){
+        ProgramModule pm = new ProgramModule();
+        pm.defineUi();
+        pm.useJQuerySelector();
+        connectUrl("http://localhost:8080/program.html");
+        pm.diagnose("Program.triggerBox.trigger");
+        pm.click("Program.triggerBox.trigger");
+    }
+
+    @AfterClass
+    public static void tearDown(){
+        server.stop();
+    }
+}
+]]>
+            </programlisting>
+            <para>Note that we want to diagnose the Image UI object &quot;Program.triggerBox.trigger&quot;,</para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+pm.diagnose("Program.triggerBox.trigger");
+]]>
+            </programlisting>
+
+            <para>Run the test and you will see the return result as follows,</para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+Diagnosis Result for Program.triggerBox.trigger
+
+-------------------------------------------------------
+
+        Matching count: 1
+
+        Match elements:
+
+        --- Element 1 ---
+
+<img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger" src="images/s.gif">
+
+
+        Parents:
+
+        --- Parent 1---
+
+<div id="x-form-el-ext-comp-1043" class="x-form-element" style="padding-left: 130px;">
+        <div id="ext-gen438" class="x-form-field-wrap" style="width: 360px;">
+            <input id="programId" name="programId" value="" type="hidden">
+            <input id="ext-comp-1043" class="x-form-text x-form-field x-combo-noedit"
+                autocomplete="off" size="24" readonly="true" style="width: 343px;"
+                    type="text">
+            <img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger"
+                src="images/s.gif">
+        </div>
+    </div>
+
+        --- Parent 2---
+
+<div id="ext-gen438" class="x-form-field-wrap" style="width: 360px;">
+            <input id="programId" name="programId" value="" type="hidden">
+            <input id="ext-comp-1043" class="x-form-text x-form-field x-combo-noedit"
+                autocomplete="off" size="24" readonly="true" style="width: 343px;"
+                type="text">
+            <img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger"
+                src="images/s.gif">
+        </div>
+
+
+        Closest:
+
+        --- closest element 1---
+
+<img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger" src="images/s.gif">
+HTML Source:
+
+<head>
+    <title>Mock HTTP Server</title>
+</head>
+<body>
+  <div id="ext-gen437" class="x-form-item" tabindex="-1">
+    <label class="x-form-item-label" style="width: 125px;" for="ext-comp-1043">
+        <a class="help-tip-link" onclick="openTip('Program','program');return false;"
+            title="click for more info" href="http://localhost:8080">Program</a>
+    </label>
+
+    <div id="x-form-el-ext-comp-1043" class="x-form-element" style="padding-left: 130px;">
+        <div id="ext-gen438" class="x-form-field-wrap" style="width: 360px;">
+            <input id="programId" name="programId" value="" type="hidden">
+            <input id="ext-comp-1043" class="x-form-text x-form-field x-combo-noedit"
+                autocomplete="off" size="24" readonly="true" style="width: 343px;" type="text">
+            <img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger" src="images/s.gif">
+        </div>
+    </div>
+    <div class="x-form-clear-left">
+    </div>
+  </div>
+</body>
+
+-------------------------------------------------------
+]]>
+            </programlisting>
+
+            <para>This is really the happy path and runtime locator is found and is unique. What if the UI module
+                definition is a bit wrong about the Image object?
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ Image(uid: "trigger", clocator: [tag: "img", src: "*image/s.gif"], respond:["click"])
+]]>
+            </programlisting>
+
+            <para>That is to say, the
+                <emphasis>src</emphasis>
+                attribute is not correct.
+            </para>
+            <para>Run the same test code and the result is as follows,</para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+Diagnosis Result for Program.triggerBox.trigger
+
+-------------------------------------------------------
+
+        Matching count: 0
+
+
+        Parents:
+
+        --- Parent 1---
+
+<div id="x-form-el-ext-comp-1043" class="x-form-element" style="padding-left: 130px;">
+        <div id="ext-gen438" class="x-form-field-wrap" style="width: 360px;">
+            <input id="programId" name="programId" value="" type="hidden">
+            <input id="ext-comp-1043" class="x-form-text x-form-field x-combo-noedit"
+                autocomplete="off" size="24" readonly="true" style="width: 343px;"
+                type="text">
+            <img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger"
+                src="images/s.gif">
+        </div>
+    </div>
+
+        --- Parent 2---
+
+<div id="ext-gen438" class="x-form-field-wrap" style="width: 360px;">
+            <input id="programId" name="programId" value="" type="hidden">
+            <input id="ext-comp-1043" class="x-form-text x-form-field x-combo-noedit"
+                autocomplete="off" size="24" readonly="true" style="width: 343px;"
+                type="text">
+            <img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger"
+                src="images/s.gif">
+        </div>
+
+
+        Closest:
+
+        --- closest element 1---
+
+<img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger" src="images/s.gif">
+
+HTML Source:
+
+<head>
+    <title>Mock HTTP Server</title>
+</head>
+<body>
+  <div id="ext-gen437" class="x-form-item" tabindex="-1">
+    <label class="x-form-item-label" style="width: 125px;" for="ext-comp-1043">
+        <a class="help-tip-link" onclick="openTip('Program','program');return false;"
+            title="click for more info" href="http://localhost:8080">Program</a>
+    </label>
+
+    <div id="x-form-el-ext-comp-1043" class="x-form-element" style="padding-left: 130px;">
+        <div id="ext-gen438" class="x-form-field-wrap" style="width: 360px;">
+            <input id="programId" name="programId" value="" type="hidden">
+            <input id="ext-comp-1043" class="x-form-text x-form-field x-combo-noedit"
+                autocomplete="off" size="24" readonly="true" style="width: 343px;"
+                type="text">
+            <img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger"
+                src="images/s.gif">
+        </div>
+    </div>
+    <div class="x-form-clear-left">
+    </div>
+  </div>
+</body>
+
+-------------------------------------------------------
+]]>
+            </programlisting>
+
+            <para>You can see that there is no matching elements for the runtime locator. But the good
+                thing is that the diagnose method provides you the closest UI elements it can find from
+                the DOM,
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+        --- closest element 1---
+
+<img id="ext-gen439" class="x-form-trigger x-form-arrow-trigger" src="images/s.gif">
+]]>
+            </programlisting>
+
+            <para>By looking at this above lines, we could realize that the
+                <emphasis>src</emphasis>
+                attribute is wrong in our UI module.
+            </para>
+            <para>Some careful readers may want to ask &quot;why you add a partial matching symbol
+                <literal>*</literal>
+                to the src attribute in the UI module. The reason is that in jQuery, seems the
+                <emphasis>src</emphasis>
+                attribute in an Image has to be a full URL such as<link
+                        xlink:href="http://code.google.com/p/aost/">http://code.google.com/p/aost/</link>.
+                One workaround is to put the partial matching symbol
+                <literal>*</literal>
+                before the URL.
+            </para>
+            <para>In some case, the return matching count is larger than 1 and you can figure out how to
+                update your UI module definition by looking at all the return elements and their
+                parents.
+            </para>
+
+        </section>
+        
+    </section>
+
+    <section>
+        <title>Internationalization support in Tellurium</title>
+        <para>Tellurium now provides support for internationalization of strings and exception
+            messages. Any software system should have support for regional language settings and
+            options to be effective. Internationalization and localization provides this support.
+            Locales define the language and region. Locales can define how region specific data is
+            presented to users. Every locale will have a language code followed by a region code.
+            Ex: fr_FR represents french language in the region of France. Internationalized strings
+            for each locale is provided through a MessageBundle engineered for a specific locale
+            which is of the format
+            <literal>&lt;MessageBundleName&gt;_&lt;language-code&gt;_&lt;country code&gt;.properties
+            </literal>
+        </para>
+        <para>The Internationalization support in Tellurium is provided through the
+            InternationalizationManager class. The default bundle used in Tellurium is the
+            DefaultMessagesBundle.properties. All strings and exception messages used in the
+            tellurium core classes are read in from the DefaultMessageBundle properties file.
+        </para>
+        <para>In order to configure regional messages, This class has a getMessage function that provides
+            Internationalization support. This function can also take an optional Locale argument to
+            accept function level locale translations.
+        </para>
+
+        <para>For plain strings
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+getMessage ( "<key>")
+]]>
+        </programlisting>
+        <para>For Strings with parameters
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+getMessage ("<key>" , { [ item1 , item2 , … , item n]}
+]]>
+        </programlisting>
+        <para>For double numeric value 
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+getNumber(<doubleValue>)
+]]>
+        </programlisting>
+        <para>For currency data 
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+getCurrency(<doubleValue>)
+]]>
+        </programlisting>
+        <para>For Dates 
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+getDate(<dateValue>)
+]]>
+        </programlisting>
+        <para>For time 
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+getTime(<timeValue>)
+]]>
+        </programlisting>
+        
+        <para>The
+            <literal>getMessage (&lt;key&gt;)</literal>
+            method signature internationalizes a simple string. The
+            <literal>getMessage (&lt;key&gt; , { [ item1 , item2 , … , item n]}</literal>
+            method definition allows parameterization of an internationalized string to allow
+            external strings/arguments as parameter to the string. This also takes locale as an
+            argument, so we have
+            <literal>getMessage (&lt;key&gt; , locale)</literal>
+            to allow translation of the string to the locale passed in as an argument, provided the
+            key value pair exists in the respective locale property file
+        </para>
+        <para>The localization can be defined by setting the
+            locale on your system preferences / settings. (ex: regional settings in Windows
+            machine).
+        </para>
+        <para>
+            <emphasis role="bold">Note:</emphasis>
+            By default using getMessage() without any locale argument causes the system to use the
+            default locale as defined in ur regional settings. In order to use a locale different
+            from the regional settings, you will have to pass in the locale as an argument to
+            getMessage.
+        </para>
+        <para>
+            Internationalization support has been extended to test cases, so any user defined test
+            case can use
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+geti18nBundle()
+]]>
+        </programlisting>
+        <para>to utilize the getMessage function support in their own test code. Internationalized strings can be added
+            to user defined MessageBundles defined in the src/main/resources folder of user defined
+            projects. The general steps to provide internationalization in your project are as
+            follows:
+        </para>
+
+        <orderedlist>
+            <listitem>
+                <para>Create a user defined MessageBundle.properties, a default locale message
+            bundle, as well as one for each region you want to provide support for in your project,
+            ex: MessageBundle_fr_FR.properties will have strings translated into french.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Add the user defined resource bundle using the geti18nManager function, like so:
+            <literal>getI18nBundle().addResourceBundle(&quot;MessageBundle&quot;)</literal>. This
+            can take an optional locale to add the resource bundle in that locale.
+                </para>
+            </listitem>
+           <listitem>
+                <para> Now use the
+            <literal>getMessage</literal>
+            function to internationalize strings
+                </para>
+            </listitem>
+        </orderedlist>
+
+        <para>Here is a simple example of code from a
+            GoogleBooksListGroovyTestCase. I assume that user has already defined a
+            MessagesBundle.properties,located at src/main/resources, as follows
+        </para>
+        <para>
+            MessagesBundle.properties
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+GoogleBooksListGroovyTestCase.SetUpModule=Setting up google book list
+GoogleBooksListGroovyTestCase.Category=Category is {0}
+GoogleBooksListGroovyTestCase.ConnectSeleniumServer=Connection to selenium server
+]]>
+        </programlisting>
+
+        <para>Now defining the same properties file in French
+        </para>
+        <para>
+            MessageBundle_fr_FR.properties
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+GoogleBooksListGroovyTestCase.SetUpModule=Liste de livre de google d'établissement
+GoogleBooksListGroovyTestCase.Category=La catégorie est {0}
+GoogleBooksListGroovyTestCase.ConnectSeleniumServer=Se relier au serveur de sélénium
+]]>
+        </programlisting>
+
+        <para>Here is the definition of a testCase that uses the Internationalization support
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class SampleGroovyTestCase extends TelluriumGroovyTestCase {
+
+    public void initUi() {
+    }
+
+    public void setUp(){
+        setUpForClass()
+        //adding the local resource bundle, make sure it's not titled
+        //"DefaultMessagesBundle" since this will overwrite the default
+        //one we use in Tellurium core and cause exceptions
+        geti18nBundle().addResourceBundle("MessagesBundle")
+
+        //geti18nBundle() can also be replaced by
+        //IResourceBundle bundle = new ResourceBundle(),
+
+    }
+
+    public void tearDown(){
+        tearDownForClass()
+    }
+
+    public void testTranslateWithEnglishLocale()
+    {
+       //translating of strings
+       String message = geti18nBundle().getMessage("i18nManager.testString")
+       assertEquals("This is a testString in English", message)
+
+       //translation of number data types
+       Double amount = new Double(345987.246);
+       String translatedValue = geti18nBundle().getNumber(amount)
+       assertEquals("345,987.246" , translatedValue)
+
+       //translation of currency data types
+       amount = new Double(9876543.21);
+       translatedValue = geti18nBundle().getCurrency(amount)
+       assertEquals("\$9,876,543.21" , translatedValue)
+
+       //translation of dates - date is 2009, Jan 1
+       Date date = new Date(109 , 0 , 1)
+       translatedValue = geti18nBundle().getDate(date)
+       assertEquals("Jan 1, 2009" , translatedValue)
+     }
+}
+]]>
+        </programlisting>
+
+    </section>
+
 </chapter>
