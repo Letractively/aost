@@ -262,24 +262,7 @@ Except for the "click" event, all of the "focus", "mouseOver", "mouseOut", and "
 
 Use the CSS Selector to improve the test speed in IE as IE lacks native XPath support and the XPath is slow. Tellurium exploits CSS selector capability to improve test speed dramatically.
 
-Tellurium supports both XPath and CSS selector and still uses XPath as the default locator. To use CSS selector, explicitly command Tellurium to use the CSS selector.
-
-To *enable* CSS selector call the following method:
-
-{{{useCssSelector():}}} to use CSS selector.
-
-To *disable* CSS selector call the following method: 
-
-{{{disableCssSelector():}}} to switch back to XPath locator.
-
-jQuery also switches back to the default locator. For example. XPath. jQuery is illustrated in the diagram as shown in Figure 2-4:
-
-*Figure 2-4: jQuery Diagram*
-
-http://tellurium-users.googlegroups.com/web/xpathjqsel2.png?gda=ZcLbzkEAAACsdq5EJRKLPm_KNrr_VHB_i4k4E3yBw3ZwuTWAYUCsylo_LL8k1Ivp8OS586drcZpTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=4508XgsAAACdKjHXeYuQCiQefauhN3Sg
-
-
-Some of the jQuery functions are provided by the custom Selenium server, which is created by the Tellurium Engine project. Be aware that CSS selector only works for the Composite locator, the {{{clocator}}}. _It is not for use with the base locator, such as the XPath, in the UI module_.
+Tellurium supports both XPath and CSS selector and still uses CSS selector as the default locator. 
 
 
 === New DSL Methods ===
@@ -454,59 +437,6 @@ Tellurium 0.7.0 provides a toggle method to animate the UI element on the web pa
     toggle "Form.Username.Input"
 }}}
 
-== UI Module Live Show ==
-
-The show command is used to show the UI module that you defined on the actual web page.
-
-{{{
-    public show(String uid, int delay);
-}}}
-
-where delay is in milliseconds. Be aware that _show_ is available in Tellurium API.
-
-Example:
-
-{{{
-   useCache(true);
-   useTelluriumApi(true);
-   JettyLogonModule jlm = new JettyLogonModule();       
-   jlm.show("Form", 5000);
-}}}
-
-The UI module on the web page will be outlined and if user hives over the UI module,
-the UIDs of the selected UI element's and its ancestors' will be shown in a tooltip as shown in the following figure.
-
-http://tellurium-users.googlegroups.com/web/teshowuisnapshotcoloroutline.png?gda=QFLx4lIAAACsdq5EJRKLPm_KNrr_VHB_3bdqdUlgM5p9LxU9B-G7VGI4VaZQIUmR7BTITIeHhJw-4xIeevXbuhZMOIi4CXKoVeLt2muIgCMmECKmxvZ2j4IeqPHHCwbz-gobneSjMyE&gsc=WUr0egsAAADl-yofJNPAI7ohFyS8aj5h
-
-You may be a bit confused by the multiple UID labels. The above UI module is defined as
-
-{{{
-ui.Form(uid: "Form", clocator: [tag: "form"]){
-        Container(uid: "Username", clocator: [tag: "tr"]){
-            TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
-            InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
-        }
-        Container(uid: "Password", clocator: [tag: "tr"]){
-            TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
-            InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j_password"])
-        }
-        SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login", name: "submit"])
-    }
-}}}
-
-When user hives over the Username Input box, its parent Username and its grandparent Form
-are shown as well. We added color coding to the outlines. Different levels in the hierarchy have different colors. How the layout maps to each individual UI element can be illustrated more clearly by the following figure.
- 
-http://tellurium-users.googlegroups.com/web/telluriumshowuisnapshot2.png?gda=jciJlU4AAACsdq5EJRKLPm_KNrr_VHB__uAWGGGjpMtQflLHIKHYYIBs4RzukN2p4-NZziI_5n9VyjA3JensFE0ElYzuCQ7x47Cl1bPl-23V2XOW7kn5sQ&gsc=oz20hwsAAAD_weMBWNZir9C-tYu9DiER
-
-
-In the meanwhile, Tellurium Core also exposes the following two methods for users to start showing UI and clean up UI.
-
-{{{
-   public void startShow(String uid);
-
-   public void endShow(String uid);
-}}}
 
 == getHTMLSource ==
 
