@@ -1,7 +1,7 @@
 #labels Phase-Implementation
-== Groovy Patterns Used in Tellurium ==
+== Groovy Features Used in Tellurium ==
 
-In Tellurium, we used many Groovy patterns. I like to list some of them as follows,
+In Tellurium, we used many Groovy features. I like to list some of them as follows,
 
 === BuildSupport ===
 
@@ -316,4 +316,50 @@ With the propertyMissing, we can use the method name directly:
 
 {{{
 onWidget "DOJO_DatePicker", selectYear, 1992
+}}}
+
+=== Delegate ===
+
+Groovy 1.6 provides a set of Java annotations for meta programming, the {{{@Delegate}}} is one of them. With the {{{@Delegate}}} transformation, a class field or property can be annotated and become an object to which method calls are delegated. Tellurium widget class used this feature.
+
+{{{
+abstract class Widget extends UiObject {
+
+  @Delegate
+  private WidgetDslContext dsl = new WidgetDslContext();
+
+  ...
+}
+}}}
+
+That is to say, all DSL calls will be delegated to the WidgetDslContext class.
+
+=== Grape ===
+
+Grape is the infrastructure enabling the grab() calls in Groovy, a set of classes leveraging Ivy to allow for a repository driven module system for Groovy. Grape will, at runtime, download as needed and link the named libraries and all dependencies forming a transitive closure when the script is run from existing repositories such as Ibiblio, Codehaus, and java.net.
+
+Tellurium rundsl.groovy used Grape to download dependencies for DSL scripts.
+
+{{{
+import groovy.grape.Grape;
+
+Grape.grab(group:'org.telluriumsource', module:'tellurium-core', version:'0.7.0', classLoader:this.class.classLoader.rootLoader)
+...
+
+import org.telluriumsource.dsl.DslScriptExecutor
+
+def runDsl(String[] args) {
+  def cli = new CliBuilder(usage: 'rundsl.groovy -[hf] [scriptname]')
+  cli.with {
+    h longOpt: 'help', 'Show usage information'
+    f longOpt: 'scriptname',   'DSL script name'
+  }
+
+  ...
+
+}
+
+println "Running DSL test script, press Ctrl+C to stop."
+
+runDsl(args)
 }}}
