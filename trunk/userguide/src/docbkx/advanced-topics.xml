@@ -431,7 +431,7 @@ logMessage "Found ${actual.size()} ${issueTypeLabel} for owner " + issueOwner
 
             <mediaobject>
                 <imageobject>
-                    <imagedata fileref="./media/elluriumDDTTestSequence.png" scalefit="1" width="100%"></imagedata>
+                    <imagedata fileref="./media/TelluriumDDTTestSequence.png" scalefit="1" width="100%"></imagedata>
                 </imageobject>
             </mediaobject>
 
@@ -979,16 +979,15 @@ tellurium{
             is an embedded http server leveraging the Java 6 http server and it is very convenient
             method of testing HTML sources directly without running a web server.
         </para>
-        <para><anchor xml:id="Mock_Http_Server.2" xreflabel="Tellurium defines two classes: "/>Tellurium
-            defines two classes:
+        <para>Tellurium defines two classes:
         </para>
         <orderedlist>
             <listitem>
-                <para><anchor xml:id="Mock_Http_Server.3" xreflabel="MockHttpHandler "/>MockHttpHandler
+                <para>MockHttpHandler
                 </para>
             </listitem>
             <listitem>
-                <para><anchor xml:id="Mock_Http_Server.4" xreflabel="MockHttpServer "/>MockHttpServer
+                <para>MockHttpServer
                 </para>
             </listitem>
         </orderedlist>
@@ -1477,7 +1476,7 @@ ui.Form(uid: "accountEdit", clocator: [tag: "form", id: "editPage", method: "pos
 ]]>
             </programlisting>
 
-            <para><anchor xml:id="Container.3" xreflabel="Call the generateHtml() method "/>Call the
+            <para>Call the
                 <literal>generateHtml()</literal>
                 method
             </para>
@@ -2173,6 +2172,593 @@ class SampleGroovyTestCase extends TelluriumGroovyTestCase {
 ]]>
         </programlisting>
 
+    </section>
+
+    <section>
+        <title>Better Reporting With ReportNG</title>
+        <para>ReportNG is a simple HTML reporting plug-in for the TestNG framework. It is intended as a replacement for
+            the default TestNG HTML report. The default report is comprehensive but is not so easy to
+            understand at-a-glance. ReportNG provides a simple, colour-coded view of the test
+            results. You can find more information about ReportNG on the following URL.
+            <link xlink:href="https://reportng.dev.java.net/">ReportNG</link>
+        </para>
+        <para>TestNG reference project supports generating reports using ReportNG out of the box. To
+            use the reporting plug-in, set the listeners attribute of the testng element in your
+            suite file. ReportNG provides following TestNG listeners.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+org.uncommons.reportng.HTMLReporter
+org.uncommons.reportng.JUnitXMLReporter
+]]>
+        </programlisting>
+
+        <para>We are going to use HTMLReporter in the following example. We have a test suite file
+            as shown below.
+        </para>
+
+        <programlisting language="html"><?db-font-size 75% ?>
+<![CDATA[
+<!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
+<suite name="Google Code Tests">
+   <listeners>
+        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+    </listeners>
+
+        <test name="Downloads Page">
+        <classes>
+            <class name="org.tellurium.test.TelluriumDownloadsPageTestNGTestCase"/>
+        </classes>
+        </test>
+
+        <test name="Project Page">
+         <classes>
+             <class name="org.tellurium.test.TelluriumProjectPageTestNGTestCase"/>
+         </classes>
+        </test>
+
+        <test name="Wiki Page">
+         <classes>
+             <class name="org.tellurium.test.TelluriumWikiPageTestNGTestCase"/>
+         </classes>
+        </test>
+</suite>
+]]>
+        </programlisting>
+
+        <para>Now you can run the tests either by Maven, ANT or any IDE using this TestNG suite
+            file. When the test run is complete, you will get a report as shown below.
+        </para>
+
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="./media/tellurium_reportng.png" scalefit="1" width="100%"></imagedata>
+            </imageobject>
+        </mediaobject>
+
+        <para>You can see the test report is more readable and comprehensive.</para>
+    </section>
+
+    <section>
+        <title>Macro Command</title>
+        <para>Macro Command is a set of Selenium commands that
+            are bundled together and sent to Selenium Core in one call. This will reduce the round
+            trip latency from Tellurium Core to Engine and thus, improve the speed performance.
+            Another advantage for Macro Command is that Tellurium Engine can reuse the locator
+            because many times the commands in the same bundle act on the same UI element or same
+            sub-tree in the DOM.
+        </para>
+        <para>To implement Macro Command, we added one more tier to Tellurium Core to automatically handle the
+            Macro Command bundling as shown in the following figure.
+        </para>
+
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="./media/telluriumbundle.gif" scalefit="1" width="100%"></imagedata>
+            </imageobject>
+        </mediaobject>
+
+        <para>To use Macro Command, we add the following settings to configuration file
+            TelluriumConfig.groovy:
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+//the bundling tier
+bundle{
+    maxMacroCmd = 5
+    useMacroCommand = true
+}
+]]>
+        </programlisting>
+
+        <para>and the following methods to DslContext to change the Macro command settings at runtime
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public void useMacroCmd();
+public void disableMacroCmd();
+public useMaxMacroCmd(int max);
+public int getMaxMacroCmd();
+]]>
+        </programlisting>
+
+        <para>If you look at the server log and you will see what happened under the hood as follows.
+        </para>
+
+        <programlisting language="sh"><?db-font-size 75% ?>
+<![CDATA[
+14:57:49.584 INFO - Command request: getBundleResponse[[{"uid":"ProblematicForm.Username.Input",
+    "args":["jquery=table tr input[type=text][name=j]","t"],"name":"keyDown","sequ":44},
+    {"uid":"ProblematicForm.Username.Input","args":["jquery=table tr input[type=text][name=j]",
+    "t"],"name":"keyPress","sequ":45},{"uid":"ProblematicForm.Username.Input","args":
+    ["jquery=table tr input[type=text][name=j]","t"],"name":"keyUp","sequ":46},{"uid":
+    "ProblematicForm.Password.Input","args":["jquery=table tr input[type=password][name=j]",
+    "t"],"name":"keyDown","sequ":47},{"uid":"ProblematicForm.Password.Input","args":
+    ["jquery=table tr input[type=password][name=j]","t"],"name":"keyPress","sequ":48}],
+    ] on session 9165cd68806a42fdbdef9f87e804a251
+14:57:49.617 INFO - Got result: OK,[] on session 9165cd68806a42fdbdef9f87e804a251
+]]>
+        </programlisting>
+
+        <para>In the above example, the command bundle includes the following commands:
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+keyDown "ProblematicForm.Username.Input", "t"
+keyPress "ProblematicForm.Username.Input", "t"
+keyUp "ProblematicForm.Username.Input", "t"
+keyDown "ProblematicForm.Username.Input", "t"
+keyPress "ProblematicForm.Username.Input", "t"
+]]>
+        </programlisting>
+
+        <para>and they are combined as a single API call to the Tellurium Engine.
+        </para>
+
+    </section>
+
+    <section>
+        <title>Groovy Features Used in Tellurium</title>
+        <para>In Tellurium, we used many Groovy features. We like to list some of them as follows. </para>
+
+        <section>
+            <title>BuildSupport</title>
+            <para><classname>BuildSupport</classname> is very powerful for parsing nested definitions, such as XML markup. In Tellurium, the
+                buildsupport is used as UI object definition parser and it is one of the bases for our internel DSL.
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+UiDslParser extends BuilderSupport{
+
+      protected void setParent(Object parent, Object child) {
+           if(parent instanceof Container){
+               parent.add(child)
+               child.parent = parent
+           }
+       }
+
+       protected Object createNode(Object name) {
+           def builder = builderRegistry.getBuilder(name)
+
+           if(builder != null){
+                def obj =  builder.build(null, null)
+
+                return obj
+           }
+
+           return null
+       }
+
+      //should not come here for Our DSL
+       protected Object createNode(Object name, Object value) {
+
+           return null
+       }
+
+       protected Object createNode(Object name, Map map) {
+           def builder = builderRegistry.getBuilder(name)
+
+           if(builder != null){
+                def obj =  builder.build(map, null)
+                return obj
+           }
+
+           return null
+       }
+
+       protected Object createNode(Object name, Map map, Object value) {
+           def builder = builderRegistry.getBuilder(name)
+
+           if(builder != null){
+                def obj =  builder.build(map, (Closure)value)
+
+               return obj
+           }
+
+          return null
+       }
+
+       protected void nodeCompleted(Object parent, Object node) {
+      //when the node is completed and its parent is null, it means this
+      //node is at the top level
+          if(parent == null){
+               UiObject uo = (UiObject)node
+               //only put the top level nodes into the registry
+               registry.put(uo.uid, node)
+          }
+
+       }
+
+   }
+]]>
+            </programlisting>
+
+        </section>
+
+        <section>
+            <title>Dynamic Scripting</title>
+            <para>In Groovy, you can define Groovy code as a String and then run them at run time, i.e, code generates
+                code, which makes pure DSL tests possible. Our DslScriptExecutor is a good example and can demonstrate
+                the power of the dynamic scripting.
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class DslScriptExecutor {
+
+    static void main(String[] args){
+       if(args != null && args.length == 1){
+            def dsl = new File(args[0]).text
+            def script = """
+                import aost.dsl.DslScriptEngine
+
+                class DslTest extends DslScriptEngine{
+                    def test(){
+                        init()
+                        ${dsl}
+                        shutDown()
+                    }
+                }
+
+                DslTest instance = new DslTest()
+                instance.test()
+            """
+
+            new GroovyShell().evaluate(script)
+
+       }else{
+           println("Usage: DslScriptExecutor dsl_file")
+       }
+
+    }
+}
+]]>
+            </programlisting>
+        </section>
+
+        <section>
+            <title>GroovyInterceptable</title>
+            <para>GroovyInterceptable can intercept all method calls so that you can do some processing before or after
+                the invocation. Or you can delegate the method calls to another class. For example, The Tellurium
+                dispatcher will delegate all method calls it received to Selenium Client as follows.
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class Dispatcher implements GroovyInterceptable{
+
+    private SeleniumClient sc  = new SeleniumClient()
+
+    def invokeMethod(String name, args)
+      {
+         return sc.client.metaClass.invokeMethod(sc.client, name, args)
+      }
+}
+]]>
+            </programlisting>
+
+        </section>
+
+        <section>
+            <title>methodMissing</title>
+            <para>In Groovy, you can use "methodMissing" to intercept and delegate undefined method calls. For example,
+                in DslScriptEngine, the "methodMissing" method will catch and delegate all methods to
+                DslAostSeleneseTestCase except the "init", "openUrl", and "shutDown" methods:
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class DslScriptEngine extends DslContext{
+
+    protected def methodMissing(String name, args) {
+         if(name == "init")
+            return init()
+         if(name == "openUrl")
+            return openUrl(args)
+         if(name == "shutDown")
+            return shutDown()
+
+         if(DslAostSeleneseTestCase.metaClass.respondsTo(aost, name, args)){
+              return aost.invokeMethod(name, args)
+         }
+
+        throw new MissingMethodException(name, DslScriptEngine.class, args)
+     }
+}
+]]>
+            </programlisting>            
+        </section>
+
+        <section>
+            <title>Singleton</title>
+            <para>You can Use Groovy MetaClass to define a singleton, which is the right Groovy way to define a
+                singleton. For example, we have the <classname>EventHandler</classname> class
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class EventHandler{
+}
+]]>
+            </programlisting>
+            <para>Then, we can define its  <classname>MetaClass</classname> as follows. </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class EventHandlerMetaClass extends MetaClassImpl{
+
+    private final static INSTANCE = new EventHandler()
+
+    EventHandlerMetaClass() { super(EventHandler) }
+
+    def invokeConstructor(Object[] arguments) { return INSTANCE }
+}
+]]>
+            </programlisting>
+
+            <para>After that, we register the metaClass: </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+def registry = GroovySystem.metaClassRegistry
+registry.setMetaClass(EventHandler, new EventHandlerMetaClass())
+]]>
+            </programlisting>
+
+            <para>In this way, all </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+Eventhandler handler = new EventHandler()
+]]>
+            </programlisting>
+
+            <para>will return the same Instance, i.e., it is a singleton. Our Tellurium framework heavily depends on
+                this pattern so that we do not need to use another framework to wiring different object together.
+            </para>
+
+            <para>Groovy 1.7.0 supports the @Singleton annotation to make the singleton definition much easier. For
+                example, we define the <classname>BundleProcessor</classname> class as follows.
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+@Singleton
+public class BundleProcessor implements Configurable {
+...
+}
+]]>
+            </programlisting>
+
+        </section>
+
+        <section>
+            <title>GString</title>
+            <para>GString can be used to embed variable in a String and the value will be resolved at run time. This
+                makes it very convenient to write XPath template. For example, In the Selector object, we have
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class Selector extends UiObject {
+
+    def selectByLabel(String target, Closure c){
+        c(locator, "label=${target}")
+    }
+
+    def selectByValue(String target, Closure c){
+
+        c(locator, "value=${target}")()
+    }
+}
+]]>
+            </programlisting>              
+        </section>
+
+        <section>
+            <title>Optional Type</title>
+            <para>
+                In Groovy you can specify a variable type if you know the type and you want to do Type check at compile
+                time. If you do not care about the type or want the method to be more flexible, you do not need to
+                define the type and just use "def" to define a variable without specifying its type.
+
+                For example, in the composite locator class we specified the Type of all variables except the position.
+                Because type of UI component position might be a single type.
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class CompositeLocator {
+    String header
+    String tag
+    String text
+    String trailer
+    def position
+    Map<String, String> attributes = [:]
+}
+]]>
+            </programlisting>              
+
+        </section>
+
+        <section>
+            <title>Closure</title>
+            <para>Closure is also used in Tellurium frequently. For example, in the DslContext class we define the closure as </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+def selectByLabel(String uid, String target){
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    ui.walkTo(context, uid)?.selectByLabel(target){ loc, optloc ->
+        String locator = locatorMapping(context, loc)
+        eventHandler.select(locator, optloc)
+    }
+}
+]]>
+            </programlisting>
+            <para>In the Selector object, it will run the closure: </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class Selector extends UiObject {
+    def selectByLabel(String target, Closure c){
+        c(locator, "label=${target}")
+    }
+}
+]]>
+            </programlisting>
+            <para>
+                i.e, it will pass in UI specific parameters to the closure and run it. What the closure actually does is
+                to create the runtime locator and call the eventhandler to fire the select event to selenium server. Be
+                aware, because the scope of closure, the eventhandler and the WorkflowContext defined in the DslContext
+                class are still available to the closure even the closure is run inside the Selector object. Amazing,
+                right?
+            </para>
+        </section>
+
+        <section>
+            <title>Groovy Syntax</title>
+            <para>In Groovy, the syntax is very expressive, for example, the DslContext class defines a lot of methods such as: </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+def doubleClick(String uid){}
+]]>
+            </programlisting>
+
+            <para>and it can be written as </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+doubleClick uid
+]]>
+            </programlisting>
+            <para>and the above is one of the basic DSLs for Tellurium. The Map definition is also very expressive and
+                useful. Tellurium locators use map to define xpath or UI component attributes. For example:
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
+   InputBox(uid: "searchbox", clocator: [title: "Google Search"])
+   SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
+   SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
+}
+]]>
+            </programlisting>              
+        </section>
+
+        <section>
+            <title>Varargs</title>
+            <para>Groovy followed a convention if you wanted a method to have varargs: the last argument should be
+                declared as Object[]. For example, in DslContext, we have the onWidget method:
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+def onWidget(String uid, String method, Object[] args){
+......
+}
+]]>
+            </programlisting>
+
+            <para>The onWidget method can be expressed in DSL syntax as follows. </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+onWidget "DOJO_DatePicker", selectYear, 1992
+]]>
+            </programlisting>               
+        </section>
+
+        <section>
+            <title>propertyMissing</title>
+            <para>Groovy also supports propertyMissing for dealing with property resolution attempts. For example, in DslContext, we define </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+def propertyMissing(String name) {
+    println "Warning: property ${name} is missing, treat it as a String. "
+    name
+}
+]]>
+            </programlisting>
+
+            <para>That is to say, for the missing property, we will return it as a String. This is very useful for the "onWidget" method. Without the propertyMissing, we have to use</para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+onWidget "DOJO_DatePicker", "selectYear", 1992
+]]>
+            </programlisting>
+            <para>With the propertyMissing, we can use the method name directly: </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+onWidget "DOJO_DatePicker", selectYear, 1992
+]]>
+            </programlisting>  
+        </section>
+
+        <section>
+            <title>Delegate</title>
+            <para>Groovy 1.6 provides a set of Java annotations for meta programming, the @Delegate is one of them. With
+                the @Delegate transformation, a class field or property can be annotated and become an object to which
+                method calls are delegated. Tellurium widget class used this feature.
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+abstract class Widget extends UiObject {
+
+  @Delegate
+  private WidgetDslContext dsl = new WidgetDslContext();
+
+  ...
+}
+]]>
+            </programlisting>
+            <para>That is to say, all DSL calls will be delegated to the WidgetDslContext class. </para>
+        </section>
+
+        <section>
+            <title>Grape</title>
+            <para>Grape is the infrastructure enabling the grab() calls in Groovy, a set of classes leveraging Ivy to
+                allow for a repository driven module system for Groovy. Grape will, at runtime, download as needed and
+                link the named libraries and all dependencies forming a transitive closure when the script is run from
+                existing repositories such as Ibiblio, Codehaus, and java.net.
+            </para>
+            <para>Tellurium rundsl.groovy used Grape to download dependencies for DSL scripts. </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+import groovy.grape.Grape;
+
+Grape.grab(group:'org.telluriumsource', module:'tellurium-core', version:'0.7.0', classLoader:this.class.classLoader.rootLoader)
+...
+
+import org.telluriumsource.dsl.DslScriptExecutor
+
+def runDsl(String[] args) {
+  def cli = new CliBuilder(usage: 'rundsl.groovy -[hf] [scriptname]')
+  cli.with {
+    h longOpt: 'help', 'Show usage information'
+    f longOpt: 'scriptname',   'DSL script name'
+  }
+
+  ...
+
+}
+
+println "Running DSL test script, press Ctrl+C to stop."
+
+runDsl(args)
+]]>
+            </programlisting>              
+        </section>
     </section>
 
 </chapter>
