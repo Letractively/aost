@@ -8,5 +8,136 @@
          xmlns:db="http://docbook.org/ns/docbook">
 
     <title>Tellurium Core Basics</title>
+     <section>
+        <title>UiID Attribute</title>
+        <para>In Tellurium, the UI object is referred to by its
+            UiID, i.e., the UI object identifier.For nested Ui
+            objects, the UiID of the UI Object is a concatenated UI
+            objects' uids along its path to the UI Object. For
+            example, in the following nested UI Module shown
+            below, the TextBox is referred to as the "parent_ui.child_ui.grand_child.textbox1".
+        </para>
+        <para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Container(uid: "parent_ui"){
+  InputBox(uid: "inputbox1", locator: "...")
+  Button(uid: "button1", locator: "...")
+  Container(uid: "child_ui){
+    Selector(uid: "selector1", locator: "...")
+    ...
+    Container(uid: "grand_child"){
+      TextBox(uid: "textbox1", locator: "...")
+      ...
+    }
+  }
+}        
+]]>
+            </programlisting>
+        </para>
+        <para>
+            The exceptions are tables and lists, which use [x][y]  or
+            [x] to reference the elements inside. For example,
+            labels_table[2][1]  and GoogleBooksList.subcategory[2].
+            The Table header can be referred in the format of
+            issueResult.header[2]. 
+        </para>
+         <para>
+             More general cases are shown below - General
+             Cases Search Example: 
+         </para>
+         <para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Form(uid: "A", clocator: [:]){
+  InputBox(uid: "B", clocator: [:])
+  Container(uid: "C", clocator: [tag: "div"]){
+     Selector(uid: "D", clocator: [:])
+     List(uid: "E", clocator: [tag: "ul"], separator: "li"){
+        UrlLink(uid: "{1} as Link", clocator: [:])
+        InputBox(uid: "{all}", clocator: [:])
+     }
+  }        
+]]>
+            </programlisting>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="./media/GeneralCasesSearchExample.png" scalefit="1" width="100%"></imagedata>
+                </imageobject>
+
+            </mediaobject>
+        </para>
+         <para>
+             For example, the UiID of the List E in the above diagram is A.C.E and the InputButton in the List E  is
+             referred by its index n. For example: A.C.En. 
+         </para>
+    </section>
+    <section>
+    <title>Locator Attributes</title>
+        <para>
+            Tellurium supports two types of UI Object locators:
+            <orderedlist>
+                <listitem>
+                    Base locator
+                </listitem>
+                <listitem>
+                    Composite locator
+                </listitem>
+            </orderedlist>
+
+        </para>
+        <para>
+            The Base locator is a relative XPath.
+        </para>
+        <para>
+            The Composite locator, denoted by "clocator", specifies a set of attributes for the UI object.
+            The actual locator is derived automatically by Tellurium at runtime.
+            The Composite locator is defined as follows: 
+        </para>
+        <para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class CompositeLocator {
+   String header
+   String tag
+   String text
+   String trailer
+   def position
+   boolean direct
+   Map<String, String> attributes = [:]
+}
+]]>                
+            </programlisting>
+        </para>
+        <para>
+            To use the Composite locator, use "clocator" with a map as its value. For example:
+       
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+clocator: [key1: value1, key2: value2, ...]
+]]>
+            </programlisting>
+        </para>
+        <para>
+            The default attributes include "header", "tag", "text", "trailer", "position", and "direct".
+            They are all optional. The "direct" attribute specifies whether this UI object is a direct
+            child of its parent UI, and the default value is "false". If there are additional attributes,
+            they are defined in the same way as the default attributes. For example:
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+clocator: [tag: "div", value: "Tellurium home"]
+]]>
+            </programlisting>
+        </para>
+        <para>
+            Most Tellurium objects come with default values for certain attributes. For example, the tag attribute.
+            If these attributes are not specified, the default attribute values are used. In other words, if the
+            default attribute values of a Tellurium UI object are known, omit them in clocator. For example,
+            if the RadioButton Object’s default tag is "input", and the default type is "radio", omit them and
+            write the clocator as follows: <literal><emphasis>clocator: [:]</emphasis></literal> which is equivalent to:
+            <literal><emphasis>clocator: [tag: "input", type: "radio"]</emphasis></literal>
+        </para>
+        
+    </section>
 
 </chapter>
