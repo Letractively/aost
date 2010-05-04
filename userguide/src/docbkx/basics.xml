@@ -62,7 +62,7 @@ ui.Form(uid: "A", clocator: [:]){
             </programlisting>
             <mediaobject>
                 <imageobject>
-                    <imagedata fileref="./media/GeneralCasesSearchExample.png" scalefit="1" width="100%"></imagedata>
+                    <imagedata fileref="./media/TelluriumUID.png" scalefit="1" width="100%"></imagedata>
                 </imageobject>
 
             </mediaobject>
