@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter version="5.0" xmlns="http://docbook.org/ns/docbook"
-	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xmlns:ns5="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1998/Math/MathML"
-	xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/2000/svg" xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
 
-	<title>Tellurium Core Basics</title>
-	<section>
-		<title>UiID Attribute</title>
-		<para>In Tellurium, the UI object is referred to by its
-			UiID, i.e., the
-			UI object identifier.For nested Ui
-			objects, the UiID of the UI Object
-			is a concatenated UI
-			objects' uids along its path to the UI Object.
-			For
-			example, in the following nested UI Module shown
-			below, the TextBox
-			is referred to as the
-			"parent_ui.child_ui.grand_child.textbox1".
-		</para>
-		<para>
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+    <title>Tellurium Core Basics</title>
+    <section>
+        <title>UiID Attribute</title>
+        <para>In Tellurium, the UI object is referred to by its
+            UiID, i.e., the
+            UI object identifier.For nested Ui
+            objects, the UiID of the UI Object
+            is a concatenated UI
+            objects' uids along its path to the UI Object.
+            For
+            example, in the following nested UI Module shown
+            below, the TextBox
+            is referred to as the
+            "parent_ui.child_ui.grand_child.textbox1".
+        </para>
+        <para>
+            <programlisting language="java"><?db-font-size 75% ?>
+                <![CDATA[
 ui.Container(uid: "parent_ui"){
   InputBox(uid: "inputbox1", locator: "...")
   Button(uid: "button1", locator: "...")
@@ -35,26 +35,26 @@ ui.Container(uid: "parent_ui"){
   }
 }        
 ]]>
-			</programlisting>
-		</para>
-		<para>
-			The exceptions are tables and lists, which use [x][y] or
-			[x] to
-			reference the elements inside. For example,
-			labels_table[2][1] and
-			GoogleBooksList.subcategory[2].
-			The Table header can be referred in
-			the format of
-			issueResult.header[2]. 
+            </programlisting>
         </para>
-		<para>
-			More general cases are shown below - General
-			Cases Search
-			Example: 
-         </para>
-		<para>
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            The exceptions are tables and lists, which use [x][y] or
+            [x] to
+            reference the elements inside. For example,
+            labels_table[2][1] and
+            GoogleBooksList.subcategory[2].
+            The Table header can be referred in
+            the format of
+            issueResult.header[2].
+        </para>
+        <para>
+            More general cases are shown below - General
+            Cases Search
+            Example:
+        </para>
+        <para>
+            <programlisting language="java"><?db-font-size 75% ?>
+                <![CDATA[
 ui.Form(uid: "A", clocator: [:]){
   InputBox(uid: "B", clocator: [:])
   Container(uid: "C", clocator: [tag: "div"]){
@@ -65,54 +65,53 @@ ui.Form(uid: "A", clocator: [:]){
      }
   }        
 ]]>
-			</programlisting>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="./media/TelluriumUID.png"
-						scalefit="1" width="100%"></imagedata>
-				</imageobject>
+            </programlisting>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="./media/TelluriumUID.png"
+                               scalefit="1" width="100%"></imagedata>
+                </imageobject>
 
-			</mediaobject>
-		</para>
-		<para>
-			For example, the UiID of the List E in the above diagram is
-			A.C.E and
-			the InputButton in the List E is
-			referred by its index n. For
-			example: A.C.En. 
-         </para>
-	</section>
-
-
-
-	<section>
-		<title>Locator Attributes</title>
-		<para>
-			Tellurium supports two types of UI Object locators:
-			<orderedlist>
-				<listitem>
-					Base locator
-                </listitem>
-				<listitem>
-					Composite locator
-                </listitem>
-			</orderedlist>
-
-		</para>
-		<para>
-			The Base locator is a relative XPath.
+            </mediaobject>
         </para>
-		<para>
-			The Composite locator, denoted by "clocator", specifies a set of
-			attributes for the UI object.
-			The actual locator is derived
-			automatically by Tellurium at runtime.
-			The Composite locator is
-			defined as follows: 
+        <para>
+            For example, the UiID of the List E in the above diagram is
+            A.C.E and
+            the InputButton in the List E is
+            referred by its index n. For
+            example: A.C.En.
         </para>
-		<para>
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+    </section>
+
+
+    <section>
+        <title>Locator Attributes</title>
+        <para>
+            Tellurium supports two types of UI Object locators:
+            <orderedlist>
+                <listitem>
+                    Base locator
+                </listitem>
+                <listitem>
+                    Composite locator
+                </listitem>
+            </orderedlist>
+
+        </para>
+        <para>
+            The Base locator is a relative XPath.
+        </para>
+        <para>
+            The Composite locator, denoted by "clocator", specifies a set of
+            attributes for the UI object.
+            The actual locator is derived
+            automatically by Tellurium at runtime.
+            The Composite locator is
+            defined as follows:
+        </para>
+        <para>
+            <programlisting language="java"><?db-font-size 75% ?>
+                <![CDATA[
 class CompositeLocator {
    String header
    String tag
@@ -123,153 +122,152 @@ class CompositeLocator {
    Map<String, String> attributes = [:]
 }
 ]]>
-			</programlisting>
-		</para>
-		<para>
-			To use the Composite locator, use "clocator" with a map as its value.
-			For example:
+            </programlisting>
+        </para>
+        <para>
+            To use the Composite locator, use "clocator" with a map as its value.
+            For example:
 
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+            <programlisting language="java"><?db-font-size 75% ?>
+                <![CDATA[
 clocator: [key1: value1, key2: value2, ...]
 ]]>
-			</programlisting>
-		</para>
-		<para>
-			The default attributes include "header", "tag", "text",
-			"trailer",
-			"position", and "direct".
-			They are all optional. The
-			"direct"
-			attribute specifies whether this UI
-			object is a direct
-			child of
-			its
-			parent UI, and the default value is "false". 
-			</para>
-		<para>
-			If there are
-			additional
-			attributes,
-			they are defined in the same
-			way as the default
-			attributes. For example:
-			</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+            </programlisting>
+        </para>
+        <para>
+            The default attributes include "header", "tag", "text",
+            "trailer",
+            "position", and "direct".
+            They are all optional. The
+            "direct"
+            attribute specifies whether this UI
+            object is a direct
+            child of
+            its
+            parent UI, and the default value is "false".
+        </para>
+        <para>
+            If there are
+            additional
+            attributes,
+            they are defined in the same
+            way as the default
+            attributes. For example:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 clocator: [tag: "div", value: "Tellurium home"]
 ]]>
-		</programlisting>
+        </programlisting>
 
-		<para>
-			Most Tellurium objects come with default values for certain
-			attributes. For example, the tag attribute.
-			</para>
-		<para>
-			If these attributes are
-			not specified, the default attribute
-			values are
-			used. In other words,
-			if the
-			default attribute values of a
-			Tellurium UI object are known,
-			omit them in
-			clocator. 
-			</para>
-		<para>
-			For example,
-			if the RadioButton Object’s default
-			tag is "input",
-			and the default
-			type is "radio", omit them and
-			write
-			the clocator as
-			follows:
-			</para>
-		<literal>
-			<emphasis>clocator: [:]</emphasis>
-		</literal>
-		<para>
-			which is equivalent to:
-			</para>
-		<literal>
-			<emphasis>clocator: [tag: "input", type: "radio"]</emphasis>
-		</literal>
+        <para>
+            Most Tellurium objects come with default values for certain
+            attributes. For example, the tag attribute.
+        </para>
+        <para>
+            If these attributes are
+            not specified, the default attribute
+            values are
+            used. In other words,
+            if the
+            default attribute values of a
+            Tellurium UI object are known,
+            omit them in
+            clocator.
+        </para>
+        <para>
+            For example,
+            if the RadioButton Object’s default
+            tag is "input",
+            and the default
+            type is "radio", omit them and
+            write
+            the clocator as
+            follows:
+        </para>
+        <literal>
+            <emphasis>clocator: [:]</emphasis>
+        </literal>
+        <para>
+            which is equivalent to:
+        </para>
+        <literal>
+            <emphasis>clocator: [tag: "input", type: "radio"]</emphasis>
+        </literal>
 
 
+    </section>
 
-	</section>
+    <section>
+        <title>Group Attribute</title>
+        <para>
+            In the Tellurium UI module, the "group" attribute is seen often. For
+            example:
 
-	<section>
-		<title>Group Attribute: Group Locator</title>
-		<para>
-			In the Tellurium UI module, the "group" attribute is seen often. For
-			example:
-
-			<programlisting language="java"><?db-font-size 75% ?>
-		<![CDATA[
+            <programlisting language="java"><?db-font-size 75% ?>
+                <![CDATA[
 		ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
   InputBox(uid: "searchbox", clocator: [title: "Google Search"])
   SubmitButton(uid: "googlesearch", clocator: [name: "btnG", value: "Google Search"])
   SubmitButton(uid: "Imfeelinglucky", clocator: [value: "I'm Feeling Lucky"])
 }
 ]]>
-			</programlisting>
+            </programlisting>
 
-		</para>
-		<para>
-			The group attribute is a flag for the Group Locating Concept.
-			Usually,
-			the XPath generated by Selenium IDE, XPather,
-			or other tools
-			is a single path to the target node such as:
-    	
-    	</para>
+        </para>
+        <para>
+            The group attribute is a flag for the Group Locating Concept.
+            Usually,
+            the XPath generated by Selenium IDE, XPather,
+            or other tools
+            is a single path to the target node such as:
 
-		<literal>
-			<emphasis>
-				//div/table[@id='something']/div[2]/div[3]/div[1]/div[6]
-		</emphasis>
-		</literal>
+        </para>
 
-		<para>
-			Sibling node information is not used in this example as the
-			XPath depends
-			too much on information from nodes far
-			away from the
-			target node. In Tellurium, every effort is made to localize
-			the
-			information and reduce this
-			dependency by using sibling information or
-			local information.
-    	</para>
-		<para>
-			For example, in the above google UI module example, the group
-			locator
-			concept searches for the location of
-			the "td" tag with its
-			children as &quot;InputBox&quot;,
-			&quot;googlesearch&quot; button, and
-			&quot;Imfeelinglucky&quot;
-			button. In this way,
-			the dependencies of the
-			UI elements inside a UI module on external UI
-			elements are reduced,
-			making the UI definition more robust.
-    	</para>
+        <literal>
+            <emphasis>
+                //div/table[@id='something']/div[2]/div[3]/div[1]/div[6]
+            </emphasis>
+        </literal>
 
-	</section>
+        <para>
+            Sibling node information is not used in this example as the
+            XPath depends
+            too much on information from nodes far
+            away from the
+            target node. In Tellurium, every effort is made to localize
+            the
+            information and reduce this
+            dependency by using sibling information or
+            local information.
+        </para>
+        <para>
+            For example, in the above google UI module example, the group
+            locator
+            concept searches for the location of
+            the "td" tag with its
+            children as &quot;InputBox&quot;,
+            &quot;googlesearch&quot; button, and
+            &quot;Imfeelinglucky&quot;
+            button. In this way,
+            the dependencies of the
+            UI elements inside a UI module on external UI
+            elements are reduced,
+            making the UI definition more robust.
+        </para>
 
-	<section>
-		<title>self attribute</title>
-		<para>
-			Some times, elements inside a Table usually are inside its
-			parent tag,
-			for instance, we have the following HTML source.
-    	</para>
+    </section>
 
-		<programlisting language="xml"><?db-font-size 75% ?>
-			<![CDATA[
+    <section>
+        <title>self attribute</title>
+        <para>
+            Some times, elements inside a Table usually are inside its
+            parent tag,
+            for instance, we have the following HTML source.
+        </para>
+
+        <programlisting language="xml"><?db-font-size 75% ?>
+            <![CDATA[
 			<div id="table">
    <div>
        <div id="name">
@@ -310,20 +308,20 @@ clocator: [tag: "div", value: "Tellurium home"]
    </div>
 </div>
 			]]>
-		</programlisting>
-		<para>
-			where the "Data" element and many others are inside its parent
-			tag "div".
-			To module this, we added a self attribute to the UiObject
-			class and
-			the default is "false".
-            </para>
-		<para>
-			To describe the above html, we can define the following UI
-			module.
-		</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        </programlisting>
+        <para>
+            where the "Data" element and many others are inside its parent
+            tag "div".
+            To module this, we added a self attribute to the UiObject
+            class and
+            the default is "false".
+        </para>
+        <para>
+            To describe the above html, we can define the following UI
+            module.
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 ui.StandardTable(uid: "Table", clocator: [id: "table"], bt: "div", brt: "div", bct: "div"){
       TextBox(uid: "{tbody: 1, row: all, column: 1}", clocator: [tag: "div"], self: "true")
       Image(uid: "{tbody: 1, row: all, column: 2}", clocator: [:])
@@ -333,330 +331,325 @@ ui.StandardTable(uid: "Table", clocator: [id: "table"], bt: "div", brt: "div", b
     }
 
 ]]>
-		</programlisting>
+        </programlisting>
 
-		<para>
-			To test the UI module, you can simply call the following api.
-		</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            To test the UI module, you can simply call the following api.
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 
 getHTMLSource("Table");
     
 
 ]]>
-		</programlisting>
-		<para>
-			Be aware that the self can be "true"
-			<emphasis role="bold">ONLY</emphasis>
-			for UI elements inside a List, a Table, or a StandardTable Object.
-		</para>
-
-
-
-	</section>
-	<section>
-
-		<title>Respond Attribute: JavaScript Events</title>
-		<para>
-			Tellurium provides a "respond" attribute used to define any
-			event requiring
-			the UI object to respond.
-    	</para>
-		<para>
-			Most web applications include Javascript, and thus the web
-			testing
-			framework must be able to handle Javascript events.
-			What is
-			important is firing the appropriate events to trigger the event
-			handlers.
-    	</para>
-		<para>
-
-			Selenium has already provided methods to generate events such
-			as:
+        </programlisting>
+        <para>
+            Be aware that the self can be "true"
+            <emphasis role="bold">ONLY</emphasis>
+            for UI elements inside a List, a Table, or a StandardTable Object.
         </para>
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+
+    </section>
+    <section>
+
+        <title>Respond Attribute</title>
+        <para>
+            Tellurium provides a "respond" attribute used to define any
+            event requiring
+            the UI object to respond.
+        </para>
+        <para>
+            Most web applications include Javascript, and thus the web
+            testing
+            framework must be able to handle Javascript events.
+            What is
+            important is firing the appropriate events to trigger the event
+            handlers.
+        </para>
+        <para>
+
+            Selenium has already provided methods to generate events such
+            as:
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 fireEvent(locator, "blur")
 fireEvent(locator, "focus")
 mouseOut(locator)
 mouseOver(locator)
 
 ]]>
-		</programlisting>
-		<para>
-			Tellurium was born with Javascript events in mind since it was
-			initially designed to test applications written using the DOJO
-			JavaScript
-			framework.
+        </programlisting>
+        <para>
+            Tellurium was born with Javascript events in mind since it was
+            initially designed to test applications written using the DOJO
+            JavaScript
+            framework.
         </para>
 
-		<para>
-			For example, we have the following radio button:
+        <para>
+            For example, we have the following radio button:
         </para>
 
-		<programlisting language="html"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="html"><?db-font-size 75% ?>
+            <![CDATA[
 <input type='radio' name='mas_address_key' value='5779' onClick='SetAddress_5779()'>
-
 ]]>
-		</programlisting>
-		<para>
-			Alternately one can define the radio button as follows:
+        </programlisting>
+        <para>
+            Alternately one can define the radio button as follows:
         </para>
 
-		<programlisting language="html"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="html"><?db-font-size 75% ?>
+            <![CDATA[
 RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'])
-
 ]]>
-		</programlisting>
+        </programlisting>
 
-		<para>
-			The above code does not respond to the Click event as the
-			Tellurium
-			RadioButton only supports the "check" and "uncheck"
-			actions.
-			This is enough for the normal case. As a result, no "click"
-			event/action
-			is generated during testing.
+        <para>
+            The above code does not respond to the Click event as the
+            Tellurium
+            RadioButton only supports the "check" and "uncheck"
+            actions.
+            This is enough for the normal case. As a result, no "click"
+            event/action
+            is generated during testing.
         </para>
 
-		<para>
-			To address this problem, Tellurium added the "respond" attribute
-			to
-			Tellurium UI objects. The "respond" attribute is
-			used to define any
-			event requiring the UI object to respond. The Radio
-			Button is
-			redefined as:
+        <para>
+            To address this problem, Tellurium added the "respond" attribute
+            to
+            Tellurium UI objects. The "respond" attribute is
+            used to define any
+            event requiring the UI object to respond. The Radio
+            Button is
+            redefined as:
         </para>
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 ui.Container(uid: "form", clocator: [whatever]){
    RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'],
         respond: ["click"])
  }
 ]]>
-		</programlisting>
+        </programlisting>
 
-		<para>
-			Then issue the following command:
+        <para>
+            Then issue the following command:
         </para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 click "form.billing"
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-
-
-		<para>
-			Even if the RadioButton does not have the click method defined
-			by
-			default,
-			it is still able to dynamically add the click method at
-			runtime and
-			call it. Be
-			aware, you have to explicitly call the click
-			method and Event Handler will
-			not
-			automatically trigger the click
-			event.
- </para>
-		<para>
-			A more general example is:
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            Even if the RadioButton does not have the click method defined
+            by
+            default,
+            it is still able to dynamically add the click method at
+            runtime and
+            call it. Be
+            aware, you have to explicitly call the click
+            method and Event Handler will
+            not
+            automatically trigger the click
+            event.
+        </para>
+        <para>
+            A more general example is:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
  InputBox(uid: "searchbox", clocator: [title: "Google Search"], 
       respond: ["click", "focus", "mouseOver", "mouseOut", "blur"])
-      
 ]]>
-		</programlisting>
-		<para>
-			Except for the "click" event, all of the "focus", "mouseOver",
-			"mouseOut",
-			and "blur" events are automatically fired by Tellurium
-			during
-			testing. Do not worry about the event order for the respond
-			attribute
-			as Tellurium automatically re-orders the events and then
-			processes
-			them appropriately. That is to say, the Event Handler will
-			automatically trigger these events.
-</para>
-	</section>
+        </programlisting>
+        <para>
+            Except for the "click" event, all of the "focus", "mouseOver",
+            "mouseOut",
+            and "blur" events are automatically fired by Tellurium
+            during
+            testing. Do not worry about the event order for the respond
+            attribute
+            as Tellurium automatically re-orders the events and then
+            processes
+            them appropriately. That is to say, the Event Handler will
+            automatically trigger these events.
+        </para>
+    </section>
 
-	<title>CSS Selector</title>
+    <section>
 
-	<para>
-		Use the CSS Selector to improve the test speed in IE as IE lacks
-		native
-		XPath support and the XPath is slow. Tellurium exploits CSS
-		selector
-		capability to improve test speed dramatically.
-</para>
-	<para>
-		Tellurium supports both XPath and CSS selector and still uses CSS
-		selector as
-		the default locator.
-</para>
-	<section>
-		<section>
-			<title>New DSL Methods</title>
-			<para>
-				CSS Selector provides the following additional Selenium
-				methods,
-				utilized
-				in DslContext to form a set of new DSL methods:
-			</para>
-			<literal>
-				<emphasis>
-					String getAllText(String locator):
+        <title>CSS Selector</title>
 
-   </emphasis>
-			</literal>
-			<orderedlist>
-				<listitem>
-					1. Get all the text from the set of
-					elements corresponding to the CSS
-					Selector. String getCSS(String
-					locator, String cssName) :
-</listitem>
-				<listitem>
-					2. Get the CSS properties for the set of
-					elements corresponding to the
-					CSS Selector. Number
-					getJQuerySelectorCount(String locator): 
-			
-			
+        <para>
+            Use the CSS Selector to improve the test speed in IE as IE lacks
+            native
+            XPath support and the XPath is slow. Tellurium exploits CSS
+            selector
+            capability to improve test speed dramatically.
+        </para>
+        <para>
+            Tellurium supports both XPath and CSS selector and still uses CSS
+            selector as
+            the default locator.
+        </para>
 
- </listitem>
-				<listitem>
-					3. Get the number of elements
-					matching the corresponding CSS Selector.
-					</listitem>
-			</orderedlist>
-		</section>
-		<section>
-			<title>Additional CSS Attribute Selectors</title>
-			<para>
-				jQuery also supports the following attribute selectors:
-</para>
+        <section>
+            <title>New DSL Methods</title>
+            <para>
+                CSS Selector provides the following additional Selenium
+                methods,
+                utilized
+                in DslContext to form a set of new DSL methods:
+            </para>
+            <literal>
+                <emphasis>
+                    String getAllText(String locator):
 
-			attribute: have the specified attribute. attribute=value: have the
-			specified attribute with a certain value. attribute!=value: either do
-			not have the specified attribute or have the specified attribute but
-			not with a certain value. attribute^=value: have the specified
-			attribute and it starts with a certain value. attribute$=value: have
-			the specified attribute and it ends with a certain value.
-			attribute*=value: have the specified attribute and it contains a
-			certain value.
-		</section>
-		<section>
-			<title>Locator Agnostic Methods</title>
-			<para>
-				Apart from the above, Tellurium provides a set of locator
-				agnostic methods.
-	</para>
-			<para>
-				For example, the method automatically decides to use XPath or
-				jQuery
-				dependent on the exploreJQuerySelector flag, which can be
-				turned
-				on
-				and off by the following two methods:
-</para>
-<orderedlist>
- <listitem>
-			public void useCssSelector()
-		</listitem>
-		<listitem>
-			public void disableCssSelector()
-</listitem>	
-</orderedlist>
-			<para>
-				Tellurium also provides the corresponding XPath specific and CSS selector
-				specific methods for your convenience. However, it is recommended that
-				you use the locator agnostic methods until there is a good reason not to.
-</para>
+                </emphasis>
+            </literal>
+            <orderedlist>
+                <listitem>
+                    Get all the text from the set of
+                    elements corresponding to the CSS
+                    Selector. String getCSS(String
+                    locator, String cssName) :
+                </listitem>
+                <listitem>
+                    Get the CSS properties for the set of
+                    elements corresponding to the
+                    CSS Selector. Number
+                    getJQuerySelectorCount(String locator):
 
-			<para>
-				The new XPath and CSS Selector specific methods are as follows:
-			</para>
-			<orderedlist>
-				<listitem>
-			 		Get the Generated locator from the UI module
-				</listitem>
-				<itemizedlist>
-				<listitem>
-			Locator agnostic:
-			</listitem>
-			
-<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+
+                </listitem>
+                <listitem>
+                    Get the number of elements
+                    matching the corresponding CSS Selector.
+                </listitem>
+            </orderedlist>
+        </section>
+        <section>
+            <title>Additional CSS Attribute Selectors</title>
+            <para>
+                jQuery also supports the following attribute selectors:
+            </para>
+
+            attribute: have the specified attribute. attribute=value: have the
+            specified attribute with a certain value. attribute!=value: either do
+            not have the specified attribute or have the specified attribute but
+            not with a certain value. attribute^=value: have the specified
+            attribute and it starts with a certain value. attribute$=value: have
+            the specified attribute and it ends with a certain value.
+            attribute*=value: have the specified attribute and it contains a
+            certain value.
+        </section>
+        <section>
+            <title>Locator Agnostic Methods</title>
+            <para>
+                Apart from the above, Tellurium provides a set of locator
+                agnostic methods.
+            </para>
+            <para>
+                For example, the method automatically decides to use XPath or
+                jQuery
+                dependent on the exploreJQuerySelector flag, which can be
+                turned
+                on
+                and off by the following two methods:
+            </para>
+            <orderedlist>
+                <listitem>
+                    public void useCssSelector()
+                </listitem>
+                <listitem>
+                    public void disableCssSelector()
+                </listitem>
+            </orderedlist>
+            <para>
+                Tellurium also provides the corresponding XPath specific and CSS selector
+                specific methods for your convenience. However, it is recommended that
+                you use the locator agnostic methods until there is a good reason not to.
+            </para>
+
+            <para>
+                The new XPath and CSS Selector specific methods are as follows:
+            </para>
+            <orderedlist>
+                <listitem>
+                    Get the Generated locator from the UI module
+                </listitem>
+                <itemizedlist>
+                    <listitem>
+                        Locator agnostic:
+                    </listitem>
+
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 			String getLocator(String uid)
 ]]>
-    </programlisting>
-    <listitem>
-			CSS selector specific:
-			</listitem>
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+                    </programlisting>
+                    <listitem>
+                        CSS selector specific:
+                    </listitem>
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 			 String getSelector(String uid)
 ]]>
-    </programlisting>
-    <listitem>
-			XPath specific:
-			</listitem>
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+                    </programlisting>
+                    <listitem>
+                        XPath specific:
+                    </listitem>
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 			 String getXPath(String uid)
 			 ]]>
-    </programlisting>
-</itemizedlist>
-<listitem>
-			Get the Number of Elements matching the Locator
-				</listitem>
-			
-			
-<itemizedlist>
-<listitem>
-			Locator agnostic:
-</listitem>
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+                    </programlisting>
+                </itemizedlist>
+                <listitem>
+                    Get the Number of Elements matching the Locator
+                </listitem>
+
+
+                <itemizedlist>
+                    <listitem>
+                        Locator agnostic:
+                    </listitem>
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 			Number getLocatorCount(String locator)
 			]]>
-    </programlisting>
-<listitem>
-			CSS selector specific: 
-</listitem>			
-<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+                    </programlisting>
+                    <listitem>
+                        CSS selector specific:
+                    </listitem>
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 			Number getJQuerySelectorCount(String jQuerySelector)
 ]]>
-    </programlisting>
-			XPath specific: Number
-			getXpathCount(String xpath)
-</itemizedlist>
-<listitem>
-			 Table Methods
-</listitem>
-<itemizedlist>
-<listitem>
-			Locator agnostic:
-</listitem>
+                    </programlisting>
+                    XPath specific: Number
+                    getXpathCount(String xpath)
+                </itemizedlist>
+                <listitem>
+                    Table Methods
+                </listitem>
+                <itemizedlist>
+                    <listitem>
+                        Locator agnostic:
+                    </listitem>
 
 
-<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 
 			int	getTableHeaderColumnNum(String uid)
 
@@ -673,16 +666,16 @@ click "form.billing"
 			int getTableMaxTbodyNum(String uid)
 			
 			]]>
-    </programlisting>
-			
-			
-<listitem>
-			CSS selector specific:
-</listitem>
+                    </programlisting>
 
 
-<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+                    <listitem>
+                        CSS selector specific:
+                    </listitem>
+
+
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 
 			int getTableHeaderColumnNumBySelector(String uid)
 
@@ -698,15 +691,14 @@ click "form.billing"
 
 			int getTableMaxTbodyNumBySelector(String uid)
 			]]>
-    </programlisting>
-			
-			
+                    </programlisting>
 
-<listitem>
-			XPath specific:
-</listitem>
-<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+
+                    <listitem>
+                        XPath specific:
+                    </listitem>
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 
 			int getTableHeaderColumnNumByXPath(String uid)
 
@@ -722,380 +714,225 @@ click "form.billing"
 
 			int getTableMaxTbodyNumByXPath(String uid)
 			]]>
-    </programlisting>
-			
-</itemizedlist>
-<listitem>
-		 Verify if an Element is Disabled
-</listitem>
+                    </programlisting>
 
-		<itemizedlist>
-			<listitem>
-			Locator agnostic: 
-			</listitem>
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+                </itemizedlist>
+                <listitem>
+                    Verify if an Element is Disabled
+                </listitem>
+
+                <itemizedlist>
+                    <listitem>
+                        Locator agnostic:
+                    </listitem>
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 			boolean isDisabled(String uid)
 
 ]]>
-    </programlisting>
+                    </programlisting>
 
-			<listitem>
-			CSS selector specific: 
-			</listitem>
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+                    <listitem>
+                        CSS selector specific:
+                    </listitem>
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 			boolean isDisabledBySelector(String uid)
 
 
 ]]>
-    </programlisting>
-			<listitem>
-			XPath specific:
-			</listitem>
-			
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+                    </programlisting>
+                    <listitem>
+                        XPath specific:
+                    </listitem>
+
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 			boolean isDisabledByXPath(String uid)
 
 
 ]]>
-    </programlisting>
-</itemizedlist>
-			<listitem>
-		 Get the Attribute
-			</listitem>
-			
-		<itemizedlist>	
-			<listitem>
-			Locator agnostic: 
-			</listitem>
-			
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+                    </programlisting>
+                </itemizedlist>
+                <listitem>
+                    Get the Attribute
+                </listitem>
+
+                <itemizedlist>
+                    <listitem>
+                        Locator agnostic:
+                    </listitem>
+
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 			def getAttribute(String uid, String attribute)
 
 
 ]]>
-    </programlisting>
-</itemizedlist>
-			<listitem>
-			Check the CSS Class
-			</listitem>
-			<itemizedlist>
-			<listitem>
-			Locator agnostic 
-			</listitem>
-			
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+                    </programlisting>
+                </itemizedlist>
+                <listitem>
+                    Check the CSS Class
+                </listitem>
+                <itemizedlist>
+                    <listitem>
+                        Locator agnostic
+                    </listitem>
+
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 			def hasCssClass(String uid, String
 			cssClass)
 
 ]]>
-    </programlisting>
-</itemizedlist>
-			<listitem>
-			 Get CSS Properties
-			</listitem>
-			<itemizedlist>
-			<listitem>
-			CSS selector specific: 
-			</listitem>
-			
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+                    </programlisting>
+                </itemizedlist>
+                <listitem>
+                    Get CSS Properties
+                </listitem>
+                <itemizedlist>
+                    <listitem>
+                        CSS selector specific:
+                    </listitem>
+
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 			String[]
 			getCSS(String uid,
 			String cssName)
 
 ]]>
-    </programlisting>
+                    </programlisting>
 
-</itemizedlist>
+                </itemizedlist>
 
 
-			<listitem>
-		 Get All Data from a Table
-			</listitem>
-		<itemizedlist>	
-			<listitem>
-			CSS selector specific:
-			</listitem>
-			
-<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+                <listitem>
+                    Get All Data from a Table
+                </listitem>
+                <itemizedlist>
+                    <listitem>
+                        CSS selector specific:
+                    </listitem>
+
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 			String[] getAllTableCellText(String uid)
 			String[] getAllTableCellTextForTbody(String uid, int index)
 ]]>
-    </programlisting>
-    </itemizedlist>
-			<listitem>    
-			Get List Size
-			</listitem>
-			<itemizedlist>
-			<listitem>
-			Locator agnostic: 
-			</listitem>
-			
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+                    </programlisting>
+                </itemizedlist>
+                <listitem>
+                    Get List Size
+                </listitem>
+                <itemizedlist>
+                    <listitem>
+                        Locator agnostic:
+                    </listitem>
+
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 			int getListSize(String uid)
 ]]>
-    </programlisting>
+                    </programlisting>
 
-			<listitem>
-			CSS selector specific:
-			</listitem>
-			
-<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+                    <listitem>
+                        CSS selector specific:
+                    </listitem>
+
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 			getListSizeBySelector(String uid)
 
 ]]>
-    </programlisting>
+                    </programlisting>
 
-			<listitem>
-			XPath specific:
-			</listitem>
-			
-<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+                    <listitem>
+                        XPath specific:
+                    </listitem>
+
+                    <programlisting language="java"><?db-font-size 75% ?>
+                        <![CDATA[
 
 			getListSizeByXPath(String uid)
 			
 			]]>
-    </programlisting>
-    </itemizedlist>
-</orderedlist>
-			<para>
-				There are issues to be aware of with CSS Selector:
-</para>
-<itemizedlist>
-		<listitem>
-		<para>
-			If you have a duplicate "id" attribute on the page, CSS selector
-			always
-			returns the first DOM reference, ignoring other DOM references
-			with the
-			same "id" attribute.
-			</para>
-		</listitem>
-		<listitem>
-		<para>
-			Some attributes may not be working in
-			jQuery. For
-			example, the "action"
-			attribute in a form. Tellurium has a
-			black list to
-			automatically filter
-			out the attributes that are not
-			honored by CSS
-			selector.
-			</para>
-		</listitem>
-		<listitem>
-		<para>
-			The "src" attribute in Image has to be a full
-			URL such as
-			http://www.google.com. One workaround is to put '*' before
-			the URL.
-		</para>	
-		</listitem>
-	</itemizedlist>
-		</section>
-	</section>
-	<section>
-		<title>toggle</title>
-		<para>
-			Tellurium 0.7.0 provides a toggle method to animate the UI
-			element on the web
-			page. For example, you can the following commands
-			to
-			show the UI
-			element under testing.
-</para>
+                    </programlisting>
+                </itemizedlist>
+            </orderedlist>
+            <para>
+                There are issues to be aware of with CSS Selector:
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        If you have a duplicate "id" attribute on the page, CSS selector
+                        always
+                        returns the first DOM reference, ignoring other DOM references
+                        with the
+                        same "id" attribute.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        Some attributes may not be working in
+                        jQuery. For
+                        example, the "action"
+                        attribute in a form. Tellurium has a
+                        black list to
+                        automatically filter
+                        out the attributes that are not
+                        honored by CSS
+                        selector.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        The "src" attribute in Image has to be a full
+                        URL such as
+                        http://www.google.com. One workaround is to put '*' before
+                        the URL.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </section>
+    </section>
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+    <section>
+        <title>UI Templates</title>
 
-    toggle "Form.Username.Input"
-    pause 500
-    toggle "Form.Username.Input"
+        <para>
+            Tellurium UI templates have two purposes:
+        </para>
 
+        When there are many identical UI elements, use one template to
+        represent them all
+        When there are variable/dynamic sizes of UI elements
+        at runtime, the
+        patterns are known, but not the size.
 
-]]>
-		</programlisting>
-
-	</section>
-	<section>
-		<title>getHTMLSource</title>
-		<para>
-			Use getHTMLSource, users can get back the runtime html source
-			for
-			a UI
-			module. Tellurium provided two methods for this purpose.
-		</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-
-public Map getHTMLSourceResponse(String uid);
-public void getHTMLSource(String uid);
-
-]]>
-		</programlisting>
-
-		<para>
-			The first method get back the html source as a uid-to-html map
-			and the
-			second one simply print out the html source on the console. Be
-			aware,
-			getHTMLSource is only available in Tellurium new APIs.
-</para>
-		<para>
-			Example:
-</para>
+        <para>
+            More specifically, Table and List are two Tellurium objects that
+            define UI
+            templates.
+        </para>
 
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-    @Test
-    public void testGetHTMLSource(){
-        useEngineLog(true);
-        useTelluriumApi(true);
-        useCache(true);
-        connect("JettyLogon");
-        jlm.getHTMLSource("Form");
-    }
-    
-]]>
-		</programlisting>
+        Table defines two dimensional UI templates
+        List defines one dimensional
+        UI templates
 
-		<para>
-			and the output is as follows:
-</para>
+        <para>
+            The Template has special UIDs such as "2", "all", or "row: 1,
+            column: 2".
+        </para>
+        <para>
+            Looking at use case (1), the HTML source is:
+        </para>
 
 
-		<programlisting language="html"><?db-font-size 75% ?>
-<![CDATA[
-Form: 
-
-<form method="POST" action="j_security_check">
-    <table border="0" cellpadding="1" cellspacing="2">
-        <tbody><tr>
-            <td>Username:</td>
-            <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
-        </tr>
-        <tr>
-            <td colspan="2" align="center">
-                <input name="submit" value="Login" type="submit">
-            </td>
-        </tr>
-    </tbody></table>
-</form>
-
-Form.Username: 
-
-        <tr>
-            <td>Username:</td>
-            <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
-        </tr>
-
-Form.Username.Label: 
-
-        <td>Username:</td>
-
-Form.Username.Input: 
-
-        <input size="12" value="" name="j_username" maxlength="25" type="text">
-
-Form.Password: 
-
-        <tr>
-            <td>Password:</td>
-            <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
-        </tr>
-
-Form.Password.Label: 
-
-        <td>Password:</td>
-
-Form.Password.Input: 
-
-        <input size="12" value="" name="j_password" maxlength="25" type="password">
-
-Form.Submit: 
-
-        <input name="submit" value="Login" type="submit">
-        
- 
-]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>type and keyType</title>
-
-		<para>
-			type and keyType now accept different types of objects and
-			convert them to
-			a String automatically by calling the toString()
-			method. For example,
-			you can use the following commands:
-</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-
-    type "Google.Input", "Tellurium"
-
-    type "Google.Input", 12.15
-
-    type "Google.Input", true
-
-
-]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>UI Templates</title>
-
-		<para>
-			Tellurium UI templates have two purposes:
-</para>
-
-		When there are many identical UI elements, use one template to
-		represent them all
-		When there are variable/dynamic sizes of UI elements
-		at runtime, the
-		patterns are known, but not the size.
-
-		<para>
-			More specifically, Table and List are two Tellurium objects that
-			define UI
-			templates.
-</para>
-
-
-		Table defines two dimensional UI templates
-		List defines one dimensional
-		UI templates
-
-		<para>
-			The Template has special UIDs such as "2", "all", or "row: 1,
-			column: 2".
-	</para>
-		<para>
-			Looking at use case (1), the HTML source is:
-</para>
-
-
-		<programlisting language="html"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="html"><?db-font-size 75% ?>
+            <![CDATA[
   <ul class="a">
     <li>
       <A HREF="site?tcid=a" class="b">
@@ -1132,21 +969,21 @@ Form.Submit:
  
  
 ]]>
-		</programlisting>
+        </programlisting>
 
-		<para>
-			In this example there are six links. Without templates, one
-			would
-			put
-			six UrlLink objects in the UI module. By using the
-			templates,
-			the
-			work is easier and simplified.
-</para>
+        <para>
+            In this example there are six links. Without templates, one
+            would
+            put
+            six UrlLink objects in the UI module. By using the
+            templates,
+            the
+            work is easier and simplified.
+        </para>
 
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 
 ui.List(uid: "list", clocator: [tag: "ul", class: "a"], separator:"li")
 {
@@ -1154,19 +991,19 @@ ui.List(uid: "list", clocator: [tag: "ul", class: "a"], separator:"li")
 }
 
 ]]>
-		</programlisting>
+        </programlisting>
 
-		<para>
-			For use case (2), a common application is the data grid. Look at
-			the
-			"issueResult" data grid on the Tellurium Issues page for an easy
-			and
-			simplified result as shown below:
-</para>
+        <para>
+            For use case (2), a common application is the data grid. Look at
+            the
+            "issueResult" data grid on the Tellurium Issues page for an easy
+            and
+            simplified result as shown below:
+        </para>
 
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], 
      group: "true")
 {
@@ -1188,73 +1025,72 @@ ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"],
 }
 
 ]]>
-		</programlisting>
-		<para>
-			The resulting definitions shown are very simple, time-saving and
-			easy to
-			use.
-</para>
-		<para>
-			If the user has multiple templates such as the "issueResult"
-			shown in
-			the table above, the rule generally applied to the templates
-			is:
-			"specific one first, general one later".
-</para>
+        </programlisting>
+        <para>
+            The resulting definitions shown are very simple, time-saving and
+            easy to
+            use.
+        </para>
+        <para>
+            If the user has multiple templates such as the "issueResult"
+            shown in
+            the table above, the rule generally applied to the templates
+            is:
+            "specific one first, general one later".
+        </para>
 
-	</section>
-	<section>
-		<title>"Include" Frequently Used Sets of Elements in UI Modules
-		</title>
-		<para>
-			When there is a frequently used set of elements, re-defining
-			them
-			repeatedly in your UI module is not necessary. Simply use the
-			Tellurium "Include" syntax to re-use the pre-defined UI elements.
-		</para>
+    </section>
+    <section>
+        <title>"Include" Frequently Used Sets of Elements in UI Modules
+        </title>
+        <para>
+            When there is a frequently used set of elements, re-defining
+            them
+            repeatedly in your UI module is not necessary. Simply use the
+            Tellurium "Include" syntax to re-use the pre-defined UI elements.
+        </para>
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 
 Include(uid: UID, ref: REFERRED_UID)
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-		<para>
-			Use "ref" to reference the object to be included, then specify
-			the UID
-			for the object. Note: If a different UID is required, there is
-			no need
-			to specify it.
-</para>
-		<para>
-			If the Object UID is not the same as the original one, Tellurium
-			clones
-			a new object for users so that multiple objects with different
-			UIDs
-			are available.
-</para>
-		<para>
-			For example, first define the following reused UI module:
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            Use "ref" to reference the object to be included, then specify
+            the UID
+            for the object. Note: If a different UID is required, there is
+            no need
+            to specify it.
+        </para>
+        <para>
+            If the Object UID is not the same as the original one, Tellurium
+            clones
+            a new object for users so that multiple objects with different
+            UIDs
+            are available.
+        </para>
+        <para>
+            For example, first define the following reused UI module:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
    ui.Container(uid: "SearchModule", clocator: [tag: "td"], group: "true") {
      InputBox(uid: "Input", clocator: [title: "Google Search"])
      SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
      SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
    }
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-
-		<para>
-			Then, include it into the new UI module as follows:
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            Then, include it into the new UI module as follows:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
    ui.Container(uid: "Google", clocator: [tag: "table"]) {
      Include(ref: "SearchModule")
      Include(uid: "MySearchModule", ref: "SearchModule")
@@ -1267,172 +1103,170 @@ Include(uid: UID, ref: REFERRED_UID)
    
    
    ]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>Javascript Events</title>
-		<para>
-			Most web applications include Javascript, and thus the web
-			testing
-			framework must be able to handle Javascript events. What is
-			important
-			is firing the appropriate events to trigger the event
-			handlers.
-</para>
-		<para>
-			Selenium has already provided methods to generate events such
-			as:
-	</para>
+        </programlisting>
+    </section>
+    <section>
+        <title>Javascript Events</title>
+        <para>
+            Most web applications include Javascript, and thus the web
+            testing
+            framework must be able to handle Javascript events. What is
+            important
+            is firing the appropriate events to trigger the event
+            handlers.
+        </para>
+        <para>
+            Selenium has already provided methods to generate events such
+            as:
+        </para>
 
-		fireEvent(locator, "blur") fireEvent(locator, "focus")
-		mouseOut(locator) mouseOver(locator)
+        fireEvent(locator, "blur") fireEvent(locator, "focus")
+        mouseOut(locator) mouseOver(locator)
 
-		<para>
-			Tellurium was born with Javascript events in mind since it was
-			initially
-			designed to test applications written using the DOJO
-			JavaScript
-			framework.
-</para>
-		<para>
-			For example, the user has the following radio button:
-		</para>
+        <para>
+            Tellurium was born with Javascript events in mind since it was
+            initially
+            designed to test applications written using the DOJO
+            JavaScript
+            framework.
+        </para>
+        <para>
+            For example, the user has the following radio button:
+        </para>
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 <input type='radio' name='mas_address_key' value='5779' onClick='SetAddress_5779()'>
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
-		<para>
-			Alternately one can define the radio button as follows:
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            Alternately one can define the radio button as follows:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'])
 
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
-		<para>
-			The above code does not respond to the Click event as the
-			Tellurium
-			RadioButton only supports the "check" and "uncheck"
-			actions.
-			This
-			is enough for the normal case. As a result, no "click"
-			event/action
-			is generated during testing.
-</para>
-		<para>
-			To address this problem, Tellurium added the "respond" attribute
-			to
-			Tellurium UI objects. The "respond" attribute is used to define any
-			events requiring the UI object to respond. The Radio Button can be
-			redefined as:
-</para>
+        <para>
+            The above code does not respond to the Click event as the
+            Tellurium
+            RadioButton only supports the "check" and "uncheck"
+            actions.
+            This
+            is enough for the normal case. As a result, no "click"
+            event/action
+            is generated during testing.
+        </para>
+        <para>
+            To address this problem, Tellurium added the "respond" attribute
+            to
+            Tellurium UI objects. The "respond" attribute is used to define any
+            events requiring the UI object to respond. The Radio Button can be
+            redefined as:
+        </para>
 
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
  ui.Container(uid: "form", clocator: [whatever]){
      RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'], respond: ["click"])
  }
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
+        <para>
+            Then issue the following command:
+        </para>
 
-		<para>
-			Then issue the following command:
-</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
   
     click "form.billing"
     
     
     ]]>
-		</programlisting>
+        </programlisting>
 
-		<para>
-			Even if the RadioButton does not have the click method defined
-			by
-			default, it is still able to dynamically add the click method at
-			runtime and call it.
-</para>
-		<para>
-			A more general example is:
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            Even if the RadioButton does not have the click method defined
+            by
+            default, it is still able to dynamically add the click method at
+            runtime and call it.
+        </para>
+        <para>
+            A more general example is:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
  InputBox(uid: "searchbox", clocator: [title: "Google Search"], 
           respond: ["click", "focus", "mouseOver", "mouseOut", "blur"])
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-		<para>
-			Except for the "click" event, all of the "focus", "mouseOver",
-			"mouseOut",
-			and "blur" events are automatically fired by Tellurium
-			during
-			testing. Do not worry about the event order for the respond
-			attribute as Tellurium automatically re-orders the events and then
-			processes them appropriately.
-</para>
-	</section>
-	<section>
-		<title>Logical Container</title>
-		<para>
-			The Container object in Tellurium is used to hold child objects
-			that
-			are in the same subtree in the DOM object. However, there are
-			always
-			exceptions. For example, the Logical Container (or Virtual
-			Container
-			- Logical Container is preferred) can violate this rule.
-		</para>
-		<para>
-			What is a Logic Container It is a Container with an empty
-			locator. For
-			instance:
-</para>
+        <para>
+            Except for the "click" event, all of the "focus", "mouseOver",
+            "mouseOut",
+            and "blur" events are automatically fired by Tellurium
+            during
+            testing. Do not worry about the event order for the respond
+            attribute as Tellurium automatically re-orders the events and then
+            processes them appropriately.
+        </para>
+    </section>
+    <section>
+        <title>Logical Container</title>
+        <para>
+            The Container object in Tellurium is used to hold child objects
+            that
+            are in the same subtree in the DOM object. However, there are
+            always
+            exceptions. For example, the Logical Container (or Virtual
+            Container
+            - Logical Container is preferred) can violate this rule.
+        </para>
+        <para>
+            What is a Logic Container It is a Container with an empty
+            locator. For
+            instance:
+        </para>
 
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 Container(uid: "logical"){
    ......
 }
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
+        <para>
+            But empty != nothing. There are some scenarios where the Logical
+            Container can play an important role. The Container includes an uid
+            for a reference and it logically groups the UI element together.
+        </para>
+        <para>
+            For example, in the following example the UI elements under the
+            Tag li
+            are different:
+        </para>
 
-		<para>
-			But empty != nothing. There are some scenarios where the Logical
-			Container can play an important role. The Container includes an uid
-			for a reference and it logically groups the UI element together.
-		</para>
-		<para>
-			For example, in the following example the UI elements under the
-			Tag li
-			are different:
-</para>
-
-		<programlisting language="html"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="html"><?db-font-size 75% ?>
+            <![CDATA[
 
     <div class="block_content">
         <ul>
@@ -1461,19 +1295,18 @@ Container(uid: "logical"){
     </div>       
     
     ]]>
-		</programlisting>
+        </programlisting>
 
 
+        <para>
+            The issue is how to write the UI template for them. The logical
+            Container then comes into play. For example, the UI module is
+            written
+            as follows:
+        </para>
 
-		<para>
-			The issue is how to write the UI template for them. The logical
-			Container then comes into play. For example, the UI module is
-			written
-			as follows:
-</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 ui.Container(uid: "content", clocator: [tag: "div", class: "block_content"]){
      List(uid: "list", clocator: [tag: "ul"], separator:"li") {
          Container("{all}"){
@@ -1485,21 +1318,21 @@ ui.Container(uid: "content", clocator: [tag: "div", class: "block_content"]){
 } 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-		<para>
-			Another usage of the logical Container is to convert the test
-			case recorded
-			by Selenium IDE to Tellurium test cases. For example,
-			using the
-			search UI on the Tellurium download page, first record the
-			following
-			Selenium test case using Selenium IDE:
-</para>
+        <para>
+            Another usage of the logical Container is to convert the test
+            case recorded
+            by Selenium IDE to Tellurium test cases. For example,
+            using the
+            search UI on the Tellurium download page, first record the
+            following
+            Selenium test case using Selenium IDE:
+        </para>
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 import com.thoughtworks.selenium.SeleneseTestCase;
 
 public class SeleniumTestCase extends SeleneseTestCase {
@@ -1518,21 +1351,21 @@ public class SeleniumTestCase extends SeleneseTestCase {
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-		<para>
-			Do not be confused by the locator "can" and "q", as they are UI
-			element IDs and are easily expressed in XPath. The
-			"label=regexp:\\sAll Downloads" part shows that Selenium uses
-			regular
-			express to match the String and the "\s" stands for a space.
-			As a
-			result, write the UI module based on the above code.
-</para>
+        <para>
+            Do not be confused by the locator "can" and "q", as they are UI
+            element IDs and are easily expressed in XPath. The
+            "label=regexp:\\sAll Downloads" part shows that Selenium uses
+            regular
+            express to match the String and the "\s" stands for a space.
+            As a
+            result, write the UI module based on the above code.
+        </para>
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 public class TelluriumDownloadPage extends DslContext {
 
   public void defineUi() {
@@ -1552,16 +1385,14 @@ public class TelluriumDownloadPage extends DslContext {
 }
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-
-
-		<para>
-			The Tellurium test case is created accordingly:
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            The Tellurium test case is created accordingly:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 
 public class TelluriumDownloadPageTestCase extends TelluriumJavaTestCase {
 
@@ -1581,19 +1412,178 @@ public class TelluriumDownloadPageTestCase extends TelluriumJavaTestCase {
 }
 
 ]]>
-		</programlisting>
+        </programlisting>
 
-	</section>
-	<section>
-		<title>Customize Individual Test Settings Using setCustomConfig
-		</title>
-		<para>
-			TelluriumConfig.groovy provides project level test settings. Use
-			setCustomConfig to customize individual test settings.
-				</para>
+    </section>
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+
+    <section>
+        <title>toggle</title>
+        <para>
+            Tellurium 0.7.0 provides a toggle method to animate the UI
+            element on the web
+            page. For example, you can the following commands
+            to
+            show the UI
+            element under testing.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
+
+    toggle "Form.Username.Input"
+    pause 500
+    toggle "Form.Username.Input"
+
+
+]]>
+        </programlisting>
+
+    </section>
+    <section>
+        <title>getHTMLSource</title>
+        <para>
+            Use getHTMLSource, users can get back the runtime html source
+            for
+            a UI
+            module. Tellurium provided two methods for this purpose.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
+
+public Map getHTMLSourceResponse(String uid);
+public void getHTMLSource(String uid);
+
+]]>
+        </programlisting>
+
+        <para>
+            The first method get back the html source as a uid-to-html map
+            and the
+            second one simply print out the html source on the console. Be
+            aware,
+            getHTMLSource is only available in Tellurium new APIs.
+        </para>
+        <para>
+            Example:
+        </para>
+
+
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
+    @Test
+    public void testGetHTMLSource(){
+        useEngineLog(true);
+        useTelluriumApi(true);
+        useCache(true);
+        connect("JettyLogon");
+        jlm.getHTMLSource("Form");
+    }
+
+]]>
+        </programlisting>
+
+        <para>
+            and the output is as follows:
+        </para>
+
+
+        <programlisting language="html"><?db-font-size 75% ?>
+            <![CDATA[
+Form:
+
+<form method="POST" action="j_security_check">
+    <table border="0" cellpadding="1" cellspacing="2">
+        <tbody><tr>
+            <td>Username:</td>
+            <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input name="submit" value="Login" type="submit">
+            </td>
+        </tr>
+    </tbody></table>
+</form>
+
+Form.Username:
+
+        <tr>
+            <td>Username:</td>
+            <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
+        </tr>
+
+Form.Username.Label:
+
+        <td>Username:</td>
+
+Form.Username.Input:
+
+        <input size="12" value="" name="j_username" maxlength="25" type="text">
+
+Form.Password:
+
+        <tr>
+            <td>Password:</td>
+            <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
+        </tr>
+
+Form.Password.Label:
+
+        <td>Password:</td>
+
+Form.Password.Input:
+
+        <input size="12" value="" name="j_password" maxlength="25" type="password">
+
+Form.Submit:
+
+        <input name="submit" value="Login" type="submit">
+
+
+]]>
+        </programlisting>
+    </section>
+    <section>
+        <title>type and keyType</title>
+
+        <para>
+            type and keyType now accept different types of objects and
+            convert them to
+            a String automatically by calling the toString()
+            method. For example,
+            you can use the following commands:
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
+
+    type "Google.Input", "Tellurium"
+
+    type "Google.Input", 12.15
+
+    type "Google.Input", true
+
+
+]]>
+        </programlisting>
+    </section>    
+
+    <section>
+        <title>Customize Individual Test Settings Using setCustomConfig
+        </title>
+        <para>
+            TelluriumConfig.groovy provides project level test settings. Use
+            setCustomConfig to customize individual test settings.
+        </para>
+
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 public void setCustomConfig(boolean runInternally, int port, String browser,
                             boolean useMultiWindows, String profileLocation)
 
@@ -1603,14 +1593,14 @@ public void setCustomConfig(boolean runInternally, int port, String browser,
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-		<para>
-			For example, specify custom settings as follows:
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            For example, specify custom settings as follows:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
     static{
         setCustomConfig(true, 5555, "*chrome", true, null);
@@ -1636,20 +1626,20 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
 }
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-	</section>
-	<section>
-		<title>User Custom Selenium Extensions</title>
+    </section>
+    <section>
+        <title>User Custom Selenium Extensions</title>
 
-		<para>
-			To support user custom selenium extensions, Tellurium Core adds
-			the
-			following configurations to TelluriumConfig.groovy.
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            To support user custom selenium extensions, Tellurium Core adds
+            the
+            following configurations to TelluriumConfig.groovy.
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
   embeddedserver {
 
     ......
@@ -1668,18 +1658,17 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
   
   
   ]]>
-		</programlisting>
+        </programlisting>
 
 
+        <para>
+            Where the userExtension points to the user's user-extensions.js
+            file.
+            For example, use the following user-extensions.js:
+        </para>
 
-		<para>
-			Where the userExtension points to the user's user-extensions.js
-			file.
-			For example, use the following user-extensions.js:
-</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 Selenium.prototype.doTypeRepeated = function(locator, text) {
     // All locator-strategies are automatically handled by "findElement"
     var element = this.page().findElement(locator);
@@ -1694,15 +1683,15 @@ Selenium.prototype.doTypeRepeated = function(locator, text) {
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-		<para>
-			The customClass is the user's class for custom Selenium methods,
-			extending Tellurium org.tellurium.connector.CustomCommand class:
-		</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            The customClass is the user's class for custom Selenium methods,
+            extending Tellurium org.tellurium.connector.CustomCommand class:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 
 public class MyCommand extends CustomCommand{
 
@@ -1714,91 +1703,89 @@ public class MyCommand extends CustomCommand{
 }
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
+        <para>
+            Tellurium core automatically loads up user-extensions.js and
+            custom
+            commands. The n, user uses:
+        </para>
 
-
-		<para>
-			Tellurium core automatically loads up user-extensions.js and
-			custom
-			commands. The n, user uses:
-</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 customUiCall(String uid, String method, Object[] args)
 
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
-		<para>
-			to call the custom methods. For instance:
-</para>
+        <para>
+            to call the custom methods. For instance:
+        </para>
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 customUiCall "Google.Input", typeRepeated, "Tellurium Groovy"
 
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-		<para>
-			The customUiCall method handles all the UI to locator mapping
-			for
-			users. Tellurium also provides the following method for users to
-			make direct calls to the Selenium server.
-</para>
+        <para>
+            The customUiCall method handles all the UI to locator mapping
+            for
+            users. Tellurium also provides the following method for users to
+            make direct calls to the Selenium server.
+        </para>
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 
 customDirectCall(String method, Object[] args)
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
-	</section>
-	<section>
-		<title>The Dump Method</title>
+    </section>
+    <section>
+        <title>The Dump Method</title>
 
-		<para>
-			Tellurium Core added a dump method to print out the UI object's
-			and its
-			descendants' runtime locators that Tellurium Core generates.
-		</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            Tellurium Core added a dump method to print out the UI object's
+            and its
+            descendants' runtime locators that Tellurium Core generates.
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 
 public void dump(String uid)
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
-		<para>
-			where the uid is the UI object id to be dumped. An important
-			feature is
-			that the dump() method does not require the user to run the
-			actual
-			tests. That is to say, the user does not need to run the
-			Selenium
-			server and launch the web browser. Simply define the UI
-			module,
-			then call the dump() method.
-</para>
-		<para>
-			For example, to define the UI module for Tellurium Issue Search
-			module, complete as follows:
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            where the uid is the UI object id to be dumped. An important
+            feature is
+            that the dump() method does not require the user to run the
+            actual
+            tests. That is to say, the user does not need to run the
+            Selenium
+            server and launch the web browser. Simply define the UI
+            module,
+            then call the dump() method.
+        </para>
+        <para>
+            For example, to define the UI module for Tellurium Issue Search
+            module, complete as follows:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 public class TelluriumIssueModule extends DslContext {
 
   public void defineUi() {
@@ -1814,33 +1801,29 @@ public class TelluriumIssueModule extends DslContext {
 }
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-
-		<para>
-			The user can use the dump method in the following way:
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            The user can use the dump method in the following way:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
   TelluriumIssueModule tisp = new TelluriumIssueModule();
   tisp.defineUi();
   tisp.dump("issueSearch");
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-
-
-
-		<para>
-			The above code prints out the runtime XPath locators.
-</para>
-		<para>
-			Dump locator information for issueSearch is as follows:
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            The above code prints out the runtime XPath locators.
+        </para>
+        <para>
+            Dump locator information for issueSearch is as follows:
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 
 -------------------------------------------------------
 issueSearch: //descendant-or-self::form[@action="list" and @method="get"]
@@ -1870,20 +1853,20 @@ issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="c
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-	</section>
-	<section>
-		<title>Engine State Offline Update</title>
-		<para>
-			For some reasons, you may need to make Engine state calls before
-			you
-			actually connect to the Engine. For examples, call one of the
-			following methods.
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+    </section>
+    <section>
+        <title>Engine State Offline Update</title>
+        <para>
+            For some reasons, you may need to make Engine state calls before
+            you
+            actually connect to the Engine. For examples, call one of the
+            following methods.
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 
    public void enableCache();
    public void disableCache();
@@ -1892,22 +1875,21 @@ issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="c
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-
-		<para>
-			We added an Engine State tracer in the bundle tier to record all
-			the
-			requests if the Engine is not connected and aggregate them. Once
-			the Engine is connected, Tellurium will automatically send out the
-			Engine state update request.
-</para>
-		<para>
-			For example, the following test code works fine in 0.7.0.
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            We added an Engine State tracer in the bundle tier to record all
+            the
+            requests if the Engine is not connected and aggregate them. Once
+            the Engine is connected, Tellurium will automatically send out the
+            Engine state update request.
+        </para>
+        <para>
+            For example, the following test code works fine in 0.7.0.
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 
     @Test
     public void testOfflineEngineStateUpdate(){
@@ -1928,127 +1910,127 @@ issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="c
     }
     
     ]]>
-		</programlisting>
+        </programlisting>
 
 
-	</section>
-	<section>
-		<title>Testing Support</title>
+    </section>
+    <section>
+        <title>Testing Support</title>
 
-		<para>
-			In the package org.tellurium.test, Tellurium provides three
-			different ways to write Tellurium tests:
-</para>
-<orderedlist>
-<listitem>
-		TelluriumJUnitTestCase
-</listitem>
-		<listitem>		
-			TelluriumTestNGTestCase
-		</listitem>
-		<listitem>
-			TelluriumGroovyTestCase
-		</listitem>
-		<listitem>
-			TelluriumMockJUnitTestCase
-		</listitem>
-		<listitem>
-			TelluriumMockTestNGTestCase
-		</listitem>
-</orderedlist>
+        <para>
+            In the package org.tellurium.test, Tellurium provides three
+            different ways to write Tellurium tests:
+        </para>
+        <orderedlist>
+            <listitem>
+                TelluriumJUnitTestCase
+            </listitem>
+            <listitem>
+                TelluriumTestNGTestCase
+            </listitem>
+            <listitem>
+                TelluriumGroovyTestCase
+            </listitem>
+            <listitem>
+                TelluriumMockJUnitTestCase
+            </listitem>
+            <listitem>
+                TelluriumMockTestNGTestCase
+            </listitem>
+        </orderedlist>
 
-		<section>
-			<title>Tellurium JUnit Test Case</title>
+        <section>
+            <title>Tellurium JUnit Test Case</title>
 
-			<para>
-				Used for JUnit, and supports the following JUnit 4 annotations:
-				JUnit
-				is upgraded to 4.7 since it provides more features. One such a
-				good feature is the Rule annotation.
-</para>
-			<para>
-				To be consistent with TestNG test case, the class
-				TelluriumJavaTestCase is deprecated and you should use
-				TelluriumJUnitTestCase instead.
-</para>
-<itemizedlist>
-<listitem>
-			@BeforeClass
-			</listitem>
-			<listitem>
-			@AfterClass
-			</listitem>
-			<listitem>
-			@Before
-			</listitem>
-			<listitem>
-			@After
-			</listitem>
-			<listitem>
-			@Test
-			</listitem>
-			<listitem>
-			@Ignore
-			</listitem>
-</itemizedlist>
-		</section>
-		<section>
-			<title>Tellurium TestNG Test Case</title>
-			<para>
-				Used for TestNG. Similarly, using the following annotations:
-			</para>
-<itemizedlist>
-			<listitem>
-				@BeforeSuite
-			</listitem>
-			<listitem>
-				@AfterSuite
-			</listitem>
-			<listitem>
-			@BeforeTest
-			</listitem>
-			<listitem>
-				@AfterTest
-			</listitem>
-			<listitem>
-			@BeforeGroups
-			</listitem>
-			<listitem>
-			@AfterGroups
-			</listitem>
-			<listitem>
-			@BeforeClass
-			</listitem>
-			<listitem>
-			@AfterClass
-			</listitem>
-			<listitem>
-			@BeforeMethod
-			</listitem>
-			<listitem>
-			@AfterMethod
-			</listitem>
-			<listitem>
-			@DataProvider
-			</listitem>
-			<listitem>
-			@Parameters
-			</listitem>
-			<listitem>
-			@Test
-			</listitem>
-</itemizedlist>
-			<para>
-				TelluriumTestNGTestCase was changed to allow the setup and
-				teardown procedures only work
-				once for all the tests. The magic are
-				the @BeforeTest and
-				@AfterTest annotations. See the following code
-				for more details,
-			</para>
+            <para>
+                Used for JUnit, and supports the following JUnit 4 annotations:
+                JUnit
+                is upgraded to 4.7 since it provides more features. One such a
+                good feature is the Rule annotation.
+            </para>
+            <para>
+                To be consistent with TestNG test case, the class
+                TelluriumJavaTestCase is deprecated and you should use
+                TelluriumJUnitTestCase instead.
+            </para>
+            <itemizedlist>
+                <listitem>
+                    @BeforeClass
+                </listitem>
+                <listitem>
+                    @AfterClass
+                </listitem>
+                <listitem>
+                    @Before
+                </listitem>
+                <listitem>
+                    @After
+                </listitem>
+                <listitem>
+                    @Test
+                </listitem>
+                <listitem>
+                    @Ignore
+                </listitem>
+            </itemizedlist>
+        </section>
+        <section>
+            <title>Tellurium TestNG Test Case</title>
+            <para>
+                Used for TestNG. Similarly, using the following annotations:
+            </para>
+            <itemizedlist>
+                <listitem>
+                    @BeforeSuite
+                </listitem>
+                <listitem>
+                    @AfterSuite
+                </listitem>
+                <listitem>
+                    @BeforeTest
+                </listitem>
+                <listitem>
+                    @AfterTest
+                </listitem>
+                <listitem>
+                    @BeforeGroups
+                </listitem>
+                <listitem>
+                    @AfterGroups
+                </listitem>
+                <listitem>
+                    @BeforeClass
+                </listitem>
+                <listitem>
+                    @AfterClass
+                </listitem>
+                <listitem>
+                    @BeforeMethod
+                </listitem>
+                <listitem>
+                    @AfterMethod
+                </listitem>
+                <listitem>
+                    @DataProvider
+                </listitem>
+                <listitem>
+                    @Parameters
+                </listitem>
+                <listitem>
+                    @Test
+                </listitem>
+            </itemizedlist>
+            <para>
+                TelluriumTestNGTestCase was changed to allow the setup and
+                teardown procedures only work
+                once for all the tests. The magic are
+                the @BeforeTest and
+                @AfterTest annotations. See the following code
+                for more details,
+            </para>
 
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+            <programlisting language="java"><?db-font-size 75% ?>
+                <![CDATA[
 public abstract class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase {
 
     @BeforeTest(alwaysRun = true)
@@ -2065,48 +2047,48 @@ public abstract class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase 
     }
     
    ]]>
-			</programlisting>
+            </programlisting>
 
 
-		</section>
-		<section>
-			<title>Tellurium Groovy Test Case</title>
-			<para>
-				Used for Groovy test cases.
-</para>
-			<para>
-				Data Driven Testing: Tellurium provides the class
-				TelluriumDataDrivenModule for users to define data driven testing
-				modules.
-</para>
-			<para>
-				Class TelluriumDataDrivenTest is used to drive the actual
-				tests.
-</para>
-			<para>
-				Tellurium also provides users the capability of writing
-				Tellurium tests and
-				Tellurium data driven tests in pure DSL scripts.
-				The
-				DslScriptExecutor is used to run the .dsl files.
-</para>
-		</section>
-		<section>
-			<title>TelluriumMockJUnitTestCase and TelluriumMockTestNGTestCase
-			</title>
-			<para>
-				TelluriumMockJUnitTestCase and TelluriumMockTestNGTestCase
-				incorporated the Mock Http Server
-				so that you can load up a html web
-				page and test against it with
-				minimal configuration.
-</para>
-			<para>
-				One example is as follows,
-</para>
+        </section>
+        <section>
+            <title>Tellurium Groovy Test Case</title>
+            <para>
+                Used for Groovy test cases.
+            </para>
+            <para>
+                Data Driven Testing: Tellurium provides the class
+                TelluriumDataDrivenModule for users to define data driven testing
+                modules.
+            </para>
+            <para>
+                Class TelluriumDataDrivenTest is used to drive the actual
+                tests.
+            </para>
+            <para>
+                Tellurium also provides users the capability of writing
+                Tellurium tests and
+                Tellurium data driven tests in pure DSL scripts.
+                The
+                DslScriptExecutor is used to run the .dsl files.
+            </para>
+        </section>
+        <section>
+            <title>TelluriumMockJUnitTestCase and TelluriumMockTestNGTestCase
+            </title>
+            <para>
+                TelluriumMockJUnitTestCase and TelluriumMockTestNGTestCase
+                incorporated the Mock Http Server
+                so that you can load up a html web
+                page and test against it with
+                minimal configuration.
+            </para>
+            <para>
+                One example is as follows,
+            </para>
 
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+            <programlisting language="java"><?db-font-size 75% ?>
+                <![CDATA[
 public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     private static JettyLogonModule jlm;
 
@@ -2140,17 +2122,16 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
 }
 
 ]]>
-			</programlisting>
+            </programlisting>
 
 
-
-			<para>
-				where the html file "JettyLogon" lives in the class path
-				"org/telluriumsource/html". You can change this by the following
-				method:
-</para>
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+            <para>
+                where the html file "JettyLogon" lives in the class path
+                "org/telluriumsource/html". You can change this by the following
+                method:
+            </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+                <![CDATA[
 
 public static void setHtmlClassPath(String path);
 
@@ -2158,14 +2139,14 @@ public static void setHtmlClassPath(String path);
 
 
 ]]>
-			</programlisting>
+            </programlisting>
 
-			<para>
-				The implementation is simple as shown as follows.
-</para>
+            <para>
+                The implementation is simple as shown as follows.
+            </para>
 
-			<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+            <programlisting language="java"><?db-font-size 75% ?>
+                <![CDATA[
 public class TelluriumMockJUnitTestCase extends TelluriumJUnitTestCase {
     protected static MockHttpServer server;
 
@@ -2203,21 +2184,21 @@ public class TelluriumMockJUnitTestCase extends TelluriumJUnitTestCase {
 
 
 ]]>
-			</programlisting>
+            </programlisting>
 
-		</section>
-	</section>
-	<section>
-		<title>Tellurium Configuration</title>
+        </section>
+    </section>
+    <section>
+        <title>Tellurium Configuration</title>
 
-		<para>
-			The configuration parser has been refactored. The configuration
-			file
-			name is stored in the Environment class as follows.
-</para>
+        <para>
+            The configuration parser has been refactored. The configuration
+            file
+            name is stored in the Environment class as follows.
+        </para>
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 @Singleton
 public class Environment implements Configurable{
 
@@ -2236,29 +2217,27 @@ public class Environment implements Configurable{
   ...
   
   ]]>
-		</programlisting>
+        </programlisting>
 
 
-
-
-		<para>
-			That is to say, you can get the Environment singleton instance
-			and
-			change the file name before Tellurium core is loaded up if you
-			have a good reason to do that. In the meanwhile, we add support to
-			load the configuration from a JSON string, which will be stored in
-			the configString} variable in the Environment.
-</para>
-		<para>
-			If the configString variable is not null or empty, Tellurium
-			core
-			will honor the JSON string and will ignore the configuration
-			file.
-			One way to use the JSON string is illustrated by the following
-			example.
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            That is to say, you can get the Environment singleton instance
+            and
+            change the file name before Tellurium core is loaded up if you
+            have a good reason to do that. In the meanwhile, we add support to
+            load the configuration from a JSON string, which will be stored in
+            the configString} variable in the Environment.
+        </para>
+        <para>
+            If the configString variable is not null or empty, Tellurium
+            core
+            will honor the JSON string and will ignore the configuration
+            file.
+            One way to use the JSON string is illustrated by the following
+            example.
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
    private static JettyLogonModule jlm;
    static{
@@ -2272,14 +2251,14 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
    
    
   ]]>
-		</programlisting>
+        </programlisting>
 
 
-		<para>
-			where variable JSON_CONF is the JSON configuration string.
-		</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            where variable JSON_CONF is the JSON configuration string.
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 public class JettyLogonModule extends DslContext {
  public static String JSON_CONF = """{"tellurium":{"test":{"result":{"reporter":"XMLResultReporter","filename":"TestResult.output","output":"Console"},"exception":{"filenamePattern":"Screenshot?.png","captureScreenshot":false},"execution":{"trace":false}},"accessor":{"checkElement":false},"embeddedserver":{"port":"4444","browserSessionReuse":false,"debugMode":false,"ensureCleanSession":false,"interactive":false,"avoidProxy":false,"timeoutInSeconds":30,"runInternally":true,"trustAllSSLCertificates":true,"useMultiWindows":false,"userExtension":"","profile":""},"uiobject":{"builder":{}},"eventhandler":{"checkElement":false,"extraEvent":false},"i18n":{"locale":"en_US"},"connector":{"baseUrl":"http://localhost:8080","port":"4444","browser":"*chrome","customClass":"","serverHost":"localhost","options":""},"bundle":{"maxMacroCmd":5,"useMacroCommand":true},"datadriven":{"dataprovider":{"reader":"PipeFileReader"}},"widget":{"module":{"included":""}}}}""";
 
@@ -2289,17 +2268,16 @@ public class JettyLogonModule extends DslContext {
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
+        <para>
+            If we want a pretty look of the JSON String, we can use JSON
+            Visualization to format it as follows.
+        </para>
 
-		<para>
-			If we want a pretty look of the JSON String, we can use JSON
-			Visualization to format it as follows.
-</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 {
     "tellurium": {
         "test": {
@@ -2371,30 +2349,27 @@ public class JettyLogonModule extends DslContext {
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
+        <para>
+            If the JSON String is empty or null, Tellurium loads the
+            configuration file TelluriumConfig.groovy first from the project
+            root. If not found, it loads it from the class path. As a result,
+            you
+            can put the TelluriumConfig.groovy file under the resources
+            directory
+            if you use Maven.
+        </para>
+        <para>
+            The configuration file TelluriumConfig.groovy includes three
+            extra
+            sections. That is to say, the bundle tier,
+        </para>
 
 
-
-		<para>
-			If the JSON String is empty or null, Tellurium loads the
-			configuration file TelluriumConfig.groovy first from the project
-			root. If not found, it loads it from the class path. As a result,
-			you
-			can put the TelluriumConfig.groovy file under the resources
-			directory
-			if you use Maven.
-</para>
-		<para>
-			The configuration file TelluriumConfig.groovy includes three
-			extra
-			sections. That is to say, the bundle tier,
-</para>
-
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 
     //the bundling tier
     bundle{
@@ -2406,15 +2381,15 @@ public class JettyLogonModule extends DslContext {
     
     
  ]]>
-		</programlisting>
+        </programlisting>
 
 
-		<para>
-			the i18n,
-</para>
+        <para>
+            the i18n,
+        </para>
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
     i18n{
         //locale = "fr_FR"
         locale = "en_US"
@@ -2423,15 +2398,15 @@ public class JettyLogonModule extends DslContext {
     
     
  ]]>
-		</programlisting>
+        </programlisting>
 
 
-		<para>
-			and the trace.
-</para>
+        <para>
+            and the trace.
+        </para>
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
     test{
         execution{
             //whether to trace the execution timing
@@ -2441,22 +2416,22 @@ public class JettyLogonModule extends DslContext {
         
         
  ]]>
-		</programlisting>
+        </programlisting>
 
 
-		<para>
-			The sample configure file for 0.7.0 is available here.
-</para>
-		<para>
-			Tellurium Core 0.7.0 added support for Configuration file check
-			as
-			suggested by our user. That can be easily demonstrated by the
-			following example, if we comment out the following section in
-			TelluriumConfig.groovy
-</para>
+        <para>
+            The sample configure file for 0.7.0 is available here.
+        </para>
+        <para>
+            Tellurium Core 0.7.0 added support for Configuration file check
+            as
+            suggested by our user. That can be easily demonstrated by the
+            following example, if we comment out the following section in
+            TelluriumConfig.groovy
+        </para>
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
       //the bundling tier
 //    bundle{
 //        maxMacroCmd = 5
@@ -2465,14 +2440,14 @@ public class JettyLogonModule extends DslContext {
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-		<para>
-			What will happen Tellurium will throw the following exception
-		</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            What will happen Tellurium will throw the following exception
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 java.lang.ExceptionInInitializerError
         at java.lang.Class.forName0(Native Method)
         at java.lang.Class.forName(Class.java:169)
@@ -2518,24 +2493,24 @@ Caused by: org.telluriumsource.exception.ConfigNotFoundException: Cannot find Te
         
         
    ]]>
-		</programlisting>
-	</section>
-	<section>
-		<title>Run DSL Script</title>
-		<para>
-			Tellurium 0.7.0 provides a rundsl.groovy script for users to run
-			DSL test
-			script. The rundsl.groovy uses Groovy Grape to automatically
-			download all dependencies and then run DSL script.
-</para>
-		<para>
-			First, you need to configure Grape. Put the following
-			grapeConfig.xml
-			file into your home/.groovy/.
-</para>
+        </programlisting>
+    </section>
+    <section>
+        <title>Run DSL Script</title>
+        <para>
+            Tellurium 0.7.0 provides a rundsl.groovy script for users to run
+            DSL test
+            script. The rundsl.groovy uses Groovy Grape to automatically
+            download all dependencies and then run DSL script.
+        </para>
+        <para>
+            First, you need to configure Grape. Put the following
+            grapeConfig.xml
+            file into your home/.groovy/.
+        </para>
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 <ivysettings>
   <settings defaultResolver="downloadGrapes"/>
   <property
@@ -2564,53 +2539,47 @@ Caused by: org.telluriumsource.exception.ConfigNotFoundException: Cannot find Te
   </resolvers>
 </ivysettings>
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-
-
-
-
-		<para>
-			Then run
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            Then run
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 groovy rundsl.groovy -f DSL_script_name
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-		<para>
-			If you are behind a firewall
-</para>
+        <para>
+            If you are behind a firewall
+        </para>
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 
 groovy -Dhttp.proxyHost=proxy_host -Dhttp.proxyPort=proxy_port rundsl.groovy -f DSL_script_name
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
+        <para>
+            If you defined custom UI objects in your project, you should
+            first
+            build the jar artifact, and install it to your local Maven repo.
+            Then update the rundsl.groovy file to add the new dependency. For
+            example, in the tellurium-website reference project, we defined
+            custom UI objects, we added the following two lines into the
+            rundsl.groovy script.
+        </para>
 
-
-		<para>
-			If you defined custom UI objects in your project, you should
-			first
-			build the jar artifact, and install it to your local Maven repo.
-			Then update the rundsl.groovy file to add the new dependency. For
-			example, in the tellurium-website reference project, we defined
-			custom UI objects, we added the following two lines into the
-			rundsl.groovy script.
-</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 Grape.grab(group:'org.telluriumsource', module:'tellurium-website', version:'0.7.0-SNAPSHOT', classLoader:this.class.classLoader.rootLoader)
 
 ...
@@ -2619,22 +2588,21 @@ Grape.grab(group:'org.telluriumsource', module:'tellurium-website', version:'0.7
    
    
    ]]>
-		</programlisting>
+        </programlisting>
 
 
+    </section>
+    <section>
 
-	</section>
-	<section>
-
-		<title>
-			useTelluriumEngine
-						</title>
-		<para>
-			To make it convenient for users, Tellurium provides a
-			useTelluriumEngine command as follows,
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <title>
+            useTelluriumEngine
+        </title>
+        <para>
+            To make it convenient for users, Tellurium provides a
+            useTelluriumEngine command as follows,
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
     void useTelluriumEngine(boolean isUse){
         useCache(isUse);
         useMacroCmd(isUse);
@@ -2643,50 +2611,47 @@ Grape.grab(group:'org.telluriumsource', module:'tellurium-website', version:'0.7
     
     
    ]]>
-		</programlisting>
+        </programlisting>
 
 
-
-		<para>
-			As you can see, this command actually consists of three
-			commands.
-			In DslContext, Tellurium also provides two handy DSL style
-			methods.
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            As you can see, this command actually consists of three
+            commands.
+            In DslContext, Tellurium also provides two handy DSL style
+            methods.
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 
    void enableTelluriumEngine();
 
    void disableTelluriumEngine();
 ]]>
-		</programlisting>
+        </programlisting>
 
 
+    </section>
+    <section>
+
+        <title>Trace</title>
+        <para>
+            Tellurium 0.7.0 provides built-in support for the command
+            execution time
+            including
+        </para>
 
 
-	</section>
-	<section>
+        Execution time for each command
+        Total run time
+        Aggregated times for each
+        command
 
-		<title>Trace</title>
-		<para>
-			Tellurium 0.7.0 provides built-in support for the command
-			execution time
-			including
-</para>
+        <para>
+            For example, you can see the output as follows,
+        </para>
 
-
-		Execution time for each command
-		Total run time
-		Aggregated times for each
-		command
-
-		<para>
-			For example, you can see the output as follows,
-</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 
 
 TE: Name: getCurrentCachePolicy, start: 1260496075484, duration: 28ms
@@ -2708,20 +2673,15 @@ Name: useDiscardLeastUsedCachePolicy, count: 1, total: 39ms, average: 39ms
 Name: type, count: 1, total: 81ms, average: 81ms
 Name: typeKey, count: 3, total: 124ms, average: 41ms
 ]]>
-		</programlisting>
+        </programlisting>
 
 
+        <para>
+            We added the following settings to TelluriumConfig.groovy
+        </para>
 
-
-
-
-
-		<para>
-			We added the following settings to TelluriumConfig.groovy
-		</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
     test{
         execution{
             //whether to trace the execution timing
@@ -2731,17 +2691,16 @@ Name: typeKey, count: 3, total: 124ms, average: 41ms
         
         
    ]]>
-		</programlisting>
+        </programlisting>
 
 
-
-		<para>
-			You can use the follow methods in DslContext to turn on or off
-			the
-			trace, and get the trace data.
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            You can use the follow methods in DslContext to turn on or off
+            the
+            trace, and get the trace data.
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 
   public void enableTrace();
 
@@ -2750,49 +2709,42 @@ Name: typeKey, count: 3, total: 124ms, average: 41ms
   public void showTrace();
   
   ]]>
-		</programlisting>
+        </programlisting>
 
 
+    </section>
+    <section>
 
-	</section>
-	<section>
 
+        <title>Methods Accessible in Test Cases</title>
+        <para>
+            There are many Tellurium APIs that used to be available only in
+            DslContext. That is to say, you have to extend DslContext to
+            use
+            them.
+            For example, you often see code in a test case likes
+            this,
+        </para>
 
-		<title>Methods Accessible in Test Cases</title>
-		<para>
-			There are many Tellurium APIs that used to be available only in
-			DslContext. That is to say, you have to extend DslContext to
-			use
-			them.
-			For example, you often see code in a test case likes
-			this,
-		</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 GoogleSearchModule gsm = new GoogleSearchModule();
 gsm.defineUi();
 gsm.usejQuerySelector();
 gsm.registerNamespace("te", te_ns);
 ]]>
-		</programlisting>
+        </programlisting>
 
 
+        <para>
+            Now, many of them, which are not really tied to a specific UI
+            module, are made available in Tellurium test cases. For example,
+            the
+            above code can be changed as follows,
+        </para>
 
-
-
-
-
-
-		<para>
-			Now, many of them, which are not really tied to a specific UI
-			module, are made available in Tellurium test cases. For example,
-			the
-			above code can be changed as follows,
-</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 GoogleSearchModule gsm = new GoogleSearchModule();
 gsm.defineUi();
 useCssSelector();
@@ -2800,19 +2752,16 @@ registerNamespace("te", te_ns);
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
+        <para>
+            New TelluriumGroovyTestCase provides the following list of new
+            APIs for your convenience.
+        </para>
 
-
-
-		<para>
-			New TelluriumGroovyTestCase provides the following list of new
-			APIs for your convenience.
-</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
     public void useCssSelector(boolean isUse);
 
     public void useCache(boolean isUse);
@@ -2880,30 +2829,27 @@ registerNamespace("te", te_ns);
     
     
   ]]>
-		</programlisting>
+        </programlisting>
 
 
+        <para>
+            Tellurium Java test cases provide the same APIs and the only
+            difference
+            is that the APIs in Tellurium Java test cases are static.
+        </para>
 
+    </section>
+    <section>
+        <title>Environment</title>
+        <para>
+            We added an Environment class to Tellurium Core so that you can
+            change the runtime environment. The Environment class is defined
+            as
+            follows,
+        </para>
 
-
-		<para>
-			Tellurium Java test cases provide the same APIs and the only
-			difference
-			is that the APIs in Tellurium Java test cases are static.
-		</para>
-
-	</section>
-	<section>
-		<title>Environment</title>
-		<para>
-			We added an Environment class to Tellurium Core so that you can
-			change the runtime environment. The Environment class is defined
-			as
-			follows,
-</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 public class Environment {
   def envVariables = [:];
   public boolean isUseCssSelector();
@@ -2947,40 +2893,35 @@ public class Environment {
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-
-
-
-
-
-		<para>
-			where setCustomEnvironment and getCustomEnvironment can be used
-			to
-			pass user defined environment variables.
-</para>
-		<para>
-			Tellurium provides the following method for users to dump out
-			all the
-			current environment variables.
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            where setCustomEnvironment and getCustomEnvironment can be used
+            to
+            pass user defined environment variables.
+        </para>
+        <para>
+            Tellurium provides the following method for users to dump out
+            all the
+            current environment variables.
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
     public void dumpEnvironment();
 
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-		<para>
-			The output is like the following.
-</para>
+        <para>
+            The output is like the following.
+        </para>
 
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
     Environment Variables:
       useEngineCache: true
       useClosestMatch: false
@@ -2996,47 +2937,41 @@ public class Environment {
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
+        <para>
+            If any exception is thrown at the dispatcher tier, the
+            environment
+            variable will also be printed out.
+        </para>
 
+    </section>
+    <section>
+        <title>Get UIs by Tag Name</title>
+        <para>
+            As requested by users, Tellurium 0.7.0 added the following two
+            methods.
+        </para>
 
-
-		<para>
-			If any exception is thrown at the dispatcher tier, the
-			environment
-			variable will also be printed out.
-</para>
-
-	</section>
-	<section>
-		<title>Get UIs by Tag Name</title>
-		<para>
-			As requested by users, Tellurium 0.7.0 added the following two
-			methods.
-</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 UiByTagResponse getUiByTag(String tag, Map filters);
 
 void removeMarkedUids(String tag);
 ]]>
-		</programlisting>
+        </programlisting>
 
 
+        <para>
+            The first method passes in the tag name and the attributes as
+            filters and get back the UI elements associated with the tag.
+            The
+            response object is defined as
+        </para>
 
-
-
-		<para>
-			The first method passes in the tag name and the attributes as
-			filters and get back the UI elements associated with the tag.
-			The
-			response object is defined as
-</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
 class UiByTagResponse {
   //tag name
   String tag;
@@ -3049,57 +2984,47 @@ class UiByTagResponse {
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
+        <para>
+            where the tids are assigned by Tellurium Engine. Under the hood,
+            Tellurium core creates one AllPurposeObject for each tid in the
+            tids
+            array and registers it to Core so that users can use the
+            tid as the
+            UID to act on the UI object.
+        </para>
+        <para>
+            The second method cleans up all the temporally assigned IDs by
+            the
+            Tellurium Engine.
+        </para>
+        <para>
+            Example:
+        </para>
+        <para>
+            In UI module JettyLogonModule, we define the following method:
+        </para>
 
-
-
-
-		<para>
-			where the tids are assigned by Tellurium Engine. Under the hood,
-			Tellurium core creates one AllPurposeObject for each tid in the
-			tids
-			array and registers it to Core so that users can use the
-			tid as the
-			UID to act on the UI object.
-</para>
-		<para>
-			The second method cleans up all the temporally assigned IDs by
-			the
-			Tellurium Engine.
-</para>
-		<para>
-			Example:
-</para>
-		<para>
-			In UI module JettyLogonModule, we define the following method:
-		</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
   public String[] getInputBox(){
      def attrs = ["type" : "text"];
      UiByTagResponse resp = getUiByTag("input", attrs);
     
      return resp.tids;
   ]]>
-		</programlisting>
-		}
+        </programlisting>
+        }
 
 
+        <para>
+            The test case is as follows
+        </para>
 
-
-
-
-
-
-		<para>
-			The test case is as follows
-</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
     @Test
     public void testGetUiByTag(){
         useEngineLog(true);
@@ -3115,123 +3040,113 @@ class UiByTagResponse {
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
+    </section>
+    <section>
 
-
-
-
-	</section>
-	<section>
-
-		<title>Misc</title>
-		<para>
-			The default locator in Tellurium Engine is CSS selector by
-			default.
-			That is to say, we set
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <title>Misc</title>
+        <para>
+            The default locator in Tellurium Engine is CSS selector by
+            default.
+            That is to say, we set
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
     exploitCssSelector = true
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
-
-
-		<para>
-			in the Environment class and you can use
-</para>
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <para>
+            in the Environment class and you can use
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
     disableCssSelector()
 
 
 
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
+        <para>
+            or
+        </para>
 
-		<para>
-			or
-</para>
-
-		<programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
+        <programlisting language="java"><?db-font-size 75% ?>
+            <![CDATA[
     useCssSelector(false)
 
 ]]>
-		</programlisting>
+        </programlisting>
 
 
+        <para>
+            to switch back to xpath if you like to.
+        </para>
+
+        <para>
+            Exposed the following Selenium APIs to DslContext.
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    void addScript(String scriptContent, String scriptTagId)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    void removeScript(String scriptTagId)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    void captureEntirePageScreenshot(String filename, String
+                    kwargs)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    String captureScreenshotToString()
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    String captureEntirePageScreenshotToString(String kwargs)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    String retrieveLastRemoteControlLogs()
+                </para>
+            </listitem>
+        </itemizedlist>
 
 
+        <para>
+            The following methods in DslContext have been renamed
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
 
-		<para>
-			to switch back to xpath if you like to.
-</para>
+                    String jsonify(String uid) is renamed to String
+                    toString(String uid)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
 
-		<para>
-			Exposed the following Selenium APIs to DslContext.
-</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					void addScript(String scriptContent, String scriptTagId)
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					void removeScript(String scriptTagId)</para>
-			</listitem>
-			<listitem>
-				<para>
-					void captureEntirePageScreenshot(String filename, String
-					kwargs)</para>
-			</listitem>
-			<listitem>
-				<para>
-					String captureScreenshotToString()</para>
-			</listitem>
-			<listitem>
-				<para>
-					String captureEntirePageScreenshotToString(String kwargs)
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					String retrieveLastRemoteControlLogs()</para>
-			</listitem>
-		</itemizedlist>
-
-
-
-
-
-
-		<para>
-			The following methods in DslContext have been renamed
-</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-
-					String jsonify(String uid) is renamed to String
-					toString(String uid)
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-
-					String generateHtml(String uid) is renamed to String
-					toHTML(String uid)
-				</para>
-			</listitem>
-		</itemizedlist>
-	</section>
+                    String generateHtml(String uid) is renamed to String
+                    toHTML(String uid)
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
 
 </chapter>
