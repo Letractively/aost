@@ -35,7 +35,7 @@
             sample application, we need to create the following directory to support GMaven.
         </para>
 
-            <programlisting language="java"><?db-font-size 75% ?>
+        <programlisting language="sh"><?db-font-size 75% ?>
 <![CDATA[
 src
 └── test

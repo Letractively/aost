@@ -639,7 +639,7 @@ ui.Container(UID: 'root', clocator: [:]){
 
         <mediaobject>
             <imageobject>
-                <imagedata fileref="./media/uimodule_trie.png" scale="100"></imagedata>
+                <imagedata fileref="./media/uimodule_trie.png" scalefit="1" width="70%"></imagedata>
             </imageobject>
         </mediaobject>
 
