@@ -11,7 +11,7 @@
     <section>
         <title>Introduction</title>
         <para>
-            We have closed over 150 issues and have included several interesting new features. There have been a lot of
+            We have closed over 200 issues and have included several interesting new features. There have been a lot of
             fundamental changes in Tellurium 0.7.0 as compared to 0.6.0 such as the group locating algorithm, module
             caching, macro command, jquery based APIs and i18n support.
         </para>
@@ -97,8 +97,8 @@
             <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
--DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=tellurium
--DarchetypeVersion=0.6.0
+-DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=org.telluriumsource
+-DarchetypeVersion=0.7.0
 ]]>
             </programlisting>
         </para>
@@ -107,19 +107,19 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
            <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
--DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=tellurium
--DarchetypeVersion=0.6.0
+-DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=org.telluriumsource
+-DarchetypeVersion=0.7.0
 ]]>
             </programlisting>
         </para>
     </section>
     <section>
-        <title>How to Obtain Tellurium 0.7.0RC1</title>
+        <title>How to Obtain Tellurium 0.7.0</title>
         <para>
-            Tellurium 0.7.0 RC1 bundle can be downloaded from
+            Tellurium 0.7.0 bundle can be downloaded from
             <itemizedlist>
                 <listitem>
-                    <quote><link xlink:href="http://aost.googlecode.com/files/tellurium-0.7.0-RC1.tar.gz">Tellurium repository link</link></quote>
+                    <quote><link xlink:href="http://code.google.com/p/aost/downloads/list">Tellurium download site</link></quote>
                 </listitem>
             </itemizedlist>
         </para>
@@ -128,10 +128,10 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
 
             <itemizedlist>
                 <listitem>
-                    <quote><link xlink:href="http://maven.kungfuters.org/content/repositories/releases/org/telluriumsource/tellurium-core/0.7.0-RC1/">Tellurium Core</link></quote>
+                    <quote><link xlink:href="http://maven.kungfuters.org/content/repositories/releases/org/telluriumsource/tellurium-core/0.7.0/">Tellurium Core</link></quote>
                 </listitem>
                 <listitem>
-                    <quote><link xlink:href="http://maven.kungfuters.org/content/repositories/thirdparty/org/seleniumhq/selenium/server/selenium-server/1.0.1-te2-RC1/">Custom Selenium Server</link></quote>
+                    <quote><link xlink:href="http://maven.kungfuters.org/content/repositories/thirdparty/org/seleniumhq/selenium/server/selenium-server/1.0.1-te3/">Custom Selenium Server</link></quote>
                 </listitem>
             </itemizedlist>
         </para>
