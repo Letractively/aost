@@ -1100,132 +1100,10 @@ Include(uid: UID, ref: REFERRED_UID)
        UrlLink(uid: "AdvancedSearch", clocator: [tag: "a", text: "Advanced Search"])
      }
    }
-   
-   
    ]]>
         </programlisting>
     </section>
-    <section>
-        <title>Javascript Events</title>
-        <para>
-            Most web applications include Javascript, and thus the web
-            testing
-            framework must be able to handle Javascript events. What is
-            important
-            is firing the appropriate events to trigger the event
-            handlers.
-        </para>
-        <para>
-            Selenium has already provided methods to generate events such
-            as:
-        </para>
 
-        fireEvent(locator, "blur") fireEvent(locator, "focus")
-        mouseOut(locator) mouseOver(locator)
-
-        <para>
-            Tellurium was born with Javascript events in mind since it was
-            initially
-            designed to test applications written using the DOJO
-            JavaScript
-            framework.
-        </para>
-        <para>
-            For example, the user has the following radio button:
-        </para>
-
-        <programlisting language="java"><?db-font-size 75% ?>
-            <![CDATA[
-<input type='radio' name='mas_address_key' value='5779' onClick='SetAddress_5779()'>
-
-
-]]>
-        </programlisting>
-
-        <para>
-            Alternately one can define the radio button as follows:
-        </para>
-        <programlisting language="java"><?db-font-size 75% ?>
-            <![CDATA[
-RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'])
-
-
-
-]]>
-        </programlisting>
-
-        <para>
-            The above code does not respond to the Click event as the
-            Tellurium
-            RadioButton only supports the "check" and "uncheck"
-            actions.
-            This
-            is enough for the normal case. As a result, no "click"
-            event/action
-            is generated during testing.
-        </para>
-        <para>
-            To address this problem, Tellurium added the "respond" attribute
-            to
-            Tellurium UI objects. The "respond" attribute is used to define any
-            events requiring the UI object to respond. The Radio Button can be
-            redefined as:
-        </para>
-
-
-        <programlisting language="java"><?db-font-size 75% ?>
-            <![CDATA[
- ui.Container(uid: "form", clocator: [whatever]){
-     RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'], respond: ["click"])
- }
-
-
-]]>
-        </programlisting>
-
-
-        <para>
-            Then issue the following command:
-        </para>
-
-        <programlisting language="java"><?db-font-size 75% ?>
-            <![CDATA[
-  
-    click "form.billing"
-    
-    
-    ]]>
-        </programlisting>
-
-        <para>
-            Even if the RadioButton does not have the click method defined
-            by
-            default, it is still able to dynamically add the click method at
-            runtime and call it.
-        </para>
-        <para>
-            A more general example is:
-        </para>
-        <programlisting language="java"><?db-font-size 75% ?>
-            <![CDATA[
- InputBox(uid: "searchbox", clocator: [title: "Google Search"], 
-          respond: ["click", "focus", "mouseOver", "mouseOut", "blur"])
-
-
-]]>
-        </programlisting>
-
-
-        <para>
-            Except for the "click" event, all of the "focus", "mouseOver",
-            "mouseOut",
-            and "blur" events are automatically fired by Tellurium
-            during
-            testing. Do not worry about the event order for the respond
-            attribute as Tellurium automatically re-orders the events and then
-            processes them appropriately.
-        </para>
-    </section>
     <section>
         <title>Logical Container</title>
         <para>
@@ -1249,7 +1127,6 @@ RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'])
 Container(uid: "logical"){
    ......
 }
-
 ]]>
         </programlisting>
 
@@ -1267,33 +1144,31 @@ Container(uid: "logical"){
 
         <programlisting language="html"><?db-font-size 75% ?>
             <![CDATA[
-
-    <div class="block_content">
-        <ul>
-            <li>
-                <h5>
-                    <a href="" title="">xxx</a>
-                </h5>
-                <p class="product_desc">
-                    <a href=".." title="More">...</a>
-                </p>
-                <a href="..." title=".." class="product_image">
-                    <img src="..." alt="..." height="129" width="129"/>
-                </a>
-                <p>
-                    <a class="button" href="..." title="View">View</a>
-                    <a title="Add to cart">Add to cart</a>
-                </p>
-            </li>
-            <li>
-                similar UI
-            </li>
-            <li>
-                similar UI
-            </li>
-        </ul>
-    </div>       
-    
+<div class="block_content">
+    <ul>
+        <li>
+            <h5>
+                <a href="" title="">xxx</a>
+            </h5>
+            <p class="product_desc">
+                <a href=".." title="More">...</a>
+            </p>
+            <a href="..." title=".." class="product_image">
+                <img src="..." alt="..." height="129" width="129"/>
+            </a>
+            <p>
+                <a class="button" href="..." title="View">View</a>
+                <a title="Add to cart">Add to cart</a>
+            </p>
+        </li>
+        <li>
+            similar UI
+        </li>
+        <li>
+            similar UI
+        </li>
+    </ul>
+</div>
     ]]>
         </programlisting>
 
@@ -1315,8 +1190,7 @@ ui.Container(uid: "content", clocator: [tag: "div", class: "block_content"]){
                       other elements inside the li tag
          }
     }
-} 
-
+}
 ]]>
         </programlisting>
 
@@ -1348,8 +1222,6 @@ public class SeleniumTestCase extends SeleneseTestCase {
                 selenium.waitForPageToLoad("30000");
         }
 }
-
-
 ]]>
         </programlisting>
 
@@ -1383,7 +1255,6 @@ public class TelluriumDownloadPage extends DslContext {
     waitForPageToLoad 30000
   }
 }
-
 ]]>
         </programlisting>
 
@@ -1394,7 +1265,7 @@ public class TelluriumDownloadPage extends DslContext {
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
 
-public class TelluriumDownloadPageTestCase extends TelluriumJavaTestCase {
+public class TelluriumDownloadPageTestCase extends TelluriumJUnitTestCase {
 
     protected static TelluriumDownloadPage ngsp;
 
@@ -1410,7 +1281,6 @@ public class TelluriumDownloadPageTestCase extends TelluriumJavaTestCase {
         ngsp.searchDownload(" All Downloads", "TrUMP");
     }
 }
-
 ]]>
         </programlisting>
 
@@ -1430,12 +1300,9 @@ public class TelluriumDownloadPageTestCase extends TelluriumJavaTestCase {
 
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-
     toggle "Form.Username.Input"
     pause 500
     toggle "Form.Username.Input"
-
-
 ]]>
         </programlisting>
 
@@ -1451,10 +1318,8 @@ public class TelluriumDownloadPageTestCase extends TelluriumJavaTestCase {
 
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-
 public Map getHTMLSourceResponse(String uid);
 public void getHTMLSource(String uid);
-
 ]]>
         </programlisting>
 
@@ -1480,7 +1345,6 @@ public void getHTMLSource(String uid);
         connect("JettyLogon");
         jlm.getHTMLSource("Form");
     }
-
 ]]>
         </programlisting>
 
@@ -1544,11 +1408,9 @@ Form.Password.Input:
 Form.Submit:
 
         <input name="submit" value="Login" type="submit">
-
-
 ]]>
         </programlisting>
-    </section>
+    </section> \
     <section>
         <title>type and keyType</title>
 
@@ -1562,14 +1424,9 @@ Form.Submit:
 
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-
     type "Google.Input", "Tellurium"
-
     type "Google.Input", 12.15
-
     type "Google.Input", true
-
-
 ]]>
         </programlisting>
     </section>    
@@ -1589,9 +1446,6 @@ public void setCustomConfig(boolean runInternally, int port, String browser,
 
 public void setCustomConfig(boolean runInternally, int port, String browser,
                   boolean useMultiWindows, String profileLocation, String serverHost)
-
-
-
 ]]>
         </programlisting>
 
@@ -1622,9 +1476,7 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
     }
 
     ......
-
 }
-
 ]]>
         </programlisting>
 
@@ -1655,8 +1507,6 @@ public class GoogleStartPageJavaTestCase extends TelluriumJavaTestCase {
     //should in full class name, for instance, "com.mycom.CustomSelenium"
     customClass = ""
   }
-  
-  
   ]]>
         </programlisting>
 
@@ -1679,9 +1529,6 @@ Selenium.prototype.doTypeRepeated = function(locator, text) {
     // Replace the element text with the new text
     this.page().replaceText(element, valueToType);
 };
-
-
-
 ]]>
         </programlisting>
 
@@ -1701,7 +1548,6 @@ public class MyCommand extends CustomCommand{
        }
    } 
 }
-
 ]]>
         </programlisting>
 
@@ -1715,9 +1561,6 @@ public class MyCommand extends CustomCommand{
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
 customUiCall(String uid, String method, Object[] args)
-
-
-
 ]]>
         </programlisting>
 
@@ -1728,9 +1571,6 @@ customUiCall(String uid, String method, Object[] args)
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
 customUiCall "Google.Input", typeRepeated, "Tellurium Groovy"
-
-
-
 ]]>
         </programlisting>
 
@@ -1744,9 +1584,7 @@ customUiCall "Google.Input", typeRepeated, "Tellurium Groovy"
 
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-
 customDirectCall(String method, Object[] args)
-
 
 ]]>
         </programlisting>
@@ -1762,10 +1600,7 @@ customDirectCall(String method, Object[] args)
         </para>
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-
 public void dump(String uid)
-
-
 ]]>
         </programlisting>
 
@@ -1799,7 +1634,6 @@ public class TelluriumIssueModule extends DslContext {
     }
   }
 }
-
 ]]>
         </programlisting>
 
@@ -1824,7 +1658,6 @@ public class TelluriumIssueModule extends DslContext {
         </para>
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-
 -------------------------------------------------------
 issueSearch: //descendant-or-self::form[@action="list" and @method="get"]
 issueSearch.issueType: //descendant-or-self::form[descendant::select[@name="can" and 
@@ -1849,9 +1682,6 @@ issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="c
      @value="Search" and @type="submit"] and @action="list" and @method="get"]
      /descendant-or-self::input[@value="Search" and @type="submit"]
 -------------------------------------------------------
-
-
-
 ]]>
         </programlisting>
 
@@ -1866,14 +1696,11 @@ issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="c
             following methods.
         </para>
         <programlisting language="java"><?db-font-size 75% ?>
-            <![CDATA[
-
+<![CDATA[
    public void enableCache();
    public void disableCache();
    public void useTelluriumApi(boolean isUse);
    public void useClosestMatch(boolean isUse);
-
-
 ]]>
         </programlisting>
 
@@ -1890,7 +1717,6 @@ issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="c
         </para>
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-
     @Test
     public void testOfflineEngineStateUpdate(){
         JettyLogonModule jlm = new  JettyLogonModule();
@@ -1908,7 +1734,6 @@ issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="c
         connectUrl("http://localhost:8080/logon.html");
         jlm.plogon("test", "test");
     }
-    
     ]]>
         </programlisting>
 
@@ -2045,7 +1870,6 @@ public abstract class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase 
         if(tellurium != null)
             tellurium.stop();
     }
-    
    ]]>
             </programlisting>
 
@@ -2120,7 +1944,6 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         showTrace();
     }
 }
-
 ]]>
             </programlisting>
 
@@ -2132,12 +1955,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
             </para>
             <programlisting language="java"><?db-font-size 75% ?>
                 <![CDATA[
-
 public static void setHtmlClassPath(String path);
-
-
-
-
 ]]>
             </programlisting>
 
@@ -2178,11 +1996,6 @@ public class TelluriumMockJUnitTestCase extends TelluriumJUnitTestCase {
         server.stop();
     }
 }
-
-
-
-
-
 ]]>
             </programlisting>
 
@@ -2215,7 +2028,6 @@ public class Environment implements Configurable{
   }
 
   ...
-  
   ]]>
         </programlisting>
 
@@ -2246,10 +2058,6 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
    }
 
    ...
-   
-   
-   
-   
   ]]>
         </programlisting>
 
@@ -2264,9 +2072,6 @@ public class JettyLogonModule extends DslContext {
 
 ...
 }
-
-
-
 ]]>
         </programlisting>
 
@@ -2345,9 +2150,6 @@ public class JettyLogonModule extends DslContext {
         }
     }
 }
-
-
-
 ]]>
         </programlisting>
 
@@ -2370,16 +2172,11 @@ public class JettyLogonModule extends DslContext {
 
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-
-    //the bundling tier
-    bundle{
-        maxMacroCmd = 5
-        useMacroCommand = false
-    }
-    
-    
-    
-    
+//the bundling tier
+bundle{
+    maxMacroCmd = 5
+    useMacroCommand = true
+}
  ]]>
         </programlisting>
 
@@ -2390,13 +2187,10 @@ public class JettyLogonModule extends DslContext {
 
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-    i18n{
-        //locale = "fr_FR"
-        locale = "en_US"
-    }
-    
-    
-    
+i18n{
+    //locale = "fr_FR"
+    locale = "en_US"
+}
  ]]>
         </programlisting>
 
@@ -2407,14 +2201,11 @@ public class JettyLogonModule extends DslContext {
 
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-    test{
-        execution{
-            //whether to trace the execution timing
-            trace = false
-        }  
-        
-        
-        
+test{
+    execution{
+        //whether to trace the execution timing
+        trace = false
+    }
  ]]>
         </programlisting>
 
@@ -2435,10 +2226,8 @@ public class JettyLogonModule extends DslContext {
       //the bundling tier
 //    bundle{
 //        maxMacroCmd = 5
-//        useMacroCommand = false
+//        useMacroCommand = true
 //    }
-
-
 ]]>
         </programlisting>
 
@@ -2452,7 +2241,8 @@ java.lang.ExceptionInInitializerError
         at java.lang.Class.forName0(Native Method)
         at java.lang.Class.forName(Class.java:169)
         at org.telluriumsource.bootstrap.TelluriumSupport.class$(TelluriumSupport.groovy)
-        at org.telluriumsource.bootstrap.TelluriumSupport.$get$$class$org$telluriumsource$framework$TelluriumFrameworkMetaClass(TelluriumSupport.groovy)
+        at org.telluriumsource.bootstrap.TelluriumSupport.$get$$class$org$telluriumsource$framework
+            $TelluriumFrameworkMetaClass(TelluriumSupport.groovy)
         at org.telluriumsource.bootstrap.TelluriumSupport.addSupport(TelluriumSupport.groovy:17)
         at org.telluriumsource.test.java.TelluriumTestNGTestCase.setUpForTest(TelluriumTestNGTestCase.java:22)
         at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -2474,24 +2264,20 @@ java.lang.ExceptionInInitializerError
         at org.testng.TestNG.run(TestNG.java:748)
         at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:73)
         at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:124)
-Caused by: org.telluriumsource.exception.ConfigNotFoundException: Cannot find Tellurium Configuration tellurium.bundle.maxMacroCmd, please check http://code.google.com/p/aost/wiki/TelluriumConfig070 for updated TelluriumConfig.groovy, or report to Tellurium user group at http://groups.google.com/group/tellurium-users
+Caused by: org.telluriumsource.exception.ConfigNotFoundException: Cannot find Tellurium Configuration
+    tellurium.bundle.maxMacroCmd, please check http://code.google.com/p/aost/wiki/TelluriumConfig070 for
+    updated TelluriumConfig.groovy, or report to Tellurium user group at http://groups.google.com/group/tellurium-users
         at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
         at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
         at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
         at java.lang.reflect.Constructor.newInstance(Constructor.java:513)
         at org.codehaus.groovy.reflection.CachedConstructor.invoke(CachedConstructor.java:77)
-        at org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrapNoCoerce.callConstructor(ConstructorSite.java:107)
+        at org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrapNoCoerce.
+            callConstructor(ConstructorSite.java:107)
         at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallConstructor(CallSiteArray.java:52)
         at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:192)
         at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:200)
         at org.telluriumsource.config.TelluriumConfigurator.checkConfig(TelluriumConfigurator.groovy:41)
-        
-        
-        
-        
-        
-        
-        
    ]]>
         </programlisting>
     </section>
@@ -2528,13 +2314,16 @@ Caused by: org.telluriumsource.exception.ConfigNotFoundException: Cannot find Te
         <artifact pattern="${local-maven2-pattern}"/>
       </filesystem>
       <!-- todo add 'endorsed groovy extensions' resolver here -->
-      <ibiblio name="kungfuters.3rdparty" root="http://maven.kungfuters.org/content/repositories/thirdparty/" m2compatible="true"/>
+      <ibiblio name="kungfuters.3rdparty" root="http://maven.kungfuters.org/content/repositories/thirdparty/"
+        m2compatible="true"/>
       <ibiblio name="codehaus" root="http://repository.codehaus.org/" m2compatible="true"/>
       <ibiblio name="ibiblio" m2compatible="true"/>
       <ibiblio name="java.net2" root="http://download.java.net/maven/2/" m2compatible="true"/>
       <ibiblio name="openqa" root="http://archiva.openqa.org/repository/releases/" m2compatible="true"/>
-      <ibiblio name="kungfuters.snapshot" root="http://maven.kungfuters.org/content/repositories/snapshots/" m2compatible="true"/>
-      <ibiblio name="kungfuters.release" root="http://maven.kungfuters.org/content/repositories/releases/" m2compatible="true"/>
+      <ibiblio name="kungfuters.snapshot" root="http://maven.kungfuters.org/content/repositories/snapshots/"
+        m2compatible="true"/>
+      <ibiblio name="kungfuters.release" root="http://maven.kungfuters.org/content/repositories/releases/"
+        m2compatible="true"/>
     </chain>
   </resolvers>
 </ivysettings>
@@ -2548,8 +2337,6 @@ Caused by: org.telluriumsource.exception.ConfigNotFoundException: Cannot find Te
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
 groovy rundsl.groovy -f DSL_script_name
-
-
 ]]>
         </programlisting>
 
@@ -2560,10 +2347,7 @@ groovy rundsl.groovy -f DSL_script_name
 
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-
 groovy -Dhttp.proxyHost=proxy_host -Dhttp.proxyPort=proxy_port rundsl.groovy -f DSL_script_name
-
-
 ]]>
         </programlisting>
 
@@ -2580,13 +2364,12 @@ groovy -Dhttp.proxyHost=proxy_host -Dhttp.proxyPort=proxy_port rundsl.groovy -f 
 
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-Grape.grab(group:'org.telluriumsource', module:'tellurium-website', version:'0.7.0-SNAPSHOT', classLoader:this.class.classLoader.rootLoader)
+Grape.grab(group:'org.telluriumsource', module:'tellurium-website', version:'0.7.0-SNAPSHOT',
+    classLoader:this.class.classLoader.rootLoader)
 
 ...
 
    @Grab(group='org.telluriumsource', module='tellurium-website', version='0.7.0-SNAPSHOT')
-   
-   
    ]]>
         </programlisting>
 
@@ -2603,13 +2386,11 @@ Grape.grab(group:'org.telluriumsource', module:'tellurium-website', version:'0.7
         </para>
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-    void useTelluriumEngine(boolean isUse){
-        useCache(isUse);
-        useMacroCmd(isUse);
-        useTelluriumApi(isUse);
-    } 
-    
-    
+void useTelluriumEngine(boolean isUse){
+    useCache(isUse);
+    useMacroCmd(isUse);
+    useTelluriumApi(isUse);
+}
    ]]>
         </programlisting>
 
@@ -2622,10 +2403,8 @@ Grape.grab(group:'org.telluriumsource', module:'tellurium-website', version:'0.7
         </para>
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-
-   void enableTelluriumEngine();
-
-   void disableTelluriumEngine();
+void enableTelluriumEngine();
+void disableTelluriumEngine();
 ]]>
         </programlisting>
 
@@ -2652,8 +2431,6 @@ Grape.grab(group:'org.telluriumsource', module:'tellurium-website', version:'0.7
 
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-
-
 TE: Name: getCurrentCachePolicy, start: 1260496075484, duration: 28ms
 TE: Name: useDiscardNewCachePolicy, start: 1260496075514, duration: 51ms
 TE: Name: getCurrentCachePolicy, start: 1260496075566, duration: 74ms
@@ -2682,14 +2459,11 @@ Name: typeKey, count: 3, total: 124ms, average: 41ms
 
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-    test{
-        execution{
-            //whether to trace the execution timing
-            trace = false
-        }      
-        
-        
-        
+test{
+    execution{
+        //whether to trace the execution timing
+        trace = false
+    }
    ]]>
         </programlisting>
 
@@ -2701,13 +2475,9 @@ Name: typeKey, count: 3, total: 124ms, average: 41ms
         </para>
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-
-  public void enableTrace();
-
-  public void disableTrace();
-  
-  public void showTrace();
-  
+public void enableTrace();
+public void disableTrace();
+public void showTrace();
   ]]>
         </programlisting>
 
@@ -2749,8 +2519,6 @@ GoogleSearchModule gsm = new GoogleSearchModule();
 gsm.defineUi();
 useCssSelector();
 registerNamespace("te", te_ns);
-
-
 ]]>
         </programlisting>
 
@@ -2825,9 +2593,6 @@ registerNamespace("te", te_ns);
     public void useTelluriumEngine(boolean isUse);
 
     public void dumpEnvironment();
-    
-    
-    
   ]]>
         </programlisting>
 
@@ -2890,8 +2655,6 @@ public class Environment {
 
   public Object getCustomEnvironment(String name);
 }
-
-
 ]]>
         </programlisting>
 
@@ -2908,10 +2671,7 @@ public class Environment {
         </para>
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-    public void dumpEnvironment();
-
-
-
+public void dumpEnvironment();
 ]]>
         </programlisting>
 
@@ -2922,20 +2682,17 @@ public class Environment {
 
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-    Environment Variables:
-      useEngineCache: true
-      useClosestMatch: false
-      useMacroCommand: true
-      maxMacroCmd: 5
-      useTelluriumApi: true
-      locatorWithCache: true
-      useCSSSelector: true
-      useTrace: true
-      logEngine: false
-      locale: en_US
-
-
-
+Environment Variables:
+  useEngineCache: true
+  useClosestMatch: false
+  useMacroCommand: true
+  maxMacroCmd: 5
+  useTelluriumApi: true
+  locatorWithCache: true
+  useCSSSelector: true
+  useTrace: true
+  logEngine: false
+  locale: en_US
 ]]>
         </programlisting>
 
@@ -2957,7 +2714,6 @@ public class Environment {
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
 UiByTagResponse getUiByTag(String tag, Map filters);
-
 void removeMarkedUids(String tag);
 ]]>
         </programlisting>
@@ -2981,8 +2737,6 @@ class UiByTagResponse {
   //temporally assigned IDs
   String[] tids;
 }
-
-
 ]]>
         </programlisting>
 
@@ -3037,8 +2791,6 @@ class UiByTagResponse {
         }
         jlm.removeMarkedUids("input");
     }
-
-
 ]]>
         </programlisting>
 
@@ -3054,8 +2806,7 @@ class UiByTagResponse {
         </para>
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-    exploitCssSelector = true
-
+exploitCssSelector = true
 ]]>
         </programlisting>
 
@@ -3065,11 +2816,7 @@ class UiByTagResponse {
         </para>
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-    disableCssSelector()
-
-
-
-
+disableCssSelector()
 ]]>
         </programlisting>
 
@@ -3080,8 +2827,7 @@ class UiByTagResponse {
 
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-    useCssSelector(false)
-
+useCssSelector(false)
 ]]>
         </programlisting>
 
@@ -3106,8 +2852,7 @@ class UiByTagResponse {
             </listitem>
             <listitem>
                 <para>
-                    void captureEntirePageScreenshot(String filename, String
-                    kwargs)
+                    void captureEntirePageScreenshot(String filename, String kwargs)
                 </para>
             </listitem>
             <listitem>
@@ -3134,7 +2879,6 @@ class UiByTagResponse {
         <itemizedlist>
             <listitem>
                 <para>
-
                     String jsonify(String uid) is renamed to String
                     toString(String uid)
                 </para>
