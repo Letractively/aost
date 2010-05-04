@@ -2255,7 +2255,7 @@ org.uncommons.reportng.JUnitXMLReporter
 
         <mediaobject>
             <imageobject>
-                <imagedata fileref="./media/telluriumbundle.gif" scalefit="1" width="100%"></imagedata>
+                <imagedata fileref="./media/telluriumbundle.gif" scalefit="1" width="80%"></imagedata>
             </imageobject>
         </mediaobject>
 

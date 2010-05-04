@@ -528,7 +528,7 @@ ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"],
 
         <mediaobject>
             <imageobject>
-                <imagedata fileref="./media/udl_rtree.png"></imagedata>
+                <imagedata fileref="./media/udl_rtree.png" scalefit="1" width="60%"></imagedata>
             </imageobject>
         </mediaobject>
 

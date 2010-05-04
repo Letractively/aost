@@ -46,7 +46,7 @@ firefox -ProfileManager -no-remote
 
         <mediaobject>
             <imageobject>
-                <imagedata fileref="./media/FireFoxUserProfile.png" scalefit="1" width="100%"></imagedata>
+                <imagedata fileref="./media/FireFoxUserProfile.png" scalefit="1" width="70%"></imagedata>
             </imageobject>
         </mediaobject>
 

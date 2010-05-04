@@ -205,7 +205,7 @@ enableCssSelector()
 
         <mediaobject>
             <imageobject>
-                <imagedata fileref="./media/xpathjqsel2.png" scale="100"></imagedata>
+                <imagedata fileref="./media/xpathjqsel2.png" scalefit="1" width="60%"></imagedata>
             </imageobject>
         </mediaobject>
 
@@ -755,7 +755,7 @@ useTelluriumEngine(true);
 
          <mediaobject>
             <imageobject>
-                <imagedata fileref="./media/EngineGroupLocatingFlow.png" scale="100"></imagedata>
+                <imagedata fileref="./media/EngineGroupLocatingFlow.png" scalefit="1" width="60%"></imagedata>
             </imageobject>
         </mediaobject>
 
@@ -939,7 +939,7 @@ function UiModule(){
 
         <mediaobject>
             <imageobject>
-                <imagedata fileref="./media/SantaTeUiModule.png"></imagedata>
+                <imagedata fileref="./media/SantaTeUiModule.png" scalefit="1" width="70%"></imagedata>
             </imageobject>
         </mediaobject>
             <para>The group locating procedure is basically a breadth first
@@ -1121,7 +1121,7 @@ $found.eq(0).data("uid", uid);
 
                     <mediaobject>
                         <imageobject>
-                            <imagedata fileref="./media/SantaLookIDTrie.png" scale="100"></imagedata>
+                            <imagedata fileref="./media/SantaLookIDTrie.png" scalefit="1" width="50%"></imagedata>
                         </imageobject>
                     </mediaobject>
                     <para>When Santa locates the UI element A, it can use the IDs for element A and D to reduce multiple
@@ -2458,7 +2458,7 @@ public class FormExampleModule extends DslContext {
 
             <mediaobject>
                 <imageobject>
-                    <imagedata fileref="./media/teshowuinoeffect.png" scale="100"></imagedata>
+                    <imagedata fileref="./media/teshowuinoeffect.png" scalefit="1" width="80%"></imagedata>
                 </imageobject>
             </mediaobject>
 
@@ -2469,7 +2469,7 @@ public class FormExampleModule extends DslContext {
 
             <mediaobject>
                 <imageobject>
-                    <imagedata fileref="./media/teshowuidefault.png" scale="100"></imagedata>
+                    <imagedata fileref="./media/teshowuidefault.png" scalefit="1" width="80%"></imagedata>
                 </imageobject>
             </mediaobject>
 
@@ -2478,7 +2478,7 @@ public class FormExampleModule extends DslContext {
 
             <mediaobject>
                 <imageobject>
-                    <imagedata fileref="./media/teshowuimouseover.png" scale="100"></imagedata>
+                    <imagedata fileref="./media/teshowuimouseover.png" scalefit="1" width="80%"></imagedata>
                 </imageobject>
             </mediaobject>
 
