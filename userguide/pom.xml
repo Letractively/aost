@@ -55,7 +55,14 @@
             </plugin>
         </plugins>
     </build>
-
+	<dependencies>
+        <dependency>
+            <groupId>net.sf.offo</groupId>
+            <artifactId>fop-hyph</artifactId>
+            <version>1.2</version>
+        </dependency>
+    </dependencies>
+    
     <pluginRepositories>
         <pluginRepository>
             <id>docbkx.snapshots</id>
