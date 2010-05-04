@@ -307,7 +307,7 @@ clocator: [tag: "div", value: "Tellurium home"]
        </div>
    </div>
 </div>
-			]]>
+]]>
         </programlisting>
         <para>
             where the "Data" element and many others are inside its parent
@@ -329,7 +329,6 @@ ui.StandardTable(uid: "Table", clocator: [id: "table"], bt: "div", brt: "div", b
       TextBox(uid: "{tbody: 2, row: all, column: 2}", clocator: [tag: "div"], self: "true")
       TextBox(uid: "{tbody: 2, row: all, column: 3}", clocator: [tag: "div"], self: "true")
     }
-
 ]]>
         </programlisting>
 
@@ -338,10 +337,7 @@ ui.StandardTable(uid: "Table", clocator: [id: "table"], bt: "div", brt: "div", b
         </para>
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-
 getHTMLSource("Table");
-    
-
 ]]>
         </programlisting>
         <para>
@@ -380,7 +376,6 @@ fireEvent(locator, "blur")
 fireEvent(locator, "focus")
 mouseOut(locator)
 mouseOver(locator)
-
 ]]>
         </programlisting>
         <para>
@@ -444,7 +439,6 @@ ui.Container(uid: "form", clocator: [whatever]){
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
 click "form.billing"
-
 ]]>
         </programlisting>
 
@@ -528,8 +522,6 @@ click "form.billing"
                     elements corresponding to the
                     CSS Selector. Number
                     getJQuerySelectorCount(String locator):
-
-
                 </listitem>
                 <listitem>
                     Get the number of elements
@@ -650,21 +642,19 @@ click "form.billing"
 
                     <programlisting language="java"><?db-font-size 75% ?>
                         <![CDATA[
+int	getTableHeaderColumnNum(String uid)
 
-			int	getTableHeaderColumnNum(String uid)
+int getTableFootColumnNum(String uid)
 
-			int getTableFootColumnNum(String uid)
+int getTableMaxRowNum(String uid)
 
-			int getTableMaxRowNum(String uid)
+int getTableMaxColumnNum(String uid)
 
-			int getTableMaxColumnNum(String uid)
+int getTableMaxRowNumForTbody(String uid, int ntbody)
 
-			int getTableMaxRowNumForTbody(String uid, int ntbody)
+int getTableMaxColumnNumForTbody(String uid, int ntbody)
 
-			int getTableMaxColumnNumForTbody(String uid, int ntbody)
-
-			int getTableMaxTbodyNum(String uid)
-			
+int getTableMaxTbodyNum(String uid)
 			]]>
                     </programlisting>
 
@@ -676,20 +666,19 @@ click "form.billing"
 
                     <programlisting language="java"><?db-font-size 75% ?>
                         <![CDATA[
+int getTableHeaderColumnNumBySelector(String uid)
 
-			int getTableHeaderColumnNumBySelector(String uid)
+int getTableFootColumnNumBySelector(String uid)
 
-			int getTableFootColumnNumBySelector(String uid)
+int getTableMaxRowNumBySelector(String uid)
 
-			int getTableMaxRowNumBySelector(String uid)
+int getTableMaxColumnNumBySelector(String uid)
 
-			int getTableMaxColumnNumBySelector(String uid)
+int getTableMaxRowNumForTbodyBySelector(String uid, int ntbody)
 
-			int getTableMaxRowNumForTbodyBySelector(String uid, int ntbody)
+int getTableMaxColumnNumForTbodyBySelector(String uid, int ntbody)
 
-			int getTableMaxColumnNumForTbodyBySelector(String uid, int ntbody)
-
-			int getTableMaxTbodyNumBySelector(String uid)
+int getTableMaxTbodyNumBySelector(String uid)
 			]]>
                     </programlisting>
 
@@ -699,20 +688,19 @@ click "form.billing"
                     </listitem>
                     <programlisting language="java"><?db-font-size 75% ?>
                         <![CDATA[
+int getTableHeaderColumnNumByXPath(String uid)
 
-			int getTableHeaderColumnNumByXPath(String uid)
+int getTableFootColumnNumByXPath(String uid)
 
-			int getTableFootColumnNumByXPath(String uid)
+int getTableMaxRowNumByXPath(String uid)
 
-			int getTableMaxRowNumByXPath(String uid)
+int getTableMaxColumnNumByXPath(String uid)
 
-			int getTableMaxColumnNumByXPath(String uid)
+int getTableMaxRowNumForTbodyByXPath(String uid, int ntbody)
 
-			int getTableMaxRowNumForTbodyByXPath(String uid, int ntbody)
+int getTableMaxColumnNumForTbodyByXPath(String uid, int ntbody)
 
-			int getTableMaxColumnNumForTbodyByXPath(String uid, int ntbody)
-
-			int getTableMaxTbodyNumByXPath(String uid)
+int getTableMaxTbodyNumByXPath(String uid)
 			]]>
                     </programlisting>
 
@@ -727,8 +715,7 @@ click "form.billing"
                     </listitem>
                     <programlisting language="java"><?db-font-size 75% ?>
                         <![CDATA[
-			boolean isDisabled(String uid)
-
+boolean isDisabled(String uid)
 ]]>
                     </programlisting>
 
@@ -737,9 +724,7 @@ click "form.billing"
                     </listitem>
                     <programlisting language="java"><?db-font-size 75% ?>
                         <![CDATA[
-			boolean isDisabledBySelector(String uid)
-
-
+boolean isDisabledBySelector(String uid)
 ]]>
                     </programlisting>
                     <listitem>
@@ -748,9 +733,7 @@ click "form.billing"
 
                     <programlisting language="java"><?db-font-size 75% ?>
                         <![CDATA[
-			boolean isDisabledByXPath(String uid)
-
-
+boolean isDisabledByXPath(String uid)
 ]]>
                     </programlisting>
                 </itemizedlist>
@@ -765,9 +748,7 @@ click "form.billing"
 
                     <programlisting language="java"><?db-font-size 75% ?>
                         <![CDATA[
-			def getAttribute(String uid, String attribute)
-
-
+def getAttribute(String uid, String attribute)
 ]]>
                     </programlisting>
                 </itemizedlist>
@@ -781,9 +762,7 @@ click "form.billing"
 
                     <programlisting language="java"><?db-font-size 75% ?>
                         <![CDATA[
-			def hasCssClass(String uid, String
-			cssClass)
-
+def hasCssClass(String uid, String cssClass)
 ]]>
                     </programlisting>
                 </itemizedlist>
@@ -797,10 +776,7 @@ click "form.billing"
 
                     <programlisting language="java"><?db-font-size 75% ?>
                         <![CDATA[
-			String[]
-			getCSS(String uid,
-			String cssName)
-
+String[] getCSS(String uid, String cssName)
 ]]>
                     </programlisting>
 
@@ -817,8 +793,8 @@ click "form.billing"
 
                     <programlisting language="java"><?db-font-size 75% ?>
                         <![CDATA[
-			String[] getAllTableCellText(String uid)
-			String[] getAllTableCellTextForTbody(String uid, int index)
+String[] getAllTableCellText(String uid)
+String[] getAllTableCellTextForTbody(String uid, int index)
 ]]>
                     </programlisting>
                 </itemizedlist>
@@ -832,7 +808,7 @@ click "form.billing"
 
                     <programlisting language="java"><?db-font-size 75% ?>
                         <![CDATA[
-			int getListSize(String uid)
+int getListSize(String uid)
 ]]>
                     </programlisting>
 
@@ -842,8 +818,7 @@ click "form.billing"
 
                     <programlisting language="java"><?db-font-size 75% ?>
                         <![CDATA[
-			getListSizeBySelector(String uid)
-
+getListSizeBySelector(String uid)
 ]]>
                     </programlisting>
 
@@ -853,9 +828,7 @@ click "form.billing"
 
                     <programlisting language="java"><?db-font-size 75% ?>
                         <![CDATA[
-
-			getListSizeByXPath(String uid)
-			
+getListSizeByXPath(String uid)
 			]]>
                     </programlisting>
                 </itemizedlist>
@@ -965,9 +938,6 @@ click "form.billing"
       </A>
     </li>
   </ul>
- 
- 
- 
 ]]>
         </programlisting>
 
@@ -984,12 +954,10 @@ click "form.billing"
 
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-
 ui.List(uid: "list", clocator: [tag: "ul", class: "a"], separator:"li")
 {
     UrlLink(uid: "{all}", clocator: [class: "b"])
 }
-
 ]]>
         </programlisting>
 
@@ -1023,7 +991,6 @@ ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"],
     //For the rest, just UrlLink
     UrlLink(uid: "{row: all, column: all}", clocator: [:])
 }
-
 ]]>
         </programlisting>
         <para>
@@ -1052,7 +1019,6 @@ ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"],
 
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-
 Include(uid: UID, ref: REFERRED_UID)
 ]]>
         </programlisting>
@@ -1077,11 +1043,11 @@ Include(uid: UID, ref: REFERRED_UID)
         </para>
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-   ui.Container(uid: "SearchModule", clocator: [tag: "td"], group: "true") {
-     InputBox(uid: "Input", clocator: [title: "Google Search"])
-     SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
-     SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
-   }
+ui.Container(uid: "SearchModule", clocator: [tag: "td"], group: "true") {
+ InputBox(uid: "Input", clocator: [title: "Google Search"])
+ SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+ SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
+}
 ]]>
         </programlisting>
 
@@ -1091,15 +1057,15 @@ Include(uid: UID, ref: REFERRED_UID)
         </para>
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
-   ui.Container(uid: "Google", clocator: [tag: "table"]) {
-     Include(ref: "SearchModule")
-     Include(uid: "MySearchModule", ref: "SearchModule")
-     Container(uid: "Options", clocator: [tag: "td", position: "3"], group: "true") {
-       UrlLink(uid: "LanguageTools", clocator: [tag: "a", text: "Language Tools"])
-       UrlLink(uid: "SearchPreferences", clocator: [tag: "a", text: "Search Preferences"])
-       UrlLink(uid: "AdvancedSearch", clocator: [tag: "a", text: "Advanced Search"])
-     }
-   }
+ui.Container(uid: "Google", clocator: [tag: "table"]) {
+ Include(ref: "SearchModule")
+ Include(uid: "MySearchModule", ref: "SearchModule")
+ Container(uid: "Options", clocator: [tag: "td", position: "3"], group: "true") {
+   UrlLink(uid: "LanguageTools", clocator: [tag: "a", text: "Language Tools"])
+   UrlLink(uid: "SearchPreferences", clocator: [tag: "a", text: "Search Preferences"])
+   UrlLink(uid: "AdvancedSearch", clocator: [tag: "a", text: "Advanced Search"])
+ }
+}
    ]]>
         </programlisting>
     </section>
