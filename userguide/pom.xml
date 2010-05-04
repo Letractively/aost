@@ -55,13 +55,13 @@
             </plugin>
         </plugins>
     </build>
-	<dependencies>
+	<!--dependencies>
         <dependency>
             <groupId>net.sf.offo</groupId>
             <artifactId>fop-hyph</artifactId>
             <version>1.2</version>
         </dependency>
-    </dependencies>
+    </dependencies-->
     
     <pluginRepositories>
         <pluginRepository>
