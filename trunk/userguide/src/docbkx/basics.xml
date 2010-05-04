@@ -136,58 +136,66 @@ clocator: [key1: value1, key2: value2, ...]
 			</programlisting>
 		</para>
 		<para>
-			The default attributes include "header", "tag", "text", "trailer",
+			The default attributes include "header", "tag", "text",
+			"trailer",
 			"position", and "direct".
-			They are all optional. The "direct"
+			They are all optional. The
+			"direct"
 			attribute specifies whether this UI
 			object is a direct
-			child of its
+			child of
+			its
 			parent UI, and the default value is "false". 
 			</para>
-			<para>
+		<para>
 			If there are
 			additional
 			attributes,
-			they are defined in the same way as the default
+			they are defined in the same
+			way as the default
 			attributes. For example:
 			</para>
-			<programlisting language="java"><?db-font-size 75% ?>
+		<programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 clocator: [tag: "div", value: "Tellurium home"]
 ]]>
-			</programlisting>
-		
+		</programlisting>
+
 		<para>
 			Most Tellurium objects come with default values for certain
 			attributes. For example, the tag attribute.
 			</para>
-			<para>
+		<para>
 			If these attributes are
-			not specified, the default attribute values are
+			not specified, the default attribute
+			values are
 			used. In other words,
 			if the
-			default attribute values of a Tellurium UI object are known,
+			default attribute values of a
+			Tellurium UI object are known,
 			omit them in
 			clocator. 
 			</para>
-			<para>
+		<para>
 			For example,
 			if the RadioButton Object’s default
-			tag is "input", and the default
+			tag is "input",
+			and the default
 			type is "radio", omit them and
 			write
-			the clocator as follows:
+			the clocator as
+			follows:
 			</para>
-			<literal>
-				<emphasis>clocator: [:]</emphasis>
-			</literal>
-			<para>
+		<literal>
+			<emphasis>clocator: [:]</emphasis>
+		</literal>
+		<para>
 			which is equivalent to:
 			</para>
-			<literal>
-				<emphasis>clocator: [tag: "input", type: "radio"]</emphasis>
-			</literal>
-		
+		<literal>
+			<emphasis>clocator: [tag: "input", type: "radio"]</emphasis>
+		</literal>
+
 
 
 	</section>
@@ -219,10 +227,10 @@ clocator: [tag: "div", value: "Tellurium home"]
     	</para>
 
 		<literal>
-   <emphasis>
-		//div/table[@id='something']/div[2]/div[3]/div[1]/div[6]
+			<emphasis>
+				//div/table[@id='something']/div[2]/div[3]/div[1]/div[6]
 		</emphasis>
-</literal>
+		</literal>
 
 		<para>
 			Sibling node information is not used in this example as the
@@ -306,7 +314,7 @@ clocator: [tag: "div", value: "Tellurium home"]
 		<para>
 			where the "Data" element and many others are inside its parent
 			tag "div".
-			To module this, we added a self attribute to the UiObject?
+			To module this, we added a self attribute to the UiObject
 			class and
 			the default is "false".
             </para>
@@ -381,7 +389,7 @@ mouseOver(locator)
 		<para>
 			Tellurium was born with Javascript events in mind since it was
 			initially designed to test applications written using the DOJO
-			JavaScript?
+			JavaScript
 			framework.
         </para>
 
@@ -409,7 +417,7 @@ RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'])
 		<para>
 			The above code does not respond to the Click event as the
 			Tellurium
-			RadioButton? only supports the "check" and "uncheck"
+			RadioButton only supports the "check" and "uncheck"
 			actions.
 			This is enough for the normal case. As a result, no "click"
 			event/action
@@ -449,7 +457,7 @@ click "form.billing"
 
 
 		<para>
-			Even if the RadioButton? does not have the click method defined
+			Even if the RadioButton does not have the click method defined
 			by
 			default,
 			it is still able to dynamically add the click method at
@@ -508,21 +516,33 @@ click "form.billing"
 				utilized
 				in DslContext to form a set of new DSL methods:
 			</para>
+			<literal>
+				<emphasis>
+					String getAllText(String locator):
 
-			String getAllText(String locator):
+   </emphasis>
+			</literal>
+			<orderedlist>
+				<listitem>
+					1. Get all the text from the set of
+					elements corresponding to the CSS
+					Selector. String getCSS(String
+					locator, String cssName) :
+</listitem>
+				<listitem>
+					2. Get the CSS properties for the set of
+					elements corresponding to the
+					CSS Selector. Number
+					getJQuerySelectorCount(String locator): 
+			
+			
 
-			1. Get all the text from the set of
-			elements corresponding to the CSS
-			Selector. String getCSS(String
-			locator, String cssName) :
-
-			2. Get the CSS properties for the set of
-			elements corresponding to the
-			CSS Selector. Number
-			getJQuerySelectorCount(String locator) :
-
-			3. Get the number of elements
-			matching the corresponding CSS Selector.
+ </listitem>
+				<listitem>
+					3. Get the number of elements
+					matching the corresponding CSS Selector.
+					</listitem>
+			</orderedlist>
 		</section>
 		<section>
 			<title>Additional CSS Attribute Selectors</title>
@@ -553,178 +573,316 @@ click "form.billing"
 				on
 				and off by the following two methods:
 </para>
-
+<orderedlist>
+ <listitem>
 			public void useCssSelector()
+		</listitem>
+		<listitem>
 			public void disableCssSelector()
-
+</listitem>	
+</orderedlist>
 			<para>
-				Tellurium also provides the corresponding XPath specific and
-				CSS
-				selector
-				specific methods for your convenience. However, it is
-				recommended that
-				you use the locator agnostic methods until there is
-				a
-				good reason not
-				to.
+				Tellurium also provides the corresponding XPath specific and CSS selector
+				specific methods for your convenience. However, it is recommended that
+				you use the locator agnostic methods until there is a good reason not to.
 </para>
 
 			<para>
 				The new XPath and CSS Selector specific methods are as follows:
 			</para>
-			1. Get the Generated locator from the UI module
-
+			<orderedlist>
+				<listitem>
+			 		Get the Generated locator from the UI module
+				</listitem>
+				<itemizedlist>
+				<listitem>
 			Locator agnostic:
-			String
-			getLocator(String uid)
-
-			CSS selector specific: String
-			getSelector(String
-			uid)
-
-			XPath specific: String getXPath(String uid)
-
-			2.
-			Get the Number of
-			Elements matching the Locator
-
+			</listitem>
+			
+<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+			String getLocator(String uid)
+]]>
+    </programlisting>
+    <listitem>
+			CSS selector specific:
+			</listitem>
+			<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+			 String getSelector(String uid)
+]]>
+    </programlisting>
+    <listitem>
+			XPath specific:
+			</listitem>
+			<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+			 String getXPath(String uid)
+			 ]]>
+    </programlisting>
+</itemizedlist>
+<listitem>
+			Get the Number of Elements matching the Locator
+				</listitem>
+			
+			
+<itemizedlist>
+<listitem>
 			Locator agnostic:
-			Number
-			getLocatorCount(String locator)
-
-			CSS selector specific: Number
-			getJQuerySelectorCount(String
-			jQuerySelector)
-
+</listitem>
+			<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+			Number getLocatorCount(String locator)
+			]]>
+    </programlisting>
+<listitem>
+			CSS selector specific: 
+</listitem>			
+<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+			Number getJQuerySelectorCount(String jQuerySelector)
+]]>
+    </programlisting>
 			XPath specific: Number
 			getXpathCount(String xpath)
-
-			3. Table Methods
-
+</itemizedlist>
+<listitem>
+			 Table Methods
+</listitem>
+<itemizedlist>
+<listitem>
 			Locator agnostic:
+</listitem>
 
-			int
-			getTableHeaderColumnNum(String uid)
 
-			int getTableFootColumnNum(String
-			uid)
+<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+
+			int	getTableHeaderColumnNum(String uid)
+
+			int getTableFootColumnNum(String uid)
 
 			int getTableMaxRowNum(String uid)
 
-			int getTableMaxColumnNum(String
-			uid)
+			int getTableMaxColumnNum(String uid)
 
 			int getTableMaxRowNumForTbody(String uid, int ntbody)
 
-			int
-			getTableMaxColumnNumForTbody(String uid, int ntbody)
+			int getTableMaxColumnNumForTbody(String uid, int ntbody)
 
-			int
-			getTableMaxTbodyNum(String uid)
-
+			int getTableMaxTbodyNum(String uid)
+			
+			]]>
+    </programlisting>
+			
+			
+<listitem>
 			CSS selector specific:
+</listitem>
 
-			int
-			getTableHeaderColumnNumBySelector(String uid)
 
-			int
-			getTableFootColumnNumBySelector(String uid)
+<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
 
-			int
-			getTableMaxRowNumBySelector(String uid)
+			int getTableHeaderColumnNumBySelector(String uid)
 
-			int
-			getTableMaxColumnNumBySelector(String uid)
+			int getTableFootColumnNumBySelector(String uid)
 
-			int
-			getTableMaxRowNumForTbodyBySelector(String uid, int ntbody)
+			int getTableMaxRowNumBySelector(String uid)
 
-			int
-			getTableMaxColumnNumForTbodyBySelector(String uid, int ntbody)
+			int getTableMaxColumnNumBySelector(String uid)
 
-			int
-			getTableMaxTbodyNumBySelector(String uid)
+			int getTableMaxRowNumForTbodyBySelector(String uid, int ntbody)
 
+			int getTableMaxColumnNumForTbodyBySelector(String uid, int ntbody)
+
+			int getTableMaxTbodyNumBySelector(String uid)
+			]]>
+    </programlisting>
+			
+			
+
+<listitem>
 			XPath specific:
+</listitem>
+<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
 
-			int
-			getTableHeaderColumnNumByXPath(String uid)
+			int getTableHeaderColumnNumByXPath(String uid)
 
-			int
-			getTableFootColumnNumByXPath(String uid)
+			int getTableFootColumnNumByXPath(String uid)
 
-			int
-			getTableMaxRowNumByXPath(String uid)
+			int getTableMaxRowNumByXPath(String uid)
 
-			int
-			getTableMaxColumnNumByXPath(String uid)
+			int getTableMaxColumnNumByXPath(String uid)
 
-			int
-			getTableMaxRowNumForTbodyByXPath(String uid, int ntbody)
+			int getTableMaxRowNumForTbodyByXPath(String uid, int ntbody)
 
-			int
-			getTableMaxColumnNumForTbodyByXPath(String uid, int ntbody)
+			int getTableMaxColumnNumForTbodyByXPath(String uid, int ntbody)
 
-			int
-			getTableMaxTbodyNumByXPath(String uid)
+			int getTableMaxTbodyNumByXPath(String uid)
+			]]>
+    </programlisting>
+			
+</itemizedlist>
+<listitem>
+		 Verify if an Element is Disabled
+</listitem>
 
-			4. Verify if an Element is
-			Disabled
+		<itemizedlist>
+			<listitem>
+			Locator agnostic: 
+			</listitem>
+			<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+			boolean isDisabled(String uid)
 
-			Locator agnostic: boolean isDisabled(String uid)
+]]>
+    </programlisting>
 
-			CSS selector
-			specific: boolean isDisabledBySelector(String uid)
+			<listitem>
+			CSS selector specific: 
+			</listitem>
+			<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+			boolean isDisabledBySelector(String uid)
 
+
+]]>
+    </programlisting>
+			<listitem>
 			XPath specific:
+			</listitem>
+			
+			<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
 			boolean isDisabledByXPath(String uid)
 
-			5. Get the Attribute
 
-			Locator
-			agnostic: def getAttribute(String uid, String attribute)
+]]>
+    </programlisting>
+</itemizedlist>
+			<listitem>
+		 Get the Attribute
+			</listitem>
+			
+		<itemizedlist>	
+			<listitem>
+			Locator agnostic: 
+			</listitem>
+			
+			<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+			def getAttribute(String uid, String attribute)
 
-			6. Check the
-			CSS Class
 
-			Locator agnostic def hasCssClass(String uid, String
+]]>
+    </programlisting>
+</itemizedlist>
+			<listitem>
+			Check the CSS Class
+			</listitem>
+			<itemizedlist>
+			<listitem>
+			Locator agnostic 
+			</listitem>
+			
+			<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+			def hasCssClass(String uid, String
 			cssClass)
 
-			7. Get CSS Properties
-
-			CSS selector specific: String[]
+]]>
+    </programlisting>
+</itemizedlist>
+			<listitem>
+			 Get CSS Properties
+			</listitem>
+			<itemizedlist>
+			<listitem>
+			CSS selector specific: 
+			</listitem>
+			
+			<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+			String[]
 			getCSS(String uid,
 			String cssName)
 
-			8. Get All Data from a Table
+]]>
+    </programlisting>
 
-			CSS
-			selector specific:
+</itemizedlist>
 
-			String[] getAllTableCellText(String uid)
 
-			String[]
-			getAllTableCellTextForTbody(String uid, int index)
-
-			9. Get List Size
-
-			Locator agnostic: int getListSize(String uid)
-
+			<listitem>
+		 Get All Data from a Table
+			</listitem>
+		<itemizedlist>	
+			<listitem>
 			CSS selector specific:
+			</listitem>
+			
+<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+			String[] getAllTableCellText(String uid)
+			String[] getAllTableCellTextForTbody(String uid, int index)
+]]>
+    </programlisting>
+    </itemizedlist>
+			<listitem>    
+			Get List Size
+			</listitem>
+			<itemizedlist>
+			<listitem>
+			Locator agnostic: 
+			</listitem>
+			
+			<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+			int getListSize(String uid)
+]]>
+    </programlisting>
+
+			<listitem>
+			CSS selector specific:
+			</listitem>
+			
+<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
 			getListSizeBySelector(String uid)
 
-			XPath specific:
-			getListSizeByXPath(String uid)
+]]>
+    </programlisting>
 
+			<listitem>
+			XPath specific:
+			</listitem>
+			
+<programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+
+			getListSizeByXPath(String uid)
+			
+			]]>
+    </programlisting>
+    </itemizedlist>
+</orderedlist>
 			<para>
 				There are issues to be aware of with CSS Selector:
 </para>
-
+<itemizedlist>
+		<listitem>
+		<para>
 			If you have a duplicate "id" attribute on the page, CSS selector
 			always
 			returns the first DOM reference, ignoring other DOM references
 			with the
 			same "id" attribute.
+			</para>
+		</listitem>
+		<listitem>
+		<para>
 			Some attributes may not be working in
 			jQuery. For
 			example, the "action"
@@ -734,10 +892,17 @@ click "form.billing"
 			out the attributes that are not
 			honored by CSS
 			selector.
+			</para>
+		</listitem>
+		<listitem>
+		<para>
 			The "src" attribute in Image has to be a full
 			URL such as
 			http://www.google.com. One workaround is to put '*' before
 			the URL.
+		</para>	
+		</listitem>
+	</itemizedlist>
 		</section>
 	</section>
 	<section>
@@ -812,7 +977,7 @@ public void getHTMLSource(String uid);
 </para>
 
 
-		<programlisting language="java"><?db-font-size 75% ?>
+		<programlisting language="html"><?db-font-size 75% ?>
 <![CDATA[
 Form: 
 
@@ -929,7 +1094,7 @@ Form.Submit:
 </para>
 
 
-		<programlisting language="java"><?db-font-size 75% ?>
+		<programlisting language="html"><?db-font-size 75% ?>
 <![CDATA[
   <ul class="a">
     <li>
@@ -973,8 +1138,9 @@ Form.Submit:
 			In this example there are six links. Without templates, one
 			would
 			put
-			six UrlLink? objects in the UI module. By using the
-			templates, the
+			six UrlLink objects in the UI module. By using the
+			templates,
+			the
 			work is easier and simplified.
 </para>
 
@@ -1125,7 +1291,7 @@ Include(uid: UID, ref: REFERRED_UID)
 			Tellurium was born with Javascript events in mind since it was
 			initially
 			designed to test applications written using the DOJO
-			JavaScript?
+			JavaScript
 			framework.
 </para>
 		<para>
@@ -1155,8 +1321,9 @@ RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'])
 		<para>
 			The above code does not respond to the Click event as the
 			Tellurium
-			RadioButton? only supports the "check" and "uncheck"
-			actions. This
+			RadioButton only supports the "check" and "uncheck"
+			actions.
+			This
 			is enough for the normal case. As a result, no "click"
 			event/action
 			is generated during testing.
@@ -1196,7 +1363,7 @@ RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'])
 		</programlisting>
 
 		<para>
-			Even if the RadioButton? does not have the click method defined
+			Even if the RadioButton does not have the click method defined
 			by
 			default, it is still able to dynamically add the click method at
 			runtime and call it.
@@ -1236,7 +1403,7 @@ RadioButton(uid: "billing", clocator: [name: 'mas_address_key', value: '5779'])
 			- Logical Container is preferred) can violate this rule.
 		</para>
 		<para>
-			What is a Logic Container? It is a Container with an empty
+			What is a Logic Container It is a Container with an empty
 			locator. For
 			instance:
 </para>
@@ -1264,7 +1431,7 @@ Container(uid: "logical"){
 			are different:
 </para>
 
-		<programlisting language="java"><?db-font-size 75% ?>
+		<programlisting language="html"><?db-font-size 75% ?>
 <![CDATA[
 
     <div class="block_content">
@@ -1532,7 +1699,7 @@ Selenium.prototype.doTypeRepeated = function(locator, text) {
 
 		<para>
 			The customClass is the user's class for custom Selenium methods,
-			extending Tellurium org.tellurium.connector.CustomCommand? class:
+			extending Tellurium org.tellurium.connector.CustomCommand class:
 		</para>
 		<programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
@@ -1772,13 +1939,23 @@ issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="c
 			In the package org.tellurium.test, Tellurium provides three
 			different ways to write Tellurium tests:
 </para>
-
-
+<orderedlist>
+<listitem>
 		TelluriumJUnitTestCase
-		TelluriumTestNGTestCase
-		TelluriumGroovyTestCase?
-		TelluriumMockJUnitTestCase
-		TelluriumMockTestNGTestCase
+</listitem>
+		<listitem>		
+			TelluriumTestNGTestCase
+		</listitem>
+		<listitem>
+			TelluriumGroovyTestCase
+		</listitem>
+		<listitem>
+			TelluriumMockJUnitTestCase
+		</listitem>
+		<listitem>
+			TelluriumMockTestNGTestCase
+		</listitem>
+</orderedlist>
 
 		<section>
 			<title>Tellurium JUnit Test Case</title>
@@ -1791,43 +1968,82 @@ issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="c
 </para>
 			<para>
 				To be consistent with TestNG test case, the class
-				TelluriumJavaTestCase? is deprecated and you should use
+				TelluriumJavaTestCase is deprecated and you should use
 				TelluriumJUnitTestCase instead.
 </para>
-
-			@BeforeClass?
-			@AfterClass?
+<itemizedlist>
+<listitem>
+			@BeforeClass
+			</listitem>
+			<listitem>
+			@AfterClass
+			</listitem>
+			<listitem>
 			@Before
+			</listitem>
+			<listitem>
 			@After
+			</listitem>
+			<listitem>
 			@Test
+			</listitem>
+			<listitem>
 			@Ignore
+			</listitem>
+</itemizedlist>
 		</section>
 		<section>
 			<title>Tellurium TestNG Test Case</title>
 			<para>
 				Used for TestNG. Similarly, using the following annotations:
 			</para>
-
-			@BeforeSuite?
-			@AfterSuite?
-			@BeforeTest?
-			@AfterTest?
-			@BeforeGroups?
-			@AfterGroups?
-			@BeforeClass?
-			@AfterClass?
-			@BeforeMethod?
-			@AfterMethod?
-			@DataProvider?
+<itemizedlist>
+			<listitem>
+				@BeforeSuite
+			</listitem>
+			<listitem>
+				@AfterSuite
+			</listitem>
+			<listitem>
+			@BeforeTest
+			</listitem>
+			<listitem>
+				@AfterTest
+			</listitem>
+			<listitem>
+			@BeforeGroups
+			</listitem>
+			<listitem>
+			@AfterGroups
+			</listitem>
+			<listitem>
+			@BeforeClass
+			</listitem>
+			<listitem>
+			@AfterClass
+			</listitem>
+			<listitem>
+			@BeforeMethod
+			</listitem>
+			<listitem>
+			@AfterMethod
+			</listitem>
+			<listitem>
+			@DataProvider
+			</listitem>
+			<listitem>
 			@Parameters
+			</listitem>
+			<listitem>
 			@Test
-
+			</listitem>
+</itemizedlist>
 			<para>
 				TelluriumTestNGTestCase was changed to allow the setup and
 				teardown procedures only work
 				once for all the tests. The magic are
-				the @BeforeTest? and
-				@AfterTest? annotations. See the following code
+				the @BeforeTest and
+				@AfterTest annotations. See the following code
 				for more details,
 			</para>
 
@@ -1929,7 +2145,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
 
 
 			<para>
-				where the html file "JettyLogon?" lives in the class path
+				where the html file "JettyLogon" lives in the class path
 				"org/telluriumsource/html". You can change this by the following
 				method:
 </para>
@@ -2093,7 +2309,7 @@ public class JettyLogonModule extends DslContext {
                 "output": "Console"
             },
             "exception": {
-                "filenamePattern": "Screenshot?.png",
+                "filenamePattern": "Screenshot.png",
                 "captureScreenshot": false
             },
             "execution": {
@@ -2163,14 +2379,15 @@ public class JettyLogonModule extends DslContext {
 
 		<para>
 			If the JSON String is empty or null, Tellurium loads the
-			configuration file TelluriumConfig?.groovy first from the project
+			configuration file TelluriumConfig.groovy first from the project
 			root. If not found, it loads it from the class path. As a result,
 			you
-			can put the TelluriumConfig?.groovy file under the resources
-			directory if you use Maven.
+			can put the TelluriumConfig.groovy file under the resources
+			directory
+			if you use Maven.
 </para>
 		<para>
-			The configuration file TelluriumConfig?.groovy includes three
+			The configuration file TelluriumConfig.groovy includes three
 			extra
 			sections. That is to say, the bundle tier,
 </para>
@@ -2235,7 +2452,7 @@ public class JettyLogonModule extends DslContext {
 			as
 			suggested by our user. That can be easily demonstrated by the
 			following example, if we comment out the following section in
-			TelluriumConfig?.groovy
+			TelluriumConfig.groovy
 </para>
 
 		<programlisting language="java"><?db-font-size 75% ?>
@@ -2252,7 +2469,7 @@ public class JettyLogonModule extends DslContext {
 
 
 		<para>
-			What will happen? Tellurium will throw the following exception
+			What will happen Tellurium will throw the following exception
 		</para>
 		<programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
@@ -2433,7 +2650,7 @@ Grape.grab(group:'org.telluriumsource', module:'tellurium-website', version:'0.7
 		<para>
 			As you can see, this command actually consists of three
 			commands.
-			In DslContext?, Tellurium also provides two handy DSL style
+			In DslContext, Tellurium also provides two handy DSL style
 			methods.
 </para>
 		<programlisting language="java"><?db-font-size 75% ?>
@@ -2500,7 +2717,7 @@ Name: typeKey, count: 3, total: 124ms, average: 41ms
 
 
 		<para>
-			We added the following settings to TelluriumConfig?.groovy
+			We added the following settings to TelluriumConfig.groovy
 		</para>
 
 		<programlisting language="java"><?db-font-size 75% ?>
@@ -2519,7 +2736,7 @@ Name: typeKey, count: 3, total: 124ms, average: 41ms
 
 
 		<para>
-			You can use the follow methods in DslContext? to turn on or off
+			You can use the follow methods in DslContext to turn on or off
 			the
 			trace, and get the trace data.
 </para>
@@ -2544,9 +2761,10 @@ Name: typeKey, count: 3, total: 124ms, average: 41ms
 		<title>Methods Accessible in Test Cases</title>
 		<para>
 			There are many Tellurium APIs that used to be available only in
-			DslContext?. That is to say, you have to extend DslContext? to
+			DslContext. That is to say, you have to extend DslContext to
 			use
-			them. For example, you often see code in a test case likes
+			them.
+			For example, you often see code in a test case likes
 			this,
 		</para>
 
@@ -2589,7 +2807,7 @@ registerNamespace("te", te_ns);
 
 
 		<para>
-			New TelluriumGroovyTestCase? provides the following list of new
+			New TelluriumGroovyTestCase provides the following list of new
 			APIs for your convenience.
 </para>
 
@@ -2840,7 +3058,7 @@ class UiByTagResponse {
 
 		<para>
 			where the tids are assigned by Tellurium Engine. Under the hood,
-			Tellurium core creates one AllPurposeObject? for each tid in the
+			Tellurium core creates one AllPurposeObject for each tid in the
 			tids
 			array and registers it to Core so that users can use the
 			tid as the
@@ -2855,7 +3073,7 @@ class UiByTagResponse {
 			Example:
 </para>
 		<para>
-			In UI module JettyLogonModule?, we define the following method:
+			In UI module JettyLogonModule, we define the following method:
 		</para>
 
 		<programlisting language="java"><?db-font-size 75% ?>
@@ -2963,7 +3181,8 @@ class UiByTagResponse {
 		<itemizedlist>
 			<listitem>
 				<para>
-					void addScript(String scriptContent, String scriptTagId)</para>
+					void addScript(String scriptContent, String scriptTagId)
+				</para>
 			</listitem>
 			<listitem>
 				<para>
@@ -2971,7 +3190,8 @@ class UiByTagResponse {
 			</listitem>
 			<listitem>
 				<para>
-					void captureEntirePageScreenshot(String filename, String kwargs)</para>
+					void captureEntirePageScreenshot(String filename, String
+					kwargs)</para>
 			</listitem>
 			<listitem>
 				<para>
@@ -2979,7 +3199,8 @@ class UiByTagResponse {
 			</listitem>
 			<listitem>
 				<para>
-					String captureEntirePageScreenshotToString(String kwargs)</para>
+					String captureEntirePageScreenshotToString(String kwargs)
+				</para>
 			</listitem>
 			<listitem>
 				<para>
@@ -2999,13 +3220,15 @@ class UiByTagResponse {
 			<listitem>
 				<para>
 
-					String jsonify(String uid) is renamed to String toString(String uid)
+					String jsonify(String uid) is renamed to String
+					toString(String uid)
 				</para>
 			</listitem>
 			<listitem>
 				<para>
 
-					String generateHtml(String uid) is renamed to String toHTML(String uid)
+					String generateHtml(String uid) is renamed to String
+					toHTML(String uid)
 				</para>
 			</listitem>
 		</itemizedlist>
