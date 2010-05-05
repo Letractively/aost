@@ -388,10 +388,6 @@ public void disableTelluriumApi()
 ]]>
                         </programlisting>
                 </para>
-                <para>
-                    Be aware, the New Tellurium APIs are still under development
-                    and are not fully tested. Use them at your discretion. 
-                </para>
             </listitem>
             <listitem>
                 <para><emphasis role="bold">Trace</emphasis></para>
@@ -747,7 +743,7 @@ void useTelluriumEngine(boolean isUse){
         useCache(isUse);
         useMacroCmd(isUse);
         useTelluriumApi(isUse);
-    }  
+}  
 ]]>                    </programlisting>
                 </para>
                 <para>
@@ -1068,7 +1064,7 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
                     <quote><link xlink:href="http://maven.kungfuters.org/content/repositories/snapshots/org/telluriumsource/tellurium-core/0.8.0-SNAPSHOT/">Tellurium Core SNAPSHOT</link></quote>
                 </listitem>
                 <listitem>
-                    <quote><link xlink:href="http://maven.kungfuters.org/content/repositories/snapshots/org/seleniumhq/selenium/server/selenium-server/1.0.1-te3-SNAPSHOT/">Custom Selenium Server with Tellurium Engine</link></quote>
+                    <quote><link xlink:href="http://maven.kungfuters.org/content/repositories/snapshots/org/seleniumhq/selenium/server/selenium-server/1.0.1-te4-SNAPSHOT/">Custom Selenium Server with Tellurium Engine</link></quote>
                 </listitem>
             </itemizedlist>
         </para>
@@ -1078,6 +1074,12 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
         <para>
            <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
+<dependency>
+    <groupId>org.telluriumsource</groupId>
+    <artifactId>tellurium-udl</artifactId>
+    <version>0.7.0</version>
+    <scope>compile</scope>
+</dependency>
 <dependency>
     <groupId>org.telluriumsource</groupId>
     <artifactId>tellurium-core</artifactId>
