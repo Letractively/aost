@@ -1,5 +1,5 @@
 #summary Technical Notes.
-#labels Phase-Support
+#labels Phase-Support,Phase-Design
 
 = Technical Notes =
   * [http://code.google.com/p/aost/wiki/Tutorial Tellurium Tutorial]
@@ -41,3 +41,4 @@
   * [http://code.google.com/p/aost/wiki/TelluriumIntegrationTestsWithMavenCargoPlugin Run Tellurium Integration Tests with Maven Cargo Plugin]
   * [http://code.google.com/p/aost/wiki/BuildYourOwnJavaParserWithAntlr3 Build Your Own Java Parser with Antlr 3]
   * [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage Tellurium UID Description Language]
+  * [http://code.google.com/p/aost/wiki/BuildTelluriumReferenceDocumentWithDocbkxMavenPlugin Build Tellurium Reference Document with Docbkx Maven Plugin]
