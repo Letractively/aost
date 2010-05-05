@@ -24,7 +24,7 @@ Tellurium Contributors are categorized into development team, support team, evan
   
   * *Harihara Vinayakaram*:
 
-  * *Rajan Pokhrel*: Tellurium-Reference Guide
+  * *Rajan Pokhrel*: Rajan Pokhrel is graduating from Maharishi University of Management from Fairfield, Iowa with MS in Computer Science. He worked as a Software Engineer for several years and currently occupied a Senior Software Engineer position in a company based in Silicon Valley. Tellurium Core Engine, Tellurium-Reference Guide.    
 
 === Build and Release ===
 
