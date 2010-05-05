@@ -24,7 +24,7 @@ Tellurium Contributors are categorized into development team, support team, evan
   
   * *Harihara Vinayakaram*:
 
-  * *Rajan Pokhrel*: 
+  * *Rajan Pokhrel*: Tellurium-Reference Guide
 
 === Build and Release ===
 
