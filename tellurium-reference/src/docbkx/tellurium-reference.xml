@@ -82,15 +82,15 @@
 
     <xi:include href="widgets.xml"/>
 
-
     <xi:include href="engine.xml"/>
 
     <xi:include href="mavenarchetypes.xml"/>
 
     <xi:include href="trump.xml"/>
 
-
     <xi:include href="referenceprojects.xml"/>
+
+    <xi:include href="reference.xml"/>
 
     <xi:include href="faqs.xml"/>
     
