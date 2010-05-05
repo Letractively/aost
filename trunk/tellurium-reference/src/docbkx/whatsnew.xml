@@ -161,117 +161,10 @@ public void disableCssSelector();
                     The algorithm can locate the whole UI module at the runtime DOM. After that, you can just pass
                     in UI element's UID to find it in the cached UI module on Tellurium Engine. That is to say,
                     you don't need Tellurium Core to generate the runtime locators any more.
-
-                    Group Locating has some fundamental impacts on Tellurium and this can be explained by an example.
-                    For instance, you have the following html on the page that you want to test.
-                </para>
-                <para>
-                        <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-<H1>FORM Authentication demo</H1>
-
-<div class="box-inner">
-    <a href="js/tellurium-test.js">Tellurium Test Cases</a>
-    <input name="submit" type="submit" value="Test">
-</div>
-
-<form method="POST" action="j_security_check">
-    <table border="0" cellspacing="2" cellpadding="1">
-        <tr>
-            <td>Username:</td>
-            <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
-        </tr>
-        <tr>
-            <td colspan="2" align="center">
-                <input name="submit" type="submit" value="Login">
-            </td>
-        </tr>
-    </table>
-</form>
-]]>
-                        </programlisting>
-                </para>
-                <para>
-                    The correct UI module is shown as follows, 
-                </para>
-                <para>
-                        <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-ui.Container(uid: "Form", clocator: [tag: "table"]){
-        Container(uid: "Username", clocator: [tag: "tr"]){
-            TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
-            InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
-        }
-        Container(uid: "Password", clocator: [tag: "tr"]){
-            TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
-            InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j_password"])
-        }
-        SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login",
-            name: "submit"])
-}
-]]>
-                        </programlisting>
-                </para>
-                <para>
-                    Assume the html was changed recently and you still use the UI module defined some time ago.
-                </para>
-                <para>
-                        <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-ui.Container(uid: "ProblematicForm", clocator: [tag: "table"]){
-        Container(uid: "Username", clocator: [tag: "tr"]){
-            TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
-            InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j"])
-        }
-        Container(uid: "Password", clocator: [tag: "tr"]){
-            TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
-            InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j"])
-        }
-        SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "logon",
-            name: "submit"])
-}
-]]>
-                        </programlisting>
-                </para>
-                <para>
-                    Here are the differences.
-                </para>
-                <para>
-                        <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
-   InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j"])
-
-   InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j_password"])
-   InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j"])
-
-   SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login",
-    name: "submit"])
-   SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "logon",
-    name: "submit"])     
-]]>
-                        </programlisting>
-                </para>
-                <para>
-                    What will happen without the new group locating algorithm? You tests will be broken
-                    because the generated locators will not be correct any more. But if you use the latest
-                    Tellurium 0.7.0 snapshot, you will notice that the tests still work if you allow
-                    Tellurium to do closest match by calling 
-                </para>
-                <para>
-                        <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-useClosestMatch(true);
-]]>
-                        </programlisting>
                 </para>
                 <para>
                    The magic is that the new Tellurium Engine will locate the UI module as a whole.
-                    It may have trouble to find the individual UI element such as "ProblematicForm.Username.Input",
+                    It may have trouble to find the individual UI element,
                     but it has no trouble to find the whole UI module structure in the DOM. Apart from that, Tellurium 0.7.0
                     also provides a handy method for you to validate your UI module. For example, if you call  
                 </para>
@@ -446,7 +339,7 @@ class TableExampleModule extends DslContext {
  <dependency>
     <groupId>org.telluriumsource</groupId>
     <artifactId>tellurium-udl</artifactId>
-    <version>0.7.0-SNAPSHOT</version>
+    <version>0.7.0</version>
     <scope>compile</scope>
 </dependency>
 ]]>
@@ -566,82 +459,6 @@ useCssSelector();
 registerNamespace("te", te_ns);
 ]]>
                         </programlisting>
-                </para>
-                <para>
-                    New TelluriumGroovyTestCase provides the following list of new APIs for your convenience. 
-                </para>
-                <para>
-                        <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-public void useCssSelector(boolean isUse);
-
-    public void useCache(boolean isUse);
-
-    public void cleanCache();
-
-    public boolean isUsingCache();
-
-    public void setCacheMaxSize(int size);
-
-    public int getCacheSize();
-
-    public int getCacheMaxSize();
-
-    public Map<String, Long> getCacheUsage();
-
-    public void useCachePolicy(CachePolicy policy);
-
-    public String getCurrentCachePolicy();
-
-    public void useDefaultXPathLibrary();
-
-    public void useJavascriptXPathLibrary();
-
-    public void useAjaxsltXPathLibrary();
-
-    public void registerNamespace(String prefix, String namespace);
-
-    public String getNamespace(String prefix);
-
-    public void pause(int milliseconds);
-
-    public void useMacroCmd(boolean isUse);
-
-    public void setMaxMacroCmd(int max);
-
-    public int getMaxMacroCmd();
-
-    public boolean isUseTelluriumApi();
-
-    public void useTelluriumApi(boolean isUse);
-
-    public void useTrace(boolean isUse);
-
-    public void showTrace();
-
-    public void setEnvironment(String name, Object value);
-
-    public Object getEnvironment(String name);
-
-    public void allowNativeXpath(boolean allow);
-
-    public void addScript(String scriptContent, String scriptTagId);
-
-    public void removeScript(String scriptTagId);
-
-    public void EngineState getEngineState();
-
-    public void useEngineLog(boolean isUse);
-
-    public void useTelluriumEngine(boolean isUse);
-
-    public void dumpEnvironment();
-]]>
-                        </programlisting>
-                </para>
-                <para>
-                    Tellurium Java test cases provide the same APIs and the only
-                    difference is that the APIs in Tellurium Java test cases are static. 
                 </para>
             </listitem>
             <listitem>
@@ -806,331 +623,27 @@ datadriven{
                 </para>
             </listitem>
             <listitem>
-                <para><emphasis role="bold">Standard Table</emphasis></para>
-                <para>The Standard Table is used for table with multiple "tbody" sections. The Table layout is as follows.   </para>
-                <para>
-                        <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-table
-      thead
-         tr
-           th
-           ...
-           th
-      tbody
-         tr
-           td
-           ...
-           td
-         ...
-      tbody (Could have multiple ones)
-         tr
-           td
-           ...
-           td
-         ...
-      tfoot
-         tr
-           td
-           ...
-           td
-]]>                    </programlisting>
-                </para>
-            </listitem>
-            <listitem>
-                <para><emphasis role="bold">self attribute</emphasis></para>
-                <para>Some times, elements inside a Table usually are inside its parent tag, for instance, we
-                    have the following HTML source.
-                </para>
-                <para>
-                        <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-<div id="table">
-   <div>
-       <div id="name">
-           <div>Data</div>
-           <div>
-               <img/>
-           </div>
-       </div>
-       <div id="shortname">
-           <div>Bezeichnung</div>
-           <div>
-               <img/>
-           </div>
-       </div>
-       <div id="type">
-           <div>Typ</div>
-           <div>
-               <img/>
-           </div>
-       </div>
-   </div>
-   <div id="client-area">
-       <div>
-           <div>Bildsystem</div>
-           <div>Bildsystem</div>
-           <div>Bildserver</div>
-       </div>
-       <div>
-           <div>Partner</div>
-           <div>Partner</div>
-           <div>Bestandssystem</div>
-       </div>
-       <div>
-           <div>MS</div>
-           <div>MS</div>
-           <div>MS</div>
-       </div>
-   </div>
-</div>
-]]>                    </programlisting>
-                </para>
-                <para>where the "Data" element and many others are inside its parent tag "div". To module this,
-                    we added a self attribute to the UiObject class and the default is "false".To describe the
-                    above html, we can define the following UI module. 
-                </para>
-                <para>
-                        <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-ui.StandardTable(uid: "Table", clocator: [id: "table"], bt: "div", brt: "div", bct: "div"){
-      TextBox(uid: "{tbody: 1, row: all, column: 1}", clocator: [tag: "div"], self: "true")
-      Image(uid: "{tbody: 1, row: all, column: 2}", clocator: [:])
-      TextBox(uid: "{tbody: 2, row: all, column: 1}", clocator: [tag: "div"], self: "true")
-      TextBox(uid: "{tbody: 2, row: all, column: 2}", clocator: [tag: "div"], self: "true")
-      TextBox(uid: "{tbody: 2, row: all, column: 3}", clocator: [tag: "div"], self: "true")
-    }
-]]>                    </programlisting>
-                </para>
-                <para>
-                    To test the UI module, you can simply call the following api. 
-                </para>
-                <para>
-                        <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-   getHTMLSource("Table");
-]]>                    </programlisting>
-                </para>
-                <para>
-                     Be aware that the self can be "true" ONLY  for UI elements inside a List, a Table, or a StandardTable Object. 
-                </para>
-            </listitem>
-            <listitem>
                 <para><emphasis role="bold">Engine State Offline Update</emphasis></para>
                 <para>For some reason, you may need to make Engine state calls before you actually connect to
-                    the Engine. For example, call one of the following methods.
-                    <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-public void enableCache();
-public void disableCache();
-public void useTelluriumApi(boolean isUse);
-public void useClosestMatch(boolean isUse);
-]]>
-                    </programlisting>
-                </para>
-                <para>
+                    the Engine.
                     We added an Engine State tracer in the bundle tier to record all the requests if
                     the Engine is not connected and aggregate them. Once the Engine is connected,
-                    Tellurium will automatically send out the Engine state update request. For example,
-                    the following test code works fine in 0.7.0.
-                </para>
-                <para>For some reason, you may need to make Engine state calls before you actually connect to
-                    the Engine. For example, call one of the following methods.
-                    <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-@Test
-    public void testOfflineEngineStateUpdate(){
-        JettyLogonModule jlm = new  JettyLogonModule();
-        jlm.defineUi();
-        useCssSelector(true);
-        useTrace(true);
-        //Engine state offline update
-        useTelluriumApi(true);
-        useCache(true);
-        connectSeleniumServer();
-        connectUrl("http://localhost:8080/logon.html");
-        jlm.logon("test", "test");
-        //Back to state online update
-        useClosestMatch(true);
-        connectUrl("http://localhost:8080/logon.html");
-        jlm.plogon("test", "test");
-    }]]>
-                    </programlisting>
+                    Tellurium will automatically send out the Engine state update request.
                 </para>
             </listitem>
             <listitem>
                 <para><emphasis role="bold">Repeat Object</emphasis></para>
                 <para>Very often, we need to use the same UI elements for multiple times on the web page
-                    <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-<div class="segment clearfix">
-       <div class="option">
-           <ul class="fares">
-               <li>
-                   <input type="radio">&nbsp;
-                   <label>Economy</label>
-               </li>
-               <li>
-                   <input type="radio">&nbsp;
-                   <label>Flexible</label>
-               </li>
-           </ul>
-           <div class="details">
-               <dl>
-                   <dt>Ship:</dt>
-                   <dd>A</dd>
-                   <dt>Departs</dt>
-                   <dd>
-                       <em>08:00</em>
-                   </dd>
-                   <dt>Arrives</dt>
-                   <dd>
-                       <em>11:45</em>
-                   </dd>
-               </dl>
-           </div>
-       </div>
-       <div class="option">
-           <ul class="fares">
-               <li>
-                   <input type="radio">&nbsp;
-                   <label>Economy</label>
-               </li>
-               <li>
-                   <input type="radio">&nbsp;
-                   <label>Flexible</label>
-               </li>
-           </ul>
-           <div class="details">
-               <dl>
-                   <dt>Ship:</dt>
-                   <dd>B</dd>
-                   <dt>Departs</dt>
-                   <dd>
-                       <em>17:30</em>
-                   </dd>
-                   <dt>Arrives</dt>
-                   <dd>
-                       <em>21:15</em>
-                   </dd>
-               </dl>
-           </div>
-       </div>
-   </div>
-   <div class="segment clearfix">
-       <div class="option">
-           <ul class="fares">
-               <li>
-                   <input type="radio">&nbsp;
-                   <label>Economy</label>
-               </li>
-               <li>
-                   <input type="radio">&nbsp;
-                   <label>Flexible</label>
-               </li>
-           </ul>
-           <div class="details">
-               <div class="photo"><img/></div>
-               <dl>
-                   <dt>Ship:</dt>
-                   <dd>C</dd>
-                   <dt>Departs</dt>
-                   <dd>
-                       <em>02:00</em>
-                   </dd>
-                   <dt>Arrives</dt>
-                   <dd>
-                       <em>06:00</em>
-                   </dd>
-               </dl>
-           </div>
-       </div>
-       <div class="option">
-           <ul class="fares">
-               <li>
-                   <input type="radio">&nbsp;
-                   <label>Economy</label>
-               </li>
-               <li>
-                   <input type="radio">&nbsp;
-                   <label>Flexible</label>
-               </li>
-           </ul>
-           <div class="details">
-               <dl>
-                   <dt>Ship:</dt>
-                   <dd>D</dd>
-                   <dt>Departs</dt>
-                   <dd>
-                       <em>12:45</em>
-                   </dd>
-                   <dt>Arrives</dt>
-                   <dd>
-                       <em>16:30</em>
-                   </dd>
-               </dl>
-           </div>
-       </div>
-   </div>
-</form>
-]]>
-                    </programlisting>
-                </para>
-                <para>
-                    You can see the elements <literal><![CDATA[<div class="segment clearfix">]]></literal>
-                    and <literal><![CDATA[<div class="option">]]></literal>  repeated for couple times.
-                    We can use the Repeat object for this UI module.
-                    The Repeat object inherits the Container object and You can use it just like a Container.
-                    The difference is that you should use index to refer to a Repeat object. For the above html
-                    source, we can create the following UI module
-                </para>
-                <para>
-                    <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-ui.Form(uid: "SailingForm", clocator: [name: "selectedSailingsForm"] ){
-      Repeat(uid: "Section", clocator: [tag: "div", class: "segment clearfix"]){
-        Repeat(uid: "Option", clocator: [tag: "div", class: "option", direct: "true"]){
-          List(uid: "Fares", clocator: [tag: "ul", class: "fares", direct: "true"], separator: "li"){
-
-            Container(uid: "all"){
-                RadioButton(uid: "radio", clocator: [:], respond: ["click"])
-                TextBox(uid: "label", clocator: [tag: "label"])
-            }
-          }
-          Container(uid: "Details", clocator: [tag: "div", class: "details"]){
-            Container(uid: "ShipInfo", clocator: [tag: "dl"]){
-              TextBox(uid: "ShipLabel", clocator: [tag: "dt", position: "1"])
-              TextBox(uid: "Ship", clocator: [tag: "dd", position: "1"])
-              TextBox(uid: "DepartureLabel", clocator: [tag: "dt", position: "2"])
-              Container(uid: "Departure", clocator: [tag: "dd", position: "2"]){
-                TextBox(uid: "Time", clocator: [tag: "em"])
-              }
-              TextBox(uid: "ArrivalLabel", clocator: [tag: "dt", position: "3"])
-              Container(uid: "Arrival", clocator: [tag: "dd", position: "3"]){
-                TextBox(uid: "Time", clocator: [tag: "em"])
-              }
-            }
-          }
-        }
-      }
-    }
-    ]]>
-                    </programlisting>
+                    We can use the Repeat object for this purpose. The Repeat object inherits the Container
+                    object and You can use it just like a Container.
+                    The difference is that you should use index to refer to a Repeat object.
                 </para>
             </listitem>
             <listitem>
                 <para><emphasis role="bold">All Purpose Object</emphasis></para>
                 <para>Tellurium 0.7.0 added an all purpose object for internal usage only.
                     This object includes all methods for non-Container type objects.
-                    The object is defined as   </para>
-                <para>
-                        <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-class AllPurposeObject extends UiObject {
-
-}
-]]>                    </programlisting>
-                </para>
+                 </para>
             </listitem>
             <listitem>
                 <para><emphasis role="bold">Groovy and GMaven</emphasis></para>
@@ -1298,7 +811,7 @@ void disableTelluriumEngine();
 <properties>
         ...
         <selenium-version>1.0.1</selenium-version>
-        <selenium-server-version>1.0.1-te3-SNAPSHOT</selenium-server-version>
+        <selenium-server-version>1.0.1-te3</selenium-server-version>
 </properties>
 ]]>                    </programlisting>
                 </para>
@@ -1315,17 +828,19 @@ exploitCssSelector = true
 ]]>                    </programlisting>
                 </para>
                 <para>
-                    in the Environment class and you can use 
+                    in the <classname>Environment</classname> class and you can use
                 </para>
                 <para>
-                        <programlisting language="java"><?db-font-size 75% ?>
+                 <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 disableCssSelector()
 
-or
-
+]]>             </programlisting>
+                    <para>or</para>
+                 <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
 useCssSelector(false)
-]]>                    </programlisting>
+]]>             </programlisting>
                 </para>
                 <para>
                     to switch back to xpath if you like to.
@@ -1372,258 +887,38 @@ useCssSelector(false)
             </itemizedlist>
         </para>
          <para>
-            <itemizedlist>
-                <listitem>
-                    <para><emphasis role="bold">Code Structure change</emphasis></para>
-                    <para>
-                        The following are Javascript files in the Engine project:
-                    </para>
-                    <para>
-                        <programlisting language="java"><?db-font-size 75% ?>
-    <![CDATA[
-    src/main/resources/core/scripts/
-    |-- firebuglite
-    |   |-- errorIcon.png
-    |   |-- firebug-lite.css
-    |   |-- firebug-lite.js
-    |   |-- firebug.gif
-    |   |-- firebug_logo.png
-    |   |-- infoIcon.png
-    |   |-- progress.gif
-    |   |-- spacer.gif
-    |   |-- tree_close.gif
-    |   |-- tree_open.gif
-    |   `-- warningIcon.png
-    |-- htmlutils.js
-    |-- jquery-1.4.2.js
-    |-- jquery-cookies-2.1.0.js
-    |-- jquery-simpletip-1.3.1.js
-    |-- json2.js
-    |-- log4js.js
-    |-- selenium-api.js
-    |-- selenium-browserbot.js
-    |-- selenium-browserdetect.js
-    |-- selenium-commandhandlers.js
-    |-- selenium-executionloop.js
-    |-- selenium-logging.js
-    |-- selenium-remoterunner.js
-    |-- selenium-testrunner.js
-    |-- selenium-version.js
-    |-- tellurium-api.js
-    |-- tellurium-cache.js
-    |-- tellurium-extensions.js
-    |-- tellurium-logging.js
-    |-- tellurium-selector.js
-    |-- tellurium-udl.js
-    |-- tellurium-uialg.js
-    |-- tellurium-uibasic.js
-    |-- tellurium-uiextra.js
-    |-- tellurium-uimodule.js
-    |-- tellurium-uiobj.js
-    |-- tellurium-uisnapshot.js
-    |-- tellurium.js
-    |-- tooltip
-    |   `-- simpletip.css
-    |-- user-extensions.js
-    |-- utils.js
-    `-- xmlextras.jst
-    ]]>
-                        </programlisting>
-                    </para>
-                </listitem>
-                <listitem>
-                    <para><emphasis role="bold">Locate Strategies</emphasis></para>
-                    <para>
-                        Moved the CSS selector locate strategy and the cache aware locate strategy
-                        from Core to the Engine. This is done by adding the following lines to
-                        the method BrowserBot.prototype._registerAllLocatorFunctions  in
-                        the selenium-browserbot.js file:
-                    </para>
-                    <para>
-                        <programlisting language="java"><?db-font-size 75% ?>
-    <![CDATA[
-    this.locationStrategies['jquery'] = function(locator, inDocument, inWindow) {
-            return tellurium.locateElementByCSSSelector(locator, inDocument, inWindow);
-    };
+             Other changes include:
+             <itemizedlist>
 
-    //used internally by Tellurium Engine
-    this.locationStrategies['uimcal'] = function(locator, inDocument, inWindow) {
-            return tellurium.locateElementWithCacheAware(locator, inDocument, inWindow);
-    };
-    ]]>
-                        </programlisting>
-                    </para>
-                </listitem>
-                <listitem>
-                    <para><emphasis role="bold">CSS Selector Support</emphasis></para>
-                    <para>
-                        Actually, the CSS selector support was added in Tellurium 0.6.0
-                        and we changed the name "jQuery Selector" to "CSS Selector" as suggested by Dylan.
-                    </para>
+                 <listitem>
+                     <para>
+                         <emphasis role="bold">jQuery</emphasis>
+                     </para>
+                     <para>
+                         The jQuery in Engine has been upgraded from 1.3.2 to 1.4.2.
+                     </para>
+                 </listitem>
+                 <listitem>
+                     <para>
+                         <emphasis role="bold">Engine Logging</emphasis>
+                     </para>
+                     <para>
+                         Tellurium Engine uses Firebug Lite to add debug information
+                         to the console. By default the Firebug Lite is off.
+                     </para>
+                 </listitem>
+                 <listitem>
+                     <para>
+                         <emphasis role="bold">Add JavaScript Error Stack to Selenium Errors</emphasis>
+                     </para>
+                     <para>
+                         We utilized the JavaScript Stack Trace project to refactor Selenium Errors in Selenium
+                         Core so that the JavaScript Error Stack will be passed back Tellurium Core.
+                     </para>
+                 </listitem>
 
-                </listitem>
-                <listitem>
-                    <para><emphasis role="bold">New APIs</emphasis></para>
-                    <para>
-                        Right now, new Tellurium jQuery-based APIs include
-                    </para>
-                    <para>
-                        <programlisting language="java"><?db-font-size 75% ?>
-    <![CDATA[
-    TelluriumApi.prototype.blur = function(locator);
-
-    TelluriumApi.prototype.click = function(locator);
-
-    TelluriumApi.prototype.clickAt = function(locator, coordString);
-
-    TelluriumApi.prototype.doubleClick = function(locator);
-
-    TelluriumApi.prototype.fireEvent = function(locator, event);
-
-    TelluriumApi.prototype.focus = function(locator);
-
-    TelluriumApi.prototype.typeKey = function(locator, key);
-
-    TelluriumApi.prototype.keyDown = function(locator, key);
-
-    TelluriumApi.prototype.keyPress = function(locator, key);
-
-    TelluriumApi.prototype.keyUp = function(locator, key);
-
-    TelluriumApi.prototype.mouseOver = function(locator);
-
-    TelluriumApi.prototype.mouseDown = function(locator);
-
-    TelluriumApi.prototype.mouseDownRight = function(locator);
-
-    TelluriumApi.prototype.mouseEnter = function(locator);
-
-    TelluriumApi.prototype.mouseLeave = function(locator);
-
-    TelluriumApi.prototype.mouseOut = function(locator);
-
-    TelluriumApi.prototype.submit = function(locator);
-
-    TelluriumApi.prototype.check = function(locator);
-
-    TelluriumApi.prototype.uncheck = function(locator);
-
-    TelluriumApi.prototype.isElementPresent = function(locator);
-
-    TelluriumApi.prototype.getAttribute = function(locator, attributeName);
-
-    TelluriumApi.prototype.waitForPageToLoad = function(timeout);
-
-    TelluriumApi.prototype.type = function(locator, val);
-
-    TelluriumApi.prototype.select = function(locator, optionLocator);
-
-    TelluriumApi.prototype.addSelection = function(locator, optionLocator);
-
-    TelluriumApi.prototype.removeSelection = function(locator, optionLocator);
-
-    TelluriumApi.prototype.removeAllSelections = function(locator);
-
-    TelluriumApi.prototype.open = function(url);
-
-    TelluriumApi.prototype.getText = function(locator);
-
-    TelluriumApi.prototype.isChecked = function(locator);
-
-    TelluriumApi.prototype.isVisible = function(locator);
-
-    TelluriumApi.prototype.isEditable = function(locator) ;
-
-    TelluriumApi.prototype.getXpathCount = function(xpath);
-
-    TelluriumApi.prototype.getAllText = function(locator);
-
-    TelluriumApi.prototype.getCssSelectorCount = function(locator);
-
-    TelluriumApi.prototype.getCSS = function(locator, cssName);
-
-    TelluriumApi.prototype.isDisabled = function(locator);
-
-    TelluriumApi.prototype.getListSize = function(locator, separators);
-
-
-    TelluriumApi.prototype.getCacheState = function();
-
-    TelluriumApi.prototype.enableCache = function();
-
-    TelluriumApi.prototype.disableCache = function();
-
-    TelluriumApi.prototype.cleanCache = function();
-
-    TelluriumApi.prototype.setCacheMaxSize = function(size);
-
-    TelluriumApi.prototype.getCacheSize = function();
-
-    TelluriumApi.prototype.getCacheMaxSize = function();
-
-    TelluriumApi.prototype.getCacheUsage = function();
-
-    TelluriumApi.prototype.addNamespace = function(prefix, namespace);
-
-    TelluriumApi.prototype.getNamespace = function(prefix);
-
-    TelluriumApi.prototype.useDiscardNewPolicy = function();
-
-    TelluriumApi.prototype.useDiscardOldPolicy = function();
-
-    TelluriumApi.prototype.useDiscardLeastUsedPolicy = function();
-
-    TelluriumApi.prototype.useDiscardInvalidPolicy = function();
-
-    TelluriumApi.prototype.getCachePolicyName = function();
-
-    TelluriumApi.prototype.useUiModule = function(json);
-
-    TelluriumApi.prototype.isUiModuleCached = function(id);
-
-    TelluriumApi.prototype.getEngineState = function();
-
-    TelluriumApi.prototype.useEngineLog = function(isUse);
-    ]]>
-                        </programlisting>
-                    </para>
-                    <para>
-                        As you can see, most of the new APIs have the same signature as the
-                        Selenium ones so that your test code is agnostic to which test
-                        driving engine that you use. You can always switch between the
-                        Tellurium Engine and Selenium Engine by the following API at Tellurium core.
-                    </para>
-                    <para>
-                        <programlisting language="java"><?db-font-size 75% ?>
-    <![CDATA[
-    public void useTelluriumApi(boolean isUse);
-    ]]>
-                        </programlisting>
-                    </para>
-                </listitem>
-                <listitem>
-                    <para><emphasis role="bold">jQuery</emphasis></para>
-                    <para>
-                        The jQuery in Engine has been upgraded from 1.3.2 to 1.4.2.
-                    </para>
-                </listitem>
-                <listitem>
-                    <para><emphasis role="bold">Engine Logging</emphasis></para>
-                    <para>
-                        Tellurium Engine uses Firebug Lite to add debug information
-                        to the console. By default the Firebug Lite is off.
-                    </para>
-                </listitem>
-                <listitem>
-                    <para><emphasis role="bold">Add JavaScript Error Stack to Selenium Errors</emphasis></para>
-                    <para>
-                        We utilized the JavaScript Stack Trace project to refactor Selenium Errors in Selenium
-                        Core so that the JavaScript Error Stack will be passed back Tellurium Core.
-                    </para>
-                </listitem>
-
-            </itemizedlist>
-        </para>
+             </itemizedlist>
+         </para>
     </section>
     <section>
         <title>Changes in Maven Build</title>
@@ -1668,12 +963,12 @@ useCssSelector(false)
 <dependency>
             <groupId>org.telluriumsource</groupId>
             <artifactId>tellurium-core</artifactId>
-            <version>0.7.0-SNAPSHOT</version>
+            <version>0.7.0</version>
 </dependency>
 <dependency>
             <groupId>org.seleniumhq.selenium.server</groupId>
             <artifactId>selenium-server</artifactId>
-            <version>1.0.1-te3-SNAPSHOT</version>
+            <version>1.0.1-te3</version>
 </dependency>
 ]]>
             </programlisting>
@@ -1686,7 +981,7 @@ useCssSelector(false)
 <![CDATA[
 <groupId>org.telluriumsource</groupId>
 <artifactId>tellurium-junit-archetype</artifactId>
-<version>0.7.0-SNAPSHOT</version>
+<version>0.7.0</version>
 ]]>
             </programlisting>
         </para>
@@ -1698,13 +993,14 @@ useCssSelector(false)
 <![CDATA[
 <groupId>org.telluriumsource</groupId>
 <artifactId>tellurium-testng-archetype</artifactId>
-<version>0.7.0-SNAPSHOT</version>
+<version>0.7.0</version>
 ]]>
             </programlisting>
         </para>
+
         <para>
-            To create a Tellurium project based on Tellurium 0.7.0 SNAPSHOT,
-            you should use the Maven archetype 0.7.0-SNAPSHOT. To create a JUnit project,
+            To create a Tellurium project based on Tellurium 0.7.0,
+            you should use the Maven archetype 0.7.0. To create a JUnit project,
             use the following Maven command:
         </para>
         <para>
@@ -1712,7 +1008,7 @@ useCssSelector(false)
 <![CDATA[
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
 -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=org.telluriumsource
--DarchetypeVersion=0.7.0-SNAPSHOT
+-DarchetypeVersion=0.7.0
 -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
 ]]>
             </programlisting>
@@ -1725,7 +1021,7 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
 <![CDATA[
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
 -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=org.telluriumsource
--DarchetypeVersion=0.7.0-SNAPSHOT
+-DarchetypeVersion=0.7.0
 -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
 ]]>
             </programlisting>
@@ -1738,7 +1034,7 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
 <![CDATA[
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
 -DarchetypeArtifactId=tellurium-widget-archetype -DarchetypeGroupId=org.telluriumsource
--DarchetypeVersion=0.7.0-SNAPSHOT
+-DarchetypeVersion=0.7.0
 -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
 ]]>
             </programlisting>
@@ -1749,69 +1045,12 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
         <para>
         The old two reference projects, i.e., tellurium-junit-java and tellurium-testng-java
             reference projects have been updated and merged into one reference project,
-            tellurium-website. The code structure is shown as follows,
+            tellurium-website. In addition, we add a new ui-examples reference project to show
+            how to define different types of UI objects based on html snippets.
         </para>
-        <para>
-           <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-|-- HowTO
-|-- LICENSE.txt
-|-- README
-|-- TelluriumConfig.groovy
-|-- pom.xml
-|-- rundsl.bat
-|-- rundsl.sh
-|-- src
-|   |-- main
-|   |   |-- groovy
-|   |   |   `-- org
-|   |   |       `-- telluriumsource
-|   |   |           `-- ui
-|   |   |               |-- builder
-|   |   |               |   `-- SelectMenuBuilder.groovy
-|   |   |               `-- object
-|   |   |                   `-- SelectMenu.groovy
-|   |   `-- resources
-|   `-- test
-|       |-- groovy
-|       |   `-- org
-|       |       `-- telluriumsource
-|       |           |-- ddt
-|       |           |   |-- TelluriumIssuesDataDrivenTest.groovy
-|       |           |   `-- TelluriumIssuesModule.groovy
-|       |           |-- module
-|       |           |   |-- TelluriumDownloadsPage.groovy
-|       |           |   |-- TelluriumIssuesPage.groovy
-|       |           |   |-- TelluriumProjectPage.groovy
-|       |           |   `-- TelluriumWikiPage.groovy
-|       |           `-- test
-|       |               |-- TelluriumDownloadsPageJUnitTestCase.java
-|       |               |-- TelluriumDownloadsPageTestNGTestCase.java
-|       |               |-- TelluriumIssuesPageJUnitTestCase.java
-|       |               |-- TelluriumIssuesPageTestNGTestCase.java
-|       |               |-- TelluriumProjectPageJUnitTestCase.java
-|       |               |-- TelluriumProjectPageTestNGTestCase.java
-|       |               |-- TelluriumWikiPageJUnitTestCase.java
-|       |               `-- TelluriumWikiPageTestNGTestCase.java
-|       `-- resources
-|           `-- org
-|               `-- telluriumsource
-|                   |-- data
-|                   |   `-- TelluriumIssuesInput.txt
-|                   |-- dsl
-|                   |   `-- TelluriumPage.dsl
-|                   `-- test-suites
-|                       `-- reportng.xml
-]]>
-            </programlisting>
-        </para>
+
     </section>
-    <section>
-        <title>Examples</title>
-        <para>
-        In Tellurium Core, we include test cases for Google search UI. 
-        </para>
-    </section>
+
     <section>
         <title>How to Obtain Tellurium 0.7.0</title>
         <para>
@@ -1823,10 +1062,10 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
             </itemizedlist>
         </para>
         <para>
-            Tellurium 0.7.0-SNAPSHOT can be obtained from 
+            Tellurium 0.8.0-SNAPSHOT can be obtained from
             <itemizedlist>
                 <listitem>
-                    <quote><link xlink:href="http://maven.kungfuters.org/content/repositories/snapshots/org/telluriumsource/tellurium-core/0.7.0-SNAPSHOT/">Tellurium Core SNAPSHOT</link></quote>
+                    <quote><link xlink:href="http://maven.kungfuters.org/content/repositories/snapshots/org/telluriumsource/tellurium-core/0.8.0-SNAPSHOT/">Tellurium Core SNAPSHOT</link></quote>
                 </listitem>
                 <listitem>
                     <quote><link xlink:href="http://maven.kungfuters.org/content/repositories/snapshots/org/seleniumhq/selenium/server/selenium-server/1.0.1-te3-SNAPSHOT/">Custom Selenium Server with Tellurium Engine</link></quote>
@@ -1842,359 +1081,20 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
 <dependency>
     <groupId>org.telluriumsource</groupId>
     <artifactId>tellurium-core</artifactId>
-    <version>0.7.0-SNAPSHOT</version>
+    <version>0.7.0</version>
     <scope>compile</scope>
 </dependency>
 <dependency>
     <groupId>org.seleniumhq.selenium.server</groupId>
     <artifactId>selenium-server</artifactId>
-    <version>1.0.1-te3-SNAPSHOT</version>
+    <version>1.0.1-te3</version>
 </dependency>        
 ]]>
             </programlisting>
         </para>
         <para>
-            Here is a sample POM file
+           A sample POM file can be found in appendices.
         </para>
-        <para>
-           <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.telluriumsource</groupId>
-    <artifactId>tellurium-website</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <name>Tellurium Reference Project - Tellurium Website</name>
 
-    <repositories>
-        <repository>
-            <id>caja</id>
-            <url>http://google-caja.googlecode.com/svn/maven</url>
-        </repository>
-        <repository>
-            <id>kungfuters-public-snapshots-repo</id>
-            <name>Kungfuters.org Public Snapshot Repository</name>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <url>http://maven.kungfuters.org/content/repositories/snapshots</url>
-        </repository>
-        <repository>
-            <id>kungfuters-public-releases-repo</id>
-            <name>Kungfuters.org Public Releases Repository</name>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <url>http://maven.kungfuters.org/content/repositories/releases</url>
-        </repository>
-        <repository>
-            <id>kungfuters-thirdparty-releases-repo</id>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <url>http://maven.kungfuters.org/content/repositories/thirdparty</url>
-        </repository>
-        <repository>
-            <id>openqa-release-repo</id>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <url>http://archiva.openqa.org/repository/releases</url>
-        </repository>
-    </repositories>
-
-
-    <dependencies>
-        <dependency>
-            <groupId>org.codehaus.gmaven</groupId>
-            <artifactId>gmaven-mojo</artifactId>
-            <version>${gmaven-version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.codehaus.gmaven.runtime</groupId>
-                    <artifactId>gmaven-runtime-1.5</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.gmaven.runtime</groupId>
-            <artifactId>gmaven-runtime-1.6</artifactId>
-            <version>${gmaven-version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.7</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.telluriumsource</groupId>
-            <artifactId>tellurium-core</artifactId>
-            <version>${tellurium-version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium.server</groupId>
-            <artifactId>selenium-server</artifactId>
-            <version>${selenium-version}-te3-SNAPSHOT</version>
-            <!--classifier>standalone</classifier-->
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium.client-drivers</groupId>
-            <artifactId>selenium-java-client-driver</artifactId>
-            <version>${selenium-version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.codehaus.groovy.maven.runtime</groupId>
-                    <artifactId>gmaven-runtime-default</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.seleniumhq.selenium.core</groupId>
-                    <artifactId>selenium-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.seleniumhq.selenium.server</groupId>
-                    <artifactId>selenium-server</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>${groovy-version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>caja</groupId>
-            <artifactId>json_simple</artifactId>
-            <version>r1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.stringtree</groupId>
-            <artifactId>stringtree-json</artifactId>
-            <version>2.0.10</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>3.0.1-FINAL</version>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>5.8</version>
-            <classifier>jdk15</classifier>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.uncommons</groupId>
-            <artifactId>reportng</artifactId>
-            <version>0.9.8</version>
-        </dependency>
-        <dependency>
-            <groupId>velocity</groupId>
-            <artifactId>velocity-dep</artifactId>
-            <version>1.4</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <resources>
-            <resource>
-                <directory>src/main/groovy</directory>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>src/test/groovy</directory>
-            </testResource>
-            <testResource>
-                <directory>src/test/resources</directory>
-            </testResource>
-        </testResources>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.0.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.4.3</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-surefire-report-plugin</artifactId>
-                    <version>2.4.3</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>2.0.4</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.4</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>2.0-beta-7</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.gmaven</groupId>
-                    <artifactId>gmaven-plugin</artifactId>
-                    <version>${gmaven-version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jxr-plugin</artifactId>
-                    <version>2.1</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java-version}</source>
-                    <target>${java-version}</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <includes>
-                        <include>**/*_UT.java</include>
-                        <include>**/*TestCase.java</include>
-                    </includes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>gmaven-plugin</artifactId>
-                <configuration>
-                    <providerSelection>1.7</providerSelection>
-                    <targetBytecode>${java-version}</targetBytecode>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <!-- The generateStubs goals are not yet working for enums and generics -->
-                            <goal>generateStubs</goal>
-                            <goal>compile</goal>
-                            <goal>generateTestStubs</goal>
-                            <goal>testCompile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-    <reporting>
-        <plugins>
-            <plugin>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>report-only</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </reporting>
-    <properties>
-        <java-version>1.6</java-version>
-        <groovy-version>1.7.0</groovy-version>
-        <gmaven-version>1.2</gmaven-version>
-        <selenium-version>1.0.1</selenium-version>
-        <tellurium-version>0.7.0-SNAPSHOT</tellurium-version>
-        <javac-debug>true</javac-debug>
-    </properties>
-
-</project>
-]]>
-            </programlisting>
-        </para>
     </section>
-    <section>
-        <title>What's Next ?</title>
-        <para>
-            <itemizedlist>
-                <listitem>
-                    Tellurium Widget revisit
-                </listitem>
-                <listitem>
-                    Trump IDE upgrade to match 0.7.0 
-                </listitem>
-            </itemizedlist>
-        </para>
-   </section>
-    <section>
-        <title>Want to Contribute ?</title>
-        <para>
-            We welcome contributions for Tellurium from various aspects.
-            More details on <link xlink:href="http://code.google.com/p/aost/wiki/HowToContribute">How to Contribute</link>
-        </para>
-   </section>
 </chapter>

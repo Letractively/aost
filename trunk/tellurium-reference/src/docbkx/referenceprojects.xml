@@ -46,6 +46,61 @@
                 </para>
             </listitem>
         </itemizedlist>
+         <para>
+             The new code structure is as follows.
+           <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+|-- HowTO
+|-- LICENSE.txt
+|-- README
+|-- TelluriumConfig.groovy
+|-- pom.xml
+|-- rundsl.bat
+|-- rundsl.sh
+|-- src
+|   |-- main
+|   |   |-- groovy
+|   |   |   `-- org
+|   |   |       `-- telluriumsource
+|   |   |           `-- ui
+|   |   |               |-- builder
+|   |   |               |   `-- SelectMenuBuilder.groovy
+|   |   |               `-- object
+|   |   |                   `-- SelectMenu.groovy
+|   |   `-- resources
+|   `-- test
+|       |-- groovy
+|       |   `-- org
+|       |       `-- telluriumsource
+|       |           |-- ddt
+|       |           |   |-- TelluriumIssuesDataDrivenTest.groovy
+|       |           |   `-- TelluriumIssuesModule.groovy
+|       |           |-- module
+|       |           |   |-- TelluriumDownloadsPage.groovy
+|       |           |   |-- TelluriumIssuesPage.groovy
+|       |           |   |-- TelluriumProjectPage.groovy
+|       |           |   `-- TelluriumWikiPage.groovy
+|       |           `-- test
+|       |               |-- TelluriumDownloadsPageJUnitTestCase.java
+|       |               |-- TelluriumDownloadsPageTestNGTestCase.java
+|       |               |-- TelluriumIssuesPageJUnitTestCase.java
+|       |               |-- TelluriumIssuesPageTestNGTestCase.java
+|       |               |-- TelluriumProjectPageJUnitTestCase.java
+|       |               |-- TelluriumProjectPageTestNGTestCase.java
+|       |               |-- TelluriumWikiPageJUnitTestCase.java
+|       |               `-- TelluriumWikiPageTestNGTestCase.java
+|       `-- resources
+|           `-- org
+|               `-- telluriumsource
+|                   |-- data
+|                   |   `-- TelluriumIssuesInput.txt
+|                   |-- dsl
+|                   |   `-- TelluriumPage.dsl
+|                   `-- test-suites
+|                       `-- reportng.xml
+]]>
+            </programlisting>
+        </para>
 
         <section>
             <title>Create Custom UI objects</title>
