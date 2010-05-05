@@ -15,14 +15,6 @@
             fundamental changes in Tellurium 0.7.0 as compared to 0.6.0 such as the group locating algorithm, module
             caching, macro command, jquery based APIs and i18n support.
         </para>
-        <para>
-            The architecture of Tellurium 0.7.0 has been changed and the system diagram is shown as follows,
-            <mediaobject>
-                <imageobject>
-                    <imagedata fileref="./media/telluriumnewarchitecture070.png" scalefit="1" width="100%"></imagedata>
-                </imageobject>
-            </mediaobject>
-        </para>
     </section>
     <section>
         <title>New features</title>
@@ -190,13 +182,8 @@ validate("ProblematicForm");
                     UI element or same sub-tree in the DOM.
                 </para>
                 <para>
-                    To implement Macro Command, we added one more tier to Tellurium Core to automatically
-                    handle the Macro Command bundling as shown in the following figure.
-                    <mediaobject>
-                         <imageobject>
-                            <imagedata fileref="./media/telluriumbundle.gif" scalefit="1" width="100%"></imagedata>
-                        </imageobject>
-                    </mediaobject>
+                    To implement Macro Command, we added one more tier, bundler processor, to Tellurium Core to automatically
+                    handle the Macro Command bundling.
                 </para>
                 
 

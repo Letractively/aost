@@ -2201,7 +2201,7 @@ test{
         <para>
             What will happen Tellurium will throw the following exception
         </para>
-        <programlisting language="java"><?db-font-size 75% ?>
+        <programlisting language="java"><?db-font-size 60% ?>
             <![CDATA[
 java.lang.ExceptionInInitializerError
         at java.lang.Class.forName0(Native Method)
@@ -2232,7 +2232,8 @@ java.lang.ExceptionInInitializerError
         at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:124)
 Caused by: org.telluriumsource.exception.ConfigNotFoundException: Cannot find Tellurium Configuration
     tellurium.bundle.maxMacroCmd, please check http://code.google.com/p/aost/wiki/TelluriumConfig070 for
-    updated TelluriumConfig.groovy, or report to Tellurium user group at http://groups.google.com/group/tellurium-users
+    updated TelluriumConfig.groovy, or report to Tellurium user group at
+        http://groups.google.com/group/tellurium-users
         at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
         at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
         at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
@@ -2261,19 +2262,21 @@ Caused by: org.telluriumsource.exception.ConfigNotFoundException: Cannot find Te
             file into your home/.groovy/.
         </para>
 
-        <programlisting language="java"><?db-font-size 75% ?>
+        <programlisting language="java"><?db-font-size 60% ?>
             <![CDATA[
 <ivysettings>
   <settings defaultResolver="downloadGrapes"/>
   <property
     name="local-maven2-pattern"
-    value="${user.home}/.m2/repository/[organisation]/[module]/[revision]/[module]-[revision](-[classifier]).[ext]"
+    value="${user.home}/.m2/repository/[organisation]/[module]/[revision]/[module]-[revision]
+        (-[classifier]).[ext]"
     override="false" />
   <resolvers>
     <chain name="downloadGrapes">
       <filesystem name="cachedGrapes">
         <ivy pattern="${user.home}/.groovy/grapes/[organisation]/[module]/ivy-[revision].xml"/>
-        <artifact pattern="${user.home}/.groovy/grapes/[organisation]/[module]/[type]s/[artifact]-[revision].[ext]"/>
+        <artifact pattern="${user.home}/.groovy/grapes/[organisation]/[module]/[type]s/
+            [artifact]-[revision].[ext]"/>
       </filesystem>
       <filesystem name="local-maven-2" m2compatible="true" local="true">
         <ivy pattern="${local-maven2-pattern}"/>
