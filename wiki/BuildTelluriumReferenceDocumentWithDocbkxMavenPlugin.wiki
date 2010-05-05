@@ -362,6 +362,10 @@ herold --in=udl.html --out=udl.xml -r book -T
 
 But the converted docbook version is 1.0 and we still need manually change some docbook formats in the converted file.
 
+= Summary =
+
+The full project is at http://aost.googlecode.com/svn/trunk/tellurium-reference and the generated tellurium 0.7.0 reference is available [http://tellurium-users.googlegroups.com/web/tellurium-reference-0.7.0.pdf?gda=dXKn8E8AAAA7fMi2EBxrNTLhqoq3FzPrkOm7Y8fWgm-p9wkqKxeF0mnsk7pRTlVgFdCtB9Lo4vPCs0nktTsExxMN83skmn8NnHMhSp_qzSgvndaTPyHVdA here].
+
 = Resources =
 
   * [http://docbook.sourceforge.net/ DocBook]
