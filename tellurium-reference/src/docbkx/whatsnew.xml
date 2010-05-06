@@ -8,7 +8,7 @@
          xmlns:db="http://docbook.org/ns/docbook">
 
     <title>What's New in Tellurium 0.7.0</title>
-    <section>
+    <section id="whatsnewIntroduction">
         <title>Introduction</title>
         <para>
             We have closed over 200 issues and have included several interesting new features. There have been a lot of

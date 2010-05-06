@@ -9,7 +9,7 @@
 
     <title>Tellurium UID Description Language</title>
 
-    <section>
+    <section id="udlIntroduction">
         <title>Introduction</title>
         <para>Tellurium UID Description Language (UDL) is the Language to definite
             the UID field in Tellurium UI objects. In Tellurium, the UI object is referred to by its
