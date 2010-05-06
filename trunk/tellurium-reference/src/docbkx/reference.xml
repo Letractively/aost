@@ -273,7 +273,7 @@
 
         <section>
             <title>Link</title>
-            <para>Link can be defined with xlink:href. </para>
+            <para>External links can be defined with xlink:href. </para>
             <programlisting language="xml"><?db-font-size 75% ?>
 <![CDATA[
 <para>
@@ -286,9 +286,29 @@
   Edition</link>.
 </para>
 ]]>
-            </programlisting>              
-        </section>
+            </programlisting>
+            <para>For internal links, i.e., section references, we can use <literal>linkend</literal>.
+                For example, we first define an id for a section, </para>
+            <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<section id="samplepom">
+    <title>settings.xml</title>
+    ...
+</section>
+]]>
+            </programlisting>
+            <para>then reference that section with link.</para>
+<programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<para>
+   A sample POM file can be found in
+   <link linkend='samplepom'>this appendix</link>.
+</para>
 
+]]>
+            </programlisting>
+        </section>
+    
         <section>
             <title>Image</title>
             <programlisting language="xml"><?db-font-size 75% ?>
