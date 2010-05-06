@@ -9,8 +9,7 @@
 
     <title>Tellurium Maven Archetypes</title>
 
-    <para>Tellurium provides <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes">three
-            maven archetypes</link>. For example: tellurium-junit-archetype for Tellurium JUnit test
+    <para>Tellurium provides three maven archetypes, i.e., tellurium-junit-archetype for Tellurium JUnit test
         projects, tellurium-testing-archetype for Tellurium TestNG test projects, and
         tellurium-widget-archetype for Tellurium Widget projects.
     </para>

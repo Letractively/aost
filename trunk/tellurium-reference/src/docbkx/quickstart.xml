@@ -20,12 +20,12 @@
         </para>
         <itemizedlist>
             <listitem>
-                <para>Use a Tellurium reference project as a base
+                <para>Use a <link linkend="referenceProjectsChapter"> Tellurium reference project </link> as a base
                 </para>
             </listitem>
             <listitem>
                 <para>Use
-                    <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes">
+                    <link linkend='mavenArchetypeChapter'>
                         Tellurium Maven archetypes
                     </link>
                 </para>
@@ -34,14 +34,14 @@
                 <para>Manually create a Tellurium project using the
                     <link xlink:href="http://code.google.com/p/aost/downloads/list">tellurium jars</link>
                     and a
-                    <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumSampleConfigurationFile">
+                    <link linkend='sampleConfiguration'>
                         Tellurium configuration file
                     </link>
                 </para>
             </listitem>
             <listitem>
                 <para>Alternatively, create a Tellurium Maven project manually using<link
-                        xlink:href="http://code.google.com/p/aost/wiki/TelluriumTestProjectMavenSamplePom">
+                        linkend='samplepom'>
                     the sample POM file</link>.
                 </para>
             </listitem>
@@ -126,8 +126,7 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
                 </listitem>
             </orderedlist>
             
-            <para>For Ant build scripts, refer to<link
-                    xlink:href="http://code.google.com/p/aost/wiki/TelluriumSampleAntBuildScript">the sample
+            <para>For Ant build scripts, refer to<link linkend='sampleAntScript'>the sample
                 Tellurium Ant build scripts</link>.
             </para>
 
@@ -150,7 +149,7 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
                 IntelliJ IDEA Community edition is free and can be downloaded from<link
                     xlink:href="http://www.jetbrains.com/idea/download/">
                 http://www.jetbrains.com/idea/download/</link>. A detailed guide is found on<link
-                    xlink:href="http://code.google.com/p/aost/wiki/CustomTelluriumIntelliJProject">How to
+                    linkend='ntelliJ9Setup'>How to
                 create your own Tellurium testing project with IntelliJ 9.0 Community Edition</link>.
             </para>
 
