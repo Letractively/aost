@@ -1251,7 +1251,7 @@ public class ListTestCase  extends TelluriumJavaTestCase {
         </section>
     </section>
 
-    <section>
+    <section id="advancedGenerateHtmlSource">
         <title>Generate Html Source From UI Modules</title>
         <para>Very often, some Tellurium users asked us to help them to
             track problems in their Tellurium test code. Due to some company policy, they cannot
