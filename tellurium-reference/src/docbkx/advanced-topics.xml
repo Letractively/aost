@@ -973,7 +973,7 @@ tellurium{
 
     </section>
 
-    <section>
+    <section id="advancedMockHttpServer">
         <title>Mock Http Server</title>
         <para>This feature only exists in Tellurium Core 0.7.0. The MockHttpServer
             is an embedded http server leveraging the Java 6 http server and it is very convenient
@@ -1262,8 +1262,7 @@ public class ListTestCase  extends TelluriumJavaTestCase {
         <para>
             However, if we can do reverse engineering to generate the HTML source from the given UI
             module, we can use the
-            <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumMockHttpServer">mock http
-                server
+            <link linkend='advancedMockHttpServer'>mock http server
             </link>
             to test the generated HTML Source without the need to access their web applications.
         </para>
@@ -1283,8 +1282,7 @@ public String generateHtml(String uid)
             method is really helpful if you want to help other people to track the problem in their
             Tellurium test code but you have not access to their web applications and HTML sources.
             Once the HTML source is generated, you can use the
-            <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumMockHttpServer">mock http
-                server
+            <link  linkend='advancedMockHttpServer'>mock http server
             </link>
             to test the generated HTML Source].
         </para>
@@ -1657,8 +1655,7 @@ class CustomSelenium extends DefaultSelenium {
 
             <para>
                 The custom Selenium server includes
-                <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumjQuerySelector">our jQuery
-                    selector
+                <link linkend='engineCssSelector'>our jQuery selector
                 </link>
                 support. We add the following new Selenium method,
             </para>
@@ -1721,7 +1718,7 @@ public class ProgramModule extends DslContext {
             </programlisting>
             
             <para>We create a Tellurium test case using the
-                <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumMockHttpServer">
+                <link linkend='advancedMockHttpServer'>
                     MockHttpServer
                 </link>
                 without running an actual web application.

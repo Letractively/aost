@@ -164,7 +164,7 @@ src/main/resources/core/scripts/
         </itemizedlist>
     </section>
 
-    <section>
+    <section id="engineCssSelector">
         <title>CSS Selector Support</title>
         <para>Started from version 0.6.0, Tellurium supports
             a CSS selector to address the problem of poor performance of xpath in Internet Explorer.
