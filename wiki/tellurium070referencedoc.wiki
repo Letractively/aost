@@ -6,7 +6,7 @@
 Tellurium 0.7.0 is a major release and we have worked on this release for almost one year.
 We have closed over 200 issues and have included several interesting new features. There have been a lot of fundamental changes in Tellurium 0.7.0 as compared to 0.6.0 such as the group locating algorithm, module caching, macro command, jquery based APIs and i18n support. 
 
-To make it easier for people to get familiar with Tellurium, we prepared the reference document to cover almost everything you need to know about Tellurium. The pdf file is about 280 pages, which can be downloaded from [http://aost.googlecode.com/files/tellurium-reference-0.7.0.pdf Tellurium project site] and the table of contents is listed as follows.
+To make it easier for people to get familiar with Tellurium, we prepared the reference document to cover almost everything you need to know about Tellurium. The pdf file is about 280 pages, which can be downloaded from [http://aost.googlecode.com/files/tellurium-reference-0.7.0.pdf here] and the table of contents is listed as follows.
 
 {{{
 1. Overview of Tellurium
