@@ -198,7 +198,7 @@ clocator: [tag: "div", value: "Tellurium home"]
 
     </section>
 
-    <section>
+    <section id="basicsGroupAttribute">
         <title>Group Attribute</title>
         <para>
             In the Tellurium UI module, the "group" attribute is seen often. For
