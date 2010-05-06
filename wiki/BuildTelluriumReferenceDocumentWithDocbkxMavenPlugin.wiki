@@ -224,12 +224,30 @@ section can be nested in docbook, for example.
  
 == Link ==
 
-Link can be defined with {{{xlink:href}}}.
+External links can be defined with {{{xlink:href}}}.
 
 {{{
 <para>
   IntelliJ IDEA Community edition is free and can be downloaded from<link xlink:href="http://www.jetbrains.com/idea/download/"> http://www.jetbrains.com/idea/download/</link>. A detailed guide is found on<link xlink:href="http://code.google.com/p/aost/wiki/CustomTelluriumIntelliJProject">How to
  create your own Tellurium testing project with IntelliJ 9.0 Community Edition</link>.
+</para>
+}}}
+
+For internal links, i.e., section references, we can use {{{linkend}}}. For example, we first define an id for a section, 
+
+{{{
+<section id="samplepom">
+    <title>settings.xml</title>
+    ...
+</section>
+}}} 
+
+then reference that section with link.
+
+{{{
+<para>
+   A sample POM file can be found in
+   <link linkend='samplepom'>this appendix</link>.
 </para>
 }}}
 
