@@ -5,7 +5,7 @@
          xmlns:ns5="http://www.w3.org/2000/svg"
          xmlns:ns4="http://www.w3.org/1998/Math/MathML"
          xmlns:ns3="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:db="http://docbook.org/ns/docbook" id="uiobjectsChapter">
 
     <title>Tellurium UI Objects</title>
     <para>
@@ -550,7 +550,7 @@ TextBox(uid: "searchLabel", clocator: [tag: "span"])
 
         </section>
 
-        <section>
+        <section id="uiobjectsInputBox">
             <title>Input Box</title>
             <para>InputBox is the Ui where user types in input data. As its name stands, InputBox&apos;s default
                 tag is &quot;input&quot;. InputBox has the following additional methods:
@@ -624,197 +624,6 @@ InputBox(uid: "searchBox", clocator: [name: "q"])
             <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 UrlLink(uid: "Grid", clocator: [text: "Grid", direct: "true"])
-]]>
-            </programlisting>
-        </section>
-
-        <section>
-            <title>Repeat Object</title>
-
-            <para>Very often, we need to use the same UI elements for multiple times on the web page. For
-                example, we have the following html.
-            </para>
-            <programlisting language="xml"><?db-font-size 75% ?>
-<![CDATA[
-<div class="segment clearfix">
-       <div class="option">
-           <ul class="fares">
-               <li>
-                   <input type="radio">&nbsp;
-                   <label>Economy</label>
-               </li>
-               <li>
-                   <input type="radio">&nbsp;
-                   <label>Flexible</label>
-               </li>
-           </ul>
-           <div class="details">
-               <dl>
-                   <dt>Ship:</dt>
-                   <dd>A</dd>
-                   <dt>Departs</dt>
-                   <dd>
-                       <em>08:00</em>
-                   </dd>
-                   <dt>Arrives</dt>
-                   <dd>
-                       <em>11:45</em>
-                   </dd>
-               </dl>
-           </div>
-       </div>
-       <div class="option">
-           <ul class="fares">
-               <li>
-                   <input type="radio">&nbsp;
-                   <label>Economy</label>
-               </li>
-               <li>
-                   <input type="radio">&nbsp;
-                   <label>Flexible</label>
-               </li>
-           </ul>
-           <div class="details">
-               <dl>
-                   <dt>Ship:</dt>
-                   <dd>B</dd>
-                   <dt>Departs</dt>
-                   <dd>
-                       <em>17:30</em>
-                   </dd>
-                   <dt>Arrives</dt>
-                   <dd>
-                       <em>21:15</em>
-                   </dd>
-               </dl>
-           </div>
-       </div>
-   </div>
-   <div class="segment clearfix">
-       <div class="option">
-           <ul class="fares">
-               <li>
-                   <input type="radio">&nbsp;
-                   <label>Economy</label>
-               </li>
-               <li>
-                   <input type="radio">&nbsp;
-                   <label>Flexible</label>
-               </li>
-           </ul>
-           <div class="details">
-               <div class="photo"><img/></div>
-               <dl>
-                   <dt>Ship:</dt>
-                   <dd>C</dd>
-                   <dt>Departs</dt>
-                   <dd>
-                       <em>02:00</em>
-                   </dd>
-                   <dt>Arrives</dt>
-                   <dd>
-                       <em>06:00</em>
-                   </dd>
-               </dl>
-           </div>
-       </div>
-       <div class="option">
-           <ul class="fares">
-               <li>
-                   <input type="radio">&nbsp;
-                   <label>Economy</label>
-               </li>
-               <li>
-                   <input type="radio">&nbsp;
-                   <label>Flexible</label>
-               </li>
-           </ul>
-           <div class="details">
-               <dl>
-                   <dt>Ship:</dt>
-                   <dd>D</dd>
-                   <dt>Departs</dt>
-                   <dd>
-                       <em>12:45</em>
-                   </dd>
-                   <dt>Arrives</dt>
-                   <dd>
-                       <em>16:30</em>
-                   </dd>
-               </dl>
-           </div>
-       </div>
-   </div>
-</form>
-]]>
-            </programlisting>
-
-            <para>You can see the elements
-                <literal>&lt;div class=&quot;segment clearfix&quot;&gt;</literal>
-                and
-                <literal>&lt;div class=&quot;option&quot;&gt;</literal>
-                repeated for couple times. We can use the Repeat object for this UI module. The Repeat
-                object inherits the Container object and You can use it just like a Container. The
-                difference is that you should use index to refer to a Repeat object.
-            </para>
-            <para>For the above html source, we can create the following UI module
-            </para>
-
-            <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-ui.Form(uid: "SailingForm", clocator: [name: "selectedSailingsForm"] ){
-  Repeat(uid: "Section", clocator: [tag: "div", class: "segment clearfix"]){
-    Repeat(uid: "Option", clocator: [tag: "div", class: "option",
-        direct: "true"]){
-      List(uid: "Fares", clocator: [tag: "ul", class: "fares", direct: "true"],
-        separator: "li"){
-        Container(uid: "all"){
-            RadioButton(uid: "radio", clocator: [:], respond: ["click"])
-            TextBox(uid: "label", clocator: [tag: "label"])
-        }
-      }
-      Container(uid: "Details", clocator: [tag: "div", class: "details"]){
-        Container(uid: "ShipInfo", clocator: [tag: "dl"]){
-          TextBox(uid: "ShipLabel", clocator: [tag: "dt", position: "1"])
-          TextBox(uid: "Ship", clocator: [tag: "dd", position: "1"])
-          TextBox(uid: "DepartureLabel", clocator: [tag: "dt", position: "2"])
-          Container(uid: "Departure", clocator: [tag: "dd", position: "2"]){
-            TextBox(uid: "Time", clocator: [tag: "em"])
-          }
-          TextBox(uid: "ArrivalLabel", clocator: [tag: "dt", position: "3"])
-          Container(uid: "Arrival", clocator: [tag: "dd", position: "3"]){
-            TextBox(uid: "Time", clocator: [tag: "em"])
-          }
-        }
-      }
-    }
-  }
-}
-]]>
-            </programlisting>            
-            <para>To test the UI module, we can create the following test case.</para>
-            
-            <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-    @Test
-    public void testRepeat(){
-        connect("JForm");
-        int num = jlm.getRepeatNum("SailingForm.Section");
-        assertEquals(2, num);
-        num = jlm.getRepeatNum("SailingForm.Section[1].Option");
-        assertEquals(2, num);
-        int size = jlm.getListSize("SailingForm.Section[1].Option[1].Fares");
-        assertEquals(2, size);
-        String ship = jlm.getText("SailingForm.Section[1].Option[1].
-            Details.ShipInfo.Ship");
-        assertEquals("A", ship);
-        String departureTime = jlm.getText("SailingForm.Section[1].Option[1].
-            Details.ShipInfo.Departure.Time");
-        assertEquals("08:00", departureTime);
-        String arrivalTime = jlm.getText("SailingForm.Section[1].Option[1].
-            Details.ShipInfo.Arrival.Time");
-        assertEquals("11:45", arrivalTime);
-    }
 ]]>
             </programlisting>
         </section>
@@ -1108,7 +917,7 @@ public void testSelect(){
             </programlisting>
         </section>
 
-        <section>
+        <section id="uiobjectsContainer">
             <title>Container</title>
             <para>Container is an abstract object that can hold a collection of Ui objects. As a result, the Container
                 has a special attribute "useGroupInfo" and its default value is false. If this attribute is true, the
@@ -1117,7 +926,7 @@ public void testSelect(){
             </para>
 
             <para>Example:</para>
-            
+
             <programlisting language="java"><?db-font-size 75% ?>
 <![CDATA[
 ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
@@ -1129,6 +938,197 @@ ui.Container(uid: "google_start_page", clocator: [tag: "td"], group: "true"){
             </programlisting>
         </section>
 
+        <section>
+            <title>Repeat Object</title>
+
+            <para>Very often, we need to use the same UI elements for multiple times on the web page. For
+                example, we have the following html.
+            </para>
+            <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<div class="segment clearfix">
+       <div class="option">
+           <ul class="fares">
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Economy</label>
+               </li>
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Flexible</label>
+               </li>
+           </ul>
+           <div class="details">
+               <dl>
+                   <dt>Ship:</dt>
+                   <dd>A</dd>
+                   <dt>Departs</dt>
+                   <dd>
+                       <em>08:00</em>
+                   </dd>
+                   <dt>Arrives</dt>
+                   <dd>
+                       <em>11:45</em>
+                   </dd>
+               </dl>
+           </div>
+       </div>
+       <div class="option">
+           <ul class="fares">
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Economy</label>
+               </li>
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Flexible</label>
+               </li>
+           </ul>
+           <div class="details">
+               <dl>
+                   <dt>Ship:</dt>
+                   <dd>B</dd>
+                   <dt>Departs</dt>
+                   <dd>
+                       <em>17:30</em>
+                   </dd>
+                   <dt>Arrives</dt>
+                   <dd>
+                       <em>21:15</em>
+                   </dd>
+               </dl>
+           </div>
+       </div>
+   </div>
+   <div class="segment clearfix">
+       <div class="option">
+           <ul class="fares">
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Economy</label>
+               </li>
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Flexible</label>
+               </li>
+           </ul>
+           <div class="details">
+               <div class="photo"><img/></div>
+               <dl>
+                   <dt>Ship:</dt>
+                   <dd>C</dd>
+                   <dt>Departs</dt>
+                   <dd>
+                       <em>02:00</em>
+                   </dd>
+                   <dt>Arrives</dt>
+                   <dd>
+                       <em>06:00</em>
+                   </dd>
+               </dl>
+           </div>
+       </div>
+       <div class="option">
+           <ul class="fares">
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Economy</label>
+               </li>
+               <li>
+                   <input type="radio">&nbsp;
+                   <label>Flexible</label>
+               </li>
+           </ul>
+           <div class="details">
+               <dl>
+                   <dt>Ship:</dt>
+                   <dd>D</dd>
+                   <dt>Departs</dt>
+                   <dd>
+                       <em>12:45</em>
+                   </dd>
+                   <dt>Arrives</dt>
+                   <dd>
+                       <em>16:30</em>
+                   </dd>
+               </dl>
+           </div>
+       </div>
+   </div>
+</form>
+]]>
+            </programlisting>
+
+            <para>You can see the elements
+                <literal>&lt;div class=&quot;segment clearfix&quot;&gt;</literal>
+                and
+                <literal>&lt;div class=&quot;option&quot;&gt;</literal>
+                repeated for couple times. We can use the Repeat object for this UI module. The Repeat
+                object inherits the Container object and You can use it just like a Container. The
+                difference is that you should use index to refer to a Repeat object.
+            </para>
+            <para>For the above html source, we can create the following UI module
+            </para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Form(uid: "SailingForm", clocator: [name: "selectedSailingsForm"] ){
+  Repeat(uid: "Section", clocator: [tag: "div", class: "segment clearfix"]){
+    Repeat(uid: "Option", clocator: [tag: "div", class: "option",
+        direct: "true"]){
+      List(uid: "Fares", clocator: [tag: "ul", class: "fares", direct: "true"],
+        separator: "li"){
+        Container(uid: "all"){
+            RadioButton(uid: "radio", clocator: [:], respond: ["click"])
+            TextBox(uid: "label", clocator: [tag: "label"])
+        }
+      }
+      Container(uid: "Details", clocator: [tag: "div", class: "details"]){
+        Container(uid: "ShipInfo", clocator: [tag: "dl"]){
+          TextBox(uid: "ShipLabel", clocator: [tag: "dt", position: "1"])
+          TextBox(uid: "Ship", clocator: [tag: "dd", position: "1"])
+          TextBox(uid: "DepartureLabel", clocator: [tag: "dt", position: "2"])
+          Container(uid: "Departure", clocator: [tag: "dd", position: "2"]){
+            TextBox(uid: "Time", clocator: [tag: "em"])
+          }
+          TextBox(uid: "ArrivalLabel", clocator: [tag: "dt", position: "3"])
+          Container(uid: "Arrival", clocator: [tag: "dd", position: "3"]){
+            TextBox(uid: "Time", clocator: [tag: "em"])
+          }
+        }
+      }
+    }
+  }
+}
+]]>
+            </programlisting>
+            <para>To test the UI module, we can create the following test case.</para>
+
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+    @Test
+    public void testRepeat(){
+        connect("JForm");
+        int num = jlm.getRepeatNum("SailingForm.Section");
+        assertEquals(2, num);
+        num = jlm.getRepeatNum("SailingForm.Section[1].Option");
+        assertEquals(2, num);
+        int size = jlm.getListSize("SailingForm.Section[1].Option[1].Fares");
+        assertEquals(2, size);
+        String ship = jlm.getText("SailingForm.Section[1].Option[1].
+            Details.ShipInfo.Ship");
+        assertEquals("A", ship);
+        String departureTime = jlm.getText("SailingForm.Section[1].Option[1].
+            Details.ShipInfo.Departure.Time");
+        assertEquals("08:00", departureTime);
+        String arrivalTime = jlm.getText("SailingForm.Section[1].Option[1].
+            Details.ShipInfo.Arrival.Time");
+        assertEquals("11:45", arrivalTime);
+    }
+]]>
+            </programlisting>
+        </section>
+        
         <section>
             <title>Form</title>
             <para>Form is a type of Container with its tag being "form" and it represents web form. Like Container, it
@@ -1158,7 +1158,44 @@ ui.Form(uid: "downloadSearch", clocator: [action: "list", method: "get"],
             </programlisting>
         </section>
 
-        <section>
+        <section id="uiobjectsList">
+            <title>List</title>
+            <para>List is also a Container type abstract Ui object and it can be used to represent any list like Ui
+                objects. Very much like Table, users can define Ui templates for List and following rule of "the special
+                case first and then the general case". The index number is used to specify an element and "all" is used
+                to match all elements in the List. List also uses TextBox as the default Ui if no template could be
+                found. Since List is a Container type, it can use the Group Locating feature.
+            </para>
+
+            <para>
+                List has one special attribute "separator", which is used to indicate the tag used to separate different
+                List UI elements. If "separator" is not specified or "", all UI elements must be under the same DOM
+                node, i.e., they are siblings.
+            </para>
+
+            <para>Example: </para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.List(uid: "subcategory", locator: "", separator: "p"){
+    InputBox(uid: "{2} as Search", clocator: [title: "Google Search"])
+    UrlLink(uid: "{all}", clocator: [:])
+}
+]]>
+            </programlisting>
+
+            <para>The List includes the following additional methods: </para>
+
+            <itemizedlist>
+                <listitem>
+                    <para>
+                        int getListSize(id): Gets the item count of a list
+                    </para>
+                </listitem>
+            </itemizedlist>
+
+        </section>
+
+        <section id="uiobjectsTable">
             <title>Table</title>
             <para>Table is one of the most complicated Ui Object and also the most often used one. Obviously, its tag is
                 "table" and a table can have headers besides rows and columns.
@@ -1226,7 +1263,7 @@ ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"]
             </para>
 
             <para>For more details on how Tellurium maps the runtime uid to UI templates, please see 
-                <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage">Tellurium UID Description Language</link>.
+                <link linkend="udlChapter">Tellurium UID Description Language</link>.
             </para>
 
             <para>Generally speaking, Tellurium always searches for the special case first, then broadening the search
@@ -1263,7 +1300,7 @@ ui.Table(uid: "downloadResult", clocator: [id: "resultstable", class: "results"]
 
         </section>
 
-        <section>
+        <section id="uiobjectsStandardTable">
             <title>Standard Table</title>
             <para>A StandardTable is a table in the following format </para>
             <programlisting language="sh"><?db-font-size 75% ?>
@@ -1395,42 +1432,6 @@ ui.StandardTable(uid: "table", clocator: [id: "std"]) {
 }
 ]]>
             </programlisting>
-            
-        </section>
-        <section>
-            <title>List</title>
-            <para>List is also a Container type abstract Ui object and it can be used to represent any list like Ui
-                objects. Very much like Table, users can define Ui templates for List and following rule of "the special
-                case first and then the general case". The index number is used to specify an element and "all" is used
-                to match all elements in the List. List also uses TextBox as the default Ui if no template could be
-                found. Since List is a Container type, it can use the Group Locating feature.
-            </para>
-
-            <para>
-                List has one special attribute "separator", which is used to indicate the tag used to separate different
-                List UI elements. If "separator" is not specified or "", all UI elements must be under the same DOM
-                node, i.e., they are siblings.
-            </para>
-
-            <para>Example: </para>
-            <programlisting language="java"><?db-font-size 75% ?>
-<![CDATA[
-ui.List(uid: "subcategory", locator: "", separator: "p"){
-    InputBox(uid: "{2} as Search", clocator: [title: "Google Search"])
-    UrlLink(uid: "{all}", clocator: [:])
-}
-]]>
-            </programlisting>
-
-            <para>The List includes the following additional methods: </para>
-
-            <itemizedlist>
-                <listitem>
-                    <para>
-                        int getListSize(id): Gets the item count of a list
-                    </para>
-                </listitem>
-            </itemizedlist>
             
         </section>
 
