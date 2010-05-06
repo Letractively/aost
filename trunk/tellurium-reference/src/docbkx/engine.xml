@@ -2090,7 +2090,7 @@ public void endShow(String uid);
             <title>Build a Snapshot Tree</title>
             <para>The Snapshot Tree, or STree in short, is different from the UI module. The UI module defines
                 how the UI looks like. Even
-                <link  linkend='engineSantaAlgorithm'>the UI module group locating algorithm - Santa
+                <link linkend='engineSantaAlgorithm'>the UI module group locating algorithm - Santa
                 </link>
                 only locates cachable UI elements and leaves out the dynamic elements. The snapshot tree,
                 however, needs to include every UI elements inside the UI module. For example, the following

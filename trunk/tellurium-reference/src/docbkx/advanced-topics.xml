@@ -2240,7 +2240,7 @@ org.uncommons.reportng.JUnitXMLReporter
         <para>You can see the test report is more readable and comprehensive.</para>
     </section>
 
-    <section>
+    <section id="advancedMacroCommand">
         <title>Macro Command</title>
         <para>Macro Command is a set of Selenium commands that
             are bundled together and sent to Selenium Core in one call. This will reduce the round

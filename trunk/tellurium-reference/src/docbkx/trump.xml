@@ -9,7 +9,7 @@
 
     <title>Tellurium UI Module Firefox Plugin</title>
 
-    <section>
+    <section id="trumpInstall">
         <title>Install TrUMP</title>
         <para>Tellurium UI Model Plugin (TrUMP) is the Firefox plugin to automatically create UI modules for users.
             Go to the Tellurium project download page and download the TrUMP xpi file or download the Firefox 3
