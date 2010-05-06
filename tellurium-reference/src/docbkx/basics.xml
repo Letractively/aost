@@ -871,7 +871,7 @@ getListSizeByXPath(String uid)
         </section>
     </section>
 
-    <section>
+    <section id="basicsUiTemplates">
         <title>UI Templates</title>
 
         <para>
