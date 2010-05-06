@@ -666,8 +666,7 @@ teJQuery.expr[':'].nextToLast = function(obj, ind, prop, node){
         <para>We also have the following custom jQuery plugin.</para>
         <section>
             <title>outerHTML</title>
-            <para>When we worked on<link
-                    xlink:href="http://code.google.com/p/aost/wiki/TelluriumPowerUtilityDiagnose">the diagnose
+            <para>When we worked on<link linkend='advancedDiagnose'>the diagnose
                 utility</link>, we were frustrated because we need to get the HTML source of a DOM node, but
                 the
                 <literal>html()</literal>
@@ -716,7 +715,7 @@ teJQuery.fn.outerHTML = function() {
         </section>
     </section>
 
-    <section>
+    <section id="engineSantaAlgorithm">
         <title>UI Module Group Locating</title>
         <para>UI Module is the heart of Tellurium Automated Testing Framework. Even UI Module
             was introduced at the prototype phase, but there was really no algorithm to locate the UI
@@ -919,7 +918,7 @@ function UiModule(){
                 attribute. The Trie is used by the Santa
                 <emphasis>lookID</emphasis>
                 operation. A more detailed Trie build process can be found on the wiki
-                <link xlink:href="http://code.google.com/p/aost/wiki/UIModuleGeneratingAlgorithm#A_Trie_Based_Dictionary">
+                <link linkend='trumpuimodulegenalg'>
                     The UI Module Generating Algorithm in Trump
                 </link>
             </para>
@@ -1166,7 +1165,7 @@ var UiContainer = UiObject.extend({
                         is the parent DOM reference and
                         <emphasis>gsel</emphasis>
                         is a set of CSS selectors of current node&apos;s children defined by<link
-                                xlink:href="http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UI_Templates">
+                                 linkend='basicsUiTemplates'>
                             Tellurium UI templates</link>.
                     </para>
 
@@ -2037,8 +2036,7 @@ function fbDir(obj){
 
         <para>For browsers
             other than Firefox, Tellurium provides
-            <link xlink:href="http://code.google.com/p/aost/wiki/Tellurium070Update#Engine_Logging">the
-                Firebug Lite
+            <link   linkend='engingEngineLogging'>the Firebug Lite
             </link>
             in the custom selenium server so that you can still use the above logging wrapper.
         </para>
@@ -2092,8 +2090,7 @@ public void endShow(String uid);
             <title>Build a Snapshot Tree</title>
             <para>The Snapshot Tree, or STree in short, is different from the UI module. The UI module defines
                 how the UI looks like. Even
-                <link xlink:href="http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm">the
-                    UI module group locating algorithm - Santa
+                <link  linkend='engineSantaAlgorithm'>the UI module group locating algorithm - Santa
                 </link>
                 only locates cachable UI elements and leaves out the dynamic elements. The snapshot tree,
                 however, needs to include every UI elements inside the UI module. For example, the following
@@ -2509,7 +2506,7 @@ endShow("Form");
 
     </section>
 
-    <section>
+    <section id="engingEngineLogging">
         <title>Engine Logging</title>
         <para>Tellurium Engine uses
             <link xlink:href="http://getfirebug.com/lite.html">Firebug Lite</link>

@@ -1503,7 +1503,7 @@ generateHtml("accountEdit");
         </section>
     </section>
 
-    <section>
+    <section id="advancedDiagnose">
         <title>Tellurium Powerful Utility: Diagnose</title>
 
         <para>Usually, the main problem that users have in Tellurium is that their UI modules are not defined

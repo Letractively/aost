@@ -234,7 +234,7 @@ class NewUiModule extends DslContext{
 
     </section>
 
-    <section>
+    <section id="trumpuimodulegenalg">
         <title>The UI Module Generating Algorithm</title>
         <para>You may wonder how the UI module is generated in TrUMP.
             The main idea behind this is to get the full xpath for each UI element that a user selects.
