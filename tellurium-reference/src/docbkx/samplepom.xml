@@ -10,7 +10,7 @@
 
     <title>Sample Maven Configurations</title>
 
-    <section>
+    <section id="samplepom">
         <title>settings.xml</title>
         <programlisting language="xml"><?db-font-size 75% ?>
 <![CDATA[

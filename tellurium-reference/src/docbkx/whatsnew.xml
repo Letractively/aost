@@ -1082,7 +1082,7 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
             </programlisting>
         </para>
         <para>
-           A sample POM file can be found in appendices.
+           A sample POM file can be found in <link linkend='samplepom'>this appendix</link>.
         </para>
 
     </section>
