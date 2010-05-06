@@ -5,7 +5,7 @@
          xmlns:ns5="http://www.w3.org/2000/svg"
          xmlns:ns4="http://www.w3.org/1998/Math/MathML"
          xmlns:ns3="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:db="http://docbook.org/ns/docbook" id="udlChapter">
 
     <title>Tellurium UID Description Language</title>
 
@@ -87,8 +87,7 @@ ui.Form(uid: "A", clocator: [:]){
             need a language to describe the name of a UI object in Tellurium?
         </para>
         <para>The answer is that UID is not just the name of a UI object, it is also used to describe the
-            dynamic factors in a<link
-                    xlink:href="http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UI_Templates">
+            dynamic factors in a<link  linkend='basicsUiTemplates'>
                 Tellurium UI template</link>.
         </para>
         <para>Tellurium UI templates have two purposes:</para>
@@ -209,33 +208,32 @@ WS      :       (' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
         </programlisting>
 
             <para>The grammars defined the UIDs for the following three categories of<link
-                    xlink:href="http://code.google.com/p/aost/wiki/UserGuide070UIObjects">Tellurium UI
+                    linkend='uiobjectsChapter'>Tellurium UI
                 Objects</link>.
             </para>
             <orderedlist>
                 <listitem>
                     <para>Regular UI objects without UI templates such as
-                        <link xlink:href="http://code.google.com/p/aost/wiki/UserGuide070UIObjects#Input_Box">
+                        <link linkend='uiobjectsInputBox'>
                             Input Box
                         </link>
                         and
-                        <link xlink:href="http://code.google.com/p/aost/wiki/UserGuide070UIObjects#Container">
+                        <link linkend='uiobjectsContainer'>
                             Container
                         </link>
                     </para>
                 </listitem>
                 <listitem>
                     <para>List type UI object, i.e.,
-                        <link xlink:href="http://code.google.com/p/aost/wiki/UserGuide070UIObjects#List">List
+                        <link linkend='uiobjectsList'>List
                         </link>
                     </para>
                 </listitem>
                 <listitem>
                     <para>Table type UI objects including
-                        <link xlink:href="http://code.google.com/p/aost/wiki/UserGuide070UIObjects#Table">Table
+                        <link linkend='uiobjectsTable'>Table
                         </link>
-                        and<link
-                                xlink:href="http://code.google.com/p/aost/wiki/UserGuide070UIObjects#Standard_Table">
+                        and<link linkend="uiobjectsStandardTable">
                             StandardTable</link>.
                     </para>
                 </listitem>
@@ -300,8 +298,7 @@ WS      :       (' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
                 <section>
                     <title>Regular UI Objects</title>
                     <para>For most
-                        <link xlink:href="http://code.google.com/p/aost/wiki/UserGuide070UIObjects">Tellurium UI
-                            objects
+                        <link linkend="uiobjectsChapter">Tellurium UI objects
                         </link>
                         without UI templates, the UID is an ID, i.e., a name. They don&apos;t need any index
                         description since the name and the UI object is one to one mapping.
@@ -320,8 +317,7 @@ WS      :       (' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
                 <section>
                     <title>List</title>
                     <para>
-                        <link xlink:href="http://code.google.com/p/aost/wiki/UserGuide070UIObjects#List">The List
-                            object
+                        <link linkend="uiobjectsList">The List object
                         </link>
                         defines an array of UI objects and its UID consists of an index and an optional name.
                     </para>
@@ -368,10 +364,10 @@ ui.List(uid: "A", clocator: [tag: "table"], separator: "tr") {
                 <section>
                     <title>Table</title>
                     <para>As we said, the
-                        <link xlink:href="http://code.google.com/p/aost/wiki/UserGuide070UIObjects#Table">Table object
+                        <link linkend="uiobjectsTable">Table object
                         </link>
                         is a special case of the more general object<link
-                                xlink:href="http://code.google.com/p/aost/wiki/UserGuide070UIObjects#Standard_Table">
+                                linkend="uiobjectsStandardTable">
                             StandardTable</link>, which includes a header, a footer, and one or multiple body
                         sections.
                     </para>
@@ -416,7 +412,7 @@ ui.List(uid: "A", clocator: [tag: "table"], separator: "tr") {
                         issue page of the Tellurium project can be described as follows.
                     </para>
 
-         <programlisting language="java"><?db-font-size 75% ?>
+         <programlisting language="java" id="issueResultUiModule"><?db-font-size 75% ?>
 <![CDATA[
 ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"],
     group: "true") {
@@ -696,16 +692,16 @@ return object;
         </programlisting>
 
                     <para>Take the previous
-                        <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage#Example">
+                        <link linkend="issueResultUiModule">
                             Tellurium Issue Result UI module
                         </link>
                         as an example, we have the following runtime UID to UI object mapping.
                     </para>
                     <screen>   
-                         //Runtime UID               mapped UI object
-                           &quot;issueResult[1][Extra]&quot;--&gt;TextBox
-                           &quot;issueResult[1][ID]     --&gt; UrlLink
-                           &quot;issueResult[2[[Type]   --&gt;UrlLink
+//Runtime UID               mapped UI object
+&quot;issueResult[1][Extra]&quot;--&gt;TextBox
+&quot;issueResult[1][ID]     --&gt; UrlLink
+&quot;issueResult[2[[Type]   --&gt;UrlLink
                     </screen>
                     <para>Be aware that the &quot;Extra&quot;, &quot;ID&quot;, and &quot;Type&quot; are index
                         references to the header columns of the header &quot;Extra&quot;, &quot;ID&quot;, and &quot;Type&quot;
