@@ -446,8 +446,7 @@ teJQuery.extend(teJQuery.expr[':'], {
             <para>The
                 <emphasis>:group</emphasis>
                 selector is used to implement
-                <link xlink:href="http://code.google.com/p/aost/wiki/UserGuide#Group_Locating">the group
-                    locating
+                <link linkend='basicsGroupAttribute'>the group locating
                 </link>
                 in Tellurium. For example, we want to select a &quot;div&quot; whose children include one
                 &quot;input&quot;, one &quot;img&quot;, and one &quot;span&quot; tags. How to express this
