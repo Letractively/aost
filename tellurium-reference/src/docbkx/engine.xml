@@ -2051,7 +2051,7 @@ function fbDir(obj){
         </para>
     </section>
 
-    <section>
+    <section id="engineVisualEffect">
         <title>Tellurium UI Module Visual Effect</title>
         <para>Have you ever thought of seeing the actual UI on the
             web page under testing? Tellurium 0.7.0 adds a cool feature to show this visual effect.

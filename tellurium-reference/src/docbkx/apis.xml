@@ -702,11 +702,9 @@ public void testToString(){
             <title>toHTML</title>
             <para>The
                 <emphasis>toHTML</emphasis>
-                method converts the UI module to a HTML source by<link
-                        xlink:href="http://code.google.com/p/aost/wiki/GenerateHtmlFromUIModule">reverse
+                method converts the UI module to a HTML source by <link linkend='advancedGenerateHtmlSource'> reverse
                     engineering</link>. This API is extremely useful to work with
-                <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumMockHttpServer">Tellurium mock
-                    http server
+                <link linkend='advancedMockHttpServer'>Tellurium mock http server
                 </link>
                 if we want to diagnose problems in other people&apos;s UI module definitions while we have
                 no access to their html sources.
@@ -847,8 +845,7 @@ Google.ImFeelingLucky:
             <para>The
                 <emphasis>show</emphasis>
                 method outlines the UI module on the web page under testing and shows
-                <link xlink:href="http://code.google.com/p/aost/wiki/TelluriumUiModuleVisualEffect">some visual
-                    effects
+                <link linkend='engineVisualEffect'>some visual effects
                 </link>
                 when a user mouses over it.
             </para>
@@ -1066,8 +1063,7 @@ UI Module Validation Result for ProblematicGoogle
             <title>Closest Match</title>
             <para>The UI module closest match, i.e., partial match, is extremely important to keep your test code robust
                 to changes to some degree. By partial match, Tellurium uses
-                <link xlink:href="http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm">the
-                    Santa algorithm
+                <link linkend='engineSantaAlgorithm'>the Santa algorithm
                 </link>
                 to locate the whole UI module by using only partial information inside the UI module.
             </para>
