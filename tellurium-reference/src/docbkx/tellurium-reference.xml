@@ -10,12 +10,6 @@
         <pubdate>May 10, 2010</pubdate>
         <releaseinfo>v0.7.0</releaseinfo>
 
-        <mediaobject>
-            <imageobject role="fo">
-                <imagedata align="center" fileref="./media/logo.png" format="PNG"/>
-            </imageobject>
-        </mediaobject>
-
         <authorgroup>
             <author>
                 <firstname>Jian</firstname>
@@ -36,7 +30,7 @@
             </author>
 
         </authorgroup>
-
+        
         <copyright>
             <year>2010</year>
             <holder>TelluriumSource</holder>
@@ -60,8 +54,17 @@
                 copies and further provided that each copy contains this Copyright
                 Notice, whether distributed in print or electronically.
             </para>
+
         </legalnotice>
 
+        <cover>
+            <mediaobject>
+                <imageobject>
+                    <!--<imagedata align="center" fileref="./media/logo.png" format="PNG"/>-->
+                    <imagedata align="center" fileref="./media/logo.png" scale="100"/>
+                </imageobject>
+            </mediaobject>
+        </cover>
      </info>
 
     <xi:include href="overview.xml"/>
