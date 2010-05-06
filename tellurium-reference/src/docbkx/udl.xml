@@ -137,7 +137,7 @@ ui.Form(uid: "A", clocator: [:]){
 
     </section>
 
-    <section>
+    <section id="udlSpecification">
         <title>Tellurium UID Description Language</title>
         <para>We like to introduce the UDL grammars and the use of UDL.</para>
         <section>
@@ -714,7 +714,7 @@ return object;
        
     </section>
 
-    <section>
+    <section id="udlImplementation">
         <title>Implementation</title>
         <section>
             <title>Antlr 3</title>
