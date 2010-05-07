@@ -13,7 +13,9 @@ Over 250 issues and tasks are closed for 0.7.0 with many bug fixes and feature e
 
 = How to Obtain Tellurium 0.7.0 =
 
-Tellurium 0.7.0 tar ball can be downloaded from [http://aost.googlecode.com/files/tellurium-0.7.0.tar.gz here]. You can also find Tellurium core and custom selenium server from the following Maven repositories, respectively.
+Tellurium 0.7.0 tar ball can be downloaded from [http://aost.googlecode.com/files/tellurium-0.7.0.tar.gz here]. You can also find Tellurium udl, Tellurium Core, and custom selenium server from the following Maven repositories, respectively.
+
+http://maven.kungfuters.org/content/repositories/releases/org/telluriumsource/tellurium-udl/0.7.0/
 
 http://maven.kungfuters.org/content/repositories/releases/org/telluriumsource/tellurium-core/0.7.0/
 
