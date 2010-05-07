@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.telluriumsource</groupId>
   <artifactId>tellurium-widget-archetype</artifactId>
-  <version>0.7.0</version>
+  <version>0.8.0-SNAPSHOT</version>
   <packaging>maven-archetype</packaging>
   <name>tellurium-widget-archetype</name>
   <build>
