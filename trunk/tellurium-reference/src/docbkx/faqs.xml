@@ -1321,7 +1321,7 @@ getNamespace("xforms");
     </section>
 
     <section>
-        <title>hat Are the Differences Between connectUrl and openUrl</title>
+        <title>What Are the Differences Between connectUrl and openUrl</title>
         <para>Starting from Tellurium 0.7.0,
             <literal>connectUrl()</literal>
             and
