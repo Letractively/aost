@@ -228,7 +228,7 @@
                 <configuration>
                     <includes>
                         <include>**/*_UT.java</include>
-                       <!--<include>**/*TestCase.java</include>-->
+                       <include>**/*TestCase.java</include>
                     </includes>
                 </configuration>
             </plugin>
@@ -308,8 +308,8 @@
         <groovy-version>1.7.0</groovy-version>
         <gmaven-version>1.2</gmaven-version>
         <selenium-version>1.0.1</selenium-version>
-        <tellurium-engine-version>te3</tellurium-engine-version>
-        <tellurium-version>0.7.0</tellurium-version>
+        <tellurium-engine-version>te4-SNAPSHOT</tellurium-engine-version>
+        <tellurium-version>${pom.version}</tellurium-version>
         <javac-debug>true</javac-debug>
     </properties>
 
