@@ -296,6 +296,17 @@
             </snapshots>
             <url>http://maven.kungfuters.org/content/repositories/snapshots</url>
         </repository>
+        <repository>
+            <id>kungfuters-public-releases-repo</id>
+            <name>Kungfuters.org Public Releases Repository</name>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://kungfuters.org/nexus/content/repositories/releases</url>
+        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
@@ -450,6 +461,6 @@
         <groovy-version>1.7.0</groovy-version>
         <gmaven-version>1.2</gmaven-version>
         <selenium-version>1.0.1</selenium-version>
-        <selenium-server-version>1.0.1-te3</selenium-server-version>
+        <selenium-server-version>1.0.1-te4-SNAPSHOT</selenium-server-version>
     </properties>
 </project>
