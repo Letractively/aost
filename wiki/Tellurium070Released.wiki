@@ -3,7 +3,7 @@
 
 = Introduction =
 
-Tellurium is an automated web testing framework. The key techniques include Groovy, Groovy Grape, jQuery, Selenium, Antlr 3 parser generator, JUnit, TestNG, and Maven. Tellurium 0.7.0 is a milestone release and it is the outcome of one year's hard work. Today, we are happy to announce the release of Tellurium 0.7.0.
+Tellurium is an automated web testing framework. Tellurium was started in June 2007 as an internal project and became an open source project on Google Code in June 2008. The key techniques include Groovy, Groovy Grape, jQuery, Selenium, Antlr 3 parser generator, JUnit, TestNG, and Maven. Tellurium 0.7.0 is a milestone release and it is the outcome of one year's hard work. Today, we are happy to announce the release of Tellurium 0.7.0.
 
 = Features =
 
@@ -103,7 +103,9 @@ Please report any problems back to Tellurium User Group at
 
 http://groups.google.com/group/tellurium-users
 
-and follow [http://twitter.com/TelluriumSource Tellurium on Twitter] for any the latest update.
+and follow [http://twitter.com/TelluriumSource Tellurium on Twitter] for any the latest update. 
+
+Tellurium Team is looking for new open source contributors to join our team and read the wiki [http://code.google.com/p/aost/wiki/TelluriumCallForOpenSourceContributors Tellurium Calls for Open Source Contributors] for more details.
 
 Thanks,
 
