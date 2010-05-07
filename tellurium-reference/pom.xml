@@ -9,7 +9,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.telluriumsource</groupId>
     <artifactId>tellurium-reference</artifactId>
-    <version>7.0-SNAPSHOT</version>
+    <version>0.7.0-SNAPSHOT</version>
     <name>Tellurium Reference Documentation</name>
     <packaging>pom</packaging>
 
