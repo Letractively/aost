@@ -1,14 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <groupId>org.telluriumsource</groupId>
         <artifactId>tellurium-reference-projects</artifactId>
-        <version>0.7.0-SNAPSHOT</version>
+        <version>0.7.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.telluriumsource</groupId>
     <artifactId>ui-examples</artifactId>
-    <version>0.7.0-SNAPSHOT</version>
+    <version>0.7.0</version>
     <name>Tellurium Reference Project - UI Examples</name>
 
     <repositories>
@@ -229,7 +228,7 @@
                 <configuration>
                     <includes>
                         <include>**/*_UT.java</include>
-                       <include>**/*TestCase.java</include>
+                       <!--<include>**/*TestCase.java</include>-->
                     </includes>
                 </configuration>
             </plugin>
@@ -310,7 +309,7 @@
         <gmaven-version>1.2</gmaven-version>
         <selenium-version>1.0.1</selenium-version>
         <tellurium-engine-version>te3</tellurium-engine-version>
-        <tellurium-version>0.7.0-SNAPSHOT</tellurium-version>
+        <tellurium-version>0.7.0</tellurium-version>
         <javac-debug>true</javac-debug>
     </properties>
 
