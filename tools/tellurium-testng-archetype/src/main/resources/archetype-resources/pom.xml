@@ -305,7 +305,7 @@
         <gmaven-version>1.2</gmaven-version>
         <selenium-version>1.0.1</selenium-version>
         <tellurium-engine-version>te3</tellurium-engine-version>
-        <tellurium-version>0.7.0-SNAPSHOT</tellurium-version>
+        <tellurium-version>0.7.0</tellurium-version>
         <javac-debug>true</javac-debug>
     </properties>
 
