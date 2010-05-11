@@ -15,7 +15,7 @@ Tree.prototype.printUI = function(){
         this.root.printUI(this.uiModel);
         return this.uiModel;
     }
-}
+};
 
 Tree.prototype.buildXML = function(){
     if(this.root != null){
@@ -29,7 +29,7 @@ Tree.prototype.buildXML = function(){
     }
 
     return DEFAULT_XML;
-}
+};
 
 Tree.prototype.formatXML = function(xmlArray){
     var xml = new StringBuffer();
@@ -40,7 +40,7 @@ Tree.prototype.formatXML = function(xmlArray){
     }
 
     return xml.toString();
-}
+};
 
 //Do some post processing work
 Tree.prototype.postProcess = function(){
@@ -59,7 +59,7 @@ Tree.prototype.postProcess = function(){
         this.root.refUiObject(this.uiObjectMap);
 //        logger.debug("There are " + this.uiObjectMap.size() + " UI objects in the Tree");
     }
-}
+};
 
 Tree.prototype.validate = function() {
     //validate UI object's XPath
@@ -68,7 +68,7 @@ Tree.prototype.validate = function() {
     }else{
         logger.warn("The root node in the Tree is null");
     }
-}
+};
 
 Tree.prototype.addElement = function(element){
 
@@ -140,7 +140,7 @@ Tree.prototype.addElement = function(element){
             }
         }
     }
-}
+};
 
 Tree.prototype.walk = function(current, uid, xpath, attributes, domnode) {
 
@@ -249,7 +249,7 @@ Tree.prototype.walk = function(current, uid, xpath, attributes, domnode) {
             }
         }
     }
-}
+};
 
 Tree.prototype.createUiModule = function() {
     var sb = new StringBuffer();
@@ -274,4 +274,4 @@ Tree.prototype.createUiModule = function() {
     sb.append("}\n");
 
     return sb.toString();
-}
+};

@@ -43,7 +43,7 @@ UiObject.prototype.buildUiObject = function(node, hasChildren){
     this.clocator.buildLocator(whiteListAttributes);
     
     return this;
-}
+};
 
 //build relative xpath from UiObject's locator
 //If group is true, we need to use its children attributes
@@ -58,7 +58,7 @@ UiObject.prototype.buildXPath = function(){
 
 //    alert("Build xpath for " + this.uid + " XPath: " + xp);
     return xp;
-}
+};
 
 
 UiObject.prototype.strUiObject = function(level){
@@ -110,14 +110,14 @@ UiObject.prototype.descObject = function(){
         }
         sb.append("]");
     }
-    if(this.group == true){
+    if(this.group){
         sb.append(", group: 'true'");
     }
 
     sb.append(")");
 
     return sb.toString();
-}
+};
 
 
 UiObject.prototype.strUiObjectFooter = function(level){
@@ -131,7 +131,7 @@ UiObject.prototype.strUiObjectFooter = function(level){
     }
 
     return sb.toString();
-}
+};
 
 UiObject.prototype.paddingByLevel = function(level) {
     var sb = new StringBuffer();
@@ -141,40 +141,40 @@ UiObject.prototype.paddingByLevel = function(level) {
     }
 
     return sb.toString();
-}
+};
 
 UiObject.prototype.updateAttributes = function(attributeMap){
     this.clocator.updateLocator(attributeMap);
-}
+};
 
 UiObject.prototype.addRespond = function(event){
     this.respond.push(event);
-}
+};
 
 UiObject.prototype.setUID = function(uid){
     this.uid = uid;
-}
+};
 
 UiObject.prototype.setUiType = function(uitype){
     this.uiType = uitype;
-}
+};
 
 UiObject.prototype.isContainer = function(){
     this.container = true;
-}
+};
 
 UiObject.prototype.notContainer = function(){
     this.container = false;
-}
+};
 
 UiObject.prototype.useGroupLocating = function(){
     this.group = true;
-}
+};
 
 UiObject.prototype.noGroupLocating = function(){
     this.group = false;
-}
+};
 
 UiObject.prototype.toString = function(){
     return "uid : " + this.uid + " uiType : " + this.uiType;
-}
+};

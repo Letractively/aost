@@ -27,7 +27,7 @@ function Filter(){
     //for dojoAttachEvent
     this.eventmap.set("onmouseenter", "mouseOver");
     this.eventmap.set("onmouseleave", "mouseOut");
-};
+}
  
 /**
  *  Iterates thru the attributes of a node

@@ -12,19 +12,19 @@ function Decorator(){
 
 Decorator.prototype.addBackground = function(node){
     node.style.backgroundColor = this.bgColor;
-}
+};
 
 Decorator.prototype.removeBackground = function(node){
     node.style.backgroundColor = this.noBgColor;    
-}
+};
 
 Decorator.prototype.addOutline = function(node){
     node.style.outline = this.outLine;
-}
+};
 
 Decorator.prototype.removeOutline = function(node){
     node.style.outline = "";
-}
+};
 
 Decorator.prototype.showNode = function(node){
     this.cleanShowNode(node);
@@ -32,11 +32,11 @@ Decorator.prototype.showNode = function(node){
 //    node.style.backgroundColor = this.showBgColor;
     node.style.outline = this.showLine;
     this.currentShownNode = node;
-}
+};
 
 Decorator.prototype.cleanShowNode = function(node){
     if(this.currentShownNode != null){
 //        this.currentShownNode.style.backgroundColor = this.noBgColor;
         this.currentShownNode.style.outline = "";
     }
-}
+};

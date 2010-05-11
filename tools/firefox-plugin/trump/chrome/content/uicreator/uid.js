@@ -23,4 +23,4 @@ Uid.prototype.genUid = function(input){
     }
 
     return sb.toString();
-}
+};
