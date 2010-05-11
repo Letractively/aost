@@ -17,6 +17,8 @@ function Recorder(window) {
     this.tree = document.getElementById('recordTree');
     this.tree.view=this.treeView;
 
+    this.sequence = new Identifier();
+
 }
 
 Recorder.WINDOW_RECORDER_PROPERTY = "_TrUMP_IDE_Recorder";
@@ -42,7 +44,8 @@ Recorder.prototype.registerClickListener = function(){
                 self.selectedElements.push(element);
 
                 var tagObject = self.builder.createTagObject(element);
-
+                var uid = "trumpsel" + this.sequence.next();
+                teJQuery(element).data("uid", uid);
                 self.tagObjectArray.push(tagObject);
 
                 self.treeView.setTagObjects(self.tagObjectArray);
@@ -54,6 +57,7 @@ Recorder.prototype.registerClickListener = function(){
                 self.selectedElements.splice(index, 1);
                 self.tagObjectArray.splice(index, 1);
                 self.treeView.deleteRow(index);
+                teJQuery(element).removeData("uid");
             }
 
         };
