@@ -31,11 +31,11 @@ XPathBuilder.prototype.buildPosition = function(position){
         return "";
 
     return "position()=" + position;
-}
+};
 
 XPathBuilder.prototype.startsWith = function(str, pattern) {
     return str.indexOf(pattern) === 0;
-}
+};
 
 XPathBuilder.prototype.buildText = function(value){
     if(value == null || trimString(value).length <= 0)
@@ -49,7 +49,7 @@ XPathBuilder.prototype.buildText = function(value){
     }else{
         return "normalize-space(text())=normalize-space(\"" + trimed + "\")";
     }
-}
+};
 
 XPathBuilder.prototype.buildAttribute = function(name, value){
     if(name == null || trimString(name).length <= 0)
@@ -67,7 +67,7 @@ XPathBuilder.prototype.buildAttribute = function(name, value){
     }else{
         return "@" + name + "=\"" + trimed + "\"";
     }
-}
+};
 
 XPathBuilder.prototype.buildXPathWithPrefix = function(prefix, tag, text, position, attributes, groupattrs){
     var sb = new StringBuffer();
@@ -116,56 +116,56 @@ XPathBuilder.prototype.buildXPathWithPrefix = function(prefix, tag, text, positi
     }
 
     return sb.toString();
-}
+};
 
 XPathBuilder.prototype.buildDescendantXPath = function(tag, text, position, attributes){
     if(position != null && position >= 0)
         return this.buildXPathWithPrefix(this.constants.DESCENDANT_PREFIX, tag, text, position, attributes, null);
 
     return  this.buildXPathWithPrefix(this.constants.DESCENDANT_PREFIX, tag, text, -1 , attributes, null);
-}
+};
 
 XPathBuilder.prototype.buildChildXPath = function(tag, text, position, attributes){
     if(position != null && position >= 0)
         return this.buildXPathWithPrefix(this.constants.CHILD_PREFIX, tag, text, position, attributes, null);
 
     return  this.buildXPathWithPrefix(this.constants.CHILD_PREFIX, tag, text, -1 , attributes, null);
-}
+};
 
 XPathBuilder.prototype.internBuildXPath = function(tag, text, position, direct, attributes, groupattrs){
     if(direct)
         return this.buildXPathWithPrefix(this.constants.CHILD_PATH, tag, text, position, attributes, groupattrs);
     else
         return this.buildXPathWithPrefix(this.constants.DESCENDANT_OR_SELF_PATH, tag, text, position, attributes, groupattrs);
-}
+};
 
 XPathBuilder.prototype.buildGroupXPath = function(tag, text, position, direct, attributes, groupattrs){
     if(position != null && position >= 0)
         return this.internBuildXPath(tag, text, position, direct, attributes, groupattrs);
 
     return  this.internBuildXPath(tag, text, -1 , direct, attributes, groupattrs);
-}
+};
 
 XPathBuilder.prototype.buildXPath = function(tag, text, position, attributes) {
     if (position != null && position >= 0)
         return this.internBuildXPath(tag, text, position, false, attributes, null);
 
     return  this.internBuildXPath(tag, text, -1, false, attributes, null);
-}
+};
 
 XPathBuilder.prototype.buildOptionalXPath = function(tag, text, position, direct, attributes) {
     if (position != null && position >= 0)
         return this.internBuildXPath(tag, text, position, direct, attributes, null);
 
     return  this.internBuildXPath(tag, text, -1, direct, attributes, null);
-}
+};
 
 XPathBuilder.prototype.buildOptionalXPathVHeader = function(tag, text, position, direct, attributes, header) {
     if (position != null && position >= 0)
         return this.internBuildXPathVHeader(tag, text, position, direct, attributes, null, header);
 
     return  this.internBuildXPathVHeader(tag, text, -1, direct, attributes, null, header);
-}
+};
 
 XPathBuilder.prototype.internBuildXPathVHeader = function(tag, text, position, direct, attributes, groupattrs, header){
     var appendheader = "";
@@ -182,11 +182,11 @@ XPathBuilder.prototype.internBuildXPathVHeader = function(tag, text, position, d
     }else{
         return this.buildXPathWithPrefix(this.constants.DESCENDANT_OR_SELF_PATH + appendheader, tag, text, position, attributes, groupattrs);
     }
-}
+};
 
 XPathBuilder.prototype.buildGroupXPathVHeader = function(tag, text, position, direct, attributes, groupattrs, header){
     if(position != null && position >= 0)
         return this.internBuildXPathVHeader(tag, text, position, direct, attributes, groupattrs, header);
 
     return  this.internBuildXPathVHeader(tag, text, -1 , direct, attributes, groupattrs, header);
-}
+};

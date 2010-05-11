@@ -22,7 +22,7 @@ TagState.prototype.includeTag = function(tagList, tag){
     }
 
     return false;
-}
+};
 
 TagState.prototype.selectOneTag = function(choiceTags, tags){
     for (var i = 0; i < tags.length; i++) {
@@ -33,7 +33,7 @@ TagState.prototype.selectOneTag = function(choiceTags, tags){
     }
 
     return null;
-}
+};
 
 TagState.prototype.selectTagByPriority = function(tags){
     if(tags != null){
@@ -52,4 +52,4 @@ TagState.prototype.selectTagByPriority = function(tags){
     }
 
     return null;
-}
+};

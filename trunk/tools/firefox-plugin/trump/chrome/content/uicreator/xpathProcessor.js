@@ -22,7 +22,7 @@ XPathProcessor.prototype.splitXPath = function(xpath){
     }
     
     return result;
-}
+};
 
 XPathProcessor.prototype.getTag = function(str){
     var tag = null;
@@ -37,7 +37,7 @@ XPathProcessor.prototype.getTag = function(str){
     }
 
     return tag;
-}
+};
 
 XPathProcessor.prototype.getTags = function(xpath){
     var splited = this.splitXPath(xpath);
@@ -52,7 +52,7 @@ XPathProcessor.prototype.getTags = function(xpath){
     }
     
     return tags;
-}
+};
 
 XPathProcessor.prototype.getSubXPath = function(xpath, inx){
     var subxp = new StringBuffer();
@@ -71,7 +71,7 @@ XPathProcessor.prototype.getSubXPath = function(xpath, inx){
     }
     
     return subxp.toString();
-}
+};
 
 XPathProcessor.prototype.getLastXPath = function(xpath, inx){
     var subxp = new StringBuffer();
@@ -91,7 +91,7 @@ XPathProcessor.prototype.getLastXPath = function(xpath, inx){
     }
 
     return subxp.toString();
-}
+};
 
 //remove the last portion from the XPath
 XPathProcessor.prototype.popXPath = function(xpath){
@@ -106,7 +106,7 @@ XPathProcessor.prototype.popXPath = function(xpath){
     }
 
     return subxp.toString();
-}
+};
 
 XPathProcessor.prototype.findTagIndex = function(tagList, tag){
     var inx = -1;
@@ -120,7 +120,7 @@ XPathProcessor.prototype.findTagIndex = function(tagList, tag){
     }
     
     return inx;
-}
+};
 
 XPathProcessor.prototype.reverseList = function (lst){
     if(lst == null || lst.length <= 1){
@@ -133,7 +133,7 @@ XPathProcessor.prototype.reverseList = function (lst){
     }
 
     return result;
-}
+};
 
 
 XPathProcessor.prototype.startWith = function(xpath, prefix){
@@ -146,7 +146,7 @@ XPathProcessor.prototype.startWith = function(xpath, prefix){
     }
 
     return false;
-}
+};
 
 XPathProcessor.prototype.checkXPathCount = function(doc, xpath) {
 //    var nodesSnapshot = document.evaluate(xpath, document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
@@ -157,7 +157,7 @@ XPathProcessor.prototype.checkXPathCount = function(doc, xpath) {
 //    logger.debug("Get XPath evalution result " + result.numberValue + " for xpath " + xpath);
 
     return result.numberValue;
-}
+};
 
 XPathProcessor.prototype.checkPosition = function(str){
     if(str != null){
@@ -171,7 +171,7 @@ XPathProcessor.prototype.checkPosition = function(str){
     }
 
     return null;
-}
+};
 
 XPathProcessor.prototype.checkPositionForlastXPath = function(xpath){
     var parts = this.splitXPath(xpath);
@@ -181,4 +181,4 @@ XPathProcessor.prototype.checkPositionForlastXPath = function(xpath){
     }
 
     return null;
-}
+};

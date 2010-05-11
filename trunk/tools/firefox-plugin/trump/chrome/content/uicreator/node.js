@@ -52,7 +52,7 @@ NodeObject.prototype.walkUp = function(){
     }
 
     return xp;
-}
+};
 
 NodeObject.prototype.normalizeXPath = function(xpath) {
     //check if the xpath starts with "//"
@@ -61,7 +61,7 @@ NodeObject.prototype.normalizeXPath = function(xpath) {
     }
 
     return xpath;
-}
+};
 
 NodeObject.prototype.findNodeXPath = function(){
     var xp = this.walkUp();
@@ -69,7 +69,7 @@ NodeObject.prototype.findNodeXPath = function(){
 //    logger.debug("The XPath for Node " + this.id + " is " + xp);
 
     return xp;
-}
+};
 
 //validate itself and its descendants
 NodeObject.prototype.validateXPath = function(){
@@ -89,7 +89,7 @@ NodeObject.prototype.validateXPath = function(){
             this.children[i].validateXPath();
         }
     }
-}
+};
 
 //only validate itself's xpath
 NodeObject.prototype.validateNodeXPath = function(){
@@ -103,7 +103,7 @@ NodeObject.prototype.validateNodeXPath = function(){
         this.uiobject.isLocatorValid = true;
         logger.debug("The XPath for Node " + this.id + " " + xp + " returned " + num + " nodes, passed validation");
     }
-}
+};
 
 NodeObject.prototype.getLevel = function(){
     var level = 0;
@@ -115,7 +115,7 @@ NodeObject.prototype.getLevel = function(){
     }
 
     return level;
-}
+};
 
 //canonical ID start from the root
 NodeObject.prototype.canonUID = function(){
@@ -126,7 +126,7 @@ NodeObject.prototype.canonUID = function(){
     }
 
     return this.id;
-}
+};
 
 NodeObject.prototype.buildUiObject = function(){
     var hasChildren = false;
@@ -144,7 +144,7 @@ NodeObject.prototype.buildUiObject = function(){
     }
     
     this.checkUiDirectAttribute();
-}
+};
 
 NodeObject.prototype.checkUiDirectAttribute = function(){
     if(this.trailer == null || trimString(this.trailer).length == 0){
@@ -157,7 +157,7 @@ NodeObject.prototype.checkUiDirectAttribute = function(){
             }
         }
     }
-}
+};
 
 NodeObject.prototype.refUiObject = function(uiMap){
     var hasChildren = false;
@@ -175,7 +175,7 @@ NodeObject.prototype.refUiObject = function(uiMap){
             this.children[i].refUiObject(uiMap);
         }
     }
-}
+};
 
 NodeObject.prototype.printUI = function(layout){
     var hasChildren = false;
@@ -198,7 +198,7 @@ NodeObject.prototype.printUI = function(layout){
         var strobjft = this.uiobject.strUiObjectFooter(level);
         layout.push(strobjft);
     }
-}
+};
 
 NodeObject.prototype.buildXML = function(xml){
     var hasChildren = false;
@@ -229,7 +229,7 @@ NodeObject.prototype.buildXML = function(xml){
     }else{
         xml.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + " " + myUID + " " + valid + "/>\n");
     }
-}
+};
 
 NodeObject.prototype.buildAttributeXml = function(){
     var keySet = this.attributes.keySet();
@@ -266,7 +266,7 @@ NodeObject.prototype.buildAttributeXml = function(){
     logger.debug("Attributes XML: \n" + xml);
 
     return xml;
-}
+};
 
 NodeObject.prototype.checkNodeId = function(){
     //Children's names must be unique
@@ -291,15 +291,15 @@ NodeObject.prototype.checkNodeId = function(){
             this.children[c].checkNodeId();
         }
     }
-}
+};
 
 NodeObject.prototype.notEmpty = function(){
     return (this.children != null && this.children.length > 0);
-}
+};
 
 NodeObject.prototype.addChild = function(child){
     this.children.push(child);
-}
+};
 
 NodeObject.prototype.removeChild = function(uid){
     var child = this.findChild(uid);
@@ -308,7 +308,7 @@ NodeObject.prototype.removeChild = function(uid){
         var index = this.children.indexOf(child);
         this.children.splice(index, 1);
     }
-}
+};
 
 NodeObject.prototype.findChild = function(uid){
     var current;
@@ -320,7 +320,7 @@ NodeObject.prototype.findChild = function(uid){
         }
     }
     return null;
-}
+};
 
 //based on the xpath for the node, set the header and trailer
 //i.e,
@@ -336,11 +336,11 @@ NodeObject.prototype.setHeaderTrailerForRegularNode = function() {
     if (this.trailer != null && trimString(this.trailer).length > 0) {
 //        this.attributes.set(this.constants.TRAILER, this.trailer);
     }
-}
+};
 
 NodeObject.prototype.isNewNode = function(){
     return this.newNode;
-}
+};
 
 NodeObject.prototype.getAbsoluateXPath = function(lastXPath){
     var axp = lastXPath;
@@ -354,7 +354,7 @@ NodeObject.prototype.getAbsoluateXPath = function(lastXPath){
     }
 
     return axp;
-}
+};
 
 //reverse tag list, the tag of the node you want to find
 NodeObject.prototype.findSelectedNode = function(rtaglist, tag){
@@ -398,7 +398,7 @@ NodeObject.prototype.findSelectedNode = function(rtaglist, tag){
 
         return this.domNode;
     }
-}
+};
 
 NodeObject.prototype.populateAttributes = function(){
     this.attributes = this.filter.getNotBlackListedAttributes(this.domNode.attributes);
@@ -410,7 +410,7 @@ NodeObject.prototype.populateAttributes = function(){
     if (this.trailer != null && trimString(this.trailer).length > 0) {
 //        this.attributes.set(this.constants.TRAILER, this.trailer);
     }
-}
+};
 
 NodeObject.prototype.selectTag = function(){
 
@@ -434,7 +434,7 @@ NodeObject.prototype.selectTag = function(){
         this.findSelectedNode(rtags, this.tag);
         this.populateAttributes();
     }
-}
+};
 
 NodeObject.prototype.processNewNode = function(){
     //should process children first so that leaf node will be processed first
@@ -456,14 +456,14 @@ NodeObject.prototype.processNewNode = function(){
     if(pos != null){
         this.attributes.set(this.constants.POSITION, new String(pos));
     }
-}
+};
 
 NodeObject.prototype.checkNodePosition = function(){
 //    var pos = this.xpathProcessor.checkPositionForlastXPath(this.xpath);
     var pos = this.xpathProcessor.checkPositionForlastXPath(this.nodexpath);
 
     return pos;
-}
+};
 
 /*
 NodeObject.prototype.toString = function(child){

@@ -38,7 +38,7 @@ XPathMatcher.prototype.match = function(src, dst){
         }
 
         return match.toString();
-}
+};
 
 XPathMatcher.prototype.remainingXPath = function(original, prefix){
     if(original == null || prefix == null)
@@ -46,4 +46,4 @@ XPathMatcher.prototype.remainingXPath = function(original, prefix){
     if(original.indexOf(prefix) != -1){
         return original.substring(prefix.length);
     }
-}
+};

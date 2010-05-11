@@ -34,7 +34,7 @@ Locator.prototype.buildLocator = function(attributes){
     }
 
     return this;
-}
+};
 
 Locator.prototype.buildLocatorFromAttributes = function(attributes) {
     if (attributes != null && attributes.size() > 0) {
@@ -50,7 +50,7 @@ Locator.prototype.buildLocatorFromAttributes = function(attributes) {
             }
         }
     }
-}
+};
 
 Locator.prototype.updateLocator = function(attributes){
      this.attributes = new HashMap();
@@ -74,7 +74,7 @@ Locator.prototype.updateLocator = function(attributes){
     }
 
     return this;
-}
+};
 
 Locator.prototype.isAttributeIncluded = function(attribute){
 
@@ -89,15 +89,15 @@ Locator.prototype.isAttributeIncluded = function(attribute){
     }
 
     return (this.attributes.get(attribute) != null);
-}
+};
 
 Locator.prototype.addAttribute = function(key, value) {
     this.attributes.set(key, value);
-}
+};
 
 Locator.prototype.removeAttribute = function(key) {
     this.attributes.remove(key);
-}
+};
 
 Locator.prototype.attributesToString = function(){
     var sb = new StringBuffer();
@@ -112,7 +112,7 @@ Locator.prototype.attributesToString = function(){
     }
 
     return sb.toString();
-}
+};
 
 Locator.prototype.descAttributes = function(){
     var sb = new StringBuffer();
@@ -128,7 +128,7 @@ Locator.prototype.descAttributes = function(){
     }
 
     return sb.toString();
-}
+};
 
 Locator.prototype.strLocator = function(){
     var sb = new StringBuffer();
@@ -186,7 +186,7 @@ Locator.prototype.strLocator = function(){
     sb.append("]")
 
     return sb.toString();
-}
+};
 
 Locator.prototype.descLocator = function(){
     var sb = new StringBuffer();
@@ -244,24 +244,24 @@ Locator.prototype.descLocator = function(){
     sb.append("]")
 
     return sb.toString();
-}
+};
 
 Locator.prototype.setHeader = function(header){
     this.header = header;
-}
+};
 
 Locator.prototype.setTag = function(tag){
     this.tag = tag;
-}
+};
 
 Locator.prototype.setText = function(text){
     this.text = text;
-}
+};
 
 Locator.prototype.setTrailer = function(trailer){
     this.trailer = trailer;
-}
+};
 
 Locator.prototype.setPosition = function(pos){
     this.position = pos;
-}
+};

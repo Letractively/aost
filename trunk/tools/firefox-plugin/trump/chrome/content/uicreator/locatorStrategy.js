@@ -26,7 +26,7 @@ LocatorStrategy.prototype.compositeLocate = function(cnode){
     }
 
     return xp;
-}
+};
 
 LocatorStrategy.prototype.groupLocate = function(cnode){
     var groupAttributes = new Array();
@@ -60,4 +60,4 @@ LocatorStrategy.prototype.groupLocate = function(cnode){
     }
 
     return xp;
-}
+};

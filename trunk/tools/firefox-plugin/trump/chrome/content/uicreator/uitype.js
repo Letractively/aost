@@ -7,7 +7,7 @@ function UiType() {
         SUBMIT : "submit",
         BUTTON : "button",
         IMAGE : "image"
-    }
+    };
 
     this.map = new HashMap();
     this.map.set("divN", "Div");
