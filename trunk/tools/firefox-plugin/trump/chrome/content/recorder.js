@@ -25,11 +25,11 @@ Recorder.WINDOW_RECORDER_PROPERTY = "_TrUMP_IDE_Recorder";
 
 Recorder.prototype.registerListener = function(){
     this.registerClickListener();
-}
+};
 
 Recorder.prototype.unregisterListener = function(){
     this.unregisterClickListener();
-}
+};
 
 Recorder.prototype.registerClickListener = function(){
     var self = this;
@@ -43,8 +43,8 @@ Recorder.prototype.registerClickListener = function(){
                 self.decorator.addBackground(element);
                 self.selectedElements.push(element);
 
-                var tagObject = self.builder.createTagObject(element);
-                var uid = "trumpsel" + this.sequence.next();
+                var uid = "trumpSelected" + this.sequence.next();
+                var tagObject = self.builder.createTagObject(element, uid);
                 teJQuery(element).data("uid", uid);
                 self.tagObjectArray.push(tagObject);
 
@@ -84,7 +84,7 @@ Recorder.prototype.registerClickListener = function(){
 
     }
 */
-}
+};
 
 Recorder.prototype.getWindowAndRegisterClickListener = function(){
     var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
@@ -108,7 +108,7 @@ Recorder.prototype.getWindowAndRegisterClickListener = function(){
         }
     }
 
-}
+};
 
 Recorder.prototype.unregisterClickListener = function(){
     this.removeBackgroundForSelectedNodes();
@@ -126,11 +126,11 @@ Recorder.prototype.unregisterClickListener = function(){
     } 
     
     this.listener = null;
-}
+};
 
 Recorder.prototype.stopRecording = function(){
     
-}
+};
 
 Recorder.prototype.showSelectedNode = function(){
 
@@ -139,19 +139,19 @@ Recorder.prototype.showSelectedNode = function(){
     var node = this.selectedElements[this.tree.currentIndex];
     this.decorator.addOutline(node);
 
-}
+};
 
 Recorder.prototype.removeBackgroundForSelectedNodes = function(){
     for(var i=0; i< this.selectedElements.length ; ++i){
         this.decorator.removeBackground(this.selectedElements[i]);
     }
-}
+};
 
 Recorder.prototype.removeOutlineForSelectedNodes = function(){
     for(var i=0; i< this.selectedElements.length ; ++i){
         this.decorator.removeOutline(this.selectedElements[i]);
     }
-}
+};
 
 Recorder.prototype.clearAll = function(){
     this.removeOutlineForSelectedNodes();
@@ -160,5 +160,5 @@ Recorder.prototype.clearAll = function(){
     this.selectedElements = new Array();
     this.tagObjectArray = new Array();
     this.treeView.clearAll();    
-}
+};
 
