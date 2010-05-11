@@ -1,9 +1,9 @@
 
 var constants = {
     ELEMENT_TYPE_NODE : 1
-}
+};
 
-var blackListAttributes = ["size", "maxlength", "width", "height", "style", "align", "autocomplete"]
+var blackListAttributes = ["size", "maxlength", "width", "height", "style", "align", "autocomplete"];
 
 function Builder(){
     this.bundle = $("string");
@@ -14,13 +14,13 @@ function Builder(){
  */
 Builder.getBundle = function(){
     return document.getElementById("strings");
-}
+};
 
 Builder.getFormattedString = function(key){
 
-}
+};
 
-Builder.prototype.createTagObject = function(node){
+Builder.prototype.createTagObject = function(node, uid){
     var lowerCaseNodeName ;
     var attributes;
     var parent;
@@ -38,14 +38,14 @@ Builder.prototype.createTagObject = function(node){
         }
 
         parent = node.parentNode;
-        name = getAttributeNameOrId(node)
+        name = getAttributeNameOrId(node);
         //TODO xpath creation
         xpath = createXPath(node);
-        return this.buildTagObject(node, lowerCaseNodeName, name, attributes, parent, xpath);
+        return this.buildTagObject(node, lowerCaseNodeName, name, attributes, parent, xpath, uid);
     }
 
     return null;
-}
+};
 
 Builder.prototype.getText = function(node) {
     var txt = null;
@@ -71,9 +71,9 @@ Builder.prototype.getText = function(node) {
     }
 
     return txt;
-}
+};
 
-Builder.prototype.buildTagObject = function(node, tag, name, attributes, parent, xpath){
+Builder.prototype.buildTagObject = function(node, tag, name, attributes, parent, xpath, uid){
     var tagObject = new TagObject();
     tagObject.name = name;
     tagObject.node = node;
@@ -81,9 +81,10 @@ Builder.prototype.buildTagObject = function(node, tag, name, attributes, parent,
     tagObject.attributes = attributes;
     tagObject.parent = parent;
     tagObject.xpath = xpath;
+    tagObject.uid = uid;
 
     return tagObject;
-}
+};
 
 function createXPath(node){
     return generateXPath(node);    

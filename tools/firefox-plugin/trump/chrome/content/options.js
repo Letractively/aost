@@ -18,11 +18,11 @@ function saveOptions(){
     }
 
 	return true;
-};
+}
 
 function cancelOptions(){
    return true;
-};
+}
 
 function loadOptions() {
     var os = window.arguments[0];

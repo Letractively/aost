@@ -7,6 +7,7 @@ function TagObject(){
     this.tag = null;
     this.attributes = new HashMap();
     this.xpath = null;
+    this.uid = null;
 }
 
 TagObject.prototype.toString = function(){

@@ -32,16 +32,16 @@ function Editor(window) {
 Editor.prototype.registerRecorder = function(){
     this.recorder = new Recorder(this.window);
     this.recorder.registerListener();
-}
+};
 
 Editor.prototype.unload = function(){
     this.recorder.unregisterListener();
     this.decorator.cleanShowNode();
-}
+};
 
 Editor.prototype.close = function(){
 //    this.recorder.unregisterListener();
-}
+};
 
 Editor.prototype.toggleRecordButton = function(){
     var recordToolbarButton = document.getElementById("record-button");
@@ -55,7 +55,7 @@ Editor.prototype.toggleRecordButton = function(){
         this.recorder.registerListener();
     }
 
-}
+};
 
 Editor.prototype.toggleStopButton = function(){
     var stopToolbarButton = document.getElementById("stop-button");
@@ -68,7 +68,7 @@ Editor.prototype.toggleStopButton = function(){
 
         this.recorder.unregisterListener();
     }
-}
+};
 
 Editor.prototype.generateButton = function(){
     this.switchToSourceTab();
@@ -99,7 +99,7 @@ Editor.prototype.generateButton = function(){
     this.innerTree.validate();
 
     logger.debug("Done validating UI object's XPath");
-}
+};
 
 Editor.prototype.updateSource = function(){
     this.clearSourceTabContent();
@@ -117,7 +117,7 @@ Editor.prototype.updateSource = function(){
 
 //    logger.debug("ui model generated:\n"+uiModel);
     sourceTextNode.value = uiModel;
-}
+};
 
 Editor.prototype.clearButton = function(){
     this.recorder.clearAll();
@@ -126,7 +126,7 @@ Editor.prototype.clearButton = function(){
     this.clearCustomizeTabContext();
     this.decorator.cleanShowNode();
     this.innerTree = null;
-}
+};
 
 Editor.prototype.clearCustomizeTabContext = function(){
     document.getElementById("uid").value = "";
@@ -136,19 +136,19 @@ Editor.prototype.clearCustomizeTabContext = function(){
     document.getElementById("group_Check_Box").disabled = true;
     this.buildCustomizeTree(DEFAULT_XML);
     this.buildUiAttributeTree(DEFAULT_ATTRIBUTES_XML);
-}
+};
 
 Editor.prototype.switchToSourceTab = function(){
     document.getElementById("editorTabs").selectedItem = document.getElementById("sourceTab");
-}
+};
 
 Editor.prototype.clearSourceTabContent = function(){
     document.getElementById("source").value = "";
-}
+};
 
 Editor.prototype.selectedTreeItem = function(event){
     this.recorder.showSelectedNode();  
-}
+};
 
 Editor.prototype.customizeButton = function(){
     this.switchToCustomizeTab();
@@ -158,11 +158,11 @@ Editor.prototype.customizeButton = function(){
     }
 
     this.buildCustomizeTree(xml);
-}
+};
 
 Editor.prototype.switchToCustomizeTab = function(){
     document.getElementById("editorTabs").selectedItem = document.getElementById("customizeTab");
-}
+};
 
 Editor.prototype.buildCustomizeTree = function(xml) {
     if (xml != null) {
@@ -172,7 +172,7 @@ Editor.prototype.buildCustomizeTree = function(xml) {
         customize_tree.builder.datasource = pxml;
         customize_tree.builder.rebuild();
     }
-}
+};
 
 Editor.prototype.processCustomizeEvent = function(event){
 //    logger.debug('Customize ' + event.target.getAttribute("label"));
@@ -185,11 +185,11 @@ Editor.prototype.processCustomizeEvent = function(event){
     }else{
         logger.warn("Cannot find UI object " + this.currentUid);   
     }
-}
+};
 
 Editor.prototype.processCheckEvent = function(event){
 //    alert("You selected " + event.target.getAttribute("cid"));
-}
+};
 
 Editor.prototype.fillUiObjectFields = function(uiObject){
     document.getElementById("uid").value = uiObject.uid;
@@ -210,17 +210,17 @@ Editor.prototype.fillUiObjectFields = function(uiObject){
     } else {
         logger.warn("Ui object " + uiObject.uid + " does not point to a Node in the tree")
     }
-}
+};
 
 Editor.prototype.enableUiObjectFields = function(){
-    document.getElementById("uid").removeAttribute("disabled")
+    document.getElementById("uid").removeAttribute("disabled");
     document.getElementById("uiType").removeAttribute("disabled");
-}
+};
 
 Editor.prototype.disableUiObjectFields = function(){
     document.getElementById("uid").setAttribute("disabled", "true");
     document.getElementById("uiType").setAttribute("disabled", "true");   
-}
+};
 
 Editor.prototype.buildUiAttributeTree = function(xml) {
     if (xml != null) {
@@ -230,7 +230,7 @@ Editor.prototype.buildUiAttributeTree = function(xml) {
         ui_attribute_tree.builder.datasource = pxml;
         ui_attribute_tree.builder.rebuild();
     }
-}
+};
 
 Editor.prototype.getElementsByTagValue = function(tag, attr, val){
     var elements = document.getElementsByTagName(tag);
@@ -244,7 +244,7 @@ Editor.prototype.getElementsByTagValue = function(tag, attr, val){
     }
 
     return null;
-}
+};
 
 Editor.prototype.showNodeOnWeb = function(){
     var uiObject = this.innerTree.uiObjectMap.get(this.currentUid);
@@ -257,7 +257,7 @@ Editor.prototype.showNodeOnWeb = function(){
     }else{
         logger.error("Cannot find UI object " + this.currentUid);
     }
-}
+};
 
 Editor.prototype.updateUiObject = function(){
     var uiObject = this.innerTree.uiObjectMap.get(this.currentUid);
@@ -319,7 +319,7 @@ Editor.prototype.updateUiObject = function(){
     }else{
         logger.error("Cannot find UI object " + this.currentUid);
     }
-}
+};
 
 Editor.prototype.exportUiModule = function(){
     if(this.innerTree != null){
@@ -338,7 +338,7 @@ Editor.prototype.exportUiModule = function(){
         FileUtils.saveAs(dir, txt);
         logger.debug("UI Module is exported to directory " + dir);
     }
-}
+};
 
 Editor.prototype.updateOptions = function(){
     window.openDialog("chrome://trump/content/preferences.xul", "options", "chrome,modal,resizable", this.os);
@@ -348,7 +348,7 @@ Editor.prototype.updateOptions = function(){
     }
     logger.jslog = jslog;
     
-    var elem = document.getElementById("logging-console");
+//    var elem = document.getElementById("logging-console");
     var elem = window.frames["logViewFrame"].document.getElementById("logging-console");
     if (elem != null) {
         var logWrap = Preferences.getPref("extensions.trump.logwrap");
@@ -362,4 +362,4 @@ Editor.prototype.updateOptions = function(){
             elem.style.whiteSpac = "nowrap";
         }
     }
-}
+};
