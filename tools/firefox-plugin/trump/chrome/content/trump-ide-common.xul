@@ -45,6 +45,7 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/xpathBuilder.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/xpathDom.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/jqueryBuilder.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/uimodule-alg.js"/>
 
     <script type="application/x-javascript" src="chrome://trump/content/utils/stringBuffer.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/utils/hashMap.js"/>
