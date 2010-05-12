@@ -14,4 +14,4 @@ TagObject.prototype.toString = function(){
 
     return "TagObject - { node : \"" + this.node + "\" tag : \"" + this.tag + "\" attributes : \""+ this.attributes +
            "\" parent : \""+ this.parent + "\" xpath : \"" + this.xpath +"\" }";
-}
+};
