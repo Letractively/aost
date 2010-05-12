@@ -60,6 +60,15 @@ function DTree(){
     this.index = new Hashtable();
 }
 
+DTree.prototype.isExistParent = function(uid){
+    if(this.root != null){
+        var $parent = teJQuery(this.root.tagObject.node).closest(":data(uid," + uid + ")");
+        return $parent.size() > 0;
+    }
+
+    return false;
+};
+
 DTree.prototype.updateIndex = function(){
     if(this.root != null){
         this.root.updateIndex(this.index);
@@ -99,7 +108,11 @@ var TugAlg = Class.extend({
 
         //each candidate is a DTree
         this.candidates = new Array();
+        //Generated UI Modules
+        this.uiModules = new Array();
+        
         this.tagObjectIndex = new Hashtable();
+        this.builder = new Builder();
     },
 
     prepare: function(tagObjects){
@@ -200,14 +213,64 @@ var TugAlg = Class.extend({
                     if(needNewDTree){
                         var dTree = new DTree();
                         dTree.root = current.findRoot();
-                        dTree.appendIndex(newNodes)
+                        dTree.appendIndex(newNodes);
                         this.candidates.push(dTree);
                     }
                 }
 
             }
-
         }
+    },
+
+    merge: function(){
+        var candidate = this.candidates[0];
+
+        var $current = teJQuery(candidate.root.tagObject.node);
+        var $parent = $current.parent();
+
+        while($parent.size() > 0){
+            var i;
+
+            $parent.data("uid", "newroot");
+            var found = true;
+
+            for(i=1; i<this.candidates.length; i++){
+                if(!this.candidates[i].isExistParent("newroot")){
+                    found = false;
+                }
+            }
+
+            if(!found){
+                $current = $parent;
+            }else{
+                var tagObj = this.builder.createTagObject($parent.get(0), "newroot");
+
+                var root = new DNode();
+                root.parent = null;
+                root.id = "newroot";
+                root.tagObject = tagObj;
+                for(i=0; i<this.candidates.length; i++){
+                    root.addChild(this.candidates[i].root);
+                }
+
+                var dTree = new DTree();
+                dTree.root = root;
+                dTree.updateIndex();
+
+                this.candidates = new Array();
+                this.candidates.push(dTree);
+                
+                break;
+            }
+        }
+    },
+
+    suggestName: function(tagObject){
+        
+    },
+
+    transform: function(dTree){
+        
     }
 
 });
