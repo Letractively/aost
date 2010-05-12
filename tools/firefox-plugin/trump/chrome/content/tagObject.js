@@ -5,10 +5,18 @@ function TagObject(){
     this.parent = null;
     this.node = null;
     this.tag = null;
-    this.attributes = new HashMap();
+    this.attributes = new Hashtable();
     this.xpath = null;
     this.uid = null;
 }
+
+TagObject.prototype.getAttribute = function(attr){
+    if(this.attributes != null){
+        return this.attributes.get(attr);
+    }
+
+    return null;
+};
 
 TagObject.prototype.toString = function(){
 

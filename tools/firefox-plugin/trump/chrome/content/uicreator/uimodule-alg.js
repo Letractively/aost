@@ -112,7 +112,11 @@ var TugAlg = Class.extend({
         this.uiModules = new Array();
         
         this.tagObjectIndex = new Hashtable();
+
         this.builder = new Builder();
+
+        this.sequence = new Identifier();
+        this.sequence.sn = 0;
     },
 
     prepare: function(tagObjects){
@@ -266,7 +270,12 @@ var TugAlg = Class.extend({
     },
 
     suggestName: function(tagObject){
-        
+        //Id is unique, consider it first
+        var id = tagObject.getAttribute("id");
+        if(id != null)
+            return id;
+
+        return tagObject.tag + this.sequence.next();   
     },
 
     transform: function(dTree){
