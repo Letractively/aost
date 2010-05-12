@@ -144,6 +144,17 @@ teJQuery.expr[':'].regex = function(elem, index, match) {
     return regex.test(teJQuery(elem)[attr.method](attr.property));
 };
 
+teJQuery.expr[':'].data = function(elem, index, m) {
+
+    m[0] = m[0].replace(/:data\(|\)$/g, '');
+
+    var regex = new RegExp('([\'"]?)((?:\\\\\\1|.)+?)\\1(,|$)', 'g'),
+        key = regex.exec( m[0] )[2],
+        val = regex.exec( m[0] )[2];
+
+    return val ? teJQuery(elem).data(key) == val : !!teJQuery(elem).data(key);
+};
+
 teJQuery.fn.outerHTML = function() {
     return teJQuery("<div/>").append( teJQuery(this[0]).clone() ).html();
 };
