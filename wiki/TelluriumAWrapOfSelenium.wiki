@@ -35,11 +35,23 @@ Why we need to go a different path from Selenium? Selenium is a great framework 
 
 == Expressive ==
 
-_Expressive_ is provided by Groovy in Tellurium Core. For example, you can see clearly what the UI you are testing against. For the test code, you have DSL style test code such as:
+First, Tellurium shows clearly what the UIs you are testing by the UI module, i.e., widget, definition. For instance, the Google search UI is represented as follows in Tellurium.
+
+{{{
+ui.Container(uid: "GoogleSearchModule", clocator: [tag: "td"], group: "true"){
+   InputBox(uid: "Input", clocator: [title: "Google Search"])
+   SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+   SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
+}
+}}}
+
+Second, Test code _expressive_ is provided by Groovy in Tellurium Core. For example, you can see clearly what the UI you are testing against. For the test code, you have DSL style test code such as:
 
 
 {{{
-   type "Form.User.Input", "TelluriumSource"
+   type "GoogleSearchModule.Input", "Tellurium test"
+   click "GoogleSearchModule.Search"
+   waitForPageToLoad 30000
 }}}
 
 == Robust to Changes ==
