@@ -274,6 +274,9 @@ var TugAlg = Class.extend({
         var id = tagObject.getAttribute("id");
         if(id != null)
             return id;
+        var name = tagObject.getAttribute("name");
+        if(name != null)
+            return name;
 
         return tagObject.tag + this.sequence.next();   
     },
