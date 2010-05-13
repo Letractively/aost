@@ -1,0 +1,28 @@
+#summary Tellurium: A Wrap of Selenium?
+#labels Phase-Support
+
+= Introduction =
+
+From time to time, we heard about the following statement: "Tellurium is just a wrap of Selenium". Is this true?
+
+Well, the statement is both true and false. Actually, we said the similar words before Tellurium 0.6.0. Up to Tellurium 0.6.0, Tellurium mainly focus on Groovy object to runtime locator mapping, then use Selenium RC under the hood to drive the tests. But from 0.6.0, Tellurium started to divert from this path. We had pretty big discussions about one year ago in our team about "Would Tellurium be a wrap of multiple web testing framework such as Selenium or should we have our own test driving engine?" We voted to go on our own path. In 0.6.0, we introduced [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#CSS_Selector CSS selector] with jQuery and in 0.7.0, we have a prototype [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_Engine Engine] with a set of algorithms to support Tellurium more efficiently. 
+
+As a result, up to Tellurium 0.6.0, Tellurium is just a wrap of Selenium, but 0.7.0 is not just a wrap of Selenium. 
+
+Tellurium architecture is shown in the following diagram.
+
+http://tellurium-users.googlegroups.com/web/telluriumnewarchitecture070.png?gda=0Cry3VEAAAA7fMi2EBxrNTLhqoq3FzPraJRXcLj8Noz0FE1yhGyZ4Cj9p0mTDab5g6bwssabHmxXgg0UR0O9X9-Irzu_uB8AUwk_6Qi3BU8HCN0q6OYwM5VxXgp_nHWJXhfr7YhqVgA&gsc=jkTIIgsAAACI9y1tsPXdLT5_3omT2FAm
+
+There are two major parts, i.e., the Tellurium Core, which does Java/Groovy object to runtime locator mapping, event handling, and command bundling. The Tellurium Engine is embedded inside the Selenium server and is a test driving engine for Tellurium. The two are connected by Selenium RC.
+
+Tellurium works in two mode. The first one is to work as a wrap of the Selenium framework.
+
+http://tellurium-users.googlegroups.com/web/TelluriumRunningMode1.png?gda=qNEKqUsAAAA7fMi2EBxrNTLhqoq3FzPro_2kwg16ExMe9wfbYSgXCQdoVt8RgM6Q8hpOVtSHouVBqckrS9zbalJdCfH3I_v9BkXa90K8pT5MNmkW1w_4BQ&gsc=jkTIIgsAAACI9y1tsPXdLT5_3omT2FAm
+
+That is to say, Tellurium core generates the runtime locator based on the attributes in a UI module and then pass the selenium calls to Selenium core with Tellurium extensions.
+
+Tellurium is evolving to its own test driving Engine and the work mode is different as shown in the following sequence diagram.
+
+http://tellurium-users.googlegroups.com/web/TelluriumRunningMode2.png?gda=kwN3wEsAAAA7fMi2EBxrNTLhqoq3FzPro_2kwg16ExMe9wfbYSgXCQdoVt8RgM6Q8hpOVtSHouWqzYvvFLF4HH6kcFg68ZqyBkXa90K8pT5MNmkW1w_4BQ&gsc=jkTIIgsAAACI9y1tsPXdLT5_3omT2FAm
+
+The Tellurium Core will convert the UI module into a JSON representation and pass it to Tellurium Engine for the first time when the UI module is used. The Tellurium Engine uses the Santa algorithm to locate the whole UI module and put it into a cache. For the sequent calls, the cached UI module will be used instead of locating them again. Another new features in Tellurium 0.7.0 is the [http://code.google.com/p/aost/wiki/Tellurium070Update#Macro_Command Macro Command], which combine multiple commands into one batch and then send them to Tellurium engine in one call to reduce the round trip latency. For more new features in 0.7.0, please read [http://code.google.com/p/aost/wiki/Tellurium070Update What's New in Tellurium 0.7.0].
