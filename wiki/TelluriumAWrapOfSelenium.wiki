@@ -25,7 +25,7 @@ Tellurium 0.7.0 also supports to use its own test driving Engine as follows.
 
 http://tellurium-users.googlegroups.com/web/TelluriumRunningMode2.png?gda=kwN3wEsAAAA7fMi2EBxrNTLhqoq3FzPro_2kwg16ExMe9wfbYSgXCQdoVt8RgM6Q8hpOVtSHouWqzYvvFLF4HH6kcFg68ZqyBkXa90K8pT5MNmkW1w_4BQ&gsc=jkTIIgsAAACI9y1tsPXdLT5_3omT2FAm
 
-The Tellurium Core will convert the UI module into a JSON representation and pass it to Tellurium Engine for the first time when the UI module is used. The Tellurium Engine uses the [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm Santa algorithm] to locate the whole UI module and put it into a cache. For the sequent calls, the cached UI module will be used instead of locating them again. Another new features in Tellurium 0.7.0 is the [http://code.google.com/p/aost/wiki/Tellurium070Update#Macro_Command Macro Command], which combine multiple commands into one batch and then send them to Tellurium engine in one call to reduce the round trip latency.
+The Tellurium Core will convert the UI module into a JSON representation and pass it to Tellurium Engine for the first time when the UI module is used. The Tellurium Engine uses the [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm Santa algorithm] to locate the whole UI module and put it into a cache. For the sequent calls, the cached UI module will be used instead of locating them again. Another new feature in Tellurium 0.7.0 is the [http://code.google.com/p/aost/wiki/Tellurium070Update#Macro_Command Macro Command], which combine multiple commands into one batch and then send them to Tellurium engine in one call to reduce the round trip latency.
 
 = Tellurium vs. Selenium =
 
