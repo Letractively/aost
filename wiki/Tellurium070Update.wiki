@@ -4,7 +4,7 @@
 
 = Introduction =
 
-Tellurium 0.7.0 RC1 release is on the way. Over 200 issues have been closed. The issues include new features, bugs fixings, and other enhancements requested by users. There are some fundamental changes in Tellurium 0.7.0 compared with Tellurium 0.6.0 such as the group locating algorithm, UI module caching, Macro command, jQuery-based new APIs, and i18n support. To make your life easier, We list all the changes here so that you can update your existing Tellurium testing project accordingly.
+Tellurium 0.7.0 release is out now. Over 250 issues have been closed. The issues include new features, bugs fixings, and other enhancements requested by users. There are some fundamental changes in Tellurium 0.7.0 compared with Tellurium 0.6.0 such as the group locating algorithm, UI module caching, Macro command, jQuery-based new APIs, and i18n support. To make your life easier, We list all the changes here so that you can update your existing Tellurium testing project accordingly.
 
 The architecture of Tellurium 0.7.0 has been changed and the system diagram is shown as follows,
 
