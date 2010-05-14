@@ -1,5 +1,5 @@
 #summary What's New in Tellurium 0.7.0.
-#labels Phase-Support,Phase-Implementation
+#labels Phase-Support,Phase-Implementation,Featured
 <wiki:toc max_depth="5" />
 
 = Introduction =
