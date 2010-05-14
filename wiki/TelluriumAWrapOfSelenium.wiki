@@ -21,7 +21,7 @@ http://tellurium-users.googlegroups.com/web/TelluriumRunningMode1.png?gda=qNEKqU
 
 That is to say, Tellurium core generates the runtime locator based on the attributes in a UI module and then pass the selenium calls to Selenium core with Tellurium extensions.
 
-Tellurium 0.7.0 also support to use its own test driving Engine as follows.
+Tellurium 0.7.0 also supports to use its own test driving Engine as follows.
 
 http://tellurium-users.googlegroups.com/web/TelluriumRunningMode2.png?gda=kwN3wEsAAAA7fMi2EBxrNTLhqoq3FzPro_2kwg16ExMe9wfbYSgXCQdoVt8RgM6Q8hpOVtSHouWqzYvvFLF4HH6kcFg68ZqyBkXa90K8pT5MNmkW1w_4BQ&gsc=jkTIIgsAAACI9y1tsPXdLT5_3omT2FAm
 
