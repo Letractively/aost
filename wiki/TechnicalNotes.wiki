@@ -43,3 +43,4 @@
   * [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage Tellurium UID Description Language]
   * [http://code.google.com/p/aost/wiki/BuildTelluriumReferenceDocumentWithDocbkxMavenPlugin Build Tellurium Reference Document with Docbkx Maven Plugin]
   * [http://code.google.com/p/aost/wiki/TelluriumAWrapOfSelenium Tellurium: A Wrap of Selenium?]
+  * [http://code.google.com/p/aost/wiki/Telluriumi18nBlogPost Thinking Globally - Tellurium and Internationalization]
