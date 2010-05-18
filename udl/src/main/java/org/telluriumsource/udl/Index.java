@@ -10,10 +10,10 @@ import org.telluriumsource.udl.code.IndexType;
  */
 public class Index {
     public static final String TYPE = "type";
-    IndexType type;
+    private IndexType type;
 
     public static final String VALUE = "value";
-    String value;
+    private String value;
 
     public Index() {
     }
