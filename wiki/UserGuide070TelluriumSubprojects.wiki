@@ -24,7 +24,7 @@ http://tellurium-users.googlegroups.com/web/NewTelluriumSubProjects.png?gda=o-ZC
   * Tellurium Extensions: Dojo Javascript widgets and ExtJS Javascript widgets.
   * Tellurium Core: UI module, APIs, DSL, Object to Runtime Locator mapping, and test support.
   * Tellurium Engine: Based on Selenium Core with UI module, jQuery selectors, command bundle, and exception hierarchy support.
-  * Tellurium UDL: Tellurium UID Description Language (UDL) Parser.
+  * Tellurium UDL: Tellurium UID Description Language (UDL) grammars and parser.
 
 == Tellurium Reference Projects ==
 
