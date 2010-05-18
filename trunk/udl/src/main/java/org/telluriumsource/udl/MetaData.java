@@ -13,12 +13,12 @@ import java.util.List;
  *
  */
 public class MetaData {
-    public static String ID = "id";
+    public static final String ID = "id";
     protected String id;
 
-    public static String TYPE = "type";
+    public static final String TYPE = "type";
 
-    public static String VARIABLES = "variables";
+    public static final String VARIABLES = "variables";
     List<String> variables;
 
     public List<String> getVariables() {
