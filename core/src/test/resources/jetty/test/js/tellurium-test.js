@@ -50,6 +50,108 @@ TelluriumTestCase.prototype.testPrie = function(){
     var label = trie.getChildrenData("Form.Username.Submit");
 };
 
+TelluriumTestCase.prototype.testSList = function(){
+  var json = [{"obj":{"uid":"comments","locator":{"tag":"div","attributes":{"class":"comments"}},"uiType":"Container","metaData":
+{"id":"comments","type":"UiObject"}},"key":"comments"},{"obj":
+{"uid":"input_textarea","locator":{"tag":"textarea","attributes":
+{"name":"cmsgData[comment]"}},"events":
+["focus"],"uiType":"InputBox","metaData":
+{"id":"input_textarea","type":"UiObject"}},"key":"comments.input_textarea"},
+{"obj":{"uid":"comments_list","locator":
+{"tag":"ul"},"uiType":"List","separator":"li","metaData":
+{"id":"comments_list","type":"UiObject"}},"key":"comments.comments_list"},
+{"obj":{"uid":"_all","locator":{},"uiType":"Container","metaData":
+{"id":"_all","index":
+{"value":"all","type":"VAL"},"type":"List"}},"key":"comments.comments_list._all"},
+{"obj":{"uid":"member","locator":{"tag":"div","attributes":
+{"class":"member"}},"uiType":"Container","metaData":
+{"id":"member","type":"UiObject"}},"key":"comments.comments_list._all.member"},
+{"obj":{"uid":"link","locator":
+{"tag":"a"},"uiType":"UrlLink","metaData":
+{"id":"link","type":"UiObject"}},"key":"comments.comments_list._all.member.link"},
+{"obj":{"uid":"image","locator":
+{"tag":"img"},"uiType":"Image","metaData":
+{"id":"image","type":"UiObject"}},"key":"comments.comments_list._all.member.image"},
+{"obj":{"uid":"txt","locator":{"tag":"div","attributes":
+{"class":"txt"}},"uiType":"Container","metaData":
+{"id":"txt","type":"UiObject"}},"key":"comments.comments_list._all.txt"},
+{"obj":{"uid":"author","locator":{"tag":"div","attributes":
+{"class":"author"}},"uiType":"Container","metaData":
+{"id":"author","type":"UiObject"}},"key":"comments.comments_list._all.txt.author"},
+{"obj":{"uid":"link","locator":
+{"tag":"a"},"uiType":"UrlLink","metaData":
+{"id":"link","type":"UiObject"}},"key":"comments.comments_list._all.txt.author.link"},
+{"obj":{"uid":"tools","locator":{"tag":"div","attributes":
+{"class":"tools"}},"uiType":"Container","metaData":
+{"id":"tools","type":"UiObject"}},"key":"comments.comments_list._all.txt.tools"},
+{"obj":{"uid":"delete","locator":{"text":"Delete","tag":"a"},"events":
+["click"],"uiType":"UrlLink","metaData":
+{"id":"delete","type":"UiObject"}},"key":"comments.comments_list._all.txt.tools.delete"},
+{"obj":{"uid":"description","locator":{"tag":"div","attributes":
+{"class":"description"}},"uiType":"List","metaData":
+{"id":"description","type":"UiObject"}},"key":"comments.comments_list._all.txt.description"},
+{"obj":{"uid":"_all","locator":
+{"tag":"a"},"uiType":"UrlLink","metaData":{"id":"_all","index":
+{"value":"all","type":"VAL"},"type":"List"}},"key":"comments.comments_list._all.txt.description._all"},
+{"obj":{"uid":"date","locator":{"tag":"div","attributes":
+{"class":"date"}},"uiType":"Container","metaData":
+{"id":"date","type":"UiObject"}},"key":"comments.comments_list._all.txt.date"},
+{"obj":{"uid":"title","locator":{"tag":"div","attributes":
+{"class":"title comment"}},"uiType":"TextBox","metaData":
+{"id":"title","type":"UiObject"}},"key":"comments.title"},{"obj":
+{"uid":"post_comment","locator":{"tag":"input","attributes":
+{"id":"submitComment","value":"Post comment","type":"submit"}},"events":
+["click"],"uiType":"SubmitButton","metaData":
+{"id":"post_comment","type":"UiObject"}},"key":"comments.post_comment"},
+{"obj":{"uid":"nav","locator":{"tag":"div","attributes":
+{"class":"nav_page"}},"uiType":"Container","metaData":
+{"id":"nav","type":"UiObject"}},"key":"comments.nav"},{"obj":
+{"uid":"page","locator":{"tag":"li","attributes":
+{"class":"page"}},"uiType":"List","metaData":
+{"id":"page","type":"UiObject"}},"key":"comments.nav.page"},{"obj":
+{"uid":"_all","locator":{"tag":"a"},"uiType":"UrlLink","metaData":
+{"id":"_all","index":
+{"value":"all","type":"VAL"},"type":"List"}},"key":"comments.nav.page._all"},
+{"obj":{"uid":"location","locator":{"tag":"li","attributes":
+{"class":"location"}},"uiType":"TextBox","metaData":
+{"id":"location","type":"UiObject"}},"key":"comments.nav.location"},
+{"obj":{"uid":"jump_first","locator":{"tag":"li","attributes":
+{"class":"jump frst"}},"uiType":"List","metaData":
+{"id":"jump_first","type":"UiObject"}},"key":"comments.nav.jump_first"},
+{"obj":{"uid":"_all","locator":
+{"tag":"a"},"uiType":"UrlLink","metaData":{"id":"_all","index":
+{"value":"all","type":"VAL"},"type":"List"}},"key":"comments.nav.jump_first._all"},
+{"obj":{"uid":"next","locator":{"tag":"li","attributes":{"class":"jump next"}},"uiType":"List","metaData":
+{"id":"next","type":"UiObject"}},"key":"comments.nav.next"},{"obj":
+{"uid":"_all","locator":{"tag":"a"},"uiType":"UrlLink","metaData":
+{"id":"_all","index":
+{"value":"all","type":"VAL"},"type":"List"}},"key":"comments.nav.next._all"},
+{"obj":{"uid":"jump_last","locator":{"tag":"li","attributes":
+{"class":"jump last"}},"uiType":"List","metaData":
+{"id":"jump_last","type":"UiObject"}},"key":"comments.nav.jump_last"},
+{"obj":{"uid":"_all","locator":
+{"tag":"a"},"uiType":"UrlLink","metaData":{"id":"_all","index":
+{"value":"all","type":"VAL"},"type":"List"}},"key":"comments.nav.jump_last._all"},
+{"obj":{"uid":"prev","locator":{"tag":"li","attributes":{"class":"jump prev"}},"uiType":"List","metaData":
+{"id":"prev","type":"UiObject"}},"key":"comments.nav.prev"},{"obj":
+{"uid":"_all","locator":{"tag":"a"},"uiType":"UrlLink","metaData":
+{"id":"_all","index":
+{"value":"all","type":"VAL"},"type":"List"}},"key":"comments.nav.prev._all"},
+{"obj":{"uid":"input_count","locator":{"attributes":
+{"id":"inputCount","class":"input"}},"uiType":"TextBox","metaData":
+{"id":"input_count","type":"UiObject"}},"key":"comments.input_count"}];
+
+    tellurium.logManager.isUseLog = true;
+    var uim = new UiModule();
+    uim.parseUiModule(json);
+    var alg = new UiAlg();
+    var dom = teJQuery("html");
+    alg.santa(uim, dom);
+    tellurium.cache.cacheOption = true;
+    tellurium.cache.addToCache("Comments", uim);
+    
+};
+
 TelluriumTestCase.prototype.testSpecial = function(){
     var json = [{"obj":{"uid":"Form","locator":{"tag":"form","attributes":{"action":"check_phone","method":"POST"}},"uiType":"Form","metaData":{"id":"Form","type":"UiObject"}},"key":"Form"},{"obj":{"uid":"check","locator":{"tag":"input","attributes":{"value":"Check","type":"submit"}},"uiType":"SubmitButton","metaData":{"id":"check","type":"UiObject"}},"key":"Form.check"},{"obj":{"uid":"Number","locator":{"tag":"input","attributes":{"name":"Profile\/Customer\/Telephone\/@PhoneNumber"}},"uiType":"InputBox","metaData":{"id":"Number","type":"UiObject"}},"key":"Form.Number"},{"obj":{"uid":"Country","locator":{"tag":"select","attributes":{"name":"Profile\/Customer\/Telephone\/@CountryAccessCode"}},"uiType":"Selector","metaData":{"id":"Country","type":"UiObject"}},"key":"Form.Country"}];
     tellurium.logManager.isUseLog = true;
