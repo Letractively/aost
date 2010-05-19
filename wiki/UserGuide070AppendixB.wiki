@@ -1053,6 +1053,20 @@ teJQuery(document).ready(function() {
 });
 }}}   
 
+== Why I always get List size Zero ==
+
+If you use Selenium APIs, there are some constraints on the List object:
+  # If the separator attribute is defined, the separator tags must be the immediate children of the List object.
+  # If the separator attribute is not defined, the List elements must be the immediate children of the List object.
+
+If you use Tellurium new Engine by calling 
+
+{{{
+   useTelluriumEngine(true)
+}}}
+
+there is no such a limitation.
+
 == How to Access Tellurium Maven Repo Behind a Firewall ==
 
 You can download [http://ntlmaps.sourceforge.net/ NTLM Authorization Proxy Server] and install it as a local proxy. Then add the following proxy settings in your HOME/.m2/settings.xml.
