@@ -46,6 +46,19 @@ public class JListTestJUnitCase extends TelluriumMockJUnitTestCase {
         useTelluriumEngine(true);
     }
 
+    @Test
+    public void testNSListSize(){
+        connect("SList");
+        useTrace(false);
+        useTelluriumEngine(true);
+        int size = jlm.getListSize("descript.p");
+        System.out.println("List Size " + size);
+        useTelluriumEngine(false);
+        size = jlm.getListSize("descript.p");
+        System.out.println("List Size " + size);
+        useTelluriumEngine(true);
+    }
+
     @Ignore
     @Test
     public void testGetListSize(){
