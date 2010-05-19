@@ -7,5 +7,34 @@ Algorithm is the spirit of computing. Tellurium is a web test automation framewo
 
 = Problems =
 
- 
+== Smart Name Suggestion in Trump ==
 
+The [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_UI_Module_Plugin_(TrUMP) Tellurium UI module plugin] (Trump) is a Firefox plugin and it generates UI modules automated from a set of web elements that user clicks on.   
+
+For example, users select the following list of web elements with their corresponding XPaths, 
+{{{
+A:  "/html/body/table[@id='mt']"
+B:  "/html/body/table[@id='mt']/tbody/tr/th[3]"
+C:  "/html/body/table[@id='mt']/tbody/tr/th[3]/div"
+D:  "/html/body/div[@id='maincol']/div[@id='colcontrol']/div/div[@id='bub']"
+E:  "/html/body/div[@id='maincol']/div[@id='colcontrol']/div/div[@id='bub']/table[@id='resultstable']"
+F:  "/html/body/div[@id='maincol']/div[@id='colcontrol']/div/div[@id='bub']/table[@id='resultstable']/tbody/tr[2]/td[3]/a"
+}}}
+
+The Trump generates the following UI module, but how do we find a set of good name to replace the symbol "A", "B", "C",.., "F"?
+{{{
+ui.Container(UID: 'root', clocator: [:]){
+  Container(UID: 'A', clocator: [tag:'table']){
+    Container(UID: 'B', clocator: [tag:'th']){
+      DIV(UID: 'C', clocator: [tag:'div'])
+    }
+  }
+  Container(UID: 'D', clocator: [tag:'div']){
+    Container(UID: 'E', clocator: [id:'resultstable',tag:'table']){
+      UrlLink(UID: 'F', clocator: [tag:'a'])
+    }
+  }
+}
+}}}
+
+One naive method is to see if the web element comes with an ID or name attribute, if it does, then use the attribute as the name. But for a more useful algorithm, it should be able to suggest a good name based on the context and web element's attributes. 
