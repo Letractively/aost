@@ -15,7 +15,12 @@ class JListModule extends DslContext {
     ui.List(uid: "description", clocator: [tag: "div", class: "description"]) {
       UrlLink(uid: "{all}", clocator: [:])
     }
-    
+    ui.Container(uid: "descript", clocator: [tag: "div", class: "description"]) {
+      List(uid: "p", clocator: [tag: "p"]){
+        UrlLink(uid: "{all}", clocator: [:])
+      }
+    }
+
     ui.Form(uid: "selectedSailings", clocator: [name: "selectedSailingsForm"]) {
       List(uid: "outgoingSailings", clocator: [tag: "div", position: "1"]) {
         Container(uid: "{all} as option", clocator: [tag: "div", 'class': "option"]) {
