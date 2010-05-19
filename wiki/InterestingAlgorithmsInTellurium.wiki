@@ -37,4 +37,12 @@ ui.Container(UID: 'root', clocator: [:]){
 }
 }}}
 
-One naive method is to see if the web element comes with an ID or name attribute, if it does, then use the attribute as the name. But for a more useful algorithm, it should be able to suggest a good name based on the context and web element's attributes. 
+One naive method is to see if the web element comes with an ID or name attribute, if it does, then use the attribute as the name. But for a more practical algorithm, it should be able to suggest a good name based on the context and web element's attributes. For example, could you design an algorithm to suggest the following names for the Google search module?
+
+{{{
+ui.Container(uid: "GoogleSearchModule", clocator: [tag: "td"], group: "true"){
+   InputBox(uid: "Input", clocator: [title: "Google Search"])
+   SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+   SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
+}
+}}}
