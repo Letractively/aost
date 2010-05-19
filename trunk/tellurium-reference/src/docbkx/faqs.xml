@@ -1083,6 +1083,36 @@ ui.StandardTable(uid: "table", clocator: [id: "std"]) {
     </section>
 
     <section>
+        <title>Why I always get List size Zero</title>
+        <para>
+            If you use Selenium APIs, there are some constraints on the List object:
+        </para>
+         <orderedlist>
+            <listitem>
+                <para>
+                  If the separator attribute is defined, the separator tags must be the immediate children of the List object.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                  If the separator attribute is not defined, the List elements must be the immediate children of the List object.
+                </para>
+            </listitem>
+        </orderedlist>
+        <para>
+           If you use Tellurium new Engine by calling,
+        </para>
+        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+    useTelluriumEngine(true);
+]]>
+        </programlisting>
+
+        <para>there is no such a limitation.</para>
+
+    </section>
+    
+    <section>
         <title>How to Run Tellurium Tests in Different Browsers</title>
         <para>You could use the
             <literal>openUrlWithBrowserParameters()</literal>
@@ -1321,7 +1351,7 @@ getNamespace("xforms");
     </section>
 
     <section>
-        <title>What Are the Differences Between connectUrl and openUrl</title>
+        <title> What Are the Differences Between connectUrl and openUrl </title>
         <para>Starting from Tellurium 0.7.0,
             <literal>connectUrl()</literal>
             and
