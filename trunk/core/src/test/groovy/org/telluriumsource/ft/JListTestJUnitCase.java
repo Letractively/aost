@@ -19,6 +19,7 @@ public class JListTestJUnitCase extends TelluriumMockJUnitTestCase {
     public static void initUi() {
         registerHtmlBody("JList");
         registerHtmlBody("JForm");
+        registerHtmlBody("SList");
         jlm = new JListModule();
         jlm.defineUi();
 //        useCssSelector(true);
@@ -30,6 +31,19 @@ public class JListTestJUnitCase extends TelluriumMockJUnitTestCase {
     @Before
     public void connectToLocal() {
 //        connect("JList");
+    }
+
+    @Test
+    public void testGetSListSize(){
+        connect("SList");
+        useTrace(false);
+        useTelluriumEngine(true);
+        int size = jlm.getListSize("description");
+        System.out.println("List Size " + size);
+        useTelluriumEngine(false);
+        size = jlm.getListSize("description");
+        System.out.println("List Size " + size);
+        useTelluriumEngine(true);
     }
 
     @Ignore
