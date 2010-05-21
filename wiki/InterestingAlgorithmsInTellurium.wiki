@@ -160,7 +160,7 @@ generate a UI module similar to the following for it?
 
 == Object Attribute Optimize Algorithm ==
 
-When Trump generates UI module, it selects web element's attributes based on a predefined while list and a black list, which is not very flexible. How to design an algorithm to automatically select appropriate attributes so that the number of attributes is not too redundant and too few?
+When Trump generates UI module, it selects web element's attributes based on a predefined while list and a black list, which is not very flexible. How to design an algorithm to automatically select appropriate attributes so that the number of attributes are not too redundant and not too few?
 
 == HTML Source Skeletonize Algorithm ==
 
