@@ -9,7 +9,8 @@ import org.telluriumsource.dsl.DslContext
  * Date: Jan 16, 2010
  * 
  */
-class EditPageModule  extends DslContext {
+class EditPageModule extends DslContext {
+  
   public void defineUi() {
     ui.Form(uid: "Account", clocator: [tag: "form", method: "post"]) {
       InputBox(uid: "Name", clocator: [tag: "input", type: "text", name: "A"])
