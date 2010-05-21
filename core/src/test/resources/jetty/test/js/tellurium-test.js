@@ -1,6 +1,6 @@
 function TelluriumTestCase(){
 
-};
+}
 
 TelluriumTestCase.prototype.testUiid = function(){
     var uiid = new Uiid();
