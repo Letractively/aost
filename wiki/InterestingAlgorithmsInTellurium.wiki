@@ -131,7 +131,25 @@ Command request: getBundleResponse[[{"uid":"Form.Username.Input","args":["jquery
 ...
 }}}
 
-A more efficient and more elegant way is to locate the whole UI module in one shot and cache the UI mode. Then we can use the UI elements cached for all subsequent calls. This is exact what Tellurium new Engine mode does. We are used to locate a single UI element by its XPath or CSS selector, but how to locate all the UI elements defined in the UI module simultaneously?  
+A more efficient and more elegant way is to locate the whole UI module in one shot and cache the UI mode. Then we can use the cached UI elements for all subsequent calls to remove the element locating overhead for each call. This is exact what Tellurium new Engine mode does. We are used to locate a single UI element by its XPath or CSS selector, but how to locate all the UI elements defined in the UI module simultaneously?  
 
+Let us consider another scenario, the following UI module was defined some time ago.
 
+{{{
+    ui.Form(uid: "Form", clocator: [tag: "form"]){
+        Container(uid: "Username", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j"])
+        }
+        Container(uid: "Password", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j"])
+        }
+        SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "logon", name: "submit"])
+    }
+}}}
+
+We changed our HTML recently to the one we listed in the first section. What will happen if we still rely on individual locator such as XPath and CSS selector? The test will break because the XPath or CSS selector is no longer valid. But how about a fuzzy matching idea, I know I have one form that include two InputBox and one Submit button, can we still be able to find them with the old UI module? Here comes the partial matching idea from Tellurium, we can define a matching score to be 0-100 with 100 as the exact match. In this way, test code robust can be improved a lot and you don't have to worry about your test code because some developer changed some attributes of the Web. 
+
+Question is how to achieve these? Tellurium 0.7.0 introduced a group locating algorithm called [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm Santa algorithm] to locate the UI module as a whole and support UI module partial matching.
 
