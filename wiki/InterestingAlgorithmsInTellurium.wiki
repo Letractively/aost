@@ -283,7 +283,7 @@ The routing algorithm in Tellurium UDL is called [http://code.google.com/p/aost/
 
 = Summary =
 
-If you are interested in the algorithm design problems and want to contribute some ideas to Tellurium, please contact us directly or post your ideas to [http://groups.google.com/group/tellurium-users Tellurium User Group].
+If you are interested in the algorithm design problems listed here and want to contribute some ideas to Tellurium, please feel free to contact us directly or post your ideas to [http://groups.google.com/group/tellurium-users Tellurium User Group]. Thanks in advance.
 
 = Resources =
 
