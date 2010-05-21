@@ -155,7 +155,7 @@ Question is how to achieve these? Tellurium 0.7.0 introduced a group locating al
 
 == UDL Routing Algorithm ==
 
-Tellurium UID Description Language (UDL)is designed to address the dynamic factors in [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UI_Templates Tellurium UI templates] and to increase the flexibility of Tellurium UI templates. 
+[http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage Tellurium UID Description Language] (UDL) was designed to address the dynamic factors in [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UI_Templates Tellurium UI templates] and to increase the flexibility of Tellurium UI templates. 
 
 With UDL, we can define more flexible UI templates with the following indices:
   * Number, for example, "5".
