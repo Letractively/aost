@@ -1,5 +1,6 @@
 #summary Interesting Algorithm Design Problems in Tellurium.
 #labels Phase-Design,Phase-Support
+<wiki:toc max_depth="5" />
 
 = Introduction =
 
@@ -81,3 +82,56 @@ The names, i.e., the UID, trump suggested as shown in above section are ugly som
 }}}
 
 One naive method is to see if the web element comes with an ID or name attribute, if it does, then use the attribute as the name. But for a more practical algorithm, it should be able to suggest a good name based on the context and web element's attributes.
+
+== UI Module Group Locating Algorithm ==
+
+When Tellurium works as a wrap for Selenium, Tellurium Core generates runtime locators for UI modules and uses the locators to locate each individual elements just like what Selenium does. For example, we can dump the runtime locators for the UI module as shown in the previous section by calling
+
+{{{
+   dump("Form");
+}}}
+
+and the output is as follows.
+
+{{{
+-------------------------------------------------------
+Form: jquery=form
+Form.Password: jquery=form tr
+Form.Password.Input: jquery=form tr input[type=password][name=j_password]
+Form.Password.Label: jquery=form tr > td:te_text(Password:)
+Form.Username: jquery=form tr
+Form.Username.Input: jquery=form tr input[type=text][name=j_username]
+Form.Username.Label: jquery=form tr > td:te_text(Username:)
+Form.Submit: jquery=form input[type=submit][value=Login][name=submit]
+-------------------------------------------------------
+}}}
+
+This is really not very efficient because for each UI element, we have to locate it for each call. What if we have the following test code:
+
+{{{
+  public void logon(String username, String password){
+    keyType "Form.Username.Input", username
+    keyType "Form.Password.Input", password
+    click "Form.Submit"
+    waitForPageToLoad 30000
+  }
+}}}
+
+The keyType command simulates each key stroke including KeyUp, KeyDown, and KeyPress. As a result, we will have many calls for the input such as username or password. For example, if we call
+
+{{{
+  logon("test", "test");
+}}}
+
+we can see the command sequence in Tellurium Marco command as follows.
+
+{{{
+Command request: getBundleResponse[[{"uid":"Form.Username.Input","args":["jquery=form tr input[type=text][name=j_username]","e"],"name":"keyPress","sequ":9},{"uid":"Form.Username.Input","args":["jquery=form tr input[type=text][name=j_username]","e"],"name":"keyUp","sequ":10},{"uid":"Form.Username.Input","args":["jquery=form tr input[type=text][name=j_username]","s"],"name":"keyDown","sequ":11},{"uid":"Form.Username.Input","args":["jquery=form tr input[type=text][name=j_username]","s"],"name":"keyPress","sequ":12},{"uid":"Form.Username.Input","args":["jquery=form tr input[type=text][name=j_username]","s"],"name":"keyUp","sequ":13}], ] 
+
+...
+}}}
+
+A more efficient and more elegant way is to locate the whole UI module in one shot and cache the UI mode. Then we can use the UI elements cached for all subsequent calls. This is exact what Tellurium new Engine mode does. We are used to locate a single UI element by its XPath or CSS selector, but how to locate all the UI elements defined in the UI module simultaneously?  
+
+
+
