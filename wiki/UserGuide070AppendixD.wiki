@@ -1,5 +1,5 @@
 #summary Tellurium User Guide: Appendix D Resources.
-#labels Phase-Implementation
+#labels Phase-Implementation,Phase-Support
 
 (A PDF version of the user guide is available [http://aost.googlecode.com/files/TelluriumUserGuide.0.6.0.pdf here])
 
@@ -21,6 +21,7 @@
   * [http://www.facebook.com/group.php?gid=298577410337&ref=mf Tellurium Facebook Group]
   * [http://www.reddit.com/r/Tellurium/ Tellurium on Reddit] 
   * [http://en.wikipedia.org/wiki/Tellurium_%28software%29 Tellurium on Wikipedia]
+  * [http://github.com/robfletcher/grails-tellurium Tellurium Grails Plugin]
 
 == Users' Experiences ==
 
