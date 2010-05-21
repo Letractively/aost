@@ -60,7 +60,7 @@ ui.Form(uid: "root", clocator: [action: "j_security_check"]){
 }
 }}}
 
-The name trump suggested in somehow ugly. Can you design an algorithm that generates better names such as the following?
+The names, i.e., the UID, trump suggested are ugly somehow. Can you design an algorithm that generates better names such as the following?
 
 {{{
     ui.Form(uid: "Form", clocator: [tag: "form"]){
