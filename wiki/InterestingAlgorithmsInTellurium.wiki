@@ -158,6 +158,14 @@ generate a UI module similar to the following for it?
     }
 }}} 
 
+== Object Attribute Optimize Algorithm ==
+
+When Trump generates UI module, it selects web element's attributes based on a predefined while list and a black list, which is not very flexible. How to design an algorithm to automatically select appropriate attributes so that the number of attributes is not too redundant and too few?
+
+== HTML Source Skeletonize Algorithm ==
+
+HTML is very verbose and it is very difficult to generate UI module from a given HTML source directly. How to skeletonize the HTML source to automatically filter out unnecessary HTML tags is another interesting algorithm design problem.
+
 == UI Module Group Locating Algorithm ==
 
 When Tellurium works as a wrap for Selenium, Tellurium Core generates runtime locators for UI modules and uses the locators to locate each individual elements just like what Selenium does. For example, we can dump the runtime locators for the UI module as shown in the previous section by calling
