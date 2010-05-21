@@ -7,7 +7,7 @@ Algorithm is the spirit of computing. Tellurium is a web test automation framewo
 
 = Problems =
 
-== Smart Name Suggestion in Trump ==
+== UI Module Generating Algorithm in Trump ==
 
 The [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_UI_Module_Plugin_(TrUMP) Tellurium UI module plugin] (Trump) is a Firefox plugin and it generates UI modules automated from a set of web elements that user clicks on.   
 
@@ -60,7 +60,11 @@ ui.Form(uid: "root", clocator: [action: "j_security_check"]){
 }
 }}}
 
-The names, i.e., the UID, trump suggested are ugly somehow. Can you design an algorithm that generates better names such as the following?
+How the UI module is generated? Tellurium used a Prie-based [http://code.google.com/p/aost/wiki/UIModuleGeneratingAlgorithm UI module generating algorithm]. We are also working on a new algorithm to support multiple UI module generation and frames/iframes.
+
+== Smart Name Suggestion in Trump ==
+
+The names, i.e., the UID, trump suggested as shown in above section are ugly somehow. Can you design an algorithm that generates better names such as the following?
 
 {{{
     ui.Form(uid: "Form", clocator: [tag: "form"]){
