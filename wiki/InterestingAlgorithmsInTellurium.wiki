@@ -83,6 +83,81 @@ The names, i.e., the UID, trump suggested as shown in above section are ugly som
 
 One naive method is to see if the web element comes with an ID or name attribute, if it does, then use the attribute as the name. But for a more practical algorithm, it should be able to suggest a good name based on the context and web element's attributes.
 
+== UI Template Aggregation Algorithm ==
+
+[http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UI_Templates Tellurium UI templates] are used to represent many identical UI elements and dynamic data grid.
+
+For example, the following HTML source
+
+{{{
+  <ul class="a">
+    <li>
+      <A HREF="site?tcid=a" class="b">
+        AA
+      </A>
+    </li>
+    <li>
+      <A HREF="site?tcid=b" class="b">
+        BB
+      </A>
+    </li>
+    <li>
+      <A HREF="site?;tcid=c" class="b">
+        CC
+      </A>
+    </li>
+    <li>
+      <A HREF="site?tcid=d" class="b">
+        DD
+      </A>
+    </li>
+    <li>
+      <A HREF="site?tcid=e" class="b">
+        EE
+      </A>
+    </li>
+    <li>
+      <A HREF="site?tcid=f" class="b">
+        FF
+      </A>
+    </li>
+  </ul>
+}}}
+
+can be represented by a List very concisely as follows.
+
+{{{
+ui.List(uid: "list", clocator: [tag: "ul", class: "a"], separator:"li")
+{
+    UrlLink(uid: "{all}", clocator: [class: "b"])
+}
+}}}
+
+Trump generates UI module based the actual web elements user selects, but how to aggregate the UI elements into UI templates, i.e., many UrlLinks into a List object in the above example, is really challenging. 
+
+Consider more general case, the [http://code.google.com/p/aost/issues/list Tellurium issue result] is a dynamic data grid. Could you create an algorithm to automatically
+generate a UI module similar to the following for it?
+
+{{{
+    ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], group: "true") {
+      //Define the header elements
+      UrlLink(uid: "{header: any} as ID", clocator: [text: "*ID"])
+      UrlLink(uid: "{header: any} as Type", clocator: [text: "*Type"])
+      UrlLink(uid: "{header: any} as Status", clocator: [text: "*Status"])
+      UrlLink(uid: "{header: any} as Priority", clocator: [text: "*Priority"])
+      UrlLink(uid: "{header: any} as Milestone", clocator: [text: "*Milestone"])
+      UrlLink(uid: "{header: any} as Owner", clocator: [text: "*Owner"])
+      UrlLink(uid: "{header: any} as Summary", clocator: [text: "*Summary + Labels"])
+      UrlLink(uid: "{header: any} as Extra", clocator: [text: "*..."])
+
+      //Define table body elements
+      //Column "Extra" are TextBoxs
+      TextBox(uid: "{row: all, column -> Extra}", clocator: [:])
+      //For the rest, they are UrlLinks
+      UrlLink(uid: "{row: all, column: all}", clocator: [:])
+    }
+}}} 
+
 == UI Module Group Locating Algorithm ==
 
 When Tellurium works as a wrap for Selenium, Tellurium Core generates runtime locators for UI modules and uses the locators to locate each individual elements just like what Selenium does. For example, we can dump the runtime locators for the UI module as shown in the previous section by calling
