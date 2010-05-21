@@ -44,6 +44,10 @@ Tellurium Contributors are categorized into development team, support team, evan
 
   * *Kevin Zhang*: Interviewed Jian Fang on behalf of InfoQ China and administrator of the Tellurium Chinese document site.
 
+== Community Contributors ==
+
+Robert Fletcher: Tellurium Grails Plugin (http://github.com/robfletcher/grails-tellurium).
+
 == Other Contributors ==
 
 Jared Rawlinson ([http://citystormmedia.com City Storm Media]): Tellurium Project Logo Design.
