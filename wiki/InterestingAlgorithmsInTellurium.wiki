@@ -280,3 +280,17 @@ What UI object the following uids actually refer to then?
 The UI templates in the Table object can be more complicated because a Table object can be two or three dimensions.
 
 The routing algorithm in Tellurium UDL is called [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage#Routing RTree and RGraph]. 
+
+= Summary =
+
+If you are interested in the algorithm design problems and want to contribute some ideas to Tellurium, please contact us directly or post your ideas to [http://groups.google.com/group/tellurium-users Tellurium User Group].
+
+= Resources =
+
+  * [http://code.google.com/p/aost/ Tellurium Project Home]
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group]
+  * [http://groups.google.com/group/tellurium-developers Tellurium Developer Group]
+  * [http://twitter.com/TelluriumSource Tellurium on Twitter]
+  * [http://telluriumsource.org TelluriumSource]
+  * [http://code.google.com/p/aost/wiki/Tellurium070Released Tellurium 0.7.0]
+  * [http://aost.googlecode.com/files/tellurium-reference-0.7.0.pdf Tellurium Reference Documentation]
