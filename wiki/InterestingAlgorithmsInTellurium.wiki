@@ -3,7 +3,7 @@
 
 = Introduction =
 
-Algorithm is the spirit of computing. Tellurium is a web test automation framework and it brings up various interesting algorithm design problems. Here we like to list a few of them to share with you so that you can get some idea of what Tellurium really does and what it tries to achieve.
+Algorithm is the spirit of computing. Tellurium is a web test automation framework and it brings up various interesting algorithm design problems. Here we like to list a few of them to shed light on Tellurium internal so that you can get some idea of what Tellurium really does and what it tries to achieve.
 
 = Problems =
 
@@ -11,38 +11,69 @@ Algorithm is the spirit of computing. Tellurium is a web test automation framewo
 
 The [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_UI_Module_Plugin_(TrUMP) Tellurium UI module plugin] (Trump) is a Firefox plugin and it generates UI modules automated from a set of web elements that user clicks on.   
 
-For example, users select the following list of web elements with their corresponding XPaths, 
+For example, we have the following HTML snippet,
+
 {{{
-A:  "/html/body/table[@id='mt']"
-B:  "/html/body/table[@id='mt']/tbody/tr/th[3]"
-C:  "/html/body/table[@id='mt']/tbody/tr/th[3]/div"
-D:  "/html/body/div[@id='maincol']/div[@id='colcontrol']/div/div[@id='bub']"
-E:  "/html/body/div[@id='maincol']/div[@id='colcontrol']/div/div[@id='bub']/table[@id='resultstable']"
-F:  "/html/body/div[@id='maincol']/div[@id='colcontrol']/div/div[@id='bub']/table[@id='resultstable']/tbody/tr[2]/td[3]/a"
+<form method="POST" action="j_security_check">
+    <table border="0" cellspacing="2" cellpadding="1">
+        <tr>
+            <td>Username:</td>
+            <td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input name="submit" type="submit" value="Login">
+            </td>
+        </tr>
+    </table>
+</form>
 }}}
 
-The Trump generates the following UI module, but how do we find a set of good name to replace the symbol "A", "B", "C",.., "F"?
+If we click and select the following web elements,
+
 {{{
-ui.Container(UID: 'root', clocator: [:]){
-  Container(UID: 'A', clocator: [tag:'table']){
-    Container(UID: 'B', clocator: [tag:'th']){
-      DIV(UID: 'C', clocator: [tag:'div'])
-    }
-  }
-  Container(UID: 'D', clocator: [tag:'div']){
-    Container(UID: 'E', clocator: [id:'resultstable',tag:'table']){
-      UrlLink(UID: 'F', clocator: [tag:'a'])
-    }
-  }
+<form method="POST" action="j_security_check">
+<td>Username:</td>
+<td><input size="12" value="" name="j_username" maxlength="25" type="text"></td>
+<td>Password:</td>
+<td><input size="12" value="" name="j_password" maxlength="25" type="password"></td>
+<input name="submit" type="submit" value="Login">
+}}}
+
+Trump generates the following UI module.
+
+{{{
+ui.Form(uid: "root", clocator: [action: "j_security_check"]){
+	Container(uid: "T4t", clocator: [tag: "tr"]){
+		TextBox(uid: "td0", clocator: [tag: "td", text: "Username:", direct: "true"])
+		InputBox(uid: "input1", clocator: [tag: "input", direct: "true", type: "text", name: "j_username"])
+	}
+	Container(uid: "T4t2", clocator: [tag: "tr"]){
+		TextBox(uid: "td2", clocator: [tag: "td", text: "Password:", direct: "true"])
+		InputBox(uid: "input3", clocator: [tag: "input", direct: "true", type: "password", name: "j_password"])
+	}
+	SubmitButton(uid: "input4", clocator: [tag: "input", type: "submit", value: "Login", name: "submit"])
 }
 }}}
 
-One naive method is to see if the web element comes with an ID or name attribute, if it does, then use the attribute as the name. But for a more practical algorithm, it should be able to suggest a good name based on the context and web element's attributes. For example, could you design an algorithm to suggest the following names for the Google search module?
+The name trump suggested in somehow ugly. Can you design an algorithm that generates better names such as the following?
 
 {{{
-ui.Container(uid: "GoogleSearchModule", clocator: [tag: "td"], group: "true"){
-   InputBox(uid: "Input", clocator: [title: "Google Search"])
-   SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
-   SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
-}
+    ui.Form(uid: "Form", clocator: [tag: "form"]){
+        Container(uid: "Username", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Username:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "text", name: "j_username"])
+        }
+        Container(uid: "Password", clocator: [tag: "tr"]){
+            TextBox(uid: "Label", clocator: [tag: "td", text: "Password:", direct: "true"])
+            InputBox(uid: "Input", clocator: [tag: "input", type: "password", name: "j_password"])
+        }
+        SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit", value: "Login", name: "submit"])
+    }
 }}}
+
+One naive method is to see if the web element comes with an ID or name attribute, if it does, then use the attribute as the name. But for a more practical algorithm, it should be able to suggest a good name based on the context and web element's attributes.
