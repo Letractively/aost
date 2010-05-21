@@ -153,3 +153,47 @@ We changed our HTML recently to the one we listed in the first section. What wil
 
 Question is how to achieve these? Tellurium 0.7.0 introduced a group locating algorithm called [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm Santa algorithm] to locate the UI module as a whole and support UI module partial matching.
 
+== UDL Routing Algorithm ==
+
+Tellurium UID Description Language (UDL)is designed to address the dynamic factors in [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UI_Templates Tellurium UI templates] and to increase the flexibility of Tellurium UI templates. 
+
+With UDL, we can define more flexible UI templates with the following indices:
+  * Number, for example, "5".
+  * "first", the first element.
+  * "last", the last element.
+  * "any", any position, usually the position is dynamic at runtime.
+  * "odd", the odd elements.
+  * "even", the even elements
+  * "all", wild match if not exact matches found. 
+
+Flexibility does not come without a cost. How to route the uid to a specific UI template 
+programmatically is very challenging. 
+
+For example, we have the following List defined:
+
+{{{
+   ui.List(uid: "Example", clocator: [tag:"div"], separator: "p"){
+      InputBox(uid: "{first} as Input", clocator: [:])
+      Button(uid: "{odd}", clocator: [:])
+      Selector(uid: "{4} as Select", clocator: [:])
+      SubmitButton(uid: "{last} as Submit", clocator: [:])
+      TextBox(uid: "{all}", clocator: [:])    
+   }
+}}}
+
+What UI object the following uids actually refer to then?
+
+{{{
+   "Example.Input"  
+   "Example.Select" 
+   "Example[first]" 
+   "Example[1]"    
+   "Example[2]"    
+   "Example[3]"    
+   "Example[4]"   
+   "Example[last]"  
+}}}
+
+The UI templates in the Table object can be more complicated because a Table object can be two or three dimensions.
+
+The routing algorithm in Tellurium UDL is called [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage#Routing RTree and RGraph]. 
