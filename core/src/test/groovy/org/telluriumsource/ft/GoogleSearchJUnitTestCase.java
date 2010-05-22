@@ -27,7 +27,7 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
         gsm = new GoogleSearchModule();
         gsm.defineUi();
         connectSeleniumServer();
-        useCssSelector(true);
+//        useCssSelector(true);
         useEngineLog(true);
         useTelluriumEngine(true);
 //        useTelluriumApi(true);
