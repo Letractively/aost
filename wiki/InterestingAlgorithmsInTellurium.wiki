@@ -4,7 +4,7 @@
 
 = Introduction =
 
-Algorithm is the spirit of computing. Tellurium is a web test automation framework and it brings up various interesting algorithm design problems. Here we like to list a few of them to shed light on Tellurium internal so that you can get some idea of what Tellurium really does and what it tries to achieve.
+Algorithm is the spirit of computing. Tellurium is an automated web testing framework and it brings up many interesting algorithm design problems. Here we like to list a few of them to shed light on Tellurium internal so that you can get some ideas of what Tellurium really does and what it tries to achieve.
 
 = Selected Algorithm Design Problems =
 
