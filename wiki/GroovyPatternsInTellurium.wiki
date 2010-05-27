@@ -1,7 +1,7 @@
 #labels Phase-Implementation
 == Groovy Features Used in Tellurium ==
 
-In Tellurium, we used many Groovy features. I like to list some of them as follows,
+In Tellurium, we used many Groovy features. We like to list some of them as follows,
 
 === BuildSupport ===
 
