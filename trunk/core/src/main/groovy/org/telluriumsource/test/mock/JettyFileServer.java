@@ -87,7 +87,7 @@ public class JettyFileServer extends Thread {
         try {
             server.start();
             isRunning = true;
-            server.join();
+//            server.join();
         } catch (Exception e) {
             e.printStackTrace();
             isRunning = false;
