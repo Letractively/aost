@@ -7,7 +7,7 @@
 
 In Tellurium, we used many Groovy features. We like to list some of them as follows,
 
-=== 'BuildSupport' ===
+=== {{{BuildSupport}}} ===
 
 BuildSupport is very powerful for parsing nested definitions, such as XML markup. In Tellurium, the buildsupport is used as UI object definition parser and it is one of the bases for our internel DSL. 
 
@@ -110,7 +110,7 @@ class DslScriptExecutor {
 }
 }}}
 
-=== 'GroovyInterceptable' ===
+=== {{{GroovyInterceptable}}} ===
 
 GroovyInterceptable can intercept all method calls so that you can do some processing before or after the invocation. Or you can delegate the method calls to another class.
 
