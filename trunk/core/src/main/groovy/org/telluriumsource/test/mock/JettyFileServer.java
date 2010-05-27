@@ -12,13 +12,15 @@ import org.eclipse.jetty.server.nio.SelectChannelConnector;
  *
  *         Date: May 27, 2010
  */
-public class JettyFileServer {
+public class JettyFileServer extends Thread {
 
     private int port;
 
     private String resourceBase;
 
     private Server server;
+
+    private boolean isRunning = false;
     
     public JettyFileServer(){
         this.port = 8088;
@@ -59,29 +61,56 @@ public class JettyFileServer {
         this.server = server;
     }
 
-    public void start() throws Exception {
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void setRunning(boolean running) {
+        isRunning = running;
+    }
+
+    public void start()  {
         server = new Server();
         SelectChannelConnector connector = new SelectChannelConnector();
-        connector.setPort(this.port);
+        connector.setPort(port);
         server.addConnector(connector);
 
         ResourceHandler resource_handler = new ResourceHandler();
         resource_handler.setDirectoriesListed(true);
         resource_handler.setWelcomeFiles(new String[]{ "index.html" });
 
-        resource_handler.setResourceBase(this.resourceBase);
+        resource_handler.setResourceBase(resourceBase);
 
         HandlerList handlers = new HandlerList();
         handlers.setHandlers(new Handler[] { resource_handler, new DefaultHandler() });
         server.setHandler(handlers);
-
-        server.start();
-        server.join();
+        try {
+            server.start();
+            isRunning = true;
+            server.join();
+        } catch (Exception e) {
+            e.printStackTrace();
+            isRunning = false;
+        }
     }
 
-    public void stop() throws Exception {
+    public void shutDown() {
         if(server != null){
-            server.stop();
+            try {
+                server.stop();
+            } catch (Exception e) {
+
+            }
+            isRunning = false;
+        }
+    }
+
+    public void run() {
+        try {
+            start();
+        } catch (Exception e) {
+            e.printStackTrace();
+            isRunning = false;
         }
     }
 }
