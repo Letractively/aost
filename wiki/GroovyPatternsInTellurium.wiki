@@ -1,4 +1,8 @@
+#summary Groovy Features Used in Tellurium
 #labels Phase-Implementation
+
+<wiki:toc max_depth="5" />
+
 == Groovy Features Used in Tellurium ==
 
 In Tellurium, we used many Groovy features. We like to list some of them as follows,
