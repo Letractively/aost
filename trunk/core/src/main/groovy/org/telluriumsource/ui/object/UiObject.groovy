@@ -145,6 +145,10 @@ abstract class UiObject implements Cloneable{
       return c(locator)  
     }
 
+    def click(Closure c){
+      return c(locator)
+    }
+
     public boolean respondsTo(String name){
       java.util.List<MetaMethod> list = this.metaClass.respondsTo(this, name)
 
