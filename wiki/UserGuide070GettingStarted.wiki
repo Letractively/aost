@@ -1,7 +1,7 @@
 #summary Tellurium User Guide: Getting Started
 #labels Phase-Implementation,Phase-Support
 
-(A PDF version of the user guide is available [http://aost.googlecode.com/files/TelluriumUserGuide.0.6.0.pdf here])
+(A PDF version of the user guide is available [http://aost.googlecode.com/files/tellurium-reference-0.7.0.pdf here])
 
 <wiki:toc max_depth="5" />
 
