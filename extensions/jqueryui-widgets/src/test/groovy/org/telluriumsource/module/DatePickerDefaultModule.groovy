@@ -12,7 +12,7 @@ import org.telluriumsource.dsl.DslContext
 class DatePickerDefaultModule extends DslContext {
     public void defineUi() {
        ui.InputBox(uid: "DatePickerInput", clocator: [id: "datepicker"])
-       ui.JQuery_DatePicker(uid: "Default", clocator: [tag: "body"])
+       ui.jQuery_DatePicker(uid: "Default", clocator: [tag: "body"])
     }
 
   public void prevMonth(){

@@ -11,6 +11,6 @@ import org.telluriumsource.ui.widget.Widget
  * 
  */
 abstract class JQueryUiWidget extends Widget {
-    public static final String NAMESPACE = "JQuery"
+    public static final String NAMESPACE = "jQuery"
     
 }
