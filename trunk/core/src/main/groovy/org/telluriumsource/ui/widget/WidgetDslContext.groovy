@@ -11,7 +11,16 @@ import org.telluriumsource.dsl.WorkflowContext
  * 
  */
 class WidgetDslContext extends BaseDslContext {
-  //the reference xpath for widget's parent
+  def locator;
+
+  def WidgetDslContext() {
+  }
+
+  def WidgetDslContext(locator) {
+    this.locator = locator;
+  }
+
+//the reference xpath for widget's parent
   private String pRef;
 
   public void updateParentRef(String ref) {
