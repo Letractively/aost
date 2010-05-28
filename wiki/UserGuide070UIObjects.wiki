@@ -742,8 +742,8 @@ To overwrite the above tags, simply define them in the object definition. For ex
 
 {{{
     ui.StandardTable(uid: "table3", clocator: [:], hct: "td"){
-      TextBox(uid: "header: all", clocator: [:])
-      TextBox(uid: "footer: all", clocator: [:])
+      TextBox(uid: "{header: all}", clocator: [:])
+      TextBox(uid: "{footer: all}", clocator: [:])
     }
 }}}
 
