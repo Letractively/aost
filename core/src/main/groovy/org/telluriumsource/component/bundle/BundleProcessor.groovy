@@ -5,7 +5,6 @@ import org.telluriumsource.framework.config.Configurable
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.ui.locator.MetaCmd
 import org.stringtree.json.JSONReader
-import org.telluriumsource.dsl.DslContext
 import org.telluriumsource.dsl.UiID
 
 import org.telluriumsource.framework.Environment
@@ -17,6 +16,7 @@ import org.telluriumsource.entity.EngineState
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.json.simple.JSONArray
 import org.telluriumsource.entity.ReturnType
+import org.telluriumsource.dsl.BaseDslContext
 
 /**
  * Command Bundle Processor
@@ -241,7 +241,7 @@ public class BundleProcessor implements Configurable {
   }
 
   public CmdRequest getUseUiModuleRequest(WorkflowContext context, String uid){
-    DslContext dslcontext = context.getContext(WorkflowContext.DSLCONTEXT);
+    BaseDslContext dslcontext = context.getContext(WorkflowContext.DSLCONTEXT);
 //    String json = dslcontext.jsonify(uid);
 /*    String json = dslcontext.toJSON(uid);
     def args = [json];*/
