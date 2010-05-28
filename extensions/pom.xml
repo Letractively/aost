@@ -29,5 +29,6 @@
 	<modules>
 		<module>dojo-widget</module>
 		<module>extjs-widget</module>
+        <module>jqueryui-widgets</module>
 	</modules>
 </project>
