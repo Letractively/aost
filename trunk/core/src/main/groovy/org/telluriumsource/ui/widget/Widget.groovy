@@ -27,7 +27,7 @@ abstract class Widget extends UiObject {
   public final static String NAMESPACE_SUFFIX = "_";
 
   @Delegate
-  private WidgetDslContext dsl;
+  protected WidgetDslContext dsl;
 
   UiDslParser ui;
 
