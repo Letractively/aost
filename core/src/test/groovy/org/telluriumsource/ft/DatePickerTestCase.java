@@ -25,13 +25,23 @@ public class DatePickerTestCase extends TelluriumJUnitTestCase{
     public void testShowDatePicker(){
         connectSeleniumServer();
         connectUrl("http://localhost:8088/datepicker/datepicker.html");
+        useTelluriumEngine(true);
+        useEngineLog(true);
         JQueryDatePicker datePicker = new JQueryDatePicker();
         datePicker.defineUi();
         datePicker.click("DatePickerInput");
         datePicker.next();
         datePicker.selectDay(20);
-        String date = datePicker.getText("DatePickerInput");
+        String date = datePicker.getValue("DatePickerInput");
         System.out.println("Selected Date: " + date);
+
+        datePicker.click("DatePickerInput");
+        datePicker.prev();
+        datePicker.selectFriday(2);
+        date = datePicker.getValue("DatePickerInput");
+        System.out.println("Selected Date: " + date);
+        date = datePicker.getDate();
+        System.out.println("Selected Month and Year: " + date);
     }
 
     @AfterClass

@@ -84,6 +84,23 @@ class JQueryDatePicker extends DslContext{
   }
 
   public void selectDay(int day){
-    click("DatePicker.Calendar.D" + day);
+    String uid = "DatePicker.Calendar.D" + day;
+    mouseOver(uid);
+    click(uid);
+    mouseOut(uid);
+  }
+
+  public void selectFriday(int week){
+    String uid = "DatePicker.Calendar[" + week + "][Friday]";
+    mouseOver(uid);
+    click(uid);
+    mouseOut(uid);
+  }
+
+  public String getDate(){
+    String month = getText("DatePicker.Header.Title.Month");
+    String year = getText("DatePicker.Header.Title.Year");
+
+    return "${month} ${year}";
   }
 }
