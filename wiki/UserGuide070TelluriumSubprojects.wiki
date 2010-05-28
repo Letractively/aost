@@ -63,7 +63,7 @@ Run the following Maven command to create a new JUnit test project:
 {{{
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
              -DarchetypeArtifactId=tellurium-junit-archetype \
-             -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0
+             -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0
 }}}
 
 Without adding the Tellurium Maven repository, specify it in the command line as:
@@ -71,14 +71,14 @@ Without adding the Tellurium Maven repository, specify it in the command line as
 {{{
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
                      -DarchetypeArtifactId=tellurium-junit-archetype \
-                     -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0 \
+                     -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0 \
      -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/releases
 }}}
 
-To create a Tellurium project based on Tellurium 0.7.0 SNAPSHOT, you should use the Maven archetype 0.7.0-SNAPSHOT. To create a JUnit project, use the following Maven command:
+To create a Tellurium project based on Tellurium 0.8.0 SNAPSHOT, you should use the Maven archetype 0.7.0-SNAPSHOT. To create a JUnit project, use the following Maven command:
 
 {{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.8.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
 }}}
 
 === Tellurium TestNG Archetype ===
@@ -88,14 +88,14 @@ For a TestNG archetype project, use a different archetype:
 {{{
 mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
                      -DarchetypeArtifactId=tellurium-testng-archetype \
-                     -DarchetypeGroupId=tellurium -DarchetypeVersion=0.6.0 \
+                     -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0 \
      -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/releases
 }}}
 
 To create a TestNG project, use the following command:
 
 {{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.8.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
 }}}
 
 === Tellurium Widget Archetype ===
@@ -103,7 +103,7 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -Darc
 To create a Tellurium UI widget project, we can use Tellurium Widget archetype as follows,
 
 {{{
-mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-widget-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.7.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id -DarchetypeArtifactId=tellurium-widget-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.8.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
 }}}
 
 
