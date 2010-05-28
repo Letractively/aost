@@ -43,10 +43,6 @@ abstract class Widget extends UiObject {
   }
 
   abstract public void defineWidget();
-/*
-  public void click(String uid){
-    dsl.click(uid);
-  }*/
 
 
   //walkTo through the object tree to until the Ui Object is found by the UID
