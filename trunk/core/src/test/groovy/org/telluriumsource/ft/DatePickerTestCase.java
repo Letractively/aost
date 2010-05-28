@@ -4,8 +4,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.telluriumsource.module.JQueryDatePicker;
+import org.telluriumsource.support.JettyFileServer;
 import org.telluriumsource.test.java.TelluriumJUnitTestCase;
-import org.telluriumsource.test.mock.MockFileServer;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -13,11 +13,11 @@ import org.telluriumsource.test.mock.MockFileServer;
  *         Date: May 27, 2010
  */
 public class DatePickerTestCase extends TelluriumJUnitTestCase{
-    private static MockFileServer server;
+    private static JettyFileServer server;
     
     @BeforeClass
     public static void setup(){
-        server = new MockFileServer(8088, "src/test/resources/webapp");
+        server = new JettyFileServer(8088, "src/test/resources/webapp");
         server.start();
      }
 
@@ -46,6 +46,6 @@ public class DatePickerTestCase extends TelluriumJUnitTestCase{
 
     @AfterClass
     public static void tearDown(){
-       server.stop();
+       server.shutDown();
     }
 }

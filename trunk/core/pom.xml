@@ -90,6 +90,7 @@
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
             <version>7.0.1.v20091125</version>
+            <scope>test</scope>
         </dependency>
 
 	</dependencies>
