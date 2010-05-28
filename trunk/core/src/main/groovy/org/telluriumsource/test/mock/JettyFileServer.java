@@ -10,6 +10,9 @@ import org.eclipse.jetty.server.nio.SelectChannelConnector;
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
+ *  Consider to move this class to a support sub-project/module.
+ *  We really don't need a jetty dependency in Tellurium Core
+ *
  *         Date: May 27, 2010
  */
 public class JettyFileServer extends Thread {
