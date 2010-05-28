@@ -26,6 +26,10 @@ abstract class Widget extends UiObject {
 
   public final static String NAMESPACE_SUFFIX = "_";
 
+  @Delegate
+  private WidgetDslContext dsl;
+
+  UiDslParser ui;
 
   //Note:
   //we need namespace to differentiate the same widget name from different widget modules
@@ -33,15 +37,17 @@ abstract class Widget extends UiObject {
   //them using name space, i.e., DOJO::Accordion and ExtJS::Accordion
   public Widget(){
 	  i18nBundle = Environment.instance.myResourceBundle();
+      dsl = new WidgetDslContext();
+      dsl.locator = this.locator;
+      ui = dsl.ui;
   }
 
-
   abstract public void defineWidget();
+/*
+  public void click(String uid){
+    dsl.click(uid);
+  }*/
 
-  @Delegate
-  private WidgetDslContext dsl = new WidgetDslContext();
-
-  UiDslParser ui = dsl.ui;
 
   //walkTo through the object tree to until the Ui Object is found by the UID
   public UiObject walkTo(WorkflowContext context, UiID uiid) {
