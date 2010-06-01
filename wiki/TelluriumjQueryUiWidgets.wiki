@@ -126,7 +126,8 @@ class DatePicker extends JQueryUiWidget {
         UrlLink(uid: "{row: any, column: any} as D29", clocator: [text: "29"])
         UrlLink(uid: "{row: any, column: any} as D30", clocator: [text: "30"])
         UrlLink(uid: "{row: any, column: any} as D31", clocator: [text: "31"])
-        TextBox(uid: "{row: all, column: all}", clocator: [class: "ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"], self: "true")
+        TextBox(uid: "{row: all, column: all}", 
+           clocator: [class: "ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"], self: "true")
       }
     }
   }
