@@ -7,7 +7,7 @@
 
 Tellurium provides support to describe a UI widget or a set of nested UI objects as a [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_Widget_Extensions Tellurium widget]. Tellurium widgets have the advantage that we can use the widget directly in our test code just like a regular tellurium UI object and we do not need to deal with individual UIs in the widget at the link or button level any more. What we need to do is to call the methods defined in the Tellurium widget. Another advantage is that once the widget is defined, we can use it anywhere we want by simply including the compiled jar file.
 
-Widgets in JavaScript frameworks are perfect candidates that can utilize the benefits of Tellurium Widgets because JavaScript widgets are usually reused in many places of a web application. A JavaScript widget is only need to be defined once as a Tellurium widget and then can be reused in all places that the widget is included.  We take jQuery UI widgets, more specifically, the [http://jqueryui.com/demos/datepicker/ Date Picker widget] as an example to demonstrate how to define jQuery UI Tellurium widgets and how to use them directly in your test code.  Widgets in other JavaScript frameworks such as Dojo and ExtJs can also be described as Tellurium widgets in a similar way
+Widgets in JavaScript frameworks are perfect candidates that can utilize the benefits of Tellurium Widgets because JavaScript widgets are usually reused in many places of a web application. A JavaScript widget is only need to be defined once as a Tellurium widget and then can be reused in all places that the widget is included.  We take jQuery UI widgets, more specifically, the [http://jqueryui.com/demos/datepicker/ Date Picker widget] as an example to demonstrate how to define jQuery UI Tellurium widgets and how to use them directly in your test code.  Widgets in other JavaScript frameworks such as Dojo and ExtJs can also be described as Tellurium widgets in a similar way.
 
 = Prerequisites =
  
@@ -235,7 +235,7 @@ To load Tellurium jQuery UI Widgets, we need to specify the UI widget name in Te
 
 == jQuery UI Date Picker Example ==
 
-To test the widget, we need a jQuery UI Date Picker Example. We download [http://jqueryui.com/ jQuery UI 1.8] and unzip it to the WebContext directory. Then, we can use the Date Picker demos from jQuery UI 1.8 as our examples.
+To test the widget, we need a jQuery UI Date Picker example. We download [http://jqueryui.com/ jQuery UI 1.8] and unzip it to the WebContext directory. Then, we can use the Date Picker demos from jQuery UI 1.8.
 
 == Use Jetty as An Embedded Http Server ==
 
@@ -334,7 +334,7 @@ We use the default.html from Date Picker demos as our example.
 </div><!-- End demo -->
 }}}
 
-The above HTML can be presented by the following UI module.
+The above HTML can be presented by the following Tellurium UI module.
 
 {{{
 class DatePickerDefaultModule extends DslContext {
@@ -346,7 +346,7 @@ class DatePickerDefaultModule extends DslContext {
 }
 }}}
 
-where "jQuery" is the namespace for jQuery UI widgets and we can use DatePicker as a regular Tellurium UI object. In the meanwhile, we can use the {{{onWidget}}} commands to call methods in the Tellurium Date Picker widgets.
+where "jQuery" is the namespace for Tellurium jQuery UI widgets and we use DatePicker as a regular Tellurium UI object. In the meanwhile, we can use the {{{onWidget}}} commands to call methods in the Tellurium Date Picker widgets.
 
 {{{
   public void prevMonth(){
@@ -423,7 +423,7 @@ public class DatePickerTestCase extends TelluriumJUnitTestCase {
 
 = Summary =
 
-Date Picker is a simple example to demonstrate the define and use of Tellurium Widgets. We can define more jQuery UI widgets and compile them as a jar file, then we can reuse them simply by including the jar file. The example code is available from [http://aost.googlecode.com/svn/trunk/extensions/jqueryui-widgets Tellurium jQuery UI Widget project].
+Date Picker is a simple example to demonstrate the definition and use of Tellurium Widgets. We can define more jQuery UI widgets and compile them as a jar file, then we can reuse them by simply including the jar file. The example code is available from [http://aost.googlecode.com/svn/trunk/extensions/jqueryui-widgets Tellurium jQuery UI Widget project].
 
 Furthermore, widgets in other JavaScript frameworks such as Dojo and ExtJs can also be described as Tellurium widgets in a similar way.
 
