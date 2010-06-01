@@ -13,3 +13,49 @@ Widgets in JavaScript frameworks are good examples of reusable UIs that we can e
  
   * [http://maven.kungfuters.org/content/repositories/snapshots Tellurium 0.8.0-SNAPSHOT]
   * [http://docs.jquery.com/UI/Datepicker jQuery UI 1.8]
+
+= Implementation =
+
+== Create a Tellurium jQuery UI Widget Project ==
+
+We use [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_Maven_Archetypes Tellurium Widget Archetype] to create the following project.
+
+{{{
+mvn archetype:create -DgroupId=org.telluriumsource -DartifactId=jqueryui-widgets -DarchetypeArtifactId=tellurium-widget-archetype -DarchetypeGroupId=org.telluriumsource -DarchetypeVersion=0.8.0-SNAPSHOT -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
+}}}
+
+After generate the appropriate files, the code structure looks as follows.
+
+{{{
+|-- LICENSE.txt
+|-- README
+|-- TelluriumConfig.groovy
+|-- WebContent
+|-- pom.xml
+`-- src
+    |-- main
+    |   |-- groovy
+    |   |   `-- org
+    |   |       `-- telluriumsource
+    |   |           `-- ui
+    |   |               `-- widget
+    |   |                   `-- jqueryui
+    |   |                       |-- Init.groovy
+    |   |                       |-- JQueryUiWidget.groovy
+    |   |                       |-- builder
+    |   |                       |   `-- DatePickerBuilder.groovy
+    |   |                       `-- object
+    |   |                           `-- DatePicker.groovy
+    |   `-- resources
+    `-- test
+        |-- groovy
+        |   `-- org
+        |       `-- telluriumsource
+        |           |-- module
+        |           |   `-- DatePickerDefaultModule.groovy
+        |           |-- support
+        |           |   `-- JettyFileServer.java
+        |           `-- test
+        |               `-- DatePickerTestCase.java
+        `-- resources
+}}}
