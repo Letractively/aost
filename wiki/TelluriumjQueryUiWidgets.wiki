@@ -178,3 +178,39 @@ With the above UI module, we define the following methods for the Date Picker wi
     return "${month} ${year}";
   }
 }}}
+
+== Register the Date Picker Widget ==
+
+First, we need to define a builder for the Date Picker widget as follows.
+
+{{{
+class DatePickerBuilder extends UiObjectBuilder{
+
+    public build(Map map, Closure c) {
+       //add default parameters so that the builder can use them if not specified
+        def df = [:]
+        DatePicker datepicker = this.internBuild(new DatePicker(), map, df)
+        datepicker.defineWidget()
+        datepicker.dsl.locator = datepicker.locator
+
+        return datepicker
+    }
+}
+}}}
+
+Then, we register the Date Picker object in the Init class.
+
+{{{
+class Init implements WidgetBootstrap{
+
+    public void loadWidget(UiObjectBuilderRegistry uiObjectBuilderRegistry) {
+        if(uiObjectBuilderRegistry != null){
+          uiObjectBuilderRegistry.registerBuilder(getFullName("DatePicker"), new DatePickerBuilder())
+        }
+    }
+
+    protected String getFullName(String name){
+        return JQueryUiWidget.NAMESPACE + JQueryUiWidget.NAMESPACE_SUFFIX + name
+    }
+}
+}}}
