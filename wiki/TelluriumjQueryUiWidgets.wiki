@@ -303,3 +303,119 @@ public class JettyFileServer extends Thread {
     }
 }
 }}}  
+
+== Create Tellurium Date Picker Widget Test Case ==
+
+We use the default.html from Date Picker demos as our example.
+
+{{{
+<head>
+	<meta charset="UTF-8" />
+	<title>jQuery UI Datepicker - Default functionality</title>
+	<link type="text/css" href="../../themes/base/jquery.ui.all.css" rel="stylesheet"/>
+	<script type="text/javascript" src="../../jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="../../ui/jquery.ui.core.js"></script>
+	<script type="text/javascript" src="../../ui/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="../../ui/jquery.ui.datepicker.js"></script>
+	<link type="text/css" href="../demos.css" rel="stylesheet" />
+	<script type="text/javascript">
+	$(function() {
+		$("#datepicker").datepicker();
+	});
+	</script>
+</head>
+<body>
+
+<div class="demo">
+
+<p>Date: <input type="text" id="datepicker"></p>
+
+</div><!-- End demo -->
+}}}
+
+The above HTML can be presented by the following UI module.
+
+{{{
+class DatePickerDefaultModule extends DslContext {
+    public void defineUi() {
+       ui.InputBox(uid: "DatePickerInput", clocator: [id: "datepicker"])
+       ui.jQuery_DatePicker(uid: "Default", clocator: [tag: "body"])
+    }
+...
+}
+}}}
+
+where "jQuery" is the namespace for jQuery UI widgets and we can use DatePicker as a regular Tellurium UI object. In the meanwhile, we can use the {{{onWidget}}} commands to call methods in the Tellurium Date Picker widgets.
+
+{{{
+  public void prevMonth(){
+    onWidget "Default", click, "DatePicker.Header.Prev"
+  }
+
+  public void nextMonth(){
+    onWidget "Default", click, "DatePicker.Header.Next"
+  }
+
+  public void selectDay(int day){
+    onWidget "Default", selectDay, day
+  }
+
+  public void selectFriday(int week){
+    onWidget "Default", selectFriday, week
+  }
+
+  public String getMonthYear(){
+    onWidget "Default", getMonthYear
+  }
+ 
+  public void toggleInput(){
+    click "DatePickerInput"
+  }
+
+  public String getSelectedDate(){
+    getValue "DatePickerInput"
+  }
+}}} 
+
+The test case is defined as follows.
+
+{{{
+public class DatePickerTestCase extends TelluriumJUnitTestCase {
+    private static JettyFileServer server;
+
+    @BeforeClass
+    public static void setUp(){
+        server = new JettyFileServer(8088, "WebContent");
+        server.start();
+        connectSeleniumServer();
+        useTelluriumEngine(true);
+        useEngineLog(true);
+   }
+
+    @Test
+    public void testDefaultDatePicker(){
+        DatePickerDefaultModule datePicker = new DatePickerDefaultModule();
+        datePicker.defineUi();
+        connectUrl("http://localhost:8088/demos/datepicker/default.html");
+        datePicker.toggleInput();
+        datePicker.nextMonth();
+        datePicker.selectDay(20);
+        String date = datePicker.getSelectedDate();
+        System.out.println("Selected Date: " + date);
+
+        datePicker.toggleInput();
+        datePicker.prevMonth();
+        datePicker.selectFriday(2);
+        date = datePicker.getSelectedDate();
+        System.out.println("Selected Date: " + date);
+        date = datePicker.getMonthYear();
+        System.out.println("Selected Month and Year: " + date);
+    }
+
+    @AfterClass
+    public static void tearDown(){
+        if(server != null)
+            server.shutDown();
+    }
+}
+}}} 
