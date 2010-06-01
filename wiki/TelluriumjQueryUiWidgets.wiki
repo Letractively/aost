@@ -1,0 +1,6 @@
+#summary Tellurium as A jQuery UI Widget Testing Framework.
+#labels Phase-Implementation,Phase-Support
+
+= Introduction =
+
+Tellurium provides you the capability to composite UI objects into a widget object and then you can use the widget directly just like using a regular tellurium UI object. The advantage is that you do not need to deal with the individual UI at the link or button level of the widget, you just work on the high level methods. Another advantage is that this widget is reusable.
