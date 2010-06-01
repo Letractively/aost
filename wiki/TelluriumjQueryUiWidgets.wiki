@@ -214,3 +214,28 @@ class Init implements WidgetBootstrap{
     }
 }
 }}}
+
+= Use Tellurium jQuery UI Widgets = 
+
+We can compile the Tellurium jQuery UI Widgets project as a jar file and then use it in our Tellurium testing project.
+
+== Load Tellurium jQuery UI Widgets ==
+
+To load Tellurium jQuery UI Widgets, we need to specify the UI widget name in Tellurium configuration file, TelluriumConfig.groovy.
+
+{{{
+    widget{
+        module{
+            //define your widget modules here, for example Dojo or ExtJs
+            included="jqueryui"
+        }
+    }
+}}}
+
+== jQuery UI Date Picker Example ==
+
+To test the widget, we need a jQuery UI Date Picker Example. We download [http://jqueryui.com/ jQuery UI 1.8] and unzip it to the WebContext directory. Then, we can use the Date Picker demos from jQuery UI 1.8 as our examples.
+
+ 
+
+  
