@@ -236,6 +236,70 @@ To load Tellurium jQuery UI Widgets, we need to specify the UI widget name in Te
 
 To test the widget, we need a jQuery UI Date Picker Example. We download [http://jqueryui.com/ jQuery UI 1.8] and unzip it to the WebContext directory. Then, we can use the Date Picker demos from jQuery UI 1.8 as our examples.
 
- 
+== Use Jetty as An Embedded Http Server ==
 
-  
+To run the example, we need a http server. We use [http://jetty.codehaus.org/jetty/ Jetty 7] as an embedded http server. We add the following dependency in our POM file.
+
+{{{
+   <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-server</artifactId>
+      <version>7.0.1.v20091125</version>
+      <scope>test</scope> 
+   </dependency>
+}}}  
+
+Then we define the embedded Jetty server as follows.
+
+{{{
+public class JettyFileServer extends Thread {
+
+    private int port;
+
+    private String resourceBase;
+
+    private Server server;
+
+    private boolean isRunning = false;
+
+    public JettyFileServer(int port, String resourceBase) {
+        this.port = port;
+        this.resourceBase = resourceBase;
+    }
+
+    public void start()  {
+        server = new Server();
+        SelectChannelConnector connector = new SelectChannelConnector();
+        connector.setPort(port);
+        server.addConnector(connector);
+
+        ResourceHandler resource_handler = new ResourceHandler();
+        resource_handler.setDirectoriesListed(true);
+        resource_handler.setWelcomeFiles(new String[]{ "index.html" });
+
+        resource_handler.setResourceBase(resourceBase);
+
+        HandlerList handlers = new HandlerList();
+        handlers.setHandlers(new Handler[] { resource_handler, new DefaultHandler() });
+        server.setHandler(handlers);
+        try {
+            server.start();
+            isRunning = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            isRunning = false;
+        }
+    }
+
+    public void shutDown() {
+        if(server != null){
+            try {
+                server.stop();
+            } catch (Exception e) {
+
+            }
+            isRunning = false;
+        }
+    }
+}
+}}}  
