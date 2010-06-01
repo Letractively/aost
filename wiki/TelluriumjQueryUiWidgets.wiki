@@ -76,7 +76,6 @@ The [http://docs.jquery.com/UI/Datepicker jQuery UI Date Picker widget] can be p
 {{{
 class DatePicker extends JQueryUiWidget {
   void defineWidget() {
-    ui.InputBox(uid: "DatePickerInput", clocator: [id: "datepicker"], respond: ["click"])
 
     ui.Container(uid: "DatePicker", clocator: [tag: "div", class: "ui-datepicker ui-widget ui-widget-content"]) {
       Container(uid: "Header", clocator: [tag: "div", class: "ui-datepicker-header"]) {
