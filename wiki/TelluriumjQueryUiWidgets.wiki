@@ -5,9 +5,9 @@
 
 = Introduction =
 
-Tellurium provides you the capability to composite UI objects into a [widget object and then you can use the widget directly just like using a regular tellurium UI object. The advantage is that you do not need to deal with the individual UI at the link or button level of the widget, you just work on the high level methods. Another advantage is that this widget is reusable.
+Tellurium provides support to describe a UI widget or a set of nested UI objects as a [[http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_Widget_Extensions Tellurium widget]. Tellurium widgets have the advantage that we can use the widget directly in our test code just like using a regular tellurium UI object and we do not need to deal with individual UIs at the link or button level. What we need to do is to call the methods defined in the Tellurium widget. Another advantage is that once the widget is defined, we can use it anywhere simply by including the compiled jar file.
 
-Widgets in JavaScript frameworks are good examples of reusable UIs that we can exploit the benefits of Tellurium Widgets. We take jQuery UI widgets, more specifically, the [http://jqueryui.com/demos/datepicker/ Date Picker widget] as an example of how to define the corresponding Tellurium widget and how to use in directly in your test code.
+Widgets in JavaScript frameworks are good examples of reusable UIs that can utilize the benefits of Tellurium Widgets. We take jQuery UI widgets, more specifically, the [http://jqueryui.com/demos/datepicker/ Date Picker widget] as an example to demonstrate how to define jQuery UI Tellurium widgets and how to use them directly in your test code.
 
 = Prerequisites =
  
