@@ -12,7 +12,7 @@ Widgets in JavaScript frameworks are good examples of reusable UIs that we can e
 = Prerequisites =
  
   * [http://maven.kungfuters.org/content/repositories/snapshots Tellurium 0.8.0-SNAPSHOT]
-  * [http://docs.jquery.com/UI/Datepicker jQuery UI 1.8]
+  * [http://jqueryui.com/ jQuery UI 1.8]
 
 = Implementation =
 
@@ -71,7 +71,7 @@ abstract class JQueryUiWidget extends Widget {
 
 == Tellurium Date Picker Widget ==
 
-The jQuery UI Date Picker widget can be presented as a Tellurium Widget as follows.
+The [http://docs.jquery.com/UI/Datepicker jQuery UI Date Picker widget] can be presented as a Tellurium Widget as follows.
 
 {{{
 class DatePicker extends JQueryUiWidget {
@@ -419,3 +419,17 @@ public class DatePickerTestCase extends TelluriumJUnitTestCase {
     }
 }
 }}} 
+
+= Summary =
+
+Date Picker is a simple example to demonstrate the define and use of Tellurium Widgets. We can define more jQuery UI widgets and compile them as a jar file, then we can reuse them simply by including the jar file.
+
+= Resources =
+
+  * [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_Widget_Extensions Tellurium Widget Extensions]
+  * [http://jqueryui.com/ jQuery UI 1.8]
+  * [http://jetty.codehaus.org/jetty/ Jetty]
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group]
+  * [http://twitter.com/TelluriumSource Tellurium on Twitter]
+  * [http://code.google.com/p/aost/wiki/Tellurium070Released Tellurium 0.7.0]
+  * [http://aost.googlecode.com/files/tellurium-reference-0.7.0.pdf Tellurium Reference Documentation]  
