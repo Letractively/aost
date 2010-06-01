@@ -44,4 +44,5 @@
   * [http://code.google.com/p/aost/wiki/BuildTelluriumReferenceDocumentWithDocbkxMavenPlugin Build Tellurium Reference Document with Docbkx Maven Plugin]
   * [http://code.google.com/p/aost/wiki/TelluriumAWrapOfSelenium Tellurium: A Wrap of Selenium?]
   * [http://code.google.com/p/aost/wiki/Telluriumi18nBlogPost Thinking Globally - Tellurium and Internationalization]
+  * [http://code.google.com/p/aost/wiki/InterestingAlgorithmsInTellurium Interesting Algorithm Design Problems in Tellurium]
   * [http://code.google.com/p/aost/wiki/TelluriumjQueryUiWidgets Tellurium as A jQuery UI Widget Testing Framework]
