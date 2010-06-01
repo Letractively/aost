@@ -423,7 +423,7 @@ public class DatePickerTestCase extends TelluriumJUnitTestCase {
 
 = Summary =
 
-Date Picker is a simple example to demonstrate the define and use of Tellurium Widgets. We can define more jQuery UI widgets and compile them as a jar file, then we can reuse them simply by including the jar file.
+Date Picker is a simple example to demonstrate the define and use of Tellurium Widgets. We can define more jQuery UI widgets and compile them as a jar file, then we can reuse them simply by including the jar file. The example code is available from [http://aost.googlecode.com/svn/trunk/extensions/jqueryui-widgets Tellurium jQuery UI Widget project].
 
 = Resources =
 
