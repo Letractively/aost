@@ -1,5 +1,6 @@
 #summary jQuery: A Powerful Tool in Tellurium.
 #labels Phase-Implementation,Phase-Support
+<wiki:toc max_depth="3" />
 
 = Introduction =
 
