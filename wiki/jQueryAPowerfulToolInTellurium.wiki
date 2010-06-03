@@ -26,7 +26,7 @@ The generated runtime CSS selectors can be dumped out by calling
    dump("Google");
 }}}
 
-The results are as follows.
+The results are as follows, where the content after "jquery=" is the CSS selector, for example "table input[title=Google Search][name=q]". 
 
 {{{
 Dump locator information for Google
@@ -37,3 +37,7 @@ Google.Search: jquery=table input[type=submit][value=Google Search][name=btnG]
 Google.ImFeelingLucky: jquery=table input[type=submit][value$=m Feeling Lucky][name=btnI]
 -------------------------------------------------------
 }}}
+
+On the Selenium Core side, Tellurium locates UI element with the generated CSS selector using jQuery.
+
+ 
