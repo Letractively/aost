@@ -5,8 +5,35 @@
 
 jQuery is one of the key techniques used in Tellurium. Here we like to cover the use of jQuery in Tellurium.
 
-= Uses =
+= Use of jQuery in Tellurium =
 
 == CSS Selector ==
 
 Tellurium uses CSS selector as the default locator and the CSS selector is backed up jQuery.
+When Tellurium works as a Selenium Wrap, Tellurium core generates runtime locator from UI module definition. Take the following Google Search module as an example,
+
+{{{
+    ui.Container(uid: "Google", clocator: [tag: "table"]) {
+      InputBox(uid: "Input", clocator: [tag: "input", title: "Google Search", name: "q"])
+      SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit", value: "Google Search", name: "btnG"])
+      SubmitButton(uid: "ImFeelingLucky", clocator: [tag: "input", type: "submit", value: "I'm Feeling Lucky", name: "btnI"])
+    }
+}}}
+
+The generated runtime CSS selectors can be dumped out by calling
+
+{{{
+   dump("Google");
+}}}
+
+The results are as follows.
+
+{{{
+Dump locator information for Google
+-------------------------------------------------------
+Google: jquery=table
+Google.Input: jquery=table input[title=Google Search][name=q]
+Google.Search: jquery=table input[type=submit][value=Google Search][name=btnG]
+Google.ImFeelingLucky: jquery=table input[type=submit][value$=m Feeling Lucky][name=btnI]
+-------------------------------------------------------
+}}}
