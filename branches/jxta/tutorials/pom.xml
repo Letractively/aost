@@ -1,0 +1,21 @@
+<project>
+    <parent>
+        <groupId>net.jxta.platform</groupId>
+        <artifactId>jxta-base</artifactId>
+        <version>2.5</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <name>jxta-tutorials</name>
+    <groupId>net.jxta.platform</groupId>
+    <artifactId>jxta-tutorials</artifactId>
+    <packaging>jar</packaging>
+    <version>2.5</version>
+    <dependencies>
+        <dependency>
+            <groupId>net.jxta.platform</groupId>
+            <artifactId>jxta</artifactId>
+            <version>${pom.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        </dependencies>
+</project>
