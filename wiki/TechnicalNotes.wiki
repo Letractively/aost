@@ -46,3 +46,4 @@
   * [http://code.google.com/p/aost/wiki/Telluriumi18nBlogPost Thinking Globally - Tellurium and Internationalization]
   * [http://code.google.com/p/aost/wiki/InterestingAlgorithmsInTellurium Interesting Algorithm Design Problems in Tellurium]
   * [http://code.google.com/p/aost/wiki/TelluriumjQueryUiWidgets Tellurium as A jQuery UI Widget Testing Framework]
+  * [http://code.google.com/p/aost/wiki/jQueryAPowerfulToolInTellurium jQuery: A Powerful Tool in Tellurium]
