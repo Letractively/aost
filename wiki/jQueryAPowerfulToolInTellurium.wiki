@@ -90,6 +90,10 @@ teJQuery.expr[':'].group = function(obj, index, m){
 };
 }}}
 
+== Trump ==
+
+The [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_UI_Module_Plugin_%28TrUMP%29 Tellurium UI Module Firefox Plugin] (Trump) will be updated soon to support CSS selector locator. jQuery will also be a powerful tool in Trump for UI implementation, algorithm, and test driving.
+
 == Test jQuery UI Widgets == 
 
 [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_Widget_Extensions Tellurium widgets] have the advantage that we can use the widget directly in our test code just like a regular tellurium UI object and we do not need to deal with individual UIs in the widget at the link or button level any more. What we need to do is to call the methods defined in the Tellurium widget. Another advantage is that once the widget is defined, we can use it anywhere we want by simply including the compiled jar file. We take the Date Picker widget as an example to demonstrate how to define jQuery UI Tellurium widgets and how to use them directly in your test code. 
