@@ -1,17 +1,16 @@
-#summary jQuery: A Powerful Tool in Tellurium.
+#summary An At-A-Glance View of the use of jQuery in Tellurium.
 #labels Phase-Implementation,Phase-Support
 <wiki:toc max_depth="3" />
 
 = Introduction =
 
-jQuery is one of the key techniques used in Tellurium. Here we like to cover the use of jQuery in Tellurium.
+jQuery is one of the key techniques used in Tellurium. Here we like to cover the use of jQuery in Tellurium briefly.
 
 = Use of jQuery in Tellurium =
 
 == jQuery as CSS Selector locator ==
 
-Tellurium uses CSS selector as the default locator and the CSS selector is backed up jQuery.
-When Tellurium works as a Selenium Wrap, Tellurium core generates runtime locator from UI module definition. Take the following Google Search module as an example,
+When Tellurium works as a Selenium Wrap, Tellurium core generates runtime locator from UI module definition. Tellurium uses CSS selector as the default locator and the CSS selector is backed up by jQuery to locate the UI element in the DOM. Take the following Google Search module as an example,
 
 {{{
     ui.Container(uid: "Google", clocator: [tag: "table"]) {
@@ -39,11 +38,11 @@ Google.ImFeelingLucky: jquery=table input[type=submit][value$=m Feeling Lucky][n
 -------------------------------------------------------
 }}}
 
-On the Selenium Core side, Tellurium locates UI element with the generated CSS selector using jQuery.
+Once the Selenium Core receives APIs with the locator as a parameter, it calls Tellurium jQuery support to locate the UI element in the DOM.
 
 == jQuery as a Test Driving Mechanism ==
 
-[http://code.google.com/p/aost/wiki/telluriumengine Tellurium new Engine] uses jQuery as a test driving mechanism. For example, the "mouseOver" action can be implemented by the following jQuery Event. 
+[http://code.google.com/p/aost/wiki/telluriumengine Tellurium new Engine] uses jQuery as a test driving mechanism, i.e., automatically simulate end user actions on the browser. For example, the "mouseOver" action can be implemented by the following jQuery Event. 
 
 {{{
 TelluriumApi.prototype.mouseOver = function(locator){
@@ -56,7 +55,7 @@ where teJQuery is an alias of jQuery to avoid name collision.
 
 == jQuery as a DOM Manipulation Tool ==
 
-Tellurium new Engine utilizes jQuery as a DOM manipulation tool in algorithm and API implementation. For example, the UI module group locating algorithm, i.e., [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the Santa algorithm] uses the following code in mark phase.
+[http://code.google.com/p/aost/wiki/telluriumengine Tellurium new Engine] utilizes jQuery as a DOM manipulation tool in algorithm and API implementation. For example, the UI module group locating algorithm, i.e., [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the Santa algorithm] uses the jQuery {{{data()}}} API in the marking phase.
 
 {{{
     if($found.size() == 1){
@@ -74,13 +73,21 @@ Tellurium new Engine utilizes jQuery as a DOM manipulation tool in algorithm and
 ...
 }}}
 
-With the adoption of jQuery, we add some [http://code.google.com/p/aost/wiki/CustomJQuerySelectorInTellurium custom jQuery selectors and plugins] to meet our needs, for example, the Tellurium group selector is defined as follows.
+To fully utilize the power of jQuery, we add some [http://code.google.com/p/aost/wiki/CustomJQuerySelectorInTellurium custom jQuery selectors and plugins] to meet our needs, for example, the Tellurium _group_ selector is defined as follows.
 
 {{{
-   teJQuery.expr[':'].group = function(obj){
+teJQuery.expr[':'].group = function(obj, index, m){
       var $this = teJQuery(obj);
-      return ($this.find("input").length > 0) && ($this.find("img").length > 0) && ($this.find("span").length > 0);
-   };
+
+      var splitted = m[3].split(",");
+      var result = true;
+
+      for(var i=0; i<splitted.length; i++){
+         result = result && ($this.find(splitted[i]).length > 0);
+      }
+
+      return result;
+};
 }}}
 
 == Test jQuery UI Widgets == 
@@ -199,6 +206,9 @@ class DatePickerDefaultModule extends DslContext {
 }}}
 
 where jQuery is the name space.
+
+= Summary =
+
 
 = Resources =
 
