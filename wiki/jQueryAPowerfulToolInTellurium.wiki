@@ -8,7 +8,7 @@ jQuery is one of the key techniques used in Tellurium. Here we like to cover the
 
 = Use of jQuery in Tellurium =
 
-== jQuery as CSS Selector locator ==
+== CSS Selector locator ==
 
 When Tellurium works as a Selenium Wrap, Tellurium core generates runtime locator from UI module definition. Tellurium uses CSS selector as the default locator and the CSS selector is backed up by jQuery to locate the UI element in the DOM. Take the following Google Search module as an example,
 
@@ -40,7 +40,7 @@ Google.ImFeelingLucky: jquery=table input[type=submit][value$=m Feeling Lucky][n
 
 Once the Selenium Core receives APIs with the locator as a parameter, it calls Tellurium jQuery support to locate the UI element in the DOM.
 
-== jQuery as a Test Driving Mechanism ==
+== Test Driving Mechanism ==
 
 [http://code.google.com/p/aost/wiki/telluriumengine Tellurium new Engine] uses jQuery as a test driving mechanism, i.e., automatically simulate end user actions on the browser. For example, the "mouseOver" action can be implemented by the following jQuery Event. 
 
@@ -53,7 +53,7 @@ TelluriumApi.prototype.mouseOver = function(locator){
 
 where teJQuery is an alias of jQuery to avoid name collision. 
 
-== jQuery as a DOM Manipulation Tool ==
+== DOM Manipulation Tool ==
 
 [http://code.google.com/p/aost/wiki/telluriumengine Tellurium new Engine] utilizes jQuery as a DOM manipulation tool in algorithm and API implementation. For example, the UI module group locating algorithm, i.e., [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the Santa algorithm] uses the jQuery {{{data()}}} API in the marking phase.
 
@@ -94,7 +94,7 @@ teJQuery.expr[':'].group = function(obj, index, m){
 
 The [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_UI_Module_Plugin_%28TrUMP%29 Tellurium UI Module Firefox Plugin] (Trump) will be updated soon to support CSS selector locator. jQuery will also be a powerful tool in Trump for UI implementation, algorithm, and test driving.
 
-== Test jQuery UI Widgets == 
+== jQuery UI Widgets == 
 
 [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_Widget_Extensions Tellurium widgets] have the advantage that we can use the widget directly in our test code just like a regular tellurium UI object and we do not need to deal with individual UIs in the widget at the link or button level any more. What we need to do is to call the methods defined in the Tellurium widget. Another advantage is that once the widget is defined, we can use it anywhere we want by simply including the compiled jar file. We take the Date Picker widget as an example to demonstrate how to define jQuery UI Tellurium widgets and how to use them directly in your test code. 
 
