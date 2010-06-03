@@ -53,5 +53,31 @@ TelluriumApi.prototype.mouseOver = function(locator){
 
 where teJQuery is an alias of jQuery to avoid name collision. 
 
+== jQuery as a DOM Manipulation Tool ==
 
-  
+Tellurium new Engine utilizes jQuery as a DOM manipulation tool in algorithm and API implementation. For example, the UI module group locating algorithm, i.e., [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the Santa algorithm] uses the following code in mark phase.
+
+{{{
+    if($found.size() == 1){
+        //found exactly one, happy path
+        //temporally assign uid to the found element
+        !tellurium.logManager.isUseLog || fbLog("Marking uid " + uid, $found.eq(0));
+        $found.eq(0).data("uid", uid);
+        snapshot.addUi(uid, $found.get(0));
+        //store all the elements with data("uid")
+        this.uidset.push($found.eq(0));
+        snapshot.setColor(ncolor);
+        snapshot.score += 100;
+        snapshot.nelem++;
+        this.squeue.push(snapshot);
+...
+}}}
+
+With the adoption of jQuery, we add some [http://code.google.com/p/aost/wiki/CustomJQuerySelectorInTellurium custom jQuery selectors and plugins] to meet our needs, for example, the Tellurium group selector is defined as follows.
+
+{{{
+   teJQuery.expr[':'].group = function(obj){
+      var $this = teJQuery(obj);
+      return ($this.find("input").length > 0) && ($this.find("img").length > 0) && ($this.find("span").length > 0);
+   };
+}}}
