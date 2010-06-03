@@ -1,0 +1,12 @@
+#summary jQuery: A Powerful Tool in Tellurium.
+#labels Phase-Implementation,Phase-Support
+
+= Introduction =
+
+jQuery is one of the key techniques used in Tellurium. Here we like to cover the use of jQuery in Tellurium.
+
+= Uses =
+
+== CSS Selector ==
+
+Tellurium uses CSS selector as the default locator and the CSS selector is backed up jQuery.
