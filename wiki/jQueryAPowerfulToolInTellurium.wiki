@@ -40,4 +40,18 @@ Google.ImFeelingLucky: jquery=table input[type=submit][value$=m Feeling Lucky][n
 
 On the Selenium Core side, Tellurium locates UI element with the generated CSS selector using jQuery.
 
- 
+== jQuery as a Test Driving Mechanism ==
+
+[http://code.google.com/p/aost/wiki/telluriumengine Tellurium new Engine] uses jQuery as a test driving mechanism. For example, the "mouseOver" action can be implemented by the following jQuery Event. 
+
+{{{
+TelluriumApi.prototype.mouseOver = function(locator){
+    var element = this.cacheAwareLocate(locator);
+    teJQuery(element).trigger('mouseover');
+};
+}}}
+
+where teJQuery is an alias of jQuery to avoid name collision. 
+
+
+  
