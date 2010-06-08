@@ -908,7 +908,7 @@ Selenium.prototype.doTypeRepeated = function(locator, text) {
 };
 }}}
 
-The customClass is the user's class for custom Selenium methods, extending Tellurium org.tellurium.connector.CustomCommand class:
+The customClass is the user's class for custom Selenium methods, extending Tellurium org.telluriumsource.component.connector.CustomCommand class:
 
 {{{
 public class MyCommand extends CustomCommand{
@@ -1036,7 +1036,7 @@ For example, the following test code works fine in 0.7.0.
 
 == Testing Support ==
 
-In the package *org.tellurium.test*, Tellurium provides three different ways to write Tellurium tests:
+In the package *org.telluriumsource.test*, Tellurium provides three different ways to write Tellurium tests:
 
   # TelluriumJUnitTestCase
   # TelluriumTestNGTestCase
