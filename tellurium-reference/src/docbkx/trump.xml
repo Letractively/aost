@@ -202,7 +202,7 @@
 <![CDATA[
 package tellurium.ui
 
-import org.tellurium.dsl.DslContext
+import org.telluriumsource.dsl.DslContext
 
 class NewUiModule extends DslContext{
 

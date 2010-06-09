@@ -311,7 +311,7 @@ class Field {
 <![CDATA[
 //define custom data type and its type handler
 
-typeHandler "phoneNumber", "org.tellurium.test.PhoneNumberTypeHandler"
+typeHandler "phoneNumber", "org.telluriumsource.test.PhoneNumberTypeHandler"
 
 //define file data format
 fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search"){
@@ -591,7 +591,7 @@ step{
 <![CDATA[
 //define custom data type and its type handler
 
-typeHandler "phoneNumber", "org.tellurium.test.PhoneNumberTypeHandler"
+typeHandler "phoneNumber", "org.telluriumsource.test.PhoneNumberTypeHandler"
 
 //define file data format
 fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search"){
@@ -959,7 +959,7 @@ tellurium{
 
         //user's class to hold custom selenium methods associated with user-extensions.js
         //should in full class name, for instance, "com.mycom.CustomSelenium"
-        customClass = "org.tellurium.test.MyCommand"
+        customClass = "org.telluriumsource.ut.MyCommand"
     }
 ]]>
         </programlisting>
@@ -2205,19 +2205,19 @@ org.uncommons.reportng.JUnitXMLReporter
 
         <test name="Downloads Page">
         <classes>
-            <class name="org.tellurium.test.TelluriumDownloadsPageTestNGTestCase"/>
+            <class name="org.telluriumsource.test.TelluriumDownloadsPageTestNGTestCase"/>
         </classes>
         </test>
 
         <test name="Project Page">
          <classes>
-             <class name="org.tellurium.test.TelluriumProjectPageTestNGTestCase"/>
+             <class name="org.telluriumsource.test.TelluriumProjectPageTestNGTestCase"/>
          </classes>
         </test>
 
         <test name="Wiki Page">
          <classes>
-             <class name="org.tellurium.test.TelluriumWikiPageTestNGTestCase"/>
+             <class name="org.telluriumsource.test.TelluriumWikiPageTestNGTestCase"/>
          </classes>
         </test>
 </suite>

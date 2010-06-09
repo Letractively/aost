@@ -436,7 +436,7 @@ public void registerBuilder(String uiObjectName, UiObjectBuilder builder)
 <![CDATA[
     uiobject{
         builder{
-           Icon="org.tellurium.builder.IconBuilder"
+           Icon="org.telluriumsource.ui.builder.IconBuilder"
         }
     }
 ]]>
