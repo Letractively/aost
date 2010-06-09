@@ -131,7 +131,7 @@ class DatePickerBuilder extends UiObjectBuilder{
                 <para>
                     Each widget module will be compiled as a separate jar file and it should define a bootstrap
                     class to register all the widgets inside the module. By default, the full class name of the
-                    bootstrap class is org.tellurium.widget.XXXX.Init, where the class Init should implement the
+                    bootstrap class is org.telluriumsource.ui.widget.XXXX.Init, where the class Init should implement the
                     WidgetBootstrap? interface to register widgets and XXXX stands for the widget module name.
                     It is DOJO in our case
                 </para>

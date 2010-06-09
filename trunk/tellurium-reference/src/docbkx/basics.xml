@@ -1501,7 +1501,7 @@ Selenium.prototype.doTypeRepeated = function(locator, text) {
 
         <para>
             The customClass is the user's class for custom Selenium methods,
-            extending Tellurium org.tellurium.connector.CustomCommand class:
+            extending Tellurium org.telluriumsource.component.connector.CustomCommand class:
         </para>
         <programlisting language="java"><?db-font-size 75% ?>
             <![CDATA[
@@ -1709,7 +1709,7 @@ issueSearch.searchButton: //descendant-or-self::form[descendant::select[@name="c
         <title>Testing Support</title>
 
         <para>
-            In the package org.tellurium.test, Tellurium provides three
+            In the package org.telluriumsource.test, Tellurium provides three
             different ways to write Tellurium tests:
         </para>
         <orderedlist>
