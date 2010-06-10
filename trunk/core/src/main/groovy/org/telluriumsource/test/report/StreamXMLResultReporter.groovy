@@ -62,7 +62,7 @@ class StreamXMLResultReporter implements ResultReporter{
                             }
                         }
                         if (result.exception != null)
-                            Exception(Helper.logException(result.exception))
+                            Exception(Helper.descException(result.exception))
                     }
                 }
             }

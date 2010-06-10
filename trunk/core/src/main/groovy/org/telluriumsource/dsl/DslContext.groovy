@@ -371,4 +371,36 @@ abstract class DslContext extends BaseDslContext {
         println i18nBundle.getMessage("BaseDslContext.PropertyIsMissing" , name)
         return name
     }
+
+    public void bugReport(){
+        println "Please cut and paste the following bug report to Tellurium user group http://groups.google.com/group/tellurium-users"
+        println "---------------------------- Bug Report --------------------------------"
+        println "UI Module: ";
+        Set<String> uimodules = ui.getUiModuleNames();
+        if(uimodules != null && uimodules.size() > 0){
+          uimodules.each {String name ->
+            println toString(name);
+          }
+        }
+
+        println "HTML: "
+        if(uimodules != null && uimodules.size() > 0){
+          uimodules.each {String name ->
+            getHTMLSource(name);
+          }
+        } 
+
+        Environment env = Environment.instance;
+
+        println "Environment: ";
+        //dump Environment variables
+        println env.toString();
+
+        println "Last Error: ";
+        println env.lastErrorDescription;
+
+        println "System log: ";
+        println retrieveLastRemoteControlLogs();
+        println "----------------------------    End     --------------------------------"
+    }
 }

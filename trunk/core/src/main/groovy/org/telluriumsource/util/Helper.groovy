@@ -11,7 +11,7 @@ class Helper{
         }
     }
 
-    public static String logException(Exception exception){
+    public static String descException(Exception exception){
          // convert the exception to String
         StackTraceElement[] stackTrace = exception.getStackTrace();
         StringBuilder sb = new StringBuilder("\n");

@@ -29,6 +29,7 @@ class UiDslParser extends BuilderSupport{
           if(obj.parent != null && obj.parent instanceof Table){
               id =  Table.internalId(obj.uid)
           }else if(obj.parent != null && obj.parent instanceof StandardTable){
+              //TODO: fix me!
               id =  StandardTable.internalId(obj.uid)
           }else{
               id = obj.uid
@@ -41,6 +42,7 @@ class UiDslParser extends BuilderSupport{
             if(op.parent != null && op.parent instanceof Table){
                 id = Table.internalId(op.uid) + "." + id
             }else if(op.parent != null && op.parent instanceof StandardTable){
+                 //TODO: fix me!
                 id = StandardTable.internalId(op.uid) + "." + id
             }else{
                 id = op.uid + "." + id
@@ -48,6 +50,10 @@ class UiDslParser extends BuilderSupport{
            }
 
           return id
+       }
+
+       public Set<String> getUiModuleNames(){
+          return registry.keySet();
        }
 
        public UiObject walkTo(WorkflowContext context, String id)

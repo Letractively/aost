@@ -60,6 +60,8 @@ class Dispatcher implements Configurable {
 
         return result
       } catch (Exception e) {
+        Environment.instance.setLastError(e);
+
         if (isUseScreenshot()) {
           long timestamp = System.currentTimeMillis()
           String filename = filenamePattern.replaceFirst(PLACE_HOLDER, "${timestamp}")
