@@ -3,8 +3,9 @@ import org.telluriumsource.crosscut.i18n.ResourceBundle;
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
 
 import org.telluriumsource.framework.config.Configurable
-import org.telluriumsource.util.LogLevels
-                     
+
+import org.telluriumsource.util.Helper
+
 /**
  * Environment to hold runtime environment variables
  *
@@ -51,6 +52,8 @@ public class Environment implements Configurable{
 
   //protected LogLevels loggingLevel = LogLevels.OFF
 
+  protected String lastErrorDescription = "";
+
   public String toString(){
     String result = """
     Environment Variables:
@@ -73,6 +76,10 @@ public class Environment implements Configurable{
 
   public static Environment getEnvironment(){
     return Environment.instance;
+  }
+
+  public void setLastError(Exception e){
+    this.lastErrorDescription = Helper.descException(e);
   }
 
   public void useConfigString(String json){

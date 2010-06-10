@@ -238,6 +238,12 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         System.out.println(log);
     }
 
+    @Test
+    public void testBugReport(){
+        jlm.logon("tellurium", "testing");
+        jlm.bugReport();
+    }
+
     @AfterClass
     public static void tearDown(){
         showTrace();

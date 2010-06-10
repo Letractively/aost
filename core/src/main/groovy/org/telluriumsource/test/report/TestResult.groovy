@@ -94,7 +94,7 @@ class TestResult {
             }
         }
         if(exception != null){
-            sb.append(fieldStart).append(EXCEPTION).append(avpSeparator).append(Helper.logException(exception)).append(fieldSeparator)
+            sb.append(fieldStart).append(EXCEPTION).append(avpSeparator).append(Helper.descException(exception)).append(fieldSeparator)
         }else{
 
         }

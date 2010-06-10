@@ -193,7 +193,7 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
         cookie = gsm.getCookieByJQuery("tellurium");
         assertNull(cookie);
     }
-    
+
     @AfterClass
     public static void tearDown(){
         showTrace();
