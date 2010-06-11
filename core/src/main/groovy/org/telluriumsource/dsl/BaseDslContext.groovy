@@ -1617,26 +1617,26 @@ abstract class BaseDslContext extends GlobalDslContext {
   }
 
   public void bugReport() {
-    println "\nPlease cut and paste the following bug report to Tellurium user group http://groups.google.com/group/tellurium-users"
+    println "\nPlease cut and paste the following bug report to Tellurium user group (http://groups.google.com/group/tellurium-users)\n"
     println "---------------------------- Bug Report --------------------------------"
 
     Environment env = Environment.instance;
     if (env.lastUiModule != null) {
       println "\n-----------------------------------"
-      println "UI Module " + env.lastUiModule + ": ";
+      println "UI Module " + env.lastUiModule + ": \n";
 
       println toString(env.lastUiModule);
       println "-----------------------------------\n"
     }
 
     println "\n-----------------------------------"
-    println "HTML Source: ";
+    println "HTML Source: \n";
     println getHtmlSource();
     println "-----------------------------------\n"
 
     if (env.lastUiModule != null) {
       println "\n-----------------------------------"
-      println "Validate UI Module" + env.lastUiModule + ": ";
+      println "Validate UI Module" + env.lastUiModule + ": \n";
       try {
 //        getHtmlSource(env.lastUiModule);
         validate(env.lastUiModule);
@@ -1647,18 +1647,18 @@ abstract class BaseDslContext extends GlobalDslContext {
     }
 
     println "\n-----------------------------------"
-    println "Environment: ";
+    println "Environment: \n";
     //dump Environment variables
     println env.toString();
     println "-----------------------------------\n"
 
     println "\n-----------------------------------"
-    println "Last Error: ";
+    println "Last Error: \n";
     println env.lastErrorDescription;
     println "-----------------------------------\n"
 
     println "\n-----------------------------------"
-    println "System log: ";
+    println "System log: \n";
     println retrieveLastRemoteControlLogs();
     println "-----------------------------------\n"
 
