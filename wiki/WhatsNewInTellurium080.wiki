@@ -1,6 +1,8 @@
 #summary What's New in Tellurium 0.8.0.
 #labels Phase-Implementation,Phase-Support
 
+<wiki:toc max_depth="5" />
+
 = Tellurium Core =
 
 == Bug Report ==
@@ -430,3 +432,7 @@ printStackTrace()@http://localhost:4444/selenium-server/core/scripts/utils.js:57
 ----------------------------    End     --------------------------------
 
 }}}
+
+= Engine =
+
+= Trump =
