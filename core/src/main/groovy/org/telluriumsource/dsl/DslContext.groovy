@@ -383,10 +383,20 @@ abstract class DslContext extends BaseDslContext {
           }
         }
 
-        println "HTML: "
+        println "HTML Source: ";
+
+        println getHtmlSource();
+
+        println "HTML for UI Modules: ";
+
         if(uimodules != null && uimodules.size() > 0){
           uimodules.each {String name ->
-            getHTMLSource(name);
+            try{
+               getHTMLSource(name);
+            }catch(Exception e){
+              
+            }
+
           }
         } 
 
