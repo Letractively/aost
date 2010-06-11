@@ -9,7 +9,7 @@
 
 Tellurium Core added a {{{bugReport()}}} method in DslContext, most likely you won't call it directly. Whenever an exception is thrown, Tellurium core will automatically generate a bug report including information about UI module, html source, UI module validation, Exception, Selenium RC log, and Environment variables. 
 
-To support this new functionality, the following parameter is added to TelluriumConfig.groovy:
+To support this new functionality, the following parameter has been added to TelluriumConfig.groovy:
 
 {{{
         exception{
@@ -19,13 +19,12 @@ To support this new functionality, the following parameter is added to Tellurium
         }
 }}}
 
-You can programmatically turn on and off the bug report feature by calling 
+You can programmatically turn on and off the bug report feature by calling the following method in your test class.
 
 {{{
    public void generateBugReport(boolean isUse);
 }}}
 
-in your test class.
 
 On example bug report result is shown as follows.
 
