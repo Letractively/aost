@@ -5,6 +5,7 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.framework.config.Configurable
 
 import org.telluriumsource.util.Helper
+import org.telluriumsource.dsl.BaseDslContext
 
 /**
  * Environment to hold runtime environment variables
@@ -38,6 +39,8 @@ public class Environment implements Configurable{
 
   protected boolean captureScreenshot = false;
 
+  protected boolean bugReport = false;
+
   protected String locale = "en_US";
 
   def envVariables = [:];
@@ -53,6 +56,10 @@ public class Environment implements Configurable{
   //protected LogLevels loggingLevel = LogLevels.OFF
 
   protected String lastErrorDescription = "";
+
+  protected String lastUiModule = null;
+
+  protected BaseDslContext lastDslContext = null;
 
   public String toString(){
     String result = """
@@ -114,6 +121,10 @@ public class Environment implements Configurable{
     return this.exploitBundle;
   }
 
+  public boolean isGenerateBugReport(){
+    return this.bugReport;
+  }
+
   public boolean isUseScreenshot(){
     return this.captureScreenshot;
   }
@@ -148,6 +159,10 @@ public class Environment implements Configurable{
 
   public void useScreenshot(boolean isUse){
     this.captureScreenshot = isUse;
+  }
+
+  public void generateBugReport(boolean isUse){
+    this.bugReport = isUse;
   }
 
   public void useTrace(boolean isUse){

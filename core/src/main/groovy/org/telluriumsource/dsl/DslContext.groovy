@@ -213,11 +213,6 @@ abstract class DslContext extends BaseDslContext {
         return accessor.isTextPresent(context, pattern)
     }
 
-    String getHtmlSource() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.getHtmlSource(context)
-    }
-
     String getExpression(String expression) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         return accessor.getExpression(context, expression)
@@ -251,11 +246,6 @@ abstract class DslContext extends BaseDslContext {
     String captureEntirePageScreenshotToString(String kwargs){
        WorkflowContext context = WorkflowContext.getDefaultContext()
        return accessor.captureEntirePageScreenshotToString(context, kwargs)
-    }
-
-    String retrieveLastRemoteControlLogs(){
-       WorkflowContext context = WorkflowContext.getDefaultContext()
-       return accessor.retrieveLastRemoteControlLogs(context)
     }
   
     void chooseCancelOnNextConfirmation() {
@@ -372,45 +362,4 @@ abstract class DslContext extends BaseDslContext {
         return name
     }
 
-    public void bugReport(){
-        println "Please cut and paste the following bug report to Tellurium user group http://groups.google.com/group/tellurium-users"
-        println "---------------------------- Bug Report --------------------------------"
-        println "UI Module: ";
-        Set<String> uimodules = ui.getUiModuleNames();
-        if(uimodules != null && uimodules.size() > 0){
-          uimodules.each {String name ->
-            println toString(name);
-          }
-        }
-
-        println "HTML Source: ";
-
-        println getHtmlSource();
-
-        println "HTML for UI Modules: ";
-
-        if(uimodules != null && uimodules.size() > 0){
-          uimodules.each {String name ->
-            try{
-               getHTMLSource(name);
-            }catch(Exception e){
-              
-            }
-
-          }
-        } 
-
-        Environment env = Environment.instance;
-
-        println "Environment: ";
-        //dump Environment variables
-        println env.toString();
-
-        println "Last Error: ";
-        println env.lastErrorDescription;
-
-        println "System log: ";
-        println retrieveLastRemoteControlLogs();
-        println "----------------------------    End     --------------------------------"
-    }
 }

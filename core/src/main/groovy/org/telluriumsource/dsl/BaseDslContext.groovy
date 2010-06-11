@@ -143,11 +143,18 @@ abstract class BaseDslContext extends GlobalDslContext {
     return obj
   }
 
+  protected String getUiModuleId(String uid){
+    UiID uiid = UiID.convertToUiID(uid);
+    return uiid.pop();
+  }
+
   def UiObject walkToWithException(WorkflowContext context, String uid) {
-    UiObject obj = ui.walkTo(context, uid)
+    Environment.instance.lastDslContext = this; 
+    UiObject obj = ui.walkTo(context, uid);
     if (obj != null) {
-      context.attachMetaCmd(uid, obj.amICacheable(), true)
-      context.putContext(WorkflowContext.DSLCONTEXT, this)
+      context.attachMetaCmd(uid, obj.amICacheable(), true);
+      context.putContext(WorkflowContext.DSLCONTEXT, this);
+      Environment.instance.lastUiModule = getUiModuleId(uid);
 
       return obj
     }
@@ -157,7 +164,7 @@ abstract class BaseDslContext extends GlobalDslContext {
 
   String getConsoleInput() {
     return (String) System.in.withReader {
-      it.readLine()
+      it.readLine();
     }
   }
 
@@ -1504,6 +1511,16 @@ abstract class BaseDslContext extends GlobalDslContext {
     }
   }
 
+  String getHtmlSource() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.getHtmlSource(context)
+  }
+
+  String retrieveLastRemoteControlLogs(){
+     WorkflowContext context = WorkflowContext.getDefaultContext()
+     return accessor.retrieveLastRemoteControlLogs(context)
+  }
+
   void setTimeout(long timeoutInMilliseconds) {
     WorkflowContext context = WorkflowContext.getDefaultContext()
 
@@ -1598,4 +1615,96 @@ abstract class BaseDslContext extends GlobalDslContext {
 
     extension.removeMarkedUids(context, tag);
   }
+
+  public void bugReport() {
+    println "\nPlease cut and paste the following bug report to Tellurium user group http://groups.google.com/group/tellurium-users"
+    println "---------------------------- Bug Report --------------------------------"
+
+    Environment env = Environment.instance;
+    if (env.lastUiModule != null) {
+      println "\n-----------------------------------"
+      println "UI Module " + env.lastUiModule + ": ";
+
+      println toString(env.lastUiModule);
+      println "-----------------------------------\n"
+    }
+
+    println "\n-----------------------------------"
+    println "HTML Source: ";
+    println getHtmlSource();
+    println "-----------------------------------\n"
+
+    if (env.lastUiModule != null) {
+      println "\n-----------------------------------"
+      println "Validate UI Module" + env.lastUiModule + ": ";
+      try {
+//        getHtmlSource(env.lastUiModule);
+        validate(env.lastUiModule);
+      } catch (Exception e) {
+
+      }
+      println "-----------------------------------\n"
+    }
+
+    println "\n-----------------------------------"
+    println "Environment: ";
+    //dump Environment variables
+    println env.toString();
+    println "-----------------------------------\n"
+
+    println "\n-----------------------------------"
+    println "Last Error: ";
+    println env.lastErrorDescription;
+    println "-----------------------------------\n"
+
+    println "\n-----------------------------------"
+    println "System log: ";
+    println retrieveLastRemoteControlLogs();
+    println "-----------------------------------\n"
+
+    println "----------------------------    End     --------------------------------\n"
+  }
+
+
+/*    public void bugReport(){
+        println "Please cut and paste the following bug report to Tellurium user group http://groups.google.com/group/tellurium-users"
+        println "---------------------------- Bug Report --------------------------------"
+        println "UI Module: ";
+        Set<String> uimodules = ui.getUiModuleNames();
+        if(uimodules != null && uimodules.size() > 0){
+          uimodules.each {String name ->
+            println toString(name);
+          }
+        }
+
+        println "HTML Source: ";
+
+        println getHtmlSource();
+
+        println "HTML for UI Modules: ";
+
+        if(uimodules != null && uimodules.size() > 0){
+          uimodules.each {String name ->
+            try{
+               getHTMLSource(name);
+            }catch(Exception e){
+
+            }
+
+          }
+        }
+
+        Environment env = Environment.instance;
+
+        println "Environment: ";
+        //dump Environment variables
+        println env.toString();
+
+        println "Last Error: ";
+        println env.lastErrorDescription;
+
+        println "System log: ";
+        println retrieveLastRemoteControlLogs();
+        println "----------------------------    End     --------------------------------"
+    }*/
 }

@@ -244,6 +244,10 @@ class TelluriumFramework {
     env.useTrace(isUse);
   }
 
+  public void generateBugReport(boolean isUse) {
+    env.generateBugReport(isUse);
+  }
+
   public void showTrace() {
     this.global.showTrace();
   }

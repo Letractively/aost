@@ -41,6 +41,10 @@ class Dispatcher implements Configurable {
       return Environment.instance.isUseTrace();
     }
 
+    private boolean isGenerateBugReport(){
+      return Environment.instance.isGenerateBugReport();
+    }
+
     def methodMissing(String name, args) {
       WorkflowContext context = args[0]
       String apiname = context.getApiName();
@@ -68,8 +72,13 @@ class Dispatcher implements Configurable {
           sc.client.getActiveSeleniumSession().captureScreenshot(filename)
           println i18nBundle.getMessage("Dispatcher.ExceptionMessage", e.getMessage(), filename)
         }
-        //dump Environment variables
-        println Environment.instance.toString();
+
+        if(isGenerateBugReport()){
+          bugReport();
+        }else{
+          //dump Environment variables
+          println Environment.instance.toString();
+        }
 
         throw e
       }
@@ -80,6 +89,54 @@ class Dispatcher implements Configurable {
     return invokeMethod(name, args)
   }
 */
+
+  public void bugReport() {
+    Environment env = Environment.instance;
+    if (env.lastDslContext != null) {
+      env.lastDslContext.bugReport();
+    }
+  }
+
+/*  public void bugReport() {
+    println "Please cut and paste the following bug report to Tellurium user group http://groups.google.com/group/tellurium-users"
+    println "---------------------------- Bug Report --------------------------------"
+
+    Environment env = Environment.instance;
+    if (env.lastUiModule != null && env.lastDslContext != null) {
+      println "UI Module " + env.lastUiModule + ": ";
+      println env.lastUiModule.toString(env.lastUiModule);
+
+    }
+
+    if (env.lastDslContext != null) {
+      println "HTML Source: ";
+
+      println env.lastDslContext.getHtmlSource();
+    }
+
+    if (env.lastUiModule != null && env.lastDslContext != null) {
+      println "HTML for UI Module" + env.lastUiModule + ": ";
+      try {
+        env.lastDslContext.getHtmlSource(env.lastUiModule);
+      } catch (Exception e) {
+
+      }
+    }
+
+    println "Environment: ";
+    //dump Environment variables
+    println env.toString();
+
+    println "Last Error: ";
+    println env.lastErrorDescription;
+
+    if (env.lastDslContext != null) {
+      println "System log: ";
+      println env.lastDslContext.retrieveLastRemoteControlLogs();
+    }
+
+    println "----------------------------    End     --------------------------------"
+  }*/
 
   def showTrace() {
     tracer.report()
