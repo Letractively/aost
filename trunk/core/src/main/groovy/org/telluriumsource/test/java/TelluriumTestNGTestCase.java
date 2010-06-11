@@ -19,10 +19,12 @@ public abstract class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase 
 //    @BeforeClass
     @BeforeTest(alwaysRun = true)
     public static void setUpForTest() {
-        tellurium = TelluriumSupport.addSupport();
-        tellurium.start(customConfig);
+        if(tellurium == null){
+            tellurium = TelluriumSupport.addSupport();
+            tellurium.start(customConfig);
 //        connector = (SeleniumConnector) tellurium.getProperty("connector");
-        connector = (SeleniumConnector) tellurium.getConnector();
+            connector = (SeleniumConnector) tellurium.getConnector();
+        }
     }
 
 //    @AfterClass
