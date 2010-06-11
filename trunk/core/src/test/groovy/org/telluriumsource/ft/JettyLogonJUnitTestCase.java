@@ -240,7 +240,6 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testBugReport(){
-        jlm.logon("tellurium", "testing");
         jlm.bugReport();
     }
 

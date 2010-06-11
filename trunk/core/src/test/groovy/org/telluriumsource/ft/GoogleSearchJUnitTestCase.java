@@ -42,6 +42,10 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
     }
 
     @Test
+    public void testDump(){
+        gsm.dump("Google");
+    }
+    @Test
     public void testJsonfyUiModule(){
         String json = gsm.toString("Google");
         System.out.println(json);
