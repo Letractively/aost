@@ -276,6 +276,7 @@ public class BundleProcessor implements Configurable {
       //TODO: need to extract the root uid
       if(this.needCacheUiModule(context, name, uid)){
         String id = this.getUiModuleId(uid);
+
         CmdRequest uum = this.getUseUiModuleRequest(context, id);
         bundle.addToBundle(uum);
         this.publishUiModule(id);

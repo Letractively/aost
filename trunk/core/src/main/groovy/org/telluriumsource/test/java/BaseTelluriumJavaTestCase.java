@@ -190,6 +190,10 @@ public abstract class BaseTelluriumJavaTestCase {
         tellurium.showTrace();
     }
 
+    public static void generateBugReport(boolean isUse){
+        tellurium.generateBugReport(isUse);
+    }
+
     public static void setEnvironment(String name, Object value) {
         tellurium.setEnvironment(name, value);
     }

@@ -167,6 +167,10 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
       tellurium.useTrace(isUse);
     }
 
+    public void generateBugReport(boolean isUse){
+      tellurium.generateBugReport(isUse);
+    }
+
     public void showTrace() {
       tellurium.showTrace();
     }

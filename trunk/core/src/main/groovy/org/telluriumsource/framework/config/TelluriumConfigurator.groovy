@@ -243,6 +243,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     checkConfig("conf.tellurium.bundle.useMacroCommand")
     checkConfig("conf.tellurium.test.execution.trace")
     checkConfig("conf.tellurium.test.exception.captureScreenshot")
+    checkConfig("conf.tellurium.test.exception.bugReport")
     checkConfig("conf.tellurium.i18n.locale")
     
 //    env.setProperty("maxMacroCmd", conf.tellurium.bundle.maxMacroCmd);
@@ -250,6 +251,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     env.setProperty("exploitBundle", conf.tellurium.bundle.useMacroCommand);
     env.setProperty("trace", conf.tellurium.test.execution.trace);
     env.setProperty("captureScreenshot", conf.tellurium.test.exception.captureScreenshot);
+    env.setProperty("bugReport", conf.tellurium.test.exception.bugReport);
     env.useLocale(conf.tellurium.i18n.locale);
   }
 
@@ -259,6 +261,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     env.setProperty("exploitBundle", false);
     env.setProperty("trace", false);
     env.setProperty("captureScreenshot", false);
+    env.setProperty("bugReport", false);
     env.useLocale("en_US");
 //    env.setProperty("locale", "en_US");
   }
