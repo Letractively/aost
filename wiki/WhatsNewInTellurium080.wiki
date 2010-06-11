@@ -30,17 +30,20 @@ in your test class.
 On example bug report result is shown as follows.
 
 {{{
-Please cut and paste the following bug report to Tellurium user group http://groups.google.com/group/tellurium-users
+Please cut and paste the following bug report to Tellurium user group (http://groups.google.com/group/tellurium-users)
+
 ---------------------------- Bug Report --------------------------------
 
 -----------------------------------
 UI Module Form: 
+
 [{"obj":{"uid":"Form","locator":{"tag":"form","attributes":{"action":"check_phone","method":"POST"}},"uiType":"Form","metaData":{"id":"Form","type":"UiObject"}},"key":"Form"},{"obj":{"uid":"check","locator":{"tag":"input","attributes":{"value":"Check","type":"submit"}},"uiType":"SubmitButton","metaData":{"id":"check","type":"UiObject"}},"key":"Form.check"},{"obj":{"uid":"Number","locator":{"tag":"input","attributes":{"name":"$PhoneNumber"}},"uiType":"InputBox","metaData":{"id":"Number","type":"UiObject"}},"key":"Form.Number"},{"obj":{"uid":"Country","locator":{"tag":"select","attributes":{"name":"$CountryCode"}},"uiType":"Selector","metaData":{"id":"Country","type":"UiObject"}},"key":"Form.Country"}]
 -----------------------------------
 
 
 -----------------------------------
 HTML Source: 
+
 <head>
 
 
@@ -286,6 +289,7 @@ com.thoughtworks.selenium.HttpCommandProcessor.throwAssertionFailureExceptionOrE
 
 -----------------------------------
 System log: 
+
 14:06:58.794 INFO [18] org.openqa.selenium.server.SeleniumDriverResourceHandler - Command request: getBundleResponse[[{"uid":"Form","args":[[{"obj":{"uid":"Form","locator":{"tag":"form","attributes":{"action":"check_phone","method":"POST"}},"uiType":"Form","metaData":{"id":"Form","type":"UiObject"}},"key":"Form"},{"obj":{"uid":"check","locator":{"tag":"input","attributes":{"value":"Check","type":"submit"}},"uiType":"SubmitButton","metaData":{"id":"check","type":"UiObject"}},"key":"Form.check"},{"obj":{"uid":"Number","locator":{"tag":"input","attributes":{"name":"$PhoneNumber"}},"uiType":"InputBox","metaData":{"id":"Number","type":"UiObject"}},"key":"Form.Number"},{"obj":{"uid":"Country","locator":{"tag":"select","attributes":{"name":"$CountryCode"}},"uiType":"Selector","metaData":{"id":"Country","type":"UiObject"}},"key":"Form.Country"}]],"name":"getUseUiModule","sequ":0},{"uid":"Form.Country","args":["jquery=form[method=POST] select[name$=CountryCode]"],"name":"getSelectOptions","sequ":6}], ] on session dd53d08fdd2f4eeda6d273b238b5cf71
 
 14:06:59.028 INFO [18] org.openqa.selenium.server.SeleniumDriverResourceHandler - Got result: ERROR: Cannot locate UI module Form
