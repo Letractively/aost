@@ -16,10 +16,12 @@ public abstract class TelluriumJUnitTestCase extends BaseTelluriumJavaTestCase {
 
     @BeforeClass
     public static void setUpForClass() {
-        tellurium = TelluriumSupport.addSupport();
-        tellurium.start(customConfig);
+        if (tellurium == null) {
+            tellurium = TelluriumSupport.addSupport();
+            tellurium.start(customConfig);
 //        connector = (SeleniumConnector) tellurium.getProperty("connector");
-        connector = (SeleniumConnector) tellurium.getConnector();
+            connector = (SeleniumConnector) tellurium.getConnector();
+        }
     }
 
     @AfterClass
