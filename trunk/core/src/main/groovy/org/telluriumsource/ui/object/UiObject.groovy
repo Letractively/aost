@@ -129,6 +129,10 @@ abstract class UiObject implements Cloneable{
     String getText(Closure c){
        return c(locator)
     }
+ 
+    String getValue(Closure c){
+       return c(locator)
+    }
 
     def getAttribute(String attribute, Closure c){
 //        return c(locator, "@${attribute}")
