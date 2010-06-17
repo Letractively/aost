@@ -436,6 +436,10 @@ printStackTrace()@http://localhost:4444/selenium-server/core/scripts/utils.js:57
 
 }}}
 
+== Misc ==
+
+  * {{{getValue(String uid)}}} is added to UI base object UiObject so that all UI objects can call this method.
+
 = Engine =
 
 = Trump =
