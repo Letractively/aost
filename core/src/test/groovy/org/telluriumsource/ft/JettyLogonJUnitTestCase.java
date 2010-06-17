@@ -1,5 +1,6 @@
 package org.telluriumsource.ft;
 
+import com.thoughtworks.selenium.SeleniumException;
 import org.telluriumsource.framework.Environment;
 import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
 import org.telluriumsource.module.JettyLogonModule;
@@ -127,6 +128,12 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         String alt = jlm.getLogoAlt();
         assertNotNull(alt);
         assertEquals("Logo", alt);
+    }
+
+    @Test(expected= SeleniumException.class)
+    public void testGetValue(){
+        String value = jlm.getValue("Form.Username.Label");
+        assertEquals("", value);
     }
 
     @Test
