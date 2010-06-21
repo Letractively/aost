@@ -23,7 +23,7 @@ function Editor(window) {
     this.decorator = new Decorator();
 
 //    this.options = new Preferences();
-    
+
     //Detect the browser properties
     BrowserDetect.init();
     this.os = BrowserDetect.OS;
@@ -122,6 +122,7 @@ Editor.prototype.updateSource = function(){
 Editor.prototype.clearButton = function(){
     this.recorder.clearAll();
     this.clearSourceTabContent();
+    this.clearExportToWindowTabContent();
     this.logView.clear();
     this.clearCustomizeTabContext();
     this.decorator.cleanShowNode();
@@ -146,8 +147,12 @@ Editor.prototype.clearSourceTabContent = function(){
     document.getElementById("source").value = "";
 };
 
+Editor.prototype.clearExportToWindowTabContent = function(){
+    document.getElementById("exportSource").value = "";
+};
+
 Editor.prototype.selectedTreeItem = function(event){
-    this.recorder.showSelectedNode();  
+    this.recorder.showSelectedNode();
 };
 
 Editor.prototype.customizeButton = function(){
@@ -183,7 +188,7 @@ Editor.prototype.processCustomizeEvent = function(event){
         this.fillUiObjectFields(uiObject);
         this.enableUiObjectFields();
     }else{
-        logger.warn("Cannot find UI object " + this.currentUid);   
+        logger.warn("Cannot find UI object " + this.currentUid);
     }
 };
 
@@ -194,7 +199,7 @@ Editor.prototype.processCheckEvent = function(event){
 Editor.prototype.fillUiObjectFields = function(uiObject){
     document.getElementById("uid").value = uiObject.uid;
     document.getElementById("uiType").value = uiObject.uiType;
-    
+
     if (uiObject.container) {
         document.getElementById("group_Check_Box").disabled = false;
         document.getElementById("group_Check_Box").checked = uiObject.group;
@@ -219,7 +224,7 @@ Editor.prototype.enableUiObjectFields = function(){
 
 Editor.prototype.disableUiObjectFields = function(){
     document.getElementById("uid").setAttribute("disabled", "true");
-    document.getElementById("uiType").setAttribute("disabled", "true");   
+    document.getElementById("uiType").setAttribute("disabled", "true");
 };
 
 Editor.prototype.buildUiAttributeTree = function(xml) {
@@ -311,7 +316,7 @@ Editor.prototype.updateUiObject = function(){
             }
         }
         uiObject.updateAttributes(attrmap);
-        
+
         //validate xpath again
         this.innerTree.validate();
         this.customizeButton();
@@ -340,6 +345,18 @@ Editor.prototype.exportUiModule = function(){
     }
 };
 
+Editor.prototype.exportToWindow = function(){
+    if(this.innerTree != null){
+        var txt = this.innerTree.createUiModule();
+        //switch to the exportToWindows tab
+        document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
+        var sourceTextNode = document.getElementById("exportSource");
+        sourceTextNode.value  = txt;
+
+        logger.debug("UI Module is exported to window ");
+    }
+};
+
 Editor.prototype.updateOptions = function(){
     window.openDialog("chrome://trump/content/preferences.xul", "options", "chrome,modal,resizable", this.os);
     var jslog = Preferences.getPref("extensions.trump.jslog");
@@ -347,13 +364,13 @@ Editor.prototype.updateOptions = function(){
         jslog = true;
     }
     logger.jslog = jslog;
-    
+
 //    var elem = document.getElementById("logging-console");
     var elem = window.frames["logViewFrame"].document.getElementById("logging-console");
     if (elem != null) {
         var logWrap = Preferences.getPref("extensions.trump.logwrap");
         if(logWrap == undefined){
-            logWrap = true;    
+            logWrap = true;
         }
 
         if (logWrap) {
