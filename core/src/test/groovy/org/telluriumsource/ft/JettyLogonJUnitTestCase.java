@@ -223,6 +223,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     @Test
     public void testCaptureScreen(){
         jlm.captureScreenshot("jettyLogon1.png");
+        
         //XXX: this method requires absolute path !!!
         jlm.captureEntirePageScreenshot("\\tmp\\jettylogon2.png", "background=#CCFFDD");
     }
