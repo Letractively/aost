@@ -43,7 +43,7 @@ Recorder.prototype.registerClickListener = function(){
                 self.decorator.addBackground(element);
                 self.selectedElements.push(element);
 
-                var uid = "trumpSelected" + this.sequence.next();
+                var uid = "trumpSelected" + self.sequence.next();
                 var tagObject = self.builder.createTagObject(element, uid);
                 teJQuery(element).data("uid", uid);
                 self.tagObjectArray.push(tagObject);
