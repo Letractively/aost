@@ -5,6 +5,11 @@ var whiteListAttributes = ["id", "name", "value", "tag", "type", "class", "actio
 
 var eventListAttributes = ["onclick", "ondblclick", "onkeyup", "onkeydown", "onkeypress", "onfocus", "onblur", "onmousedown", "onmouseup", "onmouseover", "onmouseout", "onchange", "onsubmit", "onselect"];
 
+var onclickEvent = "onclick";
+var typeAttribute = "type";
+var inputImageType = "image";
+var srcAttribute = "src";
+
 //filter out do not wanted Node attributes, most copied from builder.js
 function Filter(){
     this.SEPARATOR = ",";
@@ -108,6 +113,7 @@ Filter.prototype.isEvent = function(attribute){
 
 Filter.prototype.processEventAttributes = function(attributes){
     var respond = new Array();
+    var onclickIncluded = false;
 
     if(attributes != null && attributes.size() > 0){
         var keys = attributes.keySet();
@@ -118,9 +124,32 @@ Filter.prototype.processEventAttributes = function(attributes){
                 if(event != null){
                     respond.push(event);
                 }
+                if(key == onclickEvent){
+                    onclickIncluded = true;
+                }
+            }
+        }
+        if(!onclickIncluded){
+            if(this.addRespondClick(attributes)){
+                respond.push(this.eventmap.get(onclickEvent));
             }
         }
     }
 
     return respond;
+};
+
+Filter.prototype.addRespondClick = function(attributes){
+    var imageType = false;
+    var imageSrc = false;
+    var keys = attributes.keySet();
+    for(var i=0; i<keys.length; i++){
+        if(keys[i] == typeAttribute && attributes.get(keys[i]) == inputImageType){
+            imageType = true;
+        }else if(keys[i] == srcAttribute){
+            imageSrc = true;
+        }
+    }
+
+    return imageType && imageSrc;
 };
