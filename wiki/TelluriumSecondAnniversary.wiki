@@ -21,7 +21,7 @@ Tellurium continues evolving and paving its own way to future. Some interesting 
     * Testing flow support. 
     * Tellurium as a web security testing tool. 
 
-= Tellurium Future from the eyes of Tellurium Team =
+= Tellurium Future =
 
 Tellurium cannot stand in the current place without the contributions from all Tellurium past and current members. Let us see what they said about Tellurium.
 
