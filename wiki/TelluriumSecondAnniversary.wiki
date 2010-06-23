@@ -25,7 +25,7 @@ Tellurium continues evolving and paving its own way to future. Some interesting 
 
 Tellurium cannot stand in the current place without the contributions from all Tellurium past and current members. Let us see what they said about Tellurium.
 
-*Jian Fang*, Tellurium creator and principle developer:
+*Jian Fang*, Tellurium creator, Tellurium project Lead, and principle developer:
 
 "_Tellurium was my brain child and I didn't expect it grow to the current stage when I first release it in June 25, 2008. I really thank all Tellurium team members for their contributions and Tellurium users for their support. Look forward to a stronger Tellurium team and much bigger Tellurium community in the near future._"
 
