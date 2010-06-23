@@ -60,6 +60,12 @@ Jared Rawlinson ([http://citystormmedia.com City Storm Media]): Tellurium Projec
 
   * Most Valuable User: *Dominic Mooney*  
 
+=== 2009 - 2010 ===
+
+  * Most Active User: *Jonathan Share*  
+
+  * Most Valuable User: *Dominic Mooney* 
+
 == Past Members ==
 
    * *Quan Bui*: Quan worked on Tellurium reference projects and proposed the ExtJs widget project.
