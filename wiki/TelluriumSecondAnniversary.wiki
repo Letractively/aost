@@ -29,6 +29,10 @@ Tellurium cannot stand in the current place without the contributions from all T
 
 "_Tellurium was my brain child and I didn't expect it to grow to the current stage when I first released it in June 25, 2008. I really thank all Tellurium team members for their contributions and Tellurium users for their support. Look forward to a stronger Tellurium team and much bigger Tellurium community in the near future._"
 
+*Vivek Mongolu*, Tellurium project committer
+
+"_We were first introduced to Selenium in Sep 2007. At that time there was no good testing framework that could test the Ajax/Web 2.0 application. We were completely blown away at the Selenium presentation in Rich Web Experience 2007. We started using Selenium to write some tests and quickly realized that it too had some problems and thats how Tellurium evovled. For the past 2 years its been amazing. With the 0.7.0 release we have given the community some awesome features and will continue to do so. I'd like to thank the Tellurium users and the Tellurium team for their contributions and also would like to congratulate the Tellurium team on completing 2 years and I am sure each member of the team is proud of this achievement._"
+
 
 = Resources =
 
