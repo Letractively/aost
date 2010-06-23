@@ -1,0 +1,6 @@
+#summary Tellurium 2nd Anniversary and Future.
+#labels Phase-Implementation,Phase-Support
+
+= Introduction =
+
+By June 25, Tellurium will be 2 year old. In the past year, Tellurium team worked very hard to get Tellurium 0.7.0 out of the door. The Tellurium 0.7.0 release is a milestone release with many new features which pave a new direction for Tellurium to go in the future. 
