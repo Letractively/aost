@@ -70,7 +70,7 @@ First of all, we need more people to get involved in Tellurium development, test
   * JavaScript and jQuery gurus to join our team to develop the TrUMP and the Engine projects.  
   * Other talented people to bring new ideas and contribute to Tellurium.
 
-If you are interested, please contact me (John.Jian.Fang@gmail.com) directly. Thanks in advance.
+If you are interested, please contact me (John.Jian.Fang at gmail dot com) directly. Thanks in advance.
 
 From technical perspective, we will focus on the following tasks,
 
