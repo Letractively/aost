@@ -3,4 +3,19 @@
 
 = Introduction =
 
-By June 25, Tellurium will be 2 year old. In the past year, Tellurium team worked very hard to get Tellurium 0.7.0 out of the door. The Tellurium 0.7.0 release is a milestone release with many new features which pave a new direction for Tellurium to go in the future. 
+By June 25, Tellurium will be 2 year old. In the past year, Tellurium team worked very hard to get Tellurium 0.7.0 out of the door. The Tellurium 0.7.0 release is a milestone release with many new features which pave a new direction for Tellurium to go in the future. The new features include [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the Santa Group Locating Algorithm], [http://code.google.com/p/aost/wiki/Tellurium070Update#Macro_Command Macro Command], [http://code.google.com/p/aost/wiki/Tellurium070Update#UI_Module_Caching UI Module Caching], [http://code.google.com/p/aost/wiki/InternationalizationSupportTellurium I18n support], and [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage the Tellurium UID Description Language] (UDL), which is used to address the dynamic factors in Tellurium UI templates and increase the flexibility of Tellurium UI templates. 
+
+Tellurium community is getting bigger and Tellurium users shaped the framework to a great extent. The following users got recognized for 2009 - 2010.
+
+  * Most Active User: Jonathan Share 
+  * Most Valuable User: Dominic Mooney 
+
+Tellurium continues evolving and paving its own way to future. Some interesting areas we will be working on include:
+
+    * Tellurium 0.7.0 has implemented a new test driving engine using jQuery. We will continue developing the new Engine to its maturity.
+    * Tellurium UI module plugin (Trump) is the key to the success of Tellurium.  Trump 0.1.0 was built for Tellurium 0.5.0 and we are working towards a major update on Trump to make it match Tellurium 0.7.0 and to generate test scripts as well as UI modules so that Tellurium is not only good for developers, but that it works for QA testers as well. 
+    * Tellurium as a cloud testing tool. We will exploit peer-to-peer techniques to make the test servers capable of self-organizing and self-coordinating in the cloud environment with the least management effort.  
+    * Tellurium Widgets, creation of reusable Dojo, ExtJS, and jQuery UI widgets. This allows other people to reuse the widgets simply by including the jar files to their projects.
+    * Behavior Driven Testing support.
+    * Testing flow support. 
+    * Tellurium as a web security testing tool. 
