@@ -5,7 +5,7 @@
 
 By June 25, Tellurium will be 2 year old. In the past year, Tellurium team worked very hard to get Tellurium 0.7.0 out of the door. The Tellurium 0.7.0 release is a milestone release with many new features which pave a new direction for Tellurium to go in the future. The new features include [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the Santa Group Locating Algorithm], [http://code.google.com/p/aost/wiki/Tellurium070Update#Macro_Command Macro Command], [http://code.google.com/p/aost/wiki/Tellurium070Update#UI_Module_Caching UI Module Caching], [http://code.google.com/p/aost/wiki/InternationalizationSupportTellurium I18n support], and [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage the Tellurium UID Description Language] (UDL), which is used to address the dynamic factors in Tellurium UI templates and increase the flexibility of Tellurium UI templates. 
 
-Tellurium community is getting bigger and Tellurium users shaped the framework to a great extent. The following users got recognized for 2009 - 2010.
+Tellurium community is getting bigger and Tellurium users' comments and suggestions have shaped the Tellurium framework in many different ways and various aspects. The following users got recognized for 2009 - 2010.
 
   * Most Active User: Jonathan Share 
   * Most Valuable User: Dominic Mooney 
@@ -26,4 +26,11 @@ Tellurium cannot stand in the current place without the contributions from all T
 
 *Jian Fang*, Tellurium creator and principle developer.
 
+= Resources =
+
+  * [http://code.google.com/p/aost/ Tellurium Project Home]
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group]
+  * [http://groups.google.com/group/tellurium-developers Tellurium Developer Group]
+  * [http://twitter.com/TelluriumSource Tellurium on Twitter]
+  * [http://code.google.com/p/aost/wiki/Tellurium070Released Tellurium 0.7.0]
  
