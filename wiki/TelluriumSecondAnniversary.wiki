@@ -27,7 +27,7 @@ Tellurium cannot stand in the current place without the contributions from all T
 
 *Jian Fang*, Tellurium creator, Tellurium project Lead, and principle developer:
 
-"_Tellurium was my brain child and I didn't expect it grow to the current stage when I first release it in June 25, 2008. I really thank all Tellurium team members for their contributions and Tellurium users for their support. Look forward to a stronger Tellurium team and much bigger Tellurium community in the near future._"
+"_Tellurium was my brain child and I didn't expect it to grow to the current stage when I first released it in June 25, 2008. I really thank all Tellurium team members for their contributions and Tellurium users for their support. Look forward to a stronger Tellurium team and much bigger Tellurium community in the near future._"
 
 
 = Resources =
