@@ -2,7 +2,7 @@
 #labels Phase-Implementation,Phase-Support
 <wiki:toc max_depth="5" />
 
-= Introduction =
+= Overview =
 
 By June 25, Tellurium will be 2 year old. In the past year, Tellurium team worked very hard to get Tellurium 0.7.0 out of the door. The Tellurium 0.7.0 release is a milestone release with many new features which pave a new direction for Tellurium to go in the future. The new features include [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the Santa Group Locating Algorithm], [http://code.google.com/p/aost/wiki/Tellurium070Update#Macro_Command Macro Command], [http://code.google.com/p/aost/wiki/Tellurium070Update#UI_Module_Caching UI Module Caching], [http://code.google.com/p/aost/wiki/InternationalizationSupportTellurium I18n support], and [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage the Tellurium UID Description Language] (UDL), which is used to address the dynamic factors in Tellurium UI templates and increase the flexibility of Tellurium UI templates. 
 
@@ -27,7 +27,7 @@ Tellurium cannot stand in the current place without the contributions from all T
 
 *Jian Fang*, Tellurium creator and project Lead:
 
-"_Tellurium was my brain child and I didn't expect it to grow to the current stage when I first released it in June 25, 2008. I really thank all Tellurium team members for their contributions and Tellurium users for their support. Look forward to a stronger Tellurium team and much bigger Tellurium community in the near future._"
+"_Tellurium was my brain child and I didn't expect it to grow to the current stage when I first released it in June 25, 2008. I really thank all Tellurium team members for their contributions and Tellurium users for their support. Look forward to a stronger Tellurium team and much bigger Tellurium community in the next year._"
 
 *Vivek Mongolu*, Tellurium project committer:
 
