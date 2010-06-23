@@ -33,6 +33,11 @@ Tellurium cannot stand in the current place without the contributions from all T
 
 "_We were first introduced to Selenium in Sep 2007. At that time there was no good testing framework that could test the Ajax/Web 2.0 application. We were completely blown away at the Selenium presentation in Rich Web Experience 2007. We started using Selenium to write some tests and quickly realized that it too had some problems and thats how Tellurium evovled. For the past 2 years its been amazing. With the 0.7.0 release we have given the community some awesome features and will continue to do so. I'd like to thank the Tellurium users and the Tellurium team for their contributions and also would like to congratulate the Tellurium team on completing 2 years and I am sure each member of the team is proud of this achievement._"
 
+*Ajay Ravichandran*, Tellurium project committer:
+
+"_My main interest in Tellurium started off with wanting to contribute to a dynamic open source project. Tellurium has been that and much more. For the last 2 years our team has introduced lots of cool features into tellurium. I think the best part of working for this team has been the opportunities, ideas and knowledge sharing that has taken place. I believe we have a even more dynamic and bright future ahead of us, especially with lots of awesome features coming up, from IDE based plugins, all the way to cloud based testing._"
+
+
 
 = Resources =
 
