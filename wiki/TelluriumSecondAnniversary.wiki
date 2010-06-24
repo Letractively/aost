@@ -4,14 +4,14 @@
 
 = Overview =
 
-By June 25, Tellurium will be 2 year old. In the past year, Tellurium team worked very hard to get Tellurium 0.7.0 out of the door. The Tellurium 0.7.0 release is a milestone release with many new features which pave a new direction for Tellurium to go in the future. The new features include [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the Santa Group Locating Algorithm], [http://code.google.com/p/aost/wiki/Tellurium070Update#Macro_Command Macro Command], [http://code.google.com/p/aost/wiki/Tellurium070Update#UI_Module_Caching UI Module Caching], [http://code.google.com/p/aost/wiki/InternationalizationSupportTellurium I18n support], and [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage the Tellurium UID Description Language] (UDL), which is used to address the dynamic factors in Tellurium UI templates and increase the flexibility of Tellurium UI templates. 
+By June 25, Tellurium will become 2 years old. In the past year, Tellurium team worked very hard to get Tellurium 0.7.0 out of the door. The Tellurium 0.7.0 release is a milestone release with many new features which pave a new path for Tellurium to go in the future. The new features include [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the Santa Group Locating Algorithm], [http://code.google.com/p/aost/wiki/Tellurium070Update#Macro_Command Macro Command], [http://code.google.com/p/aost/wiki/Tellurium070Update#UI_Module_Caching UI Module Caching], [http://code.google.com/p/aost/wiki/InternationalizationSupportTellurium I18n support], and [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage the Tellurium UID Description Language] (UDL), which is used to address the dynamic factors in Tellurium UI templates and increase the flexibility of Tellurium UI templates. 
 
 Tellurium community is getting bigger and Tellurium users' comments and suggestions have shaped the Tellurium framework in many different ways and various aspects. The following users got recognized for 2009 - 2010.
 
   * Most Active User: Jonathan Share 
   * Most Valuable User: Dominic Mooney 
 
-Tellurium continues evolving and paving its own way to future. Some interesting areas we will be working on include:
+Tellurium continues evolving and paving its own way to future. The following are some interesting areas we will be working on:
 
     * Tellurium 0.7.0 has implemented a new test driving engine using jQuery. We will continue developing the new Engine to its maturity.
     * Tellurium UI module plugin (Trump) is the key to the success of Tellurium.  Trump 0.1.0 was built for Tellurium 0.5.0 and we are working towards a major update on Trump to make it match Tellurium 0.7.0 and to generate test scripts as well as UI modules so that Tellurium is not only good for developers, but that it works for QA testers as well. 
