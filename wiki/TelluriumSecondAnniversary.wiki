@@ -21,7 +21,7 @@ Tellurium continues evolving and paving its own way to future. Some interesting 
     * Testing flow support. 
     * Tellurium as a web security testing tool. 
 
-= Tellurium and Me =
+= Tellurium and Committers =
 
 Tellurium cannot stand in the current place without the contributions from all Tellurium past and current members. Let us see what they said about Tellurium.
 
@@ -43,6 +43,7 @@ Tellurium cannot stand in the current place without the contributions from all T
 
 "_The level of documentation available to the users is awesome. I have visited many open source projects on the internet, and I am proud to say that the quality of the Tellurium documentation is amazing. _"
 
+== Tellurium and Users ==
 
 
 = Resources =
