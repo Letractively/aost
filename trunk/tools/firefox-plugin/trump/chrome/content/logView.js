@@ -56,6 +56,12 @@ LogView.prototype.clear = function() {
     }
 }
 
+LogView.prototype.toggle = function() {
+    if (!this.isHidden() && this.log) {
+        teJQuery("#logViewHBox").toggle();
+    }
+}
+
 LogView.prototype.onClear = function() {
 	if (!this.isHidden()) {
 		var nodes = this.getLogElement().childNodes;
