@@ -47,3 +47,4 @@
   * [http://code.google.com/p/aost/wiki/InterestingAlgorithmsInTellurium Interesting Algorithm Design Problems in Tellurium]
   * [http://code.google.com/p/aost/wiki/TelluriumjQueryUiWidgets Tellurium as A jQuery UI Widget Testing Framework]
   * [http://code.google.com/p/aost/wiki/jQueryAPowerfulToolInTellurium An At-A-Glance View of the use of jQuery in Tellurium]
+  * [http://code.google.com/p/aost/wiki/TelluriumSecondAnniversary Celebrate Tellurium 2nd Anniversary: Tellurium and Me]
