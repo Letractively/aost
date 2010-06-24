@@ -117,6 +117,7 @@ Editor.prototype.updateSource = function(){
 
 //    logger.debug("ui model generated:\n"+uiModel);
     sourceTextNode.value = uiModel;
+    this.exportToWindowInBackground();
 };
 
 Editor.prototype.clearButton = function(){
@@ -350,6 +351,18 @@ Editor.prototype.exportToWindow = function(){
         var txt = this.innerTree.createUiModule();
         //switch to the exportToWindows tab
         document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
+        var sourceTextNode = document.getElementById("exportSource");
+        sourceTextNode.value  = txt;
+
+        logger.debug("UI Module is exported to window ");
+    }
+};
+
+Editor.prototype.exportToWindowInBackground = function(){
+    if(this.innerTree != null){
+        var txt = this.innerTree.createUiModule();
+        //switch to the exportToWindows tab
+//        document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
         var sourceTextNode = document.getElementById("exportSource");
         sourceTextNode.value  = txt;
 
