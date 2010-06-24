@@ -275,3 +275,33 @@ Tree.prototype.createUiModule = function() {
 
     return sb.toString();
 };
+
+Tree.prototype.visit = function(visitor){
+    if(this.root != null){
+        this.root.visitMe(visitor);
+    }
+};
+
+//Convert UI tree presentation to UI module
+function UiConverter(){
+    this.uiModule = new UiModule();
+}
+
+UiConverter.prototype.convert = function(tree){
+    if(tree != null){
+        tree.visit(this);
+    }
+};
+
+UiConverter.prototype.visit = function(node){
+    var builder = tellurium.uiBuilderMap.get(node.uiobject.uiType);
+
+    var obj = null;
+    if(builder  != null){
+        obj = builder.build();
+    }
+    if(obj == null){
+        obj = new UiContainer();
+    }
+
+};
