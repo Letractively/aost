@@ -1,4 +1,4 @@
-#summary Tellurium 2nd Anniversary and Future.
+#summary Tellurium 2nd Anniversary: Tellurium and Me.
 #labels Phase-Implementation,Phase-Support
 <wiki:toc max_depth="5" />
 
@@ -21,7 +21,7 @@ Tellurium continues evolving and paving its own way to future. The following are
     * Testing flow support. 
     * Tellurium as a web security testing tool. 
 
-= Tellurium and Committers =
+= Tellurium and Me =
 
 Tellurium cannot stand in the current place without the contributions from all Tellurium past and current members. Let us see what they said about Tellurium.
 
@@ -42,8 +42,6 @@ Tellurium cannot stand in the current place without the contributions from all T
 "_I started working on Tellurium about 2 years ago. Tellurium started as an automated test framework rather than a test automation tool, but soon we realized that Tellurium can be more than a test automation framework. The features that Tellurium provides are amazing. People can start writing new tests in no time. New feature list for Tellurium is growing and we can see exciting times ahead. _"
 
 "_The level of documentation available to the users is awesome. I have visited many open source projects on the internet, and I am proud to say that the quality of the Tellurium documentation is amazing. _"
-
-= Tellurium and Users =
 
 
 = Resources =
