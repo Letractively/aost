@@ -37,6 +37,12 @@ Tellurium cannot stand in the current place without the contributions from all T
 
 "_My main interest in Tellurium started off with wanting to contribute to a dynamic open source project. Tellurium has been that and much more. For the last 2 years our team has introduced lots of cool features into tellurium. I think the best part of working for this team has been the opportunities, ideas and knowledge sharing that has taken place. I believe we have a even more dynamic and bright future ahead of us, especially with lots of awesome features coming up, from IDE based plugins, all the way to cloud based testing._"
 
+*Haroon Rasheed*, Tellurium project committer:
+
+"_I started working on Tellurium about 2 years ago. Tellurium started as an automated test framework rather than a test automation tool, but soon we realized that Tellurium can be more than a test automation framework. The features that Tellurium provides are amazing. People can start writing new tests in no time. New feature list for Tellurium is growing and we can see exciting times ahead.
+
+The level of documentation available to the users is awesome. I have visited many open source projects on the internet, and I am proud to say that the quality of the Tellurium documentation is amazing. _"
+
 
 
 = Resources =
