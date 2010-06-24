@@ -43,7 +43,7 @@ Tellurium cannot stand in the current place without the contributions from all T
 
 "_The level of documentation available to the users is awesome. I have visited many open source projects on the internet, and I am proud to say that the quality of the Tellurium documentation is amazing. _"
 
-== Tellurium and Users ==
+= Tellurium and Users =
 
 
 = Resources =
