@@ -1,4 +1,4 @@
-#summary Tellurium 2nd Anniversary: Tellurium and Me.
+#summary Celebrate Tellurium 2nd Anniversary: Tellurium and Me.
 #labels Phase-Implementation,Phase-Support
 <wiki:toc max_depth="5" />
 
