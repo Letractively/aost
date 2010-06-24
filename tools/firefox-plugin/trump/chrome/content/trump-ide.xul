@@ -218,9 +218,11 @@
                 </toolbarbutton>
                 <toolbarbutton id="logClear" label="&logClear.label;"
                                oncommand="window.editor.logView.clear()" class="console-button"/>
+                <toolbarbutton id="logToggle" label="&logToggle.label;"
+                               oncommand="window.editor.logView.toggle()" class="console-button"/>
             </hbox>
         </hbox>
-        <hbox>
+        <hbox id="logViewHBox">
             <spacer flex="0" width="15"/>
             <iframe flex="1" id="logView" name="logViewFrame" src="LogFrame.html" height="100" width="235">
             </iframe>
