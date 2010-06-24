@@ -40,6 +40,15 @@ function NodeObject(){
     this.xmlutil = new XmlUtil();
 }
 
+NodeObject.prototype.visitMe = function(visitor){
+    visitor.visit(this);
+    if(this.children != null && this.children.length > 0){
+        for(var i=0; i<this.children.length; i++){
+            this.children[i].visitMe(visitor);
+        }
+    }
+};
+
 NodeObject.prototype.walkUp = function(){
     var rxp = this.uiobject.buildXPath();
 
