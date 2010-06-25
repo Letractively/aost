@@ -172,8 +172,13 @@ Editor.prototype.customizeButton = function(){
 
 Editor.prototype.switchToCustomizeTab = function(){
     document.getElementById("editorTabs").selectedItem = document.getElementById("customizeTab");
+
+//    var uitypes = tellurium.getRegisteredUiTypes();
+//    teJQuery("#uiType").autocomplete("option", "source", uitypes);
+    
 /*
     var uitypes = tellurium.getRegisteredUiTypes();
+    teJQuery("#uiType").autocomplete("option", "source", uitypes);
     teJQuery("#uiType").autocomplete({
 //        source: ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby"]
         source: uitypes

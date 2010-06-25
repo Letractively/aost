@@ -40,7 +40,7 @@
         </menu>
         <menu id="menu-help" label="Help">
           <menupopup id="edit-popup">
-            <menuitem label="Wiki"  oncommand="window.open('http://code.google.com/p/aost/w/list')" />
+            <menuitem label="Document"  oncommand="window.open('http://code.google.com/p/aost/w/list')" />
             <menuitem label="Update"  oncommand="window.open('http://code.google.com/p/aost/downloads/list')" />
             <menuitem label="Support"  oncommand="window.open('http://groups.google.com/group/tellurium-users')" />
             <menuseparator/>
