@@ -150,6 +150,10 @@ var UiObject = Class.extend({
             this.snapshot();
     },
 
+    insertChild: function(uiid, obj){
+        fbError("Cannot insert object " + obj.uid + " to " + this.uid,  uiid);
+    },
+
     walkTo: function(context, uiid) {
         !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
@@ -335,6 +339,17 @@ var UiContainer = UiObject.extend({
         }
 
         return ids;
+    },
+
+    insertChild: function(uiid, obj){
+        var key = uiid.pop();
+        if(uiid.size() == 1){
+            obj.parent = this;
+            this.components.put(key, obj);
+        }else{
+            var child = this.components.get(key);
+            child.insertChild(uiid, obj);
+        }
     },
 
     goToPlace:  function(uiid, uiobj) {

@@ -10,30 +10,35 @@ function dumpObject(obj) {
 }
 
 function fbLog(msg, obj){
+    logger.log(msg);
     if (typeof(console) != "undefined") {
         console.log(msg, obj);
     }
 }
 
 function fbInfo(msg, obj){
+    logger.info(msg);
     if (typeof(console) != "undefined") {
         console.info(msg, obj);
     }
 }
 
 function fbDebug(msg, obj){
+     logger.debug(msg);
     if (typeof(console) != "undefined") {
         console.debug(msg, obj);
     }
 }
 
 function fbWarn(msg, obj){
+    logger.warn(msg);
     if (typeof(console) != "undefined") {
         console.warn(msg, obj);
     }
 }
 
 function fbError(msg, obj){
+    logger.error(msg);
     if (typeof(console) != "undefined") {
         console.trace();
         console.error(msg, obj);
@@ -60,7 +65,8 @@ function fbDir(obj){
 
 
 function LogManager(){
-    this.isUseLog = false;
+//    this.isUseLog = false;
+    this.isUseLog = true;
     this.logLevel = "info";
 }
 

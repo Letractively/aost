@@ -137,6 +137,13 @@ NodeObject.prototype.canonUID = function(){
     return this.id;
 };
 
+NodeObject.prototype.getUid = function(){
+    if(this.parent == null)
+        return this.id;
+    else
+        return this.parent.getUid + "." + this.id;
+};
+
 NodeObject.prototype.buildUiObject = function(){
     var hasChildren = false;
 

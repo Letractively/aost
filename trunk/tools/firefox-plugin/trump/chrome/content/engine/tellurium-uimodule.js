@@ -161,6 +161,37 @@ UiModule.prototype.walkTo = function(context, uiid) {
     return null;
 };
 
+UiModule.prototype.addUiObject = function(uid, obj){
+    var uiid = getUiid(uid);
+    var succeed = true;
+    if (this.root == null) {
+        if (uiid.size() == 1) {
+            this.root = obj;
+        } else {
+            fbError("Invalid uid " + uiid, this);
+            succeed = false;
+        }
+    }else{
+        var key = uiid.pop();
+        if(key == this.root.uid){
+            this.root.insertChild(uiid, obj);
+        }else{
+            fbError("Invalid uid " + uiid, this);
+            succeed = false;
+        }
+    }
+
+    if(succeed){
+        obj.uim = this;
+        this.map.put(uid, obj);
+        var id = obj.getIdAttribute();
+        //build ID Prefix tree, i.e., Trie
+        //TODO: may consider stricter requirement that the ID cannot be partial, i.e., cannot starts with * ^ ! $
+        if (id != null && id.trim().length > 0) {
+            this.idTrie.insert(uid, id);
+        }
+    }
+};
 
 UiModule.prototype.findInvalidAncestor = function(context, uiid){
     var obj = this.walkTo(context, uiid);
