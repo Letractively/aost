@@ -100,6 +100,7 @@ Editor.prototype.generateButton = function(){
 
     logger.debug("Done validating UI object's XPath");
 
+    logger.debug("Start validating UI Module");
     this.innerTree.validateUiModule();
     logger.debug("Done validating UI Module");
 };
