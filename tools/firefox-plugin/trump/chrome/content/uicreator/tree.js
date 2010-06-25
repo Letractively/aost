@@ -7,6 +7,9 @@ function Tree(){
     //An Array to hold reference to all the UI objects in the Tree
     //change it to a HashMap so that we can access it by key
     this.uiObjectMap = null;
+    this.builder = new UiModuleBuilder();
+    //UiAlg
+    this.uiAlg = new UiAlg();
 }
 
 Tree.prototype.printUI = function(){
@@ -276,6 +279,17 @@ Tree.prototype.createUiModule = function() {
     return sb.toString();
 };
 
+Tree.prototype.validateUiModule = function() {
+    //validate UI object's XPath
+    if(this.root != null){
+        var uim = this.builder.build(this);
+        var dom = teJQuery("html");
+        this.uiAlg.validate(uim, dom);
+    }else{
+        logger.warn("The root node in the Tree is null");
+    }
+};
+
 Tree.prototype.visit = function(visitor){
     if(this.root != null){
         this.root.visitMe(visitor);
@@ -283,17 +297,20 @@ Tree.prototype.visit = function(visitor){
 };
 
 //Convert UI tree presentation to UI module
-function UiConverter(){
-    this.uiModule = new UiModule();
+function UiModuleBuilder(){
+    this.uiModule = null;
 }
 
-UiConverter.prototype.convert = function(tree){
+UiModuleBuilder.prototype.build = function(tree){
+    this.uiModule = new UiModule();
     if(tree != null){
         tree.visit(this);
     }
+
+    return this.uiModule;
 };
 
-UiConverter.prototype.visit = function(node){
+UiModuleBuilder.prototype.visit = function(node){
     var builder = tellurium.uiBuilderMap.get(node.uiobject.uiType);
 
     var obj = null;
@@ -304,4 +321,5 @@ UiConverter.prototype.visit = function(node){
         obj = new UiContainer();
     }
 
+    this.uiModule.addUiObject(node.getUid(), obj);
 };
