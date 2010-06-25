@@ -368,6 +368,10 @@ Tellurium.prototype.registerUiBuilder = function(name, builder){
     this.uiBuilderMap.put(name, builder);
 };
 
+Tellurium.prototype.getRegisteredUiTypes = function(){
+    return this.uiBuilderMap.keySet();
+};
+
 Tellurium.prototype.registerTeApis = function(){
     this.registerApi("isElementPresent", true, "BOOLEAN");
     this.registerApi("blur", true, "VOID");
