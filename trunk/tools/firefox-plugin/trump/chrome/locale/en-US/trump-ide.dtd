@@ -39,4 +39,4 @@
 <!ENTITY logFilter.error.label "Error">
 <!ENTITY logFilter.warn.label "Warn">
 <!ENTITY logClear.label "Clear">
-<!ENTITY logToggle.label "Toggle">
+<!ENTITY logToggle.label "Show/Hide">

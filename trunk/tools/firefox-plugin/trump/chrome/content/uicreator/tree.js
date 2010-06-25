@@ -283,8 +283,11 @@ Tree.prototype.validateUiModule = function() {
     //validate UI object's XPath
     if(this.root != null){
         var uim = this.builder.build(this);
+        logger.info("Done build UI module ");
+        uim.dumpMe();
         var dom = teJQuery("html");
         this.uiAlg.validate(uim, dom);
+//         this.uiAlg.validate(uim, window);
     }else{
         logger.warn("The root node in the Tree is null");
     }
