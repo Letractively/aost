@@ -100,9 +100,9 @@ Editor.prototype.generateButton = function(){
 
     logger.debug("Done validating UI object's XPath");
 
-    logger.debug("Start validating UI Module");
-    this.innerTree.validateUiModule();
-    logger.debug("Done validating UI Module");
+//    logger.debug("Start validating UI Module");
+//    this.innerTree.validateUiModule();
+//    logger.debug("Done validating UI Module");
 };
 
 Editor.prototype.updateSource = function(){
@@ -172,6 +172,13 @@ Editor.prototype.customizeButton = function(){
 
 Editor.prototype.switchToCustomizeTab = function(){
     document.getElementById("editorTabs").selectedItem = document.getElementById("customizeTab");
+/*
+    var uitypes = tellurium.getRegisteredUiTypes();
+    teJQuery("#uiType").autocomplete({
+//        source: ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby"]
+        source: uitypes
+    });
+*/
 };
 
 Editor.prototype.buildCustomizeTree = function(xml) {
