@@ -1,5 +1,5 @@
 
-function UiObject(){
+function NodeUiObject(){
     this.constants = {
         TAG : "tag",
         RESPOND : "respond",
@@ -23,7 +23,7 @@ function UiObject(){
     this.isLocatorValid = false;
 }
 
-UiObject.prototype.buildUiObject = function(node, hasChildren){
+NodeUiObject.prototype.buildUiObject = function(node, hasChildren){
     this.node = node;
 
     var attributes = node.attributes;
@@ -47,7 +47,7 @@ UiObject.prototype.buildUiObject = function(node, hasChildren){
 
 //build relative xpath from UiObject's locator
 //If group is true, we need to use its children attributes
-UiObject.prototype.buildXPath = function(){
+NodeUiObject.prototype.buildXPath = function(){
     var xp;
 
     if(this.group){
@@ -61,7 +61,7 @@ UiObject.prototype.buildXPath = function(){
 };
 
 
-UiObject.prototype.strUiObject = function(level){
+NodeUiObject.prototype.strUiObject = function(level){
     var sb = new StringBuffer();
     for (var i = 0; i < level; i++) {
         sb.append("\t");
@@ -95,7 +95,7 @@ UiObject.prototype.strUiObject = function(level){
     return sb.toString();
 };
 
-UiObject.prototype.descObject = function(){
+NodeUiObject.prototype.descObject = function(){
     var sb = new StringBuffer();
     sb.append(this.uiType).append("(uid: '").append(this.uid).append("', ");
     sb.append(this.clocator.descLocator());
@@ -120,7 +120,7 @@ UiObject.prototype.descObject = function(){
 };
 
 
-UiObject.prototype.strUiObjectFooter = function(level){
+NodeUiObject.prototype.strUiObjectFooter = function(level){
     var sb = new StringBuffer();
     
     if (this.container) {
@@ -133,7 +133,7 @@ UiObject.prototype.strUiObjectFooter = function(level){
     return sb.toString();
 };
 
-UiObject.prototype.paddingByLevel = function(level) {
+NodeUiObject.prototype.paddingByLevel = function(level) {
     var sb = new StringBuffer();
 
     for (var l = 0; l < level; l++) {
@@ -143,38 +143,38 @@ UiObject.prototype.paddingByLevel = function(level) {
     return sb.toString();
 };
 
-UiObject.prototype.updateAttributes = function(attributeMap){
+NodeUiObject.prototype.updateAttributes = function(attributeMap){
     this.clocator.updateLocator(attributeMap);
 };
 
-UiObject.prototype.addRespond = function(event){
+NodeUiObject.prototype.addRespond = function(event){
     this.respond.push(event);
 };
 
-UiObject.prototype.setUID = function(uid){
+NodeUiObject.prototype.setUID = function(uid){
     this.uid = uid;
 };
 
-UiObject.prototype.setUiType = function(uitype){
+NodeUiObject.prototype.setUiType = function(uitype){
     this.uiType = uitype;
 };
 
-UiObject.prototype.isContainer = function(){
+NodeUiObject.prototype.isContainer = function(){
     this.container = true;
 };
 
-UiObject.prototype.notContainer = function(){
+NodeUiObject.prototype.notContainer = function(){
     this.container = false;
 };
 
-UiObject.prototype.useGroupLocating = function(){
+NodeUiObject.prototype.useGroupLocating = function(){
     this.group = true;
 };
 
-UiObject.prototype.noGroupLocating = function(){
+NodeUiObject.prototype.noGroupLocating = function(){
     this.group = false;
 };
 
-UiObject.prototype.toString = function(){
+NodeUiObject.prototype.toString = function(){
     return "uid : " + this.uid + " uiType : " + this.uiType;
 };
