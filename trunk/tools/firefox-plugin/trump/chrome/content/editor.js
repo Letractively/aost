@@ -9,7 +9,7 @@ function Editor(window) {
     var self = this;
     window.editor = this;
     this.document = document;
-
+    
     this.logView = new LogView(this);
     this.logView.setLog(logger);
 
@@ -172,8 +172,18 @@ Editor.prototype.customizeButton = function(){
 
 Editor.prototype.switchToCustomizeTab = function(){
     document.getElementById("editorTabs").selectedItem = document.getElementById("customizeTab");
-
-//    var uitypes = tellurium.getRegisteredUiTypes();
+/*
+    logger.debug("tellurium is " + tellurium);
+    if(tellurium == null){
+        tellurium = new Tellurium();
+        logger.debug("tellurium is " + tellurium);
+        tellurium.initialize();
+        logger.debug("UI map size " + tellurium.uiBuilderMap.size());
+    }
+    var uitypes = tellurium.getRegisteredUiTypes();
+    logger.debug("Get registered UI types: " + uitypes.join(", "));
+    */
+    
 //    teJQuery("#uiType").autocomplete("option", "source", uitypes);
     
 /*

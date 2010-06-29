@@ -41,7 +41,14 @@ Outlines.prototype.getOutline = function(index){
 
 var tellurium = null;
 
+teJQuery(document).ready(function() {
+    tellurium = new Tellurium();
+    tellurium.initialize();
+    !tellurium.logManager.isUseLog || fbLog("Tellurium initialized after document ready", tellurium);
+});
 
+
+/*
 teJQuery(document).ready(function() {
     tellurium = new Tellurium();
     tellurium.initialize();
@@ -57,6 +64,7 @@ teJQuery(document).ready(function() {
     if(typeof (firebug) != "undefined")
         void(firebug);
 });
+*/
 
 //add custom jQuery Selector :te_text()
 //
@@ -292,7 +300,7 @@ function EngineState(){
 }
 
 function Tellurium (){
-
+    logger.debug("start initializing tellurium... ");
     this.cache = new TelluriumCache();
 
     this.currentWindow = null;
@@ -327,6 +335,7 @@ function Tellurium (){
 
     //outlines
     this.outlines = new Outlines();
+    logger.debug("finish initializing tellurium... ");
 }
 
 Tellurium.prototype.isUseCache = function(){

@@ -35,7 +35,7 @@ function NodeObject(){
     this.tag = null;
 
     //The UI object associated with this node
-    this.uiobject = new UiObject();
+    this.uiobject = new NodeUiObject();
 
     this.xmlutil = new XmlUtil();
 }
