@@ -16,7 +16,7 @@
             getCurrentNode : function() {
                 return this.currentNode;
             }
-        }
+        };
         
         function showUIWindow() {
             var clickedNode = gContextMenu.target;

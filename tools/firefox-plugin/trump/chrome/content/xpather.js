@@ -228,7 +228,7 @@ function evaluateXPath(aContextNode, aXPath, node) {
     }
     //loadthem
     var foundNodes = new Array();
-    var item = res.iterateNext()
+    var item = res.iterateNext();
     while (item){
         foundNodes.push(item);
         item = res.iterateNext()

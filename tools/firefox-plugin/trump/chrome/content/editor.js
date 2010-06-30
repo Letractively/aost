@@ -303,7 +303,7 @@ Editor.prototype.updateUiObject = function(){
         uiObject.setUiType(document.getElementById("uiType").value);
 
         //update Group attribute
-        if(document.getElementById("group_Check_Box").disabled == false){
+        if(!document.getElementById("group_Check_Box").disabled){
             uiObject.group = document.getElementById("group_Check_Box").checked;
         }
 

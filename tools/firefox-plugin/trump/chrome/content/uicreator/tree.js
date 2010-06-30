@@ -26,7 +26,7 @@ Tree.prototype.buildXML = function(){
         this.root.buildXML(xmlArray);
         var xml = "<?xml version=\"1.0\"?>\n<UIs id=\"customize_tree_xml\" xmlns=\"\">\n";
         xml += this.formatXML(xmlArray);
-        xml += "</UIs>"
+        xml += "</UIs>";
 //        logger.debug("Generated XML: \n" + xml);
         return xml;
     }

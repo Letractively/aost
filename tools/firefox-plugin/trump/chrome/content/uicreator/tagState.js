@@ -1,11 +1,11 @@
 //composite type
-var firstChoiceTags = ["form", "table", "frame", "iframe"]
+var firstChoiceTags = ["form", "table", "frame", "iframe"];
 //list type
-var secondChoiceTags = ["tr", "th", "ul", "dl", "ol"]
+var secondChoiceTags = ["tr", "th", "ul", "dl", "ol"];
 //possible list type
-var thirdChoiceTags = ["td", "dt", "li","a", "span", "div"]
+var thirdChoiceTags = ["td", "dt", "li","a", "span", "div"];
 //single element type
-var fourthChoiceTags = ["button", "img", "input", "select", "tt" ]
+var fourthChoiceTags = ["button", "img", "input", "select", "tt" ];
 
 function TagState() {
 

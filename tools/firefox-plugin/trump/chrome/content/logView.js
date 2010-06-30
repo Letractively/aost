@@ -13,16 +13,16 @@ function LogView(editor){
 
 LogView.prototype.show = function() {
     document.getElementById("logButtons").hidden = false;
-}
+};
 
 LogView.prototype.hide = function() {
     document.getElementById("logButtons").hidden = true;
-}
+};
 
 LogView.prototype.setLog = function(log) {
     this.log = log;
     log.observers.push(this);
-}
+};
 
 LogView.prototype.changeLogLevel = function(level, reload) {
     var filterElement = document.getElementById("logFilter");
@@ -40,27 +40,27 @@ LogView.prototype.changeLogLevel = function(level, reload) {
     if (reload) {
         this.reload();
     }
-}
+};
 
 LogView.prototype.getLogElement = function() {
 	return this.view.contentDocument.getElementById("log");
-}
+};
 
 LogView.prototype.isHidden = function() {
 	return this.view.hidden || this.getLogElement() == null;
-}
+};
 
 LogView.prototype.clear = function() {
     if (!this.isHidden() && this.log) {
         this.log.clear();
     }
-}
+};
 
 LogView.prototype.toggle = function() {
     if (!this.isHidden() && this.log) {
         teJQuery("#logViewHBox").toggle();
     }
-}
+};
 
 LogView.prototype.onClear = function() {
 	if (!this.isHidden()) {
@@ -70,7 +70,7 @@ LogView.prototype.onClear = function() {
 			this.getLogElement().removeChild(nodes[i]);
 		}
 	}
-}
+};
 
 LogView.prototype.reload = function() {
 	if (!this.isHidden() && this.log) {
@@ -78,7 +78,7 @@ LogView.prototype.reload = function() {
 		this.onClear();
 		this.log.entries.forEach(function(entry) { self.onAppendEntry(entry); });
 	}
-}
+};
 
 LogView.prototype.onAppendEntry = function(entry) {
     var levels = { debug: 0, info: 1, warn: 2, error: 3 };
@@ -93,4 +93,4 @@ LogView.prototype.onAppendEntry = function(entry) {
 			newEntry.scrollIntoView();
         } 
     }
-}
+};

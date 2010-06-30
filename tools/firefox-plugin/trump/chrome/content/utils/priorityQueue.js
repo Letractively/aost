@@ -11,7 +11,7 @@ PriorityQueue.prototype.insert = function (node, priority) {
     }
     this.priorityArray.splice(i, 0, {"xpathObject": node, "priority": priority});
     return true;
-}
+};
 
 PriorityQueue.prototype.remove = function () {
     var element;
@@ -21,19 +21,19 @@ PriorityQueue.prototype.remove = function () {
             return element[0].xpathObject;
         }
     }
-}
+};
 
 PriorityQueue.prototype.get = function () {
     return this.priorityArray.shift() ;
-}
+};
 
 PriorityQueue.prototype.peek = function () {
     return this.priorityArray[0] ;
-}
+};
 
 PriorityQueue.prototype.size = function () {
     return this.priorityArray.length ;
-}
+};
 
 PriorityQueue.prototype.display = function () {
     var s = "";
@@ -41,4 +41,4 @@ PriorityQueue.prototype.display = function () {
         s+= "node : " + this.priorityArray[i].xpathObject +" priority : "+ this.priorityArray[i].priority +"\n";
     }
     return s ;
-}
+};
