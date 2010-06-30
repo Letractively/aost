@@ -2,7 +2,8 @@ var getStackTrace = function() {
     try {(0)()} catch (e) {
         return e.stack.replace(/^.*?\n/,'').replace(/(?:\n@:0)?\s+$/m,'').replace(/^\(/gm,'{anon}(').split("\n");
     }
-}
+};
+
 var getLogDetails = function(line){
      //{anon}()@chrome://trump/content/editor.js:85
     var re1='(\\(.*\\))';	// Round Braces 1

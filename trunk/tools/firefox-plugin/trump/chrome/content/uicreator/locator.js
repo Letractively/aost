@@ -241,7 +241,7 @@ Locator.prototype.descLocator = function(){
             sb.append(this.descAttributes())
         }
     }
-    sb.append("]")
+    sb.append("]");
 
     return sb.toString();
 };

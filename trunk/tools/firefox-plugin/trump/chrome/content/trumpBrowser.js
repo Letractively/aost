@@ -3,9 +3,9 @@ var constants = {
     INPUT_NODE : "input",
     SELECT_NODE : "select",
     ANCHOR_NODE : "a"
-}
+};
 
-var blackListAttributes = ["size", "maxlength", "width", "height", "style", "align", "onclick"]
+var blackListAttributes = ["size", "maxlength", "width", "height", "style", "align", "onclick"];
 
 function popUpClickInit(){
     var nodeState = window.opener.nodeState;
@@ -45,7 +45,7 @@ function init(clickedNode){
 
         //If its an Input node, check the type
         if(lowerCaseNodeName == constants.INPUT_NODE){
-            uid = createInputUID(getInputNodeType(clickedNode))
+            uid = createInputUID(getInputNodeType(clickedNode));
             propertyKey = getInputNodeAsProperty(clickedNode);
             uiText = bundle.getFormattedString(propertyKey, [uid, attributeString]);
 
@@ -93,9 +93,9 @@ function getNodeValue(node){
 function createInputUID(type){
     var uid = "inputBox1";
     switch(type.toLowerCase()){
-        case "button" :uid = "button1"
+        case "button" :uid = "button1";
             break;
-        case "checkbox" : uid = "checkbox1"
+        case "checkbox" : uid = "checkbox1";
             break;
         case "file" : //TODO
             break;
@@ -103,11 +103,11 @@ function createInputUID(type){
             break;
         case "image" ://TODO
             break;
-        case "password" : uid = "password1"
+        case "password" : uid = "password1";
             break;
-        case "radio" : uid = "radioButton1"
+        case "radio" : uid = "radioButton1";
             break;
-        case "submit" : uid = "submitButton1"
+        case "submit" : uid = "submitButton1";
             break;
         case "text" : break;
         default : break;
@@ -127,7 +127,7 @@ function createNodeUID(node){
                 break;
         case "img" : uid = "image1";
                 break;
-        case "table" : uid = "table1"
+        case "table" : uid = "table1";
                 break;
         case "span" :
         case "p" :
@@ -137,7 +137,7 @@ function createNodeUID(node){
         case "h4":
         case "h5":
         case "h6":
-            uid = "textBox1"
+            uid = "textBox1";
          
          //TODO add more here
     }
@@ -183,13 +183,13 @@ function createCLocatorText(tag, attributeString, nodeValue){
 }
 
 function getInputNodeAsProperty(node){
-    var inputProperty = "INPUT"
+    var inputProperty = "INPUT";
     var type = node.getAttribute("type");
     if(type != null){
         switch(type){
             case "button" ://TODO
                 break;
-            case "checkbox" : inputProperty+=".CHECKBOX"
+            case "checkbox" : inputProperty+=".CHECKBOX";
                 break;
             case "file" : //TODO
                 break;
@@ -199,9 +199,9 @@ function getInputNodeAsProperty(node){
                 break;
             case "password" : //TODO
                 break;
-            case "radio" : inputProperty+=".RADIO"
+            case "radio" : inputProperty+=".RADIO";
                 break;
-            case "submit" : inputProperty+=".SUBMIT"
+            case "submit" : inputProperty+=".SUBMIT";
                 break;
             case "text" : //TODO
                 break;
