@@ -183,7 +183,7 @@ Locator.prototype.strLocator = function(){
         }
 
     }
-    sb.append("]")
+    sb.append("]");
 
     return sb.toString();
 };

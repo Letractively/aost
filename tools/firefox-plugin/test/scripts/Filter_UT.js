@@ -2,13 +2,13 @@ var  attrValue = "onclick:_onButtonClick,onmouseenter:_onMouse,onmouseleave:_onM
 var map = new HashMap();
 
     if(trimString(attrValue).length > 0 ){
-        var splited = attrValue.split(",");
-        alert(splited.length);
-        for(var i=0; i<splited.length; i++){
-            if(trimString(splited[i]).length > 0){
-                var pair = trimString(splited[i]).split(":");
+        var split = attrValue.split(",");
+        alert(split.length);
+        for(var i=0; i<split.length; i++){
+            if(trimString(split[i]).length > 0){
+                var pair = trimString(split[i]).split(":");
                 map.set(trimString(pair[0]), trimString(pair[1]));
-                alert(splited[i] + " --> " + pair[0] + ": " + pair[1]);
+                alert(split[i] + " --> " + pair[0] + ": " + pair[1]);
             }
         }
     }      
