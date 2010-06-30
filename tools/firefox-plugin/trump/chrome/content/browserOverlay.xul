@@ -28,6 +28,10 @@
             openTrumpIDEWindow();
         }
 
+/*        teJQuery(window).load(function() {
+            tellurium = new Tellurium();
+            tellurium.initialize();
+        });*/
 
     ]]>
     </script>
