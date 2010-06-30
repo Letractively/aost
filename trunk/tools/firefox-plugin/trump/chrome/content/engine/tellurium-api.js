@@ -30,7 +30,7 @@ function TelluriumApi(cache){
     this.ctrl = false;
     this.shift = false;
     this.alt = false;
-    this.meta = false
+    this.meta = false;
     this.cssBuilder = new JQueryBuilder();
 }
 

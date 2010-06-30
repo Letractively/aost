@@ -75,4 +75,4 @@ UiType.prototype.getTypeWithExtra = function(tag, extra, hasChildren) {
     }
 
     return uitype;
-}
+};

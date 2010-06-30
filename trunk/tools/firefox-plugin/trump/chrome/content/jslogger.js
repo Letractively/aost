@@ -23,7 +23,7 @@ var getLogDetails = function(line){
     }
     return ["", -1];
 
-}
+};
 var addLineNumber = function(loggingEvent){
     var stack = getStackTrace()[6];  //assuming that this is called from the appender this 6 is what we want!
     getLogDetails(stack);
@@ -32,7 +32,8 @@ var addLineNumber = function(loggingEvent){
     //was added to it or not, and we dont want to use an expando.
     var clonedEvent = new Log4js.LoggingEvent(loggingEvent.categoryName, loggingEvent.level, "["+stack+"] " + loggingEvent.message, loggingEvent.exception, loggingEvent.logger);
     return clonedEvent;
-}
+};
+
 Log4js.MozillaLineNumberJSConsoleAppender = function() {
 	this.layout = new Log4js.SimpleLayout();
     this.consoleService = Components.classes["@mozilla.org/consoleservice;1"]
@@ -102,7 +103,7 @@ var logText = "";
 var showLogWindow = function(){
     logWindow = window.open("chrome://trump/content/trumpLogger.xul","logWindow","chrome,centerscreen,alwaysRaised=true,resizable");
     //TODO: pass logText into window using XUL
-}
+};
 
 //and here is the logger!
 var jslogger = new Log4js.getLogger("root");

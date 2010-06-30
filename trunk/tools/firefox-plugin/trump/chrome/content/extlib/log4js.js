@@ -148,7 +148,7 @@ Log4js.extend = function(destination, source) {
     destination[property] = source[property];
   }
   return destination;
-}
+};
     
 /**
  * Functions taken from Prototype library,  

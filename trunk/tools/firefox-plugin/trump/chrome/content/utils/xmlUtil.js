@@ -8,7 +8,7 @@ XmlUtil.prototype.specialCharacterProof = function(str){
     }
 
     return str;
-}
+};
 
 XmlUtil.prototype.escapeString = function(str){
 //    return "<![CDATA[" + str + "]]>";
@@ -32,7 +32,7 @@ XmlUtil.prototype.escapeString = function(str){
     }
 
     return newstr;
-}
+};
 
 //Check if the str contains special characters such as '&', '<',  '>', or '\"'
 XmlUtil.prototype.containSpecialCharacters = function(str){
@@ -47,7 +47,7 @@ XmlUtil.prototype.containSpecialCharacters = function(str){
     }
 
     return true;
-}
+};
 
 XmlUtil.prototype.containEscapedCharacters = function(str){
 
@@ -61,7 +61,7 @@ XmlUtil.prototype.containEscapedCharacters = function(str){
     }
 
     return true;
-}
+};
 
 XmlUtil.prototype.unescapeString = function(str){
     var newstr = str;
@@ -83,7 +83,7 @@ XmlUtil.prototype.unescapeString = function(str){
     }
 
     return newstr;
-}
+};
 
 XmlUtil.prototype.escapedCharacterProof = function(str){
     if(this.containEscapedCharacters(str)){
@@ -91,4 +91,4 @@ XmlUtil.prototype.escapedCharacterProof = function(str){
     }
 
     return str;
-}
+};
