@@ -109,6 +109,10 @@ HashMap.prototype.put = function(key, val){
     }
 };
 
+HashMap.prototype.set = function(key, val){
+    this.put(key,val);    
+};
+
 HashMap.prototype.get = function( key ){
     var result = null;
     var elementIndex = this.findIt( key );
