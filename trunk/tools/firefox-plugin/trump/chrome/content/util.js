@@ -1,13 +1,13 @@
 
-
+/*
 function trimString(str) {
 //    logger.debug("Str to be trimed " + str);
-    return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    return str.replace(/^\s\s*//*, '').replace(/\s\s*$/, '');
 }
 
 function $(id) {
     return document.getElementById(id);
-}
+}*/
 
 /**
  * Returns the node type
