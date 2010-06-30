@@ -1,0 +1,11 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Tellurium Presentation @ CodeStock 2010
+
+
+= Details =
+
+I gave a presentation on Tellurium Automated Testing Framework @ CodeStock conference in Knoxville TN. CodeStock is a two day (Jun 25th and 26th) event held every year. Its more of .NET conference but this year they had variety of sessions from iPhone, Andriod, NoSql, Grails. My session was on Saturday. As a Speaker the registration fee was waived. About 6-8 people attended my session. You can download the Slides and Demo here 
+
