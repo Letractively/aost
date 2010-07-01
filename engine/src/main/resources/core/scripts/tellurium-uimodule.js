@@ -1,4 +1,6 @@
 function UiModule(){
+    this.id = null;
+    
     //top level UI object
     this.root = null;
 
