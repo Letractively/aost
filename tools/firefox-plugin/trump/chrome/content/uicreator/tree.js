@@ -60,7 +60,21 @@ Tree.prototype.postProcess = function(){
         //get UI Object reference
         this.uiObjectMap = new HashMap();
         this.root.refUiObject(this.uiObjectMap);
-//        logger.debug("There are " + this.uiObjectMap.size() + " UI objects in the Tree");
+    }
+};
+
+Tree.prototype.buildIndex = function(){
+    this.uiObjectMap = new HashMap();
+    this.root.refUiObject(this.uiObjectMap);
+};
+
+Tree.prototype.markInvalidUiObject = function(uid){
+    var obj = this.uiObjectMap.get(uid);
+    if(obj != null){
+        logger.debug("Marking UI object " + uid + " as invalid");
+        obj.isLocatorValid = false;
+    }else{
+        logger.warn("Cannot find UI object " + uid + " from index");
     }
 };
 
@@ -71,6 +85,14 @@ Tree.prototype.validate = function() {
     }else{
         logger.warn("The root node in the Tree is null");
     }
+};
+
+Tree.prototype.clearValidFlag = function() {
+    if(this.root != null){
+        this.root.clearValidFlag();
+    }else{
+        logger.warn("The root node in the Tree is null");
+    }        
 };
 
 Tree.prototype.addElement = function(element){
@@ -286,10 +308,28 @@ Tree.prototype.validateUiModule = function() {
         var uim = this.builder.build(this);
         logger.info("Done build UI module ");
 //        uim.dumpMe();
+        
         var dom = this.root.domNode.ownerDocument;
         this.uiAlg.validate(uim, dom);
+        var id = uim.getId();
+        var response = new UiModuleLocatingResponse();
+        response.id = id;
+        response.relaxed = uim.relaxed;
+        if (!response.relaxed)
+            response.found = true;
+        response.relaxDetails = uim.relaxDetails;
+        response.matches = uim.matches;
+        response.score = uim.score;
+        if(response.found){
+            logger.info("Validate UI Module " + id + " Successfully!");
+        }else{
+            logger.info("Validate UI Module " + id + " Failed!");
+        }
+
+        return response;
     } else {
         logger.warn("The root node in the Tree is null");
+        return null;
     }
 };
 
