@@ -239,7 +239,7 @@ NodeObject.prototype.buildXML = function(xml){
     var padding = this.uiobject.paddingByLevel(level+1);
     var descobj = this.uiobject.descObject();
 
-    this.validateNodeXPath();
+//    this.validateNodeXPath();
     var isXPathValid = this.uiobject.isLocatorValid ? "" : "X";
     var valid = "valid=\"" + isXPathValid + "\"";
     var myclass = "class=\"" + MYCLASS + level + "\"";
