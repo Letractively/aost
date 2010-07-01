@@ -40,6 +40,17 @@ function NodeObject(){
     this.xmlutil = new XmlUtil();
 }
 
+NodeObject.prototype.clearValidFlag = function(){
+    if(this.uiobject != null)
+        this.uiobject.isLocatorValid = true;
+    
+    if(this.children != null && this.children.length > 0){
+        for(var i=0; i<this.children.length; i++){
+            this.children[i].clearValidFlag();
+        }
+    }
+};
+
 NodeObject.prototype.visitMe = function(visitor){
     visitor.visit(this);
     if(this.children != null && this.children.length > 0){
@@ -184,7 +195,7 @@ NodeObject.prototype.refUiObject = function(uiMap){
 
     var canonuid = this.canonUID();
 
-    uiMap.set(canonuid, this.uiobject);
+    uiMap.put(canonuid, this.uiobject);
 
     if (hasChildren) {
         for (var i = 0; i < this.children.length; i++) {
@@ -480,10 +491,4 @@ NodeObject.prototype.checkNodePosition = function(){
 
     return pos;
 };
-
-/*
-NodeObject.prototype.toString = function(child){
-   alert("NodeObject : [ id " + this.id + " xpath : " + this.xpath + " parent : " + this.parent + " attributes : " +this.attributes.showMe()+ " ]");
-}
-*/
 
