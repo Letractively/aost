@@ -286,6 +286,7 @@ Tree.prototype.validateUiModule = function() {
         var uim = this.builder.build(this);
         logger.info("Done build UI module ");
         uim.dumpMe();
+/*
         var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                 .getService(Components.interfaces.nsIWindowMediator)
                 .getMostRecentWindow("navigator:browser");
@@ -296,8 +297,8 @@ Tree.prototype.validateUiModule = function() {
         if (browser && browser.contentWindow && browser.contentWindow.document) {
             dom = browser.contentWindow.document;
         }
-        //TODO: How to handle frame case???
-        //     var dom = teJQuery("html");
+*/
+        var dom = this.root.domNode.ownerDocument;
         this.uiAlg.validate(uim, dom);
     } else {
         logger.warn("The root node in the Tree is null");

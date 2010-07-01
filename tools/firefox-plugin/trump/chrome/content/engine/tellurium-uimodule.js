@@ -1,4 +1,6 @@
 function UiModule(){
+    this.id = null;
+
     //top level UI object
     this.root = null;
 
@@ -167,6 +169,7 @@ UiModule.prototype.addUiObject = function(uid, obj){
     if (this.root == null) {
         if (uiid.size() == 1) {
             this.root = obj;
+            this.id = this.root.uid;
         } else {
             fbError("Invalid uid " + uiid, this);
             succeed = false;
