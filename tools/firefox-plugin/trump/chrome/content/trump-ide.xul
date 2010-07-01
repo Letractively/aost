@@ -42,6 +42,7 @@
           <menupopup id="edit-popup">
             <menuitem label="Document"  oncommand="window.open('http://code.google.com/p/aost/w/list')" />
             <menuitem label="Update"  oncommand="window.open('http://code.google.com/p/aost/downloads/list')" />
+            <menuitem label="Follow"  oncommand="window.open('http://twitter.com/TelluriumSource')" />
             <menuitem label="Support"  oncommand="window.open('http://groups.google.com/group/tellurium-users')" />
             <menuseparator/>
             <menuitem label="About" oncommand="window.open('chrome://trump/content/trumpAbout.xul','trump_about','chrome,centerscreen,resizable')"/>

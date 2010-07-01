@@ -392,12 +392,7 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
             attributes.put(akey, attrs[akey]);
         }
     }
-/*
-    for(var akey in attrs){
-        attributes.put(akey, attrs[akey]);
-//        attributes.put(key, this.escape(attrs[key]));
-    }
-*/
+
     if (attributes != null && attributes.size() > 0) {
         var id = attributes.get(this.ID);
         if (id != null && trimString(id).length > 0) {

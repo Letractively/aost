@@ -299,7 +299,6 @@ function EngineState(){
 }
 
 function Tellurium (){
-    logger.debug("start initializing tellurium... ");
     this.cache = new TelluriumCache();
 
     this.currentWindow = null;
@@ -334,7 +333,6 @@ function Tellurium (){
 
     //outlines
     this.outlines = new Outlines();
-    logger.debug("finish initializing tellurium... ");
 }
 
 Tellurium.prototype.isUseCache = function(){

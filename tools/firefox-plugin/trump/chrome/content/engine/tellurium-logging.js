@@ -10,7 +10,7 @@ function dumpObject(obj) {
 }
 
 function fbLog(msg, obj){
-    logger.info(msg);
+    logger.debug(msg);
     if (typeof(console) != "undefined") {
         console.log(msg, obj);
     }
