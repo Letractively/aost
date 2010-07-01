@@ -280,15 +280,26 @@ Tree.prototype.createUiModule = function() {
 };
 
 Tree.prototype.validateUiModule = function() {
-//    alert("Start to validate UI Module");
+    //    alert("Start to validate UI Module");
     //validate UI object's XPath
-    if(this.root != null){
+    if (this.root != null) {
         var uim = this.builder.build(this);
         logger.info("Done build UI module ");
         uim.dumpMe();
-        var dom = teJQuery("html");
+        var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                .getService(Components.interfaces.nsIWindowMediator)
+                .getMostRecentWindow("navigator:browser");
+
+        var dom = null;
+        var browser = win.getBrowser();
+
+        if (browser && browser.contentWindow && browser.contentWindow.document) {
+            dom = browser.contentWindow.document;
+        }
+        //TODO: How to handle frame case???
+        //     var dom = teJQuery("html");
         this.uiAlg.validate(uim, dom);
-    }else{
+    } else {
         logger.warn("The root node in the Tree is null");
     }
 };
