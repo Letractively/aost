@@ -99,12 +99,19 @@ Editor.prototype.generateButton = function(){
 //    alert("start to update source");
     this.updateSource();
 
+    //this.validateXPath();
+    this.validateUiModule();
+};
+
+Editor.prototype.validateXPath = function(){
     logger.debug("start to validate UI object's xpath");
 
     this.innerTree.validate();
 
     logger.debug("Done validating UI object's XPath");
+};
 
+Editor.prototype.validateUiModule = function(){
     logger.debug("Start validating UI Module");
     var result = this.innerTree.validateUiModule();
     if(result != null){
@@ -114,7 +121,7 @@ Editor.prototype.generateButton = function(){
                 for(var j=0; j<result.relaxDetails.length; j++){
                     this.innerTree.markInvalidUiObject(result.relaxDetails[j].uid);
                 }
-            }    
+            }
         }
     }
     logger.debug("Done validating UI Module");
@@ -187,15 +194,6 @@ Editor.prototype.customizeButton = function(){
 
 Editor.prototype.switchToCustomizeTab = function(){
     document.getElementById("editorTabs").selectedItem = document.getElementById("customizeTab");
-/*
-    logger.debug("tellurium is " + tellurium);
-    if(tellurium == null){
-        tellurium = new Tellurium();
-        logger.debug("tellurium is " + tellurium);
-        tellurium.initialize();
-        logger.debug("UI map size " + tellurium.uiBuilderMap.size());
-    }  
-*/
     var uitypes = tellurium.getRegisteredUiTypes();
     logger.debug("Get registered UI types: " + uitypes.join(", "));
     teJQuery("#uiType").autocomplete("option", "source", uitypes);
