@@ -47,7 +47,6 @@ teJQuery(document).ready(function() {
     !tellurium.logManager.isUseLog || fbLog("Tellurium initialized after document ready", tellurium);
 });
 
-
 /*
 teJQuery(document).ready(function() {
     tellurium = new Tellurium();

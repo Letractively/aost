@@ -141,7 +141,7 @@ NodeObject.prototype.getUid = function(){
     if(this.parent == null)
         return this.id;
     else
-        return this.parent.getUid + "." + this.id;
+        return this.parent.getUid() + "." + this.id;
 };
 
 NodeObject.prototype.buildUiObject = function(){

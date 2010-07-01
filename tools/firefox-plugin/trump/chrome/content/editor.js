@@ -27,6 +27,11 @@ function Editor(window) {
     //Detect the browser properties
     BrowserDetect.init();
     this.os = BrowserDetect.OS;
+
+    if(tellurium == null){
+        tellurium = new Tellurium();
+        tellurium.initialize();        
+    }
 }
 
 Editor.prototype.registerRecorder = function(){
@@ -100,9 +105,9 @@ Editor.prototype.generateButton = function(){
 
     logger.debug("Done validating UI object's XPath");
 
-//    logger.debug("Start validating UI Module");
-//    this.innerTree.validateUiModule();
-//    logger.debug("Done validating UI Module");
+    logger.debug("Start validating UI Module");
+    this.innerTree.validateUiModule();
+    logger.debug("Done validating UI Module");
 };
 
 Editor.prototype.updateSource = function(){
