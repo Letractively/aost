@@ -343,7 +343,7 @@ var UiContainer = UiObject.extend({
 
     insertChild: function(uiid, obj){
         var key = uiid.pop();
-        if(uiid.size() == 1){
+        if(uiid.size() == 0){
             obj.parent = this;
             this.components.put(key, obj);
         }else{

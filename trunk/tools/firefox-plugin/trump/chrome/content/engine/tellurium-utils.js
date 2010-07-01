@@ -320,6 +320,10 @@ Hashtable.prototype.exist = function(key){
     return typeof this.map[key] != "undefined";
 };
 
+Hashtable.prototype.set = function(key, val){
+    this.put(key, val);
+};
+
 Hashtable.prototype.put = function(key, val){
     if(!this.exist(key)){
         this.length++;

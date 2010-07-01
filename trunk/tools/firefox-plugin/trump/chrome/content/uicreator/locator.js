@@ -11,7 +11,8 @@ function Locator(){
     this.text = null;
     this.trailer = null;
     this.position = null;
-    this.attributes = new HashMap();
+//    this.attributes = new HashMap();
+    this.attributes = new Hashtable();
     this.direct = false;
     this.xmlutil = new XmlUtil();
 }

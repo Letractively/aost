@@ -27,7 +27,7 @@
         function showTrumpIDE(){
             openTrumpIDEWindow();
         }
-
+        
 /*        teJQuery(window).load(function() {
             tellurium = new Tellurium();
             tellurium.initialize();
