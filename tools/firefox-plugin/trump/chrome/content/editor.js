@@ -182,28 +182,6 @@ Editor.prototype.switchToCustomizeTab = function(){
     var uitypes = tellurium.getRegisteredUiTypes();
     logger.debug("Get registered UI types: " + uitypes.join(", "));
     teJQuery("#uiType").autocomplete("option", "source", uitypes);
-/*
-    logger.debug("tellurium is " + tellurium);
-    if(tellurium == null){
-        tellurium = new Tellurium();
-        logger.debug("tellurium is " + tellurium);
-        tellurium.initialize();
-        logger.debug("UI map size " + tellurium.uiBuilderMap.size());
-    }
-    var uitypes = tellurium.getRegisteredUiTypes();
-    logger.debug("Get registered UI types: " + uitypes.join(", "));
-    */
-    
-//    teJQuery("#uiType").autocomplete("option", "source", uitypes);
-    
-/*
-    var uitypes = tellurium.getRegisteredUiTypes();
-    teJQuery("#uiType").autocomplete("option", "source", uitypes);
-    teJQuery("#uiType").autocomplete({
-//        source: ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby"]
-        source: uitypes
-    });
-*/
 };
 
 Editor.prototype.buildCustomizeTree = function(xml) {
@@ -255,13 +233,17 @@ Editor.prototype.fillUiObjectFields = function(uiObject){
 };
 
 Editor.prototype.enableUiObjectFields = function(){
-    document.getElementById("uid").removeAttribute("disabled");
-    document.getElementById("uiType").removeAttribute("disabled");
+    teJQuery("#uid").removeAttr("disabled");
+    teJQuery("#uiType").removeAttr("disabled");
+//    document.getElementById("uid").removeAttribute("disabled");
+//    document.getElementById("uiType").removeAttribute("disabled");
 };
 
 Editor.prototype.disableUiObjectFields = function(){
-    document.getElementById("uid").setAttribute("disabled", "true");
-    document.getElementById("uiType").setAttribute("disabled", "true");
+    teJQuery("#uid").attr("disabled","disabled");
+    teJQuery("#uiType").attr("disabled","disabled");
+//    document.getElementById("uid").setAttribute("disabled", "true");
+//    document.getElementById("uiType").setAttribute("disabled", "true");
 };
 
 Editor.prototype.buildUiAttributeTree = function(xml) {
