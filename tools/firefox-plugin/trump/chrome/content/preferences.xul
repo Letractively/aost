@@ -51,6 +51,12 @@
         <hbox align="center">
             <checkbox id="trump-option-logwrap" preference="trumpLogWrap" disabled="false" checked="false"/>
         </hbox>
+
+         <description>&options.grouplocating;</description>
+        <hbox align="center">
+            <checkbox id="trump-option-grouplocating" preference="trumpGroupLocating" disabled="false" checked="true"/>
+        </hbox>
+        
         <hbox pack="center">
           <!--button id="saveButton" label="&save.label;" oncommand="saveOptions();" /-->
 	        <!--button id="cancelButton" label="&cancel.label;" oncommand="cancelOptions();" /-->

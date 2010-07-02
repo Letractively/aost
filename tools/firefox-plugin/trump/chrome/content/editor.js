@@ -99,8 +99,21 @@ Editor.prototype.generateButton = function(){
 //    alert("start to update source");
     this.updateSource();
 
-    //this.validateXPath();
-    this.validateUiModule();
+    this.validateUI(); 
+};
+
+Editor.prototype.validateUI = function(){
+    var glf = Preferences.getPref("extensions.trump.grouplocating");
+    alert("extensions.trump.grouplocating: " + glf);
+    if(glf == undefined){
+        glf = true;
+    }
+    
+    if(glf){
+        this.validateUiModule();
+    }else{
+        this.validateXPath();
+    }
 };
 
 Editor.prototype.validateXPath = function(){
@@ -196,7 +209,14 @@ Editor.prototype.switchToCustomizeTab = function(){
     document.getElementById("editorTabs").selectedItem = document.getElementById("customizeTab");
     var uitypes = tellurium.getRegisteredUiTypes();
     logger.debug("Get registered UI types: " + uitypes.join(", "));
-    teJQuery("#uiType").autocomplete("option", "source", uitypes);
+//    teJQuery("#uiType").autocomplete("option", "source", uitypes);
+    teJQuery("#uiType").autocomplete({source: uitypes});
+
+/*    
+    teJQuery("#uiType").live("click", function(){
+       teJQuery("#uiType").autocomplete("option", "source", uitypes); 
+    });
+    */
 };
 
 Editor.prototype.buildCustomizeTree = function(xml) {
@@ -351,8 +371,9 @@ Editor.prototype.updateUiObject = function(){
         }
         uiObject.updateAttributes(attrmap);
 
+        this.validateUI();
         //validate xpath again
-        this.innerTree.validate();
+//        this.innerTree.validate();
         this.customizeButton();
         this.updateSource();
     }else{

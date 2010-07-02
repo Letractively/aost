@@ -45,7 +45,9 @@ Preferences.DEFAULT_OPTIONS = {
 
     defaultJSLog: "true",
 
-    defaultLogWrap: "false"
+    defaultLogWrap: "false",
+
+    defaultGroupLocating: "true"
 };
 
 Preferences.initialize();

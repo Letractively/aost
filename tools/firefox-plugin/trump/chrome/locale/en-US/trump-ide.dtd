@@ -32,6 +32,7 @@
 <!ENTITY options.directory.description "Export Directory">
 <!ENTITY options.jslog.description "Javascript Logging">
 <!ENTITY options.logwrap.description "Wrap Logging">
+<!ENTITY options.grouplocating "Group Locating">
 
 <!ENTITY logConsole.label "Log">
 <!ENTITY logFilter.debug.label "Debug">
