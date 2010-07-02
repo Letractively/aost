@@ -17,6 +17,12 @@ function saveOptions(){
         logger.debug("TrUMP log Wrapping option " + elem.checked);
     }
 
+    elem = document.getElementById("trump-option-grouplocating");
+    if(elem != null){
+        Preferences.setPref("extensions.trump.grouplocating", elem.checked);
+        logger.debug("TrUMP group locating option " + elem.checked);
+    }
+
 	return true;
 }
 
@@ -57,5 +63,14 @@ function loadOptions() {
             logwrap = Preferences.DEFAULT_OPTIONS.defaultLogWrap;
         }
         elem.checked = logwrap;
+    }
+    
+    elem = document.getElementById("trump-option-grouplocating");
+    if(elem != null){
+        var glocating = Preferences.getPref("extensions.trump.grouplocating");
+        if(glocating == undefined){
+            glocating = Preferences.DEFAULT_OPTIONS.defaultGroupLocating;
+        }
+        elem.checked = glocating;
     }
 };
