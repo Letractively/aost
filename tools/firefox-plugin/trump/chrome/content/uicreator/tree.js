@@ -315,7 +315,8 @@ Tree.prototype.validateUiModule = function() {
         var response = new UiModuleLocatingResponse();
         response.id = id;
         response.relaxed = uim.relaxed;
-        if (!response.relaxed)
+//        if (!response.relaxed)
+        if(uim.score == 100)
             response.found = true;
         response.relaxDetails = uim.relaxDetails;
         response.matches = uim.matches;
