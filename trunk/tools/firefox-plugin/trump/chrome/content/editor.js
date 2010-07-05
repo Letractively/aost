@@ -104,7 +104,7 @@ Editor.prototype.generateButton = function(){
 
 Editor.prototype.validateUI = function(){
     var glf = Preferences.getPref("extensions.trump.grouplocating");
-    alert("extensions.trump.grouplocating: " + glf);
+//    alert("extensions.trump.grouplocating: " + glf);
     if(glf == undefined){
         glf = true;
     }
@@ -136,8 +136,33 @@ Editor.prototype.validateUiModule = function(){
                 }
             }
         }
+        var msg = this.describeUiModuleValidationResult(result);
+        this.showMessage(msg);
     }
-    logger.debug("Done validating UI Module");
+    logger.debug("Done validating UI Module, please see detailed result on the message window");
+};
+
+Editor.prototype.showMessage = function(message){
+    document.getElementById("exportMessage").value = message;
+};
+
+Editor.prototype.describeUiModuleValidationResult = function(result){
+    var msg = new StringBuffer();
+    msg.append("Validation result for UI Module " + result.id + "\n");
+    msg.append("Found: " + result.found + "\n");
+    msg.append("Relaxed: " + result.relaxed + "\n");
+    msg.append("Match count: " + result.matches + "\n");
+    msg.append("Match score: " + result.score + "\n");
+    if(result.relaxDetails != null && result.relaxDetails.length > 0){
+        msg.append("Relax details: \n");
+        for(var i=0; i<result.relaxDetails.length; i++){
+            msg.append("\tUID: " + result.relaxDetails[i].uid + "\n");
+            msg.append("\tLocator: " + result.relaxDetails[i].locator + "\n");
+            msg.append("\tHTML: " + result.relaxDetails[i].html + "\n");
+        }
+    }
+
+    return msg;
 };
 
 Editor.prototype.updateSource = function(){
