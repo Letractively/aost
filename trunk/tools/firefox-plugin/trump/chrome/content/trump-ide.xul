@@ -28,8 +28,8 @@
             <menuitem label="Save"/> -->
             <menuitem label="&exportUiModule.label;" oncommand="window.editor.exportUiModule();"/>
             <menuseparator/>
-            <menuitem label="&exportToWindow.label;" oncommand="window.editor.exportToWindow();"/>
-            <menuseparator/>
+<!--            <menuitem label="&exportToWindow.label;" oncommand="window.editor.exportToWindow();"/>
+            <menuseparator/>-->
             <menuitem label="Exit" oncommand="window.close()" />
           </menupopup>
         </menu>

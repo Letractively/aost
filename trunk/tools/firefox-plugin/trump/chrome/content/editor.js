@@ -166,6 +166,7 @@ Editor.prototype.clearButton = function(){
     this.logView.clear();
     this.clearCustomizeTabContext();
     this.decorator.cleanShowNode();
+    this.clearMessageBox();
     this.innerTree = null;
 };
 
@@ -189,6 +190,10 @@ Editor.prototype.clearSourceTabContent = function(){
 
 Editor.prototype.clearExportToWindowTabContent = function(){
     document.getElementById("exportSource").value = "";
+};
+
+Editor.prototype.clearMessageBox = function(){
+    document.getElementById("exportMessage").value = "";
 };
 
 Editor.prototype.selectedTreeItem = function(event){
