@@ -334,15 +334,6 @@ Trie.prototype.dumpMe = function() {
     }
 };
 
-function RelaxDetail(){
-    //which UID got relaxed, i.e., closest Match
-    this.uid = null;
-    //the clocator defintion for the UI object corresponding to the UID
-    this.locator = null;
-    //The actual html source of the closest match element
-    this.html = null;
-}
-
 
 //algorithms to handle UI modules and UI Objects
 function UiAlg(){
