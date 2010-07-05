@@ -6,7 +6,6 @@ var constants = {
 var blackListAttributes = ["size", "maxlength", "width", "height", "style", "align", "autocomplete"];
 
 function Builder(){
-//    this.bundle = $("string");
     this.bundle = document.getElementById("string");
 }
 
