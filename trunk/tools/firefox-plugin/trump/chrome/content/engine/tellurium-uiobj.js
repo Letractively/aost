@@ -50,8 +50,8 @@ var UiObject = Class.extend({
         //return the ID attribute
         var ida = null;
         if(this.locator != null && this.locator.attributes != undefined && this.locator.attributes != null){
-//            ida = this.locator.attributes.get("id");
-            ida = this.locator.attributes["id"];
+            ida = this.locator.attributes.get("id");
+//            ida = this.locator.attributes["id"];
             if(ida == undefined)
                 ida = null;
         }

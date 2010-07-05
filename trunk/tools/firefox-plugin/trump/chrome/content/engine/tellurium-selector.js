@@ -389,7 +389,7 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
         var keyset = attrs.keySet();
         for(var k=0; k<attrs.size(); k++){
             var akey = keyset[k];
-            attributes.put(akey, attrs[akey]);
+            attributes.put(akey, attrs.get(akey));
         }
     }
 
