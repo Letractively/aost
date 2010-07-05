@@ -96,7 +96,6 @@ Editor.prototype.generateButton = function(){
     }
     //do some post processing work
     this.innerTree.postProcess();
-//    alert("start to update source");
     this.updateSource();
 
     this.validateUI(); 
@@ -300,15 +299,11 @@ Editor.prototype.fillUiObjectFields = function(uiObject){
 Editor.prototype.enableUiObjectFields = function(){
     teJQuery("#uid").removeAttr("disabled");
     teJQuery("#uiType").removeAttr("disabled");
-//    document.getElementById("uid").removeAttribute("disabled");
-//    document.getElementById("uiType").removeAttribute("disabled");
 };
 
 Editor.prototype.disableUiObjectFields = function(){
     teJQuery("#uid").attr("disabled","disabled");
     teJQuery("#uiType").attr("disabled","disabled");
-//    document.getElementById("uid").setAttribute("disabled", "true");
-//    document.getElementById("uiType").setAttribute("disabled", "true");
 };
 
 Editor.prototype.buildUiAttributeTree = function(xml) {
@@ -402,8 +397,6 @@ Editor.prototype.updateUiObject = function(){
         uiObject.updateAttributes(attrmap);
 
         this.validateUI();
-        //validate xpath again
-//        this.innerTree.validate();
         this.customizeButton();
         this.updateSource();
     }else{
@@ -445,8 +438,6 @@ Editor.prototype.exportToWindow = function(){
 Editor.prototype.exportToWindowInBackground = function(){
     if(this.innerTree != null){
         var txt = this.innerTree.createUiModule();
-        //switch to the exportToWindows tab
-//        document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
         var sourceTextNode = document.getElementById("exportSource");
         sourceTextNode.value  = txt;
 
