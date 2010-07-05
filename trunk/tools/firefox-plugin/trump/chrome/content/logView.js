@@ -57,9 +57,13 @@ LogView.prototype.clear = function() {
 };
 
 LogView.prototype.toggle = function() {
-    if (!this.isHidden() && this.log) {
+/*    if (!this.isHidden() && this.log) {
         teJQuery("#logViewHBox").toggle();
-    }
+    }*/
+    var $sel = teJQuery("#logMsgSelection");
+    var selected = $sel.attr("selectedIndex");
+    selected = (parseInt(selected) + 1) % 2;
+    $sel.attr("selectedIndex", selected);
 };
 
 LogView.prototype.onClear = function() {

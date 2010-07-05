@@ -203,31 +203,44 @@
             </tabpanel>-->
         </tabpanels>
     </tabbox>
-    <vbox id="logBox" height="100" flex="1">
-        <hbox id="logMenu" align="center">
-            <toolbarbutton id="logTab" label="&logConsole.label;"
-                           class="console-tab" selected="true"/>
-            <spacer flex="1"/>
-            <hbox align="center" id="logButtons">
-                <toolbarbutton id="logFilter" label="Debug" type="menu" class="console-button">
-                    <menupopup id="logFilterPopup"
-                               oncommand="window.editor.logView.changeLogLevel(event.target.value, true)">
-                        <menuitem label="&logFilter.debug.label;" value="0"/>
-                        <menuitem label="&logFilter.info.label;" value="1" selected="true"/>
-                        <menuitem label="&logFilter.warn.label;" value="2"/>
-                        <menuitem label="&logFilter.error.label;" value="3"/>
-                    </menupopup>
-                </toolbarbutton>
-                <toolbarbutton id="logClear" label="&logClear.label;"
-                               oncommand="window.editor.logView.clear()" class="console-button"/>
-                <toolbarbutton id="logToggle" label="&logToggle.label;"
-                               oncommand="window.editor.logView.toggle()" class="console-button"/>
+    <deck selectedIndex="0" id="logMsgSelection">
+        <vbox id="logBox" height="100" flex="1">
+            <hbox id="logMenu" align="center">
+                <toolbarbutton id="logTab" label="&logConsole.label;"
+                               class="console-tab" selected="true"/>
+                <spacer flex="1"/>
+                <hbox align="center" id="logButtons">
+                    <toolbarbutton id="logFilter" label="Debug" type="menu" class="console-button">
+                        <menupopup id="logFilterPopup"
+                                   oncommand="window.editor.logView.changeLogLevel(event.target.value, true)">
+                            <menuitem label="&logFilter.debug.label;" value="0"/>
+                            <menuitem label="&logFilter.info.label;" value="1" selected="true"/>
+                            <menuitem label="&logFilter.warn.label;" value="2"/>
+                            <menuitem label="&logFilter.error.label;" value="3"/>
+                        </menupopup>
+                    </toolbarbutton>
+                    <toolbarbutton id="logClear" label="&logClear.label;"
+                                   oncommand="window.editor.logView.clear()" class="console-button"/>
+                    <toolbarbutton label="&logToggle.label;"
+                                   oncommand="window.editor.logView.toggle()" class="console-button"/>
+                </hbox>
             </hbox>
-        </hbox>
-        <hbox id="logViewHBox">
-            <spacer flex="0" width="15"/>
-            <iframe flex="1" id="logView" name="logViewFrame" src="LogFrame.html" height="100" width="235">
-            </iframe>
-        </hbox>
-    </vbox>
+            <hbox id="logViewHBox">
+                <spacer flex="0" width="15"/>
+                <iframe flex="1" id="logView" name="logViewFrame" src="LogFrame.html" height="100" width="235">
+                </iframe>
+            </hbox>
+        </vbox>
+        <vbox id="messageBox" height="100" flex="1">
+            <hbox pack="center">
+                <toolbarbutton label="&message.label;"/>
+                <spacer flex="1"/>
+                <toolbarbutton label="&logToggle.label;"
+                                   oncommand="window.editor.logView.toggle()" class="console-button"/>
+            </hbox>
+            <hbox pack="center">
+                <textbox id="exportMessage" multiline="true" wrap="off" flex="1"/>
+            </hbox>
+        </vbox>
+    </deck>
 </window>

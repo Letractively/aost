@@ -25,6 +25,7 @@
 <!ENTITY save.label "Save">
 <!ENTITY cancel.label "Cancel">
 <!ENTITY show.label "Show">
+<!ENTITY message.label "Message">
 <!ENTITY exportUiModule.label "Export">
 
 <!ENTITY options.label "Settings">
@@ -40,4 +41,4 @@
 <!ENTITY logFilter.error.label "Error">
 <!ENTITY logFilter.warn.label "Warn">
 <!ENTITY logClear.label "Clear">
-<!ENTITY logToggle.label "Show/Hide">
+<!ENTITY logToggle.label "Log/Msg">
