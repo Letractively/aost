@@ -90,10 +90,10 @@ function suggestName(tagObject){
         name = attributes.get("title");
     }
     if(name == null || name.length == 0){
-        name = attributes.get("class");
+        name = attributes.get("text");
     }
     if(name == null || name.length == 0){
-        name = attributes.get("text");
+        name = attributes.get("class");
     }
     if(name == null || name.length == 0){
         if(tag == "input"){
