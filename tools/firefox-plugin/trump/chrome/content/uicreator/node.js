@@ -474,7 +474,7 @@ NodeObject.prototype.processNewNode = function(){
 
     if(this.newNode){
         this.selectTag();
-
+        this.id = suggestName(this);
     }else{
         this.setHeaderTrailerForRegularNode();
     }
