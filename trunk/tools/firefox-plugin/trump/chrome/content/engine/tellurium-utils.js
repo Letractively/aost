@@ -220,6 +220,8 @@ StringBuffer.prototype.toString = function() {
 };
 
 function trimString(str) {
+    str = str + "";
+    logger.debug("Str to be trimed " + str);
     return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 }
 
@@ -392,11 +394,6 @@ Hashtable.prototype.showMe = function(){
     return sb;
 };
 
-String.prototype.trim = function(){
-    return (this.replace(/^[\s\xA0]+/, "").replace(/[\s\xA0]+$/, ""));
-};
-
-
 function objectExtends(destination, source1, source2) {
   for (var p1 in source1) {
     destination[p1] = source1[p1];
@@ -428,9 +425,22 @@ function getObjectClass(obj) {
     return undefined;
 }
 
+/*String.prototype.trim = function(){
+    return (this.replace(/^[\s\xA0]+/, "").replace(/[\s\xA0]+$/, ""));
+};
+*/
+
+String.prototype.trim = function() {
+    var result = this.replace(/^\s+/g, "");
+    // strip leading
+    return result.replace(/\s+$/g, "");
+    // strip trailing
+};
 
 String.prototype.startsWith = function(str)
 {
+    str = str + "";
+//    logger.debug("str " + str + " its type: " + typeof(str));
     return (this.indexOf(str) === 0);
 };
 //Have problem if the str starts with "*"
@@ -453,6 +463,13 @@ String.prototype.endsWith = function(t, i) {
         return (t.toLowerCase() == this.substring(this.length - t.length).toLowerCase());
     }
 };
+
+function extractErrorMessage(ex) {
+    if (ex == null) return "null exception";
+    if (ex.message != null) return ex.message;
+    if (ex.toString && ex.toString() != null) return ex.toString();
+    return ex.message;
+}
 
 //code copied from http://ejohn.org/blog/simple-javascript-inheritance/
 // and the copywright belongs to John Resig
@@ -780,3 +797,13 @@ printStackTrace.implementation.prototype = {
         return "(?)";
     }
 };
+
+function describeErrorStack(error){
+    var jstack = printStackTrace({e: error});
+    var message = "";
+    if (jstack != null && typeof(jstack) != 'undefined') {
+        message = "JavaScript Error Stack: \n" + jstack.join('\n\n');
+    }
+    return message;
+}
+
