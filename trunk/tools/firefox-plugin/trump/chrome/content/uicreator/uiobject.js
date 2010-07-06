@@ -12,6 +12,8 @@ function NodeUiObject(){
     this.respond = new Array();
     this.container = false;
     this.group = false;
+    //If it is contained in its parent or not
+    this.self = false;
     //the node associated with this UiObject
     this.node = null;
 
@@ -82,6 +84,9 @@ NodeUiObject.prototype.strUiObject = function(level){
     if(this.group){
         sb.append(", group: \"true\"");
     }
+    if(this.self){
+        sb.append(", self: \"true\"");
+    }
     //comment this line out if you do not want xpath to display
     //        sb.append("[xpath: ").append(xpath).append("]");
 
@@ -112,6 +117,9 @@ NodeUiObject.prototype.descObject = function(){
     }
     if(this.group){
         sb.append(", group: 'true'");
+    }
+    if(this.self){
+        sb.append(", self: 'true'");
     }
 
     sb.append(")");

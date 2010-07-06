@@ -357,6 +357,7 @@ UiModuleBuilder.prototype.build = function(tree){
 UiModuleBuilder.prototype.copyNodeObject = function(uiobj, nodeobj){
     uiobj.uid = nodeobj.uid;
     uiobj.events = nodeobj.respond;
+    uiobj.self = nodeobj.self;
     uiobj.locator = new CompositeLocator();
     uiobj.locator.tag = nodeobj.clocator.tag;
     uiobj.locator.text = nodeobj.clocator.text;

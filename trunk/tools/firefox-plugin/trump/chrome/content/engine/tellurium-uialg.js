@@ -587,7 +587,7 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
             var $relaxed = result.closest;
 
             if($relaxed == null){
-                !tellurium.logManager.isUseLog || fbWarn("Cannot find a relaxed match for UI object ", uid);
+                !tellurium.logManager.isUseLog || fbWarn("Cannot find a relaxed match for UI object " + uid, uiobj);
 
                 var rdz = new RelaxDetail();
                 rdz.uid = uid;
