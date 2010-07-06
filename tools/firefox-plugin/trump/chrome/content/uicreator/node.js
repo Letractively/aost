@@ -170,7 +170,8 @@ NodeObject.prototype.buildUiObject = function(){
         }
     }
     
-    this.checkUiDirectAttribute();
+    this.checkUiDirectAttribute();  
+    this.checkUiSelfAttribute();
 };
 
 NodeObject.prototype.checkUiDirectAttribute = function(){
@@ -181,6 +182,20 @@ NodeObject.prototype.checkUiDirectAttribute = function(){
             var puid = $child.parent().data("uid");
             if(puid == this.id){
                 this.children[i].uiobject.clocator.direct = true;
+            }
+        }
+        teJQuery(this.domNode).removeData("uid");
+    }
+};
+
+NodeObject.prototype.checkUiSelfAttribute = function(){
+    if(this.children.length > 0){
+        teJQuery(this.domNode).data("uid", this.id);
+        for(var i=0; i<this.children.length; i++){
+            var $child = teJQuery(this.children[i].domNode);
+            var cuid = $child.data("uid");
+            if(cuid == this.id){
+                this.children[i].uiobject.self = true;
             }
         }
         teJQuery(this.domNode).removeData("uid");
