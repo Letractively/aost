@@ -174,6 +174,10 @@ Editor.prototype.generateButton = function(){
 };
 
 Editor.prototype.validateUI = function(){
+    if(tellurium == null){
+        tellurium = new Tellurium();
+        tellurium.initialize();
+    }      
     var glf = Preferences.getPref("extensions.trump.grouplocating");
 //    alert("extensions.trump.grouplocating: " + glf);
     if(glf == undefined){
