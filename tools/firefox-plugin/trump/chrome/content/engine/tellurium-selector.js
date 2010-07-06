@@ -355,7 +355,6 @@ JQueryBuilder.prototype.includeSingleQuote = function(val) {
     if(val == null)
         return false;
     val = val + "";
-    logger.debug("val " + val + " its type: " + typeof(val));
     return val.indexOf(this.SINGLE_QUOTE) > 0;
 };
 
