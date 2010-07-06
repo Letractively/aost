@@ -141,8 +141,10 @@
                                         <!-- show different options collected by the client. Allow user to override -->
                                         <label control="commandTarget" value="&type.label;"/>
                                         <hbox flex="1">
-                                            <textbox flex="1" disabled="true" id="uiType" oninput=""/>
-
+                                             <textbox flex="1" disabled="true" id="uiType" type="autocomplete"/>
+<!--
+                                            <textbox flex="1" disabled="true" id="uiType" type="autocomplete" autocompletesearch="simple-autocomplete" showcommentcolumn="true" autocompletesearchparam=""/>
+-->
                                         </hbox>
                                     </row>
                                     <row align="center">
