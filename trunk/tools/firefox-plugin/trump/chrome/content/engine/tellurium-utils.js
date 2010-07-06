@@ -219,12 +219,6 @@ StringBuffer.prototype.toString = function() {
     return this.buffer.join("");
 };
 
-function trimString(str) {
-    str = str + "";
-    logger.debug("Str to be trimed " + str);
-    return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-}
-
 function SimpleCompare(){
 
 }
@@ -423,6 +417,12 @@ function getObjectClass(obj) {
     }
 
     return undefined;
+}
+
+function trimString(str) {
+    str = str + "";
+//    logger.debug("Str to be trimed " + str);
+    return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 }
 
 /*String.prototype.trim = function(){
