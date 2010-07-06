@@ -75,9 +75,78 @@ Editor.prototype.toggleStopButton = function(){
     }
 };
 
+Editor.prototype.suggestName = function(tagObject){
+    var tag = tagObject.tag;
+    var attributes = tagObject.attributes;
+    
+    var name = attributes.get("id");
+    if(name == null || name.length == 0){
+        name = attributes.get("value");
+    }
+    if(name == null || name.length == 0){
+        name = attributes.get("name");
+    }
+    if(name == null || name.length == 0){
+        name = attributes.get("title");
+    }
+    if(name == null || name.length == 0){
+        name = attributes.get("class");
+    }
+    if(name == null || name.length == 0){
+        name = attributes.get("text");
+    }
+    if(name == null || name.length == 0){
+        if(tag == "input"){
+            var type = attributes.get("type");
+            if(type == "text"){
+                name = "Input";
+            }else if(type == "submit"){
+                name = "Submit";
+            }else if(type == "image"){
+                name = "Image";
+            }else if(type == "checkbox"){
+                name = "Option";
+            }else if(type == "radio"){
+                name = "Option";
+            }else if(type == "password"){
+                name = "Password";
+            }else{
+                name = "Button";
+            }
+        }else if(tag == "a" || tag == "link"){
+            name = "Link";
+        }else if(tag == "select"){
+            name = "Select";
+        }else if(tag == "tr"){
+            name = "Row";
+        }else if(tag == "td"){
+            name = "Column";
+        }else if(tag == "th"){
+            name = "Header";
+        }else if(tag == "tfoot"){
+            name = "Footer";
+        }else if(tag == "tbody"){
+            name = "Section";
+        }else if(tag == "form"){
+            name = "Form";
+        }else if(tag == "image"){
+            name = "Image";
+        }
+    }
+    if(name != null && name.length > 0){
+        var split = name.split(" ");
+        if(split.length > 1){
+            name = split[0] + split[1];
+        }
+    }else{
+        name = tag;
+    }
+
+    return name;
+};
+
 Editor.prototype.generateButton = function(){
     this.switchToSourceTab();
-
 
     var tagArrays = this.recorder.tagObjectArray;
 
@@ -88,7 +157,8 @@ Editor.prototype.generateButton = function(){
     for(var i=0; i<tagArrays.length; ++i){
         tagObject = tagArrays[i];
         element = new ElementObject();
-        element.uid = tagObject.tag+i;
+//        element.uid = tagObject.tag+i;
+        element.uid = this.suggestName(tagObject);
         element.xpath = tagObject.xpath;
         element.attributes = tagObject.attributes;
         element.domNode = tagObject.node;
