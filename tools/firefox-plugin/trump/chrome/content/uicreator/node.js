@@ -174,15 +174,16 @@ NodeObject.prototype.buildUiObject = function(){
 };
 
 NodeObject.prototype.checkUiDirectAttribute = function(){
-    if(this.trailer == null || trimString(this.trailer).length == 0){
-        if(this.children.length > 0){
-            for(var i=0; i<this.children.length; i++){
-                //check direct child
-                if(this.children[i].header == null || trimString(this.header).length == 0){
-                    this.children[i].uiobject.clocator.direct = true;
-                }
+    if(this.children.length > 0){
+        teJQuery(this.domNode).data("uid", this.id);
+        for(var i=0; i<this.children.length; i++){
+            var $child = teJQuery(this.children[i].domNode);
+            var puid = $child.parent().data("uid");
+            if(puid == this.id){
+                this.children[i].uiobject.clocator.direct = true;
             }
         }
+        teJQuery(this.domNode).removeData("uid");
     }
 };
 
@@ -281,8 +282,8 @@ NodeObject.prototype.buildAttributeXml = function(){
     var xml = "<?xml version=\"1.0\"?>\n<attributes id=\"attributes_tree_xml\" xmlns=\"\">\n";
 
     if(xmlArray != null){
-        for(var i=0; i<xmlArray.length; i++){
-            xmlBuffer.append(xmlArray[i]);
+        for(var j=0; j<xmlArray.length; j++){
+            xmlBuffer.append(xmlArray[j]);
         }
     }
 
