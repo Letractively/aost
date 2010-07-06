@@ -324,16 +324,6 @@ Editor.prototype.customizeButton = function(){
 
 Editor.prototype.switchToCustomizeTab = function(){
     document.getElementById("editorTabs").selectedItem = document.getElementById("customizeTab");
-    var uitypes = tellurium.getRegisteredUiTypes();
-    logger.debug("Get registered UI types: " + uitypes.join(", "));
-//    teJQuery("#uiType").autocomplete("option", "source", uitypes);
-    teJQuery("#uiType").autocomplete({source: uitypes});
-
-/*    
-    teJQuery("#uiType").live("click", function(){
-       teJQuery("#uiType").autocomplete("option", "source", uitypes); 
-    });
-    */
 };
 
 Editor.prototype.buildCustomizeTree = function(xml) {
@@ -346,6 +336,14 @@ Editor.prototype.buildCustomizeTree = function(xml) {
     }
 };
 
+Editor.prototype.populateUiTypeAutoComplete = function(){
+    var uitypes = tellurium.getRegisteredUiTypes();
+    logger.debug("Get registered UI types: " + uitypes.join(", "));
+    //    teJQuery("#uiType").autocomplete("option", "source", uitypes);
+    teJQuery("#uiType").autocomplete({source: uitypes});
+//    teJQuery("#uiType").attr("autocompletesearchparam", '[{"value":"mark","comment":"cool dude"},{"value":"mary","comment":"nice lady"},{"value":"jimmy","comment":"very uncool guy"},{"value":"jimbo","comment":null}]');
+};
+
 Editor.prototype.processCustomizeEvent = function(event){
 //    logger.debug('Customize ' + event.target.getAttribute("label"));
     this.currentUid = event.target.getAttribute("uid");
@@ -354,6 +352,7 @@ Editor.prototype.processCustomizeEvent = function(event){
     if(uiObject != null){
         this.fillUiObjectFields(uiObject);
         this.enableUiObjectFields();
+        this.populateUiTypeAutoComplete();
     }else{
         logger.warn("Cannot find UI object " + this.currentUid);
     }
