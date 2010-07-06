@@ -75,7 +75,7 @@ Editor.prototype.toggleStopButton = function(){
     }
 };
 
-Editor.prototype.suggestName = function(tagObject){
+function suggestName(tagObject){
     var tag = tagObject.tag;
     var attributes = tagObject.attributes;
     
@@ -118,19 +118,21 @@ Editor.prototype.suggestName = function(tagObject){
         }else if(tag == "select"){
             name = "Select";
         }else if(tag == "tr"){
-            name = "Row";
+            name = "Section";
         }else if(tag == "td"){
-            name = "Column";
+            name = "Part";
         }else if(tag == "th"){
             name = "Header";
         }else if(tag == "tfoot"){
             name = "Footer";
         }else if(tag == "tbody"){
-            name = "Section";
+            name = "Group";
         }else if(tag == "form"){
             name = "Form";
         }else if(tag == "image"){
             name = "Image";
+        }else if(tag == "table"){
+            name = "Table";
         }
     }
     if(name != null && name.length > 0){
@@ -143,7 +145,7 @@ Editor.prototype.suggestName = function(tagObject){
     }
 
     return name;
-};
+}
 
 Editor.prototype.generateButton = function(){
     this.switchToSourceTab();
@@ -158,7 +160,7 @@ Editor.prototype.generateButton = function(){
         tagObject = tagArrays[i];
         element = new ElementObject();
 //        element.uid = tagObject.tag+i;
-        element.uid = this.suggestName(tagObject);
+        element.uid = suggestName(tagObject);
         element.xpath = tagObject.xpath;
         element.attributes = tagObject.attributes;
         element.domNode = tagObject.node;
