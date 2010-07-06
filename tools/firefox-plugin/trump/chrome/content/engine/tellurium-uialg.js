@@ -426,6 +426,7 @@ UiAlg.prototype.lookId = function(uiobj, $found){
     if(ids != null && ids.length > 0){
          var gsel = new Array();
          for(var c=0; c < ids.length; c++){
+             logger.debug("ids " + c + " is " + ids[c]);
              gsel.push(this.buildIdSelector(ids[c]));
          }
          var result = new Array();

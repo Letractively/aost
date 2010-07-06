@@ -352,8 +352,11 @@ JQueryBuilder.prototype.guardQuote = function(val) {
 };
 
 JQueryBuilder.prototype.includeSingleQuote = function(val) {
-
-    return val != null && val.indexOf(this.SINGLE_QUOTE) > 0;
+    if(val == null)
+        return false;
+    val = val + "";
+    logger.debug("val " + val + " its type: " + typeof(val));
+    return val.indexOf(this.SINGLE_QUOTE) > 0;
 };
 
 JQueryBuilder.prototype.buildIdSelector = function(id) {
