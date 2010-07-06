@@ -688,12 +688,22 @@ UiAlg.prototype.relax = function(clocator, pref) {
     }
 
     var id = null;
-    if (clocator.attributes != undefined) {
-        for (var key in clocator.attributes) {
+    if (clocator.attributes != null && clocator.attributes != undefined) {
+        var keyset = clocator.attributes.keySet();
+        for(var i=0; i<keyset.length; i++){
+            var key = keyset[i];
             if (!this.cssbuilder.inBlackList(key)) {
-                attrs.put(key, clocator.attributes[key]);
+                attrs.put(key, clocator.attributes.get(key));
             }
         }
+/*
+    for (var key in clocator.attributes) {
+            if (!this.cssbuilder.inBlackList(key)) {
+//                attrs.put(key, clocator.attributes[key]);
+                attrs.put(key, clocator.attributes.get(key));
+            }
+    }
+*/
 
         id = clocator.attributes["id"];
     }
