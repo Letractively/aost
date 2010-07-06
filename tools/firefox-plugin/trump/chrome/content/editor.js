@@ -181,7 +181,19 @@ Editor.prototype.validateUI = function(){
     }
     
     if(glf){
-        this.validateUiModule();
+        try{
+           this.validateUiModule();
+        }catch(error){
+            var msg
+            if(this.innerTree.root != null){
+                msg = "Error while validating UI Module " + this.innerTree.root.uid + ": " + error.name + " -> " + error.message +"\n";
+            }else{
+                msg = "Cannot validate empty UI module !\n";
+            }
+            logger.error(msg);
+            this.showMessage(msg);
+        }
+
     }else{
         this.validateXPath();
     }
