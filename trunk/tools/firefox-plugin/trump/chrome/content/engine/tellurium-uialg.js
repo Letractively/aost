@@ -615,6 +615,7 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
                         var rdz = new RelaxDetail();
                         rdz.uid = uid;
                         rdz.locator = clocator;
+                        logger.debug("$relaxed size: " + $relaxed.size());
                         rdz.html = $relaxed.eq(0).outerHTML();
                         snapshot.relaxed = true;
                         snapshot.relaxDetails.push(rdz);
