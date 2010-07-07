@@ -55,7 +55,7 @@ NodeUiObject.prototype.buildUiObject = function(node, hasChildren){
 function removeElement(array, elem){
     var index = array.indexOf(elem);
     if(index >= 0)
-        array = array.splice(index, 1);
+        array.splice(index, 1);
 }
 
 //build relative xpath from UiObject's locator
