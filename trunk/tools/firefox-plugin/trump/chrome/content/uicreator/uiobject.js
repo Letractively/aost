@@ -37,6 +37,11 @@ NodeUiObject.prototype.buildUiObject = function(node, hasChildren){
     this.uiType = this.classifier.getTypeWithExtra(tag, attributes, hasChildren);
 
     this.respond = this.filter.processEventAttributes(attributes);
+    if(this.respond != null && this.respond.length > 0){
+        if(this.uiType == "UrlLink" || this.uiType == "Button" || this.uiType == "SubmitButton"){
+            removeElement(this.respond, "click");
+        }
+    }
 
     this.container = hasChildren;
 
@@ -46,6 +51,12 @@ NodeUiObject.prototype.buildUiObject = function(node, hasChildren){
     
     return this;
 };
+
+function removeElement(array, elem){
+    var index = array.indexOf(elem);
+    if(index >= 0)
+        array = array.splice(index, 1);
+}
 
 //build relative xpath from UiObject's locator
 //If group is true, we need to use its children attributes
