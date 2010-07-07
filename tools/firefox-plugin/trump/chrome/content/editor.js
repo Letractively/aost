@@ -448,6 +448,7 @@ Editor.prototype.updateUiObject = function(){
 
         //update attributes
         var attrmap = new HashMap();
+        attrmap.put("position", null);
         var keys = uiObject.node.attributes.keySet();
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
