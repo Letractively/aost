@@ -772,3 +772,19 @@ printStackTrace.implementation.prototype = {
         return "(?)";
     }
 };
+
+function extractErrorMessage(ex) {
+    if (ex == null) return "null exception";
+    if (ex.message != null) return ex.message;
+    if (ex.toString && ex.toString() != null) return ex.toString();
+    return ex.message;
+}
+
+function describeErrorStack(error){
+    var jstack = printStackTrace({e: error});
+    var message = "";
+    if (jstack != null && typeof(jstack) != 'undefined') {
+        message = "JavaScript Error Stack: \n" + jstack.join('\n\n');
+    }
+    return message;
+}
