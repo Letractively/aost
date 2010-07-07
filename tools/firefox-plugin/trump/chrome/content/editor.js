@@ -244,7 +244,11 @@ Editor.prototype.describeUiModuleValidationResult = function(result){
         msg.append("Relax details: \n");
         for(var i=0; i<result.relaxDetails.length; i++){
             msg.append("\tUID: " + result.relaxDetails[i].uid + "\n");
-            msg.append("\tLocator: " + result.relaxDetails[i].locator + "\n");
+            if(result.relaxDetails[i].locator != null){
+               msg.append("\tLocator: " + result.relaxDetails[i].locator.strLocator() + "\n");
+            }else{
+               msg.append("\tLocator: " + "\n");
+            }
             msg.append("\tHTML: " + result.relaxDetails[i].html + "\n");
         }
     }

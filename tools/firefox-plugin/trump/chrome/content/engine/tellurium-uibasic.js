@@ -214,6 +214,14 @@ function BaseLocator(){
 
 //composite locator
 function CompositeLocator(){
+    this.constants = {
+        TAG : "tag",
+        TEXT : "text",
+        HEADER : "header",
+        TRAILER: "trailer",
+        POSITION: "position"
+    };
+    
     this.tag = null;
     this.text = null;
     this.position = null;
@@ -222,3 +230,76 @@ function CompositeLocator(){
     this.trailer = null;
     this.attributes = new Hashtable();
 }
+
+CompositeLocator.prototype.attributesToString = function(){
+    var sb = new StringBuffer();
+
+    if(this.attributes.size() >0 ){
+        var keys = this.attributes.keySet();
+        for(var i=0; i< keys.length; i++){
+            if(keys[i] != this.constants.TEXT && keys[i] != this.constants.POSITION && keys[i] != this.constants.HEADER && keys[i] != this.constants.TRAILER){
+                sb.append(", ").append(keys[i]).append(": ").append("\"").append(this.attributes.get(keys[i])).append("\"");
+            }
+        }
+    }
+
+    return sb.toString();
+};
+
+CompositeLocator.prototype.strLocator = function(){
+    var sb = new StringBuffer();
+
+    sb.append("clocator: [");
+    if(this.header == null && this.tag == null && this.text == null && this.trailer == null && this.position == null && this.attributes.size() ==0){
+        //if empty locator
+        sb.append(":");
+    }else{
+        var count = 0;
+        if(this.tag != null && this.tag.length > 0){
+            sb.append(this.constants.TAG).append(": ").append("\"").append(this.tag).append("\"");
+            ++count;
+        }
+        if(this.text != null && this.text.length > 0){
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append(this.constants.TEXT).append(": ").append("\"").append(this.text).append("\"");
+            ++count;
+        }
+        if(this.position != null){
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append(this.constants.POSITION).append(": ").append("\"").append(this.position).append("\"");
+            ++count;
+        }
+        if(this.header != null && trimString(this.header).length > 0){
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append(this.constants.HEADER).append(": ").append("\"").append(this.header).append("\"");
+            ++count;
+        }
+        if(this.trailer != null && trimString(this.trailer).length > 0){
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append(this.constants.TRAILER).append(": ").append("\"").append(this.trailer).append("\"");
+            ++count;
+        }
+        if (this.direct) {
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append("direct: \"true\"");
+            ++count;
+        }
+        if(this.attributes != null && this.attributes.size() > 0){
+            sb.append(this.attributesToString())
+        }
+
+    }
+    sb.append("]");
+
+    return sb.toString();
+};
