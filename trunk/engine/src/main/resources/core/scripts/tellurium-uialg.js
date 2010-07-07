@@ -594,66 +594,38 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
             var result = this.relax(clocator, pref);
             var $relaxed = result.closest;
 
-            if ($relaxed.size() > 1) {
-                $relaxed = this.lookAheadClosestMatchChildren(uiobj, $relaxed, result);
-            }
+            if ($relaxed == null) {
+                !tellurium.logManager.isUseLog || fbWarn("Cannot find a relaxed match for UI object " + uid, uiobj);
 
-            if($relaxed.size() == 1){
-                //found exactly one
-                //temporally assign uid to the found element
-                !tellurium.logManager.isUseLog || fbLog("Marking closest match for uid " + uid, $relaxed.get(0));
-                $relaxed.eq(0).data("uid", uid);
+                var rdz = new RelaxDetail();
+                rdz.uid = uid;
+                rdz.locator = clocator;
+                snapshot.relaxed = true;
+                snapshot.relaxDetails.push(rdz);
 
-                if (!foundWithoutLookAhead) {
-                    //get the relaxed details
-                    var rdz = new RelaxDetail();
-                    rdz.uid = uid;
-                    rdz.locator = clocator;
-                    rdz.html = $relaxed.eq(0).outerHTML();
-                    snapshot.relaxed = true;
-                    snapshot.relaxDetails.push(rdz);
-                }
-
-                snapshot.addUi(uid, $relaxed.get(0));
                 snapshot.setColor(ncolor);
-                snapshot.score += result.score;
+                snapshot.score += 0;
                 snapshot.nelem++;
                 this.squeue.push(snapshot);
-            }else if($relaxed.size() > 1){
-                //multiple results, need to create more snapshots to expend the search
-                for (var j = 1; j < $relaxed.size(); j++) {
-                    if ($relaxed.eq(i).data("uid") == undefined) {
-
-                        var nsnapshot = snapshot.clone();
-
-                        if (!foundWithoutLookAhead) {
-                            //get the relaxed details
-                            var rdi = new RelaxDetail();
-                            rdi.uid = uid;
-                            rdi.locator = clocator;
-                            rdi.html = $relaxed.eq(i).outerHTML();
-                            nsnapshot.relaxed = true;
-                            nsnapshot.relaxDetails.push(rdi);
-                        }
-
-                        nsnapshot.addUi(uid, $relaxed.get(j));
-                        nsnapshot.setColor(ncolor);
-                        nsnapshot.score += result.score;
-                        nsnapshot.nelem++;
-                        this.squeue.push(nsnapshot);
-                    }
+            } else {
+                if ($relaxed.size() > 1) {
+                    $relaxed = this.lookAheadClosestMatchChildren(uiobj, $relaxed, result);
                 }
-                //still need the push back the orignail snapshot
-                if ($relaxed.eq(0).data("uid") == undefined) {
+
+                if ($relaxed.size() == 1) {
+                    //found exactly one
+                    //temporally assign uid to the found element
+                    !tellurium.logManager.isUseLog || fbLog("Marking closest match for uid " + uid, $relaxed.get(0));
+                    $relaxed.eq(0).data("uid", uid);
 
                     if (!foundWithoutLookAhead) {
                         //get the relaxed details
-                        var rdf = new RelaxDetail();
-                        rdf.uid = uid;
-                        rdf.locator = clocator;
-                        rdf.html = $relaxed.eq(0).outerHTML();
+                        var rdz = new RelaxDetail();
+                        rdz.uid = uid;
+                        rdz.locator = clocator;
+                        rdz.html = $relaxed.eq(0).outerHTML();
                         snapshot.relaxed = true;
-                        snapshot.relaxDetails.push(rdf);
+                        snapshot.relaxDetails.push(rdz);
                     }
 
                     snapshot.addUi(uid, $relaxed.get(0));
@@ -661,11 +633,54 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
                     snapshot.score += result.score;
                     snapshot.nelem++;
                     this.squeue.push(snapshot);
+                } else if ($relaxed.size() > 1) {
+                    //multiple results, need to create more snapshots to expend the search
+                    for (var j = 1; j < $relaxed.size(); j++) {
+                        if ($relaxed.eq(i).data("uid") == undefined) {
+
+                            var nsnapshot = snapshot.clone();
+
+                            if (!foundWithoutLookAhead) {
+                                //get the relaxed details
+                                var rdi = new RelaxDetail();
+                                rdi.uid = uid;
+                                rdi.locator = clocator;
+                                rdi.html = $relaxed.eq(i).outerHTML();
+                                nsnapshot.relaxed = true;
+                                nsnapshot.relaxDetails.push(rdi);
+                            }
+
+                            nsnapshot.addUi(uid, $relaxed.get(j));
+                            nsnapshot.setColor(ncolor);
+                            nsnapshot.score += result.score;
+                            nsnapshot.nelem++;
+                            this.squeue.push(nsnapshot);
+                        }
+                    }
+                    //still need the push back the orignail snapshot
+                    if ($relaxed.eq(0).data("uid") == undefined) {
+
+                        if (!foundWithoutLookAhead) {
+                            //get the relaxed details
+                            var rdf = new RelaxDetail();
+                            rdf.uid = uid;
+                            rdf.locator = clocator;
+                            rdf.html = $relaxed.eq(0).outerHTML();
+                            snapshot.relaxed = true;
+                            snapshot.relaxDetails.push(rdf);
+                        }
+
+                        snapshot.addUi(uid, $relaxed.get(0));
+                        snapshot.setColor(ncolor);
+                        snapshot.score += result.score;
+                        snapshot.nelem++;
+                        this.squeue.push(snapshot);
+                    }
+                } else {
+                    //otherwise, throw exception
+                    //                throw new SeleniumError("Cannot find UI element " + uid);
+                    //do not throw exception and do not push the snapshot back to the queue instead
                 }
-            }else{
-                //otherwise, throw exception
-//                throw new SeleniumError("Cannot find UI element " + uid);
-                //do not throw exception and do not push the snapshot back to the queue instead
             }
         }else{
             //otherwise, throw exception
