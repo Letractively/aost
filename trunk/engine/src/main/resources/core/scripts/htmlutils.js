@@ -802,12 +802,12 @@ function AssertionFailedError(message) {
 }
 
 function SeleniumError(message) {
-    if(tellurium.logManager.isUseLog){
+/*    if(tellurium.logManager.isUseLog){
         var jstack = printStackTrace();
         if(jstack != null && typeof(jstack) != 'undefined'){
             message = message + "\nJavaScript Error Stack: \n" + jstack.join('\n\n');
         }
-    }
+    }*/
     var error = new Error(message);
     if (typeof(arguments.caller) != 'undefined') { // IE, not ECMA
         var result = '';
@@ -821,7 +821,12 @@ function SeleniumError(message) {
         error.stack = result;
     }
     error.isSeleniumError = true;
-    fbError("Selenium Error: "+ message, error);
+    var jstk = error.message;
+    if(tellurium.logManager.isUseLog){
+        jstk = jstk + describeErrorStack(error);
+        error.message = jstk;
+    }
+    fbError("Selenium Error: "+ jstk, error);
     return error;
 }
 
