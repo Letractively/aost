@@ -44,6 +44,7 @@
     </menupopup>
 
     <!-- Adding TrUMP to right click pop up menu -->
+<!--
     <popup id="contentAreaContextMenu">
         <menuitem id="miShowTrUMP"
                   oncommand="showUIWindow()"
@@ -51,5 +52,6 @@
                   tooltiptext="Show in Tellurium Ui Model Plugin (TrUMP)"
                   accesskey="t"/>
     </popup>
+    -->
 
 </overlay>
