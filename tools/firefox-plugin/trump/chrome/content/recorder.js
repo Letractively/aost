@@ -4,6 +4,8 @@ function Recorder(window) {
     this.window = window;
 
     this.frames = null;
+    this.frameName = null;
+
     this.contentWindow = null;
 
     this.parentWindow = this.window.opener;
@@ -44,7 +46,7 @@ Recorder.prototype.registerClickListener = function(){
                 self.selectedElements.push(element);
 
                 var uid = "trumpSelected" + self.sequence.next();
-                var tagObject = self.builder.createTagObject(element, uid);
+                var tagObject = self.builder.createTagObject(element, uid, self.frameName);
                 teJQuery(element).data("uid", uid);
                 self.tagObjectArray.push(tagObject);
 
@@ -61,6 +63,17 @@ Recorder.prototype.registerClickListener = function(){
             }
 
         };
+
+
+    this.frameFocusListener =
+        function(event){
+            event.preventDefault();
+//            logger.debug("Inside frameFocusListener() ..");
+            if(self.frameName == null){
+//                logger.debug("frameName : " + event.target.name);
+                self.frameName = event.target.name;
+            }
+    };
 
     this.getWindowAndRegisterClickListener();
 
@@ -104,6 +117,7 @@ Recorder.prototype.getWindowAndRegisterClickListener = function(){
             for (var j = 0; j < this.frames.length; j++) {
                 var frame = this.frames[j] ;
                 frame.document.body.addEventListener("click", this.listener, false);
+                frame.addEventListener("focus", this.frameFocusListener, false);
             }
         }
     }

@@ -8,6 +8,7 @@ function TagObject(){
     this.attributes = new Hashtable();
     this.xpath = null;
     this.uid = null;
+    this.frameName = null;
 }
 
 TagObject.prototype.getAttribute = function(attr){
