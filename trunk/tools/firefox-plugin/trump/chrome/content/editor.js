@@ -349,12 +349,51 @@ Editor.prototype.buildCustomizeTree = function(xml) {
     }
 };
 
+/*
 Editor.prototype.populateUiTypeAutoComplete = function(){
     var uitypes = tellurium.getRegisteredUiTypes();
     logger.debug("Get registered UI types: " + uitypes.join(", "));
-    //    teJQuery("#uiType").autocomplete("option", "source", uitypes);
-    teJQuery("#uiType").autocomplete({source: uitypes});
-//    teJQuery("#uiType").attr("autocompletesearchparam", '[{"value":"mark","comment":"cool dude"},{"value":"mary","comment":"nice lady"},{"value":"jimmy","comment":"very uncool guy"},{"value":"jimbo","comment":null}]');
+
+//    teJQuery("input#uiTypeAutoComplete").autocomplete({source: uitypes});
+
+    var projects = [
+        {
+            value: 'jquery',
+            label: 'jQuery'
+        },
+        {
+            value: 'jquery-ui',
+            label: 'jQuery UI'
+        },
+        {
+            value: 'sizzlejs',
+            label: 'Sizzle JS'
+        }
+    ];
+    teJQuery("#uiTypeAutoComplete").autocomplete({
+        minLength: 0,
+        source: projects,
+        focus: function(event, ui) {
+            teJQuery('#uiTypeAutoComplete').val(ui.item.label);
+            return false;
+        },
+        select: function(event, ui) {
+            teJQuery('#uiTypeAutoComplete').val(ui.item.label);
+            return false;
+        }
+    }).data( "autocomplete" )._renderItem = function( ul, item ) {
+        return $("<li></li>")
+                .data("item.autocomplete", item)
+                .append("<a>" + item.label + "<br>" + item.desc + "</a>")
+                .appendTo(ul);
+	};
+
+};
+*/
+
+Editor.prototype.populateUiTypeAutoComplete = function(){
+    var uitypes = tellurium.getRegisteredUiTypes();
+    logger.debug("Get registered UI types: " + uitypes.join(", "));
 };
 
 Editor.prototype.processCustomizeEvent = function(event){
