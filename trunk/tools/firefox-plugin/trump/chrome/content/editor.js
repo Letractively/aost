@@ -171,6 +171,8 @@ Editor.prototype.generateButton = function(){
         element.xpath = tagObject.xpath;
         element.attributes = tagObject.attributes;
         element.domNode = tagObject.node;
+        element.frameName = tagObject.frameName;
+        
         this.innerTree.addElement(element);
     }
     //do some post processing work
