@@ -144,6 +144,11 @@ function suggestName(tagObject){
         name = tag;
     }
 
+    if(name != null && name.length > 0){
+        //remove special characters and only keep alphanumeric and "_"
+        name = name.replace(/[^a-zA-Z_0-9]+/g,'');
+    }
+
     return name;
 }
 
