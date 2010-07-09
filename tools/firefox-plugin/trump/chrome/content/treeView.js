@@ -45,7 +45,11 @@ var TreeView  = {
         }
 
         if(column == "selecetedElementFrameName"){
-            return "";
+            if(tagObject.frameName == null || tagObject.frameName == undefined){
+                return "";
+            }else{
+                return tagObject.frameName;
+            }  
         }
 
         return "todo.."
