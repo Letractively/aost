@@ -138,7 +138,7 @@ function suggestName(tagObject){
     if(name != null && name.length > 0){
         var split = name.split(" ");
         if(split.length > 1){
-            name = split[0] + split[1];
+            name = split[0].toCamel() + split[1].toCamel();
         }
     }
 
@@ -151,7 +151,7 @@ function suggestName(tagObject){
         name = tag;
     }
     
-    return name;
+    return name.toCamel();
 }
 
 Editor.prototype.generateButton = function(){
