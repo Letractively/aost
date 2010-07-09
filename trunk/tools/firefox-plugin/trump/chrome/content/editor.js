@@ -384,7 +384,7 @@ Editor.prototype.populateUiTypeAutoComplete = function(){
     }).data( "autocomplete" )._renderItem = function( ul, item ) {
         return $("<li></li>")
                 .data("item.autocomplete", item)
-                .append("<a>" + item.label + "<br>" + item.desc + "</a>")
+                .append("<a>" + item.label + "</a>")
                 .appendTo(ul);
 	};
 

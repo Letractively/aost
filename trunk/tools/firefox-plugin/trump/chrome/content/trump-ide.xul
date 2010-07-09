@@ -143,6 +143,7 @@
                                         <label control="commandTarget" value="&type.label;"/>
                                         <hbox flex="1">
                                             <textbox flex="1" disabled="true" id="uiType" type="autocomplete"/>
+                                           <!-- <textbox type="autocomplete" autocompletesearch="google-autocomplete" />-->
                                             <!--<html:input id="uiTypeAutoComplete"/>-->
 <!--
                                             <textbox flex="1" disabled="true" id="uiType" type="autocomplete" autocompletesearch="simple-autocomplete" showcommentcolumn="true" autocompletesearchparam=""/>
