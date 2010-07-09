@@ -140,8 +140,6 @@ function suggestName(tagObject){
         if(split.length > 1){
             name = split[0] + split[1];
         }
-    }else{
-        name = tag;
     }
 
     if(name != null && name.length > 0){
@@ -149,6 +147,10 @@ function suggestName(tagObject){
         name = name.replace(/[^a-zA-Z_0-9]+/g,'');
     }
 
+    if(name == null || name.trim().length == 0){
+        name = tag;
+    }
+    
     return name;
 }
 
