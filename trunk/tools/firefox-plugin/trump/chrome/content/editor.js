@@ -34,6 +34,37 @@ function Editor(window) {
     }
 }
 
+Editor.prototype.getAutoCompleteSearchParam = function(id) {
+    var textbox = document.getElementById(id);
+    if (!this.autoCompleteSearchParams)
+        this.autoCompleteSearchParams = {};
+    if (this.autoCompleteSearchParams[id]) {
+        return this.autoCompleteSearchParams[id];
+    } else {
+        var param = id + "_";
+        for (var i = 0; i < 10; i++) {
+            param += Math.floor(Math.random()*36).toString(36);
+        }
+        this.autoCompleteSearchParams[id] = param;
+        textbox.searchParam = param;
+        return param;
+    }
+};
+
+Editor.prototype.cleanupAutoComplete = function() {
+    if (this.autoCompleteSearchParams) {
+        for (id in this.autoCompleteSearchParams) {
+            Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams[id]));
+        }
+    }
+};
+
+Editor.GENERIC_AUTOCOMPLETE = Components.classes["@mozilla.org/autocomplete/search;1?name=selenium-ide-generic"].getService(Components.interfaces.nsISeleniumIDEGenericAutoCompleteSearch);
+
+Editor.prototype.updateUiType = function(value){
+
+};
+
 Editor.prototype.registerRecorder = function(){
     this.recorder = new Recorder(this.window);
     this.recorder.registerListener();
@@ -394,6 +425,8 @@ Editor.prototype.populateUiTypeAutoComplete = function(){
 Editor.prototype.populateUiTypeAutoComplete = function(){
     var uitypes = tellurium.getRegisteredUiTypes();
     logger.debug("Get registered UI types: " + uitypes.join(", "));
+    Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.editor.getAutoCompleteSearchParam("uiType")),
+                                                      XulUtils.toXPCOMArray(uitypes));
 };
 
 Editor.prototype.processCustomizeEvent = function(event){
