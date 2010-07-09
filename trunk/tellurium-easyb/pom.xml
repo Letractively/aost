@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>tellurium</artifactId>
+        <groupId>org.telluriumsource</groupId>
+        <version>0.8.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>tellurium-easyb</artifactId>
+    <name>Tellurium Easyb</name>
+    <description>Tellurium integration with easyb</description>
+    
+
+    <scm>
+        <connection>scm:svn:http://aost.google.code.com/svn/trunk/tellurium-easyb</connection>
+        <developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/tellurium-easyb</developerConnection>
+        <url>http://aost.google.code.com/svn/trunk/tellurium-easyb</url>
+    </scm>
+    <dependencies>
+        <dependency>
+            <groupId>org.telluriumsource</groupId>
+            <artifactId>tellurium-core</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.telluriumsource</groupId>
+            <artifactId>tellurium-udl</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.easyb</groupId>
+                <artifactId>maven-easyb-plugin</artifactId>
+                <version>0.9</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
