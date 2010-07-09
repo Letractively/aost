@@ -1,7 +1,8 @@
 var blackListAttributes = ["size", "maxlength", "width", "height", "style", "align", "autocomplete", "nowrap"];
 
 //var whiteListAttributes = ["id", "name", "value", "tag", "type", "class", "action", "method", "title", "text", "href", "src", "position"]
-var whiteListAttributes = ["id", "name", "value", "tag", "type", "class", "action", "method", "title", "text", "href", "src"];
+//var whiteListAttributes = ["id", "name", "value", "tag", "type", "class", "action", "method", "title", "text", "href", "src"];
+var whiteListAttributes = ["id", "name", "value", "tag", "type", "class", "action", "method", "title", "text"];
 
 var eventListAttributes = ["onclick", "ondblclick", "onkeyup", "onkeydown", "onkeypress", "onfocus", "onblur", "onmousedown", "onmouseup", "onmouseover", "onmouseout", "onchange", "onsubmit", "onselect"];
 
