@@ -142,7 +142,9 @@
                                         <!-- show different options collected by the client. Allow user to override -->
                                         <label control="commandTarget" value="&type.label;"/>
                                         <hbox flex="1">
-                                            <textbox flex="1" disabled="true" id="uiType" type="autocomplete"/>
+                                            <textbox disabled="true" id="uiType" oninput="window.editor.updateUiType(this.value)" type="autocomplete" autocompletesearch="selenium-ide-generic" enablehistory="true" forcecomplete="true" tabscrolling="true"/>
+                                            <!--<textbox flex="1" disabled="true" id="uiType" type="autocomplete"/>-->
+
                                            <!-- <textbox type="autocomplete" autocompletesearch="google-autocomplete" />-->
                                             <!--<html:input id="uiTypeAutoComplete"/>-->
 <!--
