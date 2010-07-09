@@ -464,6 +464,19 @@ String.prototype.endsWith = function(t, i) {
     }
 };
 
+String.prototype.toCamel = function(){
+    if(this != null && this.length > 0){
+        if(this.length == 1){
+            return this.charAt(0).toUpperCase();
+        }else{
+            return this.charAt(0).toUpperCase() + this.substring(1);
+        }
+    }
+
+    return this;
+};
+
+
 function extractErrorMessage(ex) {
     if (ex == null) return "null exception";
     if (ex.message != null) return ex.message;
