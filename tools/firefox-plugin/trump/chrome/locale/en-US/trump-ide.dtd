@@ -16,6 +16,7 @@
 <!ENTITY settingsTab.label "Settings">
 <!ENTITY element.label "DOM Node">
 <!ENTITY element.name.label "DOM Node Name">
+<!ENTITY element.framename.label "Frame Name">
 
 <!ENTITY uid.label "UID">
 <!ENTITY type.label "Type">

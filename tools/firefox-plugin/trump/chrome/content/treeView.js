@@ -44,6 +44,10 @@ var TreeView  = {
             return tagObject.name;
         }
 
+        if(column == "selecetedElementFrameName"){
+            return "";
+        }
+
         return "todo.."
     },
     setTree: function(treebox){
