@@ -54,21 +54,19 @@
     <toolbar id="toolbar2">
       <toolbarbutton id="record-button" label="Record" class="record" tooltiptext="&recordButton.tooltip;" oncommand="window.editor.toggleRecordButton()" checked="true"/>
       <toolbarbutton id="stop-button" label="Stop" class="icon" tooltiptext="&stopButton.tooltip;" oncommand="window.editor.toggleStopButton()"/>
-      <toolbarbutton id="generate-button" label="Generate" tooltiptext="&generate.tooltip;" oncommand="window.editor.generateButton()"/>  
-
+      <toolbarbutton id="generate-button" label="Generate" tooltiptext="&generate.tooltip;" oncommand="window.editor.generateButton()"/>
       <toolbarbutton id="customize-button" label="Customize" tooltiptext="&customize.tooltip;" oncommand="window.editor.customizeButton()"/>
+      <toolbarbutton id="test-button" label="Test" tooltiptext="&test.tooltip;" oncommand="window.editor.testButton()"/>
       <toolbarbutton id="clear-button" label="Clear" tooltiptext="&clear.tooltip;" oncommand="window.editor.clearButton()"/>
-      <!--<toolbarbutton id="showLogs-button" label="Show Logs"  oncommand="showLogWindow();"/>-->
     </toolbar>
 
     <tabbox flex="3" height="300" width="250">
         <tabs orient="horizontal" id="editorTabs">
             <tab id="recordTab" label="&recordTab.label;" />
-            <!--<tab id="validateTab" label="&validateTab.label;" />-->
             <tab id="sourceTab" label="&sourceTab.label;" />
             <tab id="customizeTab" label="&customizeTab.label;" />
+            <tab id="testTab" label="&testTab.label;" />
             <tab id="exportToWindowTab" label="&exportToWindowsTab.label;" />
-            <!--<tab id="settingsTab" label="&settingsTab.label;" />-->
         </tabs>
         <tabpanels flex="1">
             <tabpanel orient="vertical" flex="1">
@@ -86,10 +84,6 @@
                 </stack>
                 <resizer dir="bottomright" height="2" style="cursor: se-resize;"/>
            </tabpanel>
-            <!--
-            <tabpanel orient="vertical">
-              <textbox id="validate" multiline="true" flex="1"/>
-            </tabpanel>-->
             <tabpanel orient="vertical">
               <textbox id="source" multiline="true" wrap="off" flex="1"/>
               <resizer dir="bottomright" height="2" style="cursor: se-resize;"/>
@@ -202,12 +196,75 @@
               </groupbox>
             </tabpanel>
             <tabpanel orient="vertical">
+                <groupbox orient="horizontal" flex="1">
+                    <groupbox flex="1" class="border">
+                        <vbox id="commandDetail" persist="width">
+                            <hbox>
+                                <spacer/>
+                            </hbox>
+                            <hbox>
+                                <spacer flex="1"/>
+                                <label control="commandValue" value="&runCommandBox.label;" align="center"/>
+                                <spacer flex="1"/>
+                            </hbox>
+                            <grid>
+                                <columns>
+                                    <column/>
+                                    <column flex="1"/>
+                                </columns>
+                                <rows>
+                                    <row align="center">
+                                        <label control="commandAction" value="&commandName.label;"/>
+                                        <textbox disabled="true" id="commandName"
+                                                 oninput="window.editor.updateUiCommand(this.value)" type="autocomplete"
+                                                 autocompletesearch="selenium-ide-generic" enablehistory="true"
+                                                 forcecomplete="true" tabscrolling="true"/>
+                                    </row>
+                                    <row align="center">
+                                        <label control="commandValue" value="&commandUID.label;"/>
+                                        <textbox disabled="true" id="commandUid" flex="1"/>
+                                    </row>
+                                    <row align="center">
+                                        <label control="commandValue" value="&commandParam.label;"/>
+                                        <textbox disabled="true" id="commandParam" flex="1"/>
+                                    </row>
+                                    <row align="center">
+                                        <spacer/>
+                                        <button label="&runCommand.label;" oncommand="window.editor.runUiCommand()"/>
+                                    </row>
+                                </rows>
+                            </grid>
+                        </vbox>
+                    </groupbox>
+                    <splitter collapse="after">
+                        <grippy/>
+                    </splitter>
+                    <groupbox flex="1" class="border">
+                        <vbox flex="1">
+                            <hbox>
+                                <spacer/>
+                            </hbox>
+                            <hbox>
+                                <spacer flex="1"/>
+                                <label control="commandValue" value="&commandHistory.label;" align="center"/>
+                                <spacer flex="1"/>
+                            </hbox>
+                            <tree id="commandHistory" flex="1" rows="10" hidecolumnpicker="true">
+                              <treecols>
+                                <treecol id="historyCommandName" label="&historyCommandName.label;" flex="1"/>
+                                <treecol id="historyCommandUID" label="&historyCommandUID.label;" flex="1"/>
+                                <treecol id="historyCommandParam" label="&historyCommandParam.label;" flex="1"/>
+                              </treecols>
+                              <treechildren/>
+                            </tree>
+                        </vbox>
+                    </groupbox>
+                </groupbox>
+            </tabpanel>
+            <tabpanel orient="vertical">
               <textbox id="exportSource" multiline="true" wrap="off" flex="1"/>
               <resizer dir="bottomright" height="2" style="cursor: se-resize;"/>
             </tabpanel>
-            <!-- <tabpanel orient="vertical">
-              <textbox id="settings" multiline="true" flex="1"/>
-            </tabpanel>-->
         </tabpanels>
     </tabbox>
     <deck selectedIndex="0" id="logMsgSelection">
