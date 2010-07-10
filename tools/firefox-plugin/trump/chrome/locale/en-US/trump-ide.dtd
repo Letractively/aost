@@ -4,10 +4,12 @@
 <!ENTITY stopButton.tooltip "Stop">
 <!ENTITY generate.tooltip "Generate">
 <!ENTITY customize.tooltip "Customize">
+<!ENTITY test.tooltip "Test">
 <!ENTITY clear.tooltip "Clear">
 
 <!ENTITY recordTab.label "Record Stack">
 <!ENTITY customizeTab.label "Customization View">
+<!ENTITY testTab.label "Test Command">
 <!ENTITY validateTab.label "Validate">
 <!ENTITY sourceTab.label "UI Module">
 <!ENTITY exportToWindow.label "Export To Window">
@@ -28,6 +30,16 @@
 <!ENTITY show.label "Show">
 <!ENTITY message.label "Message">
 <!ENTITY exportUiModule.label "Export">
+
+<!ENTITY runCommand.label "Run">
+<!ENTITY commandName.label "Command">
+<!ENTITY commandUID.label "UID">
+<!ENTITY commandParam.label "Param">
+<!ENTITY historyCommandName.label "Command">
+<!ENTITY historyCommandUID.label "UID">
+<!ENTITY historyCommandParam.label "Param">
+<!ENTITY commandHistory.label "Command History">
+<!ENTITY runCommandBox.label "Run Command">
 
 <!ENTITY options.label "Settings">
 <!ENTITY options.general.label "General">

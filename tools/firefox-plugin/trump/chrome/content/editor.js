@@ -443,6 +443,18 @@ Editor.prototype.processCustomizeEvent = function(event){
     }
 };
 
+Editor.prototype.testButton = function(){
+
+};
+
+Editor.prototype.updateUiCommand = function(value){
+
+};
+
+Editor.prototype.runUiCommand = function(){
+
+};
+
 Editor.prototype.processCheckEvent = function(event){
 //    alert("You selected " + event.target.getAttribute("cid"));
 };
