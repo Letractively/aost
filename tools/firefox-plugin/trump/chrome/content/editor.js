@@ -444,7 +444,7 @@ Editor.prototype.processCustomizeEvent = function(event){
 };
 
 Editor.prototype.testButton = function(){
-
+    document.getElementById("editorTabs").selectedItem = document.getElementById("testTab");
 };
 
 Editor.prototype.updateUiCommand = function(value){
