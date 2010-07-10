@@ -1,9 +1,25 @@
 #record-button {
-    list-style-image: url("chrome://trump/skin/record_microphone.png");
+    list-style-image: url("chrome://trump/skin/record.png");
 }
 
 #stop-button {
     list-style-image: url("chrome://trump/skin/stop.png");
+}
+
+#generate-button {
+    list-style-image: url("chrome://trump/skin/generate.png");
+}
+
+#customize-button {
+   list-style-image: url("chrome://trump/skin/customize.png");
+}
+
+#test-button {
+   list-style-image: url("chrome://trump/skin/test.png");
+}
+
+#clear-button {
+   list-style-image: url("chrome://trump/skin/clear.png");
 }
 
 #source Pre {
