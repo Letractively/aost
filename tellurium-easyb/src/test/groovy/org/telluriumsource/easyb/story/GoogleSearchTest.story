@@ -1,7 +1,7 @@
 import org.telluriumsource.test.java.TelluriumEasybTestCase
 import easyb.module.GoogleSearchModule
 
-scenario "User searches for Tellurium on google.com", {
+scenario "user searches for tellurium on google.com", {
 
 before "start tellurium"
   tellurium = new TelluriumEasybTestCase();
@@ -14,13 +14,12 @@ given "google.com is up",{
   tellurium.connectUrl("http://www.google.com");
 }
 
-when "user searches for Tellurium",{
+when "user searches for tellurium",{
   googleSearch.doGoogleSearch("tellurium test");
 }
 
-then "title should be tellurium",{
-  googleSearch.getTitle().startsWith("tellurium test");
-
+then "title should start with tellurium",{
+  googleSearch.getTitle().shouldStartWith "tellurium";
 }
 
 after "stop tellurium"
