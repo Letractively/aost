@@ -19,7 +19,7 @@ when "user searches for Tellurium",{
 }
 
 then "title should be tellurium",{
-  googleSearch.getTitle().shouldStartWith "tellurium test";
+  googleSearch.getTitle().startsWith("tellurium test");
 
 }
 

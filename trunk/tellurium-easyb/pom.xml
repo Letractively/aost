@@ -44,6 +44,11 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <easybTestDirectory>${basedir}/src/test/groovy/org/telluriumsource/easyb/story</easybTestDirectory>
+                    <storyReport>${project.build.directory}/easyb-stories.txt</storyReport>
+                    <xmlReport>${project.build.directory}/easyb-report.xml</xmlReport>
+                </configuration>
             </plugin>
         </plugins>
     </build>
