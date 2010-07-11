@@ -234,11 +234,10 @@
                                     </row>
                                 </rows>
                             </grid>
+                            <separator class="groove-thin"/>
                             <label control="example" value="Example:"/>
-
                             <textbox multiline="true" readonly="true"
                                      value="click 'Google.Input', 'Tellurium Test'"/>
-                            
                         </vbox>
                     </groupbox>
                     <splitter collapse="after">
