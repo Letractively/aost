@@ -7,9 +7,6 @@ function Tree(){
     //An Array to hold reference to all the UI objects in the Tree
     //change it to a HashMap so that we can access it by key
     this.uiObjectMap = null;
-//    this.builder = new UiModuleBuilder();
-//    //UiAlg
-//    this.uiAlg = new UiAlg();
 }
 
 Tree.prototype.printUI = function(){
@@ -316,54 +313,6 @@ Tree.prototype.createUiModule = function() {
 
     return sb.toString();
 };
-
-/*
-Tree.prototype.validateUiModule = function() {
-    //validate UI object's XPath
-    if (this.root != null) {
-        var uim = uistore.build(this);
-        uistore.save(uim, this.root.domNode.ownerDocument);
-        return uistore.validate();
-    } else {
-        logger.warn("The root node in the Tree is null");
-        return null;
-    }
-};*/
-
-/*Tree.prototype.validateUiModule = function() {
-    //    alert("Start to validate UI Module");
-    //validate UI object's XPath
-    if (this.root != null) {
-
-        var uim = this.builder.build(this);
-        logger.info("Done build UI module ");
-//        uim.dumpMe();
-        
-        var dom = this.root.domNode.ownerDocument;
-        this.uiAlg.validate(uim, dom);
-        var id = uim.getId();
-        var response = new UiModuleLocatingResponse();
-        response.id = id;
-        response.relaxed = uim.relaxed;
-//        if (!response.relaxed)
-//        if(uim.score == 100)
-        if(uim.score == 100 || (!response.relaxed))
-            response.found = true;
-        response.relaxDetails = uim.relaxDetails;
-        response.matches = uim.matches;
-        response.score = uim.score;
-        if(response.found){
-            logger.info("Validate UI Module " + id + " Successfully!");
-        }else{
-            logger.info("Validate UI Module " + id + " Failed!");
-        }
-
-        return response;
-    } else {
-        logger.warn("The root node in the Tree is null");
-        return null;
-    }
-};*/
 
 Tree.prototype.visit = function(visitor){
     if(this.root != null){
