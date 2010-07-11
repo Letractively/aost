@@ -22,6 +22,8 @@ function Editor(window) {
 
     this.decorator = new Decorator();
 
+    this.uistore = new UiModuleStore();
+
 //    this.options = new Preferences();
 
     //Detect the browser properties
@@ -251,22 +253,30 @@ Editor.prototype.validateXPath = function(){
     logger.debug("Done validating UI object's XPath");
 };
 
-Editor.prototype.validateUiModule = function(){
+Editor.prototype.validateUiModule = function() {
     logger.debug("Start validating UI Module");
-    var result = this.innerTree.validateUiModule();
-    if(result != null){
-        this.innerTree.clearValidFlag();
-        if(!result.found){
-            if(result.relaxDetails != null){
-                for(var j=0; j<result.relaxDetails.length; j++){
-                    this.innerTree.markInvalidUiObject(result.relaxDetails[j].uid);
+    //validate UI object's XPath
+    if (this.innerTree.root != null) {
+        var uim = this.uistore.build(this.innerTree);
+        this.uistore.save(uim, this.innerTree.root.domNode.ownerDocument);
+        var result = this.uistore.validate();
+        if (result != null) {
+            this.innerTree.clearValidFlag();
+            if (!result.found) {
+                if (result.relaxDetails != null) {
+                    for (var j = 0; j < result.relaxDetails.length; j++) {
+                        this.innerTree.markInvalidUiObject(result.relaxDetails[j].uid);
+                    }
                 }
             }
+            var msg = this.describeUiModuleValidationResult(result);
+            this.showMessage(msg);
         }
-        var msg = this.describeUiModuleValidationResult(result);
-        this.showMessage(msg);
+        logger.debug("Done validating UI Module, please see detailed result on the message window");
+    } else {
+        logger.warn("The root node in the Tree is null");
+        return null;
     }
-    logger.debug("Done validating UI Module, please see detailed result on the message window");
 };
 
 Editor.prototype.showMessage = function(message){
