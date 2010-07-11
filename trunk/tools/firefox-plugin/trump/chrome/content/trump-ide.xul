@@ -232,6 +232,10 @@
                                         <spacer/>
                                         <button label="&runCommand.label;" oncommand="window.editor.runUiCommand()"/>
                                     </row>
+                                     <row align="center">
+                                        <label control="commandResult" value="&commandResult.label;"/>
+                                        <textbox disabled="true" id="commandResult" flex="1"/>
+                                    </row>
                                 </rows>
                             </grid>
                             <separator class="groove-thin"/>
