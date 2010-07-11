@@ -24,6 +24,10 @@ function Editor(window) {
 
     this.uistore = new UiModuleStore();
 
+    this.command = new TelluriumCommand();
+
+    this.cmdHistory = new Array();
+
 //    this.options = new Preferences();
 
     //Detect the browser properties
@@ -459,10 +463,12 @@ Editor.prototype.testButton = function(){
         document.getElementById("commandName").disabled = false;
         document.getElementById("commandUID").disabled = false;
         document.getElementById("commandParam").disabled = false;
+        document.getElementById("commandResult").disabled = false;
     }else{
         document.getElementById("commandName").disabled = true;
         document.getElementById("commandUID").disabled = true;
         document.getElementById("commandParam").disabled = true;
+        document.getElementById("commandResult").disabled = true;
     }
 };
 
@@ -471,7 +477,22 @@ Editor.prototype.updateUiCommand = function(value){
 };
 
 Editor.prototype.runUiCommand = function(){
+    var name = document.getElementById("commandName").value;
+    var uid = document.getElementById("commandUID").value;
+    var param = document.getElementById("commandParam").value;
+    var cmd = new TestCmd(name, uid, param);
 
+    this.command.uim = this.uistore.uim;
+    this.command.dom = this.uistore.dom;
+    this.command.locateUI();
+    logger.info("Run command " + name + "(" + uid + ", " + param + ")");
+    var result = this.command.run(name, uid, param);
+    logger.info("Executing command " + name + " finished, result: " + result);
+    cmd.result = result;
+    if(result != null && result != undefined){
+        document.getElementById("commandResult").value = result;
+    }
+    this.cmdHistory.push(cmd);
 };
 
 Editor.prototype.processCheckEvent = function(event){
@@ -672,3 +693,10 @@ Editor.prototype.updateOptions = function(){
         }
     }
 };
+
+function TestCmd(name, uid, param){
+    this.name = name;
+    this.uid = uid;
+    this.param = param;
+    this.result = null;
+}

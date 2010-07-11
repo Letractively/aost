@@ -2,7 +2,7 @@ function TelluriumCommand(){
 
     this.uim = null;
 
-    this.uiAlg = null;
+    this.uiAlg = new UiAlg(); 
 
     this.dom = null;
 
@@ -39,7 +39,9 @@ TelluriumCommand.prototype.walkToUiObject = function(context, uid){
 TelluriumCommand.prototype.blur = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if(obj != null){
         var element = context.domRef;
         teJQuery(element).blur();
@@ -49,7 +51,9 @@ TelluriumCommand.prototype.blur = function(uid) {
 TelluriumCommand.prototype.click = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         if (element.href || element.url) {
@@ -70,7 +74,9 @@ TelluriumCommand.prototype.click = function(uid) {
 TelluriumCommand.prototype.clickAt = function(uid, coordString) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if(obj != null){
         var element = context.domRef;
          var clientXY = getTargetXY(element, coordString);
@@ -82,7 +88,9 @@ TelluriumCommand.prototype.clickAt = function(uid, coordString) {
 TelluriumCommand.prototype.doubleClick = function(uid){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if(obj != null){
         var element = context.domRef;
         teJQuery(element).dblclick();
@@ -92,7 +100,9 @@ TelluriumCommand.prototype.doubleClick = function(uid){
 TelluriumCommand.prototype.fireEvent = function(uid, event){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if(obj != null){
         var element = context.domRef;
         teJQuery(element).trigger(event);
@@ -102,7 +112,9 @@ TelluriumCommand.prototype.fireEvent = function(uid, event){
 TelluriumCommand.prototype.focus = function(uid){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if(obj != null){
         var element = context.domRef;
         teJQuery(element).focus();
@@ -112,7 +124,9 @@ TelluriumCommand.prototype.focus = function(uid){
 TelluriumCommand.prototype.typeKey = function(uid, key){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if(obj != null){
         var element = context.domRef;
         var $elem = teJQuery(element);
@@ -123,7 +137,9 @@ TelluriumCommand.prototype.typeKey = function(uid, key){
 TelluriumCommand.prototype.keyDown = function(uid, key){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         var $elem = teJQuery(element);
@@ -134,7 +150,9 @@ TelluriumCommand.prototype.keyDown = function(uid, key){
 TelluriumCommand.prototype.keyPress = function(uid, key){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         var $elem = teJQuery(element);
@@ -145,7 +163,9 @@ TelluriumCommand.prototype.keyPress = function(uid, key){
 TelluriumCommand.prototype.keyUp = function(uid, key){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         var $elem = teJQuery(element);
@@ -156,7 +176,9 @@ TelluriumCommand.prototype.keyUp = function(uid, key){
 TelluriumCommand.prototype.mouseOver = function(uid){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         teJQuery(element).trigger('mouseover');
@@ -166,7 +188,9 @@ TelluriumCommand.prototype.mouseOver = function(uid){
 TelluriumCommand.prototype.mouseDown = function(uid){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         teJQuery(element).trigger('mousedown');
@@ -176,7 +200,9 @@ TelluriumCommand.prototype.mouseDown = function(uid){
 TelluriumCommand.prototype.mouseEnter = function(uid){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         teJQuery(element).trigger('mouseenter');
@@ -186,7 +212,9 @@ TelluriumCommand.prototype.mouseEnter = function(uid){
 TelluriumCommand.prototype.mouseLeave = function(uid){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         teJQuery(element).trigger('mouseleave');
@@ -196,7 +224,9 @@ TelluriumCommand.prototype.mouseLeave = function(uid){
 TelluriumCommand.prototype.mouseOut = function(uid){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         teJQuery(element).trigger('mouseout');
@@ -206,7 +236,9 @@ TelluriumCommand.prototype.mouseOut = function(uid){
 TelluriumCommand.prototype.submit = function(uid){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         teJQuery(element).submit();
@@ -216,7 +248,9 @@ TelluriumCommand.prototype.submit = function(uid){
 TelluriumCommand.prototype.check = function(uid){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         element.checked = true;
@@ -226,7 +260,9 @@ TelluriumCommand.prototype.check = function(uid){
 TelluriumCommand.prototype.uncheck = function(uid){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         element.checked = false;
@@ -236,7 +272,9 @@ TelluriumCommand.prototype.uncheck = function(uid){
 TelluriumCommand.prototype.getAttribute = function(uid, attribute){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         return teJQuery(element).attr(attribute);
@@ -246,7 +284,9 @@ TelluriumCommand.prototype.getAttribute = function(uid, attribute){
 TelluriumCommand.prototype.type = function(uid, val){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         teJQuery(element).val(val);
@@ -278,7 +318,9 @@ TelluriumCommand.prototype.getOptionSelector = function(optionLocator){
 TelluriumCommand.prototype.select = function(uid, optionLocator){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         var $sel = teJQuery(element);
@@ -301,7 +343,9 @@ TelluriumCommand.prototype.select = function(uid, optionLocator){
 TelluriumCommand.prototype.getText = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         return teJQuery(element).text();
@@ -311,7 +355,9 @@ TelluriumCommand.prototype.getText = function(uid) {
 TelluriumCommand.prototype.isChecked = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         if (element.checked == null) {
@@ -325,7 +371,9 @@ TelluriumCommand.prototype.isChecked = function(uid) {
 TelluriumCommand.prototype.isVisible = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         var isHiddenCSS = element.css("visibility") == "hidden" ? true : false;
@@ -346,7 +394,9 @@ TelluriumCommand.prototype.isVisible = function(uid) {
 TelluriumCommand.prototype.getCSS = function(uid, cssName) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         var out = [];
@@ -368,7 +418,9 @@ TelluriumCommand.prototype.getCSS = function(uid, cssName) {
 TelluriumCommand.prototype.isDisabled = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var element = context.domRef;
         var $e = teJQuery(element);
@@ -379,7 +431,9 @@ TelluriumCommand.prototype.isDisabled = function(uid) {
 TelluriumCommand.prototype.showUI = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         this.uim.stree = this.uiAlg.buildSTree(this.uim);
         var outlineVisitor = new UiOutlineVisitor();
@@ -394,7 +448,9 @@ TelluriumCommand.prototype.showUI = function(uid) {
 TelluriumCommand.prototype.cleanUI = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
     if (obj != null) {
         var tipCleaner = new UiSimpleTipCleaner();
         var outlineCleaner = new UiOutlineCleaner();
@@ -408,7 +464,9 @@ TelluriumCommand.prototype.cleanUI = function(uid) {
 TelluriumCommand.prototype.getHTMLSource = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
-    var obj = this.uim.walkTo(context, uid);
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);    
     if (obj != null) {
         var stree = this.uiAlg.buildSTree(this.uim);
         var visitor = new UiHTMLSourceVisitor();
@@ -416,4 +474,19 @@ TelluriumCommand.prototype.getHTMLSource = function(uid) {
 
         return visitor.htmlsource;
     }
+};
+
+TelluriumCommand.prototype.run = function(name, uid, param){
+    var api = this[name];
+
+    if (typeof(api) == 'function') {
+        var params = [];
+        params.push(uid);
+        params.push(param);
+        return api.apply(this, params);
+    }else{
+        logger.error("Invalid Tellurium command " + name);
+    }
+
+    return null;
 };
