@@ -455,6 +455,15 @@ Editor.prototype.processCustomizeEvent = function(event){
 
 Editor.prototype.testButton = function(){
     document.getElementById("editorTabs").selectedItem = document.getElementById("testTab");
+    if(this.uistore.id != null && this.uistore.uim != null){
+        document.getElementById("commandName").disabled = false;
+        document.getElementById("commandUID").disabled = false;
+        document.getElementById("commandParam").disabled = false;
+    }else{
+        document.getElementById("commandName").disabled = true;
+        document.getElementById("commandUID").disabled = true;
+        document.getElementById("commandParam").disabled = true;
+    }
 };
 
 Editor.prototype.updateUiCommand = function(value){

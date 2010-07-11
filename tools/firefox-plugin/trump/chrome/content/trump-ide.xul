@@ -222,7 +222,7 @@
                                     </row>
                                     <row align="center">
                                         <label control="commandValue" value="&commandUID.label;"/>
-                                        <textbox disabled="true" id="commandUid" flex="1"/>
+                                        <textbox disabled="true" id="commandUID" flex="1"/>
                                     </row>
                                     <row align="center">
                                         <label control="commandValue" value="&commandParam.label;"/>
@@ -234,6 +234,11 @@
                                     </row>
                                 </rows>
                             </grid>
+                            <label control="example" value="Example:"/>
+
+                            <textbox multiline="true" readonly="true"
+                                     value="click 'Google.Input', 'Tellurium Test'"/>
+                            
                         </vbox>
                     </groupbox>
                     <splitter collapse="after">
