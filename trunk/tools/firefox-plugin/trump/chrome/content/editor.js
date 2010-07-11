@@ -495,6 +495,16 @@ Editor.prototype.runUiCommand = function(){
         cmd.result = "";
     }
     this.cmdHistory.push(cmd);
+    var sb = new StringBuffer();
+    sb.append("<treerow><treecell label='").append(name).append("'/>").append("<treecell label='").append(uid).append("'/>");
+    if(param != null){
+        sb.append("<treecell label='").append(param).append("'/>");
+    }else{
+        sb.append("<treecell label=''/>")
+    }
+    sb.append("</treerow>");
+    
+    teJQuery("#commandHistoryItem").append(sb.toString());
 };
 
 Editor.prototype.processCheckEvent = function(event){

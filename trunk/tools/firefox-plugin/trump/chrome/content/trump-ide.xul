@@ -263,7 +263,10 @@
                                 <treecol id="historyCommandUID" label="&historyCommandUID.label;" flex="1"/>
                                 <treecol id="historyCommandParam" label="&historyCommandParam.label;" flex="1"/>
                               </treecols>
-                              <treechildren/>
+                              <treechildren>
+                                <treeitem id="commandHistoryItem">
+                                </treeitem>  
+                              </treechildren>
                             </tree>
                         </vbox>
                     </groupbox>
