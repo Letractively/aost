@@ -71,4 +71,5 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-uimodule.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-uiobj.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-uisnapshot.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-cmd.js"/>
 </overlay>
