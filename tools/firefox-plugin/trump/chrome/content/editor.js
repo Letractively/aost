@@ -488,9 +488,11 @@ Editor.prototype.runUiCommand = function(){
     logger.info("Run command " + name + "(" + uid + ", " + param + ")");
     var result = this.command.run(name, uid, param);
     logger.info("Executing command " + name + " finished, result: " + result);
-    cmd.result = result;
     if(result != null && result != undefined){
         document.getElementById("commandResult").value = result;
+        cmd.result = result;
+    }else{
+        cmd.result = "";
     }
     this.cmdHistory.push(cmd);
 };
