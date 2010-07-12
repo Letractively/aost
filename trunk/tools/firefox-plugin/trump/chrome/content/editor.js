@@ -504,17 +504,21 @@ Editor.prototype.runUiCommand = function(){
     this.command.dom = this.uistore.dom;
     this.command.locateUI();
     logger.info("Run command " + name + "(" + uid + ", " + param + ")");
-    var result = this.command.run(name, uid, param);
-    logger.info("Executing command " + name + " finished, result: " + result);
-    if(result != null && result != undefined){
-        document.getElementById("commandResult").value = result;
-        cmd.result = result;
-    }else{
-        cmd.result = "";
+    try{
+        var result = this.command.run(name, uid, param);
+        logger.info("Executing command " + name + " finished, result: " + result);
+        if (result != null && result != undefined) {
+            document.getElementById("commandResult").value = result;
+            cmd.result = result;
+        } else {
+            cmd.result = "";
+        }
+        this.cmdHistory.push(cmd);
+        this.cmdView.setTestCommands(this.cmdHistory);
+        this.cmdView.rowInserted();
+    }catch(error){
+        logger.info("Executing command " + name + " failed:\n" + describeErrorStack(error));
     }
-    this.cmdHistory.push(cmd);
-    this.cmdView.setTestCommands(this.cmdHistory);
-    this.cmdView.rowInserted();   
 };
 
 Editor.prototype.processCheckEvent = function(event){
