@@ -3,6 +3,8 @@ var ErrorCodes = {
     INVALID_TELLURIUM_COMMAND : "Invalid Tellurium command",
     INVALID_CALL_ON_UI_OBJ : "Invalid call on UI object",
     UI_OBJ_CANNOT_BE_LOCATED: "UI object cannot be located",
+    UI_MODULE_IS_NULL: "UI module is null",
+    DOM_NOT_SPECIFIED: "DOM is not specified",
     UNKNOWN: "Unknown"
 };
 
