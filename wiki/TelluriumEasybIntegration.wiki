@@ -1,4 +1,4 @@
-#summary How to write an Tellurium test using easyb.
+#summary How to write a Tellurium test using easyb.
 
 = Introduction =
 
