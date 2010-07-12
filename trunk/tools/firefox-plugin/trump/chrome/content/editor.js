@@ -44,6 +44,10 @@ function Editor(window) {
     }
 }
 
+Editor.prototype.setWindowURL = function(url){
+    
+};
+
 Editor.prototype.getAutoCompleteSearchParam = function(id) {
     var textbox = document.getElementById(id);
     if (!this.autoCompleteSearchParams)
