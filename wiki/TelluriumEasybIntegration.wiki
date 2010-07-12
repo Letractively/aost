@@ -7,3 +7,37 @@ Tellurium is now integrated with easyb framework. It is now very easy to write a
 easyb is a behavior driven development framework for the Java platform. By using a specification based Domain Specific Language, easyb aims to enable executable, yet readable documentation.
 
 You can find more information about easyb on the following url http://www.easyb.org
+
+There are different ways to [http://www.easyb.org/running.html run easyb stories]. In order to create a new project you need to define following dependencies and plug-in information in your pom.xml file.
+
+{{{
+    <dependencies>
+        <dependency>
+            <groupId>org.telluriumsource</groupId>
+            <artifactId>tellurium-core</artifactId>
+            <version>0.8.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.easyb</groupId>
+                <artifactId>maven-easyb-plugin</artifactId>
+                <version>0.9.7</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <easybTestDirectory>${basedir}/src/test/groovy/org/telluriumsource/easyb/story</easybTestDirectory>
+                    <storyReport>${project.build.directory}/easyb-stories.txt</storyReport>
+                    <xmlReport>${project.build.directory}/easyb-report.xml</xmlReport>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+}}}
