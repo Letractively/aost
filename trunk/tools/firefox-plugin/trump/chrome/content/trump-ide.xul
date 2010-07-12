@@ -241,7 +241,7 @@
                             <separator class="groove-thin"/>
                             <label control="example" value="Example:"/>
                             <textbox multiline="true" readonly="true"
-                                     value="Command: 'click', UID: 'Google.Input', Param: 'Tellurium Test'"/>
+                                     value="Command: 'type', UID: 'Google.Input', Param: 'Tellurium Test'"/>
                         </vbox>
                     </groupbox>
                     <splitter collapse="after">
