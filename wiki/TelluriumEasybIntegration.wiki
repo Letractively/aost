@@ -42,7 +42,9 @@ There are different ways to [http://www.easyb.org/running.html run easyb stories
 
 }}}
 
-You can use any of the Java IDEs to write an easyb story. There are plug-ins available for IntelliJ and Eclipse. Following is the code for GoogleSearchTest.story.
+You can use any of the Java IDEs to write an easyb story. You might want to change the configuration in the pom.xml above to match to your environment.
+
+There are plug-ins available for IntelliJ and Eclipse. Following is the code for GoogleSearchTest.story.
 
 {{{
 import org.telluriumsource.test.java.TelluriumEasybTestCase
