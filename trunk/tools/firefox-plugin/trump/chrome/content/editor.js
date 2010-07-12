@@ -463,6 +463,7 @@ Editor.prototype.processCustomizeEvent = function(event){
 };
 
 Editor.prototype.testButton = function(){
+    this.toggleStopButton();
     document.getElementById("editorTabs").selectedItem = document.getElementById("testTab");
     if(this.uistore.id != null && this.uistore.uim != null){
         document.getElementById("commandName").disabled = false;
