@@ -257,16 +257,13 @@
                                 <label control="commandValue" value="&commandHistory.label;" align="center"/>
                                 <spacer flex="1"/>
                             </hbox>
-                            <tree id="commandHistory" flex="1" rows="10" hidecolumnpicker="true">
+                            <tree id="commandHistoryTree" flex="1" rows="10" hidecolumnpicker="true">
                               <treecols>
                                 <treecol id="historyCommandName" label="&historyCommandName.label;" flex="1"/>
                                 <treecol id="historyCommandUID" label="&historyCommandUID.label;" flex="1"/>
                                 <treecol id="historyCommandParam" label="&historyCommandParam.label;" flex="1"/>
                               </treecols>
-                              <treechildren>
-                                <treeitem id="commandHistoryItem">
-                                </treeitem>  
-                              </treechildren>
+                              <treechildren/>  
                             </tree>
                         </vbox>
                     </groupbox>
