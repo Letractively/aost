@@ -8,7 +8,7 @@ easyb is a behavior driven development framework for the Java platform. By using
 
 You can find more information about easyb on the following url http://www.easyb.org
 
-There are different ways to [http://www.easyb.org/running.html run easyb stories]. In order to create a new project you need to define following dependencies and plug-in information in your pom.xml file.
+There are different ways to [http://www.easyb.org/running.html run easyb stories]. We will be using maven to run Tellurium tests as easyb story. You need to define the following dependencies in your pom.xml to work with easyb and Tellurium.
 
 {{{
     <dependencies>
@@ -41,3 +41,60 @@ There are different ways to [http://www.easyb.org/running.html run easyb stories
     </build>
 
 }}}
+
+You can use any of the Java IDEs to write an easyb story. There are plug-ins available for IntelliJ and Eclipse. Following is the code for GoogleSearchTest.story.
+
+{{{
+import org.telluriumsource.test.java.TelluriumEasybTestCase
+import easyb.module.GoogleSearchModule
+
+scenario "user searches for tellurium on google.com", {
+
+before "start tellurium"
+  tellurium = new TelluriumEasybTestCase();
+  tellurium.start();
+  googleSearch = new GoogleSearchModule();
+  googleSearch.defineUi();
+  tellurium.connectSeleniumServer();
+
+given "google.com is up",{
+  tellurium.connectUrl("http://www.google.com");
+}
+
+when "user searches for tellurium",{
+  googleSearch.doGoogleSearch("tellurium test");
+}
+
+then "title should start with tellurium",{
+  googleSearch.getTitle().shouldStartWith "tellurium";
+}
+
+after "stop tellurium"
+    tellurium.stop();
+}
+
+}}}
+
+You would have notice that we are making use of _GoogleSearchModule_ class which is standard way of defining UI modules in Tellurium and we have also exposed methods to run Tellurium within an easyb story in _TelluriumEasybTestCase_ class.
+
+This is all you need to do in order to define an easyb story and run this using Tellurium.
+
+You can use the maven test goal to run the easyb stories.
+{{{
+mvn test
+}}}
+
+Once the test is finished, the output will be generated in your project build directory as  _easyb-stories.txt_ and _easyb-report.xml_
+
+Similarly you can write an easyb specification and use Tellurium to drive the tests for that specification. We are very excited about this as this is just the beginning to drive Tellurium towards Behaviour Driven Development. 
+
+You can find the sample project on Tellurium code repository under the following location.
+
+{{{
+tellurium/trunk/extensions/tellurium-easyb
+}}}
+
+As always, in case of any questions please feel free to post it to the Tellurium User Group.
+
+Thanks
+Tellurium Team
