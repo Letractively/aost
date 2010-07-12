@@ -28,6 +28,10 @@ function Editor(window) {
 
     this.cmdHistory = new Array();
 
+    this.cmdView = CommandView;
+    this.cmdTree = document.getElementById('commandHistoryTree');
+    this.cmdTree.view=this.cmdView;
+    
 //    this.options = new Preferences();
 
     //Detect the browser properties
@@ -338,6 +342,7 @@ Editor.prototype.clearButton = function(){
     this.decorator.cleanShowNode();
     this.clearMessageBox();
     this.innerTree = null;
+    this.cleanTestView();
 };
 
 Editor.prototype.clearCustomizeTabContext = function(){
@@ -472,6 +477,19 @@ Editor.prototype.testButton = function(){
     }
 };
 
+Editor.prototype.cleanTestView = function(){
+    document.getElementById("commandName").value = "";
+    document.getElementById("commandUID").value = "";
+    document.getElementById("commandParam").value = "";
+    document.getElementById("commandResult").value = "";
+    document.getElementById("commandName").disabled = true;
+    document.getElementById("commandUID").disabled = true;
+    document.getElementById("commandParam").disabled = true;
+    document.getElementById("commandResult").disabled = true;
+    this.cmdHistory = new Array();
+    this.cmdView.clearAll();
+};
+
 Editor.prototype.updateUiCommand = function(value){
 
 };
@@ -495,16 +513,8 @@ Editor.prototype.runUiCommand = function(){
         cmd.result = "";
     }
     this.cmdHistory.push(cmd);
-    var sb = new StringBuffer();
-    sb.append("<treerow><treecell label='").append(name).append("'/>").append("<treecell label='").append(uid).append("'/>");
-    if(param != null){
-        sb.append("<treecell label='").append(param).append("'/>");
-    }else{
-        sb.append("<treecell label=''/>")
-    }
-    sb.append("</treerow>");
-    
-    teJQuery("#commandHistoryItem").append(sb.toString());
+    this.cmdView.setTestCommands(this.cmdHistory);
+    this.cmdView.rowInserted();   
 };
 
 Editor.prototype.processCheckEvent = function(event){
