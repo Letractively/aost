@@ -429,6 +429,17 @@ var UiHTMLSourceVisitor = STreeVisitor.extend({
     }
 });
 
+var UiUIDVisitor = STreeVisitor.extend({
+    init: function(){
+        this.uids = new Array();
+    },
+
+    visit: function(context, snode){
+        var frid = snode.getFullRid();
+        this.uids.push(frid);
+    }
+});
+
 var UiCollectVisitor = STreeVisitor.extend({
     init: function(){
         this.elements = new Array();

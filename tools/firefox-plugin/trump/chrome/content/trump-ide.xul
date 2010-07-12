@@ -249,9 +249,8 @@
                                 </rows>
                             </grid>
                             <separator class="groove-thin"/>
-                            <label control="example" value="Example:"/>
-                            <textbox multiline="true" readonly="true"
-                                     value="Command: 'type', UID: 'Google.Input', Param: 'Tellurium Test'"/>
+                            <label control="example" value="Hints:"/>
+                            <textbox multiline="true" readonly="true" id="exampleText" value=""/>
                         </vbox>
                     </groupbox>
                     <splitter collapse="after">

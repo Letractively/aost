@@ -480,6 +480,27 @@ Editor.prototype.testButton = function(){
         document.getElementById("commandParam").disabled = true;
         document.getElementById("commandResult").disabled = true;
     }
+    try{
+        this.command.uim = this.uistore.uim;
+        this.command.dom = this.uistore.dom;
+        this.command.locateUI();
+        var uids = this.command.getUids(this.command.uim.id);
+        if(uids != null && uids.length > 0){
+            var example = document.getElementById("exampleText");
+            example.readonly = false;
+            var sb = new StringBuffer();
+            sb.append("Example: Command: 'mouseOver', UID: '").append(uids[0]).append("'.\n");
+            sb.append("Available UIDs: \n");
+            for(var i=0; i<uids.length; i++){
+                sb.append("\t" + uids[i] + "\n");
+            }
+            example.value = sb.toString();
+            example.readonly = true;
+        }
+    }catch(error){
+        logger.info("Executing command failed:\n" + describeErrorStack(error));
+    }
+    
 };
 
 Editor.prototype.cleanTestView = function(){
@@ -505,10 +526,7 @@ Editor.prototype.runUiCommand = function(){
     var param = document.getElementById("commandParam").value;
     var cmd = new TestCmd(name, uid, param);
 
-    this.command.uim = this.uistore.uim;
-    this.command.dom = this.uistore.dom;
-    this.command.locateUI();
-    logger.info("Run command " + name + "(" + uid + ", " + param + ")");
+    logger.info("Run command " + name + "('" + uid + "', '" + param + "')");
     try{
         var result = this.command.run(name, uid, param);
         logger.info("Executing command " + name + " finished, result: " + result);
