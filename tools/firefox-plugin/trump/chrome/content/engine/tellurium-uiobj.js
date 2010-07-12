@@ -36,6 +36,11 @@ var UiObject = Class.extend({
 
         //UI Module reference, which UI module this UI object belongs to
         this.uim = null;
+        
+        this.ctrl = false;
+        this.shift = false;
+        this.alt = false;
+        this.meta = false;
     },
 
     checkLevel: function(){
@@ -113,12 +118,6 @@ var UiObject = Class.extend({
         node.objRef = this;
         node.rid = rid;
         node.pid = pid;
-//        node.uid = this.uid;
-/*        if(this.domRef != null){
-            node.domRef = this.domRef;
-        }else{
-            node.domRef = this.locateSelf(context, domref);
-        }*/
         node.domRef = domref;
 
         return node;
@@ -225,7 +224,153 @@ var UiObject = Class.extend({
             fbError("UI Object " + fid + " does not have the method " + methodName, this);
             throw new SeleniumError("UI Object " + fid + " does not have the method " + methodName);
         }
+    },
+
+    //Add UI event handlers here
+
+    fireEvent: function(context, event){
+        var element = context.domRef;
+        teJQuery(element).trigger(event);
+    },
+
+    blur: function(context){
+        var element = context.domRef;
+        teJQuery(element).blur();
+    },
+
+    focus: function(context){
+        var element = context.domRef;
+        teJQuery(element).focus();
+    },
+
+    click: function(context){
+        var element = context.domRef;
+        if (element.href || element.url) {
+            if (teJQuery.browser.msie) {
+                element.fireEvent("onclick");
+            } else {
+                var evObj = document.createEvent('HTMLEvents');
+                evObj.initEvent('click', true, true);
+                element.dispatchEvent(evObj);
+            }
+        } else {
+            teJQuery(element).click();
+        }
+    },
+
+    clickAt: function(context, coordString){
+        var element = context.domRef;
+         var clientXY = getTargetXY(element, coordString);
+        //TODO: how to do click at using jQuery
+        teJQuery(element).click();
+    },
+
+    doubleClick: function(context){
+        var element = context.domRef;
+        teJQuery(element).dblclick();
+    },
+
+    typeKey: function(context, key){
+        var element = context.domRef;
+        var $elem = teJQuery(element);
+        $elem.val($elem.val()+key).trigger(getEvent("keydown", key ,this)).trigger(getEvent("keypress", key, this)).trigger(getEvent("keyup", key, this));
+    },
+
+    keyDown: function(context, key){
+        var element = context.domRef;
+        var $elem = teJQuery(element);
+        $elem.val($elem.val()).trigger(getEvent("keydown", key, this));
+    },
+
+    keyPres: function(context, key){
+        var element = context.domRef;
+        var $elem = teJQuery(element);
+        $elem.val($elem.val() + key).trigger(getEvent("keypress", key, this));
+    },
+
+    keyUp: function(context, key){
+        var element = context.domRef;
+        var $elem = teJQuery(element);
+        $elem.val($elem.val()).trigger(getEvent("keyup", key , this));
+    },
+
+    mouseOver: function(context){
+        var element = context.domRef;
+        teJQuery(element).trigger('mouseover');
+    },
+
+    mouseDown: function(context){
+        var element = context.domRef;
+        teJQuery(element).trigger('mousedown');
+    },
+
+    mouseEnter: function(context){
+        var element = context.domRef;
+        teJQuery(element).trigger('mouseenter');
+    },
+
+    mouseLeave: function(context){
+        var element = context.domRef;
+        teJQuery(element).trigger('mouseleave');
+    },
+
+    mouseOut: function(context){
+        var element = context.domRef;
+        teJQuery(element).trigger('mouseout');
+    },
+
+    type: function(context){
+        var element = context.domRef;
+        teJQuery(element).val(val);
+    },
+
+    getAttribute: function(context, attribute){
+        var element = context.domRef;
+        return teJQuery(element).attr(attribute);
+    },
+
+    getText: function(context){
+        var element = context.domRef;
+        return teJQuery(element).text();
+    },
+
+    isVisible: function(context){
+        var element = context.domRef;
+        var isHiddenCSS = element.css("visibility") == "hidden" ? true : false;
+        var isHidden = element.is(":hidden");
+
+        if (isHidden) {
+            return false;
+        } else if (isHiddenCSS) {
+            return false;
+        } else {
+            return true;
+        }
+    },
+
+    getCSS: function(context, cssName){
+        var element = context.domRef;
+        var out = [];
+        var $e = teJQuery(element);
+        for (var i = 0; i < $e.length; i++) {
+            var elem = $e.get(i);
+            var val = teJQuery(elem).css(cssName);
+            //need to walk up the tree if the color is transparent
+            if (val == "transparent" && (cssName == "background-color" || cssName == "backgroundColor" || cssName == "color")) {
+                val = getColor(elem, cssName);
+            }
+            out.push(val);
+        }
+
+        return out;
+    },
+
+    isDisabled: function(context){
+        var element = context.domRef;
+        var $e = teJQuery(element);
+        return $e.attr('disabled');        
     }
+
 });
 
 var UiAllPurposeObject = UiObject.extend({
@@ -249,6 +394,25 @@ var UiCheckBox = UiObject.extend({
         this.uiType = 'CheckBox';
         this.tag = "input";
         this.type = "checkbox";
+    },
+
+    check: function(context){
+        var element = context.domRef;
+        element.checked = true;
+    },
+
+    uncheck: function(context){
+        var element = context.domRef;
+        element.checked = false;
+    },
+
+    isChecked: function(context){
+        var element = context.domRef;
+        if (element.checked == null) {
+            logger.warn("Element is not a toggle-button.");
+            return false;
+        }
+        return element.checked;
     }
 });
 
@@ -290,6 +454,24 @@ var UiSelector = UiObject.extend({
         this._super();
         this.uiType = 'Selector';
         this.tag = "select";
+    },
+
+    select: function(context, optionSelector){
+        var element = context.domRef;
+        var $sel = teJQuery(element);
+        //first, remove all selected element
+        $sel.find("option").removeAttr("selected");
+        //construct the select option
+        var opt = "option" + optionSelector;
+        //select the appropriate option
+        $sel.find(opt).attr("selected", "selected");
+        if (teJQuery.browser.msie) {
+            element.fireEvent("onchange");
+        } else {
+            var evObj = document.createEvent('HTMLEvents');
+            evObj.initEvent('change', true, true);
+            element.dispatchEvent(evObj);
+        }
     }
 });
 
@@ -306,6 +488,11 @@ var UiSubmitButton = UiButton.extend({
         this._super();
         this.uiType = 'SubmitButton';
         this.type = "submit";
+    },
+
+    submit: function(context){
+        var element = context.domRef;
+        teJQuery(element).submit();        
     }
 });
 
