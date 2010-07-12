@@ -326,7 +326,7 @@ Tree.prototype.createUiModule = function() {
     sb.append("\t\tnum.defineUi();\n");
     sb.append("\t\tconnectSeleniumServer();\n");
     sb.append("\t\tuseTelluriumEngine(true);\n");
-    sb.append("\t\}\n\n");
+    sb.append("\t}\n\n");
     sb.append("\t//Add your test cases here\n");
     sb.append("\t@Test\n");
     sb.append("\tpublic void testCase(){\n");
