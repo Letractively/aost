@@ -50,6 +50,16 @@
         </menu>
       </menubar>
 
+    <toolbar id="toolbar1">
+        <hbox align="center" flex="1">
+            <label value="&windowURL.label;"/>
+            <textbox id="windowURL" flex="1" tooltiptext="&windowURLTextbox.tooltip;"
+                     onchange="window.editor.setWindowURL(this.value)"
+                     ontextentered="window.editor.setWindowURL(this.value)"
+                     type="autocomplete" autocompletesearch="selenium-ide-generic" enablehistory="true"
+                     focecomplete="true" tabscrolling="true"/>
+        </hbox>
+    </toolbar>
 
     <toolbar id="toolbar2">
       <toolbarbutton id="record-button" label="Record" class="record" tooltiptext="&recordButton.tooltip;" oncommand="window.editor.toggleRecordButton()" checked="true"/>

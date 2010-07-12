@@ -1,10 +1,13 @@
 <!ENTITY trump-ide.title "Tellurium TrUMP IDE">
 
-<!ENTITY recordButton.tooltip "Record">
-<!ENTITY stopButton.tooltip "Stop">
-<!ENTITY generate.tooltip "Generate">
-<!ENTITY customize.tooltip "Customize">
-<!ENTITY test.tooltip "Test">
+<!ENTITY windowURL.label "WindowURL">
+<!ENTITY windowURLTextbox.tooltip "Window URL">
+
+<!ENTITY recordButton.tooltip "Record UI">
+<!ENTITY stopButton.tooltip "Stop Recording">
+<!ENTITY generate.tooltip "Generate UI Module">
+<!ENTITY customize.tooltip "Customize UI Module">
+<!ENTITY test.tooltip "Test Tellurium Command">
 <!ENTITY clear.tooltip "Clear">
 
 <!ENTITY recordTab.label "Record Stack">
