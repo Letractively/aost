@@ -102,6 +102,14 @@ abstract class UiObject implements Cloneable{
         c(locator)
     }
 
+    def mouseDown(Closure c){
+        c(locator)
+    }
+  
+    def mouseUp(Closure c){
+        c(locator)
+    }
+
     def dragAndDrop(String movementsString, Closure c){
         c(locator)
     }
