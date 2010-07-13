@@ -5,6 +5,7 @@ var ErrorCodes = {
     UI_OBJ_CANNOT_BE_LOCATED: "UI object cannot be located",
     UI_MODULE_IS_NULL: "UI module is null",
     DOM_NOT_SPECIFIED: "DOM is not specified",
+    ELEMENT_HAS_NO_VALUE: "No value attribute in element",
     UNKNOWN: "Unknown"
 };
 
