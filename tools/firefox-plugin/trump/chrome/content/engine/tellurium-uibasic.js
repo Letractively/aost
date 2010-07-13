@@ -303,3 +303,40 @@ CompositeLocator.prototype.strLocator = function(){
 
     return sb.toString();
 };
+
+CompositeLocator.prototype.buildLocator = function(attributes){
+    if(attributes != null && attributes.size() > 0){
+        this.tag = attributes.get(this.constants.TAG);
+        this.text = attributes.get(this.constants.TEXT);
+        this.position = attributes.get(this.constants.POSITION);
+        var header = attributes.get(this.constants.HEADER);
+        if (header != null){
+            this.header = header;
+        }
+        var trailer = attributes.get(this.constants.TRAILER);
+        if(trailer != null){
+            this.trailer = trailer;
+        }
+
+        this.buildLocatorFromAttributes(attributes);
+    }
+
+    return this;
+};
+
+
+CompositeLocator.prototype.buildLocatorFromAttributes = function(attributes) {
+    if (attributes != null && attributes.size() > 0) {
+        var keys = attributes.keySet();
+        for (var i = 0; i < keys.length; i++) {
+            var key = keys[i];
+//            if(key != this.constants.TAG && key != this.constants.TEXT && key != this.constants.POSITION && key != this.constants.HEADER && key != this.constants.TRAILER){
+            if (key != this.constants.TAG && key != this.constants.HEADER && key != this.constants.TRAILER && key != this.constants.TEXT) {
+                var value = attributes.get(key);
+                if (value != null && trimString(value).length > 0) {
+                    this.attributes.set(key, value);
+                }
+            }
+        }
+    }
+};
