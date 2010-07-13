@@ -1,6 +1,14 @@
 
 //base UI object
 var UiObject = Class.extend({
+    constants: {
+        TAG : "tag",
+        NAME: "name",
+        ID: "id",
+        RESPOND : "respond",
+        GROUP : "group"
+    },
+    
     init: function() {
         //UI object identification
         this.uid = null;
@@ -3919,175 +3927,159 @@ var UiObjectBuilder = Class.extend({
         return new UiObject();
     },
 
-    buildFrom: function(attributes){
-        
+    buildFrom: function(attributes, respond){
+        var obj = this.build();
+        obj.tag = attributes.get(this.constants.TAG);
+        obj.respond = respond;
+        obj.locator = new CompositeLocator();
+        obj.locator.buildLocator(attributes);
+
+        return obj;
     }
 });
 
-function UiAllPurposeObjectBuilder(){
+var UiAllPurposeObjectBuilder = UiObjectBuilder.extend({
+   build: function(){
+        return new UiAllPurposeObject();
+   }
+});
 
-}
+var UiButtonBuilder = UiObjectBuilder.extend({
+    build : function() {
+        return new UiButton();
+    }
+});
 
-UiAllPurposeObjectBuilder.prototype.build = function(){
-   return new UiAllPurposeObject();
-};
+var UiCheckBoxBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiCheckBox();
+    }
+});
 
-function UiButtonBuilder(){
+var UiIconBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiIcon();
+    }
+});
 
-}
+var UiImageBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiImage();
+    }
+});
 
-UiButtonBuilder.prototype.build = function(){
-   return new UiButton();
-};
+var UiInputBoxBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiInputBox();
+    }
+});
 
-function UiCheckBoxBuilder(){
+var UiRadioButtonBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiRadioButton();
+    }
+});
 
-}
+var UiSelectorBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiSelector();
+    }
+});
 
-UiCheckBoxBuilder.prototype.build = function(){
-   return new UiCheckBox();
-};
+var UiSpanBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiSpan();
+    }
+});
 
-function UiDivBuilder(){
+var UiSubmitButtonBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiSubmitButton();
+    }
+});
 
-}
+var UiTextBoxBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiTextBox();
+    }
+});
 
-UiDivBuilder.prototype.build = function(){
-    return new UiDiv();
-};
+var UiUrlLinkBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiUrlLink();
+    }
+});
 
-function UiIconBuilder(){
+var UiContainerBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiContainer();
+    }
+});
 
-}
+var UiDivBuilder = UiContainerBuilder.extend({
+    build : function(){
+        return new UiDiv();
+    }
+});
 
-UiIconBuilder.prototype.build = function(){
-    return new UiIcon();
-};
+var UiRepeatBuilder = UiContainerBuilder.extend({
+    build : function(){
+        return new UiRepeat();
+    }
+});
 
-function UiImageBuilder(){
+var UiFormBuilder = UiContainerBuilder.extend({
+    build : function(){
+        return new UiForm();
+    }
+});
 
-}
+var UiFrameBuilder = UiContainerBuilder.extend({
+    build : function(){
+        return new UiFrame();
+    },
 
-UiImageBuilder.prototype.build = function(){
-    return new UiImage();
-};
+    buildFrom: function(attributes, respond){
+        var obj = this.build();
+        obj.tag = attributes.get(this.constants.TAG);
+        obj.respond = respond;
+        obj.name = attributes.get(this.constants.NAME);
+        obj.id = attributes.get(this.constants.ID);
 
-function UiInputBoxBuilder(){
+        return obj;
+    }
+});
 
-}
+var UiListBuilder = UiContainerBuilder.extend({
+    build : function(){
+        return new UiList();
+    }
+});
 
-UiInputBoxBuilder.prototype.build = function(){
-    return new UiInputBox();
-};
+var UiTableBuilder = UiContainerBuilder.extend({
+    build : function(){
+        return new UiTable();
+    }
+});
 
-function UiRadioButtonBuilder(){
+var UiStandardTableBuilder = UiContainerBuilder.extend({
+    build : function(){
+        return new UiStandardTable();
+    }
+});
 
-}
+var UiWindowBuilder = UiContainerBuilder.extend({
+    build : function(){
+        return new UiWindow();
+    },
 
-UiRadioButtonBuilder.prototype.build = function(){
-    return new UiRadioButton();
-};
+    buildFrom: function(attributes, respond){
+        var obj = this.build();
+        obj.tag = attributes.get(this.constants.TAG);
+        obj.respond = respond;
+        obj.name = attributes.get(this.constants.NAME);
+        obj.id = attributes.get(this.constants.ID);
 
-function UiSelectorBuilder(){
-
-}
-
-UiSelectorBuilder.prototype.build = function(){
-    return new UiSelector();
-};
-
-function UiSpanBuilder(){
-
-}
-
-UiSpanBuilder.prototype.build = function(){
-    return new UiSpan();
-};
-
-function UiSubmitButtonBuilder(){
-
-}
-
-UiSubmitButtonBuilder.prototype.build = function(){
-    return new UiSubmitButton();
-};
-
-function UiTextBoxBuilder(){
-
-}
-
-UiTextBoxBuilder.prototype.build = function(){
-     return new UiTextBox();
-};
-
-function UiUrlLinkBuilder(){
-
-}
-
-UiUrlLinkBuilder.prototype.build = function(){
-    return new UiUrlLink();
-};
-
-function UiContainerBuilder(){
-
-}
-
-UiContainerBuilder.prototype.build = function(){
-    return new UiContainer();
-};
-
-function UiRepeatBuilder(){
-
-}
-
-UiRepeatBuilder.prototype.build = function(){
-    return new UiRepeat();
-};
-
-function UiFormBuilder(){
-
-}
-
-UiFormBuilder.prototype.build = function(){
-    return new UiForm();
-};
-
-function UiFrameBuilder(){
-
-}
-
-UiFrameBuilder.prototype.build = function(){
-    return new UiFrame();
-};
-
-function UiListBuilder(){
-
-}
-
-UiListBuilder.prototype.build = function(){
-    return new UiList();
-};
-
-function UiTableBuilder(){
-
-}
-
-UiTableBuilder.prototype.build = function(){
-    return new UiTable();
-};
-
-function UiStandardTableBuilder(){
-
-}
-
-UiStandardTableBuilder.prototype.build = function(){
-    return new UiStandardTable();
-};
-
-function UiWindowBuilder(){
-
-}
-
-UiWindowBuilder.prototype.build = function(){
-    return new UiWindow();
-};
+        return obj;
+    }
+});
