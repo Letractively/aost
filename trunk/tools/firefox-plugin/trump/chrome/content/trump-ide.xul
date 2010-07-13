@@ -251,7 +251,7 @@
                             </grid>
                             <separator class="groove-thin"/>
                             <label control="example" value="Hints:"/>
-                            <textbox multiline="true" readonly="true" id="exampleText" value=""/>
+                            <textbox multiline="true" readonly="true" id="exampleText" rows="5" value=""/>
                         </vbox>
                     </groupbox>
                     <splitter collapse="after">
