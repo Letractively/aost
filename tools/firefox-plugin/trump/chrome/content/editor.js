@@ -208,20 +208,76 @@ Editor.prototype.generateButton = function(){
     var element;
     this.innerTree = new Tree();
 
-    for(var i=0; i<tagArrays.length; ++i){
-        tagObject = tagArrays[i];
-        element = new ElementObject();
-//        element.uid = tagObject.tag+i;
-        element.uid = suggestName(tagObject);
-        element.xpath = tagObject.xpath;
-        element.attributes = tagObject.attributes;
-        element.domNode = tagObject.node;
-        element.frameName = tagObject.frameName;
-        
-        this.innerTree.addElement(element);
+    var frameName = null;
+
+    var i;
+    for(i=0; i<tagArrays.length; ++i){
+        var obj = tagArrays[i];
+        if(obj.frameName != null){
+            if(frameName == null){
+                frameName = obj.frameName;
+            }
+        }
     }
-    //do some post processing work
-    this.innerTree.postProcess();
+
+    if(frameName != null){
+        var objs = new Array();
+        for (i = 0; i < tagArrays.length; ++i) {
+            if(tagArrays[i].frameName == frameName){
+                objs.push(tagArrays[i]);
+            }
+        }
+        for (i = 0; i < objs.length; ++i) {
+            var tobj = objs[i];
+            element = new ElementObject();
+//          element.uid = tobj.tag+i;
+            element.uid = suggestName(tobj);
+            element.xpath = tobj.xpath;
+            element.attributes = tobj.attributes;
+            element.domNode = tobj.node;
+            element.frameName = tobj.frameName;
+
+            this.innerTree.addElement(element);
+            //do some post processing work
+            this.innerTree.postProcessNoIndex();
+        }
+
+        var root = this.innerTree.root;
+        var frame = new NodeObject();
+        frame.id = frameName;
+        frame.parent = null;
+        frame.domNode = root.domNode.ownerDocument;
+        frame.xpath = "";
+        frame.attributes = new Hashtable();
+        frame.attributes.put("tag", "iframe");
+        frame.attributes.put("name", frameName);
+//        frame.name = frameName;
+        frame.tag = "iframe";
+        frame.children.push(root);
+        this.innerTree.root = frame;
+        root.parent = frame;
+        frame.buildUiObject();
+        //TODO: should use UI builder to refactor the buildUiObject() method
+        frame.uiobject.clocator = new Locator();
+        frame.uiobject.name = frameName;
+        this.innerTree.buildIndex();
+    } else {
+        for (i = 0; i < tagArrays.length; ++i) {
+            tagObject = tagArrays[i];
+            element = new ElementObject();
+//          element.uid = tagObject.tag+i;
+            element.uid = suggestName(tagObject);
+            element.xpath = tagObject.xpath;
+            element.attributes = tagObject.attributes;
+            element.domNode = tagObject.node;
+            element.frameName = tagObject.frameName;
+
+            this.innerTree.addElement(element);
+            //do some post processing work
+            this.innerTree.postProcess();
+        }
+    }
+
     this.updateSource();
 
     this.validateUI(); 

@@ -6,7 +6,8 @@ function UiType() {
         RADIO : "radio",
         SUBMIT : "submit",
         BUTTON : "button",
-        IMAGE : "image"
+        IMAGE : "image",
+        IFRAME: "iframe"
     };
 
     this.map = new HashMap();
@@ -33,7 +34,10 @@ function UiType() {
 //    this.map.set("tableY", "Table");
     //for table, use Container for the timebeing until we can do the post processing to handle UI templates
     this.map.set("tableN", "Container");
-    this.map.set("tableY", "Container");}
+    this.map.set("tableY", "Container");
+    this.map.set("iframeN", "Frame");
+    this.map.set("iframeY", "Frame");
+}
 
 UiType.prototype.getType = function(tag, hasChildren) {
     return this.getTypeWithExtra(tag, null, hasChildren);

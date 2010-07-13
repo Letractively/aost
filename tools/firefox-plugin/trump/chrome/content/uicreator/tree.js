@@ -59,6 +59,23 @@ Tree.prototype.postProcess = function(){
         this.root.refUiObject(this.uiObjectMap);
     }
 };
+//Do some post processing work
+Tree.prototype.postProcessNoIndex = function(){
+    if(this.root != null){
+        //get the tag and attributes for auto generated nodes
+        this.root.processNewNode();
+
+        //check duplicated node ids
+        this.root.checkNodeId();
+
+        //build the UiObject
+        this.root.buildUiObject();
+
+        //get UI Object reference
+        this.uiObjectMap = new HashMap();
+        this.root.refUiObject(this.uiObjectMap);
+    }
+};
 
 Tree.prototype.buildIndex = function(){
     this.uiObjectMap = new HashMap();
