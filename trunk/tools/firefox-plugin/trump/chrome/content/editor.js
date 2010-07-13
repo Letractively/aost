@@ -42,6 +42,8 @@ function Editor(window) {
         tellurium = new Tellurium();
         tellurium.initialize();        
     }
+
+    this.uiBuilder = new UiBuilder();
 }
 
 Editor.prototype.setWindowURL = function(url){
@@ -238,10 +240,8 @@ Editor.prototype.generateButton = function(){
             element.frameName = tobj.frameName;
 
             this.innerTree.addElement(element);
-            //do some post processing work
-            this.innerTree.postProcessNoIndex();
-        }
 
+        }
         var root = this.innerTree.root;
         var frame = new NodeObject();
         frame.id = frameName;
@@ -251,15 +251,17 @@ Editor.prototype.generateButton = function(){
         frame.attributes = new Hashtable();
         frame.attributes.put("tag", "iframe");
         frame.attributes.put("name", frameName);
-//        frame.name = frameName;
         frame.tag = "iframe";
         frame.children.push(root);
         this.innerTree.root = frame;
         root.parent = frame;
-        frame.buildUiObject();
-        //TODO: should use UI builder to refactor the buildUiObject() method
-        frame.uiobject.clocator = new Locator();
-        frame.uiobject.name = frameName;
+        //do some post processing work
+        this.innerTree.postProcess();
+        this.innerTree.visit(this.uiBuilder);
+
+//        frame.buildUiObject();
+//        frame.uiobject.clocator = new Locator();
+//        frame.uiobject.name = frameName;
         this.innerTree.buildIndex();
     } else {
         for (i = 0; i < tagArrays.length; ++i) {
@@ -274,8 +276,8 @@ Editor.prototype.generateButton = function(){
 
             this.innerTree.addElement(element);
             //do some post processing work
-            this.innerTree.postProcess();
         }
+        this.innerTree.postProcess();
     }
 
     this.updateSource();

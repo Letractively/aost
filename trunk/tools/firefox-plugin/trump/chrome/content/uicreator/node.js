@@ -35,8 +35,9 @@ function NodeObject(){
     this.tag = null;
 
     //The UI object associated with this node
-    this.uiobject = new NodeUiObject();
-
+//    this.uiobject = new NodeUiObject();
+    this.uiobject = null;
+    
     this.xmlutil = new XmlUtil();
 }
 
@@ -181,7 +182,7 @@ NodeObject.prototype.checkUiDirectAttribute = function(){
             var $child = teJQuery(this.children[i].domNode);
             var puid = $child.parent().data("uid");
             if(puid == this.id){
-                this.children[i].uiobject.clocator.direct = true;
+                this.children[i].uiobject.locator.direct = true;
             }
         }
         teJQuery(this.domNode).removeData("uid");
