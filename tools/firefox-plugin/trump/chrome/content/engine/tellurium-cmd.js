@@ -92,6 +92,10 @@ TelluriumCommand.prototype.focus = function(uid){
     this.execCommand("focus", uid);
 };
 
+TelluriumCommand.prototype.type = function(uid, val){
+    this.execCommand("type", uid, val);
+};
+
 TelluriumCommand.prototype.typeKey = function(uid, key){
     this.execCommand("typeKey", uid, key);
 };
@@ -142,10 +146,6 @@ TelluriumCommand.prototype.uncheck = function(uid){
 
 TelluriumCommand.prototype.getAttribute = function(uid, attribute){
     return this.execCommand("getAttribute", uid, attribute);
-};
-
-TelluriumCommand.prototype.type = function(uid, val){
-    this.execCommand("type", uid, val);
 };
 
 TelluriumCommand.prototype.getOptionSelector = function(optionLocator){

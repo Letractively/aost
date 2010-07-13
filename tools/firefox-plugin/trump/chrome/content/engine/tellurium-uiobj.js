@@ -270,30 +270,6 @@ var UiObject = Class.extend({
         teJQuery(element).dblclick();
     },
 
-    typeKey: function(context, key){
-        var element = context.domRef;
-        var $elem = teJQuery(element);
-        $elem.val($elem.val()+key).trigger(getEvent("keydown", key ,this)).trigger(getEvent("keypress", key, this)).trigger(getEvent("keyup", key, this));
-    },
-
-    keyDown: function(context, key){
-        var element = context.domRef;
-        var $elem = teJQuery(element);
-        $elem.val($elem.val()).trigger(getEvent("keydown", key, this));
-    },
-
-    keyPres: function(context, key){
-        var element = context.domRef;
-        var $elem = teJQuery(element);
-        $elem.val($elem.val() + key).trigger(getEvent("keypress", key, this));
-    },
-
-    keyUp: function(context, key){
-        var element = context.domRef;
-        var $elem = teJQuery(element);
-        $elem.val($elem.val()).trigger(getEvent("keyup", key , this));
-    },
-
     mouseOver: function(context){
         var element = context.domRef;
         teJQuery(element).trigger('mouseover');
@@ -317,11 +293,6 @@ var UiObject = Class.extend({
     mouseOut: function(context){
         var element = context.domRef;
         teJQuery(element).trigger('mouseout');
-    },
-
-    type: function(context){
-        var element = context.domRef;
-        teJQuery(element).val(val);
     },
 
     getAttribute: function(context, attribute){
@@ -437,6 +408,35 @@ var UiInputBox = UiObject.extend({
         this._super();
         this.uiType = 'InputBox';
         this.tag = "input";
+    },
+
+    type: function(context, val){
+        var element = context.domRef;
+        teJQuery(element).val(val);
+    },
+
+    typeKey: function(context, key){
+        var element = context.domRef;
+        var $elem = teJQuery(element);
+        $elem.val($elem.val()+key).trigger(getEvent("keydown", key ,this)).trigger(getEvent("keypress", key, this)).trigger(getEvent("keyup", key, this));
+    },
+
+    keyDown: function(context, key){
+        var element = context.domRef;
+        var $elem = teJQuery(element);
+        $elem.val($elem.val()).trigger(getEvent("keydown", key, this));
+    },
+
+    keyPres: function(context, key){
+        var element = context.domRef;
+        var $elem = teJQuery(element);
+        $elem.val($elem.val() + key).trigger(getEvent("keypress", key, this));
+    },
+
+    keyUp: function(context, key){
+        var element = context.domRef;
+        var $elem = teJQuery(element);
+        $elem.val($elem.val()).trigger(getEvent("keyup", key , this));
     }
 });
 
