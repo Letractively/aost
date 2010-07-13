@@ -1,3 +1,10 @@
+var CONSTANTS = {
+    TAG : "tag",
+    POSITION: "position",
+    HEADER : "header",
+    TRAILER: "trailer"
+};
+
 function getUiid(uid){
     var uiid = new Uiid();
     uiid.convertToUiid(uid);
