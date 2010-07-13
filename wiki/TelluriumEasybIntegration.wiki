@@ -1,8 +1,10 @@
 #summary How to write a Tellurium test using easyb.
+#labels Phase-Support,Phase-QA
+<wiki:toc max_depth="5" /
 
 =Tellurium & easyb Integration=
 
-Tellurium is now integrated with easyb framework. It is now very easy to write a Tellurium tests using easyb story/specification approach. 
+Tellurium is now integrated with [http://www.easyb.org/ the easyb framework]. It is now very easy to write a Tellurium tests using easyb story/specification approach. 
 
 easyb is a behavior driven development framework for the Java platform. By using a specification based Domain Specific Language, easyb aims to enable executable, yet readable documentation.
 
@@ -100,3 +102,12 @@ As always, in case of any questions please feel free to post it to the Tellurium
 
 Thanks
 Tellurium Team
+
+= Resources =
+
+  * [http://code.google.com/p/aost/ Tellurium Project Home]
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group]
+  * [http://www.easyb.org/ Easyb]
+  * [http://twitter.com/TelluriumSource Tellurium on Twitter]
+  * [http://code.google.com/p/aost/wiki/Tellurium070Released Tellurium 0.7.0]
+  * [http://code.google.com/p/aost/wiki/WhatsNewInTellurium080 What's New in Tellurium] 0.8.0.
