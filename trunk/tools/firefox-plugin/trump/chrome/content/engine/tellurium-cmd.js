@@ -179,6 +179,10 @@ TelluriumCommand.prototype.getText = function(uid) {
     return this.execCommand("getText", uid);
 };
 
+TelluriumCommand.prototype.getValue = function(uid) {
+    return this.execCommand("getValue", uid);
+};
+
 TelluriumCommand.prototype.isChecked = function(uid) {
     return this.execCommand("isChecked", uid);
 };

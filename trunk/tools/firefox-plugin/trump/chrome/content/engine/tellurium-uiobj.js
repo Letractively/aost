@@ -295,6 +295,21 @@ var UiObject = Class.extend({
         teJQuery(element).trigger('mouseout');
     },
 
+    getValue: function(context) {
+        var element = context.domRef;
+        if (element.type) {
+            if (element.type.toUpperCase() == 'CHECKBOX' || element.type.toUpperCase() == 'RADIO')
+            {
+                return (element.checked ? 'on' : 'off');
+            }
+        }
+        if (element.value == null) {
+            throw new TelluriumError(ErrorCodes.ELEMENT_HAS_NO_VALUE, "This element has no value; is it really a form field?");
+        }
+        
+        return element.value;
+    },
+
     getAttribute: function(context, attribute){
         var element = context.domRef;
         return teJQuery(element).attr(attribute);
@@ -446,6 +461,25 @@ var UiRadioButton = UiObject.extend({
         this.uiType = 'RadioButton';
         this.tag = "input";
         this.type = "radio";
+    },
+
+    check: function(context){
+        var element = context.domRef;
+        element.checked = true;
+    },
+
+    uncheck: function(context){
+        var element = context.domRef;
+        element.checked = false;
+    },
+
+    isChecked: function(context){
+        var element = context.domRef;
+        if (element.checked == null) {
+            logger.warn("Element is not a toggle-button.");
+            return false;
+        }
+        return element.checked;
     }
 });
 
