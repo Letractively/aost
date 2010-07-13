@@ -3914,6 +3914,15 @@ var UiWindow = UiContainer.extend({
     }
 });
 
+var UiObjectBuilder = Class.extend({
+    build: function(){
+        return new UiObject();
+    },
+
+    buildFrom: function(attributes){
+        
+    }
+});
 
 function UiAllPurposeObjectBuilder(){
 
