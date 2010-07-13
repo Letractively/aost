@@ -49,6 +49,93 @@ var UiObject = Class.extend({
         this.shift = false;
         this.alt = false;
         this.meta = false;
+
+        this.isContainer = false;
+    },
+
+    strUiObject: function(level){
+        var sb = new StringBuffer();
+        for (var i = 0; i < level; i++) {
+            sb.append("\t");
+        }
+        sb.append(this.uiType).append("(uid: \"").append(this.uid).append("\", ");
+        sb.append(this.clocator.strLocator());
+
+        if(this.respond != null && this.respond.length > 0){
+            sb.append(", respond: [");
+            for(var j=0; j<this.respond.length; j++){
+                if(j>0){
+                    sb.append(", ");
+                }
+                sb.append("\"").append(this.respond[j]).append("\"");
+            }
+            sb.append("]");
+        }
+        if(this.group){
+            sb.append(", group: \"true\"");
+        }
+        if(this.self){
+            sb.append(", self: \"true\"");
+        }
+
+        sb.append(")");
+
+        if (this.isContainer) {
+            sb.append("{");
+        }
+        sb.append("\n");
+
+        return sb.toString();
+    },
+
+    descObject: function() {
+        var sb = new StringBuffer();
+        sb.append(this.uiType).append("(uid: '").append(this.uid).append("', ");
+        sb.append(this.locator.descLocator());
+
+        if (this.respond != null && this.respond.length > 0) {
+            sb.append(", respond: [");
+            for (var j = 0; j < this.respond.length; j++) {
+                if (j > 0) {
+                    sb.append(", ");
+                }
+                sb.append("'").append(this.respond[j]).append("'");
+            }
+            sb.append("]");
+        }
+        if (this.group) {
+            sb.append(", group: 'true'");
+        }
+        if (this.self) {
+            sb.append(", self: 'true'");
+        }
+
+        sb.append(")");
+
+        return sb.toString();
+    },
+
+    strUiObjectFooter: function(level) {
+        var sb = new StringBuffer();
+
+        if (this.isContainer) {
+            for (var l = 0; l < level; l++) {
+                sb.append("\t");
+            }
+            sb.append("}\n");
+        }
+
+        return sb.toString();
+    },
+
+    paddingByLevel: function(level) {
+        var sb = new StringBuffer();
+
+        for (var l = 0; l < level; l++) {
+            sb.append("\t");
+        }
+
+        return sb.toString();
     },
 
     checkLevel: function(){
@@ -58,6 +145,7 @@ var UiObject = Class.extend({
 
         return 1;
     },
+
 
     getIdAttribute: function(){
         //return the ID attribute
@@ -554,6 +642,7 @@ var UiContainer = UiObject.extend({
     init: function(){
         this._super();
         this.uiType = 'Container';
+        this.isContainer = true;
         this.group = false;
         this.noCacheForChildren = false;
         this.components = new Hashtable();
