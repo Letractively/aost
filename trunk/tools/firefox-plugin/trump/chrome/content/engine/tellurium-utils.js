@@ -813,7 +813,7 @@ printStackTrace.implementation.prototype = {
 
 function describeErrorStack(error){
     var jstack = printStackTrace({e: error});
-    var message = "message: " + error.message + ", name: " + error.name + ". \n";
+    var message = "message: " + error.message + ", name: " + error.name + ", filename: " + error.fileName + ", linenumber: " + error.lineNumber +". \n";
     if (jstack != null && typeof(jstack) != 'undefined') {
         message = message + "JavaScript Error Stack: \n" + jstack.join('\n\n');
     }
