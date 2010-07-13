@@ -1,6 +1,6 @@
 #summary How to write a Tellurium test using easyb.
 #labels Phase-Support,Phase-QA
-<wiki:toc max_depth="5" /
+<wiki:toc max_depth="5"/>
 
 =Tellurium & easyb Integration=
 
