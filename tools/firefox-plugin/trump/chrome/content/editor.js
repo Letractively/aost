@@ -570,6 +570,10 @@ Editor.prototype.cleanTestView = function(){
     document.getElementById("commandResult").disabled = true;
     this.cmdHistory = new Array();
     this.cmdView.clearAll();
+    var example = document.getElementById("exampleText");
+    example.readonly = false;
+    example.value = "";
+    example.readonly = true;
 };
 
 Editor.prototype.updateUiCommand = function(value){
