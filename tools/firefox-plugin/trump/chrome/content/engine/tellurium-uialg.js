@@ -394,6 +394,32 @@ UiAlg.prototype.nextColor = function(){
     }
 };
 
+UiAlg.prototype.processNullLocator = function(uiobj, snapshot){
+    var uid = uiobj.fullUid();
+
+    //the next color to label the snapshot
+    var ncolor = this.nextColor();
+    //first find its parent uid
+    var vp = this.getValidParentFor(uiobj);
+    var puid = null;
+    if(vp != null)
+        puid = vp.fullUid();
+
+    var pref = null;
+    if(puid != null){
+        pref = snapshot.getUi(puid);
+    }else{
+        pref = this.dom;
+    }
+
+    snapshot.addUi(uid, pref);
+    //store all the elements with data("uid")
+    snapshot.setColor(ncolor);
+    snapshot.score += 100;
+    snapshot.nelem++;
+    this.squeue.push(snapshot);
+};
+
 UiAlg.prototype.locateInAllSnapshots = function(uiobj){
     var finished = false;
     !tellurium.logManager.isUseLog || fbLog("Initial snapshot queue in LocateInAllSnapshots", this.squeue);
@@ -405,9 +431,10 @@ UiAlg.prototype.locateInAllSnapshots = function(uiobj){
             if(uiobj.locator != null){
                 this.locate(uiobj, first);
             }else{
-                var ncolor = this.nextColor();
-                first.setColor(ncolor);
-                this.squeue.push(first);
+//                var ncolor = this.nextColor();
+//                first.setColor(ncolor);
+//                this.squeue.push(first);
+                this.processNullLocator(uiobj, first);
             }
         }else{
             //exit when the snapshot color is marked for the next round
