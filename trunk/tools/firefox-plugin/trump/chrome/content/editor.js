@@ -257,10 +257,6 @@ Editor.prototype.generateButton = function(){
         //do some post processing work
         this.innerTree.postProcess();
         this.innerTree.visit(this.builder);
-
-//        frame.buildUiObject();
-//        frame.uiobject.clocator = new Locator();
-//        frame.uiobject.name = frameName;
         this.innerTree.buildIndex();
     } else {
         for (i = 0; i < tagArrays.length; ++i) {

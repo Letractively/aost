@@ -14,7 +14,7 @@ function Locator(){
 //    this.attributes = new HashMap();
     this.attributes = new Hashtable();
     this.direct = false;
-    this.xmlutil = new XmlUtil();
+//    this.xmlutil = new XmlUtil();
 }
 
 Locator.prototype.buildLocator = function(attributes){
@@ -62,7 +62,7 @@ Locator.prototype.updateLocator = function(attributes){
         var keys = attributes.keySet();
         for(var i=0; i<keys.length; i++){
             var key = keys[i];
-            var val = this.xmlutil.escapedCharacterProof(attributes.get(key));
+            var val = escapedCharacterProof(attributes.get(key));
             esAttributes.set(key, val);
         }
 
@@ -122,7 +122,7 @@ Locator.prototype.descAttributes = function(){
         var keys = this.attributes.keySet();
         for(var i=0; i< keys.length; i++){
             if(keys[i] != this.constants.TEXT && keys[i] != this.constants.POSITION && keys[i] != this.constants.HEADER && keys[i] != this.constants.TRAILER){
-                sb.append(", ").append(keys[i]).append(": '").append(this.xmlutil.specialCharacterProof(this.attributes.get(keys[i]))).append("'");
+                sb.append(", ").append(keys[i]).append(": '").append(specialCharacterProof(this.attributes.get(keys[i]))).append("'");
             }
         }
 
@@ -206,7 +206,7 @@ Locator.prototype.descLocator = function(){
             if(count > 0){
                 sb.append(", ");
             }
-            sb.append(this.constants.TEXT).append(": '").append(this.xmlutil.specialCharacterProof(this.text)).append("'");
+            sb.append(this.constants.TEXT).append(": '").append(specialCharacterProof(this.text)).append("'");
             ++count;
         }
         if(this.position != null){

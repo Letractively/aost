@@ -358,7 +358,11 @@ Tree.prototype.createUiModule = function() {
 
 Tree.prototype.visit = function(visitor){
     if(this.root != null){
-        this.root.visitMe(visitor);
+        try {
+            this.root.visitMe(visitor);
+        } catch(error) {
+            logger.error("Executing command failed:\n" + describeErrorStack(error));
+        }
     }
 };
 
@@ -395,7 +399,7 @@ UiBuilder.prototype.visit = function(node) {
     var respond = this.filter.processEventAttributes(attributes);
     if (respond != null && respond.length > 0) {
         if (uiType == "UrlLink" || uiType == "Button" || uiType == "SubmitButton") {
-            removeElement(this.respond, "click");
+            removeElement(respond, "click");
         }
     }
     var whiteListAttributes = this.filter.getWhiteListedAttributes(attributes);

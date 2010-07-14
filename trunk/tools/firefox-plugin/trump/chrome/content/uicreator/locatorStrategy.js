@@ -11,7 +11,7 @@ function LocatorStrategy(){
 }
 
 LocatorStrategy.prototype.compositeLocate = function(cnode){
-    var locator = cnode.uiobject.clocator;
+    var locator = cnode.uiobject.locator;
 //    alert("UI object " + cnode.uiobject.uid + "'s clocator has attribute " + locator.strLocator());
     
 //    var xp = this.xpathBuilder.buildOptionalXPath(locator.tag, locator.text, locator.position, locator.direct, locator.attributes);
@@ -36,7 +36,7 @@ LocatorStrategy.prototype.groupLocate = function(cnode){
 
         for(var i=0; i<cnode.children.length; i++){
             var uiobj = cnode.children[i].uiobject;
-            var cloc = uiobj.clocator;
+            var cloc = uiobj.locator;
             
             var gattr;
             if(cloc.direct){
@@ -49,7 +49,7 @@ LocatorStrategy.prototype.groupLocate = function(cnode){
         }
     }
     
-    var cloc = cnode.uiobject.clocator;
+    var cloc = cnode.uiobject.locator;
 //    var xp = this.xpathBuilder.buildGroupXPath(cloc.tag, cloc.text, cloc.position, cloc.direct, cloc.attributes, groupAttributes);
     var xp = this.xpathBuilder.buildGroupXPath(cloc.tag, cloc.text, cloc.position, cloc.direct, cloc.attributes, groupAttributes, cloc.header);
     if(cloc.header != null && trimString(cloc.header).length > 0){
