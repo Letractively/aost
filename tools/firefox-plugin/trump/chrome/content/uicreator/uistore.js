@@ -86,6 +86,7 @@ UiModuleBuilder.prototype.visit = function(node){
 
     this.copyNodeObject(obj, node.uiobject);*/
     var obj = teJQuery.extend(true, {}, node.uiobject);
+    obj.node = node;
 
     this.uiModule.addUiObject(node.getUid(), obj);
 };

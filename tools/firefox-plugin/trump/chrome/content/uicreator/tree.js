@@ -54,18 +54,10 @@ Tree.prototype.postProcess = function(){
 
         //check duplicated node ids
         this.root.checkNodeId();
-
-        //build the UiObject
-//        this.root.buildUiObject();
-
-        //get UI Object reference
-//        this.uiObjectMap = new HashMap();
-//        this.root.refUiObject(this.uiObjectMap);
     }
 };
 
-
-//Do some post processing work
+/*//Do some post processing work
 Tree.prototype.postProcessNoIndex = function(){
     if(this.root != null){
         //get the tag and attributes for auto generated nodes
@@ -73,15 +65,8 @@ Tree.prototype.postProcessNoIndex = function(){
 
         //check duplicated node ids
         this.root.checkNodeId();
-
-        //build the UiObject
-//        this.root.buildUiObject();
-
-        //get UI Object reference
-//        this.uiObjectMap = new HashMap();
-//        this.root.refUiObject(this.uiObjectMap);
     }
-};
+};*/
 
 Tree.prototype.buildIndex = function(){
     this.uiObjectMap = new HashMap();
@@ -411,6 +396,7 @@ UiBuilder.prototype.visit = function(node) {
     if (builder != null) {
         var obj = builder.buildFrom(whiteListAttributes, respond);
         obj.uid = node.id;
+        obj.node = node;
         node.uiobject = obj;
     }
     node.checkUiDirectAttribute();

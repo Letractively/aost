@@ -156,25 +156,6 @@ NodeObject.prototype.getUid = function(){
         return this.parent.getUid() + "." + this.id;
 };
 
-/*NodeObject.prototype.buildUiObject = function(){
-    var hasChildren = false;
-
-    if (this.children.length > 0) {
-        hasChildren = true;
-    }
-
-    this.uiobject.buildUiObject(this, hasChildren);
-
-    if (hasChildren) {
-        for (var i = 0; i < this.children.length; i++) {
-            this.children[i].buildUiObject();
-        }
-    }
-    
-    this.checkUiDirectAttribute();  
-    this.checkUiSelfAttribute();
-};*/
-
 NodeObject.prototype.checkUiDirectAttribute = function(){
     if(this.children.length > 0){
         teJQuery(this.domNode).data("uid", this.id);
