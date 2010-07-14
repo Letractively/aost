@@ -1,6 +1,5 @@
 
 function Recorder(window) {
-//    alert("Recorder")
     this.window = window;
 
     this.frames = null;
@@ -75,6 +74,12 @@ Recorder.prototype.registerClickListener = function(){
             }
     };
 
+    this.frameBlurListener = function(event){
+        event.preventDefault();
+        self.frameName = null;
+    };
+
+
     this.getWindowAndRegisterClickListener();
 
     /*var enumerator = Components.classes["@mozilla.org/appshell/window-mediator;1"]
@@ -118,6 +123,7 @@ Recorder.prototype.getWindowAndRegisterClickListener = function(){
                 var frame = this.frames[j] ;
                 frame.document.body.addEventListener("click", this.listener, false);
                 frame.addEventListener("focus", this.frameFocusListener, false);
+                frame.addEventListener("blur", this.frameBlurListener, false);
             }
         }
     }
