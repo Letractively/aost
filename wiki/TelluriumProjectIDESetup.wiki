@@ -1,7 +1,7 @@
 #summary Tellurium Project IDE Setup.
 <wiki:toc max_depth="5" />
 
-== Set up the Tellurium Reference project tellurium-junit-java with Eclipse ==
+== Set up the Tellurium Reference project tellurium-website with Eclipse ==
 
 === Prerequisites ===
   * Download Eclipse from the following location.
@@ -19,7 +19,7 @@
     http://subclipse.tigris.org/update_1.4.x
     }}}
 
-=== Checkout Project tellurium-junit-java as an Eclipse Project ===
+=== Checkout Project tellurium-website as an Eclipse Project ===
   * Launch Eclipse and point it to your workspace.
   * File > New > Other > SVN > Checkout projects from SVN
 
@@ -33,7 +33,7 @@ http://aost.googlecode.com/svn/trunk/
 
 http://tellurium-users.googlegroups.com/web/eclipsetjj2.png?gda=8ixIE0EAAABBo5YKz4My4Er929brhwkDpkboKkfbjSgEMy4g5KXzFuCVqkthRocdd89BERD_d71TCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=r5aXtAsAAAAMRzmf_Yl0S7-loZxvszUd
 
-  * Next > select Trunk/Reference-Projects/tellurium-junit-java sub-project
+  * Next > select Trunk/Reference-Projects/tellurium-website
 
 http://tellurium-users.googlegroups.com/web/eclipsetjj3.png?gda=3jmR-EEAAABBo5YKz4My4Er929brhwkDpkboKkfbjSgEMy4g5KXzFnZX4Gs5tf7s00egSi0tJ_9TCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=r5aXtAsAAAAMRzmf_Yl0S7-loZxvszUd
 
@@ -65,9 +65,9 @@ http://tellurium-users.googlegroups.com/web/eclipsetjj9.png?gda=8ACBF0EAAABBo5YK
 
 http://tellurium-users.googlegroups.com/web/eclipsetjj10.png?gda=L1vhWEIAAABBo5YKz4My4Er929brhwkDpkboKkfbjSgEMy4g5KXzFnO5bVyzZ0d2PTZCvoYV6LFV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=r5aXtAsAAAAMRzmf_Yl0S7-loZxvszUd
 
-Note, sometimes, eclipse complaints that it cannot find the Groovy class imported into the Java class, you need to build the project first. If the problem is still there, you need to go to project settings > Java build path > source. Change the default output folder to another directory and then change it back to "tellurium-junit-java/bin-groovy" again. This problem should go away.
+Note, sometimes, eclipse complaints that it cannot find the Groovy class imported into the Java class, you need to build the project first. If the problem is still there, you need to go to project settings > Java build path > source. Change the default output folder to another directory and then change it back to "tellurium-website/bin-groovy" again. This problem should go away.
 
-== Set up the Tellurium Reference project tellurium-junit-java with NetBeans ==
+== Set up the Tellurium Reference project tellurium-website with NetBeans ==
 
 === Prerequisites ===
 
@@ -76,7 +76,7 @@ Note, sometimes, eclipse complaints that it cannot find the Groovy class importe
       http://www.netbeans.org/community/releases/65/
       }}}
 
-=== Checkout Project tellurium-junit-java as an IntelliJ Project ===
+=== Checkout Project tellurium-website as an IntelliJ Project ===
 
   * Versioning > Subversion > Checkout
 
@@ -93,7 +93,7 @@ http://tellurium-users.googlegroups.com/web/netbeanstjj2.png?gda=_vK7TEIAAABBo5Y
 
 http://tellurium-users.googlegroups.com/web/netbeanstjj3.png?gda=nTEV-kIAAABBo5YKz4My4Er929brhwkDOfPH_-0lvp4HIrp0Q_XUiqFVHQjDswjLI7eZs6zw0RpV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=NZ6-QgsAAACJSCtoe_Z9JxffJHfhUOy0
 
-  * Select the trunk/reference-projects/tellurium-junit-java sub-project
+  * Select the trunk/reference-projects/tellurium-website sub-project
 
 http://tellurium-users.googlegroups.com/web/netbeanstjj4.png?gda=y4BrZ0IAAABBo5YKz4My4Er929brhwkDOfPH_-0lvp4HIrp0Q_XUilBOURjdvkzg1aJsrTazqCBV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=NZ6-QgsAAACJSCtoe_Z9JxffJHfhUOy0
 
@@ -119,7 +119,7 @@ http://tellurium-users.googlegroups.com/web/netbeanstjj9.png?gda=tYAk-UIAAABBo5Y
 
 Note, if you have some problems to import Groovy classes into Java classes. Please remove the libraries and then re-import them.
 
-== Set up the Tellurium Reference project tellurium-junit-java with IntelliJ ==
+== Set up the Tellurium Reference project tellurium-website with IntelliJ ==
 
 === Prerequisites ===
 
@@ -137,7 +137,7 @@ Note, if you have some problems to import Groovy classes into Java classes. Plea
 
 http://tellurium-users.googlegroups.com/web/JetGroovyPluginInstall.png?gda=dg_HwkwAAABBo5YKz4My4Er929brhwkD2ucJQACD2wYtaZWgGCc7zIEl67BXdTEo51dgWIN_GgVLzz4t2ricMlsfMJNt13gv_Vpvmo5s1aABVJRO3P3wLQ&gsc=CrhfYQsAAADkz0nf0JiQ0myB9uM55KVK
 
-=== Checkout Project tellurium-junit-java as an IntelliJ Project ===
+=== Checkout Project tellurium-website as an IntelliJ Project ===
 
   * Version Control > Checkout from Version Control > Subversion
 
@@ -150,11 +150,11 @@ http://tellurium-users.googlegroups.com/web/intellijtjj1.png
 
 http://tellurium-users.googlegroups.com/web/intellijtjj2.png
 
-  * Select trunk/reference-prjects/tellurium-junit-java sub-project
+  * Select trunk/reference-projects/tellurium-website sub-project
 
 http://tellurium-users.googlegroups.com/web/intellijtjj3.png
 
-  * Create a tellurium-junit-java directory and select it for this project
+  * Create a tellurium-website directory and select it for this project
 
 http://tellurium-users.googlegroups.com/web/intellijtjj4.png
 
@@ -174,7 +174,7 @@ http://tellurium-users.googlegroups.com/web/intellijtjj7.png
 
 http://tellurium-users.googlegroups.com/web/intellijtjj8.png
 
-  * On the same UI, open the dependencies for module tellurium-junit-java, uncheck "tellurium-core" until you also check out tellurium-core. Add your project library, i.e., the lib directory in, which includes the tellurium jar file. Click "Apply" and then "Ok".
+  * On the same UI, open the dependencies for module tellurium-website, uncheck "tellurium-core" until you also check out tellurium-core. Add your project library, i.e., the lib directory in, which includes the tellurium jar file. Click "Apply" and then "Ok".
 
 http://tellurium-users.googlegroups.com/web/intellijtjj9.png
 
