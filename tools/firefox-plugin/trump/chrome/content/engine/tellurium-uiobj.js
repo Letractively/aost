@@ -67,7 +67,8 @@ var UiObject = Class.extend({
             sb.append("\t");
         }
         sb.append(this.uiType).append("(uid: \"").append(this.uid).append("\", ");
-        sb.append(this.locator.strLocator());
+        if(this.locator != null)
+            sb.append(this.locator.strLocator());
 
         if(this.respond != null && this.respond.length > 0){
             sb.append(", respond: [");
@@ -99,7 +100,8 @@ var UiObject = Class.extend({
     descObject: function() {
         var sb = new StringBuffer();
         sb.append(this.uiType).append("(uid: '").append(this.uid).append("', ");
-        sb.append(this.locator.descLocator());
+        if(this.locator != null)
+            sb.append(this.locator.descLocator());
 
         if (this.respond != null && this.respond.length > 0) {
             sb.append(", respond: [");
@@ -1170,7 +1172,91 @@ var UiFrame = UiContainer.extend({
         this.id = null;
         this.name = null;
         this.title = null;
+        this.tag = "iframe";
+    },
+
+    strUiObject: function(level){
+        var sb = new StringBuffer();
+        for (var i = 0; i < level; i++) {
+            sb.append("\t");
+        }
+        sb.append(this.uiType).append("(uid: \"").append(this.uid).append("\", ");
+
+        if(this.id != null){
+           sb.append(", id: \"").append(this.id).append("\"");
+        }
+
+        if(this.name != null){
+           sb.append(", name: \"").append(this.name).append("\"");  
+        }
+
+        if(this.locator != null)
+            sb.append(this.locator.strLocator());
+
+        if(this.respond != null && this.respond.length > 0){
+            sb.append(", respond: [");
+            for(var j=0; j<this.respond.length; j++){
+                if(j>0){
+                    sb.append(", ");
+                }
+                sb.append("\"").append(this.respond[j]).append("\"");
+            }
+            sb.append("]");
+        }
+        if(this.group){
+            sb.append(", group: \"true\"");
+        }
+        if(this.self){
+            sb.append(", self: \"true\"");
+        }
+
+        sb.append(")");
+
+        if (this.isContainer) {
+            sb.append("{");
+        }
+        sb.append("\n");
+
+        return sb.toString();
+    },
+
+    descObject: function() {
+        var sb = new StringBuffer();
+        sb.append(this.uiType).append("(uid: '").append(this.uid).append("', ");
+
+        if(this.id != null){
+           sb.append(", id: '").append(this.id).append("'");
+        }
+
+        if(this.name != null){
+           sb.append(", name: '").append(this.name).append("'");
+        }
+       
+        if(this.locator != null)
+            sb.append(this.locator.descLocator());
+
+        if (this.respond != null && this.respond.length > 0) {
+            sb.append(", respond: [");
+            for (var j = 0; j < this.respond.length; j++) {
+                if (j > 0) {
+                    sb.append(", ");
+                }
+                sb.append("'").append(this.respond[j]).append("'");
+            }
+            sb.append("]");
+        }
+        if (this.group) {
+            sb.append(", group: 'true'");
+        }
+        if (this.self) {
+            sb.append(", self: 'true'");
+        }
+
+        sb.append(")");
+
+        return sb.toString();
     }
+
 });
 
 var UiList = UiContainer.extend({

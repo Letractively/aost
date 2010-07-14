@@ -241,6 +241,8 @@ Editor.prototype.generateButton = function(){
             this.innerTree.addElement(element);
 
         }
+        this.innerTree.postProcess();
+        this.innerTree.visit(this.builder);
         var root = this.innerTree.root;
         var frame = new NodeObject();
         frame.id = frameName;
@@ -252,11 +254,15 @@ Editor.prototype.generateButton = function(){
         frame.attributes.put("name", frameName);
         frame.tag = "iframe";
         frame.children.push(root);
-        this.innerTree.root = frame;
         root.parent = frame;
+        this.innerTree.root = frame;
+        frame.uiobject = new UiFrame();
+        frame.uiobject.name = frameName;
+        frame.uiobject.node = frame;
+        frame.uiobject.uid = frameName;
+        frame.uiobject.components.put(root.uiobject.uid, root.uiobject);
+        
         //do some post processing work
-        this.innerTree.postProcess();
-        this.innerTree.visit(this.builder);
         this.innerTree.buildIndex();
     } else {
         for (i = 0; i < tagArrays.length; ++i) {
