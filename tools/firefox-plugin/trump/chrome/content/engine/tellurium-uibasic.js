@@ -5,7 +5,9 @@ var CONSTANTS = {
     NAME: "name",
     TEXT : "text",
     HEADER : "header",
-    TRAILER: "trailer"
+    TRAILER: "trailer",
+    RESPOND : "respond",
+    GROUP : "group"
 };
 
 function getUiid(uid){
@@ -368,6 +370,22 @@ CompositeLocator.prototype.strLocator = function(){
 
     }
     sb.append("]");
+
+    return sb.toString();
+};
+
+CompositeLocator.prototype.descAttributes = function(){
+    var sb = new StringBuffer();
+
+    if(this.attributes.size() >0 ){
+        var keys = this.attributes.keySet();
+        for(var i=0; i< keys.length; i++){
+            if(keys[i] != CONSTANTS.TEXT && keys[i] != CONSTANTS.POSITION && keys[i] != CONSTANTS.HEADER && keys[i] != CONSTANTS.TRAILER){
+                sb.append(", ").append(keys[i]).append(": '").append(specialCharacterProof(this.attributes.get(keys[i]))).append("'");
+            }
+        }
+
+    }
 
     return sb.toString();
 };

@@ -19,13 +19,17 @@ Tree.prototype.printUI = function(){
 
 Tree.prototype.buildXML = function(){
     if(this.root != null){
-        var xmlArray = new Array();
-        this.root.buildXML(xmlArray);
-        var xml = "<?xml version=\"1.0\"?>\n<UIs id=\"customize_tree_xml\" xmlns=\"\">\n";
-        xml += this.formatXML(xmlArray);
-        xml += "</UIs>";
-//        logger.debug("Generated XML: \n" + xml);
-        return xml;
+        try{
+            var xmlArray = new Array();
+            this.root.buildXML(xmlArray);
+            var xml = "<?xml version=\"1.0\"?>\n<UIs id=\"customize_tree_xml\" xmlns=\"\">\n";
+            xml += this.formatXML(xmlArray);
+            xml += "</UIs>";
+            //        logger.debug("Generated XML: \n" + xml);
+            return xml;
+        }catch(error){
+            logger.error("Build XML failed:\n" + describeErrorStack(error));
+        }
     }
 
     return DEFAULT_XML;
@@ -361,7 +365,7 @@ Tree.prototype.visit = function(visitor){
         try {
             this.root.visitMe(visitor);
         } catch(error) {
-            logger.error("Executing command failed:\n" + describeErrorStack(error));
+            logger.error("Visit tree failed:\n" + describeErrorStack(error));
         }
     }
 };
