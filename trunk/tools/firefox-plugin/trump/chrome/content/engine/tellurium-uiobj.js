@@ -66,9 +66,9 @@ var UiObject = Class.extend({
         for (var i = 0; i < level; i++) {
             sb.append("\t");
         }
-        sb.append(this.uiType).append("(uid: \"").append(this.uid).append("\", ");
+        sb.append(this.uiType).append("(uid: \"").append(this.uid);
         if(this.locator != null)
-            sb.append(this.locator.strLocator());
+            sb.append("\", ").append(this.locator.strLocator());
 
         if(this.respond != null && this.respond.length > 0){
             sb.append(", respond: [");
@@ -99,9 +99,9 @@ var UiObject = Class.extend({
 
     descObject: function() {
         var sb = new StringBuffer();
-        sb.append(this.uiType).append("(uid: '").append(this.uid).append("', ");
+        sb.append(this.uiType).append("(uid: '").append(this.uid);
         if(this.locator != null)
-            sb.append(this.locator.descLocator());
+            sb.append("', ").append(this.locator.descLocator());
 
         if (this.respond != null && this.respond.length > 0) {
             sb.append(", respond: [");
@@ -1180,18 +1180,20 @@ var UiFrame = UiContainer.extend({
         for (var i = 0; i < level; i++) {
             sb.append("\t");
         }
-        sb.append(this.uiType).append("(uid: \"").append(this.uid).append("\", ");
+        sb.append(this.uiType).append("(uid: \"").append(this.uid);
 
-        if(this.id != null){
+        if(this.id != null && this.id.trim().length > 0){
            sb.append(", id: \"").append(this.id).append("\"");
         }
 
-        if(this.name != null){
+        if(this.name != null && this.name.trim().length > 0){
            sb.append(", name: \"").append(this.name).append("\"");  
         }
 
+/*
         if(this.locator != null)
-            sb.append(this.locator.strLocator());
+            sb.append("\", ").append(this.locator.strLocator());
+*/
 
         if(this.respond != null && this.respond.length > 0){
             sb.append(", respond: [");
@@ -1222,7 +1224,7 @@ var UiFrame = UiContainer.extend({
 
     descObject: function() {
         var sb = new StringBuffer();
-        sb.append(this.uiType).append("(uid: '").append(this.uid).append("', ");
+        sb.append(this.uiType).append("(uid: '").append(this.uid);
 
         if(this.id != null){
            sb.append(", id: '").append(this.id).append("'");
@@ -1233,7 +1235,7 @@ var UiFrame = UiContainer.extend({
         }
        
         if(this.locator != null)
-            sb.append(this.locator.descLocator());
+            sb.append("', ").append(this.locator.descLocator());
 
         if (this.respond != null && this.respond.length > 0) {
             sb.append(", respond: [");
