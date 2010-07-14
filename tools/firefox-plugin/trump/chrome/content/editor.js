@@ -69,7 +69,7 @@ Editor.prototype.getAutoCompleteSearchParam = function(id) {
 
 Editor.prototype.cleanupAutoComplete = function() {
     if (this.autoCompleteSearchParams) {
-        for (id in this.autoCompleteSearchParams) {
+        for (var id in this.autoCompleteSearchParams) {
             Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams[id]));
         }
     }
@@ -461,48 +461,6 @@ Editor.prototype.buildCustomizeTree = function(xml) {
     }
 };
 
-/*
-Editor.prototype.populateUiTypeAutoComplete = function(){
-    var uitypes = tellurium.getRegisteredUiTypes();
-    logger.debug("Get registered UI types: " + uitypes.join(", "));
-
-//    teJQuery("input#uiTypeAutoComplete").autocomplete({source: uitypes});
-
-    var projects = [
-        {
-            value: 'jquery',
-            label: 'jQuery'
-        },
-        {
-            value: 'jquery-ui',
-            label: 'jQuery UI'
-        },
-        {
-            value: 'sizzlejs',
-            label: 'Sizzle JS'
-        }
-    ];
-    teJQuery("#uiTypeAutoComplete").autocomplete({
-        minLength: 0,
-        source: projects,
-        focus: function(event, ui) {
-            teJQuery('#uiTypeAutoComplete').val(ui.item.label);
-            return false;
-        },
-        select: function(event, ui) {
-            teJQuery('#uiTypeAutoComplete').val(ui.item.label);
-            return false;
-        }
-    }).data( "autocomplete" )._renderItem = function( ul, item ) {
-        return $("<li></li>")
-                .data("item.autocomplete", item)
-                .append("<a>" + item.label + "</a>")
-                .appendTo(ul);
-	};
-
-};
-*/
-
 Editor.prototype.populateUiTypeAutoComplete = function(){
     var uitypes = tellurium.getRegisteredUiTypes();
     logger.debug("Get registered UI types: " + uitypes.join(", "));
@@ -704,18 +662,12 @@ Editor.prototype.updateUiObject = function(){
                 //check each attribute, first look at the check box by the name conversion
                 var cid = "CID" + key;
 
-//                var elem = $(':checkbox[cid=' + cid + ']')[0];
-//                var elem = $('input[name=' + cid + ']')[0];
                 var elem = this.getElementsByTagValue("checkbox", "name", cid);
-//                var elem = document.getElementById(cid);
                 if (elem != null) {
                     //if the attribute is selected
                     if (elem.checked) {
                         //get the id of the value of the attribute
                         var vid = "VID" + key;
-//                        var velem = document.getElementById(vid);
-//                        var velem = $("textbox[vid="+vid+"]")[0];
-//                        var velem = $(':text[vid='+vid+']')[0];
                         var velem = this.getElementsByTagValue("textbox", "name", vid);
                         if(velem != null){
                             var val = velem.value;
