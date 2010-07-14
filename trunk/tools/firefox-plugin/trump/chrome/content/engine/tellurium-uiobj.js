@@ -51,6 +51,7 @@ var UiObject = Class.extend({
         this.meta = false;
 
         this.isContainer = false;
+        this.isLocatorValid = false;
     },
 
     strUiObject: function(level){
