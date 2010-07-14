@@ -44,6 +44,9 @@ var UiObject = Class.extend({
 
         //UI Module reference, which UI module this UI object belongs to
         this.uim = null;
+
+        //the node associated with this UiObject
+        this.node = null;
         
         this.ctrl = false;
         this.shift = false;
