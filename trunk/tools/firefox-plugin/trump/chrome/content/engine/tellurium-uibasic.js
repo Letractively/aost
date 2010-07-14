@@ -225,15 +225,7 @@ function BaseLocator(){
 }
 
 //composite locator
-function CompositeLocator(){
-/*    this.constants = {
-        TAG : "tag",
-        TEXT : "text",
-        HEADER : "header",
-        TRAILER: "trailer",
-        POSITION: "position"
-    };*/
-    
+function CompositeLocator(){    
     this.tag = null;
     this.text = null;
     this.position = null;
@@ -242,6 +234,53 @@ function CompositeLocator(){
     this.trailer = null;
     this.attributes = new Hashtable();
 }
+
+CompositeLocator.prototype.updateLocator = function(attributes){
+     this.attributes = new HashMap();
+
+     if(attributes != null && attributes.size() > 0){
+        //neend to unescape attributes for attributes getting from xml
+        var esAttributes = new HashMap();
+        var keys = attributes.keySet();
+        for(var i=0; i<keys.length; i++){
+            var key = keys[i];
+            var val = escapedCharacterProof(attributes.get(key));
+            esAttributes.set(key, val);
+        }
+
+        this.text = esAttributes.get(CONSTANTS.TEXT);
+        this.position = esAttributes.get(CONSTANTS.POSITION);
+        this.header =  esAttributes.get(CONSTANTS.HEADER);
+        this.trailer = esAttributes.get(CONSTANTS.TRAILER);
+
+        this.buildLocatorFromAttributes(esAttributes);
+    }
+
+    return this;
+};
+
+CompositeLocator.prototype.isAttributeIncluded = function(attribute){
+
+    if(attribute == CONSTANTS.TEXT && this.text != null && trimString(this.text).length > 0){
+        return true;
+    }
+    if(attribute == CONSTANTS.TRAILER && this.trailer != null && trimString(this.trailer).length > 0){
+        return true;
+    }
+    if(attribute == CONSTANTS.HEADER && this.header != null && trimString(this.header).length > 0){
+        return true;
+    }
+
+    return (this.attributes.get(attribute) != null);
+};
+
+CompositeLocator.prototype.addAttribute = function(key, value) {
+    this.attributes.set(key, value);
+};
+
+CompositeLocator.prototype.removeAttribute = function(key) {
+    this.attributes.remove(key);
+};
 
 CompositeLocator.prototype.attributesToString = function(){
     var sb = new StringBuffer();

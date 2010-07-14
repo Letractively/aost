@@ -57,6 +57,10 @@ var UiObject = Class.extend({
         this.isLocatorValid = false;
     },
 
+    updateAttributes: function(attributes){
+        this.locator.updateLocator(attributes);
+    },
+
     strUiObject: function(level){
         var sb = new StringBuffer();
         for (var i = 0; i < level; i++) {

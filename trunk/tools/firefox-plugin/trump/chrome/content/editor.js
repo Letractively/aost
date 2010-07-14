@@ -569,7 +569,7 @@ Editor.prototype.fillUiObjectFields = function(uiObject){
     document.getElementById("uid").value = uiObject.uid;
     document.getElementById("uiType").value = uiObject.uiType;
 
-    if (uiObject.container) {
+    if (uiObject.isContainer) {
         document.getElementById("group_Check_Box").disabled = false;
         document.getElementById("group_Check_Box").checked = uiObject.group;
     } else {
@@ -639,10 +639,10 @@ Editor.prototype.updateUiObject = function(){
         logger.debug("Update UI object " + this.currentUid);
 
         //update UID
-        uiObject.setUID(document.getElementById("uid").value);
+        uiObject.uid = document.getElementById("uid").value;
 
         //update UI Type
-        uiObject.setUiType(document.getElementById("uiType").value);
+        uiObject.uiType = document.getElementById("uiType").value;
 
         //update Group attribute
         if(!document.getElementById("group_Check_Box").disabled){
