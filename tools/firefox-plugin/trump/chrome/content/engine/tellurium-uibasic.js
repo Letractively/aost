@@ -3,6 +3,7 @@ var CONSTANTS = {
     POSITION: "position",
     ID: "id",
     NAME: "name",
+    TEXT : "text",
     HEADER : "header",
     TRAILER: "trailer"
 };
@@ -223,13 +224,13 @@ function BaseLocator(){
 
 //composite locator
 function CompositeLocator(){
-    this.constants = {
+/*    this.constants = {
         TAG : "tag",
         TEXT : "text",
         HEADER : "header",
         TRAILER: "trailer",
         POSITION: "position"
-    };
+    };*/
     
     this.tag = null;
     this.text = null;
@@ -246,7 +247,7 @@ CompositeLocator.prototype.attributesToString = function(){
     if(this.attributes.size() >0 ){
         var keys = this.attributes.keySet();
         for(var i=0; i< keys.length; i++){
-            if(keys[i] != this.constants.TEXT && keys[i] != this.constants.POSITION && keys[i] != this.constants.HEADER && keys[i] != this.constants.TRAILER){
+            if(keys[i] != CONSTANTS.TEXT && keys[i] != CONSTANTS.POSITION && keys[i] != CONSTANTS.HEADER && keys[i] != CONSTANTS.TRAILER){
                 sb.append(", ").append(keys[i]).append(": ").append("\"").append(this.attributes.get(keys[i])).append("\"");
             }
         }
@@ -265,35 +266,35 @@ CompositeLocator.prototype.descLocator = function(){
     }else{
         var count = 0;
         if(this.tag != null && this.tag.length > 0){
-            sb.append(this.constants.TAG).append(": '").append(this.tag).append("'");
+            sb.append(CONSTANTS.TAG).append(": '").append(this.tag).append("'");
             ++count;
         }
         if(this.text != null && this.text.length > 0){
             if(count > 0){
                 sb.append(", ");
             }
-            sb.append(this.constants.TEXT).append(": '").append(this.xmlutil.specialCharacterProof(this.text)).append("'");
+            sb.append(CONSTANTS.TEXT).append(": '").append(specialCharacterProof(this.text)).append("'");
             ++count;
         }
         if(this.position != null){
             if(count > 0){
                 sb.append(", ");
             }
-            sb.append(this.constants.POSITION).append(": '").append(this.position).append("'");
+            sb.append(CONSTANTS.POSITION).append(": '").append(this.position).append("'");
             ++count;
         }
         if(this.header != null && trimString(this.header).length > 0){
             if(count > 0){
                 sb.append(", ");
             }
-            sb.append(this.constants.HEADER).append(": '").append(this.header).append("'");
+            sb.append(CONSTANTS.HEADER).append(": '").append(this.header).append("'");
             ++count;
         }
         if(this.trailer != null && trimString(this.trailer).length > 0){
             if(count > 0){
                 sb.append(", ");
             }
-            sb.append(this.constants.TRAILER).append(": '").append(this.trailer).append("'");
+            sb.append(CONSTANTS.TRAILER).append(": '").append(this.trailer).append("'");
             ++count;
         }
         if (this.direct) {
@@ -323,35 +324,35 @@ CompositeLocator.prototype.strLocator = function(){
     }else{
         var count = 0;
         if(this.tag != null && this.tag.length > 0){
-            sb.append(this.constants.TAG).append(": ").append("\"").append(this.tag).append("\"");
+            sb.append(CONSTANTS.TAG).append(": ").append("\"").append(this.tag).append("\"");
             ++count;
         }
         if(this.text != null && this.text.length > 0){
             if(count > 0){
                 sb.append(", ");
             }
-            sb.append(this.constants.TEXT).append(": ").append("\"").append(this.text).append("\"");
+            sb.append(CONSTANTS.TEXT).append(": ").append("\"").append(this.text).append("\"");
             ++count;
         }
         if(this.position != null){
             if(count > 0){
                 sb.append(", ");
             }
-            sb.append(this.constants.POSITION).append(": ").append("\"").append(this.position).append("\"");
+            sb.append(CONSTANTS.POSITION).append(": ").append("\"").append(this.position).append("\"");
             ++count;
         }
         if(this.header != null && trimString(this.header).length > 0){
             if(count > 0){
                 sb.append(", ");
             }
-            sb.append(this.constants.HEADER).append(": ").append("\"").append(this.header).append("\"");
+            sb.append(CONSTANTS.HEADER).append(": ").append("\"").append(this.header).append("\"");
             ++count;
         }
         if(this.trailer != null && trimString(this.trailer).length > 0){
             if(count > 0){
                 sb.append(", ");
             }
-            sb.append(this.constants.TRAILER).append(": ").append("\"").append(this.trailer).append("\"");
+            sb.append(CONSTANTS.TRAILER).append(": ").append("\"").append(this.trailer).append("\"");
             ++count;
         }
         if (this.direct) {
@@ -373,14 +374,14 @@ CompositeLocator.prototype.strLocator = function(){
 
 CompositeLocator.prototype.buildLocator = function(attributes){
     if(attributes != null && attributes.size() > 0){
-        this.tag = attributes.get(this.constants.TAG);
-        this.text = attributes.get(this.constants.TEXT);
-        this.position = attributes.get(this.constants.POSITION);
-        var header = attributes.get(this.constants.HEADER);
+        this.tag = attributes.get(CONSTANTS.TAG);
+        this.text = attributes.get(CONSTANTS.TEXT);
+        this.position = attributes.get(CONSTANTS.POSITION);
+        var header = attributes.get(CONSTANTS.HEADER);
         if (header != null){
             this.header = header;
         }
-        var trailer = attributes.get(this.constants.TRAILER);
+        var trailer = attributes.get(CONSTANTS.TRAILER);
         if(trailer != null){
             this.trailer = trailer;
         }
@@ -397,8 +398,8 @@ CompositeLocator.prototype.buildLocatorFromAttributes = function(attributes) {
         var keys = attributes.keySet();
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
-//            if(key != this.constants.TAG && key != this.constants.TEXT && key != this.constants.POSITION && key != this.constants.HEADER && key != this.constants.TRAILER){
-            if (key != this.constants.TAG && key != this.constants.HEADER && key != this.constants.TRAILER && key != this.constants.TEXT) {
+//            if(key != CONSTANTS.TAG && key != CONSTANTS.TEXT && key != CONSTANTS.POSITION && key != CONSTANTS.HEADER && key != CONSTANTS.TRAILER){
+            if (key != CONSTANTS.TAG && key != CONSTANTS.HEADER && key != CONSTANTS.TRAILER && key != CONSTANTS.TEXT) {
                 var value = attributes.get(key);
                 if (value != null && trimString(value).length > 0) {
                     this.attributes.set(key, value);

@@ -38,7 +38,7 @@ function NodeObject(){
 //    this.uiobject = new NodeUiObject();
     this.uiobject = null;
     
-    this.xmlutil = new XmlUtil();
+//    this.xmlutil = new XmlUtil();
 }
 
 NodeObject.prototype.clearValidFlag = function(){
@@ -156,7 +156,7 @@ NodeObject.prototype.getUid = function(){
         return this.parent.getUid() + "." + this.id;
 };
 
-NodeObject.prototype.buildUiObject = function(){
+/*NodeObject.prototype.buildUiObject = function(){
     var hasChildren = false;
 
     if (this.children.length > 0) {
@@ -173,7 +173,7 @@ NodeObject.prototype.buildUiObject = function(){
     
     this.checkUiDirectAttribute();  
     this.checkUiSelfAttribute();
-};
+};*/
 
 NodeObject.prototype.checkUiDirectAttribute = function(){
     if(this.children.length > 0){
@@ -277,7 +277,7 @@ NodeObject.prototype.buildXML = function(xml){
 
 NodeObject.prototype.buildAttributeXml = function(){
     var keySet = this.attributes.keySet();
-    var locator = this.uiobject.clocator;
+    var locator = this.uiobject.locator;
     var xmlArray = new Array();
     var xmlBuffer = new StringBuffer();
 
@@ -291,7 +291,7 @@ NodeObject.prototype.buildAttributeXml = function(){
                 included = true;
             }
 
-            xmlArray.push("<attribute name=\""+ key + "\""+ " value=\""+ this.xmlutil.specialCharacterProof(this.attributes.get(key)) + "\"" + " sel=\"" + included + "\"" + "/>\n");
+            xmlArray.push("<attribute name=\""+ key + "\""+ " value=\""+ specialCharacterProof(this.attributes.get(key)) + "\"" + " sel=\"" + included + "\"" + "/>\n");
         }
     }
 

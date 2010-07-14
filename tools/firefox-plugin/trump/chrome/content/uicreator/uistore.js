@@ -73,8 +73,11 @@ UiModuleBuilder.prototype.build = function(tree){
     return this.uiModule;
 };
 
+/*
 UiModuleBuilder.prototype.copyNodeObject = function(uiobj, nodeobj){
-    uiobj.uid = nodeobj.uid;
+    
+*/
+/*    uiobj.uid = nodeobj.uid;
     uiobj.events = nodeobj.respond;
     uiobj.self = nodeobj.self;
     uiobj.locator = new CompositeLocator();
@@ -84,11 +87,13 @@ UiModuleBuilder.prototype.copyNodeObject = function(uiobj, nodeobj){
     uiobj.locator.direct = nodeobj.clocator.direct;
     uiobj.locator.header = nodeobj.clocator.header;
     uiobj.locator.trailer = nodeobj.clocator.trailer;
-    uiobj.locator.attributes = nodeobj.clocator.attributes;
+    uiobj.locator.attributes = nodeobj.clocator.attributes;*//*
+
 };
+*/
 
 UiModuleBuilder.prototype.visit = function(node){
-    var builder = tellurium.uiBuilderMap.get(node.uiobject.uiType);
+/*    var builder = tellurium.uiBuilderMap.get(node.uiobject.uiType);
 
     var obj = null;
     if(builder  != null){
@@ -98,7 +103,8 @@ UiModuleBuilder.prototype.visit = function(node){
         obj = new UiContainer();
     }
 
-    this.copyNodeObject(obj, node.uiobject);
+    this.copyNodeObject(obj, node.uiobject);*/
+    var obj = teJQuery.extend(true, {}, node.uiobject);
 
     this.uiModule.addUiObject(node.getUid(), obj);
 };

@@ -59,7 +59,7 @@ var UiObject = Class.extend({
             sb.append("\t");
         }
         sb.append(this.uiType).append("(uid: \"").append(this.uid).append("\", ");
-        sb.append(this.clocator.strLocator());
+        sb.append(this.locator.strLocator());
 
         if(this.respond != null && this.respond.length > 0){
             sb.append(", respond: [");

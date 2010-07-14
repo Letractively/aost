@@ -8,7 +8,7 @@ function NodeUiObject(){
     
     this.uid = null;
     this.uiType = null;
-    this.clocator = new Locator();
+    this.locator = new Locator();
     this.respond = new Array();
     this.container = false;
     this.group = false;
@@ -47,7 +47,7 @@ NodeUiObject.prototype.buildUiObject = function(node, hasChildren){
 
     var whiteListAttributes = this.filter.getWhiteListedAttributes(attributes);
     
-    this.clocator.buildLocator(whiteListAttributes);
+    this.locator.buildLocator(whiteListAttributes);
     
     return this;
 };
@@ -75,7 +75,7 @@ NodeUiObject.prototype.strUiObject = function(level){
         sb.append("\t");
     }
     sb.append(this.uiType).append("(uid: \"").append(this.uid).append("\", ");
-    sb.append(this.clocator.strLocator());
+    sb.append(this.locator.strLocator());
 
     if(this.respond != null && this.respond.length > 0){
         sb.append(", respond: [");
@@ -109,7 +109,7 @@ NodeUiObject.prototype.strUiObject = function(level){
 NodeUiObject.prototype.descObject = function(){
     var sb = new StringBuffer();
     sb.append(this.uiType).append("(uid: '").append(this.uid).append("', ");
-    sb.append(this.clocator.descLocator());
+    sb.append(this.locator.descLocator());
 
     if(this.respond != null && this.respond.length > 0){
         sb.append(", respond: [");
@@ -158,7 +158,7 @@ NodeUiObject.prototype.paddingByLevel = function(level) {
 };
 
 NodeUiObject.prototype.updateAttributes = function(attributeMap){
-    this.clocator.updateLocator(attributeMap);
+    this.locator.updateLocator(attributeMap);
 };
 
 NodeUiObject.prototype.addRespond = function(event){
