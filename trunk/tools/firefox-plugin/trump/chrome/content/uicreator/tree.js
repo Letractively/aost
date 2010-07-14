@@ -376,8 +376,12 @@ function UiBuilder() {
     this.uiBuilderMap.put("StandardTable", new UiStandardTableBuilder());
     this.uiBuilderMap.put("Window", new UiWindowBuilder());
     this.uiBuilderMap.put("Repeat", new UiRepeatBuilder());
-    this.uiBuilderMap.put("UiAllPurposeObject", new UiAllPurposeObjectBuilder());
+/*    this.uiBuilderMap.put("UiAllPurposeObject", new UiAllPurposeObjectBuilder());*/
 }
+
+UiBuilder.prototype.getAvailableUiTypes = function(){
+    return this.uiBuilderMap.keySet().sort();    
+};
 
 UiBuilder.prototype.visit = function(node) {
     var attributes = node.attributes;

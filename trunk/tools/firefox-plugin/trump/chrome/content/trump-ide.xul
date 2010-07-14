@@ -233,7 +233,9 @@
                                     </row>
                                     <row align="center">
                                         <label control="commandValue" value="&commandUID.label;"/>
-                                        <textbox disabled="true" id="commandUID" flex="1"/>
+                                        <textbox disabled="true" id="commandUID" oninput="window.editor.updateUiUID(this.value)" type="autocomplete"
+                                                 autocompletesearch="selenium-ide-generic" enablehistory="true"
+                                                 forcecomplete="true" tabscrolling="true" flex="1"/>
                                     </row>
                                     <row align="center">
                                         <label control="commandValue" value="&commandParam.label;"/>
