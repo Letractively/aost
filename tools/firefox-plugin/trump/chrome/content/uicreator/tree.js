@@ -7,6 +7,7 @@ function Tree(){
     //An Array to hold reference to all the UI objects in the Tree
     //change it to a HashMap so that we can access it by key
     this.uiObjectMap = null;
+    this.document = null;
 }
 
 Tree.prototype.printUI = function(){
@@ -57,17 +58,6 @@ Tree.prototype.postProcess = function(){
     }
 };
 
-/*//Do some post processing work
-Tree.prototype.postProcessNoIndex = function(){
-    if(this.root != null){
-        //get the tag and attributes for auto generated nodes
-        this.root.processNewNode();
-
-        //check duplicated node ids
-        this.root.checkNodeId();
-    }
-};*/
-
 Tree.prototype.buildIndex = function(){
     this.uiObjectMap = new HashMap();
     this.root.refUiObject(this.uiObjectMap);
@@ -112,6 +102,7 @@ Tree.prototype.addElement = function(element){
         this.root.domNode = element.domNode;
         this.root.xpath = element.xpath;
         this.root.attributes = element.attributes;
+        this.document = element.domNode.ownerDocument;
     } else {
         //not the first node, need to match element's xpath with current node's relative xpath starting from the root
         //First, need to check the root and get the common xpath
@@ -355,6 +346,11 @@ Tree.prototype.visit = function(visitor){
     }
 };
 
+Tree.prototype.buildUiObject = function(builder, checker){
+    this.visit(builder);
+    this.visit(checker);
+};
+
 function UiBuilder() {
     this.filter = new Filter();
     this.classifier = new UiType();
@@ -399,6 +395,13 @@ UiBuilder.prototype.visit = function(node) {
         obj.node = node;
         node.uiobject = obj;
     }
+};
+
+function UiChecker(){
+
+}
+
+UiChecker.prototype.visit = function(node){
     node.checkUiDirectAttribute();
     node.checkUiSelfAttribute();
 };

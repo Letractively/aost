@@ -32,6 +32,7 @@ function Editor(window) {
     this.cmdTree = document.getElementById('commandHistoryTree');
     this.cmdTree.view = this.cmdView;
     this.builder = new UiBuilder();
+    this.checker = new UiChecker();
 
 //    this.options = new Preferences();
 
@@ -241,13 +242,12 @@ Editor.prototype.generateButton = function(){
             this.innerTree.addElement(element);
 
         }
-        this.innerTree.postProcess();
-        this.innerTree.visit(this.builder);
         var root = this.innerTree.root;
         var frame = new NodeObject();
         frame.id = frameName;
         frame.parent = null;
-        frame.domNode = root.domNode.ownerDocument;
+//        frame.domNode = root.domNode.ownerDocument;
+        frame.domNode = this.innerTree.document;
         frame.xpath = "";
         frame.attributes = new Hashtable();
         frame.attributes.put("tag", "iframe");
@@ -256,13 +256,17 @@ Editor.prototype.generateButton = function(){
         frame.children.push(root);
         root.parent = frame;
         this.innerTree.root = frame;
-        frame.uiobject = new UiFrame();
-        frame.uiobject.name = frameName;
-        frame.uiobject.node = frame;
-        frame.uiobject.uid = frameName;
-        frame.uiobject.components.put(root.uiobject.uid, root.uiobject);
+//        frame.uiobject = new UiFrame();
+//        frame.uiobject.name = frameName;
+//        frame.uiobject.node = frame;
+//        frame.uiobject.uid = frameName;
+//        frame.uiobject.components.put(root.uiobject.uid, root.uiobject);
         
         //do some post processing work
+        this.innerTree.postProcess();
+ //       this.innerTree.visit(this.builder);
+        this.innerTree.buildUiObject(this.builder, this.checker);
+
         this.innerTree.buildIndex();
     } else {
         for (i = 0; i < tagArrays.length; ++i) {
@@ -279,7 +283,8 @@ Editor.prototype.generateButton = function(){
             //do some post processing work
         }
         this.innerTree.postProcess();
-        this.innerTree.visit(this.builder);
+//        this.innerTree.visit(this.builder);
+        this.innerTree.buildUiObject(this.builder, this.checker);
         this.innerTree.buildIndex();
     }
 
@@ -331,7 +336,7 @@ Editor.prototype.validateUiModule = function() {
     //validate UI object's XPath
     if (this.innerTree.root != null) {
         var uim = this.uistore.build(this.innerTree);
-        this.uistore.save(uim, this.innerTree.root.domNode.ownerDocument);
+        this.uistore.save(uim, this.innerTree.document);
         var result = this.uistore.validate();
         if (result != null) {
             this.innerTree.clearValidFlag();
