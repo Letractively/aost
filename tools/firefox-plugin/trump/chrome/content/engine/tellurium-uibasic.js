@@ -1,6 +1,8 @@
 var CONSTANTS = {
     TAG : "tag",
     POSITION: "position",
+    ID: "id",
+    NAME: "name",
     HEADER : "header",
     TRAILER: "trailer"
 };
