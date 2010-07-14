@@ -4,6 +4,8 @@
 
 const DEFAULT_XML = "<?xml version=\"1.0\"?><UIs id=\"customize_tree_xml\" xmlns=\"\"></UIs>";
 const DEFAULT_ATTRIBUTES_XML = "<?xml version=\"1.0\"?><attributes id=\"attributes_tree_xml\" xmlns=\"\"></attributes>";
+const kWindowMediatorContractID = "@mozilla.org/appshell/window-mediator;1";
+
 function Editor(window) {
     this.window = window;
     var self = this;
@@ -49,6 +51,13 @@ function Editor(window) {
         tellurium.initialize();        
     }
 }
+
+Editor.prototype.getAvailableContentDocuments = function(){
+    var ww = XPCU.getService(kWindowMediatorContractID, "nsIWindowMediator");
+    var windows = ww.getXULWindowEnumerator(null);
+    var docs = [];
+    
+};
 
 Editor.prototype.setWindowURL = function(url){
     
