@@ -745,16 +745,7 @@ UiAlg.prototype.relax = function(clocator, pref) {
                 attrs.put(key, clocator.attributes.get(key));
             }
         }
-/*
-    for (var key in clocator.attributes) {
-            if (!this.cssbuilder.inBlackList(key)) {
-//                attrs.put(key, clocator.attributes[key]);
-                attrs.put(key, clocator.attributes.get(key));
-            }
-    }
-*/
 
-//        id = clocator.attributes["id"];
         id = clocator.attributes.get("id");
     }
     var jqs = "";
@@ -850,7 +841,7 @@ UiAlg.prototype.lookAheadClosestMatchChildren = function(uiobj, $found, matchres
             var score = this.hasClosestMatchChildren($found.get(i), clocators);
             if(score > 0){
                 if(max < score){
-                    //try to find the higest matches, for tied condition, i.e., multiple highest matches, select the first one
+                    //try to find the highest matches, for tied condition, i.e., multiple highest matches, select the first one
                     max = score;
                     closest = $found.get(i);
                 }
