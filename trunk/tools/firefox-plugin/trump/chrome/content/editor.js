@@ -30,8 +30,9 @@ function Editor(window) {
 
     this.cmdView = CommandView;
     this.cmdTree = document.getElementById('commandHistoryTree');
-    this.cmdTree.view=this.cmdView;
-    
+    this.cmdTree.view = this.cmdView;
+    this.builder = new UiBuilder();
+
 //    this.options = new Preferences();
 
     //Detect the browser properties
@@ -42,8 +43,6 @@ function Editor(window) {
         tellurium = new Tellurium();
         tellurium.initialize();        
     }
-
-    this.uiBuilder = new UiBuilder();
 }
 
 Editor.prototype.setWindowURL = function(url){
@@ -257,7 +256,7 @@ Editor.prototype.generateButton = function(){
         root.parent = frame;
         //do some post processing work
         this.innerTree.postProcess();
-        this.innerTree.visit(this.uiBuilder);
+        this.innerTree.visit(this.builder);
 
 //        frame.buildUiObject();
 //        frame.uiobject.clocator = new Locator();
@@ -278,6 +277,8 @@ Editor.prototype.generateButton = function(){
             //do some post processing work
         }
         this.innerTree.postProcess();
+        this.innerTree.visit(this.builder);
+        this.innerTree.buildIndex();
     }
 
     this.updateSource();

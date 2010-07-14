@@ -362,91 +362,52 @@ Tree.prototype.visit = function(visitor){
     }
 };
 
+function UiBuilder() {
+    this.filter = new Filter();
+    this.classifier = new UiType();
+    this.uiBuilderMap = new Hashtable();
+    this.uiBuilderMap.put("Button", new UiButtonBuilder());
+    this.uiBuilderMap.put("CheckBox", new UiCheckBoxBuilder());
+    this.uiBuilderMap.put("Div", new UiDivBuilder());
+    this.uiBuilderMap.put("Icon", new UiIconBuilder());
+    this.uiBuilderMap.put("Image", new UiImageBuilder());
+    this.uiBuilderMap.put("InputBox", new UiInputBoxBuilder());
+    this.uiBuilderMap.put("RadioButton", new UiRadioButtonBuilder());
+    this.uiBuilderMap.put("Selector", new UiSelectorBuilder());
+    this.uiBuilderMap.put("Span", new UiSpanBuilder());
+    this.uiBuilderMap.put("SubmitButton", new UiSubmitButtonBuilder());
+    this.uiBuilderMap.put("TextBox", new UiTextBoxBuilder());
+    this.uiBuilderMap.put("UrlLink", new UiUrlLinkBuilder());
+    this.uiBuilderMap.put("Container", new UiContainerBuilder());
+    this.uiBuilderMap.put("Frame", new UiFrameBuilder());
+    this.uiBuilderMap.put("List", new UiListBuilder());
+    this.uiBuilderMap.put("Table", new UiTableBuilder());
+    this.uiBuilderMap.put("StandardTable", new UiStandardTableBuilder());
+    this.uiBuilderMap.put("Window", new UiWindowBuilder());
+    this.uiBuilderMap.put("Repeat", new UiRepeatBuilder());
+    this.uiBuilderMap.put("UiAllPurposeObject", new UiAllPurposeObjectBuilder());
+}
 
-var TreeVisitor = Class.extend({
-    init: function(){
-
-    },
-
-    visit: function(node){
-
-    }
-});
-
-var TreeChainVisitor = Class.extend({
-    init: function(){
-        this.chain = new Array();
-    },
-
-    removeAll: function(){
-        this.chain = new Array();
-    },
-
-    addVisitor: function(visitor){
-        this.chain.push(visitor);
-    },
-
-    size: function(){
-        return this.chain.length;
-    },
-
-    visit: function(node){
-        for(var i=0; i<this.chain.length; i++){
-            this.chain[i].visit(node);
+UiBuilder.prototype.visit = function(node) {
+    var attributes = node.attributes;
+    var tag = attributes.get(CONSTANTS.TAG);
+    var uiType = this.classifier.getTypeWithExtra(tag, attributes, node.notEmpty());
+    var respond = this.filter.processEventAttributes(attributes);
+    if (respond != null && respond.length > 0) {
+        if (uiType == "UrlLink" || uiType == "Button" || uiType == "SubmitButton") {
+            removeElement(this.respond, "click");
         }
     }
-});
-
-var UiBuilder = TreeVisitor.extend({
-    init: function(){
-        this.filter = new Filter();
-        this.classifier = new UiType();
-        this.uiBuilderMap = new Hashtable();
-        this.uiBuilderMap.put("Button", new UiButtonBuilder());
-        this.uiBuilderMap.put("CheckBox", new UiCheckBoxBuilder());
-        this.uiBuilderMap.put("Div", new UiDivBuilder());
-        this.uiBuilderMap.put("Icon", new UiIconBuilder());
-        this.uiBuilderMap.put("Image", new UiImageBuilder());
-        this.uiBuilderMap.put("InputBox", new UiInputBoxBuilder());
-        this.uiBuilderMap.put("RadioButton", new UiRadioButtonBuilder());
-        this.uiBuilderMap.put("Selector", new UiSelectorBuilder());
-        this.uiBuilderMap.put("Span", new UiSpanBuilder());
-        this.uiBuilderMap.put("SubmitButton", new UiSubmitButtonBuilder());
-        this.uiBuilderMap.put("TextBox", new UiTextBoxBuilder());
-        this.uiBuilderMap.put("UrlLink", new UiUrlLinkBuilder());
-        this.uiBuilderMap.put("Container", new UiContainerBuilder());
-        this.uiBuilderMap.put("Frame", new UiFrameBuilder());
-        this.uiBuilderMap.put("List", new UiListBuilder());
-        this.uiBuilderMap.put("Table", new UiTableBuilder());
-        this.uiBuilderMap.put("StandardTable", new UiStandardTableBuilder());
-        this.uiBuilderMap.put("Window", new UiWindowBuilder());
-        this.uiBuilderMap.put("Repeat", new UiRepeatBuilder());
-        this.uiBuilderMap.put("UiAllPurposeObject", new UiAllPurposeObjectBuilder());
-
-    },
-
-    visit: function(node){
-        var attributes = node.attributes;
-        var tag = attributes.get(CONSTANTS.TAG);
-        var uiType = this.classifier.getTypeWithExtra(tag, attributes, node.notEmpty());
-        var respond = this.filter.processEventAttributes(attributes);
-        if (respond != null && respond.length > 0) {
-            if (uiType == "UrlLink" || uiType == "Button" || uiType == "SubmitButton") {
-                removeElement(this.respond, "click");
-            }
-        }
-        var whiteListAttributes = this.filter.getWhiteListedAttributes(attributes);
-        var builder = this.uiBuilderMap.get(uiType);
-        if(builder != null){
-            var obj = builder.buildFrom(whiteListAttributes, respond);
-            obj.uid = node.id;
-            node.uiobject = obj;
-        }
-        node.checkUiDirectAttribute();
-        node.checkUiSelfAttribute();
+    var whiteListAttributes = this.filter.getWhiteListedAttributes(attributes);
+    var builder = this.uiBuilderMap.get(uiType);
+    if (builder != null) {
+        var obj = builder.buildFrom(whiteListAttributes, respond);
+        obj.uid = node.id;
+        node.uiobject = obj;
     }
-});
-
+    node.checkUiDirectAttribute();
+    node.checkUiSelfAttribute();
+};
 
 function removeElement(array, elem){
     var index = array.indexOf(elem);

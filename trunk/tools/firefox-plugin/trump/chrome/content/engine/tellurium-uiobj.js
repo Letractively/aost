@@ -4018,7 +4018,7 @@ var UiObjectBuilder = Class.extend({
 
     buildFrom: function(attributes, respond){
         var obj = this.build();
-        obj.tag = attributes.get(this.constants.TAG);
+        obj.tag = attributes.get(CONSTANTS.TAG);
         obj.respond = respond;
         obj.locator = new CompositeLocator();
         obj.locator.buildLocator(attributes);
@@ -4130,10 +4130,10 @@ var UiFrameBuilder = UiContainerBuilder.extend({
 
     buildFrom: function(attributes, respond){
         var obj = this.build();
-        obj.tag = attributes.get(this.constants.TAG);
+        obj.tag = attributes.get(CONSTANTS.TAG);
         obj.respond = respond;
-        obj.name = attributes.get(this.constants.NAME);
-        obj.id = attributes.get(this.constants.ID);
+        obj.name = attributes.get(CONSTANTS.NAME);
+        obj.id = attributes.get(CONSTANTS.ID);
 
         return obj;
     }
@@ -4164,10 +4164,10 @@ var UiWindowBuilder = UiContainerBuilder.extend({
 
     buildFrom: function(attributes, respond){
         var obj = this.build();
-        obj.tag = attributes.get(this.constants.TAG);
+        obj.tag = attributes.get(CONSTANTS.TAG);
         obj.respond = respond;
-        obj.name = attributes.get(this.constants.NAME);
-        obj.id = attributes.get(this.constants.ID);
+        obj.name = attributes.get(CONSTANTS.NAME);
+        obj.id = attributes.get(CONSTANTS.ID);
 
         return obj;
     }
