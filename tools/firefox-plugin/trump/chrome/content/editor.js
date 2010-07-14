@@ -24,8 +24,6 @@ function Editor(window) {
 
     this.uistore = new UiModuleStore();
 
-    this.command = new TelluriumCommand();
-
     this.cmdHistory = new Array();
 
     this.cmdView = CommandView;
@@ -33,6 +31,12 @@ function Editor(window) {
     this.cmdTree.view = this.cmdView;
     this.builder = new UiBuilder();
     this.checker = new UiChecker();
+
+    this.command = new TelluriumCommand();
+
+    this.commandList = new Array();
+
+    this.registerCommands();
 
 //    this.options = new Preferences();
 
@@ -48,6 +52,41 @@ function Editor(window) {
 
 Editor.prototype.setWindowURL = function(url){
     
+};
+
+Editor.prototype.registerCommands = function(){
+    this.commandList.push("blur");
+    this.commandList.push("click");
+    this.commandList.push("clickAt");
+    this.commandList.push("doubleClick");
+    this.commandList.push("fireEvent");
+    this.commandList.push("focus");
+    this.commandList.push("type");
+    this.commandList.push("typeKey");
+    this.commandList.push("keyDown");
+    this.commandList.push("keyPress");
+    this.commandList.push("keyUp");
+    this.commandList.push("mouseOver");
+    this.commandList.push("mouseDown");
+    this.commandList.push("mouseEnter");
+    this.commandList.push("mouseLeave");
+    this.commandList.push("mouseOut");
+    this.commandList.push("submit");
+    this.commandList.push("check");
+    this.commandList.push("uncheck");
+    this.commandList.push("getAttribute");
+    this.commandList.push("select");
+    this.commandList.push("getText");
+    this.commandList.push("getValue");
+    this.commandList.push("isChecked");
+    this.commandList.push("isVisible");
+    this.commandList.push("getCSS");
+    this.commandList.push("isDisable");
+    this.commandList.push("showUI");
+    this.commandList.push("cleanUI");
+    this.commandList.push("getHTMLSource");
+    this.commandList.push("getUids");
+    this.commandList.sort();
 };
 
 Editor.prototype.getAutoCompleteSearchParam = function(id) {
@@ -413,6 +452,7 @@ Editor.prototype.clearButton = function(){
     this.clearMessageBox();
     this.innerTree = null;
     this.cleanTestView();
+    this.cleanupAutoComplete();
 };
 
 Editor.prototype.clearCustomizeTabContext = function(){
@@ -453,6 +493,9 @@ Editor.prototype.customizeButton = function(){
     }
 
     this.buildCustomizeTree(xml);
+    var uiTypes = this.builder.getAvailableUiTypes();
+    Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
+                                                      XulUtils.toXPCOMArray(uiTypes));
 };
 
 Editor.prototype.switchToCustomizeTab = function(){
@@ -505,19 +548,26 @@ Editor.prototype.testButton = function(){
         document.getElementById("commandResult").disabled = true;
     }
     try{
+        Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandName")),
+                                                      XulUtils.toXPCOMArray(this.commandList));
+
         this.command.uim = this.uistore.uim;
         this.command.dom = this.uistore.dom;
         this.command.locateUI();
         var uids = this.command.getUids(this.command.uim.id);
         if(uids != null && uids.length > 0){
+            Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandUID")),
+                                                      XulUtils.toXPCOMArray(uids));
             var example = document.getElementById("exampleText");
             example.readonly = false;
             var sb = new StringBuffer();
             sb.append("Example: Command: 'mouseOver', UID: '").append(uids[0]).append("'.\n");
+/*
             sb.append("Available UIDs: \n");
             for(var i=0; i<uids.length; i++){
                 sb.append("\t" + uids[i] + "\n");
             }
+*/
             example.value = sb.toString();
             example.readonly = true;
         }
@@ -545,6 +595,10 @@ Editor.prototype.cleanTestView = function(){
 };
 
 Editor.prototype.updateUiCommand = function(value){
+
+};
+
+Editor.prototype.updateUiUID = function(value){
 
 };
 
