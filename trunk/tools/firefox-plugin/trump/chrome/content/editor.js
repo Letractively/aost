@@ -14,6 +14,8 @@ function Editor(window) {
     this.logView = new LogView(this);
     this.logView.setLog(logger);
 
+    this.recorder = null;
+
     this.registerRecorder();
     this.innerTree = null;
 
@@ -52,7 +54,8 @@ function Editor(window) {
 }
 
 Editor.prototype.setWindowURL = function(url){
-    document.getElementById("windowURL").value = url;
+//    document.getElementById("windowURL").value = url;
+//    this.recorder.updateListenerForWindow(url);
 };
 
 Editor.prototype.registerCommands = function(){
@@ -128,7 +131,7 @@ Editor.prototype.registerRecorder = function(){
 };
 
 Editor.prototype.populateWindowUrl = function(){
-    var contentWindows = getAvailableContentDocuments(Components.interfaces.nsIDocShellTreeItem.typeChrome);
+    var contentWindows = getAvailableContentDocumentUrls(Components.interfaces.nsIDocShellTreeItem.typeChrome);
     Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("windowURL")),
             XulUtils.toXPCOMArray(contentWindows));
 };
