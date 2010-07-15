@@ -51,52 +51,6 @@ function Editor(window) {
     }
 }
 
-Editor.prototype.getAvailableContentDocuments = function(aChrome){
-    var ww = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces["nsIWindowMediator"]);
-    var windows = ww.getXULWindowEnumerator(null);
-    var docs = [];
-    while (windows.hasMoreElements()) {
-      try {
-        // Get the window's main docshell
-        var windowDocShell = windows.getNext().QueryInterface(Components.interfaces["nsIXULWindow"]).docShell;
-        this.appendContainedDocuments(docs, windowDocShell,
-                                      aChrome ?
-                                        Components.interfaces.nsIDocShellTreeItem.typeChrome :
-                                        Components.interfaces.nsIDocShellTreeItem.typeContent);
-      }
-      catch (ex) {
-        // We've failed with this window somehow, but we're catching the error
-        // so the others will still work
-        logger.error("getAvailableContentDocuments failed:\n" + describeErrorStack(ex));
-      }
-    }
-
-    return docs;
-};
-
-Editor.prototype.appendContainedDocuments = function(array, docShell, type)
-{
-    // Load all the window's content docShells
-    var containedDocShells = docShell.getDocShellEnumerator(type, Components.interfaces.nsIDocShell.ENUMERATE_FORWARDS);
-    while (containedDocShells.hasMoreElements()) {
-        try {
-            // Get the corresponding document for this docshell
-            var childDoc =  containedDocShells.getNext().QueryInterface(Components.interfaces["nsIDocShell"]).contentViewer.DOMDocument;
-//                    XPCU.QI(containedDocShells.getNext(), "nsIDocShell").contentViewer.DOMDocument;
-
-            // Ignore the DOM Inspector's browser docshell if it's not being used
-            if (docShell.contentViewer.DOMDocument.location.href !=
-                    document.location.href ||
-                    childDoc.location.href != "about:blank") {
-                array.push(childDoc.location.href);
-            }
-        }
-        catch (ex) {
-            logger.error("getAvailableContentDocuments failed:\n" + describeErrorStack(ex));
-        }
-    }
-};
-
 Editor.prototype.setWindowURL = function(url){
     document.getElementById("windowURL").value = url;
 };
@@ -170,6 +124,13 @@ Editor.prototype.updateUiType = function(value){
 Editor.prototype.registerRecorder = function(){
     this.recorder = new Recorder(this.window);
     this.recorder.registerListener();
+    this.populateWindowUrl();
+};
+
+Editor.prototype.populateWindowUrl = function(){
+    var contentWindows = getAvailableContentDocuments(Components.interfaces.nsIDocShellTreeItem.typeChrome);
+    Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("windowURL")),
+            XulUtils.toXPCOMArray(contentWindows));
 };
 
 Editor.prototype.unload = function(){
@@ -191,10 +152,7 @@ Editor.prototype.toggleRecordButton = function(){
         stopToolbarButton.removeAttribute("checked");
 
         this.recorder.registerListener();
-
-        var contentWindows = this.getAvailableContentDocuments(Components.interfaces.nsIDocShellTreeItem.typeChrome);
-        Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("windowURL")),
-                XulUtils.toXPCOMArray(contentWindows));
+        this.populateWindowUrl();
     }
 };
 
