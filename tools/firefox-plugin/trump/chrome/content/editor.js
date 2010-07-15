@@ -4,7 +4,6 @@
 
 const DEFAULT_XML = "<?xml version=\"1.0\"?><UIs id=\"customize_tree_xml\" xmlns=\"\"></UIs>";
 const DEFAULT_ATTRIBUTES_XML = "<?xml version=\"1.0\"?><attributes id=\"attributes_tree_xml\" xmlns=\"\"></attributes>";
-const kWindowMediatorContractID = "@mozilla.org/appshell/window-mediator;1";
 
 function Editor(window) {
     this.window = window;
@@ -52,15 +51,54 @@ function Editor(window) {
     }
 }
 
-Editor.prototype.getAvailableContentDocuments = function(){
-    var ww = XPCU.getService(kWindowMediatorContractID, "nsIWindowMediator");
+Editor.prototype.getAvailableContentDocuments = function(aChrome){
+    var ww = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces["nsIWindowMediator"]);
     var windows = ww.getXULWindowEnumerator(null);
     var docs = [];
-    
+    while (windows.hasMoreElements()) {
+      try {
+        // Get the window's main docshell
+        var windowDocShell = windows.getNext().QueryInterface(Components.interfaces["nsIXULWindow"]).docShell;
+        this.appendContainedDocuments(docs, windowDocShell,
+                                      aChrome ?
+                                        Components.interfaces.nsIDocShellTreeItem.typeChrome :
+                                        Components.interfaces.nsIDocShellTreeItem.typeContent);
+      }
+      catch (ex) {
+        // We've failed with this window somehow, but we're catching the error
+        // so the others will still work
+        logger.error("getAvailableContentDocuments failed:\n" + describeErrorStack(ex));
+      }
+    }
+
+    return docs;
+};
+
+Editor.prototype.appendContainedDocuments = function(array, docShell, type)
+{
+    // Load all the window's content docShells
+    var containedDocShells = docShell.getDocShellEnumerator(type, Components.interfaces.nsIDocShell.ENUMERATE_FORWARDS);
+    while (containedDocShells.hasMoreElements()) {
+        try {
+            // Get the corresponding document for this docshell
+            var childDoc =  containedDocShells.getNext().QueryInterface(Components.interfaces["nsIDocShell"]).contentViewer.DOMDocument;
+//                    XPCU.QI(containedDocShells.getNext(), "nsIDocShell").contentViewer.DOMDocument;
+
+            // Ignore the DOM Inspector's browser docshell if it's not being used
+            if (docShell.contentViewer.DOMDocument.location.href !=
+                    document.location.href ||
+                    childDoc.location.href != "about:blank") {
+                array.push(childDoc.location.href);
+            }
+        }
+        catch (ex) {
+            logger.error("getAvailableContentDocuments failed:\n" + describeErrorStack(ex));
+        }
+    }
 };
 
 Editor.prototype.setWindowURL = function(url){
-    
+    document.getElementById("windowURL").value = url;
 };
 
 Editor.prototype.registerCommands = function(){
@@ -153,8 +191,11 @@ Editor.prototype.toggleRecordButton = function(){
         stopToolbarButton.removeAttribute("checked");
 
         this.recorder.registerListener();
-    }
 
+        var contentWindows = this.getAvailableContentDocuments(Components.interfaces.nsIDocShellTreeItem.typeChrome);
+        Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("windowURL")),
+                XulUtils.toXPCOMArray(contentWindows));
+    }
 };
 
 Editor.prototype.toggleStopButton = function(){
@@ -304,15 +345,9 @@ Editor.prototype.generateButton = function(){
         frame.children.push(root);
         root.parent = frame;
         this.innerTree.root = frame;
-//        frame.uiobject = new UiFrame();
-//        frame.uiobject.name = frameName;
-//        frame.uiobject.node = frame;
-//        frame.uiobject.uid = frameName;
-//        frame.uiobject.components.put(root.uiobject.uid, root.uiobject);
         
         //do some post processing work
         this.innerTree.postProcess();
- //       this.innerTree.visit(this.builder);
         this.innerTree.buildUiObject(this.builder, this.checker);
 
         this.innerTree.buildIndex();
@@ -331,7 +366,6 @@ Editor.prototype.generateButton = function(){
             //do some post processing work
         }
         this.innerTree.postProcess();
-//        this.innerTree.visit(this.builder);
         this.innerTree.buildUiObject(this.builder, this.checker);
         this.innerTree.buildIndex();
     }
@@ -461,7 +495,8 @@ Editor.prototype.clearButton = function(){
     this.clearMessageBox();
     this.innerTree = null;
     this.cleanTestView();
-    this.cleanupAutoComplete();
+    this.cleanupAutoComplete();   
+    document.getElementById("windowURL").value = null;
 };
 
 Editor.prototype.clearCustomizeTabContext = function(){
@@ -581,7 +616,7 @@ Editor.prototype.testButton = function(){
             example.readonly = true;
         }
     }catch(error){
-        logger.info("Executing command failed:\n" + describeErrorStack(error));
+        logger.error("Executing command failed:\n" + describeErrorStack(error));
     }
     
 };
