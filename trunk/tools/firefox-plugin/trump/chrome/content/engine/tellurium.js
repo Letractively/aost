@@ -195,13 +195,15 @@ teJQuery.expr[':'].data = function(elem, index, m) {
 };
 
 teJQuery.fn.outerHTML = function() {
-    var $me = teJQuery("<div/>").append( teJQuery(this[0]).clone() );
+/*    var $me = teJQuery("<div/>").append( teJQuery(this[0]).clone() );
     if($me.get(0).innerHTML == undefined){
         return "";
     }
 
-    return $me.html();
+    return $me.html();*/
 //    return teJQuery("<div/>").append( teJQuery(this[0]).clone() ).html();
+    var doc = this[0] ? this[0].ownerDocument : document;
+    return teJQuery('<div>', doc).append( this.eq(0).clone() ).html();
 };
 
 function getColor(elem, cssName){

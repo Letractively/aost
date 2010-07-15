@@ -39,6 +39,9 @@ function Editor(window) {
 
     this.commandList = new Array();
 
+    //Map the command, because some command needs to convert the format for display, for example, array to String
+    this.commandMap = new Hashtable();
+
     this.registerCommands();
 
 //    this.options = new Preferences();
@@ -91,6 +94,9 @@ Editor.prototype.registerCommands = function(){
     this.commandList.push("getHTMLSource");
     this.commandList.push("getUids");
     this.commandList.sort();
+    this.commandMap.put("getHTMLSource", "getHTMLSourceAsString");
+    this.commandMap.put("getUids", "getUidsAsString");
+    this.commandMap.put("getCSS", "getCSSAsString");        
 };
 
 Editor.prototype.getAutoCompleteSearchParam = function(id) {
@@ -576,12 +582,7 @@ Editor.prototype.testButton = function(){
             example.readonly = false;
             var sb = new StringBuffer();
             sb.append("Example: Command: 'mouseOver', UID: '").append(uids[0]).append("'.\n");
-/*
-            sb.append("Available UIDs: \n");
-            for(var i=0; i<uids.length; i++){
-                sb.append("\t" + uids[i] + "\n");
-            }
-*/
+
             example.value = sb.toString();
             example.readonly = true;
         }
@@ -624,7 +625,15 @@ Editor.prototype.runUiCommand = function(){
 
     logger.info("Run command " + name + "('" + uid + "', '" + param + "')");
     try{
-        var result = this.command.run(name, uid, param);
+
+        var realName = this.commandMap.get(name);
+        var result;
+        if(realName != null){
+           result = this.command.run(realName, uid, param);
+        }else{
+           result = this.command.run(name, uid, param);
+        }
+
         logger.info("Executing command " + name + " finished, result: " + result);
         if (result != null && result != undefined) {
             document.getElementById("commandResult").value = result;

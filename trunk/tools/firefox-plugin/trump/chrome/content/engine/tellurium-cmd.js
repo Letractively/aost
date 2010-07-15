@@ -195,6 +195,12 @@ TelluriumCommand.prototype.getCSS = function(uid, cssName) {
     return this.execCommand("getCSS", uid, cssName);
 };
 
+TelluriumCommand.prototype.getCSSAsString = function(uid, cssName) {
+    var out = this.getCSS(uid, cssName);
+
+    return arrayToString(out);
+};
+
 TelluriumCommand.prototype.isDisabled = function(uid) {
     return this.execCommand("isDisabled", uid);
 };
@@ -256,6 +262,20 @@ TelluriumCommand.prototype.getHTMLSource = function(uid) {
     }
 };
 
+TelluriumCommand.prototype.getHTMLSourceAsString = function(uid) {
+
+    var htmls = this.getHTMLSource(uid);
+    if (htmls != null && htmls.length > 0) {
+        var sb = new StringBuffer();
+        for (var i = 0; i <htmls.length; i++){
+            sb.append(htmls[i].key).append(": ").append(htmls[i].val).append("\n");
+        }
+        return sb.toString();
+    }
+
+    return "";
+};
+
 TelluriumCommand.prototype.getUids = function(uid){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
@@ -274,6 +294,11 @@ TelluriumCommand.prototype.getUids = function(uid){
     }    
 };
 
+TelluriumCommand.prototype.getUidsAsString = function(uid){
+    var uids = this.getUids(uid);
+    return arrayToString(uids);
+};
+
 TelluriumCommand.prototype.run = function(name, uid, param){
     var api = this[name];
 
@@ -287,3 +312,11 @@ TelluriumCommand.prototype.run = function(name, uid, param){
         throw new TelluriumError(ErrorCodes.INVALID_TELLURIUM_COMMAND, "Invalid Tellurium command " + name);
      }
 };
+
+function arrayToString(array){
+    if(array != null && array.length > 0){
+        return array.join(", ");
+    }
+
+    return "";
+}

@@ -820,3 +820,63 @@ function describeErrorStack(error){
     return message;
 }
 
+function getTimeoutTime(timeout) {
+    var now = new Date().getTime();
+    var timeoutLength = parseInt(timeout);
+
+    if (isNaN(timeoutLength)) {
+        throw new SeleniumError("Timeout is not a number: '" + timeout + "'");
+    }
+
+    return now + timeoutLength;
+}
+
+function decorateFunctionWithTimeout(f, timeout) {
+    if (f == null) {
+        return null;
+    }
+
+    var timeoutTime = getTimeoutTime(timeout);
+
+    return function() {
+        if (new Date().getTime() > timeoutTime) {
+            throw new SeleniumError("Timed out after " + timeout + "ms");
+        }
+        return f();
+    };
+}
+
+function getTagName(element) {
+    var tagName;
+    if (element && element.tagName && element.tagName.toLowerCase) {
+        tagName = element.tagName.toLowerCase();
+    }
+    return tagName;
+}
+
+function hasJavascriptHref(element) {
+    if (getTagName(element) != 'a') {
+        return false;
+    }
+    if (element.onclick) {
+        return false;
+    }
+    if (! element.href) {
+        return false;
+    }
+    if (! /\s*javascript:/i.test(element.href)) {
+        return false;
+    }
+    return true;
+}
+
+function getAncestorOrSelfWithJavascriptHref(element) {
+    if (hasJavascriptHref(element)) {
+        return element;
+    }
+    if (element.parentNode == null) {
+        return null;
+    }
+    return getAncestorOrSelfWithJavascriptHref(element.parentNode);
+}
+

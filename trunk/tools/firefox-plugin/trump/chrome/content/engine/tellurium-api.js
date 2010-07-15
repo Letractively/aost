@@ -55,7 +55,8 @@ TelluriumApi.prototype.click = function(locator) {
         if (teJQuery.browser.msie) {
             element.fireEvent("onclick");
         } else {
-            var evObj = document.createEvent('HTMLEvents');
+//            var evObj = document.createEvent('HTMLEvents');
+            var evObj = document.createEvent('MouseEvents');
             evObj.initEvent('click', true, true);
             element.dispatchEvent(evObj);
         }
