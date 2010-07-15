@@ -58,7 +58,7 @@
                      onchange="window.editor.setWindowURL(this.value)"
                      ontextentered="window.editor.setWindowURL(this.value)"
                      type="autocomplete" autocompletesearch="selenium-ide-generic" enablehistory="true"
-                     focecomplete="true" tabscrolling="true"/>
+                     forcecomplete="true" tabscrolling="true"/>
         </hbox>
     </toolbar>
 
