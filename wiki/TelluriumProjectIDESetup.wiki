@@ -164,8 +164,6 @@ http://tellurium-users.googlegroups.com/web/intellijtjj5.png
 
   * Click "Ok" and the project starts to check out
 
-http://tellurium-users.googlegroups.com/web/intellijtjj6.png
-
   * After you are done with the checkout, you will be asked if you want to open the project. Click "Yes" to open it.
 
 http://tellurium-users.googlegroups.com/web/intellijtjj7.png
