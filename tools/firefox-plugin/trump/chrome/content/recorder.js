@@ -19,8 +19,6 @@ function Recorder(window) {
     this.tree.view=this.treeView;
 
     this.sequence = new Identifier();
-
-//    this.baseUrl = null;
 }
 
 Recorder.WINDOW_RECORDER_PROPERTY = "_TrUMP_IDE_Recorder";
@@ -67,11 +65,6 @@ Recorder.prototype.registerClickListener = function(){
             if(baseUrl.trim().length == 0 || baseUrl != actualUrl){
                 document.getElementById("windowURL").value = actualUrl;
             }
-            
-/*            if(this.baseUrl == null){
-                this.baseUrl = element.ownerDocument.location.href;
-                document.getElementById("windowURL").value = this.baseUrl;
-            }*/
         };
 
 
