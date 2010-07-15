@@ -251,12 +251,10 @@ function suggestName(tagObject){
     return name.toCamel();
 }
 
-Editor.prototype.generateButton = function(){
-    this.switchToSourceTab();
-
+Editor.prototype.generateUiModule = function(){
     var tagArrays = this.recorder.tagObjectArray;
 
-    var tagObject;
+//    var tagObject;
     var element;
     this.innerTree = new Tree();
 
@@ -306,7 +304,7 @@ Editor.prototype.generateButton = function(){
         frame.children.push(root);
         root.parent = frame;
         this.innerTree.root = frame;
-        
+
         //do some post processing work
         this.innerTree.postProcess();
         this.innerTree.buildUiObject(this.builder, this.checker);
@@ -314,7 +312,7 @@ Editor.prototype.generateButton = function(){
         this.innerTree.buildIndex();
     } else {
         for (i = 0; i < tagArrays.length; ++i) {
-            tagObject = tagArrays[i];
+            var tagObject = tagArrays[i];
             element = new ElementObject();
 //          element.uid = tagObject.tag+i;
             element.uid = suggestName(tagObject);
@@ -330,10 +328,21 @@ Editor.prototype.generateButton = function(){
         this.innerTree.buildUiObject(this.builder, this.checker);
         this.innerTree.buildIndex();
     }
+};
 
-    this.updateSource();
+Editor.prototype.generateButton = function(){
+    this.switchToSourceTab();
 
-    this.validateUI(); 
+    try {
+        this.generateUiModule();
+
+        this.updateSource();
+
+        this.validateUI();
+
+    }catch(error){
+        logger.error("Error generating UI Module:\n" + describeErrorStack(error));
+    }
 };
 
 Editor.prototype.validateUI = function(){

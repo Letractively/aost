@@ -370,6 +370,7 @@ function UiBuilder() {
     this.uiBuilderMap.put("TextBox", new UiTextBoxBuilder());
     this.uiBuilderMap.put("UrlLink", new UiUrlLinkBuilder());
     this.uiBuilderMap.put("Container", new UiContainerBuilder());
+    this.uiBuilderMap.put("Form", new UiFormBuilder());
     this.uiBuilderMap.put("Frame", new UiFrameBuilder());
     this.uiBuilderMap.put("List", new UiListBuilder());
     this.uiBuilderMap.put("Table", new UiTableBuilder());
@@ -400,6 +401,8 @@ UiBuilder.prototype.visit = function(node) {
         obj.uid = node.id;
         obj.node = node;
         node.uiobject = obj;
+    }else{
+        logger.error("Cannot find a UI builder for UI type " + uiType);
     }
 };
 

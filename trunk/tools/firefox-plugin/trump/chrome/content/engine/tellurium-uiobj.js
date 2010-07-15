@@ -1162,6 +1162,11 @@ var UiForm = UiContainer.extend({
         this._super();
         this.uiType = 'Form';
         this.tag = "form";
+    },
+
+    submit: function(context){
+        var element = context.domRef;
+        teJQuery(element).submit();
     }
 });
 
