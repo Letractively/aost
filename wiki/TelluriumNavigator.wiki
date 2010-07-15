@@ -1,16 +1,5 @@
 #labels Phase-Support
 #sidebar Tellurium Navigator.
-
-  * [Introduction Overview] 
-    * [http://code.google.com/p/aost/wiki/TenMinutesToTellurium Quick Start]
-    * [ReferenceProjectGuide Sub-projects]
-      * [http://code.google.com/p/aost/wiki/ReferenceProjectGuide Reference Project Guide]
-      * [http://code.google.com/p/aost/wiki/TrUMP Tellurium UI Model Firefox Plugin]
-      * [http://code.google.com/p/aost/wiki/TelluriumWidget Tellurium Widget Extensions]
-      * [http://code.google.com/p/aost/wiki/TelluriumMavenArchetypes Tellurium Maven Archetypes]
-    * [http://code.google.com/p/aost/wiki/FAQ FAQs] 
-    * [http://code.google.com/p/aost/wiki/Resources Resources]
-    * [http://code.google.com/p/aost/wiki/TelluriumTestCaseManagementSystem TelluriumTestCaseManagementSystem]
   * [UserGuide070Introduction User Guide]
     * [UserGuide070Introduction Introduction]
     * [UserGuide070GettingStarted Getting Started]
