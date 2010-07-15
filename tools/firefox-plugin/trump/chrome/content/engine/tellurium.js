@@ -399,6 +399,7 @@ Tellurium.prototype.registerDefaultUiBuilders = function(){
     this.uiBuilderMap.put("UrlLink", new UiUrlLinkBuilder());
     this.uiBuilderMap.put("Container", new UiContainerBuilder());
     this.uiBuilderMap.put("Frame", new UiFrameBuilder());
+    this.uiBuilderMap.put("Form", new UiFormBuilder());
     this.uiBuilderMap.put("List", new UiListBuilder());
     this.uiBuilderMap.put("Table", new UiTableBuilder());
     this.uiBuilderMap.put("StandardTable", new UiStandardTableBuilder());

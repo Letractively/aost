@@ -158,29 +158,39 @@ NodeObject.prototype.getUid = function(){
 
 NodeObject.prototype.checkUiDirectAttribute = function(){
     if(this.children.length > 0){
-        teJQuery(this.domNode).data("uid", this.id);
+        teJQuery(this.domNode).data("testuid", this.id);
         for(var i=0; i<this.children.length; i++){
             var $child = teJQuery(this.children[i].domNode);
-            var puid = $child.parent().data("uid");
+            var puid = $child.parent().data("testuid");
             if(puid == this.id){
-                this.children[i].uiobject.locator.direct = true;
+                if(this.children[i].uiobject == null){
+                    logger.error("The UI object for " + this.children[i].id + " is null");
+                }else if(this.children[i].uiobject.locator == null){
+                    logger.warn("Locator is null for UI object: " + this.children[i].uiobject.uid);
+                }else{
+                    this.children[i].uiobject.locator.direct = true;
+                }
             }
         }
-        teJQuery(this.domNode).removeData("uid");
+        teJQuery(this.domNode).removeData("testuid");
     }
 };
 
 NodeObject.prototype.checkUiSelfAttribute = function(){
     if(this.children.length > 0){
-        teJQuery(this.domNode).data("uid", this.id);
+        teJQuery(this.domNode).data("testuid", this.id);
         for(var i=0; i<this.children.length; i++){
             var $child = teJQuery(this.children[i].domNode);
-            var cuid = $child.data("uid");
+            var cuid = $child.data("testuid");
             if(cuid == this.id){
-                this.children[i].uiobject.self = true;
+                if(this.children[i].uiobject == null){
+                    logger.error("The UI object for " + this.children[i].id + " is null");
+                }else{
+                    this.children[i].uiobject.self = true;
+                }
             }
         }
-        teJQuery(this.domNode).removeData("uid");
+        teJQuery(this.domNode).removeData("testuid");
     }
 };
 
