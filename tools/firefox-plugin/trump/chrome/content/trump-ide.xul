@@ -55,8 +55,7 @@
         <hbox align="center" flex="1">
             <label value="&windowURL.label;"/>
             <textbox id="windowURL" flex="1" tooltiptext="&windowURLTextbox.tooltip;"
-                     onchange="window.editor.setWindowURL(this.value)"
-                     ontextentered="window.editor.setWindowURL(this.value)"
+                     oninput="window.editor.setWindowURL(this.value)" 
                      type="autocomplete" autocompletesearch="selenium-ide-generic" enablehistory="true"
                      forcecomplete="true" tabscrolling="true"/>
         </hbox>
