@@ -15,10 +15,10 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://trump/content/extlib/json2.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery-1.4.2.js "/>
     <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery-simpletip-1.3.1.js"/>
-    <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery.ui.core.js"/>
+<!--    <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery.ui.core.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery.ui.widget.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery.ui.position.js"/>
-    <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery.ui.autocomplete.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery.ui.autocomplete.js"/>-->
 
     <script type="application/x-javascript" src="chrome://trump/content/util.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/editor.js"/>

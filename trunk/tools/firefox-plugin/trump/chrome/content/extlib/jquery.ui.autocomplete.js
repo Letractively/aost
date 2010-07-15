@@ -313,7 +313,7 @@ $.extend( $.ui.autocomplete, {
 	}
 });
 
-}( jQuery ));
+}( teJQuery ));
 
 /*
  * jQuery UI Menu (not officially released)
