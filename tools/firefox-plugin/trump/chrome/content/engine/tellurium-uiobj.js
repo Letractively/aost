@@ -351,24 +351,40 @@ var UiObject = Class.extend({
 
     click: function(context){
         var element = context.domRef;
-        if (element.href || element.url) {
+        var elementWithHref = getAncestorOrSelfWithJavascriptHref(element);
+        if(elementWithHref == null)
+            elementWithHref = element;
+        teJQuery(elementWithHref).focus();
+        if (elementWithHref.href || elementWithHref.url) {
             if (teJQuery.browser.msie) {
-                element.fireEvent("onclick");
+                elementWithHref.fireEvent("onclick");
             } else {
-                var evObj = document.createEvent('HTMLEvents');
+//                var evObj = document.createEvent('HTMLEvents');
+                var evObj = document.createEvent('MouseEvents');
                 evObj.initEvent('click', true, true);
-                element.dispatchEvent(evObj);
+                elementWithHref.dispatchEvent(evObj);
             }
         } else {
-            teJQuery(element).click();
+            teJQuery(elementWithHref).click();
         }
     },
 
     clickAt: function(context, coordString){
         var element = context.domRef;
-         var clientXY = getTargetXY(element, coordString);
+        var clientXY = getTargetXY(element, coordString);
         //TODO: how to do click at using jQuery
-        teJQuery(element).click();
+        var elementWithHref = getAncestorOrSelfWithJavascriptHref(element);
+        if (elementWithHref.href || elementWithHref.url) {
+            if (teJQuery.browser.msie) {
+                elementWithHref.fireEvent("onclick");
+            } else {
+                var evObj = document.createEvent('HTMLEvents');
+                evObj.initEvent('click', true, true);
+                elementWithHref.dispatchEvent(evObj);
+            }
+        } else {
+            teJQuery(elementWithHref).click();
+        }
     },
 
     doubleClick: function(context){
