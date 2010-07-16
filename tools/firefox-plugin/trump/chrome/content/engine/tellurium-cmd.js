@@ -373,6 +373,60 @@ TelluriumCommand.prototype.run = function(name, uid, param){
      }
 };
 
+TelluriumCommand.prototype.validateUiModule = function(uid, jsonString){
+    var newuim = new UiModule();
+    newuim.dom = this.dom;
+    var jsonArray = JSON.parse(jsonString, null);
+    newuim.parseUiModule(jsonArray);
+    var response = new UiModuleLocatingResponse();
+    var result = this.uiAlg.santa(newuim, this.dom);
+    if(result){
+        //set the UI Module to be valid after it is located
+        newuim.valid = true;
+        response.id = newuim.getId();
+        response.relaxed = newuim.relaxed;
+        if (!response.relaxed)
+            response.found = true;
+        response.relaxDetails = newuim.relaxDetails;
+        response.matches = newuim.matches;
+        response.score = newuim.score;
+    }
+
+    return response;
+};
+
+TelluriumCommand.prototype.validateUiModuleAsString = function(uid,jsonString){
+    var response = this.validateUiModule(uid, jsonString);
+    if(response != null){
+        return this.describeUiModuleValidationResult(response);
+    }else{
+        return "Result is emtpy";
+    }
+};
+
+TelluriumCommand.prototype.describeUiModuleValidationResult = function(result){
+    var msg = new StringBuffer();
+    msg.append("Validation result for UI Module " + result.id + "\n");
+    msg.append("Found: " + result.found + "\n");
+    msg.append("Relaxed: " + result.relaxed + "\n");
+    msg.append("Match count: " + result.matches + "\n");
+    msg.append("Match score: " + result.score + "\n");
+    if(result.relaxDetails != null && result.relaxDetails.length > 0){
+        msg.append("Relax details: \n");
+        for(var i=0; i<result.relaxDetails.length; i++){
+            msg.append("\tUID: " + result.relaxDetails[i].uid + "\n");
+            if(result.relaxDetails[i].locator != null){
+               msg.append("\tLocator: " + result.relaxDetails[i].locator.strLocator() + "\n");
+            }else{
+               msg.append("\tLocator: " + "\n");
+            }
+            msg.append("\tHTML: " + result.relaxDetails[i].html + "\n");
+        }
+    }
+
+    return msg;
+};
+
 function arrayToString(array){
     if(array != null && array.length > 0){
         return array.join(", ");

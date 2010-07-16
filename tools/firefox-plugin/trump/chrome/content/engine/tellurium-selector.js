@@ -387,13 +387,24 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
     //put the tag name first
     sb.append(this.checkTag(tag));
     var attributes = new Hashtable();
-    if(attrs != null && attrs.size() > 0){
-        var keyset = attrs.keySet();
-        for(var k=0; k<attrs.size(); k++){
-            var akey = keyset[k];
-            attributes.put(akey, attrs.get(akey));
+    if(attrs != null && attrs != undefined){
+        if (attrs.size) {
+            //assume attrs is a Hashtable
+            if (attrs.size() > 0) {
+                var keyset = attrs.keySet();
+                for (var k = 0; k < attrs.size(); k++) {
+                    var akey = keyset[k];
+                    attributes.put(akey, attrs.get(akey));
+                }
+            }
+        } else {
+            //if attrs is only a JSON object, cannot use get(key)
+            for (var akey in attrs) {
+                attributes.put(akey, attrs[akey]);
+            }
         }
     }
+
 
     if (attributes != null && attributes.size() > 0) {
         var id = attributes.get(this.ID);
