@@ -4,6 +4,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.telluriumsource.module.NewSignUpModule;
 import org.telluriumsource.module.SignUpModule;
 import org.telluriumsource.test.java.TelluriumJUnitTestCase;
 
@@ -13,15 +14,12 @@ import org.telluriumsource.test.java.TelluriumJUnitTestCase;
  *         Date: Jul 13, 2010
  */
 public class SignUpTestCase extends TelluriumJUnitTestCase {
-    private static SignUpModule sum;
 
     @BeforeClass
     public static void initUi() {
-        sum = new SignUpModule();
-        sum.defineUi();
         connectSeleniumServer();
-//        useEngineLog(true);
-//        useTelluriumEngine(true);
+        useEngineLog(true);
+        useTelluriumEngine(true);
         useTrace(true);
     }
 
@@ -33,6 +31,15 @@ public class SignUpTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testSignUp(){
+        SignUpModule sum = new SignUpModule();
+        sum.defineUi();
+        sum.signUp("John", "Smith", "John.Smith@gmail.com");
+    }
+
+    @Test
+    public void testSignUpWithRespond(){
+        NewSignUpModule sum = new NewSignUpModule();
+        sum.defineUi();
         sum.signUp("John", "Smith", "John.Smith@gmail.com");
     }
 
