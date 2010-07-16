@@ -336,6 +336,29 @@ TelluriumCommand.prototype.getUidsAsString = function(uid){
     return arrayToString(uids);
 };
 
+TelluriumCommand.prototype.getCssSelectorCount = function(uid, sel){
+
+    return teJQuery(this.dom).find(sel).length;
+};
+
+TelluriumCommand.prototype.getCssSelectorMatch = function(uid, sel){
+    var out = [];
+    var $e = teJQuery(this.dom).find(sel);
+    if($e.size() > 0){
+        for(var i=0; i<$e.size(); i++){
+            out.push($e.eq(i).outerHTML());
+        }
+
+    }
+
+    return out;
+};
+
+TelluriumCommand.prototype.getCssSelectorMatchAsString = function(uid, sel){
+    var out = this.getCssSelectorMatch(uid, sel);
+    return arrayToString(out);
+};
+
 TelluriumCommand.prototype.run = function(name, uid, param){
     var api = this[name];
 

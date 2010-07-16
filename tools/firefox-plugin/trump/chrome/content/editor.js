@@ -93,10 +93,13 @@ Editor.prototype.registerCommands = function(){
     this.commandList.push("cleanUI");
     this.commandList.push("getHTMLSource");
     this.commandList.push("getUids");
+    this.commandList.push("getCssSelectorCount");
+    this.commandList.push("getCssSelectorMatch");
     this.commandList.sort();
     this.commandMap.put("getHTMLSource", "getHTMLSourceAsString");
     this.commandMap.put("getUids", "getUidsAsString");
-    this.commandMap.put("getCSS", "getCSSAsString");        
+    this.commandMap.put("getCSS", "getCSSAsString");
+    this.commandMap.put("getCssSelectorMatch", "getCssSelectorMatchAsString");
 };
 
 Editor.prototype.getAutoCompleteSearchParam = function(id) {
