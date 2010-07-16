@@ -877,7 +877,18 @@ TelluriumApi.prototype.showUi = function(uid){
     var chainVisitor = new STreeChainVisitor();
     chainVisitor.addVisitor(outlineVisitor);
     chainVisitor.addVisitor(tipVisitor);
-    stree.traverse(context, chainVisitor);
+
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var uoj = stree.walkTo(context, uiid);
+    if(uoj != null){
+        uoj.traverse(context, chainVisitor);
+    }else{
+        !tellurium.logManager.isUseLog || fbLog("Cannot find UI object " + uid + " in snapshot", stree);
+        throw new SeleniumError("Cannot find UI object " + uid + " in snapshot");
+    }
+
+//    stree.traverse(context, chainVisitor);
 };
 
 TelluriumApi.prototype.cleanUi = function(uid){
@@ -898,7 +909,18 @@ TelluriumApi.prototype.cleanUi = function(uid){
     var chainVisitor = new STreeChainVisitor();
     chainVisitor.addVisitor(tipCleaner);
     chainVisitor.addVisitor(outlineCleaner);
-    stree.traverse(context, chainVisitor);
+
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var uoj = stree.walkTo(context, uiid);
+    if(uoj != null){
+        uoj.traverse(context, chainVisitor);
+    }else{
+        !tellurium.logManager.isUseLog || fbLog("Cannot find UI object " + uid + " in snapshot", stree);
+        throw new SeleniumError("Cannot find UI object " + uid + " in snapshot");
+    }
+
+//    stree.traverse(context, chainVisitor);
 };
 
 TelluriumApi.prototype.useEngineLog = function(isUse){
@@ -916,9 +938,20 @@ TelluriumApi.prototype.getHTMLSource = function(uid) {
 
     var visitor = new UiHTMLSourceVisitor();
     var context = new WorkflowContext();
-    stree.traverse(context, visitor);
+//    stree.traverse(context, visitor);
 
-    return visitor.htmlsource;
+//    return visitor.htmlsource;
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var uoj = stree.walkTo(context, uiid);
+    if(uoj != null){
+        uoj.traverse(context, visitor);
+        return visitor.htmlsource;
+    }else{
+        !tellurium.logManager.isUseLog || fbLog("Cannot find UI object " + uid + " in snapshot", stree);
+        throw new SeleniumError("Cannot find UI object " + uid + " in snapshot");
+    }
+
 };
 
 TelluriumApi.prototype.getUiByTag = function(tag, attributes){
