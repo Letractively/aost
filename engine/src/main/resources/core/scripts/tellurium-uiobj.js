@@ -313,8 +313,11 @@ var UiTextBox = UiObject.extend({
 });
 
 var UiUrlLink = UiObject.extend({
-    uiType: 'UrlLink',
-    tag: "a"
+    init: function() {
+        this._super();
+        this.uiType = 'UrlLink';
+        this.tag = "a";
+    }    
 });
 
 var UiContainer = UiObject.extend({
