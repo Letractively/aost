@@ -218,7 +218,17 @@ TelluriumCommand.prototype.showUI = function(uid) {
         var chainVisitor = new STreeChainVisitor();
         chainVisitor.addVisitor(outlineVisitor);
         chainVisitor.addVisitor(tipVisitor);
-        this.uim.stree.traverse(context, chainVisitor);
+
+        uiid.convertToUiid(uid);
+        var uoj = this.uim.stree.walkTo(context, uiid);
+        if(uoj != null){
+            uoj.traverse(context, chainVisitor);
+        }else{
+            logger.error("Cannot find UI object " + uid + " in snapshot");
+            throw new TelluriumError(ErrorCodes.UI_OBJ_NOT_FOUND, "Cannot find UI object " + uid + " in snapshot");
+        }
+        
+//        this.uim.stree.traverse(context, chainVisitor);
     }else{
         logger.error("Cannot find UI object " + uid);
         throw new TelluriumError(ErrorCodes.UI_OBJ_NOT_FOUND, "Cannot find UI object " + uid);
@@ -237,7 +247,16 @@ TelluriumCommand.prototype.cleanUI = function(uid) {
         var chainVisitor = new STreeChainVisitor();
         chainVisitor.addVisitor(tipCleaner);
         chainVisitor.addVisitor(outlineCleaner);
-        this.uim.stree.traverse(context, chainVisitor);
+        
+        uiid.convertToUiid(uid);
+        var uoj = this.uim.stree.walkTo(context, uiid);
+        if(uoj != null){
+            uoj.traverse(context, chainVisitor);
+        }else{
+            logger.error("Cannot find UI object " + uid + " in snapshot");
+            throw new TelluriumError(ErrorCodes.UI_OBJ_NOT_FOUND, "Cannot find UI object " + uid + " in snapshot");
+        }
+//        this.uim.stree.traverse(context, chainVisitor);
     }else{
         logger.error("Cannot find UI object " + uid);
         throw new TelluriumError(ErrorCodes.UI_OBJ_NOT_FOUND, "Cannot find UI object " + uid);
@@ -253,10 +272,19 @@ TelluriumCommand.prototype.getHTMLSource = function(uid) {
     if (obj != null) {
         var stree = this.uiAlg.buildSTree(this.uim);
         var visitor = new UiHTMLSourceVisitor();
-        stree.traverse(context, visitor);
+        
+        uiid.convertToUiid(uid);
+        var uoj = stree.walkTo(context, uiid);
+        if(uoj != null){
+            uoj.traverse(context, visitor);
+            return visitor.htmlsource;
+        }else{
+            logger.error("Cannot find UI object " + uid + " in snapshot");
+            throw new TelluriumError(ErrorCodes.UI_OBJ_NOT_FOUND, "Cannot find UI object " + uid + " in snapshot");
+        }
+ //       stree.traverse(context, visitor);
 
-        return visitor.htmlsource;
-    }else{
+     }else{
         logger.error("Cannot find UI object " + uid);
         throw new TelluriumError(ErrorCodes.UI_OBJ_NOT_FOUND, "Cannot find UI object " + uid);
     }
@@ -285,9 +313,18 @@ TelluriumCommand.prototype.getUids = function(uid){
     if (obj != null) {
         var stree = this.uiAlg.buildSTree(this.uim);
         var visitor = new UiUIDVisitor();
-        stree.traverse(context, visitor);
+//        stree.traverse(context, visitor);
 
-        return visitor.uids;
+//        return visitor.uids;
+        uiid.convertToUiid(uid);
+        var uoj = stree.walkTo(context, uiid);
+        if(uoj != null){
+            uoj.traverse(context, visitor);
+            return visitor.uids;
+        }else{
+            logger.error("Cannot find UI object " + uid + " in snapshot");
+            throw new TelluriumError(ErrorCodes.UI_OBJ_NOT_FOUND, "Cannot find UI object " + uid + " in snapshot");
+        }
     }else{
         logger.error("Cannot find UI object " + uid);
         throw new TelluriumError(ErrorCodes.UI_OBJ_NOT_FOUND, "Cannot find UI object " + uid);
