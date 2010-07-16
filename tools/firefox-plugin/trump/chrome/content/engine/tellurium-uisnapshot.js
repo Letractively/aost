@@ -99,6 +99,12 @@ var UiSNode = Class.extend({
         return this;
     },
 
+    toJSON: function(){
+        if(this.objRef != null){
+            return this.objRef.toJSON();
+        }
+    },
+
     traverse: function(context, visitor){
         visitor.visit(context, this);
     },
@@ -437,6 +443,17 @@ var UiUIDVisitor = STreeVisitor.extend({
     visit: function(context, snode){
         var frid = snode.getFullRid();
         this.uids.push(frid);
+    }
+});
+
+var UiJSONVisitor = STreeVisitor.extend({
+    init: function(){
+        this.jsonArray = new Array();
+    },
+
+    visit: function(context, snode){
+        var jso = snode.toJSON();
+        this.jsonArray.push(jso);
     }
 });
 
