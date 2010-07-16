@@ -238,7 +238,7 @@
                                     </row>
                                     <row align="center">
                                         <label control="commandValue" value="&commandParam.label;"/>
-                                        <textbox disabled="true" id="commandParam" flex="1"/>
+                                        <textbox  multiline="true" disabled="true" id="commandParam" flex="1"/>
                                     </row>
                                     <row align="center">
                                         <spacer/>
