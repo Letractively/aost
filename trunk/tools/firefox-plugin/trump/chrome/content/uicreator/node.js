@@ -495,9 +495,7 @@ NodeObject.prototype.processNewNode = function(){
 
 NodeObject.prototype.checkNodePosition = function(){
 //    var pos = this.xpathProcessor.checkPositionForlastXPath(this.xpath);
-    var pos = this.xpathProcessor.checkPositionForlastXPath(this.nodexpath);
-
-    return pos;
+    return  this.xpathProcessor.checkPositionForlastXPath(this.nodexpath);
 };
 
 function ElementObject(){

@@ -1803,7 +1803,7 @@ var convert = {
 			"backspace" : "\b",
 			"tab" : "\t",
 			"space" : " "
-		}
+		};
 
 /**
  * @add Syn prototype
@@ -1852,7 +1852,7 @@ h.extend(Syn.init.prototype,
 			defaultResult,
 			
 			// options for keypress
-			keypressOptions = Syn.key.options(key, 'keypress')
+			keypressOptions = Syn.key.options(key, 'keypress');
 		
 		
 		if(runDefaults){

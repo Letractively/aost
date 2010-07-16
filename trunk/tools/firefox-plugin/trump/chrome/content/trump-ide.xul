@@ -246,13 +246,13 @@
                                     </row>
                                      <row align="center">
                                         <label control="commandResult" value="&commandResult.label;"/>
-                                        <textbox disabled="true" id="commandResult" flex="1"/>
+                                        <textbox multiline="true" disabled="true" id="commandResult" rows="5" flex="1"/>
                                     </row>
                                 </rows>
                             </grid>
                             <separator class="groove-thin"/>
                             <label control="example" value="Hints:"/>
-                            <textbox multiline="true" readonly="true" id="exampleText" rows="5" value=""/>
+                            <textbox multiline="true" readonly="true" id="exampleText" rows="2" value=""/>
                         </vbox>
                     </groupbox>
                     <splitter collapse="after">
