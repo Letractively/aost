@@ -351,6 +351,8 @@ var UiObject = Class.extend({
 
     click: function(context){
         var element = context.domRef;
+        Syn.click(element);
+/*        var element = context.domRef;
         var elementWithHref = getAncestorOrSelfWithJavascriptHref(element);
         if(elementWithHref == null)
             elementWithHref = element;
@@ -366,7 +368,7 @@ var UiObject = Class.extend({
             }
         } else {
             teJQuery(elementWithHref).click();
-        }
+        }*/
     },
 
     clickAt: function(context, coordString){
@@ -389,7 +391,10 @@ var UiObject = Class.extend({
 
     doubleClick: function(context){
         var element = context.domRef;
-        teJQuery(element).dblclick();
+//        teJQuery(element).dblclick();
+//        Syn.dblclick(element);
+        Syn.click(element);
+        Syn.trigger("dblclick", {}, element);
     },
 
     mouseOver: function(context){
