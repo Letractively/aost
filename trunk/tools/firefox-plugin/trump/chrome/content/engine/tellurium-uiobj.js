@@ -156,6 +156,44 @@ var UiObject = Class.extend({
         return 1;
     },
 
+    extraJSON: function(jso){
+        jso[CONSTANTS.UI_TYPE] = this.uiType;
+    },
+
+    buildJSON: function(){
+        var jso = {};
+        jso[CONSTANTS.UID] = this.uid;
+        if(this.metaData){
+            var jmd = {};
+            jmd[CONSTANTS.ID] = this.metaData.id;
+            jmd[CONSTANTS.TYPE] = CONSTANTS.UIOBJECT;
+            jso[CONSTANTS.META_DATA] = jmd;
+        }
+        if(this.lazy){
+            jso[CONSTANTS.LAZY] = this.lazy;
+        }
+        if(this.locator != null){
+            jso[CONSTANTS.LOCATOR] = this.locator.toJSON();
+        }
+        if(this.namespace != null){
+            jso[CONSTANTS.NAMESPACE] = this.namespace;
+        }
+        if(this.events != null){
+            jso[CONSTANTS.EVENTS] = this.events;
+        }
+        //add extra attributes to json object
+        this.extraJSON(jso);
+
+        return jso;
+    },
+
+    toJSON: function(){
+        var jso = {};
+        jso[CONSTANTS.KEY] = this.fullUid();
+        jso[CONSTANTS.OBJECT] = this.buildJSON();
+
+        return jso;
+    },
 
     getIdAttribute: function(){
         //return the ID attribute
@@ -684,6 +722,11 @@ var UiContainer = UiObject.extend({
         this.components = new Hashtable();
     },
 
+    extraJSON: function(jso){
+        this._super(jso);
+        jso[CONSTANTS.NO_CACHE_FOR_CHILDREN] = this.noCacheForChildren;
+    },
+
     getChildrenIds: function(){
         var ids = null;
         if(this.uim != null){
@@ -1206,6 +1249,16 @@ var UiFrame = UiContainer.extend({
         this.tag = "iframe";
     },
 
+    extraJSON: function(jso){
+        this._super(jso);
+        if(this.id != null)
+            jso[CONSTANTS.ID] = this.id;
+        if(this.name != null)
+            jso[CONSTANTS.NAME] = this.name;
+        if(this.title != null)
+            jso[CONSTANTS.TITLE] = this.name;
+    },
+
     strUiObject: function(level){
         var sb = new StringBuffer();
         for (var i = 0; i < level; i++) {
@@ -1302,6 +1355,12 @@ var UiList = UiContainer.extend({
         this.rTree= new RTree();
         this.rTree.indices = this.components;
         this.rTree.preBuild();
+    },
+
+    extraJSON: function(jso){
+        this._super(jso);
+        if(this.separator != null)
+            jso[CONSTANTS.SEPARATOR] = this.separator;
     },
 
     goToPlace:  function(uiid, uiobj) {
@@ -2667,6 +2726,19 @@ var UiStandardTable = UiContainer.extend({
         this.fct = "td";
         
         this.multiSet = ["all", "odd", "even"];
+    },
+
+    extraJSON: function(jso){
+      this._super(jso);
+      jso[CONSTANTS.HEAD_TAG] = this.ht;
+      jso[CONSTANTS.HEAD_ROW_TAG] = this.hrt;
+      jso[CONSTANTS.HEAD_COLUMN_TAG] = this.hct;
+      jso[CONSTANTS.BODY_TAG] = this.bt;
+      jso[CONSTANTS.BODY_ROW_TAG] = this.brt;
+      jso[CONSTANTS.BODY_COLUMN_TAG] = this.bct;
+      jso[CONSTANTS.FOOT_TAG] = this.ft;
+      jso[CONSTANTS.FOOT_ROW_TAG] = this.frt;
+      jso[CONSTANTS.FOOT_COLUMN_TAG] = this.fct;
     },
 
     goToPlace:  function(uiid, uiobj) {
@@ -4135,7 +4207,102 @@ var UiWindow = UiContainer.extend({
         this.id = null;
         this.name = null;
         this.title = null;
+    },
+
+    extraJSON: function(jso){
+        this._super(jso);
+        if(this.id != null)
+            jso[CONSTANTS.ID] = this.id;
+        if(this.name != null)
+            jso[CONSTANTS.NAME] = this.name;
+        if(this.title != null)
+            jso[CONSTANTS.TITLE] = this.name;
+    },
+    
+    strUiObject: function(level){
+        var sb = new StringBuffer();
+        for (var i = 0; i < level; i++) {
+            sb.append("\t");
+        }
+        sb.append(this.uiType).append("(uid: \"").append(this.uid);
+
+        if(this.id != null && this.id.trim().length > 0){
+           sb.append(", id: \"").append(this.id).append("\"");
+        }
+
+        if(this.name != null && this.name.trim().length > 0){
+           sb.append(", name: \"").append(this.name).append("\"");
+        }
+
+/*
+        if(this.locator != null)
+            sb.append("\", ").append(this.locator.strLocator());
+*/
+
+        if(this.respond != null && this.respond.length > 0){
+            sb.append(", respond: [");
+            for(var j=0; j<this.respond.length; j++){
+                if(j>0){
+                    sb.append(", ");
+                }
+                sb.append("\"").append(this.respond[j]).append("\"");
+            }
+            sb.append("]");
+        }
+        if(this.group){
+            sb.append(", group: \"true\"");
+        }
+        if(this.self){
+            sb.append(", self: \"true\"");
+        }
+
+        sb.append(")");
+
+        if (this.isContainer) {
+            sb.append("{");
+        }
+        sb.append("\n");
+
+        return sb.toString();
+    },
+
+    descObject: function() {
+        var sb = new StringBuffer();
+        sb.append(this.uiType).append("(uid: '").append(this.uid);
+
+        if(this.id != null){
+           sb.append(", id: '").append(this.id).append("'");
+        }
+
+        if(this.name != null){
+           sb.append(", name: '").append(this.name).append("'");
+        }
+
+        if(this.locator != null)
+            sb.append("', ").append(this.locator.descLocator());
+
+        if (this.respond != null && this.respond.length > 0) {
+            sb.append(", respond: [");
+            for (var j = 0; j < this.respond.length; j++) {
+                if (j > 0) {
+                    sb.append(", ");
+                }
+                sb.append("'").append(this.respond[j]).append("'");
+            }
+            sb.append("]");
+        }
+        if (this.group) {
+            sb.append(", group: 'true'");
+        }
+        if (this.self) {
+            sb.append(", self: 'true'");
+        }
+
+        sb.append(")");
+
+        return sb.toString();
     }
+
 });
 
 var UiObjectBuilder = Class.extend({

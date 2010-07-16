@@ -427,6 +427,28 @@ TelluriumCommand.prototype.describeUiModuleValidationResult = function(result){
     return msg;
 };
 
+TelluriumCommand.prototype.toJSON = function(uid){
+    var context = new WorkflowContext();
+    context.alg = this.uiAlg;
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+    var obj = this.uim.walkTo(context, uiid);
+    if (obj != null) {
+        var jsonConverter =  new UiJSONVisitor();
+        obj.traverse(context, jsonConverter);
+        return jsonConverter.jsonArray;
+    }else{
+        logger.error("Cannot find UI object " + uid);
+        throw new TelluriumError(ErrorCodes.UI_OBJ_NOT_FOUND, "Cannot find UI object " + uid);
+    }
+};
+
+TelluriumCommand.prototype.toJSONString = function(uid){
+    var json = this.toJSON(uid);
+
+    return JSON.stringify(json);
+};
+
 function arrayToString(array){
     if(array != null && array.length > 0){
         return array.join(", ");

@@ -415,6 +415,19 @@ UiChecker.prototype.visit = function(node){
     node.checkUiSelfAttribute();
 };
 
+function UiJSONConverter(){
+    this.jsonArray = new Array();
+}
+
+UiJSONConverter.prototype.visit = function(node){
+    if(node.uiobject != null){
+        var jso = node.uiobject.toJSON();
+        this.jsonArray.push(jso);
+    }else{
+        logger.error("The UI Object for node " + node.id + " is null");
+    }
+};
+
 function removeElement(array, elem){
     var index = array.indexOf(elem);
     if(index >= 0)

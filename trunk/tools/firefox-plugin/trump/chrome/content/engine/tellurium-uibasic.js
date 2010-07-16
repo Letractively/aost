@@ -454,3 +454,36 @@ CompositeLocator.prototype.buildLocatorFromAttributes = function(attributes) {
         }
     }
 };
+
+CompositeLocator.prototype.toJSON = function(){
+    var jso = {};
+    if(this.header != null){
+        jso[CONSTANTS.HEADER] = this.header;
+    }
+    if(this.trailer != null){
+       jso[CONSTANTS.TRAILER] = this.trailer;
+    }
+    if(this.tag != null){
+        jso[CONSTANTS.TAG] = this.tag;
+    }
+    if(this.text != null){
+        jso[CONSTANTS.TEXT] = this.text;
+    }
+    if(this.position != null){
+       jso[CONSTANTS.POSITION] = this.position;
+    }
+    if(this.direct){
+        jso[CONSTANTS.DIRECT] = this.direct;
+    }
+    if(this.attributes != null && this.attributes.size() > 0){
+        var attrs = {};
+        var keys = this.attributes.keySet();
+        for(var i=0; i<keys.length; i++){
+            var key = keys[i];
+            attrs[key] = this.attributes.get(key);
+        }
+        jso[CONSTANTS.ATTRIBUTES] = attrs;
+    }
+
+    return jso;
+};
