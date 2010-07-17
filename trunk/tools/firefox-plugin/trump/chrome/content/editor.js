@@ -340,6 +340,7 @@ Editor.prototype.updateSource = function(){
 };
 
 Editor.prototype.saveButton = function(){
+    document.getElementById("editorTabs").selectedItem = document.getElementById("recordTab");
     if(this.workspace.uim != null){
         this.command.cacheUiModule(this.workspace.uim);
         logger.info("Saved UI module " + this.workspace.uim.id + " to cache.");
@@ -361,6 +362,7 @@ Editor.prototype.clearButton = function(){
     this.clearMessageBox();
     this.workspace.clear();
     this.cleanTestView();
+    this.command.clearCache();
     this.cleanupAutoComplete();   
     document.getElementById("windowURL").value = null;
 };
@@ -494,10 +496,12 @@ Editor.prototype.updateUiModuleName = function(uid) {
 };
 
 Editor.prototype.cleanTestView = function(){
+    document.getElementById("uiModuleId").value = "";
     document.getElementById("commandName").value = "";
     document.getElementById("commandUID").value = "";
     document.getElementById("commandParam").value = "";
     document.getElementById("commandResult").value = "";
+    document.getElementById("uiModuleId").disabled = true;
     document.getElementById("commandName").disabled = true;
     document.getElementById("commandUID").disabled = true;
     document.getElementById("commandParam").disabled = true;
