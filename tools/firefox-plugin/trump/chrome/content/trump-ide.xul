@@ -76,8 +76,8 @@
             <tab id="recordTab" label="&recordTab.label;" />
             <tab id="sourceTab" label="&sourceTab.label;" />
             <tab id="customizeTab" label="&customizeTab.label;" />
-            <tab id="testTab" label="&testTab.label;" />
             <tab id="exportToWindowTab" label="&exportToWindowsTab.label;" />
+            <tab id="testTab" label="&testTab.label;" />
         </tabs>
         <tabpanels flex="1">
             <tabpanel orient="vertical" flex="1">
@@ -207,6 +207,10 @@
               </groupbox>
             </tabpanel>
             <tabpanel orient="vertical">
+              <textbox id="exportSource" multiline="true" wrap="off" flex="1"/>
+              <resizer dir="bottomright" height="2" style="cursor: se-resize;"/>
+            </tabpanel>
+            <tabpanel orient="vertical">
                 <groupbox orient="horizontal" flex="1">
                     <groupbox flex="1" class="border">
                         <vbox id="commandDetail" persist="width">
@@ -287,10 +291,6 @@
                         </vbox>
                     </groupbox>
                 </groupbox>
-            </tabpanel>
-            <tabpanel orient="vertical">
-              <textbox id="exportSource" multiline="true" wrap="off" flex="1"/>
-              <resizer dir="bottomright" height="2" style="cursor: se-resize;"/>
             </tabpanel>
         </tabpanels>
     </tabbox>
