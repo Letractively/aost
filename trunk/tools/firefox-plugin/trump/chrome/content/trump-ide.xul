@@ -66,6 +66,7 @@
       <toolbarbutton id="stop-button" label="Stop" class="icon" tooltiptext="&stopButton.tooltip;" oncommand="window.editor.toggleStopButton()"/>
       <toolbarbutton id="generate-button" label="Generate" tooltiptext="&generate.tooltip;" oncommand="window.editor.generateButton()"/>
       <toolbarbutton id="customize-button" label="Customize" tooltiptext="&customize.tooltip;" oncommand="window.editor.customizeButton()"/>
+      <toolbarbutton id="saveui-button" label="Save" tooltiptext="&saveui.tooltip;" oncommand="window.editor.saveButton()"/>
       <toolbarbutton id="test-button" label="Test" tooltiptext="&test.tooltip;" oncommand="window.editor.testButton()"/>
       <toolbarbutton id="clear-button" label="Clear" tooltiptext="&clear.tooltip;" oncommand="window.editor.clearButton()"/>
     </toolbar>
@@ -231,6 +232,13 @@
                                                  forcecomplete="true" tabscrolling="true"/>
                                     </row>
                                     <row align="center">
+                                        <label control="uiModuleId" value="&uiModuleId.label;"/>
+                                        <textbox disabled="true" id="uiModuleId"
+                                                 oninput="window.editor.updateUiModuleName(this.value)" type="autocomplete"
+                                                 autocompletesearch="selenium-ide-generic" enablehistory="true"
+                                                 forcecomplete="true" tabscrolling="true"/>
+                                    </row>
+                                    <row align="center">
                                         <label control="commandValue" value="&commandUID.label;"/>
                                         <textbox disabled="true" id="commandUID" oninput="window.editor.updateUiUID(this.value)" type="autocomplete"
                                                  autocompletesearch="selenium-ide-generic" enablehistory="true"
@@ -251,8 +259,8 @@
                                 </rows>
                             </grid>
                             <separator class="groove-thin"/>
-                            <label control="example" value="Hints:"/>
-                            <textbox multiline="true" readonly="true" id="exampleText" rows="2" value=""/>
+<!--                            <label control="example" value="Hints:"/>
+                            <textbox multiline="true" readonly="true" id="exampleText" rows="2" value=""/>-->
                         </vbox>
                     </groupbox>
                     <splitter collapse="after">

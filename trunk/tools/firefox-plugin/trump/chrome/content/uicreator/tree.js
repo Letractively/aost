@@ -73,7 +73,7 @@ Tree.prototype.markInvalidUiObject = function(uid){
     }
 };
 
-Tree.prototype.validate = function() {
+Tree.prototype.validateXPath = function() {
     //validate UI object's XPath
     if(this.root != null){
         this.root.validateXPath();

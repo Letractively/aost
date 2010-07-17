@@ -71,8 +71,6 @@ Outlines.prototype.getOutline = function(index){
     return this.outlines[i];
 };
 
-var tellurium = null;
-
 teJQuery(document).ready(function() {
     tellurium = new Tellurium();
     tellurium.initialize();
@@ -1054,3 +1052,6 @@ Tellurium.prototype.updateArgumentList = function(cmd){
     }
 };
 
+//var tellurium = null;
+var tellurium = new Tellurium();
+tellurium.initialize();

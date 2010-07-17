@@ -37,7 +37,7 @@ Copyright 2008 Vivek Mongolu
 
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/element.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/node.js"/>
-    <script type="application/x-javascript" src="chrome://trump/content/uicreator/uistore.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/workspace.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/tree.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/uitype.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/uid.js"/>
@@ -75,4 +75,5 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-uiobj.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-uisnapshot.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-cmd.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-uicache.js"/>
 </overlay>
