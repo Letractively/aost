@@ -210,6 +210,10 @@ var UiObject = Class.extend({
         return ida;
     },
 
+    hasChildren: function(){
+        return false;
+    },
+
     getChildrenIds: function(){
         return null;
     },
@@ -337,6 +341,11 @@ var UiObject = Class.extend({
 
     traverse: function(context, visitor){
         visitor.visit(context, this);
+    },
+
+    around: function(context, visitor){
+        visitor.before(context, this);
+        visitor.after(context, this);
     },
 
     amICacheable: function() {
@@ -727,6 +736,10 @@ var UiContainer = UiObject.extend({
         jso[CONSTANTS.NO_CACHE_FOR_CHILDREN] = this.noCacheForChildren;
     },
 
+    hasChildren: function(){
+        return this.components.size() > 0;
+    },
+
     getChildrenIds: function(){
         var ids = null;
         if(this.uim != null){
@@ -875,7 +888,19 @@ var UiContainer = UiObject.extend({
             }
         }
     },
-    
+
+    around: function(context, visitor){
+        visitor.before(context, this);
+        if(this.components != null && this.components.length > 0){
+            var keys = this.components.keySet();
+            for(var i=0; i<keys.length; i++){
+                var child = this.components.get(keys[i]);
+                child.around(context, visitor);
+            }
+        }
+        visitor.after(context, this);
+    },
+
     buildSNode: function(context, pid, rid, domref){
 
         var node = new UiCNode();
@@ -1768,6 +1793,10 @@ var UiTable = UiContainer.extend({
         this.rGraph.preBuild();
         this.multiSet = ["all", "odd", "even"];
     },
+    
+    hasChildren: function(){
+        return this.components.size() > 0 || this.headers.size() > 0;
+    },
 
     goToPlace:  function(uiid, uiobj) {
         if(uiid.size() == 1){
@@ -2638,6 +2667,26 @@ var UiTable = UiContainer.extend({
         }
     },
 
+    around: function(context, visitor){
+        visitor.before(context, this);
+        if(this.headers != null && this.headers.length > 0){
+            var hkeys = this.headers.keySet();
+            for(var i=0; i<this.headers.length; i++){
+                var header = this.headers.get(hkeys[i]);
+                header.around(context, visitor);
+            }
+        }
+
+        if(this.components != null && this.components.length > 0){
+            var keys = this.components.keySet();
+            for(var j=0; j<keys.length; j++){
+                var child = this.components.get(keys[j]);
+                child.around(context, visitor);
+            }
+        }
+        visitor.after(context, this);
+    },
+
     walkTo: function(context, uiid){
         !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
@@ -2726,6 +2775,10 @@ var UiStandardTable = UiContainer.extend({
         this.fct = "td";
         
         this.multiSet = ["all", "odd", "even"];
+    },
+
+    hasChildren: function(){
+        return this.components.size() > 0 || this.headers.size() > 0 || this.footers.size() > 0;
     },
 
     extraJSON: function(jso){
@@ -3744,6 +3797,35 @@ var UiStandardTable = UiContainer.extend({
                 footer.traverse(context, visitor);
             }
         }
+    },
+
+    around: function(context, visitor){
+        visitor.before(context, this);
+        if(this.headers != null && this.headers.length > 0){
+            var hkeys = this.headers.keySet();
+            for(var i=0; i<this.headers.length; i++){
+                var header = this.headers.get(hkeys[i]);
+                header.around(context, visitor);
+            }
+        }
+
+        if(this.components != null && this.components.length > 0){
+            var keys = this.components.keySet();
+            for(var j=0; j<keys.length; j++){
+                var child = this.components.get(keys[j]);
+                child.around(context, visitor);
+            }
+        }
+
+        if(this.footers != null && this.footers.length > 0){
+            var fkeys = this.footers.keySet();
+            for(var k=0; k<this.footers.length; k++){
+                var footer = this.footers.get(fkeys[k]);
+                footer.around(context, visitor);
+            }
+        }
+
+        visitor.after(context, this);
     },
 
     buildHeaderSData: function(context, npid, domref, key, child){
