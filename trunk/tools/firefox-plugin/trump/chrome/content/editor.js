@@ -349,7 +349,7 @@ Editor.prototype.saveButton = function(){
     }else{
         logger.warn("There is no UI module in workspace to save to cache.");
     }
-    document.getElementById("editorTabs").selectedItem = document.getElementById("recordTab");
+    document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
 };
 
 Editor.prototype.clearButton = function(){

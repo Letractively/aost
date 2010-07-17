@@ -53,9 +53,9 @@ TelluriumCommand.prototype.describeUiModule = function(uiModelArray) {
         var sb = new StringBuffer();
         for (var i = 0; i < uiModelArray.length; ++i) {
             if (i == 0) {
-                sb.append("\t\tui." + uiModelArray[i].replace(/^\s+/, ''));
+                sb.append("\t\t\tui." + uiModelArray[i].replace(/^\s+/, ''));
             } else {
-                sb.append("\t\t   " + uiModelArray[i]);
+                sb.append("\t\t" + uiModelArray[i]);
             }
         }
 
