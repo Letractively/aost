@@ -340,7 +340,6 @@ Editor.prototype.updateSource = function(){
 };
 
 Editor.prototype.saveButton = function(){
-    document.getElementById("editorTabs").selectedItem = document.getElementById("recordTab");
     if(this.workspace.uim != null){
         this.command.cacheUiModule(this.workspace.uim);
         logger.info("Saved UI module " + this.workspace.uim.id + " to cache.");
@@ -350,6 +349,7 @@ Editor.prototype.saveButton = function(){
     }else{
         logger.warn("There is no UI module in workspace to save to cache.");
     }
+    document.getElementById("editorTabs").selectedItem = document.getElementById("recordTab");
 };
 
 Editor.prototype.clearButton = function(){
