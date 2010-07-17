@@ -7,7 +7,7 @@
 <!ENTITY stopButton.tooltip "Stop Recording">
 <!ENTITY generate.tooltip "Generate UI Module">
 <!ENTITY customize.tooltip "Customize UI Module">
-<!ENTITY saveui.tooltip "Save UI & Start New UI recording">
+<!ENTITY saveui.tooltip "Save and Start New UI recording">
 <!ENTITY test.tooltip "Test Tellurium Command">
 <!ENTITY clear.tooltip "Clear">
 
