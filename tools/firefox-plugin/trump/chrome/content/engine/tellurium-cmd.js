@@ -25,6 +25,10 @@ TelluriumCommand.prototype.getCachedUiModule = function(id){
     return this.cache.get(id);
 };
 
+TelluriumCommand.prototype.clearCache = function(){
+    return this.cache.clear();
+};
+
 TelluriumCommand.prototype.run = function(name, uid, param){
     var api = this[name];
 
