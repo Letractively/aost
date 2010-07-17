@@ -48,22 +48,17 @@ http://tellurium-users.googlegroups.com/web/eclipsetjj4.png?gda=4nBTt0EAAABBo5YK
   * Check project settings for builders
 
 http://tellurium-users.googlegroups.com/web/eclipsetjj6.png?gda=-tk2nUEAAABBo5YKz4My4Er929brhwkDpkboKkfbjSgEMy4g5KXzFlvJRVWcg7O_gqh-xpXBQWNTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=r5aXtAsAAAAMRzmf_Yl0S7-loZxvszUd
-
-  * Check project settings for Groovy project property
-
-http://tellurium-users.googlegroups.com/web/eclipsetjj7.png?gda=pmf78kEAAABBo5YKz4My4Er929brhwkDpkboKkfbjSgEMy4g5KXzFgSXo8oJkGt2LvTN_twqd7lTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=r5aXtAsAAAAMRzmf_Yl0S7-loZxvszUd
-
+  
   * Check project build path > source
 
-http://tellurium-users.googlegroups.com/web/eclipsetjj8.png?gda=q-cYy0EAAABBo5YKz4My4Er929brhwkDpkboKkfbjSgEMy4g5KXzFjsFH-31z9WbGF4pZkkCHclTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=r5aXtAsAAAAMRzmf_Yl0S7-loZxvszUd
+http://tellurium-users.googlegroups.com/web/eclipsetjj7.png
 
   * Check project build path > Libraries
 
-http://tellurium-users.googlegroups.com/web/eclipsetjj9.png?gda=8ACBF0EAAABBo5YKz4My4Er929brhwkDpkboKkfbjSgEMy4g5KXzFndZLClnWhBUlHuxjvYc3CNTCT_pCLcFTwcI3Sro5jAzlXFeCn-cdYleF-vtiGpWAA&gsc=r5aXtAsAAAAMRzmf_Yl0S7-loZxvszUd
+http://tellurium-users.googlegroups.com/web/eclipsetjj8.png
 
   * Build project > Click on any Junit tests to run
 
-http://tellurium-users.googlegroups.com/web/eclipsetjj10.png?gda=L1vhWEIAAABBo5YKz4My4Er929brhwkDpkboKkfbjSgEMy4g5KXzFnO5bVyzZ0d2PTZCvoYV6LFV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=r5aXtAsAAAAMRzmf_Yl0S7-loZxvszUd
 
 Note, sometimes, eclipse complaints that it cannot find the Groovy class imported into the Java class, you need to build the project first. If the problem is still there, you need to go to project settings > Java build path > source. Change the default output folder to another directory and then change it back to "tellurium-website/bin-groovy" again. This problem should go away.
 
