@@ -1,4 +1,5 @@
 function UiModule(){
+    
     this.id = null;
 
     //top level UI object
@@ -56,6 +57,13 @@ UiModule.prototype.visit = function(visitor){
         fbInfo("Visitor UI Module " + this.id, this);
         var context = new WorkflowContext();
         this.root.traverse(context, visitor);
+    }
+};
+
+UiModule.prototype.around = function(visitor){
+    if(this.root != null){
+        var context = new WorkflowContext();
+        this.root.around(context, visitor);
     }
 };
 
@@ -269,3 +277,67 @@ function RelaxDetail(){
     //The actual html source of the closest match element
     this.html = null;
 }
+
+var AroundVisitor = Class.extend({
+    init: function(){
+
+    },
+
+    before: function(context, node){
+
+    },
+
+    after: function(context, node){
+
+    }
+});
+
+var AroundChainVisitor = Class.extend({
+    init: function(){
+        this.chain = new Array();
+    },
+
+    removeAll: function(){
+        this.chain = new Array();
+    },
+
+    addVisitor: function(visitor){
+        this.chain.push(visitor);
+    },
+
+    size: function(){
+        return this.chain.length;
+    },
+
+    before: function(context, snode){
+        for(var i=0; i<this.chain.length; i++){
+            this.chain[i].before(context, snode);
+        }
+    },
+
+    after: function(context, snode){
+        for(var i=0; i<this.chain.length; i++){
+            this.chain[i].after(context, snode);
+        }
+    }
+});
+
+var StringifyVisitor = AroundVisitor.extend({
+    init: function(){
+        this.out = new Array();
+    },
+
+    before: function(context, node){
+        var level = node.checkLevel();
+        var str = node.strUiObject(level);
+        this.out.push(str);
+    },
+
+    after: function(context, node){
+        if(node.hasChildren()){
+            var level = node.checkLevel();
+            var str = node.strUiObjectFooter(level);
+            this.out.push(str);
+        }
+    }
+});

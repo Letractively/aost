@@ -476,6 +476,17 @@ String.prototype.toCamel = function(){
     return this;
 };
 
+function ltrim(str) {
+    return str.replace(/^\s+/, '');
+}
+
+function rtrim(str) {
+    return str.replace(/\s+$/, '');
+}
+
+function alltrim(str) {
+    return str.replace(/^\s+|\s+$/g, '');
+}
 
 function extractErrorMessage(ex) {
     if (ex == null) return "null exception";

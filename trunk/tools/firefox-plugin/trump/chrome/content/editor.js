@@ -323,7 +323,6 @@ Editor.prototype.showMessage = function(message){
 Editor.prototype.updateSource = function(){
     this.clearSourceTabContent();
     var sourceTextNode = document.getElementById("source");
-
     var uiModelArray = this.workspace.innerTree.printUI();
     var uiModel = new StringBuffer();
     if(uiModelArray != undefined){
@@ -336,7 +335,7 @@ Editor.prototype.updateSource = function(){
 
 //    logger.debug("ui model generated:\n"+uiModel);
     sourceTextNode.value = uiModel;
-    this.exportToWindowInBackground();
+//    this.exportToWindowInBackground();
 };
 
 Editor.prototype.saveButton = function(){
@@ -346,6 +345,7 @@ Editor.prototype.saveButton = function(){
         this.recorder.clearAll();
         this.clearCustomizeTabContext();
         this.decorator.cleanShowNode();
+        this.exportToWindowInBackground();
     }else{
         logger.warn("There is no UI module in workspace to save to cache.");
     }
@@ -508,10 +508,6 @@ Editor.prototype.cleanTestView = function(){
     document.getElementById("commandResult").disabled = true;
     this.cmdHistory = new Array();
     this.cmdView.clearAll();
-/*    var example = document.getElementById("exampleText");
-    example.readonly = false;
-    example.value = "";
-    example.readonly = true;*/
 };
 
 Editor.prototype.updateUiCommand = function(value){
@@ -712,11 +708,10 @@ Editor.prototype.exportToWindow = function(){
     }
 };
 
-Editor.prototype.exportToWindowInBackground = function(){
-    if(this.workspace.innerTree != null){
-        var txt = this.workspace.innerTree.createUiModule();
+Editor.prototype.exportToWindowInBackground = function() {
+    if (this.command.cachedUiModuleNum() > 0) {
         var sourceTextNode = document.getElementById("exportSource");
-        sourceTextNode.value  = txt;
+        sourceTextNode.value = this.command.generateCode();
 
         logger.debug("UI Module is exported to window ");
     }
