@@ -14,6 +14,10 @@
    list-style-image: url("chrome://trump/skin/customize.png");
 }
 
+#saveui-button {
+   list-style-image: url("chrome://trump/skin/store.png"); 
+}
+
 #test-button {
    list-style-image: url("chrome://trump/skin/test.png");
 }

@@ -17,7 +17,7 @@ function Editor(window) {
     this.recorder = null;
 
     this.registerRecorder();
-    this.innerTree = null;
+//    this.innerTree = null;
 
     this.buildCustomizeTree(DEFAULT_XML);
 
@@ -25,15 +25,17 @@ function Editor(window) {
 
     this.decorator = new Decorator();
 
-    this.uistore = new UiModuleStore();
+    this.builder = new UiBuilder();
+
+    this.workspace = new Workspace(this.builder, new UiChecker());
 
     this.cmdHistory = new Array();
 
     this.cmdView = CommandView;
     this.cmdTree = document.getElementById('commandHistoryTree');
     this.cmdTree.view = this.cmdView;
-    this.builder = new UiBuilder();
-    this.checker = new UiChecker();
+
+//    this.checker = new UiChecker();
 
     this.command = new TelluriumCommand();
 
@@ -264,90 +266,11 @@ function suggestName(tagObject){
     return name.toCamel();
 }
 
-Editor.prototype.generateUiModule = function(){
-    var tagArrays = this.recorder.tagObjectArray;
-
-//    var tagObject;
-    var element;
-    this.innerTree = new Tree();
-
-    var frameName = null;
-
-    var i;
-    for(i=0; i<tagArrays.length; ++i){
-        var obj = tagArrays[i];
-        if(obj.frameName != null){
-            if(frameName == null){
-                frameName = obj.frameName;
-            }
-        }
-    }
-
-    if(frameName != null){
-        var objs = new Array();
-        for (i = 0; i < tagArrays.length; ++i) {
-            if(tagArrays[i].frameName == frameName){
-                objs.push(tagArrays[i]);
-            }
-        }
-        for (i = 0; i < objs.length; ++i) {
-            var tobj = objs[i];
-            element = new ElementObject();
-//          element.uid = tobj.tag+i;
-            element.uid = suggestName(tobj);
-            element.xpath = tobj.xpath;
-            element.attributes = tobj.attributes;
-            element.domNode = tobj.node;
-            element.frameName = tobj.frameName;
-
-            this.innerTree.addElement(element);
-
-        }
-        var root = this.innerTree.root;
-        var frame = new NodeObject();
-        frame.id = frameName;
-        frame.parent = null;
-//        frame.domNode = root.domNode.ownerDocument;
-        frame.domNode = this.innerTree.document;
-        frame.xpath = "";
-        frame.attributes = new Hashtable();
-        frame.attributes.put("tag", "iframe");
-        frame.attributes.put("name", frameName);
-        frame.tag = "iframe";
-        frame.children.push(root);
-        root.parent = frame;
-        this.innerTree.root = frame;
-
-        //do some post processing work
-        this.innerTree.postProcess();
-        this.innerTree.buildUiObject(this.builder, this.checker);
-
-        this.innerTree.buildIndex();
-    } else {
-        for (i = 0; i < tagArrays.length; ++i) {
-            var tagObject = tagArrays[i];
-            element = new ElementObject();
-//          element.uid = tagObject.tag+i;
-            element.uid = suggestName(tagObject);
-            element.xpath = tagObject.xpath;
-            element.attributes = tagObject.attributes;
-            element.domNode = tagObject.node;
-            element.frameName = tagObject.frameName;
-
-            this.innerTree.addElement(element);
-            //do some post processing work
-        }
-        this.innerTree.postProcess();
-        this.innerTree.buildUiObject(this.builder, this.checker);
-        this.innerTree.buildIndex();
-    }
-};
-
 Editor.prototype.generateButton = function(){
     this.switchToSourceTab();
 
     try {
-        this.generateUiModule();
+        this.workspace.generateUiModule(this.recorder.tagObjectArray);
 
         this.updateSource();
 
@@ -359,10 +282,10 @@ Editor.prototype.generateButton = function(){
 };
 
 Editor.prototype.validateUI = function(){
-    if(tellurium == null){
-        tellurium = new Tellurium();
-        tellurium.initialize();
-    }      
+//    if(tellurium == null){
+//        tellurium = new Tellurium();
+//        tellurium.initialize();
+//    }
     var glf = Preferences.getPref("extensions.trump.grouplocating");
 //    alert("extensions.trump.grouplocating: " + glf);
     if(glf == undefined){
@@ -370,16 +293,13 @@ Editor.prototype.validateUI = function(){
     }
     
     if(glf){
+        var msg;
         try{
-           this.validateUiModule();
+            msg = this.workspace.validateUiModule();
+            logger.debug(msg);
+            this.showMessage(msg);
         }catch(error){
-            var msg;
-            if(this.innerTree.root != null){
-                msg = "Error while validating UI Module " + this.innerTree.root.id + ": " + error.name + " -> " + extractErrorMessage(error) +"\n";
-                msg = msg + "\n" + describeErrorStack(error) + "\n";
-            }else{
-                msg = "Cannot validate empty UI module !\n";
-            }
+            msg = "Error while validating UI Module. \n" + describeErrorStack(error) +"\n";
             logger.error(msg);
             this.showMessage(msg);
         }
@@ -391,69 +311,20 @@ Editor.prototype.validateUI = function(){
 Editor.prototype.validateXPath = function(){
     logger.debug("start to validate UI object's xpath");
 
-    this.innerTree.validate();
+    this.workspace.validateXPath();
 
     logger.debug("Done validating UI object's XPath");
-};
-
-Editor.prototype.validateUiModule = function() {
-    logger.debug("Start validating UI Module");
-    //validate UI object's XPath
-    if (this.innerTree.root != null) {
-        var uim = this.uistore.build(this.innerTree);
-        this.uistore.save(uim, this.innerTree.document);
-        var result = this.uistore.validate();
-        if (result != null) {
-            this.innerTree.clearValidFlag();
-            if (!result.found) {
-                if (result.relaxDetails != null) {
-                    for (var j = 0; j < result.relaxDetails.length; j++) {
-                        this.innerTree.markInvalidUiObject(result.relaxDetails[j].uid);
-                    }
-                }
-            }
-            var msg = this.describeUiModuleValidationResult(result);
-            this.showMessage(msg);
-        }
-        logger.debug("Done validating UI Module, please see detailed result on the message window");
-    } else {
-        logger.warn("The root node in the Tree is null");
-        return null;
-    }
 };
 
 Editor.prototype.showMessage = function(message){
     document.getElementById("exportMessage").value = message;
 };
 
-Editor.prototype.describeUiModuleValidationResult = function(result){
-    var msg = new StringBuffer();
-    msg.append("Validation result for UI Module " + result.id + "\n");
-    msg.append("Found: " + result.found + "\n");
-    msg.append("Relaxed: " + result.relaxed + "\n");
-    msg.append("Match count: " + result.matches + "\n");
-    msg.append("Match score: " + result.score + "\n");
-    if(result.relaxDetails != null && result.relaxDetails.length > 0){
-        msg.append("Relax details: \n");
-        for(var i=0; i<result.relaxDetails.length; i++){
-            msg.append("\tUID: " + result.relaxDetails[i].uid + "\n");
-            if(result.relaxDetails[i].locator != null){
-               msg.append("\tLocator: " + result.relaxDetails[i].locator.strLocator() + "\n");
-            }else{
-               msg.append("\tLocator: " + "\n");
-            }
-            msg.append("\tHTML: " + result.relaxDetails[i].html + "\n");
-        }
-    }
-
-    return msg;
-};
-
 Editor.prototype.updateSource = function(){
     this.clearSourceTabContent();
     var sourceTextNode = document.getElementById("source");
 
-    var uiModelArray = this.innerTree.printUI();
+    var uiModelArray = this.workspace.innerTree.printUI();
     var uiModel = new StringBuffer();
     if(uiModelArray != undefined){
         for(var j=0; j<uiModelArray.length; ++j){
@@ -468,6 +339,18 @@ Editor.prototype.updateSource = function(){
     this.exportToWindowInBackground();
 };
 
+Editor.prototype.saveButton = function(){
+    if(this.workspace.uim != null){
+        this.command.cacheUiModule(this.workspace.uim);
+        logger.info("Saved UI module " + this.workspace.uim.id + " to cache.");
+        this.recorder.clearAll();
+        this.clearCustomizeTabContext();
+        this.decorator.cleanShowNode();
+    }else{
+        logger.warn("There is no UI module in workspace to save to cache.");
+    }
+};
+
 Editor.prototype.clearButton = function(){
     this.recorder.clearAll();
     this.clearSourceTabContent();
@@ -476,7 +359,7 @@ Editor.prototype.clearButton = function(){
     this.clearCustomizeTabContext();
     this.decorator.cleanShowNode();
     this.clearMessageBox();
-    this.innerTree = null;
+    this.workspace.clear();
     this.cleanTestView();
     this.cleanupAutoComplete();   
     document.getElementById("windowURL").value = null;
@@ -515,8 +398,8 @@ Editor.prototype.selectedTreeItem = function(event){
 Editor.prototype.customizeButton = function(){
     this.switchToCustomizeTab();
     var xml = DEFAULT_XML;
-    if(this.innerTree != null){
-        xml = this.innerTree.buildXML();
+    if(this.workspace.innerTree != null){
+        xml = this.workspace.buildXML();
     }
 
     this.buildCustomizeTree(xml);
@@ -532,15 +415,15 @@ Editor.prototype.switchToCustomizeTab = function(){
 Editor.prototype.buildCustomizeTree = function(xml) {
     if (xml != null) {
         var parser = new DOMParser();
-        var customize_tree = document.getElementById("customize_tree");
-        var pxml = parser.parseFromString(xml, "text/xml");
-        customize_tree.builder.datasource = pxml;
+        var customize_tree = document.getElementById("customize_tree"); 
+        customize_tree.builder.datasource = parser.parseFromString(xml, "text/xml");
         customize_tree.builder.rebuild();
     }
 };
 
 Editor.prototype.populateUiTypeAutoComplete = function(){
-    var uitypes = tellurium.getRegisteredUiTypes();
+//    var uitypes = tellurium.getRegisteredUiTypes();
+    var uitypes = this.builder.getAvailableUiTypes();
     logger.debug("Get registered UI types: " + uitypes.join(", "));
     Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.editor.getAutoCompleteSearchParam("uiType")),
                                                       XulUtils.toXPCOMArray(uitypes));
@@ -549,7 +432,7 @@ Editor.prototype.populateUiTypeAutoComplete = function(){
 Editor.prototype.processCustomizeEvent = function(event){
 //    logger.debug('Customize ' + event.target.getAttribute("label"));
     this.currentUid = event.target.getAttribute("uid");
-    var uiObject = this.innerTree.uiObjectMap.get(this.currentUid);
+    var uiObject = this.workspace.innerTree.uiObjectMap.get(this.currentUid);
 //    logger.debug("uiObject : " + uiObject.descObject());
     if(uiObject != null){
         this.fillUiObjectFields(uiObject);
@@ -563,40 +446,51 @@ Editor.prototype.processCustomizeEvent = function(event){
 Editor.prototype.testButton = function(){
     this.toggleStopButton();
     document.getElementById("editorTabs").selectedItem = document.getElementById("testTab");
-    if(this.uistore.id != null && this.uistore.uim != null){
-        document.getElementById("commandName").disabled = false;
-        document.getElementById("commandUID").disabled = false;
-        document.getElementById("commandParam").disabled = false;
-        document.getElementById("commandResult").disabled = false;
-    }else{
-        document.getElementById("commandName").disabled = true;
-        document.getElementById("commandUID").disabled = true;
-        document.getElementById("commandParam").disabled = true;
-        document.getElementById("commandResult").disabled = true;
-    }
     try{
-        Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandName")),
-                                                      XulUtils.toXPCOMArray(this.commandList));
+        var uims = this.command.getCachedUiModuleList();
 
-        this.command.uim = this.uistore.uim;
-        this.command.dom = this.uistore.dom;
-        this.command.locateUI();
-        var uids = this.command.getUids(this.command.uim.id);
-        if(uids != null && uids.length > 0){
-            Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandUID")),
-                                                      XulUtils.toXPCOMArray(uids));
-            var example = document.getElementById("exampleText");
-            example.readonly = false;
-            var sb = new StringBuffer();
-            sb.append("Example: Command: 'mouseOver', UID: '").append(uids[0]).append("'.\n");
+        if(uims != null && uims.length > 0){
+            document.getElementById("uiModuleId").disabled = false;
+            document.getElementById("commandName").disabled = false;
+            document.getElementById("commandUID").disabled = false;
+            document.getElementById("commandParam").disabled = false;
+            document.getElementById("commandResult").disabled = false;
 
-            example.value = sb.toString();
-            example.readonly = true;
-        }
+            Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiModuleId")),
+                                                          XulUtils.toXPCOMArray(uims));
+
+            Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandName")),
+                                                          XulUtils.toXPCOMArray(this.commandList));
+
+            var uim = this.command.getCachedUiModule(uims[0]);
+            document.getElementById("uiModuleId").value = uim.id;
+            var uids = this.command.getUids(uim.id);
+            if(uids != null && uids.length > 0){
+                Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandUID")),
+                                                          XulUtils.toXPCOMArray(uids));
+            }
+            this.command.dom = this.workspace.dom;
+            this.command.locateUI(uim.id);
+        }else{
+            document.getElementById("uiModuleId").disabled = true;
+            document.getElementById("commandName").disabled = true;
+            document.getElementById("commandUID").disabled = true;
+            document.getElementById("commandParam").disabled = true;
+            document.getElementById("commandResult").disabled = true;
+        }        
     }catch(error){
         logger.error("Executing command failed:\n" + describeErrorStack(error));
     }
     
+};
+
+Editor.prototype.updateUiModuleName = function(uid) {
+    var uids = this.command.getUids(uid);
+    if (uids != null && uids.length > 0) {
+        Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandUID")),
+                XulUtils.toXPCOMArray(uids));
+
+    }
 };
 
 Editor.prototype.cleanTestView = function(){
@@ -610,10 +504,10 @@ Editor.prototype.cleanTestView = function(){
     document.getElementById("commandResult").disabled = true;
     this.cmdHistory = new Array();
     this.cmdView.clearAll();
-    var example = document.getElementById("exampleText");
+/*    var example = document.getElementById("exampleText");
     example.readonly = false;
     example.value = "";
-    example.readonly = true;
+    example.readonly = true;*/
 };
 
 Editor.prototype.updateUiCommand = function(value){
@@ -695,8 +589,7 @@ Editor.prototype.buildUiAttributeTree = function(xml) {
     if (xml != null) {
         var parser = new DOMParser();
         var ui_attribute_tree = document.getElementById("ui_attribute_tree");
-        var pxml = parser.parseFromString(xml, "text/xml");
-        ui_attribute_tree.builder.datasource = pxml;
+        ui_attribute_tree.builder.datasource = parser.parseFromString(xml, "text/xml");
         ui_attribute_tree.builder.rebuild();
     }
 };
@@ -716,7 +609,7 @@ Editor.prototype.getElementsByTagValue = function(tag, attr, val){
 };
 
 Editor.prototype.showNodeOnWeb = function(){
-    var uiObject = this.innerTree.uiObjectMap.get(this.currentUid);
+    var uiObject = this.workspace.getUiObject(this.currentUid);
     if(uiObject != null){
         if(uiObject.node != null && uiObject.node.domNode != null){
             this.decorator.showNode(uiObject.node.domNode);
@@ -729,7 +622,7 @@ Editor.prototype.showNodeOnWeb = function(){
 };
 
 Editor.prototype.updateUiObject = function(){
-    var uiObject = this.innerTree.uiObjectMap.get(this.currentUid);
+    var uiObject = this.workspace.getUiObject(this.currentUid);
     if(uiObject != null){
         logger.debug("Update UI object " + this.currentUid);
 
@@ -785,8 +678,8 @@ Editor.prototype.updateUiObject = function(){
 };
 
 Editor.prototype.exportUiModule = function(){
-    if(this.innerTree != null){
-        var txt = this.innerTree.createUiModule();
+    if(this.workspace.innerTree != null){
+        var txt = this.workspace.innerTree.createUiModule();
 //        logger.debug("Create UI Module:\n" + txt);
 
         var dir = Preferences.getPref("extensions.trump.exportdirectory");
@@ -804,8 +697,8 @@ Editor.prototype.exportUiModule = function(){
 };
 
 Editor.prototype.exportToWindow = function(){
-    if(this.innerTree != null){
-        var txt = this.innerTree.createUiModule();
+    if(this.workspace.innerTree != null){
+        var txt = this.workspace.innerTree.createUiModule();
         //switch to the exportToWindows tab
         document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
         var sourceTextNode = document.getElementById("exportSource");
@@ -816,8 +709,8 @@ Editor.prototype.exportToWindow = function(){
 };
 
 Editor.prototype.exportToWindowInBackground = function(){
-    if(this.innerTree != null){
-        var txt = this.innerTree.createUiModule();
+    if(this.workspace.innerTree != null){
+        var txt = this.workspace.innerTree.createUiModule();
         var sourceTextNode = document.getElementById("exportSource");
         sourceTextNode.value  = txt;
 

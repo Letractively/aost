@@ -238,6 +238,29 @@ function UiModuleLocatingResponse(){
     this.relaxDetails = null;
 }
 
+UiModuleLocatingResponse.prototype.toString = function(){
+    var msg = new StringBuffer();
+    msg.append("Validation result for UI Module " + this.id + "\n");
+    msg.append("Found: " + this.found + "\n");
+    msg.append("Relaxed: " + this.relaxed + "\n");
+    msg.append("Match count: " + this.matches + "\n");
+    msg.append("Match score: " + this.score + "\n");
+    if(this.relaxDetails != null && this.relaxDetails.length > 0){
+        msg.append("Relax details: \n");
+        for(var i=0; i<this.relaxDetails.length; i++){
+            msg.append("\tUID: " + this.relaxDetails[i].uid + "\n");
+            if(this.relaxDetails[i].locator != null){
+               msg.append("\tLocator: " + this.relaxDetails[i].locator.strLocator() + "\n");
+            }else{
+               msg.append("\tLocator: " + "\n");
+            }
+            msg.append("\tHTML: " + this.relaxDetails[i].html + "\n");
+        }
+    }
+
+    return msg;
+};
+
 function RelaxDetail(){
     //which UID got relaxed, i.e., closest Match
     this.uid = null;

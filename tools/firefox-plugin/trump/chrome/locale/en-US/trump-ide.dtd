@@ -7,6 +7,7 @@
 <!ENTITY stopButton.tooltip "Stop Recording">
 <!ENTITY generate.tooltip "Generate UI Module">
 <!ENTITY customize.tooltip "Customize UI Module">
+<!ENTITY saveui.tooltip "Save UI">
 <!ENTITY test.tooltip "Test Tellurium Command">
 <!ENTITY clear.tooltip "Clear">
 
@@ -44,6 +45,7 @@
 <!ENTITY commandHistory.label "Command History">
 <!ENTITY runCommandBox.label "Run Command">
 <!ENTITY commandResult.label "Result">
+<!ENTITY uiModuleId.label "UI Module">
 
 <!ENTITY options.label "Settings">
 <!ENTITY options.general.label "General">
