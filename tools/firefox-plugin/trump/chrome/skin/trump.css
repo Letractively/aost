@@ -1,5 +1,13 @@
-#record-button {
+#record-button.record {
     list-style-image: url("chrome://trump/skin/record.png");
+}
+
+#record-button.pause {
+    list-style-image: url("chrome://trump/skin/pause.png");
+}
+
+#record-button.stop {
+    list-style-image: url("chrome://trump/skin/rstop.png");
 }
 
 #stop-button {

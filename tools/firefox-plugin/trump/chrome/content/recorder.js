@@ -50,7 +50,7 @@ Recorder.prototype.registerClickListener = function() {
 
                     var uid = "trumpSelected" + self.sequence.next();
                     var tagObject = self.builder.createTagObject(element, uid, self.frameName);
-                    teJQuery(element).data("uid", uid);
+                    teJQuery(element).data("sid", uid);
                     self.tagObjectArray.push(tagObject);
 
                     self.treeView.setTagObjects(self.tagObjectArray);
@@ -62,7 +62,7 @@ Recorder.prototype.registerClickListener = function() {
                     self.selectedElements.splice(index, 1);
                     self.tagObjectArray.splice(index, 1);
                     self.treeView.deleteRow(index);
-                    teJQuery(element).removeData("uid");
+                    teJQuery(element).removeData("sid");
                 }
 
                 var baseUrl = document.getElementById("windowURL").value;
@@ -132,7 +132,7 @@ Recorder.prototype.reRegisterClickListener = function(url) {
 
                     var uid = "trumpSelected" + self.sequence.next();
                     var tagObject = self.builder.createTagObject(element, uid, self.frameName);
-                    teJQuery(element).data("uid", uid);
+                    teJQuery(element).data("sid", uid);
                     self.tagObjectArray.push(tagObject);
 
                     self.treeView.setTagObjects(self.tagObjectArray);
@@ -144,7 +144,7 @@ Recorder.prototype.reRegisterClickListener = function(url) {
                     self.selectedElements.splice(index, 1);
                     self.tagObjectArray.splice(index, 1);
                     self.treeView.deleteRow(index);
-                    teJQuery(element).removeData("uid");
+                    teJQuery(element).removeData("sid");
                 }
 
                 var baseUrl = document.getElementById("windowURL").value;

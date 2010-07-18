@@ -5,6 +5,12 @@
 const DEFAULT_XML = "<?xml version=\"1.0\"?><UIs id=\"customize_tree_xml\" xmlns=\"\"></UIs>";
 const DEFAULT_ATTRIBUTES_XML = "<?xml version=\"1.0\"?><attributes id=\"attributes_tree_xml\" xmlns=\"\"></attributes>";
 
+const RecordState = {
+    RECORD: "record",
+    PAUSE: "pause",
+    STOP: "stop"
+};
+
 function Editor(window) {
     this.window = window;
     var self = this;
@@ -56,6 +62,7 @@ function Editor(window) {
         tellurium = new Tellurium();
         tellurium.initialize();        
     }
+
 }
 
 Editor.prototype.setWindowURL = function(url){
@@ -165,12 +172,20 @@ Editor.prototype.toggleRecordButton = function(){
 
     if(!recordToolbarButton.getAttribute("checked")){
         recordToolbarButton.setAttribute("checked", "true");
+        recordToolbarButton.setAttribute("class", RecordState.RECORD);
 
         var stopToolbarButton = document.getElementById("stop-button");
         stopToolbarButton.removeAttribute("checked");
 
         this.recorder.registerListener();
         this.populateWindowUrl();
+    }else{
+        var state = recordToolbarButton.getAttribute("class");
+        if(state == RecordState.RECORD){
+            recordToolbarButton.setAttribute("class", RecordState.PAUSE);
+        }else{
+            recordToolbarButton.setAttribute("class", RecordState.RECORD);
+        }
     }
 };
 
@@ -179,10 +194,10 @@ Editor.prototype.toggleStopButton = function(){
 
     if(!stopToolbarButton.getAttribute("checked")){
         stopToolbarButton.setAttribute("checked", "true");
-
+        
         var recordToolbarButton = document.getElementById("record-button");
         recordToolbarButton.removeAttribute("checked");
-
+        recordToolbarButton.setAttribute("class", RecordState.STOP);
         this.recorder.unregisterListener();
     }
 };
