@@ -40,7 +40,10 @@ Recorder.prototype.registerClickListener = function() {
     var self = this;
     this.listener =
             function(event) {
-                event.preventDefault();
+                logger.debug('listener: event.type=' + event.type + ', target=' + event.target);
+                var state = document.getElementById("record-button").getAttribute("class");
+                if(state == RecordState.PAUSE)
+                    event.preventDefault();
                 var element = event.target;
                 //check if the element is already selected
                 var index = self.selectedElements.indexOf(element);
