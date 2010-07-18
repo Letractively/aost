@@ -11,19 +11,19 @@
 }
 
 #customize-button {
-   list-style-image: url("chrome://trump/skin/customize.png");
+   list-style-image: url("chrome://trump/skin/user.png");
 }
 
 #saveui-button {
-   list-style-image: url("chrome://trump/skin/store.png"); 
+   list-style-image: url("chrome://trump/skin/add.png");
 }
 
 #test-button {
-   list-style-image: url("chrome://trump/skin/test.png");
+   list-style-image: url("chrome://trump/skin/apply.png");
 }
 
 #clear-button {
-   list-style-image: url("chrome://trump/skin/clear.png");
+   list-style-image: url("chrome://trump/skin/delete.png");
 }
 
 #source Pre {
