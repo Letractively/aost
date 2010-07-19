@@ -1,4 +1,4 @@
-#summary Tellurium UI Module Firefox Plugin 0.8.0: New Face and More Power.
+#summary Tellurium UI Module Firefox Plugin (Trump) 0.8.0: New Face and More Power.
 #labels Phase-Support,Phase-Implementation
 
 = Introduction =
