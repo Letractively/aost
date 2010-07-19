@@ -36,13 +36,91 @@ Recorder.prototype.updateListenerForWindow = function(url){
     this.reRegisterClickListener(url);
 };
 
+Recorder.prototype.record = function(command, target, value){
+    var self = this;
+    var element = event.target;
+    //check if the element is already selected
+    var index = self.selectedElements.indexOf(element);
+    if (index == -1) {
+        self.decorator.addBackground(element);
+        self.selectedElements.push(element);
+
+        var uid = "trumpSelected" + self.sequence.next();
+        var tagObject = self.builder.createTagObject(element, uid, self.frameName);
+        teJQuery(element).data("sid", uid);
+        self.tagObjectArray.push(tagObject);
+
+        self.treeView.setTagObjects(self.tagObjectArray);
+        self.treeView.rowInserted();
+        logger.debug("Recording: [command: " + command + ", target: " + uid + ", value: " + value);
+    } else {
+        //we are assuming to remove the element
+        self.decorator.removeBackground(element);
+        self.selectedElements.splice(index, 1);
+        self.tagObjectArray.splice(index, 1);
+        self.treeView.deleteRow(index);
+        teJQuery(element).removeData("sid");
+    }
+    
+    var baseUrl = document.getElementById("windowURL").value;
+    var actualUrl = element.ownerDocument.location.href;
+    if (baseUrl.trim().length == 0 || baseUrl != actualUrl) {
+        document.getElementById("windowURL").value = actualUrl;
+    }
+};
+
+Recorder.prototype.typeListener = function(event){
+    var state = document.getElementById("record-button").getAttribute("class");
+    if(state == RecordState.PAUSE)
+        event.preventDefault();
+    var tagName = event.target.tagName.toLowerCase();
+    var type = event.target.type;
+    if (('input' == tagName && ('text' == type || 'password' == type || 'file' == type)) ||
+            'textarea' == tagName) {
+        this.record("type", event.target, event.target.value);
+    }
+};
+
+Recorder.prototype.focusListener = function(event){
+    var state = document.getElementById("record-button").getAttribute("class");
+    if(state == RecordState.PAUSE)
+        event.preventDefault();
+    var tagName = event.target.nodeName.toLowerCase();
+    if('select' ==tagName){
+        var options = event.target.options;
+        for(var i=0; i<options.length; i++){
+            if(options[i].selected){
+                this.record("select", event.target, options[i]);
+                break;
+            }
+        }
+    }
+};
+
+Recorder.prototype.clickListener = function(event){
+    var state = document.getElementById("record-button").getAttribute("class");
+    if(state == RecordState.PAUSE)
+        event.preventDefault();
+/*    if (event.button == 0) {
+//        var clickable = this.findClickableElement(event);
+        var clickable = this.getClickable(event);
+        if (clickable) {
+            this.record("click", event.target, '');
+        }
+    }else{
+        this.record("click", event.target, '');
+    }*/
+
+    this.record("click", event.target, '');
+};
+
 Recorder.prototype.registerClickListener = function() {
     var self = this;
     this.listener =
             function(event) {
-                logger.debug('listener: event.type=' + event.type + ', target=' + event.target);
+//               logger.debug('listener: event.type=' + event.type + ', target=' + event.target);
                 var state = document.getElementById("record-button").getAttribute("class");
-                if(state == RecordState.PAUSE)
+//                if(state == RecordState.PAUSE)
                     event.preventDefault();
                 var element = event.target;
                 //check if the element is already selected
@@ -105,6 +183,8 @@ Recorder.prototype.getWindowAndRegisterClickListener = function(){
     if(browser && browser.contentWindow && browser.contentWindow.document){
         this.contentWindow = browser.contentWindow;
         this.contentWindow.document.body.addEventListener("click", this.listener, false);
+//        this.contentWindow.document.body.addEventListener("click", this.clickListener, false);
+//        this.contentWindow.document.body.addEventListener("change", this.typeListener, false);
     }
 
     if(browser && browser.contentWindow && browser.contentWindow.frames){
@@ -113,6 +193,8 @@ Recorder.prototype.getWindowAndRegisterClickListener = function(){
             for (var j = 0; j < this.frames.length; j++) {
                 var frame = this.frames[j] ;
                 frame.document.body.addEventListener("click", this.listener, false);
+//                frame.document.body.addEventListener("click", this.clickListener, false);
+//                frame.document.body.addEventListener("change", this.typeListener, false);
                 frame.addEventListener("focus", this.frameFocusListener, false);
                 frame.addEventListener("blur", this.frameBlurListener, false);
             }
@@ -295,4 +377,40 @@ Recorder.prototype.findClickableElement = function(e) {
 			return null;
 		}
 	}
+};
+
+Recorder.prototype.findAllWindows = function() {
+	var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
+	var e = wm.getEnumerator("navigator:browser");
+    var out = [];
+	while (e.hasMoreElements()) {
+        out.push(e.getNext());
+	}
+
+    return out;
+};
+
+Recorder.prototype.findAllWindowUrls = function(){
+    var contentWindows = [];
+    var wins = this.findAllWindows();
+    for(var i=0; i<wins.length; i++){
+        var cwins = this.findAllTabs(wins[i]);
+        contentWindows.concat(cwins);
+    }
+    var urls = [];
+    for(var i=0; i<contentWindows.length; i++){
+        urls.push(contentWindows[i].location.href);
+    }
+
+    return urls;
+};
+
+Recorder.prototype.findAllTabs = function(window) {
+	var browsers = window.getBrowser().browsers;
+    var out = [];
+	for (var i = 0; i < browsers.length; i++) {
+		out.push(browsers[i].contentWindow);
+	}
+
+    return out;
 };
