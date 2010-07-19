@@ -1,9 +1,6 @@
 package org.telluriumsource.ft;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.telluriumsource.module.NewSignUpModule;
 import org.telluriumsource.module.SignUpModule;
 import org.telluriumsource.test.java.TelluriumJUnitTestCase;
@@ -36,6 +33,7 @@ public class SignUpTestCase extends TelluriumJUnitTestCase {
         sum.signUp("John", "Smith", "John.Smith@gmail.com");
     }
 
+    @Ignore
     @Test
     public void testSignUpWithRespond(){
         NewSignUpModule sum = new NewSignUpModule();
