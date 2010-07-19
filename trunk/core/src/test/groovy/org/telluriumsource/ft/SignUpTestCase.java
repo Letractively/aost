@@ -15,8 +15,8 @@ public class SignUpTestCase extends TelluriumJUnitTestCase {
     @BeforeClass
     public static void initUi() {
         connectSeleniumServer();
-        useEngineLog(true);
-        useTelluriumEngine(true);
+//        useEngineLog(true);
+//        useTelluriumEngine(true);
         useTrace(true);
     }
 
@@ -27,10 +27,34 @@ public class SignUpTestCase extends TelluriumJUnitTestCase {
     }
 
     @Test
+    public void testValidate(){
+        SignUpModule sum = new SignUpModule();
+        sum.defineUi();
+        sum.validate("SignUp");
+    }
+
+    @Test
+    public void testDiagnose(){
+        SignUpModule sum = new SignUpModule();
+        sum.defineUi();
+        sum.diagnose("SignUp.Ok");
+    }
+
+    @Test
     public void testSignUp(){
         SignUpModule sum = new SignUpModule();
         sum.defineUi();
         sum.signUp("John", "Smith", "John.Smith@gmail.com");
+    }
+
+    @Test
+    public void testSignUpWithNewEngine(){
+        SignUpModule sum = new SignUpModule();
+        sum.defineUi();
+        useTelluriumEngine(true);
+        useEngineLog(true);
+        sum.signUp("John", "Smith", "John.Smith@gmail.com");
+        useTelluriumEngine(false);
     }
 
     @Ignore

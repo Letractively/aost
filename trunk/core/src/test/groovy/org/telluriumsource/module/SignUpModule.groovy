@@ -24,8 +24,9 @@ class SignUpModule extends DslContext{
       }
 
       UrlLink(uid: "Ok", clocator: [id: "sc380"])
+      UrlLink(uid: "Cancel", clocator: [id: "sc381"])
 //      UrlLink(uid: "Ok", clocator: [id: "sc380"], respond: ["mouseOver", "focus", "mouseDown", "mouseUp", "mouseOut"])
-      UrlLink(uid: "Cancel", clocator: [id: "sc381"], respond: ["mouseOver", "focus", "mouseDown", "mouseUp", "mouseOut"])
+//      UrlLink(uid: "Cancel", clocator: [id: "sc381"], respond: ["mouseOver", "focus", "mouseDown", "mouseUp", "mouseOut"])
     }
   }
 
@@ -33,8 +34,13 @@ class SignUpModule extends DslContext{
     type "SignUp.First", first
     type "SignUp.Last", last
     type "SignUp.Email", email
+//    mouseOver "SignUp.Ok"
+//    triggerEventOn "SignUp.Ok", "foucs"
     mouseDown "SignUp.Ok"
     mouseUp "SignUp.Ok"
+//    mouseOut "SignUp.Ok"
+//    triggerEventOn "SignUp.Ok", "blur"
+    
     pause 500
 //    waitForPageToLoad 30000
   }
