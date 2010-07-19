@@ -350,7 +350,6 @@ Editor.prototype.updateSource = function(){
 
 //    logger.debug("ui model generated:\n"+uiModel);
     sourceTextNode.value = uiModel;
-//    this.exportToWindowInBackground();
 };
 
 Editor.prototype.saveButton = function(){
