@@ -13,7 +13,7 @@ class LogonModule extends DslContext {
   String uiModName = "createAccount";
 
   public void defineUi() {
-    ui.Form(uid: "createAccount", clocator: [tag: "form", method: "post"]) {
+    ui.Form(uid: "createAccount", clocator: [tag: "form", method: "POST"]) {
       InputBox(uid: "email", clocator: [id: "email"])
       InputBox(uid: "newPassword", clocator: [id: "newPassword"])
       InputBox(uid: "newPassword2", clocator: [id: "newPassword2"])
