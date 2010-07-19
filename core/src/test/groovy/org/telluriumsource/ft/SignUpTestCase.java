@@ -44,6 +44,7 @@ public class SignUpTestCase extends TelluriumJUnitTestCase {
     public void testSignUp(){
         SignUpModule sum = new SignUpModule();
         sum.defineUi();
+        useCache(true);
         sum.signUp("John", "Smith", "John.Smith@gmail.com");
     }
 
@@ -57,11 +58,13 @@ public class SignUpTestCase extends TelluriumJUnitTestCase {
         useTelluriumEngine(false);
     }
 
-    @Ignore
+ //   @Ignore
     @Test
     public void testSignUpWithRespond(){
         NewSignUpModule sum = new NewSignUpModule();
         sum.defineUi();
+        useTelluriumEngine(false);
+        useCache(true);
         sum.signUp("John", "Smith", "John.Smith@gmail.com");
     }
 

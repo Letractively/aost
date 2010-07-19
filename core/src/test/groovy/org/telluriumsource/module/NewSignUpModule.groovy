@@ -24,8 +24,8 @@ class NewSignUpModule extends DslContext{
       }
 
 //      UrlLink(uid: "Ok", clocator: [id: "sc380"])
-      UrlLink(uid: "Ok", clocator: [id: "sc380"], respond: ["mouseOver", "focus", "mouseDown", "mouseUp", "mouseOut"])
-      UrlLink(uid: "Cancel", clocator: [id: "sc381"], respond: ["mouseOver", "focus", "mouseDown", "mouseUp", "mouseOut"])
+      UrlLink(uid: "Ok", clocator: [id: "sc380"], respond: ["mouseOver", "focus", "mouseDown", "mouseUp"])
+      UrlLink(uid: "Cancel", clocator: [id: "sc381"], respond: ["mouseOver", "focus", "mouseDown", "mouseUp"])
     }
   }
 
