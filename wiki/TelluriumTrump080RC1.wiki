@@ -1,5 +1,6 @@
 #summary Tellurium UI Module Firefox Plugin (Trump) 0.8.0 RC1: New Face and More Power.
 #labels Phase-Support,Phase-Implementation
+<wiki:toc max_depth="3"/>
 
 = Introduction =
 
@@ -54,4 +55,15 @@ Trump 0.8.0 RC1 also provides a UI to test Tellurium new Engine APIs.
  
 http://tellurium-users.googlegroups.com/web/TrumpTest080RC1.png?gda=0_jqrUUAAAA7fMi2EBxrNTLhqoq3FzPrKbXpwEZ0upKiIDi8jZ_4YdmzYRKiQE7vX8wErRkHijlzlqnWZQD3y6jZqCMfSFQ6Gu1iLHeqhw4ZZRj3RjJ_-A
 
-= Next Step =
+= What's Next =
+
+  * Automatically generate Tellurium DSL test scripts.
+
+
+= Resources =
+
+  * [http://code.google.com/p/aost/ Tellurium Project Home]
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group]
+  * [http://groups.google.com/group/tellurium-developers Tellurium Developer Group]
+  * [http://twitter.com/TelluriumSource Tellurium on Twitter]
+  * [http://code.google.com/p/aost/wiki/Tellurium070Released Tellurium 0.7.0]
