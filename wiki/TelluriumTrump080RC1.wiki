@@ -4,9 +4,7 @@
 
 = Introduction =
 
-The Tellurium Automated Testing Framework (Tellurium) is an open source automated testing framework for web applications. Most web testing tools/frameworks focus on individual UI elements such as links and buttons. Tellurium takes a new approach for automated web testing using the UI module. The UI module is a collection of UI elements grouped together. Usually, the UI module represents a composite UI object in the format of nested basic UI elements.
-
-Tellurium is built on the foundation of the UI module. The UI module makes it possible to build locators for UI elements at runtime. First, this makes Tellurium robust and responsive to changes from internal UI elements. Second, the UI module makes Tellurium expressive. A UI element can be referred to simply by appending the names (uid) along the path to the specific element. This also enables Tellurium's "Group Locating" feature, making composite objects reusable, and addressing dynamic web pages.
+The Tellurium Automated Testing Framework (Tellurium) is an open source automated testing framework for web applications. Most web testing tools/frameworks focus on individual UI elements such as links and buttons. Tellurium takes a new approach for automated web testing using the UI module. The UI module makes it possible to build locators for UI elements at runtime. First, this makes Tellurium robust and responsive to changes from internal UI elements. Second, the UI module makes Tellurium expressive. A UI element can be referred to simply by appending the names (uid) along the path to the specific element. This also enables Tellurium's "Group Locating" feature, making composite objects reusable, and addressing dynamic web pages.
 
 Trump 0.8.0 RC1 is out now with a new face as shown in the following diagram.
 
