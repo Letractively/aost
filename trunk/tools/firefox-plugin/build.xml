@@ -6,7 +6,7 @@
 	<tstamp>
 		<format property="time" pattern="yy.MM.dd_HHmm"/>
 	</tstamp>
-	<property name="dstFile" value="${dst}/TrUMP-${version}.xpi"/>
+	<property name="dstFile" value="${dst}/Trump-${version}.xpi"/>
 
     <target name="clean">
 		<echo message="Cleaning ..." />
