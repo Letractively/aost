@@ -24,3 +24,34 @@ The workflow for Trump 0.8.0 RC1 is shown as follows.
 
 http://tellurium-users.googlegroups.com/web/trump080workflow1.png?gda=xBDQUUcAAAA7fMi2EBxrNTLhqoq3FzPrDao5nP8jaxx37jZgfOLElqEMfUVKyjqfWSboqYk_MWEVeY4b49xGcMK802iZZ8SFeV4duv6pDMGhhhZdjQlNAw
 
+== Record ==
+
+User clicks on the web to select the UI elements he/she wants to test.
+
+http://tellurium-users.googlegroups.com/web/TrumpRecord080RC1.png?gda=d02hdUcAAAA7fMi2EBxrNTLhqoq3FzPrKbXpwEZ0upKiIDi8jZ_4YTImgURWdne04a7G1I0xo7wVeY4b49xGcMK802iZZ8SFeV4duv6pDMGhhhZdjQlNAw
+
+== Generate ==
+
+User generates the UI module by clicking the "generate" button.
+
+http://tellurium-users.googlegroups.com/web/TrumpGenerate080RC1.png?gda=GuTF9EkAAAA7fMi2EBxrNTLhqoq3FzPrKbXpwEZ0upKiIDi8jZ_4YX8odAc7WbnHftHM4HFsUMY2sBRolEB8ByVBmDcVao56hAioEG5q2hncZWbpWmJ7IQ
+
+== Customize ==
+
+Customize the UI module and change the UID and other attributes.
+
+http://tellurium-users.googlegroups.com/web/TrumpCustomize080RC1.png?gda=q5oeqUoAAAA7fMi2EBxrNTLhqoq3FzPrKbXpwEZ0upKiIDi8jZ_4YQIGjRj9EhpQ5rtEk3tLMBaLMZf-fzbEHilZUJS3izcJ_e3Wg0GnqfdKOwDqUih1tA
+
+== Add ==
+
+Add the UI module to cache and start a new recording procedure. The source code is also shown in a window.
+
+http://tellurium-users.googlegroups.com/web/TrumpAdd080RC1.png?gda=vcyas0QAAAA7fMi2EBxrNTLhqoq3FzPrKbXpwEZ0upKiIDi8jZ_4YWIj7nZA40OLyUPTzghpTtZV6u9SiETdg0Q2ffAyHU-dzc4BZkLnSFWX59nr5BxGqA
+
+== Test ==
+
+Trump 0.8.0 RC1 also provides a UI to test Tellurium new Engine APIs. 
+ 
+http://tellurium-users.googlegroups.com/web/TrumpTest080RC1.png?gda=0_jqrUUAAAA7fMi2EBxrNTLhqoq3FzPrKbXpwEZ0upKiIDi8jZ_4YdmzYRKiQE7vX8wErRkHijlzlqnWZQD3y6jZqCMfSFQ6Gu1iLHeqhw4ZZRj3RjJ_-A
+
+= Next Step =
