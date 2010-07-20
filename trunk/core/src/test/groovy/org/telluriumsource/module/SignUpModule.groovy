@@ -17,16 +17,13 @@ class SignUpModule extends DslContext{
       InputBox(uid: "First", clocator: [tag: "input", type: "text", name: "sc383"])
       InputBox(uid: "Last", clocator: [tag: "input", type: "text", name: "sc385"])
       InputBox(uid: "Email", clocator: [tag: "input", type: "text", name: "sc388"])
-
       Container(uid: "Sex", clocator: [tag: "div", direct: "true", class: "sc-view sc-radio-view sc-layout-vertical sc-regular-size", id: "sc393"]) {
         RadioButton(uid: "Male", clocator: [name: "sc393", value: "0"])
         RadioButton(uid: "Female", clocator: [name: "sc393", value: "1"])
       }
 
-      UrlLink(uid: "Ok", clocator: [id: "sc380"])
-      UrlLink(uid: "Cancel", clocator: [id: "sc381"])
-//      UrlLink(uid: "Ok", clocator: [id: "sc380"], respond: ["mouseOver", "focus", "mouseDown", "mouseUp", "mouseOut"])
-//      UrlLink(uid: "Cancel", clocator: [id: "sc381"], respond: ["mouseOver", "focus", "mouseDown", "mouseUp", "mouseOut"])
+      UrlLink(uid: "Ok", clocator: [id: "sc380", role: "button"])
+      UrlLink(uid: "Cancel", clocator: [id: "sc381", role: "button"])
     }
   }
 
