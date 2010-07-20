@@ -19,17 +19,17 @@
                         return false;
                     }
                     // do whatever you want with feeds here
-
+                    teJQuery("#message").append("Tellurium User Group Update<br/><ul>");
                     for (var i = 0; i < feeds.entries.length; i++) {
 
                         var entry = feeds.entries[i];
 
-                        // Entry title
-                        entry.title;
+                        teJQuery("#message").append("<li><a href=" + "\"" +entry.link + "\"" + ">" + entry.title + "</a></br></li>");
                     }
-
+                    teJQuery("#message").append("</ul>");
                 }, 10);
     </script>
+
 <style type="text/css" media="all">
 body{
 background: #fff;
@@ -197,7 +197,7 @@ display:block;
             Please post your questions to <b>Tellurium User Group</b>: <a href="http://groups.google.com/group/tellurium-users">http://groups.google.com/group/tellurium-users</a>.
         </p>
 
-        <div class="feed"></div>
+        <div  id="message"></div>
     </div>
     <!--content-->
 
