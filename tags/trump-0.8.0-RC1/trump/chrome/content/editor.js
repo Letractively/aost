@@ -683,6 +683,11 @@ Editor.prototype.updateUiObject = function(){
         }
         uiObject.updateAttributes(attrmap);
 
+        if(uiObject.parent == null){
+            this.workspace.id = uiObject.uid;
+            this.workspace.innerTree.root.id = uiObject.uid;
+            this.workspace.innerTree.buildIndex();
+        }
         this.validateUI();
         this.customizeButton();
         this.updateSource();
