@@ -2,3 +2,25 @@
 #labels Phase-Support,Phase-Implementation
 
 = Introduction =
+
+Trump 0.8.0 RC1 is out now with a new face as shown in the following diagram.
+
+http://tellurium-users.googlegroups.com/web/TelluriumTrUMPIDE080RC1.png?gda=zN-33k0AAAA7fMi2EBxrNTLhqoq3FzPrZcmj9ObBEZltoHpddi0w2ZgxQ-k5AGcnWXmjzgfIIhjXcoWeEq0kSGuVExhu8O025Tb_vjspK02CR95VRrtmeQ
+
+The new features in 0.8.0 RC1 release include:
+  * IFrame support
+  * Use Santa Algorithm to locate UI Module
+  * Multiple UI Module recording
+  * Export file to window
+  * Tellurium command test
+  * Better help menu
+  * Many bug fixes
+
+Please download the xpi file from [http://aost.googlecode.com/files/Trump-0.8.0-RC1.xpi here]. 
+
+= Workflow =
+
+The workflow for Trump 0.8.0 RC1 is shown as follows.
+
+http://tellurium-users.googlegroups.com/web/trump080workflow1.png?gda=xBDQUUcAAAA7fMi2EBxrNTLhqoq3FzPrDao5nP8jaxx37jZgfOLElqEMfUVKyjqfWSboqYk_MWEVeY4b49xGcMK802iZZ8SFeV4duv6pDMGhhhZdjQlNAw
+
