@@ -23,9 +23,8 @@ class NewSignUpModule extends DslContext{
         RadioButton(uid: "Female", clocator: [name: "sc393", value: "1"])
       }
 
-//      UrlLink(uid: "Ok", clocator: [id: "sc380"])
-      UrlLink(uid: "Ok", clocator: [id: "sc380"], respond: ["mouseOver", "focus", "mouseDown", "mouseUp"])
-      UrlLink(uid: "Cancel", clocator: [id: "sc381"], respond: ["mouseOver", "focus", "mouseDown", "mouseUp"])
+      UrlLink(uid: "Ok", clocator: [id: "sc380", role: "button"], respond: ["mouseOver", "focus", "mouseDown", "mouseUp"])
+      UrlLink(uid: "Cancel", clocator: [id: "sc381", role: "button"], respond: ["mouseOver", "focus", "mouseDown", "mouseUp"])
     }
   }
 
