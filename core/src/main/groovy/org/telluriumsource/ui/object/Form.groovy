@@ -15,6 +15,10 @@ class Form extends Container{
     def submit(Closure c){
         c(locator)
     }
+  
+    def reset(Closure c){
+        c(locator)
+    }
 
     public JSONObject toJSON() {
 

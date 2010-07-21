@@ -251,6 +251,11 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         jlm.bugReport();
     }
 
+    @Test
+    public void testResetForm(){
+        jlm.reset("Form");
+    }
+
     @AfterClass
     public static void tearDown(){
         showTrace();

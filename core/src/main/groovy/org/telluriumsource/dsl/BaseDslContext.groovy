@@ -1616,6 +1616,16 @@ abstract class BaseDslContext extends GlobalDslContext {
     extension.removeMarkedUids(context, tag);
   }
 
+  //reset a form
+  void reset(String uid){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    walkToWithException(context, uid).reset() {loc ->
+      String locator = locatorMapping(context, loc)
+
+      extension.reset(context, locator)
+    }
+  }
+
   public void bugReport() {
     println "\nPlease cut and paste the following bug report to Tellurium user group (http://groups.google.com/group/tellurium-users)\n"
     println "---------------------------- Bug Report --------------------------------"
