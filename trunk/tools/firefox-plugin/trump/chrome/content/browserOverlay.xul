@@ -37,19 +37,19 @@
     </script>
 
     <!-- Extending Firefox Tools menu  -->
-    <!-- Adding TrUMP IDE to the tools menu -->
+    <!-- Adding Trump IDE to the tools menu -->
     <menupopup id="menu_ToolsPopup">
-        <menuitem label="TrUMP IDE" oncommand="showTrumpIDE();"
+        <menuitem label="Trump IDE" oncommand="showTrumpIDE();"
                   insertbefore="sanitizeSeparator,prefSep" accesskey="T" />
     </menupopup>
 
-    <!-- Adding TrUMP to right click pop up menu -->
+    <!-- Adding Trump to right click pop up menu -->
 <!--
     <popup id="contentAreaContextMenu">
-        <menuitem id="miShowTrUMP"
+        <menuitem id="miShowTrump"
                   oncommand="showUIWindow()"
-                  label="Show in TrUMP"
-                  tooltiptext="Show in Tellurium Ui Model Plugin (TrUMP)"
+                  label="Show in Trump"
+                  tooltiptext="Show in Tellurium Ui Model Plugin (Trump)"
                   accesskey="t"/>
     </popup>
     -->

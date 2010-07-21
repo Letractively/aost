@@ -21,7 +21,7 @@ function Recorder(window) {
     this.sequence = new Identifier();
 }
 
-Recorder.WINDOW_RECORDER_PROPERTY = "_TrUMP_IDE_Recorder";
+Recorder.WINDOW_RECORDER_PROPERTY = "_Trump_IDE_Recorder";
 
 Recorder.prototype.registerListener = function(){
     this.registerClickListener();

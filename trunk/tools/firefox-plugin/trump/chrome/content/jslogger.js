@@ -112,4 +112,4 @@ jslogger.addAppender(new Log4js.MozillaLineNumberJSConsoleAppender());
 //jslogger.addAppender(new Log4js.TrumpLogAppender());
 
 //TRUMP log Identifier to make it easier to parse
-const TRUMP_LOG_ID = "[TrUMP 0.1.0] ";
+const TRUMP_LOG_ID = "[Trump 0.8.0] ";

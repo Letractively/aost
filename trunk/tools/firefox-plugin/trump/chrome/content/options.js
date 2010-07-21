@@ -2,25 +2,25 @@ function saveOptions(){
     var elem = document.getElementById("trump-options-directory");
     if(elem != null){
         Preferences.setPref("extensions.trump.exportdirectory", elem.value);
-        logger.debug("TrUMP export Directory is updated to " + elem.value);
+        logger.debug("Trump export Directory is updated to " + elem.value);
     }
 
     elem = document.getElementById("trump-option-jslog");
     if(elem != null){
         Preferences.setPref("extensions.trump.jslog", elem.checked);
-        logger.debug("TrUMP Javascript logging option " + elem.checked);
+        logger.debug("Trump Javascript logging option " + elem.checked);
     }
 
     elem = document.getElementById("trump-option-logwrap");
     if(elem != null){
         Preferences.setPref("extensions.trump.logwrap", elem.checked);
-        logger.debug("TrUMP log Wrapping option " + elem.checked);
+        logger.debug("Trump log Wrapping option " + elem.checked);
     }
 
     elem = document.getElementById("trump-option-grouplocating");
     if(elem != null){
         Preferences.setPref("extensions.trump.grouplocating", elem.checked);
-        logger.debug("TrUMP group locating option " + elem.checked);
+        logger.debug("Trump group locating option " + elem.checked);
     }
 
 	return true;
