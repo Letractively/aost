@@ -40,7 +40,8 @@
         </menu>
         <menu id="menu-help" label="Help">
           <menupopup id="edit-popup">
-            <menuitem label="Document"  oncommand="window.open('http://code.google.com/p/aost/w/list')" />
+            <!--<menuitem label="Document"  oncommand="window.open('http://code.google.com/p/aost/w/list')" />-->
+            <menuitem label="Document"  oncommand="window.open('chrome://trump/content/telluriumDocument.xul','tellurium_document','chrome,centerscreen,resizable')" />
             <menuitem label="Update"  oncommand="window.open('http://code.google.com/p/aost/downloads/list')" />
             <!--<menuitem label="Follow"  oncommand="window.open('http://twitter.com/TelluriumSource')" />-->
             <menuitem label="Follow"  oncommand="window.open('chrome://trump/content/telluriumTwitterWindow.xul','tellurium_on_twitter','chrome,centerscreen,resizable')" />
