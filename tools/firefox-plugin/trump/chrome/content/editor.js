@@ -1,5 +1,5 @@
 /*
- * An UI of TrUMP IDE.
+ * An UI of Trump IDE.
  */
 
 const DEFAULT_XML = "<?xml version=\"1.0\"?><UIs id=\"customize_tree_xml\" xmlns=\"\"></UIs>";
