@@ -1070,3 +1070,10 @@ TelluriumApi.prototype.getIndex = function(locator){
 //    return teJQuery(elem).index() + 1;
 //    return teJQuery(elem).prevAll().size() + 2;
 };
+
+TelluriumApi.prototype.reset = function(locator){
+    var elem = selenium.browserbot.findElement(locator);
+    if(elem.reset != undefined){
+        elem.reset();
+    }
+};
