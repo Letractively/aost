@@ -459,6 +459,7 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("getUiByTag", false, "ARRAY");
     this.registerApi("removeMarkedUids", false, "ARRAY");
     this.registerApi("getIndex", true, "NUMBER");
+    this.registerApi("reset", true, "VOID");
 };
 
 Tellurium.prototype.flipLog = function(){
