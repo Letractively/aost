@@ -487,7 +487,7 @@ Selenium.prototype.getSelectValues = function(selectLocator) {
     return selectValues;
 };
 
-Selenium.prototype.reset = function(locator){
+Selenium.prototype.doReset = function(locator){
     var elem = this.browserbot.findElement(locator);
     if(elem.reset != undefined){
         elem.reset();
