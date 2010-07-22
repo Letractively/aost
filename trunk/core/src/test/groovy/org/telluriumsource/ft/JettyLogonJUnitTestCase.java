@@ -6,6 +6,9 @@ import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
 import org.telluriumsource.module.JettyLogonModule;
 import org.telluriumsource.entity.EngineState;
 import org.junit.*;
+
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -261,6 +264,28 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         jlm.typeOnly("Test", "Tellurium");
         jlm.reset("Form");
     }
+
+    @Test
+    public void testAllWindowNamesWithSelenium(){
+        useTelluriumEngine(false);
+        List<String> names = (List<String>) jlm.customDirectCall("getAllWindowNames", null);
+        assertNotNull(names);
+        for(String name: names){
+            System.out.println("Window Name: " + name);
+        }
+    }
+
+    @Test
+    public void testAllWindowNamesWithTellurium(){
+        useTelluriumEngine(true);
+        List<String> names = (List<String>) jlm.customDirectCall("getAllWindowNames", null);
+        assertNotNull(names);
+        for(String name: names){
+            System.out.println("Window Name: " + name);
+        }
+        useTelluriumEngine(false);
+    }
+
 
     @AfterClass
     public static void tearDown(){
