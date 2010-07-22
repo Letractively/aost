@@ -105,6 +105,11 @@ public class JettyLogonModule extends DslContext {
     waitForPageToLoad 30000
   }
 
+  public void typeOnly(String username, String password){
+    keyType "Form.Username.Input", username
+    keyType "Form.Password.Input", password
+  }
+
   public void alogon(String username, String password){
     keyType "AbstractForm.Form1.Username.Input", username
     keyType "AbstractForm.Form1.Password.Password1.Input", password

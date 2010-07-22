@@ -15,10 +15,10 @@ import static org.junit.Assert.*;
  */
 public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     private static JettyLogonModule jlm;
-    static{
+/*    static{
         Environment env = Environment.getEnvironment();
         env.useConfigString(JettyLogonModule.JSON_CONF);
-    }
+    }*/
 
     @BeforeClass
     public static void initUi() {
@@ -253,6 +253,12 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testResetForm(){
+        useTelluriumEngine(true);
+        jlm.typeOnly("Test", "Tellurium");
+        jlm.reset("Form");
+        useTelluriumEngine(false);
+        useCache(true);
+        jlm.typeOnly("Test", "Tellurium");
         jlm.reset("Form");
     }
 
