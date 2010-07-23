@@ -19,5 +19,5 @@ The workflow is shown as above:
   # The UI module is generated from the inner tree
   # At the same time, a reference id to UID map is created
   # The UI modules are put into the top of output script file
-  # The reference ids in the command list are changed with their UIDs
+  # The reference ids in the command list are replaced with their UIDs
   # The updated command list is turned into Tellurium DSL script 
