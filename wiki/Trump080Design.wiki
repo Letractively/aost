@@ -1,0 +1,23 @@
+#summary Trump 0.8.0 Design.
+#labels Phase-Design,Phase-Implementation
+
+= Introduction =
+
+One significant add-on to Trump 0.8.0 is the ability to record user actions and convert them into Tellurium DSL scripts. The following sections cover the design issues for Trump 0.8.0.
+
+== Workflow ==
+
+http://tellurium-developers.googlegroups.com/web/trumpworkflow.png?gda=9farzUMAAAC3f0S777RoMipgwttRc5E0rE3sb7K01jCxhcA7IRHMaYREyMfmzRjWt2IyFXBxC30ytiJ-HdGYYcPi_09pl8N7FWLveOaWjzbYnpnkpmxcWg
+
+The workflow is shown as above:
+  # User acts on the web and Trump records the events
+  # The events are stored as commands with fields such as name, value, and reference id
+  # In the meanwhile, the dom node and its reference id are pushed into a list
+  # User select on the web and Trump also records the events 
+  # The event does not have a command associated with it and is only pushed to the DOM list
+  # An inner tree is built based on the dom list
+  # The UI module is generated from the inner tree
+  # At the same time, a reference id to UID map is created
+  # The UI modules are put into the top of output script file
+  # The reference ids in the command list are changed with their UIDs
+  # The updated command list is turned into Tellurium DSL script 
