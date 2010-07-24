@@ -31,6 +31,11 @@ public class MultipleCheckTestCase extends TelluriumMockJUnitTestCase {
     }
 
     @Test
+    public void testValidate(){
+        mcm.validate("Formprefs");
+    }
+    
+    @Test
     public void testDiagnose(){
         mcm.diagnose("Formprefs.ListTabOptions.FilterOptionsListFieldset.FilterOptionsList[2]");    
     }
