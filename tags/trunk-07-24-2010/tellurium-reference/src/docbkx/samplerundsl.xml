@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appendix version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/2000/svg"
+         xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+
+
+    <title>Sample Run DSL Script</title>
+    <section>
+        <title>Sample Groovy Grape Configuration</title>
+
+    <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<ivysettings>
+  <settings defaultResolver="downloadGrapes"/>
+  <property
+    name="local-maven2-pattern"
+    value="${user.home}/.m2/repository/[organisation]/[module]/[revision]/
+        [module]-[revision](-[classifier]).[ext]"
+    override="false" />
+  <resolvers>
+    <chain name="downloadGrapes">
+      <filesystem name="cachedGrapes">
+        <ivy pattern="${user.home}/.groovy/grapes/[organisation]/[module]/ivy-[revision].xml"/>
+        <artifact pattern="${user.home}/.groovy/grapes/[organisation]/[module]/
+            [type]s/[artifact]-[revision].[ext]"/>
+      </filesystem>
+      <filesystem name="local-maven-2" m2compatible="true" local="true">
+        <ivy pattern="${local-maven2-pattern}"/>
+        <artifact pattern="${local-maven2-pattern}"/>
+      </filesystem>
+      <!-- todo add 'endorsed groovy extensions' resolver here -->
+      <ibiblio name="kungfuters.3rdparty"
+        root="http://maven.kungfuters.org/content/repositories/thirdparty/"
+        m2compatible="true"/>
+      <ibiblio name="codehaus" root="http://repository.codehaus.org/"
+        m2compatible="true"/>
+      <ibiblio name="ibiblio" m2compatible="true"/>
+      <ibiblio name="java.net2" root="http://download.java.net/maven/2/"
+        m2compatible="true"/>
+      <ibiblio name="openqa" root="http://archiva.openqa.org/repository/releases/"
+        m2compatible="true"/>
+      <ibiblio name="kungfuters.snapshot"
+        root="http://maven.kungfuters.org/content/repositories/snapshots/"
+        m2compatible="true"/>
+      <ibiblio name="kungfuters.release"
+        root="http://maven.kungfuters.org/content/repositories/releases/"
+        m2compatible="true"/>
+    </chain>
+  </resolvers>
+</ivysettings>
+ ]]>
+    </programlisting>
+
+    </section>
+
+    <section>
+        <title>rundsl.groovy</title>
+     <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+import groovy.grape.Grape;
+
+Grape.grab(group:'org.telluriumsource', module:'tellurium-core', version:'0.7.0',
+    classLoader:this.class.classLoader.rootLoader)
+Grape.grab(group:'org.stringtree', module:'stringtree-json', version:'2.0.10',
+    classLoader:this.class.classLoader.rootLoader)
+Grape.grab(group:'caja', module:'json_simple', version:'r1',
+    classLoader:this.class.classLoader.rootLoader)
+Grape.grab(group:'org.seleniumhq.selenium.server', module:'selenium-server', version:'1.0.1-te3',
+    classLoader:this.class.classLoader.rootLoader)
+Grape.grab(group:'org.seleniumhq.selenium.client-drivers', module:'selenium-java-client-driver',
+    version:'1.0.1', classLoader:this.class.classLoader.rootLoader)
+Grape.grab(group:'org.apache.poi', module:'poi', version:'3.0.1-FINAL',
+    classLoader:this.class.classLoader.rootLoader)
+Grape.grab(group:'junit', module:'junit', version:'4.7',
+    classLoader:this.class.classLoader.rootLoader)
+
+import org.telluriumsource.dsl.DslScriptExecutor
+
+@Grapes([
+   @Grab(group='org.codehaus.groovy', module='groovy-all', version='1.7.0'),
+   @Grab(group='org.seleniumhq.selenium.server', module='selenium-server', version='1.0.1-te3'),
+   @Grab(group='org.seleniumhq.selenium.client-drivers', module='selenium-java-client-driver',
+    version='1.0.1'),
+   @Grab(group='junit', module='junit', version='4.7'),
+   @Grab(group='caja', module='json_simple', version='r1'),
+   @Grab(group='org.apache.poi', module='poi', version='3.0.1-FINAL'),
+   @Grab(group='org.stringtree', module='stringtree-json', version='2.0.10'),
+   @Grab(group='org.telluriumsource', module='tellurium-core', version='0.7.0')
+])
+
+def runDsl(String[] args) {
+  def cli = new CliBuilder(usage: 'rundsl.groovy -[hf] [scriptname]')
+  cli.with {
+    h longOpt: 'help', 'Show usage information'
+    f longOpt: 'scriptname',   'DSL script name'
+  }
+  def options = cli.parse(args)
+  if (!options) {
+    return
+  }
+  if (options.h) {
+    cli.usage()
+    return
+  }
+  if (options.f) {
+    def extraArguments = options.arguments()
+    if (extraArguments) {
+      extraArguments.each {String name ->
+        def input = [name].toArray(new String[0])
+        DslScriptExecutor.main(input)
+      }
+    }
+  }
+
+}
+
+println "Running DSL test script, press Ctrl+C to stop."
+
+runDsl(args)
+ ]]>
+    </programlisting>
+    </section>
+
+</appendix>
