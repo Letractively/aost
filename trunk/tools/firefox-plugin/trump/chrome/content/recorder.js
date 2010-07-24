@@ -118,9 +118,9 @@ Recorder.prototype.registerClickListener = function() {
     var self = this;
     this.listener =
             function(event) {
-//               logger.debug('listener: event.type=' + event.type + ', target=' + event.target);
+                logger.debug('listener: event.type=' + event.type + ', target=' + event.target);
                 var state = document.getElementById("record-button").getAttribute("class");
-//                if(state == RecordState.PAUSE)
+                if(state == RecordState.PAUSE)
                     event.preventDefault();
                 var element = event.target;
                 //check if the element is already selected
@@ -183,6 +183,10 @@ Recorder.prototype.getWindowAndRegisterClickListener = function(){
     if(browser && browser.contentWindow && browser.contentWindow.document){
         this.contentWindow = browser.contentWindow;
         this.contentWindow.document.body.addEventListener("click", this.listener, false);
+        this.contentWindow.addEventListener("beforeunload", function(event) {
+            var url = event.target.URL || event.target.baseURI;
+            logger.debug("Unloading Window " + url);
+        }, false);
 //        this.contentWindow.document.body.addEventListener("click", this.clickListener, false);
 //        this.contentWindow.document.body.addEventListener("change", this.typeListener, false);
     }
