@@ -1,3 +1,15 @@
+function NodeRef(dom, frameName, ref){
+    this.dom = dom;
+    this.frameName = frameName;
+    this.ref = ref;
+}
+
+function UiCommand(name, ref, value){
+    this.name = name;
+    this.ref = ref;
+    this.value = value;
+}
+
 function Workspace(uiBuilder, uiChecker){
     //ID of the current UI Module
     this.id = null;
@@ -24,13 +36,32 @@ function Workspace(uiBuilder, uiChecker){
     this.uiAlg = new UiAlg();
 
     this.innerTree = null;
+
+    this.nodeList = new Array();
+
+    this.commandList = new Array();
+
+    this.refUidMap = new Hashtable();
 }
+
+Workspace.prototype.addNode = function(dom, frameName, ref){
+    var node = new NodeRef(dom, frameName, ref);
+    this.nodeList.push(node);
+};
+
+Workspace.prototype.addCommand = function(name, ref, value){
+    var command = new UiCommand(name, ref, value);
+    this.commandList.push(command);
+};
 
 Workspace.prototype.clear = function(){
     this.innerTree = null;
     this.uim = null;
     this.id = null;
     this.dom = null;
+    this.nodeList = new Array();
+    this.comandList = new Array();
+    this.refUidMap = new Hashtable();
 };
 
 Workspace.prototype.generateUiModule = function(tagArrays){

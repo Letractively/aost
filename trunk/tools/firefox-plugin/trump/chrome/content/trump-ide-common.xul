@@ -24,6 +24,7 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://trump/content/util.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/editor.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/recorder.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/recorder-listener.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/builder.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/tagObject.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/xpather.js"/>
