@@ -1,5 +1,6 @@
 #summary Trump 0.8.0 Design.
 #labels Phase-Design,Phase-Implementation
+<wiki:toc max_depth="5" />
 
 = Introduction =
 
