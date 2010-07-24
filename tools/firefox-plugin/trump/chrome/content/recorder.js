@@ -18,10 +18,60 @@ function Recorder(window) {
     this.tree = document.getElementById('recordTree');
     this.tree.view=this.treeView;
 
+    this.workspace = null;
+
     this.sequence = new Identifier();
+
+    this.self = this;
+//    this.observers = [];
+//	this.attach();
+//    this.registerUnloadListener();
 }
 
 Recorder.WINDOW_RECORDER_PROPERTY = "_Trump_IDE_Recorder";
+
+Recorder.prototype.registerListeners = function(){
+    var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+        .getService(Components.interfaces.nsIWindowMediator)
+          .getMostRecentWindow("navigator:browser");
+
+    var browser = win.getBrowser();
+
+    if(browser && browser.contentWindow && browser.contentWindow.document){
+        this.contentWindow = browser.contentWindow;
+        teJQuery(this.contentWindow.document.body).bind("click", {recorder: this}, this.UiSelectListener);
+        teJQuery(this.contentWindow).bind("beforeunload", {recorder: this}, this.onUnloadDocumentListener);
+    }
+
+    if(browser && browser.contentWindow && browser.contentWindow.frames){
+        this.frames = browser.contentWindow.frames;
+        if (this.frames && this.frames.length) {
+            for (var j = 0; j < this.frames.length; j++) {
+                var frame = this.frames[j] ;
+                teJQuery(frame.document.body).bind("click", {recorder: this}, this.UiSelectListener);
+                teJQuery(frame.document).bind("beforeunload", {recorder: this}, this.onUnloadDocumentListener);
+                teJQuery(frame.document).bind("focus", {recorder: this}, this.frameFocusListener);
+                teJQuery(frame.document).bind("blur", {recorder: this}, this.frameBlurListener);
+            }
+        }
+    }
+};
+
+Recorder.prototype.unregisterListeners = function(){
+    this.removeBackgroundForSelectedNodes();
+
+    this.removeOutlineForSelectedNodes();
+
+    if(this.contentWindow){
+        teJQuery(this.contentWindow.document.body).unbind("click", this.UiSelectListener);
+    }
+
+    if (this.frames && this.frames.length) {
+        for (var j = 0; j < this.frames.length; j++) {
+            teJQuery(his.frames[j].document.body).unbind("click", this.UiSelectListener);
+        }
+    }
+};
 
 Recorder.prototype.registerListener = function(){
     this.registerClickListener();
@@ -33,85 +83,7 @@ Recorder.prototype.unregisterListener = function(){
 
 Recorder.prototype.updateListenerForWindow = function(url){
     this.unregisterListener();
-    this.reRegisterClickListener(url);
-};
-
-Recorder.prototype.record = function(command, target, value){
-    var self = this;
-    var element = event.target;
-    //check if the element is already selected
-    var index = self.selectedElements.indexOf(element);
-    if (index == -1) {
-        self.decorator.addBackground(element);
-        self.selectedElements.push(element);
-
-        var uid = "trumpSelected" + self.sequence.next();
-        var tagObject = self.builder.createTagObject(element, uid, self.frameName);
-        teJQuery(element).data("sid", uid);
-        self.tagObjectArray.push(tagObject);
-
-        self.treeView.setTagObjects(self.tagObjectArray);
-        self.treeView.rowInserted();
-        logger.debug("Recording: [command: " + command + ", target: " + uid + ", value: " + value);
-    } else {
-        //we are assuming to remove the element
-        self.decorator.removeBackground(element);
-        self.selectedElements.splice(index, 1);
-        self.tagObjectArray.splice(index, 1);
-        self.treeView.deleteRow(index);
-        teJQuery(element).removeData("sid");
-    }
-    
-    var baseUrl = document.getElementById("windowURL").value;
-    var actualUrl = element.ownerDocument.location.href;
-    if (baseUrl.trim().length == 0 || baseUrl != actualUrl) {
-        document.getElementById("windowURL").value = actualUrl;
-    }
-};
-
-Recorder.prototype.typeListener = function(event){
-    var state = document.getElementById("record-button").getAttribute("class");
-    if(state == RecordState.PAUSE)
-        event.preventDefault();
-    var tagName = event.target.tagName.toLowerCase();
-    var type = event.target.type;
-    if (('input' == tagName && ('text' == type || 'password' == type || 'file' == type)) ||
-            'textarea' == tagName) {
-        this.record("type", event.target, event.target.value);
-    }
-};
-
-Recorder.prototype.focusListener = function(event){
-    var state = document.getElementById("record-button").getAttribute("class");
-    if(state == RecordState.PAUSE)
-        event.preventDefault();
-    var tagName = event.target.nodeName.toLowerCase();
-    if('select' ==tagName){
-        var options = event.target.options;
-        for(var i=0; i<options.length; i++){
-            if(options[i].selected){
-                this.record("select", event.target, options[i]);
-                break;
-            }
-        }
-    }
-};
-
-Recorder.prototype.clickListener = function(event){
-    var state = document.getElementById("record-button").getAttribute("class");
-    if(state == RecordState.PAUSE)
-        event.preventDefault();
-/*    if (event.button == 0) {
-//        var clickable = this.findClickableElement(event);
-        var clickable = this.getClickable(event);
-        if (clickable) {
-            this.record("click", event.target, '');
-        }
-    }else{
-        this.record("click", event.target, '');
-    }*/
-
-    this.record("click", event.target, '');
+//    this.reRegisterClickListener(url);
 };
 
 Recorder.prototype.registerClickListener = function() {
@@ -136,7 +108,7 @@ Recorder.prototype.registerClickListener = function() {
 
                     self.treeView.setTagObjects(self.tagObjectArray);
                     self.treeView.rowInserted();
-
+                    this.workspace.addNode(element, self.frameName, uid);
                 } else {
                     //we are assuming to remove the element
                     self.decorator.removeBackground(element);
@@ -207,113 +179,6 @@ Recorder.prototype.getWindowAndRegisterClickListener = function(){
 
 };
 
-Recorder.prototype.reRegisterClickListener = function(url) {
-    var self = this;
-    this.listener =
-            function(event) {
-                event.preventDefault();
-                var element = event.target;
-                //check if the element is already selected
-                var index = self.selectedElements.indexOf(element);
-                if (index == -1) {
-                    self.decorator.addBackground(element);
-                    self.selectedElements.push(element);
-
-                    var uid = "trumpSelected" + self.sequence.next();
-                    var tagObject = self.builder.createTagObject(element, uid, self.frameName);
-                    teJQuery(element).data("sid", uid);
-                    self.tagObjectArray.push(tagObject);
-
-                    self.treeView.setTagObjects(self.tagObjectArray);
-                    self.treeView.rowInserted();
-
-                } else {
-                    //we are assuming to remove the element
-                    self.decorator.removeBackground(element);
-                    self.selectedElements.splice(index, 1);
-                    self.tagObjectArray.splice(index, 1);
-                    self.treeView.deleteRow(index);
-                    teJQuery(element).removeData("sid");
-                }
-
-                var baseUrl = document.getElementById("windowURL").value;
-                var actualUrl = element.ownerDocument.location.href;
-                if (baseUrl.trim().length == 0 || baseUrl != actualUrl) {
-                    document.getElementById("windowURL").value = actualUrl;
-                }
-            };
-
-
-    this.frameFocusListener =
-            function(event) {
-                event.preventDefault();
-    //            logger.debug("Inside frameFocusListener() ..");
-                if (self.frameName == null) {
-    //                logger.debug("frameName : " + event.target.name);
-                    self.frameName = event.target.name;
-                }
-            };
-
-    this.frameBlurListener = function(event) {
-        event.preventDefault();
-        self.frameName = null;
-    };
-
-    this.updateWindowAndRegisterClickListener(url);
-
-};
-
-Recorder.prototype.updateWindowAndRegisterClickListener = function(url){
-    var cWindows = getAvailableContentDocuments(Components.interfaces.nsIDocShellTreeItem.typeChrome);
-//    var cWindows = getAvailableContentDocuments(Components.interfaces.nsIDocShellTreeItem.typeContent);
-    var cWin = null;
-    if(cWindows != null && cWindows.length > 0){
-        for(var i=0; i<cWindows.length; i++){
-            if(url == cWindows[i].location.href){
-                cWin = cWindows[i];
-                break;
-            }
-        }
-    }
-
-    if (cWin != null) {
-        this.contentWindow = cWin;
-        this.contentWindow.document.body.addEventListener("click", this.listener, false);
-
-        if(cWin.frames){
-            this.frames = cWin.frames;
-            if (this.frames && this.frames.length) {
-                for (var j = 0; j < this.frames.length; j++) {
-                    var frame = this.frames[j];
-                    frame.document.body.addEventListener("click", this.listener, false);
-                    frame.addEventListener("focus", this.frameFocusListener, false);
-                    frame.addEventListener("blur", this.frameBlurListener, false);
-                }
-            }
-        }
-/*        var browser = win.getBrowser();
-
-        if (browser && browser.contentWindow && browser.contentWindow.document) {
-            this.contentWindow = browser.contentWindow;
-            this.contentWindow.document.body.addEventListener("click", this.listener, false);
-        }
-
-        if (browser && browser.contentWindow && browser.contentWindow.frames) {
-            this.frames = browser.contentWindow.frames;
-            if (this.frames && this.frames.length) {
-                for (var j = 0; j < this.frames.length; j++) {
-                    var frame = this.frames[j];
-                    frame.document.body.addEventListener("click", this.listener, false);
-                    frame.addEventListener("focus", this.frameFocusListener, false);
-                    frame.addEventListener("blur", this.frameBlurListener, false);
-                }
-            }
-        }*/
-    } else {
-        logger.error("Invalid Window URL: " + url);
-    }
-};
-
 Recorder.prototype.unregisterClickListener = function(){
     this.removeBackgroundForSelectedNodes();
 
@@ -366,55 +231,29 @@ Recorder.prototype.clearAll = function(){
     this.treeView.clearAll();    
 };
 
-Recorder.prototype.findClickableElement = function(e) {
-	if (!e.tagName) return null;
-	var tagName = e.tagName.toLowerCase();
-	var type = e.type;
-	if (e.hasAttribute("onclick") || e.hasAttribute("href") || tagName == "button" ||
-		(tagName == "input" &&
-		 (type == "submit" || type == "button" || type == "image" || type == "radio" || type == "checkbox" || type == "reset"))) {
-		return e;
-	} else {
-		if (e.parentNode != null) {
-			return this.findClickableElement(e.parentNode);
-		} else {
-			return null;
-		}
-	}
-};
+Recorder.prototype.RecordDomNode = function (element){
+    //check if the element is already selected
+    var index = this.selectedElements.indexOf(element);
+    if (index == -1) {
+        this.decorator.addBackground(element);
+        this.selectedElements.push(element);
 
-Recorder.prototype.findAllWindows = function() {
-	var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
-	var e = wm.getEnumerator("navigator:browser");
-    var out = [];
-	while (e.hasMoreElements()) {
-        out.push(e.getNext());
-	}
+        var uid = "trumpSelected" + this.sequence.next();
+        var tagObject = this.builder.createTagObject(element, uid, this.frameName);
+        teJQuery(element).data("sid", uid);
+        this.tagObjectArray.push(tagObject);
 
-    return out;
-};
-
-Recorder.prototype.findAllWindowUrls = function(){
-    var contentWindows = [];
-    var wins = this.findAllWindows();
-    for(var i=0; i<wins.length; i++){
-        var cwins = this.findAllTabs(wins[i]);
-        contentWindows.concat(cwins);
+        this.treeView.setTagObjects(this.tagObjectArray);
+        this.treeView.rowInserted();
+        this.workspace.addNode(element, this.frameName, uid);
+    } else {
+        //we are assuming to remove the element
+        this.decorator.removeBackground(element);
+        this.selectedElements.splice(index, 1);
+        this.tagObjectArray.splice(index, 1);
+        this.treeView.deleteRow(index);
+        teJQuery(element).removeData("sid");
     }
-    var urls = [];
-    for(var i=0; i<contentWindows.length; i++){
-        urls.push(contentWindows[i].location.href);
-    }
-
-    return urls;
 };
 
-Recorder.prototype.findAllTabs = function(window) {
-	var browsers = window.getBrowser().browsers;
-    var out = [];
-	for (var i = 0; i < browsers.length; i++) {
-		out.push(browsers[i].contentWindow);
-	}
-
-    return out;
-};
+Recorder.eventHandlers = {};

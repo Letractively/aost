@@ -148,7 +148,9 @@ Editor.prototype.updateUiType = function(value){
 
 Editor.prototype.registerRecorder = function(){
     this.recorder = new Recorder(this.window);
-    this.recorder.registerListener();
+    this.recorder.registerListeners();
+    this.recorder.workspace = this.workspace;
+    this.recorder.observers.push(this);
     this.populateWindowUrl();
 };
 
@@ -159,7 +161,7 @@ Editor.prototype.populateWindowUrl = function(){
 };
 
 Editor.prototype.unload = function(){
-    this.recorder.unregisterListener();
+    this.recorder.unregisterListeners();
     this.decorator.cleanShowNode();
 };
 
@@ -177,7 +179,7 @@ Editor.prototype.toggleRecordButton = function(){
         var stopToolbarButton = document.getElementById("stop-button");
         stopToolbarButton.removeAttribute("checked");
 
-        this.recorder.registerListener();
+        this.recorder.registerListeners();
         this.populateWindowUrl();
     }else{
         var state = recordToolbarButton.getAttribute("class");
@@ -198,7 +200,7 @@ Editor.prototype.toggleStopButton = function(){
         var recordToolbarButton = document.getElementById("record-button");
         recordToolbarButton.removeAttribute("checked");
         recordToolbarButton.setAttribute("class", RecordState.STOP);
-        this.recorder.unregisterListener();
+        this.recorder.unregisterListeners();
     }
 };
 
