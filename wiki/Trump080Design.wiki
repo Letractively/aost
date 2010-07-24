@@ -21,3 +21,54 @@ The workflow is shown as above:
   # The UI modules are put into the top of output script file
   # The reference ids in the command list are replaced with their UIDs
   # The updated command list is turned into Tellurium DSL script 
+
+== UI Design ==
+
+The UI should be able to achieve following goals.
+
+=== Record ===
+  # User works on the web and Trump records both the actions and the dom nodes
+  # User is able to stop recording actions and click on UI elements so that they are included in the UI module
+  # User can de-select UI elements
+  # UI shows the array of selected UI elements
+  # UI shows the recorded command history
+  # UI should provide user a mechanism to switch between action recording and UI selection modes
+
+=== Generate ===
+  # Based on the UI elements recorded with the actions or selected by users, generate the UI module
+  # Generate the test script
+  # UI shows the generated UI Module
+  # UI shows the recorded DSL script
+  # Show UI module validation result
+
+=== Customize ===
+  # Since one record may include multiple UI modules, user should be able to select which UI module to customize
+  # User select on the UI module, UI show all details
+  # User changes UI object variables
+  # User saves the UI object
+  # UI shows the customized UI module
+  # User is able to select one UI object and shows it on the web page
+  # User may be able to customize the DSL script, for example, change the command name or insert additional commands
+  # User saves the DSL script
+  # UI shows the customized DSL script
+
+=== Replay ===
+  # User should be able to re-run the record DSL script
+  # Show the results
+  # Indicate the failed commands
+
+=== Export ===
+  # User should be able to view the generate Test script (include the UI modules at the top of the file) on window to cut and paste
+  # User can export the test script to file system
+  # User may be able to export to different formats (for future)
+  # UI should be able to provide user the option of different formats.
+
+=== Log ===
+  # Trump should be able to log message in different levels
+  # User should be able to select different log levels
+  # User may like to hide log window
+
+=== Others ===
+  # Trump should include option settings
+  # Trump should provide Help menus
+  # Trump should provide close button
