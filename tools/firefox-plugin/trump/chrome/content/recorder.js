@@ -21,14 +21,45 @@ function Recorder(window) {
     this.workspace = null;
 
     this.sequence = new Identifier();
-
-    this.self = this;
+    
 //    this.observers = [];
 //	this.attach();
 //    this.registerUnloadListener();
 }
 
 Recorder.WINDOW_RECORDER_PROPERTY = "_Trump_IDE_Recorder";
+
+Recorder.prototype.attachActionListeners = function(window){
+    logger.debug("Attaching listeners for action...");
+//    teJQuery(window.document.body).bind("click", {recorder: this}, this.uiSelectListener);
+    teJQuery(window).bind("beforeunload", {recorder: this}, this.onUnloadDocumentListener);
+    teJQuery(window.document, ":input, a, select, button").live("change", {recorder: this}, this.typeListener);
+    teJQuery(window.document, ":input, a, select, button").live("click", {recorder: this}, this.clickListener);
+    teJQuery(window.document, "select").live("focus", {recorder: this}, this.selectFocusListener);
+    teJQuery(window.document, "select").live("mousedown", {recorder: this}, this.selectMousedownListener);
+    teJQuery(window.document, "select").live("change", {recorder: this}, this.selectListener);
+};
+
+Recorder.prototype.detachActionListeners = function(window){
+    logger.debug("Detaching listeners for action...");
+//    teJQuery(window.document.body).unbind("click", this.uiSelectListener);
+    teJQuery(window).unbind("beforeunload", this.onUnloadDocumentListener);
+    teJQuery(window.document, ":input, a, select, button").die("change", this.typeListener);
+    teJQuery(window.document, ":input, a, select, button").die("click", this.clickListener);
+    teJQuery(window.document, "select").die("focus", this.selectFocusListener);
+    teJQuery(window.document, "select").die("mousedown", this.selectMousedownListener);
+    teJQuery(window.document, "select").die("change", this.selectListener);
+};
+
+Recorder.prototype.attachSelectListeners = function(window){
+    logger.debug("Attaching listeners for selection");
+    teJQuery(window.document.body).bind("click", {recorder: this}, this.uiSelectListener);
+};
+
+Recorder.prototype.detachSelectListeners = function(window){
+    logger.debug("Detaching listeners for selection");
+    teJQuery(window.document.body).unbind("click", this.uiSelectListener);
+};
 
 Recorder.prototype.registerListeners = function(){
     var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
@@ -39,8 +70,10 @@ Recorder.prototype.registerListeners = function(){
 
     if(browser && browser.contentWindow && browser.contentWindow.document){
         this.contentWindow = browser.contentWindow;
-        teJQuery(this.contentWindow.document.body).bind("click", {recorder: this}, this.UiSelectListener);
-        teJQuery(this.contentWindow).bind("beforeunload", {recorder: this}, this.onUnloadDocumentListener);
+        if(this.isAction())
+            this.attachActionListeners(this.contentWindow);
+        else
+            this.attachSelectListeners(this.contentWindow);
     }
 
     if(browser && browser.contentWindow && browser.contentWindow.frames){
@@ -48,153 +81,38 @@ Recorder.prototype.registerListeners = function(){
         if (this.frames && this.frames.length) {
             for (var j = 0; j < this.frames.length; j++) {
                 var frame = this.frames[j] ;
-                teJQuery(frame.document.body).bind("click", {recorder: this}, this.UiSelectListener);
-                teJQuery(frame.document).bind("beforeunload", {recorder: this}, this.onUnloadDocumentListener);
-                teJQuery(frame.document).bind("focus", {recorder: this}, this.frameFocusListener);
-                teJQuery(frame.document).bind("blur", {recorder: this}, this.frameBlurListener);
+                if(this.isAction())
+                    this.attachActionListeners(frame);
+                else
+                    this.attachSelectListeners(frame);
             }
         }
     }
 };
 
-Recorder.prototype.unregisterListeners = function(){
+Recorder.prototype.isAction = function(){
+    var recordToolbarButton = document.getElementById("record-button");
+    var state = recordToolbarButton.getAttribute("class");
+
+    return state == RecordState.RECORD;
+};
+
+Recorder.prototype.unregisterListeners = function() {
     this.removeBackgroundForSelectedNodes();
 
     this.removeOutlineForSelectedNodes();
 
-    if(this.contentWindow){
-        teJQuery(this.contentWindow.document.body).unbind("click", this.UiSelectListener);
+    if (this.contentWindow) {
+        this.detachActionListeners(this.contentWindow);
+        this.detachSelectListeners(this.contentWindow);
     }
 
     if (this.frames && this.frames.length) {
         for (var j = 0; j < this.frames.length; j++) {
-            teJQuery(his.frames[j].document.body).unbind("click", this.UiSelectListener);
+            this.detachActionListeners(this.frames[j]);
+            this.detachSelectListeners(this.frames[j]);
         }
     }
-};
-
-Recorder.prototype.registerListener = function(){
-    this.registerClickListener();
-};
-
-Recorder.prototype.unregisterListener = function(){
-    this.unregisterClickListener();
-};
-
-Recorder.prototype.updateListenerForWindow = function(url){
-    this.unregisterListener();
-//    this.reRegisterClickListener(url);
-};
-
-Recorder.prototype.registerClickListener = function() {
-    var self = this;
-    this.listener =
-            function(event) {
-                logger.debug('listener: event.type=' + event.type + ', target=' + event.target);
-                var state = document.getElementById("record-button").getAttribute("class");
-                if(state == RecordState.PAUSE)
-                    event.preventDefault();
-                var element = event.target;
-                //check if the element is already selected
-                var index = self.selectedElements.indexOf(element);
-                if (index == -1) {
-                    self.decorator.addBackground(element);
-                    self.selectedElements.push(element);
-
-                    var uid = "trumpSelected" + self.sequence.next();
-                    var tagObject = self.builder.createTagObject(element, uid, self.frameName);
-                    teJQuery(element).data("sid", uid);
-                    self.tagObjectArray.push(tagObject);
-
-                    self.treeView.setTagObjects(self.tagObjectArray);
-                    self.treeView.rowInserted();
-                    this.workspace.addNode(element, self.frameName, uid);
-                } else {
-                    //we are assuming to remove the element
-                    self.decorator.removeBackground(element);
-                    self.selectedElements.splice(index, 1);
-                    self.tagObjectArray.splice(index, 1);
-                    self.treeView.deleteRow(index);
-                    teJQuery(element).removeData("sid");
-                }
-
-                var baseUrl = document.getElementById("windowURL").value;
-                var actualUrl = element.ownerDocument.location.href;
-                if (baseUrl.trim().length == 0 || baseUrl != actualUrl) {
-                    document.getElementById("windowURL").value = actualUrl;
-                }
-            };
-
-
-    this.frameFocusListener =
-            function(event) {
-                event.preventDefault();
-                //            logger.debug("Inside frameFocusListener() ..");
-                if (self.frameName == null) {
-                    //                logger.debug("frameName : " + event.target.name);
-                    self.frameName = event.target.name;
-                }
-            };
-
-    this.frameBlurListener = function(event) {
-        event.preventDefault();
-        self.frameName = null;
-    };
-
-    this.getWindowAndRegisterClickListener();
-
-};
-
-Recorder.prototype.getWindowAndRegisterClickListener = function(){
-    var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-        .getService(Components.interfaces.nsIWindowMediator)
-          .getMostRecentWindow("navigator:browser");
-
-    var browser = win.getBrowser();
-
-    if(browser && browser.contentWindow && browser.contentWindow.document){
-        this.contentWindow = browser.contentWindow;
-        this.contentWindow.document.body.addEventListener("click", this.listener, false);
-        this.contentWindow.addEventListener("beforeunload", function(event) {
-            var url = event.target.URL || event.target.baseURI;
-            logger.debug("Unloading Window " + url);
-        }, false);
-//        this.contentWindow.document.body.addEventListener("click", this.clickListener, false);
-//        this.contentWindow.document.body.addEventListener("change", this.typeListener, false);
-    }
-
-    if(browser && browser.contentWindow && browser.contentWindow.frames){
-        this.frames = browser.contentWindow.frames;
-        if (this.frames && this.frames.length) {
-            for (var j = 0; j < this.frames.length; j++) {
-                var frame = this.frames[j] ;
-                frame.document.body.addEventListener("click", this.listener, false);
-//                frame.document.body.addEventListener("click", this.clickListener, false);
-//                frame.document.body.addEventListener("change", this.typeListener, false);
-                frame.addEventListener("focus", this.frameFocusListener, false);
-                frame.addEventListener("blur", this.frameBlurListener, false);
-            }
-        }
-    }
-
-};
-
-Recorder.prototype.unregisterClickListener = function(){
-    this.removeBackgroundForSelectedNodes();
-
-    this.removeOutlineForSelectedNodes();
-
-    if(this.contentWindow){
-        this.contentWindow.document.body.removeEventListener("click", this.listener, false);
-    }
-
-    if (this.frames && this.frames.length) {
-        for (var j = 0; j < this.frames.length; j++) {
-            this.frames[j].document.body.removeEventListener("click", this.listener, false);
-        }
-    } 
-    
-    this.listener = null;
 };
 
 Recorder.prototype.stopRecording = function(){
@@ -231,7 +149,7 @@ Recorder.prototype.clearAll = function(){
     this.treeView.clearAll();    
 };
 
-Recorder.prototype.RecordDomNode = function (element){
+Recorder.prototype.recordDomNode = function (element){
     //check if the element is already selected
     var index = this.selectedElements.indexOf(element);
     if (index == -1) {
@@ -254,6 +172,44 @@ Recorder.prototype.RecordDomNode = function (element){
         this.treeView.deleteRow(index);
         teJQuery(element).removeData("sid");
     }
+    var baseUrl = document.getElementById("windowURL").value;
+    var actualUrl = element.ownerDocument.location.href;
+    if (baseUrl.trim().length == 0 || baseUrl != actualUrl) {
+        document.getElementById("windowURL").value = actualUrl;
+    }        
+};
+
+Recorder.prototype.recordCommand = function(name, element, value){
+    this.recordDomNode(element);
+    logger.debug("Recording command (name: " + name + ", element: " + element.tagName + ", value: " + value);
+};
+
+Recorder.prototype.findClickableElement = function(e) {
+	if (!e.tagName) return null;
+	var tagName = e.tagName.toLowerCase();
+	var type = e.type;
+	if (e.hasAttribute("onclick") || e.hasAttribute("href") || tagName == "button" ||
+		(tagName == "input" &&
+		 (type == "submit" || type == "button" || type == "image" || type == "radio" || type == "checkbox" || type == "reset"))) {
+		return e;
+	} else {
+		if (e.parentNode != null) {
+			return this.findClickableElement(e.parentNode);
+		} else {
+			return null;
+		}
+	}
+};
+
+Recorder.prototype.callIfMeaningfulEvent = function(handler) {
+    logger.debug("callIfMeaningfulEvent");
+    this.delayedRecorder = handler;
+    var self = this;
+    this.domModifiedTimeout = setTimeout(function() {
+        logger.debug("clear event");
+        self.delayedRecorder = null;
+        self.domModifiedTimeout = null;
+    }, 50);
 };
 
 Recorder.eventHandlers = {};
