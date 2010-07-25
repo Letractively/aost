@@ -35,6 +35,12 @@ Recorder.prototype.selectMousedownListener = function(event) {
     }
 };
 
+Recorder.prototype.rememberClickedListener = function(event) {
+    var recorder = event.data.recorder;
+    recorder.clickedElement = event.target;
+//    recorder.clickedElementLocators = this.findLocators(event.target);
+};
+
 Recorder.prototype.clickListener = function(event){
     var recorder = event.data.recorder;
 
