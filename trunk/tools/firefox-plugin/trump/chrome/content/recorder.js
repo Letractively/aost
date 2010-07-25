@@ -38,6 +38,7 @@ Recorder.prototype.attachActionListeners = function(window){
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("DOMAttrModified", {recorder: this}, this.attrModifiedListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("DOMNodeInserted", {recorder: this}, this.nodeInsertedListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("DOMNodeRemoved", {recorder: this}, this.nodeRemovedListener);
+    teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("mousedown", {recorder: this}, this.rememberClickedListener);
     teJQuery(window.document).find("select").live("focus", {recorder: this}, this.selectFocusListener);
     teJQuery(window.document).find("select").live("mousedown", {recorder: this}, this.selectMousedownListener);
     teJQuery(window.document).find("select").live("change", {recorder: this}, this.selectListener);
@@ -52,6 +53,7 @@ Recorder.prototype.detachActionListeners = function(window){
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("DOMAttrModified", this.attrModifiedListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("DOMNodeInserted", this.nodeInsertedListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("DOMNodeRemoved", this.nodeRemovedListener);
+    teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("mousedown", this.rememberClickedListener);    
     teJQuery(window.document).find("select").die("focus", this.selectFocusListener);
     teJQuery(window.document).find("select").die("mousedown", this.selectMousedownListener);
     teJQuery(window.document).find("select").die("change", this.selectListener);
