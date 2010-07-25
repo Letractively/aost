@@ -33,22 +33,28 @@ Recorder.prototype.attachActionListeners = function(window){
     logger.debug("Attaching listeners for action...");
 //    teJQuery(window.document.body).bind("click", {recorder: this}, this.uiSelectListener);
     teJQuery(window).bind("beforeunload", {recorder: this}, this.onUnloadDocumentListener);
-    teJQuery(window.document, ":input, a, select, button").live("change", {recorder: this}, this.typeListener);
-    teJQuery(window.document, ":input, a, select, button").live("click", {recorder: this}, this.clickListener);
-    teJQuery(window.document, "select").live("focus", {recorder: this}, this.selectFocusListener);
-    teJQuery(window.document, "select").live("mousedown", {recorder: this}, this.selectMousedownListener);
-    teJQuery(window.document, "select").live("change", {recorder: this}, this.selectListener);
+    teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("change", {recorder: this}, this.typeListener);
+    teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("click", {recorder: this}, this.clickListener);
+    teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("DOMAttrModified", {recorder: this}, this.attrModifiedListener);
+    teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("DOMNodeInserted", {recorder: this}, this.nodeInsertedListener);
+    teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("DOMNodeRemoved", {recorder: this}, this.nodeRemovedListener);
+    teJQuery(window.document).find("select").live("focus", {recorder: this}, this.selectFocusListener);
+    teJQuery(window.document).find("select").live("mousedown", {recorder: this}, this.selectMousedownListener);
+    teJQuery(window.document).find("select").live("change", {recorder: this}, this.selectListener);
 };
 
 Recorder.prototype.detachActionListeners = function(window){
     logger.debug("Detaching listeners for action...");
 //    teJQuery(window.document.body).unbind("click", this.uiSelectListener);
     teJQuery(window).unbind("beforeunload", this.onUnloadDocumentListener);
-    teJQuery(window.document, ":input, a, select, button").die("change", this.typeListener);
-    teJQuery(window.document, ":input, a, select, button").die("click", this.clickListener);
-    teJQuery(window.document, "select").die("focus", this.selectFocusListener);
-    teJQuery(window.document, "select").die("mousedown", this.selectMousedownListener);
-    teJQuery(window.document, "select").die("change", this.selectListener);
+    teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("change", this.typeListener);
+    teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("click", this.clickListener);
+    teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("DOMAttrModified", this.attrModifiedListener);
+    teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("DOMNodeInserted", this.nodeInsertedListener);
+    teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("DOMNodeRemoved", this.nodeRemovedListener);
+    teJQuery(window.document).find("select").die("focus", this.selectFocusListener);
+    teJQuery(window.document).find("select").die("mousedown", this.selectMousedownListener);
+    teJQuery(window.document).find("select").die("change", this.selectListener);
 };
 
 Recorder.prototype.attachSelectListeners = function(window){
@@ -180,8 +186,8 @@ Recorder.prototype.recordDomNode = function (element){
 };
 
 Recorder.prototype.recordCommand = function(name, element, value){
+    logger.debug("Recording command (name: " + name + ", element: " + element.tagName + ", value: " + value + ")");
     this.recordDomNode(element);
-    logger.debug("Recording command (name: " + name + ", element: " + element.tagName + ", value: " + value);
 };
 
 Recorder.prototype.findClickableElement = function(e) {
@@ -201,6 +207,16 @@ Recorder.prototype.findClickableElement = function(e) {
 	}
 };
 
+Recorder.prototype.domModified = function() {
+    if (this.delayedRecorder) {
+        this.delayedRecorder.apply(this);
+        this.delayedRecorder = null;
+        if (this.domModifiedTimeout) {
+            clearTimeout(this.domModifiedTimeout);
+        }
+    }
+};
+
 Recorder.prototype.callIfMeaningfulEvent = function(handler) {
     logger.debug("callIfMeaningfulEvent");
     this.delayedRecorder = handler;
@@ -210,6 +226,26 @@ Recorder.prototype.callIfMeaningfulEvent = function(handler) {
         self.delayedRecorder = null;
         self.domModifiedTimeout = null;
     }, 50);
+};
+
+Recorder.prototype.getOption = function(option) {
+    var label = option.text.replace(/^ *(.*?) *$/, "$1");
+    if (label.match(/\xA0/)) { // if the text contains &nbsp;
+        return "regexp:" + label.replace(/[\(\)\[\]\\\^\$\*\+\?\.\|\{\}]/g, function(str) {return '\\' + str})
+                                      .replace(/\s+/g, function(str) {
+                if (str.match(/\xA0/)) {
+                    if (str.length > 1) {
+                        return "\\s+";
+                    } else {
+                        return "\\s";
+                    }
+                } else {
+                    return str;
+                }
+            });
+    } else {
+        return "" + label;
+    }
 };
 
 Recorder.eventHandlers = {};
