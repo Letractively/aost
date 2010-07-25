@@ -2,8 +2,7 @@ Recorder.prototype.typeListener = function(event) {
     var recorder = event.data.recorder;
     var tagName = event.target.tagName.toLowerCase();
     var type = event.target.type;
-    if (('input' == tagName && ('text' == type || 'password' == type || 'file' == type)) ||
-            'textarea' == tagName) {
+    if (('input' == tagName && ('text' == type || 'password' == type || 'file' == type)) || 'textarea' == tagName) {
         recorder.recordCommand("type", event.target, event.target.value);
     }
 };
@@ -62,8 +61,8 @@ Recorder.prototype.selectListener = function(event) {
     if ('select' == tagName) {
         if (!event.target.multiple) {
             var option = event.target.options[event.target.selectedIndex];
-            logger.debug('selectedIndex=' + event.target.selectedIndex);
-            recorder.recordCommand("select", event.target, option);
+            logger.debug('selected Index=' + event.target.selectedIndex);
+            recorder.recordCommand("select", event.target, this.getOption(option));
         } else {
             logger.debug('change selection on select-multiple');
             var options = event.target.options;
@@ -73,7 +72,7 @@ Recorder.prototype.selectListener = function(event) {
                     logger.warn('_wasSelected was not recorded');
                 }
                 if (options[i]._wasSelected != options[i].selected) {
-                    var value = options[i];
+                    var value = this.getOption(options[i]);
                     if (options[i].selected) {
                         recorder.recordCommand("addSelection", event.target, value);
                     } else {
@@ -84,6 +83,24 @@ Recorder.prototype.selectListener = function(event) {
             }
         }
     }
+};
+
+Recorder.prototype.attrModifiedListener = function(event){
+    var recorder = event.data.recorder;
+    logger.debug('attrModified');
+    recorder.domModified();
+};
+
+Recorder.prototype.nodeInsertedListener = function(event){
+    var recorder = event.data.recorder;
+    logger.debug('nodeInserted');
+    recorder.domModified();
+};
+
+Recorder.prototype.nodeRemovedListener = function(event) {
+    var recorder = event.data.recorder;
+    logger.debug('nodeRemoved');
+    recorder.domModified();
 };
 
 Recorder.prototype.uiSelectListener = function(event){
