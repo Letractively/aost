@@ -150,7 +150,7 @@ Editor.prototype.registerRecorder = function(){
     this.recorder = new Recorder(this.window);
     this.recorder.registerListeners();
     this.recorder.workspace = this.workspace;
-    this.recorder.observers.push(this);
+//    this.recorder.observers.push(this);
     this.populateWindowUrl();
 };
 
@@ -183,11 +183,15 @@ Editor.prototype.toggleRecordButton = function(){
         this.populateWindowUrl();
     }else{
         var state = recordToolbarButton.getAttribute("class");
+
         if(state == RecordState.RECORD){
             recordToolbarButton.setAttribute("class", RecordState.PAUSE);
         }else{
             recordToolbarButton.setAttribute("class", RecordState.RECORD);
         }
+
+        this.recorder.unregisterListeners();
+        this.recorder.registerListeners();
     }
 };
 
@@ -761,6 +765,7 @@ Editor.prototype.updateOptions = function(){
     }
 };
 
+/*
 Editor.prototype.onUnloadDocument = function(doc) {
     logger.debug("onUnloadDocument");
     var window = doc.defaultView;
@@ -773,6 +778,7 @@ Editor.prototype.onUnloadDocument = function(doc) {
 Editor.prototype.appendWaitForPageToLoad = function(window) {
     this.log.debug("appendWaitForPageToLoad");
 };
+*/
 
 function TestCmd(name, uid, param){
     this.name = name;
