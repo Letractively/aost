@@ -63,6 +63,15 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     }
 
     @Test
+    public void testExtraMethod(){
+        jlm.focus("Form.Username.Input");
+        jlm.fireEvent("Form.Username.Input", "mouseOver");
+//        jlm.keyPress("Form.Username.Input", "\\13");
+//        jlm.keyDown("Form.Username.Input", "\\13");
+        jlm.keyUp("Form.Username.Input", "\\13");
+    }
+
+    @Test
     public void testValidateUiModule(){
         jlm.validate("Form");
         jlm.validate("ProblematicForm");

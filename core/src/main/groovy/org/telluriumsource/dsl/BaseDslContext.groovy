@@ -217,6 +217,45 @@ abstract class BaseDslContext extends GlobalDslContext {
     }
   }
 
+  def keyPress(String uid, String key) {
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    walkToWithException(context, uid)?.keyPress(key) {loc ->
+      String locator = locatorMapping(context, loc)
+      extension.keyPress(context, locator, key)
+    }
+  }
+
+  def keyDown(String uid, String key) {
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    walkToWithException(context, uid)?.keyDown(key) {loc ->
+      String locator = locatorMapping(context, loc)
+      extension.keyDown(context, locator, key)
+    }
+  }
+
+  def keyUp(String uid, String key) {
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    walkToWithException(context, uid)?.keyUp(key) {loc ->
+      String locator = locatorMapping(context, loc)
+      extension.keyUp(context, locator, key)
+    }
+  }
+
+  def focus(String uid) {
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    walkToWithException(context, uid)?.focus() {loc ->
+      String locator = locatorMapping(context, loc)
+      extension.focus(context, locator)
+    }
+  }
+
+  def fireEvent(String uid, String eventName){
+    WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
+    walkToWithException(context, uid)?.fireEvent(eventName) {loc ->
+      String locator = locatorMapping(context, loc)
+      extension.fireEvent(context, locator, eventName)
+    }    
+  }
 
   def keyType(String uid, def input) {
     String str = (input==null) ? "" : input.toString();
