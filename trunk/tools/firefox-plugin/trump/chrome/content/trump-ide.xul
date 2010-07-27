@@ -99,8 +99,8 @@
                              <tree id="commandListTree" flex="1" rows="10" hidecolumnpicker="true">
                                <treecols>
                                  <treecol id="listCommandName" label="&listCommandName.label;" flex="1" align="center"/>
-                                 <treecol id="listCommandUID" label="&listCommandRef.label;" flex="1" align="center"/>
-                                 <treecol id="listCommandParam" label="&listCommandValue.label;" flex="1" align="center"/>
+                                 <treecol id="listCommandRef" label="&listCommandRef.label;" flex="1" align="center"/>
+                                 <treecol id="listCommandValue" label="&listCommandValue.label;" flex="1" align="center"/>
                                </treecols>
                                <treechildren/>
                              </tree>

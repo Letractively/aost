@@ -41,7 +41,7 @@ var TreeView  = {
         }
 
         if(column == "selecetedElementName"){
-            return tagObject.name;
+            return tagObject.uid;
         }
 
         if(column == "selecetedElementFrameName"){

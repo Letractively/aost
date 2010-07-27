@@ -117,6 +117,7 @@ Recorder.prototype.uiSelectListener = function(event){
         event.preventDefault();
     var element = event.target;
     recorder.recordDomNode(element);
+    recorder.updateWindowUrl(element);
 };
 
 Recorder.prototype.frameFocusListener = function(event) {
