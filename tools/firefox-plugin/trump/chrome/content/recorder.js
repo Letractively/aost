@@ -18,6 +18,11 @@ function Recorder(window) {
     this.tree = document.getElementById('recordTree');
     this.tree.view=this.treeView;
 
+    this.recordCommandList = new Array();
+    this.cmdListView = CommandList;
+    this.cmdList = document.getElementById("commandListTree");
+    this.cmdList.view = this.cmdListView;
+
     this.workspace = null;
 
     this.sequence = new Identifier();
@@ -158,38 +163,56 @@ Recorder.prototype.clearAll = function(){
 };
 
 Recorder.prototype.recordDomNode = function (element){
+    var uid;
     //check if the element is already selected
     var index = this.selectedElements.indexOf(element);
     if (index == -1) {
         this.decorator.addBackground(element);
         this.selectedElements.push(element);
 
-        var uid = "trumpSelected" + this.sequence.next();
+        uid = "TrumpS" + this.sequence.next();
         var tagObject = this.builder.createTagObject(element, uid, this.frameName);
         teJQuery(element).data("sid", uid);
+        teJQuery(element).data("count", 0);
         this.tagObjectArray.push(tagObject);
 
         this.treeView.setTagObjects(this.tagObjectArray);
         this.treeView.rowInserted();
         this.workspace.addNode(element, this.frameName, uid);
     } else {
-        //we are assuming to remove the element
-        this.decorator.removeBackground(element);
-        this.selectedElements.splice(index, 1);
-        this.tagObjectArray.splice(index, 1);
-        this.treeView.deleteRow(index);
-        teJQuery(element).removeData("sid");
+        uid = teJQuery(element).data("sid");
+        var count = teJQuery(element).data("count");
+        if(count == 0){
+            //we are assuming to remove the element
+            this.decorator.removeBackground(element);
+            this.selectedElements.splice(index, 1);
+            this.tagObjectArray.splice(index, 1);
+            this.treeView.deleteRow(index);
+            teJQuery(element).removeData("sid");
+            teJQuery(element).removeData("count");
+        }
     }
+    
+    return uid;
+};
+
+Recorder.prototype.updateWindowUrl = function(element){
     var baseUrl = document.getElementById("windowURL").value;
     var actualUrl = element.ownerDocument.location.href;
     if (baseUrl.trim().length == 0 || baseUrl != actualUrl) {
         document.getElementById("windowURL").value = actualUrl;
-    }        
+    }
 };
 
 Recorder.prototype.recordCommand = function(name, element, value){
     logger.debug("Recording command (name: " + name + ", element: " + element.tagName + ", value: " + value + ")");
-    this.recordDomNode(element);
+    var uid = this.recordDomNode(element);
+    var count = teJQuery(element).data("count");
+    teJQuery(element).data("count", count + 1);
+    var cmd = new TestCmd(name, uid, value);
+    this.recordCommandList.push(cmd);
+    this.cmdListView.setTestCommands(this.recordCommandList);
+    this.cmdListView.rowInserted();
 };
 
 Recorder.prototype.findClickableElement = function(e) {
