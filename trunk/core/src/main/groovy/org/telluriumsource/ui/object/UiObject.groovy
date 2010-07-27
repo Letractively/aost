@@ -110,6 +110,26 @@ abstract class UiObject implements Cloneable{
         c(locator)
     }
 
+    def keyPress(String key, Closure c){
+      c(locator)
+    }
+
+    def keyDown(String key, Closure c){
+      c(locator)
+    }
+
+    def keyUp(String key, Closure c){
+      c(locator)
+    }
+
+    def focus(Closure c){
+      c(locator)
+    }
+
+    def fireEvent(String eventName, Closure c){
+      c(locator)
+    }
+
     def dragAndDrop(String movementsString, Closure c){
         c(locator)
     }
