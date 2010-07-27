@@ -21,8 +21,14 @@
 
 <!ENTITY settingsTab.label "Settings">
 <!ENTITY element.label "DOM Node">
-<!ENTITY element.name.label "DOM Node Name">
+<!ENTITY element.name.label "Reference">
 <!ENTITY element.framename.label "Frame Name">
+
+<!ENTITY commandList.label "Command List">
+<!ENTITY listCommandName.label "Name">
+<!ENTITY listCommandRef.label "Target">
+<!ENTITY listCommandValue.label "Value">
+<!ENTITY domNodeList.label "DOM Nodes">
 
 <!ENTITY uid.label "UID">
 <!ENTITY type.label "Type">

@@ -85,19 +85,49 @@
         </tabs>
         <tabpanels flex="1">
             <tabpanel orient="vertical" flex="1">
-                <stack>
+                <groupbox orient="horizontal" flex="1">
+                    <groupbox flex="1">
+                         <vbox flex="1">
+                             <hbox>
+                                 <spacer/>
+                             </hbox>
+                             <hbox>
+                                 <spacer flex="1"/>
+                                 <label control="commandValue" value="&commandList.label;" align="center"/>
+                                 <spacer flex="1"/>
+                             </hbox>
+                             <tree id="commandListTree" flex="1" rows="10" hidecolumnpicker="true">
+                               <treecols>
+                                 <treecol id="listCommandName" label="&listCommandName.label;" flex="1" align="center"/>
+                                 <treecol id="listCommandUID" label="&listCommandRef.label;" flex="1" align="center"/>
+                                 <treecol id="listCommandParam" label="&listCommandValue.label;" flex="1" align="center"/>
+                               </treecols>
+                               <treechildren/>
+                             </tree>
+                         </vbox>
+                     </groupbox>                    
+                    <splitter collapse="after" ><grippy /></splitter>
+                    <groupbox flex="1">
                     <vbox flex="3">
+                        <hbox>
+                            <spacer/>
+                        </hbox>
+                        <hbox>
+                            <spacer flex="1"/>
+                            <label control="commandValue" value="&domNodeList.label;" align="center"/>
+                            <spacer flex="1"/>
+                        </hbox>                        
                         <tree id="recordTree" flex="1" rows="15" onselect="window.editor.selectedTreeItem()" hidecolumnpicker="true">
                           <treecols>
-                            <treecol id="selectedElement" label="&element.label;" flex="1"/>
-                            <treecol id="selecetedElementName" label="&element.name.label;" flex="1"/>  
-                            <treecol id="selecetedElementFrameName" label="&element.framename.label;" flex="1"/>
+                            <treecol id="selectedElement" label="&element.label;" flex="1" align="center"/>
+                            <treecol id="selecetedElementName" label="&element.name.label;" flex="1" align="center"/>
+                            <treecol id="selecetedElementFrameName" label="&element.framename.label;" flex="1" align="center"/>
                           </treecols>
                           <treechildren/>
                         </tree>
                     </vbox>
-                </stack>
-                <resizer dir="bottomright" height="2" style="cursor: se-resize;"/>
+                </groupbox>
+             </groupbox>
            </tabpanel>
             <tabpanel orient="vertical">
               <textbox id="source" multiline="true" wrap="off" flex="1"/>
