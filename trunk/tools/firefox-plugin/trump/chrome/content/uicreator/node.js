@@ -13,6 +13,7 @@ function NodeObject(){
     //hold the dom Node associated to the current tree node 
     this.domNode = null;
     this.id = null;
+    this.refId = null;
     this.xpath = null;
     this.attributes = new HashMap();
     this.parent = null;

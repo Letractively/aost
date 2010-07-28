@@ -9,6 +9,7 @@ function TagObject(){
     this.xpath = null;
     this.uid = null;
     this.frameName = null;
+    this.refId = null;
 }
 
 TagObject.prototype.getAttribute = function(attr){

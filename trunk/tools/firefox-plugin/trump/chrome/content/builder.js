@@ -20,7 +20,7 @@ Builder.getFormattedString = function(key){
 
 };
 
-Builder.prototype.createTagObject = function(node, uid, frameName){
+Builder.prototype.createTagObject = function(node, refId, frameName){
     var lowerCaseNodeName ;
     var attributes;
     var parent;
@@ -41,7 +41,7 @@ Builder.prototype.createTagObject = function(node, uid, frameName){
         name = getAttributeNameOrId(node);
         //TODO xpath creation
         xpath = createXPath(node);
-        return this.buildTagObject(node, lowerCaseNodeName, name, attributes, parent, xpath, uid, frameName);
+        return this.buildTagObject(node, lowerCaseNodeName, name, attributes, parent, xpath, refId, frameName);
     }
 
     return null;
@@ -73,7 +73,7 @@ Builder.prototype.getText = function(node) {
     return txt;
 };
 
-Builder.prototype.buildTagObject = function(node, tag, name, attributes, parent, xpath, uid, frameName){
+Builder.prototype.buildTagObject = function(node, tag, name, attributes, parent, xpath, refId, frameName){
     var tagObject = new TagObject();
     tagObject.name = name;
     tagObject.node = node;
@@ -81,7 +81,7 @@ Builder.prototype.buildTagObject = function(node, tag, name, attributes, parent,
     tagObject.attributes = attributes;
     tagObject.parent = parent;
     tagObject.xpath = xpath;
-    tagObject.uid = uid;
+    tagObject.refId = refId;
     tagObject.frameName = frameName;
 
     return tagObject;

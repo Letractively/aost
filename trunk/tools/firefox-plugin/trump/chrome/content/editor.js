@@ -19,10 +19,6 @@ function Editor(window) {
     
     this.logView = new LogView(this);
     this.logView.setLog(logger);
-
-    this.recorder = null;
-
-    this.registerRecorder();
 //    this.innerTree = null;
 
     this.buildCustomizeTree(DEFAULT_XML);
@@ -34,6 +30,10 @@ function Editor(window) {
     this.builder = new UiBuilder();
 
     this.workspace = new Workspace(this.builder, new UiChecker());
+
+    this.recorder = null;
+
+    this.registerRecorder();
 
     this.cmdHistory = new Array();
 
@@ -148,8 +148,8 @@ Editor.prototype.updateUiType = function(value){
 
 Editor.prototype.registerRecorder = function(){
     this.recorder = new Recorder(this.window);
-    this.recorder.registerListeners();
     this.recorder.workspace = this.workspace;
+    this.recorder.registerListeners();
 //    this.recorder.observers.push(this);
     this.populateWindowUrl();
 };

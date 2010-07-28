@@ -163,37 +163,41 @@ Recorder.prototype.clearAll = function(){
 };
 
 Recorder.prototype.recordDomNode = function (element){
-    var uid;
-    //check if the element is already selected
-    var index = this.selectedElements.indexOf(element);
-    if (index == -1) {
-        this.decorator.addBackground(element);
-        this.selectedElements.push(element);
+    var refId;
+    try {
+        //check if the element is already selected
+        var index = this.selectedElements.indexOf(element);
+        if (index == -1) {
+            this.decorator.addBackground(element);
+            this.selectedElements.push(element);
 
-        uid = "TrumpS" + this.sequence.next();
-        var tagObject = this.builder.createTagObject(element, uid, this.frameName);
-        teJQuery(element).data("sid", uid);
-        teJQuery(element).data("count", 0);
-        this.tagObjectArray.push(tagObject);
+            refId = "TrumpS" + this.sequence.next();
+            var tagObject = this.builder.createTagObject(element, refId, this.frameName);
+            teJQuery(element).data("sid", refId);
+            teJQuery(element).data("count", 0);
+            this.tagObjectArray.push(tagObject);
 
-        this.treeView.setTagObjects(this.tagObjectArray);
-        this.treeView.rowInserted();
-        this.workspace.addNode(element, this.frameName, uid);
-    } else {
-        uid = teJQuery(element).data("sid");
-        var count = teJQuery(element).data("count");
-        if(count == 0){
-            //we are assuming to remove the element
-            this.decorator.removeBackground(element);
-            this.selectedElements.splice(index, 1);
-            this.tagObjectArray.splice(index, 1);
-            this.treeView.deleteRow(index);
-            teJQuery(element).removeData("sid");
-            teJQuery(element).removeData("count");
+            this.treeView.setTagObjects(this.tagObjectArray);
+            this.treeView.rowInserted();
+            this.workspace.addNode(element, this.frameName, refId);
+        } else {
+            refId = teJQuery(element).data("sid");
+            var count = teJQuery(element).data("count");
+            if (count == 0) {
+                //we are assuming to remove the element
+                this.decorator.removeBackground(element);
+                this.selectedElements.splice(index, 1);
+                this.tagObjectArray.splice(index, 1);
+                this.treeView.deleteRow(index);
+                teJQuery(element).removeData("sid");
+                teJQuery(element).removeData("count");
+            }
         }
+    } catch(error) {
+        logger.info("Record node " + element.tagName + " failed:\n" + describeErrorStack(error));
     }
-    
-    return uid;
+
+    return refId;
 };
 
 Recorder.prototype.updateWindowUrl = function(element){
@@ -209,10 +213,12 @@ Recorder.prototype.recordCommand = function(name, element, value){
     var uid = this.recordDomNode(element);
     var count = teJQuery(element).data("count");
     teJQuery(element).data("count", count + 1);
+    this.workspace.addCommand(name, uid, value);
     var cmd = new TestCmd(name, uid, value);
     this.recordCommandList.push(cmd);
     this.cmdListView.setTestCommands(this.recordCommandList);
     this.cmdListView.rowInserted();
+    this.updateWindowUrl(element);
 };
 
 Recorder.prototype.findClickableElement = function(e) {
@@ -271,6 +277,11 @@ Recorder.prototype.getOption = function(option) {
     } else {
         return "" + label;
     }
+};
+
+Recorder.prototype.generate = function(){
+    logger.debug("Generating UI module before page load...");    
+    this.workspace.generate();
 };
 
 Recorder.eventHandlers = {};

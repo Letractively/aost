@@ -26,6 +26,8 @@ function Workspace(uiBuilder, uiChecker){
     //JSON Presentation
     this.json = null;
 
+    this.builder = new Builder();
+    
     this.uimBuilder = new UiModuleBuilder();
 
     this.uiBuilder = uiBuilder;
@@ -39,6 +41,8 @@ function Workspace(uiBuilder, uiChecker){
 
     this.nodeList = new Array();
 
+    this.tagObjectArray = new Array();
+
     this.commandList = new Array();
 
     this.refUidMap = new Hashtable();
@@ -47,6 +51,8 @@ function Workspace(uiBuilder, uiChecker){
 Workspace.prototype.addNode = function(dom, frameName, ref){
     var node = new NodeRef(dom, frameName, ref);
     this.nodeList.push(node);
+    var tagObject = this.builder.createTagObject(dom, ref, frameName);
+    this.tagObjectArray.push(tagObject);
 };
 
 Workspace.prototype.addCommand = function(name, ref, value){
@@ -62,6 +68,11 @@ Workspace.prototype.clear = function(){
     this.nodeList = new Array();
     this.comandList = new Array();
     this.refUidMap = new Hashtable();
+};
+
+Workspace.prototype.generate = function(){
+    this.generateUiModule(this.tagObjectArray);
+    
 };
 
 Workspace.prototype.generateUiModule = function(tagArrays){

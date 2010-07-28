@@ -92,12 +92,13 @@ Tree.prototype.clearValidFlag = function() {
 
 Tree.prototype.addElement = function(element){
 
-    logger.debug("Building Inner Tree -> add Element UID: "+element.uid + " XPATH: " + element.xpath + " DomNode: " + element.domNode.tagName);
+    logger.debug("Building Inner Tree -> add Element RefId: "+element.refId + " XPATH: " + element.xpath + " DomNode: " + element.domNode.tagName);
 
     //case I: root is null, insert the first node
     if (this.root == null) {
         this.root = new NodeObject();
         this.root.id = element.uid;
+        this.root.refId = element.refId;
         this.root.parent = null;
         this.root.domNode = element.domNode;
         this.root.xpath = element.xpath;
@@ -120,6 +121,7 @@ Tree.prototype.addElement = function(element){
                     //only create the child if there are extra xpath
                     var son = new NodeObject();
                     son.id = element.uid;
+                    son.refId = element.refId;
                     son.xpath = this.xpathMatcher.remainingXPath(element.xpath, common);
                     son.attributes = element.attributes;
                     son.domNode = element.domNode;
@@ -129,7 +131,7 @@ Tree.prototype.addElement = function(element){
                 }
             } else {
                 //there are children
-                this.walk(this.root, element.uid, leftover, element.attributes, element.domNode);
+                this.walk(this.root, element.uid, element.refId, leftover, element.attributes, element.domNode);
             }
 
         } else {
@@ -153,6 +155,7 @@ Tree.prototype.addElement = function(element){
                 //only create the child if there are extra xpath
                 var child = new NodeObject();
                 child.id = element.uid;
+                child.refId = element.refId;
                 child.xpath = this.xpathMatcher.remainingXPath(element.xpath, common);
                 child.attributes = element.attributes;
                 child.domNode = element.domNode;
@@ -163,7 +166,7 @@ Tree.prototype.addElement = function(element){
     }
 };
 
-Tree.prototype.walk = function(current, uid, xpath, attributes, domnode) {
+Tree.prototype.walk = function(current, uid, refId, xpath, attributes, domnode) {
 
     if (current.children.length == 0) {
         //there is no children
@@ -171,6 +174,7 @@ Tree.prototype.walk = function(current, uid, xpath, attributes, domnode) {
             //only create the child if there are extra xpath
             var child = new NodeObject();
             child.id = uid;
+            child.refId = refId;
             child.xpath = xpath;
             child.attributes = attributes;
             child.domNode = domnode;
@@ -197,7 +201,8 @@ Tree.prototype.walk = function(current, uid, xpath, attributes, domnode) {
 
             //there is no shared common xpath, add the node directly
             var child = new NodeObject();
-            child.id = uid;
+            child.id = uid,
+            child.refId = refId;
             child.xpath = xpath;
             child.attributes = attributes;
             child.domNode = domnode;
@@ -241,7 +246,7 @@ Tree.prototype.walk = function(current, uid, xpath, attributes, domnode) {
                         }
                     }
                 }
-                this.walk(mx.node, uid, this.xpathMatcher.remainingXPath(xpath, common), attributes, domnode);
+                this.walk(mx.node, uid, refId, this.xpathMatcher.remainingXPath(xpath, common), attributes, domnode);
             } else {
                 //need to create extra node
                 var extra = new NodeObject();
@@ -261,6 +266,7 @@ Tree.prototype.walk = function(current, uid, xpath, attributes, domnode) {
 
                 var ch = new NodeObject();
                 ch.id = uid;
+                ch.refId = refId;
                 ch.xpath = this.xpathMatcher.remainingXPath(xpath, common);
                 ch.attributes = attributes;
                 ch.domNode = domnode;
@@ -399,6 +405,7 @@ UiBuilder.prototype.visit = function(node) {
     if (builder != null) {
         var obj = builder.buildFrom(whiteListAttributes, respond);
         obj.uid = node.id;
+        obj.refId = node.refId;
         obj.node = node;
         node.uiobject = obj;
     }else{
