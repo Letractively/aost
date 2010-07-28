@@ -137,8 +137,8 @@ Recorder.prototype.frameBlurListener = function(event) {
 };
 
 Recorder.prototype.onUnloadDocumentListener = function(event){
-    var url = event.target.URL || event.target.baseURI;
     logger.debug("Unloading Window " + url);
+    var url = event.target.URL || event.target.baseURI;
     var recorder = event.data.recorder;
-    recorder.generate();
+    recorder.generateSource();
 };
