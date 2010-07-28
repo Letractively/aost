@@ -68,7 +68,7 @@ Recorder.prototype.selectListener = function(event) {
         if (!event.target.multiple) {
             var option = event.target.options[event.target.selectedIndex];
             logger.debug('selected Index=' + event.target.selectedIndex);
-            recorder.recordCommand("select", event.target, this.getOption(option));
+            recorder.recordCommand("select", event.target, recorder.getOption(option));
         } else {
             logger.debug('change selection on select-multiple');
             var options = event.target.options;
