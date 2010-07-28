@@ -435,6 +435,18 @@ UiJSONConverter.prototype.visit = function(node){
     }
 };
 
+function UiRefMapper(){
+    this.refUidMap = new Hashtable();
+}
+
+UiRefMapper.prototype.visit = function(node){
+    if(node.refId != null){
+        var uid = node.getUid();
+        this.refUidMap.put(node.refId, uid);
+    }
+};
+
+
 function removeElement(array, elem){
     var index = array.indexOf(elem);
     if(index >= 0)

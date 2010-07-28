@@ -284,6 +284,9 @@ Recorder.prototype.getOption = function(option) {
 Recorder.prototype.generate = function(){
     logger.debug("Generating UI module before page load...");    
     this.workspace.generate();
+    var src = this.workspace.convertSource();
+    var sourceTextNode = document.getElementById("source");
+    sourceTextNode.value = src;
 };
 
 Recorder.eventHandlers = {};

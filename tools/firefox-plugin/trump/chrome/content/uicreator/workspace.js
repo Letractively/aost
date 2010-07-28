@@ -45,7 +45,9 @@ function Workspace(uiBuilder, uiChecker){
 
     this.commandList = new Array();
 
-    this.refUidMap = new Hashtable();
+    this.convertedCommandList = null;
+
+    this.refUidMap = null;
 }
 
 Workspace.prototype.addNode = function(dom, frameName, ref){
@@ -67,12 +69,64 @@ Workspace.prototype.clear = function(){
     this.dom = null;
     this.nodeList = new Array();
     this.comandList = new Array();
-    this.refUidMap = new Hashtable();
+    this.refUidMap = null;
+};
+
+Workspace.prototype.convertCommand = function(){
+    this.convertedCommandList = new Array();
+    if(this.commandList != null && this.commandList.length > 0){
+        for(var i=0; i<this.commandList.length; i++){
+            var cmd = this.commandList[i];
+            var ccmd = new UiCommand(cmd.name, this.refUidMap[cmd.ref], cmd.value);
+            this.convertedCommandList.push(ccmd);
+        }
+    }
 };
 
 Workspace.prototype.generate = function(){
     this.generateUiModule(this.tagObjectArray);
-    
+    this.buildRefUidMap();
+    this.convertCommand();
+};
+
+Workspace.prototype.describeCommand = function(){
+    var sb = new StringBuffer();
+    if(this.convertedCommandList != null && this.convertedCommandList.length > 0){
+        for(var i=0; i<this.convertedCommandList.length; i++){
+            var cmd = this.convertedCommandList[i];
+            sb.append("\t\t").append(cmd.name).append(" ").append(cmd.ref);
+            if(cmd.value != null && cmd.value != undefined){
+                sb.append(", ").append(cmd.value);
+            }
+            sb.append("\n");
+        }
+    }
+
+    return sb.toString();
+};
+
+Workspace.prototype.describeUiModule = function() {
+    var visitor = new StringifyVisitor();
+    this.uim.around(visitor);
+    var uiModelArray = visitor.out;
+    if (uiModelArray != undefined && uiModelArray != null) {
+        var sb = new StringBuffer();
+        for (var i = 0; i < uiModelArray.length; ++i) {
+            if (i == 0) {
+                sb.append("\t\t\tui." + uiModelArray[i].replace(/^\s+/, ''));
+            } else {
+                sb.append("\t\t" + uiModelArray[i]);
+            }
+        }
+
+        return sb.toString();
+    }
+
+    return "";
+};
+
+Workspace.prototype.convertSource = function(){
+    return this.describeUiModule() + "\n" + this.describeCommand();    
 };
 
 Workspace.prototype.generateUiModule = function(tagArrays){
@@ -148,6 +202,13 @@ Workspace.prototype.generateUiModule = function(tagArrays){
         this.innerTree.buildUiObject(this.uiBuilder, this.checker);
         this.innerTree.buildIndex();
     }
+};
+
+Workspace.prototype.buildRefUidMap = function(){
+    var visitor = new UiRefMapper();
+    this.innerTree.visit(visitor);
+
+    this.refUidMap = visitor.refUidMap;
 };
 
 Workspace.prototype.getUiObject = function(uid){
