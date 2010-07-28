@@ -37,7 +37,9 @@ Recorder.WINDOW_RECORDER_PROPERTY = "_Trump_IDE_Recorder";
 Recorder.prototype.attachActionListeners = function(window){
     logger.debug("Attaching listeners for action...");
 //    teJQuery(window.document.body).bind("click", {recorder: this}, this.uiSelectListener);
+//    teJQuery(window).unload( function () { alert("Bye now!"); } );
     teJQuery(window).bind("beforeunload", {recorder: this}, this.onUnloadDocumentListener);
+//    teJQuery(window).bind("unload", {recorder: this}, this.onUnloadDocumentListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("change", {recorder: this}, this.typeListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("click", {recorder: this}, this.clickListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("DOMAttrModified", {recorder: this}, this.attrModifiedListener);
@@ -52,7 +54,8 @@ Recorder.prototype.attachActionListeners = function(window){
 Recorder.prototype.detachActionListeners = function(window){
     logger.debug("Detaching listeners for action...");
 //    teJQuery(window.document.body).unbind("click", this.uiSelectListener);
-    teJQuery(window).unbind("beforeunload", this.onUnloadDocumentListener);
+//    teJQuery(window).unbind("beforeunload", this.onUnloadDocumentListener);
+//    teJQuery(window).unbind("unload", this.onUnloadDocumentListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("change", this.typeListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("click", this.clickListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("DOMAttrModified", this.attrModifiedListener);
@@ -66,11 +69,13 @@ Recorder.prototype.detachActionListeners = function(window){
 
 Recorder.prototype.attachSelectListeners = function(window){
     logger.debug("Attaching listeners for selection");
+//    teJQuery(window).bind("beforeunload", {recorder: this}, this.onUnloadDocumentListener);
     teJQuery(window.document.body).bind("click", {recorder: this}, this.uiSelectListener);
 };
 
 Recorder.prototype.detachSelectListeners = function(window){
     logger.debug("Detaching listeners for selection");
+//    teJQuery(window).unbind("beforeunload", this.onUnloadDocumentListener);
     teJQuery(window.document.body).unbind("click", this.uiSelectListener);
 };
 
@@ -281,7 +286,7 @@ Recorder.prototype.getOption = function(option) {
     }
 };
 
-Recorder.prototype.generate = function(){
+Recorder.prototype.generateSource = function(){
     logger.debug("Generating UI module before page load...");    
     this.workspace.generate();
     var src = this.workspace.convertSource();
