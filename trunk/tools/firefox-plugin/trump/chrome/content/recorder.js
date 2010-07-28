@@ -159,6 +159,8 @@ Recorder.prototype.clearAll = function(){
     
     this.selectedElements = new Array();
     this.tagObjectArray = new Array();
+    this.recordCommandList = new Array();
+    this.cmdListView.clearAll();
     this.treeView.clearAll();    
 };
 
