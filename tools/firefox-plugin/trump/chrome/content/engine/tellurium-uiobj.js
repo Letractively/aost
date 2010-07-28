@@ -10,6 +10,9 @@ var UiObject = Class.extend({
     },
     
     init: function() {
+        //reference ID during UI module recording and generating process
+        this.refId = null;
+
         //UI object identification
         this.uid = null;
 
