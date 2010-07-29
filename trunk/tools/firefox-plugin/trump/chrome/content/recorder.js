@@ -61,7 +61,7 @@ Recorder.prototype.detachActionListeners = function(window){
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("DOMAttrModified", this.attrModifiedListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("DOMNodeInserted", this.nodeInsertedListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("DOMNodeRemoved", this.nodeRemovedListener);
-    teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("mousedown", this.rememberClickedListener);    
+    teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("mousedown", this.rememberClickedListener);
     teJQuery(window.document).find("select, option").die("focus", this.selectFocusListener);
     teJQuery(window.document).find("select, option").die("mousedown", this.selectMousedownListener);
     teJQuery(window.document).find("select, option").die("change", this.selectListener);
@@ -80,7 +80,7 @@ Recorder.prototype.detachSelectListeners = function(window){
 };
 
 Recorder.prototype.registerListeners = function(){
-    var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+/*    var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
         .getService(Components.interfaces.nsIWindowMediator)
           .getMostRecentWindow("navigator:browser");
 
@@ -105,6 +105,59 @@ Recorder.prototype.registerListeners = function(){
                     this.attachSelectListeners(frame);
             }
         }
+    }*/
+    this.registerForAllWindows();
+};
+
+Recorder.prototype.registerForAllWindows = function() {
+    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
+    var e = wm.getEnumerator("navigator:browser");
+    var window;
+    while (e.hasMoreElements()) {
+        window = e.getNext();
+        logger.debug("window=" + window);
+        var browsers = window.getBrowser().browsers;
+        for (var i = 0; i < browsers.length; i++) {
+            logger.debug("browser=" + browsers[i]);
+            if (this.isAction())
+                this.attachActionListeners(browsers[i].contentWindow);
+            else
+                this.attachSelectListeners(browsers[i].contentWindow);
+
+            var frames = browsers[i].contentWindow.frames;
+            for (var j = 0; j < frames.length; j++) {
+                if (this.isAction())
+                    this.attachActionListeners(frames[j]);
+                else
+                    this.attachSelectListeners(frames[j]);
+            }
+        }
+    }
+};
+
+Recorder.prototype.deregisterForAllWindows = function() {
+    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
+    var e = wm.getEnumerator("navigator:browser");
+    var window;
+    while (e.hasMoreElements()) {
+        window = e.getNext();
+        logger.debug("window=" + window);
+        var browsers = window.getBrowser().browsers;
+        for (var i = 0; i < browsers.length; i++) {
+            logger.debug("browser=" + browsers[i]);
+            if (this.isAction())
+                this.detachActionListeners(browsers[i].contentWindow);
+            else
+                this.detachSelectListeners(browsers[i].contentWindow);
+
+            var frames = browsers[i].contentWindow.frames;
+            for (var j = 0; j < frames.length; j++) {
+                if (this.isAction())
+                    this.detachActionListeners(frames[j]);
+                else
+                    this.detachSelectListeners(frames[j]);
+            }
+        }
     }
 };
 
@@ -120,7 +173,9 @@ Recorder.prototype.unregisterListeners = function() {
 
     this.removeOutlineForSelectedNodes();
 
-    if (this.contentWindow) {
+    this.deregisterForAllWindows();
+
+/*    if (this.contentWindow) {
         this.detachActionListeners(this.contentWindow);
         this.detachSelectListeners(this.contentWindow);
     }
@@ -130,7 +185,7 @@ Recorder.prototype.unregisterListeners = function() {
             this.detachActionListeners(this.frames[j]);
             this.detachSelectListeners(this.frames[j]);
         }
-    }
+    }*/
 };
 
 Recorder.prototype.stopRecording = function(){
@@ -181,7 +236,7 @@ Recorder.prototype.recordDomNode = function (element){
             refId = "TrumpS" + this.sequence.next();
             var tagObject = this.builder.createTagObject(element, refId, this.frameName);
             teJQuery(element).data("sid", refId);
-            teJQuery(element).data("count", 0);
+            teJQuery(element).data("count", "0");
             this.tagObjectArray.push(tagObject);
 
             this.treeView.setTagObjects(this.tagObjectArray);
@@ -190,7 +245,7 @@ Recorder.prototype.recordDomNode = function (element){
         } else {
             refId = teJQuery(element).data("sid");
             var count = teJQuery(element).data("count");
-            if (count == 0) {
+            if (count == "0") {
                 //we are assuming to remove the element
                 this.decorator.removeBackground(element);
                 this.selectedElements.splice(index, 1);
