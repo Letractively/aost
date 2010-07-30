@@ -37,9 +37,15 @@ Recorder.WINDOW_RECORDER_PROPERTY = "_Trump_IDE_Recorder";
 Recorder.prototype.attachActionListeners = function(window){
     logger.debug("Attaching listeners for action...");
 //    teJQuery(window.document.body).bind("click", {recorder: this}, this.uiSelectListener);
-//    teJQuery(window).unload( function () { alert("Bye now!"); } );
-    teJQuery(window).bind("beforeunload", {recorder: this}, this.onUnloadDocumentListener);
-//    teJQuery(window).bind("unload", {recorder: this}, this.onUnloadDocumentListener);
+    var self = this;
+    window.addEventListener("beforeunload",
+            function(event) {
+                var url = event.target.URL || event.target.baseURI;
+                logger.debug("Unloading Window " + url);
+                self.generateSource();
+            },
+     false);
+//    window.addEventListener("beforeunload", this.onUnloadDocumentListener, false);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("change", {recorder: this}, this.typeListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("click", {recorder: this}, this.clickListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("DOMAttrModified", {recorder: this}, this.attrModifiedListener);

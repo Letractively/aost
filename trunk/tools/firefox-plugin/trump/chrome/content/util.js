@@ -225,3 +225,20 @@ function appendContainedDocuments(array, docShell, type)
         }
     }
 }
+
+/**
+ * Opens the given URL in a new tab if a browser window is already open, or
+ * a new window otherwise.
+ *
+ * @param url  the URL to open.
+ */
+function openTabOrWindow(url)
+{
+    try {
+        var gBrowser = window.opener.getBrowser();
+        gBrowser.selectedTab = gBrowser.addTab(url);
+    }
+    catch (e) {
+        window.open(url);
+    }
+}
