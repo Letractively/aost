@@ -115,6 +115,42 @@ Recorder.prototype.registerListeners = function(){
     this.registerForAllWindows();
 };
 
+Recorder.prototype.registerForWindow = function(window) {
+    if (this.isAction())
+        this.attachActionListeners(window);
+    else
+        this.attachSelectListeners(window);
+
+    var frames = window.frames;
+    for (var j = 0; j < frames.length; j++) {
+        if (this.isAction())
+            this.attachActionListeners(frames[j]);
+        else
+            this.attachSelectListeners(frames[j]);
+    }
+};
+
+Recorder.prototype.unregisterForWindow = function(window){
+    this.removeBackgroundForSelectedNodes();
+
+    this.removeOutlineForSelectedNodes();
+
+    this.deregisterForAllWindows();
+
+    if (window) {
+        this.detachActionListeners(window);
+        this.detachSelectListeners(window);
+    }
+
+    var frames =  window.frames;
+    if (frames && frames.length) {
+        for (var j = 0; j < frames.length; j++) {
+            this.detachActionListeners(frames[j]);
+            this.detachSelectListeners(frames[j]);
+        }
+    }
+};
+
 Recorder.prototype.registerForAllWindows = function() {
     var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
     var e = wm.getEnumerator("navigator:browser");
@@ -262,7 +298,7 @@ Recorder.prototype.recordDomNode = function (element){
             }
         }
     } catch(error) {
-        logger.info("Record node " + element.tagName + " failed:\n" + describeErrorStack(error));
+        logger.error("Record node " + element.tagName + " failed:\n" + describeErrorStack(error));
     }
 
     return refId;
@@ -348,11 +384,16 @@ Recorder.prototype.getOption = function(option) {
 };
 
 Recorder.prototype.generateSource = function(){
-    logger.debug("Generating UI module before page load...");    
-    this.workspace.generate();
-    var src = this.workspace.convertSource();
-    var sourceTextNode = document.getElementById("source");
-    sourceTextNode.value = src;
+    try {
+        logger.debug("Generating UI module before page load...");
+        this.workspace.generate();
+        var src = this.workspace.convertSource();
+        var sourceTextNode = document.getElementById("source");
+        sourceTextNode.value = src;
+        logger.info("UI Module and commands are generated, please see them on the UI module source view.");
+    } catch(error) {
+        logger.error("Error generating UI module and commands:\n" + describeErrorStack(error));
+    }
 };
 
 Recorder.eventHandlers = {};

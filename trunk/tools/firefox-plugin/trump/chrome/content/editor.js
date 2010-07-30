@@ -14,12 +14,20 @@ const RecordState = {
 function Editor(window) {
     this.window = window;
     var self = this;
+/*
+    var appcontent = this.window.document.getElementById("appcontent");
+    if (appcontent)
+        appcontent.addEventListener("DOMContentLoaded", function(event) {
+            self.onDOMContentLoaded(event);
+        }, true);
+    */
+    
     window.editor = this;
     this.document = document;
+//    this.init();
     
     this.logView = new LogView(this);
     this.logView.setLog(logger);
-//    this.innerTree = null;
 
     this.buildCustomizeTree(DEFAULT_XML);
 
@@ -64,6 +72,22 @@ function Editor(window) {
     }
 
 }
+
+/*
+Editor.prototype.init(){
+    var self = this;
+    var appcontent = this.window.document.getElementById("appcontent");
+    if (appcontent)
+        appcontent.addEventListener("DOMContentLoaded", function(event) {
+            self.onDOMContentLoaded(event);
+        }, true);
+};
+*/
+
+Editor.prototype.onDOMContentLoaded = function(event){
+    logger.debug("Register window on DOMContentLoaded");
+    this.recorder.registerForWindow(event.target.defaultView);
+};
 
 Editor.prototype.setWindowURL = function(url){
 //    document.getElementById("windowURL").value = url;
