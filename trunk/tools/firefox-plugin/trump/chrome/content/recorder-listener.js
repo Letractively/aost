@@ -51,11 +51,11 @@ Recorder.prototype.clickListener = function(event){
 //                recorder.recordCommand('mouseOver', this.mouseoverLocator, '');
 //                delete recorder.mouseoverLocator;
 //            }
-            recorder.recordCommand("click", event.target, '');
+            recorder.recordCommand("click", event.target, null);
         } else {
             var target = event.target;
             recorder.callIfMeaningfulEvent(function() {
-                recorder.recordCommand("click", target, '');
+                recorder.recordCommand("click", target, null);
             });
         }
     }

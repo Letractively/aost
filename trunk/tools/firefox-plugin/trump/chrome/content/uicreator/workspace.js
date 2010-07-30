@@ -77,7 +77,10 @@ Workspace.prototype.convertCommand = function(){
     if(this.commandList != null && this.commandList.length > 0){
         for(var i=0; i<this.commandList.length; i++){
             var cmd = this.commandList[i];
-            var ccmd = new UiCommand(cmd.name, this.refUidMap[cmd.ref], cmd.value);
+            var uid = this.refUidMap.get(cmd.ref);
+            if(uid == undefined)
+                logger.warn("Cannot find UID for reference ID " + cmd.ref + " for command " + cmd.name);
+            var ccmd = new UiCommand(cmd.name, uid, cmd.value);
             this.convertedCommandList.push(ccmd);
         }
     }
@@ -85,6 +88,7 @@ Workspace.prototype.convertCommand = function(){
 
 Workspace.prototype.generate = function(){
     this.generateUiModule(this.tagObjectArray);
+    this.validateUiModule();
     this.buildRefUidMap();
     this.convertCommand();
 };
@@ -94,9 +98,9 @@ Workspace.prototype.describeCommand = function(){
     if(this.convertedCommandList != null && this.convertedCommandList.length > 0){
         for(var i=0; i<this.convertedCommandList.length; i++){
             var cmd = this.convertedCommandList[i];
-            sb.append("\t\t").append(cmd.name).append(" ").append(cmd.ref);
+            sb.append("\t\t").append(cmd.name).append(" \"").append(cmd.ref).append("\"");
             if(cmd.value != null && cmd.value != undefined){
-                sb.append(", ").append(cmd.value);
+                sb.append(", \"").append(cmd.value).append("\"");
             }
             sb.append("\n");
         }
@@ -113,7 +117,7 @@ Workspace.prototype.describeUiModule = function() {
         var sb = new StringBuffer();
         for (var i = 0; i < uiModelArray.length; ++i) {
             if (i == 0) {
-                sb.append("\t\t\tui." + uiModelArray[i].replace(/^\s+/, ''));
+                sb.append("\t\tui." + uiModelArray[i].replace(/^\s+/, ''));
             } else {
                 sb.append("\t\t" + uiModelArray[i]);
             }
@@ -156,6 +160,7 @@ Workspace.prototype.generateUiModule = function(tagArrays){
             var tobj = objs[i];
             element = new ElementObject();
             element.uid = suggestName(tobj);
+            element.refId = tobj.refId;
             element.xpath = tobj.xpath;
             element.attributes = tobj.attributes;
             element.domNode = tobj.node;
@@ -190,6 +195,7 @@ Workspace.prototype.generateUiModule = function(tagArrays){
             element = new ElementObject();
 //          element.uid = tagObject.tag+i;
             element.uid = suggestName(tagObject);
+            element.refId = tagObject.refId;
             element.xpath = tagObject.xpath;
             element.attributes = tagObject.attributes;
             element.domNode = tagObject.node;

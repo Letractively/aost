@@ -501,6 +501,7 @@ NodeObject.prototype.checkNodePosition = function(){
 
 function ElementObject(){
     this.uid = null;
+    this.refId = null;
     this.xpath = null;
     this.domNode = null;
     this.frameName = null;
