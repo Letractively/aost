@@ -27,6 +27,59 @@
         function showTrumpIDE(){
             openTrumpIDEWindow();
         }
+
+        var TrumpIDE = {
+            onLoad: function() {
+                // initialization code
+                this.initialized = true;
+                var appcontent = document.getElementById("appcontent");   // browser
+                if (appcontent) {
+                    var self = this;
+                    appcontent.addEventListener("DOMContentLoaded", function(event) {
+                        self.onContentLoaded(event);
+                    }, false);
+                    appcontent.addEventListener("load", this.onPageLoad, true);
+                }
+            },
+
+            onContentLoaded: function(event){
+                var editor = this.getEditor();
+                if(editor){
+                    logger.debug("register window ");
+                    editor.recorder.registerForWindow(event.target.defaultView);
+                }
+            },
+
+            getEditor: function() {
+                var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
+                var editorWindow = wm.getMostRecentWindow('global:selenium-ide');
+
+                return editorWindow.editor;
+            },
+
+            onPageLoad: function(aEvent, repeat) {
+                try {
+                    var xdoc = aEvent.originalTarget; // doc is document that triggered "onload" event
+                    // window.dump("xdoc = " + xdoc + "\n");
+                    // window.dump("xdoc.wrappedJSObject = " + xdoc.wrappedJSObject + "\n");
+                    var doc = xdoc.wrappedJSObject;
+                    if (doc == null) doc = xdoc;
+
+                    if (doc.defaultView != null) {
+                        doc.defaultView.setTimeout(function() {
+                            // window.dump("after load\n");
+                            doc.readyState = 'complete';
+                        }, 0);
+                    }
+                } catch (e) {
+                    window.dump(e);
+                    window.dump("\n\n");
+                }
+            }
+
+        };
+
+        window.addEventListener("load", function(e) { TrumpIDE.onLoad(e); }, false);
         
 /*        teJQuery(window).load(function() {
             tellurium = new Tellurium();
