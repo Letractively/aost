@@ -69,7 +69,7 @@ Workspace.prototype.clear = function(){
     this.dom = null;
     this.nodeList = new Array();
     this.tagObjectArray = new Array();
-    this.comandList = new Array();
+    this.commandList = new Array();
     this.convertedCommandList = null;
     this.refUidMap = null;
 };
