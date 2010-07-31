@@ -25,6 +25,7 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://trump/content/editor.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/recorder.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/recorder-listener.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/app.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/builder.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/tagObject.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/xpather.js"/>
@@ -48,8 +49,6 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/tagState.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/xpathProcessor.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/filter.js"/>
-<!--<script type="application/x-javascript" src="chrome://trump/content/uicreator/uiobject.js"/>-->
-<!--<script type="application/x-javascript" src="chrome://trump/content/uicreator/locator.js"/>-->
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/locatorStrategy.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/xpathBuilder.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/xpathDom.js"/>
