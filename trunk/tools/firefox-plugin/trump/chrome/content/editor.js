@@ -14,13 +14,6 @@ const RecordState = {
 function Editor(window) {
     this.window = window;
     var self = this;
-/*
-    var appcontent = this.window.document.getElementById("appcontent");
-    if (appcontent)
-        appcontent.addEventListener("DOMContentLoaded", function(event) {
-            self.onDOMContentLoaded(event);
-        }, true);
-    */
     
     window.editor = this;
     this.document = document;
@@ -72,17 +65,6 @@ function Editor(window) {
     }
 
 }
-
-/*
-Editor.prototype.init(){
-    var self = this;
-    var appcontent = this.window.document.getElementById("appcontent");
-    if (appcontent)
-        appcontent.addEventListener("DOMContentLoaded", function(event) {
-            self.onDOMContentLoaded(event);
-        }, true);
-};
-*/
 
 Editor.prototype.onDOMContentLoaded = function(event){
     logger.debug("Register window on DOMContentLoaded");
