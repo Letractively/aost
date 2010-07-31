@@ -26,6 +26,8 @@ function Recorder(window) {
     this.workspace = null;
 
     this.sequence = new Identifier();
+
+    this.app = new App();
     
 //    this.observers = [];
 //	this.attach();
@@ -383,11 +385,25 @@ Recorder.prototype.getOption = function(option) {
     }
 };
 
+Recorder.prototype.savePage = function(){
+    this.app.savePage(this.contentWindow, this.workspace.uim, this.workspace.dom, this.workspace.convertedCommandList);
+};
+
+Recorder.prototype.reloadRecorder = function(){
+    this.selectedElements = new Array();
+    this.tagObjectArray = new Array();
+    this.recordCommandList = new Array();
+    this.workspace.clear();
+};
+
 Recorder.prototype.generateSource = function(){
     try {
         logger.debug("Generating UI module before page load...");
         this.workspace.generate();
-        var src = this.workspace.convertSource();
+        this.savePage();
+        this.reloadRecorder();
+        var src = this.app.toSource();
+//        var src = this.workspace.convertSource();
         var sourceTextNode = document.getElementById("source");
         sourceTextNode.value = src;
         logger.info("UI Module and commands are generated, please see them on the UI module source view.");
