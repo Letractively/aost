@@ -141,12 +141,14 @@ Recorder.prototype.onUnloadDocumentListener = function(event){
     logger.debug("Unloading Window " + url);
     var recorder = event.data.recorder;
     recorder.generateSource();
+/*
     var appcontent = this.window.document.getElementById("appcontent");
     if (appcontent)
         var self = this;
         appcontent.addEventListener("DOMContentLoaded", function(event) {
             self.onDOMContentLoaded(event);
         }, true);
+*/
 };
 
 Recorder.prototype.onDOMContentLoaded = function(event){
