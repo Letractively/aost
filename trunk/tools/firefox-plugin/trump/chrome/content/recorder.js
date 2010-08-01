@@ -41,6 +41,7 @@ Recorder.prototype.attachActionListeners = function(window){
     var self = this;
     window.addEventListener("beforeunload",
             function(event) {
+                self.recordCommand("waitForPageToLoad", null, 3000);                                           
                 var url = event.target.URL || event.target.baseURI;
                 logger.debug("Unloading Window " + url);
                 self.generateSource();
@@ -272,16 +273,24 @@ Recorder.prototype.updateWindowUrl = function(element){
 };
 
 Recorder.prototype.recordCommand = function(name, element, value){
-    logger.debug("Recording command (name: " + name + ", element: " + element.tagName + ", value: " + value + ")");
-    var uid = this.recordDomNode(element);
-    var count = teJQuery(element).data("count");
-    teJQuery(element).data("count", count + 1);
-    this.workspace.addCommand(name, uid, value);
-    var cmd = new TestCmd(name, uid, value);
-    this.recordCommandList.push(cmd);
-    this.cmdListView.setTestCommands(this.recordCommandList);
-    this.cmdListView.rowInserted();
-    this.updateWindowUrl(element);
+    logger.debug("Recording command (name: " + name + ", element: " + element + ", value: " + value + ")");
+    if(element != null && element != undefined){
+        var uid = this.recordDomNode(element);
+        var count = teJQuery(element).data("count");
+        teJQuery(element).data("count", count + 1);
+        this.workspace.addCommand(name, uid, value);
+        var cmd = new TestCmd(name, uid, value);
+        this.recordCommandList.push(cmd);
+        this.cmdListView.setTestCommands(this.recordCommandList);
+        this.cmdListView.rowInserted();
+        this.updateWindowUrl(element);
+    }else{
+        this.workspace.addCommand(name, null, value);
+        var cmd = new TestCmd(name, null, value);
+        this.recordCommandList.push(cmd);
+        this.cmdListView.setTestCommands(this.recordCommandList);
+        this.cmdListView.rowInserted();
+    }
 };
 
 Recorder.prototype.findClickableElement = function(e) {

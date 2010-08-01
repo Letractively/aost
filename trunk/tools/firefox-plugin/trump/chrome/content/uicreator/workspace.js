@@ -84,8 +84,8 @@ Workspace.prototype.convertCommand = function(){
             if(cmd.ref != null){
                 uid = this.refUidMap.get(cmd.ref);                
             }
-            if(uid == undefined)
-                logger.warn("Cannot find UID for reference ID " + cmd.ref + " for command " + cmd.name);
+//            if(uid == undefined)
+//                logger.warn("Cannot find UID for reference ID " + cmd.ref + " for command " + cmd.name);
             var ccmd = new UiCommand(cmd.name, uid, cmd.value);
             this.convertedCommandList.push(ccmd);
         }

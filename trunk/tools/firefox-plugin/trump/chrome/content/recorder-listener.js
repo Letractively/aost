@@ -136,10 +136,12 @@ Recorder.prototype.frameBlurListener = function(event) {
     recorder.frameName = null;
 };
 
+/*
 Recorder.prototype.onUnloadDocumentListener = function(event){
     var url = event.target.URL || event.target.baseURI;
     logger.debug("Unloading Window " + url);
     var recorder = event.data.recorder;
     recorder.generateSource();
 };
+*/
 
