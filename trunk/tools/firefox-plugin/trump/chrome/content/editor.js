@@ -771,21 +771,6 @@ Editor.prototype.updateOptions = function(){
     }
 };
 
-/*
-Editor.prototype.onUnloadDocument = function(doc) {
-    logger.debug("onUnloadDocument");
-    var window = doc.defaultView;
-    var self = this;
-    setTimeout(function() {
-            self.appendWaitForPageToLoad(window);
-        }, 0);
-};
-
-Editor.prototype.appendWaitForPageToLoad = function(window) {
-    this.log.debug("appendWaitForPageToLoad");
-};
-*/
-
 function TestCmd(name, uid, param){
     this.name = name;
     this.uid = uid;
