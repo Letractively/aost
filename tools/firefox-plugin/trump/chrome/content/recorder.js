@@ -24,6 +24,8 @@ function Recorder(window) {
     this.cmdList.view = this.cmdListView;
 
     this.workspace = null;
+    
+    this.timestamp = (new Date()).getTime();
 
     this.sequence = new Identifier();
 
@@ -235,7 +237,7 @@ Recorder.prototype.recordDomNode = function (element){
             this.decorator.addBackground(element);
             this.selectedElements.push(element);
 
-            refId = "TrumpS" + this.sequence.next();
+            refId = "T" + this.timestamp + "S" + this.sequence.next();
             var tagObject = this.builder.createTagObject(element, refId, this.frameName);
             teJQuery(element).data("sid", refId);
             teJQuery(element).data("count", "0");
