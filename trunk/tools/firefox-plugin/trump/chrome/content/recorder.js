@@ -38,7 +38,6 @@ Recorder.WINDOW_RECORDER_PROPERTY = "_Trump_IDE_Recorder";
 
 Recorder.prototype.attachActionListeners = function(window){
     logger.debug("Attaching listeners for action...");
-//    teJQuery(window.document.body).bind("click", {recorder: this}, this.uiSelectListener);
     var self = this;
     window.addEventListener("beforeunload",
             function(event) {
@@ -47,7 +46,6 @@ Recorder.prototype.attachActionListeners = function(window){
                 self.generateSource();
             },
      false);
-//    window.addEventListener("beforeunload", this.onUnloadDocumentListener, false);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("change", {recorder: this}, this.typeListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("click", {recorder: this}, this.clickListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("DOMAttrModified", {recorder: this}, this.attrModifiedListener);
@@ -61,9 +59,6 @@ Recorder.prototype.attachActionListeners = function(window){
 
 Recorder.prototype.detachActionListeners = function(window){
     logger.debug("Detaching listeners for action...");
-//    teJQuery(window.document.body).unbind("click", this.uiSelectListener);
-//    teJQuery(window).unbind("beforeunload", this.onUnloadDocumentListener);
-//    teJQuery(window).unbind("unload", this.onUnloadDocumentListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("change", this.typeListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("click", this.clickListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("DOMAttrModified", this.attrModifiedListener);
@@ -88,32 +83,6 @@ Recorder.prototype.detachSelectListeners = function(window){
 };
 
 Recorder.prototype.registerListeners = function(){
-/*    var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-        .getService(Components.interfaces.nsIWindowMediator)
-          .getMostRecentWindow("navigator:browser");
-
-    var browser = win.getBrowser();
-
-    if(browser && browser.contentWindow && browser.contentWindow.document){
-        this.contentWindow = browser.contentWindow;
-        if(this.isAction())
-            this.attachActionListeners(this.contentWindow);
-        else
-            this.attachSelectListeners(this.contentWindow);
-    }
-
-    if(browser && browser.contentWindow && browser.contentWindow.frames){
-        this.frames = browser.contentWindow.frames;
-        if (this.frames && this.frames.length) {
-            for (var j = 0; j < this.frames.length; j++) {
-                var frame = this.frames[j] ;
-                if(this.isAction())
-                    this.attachActionListeners(frame);
-                else
-                    this.attachSelectListeners(frame);
-            }
-        }
-    }*/
     this.registerForAllWindows();
 };
 
@@ -218,18 +187,6 @@ Recorder.prototype.unregisterListeners = function() {
     this.removeOutlineForSelectedNodes();
 
     this.deregisterForAllWindows();
-
-/*    if (this.contentWindow) {
-        this.detachActionListeners(this.contentWindow);
-        this.detachSelectListeners(this.contentWindow);
-    }
-
-    if (this.frames && this.frames.length) {
-        for (var j = 0; j < this.frames.length; j++) {
-            this.detachActionListeners(this.frames[j]);
-            this.detachSelectListeners(this.frames[j]);
-        }
-    }*/
 };
 
 Recorder.prototype.stopRecording = function(){
