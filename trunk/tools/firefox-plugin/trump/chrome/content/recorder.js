@@ -325,7 +325,7 @@ Recorder.prototype.callIfMeaningfulEvent = function(handler) {
 Recorder.prototype.getOption = function(option) {
     var label = option.text.replace(/^ *(.*?) *$/, "$1");
     if (label.match(/\xA0/)) { // if the text contains &nbsp;
-        return "regexp:" + label.replace(/[\(\)\[\]\\\^\$\*\+\?\.\|\{\}]/g, function(str) {return '\\' + str})
+        return "label=regexp:" + label.replace(/[\(\)\[\]\\\^\$\*\+\?\.\|\{\}]/g, function(str) {return '\\' + str})
                                       .replace(/\s+/g, function(str) {
                 if (str.match(/\xA0/)) {
                     if (str.length > 1) {
@@ -338,7 +338,7 @@ Recorder.prototype.getOption = function(option) {
                 }
             });
     } else {
-        return "" + label;
+        return "label=" + label;
     }
 };
 
