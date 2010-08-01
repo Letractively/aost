@@ -79,7 +79,11 @@ Workspace.prototype.convertCommand = function(){
     if(this.commandList != null && this.commandList.length > 0){
         for(var i=0; i<this.commandList.length; i++){
             var cmd = this.commandList[i];
-            var uid = this.refUidMap.get(cmd.ref);
+
+            var uid = null;
+            if(cmd.ref != null){
+                uid = this.refUidMap.get(cmd.ref);                
+            }
             if(uid == undefined)
                 logger.warn("Cannot find UID for reference ID " + cmd.ref + " for command " + cmd.name);
             var ccmd = new UiCommand(cmd.name, uid, cmd.value);
@@ -100,9 +104,15 @@ Workspace.prototype.describeCommand = function(){
     if(this.convertedCommandList != null && this.convertedCommandList.length > 0){
         for(var i=0; i<this.convertedCommandList.length; i++){
             var cmd = this.convertedCommandList[i];
-            sb.append("\t\t").append(cmd.name).append(" \"").append(cmd.ref).append("\"");
+            sb.append("\t\t").append(cmd.name);
+            if(cmd.ref != null && cmd.ref != undefined){
+                sb.append(" \"").append(cmd.ref).append("\"");
+            }
             if(cmd.value != null && cmd.value != undefined){
-                sb.append(", \"").append(cmd.value).append("\"");
+                if(cmd.ref != null && cmd.ref != undefined){
+                    sb.append(",");
+                }
+                sb.append(" \"").append(cmd.value).append("\"");
             }
             sb.append("\n");
         }
