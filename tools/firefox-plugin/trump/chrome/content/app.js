@@ -45,9 +45,15 @@ App.prototype.describeCommand = function(commandList){
     if(commandList != null && commandList.length > 0){
         for(var i=0; i<commandList.length; i++){
             var cmd = commandList[i];
-            sb.append("\t\t").append(cmd.name).append(" \"").append(cmd.ref).append("\"");
+            sb.append("\t\t").append(cmd.name);
+            if(cmd.ref != null && cmd.ref != undefined){
+                sb.append(" \"").append(cmd.ref).append("\"");
+            }
             if(cmd.value != null && cmd.value != undefined){
-                sb.append(", \"").append(cmd.value).append("\"");
+                if(cmd.ref != null && cmd.ref != undefined){
+                    sb.append(",");
+                }
+                sb.append(" \"").append(cmd.value).append("\"");
             }
             sb.append("\n");
         }
