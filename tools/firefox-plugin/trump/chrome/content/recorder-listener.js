@@ -143,8 +143,3 @@ Recorder.prototype.onUnloadDocumentListener = function(event){
     recorder.generateSource();
 };
 
-/*
-Recorder.prototype.onDOMContentLoaded = function(event){
-    logger.debug("Register window on DOMContentLoaded");
-    this.registerForWindow(event.target.defaultView);
-};*/
