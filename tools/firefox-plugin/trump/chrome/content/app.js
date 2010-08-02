@@ -9,6 +9,8 @@ function UiPage(){
     this.dom = null;
 
     this.commandList = null;
+
+    this.map = new Hashtable();
 }
 
 function App(){
@@ -23,6 +25,12 @@ App.prototype.savePage = function(window, uim, dom, commandList){
     page.commandList = commandList;
 
     this.pages.push(page);
+    if(uim != null)
+        this.map.put(uim.id, uim);
+};
+
+App.prototype.getUiModule = function(id){
+    return this.map.get(id);    
 };
 
 App.prototype.toSource = function(){
