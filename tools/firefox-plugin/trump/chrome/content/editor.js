@@ -53,6 +53,8 @@ function Editor(window) {
 
     this.registerCommands();
 
+    this.testRunner = new TestRunner();
+
 //    this.options = new Preferences();
 
     //Detect the browser properties
@@ -379,6 +381,16 @@ Editor.prototype.saveButton = function(){
         this.exportToWindowInBackground();
     }else{
         logger.warn("There is no UI module in workspace to save to cache.");
+    }
+    document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
+};
+
+Editor.prototype.replayButton = function(){
+    if(this.recorder.app != null && (!this.recorder.app.isEmpty())){
+        logger.info("Replaying recorded tests...");
+        this.testRunner.run(this.recorder.app);
+    }else{
+        logger.warn("There is no recorded test to replay.");
     }
     document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
 };

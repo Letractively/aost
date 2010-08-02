@@ -16,6 +16,10 @@ function App(){
     this.map = new Hashtable();
 }
 
+App.prototype.isEmpty = function(){
+    return this.pages.length == 0;
+};
+
 App.prototype.savePage = function(window, uim, dom, commandList){
     var page = new UiPage();
     page.window = window;

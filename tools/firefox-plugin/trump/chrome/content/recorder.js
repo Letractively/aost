@@ -383,7 +383,9 @@ Recorder.prototype.getOption = function(option) {
 };
 
 Recorder.prototype.savePage = function(){
-    this.app.savePage(this.contentWindow, this.workspace.uim, this.workspace.dom, this.workspace.convertedCommandList);
+    if (this.workspace.uim != null || this.workspace.convertedCommandList.length > 0) {
+        this.app.savePage(this.contentWindow, this.workspace.uim, this.workspace.dom, this.workspace.convertedCommandList);
+    }
 };
 
 Recorder.prototype.reloadRecorder = function(){

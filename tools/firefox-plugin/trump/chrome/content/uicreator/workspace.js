@@ -93,9 +93,12 @@ Workspace.prototype.convertCommand = function(){
 };
 
 Workspace.prototype.generate = function(){
-    this.generateUiModule(this.tagObjectArray);
-    this.validateUiModule();
-    this.buildRefUidMap();
+    if (this.tagObjectArray != null && this.tagObjectArray.length > 0) {
+        this.generateUiModule(this.tagObjectArray);
+        this.validateUiModule();
+        this.buildRefUidMap();
+    }
+
     this.convertCommand();
 };
 
