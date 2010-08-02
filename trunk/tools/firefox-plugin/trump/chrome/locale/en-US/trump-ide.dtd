@@ -3,11 +3,12 @@
 <!ENTITY windowURL.label "WindowURL">
 <!ENTITY windowURLTextbox.tooltip "Window URL">
 
-<!ENTITY recordButton.tooltip "Record UI">
+<!ENTITY recordButton.tooltip "Record UI and Actions">
 <!ENTITY stopButton.tooltip "Stop Recording">
 <!ENTITY generate.tooltip "Generate UI Module">
 <!ENTITY customize.tooltip "Customize UI Module">
 <!ENTITY saveui.tooltip "Add and Start New UI recording">
+<!ENTITY replay.tooltip "Replay recorded Tests">
 <!ENTITY test.tooltip "Test Tellurium Command">
 <!ENTITY clear.tooltip "Clear">
 
