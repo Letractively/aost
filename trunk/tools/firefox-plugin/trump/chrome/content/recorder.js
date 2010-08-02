@@ -25,9 +25,9 @@ function Recorder(window) {
 
     this.workspace = null;
     
-    this.alphabet="0123456789abcdefghijklmnopqrstuvwxyz";
+    this.alphabet="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     
-    this.timestamp = this.toBase36((new Date()).getTime());
+    this.timestamp = this.toBase62((new Date()).getTime());
 
     this.sequence = new Identifier();
 
@@ -42,23 +42,31 @@ function Recorder(window) {
 
 Recorder.WINDOW_RECORDER_PROPERTY = "_Trump_IDE_Recorder";
 
-Recorder.prototype.toBase36 = function(number){
-    if (typeof(number) == "number") {
-        if (number < 36)
+Recorder.prototype.toBase = function(number, base){
+    if (typeof(number) == "number" && typeof(base) == "number" && (base > 0)) {
+        if (number < base)
             return this.alphabet.charAt(number);
 
-        var base36 = '';
+        var out = '';
         var value = number;
         while (value != 0) {
-            var remind = value % 36;
-            value = (value - remind) / 36;
-            base36 = this.alphabet.charAt(remind) + base36;
+            var remind = value % base;
+            value = (value - remind) / base;
+            out = this.alphabet.charAt(remind) + out;
         }
 
-        return base36;
+        return out;
     }
 
     return number;
+};
+
+Recorder.prototype.toBase36 = function(number){
+    return this.toBase(number, 36);
+};
+
+Recorder.prototype.toBase62 = function(number){
+    return this.toBase(number, 62);
 };
 
 Recorder.prototype.attachActionListeners = function(window){
@@ -297,7 +305,7 @@ Recorder.prototype.updateWindowUrl = function(element){
     }
 };
 
-Recorder.prototype.recordCommand = function(name, element, value){
+Recorder.prototype.recordCommand = function(name, element, value){    
     logger.debug("Recording command (name: " + name + ", element: " + element + ", value: " + value + ")");
     if(element != null && element != undefined){
         if(this.first){
