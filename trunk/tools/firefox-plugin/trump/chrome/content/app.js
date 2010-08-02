@@ -9,12 +9,11 @@ function UiPage(){
     this.dom = null;
 
     this.commandList = null;
-
-    this.map = new Hashtable();
 }
 
 function App(){
     this.pages = new Array();
+    this.map = new Hashtable();
 }
 
 App.prototype.savePage = function(window, uim, dom, commandList){
