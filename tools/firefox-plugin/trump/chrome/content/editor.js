@@ -294,8 +294,8 @@ function suggestName(tagObject){
 }
 
 Editor.prototype.generateButton = function(){
-    this.switchToSourceTab();
-
+   this.switchToSourceTab();
+/* 
     try {
         this.workspace.generateUiModule(this.recorder.tagObjectArray);
 
@@ -303,6 +303,11 @@ Editor.prototype.generateButton = function(){
 
         this.validateUI();
 
+    }catch(error){
+        logger.error("Error generating UI Module:\n" + describeErrorStack(error));
+    }*/
+    try {
+        this.recorder.generateSource();
     }catch(error){
         logger.error("Error generating UI Module:\n" + describeErrorStack(error));
     }
