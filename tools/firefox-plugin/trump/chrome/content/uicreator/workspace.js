@@ -290,6 +290,7 @@ Workspace.prototype.validateUiModule = function() {
     if (this.innerTree.root != null) {
 //        var uim = this.workspace.build();
         this.uim = this.uimBuilder.build(this.innerTree);
+        this.uim.doc = this.innerTree.document;
         this.dom = this.innerTree.document;
         this.id = this.uim.getId();
         var result = this.validate();

@@ -489,9 +489,20 @@ Editor.prototype.processCustomizeEvent = function(event){
 };
 
 Editor.prototype.testButton = function(){
+
     this.toggleStopButton();
     document.getElementById("editorTabs").selectedItem = document.getElementById("testTab");
     try{
+        //copy ui modules from app to the cache
+        if (this.recorder.app != null) {
+            var uimArray = this.recorder.app.getUiModules();
+            if (uimArray != null && uimArray.length > 0) {
+                for (var i = 0; i < uimArray.length; i++) {
+                    this.command.cacheUiModule(uimArray[i]);
+                }
+            }
+        }
+
         var uims = this.command.getCachedUiModuleList();
 
         if(uims != null && uims.length > 0){
@@ -514,7 +525,8 @@ Editor.prototype.testButton = function(){
                 Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandUID")),
                                                           XulUtils.toXPCOMArray(uids));
             }
-            this.command.dom = this.workspace.dom;
+//            this.command.dom = this.workspace.dom;
+            this.command.dom = uim.doc;
             this.command.locateUI(uim.id);
         }else{
             document.getElementById("uiModuleId").disabled = true;

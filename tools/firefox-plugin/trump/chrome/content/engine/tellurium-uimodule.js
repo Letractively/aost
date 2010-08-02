@@ -2,6 +2,9 @@ function UiModule(){
     
     this.id = null;
 
+    //the document object this UI module lives on
+    this.doc = null;
+
     //top level UI object
     this.root = null;
 
