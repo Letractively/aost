@@ -30,6 +30,8 @@ function Recorder(window) {
     this.sequence = new Identifier();
 
     this.app = new App();
+
+    this.first = true;
     
 //    this.observers = [];
 //	this.attach();
@@ -277,6 +279,12 @@ Recorder.prototype.updateWindowUrl = function(element){
 Recorder.prototype.recordCommand = function(name, element, value){
     logger.debug("Recording command (name: " + name + ", element: " + element + ", value: " + value + ")");
     if(element != null && element != undefined){
+        if(this.first){
+            this.workspace.addCommand("open", null, element.ownerDocument.location.href);
+            var ocmd = new TestCmd("open", null, element.ownerDocument.location.href);
+            this.recordCommandList.push(ocmd);
+            this.first = false;
+        }
         var uid = this.recordDomNode(element);
         var count = teJQuery(element).data("count");
         teJQuery(element).data("count", count + 1);

@@ -106,13 +106,15 @@ Workspace.prototype.describeCommand = function(){
             var cmd = this.convertedCommandList[i];
             sb.append("\t\t").append(cmd.name);
             if(cmd.ref != null && cmd.ref != undefined){
-                sb.append(" \"").append(cmd.ref).append("\"");
+//                sb.append(" \"").append(cmd.ref).append("\"");
+                sb.append(" ").append(cmd.ref)
             }
             if(cmd.value != null && cmd.value != undefined){
                 if(cmd.ref != null && cmd.ref != undefined){
                     sb.append(",");
                 }
-                sb.append(" \"").append(cmd.value).append("\"");
+//                sb.append(" \"").append(cmd.value).append("\"");
+                sb.append(" ").append(cmd.value);
             }
             sb.append("\n");
         }
