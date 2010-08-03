@@ -84,6 +84,15 @@ App.prototype.isEmpty = function(){
     return this.pages.length == 0;
 };
 
+App.prototype.getUiModule = function(uid){
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+
+    var first = uiid.peek();
+
+    return this.map.get(first);
+};
+
 App.prototype.getUiModules = function(){
     return this.map.valSet();
 };
@@ -98,10 +107,6 @@ App.prototype.savePage = function(window, uim, dom, commandList){
     this.pages.push(page);
     if(uim != null)
         this.map.put(uim.id, uim);
-};
-
-App.prototype.getUiModule = function(id){
-    return this.map.get(id);    
 };
 
 App.prototype.toSource = function(){
