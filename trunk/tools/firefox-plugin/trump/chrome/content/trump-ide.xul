@@ -69,21 +69,22 @@
     <toolbar id="toolbar2">
       <toolbarbutton id="record-button" label="Record" class="record" tooltiptext="&recordButton.tooltip;" oncommand="window.editor.toggleRecordButton()" checked="true"/>
       <toolbarbutton id="stop-button" label="Stop" class="icon" tooltiptext="&stopButton.tooltip;" oncommand="window.editor.toggleStopButton()"/>
-      <toolbarbutton id="generate-button" label="Generate" tooltiptext="&generate.tooltip;" oncommand="window.editor.generateButton()"/>
+ <!--     <toolbarbutton id="generate-button" label="Generate" tooltiptext="&generate.tooltip;" oncommand="window.editor.generateButton()"/>
+-->
       <toolbarbutton id="customize-button" label="Customize" tooltiptext="&customize.tooltip;" oncommand="window.editor.customizeButton()"/>
       <!--<toolbarbutton id="saveui-button" label="Add" tooltiptext="&saveui.tooltip;" oncommand="window.editor.saveButton()"/>-->
       <toolbarbutton id="replay-button" label="Replay" tooltiptext="&replay.tooltip;" oncommand="window.editor.replayButton()"/>
-      <toolbarbutton id="test-button" label="Test" tooltiptext="&test.tooltip;" oncommand="window.editor.testButton()"/>
+      <!--<toolbarbutton id="test-button" label="Test" tooltiptext="&test.tooltip;" oncommand="window.editor.testButton()"/>-->
       <toolbarbutton id="clear-button" label="Clear" tooltiptext="&clear.tooltip;" oncommand="window.editor.clearButton()"/>
     </toolbar>
 
     <tabbox flex="3" height="300" width="250">
         <tabs orient="horizontal" id="editorTabs">
             <tab id="recordTab" label="&recordTab.label;" />
-            <tab id="sourceTab" label="&sourceTab.label;" />
+            <!--<tab id="sourceTab" label="&sourceTab.label;" />-->
             <tab id="customizeTab" label="&customizeTab.label;" />
             <tab id="exportToWindowTab" label="&exportToWindowsTab.label;" />
-            <tab id="testTab" label="&testTab.label;" />
+            <!--<tab id="testTab" label="&testTab.label;" />-->
         </tabs>
         <tabpanels flex="1">
             <tabpanel orient="vertical" flex="1">
@@ -131,17 +132,182 @@
                 </groupbox>
              </groupbox>
            </tabpanel>
-            <tabpanel orient="vertical">
+            <tabpanel orient="vertical" flex="1">
+                <groupbox orient="horizontal" flex="1">
+                    <groupbox flex="1">
+                         <vbox flex="1">
+                             <hbox>
+                                 <spacer/>
+                             </hbox>
+                             <hbox>
+                                 <spacer flex="1"/>
+                                 <label control="commandValue" value="&recordedCommandList.label;" align="center"/>
+                                 <spacer flex="1"/>
+                             </hbox>
+                             <tree id="recordedCommandListTree" flex="1" rows="10" hidecolumnpicker="true">
+                               <treecols>
+                                 <treecol id="recordedCommandName" label="&recordedCommandName.label;" flex="1" align="center"/>
+                                 <treecol id="recordedCommandRef" label="&recordedCommandRef.label;" flex="1" align="center"/>
+                                 <treecol id="recordedCommandValue" label="&recordedCommandValue.label;" flex="1" align="center"/>
+                                 <treecol id="recordedCommandResult" label="&recordedCommandResult.label;" flex="1" align="center"/>
+                               </treecols>
+                               <treechildren/>
+                             </tree>
+                             <spacer/>
+                             <grid>
+                                 <columns>
+                                     <column/>
+                                     <column flex="1"/>
+                                 </columns>
+                                 <rows>
+                                     <row align="center">
+                                         <label control="commandAction" value="&updateCommandName.label;"/>
+                                         <textbox disabled="true" id="updateCommandName"
+                                                  oninput="window.editor.updateUiCommandName(this.value)" type="autocomplete"
+                                                  autocompletesearch="selenium-ide-generic" enablehistory="true"
+                                                  forcecomplete="true" tabscrolling="true"/>
+                                     </row>
+                                     <row align="center">
+                                         <label control="commandValue" value="&updateCommandUID.label;"/>
+                                         <textbox disabled="true" id="updateCommandUID" oninput="window.editor.updateUiUID(this.value)" type="autocomplete"
+                                                  autocompletesearch="selenium-ide-generic" enablehistory="true"
+                                                  forcecomplete="true" tabscrolling="true" flex="1"/>
+                                     </row>
+                                     <row align="center">
+                                         <label control="commandValue" value="&updateCommandValue.label;"/>
+                                         <textbox id="updateCommandValue" flex="1"/>
+                                     </row>
+                                     <row align="center">
+                                         <spacer/>
+                                         <button label="&updateCommand.label;" oncommand="window.editor.updateUiCommand()"/>
+                                     </row>
+                                 </rows>
+                             </grid>
+                         </vbox>
+                     </groupbox>
+                    <splitter collapse="after" ><grippy /></splitter>
+                    <groupbox flex="1">
+                    <vbox flex="3">
+                        <groupbox flex="1" class="border">
+                            <caption lable="UI" />
+                             <vbox id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml" flex="3"
+                                   style="overflow: auto;">
+                                   <!--caption label="UI Module"/-->
+                                   <template>
+                                       <query expr="*"/>
+                                       <action>
+                                           <vbox uri="?" class="indent">
+                                               <hbox>
+                                                   <button uid="?id" label="?desc" myclass="?class" align="left"
+                                                           oncommand="window.editor.processCustomizeEvent(event)"/>
+                                                   <label value="?valid" align="left" style="color: red;"/>
+                                               </hbox>
+                                           </vbox>
+                                       </action>
+                                   </template>
+                               </vbox>
+                           </groupbox>
+                           <splitter collapse="after" ><grippy /></splitter>
+                           <groupbox flex="1" class="border">
+                               <caption lable="Selected DOM Element"/>
+                           <!--separator class="thin"/-->
+                           <!--splitter collapse="before" class="splitter" resizeafter="farthest"/-->
+                           <!-- command editing -->
+                               <vbox id="uiObjectEdit" flex="1" style="overflow: auto" minwidth="280">
+                                   <hbox pack="center">
+                                       <button label="&show.label;" oncommand="window.editor.showNodeOnWeb()"/>
+                                       <button label="&save.label;" oncommand="window.editor.updateUiObject()"/>
+                                   </hbox>
+
+                                   <grid>
+                                       <columns>
+                                           <column/>
+                                           <column flex="1"/>
+                                       </columns>
+                                       <rows>
+                                           <row align="center">
+                                               <!-- do drop down that depends upon the element type -->
+                                               <label control="commandAction" value="&uid.label;"/>
+                                               <textbox disabled="true" id="uid" oninput=""/>
+                                           </row>
+                                           <row align="center">
+                                               <!-- show different options collected by the client. Allow user to override -->
+                                               <label control="commandTarget" value="&type.label;"/>
+                                               <hbox flex="1">
+                                                   <textbox disabled="true" id="uiType" oninput="window.editor.updateUiType(this.value)" type="autocomplete" autocompletesearch="selenium-ide-generic" enablehistory="true" forcecomplete="true" tabscrolling="true"/>
+                                                   <!--<textbox flex="1" disabled="true" id="uiType" type="autocomplete"/>-->
+
+                                                  <!-- <textbox type="autocomplete" autocompletesearch="google-autocomplete" />-->
+                                                   <!--<html:input id="uiTypeAutoComplete"/>-->
+       <!--
+                                                   <textbox flex="1" disabled="true" id="uiType" type="autocomplete" autocompletesearch="simple-autocomplete" showcommentcolumn="true" autocompletesearchparam=""/>
+       -->
+                                               </hbox>
+                                           </row>
+                                           <row align="center">
+                                               <label control="commandValue" value="&group.label;"/>
+                                               <checkbox id="group_Check_Box" disabled="false" checked="false"/>
+                                           </row>
+                                           <row align="center">
+                                               <label control="commandValue" value="&attributes.label;"/>
+
+                                               <richlistbox id="ui_attribute_tree" datasources="#attributes_tree_xml" ref="*" querytype="xml" rows="10">
+                                                   <listhead>
+                                                       <listheader id="checkBoxId" label="" sort="?sel"/>
+                                                       <listheader id="attributeName" primary="true" label="Name" sort="?name" flex="1"/>
+                                                       <listheader id="attributeValue" label="Value" sort="?value" flex="1"/>
+                                                   </listhead>
+                                                   <listcols>
+                                                       <listcol/>
+                                                       <listcol flex="1"/>
+                                                       <listcol flex="1"/>
+                                                   </listcols>
+                                                   <template>
+                                                       <query expr="attribute">
+                                                           <assign var="?sel" expr="@sel"/>
+                                                           <assign var="?name" expr="@name"/>
+                                                           <assign var="?value" expr="@value"/>
+                                                           <assign var="?cid" expr="concat('CID',@name)"/>
+                                                           <assign var="?vid" expr="concat('VID',@name)"/>
+                                                       </query>
+                                                       <action>
+                                                           <richlistitem uri="?">
+                                                               <checkbox name="?cid" checked="?sel" align="center"
+                                                                         minwidth="10"/>
+                                                               <label value="?name" align="center" minwidth="50" flex="1"/>
+                                                               <textbox name="?vid" value="?value" oninput="" align="center"
+                                                                        minwidth="50" flex="1"/>
+                                                           </richlistitem>
+                                                       </action>
+                                                   </template>
+                                               </richlistbox>
+
+                                           </row>
+                                           <!--row align="center">
+                                           </row-->
+
+                                       </rows>
+                                   </grid>
+
+                               </vbox>
+                           </groupbox>
+                    </vbox>
+                </groupbox>
+             </groupbox>
+           </tabpanel>
+<!--            <tabpanel orient="vertical">
               <textbox id="source" multiline="true" wrap="off" flex="1"/>
               <resizer dir="bottomright" height="2" style="cursor: se-resize;"/>
-            </tabpanel>
+            </tabpanel>-->
+<!--
             <tabpanel orient="vertical">
               <groupbox orient="horizontal" flex="1">
                  <groupbox flex="1" class="border">
                      <caption lable="UI" />
+                      &lt;!&ndash;<label control="commandValue" value="&UiModule.label;" align="center"/>&ndash;&gt;
                       <vbox id="customize_tree" datasources="#customize_tree_xml" ref="*" querytype="xml" flex="3"
                             style="overflow: auto;">
-                            <!--caption label="UI Module"/-->
+                            &lt;!&ndash;caption label="UI Module"/&ndash;&gt;
                             <template>
                                 <query expr="*"/>
                                 <action>
@@ -159,9 +325,9 @@
                     <splitter collapse="after" ><grippy /></splitter>
                     <groupbox flex="1" class="border">
                         <caption lable="Selected DOM Element"/>
-                    <!--separator class="thin"/-->
-                    <!--splitter collapse="before" class="splitter" resizeafter="farthest"/-->
-                    <!-- command editing -->
+                    &lt;!&ndash;separator class="thin"/&ndash;&gt;
+                    &lt;!&ndash;splitter collapse="before" class="splitter" resizeafter="farthest"/&ndash;&gt;
+                    &lt;!&ndash; command editing &ndash;&gt;
                         <vbox id="uiObjectEdit" flex="1" style="overflow: auto" minwidth="280">
                             <hbox pack="center">
                                 <button label="&show.label;" oncommand="window.editor.showNodeOnWeb()"/>
@@ -175,22 +341,22 @@
                                 </columns>
                                 <rows>
                                     <row align="center">
-                                        <!-- do drop down that depends upon the element type -->
+                                        &lt;!&ndash; do drop down that depends upon the element type &ndash;&gt;
                                         <label control="commandAction" value="&uid.label;"/>
                                         <textbox disabled="true" id="uid" oninput=""/>
                                     </row>
                                     <row align="center">
-                                        <!-- show different options collected by the client. Allow user to override -->
+                                        &lt;!&ndash; show different options collected by the client. Allow user to override &ndash;&gt;
                                         <label control="commandTarget" value="&type.label;"/>
                                         <hbox flex="1">
                                             <textbox disabled="true" id="uiType" oninput="window.editor.updateUiType(this.value)" type="autocomplete" autocompletesearch="selenium-ide-generic" enablehistory="true" forcecomplete="true" tabscrolling="true"/>
-                                            <!--<textbox flex="1" disabled="true" id="uiType" type="autocomplete"/>-->
+                                            &lt;!&ndash;<textbox flex="1" disabled="true" id="uiType" type="autocomplete"/>&ndash;&gt;
 
-                                           <!-- <textbox type="autocomplete" autocompletesearch="google-autocomplete" />-->
-                                            <!--<html:input id="uiTypeAutoComplete"/>-->
-<!--
+                                           &lt;!&ndash; <textbox type="autocomplete" autocompletesearch="google-autocomplete" />&ndash;&gt;
+                                            &lt;!&ndash;<html:input id="uiTypeAutoComplete"/>&ndash;&gt;
+&lt;!&ndash;
                                             <textbox flex="1" disabled="true" id="uiType" type="autocomplete" autocompletesearch="simple-autocomplete" showcommentcolumn="true" autocompletesearchparam=""/>
--->
+&ndash;&gt;
                                         </hbox>
                                     </row>
                                     <row align="center">
@@ -232,8 +398,8 @@
                                         </richlistbox>
 
                                     </row>
-                                    <!--row align="center">
-                                    </row-->
+                                    &lt;!&ndash;row align="center">
+                                    </row&ndash;&gt;
 
                                 </rows>
                             </grid>
@@ -242,10 +408,12 @@
                     </groupbox>
               </groupbox>
             </tabpanel>
+-->
             <tabpanel orient="vertical">
               <textbox id="exportSource" multiline="true" wrap="off" flex="1"/>
               <resizer dir="bottomright" height="2" style="cursor: se-resize;"/>
             </tabpanel>
+<!--
             <tabpanel orient="vertical">
                 <groupbox orient="horizontal" flex="1">
                     <groupbox flex="1" class="border">
@@ -299,8 +467,8 @@
                                 </rows>
                             </grid>
                             <separator class="groove-thin"/>
-<!--                            <label control="example" value="Hints:"/>
-                            <textbox multiline="true" readonly="true" id="exampleText" rows="2" value=""/>-->
+&lt;!&ndash;                            <label control="example" value="Hints:"/>
+                            <textbox multiline="true" readonly="true" id="exampleText" rows="2" value=""/>&ndash;&gt;
                         </vbox>
                     </groupbox>
                     <splitter collapse="after">
@@ -328,6 +496,7 @@
                     </groupbox>
                 </groupbox>
             </tabpanel>
+-->
         </tabpanels>
     </tabbox>
     <deck selectedIndex="0" id="logMsgSelection">

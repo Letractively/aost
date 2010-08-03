@@ -412,7 +412,7 @@ Recorder.prototype.generateSource = function(){
         this.reloadRecorder();
         var src = this.app.toSource();
 //        var src = this.workspace.convertSource();
-        var sourceTextNode = document.getElementById("source");
+        var sourceTextNode = document.getElementById("exportSource");
         sourceTextNode.value = src;
         logger.info("UI Module and commands are generated, please see them on the UI module source view.");
     } catch(error) {
