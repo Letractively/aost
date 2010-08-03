@@ -39,7 +39,8 @@ function Editor(window) {
     this.cmdHistory = new Array();
 
     this.cmdView = CommandView;
-    this.cmdTree = document.getElementById('commandHistoryTree');
+//    this.cmdTree = document.getElementById('commandHistoryTree');
+    this.cmdTree = document.getElementById('recordedCommandListTree');
     this.cmdTree.view = this.cmdView;
 
 //    this.checker = new UiChecker();
@@ -441,6 +442,10 @@ Editor.prototype.selectedTreeItem = function(event){
     this.recorder.showSelectedNode();
 };
 
+Editor.prototype.selectUiCommand = function(value){
+
+};
+
 Editor.prototype.customizeButton = function(){
     this.switchToCustomizeTab();
     var xml = DEFAULT_XML;
@@ -452,6 +457,14 @@ Editor.prototype.customizeButton = function(){
     var uiTypes = this.builder.getAvailableUiTypes();
     Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
                                                       XulUtils.toXPCOMArray(uiTypes));
+    var app = this.recorder.app;
+    if(app != null){
+        var commandList = app.getCommandList();
+        this.cmdView.setTestCommands(commandList);
+        for(var i=0; i<commandList.length; i++){
+            this.cmdView.rowInserted();            
+        }
+     }
 };
 
 Editor.prototype.switchToCustomizeTab = function(){
