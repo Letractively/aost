@@ -256,7 +256,8 @@ Recorder.prototype.clearAll = function(){
     this.tagObjectArray = new Array();
     this.recordCommandList = new Array();
     this.cmdListView.clearAll();
-    this.treeView.clearAll();    
+    this.treeView.clearAll();
+    this.app.clearAll();
 };
 
 Recorder.prototype.recordDomNode = function (element){

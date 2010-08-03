@@ -16,6 +16,11 @@ function App(){
     this.map = new Hashtable();
 }
 
+App.prototype.clearAll = function(){
+    this.pages = new Array();
+    this.map = new Hashtable();
+};
+
 App.prototype.isEmpty = function(){
     return this.pages.length == 0;
 };

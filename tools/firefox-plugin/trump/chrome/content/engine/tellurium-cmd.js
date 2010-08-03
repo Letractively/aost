@@ -353,6 +353,25 @@ TelluriumCommand.prototype.isDisabled = function(uid) {
     return this.execCommand("isDisabled", uid);
 };
 
+TelluriumCommand.prototype.waitForPageToLoad = function(timeout){
+
+};
+
+TelluriumCommand.prototype.decorateFunctionWithTimeout = function(f, timeout) {
+    if (f == null) {
+        return null;
+    }
+
+    var now = new Date().getTime();
+    var timeoutTime = now + timeout;
+    return function() {
+        if (new Date().getTime() > timeoutTime) {
+            throw new TelluriumError(ErrorCodes.TIME_OUT, "Timed out after " + timeout + "ms");
+        }
+        return f();
+    };
+};
+
 TelluriumCommand.prototype.showUI = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;

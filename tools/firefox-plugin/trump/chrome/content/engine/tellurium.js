@@ -6,6 +6,7 @@ var ErrorCodes = {
     UI_MODULE_IS_NULL: "UI module is null",
     DOM_NOT_SPECIFIED: "DOM is not specified",
     ELEMENT_HAS_NO_VALUE: "No value attribute in element",
+    TIME_OUT: "Command Timeouts",
     UNKNOWN: "Unknown"
 };
 
