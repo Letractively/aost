@@ -13,7 +13,7 @@
 <!ENTITY clear.tooltip "Clear">
 
 <!ENTITY recordTab.label "Record Stack">
-<!ENTITY customizeTab.label "Customization View">
+<!ENTITY customizeTab.label "Command View">
 <!ENTITY testTab.label "Test Command">
 <!ENTITY validateTab.label "Validate">
 <!ENTITY sourceTab.label "UI Module">
@@ -25,11 +25,22 @@
 <!ENTITY element.name.label "Reference">
 <!ENTITY element.framename.label "Frame Name">
 
+<!ENTITY UiModule.label "UI Module">
 <!ENTITY commandList.label "Command List">
 <!ENTITY listCommandName.label "Name">
 <!ENTITY listCommandRef.label "Target">
 <!ENTITY listCommandValue.label "Value">
 <!ENTITY domNodeList.label "DOM Nodes">
+
+<!ENTITY recordedCommandList.label "Command List">
+<!ENTITY recordedCommandName.label "Name">
+<!ENTITY recordedCommandRef.label "Target">
+<!ENTITY recordedCommandValue.label "Value">
+<!ENTITY recordedCommandResult.label "Result">
+<!ENTITY updateCommandName.label "Name">
+<!ENTITY updateCommandUID.label "UID">
+<!ENTITY updateCommandValue.label "Value">
+<!ENTITY updateCommand.label "Update">
 
 <!ENTITY uid.label "UID">
 <!ENTITY type.label "Type">

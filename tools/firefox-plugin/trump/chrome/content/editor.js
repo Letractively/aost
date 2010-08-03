@@ -316,10 +316,10 @@ Editor.prototype.generateButton = function(){
 };
 
 Editor.prototype.validateUI = function(){
-//    if(tellurium == null){
-//        tellurium = new Tellurium();
-//        tellurium.initialize();
-//    }
+    if(tellurium == null){
+        tellurium = new Tellurium();
+        tellurium.initialize();
+    }
     var glf = Preferences.getPref("extensions.trump.grouplocating");
 //    alert("extensions.trump.grouplocating: " + glf);
     if(glf == undefined){
@@ -421,7 +421,8 @@ Editor.prototype.clearCustomizeTabContext = function(){
 };
 
 Editor.prototype.switchToSourceTab = function(){
-    document.getElementById("editorTabs").selectedItem = document.getElementById("sourceTab");
+//    document.getElementById("editorTabs").selectedItem = document.getElementById("sourceTab");
+    document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
 };
 
 Editor.prototype.clearSourceTabContent = function(){
@@ -565,11 +566,15 @@ Editor.prototype.cleanTestView = function(){
     this.cmdView.clearAll();
 };
 
-Editor.prototype.updateUiCommand = function(value){
+Editor.prototype.updateUiCommandName = function(value){
 
 };
 
 Editor.prototype.updateUiUID = function(value){
+
+};
+
+Editor.prototype.updateUiCommand = function(value){
 
 };
 
