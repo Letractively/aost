@@ -42,7 +42,9 @@ function Editor(window) {
 //    this.cmdTree = document.getElementById('commandHistoryTree');
     this.cmdTree = document.getElementById('recordedCommandListTree');
     this.cmdTree.view = this.cmdView;
-    this.currentCommandIndex = -1;
+
+    this.currentSelectedCommand = null;
+//    this.currentCommandIndex = -1;
 
 //    this.checker = new UiChecker();
 
@@ -445,8 +447,9 @@ Editor.prototype.selectedTreeItem = function(event){
 
 Editor.prototype.selectUiCommand = function(){
     try {
-        this.currentCommandIndex = this.cmdTree.currentIndex;
-        var cmd =  this.cmdView.getRecordByIndex(this.currentCommandIndex);
+        var index = this.cmdTree.currentIndex;
+        var cmd =  this.cmdView.getRecordByIndex(index);
+        this.currentSelectedCommand = cmd;
         if(cmd != null){
             var cmdName = document.getElementById("updateCommandName");
             var cmdUid = document.getElementById("updateCommandUID");
@@ -492,6 +495,7 @@ Editor.prototype.customizeButton = function(){
                                                       XulUtils.toXPCOMArray(uiTypes));
     var app = this.recorder.app;
     if(app != null){
+        this.cmdView.clearAll();
         var commandList = app.getCommandList();
         this.cmdView.setTestCommands(commandList);
         for(var i=0; i<commandList.length; i++){
@@ -620,8 +624,25 @@ Editor.prototype.updateUiUID = function(value){
 
 };
 
-Editor.prototype.updateUiCommand = function(value){
-
+Editor.prototype.updateUiCommand = function(){
+    if(this.currentSelectedCommand != null){
+        logger.debug("Update command " + this.currentSelectedCommand.seq);
+        var cmdName = document.getElementById("updateCommandName").value;
+        var cmdUid = document.getElementById("updateCommandUID").value;
+        var cmdValue = document.getElementById("updateCommandValue").value;
+        this.currentSelectedCommand.name = cmdName;
+        if(cmdUid.trim().length == 0){
+            cmdUid = null;
+        }else{
+            this.currentSelectedCommand.ref = cmdUid;
+        }
+        if(cmdValue.trim().length == 0){
+            this.currentSelectedCommand.value = null;
+        }else{
+            this.currentSelectedCommand.value = cmdValue;
+        }
+        this.recorder.app.updateCommand(this.currentSelectedCommand);
+    }
 };
 
 Editor.prototype.runUiCommand = function(){

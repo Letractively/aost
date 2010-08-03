@@ -224,8 +224,12 @@ function getColor(elem, cssName){
    return color;
 }
 
-function Identifier(){
-    this.sn = 100;
+function Identifier(sn){
+    if(sn){
+        this.sn = sn;
+    }else{
+        this.sn = 100;
+    }
 }
 
 Identifier.prototype.next = function(){

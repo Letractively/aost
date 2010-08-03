@@ -5,13 +5,15 @@ function NodeRef(dom, frameName, ref){
 }
 
 function UiCommand(name, ref, value){
+    this.seq = null;
     this.name = name;
     this.ref = ref;
     this.value = value;
 }
 
-function TeCommand(name, ref, value){
+function TeCommand(seq, name, ref, value){
     this.flag = true;
+    this.seq = seq;
     this.name = name;
     this.ref = ref;
     this.value = value;
@@ -56,6 +58,8 @@ function Workspace(uiBuilder, uiChecker){
     this.convertedCommandList = null;
 
     this.refUidMap = null;
+
+    this.sequence = new Identifier(0);
 }
 
 Workspace.prototype.addNode = function(dom, frameName, ref){
@@ -95,6 +99,7 @@ Workspace.prototype.convertCommand = function(){
 //            if(uid == undefined)
 //                logger.warn("Cannot find UID for reference ID " + cmd.ref + " for command " + cmd.name);
             var ccmd = new UiCommand(cmd.name, uid, cmd.value);
+            ccmd.seq = this.sequence.next();
             this.convertedCommandList.push(ccmd);
         }
     }

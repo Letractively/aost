@@ -14,12 +14,23 @@ function UiPage(){
 function App(){
     this.pages = new Array();
     this.map = new Hashtable();
+    this.cmdIndex = new Hashtable();
     this.uiAlg = new UiAlg();
 }
 
 App.prototype.clearAll = function(){
     this.pages = new Array();
     this.map = new Hashtable();
+    this.cmdIndex = new Hashtable();
+};
+
+App.prototype.updateCommand = function(cmd){
+    if(cmd != null){
+        var command = this.cmdIndex.get(cmd.seq);
+        command.name = cmd.name;
+        command.ref = cmd.ref;
+        command.value = cmd.value;
+    }
 };
 
 App.prototype.getCommandList = function(){
@@ -29,7 +40,9 @@ App.prototype.getCommandList = function(){
             var commandList = this.pages[i].commandList;
             if(commandList != null && commandList.length > 0){
                 for(var j=0; j<commandList.length; j++){
-                    var cmd = new TeCommand(commandList[j].name, commandList[j].ref, commandList[j].value);
+                    var uiCmd = commandList[j];
+                    this.cmdIndex.put(uiCmd.seq, uiCmd);
+                    var cmd = new TeCommand(uiCmd.seq, uiCmd.name, uiCmd.ref, uiCmd.value);
                     list.push(cmd);
                 }
             }

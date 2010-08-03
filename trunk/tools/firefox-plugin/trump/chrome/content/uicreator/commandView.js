@@ -36,6 +36,7 @@ var CommandView  = {
         this.treebox.rowCountChanged(this.rowCount, -this.rowCount);
         this.rowCount = 0;
         this.recordIndex = 0;
+        this.testCommands = null;
     },
 
     getCellText : function(row, aColumn){
