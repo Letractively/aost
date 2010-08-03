@@ -42,6 +42,7 @@ function Editor(window) {
 //    this.cmdTree = document.getElementById('commandHistoryTree');
     this.cmdTree = document.getElementById('recordedCommandListTree');
     this.cmdTree.view = this.cmdView;
+    this.currentCommandIndex = -1;
 
 //    this.checker = new UiChecker();
 
@@ -442,8 +443,40 @@ Editor.prototype.selectedTreeItem = function(event){
     this.recorder.showSelectedNode();
 };
 
-Editor.prototype.selectUiCommand = function(value){
+Editor.prototype.selectUiCommand = function(){
+    try {
+        this.currentCommandIndex = this.cmdTree.currentIndex;
+        var cmd =  this.cmdView.getRecordByIndex(this.currentCommandIndex);
+        if(cmd != null){
+            var cmdName = document.getElementById("updateCommandName");
+            var cmdUid = document.getElementById("updateCommandUID");
+            var cmdValue = document.getElementById("updateCommandValue");
+            cmdName.disabled = false;
+            cmdUid.disabled = false;
+            cmdValue.disabled = false;
+            cmdName.value = cmd.name;
+            Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandName")),
+                                                          XulUtils.toXPCOMArray(this.commandList));
+            if(cmd.ref != null && cmd.ref != undefined){
+                cmdUid.value = cmd.ref;
+                var uids = this.recorder.app.getUids(cmd.ref);
+                Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
+                    XulUtils.toXPCOMArray(uids));
 
+            }else{
+                cmdUid.value = '';
+                Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
+            }
+            if(cmd.value != null && cmd.value != undefined){
+                cmdValue.value = cmd.value;
+            }else{
+                cmdValue.value = "";
+            }
+        }
+
+    } catch(error) {
+        logger.error("Error processing selected command:\n" + describeErrorStack(error));
+     }
 };
 
 Editor.prototype.customizeButton = function(){

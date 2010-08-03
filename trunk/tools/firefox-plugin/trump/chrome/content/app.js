@@ -14,6 +14,7 @@ function UiPage(){
 function App(){
     this.pages = new Array();
     this.map = new Hashtable();
+    this.uiAlg = new UiAlg();
 }
 
 App.prototype.clearAll = function(){
@@ -36,6 +37,34 @@ App.prototype.getCommandList = function(){
     }
 
     return list;
+};
+
+App.prototype.getUids = function(uid) {
+    var context = new WorkflowContext();
+    context.alg = this.uiAlg;
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+
+    var first = uiid.peek();
+    var uim = this.map.get(first);
+    uid = first;
+    uiid.convertToUiid(uid);
+    if (uim != null) {
+        var obj = uim.walkTo(context, uiid);
+        if (obj != null) {
+            var stree = this.uiAlg.buildSTree(uim);
+            var visitor = new UiUIDVisitor();
+            stree.traverse(context, visitor);
+
+            return visitor.uids;
+        } else {
+            logger.error("Cannot find UI object " + uid);
+            throw new TelluriumError(ErrorCodes.UI_OBJ_NOT_FOUND, "Cannot find UI object " + uid);
+        }
+    } else {
+        logger.error("Cannot find UI Module " + uid);
+        throw new TelluriumError(ErrorCodes.UI_MODULE_IS_NULL, "Cannot find UI Module " + uid);
+    }
 };
 
 App.prototype.isEmpty = function(){
