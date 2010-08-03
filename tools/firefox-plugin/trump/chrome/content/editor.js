@@ -2,8 +2,6 @@
  * An UI of Trump IDE.
  */
 
-const DEFAULT_XML = "<?xml version=\"1.0\"?><UIs id=\"customize_tree_xml\" xmlns=\"\"></UIs>";
-const DEFAULT_ATTRIBUTES_XML = "<?xml version=\"1.0\"?><attributes id=\"attributes_tree_xml\" xmlns=\"\"></attributes>";
 
 const RecordState = {
     RECORD: "record",
@@ -465,10 +463,13 @@ Editor.prototype.selectUiCommand = function(){
                 var uids = this.recorder.app.getUids(cmd.ref);
                 Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
                     XulUtils.toXPCOMArray(uids));
-
+                var uim = this.recorder.app.getUiModule(cmd.ref);
+                var xml = uim.buildXML();
+                this.buildCustomizeTree(xml);                
             }else{
                 cmdUid.value = '';
                 Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
+                this.buildCustomizeTree(DEFAULT_XML);
             }
             if(cmd.value != null && cmd.value != undefined){
                 cmdValue.value = cmd.value;
@@ -485,9 +486,9 @@ Editor.prototype.selectUiCommand = function(){
 Editor.prototype.customizeButton = function(){
     this.switchToCustomizeTab();
     var xml = DEFAULT_XML;
-    if(this.workspace.innerTree != null){
+/*    if(this.workspace.innerTree != null){
         xml = this.workspace.buildXML();
-    }
+    }*/
 
     this.buildCustomizeTree(xml);
     var uiTypes = this.builder.getAvailableUiTypes();

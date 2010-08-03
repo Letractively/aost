@@ -547,3 +547,14 @@ var UiSimpleTipCleaner = STreeVisitor.extend({
         !tellurium.logManager.isUseLog || fbLog("Clean simple tip for " + frid, elem);
     }
 });
+
+var MarkInvalidVisitor = STreeVisitor.extend({
+    init: function(){
+        this.invalid = null;
+    },
+
+    visit: function(context, node){
+        var uid = node.fullUid();
+        node.isLocatorValid = !(this.invalid != null && teJQuery.inArray(uid, this.invalid));
+    }
+});

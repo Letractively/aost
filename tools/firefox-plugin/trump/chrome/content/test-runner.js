@@ -25,12 +25,12 @@ TestRunner.prototype.run = function(app) {
 };
 
 TestRunner.prototype.getUiModule = function(uid){
-    var uiid = new Uiid();
-    uiid.convertToUiid(uid);
+//    var uiid = new Uiid();
+//    uiid.convertToUiid(uid);
+//
+//    var first = uiid.peek();
 
-    var first = uiid.peek();
-
-    return this.app.getUiModule(first);
+    return this.app.getUiModule(uid);
 };
 
 TestRunner.prototype.getMostRecentDocument = function(){

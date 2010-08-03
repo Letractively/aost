@@ -310,16 +310,17 @@ Workspace.prototype.validateUiModule = function() {
         this.uim.doc = this.innerTree.document;
         this.dom = this.innerTree.document;
         this.id = this.uim.getId();
-        var result = this.validate();
+//        var result = this.validate();
+        var result = this.uim.validate(this.uiAlg);
         if (result != null) {
-            this.innerTree.clearValidFlag();
+/*            this.innerTree.clearValidFlag();
             if (!result.found) {
                 if (result.relaxDetails != null) {
                     for (var j = 0; j < result.relaxDetails.length; j++) {
                         this.innerTree.markInvalidUiObject(result.relaxDetails[j].uid);
                     }
                 }
-            }
+            }*/
 
             return result.toString();
 //            var msg = result.toString();

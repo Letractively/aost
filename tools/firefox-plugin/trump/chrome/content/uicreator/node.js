@@ -1,4 +1,3 @@
-const MYCLASS = "myClass";
 const UID_PREFIX = "UI_";
 
 function NodeObject(){

@@ -1,3 +1,7 @@
+const MYCLASS = "myClass";
+const DEFAULT_XML = "<?xml version=\"1.0\"?><UIs id=\"customize_tree_xml\" xmlns=\"\"></UIs>";
+const DEFAULT_ATTRIBUTES_XML = "<?xml version=\"1.0\"?><attributes id=\"attributes_tree_xml\" xmlns=\"\"></attributes>";
+
 function UiModule(){
     
     this.id = null;
@@ -229,6 +233,60 @@ UiModule.prototype.findInvalidAncestor = function(context, uiid){
     return queue;
 };
 
+UiModule.prototype.buildXML = function(){
+    if(this.root != null){
+        try{
+            var xmlVisitor = new XMLSourceVisitor();
+            var context = new WorkflowContext();
+            this.root.around(context, xmlVisitor);
+            var xml = "<?xml version=\"1.0\"?>\n<UIs id=\"customize_tree_xml\" xmlns=\"\">\n";
+             xml += xmlVisitor.formatXML();
+//            xml += this.formatXML(xmlArray);
+            xml += "</UIs>";
+            //        logger.debug("Generated XML: \n" + xml);
+            return xml;
+        }catch(error){
+            logger.error("Build XML failed:\n" + describeErrorStack(error));
+        }
+    }
+
+    return DEFAULT_XML;
+};
+
+UiModule.prototype.validate = function(alg, doc){
+    if (doc)
+        alg.validate(this, doc);
+    else
+        alg.validate(this, this.doc);
+
+    var found = false;
+    if (this.score == 100 || (!this.relaxed))
+        found = true;
+
+    var invalid = null;
+    if (!found) {
+        if (this.relaxDetails != null) {
+            invalid = new Array();
+            for (var i = 0; i < this.relaxDetails.length; i++) {
+                invalid.push(this.relaxDetails[i].uid);
+            }
+        }
+    }
+    var visitor = new MarkInvalidVisitor();
+    visitor.invalid = invalid;
+    this.root.traverse(new WorkflowContext(), visitor);
+
+    var response = new UiModuleLocatingResponse();
+    response.id = this.id;
+    response.relaxed = this.relaxed;
+    response.found = found;
+    response.relaxDetails = this.relaxDetails;
+    response.matches = this.matches;
+    response.score = this.score;
+
+    return response;
+};
+
 function UiModuleLocatingResponse(){
     //ID for the UI module
     this.id = null;
@@ -344,3 +402,50 @@ var StringifyVisitor = AroundVisitor.extend({
         }
     }
 });
+
+var XMLSourceVisitor = AroundVisitor.extend({
+    init: function() {
+        this.xmlArray = new Array();
+    },
+
+    before: function(context, node) {
+
+        //get the current level of the node so that we can do pretty print
+        var level = node.checkLevel();
+        var padding = node.paddingByLevel(level + 1);
+        var descobj = node.descObject();
+
+        var isXPathValid = node.isLocatorValid ? "" : "X";
+        var valid = "valid=\"" + isXPathValid + "\"";
+        var myclass = "class=\"" + MYCLASS + level + "\"";
+
+        var myUID = "id=\"" + node.fullUid() + "\"";
+
+        if (node.hasChildren()) {
+            this.xmlArray.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + " " + myUID + " " + valid + ">\n");
+
+        } else {
+            this.xmlArray.push(padding + "<UiObject desc=\"" + descobj + "\" " + myclass + " " + myUID + " " + valid + "/>\n");
+        }
+    },
+
+    after: function(context, node) {
+        if (node.hasChildren()) {
+            var level = node.checkLevel();
+            var padding = node.paddingByLevel(level + 1);
+            this.xmlArray.push(padding + "</UiObject>\n");
+        }
+    },
+
+    formatXML: function() {
+        var xml = new StringBuffer();
+        if (this.xmlArray != null) {
+            for (var i = 0; i < this.xmlArray.length; ++i) {
+                xml.append(this.xmlArray[i]);
+            }
+        }
+
+        return xml.toString();
+    }
+});
+
