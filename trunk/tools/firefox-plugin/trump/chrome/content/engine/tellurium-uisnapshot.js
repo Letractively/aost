@@ -558,3 +558,14 @@ var MarkInvalidVisitor = STreeVisitor.extend({
         node.isLocatorValid = !(this.invalid != null && teJQuery.inArray(uid, this.invalid));
     }
 });
+
+var UiIndexVisitor = STreeVisitor.extend({
+    init: function(){
+        this.indices = new Hashtable();
+    },
+
+    visit: function(context, node){
+        var uid = node.fullUid();
+        this.indices.put(uid, node);
+    }
+});

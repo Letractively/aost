@@ -97,6 +97,26 @@ App.prototype.getUiModules = function(){
     return this.map.valSet();
 };
 
+App.prototype.updateUiModule = function(oldId, uim){
+    this.map.remove(oldId);
+    this.map.put(uim.id, uim);
+};
+
+App.prototype.walkToUiObject = function(uid){
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+
+    var first = uiid.peek();
+
+    var uim = this.map.get(first);
+
+    if(uim != null){
+        return uim.walkTo(new WorkflowContext(), uiid);
+    }
+    
+    return null;
+};
+
 App.prototype.savePage = function(window, uim, dom, commandList){
     var page = new UiPage();
     page.window = window;
