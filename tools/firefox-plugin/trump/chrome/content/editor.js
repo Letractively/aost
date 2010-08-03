@@ -317,6 +317,34 @@ Editor.prototype.generateButton = function(){
     }
 };
 
+Editor.prototype.validateOneUiModule = function(uim){
+    if(tellurium == null){
+        tellurium = new Tellurium();
+        tellurium.initialize();
+    }
+    var glf = Preferences.getPref("extensions.trump.grouplocating");
+//    alert("extensions.trump.grouplocating: " + glf);
+    if(glf == undefined){
+        glf = true;
+    }
+
+    if(glf){
+        var msg;
+        try{
+            var result = uim.validate(this.recorder.app.uiAlg);
+            msg = result.toString();
+            logger.debug(msg);
+            this.showMessage(msg);
+        }catch(error){
+            msg = "Error while validating UI Module. \n" + describeErrorStack(error) +"\n";
+            logger.error(msg);
+            this.showMessage(msg);
+        }
+    }else{
+        this.validateXPath();
+    }
+};
+
 Editor.prototype.validateUI = function(){
     if(tellurium == null){
         tellurium = new Tellurium();
@@ -529,7 +557,9 @@ Editor.prototype.populateUiTypeAutoComplete = function(){
 Editor.prototype.processCustomizeEvent = function(event){
 //    logger.debug('Customize ' + event.target.getAttribute("label"));
     this.currentUid = event.target.getAttribute("uid");
-    var uiObject = this.workspace.innerTree.uiObjectMap.get(this.currentUid);
+//    var uiObject = this.workspace.innerTree.uiObjectMap.get(this.currentUid);
+    var uiObject = this.recorder.app.walkToUiObject(this.currentUid);
+
 //    logger.debug("uiObject : " + uiObject.descObject());
     if(uiObject != null){
         this.fillUiObjectFields(uiObject);
@@ -695,12 +725,14 @@ Editor.prototype.fillUiObjectFields = function(uiObject){
         document.getElementById("group_Check_Box").disabled = true;
     }
 
-    if (uiObject.node != null) {
+    var xml = uiObject.buildAttributeXml();
+    this.buildUiAttributeTree(xml);
+/*    if (uiObject.node != null) {
         var xml = uiObject.node.buildAttributeXml();
         this.buildUiAttributeTree(xml);
     } else {
         logger.warn("Ui object " + uiObject.uid + " does not point to a Node in the tree")
-    }
+    }*/
 };
 
 Editor.prototype.enableUiObjectFields = function(){
@@ -750,8 +782,11 @@ Editor.prototype.showNodeOnWeb = function(){
 };
 
 Editor.prototype.updateUiObject = function(){
-    var uiObject = this.workspace.getUiObject(this.currentUid);
+//    var uiObject = this.workspace.getUiObject(this.currentUid);
+    var uiObject = this.recorder.app.walkToUiObject(this.currentUid);
     if(uiObject != null){
+        var uim = uiObject.uim;
+        var oldUimId = uim.id;
         logger.debug("Update UI object " + this.currentUid);
 
         //update UID
@@ -797,11 +832,15 @@ Editor.prototype.updateUiObject = function(){
         }
         uiObject.updateAttributes(attrmap);
         if(uiObject.parent == null){
-            this.workspace.id = uiObject.uid;
+            uim.id = uiObject.uid;
+            uim.buildUiIndex();
+            this.recorder.app.updateUiModule(oldUimId, uim);
+/*            this.workspace.id = uiObject.uid;
             this.workspace.innerTree.root.id = uiObject.uid;
-            this.workspace.innerTree.buildIndex();
+            this.workspace.innerTree.buildIndex();*/
         }
-        this.validateUI();
+//        this.validateUI();
+        this.validateOneUiModule(uim);
         this.customizeButton();
         this.updateSource();
     }else{

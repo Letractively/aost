@@ -26,6 +26,9 @@ var UiObject = Class.extend({
         this.namespace = null;
 
         this.locator = null;
+        
+        //optional attributes
+        this.optionalAttributes = null;
 
         //event this object should be respond to
         this.events = null;
@@ -58,6 +61,45 @@ var UiObject = Class.extend({
 
         this.isContainer = false;
         this.isLocatorValid = false;
+    },
+
+    buildAttributeXml: function() {
+        if (this.optionalAttributes) {
+            var keySet = this.optionalAttributes.keySet();
+            var locator = this.locator;
+            var xmlArray = new Array();
+            var xmlBuffer = new StringBuffer();
+
+            for (var i = 0; i < keySet.length; i++) {
+                //should not change tag, thus, remove tag from the list
+                var key = keySet[i];
+                if (key != "tag") {
+                    var included = false;
+
+                    if (locator.isAttributeIncluded(key)) {
+                        included = true;
+                    }
+
+                    xmlArray.push("<attribute name=\"" + key + "\"" + " value=\"" + specialCharacterProof(this.optionalAttributes.get(key)) + "\"" + " sel=\"" + included + "\"" + "/>\n");
+                }
+            }
+
+            var xml = "<?xml version=\"1.0\"?>\n<attributes id=\"attributes_tree_xml\" xmlns=\"\">\n";
+
+            if (xmlArray != null) {
+                for (var j = 0; j < xmlArray.length; j++) {
+                    xmlBuffer.append(xmlArray[j]);
+                }
+            }
+
+
+            xml += xmlBuffer.toString();
+            xml += "</attributes>\n";
+
+            return xml;
+        }
+
+        return "";
     },
 
     updateAttributes: function(attributes){

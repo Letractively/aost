@@ -51,6 +51,15 @@ function UiModule(){
     this.stree = null;
 }
 
+UiModule.prototype.buildUiIndex = function(){
+    if(this.root != null){
+        var visitor = new UiIndexVisitor();
+        var context = new WorkflowContext();
+        this.root.traverse(context, visitor);
+        this.map = visitor.indices();
+    }
+};
+
 UiModule.prototype.dumpMe = function(){
     if(this.root != null){
         fbInfo("Dump UI Module " + this.id, this);

@@ -58,7 +58,7 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/command-list.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/uicreator/commandView.js"/>
 
-    <script type="application/x-javascript" src="chrome://trump/content/utils/xmlUtil.js"/>
+    <!--<script type="application/x-javascript" src="chrome://trump/content/utils/xmlUtil.js"/>-->
     <script type="application/x-javascript" src="chrome://trump/content/utils/fileUtil.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/utils/browserDetect.js"/>
 

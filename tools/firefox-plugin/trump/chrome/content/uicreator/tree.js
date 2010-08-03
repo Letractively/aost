@@ -407,6 +407,7 @@ UiBuilder.prototype.visit = function(node) {
         obj.uid = node.id;
         obj.refId = node.refId;
         obj.node = node;
+        obj.optionalAttributes = node.attributes;
         node.uiobject = obj;
     }else{
         logger.error("Cannot find a UI builder for UI type " + uiType);
