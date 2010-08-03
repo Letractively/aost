@@ -12,13 +12,13 @@
 <!ENTITY test.tooltip "Test Tellurium Command">
 <!ENTITY clear.tooltip "Clear">
 
-<!ENTITY recordTab.label "Record Stack">
+<!ENTITY recordTab.label "Record View">
 <!ENTITY customizeTab.label "Command View">
 <!ENTITY testTab.label "Test Command">
 <!ENTITY validateTab.label "Validate">
 <!ENTITY sourceTab.label "UI Module">
 <!ENTITY exportToWindow.label "Export To Window">
-<!ENTITY exportToWindowsTab.label "Source Code">
+<!ENTITY exportToWindowsTab.label "Source View">
 
 <!ENTITY settingsTab.label "Settings">
 <!ENTITY element.label "DOM Node">

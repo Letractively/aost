@@ -10,6 +10,14 @@ var CommandView  = {
         this.recordIndex++;
     },
 
+    getRecordByIndex: function(index){
+        if(index >= 0 && index < this.testCommands.length){
+            return this.testCommands[index];
+        }
+
+        return null;
+    },
+
     getRecordIndex: function() {
         return this.recordIndex;
     },
