@@ -21,6 +21,23 @@ App.prototype.clearAll = function(){
     this.map = new Hashtable();
 };
 
+App.prototype.getCommandList = function(){
+    var list = new Array();
+    if(this.pages != null && this.pages.length > 0){
+        for(var i=0; i<this.pages.length; i++){
+            var commandList = this.pages[i].commandList;
+            if(commandList != null && commandList.length > 0){
+                for(var j=0; j<commandList.length; j++){
+                    var cmd = new TeCommand(commandList[j].name, commandList[j].ref, commandList[j].value);
+                    list.push(cmd);
+                }
+            }
+        }
+    }
+
+    return list;
+};
+
 App.prototype.isEmpty = function(){
     return this.pages.length == 0;
 };

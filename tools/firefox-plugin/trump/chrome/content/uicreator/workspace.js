@@ -10,6 +10,14 @@ function UiCommand(name, ref, value){
     this.value = value;
 }
 
+function TeCommand(name, ref, value){
+    this.flag = true;
+    this.name = name;
+    this.ref = ref;
+    this.value = value;
+    this.result = "";
+}
+
 function Workspace(uiBuilder, uiChecker){
     //ID of the current UI Module
     this.id = null;

@@ -144,11 +144,12 @@
                                  <label control="commandValue" value="&recordedCommandList.label;" align="center"/>
                                  <spacer flex="1"/>
                              </hbox>
-                             <tree id="recordedCommandListTree" flex="1" rows="10" hidecolumnpicker="true">
+                             <tree id="recordedCommandListTree" flex="1" rows="10" hidecolumnpicker="false" seltype="single" onselect="window.editor.selectUiCommand(this.value)">
                                <treecols>
+                                 <treecol id="recordedCommandFlag" label="&recordedCommandFlag.label;" type="checkbox" editable="true"/>
                                  <treecol id="recordedCommandName" label="&recordedCommandName.label;" flex="1" align="center"/>
                                  <treecol id="recordedCommandRef" label="&recordedCommandRef.label;" flex="1" align="center"/>
-                                 <treecol id="recordedCommandValue" label="&recordedCommandValue.label;" flex="1" align="center"/>
+                                 <treecol id="recordedCommandValue" label="&recordedCommandValue.label;" flex="2" align="center"/>
                                  <treecol id="recordedCommandResult" label="&recordedCommandResult.label;" flex="1" align="center"/>
                                </treecols>
                                <treechildren/>
