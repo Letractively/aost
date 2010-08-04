@@ -28,7 +28,7 @@ App.prototype.updateCommand = function(cmd){
     if(cmd != null){
         var command = this.cmdIndex.get(cmd.seq);
         command.name = cmd.name;
-        command.ref = cmd.ref;
+        command.uid = cmd.uid;
         command.value = cmd.value;
     }
 };
@@ -42,7 +42,7 @@ App.prototype.getCommandList = function(){
                 for(var j=0; j<commandList.length; j++){
                     var uiCmd = commandList[j];
                     this.cmdIndex.put(uiCmd.seq, uiCmd);
-                    var cmd = new TeCommand(uiCmd.seq, uiCmd.name, uiCmd.ref, uiCmd.value);
+                    var cmd = new TeCommand(uiCmd.seq, uiCmd.name, uiCmd.uid, uiCmd.value, uiCmd.ref);
                     list.push(cmd);
                 }
             }

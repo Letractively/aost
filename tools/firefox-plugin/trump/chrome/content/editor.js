@@ -518,12 +518,12 @@ Editor.prototype.selectUiCommand = function(){
             cmdName.value = cmd.name;
             Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandName")),
                                                           XulUtils.toXPCOMArray(this.commandList));
-            if(cmd.ref != null && cmd.ref != undefined){
-                cmdUid.value = cmd.ref;
-                var uids = this.recorder.app.getUids(cmd.ref);
+            if(cmd.uid != null && cmd.uid != undefined){
+                cmdUid.value = cmd.uid;
+                var uids = this.recorder.app.getUids(cmd.uid);
                 Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
                     XulUtils.toXPCOMArray(uids));
-                var uim = this.recorder.app.getUiModule(cmd.ref);
+                var uim = this.recorder.app.getUiModule(cmd.uid);
                 var xml = uim.buildXML();
                 this.buildCustomizeTree(xml);                
             }else{
@@ -543,27 +543,6 @@ Editor.prototype.selectUiCommand = function(){
      }
 };
 
-Editor.prototype.customizeButton = function(){
-    this.switchToCustomizeTab();
-    var xml = DEFAULT_XML;
-/*    if(this.workspace.innerTree != null){
-        xml = this.workspace.buildXML();
-    }*/
-
-    this.buildCustomizeTree(xml);
-    var uiTypes = this.builder.getAvailableUiTypes();
-    Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
-                                                      XulUtils.toXPCOMArray(uiTypes));
-    var app = this.recorder.app;
-    if(app != null){
-        this.cmdView.clearAll();
-        var commandList = app.getCommandList();
-        this.cmdView.setTestCommands(commandList);
-        for(var i=0; i<commandList.length; i++){
-            this.cmdView.rowInserted();            
-        }
-     }
-};
 
 Editor.prototype.switchToCustomizeTab = function(){
     document.getElementById("editorTabs").selectedItem = document.getElementById("customizeTab");
@@ -693,7 +672,7 @@ Editor.prototype.updateUiCommand = function(){
         if(cmdUid.trim().length == 0){
             cmdUid = null;
         }else{
-            this.currentSelectedCommand.ref = cmdUid;
+            this.currentSelectedCommand.uid = cmdUid;
         }
         if(cmdValue.trim().length == 0){
             this.currentSelectedCommand.value = null;
@@ -952,3 +931,25 @@ function TestCmd(name, uid, param){
     this.param = param;
     this.result = null;
 }
+
+Editor.prototype.customizeButton = function(){
+    this.switchToCustomizeTab();
+    var xml = DEFAULT_XML;
+/*    if(this.workspace.innerTree != null){
+        xml = this.workspace.buildXML();
+    }*/
+
+    this.buildCustomizeTree(xml);
+    var uiTypes = this.builder.getAvailableUiTypes();
+    Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
+                                                      XulUtils.toXPCOMArray(uiTypes));
+    var app = this.recorder.app;
+    if(app != null){
+        this.cmdView.clearAll();
+        var commandList = app.getCommandList();
+        this.cmdView.setTestCommands(commandList);
+        for(var i=0; i<commandList.length; i++){
+            this.cmdView.rowInserted();
+        }
+     }
+};
