@@ -192,18 +192,14 @@ Recorder.prototype.deregisterForAllWindows = function() {
         var browsers = window.getBrowser().browsers;
         for (var i = 0; i < browsers.length; i++) {
             logger.debug("browser=" + browsers[i]);
-            if (this.isAction())
-                this.detachActionListeners(browsers[i].contentWindow);
-            else
-                this.detachSelectListeners(browsers[i].contentWindow);
+            this.detachActionListeners(browsers[i].contentWindow);
+            this.detachSelectListeners(browsers[i].contentWindow);
 
             var frames = browsers[i].contentWindow.frames;
             for (var j = 0; j < frames.length; j++) {
-                if (this.isAction())
-                    this.detachActionListeners(frames[j]);
-                else
-                    this.detachSelectListeners(frames[j]);
-            }
+                this.detachActionListeners(frames[j]);
+                this.detachSelectListeners(frames[j]);
+             }
         }
     }
 };

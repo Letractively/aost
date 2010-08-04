@@ -36,7 +36,7 @@
 <!ENTITY recordedCommandFlag.label "X">
 <!ENTITY recordedCommandList.label "Command List">
 <!ENTITY recordedCommandName.label "Name">
-<!ENTITY recordedCommandRef.label "Target">
+<!ENTITY recordedCommandUid.label "Target">
 <!ENTITY recordedCommandValue.label "Value">
 <!ENTITY recordedCommandResult.label "Result">
 <!ENTITY updateCommandName.label "Name">
