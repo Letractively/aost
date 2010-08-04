@@ -51,7 +51,7 @@ var CommandView  = {
             return command.name;
         }
 
-        if(column == "recordedCommandRef"){
+        if(column == "recordedCommandUid"){
             return command.uid;
         }
 
