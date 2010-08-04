@@ -4,7 +4,7 @@
 <!ENTITY windowURLTextbox.tooltip "Window URL">
 
 <!ENTITY recordButton.tooltip "Start/Stop Recording UI and Actions">
-<!ENTITY stopButton.tooltip "Stop Replay Tests">
+<!ENTITY stopButton.tooltip "Stop Replaying Tests">
 <!ENTITY generate.tooltip "Generate UI Module">
 <!ENTITY customize.tooltip "Customize UI Module">
 <!ENTITY saveui.tooltip "Add and Start New UI recording">

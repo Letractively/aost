@@ -3,11 +3,13 @@
  */
 
 
+/*
 const RecordState = {
     RECORD: "record",
 //    PAUSE: "pause",
     STOP: "stop"
 };
+*/
 
 function Editor(window) {
     this.window = window;
@@ -235,7 +237,10 @@ Editor.prototype.endRecord = function(){
 
 Editor.prototype.toggleStopButton = function() {
     try {
-
+        var stopButton = document.getElementById("stop-button");
+        var runButton = document.getElementById("run-button");
+        runButton.removeAttribute("checked");
+        runButton.setAttribute("class", "run");
     } catch(error) {
         logger.error("Error:\n" + describeErrorStack(error));
     }
@@ -415,13 +420,32 @@ Editor.prototype.stepButton = function(){
 };
 
 Editor.prototype.runButton = function(){
-    if(this.recorder.app != null && (!this.recorder.app.isEmpty())){
-        logger.info("Running recorded tests...");
-        this.testRunner.run(this.recorder.app);
-    }else{
-        logger.warn("There is no recorded test to run.");
+    var runButton = document.getElementById("run-button");
+    var checked = runButton.getAttribute("checked");
+    if(!checked){
+        runButton.setAttribute("checked", "true");
+        runButton.setAttribute("class", "run");
+        if (this.recorder.app != null && (!this.recorder.app.isEmpty())) {
+            logger.info("Running tests...");
+        } else {
+            logger.warn("There is no test to run.");
+            runButton.removeAttribute("checked");
+        }
+    } else {
+        var clazz = runButton.getAttribute("class");
+        if (clazz == "run") {
+            logger.info("Pause tests...");
+            runButton.setAttribute("class", "pause");
+        } else {
+            runButton.setAttribute("class", "run");
+            if (this.recorder.app != null && (!this.recorder.app.isEmpty())) {
+                logger.info("Running tests...");
+            } else {
+                logger.warn("There is no test to run.");
+            }
+        }
+
     }
-    document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
 };
 
 Editor.prototype.clearButton = function(){
