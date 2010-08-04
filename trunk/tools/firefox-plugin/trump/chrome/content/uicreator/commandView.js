@@ -10,6 +10,19 @@ var CommandView  = {
         this.recordIndex++;
     },
 
+    updateCommands: function(refUidMap){
+        for(var i=0; i<this.testCommands.length; i++){
+            var cmd = this.testCommands[i];
+            if(cmd.ref != null){
+                var uid = refUidMap.get(cmd.ref);
+                if(uid != null){
+                    cmd.uid = uid;
+                    this.treebox.invalidateRow(i); 
+                }
+            }
+        }
+    },
+
     getRecordByIndex: function(index){
         if(index >= 0 && index < this.testCommands.length){
             return this.testCommands[index];
