@@ -28,7 +28,9 @@ function Editor(window) {
 
     this.builder = new UiBuilder();
 
-    this.workspace = new Workspace(this.builder, new UiChecker());
+    this.refIdSetter = new RefIdSetter();
+
+    this.workspace = new Workspace(this.builder, new UiChecker(), this.refIdSetter);
 
     this.recorder = null;
 
@@ -158,6 +160,7 @@ Editor.prototype.updateUiType = function(value){
 
 Editor.prototype.registerRecorder = function(){
     this.recorder = new Recorder(this.window);
+    this.recorder.refIdSetter = this.refIdSetter;
     this.recorder.workspace = this.workspace;
     this.recorder.registerListeners();
 //    this.recorder.observers.push(this);
@@ -441,14 +444,18 @@ Editor.prototype.clearButton = function(){
     document.getElementById("windowURL").value = null;
 };
 
-Editor.prototype.clearCustomizeTabContext = function(){
+Editor.prototype.clearCustomizeUiObject = function(){
     document.getElementById("uid").value = "";
     document.getElementById("uiType").value = "";
     document.getElementById("uid").setAttribute("disabled", "true");
     document.getElementById("uiType").setAttribute("disabled", "true");
     document.getElementById("group_Check_Box").disabled = true;
-    this.buildCustomizeTree(DEFAULT_XML);
     this.buildUiAttributeTree(DEFAULT_ATTRIBUTES_XML);
+};
+
+Editor.prototype.clearCustomizeTabContext = function(){
+    this.buildCustomizeTree(DEFAULT_XML);
+    this.clearCustomizeUiObject();
 };
 
 Editor.prototype.switchToSourceTab = function(){
@@ -499,7 +506,8 @@ Editor.prototype.selectUiCommand = function(){
                 cmdUid.value = '';
                 Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
                 this.buildCustomizeTree(DEFAULT_XML);
-            }
+            }          
+            this.clearCustomizeUiObject();
             if(cmd.value != null && cmd.value != undefined){
                 cmdValue.value = cmd.value;
             }else{
@@ -728,14 +736,22 @@ Editor.prototype.updateUiObject = function(){
             }
         }
         uiObject.updateAttributes(attrmap);
-        if(uiObject.parent == null && isUidChanged){
+        if(isUidChanged){
+            uim.postUidChange();
+            if(uiObject.parent == null){
+               uim.id = uiObject.uid;
+               this.recorder.app.updateUiModule(oldUimId, uim);
+            }
+        }
+/*        if(uiObject.parent == null && isUidChanged){
             uim.id = uiObject.uid;
 //            uim.buildUiIndex();
             this.recorder.app.updateUiModule(oldUimId, uim);
-/*            this.workspace.id = uiObject.uid;
+*//*            this.workspace.id = uiObject.uid;
             this.workspace.innerTree.root.id = uiObject.uid;
-            this.workspace.innerTree.buildIndex();*/
-        }
+            this.workspace.innerTree.buildIndex();*//*
+        }*/
+        
         //        this.validateUI();
         this.validateOneUiModule(uim);
         //        this.customizeButton();

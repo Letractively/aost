@@ -63,6 +63,10 @@ var UiObject = Class.extend({
         this.isLocatorValid = false;
     },
 
+    postChildrenUidChange: function(){
+        //Does nothing for non-container UI objects
+    },
+
     buildAttributeXml: function() {
         if (this.optionalAttributes) {
             var keySet = this.optionalAttributes.keySet();
@@ -781,6 +785,23 @@ var UiContainer = UiObject.extend({
         jso[CONSTANTS.NO_CACHE_FOR_CHILDREN] = this.noCacheForChildren;
     },
 
+    postChildrenUidChange: function(){
+        if(this.components.size() > 0){
+            var keys = this.components.keySet();
+            for(var i=0; i<keys.length; i++){
+                var key = keys[i];
+                var child = this.components.get(key);
+                if(child.refId != null){
+                    //child UID has been changed
+                    if(child.uid != key){
+                        this.components.remove(key);
+                        this.components.put(child.uid, child);
+                    }
+                }
+            }
+        }
+    },
+
     hasChildren: function(){
         return this.components.size() > 0;
     },
@@ -1427,6 +1448,24 @@ var UiList = UiContainer.extend({
         this.rTree.preBuild();
     },
 
+    postChildrenUidChange: function(){
+        //TODO: Should overwrite this method
+        if(this.components.size() > 0){
+            var keys = this.components.keySet();
+            for(var i=0; i<keys.length; i++){
+                var key = keys[i];
+                var child = this.components.get(key);
+                if(child.refId != null){
+                    //child UID has been changed
+                    if(child.uid != key){
+                        this.components.remove(key);
+                        this.components.put(child.uid, child);
+                    }
+                }
+            }
+        }
+    },
+
     extraJSON: function(jso){
         this._super(jso);
         if(this.separator != null)
@@ -1838,7 +1877,25 @@ var UiTable = UiContainer.extend({
         this.rGraph.preBuild();
         this.multiSet = ["all", "odd", "even"];
     },
-    
+
+    postChildrenUidChange: function(){
+        //TODO: Should overwrite this method
+        if(this.components.size() > 0){
+            var keys = this.components.keySet();
+            for(var i=0; i<keys.length; i++){
+                var key = keys[i];
+                var child = this.components.get(key);
+                if(child.refId != null){
+                    //child UID has been changed
+                    if(child.uid != key){
+                        this.components.remove(key);
+                        this.components.put(child.uid, child);
+                    }
+                }
+            }
+        }
+    },
+
     hasChildren: function(){
         return this.components.size() > 0 || this.headers.size() > 0;
     },
@@ -2822,6 +2879,24 @@ var UiStandardTable = UiContainer.extend({
         this.multiSet = ["all", "odd", "even"];
     },
 
+    postChildrenUidChange: function(){
+        //TODO: Should overwrite this method
+        if(this.components.size() > 0){
+            var keys = this.components.keySet();
+            for(var i=0; i<keys.length; i++){
+                var key = keys[i];
+                var child = this.components.get(key);
+                if(child.refId != null){
+                    //child UID has been changed
+                    if(child.uid != key){
+                        this.components.remove(key);
+                        this.components.put(child.uid, child);
+                    }
+                }
+            }
+        }
+    },
+    
     hasChildren: function(){
         return this.components.size() > 0 || this.headers.size() > 0 || this.footers.size() > 0;
     },

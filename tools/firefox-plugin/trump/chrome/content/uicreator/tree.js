@@ -447,6 +447,51 @@ UiRefMapper.prototype.visit = function(node){
     }
 };
 
+function RefIdSetter(){
+
+    this.alphabet="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    this.timestamp = this.toBase62((new Date()).getTime());
+
+    this.sequence = new Identifier(100);
+}
+
+RefIdSetter.prototype.toBase = function(number, base){
+    if (typeof(number) == "number" && typeof(base) == "number" && (base > 0)) {
+        if (number < base)
+            return this.alphabet.charAt(number);
+
+        var out = '';
+        var value = number;
+        while (value != 0) {
+            var remind = value % base;
+            value = (value - remind) / base;
+            out = this.alphabet.charAt(remind) + out;
+        }
+
+        return out;
+    }
+
+    return number;
+};
+
+RefIdSetter.prototype.toBase36 = function(number){
+    return this.toBase(number, 36);
+};
+
+RefIdSetter.prototype.toBase62 = function(number){
+    return this.toBase(number, 62);
+};
+
+RefIdSetter.prototype.getRefId = function(){
+    return "T" + this.timestamp + "S" + this.sequence.next();
+};
+
+RefIdSetter.prototype.visit = function(node){
+    if(node.newNode){
+        node.refId = this.getRefId();
+    }
+};
 
 function removeElement(array, elem){
     var index = array.indexOf(elem);

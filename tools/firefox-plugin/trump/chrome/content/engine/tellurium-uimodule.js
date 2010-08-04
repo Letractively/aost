@@ -63,6 +63,19 @@ UiModule.prototype.buildRefUidMap = function(){
     return null;
 };
 
+UiModule.prototype.postUidChange = function(){
+    var visitors = new STreeChainVisitor();
+    var cuidChecker = new ChildrenUidChecker();
+    var indexVisitor = new UiIndexVisitor();
+    var idVisitor = new UiIdTrieVisitor();
+    visitors.addVisitor(cuidChecker);
+    visitors.addVisitor(indexVisitor);
+    visitors.addVisitor(idVisitor);
+    this.visit(visitors);
+    this.map = indexVisitor.indices;
+    this.idTrie = idVisitor.idTrie;
+};
+
 UiModule.prototype.buildUiIndex = function(){
     if(this.root != null){
         var visitor = new UiIndexVisitor();
