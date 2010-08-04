@@ -28,19 +28,19 @@
 }
 */
 #record-button{
-    list-style-image: url("chrome://trump/skin/recording.png");
+    list-style-image: url("chrome://trump/skin/media-record.png");
 }
 
 #stop-button {
-    list-style-image: url("chrome://trump/skin/pstop.png");
+    list-style-image: url("chrome://trump/skin/pstop.gif");
 }
 
 #run-button {
-   list-style-image: url("chrome://trump/skin/pend.png");
+   list-style-image: url("chrome://trump/skin/pend.gif");
 }
 
 #step-button {
-   list-style-image: url("chrome://trump/skin/pnext.png");
+   list-style-image: url("chrome://trump/skin/pnext.gif");
 }
 
 
