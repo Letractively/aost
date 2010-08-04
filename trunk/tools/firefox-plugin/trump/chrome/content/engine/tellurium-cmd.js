@@ -628,6 +628,14 @@ TelluriumCommand.prototype.toJSONString = function(uid){
     return JSON.stringify(json);
 };
 
+TelluriumCommand.prototype.open = function(url){
+    var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+            .getService(Components.interfaces.nsIWindowMediator)
+            .getMostRecentWindow("navigator:browser");
+
+    win.open(url);
+};
+
 function arrayToString(array){
     if(array != null && array.length > 0){
         return array.join(", ");
