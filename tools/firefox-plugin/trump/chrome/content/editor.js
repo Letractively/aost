@@ -205,16 +205,38 @@ Editor.prototype.toggleRecordButton = function(){
     }
 };
 
-Editor.prototype.toggleStopButton = function(){
-    var stopToolbarButton = document.getElementById("stop-button");
+Editor.prototype.toggleStopButton = function() {
+    try {
+        var stopToolbarButton = document.getElementById("stop-button");
 
-    if(!stopToolbarButton.getAttribute("checked")){
-        stopToolbarButton.setAttribute("checked", "true");
-        
-        var recordToolbarButton = document.getElementById("record-button");
-        recordToolbarButton.removeAttribute("checked");
-        recordToolbarButton.setAttribute("class", RecordState.STOP);
-        this.recorder.unregisterListeners();
+        if (!stopToolbarButton.getAttribute("checked")) {
+            stopToolbarButton.setAttribute("checked", "true");
+
+            var recordToolbarButton = document.getElementById("record-button");
+            recordToolbarButton.removeAttribute("checked");
+            recordToolbarButton.setAttribute("class", RecordState.STOP);
+            this.recorder.unregisterListeners();
+        }
+        this.switchToCustomizeTab();
+        var xml = DEFAULT_XML;
+
+        this.buildCustomizeTree(xml);
+        var uiTypes = this.builder.getAvailableUiTypes();
+        Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
+                XulUtils.toXPCOMArray(uiTypes));
+        var app = this.recorder.app;
+        if (app != null) {
+            this.cmdView.clearAll();
+            var commandList = app.getCommandList();
+            this.cmdView.setTestCommands(commandList);
+            for (var i = 0; i < commandList.length; i++) {
+                this.cmdView.rowInserted();
+            }
+        }
+
+        this.recorder.generateSource();
+    } catch(error) {
+        logger.error("Error:\n" + describeErrorStack(error));
     }
 };
 
@@ -415,12 +437,22 @@ Editor.prototype.saveButton = function(){
     document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
 };
 
-Editor.prototype.replayButton = function(){
+Editor.prototype.stepButton = function(){
     if(this.recorder.app != null && (!this.recorder.app.isEmpty())){
-        logger.info("Replaying recorded tests...");
+        logger.info("Stepping recorded tests...");
         this.testRunner.run(this.recorder.app);
     }else{
-        logger.warn("There is no recorded test to replay.");
+        logger.warn("There is no recorded test to step.");
+    }
+    document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
+};
+
+Editor.prototype.runButton = function(){
+    if(this.recorder.app != null && (!this.recorder.app.isEmpty())){
+        logger.info("Running recorded tests...");
+        this.testRunner.run(this.recorder.app);
+    }else{
+        logger.warn("There is no recorded test to run.");
     }
     document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
 };
