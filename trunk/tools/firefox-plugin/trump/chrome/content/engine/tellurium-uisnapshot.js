@@ -570,6 +570,31 @@ var UiIndexVisitor = STreeVisitor.extend({
     }
 });
 
+var UiIdTrieVisitor = STreeVisitor.extend({
+    init: function(){
+        this.idTrie = new Trie();
+    },
+
+    visit: function(context, node){
+        var id = node.getIdAttribute();
+        if (id != null && id.trim().length > 0) {
+            var uid = node.fullUid();
+
+            this.idTrie.insert(uid, id);
+        }
+    }
+});
+
+var ChildrenUidChecker = STreeVisitor.extend({
+    init: function(){
+
+    },
+
+    visit: function(context, node){
+        node.postChildrenUidChange();
+    }
+});
+
 var RefUidVisitor = STreeVisitor.extend({
     init: function(){
         this.refUidMap = new Hashtable();

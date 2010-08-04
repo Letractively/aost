@@ -22,7 +22,7 @@ function TeCommand(seq, name, uid, value, ref){
     this.result = "";
 }
 
-function Workspace(uiBuilder, uiChecker){
+function Workspace(uiBuilder, uiChecker, refIdSetter){
     //ID of the current UI Module
     this.id = null;
 
@@ -45,6 +45,8 @@ function Workspace(uiBuilder, uiChecker){
     this.uiBuilder = uiBuilder;
 
     this.checker = uiChecker;
+
+    this.refIdSetter = refIdSetter;
 
     //UiAlg
     this.uiAlg = new UiAlg();
@@ -236,6 +238,7 @@ Workspace.prototype.generateUiModule = function(tagArrays){
             //do some post processing work
         }
         this.innerTree.postProcess();
+        this.innerTree.visit(this.refIdSetter);
         this.innerTree.buildUiObject(this.uiBuilder, this.checker);
         this.innerTree.buildIndex();
     }

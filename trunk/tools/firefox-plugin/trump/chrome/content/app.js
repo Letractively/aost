@@ -44,7 +44,7 @@ App.prototype.updateCommandList = function() {
                     var cmd = commandList[j];
                     if (this.refUidMap != null && cmd.ref != null) {
                         var uid = this.refUidMap.get(cmd.ref);
-                        if (uid != null) {
+                        if (uid != null && cmd.uid != uid) {
                             cmd.uid = uid;
                         }
                     }
@@ -92,8 +92,8 @@ App.prototype.getUids = function(uid) {
 
     var first = uiid.peek();
     var uim = this.map.get(first);
-    uid = first;
-    uiid.convertToUiid(uid);
+//    uid = first;
+//    uiid.convertToUiid(uid);
     if (uim != null) {
         var obj = uim.walkTo(context, uiid);
         if (obj != null) {

@@ -24,50 +24,19 @@ function Recorder(window) {
     this.cmdList.view = this.cmdListView;
 
     this.workspace = null;
-    
-    this.alphabet="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    
-    this.timestamp = this.toBase62((new Date()).getTime());
 
-    this.sequence = new Identifier();
+    this.refIdSetter = null;
 
     this.app = new App();
 
     this.first = true;
-    
+
 //    this.observers = [];
 //	this.attach();
 //    this.registerUnloadListener();
 }
 
 Recorder.WINDOW_RECORDER_PROPERTY = "_Trump_IDE_Recorder";
-
-Recorder.prototype.toBase = function(number, base){
-    if (typeof(number) == "number" && typeof(base) == "number" && (base > 0)) {
-        if (number < base)
-            return this.alphabet.charAt(number);
-
-        var out = '';
-        var value = number;
-        while (value != 0) {
-            var remind = value % base;
-            value = (value - remind) / base;
-            out = this.alphabet.charAt(remind) + out;
-        }
-
-        return out;
-    }
-
-    return number;
-};
-
-Recorder.prototype.toBase36 = function(number){
-    return this.toBase(number, 36);
-};
-
-Recorder.prototype.toBase62 = function(number){
-    return this.toBase(number, 62);
-};
 
 Recorder.prototype.attachActionListeners = function(window){
     logger.debug("Attaching listeners for action...");
@@ -280,7 +249,8 @@ Recorder.prototype.recordDomNode = function (element){
             this.decorator.addBackground(element);
             this.selectedElements.push(element);
 
-            refId = "T" + this.timestamp + "S" + this.sequence.next();
+            refId = this.refIdSetter.getRefId();
+            // "T" + this.timestamp + "S" + this.sequence.next();
             var tagObject = this.builder.createTagObject(element, refId, this.frameName);
             teJQuery(element).data("sid", refId);
             teJQuery(element).data("count", "0");
