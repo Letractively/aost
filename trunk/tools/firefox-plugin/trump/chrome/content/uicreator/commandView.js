@@ -43,16 +43,16 @@ var CommandView  = {
         var column = (aColumn.id) ? aColumn.id : aColumn; //Firefox pre1.5 compatibility
         var command = this.testCommands[row];
 
-        if(column == "recordedCommandFlag" ){
+/*        if(column == "recordedCommandFlag" ){
             return command.flag;
-        }
+        }*/
 
         if(column == "recordedCommandName" ){
             return command.name;
         }
 
         if(column == "recordedCommandRef"){
-            return command.ref;
+            return command.uid;
         }
 
         if(column == "recordedCommandValue"){
