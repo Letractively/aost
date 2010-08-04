@@ -459,14 +459,14 @@ Editor.prototype.runButton = function(){
 
 Editor.prototype.clearButton = function(){
     this.recorder.clearAll();
-    this.clearSourceTabContent();
+//    this.clearSourceTabContent();
     this.clearExportToWindowTabContent();
     this.logView.clear();
     this.clearCustomizeTabContext();
     this.decorator.cleanShowNode();
     this.clearMessageBox();
     this.workspace.clear();
-    this.cleanTestView();
+    this.cleanCommandView();
     this.command.clearCache();
     this.cleanupAutoComplete();   
     document.getElementById("windowURL").value = null;
@@ -664,18 +664,14 @@ Editor.prototype.updateUiModuleName = function(uid) {
     }
 };
 
-Editor.prototype.cleanTestView = function(){
-    document.getElementById("uiModuleId").value = "";
-    document.getElementById("commandName").value = "";
-    document.getElementById("commandUID").value = "";
-    document.getElementById("commandParam").value = "";
-    document.getElementById("commandResult").value = "";
-    document.getElementById("uiModuleId").disabled = true;
-    document.getElementById("commandName").disabled = true;
-    document.getElementById("commandUID").disabled = true;
-    document.getElementById("commandParam").disabled = true;
-    document.getElementById("commandResult").disabled = true;
-    this.cmdHistory = new Array();
+Editor.prototype.cleanCommandView = function(){
+    document.getElementById("updateCommandName").value = "";
+    document.getElementById("updateCommandUID").value = "";
+    document.getElementById("updateCommandValue").value = "";
+    Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandName"]));
+    Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
+
+//    this.cmdHistory = new Array();
     this.cmdView.clearAll();
 };
 
