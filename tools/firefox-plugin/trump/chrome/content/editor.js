@@ -599,38 +599,6 @@ Editor.prototype.updateUiCommand = function(){
     }
 };
 
-Editor.prototype.runUiCommand = function(){
-    var name = document.getElementById("commandName").value;
-    var uid = document.getElementById("commandUID").value;
-    var param = document.getElementById("commandParam").value;
-    var cmd = new TestCmd(name, uid, param);
-
-    logger.info("Run command " + name + "('" + uid + "', '" + param + "')");
-    try{
-
-        var realName = this.commandMap.get(name);
-        var result;
-        if(realName != null){
-           result = this.command.run(realName, uid, param);
-        }else{
-           result = this.command.run(name, uid, param);
-        }
-
-        logger.info("Executing command " + name + " finished, result: " + result);
-        if (result != null && result != undefined) {
-            document.getElementById("commandResult").value = result;
-            cmd.result = result;
-        } else {
-            cmd.result = "";
-        }
-        this.cmdHistory.push(cmd);
-        this.cmdView.setTestCommands(this.cmdHistory);
-        this.cmdView.rowInserted();
-    }catch(error){
-        logger.info("Executing command " + name + " failed:\n" + describeErrorStack(error));
-    }
-};
-
 Editor.prototype.processCheckEvent = function(event){
 //    alert("You selected " + event.target.getAttribute("cid"));
 };
@@ -715,8 +683,11 @@ Editor.prototype.updateUiObject = function(){
         var oldUimId = uim.id;
         logger.debug("Update UI object " + this.currentUid);
 
+        var nuid = document.getElementById("uid").value;
+        var isUidChanged = (uiObject.uid != nuid);
+        
         //update UID
-        uiObject.uid = document.getElementById("uid").value;
+        uiObject.uid = nuid;
 
         //update UI Type
         uiObject.uiType = document.getElementById("uiType").value;
@@ -757,7 +728,7 @@ Editor.prototype.updateUiObject = function(){
             }
         }
         uiObject.updateAttributes(attrmap);
-        if(uiObject.parent == null){
+        if(uiObject.parent == null && isUidChanged){
             uim.id = uiObject.uid;
 //            uim.buildUiIndex();
             this.recorder.app.updateUiModule(oldUimId, uim);
@@ -774,7 +745,13 @@ Editor.prototype.updateUiObject = function(){
         var uiTypes = this.builder.getAvailableUiTypes();
         Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
                 XulUtils.toXPCOMArray(uiTypes));
-//        this.updateSource();
+        if(isUidChanged){
+            this.currentUid = uiObject.fullUid();
+            var rum = this.recorder.app.getRefUidMapFor(this.currentUid);
+            this.recorder.app.updateCommandList();
+            this.cmdView.updateCommands(rum);
+            this.selectUiCommand();
+        }
 
         var sourceTextNode = document.getElementById("exportSource");
         sourceTextNode.value = this.recorder.app.toSource();
@@ -962,3 +939,37 @@ Editor.prototype.saveButton = function(){
     }
     document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
 };
+
+Editor.prototype.runUiCommand = function(){
+    var name = document.getElementById("commandName").value;
+    var uid = document.getElementById("commandUID").value;
+    var param = document.getElementById("commandParam").value;
+    var cmd = new TestCmd(name, uid, param);
+
+    logger.info("Run command " + name + "('" + uid + "', '" + param + "')");
+    try{
+
+        var realName = this.commandMap.get(name);
+        var result;
+        if(realName != null){
+           result = this.command.run(realName, uid, param);
+        }else{
+           result = this.command.run(name, uid, param);
+        }
+
+        logger.info("Executing command " + name + " finished, result: " + result);
+        if (result != null && result != undefined) {
+            document.getElementById("commandResult").value = result;
+            cmd.result = result;
+        } else {
+            cmd.result = "";
+        }
+        this.cmdHistory.push(cmd);
+        this.cmdView.setTestCommands(this.cmdHistory);
+        this.cmdView.rowInserted();
+    }catch(error){
+        logger.info("Executing command " + name + " failed:\n" + describeErrorStack(error));
+    }
+};
+
+

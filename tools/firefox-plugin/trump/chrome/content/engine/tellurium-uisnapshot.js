@@ -569,3 +569,14 @@ var UiIndexVisitor = STreeVisitor.extend({
         this.indices.put(uid, node);
     }
 });
+
+var RefUidVisitor = STreeVisitor.extend({
+    init: function(){
+        this.refUidMap = new Hashtable();
+    },
+
+    visit: function(context, node){
+        var uid = node.fullUid();
+        this.refUidMap.put(node.refId, uid);
+    }
+});

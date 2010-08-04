@@ -51,6 +51,18 @@ function UiModule(){
     this.stree = null;
 }
 
+UiModule.prototype.buildRefUidMap = function(){
+    if(this.root != null){
+        var visitor = new RefUidVisitor();
+        var context = new WorkflowContext();
+        this.root.traverse(context, visitor);
+        
+        return visitor.refUidMap;
+    }
+
+    return null;
+};
+
 UiModule.prototype.buildUiIndex = function(){
     if(this.root != null){
         var visitor = new UiIndexVisitor();

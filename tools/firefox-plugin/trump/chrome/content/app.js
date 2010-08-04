@@ -16,12 +16,14 @@ function App(){
     this.map = new Hashtable();
     this.cmdIndex = new Hashtable();
     this.uiAlg = new UiAlg();
+    this.refUidMap = null;
 }
 
 App.prototype.clearAll = function(){
     this.pages = new Array();
     this.map = new Hashtable();
     this.cmdIndex = new Hashtable();
+    this.refUidMap = null;
 };
 
 App.prototype.updateCommand = function(cmd){
@@ -30,6 +32,25 @@ App.prototype.updateCommand = function(cmd){
         command.name = cmd.name;
         command.uid = cmd.uid;
         command.value = cmd.value;
+    }
+};
+
+App.prototype.updateCommandList = function() {
+    if (this.pages != null && this.pages.length > 0) {
+        for (var i = 0; i < this.pages.length; i++) {
+            var commandList = this.pages[i].commandList;
+            if (commandList != null && commandList.length > 0) {
+                for (var j = 0; j < commandList.length; j++) {
+                    var cmd = commandList[j];
+                    if (this.refUidMap != null && cmd.ref != null) {
+                        var uid = this.refUidMap.get(cmd.ref);
+                        if (uid != null) {
+                            cmd.uid = uid;
+                        }
+                    }
+                }
+            }
+        }
     }
 };
 
@@ -50,6 +71,17 @@ App.prototype.getCommandList = function(){
     }
 
     return list;
+};
+
+App.prototype.getRefUidMapFor = function(uid){
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+
+    var first = uiid.peek();
+    var uim = this.map.get(first);
+    this.refUidMap = uim.buildRefUidMap();
+
+    return this.refUidMap;
 };
 
 App.prototype.getUids = function(uid) {
@@ -150,12 +182,12 @@ App.prototype.describeCommand = function(commandList){
         for(var i=0; i<commandList.length; i++){
             var cmd = commandList[i];
             sb.append("\t\t").append(cmd.name);
-            if(cmd.ref != null && cmd.ref != undefined){
+            if(cmd.uid != null && cmd.uid != undefined){
 //                sb.append(" \"").append(cmd.ref).append("\"");
-                sb.append(" ").append(cmd.ref);
+                sb.append(" ").append(cmd.uid);
             }
             if(cmd.value != null && cmd.value != undefined){
-                if(cmd.ref != null && cmd.ref != undefined){
+                if(cmd.uid != null && cmd.uid != undefined){
                     sb.append(",");
                 }
 //                sb.append(" \"").append(cmd.value).append("\"");
