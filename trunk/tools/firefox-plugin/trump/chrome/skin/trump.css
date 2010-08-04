@@ -26,8 +26,12 @@
    list-style-image: url("chrome://trump/skin/add.png");
 }
 
-#replay-button {
+#run-button {
    list-style-image: url("chrome://trump/skin/color.png");
+}
+
+#step-button {
+   list-style-image: url("chrome://trump/skin/apply.png");
 }
 
 #test-button {

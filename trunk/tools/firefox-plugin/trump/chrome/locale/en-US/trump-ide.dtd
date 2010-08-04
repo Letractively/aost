@@ -8,7 +8,8 @@
 <!ENTITY generate.tooltip "Generate UI Module">
 <!ENTITY customize.tooltip "Customize UI Module">
 <!ENTITY saveui.tooltip "Add and Start New UI recording">
-<!ENTITY replay.tooltip "Replay recorded Tests">
+<!ENTITY step.tooltip "Step recorded Tests">
+<!ENTITY run.tooltip "Run recorded Tests">
 <!ENTITY test.tooltip "Test Tellurium Command">
 <!ENTITY clear.tooltip "Clear">
 
