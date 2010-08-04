@@ -95,7 +95,7 @@ UiModule.prototype.dumpMe = function(){
 
 UiModule.prototype.visit = function(visitor){
     if(this.root != null){
-        fbInfo("Visitor UI Module " + this.id, this);
+//        fbInfo("Visitor UI Module " + this.id, this);
         var context = new WorkflowContext();
         this.root.traverse(context, visitor);
     }

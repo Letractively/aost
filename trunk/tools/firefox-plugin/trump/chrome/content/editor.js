@@ -479,6 +479,42 @@ Editor.prototype.selectedTreeItem = function(event){
     this.recorder.showSelectedNode();
 };
 
+Editor.prototype.refreshCommandList = function(){
+    try {
+        var index = this.cmdTree.currentIndex;
+        var cmd =  this.cmdView.getRecordByIndex(index);
+        this.currentSelectedCommand = cmd;
+        if(cmd != null){
+            var cmdName = document.getElementById("updateCommandName");
+            var cmdUid = document.getElementById("updateCommandUID");
+            var cmdValue = document.getElementById("updateCommandValue");
+            cmdName.disabled = false;
+            cmdUid.disabled = false;
+            cmdValue.disabled = false;
+            cmdName.value = cmd.name;
+            Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandName")),
+                                                          XulUtils.toXPCOMArray(this.commandList));
+            if(cmd.uid != null && cmd.uid != undefined){
+                cmdUid.value = cmd.uid;
+                var uids = this.recorder.app.getUids(cmd.uid);
+                Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
+                    XulUtils.toXPCOMArray(uids));
+            }else{
+                cmdUid.value = '';
+                Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
+            }
+            if(cmd.value != null && cmd.value != undefined){
+                cmdValue.value = cmd.value;
+            }else{
+                cmdValue.value = "";
+            }
+        }
+
+    } catch(error) {
+        logger.error("Error processing selected command:\n" + describeErrorStack(error));
+     }
+};
+
 Editor.prototype.selectUiCommand = function(){
     try {
         var index = this.cmdTree.currentIndex;
@@ -604,6 +640,9 @@ Editor.prototype.updateUiCommand = function(){
             this.currentSelectedCommand.value = cmdValue;
         }
         this.recorder.app.updateCommand(this.currentSelectedCommand);
+
+        var sourceTextNode = document.getElementById("exportSource");
+        sourceTextNode.value = this.recorder.app.toSource();        
     }
 };
 
@@ -766,7 +805,7 @@ Editor.prototype.updateUiObject = function(){
             var rum = this.recorder.app.getRefUidMapFor(this.currentUid);
             this.recorder.app.updateCommandList();
             this.cmdView.updateCommands(rum);
-            this.selectUiCommand();
+            this.refreshCommandList();
         }
 
         var sourceTextNode = document.getElementById("exportSource");
