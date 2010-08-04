@@ -27,11 +27,11 @@
 }
 
 #run-button {
-   list-style-image: url("chrome://trump/skin/color.png");
+   list-style-image: url("chrome://trump/skin/arrow-right.png");
 }
 
 #step-button {
-   list-style-image: url("chrome://trump/skin/apply.png");
+   list-style-image: url("chrome://trump/skin/step.png");
 }
 
 #test-button {
