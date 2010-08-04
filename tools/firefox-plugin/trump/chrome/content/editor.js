@@ -216,6 +216,7 @@ Editor.prototype.toggleStopButton = function() {
             recordToolbarButton.removeAttribute("checked");
             recordToolbarButton.setAttribute("class", RecordState.STOP);
             this.recorder.unregisterListeners();
+            this.decorator.cleanShowNode();
         }
         this.switchToCustomizeTab();
         var xml = DEFAULT_XML;
@@ -234,7 +235,9 @@ Editor.prototype.toggleStopButton = function() {
             }
         }
 
-        this.recorder.generateSource();
+        this.recorder.generateSource();        
+        this.workspace.clear();
+        this.recorder.clearMost();
     } catch(error) {
         logger.error("Error:\n" + describeErrorStack(error));
     }
