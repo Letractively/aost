@@ -74,10 +74,13 @@ Recorder.prototype.attachActionListeners = function(window){
     var self = this;
     window.addEventListener("beforeunload",
             function(event) {
-                self.recordCommand("waitForPageToLoad", null, 3000);                                           
-                var url = event.target.URL || event.target.baseURI;
-                logger.debug("Unloading Window " + url);
-                self.generateSource();
+                var stopToolbarButton = document.getElementById("stop-button");
+                if (!stopToolbarButton.getAttribute("checked")) {
+                    self.recordCommand("waitForPageToLoad", null, 3000);
+                    var url = event.target.URL || event.target.baseURI;
+                    logger.debug("Unloading Window " + url);
+                    self.generateSource();
+                }
             },
      false);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").live("change", {recorder: this}, this.typeListener);
@@ -93,6 +96,7 @@ Recorder.prototype.attachActionListeners = function(window){
 
 Recorder.prototype.detachActionListeners = function(window){
     logger.debug("Detaching listeners for action...");
+
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("change", this.typeListener);
     teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("click", this.clickListener);
 //    teJQuery(window.document).find(":input, a, select, textarea, button, table, tr, td, th, div").die("DOMAttrModified", this.attrModifiedListener);
@@ -242,6 +246,17 @@ Recorder.prototype.removeOutlineForSelectedNodes = function(){
     for(var i=0; i< this.selectedElements.length ; ++i){
         this.decorator.removeOutline(this.selectedElements[i]);
     }
+};
+
+Recorder.prototype.clearMost = function(){
+    this.removeOutlineForSelectedNodes();
+    this.removeBackgroundForSelectedNodes();
+
+    this.selectedElements = new Array();
+    this.tagObjectArray = new Array();
+    this.recordCommandList = new Array();
+    this.cmdListView.clearAll();
+    this.treeView.clearAll();
 };
 
 Recorder.prototype.clearAll = function(){
