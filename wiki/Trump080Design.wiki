@@ -73,3 +73,17 @@ The UI should be able to achieve following goals.
   # Trump should include option settings
   # Trump should provide Help menus
   # Trump should provide close button
+
+== Implementation ==
+
+=== Record View ===
+
+http://tellurium-users.googlegroups.com/web/TelluriumWorksIDE1.png?gda=-yrlWUgAAADzylifMuGHtadsGrIEvqZXnuFlQ4sjDFZCE4NQifii9Hb2_5J0TLOkw11eWofx4EYlzhb83kORdLwM2moY-MeuGjVgdwNi-BwrUzBGT2hOzg&gsc=rAad1gsAAADFH8J-b2rEm5GxhB3sUBbj
+
+=== Command View ===
+
+http://tellurium-users.googlegroups.com/web/TelluriumWorksIDE2.png?gda=Vi8lLUgAAADzylifMuGHtadsGrIEvqZXnuFlQ4sjDFZCE4NQifii9BZNPNx8uVC2QKwLvOaOtKQlzhb83kORdLwM2moY-MeuGjVgdwNi-BwrUzBGT2hOzg&gsc=rAad1gsAAADFH8J-b2rEm5GxhB3sUBbj
+
+=== Source View ===
+
+http://tellurium-users.googlegroups.com/web/TelluriumWorksIDE3.png?gda=x5nOG0gAAADzylifMuGHtadsGrIEvqZXnuFlQ4sjDFZCE4NQifii9N7xIhvF9sdWrXJWNoMZrtclzhb83kORdLwM2moY-MeuGjVgdwNi-BwrUzBGT2hOzg&gsc=rAad1gsAAADFH8J-b2rEm5GxhB3sUBbj
