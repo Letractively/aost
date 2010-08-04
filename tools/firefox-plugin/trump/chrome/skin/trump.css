@@ -1,3 +1,4 @@
+/*
 #record-button.record {
     list-style-image: url("chrome://trump/skin/record.png");
 }
@@ -8,10 +9,6 @@
 
 #record-button.stop {
     list-style-image: url("chrome://trump/skin/rstop.png");
-}
-
-#stop-button {
-    list-style-image: url("chrome://trump/skin/stop.png");
 }
 
 #generate-button {
@@ -26,17 +23,26 @@
    list-style-image: url("chrome://trump/skin/add.png");
 }
 
-#run-button {
-   list-style-image: url("chrome://trump/skin/arrow-right.png");
-}
-
-#step-button {
-   list-style-image: url("chrome://trump/skin/step.png");
-}
-
 #test-button {
    list-style-image: url("chrome://trump/skin/apply.png");
 }
+*/
+#record-button{
+    list-style-image: url("chrome://trump/skin/recording.png");
+}
+
+#stop-button {
+    list-style-image: url("chrome://trump/skin/pstop.png");
+}
+
+#run-button {
+   list-style-image: url("chrome://trump/skin/pend.png");
+}
+
+#step-button {
+   list-style-image: url("chrome://trump/skin/pnext.png");
+}
+
 
 #clear-button {
    list-style-image: url("chrome://trump/skin/delete.png");
