@@ -73,15 +73,15 @@
     <toolbar id="toolbar2">
         <toolbarbutton id="record-button" label="Record" class="record" tooltiptext="&recordButton.tooltip;"
                        oncommand="window.editor.toggleRecordButton()" checked="true"/>
-        <toolbarbutton id="stop-button" label="Stop" class="icon" tooltiptext="&stopButton.tooltip;"
-                       oncommand="window.editor.toggleStopButton()">
-            <observes element="isRecording" attribute="disabled"/>
-        </toolbarbutton>
         <toolbarbutton id="step-button" label="Step" tooltiptext="&step.tooltip;"
                        oncommand="window.editor.stepButton()">
             <observes element="isRecording" attribute="disabled"/>
         </toolbarbutton>
-        <toolbarbutton id="run-button" label="Run" tooltiptext="&run.tooltip;" oncommand="window.editor.runButton()">
+        <toolbarbutton id="run-button" label="Run" tooltiptext="&run.tooltip;" oncommand="window.editor.runButton()" class="run">
+            <observes element="isRecording" attribute="disabled"/>
+        </toolbarbutton>
+        <toolbarbutton id="stop-button" label="Stop" class="icon" tooltiptext="&stopButton.tooltip;"
+                       oncommand="window.editor.toggleStopButton()">
             <observes element="isRecording" attribute="disabled"/>
         </toolbarbutton>
         <toolbarbutton id="clear-button" label="Clear" tooltiptext="&clear.tooltip;"

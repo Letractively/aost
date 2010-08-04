@@ -35,8 +35,12 @@
     list-style-image: url("chrome://trump/skin/pstop.gif");
 }
 
-#run-button {
+#run-button.run {
    list-style-image: url("chrome://trump/skin/pend.gif");
+}
+
+#run-button.pause {
+   list-style-image: url("chrome://trump/skin/ppause.gif");
 }
 
 #step-button {
