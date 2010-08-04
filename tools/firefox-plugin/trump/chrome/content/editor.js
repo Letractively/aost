@@ -833,17 +833,23 @@ Editor.prototype.updateUiObject = function(){
         uiObject.updateAttributes(attrmap);
         if(uiObject.parent == null){
             uim.id = uiObject.uid;
-            uim.buildUiIndex();
+//            uim.buildUiIndex();
             this.recorder.app.updateUiModule(oldUimId, uim);
 /*            this.workspace.id = uiObject.uid;
             this.workspace.innerTree.root.id = uiObject.uid;
             this.workspace.innerTree.buildIndex();*/
         }
-//        this.validateUI();
+        //        this.validateUI();
         this.validateOneUiModule(uim);
-        this.customizeButton();
+        //        this.customizeButton();
+        var xml = uim.buildXML();
+
+        this.buildCustomizeTree(xml);
+        var uiTypes = this.builder.getAvailableUiTypes();
+        Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
+                XulUtils.toXPCOMArray(uiTypes));
         this.updateSource();
-    }else{
+    } else {
         logger.error("Cannot find UI object " + this.currentUid);
     }
 };
