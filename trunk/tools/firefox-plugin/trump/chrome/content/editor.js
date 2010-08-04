@@ -403,20 +403,6 @@ Editor.prototype.updateSource = function(){
     sourceTextNode.value = uiModel;
 };
 
-Editor.prototype.saveButton = function(){
-    if(this.workspace.uim != null){
-        this.command.cacheUiModule(this.workspace.uim);
-        logger.info("Saved UI module " + this.workspace.uim.id + " to cache.");
-        this.recorder.clearAll();
-        this.clearCustomizeTabContext();
-        this.decorator.cleanShowNode();
-        this.exportToWindowInBackground();
-    }else{
-        logger.warn("There is no UI module in workspace to save to cache.");
-    }
-    document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
-};
-
 Editor.prototype.stepButton = function(){
     if(this.recorder.app != null && (!this.recorder.app.isEmpty())){
         logger.info("Stepping recorded tests...");
@@ -703,10 +689,13 @@ Editor.prototype.getElementsByTagValue = function(tag, attr, val){
 };
 
 Editor.prototype.showNodeOnWeb = function(){
-    var uiObject = this.workspace.getUiObject(this.currentUid);
+//    var uiObject = this.workspace.getUiObject(this.currentUid);
+    var uiObject = this.recorder.app.walkToUiObject(this.currentUid);
     if(uiObject != null){
-        if(uiObject.node != null && uiObject.node.domNode != null){
-            this.decorator.showNode(uiObject.node.domNode);
+//        if(uiObject.node != null && uiObject.node.domNode != null){
+        if(uiObject.domRef != null){
+//            this.decorator.showNode(uiObject.node.domNode);
+            this.decorator.showNode(uiObject.domRef);
         }else{
             logger.error("UI Object " + this.currentUid + " does not point to a Dom Node");
         }
@@ -955,5 +944,18 @@ Editor.prototype.testButton = function(){
     }catch(error){
         logger.error("Executing command failed:\n" + describeErrorStack(error));
     }
+};
 
+Editor.prototype.saveButton = function(){
+    if(this.workspace.uim != null){
+        this.command.cacheUiModule(this.workspace.uim);
+        logger.info("Saved UI module " + this.workspace.uim.id + " to cache.");
+        this.recorder.clearAll();
+        this.clearCustomizeTabContext();
+        this.decorator.cleanShowNode();
+        this.exportToWindowInBackground();
+    }else{
+        logger.warn("There is no UI module in workspace to save to cache.");
+    }
+    document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
 };
