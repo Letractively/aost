@@ -5,7 +5,7 @@
 
 const RecordState = {
     RECORD: "record",
-    PAUSE: "pause",
+//    PAUSE: "pause",
     STOP: "stop"
 };
 
@@ -184,43 +184,30 @@ Editor.prototype.close = function(){
 
 Editor.prototype.toggleRecordButton = function(){
     var recordToolbarButton = document.getElementById("record-button");
+        var broadcaster = document.getElementById("isRecording");
 
     if(!recordToolbarButton.getAttribute("checked")){
         recordToolbarButton.setAttribute("checked", "true");
-        recordToolbarButton.setAttribute("class", RecordState.RECORD);
-
-        var stopToolbarButton = document.getElementById("stop-button");
-        stopToolbarButton.removeAttribute("checked");
-
-        this.recorder.registerListeners();
-        this.populateWindowUrl();
+        broadcaster.setAttribute("disabled", "true");
+        this.startRecord();
     }else{
-        var state = recordToolbarButton.getAttribute("class");
-
-        if(state == RecordState.RECORD){
-            recordToolbarButton.setAttribute("class", RecordState.PAUSE);
-        }else{
-            recordToolbarButton.setAttribute("class", RecordState.RECORD);
-        }
-
-        this.recorder.unregisterListeners();
-        this.recorder.registerListeners();
+        recordToolbarButton.removeAttribute("checked");
+        broadcaster.setAttribute("disabled", "false");
+        this.endRecord();
     }
 };
 
-Editor.prototype.toggleStopButton = function() {
+Editor.prototype.startRecord = function() {
+    this.recorder.registerListeners();
+    this.populateWindowUrl();
+    logger.info("Start recording...");
+};
+
+Editor.prototype.endRecord = function(){
     try {
-        var stopToolbarButton = document.getElementById("stop-button");
-
-        if (!stopToolbarButton.getAttribute("checked")) {
-            stopToolbarButton.setAttribute("checked", "true");
-
-            var recordToolbarButton = document.getElementById("record-button");
-            recordToolbarButton.removeAttribute("checked");
-            recordToolbarButton.setAttribute("class", RecordState.STOP);
-            this.recorder.unregisterListeners();
-            this.decorator.cleanShowNode();
-        }
+        logger.info("Stop recording...");
+        this.recorder.unregisterListeners();
+        this.decorator.cleanShowNode();
         this.switchToCustomizeTab();
         var xml = DEFAULT_XML;
 
@@ -238,9 +225,17 @@ Editor.prototype.toggleStopButton = function() {
             }
         }
 
-        this.recorder.generateSource();        
+        this.recorder.generateSource();
         this.workspace.clear();
         this.recorder.clearMost();
+    } catch(error) {
+        logger.error("Error:\n" + describeErrorStack(error));
+    }
+};
+
+Editor.prototype.toggleStopButton = function() {
+    try {
+
     } catch(error) {
         logger.error("Error:\n" + describeErrorStack(error));
     }

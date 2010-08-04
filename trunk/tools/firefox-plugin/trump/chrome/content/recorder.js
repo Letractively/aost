@@ -43,8 +43,8 @@ Recorder.prototype.attachActionListeners = function(window){
     var self = this;
     window.addEventListener("beforeunload",
             function(event) {
-                var stopToolbarButton = document.getElementById("stop-button");
-                if (!stopToolbarButton.getAttribute("checked")) {
+                var recordToolbarButton = document.getElementById("record-button");
+                if (recordToolbarButton.getAttribute("checked")) {
                     self.recordCommand("waitForPageToLoad", null, 3000);
                     var url = event.target.URL || event.target.baseURI;
                     logger.debug("Unloading Window " + url);
@@ -94,17 +94,11 @@ Recorder.prototype.registerListeners = function(){
 };
 
 Recorder.prototype.registerForWindow = function(window) {
-    if (this.isAction())
-        this.attachActionListeners(window);
-    else
-        this.attachSelectListeners(window);
+    this.attachActionListeners(window);
 
     var frames = window.frames;
     for (var j = 0; j < frames.length; j++) {
-        if (this.isAction())
-            this.attachActionListeners(frames[j]);
-        else
-            this.attachSelectListeners(frames[j]);
+        this.attachActionListeners(frames[j]);
     }
 };
 
@@ -117,14 +111,12 @@ Recorder.prototype.unregisterForWindow = function(window){
 
     if (window) {
         this.detachActionListeners(window);
-        this.detachSelectListeners(window);
     }
 
     var frames =  window.frames;
     if (frames && frames.length) {
         for (var j = 0; j < frames.length; j++) {
             this.detachActionListeners(frames[j]);
-            this.detachSelectListeners(frames[j]);
         }
     }
 };
@@ -139,17 +131,11 @@ Recorder.prototype.registerForAllWindows = function() {
         var browsers = window.getBrowser().browsers;
         for (var i = 0; i < browsers.length; i++) {
             logger.debug("browser=" + browsers[i]);
-            if (this.isAction())
-                this.attachActionListeners(browsers[i].contentWindow);
-            else
-                this.attachSelectListeners(browsers[i].contentWindow);
+            this.attachActionListeners(browsers[i].contentWindow);
 
             var frames = browsers[i].contentWindow.frames;
             for (var j = 0; j < frames.length; j++) {
-                if (this.isAction())
-                    this.attachActionListeners(frames[j]);
-                else
-                    this.attachSelectListeners(frames[j]);
+                this.attachActionListeners(frames[j]);
             }
         }
     }
@@ -166,23 +152,23 @@ Recorder.prototype.deregisterForAllWindows = function() {
         for (var i = 0; i < browsers.length; i++) {
             logger.debug("browser=" + browsers[i]);
             this.detachActionListeners(browsers[i].contentWindow);
-            this.detachSelectListeners(browsers[i].contentWindow);
 
             var frames = browsers[i].contentWindow.frames;
             for (var j = 0; j < frames.length; j++) {
                 this.detachActionListeners(frames[j]);
-                this.detachSelectListeners(frames[j]);
              }
         }
     }
 };
 
+/*
 Recorder.prototype.isAction = function(){
     var recordToolbarButton = document.getElementById("record-button");
     var state = recordToolbarButton.getAttribute("class");
 
     return state == RecordState.RECORD;
 };
+*/
 
 Recorder.prototype.unregisterListeners = function() {
     this.removeBackgroundForSelectedNodes();
