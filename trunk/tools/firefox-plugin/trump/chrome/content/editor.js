@@ -319,26 +319,6 @@ function suggestName(tagObject){
     return name.toCamel();
 }
 
-Editor.prototype.generateButton = function(){
-   this.switchToSourceTab();
-/* 
-    try {
-        this.workspace.generateUiModule(this.recorder.tagObjectArray);
-
-        this.updateSource();
-
-        this.validateUI();
-
-    }catch(error){
-        logger.error("Error generating UI Module:\n" + describeErrorStack(error));
-    }*/
-    try {
-        this.recorder.generateSource();
-    }catch(error){
-        logger.error("Error generating UI Module:\n" + describeErrorStack(error));
-    }
-};
-
 Editor.prototype.validateOneUiModule = function(uim){
     if(tellurium == null){
         tellurium = new Tellurium();
@@ -581,59 +561,6 @@ Editor.prototype.processCustomizeEvent = function(event){
     }
 };
 
-Editor.prototype.testButton = function(){
-
-    this.toggleStopButton();
-    document.getElementById("editorTabs").selectedItem = document.getElementById("testTab");
-    try{
-        //copy ui modules from app to the cache
-        if (this.recorder.app != null) {
-            var uimArray = this.recorder.app.getUiModules();
-            if (uimArray != null && uimArray.length > 0) {
-                for (var i = 0; i < uimArray.length; i++) {
-                    this.command.cacheUiModule(uimArray[i]);
-                }
-            }
-        }
-
-        var uims = this.command.getCachedUiModuleList();
-
-        if(uims != null && uims.length > 0){
-            document.getElementById("uiModuleId").disabled = false;
-            document.getElementById("commandName").disabled = false;
-            document.getElementById("commandUID").disabled = false;
-            document.getElementById("commandParam").disabled = false;
-            document.getElementById("commandResult").disabled = false;
-
-            Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiModuleId")),
-                                                          XulUtils.toXPCOMArray(uims));
-
-            Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandName")),
-                                                          XulUtils.toXPCOMArray(this.commandList));
-
-            var uim = this.command.getCachedUiModule(uims[0]);
-            document.getElementById("uiModuleId").value = uim.id;
-            var uids = this.command.getUids(uim.id);
-            if(uids != null && uids.length > 0){
-                Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandUID")),
-                                                          XulUtils.toXPCOMArray(uids));
-            }
-//            this.command.dom = this.workspace.dom;
-            this.command.dom = uim.doc;
-            this.command.locateUI(uim.id);
-        }else{
-            document.getElementById("uiModuleId").disabled = true;
-            document.getElementById("commandName").disabled = true;
-            document.getElementById("commandUID").disabled = true;
-            document.getElementById("commandParam").disabled = true;
-            document.getElementById("commandResult").disabled = true;
-        }        
-    }catch(error){
-        logger.error("Executing command failed:\n" + describeErrorStack(error));
-    }
-    
-};
-
 Editor.prototype.updateUiModuleName = function(uid) {
     var uids = this.command.getUids(uid);
     if (uids != null && uids.length > 0) {
@@ -855,7 +782,11 @@ Editor.prototype.updateUiObject = function(){
         var uiTypes = this.builder.getAvailableUiTypes();
         Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
                 XulUtils.toXPCOMArray(uiTypes));
-        this.updateSource();
+//        this.updateSource();
+
+        var sourceTextNode = document.getElementById("exportSource");
+        sourceTextNode.value = this.recorder.app.toSource();
+
     } else {
         logger.error("Cannot find UI object " + this.currentUid);
     }
@@ -952,4 +883,77 @@ Editor.prototype.customizeButton = function(){
             this.cmdView.rowInserted();
         }
      }
+};
+
+Editor.prototype.generateButton = function(){
+   this.switchToSourceTab();
+/*
+    try {
+        this.workspace.generateUiModule(this.recorder.tagObjectArray);
+
+        this.updateSource();
+
+        this.validateUI();
+
+    }catch(error){
+        logger.error("Error generating UI Module:\n" + describeErrorStack(error));
+    }*/
+    try {
+        this.recorder.generateSource();
+    }catch(error){
+        logger.error("Error generating UI Module:\n" + describeErrorStack(error));
+    }
+};
+
+Editor.prototype.testButton = function(){
+
+    this.toggleStopButton();
+    document.getElementById("editorTabs").selectedItem = document.getElementById("testTab");
+    try{
+        //copy ui modules from app to the cache
+        if (this.recorder.app != null) {
+            var uimArray = this.recorder.app.getUiModules();
+            if (uimArray != null && uimArray.length > 0) {
+                for (var i = 0; i < uimArray.length; i++) {
+                    this.command.cacheUiModule(uimArray[i]);
+                }
+            }
+        }
+
+        var uims = this.command.getCachedUiModuleList();
+
+        if(uims != null && uims.length > 0){
+            document.getElementById("uiModuleId").disabled = false;
+            document.getElementById("commandName").disabled = false;
+            document.getElementById("commandUID").disabled = false;
+            document.getElementById("commandParam").disabled = false;
+            document.getElementById("commandResult").disabled = false;
+
+            Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiModuleId")),
+                                                          XulUtils.toXPCOMArray(uims));
+
+            Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandName")),
+                                                          XulUtils.toXPCOMArray(this.commandList));
+
+            var uim = this.command.getCachedUiModule(uims[0]);
+            document.getElementById("uiModuleId").value = uim.id;
+            var uids = this.command.getUids(uim.id);
+            if(uids != null && uids.length > 0){
+                Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandUID")),
+                                                          XulUtils.toXPCOMArray(uids));
+            }
+//            this.command.dom = this.workspace.dom;
+            this.command.dom = uim.doc;
+            this.command.locateUI(uim.id);
+        }else{
+            document.getElementById("uiModuleId").disabled = true;
+            document.getElementById("commandName").disabled = true;
+            document.getElementById("commandUID").disabled = true;
+            document.getElementById("commandParam").disabled = true;
+            document.getElementById("commandResult").disabled = true;
+        }
+    }catch(error){
+        logger.error("Executing command failed:\n" + describeErrorStack(error));
+    }
+
 };
