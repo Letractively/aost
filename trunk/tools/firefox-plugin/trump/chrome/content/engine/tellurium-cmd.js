@@ -1,4 +1,4 @@
-function TelluriumCommand(){
+function TelluriumCommandExecutor(){
 
 //    this.uim = null;
 
@@ -11,32 +11,32 @@ function TelluriumCommand(){
     this.cssBuilder = new JQueryBuilder();
 }
 
-TelluriumCommand.prototype.cachedUiModuleNum = function(){
+TelluriumCommandExecutor.prototype.cachedUiModuleNum = function(){
     return this.cache.size();    
 };
 
-TelluriumCommand.prototype.cacheUiModule = function(uim){
+TelluriumCommandExecutor.prototype.cacheUiModule = function(uim){
     if(uim != null)
         this.cache.put(uim.id, uim);
 };
 
-TelluriumCommand.prototype.getCachedUiModuleList = function(){
+TelluriumCommandExecutor.prototype.getCachedUiModuleList = function(){
     return this.cache.keySet();    
 };
 
-TelluriumCommand.prototype.getCachedUiModule = function(id){
+TelluriumCommandExecutor.prototype.getCachedUiModule = function(id){
     return this.cache.get(id);
 };
 
-TelluriumCommand.prototype.removeCachedUiModule = function(id){
+TelluriumCommandExecutor.prototype.removeCachedUiModule = function(id){
     return this.cache.remove(id);
 };
 
-TelluriumCommand.prototype.clearCache = function(){
+TelluriumCommandExecutor.prototype.clearCache = function(){
     return this.cache.clear();
 };
 
-TelluriumCommand.prototype.describeUiModuleList = function(){
+TelluriumCommandExecutor.prototype.describeUiModuleList = function(){
     if(this.cache.size() > 0){
         var keySet = this.getCachedUiModuleList();
         var array = new Array();
@@ -52,7 +52,7 @@ TelluriumCommand.prototype.describeUiModuleList = function(){
     return "";
 };
 
-TelluriumCommand.prototype.describeUiModule = function(uiModelArray) {
+TelluriumCommandExecutor.prototype.describeUiModule = function(uiModelArray) {
     if (uiModelArray != undefined && uiModelArray != null) {
         var sb = new StringBuffer();
         for (var i = 0; i < uiModelArray.length; ++i) {
@@ -69,11 +69,11 @@ TelluriumCommand.prototype.describeUiModule = function(uiModelArray) {
     return "";
 };
 
-TelluriumCommand.prototype.generateCode = function(){
+TelluriumCommandExecutor.prototype.generateCode = function(){
     return this.createUiModuleCode() + "\n\n" + this.createTestCaseCode() + "\n";    
 };
 
-TelluriumCommand.prototype.createUiModuleCode = function() {
+TelluriumCommandExecutor.prototype.createUiModuleCode = function() {
     var sb = new StringBuffer();
     sb.append("//----------------------- MyUiModule.groovy ------------------------\n\n");
     sb.append("package test\n\n");
@@ -107,7 +107,7 @@ TelluriumCommand.prototype.createUiModuleCode = function() {
     return sb.toString();
 };
 
-TelluriumCommand.prototype.createTestCaseCode = function() {
+TelluriumCommandExecutor.prototype.createTestCaseCode = function() {
     var sb = new StringBuffer();
     sb.append("//----------------------- MyTestCase.java ------------------------\n\n");
     sb.append("package test;\n\n");
@@ -135,7 +135,7 @@ TelluriumCommand.prototype.createTestCaseCode = function() {
     return sb.toString();
 };
 
-TelluriumCommand.prototype.run = function(name, uid, param){
+TelluriumCommandExecutor.prototype.run = function(name, uid, param){
     var api = this[name];
 
     if (typeof(api) == 'function') {
@@ -149,9 +149,10 @@ TelluriumCommand.prototype.run = function(name, uid, param){
      }
 };
 
-TelluriumCommand.prototype.locateUI = function(uid){
+TelluriumCommandExecutor.prototype.locateUI = function(uid){
     var uim = this.cache.get(uid);
     if(uim != null && this.dom != null){
+        uim.valid = false;
         this.uiAlg.santa(uim, this.dom);
     }else{
         if(uim == null){
@@ -189,7 +190,7 @@ TelluriumCommand.prototype.walkToUiObject = function(context, uid){
 };
 */
 
-TelluriumCommand.prototype.execCommand = function(cmd, uid, param){
+TelluriumCommandExecutor.prototype.execCommand = function(cmd, uid, param){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
     var uiid = new Uiid();
@@ -220,87 +221,87 @@ TelluriumCommand.prototype.execCommand = function(cmd, uid, param){
     }
 };
 
-TelluriumCommand.prototype.blur = function(uid) {
+TelluriumCommandExecutor.prototype.blur = function(uid) {
     this.execCommand("blur", uid);
 };
 
-TelluriumCommand.prototype.click = function(uid) {
+TelluriumCommandExecutor.prototype.click = function(uid) {
     this.execCommand("click", uid);
 };
 
-TelluriumCommand.prototype.clickAt = function(uid, coordString) {
+TelluriumCommandExecutor.prototype.clickAt = function(uid, coordString) {
     this.execCommand("clickAt", uid, coordString);
 };
 
-TelluriumCommand.prototype.doubleClick = function(uid){
+TelluriumCommandExecutor.prototype.doubleClick = function(uid){
     this.execCommand("doubleClick", uid);
 };
 
-TelluriumCommand.prototype.fireEvent = function(uid, event){
+TelluriumCommandExecutor.prototype.fireEvent = function(uid, event){
     this.execCommand("fireEvent", uid, event);
 };
 
-TelluriumCommand.prototype.focus = function(uid){
+TelluriumCommandExecutor.prototype.focus = function(uid){
     this.execCommand("focus", uid);
 };
 
-TelluriumCommand.prototype.type = function(uid, val){
+TelluriumCommandExecutor.prototype.type = function(uid, val){
     this.execCommand("type", uid, val);
 };
 
-TelluriumCommand.prototype.typeKey = function(uid, key){
+TelluriumCommandExecutor.prototype.typeKey = function(uid, key){
     this.execCommand("typeKey", uid, key);
 };
 
-TelluriumCommand.prototype.keyDown = function(uid, key){
+TelluriumCommandExecutor.prototype.keyDown = function(uid, key){
     this.execCommand("keyDown", uid, key);
 };
 
-TelluriumCommand.prototype.keyPress = function(uid, key){
+TelluriumCommandExecutor.prototype.keyPress = function(uid, key){
     this.execCommand("keyPress", uid, key);
 };
 
-TelluriumCommand.prototype.keyUp = function(uid, key){
+TelluriumCommandExecutor.prototype.keyUp = function(uid, key){
     this.execCommand("keyUp", uid, key);
 };
 
-TelluriumCommand.prototype.mouseOver = function(uid){
+TelluriumCommandExecutor.prototype.mouseOver = function(uid){
     this.execCommand("mouseOver", uid);
 };
 
-TelluriumCommand.prototype.mouseDown = function(uid){
+TelluriumCommandExecutor.prototype.mouseDown = function(uid){
     this.execCommand("mouseDown", uid);
 };
 
-TelluriumCommand.prototype.mouseEnter = function(uid){
+TelluriumCommandExecutor.prototype.mouseEnter = function(uid){
     this.execCommand("mouseEnter", uid);
 };
 
-TelluriumCommand.prototype.mouseLeave = function(uid){
+TelluriumCommandExecutor.prototype.mouseLeave = function(uid){
     this.execCommand("mouseLeave", uid);
 };
 
-TelluriumCommand.prototype.mouseOut = function(uid){
+TelluriumCommandExecutor.prototype.mouseOut = function(uid){
     this.execCommand("mouseOut", uid);
 };
 
-TelluriumCommand.prototype.submit = function(uid){
+TelluriumCommandExecutor.prototype.submit = function(uid){
     this.execCommand("submit", uid);
 };
 
-TelluriumCommand.prototype.check = function(uid){
+TelluriumCommandExecutor.prototype.check = function(uid){
     this.execCommand("check", uid);
 };
 
-TelluriumCommand.prototype.uncheck = function(uid){
+TelluriumCommandExecutor.prototype.uncheck = function(uid){
     this.execCommand("uncheck", uid);
 };
 
-TelluriumCommand.prototype.getAttribute = function(uid, attribute){
+TelluriumCommandExecutor.prototype.getAttribute = function(uid, attribute){
     return this.execCommand("getAttribute", uid, attribute);
 };
 
-TelluriumCommand.prototype.getOptionSelector = function(optionLocator){
+TelluriumCommandExecutor.prototype.getOptionSelector = function(optionLocator){
     var split = optionLocator.split("=");
     var sel = "";
     split[0] = split[0].trim();
@@ -322,46 +323,46 @@ TelluriumCommand.prototype.getOptionSelector = function(optionLocator){
     return sel;
 };
 
-TelluriumCommand.prototype.select = function(uid, optionLocator){
+TelluriumCommandExecutor.prototype.select = function(uid, optionLocator){
     var optionSelector = this.getOptionSelector(optionLocator);
     this.execCommand("select", uid, optionSelector);
 };
 
-TelluriumCommand.prototype.getText = function(uid) {
+TelluriumCommandExecutor.prototype.getText = function(uid) {
     return this.execCommand("getText", uid);
 };
 
-TelluriumCommand.prototype.getValue = function(uid) {
+TelluriumCommandExecutor.prototype.getValue = function(uid) {
     return this.execCommand("getValue", uid);
 };
 
-TelluriumCommand.prototype.isChecked = function(uid) {
+TelluriumCommandExecutor.prototype.isChecked = function(uid) {
     return this.execCommand("isChecked", uid);
 };
 
-TelluriumCommand.prototype.isVisible = function(uid) {
+TelluriumCommandExecutor.prototype.isVisible = function(uid) {
     return this.execCommand("isVisible", uid);
 };
 
-TelluriumCommand.prototype.getCSS = function(uid, cssName) {
+TelluriumCommandExecutor.prototype.getCSS = function(uid, cssName) {
     return this.execCommand("getCSS", uid, cssName);
 };
 
-TelluriumCommand.prototype.getCSSAsString = function(uid, cssName) {
+TelluriumCommandExecutor.prototype.getCSSAsString = function(uid, cssName) {
     var out = this.getCSS(uid, cssName);
 
     return arrayToString(out);
 };
 
-TelluriumCommand.prototype.isDisabled = function(uid) {
+TelluriumCommandExecutor.prototype.isDisabled = function(uid) {
     return this.execCommand("isDisabled", uid);
 };
 
-TelluriumCommand.prototype.waitForPageToLoad = function(timeout){
+TelluriumCommandExecutor.prototype.waitForPageToLoad = function(timeout){
 
 };
 
-TelluriumCommand.prototype.decorateFunctionWithTimeout = function(f, timeout) {
+TelluriumCommandExecutor.prototype.decorateFunctionWithTimeout = function(f, timeout) {
     if (f == null) {
         return null;
     }
@@ -376,7 +377,7 @@ TelluriumCommand.prototype.decorateFunctionWithTimeout = function(f, timeout) {
     };
 };
 
-TelluriumCommand.prototype.showUI = function(uid) {
+TelluriumCommandExecutor.prototype.showUI = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
     var uiid = new Uiid();
@@ -412,7 +413,7 @@ TelluriumCommand.prototype.showUI = function(uid) {
     }
 };
 
-TelluriumCommand.prototype.cleanUI = function(uid) {
+TelluriumCommandExecutor.prototype.cleanUI = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
     var uiid = new Uiid();
@@ -447,7 +448,7 @@ TelluriumCommand.prototype.cleanUI = function(uid) {
     }
 };
 
-TelluriumCommand.prototype.getHTMLSource = function(uid) {
+TelluriumCommandExecutor.prototype.getHTMLSource = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
     var uiid = new Uiid();
@@ -480,7 +481,7 @@ TelluriumCommand.prototype.getHTMLSource = function(uid) {
     }
 };
 
-TelluriumCommand.prototype.getHTMLSourceAsString = function(uid) {
+TelluriumCommandExecutor.prototype.getHTMLSourceAsString = function(uid) {
 
     var htmls = this.getHTMLSource(uid);
     if (htmls != null && htmls.length > 0) {
@@ -494,7 +495,7 @@ TelluriumCommand.prototype.getHTMLSourceAsString = function(uid) {
     return "";
 };
 
-TelluriumCommand.prototype.getUids = function(uid) {
+TelluriumCommandExecutor.prototype.getUids = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
     var uiid = new Uiid();
@@ -527,17 +528,17 @@ TelluriumCommand.prototype.getUids = function(uid) {
     }
 };
 
-TelluriumCommand.prototype.getUidsAsString = function(uid){
+TelluriumCommandExecutor.prototype.getUidsAsString = function(uid){
     var uids = this.getUids(uid);
     return arrayToString(uids);
 };
 
-TelluriumCommand.prototype.getCssSelectorCount = function(uid, sel){
+TelluriumCommandExecutor.prototype.getCssSelectorCount = function(uid, sel){
 
     return teJQuery(this.dom).find(sel).length;
 };
 
-TelluriumCommand.prototype.getCssSelectorMatch = function(uid, sel){
+TelluriumCommandExecutor.prototype.getCssSelectorMatch = function(uid, sel){
     var out = [];
     var $e = teJQuery(this.dom).find(sel);
     if($e.size() > 0){
@@ -550,12 +551,12 @@ TelluriumCommand.prototype.getCssSelectorMatch = function(uid, sel){
     return out;
 };
 
-TelluriumCommand.prototype.getCssSelectorMatchAsString = function(uid, sel){
+TelluriumCommandExecutor.prototype.getCssSelectorMatchAsString = function(uid, sel){
     var out = this.getCssSelectorMatch(uid, sel);
     return arrayToString(out);
 };
 
-TelluriumCommand.prototype.validateUiModule = function(uid, jsonString){
+TelluriumCommandExecutor.prototype.validateUiModule = function(uid, jsonString){
     var newuim = new UiModule();
     newuim.dom = this.dom;
     var jsonArray = JSON.parse(jsonString, null);
@@ -577,7 +578,7 @@ TelluriumCommand.prototype.validateUiModule = function(uid, jsonString){
     return response;
 };
 
-TelluriumCommand.prototype.validateUiModuleAsString = function(uid,jsonString){
+TelluriumCommandExecutor.prototype.validateUiModuleAsString = function(uid,jsonString){
     var response = this.validateUiModule(uid, jsonString);
     if(response != null){
         return response.toString();
@@ -586,7 +587,7 @@ TelluriumCommand.prototype.validateUiModuleAsString = function(uid,jsonString){
     }
 };
 
-TelluriumCommand.prototype.useUiModule = function(uid, jsonString){
+TelluriumCommandExecutor.prototype.useUiModule = function(uid, jsonString){
     var newuim = new UiModule();
     newuim.dom = this.dom;
     var jsonArray = JSON.parse(jsonString, null);
@@ -602,7 +603,7 @@ TelluriumCommand.prototype.useUiModule = function(uid, jsonString){
     }
 };
 
-TelluriumCommand.prototype.toJSON = function(uid){
+TelluriumCommandExecutor.prototype.toJSON = function(uid){
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
     var uiid = new Uiid();
@@ -626,18 +627,18 @@ TelluriumCommand.prototype.toJSON = function(uid){
     }
 };
 
-TelluriumCommand.prototype.toJSONString = function(uid){
+TelluriumCommandExecutor.prototype.toJSONString = function(uid){
     var json = this.toJSON(uid);
 
     return JSON.stringify(json);
 };
 
-TelluriumCommand.prototype.open = function(uid, url){
-    var win = this.showInBrowser(url);
-    this.dom = win.document; 
+TelluriumCommandExecutor.prototype.open = function(uid, url){
+    this.showInBrowser(url);
+    this.dom = this.getMostRecentDocument();
 };
 
-TelluriumCommand.prototype.openNewWindow = function(uid, url){
+TelluriumCommandExecutor.prototype.openNewWindow = function(uid, url){
     var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
             .getService(Components.interfaces.nsIWindowMediator)
             .getMostRecentWindow("navigator:browser");
@@ -646,7 +647,7 @@ TelluriumCommand.prototype.openNewWindow = function(uid, url){
 
 };
 
-TelluriumCommand.prototype.getMostRecentDocument = function() {
+TelluriumCommandExecutor.prototype.getMostRecentDocument = function() {
     var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
             .getService(Components.interfaces.nsIWindowMediator)
             .getMostRecentWindow("navigator:browser");
@@ -656,7 +657,7 @@ TelluriumCommand.prototype.getMostRecentDocument = function() {
     return browser.contentDocument;
 };
 
-TelluriumCommand.prototype.showInBrowser = function(url) {
+TelluriumCommandExecutor.prototype.showInBrowser = function(url) {
     var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
     var window = wm.getMostRecentWindow('navigator:browser');
     var contentWindow = window.getBrowser().contentWindow;
