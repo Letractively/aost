@@ -381,4 +381,19 @@ Recorder.prototype.generateSource = function(){
     }
 };
 
+/*Recorder.prototype.generateSourceFromWorkspace = function(){
+    try {
+        logger.debug("Generating UI module before page load...");
+        this.workspace.generate();
+        this.savePage();
+        this.reloadRecorder();
+//        var src = this.workspace.convertSource();
+        var sourceTextNode = document.getElementById("exportSource");
+        sourceTextNode.value = src;
+        logger.info("UI Module and commands are generated, please see them on the UI module source view.");
+    } catch(error) {
+        logger.error("Error generating UI module and commands:\n" + describeErrorStack(error));
+    }
+};*/
+
 Recorder.eventHandlers = {};
