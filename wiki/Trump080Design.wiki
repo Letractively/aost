@@ -74,7 +74,7 @@ The UI should be able to achieve following goals.
   # Trump should provide Help menus
   # Trump should provide close button
 
-== Implementation ==
+== Prototype ==
 
 === Record View ===
 
