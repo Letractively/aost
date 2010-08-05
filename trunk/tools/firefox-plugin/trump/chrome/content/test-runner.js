@@ -79,8 +79,14 @@ var TestRunner = Class.extend({
         this.uimMap = null;
         //current command index
         this.currentIndex = -1;
-        this.interval = 3000;
+        this.interval = 500;
         this.observers = new TestObserverList();
+    },
+
+    updateInterval: function(interval){
+        if(interval != undefined && interval > 0){
+            this.interval = interval;
+        }
     },
 
     prepareFor: function(app) {

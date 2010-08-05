@@ -20,6 +20,7 @@
 <!ENTITY sourceTab.label "UI Module">
 <!ENTITY exportToWindow.label "Export To Window">
 <!ENTITY exportToWindowsTab.label "Source View">
+<!ENTITY TestSpeed.label "Speed">
 
 <!ENTITY settingsTab.label "Settings">
 <!ENTITY element.label "DOM Node">
