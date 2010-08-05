@@ -20,7 +20,7 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery.ui.widget.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery.ui.position.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery.ui.autocomplete.js"/>-->
-
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-utils.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/util.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/editor.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/recorder.js"/>
@@ -63,7 +63,6 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://trump/content/utils/browserDetect.js"/>
 
     <script type="application/x-javascript" src="chrome://trump/content/engine/constants.js"/>
-    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-utils.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/engine/selenium-mock.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-cache.js"/>

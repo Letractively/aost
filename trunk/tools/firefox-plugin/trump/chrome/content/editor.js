@@ -1,16 +1,3 @@
-/*
- * An UI of Trump IDE.
- */
-
-
-/*
-const RecordState = {
-    RECORD: "record",
-//    PAUSE: "pause",
-    STOP: "stop"
-};
-*/
-
 function Editor(window) {
     this.window = window;
     var self = this;
@@ -220,7 +207,8 @@ Editor.prototype.endRecord = function(){
         var app = this.recorder.app;
         if (app != null) {
             this.cmdView.clearAll();
-            var commandList = app.getCommandList();
+            this.testRunner.prepareFor(app);
+            var commandList = this.testRunner.commandList;
             this.cmdView.setTestCommands(commandList);
             for (var i = 0; i < commandList.length; i++) {
                 this.cmdView.rowInserted();
@@ -412,11 +400,11 @@ Editor.prototype.updateSource = function(){
 Editor.prototype.stepButton = function(){
     if(this.recorder.app != null && (!this.recorder.app.isEmpty())){
         logger.info("Stepping recorded tests...");
-        this.testRunner.run(this.recorder.app);
+        this.testRunner.step();
     }else{
         logger.warn("There is no recorded test to step.");
     }
-    document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
+//    document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
 };
 
 Editor.prototype.runButton = function(){
@@ -1045,5 +1033,3 @@ Editor.prototype.runUiCommand = function(){
         logger.info("Executing command " + name + " failed:\n" + describeErrorStack(error));
     }
 };
-
-
