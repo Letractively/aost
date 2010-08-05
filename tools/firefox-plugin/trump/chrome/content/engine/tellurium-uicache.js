@@ -130,6 +130,10 @@ TelluriumUiCache.prototype.size = function(){
     return this.cache.size();
 };
 
+TelluriumUiCache.prototype.remove = function(key){
+    this.cache.remove(key);    
+};
+
 TelluriumUiCache.prototype.put = function(key, val) {
     var cached = this.cache.get(key);
     if (cached == null) {

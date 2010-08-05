@@ -28,6 +28,10 @@ TelluriumCommand.prototype.getCachedUiModule = function(id){
     return this.cache.get(id);
 };
 
+TelluriumCommand.prototype.removeCachedUiModule = function(id){
+    return this.cache.remove(id);
+};
+
 TelluriumCommand.prototype.clearCache = function(){
     return this.cache.clear();
 };
@@ -629,13 +633,17 @@ TelluriumCommand.prototype.toJSONString = function(uid){
 };
 
 TelluriumCommand.prototype.open = function(uid, url){
+    var win = this.showInBrowser(url);
+    this.dom = win.document; 
+};
+
+TelluriumCommand.prototype.openNewWindow = function(uid, url){
     var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
             .getService(Components.interfaces.nsIWindowMediator)
             .getMostRecentWindow("navigator:browser");
 
     win.open(url);
 
-    this.dom = this.getMostRecentDocument();
 };
 
 TelluriumCommand.prototype.getMostRecentDocument = function() {
@@ -646,6 +654,15 @@ TelluriumCommand.prototype.getMostRecentDocument = function() {
     var browser = win.getBrowser();
 
     return browser.contentDocument;
+};
+
+TelluriumCommand.prototype.showInBrowser = function(url) {
+    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
+    var window = wm.getMostRecentWindow('navigator:browser');
+    var contentWindow = window.getBrowser().contentWindow;
+    contentWindow.location.href = url;
+    return window;
+
 };
 
 function arrayToString(array){

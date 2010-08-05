@@ -179,6 +179,7 @@ Editor.prototype.toggleRecordButton = function(){
     if(!recordToolbarButton.getAttribute("checked")){
         recordToolbarButton.setAttribute("checked", "true");
         broadcaster.setAttribute("disabled", "true");
+        document.getElementById("editorTabs").selectedItem = document.getElementById("recordTab");
         this.startRecord();
     }else{
         recordToolbarButton.removeAttribute("checked");
