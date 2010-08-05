@@ -628,7 +628,7 @@ TelluriumCommand.prototype.toJSONString = function(uid){
     return JSON.stringify(json);
 };
 
-TelluriumCommand.prototype.open = function(url){
+TelluriumCommand.prototype.open = function(uid, url){
     var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
             .getService(Components.interfaces.nsIWindowMediator)
             .getMostRecentWindow("navigator:browser");
