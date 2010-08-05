@@ -49,6 +49,8 @@ function UiModule(){
 
     //Snapshot Tree, i.e., STree
     this.stree = null;
+
+    this.valid = false;
 }
 
 UiModule.prototype.buildRefUidMap = function(){
@@ -294,8 +296,11 @@ UiModule.prototype.validate = function(alg, doc){
         alg.validate(this, this.doc);
 
     var found = false;
-    if (this.score == 100 || (!this.relaxed))
+    if (this.score == 100 || (!this.relaxed)){
         found = true;
+    }
+    
+    this.valid = found;
 
     var invalid = null;
     if (!found) {

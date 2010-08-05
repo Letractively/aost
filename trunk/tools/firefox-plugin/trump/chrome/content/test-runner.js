@@ -1,8 +1,8 @@
 const TestState = {
     READY: ' ',
-    RUNNING: '|',
-    SUCCEED: '-',
-    FAILED: 'x'
+    RUNNING: 'R',
+    SUCCEED: 'P',
+    FAILED: 'F'
 };
 
 var TestObserver = Class.extend({
@@ -130,6 +130,22 @@ var TestRunner = Class.extend({
             uim = this.uimMap.get(first);
             this.cmdExecutor.cacheUiModule(uim);
             this.cmdExecutor.locateUI(first);
+        }else{
+            if(!uim.valid){
+                this.cmdExecutor.locateUI(first);
+            }
+        }
+    },
+
+    updateUiModule: function(uid){
+        var uiid = new Uiid();
+        uiid.convertToUiid(uid);
+
+        var first = uiid.peek();
+        var uim = this.cmdExecutor.getCachedUiModule(first);
+        if(uim != null){
+            //remove it so that it will get automatically cached and located for the next command
+            this.cmdExecutor.removeCachedUiModule(first);
         }
     },
 
