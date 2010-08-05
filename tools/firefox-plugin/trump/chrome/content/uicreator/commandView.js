@@ -1,4 +1,3 @@
-//var CommandView  = TestObserver.extend({
 var CommandView  = {
     init: function() {
         this.rowCount = 0;
@@ -35,7 +34,8 @@ var CommandView  = {
             for(var i=0; i<this.testCommands.length; i++){
                 this.testCommands[i].result = TestState.READY;
             }
-            this.treebox.invalidateColumn(3);  
+//            this.treebox.invalidateColumn(4);
+            this.treebox.invalidate();
         }
     },
 
@@ -164,5 +164,4 @@ var CommandView  = {
     cycleCell: function(rowid,colid){
 
     }
-}
-//});
+};
