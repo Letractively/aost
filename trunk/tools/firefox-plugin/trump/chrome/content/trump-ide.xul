@@ -85,15 +85,16 @@
                        oncommand="window.editor.toggleStopButton()">
             <observes element="isRecording" attribute="disabled"/>
         </toolbarbutton>
-        <toolbarbutton>
-            <label control="commandValue" value="&TestSpeed.label;" align="center"/>
-            <scale value="500" min="300" max="3000" increment="100" id="testSpeedSlider" movetoclick="true" onchange="window.editor.updateTestSpeed(this.value)"/> 
-        </toolbarbutton>
         <toolbarseparator/>
         <toolbarbutton id="clear-button" label="Clear" tooltiptext="&clear.tooltip;"
                        oncommand="window.editor.clearButton()"/>
-
         <toolbarspacer flex="1"/>
+        <hbox>
+            <scale value="500" min="300" max="3000" increment="100" id="testSpeedSlider"
+                   showLabel="true" labelPosition="below" onchange="window.editor.updateTestSpeed(this.value)"/>
+            <textbox label="&TestSpeed.label;" readonly="true" observes="testSpeedSlider" size="4" maxlength="4"/>
+        </hbox>
+
     </toolbar>
 
     <tabbox flex="3" height="300" width="250">
