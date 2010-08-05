@@ -172,6 +172,10 @@ Editor.prototype.close = function(){
 //    this.recorder.unregisterListener();
 };
 
+Editor.prototype.updateTestSpeed = function(value){
+    this.testRunner.updateInterval(value);
+};
+
 Editor.prototype.toggleRecordButton = function(){
     var recordToolbarButton = document.getElementById("record-button");
         var broadcaster = document.getElementById("isRecording");

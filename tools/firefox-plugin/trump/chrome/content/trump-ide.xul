@@ -73,6 +73,7 @@
     <toolbar id="toolbar2">
         <toolbarbutton id="record-button" label="Record" class="record" tooltiptext="&recordButton.tooltip;"
                        oncommand="window.editor.toggleRecordButton()" checked="true"/>
+        <toolbarseparator/>        
         <toolbarbutton id="step-button" label="Step" tooltiptext="&step.tooltip;"
                        oncommand="window.editor.stepButton()">
             <observes element="isRecording" attribute="disabled"/>
@@ -84,8 +85,15 @@
                        oncommand="window.editor.toggleStopButton()">
             <observes element="isRecording" attribute="disabled"/>
         </toolbarbutton>
+        <toolbarbutton>
+            <label control="commandValue" value="&TestSpeed.label;" align="center"/>
+            <scale value="500" min="300" max="3000" increment="100" id="testSpeedSlider" movetoclick="true" onchange="window.editor.updateTestSpeed(this.value)"/> 
+        </toolbarbutton>
+        <toolbarseparator/>
         <toolbarbutton id="clear-button" label="Clear" tooltiptext="&clear.tooltip;"
                        oncommand="window.editor.clearButton()"/>
+
+        <toolbarspacer flex="1"/>
     </toolbar>
 
     <tabbox flex="3" height="300" width="250">
