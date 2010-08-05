@@ -210,6 +210,11 @@ Editor.prototype.endRecord = function(){
         var uiTypes = this.builder.getAvailableUiTypes();
         Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
                 XulUtils.toXPCOMArray(uiTypes));
+
+        this.recorder.generateSource();
+        this.workspace.clear();
+        this.recorder.clearMost();
+        
         var app = this.recorder.app;
         if (app != null) {
             this.cmdView.clearAll();
@@ -220,10 +225,6 @@ Editor.prototype.endRecord = function(){
                 this.cmdView.rowInserted();
             }
         }
-
-        this.recorder.generateSource();
-        this.workspace.clear();
-        this.recorder.clearMost();
     } catch(error) {
         logger.error("Error:\n" + describeErrorStack(error));
     }

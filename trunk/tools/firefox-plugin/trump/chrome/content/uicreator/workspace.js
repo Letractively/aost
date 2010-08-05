@@ -108,6 +108,10 @@ Workspace.prototype.convertCommand = function(){
     }
 };
 
+Workspace.prototype.isEmpty = function(){
+    return  this.tagObjectArray.length > 0 || this.commandList.length > 0;   
+};
+
 Workspace.prototype.generate = function(){
     if (this.tagObjectArray != null && this.tagObjectArray.length > 0) {
         this.generateUiModule(this.tagObjectArray);
