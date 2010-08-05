@@ -73,13 +73,13 @@ var TestObserverList = TestObserver.extend({
 var TestRunner = Class.extend({
     init: function() {
         this.running = false;
-        this.cmdExecutor = new TelluriumCommand();
+        this.cmdExecutor = new TelluriumCommandExecutor();
         this.commandList = null;
         this.app = null;
         this.uimMap = null;
         //current command index
         this.currentIndex = -1;
-        this.interval = 300;
+        this.interval = 3000;
         this.observers = new TestObserverList();
     },
 

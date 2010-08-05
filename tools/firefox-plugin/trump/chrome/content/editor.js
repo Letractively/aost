@@ -37,7 +37,7 @@ function Editor(window) {
 
 //    this.checker = new UiChecker();
 
-    this.command = new TelluriumCommand();
+    this.command = new TelluriumCommandExecutor();
 
     this.commandList = new Array();
 
@@ -821,6 +821,7 @@ Editor.prototype.updateUiObject = function(){
             this.recorder.app.updateCommandList();
             this.cmdView.updateCommands(rum);
             this.refreshCommandList();
+            this.testRunner.updateUiModule(this.currentUid);
         }
 
         var sourceTextNode = document.getElementById("exportSource");
