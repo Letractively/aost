@@ -68,6 +68,7 @@ var TestRunner = Class.extend({
         this.app = null;
         //current command index
         this.currentIndex = -1;
+        this.interval = 300;
         this.observers = new TestObserverList();
     },
 
@@ -80,6 +81,10 @@ var TestRunner = Class.extend({
 
     addObserver: function(observer) {
         this.observers.addObserver(observer);
+    },
+
+    start: function(){
+        this.running = true;    
     },
 
     pause: function() {
@@ -114,7 +119,31 @@ var TestRunner = Class.extend({
         }
     },
 
+    delayedRun: function(){
+        if(this.running){
+            if(this.currentIndex < this.commandList.length-1){
+                this.currentIndex++;
+                this.runCommand(this.commandList[this.currentIndex]);
+            }
+
+            if(this.currentIndex < this.commandList.length-1){
+                var self = this;
+                setTimeout (TestJob, this.interval, self);
+            }else{
+                this.finish();
+            }
+        }        
+    },
+
+    finish: function(){
+        var runButton = document.getElementById("run-button");
+        runButton.removeAttribute("checked");
+        runButton.setAttribute("class", "run");
+    },
+
     run: function() {
+        this.delayedRun();
+    },
         /*
          var pages = app.pages;
          if (pages != null && pages.length > 0) {
@@ -133,8 +162,6 @@ var TestRunner = Class.extend({
          }
          }
          */
-    },
-
     getUiModule: function(uid) {
 
         return this.app.getUiModule(uid);
@@ -151,3 +178,6 @@ var TestRunner = Class.extend({
     }
 });
 
+function TestJob(scope){
+    scope.delayedRun();
+}

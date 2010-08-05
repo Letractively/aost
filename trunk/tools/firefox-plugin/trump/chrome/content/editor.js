@@ -229,6 +229,7 @@ Editor.prototype.toggleStopButton = function() {
         var runButton = document.getElementById("run-button");
         runButton.removeAttribute("checked");
         runButton.setAttribute("class", "run");
+        this.testRunner.restart();
     } catch(error) {
         logger.error("Error:\n" + describeErrorStack(error));
     }
@@ -415,6 +416,8 @@ Editor.prototype.runButton = function(){
         runButton.setAttribute("class", "run");
         if (this.recorder.app != null && (!this.recorder.app.isEmpty())) {
             logger.info("Running tests...");
+            this.testRunner.start();
+            this.testRunner.run();
         } else {
             logger.warn("There is no test to run.");
             runButton.removeAttribute("checked");
@@ -424,10 +427,13 @@ Editor.prototype.runButton = function(){
         if (clazz == "run") {
             logger.info("Pause tests...");
             runButton.setAttribute("class", "pause");
+            this.testRunner.pause();
         } else {
             runButton.setAttribute("class", "run");
             if (this.recorder.app != null && (!this.recorder.app.isEmpty())) {
                 logger.info("Running tests...");
+                this.testRunner.start();
+                this.testRunner.run();
             } else {
                 logger.warn("There is no test to run.");
             }
