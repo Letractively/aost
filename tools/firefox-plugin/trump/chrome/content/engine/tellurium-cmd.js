@@ -634,6 +634,18 @@ TelluriumCommand.prototype.open = function(uid, url){
             .getMostRecentWindow("navigator:browser");
 
     win.open(url);
+
+    this.dom = this.getMostRecentDocument();
+};
+
+TelluriumCommand.prototype.getMostRecentDocument = function() {
+    var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+            .getService(Components.interfaces.nsIWindowMediator)
+            .getMostRecentWindow("navigator:browser");
+
+    var browser = win.getBrowser();
+
+    return browser.contentDocument;
 };
 
 function arrayToString(array){

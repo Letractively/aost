@@ -1,7 +1,54 @@
+//var CommandView  = TestObserver.extend({
 var CommandView  = {
-    rowCount : 0,
-    recordIndex : 0,
-    testCommands : null,
+    init: function() {
+        this.rowCount = 0;
+        this.recordIndex = 0;
+        this.testCommands = null;
+    },
+
+    cmdStart: function(cmd) {
+        var index = this.getIndex(cmd);
+        if(index != -1){
+            this.testCommands[index].result = TestState.RUNNING;
+            this.treebox.invalidateRow(index); 
+        }
+    },
+
+    cmdSucceed: function(cmd) {
+        var index = this.getIndex(cmd);
+        if(index != -1){
+            this.testCommands[index].result = TestState.SUCCEED;
+            this.treebox.invalidateRow(index);
+        }
+    },
+
+    cmdFailed: function(cmd) {
+        var index = this.getIndex(cmd);
+        if(index != -1){
+            this.testCommands[index].result = TestState.FAILED;
+            this.treebox.invalidateRow(index);
+        }
+    },
+
+    clear: function(){
+        if(this.testCommands != null && this.testCommands.length > 0){
+            for(var i=0; i<this.testCommands.length; i++){
+                this.testCommands[i].result = TestState.READY;
+            }
+            this.treebox.invalidateColumn(3);  
+        }
+    },
+
+    getIndex: function(cmd) {
+        if (this.testCommands != null && this.testCommands.length > 0) {
+            for (var i = 0; i < this.testCommands.length; i++) {
+                if (this.testCommands[i].seq == cmd.seq)
+                    return i;
+            }
+        }
+
+        return -1;
+    },
 
     rowInserted: function() {
         this.treebox.rowCountChanged(this.rowCount, 1);
@@ -117,4 +164,5 @@ var CommandView  = {
     cycleCell: function(rowid,colid){
 
     }
-};
+}
+//});

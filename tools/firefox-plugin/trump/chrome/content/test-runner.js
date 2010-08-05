@@ -1,8 +1,8 @@
 const TestState = {
-    NOTSTART: "NotStart",
-    RUNNING: "Running",
-    SUCCEED: "Succeed",
-    FAILED: "Failed"
+    READY: ' ',
+    RUNNING: '|',
+    SUCCEED: '-',
+    FAILED: 'x'
 };
 
 var TestObserver = Class.extend({
@@ -19,6 +19,10 @@ var TestObserver = Class.extend({
     },
 
     cmdFailed: function(cmd) {
+
+    },
+
+    clear: function(){
 
     }
 });
@@ -57,6 +61,12 @@ var TestObserverList = TestObserver.extend({
         for (var i = 0; i < this.chain.length; i++) {
             this.chain[i].cmdFailed(cmd);
         }
+    },
+
+    clear: function(){
+        for (var i = 0; i < this.chain.length; i++) {
+            this.chain[i].clear();
+        }
     }
 });
 
@@ -66,6 +76,7 @@ var TestRunner = Class.extend({
         this.cmdExecutor = new TelluriumCommand();
         this.commandList = null;
         this.app = null;
+        this.uimMap = null;
         //current command index
         this.currentIndex = -1;
         this.interval = 300;
@@ -75,6 +86,7 @@ var TestRunner = Class.extend({
     prepareFor: function(app) {
         this.app = app;
         this.commandList = this.app.getCommandList();
+        this.uimMap = this.app.map;
         this.currentIndex = -1;
         this.running = false;
     },
@@ -94,10 +106,12 @@ var TestRunner = Class.extend({
     restart: function() {
         this.running = false;
         this.currentIndex = -1;
+        this.cmdExecutor.clearCache();
+        this.observers.clear();
     },
 
     step: function() {
-        if (this.currentIndex < this.commandList.length) {
+        if (this.currentIndex < this.commandList.length-1) {
             this.currentIndex++;
             var cmd = this.commandList[this.currentIndex];
             this.runCommand(cmd);
@@ -106,16 +120,32 @@ var TestRunner = Class.extend({
         }
     },
 
+    useUiModule: function(uid){
+        var uiid = new Uiid();
+        uiid.convertToUiid(uid);
+
+        var first = uiid.peek();
+        var uim = this.cmdExecutor.getCachedUiModule(first);
+        if(uim == null){
+            uim = this.uimMap.get(first);
+            this.cmdExecutor.cacheUiModule(uim);
+            this.cmdExecutor.locateUI(first);
+        }
+    },
+
     //run a single command
     runCommand: function(cmd) {
         try {
-            logger.debug("Running test: " + cmd.seq);
+            logger.debug("Running test [name: " + cmd.name + ", uid: " + cmd.uid + ", value: " + cmd.value + "]");
             this.observers.cmdStart(cmd);
+            if(cmd.uid != null){
+                this.useUiModule(cmd.uid);
+            }
             this.cmdExecutor.run(cmd.name, cmd.uid, cmd.value);
             this.observers.cmdSucceed(cmd);
         } catch(error) {
             this.observers.cmdFailed(cmd);
-            logger.error("Failed to run command " + cmd.seq + ":\n" + describeErrorStack(error));
+            logger.error("Failed to run command [name: " + cmd.name + ", uid: " + cmd.uid + ", value: " + cmd.value + "]:\n" + describeErrorStack(error));
         }
     },
 
@@ -165,16 +195,6 @@ var TestRunner = Class.extend({
     getUiModule: function(uid) {
 
         return this.app.getUiModule(uid);
-    },
-
-    getMostRecentDocument: function() {
-        var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                .getService(Components.interfaces.nsIWindowMediator)
-                .getMostRecentWindow("navigator:browser");
-
-        var browser = win.getBrowser();
-
-        return browser.contentDocument;
     }
 });
 

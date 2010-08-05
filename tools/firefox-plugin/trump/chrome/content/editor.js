@@ -47,7 +47,8 @@ function Editor(window) {
     this.registerCommands();
 
     this.testRunner = new TestRunner();
-
+    this.testRunner.addObserver(this.cmdView);
+    
 //    this.options = new Preferences();
 
     //Detect the browser properties
