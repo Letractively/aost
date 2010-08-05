@@ -165,7 +165,9 @@ App.prototype.toSource = function(){
     var code = "";
     if(this.pages.length > 0){
         for(var i=0; i<this.pages.length; i++){
-            code = code + this.describeUiModule(this.pages[i].uim) + "\n";
+            if(this.pages[i].uim != null){
+                code = code + this.describeUiModule(this.pages[i].uim) + "\n";
+            }
         }
 
         for(var j=0; j<this.pages.length; j++){

@@ -634,8 +634,9 @@ TelluriumCommandExecutor.prototype.toJSONString = function(uid){
 };
 
 TelluriumCommandExecutor.prototype.open = function(uid, url){
-    this.showInBrowser(url);
-    this.dom = this.getMostRecentDocument();
+    var win = this.showInBrowser(url);
+//    this.dom = this.getMostRecentDocument();
+    this.dom = win.document.body;
 };
 
 TelluriumCommandExecutor.prototype.openNewWindow = function(uid, url){
@@ -662,7 +663,7 @@ TelluriumCommandExecutor.prototype.showInBrowser = function(url) {
     var window = wm.getMostRecentWindow('navigator:browser');
     var contentWindow = window.getBrowser().contentWindow;
     contentWindow.location.href = url;
-    return window;
+    return contentWindow;
 
 };
 

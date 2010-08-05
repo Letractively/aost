@@ -97,6 +97,7 @@ var CommandView  = {
         this.rowCount = 0;
         this.recordIndex = 0;
         this.testCommands = null;
+        this.treebox.invalidate();
     },
 
     getCellText : function(row, aColumn){
