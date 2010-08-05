@@ -32,19 +32,19 @@
 }
 
 #stop-button {
-    list-style-image: url("chrome://trump/skin/pstop.gif");
+    list-style-image: url("chrome://trump/skin/player_stop.png");
 }
 
 #run-button.run {
-   list-style-image: url("chrome://trump/skin/pend.gif");
+   list-style-image: url("chrome://trump/skin/player_end.png");
 }
 
 #run-button.pause {
-   list-style-image: url("chrome://trump/skin/ppause.gif");
+   list-style-image: url("chrome://trump/skin/player_pause.png");
 }
 
 #step-button {
-   list-style-image: url("chrome://trump/skin/pnext.gif");
+   list-style-image: url("chrome://trump/skin/player_play.png");
 }
 
 
