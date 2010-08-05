@@ -28,23 +28,23 @@
 }
 */
 #record-button{
-    list-style-image: url("chrome://trump/skin/media-record.png");
+    list-style-image: url("chrome://trump/skin/Record.png");
 }
 
 #stop-button {
-    list-style-image: url("chrome://trump/skin/player_stop.png");
+    list-style-image: url("chrome://trump/skin/Stop.png");
 }
 
 #run-button.run {
-   list-style-image: url("chrome://trump/skin/player_end.png");
+   list-style-image: url("chrome://trump/skin/Play.png");
 }
 
 #run-button.pause {
-   list-style-image: url("chrome://trump/skin/player_pause.png");
+   list-style-image: url("chrome://trump/skin/Pause.png");
 }
 
 #step-button {
-   list-style-image: url("chrome://trump/skin/player_play.png");
+   list-style-image: url("chrome://trump/skin/Step.png");
 }
 
 
