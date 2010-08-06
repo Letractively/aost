@@ -1,0 +1,84 @@
+<!ENTITY trump-ide.title "Tellurium IDE">
+
+<!ENTITY windowURL.label "WindowURL">
+<!ENTITY windowURLTextbox.tooltip "Window URL">
+
+<!ENTITY recordButton.tooltip "Start/Stop Recording UI and Actions">
+<!ENTITY stopButton.tooltip "Stop Replaying Tests">
+<!ENTITY generate.tooltip "Generate UI Module">
+<!ENTITY customize.tooltip "Customize UI Module">
+<!ENTITY saveui.tooltip "Add and Start New UI recording">
+<!ENTITY step.tooltip "Step recorded Tests">
+<!ENTITY run.tooltip "Run recorded Tests">
+<!ENTITY test.tooltip "Test Tellurium Command">
+<!ENTITY clear.tooltip "Clear and restart">
+
+<!ENTITY recordTab.label "Record View">
+<!ENTITY customizeTab.label "Command View">
+<!ENTITY testTab.label "Test Command">
+<!ENTITY validateTab.label "Validate">
+<!ENTITY sourceTab.label "UI Module">
+<!ENTITY exportToWindow.label "Export To Window">
+<!ENTITY exportToWindowsTab.label "Source View">
+<!ENTITY TestSpeed.label "Speed">
+
+<!ENTITY settingsTab.label "Settings">
+<!ENTITY element.label "DOM Node">
+<!ENTITY element.name.label "Reference">
+<!ENTITY element.framename.label "Frame Name">
+
+<!ENTITY UiModule.label "UI Module">
+<!ENTITY commandList.label "Command List">
+<!ENTITY listCommandName.label "Name">
+<!ENTITY listCommandRef.label "Target">
+<!ENTITY listCommandValue.label "Value">
+<!ENTITY domNodeList.label "DOM Nodes">
+
+<!ENTITY recordedCommandFlag.label "X">
+<!ENTITY recordedCommandList.label "Command List">
+<!ENTITY recordedCommandName.label "Name">
+<!ENTITY recordedCommandUid.label "Target">
+<!ENTITY recordedCommandValue.label "Value">
+<!ENTITY recordedCommandResult.label "Status">
+<!ENTITY updateCommandName.label "Name">
+<!ENTITY updateCommandUID.label "UID">
+<!ENTITY updateCommandValue.label "Value">
+<!ENTITY updateCommand.label "Update">
+
+<!ENTITY uid.label "UID">
+<!ENTITY type.label "Type">
+<!ENTITY clocator.label "clocator">
+<!ENTITY attributes.label "Attributes">
+<!ENTITY group.label "Group">
+<!ENTITY save.label "Save">
+<!ENTITY cancel.label "Cancel">
+<!ENTITY show.label "Show">
+<!ENTITY message.label "Message">
+<!ENTITY exportUiModule.label "Export">
+
+<!ENTITY runCommand.label "Run">
+<!ENTITY commandName.label "Command">
+<!ENTITY commandUID.label "UID">
+<!ENTITY commandParam.label "Param">
+<!ENTITY historyCommandName.label "Command">
+<!ENTITY historyCommandUID.label "UID">
+<!ENTITY historyCommandParam.label "Param">
+<!ENTITY commandHistory.label "Command History">
+<!ENTITY runCommandBox.label "Run Command">
+<!ENTITY commandResult.label "Result">
+<!ENTITY uiModuleId.label "UI Module">
+
+<!ENTITY options.label "Settings">
+<!ENTITY options.general.label "General">
+<!ENTITY options.directory.description "Export Directory">
+<!ENTITY options.jslog.description "Javascript Logging">
+<!ENTITY options.logwrap.description "Wrap Logging">
+<!ENTITY options.grouplocating "Group Locating">
+
+<!ENTITY logConsole.label "Log">
+<!ENTITY logFilter.debug.label "Debug">
+<!ENTITY logFilter.info.label "Info">
+<!ENTITY logFilter.error.label "Error">
+<!ENTITY logFilter.warn.label "Warn">
+<!ENTITY logClear.label "Clear">
+<!ENTITY logToggle.label "Log/Msg">

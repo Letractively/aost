@@ -3,7 +3,7 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 
 <!DOCTYPE window [
-        <!ENTITY % trumpIdeDTD SYSTEM "chrome://trump/locale/trump-ide.dtd">
+        <!ENTITY % trumpIdeDTD SYSTEM "chrome://trump/locale/tellurium-ide.dtd">
         %trumpIdeDTD;
 ]>
 
@@ -29,7 +29,7 @@
         <script type="application/x-javascript" src="chrome://trump/content/options.js"/>
         <script type="application/x-javascript" src="chrome://trump/content/preferences.js"/>
         <script type="application/x-javascript" src="chrome://trump/content/extlib/log4js.js"/>
-        <script type="application/x-javascript" src="chrome://trump/content/trumpLogger.js"/>
+        <script type="application/x-javascript" src="chrome://trump/content/telluriumLogger.js"/>
         <script type="application/x-javascript" src="chrome://trump/content/jslogger.js"/>
 
         <stringbundle id="strings" src="chrome://trump/locale/string.properties"/>

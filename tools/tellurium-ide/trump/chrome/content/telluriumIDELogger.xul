@@ -9,7 +9,7 @@
     width="750" height="450"
     onload="">
     <stringbundle id="strings" src="chrome://trump/locale/string.properties"/>
-    <script type="application/x-javascript" src="chrome://trump/content/trumpBrowser.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/telluriumIDEBrowser.js"/>
     
     <textbox id="uiModelText" style="font-family:arial; font-size:12px;" multiline="true" wrap="true" flex="1"/>
 

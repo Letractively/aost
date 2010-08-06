@@ -101,7 +101,7 @@ Log4js.TrumpLogAppender.prototype = Log4js.extend(new Log4js.Appender(), {
 var logWindow;
 var logText = "";
 var showLogWindow = function(){
-    logWindow = window.open("chrome://trump/content/trumpLogger.xul","logWindow","chrome,centerscreen,alwaysRaised=true,resizable");
+    logWindow = window.open("chrome://trump/content/telluriumIDELogger.xul","logWindow","chrome,centerscreen,alwaysRaised=true,resizable");
     //TODO: pass logText into window using XUL
 };
 
