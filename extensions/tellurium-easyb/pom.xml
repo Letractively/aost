@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>tellurium</artifactId>
+        <artifactId>tellurium-extensions</artifactId>
         <groupId>org.telluriumsource</groupId>
         <version>0.8.0-SNAPSHOT</version>
     </parent>
@@ -15,9 +15,9 @@
     
 
     <scm>
-        <connection>scm:svn:http://aost.google.code.com/svn/trunk/tellurium-easyb</connection>
-        <developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/tellurium-easyb</developerConnection>
-        <url>http://aost.google.code.com/svn/trunk/tellurium-easyb</url>
+        <connection>scm:svn:http://aost.google.code.com/svn/trunk/extensions/tellurium-easyb</connection>
+        <developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/extensions/tellurium-easyb</developerConnection>
+        <url>http://aost.google.code.com/svn/trunk/extensions/tellurium-easyb</url>
     </scm>
     <dependencies>
         <dependency>

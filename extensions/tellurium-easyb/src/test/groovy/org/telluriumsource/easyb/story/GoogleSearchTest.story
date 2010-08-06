@@ -1,5 +1,5 @@
 import org.telluriumsource.test.java.TelluriumEasybTestCase
-import easyb.module.GoogleSearchModule
+import org.telluriumsource.easyb.module.GoogleSearchModule
 
 scenario "user searches for tellurium on google.com", {
 

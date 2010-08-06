@@ -1,4 +1,4 @@
-package easyb.module
+package org.telluriumsource.easyb.module
 
 import org.telluriumsource.dsl.DslContext
 
