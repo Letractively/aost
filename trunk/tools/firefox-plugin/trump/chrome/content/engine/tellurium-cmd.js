@@ -153,6 +153,7 @@ TelluriumCommandExecutor.prototype.locateUI = function(uid){
     var uim = this.cache.get(uid);
     if(uim != null && this.dom != null){
         uim.valid = false;
+        uim.doc = this.dom;
         this.uiAlg.santa(uim, this.dom);
     }else{
         if(uim == null){
@@ -164,31 +165,6 @@ TelluriumCommandExecutor.prototype.locateUI = function(uid){
         }
     }
 };
-
-/*
-TelluriumCommand.prototype.walkToUiObject = function(context, uid){
-    var uiid = new Uiid();
-    uiid.convertToUiid(uid);
-    var obj = null;
-
-    if(uiid.size() > 0){          
-        var first = uiid.peek();
-        var uim = this.cache.get(first);
-        if(uim != null){
-            obj = uim.walkTo(context, uiid);
-            if(obj != null){
-                logger.debug("After walkTo, found object " + uid);
-            }
-            else{
-                logger.error("Cannot find UI object " + uid);
-                throw new TelluriumError(ErrorCodes.UI_OBJ_NOT_FOUND, "Cannot find UI object " + uid);
-            }
-        }
-    }
-
-    return obj;
-};
-*/
 
 TelluriumCommandExecutor.prototype.execCommand = function(cmd, uid, param){
     var context = new WorkflowContext();
@@ -634,9 +610,10 @@ TelluriumCommandExecutor.prototype.toJSONString = function(uid){
 };
 
 TelluriumCommandExecutor.prototype.open = function(uid, url){
-    var win = this.showInBrowser(url);
+    var doc = this.showInBrowser(url);
 //    this.dom = this.getMostRecentDocument();
-    this.dom = win.document.body;
+//    this.dom = win.document.body;
+    this.dom = doc;
 };
 
 TelluriumCommandExecutor.prototype.openNewWindow = function(uid, url){
@@ -663,8 +640,19 @@ TelluriumCommandExecutor.prototype.showInBrowser = function(url) {
     var window = wm.getMostRecentWindow('navigator:browser');
     var contentWindow = window.getBrowser().contentWindow;
     contentWindow.location.href = url;
-    return contentWindow;
+//    return contentWindow;
+    return window.getBrowser().contentDocument;
+};
 
+TelluriumCommandExecutor.prototype.getMainWindow = function() {
+    var mainWindow = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+            .getInterface(Components.interfaces.nsIWebNavigation)
+            .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
+            .rootTreeItem
+            .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+            .getInterface(Components.interfaces.nsIDOMWindow);
+
+    return mainWindow;
 };
 
 function arrayToString(array){

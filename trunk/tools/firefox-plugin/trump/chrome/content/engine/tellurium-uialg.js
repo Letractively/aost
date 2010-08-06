@@ -1028,6 +1028,7 @@ UiAlg.prototype.santa = function(uimodule, rootdom){
         uimodule.matches = 1;
     }
 
+    uimodule.valid = true;
     return true;
 };
 
