@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="author" content="Tellurium Team"/>
+    <title>Tellurium User Group</title>
+    <script language="javascript" src="chrome://trump/content/extlib/jquery-1.4.2.js" type="text/javascript"></script>
+    <script language="javascript" src="chrome://trump/content/extlib/jquery.jgfeed.js" type="text/javascript"></script>
+    <script type='text/javascript'>
+        teJQuery.jGFeed('http://groups.google.com/group/tellurium-users/feed/rss_v2_0_msgs.xml',
+
+                function(feeds) {
+                    // Check for errors
+
+                    if (!feeds) {
+                        // there was an error
+
+                        return false;
+                    }
+                    // do whatever you want with feeds here
+                    teJQuery("#message").append("Tellurium User Group Update:<br/><ul>");
+                    for (var i = 0; i < feeds.entries.length; i++) {
+
+                        var entry = feeds.entries[i];
+
+                        teJQuery("#message").append("<li><a href=" + "\"" +entry.link + "\"" + ">" + entry.title + "</a></br></li>");
+                    }
+                    teJQuery("#message").append("</ul>");
+                }, 10);
+    </script>
+
+<style type="text/css" media="all">
+body{
+background: #fff;
+color: #000;
+font: normal 12px/1.4em "Verdana" ,"Arial", sans-serif;
+margin:0;
+padding:0;
+}
+
+#container {
+max-width: 860px;
+padding: 0;
+margin: 0px auto;
+}
+
+#content{
+ margin:5px;
+ padding:5px;
+}
+
+.twoColumns{
+background: #f5f2f2;
+color: #000;
+width:100%;
+font-size:11px;
+}
+.twoColumns caption{
+background: #faf4f5;
+color: #000;
+font-weight:bold;
+font-style:italic;
+text-align:left;
+margin-top:10px;
+}
+
+.twoColumns td{
+vertical-align:top;
+}
+dl.referenceList{
+}
+
+dl.referenceList dt{
+font-family:monospace;
+float:left;
+clear:left;
+}
+
+dl.referenceList dd{
+margin-left:7em;
+}
+
+dl.bigIndent dd{
+margin-left:30em;
+}
+
+
+#content a{
+color: #000;
+background:inherit;
+text-decoration:none;
+border-bottom: gray dotted 1px;
+}
+#contenta:visited{
+color: #000;
+background:inherit;
+}
+#content a:hover{
+color: #C3D9FF;
+background:inherit;
+}
+
+h2{
+clear:both;
+}
+
+#header{
+color: black;
+background-color: #C3D9FF;
+margin:0;
+padding:5px 10px;
+height:50px;
+}
+
+
+#navigation{
+float:right;
+/* clear:both; */
+/* font-size:11px; */
+/* list-style-type:none; */
+margin:0;
+padding:0;
+/* border:solid; */
+}
+
+#navigation ul{
+list-style-type:none;
+margin:0;
+padding:0;
+}
+
+
+#navigation a{
+color:inherit;
+background:inherit;
+text-decoration:none;
+}
+#navigation a:hover{
+color:#feefa0;
+background:inherit;
+}
+
+#title{
+font-size:28px;
+padding:12px;
+/* display:block; */
+/* width:30px; */
+float:left;
+/* border:solid; */
+}
+#homeSeparator {
+clear:both;
+padding: 0;
+margin:0;
+}
+
+
+
+#footer{
+color: black;
+background-color: #C3D9FF;
+margin:0;
+padding:2px;
+text-align:center;
+font-size:10px;
+}
+#footer a{
+color: inherit;
+background:inherit;
+text-decoration:none;
+}
+
+#author{
+text-align:right;
+/* font-weight:bold; */
+}
+#author span{
+font-style:italic;
+display:block;
+}
+</style>
+</head>
+<body>
+<div id="container">
+    <!-- HEADER -->
+    <div id="header">
+        <div id="title">Tellurium User Group</div>
+    </div>
+   <!-- <div id="homeSeparator">&nbsp;</div>-->
+    <!-- CONTENT -->
+    <div id="content">
+<!--
+        <h2 id="overview">Tellurium Update</h2>
+-->
+        <p>
+            Please post your questions to <b>Tellurium User Group</b>: <a href="http://groups.google.com/group/tellurium-users">http://groups.google.com/group/tellurium-users</a>.
+        </p>
+
+        <div  id="message"></div>
+    </div>
+    <!--content-->
+
+    <!-- FOOODER -->
+    <div id="footer">
+    </div>
+</div>
+
+
+</body>
+</html>
