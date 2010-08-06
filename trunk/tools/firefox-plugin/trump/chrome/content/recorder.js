@@ -73,13 +73,11 @@ Recorder.prototype.detachActionListeners = function(window){
 
 Recorder.prototype.attachSelectListeners = function(window){
     logger.debug("Attaching listeners for selection");
-//    teJQuery(window).bind("beforeunload", {recorder: this}, this.onUnloadDocumentListener);
     teJQuery(window.document.body).bind("click", {recorder: this}, this.uiSelectListener);
 };
 
 Recorder.prototype.detachSelectListeners = function(window){
     logger.debug("Detaching listeners for selection");
-//    teJQuery(window).unbind("beforeunload", this.onUnloadDocumentListener);
     teJQuery(window.document.body).unbind("click", this.uiSelectListener);
 };
 
@@ -154,15 +152,6 @@ Recorder.prototype.deregisterForAllWindows = function() {
         }
     }
 };
-
-/*
-Recorder.prototype.isAction = function(){
-    var recordToolbarButton = document.getElementById("record-button");
-    var state = recordToolbarButton.getAttribute("class");
-
-    return state == RecordState.RECORD;
-};
-*/
 
 Recorder.prototype.unregisterListeners = function() {
     this.removeBackgroundForSelectedNodes();
@@ -326,7 +315,7 @@ Recorder.prototype.callIfMeaningfulEvent = function(handler) {
     this.delayedRecorder = handler;
     var self = this;
     this.domModifiedTimeout = setTimeout(function() {
-        logger.debug("clear event");
+//        logger.debug("clear event");
         self.delayedRecorder = null;
         self.domModifiedTimeout = null;
     }, 50);
@@ -380,20 +369,5 @@ Recorder.prototype.generateSource = function(){
         logger.error("Error generating UI module and commands:\n" + describeErrorStack(error));
     }
 };
-
-/*Recorder.prototype.generateSourceFromWorkspace = function(){
-    try {
-        logger.debug("Generating UI module before page load...");
-        this.workspace.generate();
-        this.savePage();
-        this.reloadRecorder();
-//        var src = this.workspace.convertSource();
-        var sourceTextNode = document.getElementById("exportSource");
-        sourceTextNode.value = src;
-        logger.info("UI Module and commands are generated, please see them on the UI module source view.");
-    } catch(error) {
-        logger.error("Error generating UI module and commands:\n" + describeErrorStack(error));
-    }
-};*/
 
 Recorder.eventHandlers = {};

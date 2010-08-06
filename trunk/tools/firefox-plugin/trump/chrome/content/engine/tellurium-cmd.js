@@ -655,6 +655,21 @@ TelluriumCommandExecutor.prototype.getMainWindow = function() {
     return mainWindow;
 };
 
+TelluriumCommandExecutor.prototype.getAllWindows = function(){
+    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
+    var e = wm.getEnumerator("navigator:browser");
+    var wins = new Array();
+    while (e.hasMoreElements()) {
+        var window = e.getNext();
+        var browsers = window.getBrowser().browsers;
+        for (var i = 0; i < browsers.length; i++) {
+            wins.push(browsers[i].contentWindow);
+        }
+    }
+
+    return wins;
+};
+
 function arrayToString(array){
     if(array != null && array.length > 0){
         return array.join(", ");
