@@ -64,6 +64,7 @@ Copyright 2008 Vivek Mongolu
 
     <script type="application/x-javascript" src="chrome://trump/content/engine/constants.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/engine/selenium-mock.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-browserbot.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-cache.js"/>
     <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-api.js"/>
