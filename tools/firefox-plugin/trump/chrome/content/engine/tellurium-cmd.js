@@ -609,11 +609,42 @@ TelluriumCommandExecutor.prototype.toJSONString = function(uid){
     return JSON.stringify(json);
 };
 
+TelluriumCommandExecutor.prototype.onPageLoad = function(){
+    logger.debug("Page is loaded.");
+    this.dom = this.getMostRecentDocument();
+};
+
+function WaitPageLoad(scope){
+    scope.onPageLoad();
+}
+
+TelluriumCommandExecutor.prototype.openAndWait = function(uid, url){
+    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
+    var window = wm.getMostRecentWindow('navigator:browser');
+    var contentWindow = window.getBrowser().contentWindow;
+    contentWindow.location.href = url;
+    var self = this;
+    contentWindow.addEventListener("load",
+            function(event) {
+                self.onPageLoad();
+            },
+            false);
+};
+
 TelluriumCommandExecutor.prototype.open = function(uid, url){
-    var doc = this.showInBrowser(url);
+    this.showInBrowser(url);
+    var self = this;
+    setTimeout(WaitPageLoad, 800, self);
+
 //    this.dom = this.getMostRecentDocument();
-//    this.dom = win.document.body;
-    this.dom = doc;
+//    this.dom = this.showInBrowser(url);
+/*    var wins = this.getAllWindows();
+    var length = wins.length;
+    if(length == 1){
+        this.dom = wins[0].document;
+    }*/
+//    this.showInBrowser(url);
+//    this.dom = this.getMostRecentDocument();
 };
 
 TelluriumCommandExecutor.prototype.openNewWindow = function(uid, url){
@@ -622,7 +653,6 @@ TelluriumCommandExecutor.prototype.openNewWindow = function(uid, url){
             .getMostRecentWindow("navigator:browser");
 
     win.open(url);
-
 };
 
 TelluriumCommandExecutor.prototype.getMostRecentDocument = function() {

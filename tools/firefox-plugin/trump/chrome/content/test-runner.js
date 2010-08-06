@@ -163,7 +163,9 @@ var TestRunner = Class.extend({
             if(cmd.uid != null){
                 this.useUiModule(cmd.uid);
             }
-            this.cmdExecutor.run(cmd.name, cmd.uid, cmd.value);
+            var result = this.cmdExecutor.run(cmd.name, cmd.uid, cmd.value);
+            if(result)
+                logger.debug("Command Result: " + result);
             this.observers.cmdSucceed(cmd);
         } catch(error) {
             this.observers.cmdFailed(cmd);
