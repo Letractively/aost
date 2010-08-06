@@ -647,6 +647,7 @@ TelluriumCommandExecutor.prototype.open = function(uid, url){
     this.browserBot.newPageLoaded = false;
     this.browserBot.pageLoadError = null;
     this.browserBot.timerId = null;
+    //Strange, change the timeout value to 3000, got the error that the dom is not set.
     setTimeout(WaitPageLoad, 1000, self);
 };
 
