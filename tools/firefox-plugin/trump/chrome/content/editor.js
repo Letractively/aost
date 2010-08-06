@@ -63,8 +63,11 @@ function Editor(window) {
 }
 
 Editor.prototype.onDOMContentLoaded = function(event){
-    logger.debug("Register window on DOMContentLoaded");
-    this.recorder.registerForWindow(event.target.defaultView);
+    var recordToolbarButton = document.getElementById("record-button");
+    if(recordToolbarButton.getAttribute("checked")){
+        logger.debug("Register window on DOMContentLoaded");
+        this.recorder.registerForWindow(event.target.defaultView);        
+    }
 };
 
 Editor.prototype.setWindowURL = function(url){
@@ -108,6 +111,7 @@ Editor.prototype.registerCommands = function(){
     this.commandList.push("getCssSelectorMatch");
     this.commandList.push("validateUiModule");
     this.commandList.push("toJSON");
+    this.commandList.push("waitForPageToLoad");
     this.commandList.sort();
     this.commandMap.put("getHTMLSource", "getHTMLSourceAsString");
     this.commandMap.put("getUids", "getUidsAsString");
@@ -153,7 +157,6 @@ Editor.prototype.registerRecorder = function(){
     this.recorder.refIdSetter = this.refIdSetter;
     this.recorder.workspace = this.workspace;
     this.recorder.registerListeners();
-//    this.recorder.observers.push(this);
     this.populateWindowUrl();
 };
 
