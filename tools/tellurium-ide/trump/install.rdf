@@ -4,7 +4,7 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
   <Description about="urn:mozilla:install-manifest">
-    <em:id>trump@telluriumsource.org</em:id>
+    <em:id>TelluriumIDE@telluriumsource.org</em:id>
     <em:version>0.8.0</em:version>
     <em:type>2</em:type>
    
@@ -19,8 +19,8 @@
     </em:targetApplication>
    
     <!-- Front End MetaData -->
-    <em:name>Trump</em:name>
-    <em:description>Tellurium UI Model Plugin</em:description>
+    <em:name>TelluriumIDE</em:name>
+    <em:description>Tellurium IDE</em:description>
     <em:creator>Tellurium Team</em:creator>
     <em:homepageURL>http://code.google.com/p/aost</em:homepageURL>
   </Description>      
