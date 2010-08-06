@@ -5,8 +5,8 @@ Copyright 2008 Vivek Mongolu
 -->
 
 <!DOCTYPE window [
-<!ENTITY % trumpIdeDTD SYSTEM "chrome://trump/locale/tellurium-ide.dtd">
-%trumpIdeDTD;
+<!ENTITY % telluriumIdeDTD SYSTEM "chrome://trump/locale/tellurium-ide.dtd">
+%telluriumIdeDTD;
 ]>
 <overlay id="trump-ide-common"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
