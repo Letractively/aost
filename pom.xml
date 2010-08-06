@@ -267,7 +267,7 @@
         <module>tools</module>
         <module>tellurium-reference</module>
         <module>tellurium-assembly</module>
-        <module>tellurium-easyb</module>
+        <!--module>tellurium-easyb</module-->
     </modules>
     <repositories>
         <repository>
