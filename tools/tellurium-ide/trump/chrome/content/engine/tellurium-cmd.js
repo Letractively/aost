@@ -647,7 +647,7 @@ TelluriumCommandExecutor.prototype.open = function(uid, url){
     this.browserBot.newPageLoaded = false;
     this.browserBot.pageLoadError = null;
     this.browserBot.timerId = null;
-    setTimeout(WaitPageLoad, 3000, self);
+    setTimeout(WaitPageLoad, 1000, self);
 };
 
 function arrayToString(array){
