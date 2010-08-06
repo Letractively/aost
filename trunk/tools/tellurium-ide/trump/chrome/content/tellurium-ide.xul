@@ -3,7 +3,7 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://trump/skin/telluriumide.css" type="text/css"?>
 <?xml-stylesheet href="chrome://trump/content/extlib/jquery-ui.css" type="text/css"?>
-<?xul-overlay href="chrome://trump/content/trump-ide-common.xul"?>
+<?xul-overlay href="chrome://trump/content/tellurium-ide-common.xul"?>
 
 <!DOCTYPE window [
 <!ENTITY % trumpIdeDTD SYSTEM "chrome://trump/locale/tellurium-ide.dtd">
@@ -46,7 +46,7 @@
             <menuitem label="Follow"  oncommand="window.open('chrome://trump/content/telluriumTwitterWindow.xul','tellurium_on_twitter','chrome,centerscreen,resizable')" />
             <menuitem label="Support"  oncommand="window.open('chrome://trump/content/telluriumUserGroup.xul','tellurium_user_group','chrome,centerscreen,resizable')" />
             <menuseparator/>
-            <menuitem label="About" oncommand="window.open('chrome://trump/content/trumpAbout.xul','trump_about','chrome,centerscreen,resizable')"/>
+            <menuitem label="About" oncommand="window.open('chrome://trump/content/telluriumIDEAbout.xul','trump_about','chrome,centerscreen,resizable')"/>
           </menupopup>
         </menu>
       </menubar>

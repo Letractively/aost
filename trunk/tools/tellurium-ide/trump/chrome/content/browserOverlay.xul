@@ -5,7 +5,7 @@
 <overlay id="aostBroswerOverlay"
           xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://trump/content/trump.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/tellurium-ide.js"/>
     <script type="application/x-javascript"><![CDATA[
 
         var nodeState = {
@@ -17,18 +17,18 @@
                 return this.currentNode;
             }
         };
-        
+
         function showUIWindow() {
             var clickedNode = gContextMenu.target;
             nodeState.currentNode = clickedNode;
             openUIModelWindow(clickedNode);
         }
 
-        function showTrumpIDE(){
-            openTrumpIDEWindow();
+        function showTelluriumIDE() {
+            openTelluriumIDEWindow();
         }
 
-        var TrumpIDE = {
+        var TelluriumIDE = {
             onLoad: function() {
                 // initialization code
                 this.initialized = true;
@@ -48,10 +48,10 @@
                     editor.onDOMContentLoaded(event);
                 }
                 var browserBot = this.getBrowserBot();
-                if(browserBot){
+                if (browserBot) {
                     browserBot.newPageLoaded = true;
                     browserBot.pageLoadError = null;
-                    if(browserBot.timerId != null){
+                    if (browserBot.timerId != null) {
                         clearTimeout(browserBot.timerId);
                         browserBot.timerId = null;
                     }
@@ -87,12 +87,14 @@
 
         };
 
-        window.addEventListener("load", function(e) { TrumpIDE.onLoad(e); }, false);
-        
-/*        teJQuery(window).load(function() {
-            tellurium = new Tellurium();
-            tellurium.initialize();
-        });*/
+        window.addEventListener("load", function(e) {
+            TelluriumIDE.onLoad(e);
+        }, false);
+
+        /*        teJQuery(window).load(function() {
+         tellurium = new Tellurium();
+         tellurium.initialize();
+         });*/
 
     ]]>
     </script>
@@ -100,7 +102,7 @@
     <!-- Extending Firefox Tools menu  -->
     <!-- Adding Trump IDE to the tools menu -->
     <menupopup id="menu_ToolsPopup">
-        <menuitem label="Trump IDE" oncommand="showTrumpIDE();"
+        <menuitem label="Tellurium IDE" oncommand="showTelluriumIDE();"
                   insertbefore="sanitizeSeparator,prefSep" accesskey="T" />
     </menupopup>
 
