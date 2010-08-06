@@ -1,4 +1,4 @@
-<project name="trump" default="xpi" basedir=".">
+<project name="tellurium-ide" default="xpi" basedir=".">
     
     <property file="build.properties" />
 	<property name="src" location="trump"/>
@@ -6,7 +6,7 @@
 	<tstamp>
 		<format property="time" pattern="yy.MM.dd_HHmm"/>
 	</tstamp>
-	<property name="dstFile" value="${dst}/Trump-${version}.xpi"/>
+	<property name="dstFile" value="${dst}/TelluriumIDE-${version}.xpi"/>
 
     <target name="clean">
 		<echo message="Cleaning ..." />
