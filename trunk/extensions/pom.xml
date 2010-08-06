@@ -30,5 +30,6 @@
 		<module>dojo-widget</module>
 		<module>extjs-widget</module>
         <module>jqueryui-widgets</module>
+                <module>tellurium-easyb</module>
 	</modules>
 </project>
