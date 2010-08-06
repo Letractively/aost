@@ -3,8 +3,8 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 
 <!DOCTYPE window [
-        <!ENTITY % trumpIdeDTD SYSTEM "chrome://trump/locale/tellurium-ide.dtd">
-        %trumpIdeDTD;
+        <!ENTITY % telluriumIdeDTD SYSTEM "chrome://trump/locale/tellurium-ide.dtd">
+        %telluriumIdeDTD;
 ]>
 
 <!-- Trump Preferences Window -->

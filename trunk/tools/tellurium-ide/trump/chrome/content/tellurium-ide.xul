@@ -6,8 +6,8 @@
 <?xul-overlay href="chrome://trump/content/tellurium-ide-common.xul"?>
 
 <!DOCTYPE window [
-<!ENTITY % trumpIdeDTD SYSTEM "chrome://trump/locale/tellurium-ide.dtd">
-%trumpIdeDTD;
+<!ENTITY % telluriumIdeDTD SYSTEM "chrome://trump/locale/tellurium-ide.dtd">
+%telluriumIdeDTD;
 ]>
 
 <window id="uiEditor"
@@ -46,7 +46,7 @@
             <menuitem label="Follow"  oncommand="window.open('chrome://trump/content/telluriumTwitterWindow.xul','tellurium_on_twitter','chrome,centerscreen,resizable')" />
             <menuitem label="Support"  oncommand="window.open('chrome://trump/content/telluriumUserGroup.xul','tellurium_user_group','chrome,centerscreen,resizable')" />
             <menuseparator/>
-            <menuitem label="About" oncommand="window.open('chrome://trump/content/telluriumIDEAbout.xul','trump_about','chrome,centerscreen,resizable')"/>
+            <menuitem label="About" oncommand="window.open('chrome://trump/content/telluriumIdeAbout.xul','trump_about','chrome,centerscreen,resizable')"/>
           </menupopup>
         </menu>
       </menubar>
