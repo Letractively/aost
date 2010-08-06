@@ -1,6 +1,6 @@
 function TelluriumCommandExecutor(){
 
-//    this.uim = null;
+    this.browserBot = browserBot;
 
     this.dom = null;
 
@@ -334,25 +334,6 @@ TelluriumCommandExecutor.prototype.isDisabled = function(uid) {
     return this.execCommand("isDisabled", uid);
 };
 
-TelluriumCommandExecutor.prototype.waitForPageToLoad = function(timeout){
-
-};
-
-TelluriumCommandExecutor.prototype.decorateFunctionWithTimeout = function(f, timeout) {
-    if (f == null) {
-        return null;
-    }
-
-    var now = new Date().getTime();
-    var timeoutTime = now + timeout;
-    return function() {
-        if (new Date().getTime() > timeoutTime) {
-            throw new TelluriumError(ErrorCodes.TIME_OUT, "Timed out after " + timeout + "ms");
-        }
-        return f();
-    };
-};
-
 TelluriumCommandExecutor.prototype.showUI = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
@@ -609,95 +590,64 @@ TelluriumCommandExecutor.prototype.toJSONString = function(uid){
     return JSON.stringify(json);
 };
 
+TelluriumCommandExecutor.prototype.decorateFunctionWithTimeout = function(f, timeout) {
+    if (f == null) {
+        return null;
+    }
+
+    var now = new Date().getTime();
+    var timeoutTime = now + timeout;
+    return function() {
+        if (new Date().getTime() > timeoutTime) {
+            throw new TelluriumError(ErrorCodes.TIME_OUT, "Timed out after " + timeout + "ms");
+        }
+        return f();
+    };
+};
+
+TelluriumCommandExecutor.prototype.waitForPageToLoad = function(timeout){
+//    var win = this.browserBot.getMostRecentWindow();
+    var doc = this.browserBot.getMostRecentDocument();
+    var self = this;
+    var timeId = setTimeout(function() {
+        self.browserBot.newPageLoaded = false;
+        self.browserBot.pageLoadError = PageLoadError.TIMEOUT;
+    }, timeout);
+    this.browserBot.timerId = timeId;
+    teJQuery(doc).ready(
+            function() {
+                logger.debug("jQuery page load event handler is called.");
+                browserBot.newPageLoaded = true;
+                browserBot.pageLoadError = null;
+                if(timeId != null)
+                    clearTimeout(timeId);
+                self.dom = self.browserBot.getMostRecentDocument();
+                self.browserBot.setCurrentWindowToMostRecentWindow();
+            });
+};
+
 TelluriumCommandExecutor.prototype.onPageLoad = function(){
     logger.debug("Page is loaded.");
-    this.dom = this.getMostRecentDocument();
+    this.dom = this.browserBot.getMostRecentDocument();
+    this.browserBot.setCurrentWindowToMostRecentWindow();
+/*    this.browserBot.timerId = setTimeout(function() {
+        self.browserBot.newPageLoaded = false;
+        self.browserBot.pageLoadError = PageLoadError.TIMEOUT;
+        self.browserBot.timerId = null;
+    }, 2000);*/
 };
 
 function WaitPageLoad(scope){
     scope.onPageLoad();
 }
 
-TelluriumCommandExecutor.prototype.openAndWait = function(uid, url){
-    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
-    var window = wm.getMostRecentWindow('navigator:browser');
-    var contentWindow = window.getBrowser().contentWindow;
-    contentWindow.location.href = url;
-    var self = this;
-    contentWindow.addEventListener("load",
-            function(event) {
-                self.onPageLoad();
-            },
-            false);
-};
-
 TelluriumCommandExecutor.prototype.open = function(uid, url){
-    this.showInBrowser(url);
+    this.browserBot.showInBrowser(url);
     var self = this;
-    setTimeout(WaitPageLoad, 800, self);
-
-//    this.dom = this.getMostRecentDocument();
-//    this.dom = this.showInBrowser(url);
-/*    var wins = this.getAllWindows();
-    var length = wins.length;
-    if(length == 1){
-        this.dom = wins[0].document;
-    }*/
-//    this.showInBrowser(url);
-//    this.dom = this.getMostRecentDocument();
-};
-
-TelluriumCommandExecutor.prototype.openNewWindow = function(uid, url){
-    var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-            .getService(Components.interfaces.nsIWindowMediator)
-            .getMostRecentWindow("navigator:browser");
-
-    win.open(url);
-};
-
-TelluriumCommandExecutor.prototype.getMostRecentDocument = function() {
-    var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-            .getService(Components.interfaces.nsIWindowMediator)
-            .getMostRecentWindow("navigator:browser");
-
-    var browser = win.getBrowser();
-
-    return browser.contentDocument;
-};
-
-TelluriumCommandExecutor.prototype.showInBrowser = function(url) {
-    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
-    var window = wm.getMostRecentWindow('navigator:browser');
-    var contentWindow = window.getBrowser().contentWindow;
-    contentWindow.location.href = url;
-//    return contentWindow;
-    return window.getBrowser().contentDocument;
-};
-
-TelluriumCommandExecutor.prototype.getMainWindow = function() {
-    var mainWindow = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-            .getInterface(Components.interfaces.nsIWebNavigation)
-            .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
-            .rootTreeItem
-            .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-            .getInterface(Components.interfaces.nsIDOMWindow);
-
-    return mainWindow;
-};
-
-TelluriumCommandExecutor.prototype.getAllWindows = function(){
-    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
-    var e = wm.getEnumerator("navigator:browser");
-    var wins = new Array();
-    while (e.hasMoreElements()) {
-        var window = e.getNext();
-        var browsers = window.getBrowser().browsers;
-        for (var i = 0; i < browsers.length; i++) {
-            wins.push(browsers[i].contentWindow);
-        }
-    }
-
-    return wins;
+    this.browserBot.newPageLoaded = false;
+    this.browserBot.pageLoadError = null;
+    this.browserBot.timerId = null;
+    setTimeout(WaitPageLoad, 3000, self);
 };
 
 function arrayToString(array){

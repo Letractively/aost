@@ -195,6 +195,7 @@ Recorder.prototype.clearMost = function(){
     this.recordCommandList = new Array();
     this.cmdListView.clearAll();
     this.treeView.clearAll();
+    this.first = true;
 };
 
 Recorder.prototype.clearAll = function(){
@@ -207,6 +208,7 @@ Recorder.prototype.clearAll = function(){
     this.cmdListView.clearAll();
     this.treeView.clearAll();
     this.app.clearAll();
+    this.first = true;
 };
 
 Recorder.prototype.recordDomNode = function (element){

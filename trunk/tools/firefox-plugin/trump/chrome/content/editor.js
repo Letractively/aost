@@ -3,6 +3,8 @@ function Editor(window) {
     var self = this;
     
     window.editor = this;
+    window.browserBot = browserBot;
+    
     this.document = document;
 //    this.init();
     

@@ -174,19 +174,41 @@ var TestRunner = Class.extend({
     },
 
     delayedRun: function(){
-        if(this.running){
-            if(this.currentIndex < this.commandList.length-1){
-                this.currentIndex++;
-                this.runCommand(this.commandList[this.currentIndex]);
-            }
+        if (this.running) {
+            var self = this;
+            if (this.currentIndex < this.commandList.length - 1) {
+                var cmd = this.commandList[this.currentIndex + 1];
 
-            if(this.currentIndex < this.commandList.length-1){
-                var self = this;
-                setTimeout (TestJob, this.interval, self);
-            }else{
-                this.finish();
+                if (cmd.name == "open" || cmd.name.startsWith("waitFor")) {
+                    this.currentIndex++;
+                    this.runCommand(this.commandList[this.currentIndex]);
+                    if (this.currentIndex < this.commandList.length - 1) {
+                        setTimeout(TestJob, this.interval, self);
+                    } else {
+                        this.finish();
+                    }
+
+                } else {
+                    if (browserBot.newPageLoaded) {
+                        this.currentIndex++;
+                        this.runCommand(this.commandList[this.currentIndex]);
+                        if (this.currentIndex < this.commandList.length - 1) {
+                            setTimeout(TestJob, this.interval, self);
+                        } else {
+                            this.finish();
+                        }
+
+                    } else {
+                        if (browserBot.pageLoadError == null) {
+                            setTimeout(TestJob, this.interval, self);
+                        } else {
+                            logger.error("Stop Running tests because of page load error: " + browserBot.pageLoadError);
+                        }
+                    }
+
+                }
             }
-        }        
+        }
     },
 
     finish: function(){
@@ -198,24 +220,7 @@ var TestRunner = Class.extend({
     run: function() {
         this.delayedRun();
     },
-        /*
-         var pages = app.pages;
-         if (pages != null && pages.length > 0) {
-         var cmd = pages[0].commandList[0];
-         if (cmd.name == "open") {
-         this.open(cmd.value);
-         var uim = pages[0].uim;
-         uim.doc = this.getMostRecentDocument();
-         this.cmdExecutor.dom = uim.doc;
-         this.cmdExecutor.cacheUiModule(uim);
-         this.cmdExecutor.locateUI(uim.id);
-         for(var i=1; i<pages[0].commandList.length; i++){
-         var command = pages[0].commandList[i];
-         this.cmdExecutor.run(command.name, command.ref, command.value);
-         }
-         }
-         }
-         */
+
     getUiModule: function(uid) {
 
         return this.app.getUiModule(uid);
