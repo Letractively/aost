@@ -101,6 +101,10 @@ teJQuery(document).ready(function() {
 
 teJQuery.extend(teJQuery.expr[':'], {
     te_text: function(a, i, m) {
+        if(m[3] != null && m[3].startsWith("regexp:")){
+            var pattern = m[3].substring(7);
+            return teJQuery(a).text().match(pattern);
+        }
         return teJQuery.trim(teJQuery(a).text()) === teJQuery.trim(m[3]);
     }
 });

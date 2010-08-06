@@ -1,8 +1,8 @@
 const TestState = {
-    READY: ' ',
-    RUNNING: 'R',
-    SUCCEED: 'P',
-    FAILED: 'F'
+    READY: " ",
+    RUNNING: 'Running',
+    SUCCEED: 'Passed',
+    FAILED: 'Failed'
 };
 
 var TestObserver = Class.extend({
@@ -79,7 +79,7 @@ var TestRunner = Class.extend({
         this.uimMap = null;
         //current command index
         this.currentIndex = -1;
-        this.interval = 500;
+        this.interval = 1000;
         this.observers = new TestObserverList();
     },
 
