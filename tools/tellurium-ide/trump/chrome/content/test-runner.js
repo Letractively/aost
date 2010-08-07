@@ -89,6 +89,10 @@ var TestRunner = Class.extend({
         }
     },
 
+    updateDom: function(){
+        this.cmdExecutor.updateCurrentDom();    
+    },
+
     prepareFor: function(app) {
         this.app = app;
         this.commandList = this.app.getCommandList();

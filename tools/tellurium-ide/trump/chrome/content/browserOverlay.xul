@@ -47,6 +47,7 @@
                 if (editor) {
                     editor.onDOMContentLoaded(event);
                 }
+/*
                 var browserBot = this.getBrowserBot();
                 if (browserBot) {
                     browserBot.newPageLoaded = true;
@@ -56,14 +57,17 @@
                         browserBot.timerId = null;
                     }
                 }
+*/
             },
 
+/*
             getBrowserBot: function() {
                 var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
                 var editorWindow = wm.getMostRecentWindow('global:trump-ide');
 
                 return editorWindow.browserBot;
             },
+*/
 
             getEditor: function() {
                 var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
