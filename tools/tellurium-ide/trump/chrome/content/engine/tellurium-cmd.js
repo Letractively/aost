@@ -606,8 +606,6 @@ TelluriumCommandExecutor.prototype.decorateFunctionWithTimeout = function(f, tim
 };
 
 TelluriumCommandExecutor.prototype.waitForPageToLoad = function(timeout){
-//    var win = this.browserBot.getMostRecentWindow();
-//    var doc = this.browserBot.getMostRecentDocument();
     var self = this;
     this.browserBot.pageTimeoutTimerId = setTimeout(function() {
         logger.debug("Page load timeout.");
@@ -621,17 +619,6 @@ TelluriumCommandExecutor.prototype.waitForPageToLoad = function(timeout){
     }, timeout);
 
     this.browserBot.pollPageLoad();
-/*    teJQuery(doc).ready(
-            function() {
-                logger.debug("jQuery page load event handler is called.");
-                browserBot.newPageLoaded = true;
-                browserBot.pageLoadError = null;
-                if(timeId != null)
-                    clearTimeout(timeId);
-                self.dom = self.browserBot.getMostRecentDocument();
-                self.browserBot.setCurrentWindowToMostRecentWindow();
-                self.browserBot.timerId = null;
-            });*/
 };
 
 TelluriumCommandExecutor.prototype.onPageLoad = function(){
@@ -640,11 +627,6 @@ TelluriumCommandExecutor.prototype.onPageLoad = function(){
         this.dom = this.browserBot.getMostRecentDocument();
         this.browserBot.setCurrentWindowToMostRecentWindow();        
     }
-/*    this.browserBot.timerId = setTimeout(function() {
-        self.browserBot.newPageLoaded = false;
-        self.browserBot.pageLoadError = PageLoadError.TIMEOUT;
-        self.browserBot.timerId = null;
-    }, 2000);*/
 };
 
 TelluriumCommandExecutor.prototype.updateCurrentDom = function(){
