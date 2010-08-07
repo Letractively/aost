@@ -194,12 +194,12 @@
                                      </row>
                                      <row align="center">
                                          <spacer/>
-                                         <grid>
+                                         <grid flex="1">
                                              <columns>
-                                                 <column/>
-                                                 <column/>
-                                                 <column/>
-                                                 <column/>
+                                                 <column flex="1"/>
+                                                 <column flex="1"/>
+                                                 <column flex="1"/>
+                                                 <column flex="1"/>
                                              </columns>
                                              <rows>
                                                  <row>
