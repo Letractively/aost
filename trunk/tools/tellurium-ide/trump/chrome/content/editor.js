@@ -673,6 +673,18 @@ Editor.prototype.updateUiCommand = function(){
     }
 };
 
+Editor.prototype.removeUiCommand = function(){
+
+};
+
+Editor.prototype.insertBeforeUiCommand = function(){
+
+};
+
+Editor.prototype.insertAfterUiCommand = function(){
+
+};
+
 Editor.prototype.processCheckEvent = function(event){
 //    alert("You selected " + event.target.getAttribute("cid"));
 };
