@@ -45,7 +45,7 @@ Recorder.prototype.attachActionListeners = function(window){
             function(event) {
                 var recordToolbarButton = document.getElementById("record-button");
                 if (recordToolbarButton.getAttribute("checked")) {
-                    self.recordCommand("waitForPageToLoad", null, 3000);
+                    self.recordCommand("waitForPageToLoad", null, 30000);
                     var url = event.target.URL || event.target.baseURI;
                     logger.debug("Unloading Window " + url);
                     self.generateSource();

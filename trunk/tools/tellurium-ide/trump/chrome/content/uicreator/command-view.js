@@ -84,6 +84,10 @@ var CommandView  = {
 
     setTestCommands : function(elements){
         this.testCommands = elements;
+        this.treebox.rowCountChanged(this.rowCount, + this.testCommands.length);
+        this.rowCount = this.rowCount + this.testCommands.length;
+        this.recordIndex = this.recordIndex + this.testCommands.length;
+        this.treebox.ensureRowIsVisible(this.recordIndex);
     },
 
     deleteRow : function(index){
@@ -128,7 +132,8 @@ var CommandView  = {
             return command.result;
         }
 
-        return "todo.."
+        throw Error("Invalid pass in value: row= " + row + ", aColumn=" + aColumn + ", column=" + column + ", command=" + command.name);
+//        return "todo.."
     },
 
     setTree: function(treebox){

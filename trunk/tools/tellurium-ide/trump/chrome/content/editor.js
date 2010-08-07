@@ -228,9 +228,9 @@ Editor.prototype.endRecord = function(){
             this.testRunner.prepareFor(app);
             var commandList = this.testRunner.commandList;
             this.cmdView.setTestCommands(commandList);
-            for (var i = 0; i < commandList.length; i++) {
-                this.cmdView.rowInserted();
-            }
+//            for (var i = 0; i < commandList.length; i++) {
+//                this.cmdView.rowInserted();
+//            }
         }
     } catch(error) {
         logger.error("Error:\n" + describeErrorStack(error));
