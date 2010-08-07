@@ -173,7 +173,7 @@ Workspace.prototype.convertSource = function(){
 
 Workspace.prototype.preBuild = function(tagArrays){
     var element;
-    this.innerTree = new Tree();
+    var tree = new Tree();
 
     var frameName = null;
 
@@ -204,15 +204,14 @@ Workspace.prototype.preBuild = function(tagArrays){
             element.domNode = tobj.node;
             element.frameName = tobj.frameName;
 
-            this.innerTree.addElement(element);
-
+            tree.addElement(element);
         }
-        var root = this.innerTree.root;
+        var root = tree.root;
         var frame = new NodeObject();
         frame.id = frameName;
         frame.parent = null;
 //        frame.domNode = root.domNode.ownerDocument;
-        frame.domNode = this.innerTree.document;
+        frame.domNode = tree.document;
         frame.xpath = "";
         frame.attributes = new Hashtable();
         frame.attributes.put("tag", "iframe");
@@ -220,10 +219,10 @@ Workspace.prototype.preBuild = function(tagArrays){
         frame.tag = "iframe";
         frame.children.push(root);
         root.parent = frame;
-        this.innerTree.root = frame;
+        tree.root = frame;
 
         //do some post processing work
-        this.innerTree.postProcess();
+        tree.postProcess();
     } else {
         for (i = 0; i < tagArrays.length; ++i) {
             var tagObject = tagArrays[i];
@@ -236,14 +235,13 @@ Workspace.prototype.preBuild = function(tagArrays){
             element.domNode = tagObject.node;
             element.frameName = tagObject.frameName;
 
-            this.innerTree.addElement(element);
+            tree.addElement(element);
             //do some post processing work
         }
-        this.innerTree.postProcess();
-        this.innerTree.visit(this.refIdSetter);
+        tree.postProcess();
     }
 
-    this.selectExtraNodes(this.innerTree.root.domNode);
+    this.selectExtraNodes(tree.root.domNode);
 };
 
 Workspace.prototype.selectExtraNodes = function(root){
