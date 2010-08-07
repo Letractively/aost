@@ -607,15 +607,16 @@ TelluriumCommandExecutor.prototype.decorateFunctionWithTimeout = function(f, tim
 
 TelluriumCommandExecutor.prototype.waitForPageToLoad = function(timeout){
 //    var win = this.browserBot.getMostRecentWindow();
-    var doc = this.browserBot.getMostRecentDocument();
+//    var doc = this.browserBot.getMostRecentDocument();
     var self = this;
     var timeId = setTimeout(function() {
         logger.debug("Page load timeout.");
         self.browserBot.newPageLoaded = false;
         self.browserBot.pageLoadError = PageLoadError.TIMEOUT;
+        self.browserBot.timerId = null;
     }, timeout);
     this.browserBot.timerId = timeId;
-    teJQuery(doc).ready(
+/*    teJQuery(doc).ready(
             function() {
                 logger.debug("jQuery page load event handler is called.");
                 browserBot.newPageLoaded = true;
@@ -624,7 +625,8 @@ TelluriumCommandExecutor.prototype.waitForPageToLoad = function(timeout){
                     clearTimeout(timeId);
                 self.dom = self.browserBot.getMostRecentDocument();
                 self.browserBot.setCurrentWindowToMostRecentWindow();
-            });
+                self.browserBot.timerId = null;
+            });*/
 };
 
 TelluriumCommandExecutor.prototype.onPageLoad = function(){
