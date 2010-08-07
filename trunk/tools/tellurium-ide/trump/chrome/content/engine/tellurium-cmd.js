@@ -610,6 +610,7 @@ TelluriumCommandExecutor.prototype.waitForPageToLoad = function(timeout){
     var doc = this.browserBot.getMostRecentDocument();
     var self = this;
     var timeId = setTimeout(function() {
+        logger.debug("Page load timeout.");
         self.browserBot.newPageLoaded = false;
         self.browserBot.pageLoadError = PageLoadError.TIMEOUT;
     }, timeout);
@@ -627,14 +628,28 @@ TelluriumCommandExecutor.prototype.waitForPageToLoad = function(timeout){
 };
 
 TelluriumCommandExecutor.prototype.onPageLoad = function(){
-    logger.debug("Page is loaded.");
-    this.dom = this.browserBot.getMostRecentDocument();
-    this.browserBot.setCurrentWindowToMostRecentWindow();
+    if(!this.browserBot.newPageLoaded){
+        logger.debug("Page is loaded.");
+        this.dom = this.browserBot.getMostRecentDocument();
+        this.browserBot.setCurrentWindowToMostRecentWindow();        
+    }
 /*    this.browserBot.timerId = setTimeout(function() {
         self.browserBot.newPageLoaded = false;
         self.browserBot.pageLoadError = PageLoadError.TIMEOUT;
         self.browserBot.timerId = null;
     }, 2000);*/
+};
+
+TelluriumCommandExecutor.prototype.updateCurrentDom = function(){
+    logger.debug("Update current DOM for tellurium command executor after page loaded.");
+    this.dom = this.browserBot.getMostRecentDocument();
+    this.browserBot.setCurrentWindowToMostRecentWindow();
+    this.browserBot.newPageLoaded = true;
+    this.browserBot.pageLoadError = null;
+    if (this.browserBot.timerId != null) {
+        clearTimeout(this.browserBot.timerId);
+        this.browserBot.timerId = null;
+    }   
 };
 
 function WaitPageLoad(scope){

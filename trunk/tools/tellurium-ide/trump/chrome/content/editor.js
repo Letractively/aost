@@ -69,6 +69,8 @@ Editor.prototype.onDOMContentLoaded = function(event){
     if(recordToolbarButton.getAttribute("checked")){
         logger.debug("Register window on DOMContentLoaded");
         this.recorder.registerForWindow(event.target.defaultView);        
+    }else{
+        this.testRunner.updateDom();
     }
 };
 
