@@ -194,7 +194,22 @@
                                      </row>
                                      <row align="center">
                                          <spacer/>
-                                         <button label="&updateCommand.label;" oncommand="window.editor.updateUiCommand()"/>
+                                         <grid>
+                                             <columns>
+                                                 <column/>
+                                                 <column/>
+                                                 <column/>
+                                                 <column/>
+                                             </columns>
+                                             <rows>
+                                                 <row>
+                                                     <button label="&updateCommand.label;" oncommand="window.editor.updateUiCommand()"/>
+                                                     <button label="&removeCommand.label;" oncommand="window.editor.removeUiCommand()"/>
+                                                     <button label="&insertBeforeCommand.label;" oncommand="window.editor.insertBeforeUiCommand()"/>
+                                                     <button label="&insertAfterCommand.label;" oncommand="window.editor.insertAfterUiCommand()"/>                                                     
+                                                 </row>
+                                             </rows>
+                                         </grid>
                                      </row>
                                  </rows>
                              </grid>
