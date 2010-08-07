@@ -203,10 +203,10 @@
                                              </columns>
                                              <rows>
                                                  <row>
-                                                     <button label="&updateCommand.label;" oncommand="window.editor.updateUiCommand()"/>
-                                                     <button label="&removeCommand.label;" oncommand="window.editor.removeUiCommand()"/>
-                                                     <button label="&insertBeforeCommand.label;" oncommand="window.editor.insertBeforeUiCommand()"/>
-                                                     <button label="&insertAfterCommand.label;" oncommand="window.editor.insertAfterUiCommand()"/>                                                     
+                                                     <button label="&updateCommand.label;" oncommand="window.editor.updateUiCommand()" flex="1"/>
+                                                     <button label="&removeCommand.label;" oncommand="window.editor.removeUiCommand()" flex="1"/>
+                                                     <button label="&insertBeforeCommand.label;" oncommand="window.editor.insertBeforeUiCommand()" flex="1"/>
+                                                     <button label="&insertAfterCommand.label;" oncommand="window.editor.insertAfterUiCommand()" flex="1"/>                                                     
                                                  </row>
                                              </rows>
                                          </grid>
