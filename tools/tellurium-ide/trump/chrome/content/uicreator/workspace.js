@@ -114,6 +114,7 @@ Workspace.prototype.isEmpty = function(){
 
 Workspace.prototype.generate = function(){
     if (this.tagObjectArray != null && this.tagObjectArray.length > 0) {
+        this.preBuild(this.tagObjectArray);
         this.generateUiModule(this.tagObjectArray);
         this.validateUiModule();
         this.buildRefUidMap();
@@ -168,6 +169,115 @@ Workspace.prototype.describeUiModule = function() {
 
 Workspace.prototype.convertSource = function(){
     return this.describeUiModule() + "\n" + this.describeCommand();    
+};
+
+Workspace.prototype.preBuild = function(tagArrays){
+    var element;
+    this.innerTree = new Tree();
+
+    var frameName = null;
+
+    var i;
+    for(i=0; i<tagArrays.length; ++i){
+        var obj = tagArrays[i];
+        if(obj.frameName != null){
+            if(frameName == null){
+                frameName = obj.frameName;
+            }
+        }
+    }
+
+    if(frameName != null){
+        var objs = new Array();
+        for (i = 0; i < tagArrays.length; ++i) {
+            if(tagArrays[i].frameName == frameName){
+                objs.push(tagArrays[i]);
+            }
+        }
+        for (i = 0; i < objs.length; ++i) {
+            var tobj = objs[i];
+            element = new ElementObject();
+            element.uid = suggestName(tobj);
+            element.refId = tobj.refId;
+            element.xpath = tobj.xpath;
+            element.attributes = tobj.attributes;
+            element.domNode = tobj.node;
+            element.frameName = tobj.frameName;
+
+            this.innerTree.addElement(element);
+
+        }
+        var root = this.innerTree.root;
+        var frame = new NodeObject();
+        frame.id = frameName;
+        frame.parent = null;
+//        frame.domNode = root.domNode.ownerDocument;
+        frame.domNode = this.innerTree.document;
+        frame.xpath = "";
+        frame.attributes = new Hashtable();
+        frame.attributes.put("tag", "iframe");
+        frame.attributes.put("name", frameName);
+        frame.tag = "iframe";
+        frame.children.push(root);
+        root.parent = frame;
+        this.innerTree.root = frame;
+
+        //do some post processing work
+        this.innerTree.postProcess();
+    } else {
+        for (i = 0; i < tagArrays.length; ++i) {
+            var tagObject = tagArrays[i];
+            element = new ElementObject();
+//          element.uid = tagObject.tag+i;
+            element.uid = suggestName(tagObject);
+            element.refId = tagObject.refId;
+            element.xpath = tagObject.xpath;
+            element.attributes = tagObject.attributes;
+            element.domNode = tagObject.node;
+            element.frameName = tagObject.frameName;
+
+            this.innerTree.addElement(element);
+            //do some post processing work
+        }
+        this.innerTree.postProcess();
+        this.innerTree.visit(this.refIdSetter);
+    }
+
+    this.selectExtraNodes(this.innerTree.root.domNode);
+};
+
+Workspace.prototype.selectExtraNodes = function(root){
+    var tag = root.tagName;
+    var $top;
+    if (tag == "form" || tag == "table" || tag == "ul" || tag == "div" || tag == "ol") {
+        $top = teJQuery(root);
+    } else {
+        $top = teJQuery(root).closest("form");
+        if ($top.size() == 0)
+            $top = teJQuery(root).closest("table");
+        if ($top.size() == 0)
+            $top = teJQuery(root).closest("ul");
+        if ($top.size() == 0)
+            $top = teJQuery(root).closest("div");
+        if ($top.size() == 0)
+            $top = teJQuery(root).closest("ol");
+
+        if ($top.size() == 0) {
+            $top = teJQuery(root).parent();
+        }
+    }
+
+
+    var $extras = $top.find(":input, a, select, button, table").filter(":visible");
+    var list = new Array();
+    for (var i = 0; i < $extras.length; i++) {
+        var $extra = $extras.eq(i);
+        if (!$extra.data("sid")) {
+            list.push(this.builder.createTagObject($extra.get(0), this.refIdSetter.getRefId(), null));
+        }
+    }
+
+    this.tagObjectArray = this.tagObjectArray.concat(list);
 };
 
 Workspace.prototype.generateUiModule = function(tagArrays){

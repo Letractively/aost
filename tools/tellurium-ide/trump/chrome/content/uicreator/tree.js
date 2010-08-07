@@ -483,6 +483,10 @@ RefIdSetter.prototype.toBase62 = function(number){
     return this.toBase(number, 62);
 };
 
+RefIdSetter.prototype.getTimestamp = function(){
+    return "T" + this.timestamp;    
+};
+
 RefIdSetter.prototype.getRefId = function(){
     return "T" + this.timestamp + "S" + this.sequence.next();
 };
