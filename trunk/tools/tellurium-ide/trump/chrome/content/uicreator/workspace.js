@@ -267,6 +267,9 @@ Workspace.prototype.selectExtraNodes = function(root){
 
 
     var $extras = $top.find(":input, a, select, button, table").filter(":visible");
+    if($extras.length > 10){
+        $extras = $extras.filter(":not(a)");
+    }
     var list = new Array();
     for (var i = 0; i < $extras.length; i++) {
         var $extra = $extras.eq(i);
