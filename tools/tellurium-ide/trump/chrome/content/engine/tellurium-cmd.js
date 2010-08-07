@@ -609,13 +609,18 @@ TelluriumCommandExecutor.prototype.waitForPageToLoad = function(timeout){
 //    var win = this.browserBot.getMostRecentWindow();
 //    var doc = this.browserBot.getMostRecentDocument();
     var self = this;
-    var timeId = setTimeout(function() {
+    this.browserBot.pageTimeoutTimerId = setTimeout(function() {
         logger.debug("Page load timeout.");
         self.browserBot.newPageLoaded = false;
         self.browserBot.pageLoadError = PageLoadError.TIMEOUT;
-        self.browserBot.timerId = null;
+        self.browserBot.pageTimeoutTimerId = null;
+        if(self.browserBot.pagePollTimerId != null){
+            clearInterval(self.browserBot.pagePollTimerId);
+            self.browserBot.pagePollTimerId = null;
+        }
     }, timeout);
-    this.browserBot.timerId = timeId;
+
+    this.browserBot.pollPageLoad();
 /*    teJQuery(doc).ready(
             function() {
                 logger.debug("jQuery page load event handler is called.");
@@ -648,9 +653,9 @@ TelluriumCommandExecutor.prototype.updateCurrentDom = function(){
     this.browserBot.setCurrentWindowToMostRecentWindow();
     this.browserBot.newPageLoaded = true;
     this.browserBot.pageLoadError = null;
-    if (this.browserBot.timerId != null) {
-        clearTimeout(this.browserBot.timerId);
-        this.browserBot.timerId = null;
+    if (this.browserBot.pageTimeoutTimerId != null) {
+        clearTimeout(this.browserBot.pageTimeoutTimerId);
+        this.browserBot.pageTimeoutTimerId = null;
     }   
 };
 
@@ -663,7 +668,7 @@ TelluriumCommandExecutor.prototype.open = function(uid, url){
     var self = this;
     this.browserBot.newPageLoaded = false;
     this.browserBot.pageLoadError = null;
-    this.browserBot.timerId = null;
+    this.browserBot.pageTimeoutTimerId = null;
     //Strange, change the timeout value to 3000, got the error that the dom is not set.
     setTimeout(WaitPageLoad, 1000, self);
 };
